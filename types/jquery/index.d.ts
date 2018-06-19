@@ -41,7 +41,8 @@ type _Event = Event;
 interface JQueryStatic<TElement = HTMLElement> {
     /**
      * @see \`{@link http://api.jquery.com/jquery.ajax/#jQuery-ajax1 }\`
-     * @deprecated Use jQuery.ajaxSetup(options)
+     *
+     * @deprecated Use \`{@link JQueryStatic.ajaxSetup }\`.
      */
     ajaxSettings: JQuery.AjaxSettings;
     /**
@@ -78,7 +79,8 @@ interface JQueryStatic<TElement = HTMLElement> {
          *
          * @see \`{@link https://api.jquery.com/jQuery.fx.interval/ }\`
          * @since 1.4.3
-         * @deprecated 3.0
+         *
+         * @deprecated Deprecated since 3.0. See \`{@link https://api.jquery.com/jQuery.fx.interval/ }\`.
          */
         interval: number;
         /**
@@ -106,7 +108,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      *
      * @see \`{@link https://api.jquery.com/jQuery.support/ }\`
      * @since 1.3
-     * @deprecated 1.9
+     *
+     * @deprecated Deprecated since 1.9. See \`{@link https://api.jquery.com/jQuery.support/ }\`.
      */
     support: JQuery.PlainObject;
     valHooks: JQuery.PlainObject<JQuery.ValHook<TElement>>;
@@ -248,7 +251,7 @@ interface JQueryStatic<TElement = HTMLElement> {
     ajaxTransport(dataType: string,
                   handler: (options: JQuery.AjaxSettings, originalOptions: JQuery.AjaxSettings, jqXHR: JQuery.jqXHR) => JQuery.Transport | void): void;
     /**
-     * @deprecated 3.3
+     * @deprecated Deprecated since 3.3. Internal. See \`{@link https://github.com/jquery/jquery/issues/3384 }\`.
      */
     camelCase(value: string): string;
     /**
@@ -588,7 +591,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param hold Indicates whether the ready hold is being requested or released
      * @see \`{@link https://api.jquery.com/jQuery.holdReady/ }\`
      * @since 1.6
-     * @deprecated 3.2
+     *
+     * @deprecated Deprecated since 3.2. See \`{@link https://github.com/jquery/jquery/issues/3288 }\`.
      */
     holdReady(hold: boolean): void;
     /**
@@ -615,7 +619,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param obj Object to test whether or not it is an array.
      * @see \`{@link https://api.jquery.com/jQuery.isArray/ }\`
      * @since 1.3
-     * @deprecated 3.2
+     *
+     * @deprecated Deprecated since 3.2. Use \`{@link Array.isArray }\`.
      */
     isArray(obj: any): obj is any[];
     /**
@@ -632,7 +637,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param obj Object to test whether or not it is a function.
      * @see \`{@link https://api.jquery.com/jQuery.isFunction/ }\`
      * @since 1.2
-     * @deprecated 3.3
+     *
+     * @deprecated Deprecated since 3.3. Use `typeof x === "function"`.
      */
     isFunction(obj: any): obj is Function;
     /**
@@ -641,7 +647,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param value The value to be tested.
      * @see \`{@link https://api.jquery.com/jQuery.isNumeric/ }\`
      * @since 1.7
-     * @deprecated 3.3
+     *
+     * @deprecated Deprecated since 3.3. Internal. See \`{@link https://github.com/jquery/jquery/issues/2960 }\`.
      */
     isNumeric(value: any): value is number;
     /**
@@ -658,7 +665,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param obj Object to test whether or not it is a window.
      * @see \`{@link https://api.jquery.com/jQuery.isWindow/ }\`
      * @since 1.4.3
-     * @deprecated 3.3
+     *
+     * @deprecated Deprecated since 3.3. Internal. See \`{@link https://github.com/jquery/jquery/issues/3629 }\`.
      */
     isWindow(obj: any): obj is Window;
     /**
@@ -729,7 +737,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      *
      * @see \`{@link https://api.jquery.com/jQuery.now/ }\`
      * @since 1.4.3
-     * @deprecated 3.3 Use Date.now().
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Date.now }\`.
      */
     now(): number;
     /**
@@ -770,7 +779,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param json The JSON string to parse.
      * @see \`{@link https://api.jquery.com/jQuery.parseJSON/ }\`
      * @since 1.4.1
-     * @deprecated 3.0
+     *
+     * @deprecated Deprecated since 3.0. Use \`{@link JSON.parse }\`.
      */
     parseJSON(json: string): any;
     /**
@@ -850,7 +860,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         A, B, C, D, E, F, G>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G) => TReturn,
@@ -863,7 +874,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         A, B, C, D, E, F>(fn: (a: A, b: B, c: C, d: D, e: E, f: F) => TReturn,
@@ -876,7 +888,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         A, B, C, D, E>(fn: (a: A, b: B, c: C, d: D, e: E) => TReturn,
@@ -889,7 +902,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         A, B, C, D>(fn: (a: A, b: B, c: C, d: D) => TReturn,
@@ -902,7 +916,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         A, B, C>(fn: (a: A, b: B, c: C) => TReturn,
@@ -915,7 +930,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         A, B>(fn: (a: A, b: B) => TReturn,
@@ -929,7 +945,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4`
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         A>(fn: (a: A) => TReturn,
@@ -942,7 +959,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn>(fn: () => TReturn,
                    context: null | undefined): () => TReturn;
@@ -958,7 +976,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         A, B, C, D, E, F, G,
@@ -973,7 +992,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         A, B, C, D, E, F,
@@ -988,7 +1008,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         A, B, C, D, E,
@@ -1003,7 +1024,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         A, B, C, D,
@@ -1018,7 +1040,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         A, B, C,
@@ -1033,7 +1056,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         A, B,
@@ -1048,7 +1072,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         A,
@@ -1063,7 +1088,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         T>(fn: (t: T) => TReturn,
@@ -1080,7 +1106,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         A, B, C, D, E, F, G,
@@ -1095,7 +1122,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         A, B, C, D, E, F,
@@ -1110,7 +1138,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         A, B, C, D, E,
@@ -1125,7 +1154,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         A, B, C, D,
@@ -1140,7 +1170,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         A, B, C,
@@ -1155,7 +1186,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         A, B,
@@ -1170,7 +1202,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         A,
@@ -1185,7 +1218,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         T, U>(fn: (t: T, u: U) => TReturn,
@@ -1202,7 +1236,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         A, B, C, D, E, F, G,
@@ -1217,7 +1252,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         A, B, C, D, E, F,
@@ -1232,7 +1268,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         A, B, C, D, E,
@@ -1247,7 +1284,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         A, B, C, D,
@@ -1262,7 +1300,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         A, B, C,
@@ -1277,7 +1316,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         A, B,
@@ -1292,7 +1332,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         A,
@@ -1307,7 +1348,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         T, U, V>(fn: (t: T, u: U, v: V) => TReturn,
@@ -1324,7 +1366,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         A, B, C, D, E, F, G,
@@ -1339,7 +1382,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         A, B, C, D, E, F,
@@ -1354,7 +1398,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         A, B, C, D, E,
@@ -1369,7 +1414,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         A, B, C, D,
@@ -1384,7 +1430,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         A, B, C,
@@ -1399,7 +1446,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         A, B,
@@ -1414,7 +1462,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         A,
@@ -1429,7 +1478,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         T, U, V, W>(fn: (t: T, u: U, v: V, w: W) => TReturn,
@@ -1446,7 +1496,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         A, B, C, D, E, F, G,
@@ -1461,7 +1512,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         A, B, C, D, E, F,
@@ -1476,7 +1528,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         A, B, C, D, E,
@@ -1491,7 +1544,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         A, B, C, D,
@@ -1506,7 +1560,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         A, B, C,
@@ -1521,7 +1576,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         A, B,
@@ -1536,7 +1592,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         A,
@@ -1551,7 +1608,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         T, U, V, W, X>(fn: (t: T, u: U, v: V, w: W, x: X) => TReturn,
@@ -1568,7 +1626,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         A, B, C, D, E, F, G,
@@ -1583,7 +1642,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         A, B, C, D, E, F,
@@ -1598,7 +1658,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         A, B, C, D, E,
@@ -1613,7 +1674,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         A, B, C, D,
@@ -1628,7 +1690,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         A, B, C,
@@ -1643,7 +1706,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         A, B,
@@ -1658,7 +1722,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         A,
@@ -1673,7 +1738,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         T, U, V, W, X, Y>(fn: (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
@@ -1690,7 +1756,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         A, B, C, D, E, F, G,
@@ -1705,7 +1772,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         A, B, C, D, E, F,
@@ -1720,7 +1788,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         A, B, C, D, E,
@@ -1735,7 +1804,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         A, B, C, D,
@@ -1750,7 +1820,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         A, B, C,
@@ -1765,7 +1836,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         A, B,
@@ -1780,7 +1852,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         A,
@@ -1795,7 +1868,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param context The object to which the context (this) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn,
         T, U, V, W, X, Y, Z>(fn: (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
@@ -1815,7 +1889,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param additionalArguments Any number of arguments to be passed to the function referenced in the function argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TReturn>(fn: (...args: any[]) => TReturn,
                    context: null | undefined,
@@ -1839,7 +1914,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -1854,7 +1930,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -1869,7 +1946,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -1884,7 +1962,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -1899,7 +1978,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -1914,7 +1994,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -1929,7 +2010,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4`
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -1944,7 +2026,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn>(fn: () => TReturn,
@@ -1962,7 +2045,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -1979,7 +2063,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -1996,7 +2081,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2013,7 +2099,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2030,7 +2117,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2047,7 +2135,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2064,7 +2153,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2081,7 +2171,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2100,7 +2191,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2117,7 +2209,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2134,7 +2227,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2151,7 +2245,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2168,7 +2263,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2185,7 +2281,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2202,7 +2299,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2219,7 +2317,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2238,7 +2337,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2255,7 +2355,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2272,7 +2373,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2289,7 +2391,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2306,7 +2409,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2323,7 +2427,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2340,7 +2445,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2357,7 +2463,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2376,7 +2483,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2393,7 +2501,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2410,7 +2519,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2427,7 +2537,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2444,7 +2555,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2461,7 +2573,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2478,7 +2591,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2495,7 +2609,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2514,7 +2629,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2531,7 +2647,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2548,7 +2665,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2565,7 +2683,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2582,7 +2701,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2599,7 +2719,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2616,7 +2737,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2633,7 +2755,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2652,7 +2775,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2669,7 +2793,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2686,7 +2811,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2703,7 +2829,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2720,7 +2847,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2737,7 +2865,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2754,7 +2883,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2771,7 +2901,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2790,7 +2921,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2807,7 +2939,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2824,7 +2957,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2841,7 +2975,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2858,7 +2993,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2875,7 +3011,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2892,7 +3029,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2909,7 +3047,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn,
@@ -2931,7 +3070,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object,
         TReturn>(fn: (...args: any[]) => TReturn,
@@ -2953,7 +3093,8 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated 3.3 Use Function#bind.
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      */
     proxy<TContext extends object>(context: TContext,
                                    name: keyof TContext,
@@ -3037,17 +3178,19 @@ interface JQueryStatic<TElement = HTMLElement> {
      * @param obj Object to get the internal JavaScript [[Class]] of.
      * @see \`{@link https://api.jquery.com/jQuery.type/ }\`
      * @since 1.4.3
-     * @deprecated 3.3
+     *
+     * @deprecated Deprecated since 3.3. See \`{@link https://github.com/jquery/jquery/issues/3605 }`.
      */
     type(obj: any): 'array' | 'boolean' | 'date' | 'error' | 'function' | 'null' | 'number' | 'object' | 'regexp' | 'string' | 'symbol' | 'undefined';
     /**
-     * Sorts an array of DOM elements, in place, with the duplicates removed. Note that this only works on
+     * @description Sorts an array of DOM elements, in place, with the duplicates removed. Note that this only works on
      * arrays of DOM elements, not strings or numbers.
      *
      * @param array The Array of DOM elements.
      * @see \`{@link https://api.jquery.com/jQuery.unique/ }\`
      * @since 1.1.3
-     * @deprecated 3.0
+     *
+     * @deprecated Deprecated since 3.0. Use \`{@link JQueryStatic.uniqueSort }`.
      */
     unique<T extends Element>(array: T[]): T[];
     /**
@@ -3390,7 +3533,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @see \`{@link https://api.jquery.com/bind/ }\`
      * @since 1.0
      * @since 1.4.3
-     * @deprecated 3.0
+     *
+     * @deprecated Deprecated since 3.0. Use \`{@link JQuery.on }\`.
      */
     bind<TData>(eventType: string,
                 eventData: TData,
@@ -3405,7 +3549,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @see \`{@link https://api.jquery.com/bind/ }\`
      * @since 1.0
      * @since 1.4.3
-     * @deprecated 3.0
+     *
+     * @deprecated Deprecated since 3.0. Use \`{@link JQuery.on }\`.
      */
     bind(eventType: string,
          handler: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false | null | undefined): this;
@@ -3415,7 +3560,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @param events An object containing one or more DOM event types and functions to execute for them.
      * @see \`{@link https://api.jquery.com/bind/ }\`
      * @since 1.4
-     * @deprecated 3.0
+     *
+     * @deprecated Deprecated since 3.0. Use \`{@link JQuery.on }\`.
      */
     bind(events: JQuery.PlainObject<JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false>): this;
     /**
@@ -3425,7 +3571,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/blur/ }\`
      * @since 1.4.3
-     * @deprecated 3.3
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      */
     blur<TData>(eventData: TData,
                 handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -3435,7 +3582,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/blur/ }\`
      * @since 1.0
-     * @deprecated 3.3
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      */
     blur(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
@@ -3445,7 +3593,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/change/ }\`
      * @since 1.4.3
-     * @deprecated 3.3
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      */
     change<TData>(eventData: TData,
                   handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -3455,7 +3604,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/change/ }\`
      * @since 1.0
-     * @deprecated 3.3
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      */
     change(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
@@ -3481,7 +3631,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/click/ }\`
      * @since 1.4.3
-     * @deprecated 3.3
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      */
     click<TData>(eventData: TData,
                  handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -3491,7 +3642,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/click/ }\`
      * @since 1.0
-     * @deprecated 3.3
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      */
     click(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
@@ -3543,7 +3695,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/contextmenu/ }\`
      * @since 1.4.3
-     * @deprecated 3.3
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      */
     contextmenu<TData>(eventData: TData,
                        handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -3553,7 +3706,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/contextmenu/ }\`
      * @since 1.0
-     * @deprecated 3.3
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      */
     contextmenu(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
@@ -3644,7 +3798,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/dblclick/ }\`
      * @since 1.4.3
-     * @deprecated 3.3
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      */
     dblclick<TData>(eventData: TData,
                     handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -3654,7 +3809,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/dblclick/ }\`
      * @since 1.0
-     * @deprecated 3.3
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      */
     dblclick(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
@@ -3677,7 +3833,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/delegate/ }\`
      * @since 1.4.2
-     * @deprecated 3.0
+     *
+     * @deprecated Deprecated since 3.0. Use \`{@link JQuery.on }\`.
      */
     delegate<TData>(selector: JQuery.Selector,
                     eventType: string,
@@ -3693,7 +3850,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/delegate/ }\`
      * @since 1.4.2
-     * @deprecated 3.0
+     *
+     * @deprecated Deprecated since 3.0. Use \`{@link JQuery.on }\`.
      */
     delegate(selector: JQuery.Selector,
              eventType: string,
@@ -3706,7 +3864,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @param events A plain object of one or more event types and functions to execute for them.
      * @see \`{@link https://api.jquery.com/delegate/ }\`
      * @since 1.4.3
-     * @deprecated 3.0
+     *
+     * @deprecated Deprecated since 3.0. Use \`{@link JQuery.on }\`.
      */
     delegate(selector: JQuery.Selector,
              events: JQuery.PlainObject<JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false>): this;
@@ -3933,7 +4092,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/focus/ }\`
      * @since 1.4.3
-     * @deprecated 3.3
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      */
     focus<TData>(eventData: TData,
                  handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -3943,7 +4103,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/focus/ }\`
      * @since 1.0
-     * @deprecated 3.3
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      */
     focus(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
@@ -3953,7 +4114,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/focusin/ }\`
      * @since 1.4.3
-     * @deprecated 3.3
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      */
     focusin<TData>(eventData: TData,
                    handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -3963,7 +4125,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/focusin/ }\`
      * @since 1.4
-     * @deprecated 3.3
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      */
     focusin(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
@@ -3973,7 +4136,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/focusout/ }\`
      * @since 1.4.3
-     * @deprecated 3.3
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      */
     focusout<TData>(eventData: TData,
                     handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -3983,7 +4147,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/focusout/ }\`
      * @since 1.4
-     * @deprecated 3.3
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      */
     focusout(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
@@ -4190,7 +4355,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/keydown/ }\`
      * @since 1.4.3
-     * @deprecated 3.3
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      */
     keydown<TData>(eventData: TData,
                    handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -4200,7 +4366,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/keydown/ }\`
      * @since 1.0
-     * @deprecated 3.3
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      */
     keydown(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
@@ -4210,7 +4377,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/keypress/ }\`
      * @since 1.4.3
-     * @deprecated 3.3
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      */
     keypress<TData>(eventData: TData,
                     handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -4220,7 +4388,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/keypress/ }\`
      * @since 1.0
-     * @deprecated 3.3
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      */
     keypress(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
@@ -4230,7 +4399,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/keyup/ }\`
      * @since 1.4.3
-     * @deprecated 3.3
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      */
     keyup<TData>(eventData: TData,
                  handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -4240,7 +4410,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/keyup/ }\`
      * @since 1.0
-     * @deprecated 3.3
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      */
     keyup(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
@@ -4289,7 +4460,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/mousedown/ }\`
      * @since 1.4.3
-     * @deprecated 3.3
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      */
     mousedown<TData>(eventData: TData,
                      handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -4299,7 +4471,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/mousedown/ }\`
      * @since 1.0
-     * @deprecated 3.3
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      */
     mousedown(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
@@ -4309,7 +4482,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/mouseenter/ }\`
      * @since 1.4.3
-     * @deprecated 3.3
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      */
     mouseenter<TData>(eventData: TData,
                       handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -4319,7 +4493,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/mouseenter/ }\`
      * @since 1.0
-     * @deprecated 3.3
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      */
     mouseenter(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
@@ -4329,7 +4504,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/mouseleave/ }\`
      * @since 1.4.3
-     * @deprecated 3.3
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      */
     mouseleave<TData>(eventData: TData,
                       handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -4339,7 +4515,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/mouseleave/ }\`
      * @since 1.0
-     * @deprecated 3.3
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      */
     mouseleave(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
@@ -4349,7 +4526,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/mousemove/ }\`
      * @since 1.4.3
-     * @deprecated 3.3
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      */
     mousemove<TData>(eventData: TData,
                      handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -4359,7 +4537,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/mousemove/ }\`
      * @since 1.0
-     * @deprecated 3.3
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      */
     mousemove(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
@@ -4369,7 +4548,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/mouseout/ }\`
      * @since 1.4.3
-     * @deprecated 3.3
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      */
     mouseout<TData>(eventData: TData,
                     handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -4379,7 +4559,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/mouseout/ }\`
      * @since 1.0
-     * @deprecated 3.3
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      */
     mouseout(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
@@ -4389,7 +4570,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/mouseover/ }\`
      * @since 1.4.3
-     * @deprecated 3.3
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      */
     mouseover<TData>(eventData: TData,
                      handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -4399,7 +4581,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/mouseover/ }\`
      * @since 1.0
-     * @deprecated 3.3
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      */
     mouseover(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
@@ -4409,7 +4592,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/mouseup/ }\`
      * @since 1.4.3
-     * @deprecated 3.3
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      */
     mouseup<TData>(eventData: TData,
                    handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -4419,7 +4603,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/mouseup/ }\`
      * @since 1.0
-     * @deprecated 3.3
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      */
     mouseup(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
@@ -5021,7 +5206,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @param handler A function to execute after the DOM is ready.
      * @see \`{@link https://api.jquery.com/ready/ }\`
      * @since 1.0
-     * @deprecated 3.0
+     *
+     * @deprecated Deprecated since 3.0. Use `jQuery(function() { })`.
      */
     ready(handler: ($: JQueryStatic<TElement>) => void): this;
     /**
@@ -5097,7 +5283,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/resize/ }\`
      * @since 1.4.3
-     * @deprecated 3.3
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      */
     resize<TData>(eventData: TData,
                   handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -5107,7 +5294,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/resize/ }\`
      * @since 1.0
-     * @deprecated 3.3
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      */
     resize(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
@@ -5117,7 +5305,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/scroll/ }\`
      * @since 1.4.3
-     * @deprecated 3.3
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      */
     scroll<TData>(eventData: TData,
                   handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -5127,7 +5316,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/scroll/ }\`
      * @since 1.0
-     * @deprecated 3.3
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      */
     scroll(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
@@ -5168,7 +5358,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/select/ }\`
      * @since 1.4.3
-     * @deprecated 3.3
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      */
     select<TData>(eventData: TData,
                   handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -5178,7 +5369,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/select/ }\`
      * @since 1.0
-     * @deprecated 3.3
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      */
     select(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
@@ -5370,7 +5562,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/submit/ }\`
      * @since 1.4.3
-     * @deprecated 3.3
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      */
     submit<TData>(eventData: TData,
                   handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -5380,7 +5573,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/submit/ }\`
      * @since 1.0
-     * @deprecated 3.3
+     *
+     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      */
     submit(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
@@ -5464,7 +5658,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @param state A boolean value to determine whether the class should be added or removed.
      * @see \`{@link https://api.jquery.com/toggleClass/ }\`
      * @since 1.4
-     * @deprecated 3.0
+     *
+     * @deprecated Deprecated since 3.0. See \`{@link https://github.com/jquery/jquery/pull/2618 }\`.
      */
     toggleClass(state?: boolean): this;
     /**
@@ -5497,7 +5692,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @see \`{@link https://api.jquery.com/unbind/ }\`
      * @since 1.0
      * @since 1.4.3
-     * @deprecated 3.0
+     *
+     * @deprecated Deprecated since 3.0. Use \`{@link JQuery.off }\`.
      */
     unbind(event: string, handler: JQuery.EventHandlerBase<any, JQuery.Event<TElement, any>> | false): this;
     /**
@@ -5507,7 +5703,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      *              A jQuery.Event object.
      * @see \`{@link https://api.jquery.com/unbind/ }\`
      * @since 1.0
-     * @deprecated 3.0
+     *
+     * @deprecated Deprecated since 3.0. Use \`{@link JQuery.off }\`.
      */
     unbind(event?: string | JQuery.Event<TElement>): this;
     /**
@@ -5519,7 +5716,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/undelegate/ }\`
      * @since 1.4.2
-     * @deprecated 3.0
+     *
+     * @deprecated Deprecated since 3.0. Use \`{@link JQuery.off }\`.
      */
     undelegate(selector: JQuery.Selector, eventType: string, handler: JQuery.EventHandlerBase<any, JQuery.Event<TElement, any>> | false): this;
     /**
@@ -5532,7 +5730,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @see \`{@link https://api.jquery.com/undelegate/ }\`
      * @since 1.4.2
      * @since 1.4.3
-     * @deprecated 3.0
+     *
+     * @deprecated Deprecated since 3.0. Use \`{@link JQuery.off }\`.
      */
     undelegate(selector: JQuery.Selector, eventTypes: string | JQuery.PlainObject<JQuery.EventHandlerBase<any, JQuery.Event<TElement, any>> | false>): this;
     /**
@@ -5543,7 +5742,8 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @see \`{@link https://api.jquery.com/undelegate/ }\`
      * @since 1.4.2
      * @since 1.6
-     * @deprecated 3.0
+     *
+     * @deprecated Deprecated since 3.0. Use \`{@link JQuery.off }\`.
      */
     undelegate(namespace?: string): this;
     /**
@@ -6429,19 +6629,10 @@ declare namespace JQuery {
     }
 
     namespace jqXHR {
-        /**
-         * @deprecated
-         */
         interface DoneCallback<TResolve = any, TjqXHR = jqXHR<TResolve>> extends Deferred.Callback3<TResolve, Ajax.SuccessTextStatus, TjqXHR> { }
 
-        /**
-         * @deprecated
-         */
         interface FailCallback<TjqXHR> extends Deferred.Callback3<TjqXHR, Ajax.ErrorTextStatus, string> { }
 
-        /**
-         * @deprecated
-         */
         interface AlwaysCallback<TResolve = any, TjqXHR = jqXHR<TResolve>> extends Deferred.Callback3<TResolve | TjqXHR, Ajax.TextStatus, TjqXHR | string> { }
     }
 
@@ -6597,7 +6788,6 @@ declare namespace JQuery {
      * pipe, progress, state and promise) to prevent users from changing the state of the Deferred.
      *
      * @see \`{@link http://api.jquery.com/Types/#Promise }\`
-     * @deprecated Experimental. Avoid referncing this type directly in your code.
      */
     interface PromiseBase<TR, TJ, TN,
         UR, UJ, UN,
@@ -6678,7 +6868,8 @@ declare namespace JQuery {
          * @see \`{@link https://api.jquery.com/deferred.pipe/ }\`
          * @since 1.6
          * @since 1.7
-         * @deprecated 1.8
+         *
+         * @deprecated Deprecated since 1.8. Use \`{@link then JQuery.PromiseBase.then }\`.
          */
         pipe<ARD = never, AJD = never, AND = never,
             BRD = never, BJD = never, BND = never,
@@ -6716,7 +6907,8 @@ declare namespace JQuery {
          * @see \`{@link https://api.jquery.com/deferred.pipe/ }\`
          * @since 1.6
          * @since 1.7
-         * @deprecated 1.8
+         *
+         * @deprecated Deprecated since 1.8. Use \`{@link then JQuery.PromiseBase.then }\`.
          */
         pipe<ARF = never, AJF = never, ANF = never,
             BRF = never, BJF = never, BNF = never,
@@ -6747,7 +6939,8 @@ declare namespace JQuery {
          * @see \`{@link https://api.jquery.com/deferred.pipe/ }\`
          * @since 1.6
          * @since 1.7
-         * @deprecated 1.8
+         *
+         * @deprecated Deprecated since 1.8. Use \`{@link then JQuery.PromiseBase.then }\`.
          */
         pipe<ARD = never, AJD = never, AND = never,
             BRD = never, BJD = never, BND = never,
@@ -6778,7 +6971,8 @@ declare namespace JQuery {
          * @see \`{@link https://api.jquery.com/deferred.pipe/ }\`
          * @since 1.6
          * @since 1.7
-         * @deprecated 1.8
+         *
+         * @deprecated Deprecated since 1.8. Use \`{@link then JQuery.PromiseBase.then }\`.
          */
         pipe<ARP = never, AJP = never, ANP = never,
             BRP = never, BJP = never, BNP = never,
@@ -6802,7 +6996,8 @@ declare namespace JQuery {
          * @see \`{@link https://api.jquery.com/deferred.pipe/ }\`
          * @since 1.6
          * @since 1.7
-         * @deprecated 1.8
+         *
+         * @deprecated Deprecated since 1.8. Use \`{@link then JQuery.PromiseBase.then }\`.
          */
         pipe<ARD = never, AJD = never, AND = never,
             BRD = never, BJD = never, BND = never,
@@ -6833,7 +7028,8 @@ declare namespace JQuery {
          * @see \`{@link https://api.jquery.com/deferred.pipe/ }\`
          * @since 1.6
          * @since 1.7
-         * @deprecated 1.8
+         *
+         * @deprecated Deprecated since 1.8. Use \`{@link then JQuery.PromiseBase.then }\`.
          */
         pipe<ARF = never, AJF = never, ANF = never,
             BRF = never, BJF = never, BNF = never,
@@ -6857,7 +7053,8 @@ declare namespace JQuery {
          * @see \`{@link https://api.jquery.com/deferred.pipe/ }\`
          * @since 1.6
          * @since 1.7
-         * @deprecated 1.8
+         *
+         * @deprecated Deprecated since 1.8. Use \`{@link then JQuery.PromiseBase.then }\`.
          */
         pipe<ARD = never, AJD = never, AND = never,
             BRD = never, BJD = never, BND = never,
@@ -7259,7 +7456,8 @@ declare namespace JQuery {
          * @see \`{@link https://api.jquery.com/deferred.pipe/ }\`
          * @since 1.6
          * @since 1.7
-         * @deprecated 1.8
+         *
+         * @deprecated Deprecated since 1.8. Use \`{@link JQuery.Deferred.then }\`.
          */
         pipe<ARD = never, AJD = never, AND = never,
             BRD = never, BJD = never, BND = never,
@@ -7297,7 +7495,8 @@ declare namespace JQuery {
          * @see \`{@link https://api.jquery.com/deferred.pipe/ }\`
          * @since 1.6
          * @since 1.7
-         * @deprecated 1.8
+         *
+         * @deprecated Deprecated since 1.8. Use \`{@link JQuery.Deferred.then }\`.
          */
         pipe<ARF = never, AJF = never, ANF = never,
             BRF = never, BJF = never, BNF = never,
@@ -7328,7 +7527,8 @@ declare namespace JQuery {
          * @see \`{@link https://api.jquery.com/deferred.pipe/ }\`
          * @since 1.6
          * @since 1.7
-         * @deprecated 1.8
+         *
+         * @deprecated Deprecated since 1.8. Use \`{@link JQuery.Deferred.then }\`.
          */
         pipe<ARD = never, AJD = never, AND = never,
             BRD = never, BJD = never, BND = never,
@@ -7359,7 +7559,8 @@ declare namespace JQuery {
          * @see \`{@link https://api.jquery.com/deferred.pipe/ }\`
          * @since 1.6
          * @since 1.7
-         * @deprecated 1.8
+         *
+         * @deprecated Deprecated since 1.8. Use \`{@link JQuery.Deferred.then }\`.
          */
         pipe<ARP = never, AJP = never, ANP = never,
             BRP = never, BJP = never, BNP = never,
@@ -7383,7 +7584,8 @@ declare namespace JQuery {
          * @see \`{@link https://api.jquery.com/deferred.pipe/ }\`
          * @since 1.6
          * @since 1.7
-         * @deprecated 1.8
+         *
+         * @deprecated Deprecated since 1.8. Use \`{@link JQuery.Deferred.then }\`.
          */
         pipe<ARD = never, AJD = never, AND = never,
             BRD = never, BJD = never, BND = never,
@@ -7414,7 +7616,8 @@ declare namespace JQuery {
          * @see \`{@link https://api.jquery.com/deferred.pipe/ }\`
          * @since 1.6
          * @since 1.7
-         * @deprecated 1.8
+         *
+         * @deprecated Deprecated since 1.8. Use \`{@link JQuery.Deferred.then }\`.
          */
         pipe<ARF = never, AJF = never, ANF = never,
             BRF = never, BJF = never, BNF = never,
@@ -7438,7 +7641,8 @@ declare namespace JQuery {
          * @see \`{@link https://api.jquery.com/deferred.pipe/ }\`
          * @since 1.6
          * @since 1.7
-         * @deprecated 1.8
+         *
+         * @deprecated Deprecated since 1.8. Use \`{@link JQuery.Deferred.then }\`.
          */
         pipe<ARD = never, AJD = never, AND = never,
             BRD = never, BJD = never, BND = never,
@@ -7682,22 +7886,22 @@ declare namespace JQuery {
         }
 
         /**
-         * @deprecated
+         * @deprecated Use \`{@link JQuery.Deferred.Callback }\`.
          */
         interface DoneCallback<TResolve> extends Callback<TResolve> { }
 
         /**
-         * @deprecated
+         * @deprecated Use \`{@link JQuery.Deferred.Callback }\`.
          */
         interface FailCallback<TReject> extends Callback<TReject> { }
 
         /**
-         * @deprecated
+         * @deprecated Use \`{@link JQuery.Deferred.Callback }\`.
          */
         interface AlwaysCallback<TResolve, TReject> extends Callback<TResolve | TReject> { }
 
         /**
-         * @deprecated
+         * @deprecated Use \`{@link JQuery.Deferred.Callback }\`.
          */
         interface ProgressCallback<TNotify> extends Callback<TNotify> { }
     }
@@ -8139,20 +8343,20 @@ interface JQueryPromise<T> extends JQuery.Promise<T> { }
 interface JQuerySerializeArrayElement extends JQuery.NameValuePair { }
 
 /**
- * @deprecated 1.9
+ * @deprecated Deprecated since 1.9. See \`{@link https://api.jquery.com/jQuery.support/ }\`.
  */
 interface JQuerySupport extends JQuery.PlainObject { }
 
 // Legacy types that are not represented in the current type definitions are marked deprecated.
 
 /**
- * @deprecated
+ * @deprecated Use \`{@link JQuery.Deferred.Callback }\` or \`{@link JQuery.Deferred.CallbackBase }\`.
  */
 interface JQueryPromiseCallback<T> {
     (value?: T, ...args: any[]): void;
 }
 /**
- * @deprecated
+ * @deprecated Use \`{@link JQueryStatic.param JQueryStatic&#91;'param'&#93;}\`.
  */
 interface JQueryParam {
     /**
@@ -8164,7 +8368,7 @@ interface JQueryParam {
     (obj: any, traditional?: boolean): string;
 }
 /**
- * @deprecated
+ * @deprecated Use \`{@link JQuery.Event }\`.
  */
 interface BaseJQueryEventObject extends Event {
     /**
@@ -8259,7 +8463,7 @@ interface BaseJQueryEventObject extends Event {
     metaKey: boolean;
 }
 /**
- * @deprecated
+ * @deprecated Use \`{@link JQuery.Event }\`.
  */
 interface JQueryInputEventObject extends BaseJQueryEventObject {
     altKey: boolean;
@@ -8268,7 +8472,7 @@ interface JQueryInputEventObject extends BaseJQueryEventObject {
     shiftKey: boolean;
 }
 /**
- * @deprecated
+ * @deprecated Use \`{@link JQuery.Event }\`.
  */
 interface JQueryMouseEventObject extends JQueryInputEventObject {
     button: number;
@@ -8282,7 +8486,7 @@ interface JQueryMouseEventObject extends JQueryInputEventObject {
     screenY: number;
 }
 /**
- * @deprecated
+ * @deprecated Use \`{@link JQuery.Event }\`.
  */
 interface JQueryKeyEventObject extends JQueryInputEventObject {
     char: any;
@@ -8291,7 +8495,7 @@ interface JQueryKeyEventObject extends JQueryInputEventObject {
     keyCode: number;
 }
 /**
- * @deprecated
+ * @deprecated Use \`{@link JQuery.Event }\`.
  */
 interface JQueryEventObject extends BaseJQueryEventObject, JQueryInputEventObject, JQueryMouseEventObject, JQueryKeyEventObject { }
 /**
@@ -8302,13 +8506,13 @@ interface JQueryPromiseOperator<T, U> {
      ...callbacksN: Array<JQuery.TypeOrArray<JQueryPromiseCallback<any>>>): JQueryPromise<U>;
 }
 /**
- * @deprecated
+ * @deprecated Internal. See \`{@link https://github.com/jquery/api.jquery.com/issues/912 }\`.
  */
 interface JQueryEasingFunction {
     (percent: number): number;
 }
 /**
- * @deprecated
+ * @deprecated Internal. See \`{@link https://github.com/jquery/api.jquery.com/issues/912 }\`.
  */
 interface JQueryEasingFunctions {
     [name: string]: JQueryEasingFunction;
