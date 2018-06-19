@@ -1277,7 +1277,23 @@ declare namespace chrome {
          * @param callback Called once the advertisement is unregistered and is no longer being advertised.
          */
         function unregisterAdvertisement(advertisementId: number, callback: () => void): void;
+        /**
+         * Resets advertising on the current device. It will unregister and stop all existing advertisements.
+         * @since Since Chrome 61.
+         * @param callback Called once the advertisements are reset.
+         */
         function resetAdvertising(callback: () => void): void;
+        /**
+         * Set's the interval betweeen two consecutive advertisements.
+         * Note: This is a best effort.
+         * The actual interval may vary non-trivially from the requested intervals.
+         * On some hardware, there is a minimum interval of 100ms.
+         * The minimum and maximum values cannot exceed the the range allowed by the Bluetooth 4.2 specification.
+         * @since Since Chrome 55.
+         * @param minInterval Minimum interval between advertisments (in milliseconds). This cannot be lower than 20ms (as per the spec).
+         * @param maxInterval Maximum interval between advertisments (in milliseconds). This cannot be more than 10240ms (as per the spec).
+         * @param callback Called once the interval has been set.
+         */
         function setAdvertisingInterval(minInterval: number, maxInterval: number, callback: () => void): void;
         /**
          * Sends a response for a characteristic or descriptor read/write request. This function is only available if the app has both the bluetooth:low_energy and the bluetooth:peripheral permissions set to true. The peripheral permission may not be available to all apps.
