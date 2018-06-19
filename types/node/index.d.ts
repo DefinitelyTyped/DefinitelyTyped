@@ -25,6 +25,7 @@
 //                 Alexander T. <https://github.com/a-tarasyuk>
 //                 Lishude <https://github.com/islishude>
 //                 Andrew Makarov <https://github.com/r3nya>
+//                 Zane Hannan AU <https://github.com/ZaneHannanAU>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /** inspector module types */
@@ -2560,9 +2561,17 @@ declare module "dns" {
         ttl: number;
     }
 
+    export interface AnyRecordWithTtl extends RecordWithTtl {
+        type: "A" | "AAAA";
+    }
+
     export interface MxRecord {
         priority: number;
         exchange: string;
+    }
+
+    export interface AnyMxRecord extends MxRecord {
+        type: "MX";
     }
 
     export interface NaptrRecord {
@@ -2572,6 +2581,10 @@ declare module "dns" {
         replacement: string;
         order: number;
         preference: number;
+    }
+
+    export interface AnyNaptrRecord extends NaptrRecord {
+        type: "NAPTR";
     }
 
     export interface SoaRecord {
@@ -2584,6 +2597,10 @@ declare module "dns" {
         minttl: number;
     }
 
+    export interface AnySoaRecord extends SoaRecord {
+        type: "SOA";
+    }
+
     export interface SrvRecord {
         priority: number;
         weight: number;
@@ -2591,9 +2608,19 @@ declare module "dns" {
         name: string;
     }
 
+    export interface AnySrvRecord extends SrvRecord {
+        type: "SRV";
+    }
+
+    export interface AnyTxtRecord {
+        type: "TXT";
+        entries: string[];
+    }
+
     export function resolve(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
     export function resolve(hostname: string, rrtype: "A", callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
     export function resolve(hostname: string, rrtype: "AAAA", callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
+    export function resolve(hostname: string, rrtype: "ANY", callback: (err: NodeJS.ErrnoException, addresses: ReadonlyArray<AnySrvRecord | AnySoaRecord | AnyNaptrRecord | AnyRecordWithTtl | AnyMxRecord | AnyTxtRecord>) => void): void;
     export function resolve(hostname: string, rrtype: "CNAME", callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
     export function resolve(hostname: string, rrtype: "MX", callback: (err: NodeJS.ErrnoException, addresses: MxRecord[]) => void): void;
     export function resolve(hostname: string, rrtype: "NAPTR", callback: (err: NodeJS.ErrnoException, addresses: NaptrRecord[]) => void): void;
@@ -2607,6 +2634,7 @@ declare module "dns" {
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     export namespace resolve {
         export function __promisify__(hostname: string, rrtype?: "A" | "AAAA" | "CNAME" | "NS" | "PTR"): Promise<string[]>;
+        export function __promisify__(hostname: string, rrtype: "ANY"): Promise<ReadonlyArray<AnySrvRecord | AnySoaRecord | AnyNaptrRecord | AnyRecordWithTtl | AnyMxRecord | AnyTxtRecord>>;
         export function __promisify__(hostname: string, rrtype: "MX"): Promise<MxRecord[]>;
         export function __promisify__(hostname: string, rrtype: "NAPTR"): Promise<NaptrRecord[]>;
         export function __promisify__(hostname: string, rrtype: "SOA"): Promise<SoaRecord>;
@@ -2637,6 +2665,7 @@ declare module "dns" {
         export function __promisify__(hostname: string, options?: ResolveOptions): Promise<string[] | RecordWithTtl[]>;
     }
 
+    export function resolveAny(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: ReadonlyArray<AnySrvRecord | AnySoaRecord | AnyNaptrRecord | AnyRecordWithTtl | AnyMxRecord | AnyTxtRecord>) => void): void;
     export function resolveCname(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
     export function resolveMx(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: MxRecord[]) => void): void;
     export function resolveNaptr(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: NaptrRecord[]) => void): void;
@@ -5807,19 +5836,19 @@ declare module "crypto" {
         verifyError: number;
     }
     export function getDiffieHellman(group_name: string): DiffieHellman;
-    export function pbkdf2(password: string | Buffer, salt: string | Buffer, iterations: number, keylen: number, digest: string, callback: (err: Error, derivedKey: Buffer) => any): void;
+    export function pbkdf2(password: string | Buffer, salt: string | Buffer, iterations: number, keylen: number, digest: string, callback: (err: Error | null, derivedKey: Buffer) => any): void;
     export function pbkdf2Sync(password: string | Buffer, salt: string | Buffer, iterations: number, keylen: number, digest: string): Buffer;
     export function randomBytes(size: number): Buffer;
-    export function randomBytes(size: number, callback: (err: Error, buf: Buffer) => void): void;
+    export function randomBytes(size: number, callback: (err: Error | null, buf: Buffer) => void): void;
     export function pseudoRandomBytes(size: number): Buffer;
-    export function pseudoRandomBytes(size: number, callback: (err: Error, buf: Buffer) => void): void;
+    export function pseudoRandomBytes(size: number, callback: (err: Error | null, buf: Buffer) => void): void;
     export function randomFillSync(buffer: Buffer | Uint8Array, offset?: number, size?: number): Buffer;
-    export function randomFill(buffer: Buffer, callback: (err: Error, buf: Buffer) => void): void;
-    export function randomFill(buffer: Uint8Array, callback: (err: Error, buf: Uint8Array) => void): void;
-    export function randomFill(buffer: Buffer, offset: number, callback: (err: Error, buf: Buffer) => void): void;
-    export function randomFill(buffer: Uint8Array, offset: number, callback: (err: Error, buf: Uint8Array) => void): void;
-    export function randomFill(buffer: Buffer, offset: number, size: number, callback: (err: Error, buf: Buffer) => void): void;
-    export function randomFill(buffer: Uint8Array, offset: number, size: number, callback: (err: Error, buf: Uint8Array) => void): void;
+    export function randomFill(buffer: Buffer, callback: (err: Error | null, buf: Buffer) => void): void;
+    export function randomFill(buffer: Uint8Array, callback: (err: Error | null, buf: Uint8Array) => void): void;
+    export function randomFill(buffer: Buffer, offset: number, callback: (err: Error | null, buf: Buffer) => void): void;
+    export function randomFill(buffer: Uint8Array, offset: number, callback: (err: Error | null, buf: Uint8Array) => void): void;
+    export function randomFill(buffer: Buffer, offset: number, size: number, callback: (err: Error | null, buf: Buffer) => void): void;
+    export function randomFill(buffer: Uint8Array, offset: number, size: number, callback: (err: Error | null, buf: Uint8Array) => void): void;
     export interface RsaPublicKey {
         key: string;
         padding?: number;
@@ -5836,8 +5865,8 @@ declare module "crypto" {
     export function getCiphers(): string[];
     export function getCurves(): string[];
     export function getHashes(): string[];
-    export interface ECDH {
-        convertKey(key: string | Buffer /*| TypedArray*/ | DataView, curve: string, inputEncoding?: string, outputEncoding?: string, format?: string): Buffer | string;
+    export class ECDH {
+        static convertKey(key: string | Buffer /*| TypedArray*/ | DataView, curve: string, inputEncoding?: "latin1" | "hex" | "base64", outputEncoding?: "latin1" | "hex" | "base64", format?: "uncompressed" | "compressed" | "hybrid"): Buffer | string;
         generateKeys(): Buffer;
         generateKeys(encoding: HexBase64Latin1Encoding, format?: ECDHKeyFormat): string;
         computeSecret(other_public_key: Buffer): Buffer;
