@@ -23,6 +23,23 @@ interface MustacheStatic {
     tags: string;
 
     /**
+     * A simple string scanner that is used by the template parser to find tokens in template strings.
+     */
+    Scanner: typeof MustacheScanner
+
+    /**
+     * Represents a rendering context by wrapping a view object and maintaining a reference to the parent context.
+     */
+    Context: typeof MustacheContext;
+
+    /**
+     * A Writer knows how to take a stream of tokens and render them to a `string`, given a context.
+     *
+     * It also maintains a cache of templates to avoid the need to parse the same template twice.
+     */
+    Writer: typeof MustacheWriter;
+
+    /**
      * Escapes HTML-characters.
      *
      * @param value
@@ -222,6 +239,9 @@ declare class MustacheWriter {
     renderTokens(tokens: string[], context: MustacheContext, partials: any, originalTemplate: any): string;
 }
 
+/**
+ * Provides the functionality to render templates with `{{mustaches}}`.
+ */
 declare var Mustache: MustacheStatic;
 export = Mustache;
 export as namespace Mustache;
