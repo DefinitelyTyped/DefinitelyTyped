@@ -5104,11 +5104,12 @@ declare namespace Office {
         /**
          * Specifies the day of week or type of day.
          *
-         * @beta
          * [Api set: Mailbox Preview]
          *
          * @remarks
          * Applicable Outlook mode: Compose or read
+         * 
+         * @beta
          */
         enum Days {
             /**
@@ -5233,11 +5234,12 @@ declare namespace Office {
         /**
          * Specifies the month.
          * 
-         * @beta
          * [Api set: Mailbox Preview]
          *
          * @remarks
          * Applicable Outlook mode: Compose or read
+         * 
+         * @beta
          */
         enum Month {
             /**
@@ -5318,11 +5320,12 @@ declare namespace Office {
         /**
          * Specifies the time zone applied to the recurrence.
          * 
-         * @beta
          * [Api set: Mailbox Preview]
          *
          * @remarks
          * Applicable Outlook mode: Compose or read
+         * 
+         * @beta
          */
         enum RecurrenceTimeZone {
             /**
@@ -5875,11 +5878,12 @@ declare namespace Office {
         /**
          * Specifies the type of recurrence.
          * 
-         * @beta
          * [Api set: Mailbox Preview]
          *
          * @remarks
          * Applicable Outlook mode: Compose or read
+         * 
+         * @beta
          */
         enum RecurrenceType {
             /**
@@ -5958,11 +5962,12 @@ declare namespace Office {
         /**
          * Specifies the week of the month.
          * 
-         * @beta
          * [Api set: Mailbox Preview]
          *
          * @remarks
          * Applicable Outlook mode: Compose or read
+         * 
+         * @beta
          */
         enum WeekNumber {
             /**
@@ -6677,13 +6682,14 @@ declare namespace Office {
     /**
      * Provides a method to get the from value of a message in an Outlook add-in.
      * 
-     * @beta
      * [Api set: Mailbox Preview]
      * 
      * @remarks
      * {@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}: ReadItem
      * 
      * Applicable Outlook mode: Compose
+     * 
+     * @beta
      */
     export interface From {
         /**
@@ -6887,7 +6893,6 @@ declare namespace Office {
          * 
          * Note: If the recurrence object is null, this indicates that the object is a single appointment or a meeting request of a single appointment and NOT a part of a series.
          * 
-         * @beta
          * [Api set: Mailbox Preview]
          * 
          * @remarks
@@ -6895,6 +6900,8 @@ declare namespace Office {
          * {@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}: ReadItem
          * 
          * Applicable Outlook mode: Appointment Organizer
+         * 
+         * @beta
          */
         recurrence: Recurrence;
 
@@ -6907,7 +6914,6 @@ declare namespace Office {
          * 
          * The seriesId property returns null for items that do not have parent items such as single appointments, series items, or meeting requests and returns undefined for any other items that are not meeting requests.
          * 
-         * @beta
          * [Api set: Mailbox Preview]
          * 
          * @remarks
@@ -6915,6 +6921,8 @@ declare namespace Office {
          * {@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}: ReadItem
          * 
          * Applicable Outlook mode: Appointment Organizer
+         * 
+         * @beta
          */
         seriesId: string;
 
@@ -6923,7 +6931,6 @@ declare namespace Office {
          * 
          * Currently the only supported event type is Office.EventType.RecurrencePatternChanged, which is invoked when the user changes the recurrence pattern of a series.
          * 
-         * @beta
          * [Api set: Mailbox Preview]
          *
          * @remarks
@@ -6941,6 +6948,8 @@ declare namespace Office {
          * @param options Optional. An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
          * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object.
+         * 
+         * @beta
          */
         addHandlerAsync(eventType:EventType, handler: any, options?: any, callback?: (result: AsyncResult) => void): void;
 
@@ -6949,7 +6958,6 @@ declare namespace Office {
          * 
          * Currently the only supported event type is Office.EventType.RecurrencePatternChanged, which is invoked when the user changes the recurrence pattern of a series.
          * 
-         * @beta
          * [Api set: Mailbox Preview]
          *
          * @remarks
@@ -6961,6 +6969,8 @@ declare namespace Office {
          * @param eventType The event that should invoke the handler.
          * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. The type property on the parameter will match the eventType parameter passed to addHandlerAsync.
          * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object.
+         * 
+         * @beta
          */
         addHandlerAsync(eventType:EventType, handler: any, callback?: (result: AsyncResult) => void): void;
 
@@ -6989,7 +6999,6 @@ declare namespace Office {
         * 
         * Currently the only supported event type is Office.EventType.RecurrencePatternChanged, which is invoked when the user changes the recurrence pattern of a series.
         * 
-        * @beta
         * [Api set: Mailbox Preview]
         *
         * @remarks
@@ -7007,6 +7016,8 @@ declare namespace Office {
         * @param options Optional. An object literal that contains one or more of the following properties.
         *        asyncContext: Developers can provide any object they wish to access in the callback method.
         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object.
+        * 
+        * @beta
         */
        removeHandlerAsync(eventType:EventType, handler: any, options?: any, callback?: (result: AsyncResult) => void): void;
 
@@ -7015,7 +7026,6 @@ declare namespace Office {
         * 
         * Currently the only supported event type is Office.EventType.RecurrencePatternChanged, which is invoked when the user changes the recurrence pattern of a series.
         * 
-        * @beta
         * [Api set: Mailbox Preview]
         *
         * @remarks
@@ -7027,6 +7037,8 @@ declare namespace Office {
         * @param eventType The event that should invoke the handler.
         * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. The type property on the parameter will match the eventType parameter passed to removeHandlerAsync.
         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object.
+        * 
+        * @beta
         */
        removeHandlerAsync(eventType:EventType, handler: any, callback?: (result: AsyncResult) => void): void;
 
@@ -7300,8 +7312,7 @@ declare namespace Office {
          * Gets initialization data passed when the add-in is activated by an actionable message.
          *
          * Note: This method is only supported by Outlook 2016 for Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the web for Office 365.
-         *
-         * @beta
+         * 
          * [Api set: Mailbox Preview]
          *
          * @remarks
@@ -7315,6 +7326,8 @@ declare namespace Office {
          * @param options Optional. An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
          * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type AsyncResult. On success, the initialization data is provided in the asyncResult.value property as a string. If there is no initialization context, the asyncResult object will contain an Error object with its code property set to 9020 and its name property set to GenericResponseError.
+         *
+         * @beta
          */
         getInitializationContextAsync(options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
                 /**
@@ -7828,7 +7841,6 @@ declare namespace Office {
          * 
          * Note: If the recurrence object is null, this indicates that the object is a single appointment or a meeting request of a single appointment and NOT a part of a series.
          * 
-         * @beta
          * [Api set: Mailbox Preview]
          * 
          * @remarks
@@ -7836,6 +7848,8 @@ declare namespace Office {
          * {@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}: ReadItem
          * 
          * Applicable Outlook mode: Appointment Attendee
+         * 
+         * @beta
          */
         recurrence: Recurrence;
 
@@ -7848,7 +7862,6 @@ declare namespace Office {
          * 
          * The seriesId property returns null for items that do not have parent items such as single appointments, series items, or meeting requests and returns undefined for any other items that are not meeting requests.
          * 
-         * @beta
          * [Api set: Mailbox Preview]
          * 
          * @remarks
@@ -7856,6 +7869,8 @@ declare namespace Office {
          * {@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}: ReadItem
          * 
          * Applicable Outlook mode: Appointment Attendee
+         * 
+         * @beta
          */
         seriesId: string;
 
@@ -7864,7 +7879,6 @@ declare namespace Office {
          * 
          * Currently the only supported event type is Office.EventType.RecurrencePatternChanged, which is invoked when the user changes the recurrence pattern of a series.
          * 
-         * @beta
          * [Api set: Mailbox Preview]
          *
          * @remarks
@@ -7882,6 +7896,8 @@ declare namespace Office {
          * @param options Optional. An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
          * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object.
+         * 
+         * @beta
          */
         addHandlerAsync(eventType:EventType, handler: any, options?: any, callback?: (result: AsyncResult) => void): void;
 
@@ -7890,7 +7906,6 @@ declare namespace Office {
          * 
          * Currently the only supported event type is Office.EventType.RecurrencePatternChanged, which is invoked when the user changes the recurrence pattern of a series.
          * 
-         * @beta
          * [Api set: Mailbox Preview]
          *
          * @remarks
@@ -7902,6 +7917,8 @@ declare namespace Office {
          * @param eventType The event that should invoke the handler.
          * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. The type property on the parameter will match the eventType parameter passed to addHandlerAsync.
          * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object.
+         * 
+         * @beta
          */
         addHandlerAsync(eventType:EventType, handler: any, callback?: (result: AsyncResult) => void): void;
 
@@ -7930,7 +7947,6 @@ declare namespace Office {
         * 
         * Currently the only supported event type is Office.EventType.RecurrencePatternChanged, which is invoked when the user changes the recurrence pattern of a series.
         * 
-        * @beta
         * [Api set: Mailbox Preview]
         *
         * @remarks
@@ -7948,6 +7964,8 @@ declare namespace Office {
         * @param options Optional. An object literal that contains one or more of the following properties.
         *        asyncContext: Developers can provide any object they wish to access in the callback method.
         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object.
+        * 
+        * @beta
         */
        removeHandlerAsync(eventType:EventType, handler: any, options?: any, callback?: (result: AsyncResult) => void): void;
 
@@ -7956,7 +7974,6 @@ declare namespace Office {
         * 
         * Currently the only supported event type is Office.EventType.RecurrencePatternChanged, which is invoked when the user changes the recurrence pattern of a series.
         * 
-        * @beta
         * [Api set: Mailbox Preview]
         *
         * @remarks
@@ -7968,6 +7985,8 @@ declare namespace Office {
         * @param eventType The event that should invoke the handler.
         * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. The type property on the parameter will match the eventType parameter passed to removeHandlerAsync.
         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object.
+        * 
+        * @beta
         */
        removeHandlerAsync(eventType:EventType, handler: any, callback?: (result: AsyncResult) => void): void;
 
@@ -8003,12 +8022,30 @@ declare namespace Office {
          * 
          * The itemClass property specifies the message class of the selected item. The following are the default message classes for the message or appointment item.
          * 
-         * |Type|Description|item class|
-         * |-----------|------------|------------|
-         * |Appointment items|These are calendar items of the item class IPM.Appointment or IPM.Appointment.Occurence.|IPM.Appointment,IPM.Appointment.Occurence|
-         * |Message items|These include email messages that have the default message class IPM.Note, and meeting requests, responses, and cancellations, that use IPM.Schedule.Meeting as the base message class.|IPM.Note,IPM.Schedule.Meeting.Request,IPM.Schedule.Meeting.Neg,IPM.Schedule.Meeting.Pos,IPM.Schedule.Meeting.Tent,IPM.Schedule.Meeting.Canceled|
+         * <table>
+         *   <tr>
+         *     <th>Type</th>
+         *     <th>Description</th>
+         *     <th>Item Class</th>
+         *   </tr>
+         *   <tr>
+         *     <td>Appointment items</td>
+         *     <td>These are calendar items of the item class IPM.Appointment or IPM.Appointment.Occurence.</td>
+         *     <td>IPM.Appointment,IPM.Appointment.Occurence</td>
+         *   </tr>
+         *   <tr>
+         *     <td>Message items</td>
+         *     <td>These include email messages that have the default message class IPM.Note, and meeting requests, responses, and cancellations, that use IPM.Schedule.Meeting as the base message class.</td>
+         *     <td>IPM.Note,IPM.Schedule.Meeting.Request,IPM.Schedule.Meeting.Neg,IPM.Schedule.Meeting.Pos,IPM.Schedule.Meeting.Tent,IPM.Schedule.Meeting.Canceled</td>
+         *   </tr>
+         * </table>
+         * 
+         * {@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}: ReadItem
+         *
+         * Applicable Outlook mode: Message Read
          */
         itemClass: string;
+        
         /**
          * Gets the Exchange Web Services item identifier for the current item.
          *
@@ -8106,8 +8143,7 @@ declare namespace Office {
          * Gets initialization data passed when the add-in is {@link https://docs.microsoft.com/outlook/actionable-messages/invoke-add-in-from-actionable-message | activated by an actionable message}.
          * 
          * Note: This method is only supported by Outlook 2016 for Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the web for Office 365.
-         *
-         * @beta
+         * 
          * [Api set: Mailbox Preview]
          *
          * @remarks
@@ -8123,14 +8159,15 @@ declare namespace Office {
          * @param options Optional. An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
          * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object. On success, the initialization data is provided in the asyncResult.value property as a string. If there is no initialization context, the asyncResult object will contain an Error object with its code property set to 9020 and its name property set to GenericResponseError.
+         *
+         * @beta
          */
         getInitializationContextAsync(options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Gets initialization data passed when the add-in is {@link https://docs.microsoft.com/outlook/actionable-messages/invoke-add-in-from-actionable-message | activated by an actionable message}.
          * 
          * Note: This method is only supported by Outlook 2016 for Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the web for Office 365.
-         *
-         * @beta
+         * 
          * [Api set: Mailbox Preview]
          *
          * @remarks
@@ -8140,6 +8177,8 @@ declare namespace Office {
          * Applicable Outlook mode: Appointment Attendee
          * 
          * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object. On success, the initialization data is provided in the asyncResult.value property as a string. If there is no initialization context, the asyncResult object will contain an Error object with its code property set to 9020 and its name property set to GenericResponseError.
+         *
+         * @beta
          */
         getInitializationContextAsync(callback?: (result: AsyncResult) => void): void;
         /**
@@ -8175,15 +8214,48 @@ declare namespace Office {
          * 
          * While the minimum permission level to use this method is Restricted, some entity types require ReadItem to access, as specified in the following table.
          * 
-         * |Value of entityType|Type of objects in returned array|Required Permission Level|
-         * |-------|-----------|----------|
-         * |Address|String|Restricted|
-         * |Contact|Contact|ReadItem|
-         * |EmailAddress|String|ReadItem|
-         * |MeetingSuggestion|MeetingSuggestion|ReadItem|
-         * |PhoneNumber|PhoneNumber|Restricted|
-         * |TaskSuggestion|TaskSuggestion|ReadItem|
-         * |URL|String|Restricted|
+         * <table>
+         *   <tr>
+         *     <th>Value of entityType</th>
+         *     <th>Type of objects in returned array</th>
+         *     <th>Required Permission Leve</th>
+         *   </tr>
+         *   <tr>
+         *     <td>Address</td>
+         *     <td>String</td>
+         *     <td>Restricted</td>
+         *   </tr>
+         *   <tr>
+         *     <td>Contact</td>
+         *     <td>Contact</td>
+         *     <td>ReadItem</td>
+         *   </tr>
+         *   <tr>
+         *     <td>EmailAddress</td>
+         *     <td>String</td>
+         *     <td>ReadItem</td>
+         *   </tr>
+         *   <tr>
+         *     <td>MeetingSuggestion</td>
+         *     <td>MeetingSuggestion</td>
+         *     <td>ReadItem</td>
+         *   </tr>
+         *   <tr>
+         *     <td>PhoneNumber</td>
+         *     <td>PhoneNumber</td>
+         *     <td>Restricted</td>
+         *   </tr>
+         *   <tr>
+         *     <td>TaskSuggestion</td>
+         *     <td>TaskSuggestion</td>
+         *     <td>ReadItem</td>
+         *   </tr>
+         *   <tr>
+         *     <td>URL</td>
+         *     <td>String</td>
+         *     <td>Restricted</td>
+         *   </tr>
+         * </table>
          */
         getEntitiesByType(entityType: Office.MailboxEnums.EntityType): (string | Contact | MeetingSuggestion | PhoneNumber | TaskSuggestion)[];
         /**
@@ -8518,7 +8590,6 @@ declare namespace Office {
          * 
          * Note: If the recurrence object is null, this indicates that the object is a single appointment or a meeting request of a single appointment and NOT a part of a series.
          * 
-         * @beta
          * [Api set: Mailbox Preview]
          * 
          * @remarks
@@ -8526,6 +8597,8 @@ declare namespace Office {
          * {@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}: ReadItem
          * 
          * Applicable Outlook mode: Compose or read
+         * 
+         * @beta
          */
         recurrence: Recurrence;
 
@@ -8538,7 +8611,6 @@ declare namespace Office {
          * 
          * The seriesId property returns null for items that do not have parent items such as single appointments, series items, or meeting requests and returns undefined for any other items that are not meeting requests.
          * 
-         * @beta
          * [Api set: Mailbox Preview]
          * 
          * @remarks
@@ -8546,6 +8618,8 @@ declare namespace Office {
          * {@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}: ReadItem
          * 
          * Applicable Outlook mode: Compose or read
+         * 
+         * @beta
          */
         seriesId: string;
 
@@ -8554,7 +8628,6 @@ declare namespace Office {
          * 
          * Currently the only supported event type is Office.EventType.RecurrencePatternChanged, which is invoked when the user changes the recurrence pattern of a series.
          * 
-         * @beta
          * [Api set: Mailbox Preview]
          *
          * @remarks
@@ -8572,6 +8645,8 @@ declare namespace Office {
          * @param options Optional. An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
          * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object.
+         * 
+         * @beta
          */
         addHandlerAsync(eventType:EventType, handler: any, options?: any, callback?: (result: AsyncResult) => void): void;
 
@@ -8580,7 +8655,6 @@ declare namespace Office {
          * 
          * Currently the only supported event type is Office.EventType.RecurrencePatternChanged, which is invoked when the user changes the recurrence pattern of a series.
          * 
-         * @beta
          * [Api set: Mailbox Preview]
          *
          * @remarks
@@ -8592,6 +8666,8 @@ declare namespace Office {
          * @param eventType The event that should invoke the handler.
          * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. The type property on the parameter will match the eventType parameter passed to addHandlerAsync.
          * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object.
+         * 
+         * @beta
          */
         addHandlerAsync(eventType:EventType, handler: any, callback?: (result: AsyncResult) => void): void;
 
@@ -8620,7 +8696,6 @@ declare namespace Office {
         * 
         * Currently the only supported event type is Office.EventType.RecurrencePatternChanged, which is invoked when the user changes the recurrence pattern of a series.
         * 
-        * @beta
         * [Api set: Mailbox Preview]
         *
         * @remarks
@@ -8638,6 +8713,8 @@ declare namespace Office {
         * @param options Optional. An object literal that contains one or more of the following properties.
         *        asyncContext: Developers can provide any object they wish to access in the callback method.
         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object.
+        * 
+        * @beta
         */
        removeHandlerAsync(eventType:EventType, handler: any, options?: any, callback?: (result: AsyncResult) => void): void;
 
@@ -8646,7 +8723,6 @@ declare namespace Office {
         * 
         * Currently the only supported event type is Office.EventType.RecurrencePatternChanged, which is invoked when the user changes the recurrence pattern of a series.
         * 
-        * @beta
         * [Api set: Mailbox Preview]
         *
         * @remarks
@@ -8658,6 +8734,8 @@ declare namespace Office {
         * @param eventType The event that should invoke the handler.
         * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. The type property on the parameter will match the eventType parameter passed to removeHandlerAsync.
         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object.
+        * 
+        * @beta
         */
        removeHandlerAsync(eventType:EventType, handler: any, callback?: (result: AsyncResult) => void): void;
     }
@@ -8937,8 +9015,7 @@ declare namespace Office {
          * Gets initialization data passed when the add-in is activated by an actionable message.
          *
          * Note: This method is only supported by Outlook 2016 for Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the web for Office 365.
-         *
-         * @beta
+         * 
          * [Api set: Mailbox Preview]
          *
          * @remarks
@@ -8952,6 +9029,8 @@ declare namespace Office {
          * @param options Optional. An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
          * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type AsyncResult. On success, the initialization data is provided in the asyncResult.value property as a string. If there is no initialization context, the asyncResult object will contain an Error object with its code property set to 9020 and its name property set to GenericResponseError.
+         *
+         * @beta
          */
         getInitializationContextAsync(options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
@@ -9335,10 +9414,23 @@ declare namespace Office {
          * 
          * The itemClass property specifies the message class of the selected item. The following are the default message classes for the message or appointment item.
          * 
-         * |Type|Description|item class|
-         * |-----------|------------|------------|
-         * |Appointment items|These are calendar items of the item class IPM.Appointment or IPM.Appointment.Occurence.|IPM.Appointment,IPM.Appointment.Occurence|
-         * |Message items|These include email messages that have the default message class IPM.Note, and meeting requests, responses, and cancellations, that use IPM.Schedule.Meeting as the base message class.|IPM.Note,IPM.Schedule.Meeting.Request,IPM.Schedule.Meeting.Neg,IPM.Schedule.Meeting.Pos,IPM.Schedule.Meeting.Tent,IPM.Schedule.Meeting.Canceled|
+         * <table>
+         *   <tr>
+         *     <th>Type</th>
+         *     <th>Description</th>
+         *     <th>Item Class</th>
+         *   </tr>
+         *   <tr>
+         *     <td>Appointment items</td>
+         *     <td>These are calendar items of the item class IPM.Appointment or IPM.Appointment.Occurence.</td>
+         *     <td>IPM.Appointment,IPM.Appointment.Occurence</td>
+         *   </tr>
+         *   <tr>
+         *     <td>Message items</td>
+         *     <td>These include email messages that have the default message class IPM.Note, and meeting requests, responses, and cancellations, that use IPM.Schedule.Meeting as the base message class.</td>
+         *     <td>IPM.Note,IPM.Schedule.Meeting.Request,IPM.Schedule.Meeting.Neg,IPM.Schedule.Meeting.Pos,IPM.Schedule.Meeting.Tent,IPM.Schedule.Meeting.Canceled</td>
+         *   </tr>
+         * </table>
          */
         itemClass: string;
         /**
@@ -9438,8 +9530,7 @@ declare namespace Office {
          * Gets initialization data passed when the add-in is {@link https://docs.microsoft.com/outlook/actionable-messages/invoke-add-in-from-actionable-message | activated by an actionable message}.
          * 
          * Note: This method is only supported by Outlook 2016 for Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the web for Office 365.
-         *
-         * @beta
+         * 
          * [Api set: Mailbox Preview]
          *
          * @remarks
@@ -9455,14 +9546,15 @@ declare namespace Office {
          * @param options Optional. An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
          * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object. On success, the initialization data is provided in the asyncResult.value property as a string. If there is no initialization context, the asyncResult object will contain an Error object with its code property set to 9020 and its name property set to GenericResponseError.
+         *
+         * @beta
          */
         getInitializationContextAsync(options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Gets initialization data passed when the add-in is {@link https://docs.microsoft.com/outlook/actionable-messages/invoke-add-in-from-actionable-message | activated by an actionable message}.
          * 
          * Note: This method is only supported by Outlook 2016 for Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the web for Office 365.
-         *
-         * @beta
+         * 
          * [Api set: Mailbox Preview]
          *
          * @remarks
@@ -9472,6 +9564,8 @@ declare namespace Office {
          * Applicable Outlook mode: Read
          * 
          * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object. On success, the initialization data is provided in the asyncResult.value property as a string. If there is no initialization context, the asyncResult object will contain an Error object with its code property set to 9020 and its name property set to GenericResponseError.
+         *
+         * @beta
          */
         getInitializationContextAsync(callback?: (result: AsyncResult) => void): void;
         /**
@@ -9507,15 +9601,48 @@ declare namespace Office {
          * 
          * While the minimum permission level to use this method is Restricted, some entity types require ReadItem to access, as specified in the following table.
          * 
-         * |Value of entityType|Type of objects in returned array|Required Permission Level|
-         * |-------|-----------|----------|
-         * |Address|String|Restricted|
-         * |Contact|Contact|ReadItem|
-         * |EmailAddress|String|ReadItem|
-         * |MeetingSuggestion|MeetingSuggestion|ReadItem|
-         * |PhoneNumber|PhoneNumber|Restricted|
-         * |TaskSuggestion|TaskSuggestion|ReadItem|
-         * |URL|String|Restricted|
+         * <table>
+         *   <tr>
+         *     <th>Value of entityType</th>
+         *     <th>Type of objects in returned array</th>
+         *     <th>Required Permission Leve</th>
+         *   </tr>
+         *   <tr>
+         *     <td>Address</td>
+         *     <td>String</td>
+         *     <td>Restricted</td>
+         *   </tr>
+         *   <tr>
+         *     <td>Contact</td>
+         *     <td>Contact</td>
+         *     <td>ReadItem</td>
+         *   </tr>
+         *   <tr>
+         *     <td>EmailAddress</td>
+         *     <td>String</td>
+         *     <td>ReadItem</td>
+         *   </tr>
+         *   <tr>
+         *     <td>MeetingSuggestion</td>
+         *     <td>MeetingSuggestion</td>
+         *     <td>ReadItem</td>
+         *   </tr>
+         *   <tr>
+         *     <td>PhoneNumber</td>
+         *     <td>PhoneNumber</td>
+         *     <td>Restricted</td>
+         *   </tr>
+         *   <tr>
+         *     <td>TaskSuggestion</td>
+         *     <td>TaskSuggestion</td>
+         *     <td>ReadItem</td>
+         *   </tr>
+         *   <tr>
+         *     <td>URL</td>
+         *     <td>String</td>
+         *     <td>Restricted</td>
+         *   </tr>
+         * </table>
          */
         getEntitiesByType(entityType: Office.MailboxEnums.EntityType): (string | Contact | MeetingSuggestion | PhoneNumber | TaskSuggestion)[];
         /**
@@ -9681,8 +9808,7 @@ declare namespace Office {
          * The from and sender properties represent the same person unless the message is sent by a delegate. In that case, the from property represents the delegator, and the sender property represents the delegate.
          *
          * The from property returns a From object that provides a method to get the from value.
-         *
-         * @beta
+         * 
          * [Api set: Mailbox Preview]
          *
          * @remarks
@@ -9690,6 +9816,8 @@ declare namespace Office {
          * {@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}: ReadItem
          *
          * Applicable Outlook mode: Message Compose
+         *
+         * @beta
          */
         from: From;
         /**
@@ -9783,7 +9911,6 @@ declare namespace Office {
          * 
          * Note: If the recurrence object is null, this indicates that the object is a single appointment or a meeting request of a single appointment and NOT a part of a series.
          * 
-         * @beta
          * [Api set: Mailbox Preview]
          * 
          * @remarks
@@ -9791,6 +9918,8 @@ declare namespace Office {
          * {@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}: ReadItem
          * 
          * Applicable Outlook mode: Message Compose
+         * 
+         * @beta
          */
         recurrence: Recurrence;
 
@@ -9803,7 +9932,6 @@ declare namespace Office {
          * 
          * The seriesId property returns null for items that do not have parent items such as single appointments, series items, or meeting requests and returns undefined for any other items that are not meeting requests.
          * 
-         * @beta
          * [Api set: Mailbox Preview]
          * 
          * @remarks
@@ -9811,6 +9939,8 @@ declare namespace Office {
          * {@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}: ReadItem
          * 
          * Applicable Outlook mode: Message Compose
+         * 
+         * @beta
          */
         seriesId: string;
 
@@ -9819,7 +9949,6 @@ declare namespace Office {
          * 
          * Currently the only supported event type is Office.EventType.RecurrencePatternChanged, which is invoked when the user changes the recurrence pattern of a series.
          * 
-         * @beta
          * [Api set: Mailbox Preview]
          *
          * @remarks
@@ -9837,6 +9966,8 @@ declare namespace Office {
          * @param options Optional. An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
          * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object.
+         * 
+         * @beta
          */
         addHandlerAsync(eventType:EventType, handler: any, options?: any, callback?: (result: AsyncResult) => void): void;
 
@@ -9845,7 +9976,6 @@ declare namespace Office {
          * 
          * Currently the only supported event type is Office.EventType.RecurrencePatternChanged, which is invoked when the user changes the recurrence pattern of a series.
          * 
-         * @beta
          * [Api set: Mailbox Preview]
          *
          * @remarks
@@ -9857,6 +9987,8 @@ declare namespace Office {
          * @param eventType The event that should invoke the handler.
          * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. The type property on the parameter will match the eventType parameter passed to addHandlerAsync.
          * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object.
+         * 
+         * @beta
          */
         addHandlerAsync(eventType:EventType, handler: any, callback?: (result: AsyncResult) => void): void;
 
@@ -9885,7 +10017,6 @@ declare namespace Office {
         * 
         * Currently the only supported event type is Office.EventType.RecurrencePatternChanged, which is invoked when the user changes the recurrence pattern of a series.
         * 
-        * @beta
         * [Api set: Mailbox Preview]
         *
         * @remarks
@@ -9903,6 +10034,8 @@ declare namespace Office {
         * @param options Optional. An object literal that contains one or more of the following properties.
         *        asyncContext: Developers can provide any object they wish to access in the callback method.
         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object.
+        * 
+        * @beta
         */
        removeHandlerAsync(eventType:EventType, handler: any, options?: any, callback?: (result: AsyncResult) => void): void;
 
@@ -9911,7 +10044,6 @@ declare namespace Office {
         * 
         * Currently the only supported event type is Office.EventType.RecurrencePatternChanged, which is invoked when the user changes the recurrence pattern of a series.
         * 
-        * @beta
         * [Api set: Mailbox Preview]
         *
         * @remarks
@@ -9923,6 +10055,8 @@ declare namespace Office {
         * @param eventType The event that should invoke the handler.
         * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. The type property on the parameter will match the eventType parameter passed to removeHandlerAsync.
         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object.
+        * 
+        * @beta
         */
        removeHandlerAsync(eventType:EventType, handler: any, callback?: (result: AsyncResult) => void): void;
 
@@ -10196,8 +10330,7 @@ declare namespace Office {
          * Gets initialization data passed when the add-in is activated by an actionable message.
          *
          * Note: This method is only supported by Outlook 2016 for Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the web for Office 365.
-         *
-         * @beta
+         * 
          * [Api set: Mailbox Preview]
          *
          * @remarks
@@ -10211,6 +10344,8 @@ declare namespace Office {
          * @param options Optional. An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
          * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type AsyncResult. On success, the initialization data is provided in the asyncResult.value property as a string. If there is no initialization context, the asyncResult object will contain an Error object with its code property set to 9020 and its name property set to GenericResponseError.
+         *
+         * @beta
          */
         getInitializationContextAsync(options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
@@ -10714,7 +10849,6 @@ declare namespace Office {
          * 
          * Note: If the recurrence object is null, this indicates that the object is a single appointment or a meeting request of a single appointment and NOT a part of a series.
          * 
-         * @beta
          * [Api set: Mailbox Preview]
          * 
          * @remarks
@@ -10722,6 +10856,8 @@ declare namespace Office {
          * {@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}: ReadItem
          * 
          * Applicable Outlook mode: Message Read
+         * 
+         * @beta
          */
         recurrence: Recurrence;
 
@@ -10734,7 +10870,6 @@ declare namespace Office {
          * 
          * The seriesId property returns null for items that do not have parent items such as single appointments, series items, or meeting requests and returns undefined for any other items that are not meeting requests.
          * 
-         * @beta
          * [Api set: Mailbox Preview]
          * 
          * @remarks
@@ -10742,6 +10877,8 @@ declare namespace Office {
          * {@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}: ReadItem
          * 
          * Applicable Outlook mode: Message Read
+         * 
+         * @beta
          */
         seriesId: string;
 
@@ -10750,7 +10887,6 @@ declare namespace Office {
          * 
          * Currently the only supported event type is Office.EventType.RecurrencePatternChanged, which is invoked when the user changes the recurrence pattern of a series.
          * 
-         * @beta
          * [Api set: Mailbox Preview]
          *
          * @remarks
@@ -10768,6 +10904,8 @@ declare namespace Office {
          * @param options Optional. An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
          * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object.
+         * 
+         * @beta
          */
         addHandlerAsync(eventType:EventType, handler: any, options?: any, callback?: (result: AsyncResult) => void): void;
 
@@ -10776,7 +10914,6 @@ declare namespace Office {
          * 
          * Currently the only supported event type is Office.EventType.RecurrencePatternChanged, which is invoked when the user changes the recurrence pattern of a series.
          * 
-         * @beta
          * [Api set: Mailbox Preview]
          *
          * @remarks
@@ -10788,6 +10925,8 @@ declare namespace Office {
          * @param eventType The event that should invoke the handler.
          * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. The type property on the parameter will match the eventType parameter passed to addHandlerAsync.
          * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object.
+         * 
+         * @beta
          */
         addHandlerAsync(eventType:EventType, handler: any, callback?: (result: AsyncResult) => void): void;
 
@@ -10816,7 +10955,6 @@ declare namespace Office {
         * 
         * Currently the only supported event type is Office.EventType.RecurrencePatternChanged, which is invoked when the user changes the recurrence pattern of a series.
         * 
-        * @beta
         * [Api set: Mailbox Preview]
         *
         * @remarks
@@ -10834,6 +10972,8 @@ declare namespace Office {
         * @param options Optional. An object literal that contains one or more of the following properties.
         *        asyncContext: Developers can provide any object they wish to access in the callback method.
         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object.
+        * 
+        * @beta
         */
        removeHandlerAsync(eventType:EventType, handler: any, options?: any, callback?: (result: AsyncResult) => void): void;
 
@@ -10842,7 +10982,6 @@ declare namespace Office {
         * 
         * Currently the only supported event type is Office.EventType.RecurrencePatternChanged, which is invoked when the user changes the recurrence pattern of a series.
         * 
-        * @beta
         * [Api set: Mailbox Preview]
         *
         * @remarks
@@ -10854,6 +10993,8 @@ declare namespace Office {
         * @param eventType The event that should invoke the handler.
         * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. The type property on the parameter will match the eventType parameter passed to removeHandlerAsync.
         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object.
+        * 
+        * @beta
         */
        removeHandlerAsync(eventType:EventType, handler: any, callback?: (result: AsyncResult) => void): void;
 
@@ -11003,8 +11144,7 @@ declare namespace Office {
          * Gets initialization data passed when the add-in is {@link https://docs.microsoft.com/outlook/actionable-messages/invoke-add-in-from-actionable-message | activated by an actionable message}.
          * 
          * Note: This method is only supported by Outlook 2016 for Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the web for Office 365.
-         *
-         * @beta
+         * 
          * [Api set: Mailbox Preview]
          *
          * @remarks
@@ -11020,14 +11160,15 @@ declare namespace Office {
          * @param options Optional. An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
          * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object. On success, the initialization data is provided in the asyncResult.value property as a string. If there is no initialization context, the asyncResult object will contain an Error object with its code property set to 9020 and its name property set to GenericResponseError.
+         *
+         * @beta
          */
         getInitializationContextAsync(options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Gets initialization data passed when the add-in is {@link https://docs.microsoft.com/outlook/actionable-messages/invoke-add-in-from-actionable-message | activated by an actionable message}.
          * 
          * Note: This method is only supported by Outlook 2016 for Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the web for Office 365.
-         *
-         * @beta
+         * 
          * [Api set: Mailbox Preview]
          *
          * @remarks
@@ -11037,6 +11178,8 @@ declare namespace Office {
          * Applicable Outlook mode: Message Read
          * 
          * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object. On success, the initialization data is provided in the asyncResult.value property as a string. If there is no initialization context, the asyncResult object will contain an Error object with its code property set to 9020 and its name property set to GenericResponseError.
+         *
+         * @beta
          */
         getInitializationContextAsync(callback?: (result: AsyncResult) => void): void;
         /**
@@ -12459,8 +12602,6 @@ declare namespace Office {
     /**
      * The recurrence object provides methods to get and set the recurrence pattern of appointments but only get the recurrence pattern of meeting requests. It will have a dictionary with the following keys: seriesTime, recurrenceType, recurrenceProperties, and recurrenceTimeZone (optional).
      * 
-     * 
-     * @beta
      * [Api set: Mailbox Preview]
      * 
      * @remarks
@@ -12506,6 +12647,8 @@ declare namespace Office {
      * {@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}: ReadItem
      * 
      * Applicable Outlook mode: Compose or read
+     * 
+     * @beta
      */
     export interface Recurrence {
         /**
@@ -12649,7 +12792,6 @@ declare namespace Office {
     /**
      * Gets or sets the properties of the recurrence.
      * 
-     * @beta
      * [Api set: Mailbox Preview]
      * 
      * @remarks
@@ -12657,6 +12799,8 @@ declare namespace Office {
      * {@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}: ReadItem
      * 
      * Applicable Outlook mode: Compose or read
+     * 
+     * @beta
      */
     export interface RecurrenceProperties {
         /**
@@ -12818,13 +12962,14 @@ declare namespace Office {
     /**
      * The SeriesTime object provides methods to get and set the dates and times of appointments in a recurring series and get the dates and times of meeting requests in a recurring series.
      * 
-     * @beta
      * [Api set: Mailbox Preview]
      *
      * @remarks
      * {@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}: ReadItem
      *
      * Applicable Outlook mode: Compose or read
+     * 
+     * @beta
      */
     interface SeriesTime {
         /**
