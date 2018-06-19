@@ -1509,6 +1509,7 @@ requestHandler.respond(expectedData);
 requestHandler.respond({ key: 'value' });
 requestHandler.respond({ key: 'value' }, { header: 'value' });
 requestHandler.respond({ key: 'value' }, { header: 'value' }, 'responseText');
+requestHandler.respond(404);
 requestHandler.respond(404, 'data');
 requestHandler.respond(404, 'data').respond({});
 requestHandler.respond(404, { key: 'value' });
