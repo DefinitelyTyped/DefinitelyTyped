@@ -2,16 +2,15 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6",
-            "dom"
+            "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "strictFunctionTypes": false,
-        "baseUrl": "../",
+        "strictFunctionTypes": true,
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "types": [],
         "noEmit": true,
@@ -22,6 +21,6 @@
     },
     "files": [
         "index.d.ts",
-        "mozilla-readability-tests.ts"
+        "parse5-tests.ts"
     ]
 }
