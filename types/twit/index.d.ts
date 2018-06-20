@@ -24,7 +24,7 @@ declare module 'twit' {
        */
       export interface Contributors {
         id: number,
-        id_str: number,
+        id_str: string,
         screen_name: string,
       }
 
@@ -169,7 +169,7 @@ declare module 'twit' {
         created_at: string,
         current_user_retweet?: {
           id: number,
-          id_str: number,
+          id_str: string,
         },
         entities: Entities,
         favorite_count?: number,
@@ -257,7 +257,7 @@ declare module 'twit' {
       id?: string,
       slug?: string,
       status?: string,
-      user_id?: number,
+      user_id?: number | string,
       lat?: number,
       long?: number,
       follow?: boolean,

@@ -9,22 +9,18 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-interface KnockoutExtensionFunctions {
-    [key: string]: any;
-}
-
-interface KnockoutSubscribableFunctions<T> extends KnockoutExtensionFunctions {
+interface KnockoutSubscribableFunctions<T> {
     notifySubscribers(valueToWrite?: T, event?: string): void;
 }
 
-interface KnockoutComputedFunctions<T> extends KnockoutExtensionFunctions {
+interface KnockoutComputedFunctions<T> {
 }
 
-interface KnockoutObservableFunctions<T> extends KnockoutExtensionFunctions {
+interface KnockoutObservableFunctions<T> {
     equalityComparer(a: T, b: T): boolean;
 }
 
-interface KnockoutObservableArrayFunctions<T> extends KnockoutExtensionFunctions {
+interface KnockoutObservableArrayFunctions<T> {
     // General Array functions
     indexOf(searchElement: T, fromIndex?: number): number;
     slice(start: number, end?: number): T[];

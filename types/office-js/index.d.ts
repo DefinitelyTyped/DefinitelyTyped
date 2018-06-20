@@ -13559,12 +13559,46 @@ declare namespace OfficeExtension {
 }
 
 declare namespace OfficeExtension {
+    /**
+     * Specifies which properties of an object should be loaded. This load happens when the sync() method is executed. This synchronizes the states between Office objects and corresponding JavaScript proxy objects.
+     * 
+     * @remarks
+     * 
+     * For Word, the preferred method for specifying the properties and paging information is by using a string literal. The first two examples show the preferred way to request the text and font size properties for paragraphs in a paragraph collection:
+     * 
+     * `context.load(paragraphs, 'text, font/size');`
+     * 
+     * `paragraphs.load('text, font/size');`
+     * 
+     * Here is a similar example using object notation (includes paging):
+     * 
+     * `context.load(paragraphs, {select: 'text, font/size', expand: 'font', top: 50, skip: 0});`
+     * 
+     * `paragraphs.load({select: 'text, font/size', expand: 'font', top: 50, skip: 0});`
+     * 
+     * Note that if we don't specify the specific properties on the font object in the select statement, the expand statement by itself would indicate that all of the font properties are loaded.
+     */
     interface LoadOption {
+        /**
+         * A comma-delimited string, or array of strings, that specifies the properties/relationships to load.
+         */
         select?: string | string[];
+        /**
+         * A comma-delimited string, or array of strings, that specifies the relationships to load.
+         */
         expand?: string | string[];
+        /**
+         * Only usable on collection types. Specifies the maximum number of collection items that can be included in the result.
+         */
         top?: number;
+        /**
+         * Only usable on collection types. Specifies the number of items in the collection that are to be skipped and not included in the result. If top is specified, the result set will start after skipping the specified number of items.
+         */
         skip?: number;
     }
+    /**
+     * Provides an option for suppressing an error when the object that is used to set multiple properties tries to set read-only properties.
+     */
     interface UpdateOptions {
         /**
          * Throw an error if the passed-in property list includes read-only properties (default = true).
@@ -13592,7 +13626,11 @@ declare namespace OfficeExtension {
         /** Request headers */
         requestHeaders: { [name: string]: string };
 
-        /** Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties. */
+        /** Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties. 
+         * 
+         * @param object The object whose properties are loaded.
+         * @param option A  comma-delimited string, or array of strings, that specifies the properties/relationships to load, or an {@link Office.OfficeExtension.LoadOption} object.
+         */
         load(object: ClientObject, option?: string | string[] | LoadOption): void;
 
         /**
@@ -13652,7 +13690,9 @@ declare namespace OfficeExtension {
          */
         extendedErrorLogging: boolean;
     };
-
+    /**
+     * Provides information about an error.
+     */
     interface DebugInfo {
         /** Error code string, such as "InvalidArgument". */
         code: string;
@@ -13660,24 +13700,20 @@ declare namespace OfficeExtension {
         message: string;
         /** Inner error, if applicable. */
         innerError?: DebugInfo | string;
-
         /** The object type and property or method name (or similar information), if available. */
         errorLocation?: string;
-
         /**
          * The statement that caused the error, if available.
          *
          * This statement will never contain any potentially-sensitive data and may not match the code exactly as written, but will be a close approximation.
          */
         statements?: string;
-
         /**
          * The statements that closely precede and follow the statement that caused the error, if available.
          *
          * These statements will never contain any potentially-sensitive data and may not match the code exactly as written, but will be a close approximation.
          */
         surroundingStatements?: string[];
-
         /**
          * All statements in the batch request (including any potentially-sensitive information that was specified in the request), if available.
          *
@@ -13731,11 +13767,23 @@ declare namespace OfficeExtension {
 declare namespace OfficeExtension {
     /** Collection of tracked objects, contained within a request context. See "context.trackedObjects" for more information. */
     class TrackedObjects {
-        /** Track a new object for automatic adjustment based on surrounding changes in the document. Only some object types require this. If you are using an object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created. */
+        /** 
+         * Track a new object for automatic adjustment based on surrounding changes in the document. Only some object types require this. If you are using an object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created. 
+         * 
+         * This method also has the following signature: 
+         * 
+         * `add(objects: ClientObject[]): void;` Where objects is an array of objects to be tracked.
+         */
         add(object: ClientObject): void;
-        /** Track a new object for automatic adjustment based on surrounding changes in the document. Only some object types require this. If you are using an object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created. */
+        /** Track a set of objects  for automatic adjustment based on surrounding changes in the document. Only some object types require this. If you are using an object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created. */
         add(objects: ClientObject[]): void;
-        /** Release the memory associated with an object that was previously added to this collection. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect. */
+        /** 
+         * Release the memory associated with an object that was previously added to this collection. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
+         * 
+         * This method also has the following signature: 
+         * 
+         * `remove(objects: ClientObject[]): void;` Where objects is an array of objects to be removed.
+         */
         remove(object: ClientObject): void;
         /** Release the memory associated with an object that was previously added to this collection. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect. */
         remove(objects: ClientObject[]): void;
