@@ -332,7 +332,7 @@ gcmMessage.data = {
 
 let wve: chrome.webview.HTMLWebViewElement = (<any>document.getElementById('webview'));
 wve.name = 'test';
-wve.src = 'http://github.com/niikoo'
+wve.src = 'https://github.com/DefinitelyTyped';
 wve.allowtransparency = true;
 wve.autosize = 'on';
 wve.partition = 'persist:githubwebview';
