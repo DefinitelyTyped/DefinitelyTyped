@@ -1200,10 +1200,10 @@ namespace crypto_tests {
 
     {
         // crypto_timingsafeequal_dataview_test
-        let dv1: DataView = DataView(Uint8Array.of(1, 2, 3, 4, 5));
-        let dv2: DataView = DataView(Int8Array.of(1, 2, 3, 4, 5));
-        let dv3: DataView = DataView(Buffer.of(5, 4, 3, 2, 1));
-        let dv4: DataView = DataView(Uint8ClampedArray.of(5, 4, 3, 2, 1));
+        let dv1: DataView = new DataView(Uint8Array.of(1, 2, 3, 4, 5));
+        let dv2: DataView = new DataView(Int8Array.of(1, 2, 3, 4, 5));
+        let dv3: DataView = new DataView(Buffer.of(5, 4, 3, 2, 1));
+        let dv4: DataView = new DataView(Uint8ClampedArray.of(5, 4, 3, 2, 1));
 
         assert(crypto.timingSafeEqual(dv1, dv2));
         assert(!crypto.timingSafeEqual(dv1, dv3));
@@ -1241,7 +1241,6 @@ namespace crypto_tests {
         crypto.randomFill(arr, (err: Error, buf: ArrayBufferView) => void {});
         crypto.randomFill(arr, 2, (err: Error, buf: ArrayBufferView) => void {});
         crypto.randomFill(arr, 2, 3, (err: Error, buf: ArrayBufferView) => void {});
-
 
         // crypto_randomfill_int32array_test
         let arr: Int32Array = new Int32Array(10);
