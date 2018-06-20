@@ -391,6 +391,11 @@ declare var Buffer: {
      */
     from(str: string, encoding?: string): Buffer;
     /**
+     * Creates a new Buffer using the passed {data}
+     * @param data data to create a new Buffer
+     */
+    of(values: ...number[]): Buffer;
+    /**
      * Returns true if {obj} is a Buffer
      *
      * @param obj object to test.
@@ -5720,6 +5725,8 @@ declare module "tls" {
 }
 
 declare module "crypto" {
+    import * as stream from "stream";
+
     export interface Certificate {
         exportChallenge(spkac: string | ArrayBufferView): Buffer;
         exportPublicKey(spkac: string | ArrayBufferView): Buffer;
@@ -5765,12 +5772,12 @@ declare module "crypto" {
         digest(): Buffer;
         digest(encoding: HexBase64Latin1Encoding): string;
     }
-    export type CipherCCMTypes = 'aes-128-ccm' | 'aes-192-ccm' | 'aes-256-ccm'
-    export type CipherGCMTypes = 'aes-128-gcm' | 'aes-192-gcm' | 'aes-256-gcm'
-    export type CipherCCMOptions extends stream.TransformOptions {
+    export type CipherCCMTypes = 'aes-128-ccm' | 'aes-192-ccm' | 'aes-256-ccm';
+    export type CipherGCMTypes = 'aes-128-gcm' | 'aes-192-gcm' | 'aes-256-gcm';
+    export interface CipherCCMOptions extends stream.TransformOptions {
         authTagLength: number;
     }
-    export type CipherGCMOptions extends stream.TransformOptions {
+    export interface CipherGCMOptions extends stream.TransformOptions {
         authTagLength?: number;
     }
     /** @deprecated since v10.0.0 use createCipheriv() */
@@ -5796,11 +5803,11 @@ declare module "crypto" {
         // setAAD(buffer: Buffer): this; // docs only say buffer
     }
     export interface CipherCCM extends Cipher {
-        setAAD(buffer: Buffer, options: { plainTextLength: number }): this
+        setAAD(buffer: Buffer, options: { plainTextLength: number }): this;
         getAuthTag(): Buffer;
     }
     export interface CipherGCM extends Cipher {
-        setAAD(buffer: Buffer, options?: { plainTextLength: number }): this
+        setAAD(buffer: Buffer, options?: { plainTextLength: number }): this;
         getAuthTag(): Buffer;
     }
     /** @deprecated since v10.0.0 use createCipheriv() */
@@ -5825,11 +5832,11 @@ declare module "crypto" {
         // setAAD(buffer: ArrayBufferView): this; // docs say buffer view
     }
     export interface DecipherCCM extends Decipher {
-        setAuthTag(buffer: ArrayBufferView, options: { plainTextLength: number }): this
+        setAuthTag(buffer: ArrayBufferView, options: { plainTextLength: number }): this;
         setAAD(buffer: ArrayBufferView): this; // docs say buffer view
     }
     export interface DecipherGCM extends Decipher {
-        setAuthTag(buffer: ArrayBufferView, options?: { plainTextLength: number }): this
+        setAuthTag(buffer: ArrayBufferView, options?: { plainTextLength: number }): this;
         setAAD(buffer: ArrayBufferView): this; // docs say buffer view
     }
 
