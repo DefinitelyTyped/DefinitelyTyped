@@ -1,6 +1,6 @@
-import * as express from 'express';
-import * as redis from 'redis';
-import * as expressRedisCache from 'express-redis-cache';
+import express = require('express');
+import redis = require('redis');
+import expressRedisCache = require('express-redis-cache');
 
 const app = express();
 const cache = expressRedisCache();
