@@ -601,6 +601,13 @@ function test_misc() {
 		}
 	}
 
+    ko.observable("foo").equalityComparer = (a, b) => {
+        return a.toLowerCase() === b.toLowerCase();
+    };
+    ko.computed(() => "foo").equalityComparer = (a, b) => {
+        return (a !== undefined) && a.toLowerCase() === b.toLowerCase();
+    };
+
 }
 
 interface KnockoutBindingHandlers {
