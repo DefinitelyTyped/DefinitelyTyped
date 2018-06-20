@@ -2354,7 +2354,7 @@ declare namespace Highcharts {
          * can be customized by defining a new array of items and assigning null to unwanted positions.
          * @since 2.0
          */
-        menuItems?: MenuItem[];
+        menuItems?: string[] | MenuItem[];
         /**
          * A click handler callback to use on the button directly instead of the popup menu.
          * @since 2.0
