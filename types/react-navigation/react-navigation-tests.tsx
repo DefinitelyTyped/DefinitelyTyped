@@ -1,11 +1,13 @@
 import * as React from 'react';
 import {
+    Text,
     TouchableOpacity,
     View,
     ViewStyle,
 } from 'react-native';
 import {
     createDrawerNavigator,
+    createBottomTabNavigator,
     DrawerNavigatorConfig,
     NavigationAction,
     NavigationActions,
@@ -449,5 +451,66 @@ class Page2 extends React.Component {
 
     render() {
         return <RootNavigator ref={(instance: NavigationContainerComponent | null): void => { this.navigatorRef = instance; }} />;
+    }
+}
+
+const BottomStack = createBottomTabNavigator({
+    Posts: {
+        screen: Page2,
+        navigationOptions: ({ navigation }: NavigationScreenProps) => {
+            let tabBarVisible = true;
+
+            if (navigation.state.index > 0) {
+                tabBarVisible = false;
+            }
+
+            return {
+                tabBarVisible
+            };
+        }
+    }
+});
+
+const CustomHeaderStack = createStackNavigator({
+    Page1: { screen: Page1 },
+    Page2: { screen: Page2 }
+},
+{
+    navigationOptions: {
+        header: headerProps => {
+            const { scene } = headerProps;
+            const { options } = scene.descriptor;
+            const { title, headerStyle, headerTitleStyle } = options;
+            return (
+                <View style={headerStyle}>
+                    <Text style={headerTitleStyle}>{title}</Text>
+                </View>
+            );
+        }
+    }
+});
+
+interface ScreenProps {
+    name: string;
+    onPlay(): void;
+}
+
+class SetParamsTest extends React.Component<NavigationScreenProps<ScreenProps>> {
+    componentDidMount() {
+        this.props.navigation.setParams({
+            onPlay: this.onPlay
+        });
+    }
+
+    onPlay = () => {
+        //
+    }
+
+    render() {
+        const name = this.props.navigation.getParam('name');
+
+        return (
+            <Text>My name is {name}</Text>
+        );
     }
 }

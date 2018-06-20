@@ -15,6 +15,7 @@ declare namespace JSONTransport {
 
     interface Options extends MailOptions, TransportOptions {
         jsonTransport: true;
+        skipEncoding?: boolean;
     }
 
     interface SentMessageInfo {

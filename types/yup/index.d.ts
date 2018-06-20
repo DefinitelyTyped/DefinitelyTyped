@@ -54,7 +54,7 @@ export interface Schema<T> {
     oneOf(arrayOfValues: any[], message?: string): this;
     notOneOf(arrayOfValues: any[], message?: string): this;
     when(keys: string | any[], builder: WhenOptions<this>): this;
-    test(name: string, message: string, test: (value?: any) => boolean | Promise<boolean>, callbackStyleAsync?: boolean): this;
+    test(name: string, message: string, test: (this: TestContext, value?: any) => boolean | Promise<boolean>, callbackStyleAsync?: boolean): this;
     test(options: TestOptions): this;
     transform(fn: TransformFunction<this>): this;
 }
@@ -161,6 +161,14 @@ export type WhenOptions<T> = WhenOptionsBuilder<T>
     | { is: boolean | ((value: any) => boolean), then: any, otherwise: any }
     | object;
 
+export interface TestContext {
+    path: string;
+    options: ValidateOptions;
+    parent: any;
+    schema: Schema<any>;
+    createError: (params: { path: string, message: string }) => ValidationError;
+}
+
 export interface ValidateOptions {
     /**
      * Only validate the input, and skip and coercion or transformation. Default - false
@@ -193,7 +201,7 @@ export interface TestOptions {
     /**
      * Test function, determines schema validity
      */
-    test: (value: any) => boolean | Promise<boolean>;
+    test: (this: TestContext, value: any) => boolean | Promise<boolean>;
 
     /**
      * The validation error message

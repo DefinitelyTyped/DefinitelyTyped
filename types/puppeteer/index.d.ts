@@ -2,7 +2,6 @@
 // Project: https://github.com/GoogleChrome/puppeteer#readme
 // Definitions by: Marvin Hagemeister <https://github.com/marvinhagemeister>
 //                 Christopher Deutsch <https://github.com/cdeutsch>
-//                 jwbay <https://github.com/jwbay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -189,6 +188,8 @@ export interface Cookie {
   expires: number;
   /** The cookie http only flag. */
   httpOnly: boolean;
+  /** The session cookie flag. */
+  session: boolean;
   /** The cookie secure flag. */
   secure: boolean;
   /** The cookie same site definition. */
@@ -219,6 +220,8 @@ export interface SetCookie {
   expires?: number;
   /** The cookie http only flag. */
   httpOnly?: boolean;
+  /** The session cookie flag. */
+  session?: boolean;
   /** The cookie secure flag. */
   secure?: boolean;
   /** The cookie same site definition. */

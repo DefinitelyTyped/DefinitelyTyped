@@ -10,6 +10,7 @@
 //                 Manuel Alabor <https://github.com/swissmanu>
 //                 Michele Bombardi <https://github.com/bm-software>
 //                 Tanguy Krotoff <https://github.com/tkrotoff>
+//                 Alexander T. <https://github.com/a-tarasyuk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -360,6 +361,9 @@ export interface NativeSyntheticEvent<T> {
     eventPhase: number;
     isTrusted: boolean;
     nativeEvent: T;
+    isPropagationStopped(): boolean;
+    isDefaultPrevented(): boolean;
+    persist(): void;
     preventDefault(): void;
     stopPropagation(): void;
     target: NodeHandle;
@@ -1071,12 +1075,25 @@ export type KeyboardTypeIOS =
     | "twitter"
     | "web-search";
 export type KeyboardTypeAndroid = "visible-password";
-export type KeyboardTypeOptions = KeyboardType | KeyboardTypeAndroid | KeyboardTypeIOS
+export type KeyboardTypeOptions = KeyboardType | KeyboardTypeAndroid | KeyboardTypeIOS;
 
 export type ReturnKeyType = "done" | "go" | "next" | "search" | "send";
 export type ReturnKeyTypeAndroid = "none" | "previous";
 export type ReturnKeyTypeIOS = "default" | "google" | "join" | "route" | "yahoo" | "emergency-call";
-export type ReturnKeyTypeOptions = ReturnKeyType | ReturnKeyTypeAndroid | ReturnKeyTypeIOS
+export type ReturnKeyTypeOptions = ReturnKeyType | ReturnKeyTypeAndroid | ReturnKeyTypeIOS;
+
+export interface TextInputFocusEventData {
+    target: number;
+    text: string;
+    eventCount: number;
+}
+
+/**
+ * @see TextInputProps.onScroll
+ */
+export interface TextInputScrollEventData {
+    contentOffset: { x: number; y: number; }
+}
 
 /**
  * @see https://facebook.github.io/react-native/docs/textinput.html#props
@@ -1159,7 +1176,7 @@ export interface TextInputProps
     /**
      * Callback that is called when the text input is blurred
      */
-    onBlur?: () => void;
+    onBlur?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
 
     /**
      * Callback that is called when the text input's text changes.
@@ -1198,7 +1215,7 @@ export interface TextInputProps
     /**
      * Callback that is called when the text input is focused
      */
-    onFocus?: () => void;
+    onFocus?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
 
     /**
      * Callback that is called when the text input selection is changed.
@@ -1209,6 +1226,14 @@ export interface TextInputProps
      * Callback that is called when the text input's submit button is pressed.
      */
     onSubmitEditing?: (event: { nativeEvent: { text: string } }) => void;
+
+    /**
+     * Invoked on content scroll with
+     *  `{ nativeEvent: { contentOffset: { x, y } } }`.
+     *
+     * May also contain other properties from ScrollEvent but on Android contentSize is not provided for performance reasons.
+     */
+    onScroll?: (e: NativeSyntheticEvent<TextInputScrollEventData>) => void;
 
     /**
      * The string that will be rendered before text input has been entered
@@ -1308,7 +1333,10 @@ interface TextInputState {
 declare class TextInputComponent extends React.Component<TextInputProps> {}
 declare const TextInputBase: Constructor<NativeMethodsMixin> & Constructor<TimerMixin> & typeof TextInputComponent;
 export class TextInput extends TextInputBase {
-    State: TextInputState;
+    /**
+     * Access the current focus state.
+     */
+    static State: TextInputState;
 
     /**
      * Returns if the input is currently focused.
@@ -3388,8 +3416,25 @@ interface ImagePropsAndroid {
     fadeDuration?: number;
 }
 
-// See https://facebook.github.io/react-native/docs/image.html#source
+/**
+ * @see https://facebook.github.io/react-native/docs/image.html#source
+ */
 export type ImageSourcePropType = ImageURISource | ImageURISource[] | ImageRequireSource;
+
+/**
+ * @see ImagePropsBase.onLoad
+ */
+interface ImageLoadEventDataAndroid {
+    uri?: string;
+}
+
+interface ImageLoadEventData extends ImageLoadEventDataAndroid {
+    source: {
+        height: number;
+        width: number;
+        url: string;
+    }
+}
 
 /**
  * @see https://facebook.github.io/react-native/docs/image.html
@@ -3411,8 +3456,9 @@ export interface ImagePropsBase extends ImagePropsIOS, ImagePropsAndroid, Access
 
     /**
      * Invoked when load completes successfully
+     * { source: { url, height, width } }.
      */
-    onLoad?: () => void;
+    onLoad?: (event: NativeSyntheticEvent<ImageLoadEventData>) => void;
 
     /**
      * Invoked when load either succeeds or fails
@@ -3864,6 +3910,13 @@ export interface SectionListProps<ItemT> extends ScrollViewProps {
     initialNumToRender?: number;
 
     /**
+     * Used to extract a unique key for a given item at the specified index. Key is used for caching
+     * and as the react key to track item re-ordering. The default extractor checks `item.key`, then
+     * falls back to using the index, like React does.
+     */
+    keyExtractor?: (item: ItemT, index: number) => string;
+
+    /**
      * Called once when the scroll position gets within onEndReachedThreshold of the rendered content.
      */
     onEndReached?: ((info: { distanceFromEnd: number }) => void) | null;
@@ -3877,17 +3930,21 @@ export interface SectionListProps<ItemT> extends ScrollViewProps {
     onEndReachedThreshold?: number | null;
 
     /**
-     * Used to extract a unique key for a given item at the specified index. Key is used for caching
-     * and as the react key to track item re-ordering. The default extractor checks `item.key`, then
-     * falls back to using the index, like React does.
-     */
-    keyExtractor?: (item: ItemT, index: number) => string;
-
-    /**
      * If provided, a standard RefreshControl will be added for "Pull to Refresh" functionality.
      * Make sure to also set the refreshing prop correctly.
      */
     onRefresh?: (() => void) | null;
+
+    /**
+     * Used to handle failures when scrolling to an index that has not been measured yet.
+     * Recommended action is to either compute your own offset and `scrollTo` it, or scroll as far
+     * as possible and then try again after more items have been rendered.
+     */
+    onScrollToIndexFailed?: (info: {
+        index: number,
+        highestMeasuredFrameIndex: number,
+        averageItemLength: number
+    }) => void;
 
     /**
      * Set this true while waiting for new data from a refresh.

@@ -161,6 +161,7 @@ interface Auth0LockShowOptions {
     initialScreen?: "login" | "signUp" | "forgotPassword";
     flashMessage?: Auth0LockFlashMessageOptions;
     rememberLastLogin?: boolean;
+    languageDictionary?: any;
 }
 
 interface AuthResult {

@@ -1,7 +1,4 @@
 import * as Bleno from 'bleno';
-// can also import these types as if they were exported from the module
-// tslint:disable-next-line:no-duplicate-imports
-import { Characteristic, Descriptor, PrimaryService } from 'bleno';
 
 export class EchoCharacteristic extends Bleno.Characteristic {
   _value: any;
@@ -62,13 +59,13 @@ const SERVICE_UUID = '87B1E448-1C07-4957-B7D3-017DF4EE3863';
 const CONTROL_CHAR_UUID = '87B1E448-1C07-4957-B7D3-017DF4EE3864';
 const STATUS_CHAR_UUID = '87B1E448-1C07-4957-B7D3-017DF4EE3866';
 
-class StatusCharacteristic extends Characteristic {
+class StatusCharacteristic extends Bleno.Characteristic {
     constructor() {
         super({
             uuid: 'STATUS_CHAR_UUID',
             properties: ['read'],
             descriptors: [
-                new Descriptor({
+                new Bleno.Descriptor({
                     uuid: '2901',
                     value: Buffer.from('Status'),
                 }),
@@ -82,14 +79,14 @@ class StatusCharacteristic extends Characteristic {
     ) {
         try {
             const data = Buffer.from('status ok');
-            callback(Characteristic.RESULT_SUCCESS, data.slice(offset));
+            callback(Bleno.Characteristic.RESULT_SUCCESS, data.slice(offset));
         } catch (error) {
-            callback(Characteristic.RESULT_UNLIKELY_ERROR);
+            callback(Bleno.Characteristic.RESULT_UNLIKELY_ERROR);
         }
     }
 }
 
-class ControlCharacteristic extends Characteristic {
+class ControlCharacteristic extends Bleno.Characteristic {
     private readonly callback: (data: Buffer) => void;
 
     constructor(onWriteRequestCb: (data: Buffer) => void) {
@@ -97,7 +94,7 @@ class ControlCharacteristic extends Characteristic {
             uuid: CONTROL_CHAR_UUID,
             properties: ['write'],
             descriptors: [
-                new Descriptor({
+                new Bleno.Descriptor({
                     uuid: '2901',
                     value: Buffer.from('test characteristic'),
                 }),
@@ -174,7 +171,7 @@ export class BluetoothController {
             if (!error) {
                 this.isAdvertising = true;
                 Bleno.setServices([
-                    new PrimaryService({
+                    new Bleno.PrimaryService({
                         uuid: SERVICE_UUID,
                         characteristics: [
                             new ControlCharacteristic((data) => {
@@ -206,8 +203,7 @@ export class BluetoothController {
 // code from bleno's README
 //
 
-// tslint:disable-next-line:no-duplicate-imports
-import * as bleno from 'bleno';
+const bleno = Bleno;
 
 function test1() {
   const name = 'name';
@@ -243,7 +239,7 @@ function test4() {
 }
 
 function test5() {
-  const service = new PrimaryService({uuid: '0000'});
+  const service = new bleno.PrimaryService({uuid: '0000'});
   const services = [
     service
   ];
@@ -282,7 +278,7 @@ function test9() {
       value: null, // optional static value, must be of type Buffer - for read only characteristics
       descriptors: [
           // see Descriptor for data type
-          new Descriptor({uuid: '0000'})
+          new bleno.Descriptor({uuid: '0000'})
       ],
       onReadRequest: null, // optional read request handler, function(offset, callback) { ... }
       onWriteRequest: null, // optional write request handler, function(data, offset, withoutResponse, callback) { ...}
@@ -294,10 +290,10 @@ function test9() {
 }
 
 function test10() {
-  Characteristic.RESULT_SUCCESS;
-  Characteristic.RESULT_INVALID_OFFSET;
-  Characteristic.RESULT_INVALID_ATTRIBUTE_LENGTH;
-  Characteristic.RESULT_UNLIKELY_ERROR;
+  bleno.Characteristic.RESULT_SUCCESS;
+  bleno.Characteristic.RESULT_INVALID_OFFSET;
+  bleno.Characteristic.RESULT_INVALID_ATTRIBUTE_LENGTH;
+  bleno.Characteristic.RESULT_UNLIKELY_ERROR;
 }
 
 function test11() {

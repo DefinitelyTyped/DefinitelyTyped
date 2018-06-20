@@ -506,6 +506,7 @@ declare namespace Chart {
     }
 
     interface CommonAxe {
+        bounds?: string;
         type?: ScaleType | string;
         display?: boolean;
         id?: string;
@@ -514,6 +515,7 @@ declare namespace Chart {
         ticks?: TickOptions;
         gridLines?: GridLineOptions;
         barThickness?: number;
+        maxBarThickness?: number;
         scaleLabel?: ScaleTitleOptions;
         offset?: boolean;
         beforeUpdate?(scale?: any): void;
