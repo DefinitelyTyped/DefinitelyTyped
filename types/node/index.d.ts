@@ -392,7 +392,7 @@ declare var Buffer: {
     from(str: string, encoding?: string): Buffer;
     /**
      * Creates a new Buffer using the passed {data}
-     * @param data data to create a new Buffer
+     * @param values to create a new Buffer
      */
     of(...values: number[]): Buffer;
     /**
