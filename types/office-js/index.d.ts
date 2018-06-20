@@ -13588,12 +13588,12 @@ declare namespace OfficeExtension {
          */
         expand?: string | string[];
         /**
-         * Only usable on collection types. Specifies the maximum number of collection items that can be included in the result. 
+         * Only usable on collection types. Specifies the maximum number of collection items that can be included in the result.
          */
         top?: number;
         /**
          * Only usable on collection types. Specifies the number of items in the collection that are to be skipped and not included in the result. If top is specified, the result set will start after skipping the specified number of items.
-         */ 
+         */
         skip?: number;
     }
     /**
