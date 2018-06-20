@@ -19,4 +19,5 @@ interface HttpRx {
     'delete'(url: string, options: any): Observable<any>;
 }
 
-export = HttpRx;
+declare const httpRx: HttpRx;
+export = httpRx;
