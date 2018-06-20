@@ -12,6 +12,7 @@
 //                 Simon Archer <https://github.com/archy-bold>
 //                 Ken Elkabany <https://github.com/braincore>
 //                 Slavik Nychkalo <https://github.com/gebeto>
+//                 Francesco Benedetto <https://github.com/frabnt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -483,7 +484,7 @@ declare namespace Chart {
         pointHoverBackgroundColor?: ChartColor | ChartColor[];
         pointHoverBorderColor?: ChartColor | ChartColor[];
         pointHoverBorderWidth?: number | number[];
-        pointStyle?: PointStyle | HTMLImageElement | Array<PointStyle | HTMLImageElement>;
+        pointStyle?: PointStyle | HTMLImageElement | HTMLCanvasElement | Array<PointStyle | HTMLImageElement | HTMLCanvasElement>;
         xAxisID?: string;
         yAxisID?: string;
         type?: string;
