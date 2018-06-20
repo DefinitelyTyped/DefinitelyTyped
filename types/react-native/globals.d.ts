@@ -26,10 +26,10 @@ declare function fetchBundle(bundleId: number, callback: (error?: Error | null) 
 //
 
 declare interface GlobalFetch {
-  fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;
+  fetch(input: RequestInfo_, init?: RequestInit): Promise<Response>;
 }
 
-declare function fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;
+declare function fetch(input: RequestInfo_, init?: RequestInit): Promise<Response>;
 
 interface Blob {}
 
@@ -89,7 +89,7 @@ declare var Request: {
   new(input: Request | string, init?: RequestInit): Request;
 };
 
-declare type RequestInfo = Request | string;
+type RequestInfo_ = Request | string;
 
 declare interface ResponseInit {
   headers?: HeadersInit_;
