@@ -186,6 +186,68 @@ class F2 {
     const g_res: boolean = g([1, 2, 10, 13]);
 };
 
+/* composeK */
+() => {
+    const get = (prop: string) => (obj: any): any[] => {
+        const propVal = obj[prop];
+        if (propVal) {
+            return [propVal];
+        } else {
+            return [];
+        }
+    };
+
+    const getStateCode: (input: any) => any[] = R.composeK(
+        R.compose((val) => [val], R.toUpper),
+        get('state'),
+        get('address'),
+        get('user'),
+    );
+    getStateCode({ user: { address: { state: "ny" } } }); // => []
+    getStateCode({}); // => []
+
+    const nextThree = (num: number): number[] => ([num, num + 1, num + 2]);
+    const onlyOverNine = (num: number): number[] => num > 9 ? [num] : [];
+    const toString = (input: any): string[] => [`${input}`];
+    const split = (input: string): string[] => input.split('');
+
+    const composed: (num: number) => string[] = R.composeK(
+        split,
+        toString,
+        onlyOverNine,
+        nextThree,
+    );
+};
+
+/* composeP */
+() => {
+    interface User {
+        name: string;
+        followers: string[];
+    }
+    interface Db {
+        users: { [index: string]: User };
+    }
+    const db: Db = {
+        users: {
+            JOE: {
+                name: 'Joe',
+                followers: ['STEVE', 'SUZY']
+            }
+        }
+    };
+
+    // We'll pretend to do a db lookup which returns a promise
+    const lookupUser = (userId: string): Promise<User> => Promise.resolve(db.users[userId]);
+    const lookupFollowers = (user: User): Promise<string[]> => Promise.resolve(user.followers);
+    lookupUser('JOE').then(lookupFollowers);
+
+    //  followersForUser :: String -> Promise [UserId]
+    const followersForUser: (input: string) => Promise<string[]> = R.composeP(lookupFollowers, lookupUser);
+    followersForUser('JOE').then(followers => console.log('Followers:', followers));
+    // Followers: ["STEVE","SUZY"]
+};
+
 /* pipe */
 () => {
     const func: (x: number) => string = R.pipe(double, double, shout);
@@ -199,6 +261,63 @@ class F2 {
 
     const f          = R.pipe(Math.pow, R.negate, R.inc);
     const fr: number = f(3, 4); // -(3^4) + 1
+};
+
+/* pipeK */
+() => {
+    const parseJson = (input: string): any[] => {
+        try {
+            return [JSON.parse(input)];
+        } catch (e) {
+            return [];
+        }
+    };
+    const get = (prop: string) => (obj: any): any[] => {
+        const propVal = obj[prop];
+        if (propVal) {
+            return [propVal];
+        } else {
+            return [];
+        }
+    };
+
+    const getStateCode: (input: string) => string[] = R.pipeK(
+        parseJson,
+        get('user'),
+        get('address'),
+        get('state'),
+        R.compose((val) => [val], R.toUpper)
+    );
+
+    getStateCode('{"user":{"address":{"state":"ny"}}}');
+    // => Just('NY')
+    getStateCode('[Invalid JSON]');
+    // => Nothing()
+};
+
+/* pipeP */
+() => {
+    interface User {
+        followers: string[];
+        name: string;
+    }
+
+    const db = {
+        getUserById(userName: string): Promise<User> {
+            return Promise.resolve({
+                name: 'Jon',
+                followers: [
+                    'Samwell',
+                    'Edd',
+                    'Grenn',
+                ],
+            });
+        },
+        getFollowers(user: User): Promise<string[]> {
+            return Promise.resolve(user.followers);
+        },
+    };
+    const followersForUser: (userName: string) => Promise<string[]> = R.pipeP(db.getUserById, db.getFollowers);
 };
 
 () => {

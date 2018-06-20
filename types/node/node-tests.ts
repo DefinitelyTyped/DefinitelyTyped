@@ -1151,6 +1151,19 @@ namespace crypto_tests {
         crypto.randomFill(arr, 2, (err: Error, buf: Uint8Array) => void {});
         crypto.randomFill(arr, 2, 3, (err: Error, buf: Uint8Array) => void {});
     }
+
+    {
+        let key: string | Buffer = Buffer.from("buf");
+        let curve = "secp256k1";
+        let ret: string | Buffer = crypto.ECDH.convertKey(key, curve);
+        key = "0xfff";
+        ret = crypto.ECDH.convertKey(key, curve);
+        ret = crypto.ECDH.convertKey(key, curve, "hex");
+        ret = crypto.ECDH.convertKey(key, curve, "hex", "hex");
+        ret = crypto.ECDH.convertKey(key, curve, "hex", "hex", "uncompressed");
+        ret = crypto.ECDH.convertKey(key, curve, "hex", "hex", "compressed");
+        ret = crypto.ECDH.convertKey(key, curve, "hex", "hex", "hybrid");
+    }
 }
 
 //////////////////////////////////////////////////
@@ -3114,6 +3127,12 @@ namespace dns_tests {
         const _family: number | undefined = family;
     });
 
+    dns.lookupService("127.0.0.1", 0, (err, hostname, service) => {
+        const _err: NodeJS.ErrnoException = err;
+        const _hostname: string = hostname;
+        const _service: string = service;
+    });
+
     dns.resolve("nodejs.org", (err, addresses) => {
         const _addresses: string[] = addresses;
     });
@@ -3122,6 +3141,9 @@ namespace dns_tests {
     });
     dns.resolve("nodejs.org", "AAAA", (err, addresses) => {
         const _addresses: string[] = addresses;
+    });
+    dns.resolve("nodejs.org", "ANY", (err, addresses) => {
+        const _addresses: ReadonlyArray<dns.AnySrvRecord | dns.AnySoaRecord | dns.AnyNaptrRecord | dns.AnyRecordWithTtl | dns.AnyMxRecord | dns.AnyTxtRecord> = addresses;
     });
     dns.resolve("nodejs.org", "MX", (err, addresses) => {
         const _addresses: dns.MxRecord[] = addresses;
@@ -3561,7 +3583,9 @@ namespace http2_tests {
         let clientHttp2Stream: http2.ClientHttp2Stream;
         clientHttp2Stream.on('headers', (headers: http2.IncomingHttpHeaders, flags: number) => {});
         clientHttp2Stream.on('push', (headers: http2.IncomingHttpHeaders, flags: number) => {});
-        clientHttp2Stream.on('response', (headers: http2.IncomingHttpHeaders, flags: number) => {});
+        clientHttp2Stream.on('response', (headers: http2.IncomingHttpHeaders & http2.IncomingHttpStatusHeader, flags: number) => {
+            const s: number = headers[':status'];
+        });
 
         // ServerHttp2Stream
         let serverHttp2Stream: http2.ServerHttp2Stream;

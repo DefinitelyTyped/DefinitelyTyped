@@ -64,7 +64,7 @@ export interface SlideRenderControlProps {
   goToSlide: (index: number) => void;
 }
 
-export type RenderControl = (props: SlideRenderControlProps) => JSX.Element;
+export type RenderControl = (props: SlideRenderControlProps) => JSX.Element | null;
 
 export interface CarouselProps {
   /**

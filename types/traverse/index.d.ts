@@ -42,7 +42,7 @@ declare namespace traverse {
    * Return an `Array` of every possible non-cyclic path in the object. 
    * Paths are `Array`s of string keys.
    */
-  function paths(obj: any): string[];
+  function paths(obj: any): string[][];
 
   /**
    * Return an `Array` of every node in the object.
@@ -91,7 +91,7 @@ declare namespace traverse {
      * Return an `Array` of every possible non-cyclic path in the object. 
      * Paths are `Array`s of string keys.
      */
-    paths(): string[];
+    paths(): string[][];
 
     /**
      * Return an `Array` of every node in the object.

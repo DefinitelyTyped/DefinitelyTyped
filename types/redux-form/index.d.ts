@@ -1,4 +1,4 @@
-// Type definitions for redux-form 7.2
+// Type definitions for redux-form 7.3
 // Project: https://github.com/erikras/redux-form
 // Definitions by: Carson Full <https://github.com/carsonf>
 //                 Daniel Lytkin <https://github.com/aikoven>
@@ -8,6 +8,7 @@
 //                 Anton Novik <https://github.com/tehbi4>
 //                 Huw Martin <https://github.com/huwmartin>
 //                 Ethan Resnick <https://github.com/ethanresnick>
+//                 Tim de Koning <https://github.com/reggino>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
