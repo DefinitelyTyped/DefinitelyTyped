@@ -5765,16 +5765,16 @@ declare module "crypto" {
         digest(): Buffer;
         digest(encoding: HexBase64Latin1Encoding): string;
     }
-    export type CipherCCMTypes = 'aes-128-ccm' | 'aes-192-ccm' | 'aes-256-ccm'
-    export type CipherCCMOptions extends stream.TransformOptions {
+    export type CipherAADTypes = 'aes-128-ccm' | 'aes-192-ccm' | 'aes-256-ccm' | 'aes-128-gcm' | 'aes-192-gcm' | 'aes-256-gcm'
+    export type CipherAADOptions extends stream.TransformOptions {
         authTagLength: number;
     }
     /** @deprecated since v10.0.0 use createCipheriv() */
     export function createCipher(algorithm: string, password: string | ArrayBufferView, options?: stream.TransformOptions): Cipher;
-    export function createCipher(algorithm: CipherCCMTypes, password: string | ArrayBufferView, options: CipherCCMOptions): CipherCCM;
+    export function createCipher(algorithm: CipherAADTypes, password: string | ArrayBufferView, options: CipherAADOptions): CipherAAD;
 
     export function createCipheriv(algorithm: string, key: string | ArrayBufferView, iv: string | ArrayBufferView, options?: stream.TransformOptions): Cipher;
-    export function createCipheriv(algorithm: CipherCCMTypes, key: string | ArrayBufferView, iv: string | ArrayBufferView, options: CipherCCMOptions): CipherCCM;
+    export function createCipheriv(algorithm: CipherAADTypes, key: string | ArrayBufferView, iv: string | ArrayBufferView, options: CipherAADOptions): CipherAAD;
 
     export interface Cipher extends NodeJS.ReadWriteStream {
         update(data: string | ArrayBufferView): Buffer;
@@ -5788,15 +5788,15 @@ declare module "crypto" {
         getAuthTag(): Buffer;
         setAAD(buffer: Buffer): this; // docs only say buffer
     }
-    export interface CipherCCM extends Cipher {
+    export interface CipherAAD extends Cipher {
         setAAD(buffer: Buffer, { plainTextLength: number }): this
     }
     /** @deprecated since v10.0.0 use createCipheriv() */
     export function createDecipher(algorithm: string, password: string | ArrayBufferView, options?: stream.TransformOptions): Decipher;
-    export function createDecipher(algorithm: CipherCCMTypes, password: string | ArrayBufferView, options: CipherCCMOptions): DecipherCCM;
+    export function createDecipher(algorithm: CipherAADTypes, password: string | ArrayBufferView, options: CipherAADOptions): DecipherAAD;
 
     export function createDecipheriv(algorithm: string, key: string | ArrayBufferView, iv: string | ArrayBufferView, options?: stream.TransformOptions): Decipher;
-    export function createDecipheriv(algorithm: CipherCCMTypes, key: string | ArrayBufferView, iv: string | ArrayBufferView, options: CipherCCMOptions): DecipherCCM;
+    export function createDecipheriv(algorithm: CipherAADTypes, key: string | ArrayBufferView, iv: string | ArrayBufferView, options: CipherAADOptions): DecipherAAD;
 
     export interface Decipher extends NodeJS.ReadWriteStream {
         update(data: ArrayBufferView): Buffer;
@@ -5810,7 +5810,7 @@ declare module "crypto" {
         setAuthTag(tag: ArrayBufferView): this;
         setAAD(buffer: ArrayBufferView): this; // docs say buffer view
     }
-    export interface DecipherCCM extends Decipher {
+    export interface DecipherAAD extends Decipher {
         setAuthTag(buffer: ArrayBufferView, { plainTextLength: number }): this
     }
 
