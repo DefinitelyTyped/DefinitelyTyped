@@ -214,7 +214,7 @@ declare module "dgram" {
 		 * 
 		 * 
 		 */
-		export class DgramSocket extends Class_DgramSocket {}
+		export class Socket extends Class_DgramSocket {}
 		
 		
 		

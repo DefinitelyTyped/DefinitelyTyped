@@ -284,7 +284,7 @@ declare module "xml" {
 		 * 
 		 * 
 		 */
-		export class XmlDocument extends Class_XmlDocument {}
+		export class Document extends Class_XmlDocument {}
 		
 		
 		

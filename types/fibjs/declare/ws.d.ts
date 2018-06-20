@@ -292,7 +292,7 @@ declare module "ws" {
 		 * 
 		 * 
 		 */
-		export class WebSocketMessage extends Class_WebSocketMessage {}
+		export class Message extends Class_WebSocketMessage {}
 		
 		
 		/**
@@ -301,7 +301,7 @@ declare module "ws" {
 		 * 
 		 * 
 		 */
-		export class WebSocket extends Class_WebSocket {}
+		export class Socket extends Class_WebSocket {}
 		
 		
 		

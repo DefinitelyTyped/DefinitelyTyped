@@ -271,7 +271,7 @@ declare module "net" {
 		 * 
 		 * 
 		 */
-		export class UrlObject extends Class_UrlObject {}
+		export class Url extends Class_UrlObject {}
 		
 		
 		
