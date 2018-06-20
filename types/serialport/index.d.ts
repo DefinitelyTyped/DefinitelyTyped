@@ -36,7 +36,7 @@ declare class SerialPort extends Stream.Duplex {
 	pause(): this;
 	resume(): this;
 
-	on(event: string, callback?: (data?: any) => void): this;
+	on(event: string, callback: (data?: any) => void): this;
 
 	static Binding: SerialPort.BaseBinding;
 
