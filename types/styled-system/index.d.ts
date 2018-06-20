@@ -6,7 +6,6 @@
 //                 Christopher Pappas <https://github.com/damassi>
 //                 Eloy Durán      <https://github.com/alloy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // TypeScript Version: 2.6
 
 /**
