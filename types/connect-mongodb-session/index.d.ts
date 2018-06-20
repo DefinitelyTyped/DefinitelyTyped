@@ -9,7 +9,6 @@
 import session = require('express-session');
 import * as express from 'express';
 import {MongoClientOptions} from 'mongodb'
-import { StringifyOptions } from 'querystring';
 
 declare function connect(fn : (options?: session.SessionOptions) => express.RequestHandler) : connectMongodbSession.MongoDBStore
 

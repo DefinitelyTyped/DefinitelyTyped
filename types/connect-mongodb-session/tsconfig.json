@@ -1,10 +1,11 @@
 {
     "compilerOptions": {
+        "baseUrl": "../",
         "lib": [
             "es6"
         ],
         "module": "commonjs",
-        "baseUrl": "../",
+        "noEmit": true,
         "typeRoots": [
             "../"
         ],
