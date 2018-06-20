@@ -165,7 +165,7 @@ declare class Mail extends EventEmitter {
     verify(callback: (err: Error | null, success: true) => void): void;
     verify(): Promise<true>;
 
-    use(step: string, plugin: Mail.PluginFunction): void; // TODO Plugin?
+    use(step: string, plugin: Mail.PluginFunction): this;
 
     /** Sends an email using the preselected transport object */
     sendMail(mailOptions: Mail.Options, callback: (err: Error | null, info: SentMessageInfo) => void): void;

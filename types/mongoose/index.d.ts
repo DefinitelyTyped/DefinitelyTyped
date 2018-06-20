@@ -2277,6 +2277,12 @@ declare module "mongoose" {
     collation(options: CollationOptions): this;
 
     /**
+     * Appends a new $count operator to this aggregate pipeline.
+     * @param countName name of the count field
+     */
+    count(countName: string): this;
+
+    /**
      * Sets the cursor option option for the aggregation query (ignored for < 2.6.0).
      * Note the different syntax below: .exec() returns a cursor object, and no callback
      * is necessary.
