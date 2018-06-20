@@ -1169,7 +1169,7 @@ namespace crypto_tests {
         // crypto_timingsafeequal_safe_int8array_variant_test
         let arr1: Int8Array = Int8Array.of(1, 2, 3, 4, 5, ~0, ~1, ~2, ~3, ~4);
         let arr2: Uint8Array = Uint8Array.of(1, 2, 3, 4, 5, ~0, ~1, ~2, ~3, ~4);
-        let arr1: Uint8ClampedArray = Uint8ClampedArray.of(1, 2, 3, 4, 5, ~0, ~1, ~2, ~3, ~4);
+        let arr3: Uint8ClampedArray = Uint8ClampedArray.of(1, 2, 3, 4, 5, ~0, ~1, ~2, ~3, ~4);
 
         assert(crypto.timingSafeEqual(arr1, arr2)); // binary same
         assert(!crypto.timingSafeEqual(arr1, arr3));// binary differ
@@ -1200,25 +1200,34 @@ namespace crypto_tests {
 
     {
         // crypto_timingsafeequal_dataview_test
-        let dv1: DataView = new DataView(Uint8Array.of(1, 2, 3, 4, 5));
-        let dv2: DataView = new DataView(Int8Array.of(1, 2, 3, 4, 5));
-        let dv3: DataView = new DataView(Buffer.of(5, 4, 3, 2, 1));
-        let dv4: DataView = new DataView(Uint8ClampedArray.of(5, 4, 3, 2, 1));
+        let dv1B: Uint8Array = Uint8Array.of(1, 2, 3, 4, 5)
+        let dv2B: Int8Array = Int8Array.of(1, 2, 3, 4, 5)
+        let dv3B: Buffer = Buffer.of(5, 4, 3, 2, 1)
+        let dv4B: Uint8ClampedArray = Uint8ClampedArray.of(5, 4, 3, 2, 1)
+        let dv1: DataView = new DataView(dv1B.buffer, dv1B.byteOffset, dv1B.byteLength);
+        let dv2: DataView = new DataView(dv2B.buffer, dv2B.byteOffset, dv2B.byteLength);
+        let dv3: DataView = new DataView(dv3B.buffer, dv3B.byteOffset, dv3B.byteLength);
+        let dv4: DataView = new DataView(dv4B.buffer, dv4B.byteOffset, dv4B.byteLength);
 
         assert(crypto.timingSafeEqual(dv1, dv2));
-        assert(!crypto.timingSafeEqual(dv1, dv3));
+        assert(crypto.timingSafeEqual(dv1, dv1B));
+        assert(crypto.timingSafeEqual(dv2, dv1B));
         assert(crypto.timingSafeEqual(dv3, dv4));
+
+        assert(!crypto.timingSafeEqual(dv1, dv3));
         assert(!crypto.timingSafeEqual(dv2, dv3));
+        assert(!crypto.timingSafeEqual(dv1, dv4));
+        // ... I'm not going to write all those tests.
     }
 
     {
         // crypto_timingsafeequal_uint32array_test
-        let arr1: Uint32Array = Uint32Array.of(1, 2, 3, 4, 5);
-        let arr2: Uint32Array = Uint32Array.of(1, 2, 3, 4, 5);
-        let arr3: Uint32Array = Uint32Array.of(5, 4, 3, 2, 1);
+        let ui32_1: Uint32Array = Uint32Array.of(1, 2, 3, 4, 5);
+        let ui32_2: Uint32Array = Uint32Array.of(1, 2, 3, 4, 5);
+        let ui32_3: Uint32Array = Uint32Array.of(5, 4, 3, 2, 1);
 
-        assert(crypto.timingSafeEqual(arr1, arr2));
-        assert(!crypto.timingSafeEqual(arr1, arr3));
+        assert(crypto.timingSafeEqual(ui32_1, ui32_2));
+        assert(!crypto.timingSafeEqual(ui32_1, ui32_3));
     }
 
     {
