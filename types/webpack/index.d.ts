@@ -1135,6 +1135,8 @@ declare namespace webpack {
             assets?: boolean;
             /** Sort assets by a field */
             assetsSort?: string;
+            /** Add built at time information */
+            builtAt?: boolean;
             /** Add information about cached (not built) modules */
             cached?: boolean;
             /** Show cached assets (setting this to `false` only shows emitted files) */

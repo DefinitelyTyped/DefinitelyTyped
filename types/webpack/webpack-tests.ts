@@ -383,6 +383,7 @@ webpack({
     const jsonStatsWithAllOptions = stats.toJson({
         assets: true,
         assetsSort: "field",
+        builtAt: true,
         cached: true,
         children: true,
         chunks: true,
