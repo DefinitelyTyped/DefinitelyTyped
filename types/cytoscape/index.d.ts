@@ -2762,28 +2762,28 @@ declare namespace cytoscape {
          *
          * @param selector [optional] An optional selector that is used to filter the resultant collection.
          */
-        outgoers(selector?: Selector): EdgeCollection;
+        outgoers(selector?: Selector): CollectionReturnValue;
 
         /**
          * Recursively get edges (and their targets) coming out of the nodes in the collection (i.e. the outgoers, the outgoers' outgoers, ...).
          *
          * @param selector [optional] An optional selector that is used to filter the resultant collection.
          */
-        successors(selector?: Selector): EdgeCollection;
+        successors(selector?: Selector): CollectionReturnValue;
 
         /**
          * Get edges (and their sources) coming into the nodes in the collection.
          *
          * @param selector [optional] An optional selector that is used to filter the resultant collection.
          */
-        incomers(selector?: Selector): EdgeCollection;
+        incomers(selector?: Selector): CollectionReturnValue;
 
         /**
          * Recursively get edges (and their sources) coming into the nodes in the collection (i.e. the incomers, the incomers' incomers, ...).
          *
          * @param selector [optional] An optional selector that is used to filter the resultant collection.
          */
-        predecessors(selector?: Selector): EdgeCollection;
+        predecessors(selector?: Selector): CollectionReturnValue;
     }
 
     /**
