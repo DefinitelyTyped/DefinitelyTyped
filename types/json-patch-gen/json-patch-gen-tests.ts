@@ -1,4 +1,4 @@
-import * as diff from "json-patch-gen";
+import diff = require("json-patch-gen");
 
 const assertEqual = (a: object, b: object) => JSON.stringify(a) === JSON.stringify(b);
 const assertLength = (a: any[], b: number) => a.length === b;

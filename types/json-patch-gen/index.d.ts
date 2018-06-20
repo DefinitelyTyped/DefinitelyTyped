@@ -4,18 +4,16 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-type PatchOperation = "replace" | "add" | "remove";
+declare function diff(obj1: object | null, obj2: object | null): diff.JsonPatch[];
 
-interface JsonPatch {
-    op: PatchOperation;
-    path: string;
-    value: any;
+declare namespace diff {
+  type PatchOperation = "replace" | "add" | "remove";
+
+  interface JsonPatch {
+      op: PatchOperation;
+      path: string;
+      value: any;
+  }
 }
 
-type Diff = (obj1: object, obj2: object) => JsonPatch[];
-
-declare var diff: Diff;
-
-declare module "json-patch-gen" {
-    export = diff;
-}
+export = diff;
