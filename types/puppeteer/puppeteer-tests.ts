@@ -275,16 +275,29 @@ puppeteer.launch().then(async browser => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   await page.goto("https://example.com");
-  const elementText = await page.$eval('#someElement', (element) => {
-    return element.innerHTML;
-  });
+  const elementText = await page.$eval(
+    '#someElement',
+    (
+      element,  // $ExpectType Element
+    ) => {
+      element.innerHTML; // $ExpectType string
+      return element.innerHTML;
+    }
+  );
+  elementText; // $ExpectType string
 
   // If one returns a DOM reference, puppeteer will wrap an ElementHandle instead
-  const someElement: puppeteer.ElementHandle<HTMLDivElement> = await page.$$eval('.someClassName', (elements) => {
-    console.log(elements.length);
-    console.log(elements[0].outerHTML);
-    return elements[3] as HTMLDivElement;
-  });
+  const someElement = await page.$$eval(
+    '.someClassName',
+    (
+      elements, // $ExpectType Element[]
+    ) => {
+      console.log(elements.length);
+      console.log(elements[0].outerHTML);
+      return elements[3] as HTMLDivElement;
+    }
+  );
+  someElement; // $ExpectType ElementHandle<HTMLDivElement>
 
   // If one passes an ElementHandle, puppeteer will unwrap its DOM reference instead
   await page.$eval('.hello-world', (e, x1: HTMLDivElement) => x1.noWrap, someElement);
@@ -372,6 +385,14 @@ puppeteer.launch().then(async browser => {
 (async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
-  const eh: puppeteer.ElementHandle<HTMLTableRowElement> = (await page.$('tr.something'))!;
-  const index: number = await page.$eval('.demo', (e, x1) => x1.rowIndex, eh);
+  const eh = await page.$('tr.something') as puppeteer.ElementHandle<HTMLTableRowElement>;
+  const index = await page.$eval(
+    '.demo',
+    (
+      e, // $ExpectType Element
+      x1, // $ExpectType HTMLTableRowElement
+    ) => x1.rowIndex,
+    eh,
+  );
+  index; // $ExpectType number
 });
