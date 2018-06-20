@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+        "baseUrl": "../",
+        "forceConsistentCasingInFileNames": true,
+        "lib": [
+            "es6"
+        ],
+        "module": "commonjs",
+        "noEmit": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": false,
+        "strictFunctionTypes": true,
+        "typeRoots": [
+            "../"
+        ],
+        "types": [
+            
+        ]
+    },
+    "exclude": [
+        "node_modules"
+    ]
+}
