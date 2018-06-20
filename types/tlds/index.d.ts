@@ -6,4 +6,5 @@
 /*
 Declaring const tlds and exporting it
 */
-export const tlds: string[];
+declare const tlds: string[];
+export = tlds
