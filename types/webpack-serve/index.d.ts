@@ -1,6 +1,7 @@
 // Type definitions for webpack-serve 1.0
 // Project: https://github.com/webpack-contrib/webpack-serve
 // Definitions by: Ryan Clark <https://github.com/rynclark>
+//                 Jokcy <https://github.com/Jokcy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -21,7 +22,7 @@ declare module 'webpack' {
 }
 
 declare function WebpackServe(
-  { config }: { config: webpack.Configuration }
+  options: WebpackServe.Options
 ): Promise<WebpackServe.Instance>;
 
 declare namespace WebpackServe {
