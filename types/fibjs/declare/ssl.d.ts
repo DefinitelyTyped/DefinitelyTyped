@@ -196,7 +196,7 @@
 
 /** module Or Internal Object */
 /**
-	* @brief ssl/tls 模块
+	* @brief ssl/tls 模块，模块别名：tls
 	* @detail 
 	*/
 declare module "ssl" {
@@ -300,7 +300,7 @@ declare module "ssl" {
 		 * 
 		 * 
 		 */
-		export class SslSocket extends Class_SslSocket {}
+		export class Socket extends Class_SslSocket {}
 		
 		
 		/**
@@ -309,7 +309,7 @@ declare module "ssl" {
 		 * 
 		 * 
 		 */
-		export class SslHandler extends Class_SslHandler {}
+		export class Handler extends Class_SslHandler {}
 		
 		
 		/**
@@ -318,7 +318,7 @@ declare module "ssl" {
 		 * 
 		 * 
 		 */
-		export class SslServer extends Class_SslServer {}
+		export class Server extends Class_SslServer {}
 		
 		
 		
