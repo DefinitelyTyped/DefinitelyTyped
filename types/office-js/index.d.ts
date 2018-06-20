@@ -13889,7 +13889,7 @@ declare namespace OfficeExtension {
         /** Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties. 
          * 
          * @param object The object whose properties are loaded.
-         * @param option A  comma-delimited string, or array of strings, that specifies the properties/relationships to load, or an {@link Office.OfficeExtension.LoadOption} object.
+         * @param option A  comma-delimited string, or array of strings, that specifies the properties/relationships to load, or an {@link OfficeExtension.LoadOption} object.
          */
         load(object: ClientObject, option?: string | string[] | LoadOption): void;
 
