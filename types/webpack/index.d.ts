@@ -61,24 +61,22 @@ declare namespace webpack {
         /** Like resolve but for loaders. */
         resolveLoader?: ResolveLoader;
         /**
-         *  Specify dependencies that shouldn’t be resolved by webpack, but should become dependencies of the resulting bundle.
-         *  The kind of the dependency depends on output.libraryTarget.
+         * Specify dependencies that shouldn’t be resolved by webpack, but should become dependencies of the resulting bundle.
+         * The kind of the dependency depends on output.libraryTarget.
          */
         externals?: ExternalsElement | ExternalsElement[];
         /**
-         * <ul>
-         *   <li>"web" Compile for usage in a browser-like environment (default)</li>
-         *   <li>"webworker" Compile as WebWorker</li>
-         *   <li>"node" Compile for usage in a node.js-like environment (use require to load chunks)</li>
-         *   <li>"async-node" Compile for usage in a node.js-like environment (use fs and vm to load chunks async)</li>
-         *   <li>"node-webkit" Compile for usage in webkit, uses jsonp chunk loading but also supports builtin node.js modules plus require(“nw.gui”) (experimental)</li>
-         *   <li>"atom" Compile for usage in electron (formerly known as atom-shell), supports require for modules necessary to run Electron.</li>
-         *   <li>"electron-renderer" Compile for Electron for renderer process, providing a target using JsonpTemplatePlugin, FunctionModulePlugin
-         *        for browser environments and NodeTargetPlugin and ExternalsPlugin for CommonJS and Electron built-in modules.<li>
-         *   <li>"electron-main" Compile for Electron for main process.</li>
-         *   <li>"atom" Alias for electron-main</li>
-         *   <li>"electron" Alias for electron-main</li>
-         * <ul>
+         * - "web" Compile for usage in a browser-like environment (default).
+         * - "webworker" Compile as WebWorker.
+         * - "node" Compile for usage in a node.js-like environment (use require to load chunks).
+         * - "async-node" Compile for usage in a node.js-like environment (use fs and vm to load chunks async).
+         * - "node-webkit" Compile for usage in webkit, uses jsonp chunk loading but also supports builtin node.js modules plus require(“nw.gui”) (experimental)
+         * - "atom" Compile for usage in electron (formerly known as atom-shell), supports require for modules necessary to run Electron.
+         * - "electron-renderer" Compile for Electron for renderer process, providing a target using JsonpTemplatePlugin, FunctionModulePlugin for browser
+         *   environments and NodeTargetPlugin and ExternalsPlugin for CommonJS and Electron built-in modules.
+         * - "electron-main" Compile for Electron for main process.
+         * - "atom" Alias for electron-main.
+         * - "electron" Alias for electron-main.
          */
         target?: 'web' | 'webworker' | 'node' | 'async-node' | 'node-webkit' | 'atom' | 'electron' | 'electron-renderer' | 'electron-main' | ((compiler?: any) => void);
         /** Report the first error as a hard error instead of tolerating it. */
@@ -171,17 +169,15 @@ declare namespace webpack {
         library?: string | string[];
         /**
          * Which format to export the library:
-         * <ul>
-         *   <li>"var" - Export by setting a variable: var Library = xxx (default)</li>
-         *   <li>"this" - Export by setting a property of this: this["Library"] = xxx</li>
-         *   <li>"commonjs" - Export by setting a property of exports: exports["Library"] = xxx</li>
-         *   <li>"commonjs2" - Export by setting module.exports: module.exports = xxx</li>
-         *   <li>"amd" - Export to AMD (optionally named)</li>
-         *   <li>"umd" - Export to AMD, CommonJS2 or as property in root</li>
-         *   <li>"window" - Assign to window</li>
-         *   <li>"assign" - Assign to a global variable</li>
-         *   <li>"jsonp" - Generate Webpack JSONP module<li>
-         * </ul>
+         * - "var" - Export by setting a variable: var Library = xxx (default)
+         * - "this" - Export by setting a property of this: this["Library"] = xxx
+         * - "commonjs" - Export by setting a property of exports: exports["Library"] = xxx
+         * - "commonjs2" - Export by setting module.exports: module.exports = xxx
+         * - "amd" - Export to AMD (optionally named)
+         * - "umd" - Export to AMD, CommonJS2 or as property in root
+         * - "window" - Assign to window
+         * - "assign" - Assign to a global variable
+         * - "jsonp" - Generate Webpack JSONP module
          */
         libraryTarget?: 'var' | 'this' | 'commonjs' | 'commonjs2' | 'amd' | 'umd' | 'window' | 'assign' | 'jsonp';
         /** Configure which module or modules will be exposed via the `libraryTarget` */
@@ -955,42 +951,9 @@ declare namespace webpack {
             usedModuleIds: any;
             getStats(): Stats;
             addModule(module: CompilationModule, cacheGroup: any): any;
-            // getModule(module)
-            // findModule(identifier)
-            // waitForBuildingFinished(module, callback)
-            // buildModule(module, optional, origin, dependencies, thisCallback)
-            // processModuleDependencies(module, callback)
-            // addModuleDependencies(module, dependencies, bail, cacheGroup, recursive, callback)
             // tslint:disable-next-line:ban-types
             addEntry(context: any, entry: any, name: any, callback: Function): void;
-            // prefetch(context, dependency, callback)
-            // rebuildModule(module, thisCallback)
-            // finish()
-            // unseal()
-            // seal(callback)
-            // sortModules(modules)
-            // reportDependencyErrorsAndWarnings(module, blocks)
-            // addChunkInGroup(name, module, loc, request)
-            // addChunk(name)
-            // assignIndex(module)
-            // assignDepth(module)
-            // processDependenciesBlocksForChunkGroups(inputChunkGroups)
-            // removeReasonsOfDependencyBlock(module, block)
-            // patchChunksAfterReasonRemoval(module, chunk)
-            // removeChunkFromDependencies(block, chunk)
-            // applyModuleIds()
-            // applyChunkIds()
-            // sortItemsWithModuleIds()
-            // sortItemsWithChunkIds()
-            // summarizeDependencies()
-            // createHash()
-            // modifyHash(update)
-            // createModuleAssets()
-            // createChunkAssets()
             getPath(filename: string, data: {hash?: any, chunk?: any, filename?: string, basename?: string, query?: any}): string;
-            // createChildCompiler(name, outputOptions, plugins)
-            // checkConstraints()
-
             /**
              * @deprecated Compilation.applyPlugins is deprecated. Use new API on `.hooks` instead
              */
@@ -1131,6 +1094,8 @@ declare namespace webpack {
             | 'verbose';
 
         interface ToJsonOptionsObject {
+            /** fallback value for stats options when an option is not defined (has precedence over local webpack defaults) */
+            all?: boolean;
             /** Add asset Information */
             assets?: boolean;
             /** Sort assets by a field */
