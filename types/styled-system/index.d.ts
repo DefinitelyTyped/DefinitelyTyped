@@ -7,7 +7,7 @@
 //                 Eloy Durán      <https://github.com/alloy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// TypeScript Version: 2.2
+// TypeScript Version: 2.6
 
 /**
  * Core
