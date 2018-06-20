@@ -656,10 +656,8 @@ declare namespace Office {
         *     <td>A dialog box is already opened from the task pane. A task pane add-in can only have one dialog box open at a time.</td>
         *   </tr>
         * </table>
-        *
-        * @param startAddress - Accepts the initial HTTPS URL that opens in the dialog.
-        * @param options - Optional. Accepts an {@link Office.DialogOptions} object to define dialog display.
-        * @param callback - Optional. Accepts a callback method to handle the dialog creation attempt. If successful, the AsyncResult.value is a DialogHandler object.
+        * 
+        * In the callback function passed to the displayDialogAsync method, you can use the properties of the AsyncResult object to return the following information.
         * 
         * <table>
         *   <tr>
@@ -683,10 +681,14 @@ declare namespace Office {
         *     <td>Access your user-defined object or value, if you passed one as the asyncContext parameter.</td>
         *   </tr>
         * </table>
+        *
+        * @param startAddress - Accepts the initial HTTPS URL that opens in the dialog.
+        * @param options - Optional. Accepts an {@link Office.DialogOptions} object to define dialog display.
+        * @param callback - Optional. Accepts a callback method to handle the dialog creation attempt. If successful, the AsyncResult.value is a DialogHandler object.
         */
         displayDialogAsync(startAddress: string, options?: DialogOptions, callback?: (result: AsyncResult) => void): void;
         /**
-         * Delivers a message from the dialog box to its parent/opener page. The page calling this API must be on the same domain as the parent. You can use the properties of the AsyncResult object to return the following information.
+         * Delivers a message from the dialog box to its parent/opener page. The page calling this API must be on the same domain as the parent. 
          * @param messageObject Accepts a message from the dialog to deliver to the add-in.
          */
         messageParent(messageObject: any): void;
@@ -1618,22 +1620,8 @@ declare namespace Office {
          * In all other cases, an error is returned.
          * 
          * The setDataAsync method will write data in a subset of a table or matrix binding if the optional startRow and startColumn parameters are specified, and they specify a valid range.
-         *
-         * @param data The data to be set in the current selection. Possible data types by host:
-         *
-         *        string: Excel, Excel Online, Word, and Word Online only
-         *
-         *        array of arrays: Excel and Word only
-         *
-         *        {@link Office.TableData}: Access, Excel, and Word only
-         *
-         *        HTML: Word and Word Online only
-         *
-         *        Office Open XML: Word only
-         *
-         * @param options Provides options for how to set the data in a binding.
-         *
-         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult. You can use the properties of the AsyncResult object to return the following information.
+         * 
+         * In the callback function passed to the setDataAsync method, you can use the properties of the AsyncResult object to return the following information.
          * 
          * <table>
          *   <tr>
@@ -1657,6 +1645,22 @@ declare namespace Office {
          *     <td>A user-defined item of any type that is returned in the AsyncResult object without being altered.</td>
          *   </tr>
          * </table>
+         *
+         * @param data The data to be set in the current selection. Possible data types by host:
+         *
+         *        string: Excel, Excel Online, Word, and Word Online only
+         *
+         *        array of arrays: Excel and Word only
+         *
+         *        {@link Office.TableData}: Access, Excel, and Word only
+         *
+         *        HTML: Word and Word Online only
+         *
+         *        Office Open XML: Word only
+         *
+         * @param options Provides options for how to set the data in a binding.
+         *
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult. You can use the properties of the AsyncResult object to return the following information.
          */
         setDataAsync(data: TableData | any, options?: SetBindingDataOptions, callback?: (result: AsyncResult) => void): void;
     }
@@ -2359,26 +2363,8 @@ declare namespace Office {
          * Hosts: Access, Excel, PowerPoint, Project, Word
          *
          * Available in Requirement set: Selection
-         *
-         * @param coercionType The type of data structure to return.
          * 
-         * The possible values for the {@link Office.CoercionType} parameter vary by the host:
-         *
-         * - Excel, Excel Online, PowerPoint, PowerPoint Online, Word, and Word Online only: `Office.CoercionType.Text` (string)
-         *
-         * - Excel, Word, and Word Online only: `Office.CoercionType.Matrix` (array of arrays)
-         *
-         * - Access, Excel, Word, and Word Online only: `Office.CoercionType.Table` (TableData object)
-         *
-         * - Word only: `Office.CoercionType.Html`
-         *
-         * - Word and Word Online only: `Office.CoercionType.Ooxml` (Office Open XML)
-         *
-         * - PowerPoint and PowerPoint Online only: `Office.CoercionType.SlideRange`
-         * 
-         * @param options Provides options for customizing what data is returned and how it is formatted.
-         * 
-         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * In the callback function that is passed to the getSelectedDataAsync method, you can use the properties of the AsyncResult object to return the following information.
          * 
          * <table>
          *   <tr>
@@ -2402,6 +2388,26 @@ declare namespace Office {
          *     <td>A user-defined item of any type that is returned in the AsyncResult object without being altered.</td>
          *   </tr>
          * </table>
+         * 
+         * @param coercionType The type of data structure to return.
+         * 
+         * The possible values for the {@link Office.CoercionType} parameter vary by the host:
+         *
+         * - Excel, Excel Online, PowerPoint, PowerPoint Online, Word, and Word Online only: `Office.CoercionType.Text` (string)
+         *
+         * - Excel, Word, and Word Online only: `Office.CoercionType.Matrix` (array of arrays)
+         *
+         * - Access, Excel, Word, and Word Online only: `Office.CoercionType.Table` (TableData object)
+         *
+         * - Word only: `Office.CoercionType.Html`
+         *
+         * - Word and Word Online only: `Office.CoercionType.Ooxml` (Office Open XML)
+         *
+         * - PowerPoint and PowerPoint Online only: `Office.CoercionType.SlideRange`
+         * 
+         * @param options Provides options for customizing what data is returned and how it is formatted.
+         * 
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         getSelectedDataAsync(coercionType: CoercionType, options?: GetSelectedDataOptions, callback?: (result: AsyncResult) => void): void;
         /**
@@ -2635,8 +2641,8 @@ declare namespace Office {
          * Available in Requirement set: File
          * 
          * No more than two documents are allowed to be in memory; otherwise the Document.getFileAsync operation will fail. Use the File.closeAsync method to close the file when you are finished working with it.
-         *
-         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult. When the function you passed to the callback parameter executes, it receives an AsyncResult object that you can access from the callback function's only parameter to return the following information.
+         * 
+         * In the callback function passed to the closeAsync method, you can use the properties of the AsyncResult object to return the following information.
          * 
          * <table>
          *   <tr>
@@ -2660,18 +2666,19 @@ declare namespace Office {
          *     <td>A user-defined item of any type that is returned in the AsyncResult object without being altered.</td>
          *   </tr>
          * </table>
+         *
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult. When the function you passed to the callback parameter executes, it receives an AsyncResult object that you can access from the callback function's only parameter to return the following information.
          */
         closeAsync(callback?: (result: AsyncResult) => void): void;
         /**
          * Returns the specified slice.
          * 
          * @remarks
+         * Hosts: PowerPoint, Word
+         * 
+         * Available in Requirement set: File
          * 
          * In the callback function passed to the getSliceAsync method, you can use the properties of the AsyncResult object to return the following information.
-         * 
-         * Hosts: PowerPoint, Word
-         * @param sliceIndex Specifies the zero-based index of the slice to be retrieved. Required.
-         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult. When the function you passed to the callback parameter executes, it receives an AsyncResult object that you can access from the callback function's only parameter to return the following information.
          * 
          * <table>
          *   <tr>
@@ -2695,8 +2702,9 @@ declare namespace Office {
          *     <td>A user-defined item of any type that is returned in the AsyncResult object without being altered.</td>
          *   </tr>
          * </table>
-         *
-         * Available in Requirement set: File
+         * 
+         * @param sliceIndex Specifies the zero-based index of the slice to be retrieved. Required.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult. When the function you passed to the callback parameter executes, it receives an AsyncResult object that you can access from the callback function's only parameter to return the following information.
          */
         getSliceAsync(sliceIndex: number, callback?: (result: AsyncResult) => void): void;
     }
@@ -2814,12 +2822,6 @@ declare namespace Office {
          *
          * In the callback function passed to the refreshAsync method, you can use the properties of the AsyncResult object to return the following information.
          * 
-         * Hosts: Access, Excel, PowerPoint, Word
-         *
-         * Available in Requirement set: Settings
-         *
-         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult. When the function you passed to the callback parameter executes, it receives an AsyncResult object that you can access from the callback function's only parameter to return the following information.
-         * 
          * <table>
          *   <tr>
          *     <th>Property</th>
@@ -2842,6 +2844,12 @@ declare namespace Office {
          *     <td>A user-defined item of any type that is returned in the AsyncResult object without being altered.</td>
          *   </tr>
          * </table>
+         * 
+         * Hosts: Access, Excel, PowerPoint, Word
+         *
+         * Available in Requirement set: Settings
+         *
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult. When the function you passed to the callback parameter executes, it receives an AsyncResult object that you can access from the callback function's only parameter.
          */
         refreshAsync(callback?: (result: AsyncResult) => void): void;
         /**
@@ -2884,10 +2892,6 @@ declare namespace Office {
          *
          * Note: The saveAsync method persists the in-memory settings property bag into the document file; however, the changes to the document file itself are saved only when the user (or AutoRecover setting) saves the document to the file system. The refreshAsync method is only useful in coauthoring scenarios (which are only supported in Word) when other instances of the same add-in might change the settings and those changes should be made available to all instances.
          * 
-         * Hosts: Access, Excel, PowerPoint, Word
-         * @param options Provides options for saving settings.
-         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult. When the function you passed to the callback parameter executes, it receives an AsyncResult object that you can access from the callback function's only parameter to return the following information.
-         * 
          * <table>
          *   <tr>
          *     <th>Property</th>
@@ -2910,6 +2914,11 @@ declare namespace Office {
          *     <td>A user-defined item of any type that is returned in the AsyncResult object without being altered.</td>
          *   </tr>
          * </table>
+         * 
+         * Hosts: Access, Excel, PowerPoint, Word
+         * 
+         * @param options Provides options for saving settings.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult. When the function you passed to the callback parameter executes, it receives an AsyncResult object that you can access from the callback function's only parameter to return the following information.
          */
         saveAsync(options?: SaveSettingsOptions, callback?: (result: AsyncResult) => void): void;
         /**
@@ -3133,11 +3142,7 @@ declare namespace Office {
          *
          * Available in Requirement set: Not in a set
          * 
-         * 
-         *
-         * @param tableOptions An object literal containing a list of property name-value pairs that define the table options to apply.
-         * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
-         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult. You can use the properties of the AsyncResult object to return the following information.
+         * In the callback function passed to the goToByIdAsync method, you can use the properties of the AsyncResult object to return the following information.
          * 
          * <table>
          *   <tr>
@@ -3161,6 +3166,12 @@ declare namespace Office {
          *     <td>A user-defined item of any type that is returned in the AsyncResult object without being altered.</td>
          *   </tr>
          * </table>
+         *
+         * @param tableOptions An object literal containing a list of property name-value pairs that define the table options to apply.
+         * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult. You can use the properties of the AsyncResult object to return the following information.
+         * 
+
          */
         setTableOptionsAsync(tableOptions: any, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
     }
