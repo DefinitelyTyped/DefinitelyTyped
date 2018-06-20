@@ -1,5 +1,5 @@
 import { parse } from "parse5";
-import treeAdapter, {
+import {
     Node,
     ParentNode,
     Document,
@@ -8,6 +8,7 @@ import treeAdapter, {
     TextNode,
     CommentNode
 } from "parse5-htmlparser2-tree-adapter";
+import treeAdapter = require('parse5-htmlparser2-tree-adapter');
 
 // htmlparser2 AST
 const htmlparser2Document = parse("<html>", {

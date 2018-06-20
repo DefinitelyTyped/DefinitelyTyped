@@ -791,6 +791,8 @@ declare module "mongoose" {
     methods: any;
     /** Object of currently defined statics on this schema. */
     statics: any;
+    /** Object of currently defined query helpers on this schema. */
+    query: any;
     /** The original object passed to the schema constructor */
     obj: any;
   }

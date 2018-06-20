@@ -12,6 +12,5 @@ interface IMergedStream extends NodeJS.ReadWriteStream {
     isEmpty(): boolean;
 }
 
-declare function merge<T extends NodeJS.ReadableStream>(streams: T[]): IMergedStream;
-declare function merge<T extends NodeJS.ReadableStream>(...streams: T[]): IMergedStream;
+declare function merge<T extends NodeJS.ReadableStream>(...streams: (T | T[])[]): IMergedStream;
 export = merge;

@@ -3233,9 +3233,10 @@ declare namespace sequelize {
         as?: string;
 
         /**
-         * The association you want to eagerly load. (This can be used instead of providing a model/as pair)
+         * The association you want to eagerly load. (This can be used instead of providing a model/as pair).
+         * You can also use the association alias.
          */
-        association?: IncludeAssociation;
+        association?: IncludeAssociation | string;
 
         /**
          * Where clauses to apply to the child models. Note that this converts the eager load to an inner join,

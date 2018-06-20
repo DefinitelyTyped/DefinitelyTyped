@@ -2375,23 +2375,48 @@ declare namespace Office {
          *
          * Available in Requirement set: Selection
          *
+         * @param coercionType The type of data structure to return.
+         * 
          * The possible values for the coercionType parameter vary by the host:
          *
-         * Excel, Excel Online, PowerPoint, PowerPoint Online, Word, and Word Online only: `Office.CoercionType.Text` (string)
+         * - Excel, Excel Online, PowerPoint, PowerPoint Online, Word, and Word Online only: `Office.CoercionType.Text` (string)
          *
-         * Excel, Word, and Word Online only: `Office.CoercionType.Matrix` (array of arrays)
+         * - Excel, Word, and Word Online only: `Office.CoercionType.Matrix` (array of arrays)
          *
-         * Access, Excel, Word, and Word Online only: `Office.CoercionType.Table` (TableData object)
+         * - Access, Excel, Word, and Word Online only: `Office.CoercionType.Table` (TableData object)
          *
-         * Word only: `Office.CoercionType.Html`
+         * - Word only: `Office.CoercionType.Html`
          *
-         * Word and Word Online only: `Office.CoercionType.Ooxml` (Office Open XML)
+         * - Word and Word Online only: `Office.CoercionType.Ooxml` (Office Open XML)
          *
-         * PowerPoint and PowerPoint Online only: `Office.CoercionType.SlideRange`
-         *
-         * @param coercionType The type of data structure to return.
+         * - PowerPoint and PowerPoint Online only: `Office.CoercionType.SlideRange`
+         * 
          * @param options Provides options for customizing what data is returned and how it is formatted.
+         * 
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * 
+         * <table>
+         *   <tr>
+         *     <th>Property</th>
+         *     <th>Use to...</th>
+         *   </tr>
+         *   <tr>
+         *     <td>AsyncResult.value</td>
+         *     <td>Always returns undefined because there is no object or data to retrieve.</td>
+         *   </tr>
+         *   <tr>
+         *     <td>AsyncResult.status</td>
+         *     <td>Determine the success or failure of the operation.</td>
+         *   </tr>
+         *   <tr>
+         *     <td>AsyncResult.error</td>
+         *     <td>Access an Error object that provides error information if the operation failed.</td>
+         *   </tr>
+         *   <tr>
+         *     <td>AsyncResult.asyncContext</td>
+         *     <td>A user-defined item of any type that is returned in the AsyncResult object without being altered.</td>
+         *   </tr>
+         * </table>
          */
         getSelectedDataAsync(coercionType: CoercionType, options?: GetSelectedDataOptions, callback?: (result: AsyncResult) => void): void;
         /**
@@ -2438,24 +2463,89 @@ declare namespace Office {
          * Hosts: Access, Excel, PowerPoint, Project, Word, Word Online
          *
          * Available in Requirement set: Selection
+         * 
+         * **Application-specific behaviors**
+         * 
+         * The following application-specific actions apply when writing data to a selection.
+         * 
+         * - Word
+         * 
+         *   - If there is no selection and the insertion point is at a valid location, the specified `data` is inserted at the insertion point as follows:
+         * 
+         *     - If `data` is a string, the specified text is inserted.
+         * 
+         *     - If `data` is an array of arrays ("matrix") or a TableData object, a new Word table is inserted.
+         * 
+         *     - If `data` is HTML, the specified HTML is inserted. (Important: If any of the HTML you insert is invalid, Word won't raise an error. Word will insert as much of the HTML as it can and omits any invalid data).
+         * 
+         *     - If `data` is Office Open XML, the specified XML is inserted.
+         * 
+         *     - If `data` is a base64 encoded image stream, the specified image is inserted.
+         * 
+         *   - If there is a selection, it will be replaced with the specified `data` following the same rules as above.
+         * 
+         *   - Insert images: Inserted images are placed inline. The imageLeft and imageTop parameters are ignored. The image aspect ratio is always locked. If only one of the imageWidth and imageHeight parameter is given, the other value will be automatically scaled to keep the original aspect ratio.
+         * 
+         * - Excel
+         * 
+         *   - If a single cell is selected:
+         * 
+         *     - If `data` is a string, the specified text is inserted as the value of the current cell.
+         * 
+         *     - If `data` is an array of arrays ("matrix"), the specified set of rows and columns are inserted, if no other data in surrounding cells will be overwritten.
+         * 
+         *     - If `data` is a TableData object, a new Excel table with the specified set of rows and headers is inserted, if no other data in surrounding cells will be overwritten.
+         * 
+         *   - If multiple cells are selected and the shape does not match the shape of `data`, an error is returned.
+         * 
+         *   - If multiple cells are selected and the shape of the selection exactly matches the shape of `data`, the values of the selected cells are updated based on the values in `data`.
+         * 
+         *   - Insert images: Inserted images are floating. The position imageLeft and imageTop parameters are relative to currently selected cell(s). Negative imageLeft and imageTop values are allowed and possibly readjusted by Excel to position the image inside a worksheet. Image aspect ratio is locked unless both imageWidth and imageHeight parameters are provided. If only one of the imageWidth and imageHeight parameter is given, the other value will be automatically scaled to keep the original aspect ratio.
+         * 
+         *   - In all other cases, an error is returned.
+         * 
+         * - Excel Online
+         * 
+         *   - In addition to the behaviors described for Excel above, the following limits apply when writing data in Excel Online. 
+         * 
+         *     - The total number of cells you can write to a worksheet with the `data` parameter can't exceed 20,000 in a single call to this method.
+         * 
+         *     - The number of formatting groups passed to the `cellFormat` parameter can't exceed 100. A single formatting group consists of a set of formatting applied to a specified range of cells.
+         * 
+         * - PowerPoint
+         * 
+         *   - Inserted images are floating. The position imageLeft and imageTop parameters are optional but if provided, both should be present. If a single value is provided, it will be ignored. Negative imageLeft and imageTop values are allowed and can position an image outside of a slide. If no optional parameter is given and slide has a placeholder, the image will replace the placeholder in the slide. Image aspect ratio will be locked unless both imageWidth and imageHeight parameters are provided. If only one of the imageWidth and imageHeight parameter is given, the other value will be automatically scaled to keep the original aspect ratio.
          *
+         * @param data The data to be set. Either a string or  {@link Office.CoercionType} value, 2d array or TableData object.
+         * 
          * The possible CoercionTypes that can be used for the data parameter, or for the coercionType option, vary by host:
          *
-         * Office.CoercionType.Text: Excel, Word, PowerPoint
+         * - Office.CoercionType.Text: Excel, Word, PowerPoint
          *
-         * Office.CoercionType.Matrix: Excel, Word
+         * - Office.CoercionType.Matrix: Excel, Word
          *
-         * Office.CoercionType.Table: Access, Excel, Word
+         * - Office.CoercionType.Table: Access, Excel, Word
          *
-         * Office.CoercionType.Html: Word
+         * - Office.CoercionType.Html: Word
          *
-         * Office.CoercionType.Ooxml: Word
+         * - Office.CoercionType.Ooxml: Word
          *
-         * Office.CoercionType.Image: Excel, Word, PowerPoint
-         *
-         * @param data The data to be set. Either a string or {@link Office.CoercionType} value, 2d array or TableData object.
+         * - Office.CoercionType.Image: Excel, Word, PowerPoint
+         * 
+         * If the value passed for `data` is:
+         * 
+         * - A string: Plain text or anything that can be coerced to a string will be inserted. 
+         * In Excel, you can also specify data as a valid formula to add that formula to the selected cell. For example, setting data to "=SUM(A1:A5)" will total the values in the specified range. However, when you set a formula on the bound cell, after doing so, you can't read the added formula (or any pre-existing formula) from the bound cell. If you call the Document.getSelectedDataAsync method on the selected cell to read its data, the method can return only the data displayed in the cell (the formula's result).
+         * 
+         * - An array of arrays ("matrix"): Tabular data without headers will be inserted. For example, to write data to three rows in two columns, you can pass an array like this: [["R1C1", "R1C2"], ["R2C1", "R2C2"], ["R3C1", "R3C2"]]. To write a single column of three rows, pass an array like this: [["R1C1"], ["R2C1"], ["R3C1"]]
+         * In Excel, you can also specify data as an array of arrays that contains valid formulas to add them to the selected cells. For example if no other data will be overwritten, setting data to [["=SUM(A1:A5)","=AVERAGE(A1:A5)"]] will add those two formulas to the selection. Just as when setting a formula on a single cell as "text", you can't read the added formulas (or any pre-existing formulas) after they have been set - you can only read the formulas' results.
+         * 
+         * - A TableData object: A table with headers will be inserted.
+         * In Excel, if you specify formulas in the TableData object you pass for the data parameter, you might not get the results you expect due to the "calculated columns" feature of Excel, which automatically duplicates formulas within a column. To work around this when you want to write `data` that contains formulas to a selected table, try specifying the data as an array of arrays (instead of a TableData object), and specify the coercionType as Microsoft.Office.Matrix or "matrix".
+         * 
          * @param options Provides options for how to insert data to the selection.
-         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult. 
+         * The AsyncResult.value property always returns undefined because there is no object or data to retrieve.
          */
         setSelectedDataAsync(data: string | TableData | any[][], options?: SetSelectedDataOptions, callback?: (result: AsyncResult) => void): void;
         /**
@@ -13745,43 +13835,29 @@ declare namespace OfficeExtension {
 
 declare namespace OfficeExtension {
     /**
-     * Represents an object that can be passed to the load method to specify the set of properties and relations to be loaded upon execution of sync() method that synchronizes the states between Office objects and corresponding JavaScript proxy objects.
-     * This takes in options such as select and expand parameters to specify a set of properties to be loaded on the object and also allows pagination on the collection.
-     * 
-     * @remarks
-     * 
-     * For Word, the preferred method for specifying the properties and paging information is by using a string literal. The first two examples show the preferred way to request the text and font size properties for paragraphs in a paragraph collection:
-     * 
-     * `context.load(paragraphs, 'text, font/size');`
-     * 
-     * `paragraphs.load('text, font/size');`
-     * 
-     * Here is a similar example using object notation (includes paging):
-     * 
-     * `context.load(paragraphs, {select: 'text, font/size', expand: 'font', top: 50, skip: 0});`
-     * 
-     * `paragraphs.load({select: 'text, font/size', expand: 'font', top: 50, skip: 0});`
-     * 
-     * Note that if we don't specify the specific properties on the font object in the select statement, the expand statement by itself would indicate that all of the font properties are loaded.
+     * Specifies which properties of an object should be loaded.
      */
     interface LoadOption {
         /**
-         * Contains a comma delimited list or an array of parameter/relationship names. Optional.
+         * A comma-delimited string, or array of strings, that specifies the properties/relationships to load.
          */
         select?: string | string[];
         /**
-         * Contains a comma delimited list or an array of relationship names. Optional.
+         * A comma-delimited string, or array of strings, that specifies the relationships to load.
          */
         expand?: string | string[];
         /**
-         * Specifies the maximum number of collection items that can be included in the result. Optional. You can only use this option when you use the object notation option.
+         * Only usable on collection types. Specifies the maximum number of collection items that can be included in the result.
          */
         top?: number;
         /**
-         * Specify the number of items in the collection that are to be skipped and not included in the result. If top is specified, the result set will start after skipping the specified number of items. Optional. You can only use this option when you use the object notation option.
+         * Only usable on collection types. Specifies the number of items in the collection that are to be skipped and not included in the result. If top is specified, the result set will start after skipping the specified number of items.
          */
         skip?: number;
     }
+    /**
+     * Provides an option for suppressing an error when the object that is used to set multiple properties tries to set read-only properties.
+     */
     interface UpdateOptions {
         /**
          * Throw an error if the passed-in property list includes read-only properties (default = true).
@@ -13809,7 +13885,11 @@ declare namespace OfficeExtension {
         /** Request headers */
         requestHeaders: { [name: string]: string };
 
-        /** Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties. */
+        /** Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties. 
+         * 
+         * @param object The object whose properties are loaded.
+         * @param option A  comma-delimited string, or array of strings, that specifies the properties/relationships to load, or an {@link Office.OfficeExtension.LoadOption} object.
+         */
         load(object: ClientObject, option?: string | string[] | LoadOption): void;
 
         /**
@@ -13869,7 +13949,9 @@ declare namespace OfficeExtension {
          */
         extendedErrorLogging: boolean;
     };
-
+    /**
+     * Provides information about an error.
+     */
     interface DebugInfo {
         /** Error code string, such as "InvalidArgument". */
         code: string;
@@ -13877,24 +13959,20 @@ declare namespace OfficeExtension {
         message: string;
         /** Inner error, if applicable. */
         innerError?: DebugInfo | string;
-
         /** The object type and property or method name (or similar information), if available. */
         errorLocation?: string;
-
         /**
          * The statement that caused the error, if available.
          *
          * This statement will never contain any potentially-sensitive data and may not match the code exactly as written, but will be a close approximation.
          */
         statements?: string;
-
         /**
          * The statements that closely precede and follow the statement that caused the error, if available.
          *
          * These statements will never contain any potentially-sensitive data and may not match the code exactly as written, but will be a close approximation.
          */
         surroundingStatements?: string[];
-
         /**
          * All statements in the batch request (including any potentially-sensitive information that was specified in the request), if available.
          *
@@ -13948,11 +14026,23 @@ declare namespace OfficeExtension {
 declare namespace OfficeExtension {
     /** Collection of tracked objects, contained within a request context. See "context.trackedObjects" for more information. */
     class TrackedObjects {
-        /** Track a new object for automatic adjustment based on surrounding changes in the document. Only some object types require this. If you are using an object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created. */
+        /** 
+         * Track a new object for automatic adjustment based on surrounding changes in the document. Only some object types require this. If you are using an object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created. 
+         * 
+         * This method also has the following signature: 
+         * 
+         * `add(objects: ClientObject[]): void;` Where objects is an array of objects to be tracked.
+         */
         add(object: ClientObject): void;
-        /** Track a new object for automatic adjustment based on surrounding changes in the document. Only some object types require this. If you are using an object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created. */
+        /** Track a set of objects  for automatic adjustment based on surrounding changes in the document. Only some object types require this. If you are using an object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created. */
         add(objects: ClientObject[]): void;
-        /** Release the memory associated with an object that was previously added to this collection. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect. */
+        /** 
+         * Release the memory associated with an object that was previously added to this collection. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect.
+         * 
+         * This method also has the following signature: 
+         * 
+         * `remove(objects: ClientObject[]): void;` Where objects is an array of objects to be removed.
+         */
         remove(object: ClientObject): void;
         /** Release the memory associated with an object that was previously added to this collection. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call `context.sync()` before the memory release takes effect. */
         remove(objects: ClientObject[]): void;
