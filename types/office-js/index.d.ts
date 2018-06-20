@@ -596,6 +596,8 @@ declare namespace Office {
     }
     /**
      * Provides objects and methods that you can use to create and manipulate UI components, such as dialog boxes, in your Office Add-ins.
+     * 
+     * Visit "{@link https://docs.microsoft.com/office/dev/add-ins/develop/dialog-api-in-office-add-ins | Use the Dialog API in your Office Add-ins}" for more information.
      */
     interface UI {
         /**
@@ -609,6 +611,8 @@ declare namespace Office {
         * The initial page must be on the same domain as the parent page (the startAddress parameter). After the initial page loads, you can go to other domains.
         *
         * Any page calling `office.context.ui.messageParent` must also be on the same domain as the parent page.
+        * 
+        * **Design considerations**:
         *
         * The following design considerations apply to dialog boxes:
         *
@@ -629,14 +633,75 @@ declare namespace Office {
         * - Temporarily increase the surface area that a user has available to complete a task.
         *
         * Do not use a dialog box to interact with a document. Use a task pane instead.
+        * 
+        * For a design pattern that you can use to create a dialog box, see {@link https://github.com/OfficeDev/Office-Add-in-UX-Design-Patterns/blob/master/Patterns/Client_Dialog.md | Client Dialog}  in the Office Add-in UX Design Patterns repository on GitHub.
+        * 
+        * **displayDialogAsync Errors**:
+        * 
+        * <table>
+        *   <tr>
+        *     <th>Code number</th>
+        *     <th>Meaning</th>
+        *   </tr>
+        *   <tr>
+        *     <td>12004</td>
+        *     <td>The domain of the URL passed to displayDialogAsync is not trusted. The domain must be either the same domain as the host page (including protocol and port number), or it must be registered in the <AppDomains> section of the add-in manifest.</td>
+        *   </tr>
+        *   <tr>
+        *     <td>12005</td>
+        *     <td>The URL passed to displayDialogAsync uses the HTTP protocol. HTTPS is required. (In some versions of Office, the error message returned with 12005 is the same one returned for 12004.)</td>
+        *   </tr>
+        *   <tr>
+        *     <td>12007</td>
+        *     <td>A dialog box is already opened from the task pane. A task pane add-in can only have one dialog box open at a time.</td>
+        *   </tr>
+        * </table>
+        * 
+        * **Examples**:
+        * For a simple example that uses the `displayDialogAsync` method, see {@link https://github.com/OfficeDev/Office-Add-in-Dialog-API-Simple-Example/ | Office Add-in Dialog API example} on GitHub.
+        * 
+        * For examples that show authentication scenarios, see:
+        * 
+        *  - {@link https://github.com/OfficeDev/PowerPoint-Add-in-Microsoft-Graph-ASPNET-InsertChart | PowerPoint Add-in in Microsoft Graph ASP.Net Insert Chart}
+        * 
+        *  - {@link https://github.com/OfficeDev/Office-Add-in-Auth0 | Office Add-in Auth0}
+        * 
+        *  - {@link https://github.com/OfficeDev/Excel-Add-in-ASPNET-QuickBooks | Excel Add-in ASP.NET QuickBooks}
+        * 
+        *  - {@link https://github.com/dougperkes/Office-Add-in-AspNetMvc-ServerAuth/tree/Office2016DisplayDialog | Office Add-in Server Authentication Sample for ASP.net MVC}
+        * 
+        *  - {@link https://github.com/OfficeDev/Word-Add-in-AngularJS-Client-OAuth | Office Add-in Office 365 Client Authentication for AngularJS}
         *
         * @param startAddress - Accepts the initial HTTPS URL that opens in the dialog.
-        * @param options - Optional. Accepts a DialogOptions object to define dialog display.
+        * @param options - Optional. Accepts an {@link Office.DialogOptions} object to define dialog display.
         * @param callback - Optional. Accepts a callback method to handle the dialog creation attempt. If successful, the AsyncResult.value is a DialogHandler object.
+        * 
+        * <table>
+        *   <tr>
+        *     <th>Property</th>
+        *     <th>Use to</th>
+        *   </tr>
+        *   <tr>
+        *     <td>AsyncResult.value</td>
+        *     <td>Access the Dialog object.</td>
+        *   </tr>
+        *   <tr>
+        *     <td>AsyncResult.status</td>
+        *     <td>Determine the success or failure of the operation.</td>
+        *   </tr>
+        *   <tr>
+        *     <td>AsyncResult.error</td>
+        *     <td>Access an Error object that provides error information if the operation failed.<td>
+        *   </tr>
+        *   <tr>
+        *     <td>AsyncResult.asyncContext</td>
+        *     <td>Access your user-defined object or value, if you passed one as the asyncContext parameter.</td>
+        *   </tr>
+        * </table>
         */
         displayDialogAsync(startAddress: string, options?: DialogOptions, callback?: (result: AsyncResult) => void): void;
         /**
-         * Delivers a message from the dialog box to its parent/opener page. The page calling this API must be on the same domain as the parent.
+         * Delivers a message from the dialog box to its parent/opener page. The page calling this API must be on the same domain as the parent. You can use the properties of the AsyncResult object to return the following information.
          * @param messageObject Accepts a message from the dialog to deliver to the add-in.
          */
         messageParent(messageObject: any): void;
@@ -1487,9 +1552,87 @@ declare namespace Office {
          * Writes data to the bound section of the document represented by the specified binding object.
          *
          * @remarks
+         * 
          * Hosts: Access, Excel, Word
          *
          * Available in Requirement sets: MatrixBindings, TableBindings, TextBindings
+         * 
+         * The value passed for data contains the data to be written in the binding. The kind of value passed determines what will be written as described in the following table.
+         * 
+         * <table>
+         *   <tr>
+         *     <th>`data` value</th>
+         *     <th>Data written</th>
+         *   </tr>
+         *   <tr>
+         *     <td>A string</td>
+         *     <td>Plain text or anything that can be coerced to a string will be written.</td>
+         *   </tr>
+         *   <tr>
+         *     <td>An array of arrays ("matrix")</td>
+         *     <td>Tabular data without headers will be written. For example, to write data to three rows in two columns, you can pass an array like this: `[["R1C1", "R1C2"], ["R2C1", "R2C2"], ["R3C1", "R3C2"]]`. To write a single column of three rows, pass an array like this: `[["R1C1"], ["R2C1"], ["R3C1"]]`.</td>
+         *   </tr>
+         *    <tr>
+         *     <td>An {@link Office.TableData} object</td>
+         *     <td>A table with headers will be written.</td>
+         *   </tr>
+         * <table>
+         * 
+         * Additionally, these application-specific actions apply when writing data to a binding. For Word, the specified data is written to the binding as follows:
+         * 
+         * <table>
+         *   <tr>
+         *     <th>`data` value</th>
+         *     <th>Data written</th>
+         *   </tr>
+         *   <tr>
+         *     <td>A string</td>
+         *     <td>The specified text is written.</td>
+         *   </tr>
+         *   <tr>
+         *     <td>An array of arrays ("matrix") or an {@link Office.TableData} object</td>
+         *     <td>A Word table is written.</td>
+         *   </tr>
+         *   <tr>
+         *     <td>HTML</td>
+         *     <td>The specified HTML is written. If any of the HTML you write is invalid, Word will not raise an error. Word will write as much of the HTML as it can and will omit any invalid data.</td>
+         *   </tr>
+         *   <tr>
+         *     <td>Office Open XML ("Open XML")</td>
+         *     <td>The specified the XML is written.</td>
+         *   </tr>
+         * <table>
+         * 
+         * For Excel, the specified data is written to the binding as follows:
+         * 
+         * <table>
+         *   <tr>
+         *     <th>`data` value</th>
+         *     <th>Data written</th>
+         *   </tr>
+         *   <tr>
+         *     <td>A string</td>
+         *     <td>The specified text is inserted as the value of the first bound cell.You can also specify a valid formula to add that formula to the bound cell. For example, setting  data to `"=SUM(A1:A5)"` will total the values in the specified range. However, when you set a formula on the bound cell, after doing so, you can't read the added formula (or any pre-existing formula) from the bound cell. If you call the Binding.getDataAsync method on the bound cell to read its data, the method can return only the data displayed in the cell (the formula's result).</td>
+         *   </tr>
+         *   <tr>
+         *     <td>An array of arrays ("matrix"), and the shape exactly matches the shape of the binding specified</td>
+         *     <td>The set of rows and columns are written.You can also specify an array of arrays that contain valid formulas to add them to the bound cells. For example, setting  data to `[["=SUM(A1:A5)","=AVERAGE(A1:A5)"]]` will add those two formulas to a binding that contains two cells. Just as when setting a formula on a single bound cell, you can't read the added formulas (or any pre-existing formulas) from the binding with the `Binding.getDataAsync` method - it returns only the data displayed in the bound cells.</td>
+         *   </tr>
+         *   <tr>
+         *     <td>An {@link Office.TableData} object, and the shape of the table matches the bound table.</td>
+         *     <td>The specified set of rows and/or headers are written, if no other data in surrounding cells will be overwritten. Note: If you specify formulas in the TableData object you pass for the *data* parameter, you might not get the results you expect due to the "calculated columns" feature of Excel, which automatically duplicates formulas within a column. To work around this when you want to write *data* that contains formulas to a bound table, try specifying the data as an array of arrays (instead of a TableData object), and specify the *coercionType* as Microsoft.Office.Matrix or "matrix".</td>
+         *   </tr>
+         * <table>
+         * 
+         * For Excel Online:
+         * 
+         *  - The total number of cells in the value passed to the data parameter can't exceed 20,000 in a single call to this method.
+         * 
+         *  - The number of formatting groups passed to the cellFormat parameter can't exceed 100. A single formatting group consists of a set of formatting applied to a specified range of cells.
+         * 
+         * In all other cases, an error is returned.
+         * 
+         * The setDataAsync method will write data in a subset of a table or matrix binding if the optional startRow and startColumn parameters are specified, and they specify a valid range.
          *
          * @param data The data to be set in the current selection. Possible data types by host:
          *
@@ -1505,7 +1648,30 @@ declare namespace Office {
          *
          * @param options Provides options for how to set the data in a binding.
          *
-         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult. You can use the properties of the AsyncResult object to return the following information.
+         * 
+         * <table>
+         *   <tr>
+         *     <th>Property</th>
+         *     <th>Use to...</th>
+         *   </tr>
+         *   <tr>
+         *     <td>AsyncResult.value</td>
+         *     <td>Always returns undefined because there is no object or data to retrieve.</td>
+         *   </tr>
+         *   <tr>
+         *     <td>AsyncResult.status</td>
+         *     <td>Determine the success or failure of the operation.</td>
+         *   </tr>
+         *   <tr>
+         *     <td>AsyncResult.error</td>
+         *     <td>Access an Error object that provides error information if the operation failed.</td>
+         *   </tr>
+         *   <tr>
+         *     <td>AsyncResult.asyncContext</td>
+         *     <td>A user-defined item of any type that is returned in the AsyncResult object without being altered.</td>
+         *   </tr>
+         * </table>
          */
         setDataAsync(data: TableData | any, options?: SetBindingDataOptions, callback?: (result: AsyncResult) => void): void;
     }
@@ -2389,9 +2555,13 @@ declare namespace Office {
          * 
          * @remarks
          * 
-         * No more than two documents are allowed to be in memory; otherwise the Document.getFileAsync operation will fail. Use the File.closeAsync method to close the file when you are finished working with it.
+         * Hosts: PowerPoint, Word
          * 
-         * In the callback function passed to the closeAsync method, you can use the properties of the AsyncResult object to return the following information.
+         * Available in Requirement set: File
+         * 
+         * No more than two documents are allowed to be in memory; otherwise the Document.getFileAsync operation will fail. Use the File.closeAsync method to close the file when you are finished working with it.
+         *
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult. When the function you passed to the callback parameter executes, it receives an AsyncResult object that you can access from the callback function's only parameter to return the following information.
          * 
          * <table>
          *   <tr>
@@ -2415,11 +2585,6 @@ declare namespace Office {
          *     <td>A user-defined item of any type that is returned in the AsyncResult object without being altered.</td>
          *   </tr>
          * </table>
-         *
-         * Hosts: PowerPoint, Word
-         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult. When the function you passed to the callback parameter executes, it receives an AsyncResult object that you can access from the callback function's only parameter.
-         *
-         * Available in Requirement set: File
          */
         closeAsync(callback?: (result: AsyncResult) => void): void;
         /**
@@ -2428,6 +2593,10 @@ declare namespace Office {
          * @remarks
          * 
          * In the callback function passed to the getSliceAsync method, you can use the properties of the AsyncResult object to return the following information.
+         * 
+         * Hosts: PowerPoint, Word
+         * @param sliceIndex Specifies the zero-based index of the slice to be retrieved. Required.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult. When the function you passed to the callback parameter executes, it receives an AsyncResult object that you can access from the callback function's only parameter to return the following information.
          * 
          * <table>
          *   <tr>
@@ -2451,10 +2620,6 @@ declare namespace Office {
          *     <td>A user-defined item of any type that is returned in the AsyncResult object without being altered.</td>
          *   </tr>
          * </table>
-         * 
-         * Hosts: PowerPoint, Word
-         * @param sliceIndex Specifies the zero-based index of the slice to be retrieved. Required.
-         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult. When the function you passed to the callback parameter executes, it receives an AsyncResult object that you can access from the callback function's only parameter.
          *
          * Available in Requirement set: File
          */
@@ -2518,8 +2683,15 @@ declare namespace Office {
          *
          * @remarks
          * You can add multiple event handlers for the specified eventType as long as the name of each event handler function is unique.
-         * 
-         * In the callback function passed to the addHandlerAsync method, you can use the properties of the AsyncResult object to return the following information.
+         *
+         * Hosts: Excel
+         *
+         * Available in Requirement set: Settings
+         *
+         * @param eventType Specifies the type of event to add. Required.
+         * @param handler The event handler function to add. Required.
+         * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult. When the function you passed to the callback parameter executes, it receives an AsyncResult object that you can access from the callback function's only parameter to return the following information.
          * 
          * <table>
          *   <tr>
@@ -2543,15 +2715,6 @@ declare namespace Office {
          *     <td>A user-defined item of any type that is returned in the AsyncResult object without being altered.</td>
          *   </tr>
          * </table>
-         *
-         * Hosts: Excel
-         *
-         * Available in Requirement set: Settings
-         *
-         * @param eventType Specifies the type of event to add. Required.
-         * @param handler The event handler function to add. Required.
-         * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
-         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult. When the function you passed to the callback parameter executes, it receives an AsyncResult object that you can access from the callback function's only parameter.
          */
         addHandlerAsync(eventType: EventType, handler: any, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
@@ -2576,6 +2739,12 @@ declare namespace Office {
          *
          * In the callback function passed to the refreshAsync method, you can use the properties of the AsyncResult object to return the following information.
          * 
+         * Hosts: Access, Excel, PowerPoint, Word
+         *
+         * Available in Requirement set: Settings
+         *
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult. When the function you passed to the callback parameter executes, it receives an AsyncResult object that you can access from the callback function's only parameter to return the following information.
+         * 
          * <table>
          *   <tr>
          *     <th>Property</th>
@@ -2598,13 +2767,6 @@ declare namespace Office {
          *     <td>A user-defined item of any type that is returned in the AsyncResult object without being altered.</td>
          *   </tr>
          * </table>
-         * 
-         * Hosts: Access, Excel, PowerPoint, Word
-         *
-         * Available in Requirement set: Settings
-         *
-         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult. When the function you passed to the callback parameter executes, it receives an AsyncResult object that you can access from the callback function's only parameter.
-
          */
         refreshAsync(callback?: (result: AsyncResult) => void): void;
         /**
@@ -2647,7 +2809,9 @@ declare namespace Office {
          *
          * Note: The saveAsync method persists the in-memory settings property bag into the document file; however, the changes to the document file itself are saved only when the user (or AutoRecover setting) saves the document to the file system. The refreshAsync method is only useful in coauthoring scenarios (which are only supported in Word) when other instances of the same add-in might change the settings and those changes should be made available to all instances.
          * 
-         * In the callback function passed to the saveAsync method, you can use the properties of the AsyncResult object to return the following information.
+         * Hosts: Access, Excel, PowerPoint, Word
+         * @param options Provides options for saving settings.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult. When the function you passed to the callback parameter executes, it receives an AsyncResult object that you can access from the callback function's only parameter to return the following information.
          * 
          * <table>
          *   <tr>
@@ -2671,10 +2835,6 @@ declare namespace Office {
          *     <td>A user-defined item of any type that is returned in the AsyncResult object without being altered.</td>
          *   </tr>
          * </table>
-         *
-         * Hosts: Access, Excel, PowerPoint, Word
-         * @param options Provides options for saving settings.
-         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult. When the function you passed to the callback parameter executes, it receives an AsyncResult object that you can access from the callback function's only parameter.
          */
         saveAsync(options?: SaveSettingsOptions, callback?: (result: AsyncResult) => void): void;
         /**
@@ -2897,10 +3057,35 @@ declare namespace Office {
          * Hosts: Excel
          *
          * Available in Requirement set: Not in a set
+         * 
+         * 
          *
          * @param tableOptions An object literal containing a list of property name-value pairs that define the table options to apply.
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
-         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult. You can use the properties of the AsyncResult object to return the following information.
+         * 
+         * <table>
+         *   <tr>
+         *     <th>Property</th>
+         *     <th>Use to...</th>
+         *   </tr>
+         *   <tr>
+         *     <td>AsyncResult.value</td>
+         *     <td>Always returns undefined because there is no data or object to retrieve when setting formats.</td>
+         *   </tr>
+         *   <tr>
+         *     <td>AsyncResult.status</td>
+         *     <td>Determine the success or failure of the operation.</td>
+         *   </tr>
+         *   <tr>
+         *     <td>AsyncResult.error</td>
+         *     <td>Access an Error object that provides error information if the operation failed.</td>
+         *   </tr>
+         *   <tr>
+         *     <td>AsyncResult.asyncContext</td>
+         *     <td>A user-defined item of any type that is returned in the AsyncResult object without being altered.</td>
+         *   </tr>
+         * </table>
          */
         setTableOptionsAsync(tableOptions: any, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
     }
@@ -13559,10 +13744,42 @@ declare namespace OfficeExtension {
 }
 
 declare namespace OfficeExtension {
+    /**
+     * Represents an object that can be passed to the load method to specify the set of properties and relations to be loaded upon execution of sync() method that synchronizes the states between Office objects and corresponding JavaScript proxy objects.
+     * This takes in options such as select and expand parameters to specify a set of properties to be loaded on the object and also allows pagination on the collection.
+     * 
+     * @remarks
+     * 
+     * For Word, the preferred method for specifying the properties and paging information is by using a string literal. The first two examples show the preferred way to request the text and font size properties for paragraphs in a paragraph collection:
+     * 
+     * `context.load(paragraphs, 'text, font/size');`
+     * 
+     * `paragraphs.load('text, font/size');`
+     * 
+     * Here is a similar example using object notation (includes paging):
+     * 
+     * `context.load(paragraphs, {select: 'text, font/size', expand: 'font', top: 50, skip: 0});`
+     * 
+     * `paragraphs.load({select: 'text, font/size', expand: 'font', top: 50, skip: 0});`
+     * 
+     * Note that if we don't specify the specific properties on the font object in the select statement, the expand statement by itself would indicate that all of the font properties are loaded.
+     */
     interface LoadOption {
+        /**
+         * Contains a comma delimited list or an array of parameter/relationship names. Optional.
+         */
         select?: string | string[];
+        /**
+         * Contains a comma delimited list or an array of relationship names. Optional.
+         */
         expand?: string | string[];
+        /**
+         * Specifies the maximum number of collection items that can be included in the result. Optional. You can only use this option when you use the object notation option.
+         */
         top?: number;
+        /**
+         * Specify the number of items in the collection that are to be skipped and not included in the result. If top is specified, the result set will start after skipping the specified number of items. Optional. You can only use this option when you use the object notation option.
+         */
         skip?: number;
     }
     interface UpdateOptions {
