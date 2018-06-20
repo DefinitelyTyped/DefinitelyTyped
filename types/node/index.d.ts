@@ -5765,38 +5765,52 @@ declare module "crypto" {
         digest(): Buffer;
         digest(encoding: HexBase64Latin1Encoding): string;
     }
-    export type CipherAADTypes = 'aes-128-ccm' | 'aes-192-ccm' | 'aes-256-ccm' | 'aes-128-gcm' | 'aes-192-gcm' | 'aes-256-gcm'
-    export type CipherAADOptions extends stream.TransformOptions {
+    export type CipherCCMTypes = 'aes-128-ccm' | 'aes-192-ccm' | 'aes-256-ccm'
+    export type CipherGCMTypes = 'aes-128-gcm' | 'aes-192-gcm' | 'aes-256-gcm'
+    export type CipherCCMOptions extends stream.TransformOptions {
         authTagLength: number;
+    }
+    export type CipherGCMOptions extends stream.TransformOptions {
+        authTagLength?: number;
     }
     /** @deprecated since v10.0.0 use createCipheriv() */
     export function createCipher(algorithm: string, password: string | ArrayBufferView, options?: stream.TransformOptions): Cipher;
-    export function createCipher(algorithm: CipherAADTypes, password: string | ArrayBufferView, options: CipherAADOptions): CipherAAD;
+    export function createCipher(algorithm: CipherCCMTypes, password: string | ArrayBufferView, options: CipherCCMOptions): CipherCCM;
+    export function createCipher(algorithm: CipherGCMTypes, password: string | ArrayBufferView, options: CipherGCMOptions): CipherGCM;
 
     export function createCipheriv(algorithm: string, key: string | ArrayBufferView, iv: string | ArrayBufferView, options?: stream.TransformOptions): Cipher;
-    export function createCipheriv(algorithm: CipherAADTypes, key: string | ArrayBufferView, iv: string | ArrayBufferView, options: CipherAADOptions): CipherAAD;
+    export function createCipheriv(algorithm: CipherGCMTypes, key: string | ArrayBufferView, iv: string | ArrayBufferView, options: CipherCCMOptions): CipherCCM;
+    export function createCipheriv(algorithm: CipherGCMTypes, key: string | ArrayBufferView, iv: string | ArrayBufferView, options: CipherGCMOptions): CipherGCM;
 
     export interface Cipher extends NodeJS.ReadWriteStream {
         update(data: string | ArrayBufferView): Buffer;
         update(data: string, input_encoding: Utf8AsciiBinaryEncoding): Buffer;
-        update(data: ArrayBufferView, input_encoding?: any, output_encoding: HexBase64BinaryEncoding): string;
-        // second arg is ignored
+        update(data: ArrayBufferView, output_encoding: HexBase64BinaryEncoding): string;
+        update(data: ArrayBufferView, input_encoding: any, output_encoding: HexBase64BinaryEncoding): string;
+        // second arg ignored
         update(data: string, input_encoding: Utf8AsciiBinaryEncoding, output_encoding: HexBase64BinaryEncoding): string;
         final(): Buffer;
         final(output_encoding: string): string;
         setAutoPadding(auto_padding?: boolean): this;
-        getAuthTag(): Buffer;
-        setAAD(buffer: Buffer): this; // docs only say buffer
+        // getAuthTag(): Buffer;
+        // setAAD(buffer: Buffer): this; // docs only say buffer
     }
-    export interface CipherAAD extends Cipher {
-        setAAD(buffer: Buffer, { plainTextLength: number }): this
+    export interface CipherCCM extends Cipher {
+        setAAD(buffer: Buffer, options: { plainTextLength: number }): this
+        getAuthTag(): Buffer;
+    }
+    export interface CipherGCM extends Cipher {
+        setAAD(buffer: Buffer, options?: { plainTextLength: number }): this
+        getAuthTag(): Buffer;
     }
     /** @deprecated since v10.0.0 use createCipheriv() */
     export function createDecipher(algorithm: string, password: string | ArrayBufferView, options?: stream.TransformOptions): Decipher;
-    export function createDecipher(algorithm: CipherAADTypes, password: string | ArrayBufferView, options: CipherAADOptions): DecipherAAD;
+    export function createDecipher(algorithm: CipherCCMTypes, password: string | ArrayBufferView, options: CipherCCMOptions): DecipherCCM;
+    export function createDecipher(algorithm: CipherGCMTypes, password: string | ArrayBufferView, options: CipherGCMOptions): DecipherGCM;
 
     export function createDecipheriv(algorithm: string, key: string | ArrayBufferView, iv: string | ArrayBufferView, options?: stream.TransformOptions): Decipher;
-    export function createDecipheriv(algorithm: CipherAADTypes, key: string | ArrayBufferView, iv: string | ArrayBufferView, options: CipherAADOptions): DecipherAAD;
+    export function createDecipheriv(algorithm: CipherCCMTypes, key: string | ArrayBufferView, iv: string | ArrayBufferView, options: CipherCCMOptions): DecipherCCM;
+    export function createDecipheriv(algorithm: CipherGCMTypes, key: string | ArrayBufferView, iv: string | ArrayBufferView, options: CipherGCMOptions): DecipherGCM;
 
     export interface Decipher extends NodeJS.ReadWriteStream {
         update(data: ArrayBufferView): Buffer;
@@ -5807,11 +5821,16 @@ declare module "crypto" {
         final(): Buffer;
         final(output_encoding: string): string;
         setAutoPadding(auto_padding?: boolean): this;
-        setAuthTag(tag: ArrayBufferView): this;
+        // setAuthTag(tag: ArrayBufferView): this;
+        // setAAD(buffer: ArrayBufferView): this; // docs say buffer view
+    }
+    export interface DecipherCCM extends Decipher {
+        setAuthTag(buffer: ArrayBufferView, options: { plainTextLength: number }): this
         setAAD(buffer: ArrayBufferView): this; // docs say buffer view
     }
-    export interface DecipherAAD extends Decipher {
-        setAuthTag(buffer: ArrayBufferView, { plainTextLength: number }): this
+    export interface DecipherGCM extends Decipher {
+        setAuthTag(buffer: ArrayBufferView, options?: { plainTextLength: number }): this
+        setAAD(buffer: ArrayBufferView): this; // docs say buffer view
     }
 
     export function createSign(algorithm: string, options?: stream.WritableOptions): Signer;
