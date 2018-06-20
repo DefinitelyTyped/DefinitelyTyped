@@ -394,7 +394,7 @@ declare var Buffer: {
      * Creates a new Buffer using the passed {data}
      * @param data data to create a new Buffer
      */
-    of(values: ...number[]): Buffer;
+    of(...values: number[]): Buffer;
     /**
      * Returns true if {obj} is a Buffer
      *
