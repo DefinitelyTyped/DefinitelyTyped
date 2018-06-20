@@ -1172,7 +1172,7 @@ namespace crypto_tests {
         let arr3: Uint8ClampedArray = Uint8ClampedArray.of(1, 2, 3, 4, 5, ~0, ~1, ~2, ~3, ~4);
 
         assert(crypto.timingSafeEqual(arr1, arr2)); // binary same
-        assert(!crypto.timingSafeEqual(arr1, arr3));// binary differ
+        assert(!crypto.timingSafeEqual(arr1, arr3)); // binary differ
     }
 
     {
@@ -1185,7 +1185,6 @@ namespace crypto_tests {
         // assert(crypto.timingSafeEqual(arr1, arr2)); // binary same
         // assert(crypto.timingSafeEqual(arr1, arr3)); // binary same
     }
-
 
     {
         // crypto_timingsafeequal_unsafe_arraybufferiew_variant_test
@@ -1200,10 +1199,10 @@ namespace crypto_tests {
 
     {
         // crypto_timingsafeequal_dataview_test
-        let dv1B: Uint8Array = Uint8Array.of(1, 2, 3, 4, 5)
-        let dv2B: Int8Array = Int8Array.of(1, 2, 3, 4, 5)
-        let dv3B: Buffer = Buffer.of(5, 4, 3, 2, 1)
-        let dv4B: Uint8ClampedArray = Uint8ClampedArray.of(5, 4, 3, 2, 1)
+        let dv1B: Uint8Array = Uint8Array.of(1, 2, 3, 4, 5);
+        let dv2B: Int8Array = Int8Array.of(1, 2, 3, 4, 5);
+        let dv3B: Buffer = Buffer.of(5, 4, 3, 2, 1);
+        let dv4B: Uint8ClampedArray = Uint8ClampedArray.of(5, 4, 3, 2, 1);
         let dv1: DataView = new DataView(dv1B.buffer, dv1B.byteOffset, dv1B.byteLength);
         let dv2: DataView = new DataView(dv2B.buffer, dv2B.byteOffset, dv2B.byteLength);
         let dv3: DataView = new DataView(dv3B.buffer, dv3B.byteOffset, dv3B.byteLength);
@@ -1242,24 +1241,24 @@ namespace crypto_tests {
         crypto.randomFill(buffer, 2, 3, (err: Error, buf: ArrayBufferView) => void {});
 
         // crypto_randomfill_uint8array_test
-        let arr: Uint8Array = new Uint8Array(10);
-        crypto.randomFillSync(arr);
-        crypto.randomFillSync(arr, 2);
-        crypto.randomFillSync(arr, 2, 3);
+        let ui8arr: Uint8Array = new Uint8Array(10);
+        crypto.randomFillSync(ui8arr);
+        crypto.randomFillSync(ui8arr, 2);
+        crypto.randomFillSync(ui8arr, 2, 3);
 
-        crypto.randomFill(arr, (err: Error, buf: ArrayBufferView) => void {});
-        crypto.randomFill(arr, 2, (err: Error, buf: ArrayBufferView) => void {});
-        crypto.randomFill(arr, 2, 3, (err: Error, buf: ArrayBufferView) => void {});
+        crypto.randomFill(ui8arr, (err: Error, buf: ArrayBufferView) => void {});
+        crypto.randomFill(ui8arr, 2, (err: Error, buf: ArrayBufferView) => void {});
+        crypto.randomFill(ui8arr, 2, 3, (err: Error, buf: ArrayBufferView) => void {});
 
         // crypto_randomfill_int32array_test
-        let arr: Int32Array = new Int32Array(10);
-        crypto.randomFillSync(arr);
-        crypto.randomFillSync(arr, 2);
-        crypto.randomFillSync(arr, 2, 3);
+        let i32arr: Int32Array = new Int32Array(10);
+        crypto.randomFillSync(i32arr);
+        crypto.randomFillSync(i32arr, 2);
+        crypto.randomFillSync(i32arr, 2, 3);
 
-        crypto.randomFill(arr, (err: Error, buf: ArrayBufferView) => void {});
-        crypto.randomFill(arr, 2, (err: Error, buf: ArrayBufferView) => void {});
-        crypto.randomFill(arr, 2, 3, (err: Error, buf: ArrayBufferView) => void {});
+        crypto.randomFill(i32arr, (err: Error, buf: ArrayBufferView) => void {});
+        crypto.randomFill(i32arr, 2, (err: Error, buf: ArrayBufferView) => void {});
+        crypto.randomFill(i32arr, 2, 3, (err: Error, buf: ArrayBufferView) => void {});
     }
 
     {
