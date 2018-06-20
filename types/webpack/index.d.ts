@@ -72,7 +72,8 @@ declare namespace webpack {
          *   - "async-node" Compile for usage in a node.js-like environment (use fs and vm to load chunks async).
          *   - "node-webkit" Compile for usage in webkit, uses jsonp chunk loading but also supports builtin node.js modules plus require(“nw.gui”) (experimental)
          *   - "atom" Compile for usage in electron (formerly known as atom-shell), supports require for modules necessary to run Electron.
-         *   - "electron-renderer" Compile for Electron for renderer process, providing a target using JsonpTemplatePlugin, FunctionModulePlugin for browser environments and NodeTargetPlugin and ExternalsPlugin for CommonJS and Electron built-in modules.
+         *   - "electron-renderer" Compile for Electron for renderer process, providing a target using JsonpTemplatePlugin, FunctionModulePlugin for browser
+         *      environments and NodeTargetPlugin and ExternalsPlugin for CommonJS and Electron built-in modules.
          *   - "electron-main" Compile for Electron for main process.
          *   - "atom" Alias for electron-main.
          *   - "electron" Alias for electron-main.
@@ -1093,6 +1094,8 @@ declare namespace webpack {
             | 'verbose';
 
         interface ToJsonOptionsObject {
+            /** fallback value for stats options when an option is not defined (has precedence over local webpack defaults) */
+            all?: boolean;
             /** Add asset Information */
             assets?: boolean;
             /** Sort assets by a field */
