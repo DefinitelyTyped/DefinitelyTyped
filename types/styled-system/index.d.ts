@@ -7,15 +7,15 @@
 //                 Eloy Durán      <https://github.com/alloy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// TypeScript Version: 2.1
+// TypeScript Version: 2.2
 
 /**
  * Core
  */
 
-type GlobalStyleValues = "inherit" | "initial" | "unset";
+export type GlobalStyleValues = "inherit" | "initial" | "unset";
 
-interface BaseTheme {
+export interface BaseTheme {
     breakpoints?: number[];
     space?: number[];
     fontSizes?: number[];
@@ -28,12 +28,12 @@ interface BaseTheme {
  * Space
  */
 
-type ResponsiveValue<T> = T | Array<T | null>;
+export type ResponsiveValue<T> = T | Array<T | null>;
 
-type SpaceValue = number | string;
-type ResponsiveSpaceValue = ResponsiveValue<SpaceValue>;
+export type SpaceValue = number | string;
+export type ResponsiveSpaceValue = ResponsiveValue<SpaceValue>;
 
-interface SpaceProps {
+export interface SpaceProps {
     m?: ResponsiveSpaceValue;
     mt?: ResponsiveSpaceValue;
     mr?: ResponsiveSpaceValue;
@@ -50,84 +50,88 @@ interface SpaceProps {
     py?: ResponsiveSpaceValue;
 }
 
-declare function space(...args: any[]): any;
+export function space(...args: any[]): any;
 
 /**
  * Width
  */
 
-type WidthValue = number | string;
-type ResponsiveWidthValue = ResponsiveValue<WidthValue>;
+export type WidthValue = number | string;
+export type ResponsiveWidthValue = ResponsiveValue<WidthValue>;
 
-interface WidthProps {
+export interface WidthProps {
     width?: ResponsiveWidthValue;
 }
 
-interface MinWidthProps {
+export interface MinWidthProps {
     minWidth?: ResponsiveWidthValue;
 }
 
-interface MaxWidthProps {
+export interface MaxWidthProps {
     maxWidth?: ResponsiveWidthValue;
 }
 
-declare function width(...args: any[]): any;
-declare function minWidth(...args: any[]): any;
-declare function maxWidth(...args: any[]): any;
+export function width(...args: any[]): any;
+export function minWidth(...args: any[]): any;
+export function maxWidth(...args: any[]): any;
 
 /**
  * Height
  */
 
-type HeightValue = number | string;
-type ResponsiveHeightValue = ResponsiveValue<HeightValue>;
+export type HeightValue = number | string;
+export type ResponsiveHeightValue = ResponsiveValue<HeightValue>;
 
-interface HeightProps {
+export interface HeightProps {
     height?: ResponsiveHeightValue;
 }
 
-interface MinHeightProps {
+export interface MinHeightProps {
     minHeight?: ResponsiveHeightValue;
 }
 
-interface MaxHeightProps {
+export interface MaxHeightProps {
     maxHeight?: ResponsiveHeightValue;
 }
 
-declare function height(...args: any[]): any;
-declare function minHeight(...args: any[]): any;
-declare function maxHeight(...args: any[]): any;
+export function height(...args: any[]): any;
+export function minHeight(...args: any[]): any;
+export function maxHeight(...args: any[]): any;
 
 /**
  * Font Size
  */
 
-type FontSizeValue = number | string;
-type ResponsiveFontSizeValue = ResponsiveValue<FontSizeValue>;
+export type FontSizeValue = number | string;
+export type ResponsiveFontSizeValue = ResponsiveValue<FontSizeValue>;
 
-interface FontSizeProps {
+export interface FontSizeProps {
     fontSize?: ResponsiveFontSizeValue;
 }
 
-declare function fontSize(...args: any[]): any;
+export function fontSize(...args: any[]): any;
 
 /**
  * Color
  */
-type ColorValue = string;
-type ResponsiveColorValue = ResponsiveValue<ColorValue>;
+export type ColorValue = string;
+export type ResponsiveColorValue = ResponsiveValue<ColorValue>;
 
-declare function color(...args: any[]): any;
+export interface ColorProps {
+    color?: ResponsiveColorValue;
+}
+
+export function color(...args: any[]): any;
 
 /**
  * Typography
  */
-interface FontFamilyProps {
+export interface FontFamilyProps {
     fontFamily?: string;
 }
-declare function fontFamily(...args: any[]): any;
+export function fontFamily(...args: any[]): any;
 
-type TextAlignValue =
+export type TextAlignValue =
     | "left"
     | "right"
     | "center"
@@ -136,22 +140,22 @@ type TextAlignValue =
     | "start"
     | "end"
     | "match-parent";
-type ResponsiveTextAlignValue = ResponsiveValue<TextAlignValue>;
+export type ResponsiveTextAlignValue = ResponsiveValue<TextAlignValue>;
 
-interface TextAlignProps {
-    align?: ResponsiveTextAlignValue;
+export interface TextAlignProps {
+    textAlign?: ResponsiveTextAlignValue;
 }
 
-declare function textAlign(...args: any[]): any;
+export function textAlign(...args: any[]): any;
 
-type LineHeightValue = number | string;
-type ResponsiveLineHeightValue = ResponsiveValue<LineHeightValue>;
-interface LineHeightProps {
+export type LineHeightValue = number | string;
+export type ResponsiveLineHeightValue = ResponsiveValue<LineHeightValue>;
+export interface LineHeightProps {
     lineHeight?: ResponsiveLineHeightValue;
 }
-declare function lineHeight(...args: any[]): any;
+export function lineHeight(...args: any[]): any;
 
-type FontWeightValue =
+export type FontWeightValue =
     | GlobalStyleValues
     | "normal"
     | "bold"
@@ -159,56 +163,56 @@ type FontWeightValue =
     | "bolder"
     | number;
 
-interface FontWeightProps {
+export interface FontWeightProps {
     fontWeight?: FontWeightValue;
 }
 
-declare function fontWeight(...args: any[]): any;
+export function fontWeight(...args: any[]): any;
 
-type LetterSpacingValue = number | string;
-type ResponsiveLetterSpacingValue = ResponsiveValue<LetterSpacingValue>;
-interface LetterSpacingProps {
+export type LetterSpacingValue = number | string;
+export type ResponsiveLetterSpacingValue = ResponsiveValue<LetterSpacingValue>;
+export interface LetterSpacingProps {
     letterSpacing?: ResponsiveLetterSpacingValue;
 }
-declare function letterSpacing(...args: any[]): any;
+export function letterSpacing(...args: any[]): any;
 
 /**
  * Layout
  */
 
-type DisplayValue =
+export type DisplayValue =
     | "inline"
     | "block"
     | "contents"
     | "flex"
     | "grid"
     | "inline-block";
-
-interface DisplayProps {
-    display?: DisplayValue;
+export type ResponsiveDisplayValue = ResponsiveValue<DisplayValue>;
+export interface DisplayProps {
+    display?: ResponsiveDisplayValue;
 }
 
-declare function display(...args: any[]): any;
+export function display(...args: any[]): any;
 
-interface SizeProps {
+export interface SizeProps {
     size?: ResponsiveWidthValue | ResponsiveHeightValue;
 }
 
-declare function size(...args: any[]): any;
+export function size(...args: any[]): any;
 
-type RatioValue = SpaceValue;
+export type RatioValue = SpaceValue;
 
-interface RatioProps {
+export interface RatioProps {
     ratio?: RatioValue;
 }
 
-declare function ratio(...args: any[]): any;
+export function ratio(...args: any[]): any;
 
 /**
  * Flexbox
  */
 
-type AlignItemsValue =
+export type AlignItemsValue =
     | "normal"
     | "stretch"
     | "center"
@@ -225,16 +229,16 @@ type AlignItemsValue =
     | "last baseline"
     | "safe center"
     | "unsafe center";
-type ResponsiveAlignItemsValue = ResponsiveValue<AlignItemsValue>;
+export type ResponsiveAlignItemsValue = ResponsiveValue<AlignItemsValue>;
 
-interface AlignItemsProps {
+export interface AlignItemsProps {
     align?: ResponsiveAlignItemsValue;
     alignItems?: ResponsiveAlignItemsValue;
 }
 
-declare function alignItems(...args: any[]): any;
+export function alignItems(...args: any[]): any;
 
-type JustifyContentValue =
+export type JustifyContentValue =
     | "center"
     | "start"
     | "end"
@@ -251,48 +255,50 @@ type JustifyContentValue =
     | "stretch"
     | "safe center"
     | "unsafe center";
-type ResponsiveJustifyContentValue = ResponsiveValue<JustifyContentValue>;
+export type ResponsiveJustifyContentValue = ResponsiveValue<
+    JustifyContentValue
+>;
 
-interface JustifyContentProps {
+export interface JustifyContentProps {
     justify?: ResponsiveJustifyContentValue;
     justifyContent?: ResponsiveJustifyContentValue;
 }
 
-declare function justifyContent(...args: any[]): any;
+export function justifyContent(...args: any[]): any;
 
-type FlexWrapValue = true | "nowrap" | "wrap" | "wrap-reverse";
+export type FlexWrapValue = true | "nowrap" | "wrap" | "wrap-reverse";
 
-interface FlexWrapProps {
-    wrap?: FlexWrapValue;
+export interface FlexWrapProps {
+    flexWrap?: FlexWrapValue;
 }
 
-declare function flexWrap(...args: any[]): any;
+export function flexWrap(...args: any[]): any;
 
-type FlexDirectionValue =
+export type FlexDirectionValue =
     | GlobalStyleValues
     | "row"
     | "row-reverse"
     | "column"
     | "column-reverse";
 
-type ResponsiveFlexDirectionValue = ResponsiveValue<FlexDirectionValue>;
+export type ResponsiveFlexDirectionValue = ResponsiveValue<FlexDirectionValue>;
 
-interface FlexDirectionProps {
+export interface FlexDirectionProps {
     flexDirection?: ResponsiveFlexDirectionValue;
 }
 
-declare function flexDirection(...args: any[]): any;
+export function flexDirection(...args: any[]): any;
 
-type FlexValue = number | string;
-type ResponsiveFlexValue = ResponsiveValue<FlexValue>;
+export type FlexValue = number | string;
+export type ResponsiveFlexValue = ResponsiveValue<FlexValue>;
 
-interface FlexProps {
+export interface FlexProps {
     flex?: ResponsiveFlexValue;
 }
 
-declare function flex(...args: any[]): any;
+export function flex(...args: any[]): any;
 
-type AlignContentValue =
+export type AlignContentValue =
     | GlobalStyleValues
     | "center"
     | "start"
@@ -309,15 +315,15 @@ type AlignContentValue =
     | "stretch"
     | "safe center"
     | "unsafe center";
-type ResponsiveAlignContentValue = ResponsiveValue<AlignContentValue>;
+export type ResponsiveAlignContentValue = ResponsiveValue<AlignContentValue>;
 
-interface AlignContentProps {
+export interface AlignContentProps {
     alignContent?: ResponsiveAlignItemsValue;
 }
 
-declare function alignContent(...args: any[]): any;
+export function alignContent(...args: any[]): any;
 
-type JustifySelfValue =
+export type JustifySelfValue =
     | GlobalStyleValues
     | "auto"
     | "normal"
@@ -337,15 +343,15 @@ type JustifySelfValue =
     | "safe center"
     | "unsafe center";
 
-type ResponsiveJustifySelfValue = ResponsiveValue<JustifySelfValue>;
+export type ResponsiveJustifySelfValue = ResponsiveValue<JustifySelfValue>;
 
-interface JustifySelfProps {
+export interface JustifySelfProps {
     justifySelf?: ResponsiveJustifySelfValue;
 }
 
-declare function justifySelf(...args: any[]): any;
+export function justifySelf(...args: any[]): any;
 
-type AlignSelfValue =
+export type AlignSelfValue =
     | "auto"
     | "normal"
     | "center"
@@ -363,24 +369,24 @@ type AlignSelfValue =
     | "stretch"
     | "safe center"
     | "unsafe center";
-type ResponsiveAlignSelfValue = ResponsiveValue<AlignSelfValue>;
+export type ResponsiveAlignSelfValue = ResponsiveValue<AlignSelfValue>;
 
-interface AlignSelfProps {
+export interface AlignSelfProps {
     alignSelf?: ResponsiveAlignSelfValue;
 }
 
-declare function alignSelf(...args: any[]): any;
+export function alignSelf(...args: any[]): any;
 
-type OrderValue = GlobalStyleValues | number;
-type ResponsiveOrderValue = ResponsiveValue<OrderValue>;
+export type OrderValue = GlobalStyleValues | number;
+export type ResponsiveOrderValue = ResponsiveValue<OrderValue>;
 
-interface OrderProps {
+export interface OrderProps {
     order?: ResponsiveOrderValue;
 }
 
-declare function order(...args: any[]): any;
+export function order(...args: any[]): any;
 
-type FlexBasisValue =
+export type FlexBasisValue =
     | GlobalStyleValues
     | "auto"
     | "fill"
@@ -389,7 +395,7 @@ type FlexBasisValue =
     | "fit-content"
     | "content";
 
-interface FlexBasisProps {
+export interface FlexBasisProps {
     // TODO: The FlexBasisValue currently really only exists for documentation
     //       purposes, because flex-basis also accepts `Nem` and `Npx` strings.
     //       Not sure there’s a way to still have the union values show up as
@@ -397,7 +403,7 @@ interface FlexBasisProps {
     flexBasis?: FlexBasisValue | string;
 }
 
-declare function flexBasis(...args: any[]): any;
+export function flexBasis(...args: any[]): any;
 
 /**
  * Grid Layout
@@ -409,166 +415,180 @@ declare function flexBasis(...args: any[]): any;
  * Background
  */
 
-type BackgroundValue = string;
-interface BackgroundProps {
+export type BackgroundValue = string;
+export interface BackgroundProps {
     background?: BackgroundValue;
+    bg?: BackgroundValue;
 }
 
-declare function background(...args: any[]): any;
+export function background(...args: any[]): any;
 
-type BackgroundImageValue = string;
-interface BackgroundImageProps {
+export type BackgroundImageValue = string;
+export interface BackgroundImageProps {
     /**
      * Value will be wrapped in url()
      */
     backgroundImage?: BackgroundImageValue;
 }
 
-declare function backgroundImage(...args: any[]): any;
+export function backgroundImage(...args: any[]): any;
 
-type BackgroundSizeValue = string;
-interface BackgroundSizeProps {
-    backgroundImage?: BackgroundSizeValue;
+export type BackgroundSizeValue = string;
+export interface BackgroundSizeProps {
+    backgroundSize?: BackgroundSizeValue;
 }
 
-declare function backgroundSize(...args: any[]): any;
+export function backgroundSize(...args: any[]): any;
 
-type BackgroundPositionValue = string;
-interface BackgroundPositionProps {
-    backgroundImage?: BackgroundPositionValue;
+export type BackgroundPositionValue = string;
+export interface BackgroundPositionProps {
+    backgroundPosition?: BackgroundPositionValue;
 }
 
-declare function backgroundPosition(...args: any[]): any;
+export function backgroundPosition(...args: any[]): any;
 
-type BackgroundRepeatValue = string;
-interface BackgroundRepeatProps {
-    backgroundImage?: BackgroundRepeatValue;
+export type BackgroundRepeatValue = string;
+export interface BackgroundRepeatProps {
+    backgroundRepeat?: BackgroundRepeatValue;
 }
 
-declare function backgroundRepeat(...args: any[]): any;
+export function backgroundRepeat(...args: any[]): any;
 
 /**
  * Misc
  */
 
-type BorderRadiusValue = string | number;
-interface BorderRadiusProps {
+export type BorderRadiusValue = string | number;
+export interface BorderRadiusProps {
     borderRadius?: BorderRadiusValue;
 }
-declare function borderRadius(...args: any[]): any;
+export function borderRadius(...args: any[]): any;
 
-type BorderColorValue = string;
-interface BorderColorProps {
+export type BorderColorValue = string;
+export interface BorderColorProps {
     borderColor?: BorderColorValue;
 }
-declare function borderColor(...args: any[]): any;
+export function borderColor(...args: any[]): any;
 
-type BorderValue = string | number;
-type ResponsiveBorderValue = ResponsiveValue<BorderValue>;
-interface BorderProps {
+export type BorderValue = string | number;
+export type ResponsiveBorderValue = ResponsiveValue<BorderValue>;
+export interface BorderProps {
     border?: ResponsiveBorderValue;
     borderTop?: ResponsiveBorderValue;
     borderRight?: ResponsiveBorderValue;
     borderBottom?: ResponsiveBorderValue;
     borderLeft?: ResponsiveBorderValue;
 }
-declare function borders(...args: any[]): any;
+export function borders(...args: any[]): any;
 
-type BoxShadowValue = string;
-interface BoxShadowProps {
+export type BoxShadowValue = string | number;
+export interface BoxShadowProps {
     boxShadow?: BoxShadowValue;
 }
-declare function boxShadow(...arg: any[]): any;
+export function boxShadow(...arg: any[]): any;
 
 /**
  * Position
  */
 
-type PositionValue = "static" | "relative" | "absolute" | "sticky" | "fixed";
-type ResponsivePositionValue = ResponsiveValue<PositionValue>;
-interface PositionProps {
+export type PositionValue =
+    | "static"
+    | "relative"
+    | "absolute"
+    | "sticky"
+    | "fixed";
+export type ResponsivePositionValue = ResponsiveValue<PositionValue>;
+export interface PositionProps {
     position?: ResponsivePositionValue;
 }
-declare function position(...args: any[]): any;
+export function position(...args: any[]): any;
 
-type TopValue = string | number;
-type ResponsiveTopValue = ResponsiveValue<TopValue>;
-interface TopProps {
+export type ZIndexValue = GlobalStyleValues | "auto" | number;
+
+export interface ZIndexProps {
+    zIndex?: ZIndexValue;
+}
+export function zIndex(...args: any[]): any;
+
+export type TopValue = string | number;
+export type ResponsiveTopValue = ResponsiveValue<TopValue>;
+export interface TopProps {
     top?: ResponsiveTopValue;
 }
-declare function top(...args: any[]): any;
+export function top(...args: any[]): any;
 
-type RightValue = string | number;
-type ResponsiveRightValue = ResponsiveValue<RightValue>;
-interface RightProps {
+export type RightValue = string | number;
+export type ResponsiveRightValue = ResponsiveValue<RightValue>;
+export interface RightProps {
     right?: ResponsiveRightValue;
 }
-declare function right(...args: any[]): any;
+export function right(...args: any[]): any;
 
-type BottomValue = string | number;
-type ResponsiveBottomValue = ResponsiveValue<BottomValue>;
-interface BottomProps {
+export type BottomValue = string | number;
+export type ResponsiveBottomValue = ResponsiveValue<BottomValue>;
+export interface BottomProps {
     bottom?: ResponsiveBottomValue;
 }
-declare function bottom(...args: any[]): any;
+export function bottom(...args: any[]): any;
 
-type LeftValue = string | number;
-type ResponsiveLeftValue = ResponsiveValue<LeftValue>;
-interface LeftProps {
+export type LeftValue = string | number;
+export type ResponsiveLeftValue = ResponsiveValue<LeftValue>;
+export interface LeftProps {
     left?: ResponsiveLeftValue;
 }
-declare function left(...args: any[]): any;
+export function left(...args: any[]): any;
 
 /**
  * Pseudo-classes
  */
 
-interface PseudoStyleValue {
-    color?: string;
-    backgroundColor?: string;
-    borderColor?: string;
-    boxShadow?: number;
+export interface PseudoStyleValue {
+    color?: ColorValue;
+    backgroundColor?: ColorValue;
+    borderColor?: BorderColorValue;
+    boxShadow?: BoxShadowValue;
+    textDecoration?: string;
 }
-type HoverValue = PseudoStyleValue;
-interface HoverProps {
+export type HoverValue = PseudoStyleValue;
+export interface HoverProps {
     hover?: HoverValue;
 }
-declare function hover(...args: any[]): any;
+export function hover(...args: any[]): any;
 
-type FocusValue = PseudoStyleValue;
-interface FocusProps {
+export type FocusValue = PseudoStyleValue;
+export interface FocusProps {
     focus?: FocusValue;
 }
-declare function focus(...args: any[]): any;
+export function focus(...args: any[]): any;
 
-type ActiveValue = PseudoStyleValue;
-interface ActiveProps {
+export type ActiveValue = PseudoStyleValue;
+export interface ActiveProps {
     active?: ActiveValue;
 }
-declare function active(...args: any[]): any;
+export function active(...args: any[]): any;
 
-type DisabledValue = PseudoStyleValue;
-interface DisabledProps {
+export type DisabledValue = PseudoStyleValue;
+export interface DisabledProps {
     disabledStyle?: DisabledValue;
 }
-declare function disabled(...args: any[]): any;
+export function disabled(...args: any[]): any;
 
 /**
  * Utilities
  */
 
-declare function theme(keys: string): any;
-declare function themeGet(keys: string): any;
+export function theme(keys: string): any;
+export function themeGet(keys: string, fallback?: string): any;
 
-declare function cleanElement(component: any): any;
+export function cleanElement(component: any): any;
 
-declare function removeProps(props: any): any;
+export function removeProps(props: any): any;
 
 /**
- * Low-level style declare functions
+ * Low-level style export functions
  */
 
-interface LowLevelStylefunctionArguments {
+export interface LowLevelStylefunctionArguments {
     prop: string;
     cssProperty?: string;
     key?: string;
@@ -577,8 +597,8 @@ interface LowLevelStylefunctionArguments {
     getter?: () => any;
 }
 
-declare function style(args: LowLevelStylefunctionArguments): any;
+export function style(args: LowLevelStylefunctionArguments): any;
 
-declare function responsiveStyle(args: LowLevelStylefunctionArguments): any;
+export function responsiveStyle(args: LowLevelStylefunctionArguments): any;
 
-declare function pseudoStyle(args: LowLevelStylefunctionArguments): any;
+export function pseudoStyle(args: LowLevelStylefunctionArguments): any;

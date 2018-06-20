@@ -2,6 +2,7 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": ["es6"],
+        "jsx": "react",
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
@@ -12,5 +13,5 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "styled-system-tests.ts"]
+    "files": ["index.d.ts", "styled-system-tests.tsx"]
 }
