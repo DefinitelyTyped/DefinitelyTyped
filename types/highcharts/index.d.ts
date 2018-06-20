@@ -2662,6 +2662,12 @@ declare namespace Highcharts {
          */
         shortMonths?: string[];
         /**
+         * Short week days, starting Sunday. If not specified, Highcharts uses the first three letters of the lang.weekdays option.
+         * @default undefined
+         * @since 4.2.4
+         */
+        shortWeekdays?: string[];
+        /**
          * The default thousands separator used in the Highcharts.numberFormat method unless otherwise specified in the
          * function arguments. Since Highcharts 4.1 it defaults to a single space character, which is compatible with ISO
          * and works across Anglo-American and continental European languages.
