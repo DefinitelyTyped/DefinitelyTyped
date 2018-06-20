@@ -5878,14 +5878,17 @@ declare module "crypto" {
     export function getDiffieHellman(group_name: string): DiffieHellman;
     export function pbkdf2(password: string | ArrayBufferView, salt: string | ArrayBufferView, iterations: number, keylen: number, digest: string, callback: (err: Error | null, derivedKey: Buffer) => any): void;
     export function pbkdf2Sync(password: string | ArrayBufferView, salt: string | ArrayBufferView, iterations: number, keylen: number, digest: string): Buffer;
+
     export function randomBytes(size: number): Buffer;
     export function randomBytes(size: number, callback: (err: Error | null, buf: Buffer) => void): void;
     export function pseudoRandomBytes(size: number): Buffer;
     export function pseudoRandomBytes(size: number, callback: (err: Error | null, buf: Buffer) => void): void;
+
     export function randomFillSync(buffer: ArrayBufferView, offset?: number, size?: number): ArrayBufferView;
     export function randomFill(buffer: ArrayBufferView, callback: (err: Error | null, buf: ArrayBufferView) => void): void;
     export function randomFill(buffer: ArrayBufferView, offset: number, callback: (err: Error | null, buf: ArrayBufferView) => void): void;
     export function randomFill(buffer: ArrayBufferView, offset: number, size: number, callback: (err: Error | null, buf: ArrayBufferView) => void): void;
+
     export interface RsaPublicKey {
         key: string;
         padding?: number;
@@ -5903,7 +5906,7 @@ declare module "crypto" {
     export function getCurves(): string[];
     export function getHashes(): string[];
     export class ECDH {
-        static convertKey(key: string | ArrayBufferView, curve: string, inputEncoding?: "latin1" | "hex" | "base64", outputEncoding?: "latin1" | "hex" | "base64", format?: "uncompressed" | "compressed" | "hybrid"): Buffer | string;
+        static convertKey(key: string | ArrayBufferView, curve: string, inputEncoding?: HexBase64Latin1Encoding, outputEncoding?: "latin1" | "hex" | "base64", format?: "uncompressed" | "compressed" | "hybrid"): Buffer | string;
         generateKeys(): Buffer;
         generateKeys(encoding: HexBase64Latin1Encoding, format?: ECDHKeyFormat): string;
         computeSecret(other_public_key: ArrayBufferView): Buffer;

@@ -489,3 +489,28 @@ const CustomHeaderStack = createStackNavigator({
         }
     }
 });
+
+interface ScreenProps {
+    name: string;
+    onPlay(): void;
+}
+
+class SetParamsTest extends React.Component<NavigationScreenProps<ScreenProps>> {
+    componentDidMount() {
+        this.props.navigation.setParams({
+            onPlay: this.onPlay
+        });
+    }
+
+    onPlay = () => {
+        //
+    }
+
+    render() {
+        const name = this.props.navigation.getParam('name');
+
+        return (
+            <Text>My name is {name}</Text>
+        );
+    }
+}

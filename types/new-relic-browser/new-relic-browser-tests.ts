@@ -1,3 +1,5 @@
+import newrelic = require("new-relic-browser");
+
 // The following tests are largely taken straight from the examples at https://docs.newrelic.com/docs/browser/new-relic-browser/browser-agent-spa-api
 
 // --- NewRelic.Browser methods ----------------------------------------------
