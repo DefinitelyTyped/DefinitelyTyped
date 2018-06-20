@@ -17,3 +17,4 @@ declare namespace diff {
 }
 
 export = diff;
+export as namespace diff;
