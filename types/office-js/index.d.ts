@@ -656,21 +656,6 @@ declare namespace Office {
         *     <td>A dialog box is already opened from the task pane. A task pane add-in can only have one dialog box open at a time.</td>
         *   </tr>
         * </table>
-        * 
-        * **Examples**:
-        * For a simple example that uses the `displayDialogAsync` method, see {@link https://github.com/OfficeDev/Office-Add-in-Dialog-API-Simple-Example/ | Office Add-in Dialog API example} on GitHub.
-        * 
-        * For examples that show authentication scenarios, see:
-        * 
-        *  - {@link https://github.com/OfficeDev/PowerPoint-Add-in-Microsoft-Graph-ASPNET-InsertChart | PowerPoint Add-in in Microsoft Graph ASP.Net Insert Chart}
-        * 
-        *  - {@link https://github.com/OfficeDev/Office-Add-in-Auth0 | Office Add-in Auth0}
-        * 
-        *  - {@link https://github.com/OfficeDev/Excel-Add-in-ASPNET-QuickBooks | Excel Add-in ASP.NET QuickBooks}
-        * 
-        *  - {@link https://github.com/dougperkes/Office-Add-in-AspNetMvc-ServerAuth/tree/Office2016DisplayDialog | Office Add-in Server Authentication Sample for ASP.net MVC}
-        * 
-        *  - {@link https://github.com/OfficeDev/Word-Add-in-AngularJS-Client-OAuth | Office Add-in Office 365 Client Authentication for AngularJS}
         *
         * @param startAddress - Accepts the initial HTTPS URL that opens in the dialog.
         * @param options - Optional. Accepts an {@link Office.DialogOptions} object to define dialog display.
@@ -2377,7 +2362,7 @@ declare namespace Office {
          *
          * @param coercionType The type of data structure to return.
          * 
-         * The possible values for the coercionType parameter vary by the host:
+         * The possible values for the {@link Office.CoercionType} parameter vary by the host:
          *
          * - Excel, Excel Online, PowerPoint, PowerPoint Online, Word, and Word Online only: `Office.CoercionType.Text` (string)
          *
