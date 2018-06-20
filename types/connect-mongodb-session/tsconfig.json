@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "lib": [
+            "es6"
+        ],
+        "module": "commonjs",
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [
+            
+        ]
+    },
+    "exclude": [
+        "node_modules"
+    ]
+}
