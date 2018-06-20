@@ -243,7 +243,5 @@ declare class MustacheWriter {
  * Provides the functionality to render templates with `{{mustaches}}`.
  */
 declare var Mustache: MustacheStatic;
-
-declare module "mustache" {
-    export = Mustache;
-}
+export = Mustache;
+export as namespace Mustache;
