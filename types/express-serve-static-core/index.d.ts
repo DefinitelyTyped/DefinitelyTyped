@@ -6,7 +6,7 @@
 //                 Satana Charuwichitratana <https://github.com/micksatana>
 //                 Sami Jaber <https://github.com/samijaber>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 // This extracts the core definitions from express to prevent a circular dependency between express and serve-static
 /// <reference types="node" />
@@ -179,7 +179,7 @@ export interface RequestRanges extends RangeParserRanges { }
 
 export type Errback = (err: Error) => void;
 
-export interface Request extends http.IncomingMessage, Express.Request {
+export interface Request<B=any, P=any, Q=any> extends http.IncomingMessage, Express.Request {
     /**
      * Return request header.
      *
@@ -424,19 +424,19 @@ export interface Request extends http.IncomingMessage, Express.Request {
     xhr: boolean;
 
     //body: { username: string; password: string; remember: boolean; title: string; };
-    body: any;
+    body: B;
 
     //cookies: { string; remember: boolean; };
     cookies: any;
 
     method: string;
 
-    params: any;
+    params: P;
 
     /** Clear cookie `name`. */
     clearCookie(name: string, options?: any): Response;
 
-    query: any;
+    query: Q;
 
     route: any;
 
@@ -465,9 +465,9 @@ export interface MediaType {
     subtype: string;
 }
 
-export type Send = (body?: any) => Response;
+export type Send<T> = (body?: T) => Response;
 
-export interface Response extends http.ServerResponse, Express.Response {
+export interface Response<T=any> extends http.ServerResponse, Express.Response {
     /**
      * Set status `code`.
      */
@@ -509,7 +509,7 @@ export interface Response extends http.ServerResponse, Express.Response {
      *     res.send(404, 'Sorry, cant find that');
      *     res.send(404);
      */
-    send: Send;
+    send: Send<T>;
 
     /**
      * Send JSON response.
@@ -521,7 +521,7 @@ export interface Response extends http.ServerResponse, Express.Response {
      *     res.json(500, 'oh noes!');
      *     res.json(404, 'I dont have that');
      */
-    json: Send;
+    json: Send<T>;
 
     /**
      * Send JSON response with JSONP callback support.
@@ -533,7 +533,7 @@ export interface Response extends http.ServerResponse, Express.Response {
      *     res.jsonp(500, 'oh noes!');
      *     res.jsonp(404, 'I dont have that');
      */
-    jsonp: Send;
+    jsonp: Send<T>;
 
     /**
      * Transfer the file at the given `path`.
