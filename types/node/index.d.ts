@@ -5822,7 +5822,7 @@ declare module "crypto" {
     export interface Decipher extends NodeJS.ReadWriteStream {
         update(data: ArrayBufferView): Buffer;
         update(data: string, input_encoding: HexBase64BinaryEncoding): Buffer;
-        update(data: ArrayBufferView, input_encoding?: any, output_encoding: Utf8AsciiBinaryEncoding): string;
+        update(data: ArrayBufferView, input_encoding: any, output_encoding: Utf8AsciiBinaryEncoding): string;
         // second arg is ignored
         update(data: string, input_encoding: HexBase64BinaryEncoding, output_encoding: Utf8AsciiBinaryEncoding): string;
         final(): Buffer;
