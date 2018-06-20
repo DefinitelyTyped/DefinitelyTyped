@@ -2,6 +2,7 @@
 // Project: https://github.com/jaredhanson/passport-github
 // Definitions by: Yasunori Ohoka <https://github.com/yasupeke>
 //                 Maarten Mulders <https://github.com/mthmulders>
+//                 Christoph Werner <https://github.com/codepunkt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -12,7 +13,7 @@ export interface Profile extends passport.Profile {
     profileUrl: string;
 }
 
-export interface StrategyOption {
+export interface StrategyOption extends passport.AuthenticateOptions {
     clientID: string;
     clientSecret: string;
     callbackURL: string;
@@ -28,8 +29,27 @@ export interface StrategyOption {
     userProfileURL?: string;
 }
 
+export type CompletionCallback = (error: any, user?: any) => void;
+
+export type DefaultVerificationCallback = (
+  accessToken: string,
+  refreshToken: string,
+  profile: Profile,
+  done: CompletionCallback
+) => void;
+
+export type ExtendedVerificationCallback = (
+  request: express.Request,
+  accessToken: string,
+  refreshToken: string,
+  profile: Profile,
+  done: CompletionCallback
+) => void;
+
+export type VerificationCallback = DefaultVerificationCallback | ExtendedVerificationCallback;
+
 export class Strategy extends passport.Strategy {
-    constructor(options: StrategyOption, verify: (accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any) => void) => void);
+    constructor(options: StrategyOption, verify: VerificationCallback);
     userProfile: (accessToken: string, done?: (error: any, profile: Profile) => void) => void;
 
     name: string;
