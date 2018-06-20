@@ -46,7 +46,8 @@ passport.use(new github.Strategy(
     {
         callbackURL,
         clientID,
-        clientSecret
+        clientSecret,
+        passReqToCallback: true
     },
     (request: express.Request, accessToken: string, refreshToken: string, profile: github.Profile, done: (error: any, user?: any) => void) => {
         User.findOrCreate(profile.id, profile.provider, (err, user) => {

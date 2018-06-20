@@ -1,12 +1,13 @@
-// Type definitions for passport-github 1.1
+// Type definitions for passport-github2 1.2
 // Project: https://github.com/jaredhanson/passport-github
 // Definitions by: Yasunori Ohoka <https://github.com/yasupeke>
 //                 Maarten Mulders <https://github.com/mthmulders>
 //                 Christoph Werner <https://github.com/codepunkt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import passport = require('passport');
+import oauth2 = require('passport-oauth2');
 import express = require('express');
 
 export interface Profile extends passport.Profile {
@@ -29,28 +30,38 @@ export interface StrategyOption extends passport.AuthenticateOptions {
     userProfileURL?: string;
 }
 
-export type CompletionCallback = (error: any, user?: any) => void;
+export type OAuth2StrategyOptionsWithoutRequiredURLs = Pick<
+    oauth2._StrategyOptionsBase,
+    Exclude<keyof oauth2._StrategyOptionsBase , 'authorizationURL' | 'tokenURL'>
+>;
 
-export type DefaultVerificationCallback = (
-  accessToken: string,
-  refreshToken: string,
-  profile: Profile,
-  done: CompletionCallback
-) => void;
+export interface _StrategyOptionsBase extends OAuth2StrategyOptionsWithoutRequiredURLs {
+    clientID: string;
+    clientSecret: string;
+    callbackURL: string;
 
-export type ExtendedVerificationCallback = (
-  request: express.Request,
-  accessToken: string,
-  refreshToken: string,
-  profile: Profile,
-  done: CompletionCallback
-) => void;
+    scope?: string[];
+    userAgent?: string;
+    state?: boolean;
 
-export type VerificationCallback = DefaultVerificationCallback | ExtendedVerificationCallback;
+    authorizationURL?: string;
+    tokenURL?: string;
+    scopeSeparator?: string;
+    customHeaders?: string;
+    userProfileURL?: string;
+}
 
-export class Strategy extends passport.Strategy {
-    constructor(options: StrategyOption, verify: VerificationCallback);
-    userProfile: (accessToken: string, done?: (error: any, profile: Profile) => void) => void;
+export interface StrategyOptions extends _StrategyOptionsBase {
+    passReqToCallback?: false;
+}
+export interface StrategyOptionsWithRequest extends _StrategyOptionsBase {
+    passReqToCallback: true;
+}
+
+export class Strategy extends oauth2.Strategy {
+    constructor(options: StrategyOptions, verify: oauth2.VerifyFunction);
+    constructor(options: StrategyOptionsWithRequest, verify: oauth2.VerifyFunctionWithRequest);
+    userProfile(accessToken: string, done: (err?: Error | null, profile?: any) => void): void;
 
     name: string;
     authenticate(req: express.Request, options?: passport.AuthenticateOptions): void;
