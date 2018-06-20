@@ -61,22 +61,22 @@ declare namespace webpack {
         /** Like resolve but for loaders. */
         resolveLoader?: ResolveLoader;
         /**
-         *  Specify dependencies that shouldn’t be resolved by webpack, but should become dependencies of the resulting bundle.
-         *  The kind of the dependency depends on output.libraryTarget.
+         * Specify dependencies that shouldn’t be resolved by webpack, but should become dependencies of the resulting bundle.
+         * The kind of the dependency depends on output.libraryTarget.
          */
         externals?: ExternalsElement | ExternalsElement[];
         /**
-         *   - "web" Compile for usage in a browser-like environment (default).
-         *   - "webworker" Compile as WebWorker.
-         *   - "node" Compile for usage in a node.js-like environment (use require to load chunks).
-         *   - "async-node" Compile for usage in a node.js-like environment (use fs and vm to load chunks async).
-         *   - "node-webkit" Compile for usage in webkit, uses jsonp chunk loading but also supports builtin node.js modules plus require(“nw.gui”) (experimental)
-         *   - "atom" Compile for usage in electron (formerly known as atom-shell), supports require for modules necessary to run Electron.
-         *   - "electron-renderer" Compile for Electron for renderer process, providing a target using JsonpTemplatePlugin, FunctionModulePlugin for browser
-         *      environments and NodeTargetPlugin and ExternalsPlugin for CommonJS and Electron built-in modules.
-         *   - "electron-main" Compile for Electron for main process.
-         *   - "atom" Alias for electron-main.
-         *   - "electron" Alias for electron-main.
+         * - "web" Compile for usage in a browser-like environment (default).
+         * - "webworker" Compile as WebWorker.
+         * - "node" Compile for usage in a node.js-like environment (use require to load chunks).
+         * - "async-node" Compile for usage in a node.js-like environment (use fs and vm to load chunks async).
+         * - "node-webkit" Compile for usage in webkit, uses jsonp chunk loading but also supports builtin node.js modules plus require(“nw.gui”) (experimental)
+         * - "atom" Compile for usage in electron (formerly known as atom-shell), supports require for modules necessary to run Electron.
+         * - "electron-renderer" Compile for Electron for renderer process, providing a target using JsonpTemplatePlugin, FunctionModulePlugin for browser
+         *   environments and NodeTargetPlugin and ExternalsPlugin for CommonJS and Electron built-in modules.
+         * - "electron-main" Compile for Electron for main process.
+         * - "atom" Alias for electron-main.
+         * - "electron" Alias for electron-main.
          */
         target?: 'web' | 'webworker' | 'node' | 'async-node' | 'node-webkit' | 'atom' | 'electron' | 'electron-renderer' | 'electron-main' | ((compiler?: any) => void);
         /** Report the first error as a hard error instead of tolerating it. */
@@ -169,15 +169,15 @@ declare namespace webpack {
         library?: string | string[];
         /**
          * Which format to export the library:
-         *   - "var" - Export by setting a variable: var Library = xxx (default)
-         *   - "this" - Export by setting a property of this: this["Library"] = xxx
-         *   - "commonjs" - Export by setting a property of exports: exports["Library"] = xxx
-         *   - "commonjs2" - Export by setting module.exports: module.exports = xxx
-         *   - "amd" - Export to AMD (optionally named)
-         *   - "umd" - Export to AMD, CommonJS2 or as property in root
-         *   - "window" - Assign to window
-         *   - "assign" - Assign to a global variable
-         *   - "jsonp" - Generate Webpack JSONP module
+         * - "var" - Export by setting a variable: var Library = xxx (default)
+         * - "this" - Export by setting a property of this: this["Library"] = xxx
+         * - "commonjs" - Export by setting a property of exports: exports["Library"] = xxx
+         * - "commonjs2" - Export by setting module.exports: module.exports = xxx
+         * - "amd" - Export to AMD (optionally named)
+         * - "umd" - Export to AMD, CommonJS2 or as property in root
+         * - "window" - Assign to window
+         * - "assign" - Assign to a global variable
+         * - "jsonp" - Generate Webpack JSONP module
          */
         libraryTarget?: 'var' | 'this' | 'commonjs' | 'commonjs2' | 'amd' | 'umd' | 'window' | 'assign' | 'jsonp';
         /** Configure which module or modules will be exposed via the `libraryTarget` */
