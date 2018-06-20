@@ -8,13 +8,14 @@
 
 import session = require('express-session');
 import * as express from 'express';
-import {MongoClientOptions} from 'mongodb'
+import {MongoClient, MongoClientOptions} from 'mongodb'
 
 declare function connect(fn : (options?: session.SessionOptions) => express.RequestHandler) : connectMongodbSession.MongoDBStore
 
 declare namespace connectMongodbSession {
     export interface MongoDBStore extends session.Store {
-        new(connection?: ConnectionInfo, callback?: (error) => void)
+        client : MongoClient
+        new(connection?: ConnectionInfo, callback?: (error : Error) => void) : MongoDBStore
     }
 
     export interface ConnectionInfo {
