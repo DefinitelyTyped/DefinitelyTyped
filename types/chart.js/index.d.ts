@@ -518,6 +518,7 @@ declare namespace Chart {
         barThickness?: number;
         maxBarThickness?: number;
         scaleLabel?: ScaleTitleOptions;
+        time?: TimeScale;
         offset?: boolean;
         beforeUpdate?(scale?: any): void;
         beforeSetDimension?(scale?: any): void;
@@ -539,7 +540,6 @@ declare namespace Chart {
         categoryPercentage?: number;
         barPercentage?: number;
         distribution?: 'linear' | 'series';
-        time?: TimeScale;
     }
 
     // tslint:disable-next-line no-empty-interface
