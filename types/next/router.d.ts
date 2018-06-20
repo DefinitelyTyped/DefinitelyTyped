@@ -8,15 +8,11 @@ export interface EventChangeOptions {
     [key: string]: any;
 }
 
-export type RouterCallback = () => void;
-export interface SingletonRouter {
-    readyCallbacks: RouterCallback[];
-    ready(cb: RouterCallback): void;
+export type PopStateCallback = (state: any) => boolean | undefined;
 
-    // router properties
-    readonly components: {
-        [key: string]: { Component: React.ComponentType<any>; err: any };
-    };
+export type RouterCallback = () => void;
+export interface RouterProps {
+    // url property fields
     readonly pathname: string;
     readonly route: string;
     readonly asPath?: string;
@@ -30,32 +26,50 @@ export interface SingletonRouter {
             | string[];
     };
 
-    // router methods
-    reload(route: string): Promise<void>;
+    // property fields
+    readonly components: {
+        [key: string]: { Component: React.ComponentType<any>; err: any };
+    };
+
+    // core method fields
     back(): void;
+    beforePopState(cb: PopStateCallback): boolean;
+    prefetch(url: string): Promise<React.ComponentType<any>>;
     push(
         url: string | UrlLike,
         as?: string | UrlLike,
         options?: EventChangeOptions,
     ): Promise<boolean>;
+    reload(route: string): Promise<void>;
     replace(
         url: string | UrlLike,
         as?: string | UrlLike,
         options?: EventChangeOptions,
     ): Promise<boolean>;
-    prefetch(url: string): Promise<React.ComponentType<any>>;
 
-    // router events
+    // events
     onAppUpdated?(nextRoute: string): void;
-    onRouteChangeStart?(url: string): void;
     onBeforeHistoryChange?(as: string): void;
+    onHashChangeStart?(url: string): void;
+    onHashChangeComplete?(url: string): void;
     onRouteChangeComplete?(url: string): void;
     onRouteChangeError?(error: any, url: string): void;
+    onRouteChangeStart?(url: string): void;
+}
+
+export interface SingletonRouter extends RouterProps {
+    router: RouterProps | null;
+    readyCallbacks: RouterCallback[];
+    ready(cb: RouterCallback): void;
+}
+
+export interface WithRouterProps {
+    router: SingletonRouter;
 }
 
 export function withRouter<T extends {}>(
-    Component: React.ComponentType<T & { router: SingletonRouter }>,
+    Component: React.ComponentType<T & WithRouterProps>,
 ): React.ComponentType<T>;
 
-export const Singleton: SingletonRouter;
-export default Singleton;
+declare const Router: SingletonRouter;
+export default Router;

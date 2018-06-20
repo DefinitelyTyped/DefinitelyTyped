@@ -160,14 +160,20 @@ export class Gpio extends NodeJS.EventEmitter {
     disableInterrupt(): Gpio;
 
     /**
-     * Enables alerts for the GPIO.
+     * Enables alerts for the GPIO. Returns this.
      */
     enableAlert(): Gpio;
 
     /**
-     * Disables aterts for the GPIO.
+     * Disables aterts for the GPIO. Returns this.
      */
     disableAlert(): Gpio;
+
+    /**
+     * Sets a glitch filter on a GPIO. Returns this.
+     * @param steady    Time, in microseconds, during which the level must be stable. Maximum value: 300000
+     */
+    glitchFilter(steady: number): Gpio;
 
     /*----------------------*
      * mode
@@ -410,3 +416,11 @@ export function terminate(): void;
  * @param peripheral    an unsigned integer specifying the peripheral for timing (CLOCK_PWM or CLOCK_PCM)
  */
 export function configureClock(microseconds: number, peripheral: number): void;
+
+/**
+ * Configures pigpio to use the specified socket port.
+ * The default setting is to use port 8888.
+ * If configureSocketPort is called, it must be called before creating Gpio objects.
+ * @param port          an unsigned integer specifying the pigpio socket port number
+ */
+export function configureSocketPort(port: number): void;

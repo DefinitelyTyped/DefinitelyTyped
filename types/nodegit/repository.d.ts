@@ -136,7 +136,7 @@ export class Repository {
     /**
      * Instantiate a new revision walker for browsing the Repository"s history. See also Commit.prototype.history()
      */
-    createRevWalk(string: string | Oid): Revwalk;
+    createRevWalk(): Revwalk;
     /**
      * Retrieve the master branch commit.
      */
