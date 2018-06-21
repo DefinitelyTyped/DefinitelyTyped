@@ -1,20 +1,14 @@
 import { Observable } from 'rxjs';
 import httpRx = require('http-rx');
 
-httpRx.get('', {}).subscribe(() => {});
-httpRx.get('', {}).pipe();
+const httpGet: Observable<any> = httpRx.get('');
 
-httpRx.head('', {}).subscribe(() => {});
-httpRx.head('', {}).pipe();
+const httpHead: Observable<number> = httpRx.head('');
 
-httpRx.patch('', {}).subscribe(() => {});
-httpRx.patch('', {}).pipe();
+const httpPatch: Observable<string> = httpRx.patch('');
 
-httpRx.post('', {}).subscribe(() => {});
-httpRx.post('', {}).pipe();
+const httpPost: Observable<void> = httpRx.post('');
 
-httpRx.put('', {}).subscribe(() => {});
-httpRx.put('', {}).pipe();
+const httpPut: Observable<{}> = httpRx.put('');
 
-httpRx.delete('', {}).subscribe(() => {});
-httpRx.delete('', {}).pipe();
+const httpDelete: Observable<object> = httpRx.delete('');
