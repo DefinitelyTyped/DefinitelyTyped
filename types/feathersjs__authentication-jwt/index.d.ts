@@ -43,7 +43,7 @@ export interface FeathersAuthenticationJWTOptions {
     /**
      * A Verifier class. Defaults to the built-in one but can be a custom one. See below for details.
      */
-    Verifier: Verifier;
+    Verifier: typeof Verifier;
 }
 
 export class Verifier {
