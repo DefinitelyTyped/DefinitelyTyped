@@ -13,10 +13,12 @@
         "strictFunctionTypes": true,
         "typeRoots": [
             "../"
+        ],
+        "types": [
         ]
     },
     "files": [
-        "connect-mongodb-session-test.ts",
+        "connect-mongodb-session-tests.ts",
         "index.d.ts"
     ],
     "exclude": [
