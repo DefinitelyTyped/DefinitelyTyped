@@ -1,4 +1,4 @@
-// Type definitions for jquery-toast-plugin
+// Type definitions for jquery-toast-plugin 1.3
 // Project: https://github.com/kamranahmedse/jquery-toast-plugin
 // Definitions by: Viqas Hussain <https://github.com/viqashussain>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,8 +10,7 @@ interface JQueryStatic {
     toast(options: toastOptions): void;
 }
 
-interface toastOptions
-{
+interface toastOptions {
     text: string;
     heading?: string;
     showHideTransition?: string;

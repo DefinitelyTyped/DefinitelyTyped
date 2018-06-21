@@ -1,1 +1,1 @@
-$.toast({ text: "test" })
+$.toast({ text: "test" });
