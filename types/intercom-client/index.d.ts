@@ -32,7 +32,7 @@ export class Client {
 }
 
 export class ApiResponse<T> extends IncomingMessage {
-  body: T
+  body: T;
 }
 
 export type callback<T> = ((d: T) => void) | ((err: IntercomError, d: T) => void);
