@@ -1595,6 +1595,14 @@ declare namespace webpack {
             exec(code: string, filename: string): any;
 
             /**
+             * Resolves the given request to a module, applies all configured loaders and calls
+             * back with the generated source, the sourceMap and the module instance (usually an
+             * instance of NormalModule). Use this function if you need to know the source code
+             * of another module to generate the result.
+             */
+            loadModule(request: string, callback: (err: Error, source: string, sourceMap: RawSourceMap, module: Module) => void): any;
+
+            /**
              * Resolve a request like a require expression.
              */
             resolve(context: string, request: string, callback: (err: Error, result: string) => void): any;
