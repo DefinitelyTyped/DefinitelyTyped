@@ -8631,6 +8631,16 @@ declare namespace Office {
         getSelectedRegExMatches(): any;
     }
 
+    /**
+     * The AppointmentForm namespace is used to access the currently selected appointment.
+     *
+     * [Api set: Mailbox 1.0]
+     *
+     * @remarks
+     * {@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}: Restricted
+     *
+     * Applicable Outlook mode: Compose or read
+     */
     interface AppointmentForm {
         /**
          * Gets an object that provides methods for manipulating the body of an item.
