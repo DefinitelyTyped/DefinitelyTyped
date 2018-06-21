@@ -1,5 +1,7 @@
 
-export type CompanyIdentifier = {company_id: string }
+export interface CompanyIdentifier {
+    company_id: string
+}
 
 export interface Company {
     readonly "type": "company",
