@@ -1,7 +1,20 @@
 // Type definitions for match-sorter 2.2
 // Project: https://github.com/kentcdodds/match-sorter#readme
-// Definitions by: My Self <https://github.com/me>
+// Definitions by: Claas Ahlrichs <https://github.com/claasahl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+export interface Options {
+    keys: string[],
+}
+
+/**
+ * Takes an array of items and a value and returns a new array with the items that match the given value
+ * @param {Array} items - the items to sort
+ * @param {String} value - the value to use for ranking
+ * @param {Object} options - Some options to configure the sorter
+ * @return {Array} - the new sorted array
+ */
+export default function matchSorter<T>(items: T[], value: string, options?: Options): T[];
 
 /*~ If this module is a UMD module that exposes a global variable 'myLib' when
  *~ loaded outside a module loader environment, declare that global here.
