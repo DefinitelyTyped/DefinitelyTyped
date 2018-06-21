@@ -176,6 +176,7 @@ export class Quill implements EventEmitter {
     formatText(index: number, length: number, format: string, value: any, source?: Sources): DeltaStatic;
     formatText(index: number, length: number, formats: StringMap, source?: Sources): DeltaStatic;
     formatText(range: RangeStatic, format: string, value: any, source?: Sources): DeltaStatic;
+    formatText(range: RangeStatic, formats: StringMap, source?: Sources): DeltaStatic;
     getFormat(range?: RangeStatic): StringMap;
     getFormat(index: number, length?: number): StringMap;
     removeFormat(index: number, length: number, source?: Sources): DeltaStatic;
