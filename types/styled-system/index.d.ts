@@ -471,7 +471,12 @@ export function borderColor(...args: any[]): any;
 
 export type BorderValue = string | number;
 export type ResponsiveBorderValue = ResponsiveValue<BorderValue>;
+
 export interface BorderProps {
+    border?: ResponsiveBorderValue;
+}
+export function border(...args: any[]): any;
+export interface BordersProps {
     border?: ResponsiveBorderValue;
     borderTop?: ResponsiveBorderValue;
     borderRight?: ResponsiveBorderValue;
