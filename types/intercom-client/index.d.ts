@@ -31,9 +31,9 @@ export class Client {
     companies: Companies;
 }
 
-export type ApiResponse<T> = IncomingMessage & {
+export class ApiResponse<T> extends IncomingMessage {
   body: T
-};
+}
 
 export type callback<T> = ((d: T) => void) | ((err: IntercomError, d: T) => void);
 
