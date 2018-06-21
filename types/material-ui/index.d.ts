@@ -1145,12 +1145,8 @@ declare namespace __MaterialUI {
     }
 
     namespace List {
-        export interface ListProps extends PaperProps {
-            // <Paper/> is the element that get the 'other' properties
-            style?: React.CSSProperties;
-        }
-        export class List extends React.Component<ListProps> {
-        }
+        export interface ListProps extends React.HTMLAttributes<{}> {}
+        export class List extends React.Component<ListProps> {}
 
         export interface ListItemProps extends EnhancedButtonProps {
             // <EnhancedButton/> is the element that get the 'other' properties
