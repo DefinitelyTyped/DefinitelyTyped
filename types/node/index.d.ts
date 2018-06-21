@@ -378,12 +378,13 @@ declare var Buffer: {
      *
      * @param arrayBuffer The .buffer property of a TypedArray or a new ArrayBuffer()
      */
+    from(arrayBuffer: SharedArrayBuffer, byteOffset?: number, length?: number): Buffer;
     from(arrayBuffer: ArrayBuffer, byteOffset?: number, length?: number): Buffer;
     /**
      * Creates a new Buffer using the passed {data}
      * @param data data to create a new Buffer
      */
-    from(data: any[] | string | ArrayBuffer | Uint8Array /*| TypedArray*/): Buffer;
+    from(data: any[] | Uint8Array): Buffer;
     /**
      * Creates a new Buffer containing the given JavaScript string {str}.
      * If provided, the {encoding} parameter identifies the character encoding.
@@ -394,7 +395,7 @@ declare var Buffer: {
      * Creates a new Buffer using the passed {data}
      * @param values to create a new Buffer
      */
-    of(...values: number[]): Buffer;
+    of(...items: number[]): Buffer;
     /**
      * Returns true if {obj} is a Buffer
      *
