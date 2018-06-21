@@ -56,6 +56,9 @@ declare namespace signale {
         underlineLabel?: boolean;
         /** Underline the logger message. */
         underlineMessage?: boolean;
+        underlinePrefix?: boolean;
+        underlineSuffix?: boolean;
+        uppercaseLabel?: boolean;
     }
 
     interface SignaleOptions<TTypes extends string = DefaultMethods> {
