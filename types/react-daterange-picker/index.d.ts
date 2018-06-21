@@ -39,7 +39,7 @@ export interface Props<T = DateRangePicker> extends React.Props<T> {
     singleDateRange?: boolean;
     showLegend?: boolean;
     stateDefinitions?: StateDefinitions;
-    value?: momentRange.MomentRangeExtends | momentRange.DateRange;
+    value?: momentRange.MomentRangeExtends | momentRange.DateRange | moment.Moment;
 }
 
 export interface DateState {

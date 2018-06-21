@@ -4760,6 +4760,6 @@ declare namespace _ {
         zipObjectDeep: LodashZipObjectDeep;
         zipWith: LodashZipWith;
         __: lodash.__;
-        placehodler: lodash.__;
+        placeholder: lodash.__;
     }
 }

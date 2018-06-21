@@ -2846,7 +2846,7 @@ declare global {
 
     // #region Deprecations
 
-    /** @deprecated use `Mocha.DoneCallback` instead. */
+    /** @deprecated use `Mocha.Done` instead. */
     type MochaDone = Mocha.Done;
 
     /** @deprecated use `Mocha.ReporterConstructor` instead. */

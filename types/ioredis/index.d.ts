@@ -16,6 +16,7 @@
 /// <reference types="node" />
 
 import Promise = require('bluebird');
+import tls = require('tls');
 
 interface RedisStatic {
     new(port?: number, host?: string, options?: IORedis.RedisOptions): IORedis.Redis;
@@ -827,9 +828,7 @@ declare namespace IORedis {
          */
         autoResendUnfulfilledCommands?: boolean;
         lazyConnect?: boolean;
-        tls?: {
-            ca: Buffer;
-        };
+        tls?: tls.ConnectionOptions;
         sentinels?: Array<{ host: string; port: number; }>;
         name?: string;
         /**

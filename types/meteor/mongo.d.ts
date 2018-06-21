@@ -124,7 +124,7 @@ declare module Mongo {
     var Collection: CollectionStatic;
     interface CollectionStatic {
         new <T>(name: string, options?: {
-            connection?: Object;
+            connection?: Object | null;
             idGeneration?: string;
             transform?: Function;
         }): Collection<T>;
@@ -348,7 +348,7 @@ declare module "meteor/mongo" {
         var Collection: CollectionStatic;
         interface CollectionStatic {
             new <T>(name: string, options?: {
-                connection?: Object;
+                connection?: Object | null;
                 idGeneration?: string;
                 transform?: Function;
             }): Collection<T>;

@@ -12,6 +12,11 @@ declare class SerialPort extends Stream.Duplex {
 	constructor(path: string, callback?: SerialPort.ErrorCallback);
 	constructor(path: string, options?: SerialPort.OpenOptions, callback?: SerialPort.ErrorCallback);
 
+	readonly baudRate: number;
+	readonly binding: SerialPort.BaseBinding;
+	readonly isOpen: boolean;
+	readonly path: string;
+
 	open(callback?: SerialPort.ErrorCallback): void;
 	update(options: SerialPort.UpdateOptions, callback?: SerialPort.ErrorCallback): void;
 

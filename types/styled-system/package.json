@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "styled-components": "^3.3.2"
+    }
+}
