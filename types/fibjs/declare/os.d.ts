@@ -3,7 +3,7 @@
  *   This file was automatically generated with idlc.js                    *
  *	 build info: 								   						   *
  *   	- fibjs	: 0.25.0                                                   *
- *   	- date	: Jun 11 2018 14:17:22                                     *
+ *   	- date	: Jun 12 2018 07:22:40                                     *
  *                                                                         *
  ***************************************************************************/
 
@@ -204,6 +204,30 @@ declare module "os" {
 
 	module os {
 		
+		
+		/**
+		 * 
+		 * @brief 查询运行环境当前时区
+		 * 
+		 * 
+		 */
+		export const timezone: number;
+		
+		/**
+		 * 
+		 * @brief 查询当前运行环境行结尾标识，posix:\"\\n\"；windows:\"\\r\\n\"
+		 * 
+		 * 
+		 */
+		export const EOL: string;
+		
+		/**
+		 * 
+		 * @brief 查询当前运行执行文件完整路径
+		 * 
+		 * 
+		 */
+		export const execPath: string;
 		
 		
 		/**
@@ -452,6 +476,6 @@ declare module "os" {
 	export = os
 }
 
-/** } /** endof `module Or Internal Object` */
+/** endof `module Or Internal Object` */
 
 

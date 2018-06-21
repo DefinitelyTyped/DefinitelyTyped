@@ -3,7 +3,7 @@
  *   This file was automatically generated with idlc.js                    *
  *	 build info: 								   						   *
  *   	- fibjs	: 0.25.0                                                   *
- *   	- date	: Jun 11 2018 14:17:22                                     *
+ *   	- date	: Jun 12 2018 07:22:40                                     *
  *                                                                         *
  ***************************************************************************/
 
@@ -205,6 +205,39 @@ declare module "coroutine" {
 	module coroutine {
 		
 		
+		/**
+		 * 
+		 * @brief 返回当前正在运行的全部 fiber 数组
+		 * 
+		 * 
+		 */
+		export const fibers: any[];
+		
+		/**
+		 * 
+		 * @brief 查询和设置空闲 Fiber 数量，服务器抖动较大时可适度增加空闲 Fiber 数量。缺省为 256
+		 * 
+		 * 
+		 */
+		export const spareFibers: number;
+		
+		/**
+		 * 
+		 * @brief 查询当前 vm 编号
+		 * 
+		 * 
+		 */
+		export const vmid: number;
+		
+		/**
+		 * 
+		 * @brief 修改和查询本 vm 的输出级别，用以过滤输出信息，缺省为 console.NOTSET，全部输出
+		 * 
+		 * 
+		 * 
+		 */
+		export const loglevel: number;
+		
 		
 		/**
 		 * 
@@ -338,6 +371,6 @@ declare module "coroutine" {
 	export = coroutine
 }
 
-/** } /** endof `module Or Internal Object` */
+/** endof `module Or Internal Object` */
 
 

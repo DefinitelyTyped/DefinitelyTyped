@@ -3,7 +3,7 @@
  *   This file was automatically generated with idlc.js                    *
  *	 build info: 								   						   *
  *   	- fibjs	: 0.25.0                                                   *
- *   	- date	: Jun 11 2018 14:17:22                                     *
+ *   	- date	: Jun 12 2018 07:22:40                                     *
  *                                                                         *
  ***************************************************************************/
 
@@ -205,6 +205,42 @@ declare module "path" {
 	module path {
 		
 		
+		/**
+		 * 
+		 * @brief 查询当前操作系统的路径分割字符，posix 返回 '/', windows 返回  '\\'
+		 * 
+		 * 
+		 * 
+		 */
+		export const sep: string;
+		
+		/**
+		 * 
+		 * @brief 查询当前操作系统的多路径组合字符，posix 返回 ':', windows 返回  ';'
+		 * 
+		 * 
+		 * 
+		 */
+		export const delimiter: string;
+		
+		/**
+		 * 
+		 * @brief posix 实现，参见 path_posix
+		 * 
+		 * 
+		 * 
+		 */
+		export const posix: Object;
+		
+		/**
+		 * 
+		 * @brief windows 实现，参见 path_win32
+		 * 
+		 * 
+		 * 
+		 */
+		export const win32: Object;
+		
 		
 		
 		
@@ -321,6 +357,6 @@ declare module "path" {
 	export = path
 }
 
-/** } /** endof `module Or Internal Object` */
+/** endof `module Or Internal Object` */
 
 

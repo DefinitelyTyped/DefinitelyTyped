@@ -3,7 +3,7 @@
  *   This file was automatically generated with idlc.js                    *
  *	 build info: 								   						   *
  *   	- fibjs	: 0.25.0                                                   *
- *   	- date	: Jun 11 2018 14:17:22                                     *
+ *   	- date	: Jun 12 2018 07:22:40                                     *
  *                                                                         *
  ***************************************************************************/
 
@@ -228,6 +228,14 @@ declare module "fs" {
 		 */
 		export const SEEK_END = 2;
 		
+		
+		/**
+		 * 
+		 * ! fs模块的常量对象
+		 * 
+		 * 
+		 */
+		export const constants: Object;
 		
 		
 		
@@ -643,6 +651,6 @@ declare module "fs" {
 	export = fs
 }
 
-/** } /** endof `module Or Internal Object` */
+/** endof `module Or Internal Object` */
 
 
