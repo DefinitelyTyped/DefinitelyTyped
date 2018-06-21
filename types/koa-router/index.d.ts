@@ -218,19 +218,19 @@ declare class Router {
     /**
      * Returns router middleware which dispatches a route matching the request.
      */
-    routes(): Router.IMiddleware;
+    routes(): Koa.Middleware;
 
     /**
      * Returns router middleware which dispatches a route matching the request.
      */
-    middleware(): Router.IMiddleware;
+    middleware(): Koa.Middleware;
 
     /**
      * Returns separate middleware for responding to `OPTIONS` requests with
      * an `Allow` header containing the allowed methods, as well as responding
      * with `405 Method Not Allowed` and `501 Not Implemented` as appropriate.
      */
-    allowedMethods(options?: Router.IRouterAllowedMethodsOptions): Router.IMiddleware;
+    allowedMethods(options?: Router.IRouterAllowedMethodsOptions): Koa.Middleware;
 
     /**
      * Redirect `source` to `destination` URL with optional 30x status `code`.
