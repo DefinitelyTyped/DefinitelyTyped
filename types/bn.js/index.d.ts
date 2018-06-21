@@ -1,6 +1,7 @@
 // Type definitions for bn.js 4.11
 // Project: https://github.com/indutny/bn.js
 // Definitions by: Leonid Logvinov <https://github.com/LogvinovLeon>
+//                 Jaco Greeff <https://github.com/jacogr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
