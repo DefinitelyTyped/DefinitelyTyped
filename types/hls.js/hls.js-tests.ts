@@ -23,7 +23,7 @@ class pLoader extends Hls.DefaultConfig.loader {
 
 if (Hls.isSupported()) {
     const video = <HTMLVideoElement> document.getElementById('video');
-    const hls = new Hls({ pLoader: pLoader });
+    const hls = new Hls({ pLoader });
     const version: string = Hls.version;
     hls.loadSource('http://www.streambox.fr/playlists/test_001/stream.m3u8');
     hls.attachMedia(video);
@@ -32,9 +32,9 @@ if (Hls.isSupported()) {
         video.play();
     });
 
-    const onFragBuffered = (event: "hlsMediaAttaching", data: Hls.mediaAttachingData) => {
+    const onFragBuffered = (event: "hlsFragBuffered", data: Hls.fragBufferedData) => {
         // DO SOMETHING
-    }
+    };
 
     hls.on(Hls.Events.FRAG_BUFFERED, onFragBuffered);
     hls.off(Hls.Events.FRAG_BUFFERED, onFragBuffered);
