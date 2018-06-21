@@ -6,7 +6,6 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strict": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
