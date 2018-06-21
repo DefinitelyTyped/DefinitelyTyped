@@ -1,10 +1,10 @@
 // Type definitions for styled-system 2.3
 // Project: https://github.com/jxnblk/styled-system#readme
 // Definitions by: Marshall Bowers <https://github.com/maxdeviant>
-//                 Ben McCormick   <https://github.com/phobon>
-//                 Justin Bennett  <https://github.com/zephraph>
+//                 Ben McCormick <https://github.com/phobon>
+//                 Justin Bennett <https://github.com/zephraph>
 //                 Christopher Pappas <https://github.com/damassi>
-//                 Eloy Durán      <https://github.com/alloy>
+//                 Eloy Durán <https://github.com/alloy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -268,6 +268,7 @@ export function justifyContent(...args: any[]): any;
 export type FlexWrapValue = true | "nowrap" | "wrap" | "wrap-reverse";
 
 export interface FlexWrapProps {
+    wrap?: FlexWrapValue;
     flexWrap?: FlexWrapValue;
 }
 
