@@ -154,7 +154,7 @@ declare namespace Hls {
         /**
          * clean-up all used resources
          */
-        destory(): void;
+        destroy(): void;
     }
 
     interface Tracks {
