@@ -25,7 +25,7 @@ export interface HelmetProps {
     titleTemplate?: string;
 }
 
-export class Helmet extends React.Component<HelmetProps> {
+export class Helmet extends React.Component<HelmetProps, {}> {
     static peek(): HelmetData;
     static rewind(): HelmetData;
     static renderStatic(): HelmetData;
