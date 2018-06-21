@@ -61,6 +61,7 @@ declare namespace signale {
     interface SignaleOptions<TTypes extends string = DefaultMethods> {
         /** Sets the configuration of an instance overriding any existing global or local configuration. */
         config?: SignaleConfig;
+        disabled?: boolean;
         /**
          * Name of the scope.
          */
