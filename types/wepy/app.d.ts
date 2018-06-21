@@ -9,9 +9,9 @@ export interface AppConstructor {
 }
 
 /* the supported add-ons */
-type AddOn = "requestfix" | "promisify";
+export type AddOn = "requestfix" | "promisify";
 
-interface WindowConfig {
+export interface WindowConfig {
     backgroundTextStyle: string;
     navigationBarBackgroundColor: string;
     navigationBarTitleText: string;
