@@ -1563,7 +1563,7 @@ declare namespace Office {
          *     <td>An {@link Office.TableData} object</td>
          *     <td>A table with headers will be written.</td>
          *   </tr>
-         * <table>
+         * </table>
          * 
          * Additionally, these application-specific actions apply when writing data to a binding. For Word, the specified data is written to the binding as follows:
          * 
@@ -1588,7 +1588,7 @@ declare namespace Office {
          *     <td>Office Open XML ("Open XML")</td>
          *     <td>The specified the XML is written.</td>
          *   </tr>
-         * <table>
+         * </table>
          * 
          * For Excel, the specified data is written to the binding as follows:
          * 
@@ -1609,7 +1609,7 @@ declare namespace Office {
          *     <td>An {@link Office.TableData} object, and the shape of the table matches the bound table.</td>
          *     <td>The specified set of rows and/or headers are written, if no other data in surrounding cells will be overwritten. Note: If you specify formulas in the TableData object you pass for the *data* parameter, you might not get the results you expect due to the "calculated columns" feature of Excel, which automatically duplicates formulas within a column. To work around this when you want to write *data* that contains formulas to a bound table, try specifying the data as an array of arrays (instead of a TableData object), and specify the *coercionType* as Microsoft.Office.Matrix or "matrix".</td>
          *   </tr>
-         * <table>
+         * </table>
          * 
          * For Excel Online:
          * 
