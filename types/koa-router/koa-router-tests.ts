@@ -28,6 +28,9 @@ router.get('user', '/users/:id', function (ctx) {
     ctx.body = "sdsd";
 });
 
+let layer: Router.Layer
+let layerOptions: Router.ILayerOptions
+
 app.use(router.routes());
 app.use(router.allowedMethods());
 

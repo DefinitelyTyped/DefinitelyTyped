@@ -7,6 +7,7 @@
 //                 Rich Baird <https://github.com/richbai90>
 //                 Dan Torberg <https://github.com/caspeco-dan>
 //                 Peter Keuter <https://github.com/pkeuter>
+//                 Jamie Saunders <https://github.com/jrsaunde>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -832,6 +833,7 @@ export class Treemap extends React.Component<TreemapProps> { }
 export class Label extends React.Component<LabelProps> { }
 
 export interface LabelProps {
+    angle?: number;
     viewBox?: ViewBox | PolarViewBox;
     formatter?: LabelFormatter;
     value?: number | string;
@@ -910,7 +912,7 @@ export interface XAxisProps extends EventAttributes {
     interval?: AxisInterval;
     reversed?: boolean;
     // see label section at http://recharts.org/#/en-US/api/XAxis
-    label?: string | number | Label;
+    label?: string | number | Label | LabelProps;
 }
 
 export class XAxis extends React.Component<XAxisProps> { }
@@ -961,7 +963,7 @@ export interface YAxisProps extends EventAttributes {
     interval?: AxisInterval;
     reversed?: boolean;
     // see label section at http://recharts.org/#/en-US/api/YAxis
-    label?: string | number | Label;
+    label?: string | number | Label | LabelProps;
 }
 
 export class YAxis extends React.Component<YAxisProps> { }

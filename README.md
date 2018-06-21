@@ -54,7 +54,7 @@ Before you share your improvement with the world, use it yourself.
 
 #### Test editing an existing package
 
-To add new features you can use [module augmentation](http://www.typescriptlang.org/docs/handbook/declaration-merging.html).
+To add new features you can use [module augmentation](http://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation).
 You can also directly edit the types in `node_modules/@types/foo/index.d.ts`, or copy them from there and follow the steps below.
 
 

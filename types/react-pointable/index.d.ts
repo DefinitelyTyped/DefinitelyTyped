@@ -1,4 +1,4 @@
-// Type definitions for react-pointable 1.1
+// Type definitions for react-pointable 1.2
 // Project: https://github.com/MilllerTime/react-pointable
 // Definitions by: Stefan Fochler <https://github.com/istefo>
 //                 Dibyo Majumdar <https://github.com/mdibyo>
@@ -13,14 +13,6 @@ export interface PointableProps extends React.HTMLAttributes<Element>, React.SVG
     tagName?: keyof ElementTagNameMap;
     touchAction?: TouchAction;
     elementRef?(el: HTMLElement|SVGElement): void;
-    onPointerMove?(evt: PointerEvent): void;
-    onPointerDown?(evt: PointerEvent): void;
-    onPointerUp?(evt: PointerEvent): void;
-    onPointerOver?(evt: PointerEvent): void;
-    onPointerOut?(evt: PointerEvent): void;
-    onPointerEnter?(evt: PointerEvent): void;
-    onPointerLeave?(evt: PointerEvent): void;
-    onPointerCancel?(evt: PointerEvent): void;
 }
 
 export default class Pointable extends React.Component<PointableProps> {

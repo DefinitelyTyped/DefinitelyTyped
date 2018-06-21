@@ -15,7 +15,10 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "parse5": [ "parse5/v4" ]
+        }
     },
     "files": [
         "index.d.ts",

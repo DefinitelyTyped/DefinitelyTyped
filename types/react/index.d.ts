@@ -1,4 +1,4 @@
-// Type definitions for React 16.3
+// Type definitions for React 16.4
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>
 //                 AssureSign <http://www.assuresign.com>
@@ -31,6 +31,7 @@ type NativeFocusEvent = FocusEvent;
 type NativeKeyboardEvent = KeyboardEvent;
 type NativeMouseEvent = MouseEvent;
 type NativeTouchEvent = TouchEvent;
+type NativePointerEvent = PointerEvent;
 type NativeTransitionEvent = TransitionEvent;
 type NativeUIEvent = UIEvent;
 type NativeWheelEvent = WheelEvent;
@@ -590,6 +591,18 @@ declare namespace React {
         nativeEvent: NativeDragEvent;
     }
 
+    interface PointerEvent<T = Element> extends MouseEvent<T> {
+        pointerId: number;
+        pressure: number;
+        tiltX: number;
+        tiltY: number;
+        width: number;
+        height: number;
+        pointerType: 'mouse' | 'pen' | 'touch';
+        isPrimary: boolean;
+        nativeEvent: NativePointerEvent;
+    }
+
     interface FocusEvent<T = Element> extends SyntheticEvent<T> {
         nativeEvent: NativeFocusEvent;
         relatedTarget: EventTarget;
@@ -711,6 +724,7 @@ declare namespace React {
     type KeyboardEventHandler<T = Element> = EventHandler<KeyboardEvent<T>>;
     type MouseEventHandler<T = Element> = EventHandler<MouseEvent<T>>;
     type TouchEventHandler<T = Element> = EventHandler<TouchEvent<T>>;
+    type PointerEventHandler<T = Element> = EventHandler<PointerEvent<T>>;
     type UIEventHandler<T = Element> = EventHandler<UIEvent<T>>;
     type WheelEventHandler<T = Element> = EventHandler<WheelEvent<T>>;
     type AnimationEventHandler<T = Element> = EventHandler<AnimationEvent<T>>;
@@ -897,6 +911,28 @@ declare namespace React {
         onTouchMoveCapture?: TouchEventHandler<T>;
         onTouchStart?: TouchEventHandler<T>;
         onTouchStartCapture?: TouchEventHandler<T>;
+
+        // Pointer Events
+        onPointerDown?: PointerEventHandler<T>;
+        onPointerDownCapture?: PointerEventHandler<T>;
+        onPointerMove?: PointerEventHandler<T>;
+        onPointerMoveCapture?: PointerEventHandler<T>;
+        onPointerUp?: PointerEventHandler<T>;
+        onPointerUpCapture?: PointerEventHandler<T>;
+        onPointerCancel?: PointerEventHandler<T>;
+        onPointerCancelCapture?: PointerEventHandler<T>;
+        onPointerEnter?: PointerEventHandler<T>;
+        onPointerEnterCapture?: PointerEventHandler<T>;
+        onPointerLeave?: PointerEventHandler<T>;
+        onPointerLeaveCapture?: PointerEventHandler<T>;
+        onPointerOver?: PointerEventHandler<T>;
+        onPointerOverCapture?: PointerEventHandler<T>;
+        onPointerOut?: PointerEventHandler<T>;
+        onPointerOutCapture?: PointerEventHandler<T>;
+        onGotPointerCapture?: PointerEventHandler<T>;
+        onGotPointerCaptureCapture?: PointerEventHandler<T>;
+        onLostPointerCapture?: PointerEventHandler<T>;
+        onLostPointerCaptureCapture?: PointerEventHandler<T>;
 
         // UI Events
         onScroll?: UIEventHandler<T>;
@@ -1545,6 +1581,7 @@ declare namespace React {
     interface OlHTMLAttributes<T> extends HTMLAttributes<T> {
         reversed?: boolean;
         start?: number;
+        type?: '1' | 'a' | 'A' | 'i' | 'I';
     }
 
     interface OptgroupHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -1788,6 +1825,7 @@ declare namespace React {
         hanging?: number | string;
         horizAdvX?: number | string;
         horizOriginX?: number | string;
+        href?: string;
         ideographic?: number | string;
         imageRendering?: number | string;
         in2?: number | string;

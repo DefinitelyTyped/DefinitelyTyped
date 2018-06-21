@@ -54,6 +54,8 @@ DateTime.utc();
 DateTime.local().toUTC();
 DateTime.utc().toLocal();
 
+DateTime.fromMillis(1527780819458).toMillis();
+
 /* Duration */
 const dur = Duration.fromObject({ hours: 2, minutes: 7 });
 dt.plus(dur);

@@ -490,6 +490,7 @@ export class OrthographicCamera extends Camera {
 
     zoom: number;
     view: {
+        enabled: boolean,
         fullWidth: number,
         fullHeight: number,
         offsetX: number,
@@ -579,6 +580,7 @@ export class PerspectiveCamera extends Camera {
 
     focus: number;
     view: {
+        enabled: boolean,
         fullWidth: number,
         fullHeight: number,
         offsetX: number,
@@ -775,39 +777,39 @@ export class Float64Attribute extends BufferAttribute {
 }
 
 export class Int8BufferAttribute extends BufferAttribute {
-    constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number);
+    constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number, normalized?: boolean);
 }
 
 export class Uint8BufferAttribute extends BufferAttribute {
-    constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number);
+    constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number, normalized?: boolean);
 }
 
 export class Uint8ClampedBufferAttribute extends BufferAttribute {
-    constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number);
+    constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number, normalized?: boolean);
 }
 
 export class Int16BufferAttribute extends BufferAttribute {
-    constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number);
+    constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number, normalized?: boolean);
 }
 
 export class Uint16BufferAttribute extends BufferAttribute {
-    constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number);
+    constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number, normalized?: boolean);
 }
 
 export class Int32BufferAttribute extends BufferAttribute {
-    constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number);
+    constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number, normalized?: boolean);
 }
 
 export class Uint32BufferAttribute extends BufferAttribute {
-    constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number);
+    constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number, normalized?: boolean);
 }
 
 export class Float32BufferAttribute extends BufferAttribute {
-    constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number);
+    constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number, normalized?: boolean);
 }
 
 export class Float64BufferAttribute extends BufferAttribute {
-    constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number);
+    constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number, normalized?: boolean);
 }
 
 /**
@@ -5518,6 +5520,12 @@ export class WebGLRenderer implements Renderer {
     renderBufferDirect(camera: Camera, fog: Fog, material: Material, geometryGroup: any, object: Object3D): void;
 
     /**
+     * A build in function that can be used instead of requestAnimationFrame. For WebVR projects this function must be used.
+     * @param callback The function will be called every available frame. If `null` is passed it will stop any already ongoing animation.
+     */
+    animate(callback: Function): void;
+
+    /**
      * Render a scene using a camera.
      * The render is done to the renderTarget (if specified) or to the canvas as usual.
      * If forceClear is true, the canvas will be cleared before rendering, even if the renderer's autoClear property is false.
@@ -5865,13 +5873,18 @@ export let UniformsLib: {
         diffuse: IUniform;
         opacity: IUniform;
         map: IUniform;
-        offsetRepeat: IUniform;
-        specularMap: IUniform;
+        uvTransform: IUniform;
         alphaMap: IUniform;
+    };
+    specularmap: {
+        specularMap: IUniform;
+    };
+    envmap: {
         envMap: IUniform;
         flipEnvMap: IUniform;
         reflectivity: IUniform;
-        refractionRation: IUniform;
+        refractionRatio: IUniform;
+        maxMipLevel: IUniform;
     };
     aomap: {
         aoMap: IUniform;
@@ -5881,7 +5894,9 @@ export let UniformsLib: {
         lightMap: IUniform;
         lightMapIntensity: IUniform;
     };
-    emissivemap: { emissiveMap: IUniform };
+    emissivemap: {
+        emissiveMap: IUniform
+    };
     bumpmap: {
         bumpMap: IUniform;
         bumpScale: IUniform;
@@ -5895,8 +5910,15 @@ export let UniformsLib: {
         displacementScale: IUniform;
         displacementBias: IUniform;
     };
-    roughnessmap: { roughnessMap: IUniform };
-    metalnessmap: { metalnessMap: IUniform };
+    roughnessmap: {
+        roughnessMap: IUniform
+    };
+    metalnessmap: {
+        metalnessMap: IUniform
+    };
+    gradientmap: {
+        gradientMap: IUniform
+    };
     fog: {
         fogDensity: IUniform;
         fogNear: IUniform;
@@ -5951,7 +5973,7 @@ export let UniformsLib: {
         };
         pointShadowMap: IUniform;
         pointShadowMatrix: IUniform;
-        hemisphereLigtts: {
+        hemisphereLights: {
             value: any[];
             properties: {
                 direction: {};
@@ -5959,6 +5981,15 @@ export let UniformsLib: {
                 groundColor: {};
             };
         };
+        rectAreaLights: {
+            value: any[];
+            properties: {
+                color: {};
+                position: {};
+                width: {};
+                height: {};
+            }
+        }
     };
     points: {
         diffuse: IUniform;
@@ -5966,7 +5997,7 @@ export let UniformsLib: {
         size: IUniform;
         scale: IUniform;
         map: IUniform;
-        offsetRepeat: IUniform;
+        uvTransform: IUniform;
     };
 };
 
@@ -7434,10 +7465,11 @@ export class CameraHelper extends LineSegments {
 }
 
 export class DirectionalLightHelper extends Object3D {
-    constructor(light: Light, size?: number);
+    constructor(light: Light, size?: number, color?: Color | string | number);
 
     light: Light;
     lightPlane: Line;
+    color: Color | string | number;
 
     dispose(): void;
     update(): void;
@@ -7479,9 +7511,11 @@ export class HemisphereLightHelper extends Object3D {
 }
 
 export class PointLightHelper extends Object3D {
-    constructor(light: Light, sphereSize: number);
+    constructor(light: Light, sphereSize?: number, color?: Color | string | number);
 
     light: Light;
+    sphereSize: number;
+    color: Color | string | number;
 
     dispose(): void;
     update(): void;
@@ -7498,9 +7532,10 @@ export class SkeletonHelper extends LineSegments {
 }
 
 export class SpotLightHelper extends Object3D {
-    constructor(light: Light);
+    constructor(light: Light, color?: Color | string | number);
 
     light: Light;
+    color: Color | string | number;
 
     dispose(): void;
     update(): void;

@@ -35,6 +35,7 @@ import {
   Col,
   Container,
   Collapse,
+  CustomInput,
   Fade,
   Form,
   FormFeedback,
@@ -3752,6 +3753,7 @@ import { default as CarouselCaption_ } from './lib/CarouselCaption'; /* tslint:d
 import { default as Col_ } from './lib/Col'; /* tslint:disable-line: no-relative-import-in-test */
 import { default as Collapse_ } from './lib/Collapse'; /* tslint:disable-line: no-relative-import-in-test */
 import { default as Container_ } from './lib/Container'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as CustomInput_ } from './lib/CustomInput'; /* tslint:disable-line: no-relative-import-in-test */
 import { default as Dropdown_ } from './lib/Dropdown'; /* tslint:disable-line: no-relative-import-in-test */
 import { default as DropdownItem_ } from './lib/DropdownItem'; /* tslint:disable-line: no-relative-import-in-test */
 import { default as DropdownMenu_ } from './lib/DropdownMenu'; /* tslint:disable-line: no-relative-import-in-test */
@@ -3833,6 +3835,7 @@ function AnyPropExample() {
       <Col_ foo={1} bar={false} foobar="example" />
       <Collapse_ foo={1} bar={false} foobar="example" />
       <Container_ foo={1} bar={false} foobar="example" />
+      <CustomInput_ foo={1} bar={false} foobar="example" type="file" />
       <Dropdown_ foo={1} bar={false} foobar="example" />
       <DropdownItem_ foo={1} bar={false} foobar="example" />
       <DropdownMenu_ foo={1} bar={false} foobar="example" />
@@ -3919,6 +3922,7 @@ class CarouselCaptionGeneric extends CarouselCaption<GenericInterface> {}
 class ColGeneric extends Col<GenericInterface> {}
 class CollapseGeneric extends Collapse<GenericInterface> {}
 class ContainerGeneric extends Container<GenericInterface> {}
+class CustomInputGeneric extends CustomInput<GenericInterface> {}
 class DropdownGeneric extends Dropdown<GenericInterface> {}
 class DropdownItemGeneric extends DropdownItem<GenericInterface> {}
 class DropdownMenuGeneric extends DropdownMenu<GenericInterface> {}
@@ -4000,6 +4004,7 @@ function GenericPropExample() {
       <ColGeneric foo={1} bar={false} foobar="example" />
       <CollapseGeneric foo={1} bar={false} foobar="example" />
       <ContainerGeneric foo={1} bar={false} foobar="example" />
+      <CustomInputGeneric foo={1} bar={false} foobar="example" type="file" />
       <DropdownGeneric foo={1} bar={false} foobar="example" />
       <DropdownItemGeneric foo={1} bar={false} foobar="example" />
       <DropdownMenuGeneric foo={1} bar={false} foobar="example" />
@@ -4050,4 +4055,182 @@ function GenericPropExample() {
       <UncontrolledTooltipGeneric foo={1} bar={false} foobar="example" target="" />
     </React.Fragment >
   );
+}
+
+class Example119 extends React.Component<any, any> {
+  render() {
+    return (
+      <Form>
+        <FormGroup>
+          <Label for="exampleCheckbox">Checkboxes</Label>
+          <div>
+            <CustomInput type="checkbox" id="exampleCustomCheckbox" label="Check this custom checkbox" />
+            <CustomInput type="checkbox" id="exampleCustomCheckbox2" label="Or this one" />
+            <CustomInput type="checkbox" id="exampleCustomCheckbox3" label="But not this disabled one" disabled />
+          </div>
+        </FormGroup>
+        <FormGroup>
+          <Label for="exampleCheckbox">Radios</Label>
+          <div>
+            <CustomInput type="radio" id="exampleCustomRadio" name="customRadio" label="Select this custom radio" />
+            <CustomInput type="radio" id="exampleCustomRadio2" name="customRadio" label="Or this one" />
+            <CustomInput type="radio" id="exampleCustomRadio3" label="But not this disabled one" disabled />
+          </div>
+        </FormGroup>
+        <FormGroup>
+          <Label for="exampleCheckbox">Inline</Label>
+          <div>
+            <CustomInput type="checkbox" id="exampleCustomInline" label="An inline custom input" inline />
+            <CustomInput type="checkbox" id="exampleCustomInline2" label="and another one" inline />
+          </div>
+        </FormGroup>
+        <FormGroup>
+          <Label for="exampleCustomSelect">Custom Select</Label>
+          <CustomInput type="select" id="exampleCustomSelect" name="customSelect">
+            <option value="">Select</option>
+            <option>Value 1</option>
+            <option>Value 2</option>
+            <option>Value 3</option>
+            <option>Value 4</option>
+            <option>Value 5</option>
+          </CustomInput>
+        </FormGroup>
+        <FormGroup>
+          <Label for="exampleCustomMutlipleSelect">Custom Multiple Select</Label>
+          <CustomInput type="select" id="exampleCustomMutlipleSelect" name="customSelect" multiple>
+            <option value="">Select</option>
+            <option>Value 1</option>
+            <option>Value 2</option>
+            <option>Value 3</option>
+            <option>Value 4</option>
+            <option>Value 5</option>
+          </CustomInput>
+        </FormGroup>
+        <FormGroup>
+          <Label for="exampleCustomSelectDisabled">Custom Select Disabled</Label>
+          <CustomInput type="select" id="exampleCustomSelectDisabled" name="customSelect" disabled>
+            <option value="">Select</option>
+            <option>Value 1</option>
+            <option>Value 2</option>
+            <option>Value 3</option>
+            <option>Value 4</option>
+            <option>Value 5</option>
+          </CustomInput>
+        </FormGroup>
+        <FormGroup>
+          <Label for="exampleCustomMutlipleSelectDisabled">Custom Multiple Select Disabled</Label>
+          <CustomInput type="select" id="exampleCustomMutlipleSelectDisabled" name="customSelect" multiple disabled>
+            <option value="">Select</option>
+            <option>Value 1</option>
+            <option>Value 2</option>
+            <option>Value 3</option>
+            <option>Value 4</option>
+            <option>Value 5</option>
+          </CustomInput>
+        </FormGroup>
+        <FormGroup>
+          <Label for="exampleCustomFileBrowser">File Browser</Label>
+          <CustomInput type="file" id="exampleCustomFileBrowser" name="customFile" />
+        </FormGroup>
+        <FormGroup>
+          <Label for="exampleCustomFileBrowser">File Browser with Custom Label</Label>
+          <CustomInput type="file" id="exampleCustomFileBrowser" name="customFile" label="Yo, pick a file!" />
+        </FormGroup>
+        <FormGroup>
+          <Label for="exampleCustomFileBrowser">File Browser Disabled</Label>
+          <CustomInput type="file" id="exampleCustomFileBrowser" name="customFile" disabled />
+        </FormGroup>
+      </Form>
+    );
+  }
+}
+
+class Example120 extends React.Component<any, any> {
+  render() {
+    return (
+      <Table borderless>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Username</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@fat</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>Larry</td>
+            <td>the Bird</td>
+            <td>@twitter</td>
+          </tr>
+        </tbody>
+      </Table>
+    );
+  }
+}
+
+class Example121 extends React.Component<any, any> {
+  render() {
+    return (
+      <UncontrolledDropdown className="some-class" setActiveFromChild>
+        <DropdownToggle caret>
+          Dropdown
+        </DropdownToggle>
+        <DropdownMenu>
+          <DropdownItem header>Header</DropdownItem>
+          <DropdownItem disabled>Action</DropdownItem>
+          <DropdownItem>Another Action</DropdownItem>
+          <DropdownItem divider />
+          <DropdownItem>Another Action</DropdownItem>
+        </DropdownMenu>
+      </UncontrolledDropdown>
+    );
+  }
+}
+
+class Example122 extends React.Component<any, any> {
+  constructor(props: any) {
+    super(props);
+
+    this.toggle = this.toggle.bind(this);
+    this.state = {
+      dropdownOpen: false
+    };
+  }
+
+  toggle() {
+    this.setState({
+      dropdownOpen: !this.state.dropdownOpen
+    });
+  }
+
+  render() {
+    return (
+      <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+        <DropdownToggle caret>
+          Dropdown
+        </DropdownToggle>
+        <DropdownMenu persist>
+          <DropdownItem header>Header</DropdownItem>
+          <DropdownItem disabled>Action</DropdownItem>
+          <DropdownItem>Another Action</DropdownItem>
+          <DropdownItem divider />
+          <DropdownItem>Another Action</DropdownItem>
+        </DropdownMenu>
+      </Dropdown>
+    );
+  }
 }

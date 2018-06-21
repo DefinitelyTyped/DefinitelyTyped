@@ -8,16 +8,13 @@
 // TypeScript Version: 2.2
 
 /// <reference types="node" />
-
 import http = require('http');
 import https = require('https');
-import http2 = require('http2');
 import Logger = require('bunyan');
 import url = require('url');
 import spdy = require('spdy');
 import stream = require('stream');
-import { Certificate } from 'crypto';
-import { ZlibOptions } from 'zlib';
+import zlib = require('zlib');
 
 export interface ServerOptions {
     ca?: string | Buffer | ReadonlyArray<string | Buffer>;
@@ -62,7 +59,7 @@ export interface ServerOptions {
 
     secureOptions?: number;
 
-    http2?: http2.SecureServerOptions;
+    http2?: any;
 
     dtrace?: boolean;
 
@@ -247,7 +244,7 @@ export interface Server extends http.Server {
     url: string;
 
     /** Node server instance */
-    server: http.Server | https.Server | spdy.Server | http2.Http2SecureServer;
+    server: http.Server | https.Server | spdy.Server;
 
     /** Router instance */
     router: Router;
@@ -1373,7 +1370,7 @@ export namespace plugins {
      * gzips the response if client send `accept-encoding: gzip`
      * @param options options to pass to gzlib
      */
-    function gzipResponse(options?: ZlibOptions): RequestHandler;
+    function gzipResponse(options?: zlib.ZlibOptions): RequestHandler;
 
     interface InflightRequestThrottleOptions {
         limit: number;
