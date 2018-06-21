@@ -356,7 +356,7 @@ export interface Page {
 }
 
 export interface UserPage extends Page {
-  users: User[]
+  users: User[];
 }
 
 export interface Identity {
