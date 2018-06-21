@@ -19,7 +19,7 @@ export function parse(file: File, config?: ParseConfig): ParseResult;
 
 export function parse(stream: ReadableStream, config?: ParseConfig): ParseResult;
 
-export function parse(stream: 1, config?: ParseConfig): ReadableStream;
+export function parse(stream: typeof NODE_STREAM_INPUT, config?: ParseConfig): ReadableStream;
 
 /**
  * Unparses javascript data objects and returns a csv string
