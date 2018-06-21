@@ -82,10 +82,7 @@ function test_formatText2() {
 function test_formatText3() {
     const quillEditor = new Quill('#editor');
     const range = {index: 0, length: 5};
-    quillEditor.formatText(range, {
-        bold: false,
-        color: 'rgb(0, 0, 255)'
-    });
+    quillEditor.formatText(range, 'bold', true);
 }
 
 function test_formatLine1() {
