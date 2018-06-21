@@ -840,7 +840,9 @@ export class BufferGeometry extends EventDispatcher {
     name: string;
     type: string;
     index: BufferAttribute;
-    attributes: BufferAttribute|InterleavedBufferAttribute[];
+    attributes: {
+      [name: string]: BufferAttribute|InterleavedBufferAttribute;
+    };
     morphAttributes: any;
     groups: {start: number, count: number, materialIndex?: number}[];
     boundingBox: Box3;
