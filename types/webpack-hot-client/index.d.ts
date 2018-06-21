@@ -49,6 +49,6 @@ declare namespace WebpackHotClient {
     /** Webpack stats configuration */
     stats?: webpack.Options.Stats;
     /** Webpack compile target */
-    validTargets?: string[],
+    validTargets?: string[];
   }
 }
