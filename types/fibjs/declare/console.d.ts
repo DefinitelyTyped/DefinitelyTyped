@@ -3,7 +3,7 @@
  *   This file was automatically generated with idlc.js                    *
  *	 build info: 								   						   *
  *   	- fibjs	: 0.25.0                                                   *
- *   	- date	: Jun 11 2018 14:17:22                                     *
+ *   	- date	: Jun 12 2018 07:22:40                                     *
  *                                                                         *
  ***************************************************************************/
 
@@ -284,6 +284,31 @@ declare module "console" {
 		 */
 		export const NOTSET = 10;
 		
+		
+		/**
+		 * 
+		 * @brief 输出级别，用以过滤输出信息，缺省为 NOTSET，全部输出。信息过滤之后才会输出给 add 设定的各个设备。
+		 * 
+		 * 
+		 * 
+		 */
+		export const loglevel: number;
+		
+		/**
+		 * 
+		 * @brief 查询终端每行字符数
+		 * 
+		 * 
+		 */
+		export const width: number;
+		
+		/**
+		 * 
+		 * @brief 查询终端行数
+		 * 
+		 * 
+		 */
+		export const height: number;
 		
 		
 		
@@ -887,6 +912,6 @@ declare module "console" {
 	export = console
 }
 
-/** } /** endof `module Or Internal Object` */
+/** endof `module Or Internal Object` */
 
 

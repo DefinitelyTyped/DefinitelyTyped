@@ -3,7 +3,7 @@
  *   This file was automatically generated with idlc.js                    *
  *	 build info: 								   						   *
  *   	- fibjs	: 0.25.0                                                   *
- *   	- date	: Jun 11 2018 14:17:22                                     *
+ *   	- date	: Jun 12 2018 07:22:40                                     *
  *                                                                         *
  ***************************************************************************/
 
@@ -196,7 +196,7 @@
 
 /** module Or Internal Object */
 /**
-	* @brief ssl/tls 模块，模块别名：tls
+	* @brief ssl/tls 模块
 	* @detail 
 	*/
 declare module "ssl" {
@@ -293,6 +293,38 @@ declare module "ssl" {
 		export const tls1_2 = 3;
 		
 		
+		/**
+		 * 
+		 * @brief 全局证书，用于 ssl 客户端模式验证服务器证书
+		 * 
+		 * 
+		 */
+		export const ca: Class_X509Cert;
+		
+		/**
+		 * 
+		 * @brief 设定证书验证模式，缺省为 VERIFY_REQUIRED
+		 * 
+		 * 
+		 */
+		export const verification: number;
+		
+		/**
+		 * 
+		 * @brief 设定最低版本支持，缺省 ssl3
+		 * 
+		 * 
+		 */
+		export const min_version: number;
+		
+		/**
+		 * 
+		 * @brief 设定最高版本支持，缺省 tls1_1
+		 * 
+		 * 
+		 */
+		export const max_version: number;
+		
 		
 		/**
 		 * 
@@ -371,6 +403,6 @@ declare module "ssl" {
 	export = ssl
 }
 
-/** } /** endof `module Or Internal Object` */
+/** endof `module Or Internal Object` */
 
 

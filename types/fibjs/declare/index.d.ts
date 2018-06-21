@@ -3,7 +3,7 @@
  *   This file was automatically generated with idlc.js                    *
  *	 build info: 								   						   *
  *   	- fibjs	: 0.25.0                                                   *
- *   	- date	: Jun 11 2018 14:17:22                                     *
+ *   	- date	: Jun 12 2018 07:22:40                                     *
  *                                                                         *
  ***************************************************************************/
 
@@ -66,41 +66,26 @@
 import _Global from 'global';
 import _Process from 'process';
 
-// declare const process: typeof _Process;
-// declare const global: typeof _Global;
-// declare const __filename: string;
-// declare const __dirname: string;
-// declare const require: typeof _Global.require;
-
 type GlobalExportsType = any;
 interface ModuleType {
 	exports: GlobalExportsType;
 }
 
-type O_Process = typeof _Process
-interface RealProcess extends O_Process {
-	env: {
-		[key: string]: string;
-	}
-}
-
 declare global {
 	var exports: GlobalExportsType;
 	const module: ModuleType;
-	const __filename: string;
-	const __dirname: string;
-	const process: RealProcess;
-	const global: typeof _Global;
 
-
-	const Buffer: typeof Class_Buffer;
-	const Int64: typeof Class_Int64;
+	const Buffer: typeof _Global.Buffer
+	const Int64: typeof _Global.Int64
 	/** const console: console; */
-	/** const process: process; */
-	const Master: typeof Class_Worker;
-	/** const global: Object; */
+	const process: typeof _Global.process
+	const Master: typeof _Global.Master
+	const global: typeof _Global.global
 	/** const run: null; */
 	const require: typeof _Global.require
+	const argv: typeof _Global.argv
+	const __filename: typeof _Global.__filename
+	const __dirname: typeof _Global.__dirname
 	/** const setTimeout: Timer; */
 	/** const clearTimeout: null; */
 	/** const setInterval: Timer; */
@@ -111,6 +96,6 @@ declare global {
 	/** const clearImmediate: null; */
 	const GC: typeof _Global.GC
 	const repl: typeof _Global.repl
-}
+} /** end of `declare global` */
 
 

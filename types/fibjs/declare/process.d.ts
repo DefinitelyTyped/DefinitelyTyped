@@ -3,7 +3,7 @@
  *   This file was automatically generated with idlc.js                    *
  *	 build info: 								   						   *
  *   	- fibjs	: 0.25.0                                                   *
- *   	- date	: Jun 11 2018 14:17:22                                     *
+ *   	- date	: Jun 12 2018 07:22:40                                     *
  *                                                                         *
  ***************************************************************************/
 
@@ -204,6 +204,102 @@ declare module "process" {
 
 	module process {
 		
+		
+		/**
+		 * 
+		 * @brief 返回当前进程的命令行参数
+		 * 
+		 * 
+		 */
+		export const argv: any[];
+		
+		/**
+		 * 
+		 * @brief 返回当前进程的特殊命令行参数，这些参数被 fibjs 用于设置运行环境
+		 * 
+		 * 
+		 */
+		export const execArgv: any[];
+		
+		/**
+		 * 
+		 * @brief 返回 fibjs 版本字符串
+		 * 
+		 * 
+		 */
+		export const version: string;
+		
+		/**
+		 * 
+		 * @brief 返回 fibjs 及组件的版本信息
+		 * 
+		 * 
+		 */
+		export const versions: Object;
+		
+		/**
+		 * 
+		 * @brief 查询当前运行执行文件完整路径
+		 * 
+		 * 
+		 */
+		export const execPath: string;
+		
+		/**
+		 * 
+		 * @brief 查询当前进程的环境变量
+		 * 
+		 * 
+		 */
+		export const env: Object;
+		
+		/**
+		 * 
+		 * @brief 查询当前 cpu 环境，可能的结果为 'amd64', 'arm', 'arm64', 'ia32'
+		 * 
+		 * 
+		 */
+		export const arch: string;
+		
+		/**
+		 * 
+		 * @brief 查询当前平台名称，可能的结果为 'darwin', 'freebsd', 'linux', 或 'win32'
+		 * 
+		 * 
+		 */
+		export const platform: string;
+		
+		/**
+		 * 
+		 * @brief 查询当前进程标准输入对象
+		 * 
+		 * 
+		 */
+		export const stdin: Class_File;
+		
+		/**
+		 * 
+		 * @brief 查询当前进程标准输出对象
+		 * 
+		 * 
+		 */
+		export const stdout: Class_File;
+		
+		/**
+		 * 
+		 * @brief 查询当前进程标准错误输出对象
+		 * 
+		 * 
+		 */
+		export const stderr: Class_File;
+		
+		/**
+		 * 
+		 * @brief 查询和设置当前进程的退出码
+		 * 
+		 * 
+		 */
+		export const exitCode: number;
 		
 		
 		
@@ -460,6 +556,6 @@ declare module "process" {
 	export = process
 }
 
-/** } /** endof `module Or Internal Object` */
+/** endof `module Or Internal Object` */
 
 

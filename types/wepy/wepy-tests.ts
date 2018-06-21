@@ -1,5 +1,11 @@
 import wepy from "wepy";
 
+export class MyApp extends wepy.app {
+    async onLoad() {
+        this.use("requestfix");
+    }
+}
+
 export class MyComponent extends wepy.component {
     data = {
         reveal: false,

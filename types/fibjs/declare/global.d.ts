@@ -3,7 +3,7 @@
  *   This file was automatically generated with idlc.js                    *
  *	 build info: 								   						   *
  *   	- fibjs	: 0.25.0                                                   *
- *   	- date	: Jun 11 2018 14:17:22                                     *
+ *   	- date	: Jun 12 2018 07:22:40                                     *
  *                                                                         *
  ***************************************************************************/
 
@@ -210,6 +210,46 @@ declare module "global" {
 
 	module global {
 		
+		
+		/**
+		 * 
+		 * @brief Worker 宿主对象，仅在 Worker 入口脚本有效
+		 * 
+		 * 
+		 */
+		export const Master: Class_Worker;
+		
+		/**
+		 * 
+		 * @brief 全局对象
+		 * 
+		 * 
+		 */
+		export const global: Object;
+		
+		/**
+		 * 
+		 * @brief 获取当前脚本的运行参数，启动 js 获取进程启动参数，run 执行的脚本获取传递的参数
+		 * 
+		 * 
+		 */
+		export const argv: any[];
+		
+		/**
+		 * 
+		 * @brief 当前脚本文件名
+		 * 
+		 * 
+		 */
+		export const __filename: string;
+		
+		/**
+		 * 
+		 * @brief 当前脚本所在目录
+		 * 
+		 * 
+		 */
+		export const __dirname: string;
 		
 		
 		/**
@@ -508,6 +548,6 @@ declare module "global" {
 	export = global
 }
 
-/** } /** endof `module Or Internal Object` */
+/** endof `module Or Internal Object` */
 
 

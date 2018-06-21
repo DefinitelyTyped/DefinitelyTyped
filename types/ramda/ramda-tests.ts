@@ -503,6 +503,20 @@ R.times(i, 5);
 });
 
 (() => {
+    const testObject: {
+        [key: string]: Error
+    } = {
+        hello: new Error('hello'),
+    };
+    const errorMessages = R.mapObjIndexed(
+        function test(value, key) {
+            // value should be inferred.
+            return value.message + String(key);
+        }, testObject);
+    console.log(errorMessages);
+});
+
+(() => {
     const a: number[]   = R.ap([R.multiply(2), R.add(3)], [1, 2, 3]); // => [2, 4, 6, 4, 5, 6]
     const b: number[][] = R.of([1]); // => [[1]]
     const c: number[]   = R.of(1);

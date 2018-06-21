@@ -17,7 +17,7 @@ interface KnockoutComputedFunctions<T> {
 }
 
 interface KnockoutObservableFunctions<T> {
-    equalityComparer(a: any, b: any): boolean;
+    equalityComparer(a: T, b: T): boolean;
 }
 
 interface KnockoutObservableArrayFunctions<T> {
@@ -77,6 +77,10 @@ interface KnockoutComputedStatic {
 
 interface KnockoutComputed<T> extends KnockoutObservable<T>, KnockoutComputedFunctions<T> {
     fn: KnockoutComputedFunctions<any>;
+
+    // It's possible for a to be undefined, since the equalityComparer is run on the initial
+    // computation with undefined as the first argument. This is user-relevant for deferred computeds.
+    equalityComparer(a: T | undefined, b: T): boolean;
 
     dispose(): void;
     isActive(): boolean;

@@ -3,7 +3,7 @@
  *   This file was automatically generated with idlc.js                    *
  *	 build info: 								   						   *
  *   	- fibjs	: 0.25.0                                                   *
- *   	- date	: Jun 11 2018 14:17:22                                     *
+ *   	- date	: Jun 12 2018 07:22:40                                     *
  *                                                                         *
  ***************************************************************************/
 
@@ -237,6 +237,14 @@ declare module "uuid" {
 		export const X509 = 3;
 		
 		
+		/**
+		 * 
+		 * @brief 查询和修改 Snowflake 算法的主机 id
+		 * 
+		 * 
+		 */
+		export const hostID: number;
+		
 		
 		
 		
@@ -298,6 +306,6 @@ declare module "uuid" {
 	export = uuid
 }
 
-/** } /** endof `module Or Internal Object` */
+/** endof `module Or Internal Object` */
 
 
