@@ -183,8 +183,8 @@ declare namespace React {
     type ReactText = string | number;
     type ReactChild = ReactElement<any> | ReactText;
 
-    // Should be Array<ReactNode> but type aliases cannot be recursive
-    type ReactFragment = {} | Array<ReactChild | any[] | boolean>;
+    interface ReactNodeArray extends Array<ReactNode> {}
+    type ReactFragment = {} | ReactNodeArray;
     type ReactNode = ReactChild | ReactFragment | boolean | null | undefined;
 
     //
@@ -3240,6 +3240,7 @@ declare namespace React {
         hanging?: number | string;
         horizAdvX?: number | string;
         horizOriginX?: number | string;
+        href?: string;
         ideographic?: number | string;
         imageRendering?: number | string;
         in2?: number | string;

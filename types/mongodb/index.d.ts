@@ -48,7 +48,7 @@ export class MongoClient extends EventEmitter {
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/MongoClient.html#db */
     db(dbName?: string, options?: MongoClientCommonOption): Db
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/MongoClient.html#isConnected */
-    isConnected(name: string, options?: MongoClientCommonOption): boolean;
+    isConnected(options?: MongoClientCommonOption): boolean;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/MongoClient.html#logout */
     logout(callback: MongoCallback<any>): void;
     logout(options?: { dbName?: string }): Promise<any>;
@@ -1252,7 +1252,7 @@ export class Cursor<T = Default> extends Readable {
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Cursor.html#limit */
     limit(value: number): Cursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Cursor.html#map */
-    map(transform: Function): Cursor<T>;
+    map<U>(transform: (document: T) => U): Cursor<U>;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Cursor.html#max */
     max(max: number): Cursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Cursor.html#maxAwaitTimeMS */

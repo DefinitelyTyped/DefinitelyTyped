@@ -85,7 +85,7 @@ export interface PackerOptions {
 
 export type PNGOptions = BaseOptions & ParserOptions & PackerOptions;
 
-export type ColorType = 0 | 1 | 2 | 4;
+export type ColorType = 0 | 2 | 4 | 6;
 
 export interface Metadata {
 	width: number;

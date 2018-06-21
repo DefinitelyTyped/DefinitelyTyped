@@ -2860,15 +2860,23 @@ declare module "../index" {
          */
         omit<T extends AnyKindOfDictionary>(
             object: T | null | undefined,
-            ...paths: PropertyPath[]
+            ...paths: Array<Many<PropertyName>>
         ): T;
+
+        /**
+         * @see _.omit
+         */
+        omit<T extends object, K extends keyof T>(
+            object: T | null | undefined,
+            ...paths: Array<Many<K>>
+        ): Omit<T, K>;
 
         /**
          * @see _.omit
          */
         omit<T extends object>(
             object: T | null | undefined,
-            ...paths: PropertyPath[]
+            ...paths: Array<Many<PropertyName>>
         ): PartialObject<T>;
     }
 
@@ -2878,15 +2886,23 @@ declare module "../index" {
          */
         omit<T extends AnyKindOfDictionary>(
             this: LoDashImplicitWrapper<T | null | undefined>,
-            ...paths: PropertyPath[]
+            ...paths: Array<Many<PropertyName>>
         ): LoDashImplicitWrapper<T>;
+
+        /**
+         * @see _.omit
+         */
+        omit<T extends object, K extends keyof T>(
+            this: LoDashImplicitWrapper<T | null | undefined>,
+            ...paths: Array<Many<K>>
+        ): LoDashImplicitWrapper<Omit<T, K>>;
 
         /**
          * @see _.omit
          */
         omit<T extends object>(
             this: LoDashImplicitWrapper<T | null | undefined>,
-            ...paths: PropertyPath[]
+            ...paths: Array<Many<PropertyName>>
         ): LoDashImplicitWrapper<PartialObject<T>>;
     }
 
@@ -2896,15 +2912,23 @@ declare module "../index" {
          */
         omit<T extends AnyKindOfDictionary>(
             this: LoDashExplicitWrapper<T | null | undefined>,
-            ...paths: PropertyPath[]
+            ...paths: Array<Many<PropertyName>>
         ): LoDashExplicitWrapper<T>;
+
+        /**
+         * @see _.omit
+         */
+        omit<T extends object, K extends keyof T>(
+            this: LoDashExplicitWrapper<T | null | undefined>,
+            ...paths: Array<Many<K>>
+        ): LoDashExplicitWrapper<Omit<T, K>>;
 
         /**
          * @see _.omit
          */
         omit<T extends object>(
             this: LoDashExplicitWrapper<T | null | undefined>,
-            ...paths: PropertyPath[]
+            ...paths: Array<Many<PropertyName>>
         ): LoDashExplicitWrapper<PartialObject<T>>;
     }
 

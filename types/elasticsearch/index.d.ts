@@ -465,7 +465,7 @@ export interface MGetParams extends GenericParams {
     preference?: string;
     realtime?: boolean;
     refresh?: boolean;
-    source?: NameList;
+    _source?: NameList;
     _sourceExclude?: NameList;
     _sourceInclude?: NameList;
     index?: string;

@@ -50,7 +50,7 @@ export function hierarchy<Datum>(data: Datum, children?: (d: Datum) => (Datum[] 
 // Stratify
 // -----------------------------------------------------------------------
 
-// TODO: Review the comment in the API documentation related to 'reserved properties': id, parentId, children. If this is refering to the element on node, it should be 'parent'?
+// TODO: Review the comment in the API documentation related to 'reserved properties': id, parentId, children. If this is referring to the element on node, it should be 'parent'?
 
 export interface StratifyOperator<Datum> {
     (data: Datum[]): HierarchyNode<Datum>;

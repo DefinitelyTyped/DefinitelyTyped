@@ -1,6 +1,7 @@
 import http = require('http');
 import express = require('express');
 import swaggerize = require('swaggerize-express');
+import { AddressInfo } from 'net';
 
 const api = {
     swagger: "2.0",
@@ -50,5 +51,6 @@ app.use(swaggerize(<swaggerize.Options>{
 }));
 
 var server = app.listen(18888, 'localhost', function () {
-    (<swaggerize.SwaggerizedExpress>app).swagger.api.host = server.address().address + ':' + server.address().port;
+    const addr = server.address() as AddressInfo;
+    (<swaggerize.SwaggerizedExpress>app).swagger.api.host = addr.address + ':' + addr.port;
 });

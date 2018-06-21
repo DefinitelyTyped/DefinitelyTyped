@@ -1,3 +1,4 @@
+import Maybe from "../tsutils/Maybe";
 import { ASTNode, ASTKindToNode } from "./ast";
 import { TypeInfo } from "../utilities/TypeInfo";
 
@@ -157,4 +158,4 @@ export function visitWithTypeInfo(typeInfo: TypeInfo, visitor: Visitor<ASTKindTo
  * Given a visitor instance, if it is leaving or not, and a node kind, return
  * the function the visitor runtime should call.
  */
-export function getVisitFn(visitor: Visitor<any>, kind: string, isLeaving: boolean): VisitFn<any> | void;
+export function getVisitFn(visitor: Visitor<any>, kind: string, isLeaving: boolean): Maybe<VisitFn<any>>;

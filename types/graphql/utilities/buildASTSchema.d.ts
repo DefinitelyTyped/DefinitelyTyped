@@ -1,3 +1,4 @@
+import Maybe from "../tsutils/Maybe";
 import {
     DocumentNode,
     Location,
@@ -47,7 +48,7 @@ type TypeDefinitionsMap = { [key: string]: TypeDefinitionNode };
 type TypeResolver = (typeRef: NamedTypeNode) => GraphQLNamedType;
 
 export class ASTDefinitionBuilder {
-    constructor(typeDefinitionsMap: TypeDefinitionsMap, options: BuildSchemaOptions | void, resolveType: TypeResolver);
+    constructor(typeDefinitionsMap: TypeDefinitionsMap, options: Maybe<BuildSchemaOptions>, resolveType: TypeResolver);
 
     buildTypes(nodes: ReadonlyArray<NamedTypeNode | TypeDefinitionNode>): Array<GraphQLNamedType>;
 
@@ -69,7 +70,7 @@ export class ASTDefinitionBuilder {
  */
 export function getDescription(
     node: { readonly description?: StringValueNode; readonly loc?: Location },
-    options: BuildSchemaOptions | void
+    options: Maybe<BuildSchemaOptions>
 ): string | undefined;
 
 /**

@@ -22,7 +22,9 @@ import {
     DataSourceAssetCallback,
     DeviceEventEmitterStatic,
     Dimensions,
+    Image,
     ImageStyle,
+    ImageLoadEventData,
     InteractionManager,
     ListView,
     ListViewDataSource,
@@ -48,8 +50,13 @@ import {
     NativeModules,
     MaskedViewIOS,
     TextInput,
+    TouchableNativeFeedback,
+    TextInputFocusEventData,
     InputAccessoryView,
-    StatusBar
+    StatusBar,
+    NativeSyntheticEvent,
+    GestureResponderEvent,
+    TextInputScrollEventData
 } from "react-native";
 
 declare module "react-native" {
@@ -144,6 +151,25 @@ const viewProperty = StyleSheet.flatten(viewStyle).backgroundColor;
 const textProperty = StyleSheet.flatten(textStyle).fontSize;
 const imageProperty = StyleSheet.flatten(imageStyle).resizeMode;
 
+const testNativeSyntheticEvent = <T extends {}>(e: NativeSyntheticEvent<T>): void => {
+    e.isDefaultPrevented();
+    e.preventDefault();
+    e.isPropagationStopped();
+    e.stopPropagation();
+    e.persist();
+    e.cancelable;
+    e.bubbles;
+    e.currentTarget;
+    e.defaultPrevented;
+    e.eventPhase;
+    e.isTrusted;
+    e.nativeEvent;
+    e.target;
+    e.timeStamp;
+    e.type;
+    e.nativeEvent;
+}
+
 class CustomView extends React.Component {
     render() {
         return <Text style={[StyleSheet.absoluteFill, { ...StyleSheet.absoluteFillObject }]}>Custom View</Text>;
@@ -192,8 +218,28 @@ class Welcome extends React.Component {
 
 export default Welcome;
 
-// App State
+// TouchableNativeFeedbackTest
+export class TouchableNativeFeedbackTest extends React.Component {
+    onPressButton = (e: GestureResponderEvent) => {
+        e.persist();
+        e.isPropagationStopped();
+        e.isDefaultPrevented();
+    }
 
+    render() {
+        return (
+            <TouchableNativeFeedback
+                onPress={this.onPressButton}
+            >
+                <View style={{width: 150, height: 100, backgroundColor: 'red'}}>
+                    <Text style={{margin: 30}}>Button</Text>
+                </View>
+            </TouchableNativeFeedback>
+        )
+    }
+}
+
+// App State
 function appStateListener(state: string) {
     console.log("New state: " + state);
 }
@@ -209,7 +255,6 @@ function appStateIOSTest() {
 }
 
 // ViewPagerAndroid
-
 export class ViewPagerAndroidTest {
     render() {
         return (
@@ -426,20 +471,46 @@ deviceEventEmitterStatic.addListener("keyboardWillShow", data => true);
 deviceEventEmitterStatic.addListener("keyboardWillShow", data => true, {});
 
 
-class TextInputRefTest extends React.Component<{}, {username: string}> {
+class TextInputTest extends React.Component<{}, {username: string}> {
     username: TextInput | null = null;
 
-    handleUsernameChange(text: string) {
+    handleUsernameChange = (text: string) => {
+        console.log(`text: ${ text }`);
+    }
+
+    onScroll = (e: NativeSyntheticEvent<TextInputScrollEventData>) => {
+        testNativeSyntheticEvent(e);
+        console.log(`x: ${ e.nativeEvent.contentOffset.x }`);
+        console.log(`y: ${ e.nativeEvent.contentOffset.y }`);
+    }
+
+    handleOnBlur = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+        testNativeSyntheticEvent(e);
+    }
+
+    handleOnFocus = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+        testNativeSyntheticEvent(e);
     }
 
     render() {
         return (
             <View>
                 <Text onPress={() => this.username.focus()}>Username</Text>
+
                 <TextInput
                     ref={input => this.username = input}
                     value={this.state.username}
-                    onChangeText={this.handleUsernameChange.bind(this)}
+                    onChangeText={this.handleUsernameChange}
+                />
+
+                 <TextInput
+                    multiline
+                    onScroll={this.onScroll}
+                />
+
+                <TextInput
+                    onBlur={this.handleOnBlur}
+                    onFocus={this.handleOnFocus}
                 />
             </View>
         );
@@ -458,6 +529,47 @@ class StatusBarTest extends React.Component {
                 barStyle="light-content"
                 translucent
             />
+        );
+    }
+}
+
+export class ImageTest extends React.Component {
+    onLoad(e: NativeSyntheticEvent<ImageLoadEventData>) {
+        testNativeSyntheticEvent(e);
+        console.log('height:', e.nativeEvent.source.height);
+        console.log('width:', e.nativeEvent.source.width);
+        console.log('url:', e.nativeEvent.source.url);
+    }
+
+    render() {
+        return (
+            <View>
+                <Image
+                    source={{ uri: 'https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png' }}
+                    onLoad={this.onLoad}
+                />
+            </View>
+        );
+    }
+}
+
+class StylePropsTest extends React.PureComponent {
+    render() {
+        const uri = 'https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png'
+
+        return (
+            <View backgroundColor="lightgray" flex={1} overflow="scroll">
+                <Image
+                    borderRadius={100}
+                    // height={200}
+                    margin={20}
+                    overflow="visible" // ps: must fail if "scroll"
+                    source={{ uri }}
+                    style={{ width: 200, height: 200, tintColor: 'green' }}
+                    // tintColor="green"
+                    // width={200}
+                />
+            </View>
         );
     }
 }

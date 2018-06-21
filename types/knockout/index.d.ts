@@ -9,22 +9,18 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-interface KnockoutExtensionFunctions {
-    [key: string]: any;
-}
-
-interface KnockoutSubscribableFunctions<T> extends KnockoutExtensionFunctions {
+interface KnockoutSubscribableFunctions<T> {
     notifySubscribers(valueToWrite?: T, event?: string): void;
 }
 
-interface KnockoutComputedFunctions<T> extends KnockoutExtensionFunctions {
+interface KnockoutComputedFunctions<T> {
 }
 
-interface KnockoutObservableFunctions<T> extends KnockoutExtensionFunctions {
-    equalityComparer(a: any, b: any): boolean;
+interface KnockoutObservableFunctions<T> {
+    equalityComparer(a: T, b: T): boolean;
 }
 
-interface KnockoutObservableArrayFunctions<T> extends KnockoutExtensionFunctions {
+interface KnockoutObservableArrayFunctions<T> {
     // General Array functions
     indexOf(searchElement: T, fromIndex?: number): number;
     slice(start: number, end?: number): T[];
@@ -81,6 +77,10 @@ interface KnockoutComputedStatic {
 
 interface KnockoutComputed<T> extends KnockoutObservable<T>, KnockoutComputedFunctions<T> {
     fn: KnockoutComputedFunctions<any>;
+
+    // It's possible for a to be undefined, since the equalityComparer is run on the initial
+    // computation with undefined as the first argument. This is user-relevant for deferred computeds.
+    equalityComparer(a: T | undefined, b: T): boolean;
 
     dispose(): void;
     isActive(): boolean;

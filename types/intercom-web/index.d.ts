@@ -4,6 +4,7 @@
 //            customize-the-intercom-messenger/the-intercom-javascript-api
 // Definitions by: Andrew Fong <https://github.com/fongandrew>
 //                 Samer Albahra <https://github.com/salbahra>
+//                 Onat Yigit Mercan <https://github.com/onatm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Intercom_ {
@@ -20,26 +21,29 @@ declare namespace Intercom_ {
       activator?: string;
     };
     company?: {
-      id: string|number,
+      id: string | number,
       name: string,
       created_at: number,
       plan?: string,
       monthly_spend?: number,
       [index: string]: any;
     };
+    vertical_padding?: number;
+    horizontal_padding?: number;
   }
 
   type IntercomCommand = 'boot'
-    |'shutdown'
-    |'update'
-    |'hide'
-    |'show'
-    |'showMessages'
-    |'showNewMessage'
-    |'onHide'
-    |'onShow'
-    |'onActivatorClick'
-    |'trackEvent';
+    | 'shutdown'
+    | 'update'
+    | 'hide'
+    | 'show'
+    | 'showMessages'
+    | 'showNewMessage'
+    | 'onHide'
+    | 'onShow'
+    | 'onUnreadCountChange'
+    | 'onActivatorClick'
+    | 'trackEvent';
 
   interface IntercomStatic {
     (command: 'boot', param: IntercomSettings): void;
@@ -48,6 +52,7 @@ declare namespace Intercom_ {
     (command: 'showNewMessage', param?: string): void;
     (command: 'onHide' | 'onShow' | 'onActivatorClick', param?: () => void): void;
     (command: 'trackEvent', tag?: string, metadata?: any): void;
+    (command: 'onUnreadCountChange', cb: (unreadCount: number) => void): void;
     (command: IntercomCommand, param1?: any, param2?: any): void;
   }
 }

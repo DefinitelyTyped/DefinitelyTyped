@@ -1,4 +1,4 @@
-// Type definitions for Jest 22.2
+// Type definitions for Jest 23.1
 // Project: http://facebook.github.io/jest/
 // Definitions by: Asana <https://asana.com>
 //                 Ivo Stratev <https://github.com/NoHomey>
@@ -10,9 +10,11 @@
 //                 Waseem Dahman <https://github.com/wsmd>
 //                 Jamie Mason <https://github.com/JamieMason>
 //                 Douglas Duteil <https://github.com/douglasduteil>
-//                 Ahn <https://github.com/AhnpGit>
+//                 Ahn <https://github.com/ahnpnl>
 //                 Josh Goldberg <https://github.com/joshuakgoldberg>
-//                 Bradley Ayers <https://github.com/bradleyayers>
+//                 Jeff Lau <https://github.com/UselessPickles>
+//                 Andrew Makarov <https://github.com/r3nya>
+//                 Martin Hochel <https://github.com/hotell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -207,6 +209,14 @@ declare namespace jest {
         readonly name: string;
     }
 
+    interface Each {
+        (cases: any[]): (name: string, fn: (...args: any[]) => any) => void;
+        (strings: TemplateStringsArray, ...placeholders: any[]): (
+            name: string,
+            fn: (arg: any) => any
+        ) => void;
+    }
+
     /**
      * Creates a test closure
      */
@@ -218,13 +228,14 @@ declare namespace jest {
          * @param fn The function for your test
          * @param timeout The timeout for an async function test
          */
-        (name: string, fn?: ProvidesCallback, timeout?: number): void;
+        (name: string, fn: ProvidesCallback, timeout?: number): void;
         /**
          * Only runs this test in the current file.
          */
         only: It;
         skip: It;
         concurrent: It;
+        each: Each;
     }
 
     interface Describe {
@@ -232,6 +243,7 @@ declare namespace jest {
         (name: number | string | Function | FunctionLike, fn: EmptyFunction): void;
         only: Describe;
         skip: Describe;
+        each: Each;
     }
 
     interface MatcherUtils {
@@ -358,9 +370,21 @@ declare namespace jest {
 
     interface Matchers<R> {
         /**
+         * Ensures the last call to a mock function was provided specific args.
+         */
+        lastCalledWith(...args: any[]): R;
+        /**
+         * Ensure that the last call to a mock function has returned a specified value.
+         */
+        lastReturnedWith(value: any): R;
+        /**
          * If you know how to test something, `.not` lets you test its opposite.
          */
         not: Matchers<R>;
+        /**
+         * Ensure that the nth call to a mock function has returned a specified value.
+         */
+        nthReturnedWith(n: number, value: any): R;
         /**
          * Use resolves to unwrap the value of a fulfilled promise so any other
          * matcher can be chained. If the promise is rejected the assertion fails.
@@ -371,7 +395,6 @@ declare namespace jest {
          * If the promise is fulfilled the assertion fails.
          */
         rejects: Matchers<Promise<R>>;
-        lastCalledWith(...args: any[]): R;
         /**
          * Checks that a value is what you expect. It uses `===` to check strict equality.
          * Don't use `toBe` with floating-point numbers.
@@ -469,16 +492,45 @@ declare namespace jest {
          */
         toHaveBeenCalledWith(...params: any[]): R;
         /**
+         * Ensure that a mock function is called with specific arguments on an Nth call.
+         */
+        toHaveBeenNthCalledWith(nthCall: number, ...params: any[]): R;
+        /**
          * If you have a mock function, you can use `.toHaveBeenLastCalledWith`
          * to test what arguments it was last called with.
          */
         toHaveBeenLastCalledWith(...params: any[]): R;
         /**
+         * Use to test the specific value that a mock function last returned.
+         * If the last call to the mock function threw an error, then this matcher will fail
+         * no matter what value you provided as the expected return value.
+         */
+        toHaveLastReturnedWith(expected: any): R;
+        /**
          * Used to check that an object has a `.length` property
          * and it is set to a certain numeric value.
          */
         toHaveLength(expected: number): R;
+        /**
+         * Use to test the specific value that a mock function returned for the nth call.
+         * If the nth call to the mock function threw an error, then this matcher will fail
+         * no matter what value you provided as the expected return value.
+         */
+        toHaveNthReturnedWith(nthCall: number, expected: any): R;
         toHaveProperty(propertyPath: string | any[], value?: any): R;
+        /**
+         * Use to test that the mock function successfully returned (i.e., did not throw an error) at least one time
+         */
+        toHaveReturned(): R;
+        /**
+         * Use to ensure that a mock function returned successfully (i.e., did not throw an error) an exact number of times.
+         * Any calls to the mock function that throw an error are not counted toward the number of times the function returned.
+         */
+        toHaveReturnedTimes(expected: number): R;
+        /**
+         * Use to ensure that a mock function returned a specific value.
+         */
+        toHaveReturnedWith(expected: any): R;
         /**
          * Check that a string matches a regular expression.
          */
@@ -492,6 +544,22 @@ declare namespace jest {
          * Check out [the Snapshot Testing guide](http://facebook.github.io/jest/docs/snapshot-testing.html) for more information.
          */
         toMatchSnapshot(snapshotName?: string): R;
+        /**
+         * Ensure that a mock function has returned (as opposed to thrown) at least once.
+         */
+        toReturn(): R;
+        /**
+         * Ensure that a mock function has returned (as opposed to thrown) a specified number of times.
+         */
+        toReturnTimes(count: number): R;
+        /**
+         * Ensure that a mock function has returned a specified value at least once.
+         */
+        toReturnWith(value: any): R;
+        /**
+         * Use to test that objects have the same types as well as structure.
+         */
+        toStrictEqual(expected: {}): R;
         /**
          * Used to test that a function throws when it is called.
          */
@@ -550,9 +618,29 @@ declare namespace jest {
         mockRejectedValueOnce(value: any): Mock<T>;
     }
 
+    /**
+     * Represents the result of a single call to a mock function.
+     */
+    interface MockResult {
+        /**
+         * True if the function threw.
+         * False if the function returned.
+         */
+        isThrow: boolean;
+        /**
+         * The value that was either thrown or returned by the function.
+         */
+        value: any;
+    }
+
     interface MockContext<T> {
         calls: any[][];
         instances: T[];
+        invocationCallOrder: number[];
+        /**
+         * List of results of calls to the mock function.
+         */
+        results: MockResult[];
     }
 }
 
@@ -794,6 +882,164 @@ declare namespace jest {
     type ConfigGlobals = object;
 
     type SnapshotUpdateState = 'all' | 'new' | 'none';
+
+    interface DefaultOptions {
+        automock: boolean;
+        bail: boolean;
+        browser: boolean;
+        cache: boolean;
+        cacheDirectory: Path;
+        changedFilesWithAncestor: boolean;
+        clearMocks: boolean;
+        collectCoverage: boolean;
+        collectCoverageFrom: Maybe<string[]>;
+        coverageDirectory: Maybe<string>;
+        coveragePathIgnorePatterns: string[];
+        coverageReporters: string[];
+        coverageThreshold: Maybe<{global: {[key: string]: number}}>;
+        errorOnDeprecated: boolean;
+        expand: boolean;
+        filter: Maybe<Path>;
+        forceCoverageMatch: Glob[];
+        globals: ConfigGlobals;
+        globalSetup: Maybe<string>;
+        globalTeardown: Maybe<string>;
+        haste: HasteConfig;
+        detectLeaks: boolean;
+        detectOpenHandles: boolean;
+        moduleDirectories: string[];
+        moduleFileExtensions: string[];
+        moduleNameMapper: {[key: string]: string};
+        modulePathIgnorePatterns: string[];
+        noStackTrace: boolean;
+        notify: boolean;
+        notifyMode: string;
+        preset: Maybe<string>;
+        projects: Maybe<Array<string | ProjectConfig>>;
+        resetMocks: boolean;
+        resetModules: boolean;
+        resolver: Maybe<Path>;
+        restoreMocks: boolean;
+        rootDir: Maybe<Path>;
+        roots: Maybe<Path[]>;
+        runner: string;
+        runTestsByPath: boolean;
+        setupFiles: Path[];
+        setupTestFrameworkScriptFile: Maybe<Path>;
+        skipFilter: boolean;
+        snapshotSerializers: Path[];
+        testEnvironment: string;
+        testEnvironmentOptions: object;
+        testFailureExitCode: string | number;
+        testLocationInResults: boolean;
+        testMatch: Glob[];
+        testPathIgnorePatterns: string[];
+        testRegex: string;
+        testResultsProcessor: Maybe<string>;
+        testRunner: Maybe<string>;
+        testURL: string;
+        timers: 'real' | 'fake';
+        transform: Maybe<{[key: string]: string}>;
+        transformIgnorePatterns: Glob[];
+        watchPathIgnorePatterns: string[];
+        useStderr: boolean;
+        verbose: Maybe<boolean>;
+        watch: boolean;
+        watchman: boolean;
+    }
+
+    interface InitialOptions {
+        automock?: boolean;
+        bail?: boolean;
+        browser?: boolean;
+        cache?: boolean;
+        cacheDirectory?: Path;
+        clearMocks?: boolean;
+        changedFilesWithAncestor?: boolean;
+        changedSince?: string;
+        collectCoverage?: boolean;
+        collectCoverageFrom?: Glob[];
+        collectCoverageOnlyFrom?: {[key: string]: boolean};
+        coverageDirectory?: string;
+        coveragePathIgnorePatterns?: string[];
+        coverageReporters?: string[];
+        coverageThreshold?: {global: {[key: string]: number}};
+        detectLeaks?: boolean;
+        detectOpenHandles?: boolean;
+        displayName?: string;
+        expand?: boolean;
+        filter?: Path;
+        findRelatedTests?: boolean;
+        forceCoverageMatch?: Glob[];
+        forceExit?: boolean;
+        json?: boolean;
+        globals?: ConfigGlobals;
+        globalSetup?: Maybe<string>;
+        globalTeardown?: Maybe<string>;
+        haste?: HasteConfig;
+        reporters?: Array<ReporterConfig | string>;
+        logHeapUsage?: boolean;
+        lastCommit?: boolean;
+        listTests?: boolean;
+        mapCoverage?: boolean;
+        moduleDirectories?: string[];
+        moduleFileExtensions?: string[];
+        moduleLoader?: Path;
+        moduleNameMapper?: {[key: string]: string};
+        modulePathIgnorePatterns?: string[];
+        modulePaths?: string[];
+        name?: string;
+        noStackTrace?: boolean;
+        notify?: boolean;
+        notifyMode?: string;
+        onlyChanged?: boolean;
+        outputFile?: Path;
+        passWithNoTests?: boolean;
+        preprocessorIgnorePatterns?: Glob[];
+        preset?: Maybe<string>;
+        projects?: Glob[];
+        replname?: Maybe<string>;
+        resetMocks?: boolean;
+        resetModules?: boolean;
+        resolver?: Maybe<Path>;
+        restoreMocks?: boolean;
+        rootDir?: Path;
+        roots?: Path[];
+        runner?: string;
+        runTestsByPath?: boolean;
+        scriptPreprocessor?: string;
+        setupFiles?: Path[];
+        setupTestFrameworkScriptFile?: Path;
+        silent?: boolean;
+        skipFilter?: boolean;
+        skipNodeResolution?: boolean;
+        snapshotSerializers?: Path[];
+        errorOnDeprecated?: boolean;
+        testEnvironment?: string;
+        testEnvironmentOptions?: object;
+        testFailureExitCode?: string | number;
+        testLocationInResults?: boolean;
+        testMatch?: Glob[];
+        testNamePattern?: string;
+        testPathDirs?: Path[];
+        testPathIgnorePatterns?: string[];
+        testRegex?: string;
+        testResultsProcessor?: Maybe<string>;
+        testRunner?: string;
+        testURL?: string;
+        timers?: 'real' | 'fake';
+        transform?: {[key: string]: string};
+        transformIgnorePatterns?: Glob[];
+        watchPathIgnorePatterns?: string[];
+        unmockedModulePathPatterns?: string[];
+        updateSnapshot?: boolean;
+        useStderr?: boolean;
+        verbose?: Maybe<boolean>;
+        watch?: boolean;
+        watchAll?: boolean;
+        watchman?: boolean;
+        watchPlugins?: string[];
+    }
 
     interface GlobalConfig {
         bail: boolean;

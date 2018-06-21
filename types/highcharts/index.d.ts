@@ -2354,7 +2354,7 @@ declare namespace Highcharts {
          * can be customized by defining a new array of items and assigning null to unwanted positions.
          * @since 2.0
          */
-        menuItems?: MenuItem[];
+        menuItems?: string[] | MenuItem[];
         /**
          * A click handler callback to use on the button directly instead of the popup menu.
          * @since 2.0
@@ -2661,6 +2661,12 @@ declare namespace Highcharts {
          * @default ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
          */
         shortMonths?: string[];
+        /**
+         * Short week days, starting Sunday. If not specified, Highcharts uses the first three letters of the lang.weekdays option.
+         * @default undefined
+         * @since 4.2.4
+         */
+        shortWeekdays?: string[];
         /**
          * The default thousands separator used in the Highcharts.numberFormat method unless otherwise specified in the
          * function arguments. Since Highcharts 4.1 it defaults to a single space character, which is compatible with ISO

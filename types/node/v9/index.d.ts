@@ -13,7 +13,6 @@
 //                 Deividas Bakanas <https://github.com/DeividasBakanas>
 //                 Kelvin Jin <https://github.com/kjin>
 //                 Alvis HT Tang <https://github.com/alvis>
-//                 Oliver Joseph Ash <https://github.com/OliverJAsh>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 Hannes Magnusson <https://github.com/Hannes-Magnusson-CK>
 //                 Alberto Schiabel <https://github.com/jkomyno>
@@ -24,6 +23,8 @@
 //                 Mohsen Azimi <https://github.com/mohsen1>
 //                 Hoàng Văn Khải <https://github.com/KSXGitHub>
 //                 Alexander T. <https://github.com/a-tarasyuk>
+//                 Lishude <https://github.com/islishude>
+//                 Andrew Makarov <https://github.com/r3nya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /** inspector module types */
@@ -261,9 +262,9 @@ interface Buffer extends Uint8Array {
     write(string: string, offset?: number, length?: number, encoding?: string): number;
     toString(encoding?: string, start?: number, end?: number): string;
     toJSON(): { type: 'Buffer', data: any[] };
-    equals(otherBuffer: Buffer): boolean;
-    compare(otherBuffer: Buffer, targetStart?: number, targetEnd?: number, sourceStart?: number, sourceEnd?: number): number;
-    copy(targetBuffer: Buffer, targetStart?: number, sourceStart?: number, sourceEnd?: number): number;
+    equals(otherBuffer: Uint8Array): boolean;
+    compare(otherBuffer: Uint8Array, targetStart?: number, targetEnd?: number, sourceStart?: number, sourceEnd?: number): number;
+    copy(targetBuffer: Uint8Array, targetStart?: number, sourceStart?: number, sourceEnd?: number): number;
     slice(start?: number, end?: number): Buffer;
     writeUIntLE(value: number, offset: number, byteLength: number, noAssert?: boolean): number;
     writeUIntBE(value: number, offset: number, byteLength: number, noAssert?: boolean): number;
@@ -305,8 +306,8 @@ interface Buffer extends Uint8Array {
     writeDoubleLE(value: number, offset: number, noAssert?: boolean): number;
     writeDoubleBE(value: number, offset: number, noAssert?: boolean): number;
     fill(value: any, offset?: number, end?: number): this;
-    indexOf(value: string | number | Buffer, byteOffset?: number, encoding?: string): number;
-    lastIndexOf(value: string | number | Buffer, byteOffset?: number, encoding?: string): number;
+    indexOf(value: string | number | Uint8Array, byteOffset?: number, encoding?: string): number;
+    lastIndexOf(value: string | number | Uint8Array, byteOffset?: number, encoding?: string): number;
     entries(): IterableIterator<[number, number]>;
     includes(value: string | number | Buffer, byteOffset?: number, encoding?: string): boolean;
     keys(): IterableIterator<number>;
@@ -411,11 +412,11 @@ declare var Buffer: {
      * @param totalLength Total length of the buffers when concatenated.
      *   If totalLength is not provided, it is read from the buffers in the list. However, this adds an additional loop to the function, so it is faster to provide the length explicitly.
      */
-    concat(list: Buffer[], totalLength?: number): Buffer;
+    concat(list: Uint8Array[], totalLength?: number): Buffer;
     /**
      * The same as buf1.compare(buf2).
      */
-    compare(buf1: Buffer, buf2: Buffer): number;
+    compare(buf1: Uint8Array, buf2: Uint8Array): number;
     /**
      * Allocates a new buffer of {size} octets.
      *
@@ -612,6 +613,7 @@ declare namespace NodeJS {
         rss: number;
         heapTotal: number;
         heapUsed: number;
+        external: number;
     }
 
     export interface CpuUsage {
@@ -702,6 +704,7 @@ declare namespace NodeJS {
         abort(): void;
         chdir(directory: string): void;
         cwd(): string;
+        debugPort: number;
         emitWarning(warning: string | Error, name?: string, ctor?: Function): void;
         env: ProcessEnv;
         exit(code?: number): never;
@@ -980,7 +983,7 @@ declare module "querystring" {
         decodeURIComponent?: Function;
     }
 
-    interface ParsedUrlQuery { [key: string]: string | string[]; }
+    interface ParsedUrlQuery { [key: string]: string | string[] | undefined; }
 
     export function stringify<T>(obj: T, sep?: string, eq?: string, options?: StringifyOptions): string;
     export function parse(str: string, sep?: string, eq?: string, options?: ParseOptions): ParsedUrlQuery;
@@ -2037,6 +2040,9 @@ declare module "readline" {
         completer?: Completer | AsyncCompleter;
         terminal?: boolean;
         historySize?: number;
+        prompt?: string;
+        crlfDelay?: number;
+        removeHistoryDuplicates?: boolean;
     }
 
     export function createInterface(input: NodeJS.ReadableStream, output?: NodeJS.WritableStream, completer?: Completer | AsyncCompleter, terminal?: boolean): ReadLine;
@@ -2520,6 +2526,12 @@ declare module "dns" {
         export function __promisify__(hostname: string, options?: LookupOptions | number): Promise<{ address: string | LookupAddress[], family?: number }>;
     }
 
+    export function lookupService(address: string, port: number, callback: (err: NodeJS.ErrnoException, hostname: string, service: string) => void): void;
+
+    export namespace lookupService {
+        export function __promisify__(address: string, port: number): Promise<{ hostname: string, service: string }>;
+    }
+
     export interface ResolveOptions {
         ttl: boolean;
     }
@@ -2656,6 +2668,12 @@ declare module "net" {
 
     type LookupFunction = (hostname: string, options: dns.LookupOneOptions, callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void) => void;
 
+    export interface AddressInfo {
+        address: string;
+        family: string;
+        port: number;
+    }
+
     export interface SocketConstructorOpts {
         fd?: number;
         allowHalfOpen?: boolean;
@@ -2703,7 +2721,7 @@ declare module "net" {
         setTimeout(timeout: number, callback?: Function): this;
         setNoDelay(noDelay?: boolean): this;
         setKeepAlive(enable?: boolean, initialDelay?: number): this;
-        address(): { port: number; family: string; address: string; };
+        address(): AddressInfo | string;
         unref(): void;
         ref(): void;
 
@@ -2819,7 +2837,7 @@ declare module "net" {
         listen(handle: any, backlog?: number, listeningListener?: Function): this;
         listen(handle: any, listeningListener?: Function): this;
         close(callback?: Function): this;
-        address(): { port: number; family: string; address: string; };
+        address(): AddressInfo | string;
         getConnections(cb: (error: Error | null, count: number) => void): void;
         ref(): this;
         unref(): this;
@@ -2895,22 +2913,17 @@ declare module "net" {
 }
 
 declare module "dgram" {
-    import * as events from "events";
+    import { AddressInfo } from "net";
     import * as dns from "dns";
+    import * as events from "events";
 
-    interface RemoteInfo {
+    export interface RemoteInfo {
         address: string;
         family: string;
         port: number;
     }
 
-    interface AddressInfo {
-        address: string;
-        family: string;
-        port: number;
-    }
-
-    interface BindOptions {
+    export interface BindOptions {
         port: number;
         address?: string;
         exclusive?: boolean;
@@ -2918,7 +2931,7 @@ declare module "dgram" {
 
     type SocketType = "udp4" | "udp6";
 
-    interface SocketOptions {
+    export interface SocketOptions {
         type: SocketType;
         reuseAddr?: boolean;
         recvBufferSize?: number;
@@ -2930,14 +2943,14 @@ declare module "dgram" {
     export function createSocket(options: SocketOptions, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
 
     export class Socket extends events.EventEmitter {
-        send(msg: Buffer | String | any[], port: number, address: string, callback?: (error: Error | null, bytes: number) => void): void;
-        send(msg: Buffer | String | any[], offset: number, length: number, port: number, address: string, callback?: (error: Error | null, bytes: number) => void): void;
+        send(msg: Buffer | string | Uint8Array | any[], port: number, address?: string, callback?: (error: Error | null, bytes: number) => void): void;
+        send(msg: Buffer | string | Uint8Array, offset: number, length: number, port: number, address?: string, callback?: (error: Error | null, bytes: number) => void): void;
         bind(port?: number, address?: string, callback?: () => void): void;
         bind(port?: number, callback?: () => void): void;
         bind(callback?: () => void): void;
         bind(options: BindOptions, callback?: Function): void;
         close(callback?: () => void): void;
-        address(): AddressInfo;
+        address(): AddressInfo | string;
         setBroadcast(flag: boolean): void;
         setTTL(ttl: number): void;
         setMulticastTTL(ttl: number): void;
@@ -3447,7 +3460,7 @@ declare module "fs" {
      * @param type May be set to `'dir'`, `'file'`, or `'junction'` (default is `'file'`) and is only available on Windows (ignored on other platforms).
      * When using `'junction'`, the `target` argument will automatically be normalized to an absolute path.
      */
-    export function symlink(target: PathLike, path: PathLike, type: string | undefined | null, callback: (err: NodeJS.ErrnoException) => void): void;
+    export function symlink(target: PathLike, path: PathLike, type: symlink.Type | undefined | null, callback: (err: NodeJS.ErrnoException) => void): void;
 
     /**
      * Asynchronous symlink(2) - Create a new symbolic link to an existing file.
@@ -3466,6 +3479,8 @@ declare module "fs" {
          * When using `'junction'`, the `target` argument will automatically be normalized to an absolute path.
          */
         export function __promisify__(target: PathLike, path: PathLike, type?: string | null): Promise<void>;
+
+        export type Type = "dir" | "file" | "junction";
     }
 
     /**
@@ -3475,7 +3490,7 @@ declare module "fs" {
      * @param type May be set to `'dir'`, `'file'`, or `'junction'` (default is `'file'`) and is only available on Windows (ignored on other platforms).
      * When using `'junction'`, the `target` argument will automatically be normalized to an absolute path.
      */
-    export function symlinkSync(target: PathLike, path: PathLike, type?: string | null): void;
+    export function symlinkSync(target: PathLike, path: PathLike, type?: symlink.Type | null): void;
 
     /**
      * Asynchronous readlink(2) - read value of a symbolic link.
@@ -5138,23 +5153,6 @@ declare module "tls" {
         prependOnceListener(event: "secureConnection", listener: (tlsSocket: TLSSocket) => void): this;
     }
 
-    export interface ClearTextStream extends stream.Duplex {
-        authorized: boolean;
-        authorizationError: Error;
-        getPeerCertificate(): any;
-        getCipher: {
-            name: string;
-            version: string;
-        };
-        address: {
-            port: number;
-            family: string;
-            address: string;
-        };
-        remoteAddress: string;
-        remotePort: number;
-    }
-
     export interface SecurePair {
         encrypted: any;
         cleartext: any;
@@ -5673,6 +5671,38 @@ declare module "util" {
     export function promisify(fn: Function): Function;
     export namespace promisify {
         const custom: symbol;
+    }
+
+    export class TextDecoder {
+        readonly encoding: string;
+        readonly fatal: boolean;
+        readonly ignoreBOM: boolean;
+        constructor(
+          encoding?: string,
+          options?: { fatal?: boolean; ignoreBOM?: boolean }
+        );
+        decode(
+          input?:
+            Int8Array
+            | Int16Array
+            | Int32Array
+            | Uint8Array
+            | Uint16Array
+            | Uint32Array
+            | Uint8ClampedArray
+            | Float32Array
+            | Float64Array
+            | DataView
+            | ArrayBuffer
+            | null,
+          options?: { stream?: boolean }
+        ): string;
+    }
+
+    export class TextEncoder {
+        readonly encoding: string;
+        constructor();
+        encode(input?: string): Uint8Array;
     }
 }
 

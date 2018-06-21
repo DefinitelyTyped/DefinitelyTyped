@@ -37,6 +37,11 @@ const connection3: null = mongoose.connect(connectUri, function (error) {
 var mongooseConnection: mongoose.Connection = mongoose.createConnection();
 mongooseConnection.dropDatabase().then(()=>{});
 mongooseConnection.dropCollection('foo').then(()=>{});
+mongoose.createConnection(connectUri).then((conn)=> {
+  return conn.collections;
+}, () => {
+
+});
 mongoose.createConnection(connectUri).open('');
 mongoose.createConnection(connectUri, {
   db: {
@@ -129,7 +134,16 @@ conn1.openSet('mongodb://localhost/test', 'db', {
   replset: null,
   mongos: true
 }, function (err) {}).then(cb).catch(cb);
-conn1.close().catch(function (err) {});
+conn1.openUri('mongodb://localhost/test', 'myDb', 27017, {
+  replset: null,
+  config: {
+    autoIndex: false
+  }
+}, function (err) {}).open('');
+conn1.close().then(function () {}).catch(function (err) {});
+conn1.close(true).then(function () {}).catch(function (err) {});
+conn1.close(function (err) {});
+conn1.close(true, function (err) {});
 conn1.collection('name').$format(999);
 conn1.model('myModel', new mongoose.Schema({}), 'myCol').find();
 conn1.models.myModel.findOne().exec();
@@ -146,6 +160,13 @@ mongoose.Connection.STATES.hasOwnProperty('');
 /* inherited properties */
 conn1.on('data', cb);
 conn1.addListener('close', cb);
+
+// The connection returned by useDb is *not* thenable.
+// From https://github.com/DefinitelyTyped/DefinitelyTyped/pull/26057#issuecomment-396150819
+const getDB = async (tenant: string)=> {
+  return conn1.useDb(tenant);
+};
+
 
 /*
  * section error/validation.js
@@ -170,7 +191,8 @@ mongooseError.stack;
 mongoose.Error.messages.hasOwnProperty('');
 mongoose.Error.Messages.hasOwnProperty('');
 
-const plural: string = mongoose.pluralize('foo');
+const pluralize = mongoose.pluralize();
+const plural: string = pluralize('foo');
 
 /*
  * section querycursor.js
@@ -1178,6 +1200,7 @@ aggregate.allowDiskUse(true).allowDiskUse(false, []);
 aggregate.append({ $project: { field: 1 }}, { $limit: 2 });
 aggregate.append([{ $match: { daw: 'Logic Audio X' }} ]);
 aggregate.collation({ locale: 'en_US', strength: 1 });
+aggregate.count('countName');
 aggregate.cursor({ batchSize: 1000 }).exec().each(cb);
 aggregate.exec().then(cb).catch(cb);
 aggregate.option({foo: 'bar'}).exec();

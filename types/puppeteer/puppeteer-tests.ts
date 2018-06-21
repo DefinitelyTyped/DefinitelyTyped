@@ -117,9 +117,15 @@ puppeteer.launch().then(async browser => {
   await watchDog;
 
   let currentURL: string;
+
   page
     .waitForSelector("img", { visible: true })
-    .then(() => console.log("First URL with image: " + currentURL));
+    .then(() => console.log("First URL with image by selector: " + currentURL));
+
+  page
+    .waitForXPath("//img", { visible: true })
+    .then(() => console.log("First URL with image by xpath: " + currentURL));
+
   for (currentURL of [
     "https://example.com",
     "https://google.com",
