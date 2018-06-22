@@ -3140,12 +3140,12 @@ declare namespace Office {
          *     <th>Description</th>
          *   </tr>
          *   <tr>
-         *     <td>{row: i}</td>
-         *     <td>Specifies the range that extends to the ith row of data in the table.</td>
+         *     <td>{row: n}</td>
+         *     <td>Specifies the range that is the nth row of data in the table.</td>
          *   </tr>
          *   <tr>
-         *     <td>{column: i}</td>
-         *     <td>Specifies the range that extends to ith column of data in the table.</td>
+         *     <td>{column: n}</td>
+         *     <td>Specifies the range that is the nth column of data in the table.</td>
          *   </tr>
          *   <tr>
          *     <td>{row: i, column: j}</td>
