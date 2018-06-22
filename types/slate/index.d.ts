@@ -3,6 +3,7 @@
 // Definitions by: Andy Kent <https://github.com/andykent>
 //                 Jamie Talbot <https://github.com/majelbstoat>
 //                 Jan Löbel <https://github.com/JanLoebel>
+//                 Brandon Shelton <https://github.com/YangusKhan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 declare module 'slate' {
