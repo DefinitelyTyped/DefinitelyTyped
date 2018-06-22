@@ -42,9 +42,9 @@ export interface ExecutionContext {
  *   - `errors` is included when any errors occurred as a non-empty array.
  *   - `data` is the result of a successful execution of the query.
  */
-export interface ExecutionResult {
+export interface ExecutionResult<TData> {
     errors?: ReadonlyArray<GraphQLError>;
-    data?: { [key: string]: any };
+    data?: Readonly<TData>;
 }
 
 export type ExecutionArgs = {
@@ -69,8 +69,8 @@ export type ExecutionArgs = {
  *
  * Accepts either an object with named arguments, or individual arguments.
  */
-export function execute(args: ExecutionArgs): MaybePromise<ExecutionResult>;
-export function execute(
+export function execute<TData>(args: ExecutionArgs): MaybePromise<ExecutionResult<TData>>;
+export function execute<TData>(
     schema: GraphQLSchema,
     document: DocumentNode,
     rootValue?: any,
@@ -78,7 +78,7 @@ export function execute(
     variableValues?: Maybe<{ [key: string]: any }>,
     operationName?: Maybe<string>,
     fieldResolver?: Maybe<GraphQLFieldResolver<any, any>>
-): MaybePromise<ExecutionResult>;
+): MaybePromise<ExecutionResult<TData>>;
 
 /**
  * Given a ResponsePath (found in the `path` entry in the information provided

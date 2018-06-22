@@ -44,8 +44,8 @@ export interface GraphQLArgs {
     fieldResolver?: Maybe<GraphQLFieldResolver<any, any>>;
 }
 
-export function graphql(args: GraphQLArgs): Promise<ExecutionResult>;
-export function graphql(
+export function graphql<TData>(args: GraphQLArgs): Promise<ExecutionResult<TData>>;
+export function graphql<TData>(
     schema: GraphQLSchema,
     source: Source | string,
     rootValue?: any,
@@ -53,7 +53,7 @@ export function graphql(
     variableValues?: Maybe<{ [key: string]: any }>,
     operationName?: Maybe<string>,
     fieldResolver?: Maybe<GraphQLFieldResolver<any, any>>
-): Promise<ExecutionResult>;
+): Promise<ExecutionResult<TData>>;
 
 /**
  * The graphqlSync function also fulfills GraphQL operations by parsing,
@@ -61,8 +61,8 @@ export function graphql(
  * However, it guarantees to complete synchronously (or throw an error) assuming
  * that all field resolvers are also synchronous.
  */
-export function graphqlSync(args: GraphQLArgs): ExecutionResult;
-export function graphqlSync(
+export function graphqlSync<TData>(args: GraphQLArgs): ExecutionResult<TData>;
+export function graphqlSync<TData>(
     schema: GraphQLSchema,
     source: Source | string,
     rootValue?: any,
@@ -70,4 +70,4 @@ export function graphqlSync(
     variableValues?: Maybe<{ [key: string]: any }>,
     operationName?: Maybe<string>,
     fieldResolver?: Maybe<GraphQLFieldResolver<any, any>>
-): ExecutionResult;
+): ExecutionResult<TData>;
