@@ -83,7 +83,7 @@ moment('01-01-2018', 'DD-MM-YYYY').monthNaturalDays();
 //   moment("2018-01-30T00:00:00.000"),
 //   moment("2018-01-31T00:00:00.000") ]
 
-moment('01-01-2018', 'DD-MM-YYYY').monthBusinessWeeks()
+moment('01-01-2018', 'DD-MM-YYYY').monthBusinessWeeks();
 // [ [ moment("2018-01-01T00:00:00.000"),
 //     moment("2018-01-02T00:00:00.000"),
 //     moment("2018-01-03T00:00:00.000"),
@@ -108,7 +108,7 @@ moment('01-01-2018', 'DD-MM-YYYY').monthBusinessWeeks()
 //     moment("2018-01-30T00:00:00.000"),
 //     moment("2018-01-31T00:00:00.000") ] ]
 
-moment('01-01-2018', 'DD-MM-YYYY').monthNaturalWeeks()
+moment('01-01-2018', 'DD-MM-YYYY').monthNaturalWeeks();
 // [ [ moment("2018-01-01T00:00:00.000"),
 //     moment("2018-01-02T00:00:00.000"),
 //     moment("2018-01-03T00:00:00.000"),
