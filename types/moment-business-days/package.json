@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "dependencies": {
+        "moment": ">=2.14.0",
+        "moment-business-days": "^1.0.6"
+    }
+}
