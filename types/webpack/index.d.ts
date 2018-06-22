@@ -24,6 +24,7 @@ import { Tapable, HookMap,
          AsyncParallelBailHook, AsyncParallelHook, AsyncSeriesBailHook, AsyncSeriesHook, AsyncSeriesWaterfallHook } from 'tapable';
 import * as UglifyJS from 'uglify-js';
 import { RawSourceMap } from 'source-map';
+import { Application } from 'express';
 
 export = webpack;
 
@@ -649,11 +650,11 @@ declare namespace webpack {
         }
         interface DevServerOptions {
             /** Provides the ability to execute custom middleware after all other middleware internally within the server. */
-            after?: () => void;
+            after?: (app: Application) => void;
             /** This option allows you to whitelist services that are allowed to access the dev server. */
             allowedHosts?: string[];
             /** Provides the ability to execute custom middleware prior to all other middleware internally within the server. */
-            before?: () => void;
+            before?: (app: Application) => void;
             /** This option broadcasts the server via ZeroConf networking on start. */
             bonjour?: boolean;
             /**
@@ -742,7 +743,7 @@ declare namespace webpack {
              */
             quiet?: boolean;
             /** @deprecated Here you can access the Express app object and add your own custom middleware to it. */
-            setup?: () => void;
+            setup?: (app: Application) => void;
             /** The Unix socket to listen to (instead of a host). */
             socket?: string;
             /** It is possible to configure advanced options for serving static files from contentBase. */
