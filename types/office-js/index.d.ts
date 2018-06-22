@@ -3141,15 +3141,15 @@ declare namespace Office {
          *   </tr>
          *   <tr>
          *     <td>{row: n}</td>
-         *     <td>Specifies the range that is the nth row of data in the table.</td>
+         *     <td>Specifies the range that is the zero-based nth row of data in the table.</td>
          *   </tr>
          *   <tr>
          *     <td>{column: n}</td>
-         *     <td>Specifies the range that is the nth column of data in the table.</td>
+         *     <td>Specifies the range that is the zero-based nth column of data in the table.</td>
          *   </tr>
          *   <tr>
          *     <td>{row: i, column: j}</td>
-         *     <td>Specifies the range of cells from the ith row to the jth column of data in the table.</td>
+         *     <td>Specifies the single cell that is the ith row and jth column of the table.</td>
          *   </tr>
          *   <tr>
          *     <td>Office.Table.All</td>
