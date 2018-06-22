@@ -8,7 +8,7 @@ export class EffectComposer {
     renderTarget2: WebGLRenderTarget;
     writeBuffer: WebGLRenderTarget;
     readBuffer: WebGLRenderTarget;
-    passes: any[];
+    passes: Pass[];
     copyPass: ShaderPass;
 
     swapBuffers(): void;
@@ -41,5 +41,4 @@ export class Pass{
     setSize(width: number, height:number ): void;
 
     render(renderer: WebGLRenderer, writeBuffer: WebGLRenderTarget, readBuffer: WebGLRenderTarget, delta: number, maskActive?: boolean): void;
-
 }
