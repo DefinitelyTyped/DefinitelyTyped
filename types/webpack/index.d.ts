@@ -25,6 +25,7 @@ import { Tapable, HookMap,
 import * as UglifyJS from 'uglify-js';
 import { RawSourceMap } from 'source-map';
 import { Application } from 'express';
+import { ServerOptions } from 'https';
 
 export = webpack;
 
@@ -681,7 +682,9 @@ declare namespace webpack {
              */
             filename?: string;
             /** Adds headers to all responses. */
-            headers?: object;
+            headers?: {
+                [key: string]: string;
+            };
             /** When using the HTML5 History API, the index.html page will likely have to be served in place of any 404 responses. */
             historyApiFallback?: boolean | object;
             /** Specify a host to use. By default this is localhost. */
@@ -691,7 +694,7 @@ declare namespace webpack {
             /** Enables Hot Module Replacement (see devServer.hot) without page refresh as fallback in case of build failures. */
             hotOnly?: boolean;
             /** By default dev-server will be served over HTTP. It can optionally be served over HTTP/2 with HTTPS. */
-            https?: boolean | object;
+            https?: boolean | ServerOptions;
             /** The filename that is considered the index file. */
             index?: string;
             /**
@@ -717,7 +720,10 @@ declare namespace webpack {
             /** Specify a page to navigate to when opening the browser. */
             openPage?: string;
             /** Shows a full-screen overlay in the browser when there are compiler errors or warnings. Disabled by default. */
-            overlay?: boolean | object;
+            overlay?: boolean | {
+                warnings?: boolean;
+                errors?: boolean;
+            };
             /** When used via the CLI, a path to an SSL .pfx file. If used in options, it should be the bytestream of the .pfx file. */
             pfx?: string;
             /** The passphrase to a SSL PFX file. */
@@ -752,13 +758,13 @@ declare namespace webpack {
              * This option lets you precisely control what bundle information gets displayed.
              * This can be a nice middle ground if you want some bundle information, but not all of it.
              */
-            stats?: string | object;
+            stats?: string | Stats;
             /** This option lets the browser open with your local IP. */
             useLocalIp?: boolean;
             /** Tell the server to watch the files served by the devServer.contentBase option. File changes will trigger a full page reload. */
             watchContentBase?: boolean;
             /** Control options related to watching the files. */
-            watchOptions?: object;
+            watchOptions?: WatchOptions;
         }
     }
 
