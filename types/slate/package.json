@@ -1,0 +1,29 @@
+{
+  "description": "TypeScript definitions for slate",
+  "license": "MIT",
+  "contributors": [
+    {
+      "name": "Andy Kent",
+      "url": "https://github.com/andykent"
+    },
+    {
+      "name": "Jamie Talbot",
+      "url": "https://github.com/majelbstoat"
+    },
+    {
+      "name": "Jan Löbel",
+      "url": "https://github.com/JanLoebel"
+    }
+  ],
+  "main": "",
+  "name": "@types/slate",
+  "repository": {
+    "type": "git",
+    "url": "https://www.github.com/DefinitelyTyped/DefinitelyTyped.git"
+  },
+  "devDependencies": {
+    "immutable": "^3.8.2"
+  },
+  "typeScriptVersion": "2.3",
+  "version": "0.33.4"
+}
