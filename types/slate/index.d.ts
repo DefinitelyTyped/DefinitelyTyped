@@ -1,4 +1,4 @@
-// Type definitions for Slate
+// Type definitions for slate 0.33
 // Project: https://github.com/ianstormtaylor/slate
 // Definitions by: Andy Kent <https://github.com/andykent>
 //                 Jamie Talbot <https://github.com/majelbstoat>
@@ -44,12 +44,12 @@ declare module 'slate' {
       first?: KindsAndTypes;
       isVoid?: boolean;
       last?: KindsAndTypes;
-      nodes?: {
+      nodes?: Array<{
         kinds?: string[];
         types?: string[];
         min?: number;
         max?: number;
-      }[];
+      }>;
       normalize?: (
         change: Change,
         reason: InvalidReason,
@@ -200,7 +200,7 @@ declare module 'slate' {
 
       static create(properties: BlockProperties | Block | string): Block;
       static createList(
-        array: (BlockProperties | Block | string)[]
+        array: (BlockProperties[] | Block[] | string[])
       ): Immutable.List<Block>;
       static fromJSON(properties: BlockProperties | Block): Block;
       static isBlock(maybeBlock: any): maybeBlock is Block;
@@ -232,7 +232,7 @@ declare module 'slate' {
 
       static create(properties: InlineProperties | Inline | string): Inline;
       static createList(
-        array: (InlineProperties | Inline | string)[]
+        array: (InlineProperties[] | Inline[] | string[])
       ): Immutable.List<Inline>;
       static fromJSON(properties: InlineProperties | Inline): Inline;
       static isInline(maybeInline: any): maybeInline is Inline;
@@ -307,13 +307,13 @@ declare module 'slate' {
       getNextBlock(key: string | Node): Block | null;
       getNextSibling(key: string | Node): Node | null;
       getNextText(key: string | Node): Text | null;
-      getParent(key: string | Node): Node | void;
-      getPreviousBlock(key: string | Node): Block | void;
-      getPreviousSibling(key: string | Node): Node | void;
-      getPreviousText(key: string | Node): Text | void;
+      getParent(key: string | Node): Node | null;
+      getPreviousBlock(key: string | Node): Block | null;
+      getPreviousSibling(key: string | Node): Node | null;
+      getPreviousText(key: string | Node): Text | null;
       getTexts(): Immutable.List<Text>;
       getTextsAsArray(): Text[];
-      getTextAtOffset(offset: Number): Text | void;
+      getTextAtOffset(offset: number): Text | null;
       getTextsAtRange(range: Range): Immutable.List<Text>;
       getTextsAtRangeAsArray(range: Range): Text[];
       hasChild(key: string | Node): boolean;
@@ -333,7 +333,7 @@ declare module 'slate' {
         properties: CharacterProperties | Character | string
       ): Character;
       static createList(
-        array: (CharacterProperties | Character | string)[]
+        array: (CharacterProperties[] | Character[] | string[])
       ): Immutable.List<Character>;
       static fromJSON(properties: CharacterProperties | Character): Character;
       static isCharacter(maybeCharacter: any): maybeCharacter is Character;
@@ -358,7 +358,7 @@ declare module 'slate' {
 
       static create(properties: MarkProperties | Mark | string): Mark;
       static createSet(
-        array: (MarkProperties | Mark | string)[]
+        array: (MarkProperties[] | Mark[] | string[])
       ): Immutable.Set<Mark>;
       static fromJSON(properties: MarkJSON | Mark): Mark;
       static isMark(maybeMark: any): maybeMark is Mark;
@@ -617,94 +617,94 @@ declare module 'slate' {
       | SetSelectionOperation
       | SetValueOperation;
 
-    type InsertTextOperation = {
+    interface InsertTextOperation {
       type: 'insert_text';
       path: number[];
       offset: number;
       text: string;
       marks: Mark[];
-    };
+    }
 
-    type RemoveTextOperation = {
+    interface RemoveTextOperation {
       type: 'remove_text';
       path: number[];
       offset: number;
       text: string;
-    };
+    }
 
-    type AddMarkOperation = {
+    interface AddMarkOperation {
       type: 'add_mark';
       path: number[];
       offset: number;
       length: number;
       mark: Mark;
-    };
+    }
 
-    type RemoveMarkOperation = {
+    interface RemoveMarkOperation {
       type: 'remove_mark';
       path: number[];
       offset: number;
       length: number;
       mark: Mark;
-    };
+    }
 
-    type SetMarkOperation = {
+    interface SetMarkOperation {
       type: 'set_mark';
       path: number[];
       offset: number;
       length: number;
       mark: Mark;
       properties: MarkProperties;
-    };
+    }
 
-    type InsertNodeOperation = {
+    interface InsertNodeOperation {
       type: 'insert_node';
       path: number[];
       node: Node;
-    };
+    }
 
-    type MergeNodeOperation = {
+    interface MergeNodeOperation {
       type: 'merge_node';
       path: number[];
       position: number;
-    };
+    }
 
-    type MoveNodeOperation = {
+    interface MoveNodeOperation {
       type: 'move_node';
       path: number[];
       newPath: number[];
-    };
+    }
 
-    type RemoveNodeOperation = {
+    interface RemoveNodeOperation {
       type: 'remove_node';
       path: number[];
       node: Node;
-    };
+    }
 
-    type SetNodeOperation = {
+    interface SetNodeOperation {
       type: 'set_node';
       path: number[];
       properties: BlockProperties | InlineProperties | TextProperties;
-    };
+    }
 
-    type SplitNodeOperation = {
+    interface SplitNodeOperation {
       type: 'split_node';
       path: number[];
       position: number;
       target: number;
-    };
+    }
 
-    type SetSelectionOperation = {
+    interface SetSelectionOperation {
       type: 'set_selection';
       properties: RangeProperties;
       selection: Range;
-    };
+    }
 
-    type SetValueOperation = {
+    interface SetValueOperation {
       type: 'set_value';
       properties: ValueProperties;
       value: Value;
-    };
+    }
 
     export const Operations: {
       apply: (value: Value, operation: Operation) => Value;
@@ -715,6 +715,6 @@ declare module 'slate' {
       plugins: any[];
     }
 
-    export function setKeyGenerator(func: () => string): void;
-    export function resetKeyGenerator(): void;
+    export function setKeyGenerator(func: () => string): null;
+    export function resetKeyGenerator(): null;
   }

@@ -1,7 +1,6 @@
-/// <reference path="index.d.ts"/>
 import * as Slate from "slate";
 
-let value = Slate.Value.create();
+const value = Slate.Value.create();
 value.change()
 	.focus()
 	.selectAll()
