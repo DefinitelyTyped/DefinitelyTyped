@@ -4,23 +4,23 @@ import { getIfUtils, removeEmpty, propIf, propIfNot } from 'webpack-config-utils
 {
     // propIf/propIfNot
 
-    // $ExpectType "value" | "alternate"
-    propIf(true, 'value', 'alternate'); // 'value'
+    // $ExpectType "value"
+    propIf(true, 'value', 'alternate');
 
-    // $ExpectType "value" | "alternate"
-    propIf(false, 'value', 'alternate'); // 'alternate'
+    // $ExpectType "alternate"
+    propIf(false, 'value', 'alternate');
 
-    // $ExpectType "value" | "alternate"
-    propIf('false', 'value', 'alternate'); // 'alternate'
+    // $ExpectType "alternate"
+    propIf('false', 'value', 'alternate');
 
-    // $ExpectType "value" | "alternate"
-    propIfNot(true, 'value', 'alternate'); // 'alternate'
+    // $ExpectType "alternate"
+    propIfNot(true, 'value', 'alternate');
 
-    // $ExpectType "value" | "alternate"
-    propIfNot(false, 'value', 'alternate'); // 'value'
+    // $ExpectType "value"
+    propIfNot(false, 'value', 'alternate');
 
-    // $ExpectType "value" | "alternate"
-    propIfNot('false', 'value', 'alternate'); // 'value'
+    // $ExpectType "value"
+    propIfNot('false', 'value', 'alternate');
 }
 {
     // getIfUtils

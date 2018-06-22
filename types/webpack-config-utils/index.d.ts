@@ -4,57 +4,37 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-declare const api: WebpackConfigUtils.API;
-export = api;
+export function getIfUtils<E extends EnvVars | string>(
+    env: { [P in E]: boolean | string } | E,
+    vars?: Array<EnvVars | string>
+): IfUtils;
+export function removeEmpty<T>(input: Array<T | undefined>): T[];
+export function removeEmpty<T>(input: { [P in keyof T]: T[P] }): NonEmptyObject<T>;
+export function propIf<E>(a: Falsy, value: any, alternate: E): E;
+export function propIf<I>(a: any, value: I, alternate: any): I;
+export function propIfNot<I>(a: Falsy, value: I, alternate: any): I;
+export function propIfNot<E>(a: any, value: any, alternate: E): E;
 
-declare namespace WebpackConfigUtils {
-    type Falsy = false | '' | undefined | null | 0;
-    type DefinedObjKeys<T> = ({ [P in keyof T]: T[P] extends undefined ? never : P })[keyof T];
-    type NonEmptyObject<T, P extends DefinedObjKeys<T> = DefinedObjKeys<T>> = { [PP in P]: T[PP] };
+export type Falsy = false | '' | 'false' | undefined | null | 0;
+export type DefinedObjKeys<T> = ({ [P in keyof T]: T[P] extends undefined ? never : P })[keyof T];
+export type NonEmptyObject<T, P extends DefinedObjKeys<T> = DefinedObjKeys<T>> = { [PP in P]: T[PP] };
 
-    type EnvVars = 'production' | 'prod' | 'test' | 'development' | 'dev';
-    interface RemoveEmpty {
-        <T>(input: Array<T | undefined>): T[];
-        <T>(input: { [P in keyof T]: T[P] }): NonEmptyObject<T>;
-    }
-    type GetIfUtils = <E extends EnvVars | string>(
-        env: { [P in E]: boolean | string } | E,
-        vars?: Array<EnvVars | string>
-    ) => IfUtils;
+export type EnvVars = 'production' | 'prod' | 'test' | 'development' | 'dev';
 
-    // @TODO
-    // with following defintion, generics will get flattened to base type -> string. Any ideas why or how to fix this?
-    // $ExpectType "value" | "alternate"
-    // propIf(true, 'value', 'alternate'); // 'value'
-    //
-    // type PropIf = <A, I, E>(add: A, value: I, alternate: E) => A extends Falsy ? E : I;
-    // type PropIfNot = <A, I, E>(add: A, value: I, alternate: E) => A extends Falsy ? I : E;
-
-    type PropIf = <I, E>(add: any, value: I, alternate: E) => I | E;
-    type PropIfNot = PropIf;
-
-    interface IfUtilsFn {
-        <Y, N>(value: Y, alternate?: N): Y | N;
-        (): boolean;
-    }
-    interface IfUtils {
-        ifDevelopment: IfUtilsFn;
-        ifNotDevelopment: IfUtilsFn;
-        ifDev: IfUtilsFn;
-        ifNotDev: IfUtilsFn;
-        ifProduction: IfUtilsFn;
-        ifNotProduction: IfUtilsFn;
-        ifProd: IfUtilsFn;
-        ifNotProd: IfUtilsFn;
-        ifTest: IfUtilsFn;
-        ifNotTest: IfUtilsFn;
-        [key: string]: IfUtilsFn;
-    }
-
-    interface API {
-        getIfUtils: GetIfUtils;
-        removeEmpty: RemoveEmpty;
-        propIf: PropIf;
-        propIfNot: PropIfNot;
-    }
+export interface IfUtilsFn {
+    <Y, N>(value: Y, alternate?: N): Y | N;
+    (): boolean;
+}
+export interface IfUtils {
+    ifDevelopment: IfUtilsFn;
+    ifNotDevelopment: IfUtilsFn;
+    ifDev: IfUtilsFn;
+    ifNotDev: IfUtilsFn;
+    ifProduction: IfUtilsFn;
+    ifNotProduction: IfUtilsFn;
+    ifProd: IfUtilsFn;
+    ifNotProd: IfUtilsFn;
+    ifTest: IfUtilsFn;
+    ifNotTest: IfUtilsFn;
+    [key: string]: IfUtilsFn;
 }
