@@ -18,6 +18,7 @@ import {
     ColorPropType,
     ImageRequireSource,
     ImageURISource,
+    LinkingStatic as ReactNativeLinkingStatic,
     NativeEventEmitter,
     ViewProps,
     ViewStyle,
@@ -37,6 +38,7 @@ export type ResizeModeStretch = 'stretch';
 export type URISource = ImageURISource;
 
 export interface HashMap { [key: string]: any; }
+export interface StringHashMap { [key: string]: string; }
 
 /** Access the device accelerometer sensor(s) to respond to changes in acceleration in 3d space. */
 export namespace Accelerometer {
@@ -1682,6 +1684,21 @@ export interface LinearGradientProps {
 
 export class LinearGradient extends Component<LinearGradientProps> { }
 // #endregion
+
+/**
+ * Linking
+ */
+export interface LinkInfo {
+    path: string;
+    queryParams: Partial<StringHashMap>;
+}
+
+export interface LinkingStatic extends ReactNativeLinkingStatic {
+    makeUrl(path: string, queryParams?: HashMap): string;
+    parse(url: string): LinkInfo;
+    parseInitialURLAsync(): Promise<LinkInfo>;
+}
+export const Linking: LinkingStatic;
 
 /**
  * Location
