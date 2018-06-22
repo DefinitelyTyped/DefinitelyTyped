@@ -1096,6 +1096,17 @@ export interface TextInputScrollEventData {
 }
 
 /**
+ * @see TextInputProps.onSelectionChange
+ */
+export interface TextInputSelectionChangeEventData {
+    selection: {
+        start: number;
+        end: number;
+    };
+    target: number;
+}
+
+/**
  * @see https://facebook.github.io/react-native/docs/textinput.html#props
  */
 export interface TextInputProps
@@ -1220,7 +1231,7 @@ export interface TextInputProps
     /**
      * Callback that is called when the text input selection is changed.
      */
-    onSelectionChange?: (event: { nativeEvent: { selection: { start: number; end: number }; target: number } }) => void;
+    onSelectionChange?: (e: NativeSyntheticEvent<TextInputSelectionChangeEventData>) => void;
 
     /**
      * Callback that is called when the text input's submit button is pressed.
