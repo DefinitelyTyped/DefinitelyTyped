@@ -855,6 +855,9 @@ declare namespace nano {
     descending?: boolean;
 
     // Stop returning records when the specified key is reached.
+    endkey?: string;
+
+    // Stop returning records when the specified key is reached.
     end_key?: string;
 
     // Stop returning records when the specified document ID is reached.
@@ -881,6 +884,9 @@ declare namespace nano {
     // Allow the results from a stale view to be used, without triggering a rebuild of all views within the
     // encompassing design doc. Supported values: ok and update_after.
     stale?: string;
+
+    // Return records starting with the specified key.
+    startkey?: string;
 
     // Return records starting with the specified key.
     start_key?: string;
