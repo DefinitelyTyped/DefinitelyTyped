@@ -1,4 +1,6 @@
 {
-  "license": "MIT",
-  "private": true
+    "private": true,
+    "dependencies": {
+        "immutable": "^3.8.2"
+    }
 }
