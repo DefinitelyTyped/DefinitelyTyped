@@ -42,13 +42,13 @@ export interface MemoryRouterProps {
   keyLength?: number;
 }
 
-export class MemoryRouter extends React.Component<MemoryRouterProps, any> { }
+export class MemoryRouter extends React.Component<MemoryRouterProps, any> { render(): React.ReactNode }
 
 export interface PromptProps {
   message: string | ((location: H.Location) => string | boolean);
   when?: boolean;
 }
-export class Prompt extends React.Component<PromptProps, any> { }
+export class Prompt extends React.Component<PromptProps, any> { render(): React.ReactNode }
 
 export interface RedirectProps {
   to: H.LocationDescriptor;
@@ -58,7 +58,7 @@ export interface RedirectProps {
   exact?: boolean;
   strict?: boolean;
 }
-export class Redirect extends React.Component<RedirectProps, any> { }
+export class Redirect extends React.Component<RedirectProps, any> { render(): React.ReactNode }
 
 export interface StaticContext {
   statusCode?: number;
@@ -80,12 +80,12 @@ export interface RouteProps {
   exact?: boolean;
   strict?: boolean;
 }
-export class Route<T extends RouteProps = RouteProps> extends React.Component<T, any> { }
+export class Route<T extends RouteProps = RouteProps> extends React.Component<T, any> { render(): React.ReactNode }
 
 export interface RouterProps {
   history: H.History;
 }
-export class Router extends React.Component<RouterProps, any> { }
+export class Router extends React.Component<RouterProps, any> { render(): React.ReactNode }
 
 export interface StaticRouterContext {
   url?: string;
@@ -98,12 +98,12 @@ export interface StaticRouterProps {
   context?: StaticRouterContext;
 }
 
-export class StaticRouter extends React.Component<StaticRouterProps, any> { }
+export class StaticRouter extends React.Component<StaticRouterProps, any> { render(): React.ReactNode }
 export interface SwitchProps {
   children?: React.ReactNode;
   location?: H.Location;
 }
-export class Switch extends React.Component<SwitchProps, any> { }
+export class Switch extends React.Component<SwitchProps, any> { render(): React.ReactNode }
 
 export interface match<P> {
   params: P;

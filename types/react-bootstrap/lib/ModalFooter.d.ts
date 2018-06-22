@@ -5,5 +5,5 @@ declare namespace ModalFooter {
         componentClass?: React.ReactType;
     }
 }
-declare class ModalFooter extends React.Component<ModalFooter.ModalFooterProps> { }
+declare class ModalFooter extends React.Component<ModalFooter.ModalFooterProps> { render(): React.ReactNode }
 export = ModalFooter;

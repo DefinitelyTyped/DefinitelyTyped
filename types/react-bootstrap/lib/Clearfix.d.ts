@@ -9,5 +9,5 @@ declare namespace Clearfix {
         visibleLgBlock?: boolean;
     }
 }
-declare class Clearfix extends React.Component<Clearfix.ClearfixProps> { }
+declare class Clearfix extends React.Component<Clearfix.ClearfixProps> { render(): React.ReactNode }
 export = Clearfix;

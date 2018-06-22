@@ -20,4 +20,4 @@ export interface OtherInterpolateProps {
 
 export type InterpolateProps = InterpolatePropsBase & OtherInterpolateProps;
 
-export default class Interpolate extends React.Component<InterpolateProps> { }
+export default class Interpolate extends React.Component<InterpolateProps> { render(): React.ReactNode }

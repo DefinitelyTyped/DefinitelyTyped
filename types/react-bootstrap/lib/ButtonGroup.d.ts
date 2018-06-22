@@ -10,5 +10,5 @@ declare namespace ButtonGroup {
         vertical?: boolean;
     }
 }
-declare class ButtonGroup extends React.Component<ButtonGroup.ButtonGroupProps> { }
+declare class ButtonGroup extends React.Component<ButtonGroup.ButtonGroupProps> { render(): React.ReactNode }
 export = ButtonGroup;

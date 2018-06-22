@@ -23,6 +23,6 @@ interface ReactResizeDetectorProps extends React.Props<ReactResizeDetector> {
     refreshRate?: number;
 }
 
-declare class ReactResizeDetector extends React.PureComponent<ReactResizeDetectorProps> { }
+declare class ReactResizeDetector extends React.PureComponent<ReactResizeDetectorProps> { render(): React.ReactNode }
 
 export default ReactResizeDetector;

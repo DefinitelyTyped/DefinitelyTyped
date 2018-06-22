@@ -1,4 +1,4 @@
 import * as React from 'react';
 import { IconBaseProps } from 'react-icon-base';
-declare class MdImage extends React.Component<IconBaseProps> { }
+declare class MdImage extends React.Component<IconBaseProps> { render(): React.ReactNode }
 export = MdImage;

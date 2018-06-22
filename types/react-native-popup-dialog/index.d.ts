@@ -80,7 +80,7 @@ export class SlideAnimation {
     createAnimations(): object;
 }
 
-export class DialogButton extends React.Component<DialogButtonProps, any> { }
-export class DialogTitle extends React.Component<DialogTitleProps, any> { }
-export class Overlay extends React.Component<OverlayProps, any> { }
-export default class PopupDialog extends React.Component<PopupDialogProps, any> { }
+export class DialogButton extends React.Component<DialogButtonProps, any> { render(): React.ReactNode }
+export class DialogTitle extends React.Component<DialogTitleProps, any> { render(): React.ReactNode }
+export class Overlay extends React.Component<OverlayProps, any> { render(): React.ReactNode }
+export default class PopupDialog extends React.Component<PopupDialogProps, any> { render(): React.ReactNode }

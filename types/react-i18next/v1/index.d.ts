@@ -24,7 +24,7 @@ interface I18nextProviderProps {
     children?: React.ReactElement<any>;
 }
 
-export class I18nextProvider extends React.Component<I18nextProviderProps> { }
+export class I18nextProvider extends React.Component<I18nextProviderProps> { render(): React.ReactNode }
 
 
 type InterpolateValue = string | JSX.Element;
@@ -42,7 +42,7 @@ interface InterpolateProps {
     [regexKey: string]: InterpolateValue | RegExp | I18next.TranslationOptions | boolean | undefined;
 }
 
-export class Interpolate extends React.Component<InterpolateProps> { }
+export class Interpolate extends React.Component<InterpolateProps> { render(): React.ReactNode }
 
 interface TranslateOptions {
     withRef?: boolean;

@@ -12,5 +12,5 @@ declare namespace SplitButton {
         id: string;
     }
 }
-declare class SplitButton extends React.Component<SplitButton.SplitButtonProps> { }
+declare class SplitButton extends React.Component<SplitButton.SplitButtonProps> { render(): React.ReactNode }
 export = SplitButton;

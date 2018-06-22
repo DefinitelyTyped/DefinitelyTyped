@@ -172,11 +172,11 @@ export const actions: Actions;
 export function hook(): (subscriber: () => any) => any;
 export function defaults(): (options: defaultOptions) => void;
 export const render: Renderer;
-export class Router<State> extends React.Component<ConnectedRouterProps<State>> { }
-export class Link extends React.Component<LinkProps, any> { }
-export class NavLink extends React.Component<NavLinkProps, any> { }
-export class Redirect extends React.Component<RedirectProps, any> { }
-export class Route<T extends RouteProps = RouteProps> extends React.Component<T, any> { }
-export class Prompt extends React.Component<PromptProps, any> { }
+export class Router<State> extends React.Component<ConnectedRouterProps<State>> { render(): React.ReactNode }
+export class Link extends React.Component<LinkProps, any> { render(): React.ReactNode }
+export class NavLink extends React.Component<NavLinkProps, any> { render(): React.ReactNode }
+export class Redirect extends React.Component<RedirectProps, any> { render(): React.ReactNode }
+export class Route<T extends RouteProps = RouteProps> extends React.Component<T, any> { render(): React.ReactNode }
+export class Prompt extends React.Component<PromptProps, any> { render(): React.ReactNode }
 export function withRouter<P extends RouteComponentProps<any>>(component: React.ComponentType<P>): React.ComponentClass<Omit<P, keyof RouteComponentProps<any>>>;
 export function withRouter<TFunction extends React.ComponentClass<any>>(target: TFunction): TFunction;

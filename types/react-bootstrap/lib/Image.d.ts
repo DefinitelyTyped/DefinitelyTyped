@@ -8,5 +8,5 @@ declare namespace Image {
         thumbnail?: boolean;
     }
 }
-declare class Image extends React.Component<Image.ImageProps> { }
+declare class Image extends React.Component<Image.ImageProps> { render(): React.ReactNode }
 export = Image;

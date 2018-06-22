@@ -6,7 +6,7 @@
 
 import * as React from "react";
 
-declare class ReactTooltip extends React.Component<ReactTooltip.Props> { }
+declare class ReactTooltip extends React.Component<ReactTooltip.Props> { render(): React.ReactNode }
 
 declare namespace ReactTooltip {
     /**

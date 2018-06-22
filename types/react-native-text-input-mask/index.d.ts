@@ -17,4 +17,4 @@ export interface TextInputMaskProps {
     keyboardType?: 'default' | 'numeric' | 'email-address' | 'phone-pad';
 }
 
-export default class TextInputMask extends React.Component<TextInputMaskProps> { }
+export default class TextInputMask extends React.Component<TextInputMaskProps> { render(): React.ReactNode }

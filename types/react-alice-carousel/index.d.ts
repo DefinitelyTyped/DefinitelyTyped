@@ -118,4 +118,4 @@ export interface Props {
 	autoPlayActionDisabled?: boolean;
 }
 
-export default class Carousel extends React.PureComponent<Props> {}
+export default class Carousel extends React.PureComponent<Props> { render(): React.ReactNode }

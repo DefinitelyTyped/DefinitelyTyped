@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-declare class Affix extends React.Component<Affix.AffixProps> { }
+declare class Affix extends React.Component<Affix.AffixProps> { render(): React.ReactNode }
 export = Affix;
 
 declare namespace Affix {

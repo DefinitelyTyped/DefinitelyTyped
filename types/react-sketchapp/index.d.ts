@@ -164,7 +164,7 @@ export interface ArtboardProps {
 /**
  * Wrapper for Sketch's Artboards.
  */
-export class Artboard extends React.Component<ArtboardProps, any> { }
+export class Artboard extends React.Component<ArtboardProps, any> { render(): React.ReactNode }
 
 // Image
 export type ImageSource = string | { src: string };
@@ -175,7 +175,7 @@ export interface ImageProps {
     style?: Style | StyleReference;
     resizeMode: ResizeMode;
 }
-export class Image extends React.Component<ImageProps, any> { }
+export class Image extends React.Component<ImageProps, any> { render(): React.ReactNode }
 
 // RedBox
 export interface RedBoxProps {
@@ -186,7 +186,7 @@ export interface RedBoxProps {
  * A red box / 'red screen of death' error handler. Thanks to
  * [commissure/redbox-react.](https://github.com/commissure/redbox-react)
  */
-export class RedBox extends React.Component<RedBoxProps, any> { }
+export class RedBox extends React.Component<RedBoxProps, any> { render(): React.ReactNode }
 
 // Text
 export interface TextProps {
@@ -195,7 +195,7 @@ export interface TextProps {
     style?: TextStyle | StyleReference;
 }
 /** Text primitives */
-export class Text extends React.Component<TextProps, any> { }
+export class Text extends React.Component<TextProps, any> { render(): React.ReactNode }
 
 // View
 export interface ViewProps {
@@ -204,7 +204,7 @@ export interface ViewProps {
     style?: Style | StyleReference;
 }
 /** View primitives */
-export class View extends React.Component<ViewProps, any> { }
+export class View extends React.Component<ViewProps, any> { render(): React.ReactNode }
 
 export const StyleSheet: {
     hairlineWidth: 1;

@@ -85,6 +85,6 @@ export interface MediaQueryProps extends MediaQueryAllQueryable {
     onChange?: (matches: boolean) => void;
 }
 
-declare class MediaQuery extends React.Component<MediaQueryProps> { }
+declare class MediaQuery extends React.Component<MediaQueryProps> { render(): React.ReactNode }
 export function toQuery(matchers: Partial<MediaQueryAllQueryable>): string;
 export default MediaQuery;

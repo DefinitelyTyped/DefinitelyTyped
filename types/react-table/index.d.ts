@@ -682,7 +682,7 @@ export interface FinalState extends TableProps {
 }
 
 export const ReactTableDefaults: TableProps;
-export default class ReactTable extends React.Component<Partial<TableProps>> { }
+export default class ReactTable extends React.Component<Partial<TableProps>> { render(): React.ReactNode }
 
 export interface Instance extends ReactTable {
     context: any;

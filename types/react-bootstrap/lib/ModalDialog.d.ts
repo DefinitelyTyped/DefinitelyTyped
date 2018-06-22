@@ -12,5 +12,5 @@ declare namespace ModalDialog {
         onExiting?: Function;
     }
 }
-declare class ModalDialog extends React.Component<ModalDialog.ModalDialogProps> { }
+declare class ModalDialog extends React.Component<ModalDialog.ModalDialogProps> { render(): React.ReactNode }
 export = ModalDialog;

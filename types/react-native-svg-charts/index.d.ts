@@ -59,6 +59,7 @@ export interface ChartProps<T> {
 // Line Chart
 
 export class LineChart<T> extends React.PureComponent<ChartProps<T>> {
+    render(): React.ReactNode
 }
 
 // Pie Chart
@@ -83,6 +84,7 @@ export interface PieChartProps<T extends PieChartData> extends ChartProps<T> {
 }
 
 export class PieChart<T extends PieChartData> extends React.PureComponent<PieChartProps<T>> {
+    render(): React.ReactNode
 }
 
 // Area Chart
@@ -92,6 +94,7 @@ export interface AreaChartProps<T> extends ChartProps<T> {
 }
 
 export class AreaChart<T> extends React.PureComponent<AreaChartProps<T>> {
+    render(): React.ReactNode
 }
 
 // Stacked Area Chart
@@ -118,6 +121,7 @@ export interface StackedAreaChartProps<T> extends ChartProps<T> {
 
 export class StackedAreaChart<T> extends React.PureComponent<StackedAreaChartProps<T>> {
     static extractDataPoints<T>(data: T[], keys: ReadonlyArray<keyof T>, order?: OrderFunction, offset?: OffsetFunction): number[];
+    render(): React.ReactNode
 }
 
 // Stacked Bar Chart
@@ -139,6 +143,7 @@ export interface StackedBarChartProps<T> extends ChartProps<T> {
 
 export class StackedBarChart<T> extends React.PureComponent<StackedBarChartProps<T>> {
     static extractDataPoints<T>(data: T, keys: ReadonlyArray<keyof T>, order?: OrderFunction, offset?: OffsetFunction): number[];
+    render(): React.ReactNode
 }
 
 // Bar Chart
@@ -149,6 +154,7 @@ export interface BarChartProps<T> extends ChartProps<T> {
 }
 
 export class BarChart<T> extends React.PureComponent<BarChartProps<T>> {
+    render(): React.ReactNode
 }
 
 // Axis
@@ -175,6 +181,7 @@ export interface XAxisProps<T> extends AxisProps<T> {
 }
 
 export class XAxis<T> extends React.PureComponent<XAxisProps<T>> {
+    render(): React.ReactNode
 }
 
 // YAxis
@@ -191,6 +198,7 @@ export interface YAxisProps<T> extends AxisProps<T> {
 }
 
 export class YAxis<T> extends React.PureComponent<YAxisProps<T>> {
+    render(): React.ReactNode
 }
 
 // Progress Circle
@@ -208,6 +216,7 @@ export interface ProgressCircleProps {
 }
 
 export class ProgressCircle extends React.PureComponent<ProgressCircleProps> {
+    render(): React.ReactNode
 }
 
 // Horizontal Line

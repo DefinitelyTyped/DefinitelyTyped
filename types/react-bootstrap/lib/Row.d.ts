@@ -5,5 +5,5 @@ declare namespace Row {
         componentClass?: React.ReactType;
     }
 }
-declare class Row extends React.Component<Row.RowProps> { }
+declare class Row extends React.Component<Row.RowProps> { render(): React.ReactNode }
 export = Row;

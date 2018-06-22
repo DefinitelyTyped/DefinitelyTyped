@@ -48,4 +48,4 @@ interface ILogMonitorProps {
     expandStateRoot?: boolean
 }
 
-export default class LogMonitor extends React.Component<ILogMonitorProps> { }
+export default class LogMonitor extends React.Component<ILogMonitorProps> { render(): React.ReactNode }

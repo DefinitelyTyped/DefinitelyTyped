@@ -22,9 +22,9 @@ export default class ReactSelectClass<TValue = OptionValues> extends React.Compo
     setValue(value: Option<TValue>): void;
 }
 // Other components
-export class Creatable<TValue = OptionValues> extends React.Component<ReactCreatableSelectProps<TValue>> { }
-export class Async<TValue = OptionValues> extends React.Component<ReactAsyncSelectProps<TValue>> { }
-export class AsyncCreatable<TValue = OptionValues> extends React.Component<ReactAsyncCreatableSelectProps<TValue>> { }
+export class Creatable<TValue = OptionValues> extends React.Component<ReactCreatableSelectProps<TValue>> { render(): React.ReactNode }
+export class Async<TValue = OptionValues> extends React.Component<ReactAsyncSelectProps<TValue>> { render(): React.ReactNode }
+export class AsyncCreatable<TValue = OptionValues> extends React.Component<ReactAsyncCreatableSelectProps<TValue>> { render(): React.ReactNode }
 
 export type OptionComponentType<TValue = OptionValues> = React.ComponentType<OptionComponentProps<TValue>>;
 

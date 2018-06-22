@@ -8,7 +8,7 @@ import * as React from 'react';
 import { FluxibleContext } from 'fluxible';
 import BaseStore = require('fluxible/addons/BaseStore');
 
-export class NavLink extends React.Component<NavLinkProps, any> { }
+export class NavLink extends React.Component<NavLinkProps, any> { render(): React.ReactNode }
 
 export class RouteStore extends BaseStore {
     static withStaticRoutes(routes: object): typeof RouteStore;

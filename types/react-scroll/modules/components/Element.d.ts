@@ -5,4 +5,4 @@ export interface ElementProps extends React.HTMLProps<HTMLDivElement> {
     id?: string;
 }
 
-export default class Element extends React.Component<ElementProps> { }
+export default class Element extends React.Component<ElementProps> { render(): React.ReactNode }

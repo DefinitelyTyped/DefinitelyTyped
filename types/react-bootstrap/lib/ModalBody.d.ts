@@ -5,5 +5,5 @@ declare namespace ModalBody {
         componentClass?: React.ReactType;
     }
 }
-declare class ModalBody extends React.Component<ModalBody.ModalBodyProps> { }
+declare class ModalBody extends React.Component<ModalBody.ModalBodyProps> { render(): React.ReactNode }
 export = ModalBody;

@@ -6,7 +6,7 @@
 
 import * as React from "react";
 
-export class PlainConfirmModal extends React.Component<any, any> { }
+export class PlainConfirmModal extends React.Component<any, any> { render(): React.ReactNode }
 
 export function confirmable(component: typeof PlainConfirmModal): React.Component<ReactConfirmProps>;
 export function createConfirmation(component: React.Component, unmountDelay?: number): (props: any) => Promise<string>;

@@ -2,7 +2,7 @@ import * as React from "react";
 import { create, ReactTestInstance } from "react-test-renderer";
 import { createRenderer } from 'react-test-renderer/shallow';
 
-class TestComponent extends React.Component { }
+class TestComponent extends React.Component { render(): React.ReactNode }
 
 const renderer = create(React.createElement("div"), {
     createNodeMock: (el: React.ReactElement<any>) => {

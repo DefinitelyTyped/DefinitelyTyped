@@ -5,4 +5,4 @@ export interface TransProps {
     [name: string]: any;
 }
 
-export default class Trans extends React.Component<TransProps> { }
+export default class Trans extends React.Component<TransProps> { render(): React.ReactNode }

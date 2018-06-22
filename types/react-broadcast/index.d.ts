@@ -27,5 +27,5 @@ export namespace Broadcast {
     }
 }
 
-export class Broadcast<T> extends React.Component<Broadcast.Props<T>, any> { }
-export class Subscriber<T> extends React.Component<Subscriber.Props<T>, any> { }
+export class Broadcast<T> extends React.Component<Broadcast.Props<T>, any> { render(): React.ReactNode }
+export class Subscriber<T> extends React.Component<Subscriber.Props<T>, any> { render(): React.ReactNode }

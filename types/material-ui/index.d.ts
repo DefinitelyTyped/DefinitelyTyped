@@ -824,7 +824,7 @@ declare namespace __MaterialUI {
             style?: React.CSSProperties;
         }
 
-        export class BottomNavigation extends React.Component<BottomNavigationProps> { }
+        export class BottomNavigation extends React.Component<BottomNavigationProps> { render(): React.ReactNode }
 
         export interface BottomNavigationItemProps extends SharedEnhancedButtonProps<BottomNavigationItem> {
             className?: string;
@@ -832,7 +832,7 @@ declare namespace __MaterialUI {
             label?: React.ReactNode;
         }
 
-        export class BottomNavigationItem extends React.Component<BottomNavigationItemProps> { }
+        export class BottomNavigationItem extends React.Component<BottomNavigationItemProps> { render(): React.ReactNode }
     }
 
     namespace Card {
@@ -8896,14 +8896,14 @@ declare module 'material-ui/svg-icons' {
 
 declare module 'material-ui/internal/AppCanvas' {
     export interface AppCanvasProps extends React.Props<AppCanvas> { }
-    class AppCanvas extends React.Component<AppCanvasProps> { }
+    class AppCanvas extends React.Component<AppCanvasProps> { render(): React.ReactNode }
     export default AppCanvas;
 }
 declare module 'material-ui/internal/AutoLockScrolling' {
     export interface AutoLockScrollingProps extends React.Props<AutoLockScrolling> {
         lock: boolean;
     }
-    class AutoLockScrolling extends React.Component<AutoLockScrollingProps> { }
+    class AutoLockScrolling extends React.Component<AutoLockScrollingProps> { render(): React.ReactNode }
     export default AutoLockScrolling;
 }
 declare module 'material-ui/internal/BeforeAfterWrapper' {
@@ -8915,7 +8915,7 @@ declare module 'material-ui/internal/BeforeAfterWrapper' {
         elementType?: string;
         style?: React.CSSProperties;
     }
-    class BeforeAfterWrapper extends React.Component<BeforeAfterWrapperProps> { }
+    class BeforeAfterWrapper extends React.Component<BeforeAfterWrapperProps> { render(): React.ReactNode }
     export default BeforeAfterWrapper;
 }
 declare module 'material-ui/internal/CircleRipple' {
@@ -8925,33 +8925,33 @@ declare module 'material-ui/internal/CircleRipple' {
         opacity?: number;
         style?: React.CSSProperties;
     }
-    class CircleRipple extends React.Component<CircleRippleProps> { }
+    class CircleRipple extends React.Component<CircleRippleProps> { render(): React.ReactNode }
     export default CircleRipple;
 }
 declare module 'material-ui/internal/ClearFix' {
     export interface ClearFixProps extends React.Props<ClearFix> {
         style?: React.CSSProperties;
     }
-    class ClearFix extends React.Component<ClearFixProps> { }
+    class ClearFix extends React.Component<ClearFixProps> { render(): React.ReactNode }
     export default ClearFix;
 }
 declare module 'material-ui/internal/ClickAwayListener' {
     export interface ClickAwayListenerProps extends React.Props<ClickAwayListener> {
         onClickAway?: any;
     }
-    class ClickAwayListener extends React.Component<ClickAwayListenerProps> { }
+    class ClickAwayListener extends React.Component<ClickAwayListenerProps> { render(): React.ReactNode }
     export default ClickAwayListener;
 }
 declare module 'material-ui/internal/EnhancedButton' {
     export interface EnhancedButtonProps extends __MaterialUI.SharedEnhancedButtonProps<EnhancedButton> {
     }
-    class EnhancedButton extends React.Component<EnhancedButtonProps> { }
+    class EnhancedButton extends React.Component<EnhancedButtonProps> { render(): React.ReactNode }
     export default EnhancedButton;
 }
 declare module 'material-ui/internal/EnhancedSwitch' {
     export interface EnhancedSwitchProps extends __MaterialUI.Switches.CommonEnhancedSwitchProps<EnhancedSwitch> {
     }
-    class EnhancedSwitch extends React.Component<EnhancedSwitchProps> { }
+    class EnhancedSwitch extends React.Component<EnhancedSwitchProps> { render(): React.ReactNode }
     export default EnhancedSwitch;
 }
 declare module 'material-ui/internal/ExpandTransition' {
@@ -8963,7 +8963,7 @@ declare module 'material-ui/internal/ExpandTransition' {
         transitionDelay?: number;
         transitionDuration?: number;
     }
-    class ExpandTransition extends React.Component<ExpandTransitionProps> { }
+    class ExpandTransition extends React.Component<ExpandTransitionProps> { render(): React.ReactNode }
     export default ExpandTransition;
 }
 declare module 'material-ui/internal/ExpandTransitionChild' {
@@ -8973,7 +8973,7 @@ declare module 'material-ui/internal/ExpandTransitionChild' {
         transitionDelay?: number;
         transitionDuration?: number;
     }
-    class ExpandTransitionChild extends React.Component<ExpandTransitionChildProps> { }
+    class ExpandTransitionChild extends React.Component<ExpandTransitionChildProps> { render(): React.ReactNode }
     export default ExpandTransitionChild;
 }
 declare module 'material-ui/internal/FocusRipple' {
@@ -8984,7 +8984,7 @@ declare module 'material-ui/internal/FocusRipple' {
         show?: boolean;
         style?: React.CSSProperties;
     }
-    class FocusRipple extends React.Component<FocusRippleProps> { }
+    class FocusRipple extends React.Component<FocusRippleProps> { render(): React.ReactNode }
     export default FocusRipple;
 }
 declare module 'material-ui/internal/Overlay' {
@@ -8995,7 +8995,7 @@ declare module 'material-ui/internal/Overlay' {
         transitionEnabled?: boolean;
         onClick?: React.MouseEventHandler<{}>;
     }
-    class Overlay extends React.Component<OverlayProps> { }
+    class Overlay extends React.Component<OverlayProps> { render(): React.ReactNode }
     export default Overlay;
 }
 declare module 'material-ui/internal/RenderToLayer' {
@@ -9005,7 +9005,7 @@ declare module 'material-ui/internal/RenderToLayer' {
         render: Function;
         useLayerForClickAway?: boolean;
     }
-    class RenderToLayer extends React.Component<RenderToLayerProps> { }
+    class RenderToLayer extends React.Component<RenderToLayerProps> { render(): React.ReactNode }
     export default RenderToLayer;
 }
 declare module 'material-ui/internal/ScaleIn' {
@@ -9015,7 +9015,7 @@ declare module 'material-ui/internal/ScaleIn' {
         maxScale?: number;
         minScale?: number;
     }
-    class ScaleIn extends React.Component<ScaleInProps> { }
+    class ScaleIn extends React.Component<ScaleInProps> { render(): React.ReactNode }
     export default ScaleIn;
 }
 declare module 'material-ui/internal/ScaleInChild' {
@@ -9025,7 +9025,7 @@ declare module 'material-ui/internal/ScaleInChild' {
         minScale?: number;
         style?: React.CSSProperties;
     }
-    class ScaleInChild extends React.Component<ScaleInChildProps> { }
+    class ScaleInChild extends React.Component<ScaleInChildProps> { render(): React.ReactNode }
     export default ScaleInChild;
 }
 declare module 'material-ui/internal/SlideIn' {
@@ -9035,7 +9035,7 @@ declare module 'material-ui/internal/SlideIn' {
         enterDelay?: number;
         style?: React.CSSProperties;
     }
-    class SlideIn extends React.Component<SlideInProps> { }
+    class SlideIn extends React.Component<SlideInProps> { render(): React.ReactNode }
     export default SlideIn;
 }
 declare module 'material-ui/internal/SlideInChild' {
@@ -9045,7 +9045,7 @@ declare module 'material-ui/internal/SlideInChild' {
         getLeaveDirection: Function;
         style?: React.CSSProperties;
     }
-    class SlideInChild extends React.Component<SlideInChildProps> { }
+    class SlideInChild extends React.Component<SlideInChildProps> { render(): React.ReactNode }
     export default SlideInChild;
 }
 declare module 'material-ui/internal/Tooltip' {
@@ -9058,7 +9058,7 @@ declare module 'material-ui/internal/Tooltip' {
         touch?: boolean;
         verticalPosition?: __MaterialUI.propTypes.vertical;
     }
-    class Tooltip extends React.Component<TooltipProps> { }
+    class Tooltip extends React.Component<TooltipProps> { render(): React.ReactNode }
     export default Tooltip;
 }
 declare module 'material-ui/internal/TouchRipple' {
@@ -9069,6 +9069,6 @@ declare module 'material-ui/internal/TouchRipple' {
         opacity?: number;
         style?: React.CSSProperties;
     }
-    class TouchRipple extends React.Component<TouchRippleProps> { }
+    class TouchRipple extends React.Component<TouchRippleProps> { render(): React.ReactNode }
     export default TouchRipple;
 }

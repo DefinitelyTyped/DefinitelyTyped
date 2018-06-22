@@ -23,9 +23,9 @@ export interface ContentLoaderProps {
     uniquekey?: string;
     className?: string;
 }
-export default class ContentLoader extends React.Component<ContentLoaderProps> { }
-export class Facebook extends React.Component<ContentLoaderProps> { }
-export class Instagram extends React.Component<ContentLoaderProps> { }
-export class Code extends React.Component<ContentLoaderProps> { }
-export class List extends React.Component<ContentLoaderProps> { }
-export class BulletList extends React.Component<ContentLoaderProps> { }
+export default class ContentLoader extends React.Component<ContentLoaderProps> { render(): React.ReactNode }
+export class Facebook extends React.Component<ContentLoaderProps> { render(): React.ReactNode }
+export class Instagram extends React.Component<ContentLoaderProps> { render(): React.ReactNode }
+export class Code extends React.Component<ContentLoaderProps> { render(): React.ReactNode }
+export class List extends React.Component<ContentLoaderProps> { render(): React.ReactNode }
+export class BulletList extends React.Component<ContentLoaderProps> { render(): React.ReactNode }

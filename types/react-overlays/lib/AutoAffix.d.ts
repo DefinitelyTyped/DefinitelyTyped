@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { AffixProps } from './Affix';
 
-declare class AutoAffix extends React.Component<AutoAffixProps> { }
+declare class AutoAffix extends React.Component<AutoAffixProps> { render(): React.ReactNode }
 declare namespace AutoAffix { }
 export = AutoAffix;
 

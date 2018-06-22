@@ -13,5 +13,5 @@ declare namespace Tooltip {
         positionTop?: number;
     }
 }
-declare class Tooltip extends React.Component<Tooltip.TooltipProps> { }
+declare class Tooltip extends React.Component<Tooltip.TooltipProps> { render(): React.ReactNode }
 export = Tooltip;

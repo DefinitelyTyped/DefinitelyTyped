@@ -9,5 +9,5 @@ declare namespace Checkbox {
         validationState?: "success" | "warning" | "error";
     }
 }
-declare class Checkbox extends React.Component<Checkbox.CheckboxProps> { }
+declare class Checkbox extends React.Component<Checkbox.CheckboxProps> { render(): React.ReactNode }
 export = Checkbox;

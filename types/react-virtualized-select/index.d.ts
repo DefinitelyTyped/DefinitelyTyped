@@ -32,5 +32,7 @@ export interface AdditionalVirtualizedSelectProps<TValue> {
 type VirtualizedSelectProps<TValue = OptionValues> = (ReactCreatableSelectProps<TValue> & ReactAsyncSelectProps<TValue> & AdditionalVirtualizedSelectProps<TValue> & { async: true }) |
     ReactCreatableSelectProps<TValue> & ReactSelectProps<TValue> & AdditionalVirtualizedSelectProps<TValue>;
 
-declare class VirtualizedSelect<TValue = OptionValues> extends React.PureComponent<VirtualizedSelectProps<TValue>> {}
+declare class VirtualizedSelect<TValue = OptionValues> extends React.PureComponent<VirtualizedSelectProps<TValue>> {
+    render(): React.ReactNode;
+}
 export default VirtualizedSelect;

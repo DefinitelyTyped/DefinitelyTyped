@@ -14,4 +14,4 @@ export interface TransProps {
     tOptions?: TOptions;
 }
 
-export default class Trans extends React.Component<TransProps> { }
+export default class Trans extends React.Component<TransProps> { render(): React.ReactNode }

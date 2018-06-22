@@ -1,4 +1,4 @@
 import * as React from 'react';
 import { IconBaseProps } from 'react-icon-base';
-declare class MdReplay10 extends React.Component<IconBaseProps> { }
+declare class MdReplay10 extends React.Component<IconBaseProps> { render(): React.ReactNode }
 export = MdReplay10;
