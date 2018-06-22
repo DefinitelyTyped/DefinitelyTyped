@@ -1600,7 +1600,7 @@ declare namespace webpack {
              * instance of NormalModule). Use this function if you need to know the source code
              * of another module to generate the result.
              */
-            loadModule(request: string, callback: (err: Error, source: string, sourceMap: RawSourceMap, module: Module) => void): any;
+            loadModule(request: string, callback: (err: Error | null, source: string, sourceMap: RawSourceMap, module: Module) => void): any;
 
             /**
              * Resolve a request like a require expression.

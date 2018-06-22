@@ -516,7 +516,7 @@ function loader(this: webpack.loader.LoaderContext, source: string | Buffer, sou
 
     this.addDependency('');
 
-    this.loadModule('path', (err: Error, result: string, sourceMape: RawSourceMap, module: webpack.Module) => { });
+    this.loadModule('path', (err: Error | null, result: string, sourceMap: RawSourceMap, module: webpack.Module) => { });
     this.resolve('context', 'request', (err: Error, result: string) => { });
 
     this.emitWarning('warning message');
