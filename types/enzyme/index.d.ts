@@ -45,7 +45,7 @@ export type EnzymeSelector = string | StatelessComponent<any> | ComponentClass<a
 
 export type Intercepter<T> = (intercepter: T) => void;
 
-export interface CommonWrapper<P = {}, S = {}, C = Component> {
+export interface CommonWrapper<P = {}, S = {}, C = Component<P, S>> {
     /**
      * Returns a new wrapper with only the nodes of the current wrapper that, when passed into the provided predicate function, return true.
      */
