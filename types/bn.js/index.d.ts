@@ -38,7 +38,7 @@ declare class RedBN {
 // FIXME: not sure how to specify the reduction context here
 interface ReductionContext {
     m: number;
-    prime: object;
+    prime: any;
     [key: string]: any;
 }
 
@@ -62,7 +62,7 @@ declare class BN {
     /**
      * @description returns true if the supplied object is a BN.js instance
      */
-    static isBN(b: object): boolean;
+    static isBN(b: any): boolean;
 
     /**
      * @description  Convert number to red
