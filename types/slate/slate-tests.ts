@@ -1,4 +1,4 @@
-import * as Slate from "slate";
+import { Slate } from "slate";
 
 const value = Slate.Value.create();
 value.change()
