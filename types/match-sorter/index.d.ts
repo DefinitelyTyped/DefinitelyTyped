@@ -3,8 +3,45 @@
 // Definitions by: Claas Ahlrichs <https://github.com/claasahl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export interface Options {
-    keys: string[],
+export namespace rankings {
+    const CASE_SENSITIVE_EQUAL: 9;
+    const EQUAL: 8;
+    const STARTS_WITH: 7;
+    const WORD_STARTS_WITH: 6;
+    const STRING_CASE: 5;
+    const STRING_CASE_ACRONYM: 4;
+    const CONTAINS: 3;
+    const ACRONYM: 2;
+    const MATCHES: 1;
+    const NO_MATCH: 0;
+}
+
+export namespace caseRankings {
+    const CAMEL: 0.8;
+    const PASCAL: 0.6;
+    const KEBAB: 0.4;
+    const SNAKE: 0.2;
+    const NO_CASE: 0;
+}
+
+interface MinRanking {
+    minRanking: number,
+    key: string
+}
+
+interface MaxRanking {
+    maxRanking: number,
+    key: string
+}
+
+interface MinMaxRanking {
+    minRanking: number,
+    maxRanking: number,
+    key: string
+}
+
+export interface Options<T> {
+    keys: (string | ((item: T) => string) | MinRanking | MaxRanking | MinMaxRanking)[],
 }
 
 /**
@@ -14,7 +51,9 @@ export interface Options {
  * @param {Object} options - Some options to configure the sorter
  * @return {Array} - the new sorted array
  */
-export default function matchSorter<T>(items: T[], value: string, options?: Options): T[];
+export default function matchSorter<T>(items: T[], value: string, options?: Options<T>): T[];
+  
+
 
 /*~ If this module is a UMD module that exposes a global variable 'myLib' when
  *~ loaded outside a module loader environment, declare that global here.

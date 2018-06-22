@@ -10,6 +10,9 @@ matchSorter(list, 'z') // []
 
 
 
+// # Advanced options
+
+// ## keys: [string]
 
 const objList = [
   {name: 'Janice', color: 'Green'},
@@ -22,3 +25,64 @@ matchSorter(objList, 'g', {keys: ['name', 'color']})
 
 matchSorter(objList, 're', {keys: ['color', 'name']})
 // [{name: 'Jen', color: 'Red'}, {name: 'Janice', color: 'Green'}, {name: 'Fred', color: 'Orange'}, {name: 'George', color: 'Blue'}]
+
+// ### Array of values
+const iceCreamYum = [
+  {favoriteIceCream: ['mint', 'chocolate']},
+  {favoriteIceCream: ['candy cane', 'brownie']},
+  {favoriteIceCream: ['birthday cake', 'rocky road', 'strawberry']},
+]
+matchSorter(iceCreamYum, 'cc', {keys: ['favoriteIceCream']})
+// [{favoriteIceCream: ['candy cane', 'brownie']}, {favoriteIceCream: ['mint', 'chocolate']}]
+
+// ### Nested Keys
+const nestedObjList = [
+  {name: {first: 'Janice'}},
+  {name: {first: 'Fred'}},
+  {name: {first: 'George'}},
+  {name: {first: 'Jen'}},
+]
+matchSorter(nestedObjList, 'j', {keys: ['name.first']})
+// [{name: {first: 'Janice'}}, {name: {first: 'Jen'}}]
+
+const nestedObjList = [
+  {name: [{first: 'Janice'}]},
+  {name: [{first: 'Fred'}]},
+  {name: [{first: 'George'}]},
+  {name: [{first: 'Jen'}]},
+]
+matchSorter(nestedObjList, 'j', {keys: ['name.0.first']})
+// [{name: {first: 'Janice'}}, {name: {first: 'Jen'}}]
+// matchSorter(nestedObjList, 'j', {keys: ['name[0].first']}) does not work
+
+// ### Property Callbacks
+const list = [{name: 'Janice'}, {name: 'Fred'}, {name: 'George'}, {name: 'Jen'}]
+matchSorter(list, 'j', {keys: [item => item.name]})
+// [{name: 'Janice'}, {name: 'Jen'}]
+
+// ### Min and Max Ranking
+const tea = [
+  {tea: 'Earl Grey', alias: 'A'},
+  {tea: 'Assam', alias: 'B'},
+  {tea: 'Black', alias: 'C'},
+]
+matchSorter(tea, 'A', {
+  keys: ['tea', {maxRanking: matchSorter.rankings.STARTS_WITH, key: 'alias'}],
+})
+// without maxRanking, Earl Grey would come first because the alias "A" would be CASE_SENSITIVE_EQUAL
+// `tea` key comes before `alias` key, so Assam comes first even though both match as STARTS_WITH
+// [{tea: 'Assam', alias: 'B'}, {tea: 'Earl Grey', alias: 'A'},{tea: 'Black', alias: 'C'}]
+
+
+const tea = [
+  {tea: 'Milk', alias: 'moo'},
+  {tea: 'Oolong', alias: 'B'},
+  {tea: 'Green', alias: 'C'},
+]
+matchSorter(tea, 'oo', {
+  keys: ['tea', {minRanking: matchSorter.rankings.EQUAL, key: 'alias'}],
+})
+// minRanking bumps Milk up to EQUAL from CONTAINS (alias)
+// Oolong matches as STARTS_WITH
+// Green is missing due to no match
+// [{tea: 'Milk', alias: 'moo'}, {tea: 'Oolong', alias: 'B'}]
