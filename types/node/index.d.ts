@@ -376,15 +376,16 @@ declare var Buffer: {
      * The optional {byteOffset} and {length} arguments specify a memory range
      * within the {arrayBuffer} that will be shared by the Buffer.
      *
-     * @param arrayBuffer The .buffer property of a TypedArray or a new ArrayBuffer()
+     * @param arrayBuffer The .buffer property of any TypedArray or a new ArrayBuffer()
      */
-    from(arrayBuffer: SharedArrayBuffer, byteOffset?: number, length?: number): Buffer;
     from(arrayBuffer: ArrayBuffer, byteOffset?: number, length?: number): Buffer;
+    // from(arrayBuffer: SharedArrayBuffer, byteOffset?: number, length?: number): Buffer;
     /**
      * Creates a new Buffer using the passed {data}
      * @param data data to create a new Buffer
      */
-    from(data: any[] | Uint8Array): Buffer;
+    from(data: any[]): Buffer;
+    from(data: Uint8Array): Buffer;
     /**
      * Creates a new Buffer containing the given JavaScript string {str}.
      * If provided, the {encoding} parameter identifies the character encoding.
@@ -416,7 +417,7 @@ declare var Buffer: {
      * @param string string to test. (TypedArray is also allowed, but it is only available starting ES2017)
      * @param encoding encoding used to evaluate (defaults to 'utf8')
      */
-    byteLength(string: string | Buffer | DataView | ArrayBuffer | ArrayBufferView, encoding?: string): number;
+    byteLength(string: string | ArrayBuffer | ArrayBufferView, encoding?: string): number;
     /**
      * Returns a buffer which is the result of concatenating all the buffers in the list together.
      *
