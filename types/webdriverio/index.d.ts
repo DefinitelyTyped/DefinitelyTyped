@@ -178,7 +178,7 @@ declare namespace WebdriverIO {
         setWindowRect?: boolean;
         timeouts?: Timeouts;
         unhandledPromptBehavior?: string;
-        
+
         // wdio-sauce-service specific
         build?: string;
     }
@@ -437,10 +437,10 @@ declare namespace WebdriverIO {
         waitforInterval?: number;
         user?: string;
         key?: string;
-        
+
         // wdio-sauce-service specific
         sauceConnect?: boolean;
-        
+
         // wdio-docker-service specific
         dockerOptions?: { [name: string]: any; };
         onDockerReady?: ((...args: any[]) => void);
