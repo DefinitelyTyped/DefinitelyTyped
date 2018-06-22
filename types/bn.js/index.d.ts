@@ -3,7 +3,7 @@
 // Definitions by: Leonid Logvinov <https://github.com/LogvinovLeon>
 //                 Henry Nguyen <https://github.com/HenryNguyen5>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
+// TypeScript Version: 2.7
 
 /// <reference types="node"/>
 
@@ -37,7 +37,7 @@ declare class RedBN {
 }
 
 // FIXME: not sure how to specify the reduction context here
-interface IReductionContext {
+interface ReductionContext {
     m: number;
     prime: object;
     [key: string]: any;
@@ -53,12 +53,12 @@ declare class BN {
     /**
      * @description  create a reduction context
      */
-    static red(reductionContext: BN | IPrimeName): IReductionContext;
+    static red(reductionContext: BN | IPrimeName): ReductionContext;
 
     /**
      * @description  create a reduction context  with the Montgomery trick.
      */
-    static mont(num: BN): IReductionContext;
+    static mont(num: BN): ReductionContext;
 
     /**
      * @description returns true if the supplied object is a BN.js instance
@@ -68,7 +68,7 @@ declare class BN {
     /**
      * @description  Convert number to red
      */
-    toRed(reductionContext: IReductionContext): RedBN;
+    toRed(reductionContext: ReductionContext): RedBN;
 
     /**
      * @description  clone number
@@ -99,10 +99,10 @@ declare class BN {
      * @description convert to an instance of `type`, which must behave like an Array
      */
     toArrayLike(
-        ArrayType: Buffer | Array<any>,
+        ArrayType: Buffer | any[],
         endian?: Endianness,
         length?: number
-    ): Buffer | Array<any>;
+    ): Buffer | any[];
 
     /**
      * @description  convert to Node.js Buffer (if available). For compatibility with browserify and similar tools, use this instead: a.toArrayLike(Buffer, endian, length)
@@ -340,9 +340,10 @@ declare class BN {
     umod(b: BN): BN;
 
     /**
+     * @see API consistency https://github.com/indutny/bn.js/pull/130
      * @description reduct
      */
-    modn(b: number): number; //API consistency https://github.com/indutny/bn.js/pull/130
+    modn(b: number): number;
 
     /**
      * @description  rounded division
