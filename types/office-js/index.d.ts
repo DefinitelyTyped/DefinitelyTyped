@@ -24839,42 +24839,6 @@ declare namespace Excel {
     /**
      * [Api set: ExcelApi 1.7]
      */
-    const enum MessageCategory {
-        none = 0,
-        customFunction = 1,
-        event = 65536,
-    }
-    /**
-     * [Api set: ExcelApi 1.7]
-     */
-    const enum MessageType {
-        none = 0,
-        testEvent = 1,
-        test1Event = 2,
-        worksheetDataChangedEvent = 10,
-        worksheetActivatedEvent = 11,
-        worksheetDeactivatedEvent = 12,
-        worksheetAddedEvent = 13,
-        worksheetSelectionChangedEvent = 14,
-        worksheetDeletedEvent = 15,
-        worksheetCalculatedEvent = 16,
-        chartAddedEvent = 50,
-        chartActivatedEvent = 51,
-        chartDeactivatedEvent = 52,
-        chartDeletedEvent = 53,
-        tableSelectionChangedEvent = 100,
-        tableDataChangedEvent = 101,
-        tableAddedEvent = 102,
-        customFunctionExecutionBeginEvent = 200,
-        customFunctionExecutionEndEvent = 201,
-        invocationMessage = 1000,
-        cancellationMessage = 1001,
-        metadataMessage = 1002,
-        visualSelectionChangedEvent = 2000,
-    }
-    /**
-     * [Api set: ExcelApi 1.7]
-     */
     enum DocumentPropertyType {
         number = "Number",
         boolean = "Boolean",
