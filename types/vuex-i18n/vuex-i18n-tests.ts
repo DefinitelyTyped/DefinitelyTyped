@@ -42,3 +42,5 @@ Vue.i18n.add("de", translationsDe);
 
 // set the start locale to use
 Vue.i18n.set("en");
+
+Vue.i18n.translateIn("en", "tree.nested");
