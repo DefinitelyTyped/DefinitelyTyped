@@ -41,7 +41,8 @@ interface MinMaxRanking {
 }
 
 export interface Options<T> {
-    keys: (string | ((item: T) => string) | MinRanking | MaxRanking | MinMaxRanking)[],
+    keys?: (string | ((item: T) => string) | MinRanking | MaxRanking | MinMaxRanking)[],
+    threshold?: number,
 }
 
 /**
@@ -52,7 +53,6 @@ export interface Options<T> {
  * @return {Array} - the new sorted array
  */
 export default function matchSorter<T>(items: T[], value: string, options?: Options<T>): T[];
-  
 
 
 /*~ If this module is a UMD module that exposes a global variable 'myLib' when

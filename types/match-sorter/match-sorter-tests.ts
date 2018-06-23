@@ -86,3 +86,17 @@ matchSorter(tea, 'oo', {
 // Oolong matches as STARTS_WITH
 // Green is missing due to no match
 // [{tea: 'Milk', alias: 'moo'}, {tea: 'Oolong', alias: 'B'}]
+
+
+// ## threshold: number
+const fruit = ['orange', 'apple', 'grape', 'banana']
+matchSorter(fruit, 'ap', {threshold: matchSorter.rankings.NO_MATCH})
+// ['apple', 'grape', 'orange', 'banana'] (returns all items, just sorted by best match)
+
+const things = ['google', 'airbnb', 'apple', 'apply', 'app'],
+matchSorter(things, 'app', {threshold: matchSorter.rankings.EQUAL})
+// ['app'] (only items that are equal)
+
+const otherThings = ['fiji apple', 'google', 'app', 'crabapple', 'apple', 'apply']
+matchSorter(otherThings, 'app', {threshold: matchSorter.rankings.WORD_STARTS_WITH})
+// ['app', 'apple', 'apply', 'fiji apple'] (everything that matches with "word starts with" or better)
