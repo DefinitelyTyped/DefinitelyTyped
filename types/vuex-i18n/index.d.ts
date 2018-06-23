@@ -1,6 +1,7 @@
 // Type definitions for vuex-i18n 1.7
 // Project: https://github.com/dkfbasel/vuex-i18n
 // Definitions by: Cedric Kemp <https://github.com/jaeggerr>
+//                 Noam Kfir <https://github.com/noamkfir>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
