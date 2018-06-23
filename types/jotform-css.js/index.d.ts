@@ -2,6 +2,7 @@
 // Project: https://github.com/jotform/css.js
 // Definitions by: Peter van der Woude <https://github.com/pandawood>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 /// <reference types="node" />
 
 /**
