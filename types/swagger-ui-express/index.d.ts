@@ -8,21 +8,21 @@ import { RequestHandler } from "express";
 import { ServeStaticOptions } from "serve-static";
 
 declare namespace SwaggerUiExpress {
-    type JsonObject = { [key: string]: any; };
-    type SwaggerUiOptions = { [key: string]: any; };
-    type SwaggerOptions = { [key: string]: any; };
+    interface JsonObject { [key: string]: any; }
+    interface SwaggerUiOptions { [key: string]: any; }
+    interface SwaggerOptions { [key: string]: any; }
 
     /**
      * Creates a middleware function that returns the pre-generated html file for the Swagger UI page.
      *
-     * @param {(JsonObject | null)} [swaggerDoc] json object with the API schema.
-     * @param {(SwaggerUiOptions | false | null)} [opts] swagger-ui-express options.
-     * @param {SwaggerOptions} [options] custom swagger options.
-     * @param {(string | false | null)} [customCss] string with a custom css to embed into the page.
-     * @param {(string | false | null)} [customfavIcon] link to a custom favicon.
-     * @param {(string | false | null)} [swaggerUrl] Url of the swagger API schema, can be specified instead of the swaggerDoc.
-     * @param {(string | false | null)} [customeSiteTitle] custom title for a page
-     * @returns {RequestHandler} an express middleware function that returns the generated html page.
+     * @param swaggerDoc json object with the API schema.
+     * @param opts swagger-ui-express options.
+     * @param options custom swagger options.
+     * @param customCss string with a custom css to embed into the page.
+     * @param customfavIcon link to a custom favicon.
+     * @param swaggerUrl Url of the swagger API schema, can be specified instead of the swaggerDoc.
+     * @param customeSiteTitle custom title for a page
+     * @returns an express middleware function that returns the generated html page.
      */
     function setup(swaggerDoc?: JsonObject | null,
         opts?: SwaggerUiOptions | false | null,
@@ -36,31 +36,31 @@ declare namespace SwaggerUiExpress {
      * Returns handlers for serving Swagger UI files.
      * This includes custom initialization js file and static files of Swagger UI.
      *
-     * @returns {Array<RequestHandler>} Express handlers that process requests and return files for Swagger UI.
+     * @returns Express handlers that process requests and return files for Swagger UI.
      */
-    function serve(): Array<RequestHandler>;
+    function serve(): RequestHandler[];
 
     /**
      * Returns handlers for serving Swagger UI files.
      * This includes custom initialization js file and static files of Swagger UI.
      * Additional options are passed to the express.static middleware.
      *
-     * @param {ServeStaticOptions} options options object that is passed to the express.static middleware.
-     * @returns {Array<RequestHandler>} Express handlers that process requests and return files for Swagger UI.
+     * @param options options object that is passed to the express.static middleware.
+     * @returns Express handlers that process requests and return files for Swagger UI.
      */
-    function serveWithOptions(options: ServeStaticOptions): Array<RequestHandler>;
+    function serveWithOptions(options: ServeStaticOptions): RequestHandler[];
 
     /**
      * Generates the custom html page for the UI API.
      *
-     * @param {(JsonObject | null)} [swaggerDoc] json object with the API schema.
-     * @param {(SwaggerUiOptions | false | null)} [opts] swagger-ui-express options.
-     * @param {SwaggerOptions} [options] custom swagger options.
-     * @param {(string | false | null)} [customCss] string with a custom css to embed into the page.
-     * @param {(string | false | null)} [customfavIcon] link to a custom favicon.
-     * @param {(string | false | null)} [swaggerUrl] Url of the swagger API schema, can be specified instead of the swaggerDoc.
-     * @param {(string | false | null)} [customeSiteTitle] custom title for a page
-     * @returns {string} the generated html page.
+     * @param swaggerDoc json object with the API schema.
+     * @param opts swagger-ui-express options.
+     * @param options custom swagger options.
+     * @param customCss string with a custom css to embed into the page.
+     * @param customfavIcon link to a custom favicon.
+     * @param swaggerUrl Url of the swagger API schema, can be specified instead of the swaggerDoc.
+     * @param customeSiteTitle custom title for a page
+     * @returns the generated html page.
      */
     function generateHTML(swaggerDoc?: JsonObject | null,
         opts?: SwaggerUiOptions | false | null,
@@ -70,17 +70,16 @@ declare namespace SwaggerUiExpress {
         swaggerUrl?: string | false | null,
         customeSiteTitle?: string | false | null): string;
 
-
     /**
      * Returns handlers for serving Swagger UI files.
      * This includes custom initialization js file and static files of Swagger UI.
      * Additional options object is passed to Swagger UI.
      *
-     * @param {JsonObject} [swaggerDoc] json object with the Swagger API schema.
-     * @param {SwaggerUiOptions} [opts] options to pass to Swagger UI.
-     * @returns {Array<RequestHandler>} Express handlers that process requests and return files for Swagger UI.
+     * @param swaggerDoc json object with the Swagger API schema.
+     * @param opts options to pass to Swagger UI.
+     * @returns Express handlers that process requests and return files for Swagger UI.
      */
-    function serveFiles(swaggerDoc?: JsonObject, opts?: SwaggerUiOptions): Array<RequestHandler>;
+    function serveFiles(swaggerDoc?: JsonObject, opts?: SwaggerUiOptions): RequestHandler[];
 }
 
 export default SwaggerUiExpress;
