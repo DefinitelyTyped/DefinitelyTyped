@@ -17,7 +17,7 @@ declare module "vue/types/vue" {
 }
 
 export interface Translations {
-  [key: string]: string;
+  [key: string]: string | Translations;
 }
 
 export interface Ii18n {
