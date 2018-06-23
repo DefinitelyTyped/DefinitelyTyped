@@ -1,14 +1,13 @@
 // Type definitions for jotform-css.js v1.0.1
 // Project: https://github.com/jotform/css.js
-// Definitions by: My Self <https://github.com/pandawood>
+// Definitions by: Peter van der Woude <https://github.com/pandawood>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+/// <reference types="node" />
 
 /**
- * intermediate object - needed as a result of the way the libary doesn't explicitly export anything
+ * Thid doesn't get used in the way I intended
  */
-export interface CssJsGlobal {
-	cssjs() : CssJs
-}
+export function cssjs() : CssJs
 
 export interface CssJs {
 
