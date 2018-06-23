@@ -6424,6 +6424,7 @@ declare module "tty" {
         columns: number;
         rows: number;
         isTTY: boolean;
+        getColorDepth(env?: NodeJS.ProcessEnv): number;
     }
 }
 
