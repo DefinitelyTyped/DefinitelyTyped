@@ -64,7 +64,7 @@ export interface Ii18n {
   /**
    * get localized string from store in a given language if available.
    */
-  translateIn(locale: string, key: string, options: any, pluralization?: number): string | undefined;
+  translateIn(locale: string, key: string, options?: any, pluralization?: number): string | undefined;
 
   /**
    * get localized string from store in a given language if available.
