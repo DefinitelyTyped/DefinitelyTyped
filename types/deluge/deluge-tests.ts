@@ -1,4 +1,4 @@
-import * as deluge from "deluge";
+import deluge = require("deluge");
 import * as http from 'http';
 
 const delugeInstance: deluge.Deluge = deluge("deluge-webui-api-url", "password");
