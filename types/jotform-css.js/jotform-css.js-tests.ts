@@ -1,4 +1,4 @@
-let cssjsGlobal = require("jotform-css.js")
+let cssjsGlobal = require("jotform-css.js/css.js")
 import { CssJs } from "./index"
 
 // not all interface methods tested here, below is a sample of code that I've actually used
