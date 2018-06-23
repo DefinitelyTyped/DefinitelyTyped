@@ -451,12 +451,22 @@ export class Camera extends Object3D {
      */
     projectionMatrix: Matrix4;
 
+    isCamera: true;
+
+    copy(source: this, recursive?: boolean): this;
+
     getWorldDirection(target: Vector3): Vector3;
+
+    updateMatrixWorld(force: boolean): void;
+
+    clone(): Camera;
 
 }
 
 export class CubeCamera extends Object3D {
     constructor(near?: number, far?: number, cubeResolution?: number);
+
+    type: "CubeCamera";
 
     renderTarget: WebGLRenderTargetCube;
 
@@ -465,7 +475,7 @@ export class CubeCamera extends Object3D {
      */
     updateCubeMap(renderer: Renderer, scene: Scene): void;
 
-    update(renderer: Renderer, scene: Scene): void;
+    update(renderer: WebGLRenderer, scene: Scene): void;
 }
 
 /**
@@ -488,8 +498,12 @@ export class OrthographicCamera extends Camera {
      */
     constructor(left: number, right: number, top: number, bottom: number, near?: number, far?: number);
 
+    type: "OrthographicCamera";
+
+    isOrthographicCamera: true;
+
     zoom: number;
-    view: {
+    view: null | {
         enabled: boolean,
         fullWidth: number,
         fullHeight: number,
@@ -556,6 +570,10 @@ export class PerspectiveCamera extends Camera {
      */
     constructor(fov?: number, aspect?: number, near?: number, far?: number);
 
+    type: "PerspectiveCamera";
+
+    isPerspectiveCamera: true;
+
     zoom: number;
 
     /**
@@ -579,7 +597,7 @@ export class PerspectiveCamera extends Camera {
     far: number;
 
     focus: number;
-    view: {
+    view: null | {
         enabled: boolean,
         fullWidth: number,
         fullHeight: number,
@@ -596,6 +614,7 @@ export class PerspectiveCamera extends Camera {
     getEffectiveFOV(): number;
     getFilmWidth(): number;
     getFilmHeight(): number;
+
     /**
      * Sets an offset in a larger frustum. This is useful for multi-window or multi-monitor/multi-machine setups.
      * For example, if you have 3x2 monitors and each monitor is 1920x1080 and the monitors are in grid like this:
@@ -650,6 +669,8 @@ export class PerspectiveCamera extends Camera {
 
 export class StereoCamera extends Camera {
     constructor();
+
+    type: "StereoCamera";
 
     aspect: number;
     eyeSep: number;
@@ -1070,6 +1091,7 @@ export class DirectGeometry extends EventDispatcher {
  * @source src/core/EventDispatcher.js
  */
 export class EventDispatcher {
+
     /**
      * Creates eventDispatcher object. It needs to be call with '.call' to add the functionality to an object.
      */
@@ -1552,7 +1574,7 @@ export class Object3D extends EventDispatcher {
     /**
      * Object's parent in the scene graph.
      */
-    parent: Object3D;
+    parent: Object3D | null;
 
     /**
      * Array with object's children.
@@ -1634,13 +1656,13 @@ export class Object3D extends EventDispatcher {
     /**
      * An object that can be used to store custom data about the Object3d. It should not hold references to functions as these will not be cloned.
      */
-    userData: any;
+    userData: {[key: string]: any};
 
     /**
      * Used to check whether this or derived classes are Object3Ds. Default is true.
      * You should not change this, as it is used internally for optimisation.
      */
-    isObject3D: boolean;
+    isObject3D: true;
 
     /**
      * Calls before rendering object
@@ -1654,9 +1676,7 @@ export class Object3D extends EventDispatcher {
     onAfterRender: (renderer: WebGLRenderer, scene: Scene, camera: Camera, geometry: Geometry | BufferGeometry,
                     material: Material, group: Group) => void;
 
-    /**
-     *
-     */
+
     static DefaultUp: Vector3;
     static DefaultMatrixAutoUpdate: boolean;
 
@@ -1664,6 +1684,8 @@ export class Object3D extends EventDispatcher {
      * This updates the position, rotation and scale with the matrix.
      */
     applyMatrix(matrix: Matrix4): void;
+
+    applyQuaternion(quaternion: Quaternion): this;
 
     /**
      *
@@ -1690,56 +1712,56 @@ export class Object3D extends EventDispatcher {
      * @param axis  A normalized vector in object space.
      * @param angle  The angle in radians.
      */
-    rotateOnAxis(axis: Vector3, angle: number): Object3D;
+    rotateOnAxis(axis: Vector3, angle: number): this;
 
     /**
      * Rotate an object along an axis in world space. The axis is assumed to be normalized. Method Assumes no rotated parent.
      * @param axis  A normalized vector in object space.
      * @param angle  The angle in radians.
      */
-    rotateOnWorldAxis(axis: Vector3, angle: number): Object3D;
+    rotateOnWorldAxis(axis: Vector3, angle: number): this;
 
     /**
      *
      * @param angle
      */
-    rotateX(angle: number): Object3D;
+    rotateX(angle: number): this;
 
     /**
      *
      * @param angle
      */
-    rotateY(angle: number): Object3D;
+    rotateY(angle: number): this;
 
     /**
      *
      * @param angle
      */
-    rotateZ(angle: number): Object3D;
+    rotateZ(angle: number): this;
 
     /**
      * @param axis  A normalized vector in object space.
      * @param distance  The distance to translate.
      */
-    translateOnAxis(axis: Vector3, distance: number): Object3D;
+    translateOnAxis(axis: Vector3, distance: number): this;
 
     /**
      * Translates object along x axis by distance.
      * @param distance Distance.
      */
-    translateX(distance: number): Object3D;
+    translateX(distance: number): this;
 
     /**
      * Translates object along y axis by distance.
      * @param distance Distance.
      */
-    translateY(distance: number): Object3D;
+    translateY(distance: number): this;
 
     /**
      * Translates object along z axis by distance.
      * @param distance Distance.
      */
-    translateZ(distance: number): Object3D;
+    translateZ(distance: number): this;
 
     /**
      * Updates the vector from local space to world space.
@@ -1757,39 +1779,38 @@ export class Object3D extends EventDispatcher {
      * Rotates object to face point in space.
      * @param vector A world vector to look at.
      */
-    lookAt(vector: Vector3): void;
-    lookAt(x: number, y: number, z: number): void;
+    lookAt(vector: Vector3 | number, y?: number, z?: number): void;
 
     /**
      * Adds object as child of this object.
      */
-    add(...object: Object3D[]): void;
+    add(...object: Object3D[]): this;
 
     /**
      * Removes object as child of this object.
      */
-    remove(...object: Object3D[]): void;
+    remove(...object: Object3D[]): this;
 
     /**
-     * Searches through the object's children and returns the first with a matching id, optionally recursive.
+     * Searches through the object's children and returns the first with a matching id.
      * @param id  Unique number of the object instance
      */
-    getObjectById(id: number): Object3D;
+    getObjectById(id: number): Object3D | undefined;
 
     /**
-     * Searches through the object's children and returns the first with a matching name, optionally recursive.
+     * Searches through the object's children and returns the first with a matching name.
      * @param name  String to match to the children's Object3d.name property.
      */
-    getObjectByName(name: string): Object3D;
+    getObjectByName(name: string): Object3D | undefined;
 
-    getObjectByProperty( name: string, value: string ): Object3D;
+    getObjectByProperty( name: string, value: string ): Object3D | undefined;
 
     getWorldPosition(target: Vector3): Vector3;
     getWorldQuaternion(target: Quaternion): Quaternion;
     getWorldScale(target: Vector3): Vector3;
     getWorldDirection(target: Vector3): Vector3;
 
-    raycast(raycaster: Raycaster, intersects: any): void;
+    raycast(raycaster: Raycaster, intersects: Intersection[]): void;
 
     traverse(callback: (object: Object3D) => any): void;
 
@@ -1809,7 +1830,7 @@ export class Object3D extends EventDispatcher {
 
     toJSON(meta?: { geometries: any, materials: any, textures: any, images: any }): any;
 
-    clone(recursive?: boolean): this;
+    clone(recursive?: boolean): Object3D;
 
     /**
      *
@@ -1821,11 +1842,11 @@ export class Object3D extends EventDispatcher {
 
 export interface Intersection {
     distance: number;
-    distanceToRay: number;
+    distanceToRay?: number;
     point: Vector3;
-    index: number;
-    face: Face3;
-    faceIndex: number;
+    index?: number;
+    face?: Face3 | null;
+    faceIndex?: number;
     object: Object3D;
 }
 
@@ -5148,20 +5169,26 @@ export class QuaternionLinearInterpolant extends Interpolant {
 
 export class Bone extends Object3D {
     constructor();
+    isBone: true;
+    type: "Bone";
 }
 
 export class Group extends Object3D {
     constructor();
+    type: "Group";
+    isGroup: true;
 }
 
 export class LOD extends Object3D {
     constructor();
 
-    levels: any[];
+    type: "LOD";
+
+    levels: {distance: number, object: Object3D}[];
 
     addLevel(object: Object3D, distance?: number): void;
     getObjectForDistance(distance: number): Object3D;
-    raycast(raycaster: Raycaster, intersects: any): void;
+    raycast(raycaster: Raycaster, intersects: Intersection[]): void;
     update(camera: Camera): void;
     toJSON(meta: any): any;
 
@@ -5169,32 +5196,6 @@ export class LOD extends Object3D {
      * @deprecated Use {@link LOD#levels .levels} instead.
      */
     objects: any[];
-}
-
-export interface LensFlareProperty {
-    texture: Texture;             // Texture
-    size: number;             // size in pixels (-1 = use texture.width)
-    distance: number;             // distance (0-1) from light source (0=at light source)
-    x: number;
-    y: number;
-    z: number;            // screen position (-1 =>  1) z = 0 is ontop z = 1 is back
-    scale: number;             // scale
-    rotation: number;             // rotation
-    opacity: number;            // opacity
-    color: Color;                // color
-    blending: Blending;
-}
-
-export class LensFlare extends Object3D {
-    constructor(texture?: Texture, size?: number, distance?: number, blending?: Blending, color?: Color);
-
-    lensFlares: LensFlareProperty[];
-    positionScreen: Vector3;
-    customUpdateCallback: (object: LensFlare) => void;
-
-    add(object: Object3D): void;
-    add(texture: Texture, size?: number, distance?: number, blending?: Blending, color?: Color): void;
-    updateLensFlares(): void;
 }
 
 export class Line extends Object3D {
@@ -5205,10 +5206,14 @@ export class Line extends Object3D {
     );
 
     geometry: Geometry|BufferGeometry;
-    material: Material; // LineDashedMaterial or LineBasicMaterial or ShaderMaterial
+    material: LineBasicMaterial | LineDashedMaterial | ShaderMaterial;
+
+    type: "Line";
+    isLine: true;
 
     computeLineDistances(): this;
-    raycast(raycaster: Raycaster, intersects: any): void;
+    raycast(raycaster: Raycaster, intersects: Intersection[]): void;
+    clone(): Line;
 }
 
 /**
@@ -5228,20 +5233,24 @@ export class LineSegments extends Line {
     );
 }
 
+type MeshMaterial = MeshBasicMaterial | MeshLambertMaterial | MeshPhongMaterial | MeshDepthMaterial | MeshStandardMaterial | MeshPhysicalMaterial | MeshNormalMaterial | MeshFaceMaterial | ShaderMaterial;
+
 export class Mesh extends Object3D {
-    constructor(geometry?: Geometry | BufferGeometry, material?: Material | Material[]);
+    constructor(geometry?: Geometry | BufferGeometry, material?: MeshMaterial | MeshMaterial[]);
 
     geometry: Geometry|BufferGeometry;
-    material: Material | Material[];
+    material: MeshMaterial | MeshMaterial[];
     drawMode: TrianglesDrawModes;
     morphTargetInfluences?: number[];
     morphTargetDictionary?: { [key: string]: number; };
-	isMesh: boolean;
+    isMesh: true;
+    type: "Mesh";
 
     setDrawMode(drawMode: TrianglesDrawModes): void;
     updateMorphTargets(): void;
-    getMorphTargetIndexByName(name: string): number;
-    raycast(raycaster: Raycaster, intersects: any): void;
+    raycast(raycaster: Raycaster, intersects: Intersection[]): void;
+    copy(source: this, recursive?: boolean): this;
+    clone(): Mesh;
 }
 
 /**
@@ -5257,8 +5266,11 @@ export class Points extends Object3D {
      */
     constructor(
         geometry?: Geometry | BufferGeometry,
-        material?: Material
+        material?: PointsMaterial | ShaderMaterial
     );
+
+    type: "Points";
+    isPoints: true;
 
     /**
      * An instance of Geometry or BufferGeometry, where each vertex designates the position of a particle in the system.
@@ -5268,9 +5280,11 @@ export class Points extends Object3D {
     /**
      * An instance of Material, defining the object's appearance. Default is a PointsMaterial with randomised colour.
      */
-    material: Material;
+    material: PointsMaterial | ShaderMaterial;
 
-    raycast(raycaster: Raycaster, intersects: any): void;
+    raycast(raycaster: Raycaster, intersects: Intersection[]): void;
+
+    clone(): Points;
 }
 
 /**
@@ -5326,10 +5340,15 @@ export class SkinnedMesh extends Mesh {
 export class Sprite extends Object3D {
     constructor(material?: Material);
 
-    geometry: BufferGeometry;
-    material: SpriteMaterial;
+    type: "Sprite";
+    isSprite: true;
 
-    raycast(raycaster: Raycaster, intersects: any): void;
+    material: SpriteMaterial;
+    center: Vector2;
+
+    raycast(raycaster: Raycaster, intersects: Intersection[]): void;
+    clone(): Sprite;
+    copy(source: this, recursive?: boolean): this;
 }
 
 /**
@@ -6362,13 +6381,6 @@ export class WebGLStencilBuffer {
     reset(): void;
 }
 
-// Renderers / WebGL / Plugins /////////////////////////////////////////////////////////////////////
-export class LensFlarePlugin {
-    constructor(renderer: WebGLRenderer, flares: any[]);
-
-    render(scene: Scene, camera: Camera, viewportWidth: number, viewportHeight: number): void;
-}
-
 export class SpritePlugin {
     constructor(renderer: WebGLRenderer, sprites: any[]);
 
@@ -6383,6 +6395,8 @@ export class SpritePlugin {
 export class Scene extends Object3D {
     constructor();
 
+    type: "Scene";
+
     /**
      * A fog instance defining the type of fog that affects everything rendered in the scene. Default is null.
      */
@@ -6393,8 +6407,9 @@ export class Scene extends Object3D {
      */
     overrideMaterial: Material | null;
     autoUpdate: boolean;
-    background: any;
+    background: null | Color | Texture;
 
+    copy(source: this, recursive?: boolean): this;
     toJSON(meta?: any): any;
 }
 
@@ -6643,38 +6658,42 @@ export namespace ShapeUtils {
 
 export class Audio extends Object3D {
     constructor(listener: AudioListener);
+    type: "Audio";
 
-    type: string;
     context: AudioContext;
-    source: AudioBufferSourceNode;
     gain: GainNode;
     autoplay: boolean;
+    buffer: null | Audio;
+    loop: boolean;
     startTime: number;
+    offset: number;
     playbackRate: number;
-    hasPlaybackControl: boolean;
     isPlaying: boolean;
+    hasPlaybackControl: boolean;
     sourceType: string;
+    source: AudioBufferSourceNode;
     filters: any[];
 
     getOutput(): GainNode;
-    setNodeSource(audioNode: AudioBufferSourceNode): Audio;
-    setBuffer(audioBuffer: AudioBuffer): Audio;
-    play(): Audio;
-    pause(): Audio;
-    stop(): Audio;
-    connect(): Audio;
-    disconnect(): Audio;
-    getFilters(): any[];
-    setFilter(value: any[]): Audio;
-    getFilter(): any;
-    setFilter(filter: any): Audio;
-    setPlaybackRate(value: number): Audio;
-    getPlaybackRate(): number;
+    setNodeSource(audioNode: AudioBufferSourceNode): this;
+    setMediaElementSource(mediaElement: MediaElementAudioSourceNode): this;
+    setBuffer(audioBuffer: AudioBuffer): this;
+    play(): this;
     onEnded(): void;
+    pause(): this;
+    stop(): this;
+    connect(): this;
+    disconnect(): this;
+    getFilters(): any[];
+    setFilter(value: any[]): this;
+    getFilter(): any;
+    setFilter(filter: any): this;
+    setPlaybackRate(value: number): this;
+    getPlaybackRate(): number;
     getLoop(): boolean;
     setLoop(value: boolean): void;
     getVolume(): number;
-    setVolume(value: number): Audio;
+    setVolume(value: number): this;
     /**
      * @deprecated Use {@link AudioLoader} instead.
      */
@@ -6727,9 +6746,10 @@ export class PositionalAudio extends Audio {
 export class AudioListener extends Object3D {
     constructor();
 
-    type: string;
+    type: "AudioListener";
     context: AudioContext;
     gain: GainNode;
+    filter: null | any;
 
     getInput(): GainNode;
     removeFilter(): void;
@@ -6737,6 +6757,7 @@ export class AudioListener extends Object3D {
     getFilter(): any;
     setMasterVolume(value: number): void;
     getMasterVolume(): number;
+    updateMatrixWorld(force?: boolean): void;
 }
 
 // Extras / Core /////////////////////////////////////////////////////////////////////
@@ -7498,7 +7519,7 @@ export class ArrowHelper extends Object3D {
 
     setDirection(dir: Vector3): void;
     setLength(length: number,  headLength?: number, headWidth?: number): void;
-    setColor(hex: number): void;
+    setColor(color: Color): void;
 }
 
 export class AxesHelper extends LineSegments {
@@ -7533,11 +7554,14 @@ export class CameraHelper extends LineSegments {
 }
 
 export class DirectionalLightHelper extends Object3D {
-    constructor(light: Light, size?: number, color?: Color | string | number);
+    constructor(light: DirectionalLight, size?: number, color?: Color | string | number);
 
-    light: Light;
+    light: DirectionalLight;
     lightPlane: Line;
-    color: Color | string | number;
+    targetPlane: Line;
+    color: Color | string | number | undefined;
+    matrix: Matrix4;
+    matrixAutoUpdate: boolean;
 
     dispose(): void;
     update(): void;
@@ -7568,22 +7592,26 @@ export class GridHelper extends LineSegments {
 }
 
 export class HemisphereLightHelper extends Object3D {
-    constructor(light: Light, sphereSize: number);
+    constructor(light: HemisphereLight, size: number, color?: Color | number | string);
 
-    light: Light;
-    colors: Color[];
-    lightSphere: Mesh;
+    light: HemisphereLight;
+    matrix: Matrix4;
+    matrixAutoUpdate: boolean;
+    material: MeshBasicMaterial;
+
+    color: Color | string | number | undefined;
 
     dispose(): void;
     update(): void;
 }
 
 export class PointLightHelper extends Object3D {
-    constructor(light: Light, sphereSize?: number, color?: Color | string | number);
+    constructor(light: PointLight, sphereSize?: number, color?: Color | string | number);
 
-    light: Light;
-    sphereSize: number;
-    color: Color | string | number;
+    light: PointLight;
+    color: Color | string | number | undefined;
+    matrix: Matrix4;
+    matrixAutoUpdate: boolean;
 
     dispose(): void;
     update(): void;
@@ -7603,7 +7631,9 @@ export class SpotLightHelper extends Object3D {
     constructor(light: Light, color?: Color | string | number);
 
     light: Light;
-    color: Color | string | number;
+    matrix: Matrix4;
+    matrixAutoUpdate: boolean;
+    color: Color | string | number | undefined;
 
     dispose(): void;
     update(): void;
