@@ -1,5 +1,5 @@
 // Type definitions for react-redux 6.0.3
-// Project: https://github.com/reactjs/react-redux
+// Project: https://github.com/reduxjs/react-redux
 // Definitions by: Qubo <https://github.com/tkqubo>,
 //                 Thomas Hasner <https://github.com/thasner>,
 //                 Kenzie Togami <https://github.com/kenzierocks>,
@@ -319,7 +319,7 @@ export interface ConnectOptions {
     withRef?: boolean
 }
 
-export interface ProviderProps<A extends Action> {
+export interface ProviderProps<A extends Action = AnyAction> {
     /**
      * The single Redux store in your application.
      */
@@ -329,7 +329,7 @@ export interface ProviderProps<A extends Action> {
 /**
  * Makes the Redux store available to the connect() calls in the component hierarchy below.
  */
-export class Provider<A extends Action> extends Component<ProviderProps<A>> { }
+export class Provider<A extends Action = AnyAction> extends Component<ProviderProps<A>> { }
 
 /**
  * Creates a new <Provider> which will set the Redux Store on the passed key of the context. You probably only need this
