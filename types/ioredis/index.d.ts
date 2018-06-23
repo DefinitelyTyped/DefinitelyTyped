@@ -229,8 +229,8 @@ declare namespace IORedis {
         zcard(key: string, callback: (err: Error, res: number) => void): void;
         zcard(key: string): Promise<number>;
 
-        zscore(key: string, member: string, callback: (err: Error, res: number) => void): void;
-        zscore(key: string, member: string): Promise<number>;
+        zscore(key: string, member: string, callback: (err: Error, res: string) => void): void;
+        zscore(key: string, member: string): Promise<string>;
 
         zrank(key: string, member: string, callback: (err: Error, res: number) => void): void;
         zrank(key: string, member: string): Promise<number>;
