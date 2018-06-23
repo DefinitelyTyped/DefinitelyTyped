@@ -54,3 +54,5 @@ export interface Mermaid {
 declare const mermaid: Mermaid;
 
 export default mermaid;
+
+export as namespace mermaid;
