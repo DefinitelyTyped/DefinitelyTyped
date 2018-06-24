@@ -51,6 +51,10 @@ export interface QueryConfig {
     values?: any[];
 }
 
+export interface Submittable {
+    submit: (connection: Connection) => void;
+}
+
 export interface QueryArrayConfig extends QueryConfig {
     rowMode: 'array';
 }
@@ -148,7 +152,7 @@ export class Pool extends events.EventEmitter {
     end(): Promise<void>;
     end(callback: () => void): void;
 
-    query(queryStream: QueryConfig & stream.Readable): stream.Readable;
+    query<T extends Submittable>(queryStream: T): T;
     query(queryConfig: QueryArrayConfig): Promise<QueryArrayResult>;
     query(queryConfig: QueryConfig): Promise<QueryResult>;
     query(queryTextOrConfig: string | QueryConfig, values?: any[]): Promise<QueryResult>;
@@ -166,7 +170,7 @@ export class ClientBase extends events.EventEmitter {
     connect(): Promise<void>;
     connect(callback: (err: Error) => void): void;
 
-    query(queryStream: QueryConfig & stream.Readable): stream.Readable;
+    query<T extends Submittable>(queryStream: T): T;
     query(queryConfig: QueryArrayConfig): Promise<QueryArrayResult>;
     query(queryConfig: QueryConfig): Promise<QueryResult>;
     query(queryTextOrConfig: string | QueryConfig, values?: any[]): Promise<QueryResult>;
