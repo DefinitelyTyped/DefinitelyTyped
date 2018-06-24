@@ -43,13 +43,14 @@ interface MinMaxRanking {
 export interface Options<T> {
     keys?: (string | ((item: T) => string) | MinRanking | MaxRanking | MinMaxRanking)[],
     threshold?: number,
+    keepDiacritics?: boolean
 }
 
 /**
  * Takes an array of items and a value and returns a new array with the items that match the given value
  * @param {Array} items - the items to sort
  * @param {String} value - the value to use for ranking
- * @param {Object} options - Some options to configure the sorter
+ * @param {Options} options - Some options to configure the sorter
  * @return {Array} - the new sorted array
  */
 export default function matchSorter<T>(items: T[], value: string, options?: Options<T>): T[];

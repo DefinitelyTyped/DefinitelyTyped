@@ -100,3 +100,21 @@ matchSorter(things, 'app', {threshold: matchSorter.rankings.EQUAL})
 const otherThings = ['fiji apple', 'google', 'app', 'crabapple', 'apple', 'apply']
 matchSorter(otherThings, 'app', {threshold: matchSorter.rankings.WORD_STARTS_WITH})
 // ['app', 'apple', 'apply', 'fiji apple'] (everything that matches with "word starts with" or better)
+
+
+// ## keepDiacritics: boolean
+const thingsWithDiacritics = [
+  'jalapeño',
+  'à la carte',
+  'café',
+  'papier-mâché',
+  'à la mode',
+]
+matchSorter(thingsWithDiacritics, 'aa')
+// ['jalapeño', 'à la carte', 'à la mode', 'papier-mâché']
+
+matchSorter(thingsWithDiacritics, 'aa', {keepDiacritics: true})
+// ['jalapeño', 'à la carte']
+
+matchSorter(thingsWithDiacritics, 'à', {keepDiacritics: true})
+// ['à la carte', 'à la mode']
