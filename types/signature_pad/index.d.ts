@@ -186,3 +186,7 @@ declare namespace SignaturePad {
     onEnd?: (event: MouseEvent) => void
   }
 }
+
+export = SignaturePad;
+
+export as namespace SignaturePad;
