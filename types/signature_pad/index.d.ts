@@ -187,6 +187,6 @@ declare namespace SignaturePad {
   }
 }
 
-export = SignaturePad;
+export default SignaturePad;
 
 export as namespace SignaturePad;
