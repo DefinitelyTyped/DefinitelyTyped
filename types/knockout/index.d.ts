@@ -191,13 +191,22 @@ interface KnockoutObservableStatic {
     <T = any>(): KnockoutObservable<T | undefined>
 }
 
-interface KnockoutObservable<T> extends KnockoutSubscribable<T>, KnockoutObservableFunctions<T> {
+/**
+ * While all observable are writable at runtime, this type is analogous to the native ReadonlyArray type:
+ * casting an observable to this type expresses the intention that this observable shouldn't be mutated.
+ */
+interface KnockoutReadonlyObservable<T> extends KnockoutSubscribable<T>, KnockoutObservableFunctions<T> {
     (): T;
-    (value: T): void;
 
     peek(): T;
     valueHasMutated?: { (): void; };
     valueWillMutate?: { (): void; };
+}
+
+interface KnockoutObservable<T> extends KnockoutReadonlyObservable<T> {
+    (value: T): void;
+
+    // Since .extend does arbitrary thing to an observable, it's not safe to do on a readonly observable
     extend(requestedExtenders: { [key: string]: any; }): KnockoutObservable<T>;
 }
 
