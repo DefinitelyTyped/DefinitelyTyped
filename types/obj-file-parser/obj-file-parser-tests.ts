@@ -1,10 +1,10 @@
-import ObjFileParser, { ObjModel, ObjFile } from 'obj-file-parser';
+import ObjFileParser, { ObjModel, ObjFile, Vertex, Face, FaceVertex } from 'obj-file-parser';
 
 const testObjFile = `
 # cube.obj
 # Example object
 
-g cube
+o cube
 
 v  0.0  0.0  0.0
 v  0.0  0.0  1.0
@@ -40,12 +40,16 @@ f  2//1  8//1  4//1`;
 // Create parser and load test OBJ
 const parser = new ObjFileParser(testObjFile, 'test');
 const file = parser.parse();
-const model = file.models[0];
 
-const name = model.name;       // Prints "test"
-const face = model.faces[0];   // Prints faces object
-
-// gets { vertexIndex: 1, textureCoordsIndex: 0, vertexNormalIndex: 2 }
-const vert = face.vertices[0];
-// gets { x: 0, y: 0, z: 1 }
-const vertPoints = model.vertices[vert.vertexIndex];
+// get first model in file
+const model: ObjModel = file.models[0];
+// gets object name
+const name: string = model.name;
+// gets first face in model
+const face: Face = model.faces[0];
+// gets first vertex in face
+const faceVert: FaceVertex = face.vertices[0];
+// gets vertex
+const vertPoints: Vertex = model.vertices[faceVert.vertexIndex];
+// gets x value of vertex
+const x = vertPoints.x;

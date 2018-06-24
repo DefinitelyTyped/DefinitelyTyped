@@ -15,9 +15,9 @@ export interface ObjFile {
 
 export class ObjModel {
     name: string;
-    vertices: number[];
-    textureCoords: number[];
-    vertexNormals: number[];
+    vertices: Vertex[];
+    textureCoords: VertexTexture[];
+    vertexNormals: Vertex[];
     faces: Face[];
 }
 
@@ -32,4 +32,16 @@ export class FaceVertex {
     vertexIndex: number;
     textureCoordsIndex: number;
     vertexNormalIndex: number;
+}
+
+export class Vertex {
+    x: number;
+    y: number;
+    z: number;
+}
+
+export class VertexTexture {
+    u: number;
+    v: number;
+    w: number;
 }
