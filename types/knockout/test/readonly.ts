@@ -11,3 +11,22 @@ function testReadonlyObservable() {
     const writeAgain = read as KnockoutObservable<string>
     writeAgain("bar");
 };
+
+
+function testReadonlyObservableArray() {
+    // Normal observable array behavior
+    const write = ko.observableArray(["foo"]);
+    write(["bar"]);
+    write.push("foo");
+
+    // Readonly observable array
+    const read = write as KnockoutReadonlyObservableArray<string>;
+    read(); //$ExpectType ReadonlyArray<string>
+    read.slice(0, 1); //$ExpectType string[]
+    read(["foo"]); // $ExpectError
+    read.push; // $ExpectError
+
+    // Can cast back to a writeable
+    const writeAgain = read as KnockoutObservableArray<string>
+    writeAgain(["foo"]);
+}

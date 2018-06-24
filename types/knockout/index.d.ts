@@ -21,8 +21,8 @@ interface KnockoutObservableFunctions<T> {
     equalityComparer(a: T, b: T): boolean;
 }
 
-interface KnockoutObservableArrayFunctions<T> {
-    // General Array functions
+// The functions of observable arrays that don't mutate the array
+interface KnockoutReadonlyObservableArrayFunctions<T> {
     /**
       * Returns the index of the first occurrence of a value in an array.
       * @param searchElement The value to locate in the array.
@@ -35,6 +35,9 @@ interface KnockoutObservableArrayFunctions<T> {
       * @param end The end of the specified portion of the array.
       */
     slice(start: number, end?: number): T[];
+}
+// The functions of observable arrays that mutate the array
+interface KnockoutObservableArrayFunctions<T> extends KnockoutReadonlyObservableArrayFunctions<T> {
     /**
      * Removes and returns all the remaining elements starting from a given index.
      * @param start The zero-based location in the array from which to start removing elements.
@@ -174,6 +177,23 @@ interface KnockoutObservableArrayStatic {
     <T>(value?: T[] | null): KnockoutObservableArray<T>;
 }
 
+/**
+ * While all observable arrays are writable at runtime, this type is analogous to the native ReadonlyArray type:
+ * casting an observable array to this type expresses the intention that it shouldn't be mutated.
+ */
+interface KnockoutReadonlyObservableArray<T> extends KnockoutReadonlyObservable<ReadonlyArray<T>>, KnockoutReadonlyObservableArrayFunctions<T> {
+    // NOTE: Keep in sync with KnockoutObservableArray<T>, see note on KnockoutObservableArray<T>
+    subscribe(callback: (newValue: KnockoutArrayChange<T>[]) => void, target: any, event: "arrayChange"): KnockoutSubscription;
+    subscribe(callback: (newValue: T[]) => void, target: any, event: "beforeChange"): KnockoutSubscription;
+    subscribe(callback: (newValue: T[]) => void, target?: any, event?: "change"): KnockoutSubscription;
+    subscribe<TEvent>(callback: (newValue: TEvent) => void, target: any, event: string): KnockoutSubscription;
+}
+
+/*
+    NOTE: In theory this should extend both Observable<T[]> and ReadonlyObservableArray<T>,
+        but can't since they both provide conflicting typings of .subscribe.
+    So it extends Observable<T[]> and duplicates the subscribe definitions, which should be kept in sync
+*/
 interface KnockoutObservableArray<T> extends KnockoutObservable<T[]>, KnockoutObservableArrayFunctions<T> {
     subscribe(callback: (newValue: KnockoutArrayChange<T>[]) => void, target: any, event: "arrayChange"): KnockoutSubscription;
     subscribe(callback: (newValue: T[]) => void, target: any, event: "beforeChange"): KnockoutSubscription;
