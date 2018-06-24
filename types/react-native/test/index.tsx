@@ -58,6 +58,7 @@ import {
     GestureResponderEvent,
     TextInputScrollEventData,
     TextInputSelectionChangeEventData,
+    TextInputKeyPressEventData,
 } from "react-native";
 
 declare module "react-native" {
@@ -501,6 +502,11 @@ class TextInputTest extends React.Component<{}, {username: string}> {
         console.log(`end: ${ e.nativeEvent.selection.end }`);
     }
 
+    handleOnKeyPress = (e: NativeSyntheticEvent<TextInputKeyPressEventData>) => {
+        testNativeSyntheticEvent(e);
+        console.log(`key: ${ e.nativeEvent.key }`);
+    }
+
     render() {
         return (
             <View>
@@ -524,6 +530,10 @@ class TextInputTest extends React.Component<{}, {username: string}> {
 
                 <TextInput
                     onSelectionChange={this.handleOnSelectionChange}
+                />
+
+                <TextInput
+                    onKeyPress={this.handleOnKeyPress}
                 />
             </View>
         );
