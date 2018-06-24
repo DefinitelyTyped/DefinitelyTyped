@@ -56,7 +56,9 @@ import {
     StatusBar,
     NativeSyntheticEvent,
     GestureResponderEvent,
-    TextInputScrollEventData
+    TextInputScrollEventData,
+    TextInputSelectionChangeEventData,
+    TextInputKeyPressEventData,
 } from "react-native";
 
 declare module "react-native" {
@@ -492,6 +494,19 @@ class TextInputTest extends React.Component<{}, {username: string}> {
         testNativeSyntheticEvent(e);
     }
 
+    handleOnSelectionChange = (e: NativeSyntheticEvent<TextInputSelectionChangeEventData>) => {
+        testNativeSyntheticEvent(e);
+
+        console.log(`target: ${ e.nativeEvent.target }`);
+        console.log(`start: ${ e.nativeEvent.selection.start }`);
+        console.log(`end: ${ e.nativeEvent.selection.end }`);
+    }
+
+    handleOnKeyPress = (e: NativeSyntheticEvent<TextInputKeyPressEventData>) => {
+        testNativeSyntheticEvent(e);
+        console.log(`key: ${ e.nativeEvent.key }`);
+    }
+
     render() {
         return (
             <View>
@@ -503,7 +518,7 @@ class TextInputTest extends React.Component<{}, {username: string}> {
                     onChangeText={this.handleUsernameChange}
                 />
 
-                 <TextInput
+                <TextInput
                     multiline
                     onScroll={this.onScroll}
                 />
@@ -511,6 +526,14 @@ class TextInputTest extends React.Component<{}, {username: string}> {
                 <TextInput
                     onBlur={this.handleOnBlur}
                     onFocus={this.handleOnFocus}
+                />
+
+                <TextInput
+                    onSelectionChange={this.handleOnSelectionChange}
+                />
+
+                <TextInput
+                    onKeyPress={this.handleOnKeyPress}
                 />
             </View>
         );
