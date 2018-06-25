@@ -35,5 +35,15 @@ export function generate(
     target: TargetType,
     tagName: string,
     projectName: string,
-    options: any
+    options: {
+        passthroughCustomScalars?: boolean;
+        customScalarsPrefix?: string;
+        addTypename?: boolean;
+        namespace?: string;
+        operationIdsPath?: string | null;
+        generateOperationIds?: boolean;
+        mergeInFieldsFromFragmentSpreads?: boolean;
+        useFlowExactObjects?: boolean;
+        useFlowReadOnlyTypes?: boolean;
+    }
 ): void;
