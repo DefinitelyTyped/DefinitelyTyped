@@ -13,12 +13,9 @@ interface ComponentState {
 }
 
 class Component extends React.Component<{}, ComponentState> {
-    constructor(props: any) {
-        super(props);
-        this.state = {
-            activeIndex: 0
-        };
-    }
+    state = {
+        activeIndex: 0
+    };
 
     private clickHandler(...args: any[]) {
         console.log(`Handling a click on a chart: ${JSON.stringify(args)}`);

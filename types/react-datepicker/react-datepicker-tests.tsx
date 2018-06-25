@@ -5,12 +5,12 @@ import DatePicker from 'react-datepicker';
 class ReactDatePicker extends React.Component<{}, { startDate: moment.Moment; displayName: string; }> {
 	constructor(props: {}) {
 		super(props);
-		this.state = {
-			startDate: moment(),
-			displayName: 'Example'
-		};
 		this.handleChange = this.handleChange.bind(this);
 	}
+	state = {
+		startDate: moment(),
+		displayName: 'Example'
+	};
 
 	handleChange = function(date?: moment.Moment | null) {
 		this.setState({
