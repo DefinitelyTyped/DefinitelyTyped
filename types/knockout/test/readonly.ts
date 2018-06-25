@@ -30,3 +30,15 @@ function testReadonlyObservableArray() {
     const writeAgain = read as KnockoutObservableArray<string>
     writeAgain(["foo"]);
 }
+
+function testReadonlyComputed() {
+    const write = ko.computed({
+        read: () => {},
+        write: () => {},
+    });
+
+    // Can cast a computed as readonly
+    const read: KnockoutReadonlyComputed<any> = write;
+    read();
+    read("foo"); // $ExpectError
+}

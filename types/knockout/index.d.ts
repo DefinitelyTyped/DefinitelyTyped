@@ -158,7 +158,12 @@ interface KnockoutComputedStatic {
     <T>(def: KnockoutComputedDefine<T>, context?: any): KnockoutComputed<T>;
 }
 
-interface KnockoutComputed<T> extends KnockoutObservable<T>, KnockoutComputedFunctions<T> {
+interface KnockoutReadonlyComputed<T> extends KnockoutReadonlyObservable<T> {
+    isActive(): boolean;
+    getDependenciesCount(): number;
+}
+
+interface KnockoutComputed<T> extends KnockoutReadonlyComputed<T>, KnockoutObservable<T>, KnockoutComputedFunctions<T> {
     fn: KnockoutComputedFunctions<any>;
 
     // It's possible for a to be undefined, since the equalityComparer is run on the initial
@@ -166,8 +171,6 @@ interface KnockoutComputed<T> extends KnockoutObservable<T>, KnockoutComputedFun
     equalityComparer(a: T | undefined, b: T): boolean;
 
     dispose(): void;
-    isActive(): boolean;
-    getDependenciesCount(): number;
     extend(requestedExtenders: { [key: string]: any; }): KnockoutComputed<T>;
 }
 
