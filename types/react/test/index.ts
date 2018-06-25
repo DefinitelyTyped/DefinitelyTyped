@@ -54,6 +54,72 @@ declare const container: Element;
 //
 // Top-Level API
 // --------------------------------------------------------------------------
+{
+    interface State {
+        inputValue: string;
+        seconds: number;
+    }
+    /**
+     * This is a "pre EcmaScript class property era" style of setting state within constructor.
+     * This occurs also if you need to provide som logic before mounting your component.
+     * To mitigate this error you need to provide state property definition upfront.
+     */
+    class SettingStateFromCtorComponent extends React.Component<Props, State, Snapshot> {
+        // uncomenting this fixes the error :)
+        // state: State;
+        constructor(props: Props) {
+            super(props);
+            // $ExpectError
+            this.state = {
+                inputValue: 'hello'
+            };
+        }
+        render() { return null; }
+    }
+
+    class BadlyInitializedState extends React.Component<Props, State, Snapshot> {
+        // ExpectError -> this throws error on TS 2.6
+        // state = {
+        //     secondz: 0,
+        //     inputValuez: 'hello'
+        // };
+    }
+    class BetterPropsAndStateChecksComponent extends React.Component<Props, State, Snapshot> {
+        render() { return null; }
+        componentDidMount() {
+            // $ExpectError
+            console.log(this.state.inputValue);
+        }
+        mutateState() {
+            // $ExpectError
+            this.state = {
+                inputValue: 'hello'
+            };
+
+            // Even if state is not set, this is allowed by React
+            this.setState({inputValue: 'hello'});
+            this.setState((prevState, props) => {
+                // $ExpectError
+                props = {foo: 'nope'};
+                // $ExpectError
+                props.foo = 'nope';
+
+                return { inputValue: prevState.inputValue + ' foo' };
+            });
+        }
+        mutateProps() {
+            // $ExpectError
+            this.props = {};
+            // $ExpectError
+            this.props = {
+                key: 42,
+                ref: "myComponent42",
+                hello: "world",
+                foo: 42
+            };
+        }
+    }
+}
 
 class ModernComponent extends React.Component<Props, State, Snapshot>
     implements MyComponent, React.ChildContextProvider<ChildContext> {
@@ -682,6 +748,7 @@ React.createFactory(TransitionGroup)({ component: "div" });
 // The SyntheticEvent.target.value should be accessible for onChange
 // --------------------------------------------------------------------------
 class SyntheticEventTargetValue extends React.Component<{}, { value: string }> {
+    state: { value: string };
     constructor(props: {}) {
         super(props);
         this.state = { value: 'a' };
