@@ -4,7 +4,7 @@
 //                 Kyle Roach <https://github.com/iRoachie>
 //                 Tim Wang <https://github.com/timwangdev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
+// TypeScript Version: 2.6
 import { PureComponent, ReactNode, ComponentType } from 'react'
 import {
   Animated,
