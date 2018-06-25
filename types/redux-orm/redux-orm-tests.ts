@@ -1,4 +1,4 @@
-import { attr, createSelector as createSelectorORM, IORMCommonState, IORMId, ITableState, ISession, Model, ORM } from 'redux-orm';
+import { attr, createSelector as createSelectorORM, ORMCommonState, ORMId, QuerySet, TableState, SessionWithModels, Model, ORM } from 'redux-orm';
 
 // Model
 export class Test extends Model<TestStateItem, FetchIndicatorState> {
@@ -22,9 +22,9 @@ export interface FetchIndicatorState {
 }
 
 // id attr is added automatically by redux-orm therefore we have IORMId interface
-export type TestState = ITableState<TestStateItem & IORMId & FetchIndicatorState>;
+export type TestState = TableState<TestStateItem & ORMId & FetchIndicatorState>;
 
-export interface TestORMState extends IORMCommonState {
+export interface TestORMState extends ORMCommonState {
   Test: TestState;
 }
 
@@ -66,9 +66,8 @@ interface RootState {
 }
 
 export const makeGetTestDisplayList = () => {
-  const ormSelector = createSelectorORM<TestORMState>(orm, (session: ISession<TestORMState>) =>
-    session.Test
-      .all<TestStateItem, FetchIndicatorState>()
+  const ormSelector = createSelectorORM<TestORMState>(orm, (session: SessionWithModels<TestORMState>) =>
+    (session.Test.all() as QuerySet<TestStateItem, FetchIndicatorState>)
       .toRefArray()
       .map((item) => ({ ...item }))
   );
