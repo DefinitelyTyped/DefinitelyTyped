@@ -6,7 +6,7 @@
 //                 Patrick Sachs <https://github.com/PatrickSachs>
 //                 Brandon Shelton <https://github.com/YangusKhan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 import { Slate } from 'slate';
 import * as Immutable from 'immutable';
 import * as React from 'react';
