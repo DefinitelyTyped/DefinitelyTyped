@@ -48,7 +48,7 @@ export interface Paginated<T> {
 // tslint:disable-next-line void-return
 export type Hook = (hook: HookContext) => (Promise<HookContext | SkipSymbol | void> | HookContext | SkipSymbol | void);
 
-export type SkipSymbol = Symbol | '__feathersSkipHooks';
+export type SkipSymbol = symbol | '__feathersSkipHooks';
 
 export interface HookContext<T = any> {
     app?: Application;
