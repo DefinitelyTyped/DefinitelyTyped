@@ -398,6 +398,7 @@ export class Layer extends Evented {
     remove(): this;
     removeFrom(map: Map): this;
     getPane(name?: string): HTMLElement | undefined;
+    toGeoJSON(): geojson.Feature<any>;
 
     // Popup methods
     bindPopup(content: ((layer: Layer) => Content) | Content | Popup, options?: PopupOptions): this;
