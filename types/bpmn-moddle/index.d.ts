@@ -1,4 +1,3 @@
-
 // Type definitions for bpmn-moddle 5.1.5
 // Project: https://github.com/bpmn-io/bpmn-moddle
 // Definitions by: Hayden <https://github.com/haydos89>
