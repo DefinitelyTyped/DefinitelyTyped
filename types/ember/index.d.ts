@@ -112,6 +112,7 @@ declare module 'ember' {
         | 'afterRender'
         | 'destroy';
     type QueryParamTypes = 'boolean' | 'number' | 'array' | 'string';
+    type QueryParamScopeTypes = 'controller' | 'model';
 
     type ObserverMethod<Target, Sender> =
         | (keyof Target)
@@ -741,7 +742,7 @@ declare module 'ember' {
             model: any;
             queryParams: string | string[] | Array<{ [key: string]: { 
                 type?: QueryParamTypes,
-                scope?: string,
+                scope?: QueryParamScopeTypes,
                 as?: string
             }}>;
             target: Object;
