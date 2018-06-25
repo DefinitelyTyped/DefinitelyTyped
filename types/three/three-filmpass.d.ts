@@ -1,13 +1,13 @@
-import { OrthographicCamera, Scene, WebGLRenderTarget, WebGLRenderer, ShaderMaterial, Mesh, IUniform } from "./three-core";
+import { Camera, Scene, WebGLRenderTarget, WebGLRenderer, Material, Mesh, IUniform } from "./three-core";
 import {Pass} from "./three-effectcomposer";
 
 export class FilmPass extends Pass {
-    constructor(noiseIntensity?: number, scanlinesIntensity?: number, scanlinesCount?: number, grayscale?: boolean);
+    constructor(noiseIntensity: number, scanlinesIntensity: number, scanlinesCount: number, grayscale: boolean);
     
     scene: Scene;
-    camera: OrthographicCamera;
-    uniforms: { [uniform: string]: IUniform };
-    material: ShaderMaterial;
+    camera: Camera;
+    uniforms: IUniform;
+    material: Material;
     quad: Mesh;
 
 }

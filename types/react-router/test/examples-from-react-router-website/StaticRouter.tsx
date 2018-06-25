@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { StaticRouter, Route } from 'react-router-dom';
-import { StaticRouterContext } from 'react-router';
 
-interface StaticContext extends StaticRouterContext {
+interface StaticContext {
     statusCode?: number;
 }
 

@@ -2,22 +2,22 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6"
+            "es6",
+            "dom"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "strictFunctionTypes" : true,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
+        "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
+        "jsx": "preserve",
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "deluge-tests.ts"
+        "slate-react-tests.tsx"
     ]
 }

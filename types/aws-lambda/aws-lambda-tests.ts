@@ -482,7 +482,7 @@ str = cloudwatchLogsDecodedData.logEvents[0].message;
 
 /* ClientContext */
 clientContextClient = clientCtx.client;
-anyObj = clientCtx.custom;
+anyObj = clientCtx.Custom;
 clientContextEnv = clientCtx.env;
 
 /* ClientContextEnv */
