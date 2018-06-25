@@ -3259,7 +3259,7 @@ export interface SwitchIOSProps extends ViewProps {
  */
 export class SwitchIOS extends React.Component<SwitchIOSProps> {}
 
-export type ImageResizeMode = "contain" | "cover" | "stretch" | "center" | "repeat";
+export type ImageResizeMode = "cover" | "contain" | "stretch" | "repeat" | "center";
 
 /**
  * @see ImageResizeMode.js
@@ -3456,16 +3456,26 @@ export type ImageSourcePropType = ImageURISource | ImageURISource[] | ImageRequi
 /**
  * @see ImagePropsBase.onLoad
  */
-interface ImageLoadEventDataAndroid {
+export interface ImageLoadEventDataAndroid {
     uri?: string;
 }
 
-interface ImageLoadEventData extends ImageLoadEventDataAndroid {
+export interface ImageLoadEventData extends ImageLoadEventDataAndroid {
     source: {
         height: number;
         width: number;
         url: string;
     }
+}
+
+/**
+ * @see https://facebook.github.io/react-native/docs/image.html#resolveassetsource
+ */
+export interface ImageResolvedAssetSource {
+    height: number;
+    width: number;
+    scale: number;
+    uri: string;
 }
 
 /**
@@ -3536,7 +3546,7 @@ export interface ImagePropsBase extends ImagePropsIOS, ImagePropsAndroid, Access
      * if bigger than the area of the view.
      * The image will not be scaled up.
      */
-    resizeMode?: "cover" | "contain" | "stretch" | "repeat" | "center";
+    resizeMode?: ImageResizeMode;
 
     /**
      * The mechanism that should be used to resize the image when the image's dimensions
@@ -3602,11 +3612,15 @@ export interface ImageProps extends ImagePropsBase {
 declare class ImageComponent extends React.Component<ImageProps> {}
 declare const ImageBase: Constructor<NativeMethodsMixin> & typeof ImageComponent;
 export class Image extends ImageBase {
-    resizeMode: ImageResizeMode;
     static getSize(uri: string, success: (width: number, height: number) => void, failure: (error: any) => void): any;
     static prefetch(url: string): any;
     static abortPrefetch?(requestId: number): void;
     static queryCache?(urls: string[]): Promise<Map<string, "memory" | "disk">>;
+
+    /**
+     * @see https://facebook.github.io/react-native/docs/image.html#resolveassetsource
+     */
+    static resolveAssetSource(source: ImageSourcePropType): ImageResolvedAssetSource;
 }
 
 export interface ImageBackgroundProps extends ImagePropsBase {

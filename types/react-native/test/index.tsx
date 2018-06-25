@@ -24,7 +24,9 @@ import {
     Dimensions,
     Image,
     ImageStyle,
+    ImageResizeMode,
     ImageLoadEventData,
+    ImageResolvedAssetSource,
     InteractionManager,
     ListView,
     ListViewDataSource,
@@ -557,6 +559,13 @@ class StatusBarTest extends React.Component {
 }
 
 export class ImageTest extends React.Component {
+    componentDidMount(): void {
+        const image: ImageResolvedAssetSource = Image.resolveAssetSource({
+            uri: 'https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png'
+        });
+        console.log(image.width, image.height, image.scale, image.uri);
+    }
+
     onLoad(e: NativeSyntheticEvent<ImageLoadEventData>) {
         testNativeSyntheticEvent(e);
         console.log('height:', e.nativeEvent.source.height);
@@ -565,11 +574,18 @@ export class ImageTest extends React.Component {
     }
 
     render() {
+        const resizeMode: ImageResizeMode = 'contain';
+
         return (
             <View>
                 <Image
                     source={{ uri: 'https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png' }}
                     onLoad={this.onLoad}
+                />
+
+                <Image
+                    source={{ uri: 'https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png' }}
+                    resizeMode={resizeMode}
                 />
             </View>
         );
