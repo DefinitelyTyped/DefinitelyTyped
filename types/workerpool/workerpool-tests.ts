@@ -6,6 +6,8 @@ wp.pool({minWorkers: 'max'});
 wp.pool({minWorkers: 'max', maxWorkers: 1});
 wp.pool({minWorkers: 1, maxWorkers: 1});
 wp.pool({maxWorkers: 1});
+wp.pool({forkArgs: ['foo', 'bar']});
+wp.pool({forkOpts: {cwd: '/tmp'}});
 const pool = wp.pool();
 pool.clear()
     .then(() => pool.terminate())

@@ -4,6 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
+/// <reference types="node" />
+
+import * as cp from 'child_process';
+
 export interface WorkerPoolStats {
     totalWorkers: number;
     busyWorkers: number;
@@ -87,6 +91,11 @@ export interface WorkerPoolOptions {
      * When the number of CPU's could not be determined (for example in older browsers), maxWorkers is set to 3.
      */
     maxWorkers?: number;
+
+    /** 2nd argument to pass to childProcess.fork() */
+    forkArgs?: string[];
+
+    forkOpts?: cp.ForkOptions;
 }
 
 /**
