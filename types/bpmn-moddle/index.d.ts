@@ -1,3 +1,10 @@
+
+// Type definitions for bpmn-moddle 5.1.5
+// Project: https://github.com/bpmn-io/bpmn-moddle
+// Definitions by: Hayden <https://github.com/haydos89>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
+
 declare namespace BPMNModdle {
   export type AdHocOrdering = 'Parallel' | 'Sequential';
   export type AssociationDirection = 'None' | 'One' | 'Both';
