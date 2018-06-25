@@ -1,4 +1,4 @@
-// Type definitions for koa-websocket 5.0.1
+// Type definitions for koa-websocket 5.0
 // Project: https://github.com/kudos/koa-websocket
 // Definitions by: Maël Lavault <https://github.com/moimael>
 //                 Jaco Greeff <https://github.com/jacogr>
@@ -11,16 +11,16 @@ import * as http from 'http';
 import * as https from 'https';
 
 declare namespace KoaWebsocket {
-    export type ConnectionHandler = (socket: ws) => void;
+    type ConnectionHandler = (socket: ws) => void;
 
-    export type Middleware = (this: MiddlewareContext, context: Koa.Context, next: () => Promise<any>) => any;
+    type Middleware = (this: MiddlewareContext, context: Koa.Context, next: () => Promise<any>) => any;
 
-    export interface MiddlewareContext extends Koa.Context {
+    interface MiddlewareContext extends Koa.Context {
         websocket: ws;
         path: string;
     }
 
-    export class Server {
+    class Server {
         app: Koa;
         middleware: Koa.Middleware[];
 
@@ -31,7 +31,7 @@ declare namespace KoaWebsocket {
         use(middleware: Middleware): this;
     }
 
-    export interface App extends Koa {
+    interface App extends Koa {
         ws: Server;
     }
 }
