@@ -542,6 +542,7 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    * The new function will always return a promise that is fulfilled with the original functions return values or rejected with thrown exceptions from the original function.
    * This method is convenient when a function can sometimes return synchronously or throw synchronously.
    */
+  static method<R>(fn: () => R | PromiseLike<R>): () => Bluebird<R>;
   static method<R, A1>(fn: (arg1: A1) => R | PromiseLike<R>): (arg1: A1) => Bluebird<R>;
   static method<R, A1, A2>(fn: (arg1: A1, arg2: A2) => R | PromiseLike<R>): (arg1: A1, arg2: A2) => Bluebird<R>;
   static method<R, A1, A2, A3>(fn: (arg1: A1, arg2: A2, arg3: A3) => R | PromiseLike<R>): (arg1: A1, arg2: A2, arg3: A3) => Bluebird<R>;
