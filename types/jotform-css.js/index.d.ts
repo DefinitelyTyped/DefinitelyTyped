@@ -3,15 +3,18 @@
 // Definitions by: Peter van der Woude <https://github.com/pandawood>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
+declare global {
+	const cssjs: CssJsConstructor
+}
 
-/**
- * Thid doesn't get used in the way I intended
- */
-export function cssjs() : CssJs
+export interface CssJsConstructor {
+	new (): CssJs;
+}
+
+export const cssjs : CssJsConstructor;
+export default cssjs;
 
 export interface CssJs {
-
 	/**
 	 * Parses given css string, and returns css object
 	 * keys as selectors and values are css rules

@@ -1,17 +1,6 @@
-let cssjsGlobal = require("jotform-css.js/css.js")
-import { CssJs } from "./index"
-
-// not all interface methods tested here, below is a sample of code that I've actually used
-class TestParser {
-	public parse(cssString: string): string {
-		const parser = new cssjsGlobal.cssjs() as CssJs
-
-		let parsed = parser.parseCSS(cssString)
-		parsed = parser.applyNamespacing(parsed, "#id1")
-		let css = parser.getCSSForEditor(parsed)
-		return css
-	}
+// DefinitelyTyped scripts are forcing me to have this, I don't need or want this file
+function addNamespace2(cssString: string): string {
+	const parser = new cssjs();
+	const parsed = parser.applyNamespacing(cssString, "#id1");
+	return parser.getCSSForEditor(parsed);
 }
-
-let parsingTest = new TestParser()
-let css = parsingTest.parse(".foo { background-color: red }")

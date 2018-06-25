@@ -18,6 +18,8 @@
     },
     "files": [
         "index.d.ts",
-        "jotform-css.js-tests.ts"
+        "jotform-css.js-tests.ts",
+        "jotform-css.js-global-tests.ts",
+        "jotform-css.js-module-tests.ts"
     ]
 }
