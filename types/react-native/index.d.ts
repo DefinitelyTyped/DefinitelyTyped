@@ -1798,6 +1798,13 @@ export interface AccessibilityPropsAndroid {
 
 export interface AccessibilityPropsIOS {
     /**
+     * A Boolean value indicating whether the accessibility elements contained within this accessibility element
+     * are hidden to the screen reader.
+     * @platform ios
+     */
+    accessibilityElementsHidden?: boolean;
+
+    /**
      * Accessibility traits tell a person using VoiceOver what kind of element they have selected.
      * Is this element a label? A button? A header? These questions are answered by accessibilityTraits.
      * @platform ios

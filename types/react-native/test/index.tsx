@@ -598,3 +598,13 @@ class StylePropsTest extends React.PureComponent {
 }
 
 const listViewDataSourceTest = new ListView.DataSource({rowHasChanged: () => true})
+
+class AccessibilityViewHidingTest extends React.Component {
+    render() {
+        return (
+            <View accessibilityElementsHidden importantForAccessibility="no-hide-descendants">
+                <View />
+            </View>
+        );
+    }
+}
