@@ -7,7 +7,7 @@ import {
   Action,
   ActionCreator,
   ActionCreatorsMapObject,
-  GenericStoreEnhancer
+  StoreEnhancer
 } from "redux";
 
 export interface RemoteReduxDevToolsOptions {
@@ -108,5 +108,5 @@ export interface RemoteReduxDevToolsOptions {
   id?: string;
 }
 
-export function composeWithDevTools(options?: RemoteReduxDevToolsOptions): (...funcs: GenericStoreEnhancer[]) => GenericStoreEnhancer;
-export function composeWithDevTools(...funcs: GenericStoreEnhancer[]): GenericStoreEnhancer;
+export function composeWithDevTools(options?: RemoteReduxDevToolsOptions): (...funcs: StoreEnhancer[]) => StoreEnhancer;
+export function composeWithDevTools(...funcs: StoreEnhancer[]): StoreEnhancer;
