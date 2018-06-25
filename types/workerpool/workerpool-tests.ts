@@ -22,8 +22,11 @@ x = pool.stats().idleWorkers;
 x = pool.stats().pendingTasks;
 x = pool.stats().totalWorkers;
 
-pool.terminate().then(()=>{});
-pool.proxy().then(()=>{});
+pool.terminate().then(() => {});
+pool.proxy().then(() => {});
 pool.exec('foo', null)
     .then(() => pool.exec('foo', []))
     .then(() => pool.exec(() => {}, null));
+
+new wp.Promise.CancellationError();
+new wp.Promise.TimeoutError();

@@ -2,6 +2,7 @@
 // Project: https://github.com/josdejong/workerpool
 // Definitions by: Alorel <https://github.com/Alorel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 export interface WorkerPoolStats {
     totalWorkers: number;
@@ -14,11 +15,16 @@ export interface WorkerPoolStats {
 export interface WorkerPool {
     /**
      * Execute a function on a worker with given arguments.
-     * @param method When method is a string, a method with this name must exist at the worker and must be registered to make it accessible via the pool. The function will be executed on the worker with given parameters. When method is a function, the provided function fn will be stringified, send to the worker, and executed there with the provided parameters. The provided function must be static, it must not depend on variables in a surrounding scope.
+     * @param method When method is a string, a method with this name must exist at the worker
+     * and must be registered to make it accessible via the pool.
+     * The function will be executed on the worker with given parameters.
+     * When method is a function, the provided function fn will be stringified, send to the worker,
+     * and executed there with the provided parameters. The provided function must be static,
+     * it must not depend on variables in a surrounding scope.
      */
-    exec(method: Function | string, params: any[] | null): Promise<any>;
+    exec(method: ((...args: any[]) => any) | string, params: any[] | null): Promise<any>;
 
-    /** 
+    /**
      * Create a proxy for the worker pool.
      * The proxy contains a proxy for all methods available on the worker.
      * All methods return promises resolving the methods result.
@@ -33,7 +39,7 @@ export interface WorkerPool {
      * When force is true, all workers are terminated immediately without finishing running tasks.
      * If timeout is provided, worker will be forced to terminal when the timeout expires and the worker has not finished.
      */
-    terminate(force?: boolean, timeout?: number): WorkerPromise<any[]>;
+    terminate(force?: boolean, timeout?: number): Promise<any[]>;
 
     /**
      * Clear all workers from the pool.
@@ -41,31 +47,33 @@ export interface WorkerPool {
      * When force is true, all workers are terminated immediately without finishing running tasks.
      * @deprecated
      */
-    clear(force?: boolean): WorkerPromise<any[]>;
+    clear(force?: boolean): Promise<any[]>;
 }
 
-declare class CancellationError extends Error {
-    name: 'CancellationError';
-}
-
-declare class TimeoutError extends Error {
-    name: 'TimeoutError';
-}
-
-export class WorkerPromise<T, E = Error> {
+export class Promise<T, E = Error> {
     readonly resolved: boolean;
     readonly rejected: boolean;
     readonly pending: boolean;
 
-    always<TT>(handler: () => WorkerPromise<TT>): WorkerPromise<TT>;
-    then<TT, EE = Error>(result: (r: T) => TT, err?: (r: E) => EE): WorkerPromise<TT, EE>;
-    catch<TT>(err: (error: E) => TT): WorkerPromise<TT>;
+    always<TT>(handler: () => Promise<TT>): Promise<TT>;
+    then<TT, EE = Error>(result: (r: T) => TT, err?: (r: E) => EE): Promise<TT, EE>;
+    catch<TT>(err: (error: E) => TT): Promise<TT>;
     cancel(): this;
     timeout(delay: number): this;
 
-    static CancellationError: CancellationError;
-    static TimeoutError: TimeoutError;
-    static all(promises: WorkerPromise<any, any>[]): WorkerPromise<any, any>[];
+    static all(promises: Array<Promise<any, any>>): Array<Promise<any, any>>;
+}
+
+export namespace Promise {
+    // tslint:disable-next-line:strict-export-declare-modifiers
+    export class CancellationError extends Error {
+        name: 'CancellationError';
+    }
+
+    // tslint:disable-next-line:strict-export-declare-modifiers
+    export class TimeoutError extends Error {
+        name: 'TimeoutError';
+    }
 }
 
 export interface WorkerPoolOptions {
@@ -99,7 +107,7 @@ export function pool(options?: WorkerPoolOptions): WorkerPool;
  * Argument methods is optional can can be an object with functions available in the worker.
  * Registered functions will be available via the worker pool.
  */
-export function worker(methods?: {[k: string]: Function}): any;
+export function worker(methods?: {[k: string]: (...args: any[]) => any}): any;
 export const platform: 'node' | 'browser';
 export const isMainThread: boolean;
 export const cpus: number;
