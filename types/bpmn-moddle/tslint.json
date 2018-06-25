@@ -1,5 +1,5 @@
 {
-    "extends": "dtslint/dtslint.json",
+    "extends": "dtslint/dt.json",
     "rules": {
         "adjacent-overload-signatures": false,
         "array-type": false,
