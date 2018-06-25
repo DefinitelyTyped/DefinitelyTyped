@@ -32,10 +32,10 @@ declare namespace CanvasJS {
         readonly data: ChartDataSeries[];
         /**
          * Initializes a new instance of CanvasJS Chart.
-         * @param containerId the DOM ID of the location where the chart is to be rendered
+         * @param containerId the DOM ID or element of the location where the chart is to be rendered
          * @param options the options used to render the chart
          */
-        constructor(containerId: string, options?: ChartOptions);
+        constructor(containerId: string | HTMLElement, options?: ChartOptions);
 
         /**
          * Renders the chart.
