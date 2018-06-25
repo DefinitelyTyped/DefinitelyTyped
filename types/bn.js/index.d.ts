@@ -62,7 +62,7 @@ declare class BN {
     /**
      * @description returns true if the supplied object is a BN.js instance
      */
-    static isBN(b: any): boolean;
+    static isBN(b: any): b is BN;
 
     /**
      * @description  Convert number to red
