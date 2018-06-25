@@ -7,11 +7,11 @@
 import { RequestHandler } from "express";
 import { ServeStaticOptions } from "serve-static";
 
-declare namespace SwaggerUiExpress {
-    interface JsonObject { [key: string]: any; }
-    interface SwaggerUiOptions { [key: string]: any; }
-    interface SwaggerOptions { [key: string]: any; }
+interface JsonObject { [key: string]: any; }
+interface SwaggerUiOptions { [key: string]: any; }
+interface SwaggerOptions { [key: string]: any; }
 
+interface SwaggerUiExpress {
     /**
      * Creates a middleware function that returns the pre-generated html file for the Swagger UI page.
      *
@@ -24,7 +24,7 @@ declare namespace SwaggerUiExpress {
      * @param customeSiteTitle custom title for a page
      * @returns an express middleware function that returns the generated html page.
      */
-    function setup(swaggerDoc?: JsonObject | null,
+    setup(swaggerDoc?: JsonObject | null,
         opts?: SwaggerUiOptions | false | null,
         options?: SwaggerOptions,
         customCss?: string | false | null,
@@ -38,7 +38,7 @@ declare namespace SwaggerUiExpress {
      *
      * @returns Express handlers that process requests and return files for Swagger UI.
      */
-    function serve(): RequestHandler[];
+    serve(): RequestHandler[];
 
     /**
      * Returns handlers for serving Swagger UI files.
@@ -48,7 +48,7 @@ declare namespace SwaggerUiExpress {
      * @param options options object that is passed to the express.static middleware.
      * @returns Express handlers that process requests and return files for Swagger UI.
      */
-    function serveWithOptions(options: ServeStaticOptions): RequestHandler[];
+    serveWithOptions(options: ServeStaticOptions): RequestHandler[];
 
     /**
      * Generates the custom html page for the UI API.
@@ -62,7 +62,7 @@ declare namespace SwaggerUiExpress {
      * @param customeSiteTitle custom title for a page
      * @returns the generated html page.
      */
-    function generateHTML(swaggerDoc?: JsonObject | null,
+    generateHTML(swaggerDoc?: JsonObject | null,
         opts?: SwaggerUiOptions | false | null,
         options?: SwaggerOptions,
         customCss?: string | false | null,
@@ -79,7 +79,9 @@ declare namespace SwaggerUiExpress {
      * @param opts options to pass to Swagger UI.
      * @returns Express handlers that process requests and return files for Swagger UI.
      */
-    function serveFiles(swaggerDoc?: JsonObject, opts?: SwaggerUiOptions): RequestHandler[];
+    serveFiles(swaggerDoc?: JsonObject, opts?: SwaggerUiOptions): RequestHandler[];
 }
 
-export default SwaggerUiExpress;
+declare const swaggerUiExpress: SwaggerUiExpress;
+
+export = swaggerUiExpress;

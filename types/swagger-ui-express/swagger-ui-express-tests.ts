@@ -2,21 +2,25 @@
  * Tests are taken from the module's repository at https://github.com/scottie1984/swagger-ui-express/blob/master/test/testapp/app.js
  */
 
-import swaggerUi from "swagger-ui-express";
+import swaggerUi = require('swagger-ui-express');
+import express = require('express');
 
-const express = require('express');
 const app = express();
-const swaggerDocument = require('./swagger.json');
-const swaggerDocumentSplit = require('./swagger-split.json');
+const swaggerDocument = {
+	swagger: '2.0',
+	info: { version: '1.0.0', title: 'Example API' },
+	paths: { '/user': { get: { responses: { 200: { description: 'all users' } } } } }
+};
+const swaggerDocumentSplit = swaggerDocument;
 
 const options = {
 	validatorUrl: null,
 	oauth: {
-		clientId: "your-client-id1",
-		clientSecret: "your-client-secret-if-required1",
-		realm: "your-realms1",
-		appName: "your-app-name1",
-		scopeSeparator: ",",
+		clientId: 'your-client-id1',
+		clientSecret: 'your-client-secret-if-required1',
+		realm: 'your-realms1',
+		appName: 'your-app-name1',
+		scopeSeparator: ',',
 		additionalQueryStringParams: {}
 	},
 	docExpansion: 'full',
