@@ -311,8 +311,10 @@ export declare class PreparedStatement extends events.EventEmitter {
     public output(name: string, type: (() => ISqlType) | ISqlType): PreparedStatement;
     public prepare(statement?: string): Promise<void>;
     public prepare(statement?: string, callback?: (err?: Error) => void): PreparedStatement;
-    public execute(values: Object): Promise<void>;
-    public execute(values: Object, callback: (err?: Error) => void): Request;
+    public execute(values: Object): Promise<IProcedureResult<any>>;
+    public execute<Entity>(values: Object): Promise<IProcedureResult<Entity>>;
+    public execute(values: Object, callback: (err?: Error, result?: IProcedureResult<any>) => void): Request;
+    public execute<Entity>(values: Object, callback: (err?: Error, result?: IProcedureResult<Entity>) => void): Request;
     public unprepare(): Promise<void>;
     public unprepare(callback: (err?: Error) => void): PreparedStatement;
 }
