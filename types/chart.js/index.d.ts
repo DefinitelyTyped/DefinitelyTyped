@@ -188,6 +188,10 @@ declare namespace Chart {
         datasets?: ChartDataSets[];
     }
 
+	interface RadialChartOptions extends ChartOptions {
+		scale?: RadialLinearScale;
+	}
+
     interface ChartOptions {
         responsive?: boolean;
         responsiveAnimationDuration?: number;
@@ -580,7 +584,7 @@ declare namespace Chart {
         minUnit?: TimeUnit;
     }
 
-    interface RadialLinearScale {
+    interface RadialLinearScale extends LinearScale {
         lineArc?: boolean;
         angleLines?: AngleLineOptions;
         pointLabels?: PointLabelOptions;
