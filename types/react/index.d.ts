@@ -16,6 +16,7 @@
 //                 Guilherme Hübner <https://github.com/guilhermehubner>
 //                 Ferdy Budhidharma <https://github.com/ferdaber>
 //                 Johann Rakotoharisoa <https://github.com/jrakotoharisoa>
+//                 Olivier Pascal <https://github.com/pascaloliv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -1224,7 +1225,7 @@ declare namespace React {
         autoComplete?: string;
         autoFocus?: boolean;
         autoPlay?: boolean;
-        capture?: boolean;
+        capture?: boolean | string;
         cellPadding?: number | string;
         cellSpacing?: number | string;
         charSet?: string;
@@ -1461,7 +1462,7 @@ declare namespace React {
         alt?: string;
         autoComplete?: string;
         autoFocus?: boolean;
-        capture?: boolean; // https://www.w3.org/TR/html-media-capture/#the-capture-attribute
+        capture?: boolean | string; // https://www.w3.org/TR/html-media-capture/#the-capture-attribute
         checked?: boolean;
         crossOrigin?: string;
         disabled?: boolean;

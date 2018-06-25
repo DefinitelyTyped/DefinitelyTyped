@@ -464,7 +464,7 @@ declare module 'angular' {
        */
       respond(
         status: number,
-        data: string | object,
+        data?: string | object,
         headers?: IHttpHeaders,
         responseText?: string
       ): IRequestHandler;
