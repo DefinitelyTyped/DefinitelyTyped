@@ -16,14 +16,6 @@ export namespace rankings {
     const NO_MATCH: 0;
 }
 
-export namespace caseRankings {
-    const CAMEL: 0.8;
-    const PASCAL: 0.6;
-    const KEBAB: 0.4;
-    const SNAKE: 0.2;
-    const NO_CASE: 0;
-}
-
 interface MinRanking {
     minRanking: number,
     key: string
@@ -40,7 +32,7 @@ interface MinMaxRanking {
     key: string
 }
 
-export interface Options<T> {
+interface Options<T> {
     keys?: (string | ((item: T) => string) | MinRanking | MaxRanking | MinMaxRanking)[],
     threshold?: number,
     keepDiacritics?: boolean
