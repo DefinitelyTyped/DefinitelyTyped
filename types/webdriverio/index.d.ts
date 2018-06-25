@@ -440,6 +440,7 @@ declare namespace WebdriverIO {
 
         // wdio-sauce-service specific
         sauceConnect?: boolean;
+        sauceConnectOpts?: { [name: string]: any; };
 
         // wdio-docker-service specific
         dockerOptions?: { [name: string]: any; };
