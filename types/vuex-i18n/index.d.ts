@@ -25,6 +25,9 @@ export interface Ii18n {
   /** get the current locale */
   locale(): string;
 
+  /** get all the registered locales */
+  locales(): string[];
+
   /** set the current locale (i.e. 'de', 'en') */
   set(locale: string): void;
 
