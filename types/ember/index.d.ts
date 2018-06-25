@@ -740,7 +740,7 @@ declare module 'ember' {
             replaceRoute(name: string, ...args: any[]): void;
             transitionToRoute(name: string, ...args: any[]): void;
             model: any;
-            queryParams: string | string[] | Array<{ [key: string]: { 
+            queryParams: string | string[] | Array<{ [key: string]: {
                 type?: QueryParamTypes,
                 scope?: QueryParamScopeTypes,
                 as?: string
