@@ -1,5 +1,3 @@
-import ObjFileParser, { ObjModel, ObjFile, Vertex, Face, FaceVertex } from 'obj-file-parser';
-
 const testObjFile = `
 # cube.obj
 # Example object
@@ -42,14 +40,14 @@ const parser = new ObjFileParser(testObjFile, 'test');
 const file = parser.parse();
 
 // get first model in file
-const model: ObjModel = file.models[0];
+const model: ObjFileParser.ObjModel = file.models[0];
 // gets object name
 const name: string = model.name;
 // gets first face in model
-const face: Face = model.faces[0];
+const face: ObjFileParser.Face = model.faces[0];
 // gets first vertex in face
-const faceVert: FaceVertex = face.vertices[0];
+const faceVert: ObjFileParser.FaceVertex = face.vertices[0];
 // gets vertex
-const vertPoints: Vertex = model.vertices[faceVert.vertexIndex];
+const vertPoints: ObjFileParser.Vertex = model.vertices[faceVert.vertexIndex];
 // gets x value of vertex
 const x = vertPoints.x;
