@@ -9,7 +9,7 @@ export = JestEach;
 declare function JestEach(parameters: any[][]): JestEach.ReturnType;
 
 declare namespace JestEach {
-	type SyncCallback = (...args: string[]) => void;
+	type SyncCallback = (...args: any[]) => void;
 	type AsyncCallback = () => void;
 
 	type TestCallback = SyncCallback | AsyncCallback;
