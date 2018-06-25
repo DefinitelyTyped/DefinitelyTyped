@@ -1,4 +1,4 @@
-// Type definitions for moment-business-days 1.0.6
+// Type definitions for moment-business-days 1.0
 // Project: https://github.com/kalmecak/moment-business-days
 // Definitions by: David Gasperoni <https://github.com/mcdado>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
