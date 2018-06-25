@@ -1,7 +1,6 @@
 import * as React from "react"
 import { render } from "react-dom"
 import { Provider, IntlProvider, IntlState, IntlAction, intlReducer, updateIntl } from "react-intl-redux"
-import { createStore } from "redux"
 
 var action: IntlAction = updateIntl({ locale : "en", messages : {} })
 var state: IntlState = intlReducer({ locale : "en", messages : {} }, action)
@@ -14,7 +13,7 @@ render(
 )
 
 render(
-    <Provider store={createStore(intlReducer)}>
+    <Provider>
         <div>Test</div>
     </Provider>,
     document.getElementById("main")

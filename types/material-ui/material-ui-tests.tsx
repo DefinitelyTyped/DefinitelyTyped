@@ -2536,7 +2536,7 @@ const AutoCompleteExampleFilters = () => (
 
 // "http://www.material-ui.com/#/components/avatar"
 const AvatarExampleSimple = () => (
-  <List className="foo">
+  <List>
     <ListItem
       disabled={true}
       leftAvatar={

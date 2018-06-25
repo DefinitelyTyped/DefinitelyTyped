@@ -76,7 +76,6 @@ export interface ReactDatePickerProps {
 	showWeekNumbers?: boolean;
 	showYearDropdown?: boolean;
 	startDate?: moment.Moment;
-	startOpen?: boolean;
 	tabIndex?: number;
 	title?: string;
 	todayButton?: string;

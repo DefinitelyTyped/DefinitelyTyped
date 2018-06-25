@@ -1,15 +1,22 @@
 import { Camera, Scene, WebGLRenderTarget, WebGLRenderer } from "./three-core";
-import { Pass } from "./three-effectcomposer";
 
-export class MaskPass extends Pass {
+export class MaskPass {
     constructor(scene: Scene, camera: Camera);
+
     scene: Scene;
     camera: Camera;
-    clear: true;
-    needsSwap: false;
+    enabled: boolean;
+    clear: boolean;
+    needsSwap: boolean;
     inverse: boolean;
+
+    render(renderer: WebGLRenderer, writeBuffer: WebGLRenderTarget, readBuffer: WebGLRenderTarget, delta: number): void;
 }
 
-export class ClearMaskPass extends Pass {
-    needsSwap: false;
+export class ClearMaskPass {
+    constructor();
+
+    enabled: boolean;
+
+    render(renderer: WebGLRenderer, writeBuffer: WebGLRenderTarget, readBuffer: WebGLRenderTarget, delta: number): void;
 }

@@ -1,6 +1,5 @@
 import {
-    OrthographicCamera,
-    IUniform,
+    Camera,
     Mesh,
     Scene,
     Shader,
@@ -8,15 +7,20 @@ import {
     WebGLRenderTarget,
     WebGLRenderer
 } from "./three-core";
-import { Pass } from "./three-effectcomposer";
 
-export class ShaderPass extends Pass {
+export class ShaderPass {
     constructor(shader: Shader, textureID?: string);
 
     textureID: string;
-    uniforms: { [uniform: string]: IUniform };
+    uniforms: any;
     material: ShaderMaterial;
-    camera: OrthographicCamera;
+    renderToScreen: boolean;
+    enabled: boolean;
+    needsSwap: boolean;
+    clear: boolean;
+    camera: Camera;
     scene: Scene;
     quad: Mesh;
+
+    render(renderer: WebGLRenderer, writeBuffer: WebGLRenderTarget, readBuffer: WebGLRenderTarget, delta: number): void;
 }

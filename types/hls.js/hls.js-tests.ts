@@ -28,22 +28,15 @@ if (Hls.isSupported()) {
     hls.loadSource('http://www.streambox.fr/playlists/test_001/stream.m3u8');
     hls.attachMedia(video);
 
-    hls.once(Hls.Events.MANIFEST_PARSED, (event: "hlsManifestParsed", data: Hls.manifestParsedData) => {
+    hls.on(Hls.Events.MANIFEST_PARSED, () => {
         video.play();
     });
 
-    const onFragBuffered = (event: "hlsFragBuffered", data: Hls.fragBufferedData) => {
-        // DO SOMETHING
-    };
-
-    hls.on(Hls.Events.FRAG_BUFFERED, onFragBuffered);
-    hls.off(Hls.Events.FRAG_BUFFERED, onFragBuffered);
-
-    hls.on(Hls.Events.FRAG_LOAD_EMERGENCY_ABORTED, (event: "hlsFragLoadEmergencyAborted", data: Hls.fragLoadEmergencyAbortedData) => {
+    hls.on(Hls.Events.FRAG_LOAD_ERMERGENCY_ABORTED, (event: string, data: Hls.Data) => {
         console.log('frag: ', data.frag);
     });
 
-    hls.on(Hls.Events.ERROR, (event: "hlsError", data: Hls.errorData) => {
+    hls.on(Hls.Events.ERROR, (event: string, data: Hls.Data) => {
         const errorType = data.type;
         const errorDetails = data.details;
         const errorFatal = data.fatal;

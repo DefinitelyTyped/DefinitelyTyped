@@ -404,7 +404,7 @@ export interface CognitoIdentity {
 
 export interface ClientContext {
     client: ClientContextClient;
-    custom?: any;
+    Custom?: any;
     env: ClientContextEnv;
 }
 
