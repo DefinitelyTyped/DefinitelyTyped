@@ -686,25 +686,6 @@ declare namespace BPMNModdle {
   export interface ColoredShape extends TypeDerived {}
   export interface ColoredEdge extends TypeDerived {}
 
-  export interface CamundaFormField {
-    $descriptor: any;
-    $instanceof: any;
-    $model: any;
-    $parent: any;
-    $type: 'camunda:formField';
-    type: any;
-    id?: string;
-    label?: string;
-  }
-  export interface CamundaFormData {
-    $descriptor: any;
-    $instanceof: any;
-    $model: any;
-    $parent: any;
-    $type: 'camunda:formData';
-    $children: CamundaFormField[];
-  }
-
   export interface ElementTypes {
     'bpmn:Interface': Interface;
     'bpmn:Operation': Operation;
