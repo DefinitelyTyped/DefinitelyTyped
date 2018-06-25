@@ -739,7 +739,11 @@ declare module 'ember' {
             replaceRoute(name: string, ...args: any[]): void;
             transitionToRoute(name: string, ...args: any[]): void;
             model: any;
-            queryParams: string[] | Array<{ [key: string]: { type: QueryParamTypes } }>;
+            queryParams: string | string[] | Array<{ [key: string]: { 
+                type?: QueryParamTypes,
+                scope?: string,
+                as?: string
+            }}>;
             target: Object;
         }
         const ControllerMixin: Ember.Mixin<ControllerMixin>;
