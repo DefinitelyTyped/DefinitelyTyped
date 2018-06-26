@@ -57,14 +57,14 @@ re.async.stat('root', reOptions, callbackEntry); // $ExpectType void
 re.async.stat('root'); // $ExpectType Promise<Entry[]>
 re.async.stat('root', reOptions); // $ExpectType Promise<Entry[]>
 
-re.stream('root'); // $ExpectType ReadableStream<any>
-re.stream('root', reOptions); // $ExpectType ReadableStream<any>
+re.stream('root'); // $ExpectType ReadableStream<string | Buffer>
+re.stream('root', reOptions); // $ExpectType ReadableStream<string | Buffer>
 
-re.stream.stat('root'); // $ExpectType ReadableStream<any>
-re.stream.stat('root', reOptions); // $ExpectType ReadableStream<any>
+re.stream.stat('root'); // $ExpectType ReadableStream<string | Buffer>
+re.stream.stat('root', reOptions); // $ExpectType ReadableStream<string | Buffer>
 
-re.readdirStreamStat('root'); // $ExpectType ReadableStream<any>
-re.readdirStreamStat('root', reOptions); // $ExpectType ReadableStream<any>
+re.readdirStreamStat('root'); // $ExpectType ReadableStream<string | Buffer>
+re.readdirStreamStat('root', reOptions); // $ExpectType ReadableStream<string | Buffer>
 
 re.sync('root'); // $ExpectType string[]
 re.sync('root', reOptions); // $ExpectType string[]

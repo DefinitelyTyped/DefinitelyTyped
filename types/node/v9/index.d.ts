@@ -568,7 +568,7 @@ declare namespace NodeJS {
         eventNames(): Array<string | symbol>;
     }
 
-    export interface ReadableStream<T = any> extends EventEmitter {
+    export interface ReadableStream<T = string | Buffer> extends EventEmitter {
         readable: boolean;
         read(size?: number): T | null;
         setEncoding(encoding: string): this;
@@ -581,7 +581,7 @@ declare namespace NodeJS {
         wrap(oldStream: ReadableStream<T>): this;
     }
 
-    export interface WritableStream<T = any> extends EventEmitter {
+    export interface WritableStream<T = string | Buffer> extends EventEmitter {
         writable: boolean;
         write(chunk: T, cb?: Function): boolean;
         write(chunk: T, encoding?: string, cb?: Function): boolean;
@@ -590,7 +590,7 @@ declare namespace NodeJS {
         end(chunk: T, encoding?: string, cb?: Function): void;
     }
 
-    export interface ReadWriteStream<TInput = any, TOutput = any> extends ReadableStream<TOutput>, WritableStream<TInput> { }
+    export interface ReadWriteStream<TInput = string | Buffer, TOutput = string | Buffer> extends ReadableStream<TOutput>, WritableStream<TInput> { }
 
     export interface Events extends EventEmitter { }
 

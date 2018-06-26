@@ -3,7 +3,7 @@ import jasmine = require("jasmine");
 
 const dummyReporter: jasmine.CustomReporter = {};
 
-gulpJasmine(); // $ExpectType ReadWriteStream<any, any>
+gulpJasmine(); // $ExpectType ReadWriteStream<string | Buffer, string | Buffer>
 gulpJasmine({});
 gulpJasmine({
     verbose: true,

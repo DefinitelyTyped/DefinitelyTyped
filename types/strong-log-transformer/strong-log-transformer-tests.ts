@@ -5,11 +5,11 @@ transformer.DEFAULTS; // $ExpectType Options
 transformer.cli([]); // $ExpectType void
 transformer.cli(['one', 'two']); // $ExpectType void
 
-transformer(); // $ExpectType ReadWriteStream<any, any>
-transformer({ format: 'format' }); // $ExpectType ReadWriteStream<any, any>
-transformer({ tag: 'tag' }); // $ExpectType ReadWriteStream<any, any>
-transformer({ mergeMultiline: true }); // $ExpectType ReadWriteStream<any, any>
-transformer({ mergeMultiline: false }); // $ExpectType ReadWriteStream<any, any>
-transformer({ timeStamp: true }); // $ExpectType ReadWriteStream<any, any>
-transformer({ timeStamp : false }); // $ExpectType ReadWriteStream<any, any>
-transformer(transformer.DEFAULTS); // $ExpectType ReadWriteStream<any, any>
+transformer(); // $ExpectType ReadWriteStream<string | Buffer, string | Buffer>
+transformer({ format: 'format' }); // $ExpectType ReadWriteStream<string | Buffer, string | Buffer>
+transformer({ tag: 'tag' }); // $ExpectType ReadWriteStream<string | Buffer, string | Buffer>
+transformer({ mergeMultiline: true }); // $ExpectType ReadWriteStream<string | Buffer, string | Buffer>
+transformer({ mergeMultiline: false }); // $ExpectType ReadWriteStream<string | Buffer, string | Buffer>
+transformer({ timeStamp: true }); // $ExpectType ReadWriteStream<string | Buffer, string | Buffer>
+transformer({ timeStamp : false }); // $ExpectType ReadWriteStream<string | Buffer, string | Buffer>
+transformer(transformer.DEFAULTS); // $ExpectType ReadWriteStream<string | Buffer, string | Buffer>
