@@ -487,8 +487,9 @@ export interface Collection<TSchema = Default> {
     bulkWrite(operations: Object[], options?: CollectionBluckWriteOptions): Promise<BulkWriteOpResultObject>;
     bulkWrite(operations: Object[], options: CollectionBluckWriteOptions, callback: MongoCallback<BulkWriteOpResultObject>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#count */
+    count(callback: MongoCallback<number>): void;
     count(query: Object, callback: MongoCallback<number>): void;
-    count(query: Object, options?: MongoCountPreferences): Promise<number>;
+    count(query?: Object, options?: MongoCountPreferences): Promise<number>;
     count(query: Object, options: MongoCountPreferences, callback: MongoCallback<number>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#createIndex */
     createIndex(fieldOrSpec: string | any, callback: MongoCallback<string>): void;
