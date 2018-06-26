@@ -39,4 +39,4 @@ export function listAllPolyfills(): Promise<ReadonlyArray<string>>;
 
 export function getPolyfillString(options: GetPolyfillsOptions): Promise<string>;
 
-export function getPolyfills(options: GetPolyfillsOptions): Promise<GetPolyfillsResponse>;
+export function getPolyfills(options: GetPolyfillStringOptions): Promise<GetPolyfillsResponse>;
