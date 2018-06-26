@@ -223,8 +223,8 @@ Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY;
 Audio.RECORDING_OPTIONS_PRESET_LOW_QUALITY;
 async () => {
     const result = await Audio.Sound.create({uri: 'uri'}, {
-        volume: 0.5,
-        rate: 0.6
+        volume: 0.55,
+        rate: 16.5
     }, null, true);
 
     const sound = result.sound;

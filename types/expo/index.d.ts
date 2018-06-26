@@ -554,10 +554,12 @@ export interface PlaybackStatusToSet {
     isMuted?: boolean;
     positionMillis?: number;
     progressUpdateIntervalMillis?: number;
-    rate?: FloatFromZeroToOne;
+    /** The desired playback rate of the media. This value must be between `0.0` and `32.0`. Only available on Android API version 23 and later and iOS. */
+    rate?: number;
     shouldCorrectPitch?: boolean;
     shouldPlay?: boolean;
-    volume?: FloatFromZeroToOne;
+    /** A number between `0.0` (silence) and `1.0` (maximum volume). */
+    volume?: number;
 }
 
 export type PlaybackSource = RequireSource | { uri: string } | Asset;
@@ -670,7 +672,6 @@ export class PlaybackObject {
     setRateAsync(
         /** The desired playback rate of the media. This value must be between `0.0` and `32.0`. Only available on Android API version 23 and later and iOS. */
         rate: number,
-
         /** A boolean describing if we should correct the pitch for a changed rate. If set to `true`, the pitch of the audio will be corrected (so a rate different than `1.0` will timestretch the audio). */
         shouldCorrectPitch: boolean
     ): Promise<PlaybackStatus>;
