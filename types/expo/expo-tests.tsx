@@ -376,7 +376,7 @@ async () => {
     const result = await ImageManipulator.manipulate('url', {
         rotate: 90
     }, {
-        compress: 0.5
+        compress: 0.75
     });
 
     result.height;
