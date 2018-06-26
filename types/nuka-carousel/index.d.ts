@@ -8,15 +8,15 @@ import * as React from 'react';
 
 export default class Carousel extends React.Component<CarouselProps, CarouselState> {}
 
-export type CellAlignProp = 'left' | 'center' | 'right';
+export type CarouselCellAlignProp = 'left' | 'center' | 'right';
 
-export type HeightModeProp = 'first' | 'current' | 'max';
+export type CarouselHeightModeProp = 'first' | 'current' | 'max';
 
-export type SlidesToScrollProp = number | 'auto';
+export type CarouselSlidesToScrollProp = number | 'auto';
 
-export type SlideWidthProp = string | number;
+export type CarouselSlideWidthProp = string | number;
 
-export interface SlideRenderControlProps {
+export interface CarouselSlideRenderControlProps {
   /**
    * Current slide index
    */
@@ -64,7 +64,7 @@ export interface SlideRenderControlProps {
   goToSlide: (index: number) => void;
 }
 
-export type RenderControl = (props: SlideRenderControlProps) => JSX.Element | null;
+export type CarouselRenderControl = (props: CarouselSlideRenderControlProps) => JSX.Element;
 
 export interface CarouselProps {
   /**
@@ -92,7 +92,7 @@ export interface CarouselProps {
    * When displaying more than one slide,
    * sets which position to anchor the current slide to
    */
-  cellAlign?: CellAlignProp;
+  cellAlign?: CarouselCellAlignProp;
   /**
    * Space between slides, as an integer, but reflected as px
    */
@@ -131,7 +131,7 @@ export interface CarouselProps {
    * Change the height of the slides based either on the first slide,
    * the current slide, or the maximum height of all slides.
    */
-  heightMode?: HeightModeProp;
+  heightMode?: CarouselHeightModeProp;
   /**
    * Initial height of the slides (px)
    */
@@ -147,39 +147,39 @@ export interface CarouselProps {
   /**
    * Function for rendering top left control
    */
-  renderTopLeftControls?: RenderControl;
+  renderTopLeftControls?: CarouselRenderControl;
   /**
    * Function for rendering top center control
    */
-  renderTopCenterControls?: RenderControl;
+  renderTopCenterControls?: CarouselRenderControl;
   /**
    * Function for rendering top right control
    */
-  renderTopRightControls?: RenderControl;
+  renderTopRightControls?: CarouselRenderControl;
   /**
    * Function for rendering center left control
    */
-  renderCenterLeftControls?: RenderControl;
+  renderCenterLeftControls?: CarouselRenderControl;
   /**
    * Function for rendering center center control
    */
-  renderCenterCenterControls?: RenderControl;
+  renderCenterCenterControls?: CarouselRenderControl;
   /**
    * Function for rendering center right control
    */
-  renderCenterRightControls?: RenderControl;
+  renderCenterRightControls?: CarouselRenderControl;
   /**
    * Function for rendering bottom left control
    */
-  renderBottomLeftControls?: RenderControl;
+  renderBottomLeftControls?: CarouselRenderControl;
   /**
    * Function for rendering bottom center control
    */
-  renderBottomCenterControls?: RenderControl;
+  renderBottomCenterControls?: CarouselRenderControl;
   /**
    * Function for rendering bottom right control
    */
-  renderBottomRightControls?: RenderControl;
+  renderBottomRightControls?: CarouselRenderControl;
   /**
    * Manually set the index of the slide to be shown
    */
@@ -188,7 +188,7 @@ export interface CarouselProps {
    * Slides to scroll at once. Set to "auto"
    * to always scroll the current number of visible slides
    */
-  slidesToScroll?: SlidesToScrollProp;
+  slidesToScroll?: CarouselSlidesToScrollProp;
   /**
    * Slides to show at once
    */
@@ -198,7 +198,7 @@ export interface CarouselProps {
    * @example '20px'
    * @example 0.8
    */
-  slideWidth?: SlideWidthProp;
+  slideWidth?: CarouselSlideWidthProp;
   /**
    * Animation duration
    */
@@ -252,7 +252,7 @@ export interface CarouselState {
   /**
    * Current slide width
    */
-  slideWidth: SlideWidthProp;
+  slideWidth: CarouselSlideWidthProp;
   /**
    * Current top value
    */
