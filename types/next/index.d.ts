@@ -17,7 +17,7 @@ import { Response as NodeResponse } from "node-fetch";
 
 declare namespace next {
     /** Map object used in query strings. */
-    export interface QueryStringMapObject {
+    interface QueryStringMapObject {
         [key: string]: string | string[] | undefined;
     }
 
