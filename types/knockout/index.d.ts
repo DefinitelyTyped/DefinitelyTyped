@@ -106,12 +106,14 @@ interface KnockoutObservableArray<T> extends KnockoutObservable<T[]>, KnockoutOb
 interface KnockoutObservableStatic {
     fn: KnockoutObservableFunctions<any>;
 
-    <T>(value?: T | null): KnockoutObservable<T>;
+    <T = any>(): KnockoutObservable<T | undefined>
+    <T = any>(value: null): KnockoutObservable<T | null>
+    <T>(value: T): KnockoutObservable<T>;
 }
 
 interface KnockoutObservable<T> extends KnockoutSubscribable<T>, KnockoutObservableFunctions<T> {
     (): T;
-    (value: T | null): void;
+    (value: T): void;
 
     peek(): T;
     valueHasMutated?:{(): void;};
