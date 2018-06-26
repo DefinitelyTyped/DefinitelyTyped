@@ -8,6 +8,6 @@
   },
   "files": [
       "index.d.ts",
-      "overwatch-api.tests.ts"
+      "overwatch-api-tests.ts"
   ]
 }
