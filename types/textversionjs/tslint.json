@@ -1,8 +1,3 @@
 {
-    "extends": "dtslint/dt.json",
-    "rules": {
-        "indent": [true, "spaces", 4],
-        "max-line-length": [true, 100],
-        "no-any": true
-    }
+    "extends": "dtslint/dt.json"
 }
