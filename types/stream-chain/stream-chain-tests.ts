@@ -37,11 +37,11 @@ const streamToArray = (array: number[]): Writable =>
     // generator
 
     const chain = new Chain([
-        function*(x: number): IterableIterator<number> {
-            const n = +x;
-            yield 2 * n - 1;
-            return 2 * n;
-        }
+        // function*(x: number): IterableIterator<number> {
+        //     const n = +x;
+        //     yield 2 * n - 1;
+        //     return 2 * n;
+        // }
     ]);
     const out1: number[] = [];
     const out2: number[] = [];
@@ -55,7 +55,9 @@ const streamToArray = (array: number[]): Writable =>
 {
     // async function
 
-    const chain = new Chain([async (x: number) => Promise.resolve(x)]);
+    const chain = new Chain([
+        // async (x: number) => Promise.resolve(x)
+    ]);
     const out1: number[] = [];
     const out2: number[] = [];
 
@@ -97,7 +99,7 @@ const streamToArray = (array: number[]): Writable =>
     const chain = new Chain([
         new Transform({
             objectMode: true,
-            transform(x: number, _, callback) {
+            transform(x: number, _: string | undefined, callback: (error: Error | undefined, chunk: any) => void) {
                 callback(undefined, x * x);
             }
         }),

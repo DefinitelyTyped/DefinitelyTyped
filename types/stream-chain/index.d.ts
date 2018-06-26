@@ -8,12 +8,10 @@ import { Readable, Writable, Duplex, Transform, DuplexOptions } from 'stream';
 
 export = Chain;
 
-interface ITransformFunction {
-    (chunk: any, encoding?: string): any;
-}
+type TransformFunction = (chunk: any, encoding?: string) => any;
 
-declare type Stream = Readable | Writable | Duplex | Transform;
-declare type StreamItem = Stream | ITransformFunction;
+type Stream = Readable | Writable | Duplex | Transform;
+type StreamItem = Stream | TransformFunction;
 
 declare class Chain extends Duplex {
     constructor(fns: StreamItem[], options?: Chain.ChainOptions);
