@@ -48,7 +48,7 @@ export interface ExecutionResultDataDefault {
  */
 export interface ExecutionResult<TData = ExecutionResultDataDefault> {
     errors?: ReadonlyArray<GraphQLError>;
-    data?: Readonly<TData>;
+    data?: TData;
 }
 
 export type ExecutionArgs = {
