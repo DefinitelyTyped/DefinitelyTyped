@@ -915,7 +915,7 @@ declare namespace BPMNModdle {
 
     type ImportFn = (
         err: Error,
-        defintions: Definitions,
+        definitions: Definitions,
         parseContext: any
     ) => void;
 
