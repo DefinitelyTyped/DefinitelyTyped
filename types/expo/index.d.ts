@@ -790,22 +790,22 @@ export class CameraObject {
 }
 
 export interface CameraProps extends ViewProps {
-    zoom?: FloatFromZeroToOne;
-    ratio?: string;
-    focusDepth?: FloatFromZeroToOne;
-    type?: string | number;
-    onCameraReady?: () => void;
-    onBarCodeRead?: BarCodeReadCallback;
+    autoFocus?: string | number | boolean;
+    barCodeTypes?: Array<string | number>;
+    faceDetectionClassifications?: number;
+    faceDetectionLandmarks?: number;
     faceDetectionMode?: number;
     flashMode?: string | number;
-    barCodeTypes?: Array<string | number>;
-    whiteBalance?: string | number;
-    faceDetectionLandmarks?: number;
-    autoFocus?: string | number | boolean;
-    faceDetectionClassifications?: number;
-    onMountError?: () => void;
+    focusDepth?: FloatFromZeroToOne;
+    onBarCodeRead?: BarCodeReadCallback;
+    onCameraReady?: () => void;
     onFacesDetected?: (options: { faces: TrackedFaceFeature[] }) => void;
+    onMountError?: () => void;
+    ratio?: string;
     ref?: Ref<CameraObject>;
+    type?: string | number;
+    whiteBalance?: string | number;
+    zoom?: FloatFromZeroToOne;
 }
 
 export interface CameraConstants {
