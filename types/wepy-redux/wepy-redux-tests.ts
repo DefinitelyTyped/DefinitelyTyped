@@ -20,10 +20,10 @@ interface State {
     }
 )
 export default class Index extends wepy.page {
-    // ...
+    // methods
     methods = {
-        // ...
+        // method values
     };
-    // ...
+    // on load
     onLoad() {}
 }
