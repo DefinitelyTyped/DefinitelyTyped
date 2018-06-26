@@ -1,3 +1,5 @@
+import * as BPMNModdle from "bpmn-moddle";
+
 const moddle: BPMNModdle.Moddle = {} as any;
 
 const element1 = moddle.create("bpmn:UserTask"); // Expect type User Task
