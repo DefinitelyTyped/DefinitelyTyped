@@ -1,4 +1,4 @@
-// Type definitions for socket.io 1.4.5
+// Type definitions for socket.io 2.1.1
 // Project: http://socket.io/
 // Definitions by: PROGRE <https://github.com/progre>
 //                 Damian Connolly <https://github.com/divillysausages>
@@ -6,9 +6,12 @@
 //                 KentarouTakeda <https://github.com/KentarouTakeda>
 //                 Alexey Snigirev <https://github.com/gigi>
 //                 Ezinwa Okpoechi <https://github.com/BrainMaestro>
+//                 Matthieu Vion   <https://github.com/MattMattV>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference types="node" />
+
+import * as engineIO from "engine.io";
 
 declare const SocketIO: SocketIOStatic;
 export = SocketIO;
@@ -50,7 +53,7 @@ interface SocketIOStatic {
 
 declare namespace SocketIO {
 	interface Server {
-		engine: { ws: any };
+		engine: engineIO.Server;
 
 		/**
 		 * A dictionary of all the namespaces currently on this Server
@@ -170,10 +173,10 @@ declare namespace SocketIO {
 
 		/**
 		 * Binds socket.io to an engine.io intsance
-		 * @param src The Engine.io (or compatible) server to bind to
+		 * @param {engineIO.Server} srv engine.io (or compatible) server
 		 * @return This Server
 		 */
-		bind( srv: any ): Server;
+		bind(srv: engineIO.Server ): Server;
 
 		/**
 		 * Called with each incoming connection

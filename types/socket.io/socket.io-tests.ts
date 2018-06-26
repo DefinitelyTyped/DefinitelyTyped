@@ -1,5 +1,7 @@
 import socketIO = require('socket.io');
 
+import { IncomingMessage } from "http";
+
 function testUsingWithNodeHTTPServer() {
     var app = require('http').createServer(handler);
     var io: socketIO.Server = socketIO(app);
@@ -188,4 +190,12 @@ function testSocketUse() {
             console.log(packet);
         });
     });
+}
+
+function customPeerIdGenerationFunction() {
+    var io: socketIO.Server = socketIO();
+
+    io.engine.generateId = (request: IncomingMessage): string => {
+        return (new Date()).toString();
+    }
 }
