@@ -550,14 +550,14 @@ export type PlaybackStatus = {
 
 export interface PlaybackStatusToSet {
     androidImplementation?: string;
-    progressUpdateIntervalMillis?: number;
+    isLooping?: boolean;
+    isMuted?: boolean;
     positionMillis?: number;
-    shouldPlay?: boolean;
+    progressUpdateIntervalMillis?: number;
     rate?: FloatFromZeroToOne;
     shouldCorrectPitch?: boolean;
+    shouldPlay?: boolean;
     volume?: FloatFromZeroToOne;
-    isMuted?: boolean;
-    isLooping?: boolean;
 }
 
 export type PlaybackSource = RequireSource | { uri: string } | Asset;
