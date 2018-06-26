@@ -1,6 +1,6 @@
 import * as React from "react";
 import { NextContext } from ".";
-import { SingletonRouter } from "./router";
+import { RouterProps } from "./router";
 
 export interface AppComponentProps {
     Component: React.ComponentType<any>;
@@ -9,7 +9,7 @@ export interface AppComponentProps {
 
 export interface AppComponentContext {
     Component: React.ComponentType<any>;
-    router: SingletonRouter;
+    router: RouterProps;
     ctx: NextContext;
 }
 
