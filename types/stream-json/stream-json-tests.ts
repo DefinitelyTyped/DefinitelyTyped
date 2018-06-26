@@ -52,7 +52,7 @@ const used = (array: any[]) => array.forEach(value => console.log(!!value));
     parser.on('keyValue', (value: string) =>
         console.log(value, asm.key, asm.stack.length, asm.done, asm.depth, asm.path)
     );
-    asm.on('done', asm => console.log(JSON.stringify(asm.current)));
+    asm.on('done', (asm: Assembler) => console.log(JSON.stringify(asm.current)));
 }
 
 {
@@ -205,7 +205,7 @@ const used = (array: any[]) => array.forEach(value => console.log(!!value));
     parser.pipe(
         new StreamArray({
             includeUndecided: true,
-            objectFilter: (asm: Readonly<Assembler>) => {
+            objectFilter: (asm: Assembler) => {
                 if (asm.current) {
                     if (asm.current.action === 'accept') return true;
                     if (asm.current.action === 'reject') return false;
@@ -216,7 +216,7 @@ const used = (array: any[]) => array.forEach(value => console.log(!!value));
     parser.pipe(
         StreamArray.make({
             includeUndecided: false,
-            objectFilter: (asm: Readonly<Assembler>) => {
+            objectFilter: (asm: Assembler) => {
                 if (asm.current) {
                     if (asm.current.action === 'accept') return true;
                     if (asm.current.action === 'reject') return false;
@@ -245,7 +245,7 @@ const used = (array: any[]) => array.forEach(value => console.log(!!value));
     parser.pipe(
         new StreamObject({
             includeUndecided: true,
-            objectFilter: (asm: Readonly<Assembler>) => {
+            objectFilter: (asm: Assembler) => {
                 if (asm.current) {
                     if (asm.current.action === 'accept') return true;
                     if (asm.current.action === 'reject') return false;
@@ -256,7 +256,7 @@ const used = (array: any[]) => array.forEach(value => console.log(!!value));
     parser.pipe(
         StreamObject.make({
             includeUndecided: false,
-            objectFilter: (asm: Readonly<Assembler>) => {
+            objectFilter: (asm: Assembler) => {
                 if (asm.current) {
                     if (asm.current.action === 'accept') return true;
                     if (asm.current.action === 'reject') return false;
@@ -285,7 +285,7 @@ const used = (array: any[]) => array.forEach(value => console.log(!!value));
     parser.pipe(
         new StreamValues({
             includeUndecided: true,
-            objectFilter: (asm: Readonly<Assembler>) => {
+            objectFilter: (asm: Assembler) => {
                 if (asm.current) {
                     if (asm.current.action === 'accept') return true;
                     if (asm.current.action === 'reject') return false;
@@ -296,7 +296,7 @@ const used = (array: any[]) => array.forEach(value => console.log(!!value));
     parser.pipe(
         StreamValues.make({
             includeUndecided: false,
-            objectFilter: (asm: Readonly<Assembler>) => {
+            objectFilter: (asm: Assembler) => {
                 if (asm.current) {
                     if (asm.current.action === 'accept') return true;
                     if (asm.current.action === 'reject') return false;
