@@ -40,6 +40,8 @@ declare namespace next {
         jsonPageRes?: NodeResponse;
         /** Error object if any error is encountered during the rendering */
         err?: Error;
+        /** Whether we're running on the server environment or not. */
+        isServer?: boolean;
     }
 
     type NextSFC<TProps = {}> = NextStatelessComponent<TProps>;
