@@ -796,7 +796,8 @@ export interface CameraProps extends ViewProps {
     faceDetectionLandmarks?: number;
     faceDetectionMode?: number;
     flashMode?: string | number;
-    focusDepth?: FloatFromZeroToOne;
+    /** Distance to plane of sharpest focus. A value between `0` and `1`. `0`: infinity focus, `1`: focus as close as possible. Default: `0`. For Android this is available only for some devices and when `useCamera2Api` is set to `true`. */
+    focusDepth?: number;
     onBarCodeRead?: BarCodeReadCallback;
     onCameraReady?: () => void;
     onFacesDetected?: (options: { faces: TrackedFaceFeature[] }) => void;
@@ -805,7 +806,8 @@ export interface CameraProps extends ViewProps {
     ref?: Ref<CameraObject>;
     type?: string | number;
     whiteBalance?: string | number;
-    zoom?: FloatFromZeroToOne;
+    /** A value between `0` and `1` being a percentage of device's max zoom. `0`: not zoomed, `1`: maximum zoom. Default: `0`. */
+    zoom?: number;
 }
 
 export interface CameraConstants {
