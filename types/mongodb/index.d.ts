@@ -10,6 +10,7 @@
 //                 Alexander Christie <https://github.com/AJCStriker>
 //                 Julien Chaumond <https://github.com/julien-c>
 //                 Dan Aprahamian <https://github.com/daprahamian>
+//                 Denys Bushulyak <https://github.com/denys-bushulyak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -415,6 +416,7 @@ export interface IndexOptions extends CommonOptions {
     // Creates a partial index based on the given filter object (MongoDB 3.2 or higher)
     partialFilterExpression?: any;
     collation?: Object;
+    default_language?: string
 }
 
 /** http://mongodb.github.io/node-mongodb-native/3.0/api/Admin.html */
