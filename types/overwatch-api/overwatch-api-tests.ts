@@ -2,7 +2,7 @@ import { getProfile, OverwatchPlatform, OverwatchServerRegion, ProfileApiRespons
 
 const platform: OverwatchPlatform = 'pc';
 const region: OverwatchServerRegion = 'us';
-const battleTag: string = 'sparK#12434';
+const battleTag = 'sparK#12434';
 
 getProfile(platform, region, battleTag, (err: Error | null, data: ProfileApiResponse) => {
     if (err === null) {
