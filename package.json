@@ -17,7 +17,7 @@
     "scripts": {
         "compile-scripts": "tsc -p scripts",
         "not-needed": "node scripts/not-needed.js",
-        "test": "node node_modules/types-publisher/bin/tester/test.js --run-from-definitely-typed",
+        "test": "node node_modules/types-publisher/bin/tester/test.js --run-from-definitely-typed --nProcesses 2",
         "lint": "dtslint types"
     },
     "devDependencies": {
