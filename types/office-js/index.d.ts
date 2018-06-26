@@ -3199,7 +3199,7 @@ declare namespace Office {
          * 
          * `format: {numberFormat:"0.00%"}`
          * 
-         * For more detail, see how to {@link create a custom number format | https://support.office.com/article/create-or-delete-a-custom-number-format-78f2a361-936b-4c03-8772-09fab54be7f4}.
+         * For more detail, see how to {@link https://support.office.com/article/create-or-delete-a-custom-number-format-78f2a361-936b-4c03-8772-09fab54be7f4 | Create a custom number format}.
          * 
          * To set formatting on tables when writing data, use the tableOptions and cellFormat optional parameters of the `Document.setSelectedDataAsync` or `TableBinding.setDataAsync` methods.
          * 
@@ -3212,7 +3212,7 @@ declare namespace Office {
          * 
          *  - To clear formatting, use the `TableBinding.clearFormats` method.
          * 
-         * For more details and examples, see {@link How to format tables in add-ins for Excel | https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-tables#format-a-table}.
+         * For more details and examples, see {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-tables#format-a-table | How to format tables in add-ins for Excel}.
          * 
          * In the callback function passed to the goToByIdAsync method, you can use the properties of the AsyncResult object to return the following information.
          * 
