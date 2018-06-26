@@ -732,13 +732,32 @@ export class BlurView extends Component<BlurViewProps> { }
 // #endregion
 
 /**
- * Brightness
+ * An API to get and set screen brightness.
  */
 export namespace Brightness {
-    function setBrightnessAsync(brightnessValue: FloatFromZeroToOne): Promise<void>;
-    function getBrightnessAsync(): Promise<FloatFromZeroToOne>;
-    function getSystemBrightnessAsync(): Promise<FloatFromZeroToOne>;
-    function setSystemBrightnessAsync(brightnessValue: FloatFromZeroToOne): Promise<void>;
+    /** Sets screen brightness. */
+    function setBrightnessAsync(
+        /** A number between `0` and `1`, representing the desired screen brightness. */
+        brightnessValue: number
+    ): Promise<void>;
+
+    /**
+     * Gets screen brightness.
+     * @returns A Promise that is resolved with a number between `0` and `1`, representing the current screen brightness.
+     */
+    function getBrightnessAsync(): Promise<number>;
+
+    /**
+     * Gets global system screen brightness.
+     * @returns A Promise that is resolved with a number between `0` and `1`, representing the current system screen brightness.
+     */
+    function getSystemBrightnessAsync(): Promise<number>;
+
+    /** Sets global system screen brightness, requires `WRITE_SETTINGS` permissions on Android. */
+    function setSystemBrightnessAsync(
+        /** A number between `0` and `1`, representing the desired screen brightness. */
+        brightnessValue: number
+    ): Promise<void>;
 }
 
 // #region Camera

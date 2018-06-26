@@ -267,8 +267,8 @@ const barcodeReadCallback = () => {};
 );
 
 async () => {
-    await Brightness.setBrightnessAsync(.6);
-    await Brightness.setSystemBrightnessAsync(.7);
+    await Brightness.setBrightnessAsync(0.65);
+    await Brightness.setSystemBrightnessAsync(0.75);
     const br1 = await Brightness.getBrightnessAsync();
     const br2 = await Brightness.getSystemBrightnessAsync();
 };
