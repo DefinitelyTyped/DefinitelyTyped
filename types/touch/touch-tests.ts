@@ -1,4 +1,4 @@
-import * as touch from 'touch';
+import touch = require('touch');
 
 // type value definitions
 const boolVal = true;

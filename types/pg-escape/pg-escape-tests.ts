@@ -1,4 +1,4 @@
-import * as escape from 'pg-escape';
+import escape = require('pg-escape');
 
 escape('INSERT INTO %I VALUES(%L)', 'books', "O'Reilly");
 escape.string("ab'cd");

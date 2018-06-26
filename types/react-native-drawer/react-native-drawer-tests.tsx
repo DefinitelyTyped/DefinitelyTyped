@@ -25,16 +25,19 @@ class DrawerTest extends React.Component<{}, {open: boolean}> {
               onClose={this.onClose}
               closedDrawerOffset={100}
               openDrawerOffset={(viewport: ScaledSize) => 50}
+              side={ "bottom" }
+              acceptPanOnDrawer={ true }
+              onDragStart={ () => {} }
             >
             </Drawer>
         );
     }
 
-    private onOpen = () => {
+    private readonly onOpen = () => {
       this.setState({open: true});
     }
 
-    private onClose = () => {
+    private readonly onClose = () => {
       this.setState({open: false});
     }
 }

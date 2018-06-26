@@ -1,0 +1,28 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "strictFunctionTypes": true
+    },
+    "files": [
+        "format.d.ts",
+        "generate.d.ts",
+        "index.d.ts",
+        "nanoid-tests.ts",
+        "random-browser.d.ts",
+        "random.d.ts",
+        "url.d.ts"
+    ]
+}

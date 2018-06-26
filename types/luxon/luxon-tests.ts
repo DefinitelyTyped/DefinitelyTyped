@@ -1,10 +1,12 @@
-import { DateTime, Duration, Interval } from 'luxon';
+import { DateTime, Duration, Interval, Info, Settings } from 'luxon';
 
+/* DateTime */
 const dt = DateTime.local(2017, 5, 15, 8, 30);
 
 const now = DateTime.local();
 
 const fromObject = DateTime.fromObject({
+    month: 4,
     day: 22,
     hour: 12,
     zone: 'America/Los_Angeles',
@@ -25,10 +27,12 @@ getters.weekday;
 getters.zoneName;
 getters.offset;
 getters.daysInMonth;
+getters.ordinal;
 
 dt.toLocaleString();
 dt.toLocaleString(DateTime.DATE_MED);
 dt.toISO();
+dt.toISO({includeOffset: true});
 
 dt.plus({ hours: 3, minutes: 2 });
 dt.minus({ days: 7 });
@@ -50,6 +54,9 @@ DateTime.utc();
 DateTime.local().toUTC();
 DateTime.utc().toLocal();
 
+DateTime.fromMillis(1527780819458).toMillis();
+
+/* Duration */
 const dur = Duration.fromObject({ hours: 2, minutes: 7 });
 dt.plus(dur);
 dur.hours;
@@ -60,6 +67,7 @@ dur.as('seconds');
 dur.toObject();
 dur.toISO();
 
+/* Interval */
 const later = DateTime.local();
 const i = Interval.fromDateTimes(now, later);
 i.length();
@@ -68,3 +76,23 @@ i.contains(DateTime.local(2019));
 
 i.toISO();
 i.toString();
+
+/* Info */
+Info.months();
+Info.weekdays('long');
+Info.features().intl;
+Info.features().intlTokens;
+Info.features().zones;
+
+/* Settings */
+Settings.defaultLocale;
+Settings.defaultLocale = 'en';
+Settings.defaultZoneName = 'Europe/Paris';
+Settings.now();
+Settings.now = () => 0;
+Settings.resetCaches();
+
+// $ExpectError
+Settings.defaultZone = Settings.defaultZone;
+
+/* Zone */

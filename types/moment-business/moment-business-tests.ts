@@ -1,4 +1,4 @@
-import * as moment from "moment";
+import moment = require("moment");
 import * as mb from "moment-business";
 
 mb.isWeekDay(moment());

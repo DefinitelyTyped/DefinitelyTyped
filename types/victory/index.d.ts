@@ -1,10 +1,10 @@
-// Type definitions for Victory 0.9.1
+// Type definitions for Victory 0.9.2
 // Project: https://github.com/FormidableLabs/victory
 // Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
 //                 snerks <https://github.com/snerks>
 //                 Krzysztof Cebula <https://github.com/Havret>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 /// <reference types="react"/>
 
@@ -1242,9 +1242,17 @@ declare module "victory" {
         data?: Array<{
             name?: string;
             symbol?: {
+                fill?: string;
                 type?: string;
             };
         }>;
+        /**
+         * The itemsPerRow prop determines how many items to render in each row
+         * of a horizontal legend, or in each column of a vertical legend. This
+         * prop should be given as an integer. When this prop is not given,
+         * legend items will be rendered in a single row or column.
+         */
+        itemsPerRow?: number;
         /**
          * The dataComponent prop takes a component instance which will be
          * responsible for rendering a data element used to associate a symbol

@@ -1,12 +1,12 @@
-import * as Agenda from "agenda";
+import Agenda = require("agenda");
+import { Db, Server } from "mongodb";
 
 var mongoConnectionString = "mongodb://127.0.0.1/agenda";
 
 var agenda = new Agenda({ db: { address: mongoConnectionString } });
 
-
-agenda.define('delete old users', (job, done) => {
-
+agenda.define<{ foo: Error }>('delete old users', (job, done) => {
+    done(job.attrs.data.foo)
 });
 
 agenda.on('ready', () => {
@@ -62,7 +62,7 @@ agenda.schedule('tomorrow at noon', ['printAnalyticsReport', 'sendNotifications'
 
 agenda.now('do the hokey pokey');
 
-var job = agenda.create('printAnalyticsReport', { userCount: 100 });
+var job = agenda.create<{ userCount: number }>('printAnalyticsReport', { userCount: 100 });
 job.save(function(err) {
     console.log("Job successfully saved");
 });
@@ -102,4 +102,9 @@ job.remove(function(err) {
     if (!err) console.log("Successfully removed job from collection");
 })
 
+class ExtendedAgenda extends Agenda {
+    async start() {  }
+}
 
+const extendedAgenda: ExtendedAgenda = new ExtendedAgenda()
+    .mongo(new Db('some-database', new Server('host.name', 0)))

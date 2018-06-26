@@ -7,4 +7,4 @@ declare namespace pLimit {}
 
 export = pLimit;
 
-declare function pLimit<T>(concurrency: number): (fn: () => PromiseLike<T>) => Promise<T>;
+declare function pLimit(concurrency: number): <T>(fn: () => PromiseLike<T>) => Promise<T>;

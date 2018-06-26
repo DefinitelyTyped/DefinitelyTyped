@@ -61,6 +61,8 @@ function regular_button(pin: number)
 rpio.poll(11, regular_button);
 rpio.poll(12, nuke_button, rpio.POLL_HIGH);
 
+rpio.poll(12, null, rpio.POLL_HIGH);
+
 rpio.close(11);
 
 rpio.i2cBegin();

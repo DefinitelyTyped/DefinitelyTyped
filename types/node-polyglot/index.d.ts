@@ -1,4 +1,4 @@
-// Type definitions for node-polyglot v0.4.1
+// Type definitions for node-polyglot v0.4.2
 // Project: https://github.com/airbnb/polyglot.js
 // Definitions by: Tim Jackson-Kiely <https://github.com/timjk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -38,6 +38,8 @@ declare class Polyglot {
     locale(): string;
 
     locale(locale: string): void;
+
+    has(phrase: string): boolean;
 }
 
 export = Polyglot;

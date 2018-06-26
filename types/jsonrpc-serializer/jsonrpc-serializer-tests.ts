@@ -1,3 +1,4 @@
+import * as uuid from 'node-uuid';
 import * as jrs from 'jsonrpc-serializer';
 
 // request tests
@@ -46,3 +47,40 @@ const request = {
 
 jrs.deserialize(JSON.stringify(request));
 jrs.deserializeObject(request);
+
+// ---
+
+const request2 = jrs.request('request-id', 'request-method');
+
+// ---> "{\"jsonrpc\":\"2.0\",\"id\":\"request-id\",\"method:\":\"request-method\"}"
+
+const ok1 = "{\"jsonrpc\":\"2.0\",\"id\":\"request-id\",\"result\":\"success!!\"}";
+
+const response1 = jrs.deserialize(ok1);
+
+// ---
+
+const payload2 = jrs.request(
+    uuid.v4(),   // generates a V4 UUID string
+    'saveUser',  // the method to call
+    {
+        name  : 'Ruben Tan',
+        email : 'foo@bar.com',
+        race  : 'unicorn'
+    }
+);
+
+// ---
+
+const payload3 = jrs.notification(
+    'newMessage',  // the method to call
+    {
+        subject : 'Test message',
+        message : 'This is a test message'
+    }
+);
+
+// ---
+
+const err1 = new jrs.err.JsonRpcError('This is an error');
+const str1 = err1.serialize();

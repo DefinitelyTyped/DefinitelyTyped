@@ -1,0 +1,6 @@
+{
+  "private": true,
+  "dependencies": {
+    "path-to-regexp": "^2.2.0"
+  }
+}

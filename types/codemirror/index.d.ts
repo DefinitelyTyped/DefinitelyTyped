@@ -18,7 +18,13 @@ declare namespace CodeMirror {
 
     function fromTextArea(host: HTMLTextAreaElement, options?: EditorConfiguration): CodeMirror.EditorFromTextArea;
 
+    /** It contains a string that indicates the version of the library. This is a triple of integers "major.minor.patch", 
+    where patch is zero for releases, and something else (usually one) for dev snapshots. */
     var version: string;
+
+    /** An object containing default values for all options. 
+    You can assign to its properties to modify defaults (though this won't affect editors that have already been created). */
+    var defaults: any;
 
     /** If you want to define extra methods in terms of the CodeMirror API, it is possible to use defineExtension.
     This will cause the given value(usually a method) to be added to all CodeMirror instances created from then on. */
@@ -315,6 +321,11 @@ declare namespace CodeMirror {
         /** Retrieves information about the token the current mode found before the given position (a {line, ch} object). */
         getTokenAt(pos: CodeMirror.Position, precise?: boolean): Token;
 
+        /** This is a (much) cheaper version of getTokenAt useful for when you just need the type of the token at a given position, 
+        and no other information. Will return null for unstyled tokens, and a string, potentially containing multiple 
+        space-separated style names, otherwise. */
+        getTokenTypeAt(pos: CodeMirror.Position): string;
+
         /** This is similar to getTokenAt, but collects all tokens for a given line into an array. */
         getLineTokens(line: number, precise?: boolean): Token[];
 
@@ -501,14 +512,20 @@ declare namespace CodeMirror {
         Note that line handles have a text property containing the line's content (as a string). */
         eachLine(start: number, end: number, f: (line: CodeMirror.LineHandle) => void ): void;
 
-        /** Set the editor content as 'clean', a flag that it will retain until it is edited, and which will be set again when such an edit is undone again.
-        Useful to track whether the content needs to be saved. */
+        /** Set the editor content as 'clean', a flag that it will retain until it is edited, and which will be set again 
+        when such an edit is undone again. Useful to track whether the content needs to be saved. This function is deprecated 
+        in favor of changeGeneration, which allows multiple subsystems to track different notions of cleanness without interfering.*/
         markClean(): void;
+        
+        /** Returns a number that can later be passed to isClean to test whether any edits were made (and not undone) in the 
+        meantime. If closeEvent is true, the current history event will be ‘closed’, meaning it can't be combined with further 
+        changes (rapid typing or deleting events are typically combined).*/
+        changeGeneration(closeEvent?: boolean): number;
 
-        /** Returns whether the document is currently clean (not modified since initialization or the last call to markClean). */
-        isClean(): boolean;
-
-
+        /** Returns whether the document is currently clean — not modified since initialization or the last call to markClean if 
+        no argument is passed, or since the matching call to changeGeneration if a generation value is given. */
+        isClean(generation?: number): boolean;
+        
 
         /** Get the currently selected code. */
         getSelection(): string;
@@ -663,7 +680,7 @@ declare namespace CodeMirror {
 
         /** Returns a {from, to} object (both holding document positions), indicating the current position of the marked range,
         or undefined if the marker is no longer in the document. */
-        find(): CodeMirror.Range;
+        find(): {from: CodeMirror.Position, to: CodeMirror.Position};
 
         /**  Returns an object representing the options for the marker. If copyWidget is given true, it will clone the value of the replacedWith option, if any. */
         getOptions(copyWidget: boolean): CodeMirror.TextMarkerOptions;
@@ -781,6 +798,9 @@ declare namespace CodeMirror {
         May include the CodeMirror-linenumbers class, in order to explicitly set the position of the line number gutter
         (it will default to be to the right of all other gutters). These class names are the keys passed to setGutterMarker. */
         gutters?: string[];
+
+        /** Provides an option foldGutter, which can be used to create a gutter with markers indicating the blocks that can be folded. */
+        foldGutter?: boolean;
 
         /** Determines whether the gutter scrolls along with the content horizontally (false)
         or whether it stays fixed during horizontal scrolling (true, the default). */

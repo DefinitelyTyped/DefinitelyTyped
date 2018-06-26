@@ -1,8 +1,8 @@
-import * as Cookies from 'cookies';
+import Cookies = require('cookies');
 import * as http from 'http';
-import * as Keygrip from 'keygrip';
-import * as express from 'express';
-import * as connect from 'connect';
+import Keygrip = require('keygrip');
+import express = require('express');
+import connect = require('connect');
 
 const server = http.createServer((req, res) => {
     const cookies = new Cookies(req, res);

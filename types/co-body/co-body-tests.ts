@@ -1,5 +1,5 @@
-import * as koa from 'koa';
-import * as parse from 'co-body';
+import koa = require('koa');
+import parse = require('co-body');
 
 var app = new koa();
 

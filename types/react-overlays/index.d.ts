@@ -1,9 +1,9 @@
-// Type definitions for React Overlays 0.6
+// Type definitions for React Overlays 0.8
 // Project: https://github.com/react-bootstrap/react-overlays
 // Definitions by: Aaron Beall <https://github.com/aaronbeall>
 //                 Vito Samson <https://github.com/vitosamson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import * as React from "react";
 
@@ -15,7 +15,6 @@ export {
   Overlay,
   Portal,
   Position,
-  Transition,
   RootCloseWrapper,
 } from './lib';
 

@@ -1,4 +1,4 @@
-import * as stream from 'mithril/stream';
+import stream = require('mithril/stream');
 import { Stream } from 'mithril/stream';
 
 {

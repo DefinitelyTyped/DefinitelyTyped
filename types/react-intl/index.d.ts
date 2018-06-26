@@ -7,8 +7,9 @@
 //                 Karol Janyst <https://github.com/LKay>,
 //                 Brian Houser <https://github.com/bhouser>,
 //                 Krister Kari <https://github.com/kristerkari>
+//                 Martin Raedlinger <https://github.com/formatlos>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 declare namespace ReactIntl {
     type DateSource = Date | string | number;
@@ -141,6 +142,7 @@ declare namespace ReactIntl {
         interface Props extends MessageDescriptor {
             values?: {[key: string]: MessageValue | JSX.Element};
             tagName?: string;
+            children?: (...formattedMessage: Array<string | JSX.Element>) => React.ReactNode;
         }
     }
     class FormattedMessage extends React.Component<FormattedMessage.Props> { }
@@ -189,6 +191,7 @@ declare namespace ReactIntl {
             defaultLocale?: string;
             defaultFormats?: any;
             textComponent?: any;
+            initialNow?: any;
         }
     }
 

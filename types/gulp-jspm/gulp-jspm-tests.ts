@@ -1,8 +1,5 @@
-
-
-
 import * as gulp from 'gulp';
-import * as gulpJspm from 'gulp-jspm';
+import gulpJspm = require('gulp-jspm');
 
 // Examples taken from https://www.npmjs.com/package/gulp-jspm
 gulp.task('default', function(){
@@ -26,7 +23,7 @@ gulp.src('src/main.jsx')
 gulp.src('src/main.jsx')
     .pipe(gulpJspm({plugin: 'jsx'})) // `jspm bundle main.jsx!jsx`
     .pipe(gulp.dest('build/'));
- 
+
 // all other options given to gulp-jspm are passed on to jspm, e.g.
 gulp.src('src/main.js')
     .pipe(gulpJspm({inject: true})) // `jspm bundle main --inject`

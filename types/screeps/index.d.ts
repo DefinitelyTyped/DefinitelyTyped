@@ -1,4 +1,4 @@
-// Type definitions for Screeps 2.1
+// Type definitions for Screeps 2.4
 // Project: https://github.com/screeps/screeps
 // Definitions by: Marko Sulamägi <https://github.com/MarkoSulamagi>
 //                 Nhan Ho <https://github.com/NhanHo>
@@ -39,6 +39,7 @@ declare const FIND_MY_CREEPS: 102;
 declare const FIND_HOSTILE_CREEPS: 103;
 declare const FIND_SOURCES_ACTIVE: 104;
 declare const FIND_SOURCES: 105;
+/** `FIND_DROPPED_ENERGY` is deprecated the return value is the same as `FIND_DROPPED_RESOURCES` */
 declare const FIND_DROPPED_ENERGY: -106;
 declare const FIND_DROPPED_RESOURCES: 106;
 declare const FIND_STRUCTURES: 107;
@@ -52,6 +53,7 @@ declare const FIND_MY_CONSTRUCTION_SITES: 114;
 declare const FIND_HOSTILE_CONSTRUCTION_SITES: 115;
 declare const FIND_MINERALS: 116;
 declare const FIND_NUKES: 117;
+declare const FIND_TOMBSTONES: 118;
 
 declare const TOP: 1;
 declare const TOP_RIGHT: 2;
@@ -106,6 +108,7 @@ declare const RAMPART_DECAY_AMOUNT: 300;
 declare const RAMPART_DECAY_TIME: 100;
 declare const RAMPART_HITS: 1;
 declare const RAMPART_HITS_MAX: {
+    [rcl: number]: number
     2: 300000,
     3: 1000000,
     4: 3000000,
@@ -128,6 +131,7 @@ declare const WALL_HITS_MAX: 300000000;
 
 declare const EXTENSION_HITS: 1000;
 declare const EXTENSION_ENERGY_CAPACITY: {
+    [rcl: number]: number
     0: 50,
     1: 50,
     2: 50,
@@ -243,12 +247,12 @@ declare const RESOURCE_CATALYZED_KEANIUM_ALKALIDE: "XKHO2";
 declare const RESOURCE_CATALYZED_LEMERGIUM_ACID: "XLH2O";
 declare const RESOURCE_CATALYZED_LEMERGIUM_ALKALIDE: "XLHO2";
 declare const RESOURCE_CATALYZED_ZYNTHIUM_ACID: "XZH2O";
-declare const RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE: "ZXHO2";
+declare const RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE: "XZHO2";
 declare const RESOURCE_CATALYZED_GHODIUM_ACID: "XGH2O";
 declare const RESOURCE_CATALYZED_GHODIUM_ALKALIDE: "XGHO2";
 declare const RESOURCES_ALL: ResourceConstant[];
 
-declare const SUBSCRIPTION_TOKEN: string;
+declare const SUBSCRIPTION_TOKEN: "token";
 
 declare const CONTROLLER_LEVELS: {[level: number]: number};
 declare const CONTROLLER_STRUCTURES: Record<BuildableStructureConstant, {[level: number]: number}>;
@@ -286,6 +290,7 @@ declare const POWER_SPAWN_POWER_CAPACITY: number;
 declare const POWER_SPAWN_ENERGY_RATIO: number;
 
 declare const EXTRACTOR_HITS: number;
+declare const EXTRACTOR_COOLDOWN: number;
 
 declare const LAB_HITS: number;
 declare const LAB_MINERAL_CAPACITY: number;
@@ -316,17 +321,19 @@ declare const MINERAL_MIN_AMOUNT: Record<MineralConstant, number>;
 declare const MINERAL_RANDOM_FACTOR: number;
 
 declare const MINERAL_DENSITY: {
-        1: number,
-        2: number,
-        3: number,
-        4: number
+    [level: number]: number
+    1: number,
+    2: number,
+    3: number,
+    4: number
 };
 
 declare const MINERAL_DENSITY_PROBABILITY: {
-        1: number,
-        2: number,
-        3: number,
-        4: number
+    [level: number]: number
+    1: number,
+    2: number,
+    3: number,
+    4: number
 };
 
 declare const MINERAL_DENSITY_CHANGE: number;
@@ -337,6 +344,7 @@ declare const DENSITY_HIGH: number;
 declare const DENSITY_ULTRA: number;
 
 declare const TERMINAL_CAPACITY: number;
+declare const TERMINAL_COOLDOWN: number;
 declare const TERMINAL_HITS: number;
 declare const TERMINAL_SEND_COST: number;
 declare const TERMINAL_MIN_SEND: number;
@@ -354,12 +362,14 @@ declare const NUKER_GHODIUM_CAPACITY: number;
 declare const NUKE_LAND_TIME: number;
 declare const NUKE_RANGE: number;
 declare const NUKE_DAMAGE: {
+    [range: number]: number
     0: number,
     1: number,
     4: number
 };
 
 declare const REACTIONS: {
+  [resource: string]: {[resource: string]: string}
   H: {
       O: "OH",
       L: "LH",
@@ -493,6 +503,7 @@ declare const REACTIONS: {
 };
 
 declare const BOOSTS: {
+  [part: string]: {[boost: string]: {[action: string]: number}}
   work: {
       UO: {
           harvest: 3
@@ -618,9 +629,14 @@ declare const LOOK_FLAGS: "flag";
 declare const LOOK_CONSTRUCTION_SITES: "constructionSite";
 declare const LOOK_NUKES: "nuke";
 declare const LOOK_TERRAIN: "terrain";
+declare const LOOK_TOMBSTONES: 'tombstone';
 
 declare const ORDER_SELL: "sell";
 declare const ORDER_BUY: "buy";
+
+declare const SYSTEM_USERNAME: string;
+
+declare const TOMBSTONE_DECAY_PER_PART: 5;
 /**
  * A site of a structure which is currently under construction.
  */
@@ -727,8 +743,10 @@ interface Creep extends RoomObject {
     saying: string;
     /**
      * The remaining amount of game ticks after which the creep will die.
+     *
+     * Will be `undefined` if the creep is still spawning.
      */
-    ticksToLive: number;
+    ticksToLive: number | undefined;
     /**
      * Attack another creep or structure in a short-ranged attack. Needs the
      * ATTACK body part. If the target is inside a rampart, then the rampart is
@@ -748,7 +766,7 @@ interface Creep extends RoomObject {
      * The controller under attack cannot be upgraded for the next 1,000 ticks.
      * The target has to be at adjacent square to the creep.
      *
-     * @returns Result Code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_INVALID_TARGET, ERR_NOT_IN_RANGE, ERR_NO_BODYPART
+     * @returns Result Code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_INVALID_TARGET, ERR_NOT_IN_RANGE, ERR_NO_BODYPART, ERR_TIRED
      */
     attackController(target: StructureController): CreepActionReturnCode;
     /**
@@ -760,7 +778,7 @@ interface Creep extends RoomObject {
      * @param target The target object to be attacked.
      * @returns Result Code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_NOT_ENOUGH_RESOURCES, ERR_INVALID_TARGET, ERR_NOT_IN_RANGE, ERR_NO_BODYPART, ERR_RCL_NOT_ENOUGH
      */
-    build(target: ConstructionSite): CreepActionReturnCode | ERR_RCL_NOT_ENOUGH;
+    build(target: ConstructionSite): CreepActionReturnCode | ERR_NOT_ENOUGH_RESOURCES | ERR_RCL_NOT_ENOUGH;
     /**
      * Cancel the order given during the current game tick.
      * @param methodName The name of a creep's method to be cancelled.
@@ -777,7 +795,7 @@ interface Creep extends RoomObject {
      * @param target The target controller object.
      * @returns Result Code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_INVALID_TARGET, ERR_FULL, ERR_NOT_IN_RANGE, ERR_NO_BODYPART, ERR_GCL_NOT_ENOUGH
      */
-    claimController(target: StructureController): CreepActionReturnCode | ERR_FULL | ERR_RCL_NOT_ENOUGH;
+    claimController(target: StructureController): CreepActionReturnCode | ERR_FULL | ERR_GCL_NOT_ENOUGH;
     /**
      * Dismantles any (even hostile) structure returning 50% of the energy spent on its repair.
      *
@@ -964,7 +982,7 @@ interface Creep extends RoomObject {
      * @param resourceType The target One of the RESOURCE_* constants..
      * @param amount The amount of resources to be transferred. If omitted, all the available amount is used.
      */
-    withdraw(target: Structure, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
+    withdraw(target: Structure | Tombstone, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
 }
 
 interface CreepConstructor extends _Constructor<Creep>, _ConstructorById<Creep> {
@@ -1110,7 +1128,7 @@ interface Game {
     notify(message: string, groupInterval?: number): undefined;
 }
 
-declare let Game: Game;
+declare var Game: Game;
 interface _HasRoomPosition {
     pos: RoomPosition;
 }
@@ -1177,6 +1195,31 @@ interface CPU {
      * @memberof CPU
      */
     setShardLimits(limits: CPUShardLimits): OK | ERR_BUSY | ERR_INVALID_ARGS;
+
+    /**
+     * Use this method to get heap statistics for your virtual machine.
+     *
+     * This method will be undefined if you are not using IVM.
+     *
+     * The return value is almost identical to the Node.js function v8.getHeapStatistics().
+     * This function returns one additional property: externally_allocated_size which is the total amount of currently
+     * allocated memory which is not included in the v8 heap but counts against this isolate's memory limit.
+     * ArrayBuffer instances over a certain size are externally allocated and will be counted here.
+     */
+    getHeapStatistics?(): HeapStatistics;
+}
+
+interface HeapStatistics {
+  total_heap_size: number;
+  total_heap_size_executable: number;
+  total_physical_size: number;
+  total_available_size: number;
+  used_heap_size: number;
+  heap_size_limit: number;
+  malloced_memory: number;
+  peak_malloced_memory: number;
+  does_zap_garbage: 0 | 1;
+  externally_allocated_size: number;
 }
 
 /**
@@ -1225,39 +1268,46 @@ type StoreDefinition = Partial<Record<_ResourceConstantSansEnergy, number>> & { 
 //   energy: number;
 // }
 
-interface LookAtTypes {
-    constructionSite?: ConstructionSite;
-    creep?: Creep;
-    energy?: Resource<RESOURCE_ENERGY>;
-    exit?: any;  // TODO what type is this?
-    flag?: Flag;
-    mineral?: Mineral;
-    nuke?: Nuke;
-    resource?: Resource;
-    source?: Source;
-    structure?: Structure;
-    terrain?: Terrain;
+type ExitsInformation = Partial<Record<ExitKey, string>>;
+
+interface AllLookAtTypes {
+    constructionSite: ConstructionSite;
+    creep: Creep;
+    energy: Resource<RESOURCE_ENERGY>;
+    exit: any;  // TODO what type is this?
+    flag: Flag;
+    mineral: Mineral;
+    nuke: Nuke;
+    resource: Resource;
+    source: Source;
+    structure: Structure;
+    terrain: Terrain;
+    tombstone: Tombstone;
 }
+
+type LookAtTypes = Partial<AllLookAtTypes>;
 
 type LookAtResult<K extends LookConstant = LookConstant> = Pick<LookAtTypes, K> & { type: K };
 
 type LookAtResultWithPos<K extends LookConstant = LookConstant> = LookAtResult<K> & {
-  x: number,
-  y: number,
+    x: number,
+    y: number,
 };
 
 interface LookAtResultMatrix<K extends LookConstant = LookConstant> {
-    [coord: number]: LookAtResultMatrix<K> | Array<LookAtResult<K>>;
+    [y: number]: {
+        [x: number]: Array<LookAtResult<K>>;
+    };
 }
 
 interface LookForAtAreaResultMatrix<T, K extends keyof LookAtTypes = keyof LookAtTypes> {
-  [x: number]: {
-    [y: number]: Array<LookForAtAreaResult<T, K>>;
-  };
+    [y: number]: {
+        [x: number]: Array<LookForAtAreaResult<T, K>>;
+    };
 }
 
 type LookForAtAreaResult<T, K extends keyof LookAtTypes = keyof LookAtTypes> = {type: K} & {
-  [P in K]: T;
+    [P in K]: T;
 };
 
 type LookForAtAreaResultWithPos<T, K extends keyof LookAtTypes = keyof LookAtTypes> = LookForAtAreaResult<T, K> & {x: number, y: number};
@@ -1265,7 +1315,7 @@ type LookForAtAreaResultWithPos<T, K extends keyof LookAtTypes = keyof LookAtTyp
 type LookForAtAreaResultArray<T, K extends keyof LookAtTypes = keyof LookAtTypes> = Array<LookForAtAreaResultWithPos<T, K>>;
 
 interface FindTypes {
-  [key: number]: RoomPosition | Creep | Source | Resource | Structure | Flag | ConstructionSite | Mineral | Nuke;
+  [key: number]: RoomPosition | Creep | Source | Resource | Structure | Flag | ConstructionSite | Mineral | Nuke | Tombstone;
   1: RoomPosition; // FIND_EXIT_TOP
   3: RoomPosition; // FIND_EXIT_RIGHT
   5: RoomPosition; // FIND_EXIT_BOTTOM
@@ -1276,7 +1326,6 @@ interface FindTypes {
   103: Creep; // FIND_HOSTILE_CREEPS
   104: Source; // FIND_SOURCES_ACTIVE
   105: Source; // FIND_SOURCES
-  "-106": Resource<RESOURCE_ENERGY>; // FIND_DROPPED_ENERGY
   106: Resource; // FIND_DROPPED_RESOURCES
   107: AnyStructure; // FIND_STRUCTURES
   108: AnyOwnedStructure; // FIND_MY_STRUCTURES
@@ -1289,6 +1338,7 @@ interface FindTypes {
   115: ConstructionSite; // FIND_HOSTILE_CONSTRUCTION_SITES
   116: Mineral; // FIND_MINERALS
   117: Nuke; // FIND_NUKES
+  118: Tombstone; // FIND_TOMBSTONES
 }
 
 interface FindPathOpts {
@@ -1432,6 +1482,8 @@ interface _ConstructorById<T> extends _Constructor<T> {
 
 type Terrain = "plain" | "swamp" | "wall";
 
+type ExitKey = "1" | "3" | "5" | "7";
+
 // Return Codes
 
 type ScreepsReturnCode =
@@ -1439,6 +1491,7 @@ type ScreepsReturnCode =
   ERR_NOT_OWNER |
   ERR_NO_PATH |
   ERR_BUSY |
+  ERR_NAME_EXISTS |
   ERR_NOT_FOUND |
   ERR_NOT_ENOUGH_RESOURCES |
   ERR_NOT_ENOUGH_ENERGY |
@@ -1476,7 +1529,8 @@ type CreepActionReturnCode =
   ERR_BUSY |
   ERR_INVALID_TARGET |
   ERR_NOT_IN_RANGE |
-  ERR_NO_BODYPART;
+  ERR_NO_BODYPART |
+  ERR_TIRED;
 
 type CreepMoveReturnCode =
   OK |
@@ -1504,7 +1558,6 @@ type FindConstant =
   FIND_HOSTILE_CREEPS |
   FIND_SOURCES_ACTIVE |
   FIND_SOURCES |
-  FIND_DROPPED_ENERGY |
   FIND_DROPPED_RESOURCES |
   FIND_STRUCTURES |
   FIND_MY_STRUCTURES |
@@ -1516,7 +1569,8 @@ type FindConstant =
   FIND_MY_CONSTRUCTION_SITES |
   FIND_HOSTILE_CONSTRUCTION_SITES |
   FIND_MINERALS |
-  FIND_NUKES;
+  FIND_NUKES |
+  FIND_TOMBSTONES;
 
 type FIND_EXIT_TOP = 1;
 type FIND_EXIT_RIGHT = 3;
@@ -1541,6 +1595,7 @@ type FIND_MY_CONSTRUCTION_SITES = 114;
 type FIND_HOSTILE_CONSTRUCTION_SITES = 115;
 type FIND_MINERALS = 116;
 type FIND_NUKES = 117;
+type FIND_TOMBSTONES = 118;
 
 type FilterOptions<T extends FindConstant> = string | FilterFunction<T> | { filter: FilterFunction<T> };
 
@@ -1579,7 +1634,8 @@ type LookConstant =
   LOOK_FLAGS |
   LOOK_CONSTRUCTION_SITES |
   LOOK_NUKES |
-  LOOK_TERRAIN;
+  LOOK_TERRAIN |
+  LOOK_TOMBSTONES;
 
 type LOOK_CONSTRUCTION_SITES = "constructionSite";
 type LOOK_CREEPS = "creep";
@@ -1591,6 +1647,7 @@ type LOOK_RESOURCES = "resource";
 type LOOK_SOURCES = "source";
 type LOOK_STRUCTURES = "structure";
 type LOOK_TERRAIN = "terrain";
+type LOOK_TOMBSTONES = "tombstone";
 
 // Direction Constants
 
@@ -1785,6 +1842,10 @@ type MineralConstant =
   RESOURCE_HYDROGEN |
   RESOURCE_CATALYST;
 
+type MarketResourceConstant =
+  ResourceConstant |
+  SUBSCRIPTION_TOKEN;
+
 type RESOURCE_ENERGY = "energy";
 type RESOURCE_POWER = "power";
 
@@ -1829,9 +1890,13 @@ type RESOURCE_CATALYZED_KEANIUM_ALKALIDE = "XKHO2";
 type RESOURCE_CATALYZED_LEMERGIUM_ACID = "XLH2O";
 type RESOURCE_CATALYZED_LEMERGIUM_ALKALIDE = "XLHO2";
 type RESOURCE_CATALYZED_ZYNTHIUM_ACID = "XZH2O";
-type RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE = "ZXHO2";
+type RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE = "XZHO2";
 type RESOURCE_CATALYZED_GHODIUM_ACID = "XGH2O";
 type RESOURCE_CATALYZED_GHODIUM_ALKALIDE = "XGHO2";
+
+type SUBSCRIPTION_TOKEN = "token";
+
+type TOMBSTONE_DECAY_PER_PART = 5;
 /**
  * The options that can be accepted by `findRoute()` and friends.
  */
@@ -1848,7 +1913,7 @@ interface GameMap {
      * @param roomName The room name.
      * @returns The exits information or null if the room not found.
      */
-    describeExits(roomName: string): {"1"?: string, "3"?: string, "5"?: string, "7"?: string};
+    describeExits(roomName: string): ExitsInformation;
     /**
      * Find the exit direction from the given room en route to another room.
      * @param fromRoom Start room name or room object.
@@ -1859,7 +1924,7 @@ interface GameMap {
      * Or one of the following Result codes:
      * ERR_NO_PATH, ERR_INVALID_ARGS
      */
-    findExit(fromRoom: string|Room, toRoom: string|Room, opts?: RouteOptions): ScreepsReturnCode;
+    findExit(fromRoom: string|Room, toRoom: string|Room, opts?: RouteOptions): ExitConstant | ERR_NO_PATH | ERR_INVALID_ARGS;
     /**
      * Find route from the given room to another room.
      * @param fromRoom Start room name or room object.
@@ -1960,7 +2025,7 @@ interface Market {
      * The maximum orders count is 50 per player. You can create an order at any time with any amount,
      * it will be automatically activated and deactivated depending on the resource/credits availability.
      */
-    createOrder(type: string, resourceType: ResourceConstant, price: number, totalAmount: number, roomName?: string): ScreepsReturnCode;
+    createOrder(type: string, resourceType: MarketResourceConstant, price: number, totalAmount: number, roomName?: string): ScreepsReturnCode;
     /**
      * Execute a trade deal from your Terminal to another player's Terminal using the specified buy/sell order.
      *
@@ -1998,7 +2063,7 @@ interface Transaction {
     time: number;
     sender?: { username: string };
     recipient?: { username: string };
-    resourceType: ResourceConstant;
+    resourceType: MarketResourceConstant;
     amount: number;
     from: string;
     to: string;
@@ -2011,7 +2076,7 @@ interface Order {
     created: number;
     active?: boolean;
     type: string;
-    resourceType: ResourceConstant;
+    resourceType: MarketResourceConstant;
     roomName?: string;
     amount: number;
     remainingAmount: number;
@@ -2029,7 +2094,7 @@ interface OrderFilter {
     id?: string;
     created?: number;
     type?: string;
-    resourceType?: ResourceConstant;
+    resourceType?: MarketResourceConstant;
     roomName?: string;
     amount?: number;
     remainingAmount?: number;
@@ -2104,7 +2169,7 @@ interface Nuke extends RoomObject {
     timeToLand: number;
 }
 
-interface NukeConstructor {
+interface NukeConstructor extends _Constructor<Nuke>, _ConstructorById<Nuke> {
     new (id: string): Nuke;
 }
 
@@ -2126,7 +2191,7 @@ interface PathFinder {
      * @param goal goal A RoomPosition, an object containing a RoomPosition and range or an array of either.
      * @param opts An object containing additional pathfinding flags.
      */
-    search(origin: RoomPosition, goal: RoomPosition | { pos: RoomPosition, range: number } | RoomPosition[] | Array<{ pos: RoomPosition, range: number }>, opts?: PathFinderOpts): PathFinderPath;
+    search(origin: RoomPosition, goal: RoomPosition | { pos: RoomPosition, range: number } | Array<RoomPosition | { pos: RoomPosition, range: number }>, opts?: PathFinderOpts): PathFinderPath;
     /**
      * Specify whether to use this new experimental pathfinder in game objects methods.
      * This method should be invoked every tick. It affects the following methods behavior:
@@ -2347,7 +2412,7 @@ interface Resource<T extends ResourceConstant = ResourceConstant> extends RoomOb
     resourceType: T;
 }
 
-interface ResourceConstructor {
+interface ResourceConstructor extends _Constructor<Resource>, _ConstructorById<Resource> {
     new (id: string): Resource;
 }
 
@@ -2411,6 +2476,18 @@ interface RoomPosition {
      */
     createConstructionSite(structureType: BuildableStructureConstant): ScreepsReturnCode;
     /**
+     * Create new ConstructionSite at the specified location.
+     * @param structureType One of the following constants:
+     *  * STRUCTURE_EXTENSION
+     *  * STRUCTURE_RAMPART
+     *  * STRUCTURE_ROAD
+     *  * STRUCTURE_SPAWN
+     *  * STRUCTURE_WALL
+     *  * STRUCTURE_LINK
+     * @param name The name of the structure, for structures that support it (currently only spawns).
+     */
+    createConstructionSite(structureType: STRUCTURE_SPAWN, name?: string): ScreepsReturnCode;
+    /**
      * Create new Flag at the specified location.
      * @param name The name of a new flag.
      * It should be unique, i.e. the Game.flags object should not contain another flag with the same name (hash key).
@@ -2425,31 +2502,31 @@ interface RoomPosition {
      * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
      * @returns An instance of a RoomObject.
      */
-    findClosestByPath<K extends FindConstant>(type: K, opts?: FindPathOpts & { filter?: FilterFunction<K>, algorithm?: string }): FindTypes[K];
+    findClosestByPath<K extends FindConstant>(type: K, opts?: FindPathOpts & { filter?: FilterFunction<K>, algorithm?: string }): FindTypes[K] | null;
     findClosestByPath<T extends Structure>(
         type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES,
         opts?: FindPathOpts & { filter?: FilterFunction<FIND_STRUCTURES>, algorithm?: string}
-    ): T;
+    ): T | null;
     /**
      * Find the object with the shortest path from the given position. Uses A* search algorithm and Dijkstra's algorithm.
      * @param objects An array of RoomPositions or objects with a RoomPosition
      * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
      * @returns One of the supplied objects
      */
-    findClosestByPath<T extends _HasRoomPosition | RoomPosition>(objects: T[], opts?: FindPathOpts & {filter?: any | string, algorithm?: string}): T;
+    findClosestByPath<T extends _HasRoomPosition | RoomPosition>(objects: T[], opts?: FindPathOpts & {filter?: any | string, algorithm?: string}): T | null;
     /**
      * Find the object with the shortest linear distance from the given position.
      * @param type Any of the FIND_* constants.
      * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
      */
-    findClosestByRange<K extends FindConstant>(type: K, opts?: {filter: FilterFunction<K>}): FindTypes[K];
-    findClosestByRange<T extends Structure>(type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES, opts?: {filter: FilterFunction<FIND_STRUCTURES>}): T;
+    findClosestByRange<K extends FindConstant>(type: K, opts?: {filter: FilterFunction<K>}): FindTypes[K] | null;
+    findClosestByRange<T extends Structure>(type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES, opts?: {filter: FilterFunction<FIND_STRUCTURES>}): T | null;
     /**
      * Find the object with the shortest linear distance from the given position.
      * @param objects An array of RoomPositions or objects with a RoomPosition.
      * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
      */
-    findClosestByRange<T extends _HasRoomPosition | RoomPosition>(objects: T[], opts?: {filter: any | string}): T;
+    findClosestByRange<T extends _HasRoomPosition | RoomPosition>(objects: T[], opts?: {filter: any | string}): T | null;
     /**
      * Find all objects in the specified linear range.
      * @param type Any of the FIND_* constants.
@@ -2506,6 +2583,13 @@ interface RoomPosition {
     getRangeTo(target: RoomPosition | { pos: RoomPosition }): number;
     /**
      * Check whether this position is in the given range of another position.
+     * @param x X position in the room.
+     * @param y Y position in the room.
+     * @param range The range distance.
+     */
+    inRangeTo(x: number, y: number, range: number): boolean;
+    /**
+     * Check whether this position is in the given range of another position.
      * @param toPos The target position.
      * @param range The range distance.
      */
@@ -2540,7 +2624,7 @@ interface RoomPosition {
      * Get an object with the given type at the specified room position.
      * @param type One of the following string constants: constructionSite, creep, exit, flag, resource, source, structure, terrain
      */
-    lookFor<T extends keyof LookAtTypes>(type: T): Array<LookAtTypes[T]>;
+    lookFor<T extends keyof AllLookAtTypes>(type: T): Array<AllLookAtTypes[T]>;
 }
 
 interface RoomPositionConstructor extends _Constructor<RoomPosition> {
@@ -2681,7 +2765,7 @@ interface LineStyle {
     /**
      * Either undefined (solid line), dashed, or dotted.Default is undefined.
      */
-    lineStyle?: "dashed" | "dotted";
+    lineStyle?: "dashed" | "dotted" | "solid";
 }
 
 interface PolyStyle {
@@ -2704,7 +2788,7 @@ interface PolyStyle {
     /**
      * Either undefined (solid line), dashed, or dotted.Default is undefined.
      */
-    lineStyle?: "dashed" | "dotted";
+    lineStyle?: "dashed" | "dotted" | "solid";
 }
 
 interface CircleStyle extends PolyStyle {
@@ -2812,6 +2896,23 @@ interface Room {
      */
     createConstructionSite(pos: RoomPosition | _HasRoomPosition, structureType: StructureConstant): ScreepsReturnCode;
     /**
+     * Create new ConstructionSite at the specified location.
+     * @param x The X position.
+     * @param y The Y position.
+     * @param structureType One of the following constants: STRUCTURE_EXTENSION, STRUCTURE_RAMPART, STRUCTURE_ROAD, STRUCTURE_SPAWN, STRUCTURE_WALL, STRUCTURE_LINK
+     * @param name The name of the structure, for structures that support it (currently only spawns).
+     * @returns Result Code: OK, ERR_INVALID_TARGET, ERR_INVALID_ARGS, ERR_RCL_NOT_ENOUGH
+     */
+    createConstructionSite(x: number, y: number, structureType: STRUCTURE_SPAWN, name?: string): ScreepsReturnCode;
+    /**
+     * Create new ConstructionSite at the specified location.
+     * @param pos Can be a RoomPosition object or any object containing RoomPosition.
+     * @param structureType One of the following constants: STRUCTURE_EXTENSION, STRUCTURE_RAMPART, STRUCTURE_ROAD, STRUCTURE_SPAWN, STRUCTURE_WALL, STRUCTURE_LINK
+     * @param name The name of the structure, for structures that support it (currently only spawns).
+     * @returns Result Code: OK, ERR_INVALID_TARGET, ERR_INVALID_ARGS, ERR_RCL_NOT_ENOUGH
+     */
+    createConstructionSite(pos: RoomPosition | _HasRoomPosition, structureType: STRUCTURE_SPAWN, name?: string): ScreepsReturnCode;
+    /**
      * Create new Flag at the specified location.
      * @param x The X position.
      * @param y The Y position.
@@ -2820,10 +2921,13 @@ interface Room {
      * It should be unique, i.e. the Game.flags object should not contain another flag with the same name (hash key).
      *
      * If not defined, a random name will be generated.
+     *
+     * The maximum length is 60 characters.
      * @param color The color of a new flag. Should be one of the COLOR_* constants. The default value is COLOR_WHITE.
      * @param secondaryColor The secondary color of a new flag. Should be one of the COLOR_* constants. The default value is equal to color.
+     * @returns The name of a new flag, or one of the following error codes: ERR_NAME_EXISTS, ERR_INVALID_ARGS
      */
-    createFlag(x: number, y: number, name?: string, color?: ColorConstant, secondaryColor?: ColorConstant): ScreepsReturnCode;
+    createFlag(x: number, y: number, name?: string, color?: ColorConstant, secondaryColor?: ColorConstant): ERR_NAME_EXISTS | ERR_INVALID_ARGS | string;
     /**
      * Create new Flag at the specified location.
      * @param pos Can be a RoomPosition object or any object containing RoomPosition.
@@ -2832,10 +2936,13 @@ interface Room {
      * It should be unique, i.e. the Game.flags object should not contain another flag with the same name (hash key).
      *
      * If not defined, a random name will be generated.
+     *
+     * The maximum length is 60 characters.
      * @param color The color of a new flag. Should be one of the COLOR_* constants. The default value is COLOR_WHITE.
      * @param secondaryColor The secondary color of a new flag. Should be one of the COLOR_* constants. The default value is equal to color.
+     * @returns The name of a new flag, or one of the following error codes: ERR_NAME_EXISTS, ERR_INVALID_ARGS
      */
-    createFlag(pos: RoomPosition | { pos: RoomPosition }, name?: string, color?: ColorConstant, secondaryColor?: ColorConstant): ScreepsReturnCode;
+    createFlag(pos: RoomPosition | { pos: RoomPosition }, name?: string, color?: ColorConstant, secondaryColor?: ColorConstant): ERR_NAME_EXISTS | ERR_INVALID_ARGS | string;
     /**
      * Find all objects of the specified type in the room.
      * @param type One of the following constants:
@@ -2869,7 +2976,7 @@ interface Room {
      * @returns The room direction constant, one of the following: FIND_EXIT_TOP, FIND_EXIT_RIGHT, FIND_EXIT_BOTTOM, FIND_EXIT_LEFT
      * Or one of the following error codes: ERR_NO_PATH, ERR_INVALID_ARGS
      */
-    findExitTo(room: string | Room): ScreepsReturnCode | FIND_EXIT_TOP | FIND_EXIT_RIGHT | FIND_EXIT_BOTTOM | FIND_EXIT_LEFT;
+    findExitTo(room: string | Room): ExitConstant | ERR_NO_PATH | ERR_INVALID_ARGS;
     /**
      * Find an optimal path inside the room between fromPos and toPos using A* search algorithm.
      * @param fromPos The start position.
@@ -2907,7 +3014,17 @@ interface Room {
      * @param asArray Set to true if you want to get the result as a plain array.
      * @returns An object with all the objects in the specified area
      */
-    lookAtArea(top: number, left: number, bottom: number, right: number, asArray?: boolean): LookAtResultMatrix | LookAtResultWithPos[];
+    lookAtArea(top: number, left: number, bottom: number, right: number, asArray?: false): LookAtResultMatrix;
+    /**
+     * Get the list of objects at the specified room area. This method is more CPU efficient in comparison to multiple lookAt calls.
+     * @param top The top Y boundary of the area.
+     * @param left The left X boundary of the area.
+     * @param bottom The bottom Y boundary of the area.
+     * @param right The right X boundary of the area.
+     * @param asArray Set to true if you want to get the result as a plain array.
+     * @returns An object with all the objects in the specified area
+     */
+    lookAtArea(top: number, left: number, bottom: number, right: number, asArray: true): LookAtResultWithPos[];
     /**
      * Get the objects at the given position.
      * @param type One of the LOOK_* constants.
@@ -2915,14 +3032,14 @@ interface Room {
      * @param y The Y position.
      * @returns An array of Creep at the given position.
      */
-    lookForAt<T extends keyof LookAtTypes>(type: T, x: number, y: number): Array<LookAtTypes[T]>;
+    lookForAt<T extends keyof AllLookAtTypes>(type: T, x: number, y: number): Array<AllLookAtTypes[T]>;
     /**
      * Get the objects at the given RoomPosition.
      * @param type One of the LOOK_* constants.
      * @param target Can be a RoomPosition object or any object containing RoomPosition.
      * @returns An array of Creeps at the specified position if found.
      */
-    lookForAt<T extends keyof LookAtTypes>(type: T, target: RoomPosition | _HasRoomPosition): Array<LookAtTypes[T]>;
+    lookForAt<T extends keyof AllLookAtTypes>(type: T, target: RoomPosition | _HasRoomPosition): Array<AllLookAtTypes[T]>;
     /**
      * Get the given objets in the supplied area.
      * @param type One of the LOOK_* constants
@@ -2933,14 +3050,14 @@ interface Room {
      * @param asArray Flatten the results into an array?
      * @returns An object with the sstructure object[X coord][y coord] as an array of found objects.
      */
-    lookForAtArea<T extends keyof LookAtTypes>(
+    lookForAtArea<T extends keyof AllLookAtTypes>(
       type: T,
       top: number,
       left: number,
       bottom: number,
       right: number,
       asArray?: false
-    ): LookForAtAreaResultMatrix<LookAtTypes[T], T>;
+    ): LookForAtAreaResultMatrix<AllLookAtTypes[T], T>;
     /**
      * Get the given objets in the supplied area.
      * @param type One of the LOOK_* constants
@@ -2951,14 +3068,14 @@ interface Room {
      * @param asArray Flatten the results into an array?
      * @returns An array of found objects with an x & y property for their position
      */
-    lookForAtArea<T extends keyof LookAtTypes>(
+    lookForAtArea<T extends keyof AllLookAtTypes>(
       type: T,
       top: number,
       left: number,
       bottom: number,
       right: number,
       asArray: true
-    ): LookForAtAreaResultArray<LookAtTypes[T], T>;
+    ): LookForAtAreaResultArray<AllLookAtTypes[T], T>;
 
     /**
      * Serialize a path array into a short string representation, which is suitable to store in memory.
@@ -2973,7 +3090,7 @@ interface Room {
      */
 }
 
-interface RoomConstructor {
+interface RoomConstructor extends _Constructor<Room> {
     new (id: string): Room;
     /**
      * Serialize a path array into a short string representation, which is suitable to store in memory.
@@ -3056,11 +3173,8 @@ interface StructureSpawn extends OwnedStructure<STRUCTURE_SPAWN> {
     name: string;
     /**
      * If the spawn is in process of spawning a new creep, this object will contain the new creep’s information, or null otherwise.
-     * @param name The name of a new creep.
-     * @param needTime Time needed in total to complete the spawning.
-     * @param remainingTime Remaining time to go.
      */
-    spawning: { name: string, needTime: number, remainingTime: number };
+    spawning: Spawning | null;
 
     /**
      * Check if a creep can be created.
@@ -3110,7 +3224,7 @@ interface StructureSpawn extends OwnedStructure<STRUCTURE_SPAWN> {
      *  * TOUGH
      *  * CLAIM
      * @param {string} name The name of a new creep. It must be a unique creep name, i.e. the Game.creeps object should not contain another creep with the same name (hash key).
-     * @param {{memory?: CreepMemory; energyStructures?: (StructureSpawn | StructureExtension)[]; dryRun?: boolean}} opts An object with additional options for the spawning process.
+     * @param {SpawnOptions} opts An object with additional options for the spawning process.
      * @returns {ScreepsReturnCode} One of the following codes:
      * ```
      * OK                       0   The operation has been scheduled successfully.
@@ -3122,7 +3236,7 @@ interface StructureSpawn extends OwnedStructure<STRUCTURE_SPAWN> {
      * ERR_RCL_NOT_ENOUGH       -14 Your Room Controller level is insufficient to use this spawn.
      * ```
      */
-    spawnCreep(body: BodyPartConstant[], name: string, opts?: { memory?: CreepMemory, energyStructures?: Array<(StructureSpawn | StructureExtension)>, dryRun?: boolean }): ScreepsReturnCode;
+    spawnCreep(body: BodyPartConstant[], name: string, opts?: SpawnOptions): ScreepsReturnCode;
 
     /**
      * Destroy this spawn immediately.
@@ -3158,11 +3272,80 @@ interface StructureSpawn extends OwnedStructure<STRUCTURE_SPAWN> {
 }
 
 interface StructureSpawnConstructor extends _Constructor<StructureSpawn>, _ConstructorById<StructureSpawn> {
+    Spawning: SpawningConstructor;
 }
 
 declare const StructureSpawn: StructureSpawnConstructor;
 declare const Spawn: StructureSpawnConstructor; // legacy alias
 // declare type Spawn = StructureSpawn;
+
+interface Spawning {
+    readonly prototype: Spawning;
+
+    /**
+     * An array with the spawn directions
+     * @see http://docs.screeps.com/api/#StructureSpawn.Spawning.setDirections
+     */
+    directions: DirectionConstant[];
+
+    /**
+     * The name of the creep
+     */
+    name: string;
+
+    /**
+     * Time needed in total to complete the spawning.
+     */
+    needTime: number;
+
+    /**
+     * Remaining time to go.
+     */
+    remainingTime: number;
+
+    /**
+     * A link to the spawn
+     */
+    spawn: StructureSpawn;
+
+    /**
+     * Cancel spawning immediately. Energy spent on spawning is not returned.
+     */
+    cancel(): ScreepsReturnCode & (OK | ERR_NOT_OWNER);
+
+    /**
+     * Set desired directions where the creep should move when spawned.
+     * @param directions An array with the spawn directions
+     */
+    setDirections(directions: DirectionConstant[]): ScreepsReturnCode & (OK | ERR_NOT_OWNER | ERR_INVALID_ARGS);
+}
+
+/**
+ * An object with additional options for the spawning process.
+ */
+interface SpawnOptions {
+    /**
+     * Memory of the new creep. If provided, it will be immediately stored into Memory.creeps[name].
+     */
+    memory?: CreepMemory;
+    /**
+     * Array of spawns/extensions from which to draw energy for the spawning process.
+     * Structures will be used according to the array order.
+     */
+    energyStructures?: Array<StructureSpawn | StructureExtension>;
+    /**
+     * If dryRun is <code>true</code>, the operation will only check if it is possible to create a creep.
+     */
+    dryRun?: boolean;
+    /**
+     * Set desired directions where the creep should move when spawned.
+     * An array with the direction constants.
+     */
+    directions?: DirectionConstant[];
+}
+
+interface SpawningConstructor extends _Constructor<Spawning>, _ConstructorById<Spawning> {
+}
 /**
  * Parent object for structure classes
  */
@@ -3619,8 +3802,9 @@ interface StructureLab extends OwnedStructure<STRUCTURE_LAB> {
     mineralAmount: number;
     /**
      * The type of minerals containing in the lab. Labs can contain only one mineral type at the same time.
+     * Null in case there is no mineral resource in the lab.
      */
-    mineralType: MineralConstant;
+    mineralType: _ResourceConstantSansEnergy | null;
     /**
      * The total amount of minerals the lab can contain.
      */
@@ -3754,13 +3938,15 @@ declare const StructureNuker: StructureNukerConstructor;
 interface StructurePortal extends Structure<STRUCTURE_PORTAL> {
     readonly prototype: StructurePortal;
     /**
-     * The position object in the destination room.
+     * If this is an inter-room portal, then this property contains a RoomPosition object leading to the point in the destination room.
+     * If this is an inter-shard portal, then this property contains an object with shard and room string properties.
+     * Exact coordinates are undetermined, the creep will appear at any free spot in the destination room.
      */
-    destination: RoomPosition;
+    destination: RoomPosition | { shard: string, room: string };
     /**
      * The amount of game ticks when the portal disappears, or undefined when the portal is stable.
      */
-    ticksToDecay: number;
+    ticksToDecay: number | undefined;
 }
 
 interface StructurePortalConstructor extends _Constructor<StructurePortal>, _ConstructorById<StructurePortal> {
@@ -3780,6 +3966,7 @@ type AnyOwnedStructure =
     StructureLink |
     StructureNuker |
     StructureObserver |
+    StructurePowerBank |
     StructurePowerSpawn |
     StructureRampart |
     StructureSpawn |
@@ -3794,6 +3981,43 @@ type AnyStructure =
     AnyOwnedStructure |
     StructureContainer |
     StructurePortal |
-    StructurePowerBank |
     StructureRoad |
     StructureWall;
+/**
+ * A remnant of dead creeps. This is a walkable structure.
+ * <ul>
+ *     <li>Decay: 5 ticks per body part of the deceased creep</li>
+ * </ul>
+ */
+interface Tombstone extends RoomObject {
+    /**
+     * A unique object identificator.
+     * You can use {@link Game.getObjectById} method to retrieve an object instance by its id.
+     */
+    id: string;
+    /**
+     * Time of death.
+     */
+    deathTime: number;
+    /**
+     * An object with the tombstone contents.
+     * Each object key is one of the RESOURCE_* constants, values are resources amounts.
+     * RESOURCE_ENERGY is always defined and equals to 0 when empty,
+     * other resources are undefined when empty.
+     * You can use lodash.sum to get the total amount of contents.
+     */
+    store: StoreDefinition;
+    /**
+     * The amount of game ticks before this tombstone decays.
+     */
+    ticksToDecay: number;
+    /**
+     * An object containing the deceased creep.
+     */
+    creep: Creep;
+}
+
+interface TombstoneConstructor extends _Constructor<Tombstone>, _ConstructorById<Tombstone> {
+}
+
+declare const Tombstone: TombstoneConstructor;

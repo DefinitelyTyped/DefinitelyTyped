@@ -251,6 +251,7 @@ export declare class Request extends events.EventEmitter {
     public parameters: IRequestParameters;
     public verbose: boolean;
     public canceled: boolean;
+    public multiple: boolean;
     public stream: any;
     public constructor(connection?: ConnectionPool);
     public constructor(transaction: Transaction);

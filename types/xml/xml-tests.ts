@@ -1,6 +1,6 @@
 // Code get from the test file of https://github.com/dylang/node-xml
 
-import * as xml from "xml";
+import xml = require("xml");
 
 interface Tester {
   is(a: any, b: any): void;

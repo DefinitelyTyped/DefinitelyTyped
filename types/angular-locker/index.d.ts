@@ -140,7 +140,7 @@ declare module 'angular' {
             *
             * @param  {String}  driver  The driver to check support with
             */
-            supported(): boolean;
+            supported(driver: string): boolean;
             /**
             * Unbind a storage key from a $scope property
             *

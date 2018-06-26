@@ -31,13 +31,18 @@ export interface IFrameOptions {
    * Override the default body margin style in the iFrame. A string can be any valid value for the
    * CSS margin attribute, for example '8px 3em'. A number value is converted into px.
    */
-  bodyMargin?: number;
+  bodyMargin?: number | string;
+  /**
+   * Override the default body padding style in the iFrame. A string can be any valid value for the
+   * CSS margin attribute, for example '8px 3em'. A number value is converted into px.
+   */
+  bodyPadding?: number | string;
   /**
    * When set to true, only allow incoming messages from the domain listed in the src property of the iFrame tag.
    * If your iFrame navigates between different domains, ports or protocols; then you will need to
    * provide an array of URLs or disable this option.
    */
-  checkOrigin?: boolean;
+  checkOrigin?: boolean | string[];
   /**
    * When enabled in page linking inside the iFrame and from the iFrame to the parent page will be enabled.
    */
@@ -260,7 +265,7 @@ export interface IFrameResizedData {
 // tslint:disable-next-line:interface-name
 export interface IFrameMessageData {
   iframe: IFrameComponent;
-  message: string;
+  message: any;
 }
 
 // tslint:disable-next-line:interface-name

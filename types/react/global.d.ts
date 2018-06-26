@@ -13,6 +13,7 @@ interface FocusEvent extends Event { }
 interface KeyboardEvent extends Event { }
 interface MouseEvent extends Event { }
 interface TouchEvent extends Event { }
+interface PointerEvent extends Event { }
 interface TransitionEvent extends Event { }
 interface UIEvent extends Event { }
 interface WheelEvent extends Event { }
@@ -33,6 +34,7 @@ interface HTMLBodyElement extends HTMLElement { }
 interface HTMLBRElement extends HTMLElement { }
 interface HTMLButtonElement extends HTMLElement { }
 interface HTMLCanvasElement extends HTMLElement { }
+interface HTMLDialogElement extends HTMLElement { }
 interface HTMLDivElement extends HTMLElement { }
 interface HTMLDListElement extends HTMLElement { }
 interface HTMLEmbedElement extends HTMLElement { }
@@ -119,6 +121,7 @@ interface HTMLTableRowElement extends HTMLElement { }
 interface HTMLTrackElement extends HTMLElement { }
 interface HTMLUListElement extends HTMLElement { }
 interface HTMLVideoElement extends HTMLElement { }
+interface HTMLWebViewElement extends HTMLElement { }
 
 interface SVGElement extends Element { }
 interface SVGSVGElement extends SVGElement { }
@@ -174,3 +177,5 @@ interface SVGTextPathElement extends SVGElement { }
 interface SVGTSpanElement extends SVGElement { }
 interface SVGUseElement extends SVGElement { }
 interface SVGViewElement extends SVGElement { }
+
+interface TouchList { }

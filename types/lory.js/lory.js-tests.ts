@@ -1,4 +1,4 @@
-
+import { lory } from 'lory.js';
 
 (function() {
     var elm = document.querySelector('.js-foo');

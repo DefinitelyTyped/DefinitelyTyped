@@ -1,13 +1,16 @@
-// Type definitions for query-string 5.0
+// Type definitions for query-string 6.1
 // Project: https://github.com/sindresorhus/query-string
 // Definitions by: Sam Verschueren <https://github.com/SamVerschueren>
 //                 Tanguy Krotoff <https://github.com/tkrotoff>
 //                 HuHuanming <https://github.com/huhuanming>
+//                 Madara Uchiha <https://github.com/MadaraUchiha>
+//                 Josh Holmer <https://github.com/shssoichiro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
 export interface ParseOptions {
     arrayFormat?: 'bracket' | 'index' | 'none';
+    decode?: boolean;
 }
 
 /**
@@ -15,6 +18,8 @@ export interface ParseOptions {
  * Leading ? or # are ignored, so you can pass location.search or location.hash directly.
  */
 export function parse(str: string, options?: ParseOptions): any;
+
+export function parseUrl(str: string, options?: ParseOptions): {url: string, query: any};
 
 export interface StringifyOptions {
     strict?: boolean;

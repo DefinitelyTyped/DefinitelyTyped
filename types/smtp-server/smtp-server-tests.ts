@@ -1,3 +1,4 @@
+import { AddressInfo } from 'net';
 import { SMTPServer, SMTPServerAddress, SMTPServerAuthentication, SMTPServerAuthenticationResponse, SMTPServerOptions, SMTPServerSession } from 'smtp-server';
 import { Readable } from 'stream';
 
@@ -8,8 +9,9 @@ const options: SMTPServerOptions = {
     onRcptTo,
     onData,
     onClose,
-    port: 2525
 };
+
+const port = 2525;
 
 function onConnect(session: SMTPServerSession, callback: (err?: Error) => void): void {
     console.log(`[${session.id}] onConnect`);
@@ -69,7 +71,7 @@ server.on('close', () => {
     console.log('Server closed');
 });
 
-server.listen(options.port, () => {
-    const address = server.server.address();
+server.listen(port, () => {
+    const address = server.server.address() as AddressInfo;
     console.log(`Listening on [${address.address}]:${address.port}`);
 });

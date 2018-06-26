@@ -8,27 +8,29 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../../",
         "typeRoots": [
             "../../"
         ],
         "paths": {
-            "react-i18next": [ "react-i18next/v4" ]
+            "react-i18next": [
+                "react-i18next/v4"
+            ]
         },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "strictFunctionTypes": true,
         "jsx": "react",
         "experimentalDecorators": true
     },
     "files": [
         "index.d.ts",
-        "test/react-i18next-tests.tsx",
-        "src/I18nextProvider.d.ts",
-        "src/interpolate.d.ts",
-        "src/loadNamespaces.d.ts",
-        "src/trans.d.ts",
-        "src/translate.d.ts"
+        "react-i18next-tests.tsx",
+        "I18nextProvider.d.ts",
+        "interpolate.d.ts",
+        "loadNamespaces.d.ts",
+        "trans.d.ts",
+        "translate.d.ts"
     ]
 }

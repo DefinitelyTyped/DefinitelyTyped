@@ -9,7 +9,7 @@ decoded.prefix;
 decoded.words;
 
 // Test convert from/to words
-const words: number[] = bech32.toWords(Buffer.from('foobar', 'utf8'));
+const words: Buffer = bech32.toWords(Buffer.from('foobar', 'utf8'));
 bech32.fromWords(words);
 
 // Test encode

@@ -4,10 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-/// <reference types="easy-jsend" />
-/// <reference types="easy-x-headers" />
-
-
 import express = require('express');
 
 export declare function isLoggedIn(role?: string): express.RequestHandler;

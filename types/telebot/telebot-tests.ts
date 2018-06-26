@@ -1,4 +1,4 @@
-import * as TeleBot from "telebot";
+import TeleBot = require("telebot");
 
 let bot = new TeleBot('token');
 bot = new TeleBot({

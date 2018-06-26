@@ -213,7 +213,7 @@ declare module paper {
          * @param angle - the angle of rotation measured in degrees
          * @param center - the anchor point to rotate around
          */
-        rotate(angle: number, center: Point): Matrix;
+        rotate(angle: number, center?: Point): Matrix;
 
         /**
          * Concatenates this transform with a rotation transformation around an anchor point.
@@ -290,7 +290,7 @@ declare module paper {
          * Transforms a point and returns the result.
          * @param point - the point to be transformed
          */
-        transform(point: Point): Matrix;
+        transform(point: Point): Point;
 
         /**
          * Transforms an array of coordinates by this matrix and stores the results into the destination array, which is also returned.
@@ -304,7 +304,7 @@ declare module paper {
          * Inverse transforms a point and returns the result.
          * @param point - the point to be transformed
          */
-        inverseTransform(point: Point): Matrix;
+        inverseTransform(point: Point): Point;
 
         /**
          * Attempts to decompose the affine transformation described by this matrix into scaling, rotation and shearing, and returns an object with these properties if it succeeded, null otherwise.
@@ -1308,12 +1308,12 @@ declare module paper {
          * The function to be called when the mouse button is pushed down on the item. The function receives a MouseEvent object which contains information about the mouse event.
          */
         onMouseDown: (event: MouseEvent) => void;
-        
+
         /**
          * The function to be called when the mouse position changes while the mouse is being dragged. The function receives a MouseEvent object which contains information about the mouse event.
          */
         onMouseDrag: (event: MouseEvent) => void;
-        
+
         /**
          * The function to be called when the mouse button is released over the item.
          * The function receives a MouseEvent object which contains information about the mouse event.
@@ -1353,9 +1353,11 @@ declare module paper {
 
         /**
          * Clones the item within the same project and places the copy above the item.
-         * @param insert [optional] - specifies whether the copy should be inserted into the DOM. When set to true, it is inserted above the original. default: true
+         * @param options [optional] - object with 2 parameters
+         * insert: specifies whether the copy should be inserted into the DOM. When set to true, it is inserted above the original. default: true
+         * deep: specifies whether the item’s children should also be cloned — default: true
          */
-        clone(insert?: boolean): Item;
+        clone(options?: { insert?: boolean, deep?: boolean }): Item;
 
         /**
          * When passed a project, copies the item to the project, or duplicates it within the same project. When passed an item, copies the item into the specified item.
@@ -1367,7 +1369,7 @@ declare module paper {
          * Rasterizes the item into a newly created Raster object. The item itself is not removed after rasterization.
          * @param resolution [optional] - the resolution of the raster in pixels per inch (DPI). If not specified, the value of view.resolution is used. default: view.resolution
          */
-        rasterize(resolution: number): Raster;
+        rasterize(resolution?: number): Raster;
 
         /**
          * Checks whether the item's geometry contains the given point.
@@ -3235,6 +3237,16 @@ declare module paper {
          * Deselects all selected items in the project.
          */
         deselectAll(): void;
+         
+        /**
+         * Adds the specified layer at the end of the this project’s layers list.
+         */
+        addLayer(layer: Layer): Layer;
+
+        /**
+         * Inserts the specified layer at the specified index in this project’s layers list.
+         */
+        insertLayer(index: number, layer: Layer): Layer;
 
         /**
          * Perform a hit-test on the items contained within the project at the location of the specified point.
@@ -3347,99 +3359,99 @@ declare module paper {
          * The view that this style belongs to.
          * Read only.
          */
-        view: View;
+        view?: View;
 
         /**
          * The color of the stroke.
          */
-        strokeColor: Color | string;
+        strokeColor?: Color | string;
 
         /**
          * The width of the stroke.
          */
-        strokeWidth: number;
+        strokeWidth?: number;
 
         /**
          * The shape to be used at the beginning and end of open Path items, when they have a stroke.
          * String('round', 'square', 'butt'
          */
-        strokeCap: string;
+        strokeCap?: string;
 
         /**
          * The shape to be used at the segments and corners of Path items when they have a stroke.
          * String('miter', 'round', 'bevel')
          */
-        strokeJoin: string;
+        strokeJoin?: string;
 
         /**
          * Specifies whether the stroke is to be drawn taking the current affine transformation into account (the default behavior), or whether it should appear as a non-scaling stroke.
          */
-        strokeScaling: boolean;
+        strokeScaling?: boolean;
 
         /**
          * The dash offset of the stroke.
          */
-        dashOffset: number;
+        dashOffset?: number;
 
         /**
          * Specifies an array containing the dash and gap lengths of the stroke.
          */
-        dashArray: number[];
+        dashArray?: number[];
 
         /**
          * The miter limit of the stroke. When two line segments meet at a sharp angle and miter joins have been specified for strokeJoin, it is possible for the miter to extend far beyond the strokeWidth of the path. The miterLimit imposes a limit on the ratio of the miter length to the strokeWidth.
          */
-        miterLimit: number;
+        miterLimit?: number;
 
         /**
          * The fill color.
          */
-        fillColor: Color | string;
+        fillColor?: Color | string;
 
         /**
          * The shadow color.
          */
-        shadowColor: Color | string;
+        shadowColor?: Color | string;
 
         /**
          * The shadow's blur radius.
          */
-        shadowBlur: number;
+        shadowBlur?: number;
 
         /**
          * The shadow's offset.
          */
-        shadowOffset: Point;
+        shadowOffset?: Point;
 
         /**
          * The color the item is highlighted with when selected. If the item does not specify its own color, the color defined by its layer is used instead.
          */
-        selectedColor: Color | string;
+        selectedColor?: Color | string;
 
         /**
          * The font-family to be used in text content. default 'sans-serif'
          */
-        fontFamily: string;
+        fontFamily?: string;
 
         /**
          * The font-weight to be used in text content.
          */
-        fontWeight: string | number;
+        fontWeight?: string | number;
 
         /**
          * The font size of text content, as {@Number} in pixels, or as {@String} with optional units 'px', 'pt' and 'em'.
          */
-        fontSize: string | number;
+        fontSize?: string | number;
 
         /**
          * The text leading of text content.
          */
-        leading: number | string;
+        leading?: number | string;
 
         /**
          * The justification of text paragraphs. default "left"
          */
-        justification: string;
+        justification?: string;
 
     }
     export interface IHSBColor {
@@ -3535,7 +3547,7 @@ declare module paper {
          * @param highlight [optional] -
          */
         constructor(color: Gradient, origin: Point, destination: Point, highlight?: Point);
-        
+
         /**
          * Creates a RGB Color object.
          * @param hex - the RGB color in hex, i.e. #000000
@@ -3768,6 +3780,48 @@ declare module paper {
          * Handler function that is called whenever a view is resized.
          */
         onResize: (event: Event) => void;
+
+        /**
+         * The function to be called when the mouse button is pushed down on the item. The function receives a MouseEvent object which contains information about the mouse event.
+         */
+        onMouseDown: (event: MouseEvent) => void;
+
+        /**
+         * The function to be called when the mouse position changes while the mouse is being dragged. The function receives a MouseEvent object which contains information about the mouse event.
+         */
+        onMouseDrag: (event: MouseEvent) => void;
+
+        /**
+         * The function to be called when the mouse button is released over the item.
+         * The function receives a MouseEvent object which contains information about the mouse event.
+         */
+        onMouseUp: (event: MouseEvent) => void;
+
+        /**
+         * The function to be called when the mouse clicks on the item. The function receives a MouseEvent object which contains information about the mouse event.
+         */
+        onClick: (event: MouseEvent) => void;
+
+        /**
+         * The function to be called when the mouse double clicks on the item. The function receives a MouseEvent object which contains information about the mouse event.
+         */
+        onDoubleClick: (event: MouseEvent) => void;
+
+        /**
+         * The function to be called repeatedly when the mouse moves on top of the item. The function receives a MouseEvent object which contains information about the mouse event.
+         */
+        onMouseMove: (event: MouseEvent) => void;
+
+        /**
+         * The function to be called when the mouse moves over the item. This function will only be called again, once the mouse moved outside of the item first. The function receives a MouseEvent object which contains information about the mouse event.
+         */
+        onMouseEnter: (event: MouseEvent) => void;
+
+        /**
+         * The function to be called when the mouse moves out of the item.
+         * The function receives a MouseEvent object which contains information about the mouse event.
+         */
+        onMouseLeave: (event: MouseEvent) => void;
 
         /**
          * Removes this view from the project and frees the associated element.

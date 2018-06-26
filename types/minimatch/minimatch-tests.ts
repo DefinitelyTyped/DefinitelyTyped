@@ -7,7 +7,7 @@ const options = {
 const m = new mm.Minimatch(pattern, options);
 const regxp = m.makeRe();
 
-const files = ["test.ts"];
+const files: ReadonlyArray<string> = ["test.ts"];
 mm.match(files, pattern, options);
 
 files.filter(mm.filter(pattern, options));

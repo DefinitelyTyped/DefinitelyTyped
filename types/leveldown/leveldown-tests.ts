@@ -1,4 +1,4 @@
-import * as leveldown from "leveldown";
+import leveldown = require("leveldown");
 
 const db = leveldown("db1");
 

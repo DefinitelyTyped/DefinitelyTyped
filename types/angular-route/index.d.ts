@@ -138,7 +138,7 @@ declare module 'angular' {
              *
              * @params Mapping information to be assigned to $route.current.
              */
-            otherwise(params: IRoute): IRouteProvider;
+            otherwise(params: IRoute | string): IRouteProvider;
             /**
              * Adds a new route definition to the $route service.
              *

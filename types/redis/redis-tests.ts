@@ -121,3 +121,7 @@ client.uncork();
 // Add command
 client.add_command('my command');
 client.addCommand('my other command');
+
+// redis.print as callback
+client.set(str, str, redis.print);
+client.get(str, redis.print);

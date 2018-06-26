@@ -36,6 +36,12 @@ is.all.error(new Error(), 'bar');
 is.any.error(new Error(), 'bar');
 is.all.error([new Error(), 'foo', 'bar']);
 
+is.fn(toString);
+is.not.fn({ foo: 'bar' });
+is.all.fn(toString, 'bar');
+is.any.fn(toString, 'bar');
+is.all.fn([toString, 'foo', 'bar']);
+
 is.function(toString);
 is.not.function({ foo: 'bar' });
 is.all.function(toString, 'bar');
@@ -97,6 +103,12 @@ is.not.undefined(null);
 is.all.undefined(undefined, 1);
 is.any.undefined(undefined, 2);
 is.all.undefined([{}, undefined]);
+
+is.defined(undefined);
+is.not.defined(null);
+is.all.defined(undefined, 1);
+is.any.defined(undefined, 2);
+is.all.defined([{}, undefined]);
 
 is.sameType(42, 7);
 is.sameType(42, '7');

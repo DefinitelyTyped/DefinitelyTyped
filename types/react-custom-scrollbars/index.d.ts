@@ -3,7 +3,7 @@
 // Definitions by:  David-LeBlanc-git <https://github.com/David-LeBlanc-git>
 //                  kittimiyo <https://github.com/kittimiyo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import * as React from "react";
 
@@ -32,6 +32,7 @@ declare module "react-custom-scrollbars" {
         renderThumbHorizontal?: React.StatelessComponent<any>;
         renderThumbVertical?: React.StatelessComponent<any>;
 
+        tagName?: string;
         hideTracksWhenNotNeeded?: boolean;
 
         autoHide?: boolean;

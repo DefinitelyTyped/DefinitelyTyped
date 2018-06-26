@@ -102,8 +102,8 @@ puppeteer.launch().then(async browser => {
   await page.setRequestInterception(true);
   page.on("request", interceptedRequest => {
     if (
-      interceptedRequest.url.endsWith(".png") ||
-      interceptedRequest.url.endsWith(".jpg")
+      interceptedRequest.url().endsWith(".png") ||
+      interceptedRequest.url().endsWith(".jpg")
     )
       interceptedRequest.abort();
     else interceptedRequest.continue();
@@ -117,9 +117,15 @@ puppeteer.launch().then(async browser => {
   await watchDog;
 
   let currentURL: string;
+
   page
     .waitForSelector("img", { visible: true })
-    .then(() => console.log("First URL with image: " + currentURL));
+    .then(() => console.log("First URL with image by selector: " + currentURL));
+
+  page
+    .waitForXPath("//img", { visible: true })
+    .then(() => console.log("First URL with image by xpath: " + currentURL));
+
   for (currentURL of [
     "https://example.com",
     "https://google.com",
@@ -269,15 +275,124 @@ puppeteer.launch().then(async browser => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   await page.goto("https://example.com");
-  let elementText = await page.$eval('#someElement', (element) => {
-    return element.innerHTML;
-  });
+  const elementText = await page.$eval(
+    '#someElement',
+    (
+      element,  // $ExpectType Element
+    ) => {
+      element.innerHTML; // $ExpectType string
+      return element.innerHTML;
+    }
+  );
+  elementText; // $ExpectType string
 
-  elementText = await page.$$eval('.someClassName', (elements) => {
-    console.log(elements.length);
-    console.log(elements.item(0).outerHTML);
-    return elements[3].innerHTML;
-  });
+  // If one returns a DOM reference, puppeteer will wrap an ElementHandle instead
+  const someElement = await page.$$eval(
+    '.someClassName',
+    (
+      elements, // $ExpectType Element[]
+    ) => {
+      console.log(elements.length);
+      console.log(elements[0].outerHTML);
+      return elements[3] as HTMLDivElement;
+    }
+  );
+  someElement; // $ExpectType ElementHandle<HTMLDivElement>
+
+  // If one passes an ElementHandle, puppeteer will unwrap its DOM reference instead
+  await page.$eval('.hello-world', (e, x1: HTMLDivElement) => x1.noWrap, someElement);
 
   browser.close();
 })();
+
+// Test 0.13 features
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  const handler = (r: puppeteer.Request) => {
+    const failure = r.failure();
+
+    if (failure == null) {
+      console.error("Request completed successfully");
+      return;
+    }
+
+    console.log("Request failed", failure.errorText.toUpperCase());
+  };
+  page.on('requestfinished', handler);
+  page.on('requestfailed', handler);
+})();
+
+// Test 1.0 features
+(async () => {
+  const browser = await puppeteer.launch({
+    ignoreDefaultArgs: true,
+  });
+  const page = await browser.newPage();
+  const args: string[] = puppeteer.defaultArgs();
+
+  await page.pdf({
+    headerTemplate: 'header',
+    footerTemplate: 'footer',
+  });
+
+  await page.coverage.startCSSCoverage();
+  await page.coverage.startJSCoverage();
+  let cov = await page.coverage.stopCSSCoverage();
+  cov = await page.coverage.stopJSCoverage();
+  const text: string = cov[0].text;
+  const url: string = cov[0].url;
+  const firstRange: number = cov[0].ranges[0].end - cov[0].ranges[0].start;
+
+  let [handle]: puppeteer.ElementHandle[] = await page.$x('expression');
+  ([handle] = await page.mainFrame().$x('expression'));
+  ([handle] = await handle.$x('expression'));
+
+  const target = page.target();
+  const session = await target.createCDPSession();
+  await session.send('methodname', { option: 42 });
+  await session.detach();
+
+  await page.tracing.start({ path: "trace.json", categories: ["one", "two"] });
+});
+
+// 1.5: From the BrowserContext example
+(async () => {
+  const browser = await puppeteer.launch();
+  // Create a new incognito browser context
+  const context = await browser.createIncognitoBrowserContext();
+  // Create a new page inside context.
+  const page = await context.newPage();
+  // ... do stuff with page ...
+  await page.goto('https://example.com');
+  // Dispose context once it's no longer needed.
+  await context.close();
+});
+
+// 1.5: From the Worker example
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  page.on('workercreated', worker => console.log('Worker created: ' + worker.url()));
+  page.on('workerdestroyed', worker => console.log('Worker destroyed: ' + worker.url()));
+
+  console.log('Current workers:');
+  for (const worker of page.workers())
+    console.log('  ' + worker.url());
+});
+
+// Test conditional types
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  const eh = await page.$('tr.something') as puppeteer.ElementHandle<HTMLTableRowElement>;
+  const index = await page.$eval(
+    '.demo',
+    (
+      e, // $ExpectType Element
+      x1, // $ExpectType HTMLTableRowElement
+    ) => x1.rowIndex,
+    eh,
+  );
+  index; // $ExpectType number
+});

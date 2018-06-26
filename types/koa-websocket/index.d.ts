@@ -1,10 +1,10 @@
-// Type definitions for koa-websocket 2.1
+// Type definitions for koa-websocket 5.0
 // Project: https://github.com/kudos/koa-websocket
-// Definitions by: My Self <https://github.com/me>
+// Definitions by: Maël Lavault <https://github.com/moimael>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as Koa from 'koa';
+import Koa = require('koa');
 import * as ws from 'ws';
 import * as http from 'http';
 import * as https from 'https';
@@ -21,7 +21,7 @@ declare class KoaWebsocketServer {
     middleware: Koa.Middleware[];
 
     constructor(app: Koa);
-    listen(server: http.Server | https.Server): ws.Server;
+    listen(options: ws.ServerOptions): ws.Server;
     onConnection(handler: KoaWebsocketConnectionHandler): void;
     use(middleware: KoaWebsocketMiddleware): this;
 }
@@ -30,7 +30,5 @@ interface KoaWebsocketApp extends Koa {
     ws: KoaWebsocketServer;
 }
 
-type KoaWebsockets = (app: Koa) => KoaWebsocketApp;
-
-declare const websockets: KoaWebsockets;
+declare function websockets(app: Koa): KoaWebsocketApp;
 export = websockets;

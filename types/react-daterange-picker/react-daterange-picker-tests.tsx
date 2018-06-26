@@ -5,7 +5,7 @@ import DateRangePicker from "react-daterange-picker";
 import * as ReactDateRangePicker from "react-daterange-picker";
 
 import * as MomentRange from "moment-range";
-import * as Moment from "moment";
+import Moment = require("moment");
 
 const moment = MomentRange.extendMoment(Moment);
 

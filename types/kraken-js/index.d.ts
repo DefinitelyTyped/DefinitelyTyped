@@ -1,26 +1,28 @@
 // Type definitions for krakenjs 2.2
 // Project: http://krakenjs.com
 // Definitions by: Timur Manyanov <https://github.com/darkwebdev>
+//                 Satana Charuwichitratana <https://github.com/micksatana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
 import { Express } from 'express';
-import { EventEmitter } from 'events';
 
 declare function k(options?: k.Options | string): Express;
 
 declare namespace k {
-    interface Kraken extends Express, EventEmitter {
+    interface Kraken extends Express {
         kraken: Kraken;
     }
 
     interface Options {
         protocols?: object;
         basedir?: string;
+        configdir?: string;
         mountpath?: string;
         inheritViews?: boolean;
-        startupHeaders?: Map<string, string>;
-        onconfig?(config: object, next: (err: Error | null, config?: object) => any): any;
+        startupHeaders?: { [key: string]: string; };
+        onconfig?(config: Map<string, any>, next: (err: Error | null, config?: object) => any): any;
+        uncaughtException?(err: Error): any;
     }
 }
 

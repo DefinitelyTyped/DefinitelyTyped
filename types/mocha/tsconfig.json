@@ -6,8 +6,8 @@
             "dom"
         ],
         "noImplicitAny": true,
-        "noImplicitThis": false,
-        "strictNullChecks": false,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
@@ -19,6 +19,8 @@
     },
     "files": [
         "index.d.ts",
+        "lib/ms.d.ts",
+        "lib/interfaces/common.d.ts",
         "mocha-tests.ts"
     ]
 }

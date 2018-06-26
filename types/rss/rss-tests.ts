@@ -1,5 +1,3 @@
-
-
 // this test is copied from https://github.com/dylang/node-rss
 //  it basically:
 //
@@ -7,7 +5,7 @@
 //      * add an item to it
 //      * then generates XML string
 
-import * as RSS from 'rss';
+import RSS = require('rss');
 
 var feed = new RSS({
     title: 'title',

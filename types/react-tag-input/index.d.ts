@@ -3,7 +3,7 @@
 // Definitions by: Ogglas <https://github.com/Ogglas>
 //                  Jan Karres <https://github.com/jankarres>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import * as React from "react";
 
@@ -19,7 +19,7 @@ export interface ReactTagsProps {
     handleDrag?: ((tag: { id: number; text: string; }, currPos: number, newPos: number) => void);
     handleInputChange?: ((value: string) => void);
     handleFilterSuggestions?: ((textInputValue: string, possibleSuggestionsArray: string[]) => boolean);
-    handleInputBlur?: (() => void);
+    handleInputBlur?: ((textInputValue: string) => void);
 
     autofocus?: boolean;
     allowDeleteFromEmptyInput?: boolean;

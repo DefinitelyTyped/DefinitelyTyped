@@ -1,6 +1,7 @@
 // Type definitions for which 1.3.0
 // Project: https://github.com/isaacs/node-which
-// Definitions by: vvakame <https://github.com/vvakame>, cspotcoxe <https://github.com/cspotcode>
+// Definitions by: vvakame <https://github.com/vvakame>
+//                 cspotcode <https://github.com/cspotcode>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 

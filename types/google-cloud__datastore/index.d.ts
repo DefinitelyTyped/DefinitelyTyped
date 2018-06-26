@@ -1,8 +1,8 @@
-// Type definitions for @google-cloud/datastore 1.1
-// Project: https://github.com/GoogleCloudPlatform/google-cloud-node/tree/master/packages/datastore
+// Type definitions for @google-cloud/datastore 1.3
+// Project: https://github.com/googleapis/nodejs-datastore
 // Definitions by: Antoine Beauvais-Lacasse <https://github.com/beaulac>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.7
 
 /// <reference types="node" />
 
@@ -20,7 +20,11 @@ declare module '@google-cloud/datastore' {
         DatastoreCoords,
         OneOrMany
     } from '@google-cloud/datastore/entity';
-    import { DatastoreRequest as DatastoreRequest_, CommitCallback, CommitResult } from '@google-cloud/datastore/request';
+    import {
+        DatastoreRequest as DatastoreRequest_,
+        CommitCallback,
+        CommitResult
+    } from '@google-cloud/datastore/request';
     import {
         Query as DatastoreQuery,
         MoreResultsAfterCursor,
@@ -32,7 +36,7 @@ declare module '@google-cloud/datastore' {
     class Datastore extends DatastoreRequest_ {
         constructor(options: InitOptions);
 
-        readonly KEY: KEY_SYMBOL;
+        readonly KEY: typeof Datastore.KEY;
         readonly MORE_RESULTS_AFTER_CURSOR: MoreResultsAfterCursor;
         readonly MORE_RESULTS_AFTER_LIMIT: MoreResultsAfterLimit;
         readonly NO_MORE_RESULTS: NoMoreResults;
@@ -51,11 +55,19 @@ declare module '@google-cloud/datastore' {
 
         int(value: string | number): DatastoreInt;
 
+        isInt(value: any): value is DatastoreInt;
+
         double(value: string | number): DatastoreDouble;
+
+        isDouble(value: any): value is DatastoreDouble;
 
         geoPoint(coordinates: DatastoreCoords): DatastoreGeopoint;
 
+        isGeoPoint(value: any): value is DatastoreGeopoint;
+
         key(pathOrOptions: DatastoreKeyPath | DatastoreKeyOptions): DatastoreKey;
+
+        isKey(value: any): value is DatastoreKey;
 
         determineBaseUrl_(customApiEndpoint?: string): void;
     }
@@ -69,7 +81,7 @@ declare module '@google-cloud/datastore' {
     }
 
     namespace Datastore {
-        const KEY: KEY_SYMBOL;
+        const KEY: unique symbol;
         const MORE_RESULTS_AFTER_CURSOR: MoreResultsAfterCursor;
         const MORE_RESULTS_AFTER_LIMIT: MoreResultsAfterLimit;
         const NO_MORE_RESULTS: NoMoreResults;
@@ -81,9 +93,12 @@ declare module '@google-cloud/datastore' {
 }
 
 declare module '@google-cloud/datastore/entity' {
+    import Datastore = require("@google-cloud/datastore");
+
     interface DatastoreInt {
         value: string;
     }
+
     interface DatastoreDouble {
         value: string;
     }
@@ -92,6 +107,7 @@ declare module '@google-cloud/datastore/entity' {
         latitude: number;
         longitude: number;
     }
+
     interface DatastoreGeopoint {
         value: DatastoreCoords;
     }
@@ -119,7 +135,7 @@ declare module '@google-cloud/datastore/entity' {
         parent?: DatastoreKey;
     }
 
-    type KEY_SYMBOL = symbol;
+    type KEY_SYMBOL = typeof Datastore.KEY;
 
     interface DatastorePayload<T> {
         key: DatastoreKey;
@@ -297,6 +313,8 @@ declare module '@google-cloud/datastore/transaction' {
     type RollbackCallback = (err: Error, rollbackResponse: {}) => void;
     type RollbackResult = [{}];
 
-    type TransactionCallback = (err: Error, tx: DatastoreTransaction, beginTxResponse: BeginTransactionResponse) => void;
+    type TransactionCallback = (err: Error,
+                                tx: DatastoreTransaction,
+                                beginTxResponse: BeginTransactionResponse) => void;
     type TransactionResult = [DatastoreTransaction, BeginTransactionResponse];
 }

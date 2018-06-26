@@ -1,8 +1,7 @@
 // via: http://visionmedia.github.io/superagent/
-
-import * as request from 'superagent';
+import request = require('superagent');
 import * as fs from 'fs';
-import * as assert from 'assert';
+import assert = require('assert');
 import { Agent } from 'https';
 
 // Examples taken from https://github.com/visionmedia/superagent/blob/gh-pages/docs/index.md
@@ -253,6 +252,10 @@ request
     .get('http://example.com/search')
     .retry(2)
     .end(callback);
+request
+    .get('http://example.com/search')
+    .retry(2, callback)
+    .end(callback);
 
 (() => {
     const stream = fs.createWriteStream('path/to/my.json');
@@ -370,6 +373,16 @@ request
     .pfx(pfx)
     .end(callback);
 
+// pfx with passphrase, from: https://github.com/visionmedia/superagent/pull/1230/commits/96af65ffc6256df633f893095d1dc828694bbfbc
+const passpfx = fs.readFileSync('passcert.pfx');
+request
+    .post('/secure')
+    .pfx({
+        pfx: passpfx,
+        passphrase: 'test'
+    })
+    .end(callback);
+
 // ok, from: https://github.com/visionmedia/superagent/commit/34533bbc29833889090847c45a82b0ea81b2f06d
 request
     .get('/404')
@@ -377,3 +390,18 @@ request
     .then(response => {
         // reads 404 page as a successful response
     });
+
+// Test that the "Plugin" type from "use" provides a SuperAgentRequest rather than a Request,
+// which has additional properties.
+const echoPlugin = (request: request.SuperAgentRequest) => {
+  req.url = '' + req.url;
+  req.cookies = '' + req.cookies;
+  if (req.method) {
+    req.url = '/echo';
+  }
+};
+
+request
+    .get('/echo')
+    .use(echoPlugin)
+    .end();

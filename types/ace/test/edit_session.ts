@@ -18,6 +18,23 @@ function createFoldTestSession() {
     return session;
 }
 
+function createScrollTestRenderer(): AceAjax.VirtualRenderer | null {
+    var el = document.createElement("div");
+
+    if (!el.getBoundingClientRect) {
+        console.log("Skipping test: This test only runs in the browser");
+        return null;
+    }
+
+    el.style.left = "20px";
+    el.style.top = "30px";
+    el.style.width = "300px";
+    el.style.height = "100px";
+    document.body.appendChild(el);
+
+    return new AceAjax.VirtualRenderer(el);
+}
+
 function assertArray(a, b) {
     assert.equal(a + "", b + "");
     assert.ok(a.length == b.length);
@@ -915,5 +932,25 @@ const aceEditSessionTests = {
         session = new AceAjax.EditSession(new Array(30).join("\n"));
         session.documentToScreenPosition(2, 0);
         session.documentToScreenPosition(2, 0);
+    },
+
+    "test setScrollTop()": function() {
+        var renderer = createScrollTestRenderer();
+        var session = new AceAjax.EditSession(["1", "2", "3", "2", "3", "4"]);
+        renderer.setSession(session);
+        assert.equal(renderer.getScrollTop(), 0);
+        session.setScrollTop(40);
+        assert.equal(renderer.getScrollTop(), 40);
+        renderer.getScrollTop()
+    },
+
+    "test setScrollLeft()": function() {
+        var renderer = createScrollTestRenderer();
+        var session = new AceAjax.EditSession(["1", "2", "3", "2", "3", "4"]);
+        renderer.setSession(session);
+        assert.equal(renderer.getScrollLeft(), 0);
+        session.setScrollLeft(40);
+        assert.equal(renderer.getScrollLeft(), 40);
+        renderer.getScrollLeft()
     }
 };

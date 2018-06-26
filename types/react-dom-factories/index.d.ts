@@ -2,7 +2,7 @@
 // Project: https://facebook.github.io/react/
 // Definitions by: John Gozde <https://github.com/jgoz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 export as namespace ReactDOMFactories;
 export = ReactDOMFactories;

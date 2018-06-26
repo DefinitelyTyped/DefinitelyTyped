@@ -5,7 +5,8 @@ declare namespace Fade {
     export interface FadeProps extends TransitionCallbacks, React.HTMLProps<Fade> {
         in?: boolean;
         timeout?: number;
-        transitionAppear?: boolean;
+        mountOnEnter?: boolean;
+        appear?: boolean;
         unmountOnExit?: boolean;
     }
 }

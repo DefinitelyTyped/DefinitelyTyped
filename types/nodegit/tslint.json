@@ -3,6 +3,7 @@
     "rules": {
         // TODOs
         "ban-types": false,
+        "no-const-enum": false,
         "no-unnecessary-class": false
     }
 }

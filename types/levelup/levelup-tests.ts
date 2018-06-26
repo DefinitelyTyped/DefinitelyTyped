@@ -1,4 +1,4 @@
-import * as levelup from "levelup";
+import levelup = require("levelup");
 
 interface BufferEncoding {
     encode(val: any): Buffer;
@@ -68,7 +68,7 @@ db.batch()
     .write(function () { console.log('Done!') })
 
 var open:boolean = db.isOpen();
-var closed:boolean = db.isClosed(); 
+var closed:boolean = db.isClosed();
 db.createReadStream()
     .on('data', function (data: any) {
       console.log(data.key, '=', data.value)

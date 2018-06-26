@@ -1,5 +1,5 @@
-import * as Koa from "koa";
-import * as Router from "koa-router";
+import Koa = require("koa");
+import Router = require("koa-router");
 
 const app = new Koa();
 
@@ -27,6 +27,9 @@ router
 router.get('user', '/users/:id', function (ctx) {
     ctx.body = "sdsd";
 });
+
+let layer: Router.Layer
+let layerOptions: Router.ILayerOptions
 
 app.use(router.routes());
 app.use(router.allowedMethods());

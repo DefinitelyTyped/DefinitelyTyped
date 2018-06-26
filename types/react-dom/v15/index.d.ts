@@ -5,7 +5,7 @@
 //                 Microsoft <https://microsoft.com>
 //                 MartynasZilinskas <https://github.com/MartynasZilinskas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 export as namespace ReactDOM;
 

@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { Sizes, TransitionCallbacks } from 'react-bootstrap';
-import * as ModalBody from './ModalBody';
-import * as ModalHeader from './ModalHeader';
-import * as ModalTitle from './ModalTitle';
-import * as ModalDialog from './ModalDialog';
-import * as ModalFooter from './ModalFooter';
+import ModalBody = require('./ModalBody');
+import ModalHeader = require('./ModalHeader');
+import ModalTitle = require('./ModalTitle');
+import ModalDialog = require('./ModalDialog');
+import ModalFooter = require('./ModalFooter');
 
 declare namespace Modal {
     interface ModalProps extends TransitionCallbacks, React.HTMLProps<Modal> {

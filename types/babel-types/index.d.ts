@@ -5,7 +5,7 @@
 //                 Marvin Hagemeister <https://github.com/marvinhagemeister>
 //                 Boris Cherny <https://github.com/bcherny>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 export interface Comment {
     value: string;
@@ -46,7 +46,7 @@ export interface Node {
 
 export interface ArrayExpression extends Node {
     type: "ArrayExpression";
-    elements: Array<Expression | SpreadElement>;
+    elements: Array<null | Expression | SpreadElement>;
 }
 
 export interface AssignmentExpression extends Node {
@@ -422,7 +422,7 @@ export interface ExportNamedDeclaration extends Node {
     type: "ExportNamedDeclaration";
     declaration: Declaration;
     specifiers: ExportSpecifier[];
-    source: StringLiteral;
+    source: StringLiteral | null;
 }
 
 export interface ExportSpecifier extends Node {
@@ -772,7 +772,7 @@ export interface VoidTypeAnnotation extends Node {
 export interface JSXAttribute extends Node {
     type: "JSXAttribute";
     name: JSXIdentifier | JSXNamespacedName;
-    value: JSXElement | StringLiteral | JSXExpressionContainer;
+    value: JSXElement | StringLiteral | JSXExpressionContainer | null;
 }
 
 export interface JSXClosingElement extends Node {
@@ -1306,7 +1306,7 @@ export type TSEntityName = Identifier | TSQualifiedName;
 export type TSTypeElement = TSCallSignatureDeclaration | TSConstructSignatureDeclaration | TSIndexSignature
     | TSMethodSignature | TSPropertySignature;
 
-export function arrayExpression(elements?: Array<Expression | SpreadElement>): ArrayExpression;
+export function arrayExpression(elements?: Array<null | Expression | SpreadElement>): ArrayExpression;
 export function assignmentExpression(operator?: string, left?: LVal, right?: Expression): AssignmentExpression;
 export function binaryExpression(
     operator?: "+" | "-" | "/" | "%" | "*" | "**" | "&" | "|" | ">>" | ">>>" | "<<" | "^" | "==" | "===" | "!=" | "!==" | "in" | "instanceof" | ">" | "<" | ">=" | "<=",
@@ -1424,7 +1424,7 @@ export function objectTypeProperty(key?: Expression, value?: FlowTypeAnnotation)
 export function qualifiedTypeIdentifier(id?: Identifier, qualification?: Identifier | QualifiedTypeIdentifier): QualifiedTypeIdentifier;
 export function unionTypeAnnotation(types?: FlowTypeAnnotation[]): UnionTypeAnnotation;
 export function voidTypeAnnotation(): VoidTypeAnnotation;
-export function jSXAttribute(name?: JSXIdentifier | JSXNamespacedName, value?: JSXElement | StringLiteral | JSXExpressionContainer): JSXAttribute;
+export function jSXAttribute(name?: JSXIdentifier | JSXNamespacedName, value?: JSXElement | StringLiteral | JSXExpressionContainer | null): JSXAttribute;
 export function jSXClosingElement(name?: JSXIdentifier | JSXMemberExpression): JSXClosingElement;
 export function jSXElement(openingElement?: JSXOpeningElement, closingElement?: JSXClosingElement, children?: Array<JSXElement | JSXExpressionContainer | JSXText>, selfClosing?: boolean): JSXElement;
 export function jSXEmptyExpression(): JSXEmptyExpression;

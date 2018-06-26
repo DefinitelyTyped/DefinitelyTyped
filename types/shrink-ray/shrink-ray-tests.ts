@@ -1,5 +1,5 @@
-import * as express from 'express';
-import * as shrinkRay from 'shrink-ray';
+import express = require('express');
+import shrinkRay = require('shrink-ray');
 
 const app = express();
 

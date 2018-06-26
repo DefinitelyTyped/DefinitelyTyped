@@ -75,7 +75,7 @@ interface HighlandStatic {
 	<R>(): Highland.Stream<R>;
   <R>(xs: Highland.Stream<R>[]): Highland.Stream<R>;
 	<R>(xs: R[]): Highland.Stream<R>;
-	<R>(xs: (push: (err: Error | null, x?: R) => void, next: () => void) => void): Highland.Stream<R>;
+	<R>(xs: (push: (err: Error | null, x?: R | Highland.Nil) => void, next: () => void) => void): Highland.Stream<R>;
 
 	<R>(xs: Highland.Stream<R>): Highland.Stream<R>;
 	<R>(xs: NodeJS.ReadableStream): Highland.Stream<R>;
@@ -88,6 +88,17 @@ interface HighlandStatic {
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	// UTILS
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+  /**
+	 * Returns true if `x` is the end of stream marker.
+	 *
+	 * @id isNil
+	 * @section Streams
+	 * @name _.isNil(x)
+	 * @param x - the object to test
+	 * @api public
+	 */
+  isNil<R>(x: R | Highland.Nil): x is Highland.Nil;
 
 	/**
 	 * Returns true if `x` is a Highland Stream.
@@ -563,7 +574,7 @@ declare namespace Highland {
 		 * @param {Function} f - the function to handle errors and values
 		 * @api public
 		 */
-		consume<U>(f: (err: Error, x: R, push: (err: Error | null, value?: U) => void, next: () => void) => void): Stream<U>;
+		consume<U>(f: (err: Error, x: R | Highland.Nil, push: (err: Error | null, value?: U | Highland.Nil) => void, next: () => void) => void): Stream<U>;
 
 		/**
 		 * Holds off pushing data events downstream until there has been no more
@@ -614,9 +625,9 @@ declare namespace Highland {
 		 *
 		 * _([1, 2, 3, 4]).drop(2) // => 3, 4
 		 */
-		 drop(n: number): Stream<R>;
+        drop(n: number): Stream<R>;
 
-		 /**
+		/**
 		 * Extracts errors from a Stream and applies them to an error handler
 		 * function. Returns a new Stream with the errors removed (unless the error
 		 * handler chooses to rethrow them using `push`). Errors can also be
@@ -653,7 +664,7 @@ declare namespace Highland {
 		 */
 		find(f: (x: R) => boolean): Stream<R>;
 
-		 /**
+		/**
 		 * A convenient form of [where](#where), which returns the first object from a
 		 * Stream that matches a set of property values. findWhere is to [where](#where) as [find](#find) is to [filter](#filter).
 		 *

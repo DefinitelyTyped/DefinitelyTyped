@@ -11,6 +11,7 @@ declare namespace Tabs {
         paneWidth?: any; // TODO: Add more specific type
         position?: string;
         tabWidth?: any; // TODO: Add more specific type
+        mountOnEnter?: boolean;
         unmountOnExit?: boolean;
         justified?: boolean;
     }
