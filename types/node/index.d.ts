@@ -610,7 +610,7 @@ declare namespace NodeJS {
         end(chunk: T, encoding?: string, cb?: Function): void;
     }
 
-    export interface ReadWriteStream<TWrite = string | Buffer, TRead = string | Buffer> extends ReadableStream<TRead>, WritableStream<TWrite> { }
+    export interface ReadWriteStream<TWrite = string | Buffer, TRead = TWrite> extends ReadableStream<TRead>, WritableStream<TWrite> { }
 
     export interface Events extends EventEmitter { }
 
@@ -6128,14 +6128,14 @@ declare module "stream" {
             removeListener(event: "unpipe", listener: (src: Readable<T>) => void): this;
         }
 
-        export interface DuplexOptions<TWrite = any, TRead = any> extends ReadableOptions<TRead>, WritableOptions<TWrite> {
+        export interface DuplexOptions<TWrite = any, TRead = TWrite> extends ReadableOptions<TRead>, WritableOptions<TWrite> {
             allowHalfOpen?: boolean;
             readableObjectMode?: boolean;
             writableObjectMode?: boolean;
         }
 
         // Note: Duplex extends both Readable and Writable.
-        export class Duplex<TWrite = any, TRead = any> extends Readable<TRead> implements Writable<TWrite> {
+        export class Duplex<TWrite = any, TRead = TWrite> extends Readable<TRead> implements Writable<TWrite> {
             writable: boolean;
             readonly writableHighWaterMark: number;
             readonly writableLength: number;
@@ -6156,12 +6156,12 @@ declare module "stream" {
 
         type TransformCallback<T> = (err?: Error, data?: T) => void;
 
-        export interface TransformOptions<TWrite = any, TRead = any> extends DuplexOptions<TWrite, TRead> {
+        export interface TransformOptions<TWrite = any, TRead = TWrite> extends DuplexOptions<TWrite, TRead> {
             transform?: (chunk: TWrite, encoding: string, callback: TransformCallback<TRead>) => void;
             flush?: (callback: TransformCallback<TRead>) => any;
         }
 
-        export class Transform<TWrite = any, TRead = any> extends Duplex<TWrite, TRead> {
+        export class Transform<TWrite = any, TRead = TWrite> extends Duplex<TWrite, TRead> {
             constructor(opts?: TransformOptions<TWrite, TRead>);
             _transform(chunk: TWrite, encoding: string, callback: TransformCallback<TRead>): void;
             destroy(error?: Error): void;
