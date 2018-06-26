@@ -478,6 +478,7 @@ async () => {
             />
         </Svg.G>
         <Svg.Use href="#shape" x="20" y="0" />
+        <Svg.Use href="#shape" x="20" y="0" width="20" height="20"/>
         <Svg.Symbol id="symbol" viewBox="0 0 150 110" width="100" height="50">
             <Svg.Circle cx="50" cy="50" r="40" strokeWidth="8" stroke="red" fill="red"/>
             <Svg.Circle cx="90" cy="60" r="40" strokeWidth="8" stroke="green" fill="white"/>

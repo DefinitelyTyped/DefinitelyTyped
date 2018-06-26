@@ -2076,6 +2076,8 @@ export interface SvgUseProps extends SvgCommonProps {
     href: string;
     x: number | string;
     y: number | string;
+    width?: number | string;
+    height?: number | string;
 }
 
 export interface SvgSymbolProps extends SvgCommonProps {

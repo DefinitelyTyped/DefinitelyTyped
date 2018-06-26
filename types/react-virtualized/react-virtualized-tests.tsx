@@ -13,6 +13,7 @@ import {
 } from "react-virtualized";
 
 export class ArrowKeyStepperExample extends PureComponent<any, any> {
+    state: any;
     render() {
         const { mode } = this.state;
 
@@ -88,6 +89,7 @@ export class ArrowKeyStepperExample extends PureComponent<any, any> {
 import { List } from "react-virtualized";
 
 export class AutoSizerExample extends PureComponent<any, any> {
+    state: any;
     render() {
         const { list } = this.context;
         const { hideDescription } = this.state;
@@ -198,6 +200,7 @@ const GUTTER_SIZE = 3;
 const CELL_WIDTH = 75;
 
 export class CollectionExample extends PureComponent<any, any> {
+    state: any;
     _columnYMap: any;
 
     constructor(props: any, context: any) {
@@ -303,6 +306,7 @@ export class CollectionExample extends PureComponent<any, any> {
 import { ColumnSizer } from "react-virtualized";
 
 export class ColumnSizerExample extends PureComponent<any, any> {
+    state: any;
     render() {
         const { columnMaxWidth, columnMinWidth, columnCount } = this.state;
 
@@ -507,6 +511,8 @@ const STATUS_LOADING = 1;
 const STATUS_LOADED = 2;
 
 export class InfiniteLoaderExample extends PureComponent<any, any> {
+
+    state: any;
     _timeoutIds = new Set<number>();
 
     componentWillUnmount() {
@@ -613,6 +619,7 @@ export class InfiniteLoaderExample extends PureComponent<any, any> {
 }
 
 export class ListExample extends PureComponent<any, any> {
+    state: any;
     constructor(props: any, context: any) {
         super(props, context);
 
@@ -750,6 +757,8 @@ export class GridExample2 extends PureComponent<any, any> {
     _scrollTop?: number;
     _cellPositioner: Positioner;
     _masonry: Masonry;
+
+    state: any;
 
     constructor(props: any, context: any) {
         super(props, context);
