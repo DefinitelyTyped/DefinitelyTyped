@@ -40,6 +40,8 @@ import {
     NavigationPopToTopAction,
     NavigationScreenComponent,
     NavigationContainerComponent,
+    withNavigation,
+    NavigationInjectedProps,
 } from 'react-navigation';
 
 // Constants
@@ -514,3 +516,19 @@ class SetParamsTest extends React.Component<NavigationScreenProps<ScreenProps>> 
         );
     }
 }
+
+// Test withNavigation
+
+interface BackButtonProps { title: string; }
+class MyBackButton extends React.Component<BackButtonProps & NavigationInjectedProps> {
+    render() {
+      return <button title={this.props.title} onClick={() => { this.props.navigation.goBack(); }} />;
+    }
+}
+
+// withNavigation returns a component that wraps MyBackButton and passes in the
+// navigation prop
+const BackButtonWithNavigation = withNavigation<BackButtonProps>(MyBackButton);
+const BackButtonInstance = <BackButtonWithNavigation
+    title="Back" onRef={ref => { const backButtonRef = ref; }}
+/>;

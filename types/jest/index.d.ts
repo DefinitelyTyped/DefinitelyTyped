@@ -209,6 +209,14 @@ declare namespace jest {
         readonly name: string;
     }
 
+    interface Each {
+        (cases: any[]): (name: string, fn: (...args: any[]) => any) => void;
+        (strings: TemplateStringsArray, ...placeholders: any[]): (
+            name: string,
+            fn: (arg: any) => any
+        ) => void;
+    }
+
     /**
      * Creates a test closure
      */
@@ -227,6 +235,7 @@ declare namespace jest {
         only: It;
         skip: It;
         concurrent: It;
+        each: Each;
     }
 
     interface Describe {
@@ -234,6 +243,7 @@ declare namespace jest {
         (name: number | string | Function | FunctionLike, fn: EmptyFunction): void;
         only: Describe;
         skip: Describe;
+        each: Each;
     }
 
     interface MatcherUtils {
@@ -553,11 +563,11 @@ declare namespace jest {
         /**
          * Used to test that a function throws when it is called.
          */
-        toThrow(error?: string | Constructable | RegExp): R;
+        toThrow(error?: string | Constructable | RegExp | Error): R;
         /**
          * If you want to test that a specific error is thrown inside a function.
          */
-        toThrowError(error?: string | Constructable | RegExp): R;
+        toThrowError(error?: string | Constructable | RegExp | Error): R;
         /**
          * Used to test that a function throws a error matching the most recent snapshot when it is called.
          */

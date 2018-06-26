@@ -1,8 +1,9 @@
-// Type definitions for react-beautiful-dnd 6.0
+// Type definitions for react-beautiful-dnd 7.1
 // Project: https://github.com/atlassian/react-beautiful-dnd
 // Definitions by: varHarrie <https://github.com/varHarrie>
 //                 Bradley Ayers <https://github.com/bradleyayers>
 //                 Austin Turner <https://github.com/paustint>
+//                 Mark Nelissen <https://github.com/marknelissen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -84,8 +85,8 @@ export class Droppable extends React.Component<DroppableProps> {}
  */
 
 export interface NotDraggingStyle {
-    transform: null | string;
-    transition: null | 'none';
+    transform?: string;
+    transition?: 'none';
 }
 
 export interface DraggingStyle {
@@ -97,14 +98,14 @@ export interface DraggingStyle {
     top: number;
     left: number;
     margin: 0;
-    transform: null | string;
+    transform?: string;
     transition: 'none';
     zIndex: ZIndex;
 }
 
 export interface DraggableProvidedDraggableProps {
     // inline style
-    style: null | DraggingStyle | NotDraggingStyle;
+    style?: DraggingStyle | NotDraggingStyle;
     // used for shared global styles
     'data-react-beautiful-dnd-draggable': string;
 }

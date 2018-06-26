@@ -12,6 +12,7 @@
 //                 Karol Janyst <https://github.com/LKay>
 //                 Aaron Beall <https://github.com/aaronbeall>
 //                 Johann Rakotoharisoa <https://github.com/jrakotoharisoa>
+//                 Andrew Makarov <https://github.com/r3nya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 

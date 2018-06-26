@@ -13,12 +13,9 @@ interface ComponentState {
 }
 
 class Component extends React.Component<{}, ComponentState> {
-    constructor(props: any) {
-        super(props);
-        this.state = {
-            activeIndex: 0
-        };
-    }
+    state = {
+        activeIndex: 0
+    };
 
     private clickHandler(...args: any[]) {
         console.log(`Handling a click on a chart: ${JSON.stringify(args)}`);
@@ -192,7 +189,9 @@ class Component extends React.Component<{}, ComponentState> {
                     <XAxis dataKey="name">
                         <Label value="Pages of my website" offset={0} position="insideBottom" />
                     </XAxis>
-                    <YAxis label='pv of page' />
+                    <YAxis>
+                        <Label value="pv of page" angle={90} />
+                    </YAxis>
                     <Bar dataKey="pv" fill="#8884d8">
                         <LabelList dataKey="name" position="insideTop" angle={45}  />
                     </Bar>

@@ -31,14 +31,22 @@ declare module 'react-redux-i18n' {
   }
 
   type TranslateProps = {
+    className?: string;
+    dangerousHTML?: boolean;
+    style?: React.CSSProperties;
+    tag?: React.ReactType;
     value: string;
-    [prop: string]: string;
-
+    [prop: string]: any;
   }
+
   type LocalizeProps = {
-    value: string | number;
+    className?: string;
+    dangerousHTML?: boolean;
     dateFormat?: string;
     options?: Object;
+    style?: React.CSSProperties;
+    tag?: React.ReactType;
+    value: string | number | object;
   }
 
   /**

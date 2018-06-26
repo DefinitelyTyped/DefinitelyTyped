@@ -12,6 +12,7 @@
 //                 Simon Archer <https://github.com/archy-bold>
 //                 Ken Elkabany <https://github.com/braincore>
 //                 Slavik Nychkalo <https://github.com/gebeto>
+//                 Francesco Benedetto <https://github.com/frabnt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -186,6 +187,10 @@ declare namespace Chart {
         labels?: Array<string | string[]>;
         datasets?: ChartDataSets[];
     }
+
+	interface RadialChartOptions extends ChartOptions {
+		scale?: RadialLinearScale;
+	}
 
     interface ChartOptions {
         responsive?: boolean;
@@ -483,7 +488,7 @@ declare namespace Chart {
         pointHoverBackgroundColor?: ChartColor | ChartColor[];
         pointHoverBorderColor?: ChartColor | ChartColor[];
         pointHoverBorderWidth?: number | number[];
-        pointStyle?: PointStyle | HTMLImageElement | Array<PointStyle | HTMLImageElement>;
+        pointStyle?: PointStyle | HTMLImageElement | HTMLCanvasElement | Array<PointStyle | HTMLImageElement | HTMLCanvasElement>;
         xAxisID?: string;
         yAxisID?: string;
         type?: string;
@@ -517,6 +522,7 @@ declare namespace Chart {
         barThickness?: number;
         maxBarThickness?: number;
         scaleLabel?: ScaleTitleOptions;
+        time?: TimeScale;
         offset?: boolean;
         beforeUpdate?(scale?: any): void;
         beforeSetDimension?(scale?: any): void;
@@ -538,7 +544,6 @@ declare namespace Chart {
         categoryPercentage?: number;
         barPercentage?: number;
         distribution?: 'linear' | 'series';
-        time?: TimeScale;
     }
 
     // tslint:disable-next-line no-empty-interface
@@ -579,7 +584,7 @@ declare namespace Chart {
         minUnit?: TimeUnit;
     }
 
-    interface RadialLinearScale {
+    interface RadialLinearScale extends LinearScale {
         lineArc?: boolean;
         angleLines?: AngleLineOptions;
         pointLabels?: PointLabelOptions;

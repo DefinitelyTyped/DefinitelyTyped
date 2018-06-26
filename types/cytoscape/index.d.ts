@@ -1118,7 +1118,7 @@ declare namespace cytoscape {
      * http://js.cytoscape.org/#collection
      */
     interface Collection<TOut = SingularElementReturnValue, TIn = SingularElementArgument>
-        extends Singular,
+        extends
         CollectionGraphManipulation, CollectionEvents,
         CollectionData, CollectionPosition,
         CollectionLayout,
@@ -1129,8 +1129,10 @@ declare namespace cytoscape {
     /**
      * ele  --> Cy.Singular
      * a collection of a single element (node or edge)
+     * NB: every singular collection is a general collection too (but not vice versa)!
      */
-    interface Singular extends
+    interface Singular<TOut = SingularElementReturnValue, TIn = SingularElementArgument>
+        extends Collection<TOut, TIn>,
         SingularGraphManipulation,
         SingularData, SingularPosition,
         SingularSelection, SingularStyle, SingularAnimation { }
@@ -1154,7 +1156,7 @@ declare namespace cytoscape {
      *
      * The output is a collection of edge elements OR single edge.
      */
-    interface EdgeCollection extends Collection<EdgeSingular, EdgeSingular>, EdgeSingular,
+    interface EdgeCollection extends EdgeSingular,
         EdgeCollectionTraversing { }
     /**
      *  nodes -> Cy.NodeCollection
@@ -1162,7 +1164,7 @@ declare namespace cytoscape {
      *
      * The output is a collection of node elements OR single node.
      */
-    interface NodeCollection extends Collection<NodeSingular, NodeSingular>, NodeSingular,
+    interface NodeCollection extends NodeSingular,
         NodeCollectionMetadata, NodeCollectionPosition, NodeCollectionTraversing,
         NodeCollectionCompound { }
 
@@ -1172,14 +1174,14 @@ declare namespace cytoscape {
      *  edge --> Cy.EdgeSingular
      *  a collection of a single edge
      */
-    interface EdgeSingular extends Singular,
+    interface EdgeSingular extends Singular<EdgeSingular, EdgeSingular>,
         EdgeSingularData, EdgeSingularPoints, EdgeSingularTraversing { }
 
     /**
      *  node --> Cy.NodeSingular
      *  a collection of a single node
      */
-    interface NodeSingular extends Singular,
+    interface NodeSingular extends Singular<NodeSingular, NodeSingular>,
         NodeSingularMetadata, NodeSingularPosition, NodeSingularCompound { }
 
     /**
@@ -1251,6 +1253,15 @@ declare namespace cytoscape {
         on(events: EventNames, selector: string, data: any, handler: EventHandler): void;
         on(events: EventNames, selector: string, handler: EventHandler): void;
         on(events: EventNames, handler: EventHandler): void;
+        bind(events: EventNames, selector: string, data: any, handler: EventHandler): void;
+        bind(events: EventNames, selector: string, handler: EventHandler): void;
+        bind(events: EventNames, handler: EventHandler): void;
+        listen(events: EventNames, selector: string, data: any, handler: EventHandler): void;
+        listen(events: EventNames, selector: string, handler: EventHandler): void;
+        listen(events: EventNames, handler: EventHandler): void;
+        addListener(events: EventNames, selector: string, data: any, handler: EventHandler): void;
+        addListener(events: EventNames, selector: string, handler: EventHandler): void;
+        addListener(events: EventNames, handler: EventHandler): void;
         /**
          * http://js.cytoscape.org/#eles.promiseOn
          * alias: pon
@@ -1280,11 +1291,15 @@ declare namespace cytoscape {
          * alias unbind, unlisten, removeListener
          */
         off(events: EventNames, selector?: string, handler?: EventHandler): void;
+        unbind(events: EventNames, selector?: string, handler?: EventHandler): void;
+        unlisten(events: EventNames, selector?: string, handler?: EventHandler): void;
+        removeListener(events: EventNames, selector?: string, handler?: EventHandler): void;
         /**
          * http://js.cytoscape.org/#eles.trigger
          * alias: emit
          */
         trigger(events: EventNames, extra?: string[]): void;
+        emit(events: EventNames, extra?: string[]): void;
     }
 
     /**
@@ -2747,28 +2762,28 @@ declare namespace cytoscape {
          *
          * @param selector [optional] An optional selector that is used to filter the resultant collection.
          */
-        outgoers(selector?: Selector): EdgeCollection;
+        outgoers(selector?: Selector): CollectionReturnValue;
 
         /**
          * Recursively get edges (and their targets) coming out of the nodes in the collection (i.e. the outgoers, the outgoers' outgoers, ...).
          *
          * @param selector [optional] An optional selector that is used to filter the resultant collection.
          */
-        successors(selector?: Selector): EdgeCollection;
+        successors(selector?: Selector): CollectionReturnValue;
 
         /**
          * Get edges (and their sources) coming into the nodes in the collection.
          *
          * @param selector [optional] An optional selector that is used to filter the resultant collection.
          */
-        incomers(selector?: Selector): EdgeCollection;
+        incomers(selector?: Selector): CollectionReturnValue;
 
         /**
          * Recursively get edges (and their sources) coming into the nodes in the collection (i.e. the incomers, the incomers' incomers, ...).
          *
          * @param selector [optional] An optional selector that is used to filter the resultant collection.
          */
-        predecessors(selector?: Selector): EdgeCollection;
+        predecessors(selector?: Selector): CollectionReturnValue;
     }
 
     /**

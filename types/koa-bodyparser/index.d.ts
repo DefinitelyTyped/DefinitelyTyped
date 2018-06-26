@@ -1,6 +1,6 @@
-// Type definitions for koa-bodyparser 4.2
+// Type definitions for koa-bodyparser 5.0
 // Project: https://github.com/koajs/bodyparser
-// Definitions by: Jerry Chin <https://github.com/hellopao>
+// Definitions by: Jerry Chin <https://github.com/hellopao>, Anup Kishore <https://github.com/anup-2s>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -18,8 +18,8 @@ import * as Koa from "koa";
 
 declare module "koa" {
     interface Request {
-        body: any;
-        rawBody: any;
+        body: {} | null | undefined;
+        rawBody: {} | null | undefined;
     }
 }
 

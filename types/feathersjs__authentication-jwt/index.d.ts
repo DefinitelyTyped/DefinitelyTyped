@@ -8,7 +8,7 @@ import { Application } from '@feathersjs/feathers';
 import { Request } from 'express';
 import * as self from '@feathersjs/authentication-jwt';
 
-declare const feathersAuthenticationJwt: ((options?: FeathersAuthenticationJWTOptions) => () => void) & typeof self;
+declare const feathersAuthenticationJwt: ((options?: Partial<FeathersAuthenticationJWTOptions>) => () => void) & typeof self;
 export default feathersAuthenticationJwt;
 
 export interface FeathersAuthenticationJWTOptions {
@@ -43,10 +43,10 @@ export interface FeathersAuthenticationJWTOptions {
     /**
      * A Verifier class. Defaults to the built-in one but can be a custom one. See below for details.
      */
-    Verifier: JWTVerifier;
+    Verifier: typeof Verifier;
 }
 
-export class JWTVerifier {
+export class Verifier {
     constructor(app: Application, options: any); // the class constructor
 
     verify(req: Request, payload: any, done: (error: any, user?: any, info?: any) => void): void;

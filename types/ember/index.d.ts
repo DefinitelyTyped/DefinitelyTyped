@@ -1737,6 +1737,17 @@ declare module '@ember/controller' {
     import Mixin from '@ember/object/mixin';
     import EmberArray from '@ember/array';
 
+    type QueryParamType = 'boolean' | 'number' | 'array' | 'string';
+    type QueryParamScope = 'controller' | 'model';
+
+    interface QueryParamConfig {
+        [key: string]: {
+            type?: QueryParamType;
+            scope?: QueryParamScope;
+            as?: string;
+        };
+    }
+
     /**
      * Additional methods for the Controller.
      */
@@ -1744,7 +1755,7 @@ declare module '@ember/controller' {
         replaceRoute(name: string, ...args: any[]): void;
         transitionToRoute(name: string, ...args: any[]): void;
         model: any;
-        queryParams: string[] | EmberArray<{ [key: string]: { type: string } }>;
+        queryParams: string | string[] | QueryParamConfig[];
         target: Object;
     }
     const ControllerMixin: Mixin<ControllerMixin>;

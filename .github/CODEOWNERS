@@ -1104,6 +1104,7 @@
 /types/ffprobe-static/                          @iamstevetran
 /types/fhir-js-client/                          @rmchndrng
 /types/fibers/                                  @soywiz
+/types/fibjs/                                   @richardo2016
 /types/figures/                                 @BendingBender
 /types/file-exists/                             @BendingBender
 /types/file-saver/                              @cyrilschumacher @DaIgeb @chrismbarr
@@ -3383,7 +3384,7 @@
 /types/react-json/                              @spielc
 /types/react-json-pretty/                       @LKay
 /types/react-json-tree/                         @gnestor
-/types/react-jsonschema-form/                   @iamdanfox @sirreal @iplus26 @KurtPreston
+/types/react-jsonschema-form/                   @iamdanfox @iplus26 @KurtPreston
 /types/react-lazyload/                          @m0a
 /types/react-leaflet/                           @danzel @davschne @yuit
 /types/react-list/                              @buptyyf @tomshen
