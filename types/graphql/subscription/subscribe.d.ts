@@ -2,7 +2,7 @@ import Maybe from "../tsutils/Maybe";
 import { GraphQLSchema } from "../type/schema";
 import { DocumentNode } from "../language/ast";
 import { GraphQLFieldResolver } from "../type/definition";
-import { ExecutionResult } from "../execution/execute";
+import { ExecutionResult, ExecutionResultDataDefault } from "../execution/execute";
 
 /**
  * Implements the "Subscribe" algorithm described in the GraphQL specification.
@@ -24,7 +24,7 @@ import { ExecutionResult } from "../execution/execute";
  *
  * Accepts either an object with named arguments, or individual arguments.
  */
-export function subscribe<TData>(args: {
+export function subscribe<TData = ExecutionResultDataDefault>(args: {
     schema: GraphQLSchema;
     document: DocumentNode;
     rootValue?: any;
@@ -35,7 +35,7 @@ export function subscribe<TData>(args: {
     subscribeFieldResolver?: Maybe<GraphQLFieldResolver<any, any>>;
 }): Promise<AsyncIterator<ExecutionResult<TData>> | ExecutionResult<TData>>;
 
-export function subscribe<TData>(
+export function subscribe<TData = ExecutionResultDataDefault>(
     schema: GraphQLSchema,
     document: DocumentNode,
     rootValue?: any,
@@ -64,7 +64,7 @@ export function subscribe<TData>(
  * or otherwise separating these two steps. For more on this, see the
  * "Supporting Subscriptions at Scale" information in the GraphQL specification.
  */
-export function createSourceEventStream<TData>(
+export function createSourceEventStream<TData = ExecutionResultDataDefault>(
     schema: GraphQLSchema,
     document: DocumentNode,
     rootValue?: any,

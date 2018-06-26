@@ -36,13 +36,17 @@ export interface ExecutionContext {
     errors: GraphQLError[];
 }
 
+export interface ExecutionResultDataDefault {
+    [key: string]: any
+}
+
 /**
  * The result of GraphQL execution.
  *
  *   - `errors` is included when any errors occurred as a non-empty array.
  *   - `data` is the result of a successful execution of the query.
  */
-export interface ExecutionResult<TData> {
+export interface ExecutionResult<TData = ExecutionResultDataDefault> {
     errors?: ReadonlyArray<GraphQLError>;
     data?: Readonly<TData>;
 }
@@ -69,8 +73,8 @@ export type ExecutionArgs = {
  *
  * Accepts either an object with named arguments, or individual arguments.
  */
-export function execute<TData>(args: ExecutionArgs): MaybePromise<ExecutionResult<TData>>;
-export function execute<TData>(
+export function execute<TData = ExecutionResultDataDefault>(args: ExecutionArgs): MaybePromise<ExecutionResult<TData>>;
+export function execute<TData = ExecutionResultDataDefault>(
     schema: GraphQLSchema,
     document: DocumentNode,
     rootValue?: any,
@@ -89,6 +93,7 @@ export function responsePathAsArray(path: ResponsePath): ReadonlyArray<string | 
 /**
  * Given a ResponsePath and a key, return a new ResponsePath containing the
  * new key.
+
  */
 export function addPath(
     prev: ResponsePath | undefined,

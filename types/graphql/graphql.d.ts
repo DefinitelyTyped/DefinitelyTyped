@@ -2,7 +2,7 @@ import Maybe from "./tsutils/Maybe";
 import { Source } from "./language/source";
 import { GraphQLFieldResolver } from "./type/definition";
 import { GraphQLSchema } from "./type/schema";
-import { ExecutionResult } from "./execution/execute";
+import { ExecutionResult, ExecutionResultDataDefault } from "./execution/execute";
 
 /**
  * This is the primary entry point function for fulfilling GraphQL operations
@@ -44,8 +44,8 @@ export interface GraphQLArgs {
     fieldResolver?: Maybe<GraphQLFieldResolver<any, any>>;
 }
 
-export function graphql<TData>(args: GraphQLArgs): Promise<ExecutionResult<TData>>;
-export function graphql<TData>(
+export function graphql<TData = ExecutionResultDataDefault>(args: GraphQLArgs): Promise<ExecutionResult<TData>>;
+export function graphql<TData = ExecutionResultDataDefault>(
     schema: GraphQLSchema,
     source: Source | string,
     rootValue?: any,
@@ -61,8 +61,8 @@ export function graphql<TData>(
  * However, it guarantees to complete synchronously (or throw an error) assuming
  * that all field resolvers are also synchronous.
  */
-export function graphqlSync<TData>(args: GraphQLArgs): ExecutionResult<TData>;
-export function graphqlSync<TData>(
+export function graphqlSync<TData = ExecutionResultDataDefault>(args: GraphQLArgs): ExecutionResult<TData>;
+export function graphqlSync<TData = ExecutionResultDataDefault>(
     schema: GraphQLSchema,
     source: Source | string,
     rootValue?: any,
