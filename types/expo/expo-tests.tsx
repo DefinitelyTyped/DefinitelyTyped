@@ -223,8 +223,8 @@ Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY;
 Audio.RECORDING_OPTIONS_PRESET_LOW_QUALITY;
 async () => {
     const result = await Audio.Sound.create({uri: 'uri'}, {
-        volume: 0.5,
-        rate: 0.6
+        volume: 0.55,
+        rate: 16.5
     }, null, true);
 
     const sound = result.sound;
@@ -267,8 +267,8 @@ const barcodeReadCallback = () => {};
 );
 
 async () => {
-    await Brightness.setBrightnessAsync(.6);
-    await Brightness.setSystemBrightnessAsync(.7);
+    await Brightness.setBrightnessAsync(0.65);
+    await Brightness.setSystemBrightnessAsync(0.75);
     const br1 = await Brightness.getBrightnessAsync();
     const br2 = await Brightness.getSystemBrightnessAsync();
 };
@@ -376,7 +376,7 @@ async () => {
     const result = await ImageManipulator.manipulate('url', {
         rotate: 90
     }, {
-        compress: 0.5
+        compress: 0.75
     });
 
     result.height;
