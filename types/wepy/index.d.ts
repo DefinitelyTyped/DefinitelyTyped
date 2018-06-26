@@ -13,12 +13,20 @@ import util from "./util";
 import base from "./base";
 import { WxEnhances } from "./wx_enhanced";
 
+export as namespace wepy;
+
+export type event = typeof event;
+export type component = typeof component;
+export type app = typeof app;
+export type page = typeof page;
+export type mixin = typeof mixin;
+
 interface DefaultExport extends WxEnhances {
-    event: typeof event;
-    app: typeof app;
-    component: typeof component;
-    page: typeof page;
-    mixin: typeof mixin;
+    event: wepy.event;
+    app: wepy.app;
+    component: wepy.component;
+    page: wepy.page;
+    mixin: wepy.mixin;
     $createApp: typeof base.$createApp;
     $createPage: typeof base.$createPage;
     $isEmpty: typeof util.$isEmpty;
