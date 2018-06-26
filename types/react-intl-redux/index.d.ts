@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Action } from "redux"
+import { Action, AnyAction } from "redux"
 import { Provider as ReduxProvider } from "react-redux"
 import { IntlProvider as ReactIntlProvider } from "react-intl"
 
@@ -20,4 +20,4 @@ interface IntlAction extends Action {
 export function intlReducer(state: IntlState, action: IntlAction): IntlState
 export function updateIntl (opts: IntlState): IntlAction
 export class IntlProvider extends ReactIntlProvider {}
-export class Provider extends ReduxProvider {}
+export class Provider<A extends Action = AnyAction> extends ReduxProvider<A> {}

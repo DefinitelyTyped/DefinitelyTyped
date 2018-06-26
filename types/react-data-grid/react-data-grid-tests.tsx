@@ -10,13 +10,9 @@ var DropDownEditor = Editors.DropDownEditor;
 var { Selectors } = ReactDataGridPlugins.Data;
 
 class CustomFilterHeaderCell extends React.Component<any, any> {
-   constructor(props: any, context: any) {
-       super(props, context);
-
-       this.state = {
-           filterTerm: ""
-       };
-   }
+   state = {
+       filterTerm: ""
+   };
    handleChange(e: any) {
        let val = e.target.value;
        this.setState({filterTerm: val});

@@ -74,11 +74,19 @@ export interface PlotRelayoutEvent {
 	scene: PlotScene;
 }
 
+export interface ClickAnnotationEvent {
+	index: number;
+	annotation: Annotations;
+	fullAnnotation: Annotations;
+	event: MouseEvent;
+}
+
 export interface PlotlyHTMLElement extends HTMLElement {
 	on(event: 'plotly_click' | 'plotly_hover' | 'plotly_unhover', callback: (event: PlotMouseEvent) => void): void;
 	on(event: 'plotly_selecting' | 'plotly_selected', callback: (event: PlotSelectionEvent) => void): void;
 	on(event: 'plotly_restyle', callback: (data: PlotRestyleEvent) => void): void;
 	on(event: 'plotly_relayout', callback: (event: PlotRelayoutEvent) => void): void;
+	on(event: 'plotly_clickannotation', callback: (event: ClickAnnotationEvent) => void): void;
 	// on(event: 'plotly_event', callback: (data: any) => void): void;
 	on(event: 'plotly_afterplot' | 'plotly_autosize' | 'plotly_deselect' | 'plotly_doubleclick' | 'plotly_redraw' | 'plotly_animated', callback: () => void): void;
 }

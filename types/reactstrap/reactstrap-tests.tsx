@@ -101,6 +101,7 @@ const Examplea = (props: any) => {
 };
 
 class AlertExample extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -277,6 +278,7 @@ const Example13 = (
 );
 
 class Example14 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -325,6 +327,7 @@ class Example14 extends React.Component<any, any> {
 
 // ------------- Button Dropdown
 class Example15 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -866,6 +869,7 @@ const Example36 = (props: any) => {
 // ------------------ Collapse
 
 class Example37 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
     this.toggle = this.toggle.bind(this);
@@ -896,6 +900,7 @@ class Example37 extends React.Component<any, any> {
 }
 
 class Example38 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
     this.onOpened = this.onOpened.bind(this);
@@ -940,6 +945,7 @@ class Example38 extends React.Component<any, any> {
 // ------- Dropdown
 
 class Example39 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -1016,6 +1022,7 @@ const Example42 = (props: any) => (
 );
 
 class Example43 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -1950,6 +1957,7 @@ const Example71 = () => {
 
 // --------------- Modal
 class ModalExample72 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
     this.state = {
@@ -1989,6 +1997,7 @@ class ModalExample72 extends React.Component<any, any> {
 }
 
 class ModalExample73 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
     this.state = {
@@ -2049,6 +2058,7 @@ class ModalExample73 extends React.Component<any, any> {
 }
 
 class ModalExample74 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
     this.state = {
@@ -2106,6 +2116,7 @@ class ModalExample74 extends React.Component<any, any> {
 }
 
 class Example75 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -2159,6 +2170,7 @@ class Example75 extends React.Component<any, any> {
 }
 
 class Example76 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -2254,6 +2266,7 @@ class Example78 extends React.Component<any, any> {
 }
 
 class Example79 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -2304,6 +2317,7 @@ class Example79 extends React.Component<any, any> {
 }
 
 class Example80 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -2496,6 +2510,7 @@ class Example84 extends React.Component {
 
 // ------------------------- Popover
 class Example85 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -2527,6 +2542,7 @@ class Example85 extends React.Component<any, any> {
 }
 
 class PopoverItem extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -2558,6 +2574,7 @@ class PopoverItem extends React.Component<any, any> {
 }
 
 class PopoverExampleMulti extends React.Component<any, {popovers: Array<{placement: string; text: string; }>}> {
+  state: {popovers: Array<{placement: string; text: string; }>};
   constructor(props: any) {
     super(props);
 
@@ -3060,6 +3077,7 @@ class Example100 extends React.Component {
 }
 
 class Example101 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -3130,6 +3148,7 @@ class Example101 extends React.Component<any, any> {
 }
 
 class Example102 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -3158,6 +3177,7 @@ class Example102 extends React.Component<any, any> {
 }
 
 class Example103 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -3186,6 +3206,7 @@ class Example103 extends React.Component<any, any> {
 }
 
 class TooltipItem extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -3216,6 +3237,7 @@ class TooltipItem extends React.Component<any, any> {
 }
 
 class TooltipExampleMulti extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -3345,6 +3367,7 @@ class Example107 extends React.Component {
 }
 
 class Example108 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -3381,6 +3404,7 @@ class Example108 extends React.Component<any, any> {
 }
 
 class Example109 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -3417,7 +3441,8 @@ class Example109 extends React.Component<any, any> {
 }
 
 class Example110 extends React.Component<any, any> {
-  constructor(props: any) {
+   state: any;
+   constructor(props: any) {
     super(props);
 
     this.toggle = this.toggle.bind(this);
@@ -3453,6 +3478,7 @@ class Example110 extends React.Component<any, any> {
 }
 
 class Example111 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -3489,6 +3515,7 @@ class Example111 extends React.Component<any, any> {
 }
 
 class Example112 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -3540,24 +3567,25 @@ const Example113 = (props: any) => {
   };
 
 class Example114 extends React.Component<any, any> {
-private element: HTMLElement;
+    state: any;
+    private element: HTMLElement;
 
-refFn(r: HTMLElement | null) {
-    if (r) {
-        this.element = r;
+    refFn(r: HTMLElement | null) {
+        if (r) {
+            this.element = r;
+        }
     }
-}
 
-render() {
-    return (
-    <div>
-        <p>Somewhere in here is a <a href="#" ref={this.refFn}>tooltip</a>.</p>
-        <Tooltip placement="bottom-start" isOpen={this.state.tooltipOpen} target={this.element}>
-        Hello world!
-        </Tooltip>
-    </div>
-    );
-}
+    render() {
+        return (
+        <div>
+            <p>Somewhere in here is a <a href="#" ref={this.refFn}>tooltip</a>.</p>
+            <Tooltip placement="bottom-start" isOpen={this.state.tooltipOpen} target={this.element}>
+            Hello world!
+            </Tooltip>
+        </div>
+        );
+    }
 }
 
 class Example115 extends React.Component<any, any> {
@@ -3583,6 +3611,7 @@ class Example115 extends React.Component<any, any> {
 
     private animating: boolean;
 
+    state: any;
     constructor(props: any) {
       super(props);
       this.state = { activeIndex: 0 };
@@ -4202,6 +4231,7 @@ class Example121 extends React.Component<any, any> {
 }
 
 class Example122 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 

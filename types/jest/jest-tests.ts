@@ -556,15 +556,18 @@ describe("", () => {
         expect(true).toStrictEqual(false);
         expect({}).toStrictEqual({});
 
+        const errInstance = new Error();
+        const willThrow = () => { throw new Error(); };
         expect(() => {}).toThrow();
-        expect(() => { throw new Error(); }).toThrow("");
+        expect(willThrow).toThrow("");
+        expect(willThrow).toThrow(errInstance);
         expect(jest.fn()).toThrow(Error);
-        expect(jest.fn(() => { throw new Error(); })).toThrow(/foo/);
+        expect(jest.fn(willThrow)).toThrow(/foo/);
 
         expect(() => {}).toThrowErrorMatchingSnapshot();
-        expect(() => { throw new Error(); }).toThrowErrorMatchingSnapshot();
+        expect(willThrow).toThrowErrorMatchingSnapshot();
         expect(jest.fn()).toThrowErrorMatchingSnapshot();
-        expect(jest.fn(() => { throw new Error(); })).toThrowErrorMatchingSnapshot();
+        expect(jest.fn(willThrow)).toThrowErrorMatchingSnapshot();
 
         /* not */
 

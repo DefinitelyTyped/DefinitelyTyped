@@ -111,6 +111,8 @@ declare module 'ember' {
         | 'render'
         | 'afterRender'
         | 'destroy';
+    type QueryParamTypes = 'boolean' | 'number' | 'array' | 'string';
+    type QueryParamScopeTypes = 'controller' | 'model';
 
     type ObserverMethod<Target, Sender> =
         | (keyof Target)
@@ -738,7 +740,11 @@ declare module 'ember' {
             replaceRoute(name: string, ...args: any[]): void;
             transitionToRoute(name: string, ...args: any[]): void;
             model: any;
-            queryParams: string[] | Array<{ [key: string]: { type: string } }>;
+            queryParams: string | string[] | Array<{ [key: string]: {
+                type?: QueryParamTypes,
+                scope?: QueryParamScopeTypes,
+                as?: string
+            }}>;
             target: Object;
         }
         const ControllerMixin: Ember.Mixin<ControllerMixin>;

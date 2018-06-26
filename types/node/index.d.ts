@@ -477,6 +477,7 @@ declare namespace NodeJS {
         showProxy?: boolean;
         maxArrayLength?: number | null;
         breakLength?: number;
+        compact?: boolean;
     }
 
     export interface ConsoleConstructor {

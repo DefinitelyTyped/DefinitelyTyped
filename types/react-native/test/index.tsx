@@ -24,7 +24,9 @@ import {
     Dimensions,
     Image,
     ImageStyle,
+    ImageResizeMode,
     ImageLoadEventData,
+    ImageResolvedAssetSource,
     InteractionManager,
     ListView,
     ListViewDataSource,
@@ -58,6 +60,7 @@ import {
     GestureResponderEvent,
     TextInputScrollEventData,
     TextInputSelectionChangeEventData,
+    TextInputKeyPressEventData,
 } from "react-native";
 
 declare module "react-native" {
@@ -501,6 +504,11 @@ class TextInputTest extends React.Component<{}, {username: string}> {
         console.log(`end: ${ e.nativeEvent.selection.end }`);
     }
 
+    handleOnKeyPress = (e: NativeSyntheticEvent<TextInputKeyPressEventData>) => {
+        testNativeSyntheticEvent(e);
+        console.log(`key: ${ e.nativeEvent.key }`);
+    }
+
     render() {
         return (
             <View>
@@ -525,6 +533,10 @@ class TextInputTest extends React.Component<{}, {username: string}> {
                 <TextInput
                     onSelectionChange={this.handleOnSelectionChange}
                 />
+
+                <TextInput
+                    onKeyPress={this.handleOnKeyPress}
+                />
             </View>
         );
     }
@@ -547,6 +559,13 @@ class StatusBarTest extends React.Component {
 }
 
 export class ImageTest extends React.Component {
+    componentDidMount(): void {
+        const image: ImageResolvedAssetSource = Image.resolveAssetSource({
+            uri: 'https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png'
+        });
+        console.log(image.width, image.height, image.scale, image.uri);
+    }
+
     onLoad(e: NativeSyntheticEvent<ImageLoadEventData>) {
         testNativeSyntheticEvent(e);
         console.log('height:', e.nativeEvent.source.height);
@@ -555,11 +574,18 @@ export class ImageTest extends React.Component {
     }
 
     render() {
+        const resizeMode: ImageResizeMode = 'contain';
+
         return (
             <View>
                 <Image
                     source={{ uri: 'https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png' }}
                     onLoad={this.onLoad}
+                />
+
+                <Image
+                    source={{ uri: 'https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png' }}
+                    resizeMode={resizeMode}
                 />
             </View>
         );
@@ -588,3 +614,13 @@ class StylePropsTest extends React.PureComponent {
 }
 
 const listViewDataSourceTest = new ListView.DataSource({rowHasChanged: () => true})
+
+class AccessibilityViewHidingTest extends React.Component {
+    render() {
+        return (
+            <View accessibilityElementsHidden importantForAccessibility="no-hide-descendants">
+                <View />
+            </View>
+        );
+    }
+}

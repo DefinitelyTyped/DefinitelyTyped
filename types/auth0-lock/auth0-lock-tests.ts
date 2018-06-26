@@ -143,7 +143,8 @@ const multiVariantOptions : Auth0LockConstructorOptions = {
     signUpTerms: "I agree to the <a href='/terms' target='_new'>terms of service</a> ...",
     title: "My Company",
   },
-  autofocus: false
+  autofocus: false,
+  allowShowPassword: true,
 };
 
 new Auth0Lock(CLIENT_ID, DOMAIN, multiVariantOptions);
