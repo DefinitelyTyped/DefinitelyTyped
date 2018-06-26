@@ -22,7 +22,7 @@ export class Iban {
 	static toAddress(iban: Iban): string;
 	isValid(): boolean;
 }
-export type BlockType = "latest" | "pending" | "genesis" | number;
+export type BlockType = "latest" | "pending" | "genesis" | number | string;
 
 export interface BlockHeader {
 	number: number;

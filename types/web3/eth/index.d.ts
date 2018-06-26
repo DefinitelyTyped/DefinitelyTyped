@@ -97,11 +97,11 @@ export default interface Eth {
     ): Promise<Block>;
     getBlockNumber(callback?: Callback<number>): Promise<number>;
     getBlockTransactionCount(
-        number: BlockType | string,
+        number: BlockType,
         cb?: Callback<number>
     ): Promise<number>;
     getBlockUncleCount(
-        number: BlockType | string,
+        number: BlockType,
         cb?: Callback<number>
     ): Promise<number>;
     getCode(
@@ -147,7 +147,7 @@ export default interface Eth {
         cb?: Callback<Transaction>
     ): Promise<Transaction>;
     getUncle(
-        blockHashOrBlockNumber: BlockType | string,
+        blockHashOrBlockNumber: BlockType,
         uncleIndex: number,
         returnTransactionObjects?: boolean,
         cb?: Callback<Block>

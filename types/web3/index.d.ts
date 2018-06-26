@@ -13,6 +13,7 @@
 //                 Baris Gumustas <https://github.com/matrushka>
 //                 André Vitor de Lima Matos <https://github.com/andrevmatos>
 //                 Levin Keller <https://github.com/levino>
+//                 Raúl Kripalani <https://github.com/raulk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 import BigNumber = require("bn.js");
