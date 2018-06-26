@@ -610,7 +610,7 @@ declare namespace NodeJS {
         end(chunk: T, encoding?: string, cb?: Function): void;
     }
 
-    export interface ReadWriteStream<TInput = string | Buffer, TOutput = string | Buffer> extends ReadableStream<TOutput>, WritableStream<TInput> { }
+    export interface ReadWriteStream<TWrite = string | Buffer, TRead = string | Buffer> extends ReadableStream<TRead>, WritableStream<TWrite> { }
 
     export interface Events extends EventEmitter { }
 
@@ -6128,42 +6128,42 @@ declare module "stream" {
             removeListener(event: "unpipe", listener: (src: Readable<T>) => void): this;
         }
 
-        export interface DuplexOptions<TInput = any, TOutput = any> extends ReadableOptions<TOutput>, WritableOptions<TInput> {
+        export interface DuplexOptions<TWrite = any, TRead = any> extends ReadableOptions<TRead>, WritableOptions<TWrite> {
             allowHalfOpen?: boolean;
             readableObjectMode?: boolean;
             writableObjectMode?: boolean;
         }
 
         // Note: Duplex extends both Readable and Writable.
-        export class Duplex<TInput = any, TOutput = any> extends Readable<TOutput> implements Writable<TInput> {
+        export class Duplex<TWrite = any, TRead = any> extends Readable<TRead> implements Writable<TWrite> {
             writable: boolean;
             readonly writableHighWaterMark: number;
             readonly writableLength: number;
-            constructor(opts?: DuplexOptions<TInput, TOutput>);
-            _write(chunk: TInput, encoding: string, callback: (err?: Error) => void): void;
-            _writev?(chunks: Array<{ chunk: TInput, encoding: string }>, callback: (err?: Error) => void): void;
+            constructor(opts?: DuplexOptions<TWrite, TRead>);
+            _write(chunk: TWrite, encoding: string, callback: (err?: Error) => void): void;
+            _writev?(chunks: Array<{ chunk: TWrite, encoding: string }>, callback: (err?: Error) => void): void;
             _destroy(err: Error, callback: Function): void;
             _final(callback: Function): void;
-            write(chunk: TInput, cb?: Function): boolean;
-            write(chunk: TInput, encoding?: string, cb?: Function): boolean;
+            write(chunk: TWrite, cb?: Function): boolean;
+            write(chunk: TWrite, encoding?: string, cb?: Function): boolean;
             setDefaultEncoding(encoding: string): this;
             end(cb?: Function): void;
-            end(chunk: TInput, cb?: Function): void;
-            end(chunk: TInput, encoding?: string, cb?: Function): void;
+            end(chunk: TWrite, cb?: Function): void;
+            end(chunk: TWrite, encoding?: string, cb?: Function): void;
             cork(): void;
             uncork(): void;
         }
 
         type TransformCallback<T> = (err?: Error, data?: T) => void;
 
-        export interface TransformOptions<TInput = any, TOutput = any> extends DuplexOptions<TInput, TOutput> {
-            transform?: (chunk: TInput, encoding: string, callback: TransformCallback<TOutput>) => void;
-            flush?: (callback: TransformCallback<TOutput>) => any;
+        export interface TransformOptions<TWrite = any, TRead = any> extends DuplexOptions<TWrite, TRead> {
+            transform?: (chunk: TWrite, encoding: string, callback: TransformCallback<TRead>) => void;
+            flush?: (callback: TransformCallback<TRead>) => any;
         }
 
-        export class Transform<TInput = any, TOutput = any> extends Duplex<TInput, TOutput> {
-            constructor(opts?: TransformOptions<TInput, TOutput>);
-            _transform(chunk: TInput, encoding: string, callback: TransformCallback<TOutput>): void;
+        export class Transform<TWrite = any, TRead = any> extends Duplex<TWrite, TRead> {
+            constructor(opts?: TransformOptions<TWrite, TRead>);
+            _transform(chunk: TWrite, encoding: string, callback: TransformCallback<TRead>): void;
             destroy(error?: Error): void;
         }
 
