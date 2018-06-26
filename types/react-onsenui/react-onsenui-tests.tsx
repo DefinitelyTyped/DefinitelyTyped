@@ -12,10 +12,7 @@ class AppState {
 interface AppProps {} // tslint:disable-line no-empty-interface
 
 export class App extends React.Component<AppProps, AppState> {
-    constructor(props: AppProps) {
-        super(props);
-        this.state = new AppState();
-    }
+    state = new AppState();
 
     hide() {
         this.setState({ isOpen: false });

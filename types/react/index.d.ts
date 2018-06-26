@@ -17,6 +17,7 @@
 //                 Ferdy Budhidharma <https://github.com/ferdaber>
 //                 Johann Rakotoharisoa <https://github.com/jrakotoharisoa>
 //                 Olivier Pascal <https://github.com/pascaloliv>
+//                 Martin Hochel <https://github.com/hotell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -281,13 +282,18 @@ declare namespace React {
     // tslint:disable-next-line:no-empty-interface
     interface Component<P = {}, S = {}, SS = any> extends ComponentLifecycle<P, S, SS> { }
     class Component<P, S> {
+        constructor(props: Readonly<P>);
+        /**
+         * @deprecated
+         * https://reactjs.org/docs/legacy-context.html
+         */
         constructor(props: P, context?: any);
 
         // We MUST keep setState() as a unified signature because it allows proper checking of the method return type.
         // See: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/18365#issuecomment-351013257
         // Also, the ` | S` allows intellisense to not be dumbisense
         setState<K extends keyof S>(
-            state: ((prevState: Readonly<S>, props: P) => (Pick<S, K> | S | null)) | (Pick<S, K> | S | null),
+            state: ((prevState: Readonly<S>, props: Readonly<P>) => (Pick<S, K> | S | null)) | (Pick<S, K> | S | null),
             callback?: () => void
         ): void;
 
@@ -299,9 +305,17 @@ declare namespace React {
         // always pass children as variadic arguments to `createElement`.
         // In the future, if we can define its call signature conditionally
         // on the existence of `children` in `P`, then we should remove this.
-        props: Readonly<{ children?: ReactNode }> & Readonly<P>;
-        state: Readonly<S>;
+        readonly props: Readonly<{ children?: ReactNode }> & Readonly<P>;
+        readonly state: null | Readonly<S>;
+        /**
+         * @deprecated
+         * https://reactjs.org/docs/legacy-context.html
+         */
         context: any;
+        /**
+         * @deprecated
+         * https://reactjs.org/docs/refs-and-the-dom.html#legacy-api-string-refs
+         */
         refs: {
             [key: string]: ReactInstance
         };

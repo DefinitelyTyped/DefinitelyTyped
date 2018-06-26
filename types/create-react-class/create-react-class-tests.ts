@@ -56,7 +56,7 @@ const ClassicComponent: React.ClassicComponentClass<Props> = createReactClass<Pr
     shouldComponentUpdate(this: React.ClassicComponent<Props, State>, nextProps, nextState) {
         const newFoo: string = nextProps.foo;
         const newBar: number = nextState.bar;
-        return newFoo !== this.props.foo && newBar !== this.state.bar;
+        return newFoo !== this.props.foo && newBar !== this.state!.bar;
     },
     statics: {
         test: 1
