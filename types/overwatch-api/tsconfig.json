@@ -3,6 +3,11 @@
     "target": "es6",
     "module": "commonjs",
     "strict": true,
-    "esModuleInterop": true
-  }
+    "esModuleInterop": true,
+    "moduleResolution": "node"
+  },
+  "files": [
+      "index.d.ts",
+      "overwatch-api.tests.ts"
+  ]
 }
