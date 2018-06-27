@@ -17,6 +17,7 @@ export interface Parameters {
     method?: any;
     options?: any;
     data?: any;
+	async?: any;
 }
 
 export interface Template {

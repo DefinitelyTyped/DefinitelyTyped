@@ -14,7 +14,8 @@ const params: twig.Parameters = {
 	method: value,
 	name: value,
 	options: value,
-	href: value
+	href: value,
+	async: value
 };
 
 const temp: twig.Template = twig.twig(params);
