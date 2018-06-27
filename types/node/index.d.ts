@@ -5894,10 +5894,10 @@ declare module "crypto" {
     export function pseudoRandomBytes(size: number): Buffer;
     export function pseudoRandomBytes(size: number, callback: (err: Error | null, buf: Buffer) => void): void;
 
-    export function randomFillSync(buffer: ArrayBufferView, offset?: number, size?: number): ArrayBufferView;
-    export function randomFill(buffer: ArrayBufferView, callback: (err: Error | null, buf: ArrayBufferView) => void): void;
-    export function randomFill(buffer: ArrayBufferView, offset: number, callback: (err: Error | null, buf: ArrayBufferView) => void): void;
-    export function randomFill(buffer: ArrayBufferView, offset: number, size: number, callback: (err: Error | null, buf: ArrayBufferView) => void): void;
+    export function randomFillSync<T extends Buffer | ArrayBufferView>(buffer: T, offset?: number, size?: number): T;
+    export function randomFill<T extends Buffer | ArrayBufferView>(buffer: T, callback: (err: Error | null, buf: T) => void): void;
+    export function randomFill<T extends Buffer | ArrayBufferView>(buffer: T, offset: number, callback: (err: Error | null, buf: T) => void): void;
+    export function randomFill<T extends Buffer | ArrayBufferView>(buffer: T, offset: number, size: number, callback: (err: Error | null, buf: T) => void): void;
 
     export interface RsaPublicKey {
         key: string;
