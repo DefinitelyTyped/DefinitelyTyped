@@ -273,7 +273,7 @@ declare namespace jest {
     }
 
     interface ExpectExtendMap {
-        [key: string]: (this: MatcherUtils, received: any, ...actual: any[]) => { message(): string, pass: boolean };
+        [key: string]: (this: MatcherUtils, received: any, ...actual: any[]) => { message(): string, pass: boolean } | Promise<{ message(): string, pass: boolean }>;
     }
 
     interface SnapshotSerializerOptions {
