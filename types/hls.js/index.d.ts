@@ -829,11 +829,23 @@ declare namespace Hls {
     }
 
     interface levelSwitchingData {
-        level: Level;
+        attrs: any;
+        audioCodec: string;
+        bitrate: number;
+        fragmentError: boolean;
+        height: number;
+        level: number;
+        loadError: number;
+        name: string;
+        unknownCodecs: string[]
+        url: string[];
+        urlId: number;
+        videoCodec: string;
+        width: number;
     }
 
     interface levelSwitchedData {
-        level: Level;
+        level: number;
     }
 
     interface audioTracksUpdatedData {
@@ -976,7 +988,15 @@ declare namespace Hls {
     interface errorData {
         type: string;
         details: string;
-        fatal: string;
+        fatal: boolean;
+        frag?: Fragment;
+        networkDetails?: XMLHttpRequest;
+        response?: LoaderError;
+        context?: LoaderContext;
+        levelRetry?: boolean;
+        url?: string;
+        loader?: Loader;
+        buffer?: number;
     }
 
     // interface destroyingData {}
