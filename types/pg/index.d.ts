@@ -17,6 +17,7 @@ export interface ConnectionConfig {
     host?: string;
     connectionString?: string;
     keepAlive?: boolean;
+    stream?: stream.Duplex;
 }
 
 export interface Defaults extends ConnectionConfig {
@@ -87,6 +88,48 @@ export interface Notification {
 
 export interface ResultBuilder extends QueryResult {
     addRow(row: any): void;
+}
+
+export interface QueryParse {
+    name: string;
+    text: string;
+    types: string[];
+}
+
+export interface BindConfig {
+    portal?: string;
+    statement?: string;
+    binary?: string;
+    values?: Array<(Buffer | null | undefined | string)>;
+}
+
+export interface ExecuteConfig {
+    portal?: string;
+    rows?: string;
+}
+
+export interface MessageConfig {
+    type: string;
+    name?: string;
+}
+
+export class Connection extends events.EventEmitter {
+    readonly stream: stream.Duplex;
+
+    constructor(config?: ConnectionConfig);
+
+    bind(config: BindConfig | null, more: boolean): void;
+    execute(config: ExecuteConfig | null, more: boolean): void;
+    parse(query: QueryParse, more: boolean): void;
+
+    query(text: string): void;
+
+    describe(msg: MessageConfig, more: boolean): void;
+    close(msg: MessageConfig, more: boolean): void;
+
+    flush(): void;
+    sync(): void;
+    end(): void;
 }
 
 export class Pool extends events.EventEmitter {
