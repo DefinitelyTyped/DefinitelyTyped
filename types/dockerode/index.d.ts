@@ -11,6 +11,7 @@
 
 /// <reference types="node" />
 
+import * as stream from 'stream';
 import * as events from 'events';
 
 declare namespace Dockerode {
