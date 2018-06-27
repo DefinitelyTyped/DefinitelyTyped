@@ -11,7 +11,6 @@
 
 /// <reference types="node" />
 
-import * as stream from 'stream';
 import * as events from 'events';
 
 declare namespace Dockerode {
@@ -962,11 +961,11 @@ declare class Dockerode {
   pull(repoTag: string, options: {}, callback: Callback<any>, auth?: {}): Dockerode.Image;
   pull(repoTag: string, options: {}, auth?: {}): Promise<any>;
 
-  run(image: string, cmd: string[], outputStream: NodeJS.WritableStream, createOptions: {}, startOptions: {}, callback: Callback<any>): events.EventEmitter;
-  run(image: string, cmd: string[], outputStream: NodeJS.WritableStream, startOptions: {}, callback: Callback<any>): events.EventEmitter;
-  run(image: string, cmd: string[], outputStream: NodeJS.WritableStream, callback: Callback<any>): events.EventEmitter;
-  run(image: string, cmd: string[], outputStream: NodeJS.WritableStream, createOptions: {}, callback: Callback<any>): events.EventEmitter;
-  run(image: string, cmd: string[], outputStream: NodeJS.WritableStream, createOptions?: {}, startOptions?: {}): Promise<any>;
+  run(image: string, cmd: string[], outputStream: NodeJS.WritableStream | NodeJS.WritableStream[], createOptions: {}, startOptions: {}, callback: Callback<any>): events.EventEmitter;
+  run(image: string, cmd: string[], outputStream: NodeJS.WritableStream | NodeJS.WritableStream[], startOptions: {}, callback: Callback<any>): events.EventEmitter;
+  run(image: string, cmd: string[], outputStream: NodeJS.WritableStream | NodeJS.WritableStream[], callback: Callback<any>): events.EventEmitter;
+  run(image: string, cmd: string[], outputStream: NodeJS.WritableStream | NodeJS.WritableStream[], createOptions: {}, callback: Callback<any>): events.EventEmitter;
+  run(image: string, cmd: string[], outputStream: NodeJS.WritableStream | NodeJS.WritableStream[], createOptions?: {}, startOptions?: {}): Promise<any>;
 
   swarmInit(options: {}, callback: Callback<any>): void;
   swarmInit(options: {}): Promise<any>;
