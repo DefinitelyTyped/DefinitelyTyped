@@ -11,5 +11,5 @@ async function simpleServerStart() {
 
     // you may stop mongod manually
     mongod.stop();
-    // or it will be stopped automatically when you exit from script.
+    // or it will be stopped automatically when you exit from script
 }
