@@ -16,6 +16,9 @@ import * as url from "url";
 import { Response as NodeResponse } from "node-fetch";
 
 declare namespace next {
+    /** Map object used in query strings. */
+    type QueryStringMapObject = Record<string, string | string[] | undefined>;
+
     /**
      * Context object used in methods like `getInitialProps()`
      * <<https://github.com/zeit/next.js/issues/1651>>
@@ -24,15 +27,7 @@ declare namespace next {
         /** path section of URL */
         pathname: string;
         /** query string section of URL parsed as an object */
-        query: {
-            [key: string]:
-                | boolean
-                | boolean[]
-                | number
-                | number[]
-                | string
-                | string[];
-        };
+        query: QueryStringMapObject;
         /** String of the actual path (including the query) shows in the browser */
         asPath: string;
         /** HTTP request object (server only) */
@@ -43,6 +38,8 @@ declare namespace next {
         jsonPageRes?: NodeResponse;
         /** Error object if any error is encountered during the rendering */
         err?: Error;
+        /** Whether we're running on the server environment or not. */
+        isServer?: boolean;
     }
 
     type NextSFC<TProps = {}> = NextStatelessComponent<TProps>;
@@ -101,15 +98,7 @@ declare namespace next {
             req: http.IncomingMessage,
             res: http.ServerResponse,
             pathname: string,
-            query?: {
-                [key: string]:
-                    | boolean
-                    | boolean[]
-                    | number
-                    | number[]
-                    | string
-                    | string[];
-            },
+            query?: QueryStringMapObject,
             parsedUrl?: UrlLike
         ): Promise<void>;
         renderError(
@@ -117,15 +106,7 @@ declare namespace next {
             req: http.IncomingMessage,
             res: http.ServerResponse,
             pathname: string,
-            query?: {
-                [key: string]:
-                    | boolean
-                    | boolean[]
-                    | number
-                    | number[]
-                    | string
-                    | string[];
-            }
+            query?: QueryStringMapObject
         ): Promise<void>;
         render404(
             req: http.IncomingMessage,
@@ -136,30 +117,14 @@ declare namespace next {
             req: http.IncomingMessage,
             res: http.ServerResponse,
             pathname: string,
-            query?: {
-                [key: string]:
-                    | boolean
-                    | boolean[]
-                    | number
-                    | number[]
-                    | string
-                    | string[];
-            }
+            query?: QueryStringMapObject
         ): Promise<string>;
         renderErrorToHTML(
             err: any,
             req: http.IncomingMessage,
             res: http.ServerResponse,
             pathname: string,
-            query?: {
-                [key: string]:
-                    | boolean
-                    | boolean[]
-                    | number
-                    | number[]
-                    | string
-                    | string[];
-            }
+            query?: QueryStringMapObject
         ): Promise<string>;
 
         serveStatic(
