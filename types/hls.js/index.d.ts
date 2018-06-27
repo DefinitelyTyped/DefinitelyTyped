@@ -837,7 +837,7 @@ declare namespace Hls {
         level: number;
         loadError: number;
         name: string;
-        unknownCodecs: string[]
+        unknownCodecs: string[];
         url: string[];
         urlId: number;
         videoCodec: string;
