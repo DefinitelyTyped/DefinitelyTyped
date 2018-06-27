@@ -33,7 +33,7 @@ declare namespace WebpackDevServer {
 
     type HistoryApiFallbackConfig = {
         disableDotRule?: boolean;
-        rewrites: {
+        rewrites?: {
             from: RegExp;
             to: string;
         }[];
