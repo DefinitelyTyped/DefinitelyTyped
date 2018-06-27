@@ -1,5 +1,5 @@
 import * as http from 'http';
-import * as testListen from 'test-listen';
+import testListen = require('test-listen');
 
 const test = async (): Promise<void> => {
     const server = http.createServer((req: http.IncomingMessage, res: http.ServerResponse): void => {

@@ -10,6 +10,4 @@ import { Server } from "net";
 
 declare function testListen(srv: Server, hostname?: string): Promise<string>;
 
-declare namespace testListen {}
-
 export = testListen;
