@@ -1,6 +1,7 @@
 import { createServer } from 'http';
 import { createWriteStream } from 'fs';
 import express = require('express');
+import asyncWriter = require('async-writer');
 
 import markoExpress = require('marko/express');
 import { load } from 'marko';
@@ -8,6 +9,7 @@ import { createWriter, AsyncStream, Template, RenderResult } from 'marko/src/run
 import { Component } from 'marko/src/components';
 import { buildTaglibLookup, taglibFinder } from 'marko/src/compiler';
 
+// tslint:disable-next-line no-var-requires
 const template: Template = require('template.marko');
 
 // Working with document
@@ -75,27 +77,27 @@ template.renderToString({}, (err, html) => {
     html;
 });
 
-// AsyncStream tests
+// AsyncStream/AsyncWriter tests
 
-const writer = createWriter(process.stdout);
+const writer: AsyncStream = createWriter(process.stdout);
 
 // $ExpectType void
 template.render({ name: 'Frank' }, writer);
 writer.end();
 
-const asyncStream: AsyncStream = require('async-writer').create(process.stdout);
+const asyncWriterInstance = asyncWriter.create(process.stdout);
 
-// $ExpectType AsyncStream
-asyncStream.write('Hello');
+// $ExpectType AsyncWriter
+asyncWriterInstance.write('Hello');
 
-const asyncOut = asyncStream.beginAsync();
+const asyncOut = asyncWriterInstance.beginAsync();
 
 setTimeout(() => {
     asyncOut.write('World');
     asyncOut.end();
 }, 100);
 
-template.render({}, asyncStream);
+template.render({}, asyncWriterInstance);
 
 // Component tests
 

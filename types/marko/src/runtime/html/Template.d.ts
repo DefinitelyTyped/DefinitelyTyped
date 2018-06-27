@@ -5,6 +5,7 @@ import { ServerResponse } from 'http';
 import AsyncStream from './AsyncStream';
 import RenderResult from './RenderResult';
 import AsyncVDOMBuilder from '../vdom/AsyncVDOMBuilder';
+import { AsyncWriter } from 'async-writer';
 
 export class Readable extends stream.Readable {
   _t: any;
@@ -28,7 +29,7 @@ export interface Renderable {
 
   render(data?: any): Promise<RenderResult>;
 
-  render(data: any, out: AsyncStream | AsyncVDOMBuilder | stream.Writable |
+  render(data: any, out: AsyncStream | AsyncWriter | AsyncVDOMBuilder | stream.Writable |
     ((err: any, result: RenderResult) => void)): void;
 }
 
