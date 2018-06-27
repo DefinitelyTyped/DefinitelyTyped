@@ -31,13 +31,13 @@ declare namespace WebpackDevServer {
 
     type ProxyConfigArray = ProxyConfigArrayItem[];
 
-    type HistoryApiFallbackConfig = {
+    interface HistoryApiFallbackConfig {
         disableDotRule?: boolean;
-        rewrites?: {
+        rewrites?: Array<{
             from: RegExp;
             to: string;
-        }[];
-    };
+        }>;
+    }
 
     interface Configuration {
         /** Provides the ability to execute custom middleware after all other middleware internally within the server. */
@@ -161,7 +161,7 @@ declare namespace WebpackDevServer {
 declare module 'webpack' {
     interface Configuration {
         /** Can be used to configure the behaviour of webpack-dev-server when the webpack config is passed to webpack-dev-server CLI. */
-        devServer?: WebpackDevServer.Configuration
+        devServer?: WebpackDevServer.Configuration;
     }
 }
 
