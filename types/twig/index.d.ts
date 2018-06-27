@@ -1,4 +1,4 @@
-// Type definitions for twig 1.10
+// Type definitions for twig 2.0
 // Project: https://github.com/twigjs/twig.js
 // Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>
 //                 Tim Schumacher <https://github.com/enko>
@@ -12,7 +12,7 @@ export interface Parameters {
     macros?: any;
     base?: any;
     path?: any;
-    url?: any;
+    href?: any;
     name?: any;
     method?: any;
     options?: any;
