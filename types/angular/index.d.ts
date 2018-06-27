@@ -2075,10 +2075,14 @@ declare namespace angular {
             scope: TScope,
             instanceElement: JQLite,
             instanceAttributes: IAttributes,
-            controller?: IController | IController[] | {[key: string]: IController},
+            controller?: LinkFnControllerType,
             transclude?: ITranscludeFunction
         ): void;
     }
+
+    type RequireType = string | string[] | {[key: string]: string};
+
+    type LinkFnControllerType = IController | IController[] | {[key: string]: IController};
 
     interface IDirectivePrePost<TScope extends IScope = IScope> {
         pre?: IDirectiveLinkFn<TScope>;
@@ -2116,7 +2120,7 @@ declare namespace angular {
          * @deprecated
          */
         replace?: boolean;
-        require?: string | string[] | {[controller: string]: string};
+        require?: RequireType;
         restrict?: string;
         scope?: boolean | {[boundProperty: string]: string};
         template?: string | ((tElement: JQLite, tAttrs: IAttributes) => string);
