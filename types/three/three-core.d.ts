@@ -5401,6 +5401,11 @@ export interface WebGLRendererParameters {
      * default is false.
      */
     logarithmicDepthBuffer?: boolean;
+
+	/**
+     * default is null.
+     */
+    context?: CanvasRenderingContext2D | WebGLRenderingContext;
 }
 
 
