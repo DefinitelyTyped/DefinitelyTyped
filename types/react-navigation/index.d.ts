@@ -395,7 +395,7 @@ export interface NavigationStackScreenOptions {
   title?: string;
   header?:
   | React.ReactElement<any>
-  | ((headerProps: HeaderProps) => React.ReactElement<any>))
+  | ((headerProps: HeaderProps) => React.ReactElement<any>)
   | null;
   headerTransparent?: boolean;
   headerTitle?: string | React.ReactElement<any>;
