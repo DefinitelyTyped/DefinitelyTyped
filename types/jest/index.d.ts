@@ -266,6 +266,10 @@ declare namespace jest {
             printWithType(name: string, received: any, print: (value: any) => string): string;
             stringify(object: {}, maxDepth?: number): string;
         };
+        /**
+         *  This is a deep-equality function that will return true if two objects have the same values (recursively).
+         */
+        equals(a: any, b: any): boolean;
     }
 
     interface ExpectExtendMap {
