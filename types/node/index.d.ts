@@ -164,7 +164,7 @@ interface Iterator<T> {
     next(value?: any): IteratorResult<T>;
 }
 interface IteratorResult<T> { }
-interface AsyncIterableIterator<T> {}
+interface AsyncIterableIterator<T> { }
 interface SymbolConstructor {
     readonly observable: symbol;
     readonly iterator: symbol;
@@ -712,6 +712,19 @@ declare namespace NodeJS {
         destroy(error?: Error): void;
     }
 
+    export interface ProcessEvents {
+        beforeExit: BeforeExitListener;
+        disconnect: DisconnectListener;
+        exit: ExitListener;
+        rejectionHandled: RejectionHandledListener;
+        uncaughtException: UncaughtExceptionListener;
+        unhandledRejection: UnhandledRejectionListener;
+        warning: WarningListener;
+        message: MessageListener;
+        newListener: NewListenerListener;
+        removeListener: RemoveListenerListener;
+    }
+
     export interface Process extends EventEmitter {
         stdout: WriteStream;
         stderr: WriteStream;
@@ -789,31 +802,8 @@ declare namespace NodeJS {
         disconnect(): void;
         connected: boolean;
 
-        /**
-         * EventEmitter
-         *   1. beforeExit
-         *   2. disconnect
-         *   3. exit
-         *   4. message
-         *   5. rejectionHandled
-         *   6. uncaughtException
-         *   7. unhandledRejection
-         *   8. warning
-         *   9. message
-         *  10. <All OS Signals>
-         *  11. newListener/removeListener inherited from EventEmitter
-         */
-        addListener(event: "beforeExit", listener: BeforeExitListener): this;
-        addListener(event: "disconnect", listener: DisconnectListener): this;
-        addListener(event: "exit", listener: ExitListener): this;
-        addListener(event: "rejectionHandled", listener: RejectionHandledListener): this;
-        addListener(event: "uncaughtException", listener: UncaughtExceptionListener): this;
-        addListener(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
-        addListener(event: "warning", listener: WarningListener): this;
-        addListener(event: "message", listener: MessageListener): this;
         addListener(event: Signals, listener: SignalsListener): this;
-        addListener(event: "newListener", listener: NewListenerListener): this;
-        addListener(event: "removeListener", listener: RemoveListenerListener): this;
+        addListener<K extends keyof ProcessEvents>(event: K, listener: ProcessEvents[K]): this;
 
         emit(event: "beforeExit", code: number): boolean;
         emit(event: "disconnect"): boolean;
@@ -827,65 +817,20 @@ declare namespace NodeJS {
         emit(event: "newListener", eventName: string | symbol, listener: (...args: any[]) => void): this;
         emit(event: "removeListener", eventName: string, listener: (...args: any[]) => void): this;
 
-        on(event: "beforeExit", listener: BeforeExitListener): this;
-        on(event: "disconnect", listener: DisconnectListener): this;
-        on(event: "exit", listener: ExitListener): this;
-        on(event: "rejectionHandled", listener: RejectionHandledListener): this;
-        on(event: "uncaughtException", listener: UncaughtExceptionListener): this;
-        on(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
-        on(event: "warning", listener: WarningListener): this;
-        on(event: "message", listener: MessageListener): this;
         on(event: Signals, listener: SignalsListener): this;
-        on(event: "newListener", listener: NewListenerListener): this;
-        on(event: "removeListener", listener: RemoveListenerListener): this;
+        on<K extends keyof ProcessEvents>(event: K, listener: ProcessEvents[K]): this;
 
-        once(event: "beforeExit", listener: BeforeExitListener): this;
-        once(event: "disconnect", listener: DisconnectListener): this;
-        once(event: "exit", listener: ExitListener): this;
-        once(event: "rejectionHandled", listener: RejectionHandledListener): this;
-        once(event: "uncaughtException", listener: UncaughtExceptionListener): this;
-        once(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
-        once(event: "warning", listener: WarningListener): this;
-        once(event: "message", listener: MessageListener): this;
         once(event: Signals, listener: SignalsListener): this;
-        once(event: "newListener", listener: NewListenerListener): this;
-        once(event: "removeListener", listener: RemoveListenerListener): this;
+        once<K extends keyof ProcessEvents>(event: K, listener: ProcessEvents[K]): this;
 
-        prependListener(event: "beforeExit", listener: BeforeExitListener): this;
-        prependListener(event: "disconnect", listener: DisconnectListener): this;
-        prependListener(event: "exit", listener: ExitListener): this;
-        prependListener(event: "rejectionHandled", listener: RejectionHandledListener): this;
-        prependListener(event: "uncaughtException", listener: UncaughtExceptionListener): this;
-        prependListener(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
-        prependListener(event: "warning", listener: WarningListener): this;
-        prependListener(event: "message", listener: MessageListener): this;
         prependListener(event: Signals, listener: SignalsListener): this;
-        prependListener(event: "newListener", listener: NewListenerListener): this;
-        prependListener(event: "removeListener", listener: RemoveListenerListener): this;
+        prependListener<K extends keyof ProcessEvents>(event: K, listener: ProcessEvents[K]): this;
 
-        prependOnceListener(event: "beforeExit", listener: BeforeExitListener): this;
-        prependOnceListener(event: "disconnect", listener: DisconnectListener): this;
-        prependOnceListener(event: "exit", listener: ExitListener): this;
-        prependOnceListener(event: "rejectionHandled", listener: RejectionHandledListener): this;
-        prependOnceListener(event: "uncaughtException", listener: UncaughtExceptionListener): this;
-        prependOnceListener(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
-        prependOnceListener(event: "warning", listener: WarningListener): this;
-        prependOnceListener(event: "message", listener: MessageListener): this;
         prependOnceListener(event: Signals, listener: SignalsListener): this;
-        prependOnceListener(event: "newListener", listener: NewListenerListener): this;
-        prependOnceListener(event: "removeListener", listener: RemoveListenerListener): this;
+        prependOnceListener<K extends keyof ProcessEvents>(event: K, listener: ProcessEvents[K]): this;
 
-        listeners(event: "beforeExit"): BeforeExitListener[];
-        listeners(event: "disconnect"): DisconnectListener[];
-        listeners(event: "exit"): ExitListener[];
-        listeners(event: "rejectionHandled"): RejectionHandledListener[];
-        listeners(event: "uncaughtException"): UncaughtExceptionListener[];
-        listeners(event: "unhandledRejection"): UnhandledRejectionListener[];
-        listeners(event: "warning"): WarningListener[];
-        listeners(event: "message"): MessageListener[];
-        listeners(event: Signals): SignalsListener[];
-        listeners(event: "newListener"): NewListenerListener[];
-        listeners(event: "removeListener"): RemoveListenerListener[];
+        listeners(event: Signals, listener: SignalsListener): SignalsListener[];
+        listeners<K extends keyof ProcessEvents>(event: K): ProcessEvents[K][];
     }
 
     export interface Global {
@@ -1305,6 +1250,15 @@ declare module "cluster" {
         addressType: number | "udp4" | "udp6";  // 4, 6, -1, "udp4", "udp6"
     }
 
+    export interface WorkerEvents {
+        disconnect: () => void;
+        error: (error: Error) => void;
+        exit: (code: number, signal: string) => void;
+        listening: (address: Address) => void;
+        message: (message: any, handle: net.Socket | net.Server) => void;
+        online: () => void;
+    }
+
     export class Worker extends events.EventEmitter {
         id: number;
         process: child.ChildProcess;
@@ -1317,23 +1271,6 @@ declare module "cluster" {
         isDead(): boolean;
         exitedAfterDisconnect: boolean;
 
-        /**
-         * events.EventEmitter
-         *   1. disconnect
-         *   2. error
-         *   3. exit
-         *   4. listening
-         *   5. message
-         *   6. online
-         */
-        addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: "disconnect", listener: () => void): this;
-        addListener(event: "error", listener: (error: Error) => void): this;
-        addListener(event: "exit", listener: (code: number, signal: string) => void): this;
-        addListener(event: "listening", listener: (address: Address) => void): this;
-        addListener(event: "message", listener: (message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
-        addListener(event: "online", listener: () => void): this;
-
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "disconnect"): boolean;
         emit(event: "error", error: Error): boolean;
@@ -1342,37 +1279,30 @@ declare module "cluster" {
         emit(event: "message", message: any, handle: net.Socket | net.Server): boolean;
         emit(event: "online"): boolean;
 
+        addListener<K extends keyof WorkerEvents>(event: K, listener: WorkerEvents[K]): this;
+        addListener(event: string, listener: (...args: any[]) => void): this;
+
+        on<K extends keyof WorkerEvents>(event: K, listener: WorkerEvents[K]): this;
         on(event: string, listener: (...args: any[]) => void): this;
-        on(event: "disconnect", listener: () => void): this;
-        on(event: "error", listener: (error: Error) => void): this;
-        on(event: "exit", listener: (code: number, signal: string) => void): this;
-        on(event: "listening", listener: (address: Address) => void): this;
-        on(event: "message", listener: (message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
-        on(event: "online", listener: () => void): this;
 
+        once<K extends keyof WorkerEvents>(event: K, listener: WorkerEvents[K]): this;
         once(event: string, listener: (...args: any[]) => void): this;
-        once(event: "disconnect", listener: () => void): this;
-        once(event: "error", listener: (error: Error) => void): this;
-        once(event: "exit", listener: (code: number, signal: string) => void): this;
-        once(event: "listening", listener: (address: Address) => void): this;
-        once(event: "message", listener: (message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
-        once(event: "online", listener: () => void): this;
 
+        prependListener<K extends keyof WorkerEvents>(event: K, listener: WorkerEvents[K]): this;
         prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: "disconnect", listener: () => void): this;
-        prependListener(event: "error", listener: (error: Error) => void): this;
-        prependListener(event: "exit", listener: (code: number, signal: string) => void): this;
-        prependListener(event: "listening", listener: (address: Address) => void): this;
-        prependListener(event: "message", listener: (message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
-        prependListener(event: "online", listener: () => void): this;
 
+        prependOnceListener<K extends keyof WorkerEvents>(event: K, listener: WorkerEvents[K]): this;
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "disconnect", listener: () => void): this;
-        prependOnceListener(event: "error", listener: (error: Error) => void): this;
-        prependOnceListener(event: "exit", listener: (code: number, signal: string) => void): this;
-        prependOnceListener(event: "listening", listener: (address: Address) => void): this;
-        prependOnceListener(event: "message", listener: (message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
-        prependOnceListener(event: "online", listener: () => void): this;
+    }
+
+    export interface ClusterEvents {
+        disconnect: (worker: Worker) => void;
+        exit: (worker: Worker, code: number, signal: string) => void;
+        fork: (worker: Worker) => void;
+        listening: (worker: Worker, address: Address) => void;
+        message: (worker: Worker, message: any, handle: net.Socket | net.Server) => void;
+        online: (worker: Worker) => void;
+        setup: (settings: any) => void;
     }
 
     export interface Cluster extends events.EventEmitter {
@@ -1399,15 +1329,6 @@ declare module "cluster" {
          *   6. online
          *   7. setup
          */
-        addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: "disconnect", listener: (worker: Worker) => void): this;
-        addListener(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): this;
-        addListener(event: "fork", listener: (worker: Worker) => void): this;
-        addListener(event: "listening", listener: (worker: Worker, address: Address) => void): this;
-        addListener(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
-        addListener(event: "online", listener: (worker: Worker) => void): this;
-        addListener(event: "setup", listener: (settings: any) => void): this;
-
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "disconnect", worker: Worker): boolean;
         emit(event: "exit", worker: Worker, code: number, signal: string): boolean;
@@ -1417,41 +1338,20 @@ declare module "cluster" {
         emit(event: "online", worker: Worker): boolean;
         emit(event: "setup", settings: any): boolean;
 
+        addListener<K extends keyof ClusterEvents>(event: K, listener: ClusterEvents[K]): this;
+        addListener(event: string, listener: (...args: any[]) => void): this;
+
+        on<K extends keyof ClusterEvents>(event: K, listener: ClusterEvents[K]): this;
         on(event: string, listener: (...args: any[]) => void): this;
-        on(event: "disconnect", listener: (worker: Worker) => void): this;
-        on(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): this;
-        on(event: "fork", listener: (worker: Worker) => void): this;
-        on(event: "listening", listener: (worker: Worker, address: Address) => void): this;
-        on(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
-        on(event: "online", listener: (worker: Worker) => void): this;
-        on(event: "setup", listener: (settings: any) => void): this;
 
+        once<K extends keyof ClusterEvents>(event: K, listener: ClusterEvents[K]): this;
         once(event: string, listener: (...args: any[]) => void): this;
-        once(event: "disconnect", listener: (worker: Worker) => void): this;
-        once(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): this;
-        once(event: "fork", listener: (worker: Worker) => void): this;
-        once(event: "listening", listener: (worker: Worker, address: Address) => void): this;
-        once(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
-        once(event: "online", listener: (worker: Worker) => void): this;
-        once(event: "setup", listener: (settings: any) => void): this;
 
+        prependListener<K extends keyof ClusterEvents>(event: K, listener: ClusterEvents[K]): this;
         prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: "disconnect", listener: (worker: Worker) => void): this;
-        prependListener(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): this;
-        prependListener(event: "fork", listener: (worker: Worker) => void): this;
-        prependListener(event: "listening", listener: (worker: Worker, address: Address) => void): this;
-        prependListener(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
-        prependListener(event: "online", listener: (worker: Worker) => void): this;
-        prependListener(event: "setup", listener: (settings: any) => void): this;
 
+        prependOnceListener<K extends keyof ClusterEvents>(event: K, listener: ClusterEvents[K]): this;
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "disconnect", listener: (worker: Worker) => void): this;
-        prependOnceListener(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): this;
-        prependOnceListener(event: "fork", listener: (worker: Worker) => void): this;
-        prependOnceListener(event: "listening", listener: (worker: Worker, address: Address) => void): this;
-        prependOnceListener(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
-        prependOnceListener(event: "online", listener: (worker: Worker) => void): this;
-        prependOnceListener(event: "setup", listener: (settings: any) => void): this;
     }
 
     export function disconnect(callback?: Function): void;
@@ -2749,6 +2649,18 @@ declare module "net" {
 
     export type SocketConnectOpts = TcpSocketConnectOpts | IpcSocketConnectOpts;
 
+    export interface SocketEvents {
+
+        close: (had_error: boolean) => void;
+        connect: () => void;
+        data: (data: Buffer) => void;
+        drain: () => void;
+        end: () => void;
+        error: (err: Error) => void;
+        lookup: (err: Error, address: string, family: string | number, host: string) => void;
+        timeout: () => void;
+    }
+
     export class Socket extends stream.Duplex {
         constructor(options?: SocketConstructorOpts);
 
@@ -2794,26 +2706,8 @@ declare module "net" {
         end(str: string, encoding?: string, cb?: Function): void;
         end(data?: any, encoding?: string): void;
 
-        /**
-         * events.EventEmitter
-         *   1. close
-         *   2. connect
-         *   3. data
-         *   4. drain
-         *   5. end
-         *   6. error
-         *   7. lookup
-         *   8. timeout
-         */
         addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: "close", listener: (had_error: boolean) => void): this;
-        addListener(event: "connect", listener: () => void): this;
-        addListener(event: "data", listener: (data: Buffer) => void): this;
-        addListener(event: "drain", listener: () => void): this;
-        addListener(event: "end", listener: () => void): this;
-        addListener(event: "error", listener: (err: Error) => void): this;
-        addListener(event: "lookup", listener: (err: Error, address: string, family: string | number, host: string) => void): this;
-        addListener(event: "timeout", listener: () => void): this;
+        addListener<K extends keyof SocketEvents>(event: K, listener: SocketEvents[K]): this;
 
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "close", had_error: boolean): boolean;
@@ -2826,44 +2720,15 @@ declare module "net" {
         emit(event: "timeout"): boolean;
 
         on(event: string, listener: (...args: any[]) => void): this;
-        on(event: "close", listener: (had_error: boolean) => void): this;
-        on(event: "connect", listener: () => void): this;
-        on(event: "data", listener: (data: Buffer) => void): this;
-        on(event: "drain", listener: () => void): this;
-        on(event: "end", listener: () => void): this;
-        on(event: "error", listener: (err: Error) => void): this;
-        on(event: "lookup", listener: (err: Error, address: string, family: string | number, host: string) => void): this;
-        on(event: "timeout", listener: () => void): this;
+        on<K extends keyof SocketEvents>(event: K, listener: SocketEvents[K]): this;
 
         once(event: string, listener: (...args: any[]) => void): this;
-        once(event: "close", listener: (had_error: boolean) => void): this;
-        once(event: "connect", listener: () => void): this;
-        once(event: "data", listener: (data: Buffer) => void): this;
-        once(event: "drain", listener: () => void): this;
-        once(event: "end", listener: () => void): this;
-        once(event: "error", listener: (err: Error) => void): this;
-        once(event: "lookup", listener: (err: Error, address: string, family: string | number, host: string) => void): this;
-        once(event: "timeout", listener: () => void): this;
+        once<K extends keyof SocketEvents>(event: K, listener: SocketEvents[K]): this;
 
         prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: "close", listener: (had_error: boolean) => void): this;
-        prependListener(event: "connect", listener: () => void): this;
-        prependListener(event: "data", listener: (data: Buffer) => void): this;
-        prependListener(event: "drain", listener: () => void): this;
-        prependListener(event: "end", listener: () => void): this;
-        prependListener(event: "error", listener: (err: Error) => void): this;
-        prependListener(event: "lookup", listener: (err: Error, address: string, family: string | number, host: string) => void): this;
-        prependListener(event: "timeout", listener: () => void): this;
-
+        prependListener<K extends keyof SocketEvents>(event: K, listener: SocketEvents[K]): this;
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "close", listener: (had_error: boolean) => void): this;
-        prependOnceListener(event: "connect", listener: () => void): this;
-        prependOnceListener(event: "data", listener: (data: Buffer) => void): this;
-        prependOnceListener(event: "drain", listener: () => void): this;
-        prependOnceListener(event: "end", listener: () => void): this;
-        prependOnceListener(event: "error", listener: (err: Error) => void): this;
-        prependOnceListener(event: "lookup", listener: (err: Error, address: string, family: string | number, host: string) => void): this;
-        prependOnceListener(event: "timeout", listener: () => void): this;
+        prependOnceListener<K extends keyof SocketEvents>(event: K, listener: SocketEvents[K]): this;
     }
 
     export interface ListenOptions {
@@ -2874,6 +2739,13 @@ declare module "net" {
         exclusive?: boolean;
         readableAll?: boolean;
         writableAll?: boolean;
+    }
+
+    export interface ServerEvents {
+        close: () => void;
+        connection: (socket: Socket) => void;
+        error: (err: Error) => void;
+        listening: () => void;
     }
 
     // https://github.com/nodejs/node/blob/master/lib/net.js
@@ -2899,18 +2771,8 @@ declare module "net" {
         connections: number;
         listening: boolean;
 
-        /**
-         * events.EventEmitter
-         *   1. close
-         *   2. connection
-         *   3. error
-         *   4. listening
-         */
         addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: "close", listener: () => void): this;
-        addListener(event: "connection", listener: (socket: Socket) => void): this;
-        addListener(event: "error", listener: (err: Error) => void): this;
-        addListener(event: "listening", listener: () => void): this;
+        addListener<K extends keyof ServerEvents>(event: K, listener: ServerEvents[K]): this;
 
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "close"): boolean;
@@ -2919,28 +2781,16 @@ declare module "net" {
         emit(event: "listening"): boolean;
 
         on(event: string, listener: (...args: any[]) => void): this;
-        on(event: "close", listener: () => void): this;
-        on(event: "connection", listener: (socket: Socket) => void): this;
-        on(event: "error", listener: (err: Error) => void): this;
-        on(event: "listening", listener: () => void): this;
+        on<K extends keyof ServerEvents>(event: K, listener: ServerEvents[K]): this;
 
         once(event: string, listener: (...args: any[]) => void): this;
-        once(event: "close", listener: () => void): this;
-        once(event: "connection", listener: (socket: Socket) => void): this;
-        once(event: "error", listener: (err: Error) => void): this;
-        once(event: "listening", listener: () => void): this;
+        once<K extends keyof ServerEvents>(event: K, listener: ServerEvents[K]): this;
 
         prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: "close", listener: () => void): this;
-        prependListener(event: "connection", listener: (socket: Socket) => void): this;
-        prependListener(event: "error", listener: (err: Error) => void): this;
-        prependListener(event: "listening", listener: () => void): this;
+        prependListener<K extends keyof ServerEvents>(event: K, listener: ServerEvents[K]): this;
 
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "close", listener: () => void): this;
-        prependOnceListener(event: "connection", listener: (socket: Socket) => void): this;
-        prependOnceListener(event: "error", listener: (err: Error) => void): this;
-        prependOnceListener(event: "listening", listener: () => void): this;
+        prependOnceListener<K extends keyof ServerEvents>(event: K, listener: ServerEvents[K]): this;
     }
 
     export interface TcpNetConnectOpts extends TcpSocketConnectOpts, SocketConstructorOpts {
@@ -2996,6 +2846,13 @@ declare module "dgram" {
     export function createSocket(type: SocketType, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
     export function createSocket(options: SocketOptions, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
 
+    export interface SocketEvents {
+        close: () => void
+        error: (err: Error) => void
+        listening: () => void
+        message: (msg: Buffer, rinfo: AddressInfo) => void
+    }
+
     export class Socket extends events.EventEmitter {
         send(msg: Buffer | string | Uint8Array | any[], port: number, address?: string, callback?: (error: Error | null, bytes: number) => void): void;
         send(msg: Buffer | string | Uint8Array, offset: number, length: number, port: number, address?: string, callback?: (error: Error | null, bytes: number) => void): void;
@@ -3027,10 +2884,7 @@ declare module "dgram" {
          * 4. message
          */
         addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: "close", listener: () => void): this;
-        addListener(event: "error", listener: (err: Error) => void): this;
-        addListener(event: "listening", listener: () => void): this;
-        addListener(event: "message", listener: (msg: Buffer, rinfo: AddressInfo) => void): this;
+        addListener<K extends keyof SocketEvents>(event: K, listener: SocketEvents[K]): this;
 
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "close"): boolean;
@@ -3039,28 +2893,16 @@ declare module "dgram" {
         emit(event: "message", msg: Buffer, rinfo: AddressInfo): boolean;
 
         on(event: string, listener: (...args: any[]) => void): this;
-        on(event: "close", listener: () => void): this;
-        on(event: "error", listener: (err: Error) => void): this;
-        on(event: "listening", listener: () => void): this;
-        on(event: "message", listener: (msg: Buffer, rinfo: AddressInfo) => void): this;
+        on<K extends keyof SocketEvents>(event: K, listener: SocketEvents[K]): this;
 
         once(event: string, listener: (...args: any[]) => void): this;
-        once(event: "close", listener: () => void): this;
-        once(event: "error", listener: (err: Error) => void): this;
-        once(event: "listening", listener: () => void): this;
-        once(event: "message", listener: (msg: Buffer, rinfo: AddressInfo) => void): this;
+        once<K extends keyof SocketEvents>(event: K, listener: SocketEvents[K]): this;
 
         prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: "close", listener: () => void): this;
-        prependListener(event: "error", listener: (err: Error) => void): this;
-        prependListener(event: "listening", listener: () => void): this;
-        prependListener(event: "message", listener: (msg: Buffer, rinfo: AddressInfo) => void): this;
+        prependListener<K extends keyof SocketEvents>(event: K, listener: SocketEvents[K]): this;
 
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "close", listener: () => void): this;
-        prependOnceListener(event: "error", listener: (err: Error) => void): this;
-        prependOnceListener(event: "listening", listener: () => void): this;
-        prependOnceListener(event: "message", listener: (msg: Buffer, rinfo: AddressInfo) => void): this;
+        prependOnceListener<K extends keyof SocketEvents>(event: K, listener: SocketEvents[K]): this;
     }
 }
 
@@ -6339,24 +6181,24 @@ declare module "util" {
         readonly fatal: boolean;
         readonly ignoreBOM: boolean;
         constructor(
-          encoding?: string,
-          options?: { fatal?: boolean; ignoreBOM?: boolean }
+            encoding?: string,
+            options?: { fatal?: boolean; ignoreBOM?: boolean }
         );
         decode(
-          input?:
-            Int8Array
-            | Int16Array
-            | Int32Array
-            | Uint8Array
-            | Uint16Array
-            | Uint32Array
-            | Uint8ClampedArray
-            | Float32Array
-            | Float64Array
-            | DataView
-            | ArrayBuffer
-            | null,
-          options?: { stream?: boolean }
+            input?:
+                Int8Array
+                | Int16Array
+                | Int32Array
+                | Uint8Array
+                | Uint16Array
+                | Uint32Array
+                | Uint8ClampedArray
+                | Float32Array
+                | Float64Array
+                | DataView
+                | ArrayBuffer
+                | null,
+            options?: { stream?: boolean }
         ): string;
     }
 
@@ -6861,20 +6703,20 @@ declare module "async_hooks" {
     export function createHook(options: HookCallbacks): AsyncHook;
 
     export interface AsyncResourceOptions {
-      /**
-       * The ID of the execution context that created this async event.
-       * Default: `executionAsyncId()`
-       */
-      triggerAsyncId?: number;
+        /**
+         * The ID of the execution context that created this async event.
+         * Default: `executionAsyncId()`
+         */
+        triggerAsyncId?: number;
 
-      /**
-       * Disables automatic `emitDestroy` when the object is garbage collected.
-       * This usually does not need to be set (even if `emitDestroy` is called
-       * manually), unless the resource's `asyncId` is retrieved and the
-       * sensitive API's `emitDestroy` is called with it.
-       * Default: `false`
-       */
-      requireManualDestroy?: boolean;
+        /**
+         * Disables automatic `emitDestroy` when the object is garbage collected.
+         * This usually does not need to be set (even if `emitDestroy` is called
+         * manually), unless the resource's `asyncId` is retrieved and the
+         * sensitive API's `emitDestroy` is called with it.
+         * Default: `false`
+         */
+        requireManualDestroy?: boolean;
     }
 
     /**
@@ -6891,7 +6733,7 @@ declare module "async_hooks" {
          *   this async event (default: `executionAsyncId()`), or an
          *   AsyncResourceOptions object (since 9.3)
          */
-        constructor(type: string, triggerAsyncId?: number|AsyncResourceOptions);
+        constructor(type: string, triggerAsyncId?: number | AsyncResourceOptions);
 
         /**
          * Call AsyncHooks before callbacks.
