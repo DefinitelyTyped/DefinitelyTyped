@@ -1513,35 +1513,41 @@ export namespace Gyroscope {
  * ImageManipulator
  */
 export namespace ImageManipulator {
-    interface ImageResult {
-        uri: string;
-        width: number;
-        height: number;
-        base64?: string;
-    }
+	type Action = Resize | Rotate | Flip | Crop;
 
-    interface SaveOptions {
-        base64?: boolean;
-        /** A value in range `0` - `1` specifying compression level of the result image. `1` means no compression and `0` the highest compression. */
-        compress?: number;
-        format?: 'jpeg' | 'png';
-    }
+	interface Resize {
+		resize: { width: number, height: number };
+	}
 
-    interface CropParameters {
-        originX: number;
-        originY: number;
-        width: number;
-        height: number;
-    }
+	interface Rotate {
+		rotate: number;
+	}
 
-    interface ImageManipulationOptions {
-        resize?: { width?: number; height?: number };
-        rotate?: number;
-        flip?: { vertical?: boolean; horizontal?: boolean };
-        crop?: CropParameters;
-    }
+	interface Flip {
+		flip?: { vertical?: boolean; horizontal?: boolean };
+	}
 
-    function manipulate(uri: string, actions: ImageManipulationOptions, saveOptions?: SaveOptions): Promise<ImageResult>;
+	interface Crop {
+		originX: number;
+		originY: number;
+		width: number;
+		height: number;
+	}
+
+	interface ImageResult {
+		uri: string;
+		width: number;
+		height: number;
+		base64?: string;
+	}
+
+	interface SaveOptions {
+		base64?: boolean;
+		compress?: FloatFromZeroToOne;
+		format?: 'jpeg' | 'png';
+	}
+
+	function manipulate(uri: string, actions: Action[], saveOptions?: SaveOptions): Promise<ImageResult>;
 }
 
 /**
