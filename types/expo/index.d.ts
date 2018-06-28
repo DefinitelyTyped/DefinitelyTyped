@@ -1513,42 +1513,42 @@ export namespace Gyroscope {
  * ImageManipulator
  */
 export namespace ImageManipulator {
-	type Action = Resize | Rotate | Flip | Crop;
+    type Action = Resize | Rotate | Flip | Crop;
 
-	interface Resize {
-		resize: { width: number, height: number };
-	}
+    interface Resize {
+        resize: { width: number, height: number };
+    }
 
-	interface Rotate {
-		rotate: number;
-	}
+    interface Rotate {
+        rotate: number;
+    }
 
-	interface Flip {
-		flip?: { vertical?: boolean; horizontal?: boolean };
-	}
+    interface Flip {
+        flip?: { vertical?: boolean; horizontal?: boolean };
+    }
 
-	interface Crop {
-		originX: number;
-		originY: number;
-		width: number;
-		height: number;
-	}
+    interface Crop {
+        originX: number;
+        originY: number;
+        width: number;
+        height: number;
+    }
 
-	interface ImageResult {
-		uri: string;
-		width: number;
-		height: number;
-		base64?: string;
-	}
+    interface ImageResult {
+        uri: string;
+        width: number;
+        height: number;
+        base64?: string;
+    }
 
-	interface SaveOptions {
-		base64?: boolean;
-		/** A value in range `0` - `1` specifying compression level of the result image. `1` means no compression and `0` the highest compression. */
-		compress?: number;
-		format?: 'jpeg' | 'png';
-	}
+    interface SaveOptions {
+        base64?: boolean;
+        /** A value in range `0` - `1` specifying compression level of the result image. `1` means no compression and `0` the highest compression. */
+        compress?: number;
+        format?: 'jpeg' | 'png';
+    }
 
-	function manipulate(uri: string, actions: Action[], saveOptions?: SaveOptions): Promise<ImageResult>;
+    function manipulate(uri: string, actions: Action[], saveOptions?: SaveOptions): Promise<ImageResult>;
 }
 
 /**
