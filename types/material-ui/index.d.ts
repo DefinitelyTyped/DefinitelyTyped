@@ -11,6 +11,8 @@
 //                 Artyom Stukans <https://github.com/artyomsv>
 //                 Dan Jones <https://github.com/dan-j>
 //                 Daisuke Mino <https://github.com/minodisk>
+//                 Sam Walsh <https://github.com/samwalshnz>
+//                 Tim de Koning <https://github.com/reggino>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -1143,12 +1145,8 @@ declare namespace __MaterialUI {
     }
 
     namespace List {
-        export interface ListProps {
-            // <Paper/> is the element that get the 'other' properties
-            style?: React.CSSProperties;
-        }
-        export class List extends React.Component<ListProps> {
-        }
+        export interface ListProps extends React.HTMLAttributes<{}> {}
+        export class List extends React.Component<ListProps> {}
 
         export interface ListItemProps extends EnhancedButtonProps {
             // <EnhancedButton/> is the element that get the 'other' properties
@@ -1583,7 +1581,7 @@ declare namespace __MaterialUI {
             elementStyle?: React.CSSProperties;
             iconStyle?: React.CSSProperties;
             inputStyle?: React.CSSProperties;
-            label?: string;
+            label?: React.ReactNode;
             labelPosition?: "left" | "right";
             labelStyle?: React.CSSProperties;
             onToggle?(e: React.MouseEvent<{}>, isInputChecked: boolean): void;

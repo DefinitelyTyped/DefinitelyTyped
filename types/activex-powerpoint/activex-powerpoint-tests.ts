@@ -1,5 +1,5 @@
 // tslint:disable-next-line no-unnecessary-generics
-const collectionToArray = <T>(col: any): T[] => {
+const collectionToArray = <T>(col: {Item(index: any): T}): T[] => {
     const results: T[] = [];
     const enumerator = new Enumerator<T>(col);
     enumerator.moveFirst();
@@ -13,8 +13,8 @@ const collectionToArray = <T>(col: any): T[] => {
 const app = new ActiveXObject('PowerPoint.Application');
 (() => {
     // delete empty textboxes in PowerPoint
-    collectionToArray<PowerPoint.Slide>(app.ActivePresentation.Slides).forEach(slide => {
-        collectionToArray<PowerPoint.Shape>(slide.Shapes).filter(shape =>
+    collectionToArray(app.ActivePresentation.Slides).forEach(slide => {
+        collectionToArray(slide.Shapes).filter(shape =>
             shape.Type === Office.MsoShapeType.msoTextBox
             && shape.TextFrame.TextRange.Text.trim() === ''
         ).forEach(shape => shape.Delete());

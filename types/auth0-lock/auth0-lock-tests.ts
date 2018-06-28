@@ -39,7 +39,10 @@ const showOptions : Auth0LockShowOptions = {
     type: "error",
     text: "an error has occurred"
   },
-  rememberLastLogin: false
+  rememberLastLogin: false,
+  languageDictionary: {
+    title: "test"
+  }
 };
 
 lock.show(showOptions);
@@ -140,7 +143,8 @@ const multiVariantOptions : Auth0LockConstructorOptions = {
     signUpTerms: "I agree to the <a href='/terms' target='_new'>terms of service</a> ...",
     title: "My Company",
   },
-  autofocus: false
+  autofocus: false,
+  allowShowPassword: true,
 };
 
 new Auth0Lock(CLIENT_ID, DOMAIN, multiVariantOptions);
@@ -258,6 +262,7 @@ new Auth0Lock(CLIENT_ID, DOMAIN, avatarOptions);
 
 const authResult : AuthResult = {
     accessToken: 'fake_access_token',
+    expiresIn: 7200,
     idToken: 'fake_id_token',
     idTokenPayload: {
       aud: "EaQzyHt1Dy57l-r5iHcMeT-lh1fFZntg",
@@ -267,5 +272,6 @@ const authResult : AuthResult = {
       sub: "auth0|aksjfkladsf"
     },
     refreshToken: undefined,
-    state: "923jf092j3.FFSDJFDSKLDF"
+    state: "923jf092j3.FFSDJFDSKLDF",
+    tokenType: 'Bearer'
 };

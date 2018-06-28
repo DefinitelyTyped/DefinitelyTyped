@@ -1,6 +1,7 @@
-// Type definitions for ArcGIS API for JavaScript 3.23
+// Type definitions for ArcGIS API for JavaScript 3.24
 // Project: https://developers.arcgis.com/javascript/3/
 // Definitions by: Esri <https://github.com/Esri>
+//                 Bjorn Svensson <https://github.com/bsvensson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "esri" {
@@ -30,6 +31,7 @@ declare module "esri" {
   import LayerSource = require("esri/layers/LayerSource");
   import GraphicsLayer = require("esri/layers/GraphicsLayer");
   import SpatialReference = require("esri/SpatialReference");
+  import GeographicTransformationStep = require("esri/geometry/GeographicTransformationStep");
   import Layer = require("esri/layers/layer");
   import SimpleFillSymbol = require("esri/symbols/SimpleFillSymbol");
   import ArcGISImageServiceLayer = require("esri/layers/ArcGISImageServiceLayer");
@@ -42,6 +44,9 @@ declare module "esri" {
   import FillSymbol = require("esri/symbols/FillSymbol");
   import PrintTemplate = require("esri/tasks/PrintTemplate");
   import QueryTask = require("esri/tasks/QueryTask");
+  import DataProviderGE = require("esri/dijit/geoenrichment/ReportPlayer/DataProviderGE");
+  import PlayerResizeModes = require("esri/dijit/geoenrichment/ReportPlayer/PlayerResizeModes");
+  import PlayerThemes = require("esri/dijit/geoenrichment/ReportPlayer/PlayerThemes");
   import TextSymbol = require("esri/symbols/TextSymbol");
   import StandardGeographyQueryTask = require("esri/tasks/geoenrichment/StandardGeographyQueryTask");
   import WCSConnection = require("esri/layers/WCSConnection");
@@ -943,6 +948,8 @@ declare module "esri" {
     useMapTime?: boolean;
     /** Initial visibility of the layer. */
     visible?: boolean;
+    /** Indicates if the layer will enable WebGL for rendering. */
+    webglEnabled?: boolean;
   }
   export interface FeatureLayerStatisticsOptions {
     /** The feature layer that will be the source for calculating statistics. */
@@ -1151,6 +1158,16 @@ declare module "esri" {
     value?: string;
     /** Scale to zoom to when geocoder does not return an extent. */
     zoomScale?: number;
+  }
+  export interface GeographicTransformationOptions {
+    /** Geographic transformation steps. */
+    steps?: GeographicTransformationStep[];
+  }
+  export interface GeographicTransformationStepOptions {
+    /** The well-known id (wkid) that represents a known geographic transformation. */
+    wkid?: number;
+    /** The well-known text (wkt) that represents a known geographic transformation. */
+    wkt?: string;
   }
   export interface GeometryLocationProviderOptions {
     /** The attribute field in the graphic object that contains the JSON string representing the geometry. */
@@ -1475,6 +1492,8 @@ declare module "esri" {
     sliderStyle?: string;
     /** When true, for Apple computers with a trackpad or magic mouse use, swipe pans instead of zooming. */
     smartNavigation?: boolean;
+    /** Indicates whether to enable WebGL rendering for FeatureLayers in the map. */
+    webglEnabled?: boolean;
     /** When true, supports continuous pan across the dateline. */
     wrapAround180?: boolean;
     /** Initial zoom level of the map. */
@@ -1875,6 +1894,16 @@ declare module "esri" {
     showTicks?: boolean;
     /** Stores positions represented as numbers that fall between minimum and maximum. */
     values: number[];
+  }
+  export interface ReportPlayerOptions {
+    /** Specifies which export options are available for the report. */
+    dataProvider?: DataProviderGE;
+    /** Indicate whether to display the report in slide view or full screen, defaults to false which is full view. */
+    isSlidesView?: boolean;
+    /** Specifies the resize mode of the ReportPlayer. */
+    resizeMode?: PlayerResizeModes;
+    /** Specifies the theme of the ReportPlayer. */
+    theme?: PlayerThemes;
   }
   export interface RingBufferOptions {
     /** The radii to use to create ring buffers */
@@ -2553,6 +2582,8 @@ declare module "esri/IdentityManagerBase" {
   class IdentityManagerBase {
     /** The suggested lifetime of the token in minutes. */
     tokenValidity: number;
+    /** If your application is on the same domain as *.arcgis.com or ArcGIS Enterprise Server, the IdentityManager will redirect the user to its sign-in page. */
+    useSignInPage: boolean;
     /**
      * Returns the credential (via Deferred) if the user has already signed in to access the given resource.
      * @param resUrl The resource URL.
@@ -2625,7 +2656,7 @@ declare module "esri/IdentityManagerBase" {
      */
     setProtocolErrorHandler(handlerFunction: Function): void;
     /**
-     * When accessing secure resources from ArcGIS.com or one of its sub-domains the IdentityManager redirects the user to the ArcGIS.com sign-in page.
+     * If your application is on the same domain as *.arcgis.com or ArcGIS Enterprise Server, the IdentityManager will redirect the user to its sign-in page.
      * @param handlerFunction When called, the function passed to setRedirectionHandler receives an object containing redirection properties.
      */
     setRedirectionHandler(handlerFunction: Function): void;
@@ -3736,9 +3767,11 @@ declare module "esri/dijit/ClassedColorSlider" {
     startup(): void;
     /** Fires when the ClassedColorSlider widget properties change. */
     on(type: "change", listener: (event: { breakInfos: any; target: ClassedColorSlider }) => void): esri.Handle;
-    /** Fires when  minValue or  maxValue of the ClassedColorSlider changes. */
+    /** Fires during slide and slide stop, and when a handle or the  minValue or  maxValue of the slider are updated via text box. */
+    on(type: "data-change", listener: (event: { breakInfos: any[]; maxValue: number; minValue: number; target: ClassedColorSlider }) => void): esri.Handle;
+    /** Fires when  minValue or  maxValue are updated via textbox. */
     on(type: "data-value-change", listener: (event: { breakInfos: any; maxValue: number; minValue: number; target: ClassedColorSlider }) => void): esri.Handle;
-    /** Fires when a ClassedColorSlider handle is moved. */
+    /** Fires on slide stop and when a handle is updated via textbox. */
     on(type: "handle-value-change", listener: (event: { breakInfos: any; target: ClassedColorSlider }) => void): esri.Handle;
     on(type: string, listener: (event: any) => void): esri.Handle;
   }
@@ -3789,9 +3822,11 @@ declare module "esri/dijit/ClassedSizeSlider" {
     constructor(params: esri.ClassedSizeSliderOptions, srcNodeRef: Node | string);
     /** Fires when ClassedSizeSlider changes. */
     on(type: "change", listener: (event: { breakInfos: any; target: ClassedSizeSlider }) => void): esri.Handle;
-    /** Fires when  minValue or  maxValue of the ClassedSizeSlider changes. */
+    /** Fires during slide and slide stop, and when a handle or the  minValue or  maxValue of the slider are updated via text box. */
+    on(type: "data-change", listener: (event: { breakInfos: any[]; maxValue: number; minValue: number; target: ClassedSizeSlider }) => void): esri.Handle;
+    /** Fires when  minValue or  maxValue are updated via textbox. */
     on(type: "data-value-change", listener: (event: { breakInfos: any; maxValue: number; minValue: number; target: ClassedSizeSlider }) => void): esri.Handle;
-    /** Fires when a ClassedSizeSlider handle is moved. */
+    /** Fires on slide stop and when a handle is updated via textbox. */
     on(type: "handle-value-change", listener: (event: { breakInfos: any; target: ClassedSizeSlider }) => void): esri.Handle;
     on(type: string, listener: (event: any) => void): esri.Handle;
   }
@@ -3850,9 +3885,11 @@ declare module "esri/dijit/ColorInfoSlider" {
     startup(): void;
     /** Fires when ColorInfoSlider changes. */
     on(type: "change", listener: (event: { colorInfo: any; target: ColorInfoSlider }) => void): esri.Handle;
-    /** Fires when  minValue or  maxValue of the ColorInfoSlider changes. */
+    /** Fires during slide and slide stop, and when a handle or the  minValue or  maxValue of the ColorInfoSlider are updated via text box. */
+    on(type: "data-change", listener: (event: { colorInfo: any; maxValue: number; minValue: number; target: ColorInfoSlider }) => void): esri.Handle;
+    /** Fires when  minValue or  maxValue of the ColorInfoSlider are updated via text box. */
     on(type: "data-value-change", listener: (event: { colorInfo: any; maxValue: number; minValue: number; target: ColorInfoSlider }) => void): esri.Handle;
-    /** Fires when a ColorInfoSlider handle is moved. */
+    /** Fires on slide stop and when a handle is updated via textbox. */
     on(type: "handle-value-change", listener: (event: { colorInfo: any; target: ColorInfoSlider }) => void): esri.Handle;
     /** Fires when the zoom state changes. */
     on(type: "zoomed", listener: (event: { zoomed: boolean; target: ColorInfoSlider }) => void): esri.Handle;
@@ -4069,7 +4106,7 @@ declare module "esri/dijit/ElevationProfile" {
   import esri = require("esri");
   import Geometry = require("esri/geometry/Geometry");
 
-  /** (Currently in beta)The Elevation Profile widget allows a user to create an elevation profile based on a polyline geometry input parameter or existing features.NOTE: Currently there is a known issue when creating an elevation profile that crosses the international dateline multiple times. */
+  /** (Currently in beta)The Elevation Profile widget allows a user to create an elevation profile based on a polyline geometry input parameter or existing features. */
   class ElevationProfile {
     /** The measurement unit of the polyline geometry. */
     measureUnits: string;
@@ -4452,7 +4489,7 @@ declare module "esri/dijit/HeatmapSlider" {
     constructor(params: esri.HeatmapSliderOptions, srcNodeRef: Node | string);
     /** Fires when HeatmapSlider changes. */
     on(type: "change", listener: (event: { colorStops: any; target: HeatmapSlider }) => void): esri.Handle;
-    /** Fires when HeatmapSlider handle is moved. */
+    /** Fires on slide stop and when a handle is updated via textbox. */
     on(type: "handle-value-change", listener: (event: { colorStops: any; target: HeatmapSlider }) => void): esri.Handle;
     on(type: string, listener: (event: any) => void): esri.Handle;
   }
@@ -5112,7 +5149,7 @@ declare module "esri/dijit/OpacitySlider" {
     on(type: "change", listener: (event: { opacityInfo: any; target: OpacitySlider }) => void): esri.Handle;
     /** Fires when  minValue or  maxValue of the OpacitySlider changes. */
     on(type: "data-value-change", listener: (event: { maxValue: number; minValue: number; opacityInfo: any; target: OpacitySlider }) => void): esri.Handle;
-    /** Fires when an OpacitySlider handle is moved. */
+    /** Fires on slide stop and when a handle is updated via textbox. */
     on(type: "handle-value-change", listener: (event: { opacityInfo: any; target: OpacitySlider }) => void): esri.Handle;
     /** Fires when the zoom state changes. */
     on(type: "zoomed", listener: (event: { zoomed: boolean; target: OpacitySlider }) => void): esri.Handle;
@@ -5159,7 +5196,7 @@ declare module "esri/dijit/Popup" {
   import Graphic = require("esri/graphic");
   import LineSymbol = require("esri/symbols/LineSymbol");
   import Point = require("esri/geometry/Point");
-  import MarkerSymbol = require("esri/symbols/MarkerSymbol");
+  import SimpleMarkerSymbol = require("esri/symbols/SimpleMarkerSymbol");
 
   /** The Popup class is an implementation of InfoWindow that inherits from InfoWindowBase to provide additional capabilities. */
   class Popup extends InfoWindowBase {
@@ -5194,7 +5231,7 @@ declare module "esri/dijit/Popup" {
     /** Specify the margin (in pixels) to leave at the top of the popup window when it is maximized. */
     marginTop: number;
     /** Define the marker symbol used to highlight point features. */
-    markerSymbol: MarkerSymbol;
+    markerSymbol: SimpleMarkerSymbol;
     /** Specify the x-offset (in pixels) used when positioning the popup. */
     offsetX: number;
     /** Specify the y-offset (in pixels) used when positioning the popup. */
@@ -5700,9 +5737,11 @@ declare module "esri/dijit/SizeInfoSlider" {
     startup(): void;
     /** Fires when the SizeInfoSlider properties change. */
     on(type: "change", listener: (event: { sizeInfo: any; target: SizeInfoSlider }) => void): esri.Handle;
+    /** Fires during slide and slide stop, and when a handle or the  minValue or  maxValue of the SizeInfoSlider are updated via text box. */
+    on(type: "data-change", listener: (event: { maxValue: number; minValue: number; sizeInfo: any; target: SizeInfoSlider }) => void): esri.Handle;
     /** Fires when  minValue or  maxValue of the SizeInfoSlider changes. */
     on(type: "data-value-change", listener: (event: { maxValue: number; minValue: number; sizeInfo: any; target: SizeInfoSlider }) => void): esri.Handle;
-    /** Fires when a SizeInfoSlider handle is moved. */
+    /** Fires on slide stop and when a handle is updated via textbox. */
     on(type: "handle-value-change", listener: (event: { sizeInfo: any; target: SizeInfoSlider }) => void): esri.Handle;
     /** Fires when the zoom state changes. */
     on(type: "zoomed", listener: (event: { zoomed: boolean; target: SizeInfoSlider }) => void): esri.Handle;
@@ -7454,6 +7493,94 @@ declare module "esri/dijit/geoenrichment/InfographicsOptionsItem" {
   export = InfographicsOptionsItem;
 }
 
+declare module "esri/dijit/geoenrichment/ReportPlayer/DataProviderGE" {
+  import PlayerCommands = require("esri/dijit/geoenrichment/ReportPlayer/PlayerCommands");
+
+  /** Data Provider for the ReportPlayer which allows you to specify which export options are available when running the report. */
+  class DataProviderGE {
+    /**
+     * Registers a export option which can be performed.
+     * @param playerCommand The export option to register to make available to the Report Player.
+     * @param label The display name of the export option.
+     */
+    registerCommand(playerCommand: PlayerCommands, label?: string): void;
+  }
+  export = DataProviderGE;
+}
+
+declare module "esri/dijit/geoenrichment/ReportPlayer/PlayerCommands" {
+  /** Enumerator of available export options that are available for the Report Player. */
+  class PlayerCommands {
+    /** Generates a stand-alone HTML file which displays dynamic content, including interactive map and infographic panels for the run infographic report. */
+    static DYNAMIC_HTML: any;
+    /** Generates a stand-alone HTML file without the dynamic interactivity of the DYNAMIC_HTML option for the run infographic report. */
+    static HTML: any;
+    /** Generates an image of the run infographic report. */
+    static IMAGE: any;
+    /** Generates a PDF file of the run infographic report. */
+    static PDF: any;
+    /** Displays a print dialog for the run infographic report for printing directly from the web browser. */
+    static PRINT: any;
+  }
+  export = PlayerCommands;
+}
+
+declare module "esri/dijit/geoenrichment/ReportPlayer/PlayerResizeModes" {
+  /** Enumerator of available player resize mode options for the Report Player widget. */
+  class PlayerResizeModes {
+    /** The Report Player will be auto-resizable for the pagination view, the size of the player will change to fit the content. */
+    static AUTO: any;
+    /** The Report Player will be stretched and constrained to the browser window size. */
+    static FIT_WINDOW: any;
+    /** The Report Player dimensions (height and width) will need to be set manually in CSS. */
+    static MANUAL: any;
+  }
+  export = PlayerResizeModes;
+}
+
+declare module "esri/dijit/geoenrichment/ReportPlayer/PlayerThemes" {
+  /** Enumerator of available theme options for displaying the Report Player. */
+  class PlayerThemes {
+    /** Report Player will display in a dark theme. */
+    static DARK: any;
+    /** Report Player will display in a light theme. */
+    static LIGHT: any;
+  }
+  export = PlayerThemes;
+}
+
+declare module "esri/dijit/geoenrichment/ReportPlayer/ReportPlayer" {
+  import esri = require("esri");
+  import DataProviderGE = require("esri/dijit/geoenrichment/ReportPlayer/DataProviderGE");
+  import PlayerResizeModes = require("esri/dijit/geoenrichment/ReportPlayer/PlayerResizeModes");
+  import PlayerThemes = require("esri/dijit/geoenrichment/ReportPlayer/PlayerThemes");
+
+  /** The ReportPlayer widget runs infographic report templates for a provided analysis area. */
+  class ReportPlayer {
+    /** Data Provider for the ReportPlayer which allows you to specify which export options are available when running the report. */
+    dataProvider: DataProviderGE;
+    /** Indicate whether to display the report in slide view or full screen, defaults to false which is full view. */
+    isSlidesView: boolean;
+    /** Specifies the resize mode of the ReportPlayer. */
+    resizeModes: PlayerResizeModes;
+    /** Specifies the theme of the ReportPlayer. */
+    theme: PlayerThemes;
+    /**
+     * Creates a new ReportPlayer dijit using the given DOM node.
+     * @param params Various parameters that can be used to configure the ReportPlayer.
+     * @param srcNode Reference or id of the HTML element where the widget should be rendered.
+     */
+    constructor(params: esri.ReportPlayerOptions, srcNode?: Node | string);
+    /**
+     * Generates the report for the supplied parameters.
+     * @param dataProviderParams See the object specifications table below for the structure of the dataProviderParams object.
+     * @param playParams See the object specifications table below for the structure of the playParams object.
+     */
+    playReport(dataProviderParams: any, playParams?: any): any;
+  }
+  export = ReportPlayer;
+}
+
 declare module "esri/dijit/util/busyIndicator" {
   /** This module provides the ability to create a busy indicator for a target. */
   var busyIndicator: {
@@ -7610,6 +7737,47 @@ declare module "esri/geometry/Extent" {
     update(xmin: number, ymin: number, xmax: number, ymax: number, spatialReference: SpatialReference): Extent;
   }
   export = Extent;
+}
+
+declare module "esri/geometry/GeographicTransformation" {
+  import esri = require("esri");
+  import GeographicTransformationStep = require("esri/geometry/GeographicTransformationStep");
+
+  /** Projecting your data between coordinate systems sometimes requires transforming between geographic coordinate systems. */
+  class GeographicTransformation {
+    /** Geographic transformation steps. */
+    steps: GeographicTransformationStep[];
+    /**
+     * Creates a new GeographicTransformation object.
+     * @param params See options descriptions for further information.
+     */
+    constructor(params?: esri.GeographicTransformationOptions);
+    /** Returns the inverse of the geographic transformation, calling this method or null if the transformation is not invertible. */
+    getInverse(): GeographicTransformation;
+  }
+  export = GeographicTransformation;
+}
+
+declare module "esri/geometry/GeographicTransformationStep" {
+  import esri = require("esri");
+
+  /** Represents a step in the process of transforming coordinates from one geographic coordinate system to another. */
+  class GeographicTransformationStep {
+    /** Indicates whether the geographic transformation is inverted. */
+    isInverse: boolean;
+    /** The well-known id (wkid) that represents a known geographic transformation. */
+    wkid: number;
+    /** The well-known text (wkt) hat represents a known geographic transformation. */
+    wkt: string;
+    /**
+     * Creates a new GeographicTransformationStep object.
+     * @param params See the params table for additional information.
+     */
+    constructor(params?: esri.GeographicTransformationStepOptions);
+    /** Returns the inverse of the geographic transformation calling this method or null if the transformation is not invertible. */
+    getInverse(): GeographicTransformationStep;
+  }
+  export = GeographicTransformationStep;
 }
 
 declare module "esri/geometry/Geometry" {
@@ -7985,6 +8153,77 @@ declare module "esri/geometry/ScreenPoint" {
     update(x: number, y: number): ScreenPoint;
   }
   export = ScreenPoint;
+}
+
+declare module "esri/geometry/coordinateFormatter" {
+  import SpatialReference = require("esri/SpatialReference");
+  import Point = require("esri/geometry/Point");
+
+  /** This module converts between points and formatted coordinate notation strings such as: decimal degrees degrees, minutes, and secondsU.S. */
+  var coordinateFormatter: {
+    /**
+     * Parses coordinates in latitude/longitude notation, and returns a Point representing that location.
+     * @param coordinates The latitude/longitude notation string for the coordinates.
+     * @param spatialReference A spatial reference for a geographic coordinate system that defines the datum and ellipsoid referenced by the latitude-longitude coordinates.
+     */
+    fromLatitudeLongitude(coordinates: string, spatialReference?: SpatialReference): Point;
+    /**
+     * Parses coordinates in Military Grid Reference System (MGRS) notation, and returns a Point representing that location.
+     * @param coordinates The MGRS notation string for the coordinates.
+     * @param spatialReference A spatial reference for a geographic coordinate system that defines the datum and ellipsoid referenced by the MGRS coordinates.
+     * @param conversionMode The mode used by the given MGRS coordinates.
+     */
+    fromMgrs(coordinates: string, spatialReference: SpatialReference, conversionMode: string): Point;
+    /**
+     * Parses coordinates in United States National Grid (USNG) notation, and returns a Point representing that location.
+     * @param coordinates The USNG notation string for the coordinates.
+     * @param spatialReference A spatial reference for a geographic coordinate system that defines the datum and ellipsoid referenced by the USNG coordinates.
+     */
+    fromUsng(coordinates: string, spatialReference?: SpatialReference): Point;
+    /**
+     * Parses coordinates in Universal Transverse Mercator (UTM) notation, and returns a Point representing that location.
+     * @param coordinates The UTM notation string for the coordinates.
+     * @param spatialReference A spatial reference for a geographic coordinate system that defines the datum and ellipsoid referenced by the UTM coordinates.
+     * @param conversionMode The latitude notation scheme used by the given UTM coordinates, either a latitudinal band, or a hemisphere designator.
+     */
+    fromUtm(coordinates: string, spatialReference: SpatialReference, conversionMode: string): Point;
+    /** Indicates if all dependencies of this module have been loaded. */
+    isLoaded(): boolean;
+    /** Indicates if this module is supported in the current browser. */
+    isSupported(): boolean;
+    /** Loads this module's dependencies. */
+    load(): any;
+    /**
+     * Returns formatted coordinates in latitude/longitude notation representing the given point's location.
+     * @param point The location to be represented as a formatted latitude/longitude string.
+     * @param format The mode to use when formatting the latitude/longitude string.
+     * @param decimalPlaces The number of decimal places to use, it should be an integer from 0 to 16.
+     */
+    toLatitudeLongitude(point: Point, format: string, decimalPlaces?: number): string;
+    /**
+     * Returns formatted coordinates in Military Grid Reference System (MGRS) notation representing the given point's location.
+     * @param point The location to be represented in MGRS notation.
+     * @param conversionMode The mode to use for the returned MGRS notation string.
+     * @param precision The precision with which to represent the coordinates.
+     * @param addSpaces Indicates whether the generated strings contain no spaces.
+     */
+    toMgrs(point: Point, conversionMode: string, precision?: number, addSpaces?: boolean): string;
+    /**
+     * Returns formatted coordinates in United States National Grid (USNG) notation representing the given point's location.
+     * @param point The location to be represented in USNG notation.
+     * @param precision The precision with which to represent the coordinates.
+     * @param addSpaces Indicates whether the generated strings contain no spaces.
+     */
+    toUsng(point: Point, precision?: number, addSpaces?: boolean): string;
+    /**
+     * Returns formatted coordinates in Universal Transverse Mercator (UTM) notation representing the given point's location.
+     * @param point The location to be represented in UTM notation.
+     * @param conversionMode The latitude notation scheme to use in the returned UTM notation string, either a latitudinal band, or a hemisphere designator.
+     * @param addSpaces Indicates whether the generated strings contain no spaces.
+     */
+    toUtm(point: Point, conversionMode: string, addSpaces?: boolean): string;
+  };
+  export = coordinateFormatter;
 }
 
 declare module "esri/geometry/geodesicUtils" {
@@ -8560,6 +8799,45 @@ declare module "esri/geometry/normalizeUtils" {
     normalizeCentralMeridian(geometries: Geometry[], geometryService?: GeometryService, callback?: Function, errback?: Function): any;
   };
   export = normalizeUtils;
+}
+
+declare module "esri/geometry/projection" {
+  import SpatialReference = require("esri/SpatialReference");
+  import Extent = require("esri/geometry/Extent");
+  import GeographicTransformation = require("esri/geometry/GeographicTransformation");
+  import Geometry = require("esri/geometry/Geometry");
+
+  /** A client-side projection engine for converting geometries from one SpatialReference to another. */
+  var projection: {
+    /**
+     * Gets the default geographic transformation used to convert the geometry from the input spatial reference to the output spatial reference.
+     * @param inSpatialReference The input spatial reference from which to project geometries.
+     * @param outSpatialReference The spatial reference to which you are converting the geometries.
+     * @param extent An extent used to determine the suitability of the returned transformation.
+     */
+    getTransformation(inSpatialReference: SpatialReference, outSpatialReference: SpatialReference, extent?: Extent): GeographicTransformation;
+    /**
+     * Returns a list of all geographic transformations suitable to convert geometries from the input spatial reference to the specified output spatial reference.
+     * @param inSpatialReference The spatial reference that the geometries are currently using.
+     * @param outSpatialReference The spatial reference to which you are converting the geometries to.
+     * @param extent An extent used to determine the suitability of the returned transformations.
+     */
+    getTransformations(inSpatialReference: SpatialReference, outSpatialReference: SpatialReference, extent?: Extent): GeographicTransformation[];
+    /** Indicates if all dependencies of this module have been loaded. */
+    isLoaded(): boolean;
+    /** Indicates if this module is supported in the browser. */
+    isSupported(): boolean;
+    /** Load this module's dependencies. */
+    load(): any;
+    /**
+     * Projects a geometry or an array of geometries to the specified output spatial reference.
+     * @param geometry The geometry or geometries to project.
+     * @param outSpatialReference The spatial reference to which you are converting the geometries' coordinates.
+     * @param geographicTransformation The geographic transformation used to transform the geometries.
+     */
+    project(geometry: Geometry | Geometry[], outSpatialReference: SpatialReference, geographicTransformation?: GeographicTransformation): Geometry | Geometry[];
+  };
+  export = projection;
 }
 
 declare module "esri/geometry/scaleUtils" {
@@ -9677,6 +9955,8 @@ declare module "esri/layers/FeatureLayer" {
     version: number;
     /** When true, the layer is visible at the current map scale. */
     visibleAtMapScale: boolean;
+    /** Indicates if WebGL is enabled on the layer. */
+    webglEnabled: boolean;
     /**
      * Creates a new instance of a feature layer object from the ArcGIS Server REST resource identified by the input URL.
      * @param url URL to the ArcGIS Server REST resource that represents a feature service.
@@ -9773,6 +10053,10 @@ declare module "esri/layers/FeatureLayer" {
      * @param feature A feature from this layer.
      */
     getType(feature: Graphic): FeatureType;
+    /** Indicates whether an error is thrown after the layer updates. */
+    hasUpdateError(): void;
+    /** Indicates if the layer is rendered in WebGL. */
+    hasWebGLSurface(): boolean;
     /** Returns true if geometryType is esriGeometryMultipatch and multipatchOption is xyFootprint. */
     hasXYFootprint(): boolean;
     /** Returns true if the FeatureLayer is editable. */
@@ -9934,6 +10218,11 @@ declare module "esri/layers/FeatureLayer" {
      * @param update When false the layer will not update its content based on the map's time extent.
      */
     setUseMapTime(update: boolean): void;
+    /**
+     * Toggles WebGL rendering on/off on the layer.
+     * @param enable Indicates whether to enable WebGL on the layer.
+     */
+    setWebGLEnabled(enable: boolean): void;
     /** Suspends layer drawing. */
     suspend(): void;
     /** Returns an easily serializable object representation of the layer. */
@@ -11961,6 +12250,8 @@ declare module "esri/map" {
     timeExtent: TimeExtent;
     /** Indicates whether map is visible. */
     visible: boolean;
+    /** Indicates if WebGL is enabled for rendering FeatureLayers in the map. */
+    webglEnabled: boolean;
     /** Current width of the map in screen pixels. */
     width: number;
     /**
@@ -12164,6 +12455,11 @@ declare module "esri/map" {
      * @param visible If true, map will be visible.
      */
     setVisibility(visible: boolean): Map;
+    /**
+     * Toggles WebGL rendering on/off for all FeatureLayers in the map.
+     * @param enable Indicates whether to enable WebGL rendering on the FeatureLayers in the map.
+     */
+    setWebGLEnabled(enable: boolean): void;
     /**
      * Set the map zoom level to the given value.
      * @param zoom A valid zoom level value.
@@ -15860,6 +16156,8 @@ declare module "esri/tasks/PrintTemplate" {
   class PrintTemplate {
     /** Define the map width, height and dpi. */
     exportOptions: any;
+    /** When true, the feature's attributes are included in feature collection layers even when they are not needed for rendering. */
+    forceFeatureAttributes: boolean;
     /** The print output format. */
     format: string;
     /** The text that appears on the Print widget's print button. */

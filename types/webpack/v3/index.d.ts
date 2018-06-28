@@ -10,6 +10,7 @@
 //                 Alan Agius <https://github.com/alan-agius4>
 //                 Spencer Elliott <https://github.com/elliottsj>
 //                 Jason Cheatham <https://github.com/jason0x43>
+//                 Christophe Hurpeau <https://github.com/christophehurpeau>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -88,7 +89,7 @@ declare namespace webpack {
         /** Can be used to configure the behaviour of webpack-dev-server when the webpack config is passed to webpack-dev-server CLI. */
         devServer?: any; // TODO: Type this
         /** Include polyfills or mocks for various node stuff */
-        node?: Node;
+        node?: Node | false;
         /** Set the value of require.amd and define.amd. */
         amd?: { [moduleName: string]: boolean };
         /** Used for recordsInputPath and recordsOutputPath */
@@ -318,6 +319,14 @@ declare namespace webpack {
          * Defaults to `true`
          */
         symlinks?: boolean;
+
+        /**
+         * If unsafe cache is enabled, includes request.context in the cache key.
+         * This option is taken into account by the enhanced-resolve module.
+         * Since webpack 3.1.0 context in resolve caching is ignored when resolve or resolveLoader plugins are provided.
+         * This addresses a performance regression.
+         */
+        cacheWithContext?: boolean;
     }
 
     interface ResolveLoader extends Resolve {

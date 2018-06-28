@@ -23,6 +23,7 @@ Intercom('showMessages');
 Intercom('showNewMessage');
 Intercom('showNewMessage', 'pre-populated content');
 Intercom('onHide', () => { /* Do stuff */ });
+Intercom('onUnreadCountChange', (unreadCount: number) => { /* Do stuff */ });
 Intercom('onActivatorClick', () => { /* Do stuff */ });
 Intercom('trackEvent', 'invited-friend');
 
@@ -59,4 +60,16 @@ intercomSettings = {
   app_id: "pi3243fa",
   user_id: "12345",
   user_hash: "775c502lcc1087d12398571837c"
+};
+
+/*
+  From https://docs.intercom.com/configure-intercom-for-your-product-or-site/
+         customize-the-intercom-messenger/
+         customize-the-intercom-messenger-technical
+*/
+intercomSettings = {
+  app_id: "pi3243fa",
+  alignment: "left",
+  horizontal_padding: 20,
+  vertical_padding: 20
 };

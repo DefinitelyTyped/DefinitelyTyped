@@ -1,6 +1,7 @@
 // Type definitions for ramda 0.25
 // Project: https://github.com/donnut/typescript-ramda
 // Definitions by: Erwin Poeze <https://github.com/donnut>
+//                 Tycho Grouwstra <https://github.com/tycho01>
 //                 Matt DeKrey <https://github.com/mdekrey>
 //                 Matt Dziuban <https://github.com/mrdziuban>
 //                 Stephen King <https://github.com/sbking>
@@ -18,14 +19,17 @@
 //                 Jack Leigh <https://github.com/leighman>
 //                 Keagan McClelland <https://github.com/CaptJakk>
 //                 Tomas Szabo <https://github.com/deftomat>
+//                 Bonggyun Lee <https://github.com/deptno>
+//                 Maciek Blim <https://github.com/blimusiek>
+//                 Marcin Biernat <https://github.com/biern>
+//                 Rayhaneh Banyassady <https://github.com/rayhaneh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 declare let R: R.Static;
 
 declare namespace R {
-    type Diff<T extends string, U extends string> = ({[P in T]: P } & {[P in U]: never } & { [x: string]: never })[T];
-    type Omit<T, K extends string> = Pick<T, Diff<keyof T, K>>;
+    type Omit<T, K extends string> = Pick<T, Exclude<keyof T, K>>;
 
     type Ord = number | string | boolean;
 
@@ -81,9 +85,28 @@ declare namespace R {
       (obj: Dictionary<T>): Dictionary<T>;
     }
 
-    type Evolver<T> =
-        | ((x: T) => T)
-        | { [K in keyof T]?: Evolver<T[K]> };
+    type Evolve<O extends Evolvable<E>, E extends Evolver> = {
+        [P in keyof O]: P extends keyof E ? EvolveValue<O[P], E[P]> : O[P];
+    };
+
+    type EvolveValue<V, E> =
+        E extends (value: V) => any ? ReturnType<E> :
+        E extends Evolver ? EvolveNestedValue<V, E> :
+        never;
+
+    type EvolveNestedValue<V, E extends Evolver> =
+        V extends object ? (V extends Evolvable<E> ? Evolve<V, E> : never) : never;
+
+    interface Evolver {
+        [key: string]: ((value: any) => any) | Evolver;
+    }
+
+    // Represents all objects evolvable with Evolver E
+    type Evolvable<E extends Evolver> = {
+        [P in keyof E]?: E[P] extends (value: infer V) => any ? V :
+            E[P] extends Evolver ? Evolvable<E[P]> :
+            never
+    };
 
     // @see https://gist.github.com/donnut/fd56232da58d25ceecf1, comment by @albrow
     interface CurriedTypeGuard2<T1, T2, R extends T2> {
@@ -231,6 +254,16 @@ declare namespace R {
          * Returns a new list, composed of n-tuples of consecutive elements If n is greater than the length of the list,
          * an empty list is returned.
          */
+        aperture<T>(n: 1, list: T[]): Array<[T]>;
+        aperture<T>(n: 2, list: T[]): Array<[T, T]>;
+        aperture<T>(n: 3, list: T[]): Array<[T, T, T]>;
+        aperture<T>(n: 4, list: T[]): Array<[T, T, T, T]>;
+        aperture<T>(n: 5, list: T[]): Array<[T, T, T, T, T]>;
+        aperture<T>(n: 6, list: T[]): Array<[T, T, T, T, T, T]>;
+        aperture<T>(n: 7, list: T[]): Array<[T, T, T, T, T, T, T]>;
+        aperture<T>(n: 8, list: T[]): Array<[T, T, T, T, T, T, T, T]>;
+        aperture<T>(n: 9, list: T[]): Array<[T, T, T, T, T, T, T, T, T]>;
+        aperture<T>(n: 10, list: T[]): Array<[T, T, T, T, T, T, T, T, T, T]>;
         aperture<T>(n: number, list: ReadonlyArray<T>): T[][];
         aperture(n: number): <T>(list: ReadonlyArray<T>) => T[][];
 
@@ -292,7 +325,7 @@ declare namespace R {
          * Creates a function that is bound to a context. Note: R.bind does not provide the additional argument-binding
          * capabilities of Function.prototype.bind.
          */
-        bind<T>(thisObj: T, fn: (...args: any[]) => any): (...args: any[]) => any;
+        bind<T>(fn: (...args: any[]) => any, thisObj: T): (...args: any[]) => any;
 
         /**
          * A function wrapping calls to the two functions in an && operation, returning the result of the first function
@@ -387,12 +420,72 @@ declare namespace R {
             fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T6;
 
         /**
-         * TODO composeK
+         * Returns the right-to-left Kleisli composition of the provided functions, each of which must return a value of a type supported by chain.
+         * The typings only support arrays for now.
+         * All functions must be unary.
+         * R.composeK(h, g, f) is equivalent to R.compose(R.chain(h), R.chain(g), f).
          */
+        composeK<V0, T1>(
+            fn0: (x0: V0) => T1[]): (x0: V0) => T1[];
+        composeK<V0, T1, T2>(
+            fn1: (x: T1) => T2[],
+            fn0: (x0: V0) => T1[]): (x0: V0) => T2[];
+        composeK<V0, T1, T2, T3>(
+            fn2: (x: T2) => T3[],
+            fn1: (x: T1) => T2[],
+            fn0: (x: V0) => T1[]): (x: V0) => T3[];
+        composeK<V0, T1, T2, T3, T4>(
+            fn3: (x: T3) => T4[],
+            fn2: (x: T2) => T3[],
+            fn1: (x: T1) => T2[],
+            fn0: (x: V0) => T1[]): (x: V0) => T4[];
+        composeK<V0, T1, T2, T3, T4, T5>(
+            fn4: (x: T4) => T5[],
+            fn3: (x: T3) => T4[],
+            fn2: (x: T2) => T3[],
+            fn1: (x: T1) => T2[],
+            fn0: (x: V0) => T1[]): (x: V0) => T5[];
+        composeK<V0, T1, T2, T3, T4, T5, T6>(
+            fn5: (x: T5) => T6[],
+            fn4: (x: T4) => T5[],
+            fn3: (x: T3) => T4[],
+            fn2: (x: T2) => T3[],
+            fn1: (x: T1) => T2[],
+            fn0: (x: V0) => T1[]): (x: V0) => T6[];
 
         /**
-         * TODO composeP
+         * Performs right-to-left composition of one or more Promise-returning functions.
+         * All functions must be unary.
          */
+        composeP<V0, T1>(
+            fn0: (x0: V0) => Promise<T1>): (x0: V0) => Promise<T1>;
+        composeP<V0, T1, T2>(
+            fn1: (x: T1) => Promise<T2>,
+            fn0: (x0: V0) => Promise<T1>): (x0: V0) => Promise<T2>;
+        composeP<V0, T1, T2, T3>(
+            fn2: (x: T2) => Promise<T3>,
+            fn1: (x: T1) => Promise<T2>,
+            fn0: (x: V0) => Promise<T1>): (x: V0) => Promise<T3>;
+        composeP<V0, T1, T2, T3, T4>(
+            fn3: (x: T3) => Promise<T4>,
+            fn2: (x: T2) => Promise<T3>,
+            fn1: (x: T1) => Promise<T2>,
+            fn0: (x: V0) => Promise<T1>): (x: V0) => Promise<T4>;
+        composeP<V0, T1, T2, T3, T4, T5>(
+            fn4: (x: T4) => Promise<T5>,
+            fn3: (x: T3) => Promise<T4>,
+            fn2: (x: T2) => Promise<T3>,
+            fn1: (x: T1) => Promise<T2>,
+            fn0: (x: V0) => Promise<T1>):
+        (x: V0) => Promise<T5>;
+        composeP<V0, T1, T2, T3, T4, T5, T6>(
+            fn5: (x: T5) => Promise<T6>,
+            fn4: (x: T4) => Promise<T5>,
+            fn3: (x: T3) => Promise<T4>,
+            fn2: (x: T2) => Promise<T3>,
+            fn1: (x: T1) => Promise<T2>,
+            fn0: (x: V0) => Promise<T1>):
+        (x: V0) => Promise<T6>;
 
         /**
          * Returns a new list consisting of the elements of the first list followed by the elements
@@ -500,7 +593,9 @@ declare namespace R {
          * Duplication is determined according to the value returned by applying the supplied predicate to two list
          * elements.
          */
-        differenceWith<T>(pred: (a: T, b: T) => boolean, list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
+        differenceWith<T1, T2>(pred: (a: T1, b: T2) => boolean, list1: ReadonlyArray<T1>, list2: ReadonlyArray<T2>): T1[];
+        differenceWith<T1, T2>(pred: (a: T1, b: T2) => boolean): (list1: ReadonlyArray<T1>, list2: ReadonlyArray<T2>) => T1[];
+        differenceWith<T1, T2>(pred: (a: T1, b: T2) => boolean, list1: ReadonlyArray<T1>): (list2: ReadonlyArray<T2>) => T1[];
 
         /*
          * Returns a new object that does not contain a prop property.
@@ -603,8 +698,8 @@ declare namespace R {
         /**
          * Creates a new object by evolving a shallow copy of object, according to the transformation functions.
          */
-        evolve<V>(transformations: Evolver<V>, obj: V): V;
-        evolve<V>(transformations: Evolver<V>): <W extends V>(obj: W) => W;
+        evolve<E extends Evolver, V extends Evolvable<E>>(transformations: E, obj: V): Evolve<V, E>;
+        evolve<E extends Evolver>(transformations: E): <V extends Evolvable<E>>(obj: V) => Evolve<V, E>;
 
         /*
          * A function that always returns false. Any passed in parameters are ignored.
@@ -979,6 +1074,16 @@ declare namespace R {
         /**
          * Like mapObj, but but passes additional arguments to the predicate function.
          */
+        mapObjIndexed<T, TResult>(
+            fn: (value: T, key: string, obj?: {
+                [key: string]: T
+            }) => TResult,
+            obj: {
+                [key: string]: T
+            }
+        ): {
+            [key: string]: TResult
+        };
         mapObjIndexed<T, TResult>(fn: (value: T, key: string, obj?: any) => TResult, obj: any): { [index: string]: TResult };
         mapObjIndexed<T, TResult>(fn: (value: T, key: string, obj?: any) => TResult): (obj: any) => { [index: string]: TResult };
 
@@ -1022,11 +1127,13 @@ declare namespace R {
         median(list: ReadonlyArray<number>): number;
 
         /**
+         * @deprecated since v0.25.0
+         *
          * Creates a new function that, when invoked, caches the result of calling fn for a given argument set and
          * returns the result. Subsequent calls to the memoized fn with the same argument set will not result in an
          * additional call to fn; instead, the cached result for that set of arguments will be returned.
          */
-        memoize<T = any>(fn: (...a: any[]) => T): (...a: any[]) => T;
+        memoize<T extends (...args: any[]) => any>(fn: T): T;
 
         /**
          * A customisable version of R.memoize. memoizeWith takes an additional function that will be applied to a given
@@ -1296,8 +1403,8 @@ declare namespace R {
          * Returns a partial copy of an object containing only the keys specified.  If the key does not exist, the
          * property is ignored.
          */
-        pick<T, K extends string>(names: ReadonlyArray<K>, obj: T): Pick<T, Diff<keyof T, keyof Omit<T, K>>>;
-        pick<K extends string>(names: ReadonlyArray<K>): <T>(obj: T) => Pick<T, Diff<keyof T, keyof Omit<T, K>>>;
+        pick<T, K extends string>(names: ReadonlyArray<K>, obj: T): Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
+        pick<K extends string>(names: ReadonlyArray<K>): <T>(obj: T) => Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
 
         /**
          * Similar to `pick` except that this one includes a `key: undefined` pair for properties that don't exist.
@@ -1464,6 +1571,148 @@ declare namespace R {
             fn8: (x: T8) => T9,
             fn9: (x: T9) => T10): (x0: V0, x1: V1, x2: V2) => T10;
 
+        /*
+         * Returns the left-to-right Kleisli composition of the provided functions, each of which must return a value of a type supported by chain.
+         * The typings currently support arrays only as return values.
+         * All functions need to be unary.
+         * R.pipeK(f, g, h) is equivalent to R.pipe(f, R.chain(g), R.chain(h)).
+         */
+        pipeK<V0, T1>(
+            fn0: (x0: V0) => T1[]): (x0: V0) => T1[];
+        pipeK<V0, T1, T2>(
+            fn0: (x0: V0) => T1[],
+            fn1: (x: T1) => T2[]): (x0: V0) => T2[];
+        pipeK<V0, T1, T2, T3>(
+            fn0: (x: V0) => T1[],
+            fn1: (x: T1) => T2[],
+            fn2: (x: T2) => T3[]): (x: V0) => T3[];
+        pipeK<V0, T1, T2, T3, T4>(
+            fn0: (x: V0) => T1[],
+            fn1: (x: T1) => T2[],
+            fn2: (x: T2) => T3[],
+            fn3: (x: T3) => T4[]): (x: V0) => T4[];
+        pipeK<V0, T1, T2, T3, T4, T5>(
+            fn0: (x: V0) => T1[],
+            fn1: (x: T1) => T2[],
+            fn2: (x: T2) => T3[],
+            fn3: (x: T3) => T4[],
+            fn4: (x: T4) => T5[]): (x: V0) => T5[];
+        pipeK<V0, T1, T2, T3, T4, T5, T6>(
+            fn0: (x: V0) => T1[],
+            fn1: (x: T1) => T2[],
+            fn2: (x: T2) => T3[],
+            fn3: (x: T3) => T4[],
+            fn4: (x: T4) => T5[],
+            fn5: (x: T5) => T6[]): (x: V0) => T6[];
+        pipeK<V0, T1, T2, T3, T4, T5, T6, T7>(
+            fn0: (x: V0) => T1[],
+            fn1: (x: T1) => T2[],
+            fn2: (x: T2) => T3[],
+            fn3: (x: T3) => T4[],
+            fn4: (x: T4) => T5[],
+            fn5: (x: T5) => T6[],
+            fn: (x: T6) => T7[]): (x: V0) => T7[];
+        pipeK<V0, T1, T2, T3, T4, T5, T6, T7, T8>(
+            fn0: (x: V0) => T1[],
+            fn1: (x: T1) => T2[],
+            fn2: (x: T2) => T3[],
+            fn3: (x: T3) => T4[],
+            fn4: (x: T4) => T5[],
+            fn5: (x: T5) => T6[],
+            fn6: (x: T6) => T7[],
+            fn: (x: T7) => T8[]): (x: V0) => T8[];
+        pipeK<V0, T1, T2, T3, T4, T5, T6, T7, T8, T9>(
+            fn0: (x0: V0) => T1[],
+            fn1: (x: T1) => T2[],
+            fn2: (x: T2) => T3[],
+            fn3: (x: T3) => T4[],
+            fn4: (x: T4) => T5[],
+            fn5: (x: T5) => T6[],
+            fn6: (x: T6) => T7[],
+            fn7: (x: T7) => T8[],
+            fn8: (x: T8) => T9[]): (x0: V0) => T9[];
+        pipeK<V0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
+            fn0: (x0: V0) => T1[],
+            fn1: (x: T1) => T2[],
+            fn2: (x: T2) => T3[],
+            fn3: (x: T3) => T4[],
+            fn4: (x: T4) => T5[],
+            fn5: (x: T5) => T6[],
+            fn6: (x: T6) => T7[],
+            fn7: (x: T7) => T8[],
+            fn8: (x: T8) => T9[],
+            fn9: (x: T9) => T10[]): (x0: V0) => T10[];
+
+        /*
+         * Performs left-to-right composition of one or more Promise-returning functions.
+         * All functions need to be unary.
+         */
+        pipeP<V0, T1>(
+            fn0: (x0: V0) => Promise<T1>): (x0: V0) => Promise<T1>;
+        pipeP<V0, T1, T2>(
+            fn0: (x0: V0) => Promise<T1>,
+            fn1: (x: T1) => Promise<T2>): (x0: V0) => Promise<T2>;
+        pipeP<V0, T1, T2, T3>(
+            fn0: (x: V0) => Promise<T1>,
+            fn1: (x: T1) => Promise<T2>,
+            fn2: (x: T2) => Promise<T3>): (x: V0) => Promise<T3>;
+        pipeP<V0, T1, T2, T3, T4>(
+            fn0: (x: V0) => Promise<T1>,
+            fn1: (x: T1) => Promise<T2>,
+            fn2: (x: T2) => Promise<T3>,
+            fn3: (x: T3) => Promise<T4>): (x: V0) => Promise<T4>;
+        pipeP<V0, T1, T2, T3, T4, T5>(
+            fn0: (x: V0) => Promise<T1>,
+            fn1: (x: T1) => Promise<T2>,
+            fn2: (x: T2) => Promise<T3>,
+            fn3: (x: T3) => Promise<T4>,
+            fn4: (x: T4) => Promise<T5>): (x: V0) => Promise<T5>;
+        pipeP<V0, T1, T2, T3, T4, T5, T6>(
+            fn0: (x: V0) => Promise<T1>,
+            fn1: (x: T1) => Promise<T2>,
+            fn2: (x: T2) => Promise<T3>,
+            fn3: (x: T3) => Promise<T4>,
+            fn4: (x: T4) => Promise<T5>,
+            fn5: (x: T5) => Promise<T6>): (x: V0) => Promise<T6>;
+        pipeP<V0, T1, T2, T3, T4, T5, T6, T7>(
+            fn0: (x: V0) => Promise<T1>,
+            fn1: (x: T1) => Promise<T2>,
+            fn2: (x: T2) => Promise<T3>,
+            fn3: (x: T3) => Promise<T4>,
+            fn4: (x: T4) => Promise<T5>,
+            fn5: (x: T5) => Promise<T6>,
+            fn: (x: T6) => Promise<T7>): (x: V0) => Promise<T7>;
+        pipeP<V0, T1, T2, T3, T4, T5, T6, T7, T8>(
+            fn0: (x: V0) => Promise<T1>,
+            fn1: (x: T1) => Promise<T2>,
+            fn2: (x: T2) => Promise<T3>,
+            fn3: (x: T3) => Promise<T4>,
+            fn4: (x: T4) => Promise<T5>,
+            fn5: (x: T5) => Promise<T6>,
+            fn6: (x: T6) => Promise<T7>,
+            fn: (x: T7) => Promise<T8>): (x: V0) => Promise<T8>;
+        pipeP<V0, T1, T2, T3, T4, T5, T6, T7, T8, T9>(
+            fn0: (x0: V0) => Promise<T1>,
+            fn1: (x: T1) => Promise<T2>,
+            fn2: (x: T2) => Promise<T3>,
+            fn3: (x: T3) => Promise<T4>,
+            fn4: (x: T4) => Promise<T5>,
+            fn5: (x: T5) => Promise<T6>,
+            fn6: (x: T6) => Promise<T7>,
+            fn7: (x: T7) => Promise<T8>,
+            fn8: (x: T8) => Promise<T9>): (x0: V0) => Promise<T9>;
+        pipeP<V0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
+            fn0: (x0: V0) => Promise<T1>,
+            fn1: (x: T1) => Promise<T2>,
+            fn2: (x: T2) => Promise<T3>,
+            fn3: (x: T3) => Promise<T4>,
+            fn4: (x: T4) => Promise<T5>,
+            fn5: (x: T5) => Promise<T6>,
+            fn6: (x: T6) => Promise<T7>,
+            fn7: (x: T7) => Promise<T8>,
+            fn8: (x: T8) => Promise<T9>,
+            fn9: (x: T9) => Promise<T10>): (x0: V0) => Promise<T10>;
+
         /**
          * Returns a new list by plucking the same named property off all objects in the list supplied.
          */
@@ -1488,6 +1737,7 @@ declare namespace R {
          * Reasonable analog to SQL `select` statement.
          */
         project<T, U>(props: ReadonlyArray<string>, objs: ReadonlyArray<T>): U[];
+        project<T, U>(props: ReadonlyArray<string>): (objs: ReadonlyArray<T>) => U[];
 
         /**
          * Returns a function that when supplied an object returns the indicated property of that object, if it exists.
@@ -1583,6 +1833,17 @@ declare namespace R {
         reduceRight<T, TResult>(fn: (elem: T, acc: TResult) => TResult, acc: TResult, list: ReadonlyArray<T>): TResult;
         reduceRight<T, TResult>(fn: (elem: T, acc: TResult) => TResult): (acc: TResult, list: ReadonlyArray<T>) => TResult;
         reduceRight<T, TResult>(fn: (elem: T, acc: TResult) => TResult, acc: TResult): (list: ReadonlyArray<T>) => TResult;
+
+        /**
+         * Like reduce, reduceWhile returns a single item by iterating through the list, successively
+         * calling the iterator function. reduceWhile also takes a predicate that is evaluated before
+         * each step. If the predicate returns false, it "short-circuits" the iteration and returns
+         * the current value of the accumulator.
+         */
+        reduceWhile<T, TResult>(predicate: (acc: TResult, elem: T) => boolean, fn: (acc: TResult, elem: T) => TResult, acc: TResult, list: ReadonlyArray<T>): TResult;
+        reduceWhile<T, TResult>(predicate: (acc: TResult, elem: T) => boolean, fn: (acc: TResult, elem: T) => TResult, acc: TResult): (list: ReadonlyArray<T>) => TResult;
+        reduceWhile<T, TResult>(predicate: (acc: TResult, elem: T) => boolean, fn: (acc: TResult, elem: T) => TResult): CurriedFunction2<TResult, ReadonlyArray<T>, TResult>;
+        reduceWhile<T, TResult>(predicate: (acc: TResult, elem: T) => boolean): CurriedFunction3<(acc: TResult, elem: T) => TResult, TResult, ReadonlyArray<T>, TResult>;
 
         /**
          * Similar to `filter`, except that it keeps only values for which the given predicate

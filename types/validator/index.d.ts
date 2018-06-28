@@ -7,6 +7,7 @@
 //                 Kacper Polak <https://github.com/kacepe>
 //                 Bonggyun Lee <https://github.com/deptno>
 //                 Naoto Yokoyama <https://github.com/builtinnya>
+//                 Philipp Katz <https://github.com/qqilihq>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace ValidatorJS {
@@ -356,7 +357,7 @@ declare namespace ValidatorJS {
     protocols?: string[];
     require_tld?: boolean;
     require_protocol?: boolean;
-    require_host: boolean;
+    require_host?: boolean;
     require_valid_protocol?: boolean;
     allow_underscores?: boolean;
     host_whitelist?: (string | RegExp)[];

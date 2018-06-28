@@ -1,4 +1,4 @@
-// Type definitions for React 16.3
+// Type definitions for React 16.4
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>
 //                 AssureSign <http://www.assuresign.com>
@@ -16,6 +16,8 @@
 //                 Guilherme Hübner <https://github.com/guilhermehubner>
 //                 Ferdy Budhidharma <https://github.com/ferdaber>
 //                 Johann Rakotoharisoa <https://github.com/jrakotoharisoa>
+//                 Olivier Pascal <https://github.com/pascaloliv>
+//                 Martin Hochel <https://github.com/hotell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -31,6 +33,7 @@ type NativeFocusEvent = FocusEvent;
 type NativeKeyboardEvent = KeyboardEvent;
 type NativeMouseEvent = MouseEvent;
 type NativeTouchEvent = TouchEvent;
+type NativePointerEvent = PointerEvent;
 type NativeTransitionEvent = TransitionEvent;
 type NativeUIEvent = UIEvent;
 type NativeWheelEvent = WheelEvent;
@@ -143,8 +146,8 @@ declare namespace React {
     type ReactText = string | number;
     type ReactChild = ReactElement<any> | ReactText;
 
-    // Should be Array<ReactNode> but type aliases cannot be recursive
-    type ReactFragment = {} | Array<ReactChild | any[] | boolean>;
+    interface ReactNodeArray extends Array<ReactNode> {}
+    type ReactFragment = {} | ReactNodeArray;
     type ReactNode = ReactChild | ReactFragment | ReactPortal | string | number | boolean | null | undefined;
 
     //
@@ -261,7 +264,6 @@ declare namespace React {
         defaultValue: T,
         calculateChangedBits?: (prev: T, next: T) => number
     ): Context<T>;
-    function createContext<T>(): Context<T | undefined>;
 
     function isValidElement<P>(object: {} | null | undefined): object is ReactElement<P>;
 
@@ -280,13 +282,18 @@ declare namespace React {
     // tslint:disable-next-line:no-empty-interface
     interface Component<P = {}, S = {}, SS = any> extends ComponentLifecycle<P, S, SS> { }
     class Component<P, S> {
+        constructor(props: Readonly<P>);
+        /**
+         * @deprecated
+         * https://reactjs.org/docs/legacy-context.html
+         */
         constructor(props: P, context?: any);
 
         // We MUST keep setState() as a unified signature because it allows proper checking of the method return type.
         // See: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/18365#issuecomment-351013257
         // Also, the ` | S` allows intellisense to not be dumbisense
         setState<K extends keyof S>(
-            state: ((prevState: Readonly<S>, props: P) => (Pick<S, K> | S | null)) | (Pick<S, K> | S | null),
+            state: ((prevState: Readonly<S>, props: Readonly<P>) => (Pick<S, K> | S | null)) | (Pick<S, K> | S | null),
             callback?: () => void
         ): void;
 
@@ -298,9 +305,17 @@ declare namespace React {
         // always pass children as variadic arguments to `createElement`.
         // In the future, if we can define its call signature conditionally
         // on the existence of `children` in `P`, then we should remove this.
-        props: Readonly<{ children?: ReactNode }> & Readonly<P>;
-        state: Readonly<S>;
+        readonly props: Readonly<{ children?: ReactNode }> & Readonly<P>;
+        readonly state: null | Readonly<S>;
+        /**
+         * @deprecated
+         * https://reactjs.org/docs/legacy-context.html
+         */
         context: any;
+        /**
+         * @deprecated
+         * https://reactjs.org/docs/refs-and-the-dom.html#legacy-api-string-refs
+         */
         refs: {
             [key: string]: ReactInstance
         };
@@ -370,7 +385,7 @@ declare namespace React {
     // This should actually be something like `Lifecycle<P, S> | DeprecatedLifecycle<P, S>`,
     // as React will _not_ call the deprecated lifecycle methods if any of the new lifecycle
     // methods are present.
-    interface ComponentLifecycle<P, S, SS = never> extends NewLifecycle<P, S, SS>, DeprecatedLifecycle<P, S> {
+    interface ComponentLifecycle<P, S, SS = any> extends NewLifecycle<P, S, SS>, DeprecatedLifecycle<P, S> {
         /**
          * Called immediately after a compoment is mounted. Setting state here will trigger re-rendering.
          */
@@ -548,7 +563,7 @@ declare namespace React {
     // Event System
     // ----------------------------------------------------------------------
 
-    interface SyntheticEvent<T> {
+    interface SyntheticEvent<T = Element> {
         bubbles: boolean;
         /**
          * A reference to the element on which the event listener is registered.
@@ -576,40 +591,52 @@ declare namespace React {
         type: string;
     }
 
-    interface ClipboardEvent<T> extends SyntheticEvent<T> {
+    interface ClipboardEvent<T = Element> extends SyntheticEvent<T> {
         clipboardData: DataTransfer;
         nativeEvent: NativeClipboardEvent;
     }
 
-    interface CompositionEvent<T> extends SyntheticEvent<T> {
+    interface CompositionEvent<T = Element> extends SyntheticEvent<T> {
         data: string;
         nativeEvent: NativeCompositionEvent;
     }
 
-    interface DragEvent<T> extends MouseEvent<T> {
+    interface DragEvent<T = Element> extends MouseEvent<T> {
         dataTransfer: DataTransfer;
         nativeEvent: NativeDragEvent;
     }
 
-    interface FocusEvent<T> extends SyntheticEvent<T> {
+    interface PointerEvent<T = Element> extends MouseEvent<T> {
+        pointerId: number;
+        pressure: number;
+        tiltX: number;
+        tiltY: number;
+        width: number;
+        height: number;
+        pointerType: 'mouse' | 'pen' | 'touch';
+        isPrimary: boolean;
+        nativeEvent: NativePointerEvent;
+    }
+
+    interface FocusEvent<T = Element> extends SyntheticEvent<T> {
         nativeEvent: NativeFocusEvent;
         relatedTarget: EventTarget;
         target: EventTarget & T;
     }
 
     // tslint:disable-next-line:no-empty-interface
-    interface FormEvent<T> extends SyntheticEvent<T> {
+    interface FormEvent<T = Element> extends SyntheticEvent<T> {
     }
 
-    interface InvalidEvent<T> extends SyntheticEvent<T> {
+    interface InvalidEvent<T = Element> extends SyntheticEvent<T> {
         target: EventTarget & T;
     }
 
-    interface ChangeEvent<T> extends SyntheticEvent<T> {
+    interface ChangeEvent<T = Element> extends SyntheticEvent<T> {
         target: EventTarget & T;
     }
 
-    interface KeyboardEvent<T> extends SyntheticEvent<T> {
+    interface KeyboardEvent<T = Element> extends SyntheticEvent<T> {
         altKey: boolean;
         charCode: number;
         ctrlKey: boolean;
@@ -631,7 +658,7 @@ declare namespace React {
         which: number;
     }
 
-    interface MouseEvent<T> extends SyntheticEvent<T> {
+    interface MouseEvent<T = Element> extends SyntheticEvent<T> {
         altKey: boolean;
         button: number;
         buttons: number;
@@ -652,7 +679,7 @@ declare namespace React {
         shiftKey: boolean;
     }
 
-    interface TouchEvent<T> extends SyntheticEvent<T> {
+    interface TouchEvent<T = Element> extends SyntheticEvent<T> {
         altKey: boolean;
         changedTouches: TouchList;
         ctrlKey: boolean;
@@ -667,13 +694,13 @@ declare namespace React {
         touches: TouchList;
     }
 
-    interface UIEvent<T> extends SyntheticEvent<T> {
+    interface UIEvent<T = Element> extends SyntheticEvent<T> {
         detail: number;
         nativeEvent: NativeUIEvent;
         view: AbstractView;
     }
 
-    interface WheelEvent<T> extends MouseEvent<T> {
+    interface WheelEvent<T = Element> extends MouseEvent<T> {
         deltaMode: number;
         deltaX: number;
         deltaY: number;
@@ -681,14 +708,14 @@ declare namespace React {
         nativeEvent: NativeWheelEvent;
     }
 
-    interface AnimationEvent<T> extends SyntheticEvent<T> {
+    interface AnimationEvent<T = Element> extends SyntheticEvent<T> {
         animationName: string;
         elapsedTime: number;
         nativeEvent: NativeAnimationEvent;
         pseudoElement: string;
     }
 
-    interface TransitionEvent<T> extends SyntheticEvent<T> {
+    interface TransitionEvent<T = Element> extends SyntheticEvent<T> {
         elapsedTime: number;
         nativeEvent: NativeTransitionEvent;
         propertyName: string;
@@ -701,21 +728,22 @@ declare namespace React {
 
     type EventHandler<E extends SyntheticEvent<any>> = { bivarianceHack(event: E): void }["bivarianceHack"];
 
-    type ReactEventHandler<T> = EventHandler<SyntheticEvent<T>>;
+    type ReactEventHandler<T = Element> = EventHandler<SyntheticEvent<T>>;
 
-    type ClipboardEventHandler<T> = EventHandler<ClipboardEvent<T>>;
-    type CompositionEventHandler<T> = EventHandler<CompositionEvent<T>>;
-    type DragEventHandler<T> = EventHandler<DragEvent<T>>;
-    type FocusEventHandler<T> = EventHandler<FocusEvent<T>>;
-    type FormEventHandler<T> = EventHandler<FormEvent<T>>;
-    type ChangeEventHandler<T> = EventHandler<ChangeEvent<T>>;
-    type KeyboardEventHandler<T> = EventHandler<KeyboardEvent<T>>;
-    type MouseEventHandler<T> = EventHandler<MouseEvent<T>>;
-    type TouchEventHandler<T> = EventHandler<TouchEvent<T>>;
-    type UIEventHandler<T> = EventHandler<UIEvent<T>>;
-    type WheelEventHandler<T> = EventHandler<WheelEvent<T>>;
-    type AnimationEventHandler<T> = EventHandler<AnimationEvent<T>>;
-    type TransitionEventHandler<T> = EventHandler<TransitionEvent<T>>;
+    type ClipboardEventHandler<T = Element> = EventHandler<ClipboardEvent<T>>;
+    type CompositionEventHandler<T = Element> = EventHandler<CompositionEvent<T>>;
+    type DragEventHandler<T = Element> = EventHandler<DragEvent<T>>;
+    type FocusEventHandler<T = Element> = EventHandler<FocusEvent<T>>;
+    type FormEventHandler<T = Element> = EventHandler<FormEvent<T>>;
+    type ChangeEventHandler<T = Element> = EventHandler<ChangeEvent<T>>;
+    type KeyboardEventHandler<T = Element> = EventHandler<KeyboardEvent<T>>;
+    type MouseEventHandler<T = Element> = EventHandler<MouseEvent<T>>;
+    type TouchEventHandler<T = Element> = EventHandler<TouchEvent<T>>;
+    type PointerEventHandler<T = Element> = EventHandler<PointerEvent<T>>;
+    type UIEventHandler<T = Element> = EventHandler<UIEvent<T>>;
+    type WheelEventHandler<T = Element> = EventHandler<WheelEvent<T>>;
+    type AnimationEventHandler<T = Element> = EventHandler<AnimationEvent<T>>;
+    type TransitionEventHandler<T = Element> = EventHandler<TransitionEvent<T>>;
 
     //
     // Props / DOM Attributes
@@ -898,6 +926,28 @@ declare namespace React {
         onTouchMoveCapture?: TouchEventHandler<T>;
         onTouchStart?: TouchEventHandler<T>;
         onTouchStartCapture?: TouchEventHandler<T>;
+
+        // Pointer Events
+        onPointerDown?: PointerEventHandler<T>;
+        onPointerDownCapture?: PointerEventHandler<T>;
+        onPointerMove?: PointerEventHandler<T>;
+        onPointerMoveCapture?: PointerEventHandler<T>;
+        onPointerUp?: PointerEventHandler<T>;
+        onPointerUpCapture?: PointerEventHandler<T>;
+        onPointerCancel?: PointerEventHandler<T>;
+        onPointerCancelCapture?: PointerEventHandler<T>;
+        onPointerEnter?: PointerEventHandler<T>;
+        onPointerEnterCapture?: PointerEventHandler<T>;
+        onPointerLeave?: PointerEventHandler<T>;
+        onPointerLeaveCapture?: PointerEventHandler<T>;
+        onPointerOver?: PointerEventHandler<T>;
+        onPointerOverCapture?: PointerEventHandler<T>;
+        onPointerOut?: PointerEventHandler<T>;
+        onPointerOutCapture?: PointerEventHandler<T>;
+        onGotPointerCapture?: PointerEventHandler<T>;
+        onGotPointerCaptureCapture?: PointerEventHandler<T>;
+        onLostPointerCapture?: PointerEventHandler<T>;
+        onLostPointerCaptureCapture?: PointerEventHandler<T>;
 
         // UI Events
         onScroll?: UIEventHandler<T>;
@@ -1189,7 +1239,7 @@ declare namespace React {
         autoComplete?: string;
         autoFocus?: boolean;
         autoPlay?: boolean;
-        capture?: boolean;
+        capture?: boolean | string;
         cellPadding?: number | string;
         cellSpacing?: number | string;
         charSet?: string;
@@ -1294,7 +1344,6 @@ declare namespace React {
         rel?: string;
         target?: string;
         type?: string;
-        as?: string;
     }
 
     // tslint:disable-next-line:no-empty-interface
@@ -1427,7 +1476,7 @@ declare namespace React {
         alt?: string;
         autoComplete?: string;
         autoFocus?: boolean;
-        capture?: boolean; // https://www.w3.org/TR/html-media-capture/#the-capture-attribute
+        capture?: boolean | string; // https://www.w3.org/TR/html-media-capture/#the-capture-attribute
         checked?: boolean;
         crossOrigin?: string;
         disabled?: boolean;
@@ -1547,6 +1596,7 @@ declare namespace React {
     interface OlHTMLAttributes<T> extends HTMLAttributes<T> {
         reversed?: boolean;
         start?: number;
+        type?: '1' | 'a' | 'A' | 'i' | 'I';
     }
 
     interface OptgroupHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -1590,6 +1640,7 @@ declare namespace React {
     }
 
     interface SelectHTMLAttributes<T> extends HTMLAttributes<T> {
+        autoComplete?: string;
         autoFocus?: boolean;
         disabled?: boolean;
         form?: string;
@@ -1790,6 +1841,7 @@ declare namespace React {
         hanging?: number | string;
         horizAdvX?: number | string;
         horizOriginX?: number | string;
+        href?: string;
         ideographic?: number | string;
         imageRendering?: number | string;
         in2?: number | string;

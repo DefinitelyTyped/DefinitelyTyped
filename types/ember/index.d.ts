@@ -111,6 +111,8 @@ declare module 'ember' {
         | 'render'
         | 'afterRender'
         | 'destroy';
+    type QueryParamTypes = 'boolean' | 'number' | 'array' | 'string';
+    type QueryParamScopeTypes = 'controller' | 'model';
 
     type ObserverMethod<Target, Sender> =
         | (keyof Target)
@@ -390,7 +392,7 @@ declare module 'ember' {
         An instance of Ember.Application is the starting point for every Ember application. It helps to
         instantiate, initialize and coordinate the many objects that make up your app.
         **/
-        class Application extends Namespace {
+        class Application extends Engine {
             /**
             Call advanceReadiness after any asynchronous setup logic has completed.
             Each call to deferReadiness must be matched by a call to advanceReadiness
@@ -738,7 +740,11 @@ declare module 'ember' {
             replaceRoute(name: string, ...args: any[]): void;
             transitionToRoute(name: string, ...args: any[]): void;
             model: any;
-            queryParams: string[] | Array<{ [key: string]: { type: string } }>;
+            queryParams: string | string[] | Array<{ [key: string]: {
+                type?: QueryParamTypes,
+                scope?: QueryParamScopeTypes,
+                as?: string
+            }}>;
             target: Object;
         }
         const ControllerMixin: Ember.Mixin<ControllerMixin>;
@@ -1056,11 +1062,17 @@ declare module 'ember' {
              */
             namespace: Application;
         }
+        interface Initializer<T> {
+            name: string;
+            before?: string[];
+            after?: string[];
+            initialize(application: T): void;
+        }
         /**
          * The `Engine` class contains core functionality for both applications and
          * engines.
          */
-        class Engine extends Namespace {
+        class Engine extends Namespace.extend(_RegistryProxyMixin) {
             /**
              * The goal of initializers should be to register dependencies and injections.
              * This phase runs once. Because these initializers may load code, they are
@@ -1069,14 +1081,14 @@ declare module 'ember' {
              * after all initializers and therefore after all code is loaded and the app is
              * ready.
              */
-            initializer(initializer: {}): any;
+            static initializer(initializer: Initializer<Engine>): void;
             /**
              * Instance initializers run after all initializers have run. Because
              * instance initializers run after the app is fully set up. We have access
              * to the store, container, and other items. However, these initializers run
              * after code has loaded and are not allowed to defer readiness.
              */
-            instanceInitializer(instanceInitializer: any): any;
+            static instanceInitializer(instanceInitializer: Initializer<EngineInstance>): void;
             /**
              * Set this to provide an alternate class to `Ember.DefaultResolver`
              */
@@ -1167,7 +1179,7 @@ declare module 'ember' {
              * key.  You can pass an optional second argument with the target value.  Otherwise
              * this will match any property that evaluates to false.
              */
-            rejectBy(key: string, value?: string): NativeArray<T>;
+            rejectBy(key: string, value?: any): NativeArray<T>;
             /**
              * Returns the first item in the array for which the callback returns true.
              * This method works similar to the `filter()` method defined in JavaScript 1.6
@@ -1685,6 +1697,10 @@ declare module 'ember' {
                 target: Target,
                 method: ObserverMethod<Target, this>
             ): void;
+            addObserver(
+                key: keyof this,
+                method: ObserverMethod<this, this>
+            ): void;
             /**
              * Remove an observer you have previously registered on this object. Pass
              * the same key, target, and method you passed to `addObserver()` and your
@@ -1694,6 +1710,10 @@ declare module 'ember' {
                 key: keyof this,
                 target: Target,
                 method: ObserverMethod<Target, this>
+            ): any;
+            removeObserver(
+                key: keyof this,
+                method: ObserverMethod<this, this>
             ): any;
             /**
              * Retrieves the value of a property, or a default value in the case that the
@@ -2354,7 +2374,7 @@ declare module 'ember' {
             function Exception(message: string): void;
             class SafeString {
                 constructor(str: string);
-                static toString(): string;
+                toString(): string;
             }
             function parse(string: string): any;
             function print(ast: any): void;
@@ -3010,6 +3030,11 @@ declare module 'ember' {
             method: ObserverMethod<Target, Context>,
             once?: boolean
         ): void;
+        function addListener<Context>(
+            obj: Context,
+            key: keyof Context,
+            method: ObserverMethod<Context, Context>
+        ): void;
         /**
          * Remove an event listener
          */
@@ -3018,6 +3043,11 @@ declare module 'ember' {
             key: keyof Context,
             target: Target,
             method: ObserverMethod<Target, Context>
+        ): any;
+        function removeListener<Context>(
+            obj: Context,
+            key: keyof Context,
+            method: ObserverMethod<Context, Context>
         ): any;
         /**
          * Send an event. The execution of suspended listeners
@@ -3112,6 +3142,11 @@ declare module 'ember' {
             target: Target,
             method: ObserverMethod<Target, Context>
         ): void;
+        function addObserver<Context>(
+            obj: Context,
+            key: keyof Context,
+            method: ObserverMethod<Context, Context>
+        ): void;
         /**
          * Remove an observer you have previously registered on this object. Pass
          * the same key, target, and method you passed to `addObserver()` and your
@@ -3122,6 +3157,11 @@ declare module 'ember' {
             key: keyof Context,
             target: Target,
             method: ObserverMethod<Target, Context>
+        ): any;
+        function removeObserver<Context>(
+            obj: Context,
+            key: keyof Context,
+            method: ObserverMethod<Context, Context>
         ): any;
         /**
          * Gets the value of a property on an object. If the property is computed,

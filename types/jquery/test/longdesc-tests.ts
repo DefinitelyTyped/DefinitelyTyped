@@ -1437,7 +1437,7 @@ function longdesc() {
         $.getJSON('ajax/test.json', function(data) {
             var items: string[] = [];
             $.each(data, function(key, val) {
-                items.push('<li id=\'' + key + '\'>' + val + '</li>');
+                items.push('<li id=\'' + (key as string) + '\'>' + val + '</li>');
             });
 
             $('<ul/>', {

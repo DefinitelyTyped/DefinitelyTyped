@@ -1,13 +1,14 @@
 // Type definitions for react-native-navigation 1.1
 // Project: https://github.com/wix/react-native-navigation
 // Definitions by: Egor Shulga <https://github.com/egorshulga>
+//                 Jason Merino <https://github.com/jasonmerino>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
 import * as React from 'react';
 
 export namespace Navigation {
-    function registerComponent(screenID: string, generator: () => React.ComponentType<any>, store?: any, provider?: any): void;
+    function registerComponent(screenID: string, generator: () => React.ComponentType<any>, store?: any, provider?: any, options?: any): void;
     function startTabBasedApp(params: TabBasedApp): void;
     function startSingleScreenApp(params: SingleScreenApp): void;
     function showModal(params: ModalScreen): void;
@@ -18,6 +19,7 @@ export namespace Navigation {
     function handleDeepLink(params?: { link: string; payload?: string; }): void;
     function registerScreen(screenId: string, generator: () => React.ComponentType<any>): void;
     function getCurrentlyVisibleScreenId(): Promise<string>;
+    function isAppLaunched(): Promise<boolean>;
 }
 
 export interface TabBasedApp {
@@ -56,6 +58,7 @@ export interface TabScreen {
     title?: string;
     navigatorStyle?: NavigatorStyle;
     navigatorButtons?: NavigatorButtons;
+    titleImage?: any;
 }
 
 export interface SingleScreenApp {
@@ -63,6 +66,11 @@ export interface SingleScreenApp {
     drawer?: Drawer;
     passProps?: object;
     animationType?: 'none' | 'slide-down' | 'fade';
+    appStyle?: {
+        orientation?: 'auto' | 'landscape' | 'portrait';
+        backButtonImage?: any;
+        hideBackButtonTitle?: boolean;
+    };
 }
 
 export interface Screen {
@@ -78,13 +86,13 @@ export interface ModalScreen extends Screen {
     animationType?: 'slide-up' | 'none';
 }
 
-export interface ResetScreen extends Screen {
-    passProps?: object;
+export interface ResetScreen<P> extends Screen {
+    passProps?: P;
     animated?: boolean;
     animationType?: 'fade' | 'slide-horizontal';
 }
 
-export interface PushedScreen extends ResetScreen {
+export interface PushedScreen<P> extends ResetScreen<P> {
     titleImage?: any;
     backButtonTitle?: string;
     backButtonHidden?: boolean;
@@ -111,11 +119,16 @@ export interface LightBox {
     adjustSoftInput?: 'nothing' | 'pan' | 'resize' | 'unspecified';
 }
 
+export interface NavigatorEvent {
+    id: 'willAppear' | 'didAppear' | 'willDisappear' | 'didDisappear' | 'willCommitPreview' | 'backPress' | 'bottomTabSelected' | 'bottomTabReselected' | string;
+    type: 'NavBarButtonPress' | 'DeepLink';
+}
+
 export class Navigator {
-    push(params: PushedScreen): void;
+    push<P>(params: PushedScreen<P>): void;
     pop(params?: { animated?: boolean; animationType?: 'fade' | 'slide-horizontal'; }): void;
     popToRoot(params?: { animated?: boolean; animationType?: 'fade' | 'slide-horizontal'; }): void;
-    resetTo(params: PushedScreen): void;
+    resetTo<P>(params: PushedScreen<P>): void;
     showModal(params: ModalScreen): void;
     dismissModal(params?: { animationType?: 'none' | 'slide-down' }): void;
     dismissAllModals(params?: { animationType?: 'none' | 'slide-down' }): void;
@@ -133,8 +146,8 @@ export class Navigator {
     setTabButton(params?: { tabIndex?: number; icon?: any; selectedIcon?: any; label?: string; }): void;
     switchToTab(params?: { tabIndex?: number }): void;
     toggleNavBar(params: { to: 'hidden' | 'shown'; animated?: boolean }): void;
-    setOnNavigatorEvent(callback: (event: { id: string }) => void): void;
-    addOnNavigatorEvent(callback: (event: { id: string }) => void): () => void;
+    setOnNavigatorEvent(callback: (event: NavigatorEvent) => void): void;
+    addOnNavigatorEvent(callback: (event: NavigatorEvent) => void): () => void;
     screenIsCurrentlyVisible(): Promise<boolean>;
     setStyle(params: NavigatorStyle): void;
 }
@@ -143,6 +156,11 @@ export class ScreenVisibilityListener {
     constructor(params: ScreenVisibilityListenerParams);
     register(): void;
     unregister(): void;
+}
+
+export class NativeEventsReceiver {
+    constructor();
+    appLaunched(callback: () => void): void;
 }
 
 export interface ScreenVisibilityListenerParams {
@@ -274,9 +292,24 @@ export interface FABAndroid {
 export interface Drawer {
     left?: {
         screen: string;
+        passProps?: any;
+        disableOpenGesture?: boolean;
+        fixedWidth?: number;
     };
     right?: {
         screen: string;
+        passProps?: any;
+        disableOpenGesture?: boolean;
+        fixedWidth?: number;
     };
+    style?: {
+        drawerShadow?: boolean;
+        contentOverlayColor?: string;
+        leftDrawerWidth?: number;
+        rightDrawerWidth?: number;
+        shouldStretchDrawer?: boolean;
+    };
+    type?: string;
+    animationType?: string;
     disableOpenGesture?: boolean;
 }

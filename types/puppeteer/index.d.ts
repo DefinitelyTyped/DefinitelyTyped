@@ -1,15 +1,202 @@
-// Type definitions for puppeteer 1.2
+// Type definitions for puppeteer 1.5
 // Project: https://github.com/GoogleChrome/puppeteer#readme
 // Definitions by: Marvin Hagemeister <https://github.com/marvinhagemeister>
 //                 Christopher Deutsch <https://github.com/cdeutsch>
-//                 jwbay <https://github.com/jwbay>
+//                 Konstantin Simon Maria Möllers <https://github.com/ksm2>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 
 import { EventEmitter } from "events";
 import { ChildProcess } from "child_process";
+
+/** Wraps a DOM element into an ElementHandle instance */
+export type WrapElementHandle<X> = X extends Element ? ElementHandle<X> : X;
+
+/** Unwraps a DOM element out of an ElementHandle instance */
+export type UnwrapElementHandle<X> = X extends ElementHandle<infer E> ? E : X;
+
+/** Defines `$eval` and `$$eval` for Page, Frame and ElementHandle. */
+export interface Evalable {
+  /**
+   * This method runs `document.querySelector` within the context and passes it as the first argument to `pageFunction`.
+   * If there's no element matching `selector`, the method throws an error.
+   *
+   * If `pageFunction` returns a Promise, then `$eval` would wait for the promise to resolve and return its value.
+   *
+   * @param selector A selector to query for
+   * @param pageFunction Function to be evaluated in browser context
+   * @returns Promise which resolves to the return value of pageFunction
+   */
+  $eval<R>(
+    selector: string,
+    pageFunction: (element: Element) => R | Promise<R>,
+  ): Promise<WrapElementHandle<R>>;
+
+  /**
+   * This method runs `document.querySelector` within the context and passes it as the first argument to `pageFunction`.
+   * If there's no element matching `selector`, the method throws an error.
+   *
+   * If `pageFunction` returns a Promise, then `$eval` would wait for the promise to resolve and return its value.
+   *
+   * @param selector A selector to query for
+   * @param pageFunction Function to be evaluated in browser context
+   * @param x1 First argument to pass to pageFunction
+   * @returns Promise which resolves to the return value of pageFunction
+   */
+  $eval<R, X1>(
+    selector: string,
+    pageFunction: (element: Element, x1: UnwrapElementHandle<X1>) => R | Promise<R>,
+    x1: X1,
+  ): Promise<WrapElementHandle<R>>;
+
+  /**
+   * This method runs `document.querySelector` within the context and passes it as the first argument to `pageFunction`.
+   * If there's no element matching `selector`, the method throws an error.
+   *
+   * If `pageFunction` returns a Promise, then `$eval` would wait for the promise to resolve and return its value.
+   *
+   * @param selector A selector to query for
+   * @param pageFunction Function to be evaluated in browser context
+   * @param x1 First argument to pass to pageFunction
+   * @param x2 Second argument to pass to pageFunction
+   * @returns Promise which resolves to the return value of pageFunction
+   */
+  $eval<R, X1, X2>(
+    selector: string,
+    pageFunction: (element: Element, x1: UnwrapElementHandle<X1>, x2: UnwrapElementHandle<X2>) => R | Promise<R>,
+    x1: X1,
+    x2: X2,
+  ): Promise<WrapElementHandle<R>>;
+
+  /**
+   * This method runs `document.querySelector` within the context and passes it as the first argument to `pageFunction`.
+   * If there's no element matching `selector`, the method throws an error.
+   *
+   * If `pageFunction` returns a Promise, then `$eval` would wait for the promise to resolve and return its value.
+   *
+   * @param selector A selector to query for
+   * @param pageFunction Function to be evaluated in browser context
+   * @param x1 First argument to pass to pageFunction
+   * @param x2 Second argument to pass to pageFunction
+   * @param x3 Third argument to pass to pageFunction
+   * @returns Promise which resolves to the return value of pageFunction
+   */
+  $eval<R, X1, X2, X3>(
+    selector: string,
+    pageFunction: (element: Element, x1: UnwrapElementHandle<X1>, x2: UnwrapElementHandle<X2>, x3: UnwrapElementHandle<X3>) => R | Promise<R>,
+    x1: X1,
+    x2: X2,
+    x3: X3,
+  ): Promise<WrapElementHandle<R>>;
+
+  /**
+   * This method runs `document.querySelector` within the context and passes it as the first argument to `pageFunction`.
+   * If there's no element matching `selector`, the method throws an error.
+   *
+   * If `pageFunction` returns a Promise, then `$eval` would wait for the promise to resolve and return its value.
+   *
+   * @param selector A selector to query for
+   * @param pageFunction Function to be evaluated in browser context
+   * @param args Arguments to pass to pageFunction
+   * @returns Promise which resolves to the return value of pageFunction
+   */
+  $eval<R>(
+    selector: string,
+    pageFunction: (element: Element, ...args: any[]) => R | Promise<R>,
+    ...args: any[],
+  ): Promise<WrapElementHandle<R>>;
+
+  /**
+   * This method runs `Array.from(document.querySelectorAll(selector))` within the context and passes it as the
+   * first argument to `pageFunction`.
+   *
+   * If `pageFunction` returns a Promise, then `$$eval` would wait for the promise to resolve and return its value.
+   *
+   * @param selector A selector to query for
+   * @param pageFunction Function to be evaluated in browser context
+   * @returns Promise which resolves to the return value of pageFunction
+   */
+  $$eval<R>(
+    selector: string,
+    pageFunction: (elements: Element[]) => R | Promise<R>,
+  ): Promise<WrapElementHandle<R>>;
+
+  /**
+   * This method runs `Array.from(document.querySelectorAll(selector))` within the context and passes it as the
+   * first argument to `pageFunction`.
+   *
+   * If `pageFunction` returns a Promise, then `$$eval` would wait for the promise to resolve and return its value.
+   *
+   * @param selector A selector to query for
+   * @param pageFunction Function to be evaluated in browser context
+   * @param x1 First argument to pass to pageFunction
+   * @returns Promise which resolves to the return value of pageFunction
+   */
+  $$eval<R, X1>(
+    selector: string,
+    pageFunction: (elements: Element[], x1: UnwrapElementHandle<X1>) => R | Promise<R>,
+    x1: X1,
+  ): Promise<WrapElementHandle<R>>;
+
+  /**
+   * This method runs `Array.from(document.querySelectorAll(selector))` within the context and passes it as the
+   * first argument to `pageFunction`.
+   *
+   * If `pageFunction` returns a Promise, then `$$eval` would wait for the promise to resolve and return its value.
+   *
+   * @param selector A selector to query for
+   * @param pageFunction Function to be evaluated in browser context
+   * @param x1 First argument to pass to pageFunction
+   * @param x2 Second argument to pass to pageFunction
+   * @returns Promise which resolves to the return value of pageFunction
+   */
+  $$eval<R, X1, X2>(
+    selector: string,
+    pageFunction: (elements: Element[], x1: UnwrapElementHandle<X1>, x2: UnwrapElementHandle<X2>) => R | Promise<R>,
+    x1: X1,
+    x2: X2,
+  ): Promise<WrapElementHandle<R>>;
+
+  /**
+   * This method runs `Array.from(document.querySelectorAll(selector))` within the context and passes it as the
+   * first argument to `pageFunction`.
+   *
+   * If `pageFunction` returns a Promise, then `$$eval` would wait for the promise to resolve and return its value.
+   *
+   * @param selector A selector to query for
+   * @param pageFunction Function to be evaluated in browser context
+   * @param x1 First argument to pass to pageFunction
+   * @param x2 Second argument to pass to pageFunction
+   * @param x3 Third argument to pass to pageFunction
+   * @returns Promise which resolves to the return value of pageFunction
+   */
+  $$eval<R, X1, X2, X3>(
+    selector: string,
+    pageFunction: (elements: Element[], x1: UnwrapElementHandle<X1>, x2: UnwrapElementHandle<X2>, x3: UnwrapElementHandle<X3>) => R | Promise<R>,
+    x1: X1,
+    x2: X2,
+    x3: X3,
+  ): Promise<WrapElementHandle<R>>;
+
+  /**
+   * This method runs `Array.from(document.querySelectorAll(selector))` within the context and passes it as the
+   * first argument to `pageFunction`.
+   *
+   * If `pageFunction` returns a Promise, then `$$eval` would wait for the promise to resolve and return its value.
+   *
+   * @param selector A selector to query for
+   * @param pageFunction Function to be evaluated in browser context
+   * @param args Arguments to pass to pageFunction
+   * @returns Promise which resolves to the return value of pageFunction
+   */
+  $$eval<R>(
+    selector: string,
+    pageFunction: (elements: Element[], ...args: any[]) => R | Promise<R>,
+    ...args: any[]
+  ): Promise<WrapElementHandle<R>>;
+}
 
 /** Keyboard provides an api for managing a virtual keyboard. */
 export interface Keyboard {
@@ -94,7 +281,7 @@ export interface Touchscreen {
  */
 export interface Tracing {
   start(options: TracingStartOptions): Promise<void>;
-  stop(): Promise<void>;
+  stop(): Promise<Buffer>;
 }
 
 export interface TracingStartOptions {
@@ -136,6 +323,7 @@ export interface ConsoleMessage {
 }
 
 export type PageEvents =
+  | "close"
   | "console"
   | "dialog"
   | "error"
@@ -147,7 +335,9 @@ export type PageEvents =
   | "request"
   | "requestfailed"
   | "requestfinished"
-  | "response";
+  | "response"
+  | "workercreated"
+  | "workerdestroyed";
 
 export type BrowserEvents =
   | "disconnected"
@@ -188,6 +378,8 @@ export interface Cookie {
   expires: number;
   /** The cookie http only flag. */
   httpOnly: boolean;
+  /** The session cookie flag. */
+  session: boolean;
   /** The cookie secure flag. */
   secure: boolean;
   /** The cookie same site definition. */
@@ -218,6 +410,8 @@ export interface SetCookie {
   expires?: number;
   /** The cookie http only flag. */
   httpOnly?: boolean;
+  /** The session cookie flag. */
+  session?: boolean;
   /** The cookie secure flag. */
   secure?: boolean;
   /** The cookie same site definition. */
@@ -430,22 +624,75 @@ export interface BoundingBox {
   height: number;
 }
 
+export interface BoxModel {
+  /** Content box, represented as an array of {x, y} points. */
+  content: Box[];
+  /** Padding box, represented as an array of {x, y} points. */
+  padding: Box[];
+  /** Border box, represented as an array of {x, y} points. */
+  border: Box[];
+  /** Margin box, represented as an array of {x, y} points. */
+  margin: Box[];
+  width: number;
+  height: number;
+}
+
+export interface Box {
+  x: number;
+  y: number;
+}
+
+/**
+ * The Worker class represents a WebWorker.
+ * The events workercreated and workerdestroyed are emitted on the page object to signal the worker lifecycle.
+ */
+export interface Worker {
+  /**
+   * If the function passed to the `worker.evaluate` returns a Promise,
+   * then `worker.evaluate` would wait for the promise to resolve and return its value.
+   *
+   * If the function passed to the `worker.evaluate` returns a non-Serializable value,
+   * then `worker.evaluate` resolves to `undefined`.
+   */
+  evaluate<T>(
+    pageFunction: (...args: any[]) => T | Promise<T>,
+    ...args: any[],
+  ): Promise<T>;
+
+  /**
+   * The only difference between `worker.evaluate` and `worker.evaluateHandle` is
+   * that `worker.evaluateHandle` returns in-page object (JSHandle).
+   */
+  evaluateHandle<T>(
+    pageFunction: (...args: any[]) => T | Promise<T>,
+    ...args: any[],
+  ): Promise<T>;
+
+  executionContext(): Promise<ExecutionContext>;
+
+  url(): string;
+}
+
 /**
  * Represents an in-page DOM element. ElementHandles can be created with the page.$ method.
  */
-export interface ElementHandle extends JSHandle {
+export interface ElementHandle<E extends Element = Element> extends JSHandle, Evalable {
   /**
-   * The method runs element.querySelector within the page. If no element matches the selector, the return value resolve to null.
+   * The method runs element.querySelector within the page.
+   * If no element matches the selector, the return value resolve to null.
    * @param selector A selector to query element for
    * @since 0.13.0
    */
   $(selector: string): Promise<ElementHandle | null>;
+
   /**
-   * The method runs element.querySelectorAll within the page. If no elements match the selector, the return value resolve to [].
+   * The method runs element.querySelectorAll within the page.
+   * If no elements match the selector, the return value resolve to [].
    * @param selector A selector to query element for
    * @since 0.13.0
    */
   $$(selector: string): Promise<ElementHandle[]>;
+
   /**
    * @param selector XPath expression to evaluate.
    */
@@ -454,6 +701,11 @@ export interface ElementHandle extends JSHandle {
    * This method returns the value resolve to the bounding box of the element (relative to the main frame), or null if the element is not visible.
    */
   boundingBox(): Promise<BoundingBox | null>;
+  /**
+   * This method returns boxes of the element, or null if the element is not visible.
+   * Boxes are represented as an array of points; each Point is an object {x, y}. Box points are sorted clock-wise.
+   */
+  boxModel(): Promise<BoxModel | null>;
   /**
    * This method scrolls element into view if needed, and then uses page.mouse to click in the center of the element.
    * If the element is detached from DOM, the method throws an error.
@@ -604,6 +856,20 @@ export type ResourceType =
   | "manifest"
   | "other";
 
+export type ErrorCode =
+  | "aborted"
+  | "accessdenied"
+  | "addressunreachable"
+  | "connectionaborted"
+  | "connectionclosed"
+  | "connectionfailed"
+  | "connectionrefused"
+  | "connectionreset"
+  | "internetdisconnected"
+  | "namenotresolved"
+  | "timedout"
+  | "failed";
+
 export interface Overrides {
   url?: string;
   method?: HttpMethod;
@@ -618,7 +884,7 @@ export interface Request {
    * To use this, request interception should be enabled with `page.setRequestInterception`.
    * @throws An exception is immediately thrown if the request interception is not enabled.
    */
-  abort(): Promise<void>;
+  abort(errorCode?: ErrorCode): Promise<void>;
 
   /**
    * Continues request with optional request overrides.
@@ -626,6 +892,11 @@ export interface Request {
    * @throws An exception is immediately thrown if the request interception is not enabled.
    */
   continue(overrides?: Overrides): Promise<void>;
+
+  /**
+   * @returns An object if the request failed, null otherwise.
+   */
+  failure(): { errorText: string; } | null;
 
   /**
    * @returns The `Frame` object that initiated the request, or `null` if navigating to error pages
@@ -637,6 +908,10 @@ export interface Request {
    * All header names are lower-case.
    */
   headers(): Headers;
+
+  /** Whether this request is driving frame's navigation. */
+   isNavigationRequest(): boolean;
+
   /** Returns the request's method (GET, POST, etc.) */
 
   method(): HttpMethod;
@@ -715,51 +990,39 @@ export interface Response {
   url(): string;
 }
 
-export interface FrameBase {
+export interface FrameBase extends Evalable {
   /**
-   * The method runs document.querySelector within the page.
-   * If no element matches the selector, the return value resolve to null.
+   * The method queries frame for the selector.
+   * If there's no such element within the frame, the method will resolve to null.
    */
   $(selector: string): Promise<ElementHandle | null>;
+
   /**
-   * The method runs document.querySelectorAll within the page. If no elements match the selector, the return value resolve to [].
+   * The method runs document.querySelectorAll within the frame.
+   * If no elements match the selector, the return value resolve to [].
    */
   $$(selector: string): Promise<ElementHandle[]>;
+
   /**
+   * The method evaluates the XPath expression.
    * @param expression XPath expression to evaluate.
    */
   $x(expression: string): Promise<ElementHandle[]>;
-
-  /**
-   * This method runs document.querySelector within the page and passes it as the first argument to `fn`.
-   * If there's no element matching selector, the method throws an error.
-   * If `fn` returns a Promise, then $eval would wait for the promise to resolve and return its value.
-   */
-  $eval(
-    selector: string,
-    pageFunction: (element: Element, ...args: any[]) => any,
-    ...args: any[]
-  ): Promise<any>;
-
-  /**
-   * This method runs document.querySelectorAll within the page and passes it as the first argument to `fn`.
-   * If `fn` returns a Promise, then $$eval would wait for the promise to resolve and return its value.
-   * @param selector A selector to query frame for
-   * @param fn Function to be evaluated in browser context
-   * @param args Arguments to pass to pageFunction
-   * @returns Promise which resolves to the return value of pageFunction
-   */
-  $$eval(
-    selector: string,
-    pageFunction: (elements: NodeListOf<Element>, ...args: any[]) => any,
-    ...args: any[]
-  ): Promise<any>;
 
   /** Adds a `<script>` tag into the page with the desired url or content. */
   addScriptTag(options: ScriptTagOptions): Promise<void>;
 
   /** Adds a `<link rel="stylesheet">` tag into the page with the desired url or a `<style type="text/css">` tag with the content. */
   addStyleTag(options: StyleTagOptions): Promise<void>;
+
+  /**
+   * This method fetches an element with selector, scrolls it into view if needed, and
+   * then uses `page.mouse` to click in the center of the element. If there's no element
+   * matching selector, the method throws an error.
+   * @param selector A selector to search for element to click. If there are multiple elements satisfying the selector, the first will be clicked.
+   * @param options Specifies the click options.
+   */
+  click(selector: string, options?: ClickOptions): Promise<void>;
 
   /** Gets the full HTML contents of the page, including the doctype. */
   content(): Promise<string>;
@@ -777,13 +1040,53 @@ export interface FrameBase {
   ): Promise<any>;
 
   /**
+   * Evaluates a function in the page context.
+   * If the function, passed to the page.evaluateHandle, returns a Promise, then page.evaluateHandle
+   * would wait for the promise to resolve and return its value.
+   * @param fn The function to be evaluated in the page context.
+   * @param args The arguments to pass to the `fn`.
+   * @returns A promise which resolves to return value of `fn`.
+   */
+  evaluateHandle(
+    fn: EvaluateFn,
+    ...args: any[]
+  ): Promise<JSHandle>;
+
+  /** This method fetches an element with selector and focuses it. */
+  focus(selector: string): Promise<void>;
+
+  /**
+   * This method fetches an element with `selector`, scrolls it into view if needed,
+   * and then uses page.mouse to hover over the center of the element. If there's no
+   * element matching `selector`, the method throws an error.
+   * @param selector A selector to search for element to hover. If there are multiple elements satisfying the selector, the first will be hovered.
+   */
+  hover(selector: string): Promise<void>;
+
+  /**
    * Sets the page content.
    * @param html HTML markup to assign to the page.
    */
   setContent(html: string): Promise<void>;
 
+  /**
+   * This method fetches an element with `selector`, scrolls it into view if needed,
+   * and then uses page.touchscreen to tap in the center of the element.
+   * @param selector A `selector` to search for element to tap. If there are multiple elements
+   * satisfying the selector, the first will be tapped.
+   */
+  tap(selector: string): Promise<void>;
+
   /** Returns page's title. */
   title(): Promise<string>;
+
+  /**
+   * Sends a `keydown`, `keypress/input`, and `keyup` event for each character in the text.
+   * @param selector A selector of an element to type into. If there are multiple elements satisfying the selector, the first will be used.
+   * @param text: A text to type into a focused element.
+   * @param options: The typing parameters.
+   */
+  type(selector: string, text: string, options?: { delay: number }): Promise<void>;
 
   /** Returns frame's url. */
   url(): string;
@@ -808,6 +1111,11 @@ export interface FrameBase {
     selector: string,
     options?: { visible?: boolean; hidden?: boolean; timeout?: number }
   ): Promise<ElementHandle>;
+
+  waitForXPath(
+    xpath: string,
+    options?: { visible?: boolean; hidden?: boolean; timeout?: number }
+  ): Promise<ElementHandle>;
 }
 
 export interface Frame extends FrameBase {
@@ -823,6 +1131,8 @@ export interface Frame extends FrameBase {
 }
 
 export interface PageEventObj {
+  /** Emitted when the page closes. */
+  close: undefined;
   /**
    * Emitted when JavaScript within the page calls one of console API methods, e.g. console.log or console.dir.
    * Also emitted if the page throws an error or a warning.
@@ -861,6 +1171,15 @@ export interface PageEventObj {
   requestfinished: Request;
   /** Emitted when a response is received. */
   response: Response;
+  /** Emitted when a dedicated WebWorker is spawned by the page. */
+  workercreated: Worker;
+  /** Emitted when a dedicated WebWorker is terminated. */
+  workerdestroyed: Worker;
+}
+
+export interface PageCloseOptions {
+  /** Defaults to `false`. Whether to run the before unload page handlers. */
+  runBeforeUnload?: boolean;
 }
 
 /** Page provides methods to interact with a single tab in Chromium. One Browser instance might have multiple Page instances. */
@@ -897,17 +1216,11 @@ export interface Page extends EventEmitter, FrameBase {
   /** Brings page to front (activates tab). */
   bringToFront(): Promise<void>;
 
-  /**
-   * This method fetches an element with selector, scrolls it into view if needed, and
-   * then uses `page.mouse` to click in the center of the element. If there's no element
-   * matching selector, the method throws an error.
-   * @param selector A selector to search for element to click. If there are multiple elements satisfying the selector, the first will be clicked.
-   * @param options Specifies the click options.
-   */
-  click(selector: string, options?: ClickOptions): Promise<void>;
+  /** Get the browser the page belongs to. */
+  browser(): Promise<Browser>;
 
   /** Closes the current page. */
-  close(): Promise<void>;
+  close(options?: PageCloseOptions): Promise<void>;
 
   /**
    * Gets the cookies.
@@ -962,9 +1275,6 @@ export interface Page extends EventEmitter, FrameBase {
    */
   exposeFunction(name: string, puppeteerFunction: (...args: any[]) => any): Promise<void>;
 
-  /** This method fetches an element with selector and focuses it. */
-  focus(selector: string): Promise<void>;
-
   /** An array of all frames attached to the page. */
   frames(): Frame[];
 
@@ -987,16 +1297,11 @@ export interface Page extends EventEmitter, FrameBase {
    */
   goto(url: string, options?: Partial<NavigationOptions>): Promise<Response | null>;
 
-  /**
-   * This method fetches an element with `selector`, scrolls it into view if needed,
-   * and then uses page.mouse to hover over the center of the element. If there's no
-   * element matching `selector`, the method throws an error.
-   * @param selector A selector to search for element to hover. If there are multiple elements satisfying the selector, the first will be hovered.
-   */
-  hover(selector: string): Promise<void>;
-
   /** Returns the virtual keyboard. */
   keyboard: Keyboard;
+
+  /** Indicates that the page has been closed. */
+  isClosed(): boolean;
 
   /** Page is guaranteed to have a main frame which persists during navigation's. */
   mainFrame(): Frame;
@@ -1040,6 +1345,14 @@ export interface Page extends EventEmitter, FrameBase {
    * all values are considered, otherwise only the first one is taken into account.
    */
   select(selector: string, ...values: string[]): Promise<string[]>;
+
+  /**
+   * Toggles bypassing page's Content-Security-Policy.
+   * NOTE CSP bypassing happens at the moment of CSP initialization rather then evaluation.
+   * Usually this means that page.setBypassCSP should be called before navigating to the domain.
+   * @param enabled sets bypassing of page's Content-Security-Policy.
+   */
+  setBypassCSP(enabled: boolean): Promise<void>;
 
   /**
    * Determines whether cache is enabled on the page.
@@ -1098,14 +1411,6 @@ export interface Page extends EventEmitter, FrameBase {
    */
   setViewport(viewport: Viewport): Promise<void>;
 
-  /**
-   * This method fetches an element with `selector`, scrolls it into view if needed,
-   * and then uses page.touchscreen to tap in the center of the element.
-   * @param selector A `selector` to search for element to tap. If there are multiple elements
-   * satisfying the selector, the first will be tapped.
-   */
-  tap(selector: string): Promise<void>;
-
   /** @returns The target this page was created from */
   target(): Target;
 
@@ -1117,14 +1422,6 @@ export interface Page extends EventEmitter, FrameBase {
 
   /** Returns the tracing object. */
   tracing: Tracing;
-
-  /**
-   * Sends a `keydown`, `keypress/input`, and `keyup` event for each character in the text.
-   * @param selector A selector of an element to type into. If there are multiple elements satisfying the selector, the first will be used.
-   * @param text: A text to type into a focused element.
-   * @param options: The typing parameters.
-   */
-  type(selector: string, text: string, options?: { delay: number }): Promise<void>;
 
   /**
    * The page's URL. This is a shortcut for `page.mainFrame().url()`
@@ -1139,6 +1436,9 @@ export interface Page extends EventEmitter, FrameBase {
    * @param options The navigation parameters.
    */
   waitForNavigation(options?: NavigationOptions): Promise<Response>;
+
+  /** This method returns all of the dedicated WebWorkers associated with the page. */
+  workers(): Worker[];
 }
 
 /** A Browser is created when Puppeteer connects to a Chromium instance, either through puppeteer.launch or puppeteer.connect. */
@@ -1167,10 +1467,22 @@ export interface Browser extends EventEmitter {
   ): this;
 
   /**
+   * Returns an array of all open browser contexts.
+   * In a newly created browser, this will return a single instance of BrowserContext.
+   */
+  browserContexts(): BrowserContext[];
+
+  /**
    * Closes browser with all the pages (if any were opened).
    * The browser object itself is considered to be disposed and can not be used anymore.
    */
   close(): Promise<void>;
+
+  /**
+   * Creates a new incognito browser context.
+   * This won't share cookies/cache with other browser contexts.
+   */
+  createIncognitoBrowserContext(): Promise<BrowserContext>;
 
   /**
    * Disconnects Puppeteer from the browser, but leaves the Chromium process running.
@@ -1217,15 +1529,83 @@ export interface BrowserEventObj {
   targetdestroyed: Target;
 }
 
+/**
+ * BrowserContexts provide a way to operate multiple independent browser sessions.
+ * When a browser is launched, it has a single BrowserContext used by default.
+ * The method `browser.newPage()` creates a page in the default browser context.
+ */
+export interface BrowserContext extends EventEmitter {
+  /**
+   * Adds the listener function to the end of the listeners array for the event named `eventName`.
+   * No checks are made to see if the listener has already been added. Multiple calls passing the same combination of
+   * `eventName` and listener will result in the listener being added, and called, multiple times.
+   * @param event The name of the event.
+   * @param handler The callback function.
+   */
+  on<K extends keyof BrowserContextEventObj>(
+    eventName: K,
+    handler: (e: BrowserContextEventObj[K], ...args: any[]) => void
+  ): this;
+
+  /**
+   * Adds a one time listener function for the event named `eventName`.
+   * The next time `eventName` is triggered, this listener is removed and then invoked.
+   * @param event The name of the event.
+   * @param handler The callback function.
+   */
+  once<K extends keyof BrowserContextEventObj>(
+    eventName: K,
+    handler: (e: BrowserContextEventObj[K], ...args: any[]) => void
+  ): this;
+
+  /** The browser this browser context belongs to. */
+  browser(): Browser;
+
+  /** Closes the browser context. All the targets that belong to the browser context will be closed. */
+  close(): Promise<void>;
+
+  /**
+   * Returns whether BrowserContext is incognito.
+   * The default browser context is the only non-incognito browser context.
+   */
+  isIncognito(): boolean;
+
+  /** Creates a new page in the browser context. */
+  newPage(): Promise<Page>;
+
+  /** An array of all active targets inside the browser context. */
+  targets(): Target[];
+}
+
+export interface BrowserContextEventObj {
+  /** Emitted when the url of a target inside the browser context changes. */
+  targetchanged: Target;
+
+  /** Emitted when a target is created, for example when a new page is opened by `window.open` or `browserContext.newPage`. */
+  targetcreated: Target;
+
+  /** Emitted when a target is destroyed, for example when a page is closed. */
+  targetdestroyed: Target;
+}
+
 export interface Target {
+  /** Get the browser the target belongs to. */
+  browser(): Browser;
+
+  /** The browser context the target belongs to. */
+  browserContext(): BrowserContext;
+
   /** Creates a Chrome Devtools Protocol session attached to the target. */
   createCDPSession(): Promise<CDPSession>;
+
+  /** Get the target that opened this target. Top-level targets return `null`. */
+  opener(): Target | null;
 
   /** Returns the target `Page` or a `null` if the type of the page is not "page". */
   page(): Promise<Page>;
 
   /** Identifies what kind of target this is.  */
-  type(): "page" | "service_worker" | "other";
+  type(): "page" | "background_page" | "service_worker" | "browser" | "other";
 
   /** Returns the target URL. */
   url(): string;
@@ -1278,6 +1658,8 @@ export interface LaunchOptions {
   env?: any;
   /** Whether to auto-open DevTools panel for each tab. If this option is true, the headless option will be set false. */
   devtools?: boolean;
+  /** Connects to the browser over a pipe instead of a WebSocket. Defaults to false. */
+  pipe?: boolean;
 }
 
 export interface ConnectOptions {

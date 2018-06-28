@@ -18,39 +18,6 @@
 import MDCFoundation from 'material__base/foundation';
 import MDCRippleAdapter from './adapter';
 import { cssClasses, strings, numbers } from './constants';
-import { getNormalizedEventCoords } from './util';
-
-export interface ActivationStateType {
-    isActivated: boolean|undefined;
-    hasDeactivationUXRun: boolean|undefined;
-    wasActivatedByPointer: boolean|undefined;
-    wasElementMadeActive: boolean|undefined;
-    activationStartTime: number|undefined;
-    activationEvent: Event;
-    isProgrammatic: boolean|undefined;
-}
-
-export interface ListenerInfoType {
-    activate: string|undefined;
-    deactivate: string|undefined;
-    focus: string|undefined;
-    blur: string|undefined;
-}
-
-export interface ListenersType {
-    activate(e: Event): void;
-
-    deactivate(e: Event): void;
-
-    focus(): void;
-
-    blur(): void;
-}
-
-export interface PointType {
-    x: number;
-    y: number;
-}
 
 export default class MDCRippleFoundation extends MDCFoundation<MDCRippleAdapter> {
     static readonly cssClasses: cssClasses;
@@ -66,4 +33,6 @@ export default class MDCRippleFoundation extends MDCFoundation<MDCRippleAdapter>
     deactivate(event?: Event): void;
 
     layout(): void;
+
+    setUnbounded(unbounded: boolean): void;
 }

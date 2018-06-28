@@ -200,11 +200,14 @@ export class Dialog extends Component<{
 }, any> {}
 
 export class Modal extends Component<{
-    animation?: "fade" | "none",
-    animationOptions?: AnimationOptions
-    onShow?(): void,
-    onHide?(): void,
-    isOpen?: boolean
+    animation?: "fade" | "lift" | "none",
+    animationOptions?: AnimationOptions,
+    onPreShow?(): void,
+    onPostShow?(): void,
+    onPreHide?(): void,
+    onPostHide?(): void,
+    isOpen?: boolean,
+    onDeviceBackButton?(): void,
 }, any> {}
 
 export class Popover extends Component<{

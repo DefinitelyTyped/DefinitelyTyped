@@ -6,34 +6,15 @@ declare module "../index" {
         /**
          * Creates an object composed of keys generated from the results of running each element of collection through
          * iteratee. The corresponding value of each key is the number of times the key was returned by iteratee. The
-         * iteratee is bound to thisArg and invoked with three arguments:
-         * (value, index|key, collection).
-         *
-         * If a property name is provided for iteratee the created _.property style callback returns the property
-         * value of the given element.
-         *
-         * If a value is also provided for thisArg the created _.matchesProperty style callback returns true for
-         * elements that have a matching property value, else false.
-         *
-         * If an object is provided for iteratee the created _.matches style callback returns true for elements that
-         * have the properties of the given object, else false.
+         * iteratee is invoked with one argument: (value).
          *
          * @param collection The collection to iterate over.
          * @param iteratee The function invoked per iteration.
-         * @param thisArg The this binding of iteratee.
          * @return Returns the composed aggregate object.
          */
         countBy<T>(
-            collection: string | null | undefined,
-            iteratee?: StringIterator<T>
-        ): Dictionary<number>;
-
-        /**
-         * @see _.countBy
-         */
-        countBy<T>(
             collection: List<T> | null | undefined,
-            iteratee?: ListIteratee<T>
+            iteratee?: ValueIteratee<T>
         ): Dictionary<number>;
 
         /**
@@ -41,7 +22,7 @@ declare module "../index" {
          */
         countBy<T extends object>(
             collection: T | null | undefined,
-            iteratee?: ObjectIteratee<T>
+            iteratee?: ValueIteratee<T[keyof T]>
         ): Dictionary<number>;
     }
 
@@ -50,16 +31,8 @@ declare module "../index" {
          * @see _.countBy
          */
         countBy<T>(
-            this: LoDashImplicitWrapper<string | null | undefined>,
-            iteratee?: StringIterator<T>
-        ): LoDashImplicitWrapper<Dictionary<number>>;
-
-        /**
-         * @see _.countBy
-         */
-        countBy<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            iteratee?: ListIteratee<T>
+            iteratee?: ValueIteratee<T>
         ): LoDashImplicitWrapper<Dictionary<number>>;
 
         /**
@@ -67,7 +40,7 @@ declare module "../index" {
          */
         countBy<T extends object>(
             this: LoDashImplicitWrapper<T | null | undefined>,
-            iteratee?: ObjectIteratee<T>
+            iteratee?: ValueIteratee<T[keyof T]>
         ): LoDashImplicitWrapper<Dictionary<number>>;
     }
 
@@ -76,16 +49,8 @@ declare module "../index" {
          * @see _.countBy
          */
         countBy<T>(
-            this: LoDashExplicitWrapper<string | null | undefined>,
-            iteratee?: StringIterator<T>
-        ): LoDashExplicitWrapper<Dictionary<number>>;
-
-        /**
-         * @see _.countBy
-         */
-        countBy<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            iteratee?: ListIteratee<T>
+            iteratee?: ValueIteratee<T>
         ): LoDashExplicitWrapper<Dictionary<number>>;
 
         /**
@@ -93,7 +58,7 @@ declare module "../index" {
          */
         countBy<T extends object>(
             this: LoDashExplicitWrapper<T | null | undefined>,
-            iteratee?: ObjectIteratee<T>
+            iteratee?: ValueIteratee<T[keyof T]>
         ): LoDashExplicitWrapper<Dictionary<number>>;
     }
 
@@ -243,20 +208,10 @@ declare module "../index" {
     interface LoDashStatic {
         /**
          * Iterates over elements of collection, returning an array of all elements predicate returns truthy for. The
-         * predicate is bound to thisArg and invoked with three arguments: (value, index|key, collection).
-         *
-         * If a property name is provided for predicate the created _.property style callback returns the property
-         * value of the given element.
-         *
-         * If a value is also provided for thisArg the created _.matchesProperty style callback returns true for
-         * elements that have a matching property value, else false.
-         *
-         * If an object is provided for predicate the created _.matches style callback returns true for elements that
-         * have the properties of the given object, else false.
+         * predicate is invoked with three arguments: (value, index|key, collection).
          *
          * @param collection The collection to iterate over.
          * @param predicate The function invoked per iteration.
-         * @param thisArg The this binding of predicate.
          * @return Returns the new filtered array.
          */
         filter(
@@ -386,16 +341,7 @@ declare module "../index" {
     interface LoDashStatic {
         /**
          * Iterates over elements of collection, returning the first element predicate returns truthy for.
-         * The predicate is bound to thisArg and invoked with three arguments: (value, index|key, collection).
-         *
-         * If a property name is provided for predicate the created _.property style callback returns the property
-         * value of the given element.
-         *
-         * If a value is also provided for thisArg the created _.matchesProperty style callback returns true for
-         * elements that have a matching property value, else false.
-         *
-         * If an object is provided for predicate the created _.matches style callback returns true for elements that
-         * have the properties of the given object, else false.
+         * The predicate is invoked with three arguments: (value, index|key, collection).
          *
          * @param collection The collection to search.
          * @param predicate The function invoked per iteration.
@@ -1070,8 +1016,7 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * Iterates over elements of collection invoking iteratee for each element. The iteratee is bound to thisArg
-         * and invoked with three arguments:
+         * Iterates over elements of collection invoking iteratee for each element. The iteratee is invoked with three arguments:
          * (value, index|key, collection). Iteratee functions may exit iteration early by explicitly returning false.
          *
          * Note: As with other "Collections" methods, objects with a "length" property are iterated like arrays. To
@@ -1081,7 +1026,6 @@ declare module "../index" {
          *
          * @param collection The collection to iterate over.
          * @param iteratee The function invoked per iteration.
-         * @param thisArg The this binding of iteratee.
          */
         forEach<T>(
             collection: T[],
@@ -1189,7 +1133,6 @@ declare module "../index" {
          *
          * @param collection The collection to iterate over.
          * @param iteratee The function called per iteration.
-         * @param thisArg The this binding of callback.
          */
         forEachRight<T>(
             collection: T[],
@@ -1293,34 +1236,15 @@ declare module "../index" {
         /**
          * Creates an object composed of keys generated from the results of running each element of collection through
          * iteratee. The corresponding value of each key is an array of the elements responsible for generating the
-         * key. The iteratee is bound to thisArg and invoked with three arguments:
-         * (value, index|key, collection).
-         *
-         * If a property name is provided for iteratee the created _.property style callback returns the property
-         * value of the given element.
-         *
-         * If a value is also provided for thisArg the created _.matchesProperty style callback returns true for
-         * elements that have a matching property value, else false.
-         *
-         * If an object is provided for iteratee the created _.matches style callback returns true for elements that
-         * have the properties of the given object, else false.
+         * key. The iteratee is invoked with one argument: (value).
          *
          * @param collection The collection to iterate over.
          * @param iteratee The function invoked per iteration.
-         * @param thisArg The this binding of iteratee.
          * @return Returns the composed aggregate object.
-         */
-        groupBy(
-            collection: string | null | undefined,
-            iteratee?: StringIterator<NotVoid>
-        ): Dictionary<string[]>;
-
-        /**
-         * @see _.groupBy
          */
         groupBy<T>(
             collection: List<T> | null | undefined,
-            iteratee?: ListIteratee<T>
+            iteratee?: ValueIteratee<T>
         ): Dictionary<T[]>;
 
         /**
@@ -1328,7 +1252,7 @@ declare module "../index" {
          */
         groupBy<T extends object>(
             collection: T | null | undefined,
-            iteratee?: ObjectIteratee<T>
+            iteratee?: ValueIteratee<T[keyof T]>
         ): Dictionary<Array<T[keyof T]>>;
     }
 
@@ -1336,17 +1260,9 @@ declare module "../index" {
         /**
          * @see _.groupBy
          */
-        groupBy(
-            this: LoDashImplicitWrapper<string | null | undefined>,
-            iteratee?: StringIterator<NotVoid>
-        ): LoDashImplicitWrapper<Dictionary<string[]>>;
-
-        /**
-         * @see _.groupBy
-         */
         groupBy<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            iteratee?: ListIteratee<T>
+            iteratee?: ValueIteratee<T>
         ): LoDashImplicitWrapper<Dictionary<T[]>>;
 
         /**
@@ -1354,7 +1270,7 @@ declare module "../index" {
          */
         groupBy<T extends object>(
             this: LoDashImplicitWrapper<T | null | undefined>,
-            iteratee?: ObjectIteratee<T>
+            iteratee?: ValueIteratee<T[keyof T]>
         ): LoDashImplicitWrapper<Dictionary<Array<T[keyof T]>>>;
     }
 
@@ -1362,17 +1278,9 @@ declare module "../index" {
         /**
          * @see _.groupBy
          */
-        groupBy(
-            this: LoDashExplicitWrapper<string | null | undefined>,
-            iteratee?: StringIterator<NotVoid>
-        ): LoDashExplicitWrapper<Dictionary<string[]>>;
-
-        /**
-         * @see _.groupBy
-         */
         groupBy<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            iteratee?: ListIteratee<T>
+            iteratee?: ValueIteratee<T>
         ): LoDashExplicitWrapper<Dictionary<T[]>>;
 
         /**
@@ -1380,7 +1288,7 @@ declare module "../index" {
          */
         groupBy<T extends object>(
             this: LoDashExplicitWrapper<T | null | undefined>,
-            iteratee?: ObjectIteratee<T>
+            iteratee?: ValueIteratee<T[keyof T]>
         ): LoDashExplicitWrapper<Dictionary<Array<T[keyof T]>>>;
     }
 
@@ -1489,34 +1397,15 @@ declare module "../index" {
         /**
          * Creates an object composed of keys generated from the results of running each element of collection through
          * iteratee. The corresponding value of each key is the last element responsible for generating the key. The
-         * iteratee function is bound to thisArg and invoked with three arguments:
-         * (value, index|key, collection).
-         *
-         * If a property name is provided for iteratee the created _.property style callback returns the property
-         * value of the given element.
-         *
-         * If a value is also provided for thisArg the created _.matchesProperty style callback returns true for
-         * elements that have a matching property value, else false.
-         *
-         * If an object is provided for iteratee the created _.matches style callback returns true for elements that
-         * have the properties of the given object, else false.
+         * iteratee function is invoked with one argument: (value).
          *
          * @param collection The collection to iterate over.
          * @param iteratee The function invoked per iteration.
-         * @param thisArg The this binding of iteratee.
          * @return Returns the composed aggregate object.
-         */
-        keyBy(
-            collection: string | null | undefined,
-            iteratee?: StringIterator<PropertyName>
-        ): Dictionary<string>;
-
-        /**
-         * @see _.keyBy
          */
         keyBy<T>(
             collection: List<T> | null | undefined,
-            iteratee?: ListIterateeCustom<T, PropertyName>
+            iteratee?: ValueIterateeCustom<T, PropertyName>
         ): Dictionary<T>;
 
         /**
@@ -1524,7 +1413,7 @@ declare module "../index" {
          */
         keyBy<T extends object>(
             collection: T | null | undefined,
-            iteratee?: ObjectIterateeCustom<T, PropertyName>
+            iteratee?: ValueIterateeCustom<T[keyof T], PropertyName>
         ): Dictionary<T[keyof T]>;
     }
 
@@ -1532,17 +1421,9 @@ declare module "../index" {
         /**
          * @see _.keyBy
          */
-        keyBy(
-            this: LoDashImplicitWrapper<string | null | undefined>,
-            iteratee?: StringIterator<PropertyName>
-        ): LoDashImplicitWrapper<Dictionary<string>>;
-
-        /**
-         * @see _.keyBy
-         */
         keyBy<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            iteratee?: ListIterateeCustom<T, PropertyName>
+            iteratee?: ValueIterateeCustom<T, PropertyName>
         ): LoDashImplicitWrapper<Dictionary<T>>;
 
         /**
@@ -1550,7 +1431,7 @@ declare module "../index" {
          */
         keyBy<T extends object>(
             this: LoDashImplicitWrapper<T | null | undefined>,
-            iteratee?: ObjectIterateeCustom<T, PropertyName>
+            iteratee?: ValueIterateeCustom<T[keyof T], PropertyName>
         ): LoDashImplicitWrapper<Dictionary<T[keyof T]>>;
     }
 
@@ -1558,17 +1439,9 @@ declare module "../index" {
         /**
          * @see _.keyBy
          */
-        keyBy(
-            this: LoDashExplicitWrapper<string | null | undefined>,
-            iteratee?: StringIterator<PropertyName>
-        ): LoDashExplicitWrapper<Dictionary<string>>;
-
-        /**
-         * @see _.keyBy
-         */
         keyBy<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            iteratee?: ListIterateeCustom<T, PropertyName>
+            iteratee?: ValueIterateeCustom<T, PropertyName>
         ): LoDashExplicitWrapper<Dictionary<T>>;
 
         /**
@@ -1576,7 +1449,7 @@ declare module "../index" {
          */
         keyBy<T extends object>(
             this: LoDashExplicitWrapper<T | null | undefined>,
-            iteratee?: ObjectIterateeCustom<T, PropertyName>
+            iteratee?: ValueIterateeCustom<T[keyof T], PropertyName>
         ): LoDashExplicitWrapper<Dictionary<T[keyof T]>>;
     }
 
@@ -1584,17 +1457,8 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-         * Creates an array of values by running each element in collection through iteratee. The iteratee is bound to
-         * thisArg and invoked with three arguments: (value, index|key, collection).
-         *
-         * If a property name is provided for iteratee the created _.property style callback returns the property value
-         * of the given element.
-         *
-         * If a value is also provided for thisArg the created _.matchesProperty style callback returns true for
-         * elements that have a matching property value, else false.
-         *
-         * If an object is provided for iteratee the created _.matches style callback returns true for elements that
-         * have the properties of the given object, else false.
+         * Creates an array of values by running each element in collection through iteratee. The iteratee is
+         * invoked with three arguments: (value, index|key, collection).
          *
          * Many lodash methods are guarded to work as iteratees for methods like _.every, _.filter, _.map, _.mapValues,
          * _.reject, and _.some.
@@ -1606,7 +1470,6 @@ declare module "../index" {
          *
          * @param collection The collection to iterate over.
          * @param iteratee The function invoked per iteration.
-         * @param thisArg The this binding of iteratee.
          * @return Returns the new mapped array.
          */
         map<T, TResult>(
@@ -1908,20 +1771,10 @@ declare module "../index" {
         /**
         * Creates an array of elements split into two groups, the first of which contains elements predicate returns truthy for,
         * while the second of which contains elements predicate returns falsey for.
-        * The predicate is bound to thisArg and invoked with three arguments: (value, index|key, collection).
-        *
-        * If a property name is provided for predicate the created _.property style callback
-        * returns the property value of the given element.
-        *
-        * If a value is also provided for thisArg the created _.matchesProperty style callback
-        * returns true for elements that have a matching property value, else false.
-        *
-        * If an object is provided for predicate the created _.matches style callback returns
-        * true for elements that have the properties of the given object, else false.
+        * The predicate is invoked with three arguments: (value, index|key, collection).
         *
         * @param collection The collection to iterate over.
         * @param callback The function called per iteration.
-        * @param thisArg The this binding of predicate.
         * @return Returns the array of grouped elements.
         **/
         partition<T>(
@@ -1982,7 +1835,7 @@ declare module "../index" {
         * element in the collection through the callback, where each successive callback execution
         * consumes the return value of the previous execution. If accumulator is not provided the
         * first element of the collection will be used as the initial accumulator value. The callback
-        * is bound to thisArg and invoked with four arguments; (accumulator, value, index|key, collection).
+        * is invoked with four arguments: (accumulator, value, index|key, collection).
         * @param collection The collection to iterate over.
         * @param callback The function called per iteration.
         * @param accumulator Initial value of the accumulator.
@@ -2015,26 +1868,26 @@ declare module "../index" {
         /**
         * @see _.reduce
         **/
-        reduce<T, TResult>(
+        reduce<T>(
             collection: T[] | null | undefined,
-            callback: MemoListIterator<T, TResult, T[]>
-        ): TResult | undefined;
+            callback: MemoListIterator<T, T, T[]>
+        ): T | undefined;
 
         /**
          * @see _.reduce
          **/
-        reduce<T, TResult>(
+        reduce<T>(
             collection: List<T> | null | undefined,
-            callback: MemoListIterator<T, TResult, List<T>>
-        ): TResult | undefined;
+            callback: MemoListIterator<T, T, List<T>>
+        ): T | undefined;
 
         /**
         * @see _.reduce
         **/
-        reduce<T extends object, TResult>(
+        reduce<T extends object>(
             collection: T | null | undefined,
-            callback: MemoObjectIterator<T[keyof T], TResult, T>
-        ): TResult | undefined;
+            callback: MemoObjectIterator<T[keyof T], T[keyof T], T>
+        ): T[keyof T] | undefined;
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -2068,26 +1921,26 @@ declare module "../index" {
         /**
         * @see _.reduce
         **/
-        reduce<T, TResult>(
+        reduce<T>(
             this: LoDashImplicitWrapper<T[] | null | undefined>,
-            callback: MemoListIterator<T, TResult, T[]>
-        ): TResult | undefined;
+            callback: MemoListIterator<T, T, T[]>
+        ): T | undefined;
 
         /**
         * @see _.reduce
         **/
-        reduce<T, TResult>(
+        reduce<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            callback: MemoListIterator<T, TResult, List<T>>
-        ): TResult | undefined;
+            callback: MemoListIterator<T, T, List<T>>
+        ): T | undefined;
 
         /**
         * @see _.reduce
         **/
-        reduce<T extends object, TResult>(
+        reduce<T extends object>(
             this: LoDashImplicitWrapper<T | null | undefined>,
-            callback: MemoObjectIterator<T[keyof T], TResult, T>
-        ): TResult | undefined;
+            callback: MemoObjectIterator<T[keyof T], T[keyof T], T>
+        ): T[keyof T] | undefined;
     }
 
     interface LoDashExplicitWrapper<TValue> {
@@ -2121,26 +1974,26 @@ declare module "../index" {
         /**
         * @see _.reduce
         **/
-        reduce<T, TResult>(
+        reduce<T>(
             this: LoDashExplicitWrapper<T[] | null | undefined>,
-            callback: MemoListIterator<T, TResult, T[]>
-        ): LoDashExplicitWrapper<TResult | undefined>;
+            callback: MemoListIterator<T, T, T[]>
+        ): LoDashExplicitWrapper<T | undefined>;
 
         /**
         * @see _.reduce
         **/
-        reduce<T, TResult>(
+        reduce<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            callback: MemoListIterator<T, TResult, List<T>>
-        ): LoDashExplicitWrapper<TResult | undefined>;
+            callback: MemoListIterator<T, T, List<T>>
+        ): LoDashExplicitWrapper<T | undefined>;
 
         /**
         * @see _.reduce
         **/
-        reduce<T extends object, TResult>(
+        reduce<T extends object>(
             this: LoDashExplicitWrapper<T | null | undefined>,
-            callback: MemoObjectIterator<T[keyof T], TResult, T>
-        ): LoDashExplicitWrapper<TResult | undefined>;
+            callback: MemoObjectIterator<T[keyof T], T[keyof T], T>
+        ): LoDashExplicitWrapper<T[keyof T] | undefined>;
     }
 
     // reduceRight
@@ -2181,26 +2034,26 @@ declare module "../index" {
         /**
         * @see _.reduceRight
         **/
-        reduceRight<T, TResult>(
+        reduceRight<T>(
             collection: T[] | null | undefined,
-            callback: MemoListIterator<T, TResult, T[]>
-        ): TResult | undefined;
+            callback: MemoListIterator<T, T, T[]>
+        ): T | undefined;
 
         /**
         * @see _.reduceRight
         **/
-        reduceRight<T, TResult>(
+        reduceRight<T>(
             collection: List<T> | null | undefined,
-            callback: MemoListIterator<T, TResult, List<T>>
-        ): TResult | undefined;
+            callback: MemoListIterator<T, T, List<T>>
+        ): T | undefined;
 
         /**
         * @see _.reduceRight
         **/
-        reduceRight<T extends object, TResult>(
+        reduceRight<T extends object>(
             collection: T | null | undefined,
-            callback: MemoObjectIterator<T[keyof T], TResult, T>
-        ): TResult | undefined;
+            callback: MemoObjectIterator<T[keyof T], T[keyof T], T>
+        ): T[keyof T] | undefined;
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -2234,26 +2087,26 @@ declare module "../index" {
         /**
         * @see _.reduceRight
         **/
-        reduceRight<T, TResult>(
+        reduceRight<T>(
             this: LoDashImplicitWrapper<T[] | null | undefined>,
-            callback: MemoListIterator<T, TResult, T[]>
-        ): TResult | undefined;
+            callback: MemoListIterator<T, T, T[]>
+        ): T | undefined;
 
         /**
         * @see _.reduceRight
         **/
-        reduceRight<T, TResult>(
+        reduceRight<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            callback: MemoListIterator<T, TResult, List<T>>
-        ): TResult | undefined;
+            callback: MemoListIterator<T, T, List<T>>
+        ): T | undefined;
 
         /**
         * @see _.reduceRight
         **/
-        reduceRight<T extends object, TResult>(
+        reduceRight<T extends object>(
             this: LoDashImplicitWrapper<T | null | undefined>,
-            callback: MemoObjectIterator<T[keyof T], TResult, T>
-        ): TResult | undefined;
+            callback: MemoObjectIterator<T[keyof T], T[keyof T], T>
+        ): T[keyof T] | undefined;
     }
 
     interface LoDashExplicitWrapper<TValue> {
@@ -2287,26 +2140,26 @@ declare module "../index" {
         /**
         * @see _.reduceRight
         **/
-        reduceRight<T, TResult>(
+        reduceRight<T>(
             this: LoDashExplicitWrapper<T[] | null | undefined>,
-            callback: MemoListIterator<T, TResult, T[]>
-        ): LoDashExplicitWrapper<TResult | undefined>;
+            callback: MemoListIterator<T, T, T[]>
+        ): LoDashExplicitWrapper<T | undefined>;
 
         /**
         * @see _.reduceRight
         **/
-        reduceRight<T, TResult>(
+        reduceRight<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            callback: MemoListIterator<T, TResult, List<T>>
-        ): LoDashExplicitWrapper<TResult | undefined>;
+            callback: MemoListIterator<T, T, List<T>>
+        ): LoDashExplicitWrapper<T | undefined>;
 
         /**
         * @see _.reduceRight
         **/
-        reduceRight<T extends object, TResult>(
+        reduceRight<T extends object>(
             this: LoDashExplicitWrapper<T | null | undefined>,
-            callback: MemoObjectIterator<T[keyof T], TResult, T>
-        ): LoDashExplicitWrapper<TResult | undefined>;
+            callback: MemoObjectIterator<T[keyof T], T[keyof T], T>
+        ): LoDashExplicitWrapper<T[keyof T] | undefined>;
     }
 
     // reject
@@ -2318,7 +2171,6 @@ declare module "../index" {
          *
          * @param collection The collection to iterate over.
          * @param predicate The function invoked per iteration.
-         * @param thisArg The this binding of predicate.
          * @return Returns the new filtered array.
          */
         reject(

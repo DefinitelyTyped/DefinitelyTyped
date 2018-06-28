@@ -495,6 +495,25 @@ stripe.customers.listCards('cu_15fvyVEe31JkLCeQvr155iqc').then(function (cards) 
     // asynchronously called
 });
 
+stripe.customers.listSources('cu_15fvyVEe31JkLCeQvr155iqc', null, function (err, cards) {
+    // asynchronously called
+});
+stripe.customers.listSources('cu_15fvyVEe31JkLCeQvr155iqc', null).then(function (cards) {
+    // asynchronously called
+});
+stripe.customers.listSources('cu_15fvyVEe31JkLCeQvr155iqc', {
+    object: "card",
+    limit: 100
+}).then(function (cards) {
+    // asynchronously called
+});
+stripe.customers.listSources('cu_15fvyVEe31JkLCeQvr155iqc', {
+    object: "bank_account",
+    limit: 100
+}).then(function (cards) {
+    // asynchronously called
+});
+
 stripe.customers.retrieveSubscription(
     "cus_5rfJKDJkuxzh5Q",
     "sub_5rfJxnBLGSwsYp",
@@ -779,7 +798,10 @@ stripe.accounts.createExternalAccount("", { external_account: "tok_15V2YhEe31JkL
 
 //#region Orders tests
 // ##################################################################################
-
+stripe.orders.retrieve("or_1C8XKwEe31JkLCeQHg0jcisf", function (err, order) {
+    // asynchronously called
+    var amount_returned: number = order.amount_returned;
+});
 
 
 //#endregion
@@ -995,6 +1017,10 @@ stripe.invoices.list(
 stripe.invoices.list({ customer: "cus_5rfJKDJkuxzh5Q", limit: 3 }).then(function (invoices) {
     // asynchronously called
 });
+
+stripe.invoices.retrieve("in_15fvyXEe31JkLCeQH7QbgZZb", { expand: ["subscription"] }).then(function (invoice) {
+  invoice.subscription
+})
 
 //#endregion
 

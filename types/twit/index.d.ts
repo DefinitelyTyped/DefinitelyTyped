@@ -3,6 +3,7 @@
 // Definitions by: Volox <https://github.com/Volox>
 //                 lostfictions <https://github.com/lostfictions>
 //                 sapphiredev <https://github.com/sapphiredev>
+//                 abraham <https://github.com/abraham>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -24,7 +25,7 @@ declare module 'twit' {
        */
       export interface Contributors {
         id: number,
-        id_str: number,
+        id_str: string,
         screen_name: string,
       }
 
@@ -169,7 +170,7 @@ declare module 'twit' {
         created_at: string,
         current_user_retweet?: {
           id: number,
-          id_str: number,
+          id_str: string,
         },
         entities: Entities,
         favorite_count?: number,
@@ -192,12 +193,14 @@ declare module 'twit' {
         retweeted: boolean,
         retweeted_status?: Status,
         source?: string,
-        text: string,
+        text?: string,
+        full_text?: string,
         truncated: boolean,
         user: User,
         withheld_copyright?: boolean,
         withheld_in_countries?: string[],
         withheld_scope?: string,
+        display_text_range?: [number, number],
       }
       export interface Metadata {
         max_id?: number,
@@ -254,13 +257,19 @@ declare module 'twit' {
       screen_name?: string,
       id?: string,
       slug?: string,
+      owner_screen_name?: string,
       status?: string,
-      user_id?: number,
+      user_id?: number | string,
       lat?: number,
       long?: number,
       follow?: boolean,
       include_email?: boolean,
       cursor?: number,
+      tweet_mode?: string,
+      trim_user?: boolean,
+      exclude_replies?: boolean,
+      include_rts?: boolean,
+      skip_status?: boolean,
     }
     export interface PromiseResponse {
       data: Response,

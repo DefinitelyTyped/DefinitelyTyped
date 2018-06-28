@@ -1,6 +1,7 @@
 // Type definitions for react-places-autocomplete 6.1
 // Project: https://github.com/kenny-hibino/react-places-autocomplete/
 // Definitions by: Guilherme Hübner <https://github.com/guilhermehubner>
+//                 Andrew Makarov <https://github.com/r3nya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 //
@@ -56,6 +57,11 @@ export interface PropTypes {
 }
 
 export function geocodeByAddress(address: string, callback: (results: google.maps.GeocoderResult[], status: google.maps.GeocoderStatus) => void): void;
+export function geocodeByAddress(address: string): Promise<google.maps.GeocoderResult[]>;
+
 export function geocodeByPlaceId(placeId: string, callback: (results: google.maps.GeocoderResult[], status: google.maps.GeocoderStatus) => void): void;
+export function geocodeByPlaceId(placeId: string): Promise<google.maps.GeocoderResult[]>;
+
+export function getLatLng(results: google.maps.GeocoderResult): Promise<google.maps.LatLngLiteral>;
 
 export default class PlacesAutocomplete extends React.Component<PropTypes> {}

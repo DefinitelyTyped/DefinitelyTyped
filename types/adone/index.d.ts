@@ -5,7 +5,7 @@
 // TypeScript Version: 2.4
 
 /// <reference path="./adone.d.ts" />
-/// <reference path="./glosses/application.d.ts" />
+/// <reference path="./glosses/app.d.ts" />
 /// <reference path="./glosses/archives.d.ts" />
 /// <reference path="./glosses/assertion.d.ts" />
 /// <reference path="./glosses/collections/index.d.ts" />

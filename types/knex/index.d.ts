@@ -23,7 +23,7 @@ type ColumnName = string | Knex.Raw | Knex.QueryBuilder | {[key: string]: string
 type TableName = string | Knex.Raw | Knex.QueryBuilder;
 
 interface Knex extends Knex.QueryInterface {
-    (tableName?: string): Knex.QueryBuilder;
+    (tableName?: TableName): Knex.QueryBuilder;
     VERSION: string;
     __knex__: string;
 
@@ -179,7 +179,7 @@ declare namespace Knex {
     }
 
     interface Table {
-        (tableName: string): QueryBuilder;
+        (tableName: TableName): QueryBuilder;
         (callback: Function): QueryBuilder;
         (raw: Raw): QueryBuilder;
     }
@@ -269,8 +269,8 @@ declare namespace Knex {
         (callback: QueryCallback): QueryBuilder;
         (object: Object): QueryBuilder;
         (columnName: string, value: Value | null): QueryBuilder;
-        (columnName: string, operator: string, value: Value | null): QueryBuilder;
-        (columnName: string, operator: string, query: QueryBuilder): QueryBuilder;
+        (columnName: string, operator: string, value: Value | QueryBuilder | null): QueryBuilder;
+        (left: Raw, operator: string, right: Value | QueryBuilder | null): QueryBuilder;
     }
 
     interface WhereRaw extends RawQueryBuilder {

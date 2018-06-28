@@ -1,4 +1,4 @@
-import { Connection, callback } from '../connection';
+import { Connection, Callback } from '../connection';
 import { Query } from '../query';
 import { Stream } from 'stream';
 
@@ -49,23 +49,23 @@ export class Request<T> implements Promise<T> {
 export class Resource<T> extends Request<T> {
     constructor(chatter: Chatter, url: string, queryParams?: object);
 
-    create(data: object | string, callback?: callback<T>): Request<T>;
+    create(data: object | string, callback?: Callback<T>): Request<T>;
 
-    del(callback?: callback<T>): Request<T>;
+    del(callback?: Callback<T>): Request<T>;
 
-    delete(callback?: callback<T>): Request<T>;
+    delete(callback?: Callback<T>): Request<T>;
 
-    retrieve(callback?: callback<T>): Request<T>;
+    retrieve(callback?: Callback<T>): Request<T>;
 
-    update(data: object, callback?: callback<T>): Request<T>;
+    update(data: object, callback?: Callback<T>): Request<T>;
 }
 
 export class Chatter {
     constructor(conn: Connection);
 
-    batch(callback?: callback<BatchRequestResults>): Promise<BatchRequestResults>;
+    batch(callback?: Callback<BatchRequestResults>): Promise<BatchRequestResults>;
 
-    request(params: RequestParams, callback?: callback<Request<RequestResult>>): Request<RequestResult>;
+    request(params: RequestParams, callback?: Callback<Request<RequestResult>>): Request<RequestResult>;
 
     resource(url: string, queryParams?: object): Resource<RequestResult>
 }

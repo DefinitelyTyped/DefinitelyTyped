@@ -10,3 +10,4 @@ plugin = collab.collab({ version: 1 });
 plugin = collab.collab({ clientID: 1 });
 
 const sendableSteps = collab.sendableSteps(state);
+sendableSteps!.clientID;

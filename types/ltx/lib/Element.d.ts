@@ -67,7 +67,7 @@ export declare class Element {
 
     getText(): string;
 
-    getChildText(name: string, xmlns: any): string;
+    getChildText(name: string, xmlns?: any): string;
 
     /**
      * Return all direct descendents that are Elements.

@@ -1250,21 +1250,21 @@ declare module "../index" {
          *
          * @returns Returns `false`.
          */
-        stubFalse(): boolean;
+        stubFalse(): false;
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.stubFalse
          */
-        stubFalse(): boolean;
+        stubFalse(): false;
     }
 
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.stubFalse
          */
-        stubFalse(): LoDashExplicitWrapper<boolean>;
+        stubFalse(): LoDashExplicitWrapper<false>;
     }
 
     // stubObject
@@ -1325,21 +1325,21 @@ declare module "../index" {
          *
          * @returns Returns `true`.
          */
-        stubTrue(): boolean;
+        stubTrue(): true;
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.stubTrue
          */
-        stubTrue(): boolean;
+        stubTrue(): true;
     }
 
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.stubTrue
          */
-        stubTrue(): LoDashExplicitWrapper<boolean>;
+        stubTrue(): LoDashExplicitWrapper<true>;
     }
 
     // times

@@ -4,6 +4,7 @@
 //                 Georgii Dolzhykov <https://github.com/thorn0>
 //                 Caleb St-Denis <https://github.com/calebstdenis>
 //                 Leonard Thieu <https://github.com/leonard-thieu>
+//                 Steffen Kowalski <https://github.com/scipper>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -196,6 +197,12 @@ declare namespace angular {
          * @param options A definition object passed into the component.
          */
         component(name: string, options: IComponentOptions): IModule;
+        /**
+         * Use this method to register a component.
+         *
+         * @param object Object map of components where the keys are the names and the values are the component definition objects
+         */
+        component(object: {[componentName: string]: IComponentOptions}): IModule;
         /**
          * Use this method to register work which needs to be performed on module loading.
          *
@@ -478,6 +485,76 @@ declare namespace angular {
         $broadcast(name: string, ...args: any[]): IAngularEvent;
         $destroy(): void;
         $digest(): void;
+
+        /**
+         * Suspend watchers of this scope subtree so that they will not be invoked during digest.
+         *
+         * This can be used to optimize your application when you know that running those watchers
+         * is redundant.
+         *
+         * **Warning**
+         *
+         * Suspending scopes from the digest cycle can have unwanted and difficult to debug results.
+         * Only use this approach if you are confident that you know what you are doing and have
+         * ample tests to ensure that bindings get updated as you expect.
+         *
+         * Some of the things to consider are:
+         *
+         * * Any external event on a directive/component will not trigger a digest while the hosting
+         *   scope is suspended - even if the event handler calls `$apply()` or `$rootScope.$digest()`.
+         * * Transcluded content exists on a scope that inherits from outside a directive but exists
+         *   as a child of the directive's containing scope. If the containing scope is suspended the
+         *   transcluded scope will also be suspended, even if the scope from which the transcluded
+         *   scope inherits is not suspended.
+         * * Multiple directives trying to manage the suspended status of a scope can confuse each other:
+         *    * A call to `$suspend()` on an already suspended scope is a no-op.
+         *    * A call to `$resume()` on a non-suspended scope is a no-op.
+         *    * If two directives suspend a scope, then one of them resumes the scope, the scope will no
+         *      longer be suspended. This could result in the other directive believing a scope to be
+         *      suspended when it is not.
+         * * If a parent scope is suspended then all its descendants will be also excluded from future
+         *   digests whether or not they have been suspended themselves. Note that this also applies to
+         *   isolate child scopes.
+         * * Calling `$digest()` directly on a descendant of a suspended scope will still run the watchers
+         *   for that scope and its descendants. When digesting we only check whether the current scope is
+         *   locally suspended, rather than checking whether it has a suspended ancestor.
+         * * Calling `$resume()` on a scope that has a suspended ancestor will not cause the scope to be
+         *   included in future digests until all its ancestors have been resumed.
+         * * Resolved promises, e.g. from explicit `$q` deferreds and `$http` calls, trigger `$apply()`
+         *   against the `$rootScope` and so will still trigger a global digest even if the promise was
+         *   initiated by a component that lives on a suspended scope.
+         */
+        $suspend(): void;
+
+        /**
+         * Call this method to determine if this scope has been explicitly suspended. It will not
+         * tell you whether an ancestor has been suspended.
+         * To determine if this scope will be excluded from a digest triggered at the $rootScope,
+         * for example, you must check all its ancestors:
+         *
+         * ```
+         * function isExcludedFromDigest(scope) {
+         *   while(scope) {
+         *     if (scope.$isSuspended()) return true;
+         *     scope = scope.$parent;
+         *   }
+         *   return false;
+         * ```
+         *
+         * Be aware that a scope may not be included in digests if it has a suspended ancestor,
+         * even if `$isSuspended()` returns false.
+         *
+         * @returns true if the current scope has been suspended.
+         */
+        $isSuspended(): boolean;
+
+        /**
+         * Resume watchers of this scope subtree in case it was suspended.
+         *
+         * See {$rootScope.Scope#$suspend} for information about the dangers of using this approach.
+         */
+        $resume(): void;
+
         /**
          * Dispatches an event name upwards through the scope hierarchy notifying the registered $rootScope.Scope listeners.
          *
@@ -1028,7 +1105,7 @@ declare namespace angular {
         all<T1, T2, T3, T4>(values: [T1 | IPromise<T1>, T2 | IPromise<T2>, T3 | IPromise<T3>, T4 | IPromise <T4>]): IPromise<[T1, T2, T3, T4]>;
         all<T1, T2, T3>(values: [T1 | IPromise<T1>, T2 | IPromise<T2>, T3 | IPromise<T3>]): IPromise<[T1, T2, T3]>;
         all<T1, T2>(values: [T1 | IPromise<T1>, T2 | IPromise<T2>]): IPromise<[T1, T2]>;
-        all<TAll>(promises: Array<IPromise<TAll>>): IPromise<TAll[]>;
+        all<TAll>(promises: Array<TAll | IPromise<TAll>>): IPromise<TAll[]>;
         /**
          * Combines multiple promises into a single promise that is resolved when all of the input promises are resolved.
          *
@@ -1273,6 +1350,7 @@ declare namespace angular {
         directive<TScope extends IScope = IScope>(object: {[directiveName: string]: Injectable<IDirectiveFactory<TScope>>}): ICompileProvider;
 
         component(name: string, options: IComponentOptions): ICompileProvider;
+        component(object: {[componentName: string]: IComponentOptions}): ICompileProvider;
 
         aHrefSanitizationWhitelist(): RegExp;
         aHrefSanitizationWhitelist(regexp: RegExp): ICompileProvider;
@@ -1383,10 +1461,9 @@ declare namespace angular {
 
     interface IControllerService {
         // Although the documentation doesn't state this, locals are optional
-        <T>(controllerConstructor: new (...args: any[]) => T, locals?: any, later?: boolean, ident?: string): T;
-        <T>(controllerConstructor: Function, locals?: IControllerLocals, later?: boolean, ident?: string): T;
-        <T>(controllerConstructor: Function, locals?: any, later?: boolean, ident?: string): T;
-        <T>(controllerName: string, locals?: any, later?: boolean, ident?: string): T;
+        <T>(controllerConstructor: new (...args: any[]) => T, locals?: any): T;
+        <T>(controllerConstructor: (...args: any[]) => T, locals?: any): T;
+        <T>(controllerName: string, locals?: any): T;
     }
 
     interface IControllerProvider extends IServiceProvider {

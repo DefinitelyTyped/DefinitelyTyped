@@ -12,13 +12,7 @@ type FontFamily =
     | BaseCSSProperties['fontFamily']
     | CSS.FontFace;
 
-// Replace with Exclude once on 2.8+
-type Diff<T extends string, U extends string> = (
-    & { [P in T]: P }
-    & { [P in U]: never }
-    & { [x: string]: never }
-)[T];
-type Omit<T, K extends keyof T> = Pick<T, Diff<keyof T, K>>;
+type Omit<T, K extends keyof T> = Pick<T, ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never, [x: number]: never })[keyof T]>;
 
 type CSSProperties = Omit<BaseCSSProperties, 'fontFamily'> & {
     fontFamily?: FontFamily | FontFamily[];

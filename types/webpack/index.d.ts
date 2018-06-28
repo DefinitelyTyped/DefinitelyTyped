@@ -1,4 +1,4 @@
-// Type definitions for webpack 4.1
+// Type definitions for webpack 4.4
 // Project: https://github.com/webpack/webpack
 // Definitions by: Qubo <https://github.com/tkqubo>
 //                 Benjamin Lim <https://github.com/bumbleblym>
@@ -11,6 +11,8 @@
 //                 Spencer Elliott <https://github.com/elliottsj>
 //                 Jason Cheatham <https://github.com/jason0x43>
 //                 Dennis George <https://github.com/dennispg>
+//                 Christophe Hurpeau <https://github.com/christophehurpeau>
+//                 ZSkycat <https://github.com/ZSkycat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -59,24 +61,22 @@ declare namespace webpack {
         /** Like resolve but for loaders. */
         resolveLoader?: ResolveLoader;
         /**
-         *  Specify dependencies that shouldn’t be resolved by webpack, but should become dependencies of the resulting bundle.
-         *  The kind of the dependency depends on output.libraryTarget.
+         * Specify dependencies that shouldn’t be resolved by webpack, but should become dependencies of the resulting bundle.
+         * The kind of the dependency depends on output.libraryTarget.
          */
         externals?: ExternalsElement | ExternalsElement[];
         /**
-         * <ul>
-         *   <li>"web" Compile for usage in a browser-like environment (default)</li>
-         *   <li>"webworker" Compile as WebWorker</li>
-         *   <li>"node" Compile for usage in a node.js-like environment (use require to load chunks)</li>
-         *   <li>"async-node" Compile for usage in a node.js-like environment (use fs and vm to load chunks async)</li>
-         *   <li>"node-webkit" Compile for usage in webkit, uses jsonp chunk loading but also supports builtin node.js modules plus require(“nw.gui”) (experimental)</li>
-         *   <li>"atom" Compile for usage in electron (formerly known as atom-shell), supports require for modules necessary to run Electron.</li>
-         *   <li>"electron-renderer" Compile for Electron for renderer process, providing a target using JsonpTemplatePlugin, FunctionModulePlugin
-         *        for browser environments and NodeTargetPlugin and ExternalsPlugin for CommonJS and Electron built-in modules.<li>
-         *   <li>"electron-main" Compile for Electron for main process.</li>
-         *   <li>"atom" Alias for electron-main</li>
-         *   <li>"electron" Alias for electron-main</li>
-         * <ul>
+         * - "web" Compile for usage in a browser-like environment (default).
+         * - "webworker" Compile as WebWorker.
+         * - "node" Compile for usage in a node.js-like environment (use require to load chunks).
+         * - "async-node" Compile for usage in a node.js-like environment (use fs and vm to load chunks async).
+         * - "node-webkit" Compile for usage in webkit, uses jsonp chunk loading but also supports builtin node.js modules plus require(“nw.gui”) (experimental)
+         * - "atom" Compile for usage in electron (formerly known as atom-shell), supports require for modules necessary to run Electron.
+         * - "electron-renderer" Compile for Electron for renderer process, providing a target using JsonpTemplatePlugin, FunctionModulePlugin for browser
+         *   environments and NodeTargetPlugin and ExternalsPlugin for CommonJS and Electron built-in modules.
+         * - "electron-main" Compile for Electron for main process.
+         * - "atom" Alias for electron-main.
+         * - "electron" Alias for electron-main.
          */
         target?: 'web' | 'webworker' | 'node' | 'async-node' | 'node-webkit' | 'atom' | 'electron' | 'electron-renderer' | 'electron-main' | ((compiler?: any) => void);
         /** Report the first error as a hard error instead of tolerating it. */
@@ -93,7 +93,7 @@ declare namespace webpack {
         /** Can be used to configure the behaviour of webpack-dev-server when the webpack config is passed to webpack-dev-server CLI. */
         devServer?: any; // TODO: Type this
         /** Include polyfills or mocks for various node stuff */
-        node?: Node;
+        node?: Node | false;
         /** Set the value of require.amd and define.amd. */
         amd?: { [moduleName: string]: boolean };
         /** Used for recordsInputPath and recordsOutputPath */
@@ -169,17 +169,15 @@ declare namespace webpack {
         library?: string | string[];
         /**
          * Which format to export the library:
-         * <ul>
-         *   <li>"var" - Export by setting a variable: var Library = xxx (default)</li>
-         *   <li>"this" - Export by setting a property of this: this["Library"] = xxx</li>
-         *   <li>"commonjs" - Export by setting a property of exports: exports["Library"] = xxx</li>
-         *   <li>"commonjs2" - Export by setting module.exports: module.exports = xxx</li>
-         *   <li>"amd" - Export to AMD (optionally named)</li>
-         *   <li>"umd" - Export to AMD, CommonJS2 or as property in root</li>
-         *   <li>"window" - Assign to window</li>
-         *   <li>"assign" - Assign to a global variable</li>
-         *   <li>"jsonp" - Generate Webpack JSONP module<li>
-         * </ul>
+         * - "var" - Export by setting a variable: var Library = xxx (default)
+         * - "this" - Export by setting a property of this: this["Library"] = xxx
+         * - "commonjs" - Export by setting a property of exports: exports["Library"] = xxx
+         * - "commonjs2" - Export by setting module.exports: module.exports = xxx
+         * - "amd" - Export to AMD (optionally named)
+         * - "umd" - Export to AMD, CommonJS2 or as property in root
+         * - "window" - Assign to window
+         * - "assign" - Assign to a global variable
+         * - "jsonp" - Generate Webpack JSONP module
          */
         libraryTarget?: 'var' | 'this' | 'commonjs' | 'commonjs2' | 'amd' | 'umd' | 'window' | 'assign' | 'jsonp';
         /** Configure which module or modules will be exposed via the `libraryTarget` */
@@ -204,9 +202,9 @@ declare namespace webpack {
 
     interface Module {
         /** A array of applied pre loaders. */
-        preLoaders?: Rule[];
+        preLoaders?: RuleSetRule[];
         /** A array of applied post loaders. */
-        postLoaders?: Rule[];
+        postLoaders?: RuleSetRule[];
         /** A RegExp or an array of RegExps. Don’t parse files matching. */
         noParse?: RegExp | RegExp[] | ((content: string) => boolean);
         unknownContextRequest?: string;
@@ -222,7 +220,7 @@ declare namespace webpack {
         wrappedContextCritical?: boolean;
         strictExportPresence?: boolean;
         /** An array of rules applied for modules. */
-        rules: Rule[];
+        rules: RuleSetRule[];
     }
 
     interface Resolve {
@@ -252,7 +250,7 @@ declare namespace webpack {
          * Defaults to `["browser", "module", "main"]` or `["module", "main"]`,
          * depending on the value of the `target` `Configuration` value.
          */
-        mainFields?: string[];
+        mainFields?: string[] | string[][];
 
         /**
          * A list of fields in a package description object to try to parse
@@ -263,7 +261,7 @@ declare namespace webpack {
          *
          * @see alias
          */
-        aliasFields?: string[];
+        aliasFields?: string[] | string[][];
 
         /**
          * A list of file names to search for when requiring directories that
@@ -320,6 +318,14 @@ declare namespace webpack {
          * Defaults to `true`
          */
         symlinks?: boolean;
+
+        /**
+         * If unsafe cache is enabled, includes request.context in the cache key.
+         * This option is taken into account by the enhanced-resolve module.
+         * Since webpack 3.1.0 context in resolve caching is ignored when resolve or resolveLoader plugins are provided.
+         * This addresses a performance regression.
+         */
+        cacheWithContext?: boolean;
     }
 
     interface ResolveLoader extends Resolve {
@@ -340,151 +346,183 @@ declare namespace webpack {
     type ExternalsFunctionElement = (context: any, request: any, callback: (error: any, result: any) => void) => any;
 
     interface Node {
-        console?: boolean;
+        console?: boolean | 'mock';
+        process?: boolean | 'mock';
         global?: boolean;
-        process?: boolean;
-        Buffer?: boolean;
-        __filename?: boolean | string;
-        __dirname?: boolean | string;
-        [nodeBuiltin: string]: boolean | string | undefined;
+        __filename?: boolean | 'mock';
+        __dirname?: boolean | 'mock';
+        Buffer?: boolean | 'mock';
+        setImmediate?: boolean | 'mock' | 'empty';
+        [nodeBuiltin: string]: boolean | 'mock' | 'empty' | undefined;
     }
 
-    interface BaseConditionSpec {
-        /** The Condition must match. The convention is the provide a string or array of strings here, but it's not enforced. */
-        include?: Condition;
-        /** The Condition must NOT match. The convention is the provide a string or array of strings here, but it's not enforced. */
-        exclude?: Condition;
-    }
-    interface TestConditionSpec extends BaseConditionSpec {
-        /** The Condition must match. The convention is the provide a RegExp or array of RegExps here, but it's not enforced. */
-        test: Condition;
-    }
-    interface AndConditionSpec extends BaseConditionSpec {
-        /** All Conditions must match. */
-        and: Condition[];
-    }
-    interface OrConditionSpec extends BaseConditionSpec {
-        /** Any Condition must match. */
-        or: Condition[];
-    }
-    interface NotConditionSpec extends BaseConditionSpec {
-        /** The Condition must NOT match. */
-        not: Condition;
-    }
-    type ConditionSpec = TestConditionSpec | OrConditionSpec | AndConditionSpec | NotConditionSpec;
-
-    // tslint:disable-next-line:no-empty-interface
-    interface ConditionArray extends Array<Condition> { }
-    type Condition = string | RegExp | ((absPath: string) => boolean) | ConditionSpec | ConditionArray;
-
-    interface OldLoader {
-        loader: string;
-        query?: { [name: string]: any };
-    }
     interface NewLoader {
         loader: string;
         options?: { [name: string]: any };
     }
-    type Loader = string | OldLoader | NewLoader;
+    type Loader = string | NewLoader;
+
     interface ParserOptions {
         [optName: string]: any;
         system?: boolean;
     }
-    /**
-     * There are direct and delegate rules. Direct Rules need a test, Delegate rules delegate to subrules bringing their own.
-     * Direct rules can optionally contain delegate keys (oneOf, rules).
-     *
-     * These types exist to enforce that a rule has the keys `((loader XOR loaders) AND test) OR oneOf OR rules`
-     */
-    interface BaseRule {
+
+    type RuleSetCondition =
+        | RegExp
+        | string
+        | ((path: string) => boolean)
+        | RuleSetConditions
+        | {
+            /**
+             * Logical AND
+             */
+            and?: RuleSetCondition[];
+            /**
+             * Exclude all modules matching any of these conditions
+             */
+            exclude?: RuleSetCondition;
+            /**
+             * Exclude all modules matching not any of these conditions
+             */
+            include?: RuleSetCondition;
+            /**
+             * Logical NOT
+             */
+            not?: RuleSetCondition[];
+            /**
+             * Logical OR
+             */
+            or?: RuleSetCondition[];
+            /**
+             * Exclude all modules matching any of these conditions
+             */
+            test?: RuleSetCondition;
+        };
+
+    // A hack around circular type referencing
+    interface RuleSetConditions extends Array<RuleSetCondition> {}
+
+    interface RuleSetRule {
         /**
-         * Specifies the category of the loader. No value means normal loader.
-         *
-         * There is also an additional category "inlined loader" which are loaders applied inline of the import/require.
-         *
-         * All loaders are sorted in the order post, inline, normal, pre and used in this order.
-         *
-         * All normal loaders can be omitted (overridden) by prefixing ! in the request.
-         *
-         * All normal and pre loaders can be omitted (overridden) by prefixing -! in the request.
-         *
-         * All normal, post and pre loaders can be omitted (overridden) by prefixing !! in the request.
-         *
-         * Inline loaders and ! prefixes should not be used as they are non-standard. They may be use by loader generated code.
+         * Enforce this rule as pre or post step
          */
-        enforce?: 'pre' | 'post';
-        /** A condition that must be met */
-        test?: Condition | Condition[];
-        /** A condition that must not be met */
-        exclude?: Condition | Condition[];
-        /** A condition that must be met */
-        include?: Condition | Condition[];
-        /** A Condition matched with the resource. */
-        resource?: Condition | Condition[];
-        /** A Condition matched with the resource query. */
-        resourceQuery?: Condition | Condition[];
-        /** A condition matched with the issuer */
-        issuer?: Condition | Condition[];
+        enforce?: "pre" | "post";
         /**
-         * An object with parser options. All applied parser options are merged.
-         *
-         * For each different parser options object a new parser is created and plugins can apply plugins depending on the parser options.
-         * Many of the default plugins apply their parser plugins only if a property in the parser options is not set or true.
+         * Shortcut for resource.exclude
          */
-        parser?: ParserOptions;
-        /** An array of Rules that is also used when the Rule matches. */
-        rules?: Rule[];
-        /** An array of Rules from which only the first matching Rule is used when the Rule matches. */
-        oneOf?: Rule[];
-        /** Configures module resolving. */
+        exclude?: RuleSetCondition;
+        /**
+         * Shortcut for resource.include
+         */
+        include?: RuleSetCondition;
+        /**
+         * Match the issuer of the module (The module pointing to this module)
+         */
+        issuer?: RuleSetCondition;
+        /**
+         * Shortcut for use.loader
+         */
+        loader?: RuleSetUse;
+        /**
+         * Shortcut for use.loader
+         */
+        loaders?: RuleSetUse;
+        /**
+         * Only execute the first matching rule in this array
+         */
+        oneOf?: RuleSetRule[];
+        /**
+         * Shortcut for use.options
+         */
+        options?: RuleSetQuery;
+        /**
+         * Options for parsing
+         */
+        parser?: { [k: string]: any };
+        /**
+         * Options for the resolver
+         */
         resolve?: Resolve;
-        /** Configures the module type. */
-        type?: "javascript/auto" | "javascript/esm" | "javascript/dynamic" | "json" | "webassembly/experimental";
-        /** Flags a module as with or without side effects */
+        /**
+         * Flags a module as with or without side effects
+         */
         sideEffects?: boolean;
+        /**
+         * Shortcut for use.query
+         */
+        query?: RuleSetQuery;
+        /**
+         * Module type to use for the module
+         */
+        type?: "javascript/auto" | "javascript/dynamic" | "javascript/esm" | "json" | "webassembly/experimental";
+        /**
+         * Match the resource path of the module
+         */
+        resource?: RuleSetCondition;
+        /**
+         * Match the resource query of the module
+         */
+        resourceQuery?: RuleSetCondition;
+        /**
+         * Match the child compiler name
+         */
+        compiler?: RuleSetCondition;
+        /**
+         * Match and execute these rules when this rule is matched
+         */
+        rules?: RuleSetRule[];
+        /**
+         * Shortcut for resource.test
+         */
+        test?: RuleSetCondition;
+        /**
+         * Modifiers applied to the module when rule is matched
+         */
+        use?: RuleSetUse;
     }
-    interface BaseDirectRule extends BaseRule {
-        /** A condition that must be met */
-        test: Condition | Condition[];
-    }
-    // Direct Rules
-    interface BaseSingleLoaderRule extends BaseDirectRule {
-        /** Loader name or an object with name and options */
-        loader: Loader;
-    }
-    interface OldLoaderRule extends BaseSingleLoaderRule {
+
+    type RuleSetUse =
+        | RuleSetUseItem
+        | RuleSetUseItem[]
+        | ((data: any) => RuleSetUseItem | RuleSetUseItem[]);
+
+    interface RuleSetLoader {
+        /**
+         * Loader name
+         */
+        loader?: string;
         /**
          * Loader options
-         * @deprecated:
          */
-        query?: { [name: string]: any };
-    }
-    interface NewLoaderRule extends BaseSingleLoaderRule {
-        options?: { [name: string]: any };
-    }
-    type LoaderRule = OldLoaderRule | NewLoaderRule;
-    interface OldUseRule extends BaseDirectRule {
+        options?: RuleSetQuery;
         /**
-         * A array of loaders.
-         * @deprecated  use `use` instead
+         * Unique loader identifier
          */
-        loaders: string[];
+        ident?: string;
+        /**
+         * Loader query
+         */
+        query?: RuleSetQuery;
     }
-    interface NewUseRule extends BaseDirectRule {
-        /** A loader or array of loaders */
-        use: Loader | Loader[];
-    }
-    type UseRule = OldUseRule | NewUseRule;
 
-    // Delegate Rules
-    interface RulesRule extends BaseRule {
-        /** An array of Rules that is also used when the Rule matches. */
-        rules: Rule[];
-    }
-    interface OneOfRule extends BaseRule {
-        oneOf: Rule[];
-    }
-    type Rule = LoaderRule | UseRule | RulesRule | OneOfRule;
+    type RuleSetUseItem =
+        | string
+        | RuleSetLoader
+        | ((data: any) => string | RuleSetLoader);
+
+    type RuleSetQuery =
+        | string
+        | { [k: string]: any };
+
+    /**
+     * @deprecated Use RuleSetCondition instead
+     */
+    type Condition = RuleSetCondition;
+
+    /**
+     * @deprecated Use RuleSetRule instead
+     */
+    type Rule = RuleSetRule;
 
     namespace Options {
         // tslint:disable-next-line:max-line-length
@@ -521,7 +559,7 @@ declare namespace webpack {
             /** Assign modules to a cache group */
             test?: ((...args: any[]) => boolean) | string | RegExp;
             /** Select chunks for determining cache group content (defaults to \"initial\", \"initial\" and \"all\" requires adding these chunks to the HTML) */
-            chunks?: "initial" | "async" | "all";
+            chunks?: "initial" | "async" | "all" | ((chunk: compilation.Chunk) => boolean);
             /** Ignore minimum size, minimum chunks and maximum requests and always create chunks for this cache group */
             enforce?: boolean;
             /** Priority of this cache group */
@@ -541,7 +579,7 @@ declare namespace webpack {
         }
         interface SplitChunksOptions {
             /** Select chunks for determining shared modules (defaults to \"async\", \"initial\" and \"all\" requires adding these chunks to the HTML) */
-            chunks?: "initial" | "async" | "all";
+            chunks?: "initial" | "async" | "all" | ((chunk: compilation.Chunk) => boolean);
             /** Minimal size for the created chunk */
             minSize?: number;
             /** Minimum number of times a module has to be duplicated until it's considered for splitting */
@@ -607,6 +645,27 @@ declare namespace webpack {
             minimizer?: Array<Plugin | Tapable.Plugin>;
             /** Generate records with relative paths to be able to move the context folder". */
             portableRecords?: boolean;
+        }
+    }
+
+    namespace debug {
+        interface ProfilingPluginOptions {
+            /** A relative path to a custom output file (json) */
+            outputPath?: string;
+        }
+        /**
+         * Generate Chrome profile file which includes timings of plugins execution. Outputs `events.json` file by
+         * default. It is possible to provide custom file path using `outputPath` option.
+         *
+         * In order to view the profile file:
+         * * Run webpack with ProfilingPlugin.
+         * * Go to Chrome, open the Profile Tab.
+         * * Drag and drop generated file (events.json by default) into the profiler.
+         *
+         * It will then display timeline stats and calls per plugin!
+         */
+        class ProfilingPlugin extends Plugin {
+            constructor(options?: ProfilingPluginOptions);
         }
     }
     namespace compilation {
@@ -892,42 +951,9 @@ declare namespace webpack {
             usedModuleIds: any;
             getStats(): Stats;
             addModule(module: CompilationModule, cacheGroup: any): any;
-            // getModule(module)
-            // findModule(identifier)
-            // waitForBuildingFinished(module, callback)
-            // buildModule(module, optional, origin, dependencies, thisCallback)
-            // processModuleDependencies(module, callback)
-            // addModuleDependencies(module, dependencies, bail, cacheGroup, recursive, callback)
             // tslint:disable-next-line:ban-types
             addEntry(context: any, entry: any, name: any, callback: Function): void;
-            // prefetch(context, dependency, callback)
-            // rebuildModule(module, thisCallback)
-            // finish()
-            // unseal()
-            // seal(callback)
-            // sortModules(modules)
-            // reportDependencyErrorsAndWarnings(module, blocks)
-            // addChunkInGroup(name, module, loc, request)
-            // addChunk(name)
-            // assignIndex(module)
-            // assignDepth(module)
-            // processDependenciesBlocksForChunkGroups(inputChunkGroups)
-            // removeReasonsOfDependencyBlock(module, block)
-            // patchChunksAfterReasonRemoval(module, chunk)
-            // removeChunkFromDependencies(block, chunk)
-            // applyModuleIds()
-            // applyChunkIds()
-            // sortItemsWithModuleIds()
-            // sortItemsWithChunkIds()
-            // summarizeDependencies()
-            // createHash()
-            // modifyHash(update)
-            // createModuleAssets()
-            // createChunkAssets()
             getPath(filename: string, data: {hash?: any, chunk?: any, filename?: string, basename?: string, query?: any}): string;
-            // createChildCompiler(name, outputOptions, plugins)
-            // checkConstraints()
-
             /**
              * @deprecated Compilation.applyPlugins is deprecated. Use new API on `.hooks` instead
              */
@@ -1068,10 +1094,14 @@ declare namespace webpack {
             | 'verbose';
 
         interface ToJsonOptionsObject {
+            /** fallback value for stats options when an option is not defined (has precedence over local webpack defaults) */
+            all?: boolean;
             /** Add asset Information */
             assets?: boolean;
             /** Sort assets by a field */
             assetsSort?: string;
+            /** Add built at time information */
+            builtAt?: boolean;
             /** Add information about cached (not built) modules */
             cached?: boolean;
             /** Show cached assets (setting this to `false` only shows emitted files) */
@@ -1563,6 +1593,14 @@ declare namespace webpack {
              *
              */
             exec(code: string, filename: string): any;
+
+            /**
+             * Resolves the given request to a module, applies all configured loaders and calls
+             * back with the generated source, the sourceMap and the module instance (usually an
+             * instance of NormalModule). Use this function if you need to know the source code
+             * of another module to generate the result.
+             */
+            loadModule(request: string, callback: (err: Error | null, source: string, sourceMap: RawSourceMap, module: Module) => void): any;
 
             /**
              * Resolve a request like a require expression.

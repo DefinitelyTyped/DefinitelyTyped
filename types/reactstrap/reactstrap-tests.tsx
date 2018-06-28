@@ -35,6 +35,7 @@ import {
   Col,
   Container,
   Collapse,
+  CustomInput,
   Fade,
   Form,
   FormFeedback,
@@ -100,6 +101,7 @@ const Examplea = (props: any) => {
 };
 
 class AlertExample extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -276,6 +278,7 @@ const Example13 = (
 );
 
 class Example14 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -324,6 +327,7 @@ class Example14 extends React.Component<any, any> {
 
 // ------------- Button Dropdown
 class Example15 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -350,7 +354,7 @@ class Example15 extends React.Component<any, any> {
           <DropdownItem disabled>Action</DropdownItem>
           <DropdownItem>Another Action</DropdownItem>
           <DropdownItem divider />
-          <DropdownItem onClick={event => {
+          <DropdownItem onClick={(event: React.MouseEvent<HTMLElement>) => {
             // something happens here
           }}>Another Action</DropdownItem>
         </DropdownMenu>
@@ -413,7 +417,7 @@ const Example18 = (
 );
 
 const Example19 = (
-  <ButtonDropdown isOpen={true} toggle={() => true} dropup>
+  <ButtonDropdown isOpen={true} toggle={() => true} direction="up">
     <DropdownToggle caret size="lg">
       Dropup
     </DropdownToggle>
@@ -865,6 +869,7 @@ const Example36 = (props: any) => {
 // ------------------ Collapse
 
 class Example37 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
     this.toggle = this.toggle.bind(this);
@@ -895,6 +900,7 @@ class Example37 extends React.Component<any, any> {
 }
 
 class Example38 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
     this.onOpened = this.onOpened.bind(this);
@@ -939,6 +945,7 @@ class Example38 extends React.Component<any, any> {
 // ------- Dropdown
 
 class Example39 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -1015,6 +1022,7 @@ const Example42 = (props: any) => (
 );
 
 class Example43 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -1140,6 +1148,20 @@ class Example45 extends React.Component {
             <Input type="checkbox" />{' '}
             Check me out
           </Label>
+        </FormGroup>
+        <FormGroup tag="fieldset">
+          <FormGroup check inline>
+            <Label check>
+              <Input type="checkbox" />{' '}
+              Check me out
+            </Label>
+          </FormGroup>
+          <FormGroup check inline>
+            <Label check>
+              <Input type="checkbox" />{' '}
+              Check me out as well
+            </Label>
+          </FormGroup>
         </FormGroup>
         <Button>Submit</Button>
       </Form>
@@ -1935,6 +1957,7 @@ const Example71 = () => {
 
 // --------------- Modal
 class ModalExample72 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
     this.state = {
@@ -1974,6 +1997,7 @@ class ModalExample72 extends React.Component<any, any> {
 }
 
 class ModalExample73 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
     this.state = {
@@ -2034,6 +2058,7 @@ class ModalExample73 extends React.Component<any, any> {
 }
 
 class ModalExample74 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
     this.state = {
@@ -2091,6 +2116,7 @@ class ModalExample74 extends React.Component<any, any> {
 }
 
 class Example75 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -2144,6 +2170,7 @@ class Example75 extends React.Component<any, any> {
 }
 
 class Example76 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -2239,6 +2266,7 @@ class Example78 extends React.Component<any, any> {
 }
 
 class Example79 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -2289,6 +2317,7 @@ class Example79 extends React.Component<any, any> {
 }
 
 class Example80 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -2481,6 +2510,7 @@ class Example84 extends React.Component {
 
 // ------------------------- Popover
 class Example85 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -2512,6 +2542,7 @@ class Example85 extends React.Component<any, any> {
 }
 
 class PopoverItem extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -2533,7 +2564,7 @@ class PopoverItem extends React.Component<any, any> {
         <Button className="mr-1" color="secondary" id={'Popover-' + this.props.id} onClick={this.toggle}>
           {this.props.item.text}
         </Button>
-        <Popover placement={this.props.item.placement} isOpen={this.state.popoverOpen} target={'Popover-' + this.props.id} toggle={this.toggle}>
+        <Popover placement={this.props.item.placement} isOpen={this.state.popoverOpen} target={'Popover-' + this.props.id} toggle={this.toggle} hideArrow={true}>
           <PopoverHeader>Popover Title</PopoverHeader>
           <PopoverBody>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</PopoverBody>
         </Popover>
@@ -2543,6 +2574,7 @@ class PopoverItem extends React.Component<any, any> {
 }
 
 class PopoverExampleMulti extends React.Component<any, {popovers: Array<{placement: string; text: string; }>}> {
+  state: {popovers: Array<{placement: string; text: string; }>};
   constructor(props: any) {
     super(props);
 
@@ -3045,6 +3077,7 @@ class Example100 extends React.Component {
 }
 
 class Example101 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -3115,6 +3148,7 @@ class Example101 extends React.Component<any, any> {
 }
 
 class Example102 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -3143,6 +3177,7 @@ class Example102 extends React.Component<any, any> {
 }
 
 class Example103 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -3171,6 +3206,7 @@ class Example103 extends React.Component<any, any> {
 }
 
 class TooltipItem extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -3201,6 +3237,7 @@ class TooltipItem extends React.Component<any, any> {
 }
 
 class TooltipExampleMulti extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -3322,7 +3359,7 @@ const CSSModuleExample = (props: any) => {
 };
 
 class Example107 extends React.Component {
-  private input: HTMLInputElement;
+  private input: HTMLInputElement | null;
 
   render() {
     return <Input type="file" innerRef={(input) => { this.input = input; }} />;
@@ -3330,6 +3367,7 @@ class Example107 extends React.Component {
 }
 
 class Example108 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -3366,6 +3404,7 @@ class Example108 extends React.Component<any, any> {
 }
 
 class Example109 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -3402,7 +3441,8 @@ class Example109 extends React.Component<any, any> {
 }
 
 class Example110 extends React.Component<any, any> {
-  constructor(props: any) {
+   state: any;
+   constructor(props: any) {
     super(props);
 
     this.toggle = this.toggle.bind(this);
@@ -3438,6 +3478,7 @@ class Example110 extends React.Component<any, any> {
 }
 
 class Example111 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -3474,6 +3515,7 @@ class Example111 extends React.Component<any, any> {
 }
 
 class Example112 extends React.Component<any, any> {
+  state: any;
   constructor(props: any) {
     super(props);
 
@@ -3525,24 +3567,25 @@ const Example113 = (props: any) => {
   };
 
 class Example114 extends React.Component<any, any> {
-private element: HTMLElement;
+    state: any;
+    private element: HTMLElement;
 
-refFn(r: HTMLElement | null) {
-    if (r) {
-        this.element = r;
+    refFn(r: HTMLElement | null) {
+        if (r) {
+            this.element = r;
+        }
     }
-}
 
-render() {
-    return (
-    <div>
-        <p>Somewhere in here is a <a href="#" ref={this.refFn}>tooltip</a>.</p>
-        <Tooltip placement="bottom-start" isOpen={this.state.tooltipOpen} target={this.element}>
-        Hello world!
-        </Tooltip>
-    </div>
-    );
-}
+    render() {
+        return (
+        <div>
+            <p>Somewhere in here is a <a href="#" ref={this.refFn}>tooltip</a>.</p>
+            <Tooltip placement="bottom-start" isOpen={this.state.tooltipOpen} target={this.element}>
+            Hello world!
+            </Tooltip>
+        </div>
+        );
+    }
 }
 
 class Example115 extends React.Component<any, any> {
@@ -3568,6 +3611,7 @@ class Example115 extends React.Component<any, any> {
 
     private animating: boolean;
 
+    state: any;
     constructor(props: any) {
       super(props);
       this.state = { activeIndex: 0 };
@@ -3677,8 +3721,546 @@ const Example116 = (props: any) => {
   );
 };
 
-class Example117 extends React.Component {
+function Example117() {
+    const ref = (e: any) => {};
+
+    <Button ref={ref}/>;
+    <Carousel ref={ref} next={null as any} previous={null as any}/>;
+    <CarouselItem ref={ref}/>;
+    <Collapse ref={ref}/>;
+    <Dropdown ref={ref}/>;
+    <DropdownItem ref={ref}/>;
+    <DropdownToggle ref={ref}/>;
+    <Form ref={ref}/>;
+    <Input ref={ref}/>;
+    <Modal ref={ref}/>;
+    <NavLink ref={ref}/>;
+    <TabContent ref={ref}/>;
+    <Tooltip ref={ref} target={null as any}/>;
+    <UncontrolledAlert ref={ref}/>;
+    <UncontrolledButtonDropdown ref={ref}/>;
+    <UncontrolledDropdown ref={ref}/>;
+    <UncontrolledTooltip ref={ref} target={null as any}/>;
+}
+
+function Example118() {
+    const ref: string | ((e: any) => void) | React.RefObject<any> = null as any;
+
+    <Button innerRef={ref}/>;
+    <CardLink innerRef={ref}/>;
+    <Form innerRef={ref}/>;
+    <Input innerRef={ref}/>;
+    <NavLink innerRef={ref}/>;
+}
+
+import { default as Alert_ } from './lib/Alert'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as Badge_ } from './lib/Badge'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as Breadcrumb_ } from './lib/Breadcrumb'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as BreadcrumbItem_ } from './lib/BreadcrumbItem'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as Button_ } from './lib/Button'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as ButtonDropdown_ } from './lib/ButtonDropdown'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as ButtonGroup_ } from './lib/ButtonGroup'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as ButtonToolbar_ } from './lib/ButtonToolbar'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as Card_ } from './lib/Card'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as CardBody_ } from './lib/CardBody'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as CardColumns_ } from './lib/CardColumns'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as CardDeck_ } from './lib/CardDeck'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as CardFooter_ } from './lib/CardFooter'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as CardGroup_ } from './lib/CardGroup'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as CardHeader_ } from './lib/CardHeader'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as CardImg_ } from './lib/CardImg'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as CardImgOverlay_ } from './lib/CardImgOverlay'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as CardLink_ } from './lib/CardLink'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as CardSubtitle_ } from './lib/CardSubtitle'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as CardText_ } from './lib/CardText'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as CardTitle_ } from './lib/CardTitle'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as Carousel_ } from './lib/Carousel'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as CarouselItem_ } from './lib/CarouselItem'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as CarouselControl_ } from './lib/CarouselControl'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as CarouselIndicators_ } from './lib/CarouselIndicators'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as CarouselCaption_ } from './lib/CarouselCaption'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as Col_ } from './lib/Col'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as Collapse_ } from './lib/Collapse'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as Container_ } from './lib/Container'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as CustomInput_ } from './lib/CustomInput'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as Dropdown_ } from './lib/Dropdown'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as DropdownItem_ } from './lib/DropdownItem'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as DropdownMenu_ } from './lib/DropdownMenu'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as DropdownToggle_ } from './lib/DropdownToggle'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as Fade_ } from './lib/Fade'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as Form_ } from './lib/Form'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as FormFeedback_ } from './lib/FormFeedback'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as FormGroup_ } from './lib/FormGroup'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as FormText_ } from './lib/FormText'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as Input_ } from './lib/Input'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as InputGroup_ } from './lib/InputGroup'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as InputGroupAddon_ } from './lib/InputGroupAddon'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as InputGroupButtonDropdown_ } from './lib/InputGroupButtonDropdown'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as InputGroupText_ } from './lib/InputGroupText'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as Jumbotron_ } from './lib/Jumbotron'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as Label_ } from './lib/Label'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as ListGroup_ } from './lib/ListGroup'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as ListGroupItem_ } from './lib/ListGroupItem'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as ListGroupItemHeading_ } from './lib/ListGroupItemHeading'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as ListGroupItemText_ } from './lib/ListGroupItemText'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as Media_ } from './lib/Media'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as Modal_ } from './lib/Modal'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as ModalBody_ } from './lib/ModalBody'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as ModalFooter_ } from './lib/ModalFooter'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as ModalHeader_ } from './lib/ModalHeader'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as Nav_ } from './lib/Nav'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as Navbar_ } from './lib/Navbar'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as NavbarBrand_ } from './lib/NavbarBrand'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as NavbarToggler_ } from './lib/NavbarToggler'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as NavItem_ } from './lib/NavItem'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as NavLink_ } from './lib/NavLink'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as Pagination_ } from './lib/Pagination'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as PaginationItem_ } from './lib/PaginationItem'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as PaginationLink_ } from './lib/PaginationLink'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as Popover_ } from './lib/Popover'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as PopoverBody_ } from './lib/PopoverBody'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as PopoverHeader_ } from './lib/PopoverHeader'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as Progress_ } from './lib/Progress'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as Row_ } from './lib/Row'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as TabContent_ } from './lib/TabContent'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as Table_ } from './lib/Table'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as TabPane_ } from './lib/TabPane'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as Tag_ } from './lib/Tag'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as Tooltip_ } from './lib/Tooltip'; /* tslint:disable-line: no-relative-import-in-test */
+import { UncontrolledAlert as UncontrolledAlert_ } from './lib/Uncontrolled'; /* tslint:disable-line: no-relative-import-in-test no-duplicate-imports */
+import { UncontrolledButtonDropdown as UncontrolledButtonDropdown_ } from './lib/Uncontrolled'; /* tslint:disable-line: no-relative-import-in-test no-duplicate-imports */
+import { UncontrolledDropdown as UncontrolledDropdown_ } from './lib/Uncontrolled'; /* tslint:disable-line: no-relative-import-in-test no-duplicate-imports */
+import { UncontrolledTooltip as UncontrolledTooltip_ } from './lib/Uncontrolled'; /* tslint:disable-line: no-relative-import-in-test no-duplicate-imports */
+
+function AnyPropExample() {
+  return (
+    <React.Fragment >
+      <Alert_ foo={1} bar={false} foobar="example" />
+      <Badge_ foo={1} bar={false} foobar="example" />
+      <Breadcrumb_ foo={1} bar={false} foobar="example" />
+      <BreadcrumbItem_ foo={1} bar={false} foobar="example" />
+      <Button_ foo={1} bar={false} foobar="example" />
+      <ButtonDropdown_ foo={1} bar={false} foobar="example" />
+      <ButtonGroup_ foo={1} bar={false} foobar="example" />
+      <ButtonToolbar_ foo={1} bar={false} foobar="example" />
+      <Card_ foo={1} bar={false} foobar="example" />
+      <CardBody_ foo={1} bar={false} foobar="example" />
+      <CardColumns_ foo={1} bar={false} foobar="example" />
+      <CardDeck_ foo={1} bar={false} foobar="example" />
+      <CardFooter_ foo={1} bar={false} foobar="example" />
+      <CardGroup_ foo={1} bar={false} foobar="example" />
+      <CardHeader_ foo={1} bar={false} foobar="example" />
+      <CardImg_ foo={1} bar={false} foobar="example" />
+      <CardImgOverlay_ foo={1} bar={false} foobar="example" />
+      <CardLink_ foo={1} bar={false} foobar="example" />
+      <CardSubtitle_ foo={1} bar={false} foobar="example" />
+      <CardText_ foo={1} bar={false} foobar="example" />
+      <CardTitle_ foo={1} bar={false} foobar="example" />
+      <Carousel_ foo={1} bar={false} foobar="example" next={() => {}} previous={() => {}}/>
+      <CarouselItem_ foo={1} bar={false} foobar="example" />
+      <CarouselControl_ foo={1} bar={false} foobar="example" direction="next" onClickHandler={() => {}} directionText="" />
+      <CarouselIndicators_ foo={1} bar={false} foobar="example" items={[]} activeIndex={-1} onClickHandler={() => {}} />
+      <CarouselCaption_ foo={1} bar={false} foobar="example" captionText="" />
+      <Col_ foo={1} bar={false} foobar="example" />
+      <Collapse_ foo={1} bar={false} foobar="example" />
+      <Container_ foo={1} bar={false} foobar="example" />
+      <CustomInput_ foo={1} bar={false} foobar="example" type="file" />
+      <Dropdown_ foo={1} bar={false} foobar="example" />
+      <DropdownItem_ foo={1} bar={false} foobar="example" />
+      <DropdownMenu_ foo={1} bar={false} foobar="example" />
+      <DropdownToggle_ foo={1} bar={false} foobar="example" />
+      <Fade_ foo={1} bar={false} foobar="example" />
+      <Form_ foo={1} bar={false} foobar="example" />
+      <FormFeedback_ foo={1} bar={false} foobar="example" />
+      <FormGroup_ foo={1} bar={false} foobar="example" />
+      <FormText_ foo={1} bar={false} foobar="example" />
+      <Input_ foo={1} bar={false} foobar="example" />
+      <InputGroup_ foo={1} bar={false} foobar="example" />
+      <InputGroupAddon_ foo={1} bar={false} foobar="example" addonType="prepend" />
+      <InputGroupButtonDropdown_ foo={1} bar={false} foobar="example" addonType="prepend" />
+      <InputGroupText_ foo={1} bar={false} foobar="example" />
+      <Jumbotron_ foo={1} bar={false} foobar="example" />
+      <Label_ foo={1} bar={false} foobar="example" />
+      <ListGroup_ foo={1} bar={false} foobar="example" />
+      <ListGroupItem_ foo={1} bar={false} foobar="example" />
+      <ListGroupItemHeading_ foo={1} bar={false} foobar="example" />
+      <ListGroupItemText_ foo={1} bar={false} foobar="example" />
+      <Media_ foo={1} bar={false} foobar="example" />
+      <Modal_ foo={1} bar={false} foobar="example" />
+      <ModalBody_ foo={1} bar={false} foobar="example" />
+      <ModalFooter_ foo={1} bar={false} foobar="example" />
+      <ModalHeader_ foo={1} bar={false} foobar="example" />
+      <Nav_ foo={1} bar={false} foobar="example" />
+      <Navbar_ foo={1} bar={false} foobar="example" />
+      <NavbarBrand_ foo={1} bar={false} foobar="example" />
+      <NavbarToggler_ foo={1} bar={false} foobar="example" />
+      <NavItem_ foo={1} bar={false} foobar="example" />
+      <NavLink_ foo={1} bar={false} foobar="example" />
+      <Pagination_ foo={1} bar={false} foobar="example" />
+      <PaginationItem_ foo={1} bar={false} foobar="example" />
+      <PaginationLink_ foo={1} bar={false} foobar="example" />
+      <Popover_ foo={1} bar={false} foobar="example" target="" />
+      <PopoverBody_ foo={1} bar={false} foobar="example" />
+      <PopoverHeader_ foo={1} bar={false} foobar="example" />
+      <Progress_ foo={1} bar={false} foobar="example" />
+      <Row_ foo={1} bar={false} foobar="example" />
+      <TabContent_ foo={1} bar={false} foobar="example" />
+      <Table_ foo={1} bar={false} foobar="example" />
+      <TabPane_ foo={1} bar={false} foobar="example" />
+      <Tag_ foo={1} bar={false} foobar="example" />
+      <Tooltip_ foo={1} bar={false} foobar="example" target="" />
+      <UncontrolledAlert_ foo={1} bar={false} foobar="example" />
+      <UncontrolledButtonDropdown_ foo={1} bar={false} foobar="example" />
+      <UncontrolledDropdown_ foo={1} bar={false} foobar="example" />
+      <UncontrolledTooltip_ foo={1} bar={false} foobar="example" target="" />
+    </React.Fragment >
+  );
+}
+
+interface GenericInterface {
+  foo: number;
+  bar: boolean;
+  foobar?: string;
+}
+class AlertGeneric extends Alert<GenericInterface> {}
+class BadgeGeneric extends Badge<GenericInterface> {}
+class BreadcrumbGeneric extends Breadcrumb<GenericInterface> {}
+class BreadcrumbItemGeneric extends BreadcrumbItem<GenericInterface> {}
+class ButtonGeneric extends Button<GenericInterface> {}
+class ButtonDropdownGeneric extends ButtonDropdown<GenericInterface> {}
+class ButtonGroupGeneric extends ButtonGroup<GenericInterface> {}
+class ButtonToolbarGeneric extends ButtonToolbar<GenericInterface> {}
+class CardGeneric extends Card<GenericInterface> {}
+class CardBodyGeneric extends CardBody<GenericInterface> {}
+class CardColumnsGeneric extends CardColumns<GenericInterface> {}
+class CardDeckGeneric extends CardDeck<GenericInterface> {}
+class CardFooterGeneric extends CardFooter<GenericInterface> {}
+class CardGroupGeneric extends CardGroup<GenericInterface> {}
+class CardHeaderGeneric extends CardHeader<GenericInterface> {}
+class CardImgGeneric extends CardImg<GenericInterface> {}
+class CardImgOverlayGeneric extends CardImgOverlay<GenericInterface> {}
+class CardLinkGeneric extends CardLink<GenericInterface> {}
+class CardSubtitleGeneric extends CardSubtitle<GenericInterface> {}
+class CardTextGeneric extends CardText<GenericInterface> {}
+class CardTitleGeneric extends CardTitle<GenericInterface> {}
+class CarouselGeneric extends Carousel<GenericInterface> {}
+class CarouselItemGeneric extends CarouselItem<GenericInterface> {}
+class CarouselControlGeneric extends CarouselControl<GenericInterface> {}
+class CarouselIndicatorsGeneric extends CarouselIndicators<GenericInterface> {}
+class CarouselCaptionGeneric extends CarouselCaption<GenericInterface> {}
+class ColGeneric extends Col<GenericInterface> {}
+class CollapseGeneric extends Collapse<GenericInterface> {}
+class ContainerGeneric extends Container<GenericInterface> {}
+class CustomInputGeneric extends CustomInput<GenericInterface> {}
+class DropdownGeneric extends Dropdown<GenericInterface> {}
+class DropdownItemGeneric extends DropdownItem<GenericInterface> {}
+class DropdownMenuGeneric extends DropdownMenu<GenericInterface> {}
+class DropdownToggleGeneric extends DropdownToggle<GenericInterface> {}
+class FadeGeneric extends Fade<GenericInterface> {}
+class FormGeneric extends Form<GenericInterface> {}
+class FormFeedbackGeneric extends FormFeedback<GenericInterface> {}
+class FormGroupGeneric extends FormGroup<GenericInterface> {}
+class FormTextGeneric extends FormText<GenericInterface> {}
+class InputGeneric extends Input<GenericInterface> {}
+class InputGroupGeneric extends InputGroup<GenericInterface> {}
+class InputGroupAddonGeneric extends InputGroupAddon<GenericInterface> {}
+class InputGroupButtonDropdownGeneric extends InputGroupButtonDropdown<GenericInterface> {}
+class InputGroupTextGeneric extends InputGroupText<GenericInterface> {}
+class JumbotronGeneric extends Jumbotron<GenericInterface> {}
+class LabelGeneric extends Label<GenericInterface> {}
+class ListGroupGeneric extends ListGroup<GenericInterface> {}
+class ListGroupItemGeneric extends ListGroupItem<GenericInterface> {}
+class ListGroupItemHeadingGeneric extends ListGroupItemHeading<GenericInterface> {}
+class ListGroupItemTextGeneric extends ListGroupItemText<GenericInterface> {}
+class MediaGeneric extends Media<GenericInterface> {}
+class ModalGeneric extends Modal<GenericInterface> {}
+class ModalBodyGeneric extends ModalBody<GenericInterface> {}
+class ModalFooterGeneric extends ModalFooter<GenericInterface> {}
+class ModalHeaderGeneric extends ModalHeader<GenericInterface> {}
+class NavGeneric extends Nav<GenericInterface> {}
+class NavbarGeneric extends Navbar<GenericInterface> {}
+class NavbarBrandGeneric extends NavbarBrand<GenericInterface> {}
+class NavbarTogglerGeneric extends NavbarToggler<GenericInterface> {}
+class NavItemGeneric extends NavItem<GenericInterface> {}
+class NavLinkGeneric extends NavLink<GenericInterface> {}
+class PaginationGeneric extends Pagination<GenericInterface> {}
+class PaginationItemGeneric extends PaginationItem<GenericInterface> {}
+class PaginationLinkGeneric extends PaginationLink<GenericInterface> {}
+class PopoverGeneric extends Popover<GenericInterface> {}
+class PopoverBodyGeneric extends PopoverBody<GenericInterface> {}
+class PopoverHeaderGeneric extends PopoverHeader<GenericInterface> {}
+class ProgressGeneric extends Progress<GenericInterface> {}
+class RowGeneric extends Row<GenericInterface> {}
+class TabContentGeneric extends TabContent<GenericInterface> {}
+class TableGeneric extends Table<GenericInterface> {}
+class TabPaneGeneric extends TabPane<GenericInterface> {}
+class TagGeneric extends Tag<GenericInterface> {}
+class TooltipGeneric extends Tooltip<GenericInterface> {}
+class UncontrolledAlertGeneric extends UncontrolledAlert<GenericInterface> {}
+class UncontrolledButtonDropdownGeneric extends UncontrolledButtonDropdown<GenericInterface> {}
+class UncontrolledDropdownGeneric extends UncontrolledDropdown<GenericInterface> {}
+class UncontrolledTooltipGeneric extends UncontrolledTooltip<GenericInterface> {}
+
+function GenericPropExample() {
+  return (
+    <React.Fragment >
+      <AlertGeneric foo={1} bar={false} foobar="example" />
+      <BadgeGeneric foo={1} bar={false} foobar="example" />
+      <BreadcrumbGeneric foo={1} bar={false} foobar="example" />
+      <BreadcrumbItemGeneric foo={1} bar={false} foobar="example" />
+      <ButtonGeneric foo={1} bar={false} foobar="example" />
+      <ButtonDropdownGeneric foo={1} bar={false} foobar="example" />
+      <ButtonGroupGeneric foo={1} bar={false} foobar="example" />
+      <ButtonToolbarGeneric foo={1} bar={false} foobar="example" />
+      <CardGeneric foo={1} bar={false} foobar="example" />
+      <CardBodyGeneric foo={1} bar={false} foobar="example" />
+      <CardColumnsGeneric foo={1} bar={false} foobar="example" />
+      <CardDeckGeneric foo={1} bar={false} foobar="example" />
+      <CardFooterGeneric foo={1} bar={false} foobar="example" />
+      <CardGroupGeneric foo={1} bar={false} foobar="example" />
+      <CardHeaderGeneric foo={1} bar={false} foobar="example" />
+      <CardImgGeneric foo={1} bar={false} foobar="example" />
+      <CardImgOverlayGeneric foo={1} bar={false} foobar="example" />
+      <CardLinkGeneric foo={1} bar={false} foobar="example" />
+      <CardSubtitleGeneric foo={1} bar={false} foobar="example" />
+      <CardTextGeneric foo={1} bar={false} foobar="example" />
+      <CardTitleGeneric foo={1} bar={false} foobar="example" />
+      <CarouselGeneric foo={1} bar={false} foobar="example" next={() => {}} previous={() => {}}/>
+      <CarouselItemGeneric foo={1} bar={false} foobar="example" />
+      <CarouselControlGeneric foo={1} bar={false} foobar="example" direction="next" onClickHandler={() => {}} directionText="" />
+      <CarouselIndicatorsGeneric foo={1} bar={false} foobar="example" items={[]} activeIndex={-1} onClickHandler={() => {}} />
+      <CarouselCaptionGeneric foo={1} bar={false} foobar="example" captionText="" />
+      <ColGeneric foo={1} bar={false} foobar="example" />
+      <CollapseGeneric foo={1} bar={false} foobar="example" />
+      <ContainerGeneric foo={1} bar={false} foobar="example" />
+      <CustomInputGeneric foo={1} bar={false} foobar="example" type="file" />
+      <DropdownGeneric foo={1} bar={false} foobar="example" />
+      <DropdownItemGeneric foo={1} bar={false} foobar="example" />
+      <DropdownMenuGeneric foo={1} bar={false} foobar="example" />
+      <DropdownToggleGeneric foo={1} bar={false} foobar="example" />
+      <FadeGeneric foo={1} bar={false} foobar="example" />
+      <FormGeneric foo={1} bar={false} foobar="example" />
+      <FormFeedbackGeneric foo={1} bar={false} foobar="example" />
+      <FormGroupGeneric foo={1} bar={false} foobar="example" />
+      <FormTextGeneric foo={1} bar={false} foobar="example" />
+      <InputGeneric foo={1} bar={false} foobar="example" />
+      <InputGroupGeneric foo={1} bar={false} foobar="example" />
+      <InputGroupAddonGeneric foo={1} bar={false} foobar="example" addonType="prepend" />
+      <InputGroupButtonDropdownGeneric foo={1} bar={false} foobar="example" addonType="prepend" />
+      <InputGroupTextGeneric foo={1} bar={false} foobar="example" />
+      <JumbotronGeneric foo={1} bar={false} foobar="example" />
+      <LabelGeneric foo={1} bar={false} foobar="example" />
+      <ListGroupGeneric foo={1} bar={false} foobar="example" />
+      <ListGroupItemGeneric foo={1} bar={false} foobar="example" />
+      <ListGroupItemHeadingGeneric foo={1} bar={false} foobar="example" />
+      <ListGroupItemTextGeneric foo={1} bar={false} foobar="example" />
+      <MediaGeneric foo={1} bar={false} foobar="example" />
+      <ModalGeneric foo={1} bar={false} foobar="example" />
+      <ModalBodyGeneric foo={1} bar={false} foobar="example" />
+      <ModalFooterGeneric foo={1} bar={false} foobar="example" />
+      <ModalHeaderGeneric foo={1} bar={false} foobar="example" />
+      <NavGeneric foo={1} bar={false} foobar="example" />
+      <NavbarGeneric foo={1} bar={false} foobar="example" />
+      <NavbarBrandGeneric foo={1} bar={false} foobar="example" />
+      <NavbarTogglerGeneric foo={1} bar={false} foobar="example" />
+      <NavItemGeneric foo={1} bar={false} foobar="example" />
+      <NavLinkGeneric foo={1} bar={false} foobar="example" />
+      <PaginationGeneric foo={1} bar={false} foobar="example" />
+      <PaginationItemGeneric foo={1} bar={false} foobar="example" />
+      <PaginationLinkGeneric foo={1} bar={false} foobar="example" />
+      <PopoverGeneric foo={1} bar={false} foobar="example" target="" />
+      <PopoverBodyGeneric foo={1} bar={false} foobar="example" />
+      <PopoverHeaderGeneric foo={1} bar={false} foobar="example" />
+      <ProgressGeneric foo={1} bar={false} foobar="example" />
+      <RowGeneric foo={1} bar={false} foobar="example" />
+      <TabContentGeneric foo={1} bar={false} foobar="example" />
+      <TableGeneric foo={1} bar={false} foobar="example" />
+      <TabPaneGeneric foo={1} bar={false} foobar="example" />
+      <TagGeneric foo={1} bar={false} foobar="example" />
+      <TooltipGeneric foo={1} bar={false} foobar="example" target="" />
+      <UncontrolledAlertGeneric foo={1} bar={false} foobar="example" />
+      <UncontrolledButtonDropdownGeneric foo={1} bar={false} foobar="example" />
+      <UncontrolledDropdownGeneric foo={1} bar={false} foobar="example" />
+      <UncontrolledTooltipGeneric foo={1} bar={false} foobar="example" target="" />
+    </React.Fragment >
+  );
+}
+
+class Example119 extends React.Component<any, any> {
   render() {
-    return <Input ref={e => { console.log(e); }}/>;
+    return (
+      <Form>
+        <FormGroup>
+          <Label for="exampleCheckbox">Checkboxes</Label>
+          <div>
+            <CustomInput type="checkbox" id="exampleCustomCheckbox" label="Check this custom checkbox" />
+            <CustomInput type="checkbox" id="exampleCustomCheckbox2" label="Or this one" />
+            <CustomInput type="checkbox" id="exampleCustomCheckbox3" label="But not this disabled one" disabled />
+          </div>
+        </FormGroup>
+        <FormGroup>
+          <Label for="exampleCheckbox">Radios</Label>
+          <div>
+            <CustomInput type="radio" id="exampleCustomRadio" name="customRadio" label="Select this custom radio" />
+            <CustomInput type="radio" id="exampleCustomRadio2" name="customRadio" label="Or this one" />
+            <CustomInput type="radio" id="exampleCustomRadio3" label="But not this disabled one" disabled />
+          </div>
+        </FormGroup>
+        <FormGroup>
+          <Label for="exampleCheckbox">Inline</Label>
+          <div>
+            <CustomInput type="checkbox" id="exampleCustomInline" label="An inline custom input" inline />
+            <CustomInput type="checkbox" id="exampleCustomInline2" label="and another one" inline />
+          </div>
+        </FormGroup>
+        <FormGroup>
+          <Label for="exampleCustomSelect">Custom Select</Label>
+          <CustomInput type="select" id="exampleCustomSelect" name="customSelect">
+            <option value="">Select</option>
+            <option>Value 1</option>
+            <option>Value 2</option>
+            <option>Value 3</option>
+            <option>Value 4</option>
+            <option>Value 5</option>
+          </CustomInput>
+        </FormGroup>
+        <FormGroup>
+          <Label for="exampleCustomMutlipleSelect">Custom Multiple Select</Label>
+          <CustomInput type="select" id="exampleCustomMutlipleSelect" name="customSelect" multiple>
+            <option value="">Select</option>
+            <option>Value 1</option>
+            <option>Value 2</option>
+            <option>Value 3</option>
+            <option>Value 4</option>
+            <option>Value 5</option>
+          </CustomInput>
+        </FormGroup>
+        <FormGroup>
+          <Label for="exampleCustomSelectDisabled">Custom Select Disabled</Label>
+          <CustomInput type="select" id="exampleCustomSelectDisabled" name="customSelect" disabled>
+            <option value="">Select</option>
+            <option>Value 1</option>
+            <option>Value 2</option>
+            <option>Value 3</option>
+            <option>Value 4</option>
+            <option>Value 5</option>
+          </CustomInput>
+        </FormGroup>
+        <FormGroup>
+          <Label for="exampleCustomMutlipleSelectDisabled">Custom Multiple Select Disabled</Label>
+          <CustomInput type="select" id="exampleCustomMutlipleSelectDisabled" name="customSelect" multiple disabled>
+            <option value="">Select</option>
+            <option>Value 1</option>
+            <option>Value 2</option>
+            <option>Value 3</option>
+            <option>Value 4</option>
+            <option>Value 5</option>
+          </CustomInput>
+        </FormGroup>
+        <FormGroup>
+          <Label for="exampleCustomFileBrowser">File Browser</Label>
+          <CustomInput type="file" id="exampleCustomFileBrowser" name="customFile" />
+        </FormGroup>
+        <FormGroup>
+          <Label for="exampleCustomFileBrowser">File Browser with Custom Label</Label>
+          <CustomInput type="file" id="exampleCustomFileBrowser" name="customFile" label="Yo, pick a file!" />
+        </FormGroup>
+        <FormGroup>
+          <Label for="exampleCustomFileBrowser">File Browser Disabled</Label>
+          <CustomInput type="file" id="exampleCustomFileBrowser" name="customFile" disabled />
+        </FormGroup>
+      </Form>
+    );
+  }
+}
+
+class Example120 extends React.Component<any, any> {
+  render() {
+    return (
+      <Table borderless>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Username</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@fat</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>Larry</td>
+            <td>the Bird</td>
+            <td>@twitter</td>
+          </tr>
+        </tbody>
+      </Table>
+    );
+  }
+}
+
+class Example121 extends React.Component<any, any> {
+  render() {
+    return (
+      <UncontrolledDropdown className="some-class" setActiveFromChild>
+        <DropdownToggle caret>
+          Dropdown
+        </DropdownToggle>
+        <DropdownMenu>
+          <DropdownItem header>Header</DropdownItem>
+          <DropdownItem disabled>Action</DropdownItem>
+          <DropdownItem>Another Action</DropdownItem>
+          <DropdownItem divider />
+          <DropdownItem>Another Action</DropdownItem>
+        </DropdownMenu>
+      </UncontrolledDropdown>
+    );
+  }
+}
+
+class Example122 extends React.Component<any, any> {
+  state: any;
+  constructor(props: any) {
+    super(props);
+
+    this.toggle = this.toggle.bind(this);
+    this.state = {
+      dropdownOpen: false
+    };
+  }
+
+  toggle() {
+    this.setState({
+      dropdownOpen: !this.state.dropdownOpen
+    });
+  }
+
+  render() {
+    return (
+      <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+        <DropdownToggle caret>
+          Dropdown
+        </DropdownToggle>
+        <DropdownMenu persist>
+          <DropdownItem header>Header</DropdownItem>
+          <DropdownItem disabled>Action</DropdownItem>
+          <DropdownItem>Another Action</DropdownItem>
+          <DropdownItem divider />
+          <DropdownItem>Another Action</DropdownItem>
+        </DropdownMenu>
+      </Dropdown>
+    );
   }
 }

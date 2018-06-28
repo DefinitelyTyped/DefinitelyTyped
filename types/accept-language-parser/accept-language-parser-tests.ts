@@ -1,4 +1,4 @@
-// https://github.com/opentable/accept-language-parser/blob/v1.4.1/index.js
+// https://github.com/opentable/accept-language-parser/blob/v1.5.0/index.js
 
 import * as AcceptLanguageParser from 'accept-language-parser';
 
@@ -23,3 +23,9 @@ const l3: AcceptLanguageParser.Language = {
 const parsed1: AcceptLanguageParser.Language[] = AcceptLanguageParser.parse('');
 const pick1: string | null = AcceptLanguageParser.pick([''], '');
 const pick2: string | null = AcceptLanguageParser.pick([''], [l1, l2, l3]);
+const pick3: string | null = AcceptLanguageParser.pick([''], '', {});
+const pick4: string | null = AcceptLanguageParser.pick([''], '', { loose: true });
+
+const pickOptions: AcceptLanguageParser.PickOptions = {
+    loose: true
+};

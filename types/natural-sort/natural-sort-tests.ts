@@ -1,5 +1,8 @@
 
 import naturalSort = require("natural-sort");
 
-[5, 3, 2, 4, 1].sort(naturalSort);
-["a", "c", "b", "z", "w", "l"].sort(naturalSort);
+['10. tenth', 'odd', 1, '', '2. second'].sort(naturalSort());
+[3, 4, 1, 5, 2].sort(naturalSort({direction: 'desc'}));
+
+['a', 'B'].sort(naturalSort());
+['a', 'B'].sort(naturalSort({caseSensitive: true}));
