@@ -9,6 +9,7 @@
 //                 Hoàng Văn Khải <https://github.com/KSXGitHub>
 //                 Sander Koenders <https://github.com/Archcry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /************************************************
 *                                               *
