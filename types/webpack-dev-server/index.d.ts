@@ -31,12 +31,14 @@ declare namespace WebpackDevServer {
 
     type ProxyConfigArray = ProxyConfigArrayItem[];
 
+    interface Rewrite {
+        from: RegExp;
+        to: string;
+    }
+
     interface HistoryApiFallbackConfig {
         disableDotRule?: boolean;
-        rewrites?: Array<{
-            from: RegExp;
-            to: string;
-        }>;
+        rewrites?: Rewrite[];
     }
 
     interface Configuration {
