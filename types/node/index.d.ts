@@ -1319,16 +1319,6 @@ declare module "cluster" {
             [index: string]: Worker | undefined
         };
 
-        /**
-         * events.EventEmitter
-         *   1. disconnect
-         *   2. exit
-         *   3. fork
-         *   4. listening
-         *   5. message
-         *   6. online
-         *   7. setup
-         */
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "disconnect", worker: Worker): boolean;
         emit(event: "exit", worker: Worker, code: number, signal: string): boolean;
@@ -1366,19 +1356,6 @@ declare module "cluster" {
         [index: string]: Worker | undefined
     };
 
-    export interface Events {
-        disconnect: (worker: Worker) => void
-        exit: (worker: Worker, code: number, signal: string) => void
-        fork: (worker: Worker) => void
-        listening: (worker: Worker, address: Address) => void
-        message: (worker: Worker, message: any, handle: net.Socket | net.Server) => void;
-        online: (worker: Worker) => void
-        setup: (settings: any) => void
-    }
-
-    export function addListener(event: string, listener: (...args: any[]) => void): Cluster;
-    export function addListener<K extends keyof Events>(event: K, listener: Events[K]): Cluster;
-
     export function emit(event: string | symbol, ...args: any[]): boolean;
     export function emit(event: "disconnect", worker: Worker): boolean;
     export function emit(event: "exit", worker: Worker, code: number, signal: string): boolean;
@@ -1388,11 +1365,14 @@ declare module "cluster" {
     export function emit(event: "online", worker: Worker): boolean;
     export function emit(event: "setup", settings: any): boolean;
 
+    export function addListener(event: string, listener: (...args: any[]) => void): Cluster;
+    export function addListener<K extends keyof ClusterEvents>(event: K, listener: ClusterEvents[K]): Cluster;
+
     export function on(event: string, listener: (...args: any[]) => void): Cluster;
-    export function on<K extends keyof Events>(event: K, listener: Events[K]): Cluster;
+    export function on<K extends keyof ClusterEvents>(event: K, listener: ClusterEvents[K]): Cluster;
 
     export function once(event: string, listener: (...args: any[]) => void): Cluster;
-    export function once<K extends keyof Events>(event: K, listener: Events[K]): Cluster;
+    export function once<K extends keyof ClusterEvents>(event: K, listener: ClusterEvents[K]): Cluster;
 
     export function removeListener(event: string, listener: (...args: any[]) => void): Cluster;
     export function removeAllListeners(event?: string): Cluster;
@@ -1402,10 +1382,10 @@ declare module "cluster" {
     export function listenerCount(type: string): number;
 
     export function prependListener(event: string, listener: (...args: any[]) => void): Cluster;
-    export function prependListener<K extends keyof Events>(event: K, listener: Events[K]): Cluster;
+    export function prependListener<K extends keyof ClusterEvents>(event: K, listener: ClusterEvents[K]): Cluster;
 
     export function prependOnceListener(event: string, listener: (...args: any[]) => void): Cluster;
-    export function prependOnceListener<K extends keyof Events>(event: K, listener: Events[K]): Cluster;
+    export function prependOnceListener<K extends keyof ClusterEvents>(event: K, listener: ClusterEvents[K]): Cluster;
 
     export function eventNames(): string[];
 }
@@ -1799,18 +1779,12 @@ declare module "repl" {
         defineCommand(keyword: string, cmd: Function | { help: string, action: Function }): void;
         displayPrompt(preserveCursor?: boolean): void;
 
-        /**
-         * events.EventEmitter
-         * 1. exit
-         * 2. reset
-         */
-
-        addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener<K extends keyof REPLServerEvents>(event: K, listener: REPLServerEvents[K]): this;
-
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "exit"): boolean;
         emit(event: "reset", context: any): boolean;
+
+        addListener(event: string, listener: (...args: any[]) => void): this;
+        addListener<K extends keyof REPLServerEvents>(event: K, listener: REPLServerEvents[K]): this;
 
         on(event: string, listener: (...args: any[]) => void): this;
         on<K extends keyof REPLServerEvents>(event: K, listener: REPLServerEvents[K]): this;
@@ -1865,9 +1839,6 @@ declare module "readline" {
         close(): void;
         write(data: string | Buffer, key?: Key): void;
 
-        addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener<K extends keyof ReadLineEvents>(event: K, listener: ReadLineEvents[K]): this;
-
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "close"): boolean;
         emit(event: "line", input: any): boolean;
@@ -1876,6 +1847,9 @@ declare module "readline" {
         emit(event: "SIGCONT"): boolean;
         emit(event: "SIGINT"): boolean;
         emit(event: "SIGTSTP"): boolean;
+
+        addListener(event: string, listener: (...args: any[]) => void): this;
+        addListener<K extends keyof ReadLineEvents>(event: K, listener: ReadLineEvents[K]): this;
 
         on(event: string, listener: (...args: any[]) => void): this;
         on<K extends keyof ReadLineEvents>(event: K, listener: ReadLineEvents[K]): this;
@@ -1978,15 +1952,15 @@ declare module "child_process" {
         unref(): void;
         ref(): void;
 
-        addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener<K extends keyof ChildProcessEvents>(event: K, listener: ChildProcessEvents[K]): this;
-
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "close", code: number, signal: string): boolean;
         emit(event: "disconnect"): boolean;
         emit(event: "error", err: Error): boolean;
         emit(event: "exit", code: number, signal: string): boolean;
         emit(event: "message", message: any, sendHandle: net.Socket | net.Server): boolean;
+
+        addListener(event: string, listener: (...args: any[]) => void): this;
+        addListener<K extends keyof ChildProcessEvents>(event: K, listener: ChildProcessEvents[K]): this;
 
         on(event: string, listener: (...args: any[]) => void): this;
         on<K extends keyof ChildProcessEvents>(event: K, listener: ChildProcessEvents[K]): this;
@@ -2624,9 +2598,6 @@ declare module "net" {
         end(str: string, encoding?: string, cb?: Function): void;
         end(data?: any, encoding?: string): void;
 
-        addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener<K extends keyof SocketEvents>(event: K, listener: SocketEvents[K]): this;
-
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "close", had_error: boolean): boolean;
         emit(event: "connect"): boolean;
@@ -2637,6 +2608,9 @@ declare module "net" {
         emit(event: "lookup", err: Error, address: string, family: string | number, host: string): boolean;
         emit(event: "timeout"): boolean;
 
+        addListener(event: string, listener: (...args: any[]) => void): this;
+        addListener<K extends keyof SocketEvents>(event: K, listener: SocketEvents[K]): this;
+
         on(event: string, listener: (...args: any[]) => void): this;
         on<K extends keyof SocketEvents>(event: K, listener: SocketEvents[K]): this;
 
@@ -2645,6 +2619,7 @@ declare module "net" {
 
         prependListener(event: string, listener: (...args: any[]) => void): this;
         prependListener<K extends keyof SocketEvents>(event: K, listener: SocketEvents[K]): this;
+
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
         prependOnceListener<K extends keyof SocketEvents>(event: K, listener: SocketEvents[K]): this;
     }
@@ -2689,14 +2664,14 @@ declare module "net" {
         connections: number;
         listening: boolean;
 
-        addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener<K extends keyof ServerEvents>(event: K, listener: ServerEvents[K]): this;
-
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "close"): boolean;
         emit(event: "connection", socket: Socket): boolean;
         emit(event: "error", err: Error): boolean;
         emit(event: "listening"): boolean;
+
+        addListener(event: string, listener: (...args: any[]) => void): this;
+        addListener<K extends keyof ServerEvents>(event: K, listener: ServerEvents[K]): this;
 
         on(event: string, listener: (...args: any[]) => void): this;
         on<K extends keyof ServerEvents>(event: K, listener: ServerEvents[K]): this;
@@ -2794,21 +2769,14 @@ declare module "dgram" {
         getRecvBufferSize(): number;
         getSendBufferSize(): number;
 
-        /**
-         * events.EventEmitter
-         * 1. close
-         * 2. error
-         * 3. listening
-         * 4. message
-         */
-        addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener<K extends keyof SocketEvents>(event: K, listener: SocketEvents[K]): this;
-
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "close"): boolean;
         emit(event: "error", err: Error): boolean;
         emit(event: "listening"): boolean;
         emit(event: "message", msg: Buffer, rinfo: AddressInfo): boolean;
+
+        addListener(event: string, listener: (...args: any[]) => void): this;
+        addListener<K extends keyof SocketEvents>(event: K, listener: SocketEvents[K]): this;
 
         on(event: string, listener: (...args: any[]) => void): this;
         on<K extends keyof SocketEvents>(event: K, listener: SocketEvents[K]): this;
@@ -2887,7 +2855,7 @@ declare module "fs" {
     }
 
     export interface StreamEvents {
-        open: (fs: number) => void;
+        open: (fd: number) => void;
         close: () => void;
     }
 
@@ -5312,17 +5280,12 @@ declare module "tls" {
          */
         setMaxSendFragment(size: number): boolean;
 
-        /**
-         * events.EventEmitter
-         * 1. OCSPResponse
-         * 2. secureConnect
-         */
-        addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener<K extends keyof TLSSocketEvents>(event: K, listener: TLSSocketEvents[K]): this;
-
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "OCSPResponse", response: Buffer): boolean;
         emit(event: "secureConnect"): boolean;
+
+        addListener(event: string, listener: (...args: any[]) => void): this;
+        addListener<K extends keyof TLSSocketEvents>(event: K, listener: TLSSocketEvents[K]): this;
 
         on(event: string, listener: (...args: any[]) => void): this;
         on<K extends keyof TLSSocketEvents>(event: K, listener: TLSSocketEvents[K]): this;
@@ -5379,23 +5342,15 @@ declare module "tls" {
             ca: string;
         }): void;
 
-        /**
-         * events.EventEmitter
-         * 1. tlsClientError
-         * 2. newSession
-         * 3. OCSPRequest
-         * 4. resumeSession
-         * 5. secureConnection
-         */
-        addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener<K extends keyof ServerEvents>(event: K, listener: ServerEvents[K]): this;
-
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "tlsClientError", err: Error, tlsSocket: TLSSocket): boolean;
         emit(event: "newSession", sessionId: any, sessionData: any, callback: (err: Error, resp: Buffer) => void): boolean;
         emit(event: "OCSPRequest", certificate: Buffer, issuer: Buffer, callback: Function): boolean;
         emit(event: "resumeSession", sessionId: any, callback: (err: Error, sessionData: any) => void): boolean;
         emit(event: "secureConnection", tlsSocket: TLSSocket): boolean;
+
+        addListener(event: string, listener: (...args: any[]) => void): this;
+        addListener<K extends keyof ServerEvents>(event: K, listener: ServerEvents[K]): this;
 
         on(event: string, listener: (...args: any[]) => void): this;
         on<K extends keyof ServerEvents>(event: K, listener: ServerEvents[K]): this;
@@ -5784,16 +5739,6 @@ declare module "stream" {
             uncork(): void;
             destroy(error?: Error): void;
 
-            /**
-             * Event emitter
-             * The defined events on documents including:
-             * 1. close
-             * 2. drain
-             * 3. error
-             * 4. finish
-             * 5. pipe
-             * 6. unpipe
-             */
             addListener(event: string, listener: (...args: any[]) => void): this;
             addListener<K extends keyof WritableEvents>(event: K, listener: WritableEvents[K]): this;
 
@@ -6706,9 +6651,6 @@ declare module "http2" {
         setTimeout(msecs: number, callback?: () => void): void;
         readonly state: StreamState;
 
-        addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener<K extends keyof Http2StreamEvents>(event: K, listener: Http2StreamEvents[K]): this;
-
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "aborted"): boolean;
         emit(event: "close"): boolean;
@@ -6723,6 +6665,9 @@ declare module "http2" {
         emit(event: "streamClosed", code: number): boolean;
         emit(event: "timeout"): boolean;
         emit(event: "trailers", trailers: IncomingHttpHeaders, flags: number): boolean;
+
+        addListener(event: string, listener: (...args: any[]) => void): this;
+        addListener<K extends keyof Http2StreamEvents>(event: K, listener: Http2StreamEvents[K]): this;
 
         on(event: string, listener: (...args: any[]) => void): this;
         on<K extends keyof Http2StreamEvents>(event: K, listener: Http2StreamEvents[K]): this;
@@ -6744,13 +6689,13 @@ declare module "http2" {
     }
 
     export interface ClientHttp2Stream extends Http2Stream {
-        addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener<K extends keyof ClientHttp2StreamEvents>(event: K, listener: ClientHttp2StreamEvents[K]): this;
-
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "headers", headers: IncomingHttpHeaders & IncomingHttpStatusHeader, flags: number): boolean;
         emit(event: "push", headers: IncomingHttpHeaders, flags: number): boolean;
         emit(event: "response", headers: IncomingHttpHeaders & IncomingHttpStatusHeader, flags: number): boolean;
+
+        addListener(event: string, listener: (...args: any[]) => void): this;
+        addListener<K extends keyof ClientHttp2StreamEvents>(event: K, listener: ClientHttp2StreamEvents[K]): this;
 
         on(event: string, listener: (...args: any[]) => void): this;
         on<K extends keyof ClientHttp2StreamEvents>(event: K, listener: ClientHttp2StreamEvents[K]): this;
@@ -6839,9 +6784,6 @@ declare module "http2" {
         readonly type: number;
         unref(): void;
 
-        addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener<K extends keyof Http2Session>(event: K, listener: Http2Session[K]): this;
-
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "close"): boolean;
         emit(event: "error", err: Error): boolean;
@@ -6850,6 +6792,9 @@ declare module "http2" {
         emit(event: "localSettings", settings: Settings): boolean;
         emit(event: "remoteSettings", settings: Settings): boolean;
         emit(event: "timeout"): boolean;
+
+        addListener(event: string, listener: (...args: any[]) => void): this;
+        addListener<K extends keyof Http2Session>(event: K, listener: Http2Session[K]): this;
 
         on(event: string, listener: (...args: any[]) => void): this;
         on<K extends keyof Http2Session>(event: K, listener: Http2Session[K]): this;
@@ -6873,13 +6818,13 @@ declare module "http2" {
     export interface ClientHttp2Session extends Http2Session {
         request(headers?: OutgoingHttpHeaders, options?: ClientSessionRequestOptions): ClientHttp2Stream;
 
-        addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener<K extends keyof ClientHttp2SessionEvents>(event: K, listener: ClientHttp2SessionEvents[K]): this;
-
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "altsvc", alt: string, origin: string, stream: number): boolean;
         emit(event: "connect", session: ClientHttp2Session, socket: net.Socket | tls.TLSSocket): boolean;
         emit(event: "stream", stream: ClientHttp2Stream, headers: IncomingHttpHeaders & IncomingHttpStatusHeader, flags: number): boolean;
+
+        addListener(event: string, listener: (...args: any[]) => void): this;
+        addListener<K extends keyof ClientHttp2SessionEvents>(event: K, listener: ClientHttp2SessionEvents[K]): this;
 
         on(event: string, listener: (...args: any[]) => void): this;
         on<K extends keyof ClientHttp2SessionEvents>(event: K, listener: ClientHttp2SessionEvents[K]): this;
@@ -6907,12 +6852,12 @@ declare module "http2" {
         altsvc(alt: string, originOrStream: number | string | url.URL | AlternativeServiceOptions): void;
         readonly server: Http2Server | Http2SecureServer;
 
-        addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener<K extends keyof ServerHttp2SessionEvents>(event: K, listener: ServerHttp2SessionEvents[K]): this;
-
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "connect", session: ServerHttp2Session, socket: net.Socket | tls.TLSSocket): boolean;
         emit(event: "stream", stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number): boolean;
+
+        addListener(event: string, listener: (...args: any[]) => void): this;
+        addListener<K extends keyof ServerHttp2SessionEvents>(event: K, listener: ServerHttp2SessionEvents[K]): this;
 
         on(event: string, listener: (...args: any[]) => void): this;
         on<K extends keyof ServerHttp2SessionEvents>(event: K, listener: ServerHttp2SessionEvents[K]): this;
@@ -6962,15 +6907,15 @@ declare module "http2" {
     }
 
     export interface Http2Server extends net.Server {
-        addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener<K extends keyof Http2ServerEvents>(event: K, listener: Http2ServerEvents[K]): this;
-
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "checkContinue", request: Http2ServerRequest, response: Http2ServerResponse): boolean;
         emit(event: "request", request: Http2ServerRequest, response: Http2ServerResponse): boolean;
         emit(event: "sessionError", err: Error): boolean;
         emit(event: "stream", stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number): boolean;
         emit(event: "timeout"): boolean;
+
+        addListener(event: string, listener: (...args: any[]) => void): this;
+        addListener<K extends keyof Http2ServerEvents>(event: K, listener: Http2ServerEvents[K]): this;
 
         on(event: string, listener: (...args: any[]) => void): this;
         on<K extends keyof Http2ServerEvents>(event: K, listener: Http2ServerEvents[K]): this;
@@ -6995,9 +6940,6 @@ declare module "http2" {
     }
 
     export interface Http2SecureServer extends tls.Server {
-        addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener<K extends keyof Http2SecureServerEvents>(event: K, listener: Http2SecureServerEvents[K]): this;
-
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "checkContinue", request: Http2ServerRequest, response: Http2ServerResponse): boolean;
         emit(event: "request", request: Http2ServerRequest, response: Http2ServerResponse): boolean;
@@ -7005,6 +6947,9 @@ declare module "http2" {
         emit(event: "stream", stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number): boolean;
         emit(event: "timeout"): boolean;
         emit(event: "unknownProtocol", socket: tls.TLSSocket): boolean;
+
+        addListener(event: string, listener: (...args: any[]) => void): this;
+        addListener<K extends keyof Http2SecureServerEvents>(event: K, listener: Http2SecureServerEvents[K]): this;
 
         on(event: string, listener: (...args: any[]) => void): this;
         on<K extends keyof Http2SecureServerEvents>(event: K, listener: Http2SecureServerEvents[K]): this;
@@ -7019,6 +6964,10 @@ declare module "http2" {
         prependOnceListener<K extends keyof Http2SecureServerEvents>(event: K, listener: Http2SecureServerEvents[K]): this;
     }
 
+    export interface Http2ServerRequestEvents {
+        aborted: (hadError: boolean, code: number) => void;
+    }
+
     export interface Http2ServerRequest extends stream.Readable {
         headers: IncomingHttpHeaders;
         httpVersion: string;
@@ -7031,23 +6980,23 @@ declare module "http2" {
         trailers: IncomingHttpHeaders;
         url: string;
 
-        addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: "aborted", listener: (hadError: boolean, code: number) => void): this;
-
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "aborted", hadError: boolean, code: number): boolean;
 
+        addListener(event: string, listener: (...args: any[]) => void): this;
+        addListener<K extends keyof Http2ServerRequestEvents>(event: K, listener: Http2ServerRequestEvents[K]): this;
+
         on(event: string, listener: (...args: any[]) => void): this;
-        on(event: "aborted", listener: (hadError: boolean, code: number) => void): this;
+        on<K extends keyof Http2ServerRequestEvents>(event: K, listener: Http2ServerRequestEvents[K]): this;
 
         once(event: string, listener: (...args: any[]) => void): this;
-        once(event: "aborted", listener: (hadError: boolean, code: number) => void): this;
+        once<K extends keyof Http2ServerRequestEvents>(event: K, listener: Http2ServerRequestEvents[K]): this;
 
         prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: "aborted", listener: (hadError: boolean, code: number) => void): this;
+        prependListener<K extends keyof Http2ServerRequestEvents>(event: K, listener: Http2ServerRequestEvents[K]): this;
 
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "aborted", listener: (hadError: boolean, code: number) => void): this;
+        prependOnceListener<K extends keyof Http2ServerRequestEvents>(event: K, listener: Http2ServerRequestEvents[K]): this;
     }
 
     export interface Http2ServerResponseEvents {
@@ -7085,15 +7034,15 @@ declare module "http2" {
         writeHead(statusCode: number, statusMessage?: string, headers?: OutgoingHttpHeaders): void;
         createPushResponse(headers: OutgoingHttpHeaders, callback: (err: Error | null, res: Http2ServerResponse) => void): void;
 
-        addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener<K extends keyof Http2ServerResponseEvents>(event: K, listener: Http2ServerResponseEvents[K]): this;
-
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "aborted", hadError: boolean, code: number): boolean;
         emit(event: "close"): boolean;
         emit(event: "drain"): boolean;
         emit(event: "error", error: Error): boolean;
         emit(event: "finish"): boolean;
+
+        addListener(event: string, listener: (...args: any[]) => void): this;
+        addListener<K extends keyof Http2ServerResponseEvents>(event: K, listener: Http2ServerResponseEvents[K]): this;
 
         on(event: string, listener: (...args: any[]) => void): this;
         on<K extends keyof Http2ServerResponseEvents>(event: K, listener: Http2ServerResponseEvents[K]): this;
