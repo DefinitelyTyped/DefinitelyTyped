@@ -220,7 +220,7 @@ mod.filter({
     name1(foo: any) { return () => {}; },
     name2: ['foo', (foo: any) => () => {}],
 });
-const customStatefulFilter: ng.FilterFunction<(s: string) => number> = (s) => 1;
+const customStatefulFilter: ng.IFilterFunction = (s) => 1;
 mod.filter('name', () => customStatefulFilter);
 mod.filter('name', ['$scope', () => customStatefulFilter]);
 mod.filter({
