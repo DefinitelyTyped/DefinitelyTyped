@@ -5,9 +5,9 @@ triplesec.encrypt({
     key: new Buffer('key')
 }, (err, buff) => {
     if (err === null) {
-        console.log(buff);
+        buff; // $ExpectType Buffer | null
     } else {
-        console.log(err);
+        err; // $ExpectType Error
     }
 });
 
@@ -16,12 +16,12 @@ triplesec.decrypt({
     key: new Buffer('key')
 }, (err, buff) => {
     if (err === null) {
-        console.log(buff);
+        buff; // $ExpectType Buffer | null
     } else {
-        console.log(err);
+        err; // $ExpectType Error
     }
 });
 
 triplesec.prng.generate(24, words => {
-    console.log(words.to_hex()); // $ExpectType string
+    words.to_hex(); // $ExpectType string
 });
