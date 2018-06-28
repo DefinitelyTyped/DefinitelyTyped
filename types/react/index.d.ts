@@ -1640,6 +1640,7 @@ declare namespace React {
     }
 
     interface SelectHTMLAttributes<T> extends HTMLAttributes<T> {
+        autoComplete?: string;
         autoFocus?: boolean;
         disabled?: boolean;
         form?: string;
