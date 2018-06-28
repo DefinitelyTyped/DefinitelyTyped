@@ -7050,6 +7050,14 @@ declare module "http2" {
         prependOnceListener(event: "aborted", listener: (hadError: boolean, code: number) => void): this;
     }
 
+    export interface Http2ServerResponseEvents {
+        aborted: (hadError: boolean, code: number) => void;
+        close: () => void;
+        drain: () => void;
+        error: (error: Error) => void;
+        finish: () => void;
+    }
+
     export interface Http2ServerResponse extends events.EventEmitter {
         addTrailers(trailers: OutgoingHttpHeaders): void;
         connection: net.Socket | tls.TLSSocket;
@@ -7078,11 +7086,7 @@ declare module "http2" {
         createPushResponse(headers: OutgoingHttpHeaders, callback: (err: Error | null, res: Http2ServerResponse) => void): void;
 
         addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: "aborted", listener: (hadError: boolean, code: number) => void): this;
-        addListener(event: "close", listener: () => void): this;
-        addListener(event: "drain", listener: () => void): this;
-        addListener(event: "error", listener: (error: Error) => void): this;
-        addListener(event: "finish", listener: () => void): this;
+        addListener<K extends keyof Http2ServerResponseEvents>(event: K, listener: Http2ServerResponseEvents[K]): this;
 
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "aborted", hadError: boolean, code: number): boolean;
@@ -7092,32 +7096,16 @@ declare module "http2" {
         emit(event: "finish"): boolean;
 
         on(event: string, listener: (...args: any[]) => void): this;
-        on(event: "aborted", listener: (hadError: boolean, code: number) => void): this;
-        on(event: "close", listener: () => void): this;
-        on(event: "drain", listener: () => void): this;
-        on(event: "error", listener: (error: Error) => void): this;
-        on(event: "finish", listener: () => void): this;
+        on<K extends keyof Http2ServerResponseEvents>(event: K, listener: Http2ServerResponseEvents[K]): this;
 
         once(event: string, listener: (...args: any[]) => void): this;
-        once(event: "aborted", listener: (hadError: boolean, code: number) => void): this;
-        once(event: "close", listener: () => void): this;
-        once(event: "drain", listener: () => void): this;
-        once(event: "error", listener: (error: Error) => void): this;
-        once(event: "finish", listener: () => void): this;
+        once<K extends keyof Http2ServerResponseEvents>(event: K, listener: Http2ServerResponseEvents[K]): this;
 
         prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: "aborted", listener: (hadError: boolean, code: number) => void): this;
-        prependListener(event: "close", listener: () => void): this;
-        prependListener(event: "drain", listener: () => void): this;
-        prependListener(event: "error", listener: (error: Error) => void): this;
-        prependListener(event: "finish", listener: () => void): this;
+        prependListener<K extends keyof Http2ServerResponseEvents>(event: K, listener: Http2ServerResponseEvents[K]): this;
 
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "aborted", listener: (hadError: boolean, code: number) => void): this;
-        prependOnceListener(event: "close", listener: () => void): this;
-        prependOnceListener(event: "drain", listener: () => void): this;
-        prependOnceListener(event: "error", listener: (error: Error) => void): this;
-        prependOnceListener(event: "finish", listener: () => void): this;
+        prependOnceListener<K extends keyof Http2ServerResponseEvents>(event: K, listener: Http2ServerResponseEvents[K]): this;
     }
 
     // Public API
