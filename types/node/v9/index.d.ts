@@ -5361,13 +5361,16 @@ declare module "crypto" {
 
 declare module "stream" {
     import * as events from "events";
+    import stream = require("stream");
 
-    class internal<T> extends events.EventEmitter {
+    class StreamAlias<T = any> extends events.EventEmitter {
         pipe<TDestination extends NodeJS.WritableStream<T>>(destination: TDestination, options?: { end?: boolean; }): TDestination;
     }
 
-    namespace internal {
-        export class Stream<T = any> extends internal<T> { }
+    class Stream<T = any> extends StreamAlias<T> {}
+
+    namespace Stream {
+        export import Stream = stream;
 
         export interface ReadableOptions<T = any> {
             highWaterMark?: number;
@@ -5377,7 +5380,7 @@ declare module "stream" {
             destroy?: (error?: Error) => void;
         }
 
-        export class Readable<T = any> extends Stream<T> implements NodeJS.ReadableStream<T> {
+        export class Readable<T = any> extends StreamAlias<T> implements NodeJS.ReadableStream<T> {
             readable: boolean;
             readonly readableHighWaterMark: number;
             readonly readableLength: number;
@@ -5464,7 +5467,7 @@ declare module "stream" {
             final?: (callback: (error?: Error) => void) => void;
         }
 
-        export class Writable<T = any> extends Stream<T> implements NodeJS.WritableStream<T> {
+        export class Writable<T = any> extends StreamAlias<T> implements NodeJS.WritableStream<T> {
             writable: boolean;
             readonly writableHighWaterMark: number;
             readonly writableLength: number;
@@ -5592,7 +5595,7 @@ declare module "stream" {
         export class PassThrough<T = any> extends Transform<T, T> { }
     }
 
-    export = internal;
+    export = Stream;
 }
 
 declare module "util" {

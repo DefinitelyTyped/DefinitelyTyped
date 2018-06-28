@@ -1020,6 +1020,12 @@ function simplified_stream_ctor_test() {
 }
 
 {
+    new stream.Stream.Stream.Stream();
+    new stream.Stream.Stream.Stream.Writable();
+    new stream.Readable.Readable(); // $ExpectError
+}
+
+{
     // Check types compatibility
 
     new stream.Readable<number>()
