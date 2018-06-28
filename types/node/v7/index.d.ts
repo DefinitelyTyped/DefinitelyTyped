@@ -2063,7 +2063,6 @@ declare module "net" {
     import * as events from "events";
 
     export interface SocketEvents {
-
         close: (had_error: boolean) => void;
         connect: () => void;
         data: (data: Buffer) => void;
