@@ -1543,7 +1543,8 @@ export namespace ImageManipulator {
 
 	interface SaveOptions {
 		base64?: boolean;
-		compress?: FloatFromZeroToOne;
+		/** A value in range `0` - `1` specifying compression level of the result image. `1` means no compression and `0` the highest compression. */
+		compress?: number;
 		format?: 'jpeg' | 'png';
 	}
 
