@@ -105,7 +105,7 @@ export interface MongoClientOptions extends
         password: string;
     },
     // Determines whether or not to use the new url parser
-    useNewUrlParser: boolean
+    useNewUrlParser?: boolean
 }
 
 export interface SSLOptions {
