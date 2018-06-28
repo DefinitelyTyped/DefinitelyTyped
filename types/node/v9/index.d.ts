@@ -782,34 +782,20 @@ declare namespace NodeJS {
         disconnect(): void;
         connected: boolean;
 
+        emit(event: "beforeExit", code: number): boolean;
+        emit(event: "disconnect"): boolean;
+        emit(event: "exit", code: number): boolean;
+        emit(event: "rejectionHandled", promise: Promise<any>): boolean;
+        emit(event: "uncaughtException", error: Error): boolean;
+        emit(event: "unhandledRejection", reason: any, promise: Promise<any>): boolean;
+        emit(event: "warning", warning: Error): boolean;
+        emit(event: "message", message: any, sendHandle: any): this;
+        emit(event: Signals): boolean;
+        emit(event: "newListener", eventName: string | symbol, listener: (...args: any[]) => void): this;
+        emit(event: "removeListener", eventName: string, listener: (...args: any[]) => void): this;
+
         addListener(event: Signals, listener: SignalsListener): this;
         addListener<K extends keyof ProcessEvents>(event: K, listener: ProcessEvents[K]): this;
-
-        emit(event: "beforeExit", code: number): boolean;
-        emit(event: "disconnect"): boolean;
-        emit(event: "exit", code: number): boolean;
-        emit(event: "rejectionHandled", promise: Promise<any>): boolean;
-        emit(event: "uncaughtException", error: Error): boolean;
-        emit(event: "unhandledRejection", reason: any, promise: Promise<any>): boolean;
-        emit(event: "warning", warning: Error): boolean;
-        emit(event: "message", message: any, sendHandle: any): this;
-        emit(event: Signals): boolean;
-        emit(event: "newListener", eventName: string | symbol, listener: (...args: any[]) => void): this;
-        emit(event: "removeListener", eventName: string, listener: (...args: any[]) => void): this;
-
-        addListener<K extends keyof ProcessEvents>(event: K, listener: ProcessEvents[K]): this;
-
-        emit(event: "beforeExit", code: number): boolean;
-        emit(event: "disconnect"): boolean;
-        emit(event: "exit", code: number): boolean;
-        emit(event: "rejectionHandled", promise: Promise<any>): boolean;
-        emit(event: "uncaughtException", error: Error): boolean;
-        emit(event: "unhandledRejection", reason: any, promise: Promise<any>): boolean;
-        emit(event: "warning", warning: Error): boolean;
-        emit(event: "message", message: any, sendHandle: any): this;
-        emit(event: Signals): boolean;
-        emit(event: "newListener", eventName: string | symbol, listener: (...args: any[]) => void): this;
-        emit(event: "removeListener", eventName: string, listener: (...args: any[]) => void): this;
 
         on(event: Signals, listener: SignalsListener): this;
         on<K extends keyof ProcessEvents>(event: K, listener: ProcessEvents[K]): this;
@@ -5101,15 +5087,15 @@ declare module "stream" {
             _destroy(err: Error, callback: Function): void;
             destroy(error?: Error): void;
 
-            addListener(event: string, listener: (...args: any[]) => void): this;
-            addListener<K extends keyof ReadableEvents>(event: K, listener: ReadableEvents[K]): this;
-
             emit(event: string | symbol, ...args: any[]): boolean;
             emit(event: "close"): boolean;
             emit(event: "data", chunk: Buffer | string): boolean;
             emit(event: "end"): boolean;
             emit(event: "readable"): boolean;
             emit(event: "error", err: Error): boolean;
+
+            addListener(event: string, listener: (...args: any[]) => void): this;
+            addListener<K extends keyof ReadableEvents>(event: K, listener: ReadableEvents[K]): this;
 
             on(event: string, listener: (...args: any[]) => void): this;
             on<K extends keyof ReadableEvents>(event: K, listener: ReadableEvents[K]): this;
@@ -5165,19 +5151,6 @@ declare module "stream" {
             uncork(): void;
             destroy(error?: Error): void;
 
-            /**
-             * Event emitter
-             * The defined events on documents including:
-             * 1. close
-             * 2. drain
-             * 3. error
-             * 4. finish
-             * 5. pipe
-             * 6. unpipe
-             */
-            addListener(event: string, listener: (...args: any[]) => void): this;
-            addListener<K extends keyof WritableEvents>(event: K, listener: WritableEvents[K]): this;
-
             emit(event: string | symbol, ...args: any[]): boolean;
             emit(event: "close"): boolean;
             emit(event: "drain", chunk: Buffer | string): boolean;
@@ -5185,6 +5158,9 @@ declare module "stream" {
             emit(event: "finish"): boolean;
             emit(event: "pipe", src: Readable): boolean;
             emit(event: "unpipe", src: Readable): boolean;
+
+            addListener(event: string, listener: (...args: any[]) => void): this;
+            addListener<K extends keyof WritableEvents>(event: K, listener: WritableEvents[K]): this;
 
             on(event: string, listener: (...args: any[]) => void): this;
             on<K extends keyof WritableEvents>(event: K, listener: WritableEvents[K]): this;
