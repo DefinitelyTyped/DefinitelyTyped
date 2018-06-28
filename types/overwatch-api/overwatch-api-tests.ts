@@ -6,10 +6,14 @@ const battleTag = 'sparK#12434';
 
 getProfile(platform, region, battleTag, (err: Error | null, data: ProfileApiResponse) => {
     if (err === null) {
-        console.log(`Username: ${data.username}`);
-        console.log(`Level: ${data.level}`);
-        console.log(`Rank: ${data.competitive.rank} SR`);
-        console.log(`Win Rate in Competitive: ${data.games.competitive.win_rate}`);
+        if (data.private === false) {
+            console.log(`Username: ${data.username}`);
+            console.log(`Level: ${data.level}`);
+            console.log(`Rank: ${data.competitive.rank} SR`);
+            console.log(`Win Rate in Competitive: ${data.games.competitive.win_rate}`);
+        } else {
+            console.log(`Profile for battletag ${battleTag} is private, cannot retrieve profile`);
+        }
     } else {
         console.log(err);
     }
