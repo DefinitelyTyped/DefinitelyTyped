@@ -143,8 +143,8 @@ declare namespace Physijs {
         onSimulationResume():void;
         removeConstraint(constraint:Constraint):void;
         execute(cmd:string, params:any):void;
-        add(object:THREE.Object3D):void;
-        remove(object:THREE.Object3D):void;
+        add(object:THREE.Object3D):this;
+        remove(object:THREE.Object3D):this;
         setFixedTimeStep(fixedTimeStep:number):void;
         setGravity(gravity:THREE.Vector3):void;
         simulate(timeStep?:number, maxSubSteps?:number):boolean;
