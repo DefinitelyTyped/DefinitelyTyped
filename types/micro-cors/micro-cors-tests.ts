@@ -14,10 +14,5 @@ cors({
 });
 
 handler(async (req, res) => {});
-handler(async (req, res) => 'data');
-
 handler((req, res) => {});
-handler((req, res) => Promise.resolve('data'));
-handler((req, res) => 'data');
-
 micro(handler((req, res) => {}));
