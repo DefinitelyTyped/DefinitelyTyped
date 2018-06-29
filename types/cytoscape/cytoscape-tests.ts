@@ -343,17 +343,29 @@ const positions = oneOf({a: {x: 100, y: 100}}, (node: cytoscape.NodeCollection):
 
 // TODO: cy.style
 
+// $ExpectType String
 cy.png({
-  output: oneOf('base64uri', 'base64', 'blob', undefined),
+  output: oneOf('base64uri', 'base64', undefined),
   bg: oneOf('#ffffff', undefined),
   full: true,
   scale: 2,
   maxWidth: 100,
   maxHeight: 100
 });
+// $ExpectType Blob
+cy.png({
+  output: 'blob',
+  bg: oneOf('#ffffff', undefined),
+  full: true,
+  scale: 2,
+  maxWidth: 100,
+  maxHeight: 100
+});
+
 aliases(cy.jpg, cy.jpeg);
+// $ExpectType String
 cy.jpg({
-  output: oneOf('base64uri', 'base64', 'blob', undefined),
+  output: oneOf('base64uri', 'base64', undefined),
   bg: oneOf('#ffffff', undefined),
   full: true,
   scale: 2,
@@ -361,6 +373,17 @@ cy.jpg({
   maxHeight: 100,
   quality: 0.5
 });
+// $ExpectType Blob
+cy.jpg({
+  output: 'blob',
+  bg: oneOf('#ffffff', undefined),
+  full: true,
+  scale: 2,
+  maxWidth: 100,
+  maxHeight: 100,
+  quality: 0.5
+});
+
 cy.json(cy.json());
 
 // Types possible to call methods

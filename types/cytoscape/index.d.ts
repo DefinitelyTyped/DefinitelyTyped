@@ -1053,10 +1053,6 @@ declare namespace cytoscape {
      */
     interface ExportOptions {
         /**
-         * output Whether the output should be 'base64uri' (default), 'base64', or 'blob'.
-         */
-        output?: "base64uri" | "base64" | "blob";
-        /**
          * The background colour of the image (transparent by default).
          */
         bg?: string;
@@ -1077,6 +1073,18 @@ declare namespace cytoscape {
          */
         maxHeight?: number;
     }
+    interface ExportStringOptions extends ExportOptions {
+        /**
+         * output Whether the output should be 'base64uri' (default), 'base64', or 'blob'.
+         */
+        output?: "base64uri" | "base64";
+    }
+    interface ExportBlobOptions extends ExportOptions {
+        /**
+         * output Whether the output should be 'base64uri' (default), 'base64', or 'blob'.
+         */
+        output?: "blob";
+    }
 
     interface ExportJpgOptions extends ExportOptions {
         /**
@@ -1086,22 +1094,29 @@ declare namespace cytoscape {
          */
         quality?: number;
     }
+    interface ExportJpgStringOptions extends ExportJpgOptions, ExportStringOptions {
+    }
+    interface ExportJpgBlobOptions extends ExportJpgOptions, ExportBlobOptions {
+    }
 
     interface CoreExport {
         /**
          * Export the current graph view as a PNG image in Base64 representation.
          */
-        png(options?: ExportOptions): string;
+        png(options?: ExportStringOptions): string;
+        png(options?: ExportBlobOptions): Blob;
 
         /**
          * Export the current graph view as a JPG image in Base64 representation.
          */
-        jpg(options?: ExportJpgOptions): string;
+        jpg(options?: ExportJpgStringOptions): string;
+        jpg(options?: ExportJpgBlobOptions): Blob;
 
         /**
          * Export the current graph view as a JPG image in Base64 representation.
          */
-        jpeg(options?: ExportJpgOptions): string;
+        jpeg(options?: ExportJpgStringOptions): string;
+        jpeg(options?: ExportJpgBlobOptions): Blob;
 
         /**
          * Export the graph as JSON, the same format used at initialisation.
