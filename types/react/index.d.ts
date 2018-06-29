@@ -47,8 +47,8 @@ declare namespace React {
     // React Elements
     // ----------------------------------------------------------------------
 
-    type ReactType<P = any> = string | ComponentType<P>;
-    type ComponentType<P = object> = ComponentClass<P> | StatelessComponent<P>;
+    type ReactType<P extends object = any> = string | ComponentType<P>;
+    type ComponentType<P extends object = object> = ComponentClass<P> | StatelessComponent<P>;
 
     type Key = string | number;
 
@@ -68,26 +68,26 @@ declare namespace React {
         ref?: Ref<T>;
     }
 
-    interface ReactElement<P> {
+    interface ReactElement<P extends object> {
         type: string | ComponentClass<P> | SFC<P>;
         props: P;
         key: Key | null;
     }
 
-    interface SFCElement<P> extends ReactElement<P> {
+    interface SFCElement<P extends object> extends ReactElement<P> {
         type: SFC<P>;
     }
 
-    type CElement<T extends Component, P = T['props']> = ComponentElement<T, P>;
+    type CElement<T extends Component, P extends object = T['props']> = ComponentElement<T, P>;
     // type CElement<P, T extends Component<P, ComponentState>> = ComponentElement<P, T>;
-    interface ComponentElement<T extends Component, P = T['props']> extends ReactElement<P> {
+    interface ComponentElement<T extends Component, P extends object = T['props']> extends ReactElement<P> {
     // interface ComponentElement<P, T extends Component<P, ComponentState>> extends ReactElement<P> {
         type: ComponentClass<P>;
         ref?: Ref<T>;
     }
 
     // type ClassicElement<P> = CElement<P, ClassicComponent<P, ComponentState>>;
-    type ClassicElement<P> = CElement<ClassicComponent, P>;
+    type ClassicElement<P extends object> = CElement<ClassicComponent, P>;
 
     // string fallback for custom web-components
     interface DOMElement<P extends HTMLAttributes<T> | SVGAttributes<T>, T extends Element> extends ReactElement<P> {
@@ -117,18 +117,18 @@ declare namespace React {
     // Factories
     // ----------------------------------------------------------------------
 
-    type Factory<P> = (props?: Attributes & P, ...children: ReactNode[]) => ReactElement<P>;
+    type Factory<P extends object> = (props?: Attributes & P, ...children: ReactNode[]) => ReactElement<P>;
 
-    type SFCFactory<P> = (props?: Attributes & P, ...children: ReactNode[]) => SFCElement<P>;
+    type SFCFactory<P extends object> = (props?: Attributes & P, ...children: ReactNode[]) => SFCElement<P>;
 
-    type ComponentFactory<T extends Component, P = T['props']> =
+    type ComponentFactory<T extends Component, P extends object = T['props']> =
         (props?: ClassAttributes<T> & P, ...children: ReactNode[]) => CElement<T, P>;
     // type ComponentFactory<P, T extends Component<P, ComponentState>> =
     //     (props?: ClassAttributes<T> & P, ...children: ReactNode[]) => CElement<P, T>;
 
     // type CFactory<P, T extends Component<P, ComponentState>> = ComponentFactory<P, T>;
-    type CFactory<T extends Component, P = T['props']> = ComponentFactory<T, P>;
-    type ClassicFactory<P> = CFactory<ClassicComponent<P>, P>;
+    type CFactory<T extends Component, P extends object = T['props']> = ComponentFactory<T, P>;
+    type ClassicFactory<P extends object> = CFactory<ClassicComponent<P>, P>;
 
     type DOMFactory<P extends DOMAttributes<T>, T extends Element> =
         (props?: ClassAttributes<T> & P | null, ...children: ReactNode[]) => DOMElement<P, T>;
@@ -270,7 +270,7 @@ declare namespace React {
         calculateChangedBits?: (prev: T, next: T) => number
     ): Context<T>;
 
-    function isValidElement<P>(object: {} | null | undefined): object is ReactElement<P>;
+    function isValidElement<P extends object>(object: {} | null | undefined): object is ReactElement<P>;
 
     const Children: ReactChildren;
     const Fragment: ComponentType<{children?: ReactNode}>;
@@ -285,8 +285,8 @@ declare namespace React {
 
     // Base component for plain JS classes
     // tslint:disable-next-line:no-empty-interface
-    interface Component<P = object, S = {}, SS = any> extends ComponentLifecycle<P, S, SS> { }
-    abstract class Component<P, S> {
+    interface Component<P extends object = object, S = {}, SS = any> extends ComponentLifecycle<P, S, SS> { }
+    abstract class Component<P extends object, S> {
         constructor(props: Readonly<P>);
 
         // We MUST keep setState() as a unified signature because it allows proper checking of the method return type.
@@ -304,9 +304,9 @@ declare namespace React {
         readonly state: Readonly<S> | null;
     }
 
-    abstract class PureComponent<P = object, S = {}, SS = any> extends Component<P, S, SS> { }
+    abstract class PureComponent<P extends object = object, S = {}, SS = any> extends Component<P, S, SS> { }
 
-    interface ClassicComponent<P = object, S = {}> extends Component<P, S> {
+    interface ClassicComponent<P extends object = object, S = {}> extends Component<P, S> {
         replaceState(nextState: S, callback?: () => void): void;
         isMounted(): boolean;
         getInitialState?(): S;
@@ -333,7 +333,7 @@ declare namespace React {
         displayName?: string;
     }
 
-    interface ComponentClass<P = object, S = {}> extends StaticLifecycle<P, S> {
+    interface ComponentClass<P extends object = object, S = {}> extends StaticLifecycle<P, S> {
         new (props: Readonly<P>): Component<P, S>;
         propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
@@ -345,7 +345,7 @@ declare namespace React {
     /**
      * @deprecated
      */
-    interface ClassicComponentClass<P = object> extends ComponentClass<P> {
+    interface ClassicComponentClass<P extends object = object> extends ComponentClass<P> {
         new (props: P, context?: any): ClassicComponent<P, ComponentState>;
         getDefaultProps?(): P;
     }
@@ -355,7 +355,7 @@ declare namespace React {
      * a single argument, which is useful for many top-level API defs.
      * See https://github.com/Microsoft/TypeScript/issues/7234 for more info.
      */
-    type ClassType<P, T extends Component<P>, C extends ComponentClass<P>> =
+    type ClassType<P extends object, T extends Component<P>, C extends ComponentClass<P>> =
         C &
         (new (props: P) => T) &
         (new (props: P) => { props: P });

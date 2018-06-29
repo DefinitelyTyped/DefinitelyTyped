@@ -56,6 +56,10 @@ declare const container: Element;
 // Top-Level API
 // --------------------------------------------------------------------------
 {
+    // $ExpectError
+    class Foo extends React.Component<number> {
+        render() { return this.props.toFixed; }
+    }
     interface State {
         inputValue: string;
         seconds: number;
