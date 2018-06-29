@@ -2891,7 +2891,7 @@
 /types/oclazyload/                              @rolandzwaga
 /types/odata/                                   @janhommes @jcchalte
 /types/ofe/                                     @Morfent
-/types/office-js/                               @OfficeDev @LanceEA @Zlatkovsky @kbrandl @Rick-Kirkham
+/types/office-js/                               @OfficeDev @LanceEA @Zlatkovsky @kbrandl @Rick-Kirkham @AlexJerabek @ElizabethSamuel-MSFT
 /types/offline-js/                              @cgwrench
 /types/oibackoff/                               @geoffreak
 /types/oidc-token-manager/                      @rosieks
