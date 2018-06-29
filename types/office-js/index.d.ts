@@ -3173,9 +3173,9 @@ declare namespace Office {
          *   </tr>
          *   <tr>
          *     <td>Office.Table.Headers</td>
-         *     <td><Specifies only the header row./td>
+         *     <td>Specifies only the header row.</td>
          *   </tr>
-         * <table>
+         * </table>
          * 
          * The `format:` property specifies values that correspond to a subset of the settings available in the Format Cells dialog box in Excel (Right-click > Format Cells or Home > Format > Format Cells).
          * 
