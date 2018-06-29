@@ -110,8 +110,8 @@ export interface OnDropData {
     node: InternalTreeNode;
     dragNode: InternalTreeNode;
     dragNodesKeys: string[];
-	dropPosition: number;
-	dropToGap?: boolean;
+    dropPosition: number;
+    dropToGap?: boolean;
 }
 
 export interface OnDragEndData {
