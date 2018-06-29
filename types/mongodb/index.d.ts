@@ -11,7 +11,7 @@
 //                 Julien Chaumond <https://github.com/julien-c>
 //                 Dan Aprahamian <https://github.com/daprahamian>
 //                 Denys Bushulyak <https://github.com/denys-bushulyak>
-//                 Bastien Arata <https://
+//                 Bastien Arata <https://https://github.com/BastienAr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
