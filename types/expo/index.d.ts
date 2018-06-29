@@ -9,6 +9,7 @@
 //                 Moshe Feuchtwanger <https://github.com/moshfeu>
 //                 Michael Prokopchuk <https://github.com/prokopcm>
 //                 Tina Roh <https://github.com/tinaroh>
+//                 Nathan Phillip Brink <https://github.com/binki>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
