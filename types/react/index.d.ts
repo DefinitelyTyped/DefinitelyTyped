@@ -301,7 +301,7 @@ declare namespace React {
         abstract render(): ReactNode;
 
         readonly props: Readonly<P>;
-        readonly state: Readonly<S> | null;
+        state: Readonly<S> | null;
     }
 
     abstract class PureComponent<P extends object = object, S = {}, SS = any> extends Component<P, S, SS> { }

@@ -104,11 +104,6 @@ declare const container: Element;
         }
         mutateState() {
             // $ExpectError
-            this.state = {
-                inputValue: 'hello',
-                seconds: 0
-            };
-            // $ExpectError
             this.state.inputValue = 'hello';
 
             // Even if state is not set, this is allowed by React
