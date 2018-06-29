@@ -343,7 +343,7 @@ const positions = oneOf({a: {x: 100, y: 100}}, (node: cytoscape.NodeCollection):
 
 // TODO: cy.style
 
-// $ExpectType String
+// $ExpectType string
 cy.png({
   output: oneOf('base64uri', 'base64', undefined),
   bg: oneOf('#ffffff', undefined),
@@ -363,7 +363,7 @@ cy.png({
 });
 
 aliases(cy.jpg, cy.jpeg);
-// $ExpectType String
+// $ExpectType string
 cy.jpg({
   output: oneOf('base64uri', 'base64', undefined),
   bg: oneOf('#ffffff', undefined),
