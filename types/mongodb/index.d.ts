@@ -11,6 +11,7 @@
 //                 Julien Chaumond <https://github.com/julien-c>
 //                 Dan Aprahamian <https://github.com/daprahamian>
 //                 Denys Bushulyak <https://github.com/denys-bushulyak>
+//                 Geraldine Lemeur <https://github.com/geraldinelemeur>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -102,7 +103,8 @@ export interface MongoClientOptions extends
     auth?: {
         user: string;
         password: string;
-    }
+    };
+    useNewUrlParser?: boolean;
 }
 
 export interface SSLOptions {
