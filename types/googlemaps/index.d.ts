@@ -2631,6 +2631,7 @@ declare namespace google.maps {
             constructor(attrContainer: HTMLDivElement|Map);
             getDetails(request: PlaceDetailsRequest, callback: (result: PlaceResult, status: PlacesServiceStatus) => void): void;
             nearbySearch(request: PlaceSearchRequest, callback: (results: PlaceResult[], status: PlacesServiceStatus, pagination: PlaceSearchPagination) => void): void;
+            /** @deprecated Radar search is deprecated as of June 30, 2018. After that time, this feature will no longer be available. */
             radarSearch(request: RadarSearchRequest, callback: (results: PlaceResult[], status: PlacesServiceStatus) => void): void;
             textSearch(request: TextSearchRequest, callback: (results: PlaceResult[], status: PlacesServiceStatus, pagination: PlaceSearchPagination) => void): void;
         }
