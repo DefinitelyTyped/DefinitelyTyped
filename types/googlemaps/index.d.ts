@@ -1106,6 +1106,13 @@ declare namespace google.maps {
         zIndex?: number;
     }
 
+    export interface CircleLiteral extends CircleOptions {
+        /** The center of the Circle. */
+        center?: LatLng|LatLngLiteral;
+        /** The radius in meters on the Earth's surface. */
+        radius?: number;
+    }
+
     /**
      * The possible positions of the stroke on a polygon.
      */
@@ -2549,6 +2556,8 @@ declare namespace google.maps {
             country: string|string[];
         }
 
+        export type LocationBias = LatLng|LatLngLiteral|LatLngBounds|LatLngBoundsLiteral|Circle|CircleLiteral|string;
+
         export interface PlaceAspectRating {
             rating: number;
             type: string;
@@ -2629,6 +2638,8 @@ declare namespace google.maps {
 
         export class PlacesService {
             constructor(attrContainer: HTMLDivElement|Map);
+            findPlaceFromPhoneNumber(request: FindPlaceFromPhoneNumberRequest, callback: (results: PlaceResult[], status: PlacesServiceStatus) => void): void;
+            findPlaceFromQuery(request: FindPlaceFromQueryRequest, callback: (results: PlaceResult[], status: PlacesServiceStatus) => void): void;
             getDetails(request: PlaceDetailsRequest, callback: (result: PlaceResult, status: PlacesServiceStatus) => void): void;
             nearbySearch(request: PlaceSearchRequest, callback: (results: PlaceResult[], status: PlacesServiceStatus, pagination: PlaceSearchPagination) => void): void;
             /** @deprecated Radar search is deprecated as of June 30, 2018. After that time, this feature will no longer be available. */
@@ -2695,6 +2706,18 @@ declare namespace google.maps {
             radius?: number;
             types?: string[]; /* Deprecated. Will be removed February 16, 2017 */
             type?: string;
+        }
+
+        export interface FindPlaceFromQueryRequest {
+            fields: string[];
+            locationBias?: LocationBias;
+            query: string;
+        }
+
+        export interface FindPlaceFromPhoneNumberRequest {
+            fields: string[];
+            locationBias?: LocationBias;
+            query: string;
         }
     }
 
