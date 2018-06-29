@@ -1,11 +1,12 @@
-// Type definitions for vexdb 1.7.1
+// Type definitions for vexdb 1.7
 // Project: https://github.com/MayorMonty/vexdb#readme
 // Definitions by: Brendan McGuire <https://github.com/MayorMonty>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 import { EventEmitter } from "events";
 
-type Endpoint =
+export type Endpoint =
   | "events"
   | "teams"
   | "matches"
@@ -17,18 +18,18 @@ type Endpoint =
 /**
  * Parameter Objects
  */
-type StringRequest =
+export type StringRequest =
   | string
   | string[]
   | RegExp
   | StringRequestValidatorFunction;
-type StringRequestValidatorFunction = (
+export type StringRequestValidatorFunction = (
   itemValue: string,
   item: ResponseObject
 ) => Promise<boolean> | boolean;
 
-type NumberRequest = number | number[] | NumberRequestValidatorFunction;
-type NumberRequestValidatorFunction = (
+export type NumberRequest = number | number[] | NumberRequestValidatorFunction;
+export type NumberRequestValidatorFunction = (
   itemValue: number,
   item: ResponseObject
 ) => Promise<boolean> | boolean;
@@ -37,7 +38,7 @@ type NumberRequestValidatorFunction = (
  * Request Objects
  */
 
-type RequestObject =
+export type RequestObject =
   | TeamsRequestObject
   | EventsRequestObject
   | MatchesRequestObject
@@ -46,7 +47,7 @@ type RequestObject =
   | AwardsRequestObject
   | SkillsRequestObject;
 
-interface TeamsRequestObject {
+export interface TeamsRequestObject {
   team?: StringRequest;
   number?: StringRequest;
   team_name?: StringRequest;
@@ -63,7 +64,7 @@ interface TeamsRequestObject {
   limit_start?: number;
 }
 
-interface EventsRequestObject {
+export interface EventsRequestObject {
   sku?: StringRequest;
   program?: StringRequest;
   date?: StringRequest;
@@ -88,7 +89,7 @@ interface EventsRequestObject {
   end?: StringRequest;
 }
 
-interface MatchesRequestObject {
+export interface MatchesRequestObject {
   sku?: StringRequest;
   division?: StringRequest;
   team?: StringRequest;
@@ -114,7 +115,7 @@ interface MatchesRequestObject {
   bluescore?: NumberRequest;
 }
 
-interface RankingsRequestObject {
+export interface RankingsRequestObject {
   sku?: StringRequest;
   division?: StringRequest;
   team?: StringRequest;
@@ -136,7 +137,7 @@ interface RankingsRequestObject {
   ccwm?: NumberRequest;
 }
 
-interface SeasonRankingsRequestObject {
+export interface SeasonRankingsRequestObject {
   program?: StringRequest;
   season?: StringRequest;
   team?: StringRequest;
@@ -147,7 +148,7 @@ interface SeasonRankingsRequestObject {
   vrating?: NumberRequest;
 }
 
-interface AwardsRequestObject {
+export interface AwardsRequestObject {
   sku?: StringRequest;
   name?: StringRequest;
   team?: StringRequest;
@@ -158,7 +159,7 @@ interface AwardsRequestObject {
   order?: NumberRequest;
 }
 
-interface SkillsRequestObject {
+export interface SkillsRequestObject {
   sku?: StringRequest;
   program?: StringRequest;
   type?: NumberRequest;
@@ -177,7 +178,7 @@ interface SkillsRequestObject {
  * Response Objects
  */
 
-type ResponseObject =
+export type ResponseObject =
   | TeamsResponseObject
   | EventsResponseObject
   | MatchesResponseObject
@@ -186,7 +187,7 @@ type ResponseObject =
   | AwardsResponseObject
   | SkillsResponseObject;
 
-interface TeamsResponseObject {
+export interface TeamsResponseObject {
   number: string;
   program: string;
   team_name: string;
@@ -199,7 +200,7 @@ interface TeamsResponseObject {
   is_registered: 0 | 1;
 }
 
-interface EventsResponseObject {
+export interface EventsResponseObject {
   sku: string;
   key: string;
   program: string;
@@ -217,7 +218,7 @@ interface EventsResponseObject {
   divisions: string[];
 }
 
-interface MatchesResponseObject {
+export interface MatchesResponseObject {
   sku: string;
   division: string;
   round: 1 | 2 | 3 | 4 | 5 | 6 | 16;
@@ -238,7 +239,7 @@ interface MatchesResponseObject {
   scheduled: string;
 }
 
-interface RankingsResponseObject {
+export interface RankingsResponseObject {
   sku: string;
   division: string;
   rank: number;
@@ -256,7 +257,7 @@ interface RankingsResponseObject {
   ccwm: number;
 }
 
-interface SeasonRankingsResponseObject {
+export interface SeasonRankingsResponseObject {
   team: string;
   season: string;
   program: string;
@@ -264,7 +265,7 @@ interface SeasonRankingsResponseObject {
   vrating: number;
 }
 
-interface AwardsResponseObject {
+export interface AwardsResponseObject {
   sku: string;
   name: string;
   team: string;
@@ -272,7 +273,7 @@ interface AwardsResponseObject {
   order: number;
 }
 
-interface SkillsResponseObject {
+export interface SkillsResponseObject {
   sku: string;
   type: number;
   rank: number;
@@ -361,7 +362,7 @@ export function size(
 /**
  * LIVE
  */
-interface LiveEventEmitter<Q, R> extends EventEmitter {
+export interface LiveEventEmitter<Q, R> extends EventEmitter {
   close(): void;
   params(updateParameters: Q): Q;
   current(): R[];
@@ -372,7 +373,7 @@ interface LiveEventEmitter<Q, R> extends EventEmitter {
   on(event: "prefetch", callback: (results: R[]) => void): this;
 }
 
-type LiveRequestObject<T> = T & { prefetch?: boolean };
+export type LiveRequestObject<T> = T & { prefetch?: boolean };
 
 export function live(
   endpoint: "teams",
@@ -417,7 +418,7 @@ export function live(
 /**
  * CACHE
  */
-interface CacheEntry<T> {
+export interface CacheEntry<T> {
   expiry: number;
   value: {
     status: 0 | 1;
@@ -479,72 +480,69 @@ export namespace cache {
 
   function clear(): void;
 
-  export function has(
-    endpoint: "teams",
-    params: TeamsRequestObject
-  ): Promise<boolean>;
+  function has(endpoint: "teams", params: TeamsRequestObject): Promise<boolean>;
 
-  export function has(
+  function has(
     endpoint: "events",
     params: EventsRequestObject
   ): Promise<boolean>;
 
-  export function has(
+  function has(
     endpoint: "matches",
     params: MatchesRequestObject
   ): Promise<boolean>;
 
-  export function has(
+  function has(
     endpoint: "rankings",
     params: RankingsRequestObject
   ): Promise<boolean>;
 
-  export function has(
+  function has(
     endpoint: "season_rankings",
     params: SeasonRankingsRequestObject
   ): Promise<boolean>;
 
-  export function has(
+  function has(
     endpoint: "awards",
     params: AwardsRequestObject
   ): Promise<boolean>;
 
-  export function has(
+  function has(
     endpoint: "skills",
     params: SkillsRequestObject
   ): Promise<boolean>;
 
-  export function resolve(
+  function resolve(
     endpoint: "teams",
     params: TeamsRequestObject
   ): Promise<CacheEntry<TeamsResponseObject>>;
 
-  export function resolve(
+  function resolve(
     endpoint: "events",
     params: EventsRequestObject
   ): Promise<CacheEntry<EventsResponseObject>>;
 
-  export function resolve(
+  function resolve(
     endpoint: "matches",
     params: MatchesRequestObject
   ): Promise<CacheEntry<MatchesResponseObject>>;
 
-  export function resolve(
+  function resolve(
     endpoint: "rankings",
     params: RankingsRequestObject
   ): Promise<CacheEntry<RankingsResponseObject>>;
 
-  export function resolve(
+  function resolve(
     endpoint: "season_rankings",
     params: SeasonRankingsRequestObject
   ): Promise<CacheEntry<SeasonRankingsResponseObject>>;
 
-  export function resolve(
+  function resolve(
     endpoint: "awards",
     params: AwardsRequestObject
   ): Promise<CacheEntry<AwardsResponseObject>>;
 
-  export function resolve(
+  function resolve(
     endpoint: "skills",
     params: SkillsRequestObject
   ): Promise<CacheEntry<SkillsResponseObject>>;
