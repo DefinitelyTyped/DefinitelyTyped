@@ -1,4 +1,4 @@
-// Type definitions for Chance 1.0.13
+// Type definitions for Chance 1.0.16
 // Project: http://chancejs.com
 // Definitions by: Chris Bowdon <https://github.com/cbowdon>
 //                 Brice BERNARD <https://github.com/brikou>
@@ -189,6 +189,8 @@ declare namespace Chance {
         year?: number;
         month?: number;
         day?: number;
+        min?: Date;
+        max?: Date;
     }
 
     interface Month {

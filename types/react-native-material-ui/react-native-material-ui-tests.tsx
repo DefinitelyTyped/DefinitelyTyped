@@ -68,13 +68,9 @@ const DialogExample = () =>
     </Dialog>;
 
 class BottomNavigationExample extends React.Component<null, {active: string}> {
-    constructor() {
-        super(null);
-
-        this.state = {
-            active: 'today'
-        };
-    }
+    state = {
+        active: 'today'
+    };
 
     render() {
         return (

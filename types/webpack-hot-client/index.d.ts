@@ -1,6 +1,7 @@
-// Type definitions for webpack-hot-client 3.0
+// Type definitions for webpack-hot-client 4.0
 // Project: https://github.com/webpack-contrib/webpack-hot-client
 // Definitions by: Ryan Clark <https://github.com/rynclark>
+//                 ZSkycat <https://github.com/ZSkycat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -36,7 +37,7 @@ declare namespace WebpackHotClient {
     /** Enable HTTPS */
     https?: boolean;
     /** Level of information for webpack-hot-client to output */
-    logLevel?: 'trace' | 'debug' | 'info' | 'warn' | 'error';
+    logLevel?: 'trace' | 'debug' | 'info' | 'warn' | 'error' | 'silent';
     /** Prepend timestamp to each log line */
     logTime?: boolean;
     /** Port that the WebSocket listens on */
@@ -47,5 +48,7 @@ declare namespace WebpackHotClient {
     server?: net.Server;
     /** Webpack stats configuration */
     stats?: webpack.Options.Stats;
+    /** Webpack compile target */
+    validTargets?: string[];
   }
 }

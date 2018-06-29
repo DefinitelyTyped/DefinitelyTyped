@@ -3,7 +3,7 @@
  *   This file was automatically generated with idlc.js                    *
  *	 build info: 								   						   *
  *   	- fibjs	: 0.25.0                                                   *
- *   	- date	: Jun 11 2018 14:17:22                                     *
+ *   	- date	: Jun 12 2018 07:22:40                                     *
  *                                                                         *
  ***************************************************************************/
 
@@ -66,7 +66,7 @@ declare class Class_Buffer extends Class__object {
 	 * 
 	 * 
 	 */
-	constructor(datas: TypedArray);
+	constructor(datas: ArrayLike<any>);
 
 	/**
 	 * 
@@ -1043,7 +1043,7 @@ declare class Class_Buffer extends Class__object {
 	 * 
 	 * 
 	 */
-	keys(): Object;
+	keys(): Iterable<any>;
 
 	/**
 	 * 
@@ -1053,7 +1053,7 @@ declare class Class_Buffer extends Class__object {
 	 * 
 	 * 
 	 */
-	values(): Object;
+	values(): Iterable<any>;
 
 	/**
 	 * 
@@ -1077,7 +1077,7 @@ declare class Class_Buffer extends Class__object {
 	 * 
 	 * 
 	 */
-	entries(): Object;
+	entries(): Iterable<any>;
 
 	/**
 	 * 
@@ -1126,6 +1126,6 @@ declare class Class_Buffer extends Class__object {
 
 } /** endof class */
 
-/** } /** endof `module Or Internal Object` */
+/** endof `module Or Internal Object` */
 
 

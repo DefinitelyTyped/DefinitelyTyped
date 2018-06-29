@@ -266,10 +266,14 @@ declare namespace jest {
             printWithType(name: string, received: any, print: (value: any) => string): string;
             stringify(object: {}, maxDepth?: number): string;
         };
+        /**
+         *  This is a deep-equality function that will return true if two objects have the same values (recursively).
+         */
+        equals(a: any, b: any): boolean;
     }
 
     interface ExpectExtendMap {
-        [key: string]: (this: MatcherUtils, received: any, ...actual: any[]) => { message(): string, pass: boolean };
+        [key: string]: (this: MatcherUtils, received: any, ...actual: any[]) => { message(): string, pass: boolean } | Promise<{ message(): string, pass: boolean }>;
     }
 
     interface SnapshotSerializerOptions {
@@ -563,11 +567,11 @@ declare namespace jest {
         /**
          * Used to test that a function throws when it is called.
          */
-        toThrow(error?: string | Constructable | RegExp): R;
+        toThrow(error?: string | Constructable | RegExp | Error): R;
         /**
          * If you want to test that a specific error is thrown inside a function.
          */
-        toThrowError(error?: string | Constructable | RegExp): R;
+        toThrowError(error?: string | Constructable | RegExp | Error): R;
         /**
          * Used to test that a function throws a error matching the most recent snapshot when it is called.
          */

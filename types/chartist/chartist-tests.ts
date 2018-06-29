@@ -343,6 +343,7 @@ chart2.on('draw', (data: any) => {
             style: 'fill-opacity: 1'
         }, 'ct-area');
 
+        triangle.attr({ style: 'fill-opacity: .5' });
         // With data.element we get the Chartist SVG wrapper and we can replace the original point drawn by Chartist with our newly created triangle
         data.element.replace(triangle);
     }

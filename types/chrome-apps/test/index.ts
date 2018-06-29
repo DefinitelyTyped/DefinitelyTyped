@@ -1,7 +1,7 @@
 import runtime = chrome.app.runtime;
 import cwindow = chrome.app.window;
 
-var createOptions: cwindow.CreateWindowOptions = {
+const createOptions: cwindow.CreateWindowOptions = {
     id: "My Window",
     bounds: {
         left: 0,
@@ -324,5 +324,40 @@ function testSystemNetwork() {
     });
 }
 
-import webview = chrome.webview;
-let element: webview.HTMLWebViewElement;
+const gcmMessage = <chrome.gcm.OutgoingMessage>{};
+gcmMessage.data = {
+    /*goog: 'any', should not be allowed, and it is not :) */
+    test: true
+};
+
+let wve: chrome.webview.HTMLWebViewElement = (<any>document.getElementById('webview'));
+wve.name = 'test';
+wve.src = 'https://github.com/DefinitelyTyped';
+wve.allowtransparency = true;
+wve.autosize = 'on';
+wve.partition = 'persist:githubwebview';
+wve.addEventListener('close', () => {
+    return;
+});
+wve.addEventListener('consolemessage', (ev) => {
+    if (ev.level === chrome.webview.ConsoleMessageLevel.LOG_ERROR) {
+        const msg = ev.message;
+    }
+});
+wve.addEventListener('dialog', (ev) => {
+    ev.dialog.ok('Hello World!');
+});
+wve.addEventListener('loadstart', (ev) => {
+    if (ev.isTopLevel) {
+        return ev.url;
+    }
+    return;
+});
+wve.addEventListener('zoomchange', (ev) => {
+    return ev.newZoomFactor || ev.oldZoomFactor;
+});
+wve.addEventListener('loadredirect', (ev) => {
+    return ev.newUrl || ev.oldUrl;
+});
+
+chrome.bluetoothLowEnergy.connect('1111111', () => { });

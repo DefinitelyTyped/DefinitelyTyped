@@ -3,7 +3,7 @@
  *   This file was automatically generated with idlc.js                    *
  *	 build info: 								   						   *
  *   	- fibjs	: 0.25.0                                                   *
- *   	- date	: Jun 11 2018 14:17:22                                     *
+ *   	- date	: Jun 12 2018 07:22:40                                     *
  *                                                                         *
  ***************************************************************************/
 
@@ -196,7 +196,7 @@
 
 /** module Or Internal Object */
 /**
-	* @brief 超文本传输协议模块，用以支持 http 协议处理，模块别名：https
+	* @brief 超文本传输协议模块，用以支持 http 协议处理
 	* @detail 
 	*/
 declare module "http" {
@@ -204,6 +204,54 @@ declare module "http" {
 
 	module http {
 		
+		
+		/**
+		 * 
+		 * @brief 返回http客户端的 HttpCookie 对象列表
+		 * 
+		 * 
+		 */
+		export const cookies: any[];
+		
+		/**
+		 * 
+		 * @brief 查询和设置超时时间
+		 * 
+		 * 
+		 */
+		export const timeout: number;
+		
+		/**
+		 * 
+		 * @brief cookie功能开关，默认开启
+		 * 
+		 * 
+		 */
+		export const enableCookie: boolean;
+		
+		/**
+		 * 
+		 * @brief 自动redirect功能开关，默认开启
+		 * 
+		 * 
+		 */
+		export const autoRedirect: boolean;
+		
+		/**
+		 * 
+		 * @brief 查询和设置 body 最大尺寸，以 MB 为单位，缺省为 -1，不限制尺寸
+		 * 
+		 * 
+		 */
+		export const maxBodySize: number;
+		
+		/**
+		 * 
+		 * @brief 查询和设置 http 请求中的浏览器标识
+		 * 
+		 * 
+		 */
+		export const userAgent: string;
 		
 		
 		/**
@@ -436,6 +484,6 @@ declare module "http" {
 	export = http
 }
 
-/** } /** endof `module Or Internal Object` */
+/** endof `module Or Internal Object` */
 
 

@@ -223,8 +223,8 @@ Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY;
 Audio.RECORDING_OPTIONS_PRESET_LOW_QUALITY;
 async () => {
     const result = await Audio.Sound.create({uri: 'uri'}, {
-        volume: 0.5,
-        rate: 0.6
+        volume: 0.55,
+        rate: 16.5
     }, null, true);
 
     const sound = result.sound;
@@ -267,8 +267,8 @@ const barcodeReadCallback = () => {};
 );
 
 async () => {
-    await Brightness.setBrightnessAsync(.6);
-    await Brightness.setSystemBrightnessAsync(.7);
+    await Brightness.setBrightnessAsync(0.65);
+    await Brightness.setSystemBrightnessAsync(0.75);
     const br1 = await Brightness.getBrightnessAsync();
     const br2 = await Brightness.getSystemBrightnessAsync();
 };
@@ -373,10 +373,10 @@ async () => {
 };
 
 async () => {
-    const result = await ImageManipulator.manipulate('url', {
+    const result = await ImageManipulator.manipulate('url', [{
         rotate: 90
-    }, {
-        compress: 0.5
+    }], {
+        compress: 0.75
     });
 
     result.height;
@@ -478,6 +478,7 @@ async () => {
             />
         </Svg.G>
         <Svg.Use href="#shape" x="20" y="0" />
+        <Svg.Use href="#shape" x="20" y="0" width="20" height="20"/>
         <Svg.Symbol id="symbol" viewBox="0 0 150 110" width="100" height="50">
             <Svg.Circle cx="50" cy="50" r="40" strokeWidth="8" stroke="red" fill="red"/>
             <Svg.Circle cx="90" cy="60" r="40" strokeWidth="8" stroke="green" fill="white"/>

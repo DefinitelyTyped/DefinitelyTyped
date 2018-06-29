@@ -60,7 +60,7 @@ import {
     alignSelf,
     AlignSelfProps,
     borders,
-    BorderProps,
+    BordersProps,
     borderRadius,
     BorderRadiusProps,
     position,
@@ -113,7 +113,7 @@ interface BoxProps
         FlexProps,
         JustifySelfProps,
         AlignSelfProps,
-        BorderProps,
+        BordersProps,
         BorderRadiusProps,
         PositionProps,
         ZIndexProps,
@@ -304,6 +304,7 @@ const test = () => (
         <Flex justifyContent="center" />
         // flexWrap (responsive)
         <Flex flexWrap="wrap" />
+        <Flex wrap="wrap" />
         // flexBasis (responsive)
         <Flex flexBasis="auto" />
         // flexDirection (responsive)

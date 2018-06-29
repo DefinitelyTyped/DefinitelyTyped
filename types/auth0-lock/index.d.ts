@@ -114,6 +114,7 @@ interface Auth0LockConstructorOptions {
     allowForgotPassword?: boolean;
     allowLogin?: boolean;
     allowSignUp?: boolean;
+    allowShowPassword?: boolean;
     assetsUrl?: string;
     auth?: Auth0LockAuthOptions;
     autoclose?: boolean;

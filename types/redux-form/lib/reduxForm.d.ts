@@ -20,6 +20,8 @@ import {
 export type FormSubmitHandler<FormData = {}, P = {}, ErrorType = string> =
     (values: FormData, dispatch: Dispatch<any>, props: P) => void | FormErrors<FormData, ErrorType> | Promise<any>;
 
+
+export type GetFormState = (state: any) => FormStateMap;
 export interface SubmitHandler<FormData = {}, P = {}, ErrorType = string> {
     (
         submit: FormSubmitHandler<FormData, P, ErrorType>,
@@ -105,7 +107,7 @@ export interface ConfigProps<FormData = {}, P = {}, ErrorType = string> {
     destroyOnUnmount?: boolean;
     enableReinitialize?: boolean;
     forceUnregisterOnUnmount?: boolean;
-    getFormState?(state: any): FormStateMap;
+    getFormState?: GetFormState;
     immutableProps?: string[];
     initialValues?: Partial<FormData>;
     keepDirtyOnReinitialize?: boolean;

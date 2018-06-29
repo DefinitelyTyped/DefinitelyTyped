@@ -383,6 +383,7 @@ webpack({
     const jsonStatsWithAllOptions = stats.toJson({
         assets: true,
         assetsSort: "field",
+        builtAt: true,
         cached: true,
         children: true,
         chunks: true,
@@ -515,6 +516,7 @@ function loader(this: webpack.loader.LoaderContext, source: string | Buffer, sou
 
     this.addDependency('');
 
+    this.loadModule('path', (err: Error | null, result: string, sourceMap: RawSourceMap, module: webpack.Module) => { });
     this.resolve('context', 'request', (err: Error, result: string) => { });
 
     this.emitWarning('warning message');
