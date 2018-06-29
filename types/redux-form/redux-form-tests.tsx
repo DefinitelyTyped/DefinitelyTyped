@@ -403,14 +403,14 @@ class HandleSubmitTest extends React.Component {
 
 // Test SubmissionError with custom error format
 // See https://github.com/DefinitelyTyped/DefinitelyTyped/pull/26494
-new LibSubmissionError({ 
+// Note: explicit parameters not needed in TS 2.7
+new LibSubmissionError<{ myField: any }, string[]>({
     _error: ["First form-level error", "Second form-level error"],
     myField: ["Field-level error"]
 });
 
-new SubmissionError({ 
-    _error: ["First form-level error", "Second form-level error"],
-    myField: ["Field-level error"]
+new SubmissionError({
+    _error: ["First form-level error", "Second form-level error"]
 });
 
 // Test forms with custom error format.

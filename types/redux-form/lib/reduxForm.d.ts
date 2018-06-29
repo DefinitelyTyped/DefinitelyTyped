@@ -20,7 +20,6 @@ import {
 export type FormSubmitHandler<FormData = {}, P = {}, ErrorType = string> =
     (values: FormData, dispatch: Dispatch<any>, props: P) => void | FormErrors<FormData, ErrorType> | Promise<any>;
 
-
 export type GetFormState = (state: any) => FormStateMap;
 export interface SubmitHandler<FormData = {}, P = {}, ErrorType = string> {
     (
