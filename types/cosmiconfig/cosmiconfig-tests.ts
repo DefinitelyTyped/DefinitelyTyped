@@ -1,4 +1,5 @@
-import cosmiconfig, { CosmiconfigResult } from "cosmiconfig";
+import cosmiconfig = require("cosmiconfig");
+import { CosmiconfigResult } from "cosmiconfig";
 import * as path from "path";
 
 const explorer = cosmiconfig("yourModuleName", {
@@ -21,6 +22,13 @@ Promise.all([
   explorer.load(path.join(__dirname, "sample-config.json")),
   explorer.loadSync(path.join(__dirname, "sample-config.json")),
 ]).then(result => result);
+
+const result = explorer.searchSync();
+if (result) {
+  const config = result.config;
+  const filepath = result.filepath;
+  const isEmpty = result.isEmpty;
+}
 
 explorer.clearLoadCache();
 explorer.clearSearchCache();

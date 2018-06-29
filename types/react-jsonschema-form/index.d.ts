@@ -4,6 +4,7 @@
 //                 Jon Surrell <https://github.com/sirreal>
 //                 Ivan Jiang <https://github.com/iplus26>
 //                 Kurt Preston <https://github.com/KurtPreston>
+//                 Philippe Bourdages <https://github.com/phbou72>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -21,6 +22,7 @@ declare module "react-jsonschema-form" {
         noValidate?: boolean;
         noHtml5Validate?: boolean;
         showErrorList?: boolean;
+        ErrorList?: React.StatelessComponent<ErrorListProps>;
         validate?: (formData: T, errors: FormValidation) => FormValidation;
         onChange?: (e: IChangeEvent<T>) => any;
         onError?: (e: any) => any;
@@ -28,9 +30,12 @@ declare module "react-jsonschema-form" {
         liveValidate?: boolean;
         FieldTemplate?: React.StatelessComponent<FieldTemplateProps>;
         ArrayFieldTemplate?: React.StatelessComponent<ArrayFieldTemplateProps>;
-        ObjectFieldTemplate?: React.StatelessComponent<ObjectFieldTemplateProps>;
+        ObjectFieldTemplate?: React.StatelessComponent<
+            ObjectFieldTemplateProps
+        >;
         safeRenderCompletion?: boolean;
         transformErrors?: (errors: AjvError[]) => AjvError[];
+        idPrefix?: string;
 
         // HTML Attributes
         id?: string;
@@ -44,23 +49,23 @@ declare module "react-jsonschema-form" {
         acceptcharset?: string;
     }
 
-    export default class Form<T> extends React.Component<FormProps<T>> { }
+    export default class Form<T> extends React.Component<FormProps<T>> {}
 
     export type UiSchema = {
-        'ui:field'?: Field | string;
-        'ui:widget'?: Widget | string;
-        'ui:options'?: object;
-        'ui:order'?: string[];
+        "ui:field"?: Field | string;
+        "ui:widget"?: Widget | string;
+        "ui:options"?: object;
+        "ui:order"?: string[];
         [name: string]: any;
     };
 
     export type FieldId = {
         $id: string;
-    }
+    };
 
     export type IdSchema = FieldId & {
         [key: string]: FieldId;
-    }
+    };
 
     export interface WidgetProps extends React.HTMLAttributes<HTMLElement> {
         id: string;
@@ -75,7 +80,9 @@ declare module "react-jsonschema-form" {
         formContext: any;
     }
 
-    export type Widget = React.StatelessComponent<WidgetProps> | React.ComponentClass<WidgetProps>;
+    export type Widget =
+        | React.StatelessComponent<WidgetProps>
+        | React.ComponentClass<WidgetProps>;
 
     export interface FieldProps extends React.HTMLAttributes<HTMLElement> {
         schema: JSONSchema6;
@@ -99,7 +106,9 @@ declare module "react-jsonschema-form" {
         [prop: string]: any;
     }
 
-    export type Field = React.StatelessComponent<FieldProps> | React.ComponentClass<FieldProps>;
+    export type Field =
+        | React.StatelessComponent<FieldProps>
+        | React.ComponentClass<FieldProps>;
 
     export type FieldTemplateProps = {
         id: string;
@@ -121,7 +130,7 @@ declare module "react-jsonschema-form" {
         schema: JSONSchema6;
         uiSchema: UiSchema;
         formContext: any;
-    }
+    };
 
     export type ArrayFieldTemplateProps = {
         DescriptionField: object;
@@ -131,7 +140,7 @@ declare module "react-jsonschema-form" {
         disabled: boolean;
         idSchema: IdSchema;
         items: {
-            children: React.ReactElement<any>,
+            children: React.ReactElement<any>;
             className: string;
             disabled: boolean;
             hasMoveDown: boolean;
@@ -140,7 +149,10 @@ declare module "react-jsonschema-form" {
             hasToolbar: boolean;
             index: number;
             onDropIndexClick: (index: number) => (event: any) => void;
-            onReorderClick: (index: number, newIndex: number) => (event: any) => void;
+            onReorderClick: (
+                index: number,
+                newIndex: number
+            ) => (event: any) => void;
             readonly: boolean;
         }[];
         onAddClick: (event: any) => (event: any) => void;
@@ -151,7 +163,7 @@ declare module "react-jsonschema-form" {
         title: string;
         formContext: any;
         formData: any;
-    }
+    };
 
     export type ObjectFieldTemplateProps = {
         DescriptionField: object;
@@ -159,23 +171,39 @@ declare module "react-jsonschema-form" {
         title: string;
         description: string;
         properties: {
-            content: React.ReactElement<any>,
+            content: React.ReactElement<any>;
             name: string;
             disabled: boolean;
             readonly: boolean;
-        }[],
+        }[];
         required: boolean;
         schema: JSONSchema6;
         uiSchema: UiSchema;
         idSchema: IdSchema;
         formData: any;
         formContext: any;
-    }
+    };
+
+    export type AjvError = {
+        message: string;
+        name: string;
+        params: any;
+        property: string;
+        stack: string;
+    };
+
+    export type ErrorListProps = {
+        errorSchema: FormValidation;
+        errors: AjvError[];
+        formContext: any;
+        schema: JSONSchema6;
+        uiSchema: UiSchema;
+    };
 
     export interface IChangeEvent<T = any> {
         edit: boolean;
         formData: T;
-        errors: { stack: string }[];
+        errors: AjvError[];
         errorSchema: FormValidation;
         idSchema: IdSchema;
         schema: JSONSchema6;
@@ -185,26 +213,18 @@ declare module "react-jsonschema-form" {
 
     export type ISubmitEvent<T> = IChangeEvent<T>;
 
-    export type AjvError = {
-        message: string;
-        name: string;
-        params: any;
-        property: string;
-        stack: string;
-    }
-
-    export type FieldError = string
+    export type FieldError = string;
 
     type FieldValidation = {
         __errors: FieldError[];
         addError: (message: string) => void;
-    }
+    };
 
     type FormValidation = FieldValidation & {
         [fieldName: string]: FieldValidation;
-    }
+    };
 
     type FormSubmit<T> = {
         formData: T;
-    }
+    };
 }

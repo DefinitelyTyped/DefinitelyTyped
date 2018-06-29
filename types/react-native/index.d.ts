@@ -10,6 +10,7 @@
 //                 Manuel Alabor <https://github.com/swissmanu>
 //                 Michele Bombardi <https://github.com/bm-software>
 //                 Tanguy Krotoff <https://github.com/tkrotoff>
+//                 Alexander T. <https://github.com/a-tarasyuk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -360,6 +361,9 @@ export interface NativeSyntheticEvent<T> {
     eventPhase: number;
     isTrusted: boolean;
     nativeEvent: T;
+    isPropagationStopped(): boolean;
+    isDefaultPrevented(): boolean;
+    persist(): void;
     preventDefault(): void;
     stopPropagation(): void;
     target: NodeHandle;
@@ -479,6 +483,8 @@ export namespace AppRegistry {
     function runApplication(appKey: string, appParameters: any): void;
 
     function registerHeadlessTask(appKey: string, task: TaskProvider): void;
+
+    function getRunnable(appKey: string): Runnable | undefined;
 }
 
 export interface LayoutAnimationTypes {
@@ -994,13 +1000,6 @@ export interface TextInputIOSProps {
     keyboardAppearance?: "default" | "light" | "dark";
 
     /**
-     * Callback that is called when a key is pressed.
-     * Pressed key value is passed as an argument to the callback handler.
-     * Fires before onChange callbacks.
-     */
-    onKeyPress?: (event: {nativeEvent: {key: string}}) => void;
-
-    /**
      * See DocumentSelectionState.js, some state that is responsible for maintaining selection information for a document
      */
     selectionState?: DocumentSelectionState;
@@ -1069,12 +1068,46 @@ export type KeyboardTypeIOS =
     | "twitter"
     | "web-search";
 export type KeyboardTypeAndroid = "visible-password";
-export type KeyboardTypeOptions = KeyboardType | KeyboardTypeAndroid | KeyboardTypeIOS
+export type KeyboardTypeOptions = KeyboardType | KeyboardTypeAndroid | KeyboardTypeIOS;
 
 export type ReturnKeyType = "done" | "go" | "next" | "search" | "send";
 export type ReturnKeyTypeAndroid = "none" | "previous";
 export type ReturnKeyTypeIOS = "default" | "google" | "join" | "route" | "yahoo" | "emergency-call";
-export type ReturnKeyTypeOptions = ReturnKeyType | ReturnKeyTypeAndroid | ReturnKeyTypeIOS
+export type ReturnKeyTypeOptions = ReturnKeyType | ReturnKeyTypeAndroid | ReturnKeyTypeIOS;
+
+/**
+ * @see TextInputProps.onFocus
+ */
+export interface TextInputFocusEventData {
+    target: number;
+    text: string;
+    eventCount: number;
+}
+
+/**
+ * @see TextInputProps.onScroll
+ */
+export interface TextInputScrollEventData {
+    contentOffset: { x: number; y: number; }
+}
+
+/**
+ * @see TextInputProps.onSelectionChange
+ */
+export interface TextInputSelectionChangeEventData {
+    selection: {
+        start: number;
+        end: number;
+    };
+    target: number;
+}
+
+/**
+ * @see TextInputProps.onKeyPress
+ */
+export interface TextInputKeyPressEventData {
+    key: string;
+}
 
 /**
  * @see https://facebook.github.io/react-native/docs/textinput.html#props
@@ -1157,7 +1190,7 @@ export interface TextInputProps
     /**
      * Callback that is called when the text input is blurred
      */
-    onBlur?: () => void;
+    onBlur?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
 
     /**
      * Callback that is called when the text input's text changes.
@@ -1196,17 +1229,36 @@ export interface TextInputProps
     /**
      * Callback that is called when the text input is focused
      */
-    onFocus?: () => void;
+    onFocus?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
 
     /**
      * Callback that is called when the text input selection is changed.
      */
-    onSelectionChange?: (event: { nativeEvent: { selection: { start: number; end: number }; target: number } }) => void;
+    onSelectionChange?: (e: NativeSyntheticEvent<TextInputSelectionChangeEventData>) => void;
 
     /**
      * Callback that is called when the text input's submit button is pressed.
      */
     onSubmitEditing?: (event: { nativeEvent: { text: string } }) => void;
+
+    /**
+     * Invoked on content scroll with
+     *  `{ nativeEvent: { contentOffset: { x, y } } }`.
+     *
+     * May also contain other properties from ScrollEvent but on Android contentSize is not provided for performance reasons.
+     */
+    onScroll?: (e: NativeSyntheticEvent<TextInputScrollEventData>) => void;
+
+    /**
+     * Callback that is called when a key is pressed.
+     * This will be called with
+     *  `{ nativeEvent: { key: keyValue } }`
+     * where keyValue is 'Enter' or 'Backspace' for respective keys and the typed-in character otherwise including ' ' for space.
+     *
+     * Fires before onChange callbacks.
+     * Note: on Android only the inputs from soft keyboard are handled, not the hardware keyboard inputs.
+     */
+    onKeyPress?: (e: NativeSyntheticEvent<TextInputKeyPressEventData>) => void;
 
     /**
      * The string that will be rendered before text input has been entered
@@ -1306,7 +1358,10 @@ interface TextInputState {
 declare class TextInputComponent extends React.Component<TextInputProps> {}
 declare const TextInputBase: Constructor<NativeMethodsMixin> & Constructor<TimerMixin> & typeof TextInputComponent;
 export class TextInput extends TextInputBase {
-    State: TextInputState;
+    /**
+     * Access the current focus state.
+     */
+    static State: TextInputState;
 
     /**
      * Returns if the input is currently focused.
@@ -1742,6 +1797,13 @@ export interface AccessibilityPropsAndroid {
 }
 
 export interface AccessibilityPropsIOS {
+    /**
+     * A Boolean value indicating whether the accessibility elements contained within this accessibility element
+     * are hidden to the screen reader.
+     * @platform ios
+     */
+    accessibilityElementsHidden?: boolean;
+
     /**
      * Accessibility traits tell a person using VoiceOver what kind of element they have selected.
      * Is this element a label? A button? A header? These questions are answered by accessibilityTraits.
@@ -3197,7 +3259,7 @@ export interface SwitchIOSProps extends ViewProps {
  */
 export class SwitchIOS extends React.Component<SwitchIOSProps> {}
 
-export type ImageResizeMode = "contain" | "cover" | "stretch" | "center" | "repeat";
+export type ImageResizeMode = "cover" | "contain" | "stretch" | "repeat" | "center";
 
 /**
  * @see ImageResizeMode.js
@@ -3386,8 +3448,35 @@ interface ImagePropsAndroid {
     fadeDuration?: number;
 }
 
-// See https://facebook.github.io/react-native/docs/image.html#source
+/**
+ * @see https://facebook.github.io/react-native/docs/image.html#source
+ */
 export type ImageSourcePropType = ImageURISource | ImageURISource[] | ImageRequireSource;
+
+/**
+ * @see ImagePropsBase.onLoad
+ */
+export interface ImageLoadEventDataAndroid {
+    uri?: string;
+}
+
+export interface ImageLoadEventData extends ImageLoadEventDataAndroid {
+    source: {
+        height: number;
+        width: number;
+        url: string;
+    }
+}
+
+/**
+ * @see https://facebook.github.io/react-native/docs/image.html#resolveassetsource
+ */
+export interface ImageResolvedAssetSource {
+    height: number;
+    width: number;
+    scale: number;
+    uri: string;
+}
 
 /**
  * @see https://facebook.github.io/react-native/docs/image.html
@@ -3409,8 +3498,9 @@ export interface ImagePropsBase extends ImagePropsIOS, ImagePropsAndroid, Access
 
     /**
      * Invoked when load completes successfully
+     * { source: { url, height, width } }.
      */
-    onLoad?: () => void;
+    onLoad?: (event: NativeSyntheticEvent<ImageLoadEventData>) => void;
 
     /**
      * Invoked when load either succeeds or fails
@@ -3456,7 +3546,7 @@ export interface ImagePropsBase extends ImagePropsIOS, ImagePropsAndroid, Access
      * if bigger than the area of the view.
      * The image will not be scaled up.
      */
-    resizeMode?: "cover" | "contain" | "stretch" | "repeat" | "center";
+    resizeMode?: ImageResizeMode;
 
     /**
      * The mechanism that should be used to resize the image when the image's dimensions
@@ -3522,11 +3612,15 @@ export interface ImageProps extends ImagePropsBase {
 declare class ImageComponent extends React.Component<ImageProps> {}
 declare const ImageBase: Constructor<NativeMethodsMixin> & typeof ImageComponent;
 export class Image extends ImageBase {
-    resizeMode: ImageResizeMode;
     static getSize(uri: string, success: (width: number, height: number) => void, failure: (error: any) => void): any;
     static prefetch(url: string): any;
     static abortPrefetch?(requestId: number): void;
     static queryCache?(urls: string[]): Promise<Map<string, "memory" | "disk">>;
+
+    /**
+     * @see https://facebook.github.io/react-native/docs/image.html#resolveassetsource
+     */
+    static resolveAssetSource(source: ImageSourcePropType): ImageResolvedAssetSource;
 }
 
 export interface ImageBackgroundProps extends ImagePropsBase {
@@ -3580,6 +3674,13 @@ export interface ViewabilityConfig {
      */
     waitForInteraction?: boolean;
 }
+
+export interface ViewabilityConfigCallbackPair {
+    viewabilityConfig: ViewabilityConfig;
+    onViewableItemsChanged: ((info: { viewableItems: Array<ViewToken>; changed: Array<ViewToken> }) => void) | null;
+}
+
+export type ViewabilityConfigCallbackPairs = ViewabilityConfigCallbackPair[];
 
 /**
  * @see https://facebook.github.io/react-native/docs/flatlist.html#props
@@ -3861,6 +3962,18 @@ export interface SectionListProps<ItemT> extends ScrollViewProps {
      */
     initialNumToRender?: number;
 
+     /**
+     * Reverses the direction of scroll. Uses scale transforms of -1.
+     */
+    inverted?: boolean;
+
+    /**
+     * Used to extract a unique key for a given item at the specified index. Key is used for caching
+     * and as the react key to track item re-ordering. The default extractor checks `item.key`, then
+     * falls back to using the index, like React does.
+     */
+    keyExtractor?: (item: ItemT, index: number) => string;
+
     /**
      * Called once when the scroll position gets within onEndReachedThreshold of the rendered content.
      */
@@ -3875,17 +3988,21 @@ export interface SectionListProps<ItemT> extends ScrollViewProps {
     onEndReachedThreshold?: number | null;
 
     /**
-     * Used to extract a unique key for a given item at the specified index. Key is used for caching
-     * and as the react key to track item re-ordering. The default extractor checks `item.key`, then
-     * falls back to using the index, like React does.
-     */
-    keyExtractor?: (item: ItemT, index: number) => string;
-
-    /**
      * If provided, a standard RefreshControl will be added for "Pull to Refresh" functionality.
      * Make sure to also set the refreshing prop correctly.
      */
     onRefresh?: (() => void) | null;
+
+    /**
+     * Used to handle failures when scrolling to an index that has not been measured yet.
+     * Recommended action is to either compute your own offset and `scrollTo` it, or scroll as far
+     * as possible and then try again after more items have been rendered.
+     */
+    onScrollToIndexFailed?: (info: {
+        index: number,
+        highestMeasuredFrameIndex: number,
+        averageItemLength: number
+    }) => void;
 
     /**
      * Set this true while waiting for new data from a refresh.
@@ -4109,6 +4226,8 @@ export interface VirtualizedListProps<ItemT> extends ScrollViewProps {
     updateCellsBatchingPeriod?: number;
 
     viewabilityConfig?: ViewabilityConfig;
+
+    viewabilityConfigCallbackPairs?: ViewabilityConfigCallbackPairs;
 
     /**
      * Determines the maximum number of items rendered outside of the visible area, in units of

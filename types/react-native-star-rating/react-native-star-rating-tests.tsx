@@ -6,13 +6,9 @@ interface State {
 }
 
 class GeneralStarExample extends React.Component<{}, State> {
-    constructor(props: {}) {
-        super(props);
-
-        this.state = {
-            starCount: 3.5
-        };
-    }
+    state = {
+        starCount: 3.5
+    };
 
     onStarRatingPress = (rating: number) => {
         this.setState({

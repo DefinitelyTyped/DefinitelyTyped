@@ -34,7 +34,7 @@ declare namespace Evaporate {
         s3Acceleration?: boolean;
         mockLocalStorage?: boolean;
         encodeFilename?: boolean;
-        computeContentMd5?: false;
+        computeContentMd5?: boolean;
         allowS3ExistenceOptimization?: boolean;
         onlyRetryForSameFileName?: boolean;
         timeUrl?: string;

@@ -2,31 +2,31 @@ import * as QRCode from 'qrcode';
 
 const canvas = document.getElementById('canvas') as HTMLCanvasElement;
 
-QRCode.toCanvas(canvas, 'sample text', function (error) {
-    if (error) console.error(error)
+QRCode.toCanvas(canvas, 'sample text', (error) => {
+    if (error) console.error(error);
     console.log('success!');
 });
 
-QRCode.toDataURL('I am a pony!', function (err, url) {
+QRCode.toDataURL('I am a pony!', (err, url) => {
     console.log(url);
 });
 
-QRCode.toDataURL('some text', { errorCorrectionLevel: 'H' }, function (err, url) {
+QRCode.toDataURL('some text', { errorCorrectionLevel: 'H' }, (err, url) => {
     console.log(url);
 });
 
-QRCode.toDataURL('some text', { version: 2 }, function (err, url) {
+QRCode.toDataURL('some text', { version: 2 }, (err, url) => {
     console.log(url);
 });
 
 QRCode.toDataURL([
     { data: 'ABCDEFG', mode: 'alphanumeric' },
     { data: '0123456', mode: 'numeric' }
-], function (err, url) {
+], (err, url) => {
     console.log(url);
 });
 
-QRCode.toCanvas('text', { errorCorrectionLevel: 'H' }, function (err, canvas) {
+QRCode.toCanvas('text', { errorCorrectionLevel: 'H' }, (err, canvas) => {
     if (err) throw err;
 });
 
@@ -36,11 +36,11 @@ QRCode.toDataURL('text', {
     rendererOpts: {
         quality: 0.3
     }
-}, function (err, url) {
+}, (err, url) => {
     if (err) throw err;
 });
 
-QRCode.toString('http://www.google.com', function (err, string) {
+QRCode.toString('http://www.google.com', (err, string) => {
     if (err) throw err;
     console.log(string);
 });
@@ -50,7 +50,7 @@ QRCode.toFile('path/to/filename.png', 'Some text', {
         dark: '#00F',  // Blue dots
         light: '#0000' // Transparent background
     }
-}, function (err) {
+}, (err) => {
     if (err) throw err;
     console.log('done');
 });

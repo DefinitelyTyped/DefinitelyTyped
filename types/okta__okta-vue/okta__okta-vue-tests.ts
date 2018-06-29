@@ -46,5 +46,15 @@ const component = Vue.extend({
         redirect() {
             this.$auth.loginRedirect();
         },
+        profileRedirect() {
+            this.$auth.loginRedirect('/profile', {
+                sessionToken: 'string',
+                responseMode: 'string',
+                responseType: 'string',
+                scopes: ['string1', 'string2'],
+                state: 'string',
+                nonce: 'string',
+            });
+        },
     },
 });

@@ -10,6 +10,7 @@
 //                 Alexander Christie <https://github.com/AJCStriker>
 //                 Julien Chaumond <https://github.com/julien-c>
 //                 Dan Aprahamian <https://github.com/daprahamian>
+//                 Denys Bushulyak <https://github.com/denys-bushulyak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -415,6 +416,7 @@ export interface IndexOptions extends CommonOptions {
     // Creates a partial index based on the given filter object (MongoDB 3.2 or higher)
     partialFilterExpression?: any;
     collation?: Object;
+    default_language?: string
 }
 
 /** http://mongodb.github.io/node-mongodb-native/3.0/api/Admin.html */
@@ -480,15 +482,17 @@ export interface Collection<TSchema = Default> {
     // Get current index hint for collection.
     hint: any;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#aggregate */
+    aggregate<T = TSchema>(callback: MongoCallback<AggregationCursor<T>>): AggregationCursor<T>;
     aggregate<T = TSchema>(pipeline: Object[], callback: MongoCallback<AggregationCursor<T>>): AggregationCursor<T>;
-    aggregate<T = TSchema>(pipeline: Object[], options?: CollectionAggregationOptions, callback?: MongoCallback<AggregationCursor<T>>): AggregationCursor<T>;
+    aggregate<T = TSchema>(pipeline?: Object[], options?: CollectionAggregationOptions, callback?: MongoCallback<AggregationCursor<T>>): AggregationCursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#bulkWrite */
     bulkWrite(operations: Object[], callback: MongoCallback<BulkWriteOpResultObject>): void;
     bulkWrite(operations: Object[], options?: CollectionBluckWriteOptions): Promise<BulkWriteOpResultObject>;
     bulkWrite(operations: Object[], options: CollectionBluckWriteOptions, callback: MongoCallback<BulkWriteOpResultObject>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#count */
+    count(callback: MongoCallback<number>): void;
     count(query: Object, callback: MongoCallback<number>): void;
-    count(query: Object, options?: MongoCountPreferences): Promise<number>;
+    count(query?: Object, options?: MongoCountPreferences): Promise<number>;
     count(query: Object, options: MongoCountPreferences, callback: MongoCallback<number>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#createIndex */
     createIndex(fieldOrSpec: string | any, callback: MongoCallback<string>): void;
@@ -1252,7 +1256,7 @@ export class Cursor<T = Default> extends Readable {
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Cursor.html#limit */
     limit(value: number): Cursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Cursor.html#map */
-    map(transform: Function): Cursor<T>;
+    map<U>(transform: (document: T) => U): Cursor<U>;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Cursor.html#max */
     max(max: number): Cursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/Cursor.html#maxAwaitTimeMS */

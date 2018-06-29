@@ -1,4 +1,5 @@
 import browserSync = require("browser-sync");
+import { EventEmitter } from "events";
 
 (() => {
     //make sure that the interfaces are correctly exposed
@@ -390,6 +391,57 @@ bs.init({
 });
 
 bs.reload();
+
+browserSync.use(
+    {
+        plugin: function(opts: object, bs: browserSync.BrowserSyncInstance) {
+            console.log(opts);
+        },
+        "plugin:name": "test"
+    },
+    { files: "*.css" }
+);
+
+browserSync.use({
+    plugin: function(opts: object, bs: browserSync.BrowserSyncInstance) {
+        console.log(bs.name);
+    }
+});
+
+browserSync(
+    {
+        server: {
+            baseDir: "test/fixtures"
+        },
+        logLevel: "silent",
+        open: false
+    }
+);
+
+var instanceName = "TestInstance";
+var namedInstance = browserSync.create(instanceName);
+namedInstance.init({
+    server: { index: "./app" },
+    https: true
+});
+
+console.log(namedInstance.getOption("https")); // Should output true.
+
+var existingInstance = browserSync.get(instanceName);
+
+browserSync.create("InstanceWithEventEmitter", new EventEmitter());
+
+// Should output something greater than 0.
+console.log(browserSync.instances.length);
+
+browserSync.reset();
+
+// Should output 0.
+console.log(browserSync.instances.length);
+
+var cleanupTestInstance = browserSync.create("CleanupTest");
+cleanupTestInstance.cleanup();
+console.log(cleanupTestInstance.active); // Should output false.
 
 function browserSyncInit(): browserSync.BrowserSyncInstance {
     var browser = browserSync.create();

@@ -24,6 +24,7 @@
 //                 Hoàng Văn Khải <https://github.com/KSXGitHub>
 //                 Alexander T. <https://github.com/a-tarasyuk>
 //                 Lishude <https://github.com/islishude>
+//                 Andrew Makarov <https://github.com/r3nya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /** inspector module types */
@@ -2525,6 +2526,12 @@ declare module "dns" {
         export function __promisify__(hostname: string, options?: LookupOptions | number): Promise<{ address: string | LookupAddress[], family?: number }>;
     }
 
+    export function lookupService(address: string, port: number, callback: (err: NodeJS.ErrnoException, hostname: string, service: string) => void): void;
+
+    export namespace lookupService {
+        export function __promisify__(address: string, port: number): Promise<{ hostname: string, service: string }>;
+    }
+
     export interface ResolveOptions {
         ttl: boolean;
     }
@@ -3453,7 +3460,7 @@ declare module "fs" {
      * @param type May be set to `'dir'`, `'file'`, or `'junction'` (default is `'file'`) and is only available on Windows (ignored on other platforms).
      * When using `'junction'`, the `target` argument will automatically be normalized to an absolute path.
      */
-    export function symlink(target: PathLike, path: PathLike, type: string | undefined | null, callback: (err: NodeJS.ErrnoException) => void): void;
+    export function symlink(target: PathLike, path: PathLike, type: symlink.Type | undefined | null, callback: (err: NodeJS.ErrnoException) => void): void;
 
     /**
      * Asynchronous symlink(2) - Create a new symbolic link to an existing file.
@@ -3472,6 +3479,8 @@ declare module "fs" {
          * When using `'junction'`, the `target` argument will automatically be normalized to an absolute path.
          */
         export function __promisify__(target: PathLike, path: PathLike, type?: string | null): Promise<void>;
+
+        export type Type = "dir" | "file" | "junction";
     }
 
     /**
@@ -3481,7 +3490,7 @@ declare module "fs" {
      * @param type May be set to `'dir'`, `'file'`, or `'junction'` (default is `'file'`) and is only available on Windows (ignored on other platforms).
      * When using `'junction'`, the `target` argument will automatically be normalized to an absolute path.
      */
-    export function symlinkSync(target: PathLike, path: PathLike, type?: string | null): void;
+    export function symlinkSync(target: PathLike, path: PathLike, type?: symlink.Type | null): void;
 
     /**
      * Asynchronous readlink(2) - read value of a symbolic link.
