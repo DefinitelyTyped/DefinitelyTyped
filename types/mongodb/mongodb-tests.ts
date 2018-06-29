@@ -122,6 +122,31 @@ MongoClient.connect('mongodb://127.0.0.1:27017/test', options, function (err: mo
         let payment: { total: number };
         type payment = typeof payment;
         let cursor: mongodb.AggregationCursor<payment> = collection.aggregate<payment>([{}])
+
+        collection.aggregate([{ $match: { bar: 1 } }, { $limit: 10 }])
+        collection.aggregate([{ $match: { bar: 1 } }]).limit(10)
+        collection.aggregate([]).match({ bar: 1 }).limit(10)
+        collection.aggregate().match({ bar: 1 }).limit(10)
+
+        collection.aggregate<payment>(
+            [{ $match: { bar: 1 } }],
+            function (err: mongodb.MongoError, cursor: mongodb.AggregationCursor<payment>) {
+                cursor.limit(10)
+            }
+        )
+
+        collection.aggregate<payment>(
+            [],
+            function (err: mongodb.MongoError, cursor: mongodb.AggregationCursor<payment>) {
+                cursor.match({ bar: 1 }).limit(10)
+            }
+        )
+
+        collection.aggregate<payment>(
+            function (err: mongodb.MongoError, cursor: mongodb.AggregationCursor<payment>) {
+                cursor.match({ bar: 1 }).limit(10)
+            }
+        )
     }
 
     // test for new typings
