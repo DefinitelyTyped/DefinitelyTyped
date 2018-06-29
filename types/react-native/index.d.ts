@@ -1000,13 +1000,6 @@ export interface TextInputIOSProps {
     keyboardAppearance?: "default" | "light" | "dark";
 
     /**
-     * Callback that is called when a key is pressed.
-     * Pressed key value is passed as an argument to the callback handler.
-     * Fires before onChange callbacks.
-     */
-    onKeyPress?: (event: {nativeEvent: {key: string}}) => void;
-
-    /**
      * See DocumentSelectionState.js, some state that is responsible for maintaining selection information for a document
      */
     selectionState?: DocumentSelectionState;
@@ -1082,6 +1075,9 @@ export type ReturnKeyTypeAndroid = "none" | "previous";
 export type ReturnKeyTypeIOS = "default" | "google" | "join" | "route" | "yahoo" | "emergency-call";
 export type ReturnKeyTypeOptions = ReturnKeyType | ReturnKeyTypeAndroid | ReturnKeyTypeIOS;
 
+/**
+ * @see TextInputProps.onFocus
+ */
 export interface TextInputFocusEventData {
     target: number;
     text: string;
@@ -1093,6 +1089,24 @@ export interface TextInputFocusEventData {
  */
 export interface TextInputScrollEventData {
     contentOffset: { x: number; y: number; }
+}
+
+/**
+ * @see TextInputProps.onSelectionChange
+ */
+export interface TextInputSelectionChangeEventData {
+    selection: {
+        start: number;
+        end: number;
+    };
+    target: number;
+}
+
+/**
+ * @see TextInputProps.onKeyPress
+ */
+export interface TextInputKeyPressEventData {
+    key: string;
 }
 
 /**
@@ -1220,7 +1234,7 @@ export interface TextInputProps
     /**
      * Callback that is called when the text input selection is changed.
      */
-    onSelectionChange?: (event: { nativeEvent: { selection: { start: number; end: number }; target: number } }) => void;
+    onSelectionChange?: (e: NativeSyntheticEvent<TextInputSelectionChangeEventData>) => void;
 
     /**
      * Callback that is called when the text input's submit button is pressed.
@@ -1234,6 +1248,17 @@ export interface TextInputProps
      * May also contain other properties from ScrollEvent but on Android contentSize is not provided for performance reasons.
      */
     onScroll?: (e: NativeSyntheticEvent<TextInputScrollEventData>) => void;
+
+    /**
+     * Callback that is called when a key is pressed.
+     * This will be called with
+     *  `{ nativeEvent: { key: keyValue } }`
+     * where keyValue is 'Enter' or 'Backspace' for respective keys and the typed-in character otherwise including ' ' for space.
+     *
+     * Fires before onChange callbacks.
+     * Note: on Android only the inputs from soft keyboard are handled, not the hardware keyboard inputs.
+     */
+    onKeyPress?: (e: NativeSyntheticEvent<TextInputKeyPressEventData>) => void;
 
     /**
      * The string that will be rendered before text input has been entered
@@ -1772,6 +1797,13 @@ export interface AccessibilityPropsAndroid {
 }
 
 export interface AccessibilityPropsIOS {
+    /**
+     * A Boolean value indicating whether the accessibility elements contained within this accessibility element
+     * are hidden to the screen reader.
+     * @platform ios
+     */
+    accessibilityElementsHidden?: boolean;
+
     /**
      * Accessibility traits tell a person using VoiceOver what kind of element they have selected.
      * Is this element a label? A button? A header? These questions are answered by accessibilityTraits.
@@ -3227,7 +3259,7 @@ export interface SwitchIOSProps extends ViewProps {
  */
 export class SwitchIOS extends React.Component<SwitchIOSProps> {}
 
-export type ImageResizeMode = "contain" | "cover" | "stretch" | "center" | "repeat";
+export type ImageResizeMode = "cover" | "contain" | "stretch" | "repeat" | "center";
 
 /**
  * @see ImageResizeMode.js
@@ -3424,16 +3456,26 @@ export type ImageSourcePropType = ImageURISource | ImageURISource[] | ImageRequi
 /**
  * @see ImagePropsBase.onLoad
  */
-interface ImageLoadEventDataAndroid {
+export interface ImageLoadEventDataAndroid {
     uri?: string;
 }
 
-interface ImageLoadEventData extends ImageLoadEventDataAndroid {
+export interface ImageLoadEventData extends ImageLoadEventDataAndroid {
     source: {
         height: number;
         width: number;
         url: string;
     }
+}
+
+/**
+ * @see https://facebook.github.io/react-native/docs/image.html#resolveassetsource
+ */
+export interface ImageResolvedAssetSource {
+    height: number;
+    width: number;
+    scale: number;
+    uri: string;
 }
 
 /**
@@ -3504,7 +3546,7 @@ export interface ImagePropsBase extends ImagePropsIOS, ImagePropsAndroid, Access
      * if bigger than the area of the view.
      * The image will not be scaled up.
      */
-    resizeMode?: "cover" | "contain" | "stretch" | "repeat" | "center";
+    resizeMode?: ImageResizeMode;
 
     /**
      * The mechanism that should be used to resize the image when the image's dimensions
@@ -3570,11 +3612,15 @@ export interface ImageProps extends ImagePropsBase {
 declare class ImageComponent extends React.Component<ImageProps> {}
 declare const ImageBase: Constructor<NativeMethodsMixin> & typeof ImageComponent;
 export class Image extends ImageBase {
-    resizeMode: ImageResizeMode;
     static getSize(uri: string, success: (width: number, height: number) => void, failure: (error: any) => void): any;
     static prefetch(url: string): any;
     static abortPrefetch?(requestId: number): void;
     static queryCache?(urls: string[]): Promise<Map<string, "memory" | "disk">>;
+
+    /**
+     * @see https://facebook.github.io/react-native/docs/image.html#resolveassetsource
+     */
+    static resolveAssetSource(source: ImageSourcePropType): ImageResolvedAssetSource;
 }
 
 export interface ImageBackgroundProps extends ImagePropsBase {
@@ -3628,6 +3674,13 @@ export interface ViewabilityConfig {
      */
     waitForInteraction?: boolean;
 }
+
+export interface ViewabilityConfigCallbackPair {
+    viewabilityConfig: ViewabilityConfig;
+    onViewableItemsChanged: ((info: { viewableItems: Array<ViewToken>; changed: Array<ViewToken> }) => void) | null;
+}
+
+export type ViewabilityConfigCallbackPairs = ViewabilityConfigCallbackPair[];
 
 /**
  * @see https://facebook.github.io/react-native/docs/flatlist.html#props
@@ -3909,6 +3962,11 @@ export interface SectionListProps<ItemT> extends ScrollViewProps {
      */
     initialNumToRender?: number;
 
+     /**
+     * Reverses the direction of scroll. Uses scale transforms of -1.
+     */
+    inverted?: boolean;
+
     /**
      * Used to extract a unique key for a given item at the specified index. Key is used for caching
      * and as the react key to track item re-ordering. The default extractor checks `item.key`, then
@@ -4168,6 +4226,8 @@ export interface VirtualizedListProps<ItemT> extends ScrollViewProps {
     updateCellsBatchingPeriod?: number;
 
     viewabilityConfig?: ViewabilityConfig;
+
+    viewabilityConfigCallbackPairs?: ViewabilityConfigCallbackPairs;
 
     /**
      * Determines the maximum number of items rendered outside of the visible area, in units of

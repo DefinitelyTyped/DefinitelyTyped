@@ -14,6 +14,7 @@ declare const feathers: (() => Application<object>) & typeof self;
 export default feathers;
 
 export const version: string;
+export const SKIP: SkipSymbol;
 
 export type Id = number | string;
 export type NullableId = Id | null;
@@ -45,7 +46,9 @@ export interface Paginated<T> {
 }
 
 // tslint:disable-next-line void-return
-export type Hook = (hook: HookContext) => (Promise<HookContext> | void);
+export type Hook = (hook: HookContext) => (Promise<HookContext | SkipSymbol | void> | HookContext | SkipSymbol | void);
+
+export type SkipSymbol = symbol | '__feathersSkipHooks';
 
 export interface HookContext<T = any> {
     app?: Application;

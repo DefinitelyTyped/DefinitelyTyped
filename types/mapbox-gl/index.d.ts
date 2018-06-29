@@ -710,9 +710,9 @@ declare namespace mapboxgl {
 
         clone(): Point;
 
-        add(p: number): Point;
+        add(p: Point): Point;
 
-        sub(p: number): Point;
+        sub(p: Point): Point;
 
         mult(k: number): Point;
 

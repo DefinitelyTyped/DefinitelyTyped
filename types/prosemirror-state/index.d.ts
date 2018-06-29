@@ -1,4 +1,4 @@
-// Type definitions for prosemirror-state 1.1
+// Type definitions for prosemirror-state 1.2
 // Project: https://github.com/ProseMirror/prosemirror-state
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 David Hahn <https://github.com/davidka>
@@ -479,6 +479,7 @@ export class EditorState<S extends Schema = any> {
     schema?: S | null;
     doc?: ProsemirrorNode<S> | null;
     selection?: Selection<S> | null;
+    storedMarks?: Mark[] | null;
     plugins?: Array<Plugin<S>> | null;
   }): EditorState<S>;
   /**

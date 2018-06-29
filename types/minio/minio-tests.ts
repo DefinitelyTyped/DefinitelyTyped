@@ -65,6 +65,8 @@ minio.statObject('testBucket', 'hello.jpg');
 minio.removeObject('testBucket', 'hello.jpg', (error: Error|null) => { console.log(error); });
 minio.removeObject('testBucket', 'hello.jpg');
 
+minio.removeObjects('testBucket', ['hello.jpg', 'hello.txt'], (error: Error|null) => { console.log(error); });
+
 minio.removeIncompleteUpload('testBucket', 'hello.jpg', (error: Error|null) => { console.log(error); });
 minio.removeIncompleteUpload('testBucket', 'hello.jpg');
 

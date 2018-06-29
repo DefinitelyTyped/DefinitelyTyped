@@ -1,4 +1,4 @@
-// Type definitions for auth0 2.9.1
+// Type definitions for auth0 2.9.2
 // Project: https://github.com/auth0/node-auth0
 // Definitions by: Wilson Hobbs <https://github.com/wbhob>, Seth Westphal <https://github.com/westy92>, Amiram Korach <https://github.com/amiram>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -68,13 +68,16 @@ export interface UpdateUserData extends UserData {
 export interface GetUsersData {
   per_page?: number;
   page?: number;
-  include_totals?: boolean;
   sort?: string;
   connection?: string;
   fields?: string;
   include_fields?: boolean;
   q?: string;
   search_engine?: string;
+}
+
+export interface GetUsersDataPaged extends GetUsersData {
+  include_totals: boolean;
 }
 
 export interface Rule {
@@ -345,6 +348,17 @@ export interface User {
   family_name?: string;
 }
 
+export interface Page {
+  start: number;
+  limit: number;
+  length: number;
+  total: number;
+}
+
+export interface UserPage extends Page {
+  users: User[];
+}
+
 export interface Identity {
   connection: string;
   user_id: string;
@@ -353,7 +367,7 @@ export interface Identity {
   access_token?: string;
   profileData?: {
     email?: string;
-    email_verified?: boolean;   
+    email_verified?: boolean;
     name?: string;
     phone_number?: string;
     phone_verified?: boolean;
@@ -662,7 +676,7 @@ export class ManagementClient {
   deleteClient(params: ClientParams): Promise<void>;
   deleteClient(params: ClientParams, cb: (err: Error) => void): void;
 
-                                              
+
   // Client Grants
   getClientGrants(): Promise<ClientGrant[]>;
   getClientGrants(cb: (err: Error, data: ClientGrant[]) => void): void;
@@ -706,6 +720,8 @@ export class ManagementClient {
 
 
   // Users
+  getUsers(params: GetUsersDataPaged): Promise<UserPage>;
+  getUsers(params: GetUsersDataPaged, cb: (err: Error, userPage: UserPage) => void): void;
   getUsers(params?: GetUsersData): Promise<User[]>;
   getUsers(cb: (err: Error, users: User[]) => void): void;
   getUsers(params?: GetUsersData, cb?: (err: Error, users: User[]) => void): void;

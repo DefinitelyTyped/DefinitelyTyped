@@ -17,6 +17,7 @@
 //                 Ciaran Liedeman <https://github.com/cliedeman>
 //                 Edward Sammut Alessi <https://github.com/Slessi>
 //                 Jérémy Magrin <https://github.com/magrinj>
+//                 Luca Campana <https://github.com/TizioFittizio>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -578,7 +579,7 @@ export interface NavigationScreenProp<S, P = NavigationParams> {
   getParam: <T extends keyof P>(param: T, fallback?: P[T]) => P[T];
   setParams: (newParams: Partial<P>) => boolean;
   addListener: (
-    eventName: string,
+    eventName: 'willBlur' | 'willFocus' | 'didFocus' | 'didBlur',
     callback: NavigationEventCallback
   ) => NavigationEventSubscription;
   push: (
@@ -1162,7 +1163,7 @@ export interface NavigationInjectedProps {
 
 export function withNavigation<T = {}>(
   Component: React.ComponentType<T & NavigationInjectedProps>
-): React.ComponentType<T>;
+): React.ComponentType<T & { onRef?: React.Ref<typeof Component> }>;
 
 export function withNavigationFocus<T = {}>(
   Component: React.ComponentType<T & NavigationInjectedProps>

@@ -2,6 +2,7 @@
 // Project: https://github.com/react-native-community/react-native-tab-view
 // Definitions by: Kalle Ott <https://github.com/kaoDev>
 //                 Kyle Roach <https://github.com/iRoachie>
+//                 Tim Wang <https://github.com/timwangdev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 import { PureComponent, ReactNode, ComponentType } from 'react'
@@ -91,10 +92,7 @@ export type TabViewProps<
   style?: StyleProp<ViewStyle>
 }
 
-export class TabView<T extends Route = Route> extends PureComponent<
-  TabViewProps<T>,
-  any
-> {}
+export class TabView<T extends Route = Route> extends PureComponent<TabViewProps<T>> {}
 
 export type GestureEvent = {
   nativeEvent: {
@@ -144,10 +142,7 @@ export type DefaultTransitionSpec = {
   friction: 35
 }
 
-export class PagerPan<T extends Route = Route> extends PureComponent<
-  PagerPanProps<T>,
-  void
-> {
+export class PagerPan<T extends Route = Route> extends PureComponent<PagerPanProps<T>> {
   static defaultProps: {
     configureTransition: () => DefaultTransitionSpec
     initialLayout: {
@@ -176,10 +171,7 @@ export type PagerScrollProps<
   children?: ReactNode
 }
 
-export class PagerScroll<T extends Route = Route> extends PureComponent<
-PagerScrollProps<T>,
-  any
-> {}
+export class PagerScroll<T extends Route = Route> extends PureComponent<PagerScrollProps<T>> {}
 
 export type PageScrollEvent = {
   nativeEvent: {
@@ -198,10 +190,7 @@ export type PagerAndroidProps<
   children?: ReactNode
 }
 
-export class PagerAndroid<T extends Route = Route> extends PureComponent<
-  PagerAndroidProps<T>,
-  void
-> {}
+export class PagerAndroid<T extends Route = Route> extends PureComponent<PagerAndroidProps<T>> {}
 
 export type IndicatorProps<
   T extends RouteBase = RouteBase
@@ -227,10 +216,7 @@ export type TabBarProps<T extends RouteBase = RouteBase> = SceneRendererProps<
   style?: StyleProp<ViewStyle>
 }
 
-export class TabBar<T extends Route = Route> extends PureComponent<
-  TabBarProps<T>,
-  any
-> {}
+export class TabBar<T extends Route = Route> extends PureComponent<TabBarProps<T>> {}
 
 export function SceneMap(scenes: {
   [key: string]: ComponentType<any>

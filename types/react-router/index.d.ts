@@ -17,6 +17,7 @@
 //                 Youen Toupin <https://github.com/neuoy>
 //                 Rahul Raina <https://github.com/rraina>
 //                 Maksim Sharipov <https://github.com/pret-a-porter>
+//                 Duong Tran <https://github.com/t49tran>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -86,10 +87,15 @@ export interface RouterProps {
 }
 export class Router extends React.Component<RouterProps, any> { }
 
+export interface StaticRouterContext {
+  url?: string;
+  action?: 'PUSH' | 'REPLACE';
+  location?: object;
+}
 export interface StaticRouterProps {
   basename?: string;
   location?: string | object;
-  context?: object;
+  context?: StaticRouterContext;
 }
 
 export class StaticRouter extends React.Component<StaticRouterProps, any> { }
