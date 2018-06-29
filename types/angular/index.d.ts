@@ -2183,6 +2183,8 @@ declare namespace angular {
             has(name: string): boolean;
             instantiate<T>(typeConstructor: {new(...args: any[]): T}, locals?: any): T;
             invoke<T = any>(func: Injectable<Function | ((...args: any[]) => T)>, context?: any, locals?: any): T;
+            loadNewModules(modules: Array<IModule|string>): void;
+            modules: [moduleName: string]: IModule;
             strictDi: boolean;
         }
 
