@@ -2565,6 +2565,7 @@ declare namespace google.maps {
 
         export interface PlaceDetailsRequest  {
             placeId: string;
+            fields?: string[];
         }
 
         export interface PlaceGeometry {
