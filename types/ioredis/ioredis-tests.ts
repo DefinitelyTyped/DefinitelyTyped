@@ -134,3 +134,10 @@ new Redis.Cluster([{
     host: 'localhost',
     port: 6379
 }]);
+
+const cluster = new Redis.Cluster([{
+    host: 'localhost',
+    port: 6379
+}]);
+cluster.sadd('set', 'key', 'value');
+cluster.pipeline().sadd('set', 'key1', 'value1').exec();
