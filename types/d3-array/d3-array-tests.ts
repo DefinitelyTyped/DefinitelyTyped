@@ -167,6 +167,17 @@ numOrUndefined = d3Array.max(readonlyMixedObjectOrUndefinedArray, accessorReadOn
 numOrUndefined = d3Array.max(mixedObjectArrayLike, accessorLikeMixedObjectToNum);
 numOrUndefined = d3Array.max(mixedObjectArray, accessorLikeMixedObjectToNum);
 numOrUndefined = d3Array.max(mixedObjectArray, accessorReadOnlyMixedObjectToNumOrUndefined);
+
+numOrUndefined = d3Array.max(mixedObjectArray, (d) => {
+    const l: MixedObject = d;
+    return l.num;
+});
+
+strOrUndefined = d3Array.max(mixedObjectArray, (d) => {
+    const l: MixedObject = d;
+    return l.str;
+});
+
 // // $ExpectError
 // numOrUndefined = d3Array.max(mixedObjectArrayLike, accessorMixedObjectToNum);
 // $ExpectError
