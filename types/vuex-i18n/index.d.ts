@@ -73,7 +73,7 @@ export interface Ii18n {
   /**
    * get localized string from store in a given language if available.
    */
-  translateIn(locale: string, key: string, defaultValue: string, options: any, pluralization?: number): string | undefined;
+  translateIn(locale: string, key: string, defaultValue: string, options?: any, pluralization?: number): string | undefined;
 
   /**
    * check if the given locale translations are present in the store
