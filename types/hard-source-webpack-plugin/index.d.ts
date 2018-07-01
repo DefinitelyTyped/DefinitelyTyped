@@ -2,33 +2,33 @@
 // Project: https://github.com/mzgoddard/hard-source-webpack-plugin#readme
 // Definitions by: woitechen <https://github.com/woitechen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-declare module 'hard-source-webpack-plugin' {
-    import * as webpack from 'webpack';
+import * as webpack from 'webpack';
 
-    class hard_source_webpack_plugin {
-        constructor(options?: Options);
-    }
-
-    namespace hard_source_webpack_plugin { }
-
-    interface Options {
-        cacheDirectory?: string;
-        configHash?: (webpackConfig?: webpack.Configuration) => string;
-        environmentHash?: {
-            root: string;
-            directories: string[];
-            files: string[];
-        }
-        info?: {
-            mode: 'none' | 'test';
-            level: 'debug' | 'log' | 'info' | 'warn' | 'error';
-        }
-        cachePrune?: {
-            maxAge: number;
-            sizeThreshold: number;
-        }
-    }
-
-    export = hard_source_webpack_plugin;
+declare class hard_source_webpack_plugin {
+    constructor(options?: Options);
+    apply(...args: any[]): void;
 }
+
+declare namespace hard_source_webpack_plugin { }
+
+interface Options {
+    cacheDirectory?: string;
+    configHash?: (webpackConfig?: webpack.Configuration) => string;
+    environmentHash?: {
+        root: string;
+        directories: string[];
+        files: string[];
+    };
+    info?: {
+        mode: 'none' | 'test';
+        level: 'debug' | 'log' | 'info' | 'warn' | 'error';
+    };
+    cachePrune?: {
+        maxAge: number;
+        sizeThreshold: number;
+    };
+}
+
+export = hard_source_webpack_plugin;
