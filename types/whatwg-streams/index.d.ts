@@ -89,7 +89,7 @@ declare class ReadableByteStreamController<R = ArrayBufferView> {
 }
 
 declare class ReadableStreamBYOBRequest<R = ArrayBufferView> {
-    readonly view: R;
+    readonly view: Uint8Array;
 
     respond(bytesWritten: number): void;
     respondWithNewView(view: ArrayBufferView): void;
