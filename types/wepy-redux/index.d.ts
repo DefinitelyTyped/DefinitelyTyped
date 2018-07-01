@@ -2,9 +2,10 @@
 // Project: https://github.com/Tencent/wepy/tree/1.7.x/packages/wepy-redux
 // Definitions by: Jiayu Liu <https://github.com/Jimexist>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import wepy from "wepy";
+import { Store } from "redux";
 
 export interface MapStateToProps {
     [propName: string]: ((state: any) => any) | string;
@@ -18,4 +19,6 @@ export function connect(
     mapDispatchToProps: MapDispatchToProps
 ): (<T extends wepy.Component>(original: T) => T);
 
-export function setStore(store: any): void;
+export function setStore(store: Store): void;
+
+export function getStore(): Store;

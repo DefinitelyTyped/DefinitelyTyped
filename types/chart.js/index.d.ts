@@ -13,6 +13,7 @@
 //                 Ken Elkabany <https://github.com/braincore>
 //                 Slavik Nychkalo <https://github.com/gebeto>
 //                 Francesco Benedetto <https://github.com/frabnt>
+//                 Alexandros Dorodoulis <https://github.com/alexdor>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -35,8 +36,9 @@ declare class Chart {
     getElementAtEvent: (e: any) => {};
     getElementsAtEvent: (e: any) => Array<{}>;
     getDatasetAtEvent: (e: any) => Array<{}>;
-    ctx: CanvasRenderingContext2D|null;
-    canvas: HTMLCanvasElement|null;
+    getDatasetMeta: (index: number) => Meta;
+    ctx: CanvasRenderingContext2D | null;
+    canvas: HTMLCanvasElement | null;
     chartArea: Chart.ChartArea;
     static pluginService: PluginServiceStatic;
     static plugins: PluginServiceStatic;
@@ -98,6 +100,48 @@ interface PluginServiceRegistrationOptions {
 interface Size {
     height: number;
     width: number;
+}
+
+interface Meta {
+    type: Chart.ChartType;
+    data: MetaData[];
+    dataset?: Chart.ChartDataSets;
+    controller: { [key: string]: any; };
+    hidden?: boolean;
+    total?: string;
+    xAxisID?: string;
+    yAxisID?: string;
+    "$filler"?: { [key: string]: any; };
+}
+
+interface MetaData {
+    _chart: Chart;
+    _datasetIndex: number;
+    _index: number;
+    _model: Model;
+    _start?: any;
+    _view: Model;
+    _xScale: Chart.ChartScales;
+    _yScale: Chart.ChartScales;
+    hidden?: boolean;
+}
+
+interface Model {
+    backgroundColor: string;
+    borderColor: string;
+    borderWidth?: number;
+    controlPointNextX: number;
+    controlPointNextY: number;
+    controlPointPreviousX: number;
+    controlPointPreviousY: number;
+    hitRadius: number;
+    pointStyle: string;
+    radius: string;
+    skip?: boolean;
+    steppedLine?: undefined;
+    tension: number;
+    x: number;
+    y: number;
 }
 
 declare namespace Chart {
@@ -298,7 +342,7 @@ declare namespace Chart {
     }
 
     interface ChartTooltipsStaticConfiguration {
-        positioners: {[mode: string]: ChartTooltipPositioner};
+        positioners: { [mode: string]: ChartTooltipPositioner };
     }
 
     type ChartTooltipPositioner = (elements: any[], eventPosition: Point) => Point;
@@ -372,14 +416,14 @@ declare namespace Chart {
     }
 
     interface ChartLayoutOptions {
-      padding?: ChartLayoutPaddingObject | number;
+        padding?: ChartLayoutPaddingObject | number;
     }
 
     interface ChartLayoutPaddingObject {
-      top?: number;
-      right?: number;
-      bottom?: number;
-      left?: number;
+        top?: number;
+        right?: number;
+        bottom?: number;
+        left?: number;
     }
 
     interface GridLineOptions {
@@ -415,7 +459,7 @@ declare namespace Chart {
         backdropPaddingX?: number;
         backdropPaddingY?: number;
         beginAtZero?: boolean;
-        callback?(value: any, index: any, values: any): string|number;
+        callback?(value: any, index: any, values: any): string | number;
         display?: boolean;
         fontColor?: ChartColor;
         fontFamily?: string;
