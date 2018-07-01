@@ -80,7 +80,7 @@ declare namespace WebpackServe {
     /** Configuration object for the server to use HTTPS */
     https?: https.ServerOptions;
     /** Level of information for webpack-serve to output */
-    logLevel?: 'trace' | 'debug' | 'info' | 'warn' | 'error';
+    logLevel?: 'trace' | 'debug' | 'info' | 'warn' | 'error' | 'silent';
     /** Prepend timestamp to each log line */
     logTime?: boolean;
     /** Object of subscribers to webpack-serve bus events */
