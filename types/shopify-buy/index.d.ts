@@ -46,13 +46,41 @@ declare namespace ShopifyBuy {
     }
 
     export interface CollectionResource {
-        fetch(id: string): Promise<Product[]>;
-        fetchWithProducts(id: string): Promise<any[]>; // TODO fix to be a type: Docs: Fetches a single collection by ID on the shop, not including products.
-        fetchAll(pageSizeopt?: number): Promise<any[]>; // TODO fix to be a type: Docs: Fetches all collections on the shop, not including products.
-        fetchAllWithProducts(): Promise<any[]>; // TODO fix to be a type: DOC: Fetches all collections on the shop, including products.
-        fetchWithProducts(id: string): Promise<any[]>; // TODO fix to be a type: DOC: Fetches all collections on the shop, including products.
-        fetchByHandle(handle: string): Promise<any[]>; // TODO fix to be a type: DOC: Fetches a collection by handle on the shop. Assuming it does not give products
-        fetchQuery(query: Query): Promise<any[]>; // TODO fix to be a type: DOC: Fetches a collection by handle on the shop. Assuming it does not give products
+
+        /**
+        * Fetches a single collection by ID on the shop.
+        */
+        fetch(id: string): Promise<Collection>;
+
+        /**
+        * Fetches a single collection by ID on the shop, including products.
+        */
+        fetchWithProducts(id: string): Promise<Collection>;
+
+        /**
+        * Fetches all collections on the shop.
+        */
+        fetchAll(pageSizeopt?: number): Promise<Collection[]>;
+
+        /**
+        * Fetches all collections on the shop, including products.
+        */
+        fetchAllWithProducts(): Promise<Collection[]>;
+
+        /**
+        * Fetches all collections on the shop, including products.
+        */
+        fetchWithProducts(id: string): Promise<Collection>;
+
+        /**
+        * Fetches a collection by handle on the shop.
+        */
+        fetchByHandle(handle: string): Promise<Collection>;
+
+        /**
+        * Fetches a collection by query.
+        */
+        fetchQuery(query: Query): Promise<Collection>;
     }
 
     export interface CheckoutResource {
@@ -106,8 +134,6 @@ declare namespace ShopifyBuy {
     export interface Query {
      /**
       * query: title, collection_type, updated_at
-      * TODO probably will remove before Defintely Typed PR, 
-      * as their  community guidelines
       */
         query: string;
         sortBy: string;
@@ -119,10 +145,25 @@ declare namespace ShopifyBuy {
     }
 
     export interface Product extends GraphModel {
+
+        createdAt: Date;
+
+        updatedAt: Date;
+
         /**
          * A product description.
          */
         description: string;
+
+        /**
+         * A product descriptions html representation for the shoppify store front.
+         */
+        descriptionHtml: string;
+
+        /**
+         * A product handle.
+         */
+        handle: string;
 
         /**
          * Product unique ID
@@ -135,16 +176,16 @@ declare namespace ShopifyBuy {
         images: Array<Image>;
 
         /**
-         * All variants of a product.
-         */
-        variants: Array<ProductVariant>;
-
-        /**
          * Get an array of Product Options. Product Options can be used to define
          * the currently selectedVariant from which you can get a checkout url (ProductVariant.checkoutUrl)
          * or can be added to a cart (Cart.createLineItemsFromVariants).
          */
         options: Array<Option>;
+
+        /**
+         * The product type
+         */
+        productType: string;
 
         /**
          * Retrieve variant for currently selected options. By default the first value in each option is selected
@@ -168,6 +209,21 @@ declare namespace ShopifyBuy {
          * The product title
          */
         title: string;
+
+        /**
+         * An Array of product tags
+         */
+        tags: Tag[];
+
+        /**
+         * All variants of a product.
+         */
+        variants: Array<ProductVariant>;
+
+        /**
+         * The product vendor
+         */
+        vendor: string;
     }
 
     export interface ProductVariant extends GraphModel {
@@ -267,12 +323,27 @@ declare namespace ShopifyBuy {
         value: any;
     }
 
-    export interface Collection {
-        handle: string;
+    export interface Tag {
+        value: string;
+        type: Type;
+    }
+
+    export interface Type {
+        name: string;
+        kind: string;
+        fieldBaseTypes?: any;
+        implementsNode?: boolean;
+    }
+
+    export interface Collection extends GraphModel {
         body_html: string;
-        image: Image;
+        handle: string;
+        description: string;
+        descriptionHtml: string;
         id: string;
+        image: Image;
         metafields: any[];
+        products?: Product[];
         published: boolean;
         published_at: string;
         published_scope: string;
@@ -459,6 +530,9 @@ declare namespace ShopifyBuy {
     export interface GraphModel {
         attrs?: any
         onlineStoreUrl?: string
+        hasNextPage: any;
+        hasPreviousPage: any;
+        variableValues: any;
     }
 }
 
