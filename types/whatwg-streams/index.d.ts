@@ -80,7 +80,7 @@ declare class ReadableStreamDefaultController<R = ArrayBufferView> {
 }
 
 declare class ReadableByteStreamController<R = ArrayBufferView> {
-    readonly byobRequest: ReadableStreamBYOBRequest<R>;
+    readonly byobRequest: ReadableStreamBYOBRequest<R> | undefined;
     readonly desiredSize: number | null;
 
     close(): void;
