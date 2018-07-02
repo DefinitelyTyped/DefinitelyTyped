@@ -1,5 +1,8 @@
 {
-    "files": ["index.d.ts", "react-primitives-tests.tsx"],
+    "files": [
+        "index.d.ts",
+        "react-primitives-tests.tsx"
+    ],
     "compilerOptions": {
         "forceConsistentCasingInFileNames": true,
         "module": "commonjs",
