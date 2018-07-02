@@ -6666,10 +6666,22 @@ declare namespace Stripe {
              * request should never throw an error. You can optionally request that the response include the total count of all plans. To
              * do so, specify include[]=total_count in your request.
              */
-            list(data: IListOptionsCreated, options: HeaderOptions, response?: IResponseFn<IList<plans.IPlan>>): Promise<IList<plans.IPlan>>;
-            list(data: IListOptionsCreated, response?: IResponseFn<IList<plans.IPlan>>): Promise<IList<plans.IPlan>>;
+            list(data: IPlanListOptions, options: HeaderOptions, response?: IResponseFn<IList<plans.IPlan>>): Promise<IList<plans.IPlan>>;
+            list(data: IPlanListOptions, response?: IResponseFn<IList<plans.IPlan>>): Promise<IList<plans.IPlan>>;
             list(options: HeaderOptions, response?: IResponseFn<IList<plans.IPlan>>): Promise<IList<plans.IPlan>>;
             list(response?: IResponseFn<IList<plans.IPlan>>): Promise<IList<plans.IPlan>>;
+        }
+
+        interface IPlanListOptions extends IListOptionsCreated {
+            /**
+             * Only return plans that are active or inactive (e.g., pass false to list all inactive products).
+             */
+            active?: boolean;
+
+            /**
+             * Only return plans for the given product.
+             */
+            product?: string
         }
 
         /**
