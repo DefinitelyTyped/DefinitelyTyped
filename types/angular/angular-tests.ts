@@ -520,6 +520,18 @@ namespace TestInjector {
         anyResult = $injector.invoke(inlineAnnotatedFunction, 'anyContext');
         anyResult = $injector.invoke(inlineAnnotatedFunction, undefined, 'anyLocals');
     }
+
+    // $injector.loadNewModules
+    {
+        const modA = angular.module('$injector.moduleA', []);
+        $injector.loadNewModules([modA]);
+        $injector.loadNewModules([modA.name]);
+    }
+
+    // $injector.modules
+    {
+        const module: angular.IModule = $injector.modules['$injector.module'];
+    }
 }
 
 // Promise signature tests
