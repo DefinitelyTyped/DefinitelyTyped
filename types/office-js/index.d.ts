@@ -2571,21 +2571,27 @@ declare namespace Office {
         getWSSUrlAsync(options?: Office.AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Project documents only. Get the maximum index of the collection of resources in the current project.
+         * 
          * Important: This API works only in Project 2016 on Windows desktop.
+         * 
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         getMaxResourceIndexAsync(options?: Office.AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Project documents only. Get the maximum index of the collection of tasks in the current project.
+         * 
          * Important: This API works only in Project 2016 on Windows desktop.
+         * 
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
          */
         getMaxTaskIndexAsync(options?: Office.AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Project documents only. Get the GUID of the resource that has the specified index in the resource collection.
+         * 
          * Important: This API works only in Project 2016 on Windows desktop.
+         * 
          * @param resourceIndex The index of the resource in the collection of resources for the project.
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
@@ -2593,7 +2599,9 @@ declare namespace Office {
         getResourceByIndexAsync(resourceIndex: number, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Project documents only. Get the GUID of the task that has the specified index in the task collection.
+         * 
          * Important: This API works only in Project 2016 on Windows desktop.
+         * 
          * @param taskIndex The index of the task in the collection of tasks for the project.
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
@@ -2601,7 +2609,9 @@ declare namespace Office {
         getTaskByIndexAsync(taskIndex: number, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Project documents only. Set resource field for specified resource Id. (Ex.ResourceName)
+         * 
          * Important: This API works only in Project 2016 on Windows desktop.
+         * 
          * @param resourceId Either a string or value of the Resource Id.
          * @param fieldId Resource Fields.
          * @param fieldValue Value of the target field.
@@ -2611,7 +2621,9 @@ declare namespace Office {
         setResourceFieldAsync(resourceId: string, fieldId: number, fieldValue: string | number | boolean | object, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Project documents only. Set task field for specified task Id. (Ex.ResourceName)
+         * 
          * Important: This API works only in Project 2016 on Windows desktop.
+         * 
          * @param taskId Either a string or value of the Task Id.
          * @param fieldId Resource Fields.
          * @param fieldValue Value of the target field.
