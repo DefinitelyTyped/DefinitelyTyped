@@ -68,7 +68,7 @@ export interface RouteComponentProps<P, C extends StaticContext = StaticContext>
   history: H.History;
   location: H.Location;
   match: match<P>;
-  staticContext: C | undefined;
+  staticContext?: C;
 }
 
 export interface RouteProps {
