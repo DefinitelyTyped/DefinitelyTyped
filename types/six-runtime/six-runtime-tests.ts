@@ -1,3 +1,2 @@
-function test() {
-	six.log.warn('xxx');
-}
+
+six.log.warn('xxx');
