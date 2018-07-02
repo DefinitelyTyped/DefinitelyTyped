@@ -207,7 +207,7 @@ declare namespace Six {
         }
 
         namespace view {
-            type render = (name: string, runtimeConf?: runtimeConf|undefined|null, data?: object) => Promise<any>;
+            type render = (name: string, runtimeConf?: runtimeConf|null, data?: object) => Promise<any>;
 
             interface runtimeConf {
                 codeKey: string;

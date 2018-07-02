@@ -1,2 +1,1 @@
-
 six.log.warn('xxx');
