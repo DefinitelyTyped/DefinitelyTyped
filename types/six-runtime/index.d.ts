@@ -85,12 +85,12 @@ declare namespace Six {
         static: plugins.static.staticFactory;
     }
 
-    type next = () => any
+    type next = () => any;
 
-    type middleware = (ctx: object, next: next) => any
+    type middleware = (ctx: object, next: next) => any;
 
-    namespace plugins{
-        type whiteList = (ctx: Object) => boolean;
+    namespace plugins {
+        type whiteList = (ctx: object) => boolean;
 
         namespace sso {
             type ssoFactory = (conf: ssoConf) => any;
@@ -154,7 +154,7 @@ declare namespace Six {
                 static deps: string[];
                 static timeout: number;
                 static retry: number;
-                prepare(ctx: object, depsRes: object):any;
+                prepare(ctx: object, depsRes: object): any;
                 abstract execute(ctx: object, args: any): any;
             }
         }
@@ -170,18 +170,16 @@ declare namespace Six {
         }
 
         interface log {
-            debug(msg: string, ...restOfVar: any[]):void;
-            info(msg: string, ...restOfVar: any[]):void;
-            warn(msg: string, ...restOfVar: any[]):void;
-            error(msg: string|Error, ...restOfVar: any[]):void;
+            debug(msg: string, ...restOfVar: any[]): void;
+            info(msg: string, ...restOfVar: any[]): void;
+            warn(msg: string, ...restOfVar: any[]): void;
+            error(msg: string|Error, ...restOfVar: any[]): void;
         }
 
-        type rpc = (config: Object) => Object;
+        type rpc = (config: object) => object;
 
         namespace static {
-            interface staticFactory {
-                (conf: staticConf): middleware;
-            }
+            type staticFactory = (conf: staticConf) => middleware;
             interface staticConf {
                 rootPath: string;
                 cacheConf: cacheConf;
@@ -209,7 +207,7 @@ declare namespace Six {
         }
 
         namespace view {
-            type render = (name: string, runtimeConf?: runtimeConf|void, data?: Object) => Promise<any>;
+            type render = (name: string, runtimeConf?: runtimeConf|undefined|null, data?: object) => Promise<any>;
 
             interface runtimeConf {
                 codeKey: string;
