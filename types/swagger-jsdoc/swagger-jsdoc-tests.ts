@@ -1,5 +1,5 @@
-import express = require('express');
-import swaggerJSDoc = require('swagger-jsdoc');
+import * as express from 'express';
+import * as swaggerJSDoc from 'swagger-jsdoc';
 const app = express();
 
 let options = {
@@ -10,7 +10,6 @@ let options = {
         }
     }
 };
-
 
 let swaggerSpec = swaggerJSDoc(options);
 

@@ -6,8 +6,8 @@
 
 /* =================== USAGE ===================
 
-    import * as express from "express"
-    import swaggerJSDoc = require('swagger-jsdoc');
+    import * as express from 'express';
+    import * as swaggerJSDoc from 'swagger-jsdoc';
     const app = express()
 
     let options = {
@@ -27,7 +27,7 @@
       }
     };
 
-    var spec = swaggerJSDoc(options);
+    let spec = swaggerJSDoc(options);
 
     app.get('/api-docs.json', function(req, res) {
       res.setHeader('Content-Type', 'application/json');
@@ -36,7 +36,9 @@
 
  =============================================== */
 
-declare module "swagger-jsdoc" {
-    function swaggerJSDoc(options?: any): any;
-    export = swaggerJSDoc;
-}
+ declare function swaggerJSDoc(options?: any): any;
+ declare namespace swaggerJSDoc {
+ 
+ }
+ 
+ export = swaggerJSDoc;
