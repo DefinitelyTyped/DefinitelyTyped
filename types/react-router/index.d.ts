@@ -117,6 +117,8 @@ export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
 export function matchPath<P>(pathname: string, props: RouteProps): match<P> | null;
 
+export function generatePath(pattern: string, params?: { [paramName: string]: string | number | boolean }): string;
+
 // There is a known issue in TypeScript, which doesn't allow decorators to change the signature of the classes
 // they are decorating. Due to this, if you are using @withRouter decorator in your code,
 // you will see a bunch of errors from TypeScript. The current workaround is to use withRouter() as a function call
