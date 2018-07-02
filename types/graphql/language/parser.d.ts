@@ -19,7 +19,7 @@ export interface ParseOptions {
      * specification.
      *
      * This option is provided to ease adoption of the final SDL specification
-     * and will be removed in a future major release.
+     * and will be removed in v16.
      */
     allowLegacySDLEmptyFields?: boolean;
 
@@ -29,7 +29,7 @@ export interface ParseOptions {
      * current specification.
      *
      * This option is provided to ease adoption of the final SDL specification
-     * and will be removed in a future major release.
+     * and will be removed in v16.
      */
     allowLegacySDLImplementsInterfaces?: boolean;
 

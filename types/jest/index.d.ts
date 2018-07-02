@@ -109,6 +109,9 @@ declare namespace jest {
      * Creates a mock function. Optionally takes a mock implementation.
      */
     function fn<T extends {}>(implementation: (...args: any[]) => T): Mock<T>;
+    /**
+     * Creates a mock function. Optionally takes a mock implementation.
+     */
     function fn<T>(implementation?: (...args: any[]) => any): Mock<T>;
     /**
      * Use the automatic mocking system to generate a mocked version of the given module.
@@ -173,7 +176,25 @@ declare namespace jest {
      */
     function setTimeout(timeout: number): typeof jest;
     /**
-     * Creates a mock function similar to jest.fn but also tracks calls to object[methodName]
+     * Creates a mock function similar to jest.fn but also tracks calls to `object[methodName]`
+     *
+     * Note: By default, jest.spyOn also calls the spied method. This is different behavior from most
+     * other test libraries.
+     *
+     * @example
+     *
+     * const video = require('./video');
+     *
+     * test('plays video', () => {
+     *   const spy = jest.spyOn(video, 'play');
+     *   const isPlaying = video.play();
+     *
+     *   expect(spy).toHaveBeenCalled();
+     *   expect(isPlaying).toBe(true);
+     *
+     *   spy.mockReset();
+     *   spy.mockRestore();
+     * });
      */
     function spyOn<T extends {}, M extends keyof T>(object: T, method: M, accessType?: 'get' | 'set'): SpyInstance<T[M]>;
     /**
@@ -233,15 +254,63 @@ declare namespace jest {
          * Only runs this test in the current file.
          */
         only: It;
+        /**
+         * Skips running this test in the current file.
+         */
         skip: It;
+        /**
+         * Experimental and should be avoided.
+         */
         concurrent: It;
+        /**
+         * Use if you keep duplicating the same test with different data. `.each` allows you to write the
+         * test once and pass data in.
+         *
+         * `.each` is available with two APIs:
+         *
+         * #### 1  `test.each(table)(name, fn)`
+         *
+         * - `table`: Array of Arrays with the arguments that are passed into the test fn for each row.
+         * - `name`: String the title of the test block.
+         * - `fn`: Function the test to be ran, this is the function that will receive the parameters in each row as function arguments.
+         *
+         *
+         * #### 2  `test.each table(name, fn)`
+         *
+         * - `table`: Tagged Template Literal
+         * - `name`: String the title of the test, use `$variable` to inject test data into the test title from the tagged template expressions.
+         * - `fn`: Function the test to be ran, this is the function that will receive the test data object..
+         *
+         * @example
+         *
+         * // API 1
+         * test.each([[1, 1, 2], [1, 2, 3], [2, 1, 3]])(
+         *   '.add(%i, %i)',
+         *   (a, b, expected) => {
+         *     expect(a + b).toBe(expected);
+         *   },
+         * );
+         *
+         * // API 2
+         * test.each`
+         * a    | b    | expected
+         * ${1} | ${1} | ${2}
+         * ${1} | ${2} | ${3}
+         * ${2} | ${1} | ${3}
+         * `('returns $expected when $a is added $b', ({a, b, expected}) => {
+         *    expect(a + b).toBe(expected);
+         * });
+         *
+         */
         each: Each;
     }
 
     interface Describe {
         // tslint:disable-next-line ban-types
         (name: number | string | Function | FunctionLike, fn: EmptyFunction): void;
+        /** Only runs the tests inside this `describe` for the current file */
         only: Describe;
+        /** Skips running the tests inside this `describe` for the current file */
         skip: Describe;
         each: Each;
     }
@@ -326,10 +395,36 @@ declare namespace jest {
          * @param actual The value to apply matchers against.
          */
         (actual: any): Matchers<void>;
+        /**
+         * Matches anything but null or undefined. You can use it inside `toEqual` or `toBeCalledWith` instead
+         * of a literal value. For example, if you want to check that a mock function is called with a
+         * non-null argument:
+         *
+         * @example
+         *
+         * test('map calls its argument with a non-null argument', () => {
+         *   const mock = jest.fn();
+         *   [1].map(x => mock(x));
+         *   expect(mock).toBeCalledWith(expect.anything());
+         * });
+         *
+         */
         anything(): any;
         /**
          * Matches anything that was created with the given constructor.
          * You can use it inside `toEqual` or `toBeCalledWith` instead of a literal value.
+         *
+         * @example
+         *
+         * function randocall(fn) {
+         *   return fn(Math.floor(Math.random() * 6 + 1));
+         * }
+         *
+         * test('randocall calls its callback with a number', () => {
+         *   const mock = jest.fn();
+         *   randocall(mock);
+         *   expect(mock).toBeCalledWith(expect.any(Number));
+         * });
          */
         any(classType: any): any;
         /**
@@ -521,6 +616,19 @@ declare namespace jest {
          * no matter what value you provided as the expected return value.
          */
         toHaveNthReturnedWith(nthCall: number, expected: any): R;
+        /**
+         * Use to check if property at provided reference keyPath exists for an object.
+         * For checking deeply nested properties in an object you may use dot notation or an array containing
+         * the keyPath for deep references.
+         *
+         * Optionally, you can provide a value to check if it's equal to the value present at keyPath
+         * on the target object. This matcher uses 'deep equality' (like `toEqual()`) and recursively checks
+         * the equality of all fields.
+         *
+         * @example
+         *
+         * expect(houseForSale).toHaveProperty('kitchen.area', 20);
+         */
         toHaveProperty(propertyPath: string | any[], value?: any): R;
         /**
          * Use to test that the mock function successfully returned (i.e., did not throw an error) at least one time
@@ -588,6 +696,12 @@ declare namespace jest {
     }
 
     interface SpyInstance<T = {}> extends MockInstance<T> {
+        /**
+         * Removes the mock and restores the initial implementation.
+         *
+         * This is useful when you want to mock functions in certain test cases and restore the
+         * original implementation in others.
+         */
         mockRestore(): void;
     }
 
@@ -595,6 +709,7 @@ declare namespace jest {
      * Wrap module with mock definitions
      *
      * @example
+     *
      *  jest.mock("../api");
      *  import { Api } from "../api";
      *
@@ -606,19 +721,148 @@ declare namespace jest {
     } & T;
 
     interface MockInstance<T> {
+        /** Returns the mock name string set by calling `mockFn.mockName(value)`. */
         getMockName(): string;
+        /** Provides access to the mock's metadata */
         mock: MockContext<T>;
+        /**
+         * Resets all information stored in the mockFn.mock.calls and mockFn.mock.instances arrays.
+         *
+         * Often this is useful when you want to clean up a mock's usage data between two assertions.
+         *
+         * Beware that `mockClear` will replace `mockFn.mock`, not just `mockFn.mock.calls` and `mockFn.mock.instances`.
+         * You should therefore avoid assigning mockFn.mock to other variables, temporary or not, to make sure you
+         * don't access stale data.
+         */
         mockClear(): void;
+        /**
+         * Resets all information stored in the mock, including any initial implementation and mock name given.
+         *
+         * This is useful when you want to completely restore a mock back to its initial state.
+         *
+         * Beware that `mockReset` will replace `mockFn.mock`, not just `mockFn.mock.calls` and `mockFn.mock.instances`.
+         * You should therefore avoid assigning mockFn.mock to other variables, temporary or not, to make sure you
+         * don't access stale data.
+         */
         mockReset(): void;
+        /**
+         * Accepts a function that should be used as the implementation of the mock. The mock itself will still record
+         * all calls that go into and instances that come from itself – the only difference is that the implementation
+         * will also be executed when the mock is called.
+         *
+         * Note: `jest.fn(implementation)` is a shorthand for `jest.fn().mockImplementation(implementation)`.
+         */
         mockImplementation(fn: (...args: any[]) => any): Mock<T>;
+        /**
+         * Accepts a function that will be used as an implementation of the mock for one call to the mocked function.
+         * Can be chained so that multiple function calls produce different results.
+         *
+         * @example
+         *
+         * const myMockFn = jest
+         *   .fn()
+         *    .mockImplementationOnce(cb => cb(null, true))
+         *    .mockImplementationOnce(cb => cb(null, false));
+         *
+         * myMockFn((err, val) => console.log(val)); // true
+         *
+         * myMockFn((err, val) => console.log(val)); // false
+         */
         mockImplementationOnce(fn: (...args: any[]) => any): Mock<T>;
+        /** Sets the name of the mock`. */
         mockName(name: string): Mock<T>;
+        /**
+         * Just a simple sugar function for:
+         *
+         * @example
+         *
+         *   jest.fn(function() {
+         *     return this;
+         *   });
+         */
         mockReturnThis(): Mock<T>;
+        /**
+         * Accepts a value that will be returned whenever the mock function is called.
+         *
+         * @example
+         *
+         * const mock = jest.fn();
+         * mock.mockReturnValue(42);
+         * mock(); // 42
+         * mock.mockReturnValue(43);
+         * mock(); // 43
+         */
         mockReturnValue(value: any): Mock<T>;
+        /**
+         * Accepts a value that will be returned for one call to the mock function. Can be chained so that
+         * successive calls to the mock function return different values. When there are no more
+         * `mockReturnValueOnce` values to use, calls will return a value specified by `mockReturnValue`.
+         *
+         * @example
+         *
+         * const myMockFn = jest.fn()
+         *   .mockReturnValue('default')
+         *   .mockReturnValueOnce('first call')
+         *   .mockReturnValueOnce('second call');
+         *
+         * // 'first call', 'second call', 'default', 'default'
+         * console.log(myMockFn(), myMockFn(), myMockFn(), myMockFn());
+         *
+         */
         mockReturnValueOnce(value: any): Mock<T>;
+        /**
+         * Simple sugar function for: `jest.fn().mockImplementation(() => Promise.resolve(value));`
+         */
         mockResolvedValue(value: any): Mock<T>;
+        /**
+         * Simple sugar function for: `jest.fn().mockImplementationOnce(() => Promise.resolve(value));`
+         *
+         * @example
+         *
+         * test('async test', async () => {
+         *  const asyncMock = jest
+         *    .fn()
+         *    .mockResolvedValue('default')
+         *    .mockResolvedValueOnce('first call')
+         *    .mockResolvedValueOnce('second call');
+         *
+         *  await asyncMock(); // first call
+         *  await asyncMock(); // second call
+         *  await asyncMock(); // default
+         *  await asyncMock(); // default
+         * });
+         *
+         */
         mockResolvedValueOnce(value: any): Mock<T>;
+        /**
+         * Simple sugar function for: `jest.fn().mockImplementation(() => Promise.reject(value));`
+         *
+         * @example
+         *
+         * test('async test', async () => {
+         *   const asyncMock = jest.fn().mockRejectedValue(new Error('Async error'));
+         *
+         *   await asyncMock(); // throws "Async error"
+         * });
+         */
         mockRejectedValue(value: any): Mock<T>;
+
+        /**
+         * Simple sugar function for: `jest.fn().mockImplementationOnce(() => Promise.reject(value));`
+         *
+         * @example
+         *
+         * test('async test', async () => {
+         *  const asyncMock = jest
+         *    .fn()
+         *    .mockResolvedValueOnce('first call')
+         *    .mockRejectedValueOnce(new Error('Async error'));
+         *
+         *  await asyncMock(); // first call
+         *  await asyncMock(); // throws "Async error"
+         * });
+         *
+         */
         mockRejectedValueOnce(value: any): Mock<T>;
     }
 

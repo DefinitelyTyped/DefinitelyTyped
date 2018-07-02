@@ -56,6 +56,12 @@ type _Kind = {
     ENUM_VALUE_DEFINITION: "EnumValueDefinition";
     INPUT_OBJECT_TYPE_DEFINITION: "InputObjectTypeDefinition";
 
+    // Directive Definitions
+    DIRECTIVE_DEFINITION: "DirectiveDefinition";
+
+    // Type System Extensions
+    SCHEMA_EXTENSION: "SchemaExtension";
+
     // Type Extensions
     SCALAR_TYPE_EXTENSION: "ScalarTypeExtension";
     OBJECT_TYPE_EXTENSION: "ObjectTypeExtension";
@@ -63,9 +69,6 @@ type _Kind = {
     UNION_TYPE_EXTENSION: "UnionTypeExtension";
     ENUM_TYPE_EXTENSION: "EnumTypeExtension";
     INPUT_OBJECT_TYPE_EXTENSION: "InputObjectTypeExtension";
-
-    // Directive Definitions
-    DIRECTIVE_DEFINITION: "DirectiveDefinition";
 };
 
 /**
