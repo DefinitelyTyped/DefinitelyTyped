@@ -6800,7 +6800,7 @@ export interface BackHandlerStatic {
 
 export interface ButtonProps {
     title: string;
-    onPress: () => any;
+    onPress: (ev: any) => void;
     color?: string;
     accessibilityLabel?: string;
     disabled?: boolean;
