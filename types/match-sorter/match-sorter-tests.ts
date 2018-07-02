@@ -1,4 +1,4 @@
-import matchSorter, { rankings } from 'match-sorter';
+import matchSorter = require('match-sorter');
 
 // # Basic Sample
 {
@@ -74,7 +74,7 @@ import matchSorter, { rankings } from 'match-sorter';
     {tea: 'Black', alias: 'C'},
   ];
   matchSorter(tea, 'A', {
-    keys: ['tea', {maxRanking: rankings.STARTS_WITH, key: 'alias'}],
+    keys: ['tea', {maxRanking: matchSorter.rankings.STARTS_WITH, key: 'alias'}],
   });
   // without maxRanking, Earl Grey would come first because the alias "A" would be CASE_SENSITIVE_EQUAL
   // `tea` key comes before `alias` key, so Assam comes first even though both match as STARTS_WITH
@@ -87,7 +87,7 @@ import matchSorter, { rankings } from 'match-sorter';
     {tea: 'Green', alias: 'C'},
   ];
   matchSorter(tea, 'oo', {
-    keys: ['tea', {minRanking: rankings.EQUAL, key: 'alias'}],
+    keys: ['tea', {minRanking: matchSorter.rankings.EQUAL, key: 'alias'}],
   });
   // minRanking bumps Milk up to EQUAL from CONTAINS (alias)
   // Oolong matches as STARTS_WITH
@@ -98,15 +98,15 @@ import matchSorter, { rankings } from 'match-sorter';
 // ## threshold: number
 {
   const fruit = ['orange', 'apple', 'grape', 'banana'];
-  matchSorter(fruit, 'ap', {threshold: rankings.NO_MATCH});
+  matchSorter(fruit, 'ap', {threshold: matchSorter.rankings.NO_MATCH});
   // ['apple', 'grape', 'orange', 'banana'] (returns all items, just sorted by best match)
 
   const things = ['google', 'airbnb', 'apple', 'apply', 'app'];
-  matchSorter(things, 'app', {threshold: rankings.EQUAL});
+  matchSorter(things, 'app', {threshold: matchSorter.rankings.EQUAL});
   // ['app'] (only items that are equal)
 
   const otherThings = ['fiji apple', 'google', 'app', 'crabapple', 'apple', 'apply'];
-  matchSorter(otherThings, 'app', {threshold: rankings.WORD_STARTS_WITH});
+  matchSorter(otherThings, 'app', {threshold: matchSorter.rankings.WORD_STARTS_WITH});
   // ['app', 'apple', 'apply', 'fiji apple'] (everything that matches with "word starts with" or better)
 }
 
