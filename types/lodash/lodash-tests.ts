@@ -5395,6 +5395,15 @@ fp.now(); // $ExpectType number
         return "";
     });
 
+    const abcObjectRecord: Record<'a' | 'b' | 'c', string> = anything;
+    // $ExpectType { a: string; b: string; c: string; }
+    _.mapValues(abcObjectRecord, (value, key, collection) => {
+        value;  // $ExpectType string
+        key; // $ExpectType string
+        collection; // $ExpectType Record<"a" | "b" | "c", string>
+        return "";
+    });
+
     _.mapValues(dictionary, {}); // $ExpectType Dictionary<boolean>
     // Can"t really support NumericDictionary fully, but it at least gets treated like a Dictionary
     _.mapValues(numericDictionary, {}); // $ExpectType Dictionary<boolean>
