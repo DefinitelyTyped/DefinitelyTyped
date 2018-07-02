@@ -8,7 +8,8 @@ export interface FormReducer extends Reducer<FormStateMap> {
 export const reducer: FormReducer;
 
 export interface FormReducerMapObject {
-    [formName: string]: Reducer<any>;
+    // tslint:disable-next-line use-default-type-parameter
+    [formName: string]: Reducer<any>; // <any> is default type in redux v4
 }
 
 export interface FormStateMap {
