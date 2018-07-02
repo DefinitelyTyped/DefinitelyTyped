@@ -27,7 +27,7 @@ crowd.session.create("someusername", "somepassword").then((session: Session) => 
 });
 
 // Find all active groups (using Crowd Query Language):
-crowd.search.group("active=true").then((groups: string[]) => {
+crowd.search.group("active=true").then((groups: string[] | Group[]) => {
     console.log("Found groups: " + groups.length);
 });
 
