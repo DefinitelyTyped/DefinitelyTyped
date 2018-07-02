@@ -7,10 +7,10 @@
 /// <reference types="react" />
 
 declare namespace svgInline {
-	interface SVGInlineProps {
+    interface SVGInlineProps {
         svg: string;
-		className?: string;
-		classSuffix?: string;
+        className?: string;
+        classSuffix?: string;
         component?: React.ReactNode;
         fill?: string;
         cleanup?: boolean | Array<"title" | "desc" | "comment" | "defs" | "width" | "height" | "fill" | "sketchMSShapeGroup" | "sketchMSPage" | "sketchMSLayerGroup">;
@@ -20,7 +20,7 @@ declare namespace svgInline {
         accessibilityLabel?: string;
         accessibilityDesc?: string;
     }
-	type SVGInline = React.ComponentClass<SVGInlineProps>;
+    type SVGInline = React.ComponentClass<SVGInlineProps>;
 }
 
 declare const svgInline: svgInline.SVGInline;
