@@ -9,12 +9,11 @@ import * as ReactNative from "react-native";
 
 export type onChangeTextCallback = (formatted: string, extracted: string) => void;
 
-export interface TextInputMaskProps {
+export interface TextInputMaskProps extends ReactNative.TextInput {
     maskDefaultValue?: boolean;
     mask: string;
     value?: string;
     onChangeText: onChangeTextCallback;
-    keyboardType?: 'default' | 'numeric' | 'email-address' | 'phone-pad';
 }
 
 export default class TextInputMask extends React.Component<TextInputMaskProps> { }
