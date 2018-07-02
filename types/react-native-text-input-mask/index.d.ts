@@ -14,7 +14,9 @@ export interface TextInputMaskProps extends ReactNative.ViewProps, ReactNative.T
     mask: string;
     onChangeText: onChangeTextCallback;
 
-    // Export standard TextInputProps from here on. Workaround for not being able to override onChangeText
+    // Export standard TextInputProps from here on.
+    // Workaround for not being able to override onChangeText
+    // Copied from React-Native types version: 0.55
 
     /**
      * Specifies whether fonts should scale to respect Text Size accessibility settings.
