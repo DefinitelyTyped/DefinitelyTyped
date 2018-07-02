@@ -608,6 +608,9 @@ declare namespace Office {
         * <table><tr><td>Hosts</td><td>Word, Excel, Outlook, PowerPoint</td></tr>
         *
         * <tr><td>Requirement sets</td><td>DialogApi, Mailbox 1.4</td></tr></table>
+        * 
+        * This method is available in the DialogApi requirement set for Word, Excel, or PowerPoint add-ins, and in the Mailbox requirement set 1.4 for Outlook. 
+        * For more on how to specify a requirement set in your manifest, see {@link https://docs.microsoft.com/en-us/office/dev/add-ins/develop/specify-office-hosts-and-api-requirements | Specify Office hosts and API requirements}.
         *
         * The initial page must be on the same domain as the parent page (the startAddress parameter). After the initial page loads, you can go to other domains.
         *
