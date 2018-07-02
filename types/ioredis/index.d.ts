@@ -5,6 +5,7 @@
 //                 Yoga Aliarham <https://github.com/aliarham11>
 //                 Ebrahim <https://github.com/br8h>
 //                 Shahar Mor <https://github.com/shaharmor>
+//                 Whemoon Jang <https://github.com/palindrom615>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -436,6 +437,8 @@ declare namespace IORedis {
 
         scan(cursor: number, ...args: any[]): any;
 
+        sscan(key: string, cursor: number, ...args: any[]): any;
+
         hscan(key: string, cursor: number, ...args: any[]): any;
 
         zscan(key: string, cursor: number, ...args: any[]): any;
@@ -449,6 +452,7 @@ declare namespace IORedis {
         pipeline(commands?: string[][]): Pipeline;
 
         scanStream(options?: ScanStreamOption): NodeJS.EventEmitter;
+        sscanStream(key: string, options?: ScanStreamOption): NodeJS.EventEmitter;
         hscanStream(key: string, options?: ScanStreamOption): NodeJS.EventEmitter;
         zscanStream(key: string, options?: ScanStreamOption): NodeJS.EventEmitter;
     }
@@ -736,6 +740,8 @@ declare namespace IORedis {
         quit(callback?: (err: Error, res: string) => void): Pipeline;
 
         scan(cursor: number, ...args: any[]): Pipeline;
+
+        sscan(key: string, cursor: number, ...args: any[]): Pipeline;
 
         hscan(key: string, cursor: number, ...args: any[]): Pipeline;
 
