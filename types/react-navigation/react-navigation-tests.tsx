@@ -42,6 +42,8 @@ import {
     NavigationContainerComponent,
     withNavigation,
     NavigationInjectedProps,
+    withNavigationFocus,
+    NavigationFocusInjectedProps
 } from 'react-navigation';
 
 // Constants
@@ -531,4 +533,20 @@ class MyBackButton extends React.Component<BackButtonProps & NavigationInjectedP
 const BackButtonWithNavigation = withNavigation<BackButtonProps>(MyBackButton);
 const BackButtonInstance = <BackButtonWithNavigation
     title="Back" onRef={ref => { const backButtonRef = ref; }}
+/>;
+
+// Test withNavigationFocus
+
+interface MyFocusedComponentProps { expectsFocus: boolean; }
+class MyFocusedComponent extends React.Component<MyFocusedComponentProps & NavigationFocusInjectedProps> {
+    render() {
+      return <button title={`${this.props.expectsFocus} vs ${this.props.isFocused}`} onClick={() => { this.props.navigation.goBack(); }} />;
+    }
+}
+
+// withNavigationFocus returns a component that wraps MyFocusedComponent and passes in the
+// navigation and isFocused prop
+const MyFocusedComponentWithNavigationFocus = withNavigationFocus<MyFocusedComponentProps>(MyFocusedComponent);
+const MyFocusedComponentInstance = <MyFocusedComponentWithNavigationFocus
+    expectsFocus={true} onRef={ref => { const backButtonRef = ref; }}
 />;

@@ -306,7 +306,7 @@ declare namespace React {
         // In the future, if we can define its call signature conditionally
         // on the existence of `children` in `P`, then we should remove this.
         readonly props: Readonly<{ children?: ReactNode }> & Readonly<P>;
-        state: null | Readonly<S>;
+        state: Readonly<S>;
         /**
          * @deprecated
          * https://reactjs.org/docs/legacy-context.html

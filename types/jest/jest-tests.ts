@@ -289,7 +289,6 @@ const spiedTarget = {
 const spy1 = jest.spyOn(spiedTarget, "returnsVoid");
 const spy2 = jest.spyOn(spiedTarget, "returnsVoid", "get");
 const spy3 = jest.spyOn(spiedTarget, "returnsString", "set");
-
 const spy1Name: string = spy1.getMockName();
 
 const spy2Calls: any[][] = spy2.mock.calls;
@@ -301,6 +300,7 @@ const spy3Mock: jest.Mock<() => string> = spy3
     .mockImplementation(() => "")
     .mockImplementation((arg: {}) => arg)
     .mockImplementation((...args: string[]) => args.join(""))
+    .mockImplementationOnce(() => "")
     .mockName("name")
     .mockReturnThis()
     .mockReturnValue("value")
@@ -1059,3 +1059,5 @@ test.only.each`
 `("returns $expected when $a is added $b", ({ a, b, expected }: Case) => {
     expect(a + b).toBe(expected);
 });
+
+expect("").toHaveProperty("path.to.thing");

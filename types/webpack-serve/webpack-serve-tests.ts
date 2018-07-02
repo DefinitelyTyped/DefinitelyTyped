@@ -50,3 +50,15 @@ server2
       server.close();
     });
   });
+
+const server3 = serve({
+  logLevel: 'silent',
+  config: config2
+});
+
+server3
+  .then((server) => {
+    server.on('listening', () => {
+      server.close();
+    });
+  });

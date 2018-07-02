@@ -1,4 +1,4 @@
-// Type definitions for minio 5.1
+// Type definitions for minio 6.0
 // Project: https://github.com/minio/minio-js#readme
 // Definitions by: Barin Britva <https://github.com/barinbritva>
 //                 Lubomir Kaplan <https://github.com/castorw>
@@ -127,6 +127,7 @@ export class Client {
     removeObject(bucketName: string, objectName: string): Promise<void>;
 
     removeObjects(bucketName: string, objectsList: string[], callback: NoResultCallback): void;
+    removeObjects(bucketName: string, objectsList: string[]): Promise<void>;
 
     removeIncompleteUpload(bucketName: string, objectName: string, callback: NoResultCallback): void;
     removeIncompleteUpload(bucketName: string, objectName: string): Promise<void>;

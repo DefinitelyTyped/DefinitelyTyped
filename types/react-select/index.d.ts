@@ -264,6 +264,10 @@ export interface ReactSelectProps<TValue = OptionValues> extends React.Props<Rea
      */
     className?: string;
     /**
+     * Prefix prepended to element default className if no className is defined
+     */
+    classNamePrefix?: string;
+    /**
      * title for the "clear" control when `multi` is true
      * @default "Clear all"
      */

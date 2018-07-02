@@ -226,9 +226,16 @@ export {
     EnumTypeDefinitionNode,
     EnumValueDefinitionNode,
     InputObjectTypeDefinitionNode,
-    TypeExtensionNode,
-    ObjectTypeExtensionNode,
     DirectiveDefinitionNode,
+    TypeSystemExtensionNode,
+    SchemaExtensionNode,
+    TypeExtensionNode,
+    ScalarTypeExtensionNode,
+    ObjectTypeExtensionNode,
+    InterfaceTypeExtensionNode,
+    UnionTypeExtensionNode,
+    EnumTypeExtensionNode,
+    InputObjectTypeExtensionNode,
     KindEnum,
     TokenKindEnum,
     DirectiveLocationEnum,
@@ -267,7 +274,7 @@ export {
     NoUnusedVariablesRule,
     OverlappingFieldsCanBeMergedRule,
     PossibleFragmentSpreadsRule,
-    ProvidedNonNullArgumentsRule,
+    ProvidedRequiredArgumentsRule,
     ScalarLeafsRule,
     SingleFieldSubscriptionsRule,
     UniqueArgumentNamesRule,
@@ -278,7 +285,6 @@ export {
     UniqueVariableNamesRule,
     ValuesOfCorrectTypeRule,
     VariablesAreInputTypesRule,
-    VariablesDefaultValueAllowedRule,
     VariablesInAllowedPositionRule,
 } from "./validation";
 
@@ -290,10 +296,12 @@ export {
     // Produce the GraphQL query recommended for a full schema introspection.
     // Accepts optional IntrospectionOptions.
     getIntrospectionQuery,
-    // Deprecated: use getIntrospectionQuery
+    // @deprecated: use getIntrospectionQuery - will be removed in v15
     introspectionQuery,
     // Gets the target Operation from a Document
     getOperationAST,
+    // Gets the Type for the target Operation AST.
+    getOperationRootType,
     // Convert a GraphQLSchema to an IntrospectionQuery
     introspectionFromSchema,
     // Build a GraphQLSchema from an introspection result.
@@ -329,9 +337,9 @@ export {
     TypeInfo,
     // Coerces a JavaScript value to a GraphQL type, or produces errors.
     coerceValue,
-    // @deprecated use coerceValue
+    // @deprecated use coerceValue - will be removed in v15
     isValidJSValue,
-    // Determine if AST values adhere to a GraphQL type.
+    // @deprecated use validation - will be removed in v15
     isValidLiteralValue,
     // Concatenates multiple AST together.
     concatAST,
