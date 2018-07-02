@@ -1,6 +1,7 @@
 // Type definitions for koa-websocket 5.0
 // Project: https://github.com/kudos/koa-websocket
 // Definitions by: Maël Lavault <https://github.com/moimael>
+//                 Jaco Greeff <https://github.com/jacogr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -9,26 +10,32 @@ import * as ws from 'ws';
 import * as http from 'http';
 import * as https from 'https';
 
-type KoaWebsocketConnectionHandler = (socket: ws) => void;
-type KoaWebsocketMiddleware = (this: KoaWebsocketMiddlewareContext, context: Koa.Context, next: () => Promise<any>) => any;
-interface KoaWebsocketMiddlewareContext extends Koa.Context {
-    websocket: ws;
-    path: string;
+declare namespace KoaWebsocket {
+    type ConnectionHandler = (socket: ws) => void;
+
+    type Middleware = (this: MiddlewareContext, context: Koa.Context, next: () => Promise<any>) => any;
+
+    interface MiddlewareContext extends Koa.Context {
+        websocket: ws;
+        path: string;
+    }
+
+    class Server {
+        app: Koa;
+        middleware: Koa.Middleware[];
+
+        constructor(app: Koa);
+
+        listen(options: ws.ServerOptions): ws.Server;
+        onConnection(handler: ConnectionHandler): void;
+        use(middleware: Middleware): this;
+    }
+
+    interface App extends Koa {
+        ws: Server;
+    }
 }
 
-declare class KoaWebsocketServer {
-    app: Koa;
-    middleware: Koa.Middleware[];
+declare function websockets(app: Koa): KoaWebsocket.App;
 
-    constructor(app: Koa);
-    listen(options: ws.ServerOptions): ws.Server;
-    onConnection(handler: KoaWebsocketConnectionHandler): void;
-    use(middleware: KoaWebsocketMiddleware): this;
-}
-
-interface KoaWebsocketApp extends Koa {
-    ws: KoaWebsocketServer;
-}
-
-declare function websockets(app: Koa): KoaWebsocketApp;
 export = websockets;
