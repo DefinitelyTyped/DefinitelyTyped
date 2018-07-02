@@ -1,8 +1,8 @@
 import * as yesql from "yesql";
 
-yesql.readSqlFiles(''); // $ExpectType string
-yesql.readSqlFiles('', {pg: true}); // $ExpectType string
-yesql.readSqlFiles('', {type: 'mysql'}); // $ExpectType string
+yesql(''); // $ExpectType string
+yesql('', {pg: true}); // $ExpectType string
+yesql('', {type: 'mysql'}); // $ExpectType string
 
 yesql.pg(''); // $ExpectType (data: object) => string
 yesql.pg('')({}); // $ExpectType string

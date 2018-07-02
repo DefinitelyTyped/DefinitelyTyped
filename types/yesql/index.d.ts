@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export function readSqlFiles(
+declare function readSqlFiles(
     dir: string,
     options?: {
         pg?: boolean,
@@ -12,5 +12,9 @@ export function readSqlFiles(
     }
 ): string;
 
-export function pg(query: string): (data: object) => string;
-export function mysql(query: string): (data: object) => string;
+declare namespace readSqlFiles {
+    function pg(query: string): (data: object) => string;
+    function mysql(query: string): (data: object) => string;
+}
+
+export = readSqlFiles;
