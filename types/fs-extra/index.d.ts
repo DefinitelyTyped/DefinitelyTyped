@@ -207,9 +207,9 @@ export function rmdir(path: string | Buffer): Promise<void>;
 export function stat(path: string | Buffer, callback: (err: NodeJS.ErrnoException, stats: Stats) => any): void;
 export function stat(path: string | Buffer): Promise<Stats>;
 
-export function symlink(srcpath: string | Buffer, dstpath: string | Buffer, type: fs.symlink.Type | undefined, callback: (err: NodeJS.ErrnoException) => void): void;
+export function symlink(srcpath: string | Buffer, dstpath: string | Buffer, type: "dir" | "file" | "junction" | undefined, callback: (err: NodeJS.ErrnoException) => void): void;
 export function symlink(srcpath: string | Buffer, dstpath: string | Buffer, callback: (err: NodeJS.ErrnoException) => void): void;
-export function symlink(srcpath: string | Buffer, dstpath: string | Buffer, type?: fs.symlink.Type): Promise<void>;
+export function symlink(srcpath: string | Buffer, dstpath: string | Buffer, type?: "dir" | "file" | "junction"): Promise<void>;
 
 export function truncate(path: string | Buffer, callback: (err: NodeJS.ErrnoException) => void): void;
 export function truncate(path: string | Buffer, len: number, callback: (err: NodeJS.ErrnoException) => void): void;
