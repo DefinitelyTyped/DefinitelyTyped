@@ -20,7 +20,7 @@ const serverRoute1: ServerRoute = {
 // Example 2
 // http://localhost:8000/person/rafael/fijalkowski
 const getPerson: Lifecycle.Method = (request, h) => {
-    const nameParts = request.params ? request.params.name.split('/') : [];
+    const nameParts = request.params.name.split('/');
     return { first: nameParts[0], last: nameParts[1] };
 };
 const serverRoute2: ServerRoute = {
