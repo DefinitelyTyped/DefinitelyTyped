@@ -19,7 +19,7 @@ const httpServer = http.createServer((req, res) => {
     res.end();
 });
 
-const httpsServer = https.createServer((req, res) => {
+const httpsServer = https.createServer({}, (req, res) => {
     res.end();
 });
 
