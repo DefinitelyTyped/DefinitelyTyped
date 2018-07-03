@@ -81,27 +81,27 @@ const readonlyDateArray = dateArray as ReadonlyArray<Date>;
 const readonlyMixedObjectArray = mixedObjectArray as ReadonlyArray<MixedObject>;
 const readonlyMixedObjectOrUndefinedArray = mixedObjectOrUndefinedArray as ReadonlyArray<MixedObject | undefined>;
 
-function accessorMixedObjectToNum(datum: MixedObject, index: number, array: MixedObject[]): number {
+function accessorMixedObjectToNum(datum: MixedObject, index: number, array: ArrayLike<MixedObject>): number {
     return datum.num;
 }
 
-function accessorMixedObjectToStr(datum: MixedObject, index: number, array: MixedObject[]): string {
+function accessorMixedObjectToStr(datum: MixedObject, index: number, array: ArrayLike<MixedObject>): string {
     return datum.str;
 }
 
-function accessorMixedObjectToNumeric(datum: MixedObject, index: number, array: MixedObject[]): NumCoercible {
+function accessorMixedObjectToNumeric(datum: MixedObject, index: number, array: ArrayLike<MixedObject>): NumCoercible {
     return datum.numeric;
 }
 
-function accessorMixedObjectToDate(datum: MixedObject, index: number, array: MixedObject[]): Date {
+function accessorMixedObjectToDate(datum: MixedObject, index: number, array: ArrayLike<MixedObject>): Date {
     return datum.date;
 }
 
-function accessorMixedObjectToNumOrUndefined(datum: MixedObject | undefined, index: number, array: Array<MixedObject | undefined>): number | undefined | null {
+function accessorMixedObjectToNumOrUndefined(datum: MixedObject | undefined, index: number, array: ArrayLike<MixedObject | undefined>): number | undefined | null {
     return datum ? datum.num : undefined;
 }
 
-function accessorMixedObjectToStrOrUndefined(datum: MixedObject | undefined, index: number, array: MixedObject[]): string | undefined | null {
+function accessorMixedObjectToStrOrUndefined(datum: MixedObject | undefined, index: number, array: ArrayLike<MixedObject>): string | undefined | null {
     return datum ? datum.str : undefined;
 }
 
@@ -129,7 +129,7 @@ function accessorLikeMixedObjectToStrOrUndefined(datum: MixedObject | undefined,
     return datum ? datum.str : undefined;
 }
 
-function accessorReadOnlyMixedObjectToNumOrUndefined(datum: MixedObject | undefined, index: number, array: ReadonlyArray<MixedObject | undefined>): number | undefined | null {
+function accessorReadOnlyMixedObjectToNumOrUndefined(datum: MixedObject | undefined, index: number, array: ArrayLike<MixedObject | undefined>): number | undefined | null {
     return datum ? datum.num : undefined;
 }
 
@@ -178,10 +178,6 @@ strOrUndefined = d3Array.max(mixedObjectArray, (d) => {
     return l.str;
 });
 
-// // $ExpectError
-// numOrUndefined = d3Array.max(mixedObjectArrayLike, accessorMixedObjectToNum);
-// $ExpectError
-numOrUndefined = d3Array.max(mixedObjectArrayLike, accessorReadOnlyMixedObjectToNumOrUndefined);
 // $ExpectError
 numOrUndefined = d3Array.max(readonlyNumbersArray, (d, i, a) => { a.push(3); return 0; });
 
