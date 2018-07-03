@@ -47,9 +47,7 @@ export interface BucketItemStat {
     size: number;
     etag: string;
     lastModified: Date;
-    metaData: {
-        [key: string]: any;
-    };
+    metaData: ItemBucketMetadata;
 }
 
 export interface IncompleteUploadedBucketItem {
@@ -67,6 +65,10 @@ export interface PostPolicyResult {
     formData: {
         [key: string]: any;
     };
+}
+
+export interface ItemBucketMetadata {
+    [key: string]: any;
 }
 
 // No need to export this. But without it - linter error.
@@ -113,11 +115,11 @@ export class Client {
 
     putObject(bucketName: string, objectName: string, stream: Stream|Buffer|string, callback: ResultCallback<string>): void;
     putObject(bucketName: string, objectName: string, stream: Stream|Buffer|string, size: number, callback: ResultCallback<string>): void;
-    putObject(bucketName: string, objectName: string, stream: Stream|Buffer|string, size: number, metaData: { [key: string]: any; }, callback: ResultCallback<string>): void;
-    putObject(bucketName: string, objectName: string, stream: Stream|Buffer|string, size?: number, metaData?: { [key: string]: any; }): Promise<string>;
+    putObject(bucketName: string, objectName: string, stream: Stream|Buffer|string, size: number, metaData: ItemBucketMetadata, callback: ResultCallback<string>): void;
+    putObject(bucketName: string, objectName: string, stream: Stream|Buffer|string, size?: number, metaData?: ItemBucketMetadata): Promise<string>;
 
-    fPutObject(bucketName: string, objectName: string, filePath: string, metaData: { [key: string]: any; }, callback: ResultCallback<string>): void;
-    fPutObject(bucketName: string, objectName: string, filePath: string, metaData: { [key: string]: any; }): Promise<string>;
+    fPutObject(bucketName: string, objectName: string, filePath: string, metaData: ItemBucketMetadata, callback: ResultCallback<string>): void;
+    fPutObject(bucketName: string, objectName: string, filePath: string, metaData: ItemBucketMetadata): Promise<string>;
 
     copyObject(bucketName: string, objectName: string, sourceObject: string, conditions: CopyConditions, callback: ResultCallback<BucketItemCopy>): void;
     copyObject(bucketName: string, objectName: string, sourceObject: string, conditions: CopyConditions): Promise<BucketItemCopy>;
