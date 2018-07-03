@@ -64,7 +64,7 @@ export class GraphQLError extends Error {
     /**
      * Extension fields to add to the formatted error.
      */
-    readonly extensions: { [key: string]: any } | undefined;
+    readonly extensions: { [key: string]: any } | void;
 
     constructor(
         message: string,

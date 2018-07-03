@@ -7,10 +7,8 @@ import {
     NamedTypeNode,
     DirectiveDefinitionNode,
     FieldDefinitionNode,
-    InputValueDefinitionNode,
-    EnumValueDefinitionNode,
 } from "../language/ast";
-import { GraphQLNamedType, GraphQLFieldConfig, GraphQLInputField, GraphQLEnumValueConfig } from "../type/definition";
+import { GraphQLNamedType, GraphQLFieldConfig } from "../type/definition";
 import { GraphQLDirective } from "../type/directives";
 import { Source } from "../language/source";
 import { GraphQLSchema, GraphQLSchemaValidationOptions } from "../type/schema";
@@ -59,10 +57,6 @@ export class ASTDefinitionBuilder {
     buildDirective(directiveNode: DirectiveDefinitionNode): GraphQLDirective;
 
     buildField(field: FieldDefinitionNode): GraphQLFieldConfig<any, any>;
-
-    buildInputField(value: InputValueDefinitionNode): GraphQLInputField;
-
-    buildEnumValue(value: EnumValueDefinitionNode): GraphQLEnumValueConfig;
 }
 
 /**

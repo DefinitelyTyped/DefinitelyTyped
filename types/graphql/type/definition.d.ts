@@ -16,10 +16,6 @@ import {
     FieldNode,
     FragmentDefinitionNode,
     ValueNode,
-    ScalarTypeExtensionNode,
-    UnionTypeExtensionNode,
-    EnumTypeExtensionNode,
-    InputObjectTypeExtensionNode,
 } from "../language/ast";
 import { GraphQLSchema } from "./schema";
 
@@ -260,8 +256,7 @@ export type Thunk<T> = (() => T) | T;
 export class GraphQLScalarType {
     name: string;
     description: Maybe<string>;
-    astNode: Maybe<ScalarTypeDefinitionNode>;
-    extensionASTNodes: Maybe<ReadonlyArray<ScalarTypeExtensionNode>>;
+    astNode?: Maybe<ScalarTypeDefinitionNode>;
     constructor(config: GraphQLScalarTypeConfig<any, any>);
 
     // Serializes an internal value to include in a response.
@@ -282,7 +277,6 @@ export interface GraphQLScalarTypeConfig<TInternal, TExternal> {
     name: string;
     description?: Maybe<string>;
     astNode?: Maybe<ScalarTypeDefinitionNode>;
-    extensionASTNodes?: Maybe<ReadonlyArray<ScalarTypeExtensionNode>>;
     serialize(value: any): Maybe<TExternal>;
     parseValue?(value: any): Maybe<TInternal>;
     parseLiteral?(valueNode: ValueNode, variables: Maybe<{ [key: string]: any }>): Maybe<TInternal>;
@@ -508,8 +502,7 @@ export interface GraphQLInterfaceTypeConfig<TSource, TContext> {
 export class GraphQLUnionType {
     name: string;
     description: Maybe<string>;
-    astNode: Maybe<UnionTypeDefinitionNode>;
-    extensionASTNodes: Maybe<ReadonlyArray<UnionTypeExtensionNode>>;
+    astNode?: Maybe<UnionTypeDefinitionNode>;
     resolveType: Maybe<GraphQLTypeResolver<any, any>>;
 
     constructor(config: GraphQLUnionTypeConfig<any, any>);
@@ -532,7 +525,6 @@ export interface GraphQLUnionTypeConfig<TSource, TContext> {
     resolveType?: Maybe<GraphQLTypeResolver<TSource, TContext>>;
     description?: Maybe<string>;
     astNode?: Maybe<UnionTypeDefinitionNode>;
-    extensionASTNodes?: Maybe<ReadonlyArray<UnionTypeExtensionNode>>;
 }
 
 /**
@@ -560,7 +552,6 @@ export class GraphQLEnumType {
     name: string;
     description: Maybe<string>;
     astNode: Maybe<EnumTypeDefinitionNode>;
-    extensionASTNodes: Maybe<ReadonlyArray<EnumTypeExtensionNode>>;
 
     constructor(config: GraphQLEnumTypeConfig);
     getValues(): GraphQLEnumValue[];
@@ -578,7 +569,6 @@ export interface GraphQLEnumTypeConfig {
     values: GraphQLEnumValueConfigMap;
     description?: Maybe<string>;
     astNode?: Maybe<EnumTypeDefinitionNode>;
-    extensionASTNodes?: Maybe<ReadonlyArray<EnumTypeExtensionNode>>;
 }
 
 export type GraphQLEnumValueConfigMap = { [key: string]: GraphQLEnumValueConfig };
@@ -623,7 +613,6 @@ export class GraphQLInputObjectType {
     name: string;
     description: Maybe<string>;
     astNode: Maybe<InputObjectTypeDefinitionNode>;
-    extensionASTNodes: Maybe<ReadonlyArray<InputObjectTypeExtensionNode>>;
     constructor(config: GraphQLInputObjectTypeConfig);
     getFields(): GraphQLInputFieldMap;
     toString(): string;
@@ -636,7 +625,6 @@ export interface GraphQLInputObjectTypeConfig {
     fields: Thunk<GraphQLInputFieldConfigMap>;
     description?: Maybe<string>;
     astNode?: Maybe<InputObjectTypeDefinitionNode>;
-    extensionASTNodes?: Maybe<ReadonlyArray<InputObjectTypeExtensionNode>>;
 }
 
 export interface GraphQLInputFieldConfig {
