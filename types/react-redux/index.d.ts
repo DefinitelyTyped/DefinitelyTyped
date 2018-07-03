@@ -192,14 +192,14 @@ interface MapStateToPropsFactory<TStateProps, TOwnProps, State> {
 type MapStateToPropsParam<TStateProps, TOwnProps, State> = MapStateToPropsFactory<TStateProps, TOwnProps, State> | MapStateToProps<TStateProps, TOwnProps, State> | null | undefined;
 
 interface MapDispatchToPropsFunction<TDispatchProps, TOwnProps> {
-    (dispatch: Dispatch, ownProps: TOwnProps): TDispatchProps;
+    (dispatch: Dispatch<any>, ownProps: TOwnProps): TDispatchProps;
 }
 
 type MapDispatchToProps<TDispatchProps, TOwnProps> =
     MapDispatchToPropsFunction<TDispatchProps, TOwnProps> | TDispatchProps;
 
 interface MapDispatchToPropsFactory<TDispatchProps, TOwnProps> {
-    (dispatch: Dispatch, ownProps: TOwnProps): MapDispatchToProps<TDispatchProps, TOwnProps>;
+    (dispatch: Dispatch<any>, ownProps: TOwnProps): MapDispatchToProps<TDispatchProps, TOwnProps>;
 }
 
 type MapDispatchToPropsParam<TDispatchProps, TOwnProps> = MapDispatchToPropsFactory<TDispatchProps, TOwnProps> | MapDispatchToProps<TDispatchProps, TOwnProps>;
@@ -267,7 +267,7 @@ export declare function connectAdvanced<S, TProps, TOwnProps, TFactoryOptions = 
  * previous object when appropriate.
  */
 export interface SelectorFactory<S, TProps, TOwnProps, TFactoryOptions> {
-    (dispatch: Dispatch, factoryOptions: TFactoryOptions): Selector<S, TProps, TOwnProps>
+    (dispatch: Dispatch<S>, factoryOptions: TFactoryOptions): Selector<S, TProps, TOwnProps>
 }
 
 export interface Selector<S, TProps, TOwnProps> {
@@ -323,7 +323,7 @@ export interface ProviderProps<A extends Action = AnyAction> {
     /**
      * The single Redux store in your application.
      */
-    store: Store<any, A>;
+    store: Store<any>;
 }
 
 /**
