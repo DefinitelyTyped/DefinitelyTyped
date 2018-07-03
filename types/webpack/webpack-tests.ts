@@ -169,6 +169,20 @@ configuration = {
 };
 
 //
+// https://webpack.js.org/configuration/dev-server/
+//
+
+configuration = {
+    devServer: {
+        historyApiFallback: true,
+        open: false,
+        port: 4200,
+        watchContentBase: false,
+        hot: false
+    }
+};
+
+//
 // https://webpack.github.io/docs/list-of-plugins.html
 //
 
