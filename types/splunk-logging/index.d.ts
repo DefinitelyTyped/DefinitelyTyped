@@ -35,10 +35,11 @@ export interface SendContext {
 }
 
 export type Callback = (error: Error | undefined, req: any, res: any) => void;
+export type EventFormatter = (message: any, severity: string) => any;
 
 export class Logger {
     error: (error: Error, context: SendContext) => void;
-    eventFormatter: (message: any, severity: string) => any;
+    eventFormatter: EventFormatter;
     requestOptions: RequestOptions;
     readonly serializedEventQueue: any[];
 
