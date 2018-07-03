@@ -20,7 +20,7 @@ let buffer: Buffer;
 declare const modeNum: number;
 declare const modeStr: string;
 declare const encoding: string;
-declare const type: string;
+declare const symlinkType: "file" | "dir" | "junction";
 declare const flags: string;
 declare const srcpath: string;
 declare const dstpath: string;
@@ -117,8 +117,8 @@ stats = fs.lstatSync(path);
 stats = fs.fstatSync(fd);
 fs.link(srcpath, dstpath, errorCallback);
 fs.linkSync(srcpath, dstpath);
-fs.symlink(srcpath, dstpath, type, errorCallback);
-fs.symlinkSync(srcpath, dstpath, type);
+fs.symlink(srcpath, dstpath, symlinkType, errorCallback);
+fs.symlinkSync(srcpath, dstpath, symlinkType);
 fs.readlink(path, (err: Error, linkString: string) => {
 });
 fs.realpath(path, (err: Error, resolvedPath: string) => {

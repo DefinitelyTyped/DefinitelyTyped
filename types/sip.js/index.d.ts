@@ -102,6 +102,7 @@ export interface Session {
     request?: IncomingRequest | OutgoingRequest;
     localIdentity?: NameAddrHeader;
     remoteIdentity?: NameAddrHeader;
+    assertedIdentity?: NameAddrHeader;
     data: ClientContext | ServerContext;
     sessionDescriptionHandler: SessionDescriptionHandler;
 

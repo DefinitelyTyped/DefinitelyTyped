@@ -249,7 +249,8 @@ export function nextPath(): string | void;
 
 export function pathToAction<TKeys = {}, TState = any>(
     pathname: string,
-    routesMap: RoutesMap<TKeys, TState>
+    routesMap: RoutesMap<TKeys, TState>,
+    querySerializer?: QuerySerializer
 ): ReceivedAction;
 
 export function prevPath(): string | void;

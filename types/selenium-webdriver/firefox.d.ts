@@ -150,6 +150,49 @@ export class Profile {
  */
 export class Options {
     /**
+     * Specify additional command line arguments that should be used when starting
+     * the Firefox browser.
+     *
+     * @param {...(string|!Array<string>)} args The arguments to include.
+     * @return {!Options} A self reference.
+     */
+    addArguments(...args: string[]): Options;
+
+    /**
+     * Sets the browser to be in headless mode.
+     *
+     * @return {!Options} A self reference.
+     */
+    headless(): Options;
+
+    /**
+    * Sets the initial window size when running in
+    * {@linkplain #headless headless} mode.
+    *
+    * @param {{width: number, height: number}} size The desired window size.
+    * @return {!Options} A self reference.
+    * @throws {TypeError} if width or height is unspecified, not a number, or
+    *     less than or equal to 0.
+    */
+    windowSize(size: { width: number, height: number }): Options;
+
+    /**
+     * Add extensions that should be installed when starting Firefox.
+     *
+     * @param {...string} paths The paths to the extension XPI files to install.
+     * @return {!Options} A self reference.
+     */
+    addExtensions(...paths: string[]): Options;
+
+    /**
+     * @param {string} key the preference key.
+     * @param {(string|number|boolean)} value the preference value.
+     * @return {!Options} A self reference.
+     * @throws {TypeError} if either the key or value has an invalid type.
+     */
+    setPreference(key: string, value: string | number | boolean): Options;
+
+    /**
      * Sets the profile to use. The profile may be specified as a
      * {@link Profile} object or as the path to an existing Firefox profile to use
      * as a template.

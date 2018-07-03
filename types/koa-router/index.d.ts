@@ -1,6 +1,8 @@
 // Type definitions for koa-router v7.x
-// Project: https://github.com/alexmingoia/koa-router/
-// Definitions by: Jerry Chin <https://github.com/hellopao>, Pavel Ivanov <https://github.com/schfkt>
+// Project: https://github.com/alexmingoia/koa-router#readme
+// Definitions by: Jerry Chin <https://github.com/hellopao>
+//                 Pavel Ivanov <https://github.com/schfkt>
+//                 JounQin <https://github.com/JounQin>
 // Definitions: https://github.com/hellopao/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -20,18 +22,7 @@ declare module "koa" {
     }
 }
 
-declare module Layer {
-
-    export interface ILayerOptions {
-        name: string;
-        sensitive?: boolean;
-        strict?: boolean;
-    }
-
-}
-
-declare module Router {
-
+declare namespace Router {
     export interface IRouterOptions {
         /**
          * Prefix for all routes.
@@ -85,68 +76,70 @@ declare module Router {
         methodNotAllowed?: () => any;
     }
 
-}
+    export interface ILayerOptions {
+        name: string;
+        sensitive?: boolean;
+        strict?: boolean;
+    }
 
-declare class ParamName {
-    asterisk: boolean;
-    delimiter: string;
-    name: string;
-    optional: boolean;
-    partial: boolean;
-    pattern: string;
-    prefix: string;
-    repeat: string;
-}
+    export class ParamName {
+        asterisk: boolean;
+        delimiter: string;
+        name: string;
+        optional: boolean;
+        partial: boolean;
+        pattern: string;
+        prefix: string;
+        repeat: string;
+    }
 
-declare class Layer {
+    export class Layer {
+        opts: ILayerOptions;
+        name: string;
+        methods: string[];
+        paramNames: ParamName[];
+        stack: Router.IMiddleware[];
+        regexp: RegExp;
+        path: string;
 
-    opts: Layer.ILayerOptions;
-    name: string;
-    methods: string[];
-    paramNames: ParamName[];
-    stack: Router.IMiddleware[];
-    regexp: RegExp;
-    path: string;
+        constructor(path: string | RegExp, methods: string[], middleware: Router.IMiddleware, opts?: ILayerOptions);
+        constructor(path: string | RegExp, methods: string[], middleware: Array<Router.IMiddleware>, opts?: ILayerOptions);
 
-    constructor(path: string | RegExp, methods: string[], middleware: Router.IMiddleware, opts?: Layer.ILayerOptions);
-    constructor(path: string | RegExp, methods: string[], middleware: Array<Router.IMiddleware>, opts?: Layer.ILayerOptions);
+        /**
+         * Returns whether request `path` matches route.
+         */
+        match(path: string): boolean;
 
-    /**
-     * Returns whether request `path` matches route.
-     */
-    match(path: string): boolean;
+        /**
+         * Returns map of URL parameters for given `path` and `paramNames`.
+         */
+        params(path: string | RegExp, captures: string[], existingParams?: Object): Object;
 
-    /**
-     * Returns map of URL parameters for given `path` and `paramNames`.
-     */
-    params(path: string | RegExp, captures: string[], existingParams?: Object): Object;
+        /**
+         * Returns array of regexp url path captures.
+         */
+        captures(path: string): string[];
 
-    /**
-     * Returns array of regexp url path captures.
-     */
-    captures(path: string): string[];
+        /**
+         * Generate URL for route using given `params`.
+         */
+        url(params: Object): string;
 
-    /**
-     * Generate URL for route using given `params`.
-     */
-    url(params: Object): string;
+        /**
+         * Run validations on route named parameters.
+         */
+        param(param: string, fn: Router.IMiddleware): Layer;
 
-    /**
-     * Run validations on route named parameters.
-     */
-    param(param: string, fn: Router.IMiddleware): Layer;
-
-    /**
-     * Prefix route path.
-     */
-    setPrefix(prefix: string): Layer;
+        /**
+         * Prefix route path.
+         */
+        setPrefix(prefix: string): Layer;
+    }
 }
 
 declare class Router {
-
     params: Object;
-
-    stack: Array<Layer>;
+    stack: Array<Router.Layer>;
 
     /**
      * Create a new router.
@@ -225,19 +218,19 @@ declare class Router {
     /**
      * Returns router middleware which dispatches a route matching the request.
      */
-    routes(): Router.IMiddleware;
+    routes(): Koa.Middleware;
 
     /**
      * Returns router middleware which dispatches a route matching the request.
      */
-    middleware(): Router.IMiddleware;
+    middleware(): Koa.Middleware;
 
     /**
      * Returns separate middleware for responding to `OPTIONS` requests with
      * an `Allow` header containing the allowed methods, as well as responding
      * with `405 Method Not Allowed` and `501 Not Implemented` as appropriate.
      */
-    allowedMethods(options?: Router.IRouterAllowedMethodsOptions): Router.IMiddleware;
+    allowedMethods(options?: Router.IRouterAllowedMethodsOptions): Koa.Middleware;
 
     /**
      * Redirect `source` to `destination` URL with optional 30x status `code`.
@@ -249,12 +242,12 @@ declare class Router {
     /**
      * Create and register a route.
      */
-    register(path: string | RegExp, methods: string[], middleware: Router.IMiddleware, opts?: Object): Layer;
+    register(path: string | RegExp, methods: string[], middleware: Router.IMiddleware, opts?: Object): Router.Layer;
 
     /**
      * Lookup route with given `name`.
      */
-    route(name: string): Layer;
+    route(name: string): Router.Layer;
     route(name: string): boolean;
 
     /**

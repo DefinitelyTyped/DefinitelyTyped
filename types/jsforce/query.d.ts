@@ -5,7 +5,8 @@ import { RecordResult } from './record-result';
 export interface ExecuteOptions {
     autoFetch?: boolean;
     maxFetch?: number;
-    scanAll?: number;
+    headers?: object;
+    scanAll?: boolean;
 }
 
 export interface QueryResult<T> {

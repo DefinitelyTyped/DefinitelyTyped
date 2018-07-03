@@ -1867,7 +1867,7 @@ export class Image {
 	 * @param [callback] Callback to invoke when image is created (newly created image is passed as a first argument)
 	 * @param [imgOptions] Options object
 	 */
-	static fromURL(url: string, callback?: (image: Image) => void, objObjects?: IObjectOptions): Image;
+	static fromURL(url: string, callback?: (image: Image) => void, imgOptions?: IImageOptions): Image;
 	/**
 	 * Creates an instance of fabric.Image from its object representation
 	 * @param object Object to create an instance from
@@ -2099,6 +2099,11 @@ interface IObjectOptions {
 	backgroundColor?: string;
 
 	/**
+	 * When `true`, object is cached on an additional canvas.
+	 */
+	objectCaching?: boolean;
+
+	/**
 	 * When defined, an object is rendered via stroke and this property specifies its color
 	 */
 	stroke?: string;
@@ -2249,6 +2254,11 @@ interface IObjectOptions {
 	 * Not used by fabric, just for convenience
 	 */
 	data?: any;
+
+    /**
+     * Describes the object's corner position in canvas object absolute properties.
+     */
+    aCoords?: {bl: Point, br: Point, tl: Point, tr: Point};
 }
 export interface Object extends IObservable<Object>, IObjectOptions, IObjectAnimation<Object> { }
 export class Object {

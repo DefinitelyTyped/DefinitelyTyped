@@ -1,4 +1,4 @@
-// Type definitions for webpack 4.1
+// Type definitions for webpack 4.4
 // Project: https://github.com/webpack/webpack
 // Definitions by: Qubo <https://github.com/tkqubo>
 //                 Benjamin Lim <https://github.com/bumbleblym>
@@ -12,6 +12,7 @@
 //                 Jason Cheatham <https://github.com/jason0x43>
 //                 Dennis George <https://github.com/dennispg>
 //                 Christophe Hurpeau <https://github.com/christophehurpeau>
+//                 ZSkycat <https://github.com/ZSkycat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -60,24 +61,22 @@ declare namespace webpack {
         /** Like resolve but for loaders. */
         resolveLoader?: ResolveLoader;
         /**
-         *  Specify dependencies that shouldn’t be resolved by webpack, but should become dependencies of the resulting bundle.
-         *  The kind of the dependency depends on output.libraryTarget.
+         * Specify dependencies that shouldn’t be resolved by webpack, but should become dependencies of the resulting bundle.
+         * The kind of the dependency depends on output.libraryTarget.
          */
         externals?: ExternalsElement | ExternalsElement[];
         /**
-         * <ul>
-         *   <li>"web" Compile for usage in a browser-like environment (default)</li>
-         *   <li>"webworker" Compile as WebWorker</li>
-         *   <li>"node" Compile for usage in a node.js-like environment (use require to load chunks)</li>
-         *   <li>"async-node" Compile for usage in a node.js-like environment (use fs and vm to load chunks async)</li>
-         *   <li>"node-webkit" Compile for usage in webkit, uses jsonp chunk loading but also supports builtin node.js modules plus require(“nw.gui”) (experimental)</li>
-         *   <li>"atom" Compile for usage in electron (formerly known as atom-shell), supports require for modules necessary to run Electron.</li>
-         *   <li>"electron-renderer" Compile for Electron for renderer process, providing a target using JsonpTemplatePlugin, FunctionModulePlugin
-         *        for browser environments and NodeTargetPlugin and ExternalsPlugin for CommonJS and Electron built-in modules.<li>
-         *   <li>"electron-main" Compile for Electron for main process.</li>
-         *   <li>"atom" Alias for electron-main</li>
-         *   <li>"electron" Alias for electron-main</li>
-         * <ul>
+         * - "web" Compile for usage in a browser-like environment (default).
+         * - "webworker" Compile as WebWorker.
+         * - "node" Compile for usage in a node.js-like environment (use require to load chunks).
+         * - "async-node" Compile for usage in a node.js-like environment (use fs and vm to load chunks async).
+         * - "node-webkit" Compile for usage in webkit, uses jsonp chunk loading but also supports builtin node.js modules plus require(“nw.gui”) (experimental)
+         * - "atom" Compile for usage in electron (formerly known as atom-shell), supports require for modules necessary to run Electron.
+         * - "electron-renderer" Compile for Electron for renderer process, providing a target using JsonpTemplatePlugin, FunctionModulePlugin for browser
+         *   environments and NodeTargetPlugin and ExternalsPlugin for CommonJS and Electron built-in modules.
+         * - "electron-main" Compile for Electron for main process.
+         * - "atom" Alias for electron-main.
+         * - "electron" Alias for electron-main.
          */
         target?: 'web' | 'webworker' | 'node' | 'async-node' | 'node-webkit' | 'atom' | 'electron' | 'electron-renderer' | 'electron-main' | ((compiler?: any) => void);
         /** Report the first error as a hard error instead of tolerating it. */
@@ -91,10 +90,8 @@ declare namespace webpack {
         watchOptions?: Options.WatchOptions;
         /** Switch loaders to debug mode. */
         debug?: boolean;
-        /** Can be used to configure the behaviour of webpack-dev-server when the webpack config is passed to webpack-dev-server CLI. */
-        devServer?: any; // TODO: Type this
         /** Include polyfills or mocks for various node stuff */
-        node?: Node;
+        node?: Node | false;
         /** Set the value of require.amd and define.amd. */
         amd?: { [moduleName: string]: boolean };
         /** Used for recordsInputPath and recordsOutputPath */
@@ -170,17 +167,15 @@ declare namespace webpack {
         library?: string | string[];
         /**
          * Which format to export the library:
-         * <ul>
-         *   <li>"var" - Export by setting a variable: var Library = xxx (default)</li>
-         *   <li>"this" - Export by setting a property of this: this["Library"] = xxx</li>
-         *   <li>"commonjs" - Export by setting a property of exports: exports["Library"] = xxx</li>
-         *   <li>"commonjs2" - Export by setting module.exports: module.exports = xxx</li>
-         *   <li>"amd" - Export to AMD (optionally named)</li>
-         *   <li>"umd" - Export to AMD, CommonJS2 or as property in root</li>
-         *   <li>"window" - Assign to window</li>
-         *   <li>"assign" - Assign to a global variable</li>
-         *   <li>"jsonp" - Generate Webpack JSONP module<li>
-         * </ul>
+         * - "var" - Export by setting a variable: var Library = xxx (default)
+         * - "this" - Export by setting a property of this: this["Library"] = xxx
+         * - "commonjs" - Export by setting a property of exports: exports["Library"] = xxx
+         * - "commonjs2" - Export by setting module.exports: module.exports = xxx
+         * - "amd" - Export to AMD (optionally named)
+         * - "umd" - Export to AMD, CommonJS2 or as property in root
+         * - "window" - Assign to window
+         * - "assign" - Assign to a global variable
+         * - "jsonp" - Generate Webpack JSONP module
          */
         libraryTarget?: 'var' | 'this' | 'commonjs' | 'commonjs2' | 'amd' | 'umd' | 'window' | 'assign' | 'jsonp';
         /** Configure which module or modules will be exposed via the `libraryTarget` */
@@ -253,7 +248,7 @@ declare namespace webpack {
          * Defaults to `["browser", "module", "main"]` or `["module", "main"]`,
          * depending on the value of the `target` `Configuration` value.
          */
-        mainFields?: string[];
+        mainFields?: string[] | string[][];
 
         /**
          * A list of fields in a package description object to try to parse
@@ -264,7 +259,7 @@ declare namespace webpack {
          *
          * @see alias
          */
-        aliasFields?: string[];
+        aliasFields?: string[] | string[][];
 
         /**
          * A list of file names to search for when requiring directories that
@@ -349,14 +344,16 @@ declare namespace webpack {
     type ExternalsFunctionElement = (context: any, request: any, callback: (error: any, result: any) => void) => any;
 
     interface Node {
-        console?: boolean;
+        console?: boolean | 'mock';
+        process?: boolean | 'mock';
         global?: boolean;
-        process?: boolean;
-        Buffer?: boolean;
-        __filename?: boolean | string;
-        __dirname?: boolean | string;
-        [nodeBuiltin: string]: boolean | string | undefined;
+        __filename?: boolean | 'mock';
+        __dirname?: boolean | 'mock';
+        Buffer?: boolean | 'mock';
+        setImmediate?: boolean | 'mock' | 'empty';
+        [nodeBuiltin: string]: boolean | 'mock' | 'empty' | undefined;
     }
+
     interface NewLoader {
         loader: string;
         options?: { [name: string]: any };
@@ -368,15 +365,16 @@ declare namespace webpack {
         system?: boolean;
     }
 
-    type RuleSetCondition = string
-        | {
-            [k: string]: any;
-        }
+    type RuleSetCondition =
+        | RegExp
+        | string
+        | ((path: string) => boolean)
+        | RuleSetConditions
         | {
             /**
              * Logical AND
              */
-            and?: RuleSetConditions;
+            and?: RuleSetCondition[];
             /**
              * Exclude all modules matching any of these conditions
              */
@@ -388,17 +386,19 @@ declare namespace webpack {
             /**
              * Logical NOT
              */
-            not?: RuleSetConditions;
+            not?: RuleSetCondition[];
             /**
              * Logical OR
              */
-            or?: RuleSetConditions;
+            or?: RuleSetCondition[];
             /**
              * Exclude all modules matching any of these conditions
              */
             test?: RuleSetCondition;
         };
-    type RuleSetConditions = RuleSetCondition[];
+
+    // A hack around circular type referencing
+    interface RuleSetConditions extends Array<RuleSetCondition> {}
 
     interface RuleSetRule {
         /**
@@ -408,25 +408,19 @@ declare namespace webpack {
         /**
          * Shortcut for resource.exclude
          */
-        exclude?: RuleSetCondition & {
-            [k: string]: any;
-        };
+        exclude?: RuleSetCondition;
         /**
          * Shortcut for resource.include
          */
-        include?: RuleSetCondition & {
-            [k: string]: any;
-        };
+        include?: RuleSetCondition;
         /**
          * Match the issuer of the module (The module pointing to this module)
          */
-        issuer?: RuleSetCondition & {
-            [k: string]: any;
-        };
+        issuer?: RuleSetCondition;
         /**
          * Shortcut for use.loader
          */
-        loader?: RuleSetLoader | RuleSetUse;
+        loader?: RuleSetUse;
         /**
          * Shortcut for use.loader
          */
@@ -434,7 +428,7 @@ declare namespace webpack {
         /**
          * Only execute the first matching rule in this array
          */
-        oneOf?: RuleSetRules;
+        oneOf?: RuleSetRule[];
         /**
          * Shortcut for use.options
          */
@@ -442,9 +436,7 @@ declare namespace webpack {
         /**
          * Options for parsing
          */
-        parser?: {
-            [k: string]: any;
-        };
+        parser?: { [k: string]: any };
         /**
          * Options for the resolver
          */
@@ -464,9 +456,7 @@ declare namespace webpack {
         /**
          * Match the resource path of the module
          */
-        resource?: RuleSetCondition & {
-            [k: string]: any;
-        };
+        resource?: RuleSetCondition;
         /**
          * Match the resource query of the module
          */
@@ -478,56 +468,49 @@ declare namespace webpack {
         /**
          * Match and execute these rules when this rule is matched
          */
-        rules?: RuleSetRules;
+        rules?: RuleSetRule[];
         /**
          * Shortcut for resource.test
          */
-        test?: RuleSetCondition & {
-            [k: string]: any;
-        };
+        test?: RuleSetCondition;
         /**
          * Modifiers applied to the module when rule is matched
          */
         use?: RuleSetUse;
     }
-    type RuleSetLoader = string;
+
     type RuleSetUse =
         | RuleSetUseItem
-        | {
-            [k: string]: any;
-        }
-        | RuleSetUseItem[];
+        | RuleSetUseItem[]
+        | ((data: any) => RuleSetUseItem | RuleSetUseItem[]);
+
+    interface RuleSetLoader {
+        /**
+         * Loader name
+         */
+        loader?: string;
+        /**
+         * Loader options
+         */
+        options?: RuleSetQuery;
+        /**
+         * Unique loader identifier
+         */
+        ident?: string;
+        /**
+         * Loader query
+         */
+        query?: RuleSetQuery;
+    }
+
     type RuleSetUseItem =
+        | string
         | RuleSetLoader
-        | {
-            [k: string]: any;
-        }
-        | {
-            /**
-             * Loader name
-             */
-            loader?: RuleSetLoader;
-            /**
-             * Loader options
-             */
-            options?: RuleSetQuery;
-            /**
-             * Unique loader identifier
-             */
-            ident?: string;
-            /**
-             * Loader query
-             */
-            query?: RuleSetQuery;
-        };
+        | ((data: any) => string | RuleSetLoader);
+
     type RuleSetQuery =
-        | {
-            [k: string]: any;
-        }
-        | string;
-    type CommonArrayOfStringOrStringArrayValues = Array<(string | string[])>;
-    type CommonArrayOfStringValues = string[];
-    type RuleSetRules = RuleSetRule[];
+        | string
+        | { [k: string]: any };
 
     /**
      * @deprecated Use RuleSetCondition instead
@@ -574,7 +557,7 @@ declare namespace webpack {
             /** Assign modules to a cache group */
             test?: ((...args: any[]) => boolean) | string | RegExp;
             /** Select chunks for determining cache group content (defaults to \"initial\", \"initial\" and \"all\" requires adding these chunks to the HTML) */
-            chunks?: "initial" | "async" | "all";
+            chunks?: "initial" | "async" | "all" | ((chunk: compilation.Chunk) => boolean);
             /** Ignore minimum size, minimum chunks and maximum requests and always create chunks for this cache group */
             enforce?: boolean;
             /** Priority of this cache group */
@@ -594,7 +577,7 @@ declare namespace webpack {
         }
         interface SplitChunksOptions {
             /** Select chunks for determining shared modules (defaults to \"async\", \"initial\" and \"all\" requires adding these chunks to the HTML) */
-            chunks?: "initial" | "async" | "all";
+            chunks?: "initial" | "async" | "all" | ((chunk: compilation.Chunk) => boolean);
             /** Minimal size for the created chunk */
             minSize?: number;
             /** Minimum number of times a module has to be duplicated until it's considered for splitting */
@@ -660,6 +643,27 @@ declare namespace webpack {
             minimizer?: Array<Plugin | Tapable.Plugin>;
             /** Generate records with relative paths to be able to move the context folder". */
             portableRecords?: boolean;
+        }
+    }
+
+    namespace debug {
+        interface ProfilingPluginOptions {
+            /** A relative path to a custom output file (json) */
+            outputPath?: string;
+        }
+        /**
+         * Generate Chrome profile file which includes timings of plugins execution. Outputs `events.json` file by
+         * default. It is possible to provide custom file path using `outputPath` option.
+         *
+         * In order to view the profile file:
+         * * Run webpack with ProfilingPlugin.
+         * * Go to Chrome, open the Profile Tab.
+         * * Drag and drop generated file (events.json by default) into the profiler.
+         *
+         * It will then display timeline stats and calls per plugin!
+         */
+        class ProfilingPlugin extends Plugin {
+            constructor(options?: ProfilingPluginOptions);
         }
     }
     namespace compilation {
@@ -945,42 +949,9 @@ declare namespace webpack {
             usedModuleIds: any;
             getStats(): Stats;
             addModule(module: CompilationModule, cacheGroup: any): any;
-            // getModule(module)
-            // findModule(identifier)
-            // waitForBuildingFinished(module, callback)
-            // buildModule(module, optional, origin, dependencies, thisCallback)
-            // processModuleDependencies(module, callback)
-            // addModuleDependencies(module, dependencies, bail, cacheGroup, recursive, callback)
             // tslint:disable-next-line:ban-types
             addEntry(context: any, entry: any, name: any, callback: Function): void;
-            // prefetch(context, dependency, callback)
-            // rebuildModule(module, thisCallback)
-            // finish()
-            // unseal()
-            // seal(callback)
-            // sortModules(modules)
-            // reportDependencyErrorsAndWarnings(module, blocks)
-            // addChunkInGroup(name, module, loc, request)
-            // addChunk(name)
-            // assignIndex(module)
-            // assignDepth(module)
-            // processDependenciesBlocksForChunkGroups(inputChunkGroups)
-            // removeReasonsOfDependencyBlock(module, block)
-            // patchChunksAfterReasonRemoval(module, chunk)
-            // removeChunkFromDependencies(block, chunk)
-            // applyModuleIds()
-            // applyChunkIds()
-            // sortItemsWithModuleIds()
-            // sortItemsWithChunkIds()
-            // summarizeDependencies()
-            // createHash()
-            // modifyHash(update)
-            // createModuleAssets()
-            // createChunkAssets()
             getPath(filename: string, data: {hash?: any, chunk?: any, filename?: string, basename?: string, query?: any}): string;
-            // createChildCompiler(name, outputOptions, plugins)
-            // checkConstraints()
-
             /**
              * @deprecated Compilation.applyPlugins is deprecated. Use new API on `.hooks` instead
              */
@@ -1121,10 +1092,14 @@ declare namespace webpack {
             | 'verbose';
 
         interface ToJsonOptionsObject {
+            /** fallback value for stats options when an option is not defined (has precedence over local webpack defaults) */
+            all?: boolean;
             /** Add asset Information */
             assets?: boolean;
             /** Sort assets by a field */
             assetsSort?: string;
+            /** Add built at time information */
+            builtAt?: boolean;
             /** Add information about cached (not built) modules */
             cached?: boolean;
             /** Show cached assets (setting this to `false` only shows emitted files) */
@@ -1447,6 +1422,33 @@ declare namespace webpack {
             }
         }
 
+        class AggressiveSplittingPlugin extends Plugin {
+            constructor(options?: AggressiveSplittingPlugin.Options);
+        }
+
+        namespace AggressiveSplittingPlugin {
+            interface Options {
+                /**
+                 * Size in byte.
+                 * Only chunks bigger than the specified minSize are stored in records.
+                 * This ensures the chunks fill up as your application grows,
+                 * instead of creating too many chunks for every change.
+                 *
+                 * Default: 30720
+                 */
+                minSize: 30000;
+                /**
+                 * Size in byte.
+                 * maximum size prefered for each chunk.
+                 *
+                 * Default: 51200
+                 */
+                maxSize: 50000;
+                chunkOverhead: 0;
+                entryChunkMultiplicator: 1;
+            }
+        }
+
         /** @deprecated */
         class DedupePlugin extends Plugin {
             constructor();
@@ -1616,6 +1618,14 @@ declare namespace webpack {
              *
              */
             exec(code: string, filename: string): any;
+
+            /**
+             * Resolves the given request to a module, applies all configured loaders and calls
+             * back with the generated source, the sourceMap and the module instance (usually an
+             * instance of NormalModule). Use this function if you need to know the source code
+             * of another module to generate the result.
+             */
+            loadModule(request: string, callback: (err: Error | null, source: string, sourceMap: RawSourceMap, module: Module) => void): any;
 
             /**
              * Resolve a request like a require expression.

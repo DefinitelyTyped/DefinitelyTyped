@@ -14,9 +14,9 @@ videojs("example_video_1").ready(function() {
 	this.src({ type: "video/mp4", src: "http://www.example.com/path/to/video.mp4" });
 
 	this.src([
-	  { type: "video/mp4", src: "http://www.example.com/path/to/video.mp4" },
-	  { type: "video/webm", src: "http://www.example.com/path/to/video.webm" },
-	  { type: "video/ogg", src: "http://www.example.com/path/to/video.ogv" }
+		{ type: "video/mp4", src: "http://www.example.com/path/to/video.mp4" },
+		{ type: "video/webm", src: "http://www.example.com/path/to/video.webm" },
+		{ type: "video/ogg", src: "http://www.example.com/path/to/video.ogv" }
 	]);
 
 	const whereYouAt: number = this.currentTime();
@@ -78,4 +78,21 @@ function testEvents(myPlayer: videojs.Player) {
 	myPlayer.on("loadeddata", () => { /* Some handler. */ });
 	// Removes all listeners.
 	myPlayer.off();
+}
+
+function testComponents() {
+	let component = videojs.getComponent('Component');
+	component = videojs.Component.getComponent('Component');
+
+	const button = videojs.getComponent('Button');
+	button.controlText('Button Text');
+	const player = videojs.getComponent('Player');
+	player.play();
+}
+
+function testPlugin() {
+	let plugin = videojs.getPlugin('plugin_name');
+	plugin = videojs.getPlugin('plugin_name');
+
+	plugin.dispose();
 }

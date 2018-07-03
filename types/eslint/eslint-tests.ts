@@ -446,6 +446,7 @@ let cli: CLIEngine;
 
 cli = new CLIEngine({ allowInlineConfig: false });
 cli = new CLIEngine({ baseConfig: false });
+cli = new CLIEngine({ baseConfig: { extends: ['lynt'] }});
 cli = new CLIEngine({ cache: true });
 cli = new CLIEngine({ cacheFile: 'foo' });
 cli = new CLIEngine({ configFile: 'foo' });

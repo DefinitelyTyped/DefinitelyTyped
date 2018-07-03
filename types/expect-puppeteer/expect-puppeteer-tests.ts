@@ -5,7 +5,8 @@ const testGlobal = async (instance: ElementHandle | Page) => {
     await expect(instance).toClick("selector", { polling: "mutation", text: "text" });
     await expect(instance).toClick("selector", { polling: "raf", timeout: 777 });
 
-    await expect(instance).toDisplayDialog(async () => {});
+    const dialog = await expect(instance).toDisplayDialog(async () => {});
+    console.log(dialog.message());
 
     await expect(instance).toFill("selector", "value");
     await expect(instance).toFill("selector", "value", { polling: 777 });
@@ -13,8 +14,9 @@ const testGlobal = async (instance: ElementHandle | Page) => {
     await expect(instance).toMatch("selector");
     await expect(instance).toMatch("selector", { timeout: 777 });
 
-    await expect(instance).toMatchElement("selector", "value");
-    await expect(instance).toMatchElement("selector", "value", { polling: "mutation" });
+    await expect(instance).toMatchElement("selector");
+    await expect(instance).toMatchElement("selector", { polling: "raf", timeout: 777 });
+    await expect(instance).toMatchElement("selector", { polling: "mutation", text: "text" });
 
     await expect(instance).toSelect("selector", "valueOrText");
     await expect(instance).toSelect("selector", "valueOrText", { polling: "raf" });

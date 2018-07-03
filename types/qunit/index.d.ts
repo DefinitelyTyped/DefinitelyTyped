@@ -596,6 +596,14 @@ interface QUnit {
     todo(name: string, callback?: (assert: Assert) => void): void;
 
     /**
+     * Compares two values. Returns true if they are equivalent.
+     *
+     * @param a The first value
+     * @param b The second value
+     */
+    equiv<T>(a: T, b: T): boolean;
+
+    /**
      * Are the test running from the server or not.
      */ 
     isLocal: boolean;

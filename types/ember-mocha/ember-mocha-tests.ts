@@ -3,7 +3,7 @@ import {
     setResolver, setupAcceptanceTest, setupComponentTest,
     setupModelTest, setupTest
 } from 'ember-mocha';
-import { context, describe, it, beforeEach, afterEach, before, after } from 'mocha';
+import { describe, it, beforeEach, afterEach, before, after } from 'mocha';
 import chai = require('chai');
 import Ember from "ember";
 import hbs from 'htmlbars-inline-precompile';

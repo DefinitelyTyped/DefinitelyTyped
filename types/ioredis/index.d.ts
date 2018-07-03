@@ -5,6 +5,7 @@
 //                 Yoga Aliarham <https://github.com/aliarham11>
 //                 Ebrahim <https://github.com/br8h>
 //                 Shahar Mor <https://github.com/shaharmor>
+//                 Whemoon Jang <https://github.com/palindrom615>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -16,6 +17,7 @@
 /// <reference types="node" />
 
 import Promise = require('bluebird');
+import tls = require('tls');
 
 interface RedisStatic {
     new(port?: number, host?: string, options?: IORedis.RedisOptions): IORedis.Redis;
@@ -228,8 +230,8 @@ declare namespace IORedis {
         zcard(key: string, callback: (err: Error, res: number) => void): void;
         zcard(key: string): Promise<number>;
 
-        zscore(key: string, member: string, callback: (err: Error, res: number) => void): void;
-        zscore(key: string, member: string): Promise<number>;
+        zscore(key: string, member: string, callback: (err: Error, res: string) => void): void;
+        zscore(key: string, member: string): Promise<string>;
 
         zrank(key: string, member: string, callback: (err: Error, res: number) => void): void;
         zrank(key: string, member: string): Promise<number>;
@@ -435,6 +437,8 @@ declare namespace IORedis {
 
         scan(cursor: number, ...args: any[]): any;
 
+        sscan(key: string, cursor: number, ...args: any[]): any;
+
         hscan(key: string, cursor: number, ...args: any[]): any;
 
         zscan(key: string, cursor: number, ...args: any[]): any;
@@ -448,6 +452,7 @@ declare namespace IORedis {
         pipeline(commands?: string[][]): Pipeline;
 
         scanStream(options?: ScanStreamOption): NodeJS.EventEmitter;
+        sscanStream(key: string, options?: ScanStreamOption): NodeJS.EventEmitter;
         hscanStream(key: string, options?: ScanStreamOption): NodeJS.EventEmitter;
         zscanStream(key: string, options?: ScanStreamOption): NodeJS.EventEmitter;
     }
@@ -736,6 +741,8 @@ declare namespace IORedis {
 
         scan(cursor: number, ...args: any[]): Pipeline;
 
+        sscan(key: string, cursor: number, ...args: any[]): Pipeline;
+
         hscan(key: string, cursor: number, ...args: any[]): Pipeline;
 
         zscan(key: string, cursor: number, ...args: any[]): Pipeline;
@@ -798,7 +805,11 @@ declare namespace IORedis {
          * Fixed in: https://github.com/DefinitelyTyped/DefinitelyTyped/pull/15858
          */
         retryStrategy?(times: number): number | false;
-        reconnectOnError?(error: Error): boolean;
+        /**
+         * 1/true means reconnect, 2 means reconnect and resend failed command. Returning false will ignore
+         * the error and do nothing.
+         */
+        reconnectOnError?(error: Error): boolean | 1 | 2;
         /**
          * By default, if there is no active connection to the Redis server, commands are added to a queue
          * and are executed once the connection is "ready" (when enableReadyCheck is true, "ready" means
@@ -823,9 +834,7 @@ declare namespace IORedis {
          */
         autoResendUnfulfilledCommands?: boolean;
         lazyConnect?: boolean;
-        tls?: {
-            ca: Buffer;
-        };
+        tls?: tls.ConnectionOptions;
         sentinels?: Array<{ host: string; port: number; }>;
         name?: string;
         /**

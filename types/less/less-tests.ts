@@ -35,3 +35,12 @@ var options: Less.Options = {
 };
 
 less.render("h1 { background: red; }", options);
+
+less.modifyVars({
+  '@buttonFace': '#5B83AD',
+  '@buttonText': '#D9EEF2'
+});
+
+less.refreshStyles();
+
+less.watch();

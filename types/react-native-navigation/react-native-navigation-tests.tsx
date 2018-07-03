@@ -1,6 +1,13 @@
 import * as React from 'react';
 import { Text, View } from 'react-native';
-import { Navigation, NavigationComponentProps, NavigatorStyle, NavigatorButtons, NavigatorEvent } from 'react-native-navigation';
+import {
+    Navigation,
+    NavigationComponentProps,
+    NavigatorStyle,
+    NavigatorButtons,
+    NavigatorEvent,
+    NativeEventsReceiver,
+} from 'react-native-navigation';
 
 type Props = NavigationComponentProps & { height: number };
 
@@ -13,6 +20,8 @@ class Screen1 extends React.Component<Props> {
     onNavigatorEvent = (event: NavigatorEvent) => {
         if (event.id === 'willAppear') {
             console.log('will appear');
+        } else if (event.type === 'NavBarButtonPress' && event.id === 'sideMenu') {
+            console.log('side menu pressed');
         }
     }
 
@@ -23,7 +32,11 @@ class Screen1 extends React.Component<Props> {
     };
 
     componentDidMount() {
-        this.props.navigator.push({ screen: 'example.Screen2', overrideBackPress: false });
+        this.props.navigator.push<Screen2OwnProps>({
+            screen: 'example.Screen2',
+            overrideBackPress: false,
+            passProps: { name: 'Henrik' },
+        });
         this.props.navigator.setTabBadge({ badge: null });
     }
 
@@ -36,7 +49,13 @@ class Screen1 extends React.Component<Props> {
     }
 }
 
-class Screen2 extends React.Component<NavigationComponentProps> {
+interface Screen2OwnProps {
+    name: string;
+}
+
+type Screen2Props = Screen2OwnProps & NavigationComponentProps;
+
+class Screen2 extends React.Component<Screen2Props> {
     static navigatorStyle: NavigatorStyle = {
         drawUnderNavBar: true,
         navBarTranslucent: true
@@ -50,6 +69,7 @@ class Screen2 extends React.Component<NavigationComponentProps> {
         return (
             <View>
                 <Text>Screen 2</Text>
+                <Text>Hello {this.props.name}</Text>
             </View>
         );
     }
@@ -63,9 +83,36 @@ const Drawer = (props: NavigationComponentProps) => {
     );
 };
 
-Navigation.registerComponent('example.Screen1', () => Screen1);
+interface TestProviderProps {
+    test: string;
+}
+
+class TestProvider extends React.Component<TestProviderProps> {
+    getChildContext() {
+        return {
+            test: this.props.test
+        };
+    }
+
+    render() {
+        return this.props.children;
+    }
+}
+
+Navigation.registerComponent('example.Screen1', () => Screen1, {}, TestProvider, {test: "test"});
 Navigation.registerComponent('example.Screen2', () => Screen2);
 Navigation.registerComponent('example.Drawer', () => Drawer);
+
+Navigation.isAppLaunched().then(appLaunched => {
+    if (appLaunched) {
+      startApp(); // App is launched -> show UI
+    }
+    new NativeEventsReceiver().appLaunched(startApp); // App hasn't been launched yet -> show the UI only when needed.
+});
+
+function startApp() {
+    // do something here
+}
 
 Navigation.startTabBasedApp({
     tabs: [

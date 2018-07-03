@@ -29,7 +29,7 @@ export interface Queue {
     /**
      * Sets the callback to be invoked when all deferred tasks have finished (individual result arguments).
      *
-     * @param callback Callback function to be executed, when error occured or all deferred tasks
+     * @param callback Callback function to be executed, when error occurred or all deferred tasks
      * have completed. The first argument to the callback is the first error that occurred, or null if no error occurred.
      * If an error occurred, there are no additional arguments to the callback. Otherwise,
      * the callback is passed each result as an additional argument.
@@ -38,7 +38,7 @@ export interface Queue {
     /**
      * Sets the callback to be invoked when all deferred tasks have finished (results array).
      *
-     * @param callback Callback function to be executed, when error occured or all deferred tasks
+     * @param callback Callback function to be executed, when error occurred or all deferred tasks
      * have completed. The first argument to the callback is the first error that occurred,
      * or null if no error occurred. If an error occurred, there are no additional arguments to the callback.
      * Otherwise, the callback is also passed an array of results as the second argument.
