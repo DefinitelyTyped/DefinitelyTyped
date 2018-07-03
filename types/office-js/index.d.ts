@@ -2611,7 +2611,7 @@ declare namespace Office {
          */
         getTaskByIndexAsync(taskIndex: number, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
-         * Project documents only. Set resource field for specified resource Id. (Ex.ResourceName)
+         * Project documents only. Set resource field for specified resource Id.
          * 
          * Important: This API works only in Project 2016 on Windows desktop.
          * 
@@ -2623,12 +2623,12 @@ declare namespace Office {
          */
         setResourceFieldAsync(resourceId: string, fieldId: number, fieldValue: string | number | boolean | object, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
-         * Project documents only. Set task field for specified task Id. (Ex.ResourceName)
+         * Project documents only. Set task field for specified task Id.
          * 
          * Important: This API works only in Project 2016 on Windows desktop.
          * 
          * @param taskId Either a string or value of the Task Id.
-         * @param fieldId Resource Fields.
+         * @param fieldId Task Fields.
          * @param fieldValue Value of the target field.
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
