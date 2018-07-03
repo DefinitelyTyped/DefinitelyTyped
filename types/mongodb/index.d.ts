@@ -12,6 +12,7 @@
 //                 Dan Aprahamian <https://github.com/daprahamian>
 //                 Denys Bushulyak <https://github.com/denys-bushulyak>
 //                 Bastien Arata <https://github.com/BastienAr>
+//                 Wan Bachtiar <https://github.com/sindbach>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -497,6 +498,11 @@ export interface Collection<TSchema = Default> {
     count(query: Object, callback: MongoCallback<number>): void;
     count(query?: Object, options?: MongoCountPreferences): Promise<number>;
     count(query: Object, options: MongoCountPreferences, callback: MongoCallback<number>): void;
+    /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#countDocuments */
+    countDocuments(callback: MongoCallback<number>): void;
+    countDocuments(query: Object, callback: MongoCallback<number>): void;
+    countDocuments(query?: Object, options?: MongoCountPreferences): Promise<number>;
+    countDocuments(query: Object, options: MongoCountPreferences, callback: MongoCallback<number>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#createIndex */
     createIndex(fieldOrSpec: string | any, callback: MongoCallback<string>): void;
     createIndex(fieldOrSpec: string | any, options?: IndexOptions): Promise<string>;
@@ -529,6 +535,11 @@ export interface Collection<TSchema = Default> {
     dropIndexes(options?: {session?: ClientSession, maxTimeMS?: number}): Promise<any>;
     dropIndexes(callback?: MongoCallback<any>): void;
     dropIndexes(options: {session?: ClientSession, maxTimeMS?: number}, callback: MongoCallback<any>): void;
+    /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#estimatedDocumentCount */
+    estimatedDocumentCount(callback: MongoCallback<number>): void;
+    estimatedDocumentCount(query: Object, callback: MongoCallback<number>): void;
+    estimatedDocumentCount(query?: Object, options?: MongoCountPreferences): Promise<number>;
+    estimatedDocumentCount(query: Object, options: MongoCountPreferences, callback: MongoCallback<number>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#find */
     find<T = TSchema>(query?: FilterQuery<TSchema>): Cursor<T>;
     /** @deprecated */
