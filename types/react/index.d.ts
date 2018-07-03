@@ -1001,7 +1001,7 @@ declare namespace React {
         placeholder?: string;
         slot?: string;
         spellCheck?: boolean;
-        style?: CSSProperties;
+        style?: CSSProperties | CSSProperties[];
         tabIndex?: number;
         title?: string;
 
