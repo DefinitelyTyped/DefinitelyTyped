@@ -14,5 +14,5 @@ declare namespace Popover {
         title?: React.ReactNode;
     }
 }
-declare class Popover extends React.Component<Popover.PopoverProps> { }
+declare class Popover extends React.Component<Popover.PopoverProps> { render(): React.ReactNode }
 export = Popover;

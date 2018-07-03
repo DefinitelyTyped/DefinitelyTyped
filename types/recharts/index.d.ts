@@ -173,12 +173,12 @@ export interface AreaProps extends EventAttributes, Partial<PresentationAttribut
     points?: Point[];
 }
 
-export class Area extends React.Component<AreaProps> { }
+export class Area extends React.Component<AreaProps> { render(): React.ReactNode }
 
 // NOTE: the lib's implementation doesn't inherits the event props (it's kept in this definition due to the previous typing definition has it).
 export type AreaChartProps = CategoricalChartWrapper & EventAttributes;
 
-export class AreaChart extends React.Component<AreaChartProps> { }
+export class AreaChart extends React.Component<AreaChartProps> { render(): React.ReactNode }
 
 export interface BarData {
     x: number;
@@ -212,12 +212,12 @@ export interface BarProps extends EventAttributes, Partial<PresentationAttribute
     label?: boolean | Label | React.SFC<LabelProps> | React.ReactElement<LabelProps> | ContentRenderer<any>;
 }
 
-export class Bar extends React.Component<BarProps> { }
+export class Bar extends React.Component<BarProps> { render(): React.ReactNode }
 
 // NOTE: the lib's implementation doesn't inherits the event props (it's kept in this definition due to the previous typing definition has it).
 export type BarChartProps = CategoricalChartWrapper & EventAttributes;
 
-export class BarChart extends React.Component<BarChartProps> { }
+export class BarChart extends React.Component<BarChartProps> { render(): React.ReactNode }
 
 export interface BrushProps {
     className?: string;
@@ -239,7 +239,7 @@ export interface BrushProps {
     updateId?: string | number;
 }
 
-export class Brush extends React.Component<BrushProps> { }
+export class Brush extends React.Component<BrushProps> { render(): React.ReactNode }
 
 export interface CartesianAxisProps extends EventAttributes, Partial<PresentationAttributes> {
     className?: string;
@@ -262,7 +262,7 @@ export interface CartesianAxisProps extends EventAttributes, Partial<Presentatio
     interval?: AxisInterval;
 }
 
-export class CartesianAxis extends React.Component<CartesianAxisProps> { }
+export class CartesianAxis extends React.Component<CartesianAxisProps> { render(): React.ReactNode }
 
 export type CoordinatesGenerator = (arg: {
     yAxis: CartesianGridProps['yAxis'];
@@ -290,17 +290,17 @@ export interface CartesianGridProps extends Partial<PresentationAttributes> {
     verticalFill?: string[];
 }
 
-export class CartesianGrid extends React.Component<CartesianGridProps> { }
+export class CartesianGrid extends React.Component<CartesianGridProps> { render(): React.ReactNode }
 
 // NOTE: the lib's implementation doesn't inherits the event props (it's kept in this definition due to the previous typing definition has it).
 export type CellProps = Partial<PresentationAttributes>;
 
-export class Cell extends React.Component<CellProps> { }
+export class Cell extends React.Component<CellProps> { render(): React.ReactNode }
 
 // NOTE: the lib's implementation doesn't inherits the event props (it's kept in this definition due to the previous typing definition has it).
 export type ComposedChartProps = CategoricalChartWrapper & EventAttributes;
 
-export class ComposedChart extends React.Component<ComposedChartProps> { }
+export class ComposedChart extends React.Component<ComposedChartProps> { render(): React.ReactNode }
 
 export interface CrossProps extends Partial<PresentationAttributes> {
     className?: string;
@@ -312,7 +312,7 @@ export interface CrossProps extends Partial<PresentationAttributes> {
     left?: number;
 }
 
-export class Cross extends React.Component<CrossProps> { }
+export class Cross extends React.Component<CrossProps> { render(): React.ReactNode }
 
 // NOTE: the lib's implementation doesn't inherits the event props (it's kept in this definition due to the previous typing definition has it).
 export interface CurveProps extends EventAttributes, Partial<PresentationAttributes> {
@@ -326,7 +326,7 @@ export interface CurveProps extends EventAttributes, Partial<PresentationAttribu
     pathRef?: React.Ref<any>;
 }
 
-export class Curve extends React.Component<CurveProps> { }
+export class Curve extends React.Component<CurveProps> { render(): React.ReactNode }
 
 // NOTE: the lib's implementation doesn't inherits the event props (it's kept in this definition due to the previous typing definition has it).
 export interface DotProps extends EventAttributes {
@@ -336,7 +336,7 @@ export interface DotProps extends EventAttributes {
     r?: number;
 }
 
-export class Dot extends React.Component<DotProps> { }
+export class Dot extends React.Component<DotProps> { render(): React.ReactNode }
 
 export type DataPointFormatter = (entry: any, dataKey: DataKey) => { x: number; y: number, value: any; errorVal: any; };
 
@@ -353,7 +353,7 @@ export interface ErrorBarProps {
     offset?: number;
 }
 
-export class ErrorBar extends React.Component<ErrorBarProps> { }
+export class ErrorBar extends React.Component<ErrorBarProps> { render(): React.ReactNode }
 
 export interface LegendPayload {
     value: any;
@@ -384,7 +384,7 @@ export interface LegendProps {
     onBBoxUpdate?: BBoxUpdateCallback;
 }
 
-export class Legend extends React.Component<LegendProps> { }
+export class Legend extends React.Component<LegendProps> { render(): React.ReactNode }
 
 export interface LineProps extends EventAttributes, Partial<PresentationAttributes>, Animatable {
     className?: string;
@@ -410,12 +410,12 @@ export interface LineProps extends EventAttributes, Partial<PresentationAttribut
     points?: Point[];
 }
 
-export class Line extends React.Component<LineProps> { }
+export class Line extends React.Component<LineProps> { render(): React.ReactNode }
 
 // NOTE: the lib's implementation doesn't inherits the event props (it's kept in this definition due to the previous typing definition has it).
 export type LineChartProps = CategoricalChartWrapper & EventAttributes;
 
-export class LineChart extends React.Component<LineChartProps> { }
+export class LineChart extends React.Component<LineChartProps> { render(): React.ReactNode }
 
 export interface PieProps extends EventAttributes, Partial<PresentationAttributes>, Animatable {
     className?: string;
@@ -444,7 +444,7 @@ export interface PieProps extends EventAttributes, Partial<PresentationAttribute
     activeIndex?: number | number[];
 }
 
-export class Pie extends React.Component<PieProps> { }
+export class Pie extends React.Component<PieProps> { render(): React.ReactNode }
 
 // NOTE: the lib's implementation doesn't inherits the event props (it's kept in this definition due to the previous typing definition has it).
 export interface PieChartProps extends EventAttributes, CategoricalChartWrapper<'centric'> {
@@ -456,7 +456,7 @@ export interface PieChartProps extends EventAttributes, CategoricalChartWrapper<
     outerRadius?: number | string;
 }
 
-export class PieChart extends React.Component<PieChartProps> { }
+export class PieChart extends React.Component<PieChartProps> { render(): React.ReactNode }
 
 export interface PolarAngleAxisTick {
     value: any;
@@ -482,7 +482,7 @@ export interface PolarAngleAxisProps extends EventAttributes, Partial<Presentati
     tickFormatter: TickFormatterFunction;
 }
 
-export class PolarAngleAxis extends React.Component<PolarAngleAxisProps> { }
+export class PolarAngleAxis extends React.Component<PolarAngleAxisProps> { render(): React.ReactNode }
 
 export interface PolarGridProps extends Partial<PresentationAttributes> {
     cx?: number;
@@ -494,7 +494,7 @@ export interface PolarGridProps extends Partial<PresentationAttributes> {
     gridType?: 'polygon' | 'circle';
 }
 
-export class PolarGrid extends React.Component<PolarGridProps> { }
+export class PolarGrid extends React.Component<PolarGridProps> { render(): React.ReactNode }
 
 export interface PolarRadiusAxisTick {
     value: any;
@@ -522,7 +522,7 @@ export interface PolarRadiusAxisProps extends EventAttributes, Partial<Presentat
     allowDataOverflow?: boolean;
 }
 
-export class PolarRadiusAxis extends React.Component<PolarRadiusAxisProps> { }
+export class PolarRadiusAxis extends React.Component<PolarRadiusAxisProps> { render(): React.ReactNode }
 
 export interface PolygonPoint {
     x: number;
@@ -534,7 +534,7 @@ export interface PolygonProps extends EventAttributes, Partial<PresentationAttri
     points?: PolygonPoint[];
 }
 
-export class Polygon extends React.Component<PolygonProps> { }
+export class Polygon extends React.Component<PolygonProps> { render(): React.ReactNode }
 
 export interface RadarPoint {
     x: number;
@@ -559,7 +559,7 @@ export interface RadarProps extends EventAttributes, Partial<PresentationAttribu
     hide?: boolean;
 }
 
-export class Radar extends React.Component<RadarProps> { }
+export class Radar extends React.Component<RadarProps> { render(): React.ReactNode }
 
 // NOTE: the lib's implementation doesn't inherits the event props (it's kept in this definition due to the previous typing definition has it).
 export interface RadarChartProps extends EventAttributes, CategoricalChartWrapper<'centric'> {
@@ -571,7 +571,7 @@ export interface RadarChartProps extends EventAttributes, CategoricalChartWrappe
     outerRadius?: number | string;
 }
 
-export class RadarChart extends React.Component<RadarChartProps> { }
+export class RadarChart extends React.Component<RadarChartProps> { render(): React.ReactNode }
 
 export interface RadialBarData {
     cx: number;
@@ -598,7 +598,7 @@ export interface RadialBarProps extends EventAttributes, Partial<PresentationAtt
     hide?: boolean;
 }
 
-export class RadialBar extends React.Component<RadialBarProps> { }
+export class RadialBar extends React.Component<RadialBarProps> { render(): React.ReactNode }
 
 export interface RadialBarChartProps extends CategoricalChartWrapper<'radial'> {
     startAngle?: number;
@@ -609,7 +609,7 @@ export interface RadialBarChartProps extends CategoricalChartWrapper<'radial'> {
     outerRadius?: string | number;
 }
 
-export class RadialBarChart extends React.Component<RadialBarChartProps> { }
+export class RadialBarChart extends React.Component<RadialBarChartProps> { render(): React.ReactNode }
 
 export interface RectangleProps extends EventAttributes, Partial<PresentationAttributes>, Animatable {
     className?: string;
@@ -620,7 +620,7 @@ export interface RectangleProps extends EventAttributes, Partial<PresentationAtt
     radius?: number | any[];
 }
 
-export class Rectangle extends React.Component<RectangleProps> { }
+export class Rectangle extends React.Component<RectangleProps> { render(): React.ReactNode }
 
 export interface ReferenceAreaProps extends Partial<PresentationAttributes> {
     className?: number | string;
@@ -638,7 +638,7 @@ export interface ReferenceAreaProps extends Partial<PresentationAttributes> {
     shape?: ContentRenderer<ReferenceAreaProps & RectangleProps> | React.ReactElement<any>;
 }
 
-export class ReferenceArea extends React.Component<ReferenceAreaProps> { }
+export class ReferenceArea extends React.Component<ReferenceAreaProps> { render(): React.ReactNode }
 
 export type ScaleCalculator = (x: number | string) => number;
 export interface ReferenceDotAxisConfiguration {
@@ -663,7 +663,7 @@ export interface ReferenceDotProps extends EventAttributes, Partial<Presentation
     > | React.ReactElement<any>;
 }
 
-export class ReferenceDot extends React.Component<ReferenceDotProps> { }
+export class ReferenceDot extends React.Component<ReferenceDotProps> { render(): React.ReactNode }
 
 export interface ReferenceLineProps extends Partial<PresentationAttributes<number | string, number | string>> {
     className?: number | string;
@@ -683,7 +683,7 @@ export interface ReferenceLineProps extends Partial<PresentationAttributes<numbe
     > | React.ReactElement<any>;
 }
 
-export class ReferenceLine extends React.Component<ReferenceLineProps> { }
+export class ReferenceLine extends React.Component<ReferenceLineProps> { render(): React.ReactNode }
 
 export interface ResponsiveContainerProps {
     aspect?: number;
@@ -698,7 +698,7 @@ export interface ResponsiveContainerProps {
     className?: string | number;
 }
 
-export class ResponsiveContainer extends React.Component<ResponsiveContainerProps> { }
+export class ResponsiveContainer extends React.Component<ResponsiveContainerProps> { render(): React.ReactNode }
 
 export interface ScatterPoint {
     cx?: number;
@@ -729,12 +729,12 @@ export interface ScatterProps extends EventAttributes, Partial<PresentationAttri
     name?: string | number;
 }
 
-export class Scatter extends React.Component<ScatterProps> { }
+export class Scatter extends React.Component<ScatterProps> { render(): React.ReactNode }
 
 // NOTE: the lib's implementation doesn't inherits the event props (it's kept in this definition due to the previous typing definition has it).
 export type ScatterChartProps = CategoricalChartWrapper & EventAttributes;
 
-export class ScatterChart extends React.Component<ScatterChartProps> { }
+export class ScatterChart extends React.Component<ScatterChartProps> { render(): React.ReactNode }
 
 export interface SectorProps extends EventAttributes, Partial<PresentationAttributes> {
     className?: string;
@@ -747,7 +747,7 @@ export interface SectorProps extends EventAttributes, Partial<PresentationAttrib
     cornerRadius?: number | string;
 }
 
-export class Sector extends React.Component<SectorProps> { }
+export class Sector extends React.Component<SectorProps> { render(): React.ReactNode }
 
 export interface TextProps extends Partial<PresentationAttributes> {
     scaleToFit?: boolean;
@@ -757,7 +757,7 @@ export interface TextProps extends Partial<PresentationAttributes> {
     style?: object;
 }
 
-export class Text extends React.Component<TextProps> { }
+export class Text extends React.Component<TextProps> { render(): React.ReactNode }
 
 export interface ViewBox {
     x?: number;
@@ -811,7 +811,7 @@ export interface TooltipProps extends Animatable {
     useTranslate3d?: boolean;
 }
 
-export class Tooltip extends React.Component<TooltipProps> { }
+export class Tooltip extends React.Component<TooltipProps> { render(): React.ReactNode }
 
 export interface TreemapProps extends EventAttributes, Animatable {
     width?: number;
@@ -828,9 +828,9 @@ export interface TreemapProps extends EventAttributes, Animatable {
     children?: React.ReactNode[] | React.ReactNode;
 }
 
-export class Treemap extends React.Component<TreemapProps> { }
+export class Treemap extends React.Component<TreemapProps> { render(): React.ReactNode }
 
-export class Label extends React.Component<LabelProps> { }
+export class Label extends React.Component<LabelProps> { render(): React.ReactNode }
 
 export interface LabelProps {
     angle?: number;
@@ -844,7 +844,7 @@ export interface LabelProps {
     content?: React.ReactElement<any> | ContentRenderer<any>;
 }
 
-export class LabelList extends React.Component<LabelListProps> { }
+export class LabelList extends React.Component<LabelListProps> { render(): React.ReactNode }
 
 export interface LabelListProps {
     angle?: number;
@@ -915,7 +915,7 @@ export interface XAxisProps extends EventAttributes {
     label?: string | number | Label | LabelProps;
 }
 
-export class XAxis extends React.Component<XAxisProps> { }
+export class XAxis extends React.Component<XAxisProps> { render(): React.ReactNode }
 
 export interface YPadding {
     top: number;
@@ -966,7 +966,7 @@ export interface YAxisProps extends EventAttributes {
     label?: string | number | Label | LabelProps;
 }
 
-export class YAxis extends React.Component<YAxisProps> { }
+export class YAxis extends React.Component<YAxisProps> { render(): React.ReactNode }
 
 export interface ZAxisProps {
     type?: 'number' | 'category';
@@ -983,4 +983,4 @@ export interface ZAxisProps {
     scale?: ScaleType | RechartsFunction;
 }
 
-export class ZAxis extends React.Component<ZAxisProps> { }
+export class ZAxis extends React.Component<ZAxisProps> { render(): React.ReactNode }

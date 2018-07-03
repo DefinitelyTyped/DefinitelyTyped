@@ -329,7 +329,7 @@ export interface ProviderProps<A extends Action = AnyAction> {
 /**
  * Makes the Redux store available to the connect() calls in the component hierarchy below.
  */
-export class Provider<A extends Action = AnyAction> extends Component<ProviderProps<A>> { }
+export class Provider<A extends Action = AnyAction> extends Component<ProviderProps<A>> { render(): React.ReactNode }
 
 /**
  * Creates a new <Provider> which will set the Redux Store on the passed key of the context. You probably only need this

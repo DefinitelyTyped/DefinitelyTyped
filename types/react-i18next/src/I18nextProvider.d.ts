@@ -9,4 +9,4 @@ export interface I18nextProviderProps {
     children: JSX.Element;
 }
 
-export default class I18nextProvider extends React.Component<I18nextProviderProps> { }
+export default class I18nextProvider extends React.Component<I18nextProviderProps> { render(): React.ReactNode }

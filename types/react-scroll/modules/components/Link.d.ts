@@ -20,4 +20,4 @@ export interface ReactScrollLinkProps {
 
 export type LinkProps = ReactScrollLinkProps & React.HTMLProps<HTMLButtonElement>;
 
-export default class Link extends React.Component<LinkProps> { }
+export default class Link extends React.Component<LinkProps> { render(): React.ReactNode }

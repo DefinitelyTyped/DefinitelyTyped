@@ -99,7 +99,7 @@ declare namespace ReactIntl {
         }
     }
 
-    class FormattedDate extends React.Component<FormattedDate.Props> { }
+    class FormattedDate extends React.Component<FormattedDate.Props> { render(): React.ReactNode }
 
     namespace FormattedTime {
         type PropsBase = IntlComponent.DateTimeFormatProps;
@@ -108,7 +108,7 @@ declare namespace ReactIntl {
             value: DateSource;
         }
     }
-    class FormattedTime extends React.Component<FormattedTime.Props> { }
+    class FormattedTime extends React.Component<FormattedTime.Props> { render(): React.ReactNode }
 
     namespace FormattedRelative {
         interface PropsBase {
@@ -130,7 +130,7 @@ declare namespace ReactIntl {
         }
     }
 
-    class FormattedRelative extends React.Component<FormattedRelative.Props> { }
+    class FormattedRelative extends React.Component<FormattedRelative.Props> { render(): React.ReactNode }
 
     namespace FormattedMessage {
         interface MessageDescriptor {
@@ -145,9 +145,9 @@ declare namespace ReactIntl {
             children?: (...formattedMessage: Array<string | JSX.Element>) => React.ReactNode;
         }
     }
-    class FormattedMessage extends React.Component<FormattedMessage.Props> { }
+    class FormattedMessage extends React.Component<FormattedMessage.Props> { render(): React.ReactNode }
 
-    class FormattedHTMLMessage extends React.Component<FormattedMessage.Props> { }
+    class FormattedHTMLMessage extends React.Component<FormattedMessage.Props> { render(): React.ReactNode }
 
     namespace FormattedNumber {
         interface PropsBase extends Intl.NumberFormatOptions {
@@ -158,7 +158,7 @@ declare namespace ReactIntl {
             value: number;
         }
     }
-    class FormattedNumber extends React.Component<FormattedNumber.Props> { }
+    class FormattedNumber extends React.Component<FormattedNumber.Props> { render(): React.ReactNode }
 
     namespace FormattedPlural {
         interface Base {
@@ -181,7 +181,7 @@ declare namespace ReactIntl {
             value: number;
         }
     }
-    class FormattedPlural extends React.Component<FormattedPlural.Props> { }
+    class FormattedPlural extends React.Component<FormattedPlural.Props> { render(): React.ReactNode }
 
     namespace IntlProvider {
         interface Props {

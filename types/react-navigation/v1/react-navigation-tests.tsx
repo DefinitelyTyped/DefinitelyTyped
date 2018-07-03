@@ -447,7 +447,7 @@ const popToTopAction: NavigationPopToTopAction = NavigationActions.popToTop({
     immediate: true
 });
 
-class Page1 extends React.Component { }
+class Page1 extends React.Component { render(): React.ReactNode }
 
 const RootNavigator: NavigationContainer = SwitchNavigator({
     default: { getScreen: () => Page1 },

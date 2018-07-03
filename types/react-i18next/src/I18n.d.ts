@@ -18,4 +18,4 @@ export interface i18nProps {
     children: (t: TranslationFunction, options: Options) => JSX.Element;
 }
 
-export default class I18n extends React.Component<i18nProps> { }
+export default class I18n extends React.Component<i18nProps> { render(): React.ReactNode }

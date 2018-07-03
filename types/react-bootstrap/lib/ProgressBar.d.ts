@@ -16,5 +16,5 @@ declare namespace ProgressBar {
         label?: React.ReactNode;
     }
 }
-declare class ProgressBar extends React.Component<ProgressBar.ProgressBarProps> { }
+declare class ProgressBar extends React.Component<ProgressBar.ProgressBarProps> { render(): React.ReactNode }
 export = ProgressBar;

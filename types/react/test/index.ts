@@ -184,8 +184,16 @@ class ModernComponentArrayRender extends React.Component<Props> {
     }
 }
 
-class ModernComponentNoState extends React.Component<Props> { }
-class ModernComponentNoPropsAndState extends React.Component { }
+class ModernComponentNoState extends React.Component<Props> {
+    render() {
+        return null;
+    }
+}
+class ModernComponentNoPropsAndState extends React.Component {
+    render() {
+        return null;
+    }
+ }
 
 interface SCProps {
     foo?: number;
@@ -341,6 +349,9 @@ interface RCProps { }
 class RefComponent extends React.Component<RCProps> {
     static create = React.createFactory(RefComponent);
     refMethod() {
+    }
+    render() {
+        return null;
     }
 }
 
@@ -783,6 +794,9 @@ const formEvent: InputFormEvent = changeEvent;
         static defaultProps = {
             prop3: "default value",
         };
+        render() {
+            return null;
+        }
     }
     const VariableWithAClass: React.ComponentClass<ComponentProps> = ComponentWithDefaultProps;
 }
@@ -803,4 +817,40 @@ class RenderChildren extends React.Component {
         const { children } = this.props;
         return children !== undefined ? children : null;
     }
+}
+
+{
+// React 16 - class components created via Component/PureComponent are required to implement render method and return ReactNode
+// https://reactjs.org/docs/react-component.html#render
+
+// $ExpectError
+class MissingRenderer extends React.Component {}
+
+class MissingRenderer2 extends React.Component {
+    // ExpectError issues on TS 2.6 when using abstract return type instead of providing it explicitly
+    // $ExpectError
+    render(): React.ReactNode {}
+}
+
+class MissingRendererCorret extends React.Component {
+    // $ExpectType () => string
+    render() {
+        return 'hello';
+    }
+}
+
+// $ExpectError
+class MissingRenderPure extends React.PureComponent {}
+
+class MissingRenderPure2 extends React.PureComponent {
+    // ExpectError issues on TS 2.6 when using abstract return type instead of providing it explicitly
+    // $ExpectError
+    render(): React.ReactNode {}
+}
+class MissingRenderPureCorrect extends React.PureComponent {
+    // $ExpectType () => string
+    render() {
+        return 'hello';
+    }
+}
 }

@@ -23,6 +23,6 @@ export interface CollapseProps extends React.HTMLProps<Collapse> {
     onMeasure?: ({ width, height }: { width: number; height: number; }) => void;
 }
 
-export class Collapse extends React.PureComponent<CollapseProps> { }
+export class Collapse extends React.PureComponent<CollapseProps> { render(): React.ReactNode }
 
-export class UnmountClosed extends React.PureComponent<CollapseProps> { }
+export class UnmountClosed extends React.PureComponent<CollapseProps> { render(): React.ReactNode }

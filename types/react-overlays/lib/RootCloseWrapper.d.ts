@@ -1,6 +1,6 @@
 import * as React from "react";
 
-declare class RootCloseWrapper extends React.Component<RootCloseWrapperProps> { }
+declare class RootCloseWrapper extends React.Component<RootCloseWrapperProps> { render(): React.ReactNode }
 declare namespace RootCloseWrapper { }
 export = RootCloseWrapper;
 

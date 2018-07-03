@@ -240,7 +240,7 @@ export interface BaseControlProps {
     captureDoubleClick?: boolean;
 }
 
-export class BaseControl<T extends BaseControlProps> extends React.Component<T> { }
+export class BaseControl<T extends BaseControlProps> extends React.Component<T> { render(): React.ReactNode }
 
 /**
  * Allows applications to overlay data on top of maps using a HTML container.

@@ -50,5 +50,6 @@ export interface Props {
 }
 
 export default class Picker extends React.PureComponent<Props> {
+    render(): React.ReactNode
     // everything inside it is supposed to be private
 }

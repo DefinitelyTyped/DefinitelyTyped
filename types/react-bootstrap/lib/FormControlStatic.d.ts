@@ -6,5 +6,5 @@ declare namespace FormControlStatic {
         componentClass?: React.ReactType;
     }
 }
-declare class FormControlStatic extends React.Component<FormControlStatic.FormControlStaticProps> { }
+declare class FormControlStatic extends React.Component<FormControlStatic.FormControlStaticProps> { render(): React.ReactNode }
 export = FormControlStatic

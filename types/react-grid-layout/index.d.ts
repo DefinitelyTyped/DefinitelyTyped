@@ -12,7 +12,7 @@ import * as React from "react";
 export as namespace ReactGridLayout;
 export = ReactGridLayout;
 
-declare class ReactGridLayout extends React.Component<ReactGridLayout.ReactGridLayoutProps> { }
+declare class ReactGridLayout extends React.Component<ReactGridLayout.ReactGridLayoutProps> { render(): React.ReactNode }
 
 declare namespace ReactGridLayout {
     type Breakpoints = 'lg' | 'md' | 'sm' | 'xs' | 'xxs';
@@ -298,7 +298,7 @@ declare namespace ReactGridLayout {
         ): void;
     }
 
-    class Responsive extends React.Component<ResponsiveProps> { }
+    class Responsive extends React.Component<ResponsiveProps> { render(): React.ReactNode }
 
     interface WidthProviderProps {
         /**

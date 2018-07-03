@@ -1,4 +1,4 @@
 import * as React from 'react';
 import { IconBaseProps } from 'react-icon-base';
-declare class IoArrowUpB extends React.Component<IconBaseProps> { }
+declare class IoArrowUpB extends React.Component<IconBaseProps> { render(): React.ReactNode }
 export = IoArrowUpB;

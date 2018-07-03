@@ -11,5 +11,5 @@ declare namespace Alert {
         onDismiss?: Function;
     }
 }
-declare class Alert extends React.Component<Alert.AlertProps> { }
+declare class Alert extends React.Component<Alert.AlertProps> { render(): React.ReactNode }
 export = Alert;

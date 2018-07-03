@@ -10,5 +10,5 @@ declare namespace Radio {
     }
 
 }
-declare class Radio extends React.Component<Radio.RadioProps> { }
+declare class Radio extends React.Component<Radio.RadioProps> { render(): React.ReactNode }
 export = Radio;

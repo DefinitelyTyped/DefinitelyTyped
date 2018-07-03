@@ -116,4 +116,4 @@ export interface DataTableProps {
     onRowSelection: (selectedRows: any) => void;
 }
 
-export default class DataTable extends React.Component<Partial<DataTableProps>> { }
+export default class DataTable extends React.Component<Partial<DataTableProps>> { render(): React.ReactNode }

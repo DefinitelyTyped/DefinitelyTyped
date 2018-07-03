@@ -79,7 +79,7 @@ export interface CalendarProps extends CommonCalendarProps {
 	date: DateInputType;
 }
 
-export class Calendar extends React.Component<CalendarProps> { }
+export class Calendar extends React.Component<CalendarProps> { render(): React.ReactNode }
 
 export interface DateRangeProps extends Range, CommonCalendarProps {
 	/** default: false */
@@ -96,7 +96,7 @@ export interface DateRangeProps extends Range, CommonCalendarProps {
 	specialDays?: DateContainerType[];
 }
 
-export class DateRange extends React.Component<DateRangeProps> { }
+export class DateRange extends React.Component<DateRangeProps> { render(): React.ReactNode }
 
 export type DateRangeIndex = "Today" | "Yesterday" | "Last 7 Days" | "Last 30 Days";
 

@@ -9,5 +9,5 @@ declare namespace FormGroup {
         validationState?: "success" | "warning" | "error" | null;
     }
 }
-declare class FormGroup extends React.Component<FormGroup.FormGroupProps> { }
+declare class FormGroup extends React.Component<FormGroup.FormGroupProps> { render(): React.ReactNode }
 export = FormGroup;

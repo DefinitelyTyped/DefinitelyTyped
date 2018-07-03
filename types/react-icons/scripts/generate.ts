@@ -50,14 +50,14 @@ function iconFile(name: string, lib: boolean = false): string {
     if (lib) {
         return `import * as React from 'react';
 import { IconBaseProps } from 'react-icon-base';
-declare class ${name} extends React.Component<IconBaseProps> { }
+declare class ${name} extends React.Component<IconBaseProps> { render(): React.ReactNode }
 export = ${name};
 `;
     }
 
     return `import * as React from 'react';
 import { IconBaseProps } from 'react-icon-base';
-export default class ${name} extends React.Component<IconBaseProps> { }
+export default class ${name} extends React.Component<IconBaseProps> { render(): React.ReactNode }
 `;
 }
 

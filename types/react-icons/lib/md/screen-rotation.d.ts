@@ -1,4 +1,4 @@
 import * as React from 'react';
 import { IconBaseProps } from 'react-icon-base';
-declare class MdScreenRotation extends React.Component<IconBaseProps> { }
+declare class MdScreenRotation extends React.Component<IconBaseProps> { render(): React.ReactNode }
 export = MdScreenRotation;

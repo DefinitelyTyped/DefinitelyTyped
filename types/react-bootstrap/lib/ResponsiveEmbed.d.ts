@@ -7,5 +7,5 @@ declare namespace ResponsiveEmbed {
         bsClass?: string;
     }
 }
-declare class ResponsiveEmbed extends React.Component<ResponsiveEmbed.ResponsiveEmbedProps> { }
+declare class ResponsiveEmbed extends React.Component<ResponsiveEmbed.ResponsiveEmbedProps> { render(): React.ReactNode }
 export = ResponsiveEmbed;

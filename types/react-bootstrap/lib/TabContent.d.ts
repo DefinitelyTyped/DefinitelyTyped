@@ -8,5 +8,5 @@ declare namespace TabContent {
         unmountOnExit?: boolean;
     }
 }
-declare class TabContent extends React.Component<TabContent.TabContentProps> { }
+declare class TabContent extends React.Component<TabContent.TabContentProps> { render(): React.ReactNode }
 export = TabContent;

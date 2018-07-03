@@ -314,7 +314,7 @@ export type ParallaxImageStatic = React.ComponentClass<ParallaxImageProps>;
 
 export type ParallaxImageProperties = ParallaxImageProps & React.Props<ParallaxImageStatic>;
 
-export class ParallaxImage extends React.Component<ParallaxImageProperties> { }
+export class ParallaxImage extends React.Component<ParallaxImageProperties> { render(): React.ReactNode }
 
 export interface PaginationProps {
     /**
@@ -401,6 +401,6 @@ export type PaginationStatic = React.ComponentClass<PaginationProps>;
 
 export type PaginationProperties = PaginationProps & React.Props<PaginationStatic>;
 
-export class Pagination extends React.Component<PaginationProperties> { }
+export class Pagination extends React.Component<PaginationProperties> { render(): React.ReactNode }
 
-export default class Carousel<T> extends React.Component<CarouselProperties<T>> { }
+export default class Carousel<T> extends React.Component<CarouselProperties<T>> { render(): React.ReactNode }

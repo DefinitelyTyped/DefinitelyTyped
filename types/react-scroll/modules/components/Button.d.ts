@@ -3,4 +3,4 @@ import { ReactScrollLinkProps } from "./Link";
 
 export type ButtonProps = ReactScrollLinkProps & React.HTMLProps<HTMLButtonElement>;
 
-export default class Button extends React.Component<ButtonProps> { }
+export default class Button extends React.Component<ButtonProps> { render(): React.ReactNode }

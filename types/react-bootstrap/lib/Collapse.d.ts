@@ -11,5 +11,5 @@ declare namespace Collapse {
         unmountOnExit?: boolean;
     }
 }
-declare class Collapse extends React.Component<Collapse.CollapseProps> { }
+declare class Collapse extends React.Component<Collapse.CollapseProps> { render(): React.ReactNode }
 export = Collapse;

@@ -11,5 +11,5 @@ declare namespace PagerItem {
         target?: string;
     }
 }
-declare class PagerItem extends React.Component<PagerItem.PagerItemProps> { }
+declare class PagerItem extends React.Component<PagerItem.PagerItemProps> { render(): React.ReactNode }
 export = PagerItem;

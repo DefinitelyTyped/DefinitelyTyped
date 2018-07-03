@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-declare class Position extends React.Component<Position.PositionProps> { }
+declare class Position extends React.Component<Position.PositionProps> { render(): React.ReactNode }
 export = Position;
 
 declare namespace Position {

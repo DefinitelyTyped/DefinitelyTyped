@@ -43,16 +43,16 @@ interface NavbarLinkProps extends React.HTMLProps<NavbarLink> {
   href: string;
   onClick?: React.MouseEventHandler<any>;
 }
-declare class NavbarLink extends React.Component<NavbarLinkProps> { }
+declare class NavbarLink extends React.Component<NavbarLinkProps> { render(): React.ReactNode }
 
 interface NavbarTextProps extends React.HTMLProps<NavbarText> {
   pullRight?: boolean;
 }
-declare class NavbarText extends React.Component<NavbarTextProps> { }
+declare class NavbarText extends React.Component<NavbarTextProps> { render(): React.ReactNode }
 
 interface NavbarFormProps extends React.HTMLProps<NavbarForm> {
   componentClass?: React.ReactType;
   pullRight?: boolean;
   pullLeft?: boolean;
 }
-declare class NavbarForm extends React.Component<NavbarFormProps> { }
+declare class NavbarForm extends React.Component<NavbarFormProps> { render(): React.ReactNode }

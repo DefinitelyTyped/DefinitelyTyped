@@ -35,5 +35,7 @@ declare namespace ToggleButtonGroup {
                                        & Omit<React.HTMLProps<ToggleButtonGroup>, "defaultValue" | "type" | "value" | "onChange">;
 
 }
-declare class ToggleButtonGroup extends React.Component<ToggleButtonGroup.ToggleButtonGroupProps & ButtonGroup.ButtonGroupProps> { }
+
+declare class ToggleButtonGroup extends React.Component<ToggleButtonGroup.ToggleButtonGroupProps & ButtonGroup.ButtonGroupProps> { render(): React.ReactNode }
+
 export = ToggleButtonGroup;

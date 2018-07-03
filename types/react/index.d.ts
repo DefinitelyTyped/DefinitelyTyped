@@ -281,7 +281,7 @@ declare namespace React {
     // Base component for plain JS classes
     // tslint:disable-next-line:no-empty-interface
     interface Component<P = {}, S = {}, SS = any> extends ComponentLifecycle<P, S, SS> { }
-    class Component<P, S> {
+    abstract class Component<P, S> {
         constructor(props: Readonly<P>);
         /**
          * @deprecated
@@ -298,7 +298,7 @@ declare namespace React {
         ): void;
 
         forceUpdate(callBack?: () => void): void;
-        render(): ReactNode;
+        abstract render(): ReactNode;
 
         // React.Props<T> is now deprecated, which means that the `children`
         // property is not available on `P` by default, even though you can
@@ -321,7 +321,7 @@ declare namespace React {
         };
     }
 
-    class PureComponent<P = {}, S = {}, SS = any> extends Component<P, S, SS> { }
+    abstract class PureComponent<P = {}, S = {}, SS = any> extends Component<P, S, SS> { }
 
     interface ClassicComponent<P = {}, S = {}> extends Component<P, S> {
         replaceState(nextState: S, callback?: () => void): void;

@@ -129,8 +129,8 @@ class ModernComponent extends React.Component<Props, State>
     }
 }
 
-class ModernComponentNoState extends React.Component<Props> { }
-class ModernComponentNoPropsAndState extends React.Component { }
+class ModernComponentNoState extends React.Component<Props> { render(): React.ReactNode }
+class ModernComponentNoPropsAndState extends React.Component { render(): React.ReactNode }
 
 interface SCProps {
     foo?: number;

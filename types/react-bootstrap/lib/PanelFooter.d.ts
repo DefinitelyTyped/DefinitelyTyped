@@ -6,5 +6,5 @@ declare namespace PanelFooter {
         bsClass?: string;
     }
 }
-declare class PanelFooter extends React.Component<PanelFooter.PanelFooterProps> { }
+declare class PanelFooter extends React.Component<PanelFooter.PanelFooterProps> { render(): React.ReactNode }
 export = PanelFooter;

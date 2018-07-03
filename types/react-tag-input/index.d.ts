@@ -33,7 +33,7 @@ export interface ReactTagsProps {
     id?: string;
 }
 
-export class WithContext extends React.Component<ReactTagsProps> { }
-export class WithOutContext extends React.Component<ReactTagsProps> { }
+export class WithContext extends React.Component<ReactTagsProps> { render(): React.ReactNode }
+export class WithOutContext extends React.Component<ReactTagsProps> { render(): React.ReactNode }
 
 export default WithContext;

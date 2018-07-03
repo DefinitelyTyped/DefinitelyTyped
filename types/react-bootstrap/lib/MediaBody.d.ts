@@ -5,5 +5,5 @@ declare namespace MediaBody {
         componentClass?: React.ReactType;
     }
 }
-declare class MediaBody extends React.Component<MediaBody.MediaBodyProps> { }
+declare class MediaBody extends React.Component<MediaBody.MediaBodyProps> { render(): React.ReactNode }
 export = MediaBody;

@@ -77,4 +77,4 @@ declare namespace BraftEditor {
 		blur?: () => any;
 	}
 }
-declare class BraftEditor extends React.Component<BraftEditor.editorProps> { }
+declare class BraftEditor extends React.Component<BraftEditor.editorProps> { render(): React.ReactNode }

@@ -8,5 +8,7 @@ declare namespace ToggleButton {
         value: number | string;
     }
 }
-declare class ToggleButton extends React.Component<ToggleButton.ToggleButtonProps & Button.ButtonProps> { }
+
+declare class ToggleButton extends React.Component<ToggleButton.ToggleButtonProps & Button.ButtonProps> { render(): React.ReactNode }
+
 export = ToggleButton;

@@ -10,5 +10,5 @@ declare namespace NavDropdown {
 
     export type NavDropdownProps = NavDropdownBaseProps & React.HTMLProps<NavDropdown>;
 }
-declare class NavDropdown extends React.Component<NavDropdown.NavDropdownProps> { }
+declare class NavDropdown extends React.Component<NavDropdown.NavDropdownProps> { render(): React.ReactNode }
 export = NavDropdown;

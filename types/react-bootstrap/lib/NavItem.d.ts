@@ -23,5 +23,5 @@ declare namespace NavItem {
         toggleNavKey?: string | number;
     }
 }
-declare class NavItem extends React.Component<NavItem.NavItemProps> { }
+declare class NavItem extends React.Component<NavItem.NavItemProps> { render(): React.ReactNode }
 export = NavItem;

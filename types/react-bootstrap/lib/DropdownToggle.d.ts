@@ -12,5 +12,5 @@ declare namespace DropdownToggle {
         bsSize?:string;
     }
 }
-declare class DropdownToggle extends React.Component<DropdownToggle.DropdownToggleProps> { }
+declare class DropdownToggle extends React.Component<DropdownToggle.DropdownToggleProps> { render(): React.ReactNode }
 export = DropdownToggle;

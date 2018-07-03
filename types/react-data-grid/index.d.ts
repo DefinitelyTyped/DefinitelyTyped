@@ -524,31 +524,31 @@ declare namespace AdazzleReactDataGrid {
         /**
          * A react component that renders a row of the grid
          */
-        export class Row extends React.Component<any> { }
+        export class Row extends React.Component<any> { render(): React.ReactNode }
         /**
          * A react coponent that renders a cell of the grid
          */
-        export class Cell extends React.Component<any> { }
+        export class Cell extends React.Component<any> { render(): React.ReactNode }
     }
 }
 
 declare namespace AdazzleReactDataGridPlugins {
     // TODO: refine types for these addons
     export namespace Editors {
-        export class AutoComplete extends React.Component<any> { }
-        export class DropDownEditor extends React.Component<any> { }
-        export class SimpleTextEditor extends React.Component<any> { }
-        export class CheckboxEditor extends React.Component<any> { }
+        export class AutoComplete extends React.Component<any> { render(): React.ReactNode }
+        export class DropDownEditor extends React.Component<any> { render(): React.ReactNode }
+        export class SimpleTextEditor extends React.Component<any> { render(): React.ReactNode }
+        export class CheckboxEditor extends React.Component<any> { render(): React.ReactNode }
     }
     export namespace Filters {
-        export class NumericFilter extends React.Component<any> { }
-        export class AutoCompleteFilter extends React.Component<any> { }
-        export class MultiSelectFilter extends React.Component<any> { }
-        export class SingleSelectFilter extends React.Component<any> { }
+        export class NumericFilter extends React.Component<any> { render(): React.ReactNode }
+        export class AutoCompleteFilter extends React.Component<any> { render(): React.ReactNode }
+        export class MultiSelectFilter extends React.Component<any> { render(): React.ReactNode }
+        export class SingleSelectFilter extends React.Component<any> { render(): React.ReactNode }
     }
     export namespace Formatters {
-        export class ImageFormatter extends React.Component<any> { }
-        export class DropDownFormatter extends React.Component<any> { }
+        export class ImageFormatter extends React.Component<any> { render(): React.ReactNode }
+        export class DropDownFormatter extends React.Component<any> { render(): React.ReactNode }
     }
     export class Toolbar extends React.Component<any> {}
     export namespace DraggableHeader {
@@ -563,10 +563,10 @@ declare namespace AdazzleReactDataGridPlugins {
     // TODO: re-export the react-contextmenu typings once those exist
     // https://github.com/vkbansal/react-contextmenu/issues/10
     export namespace Menu {
-        export class ContextMenu extends React.Component<any> { }
-        export class MenuHeader extends React.Component<any> { }
-        export class MenuItem extends React.Component<any> { }
-        export class SubMenu extends React.Component<any> { }
+        export class ContextMenu extends React.Component<any> { render(): React.ReactNode }
+        export class MenuHeader extends React.Component<any> { render(): React.ReactNode }
+        export class MenuItem extends React.Component<any> { render(): React.ReactNode }
+        export class SubMenu extends React.Component<any> { render(): React.ReactNode }
         export const monitor: {
             getItem(): any
             getPosition(): any

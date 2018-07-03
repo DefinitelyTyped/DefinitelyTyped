@@ -6,7 +6,7 @@
 
 import * as React from 'react';
 
-export default class QRCode extends React.Component<QRCodeProperties> { }
+export default class QRCode extends React.Component<QRCodeProperties> { render(): React.ReactNode }
 
 export interface QRCodeProperties {
   value?: string;

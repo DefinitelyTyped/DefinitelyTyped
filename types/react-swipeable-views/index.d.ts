@@ -53,4 +53,4 @@ export interface SwipeableViewsState {
     displaySameSlide?: boolean;
 }
 
-export default class SwipeableViews extends React.Component<SwipeableViewsProps, SwipeableViewsState> { }
+export default class SwipeableViews extends React.Component<SwipeableViewsProps, SwipeableViewsState> { render(): React.ReactNode }
