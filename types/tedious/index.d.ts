@@ -392,7 +392,7 @@ export interface ColumnValue {
     value: any;
 }
 
-export declare interface Request {
+export interface Request {
     /**
      * This event, describing result set columns, will be emitted before row events are emitted. This event may be emited multiple times when more than one recordset is produced by the statement.
      */
@@ -561,7 +561,7 @@ export interface InfoObject {
     lineNumber: number;
 }
 
-export declare interface Connection {
+export interface Connection {
     /**
      * The attempt to connect and validate has completed.
      */
