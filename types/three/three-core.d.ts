@@ -5200,10 +5200,21 @@ export class LOD extends Object3D {
     objects: any[];
 }
 
+
+/**
+ * An intermediate material type that casts more precisely the possible materials assignable to a [[Line]] object.
+ *
+ * [[LineDashedMaterial]] is omitted as it extends [[LineBasicMaterial]].
+ *
+ * // Todo:
+ * // - can [[Line]] take in an array of materials ?
+ */
+export type LineMaterialType = LineBasicMaterial | ShaderMaterial | MeshDepthMaterial;
+
 export class Line extends Object3D {
     constructor(
         geometry?: Geometry | BufferGeometry,
-        material?: LineDashedMaterial | LineBasicMaterial | ShaderMaterial,
+        material?: LineMaterialType | LineMaterialType[],
         mode?: number
     );
 
@@ -5230,18 +5241,23 @@ export const LinePieces: number;
 export class LineSegments extends Line {
     constructor(
         geometry?: Geometry | BufferGeometry,
-        material?: LineDashedMaterial | LineBasicMaterial | ShaderMaterial | (LineDashedMaterial | LineBasicMaterial | ShaderMaterial)[],
+        material?: LineMaterialType | LineMaterialType[],
         mode?: number
     );
 }
 
-type MeshMaterial = MeshBasicMaterial | MeshLambertMaterial | MeshPhongMaterial | MeshDepthMaterial | MeshStandardMaterial | MeshPhysicalMaterial | MeshNormalMaterial | MeshFaceMaterial | ShaderMaterial;
+/**
+ * An intermediate material type that casts more precisely the possible materials assignable to a [[Mesh]] object.
+ *
+ * `MeshToonMaterial` and [[MeshPhysicalMaterial]] are omitted as they extend [[MeshPhongMaterial]] and [[MeshStandardMaterial]] respectively.
+ */
+export type MeshMaterialType = MeshBasicMaterial | MeshDepthMaterial | MeshFaceMaterial | MeshLambertMaterial | MeshNormalMaterial | MeshPhongMaterial | MeshStandardMaterial | ShaderMaterial | ShadowMaterial;
 
 export class Mesh extends Object3D {
-    constructor(geometry?: Geometry | BufferGeometry, material?: MeshMaterial | MeshMaterial[]);
+    constructor(geometry?: Geometry | BufferGeometry, material?: MeshMaterialType | MeshMaterialType[]);
 
     geometry: Geometry|BufferGeometry;
-    material: MeshMaterial | MeshMaterial[];
+    material: MeshMaterialType | MeshMaterialType[];
     drawMode: TrianglesDrawModes;
     morphTargetInfluences?: number[];
     morphTargetDictionary?: { [key: string]: number; };
@@ -5256,6 +5272,14 @@ export class Mesh extends Object3D {
 }
 
 /**
+ * An intermediate material type that casts more precisely the possible materials assignable to a [[Points]] object.
+ *
+ * // Todo:
+ * // - can [[Points]] take in an array of materials ?
+ */
+export type PointsMaterialType = PointsMaterial | ShaderMaterial | MeshDepthMaterial;
+
+/**
  * A class for displaying particles in the form of variable size points. For example, if using the WebGLRenderer, the particles are displayed using GL_POINTS.
  *
  * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/objects/ParticleSystem.js">src/objects/ParticleSystem.js</a>
@@ -5268,7 +5292,7 @@ export class Points extends Object3D {
      */
     constructor(
         geometry?: Geometry | BufferGeometry,
-        material?: PointsMaterial | ShaderMaterial
+        material?: PointsMaterialType | PointsMaterialType[]
     );
 
     type: "Points";
