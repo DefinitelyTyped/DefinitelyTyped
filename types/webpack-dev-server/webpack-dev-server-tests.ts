@@ -11,7 +11,7 @@ let server = new WebpackDevServer(compiler, {
 server.listen(8080);
 
 // Configuration can be used as a type
-const config: WebpackDevServer.Configuration = {
+const devServerConfig: WebpackDevServer.Configuration = {
     // webpack-dev-server options
     inline: true,
     // Toggle between the dev-server's two different modes --- inline (default, recommended for HMR) or iframe.
@@ -73,8 +73,12 @@ const config: WebpackDevServer.Configuration = {
     stats: { colors: true }
 };
 
+const webpackConfig: webpack.Configuration = {
+	devServer: devServerConfig
+};
+
 // API example
-server = new WebpackDevServer(compiler, config);
+server = new WebpackDevServer(compiler, devServerConfig);
 server.listen(8080, "localhost", () => { });
 
 // HTTPS example
@@ -87,13 +91,13 @@ server.listen(8080, "localhost", () => { });
 
 server.close();
 
-WebpackDevServer.addDevServerEntrypoints(config, {
+WebpackDevServer.addDevServerEntrypoints(devServerConfig, {
     publicPath: "/assets/",
     https: true
 });
 
 WebpackDevServer.addDevServerEntrypoints(
-    [config],
+    [devServerConfig],
     {
         publicPath: "/assets/",
         https: true
@@ -104,4 +108,4 @@ WebpackDevServer.addDevServerEntrypoints(
 );
 
 // multiple compilers
-server = new WebpackDevServer(multipleCompiler, config);
+server = new WebpackDevServer(multipleCompiler, devServerConfig);
