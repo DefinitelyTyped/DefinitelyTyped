@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 declare namespace Gateway {
-    export type GatewayProps = {
+    interface GatewayProps {
         into: string;
     }
 }

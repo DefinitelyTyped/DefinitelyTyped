@@ -13,10 +13,10 @@ class ReactGateway extends React.Component<Gateway.GatewayProps> {
     }
 }
 
-class Provider extends React.Component<GatewayProvider.GatewayProviderProps> {
+class ReactGatewayProvider extends React.Component {
     render() {
         return (
-            <GatewayProvider {...this.props}>
+            <GatewayProvider>
                 <GatewayDest name="test" />
                 <div>
                     All the way down...

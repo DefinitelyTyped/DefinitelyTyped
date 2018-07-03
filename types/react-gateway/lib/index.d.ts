@@ -3,7 +3,6 @@ import { GatewayProps } from './Gateway';
 import GatewayDest = require('./GatewayDest');
 import { GatewayDestProps } from './GatewayDest';
 import GatewayProvider = require('./GatewayProvider');
-import { GatewayProviderProps } from './GatewayProvider';
 import GatewayRegistry = require('./GatewayRegistry');
 
 export {
@@ -12,6 +11,5 @@ export {
     GatewayDest,
     GatewayDestProps,
     GatewayProvider,
-    GatewayProviderProps,
     GatewayRegistry
 };

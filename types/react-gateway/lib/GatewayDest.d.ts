@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 declare namespace GatewayDest {
-    export type GatewayDestProps = {
+    interface GatewayDestProps {
         name: string;
         tagName?: string;
         component?: string | React.Component;
