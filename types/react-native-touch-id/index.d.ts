@@ -1,4 +1,4 @@
-// Type definitions for react-native-touch-id 4.0.0
+// Type definitions for react-native-touch-id 4.0.2
 // Project: https://github.com/naoufal/react-native-touch-id
 // Definitions by: huhuanming <https://github.com/huhuanming>
 //                 Nikolay Polukhin <https://github.com/gazaret>
@@ -15,8 +15,9 @@ declare module 'react-native-touch-id' {
   }
 
   export interface AuthenticateConfig {
-    title: string;
-    color: string;
+    title?: string;
+    color?: string;
+    fallbackTitle: string;
   }
 
   export const isSupported: () => Promise<boolean | string | TouchIDError>;
