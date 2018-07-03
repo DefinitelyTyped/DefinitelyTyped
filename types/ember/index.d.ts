@@ -1990,6 +1990,19 @@ declare module 'ember' {
              */
             transitionTo(name: string, ...object: any[]): Transition;
 
+            // https://emberjs.com/api/ember/3.2/classes/Route/methods/intermediateTransitionTo?anchor=intermediateTransitionTo
+            /**
+             * Perform a synchronous transition into another route without attempting to resolve promises,
+             * update the URL, or abort any currently active asynchronous transitions
+             * (i.e. regular transitions caused by transitionTo or URL changes).
+             *
+             * @param name           the name of the route or a URL
+             * @param object         the model(s) or identifier(s) to be used while
+             *                       transitioning to the route.
+             * @returns              the Transition object associated with this attempted transition
+             */
+            intermediateTransitionTo(name: string, ...object: any[]): Transition;
+
             // properties
             /**
              * The controller associated with this route.
