@@ -2,8 +2,9 @@
 // Project: https://github.com/erikdesjardins/zip-webpack-plugin
 // Definitions by: Blaise Kal <https://github.com/blaise-io>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
-import { Plugin } from 'webpack';
+import * as webpack from 'webpack';
 
 export = ZipPlugin;
 
@@ -11,7 +12,7 @@ export = ZipPlugin;
  * Webpack plugin to zip emitted files. Compresses all assets into a zip file.
  * See https://www.npmjs.com/package/zip-webpack-plugin#usage
  */
-declare class ZipPlugin extends Plugin {
+declare class ZipPlugin extends webpack.Plugin {
     /**
      * @param options Options for ZipPlugin.
      */
