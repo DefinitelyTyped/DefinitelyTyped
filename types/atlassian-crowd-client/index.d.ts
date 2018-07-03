@@ -3,7 +3,7 @@
 // Definitions by: mtgto <https://github.com/mtgto>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import CrowdApi from "./api";
+import CrowdApi = require("./api");
 import { Settings } from "./settings";
 import Attributes = require("./lib/models/attributes");
 import Group = require("./lib/models/group");
