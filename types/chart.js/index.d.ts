@@ -1,4 +1,4 @@
-// Type definitions for Chart.js 2.7
+// Type definitions for Chart.js 2.8
 // Project: https://github.com/nnnick/Chart.js
 // Definitions by: Alberto Nuti <https://github.com/anuti>
 //                 Fabien Lavocat <https://github.com/FabienLavocat>
@@ -14,6 +14,7 @@
 //                 Slavik Nychkalo <https://github.com/gebeto>
 //                 Francesco Benedetto <https://github.com/frabnt>
 //                 Alexandros Dorodoulis <https://github.com/alexdor>
+//                 Amir Mousavi <https://github.com/amirhmk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -459,7 +460,7 @@ declare namespace Chart {
         backdropPaddingX?: number;
         backdropPaddingY?: number;
         beginAtZero?: boolean;
-        callback?(value: any, index: any, values: any): string | number;
+        callback?(value: any, index: any, values: any): string | number | undefined | null;
         display?: boolean;
         fontColor?: ChartColor;
         fontFamily?: string;

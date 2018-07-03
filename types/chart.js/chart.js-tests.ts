@@ -41,7 +41,7 @@ const chart: Chart = new Chart(new CanvasRenderingContext2D(), {
             xAxes: [
                 {
                     ticks: {
-                        callback: Math.floor
+                        callback: Math.floor | undefined | null
                     },
                     gridLines: {
                         display: false,
