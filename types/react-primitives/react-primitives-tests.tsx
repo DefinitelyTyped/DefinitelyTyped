@@ -1,4 +1,4 @@
-import * as React from 'react'
+import * as React from 'react';
 import {
     Animated,
     Dimensions,
@@ -10,12 +10,12 @@ import {
     Touchable,
     View,
     StyleSheet
-} from 'react-primitives'
+} from 'react-primitives';
 
-const { Image: AnimatedImage } = Animated
+const { Image: AnimatedImage } = Animated;
 
-const { width, height } = Dimensions.get('window')
-const { width: screenWidth, height: screenHeight } = Dimensions.get('screen')
+const { width, height } = Dimensions.get('window');
+const { width: screenWidth, height: screenHeight } = Dimensions.get('screen');
 
 const styles = StyleSheet.create({
     container: {
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 14 * PixelRatio.get()
     }
-})
+});
 
 interface State {
     opacity: Animated.Value;
@@ -41,7 +41,7 @@ interface State {
 export default class Component extends React.Component<{}, State> {
     state: State = {
         opacity: new Animated.Value(0)
-    }
+    };
 
     componentDidMount() {
         Animated.timing(this.state.opacity, {
@@ -82,6 +82,6 @@ export default class Component extends React.Component<{}, State> {
                     </Touchable>
                 </View>
             </View>
-        )
+        );
     }
 }

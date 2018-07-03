@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
-import { ComponentType } from 'react'
+import { ComponentType } from 'react';
 import {
     Animated,
     Dimensions,
@@ -16,9 +16,9 @@ import {
     Text,
     TouchableOpacityProps,
     View
-} from 'react-native'
+} from 'react-native';
 
-export const Touchable: ComponentType<TouchableOpacityProps>
+export const Touchable: ComponentType<TouchableOpacityProps>;
 
 export {
     Animated,
@@ -30,4 +30,4 @@ export {
     StyleSheet,
     Text,
     View
-}
+};
