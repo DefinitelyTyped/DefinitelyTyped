@@ -2952,6 +2952,8 @@ declare module '@ember/object/mixin' {
     import Ember from 'ember';
     import EmberObject from '@ember/object';
 
+    type MixinOrLiteral<T, Base> = Mixin<T, Base> | T;
+
     /**
      * The `Ember.Mixin` class allows you to create mixins, whose properties can be
      * added to other classes.
@@ -2964,25 +2966,25 @@ declare module '@ember/object/mixin' {
         __ember_mixin__: never;
 
         static create<T, Base = EmberObject>(
-            args?: T & ThisType<Ember.Fix<T & Base>>
+            args?: MixinOrLiteral<T, Base> & ThisType<Ember.Fix<T & Base>>
         ): Mixin<T, Base>;
 
         static create<T1, T2, Base = EmberObject>(
-            arg1: T1 & ThisType<Ember.Fix<T1 & Base>>,
-            arg2: T2 & ThisType<Ember.Fix<T2 & Base>>
+            arg1: MixinOrLiteral<T1, Base> & ThisType<Ember.Fix<T1 & Base>>,
+            arg2: MixinOrLiteral<T2, Base> & ThisType<Ember.Fix<T2 & Base>>
         ): Mixin<T1 & T2, Base>;
 
         static create<T1, T2, T3, Base = EmberObject>(
-            arg1: T1 & ThisType<Ember.Fix<T1 & Base>>,
-            arg2: T2 & ThisType<Ember.Fix<T2 & Base>>,
-            arg3: T3 & ThisType<Ember.Fix<T3 & Base>>
+            arg1: MixinOrLiteral<T1, Base> & ThisType<Ember.Fix<T1 & Base>>,
+            arg2: MixinOrLiteral<T2, Base> & ThisType<Ember.Fix<T2 & Base>>,
+            arg3: MixinOrLiteral<T3, Base> & ThisType<Ember.Fix<T3 & Base>>
         ): Mixin<T1 & T2 & T3, Base>;
 
         static create<T1, T2, T3, T4, Base = EmberObject>(
-            arg1: T1 & ThisType<Ember.Fix<T1 & Base>>,
-            arg2: T2 & ThisType<Ember.Fix<T2 & Base>>,
-            arg3: T3 & ThisType<Ember.Fix<T3 & Base>>,
-            arg4: T4 & ThisType<Ember.Fix<T4 & Base>>
+            arg1: MixinOrLiteral<T1, Base> & ThisType<Ember.Fix<T1 & Base>>,
+            arg2: MixinOrLiteral<T2, Base> & ThisType<Ember.Fix<T2 & Base>>,
+            arg3: MixinOrLiteral<T3, Base> & ThisType<Ember.Fix<T3 & Base>>,
+            arg4: MixinOrLiteral<T4, Base> & ThisType<Ember.Fix<T4 & Base>>
         ): Mixin<T1 & T2 & T3 & T4, Base>;
     }
 }

@@ -59,14 +59,7 @@ declare const container: Element;
         inputValue: string;
         seconds: number;
     }
-    /**
-     * This is a "pre EcmaScript class property era" style of setting state within constructor.
-     * This occurs also if you need to provide som logic before mounting your component.
-     * To mitigate this error you need to provide state property definition upfront.
-     */
     class SettingStateFromCtorComponent extends React.Component<Props, State, Snapshot> {
-        // uncomenting this fixes the error :)
-        // state: State;
         constructor(props: Props) {
             super(props);
             // $ExpectError
@@ -78,16 +71,17 @@ declare const container: Element;
     }
 
     class BadlyInitializedState extends React.Component<Props, State, Snapshot> {
-        // ExpectError -> this throws error on TS 2.6
+        // $ExpectError -> this throws error on TS 2.6 uncomment once TS requirement is TS >= 2.7
         // state = {
         //     secondz: 0,
         //     inputValuez: 'hello'
         // };
+        render() { return null; }
     }
     class BetterPropsAndStateChecksComponent extends React.Component<Props, State, Snapshot> {
         render() { return null; }
         componentDidMount() {
-            // $ExpectError
+            // $ExpectError -> this will be true in next BC release where state is gonna be `null | Readonly<S>`
             console.log(this.state.inputValue);
         }
         mutateState() {

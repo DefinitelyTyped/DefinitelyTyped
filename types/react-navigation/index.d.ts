@@ -18,6 +18,7 @@
 //                 Edward Sammut Alessi <https://github.com/Slessi>
 //                 Jérémy Magrin <https://github.com/magrinj>
 //                 Luca Campana <https://github.com/TizioFittizio>
+//                 Ullrich Schaefer <https://github.com/stigi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -1165,9 +1166,12 @@ export function withNavigation<T = {}>(
   Component: React.ComponentType<T & NavigationInjectedProps>
 ): React.ComponentType<T & { onRef?: React.Ref<typeof Component> }>;
 
+export interface NavigationFocusInjectedProps extends NavigationInjectedProps {
+  isFocused: boolean;
+}
 export function withNavigationFocus<T = {}>(
-  Component: React.ComponentType<T & NavigationInjectedProps>
-): React.ComponentType<T>;
+  Component: React.ComponentType<T & NavigationFocusInjectedProps>
+): React.ComponentType<T & { onRef?: React.Ref<typeof Component> }>;
 
 /**
  * SafeAreaView Component

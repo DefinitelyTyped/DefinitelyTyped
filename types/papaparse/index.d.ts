@@ -109,9 +109,12 @@ export interface ParseConfig {
 }
 
 export interface UnparseConfig {
-    quotes?: boolean;    // default: false
-    delimiter?: string;  // default: ","
-    newline?: string;    // default: "\r\n"
+    quotes?: boolean;      // default: false
+	quoteChar?: string;    // default: '"'
+	escapeChar?: string;   // default: '"'
+	delimiter?: string;    // default: ","
+	header?: boolean;      // default: true
+	newline?: string;      // default: "\r\n"
 }
 
 export interface UnparseObject {

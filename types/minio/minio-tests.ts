@@ -66,6 +66,7 @@ minio.removeObject('testBucket', 'hello.jpg', (error: Error|null) => { console.l
 minio.removeObject('testBucket', 'hello.jpg');
 
 minio.removeObjects('testBucket', ['hello.jpg', 'hello.txt'], (error: Error|null) => { console.log(error); });
+minio.removeObjects('testBucket', ['hello.jpg', 'hello.txt']);
 
 minio.removeIncompleteUpload('testBucket', 'hello.jpg', (error: Error|null) => { console.log(error); });
 minio.removeIncompleteUpload('testBucket', 'hello.jpg');

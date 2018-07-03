@@ -1,18 +1,18 @@
-import { Chart, ChartData, Point } from 'chart.js';
+import { Chart, ChartData, Point } from "chart.js";
 
 // alternative:
 // import chartjs = require('chart.js');
 // => chartjs.Chart
 
 const chart: Chart = new Chart(new CanvasRenderingContext2D(), {
-    type: 'bar',
+    type: "bar",
     data: {
-        labels: ['group 1'],
+        labels: ["group 1"],
         datasets: [
             {
-                backgroundColor: '#000000',
+                backgroundColor: "#000000",
                 borderWidth: 1,
-                label: 'test',
+                label: "test",
                 data: [1]
             }
         ]
@@ -22,7 +22,7 @@ const chart: Chart = new Chart(new CanvasRenderingContext2D(), {
             intersect: true
         },
         onHover(ev: MouseEvent, points: any[]) {
-          return;
+            return;
         },
         title: {
             text: ["foo", "bar"]
@@ -35,21 +35,23 @@ const chart: Chart = new Chart(new CanvasRenderingContext2D(), {
             caretPadding: 2,
             displayColors: true,
             borderColor: "rgba(0,0,0,0)",
-            borderWidth: 1,
+            borderWidth: 1
         },
         scales: {
-            xAxes: [{
-                ticks: {
-                    callback: Math.floor
-                },
-                gridLines: {
-                    display: false,
-                    borderDash: [5, 15],
-                    borderDashOffset: 2,
-                    zeroLineBorderDash: [5, 15],
-                    zeroLineBorderDashOffset: 2
+            xAxes: [
+                {
+                    ticks: {
+                        callback: Math.floor
+                    },
+                    gridLines: {
+                        display: false,
+                        borderDash: [5, 15],
+                        borderDashOffset: 2,
+                        zeroLineBorderDash: [5, 15],
+                        zeroLineBorderDashOffset: 2
+                    }
                 }
-            }]
+            ]
         },
         legend: {
             display: true,
@@ -58,10 +60,12 @@ const chart: Chart = new Chart(new CanvasRenderingContext2D(), {
                 padding: 40
             }
         },
-        devicePixelRatio: 2,
+        devicePixelRatio: 2
     }
 });
 chart.update();
+
+console.log(chart.getDatasetMeta(0));
 
 console.log(chart.ctx && chart.ctx.font);
 console.log(chart.canvas && chart.canvas.tagName);

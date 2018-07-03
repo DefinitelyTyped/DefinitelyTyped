@@ -17,6 +17,8 @@ export class MyComponent extends wepy.component {
         titleClassName: ""
     };
 
+    config = {};
+
     methods = {};
 
     onLoad() {

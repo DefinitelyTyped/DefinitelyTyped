@@ -8,25 +8,22 @@ FB.init({
    xfbml: true
 });
 
-FB.getLoginStatus(function(response: fb.AuthResponse) {
+FB.getLoginStatus(function(response: fb.StatusResponse) {
     console.log(response);
     console.log(response.status);
     console.log(response.authResponse.accessToken);
 });
 
-FB.getLoginStatus(function(response: fb.AuthResponse) {
+FB.getLoginStatus(function(response: fb.StatusResponse) {
     console.log(response);
     console.log(response.status);
     console.log(response.authResponse.accessToken);
 }, true);
 
-FB.getAuthResponse(function(response: fb.AuthResponse) {
-    console.log(response);
-    console.log(response.status);
-    console.log(response.authResponse.accessToken);
-});
+const authResponse: fb.AuthResponse = FB.getAuthResponse();
+console.log(authResponse.accessToken);
 
-FB.login(function(response: fb.AuthResponse) {
+FB.login(function(response: fb.StatusResponse) {
     console.log(response);
     console.log(response.status);
     console.log(response.authResponse.accessToken);
@@ -34,7 +31,7 @@ FB.login(function(response: fb.AuthResponse) {
     scope: 'public_profile'
 });
 
-FB.logout(function(response: fb.AuthResponse) {
+FB.logout(function(response: fb.StatusResponse) {
     console.log(response);
     console.log(response.status);
     console.log(response.authResponse.accessToken);

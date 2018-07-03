@@ -1,5 +1,17 @@
 import wepy from "wepy";
-import { connect } from "wepy-redux";
+import { createStore } from "redux";
+import { connect, getStore, setStore } from "wepy-redux";
+
+const store = createStore(
+    (counter: number | undefined, action: { type: string; payload: number }) =>
+        counter || 0 + action.payload,
+    0
+);
+
+setStore(store);
+
+const s = getStore();
+s.dispatch({ type: "a" });
 
 interface State {
     counter: {

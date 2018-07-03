@@ -17,7 +17,7 @@ class TestApp extends App<NextComponentProps> {
     }
 
     render() {
-        const { Component, pageProps } = this.props;
+        const { Component, router, pageProps } = this.props;
         return (
             <Container>
                 <Component {...pageProps} />
