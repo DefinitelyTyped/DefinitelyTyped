@@ -2,7 +2,6 @@
 // Project: https://github.com/mongodb/node-mongodb-native/tree/3.0.0
 // Definitions by: Federico Caselli <https://github.com/CaselIT>
 //                 Alan Marcell <https://github.com/alanmarcell>
-//                 Gady Piazza <https://github.com/kikar>
 //                 Jason Dreyzehner <https://github.com/bitjson>
 //                 Gaurav Lahoti <https://github.com/dante-101>
 //                 Mariano Cortesi <https://github.com/mcortesi>
@@ -493,8 +492,10 @@ export interface Collection<TSchema = Default> {
     bulkWrite(operations: Object[], callback: MongoCallback<BulkWriteOpResultObject>): void;
     bulkWrite(operations: Object[], options?: CollectionBulkWriteOptions): Promise<BulkWriteOpResultObject>;
     bulkWrite(operations: Object[], options: CollectionBulkWriteOptions, callback: MongoCallback<BulkWriteOpResultObject>): void;
-    /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#count */
-    /** @deprecated Use countDocuments or estimatedDocumentCount */
+    /**
+     * http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#count
+     * @deprecated Use countDocuments or estimatedDocumentCount
+     */
     count(callback: MongoCallback<number>): void;
     count(query: Object, callback: MongoCallback<number>): void;
     count(query?: Object, options?: MongoCountPreferences): Promise<number>;
