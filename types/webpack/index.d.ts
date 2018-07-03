@@ -1462,22 +1462,22 @@ declare namespace webpack {
             interface Options {
                 /**
                  * Size in byte.
-                 * Only chunks bigger than the specified minSize are stored in records. 
-                 * This ensures the chunks fill up as your application grows, 
+                 * Only chunks bigger than the specified minSize are stored in records.
+                 * This ensures the chunks fill up as your application grows,
                  * instead of creating too many chunks for every change.
-                 * 
+                 *
                  * Default: 30720
                  */
-                minSize: 30000, 
+                minSize: 30000;
                 /**
                  * Size in byte.
                  * maximum size prefered for each chunk.
-                 * 
+                 *
                  * Default: 51200
                  */
-                maxSize: 50000, 
-                chunkOverhead: 0,
-                entryChunkMultiplicator: 1,
+                maxSize: 50000;
+                chunkOverhead: 0;
+                entryChunkMultiplicator: 1;
             }
         }
 
