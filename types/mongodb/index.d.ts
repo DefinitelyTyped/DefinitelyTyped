@@ -494,6 +494,7 @@ export interface Collection<TSchema = Default> {
     bulkWrite(operations: Object[], options?: CollectionBulkWriteOptions): Promise<BulkWriteOpResultObject>;
     bulkWrite(operations: Object[], options: CollectionBulkWriteOptions, callback: MongoCallback<BulkWriteOpResultObject>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#count */
+    /** @deprecated Use countDocuments or estimatedDocumentCount */
     count(callback: MongoCallback<number>): void;
     count(query: Object, callback: MongoCallback<number>): void;
     count(query?: Object, options?: MongoCountPreferences): Promise<number>;
