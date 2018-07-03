@@ -1,4 +1,5 @@
-export default class Session {
+export = Session;
+declare class Session {
     readonly token: string;
     readonly createdAt: Date;
     readonly expiresAt: Date;

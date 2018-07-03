@@ -1,4 +1,5 @@
-export default class User {
+export = User;
+declare class User {
     readonly firstname: string;
     readonly lastname: string;
     readonly displayname: string;

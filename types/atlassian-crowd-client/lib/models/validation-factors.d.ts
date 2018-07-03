@@ -1,4 +1,5 @@
-export default class ValidationFactors {
+export = ValidationFactors;
+declare class ValidationFactors {
     readonly validationFactors: any;
 
     constructor(validationFactorPairs: any);

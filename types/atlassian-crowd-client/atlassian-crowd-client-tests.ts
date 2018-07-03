@@ -1,8 +1,8 @@
-import CrowdClient from "atlassian-crowd-client";
-import Attributes from "atlassian-crowd-client/lib/models/attributes";
-import Group from "atlassian-crowd-client/lib/models/group";
-import Session from "atlassian-crowd-client/lib/models/session";
-import User from "atlassian-crowd-client/lib/models/user";
+import CrowdClient = require("atlassian-crowd-client");
+import Attributes = require("atlassian-crowd-client/lib/models/attributes");
+import Group = require("atlassian-crowd-client/lib/models/group");
+import Session = require("atlassian-crowd-client/lib/models/session");
+import User = require("atlassian-crowd-client/lib/models/user");
 
 // Initialize the Crowd client:
 const crowd = new CrowdClient({

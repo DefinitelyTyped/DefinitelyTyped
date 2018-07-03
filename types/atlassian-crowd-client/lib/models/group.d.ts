@@ -1,4 +1,5 @@
-export default class Group {
+export = Group;
+declare class Group {
     readonly groupname: string;
     readonly description: string;
     readonly active: boolean;

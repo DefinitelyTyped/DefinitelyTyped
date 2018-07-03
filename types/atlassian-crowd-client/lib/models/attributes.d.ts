@@ -1,4 +1,5 @@
-export default class Attributes {
+export = Attributes;
+declare class Attributes {
     readonly attributes: {[name: string]: any};
 
     constructor(attributePairs: {[name: string]: any});

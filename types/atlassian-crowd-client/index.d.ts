@@ -5,13 +5,14 @@
 
 import CrowdApi from "./api";
 import { Settings } from "./settings";
-import Attributes from "./lib/models/attributes";
-import Group from "./lib/models/group";
-import User from "./lib/models/user";
-import Session from "./lib/models/session";
-import ValidationFactors from "./lib/models/validation-factors";
+import Attributes = require("./lib/models/attributes");
+import Group = require("./lib/models/group");
+import User = require("./lib/models/user");
+import Session = require("./lib/models/session");
+import ValidationFactors = require("./lib/models/validation-factors");
 
-export default class CrowdClient extends CrowdApi {
+export = CrowdClient;
+declare class CrowdClient extends CrowdApi {
     settings: Settings;
 
     constructor(settings: Settings);
