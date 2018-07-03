@@ -65,7 +65,10 @@ import { UniqueArgumentNames } from "./rules/UniqueArgumentNames";
 import { ValuesOfCorrectType } from "./rules/ValuesOfCorrectType";
 
 // Spec Section: "Argument Optionality"
-import { ProvidedRequiredArguments } from "./rules/ProvidedRequiredArguments";
+import { ProvidedNonNullArguments } from "./rules/ProvidedNonNullArguments";
+
+// Spec Section: "Variables Default Value Is Allowed"
+import { VariablesDefaultValueAllowed } from "./rules/VariablesDefaultValueAllowed";
 
 // Spec Section: "All Variable Usages Are Allowed"
 import { VariablesInAllowedPosition } from "./rules/VariablesInAllowedPosition";

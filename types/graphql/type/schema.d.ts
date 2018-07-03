@@ -1,7 +1,7 @@
 import Maybe from "../tsutils/Maybe";
 import { GraphQLObjectType } from "./definition";
 import { GraphQLType, GraphQLNamedType, GraphQLAbstractType } from "./definition";
-import { SchemaDefinitionNode, SchemaExtensionNode } from "../language/ast";
+import { SchemaDefinitionNode } from "../language/ast";
 import { GraphQLDirective } from "./directives";
 
 /**
@@ -37,7 +37,6 @@ export function isSchema(schema: any): schema is GraphQLSchema;
  */
 export class GraphQLSchema {
     astNode: Maybe<SchemaDefinitionNode>;
-    extensionASTNodes: Maybe<ReadonlyArray<SchemaExtensionNode>>;
 
     constructor(config: GraphQLSchemaConfig);
 
@@ -84,5 +83,4 @@ export interface GraphQLSchemaConfig extends GraphQLSchemaValidationOptions {
     types?: Maybe<GraphQLNamedType[]>;
     directives?: Maybe<GraphQLDirective[]>;
     astNode?: Maybe<SchemaDefinitionNode>;
-    extensionASTNodes?: Maybe<ReadonlyArray<SchemaExtensionNode>>;
 }

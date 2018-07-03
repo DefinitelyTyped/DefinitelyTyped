@@ -227,16 +227,9 @@ export {
     EnumTypeDefinitionNode,
     EnumValueDefinitionNode,
     InputObjectTypeDefinitionNode,
-    DirectiveDefinitionNode,
-    TypeSystemExtensionNode,
-    SchemaExtensionNode,
     TypeExtensionNode,
-    ScalarTypeExtensionNode,
     ObjectTypeExtensionNode,
-    InterfaceTypeExtensionNode,
-    UnionTypeExtensionNode,
-    EnumTypeExtensionNode,
-    InputObjectTypeExtensionNode,
+    DirectiveDefinitionNode,
     KindEnum,
     TokenKindEnum,
     DirectiveLocationEnum,
@@ -275,7 +268,7 @@ export {
     NoUnusedVariablesRule,
     OverlappingFieldsCanBeMergedRule,
     PossibleFragmentSpreadsRule,
-    ProvidedRequiredArgumentsRule,
+    ProvidedNonNullArgumentsRule,
     ScalarLeafsRule,
     SingleFieldSubscriptionsRule,
     UniqueArgumentNamesRule,
@@ -286,6 +279,7 @@ export {
     UniqueVariableNamesRule,
     ValuesOfCorrectTypeRule,
     VariablesAreInputTypesRule,
+    VariablesDefaultValueAllowedRule,
     VariablesInAllowedPositionRule,
 } from "./validation";
 
@@ -297,12 +291,10 @@ export {
     // Produce the GraphQL query recommended for a full schema introspection.
     // Accepts optional IntrospectionOptions.
     getIntrospectionQuery,
-    // @deprecated: use getIntrospectionQuery - will be removed in v15
+    // Deprecated: use getIntrospectionQuery
     introspectionQuery,
     // Gets the target Operation from a Document
     getOperationAST,
-    // Gets the Type for the target Operation AST.
-    getOperationRootType,
     // Convert a GraphQLSchema to an IntrospectionQuery
     introspectionFromSchema,
     // Build a GraphQLSchema from an introspection result.
@@ -338,9 +330,9 @@ export {
     TypeInfo,
     // Coerces a JavaScript value to a GraphQL type, or produces errors.
     coerceValue,
-    // @deprecated use coerceValue - will be removed in v15
+    // @deprecated use coerceValue
     isValidJSValue,
-    // @deprecated use validation - will be removed in v15
+    // Determine if AST values adhere to a GraphQL type.
     isValidLiteralValue,
     // Concatenates multiple AST together.
     concatAST,

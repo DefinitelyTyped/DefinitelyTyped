@@ -1,9 +1,10 @@
 import ValidationContext from "../ValidationContext";
 import { ASTVisitor } from "../../language/visitor";
+import { GraphQLType } from "../../type/definition";
 
-export function typeIncompatibleSpreadMessage(fragName: string, parentType: string, fragType: string): string;
+export function typeIncompatibleSpreadMessage(fragName: string, parentType: GraphQLType, fragType: GraphQLType): string;
 
-export function typeIncompatibleAnonSpreadMessage(parentType: string, fragType: string): string;
+export function typeIncompatibleAnonSpreadMessage(parentType: GraphQLType, fragType: GraphQLType): string;
 
 /**
  * Possible fragment spread
