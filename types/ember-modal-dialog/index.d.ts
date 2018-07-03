@@ -2,7 +2,7 @@
 // Project: https://github.com/yapplabs/ember-modal-dialog#readme
 // Definitions by: Frank Tan <https://github.com/tansongyang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.6
 
 declare module 'ember-modal-dialog/components/modal-dialog' {
     import Ember from 'ember';

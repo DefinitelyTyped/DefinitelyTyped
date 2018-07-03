@@ -4,7 +4,7 @@
 //                 Mike North <https://github.com/mike-north>
 //                 Chris Krycho <https://github.com/chriskrycho>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.6
 
 declare module 'ember-data' {
     import Ember from 'ember';
@@ -2089,32 +2089,44 @@ declare module 'ember-data' {
     export default DS;
 }
 
-declare module 'ember' {
+/*
+* The store is automatically injected into these objects
+*
+* https://github.com/emberjs/data/blob/05e95280e11c411177f2fbcb65fd83488d6a9d89/addon/setup-container.js#L71-L78
+*/
+declare module '@ember/routing/route' {
     import DS from 'ember-data';
-    namespace Ember {
-        /*
-		* The store is automatically injected into these objects
-		*
-		* https://github.com/emberjs/data/blob/05e95280e11c411177f2fbcb65fd83488d6a9d89/addon/setup-container.js#L71-L78
-		*/
-        interface Route {
-            store: DS.Store;
-        }
-        interface Controller {
-            store: DS.Store;
-        }
-        interface DataAdapter {
-            store: DS.Store;
-        }
-    }
 
-    // It is also available to inject anywhere
-    module '@ember/service' {
-        interface Registry {
-            'store': DS.Store;
-        }
+    export default interface Route {
+        store: DS.Store;
     }
 }
+
+declare module '@ember/controller' {
+    import DS from 'ember-data';
+
+    export default interface Controller {
+        store: DS.Store;
+    }
+}
+
+declare module '@ember/debug/data-adapter' {
+    import DS from 'ember-data';
+
+    export default interface DataAdapter {
+        store: DS.Store;
+    }
+}
+
+// It is also available to inject anywhere
+declare module '@ember/service' {
+    import DS from 'ember-data';
+
+    interface Registry {
+        'store': DS.Store;
+    }
+}
+
 declare module 'ember-test-helpers' {
     import DS from 'ember-data';
     interface TestContext {

@@ -25,6 +25,11 @@
         "no-submodule-imports": false,
 
         // false positives
-        "unified-signatures": false
+        "unified-signatures": false,
+
+        // We break out several items in the `Ember` namespace according to their
+        // source '@ember/...' module, so some namespaces like `Ember.Test` are
+        // declared multiple times in the same scope
+        "no-mergeable-namespace": false
     }
 }

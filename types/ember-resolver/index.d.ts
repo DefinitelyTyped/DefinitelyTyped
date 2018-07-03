@@ -2,7 +2,7 @@
 // Project: https://github.com/ember-cli/ember-resolver#readme
 // Definitions by: Dan Freeman <https://github.com/dfreeman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.6
 
 /// <reference types="ember" />
 
