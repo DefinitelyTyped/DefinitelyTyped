@@ -23,6 +23,8 @@ export interface ClientOptions {
     secure?: boolean;
     port?: number;
     region?: Region;
+    transport?: any;
+    sessionToken?: string;
 }
 
 export interface BucketItemFromList {
