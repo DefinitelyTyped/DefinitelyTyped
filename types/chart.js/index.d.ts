@@ -52,6 +52,10 @@ declare class Chart {
         [key: string]: any;
     };
 
+    static helpers: {
+        [key: string]: any;
+    };
+
     // Tooltip Static Options
     static Tooltip: Chart.ChartTooltipsStaticConfiguration;
 }
