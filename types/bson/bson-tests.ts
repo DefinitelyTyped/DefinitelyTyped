@@ -9,7 +9,7 @@ let Long = bson.Long;
 let doc = { long: Long.fromNumber(100) }
 
 // Serialize a document
-let data = BSON.serialize(doc, false, true, false);
+let data = BSON.serialize(doc);
 console.log("data:", data);
 
 // Deserialize the resulting Buffer
