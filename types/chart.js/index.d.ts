@@ -56,8 +56,12 @@ declare class Chart {
     static Tooltip: Chart.ChartTooltipsStaticConfiguration;
 }
 declare class PluginServiceStatic {
-    register(plugin: PluginServiceRegistrationOptions): void;
-    unregister(plugin: PluginServiceRegistrationOptions): void;
+    register(plugin: PluginServiceGlobalRegistration & PluginServiceRegistrationOptions): void;
+    unregister(plugin: PluginServiceGlobalRegistration & PluginServiceRegistrationOptions): void;
+}
+
+interface PluginServiceGlobalRegistration {
+    id?: string;
 }
 
 interface PluginServiceRegistrationOptions {
@@ -223,8 +227,7 @@ declare namespace Chart {
         type?: ChartType | string;
         data?: ChartData;
         options?: ChartOptions;
-        // Plugins can require any options
-        plugins?: any;
+        plugins?: PluginServiceRegistrationOptions;
     }
 
     interface ChartData {
@@ -259,7 +262,7 @@ declare namespace Chart {
         rotation?: number;
         devicePixelRatio?: number;
         // Plugins can require any options
-        plugins?: { [plugin: string]: any };
+        plugins?: { [pluginId: string]: any };
     }
 
     interface ChartFontOptions {
