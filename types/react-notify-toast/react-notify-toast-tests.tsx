@@ -2,9 +2,9 @@ import { Component } from 'react';
 import Notification, { notify } from 'react-notify-toast';
 
 export class NotificationTest extends Component {
-  render() {
-    return(<Notification options={{zIndex: 200, top: '15px'}} />);
-  }
+    render() {
+        return(<Notification options={{zIndex: 200, top: '15px'}} />);
+    }
 }
 
 function testNotify() {
