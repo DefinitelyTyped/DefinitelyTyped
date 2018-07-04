@@ -186,7 +186,7 @@ declare module "victory" {
      * with a viewBox attribute, or a static container with absolute width and height.
      * @default true
      */
-    responsive: boolean
+    responsive?: boolean
     /**
      * The style prop specifies styles for your VictoryContainer. Any valid inline style properties
      * will be applied. Height and width should be specified via the height
