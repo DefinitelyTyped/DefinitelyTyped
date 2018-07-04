@@ -2,6 +2,11 @@ import * as React from 'react';
 import { ReactWidgetsCommonDropdownProps, AutoFocus } from './CommonProps';
 
 interface DropdownListProps extends ReactWidgetsCommonDropdownProps<DropdownListClass>, AutoFocus {
+
+    /**
+     * Allow to create a new option on the data list.
+     */
+    allowCreate?: boolean | 'onFilter'
     /**
      * The current value of the DropdownList. This can be an object (such as a member of the
      * data array) or a primitive value, hinted to by the valueField. The widget value does not
@@ -12,6 +17,10 @@ interface DropdownListProps extends ReactWidgetsCommonDropdownProps<DropdownList
      * Default value.
      */
     defaultValue?: any;
+    /**
+     * Create event Handler that is called when a new option is added to the data list.
+     */
+    onCreate?: (value: any) => void;
     /**
      * Change event Handler that is called when the value is changed.
      */
@@ -40,6 +49,10 @@ interface DropdownListProps extends ReactWidgetsCommonDropdownProps<DropdownList
      * @default 250
      */
     delay?: number;
+    /**
+     * Change the opening direction of the popup
+     */
+    dropUp?: boolean;
     /**
      * A dataItem field name for uniquely identifying items in the data list. A valueField is
      * required when the value prop is not itself a dataItem. A valueField is useful when
