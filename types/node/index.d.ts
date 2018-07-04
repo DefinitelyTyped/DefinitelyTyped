@@ -6172,29 +6172,29 @@ declare module "stream" {
 
         export class PassThrough<T = any> extends Transform<T, T> { }
 
-        export function pipeline<T, TDestination extends NodeJS.WritableStream<T>>(
-            stream1: NodeJS.ReadableStream<T>,
+        export function pipeline<T1, TDestination extends NodeJS.WritableStream<T1>>(
+            stream1: NodeJS.ReadableStream<T1>,
             stream2: TDestination,
             callback?: (err: NodeJS.ErrnoException) => void,
         ): TDestination;
-        export function pipeline<T, A, TDestination extends NodeJS.WritableStream<A>>(
-            stream1: NodeJS.ReadableStream<T>,
-            stream2: NodeJS.ReadWriteStream<T, A>,
+        export function pipeline<T1, T2, TDestination extends NodeJS.WritableStream<T2>>(
+            stream1: NodeJS.ReadableStream<T1>,
+            stream2: NodeJS.ReadWriteStream<T1, T2>,
             stream3: TDestination,
             callback?: (err: NodeJS.ErrnoException) => void,
         ): TDestination;
-        export function pipeline<T, A, B, TDestination extends NodeJS.WritableStream<B>>(
-            stream1: NodeJS.ReadableStream<T>,
-            stream2: NodeJS.ReadWriteStream<T, A>,
-            stream3: NodeJS.ReadWriteStream<A, B>,
+        export function pipeline<T1, T2, T3, TDestination extends NodeJS.WritableStream<T3>>(
+            stream1: NodeJS.ReadableStream<T1>,
+            stream2: NodeJS.ReadWriteStream<T1, T2>,
+            stream3: NodeJS.ReadWriteStream<T2, T3>,
             stream4: TDestination,
             callback?: (err: NodeJS.ErrnoException) => void,
         ): TDestination;
-        export function pipeline<T, A, B, C, TDestination extends NodeJS.WritableStream<C>>(
-            stream1: NodeJS.ReadableStream<T>,
-            stream2: NodeJS.ReadWriteStream<T, A>,
-            stream3: NodeJS.ReadWriteStream<A, B>,
-            stream4: NodeJS.ReadWriteStream<B, C>,
+        export function pipeline<T1, T2, T3, T4, TDestination extends NodeJS.WritableStream<T4>>(
+            stream1: NodeJS.ReadableStream<T1>,
+            stream2: NodeJS.ReadWriteStream<T1, T2>,
+            stream3: NodeJS.ReadWriteStream<T2, T3>,
+            stream4: NodeJS.ReadWriteStream<T3, T4>,
             stream5: TDestination,
             callback?: (err: NodeJS.ErrnoException) => void,
         ): TDestination;
@@ -6202,38 +6202,38 @@ declare module "stream" {
             streams: Array<NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream>,
             callback?: (err: NodeJS.ErrnoException) => void,
         ): NodeJS.WritableStream;
-        export function pipeline<T>(
-            stream1: NodeJS.ReadableStream<T>,
-            stream2: NodeJS.ReadWriteStream<T, any> | NodeJS.WritableStream<T>,
+        export function pipeline<T1>(
+            stream1: NodeJS.ReadableStream<T1>,
+            stream2: NodeJS.ReadWriteStream<T1, any> | NodeJS.WritableStream<T1>,
             ...streams: Array<NodeJS.ReadWriteStream | NodeJS.WritableStream | ((err: NodeJS.ErrnoException) => void)>,
         ): NodeJS.WritableStream;
         export namespace pipeline {
-            export function __promisify__<T, TDestination extends NodeJS.WritableStream<T>>(
-                stream1: NodeJS.ReadableStream<T>,
+            export function __promisify__<T1, TDestination extends NodeJS.WritableStream<T1>>(
+                stream1: NodeJS.ReadableStream<T1>,
                 stream2: TDestination,
             ): Promise<void>;
-            export function __promisify__<T, A, TDestination extends NodeJS.WritableStream<A>>(
-                stream1: NodeJS.ReadableStream<T>,
-                stream2: NodeJS.ReadWriteStream<T, A>,
+            export function __promisify__<T1, T2, TDestination extends NodeJS.WritableStream<T2>>(
+                stream1: NodeJS.ReadableStream<T1>,
+                stream2: NodeJS.ReadWriteStream<T1, T2>,
                 stream3: TDestination,
             ): Promise<void>;
-            export function __promisify__<T, A, B, TDestination extends NodeJS.WritableStream<B>>(
-                stream1: NodeJS.ReadableStream<T>,
-                stream2: NodeJS.ReadWriteStream<T, A>,
-                stream3: NodeJS.ReadWriteStream<A, B>,
+            export function __promisify__<T1, T2, T3, TDestination extends NodeJS.WritableStream<T3>>(
+                stream1: NodeJS.ReadableStream<T1>,
+                stream2: NodeJS.ReadWriteStream<T1, T2>,
+                stream3: NodeJS.ReadWriteStream<T2, T3>,
                 stream4: TDestination,
             ): Promise<void>;
-            export function __promisify__<T, A, B, C, TDestination extends NodeJS.WritableStream<C>>(
-                stream1: NodeJS.ReadableStream<T>,
-                stream2: NodeJS.ReadWriteStream<T, A>,
-                stream3: NodeJS.ReadWriteStream<A, B>,
-                stream4: NodeJS.ReadWriteStream<B, C>,
+            export function __promisify__<T1, T2, T3, T4, TDestination extends NodeJS.WritableStream<T4>>(
+                stream1: NodeJS.ReadableStream<T1>,
+                stream2: NodeJS.ReadWriteStream<T1, T2>,
+                stream3: NodeJS.ReadWriteStream<T2, T3>,
+                stream4: NodeJS.ReadWriteStream<T3, T4>,
                 stream5: TDestination,
             ): Promise<void>;
             export function __promisify__(streams: Array<NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream>): Promise<void>;
-            export function __promisify__<T>(
-                stream1: NodeJS.ReadableStream<T>,
-                stream2: NodeJS.ReadWriteStream<T, any> | NodeJS.WritableStream<T>,
+            export function __promisify__<T1>(
+                stream1: NodeJS.ReadableStream<T1>,
+                stream2: NodeJS.ReadWriteStream<T1, any> | NodeJS.WritableStream<T1>,
                 ...streams: Array<NodeJS.ReadWriteStream | NodeJS.WritableStream>,
             ): Promise<void>;
         }
