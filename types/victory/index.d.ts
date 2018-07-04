@@ -343,10 +343,7 @@ declare module "victory" {
      * changes, the chart will render with a new highlighted domain.
      * @example brushDomain={{ x: [50, 100], y: [0, 100] }}
      */
-    brushDomain?: {
-      x?: DomainTuple;
-      y?: DomainTuple;
-    };
+    brushDomain?: DomainPropType;
     /**
      * The brushStyle adds custom styles to the brushComponent. This prop 
      * should be given as an object of SVG style attributes.
@@ -389,7 +386,7 @@ declare module "victory" {
      * domain (the updated domain), and props (the props used by VictoryBrushContainer).
      * @example onBrushDomainChange={(domain, props) => handleDomainChange(domain, props)}
      */
-    onBrushDomainChange?: (domain: DomainTuple, props: VictoryBrushContainerProps) => void;
+    onBrushDomainChange?: (domain: DomainPropType, props: VictoryBrushContainerProps) => void;
   }
 
   export class VictoryBrushContainer extends React.Component<VictoryBrushContainerProps, any> {}
@@ -430,10 +427,7 @@ declare module "victory" {
      * zoomDomain will trigger a re-render of the chart with the new domain.
      * @example zoomDomain={{x: [0, 100]}}
      */
-    zoomDomain?: {
-      x?: DomainTuple;
-      y?: DomainTuple;
-    };
+    zoomDomain?: DomainPropType;
     /**
      * The brushStyle adds custom styles to the brushComponent. This prop 
      * should be given as an object of SVG style attributes.
@@ -471,7 +465,7 @@ declare module "victory" {
      * The function accepts the parameters domain (the updated domain) and props (the props used by VictoryZoomContainer).
      * @example onZoomDomainChange={(domain, props) => handleDomainChange(domain, props)}
      */
-    onZoomDomainChange?: (domain: DomainTuple, props: VictoryZoomContainerProps) => void;
+    onZoomDomainChange?: (domain: DomainPropType, props: VictoryZoomContainerProps) => void;
   }
 
   export class VictoryZoomContainer extends React.Component<VictoryZoomContainerProps, any> {}
