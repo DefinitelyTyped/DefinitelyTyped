@@ -1,7 +1,7 @@
-import { Component } from 'react';
+import * as React from 'react';
 import Notification, { notify } from 'react-notify-toast';
 
-export class NotificationTest extends Component {
+export class NotificationTest extends React.Component {
     render() {
         return(<Notification options={{zIndex: 200, top: '15px'}} />);
     }
