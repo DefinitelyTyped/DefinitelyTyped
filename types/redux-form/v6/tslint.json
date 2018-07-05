@@ -1,0 +1,11 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "adjacent-overload-signatures": false,
+        "callable-types": false,
+        "no-empty-interface": false,
+        "no-object-literal-type-assertion": false,
+        "no-unnecessary-generics": false,
+        "strict-export-declare-modifiers": false
+    }
+}

@@ -1,0 +1,10 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+      // TODO
+      "ban-types": false,
+      "prefer-method-signature": false,
+      "strict-export-declare-modifiers": false,
+      "no-empty-interface": false
+    }
+  }

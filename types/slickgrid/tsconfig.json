@@ -1,0 +1,31 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": false,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "slick.autotooltips.d.ts",
+        "slick.checkboxselectcolumn.d.ts",
+        "slick.columnpicker.d.ts",
+        "slick.headerbuttons.d.ts",
+        "slick.rowselectionmodel.d.ts",
+        "test/index.ts",
+        "test/slick.autotooltips.ts",
+        "test/slick.checkboxselectcolumn.ts"
+    ]
+}

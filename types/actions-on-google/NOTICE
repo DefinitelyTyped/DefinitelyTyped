@@ -1,0 +1,13 @@
+License Notices:
+
+The API definitions are from Actions on Google reference site [1] and actions-on-google library [2].
+The actions-on-google library is licensed under the Apache 2.0 License [3].
+
+The code documentation is reproduced from work created and shared by Google [4]
+and used according to terms described in the Creative Commons 3.0 Attribution License [5].
+
+[1] https://developers.google.com/actions/
+[2] https://github.com/actions-on-google/actions-on-google-nodejs
+[3] http://www.apache.org/licenses/LICENSE-2.0
+[4] https://developers.google.com/readme/policies/
+[5] http://creativecommons.org/licenses/by/3.0/
