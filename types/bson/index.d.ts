@@ -180,51 +180,128 @@ export class Double {
     valueOf(): number;
 }
 
-export class Long {
-    static MAX_VALUE: Long;
-    static MIN_VALUE: Long;
-    static NEG_ONE: Long;
-    static ONE: Long;
-    static ZERO: Long;
+/**
+ * Base class for Long and Timestamp.
+ * In original js-node@1.0.x code 'Timestamp' is a 100% copy-paste of 'Long'
+ * with 'Long' replaced by 'Timestamp' (changed to inheritance in js-node@2.0.0)
+ */
+declare class LongLike<T> {
 
-    static fromInt(i: number): Long;
-    static fromNumber(n: number): Long;
-    static fromBits(lowBits: number, highBits: number): Long;
-    static fromString(s: string, opt_radix?: number): Long;
-
+    /**
+     * @param low The low (signed) 32 bits.
+     * @param high The high (signed) 32 bits.
+     */
     constructor(low: number, high: number);
 
-    add(other: Long): Long;
-    and(other: Long): Long;
-    compare(other: Long): number;
-    div(other: Long): Long;
-    equals(other: Long): boolean;
+    /** Returns the sum of `this` and the `other`. */
+    add(other: T): T;
+    /** Returns the bitwise-AND of `this` and the `other`. */
+    and(other: T): T;
+    /**
+     * Compares `this` with the given `other`.
+     * @returns 0 if they are the same, 1 if the this is greater, and -1 if the given one is greater.
+     */
+    compare(other: T): number;
+    /** Returns `this` divided by the given `other`. */
+    div(other: T): T;
+    /** Return whether `this` equals the `other` */
+    equals(other: T): boolean;
+    /** Return the high 32-bits value. */
     getHighBits(): number;
+    /** Return the low 32-bits value. */
     getLowBits(): number;
+    /** Return the low unsigned 32-bits value. */
     getLowBitsUnsigned(): number;
+    /** Returns the number of bits needed to represent the absolute value of `this`. */
     getNumBitsAbs(): number;
-    greaterThan(other: Long): number;
-    greaterThanOrEqual(other: Long): number;
+    /** Return whether `this` is greater than the `other`. */
+    greaterThan(other: T): boolean;
+    /** Return whether `this` is greater than or equal to the `other`. */
+    greaterThanOrEqual(other: T): boolean;
+    /** Return whether `this` value is negative. */
     isNegative(): boolean;
+    /** Return whether `this` value is odd. */
     isOdd(): boolean;
+    /** Return whether `this` value is zero. */
     isZero(): boolean;
-    lessThan(other: Long): boolean;
-    lessThanOrEqual(other: Long): boolean;
-    modulo(other: Long): Long;
-    multiply(other: Long): Long;
-    negate(): Long;
-    not(): Long;
-    notEquals(other: Long): boolean;
-    or(other: Long): Long;
-    shiftLeft(other: number): Long;
-    shiftRight(other: number): Long;
-    shiftRightUnsigned(other: number): Long;
-    subtract(other: Long): Long;
+    /** Return whether `this` is less than the `other`. */
+    lessThan(other: T): boolean;
+    /** Return whether `this` is less than or equal to the `other`. */
+    lessThanOrEqual(other: T): boolean;
+    /** Returns `this` modulo the given `other`. */
+    modulo(other: T): T;
+    /** Returns the product of `this` and the given `other`. */
+    multiply(other: T): T;
+    /** The negation of this value. */
+    negate(): T;
+    /** The bitwise-NOT of this value. */
+    not(): T;
+    /** Return whether `this` does not equal to the `other`. */
+    notEquals(other: T): boolean;
+    /** Returns the bitwise-OR of `this` and the given `other`. */
+    or(other: T): T;
+    /**
+     * Returns `this` with bits shifted to the left by the given amount.
+     * @param numBits The number of bits by which to shift.
+     */
+    shiftLeft(numBits: number): T;
+    /**
+     * Returns `this` with bits shifted to the right by the given amount.
+     * @param numBits The number of bits by which to shift.
+     */
+    shiftRight(numBits: number): T;
+    /**
+     * Returns `this` with bits shifted to the right by the given amount, with the new top bits matching the current sign bit.
+     * @param numBits The number of bits by which to shift.
+     */
+    shiftRightUnsigned(numBits: number): T;
+    /** Returns the difference of `this` and the given `other`. */
+    subtract(other: T): T;
+    /** Return the int value (low 32 bits). */
     toInt(): number;
+    /** Return the JSON value. */
     toJSON(): string;
+    /** Returns closest floating-point representation to `this` value */
     toNumber(): number;
+    /**
+     * Return as a string
+     * @param radix the radix in which the text should be written. {default:10}
+     */
     toString(radix?: number): string;
-    xor(other: Long): Long;
+    /** Returns the bitwise-XOR of `this` and the given `other`. */
+    xor(other: T): T;
+
+}
+
+/**
+ * A class representation of the BSON Long type, a 64-bit two's-complement
+ * integer value, which faithfully simulates the behavior of a Java "Long". This
+ * implementation is derived from LongLib in GWT.
+ */
+export class Long extends LongLike<Long> {
+
+    static readonly MAX_VALUE: Long;
+    static readonly MIN_VALUE: Long;
+    static readonly NEG_ONE: Long;
+    static readonly ONE: Long;
+    static readonly ZERO: Long;
+
+    /** Returns a Long representing the given (32-bit) integer value. */
+    static fromInt(i: number): Long;
+    /** Returns a Long representing the given value, provided that it is a finite number. Otherwise, zero is returned. */
+    static fromNumber(n: number): Long;
+    /**
+     * Returns a Long representing the 64-bit integer that comes by concatenating the given high and low bits. Each is assumed to use 32 bits.
+     * @param lowBits The low 32-bits.
+     * @param highBits The high 32-bits.
+     */
+    static fromBits(lowBits: number, highBits: number): Long;
+    /**
+     * Returns a Long representation of the given string
+     * @param opt_radix The radix in which the text is written. {default:10}
+     */
+    static fromString(s: string, opt_radix?: number): Long;
+
 }
 
 /** A class representation of the BSON Decimal128 type. */
@@ -320,49 +397,29 @@ export class Symbol {
     constructor(value: string);
 }
 
-export class Timestamp {
-    constructor(low: number, high: number);
+/** A class representation of the BSON Timestamp type. */
+export class Timestamp extends LongLike<Timestamp> {
 
-    static MAX_VALUE: Timestamp;
-    static MIN_VALUE: Timestamp;
-    static NEG_ONE: Timestamp;
-    static ONE: Timestamp;
-    static ZERO: Timestamp;
+    static readonly MAX_VALUE: Timestamp;
+    static readonly MIN_VALUE: Timestamp;
+    static readonly NEG_ONE: Timestamp;
+    static readonly ONE: Timestamp;
+    static readonly ZERO: Timestamp;
 
-    static fromBits(lowBits: number, highBits: number): Timestamp;
+    /** Returns a Timestamp represented by the given (32-bit) integer value */
     static fromInt(value: number): Timestamp;
+    /** Returns a Timestamp representing the given number value, provided that it is a finite number. */
     static fromNumber(value: number): Timestamp;
-    static fromString(str: string, radix?: number): Timestamp;
+    /**
+     * Returns a Timestamp for the given high and low bits. Each is assumed to use 32 bits.
+     * @param lowBits The low 32-bits.
+     * @param highBits The high 32-bits.
+     */
+    static fromBits(lowBits: number, highBits: number): Timestamp;
+    /**
+     * Returns a Timestamp from the given string.
+     * @param opt_radix The radix in which the text is written. {default:10}
+     */
+    static fromString(str: string, opt_radix?: number): Timestamp;
 
-    add(other: Timestamp): Timestamp;
-    and(other: Timestamp): Timestamp;
-    compare(other: Timestamp): number;
-    div(other: Timestamp): Timestamp;
-    equals(other: Timestamp): boolean;
-    getHighBits(): number;
-    getLowBits(): number;
-    getLowBitsUnsigned(): number;
-    getNumBitsAbs(): number;
-    greaterThan(other: Timestamp): number;
-    greaterThanOrEqual(other: Timestamp): number;
-    isNegative(): boolean;
-    isOdd(): boolean;
-    isZero(): boolean;
-    lessThan(other: Timestamp): boolean;
-    lessThanOrEqual(other: Timestamp): boolean;
-    modulo(other: Timestamp): Timestamp;
-    multiply(other: Timestamp): Timestamp;
-    negate(): Timestamp;
-    not(): Timestamp;
-    notEquals(other: Timestamp): boolean;
-    or(other: Timestamp): Timestamp;
-    shiftLeft(other: number): Timestamp;
-    shiftRight(other: number): Timestamp;
-    shiftRightUnsigned(other: number): Timestamp;
-    subtract(other: Timestamp): Timestamp;
-    toInt(): number;
-    toJSON(): string;
-    toNumber(): number;
-    toString(radix?: number): string;
-    xor(other: Timestamp): Timestamp;
 }
