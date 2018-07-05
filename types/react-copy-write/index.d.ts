@@ -8,7 +8,8 @@
 import { Component } from 'react';
 
 // It'd be nice if this could somehow be improved! Perhaps we need variadic
-// kinds plus infer keyword?
+// kinds plus infer keyword? Alternatively unions may solve our issue if we had
+// the ability to restrict type widening.
 type AnyDeepMemberOfState<T> = any;
 
 type MutateFn<T> = (draft: T) => void;
