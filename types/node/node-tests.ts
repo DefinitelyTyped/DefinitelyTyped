@@ -87,6 +87,8 @@ namespace assert_tests {
         assert.strictEqual(1, 1, "uses === comparator");
 
         assert.throws(() => { throw new Error("a hammer at your face"); }, undefined, "DODGED IT");
+
+        assert.strict.strict.deepEqual([[[1, 2, 3]], 4, 5], [[[1, 2, '3']], 4, 5]);
     }
 }
 
