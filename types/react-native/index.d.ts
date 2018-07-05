@@ -1110,6 +1110,36 @@ export interface TextInputKeyPressEventData {
 }
 
 /**
+ * @see TextInputProps.onChange
+ */
+export interface TextInputChangeEventData {
+    eventCount: number;
+    target: number;
+    text: string;
+}
+
+/**
+ * @see TextInputProps.onContentSizeChange
+ */
+export interface TextInputContentSizeChangeEventData {
+    contentSize: { width: number; height: number };
+}
+
+/**
+ * @see TextInputProps.onEndEditing
+ */
+export interface TextInputEndEditingEventData {
+    text: string;
+}
+
+/**
+ * @see TextInputProps.onSubmitEditing
+ */
+export interface TextInputSubmitEditingEventData {
+    text: string;
+}
+
+/**
  * @see https://facebook.github.io/react-native/docs/textinput.html#props
  */
 export interface TextInputProps
@@ -1195,16 +1225,7 @@ export interface TextInputProps
     /**
      * Callback that is called when the text input's text changes.
      */
-    onChange?: (
-        event: {
-            nativeEvent: {
-                text: string;
-                contentSize: { width: number; height: number };
-                target: number;
-                eventCount: number;
-            };
-        }
-    ) => void;
+    onChange?: (e: NativeSyntheticEvent<TextInputChangeEventData>) => void;
 
     /**
      * Callback that is called when the text input's text changes.
@@ -1219,12 +1240,12 @@ export interface TextInputProps
      *
      * Only called for multiline text inputs.
      */
-    onContentSizeChange?: (event: { nativeEvent: { contentSize: { width: number; height: number } } }) => void;
+    onContentSizeChange?: (e: NativeSyntheticEvent<TextInputContentSizeChangeEventData>) => void;
 
     /**
      * Callback that is called when text input ends.
      */
-    onEndEditing?: (event: { nativeEvent: { text: string } }) => void;
+    onEndEditing?: (e: NativeSyntheticEvent<TextInputEndEditingEventData>) => void;
 
     /**
      * Callback that is called when the text input is focused
@@ -1239,7 +1260,7 @@ export interface TextInputProps
     /**
      * Callback that is called when the text input's submit button is pressed.
      */
-    onSubmitEditing?: (event: { nativeEvent: { text: string } }) => void;
+    onSubmitEditing?: (e: NativeSyntheticEvent<TextInputSubmitEditingEventData>) => void;
 
     /**
      * Invoked on content scroll with
@@ -3392,6 +3413,14 @@ export interface ImageURISource {
 
 export type ImageRequireSource = number;
 
+/**
+ * @see ImagePropsIOS.onProgress
+ */
+export interface ImageProgressEventDataIOS {
+    loaded: number;
+    total: number;
+}
+
 export interface ImagePropsIOS {
     /**
      * blurRadius: the blur radius of the blur filter added to the image
@@ -3415,7 +3444,7 @@ export interface ImagePropsIOS {
     /**
      * Invoked on download progress with {nativeEvent: {loaded, total}}
      */
-    onProgress?: (event: { nativeEvent: { loaded: number; total: number } }) => void;
+    onProgress?: (event: NativeSyntheticEvent<ImageProgressEventDataIOS>) => void;
 
     /**
      * Invoked when a partial load of the image is complete. The definition of
@@ -3468,6 +3497,10 @@ export interface ImageLoadEventData extends ImageLoadEventDataAndroid {
     }
 }
 
+export interface ImageErrorEventData {
+    error: any;
+}
+
 /**
  * @see https://facebook.github.io/react-native/docs/image.html#resolveassetsource
  */
@@ -3487,14 +3520,14 @@ export interface ImagePropsBase extends ImagePropsIOS, ImagePropsAndroid, Access
      *
      * Invoked on mount and layout changes with
      *
-     * {nativeEvent: { layout: {x, y, width, height}}}.
+     * {nativeEvent: { layout: {x, y, width, height} }}.
      */
     onLayout?: (event: LayoutChangeEvent) => void;
 
     /**
      * Invoked on load error with {nativeEvent: {error}}
      */
-    onError?: (error: { nativeEvent: any }) => void;
+    onError?: (error: NativeSyntheticEvent<ImageErrorEventData>) => void;
 
     /**
      * Invoked when load completes successfully

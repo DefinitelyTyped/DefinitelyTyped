@@ -209,8 +209,8 @@ declare module 'luxon' {
             toLocaleParts(options?: DateTimeFormatOptions): any[];
             toLocaleString(options?: DateTimeFormatOptions): string;
             toMillis(): number;
-            toObject(options?: { includeConfig?: boolean }): DateObject;
             toMillis(): number;
+            toObject(options?: { includeConfig?: boolean }): DateObject;
             toRFC2822(): string;
             toSQL(options?: Object): string;
             toSQLDate(): string;
@@ -401,6 +401,10 @@ declare module 'luxon' {
             static universal: boolean;
             equals(other: Zone): boolean;
             offset(ts: number): number;
+        }
+
+        class IANAZone extends Zone {
+            constructor(ianaString: string);
         }
     }
 

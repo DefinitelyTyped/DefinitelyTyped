@@ -1,4 +1,4 @@
-import { DateTime, Duration, Interval, Info, Settings } from 'luxon';
+import { DateTime, Duration, Interval, Info, Settings, IANAZone } from 'luxon';
 
 /* DateTime */
 const dt = DateTime.local(2017, 5, 15, 8, 30);
@@ -11,6 +11,11 @@ const fromObject = DateTime.fromObject({
     hour: 12,
     zone: 'America/Los_Angeles',
     numberingSystem: 'beng'
+});
+
+const ianaZone = new IANAZone('America/Los_Angeles');
+const ianaZoneTest = DateTime.fromObject({
+    zone: ianaZone
 });
 
 const fromIso = DateTime.fromISO('2017-05-15'); // => May 15, 2017 at midnight
