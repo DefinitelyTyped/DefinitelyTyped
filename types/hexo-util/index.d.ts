@@ -3,37 +3,101 @@
 // Definitions by: My Self <https://github.com/me>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/*~ If this module is a UMD module that exposes a global variable 'myLib' when
- *~ loaded outside a module loader environment, declare that global here.
- *~ Otherwise, delete this declaration.
- */
-export as namespace myLib;
+/// <reference types="node" />
 
-/*~ If this module has methods, declare them as functions like so.
- */
-export function myMethod(a: string): string;
-export function myOtherMethod(a: number): number;
+import { Transform } from "stream";
+import { SpawnOptions } from 'child_process';
 
-/*~ You can declare types that are available via importing the module */
-export interface someType {
-    name: string;
-    length: number;
-    extras?: string[];
+export class CacheStream extends Transform {
+    destroy(): void;
+    getCache(): Buffer;
 }
 
-/*~ You can declare properties of the module using const, let, or var */
-export const myField: number;
+export function camelCaseKeys(obj: { [x: string]: any; }): { [x: string]: any; };
 
-/*~ If there are types, properties, or methods inside dotted names
- *~ of the module, declare them inside a 'namespace'.
- */
-export namespace subProp {
-    /*~ For example, given this definition, someone could write:
-     *~   import { subProp } from 'yourModule';
-     *~   subProp.foo();
-     *~ or
-     *~   import * as yourMod from 'yourModule';
-     *~   yourMod.subProp.foo();
-     */
-    export function foo(): void;
+export function escapeRegExp(str: string): string;
+
+export function escapeDiacritic(str: string): string;
+
+export function escapeHTML(str: string): string;
+
+export function hash(str: string | ArrayBufferView): Buffer;
+
+export class HashStream extends Transform {}
+
+export function highlight(str: string, options?: {
+    hljs?: boolean;
+    gutter?: boolean;
+    wrap?: boolean;
+    firstLine?: number;
+    caption?: string;
+    mark?: number[];
+    tab?: string;
+    lang?: string;
+    autoDetect?: boolean;
+}): string;
+
+export function htmlTag(tag: string, attrs?: string[] | ArrayLike<string> | { [x: string]: any }, text?: string | null): string;
+
+export class Pattern {
+    constructor(rule: Pattern | ((str: string) => any) | RegExp | string);
+    test(str: string): boolean;
+    match(str: string): any;
 }
+
+export class Permalink {
+    constructor(rule: string, options?: {
+        segments?: { [name: string]: string | RegExp; };
+    });
+    rule: string;
+    regex: RegExp;
+    params: string;
+    test(str: string): boolean;
+    parse(str: string): any[];
+    stringify(data: { [name: string]: string; }): string;
+}
+
+export function slugize(str: string, options?: {
+    separator?: string;
+    transform?: 1 | 2;
+}): string;
+
+export interface hexoSpawnOptions extends SpawnOptions {
+    verbose?: boolean;
+    encoding?: BufferEncoding;
+}
+
+export interface hexoSpawnDisableEncodingOptions extends SpawnOptions {
+    verbose?: boolean;
+    encoding: '' | false | null;
+}
+
+export interface hexoSpawnOverrideStdioOptions extends hexoSpawnOptions {
+    stdio: any[] | string;
+}
+
+export interface hexoSpawnDisableEncodingAndOverrideStdioOptions extends hexoSpawnDisableEncodingOptions {
+    stdio: any[] | string;
+}
+
+export function spawn(command: string, args: string[], options: hexoSpawnDisableEncodingAndOverrideStdioOptions): Promise<Buffer | void>;
+export function spawn(command: string, args: string[], options: hexoSpawnOverrideStdioOptions): Promise<string | void>;
+export function spawn(command: string, args: string[], options: hexoSpawnDisableEncodingOptions): Promise<Buffer>;
+export function spawn(command: string, args: string[], options?: hexoSpawnOptions): Promise<string>;
+
+export function spawn(command: string, options: hexoSpawnDisableEncodingAndOverrideStdioOptions): Promise<Buffer | void>;
+export function spawn(command: string, options: hexoSpawnOverrideStdioOptions): Promise<string | void>;
+export function spawn(command: string, options: hexoSpawnDisableEncodingOptions): Promise<Buffer>;
+export function spawn(command: string, options?: hexoSpawnOptions): Promise<string>;
+
+export function stripHTML(str: string): string;
+
+export function wordWrap(str: string, options?: {
+    width?: number;
+}): string;
+
+export function truncate(str: string, options?: {
+    length?: number;
+    omission?: string;
+    separator?: string;
+}): string;
