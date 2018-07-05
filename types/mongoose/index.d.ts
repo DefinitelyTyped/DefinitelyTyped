@@ -7,6 +7,7 @@
 //                 jendrikw <https://github.com/jendrikw>
 //                 Ethan Resnick <https://github.com/ethanresnick>
 //                 vologa <https://github.com/vologab>
+//                 jussikinnula <https://github.com/jussikinnula>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -356,6 +357,8 @@ declare module "mongoose" {
     domainsEnabled?: boolean;
     /** How long driver keeps waiting for servers to come back up (default: Number.MAX_VALUE) */
     bufferMaxEntries?: number;
+    /** Use new url parser (default: false). */
+    useNewUrlParser?: boolean
 
     /** additional SSL configuration options */
     /** Array of valid certificates either as Buffers or Strings */
