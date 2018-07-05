@@ -4374,6 +4374,8 @@
 /types/weighted/                                @ccitro
 /types/weixin-app/                              @taoqf @AlexStacker
 /types/wellknown/                               @yairtawil
+/types/wepy/                                    @Jimexist
+/types/wepy-redux/                              @Jimexist
 /types/whatwg-mimetype/                         @petejohanson
 /types/whatwg-streams/                          @saschanaz @ksm2
 /types/whatwg-url/                              @aomarks
