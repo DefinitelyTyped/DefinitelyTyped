@@ -83,4 +83,7 @@ export class SlideAnimation {
 export class DialogButton extends React.Component<DialogButtonProps, any> { }
 export class DialogTitle extends React.Component<DialogTitleProps, any> { }
 export class Overlay extends React.Component<OverlayProps, any> { }
-export default class PopupDialog extends React.Component<PopupDialogProps, any> { }
+export default class PopupDialog extends React.Component<PopupDialogProps, any> { 
+    show(callback?: () => void): void
+    dismiss(callback?: () => void): void
+}
