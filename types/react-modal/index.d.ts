@@ -1,4 +1,4 @@
-// Type definitions for react-modal 3.1
+// Type definitions for react-modal 3.2
 // Project: https://github.com/reactjs/react-modal
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>,
 //                 Drew Noakes <https://github.com/drewnoakes>,
@@ -92,6 +92,12 @@ declare namespace ReactModal {
 
         /* String indicating how the content container should be announced to screenreaders. */
         contentLabel?: string;
+
+        /* Function accepting the ref for the content */
+        contentRef?: (instance: HTMLDivElement) => void;
+
+        /* Function accepting the ref for the overlay */
+        overlayRef?: (instance: HTMLDivElement) => void;
     }
 }
 

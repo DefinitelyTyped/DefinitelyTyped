@@ -372,8 +372,8 @@ declare module "victory" {
      * Domain padding
      */
     type DomainPaddingPropType = number | {
-        x?: number;
-        y?: number;
+        x?: number | [ number, number];
+        y?: number | [ number, number];
     };
 
     /**

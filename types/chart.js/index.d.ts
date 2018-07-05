@@ -52,6 +52,10 @@ declare class Chart {
         [key: string]: any;
     };
 
+    static helpers: {
+        [key: string]: any;
+    };
+
     // Tooltip Static Options
     static Tooltip: Chart.ChartTooltipsStaticConfiguration;
 }
@@ -64,7 +68,7 @@ interface PluginServiceRegistrationOptions {
     beforeInit?(chartInstance: Chart, options?: any): void;
     afterInit?(chartInstance: Chart, options?: any): void;
 
-    resize?(chartInstance: Chart, newChartSize: Size, options?: any): void;
+    resize?(chartInstance: Chart, newChartSize: Chart.ChartSize, options?: any): void;
 
     beforeUpdate?(chartInstance: Chart, options?: any): void;
     afterScaleUpdate?(chartInstance: Chart, options?: any): void;
@@ -95,11 +99,6 @@ interface PluginServiceRegistrationOptions {
     // Called when an event occurs on the chart
     beforeEvent?(chartInstance: Chart, event: Event, options?: any): void;
     afterEvent?(chartInstance: Chart, event: Event, options?: any): void;
-}
-
-interface Size {
-    height: number;
-    width: number;
 }
 
 interface Meta {
@@ -236,6 +235,11 @@ declare namespace Chart {
 		scale?: RadialLinearScale;
 	}
 
+    interface ChartSize {
+        height: number;
+        width: number;
+    }
+
     interface ChartOptions {
         responsive?: boolean;
         responsiveAnimationDuration?: number;
@@ -244,6 +248,7 @@ declare namespace Chart {
         events?: string[];
         onHover?(this: Chart, event: MouseEvent, activeElements: Array<{}>): any;
         onClick?(event?: MouseEvent, activeElements?: Array<{}>): any;
+        onResize?(this: Chart, newSize: ChartSize): void;
         title?: ChartTitleOptions;
         legend?: ChartLegendOptions;
         tooltips?: ChartTooltipOptions;
