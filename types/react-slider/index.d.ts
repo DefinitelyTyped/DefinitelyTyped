@@ -2,7 +2,7 @@
 // Project: https://github.com/mpowaga/react-slider
 // Definitions by: Jason Unger <https://github.com/jsonunger>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.7
 
 import * as React from 'react';
 import * as motion from 'react-motion';
@@ -33,4 +33,4 @@ declare namespace ReactSlider {
 }
 
 declare const ReactSlider: React.ComponentClass<ReactSlider.ReactSliderProps>;
-export default ReactSlider;
+export = ReactSlider;
