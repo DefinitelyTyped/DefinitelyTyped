@@ -112,15 +112,21 @@ export class BSON {
 
 }
 
+/** A class representation of the BSON Binary type. */
 export class Binary {
-    static SUBTYPE_DEFAULT: number;
-    static SUBTYPE_FUNCTION: number;
-    static SUBTYPE_BYTE_ARRAY: number;
-    static SUBTYPE_UUID_OLD: number;
-    static SUBTYPE_UUID: number;
-    static SUBTYPE_MD5: number;
-    static SUBTYPE_USER_DEFINED: number;
 
+    static readonly SUBTYPE_DEFAULT: number;
+    static readonly SUBTYPE_FUNCTION: number;
+    static readonly SUBTYPE_BYTE_ARRAY: number;
+    static readonly SUBTYPE_UUID_OLD: number;
+    static readonly SUBTYPE_UUID: number;
+    static readonly SUBTYPE_MD5: number;
+    static readonly SUBTYPE_USER_DEFINED: number;
+
+    /**
+     * @param buffer A buffer object containing the binary data
+     * @param subType Binary data subtype
+     */
     constructor(buffer: Buffer, subType?: number);
 
     /** The underlying Buffer which stores the binary data. */
@@ -137,20 +143,43 @@ export class Binary {
     /** Writes a buffer or string to the binary */
     write(buffer: Buffer | string, offset: number): void;
 }
+
+/** A class representation of the BSON Code type. */
 export class Code {
+    /**
+     * @param code A string or function.
+     * @param scope An optional scope for the function.
+     */
     constructor(code: string | Function, scope?: any);
 }
+
+/**
+ * A class representation of the BSON DBRef type.
+ * @deprecated
+ */
 export class DBRef {
+    /**
+     * @param namespace The collection name.
+     * @param oid The reference ObjectID.
+     * @param db Optional db name, if omitted the reference is local to the current db
+     */
     constructor(namespace: string, oid: ObjectID, db?: string);
+
     namespace: string;
     oid: ObjectID;
     db?: string;
 }
+
+/** A class representation of the BSON Double type. */
 export class Double {
+    /**
+     * @param value The number we want to represent as a double.
+     */
     constructor(value: number);
 
     valueOf(): number;
 }
+
 export class Long {
     static MAX_VALUE: Long;
     static MIN_VALUE: Long;
@@ -197,20 +226,33 @@ export class Long {
     toString(radix?: number): string;
     xor(other: Long): Long;
 }
+
+/** A class representation of the BSON Decimal128 type. */
 export class Decimal128 {
+
+    /** Create a Decimal128 instance from a string representation. */
     static fromString(s: string): Decimal128;
 
+    /**
+     * @param bytes A buffer containing the raw Decimal128 bytes.
+     */
     constructor(bytes: Buffer);
 
     toJSON(): string;
     toString(): string;
 }
+
+/** A class representation of the BSON MaxKey type. */
 export class MaxKey {
     constructor();
 }
+
+/** A class representation of the BSON MinKey type. */
 export class MinKey {
     constructor();
 }
+
+/** A class representation of the BSON ObjectID type. */
 export class ObjectID {
     /**
      * Create a new ObjectID instance
@@ -241,10 +283,10 @@ export class ObjectID {
     static isValid(id: string | number | ObjectID): boolean;
     /**
      * Compares the equality of this ObjectID with `otherID`.
-     * @param {object} otherID ObjectID instance to compare against.
+     * @param {ObjectID|string} otherID ObjectID instance to compare against.
      * @return {boolean} the result of comparing two ObjectID's
      */
-    equals(otherID: ObjectID): boolean;
+    equals(otherID: ObjectID | string): boolean;
     /**
      * Generate a 12 byte id string used in ObjectID's
      * @param {number} time optional parameter allowing to pass in a second based timestamp.
@@ -253,7 +295,7 @@ export class ObjectID {
     generate(time?: number): Buffer;
     /**
      * Returns the generation date (accurate up to the second) that this ID was generated.
-     * @return {date} the generation date
+     * @return {Date} the generation date
      */
     getTimestamp(): Date;
     /**
@@ -262,13 +304,22 @@ export class ObjectID {
      */
     toHexString(): string;
 }
+
 export { ObjectID as ObjectId };
+
+/** A class representation of the BSON RegExp type. */
 export class BSONRegExp {
     constructor(pattern: string, options: string);
 }
+
+/**
+ * A class representation of the BSON Symbol type.
+ * @deprecated
+ */
 export class Symbol {
     constructor(value: string);
 }
+
 export class Timestamp {
     constructor(low: number, high: number);
 
