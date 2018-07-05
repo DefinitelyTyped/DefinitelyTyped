@@ -71,7 +71,7 @@ interface PluginServiceGlobalRegistration {
 interface PluginServiceRegistrationOptions {
     beforeInit?(chartInstance: Chart, options?: any): void;
     afterInit?(chartInstance: Chart, options?: any): void;
-  
+
     beforeUpdate?(chartInstance: Chart, options?: any): void;
     afterUpdate?(chartInstance: Chart, options?: any): void;
 
