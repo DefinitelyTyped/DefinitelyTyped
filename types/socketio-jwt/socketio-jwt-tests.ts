@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as http from 'http';
 import * as SocketIo from 'socket.io';
-import {authorize,SecretFuncCallback} from 'socketio-jwt';
+import {authorize,JwtSecretFuncCallback} from 'socketio-jwt';
 
 let app = http.createServer((req: any, rsp: any) => {
 	fs.readFile(__dirname + '/index.html',
