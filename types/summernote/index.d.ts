@@ -1,4 +1,4 @@
-// Type definitions for Summernote 0.8
+﻿// Type definitions for Summernote 0.8
 // Project: https://github.com/summernote/summernote#readme
 // Definitions by: Wouter Staelens <https://github.com/wstaelens>
 //                 Denny Harijanto <https://github.com/nusantara-cloud>
@@ -52,7 +52,7 @@ declare global {
                                     | 'fontsize' | 'color' | 'ul' | 'ol' | 'paragraph'
                                     | 'height' | 'table' | 'link' | 'picture' | 'hr'
                                     | 'fullscreen' | 'codeview' | 'undo' | 'redo' | 'help' | toolbarGroupOptionCustom ;
-        type toolbarDef = [toolbarGroups, toolbarGroupOptions[]][]
+        type toolbarDef = [toolbarGroups, Array<toolbarGroupOptions>][];
 
 		type colorsDef = Array<[string[]]>;
 		type styleTagsOptions = 'p' | 'blockquote' | 'pre' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
