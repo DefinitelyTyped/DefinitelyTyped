@@ -5,6 +5,7 @@
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 Sander Koenders <https://github.com/Archcry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /************************************************
 *                                               *
@@ -1591,6 +1592,13 @@ declare module "net" {
         exclusive?: boolean;
     }
 
+    export interface ServerEvents {
+        close: () => void;
+        connection: (socket: Socket) => void;
+        error: (err: Error) => void;
+        listening: () => void;
+    }
+
     export interface Server extends events.EventEmitter {
         listen(port: number, hostname?: string, backlog?: number, listeningListener?: Function): Server;
         listen(port: number, hostname?: string, listeningListener?: Function): Server;
@@ -1609,48 +1617,20 @@ declare module "net" {
         maxConnections: number;
         connections: number;
 
-        /**
-         * events.EventEmitter
-         *   1. close
-         *   2. connection
-         *   3. error
-         *   4. listening
-         */
-        addListener(event: string, listener: Function): this;
-        addListener(event: "close", listener: () => void): this;
-        addListener(event: "connection", listener: (socket: Socket) => void): this;
-        addListener(event: "error", listener: (err: Error) => void): this;
-        addListener(event: "listening", listener: () => void): this;
-
-        emit(event: string, ...args: any[]): boolean;
+        emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "close"): boolean;
         emit(event: "connection", socket: Socket): boolean;
         emit(event: "error", err: Error): boolean;
         emit(event: "listening"): boolean;
 
-        on(event: string, listener: Function): this;
-        on(event: "close", listener: () => void): this;
-        on(event: "connection", listener: (socket: Socket) => void): this;
-        on(event: "error", listener: (err: Error) => void): this;
-        on(event: "listening", listener: () => void): this;
+        addListener(event: string, listener: (...args: any[]) => void): this;
+        addListener<K extends keyof ServerEvents>(event: K, listener: ServerEvents[K]): this;
 
-        once(event: string, listener: Function): this;
-        once(event: "close", listener: () => void): this;
-        once(event: "connection", listener: (socket: Socket) => void): this;
-        once(event: "error", listener: (err: Error) => void): this;
-        once(event: "listening", listener: () => void): this;
+        on(event: string, listener: (...args: any[]) => void): this;
+        on<K extends keyof ServerEvents>(event: K, listener: ServerEvents[K]): this;
 
-        prependListener(event: string, listener: Function): this;
-        prependListener(event: "close", listener: () => void): this;
-        prependListener(event: "connection", listener: (socket: Socket) => void): this;
-        prependListener(event: "error", listener: (err: Error) => void): this;
-        prependListener(event: "listening", listener: () => void): this;
-
-        prependOnceListener(event: string, listener: Function): this;
-        prependOnceListener(event: "close", listener: () => void): this;
-        prependOnceListener(event: "connection", listener: (socket: Socket) => void): this;
-        prependOnceListener(event: "error", listener: (err: Error) => void): this;
-        prependOnceListener(event: "listening", listener: () => void): this;
+        once(event: string, listener: (...args: any[]) => void): this;
+        once<K extends keyof ServerEvents>(event: K, listener: ServerEvents[K]): this;
     }
     export function createServer(connectionListener?: (socket: Socket) =>void ): Server;
     export function createServer(options?: { allowHalfOpen?: boolean; }, connectionListener?: (socket: Socket) =>void ): Server;
