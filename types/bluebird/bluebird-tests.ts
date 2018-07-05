@@ -784,6 +784,11 @@ fooProm = Promise.attempt(() => {
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 asyncfunc = Promise.method(() => {});
+{
+	const noArg: () => Promise<void> = Promise.method(() => {});
+	const oneArg: (x1: number) => Promise<void> = Promise.method((x1: number) => {});
+	const twoArg: (x1: number, x2: string) => Promise<void> = Promise.method((x1: number, x2: string) => {});
+}
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

@@ -22,6 +22,22 @@ const salesforceConnection: sf.Connection = new sf.Connection({
 
 salesforceConnection.sobject<DummyRecord>("Dummy").select(["thing", "other"]);
 
+const requestInfo: sf.RequestInfo = {
+    body: '',
+    headers: {},
+    method: '',
+    url: ''
+};
+salesforceConnection.request(requestInfo);
+
+const queryOptions: sf.ExecuteOptions = {
+    autoFetch: true,
+    maxFetch: 5000,
+    headers: {},
+    scanAll: true
+};
+salesforceConnection.query('SELECT Id, Name FROM Account', queryOptions);
+
 // note the following should never compile:
 // salesforceConnection.sobject<DummyRecord>("Dummy").select(["lol"]);
 
@@ -29,8 +45,8 @@ salesforceConnection.sobject("Account").create({
     Name: "Test Acc 2",
     BillingStreet: "Maplestory street",
     BillingPostalCode: "ME4 666"
-}, (err: Error, ret: sf.RecordResult) => {
-    if (err || !ret.success) {
+}, (err: Error, ret: sf.RecordResult | sf.RecordResult[]) => {
+    if (err || !Array.isArray(ret) && !ret.success) {
         return;
     }
 });
@@ -40,8 +56,8 @@ salesforceConnection.sobject("ContentVersion").create({
     Title: 'hello',
     PathOnClient: './hello-world.jpg',
     VersionData: '{ Test: Data }'
-}, (err: Error, ret: sf.RecordResult) => {
-    if (err || !ret.success) {
+}, (err: Error, ret: sf.RecordResult | sf.RecordResult[]) => {
+    if (err || !Array.isArray(ret) && !ret.success) {
         return;
     }
 });
@@ -61,8 +77,8 @@ salesforceConnection.sobject("ContentDocumentLink").create({
     ContentDocumentId: '',
     LinkedEntityId: '',
     ShareType: "I"
-}, (err: Error, ret: sf.RecordResult) => {
-    if (err || !ret.success) {
+}, (err: Error, ret: sf.RecordResult | sf.RecordResult[]) => {
+    if (err || !Array.isArray(ret) && !ret.success) {
         return;
     }
 });
@@ -123,6 +139,17 @@ async function testAnalytics(conn: sf.Connection): Promise<void> {
     });
 }
 
+async function testExecuteAnonymous(conn: sf.Connection): Promise<void> {
+    const res: sf.ExecuteAnonymousResult = await salesforceConnection.tooling.executeAnonymous('');
+    console.log('ExecuteAnonymousResult column: ' + res.column);
+    console.log('ExecuteAnonymousResult compiled: ' + res.compiled);
+    console.log('ExecuteAnonymousResult compileProblem: ' + res.compileProblem);
+    console.log('ExecuteAnonymousResult exceptionMessage: ' + res.exceptionMessage);
+    console.log('ExecuteAnonymousResult exceptionStackTrace: ' + res.exceptionStackTrace);
+    console.log('ExecuteAnonymousResult line: ' + res.line);
+    console.log('ExecuteAnonymousResult success: ' + res.success);
+}
+
 async function testMetadata(conn: sf.Connection): Promise<void> {
     const md: sf.Metadata = conn.metadata;
     const m: sf.DescribeMetadataResult = await md.describe('34.0');
@@ -130,7 +157,7 @@ async function testMetadata(conn: sf.Connection): Promise<void> {
         m.metadataObjects.filter((value: sf.MetadataObject) => value.directoryName === 'pages');
     console.log(`ApexPage?: ${pages[0].xmlName === 'ApexPage'}`);
 
-    const types: sf.ListMetadataQuery[] = [{ type: 'CustomObject', folder: null }];
+    const types: sf.ListMetadataQuery[] = [{ type: 'CustomObject', folder: undefined }];
     md.list(types, '39.0', (err, properties: sf.FileProperties[]) => {
         if (err) {
             console.error('err', err);
@@ -281,6 +308,7 @@ async function testChatter(conn: sf.Connection): Promise<void> {
     await testAnalytics(salesforceConnection);
     await testChatter(salesforceConnection);
     await testMetadata(salesforceConnection);
+    await testExecuteAnonymous(salesforceConnection);
 })();
 
 const oauth2 = new sf.OAuth2({
@@ -302,14 +330,20 @@ batch.on("queue", (batchInfo) => { // fired when batch request is queued in serv
 });
 job.batch("batchId");
 batch.poll(1000, 20000);
-batch.on("response", (rets) => {
+batch.on("response", (rets: sf.BatchResultInfo[]) => {
     for (let i = 0; i < rets.length; i++) {
         if (rets[i].success) {
             console.log(`# ${(i + 1)} loaded successfully, id = ${rets[i].id}`);
         } else {
-            console.log(`# ${(i + 1)} error occurred, message = ${rets[i].errors.join(', ')}`);
+            const errors = rets[i].errors;
+            console.log(`# ${(i + 1)} error occurred, message = ${errors ? errors.join(', ') : ''}`);
         }
     }
+});
+
+(async () => {
+    const batchInfos: sf.BatchInfo[] = await job.list();
+    console.log('batchInfos:', batchInfos);
 });
 
 salesforceConnection.streaming.topic("InvoiceStatementUpdates").subscribe((message) => {
@@ -317,3 +351,31 @@ salesforceConnection.streaming.topic("InvoiceStatementUpdates").subscribe((messa
     console.log('Event Created : ' + message.event.createdDate);
     console.log('Object Id : ' + message.sobject.Id);
 });
+
+async function testDescribe() {
+    const global: sf.DescribeGlobalResult = await salesforceConnection.describeGlobal();
+    const globalCached: sf.DescribeGlobalResult = salesforceConnection.describeGlobal$();
+    const globalCachedCorrectly = global === globalCached;
+    salesforceConnection.describeGlobal$.clear();
+
+    globalCached.sobjects.forEach(async (sobject: sf.DescribeGlobalSObjectResult) => {
+        const object: sf.DescribeSObjectResult = await salesforceConnection.describe(sobject.name);
+        const cachedObject: sf.DescribeSObjectResult = salesforceConnection.describe$(sobject.name);
+        salesforceConnection.describe$.clear();
+
+        object.fields.forEach(field => {
+            const type: sf.FieldType = field.type;
+            // following should never compile
+            // const fail = type === 'hey'
+
+            const isString = type === 'string';
+        });
+
+        // following should never compile (if StrictNullChecks is on)
+        // object.keyPrefix.length;
+
+        console.log(`${sobject.name} Label: `, object.label);
+
+        const correctlyCached = object === cachedObject;
+    });
+}

@@ -321,6 +321,7 @@ declare namespace Showdown {
          * @param name
          */
         addExtension(extension: ShowdownExtension, name: string): void;
+        addExtension(extension: ShowdownExtension[], name: string): void;
 
         /**
          * Use a global registered extension with THIS converter
@@ -379,8 +380,11 @@ declare namespace Showdown {
 
     /**
      * Setting a "global" option affects all instances of showdown
+     * 
+     * @param optionKey
+     * @param value
      */
-    function setOption(optionKey: string, value: string): void;
+    function setOption(optionKey: string, value: any): void;
 
     /**
      * Retrieve previous set global option.

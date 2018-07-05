@@ -37,8 +37,8 @@ export interface Schema<T> {
     meta(): any;
     describe(): SchemaDescription;
     concat(schema: this): this;
-    validate(value: T, options?: ValidateOptions): Promise<ValidationError | T>;
-    validateSync(value: T, options?: ValidateOptions): ValidationError | T;
+    validate(value: T, options?: ValidateOptions): Promise<T>;
+    validateSync(value: T, options?: ValidateOptions): T;
     isValid(value: T, options?: any): Promise<boolean>;
     isValidSync(value: T, options?: any): boolean;
     cast(value: any, options?: any): T;
@@ -54,7 +54,7 @@ export interface Schema<T> {
     oneOf(arrayOfValues: any[], message?: string): this;
     notOneOf(arrayOfValues: any[], message?: string): this;
     when(keys: string | any[], builder: WhenOptions<this>): this;
-    test(name: string, message: string, test: (value?: any) => boolean | Promise<boolean>, callbackStyleAsync?: boolean): this;
+    test(name: string, message: string, test: (this: TestContext, value?: any) => boolean | Promise<boolean>, callbackStyleAsync?: boolean): this;
     test(options: TestOptions): this;
     transform(fn: TransformFunction<this>): this;
 }
@@ -142,7 +142,7 @@ export interface ObjectSchemaConstructor {
 export interface ObjectSchema<T> extends Schema<T> {
     shape(fields: { [field in keyof T]: Schema<T[field]> }, noSortEdges?: Array<[string, string]>): ObjectSchema<T>;
     from(fromKey: string, toKey: string, alias?: boolean): ObjectSchema<T>;
-    noUnknown(onlyKnownKeys: boolean, message?: string): ObjectSchema<T>;
+    noUnknown(onlyKnownKeys?: boolean, message?: string): ObjectSchema<T>;
     transformKeys(callback: (key: any) => any): void;
     camelCase(): ObjectSchema<T>;
     constantCase(): ObjectSchema<T>;
@@ -160,6 +160,14 @@ export interface WhenOptionsBuilder<T> {
 export type WhenOptions<T> = WhenOptionsBuilder<T>
     | { is: boolean | ((value: any) => boolean), then: any, otherwise: any }
     | object;
+
+export interface TestContext {
+    path: string;
+    options: ValidateOptions;
+    parent: any;
+    schema: Schema<any>;
+    createError: (params: { path: string, message: string }) => ValidationError;
+}
 
 export interface ValidateOptions {
     /**
@@ -193,7 +201,7 @@ export interface TestOptions {
     /**
      * Test function, determines schema validity
      */
-    test: (value: any) => boolean | Promise<boolean>;
+    test: (this: TestContext, value: any) => boolean | Promise<boolean>;
 
     /**
      * The validation error message

@@ -1,6 +1,6 @@
 import { EventEmitter } from 'events';
 import { DescribeSObjectResult, DescribeGlobalResult } from './describe-result';
-import { Query, QueryResult } from './query';
+import { Query, QueryResult, ExecuteOptions } from './query';
 import { Record } from './record';
 import { RecordResult } from './record-result';
 import { SObject } from './salesforce-object';
@@ -8,6 +8,7 @@ import { Analytics } from './api/analytics';
 import { Chatter } from './api/chatter';
 import { Metadata } from './api/metadata';
 import { Bulk } from './bulk';
+import { Cache } from './cache'
 import { OAuth2, Streaming } from '.';
 
 export type Callback<T> = (err: Error, result: T) => void;
@@ -22,9 +23,10 @@ export interface PartialOAuth2Options {
 }
 
 export interface RequestInfo {
+    body?: string;
+    headers?: object;
     method?: string;
     url?: string;
-    headers?: object;
 }
 
 export interface ConnectionOptions extends PartialOAuth2Options {
@@ -58,6 +60,16 @@ export abstract class RestApi {
     del(path: string, options: object, callback: () => object): Promise<object>;
 }
 
+export interface ExecuteAnonymousResult {
+    compiled: boolean;
+    compileProblem: string;
+    success: boolean;
+    line: number;
+    column: number;
+    exceptionMessage: string;
+    exceptionStackTrace: string;
+}
+
 export type ConnectionEvent = "refresh";
 
 /**
@@ -82,8 +94,8 @@ export type ConnectionEvent = "refresh";
 export abstract class BaseConnection extends EventEmitter {
     _baseUrl(): string;
     request(info: RequestInfo | string, options?: Object, callback?: (err: Error, Object: object) => void): Promise<Object>;
-    query<T>(soql: string, callback?: (err: Error, result: QueryResult<T>) => void): Query<QueryResult<T>>;
-    queryMore<T>(locator: string, options?: object, callback?: (err: Error, result: QueryResult<T>) => void): Promise<QueryResult<T>>;
+    query<T>(soql: string, options?: ExecuteOptions, callback?: (err: Error, result: QueryResult<T>) => void): Query<QueryResult<T>>;
+    queryMore<T>(locator: string, options?: ExecuteOptions, callback?: (err: Error, result: QueryResult<T>) => void): Promise<QueryResult<T>>;
     create<T>(type: string, records: Record<T> | Array<Record<T>>, options?: Object,
         callback?: (err: Error, result: RecordResult | RecordResult[]) => void): Promise<(RecordResult | RecordResult[])>;
     insert<T>(type: string, records: Record<T> | Array<Record<T>>, options?: Object,
@@ -100,7 +112,17 @@ export abstract class BaseConnection extends EventEmitter {
         callback?: (err: Error, result: RecordResult | RecordResult[]) => void): Promise<(RecordResult | RecordResult[])>;
     destroy<T>(type: string, ids: string | string[], options?: Object,
         callback?: (err: Error, result: RecordResult | RecordResult[]) => void): Promise<(RecordResult | RecordResult[])>;
-    describe<T>(type: string, callback?: (err: Error, result: DescribeSObjectResult) => void): Promise<DescribeSObjectResult>;
+    describe$: {
+        /** Returns a value from the cache if it exists, otherwise calls Connection.describe */
+        (type: string, callback?: (err: Error, result: DescribeSObjectResult) => void): DescribeSObjectResult;
+        clear(): void;
+    }
+    describe(type: string, callback?: (err: Error, result: DescribeSObjectResult) => void): Promise<DescribeSObjectResult>;
+    describeGlobal$: {
+        /** Returns a value from the cache if it exists, otherwise calls Connection.describeGlobal */
+        (callback?: (err: Error, result: DescribeGlobalResult) => void): DescribeGlobalResult;
+        clear(): void;
+    }
     describeGlobal<T>(callback?: (err: Error, result: DescribeGlobalResult) => void): Promise<DescribeGlobalResult>;
     sobject<T>(resource: string): SObject<T>;
 }
@@ -115,6 +137,7 @@ export class Connection extends BaseConnection {
     bulk: Bulk;
     oauth2: OAuth2;
     streaming: Streaming;
+    cache: Cache;
 
     // Specific to Connection
     instanceUrl: string;
@@ -135,5 +158,5 @@ export class Tooling extends BaseConnection {
     _logger: any;
 
     // Specific to tooling
-    executeAnonymous(body: string, callback?: (err: Error, res: any) => void): Promise<any>;
+    executeAnonymous(body: string, callback?: (err: Error, res: any) => void): Promise<ExecuteAnonymousResult>;
 }

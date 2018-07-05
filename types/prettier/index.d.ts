@@ -1,21 +1,22 @@
-// Type definitions for prettier 1.12
+// Type definitions for prettier 1.13
 // Project: https://github.com/prettier/prettier
 // Definitions by: Ika <https://github.com/ikatyang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 export type AST = any;
 export type Doc = doc.builders.Doc;
 
 // https://github.com/prettier/prettier/blob/master/src/common/fast-path.js
-export interface FastPath {
-    getName(): string | null;
-    getValue(): any;
-    getNode(count?: number): any;
-    getParentNode(count?: number): any;
-    call<T>(callback: (path: this) => T, ...names: string[]): T;
-    each(callback: (path: this) => void, ...names: string[]): void;
-    map<T>(callback: (path: this, index: number) => T, ...names: string[]): T[];
+export interface FastPath<T = any> {
+    stack: any[];
+    getName(): null | PropertyKey;
+    getValue(): T;
+    getNode(count?: number): null | T;
+    getParentNode(count?: number): null | T;
+    call<U>(callback: (path: this) => U, ...names: PropertyKey[]): U;
+    each(callback: (path: this) => void, ...names: PropertyKey[]): void;
+    map<U>(callback: (path: this, index: number) => U, ...names: PropertyKey[]): U[];
 }
 
 export type BuiltInParser = (text: string, options?: any) => AST;
@@ -106,6 +107,7 @@ export interface RequiredOptions extends doc.printer.Options {
 export interface ParserOptions extends RequiredOptions {
     locStart: (node: any) => number;
     locEnd: (node: any) => number;
+    originalText: string;
 }
 
 export interface Plugin {
@@ -131,12 +133,12 @@ export interface Printer {
         options: ParserOptions,
         print: (path: FastPath) => Doc,
     ): Doc;
-    embed(
+    embed?: (
         path: FastPath,
         print: (path: FastPath) => Doc,
         textToDoc: (text: string, options: Options) => Doc,
         options: ParserOptions,
-    ): Doc | null;
+    ) => Doc | null;
     insertPragma?: (text: string) => string;
     /**
      * @returns `null` if you want to remove this node
@@ -288,6 +290,23 @@ export interface SupportInfo {
     options: SupportOption[];
 }
 
+export interface FileInfoOptions {
+    ignorePath?: string;
+    withNodeModules?: boolean;
+    plugins?: string[];
+}
+
+export interface FileInfoResult {
+    ignored: boolean;
+    inferredParser: string | null;
+}
+
+export function getFileInfo(filePath: string, options?: FileInfoOptions): Promise<FileInfoResult>;
+
+export namespace getFileInfo {
+    function sync(filePath: string, options?: FileInfoOptions): FileInfoResult;
+}
+
 /**
  * Returns an object representing the parsers, languages and file types Prettier supports.
  * If `version` is provided (e.g. `"1.5.0"`), information for that version will be returned,
@@ -405,7 +424,11 @@ export namespace doc {
         function printDocToDebug(doc: Doc): string;
     }
     namespace printer {
-        function printDocToString(doc: Doc, options: Options): string;
+        function printDocToString(doc: Doc, options: Options): {
+            formatted: string;
+            cursorNodeStart?: number;
+            cursorNodeText?: string;
+        };
         interface Options {
             /**
              * Specify the line length that the printer will wrap on.

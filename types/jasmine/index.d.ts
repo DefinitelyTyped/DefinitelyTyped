@@ -221,6 +221,8 @@ declare namespace jasmine {
     interface CustomMatcher {
         compare<T>(actual: T, expected: T, ...args: any[]): CustomMatcherResult;
         compare(actual: any, ...expected: any[]): CustomMatcherResult;
+        negativeCompare?<T>(actual: T, expected: T, ...args: any[]): CustomMatcherResult;
+        negativeCompare?(actual: any, ...expected: any[]): CustomMatcherResult;
     }
 
     type CustomMatcherFactory = (util: MatchersUtil, customEqualityTesters: CustomEqualityTester[]) => CustomMatcher;

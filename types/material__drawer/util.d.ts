@@ -24,10 +24,12 @@ export function getTransformPropertyName(globalObj?: Window, forceRefresh?: bool
 export function supportsCssCustomProperties(globalObj?: Window): boolean;
 
 // Determine whether the current browser supports passive event listeners, and if so, use them.
-export function applyPassive(globalObj?: Window, forceRefresh?: boolean): boolean;
+export function applyPassive(globalObj?: Window, forceRefresh?: boolean): boolean | { passive: boolean; };
 
 // Save the tab state for an element.
+// tslint:disable-next-line:void-return
 export function saveElementTabState(el: Element): void;
 
 // Restore the tab state for an element, if it was saved.
+// tslint:disable-next-line:void-return
 export function restoreElementTabState(el: Element): void;

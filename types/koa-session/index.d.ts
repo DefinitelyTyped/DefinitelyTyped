@@ -213,7 +213,7 @@ declare function session(app: Koa): Koa.Middleware;
 
 declare module "koa" {
     interface Context {
-        session: session.Session | undefined;
+        session: session.Session | null;
         readonly sessionOptions: session.opts | undefined;
     }
 

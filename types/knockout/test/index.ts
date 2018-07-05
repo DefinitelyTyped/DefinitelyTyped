@@ -601,6 +601,13 @@ function test_misc() {
 		}
 	}
 
+    ko.observable("foo").equalityComparer = (a, b) => {
+        return a.toLowerCase() === b.toLowerCase();
+    };
+    ko.computed(() => "foo").equalityComparer = (a, b) => {
+        return (a !== undefined) && a.toLowerCase() === b.toLowerCase();
+    };
+
 }
 
 interface KnockoutBindingHandlers {
@@ -749,4 +756,8 @@ interface MyObservableArray extends KnockoutObservableArray<any> {
 
 interface MyComputed extends KnockoutComputed<any> {
     isBeautiful?: boolean;
+}
+
+function observableAny() {
+    ko.observable<number>(5 as any); // $ExpectType KnockoutObservable<number>
 }

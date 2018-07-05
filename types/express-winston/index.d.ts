@@ -5,7 +5,8 @@
 // TypeScript Version: 2.2
 
 import { ErrorRequestHandler, Handler, Request, Response } from 'express';
-import { TransportInstance, Winston } from 'winston';
+import * as winston from 'winston';
+import * as Transport from 'winston-transport';
 
 export type DynamicMetaFunction = (req: Request, res: Response, err: Error) => object;
 export type DynamicLevelFunction = (req: Request, res: Response, err: Error) => string;
@@ -39,11 +40,11 @@ export interface BaseLoggerOptions {
 }
 
 export interface LoggerOptionsWithTransports extends BaseLoggerOptions {
-  transports: TransportInstance[];
+  transports: Transport[];
 }
 
 export interface LoggerOptionsWithWinstonInstance extends BaseLoggerOptions {
-  winstonInstance: Winston;
+  winstonInstance: typeof winston;
 }
 
 export type LoggerOptions = LoggerOptionsWithTransports | LoggerOptionsWithWinstonInstance;
@@ -61,11 +62,11 @@ export interface BaseErrorLoggerOptions {
 }
 
 export interface ErrorLoggerOptionsWithTransports extends BaseErrorLoggerOptions {
-  transports: TransportInstance[];
+  transports: Transport[];
 }
 
 export interface ErrorLoggerOptionsWithWinstonInstance extends BaseErrorLoggerOptions {
-  winstonInstance: Winston;
+  winstonInstance: typeof winston;
 }
 
 export type ErrorLoggerOptions = ErrorLoggerOptionsWithTransports | ErrorLoggerOptionsWithWinstonInstance;

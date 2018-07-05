@@ -54,6 +54,66 @@ declare const container: Element;
 //
 // Top-Level API
 // --------------------------------------------------------------------------
+{
+    interface State {
+        inputValue: string;
+        seconds: number;
+    }
+    class SettingStateFromCtorComponent extends React.Component<Props, State, Snapshot> {
+        constructor(props: Props) {
+            super(props);
+            // $ExpectError
+            this.state = {
+                inputValue: 'hello'
+            };
+        }
+        render() { return null; }
+    }
+
+    class BadlyInitializedState extends React.Component<Props, State, Snapshot> {
+        // $ExpectError -> this throws error on TS 2.6 uncomment once TS requirement is TS >= 2.7
+        // state = {
+        //     secondz: 0,
+        //     inputValuez: 'hello'
+        // };
+        render() { return null; }
+    }
+    class BetterPropsAndStateChecksComponent extends React.Component<Props, State, Snapshot> {
+        render() { return null; }
+        componentDidMount() {
+            // $ExpectError -> this will be true in next BC release where state is gonna be `null | Readonly<S>`
+            console.log(this.state.inputValue);
+        }
+        mutateState() {
+            // $ExpectError
+            this.state = {
+                inputValue: 'hello'
+            };
+
+            // Even if state is not set, this is allowed by React
+            this.setState({inputValue: 'hello'});
+            this.setState((prevState, props) => {
+                // $ExpectError
+                props = {foo: 'nope'};
+                // $ExpectError
+                props.foo = 'nope';
+
+                return { inputValue: prevState.inputValue + ' foo' };
+            });
+        }
+        mutateProps() {
+            // $ExpectError
+            this.props = {};
+            // $ExpectError
+            this.props = {
+                key: 42,
+                ref: "myComponent42",
+                hello: "world",
+                foo: 42
+            };
+        }
+    }
+}
 
 class ModernComponent extends React.Component<Props, State, Snapshot>
     implements MyComponent, React.ChildContextProvider<ChildContext> {
@@ -682,6 +742,7 @@ React.createFactory(TransitionGroup)({ component: "div" });
 // The SyntheticEvent.target.value should be accessible for onChange
 // --------------------------------------------------------------------------
 class SyntheticEventTargetValue extends React.Component<{}, { value: string }> {
+    state: { value: string };
     constructor(props: {}) {
         super(props);
         this.state = { value: 'a' };

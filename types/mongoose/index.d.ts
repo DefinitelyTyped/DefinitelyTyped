@@ -1,4 +1,4 @@
-// Type definitions for Mongoose 5.0.14
+// Type definitions for Mongoose 5.0.15
 // Project: http://mongoosejs.com/
 // Definitions by: horiuchi <https://github.com/horiuchi>
 //                 sindrenm <https://github.com/sindrenm>
@@ -103,7 +103,10 @@ declare module "mongoose" {
   export function createConnection(): Connection;
   export function createConnection(uri: string,
     options?: ConnectionOptions
-  ): Connection;
+  ): Connection & {
+    then: Promise<Connection>["then"];
+    catch: Promise<Connection>["catch"];
+  };
 
   /**
    * Disconnects all connections.
@@ -190,6 +193,7 @@ declare module "mongoose" {
 
     /**
      * Opens the connection to MongoDB.
+     * @deprecated open() is deprecated in mongoose >= 4.11.0
      * @param mongodb://uri or the host to which you are connecting
      * @param database database name
      * @param port database port
@@ -199,6 +203,19 @@ declare module "mongoose" {
      *   Options passed take precedence over options included in connection strings.
      */
     open(connection_string: string, database?: string, port?: number,
+      options?: ConnectionOpenOptions, callback?: (err: any) => void): any;
+
+     /**
+     * Opens the connection to MongoDB.
+     * @param mongodb://uri or the host to which you are connecting
+     * @param database database name
+     * @param port database port
+     * @param options Mongoose forces the db option forceServerObjectId false and cannot be overridden.
+     *   Mongoose defaults the server auto_reconnect options to true which can be overridden.
+     *   See the node-mongodb-native driver instance for options that it understands.
+     *   Options passed take precedence over options included in connection strings.
+     */
+    openUri(connection_string: string, database?: string, port?: number,
       options?: ConnectionOpenOptions, callback?: (err: any) => void): any;
 
     /** Helper for dropDatabase() */
@@ -221,6 +238,9 @@ declare module "mongoose" {
 
     /** Closes the connection */
     close(callback?: (err: any) => void): Promise<void>;
+
+    /** Closes the connection */
+    close(force?: boolean, callback?: (err: any) => void): Promise<void>;
 
     /**
      * Retrieves a collection, creating it if not cached.
@@ -416,7 +436,7 @@ declare module "mongoose" {
     $format(arg: any): string;
     /** Debug print helper */
     $print(name: any, i: any, args: any[]): void;
-    /** Retreives information about this collections indexes. */
+    /** Retrieves information about this collections indexes. */
     getIndexes(): any;
   }
 
@@ -771,6 +791,8 @@ declare module "mongoose" {
     methods: any;
     /** Object of currently defined statics on this schema. */
     statics: any;
+    /** Object of currently defined query helpers on this schema. */
+    query: any;
     /** The original object passed to the schema constructor */
     obj: any;
   }
@@ -834,6 +856,8 @@ declare module "mongoose" {
     typeKey?: string;
     /** defaults to false */
     useNestedStrict?: boolean;
+    /** defaults to false */
+    usePushEach?: boolean;
     /** defaults to true */
     validateBeforeSave?: boolean;
     /** defaults to "__v" */
@@ -2255,6 +2279,12 @@ declare module "mongoose" {
     collation(options: CollationOptions): this;
 
     /**
+     * Appends a new $count operator to this aggregate pipeline.
+     * @param countName name of the count field
+     */
+    count(countName: string): this;
+
+    /**
      * Sets the cursor option option for the aggregation query (ignored for < 2.6.0).
      * Note the different syntax below: .exec() returns a cursor object, and no callback
      * is necessary.
@@ -2707,9 +2737,9 @@ declare module "mongoose" {
      * This function does not trigger save middleware.
      * @param docs Documents to insert.
      * @param options Optional settings.
-     * @param options.ordered  if true, will fail fast on the first error encountered. 
+     * @param options.ordered  if true, will fail fast on the first error encountered.
      *        If false, will insert all the documents it can and report errors later.
-     * @param options.rawResult if false, the returned promise resolves to the documents that passed mongoose document validation. 
+     * @param options.rawResult if false, the returned promise resolves to the documents that passed mongoose document validation.
      *        If `false`, will return the [raw result from the MongoDB driver](http://mongodb.github.io/node-mongodb-native/2.2/api/Collection.html#~insertWriteOpCallback)
      *        with a `mongoose` property that contains `validationErrors` if this is an unordered `insertMany`.
      */

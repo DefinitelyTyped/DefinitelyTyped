@@ -1,12 +1,13 @@
-// Type definitions for Sinon 4.3
+// Type definitions for Sinon 5.0
 // Project: http://sinonjs.org/
 // Definitions by: William Sears <https://github.com/mrbigdog2u>
 //                 Jonathan Little <https://github.com/rationull>
 //                 Lukas Spieß <https://github.com/lumaxis>
 //                 Nico Jansen <https://github.com/nicojs>
 //                 James Garbutt <https://github.com/43081j>
+//                 Josh Goldberg <https://github.com/joshuakgoldberg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 // sinon uses DOM dependencies which are absent in browser-less environment like node.js
 // to avoid compiler errors this monkey patch is used
@@ -17,15 +18,13 @@ interface Document { } // tslint:disable-line no-empty-interface
 declare namespace Sinon {
     interface SinonSpyCallApi {
         // Properties
-        thisValue: any;
         args: any[];
-        exception: any;
-        returnValue: any;
 
         // Methods
         calledOn(obj: any): boolean;
         calledWith(...args: any[]): boolean;
         calledWithExactly(...args: any[]): boolean;
+        calledWithNew(): boolean;
         calledOnceWith(...args: any[]): boolean;
         calledOnceWithExactly(...args: any[]): boolean;
         calledWithMatch(...args: any[]): boolean;
@@ -46,9 +45,14 @@ declare namespace Sinon {
     }
 
     interface SinonSpyCall extends SinonSpyCallApi {
+        thisValue: any;
+        exception: any;
+        returnValue: any;
+        callback: Function | undefined;
+        lastArg: any;
+
         calledBefore(call: SinonSpyCall): boolean;
         calledAfter(call: SinonSpyCall): boolean;
-        calledWithNew(call: SinonSpyCall): boolean;
     }
 
     interface SinonSpy extends SinonSpyCallApi {
@@ -74,7 +78,6 @@ declare namespace Sinon {
         calledAfter(anotherSpy: SinonSpy): boolean;
         calledImmediatelyBefore(anotherSpy: SinonSpy): boolean;
         calledImmediatelyAfter(anotherSpy: SinonSpy): boolean;
-        calledWithNew(): boolean;
         withArgs(...args: any[]): SinonSpy;
         alwaysCalledOn(obj: any): boolean;
         alwaysCalledWith(...args: any[]): boolean;
@@ -89,8 +92,6 @@ declare namespace Sinon {
         invokeCallback(...args: any[]): void;
         getCall(n: number): SinonSpyCall;
         getCalls(): SinonSpyCall[];
-        /// @deprecated Use resetHistory() instead
-        reset(): void;
         resetHistory(): void;
         printf(format: string, ...args: any[]): string;
         restore(): void;
@@ -102,13 +103,9 @@ declare namespace Sinon {
         <T>(obj: T, method: keyof T): SinonSpy;
     }
 
-    interface SinonStatic {
-        spy: SinonSpyStatic;
-    }
-
     interface SinonStub extends SinonSpy {
         resetBehavior(): void;
-        resetHistory(): void;
+        reset(): void;
         usingPromise(promiseLibrary: any): SinonStub;
 
         returns(obj: any): SinonStub;
@@ -132,7 +129,7 @@ declare namespace Sinon {
         callsArgOnAsync(index: number, context: any): SinonStub;
         callsArgWithAsync(index: number, ...args: any[]): SinonStub;
         callsArgOnWithAsync(index: number, context: any, ...args: any[]): SinonStub;
-        callsFake(func: (...args: any[]) => void): SinonStub;
+        callsFake(func: (...args: any[]) => any): SinonStub;
         get(func: () => any): SinonStub;
         set(func: (v: any) => void): SinonStub;
         onCall(n: number): SinonStub;
@@ -156,11 +153,6 @@ declare namespace Sinon {
         (): SinonStub;
         <T>(obj: T): SinonStubbedInstance<T>;
         <T>(obj: T, method: keyof T): SinonStub;
-        <T>(obj: T, method: keyof T, func: Function): SinonStub;
-    }
-
-    interface SinonStatic {
-        stub: SinonStubStatic;
     }
 
     interface SinonExpectation extends SinonStub {
@@ -193,23 +185,29 @@ declare namespace Sinon {
         (obj: any): SinonMock;
     }
 
-    interface SinonStatic {
-        expectation: SinonExpectationStatic;
-        mock: SinonMockStatic;
-    }
+    type SinonTimerId = number | { id: number };
 
     interface SinonFakeTimers {
         now: number;
-        create(now: number): SinonFakeTimers;
-        setTimeout(callback: (...args: any[]) => void, timeout: number, ...args: any[]): number;
-        clearTimeout(id: number): void;
-        setInterval(callback: (...args: any[]) => void, timeout: number, ...args: any[]): number;
-        clearInterval(id: number): void;
-        tick(ms: number): number;
+
+        setTimeout(callback: (...args: any[]) => void, timeout: number, ...args: any[]): SinonTimerId;
+        clearTimeout(id: SinonTimerId): void;
+        setInterval(callback: (...args: any[]) => void, timeout: number, ...args: any[]): SinonTimerId;
+        clearInterval(id: SinonTimerId): void;
+        setImmediate(callback: (...args: any[]) => void, ...args: any[]): SinonTimerId;
+        clearImmediate(id: SinonTimerId): void;
+        requestAnimationFrame(callback: (...args: any[]) => void): number;
+        cancelAnimationFrame(id: number): void;
+        nextTick(callback: () => void): void;
+
+        tick(ms: number | string): void;
         next(): void;
         runAll(): void;
         runToLast(): void;
         reset(): void;
+        runMicrotasks(): void;
+        runToFrame(): void;
+
         Date(): Date;
         Date(year: number): Date;
         Date(year: number, month: number): Date;
@@ -218,7 +216,9 @@ declare namespace Sinon {
         Date(year: number, month: number, day: number, hour: number, minute: number): Date;
         Date(year: number, month: number, day: number, hour: number, minute: number, second: number): Date;
         Date(year: number, month: number, day: number, hour: number, minute: number, second: number, ms: number): Date;
+
         restore(): void;
+        uninstall(): void;
 
         /**
          * Simulate the user changing the system clock while your program is running. It changes the 'now' timestamp
@@ -240,16 +240,6 @@ declare namespace Sinon {
         shouldAdvanceTime: boolean;
     }
 
-    interface SinonFakeTimersStatic {
-        (now?: number | Date): SinonFakeTimers;
-        (config?: Partial<SinonFakeTimersConfig>): SinonFakeTimers;
-    }
-
-    interface SinonStatic {
-        useFakeTimers: SinonFakeTimersStatic;
-        clock: SinonFakeTimers;
-    }
-
     interface SinonFakeUploadProgress {
         eventListeners: {
             progress: any[];
@@ -265,7 +255,6 @@ declare namespace Sinon {
 
     interface SinonFakeXMLHttpRequest {
         // Properties
-        onCreate(xhr: SinonFakeXMLHttpRequest): void;
         url: string;
         method: string;
         requestHeaders: any;
@@ -282,9 +271,6 @@ declare namespace Sinon {
         getAllResponseHeaders(): any;
 
         // Methods
-        restore(): void;
-        useFilters: boolean;
-        addFilter(filter: (method: string, url: string, async: boolean, username: string, password: string) => boolean): void;
         setResponseHeaders(headers: any): void;
         setResponseBody(body: string): void;
         respond(status: number, headers: any, body: string): void;
@@ -293,11 +279,12 @@ declare namespace Sinon {
         onerror(): void;
     }
 
-    type SinonFakeXMLHttpRequestStatic = () => SinonFakeXMLHttpRequest;
-
-    interface SinonStatic {
-        useFakeXMLHttpRequest: SinonFakeXMLHttpRequestStatic;
-        FakeXMLHttpRequest: SinonFakeXMLHttpRequest;
+    interface SinonFakeXMLHttpRequestStatic {
+        new(): SinonFakeXMLHttpRequest;
+        useFilters: boolean;
+        addFilter(filter: (method: string, url: string, async: boolean, username: string, password: string) => boolean): void;
+        onCreate(xhr: SinonFakeXMLHttpRequest): void;
+        restore(): void;
     }
 
     interface SinonFakeServer extends SinonFakeServerOptions {
@@ -326,24 +313,19 @@ declare namespace Sinon {
     }
 
     interface SinonFakeServerOptions {
-        autoRespond?: boolean;
-        autoRespondAfter?: number;
-        fakeHTTPMethods?: boolean;
-        respondImmediately?: boolean;
+        autoRespond: boolean;
+        autoRespondAfter: number;
+        fakeHTTPMethods: boolean;
+        respondImmediately: boolean;
     }
 
     interface SinonFakeServerStatic {
-        create(options?: SinonFakeServerOptions): SinonFakeServer;
-    }
-
-    interface SinonStatic {
-        fakeServer: SinonFakeServerStatic;
-        fakeServerWithClock: SinonFakeServerStatic;
+        create(options?: Partial<SinonFakeServerOptions>): SinonFakeServer;
     }
 
     interface SinonExposeOptions {
-        prefix?: string;
-        includeFail?: boolean;
+        prefix: string;
+        includeFail: boolean;
     }
 
     interface SinonAssert {
@@ -378,16 +360,13 @@ declare namespace Sinon {
         alwaysThrew(spy: SinonSpy, exception: string): void;
         alwaysThrew(spy: SinonSpy, exception: any): void;
         match(actual: any, expected: any): void;
-        expose(obj: any, options?: SinonExposeOptions): void;
-    }
-
-    interface SinonStatic {
-        assert: SinonAssert;
+        expose(obj: any, options?: Partial<SinonExposeOptions>): void;
     }
 
     interface SinonMatcher {
         and(expr: SinonMatcher): SinonMatcher;
         or(expr: SinonMatcher): SinonMatcher;
+        test(val: any): boolean;
     }
 
     interface SinonArrayMatcher extends SinonMatcher {
@@ -443,8 +422,8 @@ declare namespace Sinon {
         (value: number): SinonMatcher;
         (value: string): SinonMatcher;
         (expr: RegExp): SinonMatcher;
-        (obj: any): SinonMatcher;
         (callback: (value: any) => boolean, message?: string): SinonMatcher;
+        (obj: object): SinonMatcher;
         any: SinonMatcher;
         defined: SinonMatcher;
         truthy: SinonMatcher;
@@ -474,86 +453,16 @@ declare namespace Sinon {
         instanceOf(type: any): SinonMatcher;
         has(property: string, expect?: any): SinonMatcher;
         hasOwn(property: string, expect?: any): SinonMatcher;
-    }
-
-    interface SinonStatic {
-        match: SinonMatch;
+        hasNested(path: string, expect?: any): SinonMatcher;
+        every(matcher: SinonMatcher): SinonMatcher;
+        some(matcher: SinonMatcher): SinonMatcher;
     }
 
     interface SinonSandboxConfig {
-        injectInto?: any;
-        properties?: string[];
-        useFakeTimers?: any;
-        useFakeServer?: any;
-    }
-
-    interface SinonSandbox {
-        assert: SinonAssert;
-        clock: SinonFakeTimers;
-        requests: SinonFakeXMLHttpRequest;
-        server: SinonFakeServer;
-        spy: SinonSpyStatic;
-        stub: SinonStubStatic;
-        mock: SinonMockStatic;
-        useFakeTimers: SinonFakeTimersStatic;
-        useFakeXMLHttpRequest: SinonFakeXMLHttpRequestStatic;
-        useFakeServer(): SinonFakeServer;
-        restore(): void;
-        reset(): void;
-        resetHistory(): void;
-        resetBehavior(): void;
-        usingPromise(promiseLibrary: any): SinonSandbox;
-        verify(): void;
-        verifyAndRestore(): void;
-        createStubInstance(constructor: any): any;
-        createStubInstance<TType>(constructor: StubbableType<TType>): SinonStubbedInstance<TType>;
-    }
-
-    interface SinonSandboxStatic {
-        create(config?: SinonSandboxConfig): SinonSandbox;
-    }
-
-    interface SinonStatic {
-        createSandbox(config?: SinonSandboxConfig): SinonSandbox;
-        defaultConfig: SinonSandboxConfig;
-        sandbox: SinonSandboxStatic;
-    }
-
-    interface SinonTestConfig {
-        injectIntoThis?: boolean;
-        injectInto?: any;
-        properties?: string[];
-        useFakeTimers?: boolean;
-        useFakeServer?: boolean;
-    }
-
-    interface SinonTestWrapper extends SinonSandbox {
-        (...args: any[]): any;
-    }
-
-    // Utility overridables
-    interface SinonStatic {
-        /**
-         * Creates a new object with the given functions as the prototype and stubs all implemented functions.
-         *
-         * @param constructor   Object or class to stub.
-         * @returns A stubbed version of the constructor.
-         * @remarks The given constructor function is not invoked. See also the stub API.
-         */
-        createStubInstance(constructor: any): any;
-
-        /**
-         * Creates a new object with the given functions as the prototype and stubs all implemented functions.
-         *
-         * @template TType Type being stubbed.
-         * @param constructor   Object or class to stub.
-         * @returns A stubbed version of the constructor.
-         * @remarks The given constructor function is not invoked. See also the stub API.
-         */
-        createStubInstance<TType>(constructor: StubbableType<TType>): SinonStubbedInstance<TType>;
-
-        format(obj: any): string;
-        restore(object: any): void;
+        injectInto: object | null;
+        properties: string[];
+        useFakeTimers: boolean | Partial<SinonFakeTimersConfig>;
+        useFakeServer: boolean | SinonFakeServer;
     }
 
     /**
@@ -566,15 +475,103 @@ declare namespace Sinon {
     }
 
     /**
-     * An instance of a stubbed object type with members replaced by stubs.
+     * An instance of a stubbed object type with functions replaced by stubs.
      *
      * @template TType Object type being stubbed.
      */
     type SinonStubbedInstance<TType> = {
-        // TODO: this should really only replace functions on TType with SinonStubs, not all properties
-        // Likely infeasible without mapped conditional types, per https://github.com/Microsoft/TypeScript/issues/12424
-        [P in keyof TType]: SinonStub;
+        [P in keyof TType]: SinonStubbedMember<TType[P]>;
     };
+
+    /**
+     * Replaces a type with a Sinon stub if it's a function.
+     */
+    type SinonStubbedMember<T> = T extends Function ? SinonStub : T;
+
+    interface SinonFake {
+        (): SinonSpy;
+        (fn: Function): SinonSpy;
+        returns(val: any): SinonSpy;
+        throws(val: Error | string): SinonSpy;
+        resolves(val: any): SinonSpy;
+        rejects(val: any): SinonSpy;
+        yields(...args: any[]): SinonSpy;
+        yieldsAsync(...args: any[]): SinonSpy;
+    }
+
+    interface SinonSandbox {
+        assert: SinonAssert;
+        clock: SinonFakeTimers;
+        requests: SinonFakeXMLHttpRequest[];
+        server: SinonFakeServer;
+        spy: SinonSpyStatic;
+        stub: SinonStubStatic;
+        mock: SinonMockStatic;
+
+        useFakeTimers(config?: number | Date | Partial<SinonFakeTimersConfig>): SinonFakeTimers;
+        useFakeXMLHttpRequest(): SinonFakeXMLHttpRequestStatic;
+        useFakeServer(): SinonFakeServer;
+        restore(): void;
+        reset(): void;
+        resetHistory(): void;
+        resetBehavior(): void;
+        usingPromise(promiseLibrary: any): SinonSandbox;
+        verify(): void;
+        verifyAndRestore(): void;
+
+        replace<T, TKey extends keyof T>(
+            obj: T,
+            prop: TKey,
+            replacement: T[TKey]): T[TKey];
+        replaceGetter<T, TKey extends keyof T>(
+            obj: T,
+            prop: TKey,
+            replacement: () => T[TKey]): () => T[TKey];
+        replaceSetter<T, TKey extends keyof T>(
+            obj: T,
+            prop: TKey,
+            replacement: (val: T[TKey]) => void): (val: T[TKey]) => void;
+
+        /**
+         * Creates a new object with the given functions as the prototype and stubs all implemented functions.
+         *
+         * @template TType Type being stubbed.
+         * @param constructor   Object or class to stub.
+         * @returns A stubbed version of the constructor.
+         * @remarks The given constructor function is not invoked. See also the stub API.
+         */
+        createStubInstance<TType>(constructor: StubbableType<TType>): SinonStubbedInstance<TType>;
+    }
+
+    interface SinonApi {
+        fake: SinonFake;
+        match: SinonMatch;
+        spyCall(...args: any[]): SinonSpyCall;
+        expectation: SinonExpectationStatic;
+
+        clock: {
+            create(now: number | Date): SinonFakeTimers;
+        };
+
+        FakeXMLHttpRequest: SinonFakeXMLHttpRequestStatic;
+
+        fakeServer: SinonFakeServerStatic;
+        fakeServerWithClock: SinonFakeServerStatic;
+
+        createSandbox(config?: Partial<SinonSandboxConfig>): SinonSandbox;
+        defaultConfig: Partial<SinonSandboxConfig>;
+    }
+
+    interface LegacySandbox {
+        sandbox: {
+            /**
+             * @deprecated Since 5.0, use `sinon.createSandbox` instead
+             */
+            create(config?: Partial<SinonSandboxConfig>): SinonSandbox;
+        };
+    }
+
+    type SinonStatic = SinonSandbox & LegacySandbox & SinonApi;
 }
 
 declare const Sinon: Sinon.SinonStatic;

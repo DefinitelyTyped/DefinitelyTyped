@@ -2,6 +2,7 @@
 // Project: https://github.com/stellar/js-stellar-sdk
 // Definitions by: Carl Foster <https://github.com/carl-foster>
 //                 Triston Jones <https://github.com/tristonj>
+//                 Paul Selden <https://github.com/pselden>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -505,15 +506,21 @@ export class Memo {
     static return(hash: string): Memo;
     static text(text: string): Memo;
 
-    constructor(type: 'MemoNone')
-    constructor(type: 'MemoID' | 'MemoText', value: string)
-    constructor(type: 'MemoHash' | 'MemoReturn', value: Buffer)
+    constructor(type: 'none');
+    constructor(type: 'id' | 'text' | 'hash' | 'return', value: string)
+    constructor(type: 'hash' | 'return', value: Buffer)
 
-    type: 'MemoNone' | 'MemoID' | 'MemoText' | 'MemoHash' | 'MemoReturn';
+    type: string;
     value: null | string | Buffer;
 
     toXDRObject(): xdr.Memo;
 }
+
+export const MemoNone = 'none';
+export const MemoID = 'id';
+export const MemoText = 'text';
+export const MemoHash = 'hash';
+export const MemoReturn = 'return';
 
 export enum Networks {
     PUBLIC = 'Public Global Stellar Network ; September 2015',

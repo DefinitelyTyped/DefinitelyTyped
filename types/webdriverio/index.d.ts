@@ -178,6 +178,9 @@ declare namespace WebdriverIO {
         setWindowRect?: boolean;
         timeouts?: Timeouts;
         unhandledPromptBehavior?: string;
+
+        // wdio-sauce-service specific
+        build?: string;
     }
 
     interface DesiredCapabilities extends Capabilities {
@@ -434,6 +437,15 @@ declare namespace WebdriverIO {
         waitforInterval?: number;
         user?: string;
         key?: string;
+
+        // wdio-sauce-service specific
+        sauceConnect?: boolean;
+        sauceConnectOpts?: { [name: string]: any; };
+
+        // wdio-docker-service specific
+        dockerOptions?: { [name: string]: any; };
+        onDockerReady?: ((...args: any[]) => void);
+        dockerLogs?: string;
     }
 
     interface UnknownOptions {
@@ -841,7 +853,7 @@ declare namespace WebdriverIO {
         setOrientation(setTo: 'landscape' | 'portrait'): Client<T>;
         settings(settings?: { [key: string]: string }): Client<T>;
         shake(): Client<T>;
-        startActivity(appPackage: string, activity: string): Client<T>;
+        startActivity(appPackage: string, activity: string, appWaitPackage?: string, appWaitActivity?: string): Client<T>;
         strings(language: string): Client<T>;
 
         swipe(

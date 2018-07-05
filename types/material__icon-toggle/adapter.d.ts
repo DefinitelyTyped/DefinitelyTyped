@@ -29,33 +29,30 @@
  * Implement this adapter for your framework of choice to delegate updates to
  * the component in your framework of choice. See architecture documentation
  * for more details.
- * https://github.com/material-components/material-components-web/blob/master/docs/architecture.md
- *
- * @record
+ * https://github.com/material-components/material-components-web/blob/master/docs/code/architecture.md
  */
+export default interface MDCIconToggleAdapter {
+    addClass(className: string): void;
 
-export class MDCIconToggleAdapter {
-  addClass(className: string): void;
+    removeClass(className: string): void;
 
-  removeClass(className: string): void;
+    registerInteractionHandler(type: string, handler: EventListener): void;
 
-  registerInteractionHandler(type: string, handler: EventListener): void;
+    deregisterInteractionHandler(type: string, handler: EventListener): void;
 
-  deregisterInteractionHandler(type: string, handler: EventListener): void;
+    setText(text: string): void;
 
-  setText(text: string): void;
+    getTabIndex(): number;
 
-  getTabIndex(): number;
+    setTabIndex(tabIndex: number): void;
 
-  setTabIndex(tabIndex: number): void;
+    getAttr(name: string): string;
 
-  getAttr(name: string): string;
+    setAttr(name: string, value: string): void;
 
-  setAttr(name: string, value: string): void;
+    rmAttr(name: string): void;
 
-  rmAttr(name: string): void;
-
-  notifyChange(evtData: IconToggleEvent): void;
+    notifyChange(evtData: IconToggleEvent): void;
 }
 
 export interface IconToggleEvent {

@@ -14,12 +14,11 @@
  * limitations under the License.
  */
 
-import { MDCFoundation } from 'material__base';
-import { transformStyleProperties } from 'material__animation';
-import { MDCLinearProgressAdapter } from './adapter';
+import MDCFoundation from 'material__base/foundation';
+import MDCLinearProgressAdapter from './adapter';
 import { cssClasses, strings } from './constants';
 
-export class MDCLinearProgressFoundation extends MDCFoundation<MDCLinearProgressAdapter> {
+export default class MDCLinearProgressFoundation extends MDCFoundation<MDCLinearProgressAdapter> {
     static readonly cssClasses: cssClasses;
 
     static readonly strings: strings;
