@@ -2,7 +2,7 @@
 // Project: https://github.com/auth0/socketio-jwt
 // Definitions by: Eric Hallander <https://github.com/ehallander9591>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7.1
+// TypeScript Version: 2.1
 
 import SocketIO = require("socket.io");
 
@@ -34,12 +34,12 @@ export interface JwtData {
 /**
  * An Error Object used by the package.
  */
-declare class UnauthorizedError extends Error {
+export class UnauthorizedError extends Error {
 	constructor(code: string, error: Error);
 
-	public message: string;
-	public inner: Error;
-	public data: JwtData;
+	message: string;
+	inner: Error;
+	data: JwtData;
 }
 
 /**

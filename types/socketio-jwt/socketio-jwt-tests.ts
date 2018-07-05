@@ -1,11 +1,11 @@
 import * as fs from 'fs';
 import * as http from 'http';
 import * as SocketIo from 'socket.io';
-import {authorize,JwtSecretFuncCallback} from 'socketio-jwt';
+import { authorize, JwtSecretFuncCallback } from 'socketio-jwt';
 
-let app = http.createServer((req: any, rsp: any) => {
+const app = http.createServer((req: any, rsp: any) => {
 	fs.readFile(__dirname + '/index.html',
-		function (err, data) {
+		(err: Error, data: any) => {
 			if (err) {
 				rsp.writeHead(500);
 				return rsp.end('Error loading index.html');
@@ -16,7 +16,7 @@ let app = http.createServer((req: any, rsp: any) => {
 		});
 });
 
-let io = SocketIo(app);
+const io = SocketIo(app);
 
 // This example test code is using the Node Http Server
 
@@ -27,12 +27,12 @@ io.on('connection', authorize({
 
 io.on('authenticated', (socket: SocketIo.Socket) => {
 	console.log('authenticated!!');
-	console.log(JSON.stringify((<any>socket)['anyNameYouWant']));
+	console.log(JSON.stringify((<any> socket).anyNameYouWant));
 });
 
-let secrets: any = {
-	'user1': 'secret 1',
-	'user2': 'secret 2'
+const secrets: any = {
+	user1: 'secret 1',
+	user2: 'secret 2'
 };
 
 // Assume a claim name of userId
