@@ -357,8 +357,6 @@ declare module "mongoose" {
     domainsEnabled?: boolean;
     /** How long driver keeps waiting for servers to come back up (default: Number.MAX_VALUE) */
     bufferMaxEntries?: number;
-    /** Use new url parser (default: false). */
-    useNewUrlParser?: boolean
 
     /** additional SSL configuration options */
     /** Array of valid certificates either as Buffers or Strings */
