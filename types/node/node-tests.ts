@@ -390,8 +390,12 @@ namespace fs_tests {
     {
         fs.copyFile('/path/to/src', '/path/to/dest', (err) => console.error(err));
         fs.copyFile('/path/to/src', '/path/to/dest', fs.constants.COPYFILE_EXCL, (err) => console.error(err));
+        fs.copyFile('/path/to/src', '/path/to/dest', fs.constants.COPYFILE_FICLONE, (err) => console.error(err));
+        fs.copyFile('/path/to/src', '/path/to/dest', fs.constants.COPYFILE_FICLONE_FORCE, (err) => console.error(err));
 
         fs.copyFileSync('/path/to/src', '/path/to/dest', fs.constants.COPYFILE_EXCL);
+        fs.copyFileSync('/path/to/src', '/path/to/dest', fs.constants.COPYFILE_FICLONE);
+        fs.copyFileSync('/path/to/src', '/path/to/dest', fs.constants.COPYFILE_FICLONE_FORCE);
 
         const cf = util.promisify(fs.copyFile);
         cf('/path/to/src', '/path/to/dest', fs.constants.COPYFILE_EXCL).then(console.log);
