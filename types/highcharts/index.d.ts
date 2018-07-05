@@ -4363,7 +4363,7 @@ declare namespace Highcharts {
              * @default bold
              */
             fontWeight?: string;
-        }
+        };
     }
 
     interface AreaChart extends SeriesChart {
