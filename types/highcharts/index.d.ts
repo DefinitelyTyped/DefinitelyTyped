@@ -4109,6 +4109,13 @@ declare namespace Highcharts {
         enableMouseTracking?: boolean;
         events?: PlotEvents;
         /**
+         * Series labels are placed as close to the series as possible in a natural way, seeking to avoid other series.
+         * The goal of this feature is to make the chart more easily readable, like if a human designer placed the labels in the optimal position.
+         * The series labels currently work with series types having a graph or an area.
+         * @since 6.0.0
+         */
+        label?: SeriesLabelOptions;
+        /**
          * Determines whether the series should look for the nearest point in both dimensions or just the x-dimension when
          * hovering the series. Defaults to 'xy' for scatter series and 'x' for most other series. If the data has duplicate
          * x-values, it is recommended to set this to 'xy' to allow hovering over all points.
@@ -4293,6 +4300,70 @@ declare namespace Highcharts {
          * according to the zoneAxis option.
          */
         zones?: AreaZone[];
+    }
+
+    /**
+     * Series labels are placed as close to the series as possible in a natural way, seeking to avoid other series.
+     * The goal of this feature is to make the chart more easily readable, like if a human designer placed the labels in the optimal position.
+     */
+    interface SeriesLabelOptions {
+        /**
+         * An array of boxes to avoid when laying out the labels. Each item has a left, right, top and bottom property.
+         * @default undefined
+         * @since 6.0.0
+         */
+        boxesToAvoid?: string[];
+        /**
+         * Allow labels to be placed distant to the graph if necessary, and draw a connector line to the graph.
+         * Setting this option to true may decrease the performance significantly, since the algorithm with
+         * systematically search for open spaces in the while plot area.
+         * Visually, it may also result in a more cluttered chart, though more of the series will be labeled.
+         * @default false
+         * @since 6.0.0
+         */
+        connectorAllowed?: boolean;
+        /**
+         * If the label is closer than this to a neighbour graph, draw a connector.
+         * @default 24
+         * @since 6.0.0
+         */
+        connectorNeighbourDistance?: number;
+        /**
+         * Enable the series label per series.
+         * @default true
+         * @since 6.0.0
+         */
+        enabled?: boolean;
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size.
+         * The default applies this effect to area-like series but not line-like series.
+         * @default null
+         * @since 6.0.0
+         */
+        maxFontSize?: number;
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size.
+         * The default applies this effect to area-like series but not line-like series.
+         * @default null
+         * @since 6.0.0
+         */
+        minFontSize?: number;
+        /**
+         * Draw the label on the area of an area series. By default it is drawn on the area. Set it to false to draw it next to the graph instead.
+         * @default null
+         * @since 6.0.0
+         */
+        onArea?: boolean;
+        /**
+         * Styles for the series label. The color defaults to the series color, or a contrast color if onArea.
+         * @since 6.0.0
+         */
+        style?: {
+            /**
+             * @default bold
+             */
+            fontWeight?: string;
+        }
     }
 
     interface AreaChart extends SeriesChart {
