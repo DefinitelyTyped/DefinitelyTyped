@@ -13,9 +13,9 @@ interface DropdownListProps extends ReactWidgetsCommonDropdownProps<DropdownList
      * need to be in the data array; widgets can have values that are not in their list.
      */
     value?: any;
-      /**
-     * Default value.
-     */
+    /**
+   * Default value.
+   */
     defaultValue?: any;
     /**
      * Create event Handler that is called when a new option is added to the data list.
@@ -190,9 +190,14 @@ interface DropdownListMessages {
      * @default: "The filter returned no results"
      */
     emptyFilter?: string | ((props: DropdownListProps) => string);
+    /**
+     * Text to display for the create option
+     * @default: "Create option {text}"
+     */
+    createOption?: string | ((props: DropdownListProps) => string);
 }
 
-interface DropdownList extends React.ReactElement<DropdownListProps> {}
-interface DropdownListClass extends React.ComponentClass<DropdownListProps> {}
+interface DropdownList extends React.ReactElement<DropdownListProps> { }
+interface DropdownListClass extends React.ComponentClass<DropdownListProps> { }
 declare var DropdownList: DropdownListClass;
 export = DropdownList;
