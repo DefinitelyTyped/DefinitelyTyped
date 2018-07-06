@@ -167,13 +167,13 @@ configuration = {
                     const prevTimestamp = prevTimestamps.get(filepath) || startTime;
                     const newTimestamp = compilation.fileTimestamps!.get(filepath) || Infinity;
                     if (prevTimestamp < newTimestamp) {
-                        this.inputFileSystem!.readFileSync(filepath).toString('utf-8');
+                        this.inputFileSystem.readFileSync(filepath).toString('utf-8');
                     }
                 }
             });
 
             this.hooks.afterEmit.tapAsync("afterEmit", (stats, callback) => {
-                this.outputFileSystem!.writeFile(
+                this.outputFileSystem.writeFile(
                     path.join(__dirname, "...", "stats.json"),
                     JSON.stringify(stats.getStats().toJson()),
                     callback

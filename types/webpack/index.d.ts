@@ -1047,8 +1047,8 @@ declare namespace webpack {
 
         name: string;
         options: Configuration;
-        inputFileSystem: InputFileSystem | null;
-        outputFileSystem: OutputFileSystem | null;
+        inputFileSystem: InputFileSystem;
+        outputFileSystem: OutputFileSystem;
         fileTimestamps: Map<string, number>;
         contextTimestamps: Map<string, number>;
         run(handler: Compiler.Handler): void;
