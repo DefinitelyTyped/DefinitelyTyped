@@ -2,6 +2,7 @@
 // Project: https://github.com/GoogleCloudPlatform/google-cloud-node/tree/master/packages/storage
 // Definitions by: Brian Love <https://github.com/blove>
 //                 Nathan Brooker Perry <https://github.com/nbperry>
+//                 Matt Welke <https://github.com/welkie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
