@@ -2,6 +2,7 @@
 // Project: https://hexo.io/
 // Definitions by: My Self <https://github.com/me>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="node" />
 
@@ -51,9 +52,9 @@ export class Permalink {
     });
     rule: string;
     regex: RegExp;
-    params: string;
+    params: string[];
     test(str: string): boolean;
-    parse(str: string): any[];
+    parse(str: string): { [param: string]: any; } | undefined;
     stringify(data: { [name: string]: string; }): string;
 }
 
@@ -80,13 +81,13 @@ export interface hexoSpawnDisableEncodingAndOverrideStdioOptions extends hexoSpa
     stdio: any[] | string;
 }
 
-export function spawn(command: string, args: string[], options: hexoSpawnDisableEncodingAndOverrideStdioOptions): Promise<Buffer | void>;
-export function spawn(command: string, args: string[], options: hexoSpawnOverrideStdioOptions): Promise<string | void>;
+export function spawn(command: string, args: string[], options: hexoSpawnDisableEncodingAndOverrideStdioOptions): Promise<Buffer | undefined>;
+export function spawn(command: string, args: string[], options: hexoSpawnOverrideStdioOptions): Promise<string | undefined>;
 export function spawn(command: string, args: string[], options: hexoSpawnDisableEncodingOptions): Promise<Buffer>;
 export function spawn(command: string, args: string[], options?: hexoSpawnOptions): Promise<string>;
 
-export function spawn(command: string, options: hexoSpawnDisableEncodingAndOverrideStdioOptions): Promise<Buffer | void>;
-export function spawn(command: string, options: hexoSpawnOverrideStdioOptions): Promise<string | void>;
+export function spawn(command: string, options: hexoSpawnDisableEncodingAndOverrideStdioOptions): Promise<Buffer | undefined>;
+export function spawn(command: string, options: hexoSpawnOverrideStdioOptions): Promise<string | undefined>;
 export function spawn(command: string, options: hexoSpawnDisableEncodingOptions): Promise<Buffer>;
 export function spawn(command: string, options?: hexoSpawnOptions): Promise<string>;
 
