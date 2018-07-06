@@ -12,4 +12,4 @@ declare function deepEqual(
     expected: any,
     opts?: DeepEqualOptions): boolean;
 
-export = deepEqual;
+export default deepEqual;
