@@ -13,6 +13,7 @@
 //                 Dennis George <https://github.com/dennispg>
 //                 Christophe Hurpeau <https://github.com/christophehurpeau>
 //                 ZSkycat <https://github.com/ZSkycat>
+//                 SystemDisc <https://github.com/SystemDisc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 

@@ -4,6 +4,7 @@
 //                 Dave Parslow <https://github.com/daveparslow>
 //                 Zheyang Song <https://github.com/ZheyangSong>
 //                 Alan Agius <https://github.com/alan-agius4>
+//                 SystemDisc <https://github.com/SystemDisc>
 //                 Artur Androsovych <https://github.com/arturovt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
