@@ -14,7 +14,7 @@ export as namespace AgoraRTC;
 export function createClient(config: ClientConfig): Client;
 export function createStream(spec: StreamSpec): Stream;
 export function checkSystemRequirements(): boolean;
-export function getDevices(callback: (devices: Array<any>) => void): void;
+export function getDevices(callback: (devices: any[]) => void): void;
 
 /*~ You can declare types that are available via importing the module */
 export interface ClientConfig  {
@@ -299,15 +299,15 @@ export namespace Logger {
      *~   import * as yourMod from 'yourModule';
      *~   yourMod.subProp.foo();
      */
-    export type DEBUG = 0
-    export type INFO = 1
-    export type WARNING = 2
-    export type ERROR = 3
-    export type NONE = 4
-    export function setLogLevel(level: DEBUG|INFO|WARNING|NONE): void;
-    export function log(args: any): void;
-    export function debug(args: any): void;
-    export function info(args: any): void;
-    export function warning(args: any): void;
-    export function error(args: any): void;
+    type DEBUG = 0;
+    type INFO = 1;
+    type WARNING = 2;
+    type ERROR = 3;
+    type NONE = 4;
+    function setLogLevel(level: DEBUG|INFO|WARNING|NONE): void;
+    function log(args: any): void;
+    function debug(args: any): void;
+    function info(args: any): void;
+    function warning(args: any): void;
+    function error(args: any): void;
 }
