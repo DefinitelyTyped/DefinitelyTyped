@@ -13,19 +13,19 @@ const scaleAnimation = new ScaleAnimation();
 const fadeAnimation = new FadeAnimation({ animationDuration: 150 });
 
 class Test extends React.Component<any> {
-    fadingPopupDialog: PopupDialog | null
-    scalingPopupDialog: PopupDialog | null
-    slidingPopupDialog: PopupDialog | null
+    fadingPopupDialog: PopupDialog | null;
+    scalingPopupDialog: PopupDialog | null;
+    slidingPopupDialog: PopupDialog | null;
 
     showPopupDialog(popupDialog: PopupDialog | null) {
         if (popupDialog !== null) {
-            popupDialog.show(() => console.log('show callback'))
+            popupDialog.show(() => console.log('show callback'));
         }
     }
 
     dismissPopupDialog(popupDialog: PopupDialog | null) {
         if (popupDialog !== null) {
-            popupDialog.dismiss(() => console.log('dismiss callback'))
+            popupDialog.dismiss(() => console.log('dismiss callback'));
         }
     }
 
