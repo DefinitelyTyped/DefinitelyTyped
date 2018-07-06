@@ -40,10 +40,15 @@ export function highlight(str: string, options?: {
 
 export function htmlTag(tag: string, attrs?: string[] | ArrayLike<string> | { [x: string]: any }, text?: string | null): string;
 
-export class Pattern {
-    constructor(rule: Pattern | ((str: string) => any) | RegExp | string);
+interface Pattern<T> {
     test(str: string): boolean;
-    match(str: string): any;
+    match(str: string): T;
+}
+
+export const Pattern: {
+    new<T>(rule: Pattern<T> | ((str: string) => T)): Pattern<T>;
+    new(rule: RegExp): Pattern<RegExpMatchArray | null>;
+    new(rule: string): Pattern<{ 0: string; [index: number]: any; } & { [name: string]: any; } | undefined>;
 }
 
 export class Permalink {
