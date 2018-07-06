@@ -1,4 +1,4 @@
-﻿// Type definitions for Summernote 0.8
+// Type definitions for Summernote 0.8
 // Project: https://github.com/summernote/summernote#readme
 // Definitions by: Wouter Staelens <https://github.com/wstaelens>
 //                 Denny Harijanto <https://github.com/nusantara-cloud>
