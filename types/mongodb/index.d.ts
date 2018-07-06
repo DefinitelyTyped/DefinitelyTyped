@@ -18,7 +18,7 @@
 /// <reference types="node" />
 /// <reference types="bson" />
 
-import { ObjectID } from 'bson';
+import { ObjectID, Timestamp } from 'bson';
 import { EventEmitter } from 'events';
 import { Readable, Writable } from "stream";
 
@@ -54,13 +54,64 @@ export class MongoClient extends EventEmitter {
     logout(options?: { dbName?: string }): Promise<any>;
     logout(options: { dbName?: string }, callback: MongoCallback<any>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.0/api/MongoClient.html#startSession */
-    startSession(options?: any): ClientSession;
+    startSession(options?: SessionOptions): ClientSession;
 }
 
+/** https://docs.mongodb.com/manual/reference/method/Mongo.startSession/ */
+declare interface SessionOptions {
+    /** https://docs.mongodb.com/manual/core/read-isolation-consistency-recency/#causal-consistency */
+    causalConsistency?: boolean;
+    /**https://docs.mongodb.com/manual/reference/read-concern/#read-concern */
+    readConcern?: ReadConcern;
+    /** https://docs.mongodb.com/manual/reference/read-preference/#read-preference */
+    readPreference?: ReadPreference;
+    /**  */
+    retryWrites?: boolean;
+    /** https://docs.mongodb.com/manual/reference/write-concern/#write-concern */
+    writeConcern?: WriteConcern;
+}
+
+declare type ReadConcern = {
+    level?: "linearizable" /** https://docs.mongodb.com/manual/reference/read-concern-linearizable/#readconcern.%22linearizable%22 */
+            | "local" /** https://docs.mongodb.com/manual/reference/read-concern-local/#readconcern.%22local%22 */
+            | "majority" /** https://docs.mongodb.com/manual/reference/read-concern-majority/#readconcern.%22majority%22 */
+            | "snapshot"; /** https://docs.mongodb.com/manual/reference/read-concern-snapshot/#readconcern.%22snapshot%22 */
+    /** https://docs.mongodb.com/manual/reference/read-concern-linearizable/#readconcern.%22linearizable%22 */
+    maxTimeMS?: number;
+}
+
+/** https://docs.mongodb.com/manual/reference/write-concern/#write-concern */
+declare type WriteConcern = {
+    w?: number | "majority" ;
+    j?: boolean;
+    wtimeout?: number;
+}
+
+declare interface ClusterTime {
+    clusterTime: Timestamp;
+    signature: {
+        hash: Buffer;
+        keyId: number
+    }
+}
+
+/** https://docs.mongodb.com/manual/reference/method/Session/ */
 declare class ClientSession extends EventEmitter {
+    abortTransaction() : void;
+    advanceClusterTime(clusterTime : ClusterTime) : void;
+    advanceOperationTime(time: Timestamp) : void;
+    /** https://docs.mongodb.com/manual/reference/method/Session.commitTransaction/ */
+    commitTransaction() : void;
     endSession(callback?: MongoCallback<void>): void;
     endSession(options: any, callback?: MongoCallback<void>): void;
     equals(session: ClientSession): boolean;
+    getClusterTime() : Timestamp;
+    getDatabase(name: string) : Db;
+    getOperationTime() : Timestamp;
+    getOptions() : SessionOptions
+    /** https://docs.mongodb.com/manual/reference/method/Session.startTransaction/#Session.startTransaction */
+    startTransaction({readConcern, writeConcern}? : {readConcern?: ReadConcern, writeConcern?: WriteConcern}) : void;
+    hasEnded() : boolean
 }
 
 export interface MongoClientCommonOption {
@@ -145,7 +196,7 @@ export interface HighAvailabilityOptions {
 // See http://mongodb.github.io/node-mongodb-native/3.0/api/ReadPreference.html
 export class ReadPreference {
     constructor(mode: string, tags: Object);
-    mode: string;
+    mode: "nearest" | "primary" | "primaryPreferred" |  "secondary" | "secondaryPreferred";
     tags: any;
     options: { maxStalenessSeconds?: number }; // Max Secondary Read Stalleness in Seconds
     static PRIMARY: string;

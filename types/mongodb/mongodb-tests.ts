@@ -59,6 +59,42 @@ MongoClient.connect('mongodb://127.0.0.1:27017/test', options, function (err: mo
         collection.createIndex({}, { partialFilterExpression: { rating: { $exists: 1 } } })
     });
 
+    let session = client.startSession({
+        causalConsistency: true,
+        readConcern: {
+            level: 'linearizable',
+            maxTimeMS: 1000
+        },
+        readPreference: {
+            isValid: (mode) => {return true},
+            mode: 'primary',
+            tags: '',
+            options: {maxStalenessSeconds: 100}
+        },
+        retryWrites: true,
+        writeConcern: {
+            w: 'majority',
+            j: true,
+            wtimeout: 3000
+        }
+    });
+    let sessionDb = session.getDatabase('test');
+    collection = sessionDb.collection('test_insert');
+    session.startTransaction();
+    session.commitTransaction()
+    session.startTransaction({
+        readConcern: {
+            level: 'majority'
+        }, 
+        writeConcern: {
+            w: 333,
+            j: false,
+            wtimeout: 10
+        }
+    })
+    session.abortTransaction()
+    session.endSession();
+
     {
         let cursor: mongodb.Cursor;
         cursor = collection.find();
