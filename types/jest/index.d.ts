@@ -18,32 +18,37 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-declare var beforeAll: jest.Lifecycle;
-declare var beforeEach: jest.Lifecycle;
-declare var afterAll: jest.Lifecycle;
-declare var afterEach: jest.Lifecycle;
-declare var describe: jest.Describe;
-declare var fdescribe: jest.Describe;
-declare var xdescribe: jest.Describe;
-declare var it: jest.It;
-declare var fit: jest.It;
-declare var xit: jest.It;
-declare var test: jest.It;
-declare var xtest: jest.It;
+export = jest;
+export as namespace jest;
 
-declare const expect: jest.Expect;
+declare global {
+    var beforeAll: jest.Lifecycle;
+    var beforeEach: jest.Lifecycle;
+    var afterAll: jest.Lifecycle;
+    var afterEach: jest.Lifecycle;
+    var describe: jest.Describe;
+    var fdescribe: jest.Describe;
+    var xdescribe: jest.Describe;
+    var it: jest.It;
+    var fit: jest.It;
+    var xit: jest.It;
+    var test: jest.It;
+    var xtest: jest.It;
 
-interface NodeRequire {
-    /**
-     * Returns the actual module instead of a mock, bypassing all checks on
-     * whether the module should receive a mock implementation or not.
-     */
-    requireActual(moduleName: string): any;
-    /**
-     * Returns a mock module instead of the actual module, bypassing all checks
-     * on whether the module should be required normally or not.
-     */
-    requireMock(moduleName: string): any;
+    const expect: jest.Expect;
+
+    interface NodeRequire {
+        /**
+         * Returns the actual module instead of a mock, bypassing all checks on
+         * whether the module should receive a mock implementation or not.
+         */
+        requireActual(moduleName: string): any;
+        /**
+         * Returns a mock module instead of the actual module, bypassing all checks
+         * on whether the module should be required normally or not.
+         */
+        requireMock(moduleName: string): any;
+    }
 }
 
 declare namespace jest {
