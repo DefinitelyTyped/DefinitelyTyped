@@ -1,8 +1,8 @@
 // Type definitions for hexo-util 0.6
 // Project: https://hexo.io/
-// Definitions by: My Self <https://github.com/me>
+// Definitions by: sega yuu <https://github.com/segayuu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.2
 
 /// <reference types="node" />
 
@@ -40,7 +40,7 @@ export function highlight(str: string, options?: {
 
 export function htmlTag(tag: string, attrs?: string[] | ArrayLike<string> | { [x: string]: any }, text?: string | null): string;
 
-interface Pattern<T> {
+export interface Pattern<T> {
     test(str: string): boolean;
     match(str: string): T;
 }
@@ -49,7 +49,7 @@ export const Pattern: {
     new<T>(rule: Pattern<T> | ((str: string) => T)): Pattern<T>;
     new(rule: RegExp): Pattern<RegExpMatchArray | null>;
     new(rule: string): Pattern<{ 0: string; [index: number]: any; } & { [name: string]: any; } | undefined>;
-}
+};
 
 export class Permalink {
     constructor(rule: string, options?: {
