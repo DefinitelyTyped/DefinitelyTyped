@@ -50,3 +50,10 @@ if (isVNode(tree)) {
 } else if (isThunk(tree)) {
   tree.vnode = newNode;
 }
+
+virtual_dom.patch(document.createElement("div"), []);
+virtual_dom.patch(document.createElement("div"), [], {
+  patch: (rootNode: HTMLDivElement, patches: virtual_dom.VPatch[]) => {
+    return rootNode;
+  }
+});

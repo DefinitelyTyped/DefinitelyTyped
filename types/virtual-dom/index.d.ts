@@ -48,7 +48,6 @@ declare namespace VirtualDOM {
 
   interface VText {
     text: string;
-    new(text: any): VText;
     version: string;
     type: string; // 'VirtualText'
   }
@@ -86,13 +85,18 @@ declare namespace VirtualDOM {
   interface VPatch {
     vNode: VNode;
     patch: any;
-    new(type: number, vNode: VNode, patch: any): VPatch;
     version: string;
     /**
     type is set to 'VirtualPatch' on the prototype, but overridden in the
     constructor with a number.
     */
     type: number;
+  }
+
+  type PatchFn<T extends Element> = (rootNode: T, patches: VPatch[], renderOptions: VPatchOptions<T>) => T;
+
+  interface VPatchOptions<T extends Element> {
+    patch?: PatchFn<T>;
   }
 
   interface createProperties extends VProperties {
@@ -115,7 +119,7 @@ declare namespace VirtualDOM {
   patch() usually just returns rootNode after doing stuff to it, so we want
   to preserve that type (though it will usually be just Element).
   */
-  function patch<T extends Element>(rootNode: T, patches: VPatch[], renderOptions?: any): T;
+  function patch<T extends Element>(rootNode: T, patches: VPatch[], renderOptions?: VPatchOptions<T>): T;
 
   function isVNode(vTree: VTree): vTree is VNode;
   function isVText(vTree: VTree): vTree is VText;
