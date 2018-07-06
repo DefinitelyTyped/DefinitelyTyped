@@ -13,6 +13,7 @@
 import * as fs from 'fs';
 import * as https from 'https';
 import * as stream from 'stream';
+import * as cookiejar from 'cookiejar';
 
 type CallbackHandler = (err: any, res: request.Response) => void;
 
@@ -49,6 +50,7 @@ declare namespace request {
     }
 
     interface SuperAgent<Req extends SuperAgentRequest> extends stream.Stream {
+        jar: cookiejar.CookieJar;
         attachCookies(req: Req): void;
         checkout(url: string, callback?: CallbackHandler): Req;
         connect(url: string, callback?: CallbackHandler): Req;
