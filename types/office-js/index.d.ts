@@ -6388,7 +6388,9 @@ declare namespace Office {
          * [Api set: Mailbox 1.3]
          *
          * @remarks
-         * {@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}: Compose or read
+         * <table><tr><td>
+         * {@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}
+         * </td><td>Compose or read</td></tr></table>
          */
         enum RestVersion {
             /**
