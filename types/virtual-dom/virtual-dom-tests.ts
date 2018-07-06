@@ -1,12 +1,11 @@
-
-import * as VirtualDOM from "virtual-dom";
-import h from "virtual-dom/h";
-import isVNode from "virtual-dom/vnode/is-vnode";
-import isVText from "virtual-dom/vnode/is-vtext";
-import isWidget from "virtual-dom/vnode/is-widget";
-import isThunk from "virtual-dom/vnode/is-thunk";
-import VNode from "virtual-dom/vnode/vnode";
-import VText from "virtual-dom/vnode/vtext";
+import virtual_dom = require("virtual-dom");
+import VNode = require("virtual-dom/vnode/vnode");
+import VText = require("virtual-dom/vnode/vtext");
+import h = virtual_dom.h;
+import isVNode = virtual_dom.isVNode;
+import isVText = virtual_dom.isVText;
+import isWidget = virtual_dom.isWidget;
+import isThunk = virtual_dom.isThunk;
 
 function renderAny(object: any): VirtualDOM.VNode {
   if (object === undefined) {
