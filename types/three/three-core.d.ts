@@ -1656,7 +1656,7 @@ export class Object3D extends EventDispatcher {
     /**
      * An object that can be used to store custom data about the Object3d. It should not hold references to functions as these will not be cloned.
      */
-    userData: {[key: string]: any};
+    userData: {[key: string]: any} | any;
 
     /**
      * Used to check whether this or derived classes are Object3Ds. Default is true.
@@ -6643,10 +6643,9 @@ export namespace SceneUtils {
 }
 
 export namespace ShapeUtils {
-    export function area(contour: number[]): number;
-    export function triangulate(contour: number[], indices: boolean): number[];
-    export function triangulateShape(contour: number[], holes: any[]): number[];
-    export function isClockWise(pts: number[]): boolean;
+    export function area(contour: (Vector2 | Vector3)[]): number;
+    export function triangulateShape(contour: (Vector2 | Vector3)[], holes: any[]): number[];
+    export function isClockWise(pts: (Vector2 | Vector3)[]): boolean;
 }
 
 // Extras / Audio /////////////////////////////////////////////////////////////////////
@@ -6825,6 +6824,11 @@ export class Curve<T extends Vector> {
      * getTangentAt(u: number): T;
      */
     getTangentAt(u: number): T;
+
+    /**
+     * Generates the Frenet Frames. Used in geometries like TubeGeometry or ExtrudeGeometry.
+     */
+    computeFrenetFrames (segments: number, closed: boolean) : {tangents: Vector3[], normals: Vector3[], binormals: Vector3[]};
 
     /**
      * @deprecated since r84.
