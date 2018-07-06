@@ -1021,7 +1021,7 @@ declare namespace webpack {
 
     interface InputFileSystem {
         purge(): void;
-        readFile: (path: string, callback: (err: Error, contents: Buffer) => void) => void;
+        readFile(path: string, callback: (err: Error, contents: Buffer) => void): void;
         readFileSync(path: string): Buffer;
         readlink(path: string, callback: (err: Error, linkString: string) => void): void;
         readlinkSync(path: string): string;
@@ -1030,12 +1030,12 @@ declare namespace webpack {
     }
 
     interface OutputFileSystem {
+        join(...paths: string[]): string;
         mkdir(path: string, callback: (err: Error) => void): void;
+        mkdirp(path: string, callback: (err: Error) => void): void;
+        purge(): void;
         rmdir(path: string, callback: (err: Error) => void): void;
         unlink(path: string, callback: (err: Error) => void): void;
-        join(...paths: string[]): string;
-        mkdirp: (path: string, callback: (err: Error) => void) => void;
-        purge(): void;
         writeFile(path: string, data: any, callback: (err: Error) => void): void;
     }
 
