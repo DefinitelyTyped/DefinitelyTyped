@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "typeRoots": ["../"],
+        "baseUrl": "../",
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "types": [],
+        "lib": ["es5"],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true
+    },
+    "files": ["index.d.ts", "promise-ftp-tests.ts"]
+}
