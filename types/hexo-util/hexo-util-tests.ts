@@ -61,9 +61,6 @@ const testString = JSON.stringify({
     bar: 2
 }, null, '  ');
 
-const gutterStart = '<td class="gutter"><pre>';
-const codeStart = '<td class="code"><pre>';
-
 string = highlight(testString);
 string = highlight(testString, { gutter: false });
 string = highlight(testString, { wrap: false });
@@ -117,6 +114,9 @@ string.includes('class="line">violets');
 string.includes('class="line marked">sugar');
 string.includes('class="line">and');
 
+const gutterStart = '<td class="gutter"><pre>';
+const codeStart = '<td class="code"><pre>';
+
 string = highlight([
     'a => {',
     '    if (a > 3)',
@@ -156,50 +156,48 @@ string = htmlTag('a', { href: 'http://zespia.tw' }, 'My blog');
     const pattern = new Pattern('posts/:id');
     const result = pattern.match('/posts/89');
 
-    result.should.eql({
-        0: 'posts/89',
-        1: '89',
-        id: '89'
-    });
+    result![0] === 'posts/89';
+    result![1] === '89';
+    result!.id === '89';
 }
 
 {
     const pattern = new Pattern('posts/*path');
     const result = pattern.match('posts/2013/hello-world');
 
-    result.should.eql({
-        0: 'posts/2013/hello-world',
-        1: '2013/hello-world',
-        path: '2013/hello-world'
-    });
+    result![0] === 'posts/2013/hello-world';
+    result![1] === '2013/hello-world';
+    result!.path === '2013/hello-world';
 }
 
 {
     const pattern = new Pattern('posts/:id?');
+    const result = pattern.match('posts/');
 
-    pattern.match('posts/').should.eql({
-        0: 'posts/',
-        1: undefined,
-        id: undefined
-    });
+    result![0] === 'posts/';
+    result![1] === undefined;
+    result!.id === undefined;
+}
 
-    pattern.match('posts/89').should.eql({
-        0: 'posts/89',
-        1: '89',
-        id: '89'
-    });
+{
+    const pattern = new Pattern('posts/:id?');
+    const result = pattern.match('posts/89');
+
+    result![0] === 'posts/89';
+    result![1] === '89';
+    result!.id === '89';
 }
 
 {
     const pattern = new Pattern(/ab?cd/);
 
-    pattern.match('abcd') === true;
-    pattern.match('acd') === true;
+    pattern.match('abcd')!.length !== 0;
+    pattern.match('acd')!.length !== 0;
 }
 
 {
     const pattern = new Pattern(str => {
-        str.should.eql('foo');
+        str === 'foo';
         return {};
     });
 
