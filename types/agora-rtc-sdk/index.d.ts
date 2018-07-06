@@ -2,6 +2,7 @@
 // Project: https://github.com/AgoraIO/web-archive#readme
 // Definitions by: Menthays <https://github.com/menthays>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /*~ If this module is a UMD module that exposes a global variable 'myLib' when
  *~ loaded outside a module loader environment, declare that global here.
@@ -205,9 +206,9 @@ export interface Stream {
     getStats(
         callback: (stats: LocalStreamStats | RemoteStreamStats) => void
     ): void;
-    init(onSuccess: () => void, onFailure: (err: object) => void): void;
+    init(onSuccess: () => void, onFailure: (err: any) => void): void;
     getId(): number;
-    getAttributes(): object;
+    getAttributes(): any;
     getAudioLevel(): number;
     hasVideo(): boolean;
     hasAudio(): boolean;
@@ -228,27 +229,27 @@ export interface Stream {
 }
 
 export interface Client {
-    on(eventName: ClientEvent, callback: (evt: object) => void): void;
+    on(eventName: ClientEvent, callback: (evt: any) => void): void;
     init(
         appId: string,
         onSuccess: () => void,
-        onFailure: (err: object) => void
+        onFailure: (err: any) => void
     ): void;
     join(
         tokenOrKey: string,
         channel: string,
         uid: number,
         onSuccess: (uid: number) => void,
-        onFailure: (err: object) => void
+        onFailure: (err: any) => void
     ): void;
     renewChannelKey(
         key: string,
         onSuccess: () => void,
-        onFailure: (err: object) => void
+        onFailure: (err: any) => void
     ): void;
     enableDualStream(
         onSuccess: () => void,
-        onFailure: (err: object) => void
+        onFailure: (err: any) => void
     ): void;
     setRemoteVideoStreamType(stream: Stream, streamType: 0 | 1): void;
     setLowStreamParameter(param: {
@@ -259,13 +260,13 @@ export interface Client {
     }): void;
     disableDualStream(
         onSuccess: () => void,
-        onFailure: (err: object) => void
+        onFailure: (err: any) => void
     ): void;
-    leave(onSuccess: () => void, onFailure: (err: object) => void): void;
-    publish(stream: Stream, onFailure: (err: object) => void): void;
-    unpublish(stream: Stream, onFailure: (err: object) => void): void;
-    subscribe(stream: Stream, onFailure: (err: object) => void): void;
-    unsubscribe(stream: Stream, onFailure: (err: object) => void): void;
+    leave(onSuccess: () => void, onFailure: (err: any) => void): void;
+    publish(stream: Stream, onFailure: (err: any) => void): void;
+    unpublish(stream: Stream, onFailure: (err: any) => void): void;
+    subscribe(stream: Stream, onFailure: (err: any) => void): void;
+    unsubscribe(stream: Stream, onFailure: (err: any) => void): void;
     setProxyServer(proxyServer: ClientConfig['proxyServer']): void;
     setTurnServer(turnServer: ClientConfig['turnServer']): void;
     setEncryptionSecret(password: string): void;
