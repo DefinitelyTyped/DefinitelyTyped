@@ -7,7 +7,7 @@ import isVText = virtual_dom.isVText;
 import isWidget = virtual_dom.isWidget;
 import isThunk = virtual_dom.isThunk;
 
-function renderAny(object: any): VirtualDOM.VNode {
+function renderAny(object: any): virtual_dom.VNode {
   if (object === undefined) {
     return h('i.undefined', 'undefined');
   }
