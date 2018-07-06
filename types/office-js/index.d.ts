@@ -5588,7 +5588,7 @@ declare namespace Office {
          * [Api set: Mailbox 1.0]
          *
          * @remarks
-         * table><tr><td>
+         * <table><tr><td>
          * {@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}
          * </td><td>Compose or read</td></tr></table>
          */
@@ -5628,7 +5628,7 @@ declare namespace Office {
          * [Api set: Mailbox 1.3]
          *
          * @remarks
-         * table><tr><td>
+         * <table><tr><td>
          * {@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}
          * </td><td>Compose or read</td></tr></table>
          */
@@ -5652,7 +5652,7 @@ declare namespace Office {
          * [Api set: Mailbox 1.0]
          *
          * @remarks
-         * table><tr><td>
+         * <table><tr><td>
          * {@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}
          * </td><td>Compose or read</td></tr></table>
          */
@@ -5672,7 +5672,7 @@ declare namespace Office {
          * [Api set: Mailbox Preview]
          *
          * @remarks
-         * table><tr><td>
+         * <table><tr><td>
          * {@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}
          * </td><td>Compose or read</td></tr></table>
          *
@@ -5734,7 +5734,7 @@ declare namespace Office {
          * [Api set: Mailbox 1.1]
          *
          * @remarks
-         * table><tr><td>
+         * <table><tr><td>
          * {@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}
          * </td><td>Compose or read</td></tr></table>
          */
@@ -5762,7 +5762,7 @@ declare namespace Office {
          * [Api set: Mailbox Preview]
          *
          * @remarks
-         * table><tr><td>
+         * <table><tr><td>
          * {@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}
          * </td><td>Compose or read</td></tr></table>
          *
@@ -6322,7 +6322,7 @@ declare namespace Office {
          * [Api set: Mailbox Preview]
          *
          * @remarks
-         * table><tr><td>
+         * <table><tr><td>
          * {@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}
          * </td><td>Compose or read</td></tr></table>
          *
@@ -6356,7 +6356,7 @@ declare namespace Office {
          * [Api set: Mailbox 1.0]
          *
          * @remarks
-         * table><tr><td>
+         * <table><tr><td>
          * {@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}
          * </td><td>Compose or read</td></tr></table>
          */
@@ -6410,7 +6410,7 @@ declare namespace Office {
          * [Api set: Mailbox Preview]
          *
          * @remarks
-         * table><tr><td>
+         * <table><tr><td>
          * {@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}
          * </td><td>Compose or read</td></tr></table>
          *
