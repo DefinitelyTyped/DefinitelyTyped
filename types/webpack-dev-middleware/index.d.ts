@@ -2,6 +2,7 @@
 // Project: https://github.com/webpack/webpack-dev-middleware
 // Definitions by: Benjamin Lim <https://github.com/bumbleblym>
 //                 reduckted <https://github.com/reduckted>
+//                 Chris Abrams <https://github.com/chrisabrams>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -32,6 +33,7 @@ declare namespace WebpackDevMiddleware {
 		serverSideRender?: boolean;
 		logger?: Logger;
 		filename?: string;
+		writeToDisk?: boolean;
 	}
 
 	interface ReporterOptions {
