@@ -9,7 +9,7 @@ import { Component } from 'react';
 
 type DeepReadonly<T> = {
     readonly [P in keyof T]: DeepReadonly<T[P]>;
-}
+};
 
 // It'd be nice if this could somehow be improved! Perhaps we need variadic
 // kinds plus infer keyword? Alternatively unions may solve our issue if we had
