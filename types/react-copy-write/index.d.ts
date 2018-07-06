@@ -16,7 +16,7 @@ type DeepReadonly<T> = {
 // the ability to restrict type widening.
 type AnyDeepMemberOfState<T> = any;
 
-type MutateFn<T> = (draft: T) => void;
+type MutateFn<T> = (draft: T, state: DeepReadonly<T>) => void;
 type Mutator<T> = (mutator: MutateFn<T>) => void;
 
 type SelectorFn<T> = (state: T) => AnyDeepMemberOfState<T>;
