@@ -17,6 +17,7 @@ import * as DOM from "react-dom-factories";
 interface Props extends React.Attributes {
     hello: string;
     world?: string;
+    someValue?: string;
     foo: number;
 }
 
@@ -37,7 +38,7 @@ interface ChildContext {
     someOtherValue: string;
 }
 
-interface MyComponent extends React.Component<Props, State> {
+interface MyComponent {
     reset(): void;
 }
 
@@ -55,40 +56,55 @@ declare const container: Element;
 // Top-Level API
 // --------------------------------------------------------------------------
 {
+    // $ExpectError
+    class Foo extends React.Component<number> {
+        render() { return this.props.toFixed; }
+    }
     interface State {
         inputValue: string;
         seconds: number;
     }
     class SettingStateFromCtorComponent extends React.Component<Props, State, Snapshot> {
+        readonly state: State;
         constructor(props: Props) {
             super(props);
-            // $ExpectError
             this.state = {
-                inputValue: 'hello'
+                inputValue: 'hello',
+                seconds: 123
             };
         }
         render() { return null; }
+        doSomething() {
+            console.log(this.state.seconds);
+            // $ExpectError
+            this.state = {
+                inputValue: 'hello',
+                seconds: 0
+            };
+        }
     }
 
     class BadlyInitializedState extends React.Component<Props, State, Snapshot> {
-        // $ExpectError -> this throws error on TS 2.6 uncomment once TS requirement is TS >= 2.7
+        // $ExpectError -> // this throws error on TS 2.6 uncomment once TS requirement is TS >= 2.7
         // state = {
         //     secondz: 0,
         //     inputValuez: 'hello'
         // };
         render() { return null; }
+        doSomething() {
+            // $ExpectError
+            console.log(this.state.seconds);
+        }
     }
     class BetterPropsAndStateChecksComponent extends React.Component<Props, State, Snapshot> {
         render() { return null; }
         componentDidMount() {
-            // $ExpectError -> this will be true in next BC release where state is gonna be `null | Readonly<S>`
+            // $ExpectError
             console.log(this.state.inputValue);
         }
         mutateState() {
             // $ExpectError
-            this.state = {
-                inputValue: 'hello'
-            };
+            this.state.inputValue = 'hello';
 
             // Even if state is not set, this is allowed by React
             this.setState({inputValue: 'hello'});
@@ -116,36 +132,20 @@ declare const container: Element;
 }
 
 class ModernComponent extends React.Component<Props, State, Snapshot>
-    implements MyComponent, React.ChildContextProvider<ChildContext> {
+    implements MyComponent {
     static propTypes: React.ValidationMap<Props> = {
         foo: PropTypes.number
     };
 
-    static contextTypes: React.ValidationMap<Context> = {
-        someValue: PropTypes.string
-    };
-
-    static childContextTypes: React.ValidationMap<ChildContext> = {
-        someOtherValue: PropTypes.string
-    };
-
-    context: Context;
-
-    getChildContext() {
-        return {
-            someOtherValue: "foo"
-        };
-    }
-
     state = {
-        inputValue: this.context.someValue,
+        inputValue: this.props.someValue,
         seconds: this.props.foo
     };
 
     reset() {
         this._myComponent.reset();
         this.setState({
-            inputValue: this.context.someValue,
+            inputValue: this.props.someValue,
             seconds: this.props.foo
         });
     }
@@ -184,11 +184,12 @@ class ModernComponentArrayRender extends React.Component<Props> {
     }
 }
 
-class ModernComponentNoState extends React.Component<Props> { }
-class ModernComponentNoPropsAndState extends React.Component { }
+class ModernComponentNoState extends React.Component<Props> { render() { return null; } }
+class ModernComponentNoPropsAndState extends React.Component { render() { return null; } }
 
 interface SCProps {
     foo?: number;
+    children?: React.ReactNode;
 }
 
 function StatelessComponent(props: SCProps) {
@@ -217,10 +218,9 @@ const StatelessComponent3: React.SFC<SCProps> =
 // allows null as props
 const StatelessComponent4: React.SFC = props => null;
 
-// React.createFactory
-const factory: React.CFactory<Props, ModernComponent> =
+const factory: React.CFactory<ModernComponent> =
     React.createFactory(ModernComponent);
-const factoryElement: React.CElement<Props, ModernComponent> =
+const factoryElement: React.CElement<ModernComponent> =
     factory(props);
 
 const statelessFactory: React.SFCFactory<SCProps> =
@@ -234,9 +234,9 @@ const domFactoryElement: React.DOMElement<React.DOMAttributes<{}>, Element> =
     domFactory();
 
 // React.createElement
-const element: React.CElement<Props, ModernComponent> = React.createElement(ModernComponent, props);
-const elementNoState: React.CElement<Props, ModernComponentNoState> = React.createElement(ModernComponentNoState, props);
-const elementNullProps: React.CElement<{}, ModernComponentNoPropsAndState> = React.createElement(ModernComponentNoPropsAndState, null);
+const element: React.CElement<ModernComponent> = React.createElement(ModernComponent, props);
+const elementNoState: React.CElement<ModernComponentNoState> = React.createElement(ModernComponentNoState, props);
+const elementNullProps: React.CElement<ModernComponentNoPropsAndState> = React.createElement(ModernComponentNoPropsAndState, null);
 const statelessElement: React.SFCElement<SCProps> = React.createElement(StatelessComponent, props);
 const statelessElementNullProps: React.SFCElement<SCProps> = React.createElement(StatelessComponent4, null);
 const domElement: React.DOMElement<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> = React.createElement("div");
@@ -260,16 +260,16 @@ function foo3(child: React.ComponentClass<{ name: string }> | React.StatelessCom
 }
 
 // React.cloneElement
-const clonedElement: React.CElement<Props, ModernComponent> = React.cloneElement(element, { foo: 43 });
+const clonedElement: React.CElement<ModernComponent> = React.cloneElement(element, { foo: 43 });
 
 React.cloneElement(element, {});
 React.cloneElement(element, {}, null);
 
-const clonedElement2: React.CElement<Props, ModernComponent> =
+const clonedElement2: React.CElement<ModernComponent> =
     React.cloneElement(element, {
         ref: c => c && c.reset()
     });
-const clonedElement3: React.CElement<Props, ModernComponent> =
+const clonedElement3: React.CElement<ModernComponent> =
     React.cloneElement(element, {
         key: "8eac7",
         foo: 55
@@ -340,6 +340,7 @@ interface RCProps { }
 
 class RefComponent extends React.Component<RCProps> {
     static create = React.createFactory(RefComponent);
+    render() { return null; }
     refMethod() {
     }
 }
@@ -358,7 +359,7 @@ DOM.div({ ref: node => domNodeRef = node });
 let inputNodeRef: HTMLInputElement | null;
 DOM.input({ ref: node => inputNodeRef = node as HTMLInputElement });
 
-const ForwardingRefComponent = React.forwardRef((props: {}, ref: React.Ref<RefComponent>) => {
+const ForwardingRefComponent = React.forwardRef<RefComponent>((props, ref) => {
     return React.createElement(RefComponent, { ref });
 });
 
@@ -693,7 +694,7 @@ const foundComponents: ModernComponent[] = TestUtils.scryRenderedComponentsWithT
 
 // ReactTestUtils custom type guards
 
-const emptyElement1: React.ReactElement<{}> = React.createElement(ModernComponent);
+const emptyElement1: React.ReactElement<Props> = React.createElement(ModernComponent);
 if (TestUtils.isElementOfType(emptyElement1, StatelessComponent)) {
     emptyElement1.props.foo;
 }
@@ -783,6 +784,7 @@ const formEvent: InputFormEvent = changeEvent;
         static defaultProps = {
             prop3: "default value",
         };
+        render() { return null; }
     }
     const VariableWithAClass: React.ComponentClass<ComponentProps> = ComponentWithDefaultProps;
 }
@@ -798,7 +800,7 @@ declare var x: React.DOMElement<{
 }, Element>;
 
 // React 16 should be able to render its children directly
-class RenderChildren extends React.Component {
+class RenderChildren extends React.Component<{children?: React.ReactNode}> {
     render() {
         const { children } = this.props;
         return children !== undefined ? children : null;

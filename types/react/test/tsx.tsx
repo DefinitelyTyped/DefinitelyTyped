@@ -2,6 +2,7 @@ import * as React from "react";
 
 interface SCProps {
     foo?: number;
+    children?: React.ReactNode;
 }
 const StatelessComponent: React.SFC<SCProps> = ({ foo }: SCProps) => {
     return <div>{foo}</div>;
@@ -59,14 +60,17 @@ interface State {
     foobar: string;
 }
 class ComponentWithPropsAndState extends React.Component<Props, State> {
+    render() { return null; }
 }
 <ComponentWithPropsAndState hello="TypeScript" />;
 
 class ComponentWithoutState extends React.Component<Props> {
+    render() { return null; }
 }
 <ComponentWithoutState hello="TypeScript" />;
 
 class ComponentWithoutPropsAndState extends React.Component {
+    render() { return null; }
 }
 <ComponentWithoutPropsAndState />;
 
@@ -117,17 +121,18 @@ class SetStateTest extends React.Component<{}, { foo: boolean, bar: boolean }> {
       this.setState({ foo: true, bar: undefined}); // $ExpectError
       this.setState(prevState => (prevState.bar ? { bar: false } : null));
     }
+    render() { return null; }
 }
 
 // Below tests that extended types for state work
-export abstract class SetStateTestForExtendsState<P, S extends { baseProp: string }> extends React.Component<P, S> {
+export abstract class SetStateTestForExtendsState<P extends object, S extends { baseProp: string }> extends React.Component<P, S> {
 	foo() {
 		this.setState({ baseProp: 'foobar' });
 	}
 }
 
 // Below tests that & generic still works
-export abstract class SetStateTestForAndedState<P, S> extends React.Component<P, S & { baseProp: string }> {
+export abstract class SetStateTestForAndedState<P extends object, S> extends React.Component<P, S & { baseProp: string }> {
 	foo() {
 		this.setState({ baseProp: 'foobar' });
 	}
@@ -182,17 +187,52 @@ class PureComponentWithNewLifecycles extends React.PureComponent<NewProps, NewSt
 }
 <PureComponentWithNewLifecycles foo="bar" />;
 
-class ComponentWithLargeState extends React.Component<{}, Record<'a'|'b'|'c', string>> {
+class ComponentWithLargeState extends React.Component<object, Record<'a'|'b'|'c', string>> {
     static getDerivedStateFromProps: React.GetDerivedStateFromProps<{}, Record<'a'|'b'|'c', string>> = () => {
         return { a: 'a' };
     }
+    render() { return null; }
 }
-const AssignedComponentWithLargeState: React.ComponentClass = ComponentWithLargeState;
+const AssignedComponentWithLargeState: React.ComponentClass<object, Record<'a'|'b'|'c', string>> = ComponentWithLargeState;
 
-const componentWithBadLifecycle = new (class extends React.Component<{}, {}, number> {})({});
+const componentWithBadLifecycle = new (class extends React.Component<{}, {}, number> { render() { return null; } })({ });
 componentWithBadLifecycle.getSnapshotBeforeUpdate = () => { // $ExpectError
     return 'number';
 };
 componentWithBadLifecycle.componentDidUpdate = (prevProps: {}, prevState: {}, snapshot?: string) => { // $ExpectError
     return;
 };
+
+// children API
+// you need to explicitly provide children, to make clear API statement to consumer that he needs to provide children
+{
+    class TestNoChildrenClass extends React.Component {
+        // $ExpectError
+        render() { return this.props.children; }
+    }
+    // $ExpectError
+    const TestNoChildrenSFC: React.SFC = (props) => props.children;
+
+    class TestChildrenClass extends React.Component<{children: React.ReactNode}> {
+        render() { return this.props.children; }
+    }
+    class TestChildrenOptionalClass extends React.Component<{children?: React.ReactNode}> {
+        render() { return this.props.children ? this.props.children : null; }
+    }
+
+    const TestChildrenSFC: React.SFC<{ children: React.ReactNode }> = (props) => <div>
+            {props.children}
+        </div>;
+
+    // $ExpectError
+    (<TestChildrenClass></TestChildrenClass>);
+    // $ExpectError
+    (<TestChildrenSFC></TestChildrenSFC>);
+
+    const App = () => <>
+            <TestChildrenClass>Hello World</TestChildrenClass>
+            <TestChildrenOptionalClass/>
+            <TestChildrenOptionalClass>Hello World</TestChildrenOptionalClass>
+            <TestChildrenSFC>Hello World</TestChildrenSFC>
+        </>;
+}

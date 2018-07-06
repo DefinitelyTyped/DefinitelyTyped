@@ -120,8 +120,8 @@ declare namespace TestUtils {
         element: DOMElement<any, T>): T;
     export function renderIntoDocument(
         element: SFCElement<any>): void;
-    export function renderIntoDocument<T extends Component<any>>(
-        element: CElement<any, T>): T;
+    export function renderIntoDocument<T extends Component>(
+        element: CElement<T>): T;
     export function renderIntoDocument<P>(
         element: ReactElement<P>): Component<P> | Element | void;
 
@@ -132,10 +132,10 @@ declare namespace TestUtils {
         element: ReactElement<any>, type: string): element is ReactHTMLElement<T>;
     export function isElementOfType<P extends DOMAttributes<{}>, T extends Element>(
         element: ReactElement<any>, type: string): element is DOMElement<P, T>;
-    export function isElementOfType<P>(
+    export function isElementOfType<P extends object>(
         element: ReactElement<any>, type: SFC<P>): element is SFCElement<P>;
-    export function isElementOfType<P, T extends Component<P>, C extends ComponentClass<P>>(
-        element: ReactElement<any>, type: ClassType<P, T, C>): element is CElement<P, T>;
+    export function isElementOfType<P extends object, T extends Component<P>, C extends ComponentClass<P>>(
+        element: ReactElement<any>, type: ClassType<P, T, C>): element is CElement<T, P>;
 
     export function isDOMComponent(instance: ReactInstance): instance is Element;
     export function isCompositeComponent(instance: ReactInstance): instance is Component<any>;
@@ -160,13 +160,13 @@ declare namespace TestUtils {
         root: Component<any>,
         tagName: string): Element;
 
-    export function scryRenderedComponentsWithType<T extends Component<{}>, C extends ComponentClass<{}>>(
-        root: Component<any>,
-        type: ClassType<any, T, C>): T[];
+    export function scryRenderedComponentsWithType<T extends Component<object>, C extends ComponentClass<object>, P = T['props']>(
+        root: T,
+        type: ComponentClass<P>): T[];
 
-    export function findRenderedComponentWithType<T extends Component<{}>, C extends ComponentClass<{}>>(
-        root: Component<any>,
-        type: ClassType<any, T, C>): T;
+    export function findRenderedComponentWithType<T extends Component, C extends ComponentClass, P = T['props']>(
+        root: T,
+        type: ComponentClass<P>): T;
 
     export function createRenderer(): ShallowRenderer;
 }
