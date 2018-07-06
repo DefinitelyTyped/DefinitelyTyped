@@ -46,7 +46,7 @@ export interface CarouselOption {
      *
      * @default 5000
      */
-    interval?: number;
+    interval?: false | number;
 
     /**
      * Whether the carousel should react to keyboard events.
