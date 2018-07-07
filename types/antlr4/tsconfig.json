@@ -25,7 +25,6 @@
         "tree/Tree.d.ts",
         "antlr4-tests.ts",
         "BufferedTokenStream.d.ts",
-        "c-parser.ts",
         "CommonTokenStream.d.ts",
         "index.d.ts",
         "InputStream.d.ts",
