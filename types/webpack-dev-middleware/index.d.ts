@@ -33,7 +33,7 @@ declare namespace WebpackDevMiddleware {
 		serverSideRender?: boolean;
 		logger?: Logger;
 		filename?: string;
-		writeToDisk?: boolean;
+		writeToDisk?: boolean | ((filename: string) => boolean);
 	}
 
 	interface ReporterOptions {
