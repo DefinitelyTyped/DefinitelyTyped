@@ -5,9 +5,6 @@
 // TypeScript Version: 2.4
 
 /// <reference types="node" />
-/// <reference types="ssh2" />
-/// <reference types="bluebird" />
-/// <reference types="ssh2-streams" />
 
 import * as PromiseFtpCommon from "promise-ftp-common";
 import * as Promise from "bluebird";
@@ -50,15 +47,17 @@ declare namespace PromiseSftp {
         GROUP_INVALID,
         NO_MATCHING_BYTE_RANGE_LOCK
     }
+    // tslint:disable-next-line strict-export-declare-modifiers
     export import FtpConnectionError = PromiseFtpCommon.FtpConnectionError;
+    // tslint:disable-next-line strict-export-declare-modifiers
     export import FtpReconnectError = PromiseFtpCommon.FtpReconnectError;
+    // tslint:disable-next-line strict-export-declare-modifiers
     export import STATUSES = PromiseFtpCommon.STATUSES;
 
     /**
      * Options for SftpPromise#connect()
      */
-    // @ts-ignore
-    interface Options extends ssh2.ConnectConfig {
+    type Options = ssh2.ConnectConfig & {
         /**
          * When using password-based user authentication, set this option to
          * handle password change requests. If this option isn't set, and the
@@ -93,13 +92,13 @@ declare namespace PromiseSftp {
             name: string,
             instructions: string,
             instructionsLang: string,
-            prompts: {
+            prompts: Array<{
                 /** The query to pose to the user */
                 prompt: string;
                 /** Whether the user's input should be displayed on-screen */
                 echo: boolean;
-            }[]
-        ) => (string | Promise<string>)[] | Promise<string[]>;
+            }>
+        ) => Array<string | Promise<string>> | Promise<string[]>;
 
         /** Alias for `username` */
         user?: string;
@@ -112,7 +111,7 @@ declare namespace PromiseSftp {
 
         /** Alias for `keepaliveInterval` */
         keepalive?: number;
-    }
+    };
 
     /** Output of `PromiseSftp#list()` */
     interface DirectoryListing {
@@ -544,7 +543,7 @@ declare class PromiseSftp {
      * @param path - The path of the resource to set the mode of.
      * @param mode - The new mode, a number or a string with an octal number.
      */
-    fchmod(handle: string, mode: number | string): Promise<void>;
+    chmod(path: string, mode: number | string): Promise<void>;
 
     /**
      * Read the target of a symlink on the server.

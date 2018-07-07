@@ -31,30 +31,35 @@ declare namespace PromiseFtp {
         553: "Requested action not taken / File name not allowed";
     }
     const ERROR_CODES: ERROR_CODES;
+    // tslint:disable-next-line strict-export-declare-modifiers
     export import FtpConnectionError = PromiseFtpCommon.FtpConnectionError;
+    // tslint:disable-next-line strict-export-declare-modifiers
     export import FtpReconnectError = PromiseFtpCommon.FtpReconnectError;
+    // tslint:disable-next-line strict-export-declare-modifiers
     export import STATUSES = PromiseFtpCommon.STATUSES;
 
     /**
      * Options for FtpPromise#connect()
      */
+    // tslint:disable-next-line strict-export-declare-modifiers
     export import Options = FtpClient.Options;
 
     /**
      * Element returned by FtpPromise#list()
      */
+    // tslint:disable-next-line strict-export-declare-modifiers
     export import ListingElement = FtpClient.ListingElement;
 }
 
 declare class PromiseFtp {
     /**
-     * The raw underlying FtpClient instance
+     * The underlying FtpClient instance
      */
     rawClient: FtpClient;
 
     getConnectionStatus(): PromiseFtpCommon.STATUSES;
     /**
-     * Connects to an FTP server.
+     * Connect to an FTP server.
      */
     connect: (options: PromiseFtp.Options) => Promise<string>;
 
@@ -64,7 +69,7 @@ declare class PromiseFtp {
     reconnect: () => Promise<string>;
 
     /**
-     * Closes the connection to the server after any/all enqueued
+     * Close the connection to the server after any/all enqueued
      * commands have been executed.
      * @returns a promise that resolves with the last error recieved if there
      * was an error, true if there was an error but the client didn't recieve it,
@@ -73,12 +78,12 @@ declare class PromiseFtp {
     end(): Promise<Error | boolean>;
 
     /**
-     * Closes the connection to the server immediately.
+     * Close the connection to the server immediately.
      */
     destroy(): boolean;
 
     /**
-     * Retrieves the directory listing of path.
+     * Retrieve the directory listing of path.
      * @param path - defaults to the current working directory.
      * @param useCompression - defaults to false.
      * @returns the contents of the specified directory
@@ -88,6 +93,7 @@ declare class PromiseFtp {
 
     /**
      * Optional "standard" commands (RFC 959)
+     * Retrieve the directory listing of path.
      * Similar to `#list()`, except the directory is temporarily changed to path to
      * retrieve the directory listing. This is useful for servers that do not
      * handle characters like spaces and quotes in directory names well for the
@@ -104,7 +110,7 @@ declare class PromiseFtp {
     listSafe(useCompression: boolean): FtpClient.ListingElement[];
 
     /**
-     * Retrieves a file at path from the server.
+     * Retrieve a file at path from the server.
      * @param path - the path of the file to get.
      * @param useCompression - defaults to false.
      * @returns a stream which empties to the contents of the specified file.
@@ -112,7 +118,7 @@ declare class PromiseFtp {
     get(path: string, useCompression?: boolean): Promise<NodeJS.ReadableStream>;
 
     /**
-     * Sends data to the server to be stored as destPath.
+     * Send data to the server to be stored as a file.
      * @param input - can be a ReadableStream, a Buffer, or a path to a local file.
      * @param destPath - the path of the file to write to.
      * @param useCompression - defaults to false.
@@ -124,8 +130,7 @@ declare class PromiseFtp {
     ): Promise<void>;
 
     /**
-     * Same as `#put()`, except if destPath already exists, it will beappended to
-     * instead of overwritten.
+     * Create a new file on the server or append to one that already exists.
      * @param input - can be a ReadableStream, a Buffer, or a pathto a local file.
      * @param destPath - the path of the file to create or append to.
      * @param useCompression - defaults to false.
@@ -137,7 +142,7 @@ declare class PromiseFtp {
     ): Promise<void>;
 
     /**
-     * Renames oldPath to newPath on the server.
+     * Rename a file on the server.
      * @param oldPath - the old path of the file.
      * @param newPath - the new path to move it to.
      */
@@ -154,7 +159,7 @@ declare class PromiseFtp {
     delete: (path: string) => Promise<void>;
 
     /**
-     * Changes the current working directory.
+     * Change the current working directory.
      * @param cwd - the path to change the CWD to.
      * @returns the current directory if the server replies with the path in the
      * response text, otherwise undefined.
@@ -162,35 +167,35 @@ declare class PromiseFtp {
     cwd(path: string): Promise<string | undefined>;
 
     /**
-     * Aborts the current data transfer (e.g. from `#get()`, `#put()`, or `#list()`)
+     * Abort the current data transfer (e.g. from `#get()`, `#put()`, or `#list()`)
      */
     abort(): Promise<void>;
 
     /**
-     * Sends command using SITE
+     * Send command using SITE.
      * @param command - the command to send, e.g 'CHMOD 755 foo' or 'QUOTA'.
      */
     site(command: string): Promise<{ text: string; code: number }>;
 
     /**
-     * Retrieves human-readable information about the server's status.
+     * Retrieve human-readable information about the server's status.
      * @returns a string with the server's status.
      */
     status: () => Promise<string>;
 
     /**
-     * Sets the transfer data type to ASCII.
+     * Set the transfer data type to ASCII.
      */
     ascii(): Promise<void>;
 
     /**
-     * Sets the transfer data type to binary (default at time of connection).
+     * Set the transfer data type to binary (default at time of connection).
      */
     binary(): Promise<void>;
 
     /**
      * Optional "standard" commands (RFC 959)
-     * Creates a new directory, path, on the server.
+     * Create a new directory on the server.
      * @param path - the path of the new directory.
      * @param recursive - enables a `mkdir -p` algorithm, defaults to false.
      */
@@ -198,7 +203,7 @@ declare class PromiseFtp {
 
     /**
      * Optional "standard" commands (RFC 959)
-     * Removes a directory, path, on the server.
+     * Remove a directory on the server.
      * @param path - the path of the directory to remove.
      * @param recursive - enables deleting the directory if not empty, defaults to false.
      */
@@ -206,28 +211,27 @@ declare class PromiseFtp {
 
     /**
      * Optional "standard" commands (RFC 959)
-     * Changes the working directory to the parent of the current directory,
-     * like `cd ..`.
+     * Change the working directory to the parent of the current directory.
+     * Like `cd ..`.
      */
     cdup(): Promise<void>;
 
     /**
      * Optional "standard" commands (RFC 959)
-     * Retrieves the current working directory.
-     * @returns the cwd.
+     * Retrieve the current working directory.
      */
     pwd(): Promise<string>;
 
     /**
      * Optional "standard" commands (RFC 959)
-     * Retrieves information about the system.
+     * Retrieve information about the system running the server.
      * @returns the server's OS.
      */
     system(): Promise<string>;
 
     /**
      * Extended commands (RFC 3659)
-     * Retrieves the size of path
+     * Retrieve the size of a file on the server.
      * @param path - the path of the file whose size is to be retrieved.
      * @returns the size of the specified file.
      */
@@ -235,8 +239,8 @@ declare class PromiseFtp {
 
     /**
      * Extended commands (RFC 3659)
-     * Retrieves the last modified date and time for path.
-     * @param path - the path of the file or directory whose modified date is to
+     * Retrieve the last modified date and time for a file or directory.
+     * @param path - the path of the file/directory whose modified date is to
      * be retrieved.
      * @returns the last modified date at the specified path.
      */
@@ -244,7 +248,7 @@ declare class PromiseFtp {
 
     /**
      * Extended commands (RFC 3659)
-     * Sets the file byte offset for the next file transfer action (get/put).
+     * Set the file byte offset for the next file transfer action (get/put).
      * @param byteOffset - The file byte offset.
      */
     restart(byteOffset: number): Promise<void>;

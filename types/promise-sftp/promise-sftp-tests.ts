@@ -2,8 +2,8 @@ import * as PromiseSftp from "promise-sftp";
 
 const sftp = new PromiseSftp();
 
-// $ExpectType destroy
+// $ExpectType () => boolean
 sftp.destroy;
 
-// $ExpectType STATUSES
+// $ExpectType typeof STATUSES
 PromiseSftp.STATUSES;
