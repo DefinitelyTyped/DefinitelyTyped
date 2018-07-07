@@ -78,8 +78,7 @@ MongoClient.connect('mongodb://127.0.0.1:27017/test', options, function (err: mo
             wtimeout: 3000
         }
     });
-    let sessionDb = session.getDatabase('test');
-    collection = sessionDb.collection('test_insert');
+    collection = db.collection('test_insert');
     session.startTransaction();
     session.commitTransaction()
     session.startTransaction({

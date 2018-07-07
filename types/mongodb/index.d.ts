@@ -71,7 +71,7 @@ declare interface SessionOptions {
     writeConcern?: WriteConcern;
 }
 
-declare type ReadConcern = {
+declare interface ReadConcern {
     level?: "linearizable" /** https://docs.mongodb.com/manual/reference/read-concern-linearizable/#readconcern.%22linearizable%22 */
             | "local" /** https://docs.mongodb.com/manual/reference/read-concern-local/#readconcern.%22local%22 */
             | "majority" /** https://docs.mongodb.com/manual/reference/read-concern-majority/#readconcern.%22majority%22 */
@@ -81,37 +81,30 @@ declare type ReadConcern = {
 }
 
 /** https://docs.mongodb.com/manual/reference/write-concern/#write-concern */
-declare type WriteConcern = {
-    w?: number | "majority" ;
+declare interface WriteConcern {
+    /** 
+     * Minimum number of node to consider commit success or just use "majority"
+     * See https://docs.mongodb.com/manual/reference/write-concern/#write-concern-specification
+     */
+    w?: number | "majority";
+    /** Specify a journal write concern. */
     j?: boolean;
+    /** The write concern timeout. */
     wtimeout?: number;
-}
-
-declare interface ClusterTime {
-    clusterTime: Timestamp;
-    signature: {
-        hash: Buffer;
-        keyId: number
-    }
 }
 
 /** https://docs.mongodb.com/manual/reference/method/Session/ */
 declare class ClientSession extends EventEmitter {
     abortTransaction() : void;
-    advanceClusterTime(clusterTime : ClusterTime) : void;
     advanceOperationTime(time: Timestamp) : void;
     /** https://docs.mongodb.com/manual/reference/method/Session.commitTransaction/ */
-    commitTransaction() : void;
+    commitTransaction() : Promise<void>;
     endSession(callback?: MongoCallback<void>): void;
     endSession(options: any, callback?: MongoCallback<void>): void;
     equals(session: ClientSession): boolean;
-    getClusterTime() : Timestamp;
-    getDatabase(name: string) : Db;
-    getOperationTime() : Timestamp;
-    getOptions() : SessionOptions
     /** https://docs.mongodb.com/manual/reference/method/Session.startTransaction/#Session.startTransaction */
     startTransaction({readConcern, writeConcern}? : {readConcern?: ReadConcern, writeConcern?: WriteConcern}) : void;
-    hasEnded() : boolean
+    hasEnded : boolean
 }
 
 export interface MongoClientCommonOption {
@@ -371,13 +364,7 @@ export class Db extends EventEmitter {
     stats(options: { scale?: number }, callback: MongoCallback<any>): void;
 }
 
-export interface CommonOptions {
-    /** The write concern. */
-    w?: string | number;
-    /** The write concern timeout. */
-    wtimeout?: number;
-    /** Specify a journal write concern. */
-    j?: boolean;
+export interface CommonOptions extends WriteConcern {
     /** Session to use for this operation */
     session?: ClientSession;
 }
