@@ -24,7 +24,7 @@ declare namespace WebpackDevMiddleware {
 		lazy?: boolean;
 		watchOptions?: webpack.Options.WatchOptions;
 		publicPath: string;
-		index?: string;
+		index?: string | boolean;
 		headers?: {
 			[name: string]: string;
 		};
