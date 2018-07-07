@@ -539,12 +539,12 @@ const BackButtonInstance = <BackButtonWithNavigation
 />;
 
 // if you have class methods, you should have a way to use them
-const BackButtonWithNavigationSpecified = withNavigation<BackButtonProps, MyBackButton>(MyBackButton);
+const BackButtonWithNavigationSpecified = withNavigation<BackButtonProps>(MyBackButton);
 const BackButtonSpecifiedInstance = <BackButtonWithNavigationSpecified
     title="Back" onRef={ref => {
         if (!ref) return;
-        const backButtonRef = ref;
-        ref.triggerBack();
+        const backButtonRef = ref as MyBackButton;
+        backButtonRef.triggerBack();
     }}
 />;
 

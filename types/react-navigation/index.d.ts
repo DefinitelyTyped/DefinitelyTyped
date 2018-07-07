@@ -1162,13 +1162,9 @@ export interface NavigationInjectedProps {
   navigation: NavigationScreenProp<NavigationState>;
 }
 
-export function withNavigation<
-  T = {},
-  C extends React.Component<T & NavigationInjectedProps> =
-    React.Component<T & NavigationInjectedProps>
->(
+export function withNavigation<T = {}>(
   Component: React.ComponentType<T & NavigationInjectedProps>
-): React.ComponentType<T & { onRef?: React.Ref<C> }>;
+): React.ComponentType<T & { onRef?: React.Ref<React.Component<T & NavigationInjectedProps>> }>;
 
 export interface NavigationFocusInjectedProps extends NavigationInjectedProps {
   isFocused: boolean;
