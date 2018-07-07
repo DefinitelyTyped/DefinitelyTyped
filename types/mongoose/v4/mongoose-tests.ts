@@ -67,6 +67,9 @@ mongoose.Types.ObjectId;
 mongoose.Types.Decimal128;
 mongoose.version.toLowerCase();
 
+mongoose.model('Actor').remove ({ some: 'query' }, function(err, rawResult) {} );
+mongoose.model('Actor').remove ({ some: 'query'}, function(err){} );
+
 /*
  * section querystream.js
  * http://mongoosejs.com/docs/api.html#querystream-js
