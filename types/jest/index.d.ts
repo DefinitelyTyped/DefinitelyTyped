@@ -20,6 +20,7 @@
 
 export = jest;
 export as namespace jest;
+export as namespace jasmine;
 
 declare global {
     var beforeAll: jest.Lifecycle;
