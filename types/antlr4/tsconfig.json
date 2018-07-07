@@ -23,7 +23,7 @@
         "error/ErrorStrategy.d.ts",
         "error/index.d.ts",
         "tree/Tree.d.ts",
-        "antlr4-test.ts",
+        "antlr4-tests.ts",
         "BufferedTokenStream.d.ts",
         "c-parser.ts",
         "CommonTokenStream.d.ts",
