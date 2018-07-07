@@ -1,5 +1,4 @@
-import {InputStream, CommonTokenStream, Lexer} from 'antlr4';
-import {InputStream, Lexer, CommonTokenStream, Parser, ParserRuleContext} from 'antlr4';
+import {InputStream, CommonTokenStream, Lexer, Parser, ParserRuleContext} from 'antlr4';
 import {TerminalNode} from 'antlr4/tree/Tree';
 
 export declare class CLexer extends Lexer {
