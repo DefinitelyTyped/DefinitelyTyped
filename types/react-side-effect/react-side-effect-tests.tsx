@@ -5,24 +5,18 @@ interface DocumentTitleProps {
     title: string
 }
 
-class DocumentTitle extends React.Component<DocumentTitleProps> {
-  public render() {
-    if (this.props.children) {
-      return React.Children.only(this.props.children);
-    } else {
-      return null;
-    }
-  }
-}
+type State = string | undefined;
 
-function reducePropsToState(propsList: any[]) {
+const DocumentTitle = () => null;
+
+function reducePropsToState(propsList: DocumentTitleProps[]): State {
   var innermostProps = propsList[propsList.length - 1];
   if (innermostProps) {
     return innermostProps.title;
   }
 }
 
-function handleStateChangeOnClient(title: string) {
+function handleStateChangeOnClient(title: State) {
   document.title = title || "";
 }
 
@@ -30,5 +24,11 @@ let DocumentTitleWithSideEffects = withSideEffect(
   reducePropsToState,
   handleStateChangeOnClient
 )(DocumentTitle);
+
+const testComponent = () => <DocumentTitleWithSideEffects title="Title" />
+
+const otherTestComponent = () =>
+  // $ExpectError
+  <DocumentTitleWithSideEffects notAValidProp="this should fail" />
 
 export default DocumentTitleWithSideEffects;
