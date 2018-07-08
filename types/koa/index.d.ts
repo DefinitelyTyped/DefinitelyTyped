@@ -690,6 +690,7 @@ declare namespace Application {
         cookies: Cookies;
         accept: accepts.Accepts;
         state: any;
+        csrf: string;
         /**
          * To bypass Koa's built-in response handling, you may explicitly set `ctx.respond = false;`
          */
