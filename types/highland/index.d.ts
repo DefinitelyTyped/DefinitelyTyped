@@ -4,6 +4,7 @@
 //                 Hugo Wood <https://github.com/hgwood>
 //                 William Yu <https://github.com/iwllyu>
 //                 Alvis HT Tang <https://github.com/alvis>
+//                 Jack Wearden <https://github.com/notbobthebuilder>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -1318,6 +1319,25 @@ declare namespace Highland {
 		 * });
 		 */
 		toCallback(cb: (err?: Error, x?: R) => void): void;
+
+		/**
+		 * Converts the stream to a node Readable Stream for use in methods
+		 * or pipes that depend on the native stream type.
+		 *
+		 * The options parameter can be an object passed into the [`Readable`
+		 * constructor](http://nodejs.org/api/stream.html#stream_class_stream_readable).
+		 *
+		 * @id toNodeStream
+		 * @section Consumption
+		 * @name Stream.toNodeStream(options)
+		 * @param {Object} options - (optional) [`Readable` constructor](http://nodejs.org/api/stream.html#stream_class_stream_readable) options
+		 * @api public
+		 *
+		 * _(fs.createReadStream('./abc')).toNodeStream()
+		 * _(fs.createReadStream('./abc')).toNodeStream({objectMode: false})
+		 * _([{a: 1}]).toNodeStream({objectMode: true})
+		 */
+		toNodeStream(options?: object): NodeJS.ReadableStream;
 
     /**
      * Converts the result of a stream to Promise.
