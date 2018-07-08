@@ -18,6 +18,6 @@ myContract.options.gasPrice = "20000000000000";
 myContract.options.gas = 5000000;
 
 const weiStr = web3.utils.toWei("100", "gwei");
-weiStr.endsWith(weiStr)
+weiStr.endsWith(weiStr);
 const weiBn = web3.utils.toWei(web3.utils.toBN("1"));
-weiBn.toNumber().toFixed(4)
+weiBn.toNumber().toFixed(4);
