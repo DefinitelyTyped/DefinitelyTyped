@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-export default class Graph {
+declare class Graph {
     /**
      * Creates a new Graph, optionally initializing it a nodes graph representation.
      *
@@ -135,12 +135,14 @@ export default class Graph {
      * //       cost: 4
      * //    }
      */
-    path(start: any, goal: any, options ?: PathOption): any[] | { path: any[], cost: number };
+    path(start: any, goal: any, options ?: PathOption): any;
 }
 
-export interface PathOption {
+interface PathOption {
     trim ?: boolean;
     reverse ?: boolean;
     cost ?: boolean;
     avoid ?: any[];
 }
+
+export = Graph;

@@ -1,4 +1,4 @@
-import Graph from 'node-dijkstra';
+import Graph = require('node-dijkstra');
 
 const graph = new Graph();
 const graph2 = new Graph([{A: {B: 1}}]);
