@@ -1,4 +1,4 @@
-// Type definitions for react-side-effect v1.0.2
+// Type definitions for react-side-effect 1.0
 // Project: https://github.com/gaearon/react-side-effect
 // Definitions by: Remo H. Jansen <https://github.com/remojansen>
 //                 Martin Charles <https://github.com/0xcaff>
@@ -13,10 +13,8 @@ declare function withSideEffect<TProp, TState>(
     mapStateOnServer?: (state: TState) => void
 ): ClassDecorator<TProp>;
 
-type ClassDecorator<TProp> = <
-    TInnerComponent extends React.ComponentType<TProp>
->(
-    component: TInnerComponent
+type ClassDecorator<TProp> = (
+    component: React.ComponentType<TProp>
 ) => React.ComponentType<TProp>;
 
 declare namespace withSideEffect {} // https://github.com/Microsoft/TypeScript/issues/5073
