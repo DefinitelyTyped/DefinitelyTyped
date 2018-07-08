@@ -10,25 +10,25 @@ type State = string | undefined;
 const DocumentTitle = () => null;
 
 function reducePropsToState(propsList: DocumentTitleProps[]): State {
-  const innermostProps = propsList[propsList.length - 1];
-  if (innermostProps) {
-    return innermostProps.title;
-  }
+    const innermostProps = propsList[propsList.length - 1];
+    if (innermostProps) {
+        return innermostProps.title;
+    }
 }
 
 function handleStateChangeOnClient(title: State) {
-  document.title = title || "";
+    document.title = title || "";
 }
 
 const DocumentTitleWithSideEffects = withSideEffect(
-  reducePropsToState,
-  handleStateChangeOnClient
+    reducePropsToState,
+    handleStateChangeOnClient
 )(DocumentTitle);
 
 const testComponent = () => <DocumentTitleWithSideEffects title="Title" />;
 
 const otherTestComponent = () =>
-  // $ExpectError
-  <DocumentTitleWithSideEffects notAValidProp="this should fail" />;
+    // $ExpectError
+    <DocumentTitleWithSideEffects notAValidProp="this should fail" />;
 
 export default DocumentTitleWithSideEffects;
