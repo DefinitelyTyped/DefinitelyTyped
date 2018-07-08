@@ -425,6 +425,72 @@ expect.extend({
         };
     }
 });
+expect.extend({
+    async foo(this: jest.MatcherUtils, received: {}, ...actual: Array<{}>) {
+        return {
+            message: () => JSON.stringify(received),
+            pass: false,
+        };
+    }
+});
+expect.extend({
+    foo(this: jest.MatcherUtils) {
+        const isNot: boolean = this.isNot;
+
+        const expectedColor = this.utils.EXPECTED_COLOR("blue");
+        const receivedColor = this.utils.EXPECTED_COLOR("red");
+
+        this.utils.ensureActualIsNumber({});
+        this.utils.ensureActualIsNumber({}, "matcher");
+
+        this.utils.ensureExpectedIsNumber({});
+        this.utils.ensureExpectedIsNumber({}, "matcher");
+
+        this.utils.ensureNoExpected({});
+        this.utils.ensureNoExpected({}, "matcher");
+
+        this.utils.ensureNumbers({}, {});
+        this.utils.ensureNumbers({}, {}, "matcher");
+
+        const valueType: string = this.utils.getType({});
+
+        this.utils.matcherHint("matcher");
+        this.utils.matcherHint("matcher", "received");
+        this.utils.matcherHint("matcher", "received", "expected");
+        this.utils.matcherHint("matcher", "received", "expected", {});
+        this.utils.matcherHint("matcher", "received", "expected", {
+            isDirectExpectCall: true,
+        });
+        this.utils.matcherHint("matcher", "received", "expected", {
+            secondArgument: "",
+        });
+        this.utils.matcherHint("matcher", "received", "expected", {
+            isDirectExpectCall: true,
+            secondArgument: "",
+        });
+
+        const plural: string = this.utils.pluralize("word", 3);
+
+        const expectedPrinted: string = this.utils.printExpected({});
+
+        const receivedPrinted: string = this.utils.printReceived({});
+
+        const printedWithType: string = this.utils.printWithType(
+            "name",
+            {},
+            (value: {}) => "");
+
+        const stringified: string = this.utils.stringify({});
+        const stringifiedWithMaxDepth: string = this.utils.stringify({}, 3);
+
+        const equals: boolean = this.equals({}, {});
+
+        return {
+            message: () => "",
+            pass: false,
+        };
+    }
+});
 
 /* Basic matchers */
 
