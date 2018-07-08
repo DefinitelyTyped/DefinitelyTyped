@@ -1,4 +1,4 @@
-import * as PromiseFtp from "promise-ftp";
+import PromiseFtp = require("promise-ftp");
 
 // $ExpectType FtpConnectionError
 new PromiseFtp.FtpConnectionError();
