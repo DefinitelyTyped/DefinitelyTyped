@@ -1284,6 +1284,7 @@ export namespace plugins {
         multipartHandler?: any;
         mapParams?: boolean;
         mapFiles?: boolean;
+        maxFileSize?: number;
     }
 
     /**

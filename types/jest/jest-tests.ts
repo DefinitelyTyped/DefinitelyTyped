@@ -289,7 +289,6 @@ const spiedTarget = {
 const spy1 = jest.spyOn(spiedTarget, "returnsVoid");
 const spy2 = jest.spyOn(spiedTarget, "returnsVoid", "get");
 const spy3 = jest.spyOn(spiedTarget, "returnsString", "set");
-
 const spy1Name: string = spy1.getMockName();
 
 const spy2Calls: any[][] = spy2.mock.calls;
@@ -301,6 +300,7 @@ const spy3Mock: jest.Mock<() => string> = spy3
     .mockImplementation(() => "")
     .mockImplementation((arg: {}) => arg)
     .mockImplementation((...args: string[]) => args.join(""))
+    .mockImplementationOnce(() => "")
     .mockName("name")
     .mockReturnThis()
     .mockReturnValue("value")
@@ -556,15 +556,18 @@ describe("", () => {
         expect(true).toStrictEqual(false);
         expect({}).toStrictEqual({});
 
+        const errInstance = new Error();
+        const willThrow = () => { throw new Error(); };
         expect(() => {}).toThrow();
-        expect(() => { throw new Error(); }).toThrow("");
+        expect(willThrow).toThrow("");
+        expect(willThrow).toThrow(errInstance);
         expect(jest.fn()).toThrow(Error);
-        expect(jest.fn(() => { throw new Error(); })).toThrow(/foo/);
+        expect(jest.fn(willThrow)).toThrow(/foo/);
 
         expect(() => {}).toThrowErrorMatchingSnapshot();
-        expect(() => { throw new Error(); }).toThrowErrorMatchingSnapshot();
+        expect(willThrow).toThrowErrorMatchingSnapshot();
         expect(jest.fn()).toThrowErrorMatchingSnapshot();
-        expect(jest.fn(() => { throw new Error(); })).toThrowErrorMatchingSnapshot();
+        expect(jest.fn(willThrow)).toThrowErrorMatchingSnapshot();
 
         /* not */
 
@@ -1056,3 +1059,5 @@ test.only.each`
 `("returns $expected when $a is added $b", ({ a, b, expected }: Case) => {
     expect(a + b).toBe(expected);
 });
+
+expect("").toHaveProperty("path.to.thing");

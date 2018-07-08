@@ -24,7 +24,10 @@ import {
     Dimensions,
     Image,
     ImageStyle,
+    ImageResizeMode,
     ImageLoadEventData,
+    ImageErrorEventData,
+    ImageResolvedAssetSource,
     InteractionManager,
     ListView,
     ListViewDataSource,
@@ -58,6 +61,11 @@ import {
     GestureResponderEvent,
     TextInputScrollEventData,
     TextInputSelectionChangeEventData,
+    TextInputKeyPressEventData,
+    TextInputChangeEventData,
+    TextInputContentSizeChangeEventData,
+    TextInputEndEditingEventData,
+    TextInputSubmitEditingEventData,
 } from "react-native";
 
 declare module "react-native" {
@@ -501,6 +509,35 @@ class TextInputTest extends React.Component<{}, {username: string}> {
         console.log(`end: ${ e.nativeEvent.selection.end }`);
     }
 
+    handleOnKeyPress = (e: NativeSyntheticEvent<TextInputKeyPressEventData>) => {
+        testNativeSyntheticEvent(e);
+        console.log(`key: ${ e.nativeEvent.key }`);
+    }
+
+    handleOnChange = (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
+        testNativeSyntheticEvent(e);
+
+        console.log(`eventCount: ${ e.nativeEvent.eventCount }`);
+        console.log(`target: ${ e.nativeEvent.target }`);
+        console.log(`text: ${ e.nativeEvent.text }`);
+    }
+
+    handleOnContentSizeChange = (e: NativeSyntheticEvent<TextInputContentSizeChangeEventData>) => {
+        testNativeSyntheticEvent(e);
+        console.log(`contentSize.width: ${ e.nativeEvent.contentSize.width }`);
+        console.log(`contentSize.height: ${ e.nativeEvent.contentSize.height }`);
+    }
+
+    handleOnEndEditing = (e: NativeSyntheticEvent<TextInputEndEditingEventData>) => {
+        testNativeSyntheticEvent(e);
+        console.log(`text: ${ e.nativeEvent.text }`);
+    }
+
+    handleOnSubmitEditing = (e: NativeSyntheticEvent<TextInputSubmitEditingEventData>) => {
+        testNativeSyntheticEvent(e);
+        console.log(`text: ${ e.nativeEvent.text }`);
+    }
+
     render() {
         return (
             <View>
@@ -525,6 +562,31 @@ class TextInputTest extends React.Component<{}, {username: string}> {
                 <TextInput
                     onSelectionChange={this.handleOnSelectionChange}
                 />
+
+                <TextInput
+                    onKeyPress={this.handleOnKeyPress}
+                />
+
+                <TextInput
+                    onChange={this.handleOnChange}
+                />
+
+                <TextInput
+                    onChange={this.handleOnChange}
+                />
+
+                <TextInput
+                    onEndEditing={this.handleOnEndEditing}
+                />
+
+                <TextInput
+                    onSubmitEditing={this.handleOnSubmitEditing}
+                />
+
+                <TextInput
+                    multiline
+                    onContentSizeChange={this.handleOnContentSizeChange}
+                />
             </View>
         );
     }
@@ -547,19 +609,39 @@ class StatusBarTest extends React.Component {
 }
 
 export class ImageTest extends React.Component {
-    onLoad(e: NativeSyntheticEvent<ImageLoadEventData>) {
+    componentDidMount(): void {
+        const image: ImageResolvedAssetSource = Image.resolveAssetSource({
+            uri: 'https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png'
+        });
+        console.log(image.width, image.height, image.scale, image.uri);
+    }
+
+    handleOnLoad = (e: NativeSyntheticEvent<ImageLoadEventData>) => {
         testNativeSyntheticEvent(e);
         console.log('height:', e.nativeEvent.source.height);
         console.log('width:', e.nativeEvent.source.width);
         console.log('url:', e.nativeEvent.source.url);
     }
 
+    handleOnError = (e: NativeSyntheticEvent<ImageErrorEventData>) => {
+        testNativeSyntheticEvent(e);
+        console.log('error:', e.nativeEvent.error);
+    }
+
     render() {
+        const resizeMode: ImageResizeMode = 'contain';
+
         return (
             <View>
                 <Image
                     source={{ uri: 'https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png' }}
-                    onLoad={this.onLoad}
+                    onLoad={this.handleOnLoad}
+                    onError={this.handleOnError}
+                />
+
+                <Image
+                    source={{ uri: 'https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png' }}
+                    resizeMode={resizeMode}
                 />
             </View>
         );
@@ -588,3 +670,13 @@ class StylePropsTest extends React.PureComponent {
 }
 
 const listViewDataSourceTest = new ListView.DataSource({rowHasChanged: () => true})
+
+class AccessibilityViewHidingTest extends React.Component {
+    render() {
+        return (
+            <View accessibilityElementsHidden importantForAccessibility="no-hide-descendants">
+                <View />
+            </View>
+        );
+    }
+}

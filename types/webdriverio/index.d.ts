@@ -179,6 +179,9 @@ declare namespace WebdriverIO {
         setWindowRect?: boolean;
         timeouts?: Timeouts;
         unhandledPromptBehavior?: string;
+
+        // wdio-sauce-service specific
+        build?: string;
     }
 
     interface DesiredCapabilities extends Capabilities {
@@ -435,6 +438,15 @@ declare namespace WebdriverIO {
         waitforInterval?: number;
         user?: string;
         key?: string;
+
+        // wdio-sauce-service specific
+        sauceConnect?: boolean;
+        sauceConnectOpts?: { [name: string]: any; };
+
+        // wdio-docker-service specific
+        dockerOptions?: { [name: string]: any; };
+        onDockerReady?: ((...args: any[]) => void);
+        dockerLogs?: string;
     }
 
     interface UnknownOptions {

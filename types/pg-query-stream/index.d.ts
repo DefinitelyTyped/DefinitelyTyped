@@ -7,6 +7,7 @@
 /// <reference types="node" />
 
 import stream = require("stream");
+import pg = require("pg");
 
 declare namespace QueryStream {
     interface Options {
@@ -15,11 +16,12 @@ declare namespace QueryStream {
     }
 }
 
-declare class QueryStream extends stream.Readable {
+declare class QueryStream extends stream.Readable implements pg.Submittable {
     batchSize: number;
     text: string;
     values?: any[];
     constructor(text: string, values?: any[], options?: QueryStream.Options);
+    submit(connection: pg.Connection): void;
 }
 
 export = QueryStream;

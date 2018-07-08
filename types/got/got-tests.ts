@@ -84,6 +84,22 @@ got.patch('todomvc.com', {hostname: 'todomvc'}).then(response => str = response.
 got.head('todomvc.com', {hostname: 'todomvc'}).then(response => str = response.body);
 got.delete('todomvc.com', {hostname: 'todomvc'}).then(response => str = response.body);
 
+// Allow primitive types as JSON body.
+{
+    got.post('todomvc.com', {
+        json: true,
+        body: 1
+    });
+    got.post('todomvc.com', {
+        json: true,
+        body: null
+    });
+    got.post('todomvc.com', {
+        json: true,
+        body: 'str'
+    });
+}
+
 got.stream('todomvc.com').pipe(fs.createWriteStream('index.html'));
 
 fs.createReadStream('index.html').pipe(got.stream.get('todomvc.com'));

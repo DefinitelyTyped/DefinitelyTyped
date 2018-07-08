@@ -44,7 +44,7 @@ declare namespace WebpackServe {
     on(event: 'build-started', listener: (args: { compiler: webpack.Compiler }) => void): this;
     on(event: 'build-finished', listener: (args: { compiler: webpack.Compiler, stats: webpack.Stats }) => void): this;
     on(event: 'compiler-error' | 'compiler-warning', listener: (args: { compiler: webpack.Compiler, stats: any }) => void): this;
-    on(event: 'listening', listener: (args: { server: koa, options: Options }) => void): this;
+    on(event: 'listening', listener: (args: { server: koa, options: NormalisedOptions }) => void): this;
 
     /** Close webpack-serve */
     close: () => void;
@@ -55,7 +55,7 @@ declare namespace WebpackServe {
     'build-finished': (args: { compiler: webpack.Compiler, stats: webpack.Stats }) => void;
     'compiler-error': (args: { compiler: webpack.Compiler, stats: any }) => void;
     'compiler-warning': (args: { compiler: webpack.Compiler, stats: any }) => void;
-    'listening': (args: { server: koa, options: Options }) => void;
+    'listening': (args: { server: koa, options: NormalisedOptions }) => void;
   }
 
   interface Options {
@@ -80,7 +80,7 @@ declare namespace WebpackServe {
     /** Configuration object for the server to use HTTPS */
     https?: https.ServerOptions;
     /** Level of information for webpack-serve to output */
-    logLevel?: 'trace' | 'debug' | 'info' | 'warn' | 'error';
+    logLevel?: 'trace' | 'debug' | 'info' | 'warn' | 'error' | 'silent';
     /** Prepend timestamp to each log line */
     logTime?: boolean;
     /** Object of subscribers to webpack-serve bus events */
@@ -89,5 +89,9 @@ declare namespace WebpackServe {
     open?: WebpackServeOpen | boolean;
     /** Port that the server listens on */
     port?: number;
+  }
+
+  interface NormalisedOptions extends Options {
+    protocol: 'http' | 'https';
   }
 }

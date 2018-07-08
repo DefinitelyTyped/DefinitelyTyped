@@ -401,6 +401,10 @@ declare module 'luxon' {
             equals(other: Zone): boolean;
             offset(ts: number): number;
         }
+
+        class IANAZone extends Zone {
+            constructor(ianaString: string);
+        }
     }
 
     export = luxon;

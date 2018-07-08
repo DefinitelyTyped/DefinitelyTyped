@@ -77,10 +77,10 @@ export interface DecodeOptions {
     complete?: boolean;
     json?: boolean;
 }
-
+export type VerifyErrors=JsonWebTokenError | NotBeforeError | TokenExpiredError;
 export interface VerifyCallback {
     (
-        err: JsonWebTokenError | NotBeforeError | TokenExpiredError,
+        err: VerifyErrors,
         decoded: object | string,
     ): void;
 }

@@ -63,7 +63,7 @@ export class ConfigDescriptor {
 }
 
 export class Interface {
-  interface: number;
+  interfaceNumber: number;
   altSetting: number;
   descriptor: InterfaceDescriptor;
   endpoints: Endpoint[];

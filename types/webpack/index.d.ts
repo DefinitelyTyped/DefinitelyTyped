@@ -90,10 +90,8 @@ declare namespace webpack {
         watchOptions?: Options.WatchOptions;
         /** Switch loaders to debug mode. */
         debug?: boolean;
-        /** Can be used to configure the behaviour of webpack-dev-server when the webpack config is passed to webpack-dev-server CLI. */
-        devServer?: any; // TODO: Type this
         /** Include polyfills or mocks for various node stuff */
-        node?: Node;
+        node?: Node | false;
         /** Set the value of require.amd and define.amd. */
         amd?: { [moduleName: string]: boolean };
         /** Used for recordsInputPath and recordsOutputPath */
@@ -1424,6 +1422,33 @@ declare namespace webpack {
             }
         }
 
+        class AggressiveSplittingPlugin extends Plugin {
+            constructor(options?: AggressiveSplittingPlugin.Options);
+        }
+
+        namespace AggressiveSplittingPlugin {
+            interface Options {
+                /**
+                 * Size in byte.
+                 * Only chunks bigger than the specified minSize are stored in records.
+                 * This ensures the chunks fill up as your application grows,
+                 * instead of creating too many chunks for every change.
+                 *
+                 * Default: 30720
+                 */
+                minSize: 30000;
+                /**
+                 * Size in byte.
+                 * maximum size prefered for each chunk.
+                 *
+                 * Default: 51200
+                 */
+                maxSize: 50000;
+                chunkOverhead: 0;
+                entryChunkMultiplicator: 1;
+            }
+        }
+
         /** @deprecated */
         class DedupePlugin extends Plugin {
             constructor();
@@ -1593,6 +1618,14 @@ declare namespace webpack {
              *
              */
             exec(code: string, filename: string): any;
+
+            /**
+             * Resolves the given request to a module, applies all configured loaders and calls
+             * back with the generated source, the sourceMap and the module instance (usually an
+             * instance of NormalModule). Use this function if you need to know the source code
+             * of another module to generate the result.
+             */
+            loadModule(request: string, callback: (err: Error | null, source: string, sourceMap: RawSourceMap, module: Module) => void): any;
 
             /**
              * Resolve a request like a require expression.

@@ -1585,6 +1585,12 @@
             "asOfVersion": "5.1.1"
         },
         {
+            "libraryName": "winston",
+            "typingsPackageName": "winston",
+            "sourceRepoURL": "https://github.com/winstonjs/winston.git",
+            "asOfVersion": "2.4.4"
+        },
+        {
             "libraryName": "wolfy87-eventemitter",
             "typingsPackageName": "wolfy87-eventemitter",
             "sourceRepoURL": "https://github.com/Wolfy87/EventEmitter",

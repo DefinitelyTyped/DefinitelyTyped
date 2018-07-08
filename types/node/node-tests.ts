@@ -87,6 +87,8 @@ namespace assert_tests {
         assert.strictEqual(1, 1, "uses === comparator");
 
         assert.throws(() => { throw new Error("a hammer at your face"); }, undefined, "DODGED IT");
+
+        assert.strict.strict.deepEqual([[[1, 2, 3]], 4, 5], [[[1, 2, '3']], 4, 5]);
     }
 }
 
@@ -390,8 +392,12 @@ namespace fs_tests {
     {
         fs.copyFile('/path/to/src', '/path/to/dest', (err) => console.error(err));
         fs.copyFile('/path/to/src', '/path/to/dest', fs.constants.COPYFILE_EXCL, (err) => console.error(err));
+        fs.copyFile('/path/to/src', '/path/to/dest', fs.constants.COPYFILE_FICLONE, (err) => console.error(err));
+        fs.copyFile('/path/to/src', '/path/to/dest', fs.constants.COPYFILE_FICLONE_FORCE, (err) => console.error(err));
 
         fs.copyFileSync('/path/to/src', '/path/to/dest', fs.constants.COPYFILE_EXCL);
+        fs.copyFileSync('/path/to/src', '/path/to/dest', fs.constants.COPYFILE_FICLONE);
+        fs.copyFileSync('/path/to/src', '/path/to/dest', fs.constants.COPYFILE_FICLONE_FORCE);
 
         const cf = util.promisify(fs.copyFile);
         cf('/path/to/src', '/path/to/dest', fs.constants.COPYFILE_EXCL).then(console.log);
@@ -756,7 +762,8 @@ namespace util_tests {
             customInspect: false,
             showProxy: true,
             maxArrayLength: 10,
-            breakLength: 20
+            breakLength: 20,
+            compact: true
         });
         util.inspect(["This is nice"], {
             colors: true,
@@ -764,7 +771,8 @@ namespace util_tests {
             customInspect: false,
             showProxy: true,
             maxArrayLength: null,
-            breakLength: Infinity
+            breakLength: Infinity,
+            compact: false
         });
         assert(typeof util.inspect.custom === 'symbol');
 
@@ -1341,6 +1349,24 @@ namespace crypto_tests {
         crypto.randomFill(i32arr, (err: Error, buf: ArrayBufferView) => void {});
         crypto.randomFill(i32arr, 2, (err: Error, buf: ArrayBufferView) => void {});
         crypto.randomFill(i32arr, 2, 3, (err: Error, buf: ArrayBufferView) => void {});
+    }
+
+    {
+        // scrypt
+        const pwd: string | Buffer | Int32Array | DataView = Buffer.alloc(16);
+        const salt: string | Buffer | Int32Array | DataView = Buffer.alloc(16);
+        crypto.scrypt(pwd, salt, 64, (err: Error | null, derivedKey: Buffer): void => {});
+        const opts: crypto.ScryptOptions = {
+            N: 16384,
+            r: 8,
+            p: 1,
+            maxmem: 32 * 1024 * 1024
+        };
+        crypto.scrypt(pwd, salt, 64, opts, (err: Error | null, derivedKey: Buffer): void => {});
+        crypto.scrypt(pwd, salt, 64, { maxmem: 16 * 1024 * 1024 }, (err: Error | null, derivedKey: Buffer): void => {});
+        let buf: Buffer = crypto.scryptSync(pwd, salt, 64);
+        buf = crypto.scryptSync(pwd, salt, 64, opts);
+        buf = crypto.scryptSync(pwd, salt, 64, { N: 1024 });
     }
 
     {

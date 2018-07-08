@@ -89,7 +89,7 @@ declare namespace webpack {
         /** Can be used to configure the behaviour of webpack-dev-server when the webpack config is passed to webpack-dev-server CLI. */
         devServer?: any; // TODO: Type this
         /** Include polyfills or mocks for various node stuff */
-        node?: Node;
+        node?: Node | false;
         /** Set the value of require.amd and define.amd. */
         amd?: { [moduleName: string]: boolean };
         /** Used for recordsInputPath and recordsOutputPath */
