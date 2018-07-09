@@ -1273,6 +1273,14 @@ declare module "./index" {
             this: LoDashExplicitSyncWrapper<T | null | undefined>,
             ...paths: Array<_.Many<_.PropertyName>>
         ): LoDashExplicitSyncWrapper<_.PartialObject<T>>;
+        omitBy<T>(
+            this: LoDashExplicitSyncWrapper<_.Dictionary<T> | null | undefined>,
+            predicate?: _.ValueKeyIteratee<T>
+        ): LoDashExplicitSyncWrapper<_.Dictionary<T>>;
+        omitBy<T>(
+            this: LoDashExplicitSyncWrapper<_.NumericDictionary<T> | null | undefined>,
+            predicate?: _.ValueKeyIteratee<T>
+        ): LoDashExplicitSyncWrapper<_.NumericDictionary<T>>;
         omitBy<T extends object>(
             this: LoDashExplicitSyncWrapper<T | null | undefined>,
             predicate: _.ValueKeyIteratee<T[keyof T]>
@@ -1285,6 +1293,14 @@ declare module "./index" {
             this: LoDashExplicitSyncWrapper<T | null | undefined>,
             ...props: _.PropertyPath[]
         ): LoDashExplicitSyncWrapper<_.PartialObject<T>>;
+        pickBy<T>(
+            this: LoDashExplicitSyncWrapper<_.Dictionary<T> | null | undefined>,
+            predicate?: _.ValueKeyIteratee<T>
+        ): LoDashExplicitSyncWrapper<_.Dictionary<T>>;
+        pickBy<T>(
+            this: LoDashExplicitSyncWrapper<_.NumericDictionary<T> | null | undefined>,
+            predicate?: _.ValueKeyIteratee<T>
+        ): LoDashExplicitSyncWrapper<_.NumericDictionary<T>>;
         pickBy<T extends object>(
             this: LoDashExplicitSyncWrapper<T | null | undefined>,
             predicate?: _.ValueKeyIteratee<T[keyof T]>
@@ -2841,6 +2857,14 @@ declare module "./index" {
             this: LoDashExplicitAsyncWrapper<T | null | undefined>,
             ...paths: Array<_.Many<_.PropertyName>>
         ): LoDashExplicitAsyncWrapper<_.PartialObject<T>>;
+        omitBy<T>(
+            this: LoDashExplicitAsyncWrapper<_.Dictionary<T> | null | undefined>,
+            predicate?: _.ValueKeyIteratee<T>
+        ): LoDashExplicitAsyncWrapper<_.Dictionary<T>>;
+        omitBy<T>(
+            this: LoDashExplicitAsyncWrapper<_.NumericDictionary<T> | null | undefined>,
+            predicate?: _.ValueKeyIteratee<T>
+        ): LoDashExplicitAsyncWrapper<_.NumericDictionary<T>>;
         omitBy<T extends object>(
             this: LoDashExplicitAsyncWrapper<T | null | undefined>,
             predicate: _.ValueKeyIteratee<T[keyof T]>
@@ -2853,6 +2877,14 @@ declare module "./index" {
             this: LoDashExplicitAsyncWrapper<T | null | undefined>,
             ...props: _.PropertyPath[]
         ): LoDashExplicitAsyncWrapper<_.PartialObject<T>>;
+        pickBy<T>(
+            this: LoDashExplicitAsyncWrapper<_.Dictionary<T> | null | undefined>,
+            predicate?: _.ValueKeyIteratee<T>
+        ): LoDashExplicitAsyncWrapper<_.Dictionary<T>>;
+        pickBy<T>(
+            this: LoDashExplicitAsyncWrapper<_.NumericDictionary<T> | null | undefined>,
+            predicate?: _.ValueKeyIteratee<T>
+        ): LoDashExplicitAsyncWrapper<_.NumericDictionary<T>>;
         pickBy<T extends object>(
             this: LoDashExplicitAsyncWrapper<T | null | undefined>,
             predicate?: _.ValueKeyIteratee<T[keyof T]>
