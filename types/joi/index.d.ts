@@ -753,8 +753,11 @@ export interface ObjectSchema extends AnySchema {
 
     /**
      * Specify validation rules for unknown keys matching a pattern.
+	 *
+	 * @param pattern - a pattern that can be either a regular expression or a joi schema that will be tested against the unknown key names
+	 * @param schema - the schema object matching keys must validate against
      */
-    pattern(regex: RegExp, schema: SchemaLike): this;
+    pattern(pattern: RegExp | SchemaLike, schema: SchemaLike): this;
 
     /**
      * Defines an all-or-nothing relationship between keys where if one of the peers is present, all of them are required as well.
