@@ -66,6 +66,7 @@ import {
     TextInputContentSizeChangeEventData,
     TextInputEndEditingEventData,
     TextInputSubmitEditingEventData,
+    WebView,
 } from "react-native";
 
 declare module "react-native" {
@@ -608,6 +609,17 @@ class StatusBarTest extends React.Component {
     }
 }
 
+class WebViewTest extends React.Component {
+    render() {
+        return (
+            <WebView
+                originWhitelist={['https://origin.test']}
+                saveFormDataDisabled={false}
+            />
+        );
+    }
+}
+
 export class ImageTest extends React.Component {
     componentDidMount(): void {
         const image: ImageResolvedAssetSource = Image.resolveAssetSource({
@@ -660,7 +672,7 @@ class StylePropsTest extends React.PureComponent {
                     margin={20}
                     overflow="visible" // ps: must fail if "scroll"
                     source={{ uri }}
-                    style={{ width: 200, height: 200, tintColor: 'green' }}
+                    style={{ width: 200, height: 200, tintColor: 'green', flexWrap: 'wrap-reverse' }}
                     // tintColor="green"
                     // width={200}
                 />
@@ -671,10 +683,15 @@ class StylePropsTest extends React.PureComponent {
 
 const listViewDataSourceTest = new ListView.DataSource({rowHasChanged: () => true})
 
-class AccessibilityViewHidingTest extends React.Component {
+class AccessibilityTest extends React.Component {
     render() {
         return (
-            <View accessibilityElementsHidden importantForAccessibility="no-hide-descendants">
+            <View
+                accessibilityElementsHidden={true}
+                importantForAccessibility={"no-hide-descendants"}
+                accessibilityTraits={'none'}
+            >
+                <Text accessibilityTraits={['key', 'text']}>Text</Text>
                 <View />
             </View>
         );

@@ -2289,11 +2289,21 @@ declare namespace _ {
     }
     interface LodashOmitBy {
         <T>(predicate: lodash.ValueKeyIteratee<T>): LodashOmitBy1x1<T>;
-        <T extends object>(predicate: lodash.__, object: T | null | undefined): LodashOmitBy1x2<T>;
+        <T>(predicate: lodash.__, object: lodash.Dictionary<T> | null | undefined): LodashOmitBy1x2<T>;
+        <T>(predicate: lodash.ValueKeyIteratee<T>, object: lodash.Dictionary<T> | null | undefined): lodash.Dictionary<T>;
+        <T>(predicate: lodash.__, object: lodash.NumericDictionary<T> | null | undefined): LodashOmitBy2x2<T>;
+        <T>(predicate: lodash.ValueKeyIteratee<T>, object: lodash.NumericDictionary<T> | null | undefined): lodash.NumericDictionary<T>;
+        <T extends object>(predicate: lodash.__, object: T | null | undefined): LodashOmitBy3x2<T>;
         <T extends object>(predicate: lodash.ValueKeyIteratee<T[keyof T]>, object: T | null | undefined): lodash.PartialObject<T>;
     }
-    type LodashOmitBy1x1<T> = <T1 extends object>(object: T1 | null | undefined) => lodash.PartialObject<T1>;
-    type LodashOmitBy1x2<T> = (predicate: lodash.ValueKeyIteratee<T[keyof T]>) => lodash.PartialObject<T>;
+    interface LodashOmitBy1x1<T> {
+        (object: lodash.Dictionary<T> | null | undefined): lodash.Dictionary<T>;
+        (object: lodash.NumericDictionary<T> | null | undefined): lodash.NumericDictionary<T>;
+        <T1 extends object>(object: T1 | null | undefined): lodash.PartialObject<T1>;
+    }
+    type LodashOmitBy1x2<T> = (predicate: lodash.ValueKeyIteratee<T>) => lodash.Dictionary<T>;
+    type LodashOmitBy2x2<T> = (predicate: lodash.ValueKeyIteratee<T>) => lodash.NumericDictionary<T>;
+    type LodashOmitBy3x2<T> = (predicate: lodash.ValueKeyIteratee<T[keyof T]>) => lodash.PartialObject<T>;
     type LodashOnce = <T extends (...args: any[]) => any>(func: T) => T;
     interface LodashOrderBy {
         <T>(iteratees: lodash.Many<(value: T) => lodash.NotVoid>): LodashOrderBy1x1<T>;
@@ -2873,11 +2883,21 @@ declare namespace _ {
     type LodashPick2x2<T> = (props: lodash.PropertyPath) => lodash.PartialDeep<T>;
     interface LodashPickBy {
         <T>(predicate: lodash.ValueKeyIteratee<T>): LodashPickBy1x1<T>;
-        <T extends object>(predicate: lodash.__, object: T | null | undefined): LodashPickBy1x2<T>;
+        <T>(predicate: lodash.__, object: lodash.Dictionary<T> | null | undefined): LodashPickBy1x2<T>;
+        <T>(predicate: lodash.ValueKeyIteratee<T>, object: lodash.Dictionary<T> | null | undefined): lodash.Dictionary<T>;
+        <T>(predicate: lodash.__, object: lodash.NumericDictionary<T> | null | undefined): LodashPickBy2x2<T>;
+        <T>(predicate: lodash.ValueKeyIteratee<T>, object: lodash.NumericDictionary<T> | null | undefined): lodash.NumericDictionary<T>;
+        <T extends object>(predicate: lodash.__, object: T | null | undefined): LodashPickBy3x2<T>;
         <T extends object>(predicate: lodash.ValueKeyIteratee<T[keyof T]>, object: T | null | undefined): lodash.PartialObject<T>;
     }
-    type LodashPickBy1x1<T> = <T1 extends object>(object: T1 | null | undefined) => lodash.PartialObject<T1>;
-    type LodashPickBy1x2<T> = (predicate: lodash.ValueKeyIteratee<T[keyof T]>) => lodash.PartialObject<T>;
+    interface LodashPickBy1x1<T> {
+        (object: lodash.Dictionary<T> | null | undefined): lodash.Dictionary<T>;
+        (object: lodash.NumericDictionary<T> | null | undefined): lodash.NumericDictionary<T>;
+        <T1 extends object>(object: T1 | null | undefined): lodash.PartialObject<T1>;
+    }
+    type LodashPickBy1x2<T> = (predicate: lodash.ValueKeyIteratee<T>) => lodash.Dictionary<T>;
+    type LodashPickBy2x2<T> = (predicate: lodash.ValueKeyIteratee<T>) => lodash.NumericDictionary<T>;
+    type LodashPickBy3x2<T> = (predicate: lodash.ValueKeyIteratee<T[keyof T]>) => lodash.PartialObject<T>;
     interface LodashProp {
         <TObject extends object, TKey extends keyof TObject>(path: TKey | [TKey]): LodashProp1x1<TObject, TKey>;
         <TObject extends object>(path: lodash.__, object: TObject): LodashProp1x2<TObject>;
