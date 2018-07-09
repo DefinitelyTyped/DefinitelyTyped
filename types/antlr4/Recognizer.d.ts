@@ -1,6 +1,6 @@
-import {ErrorListener, ProxyErrorListener} from './error/ErrorListener';
-import {Token} from './Token';
-import {ParserRuleContext} from './ParserRuleContext';
+import { ErrorListener, ProxyErrorListener } from './error/ErrorListener';
+import { Token } from './Token';
+import { ParserRuleContext } from './ParserRuleContext';
 
 export class Recognizer {
     state: number;

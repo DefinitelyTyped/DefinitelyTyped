@@ -1,6 +1,6 @@
-import {Recognizer} from './Recognizer';
-import {Token} from './Token';
-import {RecognitionException} from './error/Errors';
+import { Recognizer } from './Recognizer';
+import { Token } from './Token';
+import { RecognitionException } from './error/Errors';
 
 export class Lexer extends Recognizer {
     inputStream: any;

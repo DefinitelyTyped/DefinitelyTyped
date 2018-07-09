@@ -1,16 +1,16 @@
-import {Interval} from '../IntervalSet';
-import {Token} from '../Token';
-import {ParserRuleContext} from '../ParserRuleContext';
+import { Interval } from '../IntervalSet';
+import { Token } from '../Token';
+import { ParserRuleContext } from '../ParserRuleContext';
 
-export declare const INVALID_INTERVAL: Interval;
+export const INVALID_INTERVAL: Interval;
 
-interface ParseTree {
+export class ParseTree {
 }
 
-export declare class RuleNode implements ParseTree {
+export class RuleNode extends ParseTree {
 }
 
-export declare class TerminalNode implements ParseTree {
+export class TerminalNode implements ParseTree {
     constructor(symbol: Token);
 
     getChild(i: number): any;
@@ -35,11 +35,10 @@ export declare class TerminalNode implements ParseTree {
     readonly symbol: Token;
 }
 
-
-export declare class ErrorNode extends TerminalNode {
+export class ErrorNode extends TerminalNode {
 }
 
-export declare class ParseTreeVisitor {
+export class ParseTreeVisitor {
     visit(ctx: ParserRuleContext): any;
 
     visitChildren(ctx: ParserRuleContext): any;
@@ -49,8 +48,7 @@ export declare class ParseTreeVisitor {
     visitErrorNode(node: ErrorNode): any;
 }
 
-
-export declare interface ParseTreeListener {
+export interface ParseTreeListener {
     visitTerminal(node: TerminalNode): void;
 
     visitErrorNode(node: ErrorNode): void;
@@ -60,11 +58,10 @@ export declare interface ParseTreeListener {
     exitEveryRule(node: ParserRuleContext): void;
 }
 
-export declare class TerminalNodeImpl extends TerminalNode {
-
+export class TerminalNodeImpl extends TerminalNode {
 }
 
-export declare class ErrorNodeImpl extends TerminalNode {
+export class ErrorNodeImpl extends TerminalNode {
     constructor(token: Token);
 
     isErrorNode(): boolean;
@@ -72,7 +69,7 @@ export declare class ErrorNodeImpl extends TerminalNode {
     accept(visitor: ParseTreeVisitor): any;
 }
 
-export declare class ParseTreeWalker {
+export class ParseTreeWalker {
     static readonly DEFAULT: ParseTreeWalker;
 
     walk(listener: ParseTreeListener, rule: any): void;
@@ -80,6 +77,4 @@ export declare class ParseTreeWalker {
     enterRule(listener: ParseTreeListener, rule: any): void;
 
     exitRule(listener: ParseTreeListener, rule: any): void;
-
-
 }

@@ -1,6 +1,6 @@
-import {ParseTreeVisitor, RuleNode} from './tree/Tree';
-import {Interval} from './IntervalSet';
-import {ParserRuleContext} from './ParserRuleContext';
+import { ParseTreeVisitor, RuleNode } from './tree/Tree';
+import { Interval } from './IntervalSet';
+import { ParserRuleContext } from './ParserRuleContext';
 
 export class RuleContext extends RuleNode {
     readonly invokingState: number;

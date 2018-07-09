@@ -1,5 +1,5 @@
-import {Token} from './Token';
-import {Interval} from './IntervalSet';
+import { Token } from './Token';
+import { Interval } from './IntervalSet';
 
 export class BufferedTokenStream {
     tokenSource: any;

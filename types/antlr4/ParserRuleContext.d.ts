@@ -1,8 +1,8 @@
-import {RuleContext} from './RuleContext';
-import {Token} from './Token';
-import {ErrorNode, ParseTreeListener} from './tree/Tree';
-import {Interval} from './IntervalSet';
-import {RecognitionException} from './error/Errors';
+import { RuleContext } from './RuleContext';
+import { Token } from './Token';
+import { ErrorNode, ParseTreeListener } from './tree/Tree';
+import { Interval } from './IntervalSet';
+import { RecognitionException } from './error/Errors';
 
 export class ParserRuleContext extends RuleContext {
     readonly start: Token;

@@ -1,6 +1,6 @@
-import {BufferedTokenStream} from './BufferedTokenStream';
-import {Token} from './Token';
-import {Lexer} from './Lexer';
+import { BufferedTokenStream } from './BufferedTokenStream';
+import { Token } from './Token';
+import { Lexer } from './Lexer';
 
 export class CommonTokenStream extends BufferedTokenStream {
     constructor(lexer: Lexer, channel?: any);

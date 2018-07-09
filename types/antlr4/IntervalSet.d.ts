@@ -1,4 +1,4 @@
-import {Token} from './Token';
+import { Token } from './Token';
 
 export class Interval {
     readonly length: number;

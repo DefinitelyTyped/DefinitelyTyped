@@ -1,11 +1,11 @@
-import {CommonTokenStream} from './CommonTokenStream';
-import {Recognizer} from './Recognizer';
-import {Token} from './Token';
-import {ParseTreeListener} from './tree/Tree';
-import {Lexer} from './Lexer';
-import {InputStream} from './InputStream';
-import {ParserRuleContext} from './ParserRuleContext';
-import {ErrorStrategy} from './error/ErrorStrategy';
+import { CommonTokenStream } from './CommonTokenStream';
+import { Recognizer } from './Recognizer';
+import { Token } from './Token';
+import { ParseTreeListener } from './tree/Tree';
+import { Lexer } from './Lexer';
+import { InputStream } from './InputStream';
+import { ParserRuleContext } from './ParserRuleContext';
+import { ErrorStrategy } from './error/ErrorStrategy';
 
 export class Parser extends Recognizer {
     constructor(input: CommonTokenStream);

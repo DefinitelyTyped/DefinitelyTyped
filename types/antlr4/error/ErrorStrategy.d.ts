@@ -1,7 +1,7 @@
-import {Recognizer} from '../Recognizer';
+import { Recognizer } from '../Recognizer';
 
-export declare class ErrorStrategy {
-    reset(recognizer: Recognizer): void
+export class ErrorStrategy {
+    reset(recognizer: Recognizer): void;
 
     recoverInline(recognizer: Recognizer): void;
 
@@ -14,11 +14,8 @@ export declare class ErrorStrategy {
     reportError(recognizer: Recognizer): void;
 }
 
-
-export declare class DefaultErrorStrategy extends ErrorStrategy {
-
+export class DefaultErrorStrategy extends ErrorStrategy {
 }
 
-export declare class BailErrorStrategy extends ErrorStrategy {
-
+export class BailErrorStrategy extends ErrorStrategy {
 }
