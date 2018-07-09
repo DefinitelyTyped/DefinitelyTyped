@@ -74,7 +74,7 @@ declare class Graph {
      *
      * route.addNode('D', d)
      */
-    addNode(name: any, edges: any): Graph;
+    addNode(name: String, neighbors: any): Graph;
 
     /**
      * Removes a node and all of its references from the graph
@@ -92,7 +92,7 @@ declare class Graph {
      * // The graph now is:
      * // { A: { B: 1 }, B: { A: 3 } }
      */
-    removeNode(name: any): Graph;
+    removeNode(name: String): Graph;
 
     /**
      * Compute the shortest path between the specified nodes
