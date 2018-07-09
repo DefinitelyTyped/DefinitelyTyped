@@ -3,6 +3,13 @@ import * as url from "url";
 
 type UrlLike = url.UrlObject | url.Url;
 
+type EventName = 'routeChangeStart'
+  | 'routeChangeComplete'
+  | 'routeChangeError'
+  | 'beforeHistoryChange'
+  | 'hashChangeStart'
+  | 'hashChangeComplete';
+
 export interface EventChangeOptions {
     shallow?: boolean;
     [key: string]: any;
@@ -11,6 +18,7 @@ export interface EventChangeOptions {
 export type PopStateCallback = (state: any) => boolean | undefined;
 
 export type RouterCallback = () => void;
+
 export interface RouterProps {
     // url property fields
     readonly pathname: string;
@@ -48,13 +56,10 @@ export interface RouterProps {
     ): Promise<boolean>;
 
     // events
-    onAppUpdated?(nextRoute: string): void;
-    onBeforeHistoryChange?(as: string): void;
-    onHashChangeStart?(url: string): void;
-    onHashChangeComplete?(url: string): void;
-    onRouteChangeComplete?(url: string): void;
-    onRouteChangeError?(error: any, url: string): void;
-    onRouteChangeStart?(url: string): void;
+    readonly events: {
+        on: (eventName: EventName, handler: (url?: string) => any) => void;
+        off: (eventName: EventName, handler: (url?: string) => any) => void;
+    };
 }
 
 export interface SingletonRouter extends RouterProps {
