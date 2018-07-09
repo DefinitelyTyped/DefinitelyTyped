@@ -57,8 +57,8 @@ export interface RouterProps {
 
     // events
     readonly events: {
-        on: (eventName: EventName, handler: (url?: string) => any) => void;
-        off: (eventName: EventName, handler: (url?: string) => any) => void;
+        on: (eventName: EventName, handler: (url: string) => any) => void;
+        off: (eventName: EventName, handler: (url: string) => any) => void;
     };
 }
 
