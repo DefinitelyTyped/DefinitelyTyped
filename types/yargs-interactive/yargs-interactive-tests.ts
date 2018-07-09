@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import * as yargsInteractive from "yargs-interactive";
+import yargsInteractive = require("yargs-interactive");
 
 const options: yargsInteractive.Option = {
   color: {
