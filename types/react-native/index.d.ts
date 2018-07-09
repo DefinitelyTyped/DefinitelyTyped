@@ -1,4 +1,4 @@
-// Type definitions for react-native 0.55
+// Type definitions for react-native 0.56
 // Project: https://github.com/facebook/react-native
 // Definitions by: Eloy Durán <https://github.com/alloy>
 //                 HuHuanming <https://github.com/huhuanming>
@@ -571,7 +571,7 @@ export interface FlexStyle {
     flexDirection?: "row" | "column" | "row-reverse" | "column-reverse";
     flexGrow?: number;
     flexShrink?: number;
-    flexWrap?: "wrap" | "nowrap";
+    flexWrap?: "wrap" | "nowrap" | "wrap-reverse";
     height?: number | string;
     justifyContent?: "flex-start" | "flex-end" | "center" | "space-between" | "space-around" | "space-evenly";
     left?: number | string;
@@ -1359,6 +1359,7 @@ interface TextInputState {
     currentlyFocusedField(): number;
 
     /**
+     * @deprecated
      * @param TextInputID id of the text field to focus
      * Focuses the specified text field
      * noop if the text field was already focused
@@ -1366,6 +1367,7 @@ interface TextInputState {
     focusTextInput(textFieldID?: number): void;
 
     /**
+     * @deprecated
      * @param textFieldID id of the text field to focus
      * Unfocuses the specified text field
      * noop if it wasn't focused
@@ -1830,7 +1832,7 @@ export interface AccessibilityPropsIOS {
      * Is this element a label? A button? A header? These questions are answered by accessibilityTraits.
      * @platform ios
      */
-    accessibilityTraits?: AccessibilityTraits | AccessibilityTraits[];
+    accessibilityTraits?: AccessibilityTrait | AccessibilityTrait[];
 
     /**
      * When `accessible` is true, the system will try to invoke this function when the user performs accessibility tap gesture.
@@ -1845,7 +1847,7 @@ export interface AccessibilityPropsIOS {
     onMagicTap?: () => void;
 }
 
-type AccessibilityTraits =
+type AccessibilityTrait =
     | "none"
     | "button"
     | "link"
@@ -2101,6 +2103,11 @@ Possible values for mixedContentMode are:
 'compatibility' - WebView will attempt to be compatible with the approach of a modern web browser with regard to mixed content.
     */
     mixedContentMode?: "never" | "always" | "compatibility";
+
+    /**
+     * Controls whether form autocomplete data should be saved
+     */
+    saveFormDataDisabled?: boolean;
 }
 
 export interface WebViewIOSLoadRequestEvent {
@@ -2303,6 +2310,14 @@ export interface WebViewProps extends ViewProps, WebViewPropsAndroid, WebViewPro
      * sets whether the webpage scales to fit the view and the user can change the scale
      */
     scalesPageToFit?: boolean;
+
+    /**
+     * List of origin strings to allow being navigated to.
+     * The strings allow wildcards and get matched against just the origin (not the full URL).
+     * If the user taps to navigate to a new page but the new page is not in this whitelist, the URL will be handled by the OS.
+     * The default whitelisted origins are "http://" and "https://".
+     */
+    originWhitelist?: string[];
 }
 
 export class WebView extends React.Component<WebViewProps> {
@@ -3437,11 +3452,6 @@ export interface ImagePropsIOS {
     capInsets?: Insets;
 
     /**
-     * A static image to display while downloading the final image off the network.
-     */
-    defaultSource?: ImageURISource | number;
-
-    /**
      * Invoked on download progress with {nativeEvent: {loaded, total}}
      */
     onProgress?: (event: NativeSyntheticEvent<ImageProgressEventDataIOS>) => void;
@@ -3626,12 +3636,17 @@ export interface ImagePropsBase extends ImagePropsIOS, ImagePropsAndroid, Access
     testID?: string;
 
     /**
+     * A static image to display while downloading the final image off the network.
+     */
+    defaultSource?: ImageURISource | number;
+
+    /**
      * Currently broken
      * @see https://github.com/facebook/react-native/pull/19281
      */
-    width?: never,
-    height?: never,
-    tintColor?: never,
+    width?: never;
+    height?: never;
+    tintColor?: never;
 }
 
 export interface ImageProps extends ImagePropsBase {
