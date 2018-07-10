@@ -78,12 +78,12 @@ declare namespace videojs {
 	class Component extends EventTarget {
 		constructor(player: Player, options: any);
 
-		static getComponent(name: 'Player' | 'player'): Player;
-		static getComponent(name: 'Button' | 'button'): Button;
-		static getComponent(name: 'ClickableComponent' | 'ClickableComponent'):  ClickableComponent;
-		static getComponent(name: 'ModalDialog' | 'modaldialog'): ModalDialog;
-		static getComponent(name: 'Component' | 'component' | string): Component;
-		static registerComponent(name: string, ComponentToRegister: Component): Component;
+		static getComponent(name: 'Player' | 'player'): typeof Player;
+		static getComponent(name: 'Button' | 'button'): typeof Button;
+		static getComponent(name: 'ClickableComponent' | 'ClickableComponent'): typeof ClickableComponent;
+		static getComponent(name: 'ModalDialog' | 'modaldialog'): typeof ModalDialog;
+		static getComponent(name: 'Component' | 'component' | string): typeof Component;
+		static registerComponent(name: string, ComponentToRegister: typeof Component): typeof Component;
 
 		$(selector: string, context?: string | Element): Element;
 		$$(selector: string, context?: string | Element): NodeList;
