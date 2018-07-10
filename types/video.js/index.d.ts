@@ -80,7 +80,7 @@ declare namespace videojs {
 
 		static getComponent(name: 'Player' | 'player'): typeof Player;
 		static getComponent(name: 'Button' | 'button'): typeof Button;
-		static getComponent(name: 'ClickableComponent' | 'ClickableComponent'): typeof ClickableComponent;
+		static getComponent(name: 'ClickableComponent' | 'clickablecomponent'): typeof ClickableComponent;
 		static getComponent(name: 'ModalDialog' | 'modaldialog'): typeof ModalDialog;
 		static getComponent(name: 'Component' | 'component' | string): typeof Component;
 		static registerComponent(name: string, ComponentToRegister: typeof Component): typeof Component;
