@@ -87,9 +87,9 @@ declare namespace videojs {
 
 		$(selector: string, context?: string | Element): Element;
 		$$(selector: string, context?: string | Element): NodeList;
+		addChild(component: string, optionsopt?: any, indexopt?: number): Component;
 		addChild(component: Element, optionsopt?: any, indexopt?: number): Element;
-		addChild(component: Component, optionsopt?: any, indexopt?: number): Component;
-		addChild(child: string | Component, optionsopt?: any, indexopt?: number): Component;
+		addChild<T extends Component>(component: T, optionsopt?: any, indexopt?: number): T;
 		addClass(classToAdd: string): void;
 		blur(): void;
 		buildCSSClass(): string;
