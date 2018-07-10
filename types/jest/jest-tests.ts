@@ -610,6 +610,12 @@ describe("", () => {
 
         expect({}).toMatchSnapshot();
         expect({}).toMatchSnapshot("snapshotName");
+        expect({ abc: "def" }).toMatchSnapshot({ abc: expect.any(String) }, "snapshotName");
+        expect({
+            one: 1,
+            two: "2",
+            date: new Date(),
+        }).toMatchSnapshot({ one: expect.any(Number), date: expect.any(Date) });
 
         expect(jest.fn()).toReturn();
 
