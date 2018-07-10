@@ -458,6 +458,13 @@ declare namespace IORedis {
     }
 
     interface Pipeline {
+        redis: Redis;
+        isCluster: boolean;
+        options: RedisOptions;
+        _queue: Command[];
+        _result: any[];
+        _transactions: number;
+        _shaToScript: {};
         bitcount(key: string, callback?: (err: Error, res: number) => void): Pipeline;
         bitcount(key: string, start: number, end: number, callback?: (err: Error, res: number) => void): Pipeline;
 
