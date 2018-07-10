@@ -2,101 +2,89 @@
 // Project: https://github.com/facebook/yoga#readme
 // Definitions by: tnobody <https://github.com/tnobody>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
-declare class Constans {
-    static readonly ALIGN_AUTO: 0;
-    static readonly ALIGN_COUNT: 8;
-    static readonly ALIGN_FLEX_START: 1;
-    static readonly ALIGN_CENTER: 2;
-    static readonly ALIGN_FLEX_END: 3;
-    static readonly ALIGN_STRETCH: 4;
-    static readonly ALIGN_BASELINE: 5;
-    static readonly ALIGN_SPACE_BETWEEN: 6;
-    static readonly ALIGN_SPACE_AROUND: 7;
-
-    static readonly DIMENSION_COUNT: 2;
-    static readonly DIMENSION_WIDTH: 0;
-    static readonly DIMENSION_HEIGHT: 1;
-
-    static readonly DIRECTION_COUNT: 3;
-    static readonly DIRECTION_INHERIT: 0;
-    static readonly DIRECTION_LTR: 1;
-    static readonly DIRECTION_RTL: 2;
-
-    static readonly DISPLAY_COUNT: 2;
-    static readonly DISPLAY_FLEX: 0;
-    static readonly DISPLAY_NONE: 1;
-
-    static readonly EDGE_COUNT: 9;
-    static readonly EDGE_LEFT: 0;
-    static readonly EDGE_TOP: 1;
-    static readonly EDGE_RIGHT: 2;
-    static readonly EDGE_BOTTOM: 3;
-    static readonly EDGE_START: 4;
-    static readonly EDGE_END: 5;
-    static readonly EDGE_HORIZONTAL: 6;
-    static readonly EDGE_VERTICAL: 7;
-    static readonly EDGE_ALL: 8;
-
-    static readonly EXPERIMENTAL_FEATURE_COUNT: 1;
-    static readonly EXPERIMENTAL_FEATURE_WEB_FLEX_BASIS: 0;
-
-    static readonly FLEX_DIRECTION_COUNT: 4;
-    static readonly FLEX_DIRECTION_COLUMN: 0;
-    static readonly FLEX_DIRECTION_COLUMN_REVERSE: 1;
-    static readonly FLEX_DIRECTION_ROW: 2;
-    static readonly FLEX_DIRECTION_ROW_REVERSE: 3;
-
-    static readonly JUSTIFY_COUNT: 6;
-    static readonly JUSTIFY_FLEX_START: 0;
-    static readonly JUSTIFY_CENTER: 1;
-    static readonly JUSTIFY_FLEX_END: 2;
-    static readonly JUSTIFY_SPACE_BETWEEN: 3;
-    static readonly JUSTIFY_SPACE_AROUND: 4;
-    static readonly JUSTIFY_SPACE_EVENLY: 5;
-
-    static readonly LOG_LEVEL_COUNT: 6;
-    static readonly LOG_LEVEL_ERROR: 0;
-    static readonly LOG_LEVEL_WARN: 1;
-    static readonly LOG_LEVEL_INFO: 2;
-    static readonly LOG_LEVEL_DEBUG: 3;
-    static readonly LOG_LEVEL_VERBOSE: 4;
-    static readonly LOG_LEVEL_FATAL: 5;
-
-    static readonly MEASURE_MODE_COUNT: 3;
-    static readonly MEASURE_MODE_UNDEFINED: 0;
-    static readonly MEASURE_MODE_EXACTLY: 1;
-    static readonly MEASURE_MODE_AT_MOST: 2;
-
-    static readonly NODE_TYPE_COUNT: 2;
-    static readonly NODE_TYPE_DEFAULT: 0;
-    static readonly NODE_TYPE_TEXT: 1;
-
-    static readonly OVERFLOW_COUNT: 3;
-    static readonly OVERFLOW_VISIBLE: 0;
-    static readonly OVERFLOW_HIDDEN: 1;
-    static readonly OVERFLOW_SCROLL: 2;
-
-    static readonly POSITION_TYPE_COUNT: 2;
-    static readonly POSITION_TYPE_RELATIVE: 0;
-    static readonly POSITION_TYPE_ABSOLUTE: 1;
-
-    static readonly PRINT_OPTIONS_COUNT: 3;
-    static readonly PRINT_OPTIONS_LAYOUT: 1;
-    static readonly PRINT_OPTIONS_STYLE: 2;
-    static readonly PRINT_OPTIONS_CHILDREN: 4;
-
-    static readonly UNIT_COUNT: 4;
-    static readonly UNIT_UNDEFINED: 0;
-    static readonly UNIT_POINT: 1;
-    static readonly UNIT_PERCENT: 2;
-    static readonly UNIT_AUTO: 3;
-
-    static readonly WRAP_COUNT: 3;
-    static readonly WRAP_NO_WRAP: 0;
-    static readonly WRAP_WRAP: 1;
-    static readonly WRAP_WRAP_REVERSE: 2;
+interface IConstans {
+   readonly ALIGN_AUTO: 0;
+   readonly ALIGN_COUNT: 8;
+   readonly ALIGN_FLEX_START: 1;
+   readonly ALIGN_CENTER: 2;
+   readonly ALIGN_FLEX_END: 3;
+   readonly ALIGN_STRETCH: 4;
+   readonly ALIGN_BASELINE: 5;
+   readonly ALIGN_SPACE_BETWEEN: 6;
+   readonly ALIGN_SPACE_AROUND: 7;
+   readonly DIMENSION_COUNT: 2;
+   readonly DIMENSION_WIDTH: 0;
+   readonly DIMENSION_HEIGHT: 1;
+   readonly DIRECTION_COUNT: 3;
+   readonly DIRECTION_INHERIT: 0;
+   readonly DIRECTION_LTR: 1;
+   readonly DIRECTION_RTL: 2;
+   readonly DISPLAY_COUNT: 2;
+   readonly DISPLAY_FLEX: 0;
+   readonly DISPLAY_NONE: 1;
+   readonly EDGE_COUNT: 9;
+   readonly EDGE_LEFT: 0;
+   readonly EDGE_TOP: 1;
+   readonly EDGE_RIGHT: 2;
+   readonly EDGE_BOTTOM: 3;
+   readonly EDGE_START: 4;
+   readonly EDGE_END: 5;
+   readonly EDGE_HORIZONTAL: 6;
+   readonly EDGE_VERTICAL: 7;
+   readonly EDGE_ALL: 8;
+   readonly EXPERIMENTAL_FEATURE_COUNT: 1;
+   readonly EXPERIMENTAL_FEATURE_WEB_FLEX_BASIS: 0;
+   readonly FLEX_DIRECTION_COUNT: 4;
+   readonly FLEX_DIRECTION_COLUMN: 0;
+   readonly FLEX_DIRECTION_COLUMN_REVERSE: 1;
+   readonly FLEX_DIRECTION_ROW: 2;
+   readonly FLEX_DIRECTION_ROW_REVERSE: 3;
+   readonly JUSTIFY_COUNT: 6;
+   readonly JUSTIFY_FLEX_START: 0;
+   readonly JUSTIFY_CENTER: 1;
+   readonly JUSTIFY_FLEX_END: 2;
+   readonly JUSTIFY_SPACE_BETWEEN: 3;
+   readonly JUSTIFY_SPACE_AROUND: 4;
+   readonly JUSTIFY_SPACE_EVENLY: 5;
+   readonly LOG_LEVEL_COUNT: 6;
+   readonly LOG_LEVEL_ERROR: 0;
+   readonly LOG_LEVEL_WARN: 1;
+   readonly LOG_LEVEL_INFO: 2;
+   readonly LOG_LEVEL_DEBUG: 3;
+   readonly LOG_LEVEL_VERBOSE: 4;
+   readonly LOG_LEVEL_FATAL: 5;
+   readonly MEASURE_MODE_COUNT: 3;
+   readonly MEASURE_MODE_UNDEFINED: 0;
+   readonly MEASURE_MODE_EXACTLY: 1;
+   readonly MEASURE_MODE_AT_MOST: 2;
+   readonly NODE_TYPE_COUNT: 2;
+   readonly NODE_TYPE_DEFAULT: 0;
+   readonly NODE_TYPE_TEXT: 1;
+   readonly OVERFLOW_COUNT: 3;
+   readonly OVERFLOW_VISIBLE: 0;
+   readonly OVERFLOW_HIDDEN: 1;
+   readonly OVERFLOW_SCROLL: 2;
+   readonly POSITION_TYPE_COUNT: 2;
+   readonly POSITION_TYPE_RELATIVE: 0;
+   readonly POSITION_TYPE_ABSOLUTE: 1;
+   readonly PRINT_OPTIONS_COUNT: 3;
+   readonly PRINT_OPTIONS_LAYOUT: 1;
+   readonly PRINT_OPTIONS_STYLE: 2;
+   readonly PRINT_OPTIONS_CHILDREN: 4;
+   readonly UNIT_COUNT: 4;
+   readonly UNIT_UNDEFINED: 0;
+   readonly UNIT_POINT: 1;
+   readonly UNIT_PERCENT: 2;
+   readonly UNIT_AUTO: 3;
+   readonly WRAP_COUNT: 3;
+   readonly WRAP_NO_WRAP: 0;
+   readonly WRAP_WRAP: 1;
+   readonly WRAP_WRAP_REVERSE: 2;
 }
+
+declare const Constans: IConstans;
 
 export type Yoga$JustifyContent =
     | typeof Constans.JUSTIFY_CENTER
@@ -239,7 +227,7 @@ export interface Yoga$Node {
     setMaxHeightPercent(maxHeight: number): void;
     setMaxWidth(maxWidth: number | string): void;
     setMaxWidthPercent(maxWidth: number): void;
-    setMeasureFunc(measureFunc: Function | null): void;
+    setMeasureFunc(measureFunc: (() => any) | null): void;
     setMinHeight(minHeight: number | string): void;
     setMinHeightPercent(minHeight: number): void;
     setMinWidth(minWidth: number | string): void;
@@ -279,14 +267,13 @@ export class Layout {
         bottom: number,
         width: number,
         height: number,
-    ) => any): void
+    ) => any): void;
 
     toString(): string;
-
 }
 
 export class Size {
-    static fromJS(dim: { width: number, height: number }): Size
+    static fromJS(dim: { width: number, height: number }): Size;
 
     readonly width: number;
     readonly height: number;
@@ -315,28 +302,35 @@ export interface Yoga$Config {
     setExperimentalFeatureEnabled(
         feature: Yoga$ExperimentalFeature,
         enabled: boolean,
-    ): void
-    setPointScalFactor(factor: number): void
+    ): void;
+    setPointScalFactor(factor: number): void;
 }
 
-
-export class Node {
-    static create(): Yoga$Node;
-    static createDefault(): Yoga$Node;
-    static createWithConfig(config: Yoga$Config): Yoga$Node;
-    static destroy(node: Yoga$Node): any;
+interface INode {
+    create(): Yoga$Node;
+    createDefault(): Yoga$Node;
+    createWithConfig(config: Yoga$Config): Yoga$Node;
+    destroy(node: Yoga$Node): any;
 }
 
-export class Config {
-    static create(): Yoga$Config;
-    static destroy(config: Yoga$Config): any;
+export const Node: INode;
+
+interface IConfig {
+    create(): Yoga$Config;
+    destroy(config: Yoga$Config): any;
 }
 
-export default class Yoga extends Constans {
-    static Node: typeof Node;
-    static Config: typeof Config;
-    static Layout: typeof Layout;
-    static Size: typeof Size;
-    static Value: typeof Value;
+export const Config: IConfig;
+
+interface IYoga extends IConstans {
+    Node: typeof Node;
+    Config: typeof Config;
+    Layout: typeof Layout;
+    Size: typeof Size;
+    Value: typeof Value;
     getInstanceCount(): number
 }
+
+declare const Yoga: IYoga;
+
+export default Yoga;
