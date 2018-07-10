@@ -1,4 +1,4 @@
-// Type definitions for joi v13.3.0
+// Type definitions for joi v13.4.0
 // Project: https://github.com/hapijs/joi
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 //                 Laurence Dougal Myers <https://github.com/laurence-myers>
