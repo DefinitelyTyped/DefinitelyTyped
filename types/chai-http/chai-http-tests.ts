@@ -84,6 +84,10 @@ chai.request(app)
 	.then((res: ChaiHttp.Response) => chai.expect(res).to.have.status(200))
 	.catch((err: any) => { throw err; });
 
+chai.request(app)
+	.keepOpen()
+	.close((err: any) => { throw err; });
+
 const agent = chai.request.agent(app);
 
 agent
@@ -96,6 +100,8 @@ agent
 		return agent.get('/user/me')
 			.then((res: ChaiHttp.Response) => chai.expect(res).to.have.status(200));
 	});
+
+agent.close((err: any) => { throw err; });
 
 function test1() {
 	const req = chai.request(app).get('/');
