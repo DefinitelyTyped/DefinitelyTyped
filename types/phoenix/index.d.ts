@@ -123,21 +123,34 @@ declare module "phoenix" {
     appendParams(url: string, params: any): string;
   }
 
-  export var Presence: {
-    syncState(
+  export class Presence {
+    constructor(channel: Channel, opt?: {events: any});
+
+    state: any;
+    pendingDiffs: any[];
+    channel: Channel;
+    joinRef: any;
+
+    onJoin(callback: (key: any, currentPresence: any, newPresence: any) => void): void;
+    onLeave(callback: (key: any, currentPresence: any, leftPresence: any) => void): void;
+    onSync(callback: () => void): void;
+    list(by: Function): any[];
+    inPendingSyncState(): boolean;
+
+    static syncState(
       currentState: any,
       newState: any,
-      onJoin?: (key?: string, currentPresence?: any, newPresence?: any) => void,
-      onLeave?: (key?: string, currentPresence?: any, newPresence?: any) => void
+      onJoin: (key: any, currentPresence: any, newPresence: any) => void,
+      onLeave: (key: any, currentPresence: any, leftPresence: any) => void
     ): any;
 
-    syncDiff(
+    static syncDiff(
       currentState: any,
-      newState: any,
-      onJoin?: (key?: string, currentPresence?: any, newPresence?: any) => void,
-      onLeave?: (key?: string, currentPresence?: any, newPresence?: any) => void
+      diff: {joins: any[], leaves: any[]},
+      onJoin: (key: any, currentPresence: any, newPresence: any) => void,
+      onLeave: (key: any, currentPresence: any, leftPresence: any) => void
     ): any;
 
-    list(presences: any, chooser?: Function): any;
+    static list(presences: any, chooser: Function): any[];
   }
 }
