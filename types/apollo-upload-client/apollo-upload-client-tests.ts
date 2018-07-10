@@ -1,9 +1,9 @@
 import { createUploadLink, ReactNativeFile } from "apollo-upload-client";
 
 new ReactNativeFile({
-    name: "ho",
-    type: "ho",
-    uri: "ho",
+    name: "its coming home",
+    type: "its coming",
+    uri: "football's coming home",
 });
 
 createUploadLink({
