@@ -18,8 +18,8 @@ declare namespace EventBus {
     unregisterHandler(address: string, headers: any, callback: (error: Error, message: any) => any): any;
     send(address: string, message: any, headers: any, callback?: (error: Error, message: any) => any): any;
     publish(address: string, message: any, headers?: any): any;
-    enableReconnect(enable: boolean);
-    enablePing(enable: boolean);
+    enableReconnect(enable: boolean): any;
+    enablePing(enable: boolean): any;
     close(): any;
   }
 }
