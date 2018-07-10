@@ -100,7 +100,7 @@ declare namespace got {
     }
 
     interface GotJSONOptions extends GotOptions<string | null> {
-        body?: any;
+        body?: object;
         form?: boolean;
         json: true;
     }
