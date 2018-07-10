@@ -645,6 +645,8 @@ declare namespace google.maps {
          * Marker position. Required.
          */
         position: LatLng|LatLngLiteral;
+        /** url to link */
+        url?: string;
         /** Image map region definition used for drag/click. */
         shape?: MarkerShape;
         /** Rollover text. */
