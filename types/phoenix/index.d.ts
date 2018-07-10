@@ -146,7 +146,7 @@ declare module "phoenix" {
 
     static syncDiff(
       currentState: any,
-      diff: {joins: any[], leaves: []},
+      diff: {joins: any[], leaves: any[]},
       onJoin: (key: any, currentPresence: any, newPresence: any) => void,
       onLeave: (key: any, currentPresence: any, leftPresence: any) => void
     ): any;
