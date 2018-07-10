@@ -76,8 +76,6 @@ declare interface ReadConcern {
             | "local" /** https://docs.mongodb.com/manual/reference/read-concern-local/#readconcern.%22local%22 */
             | "majority" /** https://docs.mongodb.com/manual/reference/read-concern-majority/#readconcern.%22majority%22 */
             | "snapshot"; /** https://docs.mongodb.com/manual/reference/read-concern-snapshot/#readconcern.%22snapshot%22 */
-    /** https://docs.mongodb.com/manual/reference/read-concern-linearizable/#readconcern.%22linearizable%22 */
-    maxTimeMS?: number;
 }
 
 /** https://docs.mongodb.com/manual/reference/write-concern/#write-concern */
@@ -86,25 +84,35 @@ declare interface WriteConcern {
      * Minimum number of node to consider commit success or just use "majority"
      * See https://docs.mongodb.com/manual/reference/write-concern/#write-concern-specification
      */
-    w?: number | "majority";
+    w?: number | "majority" | string;
     /** Specify a journal write concern. */
     j?: boolean;
     /** The write concern timeout. */
     wtimeout?: number;
 }
 
-/** https://docs.mongodb.com/manual/reference/method/Session/ */
+/** http://mongodb.github.io/node-mongodb-native/3.1/api/ClientSession.html */
 declare class ClientSession extends EventEmitter {
-    abortTransaction() : void;
-    advanceOperationTime(time: Timestamp) : void;
-    /** https://docs.mongodb.com/manual/reference/method/Session.commitTransaction/ */
-    commitTransaction() : Promise<void>;
+    /** http://mongodb.github.io/node-mongodb-native/3.1/api/ClientSession.html#id */
+    id: Object
+    /** http://mongodb.github.io/node-mongodb-native/3.1/api/ClientSession.html#abortTransaction */
+    abortTransaction(cb?: MongoCallback<void>): Promise<void>;
+    /** http://mongodb.github.io/node-mongodb-native/3.1/api/ClientSession.html#advanceOperationTime */
+    advanceOperationTime(time: Timestamp): void;
+    /** http://mongodb.github.io/node-mongodb-native/3.1/api/ClientSession.html#commitTransaction */
+    commitTransaction(cb?: MongoCallback<void>): Promise<void>;
+    /** http://mongodb.github.io/node-mongodb-native/3.1/api/ClientSession.html#endSession */
     endSession(callback?: MongoCallback<void>): void;
-    endSession(options: any, callback?: MongoCallback<void>): void;
+    /** http://mongodb.github.io/node-mongodb-native/3.1/api/ClientSession.html#endSession */
+    endSession(options?: any, callback?: MongoCallback<void>): void;
+    /** http://mongodb.github.io/node-mongodb-native/3.1/api/ClientSession.html#equals */
     equals(session: ClientSession): boolean;
-    /** https://docs.mongodb.com/manual/reference/method/Session.startTransaction/#Session.startTransaction */
-    startTransaction({readConcern, writeConcern}? : {readConcern?: ReadConcern, writeConcern?: WriteConcern}) : void;
-    hasEnded : boolean
+    /** http://mongodb.github.io/node-mongodb-native/3.1/api/ClientSession.html#incrementTransactionNumber */
+    incrementTransactionNumber(): void;
+    /** http://mongodb.github.io/node-mongodb-native/3.1/api/ClientSession.html#inTransaction */
+    inTransaction(): boolean
+    /** http://mongodb.github.io/node-mongodb-native/3.1/api/ClientSession.html#startTransaction */
+    startTransaction({readConcern, writeConcern, readPreference}?: {readConcern?: ReadConcern, writeConcern?: WriteConcern, readPreference?: ReadPreference}) : void;
 }
 
 export interface MongoClientCommonOption {

@@ -62,8 +62,7 @@ MongoClient.connect('mongodb://127.0.0.1:27017/test', options, function (err: mo
     let session = client.startSession({
         causalConsistency: true,
         readConcern: {
-            level: 'linearizable',
-            maxTimeMS: 1000
+            level: 'linearizable'
         },
         readPreference: {
             isValid: (mode) => {return true},
@@ -80,7 +79,7 @@ MongoClient.connect('mongodb://127.0.0.1:27017/test', options, function (err: mo
     });
     collection = db.collection('test_insert');
     session.startTransaction();
-    session.commitTransaction()
+    session.commitTransaction((err, _) => {})
     session.startTransaction({
         readConcern: {
             level: 'majority'
@@ -91,7 +90,9 @@ MongoClient.connect('mongodb://127.0.0.1:27017/test', options, function (err: mo
             wtimeout: 10
         }
     })
-    session.abortTransaction()
+    collection.findOneAndUpdate({xxx: 3}, {$set: {xxx: 4}}, {maxTimeMS: 1000})
+    session.abortTransaction().then(() => {})
+    session.abortTransaction((err, _) => {}) // another form 
     session.endSession();
 
     {
