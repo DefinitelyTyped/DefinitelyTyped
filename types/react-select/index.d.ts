@@ -623,6 +623,10 @@ export interface ReactAsyncSelectProps<TValue = OptionValues> extends ReactSelec
      *  replaces the placeholder while options are loading
      */
     loadingPlaceholder?: string | JSX.Element;
+    /**
+     *  displayed in the drop down list when the user did not type anything yet
+     */
+    searchPromptText?: string;
 }
 
 export type ReactAsyncCreatableSelectProps<TValue = OptionValues> = ReactAsyncSelectProps<TValue> & ReactCreatableSelectProps<TValue>;
