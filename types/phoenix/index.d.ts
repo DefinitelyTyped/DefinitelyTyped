@@ -136,21 +136,21 @@ declare module "phoenix" {
     onSync(callback: () => void): void;
     list(by: Function): any[];
     inPendingSyncState(): boolean;
-  
+
     static syncState(
       currentState: any,
       newState: any,
       onJoin: (key: any, currentPresence: any, newPresence: any) => void,
       onLeave: (key: any, currentPresence: any, leftPresence: any) => void
     ): any;
-      
+
     static syncDiff(
       currentState: any,
       diff: {joins: any[], leaves: []},
       onJoin: (key: any, currentPresence: any, newPresence: any) => void,
       onLeave: (key: any, currentPresence: any, leftPresence: any) => void
     ): any;
-    
+
     static list(presences: any, chooser: Function): any[];
   }
 }
