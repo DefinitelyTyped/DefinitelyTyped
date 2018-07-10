@@ -464,6 +464,8 @@ declare namespace mapboxgl {
         anchor?: Anchor;
 
         offset?: number | PointLike | { [key: string]: PointLike; };
+
+        className?: string;
     }
 
     export interface Style {
