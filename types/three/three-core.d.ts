@@ -6644,7 +6644,7 @@ export namespace SceneUtils {
 
 export namespace ShapeUtils {
     export function area(contour: (Vector2 | Vector3)[]): number;
-    export function triangulateShape(contour: (Vector2 | Vector3)[], holes: any[]): number[];
+    export function triangulateShape(contour: (Vector2 | Vector3)[], holes: any[]): number[][];
     export function isClockWise(pts: (Vector2 | Vector3)[]): boolean;
 }
 
