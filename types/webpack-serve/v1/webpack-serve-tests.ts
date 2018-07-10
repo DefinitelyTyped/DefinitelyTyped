@@ -1,5 +1,5 @@
 import webpack = require('webpack');
-import serve = require('webpack-serve');
+import serve = require('./index');
 
 const config: webpack.Configuration = {
   mode: 'development',
