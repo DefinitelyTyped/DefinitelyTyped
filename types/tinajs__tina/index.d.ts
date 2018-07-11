@@ -15,6 +15,7 @@ export interface ComponentDefinitions {
     data: { [key: string]: any };
     compute: (data: { [key: string]: any }) => { [key: string]: any };
     methods: { [name: string]: (this: Component) => any };
+    mixins: Partial<ComponentDefinitions>[];
 }
 
 export class Component {

@@ -7,6 +7,22 @@ Page.define({
 });
 
 Page.define({
+    mixins: [
+        {
+            methods: {
+                lol() {
+                    return;
+                }
+            }
+        },
+        {
+            methods: {
+                tiktok() {
+                    return;
+                }
+            }
+        }
+    ],
     data: {
         count: 0
     },
