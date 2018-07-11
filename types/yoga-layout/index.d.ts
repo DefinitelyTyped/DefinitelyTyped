@@ -4,225 +4,303 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-interface IConstans {
-   readonly ALIGN_AUTO: 0;
-   readonly ALIGN_COUNT: 8;
-   readonly ALIGN_FLEX_START: 1;
-   readonly ALIGN_CENTER: 2;
-   readonly ALIGN_FLEX_END: 3;
-   readonly ALIGN_STRETCH: 4;
-   readonly ALIGN_BASELINE: 5;
-   readonly ALIGN_SPACE_BETWEEN: 6;
-   readonly ALIGN_SPACE_AROUND: 7;
-   readonly DIMENSION_COUNT: 2;
-   readonly DIMENSION_WIDTH: 0;
-   readonly DIMENSION_HEIGHT: 1;
-   readonly DIRECTION_COUNT: 3;
-   readonly DIRECTION_INHERIT: 0;
-   readonly DIRECTION_LTR: 1;
-   readonly DIRECTION_RTL: 2;
-   readonly DISPLAY_COUNT: 2;
-   readonly DISPLAY_FLEX: 0;
-   readonly DISPLAY_NONE: 1;
-   readonly EDGE_COUNT: 9;
-   readonly EDGE_LEFT: 0;
-   readonly EDGE_TOP: 1;
-   readonly EDGE_RIGHT: 2;
-   readonly EDGE_BOTTOM: 3;
-   readonly EDGE_START: 4;
-   readonly EDGE_END: 5;
-   readonly EDGE_HORIZONTAL: 6;
-   readonly EDGE_VERTICAL: 7;
-   readonly EDGE_ALL: 8;
-   readonly EXPERIMENTAL_FEATURE_COUNT: 1;
-   readonly EXPERIMENTAL_FEATURE_WEB_FLEX_BASIS: 0;
-   readonly FLEX_DIRECTION_COUNT: 4;
-   readonly FLEX_DIRECTION_COLUMN: 0;
-   readonly FLEX_DIRECTION_COLUMN_REVERSE: 1;
-   readonly FLEX_DIRECTION_ROW: 2;
-   readonly FLEX_DIRECTION_ROW_REVERSE: 3;
-   readonly JUSTIFY_COUNT: 6;
-   readonly JUSTIFY_FLEX_START: 0;
-   readonly JUSTIFY_CENTER: 1;
-   readonly JUSTIFY_FLEX_END: 2;
-   readonly JUSTIFY_SPACE_BETWEEN: 3;
-   readonly JUSTIFY_SPACE_AROUND: 4;
-   readonly JUSTIFY_SPACE_EVENLY: 5;
-   readonly LOG_LEVEL_COUNT: 6;
-   readonly LOG_LEVEL_ERROR: 0;
-   readonly LOG_LEVEL_WARN: 1;
-   readonly LOG_LEVEL_INFO: 2;
-   readonly LOG_LEVEL_DEBUG: 3;
-   readonly LOG_LEVEL_VERBOSE: 4;
-   readonly LOG_LEVEL_FATAL: 5;
-   readonly MEASURE_MODE_COUNT: 3;
-   readonly MEASURE_MODE_UNDEFINED: 0;
-   readonly MEASURE_MODE_EXACTLY: 1;
-   readonly MEASURE_MODE_AT_MOST: 2;
-   readonly NODE_TYPE_COUNT: 2;
-   readonly NODE_TYPE_DEFAULT: 0;
-   readonly NODE_TYPE_TEXT: 1;
-   readonly OVERFLOW_COUNT: 3;
-   readonly OVERFLOW_VISIBLE: 0;
-   readonly OVERFLOW_HIDDEN: 1;
-   readonly OVERFLOW_SCROLL: 2;
-   readonly POSITION_TYPE_COUNT: 2;
-   readonly POSITION_TYPE_RELATIVE: 0;
-   readonly POSITION_TYPE_ABSOLUTE: 1;
-   readonly PRINT_OPTIONS_COUNT: 3;
-   readonly PRINT_OPTIONS_LAYOUT: 1;
-   readonly PRINT_OPTIONS_STYLE: 2;
-   readonly PRINT_OPTIONS_CHILDREN: 4;
-   readonly UNIT_COUNT: 4;
-   readonly UNIT_UNDEFINED: 0;
-   readonly UNIT_POINT: 1;
-   readonly UNIT_PERCENT: 2;
-   readonly UNIT_AUTO: 3;
-   readonly WRAP_COUNT: 3;
-   readonly WRAP_NO_WRAP: 0;
-   readonly WRAP_WRAP: 1;
-   readonly WRAP_WRAP_REVERSE: 2;
+export const ALIGN_AUTO: 0;
+export const ALIGN_COUNT: 8;
+export const ALIGN_FLEX_START: 1;
+export const ALIGN_CENTER: 2;
+export const ALIGN_FLEX_END: 3;
+export const ALIGN_STRETCH: 4;
+export const ALIGN_BASELINE: 5;
+export const ALIGN_SPACE_BETWEEN: 6;
+export const ALIGN_SPACE_AROUND: 7;
+export const DIMENSION_COUNT: 2;
+export const DIMENSION_WIDTH: 0;
+export const DIMENSION_HEIGHT: 1;
+export const DIRECTION_COUNT: 3;
+export const DIRECTION_INHERIT: 0;
+export const DIRECTION_LTR: 1;
+export const DIRECTION_RTL: 2;
+export const DISPLAY_COUNT: 2;
+export const DISPLAY_FLEX: 0;
+export const DISPLAY_NONE: 1;
+export const EDGE_COUNT: 9;
+export const EDGE_LEFT: 0;
+export const EDGE_TOP: 1;
+export const EDGE_RIGHT: 2;
+export const EDGE_BOTTOM: 3;
+export const EDGE_START: 4;
+export const EDGE_END: 5;
+export const EDGE_HORIZONTAL: 6;
+export const EDGE_VERTICAL: 7;
+export const EDGE_ALL: 8;
+export const EXPERIMENTAL_FEATURE_COUNT: 1;
+export const EXPERIMENTAL_FEATURE_WEB_FLEX_BASIS: 0;
+export const FLEX_DIRECTION_COUNT: 4;
+export const FLEX_DIRECTION_COLUMN: 0;
+export const FLEX_DIRECTION_COLUMN_REVERSE: 1;
+export const FLEX_DIRECTION_ROW: 2;
+export const FLEX_DIRECTION_ROW_REVERSE: 3;
+export const JUSTIFY_COUNT: 6;
+export const JUSTIFY_FLEX_START: 0;
+export const JUSTIFY_CENTER: 1;
+export const JUSTIFY_FLEX_END: 2;
+export const JUSTIFY_SPACE_BETWEEN: 3;
+export const JUSTIFY_SPACE_AROUND: 4;
+export const JUSTIFY_SPACE_EVENLY: 5;
+export const LOG_LEVEL_COUNT: 6;
+export const LOG_LEVEL_ERROR: 0;
+export const LOG_LEVEL_WARN: 1;
+export const LOG_LEVEL_INFO: 2;
+export const LOG_LEVEL_DEBUG: 3;
+export const LOG_LEVEL_VERBOSE: 4;
+export const LOG_LEVEL_FATAL: 5;
+export const MEASURE_MODE_COUNT: 3;
+export const MEASURE_MODE_UNDEFINED: 0;
+export const MEASURE_MODE_EXACTLY: 1;
+export const MEASURE_MODE_AT_MOST: 2;
+export const NODE_TYPE_COUNT: 2;
+export const NODE_TYPE_DEFAULT: 0;
+export const NODE_TYPE_TEXT: 1;
+export const OVERFLOW_COUNT: 3;
+export const OVERFLOW_VISIBLE: 0;
+export const OVERFLOW_HIDDEN: 1;
+export const OVERFLOW_SCROLL: 2;
+export const POSITION_TYPE_COUNT: 2;
+export const POSITION_TYPE_RELATIVE: 0;
+export const POSITION_TYPE_ABSOLUTE: 1;
+export const PRINT_OPTIONS_COUNT: 3;
+export const PRINT_OPTIONS_LAYOUT: 1;
+export const PRINT_OPTIONS_STYLE: 2;
+export const PRINT_OPTIONS_CHILDREN: 4;
+export const UNIT_COUNT: 4;
+export const UNIT_UNDEFINED: 0;
+export const UNIT_POINT: 1;
+export const UNIT_PERCENT: 2;
+export const UNIT_AUTO: 3;
+export const WRAP_COUNT: 3;
+export const WRAP_NO_WRAP: 0;
+export const WRAP_WRAP: 1;
+export const WRAP_WRAP_REVERSE: 2;
+
+interface ConstantsStatic {
+   readonly ALIGN_AUTO: typeof ALIGN_AUTO;
+   readonly ALIGN_COUNT: typeof ALIGN_COUNT;
+   readonly ALIGN_FLEX_START: typeof ALIGN_FLEX_START;
+   readonly ALIGN_CENTER: typeof ALIGN_CENTER;
+   readonly ALIGN_FLEX_END: typeof ALIGN_FLEX_END;
+   readonly ALIGN_STRETCH: typeof ALIGN_STRETCH;
+   readonly ALIGN_BASELINE: typeof ALIGN_BASELINE;
+   readonly ALIGN_SPACE_BETWEEN: typeof ALIGN_SPACE_BETWEEN;
+   readonly ALIGN_SPACE_AROUND: typeof ALIGN_SPACE_AROUND;
+   readonly DIMENSION_COUNT: typeof DIMENSION_COUNT;
+   readonly DIMENSION_WIDTH: typeof DIMENSION_WIDTH;
+   readonly DIMENSION_HEIGHT: typeof DIMENSION_HEIGHT;
+   readonly DIRECTION_COUNT: typeof DIRECTION_COUNT;
+   readonly DIRECTION_INHERIT: typeof DIRECTION_INHERIT;
+   readonly DIRECTION_LTR: typeof DIRECTION_LTR;
+   readonly DIRECTION_RTL: typeof DIRECTION_RTL;
+   readonly DISPLAY_COUNT: typeof DISPLAY_COUNT;
+   readonly DISPLAY_FLEX: typeof DISPLAY_FLEX;
+   readonly DISPLAY_NONE: typeof DISPLAY_NONE;
+   readonly EDGE_COUNT: typeof EDGE_COUNT;
+   readonly EDGE_LEFT: typeof EDGE_LEFT;
+   readonly EDGE_TOP: typeof EDGE_TOP;
+   readonly EDGE_RIGHT: typeof EDGE_RIGHT;
+   readonly EDGE_BOTTOM: typeof EDGE_BOTTOM;
+   readonly EDGE_START: typeof EDGE_START;
+   readonly EDGE_END: typeof EDGE_END;
+   readonly EDGE_HORIZONTAL: typeof EDGE_HORIZONTAL;
+   readonly EDGE_VERTICAL: typeof EDGE_VERTICAL;
+   readonly EDGE_ALL: typeof EDGE_ALL;
+   readonly EXPERIMENTAL_FEATURE_COUNT: typeof EXPERIMENTAL_FEATURE_COUNT;
+   readonly EXPERIMENTAL_FEATURE_WEB_FLEX_BASIS: typeof EXPERIMENTAL_FEATURE_WEB_FLEX_BASIS;
+   readonly FLEX_DIRECTION_COUNT: typeof FLEX_DIRECTION_COUNT;
+   readonly FLEX_DIRECTION_COLUMN: typeof FLEX_DIRECTION_COLUMN;
+   readonly FLEX_DIRECTION_COLUMN_REVERSE: typeof FLEX_DIRECTION_COLUMN_REVERSE;
+   readonly FLEX_DIRECTION_ROW: typeof FLEX_DIRECTION_ROW;
+   readonly FLEX_DIRECTION_ROW_REVERSE: typeof FLEX_DIRECTION_ROW_REVERSE;
+   readonly JUSTIFY_COUNT: typeof JUSTIFY_COUNT;
+   readonly JUSTIFY_FLEX_START: typeof JUSTIFY_FLEX_START;
+   readonly JUSTIFY_CENTER: typeof JUSTIFY_CENTER;
+   readonly JUSTIFY_FLEX_END: typeof JUSTIFY_FLEX_END;
+   readonly JUSTIFY_SPACE_BETWEEN: typeof JUSTIFY_SPACE_BETWEEN;
+   readonly JUSTIFY_SPACE_AROUND: typeof JUSTIFY_SPACE_AROUND;
+   readonly JUSTIFY_SPACE_EVENLY: typeof JUSTIFY_SPACE_EVENLY;
+   readonly LOG_LEVEL_COUNT: typeof LOG_LEVEL_COUNT;
+   readonly LOG_LEVEL_ERROR: typeof LOG_LEVEL_ERROR;
+   readonly LOG_LEVEL_WARN: typeof LOG_LEVEL_WARN;
+   readonly LOG_LEVEL_INFO: typeof LOG_LEVEL_INFO;
+   readonly LOG_LEVEL_DEBUG: typeof LOG_LEVEL_DEBUG;
+   readonly LOG_LEVEL_VERBOSE: typeof LOG_LEVEL_VERBOSE;
+   readonly LOG_LEVEL_FATAL: typeof LOG_LEVEL_FATAL;
+   readonly MEASURE_MODE_COUNT: typeof MEASURE_MODE_COUNT;
+   readonly MEASURE_MODE_UNDEFINED: typeof MEASURE_MODE_UNDEFINED;
+   readonly MEASURE_MODE_EXACTLY: typeof MEASURE_MODE_EXACTLY;
+   readonly MEASURE_MODE_AT_MOST: typeof MEASURE_MODE_AT_MOST;
+   readonly NODE_TYPE_COUNT: typeof NODE_TYPE_COUNT;
+   readonly NODE_TYPE_DEFAULT: typeof NODE_TYPE_DEFAULT;
+   readonly NODE_TYPE_TEXT: typeof NODE_TYPE_TEXT;
+   readonly OVERFLOW_COUNT: typeof OVERFLOW_COUNT;
+   readonly OVERFLOW_VISIBLE: typeof OVERFLOW_VISIBLE;
+   readonly OVERFLOW_HIDDEN: typeof OVERFLOW_HIDDEN;
+   readonly OVERFLOW_SCROLL: typeof OVERFLOW_SCROLL;
+   readonly POSITION_TYPE_COUNT: typeof POSITION_TYPE_COUNT;
+   readonly POSITION_TYPE_RELATIVE: typeof POSITION_TYPE_RELATIVE;
+   readonly POSITION_TYPE_ABSOLUTE: typeof POSITION_TYPE_ABSOLUTE;
+   readonly PRINT_OPTIONS_COUNT: typeof PRINT_OPTIONS_COUNT;
+   readonly PRINT_OPTIONS_LAYOUT: typeof PRINT_OPTIONS_LAYOUT;
+   readonly PRINT_OPTIONS_STYLE: typeof PRINT_OPTIONS_STYLE;
+   readonly PRINT_OPTIONS_CHILDREN: typeof PRINT_OPTIONS_CHILDREN;
+   readonly UNIT_COUNT: typeof UNIT_COUNT;
+   readonly UNIT_UNDEFINED: typeof UNIT_UNDEFINED;
+   readonly UNIT_POINT: typeof UNIT_POINT;
+   readonly UNIT_PERCENT: typeof UNIT_PERCENT;
+   readonly UNIT_AUTO: typeof UNIT_AUTO;
+   readonly WRAP_COUNT: typeof WRAP_COUNT;
+   readonly WRAP_NO_WRAP: typeof WRAP_NO_WRAP;
+   readonly WRAP_WRAP: typeof WRAP_WRAP;
+   readonly WRAP_WRAP_REVERSE: typeof WRAP_WRAP_REVERSE;
 }
 
-declare const Constans: IConstans;
+declare const Constans: ConstantsStatic;
 
-export type Yoga$JustifyContent =
-    | typeof Constans.JUSTIFY_CENTER
-    | typeof Constans.JUSTIFY_FLEX_END
-    | typeof Constans.JUSTIFY_FLEX_START
-    | typeof Constans.JUSTIFY_SPACE_AROUND
-    | typeof Constans.JUSTIFY_SPACE_BETWEEN
-    | typeof Constans.JUSTIFY_SPACE_EVENLY;
+export type YogaJustifyContent =
+    | typeof JUSTIFY_CENTER
+    | typeof JUSTIFY_FLEX_END
+    | typeof JUSTIFY_FLEX_START
+    | typeof JUSTIFY_SPACE_AROUND
+    | typeof JUSTIFY_SPACE_BETWEEN
+    | typeof JUSTIFY_SPACE_EVENLY;
 
-export type Yoga$Align =
-    | typeof Constans.ALIGN_AUTO
-    | typeof Constans.ALIGN_BASELINE
-    | typeof Constans.ALIGN_CENTER
-    | typeof Constans.ALIGN_FLEX_END
-    | typeof Constans.ALIGN_FLEX_START
-    | typeof Constans.ALIGN_SPACE_AROUND
-    | typeof Constans.ALIGN_SPACE_BETWEEN
-    | typeof Constans.ALIGN_STRETCH;
+export type YogaAlign =
+    | typeof ALIGN_AUTO
+    | typeof ALIGN_BASELINE
+    | typeof ALIGN_CENTER
+    | typeof ALIGN_FLEX_END
+    | typeof ALIGN_FLEX_START
+    | typeof ALIGN_SPACE_AROUND
+    | typeof ALIGN_SPACE_BETWEEN
+    | typeof ALIGN_STRETCH;
 
-export type Yoga$FlexDirection =
-    | typeof Constans.FLEX_DIRECTION_COLUMN
-    | typeof Constans.FLEX_DIRECTION_COLUMN_REVERSE
-    | typeof Constans.FLEX_DIRECTION_COUNT
-    | typeof Constans.FLEX_DIRECTION_ROW
-    | typeof Constans.FLEX_DIRECTION_ROW_REVERSE;
+export type YogaFlexDirection =
+    | typeof FLEX_DIRECTION_COLUMN
+    | typeof FLEX_DIRECTION_COLUMN_REVERSE
+    | typeof FLEX_DIRECTION_COUNT
+    | typeof FLEX_DIRECTION_ROW
+    | typeof FLEX_DIRECTION_ROW_REVERSE;
 
-export type Yoga$Direction =
-    | typeof Constans.DIRECTION_INHERIT
-    | typeof Constans.DIRECTION_LTR
-    | typeof Constans.DIRECTION_RTL;
+export type YogaDirection =
+    | typeof DIRECTION_INHERIT
+    | typeof DIRECTION_LTR
+    | typeof DIRECTION_RTL;
 
-export type Yoga$FlexWrap =
-    | typeof Constans.WRAP_NO_WRAP
-    | typeof Constans.WRAP_WRAP
-    | typeof Constans.WRAP_WRAP_REVERSE;
+export type YogaFlexWrap =
+    | typeof WRAP_NO_WRAP
+    | typeof WRAP_WRAP
+    | typeof WRAP_WRAP_REVERSE;
 
-export type Yoga$Edge =
-    | typeof Constans.EDGE_LEFT
-    | typeof Constans.EDGE_TOP
-    | typeof Constans.EDGE_RIGHT
-    | typeof Constans.EDGE_BOTTOM
-    | typeof Constans.EDGE_START
-    | typeof Constans.EDGE_END
-    | typeof Constans.EDGE_HORIZONTAL
-    | typeof Constans.EDGE_VERTICAL
-    | typeof Constans.EDGE_ALL;
+export type YogaEdge =
+    | typeof EDGE_LEFT
+    | typeof EDGE_TOP
+    | typeof EDGE_RIGHT
+    | typeof EDGE_BOTTOM
+    | typeof EDGE_START
+    | typeof EDGE_END
+    | typeof EDGE_HORIZONTAL
+    | typeof EDGE_VERTICAL
+    | typeof EDGE_ALL;
 
-export type Yoga$Display =
-    | typeof Constans.DISPLAY_FLEX
-    | typeof Constans.DISPLAY_NONE;
+export type YogaDisplay =
+    | typeof DISPLAY_FLEX
+    | typeof DISPLAY_NONE;
 
-export type Yoga$Unit =
-    | typeof Constans.UNIT_AUTO
-    | typeof Constans.UNIT_PERCENT
-    | typeof Constans.UNIT_POINT
-    | typeof Constans.UNIT_UNDEFINED;
+export type YogaUnit =
+    | typeof UNIT_AUTO
+    | typeof UNIT_PERCENT
+    | typeof UNIT_POINT
+    | typeof UNIT_UNDEFINED;
 
-export type Yoga$Overflow =
-    | typeof Constans.OVERFLOW_HIDDEN
-    | typeof Constans.OVERFLOW_SCROLL
-    | typeof Constans.OVERFLOW_VISIBLE;
+export type YogaOverflow =
+    | typeof OVERFLOW_HIDDEN
+    | typeof OVERFLOW_SCROLL
+    | typeof OVERFLOW_VISIBLE;
 
-export type Yoga$PositionType =
-    | typeof Constans.POSITION_TYPE_ABSOLUTE
-    | typeof Constans.POSITION_TYPE_RELATIVE;
+export type YogaPositionType =
+    | typeof POSITION_TYPE_ABSOLUTE
+    | typeof POSITION_TYPE_RELATIVE;
 
-export type Yoga$ExperimentalFeature = typeof Constans.EXPERIMENTAL_FEATURE_WEB_FLEX_BASIS;
+export type YogaExperimentalFeature = typeof EXPERIMENTAL_FEATURE_WEB_FLEX_BASIS;
 
-export interface Yoga$Node {
+export interface YogaNode {
     calculateLayout(
         width?: number,
         height?: number,
-        direction?: Yoga$Direction,
+        direction?: YogaDirection,
     ): void;
-    copyStyle(node: Yoga$Node): void;
+    copyStyle(node: YogaNode): void;
     free(): void;
     freeRecursive(): void;
-    getAlignContent(): Yoga$Align;
-    getAlignItems(): Yoga$Align;
-    getAlignSelf(): Yoga$Align;
+    getAlignContent(): YogaAlign;
+    getAlignItems(): YogaAlign;
+    getAlignSelf(): YogaAlign;
     getAspectRatio(): number;
-    getBorder(edge: Yoga$Edge): number;
-    getChild(index: number): Yoga$Node;
+    getBorder(edge: YogaEdge): number;
+    getChild(index: number): YogaNode;
     getChildCount(): number;
-    getComputedBorder(edge: Yoga$Edge): number;
+    getComputedBorder(edge: YogaEdge): number;
     getComputedBottom(): number;
     getComputedHeight(): number;
     getComputedLayout(): Layout;
     getComputedLeft(): number;
-    getComputedMargin(edge: Yoga$Edge): number;
-    getComputedPadding(edge: Yoga$Edge): number;
+    getComputedMargin(edge: YogaEdge): number;
+    getComputedPadding(edge: YogaEdge): number;
     getComputedRight(): number;
     getComputedTop(): number;
     getComputedWidth(): number;
-    getDisplay(): Yoga$Display;
+    getDisplay(): YogaDisplay;
     getFlexBasis(): number;
-    getFlexDirection(): Yoga$FlexDirection;
+    getFlexDirection(): YogaFlexDirection;
     getFlexGrow(): number;
     getFlexShrink(): number;
-    getFlexWrap(): Yoga$FlexWrap;
+    getFlexWrap(): YogaFlexWrap;
     getHeight(): Value;
-    getJustifyContent(): Yoga$JustifyContent;
-    getMargin(edge: Yoga$Edge): Value;
+    getJustifyContent(): YogaJustifyContent;
+    getMargin(edge: YogaEdge): Value;
     getMaxHeight(): Value;
     getMaxWidth(): Value;
     getMinHeight(): Value;
     getMinWidth(): Value;
-    getOverflow(): Yoga$Overflow;
-    getPadding(edge: Yoga$Edge): Value;
-    getParent(): Yoga$Node | null;
-    getPosition(edge: Yoga$Edge): Value;
-    getPositionType(): Yoga$PositionType;
+    getOverflow(): YogaOverflow;
+    getPadding(edge: YogaEdge): Value;
+    getParent(): YogaNode | null;
+    getPosition(edge: YogaEdge): Value;
+    getPositionType(): YogaPositionType;
     getWidth(): Value;
-    insertChild(child: Yoga$Node, index: number): void;
+    insertChild(child: YogaNode, index: number): void;
     isDirty(): boolean;
     markDirty(): void;
-    removeChild(child: Yoga$Node): void;
+    removeChild(child: YogaNode): void;
     reset(): void;
-    setAlignContent(alignContent: Yoga$Align): void;
-    setAlignItems(alignItems: Yoga$Align): void;
-    setAlignSelf(alignSelf: Yoga$Align): void;
+    setAlignContent(alignContent: YogaAlign): void;
+    setAlignItems(alignItems: YogaAlign): void;
+    setAlignSelf(alignSelf: YogaAlign): void;
     setAspectRatio(aspectRatio: number): void;
-    setBorder(edge: Yoga$Edge, borderWidth: number): void;
-    setDisplay(display: Yoga$Display): void;
+    setBorder(edge: YogaEdge, borderWidth: number): void;
+    setDisplay(display: YogaDisplay): void;
     setFlex(flex: number): void;
     setFlexBasis(flexBasis: number | string): void;
     setFlexBasisPercent(flexBasis: number): void;
-    setFlexDirection(flexDirection: Yoga$FlexDirection): void;
+    setFlexDirection(flexDirection: YogaFlexDirection): void;
     setFlexGrow(flexGrow: number): void;
     setFlexShrink(flexShrink: number): void;
-    setFlexWrap(flexWrap: Yoga$FlexWrap): void;
+    setFlexWrap(flexWrap: YogaFlexWrap): void;
     setHeight(height: number | string): void;
     setHeightAuto(): void;
     setHeightPercent(height: number): void;
-    setJustifyContent(justifyContent: Yoga$JustifyContent): void;
-    setMargin(edge: Yoga$Edge, margin: number): void;
-    setMarginAuto(edge: Yoga$Edge): void;
-    setMarginPercent(edge: Yoga$Edge, margin: number): void;
+    setJustifyContent(justifyContent: YogaJustifyContent): void;
+    setMargin(edge: YogaEdge, margin: number): void;
+    setMarginAuto(edge: YogaEdge): void;
+    setMarginPercent(edge: YogaEdge, margin: number): void;
     setMaxHeight(maxHeight: number | string): void;
     setMaxHeightPercent(maxHeight: number): void;
     setMaxWidth(maxWidth: number | string): void;
@@ -232,12 +310,12 @@ export interface Yoga$Node {
     setMinHeightPercent(minHeight: number): void;
     setMinWidth(minWidth: number | string): void;
     setMinWidthPercent(minWidth: number): void;
-    setOverflow(overflow: Yoga$Overflow): void;
-    setPadding(edge: Yoga$Edge, padding: number | string): void;
-    setPaddingPercent(edge: Yoga$Edge, padding: number): void;
-    setPosition(edge: Yoga$Edge, position: number | string): void;
-    setPositionPercent(edge: Yoga$Edge, position: number): void;
-    setPositionType(positionType: Yoga$PositionType): void;
+    setOverflow(overflow: YogaOverflow): void;
+    setPadding(edge: YogaEdge, padding: number | string): void;
+    setPaddingPercent(edge: YogaEdge, padding: number): void;
+    setPosition(edge: YogaEdge, position: number | string): void;
+    setPositionPercent(edge: YogaEdge, position: number): void;
+    setPositionType(positionType: YogaPositionType): void;
     setWidth(width: number | string): void;
     setWidthAuto(): void;
     setWidthPercent(width: number): void;
@@ -286,51 +364,51 @@ export class Size {
 }
 
 export class Value {
-    readonly unit: Yoga$Unit | number;
+    readonly unit: YogaUnit | number;
     readonly value: number;
 
-    constructor(unit: Yoga$Unit | number, value: number);
+    constructor(unit: YogaUnit | number, value: number);
 
-    fromJs(expose: (unit: Yoga$Unit | number, value: number) => any): void;
+    fromJs(expose: (unit: YogaUnit | number, value: number) => any): void;
 
     toString(): string;
     valueOf(): number;
 }
 
-export interface Yoga$Config {
-    isExperimentalFeatureEnabled(feature: Yoga$ExperimentalFeature): boolean;
+export interface YogaConfig {
+    isExperimentalFeatureEnabled(feature: YogaExperimentalFeature): boolean;
     setExperimentalFeatureEnabled(
-        feature: Yoga$ExperimentalFeature,
+        feature: YogaExperimentalFeature,
         enabled: boolean,
     ): void;
     setPointScalFactor(factor: number): void;
 }
 
-interface INode {
-    create(): Yoga$Node;
-    createDefault(): Yoga$Node;
-    createWithConfig(config: Yoga$Config): Yoga$Node;
-    destroy(node: Yoga$Node): any;
+interface NodeStatic {
+    create(): YogaNode;
+    createDefault(): YogaNode;
+    createWithConfig(config: YogaConfig): YogaNode;
+    destroy(node: YogaNode): any;
 }
 
-export const Node: INode;
+export const Node: NodeStatic;
 
-interface IConfig {
-    create(): Yoga$Config;
-    destroy(config: Yoga$Config): any;
+interface ConfigStatic {
+    create(): YogaConfig;
+    destroy(config: YogaConfig): any;
 }
 
-export const Config: IConfig;
+export const Config: ConfigStatic;
 
-interface IYoga extends IConstans {
+interface YogaStatic extends ConstantsStatic {
     Node: typeof Node;
     Config: typeof Config;
     Layout: typeof Layout;
     Size: typeof Size;
     Value: typeof Value;
-    getInstanceCount(): number
+    getInstanceCount(): number;
 }
 
-declare const Yoga: IYoga;
+declare const Yoga: YogaStatic;
 
 export default Yoga;

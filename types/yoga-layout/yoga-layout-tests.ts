@@ -1,4 +1,4 @@
-import yoga, { Node, Config, Size, Value } from 'yoga-layout';
+import yoga, { Node, Config, Size, Value, DISPLAY_FLEX } from 'yoga-layout';
 
 const cfg = Config.create();
 
@@ -12,6 +12,7 @@ root.setJustifyContent(yoga.JUSTIFY_CENTER);
 const node1 = yoga.Node.create();
 node1.setWidth(100);
 node1.setHeight(100);
+node1.setDisplay(DISPLAY_FLEX);
 
 const node2 = Node.create();
 node2.setWidth(100);
