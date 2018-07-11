@@ -23,7 +23,7 @@ export interface ComponentDefinitions extends ComponentLifecycles {
     data: { [key: string]: any };
     compute: (data: { [key: string]: any }) => { [key: string]: any };
     methods: { [name: string]: (this: Component) => any };
-    mixins: Partial<ComponentDefinitions>[];
+    mixins: Array<Partial<ComponentDefinitions>>;
 }
 
 export class Component {
@@ -53,7 +53,7 @@ export interface PageDefinitions
     extends ComponentDefinitions,
         PageEvents,
         PageHooks {
-    mixins: Partial<PageDefinitions>[];
+    mixins: Array<Partial<PageDefinitions>>;
 }
 
 export class Page extends Component {
