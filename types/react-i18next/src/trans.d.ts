@@ -5,6 +5,10 @@ export interface TOptions {
     [key: string]: any;
 }
 
+export interface Values {
+	[key: string]: any;
+}
+
 export interface TransProps {
     i18nKey?: string;
     count?: number;
@@ -12,6 +16,9 @@ export interface TransProps {
     i18n?: i18n;
     t?: TranslationFunction;
     tOptions?: TOptions;
+    defaults?: string;
+    values?: Values;
+    components?: React.ReactNode[];
 }
 
 export default class Trans extends React.Component<TransProps> { }
