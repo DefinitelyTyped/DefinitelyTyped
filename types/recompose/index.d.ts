@@ -266,12 +266,12 @@ declare module 'recompose' {
     export const toClass: InferableComponentEnhancer<{}>;
 
     // toRenderProps: https://github.com/acdlite/recompose/blob/master/docs/API.md#torenderprops
-    export function toRenderProps<TInner = {}, TOutter = {}>(
+    export function toRenderProps<TInner, TOutter>(
       hoc: InferableComponentEnhancerWithProps<TInner & TOutter, TOutter>
     ): StatelessComponent<TOutter & { children: (props: TInner) => React.ReactElement<any> }>;
 
     // fromRenderProps: https://github.com/acdlite/recompose/blob/master/docs/API.md#fromrenderprops
-    export function fromRenderProps<TInner = {}, TOutter = {}, TRenderProps = {}>(
+    export function fromRenderProps<TInner, TOutter, TRenderProps = {}>(
       RenderPropsComponent: StatelessComponent<any>,
       propsMapper: (props: TRenderProps) => Partial<TInner>,
       renderPropName?: string
