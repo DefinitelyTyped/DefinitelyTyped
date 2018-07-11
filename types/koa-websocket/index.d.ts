@@ -16,12 +16,12 @@ declare namespace KoaWebsocket {
 
     type Middleware = (this: MiddlewareContext, context: Koa.Context, next: () => Promise<any>) => any;
 
-    export interface MiddlewareContext extends Koa.Context {
+    interface MiddlewareContext extends Koa.Context {
         websocket: ws;
         path: string;
     }
 
-    export class Server {
+    class Server {
         app: Koa;
         middleware: Koa.Middleware[];
 
@@ -32,7 +32,7 @@ declare namespace KoaWebsocket {
         use(middleware: Middleware): this;
     }
 
-    export interface App extends Koa {
+    interface App extends Koa {
         ws: Server;
     }
 }
