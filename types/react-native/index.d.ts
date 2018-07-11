@@ -766,6 +766,7 @@ export interface TextStyleIOS extends ViewStyle {
     letterSpacing?: number;
     textDecorationColor?: string;
     textDecorationStyle?: "solid" | "double" | "dotted" | "dashed";
+    textTransform?: "none" | "capitalize" | "uppercase" | "lowercase";
     writingDirection?: "auto" | "ltr" | "rtl";
 }
 

@@ -676,6 +676,10 @@ class StylePropsTest extends React.PureComponent {
                     // tintColor="green"
                     // width={200}
                 />
+
+                <Text style={{ /* iOs only */ textTransform: 'capitalize'  }}>
+                    Text
+                </Text>
             </View>
         );
     }
