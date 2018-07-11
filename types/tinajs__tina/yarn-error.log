@@ -1,0 +1,36 @@
+Arguments: 
+  /usr/local/Cellar/node/10.6.0/bin/node /usr/local/Cellar/yarn/1.7.0/libexec/bin/yarn.js init
+
+PATH: 
+  /Users/jiayu_liu/.opam/system/bin:/Users/jiayu_liu/airlab/runtime_gems/tools/bin:/Users/jiayu_liu/.yarn/bin:/usr/local/bin:/usr/local/sbin:/Users/jiayu_liu/.cargo/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/osquery/bin:/Library/TeX/texbin:/opt/airbnb/bin:/opt/puppetlabs/bin:/usr/local/munki:/usr/bin:/bin:/usr/sbin:/sbin:/Users/jiayu_liu/.local/bin:/opt/X11/bin:/usr/local/opt/coreutils/libexec/gnubin:/usr/local/opt/binutils/bin:/Library/TeX/Distributions/.DefaultTeX/Contents/Programs/texbin:/Users/jiayu_liu/go/bin:/usr/local/opt/go/libexec/bin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin
+
+Yarn version: 
+  1.7.0
+
+Node version: 
+  10.6.0
+
+Platform: 
+  darwin x64
+
+Trace: 
+  Error: canceled
+      at Interface.<anonymous> (/usr/local/Cellar/yarn/1.7.0/libexec/lib/cli.js:131036:13)
+      at Interface.emit (events.js:182:13)
+      at Interface._ttyWrite (readline.js:783:16)
+      at ReadStream.onkeypress (readline.js:168:10)
+      at ReadStream.emit (events.js:182:13)
+      at emitKeys (internal/readline.js:422:14)
+      at emitKeys.next (<anonymous>)
+      at ReadStream.onData (readline.js:1022:36)
+      at ReadStream.emit (events.js:182:13)
+      at addChunk (_stream_readable.js:283:12)
+
+npm manifest: 
+  No manifest
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
