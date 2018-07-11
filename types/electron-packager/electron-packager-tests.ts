@@ -2,7 +2,7 @@ import packager = require("electron-packager");
 
 function callback(err: Error, appPaths: string[]) {
 	const msg = err.message;
-	const	index = appPaths.indexOf("test");
+	const index = appPaths.indexOf("test");
 }
 
 function completeFunction(buildPath: string, electronVersion: string, platform: string, arch: string, callbackFn: () => void) {
