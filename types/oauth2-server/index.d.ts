@@ -1,7 +1,8 @@
 // Type definitions for Node OAuth2 Server 3.0
 // Project: https://github.com/oauthjs/node-oauth2-server
 // Definitions by:  Robbie Van Gorkom <https://github.com/vangorra>,
-//                  Charles Irick <https://github.com/cirick>
+//                  Charles Irick <https://github.com/cirick>,
+//                  Daniel Fischer <https://github.com/d-fischer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -380,6 +381,24 @@ declare namespace OAuth2Server {
         user: User;
         [key: string]: any;
     }
+
+    class OAuthError extends Error {
+        constructor(messageOrError: string | Error, properties?: object);
+    }
+
+    class AccessDeniedError extends OAuthError {}
+    class InsufficientScopeError extends OAuthError {}
+    class InvalidArgumentError extends OAuthError {}
+    class InvalidClientError extends OAuthError {}
+    class InvalidGrantError extends OAuthError {}
+    class InvalidRequestError extends OAuthError {}
+    class InvalidScopeError extends OAuthError {}
+    class InvalidTokenError extends OAuthError {}
+    class ServerError extends OAuthError {}
+    class UnauthorizedClientError extends OAuthError {}
+    class UnauthorizedRequestError extends OAuthError {}
+    class UnsupportedGrantTypeError extends OAuthError {}
+    class UnsupportedResponseTypeError extends OAuthError {}
 }
 
 export = OAuth2Server;
