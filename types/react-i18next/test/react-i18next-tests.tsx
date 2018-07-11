@@ -114,6 +114,8 @@ loadNamespaces({components: [App], i18n}).then(() => {
 <Trans count={5}/>;
 <Trans count={5} i18nKey="key"/>;
 <Trans parent={'span'}/>;
+<Trans parent={<div />}/>;
+<Trans parent={() => <div />}/>;
 <Trans i18n={i18n.init()}/>;
 <Trans t={i18n.getFixedT('en')}/>;
 <Trans count={5}>

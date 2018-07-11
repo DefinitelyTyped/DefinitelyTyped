@@ -8,7 +8,7 @@ export interface TOptions {
 export interface TransProps {
     i18nKey?: string;
     count?: number;
-    parent?: string;
+    parent?: React.ReactNode | (() => React.ReactNode);
     i18n?: i18n;
     t?: TranslationFunction;
     tOptions?: TOptions;
