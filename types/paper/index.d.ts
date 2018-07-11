@@ -1,6 +1,8 @@
-// Type definitions for Paper.js v0.9.24
+// Type definitions for Paper.js v0.11.5
 // Project: http://paperjs.org/
-// Definitions by: Clark Stevenson <https://github.com/clark-stevenson>, Jon Lucas <https://github.com/Xakaloz>
+// Definitions by:  Clark Stevenson <https://github.com/clark-stevenson>,
+//                  Jon Lucas <https://github.com/Xakaloz>,
+//                  Sebastian Lopez <https://github.com/sebaswebdev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 type NativeMouseEvent = MouseEvent;
