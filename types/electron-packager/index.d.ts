@@ -31,6 +31,8 @@ declare function electronPackager(opts: electronPackager.Options): Promise<strin
  *
  * @param opts - Options to configure packaging.
  * @param callback - Callback which is called when packaging is done or an error occured.
+ *
+ * @deprecated since version 12.0
  */
 declare function electronPackager(opts: electronPackager.Options, callback: electronPackager.finalCallback): void;
 
