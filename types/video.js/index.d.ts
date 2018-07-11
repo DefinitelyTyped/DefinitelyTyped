@@ -82,6 +82,7 @@ declare namespace videojs {
 		static getComponent(name: 'Button' | 'button'): typeof Button;
 		static getComponent(name: 'ClickableComponent' | 'clickablecomponent'): typeof ClickableComponent;
 		static getComponent(name: 'ModalDialog' | 'modaldialog'): typeof ModalDialog;
+		static getComponent(name: 'ControlBar' | 'controlbar'): typeof ControlBar;
 		static getComponent(name: 'Component' | 'component' | string): typeof Component;
 		static registerComponent(name: string, ComponentToRegister: typeof Component): typeof Component;
 
@@ -141,6 +142,8 @@ declare namespace videojs {
 		width(num: number, skipListeners?: number): void;
 	}
 
+	class ControlBar extends Component {}
+
 	class ModalDialog extends Component {
 		open(): void;
 		close(): void;
@@ -162,6 +165,7 @@ declare namespace videojs {
 		bigPlayButton: Button;
 		loadingSpinner: Component;
 		errorDisplay: ModalDialog;
+		controlBar: ControlBar;
 
 		autoplay(value?: boolean): string;
 		addRemoteTextTrack(options: {}, manualCleanup?: boolean): HTMLTrackElement;
