@@ -383,7 +383,7 @@ declare namespace OAuth2Server {
     }
 
     class OAuthError extends Error {
-        constructor(messageOrError: string | Error, properties?: Object);
+        constructor(messageOrError: string | Error, properties?: object);
 
         /**
          * The HTTP error code.
