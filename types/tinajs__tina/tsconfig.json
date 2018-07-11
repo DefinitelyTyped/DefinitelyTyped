@@ -10,7 +10,10 @@
         "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@tinajs/tina": ["tinajs__tina"]
+        }
     },
-    "files": ["index.d.ts", "tina-tests.ts"]
+    "files": ["index.d.ts", "tinajs__tina-tests.ts"]
 }
