@@ -8,7 +8,7 @@
 
 export type Omit<T, K extends keyof T> = Pick<T, ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never, [x: number]: never })[keyof T]>;
 
-import { ComponentClass } from "react";
+import { ComponentType } from "react";
 import { StyledComponentClass } from "styled-components";
 
 export type ResponsiveProp = number | string | Array<string | number>;
@@ -39,7 +39,7 @@ export interface BoxProps
     extends Omit<React.HTMLProps<HTMLDivElement>, "width" | "wrap" | "is"> {
     flex?: ResponsiveProp;
     order?: ResponsiveProp;
-    is?: string | ComponentClass<any>;
+    is?: string | ComponentType<any>;
     alignSelf?: ResponsiveProp;
 }
 
