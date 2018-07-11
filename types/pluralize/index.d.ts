@@ -75,3 +75,4 @@ declare namespace pluralize {
 }
 
 export = pluralize;
+export as namespace pluralize;
