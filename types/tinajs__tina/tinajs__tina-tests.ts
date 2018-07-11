@@ -1,5 +1,18 @@
 import { Page, Component } from "@tinajs/tina";
 
+function sayHi() {
+    return "hi";
+}
+
+Page.mixin({
+    onLoad: sayHi,
+    created: sayHi
+});
+
+Component.mixin({
+    created: sayHi
+});
+
 Page.define({
     properties: {
         content: String

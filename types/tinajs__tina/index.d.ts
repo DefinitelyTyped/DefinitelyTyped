@@ -10,7 +10,15 @@ export interface ComponentProperties {
     [key: string]: any;
 }
 
-export interface ComponentDefinitions {
+export interface ComponentLifecycles {
+    created: () => void;
+    attached: () => void;
+    ready: () => void;
+    moved: () => void;
+    detached: () => void;
+}
+
+export interface ComponentDefinitions extends ComponentLifecycles {
     properties: ComponentProperties;
     data: { [key: string]: any };
     compute: (data: { [key: string]: any }) => { [key: string]: any };
@@ -20,6 +28,7 @@ export interface ComponentDefinitions {
 
 export class Component {
     static define(definitions: Partial<ComponentDefinitions>): void;
+    static mixin(definitions: Partial<ComponentDefinitions>): void;
     setData(data: { [key: string]: any }): void;
     data: { [key: string]: any };
 }
@@ -43,8 +52,11 @@ export interface PageEvents {
 export interface PageDefinitions
     extends ComponentDefinitions,
         PageEvents,
-        PageHooks {}
+        PageHooks {
+    mixins: Partial<PageDefinitions>[];
+}
 
 export class Page extends Component {
     static define(definitions: Partial<PageDefinitions>): void;
+    static mixin(definitions: Partial<PageDefinitions>): void;
 }
