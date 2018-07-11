@@ -270,6 +270,13 @@ declare module 'recompose' {
       hoc: InferableComponentEnhancerWithProps<TInner & TOutter, TOutter>
     ): StatelessComponent<TOutter & { children: (props: TInner) => React.ReactElement<any> }>;
 
+    // fromRenderProps: https://github.com/acdlite/recompose/blob/master/docs/API.md#fromrenderprops
+    export function fromRenderProps<TInner = {}, TOutter = {}, TRenderProps = {}>(
+      RenderPropsComponent: StatelessComponent<any>,
+      propsMapper: (props: TRenderProps) => Partial<TInner>,
+      renderPropName?: string
+    ): ComponentEnhancer<TInner, TOutter>;
+
     // Static property helpers: https://github.com/acdlite/recompose/blob/master/docs/API.md#static-property-helpers
 
     // setStatic: https://github.com/acdlite/recompose/blob/master/docs/API.md#setStatic
@@ -594,6 +601,12 @@ declare module 'recompose/toClass' {
 declare module 'recompose/toRenderProps' {
   import { toRenderProps } from 'recompose';
   export default toRenderProps;
+}
+
+// https://github.com/acdlite/recompose/blob/master/docs/API.md#fromrenderprops
+declare module 'recompose/fromRenderProps' {
+  import { fromRenderProps } from 'recompose';
+  export default fromRenderProps;
 }
 
 // https://github.com/acdlite/recompose/blob/master/docs/API.md#setstatic
