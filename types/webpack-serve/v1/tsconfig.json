@@ -12,6 +12,9 @@
     "typeRoots": [
       "../../"
     ],
+    "paths": {
+        "webpack-serve": ["webpack-serve/v1"]
+    },
     "types": [],
     "noEmit": true,
     "forceConsistentCasingInFileNames": true
