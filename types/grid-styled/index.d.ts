@@ -1,4 +1,4 @@
-// Type definitions for grid-styled 4.1
+// Type definitions for grid-styled 4.2
 // Project: https://github.com/jxnblk/grid-styled
 // Definitions by: Anton Vasin <https://github.com/antonvasin>
 //                 Victor Orlov <https://github.com/vittorio>
