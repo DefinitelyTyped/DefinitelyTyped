@@ -264,7 +264,7 @@ declare namespace OAuth2Server {
          * Invoked to check if the requested scope is valid for a particular client/user combination.
          *
          */
-        validateScope?(user: User, client: Client, scope: string, callback?: Callback<string[] | Falsey>): Promise<string[] | Falsey>;
+        validateScope?(user: User, client: Client, scope: string, callback?: Callback<string | Falsey>): Promise<string | Falsey>;
     }
 
     interface PasswordModel extends BaseModel, RequestAuthenticationModel {
@@ -284,7 +284,7 @@ declare namespace OAuth2Server {
          * Invoked to check if the requested scope is valid for a particular client/user combination.
          *
          */
-        validateScope?(user: User, client: Client, scope: string, callback?: Callback<string[] | Falsey>): Promise<string[] | Falsey>;
+        validateScope?(user: User, client: Client, scope: string, callback?: Callback<string | Falsey>): Promise<string | Falsey>;
     }
 
     interface RefreshTokenModel extends BaseModel, RequestAuthenticationModel {
@@ -318,7 +318,7 @@ declare namespace OAuth2Server {
          * Invoked to check if the requested scope is valid for a particular client/user combination.
          *
          */
-        validateScope?(user: User, client: Client, scope: string, callback?: Callback<string[] | Falsey>): Promise<string[] | Falsey>;
+        validateScope?(user: User, client: Client, scope: string, callback?: Callback<string | Falsey>): Promise<string | Falsey>;
     }
 
     interface ExtensionModel extends BaseModel, RequestAuthenticationModel {}
@@ -383,7 +383,7 @@ declare namespace OAuth2Server {
     }
 
     class OAuthError extends Error {
-        constructor(messageOrError: string | Error, properties?: object);
+        constructor(messageOrError: string | Error, properties?: Object);
 
         /**
          * The HTTP error code.
