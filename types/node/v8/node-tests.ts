@@ -388,6 +388,9 @@ function bufferTests() {
     console.log(Buffer.byteLength('xyz123', 'ascii'));
     var result1 = Buffer.concat([utf8Buffer, base64Buffer]);
     var result2 = Buffer.concat([utf8Buffer, base64Buffer], 9999999);
+    var uint8Buffer = new Uint8Array(10);
+    var result3 = Buffer.concat([utf8Buffer, uint8Buffer]);
+    var result3 = Buffer.concat([utf8Buffer, uint8Buffer], 9999999);
 
     // Class Methods: Buffer.swap16(), Buffer.swa32(), Buffer.swap64()
     {
