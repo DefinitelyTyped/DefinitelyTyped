@@ -7,6 +7,10 @@ interface DocumentTitleProps {
 
 type State = string | undefined;
 
+interface ServerState {
+    innerState: State;
+}
+
 const DocumentTitle = () => null;
 
 function reducePropsToState(propsList: DocumentTitleProps[]): State {
@@ -20,15 +24,32 @@ function handleStateChangeOnClient(title: State) {
     document.title = title || "";
 }
 
-const DocumentTitleWithSideEffects = withSideEffect(
+const mapStateOnServer = (state: State): ServerState => ({ innerState: state });
+
+const DocumentTitleServer = withSideEffect(
+    reducePropsToState,
+    handleStateChangeOnClient,
+    mapStateOnServer
+)(DocumentTitle);
+
+const testServer = () => {
+    const testComponent = () => <DocumentTitleServer title="Title" />;
+    const peekedState: ServerState = DocumentTitleServer.peek();
+    const rewindedState: State = DocumentTitleServer.rewind();
+};
+
+const DocumentTitleNotServer = withSideEffect(
     reducePropsToState,
     handleStateChangeOnClient
 )(DocumentTitle);
 
-const testComponent = () => <DocumentTitleWithSideEffects title="Title" />;
+const testNotServer = () => {
+    const testComponent = () => <DocumentTitleNotServer title="asdf" />;
+    const peekedState: State = DocumentTitleNotServer.peek();
+    const rewindedState: State = DocumentTitleNotServer.rewind();
+};
 
-const otherTestComponent = () =>
+const testInvalidProp = () => (
     // $ExpectError
-    <DocumentTitleWithSideEffects notAValidProp="this should fail" />;
-
-export default DocumentTitleWithSideEffects;
+    <DocumentTitleServer notAValidProp="this should fail" />
+);
