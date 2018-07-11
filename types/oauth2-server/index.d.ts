@@ -384,6 +384,16 @@ declare namespace OAuth2Server {
 
     class OAuthError extends Error {
         constructor(messageOrError: string | Error, properties?: object);
+
+        /**
+         * The HTTP error code.
+         */
+        code: number;
+
+        /**
+         * The OAuth error code.
+         */
+        name: string;
     }
 
     class AccessDeniedError extends OAuthError {}
