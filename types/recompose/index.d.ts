@@ -265,6 +265,10 @@ declare module 'recompose' {
     // toClass: https://github.com/acdlite/recompose/blob/master/docs/API.md#toClass
     export const toClass: InferableComponentEnhancer<{}>;
 
+    // toRenderProps: https://github.com/acdlite/recompose/blob/master/docs/API.md#torenderprops
+    export function toRenderProps<TInner = {}, TOutter = {}>(
+      hoc: InferableComponentEnhancerWithProps<TInner & TOutter, TOutter>
+    ): StatelessComponent<TOutter & { children: (props: TInner) => React.ReactElement<any> }>;
 
     // Static property helpers: https://github.com/acdlite/recompose/blob/master/docs/API.md#static-property-helpers
 
@@ -584,6 +588,12 @@ declare module 'recompose/lifecycle' {
 declare module 'recompose/toClass' {
     import { toClass } from 'recompose';
     export default toClass;
+}
+
+// https://github.com/acdlite/recompose/blob/master/docs/API.md#torenderprops
+declare module 'recompose/toRenderProps' {
+  import { toRenderProps } from 'recompose';
+  export default toRenderProps;
 }
 
 // https://github.com/acdlite/recompose/blob/master/docs/API.md#setstatic

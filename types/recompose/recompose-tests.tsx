@@ -6,7 +6,7 @@ import {
     withState, withReducer, branch, renderComponent,
     renderNothing, shouldUpdate, pure, onlyUpdateForKeys,
     onlyUpdateForPropTypes, withContext, getContext,
-    lifecycle, toClass, withStateHandlers,
+    lifecycle, toClass, toRenderProps, withStateHandlers,
     // Static property helpers
     setStatic, setPropTypes, setDisplayName,
     // Utilities
@@ -50,6 +50,7 @@ import withContextStandalone from "recompose/withContext";
 import getContextStandalone from "recompose/getContext";
 import lifecycleStandalone from "recompose/lifecycle";
 import toClassStandalone from "recompose/toClass";
+import toRenderPropsStandalone from "recompose/toRenderProps";
 import setStaticStandalone from "recompose/setStatic";
 import setPropTypesStandalone from "recompose/setPropTypes";
 import setDisplayNameStandalone from "recompose/setDisplayName";
@@ -405,4 +406,19 @@ function testLifecycle() {
             this.instanceValue = 2
         }
     })(component)
+}
+
+function testToRenderProps() {
+    interface OutterProps {
+      foo: number;
+    }
+
+    interface InnerProps {
+      fooPlusOne: number;
+    }
+
+    const enhance = withProps<InnerProps, OutterProps>(({ foo }) => ({ fooPlusOne: foo + 1 }))
+    const Enhanced = toRenderProps<InnerProps, OutterProps>(enhance)
+
+    return <Enhanced foo={1}>{({ fooPlusOne }) => <h1>{fooPlusOne}</h1>}</Enhanced>
 }
