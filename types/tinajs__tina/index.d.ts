@@ -13,6 +13,7 @@ export interface ComponentProperties {
 export interface ComponentDefinitions {
     properties: ComponentProperties;
     data: { [key: string]: any };
+    compute: (data: { [key: string]: any }) => { [key: string]: any };
     methods: { [name: string]: (this: Component) => any };
 }
 

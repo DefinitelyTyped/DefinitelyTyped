@@ -1,4 +1,4 @@
-import { Page } from "@tinajs/tina";
+import { Page, Component } from "@tinajs/tina";
 
 Page.define({
     properties: {
@@ -10,6 +10,9 @@ Page.define({
     data: {
         count: 0
     },
+    compute({ count }) {
+        return { countPlus1: count + 1 };
+    },
     onLoad() {
         this.data.count;
     },
@@ -18,4 +21,8 @@ Page.define({
             this.data.count;
         }
     }
+});
+
+Component.define({
+    data: {}
 });
