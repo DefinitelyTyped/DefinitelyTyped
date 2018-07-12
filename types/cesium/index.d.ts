@@ -1,4 +1,4 @@
-// Type definitions for cesium 1.44
+// Type definitions for cesium 1.46
 // Project: http://cesiumjs.org
 // Definitions by: Aigars Zeiza <https://github.com/Zuzon>
 //                 Harry Nicholls <https://github.com/hnipps>
@@ -1437,10 +1437,10 @@ declare namespace Cesium {
     }
 
     class TerrainData {
+        credits: Credit[];
         waterMask: Uint8Array | HTMLImageElement | HTMLCanvasElement;
         interpolateHeight(rectangle: Rectangle, longitude: number, latitude: number): number;
         isChildAvailable(thisX: number, thisY: number, childX: number, childY: number): boolean;
-        createMesh(tilingScheme: TilingScheme, x: number, y: number, level: number): Promise<TerrainMesh>;
         upsample(tilingScheme: TilingScheme, thisX: number, thisY: number, thisLevel: number, descendantX: number, descendantY: number, descendantLevel: number): Promise<TerrainData>;
         wasCreatedByUpsampling(): boolean;
     }
@@ -1459,7 +1459,7 @@ declare namespace Cesium {
     }
 
     abstract class TerrainProvider {
-        availability: any; // TileAvailability
+        availability: TileAvailability;
         credit: Credit;
         errorEvent: Event;
         hasVertexNormals: boolean;
@@ -1473,6 +1473,15 @@ declare namespace Cesium {
         getLevelMaximumGeometricError(level: number): number;
         getTileDataAvailable(x: number, y: number, level: number): boolean;
         requestTileGeometry(x: number, y: number, level: number, throttleRequests?: boolean): Promise<TerrainData>;
+    }
+
+    class TileAvailability {
+        constructor(tilingScheme: TilingScheme, maximumLevel: number);
+        addAvailableTileRange(level: number, startX: number, startY: number, endX: number, endY: number): void;
+        computeBestAvailableLevelOverRectangle(rectangle: Rectangle): number;
+        computeChildMaskForTile(level: number, x: number, y: number): number;
+        computeMaximumLevelAtPosition(position: Cartographic): number;
+        isTileAvailable(level: number, x: number, y: number): boolean;
     }
 
     class TileProviderError {
@@ -3007,21 +3016,82 @@ declare namespace Cesium {
         destroy(): void;
     }
 
+    class GoogleEarthEnterpriseMetadata {
+        imageryPresent: boolean;
+        key: ArrayBuffer;
+        negativeAltitudeExponentBias: number;
+        negativeAltitudeThreshold: number;
+        protoImagery: boolean;
+        readonly proxy: Proxy;
+        readonly readyPromise: Promise<boolean>;
+        readonly resource: Resource;
+        terrainPresent: boolean;
+        readonly url: string;
+        constructor(resourceOrUrl: Resource | string);
+        static quadKeyToTileXY(quadkey: string): {x: number, y: number, level: number};
+        static tileXYToQuadKey(x: number, y: number, level: number): string;
+    }
+
     class GoogleEarthEnterpriseImageryProvider extends ImageryProvider {
-        url: string;
-        path: string;
-        channel: number;
-        version: number;
-        requestType: string;
+        readonly url: string;
         constructor(options: {
-            url: string;
+            url: Resource | string;
+            metadata: GoogleEarthEnterpriseMetadata;
+            ellipsoid?: Ellipsoid;
+            tileDiscardPolicy?: TileDiscardPolicy;
+            credit?: Credit | string;
+        });
+    }
+
+    class GoogleEarthEnterpriseMapsProvider extends ImageryProvider {
+        readonly channel: number;
+        readonly path: string;
+        readonly requestType: string;
+        readonly url: string;
+        readonly version: number;
+        static logoUrl: string;
+        constructor(options: {
+            url: Resource | string;
             channel: number;
             path?: string;
             maximumLevel?: number;
             tileDiscardPolicy?: TileDiscardPolicy;
             ellipsoid?: Ellipsoid;
-            proxy?: Proxy
         });
+    }
+
+    class GoogleEarthEnterpriseTerrainData extends TerrainData {
+        constructor(options: {
+            buffer: ArrayBuffer;
+            negativeAltitudeExponentBias: number;
+            negativeElevationThreshold: number;
+            childTileMask?: number;
+            createdByUpsampling?: boolean;
+            credits?: Credit[];
+        });
+    }
+
+    class GoogleEarthEnterpriseTerrainProvider {
+        static heightmapTerrainQuality: number;
+        availability: TileAvailability;
+        credit: Credit;
+        errorEvent: Event;
+        hasVertexNormals: boolean;
+        hasWaterMask: boolean;
+        ready: boolean;
+        readonly readyPromise: Promise<boolean>;
+        tilingScheme: TilingScheme;
+        constructor(options: {
+            url: Resource | string;
+            metadata: GoogleEarthEnterpriseMetadata;
+            ellipsoid?: Ellipsoid;
+            credit?: Credit | string;
+        })
+        static getEstimatedLevelZeroGeometricErrorForAHeightmap(ellipsoid: Ellipsoid, tileImageWidth: number, numberOfTilesAtLevelZero: number): number;
+        static getRegularGridIndices(width: number, height: number): Uint16Array;
+        getLevelMaximumGeometricError(level: number): number;
+        getTileDataAvailable(x: number, y: number, level: number): boolean;
+        requestTileGeometry(x: number, y: number, level: number, request?: Request): Promise<TerrainData>;
     }
 
     class GridImageryProvider extends ImageryProvider {

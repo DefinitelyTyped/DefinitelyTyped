@@ -13,12 +13,9 @@ interface ComponentState {
 }
 
 class Component extends React.Component<{}, ComponentState> {
-    constructor(props: any) {
-        super(props);
-        this.state = {
-            activeIndex: 0
-        };
-    }
+    state = {
+        activeIndex: 0
+    };
 
     private clickHandler(...args: any[]) {
         console.log(`Handling a click on a chart: ${JSON.stringify(args)}`);
@@ -91,7 +88,7 @@ class Component extends React.Component<{}, ComponentState> {
                 <ResponsiveContainer>
                     <LineChart width={500} height={300} data={data}>
                         <XAxis dataKey="name">
-                            <Label>X axis - name</Label>
+                            <Label fontSize="8px">X axis - name</Label>
                         </XAxis>
                         <YAxis>
                             <Label>Y axis</Label>
@@ -136,12 +133,8 @@ class Component extends React.Component<{}, ComponentState> {
                 </ResponsiveContainer>
                 <ResponsiveContainer>
                     <LineChart width={500} height={300} data={data}>
-                        <XAxis dataKey="name">
-                            <Label>X axis - name</Label>
-                        </XAxis>
-                        <YAxis>
-                            <Label>Y axis</Label>
-                        </YAxis>
+                        <XAxis dataKey="name" label={{ value: "X axis - name" }} />
+                        <YAxis label={{ value: "Y axis" }} />
                         <CartesianGrid stroke="#eee" strokeDasharray="5 5"  />
                         <Line type="monotone" dataKey="uv" stroke="#8884d8" onClick={ this.clickHandler } />
                         <Line type="monotone" dataKey="pv" stroke="#82ca9d" />
@@ -196,7 +189,9 @@ class Component extends React.Component<{}, ComponentState> {
                     <XAxis dataKey="name">
                         <Label value="Pages of my website" offset={0} position="insideBottom" />
                     </XAxis>
-                    <YAxis label='pv of page' />
+                    <YAxis>
+                        <Label value="pv of page" angle={90} />
+                    </YAxis>
                     <Bar dataKey="pv" fill="#8884d8">
                         <LabelList dataKey="name" position="insideTop" angle={45}  />
                     </Bar>

@@ -1,6 +1,7 @@
 // Type definitions for tapable v1.0.0
 // Project: https://github.com/webpack/tapable.git
 // Definitions by: e-cloud <https://github.com/e-cloud>
+//                 John Reilly <https://github.com/johnnyreilly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -247,7 +248,7 @@ export interface Tap {
 export class Hook<T1 = any, T2 = any, T3 = any> {
     constructor(...args: any[]);
     taps: any[];
-    interceptors: any[];
+    interceptors: HookInterceptor[];
     call: (arg1?: T1, arg2?: T2, arg3?: T3, ...args: any[]) => any;
     promise:(arg1?: T1, arg2?: T2, arg3?: T3, ...args: any[]) => Promise<any>;
     callAsync: (arg1?: T1, arg2?: T2, arg3?: T3, ...args: any[]) => any;
@@ -271,12 +272,11 @@ export class AsyncSeriesBailHook<T1 = any, T2 = any, T3 = any> extends Hook<T1, 
 export class AsyncSeriesWaterfallHook<T1 = any, T2 = any, T3 = any> extends Hook<T1, T2, T3> {}
 
 export class HookInterceptor {
-    call: (...args: any[]) => void;
-    loop: (...args: any[]) => void;
-    tap: (tap: Tap) => void;
-    register: (tap: Tap) => Tap | undefined;
-    context: boolean;
-    name: string;
+    call?: (...args: any[]) => void;
+    loop?: (...args: any[]) => void;
+    tap?: (tap: Tap) => void;
+    register?: (tap: Tap) => Tap | undefined;
+    context?: boolean;
 }
 
 /** A HookMap is a helper class for a Map with Hooks */

@@ -46,7 +46,7 @@ export interface CarouselOption {
      *
      * @default 5000
      */
-    interval?: number;
+    interval?: false | number;
 
     /**
      * Whether the carousel should react to keyboard events.
@@ -354,7 +354,7 @@ export type TooltipEvent = "show.bs.tooltip" | "shown.bs.tooltip" | "hide.bs.too
 // --------------------------------------------------------------------------------------
 
 declare global {
-    interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement> {
+    interface JQuery<TElement = HTMLElement> {
         alert(action?: "close" | "dispose"): this;
 
         button(action: "toggle" | "dispose"): this;

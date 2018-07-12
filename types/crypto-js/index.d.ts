@@ -141,6 +141,7 @@ declare namespace CryptoJS {
 		lib: {
 			WordArray: {
 				create: (v: any) => LibWordArray;
+				random: (v: number) => string;
 			};
 		};
 		mode: {

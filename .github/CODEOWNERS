@@ -1104,6 +1104,7 @@
 /types/ffprobe-static/                          @iamstevetran
 /types/fhir-js-client/                          @rmchndrng
 /types/fibers/                                  @soywiz
+/types/fibjs/                                   @richardo2016
 /types/figures/                                 @BendingBender
 /types/file-exists/                             @BendingBender
 /types/file-saver/                              @cyrilschumacher @DaIgeb @chrismbarr
@@ -2890,7 +2891,7 @@
 /types/oclazyload/                              @rolandzwaga
 /types/odata/                                   @janhommes @jcchalte
 /types/ofe/                                     @Morfent
-/types/office-js/                               @OfficeDev @LanceEA @Zlatkovsky @kbrandl @Rick-Kirkham
+/types/office-js/                               @OfficeDev @LanceEA @Zlatkovsky @kbrandl @Rick-Kirkham @AlexJerabek @ElizabethSamuel-MSFT
 /types/offline-js/                              @cgwrench
 /types/oibackoff/                               @geoffreak
 /types/oidc-token-manager/                      @rosieks
@@ -3383,7 +3384,7 @@
 /types/react-json/                              @spielc
 /types/react-json-pretty/                       @LKay
 /types/react-json-tree/                         @gnestor
-/types/react-jsonschema-form/                   @iamdanfox @sirreal @iplus26 @KurtPreston
+/types/react-jsonschema-form/                   @iamdanfox @iplus26 @KurtPreston
 /types/react-lazyload/                          @m0a
 /types/react-leaflet/                           @danzel @davschne @yuit
 /types/react-list/                              @buptyyf @tomshen
@@ -4124,6 +4125,7 @@
 /types/timelinejs3/                             @MikeMatusz
 /types/timer-machine/                           @dolanmiu
 /types/timezone-js/                             @bonnici
+/types/tinajs__tina/                            @Jimexist
 /types/tinder/                                  @pingec
 /types/tiny-slider-react/                       @screendriver
 /types/tinycolor2/                              @M-Zuber @geertjansen @nvh
@@ -4373,6 +4375,8 @@
 /types/weighted/                                @ccitro
 /types/weixin-app/                              @taoqf @AlexStacker
 /types/wellknown/                               @yairtawil
+/types/wepy/                                    @Jimexist
+/types/wepy-redux/                              @Jimexist
 /types/whatwg-mimetype/                         @petejohanson
 /types/whatwg-streams/                          @saschanaz @ksm2
 /types/whatwg-url/                              @aomarks

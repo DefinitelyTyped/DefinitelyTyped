@@ -48,6 +48,7 @@ class SortableComponent extends React.Component<{}, SortableComponentState> {
         }
         return {width: 0, height: 0};
     }
+    state: SortableComponentState;
 
     constructor() {
         super({});

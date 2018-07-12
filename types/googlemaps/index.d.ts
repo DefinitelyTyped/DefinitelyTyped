@@ -51,7 +51,7 @@ declare namespace google.maps {
         getZoom(): number;
         panBy(x: number, y: number): void;
         panTo(latLng: LatLng|LatLngLiteral): void;
-        panToBounds(latLngBounds: LatLngBounds|LatLngBoundsLiteral): void;
+        panToBounds(latLngBounds: LatLngBounds|LatLngBoundsLiteral, padding?: number|Padding): void;
         setCenter(latlng: LatLng|LatLngLiteral): void;
         setHeading(heading: number): void;
         setMapTypeId(mapTypeId: MapTypeId|string): void;
@@ -1104,6 +1104,13 @@ declare namespace google.maps {
         visible?: boolean;
         /** The zIndex compared to other polys. */
         zIndex?: number;
+    }
+
+    export interface CircleLiteral extends CircleOptions {
+        /** The center of the Circle. */
+        center?: LatLng|LatLngLiteral;
+        /** The radius in meters on the Earth's surface. */
+        radius?: number;
     }
 
     /**
@@ -2549,6 +2556,8 @@ declare namespace google.maps {
             country: string|string[];
         }
 
+        export type LocationBias = LatLng|LatLngLiteral|LatLngBounds|LatLngBoundsLiteral|Circle|CircleLiteral|string;
+
         export interface PlaceAspectRating {
             rating: number;
             type: string;
@@ -2556,6 +2565,7 @@ declare namespace google.maps {
 
         export interface PlaceDetailsRequest  {
             placeId: string;
+            fields?: string[];
         }
 
         export interface PlaceGeometry {
@@ -2629,16 +2639,21 @@ declare namespace google.maps {
 
         export class PlacesService {
             constructor(attrContainer: HTMLDivElement|Map);
+            findPlaceFromPhoneNumber(request: FindPlaceFromPhoneNumberRequest, callback: (results: PlaceResult[], status: PlacesServiceStatus) => void): void;
+            findPlaceFromQuery(request: FindPlaceFromQueryRequest, callback: (results: PlaceResult[], status: PlacesServiceStatus) => void): void;
             getDetails(request: PlaceDetailsRequest, callback: (result: PlaceResult, status: PlacesServiceStatus) => void): void;
             nearbySearch(request: PlaceSearchRequest, callback: (results: PlaceResult[], status: PlacesServiceStatus, pagination: PlaceSearchPagination) => void): void;
+            /** @deprecated Radar search is deprecated as of June 30, 2018. After that time, this feature will no longer be available. */
             radarSearch(request: RadarSearchRequest, callback: (results: PlaceResult[], status: PlacesServiceStatus) => void): void;
             textSearch(request: TextSearchRequest, callback: (results: PlaceResult[], status: PlacesServiceStatus, pagination: PlaceSearchPagination) => void): void;
         }
 
         export enum PlacesServiceStatus {
+            ERROR,
             INVALID_REQUEST,
             OK,
             OVER_QUERY_LIMIT,
+            NOT_FOUND,
             REQUEST_DENIED,
             UNKNOWN_ERROR,
             ZERO_RESULTS
@@ -2692,6 +2707,18 @@ declare namespace google.maps {
             radius?: number;
             types?: string[]; /* Deprecated. Will be removed February 16, 2017 */
             type?: string;
+        }
+
+        export interface FindPlaceFromQueryRequest {
+            fields: string[];
+            locationBias?: LocationBias;
+            query: string;
+        }
+
+        export interface FindPlaceFromPhoneNumberRequest {
+            fields: string[];
+            locationBias?: LocationBias;
+            query: string;
         }
     }
 

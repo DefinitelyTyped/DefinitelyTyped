@@ -51,8 +51,7 @@ export class GUI {
     __folders: GUI[];
     domElement: HTMLElement;
 
-    add(target: Object, propName:string): GUIController;
-    add(target: Object, propName:string, min: number, max: number): GUIController;
+    add(target: Object, propName:string, min?: number, max?: number, step?: number): GUIController;
     add(target: Object, propName:string, status: boolean): GUIController;
     add(target: Object, propName:string, items:string[]): GUIController;
     add(target: Object, propName:string, items:number[]): GUIController;
@@ -64,6 +63,7 @@ export class GUI {
     destroy(): void;
 
     addFolder(propName:string): GUI;
+    removeFolder(subFolder:GUI):void;
 
     open(): void;
     close(): void;

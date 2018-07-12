@@ -17,6 +17,8 @@
 //                 Ciaran Liedeman <https://github.com/cliedeman>
 //                 Edward Sammut Alessi <https://github.com/Slessi>
 //                 Jérémy Magrin <https://github.com/magrinj>
+//                 Luca Campana <https://github.com/TizioFittizio>
+//                 Ullrich Schaefer <https://github.com/stigi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -341,6 +343,21 @@ export interface NavigationPushAction {
     key?: string;
 }
 
+export interface NavigationOpenDrawerAction {
+    key?: string;
+    type: 'Navigation/OPEN_DRAWER';
+}
+
+export interface NavigationCloseDrawerAction {
+    key?: string;
+    type: 'Navigation/CLOSE_DRAWER';
+}
+
+export interface NavigationToggleDrawerAction {
+    key?: string;
+    type: 'Navigation/TOGGLE_DRAWER';
+}
+
 export interface NavigationStackViewConfig {
   mode?: 'card' | 'modal';
   headerMode?: HeaderMode;
@@ -378,22 +395,24 @@ export interface NavigationSwitchRouterConfig {
 export interface NavigationStackScreenOptions {
   title?: string;
   header?:
-  | (
-    | React.ReactElement<any>
-    | ((headerProps: HeaderProps) => React.ReactElement<any>))
+  | React.ReactElement<any>
+  | ((headerProps: HeaderProps) => React.ReactElement<any>)
   | null;
   headerTransparent?: boolean;
   headerTitle?: string | React.ReactElement<any>;
   headerTitleStyle?: StyleProp<TextStyle>;
   headerTitleAllowFontScaling?: boolean;
   headerTintColor?: string;
-  headerLeft?: React.ReactElement<any>;
+  headerLeft?:
+  | React.ReactElement<any>
+  | ((backButtonProps: HeaderBackButtonProps) => React.ReactElement<any>)
+  | null;
   headerBackTitle?: string | null;
   headerBackImage?: React.ReactElement<any>;
   headerTruncatedBackTitle?: string;
   headerBackTitleStyle?: StyleProp<TextStyle>;
   headerPressColorAndroid?: string;
-  headerRight?: React.ReactElement<any>;
+  headerRight?: React.ReactElement<any> | null;
   headerStyle?: StyleProp<ViewStyle>;
   headerForceInset?: HeaderForceInset;
   headerBackground?: React.ReactNode | React.ReactType;
@@ -561,9 +580,9 @@ export interface NavigationScreenProp<S, P = NavigationParams> {
   closeDrawer: () => any;
   toggleDrawer: () => any;
   getParam: <T extends keyof P>(param: T, fallback?: P[T]) => P[T];
-  setParams: (newParams: P) => boolean;
+  setParams: (newParams: Partial<P>) => boolean;
   addListener: (
-    eventName: string,
+    eventName: 'willBlur' | 'willFocus' | 'didFocus' | 'didBlur',
     callback: NavigationEventCallback
   ) => NavigationEventSubscription;
   push: (
@@ -607,6 +626,7 @@ export interface NavigationScene {
   isStale: boolean;
   key: string;
   route: NavigationRoute;
+  descriptor: NavigationDescriptor;
 }
 
 export interface NavigationTransitionProps {
@@ -965,6 +985,19 @@ export namespace NavigationActions {
 }
 
 /**
+ * DrawerActions
+ */
+export namespace DrawerActions {
+    const OPEN_DRAWER: 'Navigation/OPEN_DRAWER';
+    const CLOSE_DRAWER: 'Navigation/CLOSE_DRAWER';
+    const TOGGLE_DRAWER: 'Navigation/TOGGLE_DRAWER';
+
+    function openDrawer(): NavigationOpenDrawerAction;
+    function closeDrawer(): NavigationCloseDrawerAction;
+    function toggleDrawer(): NavigationToggleDrawerAction;
+}
+
+/**
  * StackActions
  */
 export namespace StackActions {
@@ -1058,6 +1091,7 @@ export interface NavigationDescriptor<Params = NavigationParams> {
   key: string;
   state: NavigationLeafRoute<Params> | NavigationStateRoute<Params>;
   navigation: NavigationScreenProp<any>;
+  options: NavigationScreenOptions;
   getComponent: () => React.ComponentType;
 }
 
@@ -1126,17 +1160,20 @@ export const HeaderBackButton: React.ComponentClass<HeaderBackButtonProps>;
  */
 export const Header: React.ComponentClass<HeaderProps>;
 
-export interface NavigationInjectedProps {
-  navigation: NavigationScreenProp<NavigationState>;
+export interface NavigationInjectedProps<P = NavigationParams> {
+  navigation: NavigationScreenProp<NavigationState, P>;
 }
 
 export function withNavigation<T = {}>(
   Component: React.ComponentType<T & NavigationInjectedProps>
-): React.ComponentType<T>;
+): React.ComponentType<T & { onRef?: React.Ref<typeof Component> }>;
 
+export interface NavigationFocusInjectedProps extends NavigationInjectedProps {
+  isFocused: boolean;
+}
 export function withNavigationFocus<T = {}>(
-  Component: React.ComponentType<T & NavigationInjectedProps>
-): React.ComponentType<T>;
+  Component: React.ComponentType<T & NavigationFocusInjectedProps>
+): React.ComponentType<T & { onRef?: React.Ref<typeof Component> }>;
 
 /**
  * SafeAreaView Component

@@ -137,6 +137,7 @@ export interface AuthorizeParams {
     nonce?: string;
     audience?: string;
     scope?: string;
+    connection?: string;
 }
 
 export interface ClearSessionParams {

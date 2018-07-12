@@ -27,7 +27,8 @@ let options: mongodb.MongoClientOptions = {
     sslCert: new Buffer(999),
     sslKey: new Buffer(999),
     sslPass: new Buffer(999),
-    promoteBuffers: false
+    promoteBuffers: false,
+    useNewUrlParser: false
 }
 MongoClient.connect('mongodb://127.0.0.1:27017/test', options, function (err: mongodb.MongoError, client: mongodb.MongoClient) {
     if (err) throw err;
@@ -35,7 +36,29 @@ MongoClient.connect('mongodb://127.0.0.1:27017/test', options, function (err: mo
     var collection = db.collection('test_insert');
     collection.insertOne({ a: 2 }, function (err: mongodb.MongoError, docs: any) {
 
-        collection.count(function (err: mongodb.MongoError, count: any) {
+        // Intentionally omitted type annotation from 'count'.
+        // This way it requires a more accurate typedef which allows inferring that it's a number.
+        collection.countDocuments(function (err: mongodb.MongoError, count) {
+            console.log(format("count = %s", count));
+        });
+
+        collection.countDocuments().then(function (count: number) {
+            console.log(format("count = %s", count));
+        });
+
+        collection.countDocuments({ foo: 1 }, function (err: mongodb.MongoError, count: number) {
+            console.log(format("count = %s", count));
+        });
+
+        collection.countDocuments({ foo: 1 }).then(function (count: number) {
+            console.log(format("count = %s", count));
+        });
+
+        collection.countDocuments({ foo: 1 }, { limit: 10 }, function (err: mongodb.MongoError, count: number) {
+            console.log(format("count = %s", count));
+        });
+
+        collection.countDocuments({ foo: 1 }, { limit: 10 }).then(function (count: number) {
             console.log(format("count = %s", count));
         });
 
@@ -99,6 +122,31 @@ MongoClient.connect('mongodb://127.0.0.1:27017/test', options, function (err: mo
         let payment: { total: number };
         type payment = typeof payment;
         let cursor: mongodb.AggregationCursor<payment> = collection.aggregate<payment>([{}])
+
+        collection.aggregate([{ $match: { bar: 1 } }, { $limit: 10 }])
+        collection.aggregate([{ $match: { bar: 1 } }]).limit(10)
+        collection.aggregate([]).match({ bar: 1 }).limit(10)
+        collection.aggregate().match({ bar: 1 }).limit(10)
+
+        collection.aggregate<payment>(
+            [{ $match: { bar: 1 } }],
+            function (err: mongodb.MongoError, cursor: mongodb.AggregationCursor<payment>) {
+                cursor.limit(10)
+            }
+        )
+
+        collection.aggregate<payment>(
+            [],
+            function (err: mongodb.MongoError, cursor: mongodb.AggregationCursor<payment>) {
+                cursor.match({ bar: 1 }).limit(10)
+            }
+        )
+
+        collection.aggregate<payment>(
+            function (err: mongodb.MongoError, cursor: mongodb.AggregationCursor<payment>) {
+                cursor.match({ bar: 1 }).limit(10)
+            }
+        )
     }
 
     // test for new typings

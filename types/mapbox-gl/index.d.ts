@@ -464,6 +464,8 @@ declare namespace mapboxgl {
         anchor?: Anchor;
 
         offset?: number | PointLike | { [key: string]: PointLike; };
+
+        className?: string;
     }
 
     export interface Style {
@@ -710,9 +712,9 @@ declare namespace mapboxgl {
 
         clone(): Point;
 
-        add(p: number): Point;
+        add(p: Point): Point;
 
-        sub(p: number): Point;
+        sub(p: Point): Point;
 
         mult(k: number): Point;
 

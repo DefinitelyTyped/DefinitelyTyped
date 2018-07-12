@@ -92,4 +92,13 @@ class RouteUsingClass extends Route.extend({
     beforeModel(this: RouteUsingClass) {
         return 'beforeModel can return anything, not just promises';
     }
+    intermediateTransitionWithoutModel() {
+        this.intermediateTransitionTo('some-route');
+    }
+    intermediateTransitionWithModel() {
+        this.intermediateTransitionTo('some.other.route', { });
+    }
+    intermediateTransitionWithMultiModel() {
+        this.intermediateTransitionTo('some.other.route', 1, 2, { });
+    }
 }

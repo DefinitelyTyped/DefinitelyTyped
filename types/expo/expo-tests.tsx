@@ -25,6 +25,7 @@ import {
     ImagePicker,
     ImageManipulator,
     FaceDetector,
+    Linking,
     Svg,
     IntentLauncherAndroid,
     KeepAwake,
@@ -37,7 +38,9 @@ import {
     Calendar,
     MailComposer,
     Location,
-    Updates
+    Updates,
+    MediaLibrary,
+    Haptic
 } from 'expo';
 
 const reverseGeocode: Promise<Location.GeocodeData[]> = Location.reverseGeocodeAsync({
@@ -221,8 +224,8 @@ Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY;
 Audio.RECORDING_OPTIONS_PRESET_LOW_QUALITY;
 async () => {
     const result = await Audio.Sound.create({uri: 'uri'}, {
-        volume: 0.5,
-        rate: 0.6
+        volume: 0.55,
+        rate: 16.5
     }, null, true);
 
     const sound = result.sound;
@@ -265,8 +268,8 @@ const barcodeReadCallback = () => {};
 );
 
 async () => {
-    await Brightness.setBrightnessAsync(.6);
-    await Brightness.setSystemBrightnessAsync(.7);
+    await Brightness.setBrightnessAsync(0.65);
+    await Brightness.setSystemBrightnessAsync(0.75);
     const br1 = await Brightness.getBrightnessAsync();
     const br2 = await Brightness.getSystemBrightnessAsync();
 };
@@ -371,10 +374,10 @@ async () => {
 };
 
 async () => {
-    const result = await ImageManipulator.manipulate('url', {
+    const result = await ImageManipulator.manipulate('url', [{
         rotate: 90
-    }, {
-        compress: 0.5
+    }], {
+        compress: 0.75
     });
 
     result.height;
@@ -396,6 +399,38 @@ async () => {
     });
 
     result.faces[0];
+};
+
+async () => {
+    function isBoolean(x: boolean) {
+    }
+    function isString(x: string) {
+    }
+    // Two examples of members inherited from react-native Linking
+    // to prove that inheritence is working.
+    Linking.addEventListener('url', (e) => {
+        e.url === '';
+    });
+    isBoolean(await Linking.canOpenURL('expo://'));
+
+    // Extensions added by expo.
+
+    isString(Linking.makeUrl('path'));
+    isString(Linking.makeUrl('path', { q: 2, u: 'ery', }));
+
+    const {
+        path,
+        queryParams,
+    } = Linking.parse('');
+    isString(path);
+    isString(queryParams['x'] || '');
+
+    const {
+        path: path2,
+        queryParams: queryParams2,
+    } = await Linking.parseInitialURLAsync();
+    isString(path2);
+    isString(queryParams2['y'] || '');
 };
 
 () => (
@@ -476,6 +511,7 @@ async () => {
             />
         </Svg.G>
         <Svg.Use href="#shape" x="20" y="0" />
+        <Svg.Use href="#shape" x="20" y="0" width="20" height="20"/>
         <Svg.Symbol id="symbol" viewBox="0 0 150 110" width="100" height="50">
             <Svg.Circle cx="50" cy="50" r="40" strokeWidth="8" stroke="red" fill="red"/>
             <Svg.Circle cx="90" cy="60" r="40" strokeWidth="8" stroke="green" fill="white"/>
@@ -778,3 +814,36 @@ async () => {
         console.log(bundleFetchResult.manifest);
     }
 };
+
+// #region MediaLibrary
+async () => {
+  const mlAsset: MediaLibrary.Asset = await MediaLibrary.createAssetAsync('localUri');
+  const mlAssetResult: MediaLibrary.GetAssetsResult = await MediaLibrary.getAssetsAsync({
+    first: 0,
+    after: '',
+    album: 'Album',
+    sortBy: MediaLibrary.SortBy.creationTime,
+    mediaType: MediaLibrary.MediaType.photo
+  });
+  const mlAsset1: MediaLibrary.Asset = await MediaLibrary.getAssetInfoAsync(mlAsset);
+  const areDeleted: boolean = await MediaLibrary.deleteAssetsAsync([mlAsset]);
+  const albums: MediaLibrary.Album[] = await MediaLibrary.getAlbumsAsync();
+  const album: MediaLibrary.Album = await MediaLibrary.getAlbumAsync('album');
+  const album1: MediaLibrary.Album = await MediaLibrary.createAlbumAsync('album', mlAsset);
+  const areAddedToAlbum: boolean = await MediaLibrary.addAssetsToAlbumAsync([mlAsset, mlAsset1], 'album');
+  const areDeletedFromAlbum: boolean = await MediaLibrary.removeAssetsFromAlbumAsync([mlAsset, mlAsset1], 'album');
+  const momuents: MediaLibrary.Album[] = await MediaLibrary.getMomentsAsync();
+};
+//#endregion
+
+// #region Haptic
+Haptic.impact(Haptic.ImpactStyles.Heavy);
+Haptic.impact(Haptic.ImpactStyles.Light);
+Haptic.impact(Haptic.ImpactStyles.Medium);
+
+Haptic.notification(Haptic.NotificationType.Error);
+Haptic.notification(Haptic.NotificationType.Success);
+Haptic.notification(Haptic.NotificationType.Error);
+
+Haptic.selection();
+// #endregion

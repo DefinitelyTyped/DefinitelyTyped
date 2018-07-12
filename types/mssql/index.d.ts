@@ -1,6 +1,12 @@
 // Type definitions for mssql 4.0.5
 // Project: https://www.npmjs.com/package/mssql
-// Definitions by: COLSA Corporation <http://www.colsa.com/>, Ben Farr <https://github.com/jaminfarr>, Vitor Buzinaro <https://github.com/buzinas>, Matt Richardson <https://github.com/mrrichar>, Jørgen Elgaard Larsen <https://github.com/elhaard>, Peter Keuter <https://github.com/pkeuter>
+// Definitions by: COLSA Corporation <http://www.colsa.com/>
+//                 Ben Farr <https://github.com/jaminfarr>
+//                 Vitor Buzinaro <https://github.com/buzinas>
+//                 Matt Richardson <https://github.com/mrrichar>
+//                 Jørgen Elgaard Larsen <https://github.com/elhaard>
+//                 Peter Keuter <https://github.com/pkeuter>
+//                 David Gasperoni <https://github.com/mcdado>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -311,8 +317,10 @@ export declare class PreparedStatement extends events.EventEmitter {
     public output(name: string, type: (() => ISqlType) | ISqlType): PreparedStatement;
     public prepare(statement?: string): Promise<void>;
     public prepare(statement?: string, callback?: (err?: Error) => void): PreparedStatement;
-    public execute(values: Object): Promise<void>;
-    public execute(values: Object, callback: (err?: Error) => void): Request;
+    public execute(values: Object): Promise<IProcedureResult<any>>;
+    public execute<Entity>(values: Object): Promise<IProcedureResult<Entity>>;
+    public execute(values: Object, callback: (err?: Error, result?: IProcedureResult<any>) => void): Request;
+    public execute<Entity>(values: Object, callback: (err?: Error, result?: IProcedureResult<Entity>) => void): Request;
     public unprepare(): Promise<void>;
     public unprepare(callback: (err?: Error) => void): PreparedStatement;
 }

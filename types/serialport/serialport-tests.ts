@@ -117,3 +117,12 @@ function test_parsers() {
     port.pipe(ReadyParser);
     port.pipe(RegexParser);
 }
+
+function test_properties() {
+    const port = new SerialPort('');
+
+    const baudRate: number = port.baudRate;
+    const binding: SerialPort.BaseBinding = port.binding;
+    const isOpen: boolean = port.isOpen;
+    const path: string = port.path;
+}

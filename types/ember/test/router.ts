@@ -34,6 +34,11 @@ const RouterServiceConsumer = Ember.Service.extend({
         Ember.get(this, 'router')
         .transitionTo('some.other.route', model);
     },
+    transitionWithMultiModel() {
+        const model = Ember.Object.create();
+        Ember.get(this, 'router')
+        .transitionTo('some.other.route', model, model);
+    },
     transitionWithModelAndOptions() {
         const model = Ember.Object.create();
         Ember.get(this, 'router')

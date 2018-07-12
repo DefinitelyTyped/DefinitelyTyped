@@ -7,7 +7,7 @@
 //                 Satana Charuwichitratana <https://github.com/micksatana>
 //                 Shrey Jain <https://github.com/shreyjain1994>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 
@@ -155,7 +155,7 @@ declare namespace Knex {
         pluck(column: string): QueryBuilder;
 
         insert(data: any, returning?: string | string[]): QueryBuilder;
-        modify(callback: QueryCallback, ...args: any[]): QueryBuilder;
+        modify(callback: QueryCallbackWithArgs, ...args: any[]): QueryBuilder;
         update(data: any, returning?: string | string[]): QueryBuilder;
         update(columnName: string, value: Value, returning?: string | string[]): QueryBuilder;
         returning(column: string | string[]): QueryBuilder;
@@ -360,6 +360,8 @@ declare namespace Knex {
     //
 
     type QueryCallback = (this: QueryBuilder, builder: QueryBuilder) => void;
+    type QueryCallbackWithArgs = (this: QueryBuilder, builder: QueryBuilder, ...args: any[]) => void;
+
     interface QueryBuilder extends QueryInterface, ChainableInterface {
         or: QueryBuilder;
         and: QueryBuilder;
