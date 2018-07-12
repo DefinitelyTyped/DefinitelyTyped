@@ -5,7 +5,7 @@
 // TypeScript Version: 2.2
 
 export default class KeenTracking {
-    constructor(options: { projectId: string; writeKey: string });
+    constructor(options: { projectId: string; writeKey: string; requestType?: string });
 
     recordEvent(
         collectionName: string,

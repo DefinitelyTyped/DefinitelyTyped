@@ -1,9 +1,16 @@
 import KeenTracking from "keen-tracking";
 
 // $ExpectType KeenTracking
-const tc = new KeenTracking({
+let tc = new KeenTracking({
   projectId: "xpto",
   writeKey: "XPTOQWEKASDKASD"
+});
+
+// $ExpectType KeenTracking
+tc = new KeenTracking({
+  projectId: "xpto",
+  writeKey: "XPTOQWEKASDKASD",
+  requestType: "beacon"
 });
 
 // $ExpectType Promise<{ created: boolean; }>
