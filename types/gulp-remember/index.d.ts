@@ -2,6 +2,7 @@
 // Project: https://github.com/ahaurw01/gulp-remember
 // Definitions by: Thomas Corbière <https://github.com/tomc974>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node"/>
 

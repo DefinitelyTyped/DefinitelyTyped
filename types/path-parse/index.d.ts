@@ -2,6 +2,7 @@
 // Project: https://github.com/jbgutierrez/path-parse
 // Definitions by: Dan Chao <http://dchao.co>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node"/>
 

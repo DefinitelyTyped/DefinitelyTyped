@@ -4,6 +4,7 @@
 //                 Anti Veeranna <https://github.com/antiveeranna>,
 //                 Maxime LUCE <https://github.com/SomaticIT>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

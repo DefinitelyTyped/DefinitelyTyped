@@ -2,6 +2,7 @@
 // Project: https://github.com/alexeyten/qr-image
 // Definitions by: taoqf <https://github.com/taoqf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

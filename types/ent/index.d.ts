@@ -2,6 +2,7 @@
 // Project: https://github.com/substack/node-ent
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

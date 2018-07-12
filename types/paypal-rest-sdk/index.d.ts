@@ -2,7 +2,7 @@
 // Project: https://github.com/paypal/PayPal-node-SDK
 // Definitions by: Andrew Throener <https://github.com/trainerbill>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

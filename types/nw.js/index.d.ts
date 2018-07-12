@@ -2,6 +2,7 @@
 // Project: http://nwjs.io
 // Definitions by: Alireza Dabiri Nejad <https://github.com/alirdn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

@@ -5,7 +5,7 @@
 //                 Leandro Almeida <https://github.com/leanazulyoro>
 //                 Mitchell Bundy <https://github.com/mgebundy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 import http = require('http');

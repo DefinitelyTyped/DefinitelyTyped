@@ -2,6 +2,7 @@
 // Project: https://github.com/brianloveswords/node-jws
 // Definitions by: Justin Beckwith <https://github.com/JustinBeckwith>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

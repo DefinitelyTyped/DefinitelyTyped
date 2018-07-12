@@ -2,6 +2,7 @@
 // Project: https://github.com/keichi/binary-parser
 // Definitions by: Benjamin Riggs <https://github.com/riggs>, Dolan Miu <https://github.com/dolanmiu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

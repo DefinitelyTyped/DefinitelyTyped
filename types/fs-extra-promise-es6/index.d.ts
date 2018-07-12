@@ -5,6 +5,7 @@
 //                 Joshua DeVinney <https://github.com/geoffreak>
 //                 Hiromi Shikata <https://github.com/HiromiShikata>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 // Imported from: fs-extra-promise typings (minus Bluebird)
 

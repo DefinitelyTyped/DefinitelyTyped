@@ -2,7 +2,7 @@
 // Project: https://github.com/nfischer/shelljs-exec-proxy#readme
 // Definitions by: Nikita Volodin <https://github.com/qlonik>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.4
 
 import * as shelljs from 'shelljs';
 

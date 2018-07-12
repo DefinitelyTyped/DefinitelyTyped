@@ -2,7 +2,7 @@
 // Project: https://github.com/mzgoddard/hard-source-webpack-plugin#readme
 // Definitions by: woitechen <https://github.com/woitechen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 import * as webpack from 'webpack';
 

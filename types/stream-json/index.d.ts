@@ -2,6 +2,7 @@
 // Project: http://github.com/uhop/stream-json
 // Definitions by: Eugene Lazutkin <https://github.com/uhop>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

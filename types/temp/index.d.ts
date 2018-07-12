@@ -2,6 +2,7 @@
 // Project: https://www.npmjs.com/package/temp, https://github.com/bruce/node-temp
 // Definitions by: Daniel Rosenwasser <https://github.com/DanielRosenwasser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

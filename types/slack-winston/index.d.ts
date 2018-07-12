@@ -2,7 +2,7 @@
 // Project: https://github.com/niftylettuce/slack-winston
 // Definitions by: Elliot Blackburn <https://github.com/BlueHatbRit>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 import * as winston from 'winston';
 

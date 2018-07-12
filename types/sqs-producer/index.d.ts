@@ -2,6 +2,7 @@
 // Project: https://github.com/BBC/sqs-producer
 // Definitions by: Daniel Chao <http://dchao.co/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 import { SQS } from "aws-sdk";

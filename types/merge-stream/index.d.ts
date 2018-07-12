@@ -2,6 +2,7 @@
 // Project: https://github.com/grncdr/merge-stream
 // Definitions by: Keita Kagurazaka <https://github.com/k-kagurazaka>, Tom X. Tobin <http://tomxtobin.com/>, Daniel Zazula <https://github.com/daniel-zazula>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node"/>
 

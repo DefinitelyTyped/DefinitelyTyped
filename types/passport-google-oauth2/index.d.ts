@@ -2,7 +2,7 @@
 // Project: https://github.com/mstade/passport-google-oauth2
 // Definitions by: Elliot Blackburn <https://github.com/bluehatbrit>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 import { Request } from 'express';
 

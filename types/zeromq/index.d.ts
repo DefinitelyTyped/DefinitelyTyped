@@ -4,6 +4,7 @@
 //                 Erik Mavrinac <https://github.com/erikma>
 //                 Philippe D'Alva <https://github.com/TitaneBoy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 //
 // Forked from the DefinitelyTyped 'zmq' project originally created by Dave McKeown,
 // then updated with recent changes in the 'zeromq' project from

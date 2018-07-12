@@ -2,6 +2,7 @@
 // Project: https://github.com/nikku/node-xsd-schema-validator#readme
 // Definitions by: Zlatko Andonovski <https://github.com/Goldsmith42>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

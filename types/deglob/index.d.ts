@@ -2,6 +2,7 @@
 // Project: https://github.com/standard/deglob
 // Definitions by: Saad Quadri <https://github.com/saadq>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 type Callback = (err: Error | null, files: string[]) => void;
 

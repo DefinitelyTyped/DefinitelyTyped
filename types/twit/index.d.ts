@@ -5,7 +5,7 @@
 //                 sapphiredev <https://github.com/sapphiredev>
 //                 abraham <https://github.com/abraham>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 /// <reference types="geojson" />

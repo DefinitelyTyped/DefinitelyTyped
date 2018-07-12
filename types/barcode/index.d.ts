@@ -2,6 +2,7 @@
 // Project: https://github.com/samt/barcode
 // Definitions by: Pascal Vomhoff <https://github.com/pvomhoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

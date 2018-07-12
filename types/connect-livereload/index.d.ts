@@ -2,6 +2,7 @@
 // Project: https://github.com/intesso/connect-livereload
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 
 import { HandleFunction } from "connect";

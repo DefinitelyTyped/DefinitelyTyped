@@ -2,6 +2,7 @@
 // Project: https://github.com/spumko/hapi
 // Definitions by: Jason Swearingen <https://github.com/jasonswearingen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 //This is a total rewrite of Hakubo's original hapi.d.ts, as it was out of date/incomplete.
 

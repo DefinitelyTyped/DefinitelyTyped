@@ -2,7 +2,7 @@
 // Project: https://github.com/ahmadnassri/mkdirp-promise
 // Definitions by: Alan Plum <https://github.com/pluma>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.4
 
 import mkdirp = require("mkdirp");
 

@@ -2,7 +2,7 @@
 // Project: https://github.com/chjj/blessed
 // Definitions by: Bryn Austin Bellomy <https://github.com/brynbellomy>, Steve Kellock <https://github.com/skellock>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

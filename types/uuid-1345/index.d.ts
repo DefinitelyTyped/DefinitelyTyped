@@ -2,6 +2,7 @@
 // Project: https://github.com/scravy/uuid-1345
 // Definitions by: TANAKA Koichi <https://github.com/mugeso>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

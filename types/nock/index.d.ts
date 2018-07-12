@@ -7,6 +7,7 @@
 //                 Garanzha Dmitriy <https://github.com/damour>
 //                 GP <https://github.com/paambaati>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

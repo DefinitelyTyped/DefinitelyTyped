@@ -2,6 +2,7 @@
 // Project: https://github.com/shesek/iferr
 // Definitions by: segayuu <https://github.com/segayuu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 type nodeCallback<T> = (err: Error | undefined, ...a: T[]) => any;
 

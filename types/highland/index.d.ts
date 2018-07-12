@@ -6,7 +6,7 @@
 //                 Alvis HT Tang <https://github.com/alvis>
 //                 Jack Wearden <https://github.com/notbobthebuilder>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

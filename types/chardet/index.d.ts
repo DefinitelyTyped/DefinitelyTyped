@@ -2,6 +2,7 @@
 // Project: https://github.com/runk/node-chardet
 // Definitions by: Hauke Oldsen <https://github.com/Gebatzens>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

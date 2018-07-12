@@ -2,6 +2,7 @@
 // Project: https://www.npmjs.org/package/asciify
 // Definitions by: Alan Norbauer <http://alan.norbauer.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

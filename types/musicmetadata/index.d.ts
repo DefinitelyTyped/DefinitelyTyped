@@ -2,6 +2,7 @@
 // Project: https://www.npmjs.com/package/musicmetadata
 // Definitions by: Xavier Stouder <https://github.com/Xstoudi>
 // Definitions: https://github.com/DefinitelyTyped/
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

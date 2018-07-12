@@ -2,6 +2,7 @@
 // Project: https://github.com/dcodeIO/bytebuffer.js
 // Definitions by: Denis Cappellin <https://github.com/cappellin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 // Definitions by: SINTEF-9012 <https://github.com/SINTEF-9012>
 
 /// <reference types="node" />

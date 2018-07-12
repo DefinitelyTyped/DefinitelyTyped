@@ -2,7 +2,7 @@
 // Project: https://github.com/koajs/json-error
 // Definitions by: Mudkip <https://github.com/mudkipme>
 // Definitions: https://github.com/mudkipme/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 import * as Koa from "koa";
 

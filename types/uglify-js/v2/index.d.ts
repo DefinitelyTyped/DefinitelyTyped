@@ -2,6 +2,7 @@
 // Project: https://github.com/mishoo/UglifyJS2
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="source-map" />
 

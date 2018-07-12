@@ -2,7 +2,7 @@
 // Project: https://github.com/josdejong/workerpool
 // Definitions by: Alorel <https://github.com/Alorel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

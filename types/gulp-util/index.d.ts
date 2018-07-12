@@ -2,6 +2,7 @@
 // Project: https://github.com/gulpjs/gulp-util
 // Definitions by: jedmao <https://github.com/jedmao>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

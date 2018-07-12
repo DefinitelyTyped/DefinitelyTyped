@@ -2,6 +2,7 @@
 // Project: https://github.com/derhuerst/cli-on-key
 // Definitions by: Rong Shen <https://github.com/jacobbubu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

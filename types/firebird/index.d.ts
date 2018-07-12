@@ -2,7 +2,7 @@
 // Project: https://github.com/xdenser/node-firebird-libfbclient
 // Definitions by: Yasushi Kato <https://github.com/karak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.4
 
 /// <reference types="node"/>
 

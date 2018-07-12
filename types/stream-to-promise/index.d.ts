@@ -2,6 +2,7 @@
 // Project: https://github.com/bendrucker/stream-to-promise
 // Definitions by: Alorel <https://github.com/Alorel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node"/>
 

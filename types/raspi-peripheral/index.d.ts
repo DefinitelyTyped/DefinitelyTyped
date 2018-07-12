@@ -2,7 +2,7 @@
 // Project: https://github.com/nebrius/raspi-peripheral
 // Definitions by: Bryan Hughes <https://github.com/nebrius>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 import { EventEmitter } from 'events';

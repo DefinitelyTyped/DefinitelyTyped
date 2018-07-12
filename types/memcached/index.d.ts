@@ -2,7 +2,7 @@
 // Project: https://github.com/3rd-Eden/memcached
 // Definitions by: KentarouTakeda <https://github.com/KentarouTakeda>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

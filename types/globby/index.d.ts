@@ -3,7 +3,7 @@
 // Definitions by: Douglas Duteil <https://github.com/douglasduteil>
 //                 Ika <https://github.com/ikatyang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 import { IOptions as NodeGlobOptions } from 'glob';
 import { Options as FastGlobOptions } from 'fast-glob';

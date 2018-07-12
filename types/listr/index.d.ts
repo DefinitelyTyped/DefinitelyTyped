@@ -2,6 +2,7 @@
 // Project: https://github.com/samverschueren/listr#readme
 // Definitions by: Dusan Radovanovic <https://github.com/durad>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

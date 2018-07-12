@@ -2,6 +2,7 @@
 // Project: https://github.com/clark800/gulp-clean-dest
 // Definitions by: Andrey Lalev <https://github.com/andypyrope>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

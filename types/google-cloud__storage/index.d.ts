@@ -4,6 +4,7 @@
 //                 Nathan Brooker Perry <https://github.com/nbperry>
 //                 Matt Welke <https://github.com/welkie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

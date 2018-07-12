@@ -4,7 +4,7 @@
 //                 Konstantin Simon Maria Möllers <https://github.com/ksm2>
 //                 Mattias Buelens <https://github.com/MattiasBuelens>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 export interface ReadableStreamSource<R = ArrayBufferView> {
     start?(controller: ReadableStreamDefaultController<R>): void | Promise<any>;

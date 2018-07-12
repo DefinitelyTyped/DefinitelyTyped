@@ -2,6 +2,7 @@
 // Project: https://github.com/mikeobrien/node-xmlpoke
 // Definitions by: Garth Kidd <https://github.com/garthk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

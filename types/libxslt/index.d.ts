@@ -2,7 +2,7 @@
 // Project: https://github.com/albanm/node-libxslt
 // Definitions by: Alejandro Sánchez <https://github.com/alejo90>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.4
 
 import * as xmljs from 'libxmljs';
 

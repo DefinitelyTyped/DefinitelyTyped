@@ -2,7 +2,7 @@
 // Project: http://zui.sexy
 // Definitions by: YuanXu <https://github.com/yuanxu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 /// <reference types="jquery" />
 

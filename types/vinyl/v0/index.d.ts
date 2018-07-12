@@ -2,6 +2,7 @@
 // Project: https://github.com/wearefractal/vinyl
 // Definitions by: vvakame <https://github.com/vvakame/>, jedmao <https://github.com/jedmao>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

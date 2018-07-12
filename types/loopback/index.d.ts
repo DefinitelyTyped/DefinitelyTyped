@@ -6,7 +6,7 @@
 //                 Mike Crowe <https://github.com/drmikecrowe>
 //                 Karim Alibhai <https://github.com/karimsa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 /************************************************
 *                                               *

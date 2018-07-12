@@ -5,7 +5,7 @@
 //                 Pusztai Tibor <https://github.com/kondi>
 //                 Keiichiro Amemiya <https://github.com/hoishin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 // Reference: https://rethinkdb.com/api/javascript/
 //

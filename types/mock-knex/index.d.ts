@@ -2,7 +2,7 @@
 // Project: https://github.com/colonyamerican/mock-knex
 // Definitions by: Jesse Zhang <https://github.com/jessezhang91>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

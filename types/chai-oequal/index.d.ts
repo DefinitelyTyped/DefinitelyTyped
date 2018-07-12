@@ -2,6 +2,7 @@
 // Project: https://github.com/wrwrwr/chai-oequal
 // Definitions by: Mizunashi Mana <https://github.com/mizunashi-mana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="chai" />
 

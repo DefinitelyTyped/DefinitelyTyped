@@ -2,6 +2,7 @@
 // Project: https://github.com/krampstudio/chai-xml
 // Definitions by: Jeff Goddard <https://github.com/jedigo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="chai" />
 

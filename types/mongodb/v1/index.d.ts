@@ -2,6 +2,7 @@
 // Project: https://github.com/mongodb/node-mongodb-native
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 // Documentation : http://mongodb.github.io/node-mongodb-native/
 

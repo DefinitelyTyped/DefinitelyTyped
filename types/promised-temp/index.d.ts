@@ -2,6 +2,7 @@
 // Project: https://www.npmjs.com/package/promised-temp, https://github.com/mikaturunen/promised-temp
 // Definitions by: Saqib Rokadia <https://github.com/rokadias>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

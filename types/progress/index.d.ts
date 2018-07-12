@@ -2,6 +2,7 @@
 // Project: https://github.com/tj/node-progress
 // Definitions by: Sebastian Lenz <https://github.com/sebastian-lenz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node"/>
 

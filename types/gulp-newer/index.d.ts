@@ -2,6 +2,7 @@
 // Project: https://github.com/tschaub/gulp-newer
 // Definitions by: Thomas Corbière <https://github.com/tomc974>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node"/>
 

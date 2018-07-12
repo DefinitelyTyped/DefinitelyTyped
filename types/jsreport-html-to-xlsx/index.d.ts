@@ -2,7 +2,7 @@
 // Project: https://github.com/jsreport/jsreport-html-to-xlsx
 // Definitions by: My Self <https://github.com/me>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 import { ExtensionDefinition } from 'jsreport-core';
 import { Options as BaseOptions } from 'jsreport-xlsx';

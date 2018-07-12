@@ -2,7 +2,7 @@
 // Project: https://github.com/WhoopInc/supertest-as-promised
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 import * as supertest from "supertest";
 import * as superagent from "superagent";

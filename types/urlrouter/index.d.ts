@@ -2,6 +2,7 @@
 // Project: https://github.com/fengmk2/urlrouter
 // Definitions by: soywiz <https://github.com/soywiz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

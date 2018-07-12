@@ -2,6 +2,7 @@
 // Project: https://github.com/gaslight/chai-datetime.git
 // Definitions by: Cliff Burger <https://github.com/cliffburger>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="chai" />
 

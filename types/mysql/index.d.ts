@@ -5,7 +5,7 @@
 // 	                Krittanan Pingclasai <https://github.com/kpping>
 // 	                James Munro <https://github.com/jdmunro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

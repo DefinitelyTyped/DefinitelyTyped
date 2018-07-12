@@ -2,6 +2,7 @@
 // Project: https://github.com/fluent-ffmpeg/node-fluent-ffmpeg
 // Definitions by: KIM Jaesuck a.k.a. gim tcaesvk <https://github.com/tcaesvk>, DingWeizhe <https://github.com/DingWeizhe>
 // Definitions: https://github.com/DefinitelyType/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

@@ -2,6 +2,7 @@
 // Project: https://github.com/EmergingTechnologyAdvisors/node-serialport
 // Definitions by: Jeremy Foster <https://github.com/codefoster>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 /// <reference types="streamjs" />

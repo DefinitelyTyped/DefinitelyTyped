@@ -2,6 +2,7 @@
 // Project: https://github.com/devongovett/blob-stream
 // Definitions by: Eric Hillah <https://github.com/erichillah>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

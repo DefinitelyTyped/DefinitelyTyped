@@ -2,6 +2,7 @@
 // Project: https://github.com/uhop/stream-chain#readme
 // Definitions by: Eugene Lazutkin <https://github.com/uhop>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 import { Readable, Writable, Duplex, Transform, DuplexOptions } from 'stream';

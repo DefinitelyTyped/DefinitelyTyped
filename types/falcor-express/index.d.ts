@@ -2,7 +2,7 @@
 // Project: https://github.com/Netflix/falcor-express
 // Definitions by: Quramy <https://github.com/Quramy>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 /// <reference types="falcor" />
 
