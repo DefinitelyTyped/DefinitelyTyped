@@ -615,7 +615,7 @@ class WebViewTest extends React.Component {
             <WebView
                 originWhitelist={['https://origin.test']}
                 saveFormDataDisabled={false}
-                nativeConfig={{ component: 'test' }}
+                nativeConfig={{ component: 'test', props: {}, viewManager: {} }}
             />
         );
     }
