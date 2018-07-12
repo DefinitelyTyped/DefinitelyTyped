@@ -947,8 +947,8 @@ declare namespace webpack {
             childrenCounters: any;
             usedChunkIds: any;
             usedModuleIds: any;
-            fileTimestamps: Map<string, number> | undefined;
-            contextTimestamps: Map<string, number> | undefined;
+            fileTimestamps: Map<string, number>;
+            contextTimestamps: Map<string, number>;
             getStats(): Stats;
             addModule(module: CompilationModule, cacheGroup: any): any;
             // tslint:disable-next-line:ban-types

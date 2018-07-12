@@ -163,9 +163,9 @@ configuration = {
             const startTime = Date.now();
 
             this.hooks.emit.tap("SomePlugin", (compilation: webpack.compilation.Compilation) => {
-                for (const filepath in compilation.fileTimestamps!.keys()) {
+                for (const filepath in compilation.fileTimestamps.keys()) {
                     const prevTimestamp = prevTimestamps.get(filepath) || startTime;
-                    const newTimestamp = compilation.fileTimestamps!.get(filepath) || Infinity;
+                    const newTimestamp = compilation.fileTimestamps.get(filepath) || Infinity;
                     if (prevTimestamp < newTimestamp) {
                         this.inputFileSystem.readFileSync(filepath).toString('utf-8');
                     }
