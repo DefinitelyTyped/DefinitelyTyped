@@ -228,8 +228,8 @@ declare namespace GoogleAppsScript {
       requireTextEqualTo(text: string): DataValidationBuilder;
       requireTextIsEmail(): DataValidationBuilder;
       requireTextIsUrl(): DataValidationBuilder;
-      requireValueInList(values: String[]): DataValidationBuilder;
-      requireValueInList(values: String[], showDropdown: boolean): DataValidationBuilder;
+      requireValueInList(values: string[]): DataValidationBuilder;
+      requireValueInList(values: string[], showDropdown: boolean): DataValidationBuilder;
       requireValueInRange(range: Range): DataValidationBuilder;
       requireValueInRange(range: Range, showDropdown: boolean): DataValidationBuilder;
       setAllowInvalid(allowInvalidData: boolean): DataValidationBuilder;
@@ -302,7 +302,7 @@ declare namespace GoogleAppsScript {
       reverseCategories(): EmbeddedAreaChartBuilder;
       setBackgroundColor(cssValue: string): EmbeddedAreaChartBuilder;
       setChartType(type: Charts.ChartType): EmbeddedChartBuilder;
-      setColors(cssValues: String[]): EmbeddedAreaChartBuilder;
+      setColors(cssValues: string[]): EmbeddedAreaChartBuilder;
       setHiddenDimensionStrategy(strategy: Charts.ChartHiddenDimensionStrategy): EmbeddedChartBuilder;
       setLegendPosition(position: Charts.Position): EmbeddedAreaChartBuilder;
       setLegendTextStyle(textStyle: Charts.TextStyle): EmbeddedAreaChartBuilder;
@@ -349,7 +349,7 @@ declare namespace GoogleAppsScript {
       reverseDirection(): EmbeddedBarChartBuilder;
       setBackgroundColor(cssValue: string): EmbeddedBarChartBuilder;
       setChartType(type: Charts.ChartType): EmbeddedChartBuilder;
-      setColors(cssValues: String[]): EmbeddedBarChartBuilder;
+      setColors(cssValues: string[]): EmbeddedBarChartBuilder;
       setHiddenDimensionStrategy(strategy: Charts.ChartHiddenDimensionStrategy): EmbeddedChartBuilder;
       setLegendPosition(position: Charts.Position): EmbeddedBarChartBuilder;
       setLegendTextStyle(textStyle: Charts.TextStyle): EmbeddedBarChartBuilder;
@@ -477,7 +477,7 @@ declare namespace GoogleAppsScript {
       reverseCategories(): EmbeddedColumnChartBuilder;
       setBackgroundColor(cssValue: string): EmbeddedColumnChartBuilder;
       setChartType(type: Charts.ChartType): EmbeddedChartBuilder;
-      setColors(cssValues: String[]): EmbeddedColumnChartBuilder;
+      setColors(cssValues: string[]): EmbeddedColumnChartBuilder;
       setHiddenDimensionStrategy(strategy: Charts.ChartHiddenDimensionStrategy): EmbeddedChartBuilder;
       setLegendPosition(position: Charts.Position): EmbeddedColumnChartBuilder;
       setLegendTextStyle(textStyle: Charts.TextStyle): EmbeddedColumnChartBuilder;
@@ -521,7 +521,7 @@ declare namespace GoogleAppsScript {
       reverseCategories(): EmbeddedComboChartBuilder;
       setBackgroundColor(cssValue: string): EmbeddedComboChartBuilder;
       setChartType(type: Charts.ChartType): EmbeddedChartBuilder;
-      setColors(cssValues: String[]): EmbeddedComboChartBuilder;
+      setColors(cssValues: string[]): EmbeddedComboChartBuilder;
       setHiddenDimensionStrategy(strategy: Charts.ChartHiddenDimensionStrategy): EmbeddedChartBuilder;
       setLegendPosition(position: Charts.Position): EmbeddedComboChartBuilder;
       setLegendTextStyle(textStyle: Charts.TextStyle): EmbeddedComboChartBuilder;
@@ -566,7 +566,7 @@ declare namespace GoogleAppsScript {
       reverseCategories(): EmbeddedHistogramChartBuilder;
       setBackgroundColor(cssValue: string): EmbeddedHistogramChartBuilder;
       setChartType(type: Charts.ChartType): EmbeddedChartBuilder;
-      setColors(cssValues: String[]): EmbeddedHistogramChartBuilder;
+      setColors(cssValues: string[]): EmbeddedHistogramChartBuilder;
       setHiddenDimensionStrategy(strategy: Charts.ChartHiddenDimensionStrategy): EmbeddedChartBuilder;
       setLegendPosition(position: Charts.Position): EmbeddedHistogramChartBuilder;
       setLegendTextStyle(textStyle: Charts.TextStyle): EmbeddedHistogramChartBuilder;
@@ -611,7 +611,7 @@ declare namespace GoogleAppsScript {
       reverseCategories(): EmbeddedLineChartBuilder;
       setBackgroundColor(cssValue: string): EmbeddedLineChartBuilder;
       setChartType(type: Charts.ChartType): EmbeddedChartBuilder;
-      setColors(cssValues: String[]): EmbeddedLineChartBuilder;
+      setColors(cssValues: string[]): EmbeddedLineChartBuilder;
       setCurveStyle(style: Charts.CurveStyle): EmbeddedLineChartBuilder;
       setHiddenDimensionStrategy(strategy: Charts.ChartHiddenDimensionStrategy): EmbeddedChartBuilder;
       setLegendPosition(position: Charts.Position): EmbeddedLineChartBuilder;
@@ -658,7 +658,7 @@ declare namespace GoogleAppsScript {
       set3D(): EmbeddedPieChartBuilder;
       setBackgroundColor(cssValue: string): EmbeddedPieChartBuilder;
       setChartType(type: Charts.ChartType): EmbeddedChartBuilder;
-      setColors(cssValues: String[]): EmbeddedPieChartBuilder;
+      setColors(cssValues: string[]): EmbeddedPieChartBuilder;
       setHiddenDimensionStrategy(strategy: Charts.ChartHiddenDimensionStrategy): EmbeddedChartBuilder;
       setLegendPosition(position: Charts.Position): EmbeddedPieChartBuilder;
       setLegendTextStyle(textStyle: Charts.TextStyle): EmbeddedPieChartBuilder;
@@ -693,7 +693,7 @@ declare namespace GoogleAppsScript {
       removeRange(range: Range): EmbeddedChartBuilder;
       setBackgroundColor(cssValue: string): EmbeddedScatterChartBuilder;
       setChartType(type: Charts.ChartType): EmbeddedChartBuilder;
-      setColors(cssValues: String[]): EmbeddedScatterChartBuilder;
+      setColors(cssValues: string[]): EmbeddedScatterChartBuilder;
       setHiddenDimensionStrategy(strategy: Charts.ChartHiddenDimensionStrategy): EmbeddedChartBuilder;
       setLegendPosition(position: Charts.Position): EmbeddedScatterChartBuilder;
       setLegendTextStyle(textStyle: Charts.TextStyle): EmbeddedScatterChartBuilder;
@@ -774,8 +774,8 @@ declare namespace GoogleAppsScript {
       copy(): FilterCriteriaBuilder;
       getCriteriaType(): BooleanCriteria;
       getCriteriaValues(): Object[];
-      getHiddenValues(): String[];
-      getVisibleValues(): String[];
+      getHiddenValues(): string[];
+      getVisibleValues(): string[];
     }
 
     /**
@@ -786,10 +786,10 @@ declare namespace GoogleAppsScript {
       copy(): FilterCriteriaBuilder;
       getCriteriaType(): BooleanCriteria;
       getCriteriaValues(): Object[];
-      getHiddenValues(): String[];
-      getVisibleValues(): String[];
-      setHiddenValues(values: String[]): FilterCriteriaBuilder;
-      setVisibleValues(values: String[]): FilterCriteriaBuilder;
+      getHiddenValues(): string[];
+      getVisibleValues(): string[];
+      setHiddenValues(values: string[]): FilterCriteriaBuilder;
+      setVisibleValues(values: string[]): FilterCriteriaBuilder;
       whenCellEmpty(): FilterCriteriaBuilder;
       whenCellNotEmpty(): FilterCriteriaBuilder;
       whenDateAfter(date: Date): FilterCriteriaBuilder;
@@ -905,7 +905,7 @@ declare namespace GoogleAppsScript {
      */
     export interface PageProtection {
       addUser(email: string): void;
-      getUsers(): String[];
+      getUsers(): string[];
       isProtected(): boolean;
       removeUser(user: string): void;
       setProtected(protection: boolean): void;
@@ -1039,7 +1039,7 @@ declare namespace GoogleAppsScript {
     export interface Protection {
       addEditor(emailAddress: string): Protection;
       addEditor(user: Base.User): Protection;
-      addEditors(emailAddresses: String[]): Protection;
+      addEditors(emailAddresses: string[]): Protection;
       canDomainEdit(): boolean;
       canEdit(): boolean;
       getDescription(): string;
@@ -1052,7 +1052,7 @@ declare namespace GoogleAppsScript {
       remove(): void;
       removeEditor(emailAddress: string): Protection;
       removeEditor(user: Base.User): Protection;
-      removeEditors(emailAddresses: String[]): Protection;
+      removeEditors(emailAddresses: string[]): Protection;
       setDescription(description: string): Protection;
       setDomainEdit(editable: boolean): Protection;
       setNamedRange(namedRange: NamedRange): Protection;
@@ -1121,7 +1121,7 @@ declare namespace GoogleAppsScript {
       expandGroups(): Range;
       getA1Notation(): string;
       getBackground(): string;
-      getBackgrounds(): String[][];
+      getBackgrounds(): string[][];
       getBandings(): Banding[];
       getCell(row: Integer, column: Integer): Range;
       getColumn(): Integer;
@@ -1131,38 +1131,38 @@ declare namespace GoogleAppsScript {
       getDataValidation(): DataValidation;
       getDataValidations(): DataValidation[][];
       getDisplayValue(): string;
-      getDisplayValues(): String[][];
+      getDisplayValues(): string[][];
       getFilter(): Filter;
       getFontColor(): string;
-      getFontColors(): String[][];
-      getFontFamilies(): String[][];
+      getFontColors(): string[][];
+      getFontFamilies(): string[][];
       getFontFamily(): string;
       getFontLine(): string;
-      getFontLines(): String[][];
+      getFontLines(): string[][];
       getFontSize(): Integer;
       getFontSizes(): Integer[][];
       getFontStyle(): string;
-      getFontStyles(): String[][];
+      getFontStyles(): string[][];
       getFontWeight(): string;
-      getFontWeights(): String[][];
+      getFontWeights(): string[][];
       getFormula(): string;
       getFormulaR1C1(): string;
-      getFormulas(): String[][];
-      getFormulasR1C1(): String[][];
+      getFormulas(): string[][];
+      getFormulasR1C1(): string[][];
       getGridId(): Integer;
       getHeight(): Integer;
       getHorizontalAlignment(): string;
-      getHorizontalAlignments(): String[][];
+      getHorizontalAlignments(): string[][];
       getLastColumn(): Integer;
       getLastRow(): Integer;
       getMergedRanges(): Range[];
       getNextDataCell(direction: Direction): Range;
       getNote(): string;
-      getNotes(): String[][];
+      getNotes(): string[][];
       getNumColumns(): Integer;
       getNumRows(): Integer;
       getNumberFormat(): string;
-      getNumberFormats(): String[][];
+      getNumberFormats(): string[][];
       getRow(): Integer;
       getRowIndex(): Integer;
       getSheet(): Sheet;
@@ -1173,7 +1173,7 @@ declare namespace GoogleAppsScript {
       getValue(): Object;
       getValues(): Object[][];
       getVerticalAlignment(): string;
-      getVerticalAlignments(): String[][];
+      getVerticalAlignments(): string[][];
       getWidth(): Integer;
       getWrap(): boolean;
       getWrapStrategies(): WrapStrategy[][];
@@ -1197,7 +1197,7 @@ declare namespace GoogleAppsScript {
       randomize(): Range;
       setBackground(color: string): Range;
       setBackgroundRGB(red: Integer, green: Integer, blue: Integer): Range;
-      setBackgrounds(color: String[][]): Range;
+      setBackgrounds(color: string[][]): Range;
       setBorder(top: boolean, left: boolean, bottom: boolean, right: boolean, vertical: boolean, horizontal: boolean): Range;
       setBorder(top: boolean, left: boolean, bottom: boolean, right: boolean, vertical: boolean, horizontal: boolean, color: string, style: BorderStyle): Range;
       setDataValidation(rule: DataValidation): Range;
@@ -1216,8 +1216,8 @@ declare namespace GoogleAppsScript {
       setFontWeights(fontWeights: Object[][]): Range;
       setFormula(formula: string): Range;
       setFormulaR1C1(formula: string): Range;
-      setFormulas(formulas: String[][]): Range;
-      setFormulasR1C1(formulas: String[][]): Range;
+      setFormulas(formulas: string[][]): Range;
+      setFormulasR1C1(formulas: string[][]): Range;
       setHorizontalAlignment(alignment: string): Range;
       setHorizontalAlignments(alignments: Object[][]): Range;
       setNote(note: string): Range;
@@ -1379,7 +1379,7 @@ declare namespace GoogleAppsScript {
       getRange(row: Integer, column: Integer, numRows: Integer): Range;
       getRange(row: Integer, column: Integer, numRows: Integer, numColumns: Integer): Range;
       getRange(a1Notation: string): Range;
-      getRangeList(a1Notations: String[]): RangeList;
+      getRangeList(a1Notations: string[]): RangeList;
       getRowGroup(rowIndex: Integer, groupDepth: Integer): Group;
       getRowGroupControlPosition(): GroupControlTogglePosition;
       getRowGroupDepth(rowIndex: Integer): Integer;
@@ -1460,11 +1460,11 @@ declare namespace GoogleAppsScript {
     export interface Spreadsheet {
       addEditor(emailAddress: string): Spreadsheet;
       addEditor(user: Base.User): Spreadsheet;
-      addEditors(emailAddresses: String[]): Spreadsheet;
+      addEditors(emailAddresses: string[]): Spreadsheet;
       addMenu(name: string, subMenus: Object[]): void;
       addViewer(emailAddress: string): Spreadsheet;
       addViewer(user: Base.User): Spreadsheet;
-      addViewers(emailAddresses: String[]): Spreadsheet;
+      addViewers(emailAddresses: string[]): Spreadsheet;
       appendRow(rowContents: Object[]): Sheet;
       autoResizeColumn(columnPosition: Integer): Sheet;
       copy(name: string): Spreadsheet;
@@ -1499,7 +1499,7 @@ declare namespace GoogleAppsScript {
       getProtections(type: ProtectionType): Protection[];
       getRange(a1Notation: string): Range;
       getRangeByName(name: string): Range;
-      getRangeList(a1Notations: String[]): RangeList;
+      getRangeList(a1Notations: string[]): RangeList;
       getRowHeight(rowPosition: Integer): Integer;
       getSelection(): Selection;
       getSheetByName(name: string): Sheet;
