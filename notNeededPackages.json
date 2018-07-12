@@ -1195,6 +1195,12 @@
             "asOfVersion": "4.1.1"
         },
         {
+            "libraryName": "react-native-navigation",
+            "typingsPackageName": "react-native-navigation",
+            "sourceRepoURL": "https://github.com/wix/react-native-navigation",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "react-split-pane",
             "typingsPackageName": "react-split-pane",
             "sourceRepoURL": "https://github.com/tomkp/react-split-pane",
