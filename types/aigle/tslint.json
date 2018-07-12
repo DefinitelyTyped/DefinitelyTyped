@@ -1,0 +1,19 @@
+{
+    "extends": "tslint:recommended",
+    "rules": {
+        "array-type": false,
+        "arrow-parens": false,
+        "comment-format": false,
+        "interface-name": false,
+        "jsdoc-format": false,
+        "max-classes-per-file": false,
+        "max-line-length": false,
+        "member-access": false,
+        "member-ordering": false,
+        "no-empty": false,
+        "no-namespace": false,
+        "no-shadowed-variable": false,
+        "quotemark": false,
+        "trailing-comma": false
+    }
+}
