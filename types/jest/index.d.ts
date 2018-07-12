@@ -394,7 +394,7 @@ declare namespace jest {
          *
          * @param actual The value to apply matchers against.
          */
-        (actual: any): Matchers<void>;
+        <T = any>(actual: T): Matchers<T>;
         /**
          * Matches anything but null or undefined. You can use it inside `toEqual` or `toBeCalledWith` instead
          * of a literal value. For example, if you want to check that a mock function is called with a
@@ -651,6 +651,11 @@ declare namespace jest {
          * Used to check that a JavaScript object matches a subset of the properties of an object
          */
         toMatchObject(expected: {} | any[]): R;
+        /**
+         * This ensures that a value matches the most recent snapshot with property matchers.
+         * Check out [the Snapshot Testing guide](http://facebook.github.io/jest/docs/snapshot-testing.html) for more information.
+         */
+        toMatchSnapshot<T extends {[P in keyof R]: Expect['any']}>(propertyMatchers: Partial<T>, snapshotName?: string): R;
         /**
          * This ensures that a value matches the most recent snapshot.
          * Check out [the Snapshot Testing guide](http://facebook.github.io/jest/docs/snapshot-testing.html) for more information.

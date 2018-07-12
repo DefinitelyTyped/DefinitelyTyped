@@ -1,6 +1,8 @@
-// Type definitions for Paper.js v0.9.24
+// Type definitions for Paper.js v0.11.5
 // Project: http://paperjs.org/
-// Definitions by: Clark Stevenson <https://github.com/clark-stevenson>, Jon Lucas <https://github.com/Xakaloz>
+// Definitions by:  Clark Stevenson <https://github.com/clark-stevenson>,
+//                  Jon Lucas <https://github.com/Xakaloz>,
+//                  Sebastian Lopez <https://github.com/sebaswebdev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 type NativeMouseEvent = MouseEvent;
@@ -1407,6 +1409,25 @@ declare module paper {
          * @param options.selected - only hit selected items.
          */
         hitTest(point: Point, options?: { tolerance?: number; class?: string; fill?: boolean; stroke?: boolean; segments?: boolean; curves?: boolean; handles?: boolean; ends?: boolean; bounds?: boolean; center?: boolean; guides?: boolean; selected?: boolean; match?: (hit: HitResult) => boolean; }): HitResult;
+
+        /**
+         * Perform a hit-test on the items contained within the project at the location of the specified point, returning all found hits.
+         * The options object allows you to control the specifics of the hit-test and may contain a combination of the following values:
+         * @param point - the point where the hit-test should be performed
+         * @param options.tolerance -the tolerance of the hit-test in points. Can also be controlled through paperScope.settings.hitTolerance
+         * @param options.class - only hit-test again a certain item class and its sub-classes: Group, Layer, Path, CompoundPath, Shape, Raster, PlacedSymbol, PointText, etc.
+         * @param options.fill - hit-test the fill of items.
+         * @param options.stroke - hit-test the stroke of path items, taking into account the setting of stroke color and width.
+         * @param options.segments - hit-test for segment.point of Path items.
+         * @param options.curves - hit-test the curves of path items, without taking the stroke color or width into account.
+         * @param options.handles - hit-test for the handles.  (segment.handleIn / segment.handleOut) of path segments.
+         * @param options.ends - only hit-test for the first or last segment points of open path items.
+         * @param options.bounds - hit-test the corners and side-centers of the bounding rectangle of items (item.bounds).
+         * @param options.center - hit-test the rectangle.center of the bounding rectangle of items (item.bounds).
+         * @param options.guides - hit-test items that have Item#guide set to true.
+         * @param options.selected - only hit selected items.
+         */
+        hitTestAll(point: Point, options?: { tolerance?: number; class?: string; fill?: boolean; stroke?: boolean; segments?: boolean; curves?: boolean; handles?: boolean; ends?: boolean; bounds?: boolean; center?: boolean; guides?: boolean; selected?: boolean; match?: (hit: HitResult) => boolean; }): HitResult[];
 
         /**
          * Checks whether the item matches the criteria described by the given object, by iterating over all of its properties and matching against their values through matches(name, compare).
@@ -3237,7 +3258,7 @@ declare module paper {
          * Deselects all selected items in the project.
          */
         deselectAll(): void;
-         
+
         /**
          * Adds the specified layer at the end of the this project’s layers list.
          */

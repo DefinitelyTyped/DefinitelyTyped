@@ -10,6 +10,7 @@
 //                 Thomas Bruun <https://github.com/bruun>
 //                 Gal Talmor <https://github.com/galtalmor>
 //                 Hunter Tunnicliff <https://github.com/htunnicliff>
+//                 Tyler Jones <https://github.com/squirly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -4338,7 +4339,7 @@ declare namespace Stripe {
             /**
              * Value is 'card'
              */
-            object: string;
+            object: 'card';
 
             /**
              * The card number

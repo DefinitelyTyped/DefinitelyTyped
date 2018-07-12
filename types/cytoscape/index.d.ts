@@ -915,7 +915,7 @@ declare namespace cytoscape {
         /** An object containing centring options from which the graph will be animated. */
         center?: CenterOptions;
         /** easing - A transition-timing-function easing style string that shapes the animation progress curve. */
-        easing?: string; // TODO: explicit type
+        easing?: Css.TransitionTimingFunction;
 
         /** duration - The duration of the animation in milliseconds. */
         duration?: number;
@@ -995,7 +995,7 @@ declare namespace cytoscape {
          * An analogue to run a layout on a subset of the graph exists as eles.layout().
          * http://js.cytoscape.org/#cy.layout
          */
-        layout(layout: LayoutOptions): LayoutManipulation;
+        layout(layout: LayoutOptions): Layouts;
         /**
          * Get a new layout, which can be used to algorithmically
          * position the nodes in the graph.
@@ -1008,8 +1008,8 @@ declare namespace cytoscape {
          * Note that you must call layout.run() in order for it to affect the graph.
          * An analogue to make a layout on a subset of the graph exists as eles.makeLayout().
          */
-        makeLayout(options: LayoutOptions): LayoutManipulation;
-        createLayout(options: LayoutOptions): LayoutManipulation;
+        makeLayout(options: LayoutOptions): Layouts;
+        createLayout(options: LayoutOptions): Layouts;
     }
 
     /**
@@ -1798,9 +1798,9 @@ declare namespace cytoscape {
          *
          * @param options The layout options.
          */
-        layout(options: LayoutOptions): LayoutManipulation;
-        makeLayout(options: LayoutOptions): LayoutManipulation;
-        createLayout(options: LayoutOptions): LayoutManipulation;
+        layout(options: LayoutOptions): Layouts;
+        makeLayout(options: LayoutOptions): Layouts;
+        createLayout(options: LayoutOptions): Layouts;
     }
 
     /**
@@ -1813,7 +1813,7 @@ declare namespace cytoscape {
         animationDuration?: number;
         // easing of animation, if enabled
         animationEasing?: number;
-        // collection of elements involved in the layout; set by cy.layout() or eles.layout()
+        // collection of elements involved in the layout; set by cy.layout() or eles.layout(s)
         eles: CollectionArgument;
         // whether to fit the viewport to the graph
         fit?: boolean;
@@ -2063,19 +2063,15 @@ declare namespace cytoscape {
         /** A function to call each time the animation steps. */
         step?(): void;
         /** A transition-timing-function easing style string that shapes the animation progress curve. */
-        easing?(): void;
+        easing?: Css.TransitionTimingFunction;
     }
-    interface ElementAnimateOptionPos {
+    interface ElementAnimateOptionPos extends ElementAnimateOptionsBase {
         /** A position to which the elements will be animated. */
-        position?: Position;
-        /** A rendered position to which the elements will be animated. */
-        renderedPosition?: Position;
+        position: Position;
     }
-    interface ElementAnimateOptionRen {
-        /** A position to which the elements will be animated. */
-        position?: Position;
+    interface ElementAnimateOptionRen extends ElementAnimateOptionsBase {
         /** A rendered position to which the elements will be animated. */
-        renderedPosition?: Position;
+        renderedPosition: Position;
     }
     interface CollectionAnimation {
         /**
@@ -2083,7 +2079,7 @@ declare namespace cytoscape {
          * @param options An object containing the details of the animation.
          * http://js.cytoscape.org/#eles.animate
          */
-        animate(options: ElementAnimateOptionPos | ElementAnimateOptionRen): this;
+        animate(options: ElementAnimateOptionPos | ElementAnimateOptionRen, params?: ElementAnimateOptionsBase): this;
         /**
          * Add a delay between animations for the elements.
          * @param duration How long the delay should be in milliseconds.
@@ -2104,7 +2100,7 @@ declare namespace cytoscape {
          */
         clearQueue(): this;
     }
-    interface SingularAnimationOptions {
+    interface SingularAnimationOptionsBase {
         /** A position to which the elements will be animated. */
         position: Position;
         /** A rendered position to which the elements will be animated. */
@@ -2114,7 +2110,15 @@ declare namespace cytoscape {
         /** The duration of the animation in milliseconds. */
         duration: number;
         /** A transition-timing-function easing style string that shapes the animation progress curve. */
-        easing(): void;
+        easing: Css.TransitionTimingFunction;
+    }
+    interface SingularAnimationOptionsPos extends SingularAnimationOptionsBase {
+        /** A position to which the elements will be animated. */
+        position: Position;
+    }
+    interface SingularAnimationOptionsRen extends SingularAnimationOptionsBase {
+        /** A rendered position to which the elements will be animated. */
+        renderedPosition: Position;
     }
     interface SingularAnimation {
         /**
@@ -2125,7 +2129,7 @@ declare namespace cytoscape {
          *  Get an animation for the element.
          * @param options An object containing the details of the animation.
          */
-        animation(options: SingularAnimationOptions): AnimationManipulation;
+        animation(options: SingularAnimationOptionsRen | SingularAnimationOptionsPos): AnimationManipulation;
 
         /**
          * Get a delay animation for the element.
