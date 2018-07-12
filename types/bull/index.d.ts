@@ -175,14 +175,14 @@ declare namespace Bull {
     limit?: number;
   }
 
-  interface ICronRepeatOptions extends RepeatOptions {
+  interface CronRepeatOptions extends RepeatOptions {
     /**
      * Cron pattern specifying when the job should execute
      */
     cron: string;
   }
 
-  interface IEveryRepeatOptions extends RepeatOptions {
+  interface EveryRepeatOptions extends RepeatOptions {
     /**
      * Repeat every millis (cron setting cannot be used together with this setting.)
      */
@@ -210,7 +210,7 @@ declare namespace Bull {
     /**
      * Repeat job according to a cron specification
      */
-    repeat?: ICronRepeatOptions | IEveryRepeatOptions;
+    repeat?: CronRepeatOptions | EveryRepeatOptions;
 
     /**
      * Backoff setting for automatic retries if the job fails
