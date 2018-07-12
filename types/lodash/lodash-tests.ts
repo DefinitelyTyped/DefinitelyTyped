@@ -5536,6 +5536,12 @@ fp.now(); // $ExpectType number
     fp.mapValues(valueIterator)(numericDictionary); // $ExpectType Dictionary<boolean>
     fp.mapValues({ a: 42 })(numericDictionary); // $ExpectType Dictionary<boolean>
     fp.mapValues(value => "", abcObjectOrNull); // $ExpectType { a: string; b: string; c: string; }
+
+    // Expect type of param x to be inferred as number from contextual type
+    const foo: (obj: _.Dictionary<number>) => _.Dictionary<number> = fp.mapValues(
+        // $ExpectType (x: number) => number
+        x => x
+    );
 }
 
 // _.omit
