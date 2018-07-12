@@ -2230,7 +2230,7 @@ export interface WebViewNativeConfig {
      * original WebView doesn't pass through.
      */
     props?: Object;
-    
+
     /*
      * Set the ViewManager to use for communication with the native side.
      * @platform ios
