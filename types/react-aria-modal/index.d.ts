@@ -2,7 +2,7 @@
 // Project: https://github.com/davidtheclark/react-aria-modal#readme
 // Definitions by: forabi <https://github.com/forabi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import React = require('react');
 
@@ -12,12 +12,14 @@ export interface AriaModalProps {
      * instead of its default dialog.
      */
     alert?: boolean;
+
     /**
      * By default, the modal is active when mounted, deactivated when unmounted.
      * However, you can also control its active/inactive state by changing
      * its mounted property instead.
      */
     mounted?: boolean;
+
     /**
      * Provide your main application node here (which the modal should
      * render outside of), and when the modal is open this application
@@ -25,6 +27,7 @@ export interface AriaModalProps {
      * This can help screen readers understand what's going on.
      */
     applicationNode?: Node | Element;
+
     /**
      * Same as `applicationNode`, but a function that returns the node
      * instead of the node itself. This can be useful or necessary in
@@ -35,6 +38,7 @@ export interface AriaModalProps {
      * without ruining your server-side rendering.
      */
     getApplicationNode?(): Node | Element;
+
     /**
      * By default, styles are applied inline to the dialog and underlay
      * portions of the component. However, you can disable all inline
@@ -46,6 +50,7 @@ export interface AriaModalProps {
      * but these will be the only styles applied.
      */
     includeDefaultStyles?: boolean;
+
     /**
      * Apply a class to the dialog in order to custom-style it.
      *
@@ -54,16 +59,19 @@ export interface AriaModalProps {
      * To disable _all inline styles_, see `includeDefaultStyles`.
      */
     dialogClass?: string;
+
     /**
      * Choose your own id attribute for the dialog element.
      *
      * Default: `react-aria-modal-dialog`.
      */
     dialogId?: string;
+
     /**
      * Customize properties of the style prop that is passed to the dialog.
      */
     dialogStyle?: React.CSSProperties;
+
     /**
      * By default, when the modal activates its first focusable child will
      * receive focus. However, if `focusDialog` is true, the dialog itself
@@ -71,6 +79,7 @@ export interface AriaModalProps {
      * (This is essentially what Bootstrap does with their modal.)
      */
     focusDialog?: boolean;
+
     /**
      * By default, when the modal activates its first focusable child will
      * receive focus. If, instead, you want to identify a specific element
@@ -79,12 +88,14 @@ export interface AriaModalProps {
      * the DOM node.)
      */
     initialFocus?: string;
+
     /**
      * A string to use as the modal's accessible title. This value is passed
      * to the modal's `aria-label` attribute. You must use either `titleId` or
      * `titleText`, but not both.
      */
     titleText?: string;
+
     /**
      * The `id` of the element that should be used as the modal's accessible
      * title. This value is passed to the modal's `aria-labelledby` attribute.
