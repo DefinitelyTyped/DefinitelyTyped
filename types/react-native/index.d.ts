@@ -2229,13 +2229,13 @@ export interface WebViewNativeConfig {
      * Set props directly on the native component WebView. Enables custom props which the
      * original WebView doesn't pass through.
      */
-    props?: Object;
+    props?: object;
 
     /*
      * Set the ViewManager to use for communication with the native side.
      * @platform ios
      */
-    viewManager?: Object;
+    viewManager?: object;
 }
 
 /**
