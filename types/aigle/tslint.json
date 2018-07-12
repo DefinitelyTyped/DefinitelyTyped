@@ -1,5 +1,5 @@
 {
-    "extends": "tslint:recommended",
+    "extends": "dtslint/dt.json",
     "rules": {
         "array-type": false,
         "arrow-parens": false,
