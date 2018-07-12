@@ -523,9 +523,11 @@ namespace TestInjector {
 
     // $injector.loadNewModules
     {
+        const inlineAnnotatedFunction: any[] = [false, (v: boolean) => {}];
         const modA = angular.module('$injector.moduleA', []);
         $injector.loadNewModules([modA]);
         $injector.loadNewModules([modA.name]);
+        $injector.loadNewModules([inlineAnnotatedFunction]);
     }
 
     // $injector.modules
