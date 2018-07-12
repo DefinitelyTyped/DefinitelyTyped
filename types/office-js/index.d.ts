@@ -10168,6 +10168,22 @@ declare namespace Office {
          */
         cc: Recipients;
         /**
+         * Gets an identifier for the email conversation that contains a particular message.
+         *
+         * You can get an integer for this property if your mail app is activated in read forms or responses in compose forms. If subsequently the user changes the subject of the reply message, upon sending the reply, the conversation ID for that message will change and that value you obtained earlier will no longer apply.
+         *
+         * You get null for this property for a new item in a compose form. If the user sets a subject and saves the item, the conversationId property will return a value.
+         *
+         * [Api set: Mailbox 1.0]
+         *
+         * @remarks
+         *
+         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+         *
+         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Compose</td></tr></table>
+         */
+        conversationId: string;
+        /**
          * Gets the date and time that an item was created. Read mode only.
          *
          * [Api set: Mailbox 1.0]
@@ -11047,6 +11063,22 @@ declare namespace Office {
          * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Read</td></tr></table>
          */
         cc: EmailAddressDetails[];
+        /**
+         * Gets an identifier for the email conversation that contains a particular message.
+         *
+         * You can get an integer for this property if your mail app is activated in read forms or responses in compose forms. If subsequently the user changes the subject of the reply message, upon sending the reply, the conversation ID for that message will change and that value you obtained earlier will no longer apply.
+         *
+         * You get null for this property for a new item in a compose form. If the user sets a subject and saves the item, the conversationId property will return a value.
+         *
+         * [Api set: Mailbox 1.0]
+         *
+         * @remarks
+         *
+         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+         *
+         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Read</td></tr></table>
+         */
+        conversationId: string;
         /**
          * Gets the date and time that an item was created. Read mode only.
          *
