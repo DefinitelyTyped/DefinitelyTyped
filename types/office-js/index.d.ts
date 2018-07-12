@@ -752,6 +752,8 @@ declare namespace Office {
     interface Auth {
         /**
         * Calls the Azure Active Directory V 2.0 endpoint to get an access token to your add-in's web application. Allows add-ins to identify users. Server side code can use this token to access Microsoft Graph for the add-in's web application by using the {@link https://docs.microsoft.com/azure/active-directory/develop/active-directory-v2-protocols-oauth-on-behalf-of | "on behalf of" OAuth flow}.
+        * 
+        * Important: In Outlook, this API is not supported if the add-in is loaded in an Outlook.com or Gmail mailbox.
         *
         * @remarks
         * <table><tr><td>Hosts</td><td>Excel, OneNote, Outlook, PowerPoint, Word</td></tr>
