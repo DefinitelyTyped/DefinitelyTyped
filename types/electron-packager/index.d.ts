@@ -1,8 +1,9 @@
-// Type definitions for electron-packager 10.1
+// Type definitions for electron-packager 12.0
 // Project: https://github.com/electron-userland/electron-packager
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>
 //                 Juan Jimenez-Anca <https://github.com/cortopy>
 //                 John Kleinschmidt <https://github.com/jkleinsc>
+//                 Brendan Forster <https://github.com/shiftkey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -17,7 +18,22 @@ export = electronPackager;
  * You should be able to launch the app on the platform you built for. If not, check your settings and try again.
  *
  * @param opts - Options to configure packaging.
+ *
+ * @returns A promise containing the path(s) to the newly created application(s)
+ */
+declare function electronPackager(opts: electronPackager.Options): Promise<string|string[]>;
+
+/**
+ * This will:
+ * - Find or download the correct release of Electron
+ * - Use that version of electron to create a app in <out>/<appname>-<platform>-<arch>
+ *
+ * You should be able to launch the app on the platform you built for. If not, check your settings and try again.
+ *
+ * @param opts - Options to configure packaging.
  * @param callback - Callback which is called when packaging is done or an error occured.
+ *
+ * @deprecated since version 12.0
  */
 declare function electronPackager(opts: electronPackager.Options, callback: electronPackager.finalCallback): void;
 

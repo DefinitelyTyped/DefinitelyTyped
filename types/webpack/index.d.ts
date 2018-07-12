@@ -947,6 +947,8 @@ declare namespace webpack {
             childrenCounters: any;
             usedChunkIds: any;
             usedModuleIds: any;
+            fileTimestamps: Map<string, number>;
+            contextTimestamps: Map<string, number>;
             getStats(): Stats;
             addModule(module: CompilationModule, cacheGroup: any): any;
             // tslint:disable-next-line:ban-types
@@ -1017,6 +1019,26 @@ declare namespace webpack {
         invalidate(): void;
     }
 
+    interface InputFileSystem {
+        purge(): void;
+        readFile(path: string, callback: (err: Error, contents: Buffer) => void): void;
+        readFileSync(path: string): Buffer;
+        readlink(path: string, callback: (err: Error, linkString: string) => void): void;
+        readlinkSync(path: string): string;
+        stat(path: string, callback: (err: Error, stats: any) => void): void;
+        statSync(path: string): any;
+    }
+
+    interface OutputFileSystem {
+        join(...paths: string[]): string;
+        mkdir(path: string, callback: (err: Error) => void): void;
+        mkdirp(path: string, callback: (err: Error) => void): void;
+        purge(): void;
+        rmdir(path: string, callback: (err: Error) => void): void;
+        unlink(path: string, callback: (err: Error) => void): void;
+        writeFile(path: string, data: any, callback: (err: Error) => void): void;
+    }
+
     class Compiler extends Tapable implements ICompiler {
         constructor();
 
@@ -1025,7 +1047,10 @@ declare namespace webpack {
 
         name: string;
         options: Configuration;
-        outputFileSystem: any;
+        inputFileSystem: InputFileSystem;
+        outputFileSystem: OutputFileSystem;
+        fileTimestamps: Map<string, number>;
+        contextTimestamps: Map<string, number>;
         run(handler: Compiler.Handler): void;
         watch(watchOptions: Compiler.WatchOptions, handler: Compiler.Handler): Compiler.Watching;
     }

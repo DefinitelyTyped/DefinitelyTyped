@@ -489,6 +489,27 @@ eles.style(eles.style());
 aliases(eles.style, eles.css);
 aliases(ele.renderedCss, ele.renderedStyle);
 
+nodes.forEach((child) => {
+  child.animate({
+    position: node.position(),
+    duration: 300,
+    complete: () => {
+      console.log(child.id());
+    }
+  });
+});
+
+nodes.animate({
+  renderedPosition: node.position()
+}, {
+  style: { backgroundColor: 'red' },
+  duration: 1000,
+  queue: true,
+  complete: () => console.log('end'),
+  step: () => console.log('step'),
+  easing: 'ease-in-out-quint'
+});
+
 eles.anySame(nodes);
 aliases(eles.contains, eles.has);
 aliases(eles.allAreNeighbors, eles.allAreNeighbours);
