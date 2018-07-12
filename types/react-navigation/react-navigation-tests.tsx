@@ -553,7 +553,7 @@ const MyFocusedComponentInstance = <MyFocusedComponentWithNavigationFocus
 
 // Test Screen with params
 
-interface MyScreenParams { unknown: string; }
+interface MyScreenParams { title: string; }
 class MyScreen extends React.Component<NavigationInjectedProps<MyScreenParams>> {
     render() {
         const title = this.props.navigation.getParam('title');
