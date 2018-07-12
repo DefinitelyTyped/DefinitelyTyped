@@ -77,4 +77,4 @@ export const theme: Theme;
 export type DivProps = Omit<React.HTMLProps<HTMLDivElement>, "ref"> & {
     innerRef?: (el: HTMLDivElement) => any;
 };
-export const div: ComponentClass<DivProps>;
+export const div: ComponentType<DivProps>;
