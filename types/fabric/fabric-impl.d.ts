@@ -1627,7 +1627,7 @@ export class Ellipse {
 	static fromObject(object: any): Ellipse;
 }
 
-export interface Group extends Object, ICollection<Group> { }
+export interface Group extends ICollection<Group> { }
 export class Group {
 	/**
 	 * Constructor
@@ -1719,7 +1719,7 @@ export class Group {
 ///////////////////////////////////////////////////////////////////////////////
 // ActiveSelection
 //////////////////////////////////////////////////////////////////////////////
-export interface ActiveSelection extends Object, ICollection<Group> { }
+export interface ActiveSelection extends ICollection<Group> { }
 export class ActiveSelection {
 	/**
 	 * Constructor
