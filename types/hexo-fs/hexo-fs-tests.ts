@@ -558,7 +558,7 @@ it('emptyDir()', () => {
 
     return createDummyFolder(target).then(() => {
         return fs.emptyDir(target);
-    }).then(files => {
+    }).then<Array<[string, boolean]>>(files => {
         files.should.have.members([
             'e.txt',
             'f.js',
@@ -577,7 +577,7 @@ it('emptyDir()', () => {
             [join(target, 'folder', 'i.js'), false],
             [join(target, 'folder', '.j'), true]
         ];
-    }).map((data: [string, boolean]) => {
+    }).map(data => {
         return fs.exists(data[0]).then(exist => {
             exist.should.eql(data[1]);
         });
@@ -626,7 +626,7 @@ it('emptyDir() - ignoreHidden off', () => {
 
     return createDummyFolder(target).then(() => {
         return fs.emptyDir(target, { ignoreHidden: false });
-    }).then(files => {
+    }).then<Array<[string, boolean]>>(files => {
         files.should.have.members([
             join('.hidden', 'a.txt'),
             join('.hidden', 'b.js'),
@@ -650,7 +650,7 @@ it('emptyDir() - ignoreHidden off', () => {
             [join(target, 'folder', 'i.js'), false],
             [join(target, 'folder', '.j'), false]
         ];
-    }).map((data: [string, boolean]) => {
+    }).map(data => {
         return fs.exists(data[0]).then(exist => {
             exist.should.eql(data[1]);
         });
@@ -664,7 +664,7 @@ it('emptyDir() - ignorePattern', () => {
 
     return createDummyFolder(target).then(() => {
         return fs.emptyDir(target, { ignorePattern: /\.js/ });
-    }).then(files => {
+    }).then<Array<[string, boolean]>>(files => {
         files.should.have.members(['e.txt', join('folder', 'h.txt')]);
 
         return [
@@ -678,7 +678,7 @@ it('emptyDir() - ignorePattern', () => {
             [join(target, 'folder', 'i.js'), true],
             [join(target, 'folder', '.j'), true]
         ];
-    }).map((data: [string, boolean]) => {
+    }).map(data => {
         return fs.exists(data[0]).then(exist => {
             exist.should.eql(data[1]);
         });
@@ -692,7 +692,7 @@ it('emptyDir() - exclude', () => {
 
     return createDummyFolder(target).then(() => {
         return fs.emptyDir(target, { exclude: ['e.txt', join('folder', 'i.js')] });
-    }).then(files => {
+    }).then<Array<[string, boolean]>>(files => {
         files.should.have.members(['f.js', join('folder', 'h.txt')]);
 
         return [
@@ -706,7 +706,7 @@ it('emptyDir() - exclude', () => {
             [join(target, 'folder', 'i.js'), true],
             [join(target, 'folder', '.j'), true]
         ];
-    }).map((data: [string, boolean]) => {
+    }).map(data => {
         return fs.exists(data[0]).then(exist => {
             exist.should.eql(data[1]);
         });
@@ -718,7 +718,7 @@ it('emptyDir() - exclude', () => {
 it('emptyDirSync()', () => {
     const target = join(tmpDir, 'test');
 
-    return createDummyFolder(target).then(() => {
+    return createDummyFolder(target).then<Array<[string, boolean]>>(() => {
         const files = fs.emptyDirSync(target);
         files.should.have.members([
             'e.txt',
@@ -738,7 +738,7 @@ it('emptyDirSync()', () => {
             [join(target, 'folder', 'i.js'), false],
             [join(target, 'folder', '.j'), true]
         ];
-    }).map((data: [string, boolean]) => {
+    }).map(data => {
         return fs.exists(data[0]).then(exist => {
             exist.should.eql(data[1]);
         });
@@ -750,7 +750,7 @@ it('emptyDirSync()', () => {
 it('emptyDirSync() - ignoreHidden off', () => {
     const target = join(tmpDir, 'test');
 
-    return createDummyFolder(target).then(() => {
+    return createDummyFolder(target).then<Array<[string, boolean]>>(() => {
         const files = fs.emptyDirSync(target, { ignoreHidden: false });
         files.should.have.members([
             join('.hidden', 'a.txt'),
@@ -775,7 +775,7 @@ it('emptyDirSync() - ignoreHidden off', () => {
             [join(target, 'folder', 'i.js'), false],
             [join(target, 'folder', '.j'), false]
         ];
-    }).map((data: [string, boolean]) => {
+    }).map(data => {
         return fs.exists(data[0]).then(exist => {
             exist.should.eql(data[1]);
         });
@@ -787,7 +787,7 @@ it('emptyDirSync() - ignoreHidden off', () => {
 it('emptyDirSync() - ignorePattern', () => {
     const target = join(tmpDir, 'test');
 
-    return createDummyFolder(target).then(() => {
+    return createDummyFolder(target).then<Array<[string, boolean]>>(() => {
         const files = fs.emptyDirSync(target, { ignorePattern: /\.js/ });
         files.should.have.members(['e.txt', join('folder', 'h.txt')]);
 
@@ -802,7 +802,7 @@ it('emptyDirSync() - ignorePattern', () => {
             [join(target, 'folder', 'i.js'), true],
             [join(target, 'folder', '.j'), true]
         ];
-    }).map((data: [string, boolean]) => {
+    }).map(data => {
         return fs.exists(data[0]).then(exist => {
             exist.should.eql(data[1]);
         });
@@ -814,7 +814,7 @@ it('emptyDirSync() - ignorePattern', () => {
 it('emptyDirSync() - exclude', () => {
     const target = join(tmpDir, 'test');
 
-    return createDummyFolder(target).then(() => {
+    return createDummyFolder(target).then<Array<[string, boolean]>>(() => {
         const files = fs.emptyDirSync(target, { exclude: ['e.txt', join('folder', 'i.js')] });
         files.should.have.members(['f.js', join('folder', 'h.txt')]);
 
@@ -829,7 +829,7 @@ it('emptyDirSync() - exclude', () => {
             [join(target, 'folder', 'i.js'), true],
             [join(target, 'folder', '.j'), true]
         ];
-    }).map((data: [string, boolean]) => {
+    }).map(data => {
         return fs.exists(data[0]).then(exist => {
             exist.should.eql(data[1]);
         });
