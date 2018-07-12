@@ -3111,6 +3111,14 @@ declare module "../index" {
          * _.pickBy(object, _.isNumber);
          * // => { 'a': 1, 'c': 3 }
          */
+        pickBy<T extends object, S extends T[keyof T]>(
+            object: T | null | undefined,
+            predicate: ObjectIteratorTypeGuard<T, S>
+        ): Dictionary<S>;
+
+        /**
+         * @see _.pickBy
+         */
         pickBy<T>(
             object: Dictionary<T> | null | undefined,
             predicate?: ValueKeyIteratee<T>
