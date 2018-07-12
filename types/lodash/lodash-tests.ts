@@ -3520,6 +3520,8 @@ fp.now(); // $ExpectType number
     const userDefinedTypeGuard = (item: any): item is number => typeof item === "number";
 
     _.negate(userDefinedTypeGuard); // $ExpectType (a1: any) => boolean
+
+    _.negate((a1: number, a2: number, a3: number): boolean => true); // $ExpectType (...args: any[]) => boolean
 }
 
 // _.once

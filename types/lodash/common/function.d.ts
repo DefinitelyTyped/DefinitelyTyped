@@ -843,6 +843,7 @@ declare module "../index" {
         negate(predicate: () => boolean): () => boolean;
         negate<A1>(predicate: (a1: A1) => boolean): (a1: A1) => boolean;
         negate<A1, A2>(predicate: (a1: A1, a2: A2) => boolean): (a1: A1, a2: A2) => boolean;
+        negate(predicate: (...args: any[]) => any): (...args: any[]) => boolean;
     }
 
     interface LoDashWrapper<TValue> {
