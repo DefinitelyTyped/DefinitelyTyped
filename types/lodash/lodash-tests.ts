@@ -3516,6 +3516,10 @@ fp.now(); // $ExpectType number
     _((a1: number, a2: number): boolean => true).negate(); // $ExpectType LoDashImplicitWrapper<(a1: number, a2: number) => boolean>
     _.chain((a1: number, a2: number): boolean => true).negate(); // $ExpectType LoDashExplicitWrapper<(a1: number, a2: number) => boolean>
     fp.negate((a1: number, a2: number): boolean => true); // $ExpectType (a1: number, a2: number) => boolean
+
+    const userDefinedTypeGuard = (item: any): item is number => typeof item === "number";
+
+    _.negate(userDefinedTypeGuard); // $ExpectType (a1: any) => boolean
 }
 
 // _.once
