@@ -4059,7 +4059,7 @@ declare module paper {
          * The view that this style belongs to.
          * Read only.
          */
-        view?: View;
+        readonly view?: View;
 
         /**
          * The color of the stroke.
@@ -4068,38 +4068,45 @@ declare module paper {
 
         /**
          * The width of the stroke.
+         * Default: 1
          */
         strokeWidth?: number;
 
         /**
          * The shape to be used at the beginning and end of open Path items, when they have a stroke.
-         * String('round', 'square', 'butt'
+         * Values: 'round', 'square', 'butt'
+         * Default: 'butt'
          */
         strokeCap?: string;
 
         /**
          * The shape to be used at the segments and corners of Path items when they have a stroke.
-         * String('miter', 'round', 'bevel')
+         * Values: 'miter', 'round', 'bevel'
+         * Default: 'miter'
          */
         strokeJoin?: string;
 
         /**
          * Specifies whether the stroke is to be drawn taking the current affine transformation into account (the default behavior), or whether it should appear as a non-scaling stroke.
+         * Default: true
          */
         strokeScaling?: boolean;
 
         /**
          * The dash offset of the stroke.
+         * Default: 0
          */
         dashOffset?: number;
 
         /**
          * Specifies an array containing the dash and gap lengths of the stroke.
+         * Default: []
          */
         dashArray?: number[];
 
         /**
          * The miter limit of the stroke. When two line segments meet at a sharp angle and miter joins have been specified for strokeJoin, it is possible for the miter to extend far beyond the strokeWidth of the path. The miterLimit imposes a limit on the ratio of the miter length to the strokeWidth.
+         * Default: 10
          */
         miterLimit?: number;
 
@@ -4109,17 +4116,26 @@ declare module paper {
         fillColor?: Color | string;
 
         /**
+         * The fill-rule with which the shape gets filled. Please note that only modern browsers support fill-rules other than 'nonzero'.
+         * Values: 'nonzero', 'evenodd'
+         * Default: 'nonzero'
+         */
+        fillRule?: string;
+
+        /**
          * The shadow color.
          */
         shadowColor?: Color | string;
 
         /**
          * The shadow's blur radius.
+         * Default: 0
          */
         shadowBlur?: number;
 
         /**
          * The shadow's offset.
+         * Default: 0
          */
         shadowOffset?: Point;
 
@@ -4129,27 +4145,33 @@ declare module paper {
         selectedColor?: Color | string;
 
         /**
-         * The font-family to be used in text content. default 'sans-serif'
+         * The font-family to be used in text content.
+         * Default: 'sans-serif'
          */
         fontFamily?: string;
 
         /**
          * The font-weight to be used in text content.
+         * Default: 'normal'
          */
         fontWeight?: string | number;
 
         /**
          * The font size of text content, as {@Number} in pixels, or as {@String} with optional units 'px', 'pt' and 'em'.
+         * Default: 10
          */
         fontSize?: string | number;
 
         /**
          * The text leading of text content.
+         * Default: fontSize * 1.2
          */
         leading?: number | string;
 
         /**
-         * The justification of text paragraphs. default "left"
+         * The justification of text paragraphs.
+         * Values: 'left', 'right', 'center'
+         * Default: 'left'
          */
         justification?: string;
 
