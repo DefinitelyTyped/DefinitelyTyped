@@ -112,14 +112,15 @@ async function main() {
         "// npm install && npm run generate",
         "",
         'import lodash = require("./index");',
+        'import { ConvertOptions } from "./fp/convert";',
         "",
         "export = _;",
         "",
         "declare const _: _.LoDashFp;",
         "declare namespace _ {",
-        // Add LodashConvertable to allow `.convert` method on each lodash/fp function
-        "    interface LodashConvertable<T> {",
-        "        convert: (options: { cap?: boolean, curry?: boolean, fixed?: boolean, immutable?: boolean, rearg?: boolean }) => T",
+        // Add LodashConvertible to allow `.convert` method on each lodash/fp function
+        "    interface LodashConvertible {",
+        "        convert: (options: ConvertOptions) => (...args: any[]) => any",
         "    }",
         interfaceStrings,
         "",
@@ -855,10 +856,10 @@ function getInterfaceName(baseName: string, overloadId: number, index: number, t
 }
 
 function interfaceToString(interfaceDef: Interface, exportedInterface: boolean): string {
-    // Exported interface extends LodashConvertable<ExportedInterfaceNameGoesHere> to allow
+    // Exported interface extends LodashConvertible to allow
     // calling `.convert({})` on each lodash/fp functions
     const interfaceExtendsStatement = exportedInterface
-        ? ` extends LodashConvertable<${interfaceDef.name}>`
+        ? ` extends LodashConvertible`
         : '';
 
     if (_.isEmpty(interfaceDef.overloads)) {

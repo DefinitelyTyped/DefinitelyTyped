@@ -1,4 +1,4 @@
-interface ConvertOptions {
+export interface ConvertOptions {
     cap?: boolean;
     curry?: boolean;
     fixed?: boolean;
@@ -12,4 +12,4 @@ interface Convert {
 }
 
 declare const convert: Convert;
-export = convert;
+export default convert;
