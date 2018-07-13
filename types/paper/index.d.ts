@@ -3357,37 +3357,37 @@ declare module paper {
          * The first segment of the curve.
          * Read Only.
          */
-        segment1: Segment;
+        readonly segment1: Segment;
 
         /**
          * The second segment of the curve.
          * Read only.
          */
-        segment2: Segment;
+        readonly segment2: Segment;
 
         /**
          * The path that the curve belongs to.
          * Read only.
          */
-        path: Path;
+        readonly path: Path;
 
         /**
          * The index of the curve in the path.curves array.
          * Read Only.
          */
-        index: number;
+        readonly index: number;
 
         /**
          * The next curve in the path.curves array that the curve belongs to.
          * Read Only
          */
-        next: Curve;
+        readonly next: Curve;
 
         /**
          * The previous curve in the path.curves array that the curve belongs to.
          * Read Only.
          */
-        previous: Curve;
+        readonly previous: Curve;
 
         /**
          * Specifies whether the points and handles of the curve are selected.
@@ -3395,10 +3395,30 @@ declare module paper {
         selected: boolean;
 
         /**
+         * An array of 8 float values, describing this curve’s geometry in four absolute x/y pairs (point1, handle1, handle2, point2). This format is used internally for efficient processing of curve geometries, e.g. when calculating intersections or bounds.
+         * Note that the handles are converted to absolute coordinates.
+         * Read only.
+         */
+        readonly values: number[];
+
+        /**
+         * An array of 4 point objects, describing this curve’s geometry in absolute coordinates (point1, handle1, handle2, point2).
+         * Note that the handles are converted to absolute coordinates.
+         * Read only.
+         */
+        readonly points: Point[];
+
+        /**
          * The approximated length of the curve in points.
          * Read Only.
          */
-        length: number;
+        readonly length: number;
+
+        /**
+         * The area that the curve’s geometry is covering.
+         * Read only.
+         */
+        readonly area: number;
 
         /**
          * The bounding rectangle of the curve excluding stroke width.
@@ -3416,21 +3436,67 @@ declare module paper {
         handleBounds: Rectangle;
 
         /**
-         * Checks if this curve is linear, meaning it does not define any curve handle.
+         * Returns a copy of the curve.
          */
-        isLinear(): boolean;
+        clone(): Curve;
 
         /**
-         * TODO?
+         * Returns a string representation of the curve
          */
-        //isHorizontal(): boolean;
+        toString(): string;
+
+        /**
+         * Determines the type of cubic Bézier curve via discriminant classification, as well as the curve-time parameters of the associated points of inflection, loops, cusps, etc.
+         * Returns  the curve classification information as an object
+         *      type - the type of Bézier curve, possible values are: ‘line’, ‘quadratic’, ‘serpentine’, ‘cusp’, ‘loop’, ‘arch’
+         *      roots - the curve-time parameters of the associated points of inflection for serpentine curves, loops, cusps, etc
+         */
+        classify(): { type: string, roots: number[] };
+
+        /**
+         * Removes the curve from the path that it belongs to, by removing its second segment and merging its handle with the first segment.
+         */
+        remove(): boolean;
+
+        /**
+         * Checks if the this is the first curve in the path.curves array.
+         */
+        isFirst(): boolean;
+
+        /**
+         * Checks if the this is the last curve in the path.curves array.
+         */
+        isLast(): boolean;
+
+        /**
+         * Creates a new curve as a sub-curve from this curve, its range defined by the given curve-time parameters. If from is larger than to, then the resulting curve will have its direction reversed.
+         * @param from - the curve-time parameter at which the sub-curve starts
+         * @param to - the curve-time parameter at which the sub-curve ends
+         */
+        getPart(from: number, to: number): Curve;
 
         /**
          * Divides the curve into two curves at the given offset. The curve itself is modified and becomes the first part, the second part is returned as a new curve. If the modified curve belongs to a path item, the second part is also added to the path.
-         * @param offset [optional] - the offset on the curve at which to split, or the curve time parameter if isParameter is true  default: 0.5
-         * @param isParameter [optional] - pass true if offset is a curve time parameter. default: false
+         * @param offset [optional] - the offset on the curve at which to split, or the curve time parameter if isParameter is true. default: 0.5
+         * @param isTime [optional] - pass true if offset is a curve time parameter. default: false
+         * @returns the second part of the divided curve if the location is valid, {code null} otherwise
          */
-        divide(offset?: number, isParameter?: boolean): Curve;
+        divide(offset?: number, isTime?: boolean): Curve;
+
+        /**
+         * Divides the curve into two curves at the given offset or location. The curve itself is modified and becomes the first part, the second part is returned as a new curve. If the curve belongs to a path item, a new segment is inserted into the path at the given location, and the second part becomes a part of the path as well.
+         * @param location - the offset or location on the curve at which to divide
+         * @returns the second part of the divided curve if the location is valid, {code null} otherwise
+         */
+        divideAt(location: number | CurveLocation): Curve;
+
+        /**
+         * Divides the curve into two curves at the given offset or location. The curve itself is modified and becomes the first part, the second part is returned as a new curve. If the curve belongs to a path item, a new segment is inserted into the path at the given location, and the second part becomes a part of the path as well.
+         * @param time - the curve-time parameter on the curve at which to divide
+         * @param setHandles - whether to set handles on the new curves. default is the output of hasHandles().
+         * @returns the second part of the divided curve if the location is valid, {code null} otherwise
+         */
+        divideAtTime(time: number, setHandles?:boolean): Curve;
 
         /**
          * Splits the path this curve belongs to at the given offset. After splitting, the path will be open. If the path was open already, splitting will result in two paths.
@@ -3440,45 +3506,99 @@ declare module paper {
         split(offset?: number, isParameter?: boolean): Path;
 
         /**
+         * Splits the path this curve belongs to at the given offset. After splitting, the path will be open. If the path was open already, splitting will result in two paths.
+         * @param location - the offset or location on the curve at which to split
+         * @returns the newly created path after splitting, if any
+         */
+        splitAt(location: number | CurveLocation): Path;
+
+        /**
+         * Splits the path this curve belongs to at the given offset. After splitting, the path will be open. If the path was open already, splitting will result in two paths.
+         * @param time - the curve-time parameter on the curve at which to split
+         */
+        splitAtTime(time: number): Path;
+
+        /**
          * Returns a reversed version of the curve, without modifying the curve itself.
          */
-        reverse(): Curve;
+        reversed(): Curve;
+        
+        /**
+         * Clears the curve’s handles by setting their coordinates to zero, turning the curve into a straight line.
+         */
+        clearHandles(): void;
 
         /**
-         * Removes the curve from the path that it belongs to, by merging its two path segments.
-         * returns true if the curve was removed, false otherwise
+         * Checks if this curve has any curve handles set.
          */
-        remove(): boolean;
+        hasHandles(): boolean;
 
         /**
-         * Returns a copy of the curve.
+         * Checks if this curve has any length.
+         * @param epsilon [optional] - the epsilon against which to compare the curve’s length. default: 0
          */
-        clone(): Curve;
+        hasLength(epsilon?: number): boolean;
 
         /**
-         * returns a string representation of the curve
+         * Checks if this curve appears as a straight line. This can mean that it has no handles defined, or that the handles run collinear with the line that connects the curve’s start and end point, not falling outside of the line.
          */
-        toString(): string;
+        isStraight(): boolean;
+
+        /**
+         * Checks if this curve is linear, meaning it does not define any curve handle.
+         */
+        isLinear(): boolean;
+
+        /**
+         * Checks if the the two curves describe straight lines that are collinear, meaning they run in parallel.
+         * @param curve - the other curve to check against
+         */
+        isCollinear(curve: Curve): boolean;
+
+        /**
+         * Checks if the curve is a straight horizontal line.
+         */
+        isHorizontal(): boolean;
+
+        /**
+         * Checks if the curve is a straight vertical line.
+         */
+        isVertical(): boolean;
 
         /**
          * Calculates the curve time parameter of the specified offset on the path, relative to the provided start parameter. If offset is a negative value, the parameter is searched to the left of the start parameter. If no start parameter is provided, a default of 0 for positive values of offset and 1 for negative values of offset.
-         * @param offset -
-         * @param start [optional] -
+         * @param offset - the offset at which to find the curve-time, in curve length units
+         * @param start [optional] - the curve-time in relation to which the offset is determined
+         * @deprecated use getTimeAt instead
          */
-        getParameterAt(offset: Point, start?: number): number;
+        getParameterAt(offset: number, start?: number): number;
 
         /**
          * Returns the curve time parameter of the specified point if it lies on the curve, null otherwise.
          * @param point - the point on the curve.
+         * @deprecated use getTimeOf instead
          */
         getParameterOf(point: Point): number;
 
         /**
          * Calculates the curve location at the specified offset or curve time parameter.
          * @param offset - the offset on the curve, or the curve time parameter if isParameter is true
-         * @param isParameter [optional] - pass true if offset is a curve time parameter.  default: false
+         * @param isTime [optional] - pass true if offset is a curve time parameter.  default: false
          */
-        getLocationAt(offset: number, isParameter?: boolean): CurveLocation;
+        getLocationAt(offset: number, isTime?: boolean): CurveLocation;
+
+        /**
+         * Calculates the curve-time parameter of the specified offset on the path, relative to the provided start parameter. If offset is a negative value, the parameter is searched to the left of the start parameter. If no start parameter is provided, a default of 0 for positive values of offset and 1 for negative values of offset.
+         * @param offset - the offset at which to find the curve-time, in curve length units
+         * @param start [optional] - the curve-time in relation to which the offset is determined
+         */
+        getTimeAt(offset: number, start?: number): number;
+
+        /**
+         * Calculates the curve offset at the specified curve-time parameter on the curve.
+         * @param time - the curve-time parameter on the curve
+         */
+        getOffsetAtTime(time: number): number;
 
         /**
          * Returns the curve location of the specified point if it lies on the curve, null otherwise.
@@ -3493,32 +3613,70 @@ declare module paper {
         getOffsetOf(point: Point): number;
 
         /**
+         * Returns the curve-time parameter of the specified point if it lies on the curve, null otherwise. Note that if there is more than one possible solution in a self-intersecting curve, the first found result is returned.
+         * @param point - the point on the curve
+         */
+        getTimeOf(point: Point): number;
+
+        /**
+         * Returns the nearest location on the curve to the specified point.
+         * @param point - the point for which we search the nearest location
+         */
+        getNearestLocation(point: Point): CurveLocation;
+
+        /**
+         * Returns the nearest point on the curve to the specified point.
+         * @param point - the point for which we search the nearest point
+         */
+        getNearestPoint(point: Point): Point;
+
+        /**
          * Calculates the point on the curve at the given offset.
          * @param offset - the offset on the curve, or the curve time parameter if isParameter is true
-         * @param isParameter [optional] - pass true if offset is a curve time parameter. default: false
+         * @param isTime [optional] - pass true if offset is a curve time parameter. default: false
          */
-        getPointAt(offset: number, isParameter?: boolean): Point;
+        getPointAt(offset: number, isTime?: boolean): Point;
 
         /**
          * Calculates the tangent vector of the curve at the given offset.
          * @param offset - the offset on the curve, or the curve time parameter if isParameter is true
-         * @param isParameter [optional] - pass true if offset is a curve time parameter. default: false
+         * @param isTime [optional] - pass true if offset is a curve time parameter. default: false
          */
-        getTangentAt(offset: number, isParameter?: boolean): Point;
+        getTangentAt(offset: number, isTime?: boolean): Point;
 
         /**
          * Calculates the normal vector of the curve at the given offset.
          * @param offset - the offset on the curve, or the curve time parameter if isParameter is true
-         * @param isParameter [optional] - pass true if offset is a curve time parameter. default: false
+         * @param isTime [optional] - pass true if offset is a curve time parameter. default: false
          */
-        getNormalAt(offset: number, isParameter?: boolean): Point;
+        getNormalAt(offset: number, isTime?: boolean): Point;
+
+        /**
+         * Calculates the weighted tangent vector of the curve at the given offset.
+         * @param offset - the offset on the curve, or the curve time parameter if isParameter is true
+         * @param isTime [optional] - pass true if offset is a curve time parameter. default: false
+         */
+        getWeightedTangentAt(offset: number, isTime?: boolean): Point;
+
+        /**
+         * Calculates the weighted normal vector of the curve at the given offset.
+         * @param offset - the offset on the curve, or the curve time parameter if isParameter is true
+         * @param isTime [optional] - pass true if offset is a curve time parameter. default: false
+         */
+        getWeightedNormalAt(offset: number, isTime?: boolean): Point;
 
         /**
          * Calculates the curvature of the curve at the given offset. Curvatures indicate how sharply a curve changes direction. A straight line has zero curvature, where as a circle has a constant curvature. The curve's radius at the given offset is the reciprocal value of its curvature.
          * @param offset - the offset on the curve, or the curve time parameter if isParameter is true
-         * @param isParameter - pass true if offset is a curve time parameter. default: false
+         * @param isTime - pass true if offset is a curve time parameter. default: false
          */
-        getCurvatureAt(offset: number, isParameter?: boolean): Point;
+        getCurvatureAt(offset: number, isTime?: boolean): Point;
+
+        /**
+         * Returns all intersections between two Curve objects as an array of CurveLocation objects.
+         * @param curve - the other curve to find the intersections with (if the curve itself or null is passed, the self intersection of the curve is returned, if it exists)
+         */
+        getIntersections(curve: Curve): CurveLocation[];
 
     }
     /**
