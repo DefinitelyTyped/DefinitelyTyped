@@ -1030,9 +1030,9 @@ declare module paper {
         height: number;
 
         /**
-         * WARNING - This seems undocumented/incorrect
+         * Checks whether the width and height of the size are equal to those of the supplied size.
          */
-        equals(): boolean;
+        equals(size: Size): boolean;
 
         /**
          * Returns a copy of the size.
@@ -1052,7 +1052,7 @@ declare module paper {
         /**
          * Checks if the width or the height of the size are NaN.
          */
-        isNan(): boolean;
+        isNaN(): boolean;
 
         /**
          * Returns a new size with rounded width and height values. The object itself is not modified!
@@ -1080,6 +1080,7 @@ declare module paper {
          */
         add(size: Size): Size;
         add(size: number[]): Size;
+        add(size: number): Size;
 
         /*
          * Returns a new size
@@ -1087,6 +1088,7 @@ declare module paper {
          */
         subtract(size: Size): Size;
         subtract(size: number[]): Size;
+        subtract(size: number): Size;
 
         /*
          * Returns the new multiplied size
@@ -1103,6 +1105,14 @@ declare module paper {
         divide(size: Size): Size;
         divide(size: number[]): Size;
         divide(size: number): Size;
+
+        /**
+         * Returns the new modulo size
+         * @param size - The size you want to modulo with
+         */
+        modulo(size: Size): Size;
+        modulo(size: number[]): Size;
+        modulo(size: number): Size;
 
     }
     export interface IFrameEvent {
