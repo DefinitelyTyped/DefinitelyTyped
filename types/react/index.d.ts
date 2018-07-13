@@ -24,7 +24,7 @@
 /// <reference path="global.d.ts" />
 
 import * as CSS from 'csstype';
-import { Validator, ValidationMap, InferProps } from 'prop-types';
+import * as PropTypes from 'prop-types';
 
 type NativeAnimationEvent = AnimationEvent;
 type NativeClipboardEvent = ClipboardEvent;
@@ -44,6 +44,8 @@ export = React;
 export as namespace React;
 
 declare namespace React {
+    type Validator<T, R = false> = PropTypes.Validator<T, R>
+    type ValidationMap<T = any> = PropTypes.ValidationMap<T>
     //
     // React Elements
     // ----------------------------------------------------------------------
@@ -2270,9 +2272,9 @@ declare global {
         interface ElementChildrenAttribute { children: {}; }
         type LibraryManagedAttributes<Component, Props> =
             Component extends { propTypes: infer PropTypes; defaultProp: infer Defaults }
-            ? Defaultize<Props & InferProps<PropTypes>, Defaults>
+            ? Defaultize<Props & PropTypes.InferProps<PropTypes>, Defaults>
             : Component extends { propTypes: infer PropTypes }
-            ? Defaultize<Props & InferProps<PropTypes>, {}>
+            ? Defaultize<Props & PropTypes.InferProps<PropTypes>, {}>
             : Component extends { defaultProps: infer Defaults }
             ? Defaultize<Props, Defaults> : Props;
 
