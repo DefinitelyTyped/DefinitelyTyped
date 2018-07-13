@@ -2,7 +2,7 @@
 // Project: https://github.com/benbria/node-amqp-connection-manager
 // Definitions by: rogierschouten <https://github.com/rogierschouten>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import { ConfirmChannel, Connection, Message, Options, Replies } from "amqplib";
 import { EventEmitter } from "events";
