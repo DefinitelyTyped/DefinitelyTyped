@@ -2191,7 +2191,6 @@ declare namespace angular {
             loadNewModules(modules: Array<IModule|string|Injectable<(...args: any[]) => void>>): void;
             /** 
              * An object map of all the modules that have been loaded into the injector.
-             * Do not use this property to attempt to modify the modules after the application has been bootstrapped.
              */
             modules: {[moduleName: string]: IModule};
             strictDi: boolean;
