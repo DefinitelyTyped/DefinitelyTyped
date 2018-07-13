@@ -833,13 +833,48 @@ declare module paper {
          * The area of the rectangle in square points.
          * Read only.
          */
-        area: number;
+        readonly area: number;
 
         /**
          * Specifies whether an item's bounds are selected and will also mark the item as selected.
          * Paper.js draws the visual bounds of selected items on top of your project. This can be useful for debugging.
          */
         selected: boolean;
+
+        /**
+         * Sets the Rectangle object.
+         * @param point - the top-left point of the rectangle
+         * @param size - the size of the rectangle
+         */
+        set(point: Point, size: Size): Rectangle;
+
+        /**
+         * Sets the Rectangle object.
+         * @param object - an object containing properties to be set on the rectangle.
+         */
+        set(object: any): Rectangle;
+
+        /**
+         * Sets the Rectangle object.
+         * @param x - the left coordinate
+         * @param y - the top coordinate
+         * @param width - the width
+         * @param height - the height
+         */
+        set(x: number, y: number, width: number, height: number): Rectangle;
+
+        /**
+         * Sets the Rectangle object from the passed points. These do not necessarily need to be the top left and bottom right corners, the constructor figures out how to fit a rectangle between them.
+         * @param from - The first point defining the rectangle
+         * @param to - The second point defining the rectangle
+         */
+        set(from: Point, to: Point): Rectangle;
+
+        /**
+         * Sets the Rectangle object from the passed rectangle object.
+         * @param rt - the rectangle to copy from
+         */
+        set(rt: Rectangle): Rectangle;
 
         /**
          * Returns a copy of the rectangle.
@@ -877,8 +912,10 @@ declare module paper {
         /**
          * Tests if the interior of this rectangle intersects the interior of another rectangle. Rectangles just touching each other are considered as non-intersecting.
          * @param rect - the specified rectangle
+         * @param epsilon - the epsilon against which to compare the rectangle’s dimensions. default 0
+         * @returns true if the rectangle and the specified rectangle intersect each other, false
          */
-        intersects(rect: Rectangle): boolean;
+        intersects(rect: Rectangle, epsilon?: number): boolean;
 
         /**
          * Returns a new rectangle representing the intersection of this rectangle with the specified rectangle.
