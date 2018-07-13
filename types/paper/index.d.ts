@@ -508,7 +508,7 @@ declare module paper {
          */
         set(point: Point): Point;
 
-    /**
+        /**
          * Checks whether the coordinates of the point are equal to that of the supplied point.
          * @param point - the point to check against
          */
@@ -1190,7 +1190,7 @@ declare module paper {
          * @param options.url - the url of the source, for source-map debugging
          * @param options.source - the source to be used for the source- mapping, in case the code that’s passed in has already been mingled.
          */
-        execute(code: string, option?:{url?:string, source?:string }): void;
+        execute(code: string, option?:{url?:string; source?:string; }): void;
 
         /**
          * Injects the paper scope into any other given scope. Can be used for examle to inject the currently active PaperScope into the window's global scope, to emulate PaperScript-style globally accessible Paper classes and objects
@@ -1545,7 +1545,7 @@ declare module paper {
          * @param options.insert: specifies whether the copy should be inserted into the DOM. When set to true, it is inserted above the original. default: true
          * @param options.deep: specifies whether the item’s children should also be cloned — default: true
          */
-        clone(options?: { insert?: boolean, deep?: boolean }): Item;
+        clone(options?: { insert?: boolean; deep?: boolean; }): Item;
 
         /**
          * Copies the content of the specified item over to this item.
