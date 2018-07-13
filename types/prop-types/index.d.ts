@@ -7,29 +7,30 @@
 
 import { ReactElement, ReactNode } from 'react';
 
-declare const resolvedType: unique symbol;
+type IsOptional<T> = undefined | null extends T ? true : undefined extends T ? true : null extends T ? true : false
 
-export interface Validator<T, R = false> {
+interface Validator<T> {
     (object: T, key: string, componentName: string, ...rest: any[]): Error | null;
-    [resolvedType]?: R extends true ? T : T | null | undefined;
 }
 
 export interface Requireable<T> extends Validator<T> {
-    isRequired: Validator<T, true>;
+    isRequired: Validator<T>;
 }
 
-export type ValidationMap<T = any> = {
-    [K in keyof T]-?: ReactNode extends T[K] ? Validator<T[K]> : Validator<NonNullable<T[K]>, any>
+export type ValidationMap<T> = {
+    [K in keyof T]-?: IsOptional<T[K]> extends true
+        ? Requireable<ReactNode extends T[K]
+        ? T[K] : NonNullable<T[K]>> : Validator<T[K]>
 };
 
-type InferTypeOfValidator<V> = V extends Validator<infer T, infer R> ? R extends true ? T : T | null | undefined : any
+type InferTypeOfValidator<V> = V extends Requireable<infer T> ? T | undefined | null : V extends Validator<infer T> ? T : any
 
 type RequiredValidatorKeys<O> = {
-    [K in keyof O]: O[K] extends Requireable<any> ? never : O[K] extends Validator<any, true> ? K : never
+    [K in keyof O]: O[K] extends Requireable<any> ? never : O[K] extends Validator<any> ? K : never
 }[keyof O];
 
 type OptionalValidatorKeys<O> = {
-    [K in keyof O]: O[K] extends Validator<any> ? K : never
+    [K in keyof O]: O[K] extends Requireable<any> ? K : never
 }[keyof O];
 
 type InferPropsOfValidationMap<O> = {

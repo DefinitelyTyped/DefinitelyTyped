@@ -44,7 +44,8 @@ export = React;
 export as namespace React;
 
 declare namespace React {
-    type Validator<T, R = false> = PropTypes.Validator<T, R>;
+    type Requireable<T> = PropTypes.Requireable<T>;
+    type Validator<T> = PropTypes.Validator<T>;
     type ValidationMap<T = any> = PropTypes.ValidationMap<T>;
     //
     // React Elements
@@ -344,7 +345,7 @@ declare namespace React {
     interface StatelessComponent<P = {}> {
         (props: P & { children?: ReactNode }, context?: any): ReactElement<any> | null;
         propTypes?: ValidationMap<P>;
-        contextTypes?: ValidationMap;
+        contextTypes?: { [K in keyof any]: Validator<any> | Required<any> };
         defaultProps?: Partial<P>;
         displayName?: string;
     }
@@ -352,7 +353,7 @@ declare namespace React {
     interface RefForwardingComponent<T, P = {}> {
         (props: P & { children?: ReactNode }, ref?: Ref<T>): ReactElement<any> | null;
         propTypes?: ValidationMap<P>;
-        contextTypes?: ValidationMap;
+        contextTypes?: { [K in keyof any]: Validator<any> | Required<any> };
         defaultProps?: Partial<P>;
         displayName?: string;
     }
@@ -360,8 +361,8 @@ declare namespace React {
     interface ComponentClass<P = {}> extends StaticLifecycle<P, any> {
         new (props: P, context?: any): Component<P, ComponentState>;
         propTypes?: ValidationMap<P>;
-        contextTypes?: ValidationMap;
-        childContextTypes?: ValidationMap;
+        contextTypes?: { [K in keyof any]: Validator<any> | Required<any> };
+        childContextTypes?: { [K in keyof any]: Validator<any> | Required<any> };
         defaultProps?: Partial<P>;
         displayName?: string;
     }
@@ -544,9 +545,9 @@ declare namespace React {
         };
 
         displayName?: string;
-        propTypes?: ValidationMap;
-        contextTypes?: ValidationMap;
-        childContextTypes?: ValidationMap;
+        propTypes?: { [K in keyof any]: Validator<any> | Required<any> };
+        contextTypes?: { [K in keyof any]: Validator<any> | Required<any> };
+        childContextTypes?: { [K in keyof any]: Validator<any> | Required<any> };
 
         getDefaultProps?(): P;
         getInitialState?(): S;
@@ -2267,11 +2268,11 @@ declare global {
         interface ElementClass extends React.Component<any> {
             render(): React.ReactNode;
         }
-        // not sure this is needed anymore
+
         interface ElementAttributesProperty { props: {}; }
         interface ElementChildrenAttribute { children: {}; }
         type LibraryManagedAttributes<Component, Props> =
-            Component extends { propTypes: infer PropTypes; defaultProp: infer Defaults }
+            Component extends { propTypes: infer PropTypes; defaultProps: infer Defaults }
             ? Defaultize<Props & PropTypes.InferProps<PropTypes>, Defaults>
             : Component extends { propTypes: infer PropTypes }
             ? Defaultize<Props & PropTypes.InferProps<PropTypes>, {}>

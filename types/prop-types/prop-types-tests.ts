@@ -22,17 +22,26 @@ interface Props {
     shape: {
         foo: string;
         bar?: boolean;
+        baz?: any
     };
     optionalNumber?: number;
 }
 
-const propTypes = {
-    any: PropTypes.any.isRequired,
+const innerProps = {
+    foo: PropTypes.string.isRequired,
+    bar: PropTypes.bool,
+    baz: PropTypes.any
+}
+
+type PropTypesMap = PropTypes.ValidationMap<Props>
+
+const propTypes: PropTypesMap = {
+    any: PropTypes.any,
     array: PropTypes.array.isRequired,
     bool: PropTypes.bool.isRequired,
     element: PropTypes.element.isRequired,
     func: PropTypes.func.isRequired,
-    node: PropTypes.node.isRequired,
+    node: PropTypes.node,
     number: PropTypes.number.isRequired,
     object: PropTypes.object.isRequired,
     string: PropTypes.string.isRequired,
@@ -45,18 +54,11 @@ const propTypes = {
     })]).isRequired,
     arrayOf: PropTypes.arrayOf(PropTypes.bool).isRequired,
     objectOf: PropTypes.objectOf(PropTypes.number).isRequired,
-    shape: PropTypes.shape({
-        foo: PropTypes.string.isRequired,
-        bar: PropTypes.bool
-    }).isRequired,
+    shape: PropTypes.shape(innerProps).isRequired,
     optionalNumber: PropTypes.number
 };
 
-type foo = PropTypes.InferProps<PropTypes.Validator<boolean, false> | PropTypes.Validator<string ,true>>
-
-const outerProps = {
-    innerProps: PropTypes.shape(propTypes)
-};
+type ExtractedInnerProps = PropTypes.InferProps<typeof innerProps>;
 
 type ExtractedProps = PropTypes.InferProps<typeof propTypes>;
 
