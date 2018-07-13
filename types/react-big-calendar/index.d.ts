@@ -3,14 +3,17 @@
 // Definitions by: Piotr Witek <https://github.com/piotrwitek>
 //                 Austin Turner <https://github.com/paustint>
 //                 Krzysztof Bezrąk <https://github.com/pikpok>
+//                 Sebastian Silbermann <https://github.com/eps1lon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.7
 
 import * as React from 'react';
 
 export type stringOrDate = string | Date;
 export type View = 'month' | 'week' | 'work_week' | 'day' | 'agenda';
 export type Navigate = 'PREV' | 'NEXT' | 'TODAY' | 'DATE';
+
+export type Event = object;
 export interface Format {
     /**
      * Format for the day of the month heading in the Month view.
@@ -127,17 +130,17 @@ export interface Messages {
     showMore?: (count: number) => string;
 }
 
-export interface BigCalendarProps extends React.Props<BigCalendar> {
+export interface BigCalendarProps<T extends Event = Event> extends React.Props<BigCalendar<T>> {
     date?: stringOrDate;
     now?: Date;
     view?: View;
-    events?: object[];
+    events?: T[];
     onNavigate?: (newDate: Date, action: Navigate) => void;
     onView?: (view: View) => void;
     onDrillDown?: (date: Date, view: View) => void;
     onSelectSlot?: (slotInfo: { start: stringOrDate, end: stringOrDate, slots: Date[] | string[], action: 'select' | 'click' | 'doubleClick' }) => void;
-    onDoubleClickEvent?: (event: object, e: React.SyntheticEvent<HTMLElement>) => void;
-    onSelectEvent?: (event: object, e: React.SyntheticEvent<HTMLElement>) => void;
+    onDoubleClickEvent?: (event: T, e: React.SyntheticEvent<HTMLElement>) => void;
+    onSelectEvent?: (event: T, e: React.SyntheticEvent<HTMLElement>) => void;
     onSelecting?: (range: { start: stringOrDate, end: stringOrDate }) => boolean | undefined | null;
     selected?: any;
     views?: View[] | {
@@ -156,7 +159,7 @@ export interface BigCalendarProps extends React.Props<BigCalendar> {
     step?: number;
     timeslots?: number;
     rtl?: boolean;
-    eventPropGetter?: (event: object, start: stringOrDate, end: stringOrDate, isSelected: boolean) => { className?: string, style?: React.CSSProperties };
+    eventPropGetter?: (event: T, start: stringOrDate, end: stringOrDate, isSelected: boolean) => { className?: string, style?: React.CSSProperties };
     slotPropGetter?: (date: Date) => { className?: string, style?: object };
     dayPropGetter?: (date: Date) => { className?: string, style?: object };
     showMultiDayTimes?: boolean;
@@ -167,21 +170,21 @@ export interface BigCalendarProps extends React.Props<BigCalendar> {
     formats?: Format;
     components?: Components;
     messages?: Messages;
-    titleAccessor?: string | ((event: any) => string);
-    allDayAccessor?: string | ((event: any) => boolean);
-    startAccessor?: string | ((event: any) => Date);
-    endAccessor?: string | ((event: any) => Date);
-    resourceAccessor?: string | ((event: any) => any);
+    titleAccessor?: keyof T | ((event: T) => string);
+    allDayAccessor?: keyof T | ((event: T) => boolean);
+    startAccessor?: keyof T | ((event: T) => Date);
+    endAccessor?: keyof T | ((event: T) => Date);
+    resourceAccessor?: keyof T | ((event: T) => any);
     resources?: any[];
-    resourceIdAccessor?: string | ((event: any) => any);
-    resourceTitleAccessor?: string | ((event: any) => string);
+    resourceIdAccessor?: keyof T | ((event: T) => any);
+    resourceTitleAccessor?: keyof T | ((event: T) => string);
     defaultView?: View;
     defaultDate?: Date;
     className?: string;
     elementProps?: React.HTMLAttributes<HTMLElement>;
 }
 
-export default class BigCalendar extends React.Component<BigCalendarProps> {
+export default class BigCalendar<T extends Event = Event> extends React.Component<BigCalendarProps<T>> {
     /**
      * Setup the localizer by providing the moment Object
      */

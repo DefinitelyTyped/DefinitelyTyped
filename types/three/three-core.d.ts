@@ -459,8 +459,6 @@ export class Camera extends Object3D {
 
     updateMatrixWorld(force: boolean): void;
 
-    clone(): Camera;
-
 }
 
 export class CubeCamera extends Object3D {
@@ -1832,7 +1830,7 @@ export class Object3D extends EventDispatcher {
 
     toJSON(meta?: { geometries: any, materials: any, textures: any, images: any }): any;
 
-    clone(recursive?: boolean): Object3D;
+    clone(recursive?: boolean): this;
 
     /**
      *
@@ -5215,7 +5213,6 @@ export class Line extends Object3D {
 
     computeLineDistances(): this;
     raycast(raycaster: Raycaster, intersects: Intersection[]): void;
-    clone(): Line;
 }
 
 /**
@@ -5252,7 +5249,6 @@ export class Mesh extends Object3D {
     updateMorphTargets(): void;
     raycast(raycaster: Raycaster, intersects: Intersection[]): void;
     copy(source: this, recursive?: boolean): this;
-    clone(): Mesh;
 }
 
 /**
@@ -5285,8 +5281,6 @@ export class Points extends Object3D {
     material: PointsMaterial | ShaderMaterial;
 
     raycast(raycaster: Raycaster, intersects: Intersection[]): void;
-
-    clone(): Points;
 }
 
 /**
@@ -5349,7 +5343,6 @@ export class Sprite extends Object3D {
     center: Vector2;
 
     raycast(raycaster: Raycaster, intersects: Intersection[]): void;
-    clone(): Sprite;
     copy(source: this, recursive?: boolean): this;
 }
 

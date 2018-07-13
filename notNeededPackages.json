@@ -1195,6 +1195,12 @@
             "asOfVersion": "4.1.1"
         },
         {
+            "libraryName": "react-native-navigation",
+            "typingsPackageName": "react-native-navigation",
+            "sourceRepoURL": "https://github.com/wix/react-native-navigation",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "react-split-pane",
             "typingsPackageName": "react-split-pane",
             "sourceRepoURL": "https://github.com/tomkp/react-split-pane",
@@ -1219,7 +1225,7 @@
             "asOfVersion": "0.1.5"
         },
         {
-            "libraryName": "react-bootstrap",
+            "libraryName": "redux-bootstrap",
             "typingsPackageName": "redux-bootstrap",
             "sourceRepoURL": "https://github.com/remojansen/redux-bootstrap",
             "asOfVersion": "1.1.0"
@@ -1583,6 +1589,12 @@
             "typingsPackageName": "webix",
             "sourceRepoURL": "http://webix.com",
             "asOfVersion": "5.1.1"
+        },
+        {
+            "libraryName": "winston",
+            "typingsPackageName": "winston",
+            "sourceRepoURL": "https://github.com/winstonjs/winston.git",
+            "asOfVersion": "2.4.4"
         },
         {
             "libraryName": "wolfy87-eventemitter",

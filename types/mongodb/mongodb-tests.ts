@@ -38,27 +38,27 @@ MongoClient.connect('mongodb://127.0.0.1:27017/test', options, function (err: mo
 
         // Intentionally omitted type annotation from 'count'.
         // This way it requires a more accurate typedef which allows inferring that it's a number.
-        collection.count(function (err: mongodb.MongoError, count) {
+        collection.countDocuments(function (err: mongodb.MongoError, count) {
             console.log(format("count = %s", count));
         });
 
-        collection.count().then(function (count: number) {
+        collection.countDocuments().then(function (count: number) {
             console.log(format("count = %s", count));
         });
 
-        collection.count({ foo: 1 }, function (err: mongodb.MongoError, count: number) {
+        collection.countDocuments({ foo: 1 }, function (err: mongodb.MongoError, count: number) {
             console.log(format("count = %s", count));
         });
 
-        collection.count({ foo: 1 }).then(function (count: number) {
+        collection.countDocuments({ foo: 1 }).then(function (count: number) {
             console.log(format("count = %s", count));
         });
 
-        collection.count({ foo: 1 }, { limit: 10 }, function (err: mongodb.MongoError, count: number) {
+        collection.countDocuments({ foo: 1 }, { limit: 10 }, function (err: mongodb.MongoError, count: number) {
             console.log(format("count = %s", count));
         });
 
-        collection.count({ foo: 1 }, { limit: 10 }).then(function (count: number) {
+        collection.countDocuments({ foo: 1 }, { limit: 10 }).then(function (count: number) {
             console.log(format("count = %s", count));
         });
 

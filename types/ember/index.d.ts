@@ -7,6 +7,7 @@
 //                 Theron Cross <https://github.com/theroncross>
 //                 Martin Feckie <https://github.com/mfeckie>
 //                 Alex LaFroscia <https://github.com/alexlafroscia>
+//                 Mike North <https://github.com/mike-north>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -1498,25 +1499,25 @@ declare module 'ember' {
             __ember_mixin__: never;
 
             static create<T, Base = Ember.Object>(
-                args?: T & ThisType<Fix<T & Base>>
+              args?: MixinOrLiteral<T, Base> & ThisType<Fix<T & Base>>
             ): Mixin<T, Base>;
 
             static create<T1, T2, Base = Ember.Object>(
-                arg1: T1 & ThisType<Fix<T1 & Base>>,
-                arg2: T2 & ThisType<Fix<T2 & Base>>
+              arg1: MixinOrLiteral<T1, Base> & ThisType<Fix<T1 & Base>>,
+              arg2: MixinOrLiteral<T2, Base> & ThisType<Fix<T2 & Base>>
             ): Mixin<T1 & T2, Base>;
 
             static create<T1, T2, T3, Base = Ember.Object>(
-                arg1: T1 & ThisType<Fix<T1 & Base>>,
-                arg2: T2 & ThisType<Fix<T2 & Base>>,
-                arg3: T3 & ThisType<Fix<T3 & Base>>
+              arg1: MixinOrLiteral<T1, Base> & ThisType<Fix<T1 & Base>>,
+              arg2: MixinOrLiteral<T2, Base> & ThisType<Fix<T2 & Base>>,
+              arg3: MixinOrLiteral<T3, Base> & ThisType<Fix<T3 & Base>>
             ): Mixin<T1 & T2 & T3, Base>;
 
             static create<T1, T2, T3, T4, Base = Ember.Object>(
-                arg1: T1 & ThisType<Fix<T1 & Base>>,
-                arg2: T2 & ThisType<Fix<T2 & Base>>,
-                arg3: T3 & ThisType<Fix<T3 & Base>>,
-                arg4: T4 & ThisType<Fix<T4 & Base>>
+              arg1: MixinOrLiteral<T1, Base> & ThisType<Fix<T1 & Base>>,
+              arg2: MixinOrLiteral<T2, Base> & ThisType<Fix<T2 & Base>>,
+              arg3: MixinOrLiteral<T3, Base> & ThisType<Fix<T3 & Base>>,
+              arg4: MixinOrLiteral<T4, Base> & ThisType<Fix<T4 & Base>>
             ): Mixin<T1 & T2 & T3 & T4, Base>;
         }
         /**
@@ -1989,6 +1990,19 @@ declare module 'ember' {
              * because it doesn't require a custom `renderTemplate` method.
              */
             transitionTo(name: string, ...object: any[]): Transition;
+
+            // https://emberjs.com/api/ember/3.2/classes/Route/methods/intermediateTransitionTo?anchor=intermediateTransitionTo
+            /**
+             * Perform a synchronous transition into another route without attempting to resolve promises,
+             * update the URL, or abort any currently active asynchronous transitions
+             * (i.e. regular transitions caused by transitionTo or URL changes).
+             *
+             * @param name           the name of the route or a URL
+             * @param object         the model(s) or identifier(s) to be used while
+             *                       transitioning to the route.
+             * @returns              the Transition object associated with this attempted transition
+             */
+            intermediateTransitionTo(name: string, ...object: any[]): Transition;
 
             // properties
             /**

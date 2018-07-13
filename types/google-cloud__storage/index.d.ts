@@ -2,6 +2,7 @@
 // Project: https://github.com/GoogleCloudPlatform/google-cloud-node/tree/master/packages/storage
 // Definitions by: Brian Love <https://github.com/blove>
 //                 Nathan Brooker Perry <https://github.com/nbperry>
+//                 Matt Welke <https://github.com/welkie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -17,7 +18,7 @@ declare namespace Storage {
     class Bucket {
         constructor(storage: Storage, name: string);
         acl: Acl;
-        combine(sources: string[] | File[], destination: string[] | File[]): Promise<[File, ApiResponse]>;
+        combine(sources: string[] | File[], destination: string | File): Promise<[File, ApiResponse]>;
         create(config?: BucketConfig): Promise<[Bucket, ApiResponse]>;
         createChannel(id: string, config: ChannelConfig): Promise<[Channel, ApiResponse]>;
         delete(): Promise<[ApiResponse]>;

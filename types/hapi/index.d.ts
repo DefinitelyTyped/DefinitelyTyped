@@ -424,7 +424,7 @@ export interface Request extends Podium {
     /**
      * An object where each key is a path parameter name with matching value as described in [Path parameters](https://github.com/hapijs/hapi/blob/master/API.md#path-parameters).
      */
-    readonly params: Util.Dictionary<string> | null;
+    readonly params: Util.Dictionary<string>;
 
     /**
      * An array containing all the path params values in the order they appeared in the path.
@@ -440,7 +440,7 @@ export interface Request extends Podium {
      * The request payload based on the route payload.output and payload.parse settings.
      * TODO check this typing and add references / links.
      */
-    readonly payload: stream.Readable | Buffer | string | object | null;
+    readonly payload: stream.Readable | Buffer | string | object;
 
     /**
      * Plugin-specific state. Provides a place to store and pass request-level plugin data. The plugins is an object where each key is a plugin name and the value is the state.
@@ -3200,7 +3200,7 @@ export interface ServerState {
      * Note that this utility uses the server configuration but does not change the server state. It is provided for manual cookie formating (e.g. when headers are set manually).
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-async-serverstatesformatcookies)
      */
-    format(cookies: ServerStateFormat | ServerStateFormat[]): string;
+    format(cookies: ServerStateFormat | ServerStateFormat[]): Promise<string>;
 
     /**
      * Parses an HTTP 'Cookies' header based on the server.options.state where:
@@ -3209,7 +3209,7 @@ export interface ServerState {
      * Note that this utility uses the server configuration but does not change the server state. It is provided for manual cookie parsing (e.g. when server parsing is disabled).
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-async-serverstatesparseheader)
      */
-    parse(header: string): Util.Dictionary<string>;
+    parse(header: string): Promise<Util.Dictionary<string>>;
 }
 
 /**

@@ -44,3 +44,14 @@ const obj = LiteralMixins.create();
 assertType<number>(obj.a);
 assertType<number>(obj.b);
 assertType<number>(obj.c);
+
+/* Test composition of mixins */
+const EditableAndCancelableMixin = Ember.Mixin.create(EditableMixin, {
+    cancelled: false,
+});
+
+const EditableAndCancelableComment = Ember.Route.extend(EditableAndCancelableMixin);
+
+const editableAndCancelable = EditableAndCancelableComment.create();
+assertType<boolean>(editableAndCancelable.isEditing);
+assertType<boolean>(editableAndCancelable.cancelled);

@@ -5,8 +5,9 @@
 //                 Yoga Aliarham <https://github.com/aliarham11>
 //                 Ebrahim <https://github.com/br8h>
 //                 Shahar Mor <https://github.com/shaharmor>
+//                 Whemoon Jang <https://github.com/palindrom615>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /* =================== USAGE ===================
     import * as Redis from "ioredis";
@@ -436,6 +437,8 @@ declare namespace IORedis {
 
         scan(cursor: number, ...args: any[]): any;
 
+        sscan(key: string, cursor: number, ...args: any[]): any;
+
         hscan(key: string, cursor: number, ...args: any[]): any;
 
         zscan(key: string, cursor: number, ...args: any[]): any;
@@ -449,11 +452,19 @@ declare namespace IORedis {
         pipeline(commands?: string[][]): Pipeline;
 
         scanStream(options?: ScanStreamOption): NodeJS.EventEmitter;
+        sscanStream(key: string, options?: ScanStreamOption): NodeJS.EventEmitter;
         hscanStream(key: string, options?: ScanStreamOption): NodeJS.EventEmitter;
         zscanStream(key: string, options?: ScanStreamOption): NodeJS.EventEmitter;
     }
 
     interface Pipeline {
+        redis: Redis;
+        isCluster: boolean;
+        options: RedisOptions;
+        _queue: Command[];
+        _result: any[];
+        _transactions: number;
+        _shaToScript: {};
         bitcount(key: string, callback?: (err: Error, res: number) => void): Pipeline;
         bitcount(key: string, start: number, end: number, callback?: (err: Error, res: number) => void): Pipeline;
 
@@ -736,6 +747,8 @@ declare namespace IORedis {
         quit(callback?: (err: Error, res: string) => void): Pipeline;
 
         scan(cursor: number, ...args: any[]): Pipeline;
+
+        sscan(key: string, cursor: number, ...args: any[]): Pipeline;
 
         hscan(key: string, cursor: number, ...args: any[]): Pipeline;
 

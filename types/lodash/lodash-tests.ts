@@ -5561,13 +5561,23 @@ fp.now(); // $ExpectType number
 // _.omitBy
 {
     const obj: AbcObject | null | undefined = anything;
+    const dictionary: _.Dictionary<boolean> | null | undefined = anything;
+    const numericDictionary: _.NumericDictionary<boolean> | null | undefined = anything;
     const predicate = (element: string | number | boolean, key: string) => true;
+    const predicate2 = (element: boolean, key: string) => true;
 
     _.omitBy(obj, predicate); // $ExpectType Partial<AbcObject>
+    _.omitBy(dictionary, predicate2); // $ExpectType Dictionary<boolean>
+    _.omitBy(numericDictionary, predicate2); // $ExpectType NumericDictionary<boolean>
     _(obj).omitBy(predicate); // $ExpectType LoDashImplicitWrapper<Partial<AbcObject>>
+    _(dictionary).omitBy(predicate2); // $ExpectType LoDashImplicitWrapper<Dictionary<boolean>>
+    _(numericDictionary).omitBy(predicate2); // $ExpectType LoDashImplicitWrapper<NumericDictionary<boolean>>
     _.chain(obj).omitBy(predicate); // $ExpectType LoDashExplicitWrapper<Partial<AbcObject>>
+    _.chain(dictionary).omitBy(predicate2); // $ExpectType LoDashExplicitWrapper<Dictionary<boolean>>
+    _.chain(numericDictionary).omitBy(predicate2); // $ExpectType LoDashExplicitWrapper<NumericDictionary<boolean>>
     fp.omitBy(predicate, obj); // $ExpectType Partial<AbcObject>
-    fp.omitBy(predicate)(obj); // $ExpectType Partial<AbcObject>
+    fp.omitBy(predicate2)(dictionary); // $ExpectType Dictionary<boolean>
+    fp.omitBy(predicate2)(numericDictionary); // $ExpectType NumericDictionary<boolean>
 }
 
 // _.pick
@@ -5584,8 +5594,10 @@ fp.now(); // $ExpectType number
     _.pick(obj1, readonlyArray); // $ExpectType PartialDeep<AbcObject>
     // Broken in TS 2.4
     // _.pick(obj2, "a", "b"); // Pick<AbcObject, "a" | "b">
-    _.pick(obj2, literalsArray); // $ExpectType Pick<AbcObject, "a" | "b">
-    _.pick(obj2, roLiteralsArray); // $ExpectType Pick<AbcObject, "a" | "b">
+    // We can't use ExpectType here because typescript keeps changing what order the types appear.
+    let result1: Pick<AbcObject, "a" | "b">;
+    result1 = _.pick(obj2, literalsArray);
+    result1 = _.pick(obj2, roLiteralsArray);
 
     _(obj1).pick("a"); // $ExpectType LoDashImplicitWrapper<Partial<AbcObject>>
     _(obj1).pick(0, "a"); // $ExpectType LoDashImplicitWrapper<Partial<AbcObject>>
@@ -5593,8 +5605,9 @@ fp.now(); // $ExpectType number
     _(obj1).pick(readonlyArray); // $ExpectType LoDashImplicitWrapper<Partial<AbcObject>>
     // Broken in TS 2.4
     // _(obj2).pick("a", "b"); // LoDashImplicitWrapper<Pick<AbcObject, "a" | "b">>
-    _(obj2).pick(literalsArray); // $ExpectType LoDashImplicitWrapper<Pick<AbcObject, "a" | "b">>
-    _(obj2).pick(roLiteralsArray); // $ExpectType LoDashImplicitWrapper<Pick<AbcObject, "a" | "b">>
+    let result2: _.LoDashImplicitWrapper<Pick<AbcObject, "a" | "b">>;
+    result2 = _(obj2).pick(literalsArray);
+    result2 = _(obj2).pick(roLiteralsArray);
 
     _.chain(obj1).pick("a"); // $ExpectType LoDashExplicitWrapper<Partial<AbcObject>>
     _.chain(obj1).pick(0, "a"); // $ExpectType LoDashExplicitWrapper<Partial<AbcObject>>
@@ -5602,24 +5615,35 @@ fp.now(); // $ExpectType number
     _.chain(obj1).pick(readonlyArray); // $ExpectType LoDashExplicitWrapper<Partial<AbcObject>>
     // Broken in TS 2.4
     // _.chain(obj2).pick("a", "b"); // LoDashExplicitWrapper<Pick<AbcObject, "a" | "b">>
-    _.chain(obj2).pick(literalsArray); // $ExpectType LoDashExplicitWrapper<Pick<AbcObject, "a" | "b">>
-    _.chain(obj2).pick(roLiteralsArray); // $ExpectType LoDashExplicitWrapper<Pick<AbcObject, "a" | "b">>
+    let result3: _.LoDashExplicitWrapper<Pick<AbcObject, "a" | "b">>;
+    result3 = _.chain(obj2).pick(literalsArray);
+    result3 = _.chain(obj2).pick(roLiteralsArray);
 
     fp.pick<AbcObject, "a">("a", obj2); // $ExpectType Pick<AbcObject, "a">
     fp.pick<AbcObject, "a">("a")(obj2); // $ExpectType Pick<AbcObject, "a">
-    fp.pick<AbcObject, "a" | "b">(literalsArray)(obj2); // $ExpectType Pick<AbcObject, "a" | "b">
+    result1 = fp.pick<AbcObject, "a" | "b">(literalsArray)(obj2);
 }
 
 // _.pickBy
 {
     const obj: AbcObject | null | undefined = anything;
+    const dictionary: _.Dictionary<boolean> | null | undefined = anything;
+    const numericDictionary: _.NumericDictionary<boolean> | null | undefined = anything;
     const predicate = (element: string | number | boolean, key: string) => true;
+    const predicate2 = (element: boolean, key: string) => true;
 
     _.pickBy(obj, predicate); // $ExpectType Partial<AbcObject>
+    _.pickBy(dictionary, predicate2); // $ExpectType Dictionary<boolean>
+    _.pickBy(numericDictionary, predicate2); // $ExpectType NumericDictionary<boolean>
     _(obj).pickBy(predicate); // $ExpectType LoDashImplicitWrapper<Partial<AbcObject>>
+    _(dictionary).pickBy(predicate2); // $ExpectType LoDashImplicitWrapper<Dictionary<boolean>>
+    _(numericDictionary).pickBy(predicate2); // $ExpectType LoDashImplicitWrapper<NumericDictionary<boolean>>
     _.chain(obj).pickBy(predicate); // $ExpectType LoDashExplicitWrapper<Partial<AbcObject>>
+    _.chain(dictionary).pickBy(predicate2); // $ExpectType LoDashExplicitWrapper<Dictionary<boolean>>
+    _.chain(numericDictionary).pickBy(predicate2); // $ExpectType LoDashExplicitWrapper<NumericDictionary<boolean>>
     fp.pickBy(predicate, obj); // $ExpectType Partial<AbcObject>
-    fp.pickBy(predicate)(obj); // $ExpectType Partial<AbcObject>
+    fp.pickBy(predicate2)(dictionary); // $ExpectType Dictionary<boolean>
+    fp.pickBy(predicate2)(numericDictionary); // $ExpectType NumericDictionary<boolean>
 }
 
 // _.result

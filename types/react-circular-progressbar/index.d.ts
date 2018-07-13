@@ -18,15 +18,8 @@ export interface Props {
     backgroundPadding?: number;
     initialAnimation?: boolean;
     counterClockwise?: boolean;
-    classForPercentage?: FalseyCallback;
-    textForPercentage?: FalseyCallback;
+    text?: string;
 }
-
-export type FalseyCallback =
-    | ''
-    | false
-    | null
-    | ((percentage: number) => string);
 
 export interface GroupOverride<T> {
     root?: T;

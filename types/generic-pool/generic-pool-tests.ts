@@ -11,8 +11,8 @@ const factory = {
             resolve(conn);
         });
     },
-    destroy: (conn: Connection): Promise<undefined> => {
-        return new Promise<undefined>(resolve => {
+    destroy: (conn: Connection): Promise<void> => {
+        return new Promise<void>(resolve => {
             conn.connected = false;
             resolve();
         });
@@ -53,7 +53,7 @@ pool.acquire()
         return pool.destroy(conn);
     }).then(() => {
         return pool.clear();
-    }).then((results: undefined[]) => {
+    }).then(() => {
     });
 
 pool.on('factoryCreateError', (err: Error) => {

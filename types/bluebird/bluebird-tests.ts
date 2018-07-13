@@ -590,25 +590,39 @@ obj = fooProm.toJSON();
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-barProm = fooArrProm.spread<Bar>((one: Foo, two: Bar, twotwo: Foo) => {
+barProm = fooArrProm.spread((one: Foo, two: Foo, twotwo: Foo) => {
 	return bar;
 });
 
 // - - - - - - - - - - - - - - - - -
 
-barProm = fooArrProm.spread<Bar>((one: Foo, two: Bar, twotwo: Foo) => {
+barProm = fooArrProm.spread((one: Foo, two: Foo, twotwo: Foo) => {
 	return barThen;
 });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-// TODO fix collection inference
+fooArrProm = fooArrProm.all();
 
-barArrProm = fooProm.all<Bar>();
+// $ExpectType Bluebird<never>
+fooProm.all();
+
 fooInspectionPromise = fooProm.reflect();
-barProm = fooProm.any<Bar>();
-barArrProm = fooProm.some<Bar>(num);
-barProm = fooProm.race<Bar>();
+
+fooProm = fooArrProm.any();
+
+// $ExpectType Bluebird<never>
+fooProm.any();
+
+fooArrProm = fooArrProm.some(num);
+
+// $ExpectType Bluebird<never>
+fooProm.some(num);
+
+fooProm = fooArrProm.race();
+
+// $ExpectType Bluebird<never>
+fooProm.race();
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -649,21 +663,19 @@ Promise.all([fooProm, barProm, fooProm]).then(result => {
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-// TODO fix collection inference
-
-barArrProm = fooArrProm.map<Foo, Bar>((item: Foo, index: number, arrayLength: number) => {
+barArrProm = fooArrProm.map((item: Foo, index: number, arrayLength: number) => {
 	return bar;
 });
-barArrProm = fooArrProm.map<Foo, Bar>((item: Foo) => {
+barArrProm = fooArrProm.map((item: Foo) => {
 	return bar;
 });
 
-barArrProm = fooArrProm.map<Foo, Bar>((item: Foo, index: number, arrayLength: number) => {
+barArrProm = fooArrProm.map((item: Foo, index: number, arrayLength: number) => {
 	return bar;
 }, {
 	concurrency: 1
 });
-barArrProm = fooArrProm.map<Foo, Bar>((item: Foo) => {
+barArrProm = fooArrProm.map((item: Foo) => {
 	return bar;
 }, {
 	concurrency: 1
@@ -671,37 +683,37 @@ barArrProm = fooArrProm.map<Foo, Bar>((item: Foo) => {
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-barArrProm = fooArrProm.mapSeries<Foo, Bar>((item: Foo, index: number, arrayLength: number) => {
+barArrProm = fooArrProm.mapSeries((item: Foo, index: number, arrayLength: number) => {
 	return bar;
 });
-barArrProm = fooArrProm.mapSeries<Foo, Bar>((item: Foo) => {
+barArrProm = fooArrProm.mapSeries((item: Foo) => {
 	return bar;
 });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-barProm = fooArrProm.reduce<Foo, Bar>((memo: Bar, item: Foo, index: number, arrayLength: number) => {
+barProm = fooArrProm.reduce((memo: Bar, item: Foo, index: number, arrayLength: number) => {
 	return memo;
 });
-barProm = fooArrProm.reduce<Foo, Bar>((memo: Bar, item: Foo) => {
+barProm = fooArrProm.reduce((memo: Bar, item: Foo) => {
 	return memo;
 }, bar);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-fooArrProm = fooArrProm.filter<Foo>((item: Foo, index: number, arrayLength: number) => {
+fooArrProm = fooArrProm.filter((item: Foo, index: number, arrayLength: number) => {
 	return bool;
 });
-fooArrProm = fooArrProm.filter<Foo>((item: Foo) => {
+fooArrProm = fooArrProm.filter((item: Foo) => {
 	return bool;
 });
 
-fooArrProm = fooArrProm.filter<Foo>((item: Foo, index: number, arrayLength: number) => {
+fooArrProm = fooArrProm.filter((item: Foo, index: number, arrayLength: number) => {
 	return bool;
 }, {
 	concurrency: 1
 });
-fooArrProm = fooArrProm.filter<Foo>((item: Foo) => {
+fooArrProm = fooArrProm.filter((item: Foo) => {
 	return bool;
 }, {
 	concurrency: 1
@@ -709,10 +721,10 @@ fooArrProm = fooArrProm.filter<Foo>((item: Foo) => {
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-fooArrProm = fooArrProm.each<Foo, Bar>((item: Foo): Bar => bar);
-fooArrProm = fooArrProm.each<Foo, Bar>((item: Foo, index: number): Bar => index ? bar : null);
-fooArrProm = fooArrProm.each<Foo, Bar>((item: Foo, index: number, arrayLength: number): Bar => bar);
-fooArrProm = fooArrProm.each<Foo, Bar>((item: Foo, index: number, arrayLength: number): Promise<Bar> => barProm);
+fooArrProm = fooArrProm.each((item: Foo): Bar => bar);
+fooArrProm = fooArrProm.each((item: Foo, index: number): Bar => index ? bar : null);
+fooArrProm = fooArrProm.each((item: Foo, index: number, arrayLength: number): Bar => bar);
+fooArrProm = fooArrProm.each((item: Foo, index: number, arrayLength: number): Promise<Bar> => barProm);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
