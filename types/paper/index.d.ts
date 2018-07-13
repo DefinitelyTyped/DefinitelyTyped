@@ -2215,6 +2215,12 @@ declare module paper {
          */
         radius: number | Size;
 
+        /**
+         * Creates a new path item with same geometry as this shape item, and inherits all settings from it, similar to item.clone().
+         * @param insert - specifies whether the new path should be inserted into the scene graph. When set to true, it is inserted above the shape item — optional, default: true
+         */
+        toPath(insert?: boolean): Shape;
+
     }
     /**
      * The Raster item represents an image in a Paper.js project.
