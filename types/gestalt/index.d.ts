@@ -927,7 +927,16 @@ interface ColumnProps {
     smSpan?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
     mdSpan?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
     lgSpan?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
-    children: React.ReactNode;
+    children?: React.ReactNode;
+}
+
+/*
+Container Props Interface
+https://pinterest.github.io/gestalt/#/Container
+*/
+
+interface ContainerProps {
+    children?: React.ReactNode;
 }
 
 declare module "gestalt" {
@@ -937,4 +946,5 @@ declare module "gestalt" {
     class Card extends React.Component<CardProps, any> {}
     class Checkbox extends React.Component<CheckBoxProps, any> {}
     class Column extends React.Component<ColumnProps, any> {}
+    class Container extends React.Component<ContainerProps, any> {}
 }

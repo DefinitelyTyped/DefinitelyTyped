@@ -1,5 +1,13 @@
 import * as React from "react";
-import { Avatar, Box, Button, Card, Checkbox, Column } from "gestalt";
+import {
+    Avatar,
+    Box,
+    Button,
+    Card,
+    Checkbox,
+    Column,
+    Container
+} from "gestalt";
 
 <Avatar name="Nicolas" />;
 <Box />;
@@ -7,3 +15,4 @@ import { Avatar, Box, Button, Card, Checkbox, Column } from "gestalt";
 <Card />;
 <Checkbox id={"1"} onChange={() => {}} />;
 <Column span={1} />;
+<Container />;
