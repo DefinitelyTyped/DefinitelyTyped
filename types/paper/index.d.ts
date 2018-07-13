@@ -91,6 +91,18 @@ declare module paper {
         constructor(a: number, c: number, b: number, d: number, tx: number, ty: number);
 
         /**
+         * Creates a 2D affine transformation matrix
+         * @param array - the matrix values to initialize this matrix with
+         */
+        constructor(values: number[]);
+
+        /**
+         * Creates a 2D affine transformation matrix
+         * @param matrix - the matrix to copy the values from
+         */
+        constructor(matrix: Matrix);
+
+        /**
          * The value that affects the transformation along the x axis when scaling or rotating, positioned at (0, 0) in the transformation matrix.
          */
         a: number;
@@ -124,25 +136,30 @@ declare module paper {
          * The transform values as an array, in the same sequence as they are passed to initialize(a, c,b,d,tx,ty).
          * Read only.
          */
-        values: number;
+        readonly values: number[];
 
         /**
          * The translation of the matrix as a vector.
          * Read only.
          */
-        translation: Point;
+        readonly translation: Point;
 
         /**
          * The scaling values of the matrix, if it can be decomposed.
          * Read only.
          */
-        scaling: Point;
+        readonly scaling: Point;
 
         /**
          * The rotation angle of the matrix, if it can be decomposed.
          * Read only.
          */
-        rotation: number;
+        readonly rotation: number;
+
+        /**
+         * Sets this transform to the matrix defaults
+         */
+        set(): Matrix;
 
         /**
          * Sets this transform to the matrix specified by the 6 values.
@@ -154,6 +171,18 @@ declare module paper {
          * @param ty - the ty property of the transform
          */
         set(a: number, c: number, b: number, d: number, tx: number, ty: number): Matrix;
+
+        /**
+         * Sets a 2D affine transformation matrix
+         * @param array - the matrix values to set this matrix with
+         */
+        set(values: number[]): Matrix;
+
+        /**
+         * Sets a 2D affine transformation matrix
+         * @param matrix - the matrix to set the values from
+         */
+        set(matrix: Matrix): Matrix;
 
         /**
          * Returns a copy of this transform
@@ -180,7 +209,7 @@ declare module paper {
          * Attempts to apply the matrix to the content of item that it belongs to, meaning its transformation is baked into the item's content or children.
          * @param recursively - controls whether to apply transformations recursively on children
          */
-        apply(): boolean;
+        apply(recursively: boolean): boolean;
 
         /**
          * Concatenates this transform with a translate transformation.
@@ -215,7 +244,7 @@ declare module paper {
          * @param angle - the angle of rotation measured in degrees
          * @param center - the anchor point to rotate around
          */
-        rotate(angle: number, center?: Point): Matrix;
+        rotate(angle: number, center: Point): Matrix;
 
         /**
          * Concatenates this transform with a rotation transformation around an anchor point.
@@ -274,6 +303,30 @@ declare module paper {
         chain(mx: Matrix): Matrix;
 
         /**
+         * Prepends the specified matrix to this matrix. This is the equivalent of multiplying (specified matrix) * (this matrix).
+         * @param mx - the transform to concatenate
+         */
+        append(mx: Matrix): Matrix;
+
+        /**
+         * Pre-concatenates the given affine transform to this transform.
+         * @param mx - the transform to preconcatenate
+         */
+        prepend(mx: Matrix): Matrix;
+
+        /**
+         * Returns a new matrix as the result of appending the specified matrix to this matrix. This is the equivalent of multiplying (this matrix) * (specified matrix).
+         * @param mx - the transform to concatenate
+         */
+        appended(mx: Matrix): Matrix;
+
+        /**
+         * Returns a new matrix as the result of prepending the specified matrix to this matrix. This is the equivalent of multiplying (specified matrix) s* (this matrix).
+         * @param mx - the transform to concatenate
+         */
+        prepended(mx: Matrix): Matrix;
+
+        /**
          * Returns whether this transform is the identity transform
          */
         isIdentity(): boolean;
@@ -312,9 +365,14 @@ declare module paper {
          * Attempts to decompose the affine transformation described by this matrix into scaling, rotation and shearing, and returns an object with these properties if it succeeded, null otherwise.
          */
         decompose(): any;
+        
+        /**
+         * Inverts the matrix, causing it to perform the opposite transformation. If the matrix is not invertible (in which case isSingular() returns true), null is returned.
+         */
+        invert(): Matrix;
 
         /**
-         * Creates the inversion of the transformation of the matrix and returns it as a new insteance. If the matrix is not invertible (in which case isSingular() returns true), null is returned.
+         * Creates the inversion of the transformation of the matrix and returns it as a new instance. If the matrix is not invertible (in which case isSingular() returns true), null is returned.
          */
         inverted(): Matrix;
 
