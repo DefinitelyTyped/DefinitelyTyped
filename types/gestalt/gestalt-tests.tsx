@@ -1,4 +1,5 @@
 import * as React from "react";
-import { Avatar } from "gestalt";
+import { Avatar, Box } from "gestalt";
 
 <Avatar name="Nicolas" />;
+<Box />;
