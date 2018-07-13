@@ -10,7 +10,7 @@
 //                 Jamie Saunders <https://github.com/jrsaunde>
 //                 Paul Melnikow <https://github.com/paulmelnikow>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 2.6
 
 import * as React from 'react';
 import { CurveFactory } from 'd3-shape';

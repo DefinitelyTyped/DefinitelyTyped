@@ -2,7 +2,7 @@
 // Project: https://xuopled.github.io/react-google-places-suggest
 // Definitions by: Vasily Nesterov <https://github.com/vasilysn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 2.6
 
 /// <reference types="googlemaps" />
 import { Component, ReactNode } from "react";

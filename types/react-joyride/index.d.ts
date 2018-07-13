@@ -2,7 +2,7 @@
 // Project: https://github.com/gilbarbara/react-joyride
 // Definitions by: Daniel Rosenwasser <https://github.com/DanielRosenwasser>, Ben Dixon <https://github.com/bendxn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 2.6
 
 import * as React from "react";
 

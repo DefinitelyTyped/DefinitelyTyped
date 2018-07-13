@@ -14,7 +14,7 @@
 //                 Johann Rakotoharisoa <https://github.com/jrakotoharisoa>
 //                 Andrew Makarov <https://github.com/r3nya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 2.6
 
 import * as React from 'react';
 

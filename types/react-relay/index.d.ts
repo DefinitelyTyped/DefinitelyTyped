@@ -6,7 +6,7 @@
 //                 Nicolas Pirotte <https://github.com/npirotte>
 //                 Cameron Knight <https://github.com/ckknight>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 2.6
 
 export {
     commitLocalUpdate,

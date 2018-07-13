@@ -2,7 +2,7 @@
 // Project: https://github.com/jxnblk/rebass
 // Definitions by: rhysd <https://rhysd.github.io>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 2.6
 
 ///<reference types="react" />
 

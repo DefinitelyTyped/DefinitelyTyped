@@ -2,7 +2,7 @@
 // Project: https://github.com/ankeetmaini/react-infinite-scroll-component#readme
 // Definitions by: Stephanie Roy <https://github.com/sroy3>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 2.6
 
 import * as React from 'react';
 

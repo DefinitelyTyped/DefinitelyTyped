@@ -4,7 +4,7 @@
 //                 Jacob Froman <https://github.com/j-fro>
 //                 Nikolay Polukhin <https://github.com/gazaret>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 2.6
 
 import * as React from 'react';
 import {

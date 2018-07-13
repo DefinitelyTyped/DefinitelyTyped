@@ -8,7 +8,7 @@
 //                 Koala Human <https://github.com/KoalaHuman>
 //                 Sean Kelley <https://github.com/seansfkelley>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 2.6
 
 import * as React from "react";
 import * as moment from "moment";
