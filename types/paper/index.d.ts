@@ -2751,8 +2751,9 @@ declare module paper {
         /**
          * The curves contained within the path.
          * Array of Curve objects
+         * Read only.
          */
-        curves: Curve[];
+        readonly curves: Curve[];
 
         /**
          * The first Curve contained within the path.
@@ -3109,52 +3110,53 @@ declare module paper {
          * @param pathData - the SVG path-data that describes the geometry of this path.
          */
         constructor(pathData: string);
-
+        
         /**
-         * Specifies whether the compound path is oriented clock-wise.
+         * Specifies whether the path is closed. If it is closed, Paper.js connects the first and last segments.
          */
-        clockwise: boolean;
+        closed: boolean;
 
         /**
          * The first Segment contained within the path.
          * Read Only
          */
-        firstSegment: Segment;
+        readonly firstSegment: Segment;
 
         /**
          * The last Segment contained within the path.
          * Read Only
          */
-        lastSegment: Segment;
+        readonly lastSegment: Segment;
 
         /**
          * All the curves contained within the compound-path, from all its child Path items.
          * Read Only
          */
-        curves: Curve[];
+        readonly curves: Curve[];
 
         /**
          * The first Curve contained within the path.
          * Read Only
          */
-        firstCurve: Curve;
+        readonly firstCurve: Curve;
 
         /**
          * The last Curve contained within the path.
          * Read only.
          */
-        lastCurve: Curve;
+        readonly lastCurve: Curve;
 
         /**
          * The area of the path in square points. Self-intersecting paths can contain sub-areas that cancel each other out.
          * Read Only.
          */
-        area: number;
+        readonly area: number;
 
         /**
-         * Reverses the orientation of all nested paths.
+         * The approximate length of the path in points.
+         * Read only.
          */
-        reverse(): void;
+        readonly length: number;
 
     }
     /**
