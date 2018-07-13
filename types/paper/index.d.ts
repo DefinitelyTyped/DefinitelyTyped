@@ -4023,7 +4023,7 @@ declare module paper {
          * The project that this symbol belongs to.
          * Read Only.
          */
-        project: Project;
+        readonly project: Project;
 
         /**
          * The symbol definition.
@@ -4040,6 +4040,12 @@ declare module paper {
          * Returns a copy of the symbol.
          */
         clone(): Symbol;
+
+        /**
+         * Checks whether the symbol’s definition is equal to the supplied symbol.
+         * @param symbol Symbol
+         */
+        equals(symbol: Symbol): boolean;
 
     }
     /**
