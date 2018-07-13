@@ -2183,7 +2183,16 @@ declare namespace angular {
             has(name: string): boolean;
             instantiate<T>(typeConstructor: {new(...args: any[]): T}, locals?: any): T;
             invoke<T = any>(func: Injectable<Function | ((...args: any[]) => T)>, context?: any, locals?: any): T;
+            /**
+             * Add the specified modules to the current injector.
+             * This method will add each of the injectables to the injector and execute all of the config and run blocks for each module passed to the method.
+             * @param modules A module, module name or annotated injection function.
+             */
             loadNewModules(modules: Array<IModule|string|Injectable<(...args: any[]) => void>>): void;
+            /** 
+             * An object map of all the modules that have been loaded into the injector.
+             * Do not use this property to attempt to modify the modules after the application has been bootstrapped.
+             */
             modules: {[moduleName: string]: IModule};
             strictDi: boolean;
         }
