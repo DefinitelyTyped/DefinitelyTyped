@@ -2740,13 +2740,13 @@ declare module paper {
          * The first Segment contained within the path.
          * Read only.
          */
-        firstSegment: Segment;
+        readonly firstSegment: Segment;
 
         /**
          * The last Segment contained within the path
          * Read only.
          */
-        lastSegment: Segment;
+        readonly lastSegment: Segment;
 
         /**
          * The curves contained within the path.
@@ -2758,13 +2758,13 @@ declare module paper {
          * The first Curve contained within the path.
          * Read only.
          */
-        firstCurve: Curve;
+        readonly firstCurve: Curve;
 
         /**
          * The last Curve contained within the path.
          * Read only.
          */
-        lastCurve: Curve;
+        readonly lastCurve: Curve;
 
         /**
          * Specifies whether the path is closed. If it is closed, Paper.js connects the first and last segments.
@@ -2775,29 +2775,18 @@ declare module paper {
          * The approximate length of the path in points.
          * Read only.
          */
-        length: number;
+        readonly length: number;
 
         /**
          * The area of the path in square points. Self-intersecting paths can contain sub-areas that cancel each other out.
          * Read only.
          */
-        area: number;
+        readonly area: number;
 
         /**
          * Specifies whether the path and all its segments are selected. Cannot be true on an empty path.
          */
         fullySelected: boolean;
-
-        /**
-         * Specifies whether the path is oriented clock-wise.
-         */
-        clockwise: boolean;
-
-        /**
-         * Returns a point that is guaranteed to be inside the path.
-         * Read only.
-         */
-        interiorPoint: Point;
 
         /**
          * Adds one or more segments to the end of the segments array of this path.
@@ -2817,7 +2806,7 @@ declare module paper {
         /**
          * Adds an array of segments (or types that can be converted to segments) to the end of the segments array.
          * @param segments - Array of Segment objects
-         * Returns an array of the added segments. These segments are not necessarily the same objects, e.g. if the segment to be added already belongs to another path.
+         * @returns an array of the added segments. These segments are not necessarily the same objects, e.g. if the segment to be added already belongs to another path.
          */
         addSegments(segments: Segment[]): Segment[];
 
@@ -2825,20 +2814,20 @@ declare module paper {
          * Inserts an array of segments at a given index in the path's segments array.
          * @param index - the index at which to insert the segments.
          * @param segments - the segments to be inserted.
-         * Returns an array of the added segments. These segments are not necessarily the same objects, e.g. if the segment to be added already belongs to another path.
+         * @returns an array of the added segments. These segments are not necessarily the same objects, e.g. if the segment to be added already belongs to another path.
          */
         insertSegments(index: number, segments: Segment[]): Segment[];
 
         /**
          * Removes the segment at the specified index of the path's segments array.
          * @param index - the index of the segment to be removed
-         * Returns the removed segment
+         * @returns the removed segment
          */
         removeSegment(index: number): Segment;
 
         /**
          * Removes all segments from the path's segments array.
-         * Returns an array containing the removed segments
+         * @returns an array containing the removed segments
          */
         removeSegments(): Segment[];
 
@@ -2846,38 +2835,76 @@ declare module paper {
          * Removes the segments from the specified from index to the to index from the path's segments array.
          * @param from - the beginning index, inclusive
          * @param to [optional = segments.length] - the ending index
-         * Returns an array containing the removed segments
+         * @returns an array containing the removed segments
          */
         removeSegments(from: number, to?: number): Segment[];
 
         /**
+         * Checks if any of the curves in the path have curve handles set.
+         */
+        hasHandles(): boolean;
+
+        /**
+         * Clears the path’s handles by setting their coordinates to zero, turning the path into a polygon (or a polyline if it isn’t closed).
+         */
+        clearHandles(): void;
+        
+        /**
+         * Divides the path on the curve at the given location into two curves, by inserting a new segment at the given location.
+         * @param location - the curve location at which to divide the existing curve by inserting a new segment
+         * @returns the newly inserted segment if the location is valid, {code null} otherwise
+         */
+        divideAt(location: CurveLocation): Path;
+
+        /**
+         * Divides the path on the curve at the given offset into two curves, by inserting a new segment at the given location.
+         * @param offset - the offset at which to divide the existing curve by inserting a new segment
+         * @returns the newly inserted segment if the location is valid, {code null} otherwise
+         */
+        divideAt(offset: number): Path;
+
+        /**
          * Splits the path at the given offset. After splitting, the path will be open. If the path was open already, splitting will result in two paths.
          * @param offset - the offset at which to split the path as a number between 0 and path.length
-         * Returns the newly created path after splitting, if any
+         * @returns the newly created path after splitting, if any
          */
         split(offset: number): Path;
 
         /**
          * Splits the path at the given curve location. After splitting, the path will be open. If the path was open already, splitting will result in two paths.
          * @param location - the curve location at which to split the path
-         * Returns the newly created path after splitting, if any
+         * @returns the newly created path after splitting, if any
          */
         split(location: CurveLocation): Path;
 
         /**
          * Splits the path at the given curve index and parameter. After splitting, the path will be open. If the path was open already, splitting will result in two paths.
          * @param index - the index of the curve in the path.curves array at which to split
-         * @param parameter - the parameter at which the curve will be split
-         * Returns the newly created path after splitting, if any
+         * @param offset - the offset at which to split the path as a number between 0 and path.length
+         * @returns the newly created path after splitting, if any
          */
-        split(index: number, parameter: number): Path;
+        split(index: number, offset: number): Path;
 
         /**
          * Joins the path with the specified path, which will be removed in the process.
          * @param path - the path to join this path with
-         * Returns the joined path
+         * @param tolerance [optional] - the tolerance with which to decide if two segments are to be considered the same location when joining. default: 0
+         * @returns the joined path
          */
-        join(path: Path): Path;
+        join(path: Path, tolerance?: number): Path;
+
+        /**
+         * Reduces the path by removing curves that have a length of 0, and unnecessary segments between two collinear flat curves.
+         * @param options [optional] - options for reducing the path. default { simplify: false }
+         * @param options.simplify - whether to be slightly tolerant of length when reducing the path. It not set the tolerance will be 1e-7 instead of 0.
+         */
+        reducePath(options?: { simplify?: boolean; }): void;
+
+        /**
+         * Attempts to create a new shape item with same geometry as this path item, and inherits all settings from it, similar to item.clone().
+         * @param insert [optional] - specifies whether the new shape should be inserted into the scene graph. When set to true, it is inserted above the path item. default: true
+         */
+        toShape(insert?: boolean): Shape;
 
         /**
          * Returns the curve location of the specified point if it lies on the path, null otherwise.
@@ -2893,39 +2920,53 @@ declare module paper {
 
         /**
          * Returns the curve location of the specified offset on the path.
-         * @param offset - the offset on the path, where 0 is at the beginning of the path and path.length at the end.
-         * @param isParameter [optional=false] -
+         * @param offset - the offset or time on the path, where 0 is at the beginning of the path and path.length at the end.
+         * @param isTime [optional=false] -
          */
-        getLocationAt(offset: number, isParameter?: boolean): CurveLocation;
+        getLocationAt(offset: number, isTime?: boolean): CurveLocation;
 
         /**
          * Calculates the point on the path at the given offset. Returns the point at the given offset
-         * @param offset - the offset on the path, where 0 is at the beginning of the path and path.length at the end.
-         * @param isParameter [optional=false] -
+         * @param offset - the offset or time on the path, where 0 is at the beginning of the path and path.length at the end.
+         * @param isTime [optional=false] -
          */
-        getPointAt(offset: number, isPatameter?: boolean): Point;
+        getPointAt(offset: number, isTime?: boolean): Point;
 
         /**
          * Calculates the tangent vector of the path at the given offset. Returns the tangent vector at the given offset
-         * @param offset - the offset on the path, where 0 is at the beginning of the path and path.length at the end.
-         * @param isParameter [optional=false] -
+         * @param offset - the offset or time on the path, where 0 is at the beginning of the path and path.length at the end.
+         * @param isTime [optional=false] -
          */
-        getTangentAt(offset: number, isPatameter?: boolean): Point;
+        getTangentAt(offset: number, isTime?: boolean): Point;
 
         /**
          * Calculates the normal vector of the path at the given offset. Returns the normal vector at the given offset
-         * @param offset - the offset on the path, where 0 is at the beginning of the path and path.length at the end.
-         * @param isParameter [optional=false] -
+         * @param offset - the offset or time on the path, where 0 is at the beginning of the path and path.length at the end.
+         * @param isTime [optional=false] -
          */
-        getNormalAt(offset: number, isParameter?: boolean): Point;
+        getNormalAt(offset: number, isTime?: boolean): Point;
+
+        /**
+         * Calculates the weighted tangent vector of the path at the given offset.
+         * @param offset - the offset or time on the path, where 0 is at the beginning of the path and path.length at the end.
+         * @param isTime [optional=false] -
+         */
+        getWeightedTangentAt(offset: number, isTime?: boolean): Point;
+
+        /**
+         * Calculates the weighted normal vector of the path at the given offset.
+         * @param offset - the offset or time on the path, where 0 is at the beginning of the path and path.length at the end.
+         * @param isTime [optional=false] -
+         */
+        getWeightedNormalAt(offset: number, isTime?: boolean): Point;
 
         /**
          * Calculates the curvature of the path at the given offset. Curvatures indicate how sharply a path changes direction. A straight line has zero curvature, where as a circle has a constant curvature. The path's radius at the given offset is the reciprocal value of its curvature.
          * @param offset - the offset on the path, where 0 is at the beginning of the path and path.length at the end.
-         * @param isParameter [optional=false] -
-         * @param point - the point for which we search the nearest location
+         * @param isTime [optional=false] -
+         * @param point [optional] - the point for which we search the nearest location
          */
-        getCurvatureAt(offset: number, isParameter?: boolean, point?: Point): number;
+        getCurvatureAt(offset: number, isTime?: boolean, point?: Point): number;
 
     }
     module Path {
