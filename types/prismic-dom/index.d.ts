@@ -16,5 +16,5 @@ interface Link {
 export const RichText: RichText;
 export const Link: Link;
 
-declare const _default: { RichText: RichText };
+declare const _default: { RichText: RichText, Link: Link };
 export default _default;
