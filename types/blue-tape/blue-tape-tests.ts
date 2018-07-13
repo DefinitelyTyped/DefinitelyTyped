@@ -1,3 +1,5 @@
+/// <reference types="bluebird" />
+
 import tape = require('blue-tape');
 import P = require('bluebird');
 

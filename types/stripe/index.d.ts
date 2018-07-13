@@ -4398,7 +4398,7 @@ declare namespace Stripe {
             /**
              * Cardholder name
              */
-            name: string | null;
+            name: string;
 
             /**
              * Uniquely identifies this particular card number. You can use this attribute to check

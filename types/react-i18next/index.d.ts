@@ -1,8 +1,7 @@
-// Type definitions for react-i18next 7.8
+// Type definitions for react-i18next 7.6
 // Project: https://github.com/i18next/react-i18next
 // Definitions by: Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
 //                 Simon Baumann <https://github.com/chnoch>
-//                 Benedict Etzel <https://github.com/beheh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 

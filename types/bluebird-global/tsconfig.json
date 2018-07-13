@@ -19,7 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "bluebird-global-tests.ts",
-        "test/jquery-tests.ts"
+        "bluebird-global-tests.ts"
     ]
 }

@@ -1,49 +1,64 @@
 import webpack = require('webpack');
 import serve = require('webpack-serve');
 
-const webpackConfig: webpack.Configuration = {
-    entry: { index: './index.js' },
+const config: webpack.Configuration = {
+  mode: 'development',
+  entry: ['index.js'], // when use compiler entry must be array or object
 };
 
-const webpackCompiler = webpack(webpackConfig);
-
-const serveConfig: serve.Options = {
-    add: (app, middleware, options) => {
-        middleware.content();
-        middleware.webpack();
-    },
-    compiler: webpackCompiler,
-    config: webpackConfig,
-    content: './webroot',
-    clipboard: true,
-    devMiddleware: {
-        logLevel: 'warn',
-        publicPath: '/',
-    },
-    host: 'localhost',
-    hotClient: {
-        logLevel: 'warn',
-        allEntries: true,
-    },
-    http2: true,
-    https: {},
-    logLevel: 'info',
-    logTime: false,
-    on: {
-        'build-finished': args => {
-            console.log(args.stats.toString());
-        },
-    },
-    open: {
-        path: '/index.html',
-    },
-    port: 65080,
+const serveConfig = {
+  http2: true,
+  dev: {
+    publicPath: '/',
+    logLevel: 'info'
+  },
+  host: 'localhost'
 };
 
-const promise = serve({}, serveConfig);
+const compiler = webpack(config);
 
-promise.then(result => {
-    result.on('compiler-error', args => {
-        console.log(args.stats);
-    });
+const server = serve({
+  compiler,
+  ...serveConfig
 });
+
+server
+  .then((server) => {
+    server.on('listening', () => {
+      server.close();
+    });
+  });
+
+const config2: webpack.Configuration = {
+  ...config,
+  serve: {
+    ...serveConfig,
+    port: 8888,
+    hot: {
+      port: 8889
+    }
+  },
+};
+
+const server2 = serve({
+  config: config2
+});
+
+server2
+  .then((server) => {
+    server.on('listening', () => {
+      server.close();
+    });
+  });
+
+const server3 = serve({
+  logLevel: 'silent',
+  config: config2
+});
+
+server3
+  .then((server) => {
+    server.on('listening', () => {
+      server.close();
+    });
+  });

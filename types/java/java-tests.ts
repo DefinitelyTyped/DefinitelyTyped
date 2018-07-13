@@ -1,11 +1,11 @@
 import java = require('java');
-import pify = require('pify');
+import BluePromise = require('bluebird');
 
 java.asyncOptions = {
   syncSuffix: 'Sync',
   asyncSuffix: '',
   promiseSuffix: 'P',
-  promisify: pify
+  promisify: BluePromise.promisify
 };
 // todo: figure out why promise doesn't work here
 /* java.registerClientP((): Promise<void> => {

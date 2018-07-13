@@ -6,6 +6,5 @@ authenticate('reason').then((isOk: boolean) => {}).catch((error: TouchIDError) =
 
 authenticate('reason', {
     title: 'Authentication Required',
-    color: '#1306ff',
-    fallbackTitle: 'Fallback Authentication Method'
+    color: '#1306ff'
 }).then((isOk: boolean) => {}).catch((error: TouchIDError) => {});
