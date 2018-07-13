@@ -4271,10 +4271,10 @@ declare module paper {
         constructor(color: Gradient, origin: Point, destination: Point, highlight?: Point);
 
         /**
-         * Creates a RGB Color object.
-         * @param hex - the RGB color in hex, i.e. #000000
+         * Creates a RGB Color object from CSS string
+         * @param css - the RGB color in hex, i.e. #000000, rbga, i.e. rgba(0,0,0,0) or named color.
          */
-        constructor(hex: string);
+        constructor(css: string);
 
         /**
          * The type of the color as a string.
@@ -4286,7 +4286,7 @@ declare module paper {
          * The color components that define the color, including the alpha value if defined.
          * Read Only.
          */
-        components: number;
+        readonly components: number;
 
         /**
          * The color's alpha value as a number between 0 and 1.
@@ -4346,6 +4346,43 @@ declare module paper {
         highlight: Point;
 
         /**
+         * Sets color to a RGB Color object.
+         * @param red - the amount of red in the color as a value between 0 and 1
+         * @param green - the amount of green in the color as a value between 0 and 1
+         * @param blue - the amount of blue in the color as a value between 0 and 1
+         * @param alpha [optional] - the alpha of the color as a value between 0 and 1
+         */
+        set(red: number, green: number, blue: number, alpha?: number): void;
+
+        /**
+         * Sets color to a gray Color object.
+         * @param gray - the amount of gray in the color as a value between 0 and 1
+         * @param alpha [optional] - the alpha of the color as a value between 0 and 1
+         */
+        set(gray: number, alpha?: number): void;
+
+        /**
+         * Sets color to a HSB, HSL or gradient Color object from the properties of the provided object:
+         * @param object - an object describing the components and properties of the color.
+         */
+        set(object: IHSBColor | IHSLColor | IGradientColor): void;
+
+        /**
+         * Sets color to a gradient Color object.
+         * @param gradient -
+         * @param origin -
+         * @param destination -
+         * @param highlight [optional] -
+         */
+        set(color: Gradient, origin: Point, destination: Point, highlight?: Point): void;
+
+        /**
+         * Sets color to a RGB Color object from CSS string
+         * @param css - the RGB color in hex, i.e. #000000, rbga, i.e. rgba(0,0,0,0) or named color.
+         */
+        set(css: string): void;
+
+        /**
          * Converts the color another type.
          * @param type - String('rgb'|'gray'|'hsb'|'hsl') the color type to convert to.
          */
@@ -4383,6 +4420,54 @@ declare module paper {
          * @param matrix - the matrix to transform the gradient color by
          */
         transform(matrix: Matrix): void;
+
+        /**
+         * Returns the addition of the supplied value to both coordinates of the color as a new color. The object itself is not modified!
+         * @param number - the number to add
+         */
+        add(number: number): Color;
+
+        /**
+         * Returns the addition of the supplied color to the color as a new color. The object itself is not modified!
+         * @param color - the color to add
+         */
+        add(color: Color): Color;
+        
+        /**
+         * Returns the subtraction of the supplied value to both coordinates of the color as a new color. The object itself is not modified!
+         * @param number - the number to subtract
+         */
+        subtract(number: number): Color;
+
+        /**
+         * Returns the subtraction of the supplied color to the color as a new color. The object itself is not modified!
+         * @param color - the color to subtract
+         */
+        subtract(color: Color): Color;
+        
+        /**
+         * Returns the multiplication of the supplied value to both coordinates of the color as a new color. The object itself is not modified!
+         * @param number - the number to multiply
+         */
+        multiply(number: number): Color;
+
+        /**
+         * Returns the multiplication of the supplied color to the color as a new color. The object itself is not modified!
+         * @param color - the color to multiply
+         */
+        multiply(color: Color): Color;
+
+        /**
+         * Returns the division of the supplied value to both coordinates of the color as a new color. The object itself is not modified!
+         * @param number - the number to divide
+         */
+        divide(number: number): Color;
+
+        /**
+         * Returns the division of the supplied color to the color as a new color. The object itself is not modified!
+         * @param color - the color to divide
+         */
+        divide(color: Color): Color;
 
     }
     /**
