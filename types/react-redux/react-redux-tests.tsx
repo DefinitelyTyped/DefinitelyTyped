@@ -1003,14 +1003,58 @@ namespace ProviderAcceptsStoreWithCustomAction {
 }
 
 namespace TestOptionalPropsMergedCorrectly {
-  interface InjectedPropsWithOptional {
+  interface OptionalDecorationProps {
     foo: string,
     bar: number,
     optionalProp?: boolean,
-    dependsOnDispatch?: () => void
+    dependsOnDispatch?: () => void,
   }
 
-  class Component extends React.Component<InjectedPropsWithOptional> {
+  class Component extends React.Component<OptionalDecorationProps> {
+      render () {
+          return <div />;
+      }
+  }
+
+  type MapStateProps = {
+      foo: string,
+      bar: number,
+      optionalProp: boolean,
+  }
+
+  type MapDispatchProps = {
+    dependsOnDispatch: () => void
+  }
+
+  function mapStateToProps (state: any): MapStateProps {
+    return {
+        foo: 'foo',
+        bar: 42,
+        optionalProp: true,
+    };
+  }
+
+  function mapDispatchToProps (dispatch: any): MapDispatchProps {
+    return {
+      dependsOnDispatch: () => {}
+    };
+  }
+
+  connect(mapStateToProps, mapDispatchToProps)(Component)
+}
+
+namespace TestMoreGeneralDecorationProps {
+  // connect() should support decoration props that are more permissive
+  // than the injected props, as long as the injected props can satisfy
+  // the decoration props.
+  interface MoreGeneralDecorationProps {
+    foo: string | number,
+    bar: number | 'foo',
+    optionalProp?: boolean | Object,
+    dependsOnDispatch?: () => void,
+  }
+
+  class Component extends React.Component<MoreGeneralDecorationProps> {
       render () {
           return <div />;
       }
