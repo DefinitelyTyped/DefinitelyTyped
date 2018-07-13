@@ -3688,73 +3688,98 @@ declare module paper {
         /**
          * Creates a new CurveLocation object.
          * @param curve -
-         * @param parameter -
-         * @param point -
+         * @param time -
+         * @param point [optional]
          */
-        constructor(curve: Curve, parameter: number, point: Point);
+        constructor(curve: Curve, time: number, point?: Point);
 
         /**
          * The segment of the curve which is closer to the described location.
          * Read Only
          */
-        segment: Segment;
+        readonly segment: Segment;
 
         /**
          * The curve that this location belongs to.
          * Read Only
          */
-        curve: Curve;
-
-        /**
-         * The curve location on the intersecting curve, if this location is the result of a call to pathItem.getIntersections(path) / Curve#getIntersections(curve).
-         * Read Only
-         */
-        intersection: CurveLocation;
+        readonly curve: Curve;
 
         /**
          * The path this curve belongs to, if any.
          * Read Only
          */
-        path: Path;
+        readonly path: Path;
 
         /**
          * The index of the curve within the path.curves list, if the curve is part of a Path item.
          * Read Only.
          */
-        index: number;
+        readonly index: number;
+
+        /**
+         * The curve parameter, as used by various bezier curve calculations. It is value between 0 (beginning of the curve) and 1 (end of the curve).
+         * Read only.
+         * @deprecated use time instead
+         */
+        readonly parameter: number;
+
+        /**
+         * The curve-time parameter, as used by various bezier curve calculations. It is value between 0 (beginning of the curve) and 1 (end of the curve).
+         * Read Only.
+         */
+        readonly time: number;
+
+        /**
+         * The point which is defined by the curve and time.
+         * Read Only.
+         */
+        readonly point: Point;
 
         /**
          * The length of the path from its beginning up to the location described by this object. If the curve is not part of a path, then the length within the curve is returned instead.
          * Read only.
          */
-        offset: number;
+        readonly offset: number;
 
         /**
          * The length of the curve from its beginning up to the location described by this object.
          * Read Only.
          */
-        curveOffset: number;
+        readonly curveOffset: number;
 
         /**
-         * The curve parameter, as used by various bezier curve calculations. It is value between 0 (beginning of the curve) and 1 (end of the curve).
-         * Read only.
+         * The curve location on the intersecting curve, if this location is the result of a call to pathItem.getIntersections(path) / Curve#getIntersections(curve).
+         * Read Only.
          */
-        parameter: number;
+        readonly intersection: CurveLocation;
 
         /**
-         * The point which is defined by the curve and parameter.
+         * The tangential vector to the curve at the given location.
          * Read only.
          */
-        point: Point;
+        readonly tangent: Point;
+
+        /**
+         * The normal vector to the curve at the given location.
+         * Read only.
+         */
+        readonly normal: Point;
+
+        /**
+         * The curvature of the curve at the given location.
+         * Read only.
+         */
+        readonly curvature: number;
 
         /**
          * The distance from the queried point to the returned location.
          * Read Only.
          */
-        distance: number;
+        readonly distance: number;
 
         /**
-         * Checks whether tow CurveLocation objects are describing the same location on a path, by applying the same tolerances as elsewhere when dealing with curve time parameters.
+         * Checks whether two CurveLocation objects are describing the same location on a path, by applying the same tolerances as elsewhere when dealing with curve time parameters.
          * @param location CurveLocation
          */
         equals(location: CurveLocation): boolean;
@@ -3763,6 +3788,21 @@ declare module paper {
          * Returns a string representation of the curve location
          */
         toString(): string;
+
+        /**
+         * Checks if the location is an intersection with another curve and is merely touching the other curve, as opposed to crossing it.
+         */
+        isTouching(): boolean;
+
+        /**
+         * Checks if the location is an intersection with another curve and is crossing the other curve, as opposed to just touching it.
+         */
+        isCrossing(): boolean;
+
+        /**
+         * Checks if the location is an intersection with another curve and is part of an overlap between the two involved paths.
+         */
+        hasOverlap(): boolean;
 
     }
     /**
