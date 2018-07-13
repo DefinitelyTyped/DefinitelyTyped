@@ -66,7 +66,7 @@ type Shared<
     InjectedProps,
     DecorationTargetProps extends Shared<InjectedProps, DecorationTargetProps>
     > = {
-        [P in Extract<keyof InjectedProps, keyof DecorationTargetProps>]?: DecorationTargetProps[P] extends InjectedProps[P] ? InjectedProps[P] : never;
+        [P in Extract<keyof InjectedProps, keyof DecorationTargetProps>]?: NonNullable<DecorationTargetProps[P]> extends NonNullable<InjectedProps[P]> ? InjectedProps[P] : never;
     };
 
 // Injects props and removes them from the prop requirements.

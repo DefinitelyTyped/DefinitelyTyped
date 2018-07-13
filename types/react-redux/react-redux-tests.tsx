@@ -1001,3 +1001,44 @@ namespace ProviderAcceptsStoreWithCustomAction {
         </Provider>
     );
 }
+
+namespace TestOptionalPropsMergedCorrectly {
+  interface InjectedPropsWithOptional {
+    foo: string,
+    bar: number,
+    optionalProp?: boolean,
+    dependsOnDispatch?: () => void
+  }
+
+  class Component extends React.Component<InjectedPropsWithOptional> {
+      render () {
+          return <div />;
+      }
+  }
+
+  type MapStateProps = {
+      foo: string,
+      bar: number,
+      optionalProp: boolean,
+  }
+
+  type MapDispatchProps = {
+    dependsOnDispatch: () => void
+  }
+
+  function mapStateToProps (state: any): MapStateProps {
+    return {
+        foo: 'foo',
+        bar: 42,
+        optionalProp: true,
+    };
+  }
+
+  function mapDispatchToProps (dispatch: any): MapDispatchProps {
+    return {
+      dependsOnDispatch: () => {}
+    };
+  }
+
+  connect(mapStateToProps, mapDispatchToProps)(Component)
+}
