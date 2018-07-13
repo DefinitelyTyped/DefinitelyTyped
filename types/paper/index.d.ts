@@ -2251,10 +2251,15 @@ declare module paper {
         height: number;
 
         /**
+         * The loading state of the raster image.
+         */
+        readonly loaded: boolean;
+
+        /**
          * The resolution of the raster at its current size, in PPI (pixels per inch).
          * Read Only.
          */
-        resolution: Size;
+        readonly resolution: Size;
 
         /**
          * The HTMLImageElement of the raster, if one is associated.
@@ -2275,6 +2280,21 @@ declare module paper {
          * The source of the raster, which can be set using a DOM Image, a Canvas, a data url, a string describing the URL to load the image from, or the ID of a DOM element to get the image from (either a DOM Image or a Canvas). Reading this property will return the url of the source image or a data-url.
          */
         source: HTMLImageElement | HTMLCanvasElement | string;
+
+        /**
+         * The crossOrigin value to be used when loading the image resource, in order to support CORS. Note that this needs to be set before setting the source property in order to always work (e.g. when the image is cached in the browser).
+         */
+        crossOrigin: string;
+
+        /**
+         * The event handler function to be called when the underlying image has finished loading and is ready to be used. This is also triggered when the image is already loaded, or when a canvas is used instead of an image.
+         */
+        onLoad: any;
+
+        /**
+         * The event handler function to be called when there is an error loading the underlying image.
+         */
+        onError: any;
 
         /**
          * Extracts a part of the Raster's content as a sub image, and returns it as a Canvas object.
@@ -2347,7 +2367,6 @@ declare module paper {
         getImageData(rect: Rectangle): ImageData;
 
         /**
-         *
          *
          * @param data
          * @param point
