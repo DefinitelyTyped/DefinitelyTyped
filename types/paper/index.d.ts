@@ -1241,7 +1241,7 @@ declare module paper {
          * The unique id of the item.
          * Read Only.
          */
-        id: number;
+        readonly id: number;
 
         /**
          * The class name of the item as a string.
@@ -1335,7 +1335,12 @@ declare module paper {
          * The item's global transformation matrix in relation to the global project coordinate space. Note that the view's transformations resulting from zooming and panning are not factored in.
          * Read Only.
          */
-        globalMatrix: Matrix;
+        readonly globalMatrix: Matrix;
+
+        /**
+         * The item’s global matrix in relation to the view coordinate space. This means that the view’s transformations resulting from zooming and panning are factored in.
+         */
+        readonly viewMatrix: Matrix;
 
         /**
          * Controls whether the transformations applied to the item (e.g. through transform(matrix), rotate(angle), scale(scale), etc.) are stored in its matrix property, or whether they are directly applied to its contents or children (passed on to the segments in Path items, the children of Group items, etc.).
@@ -1346,19 +1351,19 @@ declare module paper {
          * The project that this item belongs to.
          * Read only.
          */
-        project: Project;
+        readonly project: Project;
 
         /**
          * The view that this item belongs to.
          * Read Only.
          */
-        view: View;
+        readonly view: View;
 
         /**
          * The layer that this item is contained within.
          * Read Only.
          */
-        layer: Layer;
+        readonly layer: Layer;
 
         /**
          * The item that this item is contained within.
@@ -1374,30 +1379,30 @@ declare module paper {
         /**
          * The first item contained within this item. This is a shortcut for accessing item.children[0].
          */
-        firstChild: Item;
+        readonly firstChild: Item;
 
         /**
          * The last item contained within this item.This is a shortcut for accessing item.children[item.children.length - 1].
          */
-        lastChild: Item;
+        readonly lastChild: Item;
 
         /**
          * The next item on the same level as this item.
          * Read Only.
          */
-        nextSibling: Item;
+        readonly nextSibling: Item;
 
         /**
          * The previous item on the same level as this item.
          * Read Only.
          */
-        previousSibling: Item;
+        readonly previousSibling: Item;
 
         /**
          * The index of this item within the list of its parent's children.
          * Read only.
          */
-        index: number;
+        readonly index: number;
 
         /**
          * The color of the stroke.
@@ -1453,9 +1458,28 @@ declare module paper {
         fillColor: Color | string;
 
         /**
-         * The fill rule.
+         * The fill-rule with which the shape gets filled. Please note that only modern browsers support fill-rules other than 'nonzero'.
+         * Values - 'nonzero', 'evenodd'
+         * Default - 'nonzero'
          */
         fillRule: string;
+
+        /**
+         * The shadow color.
+         */
+        shadowColor: Color | string;
+
+        /**
+         * The shadow’s blur radius.
+         * Default - 0
+         */
+        shadowBlur: number;
+
+        /**
+         * The shadow’s offset.
+         * Default - 0
+         */
+        shadowOffset: number;
 
         /**
          * The color the item is highlighted with when selected. If the item does not specify its own color, the color defined by its layer is used instead.
@@ -1517,23 +1541,31 @@ declare module paper {
 
         /**
          * Clones the item within the same project and places the copy above the item.
-         * @param options [optional] - object with 2 parameters
-         * insert: specifies whether the copy should be inserted into the DOM. When set to true, it is inserted above the original. default: true
-         * deep: specifies whether the item’s children should also be cloned — default: true
+         * @param options [optional] - default: { insert: true, deep: true }
+         * @param options.insert: specifies whether the copy should be inserted into the DOM. When set to true, it is inserted above the original. default: true
+         * @param options.deep: specifies whether the item’s children should also be cloned — default: true
          */
         clone(options?: { insert?: boolean, deep?: boolean }): Item;
 
         /**
-         * When passed a project, copies the item to the project, or duplicates it within the same project. When passed an item, copies the item into the specified item.
-         * @param item - the item or project to copy the item to
+         * Copies the content of the specified item over to this item.
+         * @param source - the item to copy the content from
          */
-        copyTo(item: Item): Item;
+        copyContent(source: Item): void;
+
+        /**
+         * Copies all attributes of the specified item over to this item. This includes its style, visibility, matrix, pivot, blend-mode, opacity, selection state, data, name, etc.
+         * @param source - the item to copy the attributes from
+         * @param excludeMatrix - whether to exclude the transformation matrix when copying all attributes
+         */
+        copyAttributes(source: Item, excludeMatrix: boolean): void;
 
         /**
          * Rasterizes the item into a newly created Raster object. The item itself is not removed after rasterization.
          * @param resolution [optional] - the resolution of the raster in pixels per inch (DPI). If not specified, the value of view.resolution is used. default: view.resolution
+         * @param insert [optional] - specifies whether the raster should be inserted into the scene graph. When set to true, it is inserted above the original — default: true
          */
-        rasterize(resolution?: number): Raster;
+        rasterize(resolution?: number, insert?: boolean): Raster;
 
         /**
          * Checks whether the item's geometry contains the given point.
@@ -1559,18 +1591,20 @@ declare module paper {
          * @param point - the point where the hit-test should be performed
          * @param options.tolerance -the tolerance of the hit-test in points. Can also be controlled through paperScope.settings.hitTolerance
          * @param options.class - only hit-test again a certain item class and its sub-classes: Group, Layer, Path, CompoundPath, Shape, Raster, PlacedSymbol, PointText, etc.
+         * @param options.match -a match function to be called for each found hit result: Return true to return the result, false to keep searching
          * @param options.fill - hit-test the fill of items.
          * @param options.stroke - hit-test the stroke of path items, taking into account the setting of stroke color and width.
          * @param options.segments - hit-test for segment.point of Path items.
          * @param options.curves - hit-test the curves of path items, without taking the stroke color or width into account.
          * @param options.handles - hit-test for the handles.  (segment.handleIn / segment.handleOut) of path segments.
          * @param options.ends - only hit-test for the first or last segment points of open path items.
-         * @param options.bounds - hit-test the corners and side-centers of the bounding rectangle of items (item.bounds).
+         * @param options.position - hit-test the item.position of of items, which depends on the setting of item.pivot.
          * @param options.center - hit-test the rectangle.center of the bounding rectangle of items (item.bounds).
+         * @param options.bounds - hit-test the corners and side-centers of the bounding rectangle of items (item.bounds).
          * @param options.guides - hit-test items that have Item#guide set to true.
          * @param options.selected - only hit selected items.
          */
-        hitTest(point: Point, options?: { tolerance?: number; class?: string; fill?: boolean; stroke?: boolean; segments?: boolean; curves?: boolean; handles?: boolean; ends?: boolean; bounds?: boolean; center?: boolean; guides?: boolean; selected?: boolean; match?: (hit: HitResult) => boolean; }): HitResult;
+        hitTest(point: Point, options?: { tolerance?: number; class?: string; match?: () => boolean; fill?: boolean; stroke?: boolean; segments?: boolean; curves?: boolean; handles?: boolean; ends?: boolean; position?: boolean; center?: boolean; bounds?: boolean; guides?: boolean; selected?: boolean; }): HitResult;
 
         /**
          * Perform a hit-test on the items contained within the project at the location of the specified point, returning all found hits.
@@ -1578,18 +1612,20 @@ declare module paper {
          * @param point - the point where the hit-test should be performed
          * @param options.tolerance -the tolerance of the hit-test in points. Can also be controlled through paperScope.settings.hitTolerance
          * @param options.class - only hit-test again a certain item class and its sub-classes: Group, Layer, Path, CompoundPath, Shape, Raster, PlacedSymbol, PointText, etc.
+         * @param options.match -a match function to be called for each found hit result: Return true to return the result, false to keep searching
          * @param options.fill - hit-test the fill of items.
          * @param options.stroke - hit-test the stroke of path items, taking into account the setting of stroke color and width.
          * @param options.segments - hit-test for segment.point of Path items.
          * @param options.curves - hit-test the curves of path items, without taking the stroke color or width into account.
          * @param options.handles - hit-test for the handles.  (segment.handleIn / segment.handleOut) of path segments.
          * @param options.ends - only hit-test for the first or last segment points of open path items.
-         * @param options.bounds - hit-test the corners and side-centers of the bounding rectangle of items (item.bounds).
+         * @param options.position - hit-test the item.position of of items, which depends on the setting of item.pivot.
          * @param options.center - hit-test the rectangle.center of the bounding rectangle of items (item.bounds).
+         * @param options.bounds - hit-test the corners and side-centers of the bounding rectangle of items (item.bounds).
          * @param options.guides - hit-test items that have Item#guide set to true.
          * @param options.selected - only hit selected items.
-         */
-        hitTestAll(point: Point, options?: { tolerance?: number; class?: string; fill?: boolean; stroke?: boolean; segments?: boolean; curves?: boolean; handles?: boolean; ends?: boolean; bounds?: boolean; center?: boolean; guides?: boolean; selected?: boolean; match?: (hit: HitResult) => boolean; }): HitResult[];
+         * */
+        hitTestAll(point: Point, options?: { tolerance?: number; class?: string; match?: () => boolean; fill?: boolean; stroke?: boolean; segments?: boolean; curves?: boolean; handles?: boolean; ends?: boolean; position?: boolean; center?: boolean; bounds?: boolean; guides?: boolean; selected?: boolean; }): HitResult[];
 
         /**
          * Checks whether the item matches the criteria described by the given object, by iterating over all of its properties and matching against their values through matches(name, compare).
@@ -1610,6 +1646,9 @@ declare module paper {
          * Fetch the descendants (children or children of children) of this item that match the properties in the specified object.
          * Extended matching is possible by providing a compare function or regular expression. Matching points, colors only work as a comparison of the full object, not partial matching (e.g. only providing the x- coordinate to match all points with that x-value). Partial matching does work for item.data.
          * Matching items against a rectangular area is also possible, by setting either match.inside or match.overlapping to a rectangle describing the area in which the items either have to be fully or partly contained.
+         * @param match.recursive - whether to loop recursively through all children, or stop at the current level — default: true
+         * @param match.match - a match function to be called for each item, allowing the definition of more flexible item checks that are not bound to properties. If no other match properties are defined, this function can also be passed instead of the options object
+         * @param match.class - the constructor function of the item type to match against
          * @param match.inside - the rectangle in which the items need to be fully contained.
          * @param match.overlapping - the rectangle with which the items need to at least partly overlap.
          */
@@ -1628,7 +1667,7 @@ declare module paper {
          * @param options.asString - whether the JSON is returned as a Object or a String.
          * @param options.precision - the amount of fractional digits in numbers used in JSON data.
          */
-        exportJSON(options?: { asString?: boolean; precision?: number }): string;
+        exportJSON(options?: { asString?: boolean; precision?: number; }): string;
 
         /**
          * Imports (deserializes) the stored JSON data into the project.
@@ -1638,22 +1677,37 @@ declare module paper {
 
         /**
          * Exports the project with all its layers and child items as an SVG DOM, all contained in one top level SVG group node.
-         * @param options [optional] the export options, default: { asString: false, precision: 5, matchShapes: false }
+         * @param options [optional] the export options, default: { asString: false, precision: 5, matchShapes: false, bounds: 'view', matrix: paper.view.matrix, embedImages: true  }
          * @param options.asString - whether a SVG node or a String is to be returned.
          * @param options.precision - the amount of fractional digits in numbers used in SVG data.
          * @param options.matchShapes - whether path items should tried to be converted to shape items, if their geometries can be made to match
+         * @param options.bounds - the bounds of the area to export, either as a string (‘view’, content’), or a Rectangle object: 'view' uses the view bounds, 'content' uses the stroke bounds of all content.
+         * @param options.matrix - the matrix with which to transform the exported content: If options.bounds is set to 'view', paper.view.matrix is used, for all other settings of options.bounds the identity matrix is used.
+         * @param options.embedImages: whether raster images should be embedded as base64 data inlined in the xlink:href attribute, or kept as a link to their external URL.
          */
-        exportSVG(options?: { asString?: boolean; precision?: number; matchShapes?: boolean }): SVGElement;
+        exportSVG(options?: { asString?: boolean; precision?: number; matchShapes?: boolean; bounds?: string | Rectangle; matrix?: Matrix; embedImages?: boolean; }): SVGElement;
 
         /**
          * Converts the provided SVG content into Paper.js items and adds them to the active layer of this project.
          * Note that the project is not cleared first. You can call project.clear() to do so.
          * @param svg - the SVG content to import
-         * @param options [optional] - the import options, default: { expandShapes: false }
+         * @param options [optional] - the import options, default: { expandShapes: false, insert: true, applyMatrix: paperScope.settings.applyMatrix }
          * @param options.expandShapes - whether imported shape items should be expanded to path items.
+         * @param options.onLoad - the callback function to call once the SVG content is loaded from the given URL receiving two arguments: the converted item and the original svg data as a string. Only required when loading from external resources.
+         * @param options.onError - the callback function to call if an error occurs during loading. Only required when loading from external resources.
+         * @param options.insert: Boolean — whether the imported items should be added to the item that importSVG() is called on.
+         * @param options.applyMatrix  Boolean — whether the imported items should have their transformation matrices applied to their contents or not.
          */
-        importSVG(svg: SVGElement | string, options?: any): Item;
+        importSVG(svg: SVGElement | string, options?: { expandShapes?: boolean; onLoad?: (item: Item, svg: string) => void; onError?: (message: string, status: number) => void; insert?: true; applyMatrix?: Matrix; }): Item;
 
+         /**
+         * Converts the provided SVG content into Paper.js items and adds them to the active layer of this project.
+         * Note that the project is not cleared first. You can call project.clear() to do so.
+         * @param svg - the SVG content to import
+         * @param onLoad [optional] - the callback function to call once the SVG content is loaded from the given URL receiving two arguments: the converted item and the original svg data as a string. Only required when loading from external resources.
+         */
+        importSVG(svg: SVGElement | string, onLoad?: (item: Item, svg: string) => void): Item;
+        
         /**
          * Adds the specified item as a child of this item at the end of the its children list. You can use this function for groups, compound paths and layers.
          * @param item - the item to add as a child
@@ -1717,9 +1771,22 @@ declare module paper {
         bringToFront(): void;
 
         /**
-         * If this is a group, layer or compound-path with only one child-item, the child-item is moved outside and the parent is erased. Otherwise, the item itself is returned unmodified.
+         * Adds it to the specified owner, which can be either a Item or a Project.
+         * @param owner - the item or project to add the item to
          */
-        reduce(): Item;
+        addTo(owner: Project | Layer | Group | CompoundPath): Item;
+        
+        /**
+         * Clones the item and adds it to the specified owner, which can be either a Item or a Project.
+         * @param owner - the item or project to copy the item to
+         */
+        copyTo(owner: Project | Layer | Group | CompoundPath): Item;
+        
+        /**
+         * If this is a group, layer or compound-path with only one child-item, the child-item is moved outside and the parent is erased. Otherwise, the item itself is returned unmodified.
+         * @param options [optional]
+         */
+        reduce(options?: any): Item;
 
         /**
          * Removes the item and all its children from the project. The item is not destroyed and can be inserted again after removal.
@@ -1739,10 +1806,10 @@ declare module paper {
 
         /**
          * Removes the children from the specified from index to the to index from the parent's children array.
-         * @param from - the beginning index, inclusive
-         * @param to [optional] - the ending index, exclusive, default: children.length
+         * @param start - the beginning index, inclusive
+         * @param end [optional] - the ending index, exclusive, default: children.length
          */
-        removeChildren(from: number, to?: number): Item[];
+        removeChildren(start: number, end?: number): Item[];
 
         /**
          * Reverses the order of the item's children
@@ -1922,44 +1989,42 @@ declare module paper {
          */
         fitBounds(rectangle: Rectangle, fill?: boolean): void;
 
-        //I cannot use function: Function as it is a reserved keyword
-
         /**
-         * Attach an event handler to the tool.
-         * @param type - String('mousedown'|'mouseup'|'mousedrag'|'mousemove'|'keydown'|'keyup') the event type
-         * @param function - The function to be called when the event occurs
+         * Attach an event handler to the item.
+         * @param type - the type of event: ‘frame’, mousedown’, ‘mouseup’, ‘mousedrag’, ‘click’, ‘doubleclick’, ‘mousemove’, ‘mouseenter’, ‘mouseleave’
+         * @param callback - The function to be called when the event occurs
          */
-        on(type: string, callback: (event: ToolEvent) => void): Tool;
+        on(type: string, callback: (event: MouseEvent | IFrameEvent) => void): Item;
 
         /**
-         * Attach one or more event handlers to the tool.
-         * @param param - an object literal containing one or more of the following properties: mousedown, mouseup, mousedrag, mousemove, keydown, keyup
+         * Attach one or more event handlers to the item.
+         * @param object - an object containing one or more of the following properties: frame, mousedown, mouseup, mousedrag, click, doubleclick, mousemove, mouseenter, mouseleave
          */
-        on(param: any): Tool;
+        on(object: { frame?: (event: IFrameEvent) => void; mousedown?: (event: MouseEvent) => void; mouseup?: (event: MouseEvent) => void; mousedrag?: (event: MouseEvent) => void; click?: (event: MouseEvent) => void; doubleclick?: (event: MouseEvent) => void; mousemove?: (event: MouseEvent) => void; mouseenter?: (event: MouseEvent) => void; mouseleave?: (event: MouseEvent) => void; }): Item;
 
         /**
-         * Detach an event handler from the tool.
-         * @param type - String('mousedown'|'mouseup'|'mousedrag'|'mousemove'|'keydown'|'keyup') the event type
+         * Detach an event handler from the item.
+         * @param type - the type of event: ‘frame’, mousedown’, ‘mouseup’, ‘mousedrag’, ‘click’, ‘doubleclick’, ‘mousemove’, ‘mouseenter’, ‘mouseleave’
          * @param function - The function to be detached
          */
-        off(type: string, callback: (event: ToolEvent) => void): Tool;
+        off(type: string, callback: (event: MouseEvent | IFrameEvent) => void): Item;
 
         /**
          * Detach one or more event handlers from the tool.
-         * @param param -  an object literal containing one or more of the following properties: mousedown, mouseup, mousedrag, mousemove, keydown, keyup
+         * @param object - an object containing one or more of the following properties: frame, mousedown, mouseup, mousedrag, click, doubleclick, mousemove, mouseenter, mouseleave
          */
-        off(param: any): Tool;
+        off(object: { frame?: (event: IFrameEvent) => void; mousedown?: (event: MouseEvent) => void; mouseup?: (event: MouseEvent) => void; mousedrag?: (event: MouseEvent) => void; click?: (event: MouseEvent) => void; doubleclick?: (event: MouseEvent) => void; mousemove?: (event: MouseEvent) => void; mouseenter?: (event: MouseEvent) => void; mouseleave?: (event: MouseEvent) => void; }): Item;
 
         /**
          * Emit an event on the tool.
-         * @param type - String('mousedown'|'mouseup'|'mousedrag'|'mousemove'|'keydown'|'keyup') the event type
+         * @param type - the type of event: ‘frame’, mousedown’, ‘mouseup’, ‘mousedrag’, ‘click’, ‘doubleclick’, ‘mousemove’, ‘mouseenter’, ‘mouseleave’
          * @param event - an object literal containing properties describing the event.
          */
         emit(type: string, event: any): boolean;
 
         /**
          * Check if the tool has one or more event handlers of the specified type.
-         * @param type - String('mousedown'|'mouseup'|'mousedrag'|'mousemove'|'keydown'|'keyup') the event type
+         * @param type - the type of event: ‘frame’, mousedown’, ‘mouseup’, ‘mousedrag’, ‘click’, ‘doubleclick’, ‘mousemove’, ‘mouseenter’, ‘mouseleave’
          */
         responds(type: string): boolean;//I cannot use function: Function as it is a reserved keyword
 
@@ -1972,45 +2037,45 @@ declare module paper {
 
         /**
          * Attaches one or more event handlers to the item.
-         * @param param - an object literal containing one or more of the following properties: mousedown, mouseup, mousedrag, mousemove, keydown, keyup
+         * @param param - an object containing one or more of the following properties: frame, mousedown, mouseup, mousedrag, click, doubleclick, mousemove, mouseenter, mouseleave
          */
         on(param: any): Item;
 
         /**
          * Detach an event handler from the item.
-         * @param type - String('mousedown'|'mouseup'|'mousedrag'|'mousemove'|'keydown'|'keyup') the event type
+         * @param type - the type of event: ‘frame’, mousedown’, ‘mouseup’, ‘mousedrag’, ‘click’, ‘doubleclick’, ‘mousemove’, ‘mouseenter’, ‘mouseleave’
          * @param function - The function to be detached
          */
         off(type: string, callback: (event: ToolEvent) => void): Item;
 
         /**
          * Detach one or more event handlers to the item.
-         * @param param -  an object literal containing one or more of the following properties: mousedown, mouseup, mousedrag, mousemove, keydown, keyup
+         * @param param - an object containing one or more of the following properties: frame, mousedown, mouseup, mousedrag, click, doubleclick, mousemove, mouseenter, mouseleave
          */
         off(param: any): Item;
 
         /**
          * Emit an event on the item.
-         * @param type - String('mousedown'|'mouseup'|'mousedrag'|'mousemove'|'keydown'|'keyup') the event type
+         * @param type - the type of event: ‘frame’, mousedown’, ‘mouseup’, ‘mousedrag’, ‘click’, ‘doubleclick’, ‘mousemove’, ‘mouseenter’, ‘mouseleave’
          * @param event - an object literal containing properties describing the event.
          */
         emit(type: string, event: any): boolean;
 
         /**
          * Check if the item has one or more event handlers of the specified type..
-         * @param type - String('mousedown'|'mouseup'|'mousedrag'|'mousemove'|'keydown'|'keyup') the event type
+         * @param type - the type of event: ‘frame’, mousedown’, ‘mouseup’, ‘mousedrag’, ‘click’, ‘doubleclick’, ‘mousemove’, ‘mouseenter’, ‘mouseleave’
          */
         responds(type: string): boolean;
 
         /**
          * Removes the item when the events specified in the passed object literal occur.
-         * @param object - The object literal can contain the following values
-         * @param object.move - Remove the item when the next tool.onMouseMove event is fired
-         * @param object.drag - Remove the item when the next tool.onMouseDrag event is fired
-         * @param object.down - Remove the item when the next tool.onMouseDown event is fired
-         * @param object.up - Remove the item when the next tool.onMouseUp event is fired
+         * @param options - The object literal can contain the following values
+         * @param options.move - Remove the item when the next tool.onMouseMove event is fired
+         * @param options.drag - Remove the item when the next tool.onMouseDrag event is fired
+         * @param options.down - Remove the item when the next tool.onMouseDown event is fired
+         * @param options.up - Remove the item when the next tool.onMouseUp event is fired
          */
-        removeOn(object: { move?: boolean; drag?: boolean; down?: boolean; up?: boolean; }): void;
+        removeOn(options: { move?: boolean; drag?: boolean; down?: boolean; up?: boolean; }): void;
 
         /**
          * Removes the item when the next tool.onMouseMove event is fired.
