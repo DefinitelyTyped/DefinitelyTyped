@@ -499,8 +499,8 @@ declare namespace browser._manifest {
     type _WebExtensionManifestIncognito = "spanning";
 
     /** Defines the location the browserAction will appear by default. The default location is navbar. */
-    type _WebExtensionManifestBrowserActionDefaultArea = 
-        "navbar"
+    type _WebExtensionManifestBrowserActionDefaultArea =
+          "navbar"
         | "menupanel"
         | "tabstrip"
         | "personaltoolbar";
@@ -5872,13 +5872,13 @@ declare namespace browser.tabs {
     type ZoomSettingsMode =
         /** Zoom changes are handled automatically by the browser. */
           "automatic"
-/**
+        /**
          * Overrides the automatic handling of zoom changes. The `onZoomChange` event will still be dispatched, and it
          * is the responsibility of the extension to listen for this event and manually scale the page. This mode does
          * not support `per-origin` zooming, and will thus ignore the `scope` zoom setting and assume `per-tab`.
          */
         | "manual"
-/**
+        /**
          * Disables all zooming in the tab. The tab will revert to the default zoom level, and all attempted zoom
          * changes will be ignored.
          */
@@ -5896,7 +5896,7 @@ declare namespace browser.tabs {
          * `per-origin` scope is only available in the `automatic` mode.
          */
         | "per-origin"
-/**
+        /**
          * Zoom changes only take effect in this tab, and zoom changes in other tabs will not affect the zooming of
          * this tab. Also, `per-tab` zoom changes are reset on navigation; navigating a tab will always load pages with
          * their `per-origin` zoom factors.
