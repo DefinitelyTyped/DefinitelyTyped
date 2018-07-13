@@ -1097,7 +1097,7 @@ declare module "victory" {
      * an array of display values for each tickValue.
      * @example d3.time.format("%Y"), (x) => x.toPrecision(2), ["first", "second", "third"]
      */
-    tickFormat?: any[] | { (data: any): string | number };
+    tickFormat?: any[] | { (tick: any, index: number, ticks: any[]): string | number };
     /**
      * The tickValues prop explicitly specifies which tick values to draw on the axis.
      * @example ["apples", "bananas", "oranges"], [2, 4, 6, 8]
