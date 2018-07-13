@@ -26,22 +26,7 @@ type colorOptions =
     | "transparent"
     | "watermelon"
     | "white";
-type plusTwelve = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
-type minusTwelve =
-    | -12
-    | -11
-    | -10
-    | -9
-    | -8
-    | -7
-    | -6
-    | -5
-    | -4
-    | -3
-    | -2
-    | -1
-    | 0;
-type plusMinusTwelve = plusTwelve & minusTwelve;
+
 interface inlineStyle {
     __style: {
         [key: string]: any;
@@ -114,10 +99,10 @@ interface BoxProps {
     bottom?: boolean;
     children?: React.ReactNode;
     color?: colorOptions;
-    column?: plusTwelve;
-    smColumn?: plusTwelve;
-    mdColumn?: plusTwelve;
-    lgColumn?: plusTwelve;
+    column?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+    smColumn?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+    mdColumn?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+    lgColumn?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
     dangerouslySetInlineStyle?: inlineStyle;
     direction?: directionOptions;
     smDirection?: directionOptions;
@@ -132,51 +117,751 @@ interface BoxProps {
     height?: number | string;
     justifyContent?: justifyContentOptions;
     left?: boolean;
-    margin?: plusMinusTwelve;
-    smMargin?: plusMinusTwelve;
-    mdMargin?: plusMinusTwelve;
-    lgMargin?: plusMinusTwelve;
-    marginBottom?: plusMinusTwelve;
-    smMarginBottom?: plusMinusTwelve;
-    mdMarginBottom?: plusMinusTwelve;
-    lgMarginBottom?: plusMinusTwelve;
-    marginEnd?: plusMinusTwelve;
-    smMarginEnd?: plusMinusTwelve;
-    mdMarginEnd?: plusMinusTwelve;
-    lgMarginEnd?: plusMinusTwelve;
-    marginLeft?: plusMinusTwelve;
-    smMarginLeft?: plusMinusTwelve;
-    mdMarginLeft?: plusMinusTwelve;
-    lgMarginLeft?: plusMinusTwelve;
-    marginRight?: plusMinusTwelve;
-    smMarginRight?: plusMinusTwelve;
-    mdMarginRight?: plusMinusTwelve;
-    lgMarginRight?: plusMinusTwelve;
-    marginStart?: plusMinusTwelve;
-    smMarginStart?: plusMinusTwelve;
-    mdMarginStart?: plusMinusTwelve;
-    lgMarginStart?: plusMinusTwelve;
-    marginTop?: plusMinusTwelve;
-    smMarginTop?: plusMinusTwelve;
-    mdMarginTop?: plusMinusTwelve;
-    lgMarginTop?: plusMinusTwelve;
+    margin?:
+        | -12
+        | -11
+        | -10
+        | -9
+        | -8
+        | -7
+        | -6
+        | -5
+        | -4
+        | -3
+        | -2
+        | -1
+        | 0
+        | 1
+        | 2
+        | 3
+        | 4
+        | 5
+        | 6
+        | 7
+        | 8
+        | 9
+        | 10
+        | 11
+        | 12;
+    smMargin?:
+        | -12
+        | -11
+        | -10
+        | -9
+        | -8
+        | -7
+        | -6
+        | -5
+        | -4
+        | -3
+        | -2
+        | -1
+        | 0
+        | 1
+        | 2
+        | 3
+        | 4
+        | 5
+        | 6
+        | 7
+        | 8
+        | 9
+        | 10
+        | 11
+        | 12;
+    mdMargin?:
+        | -12
+        | -11
+        | -10
+        | -9
+        | -8
+        | -7
+        | -6
+        | -5
+        | -4
+        | -3
+        | -2
+        | -1
+        | 0
+        | 1
+        | 2
+        | 3
+        | 4
+        | 5
+        | 6
+        | 7
+        | 8
+        | 9
+        | 10
+        | 11
+        | 12;
+    lgMargin?:
+        | -12
+        | -11
+        | -10
+        | -9
+        | -8
+        | -7
+        | -6
+        | -5
+        | -4
+        | -3
+        | -2
+        | -1
+        | 0
+        | 1
+        | 2
+        | 3
+        | 4
+        | 5
+        | 6
+        | 7
+        | 8
+        | 9
+        | 10
+        | 11
+        | 12;
+    marginBottom?:
+        | -12
+        | -11
+        | -10
+        | -9
+        | -8
+        | -7
+        | -6
+        | -5
+        | -4
+        | -3
+        | -2
+        | -1
+        | 0
+        | 1
+        | 2
+        | 3
+        | 4
+        | 5
+        | 6
+        | 7
+        | 8
+        | 9
+        | 10
+        | 11
+        | 12;
+    smMarginBottom?:
+        | -12
+        | -11
+        | -10
+        | -9
+        | -8
+        | -7
+        | -6
+        | -5
+        | -4
+        | -3
+        | -2
+        | -1
+        | 0
+        | 1
+        | 2
+        | 3
+        | 4
+        | 5
+        | 6
+        | 7
+        | 8
+        | 9
+        | 10
+        | 11
+        | 12;
+    mdMarginBottom?:
+        | -12
+        | -11
+        | -10
+        | -9
+        | -8
+        | -7
+        | -6
+        | -5
+        | -4
+        | -3
+        | -2
+        | -1
+        | 0
+        | 1
+        | 2
+        | 3
+        | 4
+        | 5
+        | 6
+        | 7
+        | 8
+        | 9
+        | 10
+        | 11
+        | 12;
+    lgMarginBottom?:
+        | -12
+        | -11
+        | -10
+        | -9
+        | -8
+        | -7
+        | -6
+        | -5
+        | -4
+        | -3
+        | -2
+        | -1
+        | 0
+        | 1
+        | 2
+        | 3
+        | 4
+        | 5
+        | 6
+        | 7
+        | 8
+        | 9
+        | 10
+        | 11
+        | 12;
+    marginEnd?:
+        | -12
+        | -11
+        | -10
+        | -9
+        | -8
+        | -7
+        | -6
+        | -5
+        | -4
+        | -3
+        | -2
+        | -1
+        | 0
+        | 1
+        | 2
+        | 3
+        | 4
+        | 5
+        | 6
+        | 7
+        | 8
+        | 9
+        | 10
+        | 11
+        | 12;
+    smMarginEnd?:
+        | -12
+        | -11
+        | -10
+        | -9
+        | -8
+        | -7
+        | -6
+        | -5
+        | -4
+        | -3
+        | -2
+        | -1
+        | 0
+        | 1
+        | 2
+        | 3
+        | 4
+        | 5
+        | 6
+        | 7
+        | 8
+        | 9
+        | 10
+        | 11
+        | 12;
+    mdMarginEnd?:
+        | -12
+        | -11
+        | -10
+        | -9
+        | -8
+        | -7
+        | -6
+        | -5
+        | -4
+        | -3
+        | -2
+        | -1
+        | 0
+        | 1
+        | 2
+        | 3
+        | 4
+        | 5
+        | 6
+        | 7
+        | 8
+        | 9
+        | 10
+        | 11
+        | 12;
+    lgMarginEnd?:
+        | -12
+        | -11
+        | -10
+        | -9
+        | -8
+        | -7
+        | -6
+        | -5
+        | -4
+        | -3
+        | -2
+        | -1
+        | 0
+        | 1
+        | 2
+        | 3
+        | 4
+        | 5
+        | 6
+        | 7
+        | 8
+        | 9
+        | 10
+        | 11
+        | 12;
+    marginLeft?:
+        | -12
+        | -11
+        | -10
+        | -9
+        | -8
+        | -7
+        | -6
+        | -5
+        | -4
+        | -3
+        | -2
+        | -1
+        | 0
+        | 1
+        | 2
+        | 3
+        | 4
+        | 5
+        | 6
+        | 7
+        | 8
+        | 9
+        | 10
+        | 11
+        | 12;
+    smMarginLeft?:
+        | -12
+        | -11
+        | -10
+        | -9
+        | -8
+        | -7
+        | -6
+        | -5
+        | -4
+        | -3
+        | -2
+        | -1
+        | 0
+        | 1
+        | 2
+        | 3
+        | 4
+        | 5
+        | 6
+        | 7
+        | 8
+        | 9
+        | 10
+        | 11
+        | 12;
+    mdMarginLeft?:
+        | -12
+        | -11
+        | -10
+        | -9
+        | -8
+        | -7
+        | -6
+        | -5
+        | -4
+        | -3
+        | -2
+        | -1
+        | 0
+        | 1
+        | 2
+        | 3
+        | 4
+        | 5
+        | 6
+        | 7
+        | 8
+        | 9
+        | 10
+        | 11
+        | 12;
+    lgMarginLeft?:
+        | -12
+        | -11
+        | -10
+        | -9
+        | -8
+        | -7
+        | -6
+        | -5
+        | -4
+        | -3
+        | -2
+        | -1
+        | 0
+        | 1
+        | 2
+        | 3
+        | 4
+        | 5
+        | 6
+        | 7
+        | 8
+        | 9
+        | 10
+        | 11
+        | 12;
+    marginRight?:
+        | -12
+        | -11
+        | -10
+        | -9
+        | -8
+        | -7
+        | -6
+        | -5
+        | -4
+        | -3
+        | -2
+        | -1
+        | 0
+        | 1
+        | 2
+        | 3
+        | 4
+        | 5
+        | 6
+        | 7
+        | 8
+        | 9
+        | 10
+        | 11
+        | 12;
+    smMarginRight?:
+        | -12
+        | -11
+        | -10
+        | -9
+        | -8
+        | -7
+        | -6
+        | -5
+        | -4
+        | -3
+        | -2
+        | -1
+        | 0
+        | 1
+        | 2
+        | 3
+        | 4
+        | 5
+        | 6
+        | 7
+        | 8
+        | 9
+        | 10
+        | 11
+        | 12;
+    mdMarginRight?:
+        | -12
+        | -11
+        | -10
+        | -9
+        | -8
+        | -7
+        | -6
+        | -5
+        | -4
+        | -3
+        | -2
+        | -1
+        | 0
+        | 1
+        | 2
+        | 3
+        | 4
+        | 5
+        | 6
+        | 7
+        | 8
+        | 9
+        | 10
+        | 11
+        | 12;
+    lgMarginRight?:
+        | -12
+        | -11
+        | -10
+        | -9
+        | -8
+        | -7
+        | -6
+        | -5
+        | -4
+        | -3
+        | -2
+        | -1
+        | 0
+        | 1
+        | 2
+        | 3
+        | 4
+        | 5
+        | 6
+        | 7
+        | 8
+        | 9
+        | 10
+        | 11
+        | 12;
+    marginStart?:
+        | -12
+        | -11
+        | -10
+        | -9
+        | -8
+        | -7
+        | -6
+        | -5
+        | -4
+        | -3
+        | -2
+        | -1
+        | 0
+        | 1
+        | 2
+        | 3
+        | 4
+        | 5
+        | 6
+        | 7
+        | 8
+        | 9
+        | 10
+        | 11
+        | 12;
+    smMarginStart?:
+        | -12
+        | -11
+        | -10
+        | -9
+        | -8
+        | -7
+        | -6
+        | -5
+        | -4
+        | -3
+        | -2
+        | -1
+        | 0
+        | 1
+        | 2
+        | 3
+        | 4
+        | 5
+        | 6
+        | 7
+        | 8
+        | 9
+        | 10
+        | 11
+        | 12;
+    mdMarginStart?:
+        | -12
+        | -11
+        | -10
+        | -9
+        | -8
+        | -7
+        | -6
+        | -5
+        | -4
+        | -3
+        | -2
+        | -1
+        | 0
+        | 1
+        | 2
+        | 3
+        | 4
+        | 5
+        | 6
+        | 7
+        | 8
+        | 9
+        | 10
+        | 11
+        | 12;
+    lgMarginStart?:
+        | -12
+        | -11
+        | -10
+        | -9
+        | -8
+        | -7
+        | -6
+        | -5
+        | -4
+        | -3
+        | -2
+        | -1
+        | 0
+        | 1
+        | 2
+        | 3
+        | 4
+        | 5
+        | 6
+        | 7
+        | 8
+        | 9
+        | 10
+        | 11
+        | 12;
+    marginTop?:
+        | -12
+        | -11
+        | -10
+        | -9
+        | -8
+        | -7
+        | -6
+        | -5
+        | -4
+        | -3
+        | -2
+        | -1
+        | 0
+        | 1
+        | 2
+        | 3
+        | 4
+        | 5
+        | 6
+        | 7
+        | 8
+        | 9
+        | 10
+        | 11
+        | 12;
+    smMarginTop?:
+        | -12
+        | -11
+        | -10
+        | -9
+        | -8
+        | -7
+        | -6
+        | -5
+        | -4
+        | -3
+        | -2
+        | -1
+        | 0
+        | 1
+        | 2
+        | 3
+        | 4
+        | 5
+        | 6
+        | 7
+        | 8
+        | 9
+        | 10
+        | 11
+        | 12;
+    mdMarginTop?:
+        | -12
+        | -11
+        | -10
+        | -9
+        | -8
+        | -7
+        | -6
+        | -5
+        | -4
+        | -3
+        | -2
+        | -1
+        | 0
+        | 1
+        | 2
+        | 3
+        | 4
+        | 5
+        | 6
+        | 7
+        | 8
+        | 9
+        | 10
+        | 11
+        | 12;
+    lgMarginTop?:
+        | -12
+        | -11
+        | -10
+        | -9
+        | -8
+        | -7
+        | -6
+        | -5
+        | -4
+        | -3
+        | -2
+        | -1
+        | 0
+        | 1
+        | 2
+        | 3
+        | 4
+        | 5
+        | 6
+        | 7
+        | 8
+        | 9
+        | 10
+        | 11
+        | 12;
     maxHeight?: number | string;
     maxWidth?: number | string;
     minHeight?: number | string;
     minWidth?: number | string;
     overflow?: overflowOptions;
-    padding?: plusTwelve;
-    smPadding?: plusTwelve;
-    mdPadding?: plusTwelve;
-    lgPadding?: plusTwelve;
-    paddingX?: plusTwelve;
-    smPaddingX?: plusTwelve;
-    mdPaddingX?: plusTwelve;
-    lgPaddingX?: plusTwelve;
-    paddingY?: plusTwelve;
-    smPaddingY?: plusTwelve;
-    mdPaddingY?: plusTwelve;
-    lgPaddingY?: plusTwelve;
+    padding?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+    smPadding?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+    mdPadding?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+    lgPadding?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+    paddingX?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+    smPaddingX?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+    mdPaddingX?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+    lgPaddingX?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+    paddingY?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+    smPaddingY?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+    mdPaddingY?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+    lgPaddingY?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
     position?: positionOptions;
     right?: boolean;
     shape?: shapeOptions;
@@ -217,9 +902,39 @@ interface CardProps {
     onMouseLeave?: (event: React.SyntheticEvent) => void;
 }
 
+/*
+Checkbox Props Interface
+https://pinterest.github.io/gestalt/#/Checkbox
+*/
+
+interface CheckBoxProps {
+    id: string;
+    onChange: (event: React.SyntheticEvent) => void;
+    checked?: boolean;
+    disabled?: boolean;
+    indeterminate?: boolean;
+    name?: string;
+    size?: "sm" | "md";
+}
+
+/*
+Column Props Interface
+https://pinterest.github.io/gestalt/#/Column
+*/
+
+interface ColumnProps {
+    span: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+    smSpan?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+    mdSpan?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+    lgSpan?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+    children: React.ReactNode;
+}
+
 declare module "gestalt" {
     class Avatar extends React.Component<AvatarProps, any> {}
     class Box extends React.Component<BoxProps, any> {}
     class Button extends React.Component<ButtonProps, any> {}
-    class Cards extends React.Component<CardProps, any> {}
+    class Card extends React.Component<CardProps, any> {}
+    class Checkbox extends React.Component<CheckBoxProps, any> {}
+    class Column extends React.Component<ColumnProps, any> {}
 }

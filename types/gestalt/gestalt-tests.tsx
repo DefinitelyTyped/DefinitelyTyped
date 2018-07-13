@@ -1,6 +1,9 @@
 import * as React from "react";
-import { Avatar, Box, Button } from "gestalt";
+import { Avatar, Box, Button, Card, Checkbox, Column } from "gestalt";
 
 <Avatar name="Nicolas" />;
 <Box />;
 <Button text={"Click me"} />;
+<Card />;
+<Checkbox id={"1"} onChange={() => {}} />;
+<Column span={1} />;
