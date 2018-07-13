@@ -2189,9 +2189,7 @@ declare namespace angular {
              * @param modules A module, module name or annotated injection function.
              */
             loadNewModules(modules: Array<IModule|string|Injectable<(...args: any[]) => void>>): void;
-            /** 
-             * An object map of all the modules that have been loaded into the injector.
-             */
+            /** An object map of all the modules that have been loaded into the injector. */
             modules: {[moduleName: string]: IModule};
             strictDi: boolean;
         }
