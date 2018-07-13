@@ -632,6 +632,11 @@ declare module "victory" {
      */
     text?: StringOrNumberOrCallback | string[] | number[];
     /**
+     * VictoryAxis uses the standard theme prop. Read about it here
+     * @default VictoryTheme.grayscale
+    */
+    theme?: VictoryThemeDefinition;
+    /**
      * The width prop defines the width of the tooltip flyout. This prop may be given as a positive number or a function of datum. If this prop is not set, width will be determined based on an approximate text size calculated from the text and style props provided to VictoryTooltip.
      */
     width?: NumberOrCallback;
