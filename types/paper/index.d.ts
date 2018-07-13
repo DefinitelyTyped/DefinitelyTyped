@@ -470,7 +470,7 @@ declare module paper {
          * Angles between 0 and 90 degrees are in quadrant 1. Angles between 90 and 180 degrees are in quadrant 2, angles between 180 and 270 degrees are in quadrant 3 and angles between 270 and 360 degrees are in quadrant 4.
          * Read only.
          */
-        quadrant: number;
+        readonly quadrant: number;
 
         /**
          * This property is only present if the point is an anchor or control point of a Segment or a Curve. In this case, it returns true it is selected, false otherwise
@@ -478,6 +478,37 @@ declare module paper {
         selected: boolean;
 
         /**
+         * Sets the Point object with the given x and y coordinates.
+         * @param x - the x coordinate
+         * @param y - the y coordinate
+         */
+        set(x: number, y: number): Point;
+
+        /**
+         * Sets the Point object using the numbers in the given array as coordinates.
+         * @param array - an array of numbers to use as coordinates
+         */
+        set(values: number[]): Point;
+
+        /**
+         * Sets the Point object using the properties in the given object.
+         * @param object - the object describing the point's properties
+         */
+        set(object: any): Point;
+
+        /**
+         * Sets the Point object using the width and height values of the given Size object.
+         * @param size - the size width and height to use
+         */
+        set(size: Size): Point;
+
+        /**
+         * Sets the Point object using the coordinates of the given Point object.
+         * @param point - the point to copy
+         */
+        set(point: Point): Point;
+
+    /**
          * Checks whether the coordinates of the point are equal to that of the supplied point.
          * @param point - the point to check against
          */
@@ -574,7 +605,14 @@ declare module paper {
         /**
          * Checks if this point has an undefined value for at least one of its coordinates.
          */
-        isNan(): boolean;
+        isNaN(): boolean;
+
+        /**
+         * Checks if the vector is within the specified quadrant. Note that if the vector lies on the boundary between two quadrants, true will be returned for both quadrants.
+         * @param quadrant
+         * @returns true if either x or y are not a number, false otherwise
+         */
+        isInQuadrant(quadrant: number): boolean;
 
         /**
          * Returns the dot product of the point and another point.
@@ -621,6 +659,7 @@ declare module paper {
          */
         add(point: Point): Point;
         add(point: number[]): Point;
+        add(point: number): Point;
 
         /*
          * Returns a new point
@@ -628,6 +667,7 @@ declare module paper {
          */
         subtract(point: Point): Point;
         subtract(point: number[]): Point;
+        subtract(point: number): Point;
 
         /*
          * Returns the new multiplied point
@@ -644,6 +684,14 @@ declare module paper {
         divide(point: Point): Point;
         divide(point: number[]): Point;
         divide(point: number): Point;
+
+        /**
+         * The modulo operator returns the integer remainders of dividing the point by the supplied value as a new point
+         * @param point - The point you want to divide with
+         */
+        modulo(point: Point): Point;
+        modulo(point: number[]): Point;
+        modulo(point: number): Point;
 
     }
     /**
