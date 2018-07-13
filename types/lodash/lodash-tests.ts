@@ -5644,6 +5644,12 @@ fp.now(); // $ExpectType number
     fp.pickBy(predicate, obj); // $ExpectType Partial<AbcObject>
     fp.pickBy(predicate2)(dictionary); // $ExpectType Dictionary<boolean>
     fp.pickBy(predicate2)(numericDictionary); // $ExpectType NumericDictionary<boolean>
+
+    const mixedDictionary: _.Dictionary<string | number> | null | undefined = anything;
+
+    _.pickBy(mixedDictionary, (item: string | number): item is number => typeof item === "number"); // $ExpectType Dictionary<number>
+    _(mixedDictionary).pickBy((item: string | number): item is number => typeof item === "number"); // $ExpectType LoDashImplicitWrapper<Dictionary<number>>
+    _.chain(mixedDictionary).pickBy((item: string | number): item is number => typeof item === "number"); // $ExpectType LoDashExplicitWrapper<Dictionary<number>>
 }
 
 // _.result
