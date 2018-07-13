@@ -805,6 +805,10 @@ declare module "./index" {
             ...args: any[]
         ): LoDashExplicitSyncWrapper<number>;
         memoize(resolver?: (...args: any[]) => any): LoDashExplicitSyncWrapper<TValue & _.MemoizedFunction>;
+        negate(this: LoDashExplicitSyncWrapper<() => boolean>): LoDashExplicitSyncWrapper<() => boolean>;
+        negate<A1>(this: LoDashExplicitSyncWrapper<(a1: A1) => boolean>): LoDashExplicitSyncWrapper<(a1: A1) => boolean>;
+        negate<A1, A2>(this: LoDashExplicitSyncWrapper<(a1: A1, a2: A2) => boolean>): LoDashExplicitSyncWrapper<(a1: A1, a2: A2) => boolean>;
+        negate(this: LoDashExplicitSyncWrapper<(...args: any[]) => any>): LoDashExplicitSyncWrapper<(...args: any[]) => boolean>;
         overArgs(...transforms: Array<_.Many<(...args: any[]) => any>>): LoDashExplicitSyncWrapper<(...args: any[]) => any>;
         partial: _.ExplicitPartial;
         partialRight: _.ExplicitPartialRight;
@@ -2393,6 +2397,10 @@ declare module "./index" {
             ...args: any[]
         ): LoDashExplicitAsyncWrapper<number>;
         memoize(resolver?: (...args: any[]) => any): LoDashExplicitAsyncWrapper<TValue & _.MemoizedFunction>;
+        negate(this: LoDashExplicitAsyncWrapper<() => boolean>): LoDashExplicitAsyncWrapper<() => boolean>;
+        negate<A1>(this: LoDashExplicitAsyncWrapper<(a1: A1) => boolean>): LoDashExplicitAsyncWrapper<(a1: A1) => boolean>;
+        negate<A1, A2>(this: LoDashExplicitAsyncWrapper<(a1: A1, a2: A2) => boolean>): LoDashExplicitAsyncWrapper<(a1: A1, a2: A2) => boolean>;
+        negate(this: LoDashExplicitAsyncWrapper<(...args: any[]) => any>): LoDashExplicitAsyncWrapper<(...args: any[]) => boolean>;
         overArgs(...transforms: Array<_.Many<(...args: any[]) => any>>): LoDashExplicitAsyncWrapper<(...args: any[]) => any>;
         partial: _.ExplicitPartial;
         partialRight: _.ExplicitPartialRight;

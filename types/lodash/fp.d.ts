@@ -300,7 +300,12 @@ declare namespace _ {
     }
     type LodashCloneWith2x1<T, TResult> = (value: T) => TResult | T;
     type LodashCompact = <T>(array: lodash.List<T | null | undefined | false | "" | 0> | null | undefined) => T[];
-    type LodashNegate = <T extends (...args: any[]) => any>(predicate: T) => T;
+    interface LodashNegate {
+        (predicate: () => boolean): () => boolean;
+        <A1>(predicate: (a1: A1) => boolean): (a1: A1) => boolean;
+        <A1, A2>(predicate: (a1: A1, a2: A2) => boolean): (a1: A1, a2: A2) => boolean;
+        (predicate: (...args: any[]) => any): (...args: any[]) => boolean;
+    }
     interface LodashFlowRight {
         <R2, R1>(f2: (a: R1) => R2, f1: () => R1): () => R2;
         <R3, R2, R1>(f3: (a: R2) => R3, f2: (a: R1) => R2, f1: () => R1): () => R3;
