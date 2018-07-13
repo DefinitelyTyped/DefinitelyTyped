@@ -2,7 +2,7 @@
 // Project: https://github.com/petkaantonov/bluebird
 // Definitions by: Leonard Hecker <https://github.com/lhecker>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 2.3
 
 /*!
  * The code following this comment originates from:
@@ -36,8 +36,6 @@
  */
 
 type CatchFilter<E> = (new (...args: any[]) => E) | ((error: E) => boolean) | (object & E);
-type IterableItem<R> = R extends Iterable<infer U> ? U : never;
-type IterableOrNever<R> = R extends Iterable<any> ? R : never;
 
 declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   /**
@@ -455,12 +453,14 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   /**
    * Like calling `.then`, but the fulfillment value or rejection reason is assumed to be an array, which is flattened to the formal parameters of the handlers.
    */
-  spread<U>(fulfilledHandler: (...values: Array<IterableItem<R>>) => U | PromiseLike<U>): Bluebird<U>;
+  spread<U, W>(fulfilledHandler: (...values: W[]) => U | PromiseLike<U>): Bluebird<U>;
+  spread<U>(fulfilledHandler: (...args: any[]) => U | PromiseLike<U>): Bluebird<U>;
 
   /**
    * Same as calling `Promise.all(thisPromise)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
    */
-  all(): Bluebird<IterableOrNever<R>>;
+  // TODO type inference from array-resolving promise?
+  all<U>(): Bluebird<U[]>;
 
   /**
    * Same as calling `Promise.props(thisPromise)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
@@ -471,42 +471,48 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   /**
    * Same as calling `Promise.any(thisPromise)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
    */
-  any(): Bluebird<IterableItem<R>>;
+  // TODO type inference from array-resolving promise?
+  any<U>(): Bluebird<U>;
 
   /**
    * Same as calling `Promise.some(thisPromise)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
    */
-  some(count: number): Bluebird<IterableOrNever<R>>;
+  // TODO type inference from array-resolving promise?
+  some<U>(count: number): Bluebird<U[]>;
 
   /**
    * Same as calling `Promise.race(thisPromise, count)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
    */
-  race(): Bluebird<IterableItem<R>>;
+  // TODO type inference from array-resolving promise?
+  race<U>(): Bluebird<U>;
 
   /**
    * Same as calling `Bluebird.map(thisPromise, mapper)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
    */
-  map<U>(mapper: (item: IterableItem<R>, index: number, arrayLength: number) => U | PromiseLike<U>, options?: Bluebird.ConcurrencyOption): Bluebird<R extends Iterable<any> ? U[] : never>;
+  // TODO type inference from array-resolving promise?
+  map<Q, U>(mapper: (item: Q, index: number, arrayLength: number) => U | PromiseLike<U>, options?: Bluebird.ConcurrencyOption): Bluebird<U[]>;
 
   /**
    * Same as calling `Promise.reduce(thisPromise, Function reducer, initialValue)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
    */
-  reduce<U>(reducer: (memo: U, item: IterableItem<R>, index: number, arrayLength: number) => U | PromiseLike<U>, initialValue?: U): Bluebird<R extends Iterable<any> ? U : never>;
+  // TODO type inference from array-resolving promise?
+  reduce<Q, U>(reducer: (memo: U, item: Q, index: number, arrayLength: number) => U | PromiseLike<U>, initialValue?: U): Bluebird<U>;
 
   /**
    * Same as calling ``Promise.filter(thisPromise, filterer)``. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
    */
-  filter(filterer: (item: IterableItem<R>, index: number, arrayLength: number) => boolean | PromiseLike<boolean>, options?: Bluebird.ConcurrencyOption): Bluebird<IterableOrNever<R>>;
+  // TODO type inference from array-resolving promise?
+  filter<U>(filterer: (item: U, index: number, arrayLength: number) => boolean | PromiseLike<boolean>, options?: Bluebird.ConcurrencyOption): Bluebird<U[]>;
 
   /**
    * Same as calling ``Bluebird.each(thisPromise, iterator)``. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
    */
-  each<U>(iterator: (item: IterableItem<R>, index: number, arrayLength: number) => U | PromiseLike<U>): Bluebird<IterableOrNever<R>>;
+  each<R, U>(iterator: (item: R, index: number, arrayLength: number) => U | PromiseLike<U>): Bluebird<R[]>;
 
   /**
    * Same as calling ``Bluebird.mapSeries(thisPromise, iterator)``. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
    */
-  mapSeries<U>(iterator: (item: IterableItem<R>, index: number, arrayLength: number) => U | PromiseLike<U>): Bluebird<R extends Iterable<any> ? U[] : never>;
+  mapSeries<R, U>(iterator: (item: R, index: number, arrayLength: number) => U | PromiseLike<U>): Bluebird<U[]>;
 
   /**
    * Cancel this `promise`. Will not do anything if this promise is already settled or if the cancellation feature has not been enabled

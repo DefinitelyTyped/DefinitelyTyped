@@ -2,7 +2,7 @@
 // Project: https://github.com/lapwinglabs/x-ray#readme
 // Definitions by: Matt Traynham <https://github.com/mtraynham>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 

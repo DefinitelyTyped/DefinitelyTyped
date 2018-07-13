@@ -44,13 +44,6 @@ client.indices.delete({
 }, (error) => {
 });
 
-client.indices.delete({
-  index: 'test_index',
-  ignoreUnavailable: true
-}).then((body) => {
-}, (error) => {
-});
-
 client.deleteByQuery({
   index: 'test_index',
   type: 'test_type',

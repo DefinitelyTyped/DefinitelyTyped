@@ -1160,8 +1160,8 @@ export const HeaderBackButton: React.ComponentClass<HeaderBackButtonProps>;
  */
 export const Header: React.ComponentClass<HeaderProps>;
 
-export interface NavigationInjectedProps<P = NavigationParams> {
-  navigation: NavigationScreenProp<NavigationState, P>;
+export interface NavigationInjectedProps {
+  navigation: NavigationScreenProp<NavigationState>;
 }
 
 export function withNavigation<T = {}>(

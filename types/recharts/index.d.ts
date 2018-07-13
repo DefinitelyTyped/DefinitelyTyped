@@ -8,7 +8,6 @@
 //                 Dan Torberg <https://github.com/caspeco-dan>
 //                 Peter Keuter <https://github.com/pkeuter>
 //                 Jamie Saunders <https://github.com/jrsaunde>
-//                 Paul Melnikow <https://github.com/paulmelnikow>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -833,7 +832,7 @@ export class Treemap extends React.Component<TreemapProps> { }
 
 export class Label extends React.Component<LabelProps> { }
 
-export interface LabelProps extends Partial<PresentationAttributes> {
+export interface LabelProps {
     angle?: number;
     viewBox?: ViewBox | PolarViewBox;
     formatter?: LabelFormatter;
