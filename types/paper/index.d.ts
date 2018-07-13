@@ -2440,21 +2440,166 @@ declare module paper {
     export class PathItem extends Item {
 
         /**
+         * Creates a path item from the given SVG path-data, determining if the data describes a plain path or a compound-path with multiple sub-paths.
+         * @param pathData - the SVG path-data to parse
+         */
+        static create(pathData: string): Path | CompoundPath;
+
+        /**
+         * Creates a path item from the given segments array, determining if the array describes a plain path or a compound-path with multiple sub-paths.
+         * @param segments - the segments array to parse
+         */
+        static create(segments: number[] | object[]): Path | CompoundPath;
+
+        /**
+         * Creates a path item from the given object, determining if the contained information describes a plain path or a compound-path with multiple sub-paths.
+         * @param object - an object containing the properties describing the item to be created
+         */
+        static create(object: any): Path | CompoundPath;
+
+        /**
+         * Returns a point that is guaranteed to be inside the path.
+         */
+        readonly interiorPoint: Point;
+
+        /**
+         * Specifies whether the path as a whole is oriented clock-wise, by looking at the path’s area. Note that self-intersecting paths and sub-paths of different orientation can result in areas that cancel each other out.
+         */
+        clockwise: boolean;
+        
+        /**
          * The path's geometry, formatted as SVG style path data.
          */
         pathData: string;
 
         /**
-         * Returns all intersections between two PathItem items as an array of CurveLocation objects. CompoundPath items are also supported.
-         * @param path - the other item to find the intersections with
-         * @param sorted [optional] - specifies whether the returned CurveLocation objects should be sorted by path and offset, default: false
+         * Merges the geometry of the specified path from this path's geometry and returns the result as a new path item.
+         * @param path - the path to unite with
+         * @param options [optional] - the boolean operation options. default { insert: true }
+         * @param options.insert - whether the resulting item should be inserted back into the scene graph, above both paths involved in the operation.
          */
-        getIntersections(path: PathItem, sorted?: boolean): CurveLocation[];
+        unite(path: PathItem, options?: { insert?: boolean; }): PathItem;
 
         /**
-         * Smooth bezier curves without changing the amount of segments or their points, by only smoothing and adjusting their handle points, for both open ended and closed paths.
+         * Intersects the geometry of the specified path with this path's geometry and returns the result as a new path item.
+         * @param path - the path to intersect with
+         * @param options [optional] - the boolean operation options. default { insert: true, trace: true }
+         * @param options.insert - whether the resulting item should be inserted back into the scene graph, above both paths involved in the operation.
+         * @param options.trace - whether the tracing method is used, treating both paths as areas when determining which parts of the paths are to be kept in the result, or whether the first path is only to be split at intersections, keeping the parts of the curves that intersect with the area of the second path. 
          */
-        smooth(): void;
+        intersect(path: PathItem, options?: { insert?: boolean; trace?: boolean; }): PathItem;
+
+        /**
+         * Subtracts the geometry of the specified path from this path's geometry and returns the result as a new path item.
+         * @param path - the path to subtract
+         * @param options [optional] - the boolean operation options. default { insert: true, trace: true }
+         * @param options.insert - whether the resulting item should be inserted back into the scene graph, above both paths involved in the operation.
+         * @param options.trace - whether the tracing method is used, treating both paths as areas when determining which parts of the paths are to be kept in the result, or whether the first path is only to be split at intersections, keeping the parts of the curves that intersect with the area of the second path. 
+         */
+        subtract(path: PathItem, options?: { insert?: boolean; trace?: boolean; }): PathItem;
+
+        /**
+         * Excludes the intersection of the geometry of the specified path with this path's geometry and returns the result as a new group item.
+         * @param path - the path to exclude the intersection of
+         * @param options [optional] - the boolean operation options. default { insert: true }
+         * @param options.insert - whether the resulting item should be inserted back into the scene graph, above both paths involved in the operation.
+         */
+        exclude(path: PathItem, options?: { insert?: boolean; }): PathItem;
+
+        /**
+         * Splits the geometry of this path along the geometry of the specified path returns the result as a new group item.
+         * @param path - the path to divide by
+         * @param options [optional] - the boolean operation options. default { insert: true, trace: true }
+         * @param options.insert - whether the resulting item should be inserted back into the scene graph, above both paths involved in the operation.
+         * @param options.trace - whether the tracing method is used, treating both paths as areas when determining which parts of the paths are to be kept in the result, or whether the first path is only to be split at intersections, keeping the parts of the curves that intersect with the area of the second path.
+        */
+        divide(path: PathItem, options?: { insert?: boolean; trace?: boolean; }): PathItem;
+
+        /**
+         * Fixes the orientation of the sub-paths of a compound-path, assuming that non of its sub-paths intersect, by reorienting them so that they are of different winding direction than their containing paths, except for disjoint sub-paths, i.e. islands, which are oriented so that they have the same winding direction as the the biggest path.
+         * @param nonZero [optional] - controls if the non-zero fill-rule is to be applied, by counting the winding of each nested path and discarding sub-paths that do not contribute to the final result. default: false
+         * @param clockwise [optional] - if provided, the orientation of the root paths will be set to the orientation specified by clockwise, otherwise the orientation of the largest root child is used.
+         */
+        reorient(nonZero?: boolean, clockwise?: boolean): PathItem;
+
+        /**
+         * Returns all intersections between two PathItem items as an array of CurveLocation objects. CompoundPath items are also supported.
+         * @param path - the other item to find the intersections with
+         * @param include [optional] - a callback function that can be used to filter out undesired locations right while they are collected. When defined, it shall return true to include a location, false otherwise. — optional
+        */
+        getIntersections(path: PathItem, include?: (location: CurveLocation) => boolean): CurveLocation[];
+
+        /**
+         * Returns all crossings between two PathItem items as an array of CurveLocation objects. CompoundPath items are also supported. Crossings are intersections where the paths actually are crossing each other, as opposed to simply touching.
+         * @param path - the other item to find the crossings with
+         */
+        getCrossings(path: PathItem): CurveLocation[];
+
+        /**
+         * Returns the nearest location on the path item to the specified point.
+         * @param point - the point for which we search the nearest location
+         */
+        getNearestLocation(point: Point): CurveLocation;
+
+        /**
+         * Returns the nearest point on the path item to the specified point.
+         * @param point - the point for which we search the nearest point
+         */
+        getNearestPoint(point: Point): Point;
+
+        /**
+         * Reverses the orientation of the path item. When called on CompoundPath items, each of the nested paths is reversed. On Path items, the sequence of path.segments is reversed.
+         */
+        reverse(): void;
+
+        /**
+         * Flattens the curves in path items to a sequence of straight lines, by subdividing them enough times until the specified maximum error is met.
+         * @param flatness [optional] - the maximum error between the flattened lines and the original curves. default: 0.25
+         */
+        flatten(flatness?: number): void;
+
+        /**
+         * Smooths the path item without changing the amount of segments in the path or moving the segments’ locations, by smoothing and adjusting the angle and length of the segments’ handles based on the position and distance of neighboring segments.
+         * Smoothing works both for open paths and closed paths, and can be applied to the full path, as well as a sub-range of it. If a range is defined using the options.from and options.to properties, only the curve handles inside that range are touched. If one or both limits of the range are specified in negative indices, the indices are wrapped around the end of the curve. That way, a smoothing range in a close path can even wrap around the connection between the last and the first segment.
+         * Four different smoothing methods are available:
+         *   'continuous' smooths the path item by adjusting its curve handles so that the first and second derivatives of all involved curves are continuous across their boundaries.
+         *      This method tends to result in the smoothest results, but does not allow for further parametrization of the handles.
+         *   'asymmetric' is based on the same principle as 'continuous' but uses different factors so that the result is asymmetric. This used to the only method available until v0.10.0, and is currently still the default when no method is specified, for reasons of backward compatibility. It will eventually be removed.
+         *   'catmull-rom' uses the Catmull-Rom spline to smooth the segment.
+         *      The optionally passed factor controls the knot parametrization of the algorithm:
+         *        0.0: the standard, uniform Catmull-Rom spline
+         *        0.5: the centripetal Catmull-Rom spline, guaranteeing no self-intersections
+         *        1.0: the chordal Catmull-Rom spline
+         *   'geometric' use a simple heuristic and empiric geometric method to smooth the segment’s handles. The handles were weighted, meaning that big differences in distances between the segments will lead to probably undesired results.
+         *      The optionally passed factor defines the tension parameter (0…1), controlling the amount of smoothing as a factor by which to scale each handle.
+         * @param options [optional] - default { type:'asymmetric', factor: 0.5 for 'catmull-rom', 0.4 for 'geometric }
+         * @param options.type - the type of smoothing method: ‘continuous’, ‘asymmetric’, ‘catmull-rom’, ‘geometric’ — default: ‘asymmetric’
+         * @param options.factor - the factor parameterizing the smoothing method — default: 0.5 for 'catmull-rom', 0.4 for 'geometric'
+         * @param options.from - the segment or curve at which to start smoothing, if not the full path shall be smoothed (inclusive). This can either be a segment index, or a segment or curve object that is part of the path. If the passed number is negative, the index is wrapped around the end of the path.
+         * @param options.to - the segment or curve to which the handles of the path shall be processed (inclusive). This can either be a segment index, or a segment or curve object that is part of the path. If the passed number is negative, the index is wrapped around the end of the path.
+         */
+        smooth(options?: { type?: string; factor?: number; from?: number | Segment | Curve; to?: number | Segment | Curve; }): void;
+
+        /**
+         * Fits a sequence of as few curves as possible through the path’s anchor points, ignoring the path items’s curve-handles, with an allowed maximum error. When called on CompoundPath items, each of the nested paths is simplified. On Path items, the path.segments array is processed and replaced by the resulting sequence of fitted curves.
+         * This method can be used to process and simplify the point data received from a mouse or touch device.
+         * @param tolerance [optional] - the allowed maximum error when fitting the curves through the segment points. default: 2.5
+         */
+        simplify(tolerance?: number): boolean;
+
+        /**
+         * Interpolates between the two specified path items and uses the result as the geometry for this path item. The number of children and segments in the two paths involved in the operation should be the same.
+         * @param from - the path item defining the geometry when factor is 0
+         * @param to - the path item defining the geometry when factor is 1
+         * @param factor - the interpolation coefficient, typically between 0 and 1, but extrapolation is possible too
+         */
+        interpolate(from: PathItem, to: PathItem, factor: number): void;
+
+        /**
+         * Compares the geometry of two paths to see if they describe the same shape, detecting cases where paths start in different segments or even use different amounts of curves to describe the same shape, as long as their orientation is the same, and their segments and handles really result in the same visual appearance of curves.
+         * @param path - the path to compare this path’s geometry with
+         */
+        compare(path: PathItem): boolean;
 
         /**
          * On a normal empty Path, the point is simply added as the path's first segment. If called on a CompoundPath, a new Path is created as a child and the point is added as its first segment.
@@ -2467,6 +2612,28 @@ declare module paper {
          * @param point - the end point of the line
          */
         lineTo(point: Point): void;
+        
+        /**
+         * Draws an arc from the position of the last segment point in the path that goes through the specified through point, to the specified to point by adding one or more segments to the path.
+         * @param through - the point where the arc should pass through
+         * @param to - the point where the arc should end
+         */
+        arcTo(through: Point, to: Point): void;
+
+        /**
+         * Draws an arc from the position of the last segment point in the path to the specified point by adding one or more segments to the path.
+         * @param to - the point where the arc should end
+         * @param clockwise [optional] - specifies whether the arc should be drawn in clockwise direction. default: true
+         */
+        arcTo(to: Point, clockwise?: boolean): void;
+
+        /**
+         * Draws a curve from the position of the last segment point in the path that goes through the specified through point, to the specified to point by adding one segment to the path.
+         * @param through - the point through which the curve should go
+         * @param to - the point where the curve should end
+         * @param time [optional] - the curve-time parameter at which the through point is to be located. default: 0.5
+         */
+        curveTo(through: Point, to: Point, time?: number): void;
 
         /**
          * Adds a cubic bezier curve to the path, defined by two handles and a to point.
@@ -2484,32 +2651,10 @@ declare module paper {
         quadraticCurveTo(handle: Point, to: Point): void;
 
         /**
-         * Draws a curve from the position of the last segment point in the path that goes through the specified through point, to the specified to point by adding one segment to the path.
-         * @param through - the point through which the curve should go
-         * @param to - the point where the curve should end
-         * @param parameter [optional] - default: 0.5
-         */
-        curveTo(through: Point, to: Point, parameter?: number): void;
-
-        /**
-         * Draws an arc from the position of the last segment point in the path that goes through the specified through point, to the specified to point by adding one or more segments to the path.
-         * @param through - the point where the arc should pass through
-         * @param to - the point where the arc should end
-         */
-        arcTo(through: Point, to: Point): void;
-
-        /**
-         * Draws an arc from the position of the last segment point in the path to the specified point by adding one or more segments to the path.
-         * @param to - the point where the arc should end
-         * @param closewise [optional] - specifies whether the arc should be drawn in clockwise direction. optional, default: true
-         */
-        arcTo(to: Point, clockwise?: boolean): void;
-
-        /**
          * Closes the path. When closed, Paper.js connects the first and last segment of the path with an additional curve.
-         * @param join - controls whether the method should attempt to merge the first segment with the last if they lie in the same location.
+         * @param tolerance [optional] - the maximum distance allowed when merging the first and last locations in the newly closed path. default: 0
          */
-        closePath(join: boolean): void;
+        closePath(tolerance?: number): void;
 
         /**
          * If called on a CompoundPath, a new Path is created as a child and a point is added as its first segment relative to the position of the last segment of the current path.
@@ -2519,76 +2664,47 @@ declare module paper {
 
         /**
          * Adds a segment relative to the last segment point of the path.
-         * @param to - the vector which is added to the position of the last segment of the path, to get to the position of the new segment.
+         * @param point - the vector which is added to the position of the last segment of the path, to get to the position of the new segment.
          */
-        lineBy(to: Point): void;
+        lineBy(point: Point): void;
 
         /**
-         *
-         * @param through -
-         * @param to -
-         * @param parameter [optional] - default 0.5
-         */
-        curveBy(through: Point, to: Point, parameter?: number): void;
-
-        /**
-         *
-         * @param handle1 -
-         * @param handle2 -
-         * @param to -
-         */
-        cubicCurveBy(handle1: Point, handle2: Point, to: Point): void;
-
-        /**
-         *
-         * @param handle -
-         * @param to -
-         */
-        quadraticCurveBy(handle: Point, to: Point): void;
-
-        /**
-         *
-         * @param through -
-         * @param to -
+         * Adds an arc from the position of the last segment in the path, passing through the specified through vector, to the specified to vector, all specified relatively to it by these given vectors, by adding one or more segments to the path.
+         * @param through - the vector where the arc should pass through
+         * @param to - the vector where the arc should end
          */
         arcBy(through: Point, to: Point): void;
 
         /**
-         *
-         * @param to -
-         * @param clockwise [optional] - default: true
+         * Adds an arc from the position of the last segment in the path to the to vector specified relatively to it, by adding one or more segments to the path.
+         * @param to - the vector where the arc should end
+         * @param clockwise [optional] - specifies whether the arc should be drawn in clockwise direction. default: true
          */
         arcBy(to: Point, clockwise?: boolean): void;
 
         /**
-         * Merges the geometry of the specified path from this path's geometry and returns the result as a new path item.
-         * @param path - the path to unite with
+         * Adds a curve from the last segment in the path through the specified through vector, to the specified to vector, all specified relatively to it by these given vectors, by adding one segment to the path.
+         * @param through - the vector through which the curve should pass
+         * @param to - the destination vector of the newly added curve
+         * @param time [optional] - the curve-time parameter at which the through point is to be located. default: 0.5
          */
-        unite(path: PathItem): PathItem;
+        curveBy(through: Point, to: Point, time?: number): void;
 
         /**
-         * Intersects the geometry of the specified path with this path's geometry and returns the result as a new path item.
-         * @param path - the path to intersect with
+         * Adds a cubic bezier curve to the path, from the last segment to the to the specified to vector, with the curve itself defined by two specified handles.
+         * @param handle1 - the location of the first handle of the newly added curve
+         * @param handle2 - the location of the second handle of the newly added curve
+         * @param to - the destination point of the newly added curve
          */
-        intersect(path: PathItem): PathItem;
+        cubicCurveBy(handle1: Point, handle2: Point, to: Point): void;
 
         /**
-         * Subtracts the geometry of the specified path from this path's geometry and returns the result as a new path item.
-         * @param - the path to subtract
+         * Adds a quadratic bezier curve to the path, from the last segment to the specified destination point, with the curve itself defined by the specified handle.
+         * Note that Paper.js only stores cubic curves, so the handle is actually converted.
+         * @param handle - the handle of the newly added quadratic curve out of which the values for segment.handleOut of the resulting cubic curve’s first segment and segment.handleIn of its second segment are calculated
+         * @param to - the destination point of the newly added curve
          */
-        subtract(path: PathItem): PathItem;
-
-        /**
-         * Excludes the intersection of the geometry of the specified path with this path's geometry and returns the result as a new group item.
-         * @param - the path to exclude the intersection of
-         */
-        exclude(path: PathItem): PathItem;
-
-        /**
-         * Splits the geometry of this path along the geometry of the specified path returns the result as a new group item.
-         * @param - the path to divide by
-         */
-        divide(path: PathItem): PathItem;
+        quadraticCurveBy(handle: Point, to: Point): void;
 
     }
     /**
@@ -2735,18 +2851,6 @@ declare module paper {
         removeSegments(from: number, to?: number): Segment[];
 
         /**
-         * Converts the curves in a path to straight lines with an even distribution of points. The distance between the produced segments is as close as possible to the value specified by the maxDistance parameter.
-         * @param maxDistance - the maximum distance between the points
-         */
-        flatten(maxDistance: number): void;
-
-        /**
-         * Smooths a path by simplifying it. The path.segments array is analyzed and replaced by a more optimal set of segments, reducing memory usage and speeding up drawing.
-         * @param tolerance [optional = 2.5] -
-         */
-        simplify(tolerance?: number): void;
-
-        /**
          * Splits the path at the given offset. After splitting, the path will be open. If the path was open already, splitting will result in two paths.
          * @param offset - the offset at which to split the path as a number between 0 and path.length
          * Returns the newly created path after splitting, if any
@@ -2767,11 +2871,6 @@ declare module paper {
          * Returns the newly created path after splitting, if any
          */
         split(index: number, parameter: number): Path;
-
-        /**
-         * Reverses the orientation of the path, by reversing all its segments.
-         */
-        reverse(): void;
 
         /**
          * Joins the path with the specified path, which will be removed in the process.
@@ -2827,13 +2926,6 @@ declare module paper {
          * @param point - the point for which we search the nearest location
          */
         getCurvatureAt(offset: number, isParameter?: boolean, point?: Point): number;
-
-        /**
-         * Returns the nearest point on the path to the specified point.
-         * @param point - the point for which we search the nearest point
-         */
-        getNearestPoint(point: Point): Point;
-
 
     }
     module Path {
