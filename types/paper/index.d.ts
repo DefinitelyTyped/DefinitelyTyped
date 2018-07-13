@@ -4426,8 +4426,14 @@ declare module paper {
 
         /**
          * The ramp-point of the gradient stop as a value between 0 and 1.
+         * @deprecated use offset instead.
          */
         rampPoint: number;
+
+        /**
+         * The ramp-point of the gradient stop as a value between 0 and 1.
+         */
+        offset: number;
 
         /**
          * The color of the gradient stop.
