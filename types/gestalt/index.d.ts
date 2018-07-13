@@ -88,7 +88,7 @@ type shapeOptions =
     | "roundedBottom"
     | "roundedLeft"
     | "roundedRight";
-
+type sizeOptions = "sm" | "md" | "lg";
 /*
 Avatar Props Interface
 https://pinterest.github.io/gestalt/#/Avatar
@@ -106,6 +106,7 @@ interface AvatarProps {
 Box Props Interface
 https://pinterest.github.io/gestalt/#/Box
 */
+
 interface BoxProps {
     alignContent?: alignContentOptions;
     alignItems?: alignItemsOptions;
@@ -184,7 +185,27 @@ interface BoxProps {
     wrap?: boolean;
 }
 
+/*
+Button Props Interface
+https://pinterest.github.io/gestalt/#/Button
+*/
+
+interface ButtonProps {
+    text: string;
+    accessibilityExpanded?: boolean;
+    accessibilityHaspopup?: boolean;
+    accessibilityLabel?: string;
+    color?: "blue" | "gray" | "red" | "transparent" | "white";
+    disabled?: boolean;
+    inline?: boolean;
+    name?: string;
+    onClick?: (event: React.SyntheticEvent) => void;
+    size?: sizeOptions;
+    type?: "submit" | "button";
+}
+
 declare module "gestalt" {
     class Avatar extends React.Component<AvatarProps, any> {}
     class Box extends React.Component<BoxProps, any> {}
+    class Button extends React.Component<ButtonProps, any> {}
 }
