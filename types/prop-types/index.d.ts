@@ -22,6 +22,8 @@ export type ValidationMap<T = any> = {
     [K in keyof T]-?: ReactNode extends T[K] ? Validator<T[K]> : Validator<NonNullable<T[K]>, any>
 };
 
+type InferTypeOfValidator<V> = V extends Validator<infer T, infer R> ? R extends true ? T : T | null | undefined : any
+
 type RequiredValidatorKeys<O> = {
     [K in keyof O]: O[K] extends Requireable<any> ? never : O[K] extends Validator<any, true> ? K : never
 }[keyof O];
@@ -31,7 +33,7 @@ type OptionalValidatorKeys<O> = {
 }[keyof O];
 
 type InferPropsOfValidationMap<O> = {
-    [K in keyof O]: O[K] extends Validator<infer T, infer R> ? R extends true ? T : T | null | undefined : any
+    [K in keyof O]: InferTypeOfValidator<O[K]>
 };
 
 export type InferProps<O> =
@@ -49,8 +51,8 @@ export const object: Requireable<object>;
 export const string: Requireable<string>;
 export const symbol: Requireable<symbol>;
 export function instanceOf<C extends new (...args: any[]) => any>(expectedClass: C): Requireable<InstanceType<C>>;
-export function oneOf(types: any[]): Requireable<any>;
-export function oneOfType(types: Array<Requireable<any>>): Requireable<any>;
+export function oneOf<A extends any[]>(types: A): Requireable<A[number]>;
+export function oneOfType<A extends Array<Requireable<any>>>(types: A): Requireable<NonNullable<InferTypeOfValidator<A[number]>>>;
 export function arrayOf<T>(type: Requireable<T>): Requireable<T[]>;
 export function objectOf<T>(type: Requireable<T>): Requireable<{ [K: string]: T}>;
 export function shape<O>(type: O): Requireable<InferProps<O>>;

@@ -39,7 +39,10 @@ const propTypes = {
     symbol: PropTypes.symbol.isRequired,
     instanceOf: PropTypes.instanceOf(TestClass).isRequired,
     oneOf: PropTypes.oneOf(['a', 'b', 'c']).isRequired,
-    oneOfType: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]).isRequired,
+    oneOfType: PropTypes.oneOfType([PropTypes.string, PropTypes.bool, PropTypes.shape({
+        foo: PropTypes.string,
+        bar: PropTypes.number.isRequired
+    })]).isRequired,
     arrayOf: PropTypes.arrayOf(PropTypes.bool).isRequired,
     objectOf: PropTypes.objectOf(PropTypes.number).isRequired,
     shape: PropTypes.shape({
@@ -48,6 +51,8 @@ const propTypes = {
     }).isRequired,
     optionalNumber: PropTypes.number
 };
+
+type foo = PropTypes.InferProps<PropTypes.Validator<boolean, false> | PropTypes.Validator<string ,true>>
 
 const outerProps = {
     innerProps: PropTypes.shape(propTypes)
