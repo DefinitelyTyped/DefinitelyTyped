@@ -9,20 +9,6 @@ import { ReactElement, ReactNode } from 'react';
 
 type IsOptional<T> = undefined | null extends T ? true : undefined extends T ? true : null extends T ? true : false
 
-interface Validator<T> {
-    (object: T, key: string, componentName: string, ...rest: any[]): Error | null;
-}
-
-export interface Requireable<T> extends Validator<T> {
-    isRequired: Validator<T>;
-}
-
-export type ValidationMap<T> = {
-    [K in keyof T]-?: IsOptional<T[K]> extends true
-        ? Requireable<ReactNode extends T[K]
-        ? T[K] : NonNullable<T[K]>> : Validator<T[K]>
-};
-
 type InferTypeOfValidator<V> = V extends Requireable<infer T> ? T | undefined | null : V extends Validator<infer T> ? T : any
 
 type RequiredValidatorKeys<O> = {
@@ -35,6 +21,18 @@ type OptionalValidatorKeys<O> = {
 
 type InferPropsOfValidationMap<O> = {
     [K in keyof O]: InferTypeOfValidator<O[K]>
+};
+
+export type Validator<T> = (object: T, key: string, componentName: string, ...rest: any[]): Error | null;
+
+export interface Requireable<T> extends Validator<T> {
+    isRequired: Validator<T>;
+}
+
+export type ValidationMap<T> = {
+    [K in keyof T]-?: IsOptional<T[K]> extends true
+        ? Requireable<ReactNode extends T[K]
+        ? T[K] : NonNullable<T[K]>> : Validator<T[K]>
 };
 
 export type InferProps<O> =

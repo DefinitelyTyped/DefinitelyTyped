@@ -44,9 +44,6 @@ export = React;
 export as namespace React;
 
 declare namespace React {
-    type Requireable<T> = PropTypes.Requireable<T>;
-    type Validator<T> = PropTypes.Validator<T>;
-    type ValidationMap<T = any> = PropTypes.ValidationMap<T>;
     //
     // React Elements
     // ----------------------------------------------------------------------
@@ -345,7 +342,7 @@ declare namespace React {
     interface StatelessComponent<P = {}> {
         (props: P & { children?: ReactNode }, context?: any): ReactElement<any> | null;
         propTypes?: ValidationMap<P>;
-        contextTypes?: { [K in keyof any]: Validator<any> | Required<any> };
+        contextTypes?: AnyValidationMap;
         defaultProps?: Partial<P>;
         displayName?: string;
     }
@@ -353,7 +350,7 @@ declare namespace React {
     interface RefForwardingComponent<T, P = {}> {
         (props: P & { children?: ReactNode }, ref?: Ref<T>): ReactElement<any> | null;
         propTypes?: ValidationMap<P>;
-        contextTypes?: { [K in keyof any]: Validator<any> | Required<any> };
+        contextTypes?: AnyValidationMap;
         defaultProps?: Partial<P>;
         displayName?: string;
     }
@@ -361,8 +358,8 @@ declare namespace React {
     interface ComponentClass<P = {}> extends StaticLifecycle<P, any> {
         new (props: P, context?: any): Component<P, ComponentState>;
         propTypes?: ValidationMap<P>;
-        contextTypes?: { [K in keyof any]: Validator<any> | Required<any> };
-        childContextTypes?: { [K in keyof any]: Validator<any> | Required<any> };
+        contextTypes?: AnyValidationMap;
+        childContextTypes?: AnyValidationMap;
         defaultProps?: Partial<P>;
         displayName?: string;
     }
@@ -545,9 +542,9 @@ declare namespace React {
         };
 
         displayName?: string;
-        propTypes?: { [K in keyof any]: Validator<any> | Required<any> };
-        contextTypes?: { [K in keyof any]: Validator<any> | Required<any> };
-        childContextTypes?: { [K in keyof any]: Validator<any> | Required<any> };
+        propTypes?: AnyValidationMap;
+        contextTypes?: AnyValidationMap;
+        childContextTypes?: AnyValidationMap;
 
         getDefaultProps?(): P;
         getInitialState?(): S;
@@ -2204,6 +2201,12 @@ declare namespace React {
     }
 
     interface ReactDOM extends ReactHTML, ReactSVG { }
+
+    // React.PropTypes aliases
+    type Requireable<T> = PropTypes.Requireable<T>;
+    type Validator<T> = PropTypes.Validator<T>;
+    type ValidationMap<T = any> = PropTypes.ValidationMap<T>;
+    type AnyValidationMap = { [K in keyof any]: Requireable<T> | Validator<T>; };
 
     //
     // React.Children
