@@ -204,8 +204,22 @@ interface ButtonProps {
     type?: "submit" | "button";
 }
 
+/*
+Card Props Interface
+https://pinterest.github.io/gestalt/#/Card
+*/
+
+interface CardProps {
+    active?: boolean;
+    children?: React.ReactNode;
+    image?: React.ReactNode;
+    onMouseEnter?: (event: React.SyntheticEvent) => void;
+    onMouseLeave?: (event: React.SyntheticEvent) => void;
+}
+
 declare module "gestalt" {
     class Avatar extends React.Component<AvatarProps, any> {}
     class Box extends React.Component<BoxProps, any> {}
     class Button extends React.Component<ButtonProps, any> {}
+    class Cards extends React.Component<CardProps, any> {}
 }
