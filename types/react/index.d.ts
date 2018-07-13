@@ -19,11 +19,12 @@
 //                 Olivier Pascal <https://github.com/pascaloliv>
 //                 Martin Hochel <https://github.com/hotell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 /// <reference path="global.d.ts" />
 
 import * as CSS from 'csstype';
+import { Validator, ValidationMap, InferProps } from 'prop-types';
 
 type NativeAnimationEvent = AnimationEvent;
 type NativeClipboardEvent = ClipboardEvent;
@@ -341,7 +342,7 @@ declare namespace React {
     interface StatelessComponent<P = {}> {
         (props: P & { children?: ReactNode }, context?: any): ReactElement<any> | null;
         propTypes?: ValidationMap<P>;
-        contextTypes?: ValidationMap<any>;
+        contextTypes?: ValidationMap;
         defaultProps?: Partial<P>;
         displayName?: string;
     }
@@ -349,7 +350,7 @@ declare namespace React {
     interface RefForwardingComponent<T, P = {}> {
         (props: P & { children?: ReactNode }, ref?: Ref<T>): ReactElement<any> | null;
         propTypes?: ValidationMap<P>;
-        contextTypes?: ValidationMap<any>;
+        contextTypes?: ValidationMap;
         defaultProps?: Partial<P>;
         displayName?: string;
     }
@@ -357,8 +358,8 @@ declare namespace React {
     interface ComponentClass<P = {}> extends StaticLifecycle<P, any> {
         new (props: P, context?: any): Component<P, ComponentState>;
         propTypes?: ValidationMap<P>;
-        contextTypes?: ValidationMap<any>;
-        childContextTypes?: ValidationMap<any>;
+        contextTypes?: ValidationMap;
+        childContextTypes?: ValidationMap;
         defaultProps?: Partial<P>;
         displayName?: string;
     }
@@ -541,9 +542,9 @@ declare namespace React {
         };
 
         displayName?: string;
-        propTypes?: ValidationMap<any>;
-        contextTypes?: ValidationMap<any>;
-        childContextTypes?: ValidationMap<any>;
+        propTypes?: ValidationMap;
+        contextTypes?: ValidationMap;
+        childContextTypes?: ValidationMap;
 
         getDefaultProps?(): P;
         getInitialState?(): S;
@@ -2202,36 +2203,6 @@ declare namespace React {
     interface ReactDOM extends ReactHTML, ReactSVG { }
 
     //
-    // React.PropTypes
-    // ----------------------------------------------------------------------
-
-    type Validator<T> = { bivarianceHack(object: T, key: string, componentName: string, ...rest: any[]): Error | null }["bivarianceHack"];
-
-    interface Requireable<T> extends Validator<T> {
-        isRequired: Validator<T>;
-    }
-
-    type ValidationMap<T> = {[K in keyof T]?: Validator<T> };
-
-    interface ReactPropTypes {
-        any: Requireable<any>;
-        array: Requireable<any>;
-        bool: Requireable<any>;
-        func: Requireable<any>;
-        number: Requireable<any>;
-        object: Requireable<any>;
-        string: Requireable<any>;
-        node: Requireable<any>;
-        element: Requireable<any>;
-        instanceOf(expectedClass: {}): Requireable<any>;
-        oneOf(types: any[]): Requireable<any>;
-        oneOfType(types: Array<Validator<any>>): Requireable<any>;
-        arrayOf(type: Validator<any>): Requireable<any>;
-        objectOf(type: Validator<any>): Requireable<any>;
-        shape(type: ValidationMap<any>): Requireable<any>;
-    }
-
-    //
     // React.Children
     // ----------------------------------------------------------------------
 
@@ -2282,6 +2253,11 @@ declare namespace React {
     }
 }
 
+type Defaultize<Props, Defaults> =
+    & { [K in Extract<keyof Props, keyof Defaults>]?: Props[K]; }
+    & { [K in Exclude<keyof Props, keyof Defaults>]: Props[K]; }
+    & Partial<Defaults>;
+
 declare global {
     namespace JSX {
         // tslint:disable-next-line:no-empty-interface
@@ -2289,8 +2265,16 @@ declare global {
         interface ElementClass extends React.Component<any> {
             render(): React.ReactNode;
         }
+        // not sure this is needed anymore
         interface ElementAttributesProperty { props: {}; }
         interface ElementChildrenAttribute { children: {}; }
+        type LibraryManagedAttributes<Component, Props> =
+            Component extends { propTypes: infer PropTypes; defaultProp: infer Defaults }
+            ? Defaultize<Props & InferProps<PropTypes>, Defaults>
+            : Component extends { propTypes: infer PropTypes }
+            ? Defaultize<Props & InferProps<PropTypes>, {}>
+            : Component extends { defaultProps: infer Defaults }
+            ? Defaultize<Props, Defaults> : Props;
 
         // tslint:disable-next-line:no-empty-interface
         interface IntrinsicAttributes extends React.Attributes { }

@@ -117,16 +117,19 @@ declare const container: Element;
 
 class ModernComponent extends React.Component<Props, State, Snapshot>
     implements MyComponent, React.ChildContextProvider<ChildContext> {
-    static propTypes: React.ValidationMap<Props> = {
-        foo: PropTypes.number
+    static propTypes: PropTypes.ValidationMap<Props> = {
+        hello: PropTypes.string.isRequired,
+        foo: PropTypes.number.isRequired,
+        world: PropTypes.string,
+        key: PropTypes.string
     };
 
-    static contextTypes: React.ValidationMap<Context> = {
+    static contextTypes: PropTypes.ValidationMap<Context> = {
         someValue: PropTypes.string
     };
 
-    static childContextTypes: React.ValidationMap<ChildContext> = {
-        someOtherValue: PropTypes.string
+    static childContextTypes: PropTypes.ValidationMap<ChildContext> = {
+        someOtherValue: PropTypes.string.isRequired
     };
 
     context: Context;
