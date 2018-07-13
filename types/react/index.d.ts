@@ -44,8 +44,8 @@ export = React;
 export as namespace React;
 
 declare namespace React {
-    type Validator<T, R = false> = PropTypes.Validator<T, R>
-    type ValidationMap<T = any> = PropTypes.ValidationMap<T>
+    type Validator<T, R = false> = PropTypes.Validator<T, R>;
+    type ValidationMap<T = any> = PropTypes.ValidationMap<T>;
     //
     // React Elements
     // ----------------------------------------------------------------------
@@ -2256,8 +2256,8 @@ declare namespace React {
 }
 
 type Defaultize<Props, Defaults> =
-    & { [K in Extract<keyof Props, keyof Defaults>]?: Props[K]; }
-    & { [K in Exclude<keyof Props, keyof Defaults>]: Props[K]; }
+    & Pick<Props, Exclude<keyof Props, keyof Defaults>>
+    & Partial<Pick<Props, Extract<keyof Props, keyof Defaults>>>
     & Partial<Defaults>;
 
 declare global {
