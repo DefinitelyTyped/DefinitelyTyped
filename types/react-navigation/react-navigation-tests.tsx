@@ -550,3 +550,13 @@ const MyFocusedComponentWithNavigationFocus = withNavigationFocus<MyFocusedCompo
 const MyFocusedComponentInstance = <MyFocusedComponentWithNavigationFocus
     expectsFocus={true} onRef={ref => { const backButtonRef = ref; }}
 />;
+
+// Test Screen with params
+
+interface MyScreenParams { title: string; }
+class MyScreen extends React.Component<NavigationInjectedProps<MyScreenParams>> {
+    render() {
+        const title = this.props.navigation.getParam('title');
+        return <button title={title} onClick={() => { this.props.navigation.goBack(); }} />;
+    }
+}
