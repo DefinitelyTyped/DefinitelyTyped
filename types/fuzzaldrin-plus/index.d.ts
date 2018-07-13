@@ -4,6 +4,7 @@
 //                  Jason Killian <https://github.com/jkillian>
 //                  Ronald Rey <https://github.com/reyronald>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 export as namespace fuzzaldrin
 
@@ -11,7 +12,7 @@ export class Query {
     $$__internal: Symbol
 }
 
-export interface IFuzzaldrinPlusOptions {
+export interface IOptions {
     allowErrors?: boolean
     usePathScoring?: boolean
     useExtensionBonus?: boolean
@@ -21,7 +22,7 @@ export interface IFuzzaldrinPlusOptions {
     preparedQuery?: Query
 }
 
-export type IFuzzaldrinPlusFilterOptions = IFuzzaldrinPlusOptions & {
+export type IFilterOptions = IOptions & {
     key?: string
     maxResults?: number
     maxInners?: number
@@ -30,24 +31,9 @@ export type IFuzzaldrinPlusFilterOptions = IFuzzaldrinPlusOptions & {
 export function filter<T>(
     data: T[],
     query: string,
-    options?: IFuzzaldrinPlusFilterOptions
+    options?: IFilterOptions
 ): T[]
-export function score(
-    str: string,
-    query: string,
-    options?: IFuzzaldrinPlusOptions
-): number
-export function match(
-    str: string,
-    query: string,
-    options?: IFuzzaldrinPlusOptions
-): number[]
-export function wrap(
-    str: string,
-    query: string,
-    options?: IFuzzaldrinPlusOptions
-): string
-export function prepareQuery(
-    query: string,
-    options?: IFuzzaldrinPlusOptions
-): Query
+export function score(str: string, query: string, options?: IOptions): number
+export function match(str: string, query: string, options?: IOptions): number[]
+export function wrap(str: string, query: string, options?: IOptions): string
+export function prepareQuery(query: string, options?: IOptions): Query

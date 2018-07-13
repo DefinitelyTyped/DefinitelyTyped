@@ -12,8 +12,8 @@ const candidates = [
     'Install'
 ]
 const objectCandidates = candidates.map(s => ({ foo: s }))
-const options: fz.IFuzzaldrinPlusOptions = { allowErrors: true }
-const filterOptions: fz.IFuzzaldrinPlusFilterOptions = {
+const options: fz.IOptions = { allowErrors: true }
+const filterOptions: fz.IFilterOptions = {
     allowErrors: true,
     key: 'foo'
 }
@@ -170,9 +170,7 @@ fz.wrap(items, 'me')
 fz.prepareQuery()
 
 // $ExpectError
-const incorrectOptions: fz.IFuzzaldrinPlusFilterOptions = {
-    allowErrors: 'not a boolean'
-}
+const incorrectOptions: fz.IFilterOptions = { allowErrors: 'not a boolean' }
 
 // $ExpectError
 fz.filter(candidates, 'install', { allowErrors: 'not a boolean' })
