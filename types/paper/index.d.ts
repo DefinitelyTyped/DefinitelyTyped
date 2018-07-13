@@ -1171,7 +1171,7 @@ declare module paper {
          * The reference to the active project's view.
          * Read Only.
          */
-        view: View;
+        readonly view: View;
 
         /**
          * The reference to the active tool.
@@ -1182,6 +1182,15 @@ declare module paper {
          * The list of available tools.
          */
         tools: Tool[];
+
+        /**
+         * Compiles the PaperScript code into a compiled function and executes it. The compiled function receives all properties of this PaperScope as arguments, to emulate a global scope with unaffected performance. It also installs global view and tool handlers automatically on the respective objects.
+         * @param code - the PaperScript code
+         * @param options [optional] - the compilation options
+         * @param options.url - the url of the source, for source-map debugging
+         * @param options.source - the source to be used for the source- mapping, in case the code that’s passed in has already been mingled.
+         */
+        execute(code: string, option?:{url?:string, source?:string }): void;
 
         /**
          * Injects the paper scope into any other given scope. Can be used for examle to inject the currently active PaperScope into the window's global scope, to emulate PaperScript-style globally accessible Paper classes and objects
@@ -1203,7 +1212,7 @@ declare module paper {
 
         /**
          * Retrieves a PaperScope object with the given scope id.
-         * @param id -
+         * @param id - scope id to retrieve
          */
         static get(id: string): PaperScope;
 
