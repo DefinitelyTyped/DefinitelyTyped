@@ -12,7 +12,7 @@
 //                 Tanguy Krotoff <https://github.com/tkrotoff>
 //                 Alexander T. <https://github.com/a-tarasyuk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //

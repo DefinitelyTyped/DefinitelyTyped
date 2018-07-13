@@ -2,7 +2,7 @@
 // Project: https://github.com/maslianok/react-resize-detector
 // Definitions by: Matthew James <https://github.com/matthew-matvei>, James Greenleaf <https://github.com/aMoniker>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from "react";
 

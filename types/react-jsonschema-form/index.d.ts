@@ -6,7 +6,7 @@
 //                 Kurt Preston <https://github.com/KurtPreston>
 //                 Philippe Bourdages <https://github.com/phbou72>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 declare module "react-jsonschema-form" {
     import * as React from "react";

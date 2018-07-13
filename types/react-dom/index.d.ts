@@ -6,7 +6,7 @@
 //                 MartynasZilinskas <https://github.com/MartynasZilinskas>
 //                 Josh Rutherford <https://github.com/theruther4d>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 export as namespace ReactDOM;
 
