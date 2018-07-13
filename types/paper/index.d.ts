@@ -1586,7 +1586,7 @@ declare module paper {
         intersects(item: Item): boolean;
 
         /**
-         * Perform a hit-test on the items contained within the project at the location of the specified point.
+         * Performs a hit-test on the item and its children (if it is a Group or Layer) at the location of the specified point, returning the first found hit.
          * The options object allows you to control the specifics of the hit-test and may contain a combination of the following values:
          * @param point - the point where the hit-test should be performed
          * @param options.tolerance -the tolerance of the hit-test in points. Can also be controlled through paperScope.settings.hitTolerance
@@ -1607,7 +1607,7 @@ declare module paper {
         hitTest(point: Point, options?: { tolerance?: number; class?: string; match?: () => boolean; fill?: boolean; stroke?: boolean; segments?: boolean; curves?: boolean; handles?: boolean; ends?: boolean; position?: boolean; center?: boolean; bounds?: boolean; guides?: boolean; selected?: boolean; }): HitResult;
 
         /**
-         * Perform a hit-test on the items contained within the project at the location of the specified point, returning all found hits.
+         * Performs a hit-test on the item and its children (if it is a Group or Layer) at the location of the specified point, returning all found hits.
          * The options object allows you to control the specifics of the hit-test and may contain a combination of the following values:
          * @param point - the point where the hit-test should be performed
          * @param options.tolerance -the tolerance of the hit-test in points. Can also be controlled through paperScope.settings.hitTolerance
@@ -3823,7 +3823,7 @@ declare module paper {
          * The reference to the project's view.
          * Read only.
          */
-        view: View;
+        readonly view: View;
 
         /**
          * The currently active path style. All selected items and newly created items will be styled with this style.
@@ -3834,23 +3834,30 @@ declare module paper {
          * The index of the project in the paperScope.projects list.
          * Read Only
          */
-        index: number;
+        readonly index: number;
 
         /**
          * The layers contained within the project.
+         * Read Only.
          */
-        layers: Layer[];
+        readonly layers: Layer[];
 
         /**
          * The layer which is currently active. New items will be created on this layer by default.
          * Read Only.
          */
-        activeLayer: Layer;
+        readonly activeLayer: Layer;
 
         /**
          * The symbols contained within the project.
          */
-        symbols: Symbol[];
+        readonly symbols: Symbol[];
+
+        /**
+         * The selected items contained within the project.
+         * Read only.
+         */
+        readonly selectedItems: Item[];
 
         /**
          * Activates this project, so all newly created items will be placed in it.
@@ -3893,28 +3900,56 @@ declare module paper {
         insertLayer(index: number, layer: Layer): Layer;
 
         /**
-         * Perform a hit-test on the items contained within the project at the location of the specified point.
+         * Perform a hit-test on the items and its children within the project at the location of the specified point.
          * The options object allows you to control the specifics of the hit-test and may contain a combination of the following values:
          * @param point - the point where the hit-test should be performed
          * @param options.tolerance -the tolerance of the hit-test in points. Can also be controlled through paperScope.settings.hitTolerance
          * @param options.class - only hit-test again a certain item class and its sub-classes: Group, Layer, Path, CompoundPath, Shape, Raster, PlacedSymbol, PointText, etc.
+         * @param options.match -a match function to be called for each found hit result: Return true to return the result, false to keep searching
          * @param options.fill - hit-test the fill of items.
          * @param options.stroke - hit-test the stroke of path items, taking into account the setting of stroke color and width.
          * @param options.segments - hit-test for segment.point of Path items.
          * @param options.curves - hit-test the curves of path items, without taking the stroke color or width into account.
          * @param options.handles - hit-test for the handles.  (segment.handleIn / segment.handleOut) of path segments.
          * @param options.ends - only hit-test for the first or last segment points of open path items.
-         * @param options.bounds - hit-test the corners and side-centers of the bounding rectangle of items (item.bounds).
+         * @param options.position - hit-test the item.position of of items, which depends on the setting of item.pivot.
          * @param options.center - hit-test the rectangle.center of the bounding rectangle of items (item.bounds).
+         * @param options.bounds - hit-test the corners and side-centers of the bounding rectangle of items (item.bounds).
          * @param options.guides - hit-test items that have Item#guide set to true.
          * @param options.selected - only hit selected items.
          */
-        hitTest(point: Point, options?: { tolerance?: number; class?: string; fill?: boolean; stroke?: boolean; segments?: boolean; curves?: boolean; handles?: boolean; ends?: boolean; bounds?: boolean; center?: boolean; guides?: boolean; selected?: boolean; }): HitResult;
+        hitTest(point: Point, options?: { tolerance?: number; class?: string; match?: () => boolean; fill?: boolean; stroke?: boolean; segments?: boolean; curves?: boolean; handles?: boolean; ends?: boolean; position?: boolean; center?: boolean; bounds?: boolean; guides?: boolean; selected?: boolean; }): HitResult;
+
+        /**
+         * Performs a hit-test on the item and its children (if it is a Group or Layer) at the location of the specified point, returning all found hits.
+         * The options object allows you to control the specifics of the hit-test and may contain a combination of the following values:
+         * @param point - the point where the hit-test should be performed
+         * @param options.tolerance -the tolerance of the hit-test in points. Can also be controlled through paperScope.settings.hitTolerance
+         * @param options.class - only hit-test again a certain item class and its sub-classes: Group, Layer, Path, CompoundPath, Shape, Raster, PlacedSymbol, PointText, etc.
+         * @param options.match -a match function to be called for each found hit result: Return true to return the result, false to keep searching
+         * @param options.fill - hit-test the fill of items.
+         * @param options.stroke - hit-test the stroke of path items, taking into account the setting of stroke color and width.
+         * @param options.segments - hit-test for segment.point of Path items.
+         * @param options.curves - hit-test the curves of path items, without taking the stroke color or width into account.
+         * @param options.handles - hit-test for the handles.  (segment.handleIn / segment.handleOut) of path segments.
+         * @param options.ends - only hit-test for the first or last segment points of open path items.
+         * @param options.position - hit-test the item.position of of items, which depends on the setting of item.pivot.
+         * @param options.center - hit-test the rectangle.center of the bounding rectangle of items (item.bounds).
+         * @param options.bounds - hit-test the corners and side-centers of the bounding rectangle of items (item.bounds).
+         * @param options.guides - hit-test items that have Item#guide set to true.
+         * @param options.selected - only hit selected items.
+         * */
+        hitTestAll(point: Point, options?: { tolerance?: number; class?: string; match?: () => boolean; fill?: boolean; stroke?: boolean; segments?: boolean; curves?: boolean; handles?: boolean; ends?: boolean; position?: boolean; center?: boolean; bounds?: boolean; guides?: boolean; selected?: boolean; }): HitResult[];
 
         /**
          * Fetch items contained within the project whose properties match the criteria in the specified object.
          * Extended matching is possible by providing a compare function or regular expression. Matching points, colors only work as a comparison of the full object, not partial matching (e.g. only providing the x- coordinate to match all points with that x-value). Partial matching does work for item.data.
          * Matching items against a rectangular area is also possible, by setting either match.inside or match.overlapping to a rectangle describing the area in which the items either have to be fully or partly contained.
+         * @param match.recursive - whether to loop recursively through all children, or stop at the current level — default: true
+         * @param match.match - a match function to be called for each item, allowing the definition of more flexible item checks that are not bound to properties. If no other match properties are defined, this function can also be passed instead of the options object
+         * @param match.class - the constructor function of the item type to match against
+         * @param match.inside - the rectangle in which the items need to be fully contained.
+         * @param match.overlapping - the rectangle with which the items need to at least partly overlap.
          */
         getItems(match: any): Item[];
 
@@ -3940,22 +3975,37 @@ declare module paper {
 
         /**
          * Exports the project with all its layers and child items as an SVG DOM, all contained in one top level SVG group node.
-         * @param options [optional] the export options, default: { asString: false, precision: 5, matchShapes: false }
+         * @param options [optional] the export options, default: { asString: false, precision: 5, matchShapes: false, bounds: 'view', matrix: paper.view.matrix, embedImages: true  }
          * @param options.asString - whether a SVG node or a String is to be returned.
          * @param options.precision - the amount of fractional digits in numbers used in SVG data.
          * @param options.matchShapes - whether path items should tried to be converted to shape items, if their geometries can be made to match
+         * @param options.bounds - the bounds of the area to export, either as a string (‘view’, content’), or a Rectangle object: 'view' uses the view bounds, 'content' uses the stroke bounds of all content.
+         * @param options.matrix - the matrix with which to transform the exported content: If options.bounds is set to 'view', paper.view.matrix is used, for all other settings of options.bounds the identity matrix is used.
+         * @param options.embedImages: whether raster images should be embedded as base64 data inlined in the xlink:href attribute, or kept as a link to their external URL.
          */
-        exportSVG(options?: { asString?: boolean; precision?: number; matchShapes?: boolean }): SVGElement;
+        exportSVG(options?: { asString?: boolean; precision?: number; matchShapes?: boolean; bounds?: string | Rectangle; matrix?: Matrix; embedImages?: boolean; }): SVGElement;
 
         /**
          * Converts the provided SVG content into Paper.js items and adds them to the active layer of this project.
          * Note that the project is not cleared first. You can call project.clear() to do so.
          * @param svg - the SVG content to import
-         * @param options [optional] - the import options, default: { expandShapes: false }
+         * @param options [optional] - the import options, default: { expandShapes: false, insert: true, applyMatrix: paperScope.settings.applyMatrix }
          * @param options.expandShapes - whether imported shape items should be expanded to path items.
+         * @param options.onLoad - the callback function to call once the SVG content is loaded from the given URL receiving two arguments: the converted item and the original svg data as a string. Only required when loading from external resources.
+         * @param options.onError - the callback function to call if an error occurs during loading. Only required when loading from external resources.
+         * @param options.insert: Boolean — whether the imported items should be added to the item that importSVG() is called on.
+         * @param options.applyMatrix  Boolean — whether the imported items should have their transformation matrices applied to their contents or not.
          */
-        importSVG(svg: SVGElement | string, options?: any): Item;
+        importSVG(svg: SVGElement | string, options?: { expandShapes?: boolean; onLoad?: (item: Item, svg: string) => void; onError?: (message: string, status: number) => void; insert?: true; applyMatrix?: Matrix; }): Item;
 
+         /**
+         * Converts the provided SVG content into Paper.js items and adds them to the active layer of this project.
+         * Note that the project is not cleared first. You can call project.clear() to do so.
+         * @param svg - the SVG content to import
+         * @param onLoad [optional] - the callback function to call once the SVG content is loaded from the given URL receiving two arguments: the converted item and the original svg data as a string. Only required when loading from external resources.
+         */
+        importSVG(svg: SVGElement | string, onLoad?: (item: Item, svg: string) => void): Item;
+        
     }
     /**
      * Symbols allow you to place multiple instances of an item in your project. This can save memory, since all instances of a symbol simply refer to the original item and it can speed up moving around complex objects, since internal properties such as segment lists and gradient positions don't need to be updated with every transformation.
