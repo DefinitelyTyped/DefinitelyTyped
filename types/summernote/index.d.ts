@@ -44,29 +44,15 @@ declare global {
 			width?: number;
 		}
 
-		type toolbarStyleGroupOptions = 'style' | 'bold' | 'italic' | 'underline' | 'clear';
-		type toolbarFontGroupOptions = 'strikethrough' | 'superscript' | 'subscript';
-		type toolbarFontsizeGroupOptions = 'fontsize';
-		type toolbarColorGroupOptions = 'color';
-		type toolbarParaGroupOptions = 'ul' | 'ol' | 'paragraph';
-		type toolbarHeightGroupOptions = 'height';
-		type toolbarTableGroupOptions = 'table';
-		type toolbarInsertGroupOptions = 'link' | 'picture' | 'hr';
-		type toolbarViewGroupOptions = 'fullscreen' | 'codeview';
-		type toolbarHelpGroupOptions = 'help';
-		// type toolbarDef = [string, string[]][]
-		type toolbarDef = [
-			['style', toolbarStyleGroupOptions[]]
-			| ['font', toolbarFontGroupOptions[]]
-			| ['fontsize', toolbarFontsizeGroupOptions[]]
-			| ['color', toolbarColorGroupOptions[]]
-			| ['para', toolbarParaGroupOptions[]]
-			| ['height', toolbarHeightGroupOptions[]]
-			| ['table', toolbarTableGroupOptions[]]
-			| ['insert', toolbarInsertGroupOptions[]]
-			| ['view', toolbarViewGroupOptions[]]
-			| ['help', toolbarHelpGroupOptions[]]
-		];
+		type toolbarGroupCustom = string;
+        type toolbarGroups = 'style' | 'font' | 'fontsize' | 'color' | 'para' | 'height' | 'table' | 'insert' | 'view' | 'help' | toolbarGroupCustom;
+        type toolbarGroupOptionCustom = string;
+        type toolbarGroupOptions = 'style' | 'bold' | 'italic' | 'underline' | 'clear'
+                                    | 'strikethrough' | 'superscript' | 'subscript'
+                                    | 'fontsize' | 'color' | 'ul' | 'ol' | 'paragraph'
+                                    | 'height' | 'table' | 'link' | 'picture' | 'hr'
+                                    | 'fullscreen' | 'codeview' | 'undo' | 'redo' | 'help' | toolbarGroupOptionCustom ;
+        type toolbarDef = [toolbarGroups, Array<toolbarGroupOptions>][];
 
 		type colorsDef = Array<[string[]]>;
 		type styleTagsOptions = 'p' | 'blockquote' | 'pre' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
