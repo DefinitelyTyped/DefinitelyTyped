@@ -1086,3 +1086,44 @@ namespace TestMoreGeneralDecorationProps {
 
   connect(mapStateToProps, mapDispatchToProps)(Component)
 }
+
+namespace TestFailsMoreSpecificInjectedProps {
+  interface MoreSpecificDecorationProps {
+    foo: string,
+    bar: number,
+    dependsOnDispatch: () => void,
+  }
+
+  class Component extends React.Component<MoreSpecificDecorationProps> {
+      render () {
+          return <div />;
+      }
+  }
+
+  type MapStateProps = {
+    foo: string | number,
+    bar: number | 'foo',
+    dependsOnDispatch?: () => void,
+  }
+
+  type MapDispatchProps = {
+    dependsOnDispatch?: () => void
+  }
+
+  function mapStateToProps (state: any): MapStateProps {
+    return {
+        foo: 'foo',
+        bar: 42,
+    };
+  }
+
+  function mapDispatchToProps (dispatch: any): MapDispatchProps {
+    return {
+      dependsOnDispatch: () => {}
+    };
+  }
+
+  // Since it is possible the injected props could fail to satisfy the decoration props,
+  // the following line should fail to compile.
+  connect(mapStateToProps, mapDispatchToProps)(Component) // $ExpectError
+}
