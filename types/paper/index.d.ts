@@ -4537,24 +4537,29 @@ declare module paper {
     export class View {
 
         /**
+         * Controls whether the view is automatically updated in the next animation frame on changes, or whether you prefer to manually call update() or requestUpdate() after changes. Note that this is true by default, except for Node.js, where manual updates make more sense.
+         */
+        autoUpdate: boolean;
+
+        /**
          * The underlying native element.
          * Read Only.
          */
-        element: HTMLCanvasElement;
+        readonly element: HTMLCanvasElement;
 
         /**
          * The ratio between physical pixels and device-independent pixels (DIPs) of the underlying canvas / device.
          * It is 1 for normal displays, and 2 or more for high-resolution displays.
          * Read only.
          */
-        pixelRatio: number;
+        readonly pixelRatio: number;
 
         /**
          * The resoltuion of the underlying canvas / device in pixel per inch (DPI).
          * It is 72 for normal displays, and 144 for high-resolution displays with a pixel-ratio of 2.
          * Read only.
          */
-        resolution: number;
+        readonly resolution: number;
 
         /**
          * The size of the view. Changing the view's size will resize it's underlying element.
@@ -4571,7 +4576,7 @@ declare module paper {
          * The size of the visible area in project coordinates.
          * Read only.
          */
-        size: Size;
+        readonly size: Size;
 
         /**
          * The center of the visible area in project coordinates.
@@ -4582,6 +4587,21 @@ declare module paper {
          * The zoom factor by which the project coordinates are magnified.
          */
         zoom: number;
+
+        /**
+         * The current rotation angle of the view, as described by its matrix.
+         */
+        rotation: number;
+
+        /**
+         * The current scale factor of the view, as described by its matrix.
+         */
+        scaling: number;
+
+        /**
+         * The view’s transformation matrix, defining the view onto the project’s contents (position, zoom level, rotation, etc).
+         */
+        matrix: Matrix;
 
         /**
          * Handler function to be called on each frame of an animation.
@@ -4647,6 +4667,11 @@ declare module paper {
         isVisible(): boolean;
 
         /**
+         * Checks whether the view is inserted into the browser DOM.
+         */
+        isInserted(): boolean;
+
+        /**
          * Scrolls the view by the given vector.
          * @param point - the vector to scroll by
          */
@@ -4668,23 +4693,92 @@ declare module paper {
         update(): void;
 
         /**
-         *
-         * @param point -
+         * Requests an update of the view if there are changes through the browser’s requestAnimationFrame() mechanism for smooth animation. Note that when using built-in event handlers for interaction, animation and load events, updates are automatically invoked for you automatically at the end.
+         */
+        requestUpdate(): void;
+
+        /**
+         * Translates (scrolls) the view by the given offset vector.
+         * @param delta - the offset to translate the view by
+         */
+        translate(delta: Point): void;
+
+        /**
+         * Rotates the view by a given angle around the given center point.
+         * Angles are oriented clockwise and measured in degrees.
+         * @param angle - the rotation angle
+         * @param center [optional] - default: view.center
+         */
+        rotate(angle:number, center?: Point): void;
+
+        /**
+         * Scales the view by the given value from its center point, or optionally from a supplied point.
+         * @param scale -  the scale factor
+         * @param center [optional] - default: view.center
+         */
+        scale(scale: number, center?: Point): void;
+
+        /**
+         * Scales the view by the given values from its center point, or optionally from a supplied point.
+         * @param hor - the horizontal scale factor
+         * @param ver - the vertical scale factor
+         * @param center [optional] - default: view.center
+         */
+        scale(hor: number, ver: number, center?: Point): void;
+
+        /**
+         * Shears the view by the given value from its center point, or optionally from a supplied point.
+         * @param shear -  the shear factor
+         * @param center [optional] - default: view.center
+         */
+        shear(shear: Point, center?: Point): void;
+
+        /**
+         * Shears the view by the given values from its center point, or optionally from a supplied point.
+         * @param hor - the horizontal shear factor
+         * @param ver - the vertical shear factor
+         * @param center [optional] - default: view.center
+         */
+        shear(hor: number, ver: number, center?: Point): void;
+
+        /**
+         * Skews the view by the given value from its center point, or optionally from a supplied point.
+         * @param skew -  the horziontal and vertical skew angles in degrees
+         * @param center [optional] - default: view.center
+         */
+        skew(skew: Point, center?: Point): void;
+
+        /**
+         * Skews the view by the given values from its center point, or optionally from a supplied point.
+         * @param hor - the horizontal skew angle in degrees
+         * @param ver - the vertical skew angle in degrees
+         * @param center [optional] - default: view.center
+         */
+        skew(hor: number, ver: number, center?: Point): void;
+
+        /**
+         * Converts the passed point from project coordinate space to view coordinate space, which is measured in browser pixels in relation to the position of the view element.
+         * @param point - the point in project coordinates to be converted
          */
         projectToView(point: Point): Point;
 
         /**
-         *
-         * @param point -
+         * Converts the passed point from view coordinate space to project coordinate space.
+         * @param point - the point in view coordinates to be converted
          */
         viewToProject(point: Point): Point;
 
+        /**
+         * Determines and returns the event location in project coordinate space.
+         * @param event - the native event object for which to determine the location.
+         */
+        getEventPoint(event: Event): Point;
         //I cannot use function: Function as it is a reserved keyword
 
         /**
          * Attach an event handler to the view.
-         * @param type - String('frame'|'resize') the event type
-         * @param function - The function to be called when the event occurs
+         * @param type - the event type: ‘frame’, ‘resize’, ‘mousedown’, ‘mouseup’, ‘mousedrag’, ‘click’, ‘doubleclick’, ‘mousemove’, ‘mouseenter’, ‘mouseleave’
+         * @param callback - The function to be called when the event occurs
          */
         on(type: string, callback: (event: Event) => void): Item;
 
@@ -4695,8 +4789,8 @@ declare module paper {
 
         /**
          * Detach an event handler from the view.
-         * @param type - String('frame'|'resize') the event type
-         * @param function - The function to be detached
+         * @param type - the event type: ‘frame’, ‘resize’, ‘mousedown’, ‘mouseup’, ‘mousedrag’, ‘click’, ‘doubleclick’, ‘mousemove’, ‘mouseenter’, ‘mouseleave’
+         * @param callback - The function to be detached
          */
         off(type: string, callback: (event: Event) => void): Item;
 
@@ -4708,14 +4802,14 @@ declare module paper {
 
         /**
          * Emit an event on the view.
-         * @param type - String('frame'|'resize') the event type
+         * @param type - the event type: ‘frame’, ‘resize’, ‘mousedown’, ‘mouseup’, ‘mousedrag’, ‘click’, ‘doubleclick’, ‘mousemove’, ‘mouseenter’, ‘mouseleave’
          * @param event - an object literal containing properties describing the event.
          */
         emit(type: string, event: any): boolean;
 
         /**
          * Check if the view has one or more event handlers of the specified type.
-         * @param type - String('frame'|'resize') the event type
+         * @param type - the event type: ‘frame’, ‘resize’, ‘mousedown’, ‘mouseup’, ‘mousedrag’, ‘click’, ‘doubleclick’, ‘mousemove’, ‘mouseenter’, ‘mouseleave’
          */
         responds(type: string): boolean;
 
