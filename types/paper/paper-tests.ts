@@ -57,5 +57,19 @@ compoundPath.hitTestAll(dottedLinePath.segments[0].point, hitOptionsFull);
 compoundPath.hitTestAll(dottedLinePath.segments[0].point, hitOptionsInterfaceEmpty);
 compoundPath.hitTestAll(dottedLinePath.segments[0].point, hitOptionsInterfacePartial);
 compoundPath.hitTestAll(dottedLinePath.segments[0].point, hitOptionsInterfaceFull);
+paper.project.hitTest(dottedLinePath.segments[0].point);
+paper.project.hitTest(dottedLinePath.segments[0].point, hitOptionsEmpty);
+paper.project.hitTest(dottedLinePath.segments[0].point, hitOptionsPartial);
+paper.project.hitTest(dottedLinePath.segments[0].point, hitOptionsFull);
+paper.project.hitTest(dottedLinePath.segments[0].point, hitOptionsInterfaceEmpty);
+paper.project.hitTest(dottedLinePath.segments[0].point, hitOptionsInterfacePartial);
+paper.project.hitTest(dottedLinePath.segments[0].point, hitOptionsInterfaceFull);
+paper.project.hitTestAll(dottedLinePath.segments[0].point);
+paper.project.hitTestAll(dottedLinePath.segments[0].point, hitOptionsEmpty);
+paper.project.hitTestAll(dottedLinePath.segments[0].point, hitOptionsPartial);
+paper.project.hitTestAll(dottedLinePath.segments[0].point, hitOptionsFull);
+paper.project.hitTestAll(dottedLinePath.segments[0].point, hitOptionsInterfaceEmpty);
+paper.project.hitTestAll(dottedLinePath.segments[0].point, hitOptionsInterfacePartial);
+paper.project.hitTestAll(dottedLinePath.segments[0].point, hitOptionsInterfaceFull);
 
 
