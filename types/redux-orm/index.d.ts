@@ -92,7 +92,8 @@ export class Model<Fields, Additional = {}, VirtualFields = {}> {
   static create<Fields>(props: Fields): ModelWithFields<Fields, any, any>;
   static upsert<Fields>(props: Partial<Fields>): ModelWithFields<Fields, any, any>;
   static withId(id: string): ModelWithFields<any, any, any>;
-  static hasId(id: string): boolean;
+  static idExists(id: string): boolean;
+  static hasId(id: string): boolean; // Deprecated!
   static _findDatabaseRows(lookupObj: object): any; // TODO
   static get(lookupObj: object): ModelWithFields<any, any, any>;
   static reducer(session: SessionWithModels<ORMCommonState>, action: any): any;
