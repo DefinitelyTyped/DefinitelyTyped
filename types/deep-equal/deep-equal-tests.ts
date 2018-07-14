@@ -1,4 +1,4 @@
-import deepEqual = require("deep-equal");
+import deepEqual from "deep-equal";
 
 const isDeepEqual1: boolean = deepEqual({}, {});
 const isDeepEqual2: boolean = deepEqual({}, {}, { strict: true });
