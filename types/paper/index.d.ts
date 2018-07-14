@@ -1494,45 +1494,53 @@ declare module paper {
 
         /**
          * The function to be called when the mouse button is pushed down on the item. The function receives a MouseEvent object which contains information about the mouse event.
+         * Note that such mouse events bubble up the scene graph hierarchy and will reach the view, unless they are stopped with event.stopPropagation() or by returning false from the handler.
          */
-        onMouseDown: (event: MouseEvent) => void;
+        onMouseDown: (event: MouseEvent) => void | boolean;
 
         /**
          * The function to be called when the mouse position changes while the mouse is being dragged. The function receives a MouseEvent object which contains information about the mouse event.
+         * Note that such mouse events bubble up the scene graph hierarchy and will reach the view, unless they are stopped with event.stopPropagation() or by returning false from the handler.
          */
-        onMouseDrag: (event: MouseEvent) => void;
+        onMouseDrag: (event: MouseEvent) => void | boolean;
 
         /**
          * The function to be called when the mouse button is released over the item.
          * The function receives a MouseEvent object which contains information about the mouse event.
+         * Note that such mouse events bubble up the scene graph hierarchy and will reach the view, unless they are stopped with event.stopPropagation() or by returning false from the handler.
          */
-        onMouseUp: (event: MouseEvent) => void;
+        onMouseUp: (event: MouseEvent) => void | boolean;
 
         /**
          * The function to be called when the mouse clicks on the item. The function receives a MouseEvent object which contains information about the mouse event.
+         * Note that such mouse events bubble up the scene graph hierarchy and will reach the view, unless they are stopped with event.stopPropagation() or by returning false from the handler.
          */
-        onClick: (event: MouseEvent) => void;
+        onClick: (event: MouseEvent) => void | boolean;
 
         /**
-         * The function to be called when the mouse double clicks on the item. The function receives a MouseEvent object which contains information about the mouse event.
+         * The function to be called when the mouse double clicks on the item. The function receives a MouseEvent object which contains information about the mouse event.         * 
+         * Note that such mouse events bubble up the scene graph hierarchy and will reach the view, unless they are stopped with event.stopPropagation() or by returning false from the handler.
          */
-        onDoubleClick: (event: MouseEvent) => void;
+        onDoubleClick: (event: MouseEvent) => void | boolean;
 
         /**
          * The function to be called repeatedly when the mouse moves on top of the item. The function receives a MouseEvent object which contains information about the mouse event.
+         * Note that such mouse events bubble up the scene graph hierarchy and will reach the view, unless they are stopped with event.stopPropagation() or by returning false from the handler.
          */
-        onMouseMove: (event: MouseEvent) => void;
+        onMouseMove: (event: MouseEvent) => void | boolean;
 
         /**
          * The function to be called when the mouse moves over the item. This function will only be called again, once the mouse moved outside of the item first. The function receives a MouseEvent object which contains information about the mouse event.
+         * Note that such mouse events bubble up the scene graph hierarchy and will reach the view, unless they are stopped with event.stopPropagation() or by returning false from the handler.
          */
-        onMouseEnter: (event: MouseEvent) => void;
+        onMouseEnter: (event: MouseEvent) => void | boolean;
 
         /**
          * The function to be called when the mouse moves out of the item.
          * The function receives a MouseEvent object which contains information about the mouse event.
+         * Note that such mouse events bubble up the scene graph hierarchy and will reach the view, unless they are stopped with event.stopPropagation() or by returning false from the handler.
          */
-        onMouseLeave: (event: MouseEvent) => void;
+        onMouseLeave: (event: MouseEvent) => void | boolean;
 
         /**
          * Sets those properties of the passed object literal on this item to the values defined in the object literal, if the item has property of the given name (or a setter defined for it).
@@ -1604,7 +1612,7 @@ declare module paper {
          * @param options.guides - hit-test items that have Item#guide set to true.
          * @param options.selected - only hit selected items.
          */
-        hitTest(point: Point, options?: { tolerance?: number; class?: string; match?: () => boolean; fill?: boolean; stroke?: boolean; segments?: boolean; curves?: boolean; handles?: boolean; ends?: boolean; position?: boolean; center?: boolean; bounds?: boolean; guides?: boolean; selected?: boolean; }): HitResult;
+        hitTest(point: Point, options?: { tolerance?: number; class?: string; match?: (hit: HitResult) => boolean; fill?: boolean; stroke?: boolean; segments?: boolean; curves?: boolean; handles?: boolean; ends?: boolean; position?: boolean; center?: boolean; bounds?: boolean; guides?: boolean; selected?: boolean; }): HitResult;
 
         /**
          * Performs a hit-test on the item and its children (if it is a Group or Layer) at the location of the specified point, returning all found hits.
@@ -1625,7 +1633,7 @@ declare module paper {
          * @param options.guides - hit-test items that have Item#guide set to true.
          * @param options.selected - only hit selected items.
          * */
-        hitTestAll(point: Point, options?: { tolerance?: number; class?: string; match?: () => boolean; fill?: boolean; stroke?: boolean; segments?: boolean; curves?: boolean; handles?: boolean; ends?: boolean; position?: boolean; center?: boolean; bounds?: boolean; guides?: boolean; selected?: boolean; }): HitResult[];
+        hitTestAll(point: Point, options?: { tolerance?: number; class?: string; match?: (hit: HitResult) => boolean; fill?: boolean; stroke?: boolean; segments?: boolean; curves?: boolean; handles?: boolean; ends?: boolean; position?: boolean; center?: boolean; bounds?: boolean; guides?: boolean; selected?: boolean; }): HitResult[];
 
         /**
          * Checks whether the item matches the criteria described by the given object, by iterating over all of its properties and matching against their values through matches(name, compare).
@@ -1994,26 +2002,26 @@ declare module paper {
          * @param type - the type of event: ‘frame’, mousedown’, ‘mouseup’, ‘mousedrag’, ‘click’, ‘doubleclick’, ‘mousemove’, ‘mouseenter’, ‘mouseleave’
          * @param callback - The function to be called when the event occurs
          */
-        on(type: string, callback: (event: MouseEvent | IFrameEvent) => void): Item;
+        on(type: string, callback: (event: MouseEvent | IFrameEvent) => void | boolean): Item;
 
         /**
          * Attach one or more event handlers to the item.
          * @param object - an object containing one or more of the following properties: frame, mousedown, mouseup, mousedrag, click, doubleclick, mousemove, mouseenter, mouseleave
          */
-        on(object: { frame?: (event: IFrameEvent) => void; mousedown?: (event: MouseEvent) => void; mouseup?: (event: MouseEvent) => void; mousedrag?: (event: MouseEvent) => void; click?: (event: MouseEvent) => void; doubleclick?: (event: MouseEvent) => void; mousemove?: (event: MouseEvent) => void; mouseenter?: (event: MouseEvent) => void; mouseleave?: (event: MouseEvent) => void; }): Item;
+        on(object: { frame?: (event: IFrameEvent) => void; mousedown?: (event: MouseEvent) => void | boolean; mouseup?: (event: MouseEvent) => void | boolean; mousedrag?: (event: MouseEvent) => void | boolean; click?: (event: MouseEvent) => void | boolean; doubleclick?: (event: MouseEvent) => void | boolean; mousemove?: (event: MouseEvent) => void | boolean; mouseenter?: (event: MouseEvent) => void | boolean; mouseleave?: (event: MouseEvent) => void | boolean; }): Item;
 
         /**
          * Detach an event handler from the item.
          * @param type - the type of event: ‘frame’, mousedown’, ‘mouseup’, ‘mousedrag’, ‘click’, ‘doubleclick’, ‘mousemove’, ‘mouseenter’, ‘mouseleave’
          * @param function - The function to be detached
          */
-        off(type: string, callback: (event: MouseEvent | IFrameEvent) => void): Item;
+        off(type: string, callback: (event: MouseEvent | IFrameEvent) => void | boolean): Item;
 
         /**
          * Detach one or more event handlers from the tool.
          * @param object - an object containing one or more of the following properties: frame, mousedown, mouseup, mousedrag, click, doubleclick, mousemove, mouseenter, mouseleave
          */
-        off(object: { frame?: (event: IFrameEvent) => void; mousedown?: (event: MouseEvent) => void; mouseup?: (event: MouseEvent) => void; mousedrag?: (event: MouseEvent) => void; click?: (event: MouseEvent) => void; doubleclick?: (event: MouseEvent) => void; mousemove?: (event: MouseEvent) => void; mouseenter?: (event: MouseEvent) => void; mouseleave?: (event: MouseEvent) => void; }): Item;
+        off(object: { frame?: (event: IFrameEvent) => void; mousedown?: (event: MouseEvent) => void | boolean; mouseup?: (event: MouseEvent) => void | boolean; mousedrag?: (event: MouseEvent) => void | boolean; click?: (event: MouseEvent) => void | boolean; doubleclick?: (event: MouseEvent) => void | boolean; mousemove?: (event: MouseEvent) => void | boolean; mouseenter?: (event: MouseEvent) => void | boolean; mouseleave?: (event: MouseEvent) => void | boolean; }): Item;
 
         /**
          * Emit an event on the tool.
@@ -2033,7 +2041,7 @@ declare module paper {
          * @param type - String('mousedown'|'mouseup'|'mousedrag'|'mousemove'|'keydown'|'keyup') the event type
          * @param function - The function to be called when the event occurs
          */
-        on(type: string, callback: () => void): Item;
+        on(type: string, callback: (event: Event | MouseEvent) => void | boolean): Item;
 
         /**
          * Attaches one or more event handlers to the item.
@@ -2046,7 +2054,7 @@ declare module paper {
          * @param type - the type of event: ‘frame’, mousedown’, ‘mouseup’, ‘mousedrag’, ‘click’, ‘doubleclick’, ‘mousemove’, ‘mouseenter’, ‘mouseleave’
          * @param function - The function to be detached
          */
-        off(type: string, callback: (event: ToolEvent) => void): Item;
+        off(type: string, callback: (event: Event | MouseEvent) => void | boolean): Item;
 
         /**
          * Detach one or more event handlers to the item.
@@ -2449,7 +2457,7 @@ declare module paper {
          * Creates a path item from the given segments array, determining if the array describes a plain path or a compound-path with multiple sub-paths.
          * @param segments - the segments array to parse
          */
-        static create(segments: number[] | object[]): Path | CompoundPath;
+        static create(segments: number[] | any[]): Path | CompoundPath;
 
         /**
          * Creates a path item from the given object, determining if the contained information describes a plain path or a compound-path with multiple sub-paths.
@@ -3918,7 +3926,7 @@ declare module paper {
          * @param options.guides - hit-test items that have Item#guide set to true.
          * @param options.selected - only hit selected items.
          */
-        hitTest(point: Point, options?: { tolerance?: number; class?: string; match?: () => boolean; fill?: boolean; stroke?: boolean; segments?: boolean; curves?: boolean; handles?: boolean; ends?: boolean; position?: boolean; center?: boolean; bounds?: boolean; guides?: boolean; selected?: boolean; }): HitResult;
+        hitTest(point: Point, options?: { tolerance?: number; class?: string; match?: (hit: HitResult) => boolean; fill?: boolean; stroke?: boolean; segments?: boolean; curves?: boolean; handles?: boolean; ends?: boolean; position?: boolean; center?: boolean; bounds?: boolean; guides?: boolean; selected?: boolean; }): HitResult;
 
         /**
          * Performs a hit-test on the item and its children (if it is a Group or Layer) at the location of the specified point, returning all found hits.
@@ -3939,7 +3947,7 @@ declare module paper {
          * @param options.guides - hit-test items that have Item#guide set to true.
          * @param options.selected - only hit selected items.
          * */
-        hitTestAll(point: Point, options?: { tolerance?: number; class?: string; match?: () => boolean; fill?: boolean; stroke?: boolean; segments?: boolean; curves?: boolean; handles?: boolean; ends?: boolean; position?: boolean; center?: boolean; bounds?: boolean; guides?: boolean; selected?: boolean; }): HitResult[];
+        hitTestAll(point: Point, options?: { tolerance?: number; class?: string; match?: (hit: HitResult) => boolean; fill?: boolean; stroke?: boolean; segments?: boolean; curves?: boolean; handles?: boolean; ends?: boolean; position?: boolean; center?: boolean; bounds?: boolean; guides?: boolean; selected?: boolean; }): HitResult[];
 
         /**
          * Fetch items contained within the project whose properties match the criteria in the specified object.
@@ -4616,45 +4624,53 @@ declare module paper {
 
         /**
          * The function to be called when the mouse button is pushed down on the item. The function receives a MouseEvent object which contains information about the mouse event.
+         * Note that such mouse events bubble up the scene graph hierarchy and will reach the view, unless they are stopped with event.stopPropagation() or by returning false from the handler.
          */
-        onMouseDown: (event: MouseEvent) => void;
+        onMouseDown: (event: MouseEvent) => void | boolean;
 
         /**
          * The function to be called when the mouse position changes while the mouse is being dragged. The function receives a MouseEvent object which contains information about the mouse event.
+         * Note that such mouse events bubble up the scene graph hierarchy and will reach the view, unless they are stopped with event.stopPropagation() or by returning false from the handler.
          */
-        onMouseDrag: (event: MouseEvent) => void;
+        onMouseDrag: (event: MouseEvent) => void | boolean;
 
         /**
          * The function to be called when the mouse button is released over the item.
          * The function receives a MouseEvent object which contains information about the mouse event.
+         * Note that such mouse events bubble up the scene graph hierarchy and will reach the view, unless they are stopped with event.stopPropagation() or by returning false from the handler.
          */
-        onMouseUp: (event: MouseEvent) => void;
+        onMouseUp: (event: MouseEvent) => void | boolean;
 
         /**
          * The function to be called when the mouse clicks on the item. The function receives a MouseEvent object which contains information about the mouse event.
+         * Note that such mouse events bubble up the scene graph hierarchy and will reach the view, unless they are stopped with event.stopPropagation() or by returning false from the handler.
          */
-        onClick: (event: MouseEvent) => void;
+        onClick: (event: MouseEvent) => void | boolean;
 
         /**
          * The function to be called when the mouse double clicks on the item. The function receives a MouseEvent object which contains information about the mouse event.
+         * Note that such mouse events bubble up the scene graph hierarchy and will reach the view, unless they are stopped with event.stopPropagation() or by returning false from the handler.
          */
-        onDoubleClick: (event: MouseEvent) => void;
+        onDoubleClick: (event: MouseEvent) => void | boolean;
 
         /**
          * The function to be called repeatedly when the mouse moves on top of the item. The function receives a MouseEvent object which contains information about the mouse event.
+         * Note that such mouse events bubble up the scene graph hierarchy and will reach the view, unless they are stopped with event.stopPropagation() or by returning false from the handler.
          */
-        onMouseMove: (event: MouseEvent) => void;
+        onMouseMove: (event: MouseEvent) => void | boolean;
 
         /**
          * The function to be called when the mouse moves over the item. This function will only be called again, once the mouse moved outside of the item first. The function receives a MouseEvent object which contains information about the mouse event.
+         * Note that such mouse events bubble up the scene graph hierarchy and will reach the view, unless they are stopped with event.stopPropagation() or by returning false from the handler.
          */
-        onMouseEnter: (event: MouseEvent) => void;
+        onMouseEnter: (event: MouseEvent) => void | boolean;
 
         /**
          * The function to be called when the mouse moves out of the item.
          * The function receives a MouseEvent object which contains information about the mouse event.
+         * Note that such mouse events bubble up the scene graph hierarchy and will reach the view, unless they are stopped with event.stopPropagation() or by returning false from the handler.
          */
-        onMouseLeave: (event: MouseEvent) => void;
+        onMouseLeave: (event: MouseEvent) => void | boolean;
 
         /**
          * Removes this view from the project and frees the associated element.
@@ -4773,14 +4789,13 @@ declare module paper {
          * @param event - the native event object for which to determine the location.
          */
         getEventPoint(event: Event): Point;
-        //I cannot use function: Function as it is a reserved keyword
 
         /**
          * Attach an event handler to the view.
          * @param type - the event type: ‘frame’, ‘resize’, ‘mousedown’, ‘mouseup’, ‘mousedrag’, ‘click’, ‘doubleclick’, ‘mousemove’, ‘mouseenter’, ‘mouseleave’
          * @param callback - The function to be called when the event occurs
          */
-        on(type: string, callback: (event: Event) => void): Item;
+        on(type: string, callback: (event: Event) => void | boolean): Item;
 
         /**
          * Attach one or more event handlers to the view.
@@ -4792,7 +4807,7 @@ declare module paper {
          * @param type - the event type: ‘frame’, ‘resize’, ‘mousedown’, ‘mouseup’, ‘mousedrag’, ‘click’, ‘doubleclick’, ‘mousemove’, ‘mouseenter’, ‘mouseleave’
          * @param callback - The function to be detached
          */
-        off(type: string, callback: (event: Event) => void): Item;
+        off(type: string, callback: (event: Event) => void | boolean): Item;
 
         /**
          * Detach one or more event handlers from the view.
@@ -4843,22 +4858,22 @@ declare module paper {
         /**
          * The function to be called when the mouse button is pushed down. The function receives a ToolEvent object which contains information about the mouse event.
          */
-        onMouseDown: (event: ToolEvent) => void;
+        onMouseDown: (event: ToolEvent) => void | boolean;
 
         /**
          * The function to be called when the mouse position changes while the mouse is being dragged. The function receives a ToolEvent object which contains information about the mouse event.
          */
-        onMouseDrag: (event: ToolEvent) => void;
+        onMouseDrag: (event: ToolEvent) => void | boolean;
 
         /**
          * The function to be called the mouse moves within the project view. The function receives a ToolEvent object which contains information about the mouse event.
          */
-        onMouseMove: (event: ToolEvent) => void;
+        onMouseMove: (event: ToolEvent) => void | boolean;
 
         /**
          * The function to be called when the mouse button is released. The function receives a ToolEvent object which contains information about the mouse event.
          */
-        onMouseUp: (event: ToolEvent) => void;
+        onMouseUp: (event: ToolEvent) => void | boolean;
 
         /**
          * The function to be called when the user presses a key on the keyboard.
@@ -4883,8 +4898,6 @@ declare module paper {
          * Removes this tool from the paperScope.tools list.
          */
         remove(): void;
-
-        //I cannot use function: Function as it is a reserved keyword
 
         /**
          * Attach an event handler to the tool.
@@ -4949,9 +4962,6 @@ declare module paper {
          * Prevents further propagation of the current event.
          */
         stopPropagation(): void;
-
-        // NOTE: I'm not sure if this note within the stop means that all callback prototypes should be updated to include the possibility of returning a boolean.
-        //   The code was a bit difficult to parse to be sure and I didn't see any examples of this working so I'm leaving them alone for now.
 
         /**
          * Cancels the event if it is cancelable, and stops stopping further propagation of the event. This is has the same effect as calling both stopPropagation() and preventDefault().
