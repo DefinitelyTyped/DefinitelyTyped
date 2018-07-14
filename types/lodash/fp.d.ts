@@ -300,7 +300,12 @@ declare namespace _ {
     }
     type LodashCloneWith2x1<T, TResult> = (value: T) => TResult | T;
     type LodashCompact = <T>(array: lodash.List<T | null | undefined | false | "" | 0> | null | undefined) => T[];
-    type LodashNegate = <T extends (...args: any[]) => any>(predicate: T) => T;
+    interface LodashNegate {
+        (predicate: () => boolean): () => boolean;
+        <A1>(predicate: (a1: A1) => boolean): (a1: A1) => boolean;
+        <A1, A2>(predicate: (a1: A1, a2: A2) => boolean): (a1: A1, a2: A2) => boolean;
+        (predicate: (...args: any[]) => any): (...args: any[]) => boolean;
+    }
     interface LodashFlowRight {
         <R2, R1>(f2: (a: R1) => R2, f1: () => R1): () => R2;
         <R3, R2, R1>(f3: (a: R2) => R3, f2: (a: R1) => R2, f1: () => R1): () => R3;
@@ -2289,11 +2294,21 @@ declare namespace _ {
     }
     interface LodashOmitBy {
         <T>(predicate: lodash.ValueKeyIteratee<T>): LodashOmitBy1x1<T>;
-        <T extends object>(predicate: lodash.__, object: T | null | undefined): LodashOmitBy1x2<T>;
+        <T>(predicate: lodash.__, object: lodash.Dictionary<T> | null | undefined): LodashOmitBy1x2<T>;
+        <T>(predicate: lodash.ValueKeyIteratee<T>, object: lodash.Dictionary<T> | null | undefined): lodash.Dictionary<T>;
+        <T>(predicate: lodash.__, object: lodash.NumericDictionary<T> | null | undefined): LodashOmitBy2x2<T>;
+        <T>(predicate: lodash.ValueKeyIteratee<T>, object: lodash.NumericDictionary<T> | null | undefined): lodash.NumericDictionary<T>;
+        <T extends object>(predicate: lodash.__, object: T | null | undefined): LodashOmitBy3x2<T>;
         <T extends object>(predicate: lodash.ValueKeyIteratee<T[keyof T]>, object: T | null | undefined): lodash.PartialObject<T>;
     }
-    type LodashOmitBy1x1<T> = <T1 extends object>(object: T1 | null | undefined) => lodash.PartialObject<T1>;
-    type LodashOmitBy1x2<T> = (predicate: lodash.ValueKeyIteratee<T[keyof T]>) => lodash.PartialObject<T>;
+    interface LodashOmitBy1x1<T> {
+        (object: lodash.Dictionary<T> | null | undefined): lodash.Dictionary<T>;
+        (object: lodash.NumericDictionary<T> | null | undefined): lodash.NumericDictionary<T>;
+        <T1 extends object>(object: T1 | null | undefined): lodash.PartialObject<T1>;
+    }
+    type LodashOmitBy1x2<T> = (predicate: lodash.ValueKeyIteratee<T>) => lodash.Dictionary<T>;
+    type LodashOmitBy2x2<T> = (predicate: lodash.ValueKeyIteratee<T>) => lodash.NumericDictionary<T>;
+    type LodashOmitBy3x2<T> = (predicate: lodash.ValueKeyIteratee<T[keyof T]>) => lodash.PartialObject<T>;
     type LodashOnce = <T extends (...args: any[]) => any>(func: T) => T;
     interface LodashOrderBy {
         <T>(iteratees: lodash.Many<(value: T) => lodash.NotVoid>): LodashOrderBy1x1<T>;
@@ -2872,12 +2887,28 @@ declare namespace _ {
     type LodashPick2x1 = <T>(object: T | null | undefined) => lodash.PartialDeep<T>;
     type LodashPick2x2<T> = (props: lodash.PropertyPath) => lodash.PartialDeep<T>;
     interface LodashPickBy {
-        <T>(predicate: lodash.ValueKeyIteratee<T>): LodashPickBy1x1<T>;
+        <T extends object, S extends T[keyof T]>(predicate: lodash.ValueIteratorTypeGuard<T[keyof T], S>): LodashPickBy1x1<T, S>;
         <T extends object>(predicate: lodash.__, object: T | null | undefined): LodashPickBy1x2<T>;
+        <T extends object, S extends T[keyof T]>(predicate: lodash.ValueIteratorTypeGuard<T[keyof T], S>, object: T | null | undefined): lodash.Dictionary<S>;
+        <T>(predicate: lodash.ValueKeyIteratee<T>): LodashPickBy2x1<T>;
+        <T>(predicate: lodash.__, object: lodash.Dictionary<T> | null | undefined): LodashPickBy2x2<T>;
+        <T>(predicate: lodash.ValueKeyIteratee<T>, object: lodash.Dictionary<T> | null | undefined): lodash.Dictionary<T>;
+        <T>(predicate: lodash.__, object: lodash.NumericDictionary<T> | null | undefined): LodashPickBy3x2<T>;
+        <T>(predicate: lodash.ValueKeyIteratee<T>, object: lodash.NumericDictionary<T> | null | undefined): lodash.NumericDictionary<T>;
         <T extends object>(predicate: lodash.ValueKeyIteratee<T[keyof T]>, object: T | null | undefined): lodash.PartialObject<T>;
     }
-    type LodashPickBy1x1<T> = <T1 extends object>(object: T1 | null | undefined) => lodash.PartialObject<T1>;
-    type LodashPickBy1x2<T> = (predicate: lodash.ValueKeyIteratee<T[keyof T]>) => lodash.PartialObject<T>;
+    type LodashPickBy1x1<T, S> = (object: T | null | undefined) => lodash.Dictionary<S>;
+    interface LodashPickBy1x2<T> {
+        <S extends T[keyof T]>(predicate: lodash.ValueIteratorTypeGuard<T[keyof T], S>): lodash.Dictionary<S>;
+        (predicate: lodash.ValueKeyIteratee<T[keyof T]>): lodash.PartialObject<T>;
+    }
+    interface LodashPickBy2x1<T> {
+        (object: lodash.Dictionary<T> | null | undefined): lodash.Dictionary<T>;
+        (object: lodash.NumericDictionary<T> | null | undefined): lodash.NumericDictionary<T>;
+        <T1 extends object>(object: T1 | null | undefined): lodash.PartialObject<T1>;
+    }
+    type LodashPickBy2x2<T> = (predicate: lodash.ValueKeyIteratee<T>) => lodash.Dictionary<T>;
+    type LodashPickBy3x2<T> = (predicate: lodash.ValueKeyIteratee<T>) => lodash.NumericDictionary<T>;
     interface LodashProp {
         <TObject extends object, TKey extends keyof TObject>(path: TKey | [TKey]): LodashProp1x1<TObject, TKey>;
         <TObject extends object>(path: lodash.__, object: TObject): LodashProp1x2<TObject>;

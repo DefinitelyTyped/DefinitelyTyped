@@ -4,7 +4,7 @@
 //                 Margus Lamp <https://github.com/mlamp>
 //                 Troy McKinnon <https://github.com/trodi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import { EventEmitter } from 'events';
 import Sequelize = require("sequelize");
