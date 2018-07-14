@@ -2,6 +2,7 @@
 // Project: https://github.com/sindresorhus/pkg-conf#readme
 // Definitions by: Jorge Gonzalez <https://github.com/jorgegonzalez>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 declare namespace pkgConf {
     type AnyJson = boolean | number | string | null | JsonArray | JsonMap;
@@ -15,7 +16,7 @@ declare namespace pkgConf {
         // Default: process.cwd()
         cwd?: string;
         // Default config.
-        defaults?: Object;
+        defaults?: object;
         // Skip package.json files that have the namespaced config explicitly set to false.
         skipOnFalse?: boolean;
     }

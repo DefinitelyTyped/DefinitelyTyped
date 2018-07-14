@@ -1,7 +1,9 @@
 import * as pkgConf from 'pkg-conf';
 
-pkgConf('pony'); // $ExpectType Promise<pkgConf.JsonMap>
-const config = pkgConf.sync('pony'); // $ExpectType pkgConf.JsonMap
-pkgConf.filepath(config); // $ExpectType string
-config.foo; // $ExpectType string
-config.baz; // $ExpectType number[]
+const options = { cwd: './fixture' };
+
+pkgConf('pony', options); // $ExpectType Promise<JsonMap>
+const config = pkgConf.sync('pony', options); // $ExpectType JsonMap
+pkgConf.filepath(config); // $ExpectType string | null
+config.foo; // $ExpectType AnyJson
+config.baz; // $ExpectType AnyJson
