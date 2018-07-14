@@ -29,7 +29,7 @@ interface ConstructorOptions {
      * normalized by the `file.path` setter.
      * Default: `[]` (or `[options.path]` if `options.path` is passed)
      */
-    history?: string[];
+    history?: ReadonlyArray<string>;
 
     /**
      * The result of an fs.stat call. This is how you mark the file as a directory or
