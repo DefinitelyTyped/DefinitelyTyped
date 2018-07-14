@@ -26,16 +26,20 @@ function handleStateChangeOnClient(title: State) {
 
 const mapStateOnServer = (state: State): ServerState => ({ innerState: state });
 
-const DocumentTitleServer = withSideEffect(
+const DocumentTitleWithServerMapState = withSideEffect(
     reducePropsToState,
     handleStateChangeOnClient,
     mapStateOnServer
 )(DocumentTitle);
 
-const testServer = () => {
-    const testComponent = () => <DocumentTitleServer title="Title" />;
-    const peekedState: ServerState = DocumentTitleServer.peek();
-    const rewindedState: State = DocumentTitleServer.rewind();
+const testWithServerMapState = () => {
+    const testComponent = () => (
+        <DocumentTitleWithServerMapState title="Title" />
+    );
+    const peekedState:
+        | ServerState
+        | State = DocumentTitleWithServerMapState.peek();
+    const rewindedState: ServerState = DocumentTitleWithServerMapState.rewind();
 };
 
 const DocumentTitleNotServer = withSideEffect(
@@ -43,7 +47,7 @@ const DocumentTitleNotServer = withSideEffect(
     handleStateChangeOnClient
 )(DocumentTitle);
 
-const testNotServer = () => {
+const testWithoutMapState = () => {
     const testComponent = () => <DocumentTitleNotServer title="asdf" />;
     const peekedState: State = DocumentTitleNotServer.peek();
     const rewindedState: State = DocumentTitleNotServer.rewind();
