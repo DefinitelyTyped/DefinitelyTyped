@@ -5074,27 +5074,32 @@ declare module paper {
 
         /**
          * The font-family to be used in text content.
+         * Default: 'sans-serif'
          */
         fontFamily: string;
 
         /**
          * The font-weight to be used in text content.
+         * Default: 'normal'
          */
         fontWeight: string | number;
 
         /**
          * The font size of text content, as {@Number} in pixels, or as {@String} with optional units 'px', 'pt' and 'em'.
+         * Default: 10
          */
         fontSize: string | number;
 
         /**
          * The text leading of text content.
+         * Default: fontSize * 1.2
          */
         leading: string | number;
 
         /**
          * The justification of text paragraphs.
-         * String('left', 'right', 'center')
+         * Values: 'left', 'right', 'center'
+         * Default: 'left'
          */
         justification: string;
 
