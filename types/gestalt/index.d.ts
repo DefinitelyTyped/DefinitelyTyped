@@ -2,84 +2,16 @@
 // Project: https://pinterest.github.io/gestalt
 // Definitions by: Nicolás Serrano Arévalo <https://github.com/serranoarevalo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as React from "react";
-
-type colorOptions =
-    | "blue"
-    | "darkGray"
-    | "darkWash"
-    | "eggplant"
-    | "gray"
-    | "green"
-    | "lightGray"
-    | "lightWash"
-    | "maroon"
-    | "midnight"
-    | "navy"
-    | "olive"
-    | "orange"
-    | "orchid"
-    | "pine"
-    | "purple"
-    | "red"
-    | "transparent"
-    | "watermelon"
-    | "white";
-
-interface inlineStyle {
-    __style: {
-        [key: string]: any;
-    };
-}
-type directionOptions = "row" | "column";
-type displayOptions =
-    | "none"
-    | "flex"
-    | "block"
-    | "inlineBlock"
-    | "visuallyHidden";
-type alignContentOptions =
-    | "start"
-    | "end"
-    | "center"
-    | "between"
-    | "around"
-    | "stretch";
-type alignItemsOptions = "start" | "end" | "center" | "baseline" | "stretch";
-type alignSelfOptions =
-    | "auto"
-    | "start"
-    | "end"
-    | "center"
-    | "baseline"
-    | "stretch";
-type flexOptions = "grow" | "shrink" | "none";
-type justifyContentOptions = "start" | "end" | "center" | "between" | "around";
-type overflowOptions =
-    | "visible"
-    | "hidden"
-    | "scroll"
-    | "scrollX"
-    | "scrollY"
-    | "auto";
-type positionOptions = "static" | "absolute" | "relative" | "fixed";
-type shapeOptions =
-    | "square"
-    | "rounded"
-    | "pill"
-    | "circle"
-    | "roundedTop"
-    | "roundedBottom"
-    | "roundedLeft"
-    | "roundedRight";
 
 /*
 Avatar Props Interface
 https://pinterest.github.io/gestalt/#/Avatar
 */
 
-interface AvatarProps {
+export interface AvatarProps {
     name: string;
     outline?: boolean;
     size?: "sm" | "md" | "lg";
@@ -92,30 +24,60 @@ Box Props Interface
 https://pinterest.github.io/gestalt/#/Box
 */
 
-interface BoxProps {
-    alignContent?: alignContentOptions;
-    alignItems?: alignItemsOptions;
-    alignSelf?: alignSelfOptions;
+export interface BoxProps {
+    alignContent?:
+        | "start"
+        | "end"
+        | "center"
+        | "between"
+        | "around"
+        | "stretch";
+    alignItems?: "start" | "end" | "center" | "baseline" | "stretch";
+    alignSelf?: "auto" | "start" | "end" | "center" | "baseline" | "stretch";
     bottom?: boolean;
     children?: React.ReactNode;
-    color?: colorOptions;
+    color?:
+        | "blue"
+        | "darkGray"
+        | "darkWash"
+        | "eggplant"
+        | "gray"
+        | "green"
+        | "lightGray"
+        | "lightWash"
+        | "maroon"
+        | "midnight"
+        | "navy"
+        | "olive"
+        | "orange"
+        | "orchid"
+        | "pine"
+        | "purple"
+        | "red"
+        | "transparent"
+        | "watermelon"
+        | "white";
     column?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
     smColumn?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
     mdColumn?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
     lgColumn?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
-    dangerouslySetInlineStyle?: inlineStyle;
-    direction?: directionOptions;
-    smDirection?: directionOptions;
-    mdDirection?: directionOptions;
-    lgDirection?: directionOptions;
-    display?: displayOptions;
-    smDisplay?: displayOptions;
-    mdDisplay?: displayOptions;
-    lgDisplay?: displayOptions;
+    dangerouslySetInlineStyle?: {
+        __style: {
+            [key: string]: any;
+        };
+    };
+    direction?: "row" | "column";
+    smDirection?: "row" | "column";
+    mdDirection?: "row" | "column";
+    lgDirection?: "row" | "column";
+    display?: "none" | "flex" | "block" | "inlineBlock" | "visuallyHidden";
+    smDisplay?: "none" | "flex" | "block" | "inlineBlock" | "visuallyHidden";
+    mdDisplay?: "none" | "flex" | "block" | "inlineBlock" | "visuallyHidden";
+    lgDisplay?: "none" | "flex" | "block" | "inlineBlock" | "visuallyHidden";
     fit?: boolean;
-    flex?: flexOptions;
+    flex?: "grow" | "shrink" | "none";
     height?: number | string;
-    justifyContent?: justifyContentOptions;
+    justifyContent?: "start" | "end" | "center" | "between" | "around";
     left?: boolean;
     margin?:
         | -12
@@ -849,7 +811,7 @@ interface BoxProps {
     maxWidth?: number | string;
     minHeight?: number | string;
     minWidth?: number | string;
-    overflow?: overflowOptions;
+    overflow?: "visible" | "hidden" | "scroll" | "scrollX" | "scrollY" | "auto";
     padding?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
     smPadding?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
     mdPadding?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
@@ -862,9 +824,17 @@ interface BoxProps {
     smPaddingY?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
     mdPaddingY?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
     lgPaddingY?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
-    position?: positionOptions;
+    position?: "static" | "absolute" | "relative" | "fixed";
     right?: boolean;
-    shape?: shapeOptions;
+    shape?:
+        | "square"
+        | "rounded"
+        | "pill"
+        | "circle"
+        | "roundedTop"
+        | "roundedBottom"
+        | "roundedLeft"
+        | "roundedRight";
     top?: boolean;
     width?: number | string;
     wrap?: boolean;
@@ -875,7 +845,7 @@ Button Props Interface
 https://pinterest.github.io/gestalt/#/Button
 */
 
-interface ButtonProps {
+export interface ButtonProps {
     text: string;
     accessibilityExpanded?: boolean;
     accessibilityHaspopup?: boolean;
@@ -894,7 +864,7 @@ Card Props Interface
 https://pinterest.github.io/gestalt/#/Card
 */
 
-interface CardProps {
+export interface CardProps {
     active?: boolean;
     children?: React.ReactNode;
     image?: React.ReactNode;
@@ -911,7 +881,7 @@ Checkbox Props Interface
 https://pinterest.github.io/gestalt/#/Checkbox
 */
 
-interface CheckboxProps {
+export interface CheckboxProps {
     id: string;
     onChange: (
         args: {
@@ -931,7 +901,7 @@ Column Props Interface
 https://pinterest.github.io/gestalt/#/Column
 */
 
-interface ColumnProps {
+export interface ColumnProps {
     span: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
     smSpan?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
     mdSpan?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
@@ -944,7 +914,7 @@ Container Props Interface
 https://pinterest.github.io/gestalt/#/Container
 */
 
-interface ContainerProps {
+export interface ContainerProps {
     children?: React.ReactNode;
 }
 
@@ -953,7 +923,7 @@ Flyout Props Interface
 https://pinterest.github.io/gestalt/#/Flyout
 */
 
-interface FlyoutProps {
+export interface FlyoutProps {
     anchor: React.RefObject<any>;
     onDismiss: () => void;
     children?: React.ReactNode;
@@ -968,7 +938,7 @@ GroupAvatar Props Interface
 https://pinterest.github.io/gestalt/#/GroupAvatar
 */
 
-interface GroupAvatarProps {
+export interface GroupAvatarProps {
     collaborators: ReadonlyArray<{ name: string; src?: string }>;
     outline?: boolean;
     size?: "sm" | "md" | "lg";
@@ -979,7 +949,7 @@ Heading Props Interface
 https://pinterest.github.io/gestalt/#/Heading
 */
 
-interface HeaderProps {
+export interface HeaderProps {
     accessibilityLevel?: 1 | 2 | 3 | 4 | 5 | 6;
     children?: React.ReactNode;
     color?:
@@ -1014,7 +984,7 @@ Icon Props Interface
 https://pinterest.github.io/gestalt/#/Icon
 */
 
-type Icons =
+export type Icons =
     | "add"
     | "add-circle"
     | "add-pin"
@@ -1088,7 +1058,7 @@ type Icons =
     | "speech-ellipsis"
     | "tag";
 
-interface IconProps {
+export interface IconProps {
     accessibilityLabel: string;
     icon: Icons;
     color?:
@@ -1119,7 +1089,7 @@ IconButton Props Interface
 https://pinterest.github.io/gestalt/#/IconButton
 */
 
-interface IconButtonProps {
+export interface IconButtonProps {
     accessibilityLabel: string;
     icon: Icons;
     accessibilityExpanded?: boolean;
@@ -1135,7 +1105,7 @@ Image Props Interface
 https://pinterest.github.io/gestalt/#/Image
 */
 
-interface ImageProps {
+export interface ImageProps {
     alt: string;
     color: string;
     naturalHeight: number;
@@ -1154,7 +1124,7 @@ Label Props Interface
 https://pinterest.github.io/gestalt/#/Label
 */
 
-interface LabelProps {
+export interface LabelProps {
     htmlFor: string;
     children?: React.ReactNode;
 }
@@ -1164,7 +1134,7 @@ Letterbox Props Interface
 https://pinterest.github.io/gestalt/#/Letterbox
 */
 
-interface LetterboxProps {
+export interface LetterboxProps {
     contentAspectRatio: number;
     height: number;
     width: number;
@@ -1176,7 +1146,7 @@ Link Props Interface
 https://pinterest.github.io/gestalt/#/Link
 */
 
-interface LinkProps {
+export interface LinkProps {
     children?: React.ReactNode;
     href?: string;
     inline?: boolean;
@@ -1189,7 +1159,7 @@ Mask Props Interface
 https://pinterest.github.io/gestalt/#/Mask
 */
 
-interface MaskProps {
+export interface MaskProps {
     children?: React.ReactNode;
     height?: number | string;
     shape?: "circle" | "rounded" | "square";
@@ -1202,7 +1172,7 @@ Masonry Props Interface
 https://pinterest.github.io/gestalt/#/Masonry
 */
 
-interface MasonryProps {
+export interface MasonryProps {
     comp: React.ComponentType;
     items: ReadonlyArray<any>;
     columnWidth?: number;
@@ -1221,7 +1191,7 @@ Modal Props Interface
 https://pinterest.github.io/gestalt/#/Modal
 */
 
-interface ModalProps {
+export interface ModalProps {
     accessibilityCloseLabel: string;
     accessibilityModalLabel: string;
     heading: string;
@@ -1237,7 +1207,7 @@ Props Props Interface
 https://pinterest.github.io/gestalt/#/Pog
 */
 
-interface PogProps {
+export interface PogProps {
     icon: Icons;
     active?: boolean;
     bgColor?: "transparent" | "lightGray" | "white";
@@ -1252,7 +1222,7 @@ Pulsar Props Interface
 https://pinterest.github.io/gestalt/#/Pulsar
 */
 
-interface PulsarProps {
+export interface PulsarProps {
     paused?: boolean;
     size?: number;
 }
@@ -1262,7 +1232,7 @@ RadioButton Props Interface
 https://pinterest.github.io/gestalt/#/RadioButton
 */
 
-interface RadioButtonProps {
+export interface RadioButtonProps {
     id: string;
     onChange: (
         args: {
@@ -1282,7 +1252,7 @@ SearchField Props Interface
 https://pinterest.github.io/gestalt/#/SearchField
 */
 
-interface SearchFieldProps {
+export interface SearchFieldProps {
     accessibilityLabel: string;
     id: string;
     onChange: (
@@ -1307,7 +1277,7 @@ SegmentedControl Props Interface
 https://pinterest.github.io/gestalt/#/SegmentedControl
 */
 
-interface SegmentedControlProps {
+export interface SegmentedControlProps {
     items: ReadonlyArray<React.ReactNode>;
     onChange: (
         args: {
@@ -1324,7 +1294,7 @@ SelectList Props Interface
 https://pinterest.github.io/gestalt/#/SelectList
 */
 
-interface SelectListProps {
+export interface SelectListProps {
     id: string;
     onChange: (
         args: { event: React.SyntheticEvent<HTMLInputElement>; value: string }
@@ -1343,7 +1313,7 @@ Spinner Props Interface
 https://pinterest.github.io/gestalt/#/Spinner
 */
 
-interface SpinnerProps {
+export interface SpinnerProps {
     accessibilityLabel: string;
     show: boolean;
 }
@@ -1353,7 +1323,7 @@ Sticky Props Interface
 https://pinterest.github.io/gestalt/#/Sticky
 */
 
-interface StickyProps {
+export interface StickyProps {
     bottom?: number | string;
     children?: React.ReactNode;
     dangerouslySetZIndex?: { __zIndex: string };
@@ -1367,7 +1337,7 @@ Switch Props Interface
 https://pinterest.github.io/gestalt/#/Switch
 */
 
-interface SwitchProps {
+export interface SwitchProps {
     id: string;
     onChange: (
         args: { event: React.SyntheticEvent<HTMLInputElement>; value: boolean }
@@ -1382,7 +1352,7 @@ Tabs Props Interface
 https://pinterest.github.io/gestalt/#/Tabs
 */
 
-interface TabsProps {
+export interface TabsProps {
     activeTabIndex: number;
     onChange: (
         args: {
@@ -1398,7 +1368,7 @@ Text Props Interface
 https://pinterest.github.io/gestalt/#/Text
 */
 
-interface TextProps {
+export interface TextProps {
     align?: "left" | "right" | "center" | "justify";
     bold?: boolean;
     children?: React.ReactNode;
@@ -1435,7 +1405,7 @@ TextArea Interface Props
 https://pinterest.github.io/gestalt/#/TextArea
 */
 
-interface TextAreaProps {
+export interface TextAreaProps {
     id: string;
     onChange: (
         args: { event: React.SyntheticEvent<HTMLInputElement>; value: string }
@@ -1466,7 +1436,7 @@ TextField Interface Props
 https://pinterest.github.io/gestalt/#/TextField
 */
 
-interface TextFieldProps {
+export interface TextFieldProps {
     id: string;
     onChange: (
         args: {
@@ -1501,7 +1471,7 @@ Toast Interface Props
 https://pinterest.github.io/gestalt/#/Toast
 */
 
-interface ToastProps {
+export interface ToastProps {
     color?: "darkGray" | "orange";
     icon?: "arrow-circle-forward";
     text?: string | ReadonlyArray<string>;
@@ -1513,7 +1483,7 @@ Tooltip Interface Props
 https://pinterest.github.io/gestalt/#/Tooltip
 */
 
-interface TooltipProps {
+export interface TooltipProps {
     anchor: any;
     onDismiss: () => void;
     children?: React.ReactNode;
@@ -1527,7 +1497,7 @@ Touchable Interface Props
 https://pinterest.github.io/gestalt/#/Touchable
 */
 
-interface TouchableProps {
+export interface TouchableProps {
     onTouch: (
         args: {
             event:
@@ -1572,7 +1542,8 @@ interface TouchableProps {
 Video Props Interface
 https://pinterest.github.io/gestalt/#/Video
 */
-interface VideoProps {
+
+export interface VideoProps {
     aspectRatio: number;
     captions: string;
     src:
@@ -1632,42 +1603,40 @@ interface VideoProps {
     volume: number;
 }
 
-declare module "gestalt" {
-    class Avatar extends React.Component<AvatarProps, any> {}
-    class Box extends React.Component<BoxProps, any> {}
-    class Button extends React.Component<ButtonProps, any> {}
-    class Card extends React.Component<CardProps, any> {}
-    class Checkbox extends React.Component<CheckboxProps, any> {}
-    class Column extends React.Component<ColumnProps, any> {}
-    class Container extends React.Component<ContainerProps, any> {}
-    class Divider extends React.Component<{}, any> {}
-    class Flyout extends React.Component<FlyoutProps, any> {}
-    class GroupAvatar extends React.Component<GroupAvatarProps, any> {}
-    class Heading extends React.Component<HeaderProps, any> {}
-    class Icon extends React.Component<IconProps, any> {}
-    class IconButton extends React.Component<IconButtonProps, any> {}
-    class Image extends React.Component<ImageProps, any> {}
-    class Label extends React.Component<LabelProps, any> {}
-    class Letterbox extends React.Component<LetterboxProps, any> {}
-    class Link extends React.Component<LinkProps, any> {}
-    class Mask extends React.Component<MaskProps, any> {}
-    class Masonry extends React.Component<MasonryProps, any> {}
-    class Modal extends React.Component<ModalProps, any> {}
-    class Pog extends React.Component<PogProps, any> {}
-    class Pulsar extends React.Component<PulsarProps, any> {}
-    class RadioButton extends React.Component<RadioButtonProps, any> {}
-    class SearchField extends React.Component<SearchFieldProps, any> {}
-    class SegmentedControl extends React.Component<SearchFieldProps, any> {}
-    class SelectList extends React.Component<SelectListProps, any> {}
-    class Spinner extends React.Component<SpinnerProps, any> {}
-    class Sticky extends React.Component<StickyProps, any> {}
-    class Switch extends React.Component<SwitchProps, any> {}
-    class Tabs extends React.Component<TabsProps, any> {}
-    class Text extends React.Component<TextProps, any> {}
-    class TextArea extends React.Component<TextAreaProps, any> {}
-    class TextField extends React.Component<TextFieldProps, any> {}
-    class Toast extends React.Component<ToastProps, any> {}
-    class Tooltip extends React.Component<TooltipProps, any> {}
-    class Touchable extends React.Component<TouchableProps, any> {}
-    class Video extends React.Component<VideoProps, any> {}
-}
+export class Avatar extends React.Component<AvatarProps, any> {}
+export class Box extends React.Component<BoxProps, any> {}
+export class Button extends React.Component<ButtonProps, any> {}
+export class Card extends React.Component<CardProps, any> {}
+export class Checkbox extends React.Component<CheckboxProps, any> {}
+export class Column extends React.Component<ColumnProps, any> {}
+export class Container extends React.Component<ContainerProps, any> {}
+export class Divider extends React.Component<{}, any> {}
+export class Flyout extends React.Component<FlyoutProps, any> {}
+export class GroupAvatar extends React.Component<GroupAvatarProps, any> {}
+export class Heading extends React.Component<HeaderProps, any> {}
+export class Icon extends React.Component<IconProps, any> {}
+export class IconButton extends React.Component<IconButtonProps, any> {}
+export class Image extends React.Component<ImageProps, any> {}
+export class Label extends React.Component<LabelProps, any> {}
+export class Letterbox extends React.Component<LetterboxProps, any> {}
+export class Link extends React.Component<LinkProps, any> {}
+export class Mask extends React.Component<MaskProps, any> {}
+export class Masonry extends React.Component<MasonryProps, any> {}
+export class Modal extends React.Component<ModalProps, any> {}
+export class Pog extends React.Component<PogProps, any> {}
+export class Pulsar extends React.Component<PulsarProps, any> {}
+export class RadioButton extends React.Component<RadioButtonProps, any> {}
+export class SearchField extends React.Component<SearchFieldProps, any> {}
+export class SegmentedControl extends React.Component<SearchFieldProps, any> {}
+export class SelectList extends React.Component<SelectListProps, any> {}
+export class Spinner extends React.Component<SpinnerProps, any> {}
+export class Sticky extends React.Component<StickyProps, any> {}
+export class Switch extends React.Component<SwitchProps, any> {}
+export class Tabs extends React.Component<TabsProps, any> {}
+export class Text extends React.Component<TextProps, any> {}
+export class TextArea extends React.Component<TextAreaProps, any> {}
+export class TextField extends React.Component<TextFieldProps, any> {}
+export class Toast extends React.Component<ToastProps, any> {}
+export class Tooltip extends React.Component<TooltipProps, any> {}
+export class Touchable extends React.Component<TouchableProps, any> {}
+export class Video extends React.Component<VideoProps, any> {}
