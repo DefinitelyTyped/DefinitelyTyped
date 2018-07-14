@@ -1,0 +1,7 @@
+{
+    "name": "pkg-conf-tests",
+    "pony": {
+        "foo": "bar",
+        "baz": [1, 2, 3]
+    }
+}
