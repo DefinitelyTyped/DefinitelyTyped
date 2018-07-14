@@ -12,7 +12,7 @@ var path = new paper.Path.Circle({
 });
 
 // Dotted Line Tool
-var dottedLinePath: paper.Path;
+var dottedLinePath: paper.Path = new paper.Path;
 var dottedLineTool = new paper.Tool();
 
 dottedLineTool.onMouseDown = function(event: any) {
@@ -34,3 +34,20 @@ dottedLineTool.onMouseUp = function(event: any) {
     dottedLinePath.smooth();
     dottedLinePath.simplify();
 };
+
+var hitOptionsEmpty = {};
+var hitOptionsPartial = {tolerance: 0};
+var hitOptionsFull = {tolerance: 0, class: 'Path', match: (hit: paper.HitResult)=>{return true;}, fill: true, stroke: false, segments: true, curves: false, handles: true, ends: true, position: false, center: true, bounds: true, guides: false, selected: true};
+var hitOptionsInterfaceEmpty:paper.IHitTestOptions = {};
+var hitOptionsInterfacePartial:paper.IHitTestOptions = {match: (hit: paper.HitResult)=>{return true;}};
+var hitOptionsInterfaceFull:paper.IHitTestOptions = {tolerance: 0, class: 'Path', match: (hit: paper.HitResult)=>{return true;}, fill: true, stroke: false, segments: true, curves: false, handles: true, ends: true, position: false, center: true, bounds: true, guides: false, selected: true};
+var compoundPath: paper.CompoundPath = new paper.CompoundPath(dottedLinePath);
+compoundPath.hitTest(dottedLinePath.segments[0].point);
+compoundPath.hitTest(dottedLinePath.segments[0].point, hitOptionsEmpty);
+compoundPath.hitTest(dottedLinePath.segments[0].point, hitOptionsPartial);
+compoundPath.hitTest(dottedLinePath.segments[0].point, hitOptionsFull);
+compoundPath.hitTest(dottedLinePath.segments[0].point, hitOptionsInterfaceEmpty);
+compoundPath.hitTest(dottedLinePath.segments[0].point, hitOptionsInterfacePartial);
+compoundPath.hitTest(dottedLinePath.segments[0].point, hitOptionsInterfaceFull);
+
+

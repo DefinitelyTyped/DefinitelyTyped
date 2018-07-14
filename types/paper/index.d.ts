@@ -1218,6 +1218,79 @@ declare module paper {
         static get(id: string): PaperScope;
 
     }
+    export interface IHitTestOptions{
+
+        /**
+         * the tolerance of the hit-test in points. Can also be controlled through paperScope.settings.hitTolerance
+         */
+        tolerance?: number;
+
+        /**
+         * only hit-test again a certain item class and its sub-classes: Group, Layer, Path, CompoundPath, Shape, Raster, PlacedSymbol, PointText, etc.
+         */
+        class?: string;
+
+        /**
+         * a match function to be called for each found hit result: Return true to return the result, false to keep searching
+         */
+        match?: (hit: HitResult) => boolean;
+
+        /**
+         * hit-test the fill of items.
+         */
+        fill?: boolean;
+
+        /**
+         * hit-test the stroke of path items, taking into account the setting of stroke color and width.
+         */
+        stroke?: boolean;
+
+        /**
+         * hit-test for segment.point of Path items.
+         */
+        segments?: boolean;
+
+        /**
+         * hit-test the curves of path items, without taking the stroke color or width into account.
+         */
+        curves?: boolean;
+
+        /**
+         * hit-test for the handles.  (segment.handleIn / segment.handleOut) of path segments.
+         */
+        handles?: boolean;
+
+        /**
+         * only hit-test for the first or last segment points of open path items.
+         */
+        ends?: boolean;
+
+        /**
+         * hit-test the item.position of of items, which depends on the setting of item.pivot.
+         */
+        position?: boolean;
+
+        /**
+         * hit-test the rectangle.center of the bounding rectangle of items (item.bounds).
+         */
+        center?: boolean;
+
+        /**
+         * hit-test the corners and side-centers of the bounding rectangle of items (item.bounds).
+         */
+        bounds?: boolean;
+
+        /**
+         * hit-test items that have Item#guide set to true.
+         */
+        guides?: boolean;
+
+        /**
+         * only hit selected items.
+         */
+        selected?: boolean;
+        
+    }
     /**
      * The Item type allows you to access and modify the items in Paper.js projects. Its functionality is inherited by different project item types such as Path, CompoundPath, Group, Layer and Raster. They each add a layer of functionality that is unique to their type, but share the underlying properties and functions that they inherit from Item.
      */
@@ -1613,7 +1686,8 @@ declare module paper {
          * @param options.guides - hit-test items that have Item#guide set to true.
          * @param options.selected - only hit selected items.
          */
-        hitTest(point: Point, options?: { tolerance?: number; class?: string; match?: (hit: HitResult) => boolean; fill?: boolean; stroke?: boolean; segments?: boolean; curves?: boolean; handles?: boolean; ends?: boolean; position?: boolean; center?: boolean; bounds?: boolean; guides?: boolean; selected?: boolean; }): HitResult;
+        hitTest(point: Point, options?: IHitTestOptions | { tolerance?: number; class?: string; match?: (hit: HitResult) => boolean; fill?: boolean; stroke?: boolean; segments?: boolean; curves?: boolean; handles?: boolean; ends?: boolean; position?: boolean; center?: boolean; bounds?: boolean; guides?: boolean; selected?: boolean; }): HitResult;        
+        hitTest(point: Point, options?: IHitTestOptions): HitResult;
 
         /**
          * Performs a hit-test on the item and its children (if it is a Group or Layer) at the location of the specified point, returning all found hits.
@@ -1635,6 +1709,7 @@ declare module paper {
          * @param options.selected - only hit selected items.
          * */
         hitTestAll(point: Point, options?: { tolerance?: number; class?: string; match?: (hit: HitResult) => boolean; fill?: boolean; stroke?: boolean; segments?: boolean; curves?: boolean; handles?: boolean; ends?: boolean; position?: boolean; center?: boolean; bounds?: boolean; guides?: boolean; selected?: boolean; }): HitResult[];
+        hitTestAll(point: Point, options?: IHitTestOptions): HitResult[];
 
         /**
          * Checks whether the item matches the criteria described by the given object, by iterating over all of its properties and matching against their values through matches(name, compare).
@@ -3927,7 +4002,8 @@ declare module paper {
          * @param options.guides - hit-test items that have Item#guide set to true.
          * @param options.selected - only hit selected items.
          */
-        hitTest(point: Point, options?: { tolerance?: number; class?: string; match?: (hit: HitResult) => boolean; fill?: boolean; stroke?: boolean; segments?: boolean; curves?: boolean; handles?: boolean; ends?: boolean; position?: boolean; center?: boolean; bounds?: boolean; guides?: boolean; selected?: boolean; }): HitResult;
+        hitTest(point: Point, options?: IHitTestOptions | { tolerance?: number; class?: string; match?: (hit: HitResult) => boolean; fill?: boolean; stroke?: boolean; segments?: boolean; curves?: boolean; handles?: boolean; ends?: boolean; position?: boolean; center?: boolean; bounds?: boolean; guides?: boolean; selected?: boolean; }): HitResult;
+        hitTest(point: Point, options?: IHitTestOptions): HitResult;
 
         /**
          * Performs a hit-test on the item and its children (if it is a Group or Layer) at the location of the specified point, returning all found hits.
@@ -3949,6 +4025,7 @@ declare module paper {
          * @param options.selected - only hit selected items.
          * */
         hitTestAll(point: Point, options?: { tolerance?: number; class?: string; match?: (hit: HitResult) => boolean; fill?: boolean; stroke?: boolean; segments?: boolean; curves?: boolean; handles?: boolean; ends?: boolean; position?: boolean; center?: boolean; bounds?: boolean; guides?: boolean; selected?: boolean; }): HitResult[];
+        hitTestAll(point: Point, options?: IHitTestOptions): HitResult[];
 
         /**
          * Fetch items contained within the project whose properties match the criteria in the specified object.
