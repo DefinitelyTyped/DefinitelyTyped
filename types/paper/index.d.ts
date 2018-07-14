@@ -4865,14 +4865,14 @@ declare module paper {
          * The function receives a KeyEvent object which contains information about the keyboard event.
          * If the function returns false, the keyboard event will be prevented from bubbling up. This can be used for example to stop the window from scrolling, when you need the user to interact with arrow keys.
          */
-        onKeyDown: (event: KeyEvent) => void;
+        onKeyDown: (event: KeyEvent) => void | boolean;
 
         /**
          * The function to be called when the user releases a key on the keyboard.
          * The function receives a KeyEvent object which contains information about the keyboard event.
          * If the function returns false, the keyboard event will be prevented from bubbling up. This can be used for example to stop the window from scrolling, when you need the user to interact with arrow keys.
          */
-        onKeyUp: (event: KeyEvent) => void;
+        onKeyUp: (event: KeyEvent) => void | boolean;
 
         /**
          * Activates this tool, meaning paperScope.tool will point to it and it will be the one that recieves mouse events.
@@ -4891,7 +4891,7 @@ declare module paper {
          * @param type - String('mousedown'|'mouseup'|'mousedrag'|'mousemove'|'keydown'|'keyup') the event type
          * @param function - The function to be called when the event occurs
          */
-        on(type: string, callback: (event: ToolEvent) => void): Tool;
+        on(type: string, callback: (event: ToolEvent | KeyEvent) => void | boolean): Tool;
 
         /**
          * Attach one or more event handlers to the tool.
@@ -4904,7 +4904,7 @@ declare module paper {
          * @param type - String('mousedown'|'mouseup'|'mousedrag'|'mousemove'|'keydown'|'keyup') the event type
          * @param function - The function to be detached
          */
-        off(type: string, callback: (event: ToolEvent) => void): Tool;
+        off(type: string, callback: (event: ToolEvent | KeyEvent) => void | boolean): Tool;
 
         /**
          * Detach one or more event handlers from the tool.
@@ -4929,9 +4929,35 @@ declare module paper {
     export class Event {
 
         /**
+         * The time at which the event was created, in milliseconds since the epoch.
+         * Read only.
+         */
+        readonly timeStamp: number;
+
+        /**
+         * The current state of the keyboard modifiers.
          * Read Only
          */
-        modifiers: any;
+        readonly modifiers: any;
+
+        /**
+         * Cancels the event if it is cancelable, without stopping further propagation of the event.
+         */
+        preventDefault(): void;
+
+        /**
+         * Prevents further propagation of the current event.
+         */
+        stopPropagation(): void;
+
+        // NOTE: I'm not sure if this note within the stop means that all callback prototypes should be updated to include the possibility of returning a boolean.
+        //   The code was a bit difficult to parse to be sure and I didn't see any examples of this working so I'm leaving them alone for now.
+
+        /**
+         * Cancels the event if it is cancelable, and stops stopping further propagation of the event. This is has the same effect as calling both stopPropagation() and preventDefault().
+         * Any handler can also return false to indicate that stop() should be called right after.
+         */
+        stop(): void;
 
     }
     /**
@@ -4987,6 +5013,20 @@ declare module paper {
 
     }
     export class Key {
+
+        /**
+         * 
+         * The current state of the keyboard modifiers.
+         *   modifiers.shift - true if the shift key is pressed, false otherwise.
+         *   modifiers.control - true if the control key is pressed, false otherwise.
+         *   modifiers.alt — true if the alt/option key is pressed, false otherwise.
+         *   modifiers.meta — true if the meta/windows/command key is pressed, false otherwise.
+         *   modifiers.capsLock — true if the caps-lock key is active, false otherwise.
+         *   modifiers.space — true if the space key is pressed, false otherwise.
+         *   modifiers.option — true if the alt/option key is pressed, false otherwise. This is the same as modifiers.alt
+         *   modifiers.command — true if the meta key is pressed on Mac, or the control key is pressed on Windows and Linux, false otherwise.
+         */
+        static modifiers: { shift: boolean, control: boolean, alt: boolean, meta: boolean, capsLock: boolean, space: boolean, option: boolean, command: boolean};
 
         /**
          * Checks whether the specified key is pressed.
@@ -5131,32 +5171,6 @@ declare module paper {
          */
         type: 'mousedown' | 'mouseup' | 'mousedrag' | 'click' | 'doubleclick' | 'mousemove' | 'mouseenter' | 'mouseleave';
 
-        /**
-         * The time at which the event was created, in milliseconds since the
-         * epoch.
-         */
-        timeStamp(): number;
-
-        /**
-         * Cancels the event if it is cancelable, without stopping further
-         * propagation of the event.
-         */
-        preventDefault(): void;
-
-        /**
-         * Prevents further propagation of the current event.
-         */
-        stopPropagation(): void;
-
-        /**
-         * Cancels the event if it is cancelable, and stops stopping further
-         * propagation of the event. This is has the same effect as calling
-         * both stopPropagation() and preventDefault().
-         *
-         * Any handler can also return false to indicate that stop() should be
-         * called right after.
-         */
-        stop(): void;
     }
 }
 
