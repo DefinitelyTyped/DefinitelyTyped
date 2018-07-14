@@ -7,7 +7,9 @@ import {
     Checkbox,
     Column,
     Container,
-    GroupAvatar
+    GroupAvatar,
+    Icon,
+    IconButton
 } from "gestalt";
 
 <Avatar name="Nicolas" />;
@@ -18,3 +20,9 @@ import {
 <Column span={1} />;
 <Container />;
 <GroupAvatar collaborators={[{ name: "nicolas" }]} />;
+<Icon
+    accessibilityLabel={"sup"}
+    icon={"add"}
+    dangerouslySetSvgPath={{ __path: "something" }}
+/>;
+<IconButton accessibilityLabel={"something"} icon={"add-pin"} />;
