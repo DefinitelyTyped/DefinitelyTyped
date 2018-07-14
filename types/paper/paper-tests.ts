@@ -35,6 +35,7 @@ dottedLineTool.onMouseUp = function(event: any) {
     dottedLinePath.simplify();
 };
 
+// Hit Test stuff
 var hitOptionsEmpty = {};
 var hitOptionsPartial = {tolerance: 0};
 var hitOptionsFull = {tolerance: 0, class: 'Path', match: (hit: paper.HitResult)=>{return true;}, fill: true, stroke: false, segments: true, curves: false, handles: true, ends: true, position: false, center: true, bounds: true, guides: false, selected: true};
@@ -49,5 +50,12 @@ compoundPath.hitTest(dottedLinePath.segments[0].point, hitOptionsFull);
 compoundPath.hitTest(dottedLinePath.segments[0].point, hitOptionsInterfaceEmpty);
 compoundPath.hitTest(dottedLinePath.segments[0].point, hitOptionsInterfacePartial);
 compoundPath.hitTest(dottedLinePath.segments[0].point, hitOptionsInterfaceFull);
+compoundPath.hitTestAll(dottedLinePath.segments[0].point);
+compoundPath.hitTestAll(dottedLinePath.segments[0].point, hitOptionsEmpty);
+compoundPath.hitTestAll(dottedLinePath.segments[0].point, hitOptionsPartial);
+compoundPath.hitTestAll(dottedLinePath.segments[0].point, hitOptionsFull);
+compoundPath.hitTestAll(dottedLinePath.segments[0].point, hitOptionsInterfaceEmpty);
+compoundPath.hitTestAll(dottedLinePath.segments[0].point, hitOptionsInterfacePartial);
+compoundPath.hitTestAll(dottedLinePath.segments[0].point, hitOptionsInterfaceFull);
 
 
