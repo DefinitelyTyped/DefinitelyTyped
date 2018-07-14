@@ -6,7 +6,8 @@ import {
     Card,
     Checkbox,
     Column,
-    Container
+    Container,
+    GroupAvatar
 } from "gestalt";
 
 <Avatar name="Nicolas" />;
@@ -16,3 +17,4 @@ import {
 <Checkbox id={"1"} onChange={() => {}} />;
 <Column span={1} />;
 <Container />;
+<GroupAvatar collaborators={[{ name: "nicolas" }]} />;

@@ -73,7 +73,7 @@ type shapeOptions =
     | "roundedBottom"
     | "roundedLeft"
     | "roundedRight";
-type sizeOptions = "sm" | "md" | "lg";
+
 /*
 Avatar Props Interface
 https://pinterest.github.io/gestalt/#/Avatar
@@ -885,7 +885,7 @@ interface ButtonProps {
     inline?: boolean;
     name?: string;
     onClick?: (event: React.SyntheticEvent) => void;
-    size?: sizeOptions;
+    size?: "sm" | "md" | "lg";
     type?: "submit" | "button";
 }
 
@@ -939,6 +939,32 @@ interface ContainerProps {
     children?: React.ReactNode;
 }
 
+/*
+Flyout Props Interface
+https://pinterest.github.io/gestalt/#/Flyout
+*/
+
+interface FlayoutProps {
+    anchor: React.RefObject<any>;
+    onDismiss: () => void;
+    children?: React.ReactNode;
+    color?: "blue" | "orange" | "white";
+    idealDirection?: "up" | "right" | "down" | "left";
+    positionRelativeToAnchor?: boolean;
+    size?: "xs" | "sm" | "md" | "lg" | "xl" | number;
+}
+
+/*
+GroupAvatar Props Interface
+https://pinterest.github.io/gestalt/#/GroupAvatar
+*/
+
+interface GroupAvatarProps {
+    collaborators: ReadonlyArray<{ name: string; src?: string }>;
+    outline?: boolean;
+    size?: "sm" | "md" | "lg";
+}
+
 declare module "gestalt" {
     class Avatar extends React.Component<AvatarProps, any> {}
     class Box extends React.Component<BoxProps, any> {}
@@ -947,4 +973,7 @@ declare module "gestalt" {
     class Checkbox extends React.Component<CheckBoxProps, any> {}
     class Column extends React.Component<ColumnProps, any> {}
     class Container extends React.Component<ContainerProps, any> {}
+    class Divider extends React.Component<{}, any> {}
+    class Flyout extends React.Component<FlayoutProps, any> {}
+    class GroupAvatar extends React.Component<GroupAvatarProps, any> {}
 }
