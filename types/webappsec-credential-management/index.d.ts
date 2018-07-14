@@ -369,12 +369,10 @@ interface FederatedCredentialRequestOptions {
  */
 type PublicKeyCredentialType = "public-key";
 
-
 /**
  * @see {@link https://w3c.github.io/webauthn/#enumdef-userverificationrequirement}
  */
 type UserVerificationRequirement = "required" | "preferred" | "discouraged";
-
 
 /**
  * @see {@link https://w3c.github.io/webauthn/#dictdef-publickeycredentialrequestoptions}
@@ -387,7 +385,6 @@ interface PublicKeyCredentialRequestOptions {
     userVerification?: UserVerificationRequirement;
     extensions?: any;
 }
-
 
 /**
  * @see {@link https://w3c.github.io/webauthn/#dictdef-publickeycredentialrpentity}
@@ -432,7 +429,6 @@ interface PublicKeyCredentialDescriptor {
  * @see {@link https://w3c.github.io/webauthn/#attachment}
  */
 type AuthenticatorAttachment = "platform" | "cross-platform";
-
 
 /**
  * @see {@link https://w3c.github.io/webauthn/#dictdef-authenticatorselectioncriteria}
