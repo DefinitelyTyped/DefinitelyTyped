@@ -229,6 +229,15 @@ interface ListenOptions {
   cert?: string;
 }
 
+interface Location {
+  id: string;
+  Label: string;
+  location: string;
+  Browsers: string;
+  labelShort: string;
+  PendingTests: { [id: string]: number };
+}
+
 declare class WebPageTest {
   static defaultListenPort: number;
   static defaultServer: string;
@@ -249,8 +258,8 @@ declare class WebPageTest {
   getTestResults(id: string, options: Options & RequestOptions & ResultsOptions, callback: Callback<any>): void;
   getTestResults(id: string, callback: Callback<any>): void;
 
-  getLocations(options: Options & RequestOptions, callback: Callback<any>): void;
-  getLocations(callback: Callback<any>): void;
+  getLocations(options: Options & RequestOptions, callback: Callback<{ response: Response<{ location: Location[] }> }>): void;
+  getLocations(callback: Callback<{ response: Response<{ location: Location[] }> }>): void;
 
   getTesters(options: Options & RequestOptions, callback: Callback<any>): void;
   getTesters(callback: Callback<any>): void;

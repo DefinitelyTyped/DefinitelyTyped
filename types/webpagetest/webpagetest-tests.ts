@@ -44,3 +44,12 @@ wpt.runTest('https://twitter.com/marcelduran', {pollResults: 5, timeout: 60}, (e
 wpt.runTest('https://twitter.com/marcelduran', {waitResults: 'localhost:8000'}, (err, data) => {
   console.log(err || data);
 });
+
+/* Working examples */
+
+wpt.getLocations((err, data) => {
+  const { response } = data;
+  const { data: locationData } = response;
+  const { location: locations } = locationData;
+  console.log(locations);
+});
