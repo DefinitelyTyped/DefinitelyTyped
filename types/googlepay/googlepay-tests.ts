@@ -26,11 +26,17 @@ function onGooglePayLoaded() {
 }
 
 function addGooglePayButton() {
-    const button = document.createElement('button');
-    button.className = 'google-pay';
-    button.appendChild(document.createTextNode('Google Pay'));
-    button.addEventListener('click', onGooglePaymentButtonClick);
-    document.appendChild(document.createElement('div').appendChild(button));
+    const buttonOptions: google.payments.api.ButtonOptions = {
+        onClick: onGooglePaymentButtonClick,
+        buttonColor: 'black',
+        buttonType: 'short',
+    };
+    const client = getGooglePaymentsClient();
+    client.createButton(buttonOptions).then(button => {
+        document.appendChild(document.createElement('div').appendChild(button));
+    }).catch(err => {
+        console.error(err);
+    });
 }
 
 function getGooglePaymentDataConfiguration(): google.payments.api.PaymentDataRequest {

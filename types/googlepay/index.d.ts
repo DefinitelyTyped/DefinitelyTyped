@@ -7,6 +7,8 @@ declare namespace google.payments.api {
     type AddressFormat = 'FULL' | 'MIN';
     type AllowedCardNetwork = 'AMEX' | 'DISCOVER' | 'JCB' | 'MASTERCARD' | 'VISA';
     type AllowedPaymentMethod = 'CARD' | 'TOKENIZED_CARD';
+    type ButtonColor = 'default' | 'black' | 'white';
+    type ButtonType = 'long' | 'short';
     type CardClass = 'CREDIT' | 'DEBIT';
     type CardInfo = CardInfoMin | CardInfoFull;
     type CardRequirements = CardRequirementsMin | CardRequirementsFull;
@@ -18,6 +20,12 @@ declare namespace google.payments.api {
     type UserAddress = UserAddressFull | UserAddressMin;
     type PaymentDataRequest = PaymentDataRequestMin | PaymentDataRequestFull;
     type PaymentData = PaymentDataMin | PaymentDataFull;
+
+    interface ButtonOptions {
+        onClick: EventListener;
+        buttonColor?: ButtonColor;
+        buttonType?: ButtonType;
+    }
 
     interface PaymentOptions {
         environment?: EnvironmentType;
@@ -151,6 +159,7 @@ declare namespace google.payments.api {
 
     class PaymentsClient {
         constructor(paymentOptions: PaymentOptions);
+        createButton(request: ButtonOptions): Promise<HTMLElement>;
         isReadyToPay(request: IsReadyToPayRequest): Promise<{result: boolean}>;
         loadPaymentData(request: PaymentDataRequestMin): Promise<PaymentDataMin>;
         loadPaymentData(request: PaymentDataRequestFull): Promise<PaymentDataFull>;
