@@ -1,4 +1,3 @@
-
 // Type definitions for websocket-async 1.3
 // Project: https://github.com/jcao219/websocket-async
 // Definitions by: Ben O'Sullivan <https://github.com/bigbeno37>
@@ -24,14 +23,13 @@
  * await webSocketClient.disconnect();
  */
 declare class WebSocketClient {
-
     _socket: WebSocket;
 
     _closeEvent: CloseEvent | null;
 
     _receiveCallbacksQueue: Array<{ resolve: (data: any) => void, reject: (reason: any) => void }>;
 
-    _receiveDataQueue: Array<any>;
+    _receiveDataQueue: any[];
 
     constructor();
 
@@ -82,7 +80,6 @@ declare class WebSocketClient {
 
     /**
      * Resets the receive arrays and close events, called in the constructor
-     * @private
      */
     private _reset(): void;
 }

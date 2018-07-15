@@ -1,4 +1,4 @@
 import WebSocketClient from 'websocket-async';
 
-let connection = new WebSocketClient();
+const connection = new WebSocketClient();
 connection.connect('');
