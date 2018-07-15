@@ -1,6 +1,7 @@
-// Type definitions for Google Pay API 0.0
+// Type definitions for Google Pay API 0.1
 // Project: https://developers.google.com/pay/api/web/setup/
-// Definitions by: Florian Luccioni <https://github.com/Fluccioni>
+// Definitions by: Florian Luccioni <https://github.com/Fluccioni>,
+//                 Radu Raicea <https://github.com/Radu-Raicea>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace google.payments.api {
