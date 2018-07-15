@@ -1,4 +1,4 @@
-import * as pkgConf from 'pkg-conf';
+import pkgConf from 'pkg-conf';
 
 pkgConf('name'); // $ExpectType Promise<JsonMap>
 const config = pkgConf.sync('bugs'); // $ExpectType JsonMap
