@@ -238,6 +238,56 @@ interface Location {
   PendingTests: { [id: string]: number };
 }
 
+interface TestStatus {
+  statusCode: number;
+  statusText: string;
+  id: string;
+  testInfo: TestInfo;
+  testId: string;
+  runs: number;
+  fvonly: number;
+  remote: false;
+  testsExpected: number;
+  location: string;
+  startTime: string;
+  elapsed: number;
+  completeTime: string;
+  testsCompleted: number;
+  fvRunsCompleted: number;
+  rvRunsCompleted: number;
+}
+
+interface TestInfo {
+  url: string;
+  runs: number;
+  fvonly: number;
+  web10: number;
+  ignoreSSL: number;
+  video: string;
+  label: string;
+  priority: number;
+  block: string;
+  location: string;
+  browser: string;
+  connectivity: string;
+  bwIn: number;
+  bwOut: number;
+  latency: number;
+  plr: string;
+  tcpdump: number;
+  timeline: number;
+  trace: number;
+  bodies: number;
+  netlog: number;
+  standards: number;
+  noscript: number;
+  pngss: number;
+  iq: number;
+  keepua: number;
+  mobile: number;
+  scripted: number;
+}
+
 declare class WebPageTest {
   static defaultListenPort: number;
   static defaultServer: string;
@@ -252,8 +302,8 @@ declare class WebPageTest {
 
   static scriptToString(script: TestScript): string;
 
-  getTestStatus(id: string, options: Options & RequestOptions, callback: Callback<any>): void;
-  getTestStatus(id: string, callback: Callback<any>): void;
+  getTestStatus(id: string, options: Options & RequestOptions, callback: Callback<Response<TestStatus>>): void;
+  getTestStatus(id: string, callback: Callback<Response<TestStatus>>): void;
 
   getTestResults(id: string, options: Options & RequestOptions & ResultsOptions, callback: Callback<any>): void;
   getTestResults(id: string, callback: Callback<any>): void;

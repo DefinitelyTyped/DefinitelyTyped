@@ -53,3 +53,10 @@ wpt.getLocations((err, data) => {
   const { location: locations } = locationData;
   console.log(locations);
 });
+
+wpt.getTestStatus('180208_PA_28V', (err, data) => {
+  const { data: testStatus } = data;
+  const { testInfo } = testStatus;
+  console.log(testStatus.testId);
+  console.log(testInfo.url);
+});
