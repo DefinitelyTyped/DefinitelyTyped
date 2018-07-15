@@ -1,19 +1,19 @@
 import paper = require('paper');
 
-var canvas = document.createElement('canvas')
+let canvas = document.createElement('canvas')
 
 paper.setup(canvas);
 
 // Circle
-var path = new paper.Path.Circle({
+let path = new paper.Path.Circle({
 	center: [80, 50],
 	radius: 35,
 	fillColor: 'red'
 });
 
 // Dotted Line Tool
-var dottedLinePath: paper.Path = new paper.Path;
-var dottedLineTool = new paper.Tool();
+let dottedLinePath: paper.Path = new paper.Path;
+let dottedLineTool = new paper.Tool();
 
 dottedLineTool.onMouseDown = function(event: any) {
     new paper.Layer().activate();
@@ -36,40 +36,41 @@ dottedLineTool.onMouseUp = function(event: any) {
 };
 
 // Hit Test stuff
-var hitOptionsEmpty = {};
-var hitOptionsPartial = {tolerance: 0};
-var hitOptionsFull = {tolerance: 0, class: 'Path', match: (hit: paper.HitResult)=>{return true;}, fill: true, stroke: false, segments: true, curves: false, handles: true, ends: true, position: false, center: true, bounds: true, guides: false, selected: true};
-var hitOptionsInterfaceEmpty:paper.IHitTestOptions = {};
-var hitOptionsInterfacePartial:paper.IHitTestOptions = {match: (hit: paper.HitResult)=>{return true;}};
-var hitOptionsInterfaceFull:paper.IHitTestOptions = {tolerance: 0, class: 'Path', match: (hit: paper.HitResult)=>{return true;}, fill: true, stroke: false, segments: true, curves: false, handles: true, ends: true, position: false, center: true, bounds: true, guides: false, selected: true};
-var compoundPath: paper.CompoundPath = new paper.CompoundPath(dottedLinePath);
-compoundPath.hitTest(dottedLinePath.segments[0].point);
-compoundPath.hitTest(dottedLinePath.segments[0].point, hitOptionsEmpty);
-compoundPath.hitTest(dottedLinePath.segments[0].point, hitOptionsPartial);
-compoundPath.hitTest(dottedLinePath.segments[0].point, hitOptionsFull);
-compoundPath.hitTest(dottedLinePath.segments[0].point, hitOptionsInterfaceEmpty);
-compoundPath.hitTest(dottedLinePath.segments[0].point, hitOptionsInterfacePartial);
-compoundPath.hitTest(dottedLinePath.segments[0].point, hitOptionsInterfaceFull);
-compoundPath.hitTestAll(dottedLinePath.segments[0].point);
-compoundPath.hitTestAll(dottedLinePath.segments[0].point, hitOptionsEmpty);
-compoundPath.hitTestAll(dottedLinePath.segments[0].point, hitOptionsPartial);
-compoundPath.hitTestAll(dottedLinePath.segments[0].point, hitOptionsFull);
-compoundPath.hitTestAll(dottedLinePath.segments[0].point, hitOptionsInterfaceEmpty);
-compoundPath.hitTestAll(dottedLinePath.segments[0].point, hitOptionsInterfacePartial);
-compoundPath.hitTestAll(dottedLinePath.segments[0].point, hitOptionsInterfaceFull);
-paper.project.hitTest(dottedLinePath.segments[0].point);
-paper.project.hitTest(dottedLinePath.segments[0].point, hitOptionsEmpty);
-paper.project.hitTest(dottedLinePath.segments[0].point, hitOptionsPartial);
-paper.project.hitTest(dottedLinePath.segments[0].point, hitOptionsFull);
-paper.project.hitTest(dottedLinePath.segments[0].point, hitOptionsInterfaceEmpty);
-paper.project.hitTest(dottedLinePath.segments[0].point, hitOptionsInterfacePartial);
-paper.project.hitTest(dottedLinePath.segments[0].point, hitOptionsInterfaceFull);
-paper.project.hitTestAll(dottedLinePath.segments[0].point);
-paper.project.hitTestAll(dottedLinePath.segments[0].point, hitOptionsEmpty);
-paper.project.hitTestAll(dottedLinePath.segments[0].point, hitOptionsPartial);
-paper.project.hitTestAll(dottedLinePath.segments[0].point, hitOptionsFull);
-paper.project.hitTestAll(dottedLinePath.segments[0].point, hitOptionsInterfaceEmpty);
-paper.project.hitTestAll(dottedLinePath.segments[0].point, hitOptionsInterfacePartial);
-paper.project.hitTestAll(dottedLinePath.segments[0].point, hitOptionsInterfaceFull);
+let hitOptionsEmpty = {};
+let hitOptionsPartial = {tolerance: 0, extra: true};
+let hitOptionsFull = {tolerance: 0, class: 'Path', match: (hit: paper.HitResult)=>{return true;}, fill: true, stroke: false, segments: true, curves: false, handles: true, ends: true, position: false, center: true, bounds: true, guides: false, selected: true};
+let hitOptionsInterfaceEmpty:paper.IHitTestOptions = {};
+let hitOptionsInterfacePartial:paper.IHitTestOptions = {match: (hit: paper.HitResult)=>{return true;}};
+let hitOptionsInterfaceFull:paper.IHitTestOptions = {tolerance: 0, class: 'Path', match: (hit: paper.HitResult)=>{return true;}, fill: true, stroke: false, segments: true, curves: false, handles: true, ends: true, position: false, center: true, bounds: true, guides: false, selected: true};
+let compoundPath: paper.CompoundPath = new paper.CompoundPath(dottedLinePath);
+let hitTestPoint = dottedLinePath.segments[0].point;
+compoundPath.hitTest(hitTestPoint);
+compoundPath.hitTest(hitTestPoint, hitOptionsEmpty);
+compoundPath.hitTest(hitTestPoint, hitOptionsPartial);
+compoundPath.hitTest(hitTestPoint, hitOptionsFull);
+compoundPath.hitTest(hitTestPoint, hitOptionsInterfaceEmpty);
+compoundPath.hitTest(hitTestPoint, hitOptionsInterfacePartial);
+compoundPath.hitTest(hitTestPoint, hitOptionsInterfaceFull);
+compoundPath.hitTestAll(hitTestPoint);
+compoundPath.hitTestAll(hitTestPoint, hitOptionsEmpty);
+compoundPath.hitTestAll(hitTestPoint, hitOptionsPartial);
+compoundPath.hitTestAll(hitTestPoint, hitOptionsFull);
+compoundPath.hitTestAll(hitTestPoint, hitOptionsInterfaceEmpty);
+compoundPath.hitTestAll(hitTestPoint, hitOptionsInterfacePartial);
+compoundPath.hitTestAll(hitTestPoint, hitOptionsInterfaceFull);
+paper.project.hitTest(hitTestPoint);
+paper.project.hitTest(hitTestPoint, hitOptionsEmpty);
+paper.project.hitTest(hitTestPoint, hitOptionsPartial);
+paper.project.hitTest(hitTestPoint, hitOptionsFull);
+paper.project.hitTest(hitTestPoint, hitOptionsInterfaceEmpty);
+paper.project.hitTest(hitTestPoint, hitOptionsInterfacePartial);
+paper.project.hitTest(hitTestPoint, hitOptionsInterfaceFull);
+paper.project.hitTestAll(hitTestPoint);
+paper.project.hitTestAll(hitTestPoint, hitOptionsEmpty);
+paper.project.hitTestAll(hitTestPoint, hitOptionsPartial);
+paper.project.hitTestAll(hitTestPoint, hitOptionsFull);
+paper.project.hitTestAll(hitTestPoint, hitOptionsInterfaceEmpty);
+paper.project.hitTestAll(hitTestPoint, hitOptionsInterfacePartial);
+paper.project.hitTestAll(hitTestPoint, hitOptionsInterfaceFull);
 
 

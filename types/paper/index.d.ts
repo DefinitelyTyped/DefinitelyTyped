@@ -1686,7 +1686,6 @@ declare module paper {
          * @param options.guides - hit-test items that have Item#guide set to true.
          * @param options.selected - only hit selected items.
          */
-        hitTest(point: Point, options?: IHitTestOptions | { tolerance?: number; class?: string; match?: (hit: HitResult) => boolean; fill?: boolean; stroke?: boolean; segments?: boolean; curves?: boolean; handles?: boolean; ends?: boolean; position?: boolean; center?: boolean; bounds?: boolean; guides?: boolean; selected?: boolean; }): HitResult;        
         hitTest(point: Point, options?: IHitTestOptions): HitResult;
 
         /**
@@ -1708,7 +1707,6 @@ declare module paper {
          * @param options.guides - hit-test items that have Item#guide set to true.
          * @param options.selected - only hit selected items.
          * */
-        hitTestAll(point: Point, options?: { tolerance?: number; class?: string; match?: (hit: HitResult) => boolean; fill?: boolean; stroke?: boolean; segments?: boolean; curves?: boolean; handles?: boolean; ends?: boolean; position?: boolean; center?: boolean; bounds?: boolean; guides?: boolean; selected?: boolean; }): HitResult[];
         hitTestAll(point: Point, options?: IHitTestOptions): HitResult[];
 
         /**
@@ -4002,7 +4000,6 @@ declare module paper {
          * @param options.guides - hit-test items that have Item#guide set to true.
          * @param options.selected - only hit selected items.
          */
-        hitTest(point: Point, options?: IHitTestOptions | { tolerance?: number; class?: string; match?: (hit: HitResult) => boolean; fill?: boolean; stroke?: boolean; segments?: boolean; curves?: boolean; handles?: boolean; ends?: boolean; position?: boolean; center?: boolean; bounds?: boolean; guides?: boolean; selected?: boolean; }): HitResult;
         hitTest(point: Point, options?: IHitTestOptions): HitResult;
 
         /**
@@ -4024,7 +4021,6 @@ declare module paper {
          * @param options.guides - hit-test items that have Item#guide set to true.
          * @param options.selected - only hit selected items.
          * */
-        hitTestAll(point: Point, options?: { tolerance?: number; class?: string; match?: (hit: HitResult) => boolean; fill?: boolean; stroke?: boolean; segments?: boolean; curves?: boolean; handles?: boolean; ends?: boolean; position?: boolean; center?: boolean; bounds?: boolean; guides?: boolean; selected?: boolean; }): HitResult[];
         hitTestAll(point: Point, options?: IHitTestOptions): HitResult[];
 
         /**
