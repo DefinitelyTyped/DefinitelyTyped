@@ -7,7 +7,9 @@
 import * as React from "react";
 import { History } from "history";
 
-export type WizardStepObject = { id: string };
+export interface WizardStepObject {
+    id: string;
+}
 
 export interface WizardContext {
     step: WizardStepObject;
