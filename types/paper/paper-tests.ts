@@ -36,9 +36,11 @@ dottedLineTool.onMouseUp = function(event: any) {
 };
 
 // Hit Test stuff
+// These objects are to make sure older code which didn't have the IHitTestOptions available still work.
 let hitOptionsEmpty = {};
 let hitOptionsPartial = {tolerance: 0, extra: true};
 let hitOptionsFull = {tolerance: 0, class: 'Path', match: (hit: paper.HitResult)=>{return true;}, fill: true, stroke: false, segments: true, curves: false, handles: true, ends: true, position: false, center: true, bounds: true, guides: false, selected: true};
+// These objects are to make sure new code which uses the IHitTestOptions work.
 let hitOptionsInterfaceEmpty:paper.IHitTestOptions = {};
 let hitOptionsInterfacePartial:paper.IHitTestOptions = {match: (hit: paper.HitResult)=>{return true;}};
 let hitOptionsInterfaceFull:paper.IHitTestOptions = {tolerance: 0, class: 'Path', match: (hit: paper.HitResult)=>{return true;}, fill: true, stroke: false, segments: true, curves: false, handles: true, ends: true, position: false, center: true, bounds: true, guides: false, selected: true};
@@ -46,6 +48,7 @@ let compoundPath: paper.CompoundPath = new paper.CompoundPath(dottedLinePath);
 let hitTestPoint = dottedLinePath.segments[0].point;
 let hitTestResult: paper.HitResult;
 let hitTestResults: paper.HitResult[];
+// These are Item hit tests
 hitTestResult = compoundPath.hitTest(hitTestPoint);
 hitTestResult = compoundPath.hitTest(hitTestPoint, hitOptionsEmpty);
 hitTestResult = compoundPath.hitTest(hitTestPoint, hitOptionsPartial);
@@ -60,6 +63,7 @@ hitTestResults = compoundPath.hitTestAll(hitTestPoint, hitOptionsFull);
 hitTestResults = compoundPath.hitTestAll(hitTestPoint, hitOptionsInterfaceEmpty);
 hitTestResults = compoundPath.hitTestAll(hitTestPoint, hitOptionsInterfacePartial);
 hitTestResults = compoundPath.hitTestAll(hitTestPoint, hitOptionsInterfaceFull);
+// These are project hit tests
 hitTestResult = paper.project.hitTest(hitTestPoint);
 hitTestResult = paper.project.hitTest(hitTestPoint, hitOptionsEmpty);
 hitTestResult = paper.project.hitTest(hitTestPoint, hitOptionsPartial);
