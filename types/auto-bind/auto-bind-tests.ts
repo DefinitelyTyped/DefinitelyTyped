@@ -75,4 +75,8 @@ class TestConfigs {
         requireAutoBind(this, mixConfig);
         requireAutoBind.react(this, mixConfig);
     }
+
+    shutUpNoUnnecessaryClass() {
+        // noop
+    }
 }
