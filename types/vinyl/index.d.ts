@@ -1,4 +1,4 @@
-// Type definitions for vinyl 2.0
+// Type definitions for vinyl 2.2
 // Project: https://github.com/gulpjs/vinyl
 // Definitions by: vvakame <https://github.com/vvakame>, jedmao <https://github.com/jedmao>, Georgii Dolzhykov <https://github.com/thorn0>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -29,7 +29,7 @@ interface ConstructorOptions {
      * normalized by the `file.path` setter.
      * Default: `[]` (or `[options.path]` if `options.path` is passed)
      */
-    history?: string[];
+    history?: ReadonlyArray<string>;
 
     /**
      * The result of an fs.stat call. This is how you mark the file as a directory or
