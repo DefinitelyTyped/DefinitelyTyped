@@ -1,7 +1,7 @@
 import { BarbellWeight } from "barbellweights";
 
 let calculator: BarbellWeight;
-let results: BarbellWeight.results;
+let results: any;
 
 calculator = new BarbellWeight(200, "bench press");
 results = calculator.getResults();
