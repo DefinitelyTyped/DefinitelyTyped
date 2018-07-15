@@ -4,8 +4,14 @@ import { Chart, ChartData, Point } from "chart.js";
 // import chartjs = require('chart.js');
 // => chartjs.Chart
 
+const plugin = {
+  afterDraw: (chartInstance: Chart, easing: string, options?: any) => {
+  }
+};
+
 const chart: Chart = new Chart(new CanvasRenderingContext2D(), {
     type: "bar",
+    plugins: [plugin, plugin],
     data: {
         labels: ["group 1"],
         datasets: [

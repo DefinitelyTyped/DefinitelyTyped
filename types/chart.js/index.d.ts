@@ -239,7 +239,7 @@ declare namespace Chart {
         type?: ChartType | string;
         data?: ChartData;
         options?: ChartOptions;
-        plugins?: PluginServiceRegistrationOptions;
+        plugins?: PluginServiceRegistrationOptions[];
     }
 
     interface ChartData {
