@@ -9,8 +9,13 @@ interface TestResult {
     some: string;
 }
 
-new Queue((task, cb) => {
+new Queue((task) => {
     const test = task.anything;
+    console.log(task);
+});
+
+new Queue((task: TestTask[]) => {
+    const test = task[0].taskId;
     console.log(task);
 });
 
@@ -20,7 +25,7 @@ new Queue<TestTask>((task: TestTask, cb) => {
     cb();
 }, {});
 
-const q = new Queue<TestTask, TestResult>({
+new Queue<TestTask, TestResult>({
     process(task: TestTask, cb) {
         const id = task.taskId;
         cb(null, { some: 'prop' });
@@ -61,8 +66,8 @@ const q = new Queue<TestTask, TestResult>({
 });
 
 new Queue<TestTask, TestResult>({
-    process(tasks: TestTask[], cb) {
-        const firstId = tasks[0].taskId;
+    process(task: TestTask[], cb) {
+        const firstId = task[0].taskId;
         cb(null, { some: 'prop' });
     }
 });
@@ -79,6 +84,15 @@ new Queue<TestTask, TestResult>(() => { }, {
         type: 'test'
     }
 });
+
+const q = new Queue<TestTask, TestResult>(() => {})
+
+const testTask = {taskId: '', taskPayload: ''}
+
+q.push(testTask)
+q.push(testTask, (error, result) => {})
+
+q.cancel('id', () => {})
 
 class TestStore implements Queue.Store<TestTask> {
     connect(cb: (error: any, length: number) => void) {

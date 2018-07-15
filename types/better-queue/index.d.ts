@@ -15,9 +15,9 @@ declare class BetterQueue<T = any, K = any> extends NodeJS.EventEmitter {
   constructor(options: BetterQueue.QueueOptions<T, K>);
   constructor(process: BetterQueue.ProcessFunction<T, K>, options?: Partial<BetterQueue.QueueOptions<T, K>>);
 
-  push(task: T, cb?: (err: any, result?: K) => void): BetterQueue.Ticket;
+  push(task: T, cb?: (err: any, result: K) => void): BetterQueue.Ticket;
 
-  cancel(taskId: any, cb: () => void): void;
+  cancel(taskId: any, cb?: () => void): void;
 
   pause(): void;
 
