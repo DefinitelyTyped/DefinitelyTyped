@@ -240,7 +240,7 @@ export interface ReactSelectProps<TValue = OptionValues> extends React.Props<Rea
      * renders a custom drop-down arrow to be shown in the right-hand side of the select.
      * @default undefined
      */
-    arrowRenderer?: ArrowRendererHandler;
+    arrowRenderer?: ArrowRendererHandler | null;
     /**
      * blurs the input element after a selection has been made. Handy for lowering the keyboard on mobile devices.
      * @default false
