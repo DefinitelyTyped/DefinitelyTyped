@@ -12,6 +12,7 @@
 //                 Anton Novik <https://github.com/tehbi4>
 //                 David Schkalee <https://github.com/misantronic>
 //                 Arthur Udalov <https://github.com/darkartur>
+//                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 Guillaume Chartier <https://github.com/RCGuillaume>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
@@ -28,6 +29,7 @@ export class Async<TValue = OptionValues> extends React.Component<ReactAsyncSele
 export class AsyncCreatable<TValue = OptionValues> extends React.Component<ReactAsyncCreatableSelectProps<TValue>> { }
 
 export type OptionComponentType<TValue = OptionValues> = React.ComponentType<OptionComponentProps<TValue>>;
+export type ValueComponentType<TValue = OptionValues> =  React.ComponentType<ValueComponentProps<TValue>>;
 
 export type HandlerRendererResult = JSX.Element | null | false;
 
@@ -216,6 +218,17 @@ export interface ArrowRendererProps {
      * whether the Select is open or not.
      */
     isOpen: boolean;
+}
+
+export interface ValueComponentProps<TValue = OptionValues> {
+    disabled: ReactSelectProps<TValue>['disabled'];
+    id: string;
+    instancePrefix: string;
+    onClick: OnValueClickHandler<TValue> | null;
+    onRemove?: SelectValueHandler<TValue>;
+    placeholder: ReactSelectProps<TValue>['placeholder'];
+    value: Option<TValue>;
+    values?: Array<Option<TValue>>;
 }
 
 export interface ReactSelectProps<TValue = OptionValues> extends React.Props<ReactSelectClass<TValue>> {
@@ -553,7 +566,7 @@ export interface ReactSelectProps<TValue = OptionValues> extends React.Props<Rea
     /**
      *  value component to render
      */
-    valueComponent?: React.ComponentType<TValue>;
+    valueComponent?: ValueComponentType<TValue>;
 
     /**
      *  optional style to apply to the component wrapper

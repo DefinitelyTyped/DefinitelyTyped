@@ -306,7 +306,7 @@ declare namespace InboxSDK {
 
       getContacts(): Common.Contact[];
 
-      on(name: 'destroyed', cb: () => void): void;
+      on(name: 'destroy', cb: () => void): void;
 
       destroyed: boolean;
     }
@@ -909,7 +909,7 @@ declare namespace InboxSDK {
     interface ModalView {
       close(): void;
 
-      on(name: 'destroyed', cb: () => void): void;
+      on(name: 'destroy', cb: () => void): void;
 
       destroyed: boolean;
     }
@@ -923,7 +923,7 @@ declare namespace InboxSDK {
 
       getMinimized(): boolean;
 
-      on(name: 'destroyed' | 'minimize' | 'restore', cb: () => void): void;
+      on(name: 'destroy' | 'minimize' | 'restore', cb: () => void): void;
 
       destroyed: boolean;
     }
@@ -935,7 +935,7 @@ declare namespace InboxSDK {
 
       disassociateComposeView(): void;
 
-      on(name: 'destroyed' | 'slideAnimationDone' | 'closing', cb: () => void): void;
+      on(name: 'destroy' | 'slideAnimationDone' | 'closing', cb: () => void): void;
 
       destroyed: boolean;
     }

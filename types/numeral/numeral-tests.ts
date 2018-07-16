@@ -90,3 +90,8 @@ numeral.locale('fr');
 // return the current locale
 numeral.locale();
 // 'fr'
+
+// test changing an option
+numeral.options.scalePercentBy100 = false
+numeral(50).formatCurrency('0%')
+// '50%'

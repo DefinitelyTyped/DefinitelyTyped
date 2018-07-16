@@ -2183,41 +2183,60 @@ export interface WebViewPropsIOS {
 
 export interface WebViewUriSource {
     /*
-        * The URI to load in the WebView. Can be a local or remote file.
-        */
+     * The URI to load in the WebView. Can be a local or remote file.
+     */
     uri?: string;
 
     /*
-        * The HTTP Method to use. Defaults to GET if not specified.
-        * NOTE: On Android, only GET and POST are supported.
-        */
+     * The HTTP Method to use. Defaults to GET if not specified.
+     * NOTE: On Android, only GET and POST are supported.
+     */
     method?: string;
 
     /*
-        * Additional HTTP headers to send with the request.
-        * NOTE: On Android, this can only be used with GET requests.
-        */
+     * Additional HTTP headers to send with the request.
+     * NOTE: On Android, this can only be used with GET requests.
+     */
     headers?: any;
 
     /*
-        * The HTTP body to send with the request. This must be a valid
-        * UTF-8 string, and will be sent exactly as specified, with no
-        * additional encoding (e.g. URL-escaping or base64) applied.
-        * NOTE: On Android, this can only be used with POST requests.
-        */
+     * The HTTP body to send with the request. This must be a valid
+     * UTF-8 string, and will be sent exactly as specified, with no
+     * additional encoding (e.g. URL-escaping or base64) applied.
+     * NOTE: On Android, this can only be used with POST requests.
+     */
     body?: string;
 }
 
 export interface WebViewHtmlSource {
     /*
-        * A static HTML page to display in the WebView.
-        */
+     * A static HTML page to display in the WebView.
+     */
     html: string;
 
     /*
-        * The base URL to be used for any relative links in the HTML.
-        */
+     * The base URL to be used for any relative links in the HTML.
+     */
     baseUrl?: string;
+}
+
+export interface WebViewNativeConfig {
+    /*
+     * The native component used to render the WebView.
+     */
+    component?: any;
+
+    /*
+     * Set props directly on the native component WebView. Enables custom props which the
+     * original WebView doesn't pass through.
+     */
+    props?: object;
+
+    /*
+     * Set the ViewManager to use for communication with the native side.
+     * @platform ios
+     */
+    viewManager?: object;
 }
 
 /**
@@ -2319,6 +2338,12 @@ export interface WebViewProps extends ViewProps, WebViewPropsAndroid, WebViewPro
      * The default whitelisted origins are "http://" and "https://".
      */
     originWhitelist?: string[];
+
+    /**
+     * Override the native component used to render the WebView. Enables a custom native
+     * WebView which uses the same JavaScript as the original WebView.
+     */
+    nativeConfig?: WebViewNativeConfig;
 }
 
 export class WebView extends React.Component<WebViewProps> {
