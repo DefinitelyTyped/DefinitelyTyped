@@ -216,7 +216,7 @@ function Examples() {
             boundOffsetBuff: number[];
             sidePoints: paper.Point[];
             path: paper.Path;
-            
+
             constructor(r: number, p: paper.Point, v: paper.Point) {
                 this.radius = r;
                 this.point = p;
@@ -339,6 +339,139 @@ function Examples() {
             for (let i = 0, l = balls.length; i < l; i++) {
                 balls[i].iterate();
             }
+        }    
+    }
+    function SatieLikedToDraw(){
+        
+        let leftPath = new paper.Path({
+            strokeColor: 'red',
+            opacity: 0.5
+        });
+        
+        let rightPath = new paper.Path({
+            strokeColor: 'green',
+            opacity: 0.5
+        });
+        
+        let amount = 8;
+        let step = paper.view.size.width / (amount + 1);
+        let flip = true;
+        
+        for (let i = 0; i <= amount; i++) {
+            leftPath.add(new paper.Point(i * step, 0));
+            rightPath.add(new paper.Point(i * step, 0));
+        }
+        
+        let group = new paper.Group({
+            children: [leftPath, rightPath],
+            transformContent: false,
+            strokeWidth: 30,
+            strokeJoin: 'round',
+            strokeCap: 'butt',
+            pivot: leftPath.position,
+            position: paper.view.center
+        });
+        
+        function onMouseDown() {
+            flip = !flip;
+        }
+        
+        function onKeyDown(event: paper.KeyEvent) {
+            if (event.key === 'space')
+                group.fullySelected = !group.fullySelected;
+        }
+        
+        let audio: AudioContextBase;
+        let source: AudioBufferSourceNode; 
+        let analyserL: AnalyserNode;
+        let analyserR: AnalyserNode;
+        let freqByteData: Uint8Array;
+        
+        paper.view.onFrame = function() {
+            let step = paper.view.size.width / (amount + 1);
+            let scale = paper.view.size.height / 1.75;
+            analyserL.getByteFrequencyData(freqByteData);
+            let leftBands = getEqualizerBands(freqByteData);
+            analyserR.getByteFrequencyData(freqByteData);
+            let rightBands = getEqualizerBands(freqByteData);
+            for (let i = 1; i <= amount; i++) {
+                leftPath.segments[i].point = new paper.Point([i * step, -leftBands[i - 1] * scale]);
+                rightPath.segments[i].point = new paper.Point([i * step, -rightBands[i - 1] * scale * (flip ? -1 : 1)]);
+            }
+            leftPath.smooth();
+            rightPath.smooth();
+            group.pivot = new paper.Point([leftPath.position.x, 0]);
+            group.position = paper.view.center;
+        }
+        
+        // Pause animation until we have data
+        paper.view.pause();
+        
+        let AudioContext = (window as any).AudioContext || (window as any).webkitAudioContext;
+        if (AudioContext) {
+            audio = new AudioContext();
+            source = audio.createBufferSource();
+            // Create two separate analyzers for left and right channel.
+            analyserL = audio.createAnalyser();
+            analyserL.smoothingTimeConstant = 0.25;
+            analyserL.fftSize = Math.pow(2, amount) * 2;
+            analyserR = audio.createAnalyser();
+            analyserR.smoothingTimeConstant = analyserL.smoothingTimeConstant;
+            analyserR.fftSize = analyserL.fftSize;
+            // Create the buffer to receive the analyzed data.
+            freqByteData = new Uint8Array(analyserL.frequencyBinCount);
+            // Create a splitter to feed them both
+            let splitter = audio.createChannelSplitter();
+            // Connect audio processing graph
+            source.connect(splitter);
+            splitter.connect(analyserL, 0, 0);
+            splitter.connect(analyserR, 1, 0);
+            // Connect source to output also so we can hear it
+            source.connect(audio.destination);
+            loadAudioBuffer('http://assets.paperjs.org/audio/gnossienne.mp3');
+        } else {
+            // TODO: Print error message
+            alert('Audio not supported');
+        }
+        
+        function loadAudioBuffer(url: string) {
+            // Load asynchronously
+            let request = new XMLHttpRequest();
+            request.open("GET", url, true);
+            request.responseType = "arraybuffer";
+        
+            request.onload = function() { 
+                audio.decodeAudioData(
+                    request.response,
+                    function(buffer) {
+                        source.buffer = buffer;
+                        source.loop = true;
+                        source.start(0);
+                        paper.view.play();
+                    },
+                    
+                    function(buffer) {
+                        alert("Error loading MP3");
+                    }
+                );
+            };
+            request.send();
+        }
+        
+        function getEqualizerBands(data:Uint8Array) {
+            let bands = [];
+            let amount = Math.sqrt(data.length) / 2;
+            for(let i = 0; i < amount; i++) {
+                let start = Math.pow(2, i) - 1;
+                let end = start * 2 + 1;
+                let sum = 0;
+                for (let j = start; j < end; j++) {
+                    sum += data[j];
+                }
+                let avg = sum / (255 * (end - start));
+                bands[i] = Math.sqrt(avg / Math.sqrt(2));
+            }
+            return bands;
         }
     }
 }
