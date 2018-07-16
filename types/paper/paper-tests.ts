@@ -1502,4 +1502,114 @@ function Examples() {
             initializePath();
         }
     }
+    function SpiralRaster(){
+        // Please note: dragging and dropping images only works for
+        // certain browsers when serving this script online:
+        let path:paper.Path;
+        let position:paper.Point;
+        let max:number;
+        let count = 0;
+        let grow = false;
+
+        // As the web is asynchronous, we need to wait for the raster to
+        // load before we can perform any operation on its pixels.
+        let raster = new paper.Raster('mona');
+        raster.visible = false;
+        raster.on('load', resetSpiral);
+
+        let text = new paper.PointText({
+            justification: 'right',
+            fontSize: 12,
+            content: (window as any).FileReader
+                ? 'drag & drop an image from your desktop to rasterize it'
+                : 'to drag & drop images, please use Webkit, Firefox, Chrome or IE 10'
+        });
+
+        function onFrame(event:paper.IFrameEvent) {
+            if (grow) {
+                if (raster.loaded && (paper.view.center.subtract(position)).length < max) {
+                    for (let i = 0, l = count / 36 + 1; i < l; i++) {
+                        growSpiral();
+                    }
+                    path.smooth();
+                } else {
+                    grow = false;
+                }
+            }
+        }
+
+        function growSpiral() {
+                count++;
+                let vector = new paper.Point({
+                    angle: count * 5,
+                    length: count / 100
+                });
+                let rot = vector.rotate(90);
+                let color = raster.getAverageColor(position.add(vector.divide(2)));
+                let value = color ? (1 - color.gray) * 3.7 : 0;
+                rot.length = Math.max(value, 0.2);
+                path.add(position.add(vector).subtract(rot));
+                path.insert(0, position.add(vector).add(rot));
+                position = position.add(vector);
+        }
+
+        function resetSpiral() {
+            grow = true;
+
+            // Transform the raster, so it fills the view:
+            raster.fitBounds(paper.view.bounds);
+
+            if (path)
+                path.remove();
+
+            position = paper.view.center;
+            count = 0;
+            path = new paper.Path({
+                fillColor: 'black',
+                closed: true
+            });
+
+            position = paper.view.center;
+            max = Math.min(raster.bounds.width, raster.bounds.height) * 0.5;
+        }
+
+        function onResize() {
+            if (raster.loaded)
+                resetSpiral();
+            text.point = paper.view.bounds.bottomRight.subtract(new paper.Point([30, 30]));
+        }
+
+        function onKeyDown(event:paper.KeyEvent) {
+            if (event.key == 'space') {
+                path.selected = !path.selected;
+            }
+        }
+
+        function onDocumentDrag(event:Event) {
+            event.preventDefault();
+        }
+
+        function onDocumentDrop(event:Event) {
+            event.preventDefault();
+
+            let file = (event as any).dataTransfer.files[0];
+            let reader = new FileReader();
+
+            reader.onload = function (event) {
+                let image = document.createElement('img');
+                image.onload = function () {
+                    raster = new paper.Raster(image);
+                    raster.visible = false;
+                    resetSpiral();
+                };
+                if(event.target)
+                    image.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        document.addEventListener('drop', onDocumentDrop, false);
+        document.addEventListener('dragover', onDocumentDrag, false);
+        document.addEventListener('dragleave', onDocumentDrag, false);
+    }
 }
