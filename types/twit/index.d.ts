@@ -265,7 +265,7 @@ declare module 'twit' {
       long?: number,
       follow?: boolean,
       include_email?: boolean,
-      cursor?: string,
+      cursor?: number | string,
       tweet_mode?: string,
       trim_user?: boolean,
       exclude_replies?: boolean,
