@@ -78,6 +78,7 @@ export interface RouteProps {
   children?: ((props: RouteComponentProps<any>) => React.ReactNode) | React.ReactNode;
   path?: string;
   exact?: boolean;
+  sensitive?: boolean;
   strict?: boolean;
 }
 export class Route<T extends RouteProps = RouteProps> extends React.Component<T, any> { }
