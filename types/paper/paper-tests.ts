@@ -515,4 +515,270 @@ function Examples() {
             path.strokeColor = '#e4141b';
         }
     }
+    function TadPoles(){
+        // Adapted from Flocking Processing example by Daniel Schiffman:
+        // http://processing.org/learning/topics/flocking.html
+
+        class Boid {
+            acceleration: paper.Point;
+            vector: paper.Point;
+            position: paper.Point;
+            radius: number;
+            maxSpeed: number;
+            maxForce: number;
+            amount: number;
+            count: number;
+            lastLoc: paper.Point;
+            path: paper.Path;
+            shortPath: paper.Path;
+            head: paper.Shape;
+
+            constructor(position: paper.Point, maxSpeed: number, maxForce: number) {
+                let strength = Math.random() * 0.5;
+                this.acceleration = new paper.Point({});
+                this.vector = paper.Point.random().multiply(2).subtract(1);
+                this.position = position.clone();
+                this.radius = 30;
+                this.maxSpeed = maxSpeed + strength;
+                this.maxForce = maxForce + strength;
+                this.amount = strength * 10 + 10;
+                this.count = 0;
+                this.createItems();
+            }
+            run(boids: Boid[]) {
+                this.lastLoc = this.position.clone();
+                if (!groupTogether) {
+                    this.flock(boids);
+                } else {
+                    this.align(boids);
+                }
+                this.borders();
+                this.update();
+                this.calculateTail();
+                this.moveHead();
+            }
+            calculateTail() {
+                let segments = this.path.segments,
+                    shortSegments = this.shortPath.segments;
+                let speed = this.vector.length;
+                let pieceLength = 5 + speed / 3;
+                let point = this.position;
+                segments[0].point = shortSegments[0].point = point;
+                // Chain goes the other way than the movement
+                let lastVector = this.vector.multiply(-1);
+                for (let i = 1; i < this.amount; i++) {
+                    let vector = segments[i].point.subtract(point);
+                    this.count += speed * 10;
+                    let wave = Math.sin((this.count + i * 3) / 300);
+                    let sway = lastVector.rotate(90).normalize(wave);
+                    point = point.add(lastVector.normalize(pieceLength).add(sway));
+                    segments[i].point = point;
+                    if (i < 3)
+                        shortSegments[i].point = point;
+                    lastVector = vector;
+                }
+                this.path.smooth();
+            }
+            createItems() {
+                this.head = paper.Shape.Ellipse({
+                    center: [0, 0],
+                    size: [13, 8],
+                    fillColor: 'white'
+                });
+
+                this.path = new paper.Path({
+                    strokeColor: 'white',
+                    strokeWidth: 2,
+                    strokeCap: 'round'
+                });
+                for (let i = 0; i < this.amount; i++)
+                    this.path.add(new paper.Point({}));
+
+                this.shortPath = new paper.Path({
+                    strokeColor: 'white',
+                    strokeWidth: 4,
+                    strokeCap: 'round'
+                });
+                for (let i = 0; i < Math.min(3, this.amount); i++)
+                    this.shortPath.add(new paper.Point({}));
+            }
+            moveHead() {
+                this.head.position = this.position;
+                this.head.rotation = this.vector.angle;
+            }
+            // We accumulate a new acceleration each time based on three rules
+            flock(boids:Boid[]) {
+                let separation = this.separate(boids).multiply(3);
+                let alignment = this.align(boids);
+                let cohesion = this.cohesion(boids);
+                this.acceleration = this.acceleration.add(separation).add(alignment).add(cohesion);
+            }
+            update() {
+                // Update velocity
+                this.vector = this.vector.add(this.acceleration);
+                // Limit speed (vector#limit?)
+                this.vector.length = Math.min(this.maxSpeed, this.vector.length);
+                this.position = this.position.add(this.vector);
+                // Reset acceleration to 0 each cycle
+                this.acceleration = new paper.Point({});
+            }
+            seek(target:paper.Point) {
+                this.acceleration = this.acceleration.add(this.steer(target, false));
+            }
+            arrive(target:paper.Point) {
+                this.acceleration = this.acceleration.add(this.steer(target, true));
+            }
+            borders() {
+                let vector = new paper.Point({});
+                let position = this.position;
+                let radius = this.radius;
+                let size = paper.view.size;
+                if (position.x < -radius) vector.x = size.width + radius;
+                if (position.y < -radius) vector.y = size.height + radius;
+                if (position.x > size.width + radius) vector.x = -size.width -radius;
+                if (position.y > size.height + radius) vector.y = -size.height -radius;
+                if (!vector.isZero()) {
+                    this.position = this.position.add(vector);
+                    let segments = this.path.segments;
+                    for (let i = 0; i < this.amount; i++) {
+                        segments[i].point = segments[i].point.add(vector);
+                    }
+                }
+            }
+            // A method that calculates a steering vector towards a target
+            // Takes a second argument, if true, it slows down as it approaches
+            // the target
+            steer(target: paper.Point, slowdown:boolean) {
+                let steer,
+                    desired = target.subtract(this.position);
+                let distance = desired.length;
+                // Two options for desired vector magnitude
+                // (1 -- based on distance, 2 -- maxSpeed)
+                if (slowdown && distance < 100) {
+                    // This damping is somewhat arbitrary:
+                    desired.length = this.maxSpeed * (distance / 100);
+                } else {
+                    desired.length = this.maxSpeed;
+                }
+                steer = desired.subtract(this.vector);
+                steer.length = Math.min(this.maxForce, steer.length);
+                return steer;
+            }
+            separate(boids:Boid[]) {
+                let desiredSeperation = 60;
+                let steer = new paper.Point({});
+                let count = 0;
+                // For every boid in the system, check if it's too close
+                for (let i = 0, l = boids.length; i < l; i++) {
+                    let other = boids[i];
+                    let vector = this.position.subtract(other.position);
+                    let distance = vector.length;
+                    if (distance > 0 && distance < desiredSeperation) {
+                        // Calculate vector pointing away from neighbor
+                        steer= steer.add(vector.normalize(1 / distance));
+                        count++;
+                    }
+                }
+                // Average -- divide by how many
+                if (count > 0)
+                    steer = steer.divide(count);
+                if (!steer.isZero()) {
+                    // Implement Reynolds: Steering = Desired - Velocity
+                    steer.length = this.maxSpeed;
+                    steer = steer.subtract(this.vector);
+                    steer.length = Math.min(steer.length, this.maxForce);
+                }
+                return steer;
+            }
+            // Alignment
+            // For every nearby boid in the system, calculate the average velocity
+            align(boids: Boid[]) {
+                let neighborDist = 25;
+                let steer = new paper.Point({});
+                let count = 0;
+                for (let i = 0, l = boids.length; i < l; i++) {
+                    let other = boids[i];
+                    let distance = this.position.getDistance(other.position);
+                    if (distance > 0 && distance < neighborDist) {
+                        steer = steer.add(other.vector);
+                        count++;
+                    }
+                }
+
+                if (count > 0)
+                    steer = steer.divide(count);
+                if (!steer.isZero()) {
+                    // Implement Reynolds: Steering = Desired - Velocity
+                    steer.length = this.maxSpeed;
+                    steer = steer.subtract(this.vector);
+                    steer.length = Math.min(steer.length, this.maxForce);
+                }
+                return steer;
+            }
+            // Cohesion
+            // For the average location (i.e. center) of all nearby boids,
+            // calculate steering vector towards that location
+            cohesion(boids:Boid[]) {
+                let neighborDist = 100;
+                let sum = new paper.Point({});
+                let count = 0;
+                for (let i = 0, l = boids.length; i < l; i++) {
+                    let other = boids[i];
+                    let distance = this.position.getDistance(other.position);
+                    if (distance > 0 && distance < neighborDist) {
+                        sum = sum.add(other.position); // Add location
+                        count++;
+                    }
+                }
+                if (count > 0) {
+                    sum = sum.divide(count);
+                    // Steer towards the location
+                    return this.steer(sum, false);
+                }
+                return sum;
+            }
+        }
+
+        let heartPath = new paper.Path('M514.69629,624.70313c-7.10205,-27.02441 -17.2373,-52.39453 -30.40576,-76.10059c-13.17383,-23.70703 -38.65137,-60.52246 -76.44434,-110.45801c-27.71631,-36.64355 -44.78174,-59.89355 -51.19189,-69.74414c-10.5376,-16.02979 -18.15527,-30.74951 -22.84717,-44.14893c-4.69727,-13.39893 -7.04297,-26.97021 -7.04297,-40.71289c0,-25.42432 8.47119,-46.72559 25.42383,-63.90381c16.94775,-17.17871 37.90527,-25.76758 62.87354,-25.76758c25.19287,0 47.06885,8.93262 65.62158,26.79834c13.96826,13.28662 25.30615,33.10059 34.01318,59.4375c7.55859,-25.88037 18.20898,-45.57666 31.95215,-59.09424c19.00879,-18.32178 40.99707,-27.48535 65.96484,-27.48535c24.7373,0 45.69531,8.53564 62.87305,25.5957c17.17871,17.06592 25.76855,37.39551 25.76855,60.98389c0,20.61377 -5.04102,42.08691 -15.11719,64.41895c-10.08203,22.33203 -29.54687,51.59521 -58.40723,87.78271c-37.56738,47.41211 -64.93457,86.35352 -82.11328,116.8125c-13.51758,24.0498 -23.82422,49.24902 -30.9209,75.58594z');
+
+        let boids:Boid[] = [];
+        let groupTogether = false;
+
+        // Add the boids:
+        for (let i = 0; i < 30; i++) {
+            let position = paper.Point.random().multiply(new paper.Point(paper.view.size.width, paper.view.size.height));
+            boids.push(new Boid(position, 10, 0.05));
+        }
+
+
+        function onFrame(event: paper.IFrameEvent) {
+            for (let i = 0, l = boids.length; i < l; i++) {
+                if (groupTogether) {
+                    let length = ((i + event.count / 30) % l) / l * heartPath.length;
+                    let point = heartPath.getPointAt(length);
+                    if (point)
+                        boids[i].arrive(point);
+                }
+                boids[i].run(boids);
+            }
+        }
+
+        // Reposition the heart path whenever the window is resized:
+        function onResize(event:paper.ToolEvent) {
+            heartPath.fitBounds(paper.view.bounds);
+            heartPath.scale(0.8);
+        }
+
+        function onMouseDown(event:paper.ToolEvent) {
+            groupTogether = !groupTogether;
+        }
+
+        function onKeyDown(event:paper.KeyEvent) {
+            if (event.key == 'space') {
+                let layer = paper.project.activeLayer;
+                layer.selected = !layer.selected;
+                return false;
+            }
+        }
+    }
 }
