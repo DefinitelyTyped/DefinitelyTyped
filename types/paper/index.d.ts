@@ -1834,6 +1834,18 @@ declare module paper {
         insertBelow(item: Item): Item;
 
         /**
+         * Inserts the specified item as a child of this item by appending it to the list of children and moving it above all other children. You can use this function for groups, compound paths and layers.
+         * @param item - the item to be appended as a child
+         */
+        appendTop(item: Item): Item;
+
+        /**
+         * Inserts the specified item as a child of this item by appending it to the list of children and moving it below all other children. You can use this function for groups, compound paths and layers.
+         * @param item - the item to be appended as a child
+         */
+        appendBelow(item: Item): Item;
+
+        /**
          * Moves this item above the specified item. Returns true if the item
          * was moved.
          * @param item - the item above which it should be moved
