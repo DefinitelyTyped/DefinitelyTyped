@@ -899,6 +899,16 @@ export interface FrameBase {
     ...args: any[]
   ): Promise<any>;
 
+  waitForRequest(
+    urlOrPredicate: string | ((req: Request) => boolean),
+    options?: { timeout?: number }
+  ): Promise<Request>;
+
+  waitForResponse(
+    urlOrPredicate: string | ((res: Response) => boolean),
+    options?: { timeout?: number }
+  ): Promise<Response>;
+
   waitForSelector(
     selector: string,
     options?: { visible?: boolean; hidden?: boolean; timeout?: number }
