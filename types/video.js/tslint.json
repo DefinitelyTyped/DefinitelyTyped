@@ -4,6 +4,8 @@
 		"no-padding": false,
 		"void-return": false,
 		"no-empty-interface": false,
-		"no-redundant-jsdoc": false
+		"no-redundant-jsdoc": false,
+        "no-single-declare-module": false,
+        "no-declare-current-package": false
 	}
 }
