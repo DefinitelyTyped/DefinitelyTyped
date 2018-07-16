@@ -1908,6 +1908,8 @@ declare namespace __MaterialUI {
         minlength?: string;
         step?: number;
         autoComplete?: string;
+        placeholder?: string;
+        title?: string;
     }
     export class TextField extends React.Component<TextFieldProps> {
         blur(): void;
