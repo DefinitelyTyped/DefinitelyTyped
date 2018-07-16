@@ -1,5 +1,5 @@
 {
-	"extends": "dtslint/dtslint.json",
+	"extends": "dtslint/dt.json",
 	"rules":{
 		"no-padding": false,
 		"void-return": false,
