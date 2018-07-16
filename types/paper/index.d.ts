@@ -1353,7 +1353,12 @@ declare module paper {
          * Specifies whether the item is selected. This will also return true for Group items if they are partially selected, e.g. groups containing selected or partially selected paths.
          * Paper.js draws the visual outlines of selected items on top of your project. This can be useful for debugging, as it allows you to see the construction of paths, position of path curves, individual segment points and bounding boxes of symbol and raster items.
          */
-        selected: boolean;
+        selected: boolean;        
+
+        /**
+         * Specifies whether the item and all children are selected.
+         */
+        fullySelected: boolean;
 
         /**
          * Specifies whether the item defines a clip mask. This can only be set on paths, compound paths, and text frame objects, and only if the item is already contained within a clipping group.
@@ -2865,11 +2870,6 @@ declare module paper {
          * Read only.
          */
         readonly area: number;
-
-        /**
-         * Specifies whether the path and all its segments are selected. Cannot be true on an empty path.
-         */
-        fullySelected: boolean;
 
         /**
          * Adds one or more segments to the end of the segments array of this path.
