@@ -1,0 +1,1 @@
+import "wegame-api-test.js"
