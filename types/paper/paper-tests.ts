@@ -995,4 +995,84 @@ function Examples() {
             }
         }
     }
+    function RadialRainbows(){
+        let point = paper.view.center;
+
+        let colors:paper.Color[] = [];
+        let cycles = 4;
+        for (let i = 0, l = 60; i < l; i++) {
+            let brightness = 1 - (i / l) * 1.5;
+            let hue = i / l * cycles * 360;
+            let color = new paper.Color({
+                hue: hue,
+                saturation: 1,
+                brightness: brightness
+            });
+            colors.push(color);
+        }
+
+        let radius = Math.max(paper.view.size.width, paper.view.size.height) * 0.75;
+
+        let path = new paper.Path.Rectangle({
+            rectangle: paper.view.bounds,
+            fillColor: {
+                origin: point,
+                destination: point.add(new paper.Point([radius, 0])),
+                gradient: {
+                    stops: colors,
+                    radial: true
+                }
+            }
+        });
+
+        let color = path.fillColor as paper.Color;
+        let gradient = color.gradient;
+        let mouseDown = false;
+        let mousePoint = paper.view.center;
+
+        function onMouseDown(event: paper.ToolEvent) {
+            mouseDown = true;
+            mousePoint = event.point;
+        }
+
+        function onMouseDrag(event: paper.ToolEvent) {
+            mousePoint = event.point;
+        }
+
+        function onMouseUp(event: paper.ToolEvent) {
+            vector.length = 10;
+            mouseDown = false;
+        }
+
+        let grow = false;
+        let vector = new paper.Point(150, 0);
+
+        function onFrame() {
+            if(gradient){
+                for (let i = 0, l = gradient.stops.length; i < l; i++)
+                    gradient.stops[i].color.hue -= 20;
+                if (grow && vector.length > 300) {
+                    grow = false;
+                } else if (!grow && vector.length < 75) {
+                    grow = true;
+                }
+                if (mouseDown) {
+                    point = point.add((mousePoint.subtract(point)).divide(10));
+                } else {
+                    vector.length += (grow ? 1 : -1);
+                    vector.angle += 5;
+                }
+                color.highlight = mouseDown ? point : point.add(vector);
+            }
+        }
+
+        function onResize(event: paper.ToolEvent) {
+            point = paper.view.center;
+            path.bounds = paper.view.bounds;
+            let color = path.fillColor as paper.Color;
+            color.origin = point;
+            let radius = Math.max(paper.view.size.width, paper.view.size.height) * 0.75;
+            color.destination = point.add(new paper.Point([radius, 0]));
+        }
+    }
 }
