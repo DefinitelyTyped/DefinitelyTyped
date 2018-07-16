@@ -5738,6 +5738,7 @@ export interface WebGLRenderTargetOptions {
     anisotropy?: number; // 1;
     depthBuffer?: boolean; // true;
     stencilBuffer?: boolean; // true;
+    generateMipmaps?: boolean; // true;
 }
 
 export class WebGLRenderTarget extends EventDispatcher {
