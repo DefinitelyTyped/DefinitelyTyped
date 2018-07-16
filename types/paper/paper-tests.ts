@@ -966,4 +966,33 @@ function Examples() {
             }
         }
     }
+    function RoundedRectangles(){
+        let mousePoint = paper.view.center;
+        let amount = 25;
+        let colors = ['red', 'white', 'blue', 'white'];
+        
+        for (let i = 0; i < amount; i++) {
+            let rect = new paper.Rectangle(new paper.Point([0, 0]), new paper.Point([25, 25]));
+            rect.center = mousePoint;
+            let path = new paper.Path.Rectangle(rect, 6);
+            path.fillColor = colors[i % 4];
+            let scale = (1 - i / amount) * 20;
+            path.scale(scale);
+        }
+        
+        function onMouseMove(event: paper.ToolEvent) {
+            mousePoint = event.point;
+        }
+        
+        let children = paper.project.activeLayer.children;
+        function onFrame(event: paper.IFrameEvent) {
+            for (let i = 0, l = children.length; i < l; i++) {
+                let item = children[i];
+                let delta = (mousePoint.subtract(item.position)).divide(i + 5);
+                item.rotate(Math.sin((event.count + i) / 10) * 7);
+                if (delta.length > 0.1)
+                    item.position = item.position.add(delta);
+            }
+        }
+    }
 }
