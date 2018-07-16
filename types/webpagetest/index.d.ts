@@ -288,6 +288,34 @@ interface TestInfo {
   scripted: number;
 }
 
+interface TestResult {
+  id: string;
+  url: string;
+  summary: string;
+  testUrl: string;
+  location: string;
+  from: string;
+  connectivity: string;
+  bwDown: number;
+  bwUp: number;
+  latency: number;
+  plr: string;
+  mobile: number;
+  completed: number;
+  tester: string;
+  testerDNS: string;
+  runs: { [key: string]: TestRun };
+  fvonly: boolean;
+  successfulFVRuns: number;
+  average: TestRun;
+  standardDeviation: TestRun;
+  median: TestRun;
+}
+
+interface TestRun {
+  firstView: any;
+}
+
 declare class WebPageTest {
   static defaultListenPort: number;
   static defaultServer: string;
@@ -305,8 +333,8 @@ declare class WebPageTest {
   getTestStatus(id: string, options: Options & RequestOptions, callback: Callback<Response<TestStatus>>): void;
   getTestStatus(id: string, callback: Callback<Response<TestStatus>>): void;
 
-  getTestResults(id: string, options: Options & RequestOptions & ResultsOptions, callback: Callback<any>): void;
-  getTestResults(id: string, callback: Callback<any>): void;
+  getTestResults(id: string, options: Options & RequestOptions & ResultsOptions, callback: Callback<Response<TestResult>>): void;
+  getTestResults(id: string, callback: Callback<Response<TestResult>>): void;
 
   getLocations(options: Options & RequestOptions, callback: Callback<{ response: Response<{ location: Location[] }> }>): void;
   getLocations(callback: Callback<{ response: Response<{ location: Location[] }> }>): void;

@@ -60,3 +60,12 @@ wpt.getTestStatus('180208_PA_28V', (err, data) => {
   console.log(testStatus.testId);
   console.log(testInfo.url);
 });
+
+wpt.getTestResults('180208_PA_28V', (err, data) => {
+  const { data: testResult } = data;
+  const { runs, id, url, median } = testResult;
+  console.log(id);
+  console.log(url);
+  console.log(runs['1'].firstView);
+  console.log(median.firstView);
+});
