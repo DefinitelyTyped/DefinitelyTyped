@@ -4678,12 +4678,12 @@ declare namespace cytoscape {
          * when one of the specified events occurs.
          */
         on(events: EventNames, handler: EventHandler): this;
-        bind(events: EventNames, handler: EventHandler): this;
-        listen(events: EventNames, handler: EventHandler): this;
-        addListener(events: EventNames, handler: EventHandler): this;
         on(events: EventNames, data: any, handler: EventHandler): this;
+        bind(events: EventNames, handler: EventHandler): this;
         bind(events: EventNames, data: any, handler: EventHandler): this;
+        listen(events: EventNames, handler: EventHandler): this;
         listen(events: EventNames, data: any, handler: EventHandler): this;
+        addListener(events: EventNames, handler: EventHandler): this;
         addListener(events: EventNames, data: any, handler: EventHandler): this;
 
         /**
