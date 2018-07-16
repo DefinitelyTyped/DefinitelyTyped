@@ -4418,14 +4418,24 @@ declare module paper {
         lightness: number;
 
         /**
-         * The gradient object describing the type of gradient and the stops.
+         * The gradient object describing the type of gradient and the stops. Only defined if the color was constructed as a gradient.
          */
-        gradient: Gradient;
+        gradient?: Gradient;
+
+         /**
+         * The starting point of the gradient. Only defined if the color was constructed as a gradient.
+         */
+        origin?: Point;
+
+         /**
+         * The ending point of the gradient. Only defined if the color was constructed as a gradient.
+         */
+        destination?: Point;
 
         /**
-         * The highlight point of the gradient.
+         * The highlight point of the gradient. Only defined if the color was constructed as a gradient.
          */
-        highlight: Point;
+        highlight?: Point;
 
         /**
          * Sets color to a RGB Color object.
