@@ -204,7 +204,7 @@ export class TestFile {
     }
 
     /** Get a signed URL to allow limited time access to the file */
-    getSignedUrl(config?: SignedUrlConfig): Promise<[string]> {
+    getSignedUrl(config: SignedUrlConfig): Promise<[string]> {
         return this.file.getSignedUrl(config);
     }
 
