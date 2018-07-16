@@ -41,7 +41,7 @@ declare namespace wx {
     /** 设置请求的 header , header 中不能设置 Referer */
     header?: RequestHeader;
     /** 默认为 GET，有效值：OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT */
-    method?: string;
+    method?: "GET" | "OPTIONS" | "GET" | "HEAD" | "POST" | "PUT" | "DELETE" | "TRACE" | "CONNECT";
     /** 如果设为json，会尝试对返回的数据做一次 JSON.parse */
     dataType?: string;
     /**
