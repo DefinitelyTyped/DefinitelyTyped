@@ -3385,6 +3385,17 @@ declare module paper {
          */
         remove(): boolean;
 
+                /**
+         * Checks whether the segment is equal to that of the supplied segment.
+         * @param segment - the segment to check against
+         */
+        equals(segment: Segment): boolean;
+
+        /**
+         * Returns a copy of the segment.
+         */
+        clone(): Segment;
+
         /**
          * A string representation of the segment
          */
