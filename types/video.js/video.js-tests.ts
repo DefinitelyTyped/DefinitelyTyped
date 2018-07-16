@@ -52,7 +52,7 @@ videojs("example_video_1").ready(function() {
 	const howTallIsIt: number = this.height();
 
 	this.height(480);
-	
+
 	this.requestFullScreen();
 
 	testEvents(this);
