@@ -1617,8 +1617,8 @@ function Examples() {
         // http://www.flickr.com/photos/puckey/3179779686/in/photostream/
 
         // Create a raster item:
-        var raster = new paper.Raster('mona.jpg');
-        var loaded = false;
+        let raster = new paper.Raster('mona.jpg');
+        let loaded = false;
 
         raster.on('load', function(event: paper.Event) {
             loaded = true;
@@ -1628,7 +1628,7 @@ function Examples() {
         // Make the raster invisible:
         raster.visible = false;
 
-        var lastPos = paper.view.center;
+        let lastPos = paper.view.center;
         function moveHandler(this: paper.Path, event:paper.MouseEvent) {
             if (!loaded)
                 return;
@@ -1636,29 +1636,29 @@ function Examples() {
                 return;
             lastPos = event.point;
 
-            var size: paper.Size = this.bounds.size.clone();
-            var isLandscape = size.width > size.height;
+            let size: paper.Size = this.bounds.size.clone();
+            let isLandscape = size.width > size.height;
 
             // If the path is in landscape orientation, we're going to
             // split the path horizontally, otherwise vertically:
 
             size= size.divide(new paper.Size(isLandscape ? [2, 1] : [1, 2]));
 
-            var path = new paper.Path.Rectangle({
+            let path = new paper.Path.Rectangle({
                 point: this.bounds.topLeft.floor(),
                 size: size.ceil(),
                 onMouseMove: moveHandler
             });
             path.fillColor = raster.getAverageColor(path);
 
-            var path = new paper.Path.Rectangle({
+            let path2 = new paper.Path.Rectangle({
                 point: isLandscape
                     ? this.bounds.topCenter.ceil()
                     : this.bounds.leftCenter.ceil(),
                 size: size.floor(),
                 onMouseMove: moveHandler
             });
-            path.fillColor = raster.getAverageColor(path);
+            path2.fillColor = raster.getAverageColor(path2);
 
             this.remove();
         }
@@ -1680,5 +1680,138 @@ function Examples() {
                 onMouseMove: moveHandler
             });
         }
+    }
+    function Qbertify(){
+        // Please note: dragging and dropping images only works for
+        // certain browsers when serving this script online:
+
+        let values = {
+            amount: 30
+        };
+
+        let raster: paper.Raster;
+        let group: paper.Group;
+        let piece = createPiece();
+        let count = 0;
+
+        handleImage('mona');
+
+        let text = new paper.PointText({
+            point: paper.view.center,
+            justification: 'center',
+            fillColor: 'white',
+            fontSize: 15,
+            content: (window as any).FileReader
+                ? 'Drag & drop an image from your desktop'
+                : 'To drag & drop images, please use Webkit, Firefox, Chrome or IE 10'
+        });
+
+        function createPiece() {
+            let group = new paper.Group();
+            let hexagon = new paper.Path.RegularPolygon({
+                center: paper.view.center,
+                sides: 6,
+                radius: 50,
+                fillColor: 'gray',
+                parent: group
+            });
+            for (let i = 0; i < 2; i++) {
+                let path = new paper.Path({
+                    closed: true,
+                    parent: group,
+                    fillColor: i == 0 ? 'white' : 'black'
+                });
+                for (let j = 0; j < 3; j++) {
+                    let index = (i * 2 + j) % hexagon.segments.length;
+                    path.add(hexagon.segments[index].clone());
+                }
+                path.add(hexagon.bounds.center);
+            }
+            // Remove the group from the document, so it is not drawn:
+            group.remove();
+            return group;
+        }
+
+        function handleImage(image:HTMLImageElement|string) {
+            count = 0;
+            let size = piece.bounds.size;
+
+            if (group)
+                group.remove();
+
+            // As the web is asynchronous, we need to wait for the raster to
+            // load before we can perform any operation on its pixels.
+            raster = new paper.Raster(image);
+            raster.visible = false;
+            raster.on('load', function() {
+                // Transform the raster, so it fills the view:
+                raster.fitBounds(paper.view.bounds, true);
+                group = new paper.Group();
+                for (let y = 0; y < values.amount; y++) {
+                    for (let x = 0; x < values.amount; x++) {
+                        let copy = piece.clone();
+                        copy.position = copy.position.add(new paper.Point(size.multiply(new paper.Size([x + (y % 2 ? 0.5 : 0), y * 0.75]))));
+                        group.addChild(copy);
+                    }
+                }
+
+                // Transform the group so it covers the view:
+                group.fitBounds(paper.view.bounds, true);
+                group.scale(1.1);
+            })
+        }
+
+        function onFrame(event:paper.IFrameEvent) {
+            if (!group)
+                return;
+            // Loop through the uncolored hexagons in the group and fill them
+            // with the average color:
+            let length = Math.min(count + values.amount, group.children.length);
+            for (let i = count; i < length; i++) {
+                piece = group.children[i] as paper.Group;
+                let hexagon = piece.children[0] as paper.Path;
+                let color = raster.getAverageColor(hexagon);
+                if (color) {
+                    hexagon.fillColor = color;
+                    let top = piece.children[1];
+                    top.fillColor = color.clone();
+                    top.fillColor.brightness *= 1.5;
+
+                    let right = piece.children[2];
+                    right.fillColor = color.clone();
+                    right.fillColor.brightness *= 0.5;
+                }
+            }
+            count += values.amount;
+        }
+
+        function onResize() {
+            paper.project.activeLayer.position = paper.view.center;
+        }
+
+        function onDocumentDrag(event:Event) {
+            event.preventDefault();
+        }
+
+        function onDocumentDrop(event:Event) {
+            event.preventDefault();
+
+            let file = (event as any).dataTransfer.files[0];
+            let reader = new FileReader();
+
+            reader.onload = function(event) {
+                let image = document.createElement('img');
+                image.onload = function () {
+                    handleImage(image);
+                    paper.view.draw();
+                };
+                image.src = (event as any).target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        document.addEventListener('drop', onDocumentDrop, false);
+        document.addEventListener('dragover', onDocumentDrag, false);
+        document.addEventListener('dragleave', onDocumentDrag, false);
     }
 }
