@@ -313,21 +313,26 @@ declare namespace Storage {
      * Options when uploading file to bucket.
      */
     interface UploadOptions extends WriteStreamOptions {
-        destination?: string;
+        destination?: string | File;
+        encryptionKey?: string;
+        kmsKeyName?: string;
+        requestOptions?: any;
     }
 
     /**
      * Options when writing to a file stream.
      */
     interface WriteStreamOptions {
-        gzip?: boolean;
+        contentType?: string;
+        gzip?: string | boolean;
         metadata?: FileMetadata;
-        offset?: number;
+        offset?: string;
         predefinedAcl?: string;
         private?: boolean;
         public?: boolean;
         resumable?: boolean;
         uri?: string;
+        userProject?: string;
         validation?: string | boolean;
     }
 
