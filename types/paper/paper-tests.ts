@@ -764,7 +764,7 @@ function Examples() {
         }
 
         // Reposition the heart path whenever the window is resized:
-        function onResize(event:paper.ToolEvent) {
+        function onResize(event:paper.Event) {
             heartPath.fitBounds(paper.view.bounds);
             heartPath.scale(0.8);
         }
@@ -1066,7 +1066,7 @@ function Examples() {
             }
         }
 
-        function onResize(event: paper.ToolEvent) {
+        function onResize(event: paper.Event) {
             point = paper.view.center;
             path.bounds = paper.view.bounds;
             let color = path.fillColor as paper.Color;
@@ -1498,7 +1498,7 @@ function Examples() {
         }
 
         // Reposition the path whenever the window is resized:
-        function onResize(event:paper.ToolEvent) {
+        function onResize(event:paper.Event) {
             initializePath();
         }
     }
@@ -1611,5 +1611,74 @@ function Examples() {
         document.addEventListener('drop', onDocumentDrop, false);
         document.addEventListener('dragover', onDocumentDrag, false);
         document.addEventListener('dragleave', onDocumentDrag, false);
+    }
+    function DivisionRaster(){
+        // Based on 'JPEG Raster' by Jonathan Puckey:
+        // http://www.flickr.com/photos/puckey/3179779686/in/photostream/
+
+        // Create a raster item:
+        var raster = new paper.Raster('mona.jpg');
+        var loaded = false;
+
+        raster.on('load', function(event: paper.Event) {
+            loaded = true;
+            paper.view.onResize(event);
+        });
+
+        // Make the raster invisible:
+        raster.visible = false;
+
+        var lastPos = paper.view.center;
+        function moveHandler(this: paper.Path, event:paper.MouseEvent) {
+            if (!loaded)
+                return;
+            if (lastPos.getDistance(event.point) < 10)
+                return;
+            lastPos = event.point;
+
+            var size: paper.Size = this.bounds.size.clone();
+            var isLandscape = size.width > size.height;
+
+            // If the path is in landscape orientation, we're going to
+            // split the path horizontally, otherwise vertically:
+
+            size= size.divide(new paper.Size(isLandscape ? [2, 1] : [1, 2]));
+
+            var path = new paper.Path.Rectangle({
+                point: this.bounds.topLeft.floor(),
+                size: size.ceil(),
+                onMouseMove: moveHandler
+            });
+            path.fillColor = raster.getAverageColor(path);
+
+            var path = new paper.Path.Rectangle({
+                point: isLandscape
+                    ? this.bounds.topCenter.ceil()
+                    : this.bounds.leftCenter.ceil(),
+                size: size.floor(),
+                onMouseMove: moveHandler
+            });
+            path.fillColor = raster.getAverageColor(path);
+
+            this.remove();
+        }
+
+        function onResize(event:paper.Event) {
+            if (!loaded)
+                return;
+            paper.project.activeLayer.removeChildren();
+
+            // Transform the raster so that it fills the bounding rectangle
+            // of the view:
+            raster.fitBounds(paper.view.bounds, true);
+
+            // Create a path that fills the view, and fill it with
+            // the average color of the raster:
+            new paper.Path.Rectangle({
+                rectangle: paper.view.bounds,
+                fillColor: raster.getAverageColor(paper.view.bounds),
+                onMouseMove: moveHandler
+            });
+        }
     }
 }
