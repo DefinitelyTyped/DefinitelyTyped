@@ -846,7 +846,7 @@ const SQSEvent: AWSLambda.SQSEvent = {
     Records: [
         {
             messageId: "c80e8021-a70a-42c7-a470-796e1186f753",
-            receiptHandle: "AQEBJQ+/u6NsnT5t8Q/VbVxgdUl4TMKZ5FqhksRdIQvLBhwNvADoBxYSOVeCBXdnS9P+erlTtwEALHsnBXynkfPLH3BOUqmgzP25U8kl8eHzq6RAlzrSOfTO8ox9dcp6GLmW33YjO3zkq5VRYyQlJgLCiAZUpY2D4UQcE5D1Vm8RoKfbE+xtVaOctYeINjaQJ1u3mWx9T7tork3uAlOe1uyFjCWU5aPX/1OHhWCGi2EPPZj6vchNqDOJC/Y2k1gkivqCjz1CZl6FlZ7UVPOx3AMoszPuOYZ+Nuqpx2uCE2MHTtMHD8PVjlsWirt56oUr6JPp9aRGo6bitPIOmi4dX0FmuMKD6u/JnuZCp+AXtJVTmSHS8IXt/twsKU7A+fiMK01NtD5msNgVPoe9JbFtlGwvTQ==",
+            receiptHandle: "AQEBJQ+/u6NsnT5t8Q/VbVxgdUl4TMKZ5FqhksRdIQvLBhwNvADoBxYSOVeCBXdnS9P+",
             body: "{\"foo\":\"bar\"}",
             attributes: {
                 ApproximateReceiveCount: "3",
@@ -863,11 +863,10 @@ const SQSEvent: AWSLambda.SQSEvent = {
     ]
 };
 
-// $ExpectError
 let SQSMessageLegacyAsyncHandler: AWSLambda.SQSHandler = async (
     event: AWSLambda.SQSEvent,
     context: AWSLambda.Context,
-    cb: AWSLambda.Callback<void|string>,
+    cb: AWSLambda.Callback<void>,
 ) => {
     // $ExpectType SQSEvent
     event;
@@ -881,8 +880,6 @@ let SQSMessageLegacyAsyncHandler: AWSLambda.SQSHandler = async (
     cb();
     cb(null);
     cb(new Error());
-    // $ExpectError
-    cb(null, "success");
 };
 
 let SQSMessageNode8AsyncHandler: AWSLambda.SQSHandler = async (
@@ -896,6 +893,5 @@ let SQSMessageNode8AsyncHandler: AWSLambda.SQSHandler = async (
     // $ExpectType Context
     context;
     str = context.functionName;
-    return {};
+    return;
 };
-

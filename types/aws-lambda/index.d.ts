@@ -667,9 +667,9 @@ export interface SQSRecordAttributes {
     ApproximateFirstReceiveTimestamp: string;
 }
 export interface SQSMessageAttribute {
-    Name: string,
-    Type: string,
-    Value: string
+    Name: string;
+    Type: string;
+    Value: string;
 }
 export interface SQSMessageAttributes {
     [name: string]: SQSMessageAttribute;
@@ -719,7 +719,7 @@ export type SNSHandler = Handler<SNSEvent, void>;
 export type CognitoUserPoolTriggerHandler = Handler<CognitoUserPoolTriggerEvent>;
 // TODO: Different event/handler types for each event trigger so we can type the result?
 
-export type SQSHandler = Handler<SQSEvent, void|string|object>;
+export type SQSHandler = Handler<SQSEvent, void>;
 
 // TODO: CognitoSync
 
