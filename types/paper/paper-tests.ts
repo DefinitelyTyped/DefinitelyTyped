@@ -341,8 +341,7 @@ function Examples() {
             }
         }    
     }
-    function SatieLikedToDraw(){
-        
+    function SatieLikedToDraw(){        
         let leftPath = new paper.Path({
             strokeColor: 'red',
             opacity: 0.5
@@ -472,6 +471,48 @@ function Examples() {
                 bands[i] = Math.sqrt(avg / Math.sqrt(2));
             }
             return bands;
+        }
+    }
+    function Chain(){
+        // Adapted from the following Processing example:
+        // http://processing.org/learning/topics/follow3.html
+
+        // The amount of points in the path:
+        let points = 25;
+
+        // The distance between the points:
+        let length = 35;
+
+        let path = new paper.Path({
+            strokeColor: '#E4141B',
+            strokeWidth: 20,
+            strokeCap: 'round'
+        });
+
+        let start = paper.view.center.divide(new paper.Point([10, 1]));
+        for (let i = 0; i < points; i++)
+            path.add(start.add(new paper.Point(i * length, 0)));
+
+        function onMouseMove(event: paper.ToolEvent) {
+            path.firstSegment.point = event.point;
+            for (let i = 0; i < points - 1; i++) {
+                let segment = path.segments[i];
+                let nextSegment = segment.next;
+                let vector = segment.point.subtract(nextSegment.point);
+                vector.length = length;
+                nextSegment.point = segment.point.subtract(vector);
+            }
+            path.smooth({ type: 'continuous' });
+        }
+
+        function onMouseDown(event: paper.ToolEvent) {
+            path.fullySelected = true;
+            path.strokeColor = '#e08285';
+        }
+
+        function onMouseUp(event: paper.ToolEvent) {
+            path.fullySelected = false;
+            path.strokeColor = '#e4141b';
         }
     }
 }
