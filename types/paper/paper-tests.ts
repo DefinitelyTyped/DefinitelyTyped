@@ -781,4 +781,189 @@ function Examples() {
             }
         }
     }
+    function NyanRainbow(){
+        // A tribute to Nyan Cat http://www.youtube.com/watch?v=QH2-TGUlwu4
+        let mediaElement: any;
+        let playing = false;
+        /*MediaElement('nyan', {
+            pluginPath: '/assets/mediaelement/',
+            success: function(me) {
+                mediaElement = me;
+                me.play();
+                me.addEventListener('timeupdate', function(time: any) {
+                    if (me.currentTime > 3.7)
+                        playing = true;
+                });
+            }
+        });*/
+
+        let mousePos = paper.view.center .add(new paper.Point([paper.view.bounds.width / 3, 100]));
+        let position = paper.view.center;
+
+        function onFrame(event:paper.IFrameEvent) {
+            position = position.add((mousePos.subtract(position)).divide(10));
+            let vector = (paper.view.center.subtract(position)).divide(10);
+            moveStars(vector.multiply(3));
+            moveRainbow(vector, event);
+        }
+
+        function onMouseMove(event:paper.ToolEvent) {
+            mousePos = event.point;
+        }
+
+        function onKeyDown(event:paper.KeyEvent) {
+            if (event.key == 'space')
+                paper.project.activeLayer.selected = !paper.project.activeLayer.selected;
+        }
+
+        let moveStars: (vector:paper.Point)=>void = moveStarsFunctionCreator();
+        function moveStarsFunctionCreator(): (vector:paper.Point)=>void {
+            // The amount of symbol we want to place;
+            let count = 50;
+
+            // Create a symbol, which we will use to place instances of later:
+            let path = new paper.Path.Circle({
+                center: [0, 0],
+                radius: 5,
+                fillColor: 'white',
+                strokeColor: 'black'
+            });
+
+            let symbol = new paper.Symbol(path);
+
+            // Place the instances of the symbol:
+            for (let i = 0; i < count; i++) {
+                // The center position is a random point in the view:
+                let center = paper.Point.random().multiply(new paper.Point(paper.view.size.width, paper.view.size.height));
+                let placed = symbol.place(center);
+                placed.scale(i / count + 0.01);
+                placed.data = {
+                    vector: new paper.Point({
+                        angle: Math.random() * 360,
+                        length : (i / count) * Math.random() / 5
+                    })
+                };
+            }
+
+            let vector = new paper.Point({
+                angle: 45,
+                length: 0
+            });
+
+            function keepInView(item:paper.Item) {
+                let position = item.position;
+                let viewBounds = paper.view.bounds;
+                if (position.isInside(viewBounds))
+                    return;
+                let itemBounds = item.bounds;
+                if (position.x > viewBounds.width + 5) {
+                    position.x = -item.bounds.width;
+                }
+
+                if (position.x < -itemBounds.width - 5) {
+                    position.x = viewBounds.width;
+                }
+
+                if (position.y > viewBounds.height + 5) {
+                    position.y = -itemBounds.height;
+                }
+
+                if (position.y < -itemBounds.height - 5) {
+                    position.y = viewBounds.height
+                }
+            }
+
+            return function(vector:paper.Point) {
+                // Run through the active layer's children list and change
+                // the position of the placed symbols:
+                let layer = paper.project.activeLayer;
+                for (let i = 0; i < count; i++) {
+                    let item = layer.children[i];
+                    let size = item.bounds.size;
+                    let length = vector.length / 10 * size.width / 10;
+                    item.position += vector.normalize(length) + item.data.vector;
+                    keepInView(item);
+                }
+            };
+        };
+
+        let moveRainbow: (vector:paper.Point, event:paper.IFrameEvent)=>void = moveRainbowunctionCreator();
+        function moveRainbowunctionCreator(): (vector:paper.Point, event: paper.IFrameEvent)=>void {
+            let paths:paper.Path[] = [];
+            let colors = ['red', 'orange', 'yellow', 'lime', 'blue', 'purple'];
+            for (let i = 0; i < colors.length; i++) {
+                let path = new paper.Path({
+                    fillColor: colors[i]
+                });
+                paths.push(path);
+            }
+
+            let count = 30;
+            let group = new paper.Group(paths);
+            let headGroup:paper.Group;
+            let eyePosition = new paper.Point({});
+            let eyeFollow = (paper.Point.random().subtract(0.5));
+            let blinkTime = 200;
+            function createHead(vector: paper.Point, count: number) {
+                let eyeVector = (eyePosition.subtract(eyeFollow));
+                eyePosition = eyePosition.subtract(eyeVector.divide(4));
+                if (eyeVector.length < 0.00001)
+                    eyeFollow = (paper.Point.random().subtract(0.5));
+                if (headGroup)
+                    headGroup.remove();
+                let top = paths[0].lastSegment.point;
+                let bottom = paths[paths.length - 1].firstSegment.point;
+                let radius = (bottom.subtract(top)).length / 2;
+                let circle = new paper.Path.Circle({
+                    center: top.add((bottom.subtract(top)).divide(2)),
+                    radius: radius,
+                    fillColor: 'black'
+                });
+                circle.scale(vector.length / 100, 1);
+                circle.rotate(vector.angle);
+
+                let innerCircle = circle.clone();
+                innerCircle.scale(0.5);
+                innerCircle.fillColor = (count % blinkTime < 3)
+                    || (count % (blinkTime + 5) < 3) ? 'black' : 'white';
+                if (count % (blinkTime + 40) == 0)
+                    blinkTime = Math.round(Math.random() * 40) + 200;
+                let eye = circle.clone();
+                eye.position = eye.position.add(eyePosition.multiply(radius));
+                eye.scale(0.15, innerCircle.position);
+                eye.fillColor = 'black';
+                headGroup = new paper.Group([circle, innerCircle, eye]);
+            }
+
+            return function(v:paper.Point, event:paper.IFrameEvent) {
+                let vector:paper.Point = (paper.view.center.subtract(position)).divide(10);
+
+                if (vector.length < 5)
+                    vector.length = 5;
+                count += vector.length / 100;
+                group.translate(vector);
+                let rotated = vector.rotate(90);
+                let middle = paths.length / 2;
+                for (let j = 0; j < paths.length; j++) {
+                    let path = paths[j];
+                    let nyanSwing = playing ? Math.sin(event.count / 2) * vector.length : 1;
+                    let unitLength = vector.length * (2 + Math.sin(event.count / 10)) / 2;
+                    let length = (j - middle) * unitLength + nyanSwing;
+                    let top = paper.view.center.add(rotated.normalize(length));
+                    let bottom = paper.view.center.add(rotated.normalize(length + unitLength));
+                    path.add(top);
+                    path.insert(0, bottom);
+                    if (path.segments.length > 200) {
+                        let index = Math.round(path.segments.length / 2);
+                        path.segments[index].remove();
+                        path.segments[index - 1].remove();
+                    }
+                    path.smooth();
+                }
+                createHead(vector, event.count);
+                if (mediaElement)
+                    mediaElement.setVolume(vector.length / 200);
+            }
+        }
+    }
 }
