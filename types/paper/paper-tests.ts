@@ -1814,4 +1814,43 @@ function Examples() {
         document.addEventListener('dragover', onDocumentDrag, false);
         document.addEventListener('dragleave', onDocumentDrag, false);
     }
+    function PathIntersections(){
+        // Imported SVG Groups have their applyMatrix flag turned off by
+        // default. This is required for SVG importing to work correctly. Turn
+        // it on now, so we don't have to deal with nested coordinate spaces.
+        var words = paper.project.importSVG((document.getElementById('svg') as any) as SVGElement);
+        words.visible = true; // Turn off the effect of display:none;
+        words.fillColor = new paper.Color('');
+        words.strokeColor = 'black';
+        var yesGroup = words.getItem({name:'yes'}) as paper.Group;
+
+        var noGroup = words.getItem({name:'no'}) as paper.Group;
+        // Resize the words to fit snugly inside the view:
+        words.fitBounds(paper.view.bounds);
+        words.scale(0.8);
+
+        yesGroup.position = paper.view.center;
+        noGroup.position = new paper.Point([-900, -900]);
+
+        function onMouseMove(event:paper.MouseEvent) {
+            noGroup.position = event.point;
+            for (var i = 0; i < yesGroup.children.length; i++) {
+                for (var j = 0; j < noGroup.children.length; j++) {
+                    showIntersections(noGroup.children[j] as paper.PathItem, yesGroup.children[i] as paper.PathItem)
+                }
+            }
+        }
+0
+        function showIntersections(path1:paper.PathItem, path2:paper.PathItem) {
+            var intersections = path1.getIntersections(path2);
+            for (var i = 0; i < intersections.length; i++) {
+                new paper.Path.Circle({
+                    center: intersections[i].point,
+                    radius: 5,
+                    fillColor: '#009dec'
+                }).removeOnMove();
+            }
+        }
+
+    }
 }
