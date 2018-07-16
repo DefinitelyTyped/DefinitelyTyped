@@ -358,7 +358,7 @@ export class Size {
 
     constructor(width: number, height: number);
 
-    fromJs(expose: (width: number, height: number) => any): void;
+    fromJS(expose: (width: number, height: number) => any): void;
 
     toString(): string;
 }
@@ -369,7 +369,7 @@ export class Value {
 
     constructor(unit: YogaUnit | number, value: number);
 
-    fromJs(expose: (unit: YogaUnit | number, value: number) => any): void;
+    fromJS(expose: (unit: YogaUnit | number, value: number) => any): void;
 
     toString(): string;
     valueOf(): number;
@@ -381,7 +381,7 @@ export interface YogaConfig {
         feature: YogaExperimentalFeature,
         enabled: boolean,
     ): void;
-    setPointScalFactor(factor: number): void;
+    setPointScaleFactor(factor: number): void;
 }
 
 interface NodeStatic {
