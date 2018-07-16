@@ -4595,8 +4595,14 @@ declare module paper {
          * @param stops [optional] - Array of GradientStops
          * @param radial [optional] - Whether the gradient is radial or linear
          */
-        constructor(stops?:GradientStop[], radial?:boolean);
+        constructor(stops?:GradientStop[] | string[] | (string|number)[][], radial?:boolean);
         
+        /**
+         * Creates a Gradient object.
+         * @param object [optional] - an object literal containing the properties to be set on the group.
+         */
+        constructor(object?:any);
+
         /**
          * The gradient stops on the gradient ramp.
          */
@@ -4636,6 +4642,12 @@ declare module paper {
          * @param object [optional] - an object literal containing the properties to be set on the group.
          */
         constructor(object?: any);
+
+        /**
+         * Creates a new GradientStop object.
+         * @param array [optional] - an object literal containing the properties to be set on the group.
+         */
+        constructor(array?: [string, number]);
 
         /**
          * The ramp-point of the gradient stop as a value between 0 and 1.
