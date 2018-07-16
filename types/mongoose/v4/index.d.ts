@@ -2660,7 +2660,7 @@ declare module "mongoose" {
       callback?: (err: any, res: T) => void): Promise<T>;
 
     /** Removes documents from the collection. */
-    remove(conditions: any, callback?: (err: any) => void): Query<void>;
+    remove(conditions: any, callback?: (err: any, result?: any) => void): Query<void>;
     deleteOne(conditions: any, callback?: (err: any) => void): Query<void>;
     deleteMany(conditions: any, callback?: (err: any) => void): Query<void>;
 
