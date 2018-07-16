@@ -32,11 +32,8 @@ function addGooglePayButton() {
         buttonType: 'short',
     };
     const client = getGooglePaymentsClient();
-    client.createButton(buttonOptions).then(button => {
-        document.appendChild(document.createElement('div').appendChild(button));
-    }).catch(err => {
-        console.error(err);
-    });
+    const button = client.createButton(buttonOptions);
+    document.appendChild(document.createElement('div').appendChild(button));
 }
 
 function getGooglePaymentDataConfiguration(): google.payments.api.PaymentDataRequest {

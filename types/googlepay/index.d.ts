@@ -160,7 +160,7 @@ declare namespace google.payments.api {
 
     class PaymentsClient {
         constructor(paymentOptions: PaymentOptions);
-        createButton(request: ButtonOptions): Promise<HTMLElement>;
+        createButton(request: ButtonOptions): HTMLElement;
         isReadyToPay(request: IsReadyToPayRequest): Promise<{result: boolean}>;
         loadPaymentData(request: PaymentDataRequestMin): Promise<PaymentDataMin>;
         loadPaymentData(request: PaymentDataRequestFull): Promise<PaymentDataFull>;
