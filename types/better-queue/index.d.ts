@@ -63,7 +63,8 @@ declare namespace BetterQueue {
     store?: string | StoreOptions | Store<T>;
   }
 
-  type ProcessFunction<T, K> = (task: T | T[], cb: ProcessFunctionCb<K>) => void;
+  // TODO reflect task types somehow (task: T | T[])
+  type ProcessFunction<T, K> = (task: any, cb: ProcessFunctionCb<K>) => void;
 
   type ProcessFunctionCb<K> = (error?: any, result?: K) => void;
 
