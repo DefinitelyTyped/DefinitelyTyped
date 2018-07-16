@@ -1339,7 +1339,7 @@ function Examples() {
             px: number;
             py: number;
         }
-        
+
         class Spring {
             a: SpringPoint;
             b: SpringPoint;
@@ -1441,6 +1441,65 @@ function Examples() {
                 path.fullySelected = !path.fullySelected;
                 path.fillColor = path.fullySelected ? new paper.Color('') : 'black';
             }
+        }
+    }
+    function Smoothing(){
+        let width: number;
+        let height: number;
+        let center: paper.Point;
+        let points = 10;
+        let smooth = true;
+        let path = new paper.Path();
+        let mousePos = paper.view.center.divide(2);
+        let pathHeight = mousePos.y;
+        path.fillColor = 'black';
+        initializePath();
+
+        function initializePath() {
+            center = paper.view.center;
+            width = paper.view.size.width;
+            height = paper.view.size.height / 2;
+            path.segments = [];
+            path.add(paper.view.bounds.bottomLeft);
+            for (let i = 1; i < points; i++) {
+                let point = new paper.Point(width / points * i, center.y);
+                path.add(point);
+            }
+            path.add(paper.view.bounds.bottomRight);
+            path.fullySelected = true;
+        }
+
+        function onFrame(event:paper.IFrameEvent) {
+            pathHeight += (center.y - mousePos.y - pathHeight) / 10;
+            for (let i = 1; i < points; i++) {
+                let sinSeed = event.count + (i + i % 10) * 100;
+                let sinHeight = Math.sin(sinSeed / 200) * pathHeight;
+                let yPos = Math.sin(sinSeed / 100) * sinHeight + height;
+                path.segments[i].point.y = yPos;
+            }
+            if (smooth)
+                path.smooth({ type: 'continuous' });
+        }
+
+        function onMouseMove(event:paper.ToolEvent) {
+            mousePos = event.point;
+        }
+
+        function onMouseDown(event:paper.ToolEvent) {
+            smooth = !smooth;
+            if (!smooth) {
+                // If smooth has been turned off, we need to reset
+                // the handles of the path:
+                for (let i = 0, l = path.segments.length; i < l; i++) {
+                    let segment = path.segments[i];
+                    segment.clearHandles();
+                }
+            }
+        }
+
+        // Reposition the path whenever the window is resized:
+        function onResize(event:paper.ToolEvent) {
+            initializePath();
         }
     }
 }
