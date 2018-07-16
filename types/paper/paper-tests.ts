@@ -1316,4 +1316,131 @@ function Examples() {
             }
         }
     }
+    function FutureSplash(){
+        // Code ported to Paper.js from http://the389.com/9/1/
+        // with permission.
+
+        let values = {
+            friction: 0.8,
+            timeStep: 0.01,
+            amount: 15,
+            mass: 2,
+            count: 0,
+            invMass: 1/2
+        };
+        values.invMass = 1 / values.mass;
+
+        let path: paper.Path;
+        let springs: Spring[];
+        let size = paper.view.size.multiply(new paper.Size([1.2, 1]));
+
+        class SpringPoint extends paper.Point{
+            fixed: boolean;
+            px: number;
+            py: number;
+        }
+        
+        class Spring {
+            a: SpringPoint;
+            b: SpringPoint;
+            restLength: number;
+            strength: number;
+            mamb: number;            
+
+            constructor(a:SpringPoint, b:SpringPoint, strength:number, restLength:number=0){
+                this.a = a;
+                this.b = b;
+                this.restLength = restLength || 80;
+                this.strength = strength ? strength : 0.55;
+                this.mamb = values.invMass * values.invMass;
+            }
+            update() {
+                let delta = this.b.subtract(this.a);
+                let dist = delta.length;
+                let normDistStrength = (dist - this.restLength) /
+                        (dist * this.mamb) * this.strength;
+                delta.y *= normDistStrength * values.invMass * 0.2;
+                if (!this.a.fixed)
+                    this.a.y += delta.y;
+                if (!this.b.fixed)
+                    this.b.y -= delta.y;
+            }
+        };
+
+
+        function createPath(strength: number) {
+            let path = new paper.Path({
+                fillColor: 'black'
+            });
+            springs = [];
+            for (let i = 0; i <= values.amount; i++) {
+                let segment = path.add(new paper.Point(i / values.amount, 0.5).multiply(new paper.Point(size)));
+                let point = segment.point as SpringPoint;
+                if (i == 0 || i == values.amount)
+                    point.y += size.height;
+                point.px = point.x;
+                point.py = point.y;
+                // The first two and last two points are fixed:
+                point.fixed = i < 2 || i > values.amount - 2;
+                if (i > 0) {
+                    let spring = new Spring(segment.previous.point as SpringPoint, point, strength);
+                    springs.push(spring);
+                }
+            }
+            path.position.x -= size.width / 4;
+            return path;
+        }
+
+        function onResize() {
+            if (path)
+                path.remove();
+            size = paper.view.bounds.size.multiply(new paper.Size([2, 1]));
+            path = createPath(0.1);
+        }
+
+        function onMouseMove(event: paper.ToolEvent) {
+            let location = path.getNearestLocation(event.point);
+            let segment = location.segment;
+            let point = segment.point as SpringPoint;
+
+            if (!point.fixed && location.distance < size.height / 4) {
+                let y = event.point.y;
+                point.y += (y - point.y) / 6;
+                if (segment.previous && !(segment.previous.point as SpringPoint).fixed) {
+                    let previous = segment.previous.point;
+                    previous.y += (y - previous.y) / 24;
+                }
+                if (segment.next && !(segment.next.point as SpringPoint).fixed) {
+                    let next = segment.next.point;
+                    next.y += (y - next.y) / 24;
+                }
+            }
+        }
+
+        function onFrame(event:paper.IFrameEvent) {
+            updateWave(path);
+        }
+
+        function updateWave(path:paper.Path) {
+            let force = 1 - values.friction * values.timeStep * values.timeStep;
+            for (let i = 0, l = path.segments.length; i < l; i++) {
+                let point = path.segments[i].point as SpringPoint;
+                let dy = (point.y - point.py) * force;
+                point.py = point.y;
+                point.y = Math.max(point.y + dy, 0);
+            }
+
+            for (let j = 0, l = springs.length; j < l; j++) {
+                springs[j].update();
+            }
+            path.smooth({ type: 'continuous' });
+        }
+
+        function onKeyDown(event:paper.KeyEvent) {
+            if (event.key == 'space') {
+                path.fullySelected = !path.fullySelected;
+                path.fillColor = path.fullySelected ? new paper.Color('') : 'black';
+            }
+        }
+    }
 }
