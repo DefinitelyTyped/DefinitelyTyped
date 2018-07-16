@@ -1,4 +1,4 @@
-import * as ZipkinOpentracing from "zipkin-javascript-opentracing";
+import ZipkinOpentracing = require("zipkin-javascript-opentracing");
 const zipkinBaseUrl = "http://zipkin.danielmschmidt.de";
 
 // Setup the tracer
