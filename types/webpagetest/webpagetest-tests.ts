@@ -69,3 +69,18 @@ wpt.getTestResults('180208_PA_28V', (err, data) => {
   console.log(runs['1'].firstView);
   console.log(median.firstView);
 });
+
+console.log(WebPageTest.scriptToString([
+  'helloWorld',
+  { test: 12 },
+  { foo: 'bar' },
+  { array: [21, 42, 1337] },
+  { strings: ['hello', 'world'] }
+]));
+console.log(wpt.scriptToString([
+  'helloWorld',
+  { test: 12 },
+  { foo: 'bar' },
+  { array: [21, 42, 1337] },
+  { strings: ['hello', 'world'] }
+]));

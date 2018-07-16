@@ -13,7 +13,7 @@ interface Response<R> {
 type Callback<R> = (err: Error | null, data: typeof err extends Error ? any : R, info: any) => void;
 
 type TestScript = TestScriptCommand[];
-type TestScriptCommand = string | { [command: string]: string | number | string[] };
+type TestScriptCommand = string | { [command: string]: string | number | string[] | number[] };
 
 interface Options {
   /** if true, method does not make an actual request to the API Server but rather returns an object with url which contains the actual URL to make the GET request to WebPageTest API Server */
