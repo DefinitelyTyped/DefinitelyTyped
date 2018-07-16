@@ -1995,4 +1995,105 @@ function Examples() {
             }
         }
     }
+    function BouncingBalls(){
+        class Ball{
+            point: paper.Point;
+            vector:paper.Point;
+            dampen:number;
+            gravity:number;
+            bounce:number;
+            radius: number;
+            item: paper.Item;
+
+            constructor(point:paper.Point, vector:paper.Point) {
+                if (!vector || vector.isZero()) {
+                    this.vector = paper.Point.random().multiply(5);
+                } else {
+                    this.vector = vector.multiply(2);;
+                }
+                this.point = point;
+                this.dampen = 0.4;
+                this.gravity = 3;
+                this.bounce = -0.6;
+            
+                let color = new paper.Color({
+                    hue: Math.random() * 360,
+                    saturation: 1,
+                    brightness: 1
+                });
+                let gradient = new paper.Gradient([new paper.GradientStop(color), new paper.GradientStop(new paper.Color('black'))], true);
+            
+                let radius = this.radius = 50 * Math.random() + 30;
+                // Wrap CompoundPath in a Group, since CompoundPaths directly 
+                // applies the transformations to the content, just like Path.
+                let ball = new paper.CompoundPath({
+                    children: [
+                        new paper.Path.Circle({
+                            radius: radius
+                        }),
+                        new paper.Path.Circle({
+                            center: radius / 8,
+                            radius: radius / 3
+                        })
+                    ],
+                    fillColor: new paper.Color(gradient, new paper.Point([0]), new paper.Point([radius]), new paper.Point([radius / 8])),
+                });
+            
+                this.item = new paper.Group({
+                    children: [ball],
+                    transformContent: false,
+                    position: this.point
+                });
+            }
+            iterate() {
+                let size = paper.view.size;
+                this.vector.y += this.gravity;
+                this.vector.x *= 0.99;
+                let pre = this.point.add(this.vector);
+                if (pre.x < this.radius || pre.x > size.width - this.radius)
+                    this.vector.x *= -this.dampen;
+                if (pre.y < this.radius || pre.y > size.height - this.radius) {
+                    if (Math.abs(this.vector.x) < 3)
+                        this.vector = paper.Point.random().multiply(new paper.Point([150, 100]).add(new paper.Point([-75, 20])));
+                    this.vector.y *= this.bounce;
+                }
+            
+                let max = paper.Point.max(new paper.Point([this.radius]), this.point.add(this.vector));
+                this.item.position = this.point = paper.Point.min(max, new paper.Point(size).subtract(this.radius));
+                this.item.rotate(this.vector.x);
+            }
+        }        
+        
+        let balls:Ball[] = [];
+        for (let i = 0; i < 10; i++) {
+            let position = paper.Point.random().multiply(new paper.Point(paper.view.size));
+            let vector = (paper.Point.random().subtract(new paper.Point([0.5, 0])).multiply(new paper.Point([50, 100])));
+            let ball = new Ball(position, vector);
+            balls.push(ball);
+        }
+        
+        let textItem = new paper.PointText({
+            point: [20, 30],
+            fillColor: 'black',
+            content: 'Click, drag and release to add balls.'
+        });
+        
+        let lastDelta:paper.Point|null;
+        function onMouseDrag(event:paper.ToolEvent) {
+            lastDelta = event.delta;
+        }
+        
+        function onMouseUp(event:paper.ToolEvent) {
+            if(lastDelta){
+                let ball = new Ball(event.point, lastDelta);
+                balls.push(ball);
+            }
+            lastDelta = null;
+        }
+        
+        function onFrame() {
+            for (let i = 0, l = balls.length; i < l; i++)
+                balls[i].iterate();
+        }
+    }
 }
