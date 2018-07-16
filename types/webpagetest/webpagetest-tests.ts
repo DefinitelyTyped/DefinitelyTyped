@@ -48,26 +48,37 @@ wpt.runTest('https://twitter.com/marcelduran', {waitResults: 'localhost:8000'}, 
 /* Working examples */
 
 wpt.getLocations((err, data) => {
-  const { response } = data;
-  const { data: locationData } = response;
-  const { location: locations } = locationData;
-  console.log(locations);
+  if (err) {
+    data; // $ExpectType { response: Response<{ location: Location[]; }>; } | undefined
+    return;
+  }
+
+  if (data) {
+    const {response} = data; // $ExpectType { response: Response<{ location: Location[]; }>; }
+    const {data: locationData} = response; // $ExpectedType Response<{ location: Location[]; }>
+    const {location: locations} = locationData; // $ExpectedType { location: Location[]; }
+    locations; // $ExpectType Location[]
+  }
 });
 
 wpt.getTestStatus('180208_PA_28V', (err, data) => {
-  const { data: testStatus } = data;
-  const { testInfo } = testStatus;
-  console.log(testStatus.testId);
-  console.log(testInfo.url);
+  if (data) {
+    const {data: testStatus} = data; // $ExpectType Response<TestStatus>
+    const {testInfo} = testStatus; // $ExpectType TestStatus
+    testStatus.testId; // $ExpectType string
+    testInfo.url; // $ExpectType string
+  }
 });
 
 wpt.getTestResults('180208_PA_28V', (err, data) => {
-  const { data: testResult } = data;
-  const { runs, id, url, median } = testResult;
-  console.log(id);
-  console.log(url);
-  console.log(runs['1'].firstView);
-  console.log(median.firstView);
+  if (data) {
+    const {data: testResult} = data; // $ExpectType Response<TestResult>
+    const {runs, id, url, median} = testResult; // $ExpectType TestResult
+    id; // $ExpectType string
+    url; // $ExpectType string
+    runs['1']; // $ExpectType TestRun
+    median; // $ExpectType TestRun
+  }
 });
 
 console.log(WebPageTest.scriptToString([

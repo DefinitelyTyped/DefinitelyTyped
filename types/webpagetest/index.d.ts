@@ -10,7 +10,7 @@ interface Response<R> {
   statusText: string;
 }
 
-type Callback<R> = (err: Error | null, data: typeof err extends Error ? any : R, info: any) => void;
+type Callback<R> = (err: Error | undefined, data: R | undefined, info: any) => void;
 
 type TestScript = TestScriptCommand[];
 type TestScriptCommand = string | { [command: string]: string | number | string[] | number[] };
