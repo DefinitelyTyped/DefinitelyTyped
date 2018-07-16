@@ -85,14 +85,14 @@ new Queue<TestTask, TestResult>(() => { }, {
     }
 });
 
-const q = new Queue<TestTask, TestResult>(() => {})
+const q = new Queue<TestTask, TestResult>(() => {});
 
-const testTask = {taskId: '', taskPayload: ''}
+const testTask = {taskId: '', taskPayload: ''};
 
-q.push(testTask)
-q.push(testTask, (error, result) => {})
+q.push(testTask);
+q.push(testTask, (error, result) => {});
 
-q.cancel('id', () => {})
+q.cancel('id', () => {});
 
 class TestStore implements Queue.Store<TestTask> {
     connect(cb: (error: any, length: number) => void) {
