@@ -229,91 +229,93 @@ interface ListenOptions {
   cert?: string;
 }
 
-interface Location {
-  id: string;
-  Label: string;
-  location: string;
-  Browsers: string;
-  labelShort: string;
-  PendingTests: { [id: string]: number };
-}
+declare namespace WebPageTest {
+  interface Location {
+    id: string;
+    Label: string;
+    location: string;
+    Browsers: string;
+    labelShort: string;
+    PendingTests: { [id: string]: number };
+  }
 
-interface TestStatus {
-  statusCode: number;
-  statusText: string;
-  id: string;
-  testInfo: TestInfo;
-  testId: string;
-  runs: number;
-  fvonly: number;
-  remote: false;
-  testsExpected: number;
-  location: string;
-  startTime: string;
-  elapsed: number;
-  completeTime: string;
-  testsCompleted: number;
-  fvRunsCompleted: number;
-  rvRunsCompleted: number;
-}
+  interface TestStatus {
+    statusCode: number;
+    statusText: string;
+    id: string;
+    testInfo: TestInfo;
+    testId: string;
+    runs: number;
+    fvonly: number;
+    remote: false;
+    testsExpected: number;
+    location: string;
+    startTime: string;
+    elapsed: number;
+    completeTime: string;
+    testsCompleted: number;
+    fvRunsCompleted: number;
+    rvRunsCompleted: number;
+  }
 
-interface TestInfo {
-  url: string;
-  runs: number;
-  fvonly: number;
-  web10: number;
-  ignoreSSL: number;
-  video: string;
-  label: string;
-  priority: number;
-  block: string;
-  location: string;
-  browser: string;
-  connectivity: string;
-  bwIn: number;
-  bwOut: number;
-  latency: number;
-  plr: string;
-  tcpdump: number;
-  timeline: number;
-  trace: number;
-  bodies: number;
-  netlog: number;
-  standards: number;
-  noscript: number;
-  pngss: number;
-  iq: number;
-  keepua: number;
-  mobile: number;
-  scripted: number;
-}
+  interface TestInfo {
+    url: string;
+    runs: number;
+    fvonly: number;
+    web10: number;
+    ignoreSSL: number;
+    video: string;
+    label: string;
+    priority: number;
+    block: string;
+    location: string;
+    browser: string;
+    connectivity: string;
+    bwIn: number;
+    bwOut: number;
+    latency: number;
+    plr: string;
+    tcpdump: number;
+    timeline: number;
+    trace: number;
+    bodies: number;
+    netlog: number;
+    standards: number;
+    noscript: number;
+    pngss: number;
+    iq: number;
+    keepua: number;
+    mobile: number;
+    scripted: number;
+  }
 
-interface TestResult {
-  id: string;
-  url: string;
-  summary: string;
-  testUrl: string;
-  location: string;
-  from: string;
-  connectivity: string;
-  bwDown: number;
-  bwUp: number;
-  latency: number;
-  plr: string;
-  mobile: number;
-  completed: number;
-  tester: string;
-  testerDNS: string;
-  runs: { [key: string]: TestRun };
-  fvonly: boolean;
-  successfulFVRuns: number;
-  average: TestRun;
-  standardDeviation: TestRun;
-  median: TestRun;
-}
+  interface TestResult {
+    id: string;
+    url: string;
+    summary: string;
+    testUrl: string;
+    location: string;
+    from: string;
+    connectivity: string;
+    bwDown: number;
+    bwUp: number;
+    latency: number;
+    plr: string;
+    mobile: number;
+    completed: number;
+    tester: string;
+    testerDNS: string;
+    runs: { [key: string]: TestRun };
+    fvonly: boolean;
+    successfulFVRuns: number;
+    average: TestRun;
+    standardDeviation: TestRun;
+    median: TestRun;
+  }
 
-interface TestRun {
-  firstView: any;
+  interface TestRun {
+    firstView: any;
+  }
 }
 
 declare class WebPageTest {
@@ -330,14 +332,14 @@ declare class WebPageTest {
 
   static scriptToString(script: TestScript): string;
 
-  getTestStatus(id: string, options: Options & RequestOptions, callback: Callback<Response<TestStatus>>): void;
-  getTestStatus(id: string, callback: Callback<Response<TestStatus>>): void;
+  getTestStatus(id: string, options: Options & RequestOptions, callback: Callback<Response<WebPageTest.TestStatus>>): void;
+  getTestStatus(id: string, callback: Callback<Response<WebPageTest.TestStatus>>): void;
 
-  getTestResults(id: string, options: Options & RequestOptions & ResultsOptions, callback: Callback<Response<TestResult>>): void;
-  getTestResults(id: string, callback: Callback<Response<TestResult>>): void;
+  getTestResults(id: string, options: Options & RequestOptions & ResultsOptions, callback: Callback<Response<WebPageTest.TestResult>>): void;
+  getTestResults(id: string, callback: Callback<Response<WebPageTest.TestResult>>): void;
 
-  getLocations(options: Options & RequestOptions, callback: Callback<{ response: Response<{ location: Location[] }> }>): void;
-  getLocations(callback: Callback<{ response: Response<{ location: Location[] }> }>): void;
+  getLocations(options: Options & RequestOptions, callback: Callback<{ response: Response<{ location: WebPageTest.Location[] }> }>): void;
+  getLocations(callback: Callback<{ response: Response<{ location: WebPageTest.Location[] }> }>): void;
 
   getTesters(options: Options & RequestOptions, callback: Callback<any>): void;
   getTesters(callback: Callback<any>): void;
