@@ -4591,6 +4591,13 @@ declare module paper {
     export class Gradient {
 
         /**
+         * Creates a Gradient object.
+         * @param stops [optional] - Array of GradientStops
+         * @param radial [optional] - Whether the gradient is radial or linear
+         */
+        constructor(stops?:GradientStop[], radial?:boolean);
+        
+        /**
          * The gradient stops on the gradient ramp.
          */
         stops: GradientStop[];
