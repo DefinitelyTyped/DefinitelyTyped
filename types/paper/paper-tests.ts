@@ -1818,13 +1818,13 @@ function Examples() {
         // Imported SVG Groups have their applyMatrix flag turned off by
         // default. This is required for SVG importing to work correctly. Turn
         // it on now, so we don't have to deal with nested coordinate spaces.
-        var words = paper.project.importSVG((document.getElementById('svg') as any) as SVGElement);
+        let words = paper.project.importSVG((document.getElementById('svg') as any) as SVGElement);
         words.visible = true; // Turn off the effect of display:none;
         words.fillColor = new paper.Color('');
         words.strokeColor = 'black';
-        var yesGroup = words.getItem({name:'yes'}) as paper.Group;
+        let yesGroup = words.getItem({name:'yes'}) as paper.Group;
 
-        var noGroup = words.getItem({name:'no'}) as paper.Group;
+        let noGroup = words.getItem({name:'no'}) as paper.Group;
         // Resize the words to fit snugly inside the view:
         words.fitBounds(paper.view.bounds);
         words.scale(0.8);
@@ -1834,16 +1834,16 @@ function Examples() {
 
         function onMouseMove(event:paper.MouseEvent) {
             noGroup.position = event.point;
-            for (var i = 0; i < yesGroup.children.length; i++) {
-                for (var j = 0; j < noGroup.children.length; j++) {
+            for (let i = 0; i < yesGroup.children.length; i++) {
+                for (let j = 0; j < noGroup.children.length; j++) {
                     showIntersections(noGroup.children[j] as paper.PathItem, yesGroup.children[i] as paper.PathItem)
                 }
             }
         }
 0
         function showIntersections(path1:paper.PathItem, path2:paper.PathItem) {
-            var intersections = path1.getIntersections(path2);
-            for (var i = 0; i < intersections.length; i++) {
+            let intersections = path1.getIntersections(path2);
+            for (let i = 0; i < intersections.length; i++) {
                 new paper.Path.Circle({
                     center: intersections[i].point,
                     radius: 5,
@@ -1853,9 +1853,9 @@ function Examples() {
         }
     }
     function PathSimplification(){
-        var path:paper.Path;
+        let path:paper.Path;
 
-        var textItem = new paper.PointText({
+        let textItem = new paper.PointText({
             content: 'Click and drag to draw a line.',
             point: new paper.Point(20, 30),
             fillColor: 'black',
@@ -1888,7 +1888,7 @@ function Examples() {
 
         // When the mouse is released, we simplify the path:
         function onMouseUp(event:paper.ToolEvent) {
-            var segmentCount = path.segments.length;
+            let segmentCount = path.segments.length;
 
             // When the mouse is released, simplify it:
             path.simplify(10);
@@ -1896,10 +1896,103 @@ function Examples() {
             // Select the path, so we can see its segments:
             path.fullySelected = true;
 
-            var newSegmentCount = path.segments.length;
-            var difference = segmentCount - newSegmentCount;
-            var percentage = 100 - Math.round(newSegmentCount / segmentCount * 100);
+            let newSegmentCount = path.segments.length;
+            let difference = segmentCount - newSegmentCount;
+            let percentage = 100 - Math.round(newSegmentCount / segmentCount * 100);
             textItem.content = difference + ' of the ' + segmentCount + ' segments were removed. Saving ' + percentage + '%';
+        }
+    }
+    function HitTesting(){
+        let values = {
+            paths: 50,
+            minPoints: 5,
+            maxPoints: 15,
+            minRadius: 30,
+            maxRadius: 90
+        };
+        
+        let hitOptions = {
+            segments: true,
+            stroke: true,
+            fill: true,
+            tolerance: 5
+        };
+        
+        createPaths();
+        
+        function createPaths() {
+            let radiusDelta = values.maxRadius - values.minRadius;
+            let pointsDelta = values.maxPoints - values.minPoints;
+            for (let i = 0; i < values.paths; i++) {
+                let radius = values.minRadius + Math.random() * radiusDelta;
+                let points = values.minPoints + Math.floor(Math.random() * pointsDelta);
+                let path = createBlob(paper.Point.random().multiply(new paper.Point(paper.view.size)), radius, points);
+                let lightness = (Math.random() - 0.5) * 0.4 + 0.4;
+                let hue = Math.random() * 360;
+                path.fillColor = new paper.Color({ hue: hue, saturation: 1, lightness: lightness });
+                path.strokeColor = 'black';
+            };
+        }
+        
+        function createBlob(center:paper.Point, maxRadius:number, points:number) {
+            let path = new paper.Path();
+            path.closed = true;
+            for (let i = 0; i < points; i++) {
+                let delta = new paper.Point({
+                    length: (maxRadius * 0.5) + (Math.random() * maxRadius * 0.5),
+                    angle: (360 / points) * i
+                });
+                path.add(center.add(delta));
+            }
+            path.smooth();
+            return path;
+        }
+        
+        let segment:paper.Segment | null;
+        let path:paper.Path | null;
+        let movePath = false;
+        function onMouseDown(event:paper.ToolEvent) {
+            segment = path = null;
+            let hitResult = paper.project.hitTest(event.point, hitOptions);
+            if (!hitResult)
+                return;
+        
+            if (event.modifiers.shift) {
+                if (hitResult.type == 'segment') {
+                    hitResult.segment.remove();
+                };
+                return;
+            }
+        
+            if (hitResult) {
+                path = hitResult.item as paper.Path;
+                if (hitResult.type == 'segment') {
+                    segment = hitResult.segment;
+                } else if (hitResult.type == 'stroke') {
+                    let location = hitResult.location;
+                    segment = path.insert(location.index + 1, event.point);
+                    path.smooth();
+                }
+            }
+            movePath = hitResult.type == 'fill';
+            if (movePath)
+                paper.project.activeLayer.addChild(hitResult.item);
+        }
+        
+        function onMouseMove(event:paper.ToolEvent) {
+            paper.project.activeLayer.selected = false;
+            if (event.item)
+                event.item.selected = true;
+        }
+        
+        function onMouseDrag(event:paper.ToolEvent) {
+            if (segment) {
+                segment.point= segment.point.add(event.delta);
+                if(path)
+                    path.smooth();
+            } else if (path) {
+                path.position = path.position.add(event.delta);
+            }
         }
     }
 }
