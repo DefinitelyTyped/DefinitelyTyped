@@ -3650,6 +3650,17 @@ export namespace Math {
 
     export function isPowerOfTwo(value: number): boolean;
 
+	/**
+     * Returns a value linearly interpolated from two known points based
+     * on the given interval - t = 0 will return x and t = 1 will return y.
+     *
+     * @param x Start point.
+     * @param y End point.
+     * @param t interpolation factor in the closed interval [0, 1]
+     * @return {number}
+     */
+    export function lerp (x: number, y: number, t: number): number;
+
     /**
      * @deprecated Use {@link Math#floorPowerOfTwo .floorPowerOfTwo()}
      */
