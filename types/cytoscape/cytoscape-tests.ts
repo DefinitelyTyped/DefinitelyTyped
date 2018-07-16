@@ -469,6 +469,13 @@ const edgePoints: cytoscape.Position[] = [
 aliases(eles.layout, eles.createLayout, eles.makeLayout);
 const layout = eles.layout({name: 'random'}).run();
 
+layout.on('layoutstop', () => {
+  cy.fit();
+});
+layout.on('layoutstop', {}, (obj) => {
+  console.log(obj);
+});
+
 eles.select();
 assert(ele.selected()); // as we selected all, and this too
 aliases(eles.unselect, eles.deselect);
