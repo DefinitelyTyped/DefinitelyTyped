@@ -4629,7 +4629,20 @@ declare module paper {
          * @param color [optional] - the color of the stop, default: new Color(0, 0, 0)
          * @param rampPoint [optional] - the position of the stop on the gradient ramp as a value between 0 and 1, default: 0
          */
-        constructor(color?: Color, rampPoint?: number);
+        constructor(color?: Color | string, rampPoint?: number);
+        
+        /**
+         * Creates a new GradientStop object.
+         * @param object [optional] - an object literal containing the properties to be set on the group.
+         */
+        constructor(object?: any);
+
+        /**
+        * Creates a GradientStop object.
+        * @param color [optional] - the color of the stop, default: new Color(0, 0, 0)
+        * @param rampPoint [optional] - the position of the stop on the gradient ramp as a value between 0 and 1, default: 0
+        */
+       constructor(color?: Color, rampPoint?: number);
 
         /**
          * The ramp-point of the gradient stop as a value between 0 and 1.
