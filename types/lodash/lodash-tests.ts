@@ -3516,6 +3516,18 @@ fp.now(); // $ExpectType number
     _((a1: number, a2: number): boolean => true).negate(); // $ExpectType LoDashImplicitWrapper<(a1: number, a2: number) => boolean>
     _.chain((a1: number, a2: number): boolean => true).negate(); // $ExpectType LoDashExplicitWrapper<(a1: number, a2: number) => boolean>
     fp.negate((a1: number, a2: number): boolean => true); // $ExpectType (a1: number, a2: number) => boolean
+
+    const userDefinedTypeGuard = (item: any): item is number => typeof item === "number";
+
+    _.negate(userDefinedTypeGuard); // $ExpectType (a1: any) => boolean
+    _(userDefinedTypeGuard).negate(); // $ExpectType LoDashImplicitWrapper<(a1: any) => boolean>
+    _.chain(userDefinedTypeGuard).negate(); // $ExpectType LoDashExplicitWrapper<(a1: any) => boolean>
+    fp.negate(userDefinedTypeGuard); // $ExpectType (a1: any) => boolean
+
+    _.negate((a1: number, a2: number, a3: number): boolean => true); // $ExpectType (...args: any[]) => boolean
+    _((a1: number, a2: number, a3: number): boolean => true).negate(); // $ExpectType LoDashImplicitWrapper<(...args: any[]) => boolean>
+    _.chain((a1: number, a2: number, a3: number): boolean => true).negate(); // $ExpectType LoDashExplicitWrapper<(...args: any[]) => boolean>
+    fp.negate((a1: number, a2: number, a3: number): boolean => true); // $ExpectType (...args: any[]) => boolean
 }
 
 // _.once
@@ -5644,6 +5656,12 @@ fp.now(); // $ExpectType number
     fp.pickBy(predicate, obj); // $ExpectType Partial<AbcObject>
     fp.pickBy(predicate2)(dictionary); // $ExpectType Dictionary<boolean>
     fp.pickBy(predicate2)(numericDictionary); // $ExpectType NumericDictionary<boolean>
+
+    const mixedDictionary: _.Dictionary<string | number> | null | undefined = anything;
+
+    _.pickBy(mixedDictionary, (item: string | number): item is number => typeof item === "number"); // $ExpectType Dictionary<number>
+    _(mixedDictionary).pickBy((item: string | number): item is number => typeof item === "number"); // $ExpectType LoDashImplicitWrapper<Dictionary<number>>
+    _.chain(mixedDictionary).pickBy((item: string | number): item is number => typeof item === "number"); // $ExpectType LoDashExplicitWrapper<Dictionary<number>>
 }
 
 // _.result

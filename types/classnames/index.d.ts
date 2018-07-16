@@ -21,7 +21,9 @@ interface ClassArray extends Array<ClassValue> { } // tslint:disable-line no-emp
 
 type ClassNamesFn = (...classes: ClassValue[]) => string;
 
-declare const classNames: ClassNamesFn;
+type ClassNamesExport = ClassNamesFn & { default: ClassNamesFn };
+
+declare const classNames: ClassNamesExport;
 
 export = classNames;
 export as namespace classNames;
