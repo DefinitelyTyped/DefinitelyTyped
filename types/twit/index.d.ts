@@ -1,7 +1,6 @@
 // Type definitions for twit 2.2
 // Project: https://github.com/ttezel/twit
 // Definitions by: Volox <https://github.com/Volox>
-//                 lostfictions <https://github.com/lostfictions>
 //                 sapphiredev <https://github.com/sapphiredev>
 //                 abraham <https://github.com/abraham>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
