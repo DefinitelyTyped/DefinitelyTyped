@@ -8,6 +8,7 @@
 /// <reference types="node" />
 
 import { ReadStream, WriteStream } from "fs";
+import { CoreOptions } from "request";
 
 type PromiseLibrary<T> = () => PromiseLike<T>;
 
@@ -316,7 +317,7 @@ declare namespace Storage {
         destination?: string | File;
         encryptionKey?: string;
         kmsKeyName?: string;
-        requestOptions?: any;
+        requestOptions?: CoreOptions;
     }
 
     /**
