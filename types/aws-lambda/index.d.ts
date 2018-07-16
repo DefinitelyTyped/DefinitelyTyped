@@ -641,6 +641,36 @@ export interface KinesisStreamRecord {
 export interface KinesisStreamEvent {
     Records: KinesisStreamRecord[];
 }
+export interface SQSRecord {
+    messageId: string;
+    receiptHandle: string;
+    body: string;
+    attributes: SQSRecordAttributes;
+    messageAttributes: SQSMessageAttributes;
+    md5OfBody: string;
+    eventSource: string;
+    eventSourceARN: string;
+    awsRegion: string;
+  }
+
+export interface SQSEvent {
+    Records: SQSRecord[];
+}
+
+export interface SQSRecordAttributes {
+    ApproximateReceiveCount: string;
+    SentTimestamp: string;
+    SenderId: string;
+    ApproximateFirstReceiveTimestamp: string;
+}
+export interface SQSMessageAttribute {
+    Name: string,
+    Type: string,
+    Value: string
+}
+export interface SQSMessageAttributes {
+    [name: string]: SQSMessageAttribute;
+}
 
 /**
  * AWS Lambda handler function.
@@ -685,6 +715,8 @@ export type SNSHandler = Handler<SNSEvent, void>;
 // with a "response" field, the type of which is specific to the event.triggerType. Leave as any for now.
 export type CognitoUserPoolTriggerHandler = Handler<CognitoUserPoolTriggerEvent>;
 // TODO: Different event/handler types for each event trigger so we can type the result?
+
+export type SQSHandler = Handler<SQSEvent, void>;
 
 // TODO: CognitoSync
 
