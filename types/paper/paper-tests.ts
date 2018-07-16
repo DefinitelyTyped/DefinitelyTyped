@@ -1075,4 +1075,124 @@ function Examples() {
             color.destination = point.add(new paper.Point([radius, 0]));
         }
     }
+    function MetaBalls(){
+        // Ported from original Metaball script by SATO Hiroyuki
+        // http://park12.wakwak.com/~shp/lc/et/en_aics_script.html
+        paper.project.currentStyle = {
+            fillColor: 'black'
+        };
+
+        let ballPositions = [[255, 129], [610, 73], [486, 363],
+            [117, 459], [484, 726], [843, 306], [789, 615], [1049, 82],
+            [1292, 428], [1117, 733], [1352, 86], [92, 798]];
+
+        let handle_len_rate = 2.4;
+        let circlePaths:paper.Path[] = [];
+        let radius = 50;
+        for (let i = 0, l = ballPositions.length; i < l; i++) {
+            let circlePath = new paper.Path.Circle({
+                center: ballPositions[i],
+                radius: 50
+            });
+            circlePaths.push(circlePath);
+        }
+
+        let largeCircle = new paper.Path.Circle({
+            center: [676, 433],
+            radius: 100
+        });
+        circlePaths.push(largeCircle);
+
+        function onMouseMove(event:paper.ToolEvent) {
+            largeCircle.position = event.point;
+            generateConnections(circlePaths);
+        }
+
+        let connections = new paper.Group();
+        function generateConnections(paths:paper.Path[]) {
+            // Remove the last connection paths:
+            connections.children = [];
+
+            for (let i = 0, l = paths.length; i < l; i++) {
+                for (let j = i - 1; j >= 0; j--) {
+                    let path = metaball(paths[i], paths[j], 0.5, handle_len_rate, 300);
+                    if (path) {
+                        connections.appendTop(path);
+                        path.removeOnMove();
+                    }
+                }
+            }
+        }
+
+        generateConnections(circlePaths);
+
+        // ---------------------------------------------
+        function metaball(ball1:paper.Path, ball2:paper.Path, v:number, handle_len_rate:number, maxDistance:number) {
+            let center1 = ball1.position;
+            let center2 = ball2.position;
+            let radius1 = ball1.bounds.width / 2;
+            let radius2 = ball2.bounds.width / 2;
+            let pi2 = Math.PI / 2;
+            let d = center1.getDistance(center2);
+            let u1, u2;
+
+            if (radius1 == 0 || radius2 == 0)
+                return;
+
+            if (d > maxDistance || d <= Math.abs(radius1 - radius2)) {
+                return;
+            } else if (d < radius1 + radius2) { // case circles are overlapping
+                u1 = Math.acos((radius1 * radius1 + d * d - radius2 * radius2) /
+                        (2 * radius1 * d));
+                u2 = Math.acos((radius2 * radius2 + d * d - radius1 * radius1) /
+                        (2 * radius2 * d));
+            } else {
+                u1 = 0;
+                u2 = 0;
+            }
+
+            let angle1 = (center2.subtract(center1)).angleInRadians;
+            let angle2 = Math.acos((radius1 - radius2) / d);
+            let angle1a = angle1 + u1 + (angle2 - u1) * v;
+            let angle1b = angle1 - u1 - (angle2 - u1) * v;
+            let angle2a = angle1 + Math.PI - u2 - (Math.PI - u2 - angle2) * v;
+            let angle2b = angle1 - Math.PI + u2 + (Math.PI - u2 - angle2) * v;
+            let p1a = center1.add(getVector(angle1a, radius1));
+            let p1b = center1.add(getVector(angle1b, radius1));
+            let p2a = center2.add(getVector(angle2a, radius2));
+            let p2b = center2.add(getVector(angle2b, radius2));
+
+            // define handle length by the distance between
+            // both ends of the curve to draw
+            let totalRadius = (radius1 + radius2);
+            let d2 = Math.min(v * handle_len_rate, (p1a.subtract(p2a)).length / totalRadius);
+
+            // case circles are overlapping:
+            d2 *= Math.min(1, d * 2 / (radius1 + radius2));
+
+            radius1 *= d2;
+            radius2 *= d2;
+
+            let path = new paper.Path({
+                segments: [p1a, p2a, p2b, p1b],
+                style: ball1.style,
+                closed: true
+            });
+            let segments = path.segments;
+            segments[0].handleOut = getVector(angle1a - pi2, radius1);
+            segments[1].handleIn = getVector(angle2a + pi2, radius2);
+            segments[2].handleOut = getVector(angle2b - pi2, radius2);
+            segments[3].handleIn = getVector(angle1b + pi2, radius1);
+            return path;
+        }
+
+        // ------------------------------------------------
+        function getVector(radians:number, length:number) {
+            return new paper.Point({
+                // Convert radians to degrees:
+                angle: radians * 180 / Math.PI,
+                length: length
+            });
+        }
+    }
 }
