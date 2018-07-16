@@ -4,11 +4,18 @@ import * as url from "url";
 type UrlLike = url.UrlObject | url.Url;
 
 type EventName = 'routeChangeStart'
-  | 'routeChangeComplete'
-  | 'routeChangeError'
-  | 'beforeHistoryChange'
-  | 'hashChangeStart'
-  | 'hashChangeComplete';
+    | 'routeChangeComplete'
+    | 'routeChangeError'
+    | 'beforeHistoryChange'
+    | 'hashChangeStart'
+    | 'hashChangeComplete';
+
+interface RouteChangeError {
+    cancelled: boolean;
+}
+
+type EventHandler = (url: string) => any;
+type ErrorEventHandler = (err: RouteChangeError, url: string) => any;
 
 export interface EventChangeOptions {
     shallow?: boolean;
@@ -57,7 +64,7 @@ export interface RouterProps {
 
     // events
     readonly events: {
-        on: (eventName: EventName, handler: (url: string) => any) => void;
+        on: (eventName: EventName, handler: EventHandler | ErrorEventHandler) => void;
         off: (eventName: EventName, handler: (url: string) => any) => void;
     };
 }

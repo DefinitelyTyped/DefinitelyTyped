@@ -39,7 +39,7 @@ const query = `?${qs.stringify(Router.query)}`;
 Router.events.on('routeChangeStart', (url: string) => console.log("Route is starting to change.", url));
 Router.events.on('beforeHistoryChange', (as: string) => console.log("History hasn't changed yet.", as));
 Router.events.on('routeChangeComplete', (url: string) => console.log("Route change is complete.", url));
-Router.events.on('routeChangeError', (url: string) => console.log("Route change errored..", url));
+Router.events.on('routeChangeError', (err: any, url: string) => console.log("Route change errored.", err, url));
 
 // Call methods on the router itself.
 Router.reload("/route").then(() => console.log("route was reloaded"));
