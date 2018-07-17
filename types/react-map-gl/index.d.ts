@@ -10,6 +10,12 @@ import * as GeoJSON from "geojson";
 
 export type EasingFunction = (t: number) => number;
 
+export enum TRANSITION_EVENTS {
+  BREAK = 1,
+  SNAP_TO_END = 2,
+  IGNORE = 3
+}
+
 export interface Viewport {
   latitude: number;
   longitude: number;
@@ -22,7 +28,7 @@ export interface Viewport {
   startPitch?: number;
   transitionDuration?: number;
   transitionInterpolator?: TransitionInterpolator;
-  transitionInterruption?: number;
+  transitionInterruption?: TRANSITION_EVENTS;
   transitionEasing?: EasingFunction;
 }
 
@@ -134,6 +140,25 @@ export interface MapEvent {
   features: Array<{}>;
 }
 
+export interface MapControlEvent {
+  type: string;
+  center: Center;
+  offsetCenter: Center;
+  target: any;
+  srcEvent: any;
+  key?: number;
+  leftButton?: boolean;
+  middleButton?: boolean;
+  rightButton?: boolean;
+  pointerType?: string;
+  delta?: number;
+}
+
+export interface MapControlsBase {
+  events: string[];
+  handleEvent(event: MapControlEvent): void;
+}
+
 export interface InteractiveMapProps extends StaticMapProps {
     /** Max zoom level */
     maxZoom?: number;
@@ -159,10 +184,7 @@ export interface InteractiveMapProps extends StaticMapProps {
     /** Radius to detect features around a clicked point */
     clickRadius?: number;
 
-    mapControls?: {
-      events: string[];
-      handleEvent: (event: MapEvent, context: any) => void;
-    };
+    mapControls?: MapControlsBase;
 
     visibilityConstraints?: {
       minZoom: number;
@@ -399,20 +421,13 @@ export interface MarkerProps extends BaseControlProps {
     keyboard?: boolean;
   }
 
-  export class MapControls {
-    events: string[];
-    handleEvent: (event: MapControlEvent) => void;
-    getMapState(overrides: Partial<MapState>): MapState;
-    setOptions(options: Options): void;
-    setState(newState: MapState): void;
-    updateViewport(newMapState: MapState, extraProps: any, extraState: InteractiveMapState): void;
+  export namespace experimental {
+    class MapControls implements MapControlsBase {
+      events: string[];
+      handleEvent(event: MapControlEvent): void;
+      getMapState(overrides: Partial<MapState>): MapState;
+      setOptions(options: Options): void;
+      setState(newState: MapState): void;
+      updateViewport(newMapState: MapState, extraProps: any, extraState: InteractiveMapState): void;
+    }
   }
-
-  export function autobind(obj: any): void;
-
-  export interface Experimental {
-    MapControls: MapControls;
-    autobind: typeof autobind;
-  }
-
-  export const experimental: Experimental;
