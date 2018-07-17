@@ -127,7 +127,7 @@ const graphDiv = '#test';
 	const update = {
 		title: 'some new title', // updates the title
 		'xaxis.range': [0, 5],   // updates the xaxis range
-		'yaxis.range[1]': 15     // updates the end of the yaxis range
+		'yaxis.range[1]': 15	 // updates the end of the yaxis range
 	} as Layout;
 	Plotly.relayout(graphDiv, update);
 })();
@@ -254,31 +254,31 @@ function rand() {
 //////////////////////////////////////////////////////////////////////
 // Plotly.addFrames + Plotly.deleteFrames as per https://plot.ly/javascript/animations/
 (() => {
-    const n = 100;
-    const frames = [
-        {name: 'sine', data: [{x: new Array<number>(100), y: new Array<number>(n)}]},
-        {name: 'cosine', data: [{x: new Array<number>(100), y: new Array<number>(n)}]},
-        {name: 'circle', data: [{x: new Array<number>(100), y: new Array<number>(n)}]},
-    ];
+	const n = 100;
+	const frames = [
+		{name: 'sine', data: [{x: new Array<number>(100), y: new Array<number>(n)}]},
+		{name: 'cosine', data: [{x: new Array<number>(100), y: new Array<number>(n)}]},
+		{name: 'circle', data: [{x: new Array<number>(100), y: new Array<number>(n)}]},
+	];
 
-    for (let i = 0; i < n; i++) {
-        const t = i / (n - 1) * 2 - 1;
+	for (let i = 0; i < n; i++) {
+		const t = i / (n - 1) * 2 - 1;
 
-        // A sine wave:
-        frames[0].data[0].x[i] = t * Math.PI;
-        frames[0].data[0].y[i] = Math.sin(t * Math.PI);
+		// A sine wave:
+		frames[0].data[0].x[i] = t * Math.PI;
+		frames[0].data[0].y[i] = Math.sin(t * Math.PI);
 
-        // A cosine wave:
-        frames[1].data[0].x[i] = t * Math.PI;
-        frames[1].data[0].y[i] = Math.cos(t * Math.PI);
+		// A cosine wave:
+		frames[1].data[0].x[i] = t * Math.PI;
+		frames[1].data[0].y[i] = Math.cos(t * Math.PI);
 
-        // A circle:
-        frames[2].data[0].x[i] = Math.sin(t * Math.PI);
-        frames[2].data[0].y[i] = Math.cos(t * Math.PI);
-    }
-    Plotly.addFrames(graphDiv, frames);
+		// A circle:
+		frames[2].data[0].x[i] = Math.sin(t * Math.PI);
+		frames[2].data[0].y[i] = Math.cos(t * Math.PI);
+	}
+	Plotly.addFrames(graphDiv, frames);
 
-    Plotly.deleteFrames(graphDiv, [2]);
+	Plotly.deleteFrames(graphDiv, [2]);
 })();
 //////////////////////////////////////////////////////////////////////
 
@@ -382,59 +382,59 @@ function rand() {
 	});
 
 	myPlot.on('plotly_animatingframe', (event) => {
-	    console.log(`animating ${event.frame.name} with ${event.animation.transition.easing}`);
-    });
+		console.log(`animating ${event.frame.name} with ${event.animation.transition.easing}`);
+	});
 
 	myPlot.on('plotly_legendclick', (event) => {
-	    console.log('clicked on legend');
-	    const clickVal = true;
-        return clickVal;
-    });
+		console.log('clicked on legend');
+		const clickVal = true;
+		return clickVal;
+	});
 
 	myPlot.on('plotly_legenddoubleclick', (event) => {
-	    console.log('dbl clicked on legend');
-	    const dblClickVal = true;
-        return dblClickVal;
-    });
+		console.log('dbl clicked on legend');
+		const dblClickVal = true;
+		return dblClickVal;
+	});
 
 	myPlot.on('plotly_sliderchange', (event) => {
-	    console.log(`Slider at [${event.slider.x},${event.slider.y} with ${event.step.method}`);
-    });
+		console.log(`Slider at [${event.slider.x},${event.slider.y} with ${event.step.method}`);
+	});
 
 	myPlot.on('plotly_sliderstart', (event) => {
-	    console.log(`Slider at [${event.slider.x},${event.slider.y}`);
-    });
+		console.log(`Slider at [${event.slider.x},${event.slider.y}`);
+	});
 
 	myPlot.on('plotly_sliderend', (event) => {
-	    console.log(`Slider at [${event.slider.x},${event.slider.y} with ${event.step.method}`);
-    });
+		console.log(`Slider at [${event.slider.x},${event.slider.y} with ${event.step.method}`);
+	});
 
-    myPlot.on('plotly_beforeexport', () => {
-        console.log('starting export');
-    });
+	myPlot.on('plotly_beforeexport', () => {
+		console.log('starting export');
+	});
 
-    myPlot.on('plotly_afterexport', () => {
-        console.log('done exporting');
-    });
+	myPlot.on('plotly_afterexport', () => {
+		console.log('done exporting');
+	});
 
-    myPlot.on('plotly_animated', () => {
-        console.log('done animation');
-    });
+	myPlot.on('plotly_animated', () => {
+		console.log('done animation');
+	});
 
-    myPlot.on('plotly_animationinterrupted', () => {
-        console.log('animation interrupted');
-    });
+	myPlot.on('plotly_animationinterrupted', () => {
+		console.log('animation interrupted');
+	});
 
-    myPlot.on('plotly_framework', () => {
-        console.log('framework');
-    });
+	myPlot.on('plotly_framework', () => {
+		console.log('framework');
+	});
 
-    myPlot.on('plotly_transitioning', () => {
-        console.log('starting transition');
-    });
+	myPlot.on('plotly_transitioning', () => {
+		console.log('starting transition');
+	});
 
-    myPlot.on('plotly_transitioninterrupted', () => {
-        console.log('transition interrupted');
-    });
+	myPlot.on('plotly_transitioninterrupted', () => {
+		console.log('transition interrupted');
+	});
 })();
 //////////////////////////////////////////////////////////////////////
