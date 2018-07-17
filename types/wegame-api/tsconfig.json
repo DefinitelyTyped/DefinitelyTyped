@@ -13,7 +13,6 @@
     },
     "files": [
         "index.d.ts",
-        "wegame-api-tests.ts",
-        "datacontext/index.ts"
+        "wegame-api-tests.ts"
     ]
 }
