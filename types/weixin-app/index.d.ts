@@ -9,7 +9,11 @@ declare namespace wx {
   // #region 基本参数
   interface DataResponse {
     /** 回调函数返回的内容 */
-    data: any;
+    data: object | string | ArrayBuffer;
+    /** 开发者服务器返回的 HTTP 状态码 */
+    statusCode: number;
+    /** 开发者服务器返回的 HTTP Response Header */
+    header: object;
   }
   interface ErrMsgResponse {
     /** 成功：ok，错误：详细信息 */
@@ -37,7 +41,7 @@ declare namespace wx {
     /** 开发者服务器接口地址 */
     url: string;
     /** 请求的参数 */
-    data?: string | any;
+    data?: string | object | ArrayBuffer;
     /** 设置请求的 header , header 中不能设置 Referer */
     header?: RequestHeader;
     /** 默认为 GET，有效值：OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT */
@@ -55,7 +59,15 @@ declare namespace wx {
   /**
    * wx.request发起的是https请求。一个微信小程序，同时只能有5个网络请求连接。
    */
-  function request(options: RequestOptions): void;
+  function request(options: RequestOptions): RequestTask;
+
+  /**
+   * 返回一个 requestTask 对象，通过 requestTask，可中断请求任务。
+   */
+  interface RequestTask {
+    abort(): void;
+  }
+
   interface UploadTask {
     /**
      * 监听上传进度变化
