@@ -9,10 +9,12 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "noEmit": true
     },
     "files": [
         "index.d.ts",
-        "wegame-api-tests.ts"
+        "wegame-api-tests.ts",
+        "datacontext/index.ts"
     ]
 }
