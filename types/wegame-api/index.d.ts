@@ -1,9 +1,7 @@
-/*
-* Type definitions for wegame
-* Project: https://developers.weixin.qq.com/minigame/dev/index.html
-* Definitions by: J.C <https://github.com/jcyuan>
-* Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped, https://github.com/jcyuan/wegame-api
-*/
+// Type definitions for wegame
+// Project: https://developers.weixin.qq.com/minigame/dev/index.html
+// Definitions by: J.C <https://github.com/jcyuan>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module wx {
 
