@@ -2662,7 +2662,7 @@ declare namespace math {
         toJSON(): MathJSON;
         formatUnits(): string;
         format(options: FormatOptions): string;
-        splitUnit(parts: Array<string | Unit>): Unit[];
+        splitUnit(parts: ReadonlyArray<string | Unit>): Unit[];
     }
 
     interface CreateUnitOptions {
