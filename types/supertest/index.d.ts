@@ -27,7 +27,7 @@ declare namespace supertest {
       expect(body: RegExp, callback?: CallbackHandler): this;
       expect(body: Object, callback?: CallbackHandler): this;
       expect(field: string, val: string, callback?: CallbackHandler): this;
-      expect(fzield: string, val: RegExp, callback?: CallbackHandler): this;
+      expect(field: string, val: RegExp, callback?: CallbackHandler): this;
       expect(checker: (res: Response) => any): this;
       end(callback?: CallbackHandler): this;
     }

@@ -343,17 +343,29 @@ const positions = oneOf({a: {x: 100, y: 100}}, (node: cytoscape.NodeCollection):
 
 // TODO: cy.style
 
+// $ExpectType string
 cy.png({
-  output: oneOf('base64uri', 'base64', 'blob', undefined),
+  output: oneOf('base64uri', 'base64', undefined),
   bg: oneOf('#ffffff', undefined),
   full: true,
   scale: 2,
   maxWidth: 100,
   maxHeight: 100
 });
+// $ExpectType Blob
+cy.png({
+  output: 'blob',
+  bg: oneOf('#ffffff', undefined),
+  full: true,
+  scale: 2,
+  maxWidth: 100,
+  maxHeight: 100
+});
+
 aliases(cy.jpg, cy.jpeg);
+// $ExpectType string
 cy.jpg({
-  output: oneOf('base64uri', 'base64', 'blob', undefined),
+  output: oneOf('base64uri', 'base64', undefined),
   bg: oneOf('#ffffff', undefined),
   full: true,
   scale: 2,
@@ -361,6 +373,17 @@ cy.jpg({
   maxHeight: 100,
   quality: 0.5
 });
+// $ExpectType Blob
+cy.jpg({
+  output: 'blob',
+  bg: oneOf('#ffffff', undefined),
+  full: true,
+  scale: 2,
+  maxWidth: 100,
+  maxHeight: 100,
+  quality: 0.5
+});
+
 cy.json(cy.json());
 
 // Types possible to call methods
@@ -387,8 +410,14 @@ eles.restore();
 ]).forEach((elemType) => {
   aliases(elemType.clone, elemType.copy);
   // events(elemType); - TODO
-  aliases(elemType.data, elemType.attr);
   aliases(elemType.removeData, elemType.removeAttr);
+});
+([ele, node, edge] as [
+  cytoscape.SingularElementReturnValue,
+  cytoscape.NodeSingular,
+  cytoscape.EdgeSingular
+]).forEach((elemType) => {
+  aliases(elemType.data, elemType.attr);
 });
 // TODO: tests for data flow
 
@@ -430,6 +459,8 @@ aliases(eles.renderedBoundingBox, eles.renderedBoundingbox);
 const flags: boolean[] = [
   node.grabbed(), node.grabbable(), node.locked(), ele.active(),
 ];
+nodes.lock(); node.lock();
+nodes.unlock(); node.unlock();
 
 const edgePoints: cytoscape.Position[] = [
   ...edge.controlPoints(), ...edge.segmentPoints(), edge.sourceEndpoint(), edge.targetEndpoint(), edge.midpoint()
@@ -457,6 +488,27 @@ Object.keys(eles.style()).map(key => eles.style(key));
 eles.style(eles.style());
 aliases(eles.style, eles.css);
 aliases(ele.renderedCss, ele.renderedStyle);
+
+nodes.forEach((child) => {
+  child.animate({
+    position: node.position(),
+    duration: 300,
+    complete: () => {
+      console.log(child.id());
+    }
+  });
+});
+
+nodes.animate({
+  renderedPosition: node.position()
+}, {
+  style: { backgroundColor: 'red' },
+  duration: 1000,
+  queue: true,
+  complete: () => console.log('end'),
+  step: () => console.log('step'),
+  easing: 'ease-in-out-quint'
+});
 
 eles.anySame(nodes);
 aliases(eles.contains, eles.has);
@@ -488,7 +540,7 @@ cy.collection().merge(diff.left).merge(diff.right).merge(diff.both).unmerge(coll
 
 eles.sort((a, b) => 1).map((ele, i, eles) => [i, ele]);
 eles.reduce<any[]>((prev, ele, i, eles) => [...prev, [ele, i]], []).concat(['finish']);
-const min = eles.min((ele, i, eles) => ele.id.length + i); min.ele.scratch('min', min.value);
+const min = eles.min((ele, i, eles) => ele.id.length + i); min.ele.scratch('min', min.value).scratch('min').value;
 const max = eles.max((ele, i, eles) => ele.id.length + i); max.ele.scratch('max', max.value);
 
 // TODO: traversing (need to actively check the nodes/edges distinction)

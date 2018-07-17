@@ -851,6 +851,12 @@ interface IStaticCanvasOptions {
 	 * Indicates whether the browser can be scrolled when using a touchscreen and dragging on the canvas
 	 */
 	allowTouchScrolling?: boolean;
+
+	/**
+	 * When true, canvas is scaled by devicePixelRatio for better rendering on retina screens
+	 */
+	enableRetinaScaling?: boolean;
+	
 	/**
 	 * Indicates whether this canvas will use image smoothing, this is on by default in browsers
 	 */
@@ -1867,7 +1873,7 @@ export class Image {
 	 * @param [callback] Callback to invoke when image is created (newly created image is passed as a first argument)
 	 * @param [imgOptions] Options object
 	 */
-	static fromURL(url: string, callback?: (image: Image) => void, objObjects?: IObjectOptions): Image;
+	static fromURL(url: string, callback?: (image: Image) => void, imgOptions?: IImageOptions): Image;
 	/**
 	 * Creates an instance of fabric.Image from its object representation
 	 * @param object Object to create an instance from

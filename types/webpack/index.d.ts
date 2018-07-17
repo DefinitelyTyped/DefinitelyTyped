@@ -6,13 +6,13 @@
 //                 Tommy Troy Lin <https://github.com/tommytroylin>
 //                 Mohsen Azimi <https://github.com/mohsen1>
 //                 Jonathan Creamer <https://github.com/jcreamer898>
-//                 Ahmed T. Ali <https://github.com/ahmed-taj>
 //                 Alan Agius <https://github.com/alan-agius4>
 //                 Spencer Elliott <https://github.com/elliottsj>
 //                 Jason Cheatham <https://github.com/jason0x43>
 //                 Dennis George <https://github.com/dennispg>
 //                 Christophe Hurpeau <https://github.com/christophehurpeau>
 //                 ZSkycat <https://github.com/ZSkycat>
+//                 John Reilly <https://github.com/johnnyreilly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -90,8 +90,6 @@ declare namespace webpack {
         watchOptions?: Options.WatchOptions;
         /** Switch loaders to debug mode. */
         debug?: boolean;
-        /** Can be used to configure the behaviour of webpack-dev-server when the webpack config is passed to webpack-dev-server CLI. */
-        devServer?: any; // TODO: Type this
         /** Include polyfills or mocks for various node stuff */
         node?: Node | false;
         /** Set the value of require.amd and define.amd. */
@@ -949,6 +947,8 @@ declare namespace webpack {
             childrenCounters: any;
             usedChunkIds: any;
             usedModuleIds: any;
+            fileTimestamps: Map<string, number>;
+            contextTimestamps: Map<string, number>;
             getStats(): Stats;
             addModule(module: CompilationModule, cacheGroup: any): any;
             // tslint:disable-next-line:ban-types
@@ -1019,6 +1019,26 @@ declare namespace webpack {
         invalidate(): void;
     }
 
+    interface InputFileSystem {
+        purge(): void;
+        readFile(path: string, callback: (err: Error, contents: Buffer) => void): void;
+        readFileSync(path: string): Buffer;
+        readlink(path: string, callback: (err: Error, linkString: string) => void): void;
+        readlinkSync(path: string): string;
+        stat(path: string, callback: (err: Error, stats: any) => void): void;
+        statSync(path: string): any;
+    }
+
+    interface OutputFileSystem {
+        join(...paths: string[]): string;
+        mkdir(path: string, callback: (err: Error) => void): void;
+        mkdirp(path: string, callback: (err: Error) => void): void;
+        purge(): void;
+        rmdir(path: string, callback: (err: Error) => void): void;
+        unlink(path: string, callback: (err: Error) => void): void;
+        writeFile(path: string, data: any, callback: (err: Error) => void): void;
+    }
+
     class Compiler extends Tapable implements ICompiler {
         constructor();
 
@@ -1027,7 +1047,10 @@ declare namespace webpack {
 
         name: string;
         options: Configuration;
-        outputFileSystem: any;
+        inputFileSystem: InputFileSystem;
+        outputFileSystem: OutputFileSystem;
+        fileTimestamps: Map<string, number>;
+        contextTimestamps: Map<string, number>;
         run(handler: Compiler.Handler): void;
         watch(watchOptions: Compiler.WatchOptions, handler: Compiler.Handler): Compiler.Watching;
     }
@@ -1421,6 +1444,33 @@ declare namespace webpack {
                  * Defaults to false.
                  */
                 moveToParents?: boolean;
+            }
+        }
+
+        class AggressiveSplittingPlugin extends Plugin {
+            constructor(options?: AggressiveSplittingPlugin.Options);
+        }
+
+        namespace AggressiveSplittingPlugin {
+            interface Options {
+                /**
+                 * Size in byte.
+                 * Only chunks bigger than the specified minSize are stored in records.
+                 * This ensures the chunks fill up as your application grows,
+                 * instead of creating too many chunks for every change.
+                 *
+                 * Default: 30720
+                 */
+                minSize: 30000;
+                /**
+                 * Size in byte.
+                 * maximum size prefered for each chunk.
+                 *
+                 * Default: 51200
+                 */
+                maxSize: 50000;
+                chunkOverhead: 0;
+                entryChunkMultiplicator: 1;
             }
         }
 

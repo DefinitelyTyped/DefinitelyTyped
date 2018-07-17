@@ -8,7 +8,7 @@
 //                 Oleg Repin <https://github.com/iamolegga>
 //                 David Koblas <https://github.com/koblas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as Redis from "ioredis";
 import * as Promise from "bluebird";
@@ -160,11 +160,6 @@ declare namespace Bull {
 
   interface RepeatOptions {
     /**
-     * Cron pattern specifying when the job should execute
-     */
-    cron: string;
-
-    /**
      * Timezone
      */
     tz?: string;
@@ -178,6 +173,20 @@ declare namespace Bull {
      * Number of times the job should repeat at max.
      */
     limit?: number;
+  }
+
+  interface CronRepeatOptions extends RepeatOptions {
+    /**
+     * Cron pattern specifying when the job should execute
+     */
+    cron: string;
+  }
+
+  interface EveryRepeatOptions extends RepeatOptions {
+    /**
+     * Repeat every millis (cron setting cannot be used together with this setting.)
+     */
+    every: number;
   }
 
   interface JobOptions {
@@ -201,7 +210,7 @@ declare namespace Bull {
     /**
      * Repeat job according to a cron specification
      */
-    repeat?: RepeatOptions;
+    repeat?: CronRepeatOptions | EveryRepeatOptions;
 
     /**
      * Backoff setting for automatic retries if the job fails

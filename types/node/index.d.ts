@@ -1249,6 +1249,7 @@ declare module "http" {
     }
 
     export class Agent {
+        maxFreeSockets: number;
         maxSockets: number;
         sockets: any;
         requests: any;
@@ -4471,6 +4472,17 @@ declare module "fs" {
         /** Constant for fs.access(). File can be executed by the calling process. */
         export const X_OK: number;
 
+        // File Copy Constants
+
+        /** Constant for fs.copyFile. Flag indicating the destination file should not be overwritten if it already exists. */
+        export const COPYFILE_EXCL: number;
+
+        /** Constant for fs.copyFile. copy operation will attempt to create a copy-on-write reflink. If the underlying platform does not support copy-on-write, then a fallback copy mechanism is used. */
+        export const COPYFILE_FICLONE: number;
+
+        /** Constant for fs.copyFile. Copy operation will attempt to create a copy-on-write reflink. If the underlying platform does not support copy-on-write, then the operation will fail with an error. */
+        export const COPYFILE_FICLONE_FORCE: number;
+
         // File Open Constants
 
         /** Constant for fs.open(). Flag indicating to open a file for read-only access. */
@@ -4584,9 +4596,6 @@ declare module "fs" {
 
         /** Constant for fs.Stats mode property for determining access permissions for a file. File mode indicating executable by others. */
         export const S_IXOTH: number;
-
-        /** Constant for fs.copyFile. Flag indicating the destination file should not be overwritten if it already exists. */
-        export const COPYFILE_EXCL: number;
     }
 
     /**
@@ -5894,10 +5903,10 @@ declare module "crypto" {
     export function pseudoRandomBytes(size: number): Buffer;
     export function pseudoRandomBytes(size: number, callback: (err: Error | null, buf: Buffer) => void): void;
 
-    export function randomFillSync(buffer: ArrayBufferView, offset?: number, size?: number): ArrayBufferView;
-    export function randomFill(buffer: ArrayBufferView, callback: (err: Error | null, buf: ArrayBufferView) => void): void;
-    export function randomFill(buffer: ArrayBufferView, offset: number, callback: (err: Error | null, buf: ArrayBufferView) => void): void;
-    export function randomFill(buffer: ArrayBufferView, offset: number, size: number, callback: (err: Error | null, buf: ArrayBufferView) => void): void;
+    export function randomFillSync<T extends Buffer | ArrayBufferView>(buffer: T, offset?: number, size?: number): T;
+    export function randomFill<T extends Buffer | ArrayBufferView>(buffer: T, callback: (err: Error | null, buf: T) => void): void;
+    export function randomFill<T extends Buffer | ArrayBufferView>(buffer: T, offset: number, callback: (err: Error | null, buf: T) => void): void;
+    export function randomFill<T extends Buffer | ArrayBufferView>(buffer: T, offset: number, size: number, callback: (err: Error | null, buf: T) => void): void;
 
     export interface ScryptOptions {
         N?: number;
@@ -6417,6 +6426,8 @@ declare module "assert" {
         export function rejects(block: Function | Promise<any>, error: Function | RegExp | Object | Error, message?: string): Promise<void>;
         export function doesNotReject(block: Function | Promise<any>, message?: string): Promise<void>;
         export function doesNotReject(block: Function | Promise<any>, error: Function | RegExp | Object | Error, message?: string): Promise<void>;
+
+        export var strict: typeof internal;
     }
 
     export = internal;
@@ -6700,6 +6711,9 @@ declare module "constants" {
     export var R_OK: number;
     export var W_OK: number;
     export var X_OK: number;
+    export var COPYFILE_EXCL: number;
+    export var COPYFILE_FICLONE: number;
+    export var COPYFILE_FICLONE_FORCE: number;
     export var UV_UDP_REUSEADDR: number;
     export var SIGQUIT: number;
     export var SIGTRAP: number;

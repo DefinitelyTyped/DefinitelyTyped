@@ -20,14 +20,14 @@ export class Pool<T> extends EventEmitter {
     acquire(priority?: number): PromiseLike<T>;
     release(resource: T): void;
     destroy(resource: T): void;
-    drain(): PromiseLike<undefined>;
-    clear(): PromiseLike<undefined[]>;
+    drain(): PromiseLike<void>;
+    clear(): PromiseLike<void>;
     use<U>(cb: (resource: T) => U): PromiseLike<U>;
 }
 
 export interface Factory<T> {
     create(): PromiseLike<T>;
-    destroy(client: T): PromiseLike<undefined>;
+    destroy(client: T): PromiseLike<void>;
     validate?(client: T): PromiseLike<boolean>;
 }
 

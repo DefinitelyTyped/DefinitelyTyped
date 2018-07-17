@@ -5,6 +5,7 @@
 //                 Justin Bennett <https://github.com/zephraph>
 //                 Christopher Pappas <https://github.com/damassi>
 //                 Eloy Durán <https://github.com/alloy>
+//                 Matthieu Vachon <https://github.com/maoueh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -409,7 +410,76 @@ export function flexBasis(...args: any[]): any;
  * Grid Layout
  */
 
-// TODO: Add grid values
+export type GridGapValue = number | string;
+export type ResponsiveGridGapValue = ResponsiveValue<GridGapValue>;
+
+export interface GridGapProps {
+    gridGap?: ResponsiveGridGapValue;
+}
+
+export function gridGap(...args: any[]): any;
+
+export interface GridRowGapProps {
+    gridRowGap?: ResponsiveGridGapValue;
+}
+
+export function gridRowGap(...args: any[]): any;
+
+export interface GridColumnGapProps {
+    gridColumnGap?: ResponsiveGridGapValue;
+}
+
+export function gridColumnGap(...args: any[]): any;
+
+export type GridCellValue = string;
+export type ResponsiveGridCellValue = ResponsiveValue<GridCellValue>;
+
+export interface GridColumnProps {
+    gridColumn?: ResponsiveGridCellValue;
+}
+
+export function gridColumn(...args: any[]): any;
+
+export interface GridRowProps {
+    gridRow?: ResponsiveGridCellValue;
+}
+
+export function gridRow(...args: any[]): any;
+
+export type GridAutoValue = string;
+
+export interface GridAutoFlowProps {
+    gridAutoFlow?: GridAutoValue;
+}
+
+export function gridAutoFlow(...args: any[]): any;
+
+export interface GridAutoRowsProps {
+    gridAutoRows?: GridAutoValue;
+}
+
+export function gridAutoRows(...args: any[]): any;
+
+export interface GridAutoColumnsProps {
+    gridAutoColumns?: GridAutoValue;
+}
+
+export function gridAutoColumns(...args: any[]): any;
+
+export type GridTemplateValue = string;
+export type ResponsiveGridTemplateValue = ResponsiveValue<GridTemplateValue>;
+
+export interface GridTemplatesRowsProps {
+    gridTemplateRows?: ResponsiveGridTemplateValue;
+}
+
+export function gridTemplateRows(...args: any[]): any;
+
+export interface GridTemplatesColumnsProps {
+    gridTemplateColumns?: ResponsiveGridTemplateValue;
+}
+
+export function gridTemplateColumns(...args: any[]): any;
 
 /**
  * Background

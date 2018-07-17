@@ -648,3 +648,16 @@ function Argv$check() {
         .check((argv, aliases) => void 0)
         .check((argv, aliases) => void 0, false);
 }
+
+function Argv$hide() {
+    const ya = yargs
+        .hide('a');
+}
+
+function Argv$showhidden() {
+    const ya = yargs
+        .showhidden()
+        .showhidden(true)
+        .showhidden('show-hidden')
+        .showhidden('show-hidden', 'Show hidden options');
+}

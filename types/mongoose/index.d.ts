@@ -1,4 +1,4 @@
-// Type definitions for Mongoose 5.0.15
+// Type definitions for Mongoose 5.2.1
 // Project: http://mongoosejs.com/
 // Definitions by: horiuchi <https://github.com/horiuchi>
 //                 sindrenm <https://github.com/sindrenm>
@@ -7,6 +7,7 @@
 //                 jendrikw <https://github.com/jendrikw>
 //                 Ethan Resnick <https://github.com/ethanresnick>
 //                 vologa <https://github.com/vologab>
+//                 jussikinnula <https://github.com/jussikinnula>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -376,6 +377,9 @@ declare module "mongoose" {
     /** Passed directly through to tls.createSecureContext. See https://nodejs.org/dist/latest-v9.x/docs/api/tls.html#tls_tls_createsecurecontext_options for more info. */
     ciphers?: string;
     ecdhCurve?: string;
+    
+    /** Flag for using new URL string parser instead of current (deprecated) one */
+    useNewUrlParser?: boolean;
 
     // TODO
     safe?: any;

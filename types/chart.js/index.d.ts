@@ -52,36 +52,53 @@ declare class Chart {
         [key: string]: any;
     };
 
+    static helpers: {
+        [key: string]: any;
+    };
+
     // Tooltip Static Options
     static Tooltip: Chart.ChartTooltipsStaticConfiguration;
 }
 declare class PluginServiceStatic {
-    register(plugin: PluginServiceRegistrationOptions): void;
-    unregister(plugin: PluginServiceRegistrationOptions): void;
+    register(plugin: PluginServiceGlobalRegistration & PluginServiceRegistrationOptions): void;
+    unregister(plugin: PluginServiceGlobalRegistration & PluginServiceRegistrationOptions): void;
+}
+
+interface PluginServiceGlobalRegistration {
+    id?: string;
 }
 
 interface PluginServiceRegistrationOptions {
     beforeInit?(chartInstance: Chart, options?: any): void;
     afterInit?(chartInstance: Chart, options?: any): void;
 
-    resize?(chartInstance: Chart, newChartSize: Size, options?: any): void;
-
     beforeUpdate?(chartInstance: Chart, options?: any): void;
-    afterScaleUpdate?(chartInstance: Chart, options?: any): void;
+    afterUpdate?(chartInstance: Chart, options?: any): void;
+
+    beforeLayout?(chartInstance: Chart, options?: any): void;
+    afterLayout?(chartInstance: Chart, options?: any): void;
+
     beforeDatasetsUpdate?(chartInstance: Chart, options?: any): void;
     afterDatasetsUpdate?(chartInstance: Chart, options?: any): void;
-    afterUpdate?(chartInstance: Chart, options?: any): void;
+
+    beforeDatasetUpdate?(chartInstance: Chart, options?: any): void;
+    afterDatasetUpdate?(chartInstance: Chart, options?: any): void;
 
     // This is called at the start of a render. It is only called once, even if the animation will run for a number of frames. Use beforeDraw or afterDraw
     // to do something on each animation frame
     beforeRender?(chartInstance: Chart, options?: any): void;
+    afterRender?(chartInstance: Chart, options?: any): void;
 
     // Easing is for animation
     beforeDraw?(chartInstance: Chart, easing: string, options?: any): void;
     afterDraw?(chartInstance: Chart, easing: string, options?: any): void;
+
     // Before the datasets are drawn but after scales are drawn
     beforeDatasetsDraw?(chartInstance: Chart, easing: string, options?: any): void;
     afterDatasetsDraw?(chartInstance: Chart, easing: string, options?: any): void;
+
+    beforeDatasetDraw?(chartInstance: Chart, easing: string, options?: any): void;
+    afterDatasetDraw?(chartInstance: Chart, easing: string, options?: any): void;
 
     // Called before drawing the `tooltip`. If any plugin returns `false`,
     // the tooltip drawing is cancelled until another `render` is triggered.
@@ -90,16 +107,15 @@ interface PluginServiceRegistrationOptions {
     // be called if the tooltip drawing has been previously cancelled.
     afterTooltipDraw?(chartInstance: Chart, tooltipData?: any, options?: any): void;
 
-    destroy?(chartInstance: Chart): void;
-
     // Called when an event occurs on the chart
     beforeEvent?(chartInstance: Chart, event: Event, options?: any): void;
     afterEvent?(chartInstance: Chart, event: Event, options?: any): void;
-}
 
-interface Size {
-    height: number;
-    width: number;
+    resize?(chartInstance: Chart, newChartSize: Chart.ChartSize, options?: any): void;
+    destroy?(chartInstance: Chart): void;
+
+    /** @deprecated since version 2.5.0. Use `afterLayout` instead. */
+    afterScaleUpdate?(chartInstance: Chart, options?: any): void;
 }
 
 interface Meta {
@@ -223,8 +239,7 @@ declare namespace Chart {
         type?: ChartType | string;
         data?: ChartData;
         options?: ChartOptions;
-        // Plugins can require any options
-        plugins?: any;
+        plugins?: PluginServiceRegistrationOptions[];
     }
 
     interface ChartData {
@@ -236,6 +251,11 @@ declare namespace Chart {
 		scale?: RadialLinearScale;
 	}
 
+    interface ChartSize {
+        height: number;
+        width: number;
+    }
+
     interface ChartOptions {
         responsive?: boolean;
         responsiveAnimationDuration?: number;
@@ -244,6 +264,7 @@ declare namespace Chart {
         events?: string[];
         onHover?(this: Chart, event: MouseEvent, activeElements: Array<{}>): any;
         onClick?(event?: MouseEvent, activeElements?: Array<{}>): any;
+        onResize?(this: Chart, newSize: ChartSize): void;
         title?: ChartTitleOptions;
         legend?: ChartLegendOptions;
         tooltips?: ChartTooltipOptions;
@@ -259,7 +280,7 @@ declare namespace Chart {
         rotation?: number;
         devicePixelRatio?: number;
         // Plugins can require any options
-        plugins?: { [plugin: string]: any };
+        plugins?: { [pluginId: string]: any };
     }
 
     interface ChartFontOptions {

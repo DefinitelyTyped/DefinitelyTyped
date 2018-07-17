@@ -6,7 +6,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Plugin } from 'webpack';
+import { Plugin, compilation } from 'webpack';
+import { AsyncSeriesWaterfallHook } from 'tapable';
 import { Options as HtmlMinifierOptions } from 'html-minifier';
 
 export = HtmlWebpackPlugin;
@@ -84,8 +85,81 @@ declare namespace HtmlWebpackPlugin {
 		[option: string]: any;
 	}
 
+	interface Hooks extends compilation.CompilationHooks {
+		htmlWebpackPluginBeforeHtmlGeneration: AsyncSeriesWaterfallHook<{
+			assets: {
+				publicPath: string;
+				js: EntryObject[];
+				css: EntryObject[];
+			};
+			outputName: string;
+			plugin: HtmlWebpackPlugin;
+		}>;
+		htmlWebpackPluginBeforeHtmlProcessing: AsyncSeriesWaterfallHook<{
+			html: string;
+			assets: {
+				publicPath: string;
+				js: EntryObject[];
+				css: EntryObject[];
+			};
+			outputName: string;
+			plugin: HtmlWebpackPlugin;
+		}>;
+		htmlWebpackPluginAfterHtmlProcessing: AsyncSeriesWaterfallHook<{
+			html: string;
+			assets: {
+				publicPath: string;
+				js: EntryObject[];
+				css: EntryObject[];
+			};
+			outputName: string;
+			plugin: HtmlWebpackPlugin;
+		}>;
+		htmlWebpackPluginAlterAssetTags: AsyncSeriesWaterfallHook<{
+			head: HtmlTagObject[];
+			body: HtmlTagObject[];
+			outputName: string;
+			plugin: HtmlWebpackPlugin;
+		}>;
+		htmlWebpackPluginAfterEmit: AsyncSeriesWaterfallHook<{
+			html: string;
+			outputName: string;
+			plugin: HtmlWebpackPlugin;
+		}>;
+	}
+
 	/** @deprecated use MinifyOptions */
 	type MinifyConfig = MinifyOptions;
 	/** @deprecated use Options */
 	type Config = Options;
+}
+
+interface EntryObject {
+	/** Webpack entry or chunk name */
+	entryName: string;
+	/** Entry or chunk path */
+	path: string;
+}
+
+interface HtmlTagObject {
+	/**
+	 * Attributes of the html tag
+	 * E.g. `{'disabled': true, 'value': 'demo'}`
+	 */
+	attributes: {
+		[attributeName: string]: string | boolean;
+	};
+	/**
+	 * Wether this html must not contain innerHTML
+	 * @see https://www.w3.org/TR/html5/syntax.html#void-elements
+	 */
+	voidTag: boolean;
+	/**
+	 * The tag name e.g. `'div'`
+	 */
+	tagName: string;
+	/**
+	 * Inner HTML The
+	 */
+	innerHTML?: string;
 }

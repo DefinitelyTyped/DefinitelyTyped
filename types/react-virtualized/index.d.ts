@@ -65,7 +65,8 @@ export {
     ScrollParams,
     SectionRenderedParams,
     SizeAndPositionData,
-    VisibleCellRange
+    VisibleCellRange,
+    ScrollbarPresenceParams
 } from "./dist/es/Grid";
 export {
     InfiniteLoader,

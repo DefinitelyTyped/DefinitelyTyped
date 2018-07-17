@@ -20,6 +20,7 @@ declare namespace google {
 
         export interface ChartSpecs {
             chartType: string;
+            container?: HTMLElement;
             containerId?: string;
             options?: Object;
             dataTable?: Object;

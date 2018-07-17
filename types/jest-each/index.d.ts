@@ -4,7 +4,7 @@
 // Definitions: <https://github.com/DefinitelyTyped/DefinitelyTyped>
 // TypeScript Version: 2.1
 
-export = JestEach;
+export default JestEach;
 
 declare function JestEach(parameters: any[][]): JestEach.ReturnType;
 

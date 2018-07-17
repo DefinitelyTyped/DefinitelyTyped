@@ -9,6 +9,7 @@
 //                 Moshe Feuchtwanger <https://github.com/moshfeu>
 //                 Michael Prokopchuk <https://github.com/prokopcm>
 //                 Tina Roh <https://github.com/tinaroh>
+//                 Nathan Phillip Brink <https://github.com/binki>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -18,6 +19,7 @@ import {
     ColorPropType,
     ImageRequireSource,
     ImageURISource,
+    LinkingStatic as ReactNativeLinkingStatic,
     NativeEventEmitter,
     ViewProps,
     ViewStyle,
@@ -36,6 +38,7 @@ export type ResizeModeStretch = 'stretch';
 export type URISource = ImageURISource;
 
 export interface HashMap { [key: string]: any; }
+export interface StringHashMap { [key: string]: string; }
 
 /** Access the device accelerometer sensor(s) to respond to changes in acceleration in 3d space. */
 export namespace Accelerometer {
@@ -1513,6 +1516,27 @@ export namespace Gyroscope {
  * ImageManipulator
  */
 export namespace ImageManipulator {
+    type Action = Resize | Rotate | Flip | Crop;
+
+    interface Resize {
+        resize: { width: number, height: number };
+    }
+
+    interface Rotate {
+        rotate: number;
+    }
+
+    interface Flip {
+        flip?: { vertical?: boolean; horizontal?: boolean };
+    }
+
+    interface Crop {
+        originX: number;
+        originY: number;
+        width: number;
+        height: number;
+    }
+
     interface ImageResult {
         uri: string;
         width: number;
@@ -1527,21 +1551,7 @@ export namespace ImageManipulator {
         format?: 'jpeg' | 'png';
     }
 
-    interface CropParameters {
-        originX: number;
-        originY: number;
-        width: number;
-        height: number;
-    }
-
-    interface ImageManipulationOptions {
-        resize?: { width?: number; height?: number };
-        rotate?: number;
-        flip?: { vertical?: boolean; horizontal?: boolean };
-        crop?: CropParameters;
-    }
-
-    function manipulate(uri: string, actions: ImageManipulationOptions, saveOptions?: SaveOptions): Promise<ImageResult>;
+    function manipulate(uri: string, actions: Action[], saveOptions?: SaveOptions): Promise<ImageResult>;
 }
 
 /**
@@ -1704,6 +1714,21 @@ export interface LinearGradientProps {
 
 export class LinearGradient extends Component<LinearGradientProps> { }
 // #endregion
+
+/**
+ * Linking
+ */
+export interface LinkInfo {
+    path: string;
+    queryParams: Partial<StringHashMap>;
+}
+
+export interface LinkingStatic extends ReactNativeLinkingStatic {
+    makeUrl(path: string, queryParams?: HashMap): string;
+    parse(url: string): LinkInfo;
+    parseInitialURLAsync(): Promise<LinkInfo>;
+}
+export const Linking: LinkingStatic;
 
 /**
  * Location

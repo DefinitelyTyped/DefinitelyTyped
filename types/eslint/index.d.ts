@@ -483,7 +483,7 @@ export class CLIEngine {
 export namespace CLIEngine {
     class Options {
         allowInlineConfig?: boolean;
-        baseConfig?: boolean;
+        baseConfig?: false | { [name: string]: any };
         cache?: boolean;
         cacheFile?: string;
         cacheLocation?: string;

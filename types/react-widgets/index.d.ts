@@ -4,6 +4,7 @@
 //                 Balázs Sándor <https://github.com/sanyatuning>
 //                 Frode Hansen <https://github.com/frodehansen2>
 //                 Andrew Makarov <https://github.com/r3nya>
+//                 Maxime Billemaz <https://github.com/MBillemaz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 

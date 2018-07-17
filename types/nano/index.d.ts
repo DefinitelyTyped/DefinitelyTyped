@@ -855,6 +855,9 @@ declare namespace nano {
     descending?: boolean;
 
     // Stop returning records when the specified key is reached.
+    endkey?: string;
+
+    // Stop returning records when the specified key is reached. end_key is an alias for endkey
     end_key?: string;
 
     // Stop returning records when the specified document ID is reached.
@@ -883,6 +886,9 @@ declare namespace nano {
     stale?: string;
 
     // Return records starting with the specified key.
+    startkey?: string;
+
+    // Return records starting with the specified key. start_key is an alias for startkey
     start_key?: string;
 
     // Return records starting with the specified document ID.
