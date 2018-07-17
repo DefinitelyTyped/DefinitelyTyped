@@ -1,13 +1,14 @@
 // Type definitions for plotly.js 1.38
 // Project: https://plot.ly/javascript/
 // Definitions by: Chris Gervang <https://github.com/chrisgervang>
-// 				Martin Duparc <https://github.com/martinduparc>
-// 				Frederik Aalund <https://github.com/frederikaalund>
-// 				taoqf <https://github.com/taoqf>
-// 				Dadstart <https://github.com/Dadstart>
-// 				Jared Szechy <https://github.com/szechyjs>
-// 				Drew Diamantoukos <https://github.com/MercifulCode>
-// 				Sooraj Pudiyadath <https://github.com/soorajpudiyadath>
+//                 Martin Duparc <https://github.com/martinduparc>
+//                 Frederik Aalund <https://github.com/frederikaalund>
+//                 taoqf <https://github.com/taoqf>
+//                 Dadstart <https://github.com/Dadstart>
+//                 Jared Szechy <https://github.com/szechyjs>
+//                 Drew Diamantoukos <https://github.com/MercifulCode>
+//                 Sooraj Pudiyadath <https://github.com/soorajpudiyadath>
+//                 Jon Freedman <https://github.com/jonfreedman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -15,15 +16,15 @@
 export as namespace Plotly;
 
 export interface StaticPlots {
-	resize(root: Root): void;
+    resize(root: Root): void;
 }
 
 export const Plots: StaticPlots;
 
 export interface Point {
-	x: number;
-	y: number;
-	z: number;
+    x: number;
+    y: number;
+    z: number;
 }
 
 export interface PlotScatterDataPoint {
@@ -38,70 +39,123 @@ export interface PlotScatterDataPoint {
 }
 
 export interface PlotMouseEvent {
-	points: PlotScatterDataPoint[];
-	event: MouseEvent;
+    points: PlotScatterDataPoint[];
+    event: MouseEvent;
 }
 
 export interface PlotCoordinate {
-	x: number;
-	y: number;
-	pointNumber: number;
+    x: number;
+    y: number;
+    pointNumber: number;
 }
 
 export interface PlotSelectionEvent {
-	points: PlotCoordinate[];
+    points: PlotCoordinate[];
 }
 
 export type PlotRestyleEvent = [
-	any,  // update object -- attribute updated: new value
-	number[]       // array of traces updated
+    any,  // update object -- attribute updated: new value
+    number[]       // array of traces updated
 ];
 
 export interface PlotAxis {
-	range: [number, number];
-	autorange: boolean;
+    range: [number, number];
+    autorange: boolean;
 }
 
 export interface PlotScene {
-	center: Point;
-	eye: Point;
-	up: Point;
+    center: Point;
+    eye: Point;
+    up: Point;
 }
 
 export interface PlotRelayoutEvent {
-	xaxis: PlotAxis;
-	yaxis: PlotAxis;
-	scene: PlotScene;
+    xaxis: PlotAxis;
+    yaxis: PlotAxis;
+    scene: PlotScene;
 }
 
 export interface ClickAnnotationEvent {
-	index: number;
-	annotation: Annotations;
-	fullAnnotation: Annotations;
-	event: MouseEvent;
+    index: number;
+    annotation: Annotations;
+    fullAnnotation: Annotations;
+    event: MouseEvent;
+}
+
+export interface FrameAnimationEvent {
+    name: string;
+    frame: Frame;
+    animation: {
+        frame: {
+            duration: number;
+            redraw: boolean;
+        };
+        transition: Transition;
+    };
+}
+
+export interface LegendClickEvent {
+    event: MouseEvent;
+    node: PlotlyHTMLElement;
+    curveNumber: number;
+    expandedIndex: number;
+    data: Data[];
+    layout: Partial<Layout>;
+    frames: Frame[];
+    config: Partial<Config>;
+    fullData: Data[];
+    fullLayout: Partial<Layout>;
+}
+
+export interface SliderChangeEvent {
+    slider: Slider;
+    step: SliderStep;
+    interaction: boolean;
+    previousActive: number;
+}
+
+export interface SliderStartEvent {
+    slider: Slider;
+}
+
+export interface SliderEndEvent {
+    slider: Slider;
+    step: SliderStep;
+}
+
+export interface BeforePlotEvent {
+    data: Data[];
+    layout: Partial<Layout>;
+    config: Partial<Config>;
 }
 
 export interface PlotlyHTMLElement extends HTMLElement {
-	on(event: 'plotly_click' | 'plotly_hover' | 'plotly_unhover', callback: (event: PlotMouseEvent) => void): void;
-	on(event: 'plotly_selecting' | 'plotly_selected', callback: (event: PlotSelectionEvent) => void): void;
-	on(event: 'plotly_restyle', callback: (data: PlotRestyleEvent) => void): void;
-	on(event: 'plotly_relayout', callback: (event: PlotRelayoutEvent) => void): void;
-	on(event: 'plotly_clickannotation', callback: (event: ClickAnnotationEvent) => void): void;
-	// on(event: 'plotly_event', callback: (data: any) => void): void;
-	on(event: 'plotly_afterplot' | 'plotly_autosize' | 'plotly_deselect' | 'plotly_doubleclick' | 'plotly_redraw' | 'plotly_animated', callback: () => void): void;
+    on(event: 'plotly_click' | 'plotly_hover' | 'plotly_unhover', callback: (event: PlotMouseEvent) => void): void;
+    on(event: 'plotly_selecting' | 'plotly_selected', callback: (event: PlotSelectionEvent) => void): void;
+    on(event: 'plotly_restyle', callback: (data: PlotRestyleEvent) => void): void;
+    on(event: 'plotly_relayout', callback: (event: PlotRelayoutEvent) => void): void;
+    on(event: 'plotly_clickannotation', callback: (event: ClickAnnotationEvent) => void): void;
+    on(event: 'plotly_animatingframe', callback: (event: FrameAnimationEvent) => void): void;
+    on(event: 'plotly_legendclick' | 'plotly_legenddoubleclick', callback: (event: LegendClickEvent) => boolean): void;
+    on(event: 'plotly_sliderchange', callback: (event: SliderChangeEvent) => void): void;
+    on(event: 'plotly_sliderend', callback: (event: SliderEndEvent) => void): void;
+    on(event: 'plotly_sliderstart', callback: (event: SliderStartEvent) => void): void;
+    on(event: 'plotly_event', callback: (data: any) => void): void;
+    on(event: 'plotly_beforeplot' , callback: (event: BeforePlotEvent) => boolean): void;
+    on(event: 'plotly_afterexport' | 'plotly_afterplot' | 'plotly_animated' | 'plotly_animationinterrupted' | 'plotly_autosize' | 'plotly_beforeexport' | 'plotly_deselect' | 'plotly_doubleclick' | 'plotly_framework' | 'plotly_redraw' | 'plotly_transitioning' | 'plotly_transitioninterrupted' , callback: () => void): void;
 }
 
 export interface ToImgopts {
-	format: 'jpeg' | 'png' | 'webp' | 'svg';
-	width: number;
-	height: number;
+    format: 'jpeg' | 'png' | 'webp' | 'svg';
+    width: number;
+    height: number;
 }
 
 export interface DownloadImgopts {
-	format: 'jpeg' | 'png' | 'webp' | 'svg';
-	width: number;
-	height: number;
-	filename: string;
+    format: 'jpeg' | 'png' | 'webp' | 'svg';
+    width: number;
+    height: number;
+    filename: string;
 }
 
 export type Root = string | HTMLElement;
@@ -122,43 +176,45 @@ export function prependTraces(root: Root, update: Data | Data[], indices: number
 export function toImage(root: Root, opts: ToImgopts): Promise<string>;
 export function downloadImage(root: Root, opts: DownloadImgopts): Promise<string>;
 export function react(root: Root, data: Data[], layout?: Partial<Layout>, config?: Partial<Config>): Promise<PlotlyHTMLElement>;
+export function addFrames(root: Root, frames: Partial<Frame>[]): Promise<PlotlyHTMLElement>;
+export function deleteFrames (root: Root, frames: number[]): Promise<PlotlyHTMLElement>;
 
 // Layout
 export interface Layout {
-	title: string;
-	titlefont: Partial<Font>;
-	autosize: boolean;
-	showlegend: boolean;
+    title: string;
+    titlefont: Partial<Font>;
+    autosize: boolean;
+    showlegend: boolean;
     paper_bgcolor: Color;
     plot_bgcolor: Color;
     separators: string;
     hidesources: boolean;
     xaxis: Partial<LayoutAxis>;
-	yaxis: Partial<LayoutAxis>;
-	yaxis2: Partial<LayoutAxis>;
-	yaxis3: Partial<LayoutAxis>;
-	yaxis4: Partial<LayoutAxis>;
-	yaxis5: Partial<LayoutAxis>;
-	yaxis6: Partial<LayoutAxis>;
-	yaxis7: Partial<LayoutAxis>;
-	yaxis8: Partial<LayoutAxis>;
-	yaxis9: Partial<LayoutAxis>;
-	margin: Partial<Margin>;
-	height: number;
-	width: number;
-	hovermode: 'closest' | 'x' | 'y' | false;
-	hoverlabel: Partial<Label>;
+    yaxis: Partial<LayoutAxis>;
+    yaxis2: Partial<LayoutAxis>;
+    yaxis3: Partial<LayoutAxis>;
+    yaxis4: Partial<LayoutAxis>;
+    yaxis5: Partial<LayoutAxis>;
+    yaxis6: Partial<LayoutAxis>;
+    yaxis7: Partial<LayoutAxis>;
+    yaxis8: Partial<LayoutAxis>;
+    yaxis9: Partial<LayoutAxis>;
+    margin: Partial<Margin>;
+    height: number;
+    width: number;
+    hovermode: 'closest' | 'x' | 'y' | false;
+    hoverlabel: Partial<Label>;
     calendar: Calendar;
     'xaxis.range': [Datum, Datum];
-	'xaxis.range[0]': Datum;
-	'xaxis.range[1]': Datum;
-	'yaxis.range': [Datum, Datum];
-	'yaxis.range[0]': Datum;
-	'yaxis.range[1]': Datum;
-	'yaxis.type': AxisType;
-	'xaxis.type': AxisType;
-	'xaxis.autorange': boolean;
-	'yaxis.autorange': boolean;
+    'xaxis.range[0]': Datum;
+    'xaxis.range[1]': Datum;
+    'yaxis.range': [Datum, Datum];
+    'yaxis.range[0]': Datum;
+    'yaxis.range[1]': Datum;
+    'yaxis.type': AxisType;
+    'xaxis.type': AxisType;
+    'xaxis.autorange': boolean;
+    'yaxis.autorange': boolean;
     ternary: {}; // TODO
     geo: {}; // TODO
     mapbox: {}; // TODO
@@ -171,21 +227,21 @@ export interface Layout {
     shapes: Array<Partial<Shape>>;
     images: Array<Partial<Image>>;
     updatemenus: {}; // TODO
-    sliders: {}; // TODO
+    sliders: Array<Partial<Slider>>;
     legend: Partial<Legend>;
-	font: Partial<Font>;
-	scene: Partial<Scene>;
+    font: Partial<Font>;
+    scene: Partial<Scene>;
 }
 
 export interface Legend extends Label {
-	traceorder: 'grouped' | 'normal' | 'reversed';
-	x: number;
-	y: number;
-	borderwidth: number;
-	orientation: 'v' | 'h';
-	tracegroupgap: number;
-	xanchor: 'auto' | 'left' | 'center' | 'right';
-	yanchor: 'auto' | 'top' | 'middle' | 'bottom';
+    traceorder: 'grouped' | 'normal' | 'reversed';
+    x: number;
+    y: number;
+    borderwidth: number;
+    orientation: 'v' | 'h';
+    tracegroupgap: number;
+    xanchor: 'auto' | 'left' | 'center' | 'right';
+    yanchor: 'auto' | 'top' | 'middle' | 'bottom';
 }
 
 export type AxisType = '-' | 'linear' | 'log' | 'date' | 'category';
@@ -268,89 +324,89 @@ export interface SceneAxis extends Axis {
 }
 
 export interface ShapeLine {
-	color: string;
-	width: number;
-	dash: Dash;
+    color: string;
+    width: number;
+    dash: Dash;
 }
 
 export interface Shape {
-	visible: boolean;
-	layer: 'below' | 'above';
-	type: 'rect' | 'circle' | 'line' | 'path';
-	path: string;
-	// x-reference is assigned to the x-values
-	xref: 'x' | 'paper';
-	// y-reference is assigned to the plot paper [0,1]
-	yref: 'paper' | 'y';
-	x0: Datum;
-	y0: Datum;
-	x1: Datum;
-	y1: Datum;
-	fillcolor: string;
-	opacity: number;
-	line: Partial<ShapeLine>;
+    visible: boolean;
+    layer: 'below' | 'above';
+    type: 'rect' | 'circle' | 'line' | 'path';
+    path: string;
+    // x-reference is assigned to the x-values
+    xref: 'x' | 'paper';
+    // y-reference is assigned to the plot paper [0,1]
+    yref: 'paper' | 'y';
+    x0: Datum;
+    y0: Datum;
+    x1: Datum;
+    y1: Datum;
+    fillcolor: string;
+    opacity: number;
+    line: Partial<ShapeLine>;
 }
 
 export interface Margin {
-	t: number;
-	b: number;
-	l: number;
-	r: number;
+    t: number;
+    b: number;
+    l: number;
+    r: number;
 }
 
 export type ModeBarDefaultButtons = 'lasso2d' | 'select2d' | 'sendDataToCloud' | 'autoScale2d' |
-	'zoom2d' | 'pan2d' | 'zoomIn2d' | 'zoomOut2d' | 'autoScale2d' | 'resetScale2d' |
-	'hoverClosestCartesian' | 'hoverCompareCartesian' | 'zoom3d' | 'pan3d' | 'orbitRotation' |
-	'tableRotation' | 'resetCameraDefault3d' | 'resetCameraLastSave3d' | 'hoverClosest3d' |
-	'zoomInGeo' | 'zoomOutGeo' | 'resetGeo' | 'hoverClosestGeo' | 'hoverClosestGl2d' |
-	'hoverClosestPie' | 'toggleHover' | 'toImage' | 'resetViews' | 'toggleSpikelines';
+    'zoom2d' | 'pan2d' | 'zoomIn2d' | 'zoomOut2d' | 'autoScale2d' | 'resetScale2d' |
+    'hoverClosestCartesian' | 'hoverCompareCartesian' | 'zoom3d' | 'pan3d' | 'orbitRotation' |
+    'tableRotation' | 'resetCameraDefault3d' | 'resetCameraLastSave3d' | 'hoverClosest3d' |
+    'zoomInGeo' | 'zoomOutGeo' | 'resetGeo' | 'hoverClosestGeo' | 'hoverClosestGl2d' |
+    'hoverClosestPie' | 'toggleHover' | 'toImage' | 'resetViews' | 'toggleSpikelines';
 
 export type ButtonClickEvent = (gd: PlotlyHTMLElement, ev: MouseEvent) => void;
 
 export interface Icon {
-	width: number;
-	path: string;
-	ascent: number;
-	descent: number;
+    width: number;
+    path: string;
+    ascent: number;
+    descent: number;
 }
 
 export interface ModeBarButton {
-	/** name / id of the buttons (for tracking) */
+    /** name / id of the buttons (for tracking) */
     name: string;
 
-	/**
-	 * text that appears while hovering over the button,
-	 * enter null, false or '' for no hover text
-	 */
+    /**
+     * text that appears while hovering over the button,
+     * enter null, false or '' for no hover text
+     */
     title: string;
 
-	/**
-	 * svg icon object associated with the button
-	 * can be linked to Plotly.Icons to use the default plotly icons
-	 */
+    /**
+     * svg icon object associated with the button
+     * can be linked to Plotly.Icons to use the default plotly icons
+     */
     icon: string | Icon;
 
-	/** icon positioning */
+    /** icon positioning */
     gravity?: string;
 
-	/**
-	 * click handler associated with the button, a function of
-	 * 'gd' (the main graph object) and
-	 * 'ev' (the event object)
-	 */
+    /**
+     * click handler associated with the button, a function of
+     * 'gd' (the main graph object) and
+     * 'ev' (the event object)
+     */
     click: ButtonClickEvent;
 
-	/**
-	 * attribute associated with button,
-	 * use this with 'val' to keep track of the state
-	 */
+    /**
+     * attribute associated with button,
+     * use this with 'val' to keep track of the state
+     */
     attr?: string;
 
-	/** initial 'attr' value, can be a function of gd */
+    /** initial 'attr' value, can be a function of gd */
     val?: any;
 
-	/** is the button a toggle button? */
-	toggle?: boolean;
+    /** is the button a toggle button? */
+    toggle?: boolean;
 }
 
 // Data
@@ -365,37 +421,37 @@ export type Color = string | Array<string | undefined | null> | Array<Array<stri
 
 // Bar Scatter
 export interface ScatterData {
-	type: 'bar' | 'pointcloud' | 'scatter' | 'scattergl' | 'scatter3d' |'surface';
-	x: Datum[] | Datum[][] | TypedArray;
-	y: Datum[] | Datum[][] | TypedArray;
-	z: Datum[] | Datum[][] | Datum[][][] | TypedArray;
-	xy: Float32Array;
-	xaxis: string;
-	yaxis: string;
-	text: string | string[];
-	line: Partial<ScatterLine>;
-	'line.color': Color;
-	'line.width': number;
-	'line.dash': Dash;
-	'line.shape': 'linear' | 'spline' | 'hv' | 'vh' | 'hvh' | 'vhv';
-	'line.smoothing': number;
-	'line.simplify': boolean;
-	marker: Partial<ScatterMarker>;
-	'marker.symbol': string | string[]; // Drawing.symbolList
-	'marker.color': Color;
-	'marker.opacity': number | number[];
-	'marker.size': number | number[];
-	'marker.maxdisplayed': number;
-	'marker.sizeref': number;
-	'marker.sizemax': number;
-	'marker.sizemin': number;
-	'marker.sizemode': 'diameter' | 'area';
-	'marker.showscale': boolean;
-	'marker.line': Partial<ScatterMarkerLine>;
-	'marker.colorbar': {}; // TODO
-	mode: 'lines' | 'markers' | 'text' | 'lines+markers' | 'text+markers' | 'text+lines' | 'text+lines+markers' | 'none';
-	hoveron: 'points' | 'fills';
-	hoverinfo: 'all' | 'name' | 'none' | 'skip' | 'text' |
+    type: 'bar' | 'pointcloud' | 'scatter' | 'scattergl' | 'scatter3d' |'surface';
+    x: Datum[] | Datum[][] | TypedArray;
+    y: Datum[] | Datum[][] | TypedArray;
+    z: Datum[] | Datum[][] | Datum[][][] | TypedArray;
+    xy: Float32Array;
+    xaxis: string;
+    yaxis: string;
+    text: string | string[];
+    line: Partial<ScatterLine>;
+    'line.color': Color;
+    'line.width': number;
+    'line.dash': Dash;
+    'line.shape': 'linear' | 'spline' | 'hv' | 'vh' | 'hvh' | 'vhv';
+    'line.smoothing': number;
+    'line.simplify': boolean;
+    marker: Partial<ScatterMarker>;
+    'marker.symbol': string | string[]; // Drawing.symbolList
+    'marker.color': Color;
+    'marker.opacity': number | number[];
+    'marker.size': number | number[];
+    'marker.maxdisplayed': number;
+    'marker.sizeref': number;
+    'marker.sizemax': number;
+    'marker.sizemin': number;
+    'marker.sizemode': 'diameter' | 'area';
+    'marker.showscale': boolean;
+    'marker.line': Partial<ScatterMarkerLine>;
+    'marker.colorbar': {}; // TODO
+    mode: 'lines' | 'markers' | 'text' | 'lines+markers' | 'text+markers' | 'text+lines' | 'text+lines+markers' | 'none';
+    hoveron: 'points' | 'fills';
+    hoverinfo: 'all' | 'name' | 'none' | 'skip' | 'text' |
                'x' | 'x+text' | 'x+name' |
                'x+y' | 'x+y+text' | 'x+y+name' |
                'x+y+z' | 'x+y+z+text' | 'x+y+z+name' |
@@ -405,12 +461,12 @@ export interface ScatterData {
                'z+x' | 'z+x+text' | 'z+x+name' |
                'z+y+x' | 'z+y+x+text' | 'z+y+x+name' |
                'z+x+y' | 'z+x+y+text' | 'z+x+y+name';
-	hoverlabel: Partial<Label>;
-	fill: 'none' | 'tozeroy' | 'tozerox' | 'tonexty' | 'tonextx' | 'toself' | 'tonext';
-	fillcolor: string;
-	legendgroup: string;
-	name: string;
-	connectgaps: boolean;
+    hoverlabel: Partial<Label>;
+    fill: 'none' | 'tozeroy' | 'tozerox' | 'tonexty' | 'tonextx' | 'toself' | 'tonext';
+    fillcolor: string;
+    legendgroup: string;
+    name: string;
+    connectgaps: boolean;
 }
 
 /**
@@ -419,24 +475,24 @@ export interface ScatterData {
  * default: "all"
  */
 export interface ScatterMarker {
-	symbol: string | string[]; // Drawing.symbolList
-	color: Color | number[];
-	colorscale: string | string[] | Array<Array<(string | number)>>;
-	cauto: boolean;
-	cmax: number;
-	cmin: number;
-	autocolorscale: boolean;
-	reversescale: boolean;
-	opacity: number | number[];
-	size: number | number[];
-	maxdisplayed: number;
-	sizeref: number;
-	sizemax: number;
-	sizemin: number;
-	sizemode: 'diameter' | 'area';
-	showscale: boolean;
-	line: Partial<ScatterMarkerLine>;
-	colorbar: {
+    symbol: string | string[]; // Drawing.symbolList
+    color: Color | number[];
+    colorscale: string | string[] | Array<Array<(string | number)>>;
+    cauto: boolean;
+    cmax: number;
+    cmin: number;
+    autocolorscale: boolean;
+    reversescale: boolean;
+    opacity: number | number[];
+    size: number | number[];
+    maxdisplayed: number;
+    sizeref: number;
+    sizemax: number;
+    sizemin: number;
+    sizemode: 'diameter' | 'area';
+    showscale: boolean;
+    line: Partial<ScatterMarkerLine>;
+    colorbar: {
         thicknessmode: 'fraction' | 'pixels',
         thickness: number,
         lenmode: 'fraction' | 'pixels',
@@ -463,11 +519,7 @@ export interface ScatterMarker {
         tickwidth: number,
         tickcolor: Color,
         showticklabels: boolean,
-        tickfont: {
-            family: string,
-            size: number,
-            color: Color,
-        },
+        tickfont: Font,
         tickangle: number,
         tickformat: string,
         tickformatstops: {
@@ -482,16 +534,12 @@ export interface ScatterMarker {
         exponentformat: 'none' | 'e' | 'E' | 'power' | 'SI' | 'B',
         showexponent: 'all' | 'first' | 'last' | 'none',
         title: string,
-        titlefont: {
-            family: string,
-            size: number,
-            color: Color,
-        },
+        titlefont: Font,
         titleside: 'right' | 'top' | 'bottom',
         tickvalssrc: any,
         ticktextsrc: any,
     };
-	gradient: {
+    gradient: {
         type: 'radial' | 'horizontal' | 'vertical' | 'none',
         color: Color,
         typesrc: any,
@@ -511,171 +559,182 @@ export interface ScatterMarkerLine {
 }
 
 export interface ScatterLine {
-	color: Color;
-	width: number;
-	dash: Dash;
-	shape: 'linear' | 'spline' | 'hv' | 'vh' | 'hvh' | 'vhv';
-	smoothing: number;
-	simplify: boolean;
+    color: Color;
+    width: number;
+    dash: Dash;
+    shape: 'linear' | 'spline' | 'hv' | 'vh' | 'hvh' | 'vhv';
+    smoothing: number;
+    simplify: boolean;
 }
 
 export interface Font {
-	family: string;
-	size: number;
-	color: string;
+    /**
+     * HTML font family - the typeface that will be applied by the web browser.
+     * The web browser will only be able to apply a font if it is available on the system
+     * which it operates. Provide multiple font families, separated by commas, to indicate
+     * the preference in which to apply fonts if they aren't available on the system.
+     * The plotly service (at https://plot.ly or on-premise) generates images on a server,
+     * where only a select number of fonts are installed and supported.
+     * These include *Arial*, *Balto*, *Courier New*, *Droid Sans*, *Droid Serif*,
+     * *Droid Sans Mono*, *Gravitas One*, *Old Standard TT*, *Open Sans*, *Overpass*,
+     * *PT Sans Narrow*, *Raleway*, *Times New Roman*.
+     */
+    family: string;
+    size: number;
+    color: Color;
 }
 
 export interface Edits {
-	annotationPosition: boolean;
-	annotationTail: boolean;
-	annotationText: boolean;
-	axisTitleText: boolean;
-	colorbarPosition: boolean;
-	colorbarTitleText: boolean;
-	legendPosition: boolean;
-	legendText: boolean;
-	shapePosition: boolean;
-	titleText: boolean;
+    annotationPosition: boolean;
+    annotationTail: boolean;
+    annotationText: boolean;
+    axisTitleText: boolean;
+    colorbarPosition: boolean;
+    colorbarTitleText: boolean;
+    legendPosition: boolean;
+    legendText: boolean;
+    shapePosition: boolean;
+    titleText: boolean;
 }
 
 export interface Config {
-	/** no interactivity, for export or image generation */
-	staticPlot: boolean;
+    /** no interactivity, for export or image generation */
+    staticPlot: boolean;
 
-	/** we can edit titles, move annotations, etc */
-	editable: boolean;
-	edits: Partial<Edits>;
+    /** we can edit titles, move annotations, etc */
+    editable: boolean;
+    edits: Partial<Edits>;
 
-	/** DO autosize once regardless of layout.autosize (use default width or height values otherwise) */
-	autosizable: boolean;
+    /** DO autosize once regardless of layout.autosize (use default width or height values otherwise) */
+    autosizable: boolean;
 
-	/** set the length of the undo/redo queue */
-	queueLength: number;
+    /** set the length of the undo/redo queue */
+    queueLength: number;
 
-	/** if we DO autosize, do we fill the container or the screen? */
-	fillFrame: boolean;
+    /** if we DO autosize, do we fill the container or the screen? */
+    fillFrame: boolean;
 
-	/** if we DO autosize, set the frame margins in percents of plot size */
-	frameMargins: number;
+    /** if we DO autosize, set the frame margins in percents of plot size */
+    frameMargins: number;
 
-	/** mousewheel or two-finger scroll zooms the plot */
-	scrollZoom: boolean;
+    /** mousewheel or two-finger scroll zooms the plot */
+    scrollZoom: boolean;
 
-	/** double click interaction (false, 'reset', 'autosize' or 'reset+autosize') */
-	doubleClick: 'reset+autosize' | 'reset' | 'autosize' | false;
+    /** double click interaction (false, 'reset', 'autosize' or 'reset+autosize') */
+    doubleClick: 'reset+autosize' | 'reset' | 'autosize' | false;
 
-	/** new users see some hints about interactivity */
-	showTips: boolean;
+    /** new users see some hints about interactivity */
+    showTips: boolean;
 
-	/** enable axis pan/zoom drag handles */
-	showAxisDragHandles: boolean;
+    /** enable axis pan/zoom drag handles */
+    showAxisDragHandles: boolean;
 
-	/** enable direct range entry at the pan/zoom drag points (drag handles must be enabled above) */
-	showAxisRangeEntryBoxes: boolean;
+    /** enable direct range entry at the pan/zoom drag points (drag handles must be enabled above) */
+    showAxisRangeEntryBoxes: boolean;
 
-	/** link to open this plot in plotly */
-	showLink: boolean;
+    /** link to open this plot in plotly */
+    showLink: boolean;
 
-	/** if we show a link, does it contain data or just link to a plotly file? */
-	sendData: boolean;
+    /** if we show a link, does it contain data or just link to a plotly file? */
+    sendData: boolean;
 
-	/** text appearing in the sendData link */
-	linkText: string;
+    /** text appearing in the sendData link */
+    linkText: string;
 
-	/** false or function adding source(s) to linkText <text> */
-	showSources: boolean;
+    /** false or function adding source(s) to linkText <text> */
+    showSources: boolean;
 
-	/** display the mode bar (true, false, or 'hover') */
-	displayModeBar: 'hover' | boolean;
+    /** display the mode bar (true, false, or 'hover') */
+    displayModeBar: 'hover' | boolean;
 
-	/** remove mode bar button by name (see ./components/modebar/buttons.js for the list of names) */
-	modeBarButtonsToRemove: ModeBarDefaultButtons[];
+    /** remove mode bar button by name (see ./components/modebar/buttons.js for the list of names) */
+    modeBarButtonsToRemove: ModeBarDefaultButtons[];
 
-	/** add mode bar button using config objects (see ./components/modebar/buttons.js for list of arguments) */
-	modeBarButtonsToAdd: ModeBarDefaultButtons[] | ModeBarButton[];
+    /** add mode bar button using config objects (see ./components/modebar/buttons.js for list of arguments) */
+    modeBarButtonsToAdd: ModeBarDefaultButtons[] | ModeBarButton[];
 
-	/**
-	 * fully custom mode bar buttons as nested array, where the outer
-	 * arrays represents button groups, and the inner arrays have
-	 * buttons config objects or names of default buttons
-	 * (see ./components/modebar/buttons.js for more info)
-	 */
-	modeBarButtons: ModeBarDefaultButtons[][] | ModeBarButton[][] | false;
+    /**
+     * fully custom mode bar buttons as nested array, where the outer
+     * arrays represents button groups, and the inner arrays have
+     * buttons config objects or names of default buttons
+     * (see ./components/modebar/buttons.js for more info)
+     */
+    modeBarButtons: ModeBarDefaultButtons[][] | ModeBarButton[][] | false;
 
-	/** add the plotly logo on the end of the mode bar */
-	displaylogo: boolean;
+    /** add the plotly logo on the end of the mode bar */
+    displaylogo: boolean;
 
-	/** increase the pixel ratio for Gl plot images */
-	plotGlPixelRatio: number;
+    /** increase the pixel ratio for Gl plot images */
+    plotGlPixelRatio: number;
 
-	/**
-	 * function to add the background color to a different container
-	 * or 'opaque' to ensure there's white behind it
-	 */
-	setBackground: string | 'opaque' | 'transparent';
+    /**
+     * function to add the background color to a different container
+     * or 'opaque' to ensure there's white behind it
+     */
+    setBackground: string | 'opaque' | 'transparent';
 
-	/** URL to topojson files used in geo charts */
-	topojsonURL: string;
+    /** URL to topojson files used in geo charts */
+    topojsonURL: string;
 
-	/**
-	 * Mapbox access token (required to plot mapbox trace types)
-	 * If using an Mapbox Atlas server, set this option to '',
-	 * so that plotly.js won't attempt to authenticate to the public Mapbox server.
-	 */
-	mapboxAccessToken: string;
+    /**
+     * Mapbox access token (required to plot mapbox trace types)
+     * If using an Mapbox Atlas server, set this option to '',
+     * so that plotly.js won't attempt to authenticate to the public Mapbox server.
+     */
+    mapboxAccessToken: string;
 
-	/**
-	 * Turn all console logging on or off (errors will be thrown)
-	 * This should ONLY be set via Plotly.setPlotConfig
-	 */
-	logging: boolean | 0 | 1 | 2;
+    /**
+     * Turn all console logging on or off (errors will be thrown)
+     * This should ONLY be set via Plotly.setPlotConfig
+     */
+    logging: boolean | 0 | 1 | 2;
 
-	/** Set global transform to be applied to all traces with no specification needed */
-	globalTransforms: any[];
+    /** Set global transform to be applied to all traces with no specification needed */
+    globalTransforms: any[];
 
-	/** Which localization should we use? Should be a string like 'en' or 'en-US' */
-	locale: string;
+    /** Which localization should we use? Should be a string like 'en' or 'en-US' */
+    locale: string;
 }
 
 // Components
 
 export interface RangeSlider {
-	visible: boolean;
-	thickness: number;
-	range: [Datum, Datum];
-	borderwidth: number;
-	bordercolor: string;
-	bgcolor: string;
+    visible: boolean;
+    thickness: number;
+    range: [Datum, Datum];
+    borderwidth: number;
+    bordercolor: string;
+    bgcolor: string;
 }
 
 export interface RangeSelectorButton {
-	step: 'second' | 'minute' | 'hour' | 'day' | 'month' | 'year' | 'all';
-	stepmode: 'backward' | 'todate';
-	count: number;
-	label: string;
+    step: 'second' | 'minute' | 'hour' | 'day' | 'month' | 'year' | 'all';
+    stepmode: 'backward' | 'todate';
+    count: number;
+    label: string;
 }
 
 export interface RangeSelector extends Label {
-	buttons: Array<Partial<RangeSelectorButton>>;
-	visible: boolean;
-	x: number;
-	xanchor: 'auto' | 'left' | 'center' | 'right';
-	y: number;
-	yanchor: 'auto' | 'top' | 'middle' | 'bottom';
-	activecolor: string;
-	borderwidth: number;
+    buttons: Array<Partial<RangeSelectorButton>>;
+    visible: boolean;
+    x: number;
+    xanchor: 'auto' | 'left' | 'center' | 'right';
+    y: number;
+    yanchor: 'auto' | 'top' | 'middle' | 'bottom';
+    activecolor: string;
+    borderwidth: number;
 }
 
 export interface Camera {
-	up: Partial<Point>;
-	center: Partial<Point>;
-	eye: Partial<Point>;
+    up: Partial<Point>;
+    center: Partial<Point>;
+    eye: Partial<Point>;
 }
 
 export interface Label {
-	bgcolor: string;
-	bordercolor: string;
-	font: Partial<Font>;
+    bgcolor: string;
+    bordercolor: string;
+    font: Partial<Font>;
 }
 
 export interface Annotations extends Label {
@@ -932,7 +991,7 @@ export interface Annotations extends Label {
    * is provided. If you use the event `plotly_clickannotation` without `hovertext`
    * you must explicitly enable `captureevents`.
    */
-	captureevents: boolean;
+    captureevents: boolean;
 }
 
 export interface Image {
@@ -952,21 +1011,237 @@ export interface Image {
 }
 
 export interface Scene {
-	bgcolor: string;
-	camera: Partial<Camera>;
-	domain: Partial<Domain>;
-	aspectmode: 'auto' | 'cube' | 'data' | 'manual';
-	aspectratio: Partial<Point>;
-	xaxis: Partial<SceneAxis>;
-	yaxis: Partial<SceneAxis>;
-	zaxis: Partial<SceneAxis>;
-	dragmode: 'orbit' | 'turntable' | 'zoom' | 'pan' | false;
-	hovermode: 'closest' | false;
-	annotations: Partial<Annotations> | Array<Partial<Annotations>>;
-	captureevents: boolean;
+    bgcolor: string;
+    camera: Partial<Camera>;
+    domain: Partial<Domain>;
+    aspectmode: 'auto' | 'cube' | 'data' | 'manual';
+    aspectratio: Partial<Point>;
+    xaxis: Partial<SceneAxis>;
+    yaxis: Partial<SceneAxis>;
+    zaxis: Partial<SceneAxis>;
+    dragmode: 'orbit' | 'turntable' | 'zoom' | 'pan' | false;
+    hovermode: 'closest' | false;
+    annotations: Partial<Annotations> | Array<Partial<Annotations>>;
+    captureevents: boolean;
 }
 
 export interface Domain {
     x: number[];
     y: number[];
+}
+
+export interface Frame {
+    /**
+     * An identifier that specifies the group to which the frame belongs,
+     * used by animate to select a subset of frames.
+     */
+    group: string;
+    /**
+     * A label by which to identify the frame
+     */
+    name: string;
+    /**
+     * A list of trace indices that identify the respective traces in the
+     * data attribute
+     */
+    traces: number[];
+    /**
+     * The name of the frame into which this frame's properties are merged
+     * before applying. This is used to unify properties and avoid needing
+     * to specify the same values for the same properties in multiple frames.
+     */
+    baseframe: string;
+    /**
+     * A list of traces this frame modifies. The format is identical to the
+     * normal trace definition.
+     */
+    data: Data[];
+    /**
+     * Layout properties which this frame modifies. The format is identical
+     * to the normal layout definition.
+     */
+    layout: Partial<Layout>;
+}
+
+export interface Transition {
+    /**
+     * Sets the duration of the slider transition
+     */
+    duration: number;
+    /**
+     * Sets the easing function of the slider transition
+     */
+    easing: 'linear' | 'quad' | 'cubic' | 'sin' | 'exp' | 'circle' | 'elastic' | 'back' | 'bounce' | 'linear-in' | 'quad-in' | 'cubic-in' | 'sin-in' | 'exp-in' | 'circle-in' | 'elastic-in' | 'back-in' | 'bounce-in' | 'linear-out' | 'quad-out' | 'cubic-out' | 'sin-out' | 'exp-out' | 'circle-out' | 'elastic-out' | 'back-out' | 'bounce-out' | 'linear-in-out' | 'quad-in-out' | 'cubic-in-out' | 'sin-in-out' | 'exp-in-out' | 'circle-in-out' | 'elastic-in-out' | 'back-in-out' | 'bounce-in-out';
+}
+
+export interface SliderStep {
+    /**
+     * Determines whether or not this step is included in the slider.
+     */
+    visible: boolean;
+    /**
+     * Sets the Plotly method to be called when the slider value is changed.
+     * If the `skip` method is used, the API slider will function as normal
+     * but will perform no API calls and will not bind automatically to state
+     * updates. This may be used to create a component interface and attach to
+     * slider events manually via JavaScript.
+     */
+    method: 'animate' | 'relayout' | 'restyle' | 'skip' | 'update';
+    /**
+     * Sets the arguments values to be passed to the Plotly
+     * method set in `method` on slide.
+     */
+    args: any[];
+    /**
+     * Sets the text label to appear on the slider
+     */
+    label: string;
+    /**
+     * Sets the value of the slider step, used to refer to the step programatically.
+     * Defaults to the slider label if not provided.
+     */
+    value: string;
+    /**
+     * When true, the API method is executed. When false, all other behaviors are the same
+     * and command execution is skipped. This may be useful when hooking into, for example,
+     * the `plotly_sliderchange` method and executing the API command manually without losing
+     * the benefit of the slider automatically binding to the state of the plot through the
+     * specification of `method` and `args`.
+     */
+    execute: boolean;
+}
+
+export interface Padding {
+    /**
+     * The amount of padding (in px) along the top of the component.
+     */
+    t: number;
+    /**
+     * The amount of padding (in px) on the right side of the component.
+     */
+    r: number;
+    /**
+     * The amount of padding (in px) along the bottom of the component.
+     */
+    b: number;
+    /**
+     * The amount of padding (in px) on the left side of the component.
+     */
+    l: number;
+    editType: 'arraydraw';
+}
+
+export interface Slider {
+    /**
+     * Determines whether or not the slider is visible.
+     */
+    visible: boolean;
+    /**
+     * Determines which button (by index starting from 0) is
+     * considered active.
+     */
+    active: number;
+    steps: Partial<SliderStep>[];
+    /**
+     * Determines whether this slider length
+     * is set in units of plot *fraction* or in *pixels.
+     * Use `len` to set the value.
+     */
+    lenmode: 'fraction' | 'pixels';
+    /**
+     * Sets the length of the slider
+     * This measure excludes the padding of both ends.
+     * That is, the slider's length is this length minus the
+     * padding on both ends.
+     */
+    len: number;
+    /**
+     * Sets the x position (in normalized coordinates) of the slider.
+     */
+    x: number;
+    /**
+     * Sets the y position (in normalized coordinates) of the slider.
+     */
+    y: number;
+    /**
+     * Set the padding of the slider component along each side.
+     */
+    pad: Partial<Padding>;
+    /**
+     * Sets the slider's horizontal position anchor.
+     * This anchor binds the `x` position to the *left*, *center*
+     * or *right* of the range selector.
+     */
+    xanchor: 'auto' | 'left' | 'center' | 'right';
+    /**
+     * Sets the slider's vertical position anchor
+     * This anchor binds the `y` position to the *top*, *middle*
+     * or *bottom* of the range selector.
+     */
+    yanchor: 'auto' | 'top' | 'middle' | 'bottom'
+    transition: Transition;
+    currentvalue: {
+        /**
+         * Shows the currently-selected value above the slider.
+         */
+        visible: boolean;
+        /**
+         * The alignment of the value readout relative to the length of the slider.
+         */
+        xanchor: 'left' | 'center' | 'right';
+        /**
+         * The amount of space, in pixels, between the current value label
+         * and the slider.
+         */
+        offset: number;
+        /**
+         * When currentvalue.visible is true, this sets the prefix of the label.
+         */
+        prefix: string;
+        /**
+         * When currentvalue.visible is true, this sets the suffix of the label.
+         */
+        suffix: string;
+        /**
+         * Sets the font of the current value label text.
+         */
+        font: Partial<Font>;
+    };
+    /**
+     * Sets the font of the slider step labels.
+     */
+    font: Font;
+    /**
+     * Sets the background color of the slider grip
+     * while dragging.
+     */
+    activebgcolor: Color;
+    /**
+     * Sets the background color of the slider.
+     */
+    bgcolor: Color;
+    /**
+     * Sets the color of the border enclosing the slider.
+     */
+    bordercolor: Color;
+    /**
+     * Sets the width (in px) of the border enclosing the slider.
+     */
+    borderwidth: number;
+    /**
+     * Sets the length in pixels of step tick marks
+     */
+    ticklen: number;
+    /**
+     * Sets the color of the border enclosing the slider.
+     */
+    tickcolor: Color;
+    /**
+     * Sets the tick width (in px).
+     */
+    tickwidth: number;
+    /**
+     * Sets the length in pixels of minor step tick marks
+     */
+    minorticklen: number;
 }
