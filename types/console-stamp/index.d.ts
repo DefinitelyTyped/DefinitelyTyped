@@ -15,17 +15,17 @@ declare function consoleStamp(console: {}, options?: {
     /**
      * If true it will show the label (LOG | INFO | WARN | ERROR)
      */
-	label?: boolean;
-	
-	/**
-	 * A custom prefix for the label.
-	 */
-	labelPrefix?: string;
+    label?: boolean;
 
-	/**
-	 * A custom suffix for the label.
-	 */
-	labelSuffix?: string;
+    /**
+     * A custom prefix for the label.
+     */
+    labelPrefix?: string;
+
+    /**
+     * A custom suffix for the label.
+     */
+    labelSuffix?: string;
 
     /**
      * An array containing the methods to include in the patch
