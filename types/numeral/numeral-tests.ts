@@ -93,5 +93,5 @@ numeral.locale();
 
 // test changing an option
 numeral.options.scalePercentBy100 = false
-numeral(50).formatCurrency('0%')
+numeral(50).format('0%')
 // '50%'
