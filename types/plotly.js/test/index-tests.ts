@@ -254,13 +254,13 @@ function rand() {
 //////////////////////////////////////////////////////////////////////
 // Plotly.addFrames + Plotly.deleteFrames as per https://plot.ly/javascript/animations/
 (() => {
+    const n = 100;
     const frames = [
-        {name: 'sine', data: [{x: new Array<number>(100), y: new Array<number>(100)}]},
-        {name: 'cosine', data: [{x: new Array<number>(100), y: new Array<number>(100)}]},
-        {name: 'circle', data: [{x: new Array<number>(100), y: new Array<number>(100)}]},
+        {name: 'sine', data: [{x: new Array<number>(100), y: new Array<number>(n)}]},
+        {name: 'cosine', data: [{x: new Array<number>(100), y: new Array<number>(n)}]},
+        {name: 'circle', data: [{x: new Array<number>(100), y: new Array<number>(n)}]},
     ];
 
-    let n = 100;
     for (let i = 0; i < n; i++) {
         const t = i / (n - 1) * 2 - 1;
 
@@ -278,7 +278,7 @@ function rand() {
     }
     Plotly.addFrames(graphDiv, frames);
 
-    Plotly.deleteFrames(graphDiv, [2])
+    Plotly.deleteFrames(graphDiv, [2]);
 })();
 //////////////////////////////////////////////////////////////////////
 
@@ -408,7 +408,6 @@ function rand() {
 	myPlot.on('plotly_sliderend', (event) => {
 	    console.log(`Slider at [${event.slider.x},${event.slider.y} with ${event.step.method}`);
     });
-
 
     myPlot.on('plotly_beforeexport', () => {
         console.log('starting export');

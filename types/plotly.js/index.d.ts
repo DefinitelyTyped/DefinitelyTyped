@@ -142,7 +142,9 @@ export interface PlotlyHTMLElement extends HTMLElement {
     on(event: 'plotly_sliderstart', callback: (event: SliderStartEvent) => void): void;
     on(event: 'plotly_event', callback: (data: any) => void): void;
     on(event: 'plotly_beforeplot' , callback: (event: BeforePlotEvent) => boolean): void;
-    on(event: 'plotly_afterexport' | 'plotly_afterplot' | 'plotly_animated' | 'plotly_animationinterrupted' | 'plotly_autosize' | 'plotly_beforeexport' | 'plotly_deselect' | 'plotly_doubleclick' | 'plotly_framework' | 'plotly_redraw' | 'plotly_transitioning' | 'plotly_transitioninterrupted' , callback: () => void): void;
+    on(event: 'plotly_afterexport' | 'plotly_afterplot' | 'plotly_animated' | 'plotly_animationinterrupted' | 'plotly_autosize' |
+        'plotly_beforeexport' | 'plotly_deselect' | 'plotly_doubleclick' | 'plotly_framework' | 'plotly_redraw' |
+        'plotly_transitioning' | 'plotly_transitioninterrupted' , callback: () => void): void;
 }
 
 export interface ToImgopts {
@@ -176,8 +178,8 @@ export function prependTraces(root: Root, update: Data | Data[], indices: number
 export function toImage(root: Root, opts: ToImgopts): Promise<string>;
 export function downloadImage(root: Root, opts: DownloadImgopts): Promise<string>;
 export function react(root: Root, data: Data[], layout?: Partial<Layout>, config?: Partial<Config>): Promise<PlotlyHTMLElement>;
-export function addFrames(root: Root, frames: Partial<Frame>[]): Promise<PlotlyHTMLElement>;
-export function deleteFrames (root: Root, frames: number[]): Promise<PlotlyHTMLElement>;
+export function addFrames(root: Root, frames: Array<Partial<Frame>>): Promise<PlotlyHTMLElement>;
+export function deleteFrames(root: Root, frames: number[]): Promise<PlotlyHTMLElement>;
 
 // Layout
 export interface Layout {
@@ -1071,7 +1073,11 @@ export interface Transition {
     /**
      * Sets the easing function of the slider transition
      */
-    easing: 'linear' | 'quad' | 'cubic' | 'sin' | 'exp' | 'circle' | 'elastic' | 'back' | 'bounce' | 'linear-in' | 'quad-in' | 'cubic-in' | 'sin-in' | 'exp-in' | 'circle-in' | 'elastic-in' | 'back-in' | 'bounce-in' | 'linear-out' | 'quad-out' | 'cubic-out' | 'sin-out' | 'exp-out' | 'circle-out' | 'elastic-out' | 'back-out' | 'bounce-out' | 'linear-in-out' | 'quad-in-out' | 'cubic-in-out' | 'sin-in-out' | 'exp-in-out' | 'circle-in-out' | 'elastic-in-out' | 'back-in-out' | 'bounce-in-out';
+    easing: 'linear' | 'quad' | 'cubic' | 'sin' | 'exp' | 'circle' | 'elastic' | 'back' | 'bounce' | 'linear-in' |
+        'quad-in' | 'cubic-in' | 'sin-in' | 'exp-in' | 'circle-in' | 'elastic-in' | 'back-in' | 'bounce-in' |
+        'linear-out' | 'quad-out' | 'cubic-out' | 'sin-out' | 'exp-out' | 'circle-out' | 'elastic-out' | 'back-out' |
+        'bounce-out' | 'linear-in-out' | 'quad-in-out' | 'cubic-in-out' | 'sin-in-out' | 'exp-in-out' |
+        'circle-in-out' | 'elastic-in-out' | 'back-in-out' | 'bounce-in-out';
 }
 
 export interface SliderStep {
@@ -1141,7 +1147,7 @@ export interface Slider {
      * considered active.
      */
     active: number;
-    steps: Partial<SliderStep>[];
+    steps: Array<Partial<SliderStep>>;
     /**
      * Determines whether this slider length
      * is set in units of plot *fraction* or in *pixels.
@@ -1178,7 +1184,7 @@ export interface Slider {
      * This anchor binds the `y` position to the *top*, *middle*
      * or *bottom* of the range selector.
      */
-    yanchor: 'auto' | 'top' | 'middle' | 'bottom'
+    yanchor: 'auto' | 'top' | 'middle' | 'bottom';
     transition: Transition;
     currentvalue: {
         /**
