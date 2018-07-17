@@ -5662,6 +5662,7 @@ fp.now(); // $ExpectType number
     _.pickBy(mixedDictionary, (item: string | number): item is number => typeof item === "number"); // $ExpectType Dictionary<number>
     _(mixedDictionary).pickBy((item: string | number): item is number => typeof item === "number"); // $ExpectType LoDashImplicitWrapper<Dictionary<number>>
     _.chain(mixedDictionary).pickBy((item: string | number): item is number => typeof item === "number"); // $ExpectType LoDashExplicitWrapper<Dictionary<number>>
+    fp.pickBy((item: string | number): item is number => typeof item === "number")(mixedDictionary); // $ExpectType Dictionary<number>
 }
 
 // _.result
