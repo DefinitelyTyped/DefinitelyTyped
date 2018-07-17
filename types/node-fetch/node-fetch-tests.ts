@@ -44,7 +44,7 @@ function test_fetchUrlWithRequestObject() {
 	const request: Request = new Request("http://www.andlabs.net/html5/uCOR.php", requestOptions);
 	const timeout: number = request.timeout;
 	const size: number = request.size;
-	const agent: Agent = request.agent;
+	const agent: Agent | undefined = request.agent;
 	const protocol: string = request.protocol;
 
 	handlePromise(fetch(request));
