@@ -11,9 +11,8 @@ export = Pug;
 /** main module */
 declare class Pug {
     locals: {
-      [key: string]: any
+      [key: string]: any;
     }
-    
     constructor(options?: Pug.PugOptions);
     use(app: koa): void;
 }
