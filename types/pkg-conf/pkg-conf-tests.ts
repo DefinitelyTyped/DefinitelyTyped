@@ -1,4 +1,4 @@
-import x = require('y');
+import pkgConf = require('pkg-conf');
 
 pkgConf('name'); // $ExpectType Promise<JsonMap>
 const config = pkgConf.sync('bugs'); // $ExpectType JsonMap
