@@ -25,6 +25,7 @@
 //                 Alexander T. <https://github.com/a-tarasyuk>
 //                 Lishude <https://github.com/islishude>
 //                 Andrew Makarov <https://github.com/r3nya>
+//                 Bruno Brant <https://github.com/HeavyStorm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /** inspector module types */
@@ -325,38 +326,51 @@ declare var Buffer: {
      *
      * @param str String to store in buffer.
      * @param encoding encoding to use, optional.  Default is 'utf8'
+     * 
+     * @deprecated Use Buffer.from(string[, encoding]) instead
      */
     new(str: string, encoding?: string): Buffer;
     /**
      * Allocates a new buffer of {size} octets.
      *
      * @param size count of octets to allocate.
+     * 
+     * @deprecated Use Buffer.alloc() instead (also see Buffer.allocUnsafe())
      */
     new(size: number): Buffer;
     /**
      * Allocates a new buffer containing the given {array} of octets.
      *
      * @param array The octets to store.
+     * 
+     * @deprecated Use Buffer.from(array) instead.
      */
     new(array: Uint8Array): Buffer;
     /**
      * Produces a Buffer backed by the same allocated memory as
      * the given {ArrayBuffer}.
      *
-     *
      * @param arrayBuffer The ArrayBuffer with which to share memory.
+     * @param byteOffset Index of first byte to expose. Default: 0.
+     * @param length Number of bytes to expose. Default: arrayBuffer.length - byteOffset
+     * 
+     * @deprecated Use Buffer.from(arrayBuffer[, byteOffset [, length]]) instead.
      */
-    new(arrayBuffer: ArrayBuffer): Buffer;
+    new(arrayBuffer: ArrayBuffer, byteOffset?: number, length?: number): Buffer;
     /**
      * Allocates a new buffer containing the given {array} of octets.
      *
      * @param array The octets to store.
+     * 
+     * @deprecated Use Buffer.from(array) instead.
      */
     new(array: any[]): Buffer;
     /**
      * Copies the passed {buffer} data onto a new {Buffer} instance.
      *
      * @param buffer The buffer to copy.
+     * 
+     * @deprecated Use Buffer.from(buffer) instead.
      */
     new(buffer: Buffer): Buffer;
     prototype: Buffer;
@@ -367,6 +381,8 @@ declare var Buffer: {
      * within the {arrayBuffer} that will be shared by the Buffer.
      *
      * @param arrayBuffer The .buffer property of a TypedArray or a new ArrayBuffer()
+     * @param byteOffset Index of first byte to expose. Default: 0.
+     * @param length Number of bytes to expose. Default: arrayBuffer.length - byteOffset
      */
     from(arrayBuffer: ArrayBuffer, byteOffset?: number, length?: number): Buffer;
     /**
@@ -412,11 +428,11 @@ declare var Buffer: {
      * @param totalLength Total length of the buffers when concatenated.
      *   If totalLength is not provided, it is read from the buffers in the list. However, this adds an additional loop to the function, so it is faster to provide the length explicitly.
      */
-    concat(list: Uint8Array[], totalLength?: number): Buffer;
+    concat(list: (Buffer | Uint8Array)[], totalLength?: number): Buffer;
     /**
      * The same as buf1.compare(buf2).
      */
-    compare(buf1: Uint8Array, buf2: Uint8Array): number;
+    compare(buf1: (Buffer | Uint8Array), buf2: (Buffer | Uint8Array)): number;
     /**
      * Allocates a new buffer of {size} octets.
      *
@@ -5679,24 +5695,24 @@ declare module "util" {
         readonly fatal: boolean;
         readonly ignoreBOM: boolean;
         constructor(
-          encoding?: string,
-          options?: { fatal?: boolean; ignoreBOM?: boolean }
+            encoding?: string,
+            options?: { fatal?: boolean; ignoreBOM?: boolean }
         );
         decode(
-          input?:
-            Int8Array
-            | Int16Array
-            | Int32Array
-            | Uint8Array
-            | Uint16Array
-            | Uint32Array
-            | Uint8ClampedArray
-            | Float32Array
-            | Float64Array
-            | DataView
-            | ArrayBuffer
-            | null,
-          options?: { stream?: boolean }
+            input?:
+                Int8Array
+                | Int16Array
+                | Int32Array
+                | Uint8Array
+                | Uint16Array
+                | Uint32Array
+                | Uint8ClampedArray
+                | Float32Array
+                | Float64Array
+                | DataView
+                | ArrayBuffer
+                | null,
+            options?: { stream?: boolean }
         ): string;
     }
 
@@ -6195,20 +6211,20 @@ declare module "async_hooks" {
     export function createHook(options: HookCallbacks): AsyncHook;
 
     export interface AsyncResourceOptions {
-      /**
-       * The ID of the execution context that created this async event.
-       * Default: `executionAsyncId()`
-       */
-      triggerAsyncId?: number;
+        /**
+         * The ID of the execution context that created this async event.
+         * Default: `executionAsyncId()`
+         */
+        triggerAsyncId?: number;
 
-      /**
-       * Disables automatic `emitDestroy` when the object is garbage collected.
-       * This usually does not need to be set (even if `emitDestroy` is called
-       * manually), unless the resource's `asyncId` is retrieved and the
-       * sensitive API's `emitDestroy` is called with it.
-       * Default: `false`
-       */
-      requireManualDestroy?: boolean;
+        /**
+         * Disables automatic `emitDestroy` when the object is garbage collected.
+         * This usually does not need to be set (even if `emitDestroy` is called
+         * manually), unless the resource's `asyncId` is retrieved and the
+         * sensitive API's `emitDestroy` is called with it.
+         * Default: `false`
+         */
+        requireManualDestroy?: boolean;
     }
 
     /**
@@ -6225,7 +6241,7 @@ declare module "async_hooks" {
          *   this async event (default: `executionAsyncId()`), or an
          *   AsyncResourceOptions object (since 9.3)
          */
-        constructor(type: string, triggerAsyncId?: number|AsyncResourceOptions);
+        constructor(type: string, triggerAsyncId?: number | AsyncResourceOptions);
 
         /**
          * Call AsyncHooks before callbacks.
