@@ -3,7 +3,7 @@
 // Definitions by:  Clark Stevenson <https://github.com/clark-stevenson>,
 //                  Jon Lucas <https://github.com/Xakaloz>,
 //                  Sebastian Lopez <https://github.com/sebaswebdev>
-//                  Ryan Friedman <https://github.com/rfriedma>
+//                  Ryan Friedman <https://github.com/rfried>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 type NativeMouseEvent = MouseEvent;
