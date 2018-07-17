@@ -2796,6 +2796,12 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType LoDashExplicitWrapper<number
     fp.map("a", list); // $ExpectType number[]
     fp.map({ a: 42 }, list); // $ExpectType boolean[]
     fp.map(["a", 42], dictionary); // $ExpectType boolean[]
+
+    // Expect type of param x to be inferred as number from contextual type
+    const foo: (obj: number[]) => number[] = fp.map(
+        // $ExpectType (x: number) => number
+        x => x
+    );
 }
 
 // _.partition
@@ -5542,6 +5548,12 @@ fp.now(); // $ExpectType number
     fp.mapValues(valueIterator)(numericDictionary); // $ExpectType Dictionary<boolean>
     fp.mapValues({ a: 42 })(numericDictionary); // $ExpectType Dictionary<boolean>
     fp.mapValues(value => "", abcObjectOrNull); // $ExpectType { a: string; b: string; c: string; }
+
+    // Expect type of param x to be inferred as number from contextual type
+    const foo: (obj: _.Dictionary<number>) => _.Dictionary<number> = fp.mapValues(
+        // $ExpectType (x: number) => number
+        x => x
+    );
 }
 
 // _.omit
