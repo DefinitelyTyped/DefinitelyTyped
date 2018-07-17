@@ -2215,6 +2215,14 @@ declare module paper {
         constructor(object?: any);
 
         /**
+         * Clones the item within the same project and places the copy above the item.
+         * @param options [optional] - default: { insert: true, deep: true }
+         * @param options.insert: specifies whether the copy should be inserted into the DOM. When set to true, it is inserted above the original. default: true
+         * @param options.deep: specifies whether the item’s children should also be cloned — default: true
+         */
+        clone(options?: { insert?: boolean; deep?: boolean; }): Group;
+
+        /**
          * Specifies whether the group item is to be clipped.
          * When setting to true, the first child in the group is automatically defined as the clipping mask.
          */
@@ -2315,6 +2323,14 @@ declare module paper {
         radius: number | Size;
 
         /**
+         * Clones the item within the same project and places the copy above the item.
+         * @param options [optional] - default: { insert: true, deep: true }
+         * @param options.insert: specifies whether the copy should be inserted into the DOM. When set to true, it is inserted above the original. default: true
+         * @param options.deep: specifies whether the item’s children should also be cloned — default: true
+         */
+        clone(options?: { insert?: boolean; deep?: boolean; }): Shape;
+
+        /**
          * Creates a new path item with same geometry as this shape item, and inherits all settings from it, similar to item.clone().
          * @param insert - specifies whether the new path should be inserted into the scene graph. When set to true, it is inserted above the shape item — optional, default: true
          */
@@ -2394,6 +2410,14 @@ declare module paper {
          * The event handler function to be called when there is an error loading the underlying image.
          */
         onError: any;
+
+        /**
+         * Clones the item within the same project and places the copy above the item.
+         * @param options [optional] - default: { insert: true, deep: true }
+         * @param options.insert: specifies whether the copy should be inserted into the DOM. When set to true, it is inserted above the original. default: true
+         * @param options.deep: specifies whether the item’s children should also be cloned — default: true
+         */
+        clone(options?: { insert?: boolean; deep?: boolean; }): Raster;
 
         /**
          * Extracts a part of the Raster's content as a sub image, and returns it as a Canvas object.
@@ -2489,6 +2513,14 @@ declare module paper {
          */
         symbol: Symbol;
 
+        /**
+         * Clones the item within the same project and places the copy above the item.
+         * @param options [optional] - default: { insert: true, deep: true }
+         * @param options.insert: specifies whether the copy should be inserted into the DOM. When set to true, it is inserted above the original. default: true
+         * @param options.deep: specifies whether the item’s children should also be cloned — default: true
+         */
+        clone(options?: { insert?: boolean; deep?: boolean; }): PlacedSymbol;
+
     }
     /**
      * A HitResult object contains information about the results of a hit test. It is returned by item.hitTest(point) and project.hitTest(point).
@@ -2570,6 +2602,14 @@ declare module paper {
          * The path's geometry, formatted as SVG style path data.
          */
         pathData: string;
+
+        /**
+         * Clones the item within the same project and places the copy above the item.
+         * @param options [optional] - default: { insert: true, deep: true }
+         * @param options.insert: specifies whether the copy should be inserted into the DOM. When set to true, it is inserted above the original. default: true
+         * @param options.deep: specifies whether the item’s children should also be cloned — default: true
+         */
+        clone(options?: { insert?: boolean; deep?: boolean; }): PathItem;
 
         /**
          * Merges the geometry of the specified path from this path's geometry and returns the result as a new path item.
@@ -2830,6 +2870,14 @@ declare module paper {
         constructor(pathData?: string);
 
         /**
+         * Clones the item within the same project and places the copy above the item.
+         * @param options [optional] - default: { insert: true, deep: true }
+         * @param options.insert: specifies whether the copy should be inserted into the DOM. When set to true, it is inserted above the original. default: true
+         * @param options.deep: specifies whether the item’s children should also be cloned — default: true
+         */
+        clone(options?: { insert?: boolean; deep?: boolean; }): Path;
+
+        /**
          * The segments contained within the path.
          * Array of Segment objects
          */
@@ -3078,6 +3126,14 @@ declare module paper {
              * @param object - an object literal containing properties describing the path's attributes
              */
             constructor(object: any);
+
+            /**
+             * Clones the item within the same project and places the copy above the item.
+             * @param options [optional] - default: { insert: true, deep: true }
+             * @param options.insert: specifies whether the copy should be inserted into the DOM. When set to true, it is inserted above the original. default: true
+             * @param options.deep: specifies whether the item’s children should also be cloned — default: true
+             */
+            clone(options?: { insert?: boolean; deep?: boolean; }): Line;
         }
 
         export class Circle extends Path {
@@ -3093,6 +3149,14 @@ declare module paper {
              * @param object - an object literal containing properties describing the path's attributes
              */
             constructor(object: any);
+
+            /**
+             * Clones the item within the same project and places the copy above the item.
+             * @param options [optional] - default: { insert: true, deep: true }
+             * @param options.insert: specifies whether the copy should be inserted into the DOM. When set to true, it is inserted above the original. default: true
+             * @param options.deep: specifies whether the item’s children should also be cloned — default: true
+             */
+            clone(options?: { insert?: boolean; deep?: boolean; }): Circle;
         }
 
         export class Rectangle extends Path {
@@ -3122,6 +3186,14 @@ declare module paper {
              * @param object - an object literal containing properties describing the path's attributes
              */
             constructor(object: any);
+
+            /**
+             * Clones the item within the same project and places the copy above the item.
+             * @param options [optional] - default: { insert: true, deep: true }
+             * @param options.insert: specifies whether the copy should be inserted into the DOM. When set to true, it is inserted above the original. default: true
+             * @param options.deep: specifies whether the item’s children should also be cloned — default: true
+             */
+            clone(options?: { insert?: boolean; deep?: boolean; }): Rectangle;
         }
 
         export class Ellipse extends Path {
@@ -3136,6 +3208,15 @@ declare module paper {
              * @param object - an object literal containing properties describing the path's attributes
              */
             constructor(object: any);
+            
+            
+            /**
+             * Clones the item within the same project and places the copy above the item.
+             * @param options [optional] - default: { insert: true, deep: true }
+             * @param options.insert: specifies whether the copy should be inserted into the DOM. When set to true, it is inserted above the original. default: true
+             * @param options.deep: specifies whether the item’s children should also be cloned — default: true
+             */
+            clone(options?: { insert?: boolean; deep?: boolean; }): Ellipse;
         }
 
         export class Arc extends Path {
@@ -3152,6 +3233,14 @@ declare module paper {
              * @param object - an object literal containing properties describing the path's attributes
              */
             constructor(object: any);
+            
+            /**
+             * Clones the item within the same project and places the copy above the item.
+             * @param options [optional] - default: { insert: true, deep: true }
+             * @param options.insert: specifies whether the copy should be inserted into the DOM. When set to true, it is inserted above the original. default: true
+             * @param options.deep: specifies whether the item’s children should also be cloned — default: true
+             */
+            clone(options?: { insert?: boolean; deep?: boolean; }): Arc;
         }
 
         export class RegularPolygon extends Path {
@@ -3168,6 +3257,14 @@ declare module paper {
              * @param object - an object literal containing properties describing the path's attributes
              */
             constructor(object: any);
+            
+            /**
+             * Clones the item within the same project and places the copy above the item.
+             * @param options [optional] - default: { insert: true, deep: true }
+             * @param options.insert: specifies whether the copy should be inserted into the DOM. When set to true, it is inserted above the original. default: true
+             * @param options.deep: specifies whether the item’s children should also be cloned — default: true
+             */
+            clone(options?: { insert?: boolean; deep?: boolean; }): RegularPolygon;
         }
 
         export class Star extends Path {
@@ -3185,6 +3282,14 @@ declare module paper {
              * @param object - an object literal containing properties describing the path's attributes
              */
             constructor(object: any);
+            
+            /**
+             * Clones the item within the same project and places the copy above the item.
+             * @param options [optional] - default: { insert: true, deep: true }
+             * @param options.insert: specifies whether the copy should be inserted into the DOM. When set to true, it is inserted above the original. default: true
+             * @param options.deep: specifies whether the item’s children should also be cloned — default: true
+             */
+            clone(options?: { insert?: boolean; deep?: boolean; }): Star;
         }
     }
 
@@ -3251,7 +3356,14 @@ declare module paper {
          * Read only.
          */
         readonly length: number;
-
+        
+        /**
+         * Clones the item within the same project and places the copy above the item.
+         * @param options [optional] - default: { insert: true, deep: true }
+         * @param options.insert: specifies whether the copy should be inserted into the DOM. When set to true, it is inserted above the original. default: true
+         * @param options.deep: specifies whether the item’s children should also be cloned — default: true
+         */
+        clone(options?: { insert?: boolean; deep?: boolean; }): CompoundPath;
     }
     /**
      * The Segment object represents the points of a path through which its Curve objects pass. The segments of a path can be accessed through its path.segments array.
@@ -5244,6 +5356,14 @@ declare module paper {
          * Default: 'left'
          */
         justification: string;
+
+        /**
+         * Clones the item within the same project and places the copy above the item.
+         * @param options [optional] - default: { insert: true, deep: true }
+         * @param options.insert: specifies whether the copy should be inserted into the DOM. When set to true, it is inserted above the original. default: true
+         * @param options.deep: specifies whether the item’s children should also be cloned — default: true
+         */
+        clone(options?: { insert?: boolean; deep?: boolean; }): TextItem;
 
     }
     /**
