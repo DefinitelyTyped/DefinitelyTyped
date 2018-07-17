@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "dependencies": {
+        "ldapjs": "^1.0.1"
+    }
+}
+
