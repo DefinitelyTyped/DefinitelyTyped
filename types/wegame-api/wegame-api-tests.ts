@@ -529,8 +529,8 @@ wx.setStatusBarStyle({
 });
 //窗口
 wx.onWindowResize(function(res){
-    res.windowHeight,
-    res.windowWidth
+    console.assert(res.windowHeight != 0);
+    console.assert(res.windowWidth != 0);
 })
 //更新
 let getUpda = wx.getUpdateManager();

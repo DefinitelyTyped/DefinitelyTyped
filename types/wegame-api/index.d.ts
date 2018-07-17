@@ -388,7 +388,7 @@ declare module wx {
             filePath:string,
             success?:(res:{ tempFilePath:string, statusCode:number }) => void,
             fail?:() => void,
-            complete?:() => void,
+            complete?:() => void
         };
 
         type NetworkType = "wifi" | "2g" | "3g" | "4g" | "unknown" | "none";
@@ -418,7 +418,7 @@ declare module wx {
             dataType?:"json" | "arraybuffer",
             success?:(res:{ data:string | ArrayBuffer | any, statusCode:number, header:{ [key:string]:string } }) => void,
             fail?:() => void,
-            complete?:() => void,
+            complete?:() => void
         };
 
         type SocketSendParams = {
