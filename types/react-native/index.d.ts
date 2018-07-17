@@ -1839,7 +1839,7 @@ export interface AccessibilityPropsIOS {
      * When `accessible` is true, the system will try to invoke this function when the user performs accessibility tap gesture.
      * @platform ios
      */
-    onAcccessibilityTap?: () => void;
+    onAccessibilityTap?: () => void;
 
     /**
      * When accessible is true, the system will invoke this function when the user performs the magic tap gesture.
