@@ -695,6 +695,7 @@ class AccessibilityTest extends React.Component {
                 accessibilityElementsHidden={true}
                 importantForAccessibility={"no-hide-descendants"}
                 accessibilityTraits={'none'}
+                onAccessibilityTap={() => {}}
             >
                 <Text accessibilityTraits={['key', 'text']}>Text</Text>
                 <View />
