@@ -1244,9 +1244,9 @@ namespace crypto_tests {
         crypto.randomFillSync(buffer, 2);
         crypto.randomFillSync(buffer, 2, 3);
 
-        crypto.randomFill(buffer, (err: Error, buf: ArrayBufferView) => void {});
-        crypto.randomFill(buffer, 2, (err: Error, buf: ArrayBufferView) => void {});
-        crypto.randomFill(buffer, 2, 3, (err: Error, buf: ArrayBufferView) => void {});
+        crypto.randomFill(buffer, (err: Error, buf: Buffer) => void {});
+        crypto.randomFill(buffer, 2, (err: Error, buf: Buffer) => void {});
+        crypto.randomFill(buffer, 2, 3, (err: Error, buf: Buffer) => void {});
 
         // crypto_randomfill_uint8array_test
         let ui8arr: Uint8Array = new Uint8Array(10);
@@ -1254,9 +1254,9 @@ namespace crypto_tests {
         crypto.randomFillSync(ui8arr, 2);
         crypto.randomFillSync(ui8arr, 2, 3);
 
-        crypto.randomFill(ui8arr, (err: Error, buf: ArrayBufferView) => void {});
-        crypto.randomFill(ui8arr, 2, (err: Error, buf: ArrayBufferView) => void {});
-        crypto.randomFill(ui8arr, 2, 3, (err: Error, buf: ArrayBufferView) => void {});
+        crypto.randomFill(ui8arr, (err: Error, buf: Uint8Array) => void {});
+        crypto.randomFill(ui8arr, 2, (err: Error, buf: Uint8Array) => void {});
+        crypto.randomFill(ui8arr, 2, 3, (err: Error, buf: Uint8Array) => void {});
 
         // crypto_randomfill_int32array_test
         let i32arr: Int32Array = new Int32Array(10);
@@ -1264,9 +1264,9 @@ namespace crypto_tests {
         crypto.randomFillSync(i32arr, 2);
         crypto.randomFillSync(i32arr, 2, 3);
 
-        crypto.randomFill(i32arr, (err: Error, buf: ArrayBufferView) => void {});
-        crypto.randomFill(i32arr, 2, (err: Error, buf: ArrayBufferView) => void {});
-        crypto.randomFill(i32arr, 2, 3, (err: Error, buf: ArrayBufferView) => void {});
+        crypto.randomFill(i32arr, (err: Error, buf: Int32Array) => void {});
+        crypto.randomFill(i32arr, 2, (err: Error, buf: Int32Array) => void {});
+        crypto.randomFill(i32arr, 2, 3, (err: Error, buf: Int32Array) => void {});
     }
 
     {
