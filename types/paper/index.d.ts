@@ -2093,7 +2093,13 @@ declare module paper {
          * @param type - the type of event: ‘frame’, mousedown’, ‘mouseup’, ‘mousedrag’, ‘click’, ‘doubleclick’, ‘mousemove’, ‘mouseenter’, ‘mouseleave’
          * @param callback - The function to be called when the event occurs
          */
-        on(type: string, callback: (event: MouseEvent | IFrameEvent) => void | boolean): Item;
+        on(type: string, callback: (event: MouseEvent) => void | boolean): Item;
+        /**
+         * Attach an event handler to the item.
+         * @param type - the type of event: ‘frame’, mousedown’, ‘mouseup’, ‘mousedrag’, ‘click’, ‘doubleclick’, ‘mousemove’, ‘mouseenter’, ‘mouseleave’
+         * @param callback - The function to be called when the event occurs
+         */
+        on(type: string, callback: (event: IFrameEvent) => void | boolean): Item;
 
         /**
          * Attach one or more event handlers to the item.
@@ -2106,7 +2112,13 @@ declare module paper {
          * @param type - the type of event: ‘frame’, mousedown’, ‘mouseup’, ‘mousedrag’, ‘click’, ‘doubleclick’, ‘mousemove’, ‘mouseenter’, ‘mouseleave’
          * @param function - The function to be detached
          */
-        off(type: string, callback: (event: MouseEvent | IFrameEvent) => void | boolean): Item;
+        off(type: string, callback: (event: MouseEvent) => void | boolean): Item;
+        /**
+         * Detach an event handler from the item.
+         * @param type - the type of event: ‘frame’, mousedown’, ‘mouseup’, ‘mousedrag’, ‘click’, ‘doubleclick’, ‘mousemove’, ‘mouseenter’, ‘mouseleave’
+         * @param function - The function to be detached
+         */
+        off(type: string, callback: (event: IFrameEvent) => void | boolean): Item;
 
         /**
          * Detach one or more event handlers from the tool.
@@ -2855,7 +2867,7 @@ declare module paper {
          * Creates a new path item and places it at the top of the active layer.
          * @param segments [optional] - An array of segments (or points to be converted to segments) that will be added to the path
          */
-        constructor(segments?: Segment[] | Point[]);
+        constructor(segments?: Segment[] | Point[] | number[][]);
 
         /**
          * Creates a new path item from an object description and places it at the top of the active layer.
@@ -2932,26 +2944,26 @@ declare module paper {
         readonly area: number;
 
         /**
-         * Adds one or more segments to the end of the segments array of this path.
+         * Adds one segment to the end of the segments array of this path.
          * @param segment - the segment or point to be added.
          * Returns the added segment. This is not necessarily the same object, e.g. if the segment to be added already belongs to another path.
          */
-        add(segment: Segment | Point): Segment;
+        add(segment: Segment | Point | number[]): Segment;
 
         /**
-         * Inserts one or more segments at a given index in the list of this path's segments.
+         * Inserts one segment at a given index in the list of this path's segments.
          * @param index - the index at which to insert the segment.
          * @param segment - the segment or point to be inserted.
          * Returns the added segment. This is not necessarily the same object, e.g. if the segment to be added already belongs to another path.
          */
-        insert(index: number, segment: Segment | Point): Segment;
+        insert(index: number, segment: Segment | Point | number[]): Segment;
 
         /**
          * Adds an array of segments (or types that can be converted to segments) to the end of the segments array.
          * @param segments - Array of Segment objects
          * @returns an array of the added segments. These segments are not necessarily the same objects, e.g. if the segment to be added already belongs to another path.
          */
-        addSegments(segments: Segment[]): Segment[];
+        addSegments(segments: Segment[] | Point[] | number[][]): Segment[];
 
         /**
          * Inserts an array of segments at a given index in the path's segments array.
@@ -2959,7 +2971,7 @@ declare module paper {
          * @param segments - the segments to be inserted.
          * @returns an array of the added segments. These segments are not necessarily the same objects, e.g. if the segment to be added already belongs to another path.
          */
-        insertSegments(index: number, segments: Segment[]): Segment[];
+        insertSegments(index: number, segments: Segment[] | Point[] | number[][]): Segment[];
 
         /**
          * Removes the segment at the specified index of the path's segments array.
@@ -5040,6 +5052,12 @@ declare module paper {
          * @param callback - The function to be called when the event occurs
          */
         on(type: string, callback: (event: Event) => void | boolean): Item;
+        /**
+         * Attach an event handler to the view.
+         * @param type - the event type: ‘frame’, ‘resize’, ‘mousedown’, ‘mouseup’, ‘mousedrag’, ‘click’, ‘doubleclick’, ‘mousemove’, ‘mouseenter’, ‘mouseleave’
+         * @param callback - The function to be called when the event occurs
+         */
+        on(type: string, callback: (event: IFrameEvent) => void | boolean): Item;
 
         /**
          * Attach one or more event handlers to the view.
@@ -5052,6 +5070,12 @@ declare module paper {
          * @param callback - The function to be detached
          */
         off(type: string, callback: (event: Event) => void | boolean): Item;
+        /**
+         * Detach an event handler from the view.
+         * @param type - the event type: ‘frame’, ‘resize’, ‘mousedown’, ‘mouseup’, ‘mousedrag’, ‘click’, ‘doubleclick’, ‘mousemove’, ‘mouseenter’, ‘mouseleave’
+         * @param callback - The function to be detached
+         */       
+        off(type: string, callback: (event: IFrameEvent) => void | boolean): Item;
 
         /**
          * Detach one or more event handlers from the view.
