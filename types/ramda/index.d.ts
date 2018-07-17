@@ -377,7 +377,7 @@ declare namespace R {
          * - applying g to zero or more arguments will give false if applying the same arguments to f gives
          *   a logical true value.
          */
-        complement(pred: (...args: any[]) => boolean): (...args: any[]) => boolean;
+        complement<T extends (...args: any[]) => boolean>(pred: T): T;
 
         /**
          * Performs right-to-left function composition. The rightmost function may have any arity; the remaining
