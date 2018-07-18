@@ -3111,9 +3111,9 @@ declare module "../index" {
          * _.pickBy(object, _.isNumber);
          * // => { 'a': 1, 'c': 3 }
          */
-        pickBy<T extends object, S extends T[keyof T]>(
-            object: T | null | undefined,
-            predicate: ObjectIteratorTypeGuard<T, S>
+        pickBy<T, S extends T>(
+            object: Dictionary<T> | null | undefined,
+            predicate: ObjectIteratorTypeGuard<Dictionary<T>, S>
         ): Dictionary<S>;
 
         /**
@@ -3145,9 +3145,9 @@ declare module "../index" {
         /**
          * @see _.pickBy
          */
-        pickBy<T extends object, S extends T[keyof T]>(
-            this: LoDashImplicitWrapper<T | null | undefined>,
-            predicate: ObjectIteratorTypeGuard<T, S>
+        pickBy<T, S extends T>(
+            this: LoDashImplicitWrapper<Dictionary<T> | null | undefined>,
+            predicate: ObjectIteratorTypeGuard<Dictionary<T>, S>
         ): LoDashImplicitWrapper<Dictionary<S>>;
 
         /**
@@ -3179,9 +3179,9 @@ declare module "../index" {
         /**
          * @see _.pickBy
          */
-        pickBy<T extends object, S extends T[keyof T]>(
-            this: LoDashExplicitWrapper<T | null | undefined>,
-            predicate: ObjectIteratorTypeGuard<T, S>
+        pickBy<T, S extends T>(
+            this: LoDashExplicitWrapper<Dictionary<T> | null | undefined>,
+            predicate: ObjectIteratorTypeGuard<Dictionary<T>, S>
         ): LoDashExplicitWrapper<Dictionary<S>>;
 
         /**
