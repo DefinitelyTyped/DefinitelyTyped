@@ -159,3 +159,49 @@ type UnmatchedPropKeys2 = Pick<ExtractedProps, Extract<{
 }[keyof ExtractedProps], keyof ExtractedProps>>;
 
 PropTypes.checkPropTypes({ xs: PropTypes.array }, { xs: [] }, 'location', 'componentName');
+
+// This would be the type that JSX sees
+type Defaultize<T, D> =
+    & Pick<T, Exclude<keyof T, keyof D>>
+    & Partial<Pick<T, Extract<keyof T, keyof D>>>
+    & Partial<Pick<D, Exclude<keyof D, keyof T>>>;
+
+// This would be the type inside the component
+type Undefaultize<T, D> =
+    & Pick<T, Exclude<keyof T, keyof D>>
+    & { [K in Extract<keyof T, keyof D>]-?: NonNullable<T[K]>; }
+    & Required<Pick<D, Exclude<keyof D, keyof T>>>
+
+const componentPropTypes = {
+    fi: PropTypes.func.isRequired,
+    foo: PropTypes.string,
+    bar: PropTypes.number.isRequired,
+    baz: PropTypes.bool,
+    bat: PropTypes.node
+}
+
+const componentDefaultProps = {
+    fi: () => null,
+    baz: false,
+    bat: ['This', 'is', 'a', 'string']
+}
+
+type DefaultizedProps = Defaultize<PropTypes.InferProps<typeof componentPropTypes>, typeof componentDefaultProps>
+type UndefaultizedProps = Undefaultize<PropTypes.InferProps<typeof componentPropTypes>, typeof componentDefaultProps>
+
+// $ExpectType: true
+type DefaultizedPropsTest = {
+    fi?: (...args: any[]) => any;
+    foo?: string | null;
+    bar: number;
+    baz?: boolean | null;
+    bat?: ReactNode;
+} extends DefaultizedProps ? true : false
+// $ExpectType: true
+type UndefaultizedPropsTest = {
+    fi: (...args: any[]) => any;
+    foo?: string | null;
+    bar: number;
+    baz: boolean;
+    bat: NonNullable<ReactNode>;
+} extends UndefaultizedProps ? true : false
