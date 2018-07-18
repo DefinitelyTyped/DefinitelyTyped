@@ -104,7 +104,7 @@ function testPlugin(player: videojs.Player, options: {}) {
 	videojs.registerPlugin('uloztoExample', function({}: typeof options) {
 		this.play();
 		this.one('ended', () => {
-			//	do something
+			// do something
 		});
 	});
 	(player as any).uloztoExample(options);
