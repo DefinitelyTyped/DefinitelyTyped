@@ -1,7 +1,9 @@
 import { ReactElement, ReactNode, Requireable } from "react";
 import * as PropTypes from "prop-types";
 
-class TestClass {}
+declare const uniqueType: unique symbol;
+
+class TestClass { }
 
 interface Props {
     any?: any;
@@ -30,7 +32,8 @@ interface Props {
         bar?: boolean;
         baz?: any
     };
-    optionalNumber?: number;
+    optionalNumber?: number | null;
+    customProp?: typeof uniqueType;
 }
 
 const innerProps = {
@@ -42,7 +45,7 @@ const innerProps = {
 const arrayOfTypes = [PropTypes.string, PropTypes.bool, PropTypes.shape({
     foo: PropTypes.string,
     bar: PropTypes.number.isRequired
-})] as Array<PropTypes.Requireable<string | boolean | { foo?: string; bar: number }>>;
+})];
 type PropTypesMap = PropTypes.ValidationMap<Props>;
 
 // TS checking
@@ -62,11 +65,12 @@ const propTypes: PropTypesMap = {
     oneOf: PropTypes.oneOf(['a', 'b', 'c']).isRequired,
     oneOfType: PropTypes.oneOfType(arrayOfTypes).isRequired,
     numberOrFalse: PropTypes.oneOfType([PropTypes.oneOf([false]), PropTypes.number]).isRequired,
-    nodeOrRenderFn: PropTypes.oneOfType<Requireable<ReactNode | (() => any)>>([PropTypes.node, PropTypes.func]),
-    arrayOf: PropTypes.arrayOf(PropTypes.bool).isRequired,
-    objectOf: PropTypes.objectOf(PropTypes.number).isRequired,
+    nodeOrRenderFn: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
+    arrayOf: PropTypes.arrayOf(PropTypes.bool.isRequired).isRequired,
+    objectOf: PropTypes.objectOf(PropTypes.number.isRequired).isRequired,
     shape: PropTypes.shape(innerProps).isRequired,
-    optionalNumber: PropTypes.number
+    optionalNumber: PropTypes.number,
+    customProp: (() => null) as PropTypes.Validator<typeof uniqueType | undefined>
 };
 
 // JS checking
@@ -86,13 +90,13 @@ const propTypesWithoutAnnotation = {
     // required generic specification because of array type widening
     oneOf: PropTypes.oneOf<'a' | 'b' | 'c'>(['a', 'b', 'c']).isRequired,
     oneOfType: PropTypes.oneOfType(arrayOfTypes).isRequired,
-    // workaround for quirks of array literal type inference
-    numberOrFalse: PropTypes.oneOfType([PropTypes.oneOf<false>([false]), PropTypes.number ]).isRequired,
-    nodeOrRenderFn: PropTypes.oneOfType([PropTypes.node, PropTypes.func] as Array<Requireable<ReactNode | (() => any)>>),
-    arrayOf: PropTypes.arrayOf(PropTypes.bool).isRequired,
-    objectOf: PropTypes.objectOf(PropTypes.number).isRequired,
+    numberOrFalse: PropTypes.oneOfType([PropTypes.oneOf<false>([false]), PropTypes.number]).isRequired,
+    nodeOrRenderFn: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
+    arrayOf: PropTypes.arrayOf(PropTypes.bool.isRequired).isRequired,
+    objectOf: PropTypes.objectOf(PropTypes.number.isRequired).isRequired,
     shape: PropTypes.shape(innerProps).isRequired,
-    optionalNumber: PropTypes.number
+    optionalNumber: PropTypes.number,
+    customProp: (() => null) as PropTypes.Validator<typeof uniqueType | undefined>
 };
 
 const partialPropTypes = {
@@ -150,4 +154,4 @@ type UnmatchedPropKeys2 = Pick<ExtractedProps, Extract<{
     [K in keyof ExtractedProps]: ExtractedProps[K] extends ExtractedPropsWithoutAnnotation[K] ? never : K
 }[keyof ExtractedProps], keyof ExtractedProps>>;
 
-PropTypes.checkPropTypes({xs: PropTypes.array}, {xs: []}, 'location', 'componentName');
+PropTypes.checkPropTypes({ xs: PropTypes.array }, { xs: [] }, 'location', 'componentName');

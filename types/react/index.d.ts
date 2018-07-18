@@ -128,7 +128,7 @@ declare namespace React {
         (props?: ClassAttributes<T> & P | null, ...children: ReactNode[]) => DOMElement<P, T>;
 
     // tslint:disable-next-line:no-empty-interface
-    interface HTMLFactory<T extends HTMLElement> extends DetailedHTMLFactory<AllHTMLAttributes<T>, T> {}
+    interface HTMLFactory<T extends HTMLElement> extends DetailedHTMLFactory<AllHTMLAttributes<T>, T> { }
 
     interface DetailedHTMLFactory<P extends HTMLAttributes<T>, T extends HTMLElement> extends DOMFactory<P, T> {
         (props?: ClassAttributes<T> & P | null, ...children: ReactNode[]): DetailedReactHTMLElement<P, T>;
@@ -146,8 +146,8 @@ declare namespace React {
     type ReactText = string | number;
     type ReactChild = ReactElement<any> | ReactText;
 
-    interface ReactNodeArray extends Array<ReactNode> {}
-    type ReactFragment = {} | ReactNodeArray;
+    interface ReactNodeArray extends Array<ReactNode> { }
+    type ReactFragment = ReactNodeArray;
     type ReactNode = ReactChild | ReactFragment | ReactPortal | string | number | boolean | null | undefined;
 
     //
@@ -355,7 +355,7 @@ declare namespace React {
     }
 
     interface ComponentClass<P = {}> extends StaticLifecycle<P, any> {
-        new (props: P, context?: any): Component<P, ComponentState>;
+        new(props: P, context?: any): Component<P, ComponentState>;
         propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         childContextTypes?: ValidationMap<any>;
@@ -364,7 +364,7 @@ declare namespace React {
     }
 
     interface ClassicComponentClass<P = {}> extends ComponentClass<P> {
-        new (props: P, context?: any): ClassicComponent<P, ComponentState>;
+        new(props: P, context?: any): ClassicComponent<P, ComponentState>;
         getDefaultProps?(): P;
     }
 
@@ -1347,7 +1347,7 @@ declare namespace React {
     }
 
     // tslint:disable-next-line:no-empty-interface
-    interface AudioHTMLAttributes<T> extends MediaHTMLAttributes<T> {}
+    interface AudioHTMLAttributes<T> extends MediaHTMLAttributes<T> { }
 
     interface AreaHTMLAttributes<T> extends HTMLAttributes<T> {
         alt?: string;
@@ -2211,7 +2211,7 @@ declare namespace React {
         isRequired: Validator<T>;
     }
 
-    type ValidationMap<T> = {[K in keyof T]?: Validator<T> };
+    type ValidationMap<T> = { [K in keyof T]?: Validator<T> };
 
     interface ReactPropTypes {
         any: Requireable<any>;
