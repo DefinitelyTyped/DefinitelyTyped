@@ -147,7 +147,7 @@ declare namespace React {
     type ReactChild = ReactElement<any> | ReactText;
 
     interface ReactNodeArray extends Array<ReactNode> { }
-    type ReactFragment = ReactNodeArray;
+    type ReactFragment = {} | ReactNodeArray;
     type ReactNode = ReactChild | ReactFragment | ReactPortal | string | number | boolean | null | undefined;
 
     //

@@ -1,4 +1,4 @@
-import { ReactElement, ReactNode, Requireable } from "react";
+import { ReactElement, ReactNode } from "react";
 import * as PropTypes from "prop-types";
 
 declare const uniqueType: unique symbol;
@@ -65,7 +65,11 @@ const propTypes: PropTypesMap = {
     oneOf: PropTypes.oneOf(['a', 'b', 'c']).isRequired,
     oneOfType: PropTypes.oneOfType(arrayOfTypes).isRequired,
     numberOrFalse: PropTypes.oneOfType([PropTypes.oneOf([false]), PropTypes.number]).isRequired,
-    nodeOrRenderFn: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
+    // The generic function type (() => any) is assignable to ReactNode because ReactNode extends the empty object type {}
+    // Which widens the array literal of validators to just Array<Requireable<() => any>>
+    // It's too risky to change ReactNode to exclude {} even though it's invalid, as it's required for children-as-function props to work
+    // So we assert the explicit tuple type
+    nodeOrRenderFn: PropTypes.oneOfType([PropTypes.node, PropTypes.func] as [PropTypes.Requireable<ReactNode>, PropTypes.Requireable<() => any>]),
     arrayOf: PropTypes.arrayOf(PropTypes.bool.isRequired).isRequired,
     objectOf: PropTypes.objectOf(PropTypes.number.isRequired).isRequired,
     shape: PropTypes.shape(innerProps).isRequired,
@@ -91,7 +95,7 @@ const propTypesWithoutAnnotation = {
     oneOf: PropTypes.oneOf<'a' | 'b' | 'c'>(['a', 'b', 'c']).isRequired,
     oneOfType: PropTypes.oneOfType(arrayOfTypes).isRequired,
     numberOrFalse: PropTypes.oneOfType([PropTypes.oneOf<false>([false]), PropTypes.number]).isRequired,
-    nodeOrRenderFn: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
+    nodeOrRenderFn: PropTypes.oneOfType([PropTypes.node, PropTypes.func] as [PropTypes.Requireable<ReactNode>, PropTypes.Requireable<() => any>]),
     arrayOf: PropTypes.arrayOf(PropTypes.bool.isRequired).isRequired,
     objectOf: PropTypes.objectOf(PropTypes.number.isRequired).isRequired,
     shape: PropTypes.shape(innerProps).isRequired,
