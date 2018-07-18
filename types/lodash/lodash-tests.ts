@@ -5663,6 +5663,13 @@ fp.now(); // $ExpectType number
     _(mixedDictionary).pickBy((item: string | number): item is number => typeof item === "number"); // $ExpectType LoDashImplicitWrapper<Dictionary<number>>
     _.chain(mixedDictionary).pickBy((item: string | number): item is number => typeof item === "number"); // $ExpectType LoDashExplicitWrapper<Dictionary<number>>
     fp.pickBy((item: string | number): item is number => typeof item === "number")(mixedDictionary); // $ExpectType Dictionary<number>
+
+    const mixedNumericDictionary: _.NumericDictionary<string | number> | null | undefined = anything;
+
+    _.pickBy(mixedNumericDictionary, (item: string | number): item is number => typeof item === "number"); // $ExpectType NumericDictionary<number>
+    _(mixedNumericDictionary).pickBy((item: string | number): item is number => typeof item === "number"); // $ExpectType LoDashImplicitWrapper<NumericDictionary<number>>
+    _.chain(mixedNumericDictionary).pickBy((item: string | number): item is number => typeof item === "number"); // $ExpectType LoDashExplicitWrapper<NumericDictionary<number>>
+    fp.pickBy((item: string | number): item is number => typeof item === "number")(mixedNumericDictionary); // $ExpectType NumericDictionary<number>
 }
 
 // _.result
