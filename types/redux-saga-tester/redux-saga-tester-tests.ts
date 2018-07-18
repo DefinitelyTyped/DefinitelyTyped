@@ -1,4 +1,4 @@
-import SagaTester from './index';
+import SagaTester from 'redux-saga-tester';
 
 // constructor with all options
 new SagaTester({
@@ -8,7 +8,14 @@ new SagaTester({
   reducers: {
     orders: (state, action) => state,
   },
-  middlewares: [() => 23],
+  middlewares: [
+    ({ dispatch, getState }) => (next) => (action: { type: string }) => {
+      dispatch({ type: 'BLA' });
+      getState();
+
+      return next(action);
+    },
+  ],
   ignoreReduxActions: false,
   options: {
     a: 23,
@@ -47,7 +54,7 @@ sagaTester.waitFor('LOAD_ORDERS').then(() => {});
 sagaTester.waitFor('LOAD_ORDERS', true).then(() => {});
 
 // wasCalled
-sagaTester.wasCalled("LOAD_ORDERS") === true;
+sagaTester.wasCalled("LOAD_ORDERS");
 
 // numCalled
 sagaTester.numCalled("LOAD_ORDERS") === 1;
