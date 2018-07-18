@@ -15,6 +15,16 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "files": [
+            "index.d.ts",
+            "test/basic.ts",
+            "test/batch.ts",
+            "test/dynamic.ts",
+            "test/elements.ts",
+            "test/life.ts",
+            "test/mipmap.ts",
+            "test/scope.ts"
+        ]
     }
 }
