@@ -75,5 +75,5 @@ function handlePromise(promise: Promise<Response>, isArrayBuffer: boolean = fals
 function test_headersRaw() {
 	const headers = new Headers();
 	const myHeader = 'foo';
-	headers.raw()[myHeader]; // $ExpectType string | string[] | undefined
+	headers.raw()[myHeader]; // $ExpectType string[] | string;
 }
