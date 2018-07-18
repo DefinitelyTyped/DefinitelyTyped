@@ -24,7 +24,7 @@ new SagaTester({
 interface MockStateType {
   orders: Array<{ name: string }>;
 }
-const sagaTester = new SagaTester<MockStateType>();
+const sagaTester = new SagaTester<MockStateType>({ initialState: { orders: [] }});
 
 // start
 function* fakeSaga() {
