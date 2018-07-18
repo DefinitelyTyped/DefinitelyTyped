@@ -24,9 +24,9 @@ import { ObjectID } from 'bson';
 import { EventEmitter } from 'events';
 import { Readable, Writable } from "stream";
 
-export function connect(uri: string, options?: MongoClientOptions): Promise<Db>;
-export function connect(uri: string, callback: MongoCallback<Db>): void;
-export function connect(uri: string, options: MongoClientOptions, callback: MongoCallback<Db>): void;
+export function connect(uri: string, options?: MongoClientOptions): Promise<MongoClient>;
+export function connect(uri: string, callback: MongoCallback<MongoClient>): void;
+export function connect(uri: string, options: MongoClientOptions, callback: MongoCallback<MongoClient>): void;
 
 export { Binary, DBRef, Decimal128, Double, Long, MaxKey, MinKey, ObjectID, ObjectId, Timestamp } from 'bson';
 
