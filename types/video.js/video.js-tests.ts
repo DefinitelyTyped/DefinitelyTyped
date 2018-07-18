@@ -99,12 +99,12 @@ function testComponents(player: videojs.Player) {
 }
 
 function testPlugin(player: videojs.Player, options: {}) {
-	if (player.usingPlugin('uloztoExample')) { return }
+	if (player.usingPlugin('uloztoExample')) { return; }
 
 	videojs.registerPlugin('uloztoExample', function({}: typeof options) {
 		this.play();
 		this.one('ended', () => {
-
+			//	do something
 		});
 	});
 	(player as any).uloztoExample(options);
