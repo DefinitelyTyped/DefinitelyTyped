@@ -170,7 +170,7 @@ type Defaultize<T, D> =
 type Undefaultize<T, D> =
     & Pick<T, Exclude<keyof T, keyof D>>
     & { [K in Extract<keyof T, keyof D>]-?: NonNullable<T[K]>; }
-    & Required<Pick<D, Exclude<keyof D, keyof T>>>
+    & Required<Pick<D, Exclude<keyof D, keyof T>>>;
 
 const componentPropTypes = {
     fi: PropTypes.func.isRequired,
@@ -178,16 +178,16 @@ const componentPropTypes = {
     bar: PropTypes.number.isRequired,
     baz: PropTypes.bool,
     bat: PropTypes.node
-}
+};
 
 const componentDefaultProps = {
     fi: () => null,
     baz: false,
     bat: ['This', 'is', 'a', 'string']
-}
+};
 
-type DefaultizedProps = Defaultize<PropTypes.InferProps<typeof componentPropTypes>, typeof componentDefaultProps>
-type UndefaultizedProps = Undefaultize<PropTypes.InferProps<typeof componentPropTypes>, typeof componentDefaultProps>
+type DefaultizedProps = Defaultize<PropTypes.InferProps<typeof componentPropTypes>, typeof componentDefaultProps>;
+type UndefaultizedProps = Undefaultize<PropTypes.InferProps<typeof componentPropTypes>, typeof componentDefaultProps>;
 
 // $ExpectType: true
 type DefaultizedPropsTest = {
@@ -196,7 +196,7 @@ type DefaultizedPropsTest = {
     bar: number;
     baz?: boolean | null;
     bat?: ReactNode;
-} extends DefaultizedProps ? true : false
+} extends DefaultizedProps ? true : false;
 // $ExpectType: true
 type UndefaultizedPropsTest = {
     fi: (...args: any[]) => any;
@@ -204,4 +204,4 @@ type UndefaultizedPropsTest = {
     bar: number;
     baz: boolean;
     bat: NonNullable<ReactNode>;
-} extends UndefaultizedProps ? true : false
+} extends UndefaultizedProps ? true : false;
