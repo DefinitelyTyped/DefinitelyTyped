@@ -90,10 +90,10 @@ declare const container: Element;
             };
 
             // Even if state is not set, this is allowed by React
-            this.setState({inputValue: 'hello'});
+            this.setState({ inputValue: 'hello' });
             this.setState((prevState, props) => {
                 // $ExpectError
-                props = {foo: 'nope'};
+                props = { foo: 'nope' };
                 // $ExpectError
                 props.foo = 'nope';
 
@@ -117,15 +117,15 @@ declare const container: Element;
 class ModernComponent extends React.Component<Props, State, Snapshot>
     implements MyComponent, React.ChildContextProvider<ChildContext> {
     static propTypes: React.ValidationMap<Props> = {
-        foo: PropTypes.number
+        foo: (() => null) as React.Validator<Props>
     };
 
     static contextTypes: React.ValidationMap<Context> = {
-        someValue: PropTypes.string
+        someValue: (() => null) as React.Validator<Context>
     };
 
     static childContextTypes: React.ValidationMap<ChildContext> = {
-        someOtherValue: PropTypes.string
+        someOtherValue: (() => null) as React.Validator<ChildContext>
     };
 
     context: Context;
@@ -179,7 +179,7 @@ class ModernComponent extends React.Component<Props, State, Snapshot>
 class ModernComponentArrayRender extends React.Component<Props> {
     render() {
         return [DOM.h1({ key: "1" }, "1"),
-                DOM.h1({ key: "2" }, "2")];
+        DOM.h1({ key: "2" }, "2")];
     }
 }
 

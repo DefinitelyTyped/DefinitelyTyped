@@ -7,7 +7,7 @@
 import * as React from 'react';
 import { Dispatch, ActionCreator, Reducer } from 'redux';
 
-export const actionTypes: {[actionName: string]: string};
+export const actionTypes: { [actionName: string]: string };
 
 export type FieldValue = any;
 
@@ -464,7 +464,7 @@ export declare const reducer: {
         [formName: string]: {
             [fieldName: string]: Normalizer
         }
-    }): Reducer<any>;
+    }): Reducer;
 
     /**
      * Returns a form reducer that will also pass each action through
@@ -473,5 +473,5 @@ export declare const reducer: {
      * passed to each reducer will only be the slice that pertains to that
      * form.
      */
-    plugin(reducers: { [formName: string]: Reducer<any> }): Reducer<any>;
+    plugin(reducers: { [formName: string]: Reducer }): Reducer;
 };
