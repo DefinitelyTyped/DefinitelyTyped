@@ -1,4 +1,3 @@
-// TypeScript Version: 2.1
 // Type definitions for Video.js 6.2
 // Project: https://github.com/videojs/video.js
 // Definitions by: Vincent Bortone <https://github.com/vbortone>
@@ -10,6 +9,7 @@
 //                 Stéphane Roucheray <https://github.com/sroucheray>
 //                 Adam Eisenreich <https://github.com/AkxeOne>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 // The Video.js API allows you to interact with the video through
 // Javascript, whether the browser is playing the video through HTML5
