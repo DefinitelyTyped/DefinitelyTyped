@@ -11,7 +11,6 @@ import * as TestUtils from "react-addons-test-utils";
 import TransitionGroup = require("react-addons-transition-group");
 import update = require("react-addons-update");
 import createReactClass = require("create-react-class");
-import * as PropTypes from "prop-types";
 import * as DOM from "react-dom-factories";
 
 interface Props extends React.Attributes {
@@ -435,99 +434,6 @@ DOM.svg({
         fillRule: "evenodd"
     })
 );
-
-//
-// PropTypes
-// --------------------------------------------------------------------------
-
-const PropTypesSpecification: React.ComponentSpec<any, any> = {
-    propTypes: {
-        optionalArray: PropTypes.array,
-        optionalBool: PropTypes.bool,
-        optionalFunc: PropTypes.func,
-        optionalNumber: PropTypes.number,
-        optionalObject: PropTypes.object,
-        optionalString: PropTypes.string,
-        optionalNode: PropTypes.node,
-        optionalElement: PropTypes.element,
-        optionalMessage: PropTypes.instanceOf(Date),
-        optionalEnum: PropTypes.oneOf(["News", "Photos"]),
-        optionalUnion: PropTypes.oneOfType([
-            PropTypes.string,
-            PropTypes.number,
-            PropTypes.instanceOf(Date)
-        ]),
-        optionalArrayOf: PropTypes.arrayOf(PropTypes.number),
-        optionalObjectOf: PropTypes.objectOf(PropTypes.number),
-        optionalObjectWithShape: PropTypes.shape({
-            color: PropTypes.string,
-            fontSize: PropTypes.number
-        }),
-        requiredFunc: PropTypes.func.isRequired,
-        requiredAny: PropTypes.any.isRequired,
-        customProp(props: any, propName: string, componentName: string): Error | null {
-            if (!/matchme/.test(props[propName])) {
-                return new Error("Validation failed!");
-            }
-            return null;
-        },
-        // https://facebook.github.io/react/warnings/dont-call-proptypes.html#fixing-the-false-positive-in-third-party-proptypes
-        percentage: (object: any, key: string, componentName: string, ...rest: any[]): Error | null => {
-            const error = PropTypes.number(object, key, componentName, ...rest);
-            if (error) {
-                return error;
-            }
-            if (object[key] < 0 || object[key] > 100) {
-                return new Error(`prop ${key} must be between 0 and 100`);
-            }
-            return null;
-        }
-    },
-    render: (): React.ReactElement<any> | null => {
-        return null;
-    }
-};
-
-//
-// ContextTypes
-// --------------------------------------------------------------------------
-
-const ContextTypesSpecification: React.ComponentSpec<any, any> = {
-    contextTypes: {
-        optionalArray: PropTypes.array,
-        optionalBool: PropTypes.bool,
-        optionalFunc: PropTypes.func,
-        optionalNumber: PropTypes.number,
-        optionalObject: PropTypes.object,
-        optionalString: PropTypes.string,
-        optionalNode: PropTypes.node,
-        optionalElement: PropTypes.element,
-        optionalMessage: PropTypes.instanceOf(Date),
-        optionalEnum: PropTypes.oneOf(["News", "Photos"]),
-        optionalUnion: PropTypes.oneOfType([
-            PropTypes.string,
-            PropTypes.number,
-            PropTypes.instanceOf(Date)
-        ]),
-        optionalArrayOf: PropTypes.arrayOf(PropTypes.number),
-        optionalObjectOf: PropTypes.objectOf(PropTypes.number),
-        optionalObjectWithShape: PropTypes.shape({
-            color: PropTypes.string,
-            fontSize: PropTypes.number
-        }),
-        requiredFunc: PropTypes.func.isRequired,
-        requiredAny: PropTypes.any.isRequired,
-        customProp(props: any, propName: string, componentName: string): Error | null {
-            if (!/matchme/.test(props[propName])) {
-                return new Error("Validation failed!");
-            }
-            return null;
-        }
-    },
-    render: (): null => {
-        return null;
-    }
-};
 
 //
 // React.Children
