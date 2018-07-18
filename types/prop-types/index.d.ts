@@ -1,10 +1,11 @@
 // Type definitions for prop-types 15.5
 // Project: https://github.com/reactjs/prop-types
 // Definitions by: DovydasNavickas <https://github.com/DovydasNavickas>
+//                 Ferdy Budhidharma <https://github.com/ferdaber>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from 'react';
+import { ReactNode, ReactElement } from 'react';
 
 export type IsOptional<T> = undefined | null extends T ? true : undefined extends T ? true : null extends T ? true : false;
 
@@ -34,8 +35,8 @@ export const func: Requireable<(...args: any[]) => any>;
 export const number: Requireable<number>;
 export const object: Requireable<object>;
 export const string: Requireable<string>;
-export const node: Requireable<React.ReactNode>;
-export const element: Requireable<React.ReactElement<any>>;
+export const node: Requireable<ReactNode>;
+export const element: Requireable<ReactElement<any>>;
 export const symbol: Requireable<symbol>;
 export function instanceOf<T>(expectedClass: new (...args: any[]) => T): Requireable<T>;
 export function oneOf<T>(types: T[]): Requireable<T>;
