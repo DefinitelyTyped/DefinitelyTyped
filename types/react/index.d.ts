@@ -19,7 +19,7 @@
 //                 Olivier Pascal <https://github.com/pascaloliv>
 //                 Martin Hochel <https://github.com/hotell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 2.8
 
 /// <reference path="global.d.ts" />
 
