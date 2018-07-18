@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import * as ReactDOMServer from "react-dom/server";
+import * as PropTypes from "prop-types";
 import createFragment = require("react-addons-create-fragment");
 import CSSTransitionGroup = require("react-addons-css-transition-group");
 import * as LinkedStateMixin from "react-addons-linked-state-mixin";
@@ -117,15 +118,18 @@ declare const container: Element;
 class ModernComponent extends React.Component<Props, State, Snapshot>
     implements MyComponent, React.ChildContextProvider<ChildContext> {
     static propTypes: React.ValidationMap<Props> = {
-        foo: (() => null) as React.Validator<Props>
+        hello: PropTypes.string.isRequired,
+        world: PropTypes.string,
+        foo: PropTypes.number.isRequired,
+        key: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
     };
 
     static contextTypes: React.ValidationMap<Context> = {
-        someValue: (() => null) as React.Validator<Context>
+        someValue: PropTypes.string
     };
 
     static childContextTypes: React.ValidationMap<ChildContext> = {
-        someOtherValue: (() => null) as React.Validator<ChildContext>
+        someOtherValue: PropTypes.string.isRequired
     };
 
     context: Context;
