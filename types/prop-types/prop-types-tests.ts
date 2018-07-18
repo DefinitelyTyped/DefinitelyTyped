@@ -62,9 +62,9 @@ const propTypes: PropTypesMap = {
     string: PropTypes.string.isRequired,
     symbol: PropTypes.symbol.isRequired,
     instanceOf: PropTypes.instanceOf(TestClass).isRequired,
-    oneOf: PropTypes.oneOf(['a', 'b', 'c']).isRequired,
+    oneOf: PropTypes.oneOf<'a' | 'b' | 'c'>(['a', 'b', 'c']).isRequired,
     oneOfType: PropTypes.oneOfType(arrayOfTypes).isRequired,
-    numberOrFalse: PropTypes.oneOfType([PropTypes.oneOf([false]), PropTypes.number]).isRequired,
+    numberOrFalse: PropTypes.oneOfType([PropTypes.oneOf<false>([false]), PropTypes.number]).isRequired,
     // The generic function type (() => any) is assignable to ReactNode because ReactNode extends the empty object type {}
     // Which widens the array literal of validators to just Array<Requireable<() => any>>
     // It's too risky to change ReactNode to exclude {} even though it's invalid, as it's required for children-as-function props to work

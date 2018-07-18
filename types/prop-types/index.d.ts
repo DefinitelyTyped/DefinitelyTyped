@@ -7,13 +7,18 @@
 
 import { ReactNode, ReactElement } from 'react';
 
+export const nominalTypeHack: unique symbol;
+
 export type IsOptional<T> = undefined | null extends T ? true : undefined extends T ? true : null extends T ? true : false;
 
 export type RequiredKeys<V> = { [K in keyof V]: V[K] extends Validator<infer T> ? IsOptional<T> extends true ? never : K : never }[keyof V];
 export type OptionalKeys<V> = Exclude<keyof V, RequiredKeys<V>>;
 export type InferPropsInner<V> = { [K in keyof V]: InferType<V[K]>; };
 
-export type Validator<T> = (props: object, propName: string, componentName: string, location: string, propFullName: string, _NOMINAL_TYPE_HACK_DO_NOT_USE?: T) => Error | null;
+export interface Validator<T> {
+    (props: object, propName: string, componentName: string, location: string, propFullName: string, _NOMINAL_TYPE_HACK_DO_NOT_USE?: T): Error | null;
+    [nominalTypeHack]?: T;
+}
 
 export interface Requireable<T> extends Validator<T | undefined | null> {
     isRequired: Validator<NonNullable<T>>;
