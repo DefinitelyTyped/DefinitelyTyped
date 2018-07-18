@@ -22,7 +22,7 @@ declare namespace videojs {
 	const getComponent: typeof Component.getComponent;
 	const registerComponent: typeof Component.registerComponent;
 	const getPlugin: typeof Plugin.getPlugin;
-	function registerPlugin(pluginName: string, pluginFn: (...parameters: any[]) => void): void;
+	function registerPlugin(pluginName: string, pluginFn: (this: Player, ...parameters: any[]) => void): void;
 	function addLanguage(lang: string, data: {[key: string]: string }): void;
 	function mergeOptions< A, B, C, D, E, F >(option: A, option2?: B, option3?: C, option4?: D, option5?: E, option6?: F): A & B & C & D & E & F;
 
