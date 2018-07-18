@@ -1,3 +1,4 @@
+// TypeScript Version: 2.1
 // Type definitions for Video.js 6.2
 // Project: https://github.com/videojs/video.js
 // Definitions by: Vincent Bortone <https://github.com/vbortone>
