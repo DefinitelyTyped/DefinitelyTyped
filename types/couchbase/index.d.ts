@@ -706,7 +706,7 @@ declare namespace SpatialQuery {
 /**
  * The Bucket class represents a connection to a Couchbase bucket. Never instantiate this class directly. Instead use the Cluster#openBucket method instead.
  */
-interface Bucket {
+interface Bucket extends events.EventEmitter {
     /**
      * Returns the version of the Node.js library as a string.
      */
@@ -1013,6 +1013,21 @@ interface Bucket {
      * @param callback The callback function.
      */
     upsert(key: string | Buffer, value: any, options: UpsertOptions, callback: Bucket.OpCallback): void;
+
+    addListener(event: 'connect', listener: () => void): this;
+    addListener(event: 'error', listener: (error: CouchbaseError) => void): this;
+
+    on(event: 'connect', listener: () => void): this;
+    on(event: 'error', listener: (error: CouchbaseError) => void): this;
+
+    once(event: 'connect', listener: () => void): this;
+    once(event: 'error', listener: (error: CouchbaseError) => void): this;
+
+    prependListener(event: 'connect', listener: () => void): this;
+    prependListener(event: 'error', listener: (error: CouchbaseError) => void): this;
+
+    prependOnceListener(event: 'connect', listener: () => void): this;
+    prependOnceListener(event: 'error', listener: (error: CouchbaseError) => void): this;
 }
 
 declare namespace Bucket {
