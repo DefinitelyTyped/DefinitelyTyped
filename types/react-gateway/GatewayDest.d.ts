@@ -4,7 +4,7 @@ declare namespace GatewayDest {
     interface GatewayDestProps {
         name: string;
         tagName?: string;
-        component?: string | React.Component;
+        component?: string | React.ComponentClass;
     }
 }
 declare class GatewayDest extends React.Component<GatewayDest.GatewayDestProps> { }
