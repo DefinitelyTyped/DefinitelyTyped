@@ -763,7 +763,7 @@ interface Bucket {
      * @param fragment The document's contents to append.
      * @param callback The callback function.
      */
-    append(key: any | Buffer, fragment: any, callback: Bucket.OpCallback): void;
+    append(key: string | Buffer, fragment: any, callback: Bucket.OpCallback): void;
 
     /**
      *
@@ -772,7 +772,7 @@ interface Bucket {
      * @param options The options object.
      * @param callback The callback function.
      */
-    append(key: any | Buffer, fragment: any, options: AppendOptions, callback: Bucket.OpCallback): void;
+    append(key: string | Buffer, fragment: any, options: AppendOptions, callback: Bucket.OpCallback): void;
 
     /**
      * Increments or decrements a key's numeric value.
@@ -781,7 +781,7 @@ interface Bucket {
      * @param delta The amount to add or subtract from the counter value. This value may be any non-zero integer.
      * @param callback The callback function.
      */
-    counter(key: any | Buffer, delta: number, callback: Bucket.OpCallback): void;
+    counter(key: string | Buffer, delta: number, callback: Bucket.OpCallback): void;
 
     /**
      *
@@ -790,7 +790,7 @@ interface Bucket {
      * @param options The options object.
      * @param callback The callback function.
      */
-    counter(key: any | Buffer, delta: number, options: CounterOptions, callback: Bucket.OpCallback): void;
+    counter(key: string | Buffer, delta: number, options: CounterOptions, callback: Bucket.OpCallback): void;
 
     /**
      * Shuts down this connection.
@@ -808,14 +808,14 @@ interface Bucket {
      * @param key The target document key.
      * @param callback The callback function.
      */
-    get(key: any | Buffer, callback: Bucket.OpCallback): void;
+    get(key: string | Buffer, callback: Bucket.OpCallback): void;
 
     /**
      * @param key The target document key.
      * @param options The options object.
      * @param callback The callback function.
      */
-    get(key: any | Buffer, options: any, callback: Bucket.OpCallback): void;
+    get(key: string | Buffer, options: any, callback: Bucket.OpCallback): void;
 
     /**
      * Lock the document on the server and retrieve it. When an document is locked, its CAS changes and subsequent operations on the document (without providing the current CAS) will fail until the lock is no longer held.
@@ -824,7 +824,7 @@ interface Bucket {
      * @param key The target document key.
      * @param callback The callback function.
      */
-    getAndLock(key: any, callback: Bucket.OpCallback): void;
+    getAndLock(key: string, callback: Bucket.OpCallback): void;
 
     /**
      * Lock the document on the server and retrieve it. When an document is locked, its CAS changes and subsequent operations on the document (without providing the current CAS) will fail until the lock is no longer held.
@@ -835,7 +835,7 @@ interface Bucket {
      * @param callback The callback function.
      * @returns {}
      */
-    getAndLock(key: any, options: GetAndLockOptions, callback: Bucket.OpCallback): void;
+    getAndLock(key: string, options: GetAndLockOptions, callback: Bucket.OpCallback): void;
 
     /**
      * Retrieves a document and updates the expiry of the item at the same time.
@@ -844,7 +844,7 @@ interface Bucket {
      * @param options The options object.
      * @param callback The callback function.
      */
-    getAndTouch(key: any | Buffer, expiry: number, options: any, callback: Bucket.OpCallback): void;
+    getAndTouch(key: string | Buffer, expiry: number, options: any, callback: Bucket.OpCallback): void;
 
     /**
      * Retrieves a document and updates the expiry of the item at the same time.
@@ -852,21 +852,21 @@ interface Bucket {
      * @param expiry The expiration time to use. If a value of 0 is provided, then the current expiration time is cleared and the key is set to never expire. Otherwise, the key is updated to expire in the time provided (in seconds).
      * @param callback The callback function.
      */
-    getAndTouch(key: any | Buffer, expiry: number, callback: Bucket.OpCallback): void;
+    getAndTouch(key: string | Buffer, expiry: number, callback: Bucket.OpCallback): void;
 
     /**
      * Retrieves a list of keys
      * @param keys The target document keys.
      * @param callback The callback function.
      */
-    getMulti(key: any[] | Buffer[], callback: Bucket.MultiGetCallback): void;
+    getMulti(key: ReadonlyArray<string | Buffer>, callback: Bucket.MultiGetCallback): void;
 
     /**
      * Get a document from a replica server in your cluster.
      * @param key The target document key.
      * @param callback The callback function.
      */
-    getReplica(key: any | Buffer, callback: Bucket.OpCallback): void;
+    getReplica(key: string | Buffer, callback: Bucket.OpCallback): void;
 
     /**
     * Get a document from a replica server in your cluster.
@@ -874,7 +874,7 @@ interface Bucket {
     * @param options The options object.
     * @param callback The callback function.
     */
-    getReplica(key: any | Buffer, options: GetReplicaOptions, callback: Bucket.OpCallback): void;
+    getReplica(key: string | Buffer, options: GetReplicaOptions, callback: Bucket.OpCallback): void;
 
     /**
      * Identical to Bucket#upsert but will fail if the document already exists.
@@ -882,7 +882,7 @@ interface Bucket {
      * @param value The document's contents.
      * @param callback The callback function.
      */
-    insert(key: any | Buffer, value: any, callback: Bucket.OpCallback): void;
+    insert(key: string | Buffer, value: any, callback: Bucket.OpCallback): void;
 
     /**
      * Identical to Bucket#upsert but will fail if the document already exists.
@@ -891,7 +891,7 @@ interface Bucket {
      * @param options The options object.
      * @param callback The callback function.
      */
-    insert(key: any | Buffer, value: any, options: InsertOptions, callback: Bucket.OpCallback): void;
+    insert(key: string | Buffer, value: any, options: InsertOptions, callback: Bucket.OpCallback): void;
 
     /**
      * Returns an instance of a BuckerManager for performing management operations against a bucket.
@@ -904,7 +904,7 @@ interface Bucket {
      * @param fragment The document's contents to prepend.
      * @param callback The callback function.
      */
-    prepend(key: any, fragment: any, callback: Bucket.OpCallback): void;
+    prepend(key: string, fragment: any, callback: Bucket.OpCallback): void;
 
     /**
      * Like Bucket#append, but prepends data to the existing value.
@@ -913,7 +913,7 @@ interface Bucket {
      * @param options The options object.
      * @param callback The callback function.
      */
-    prepend(key: any, fragment: any, options: PrependOptions, callback: Bucket.OpCallback): void;
+    prepend(key: string, fragment: any, options: PrependOptions, callback: Bucket.OpCallback): void;
 
     /**
      * Executes a previously prepared query object. This could be a ViewQuery or a N1qlQuery.
@@ -937,7 +937,7 @@ interface Bucket {
      * @param key The target document key.
      * @param callback The callback function.
      */
-    remove(key: any | Buffer, callback: Bucket.OpCallback): void;
+    remove(key: string | Buffer, callback: Bucket.OpCallback): void;
 
     /**
      * Deletes a document on the server.
@@ -945,7 +945,7 @@ interface Bucket {
      * @param options The options object.
      * @param callback The callback function.
      */
-    remove(key: any | Buffer, options: RemoveOptions, callback: Bucket.OpCallback): void;
+    remove(key: string | Buffer, options: RemoveOptions, callback: Bucket.OpCallback): void;
 
     /**
      * Identical to Bucket#upsert, but will only succeed if the document exists already (i.e. the inverse of Bucket#insert).
@@ -953,7 +953,7 @@ interface Bucket {
      * @param value The document's contents.
      * @param callback The callback function.
      */
-    replace(key: any | Buffer, value: any, callback: Bucket.OpCallback): void;
+    replace(key: string | Buffer, value: any, callback: Bucket.OpCallback): void;
 
     /**
      * Identical to Bucket#upsert, but will only succeed if the document exists already (i.e. the inverse of Bucket#insert).
@@ -962,7 +962,7 @@ interface Bucket {
      * @param options The options object.
      * @param callback The callback function.
      */
-    replace(key: any | Buffer, value: any, options: ReplaceOptions, callback: Bucket.OpCallback): void;
+    replace(key: string | Buffer, value: any, options: ReplaceOptions, callback: Bucket.OpCallback): void;
 
     /**
      * Configures a custom set of transcoder functions for encoding and decoding values that are being stored or retreived from the server.
@@ -978,7 +978,7 @@ interface Bucket {
      * @param options The options object.
      * @param callback The callback function.
      */
-    touch(key: any | Buffer, expiry: number, options: TouchOptions, callback: Bucket.OpCallback): void;
+    touch(key: string | Buffer, expiry: number, options: TouchOptions, callback: Bucket.OpCallback): void;
 
     /**
      * Unlock a previously locked document on the server. See the Bucket#lock method for more details on locking.
@@ -986,7 +986,7 @@ interface Bucket {
      * @param cas The CAS value returned when the key was locked. This operation will fail if the CAS value provided does not match that which was the result of the original lock operation.
      * @param callback The callback function.
      */
-    unlock(key: any | Buffer, cas: Bucket.CAS, callback: Bucket.OpCallback): void;
+    unlock(key: string | Buffer, cas: Bucket.CAS, callback: Bucket.OpCallback): void;
 
     /**
      * Unlock a previously locked document on the server. See the Bucket#lock method for more details on locking.
@@ -995,7 +995,7 @@ interface Bucket {
      * @param options The options object.
      * @param callback The callback function.
      */
-    unlock(key: any | Buffer, cas: Bucket.CAS, options: any, callback: Bucket.OpCallback): void;
+    unlock(key: string | Buffer, cas: Bucket.CAS, options: any, callback: Bucket.OpCallback): void;
 
     /**
      * Stores a document to the bucket.
@@ -1003,7 +1003,7 @@ interface Bucket {
      * @param value The document's contents.
      * @param callback The callback function.
      */
-    upsert(key: any | Buffer, value: any, callback: Bucket.OpCallback): void;
+    upsert(key: string | Buffer, value: any, callback: Bucket.OpCallback): void;
 
     /**
      * Stores a document to the bucket.
@@ -1012,7 +1012,7 @@ interface Bucket {
      * @param options The options object.
      * @param callback The callback function.
      */
-    upsert(key: any | Buffer, value: any, options: UpsertOptions, callback: Bucket.OpCallback): void;
+    upsert(key: string | Buffer, value: any, options: UpsertOptions, callback: Bucket.OpCallback): void;
 }
 
 declare namespace Bucket {
