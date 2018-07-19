@@ -1094,8 +1094,8 @@ knex.schema.createTable('testTable', function (table) {
     table.binary('binaryKey', 16).primary(); //will make table with binaryKey type BINARY(16)
 });
 
-// creating allow creating decimal column that can store that can store numbers
-// of any precision and scale. (Only supported for Oracle, SQLite, Postgres)
+// allow creating decimal column that can store that can store numbers of any
+// precision and scale. (Only supported for Oracle, SQLite, Postgres)
 var knex = Knex({
     client: 'pg'
 });
