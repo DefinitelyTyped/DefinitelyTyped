@@ -47,6 +47,8 @@ export type MeasureInWindowOnSuccessCallback = (x: number, y: number, width: num
 
 export type MeasureLayoutOnSuccessCallback = (left: number, top: number, width: number, height: number) => void;
 
+export type MeasureLayoutRelativeToParentOnSuccessCallback = (x: number, y: number, width: number, height: number) => void;
+
 /**
  * EventSubscription represents a subscription to a particular event. It can
  * remove its own subscription.
@@ -7950,6 +7952,20 @@ export interface UIManagerStatic {
         onFail: () => void /* currently unused */,
         onSuccess: MeasureLayoutOnSuccessCallback
     ): void;
+
+    /**
+     * Like [`measure()`](#measure), but measures the view relative to its parent.
+     * This means that the returned x, y
+     * are relative to the x, y of the parent node.
+     *
+     * As always, to obtain a native node handle for a component, you can use
+     * `React.findNodeHandle(component)`.
+     */
+    measureLayoutRelativeToParent(
+		node: number,
+		onFail: (e: any) => void,
+		onSuccess: MeasureLayoutRelativeToParentOnSuccessCallback
+	): void;
 
     /**
      * Automatically animates views to their new positions when the
