@@ -762,12 +762,32 @@ function longdesc() {
         $('h2').insertAfter($('.container'));
     }
 
+    function insert_after_2() {
+        const foo = document.querySelector('.foo')!;
+        $('h2').insertAfter(foo);
+    }
+
+    function insert_after_3() {
+        const foo = document.querySelector('.foo')!;
+        $('h2').insertAfter($(foo));
+    }
+
     function insert_before_0() {
         $('<p>Test</p>').insertBefore('.inner');
     }
 
     function insert_before_1() {
         $('h2').insertBefore($('.container'));
+    }
+
+    function insert_before_2() {
+        const foo = document.querySelector('.foo')!;
+        $('h2').insertBefore(foo);
+    }
+
+    function insert_before_3() {
+        const foo = document.querySelector('.foo')!;
+        $('h2').insertBefore($(foo));
     }
 
     function is_0() {
