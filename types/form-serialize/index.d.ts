@@ -30,8 +30,8 @@ interface OptionsString extends Options<string> {
     hash: false;
 }
 
-declare function serialize(form: HTMLFormElement, options?: OptionsHash | true): ResultHash;
+declare function serialize(form: HTMLFormElement, options: OptionsHash | true): ResultHash;
 declare function serialize(form: HTMLFormElement, options?: OptionsString | false): string;
-declare function serialize<Result = ResultHash>(form: HTMLFormElement, options?: Options<Result> | boolean): Result;
+declare function serialize<Result = string>(form: HTMLFormElement, options?: Options<Result> | boolean): Result;
 
 export = serialize;

@@ -1,7 +1,17 @@
 import serialize = require("form-serialize");
 
-const form1 = document.createElement("form");
-serialize(form1, { hash: true }); // $ExpectType ResultHash
+const form = document.createElement("form");
+serialize(form, { hash: true }); // $ExpectType ResultHash
+serialize(form, true); // $ExpectType ResultHash
+serialize(form, { hash: false }); // $ExpectType string
+serialize(form, false); // $ExpectType string
+serialize(form); // $ExpectType string
 
-const form2 = document.createElement("form");
-serialize(form2, { hash: false }); // $ExpectType string
+interface CustomResult {
+  foo: string;
+}
+
+// $ExpectType CustomResult
+serialize(form, {
+  serializer: (): CustomResult => ({ foo: "bar" })
+});
