@@ -23,26 +23,32 @@ declare namespace videojs {
 	const getPlugin: typeof Plugin.getPlugin;
 
 	interface PlayerOptions {
-		techOrder?: string[];
-		sourceOrder?: boolean;
-		html5?: any;
-		width?: number;
-		height?: number;
-		defaultVolume?: number;
+		aspectRatio?: string;
+		autoplay?: boolean;
+		autoSetup?: boolean;
 		children?: string[];
+		controls?: boolean;
+		defaultVolume?: number;
+		fluid?: boolean;
+		height?: number;
+		html5?: any;
+		inactivityTimeout?: number;
+		language?: string;
+		languages?: { [key: string]: string };
 		loop?: boolean;
 		muted?: boolean;
-		controls?: boolean;
-		src?: string;
-		autoplay?: boolean;
-		preload?: string;
-		sources?: Source[];
-		aspectRatio?: string;
-		fluid?: boolean;
-		language?: string;
+		nativeControlsForTouch?: boolean;
 		notSupportedMessage?: string;
+		playbackRates?: Array<number>;
 		plugins?: any;
 		poster?: string;
+		preload?: string;
+		sourceOrder?: boolean;
+		sources?: Source[];
+		src?: string;
+		techCanOverridePoster?: boolean;
+		techOrder?: string[];
+		width?: number;
 	}
 
 	interface Source {
