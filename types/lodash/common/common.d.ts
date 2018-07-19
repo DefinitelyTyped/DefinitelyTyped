@@ -190,7 +190,6 @@ declare module "../index" {
     type ObjectIteratee<TObject> = ObjectIterator<TObject, NotVoid> | string | [string, any] | PartialDeep<TObject[keyof TObject]>;
     type ObjectIterateeCustom<TObject, TResult> = ObjectIterator<TObject, TResult> | string | [string, any] | PartialDeep<TObject[keyof TObject]>;
     type ObjectIteratorTypeGuard<TObject, S extends TObject[keyof TObject]> = (value: TObject[keyof TObject], key: string, collection: TObject) => value is S;
-    type ObjectIteratorTypeGuardWithoutCollection<T, S extends T> = (value: T, key: string) => value is S;
 
     type StringIterator<TResult> = (char: string, index: number, string: string) => TResult;
 
@@ -212,6 +211,7 @@ declare module "../index" {
     type ValueIterateeCustom<T, TResult> = ((value: T) => TResult) | string | [string, any] | PartialDeep<T>;
     type ValueIteratorTypeGuard<T, S extends T> = (value: T) => value is S;
     type ValueKeyIteratee<T> = ((value: T, key: string) => NotVoid) | string | [string, any] | PartialDeep<T>;
+    type ValueKeyIterateeTypeGuard<T, S extends T> = (value: T, key: string) => value is S;
     type Comparator<T> = (a: T, b: T) => boolean;
     type Comparator2<T1, T2> = (a: T1, b: T2) => boolean;
 
