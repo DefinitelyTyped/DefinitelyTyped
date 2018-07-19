@@ -40,6 +40,8 @@ type IterableItem<R> = R extends Iterable<infer U> ? U : never;
 type IterableOrNever<R> = Extract<R, Iterable<any>>;
 type Resolvable<R> = R | PromiseLike<R>;
 type ExtractFunction<T> = Extract<T, (...args: any[]) => any>;
+type IterateFunction<T, R> = (item: T, index: number, arrayLength: number) => Resolvable<R>;
+type IteraterItemIterateFunction<I, R> = IterateFunction<IterableItem<I>, R>;
 
 declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   /**
@@ -174,9 +176,9 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    *
    * Alias `.lastly();` for compatibility with earlier ECMAScript version.
    */
-  finally<U>(handler: () => Resolvable<U>): Bluebird<R>;
+  finally(handler: () => Resolvable<any>): Bluebird<R>;
 
-  lastly<U>(handler: () => Resolvable<U>): Bluebird<R>;
+  lastly: Bluebird<R>["finally"];
 
   /**
    * Create a promise that follows this promise, but is bound to the given `thisArg` value.
@@ -194,42 +196,42 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   /**
    * Like `.finally()`, but not called for rejections.
    */
-  tap<U>(onFulFill: (value: R) => Resolvable<U>): Bluebird<R>;
+  tap(onFulFill: (value: R) => Resolvable<any>): Bluebird<R>;
 
   /**
    * Like `.catch()` but rethrows the error
    */
-  tapCatch<U>(onReject: (error?: any) => Resolvable<U>): Bluebird<R>;
+  tapCatch(onReject: (error?: any) => Resolvable<any>): Bluebird<R>;
 
-  tapCatch<U, E1, E2, E3, E4, E5>(
+  tapCatch<E1, E2, E3, E4, E5>(
     filter1: CatchFilter<E1>,
     filter2: CatchFilter<E2>,
     filter3: CatchFilter<E3>,
     filter4: CatchFilter<E4>,
     filter5: CatchFilter<E5>,
-    onReject: (error: E1 | E2 | E3 | E4 | E5) => Resolvable<U>,
+    onReject: (error: E1 | E2 | E3 | E4 | E5) => Resolvable<any>,
   ): Bluebird<R>;
-  tapCatch<U, E1, E2, E3, E4>(
+  tapCatch<E1, E2, E3, E4>(
     filter1: CatchFilter<E1>,
     filter2: CatchFilter<E2>,
     filter3: CatchFilter<E3>,
     filter4: CatchFilter<E4>,
-    onReject: (error: E1 | E2 | E3 | E4) => Resolvable<U>,
+    onReject: (error: E1 | E2 | E3 | E4) => Resolvable<any>,
   ): Bluebird<R>;
-  tapCatch<U, E1, E2, E3>(
+  tapCatch<E1, E2, E3>(
     filter1: CatchFilter<E1>,
     filter2: CatchFilter<E2>,
     filter3: CatchFilter<E3>,
-    onReject: (error: E1 | E2 | E3) => Resolvable<U>,
+    onReject: (error: E1 | E2 | E3) => Resolvable<any>,
   ): Bluebird<R>;
-  tapCatch<U, E1, E2>(
+  tapCatch<E1, E2>(
     filter1: CatchFilter<E1>,
     filter2: CatchFilter<E2>,
-    onReject: (error: E1 | E2) => Resolvable<U>,
+    onReject: (error: E1 | E2) => Resolvable<any>,
   ): Bluebird<R>;
-  tapCatch<U, E1>(
+  tapCatch<E1>(
     filter1: CatchFilter<E1>,
-    onReject: (error: E1) => Resolvable<U>,
+    onReject: (error: E1) => Resolvable<any>,
   ): Bluebird<R>;
 
   /**
@@ -495,7 +497,7 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   /**
    * Same as calling `Bluebird.map(thisPromise, mapper)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
    */
-  map<U>(mapper: (item: IterableItem<R>, index: number, arrayLength: number) => Resolvable<U>, options?: Bluebird.ConcurrencyOption): Bluebird<R extends Iterable<any> ? U[] : never>;
+  map<U>(mapper: IteraterItemIterateFunction<R, U>, options?: Bluebird.ConcurrencyOption): Bluebird<R extends Iterable<any> ? U[] : never>;
 
   /**
    * Same as calling `Promise.reduce(thisPromise, Function reducer, initialValue)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
@@ -505,17 +507,17 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   /**
    * Same as calling ``Promise.filter(thisPromise, filterer)``. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
    */
-  filter(filterer: (item: IterableItem<R>, index: number, arrayLength: number) => Resolvable<boolean>, options?: Bluebird.ConcurrencyOption): Bluebird<IterableOrNever<R>>;
+  filter(filterer: IteraterItemIterateFunction<R, boolean>, options?: Bluebird.ConcurrencyOption): Bluebird<IterableOrNever<R>>;
 
   /**
    * Same as calling ``Bluebird.each(thisPromise, iterator)``. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
    */
-  each<U>(iterator: (item: IterableItem<R>, index: number, arrayLength: number) => Resolvable<U>): Bluebird<IterableOrNever<R>>;
+  each(iterator: IteraterItemIterateFunction<R, any>): Bluebird<IterableOrNever<R>>;
 
   /**
    * Same as calling ``Bluebird.mapSeries(thisPromise, iterator)``. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
    */
-  mapSeries<U>(iterator: (item: IterableItem<R>, index: number, arrayLength: number) => Resolvable<U>): Bluebird<R extends Iterable<any> ? U[] : never>;
+  mapSeries<U>(iterator: IteraterItemIterateFunction<R, U>): Bluebird<R extends Iterable<any> ? U[] : never>;
 
   /**
    * Cancel this `promise`. Will not do anything if this promise is already settled or if the cancellation feature has not been enabled
@@ -565,9 +567,11 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   static reject(reason: any): Bluebird<never>;
 
   /**
+   * @deprecated
    * Create a promise with undecided fate and return a `PromiseResolver` to control it. See resolution?: Promise(#promise-resolution).
+   * @see http://bluebirdjs.com/docs/deprecated-apis.html#promise-resolution
    */
-  static defer<R>(): Bluebird.Resolver<R>;
+  static defer<R>(): Bluebird.Resolver<R>; // tslint:disable-line no-unnecessary-generics
 
   /**
    * Cast the given `value` to a trusted promise.
@@ -654,9 +658,7 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   /**
    * Returns a promise that is resolved by a node style callback function.
    */
-  static fromNode(resolver: (callback: (err: any, result?: any) => void) => void, options?: Bluebird.FromNodeOptions): Bluebird<any>;
   static fromNode<T>(resolver: (callback: (err: any, result?: T) => void) => void, options?: Bluebird.FromNodeOptions): Bluebird<T>;
-  static fromCallback(resolver: (callback: (err: any, result?: any) => void) => void, options?: Bluebird.FromNodeOptions): Bluebird<any>;
   static fromCallback<T>(resolver: (callback: (err: any, result?: T) => void) => void, options?: Bluebird.FromNodeOptions): Bluebird<T>;
 
   /**
@@ -668,39 +670,39 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   // TODO: After https://github.com/Microsoft/TypeScript/issues/2983 is implemented, we can use
   // the return type propagation of generators to automatically infer the return type T.
   static coroutine<T>(
-      generatorFunction: () => IterableIterator<any>,
+      generatorFunction: () => IterableIterator<T>,
       options?: Bluebird.CoroutineOptions
     ): () => Bluebird<T>;
   static coroutine<T, A1>(
-      generatorFunction: (a1: A1) => IterableIterator<any>,
+      generatorFunction: (a1: A1) => IterableIterator<T>,
       options?: Bluebird.CoroutineOptions
     ): (a1: A1) => Bluebird<T>;
   static coroutine<T, A1, A2>(
-      generatorFunction: (a1: A1, a2: A2) => IterableIterator<any>,
+      generatorFunction: (a1: A1, a2: A2) => IterableIterator<T>,
       options?: Bluebird.CoroutineOptions
     ): (a1: A1, a2: A2) => Bluebird<T>;
   static coroutine<T, A1, A2, A3>(
-      generatorFunction: (a1: A1, a2: A2, a3: A3) => IterableIterator<any>,
+      generatorFunction: (a1: A1, a2: A2, a3: A3) => IterableIterator<T>,
       options?: Bluebird.CoroutineOptions
     ): (a1: A1, a2: A2, a3: A3) => Bluebird<T>;
   static coroutine<T, A1, A2, A3, A4>(
-      generatorFunction: (a1: A1, a2: A2, a3: A3, a4: A4) => IterableIterator<any>,
+      generatorFunction: (a1: A1, a2: A2, a3: A3, a4: A4) => IterableIterator<T>,
       options?: Bluebird.CoroutineOptions
     ): (a1: A1, a2: A2, a3: A3, a4: A4) => Bluebird<T>;
   static coroutine<T, A1, A2, A3, A4, A5>(
-      generatorFunction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5) => IterableIterator<any>,
+      generatorFunction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5) => IterableIterator<T>,
       options?: Bluebird.CoroutineOptions
     ): (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5) => Bluebird<T>;
   static coroutine<T, A1, A2, A3, A4, A5, A6>(
-      generatorFunction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6) => IterableIterator<any>,
+      generatorFunction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6) => IterableIterator<T>,
       options?: Bluebird.CoroutineOptions
     ): (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6) => Bluebird<T>;
   static coroutine<T, A1, A2, A3, A4, A5, A6, A7>(
-      generatorFunction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7) => IterableIterator<any>,
+      generatorFunction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7) => IterableIterator<T>,
       options?: Bluebird.CoroutineOptions
     ): (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7) => Bluebird<T>;
   static coroutine<T, A1, A2, A3, A4, A5, A6, A7, A8>(
-      generatorFunction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8) => IterableIterator<any>,
+      generatorFunction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8) => IterableIterator<T>,
       options?: Bluebird.CoroutineOptions
     ): (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8) => Bluebird<T>;
 
@@ -836,7 +838,7 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    */
   static map<R, U>(
       values: Resolvable<Iterable<Resolvable<R>>>,
-      mapper: (item: R, index: number, arrayLength: number) => Resolvable<U>,
+      mapper: IterateFunction<R, U>,
       options?: Bluebird.ConcurrencyOption
     ): Bluebird<U[]>;
 
@@ -871,7 +873,7 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    */
   static filter<R>(
       values: Resolvable<Iterable<Resolvable<R>>>,
-      filterer: (item: R, index: number, arrayLength: number) => Resolvable<boolean>,
+      filterer: IterateFunction<R, boolean>,
       option?: Bluebird.ConcurrencyOption
     ): Bluebird<R[]>;
 
@@ -884,9 +886,9 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    * Resolves to the original array unmodified, this method is meant to be used for side effects.
    * If the iterator function returns a promise or a thenable, the result for the promise is awaited for before continuing with next iteration.
    */
-  static each<R, U>(
+  static each<R>(
       values: Resolvable<Iterable<Resolvable<R>>>,
-      iterator: (item: R, index: number, arrayLength: number) => Resolvable<U>
+      iterator: IterateFunction<R, any>
     ): Bluebird<R[]>;
 
   /**
@@ -901,7 +903,7 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    */
   static mapSeries<R, U>(
       values: Resolvable<Iterable<Resolvable<R>>>,
-      iterator: (item: R, index: number, arrayLength: number) => Resolvable<U>
+      iterator: IterateFunction<R, U>
     ): Bluebird<U[]>;
 
   /**
