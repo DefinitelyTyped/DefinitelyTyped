@@ -55,11 +55,40 @@ declare module 'activedirectory2' {
         bindCredentials?: String;
         scope?: 'base' | 'one' | 'sub';
         filter: String | Filter;
-        attributes: any;
+        attributes: AttributeSpec;
         sizeLimit: 0;
         timeLimit: 10;
         includeMembership: Array<'all'|'user'|'group'>;
     }
+
+    interface AttributeSpec {
+        user: Array<UserAttributes>
+        group: Array<GroupAttributes>
+    }
+
+    type GroupAttributes =
+        | 'distinguishedName'
+        | 'objectCategory'
+        | 'cn'
+        | 'description';
+
+    type UserAttributes =
+        | 'distinguishedName'
+        | 'userPrincipalName'
+        | 'sAMAccountName'
+        | 'mail'
+        | 'lockoutTime'
+        | 'whenCreated'
+        | 'pwdLastSet'
+        | 'userAccountControl'
+        | 'employeeID'
+        | 'sn'
+        | 'givenName'
+        | 'initials'
+        | 'cn'
+        | 'displayName'
+        | 'comment'
+        | 'description';
 
     interface FindResult {
         groups: Array<object>;
@@ -87,6 +116,30 @@ declare module 'activedirectory2' {
         findDeletedObjects(
             opts: String | ReqProps,
             callback: (err: object, results: Array<object>) => void
+        ): void;
+        findUser(
+            opts: String | ReqProps,
+            username: String,
+            callback: (err: object, user: object) => void
+        ): void;
+        findUsers(
+            opts: String | ReqProps,
+            callback: (err: object, users: Array<object>) => void
+        ): void;
+        findGroup(
+            opts: String | ReqProps,
+            groupName: String,
+            callback: (err: object, group: object) => void
+        ): void;
+        findGroups(
+            opts: String | ReqProps,
+            groupName: String,
+            callback: (err: object, groups: Array<object>) => void
+        ): void;
+        getRootDSE(
+            url: String,
+            attributes: Array<String>,
+            callback: (err: object, result: object) => void
         ): void;
     }
 
