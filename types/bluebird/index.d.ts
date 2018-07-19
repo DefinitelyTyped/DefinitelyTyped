@@ -37,8 +37,9 @@
 
 type CatchFilter<E> = (new (...args: any[]) => E) | ((error: E) => boolean) | (object & E);
 type IterableItem<R> = R extends Iterable<infer U> ? U : never;
-type IterableOrNever<R> = R extends Iterable<any> ? R : never;
+type IterableOrNever<R> = Extract<R, Iterable<any>>;
 type Resolvable<R> = R | PromiseLike<R>;
+type ExtractFunction<T> = Extract<T, (...args: any[]) => any>;
 
 declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   /**
@@ -308,7 +309,7 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    * });
    * </code>
    */
-  call(propertyName: keyof R, ...args: any[]): Bluebird<any>;
+  call<P extends keyof R, U extends ExtractFunction<R[P]>>(propertyName: P, ...args: any[]): Bluebird<U extends never ? never : ReturnType<U>>;
 
   /**
    * This is a convenience method for doing:

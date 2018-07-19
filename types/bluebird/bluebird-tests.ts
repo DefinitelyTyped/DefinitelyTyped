@@ -38,6 +38,9 @@ interface Bar {
 interface Baz {
   baz(): string;
 }
+interface Qux {
+	qux: string;
+}
 
 // - - - - - - - - - - - - - - - - -
 
@@ -81,6 +84,7 @@ let fooProm: Promise<Foo>;
 let barProm: Promise<Bar>;
 let fooOrBarProm: Promise<Foo | Bar>;
 let bazProm: Promise<Baz>;
+let quxProm: Promise<Qux>;
 
 // - - - - - - - - - - - - - - - - -
 
@@ -554,10 +558,13 @@ bool = fooProm.isResolved();
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-anyProm = fooProm.call("foo");
-anyProm = fooProm.call("foo", 1, 2, 3);
+strProm = fooProm.call("foo");
+strProm = fooProm.call("foo", 1, 2, 3);
 
-voidProm = fooProm.get("foo").then((method) => { str = method(); });
+// $ExpectType Bluebird<never>
+quxProm.call("qux");
+
+voidProm = fooProm.get("foo").then(method => { str = method(); });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
