@@ -433,7 +433,7 @@ declare namespace Knex {
         text(columnName: string, textType?: string): ColumnBuilder;
         string(columnName: string, length?: number): ColumnBuilder;
         float(columnName: string, precision?: number, scale?: number): ColumnBuilder;
-        decimal(columnName: string, precision?: number, scale?: number): ColumnBuilder;
+        decimal(columnName: string, precision?: number | null, scale?: number): ColumnBuilder;
         boolean(columnName: string): ColumnBuilder;
         date(columnName: string): ColumnBuilder;
         dateTime(columnName: string): ColumnBuilder;
