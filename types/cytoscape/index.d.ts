@@ -2382,12 +2382,12 @@ declare namespace cytoscape {
          * Get the elements in both this collection and another specified collection.
          * http://js.cytoscape.org/#eles.intersection
          */
-        intersection: CollectionSymmetricDifferenceFunc;
-        intersect: CollectionSymmetricDifferenceFunc;
-        and: CollectionSymmetricDifferenceFunc;
-        n: CollectionSymmetricDifferenceFunc;
-        '&': CollectionSymmetricDifferenceFunc;
-        '.': CollectionSymmetricDifferenceFunc;
+        intersection: CollectionBuildingIntersectionFunc;
+        intersect: CollectionBuildingIntersectionFunc;
+        and: CollectionBuildingIntersectionFunc;
+        n: CollectionBuildingIntersectionFunc;
+        '&': CollectionBuildingIntersectionFunc;
+        '.': CollectionBuildingIntersectionFunc;
 
         /**
          * Get the elements that are in the calling collection
