@@ -190,6 +190,7 @@ declare module "../index" {
     type ObjectIteratee<TObject> = ObjectIterator<TObject, NotVoid> | string | [string, any] | PartialDeep<TObject[keyof TObject]>;
     type ObjectIterateeCustom<TObject, TResult> = ObjectIterator<TObject, TResult> | string | [string, any] | PartialDeep<TObject[keyof TObject]>;
     type ObjectIteratorTypeGuard<TObject, S extends TObject[keyof TObject]> = (value: TObject[keyof TObject], key: string, collection: TObject) => value is S;
+    type ObjectIteratorTypeGuardWithoutCollection<T, S extends T> = (value: T, key: string) => value is S;
 
     type StringIterator<TResult> = (char: string, index: number, string: string) => TResult;
 

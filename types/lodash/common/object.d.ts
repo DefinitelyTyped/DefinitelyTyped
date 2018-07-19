@@ -3113,7 +3113,7 @@ declare module "../index" {
          */
         pickBy<T, S extends T>(
             object: Dictionary<T> | null | undefined,
-            predicate: ObjectIteratorTypeGuard<Dictionary<T>, S>
+            predicate: ObjectIteratorTypeGuardWithoutCollection<T, S>
         ): Dictionary<S>;
 
         /**
@@ -3121,7 +3121,7 @@ declare module "../index" {
          */
         pickBy<T, S extends T>(
             object: NumericDictionary<T> | null | undefined,
-            predicate: ObjectIteratorTypeGuard<NumericDictionary<T>, S>
+            predicate: ObjectIteratorTypeGuardWithoutCollection<T, S>
         ): NumericDictionary<S>;
 
         /**
@@ -3155,7 +3155,7 @@ declare module "../index" {
          */
         pickBy<T, S extends T>(
             this: LoDashImplicitWrapper<Dictionary<T> | null | undefined>,
-            predicate: ObjectIteratorTypeGuard<Dictionary<T>, S>
+            predicate: ObjectIteratorTypeGuardWithoutCollection<T, S>
         ): LoDashImplicitWrapper<Dictionary<S>>;
 
         /**
@@ -3163,7 +3163,7 @@ declare module "../index" {
          */
         pickBy<T, S extends T>(
             this: LoDashImplicitWrapper<NumericDictionary<T> | null | undefined>,
-            predicate: ObjectIteratorTypeGuard<NumericDictionary<T>, S>
+            predicate: ObjectIteratorTypeGuardWithoutCollection<T, S>
         ): LoDashImplicitWrapper<NumericDictionary<S>>;
 
         /**
@@ -3197,7 +3197,7 @@ declare module "../index" {
          */
         pickBy<T, S extends T>(
             this: LoDashExplicitWrapper<Dictionary<T> | null | undefined>,
-            predicate: ObjectIteratorTypeGuard<Dictionary<T>, S>
+            predicate: ObjectIteratorTypeGuardWithoutCollection<T, S>
         ): LoDashExplicitWrapper<Dictionary<S>>;
 
         /**
@@ -3205,7 +3205,7 @@ declare module "../index" {
          */
         pickBy<T, S extends T>(
             this: LoDashExplicitWrapper<NumericDictionary<T> | null | undefined>,
-            predicate: ObjectIteratorTypeGuard<NumericDictionary<T>, S>
+            predicate: ObjectIteratorTypeGuardWithoutCollection<T, S>
         ): LoDashExplicitWrapper<NumericDictionary<S>>;
 
         /**
