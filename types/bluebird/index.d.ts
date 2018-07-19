@@ -43,8 +43,11 @@ type ExtractFunction<T> = Extract<T, (...args: any[]) => any>;
 
 declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   /**
-   * Create a new promise. The passed in function will receive functions `resolve` and `reject` as its arguments which can be called to seal the fate of the created promise.
-   * If promise cancellation is enabled, passed in function will receive one more function argument `onCancel` that allows to register an optional cancellation callback.
+   * Create a new promise. The passed in function will receive functions
+   * `resolve` and `reject` as its arguments which can be called to seal the fate of the created promise.
+   *
+   * If promise cancellation is enabled, passed in function will receive
+   * one more function argument `onCancel` that allows to register an optional cancellation callback.
    */
   constructor(callback: (resolve: (thenableOrResult?: Resolvable<R>) => void, reject: (error?: any) => void, onCancel?: (callback: () => void) => void) => void);
 
@@ -159,7 +162,8 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   caught: Bluebird<R>["catch"];
 
   /**
-   * Like `.catch` but instead of catching all types of exceptions, it only catches those that don't originate from thrown errors but rather from explicit rejections.
+   * Like `.catch` but instead of catching all types of exceptions,
+   * it only catches those that don't originate from thrown errors but rather from explicit rejections.
    */
   error<U>(onReject: (reason: any) => Resolvable<U>): Bluebird<U>;
 
@@ -175,7 +179,8 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   lastly<U>(handler: () => Resolvable<U>): Bluebird<R>;
 
   /**
-   * Create a promise that follows this promise, but is bound to the given `thisArg` value. A bound promise will call its handlers with the bound value set to `this`.
+   * Create a promise that follows this promise, but is bound to the given `thisArg` value.
+   * A bound promise will call its handlers with the bound value set to `this`.
    *
    * Additionally promises derived from a bound promise will also be bound promises with the same `thisArg` binding as the original promise.
    */
@@ -245,7 +250,9 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    * Register a node-style callback on this promise.
    *
    * When this promise is is either fulfilled or rejected,
-   * the node callback will be called back with the node.js convention where error reason is the first argument and success value is the second argument.
+   * the node callback will be called back with the node.js convention
+   * where error reason is the first argument and success value is the second argument.
+   *
    * The error argument will be `null` in case of success.
    * If the `callback` argument is not a function, this method does not do anything.
    */
@@ -753,7 +760,8 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   static any<R>(values: Resolvable<Iterable<Resolvable<R>>>): Bluebird<R>;
 
   /**
-   * Given an array, or a promise of an array, which contains promises (or a mix of promises and values) return a promise that is fulfilled or rejected as soon as a promise in the array is fulfilled or rejected with the respective rejection reason or fulfillment value.
+   * Given an array, or a promise of an array, which contains promises (or a mix of promises and values) return a promise that is
+   * fulfilled or rejected as soon as a promise in the array is fulfilled or rejected with the respective rejection reason or fulfillment value.
    *
    * **Note** If you pass empty array or a sparse array with no values, or a promise/thenable for such, it will be forever pending.
    */
@@ -761,9 +769,11 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
 
   /**
    * Initiate a competitive race between multiple promises or values (values will become immediately fulfilled promises).
-   * When `count` amount of promises have been fulfilled, the returned promise is fulfilled with an array that contains the fulfillment values of the winners in order of resolution.
+   * When `count` amount of promises have been fulfilled, the returned promise is fulfilled with an array that contains the fulfillment values of
+   * the winners in order of resolution.
    *
-   * If too many promises are rejected so that the promise can never become fulfilled, it will be immediately rejected with an array of rejection reasons in the order they were thrown in.
+   * If too many promises are rejected so that the promise can never become fulfilled,
+   * it will be immediately rejected with an array of rejection reasons in the order they were thrown in.
    *
    * *The original array is not modified.*
    */
@@ -815,7 +825,9 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   static join<R>(...values: Array<Resolvable<R>>): Bluebird<R[]>;
 
   /**
-   * Map an array, or a promise of an array, which contains a promises (or a mix of promises and values) with the given `mapper` function with the signature `(item, index, arrayLength)` where `item` is the resolved value of a respective promise in the input array.
+   * Map an array, or a promise of an array,
+   * which contains a promises (or a mix of promises and values) with the given `mapper` function with the signature `(item, index, arrayLength)`
+   * where `item` is the resolved value of a respective promise in the input array.
    * If any promise in the input array is rejected the returned promise is rejected as well.
    *
    * If the `mapper` function returns promises or thenables, the returned promise will wait for all the mapped results to be resolved as well.
@@ -829,12 +841,16 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
     ): Bluebird<U[]>;
 
   /**
-   * Reduce an array, or a promise of an array, which contains a promises (or a mix of promises and values) with the given `reducer` function with the signature `(total, current, index, arrayLength)` where `item` is the resolved value of a respective promise in the input array.
+   * Reduce an array, or a promise of an array,
+   * which contains a promises (or a mix of promises and values) with the given `reducer` function with the signature `(total, current, index, arrayLength)`
+   * where `item` is the resolved value of a respective promise in the input array.
    * If any promise in the input array is rejected the returned promise is rejected as well.
    *
    * If the reducer function returns a promise or a thenable, the result for the promise is awaited for before continuing with next iteration.
    *
-   * *The original array is not modified. If no `initialValue` is given and the array doesn't contain at least 2 items, the callback will not be called and `undefined` is returned.
+   * *The original array is not modified. If no `initialValue` is given and the array doesn't contain at least 2 items,
+   * the callback will not be called and `undefined` is returned.
+   *
    * If `initialValue` is given and the array doesn't have at least 1 item, `initialValue` is returned.*
    */
   static reduce<R, U>(
@@ -844,7 +860,9 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
     ): Bluebird<U>;
 
   /**
-   * Filter an array, or a promise of an array, which contains a promises (or a mix of promises and values) with the given `filterer` function with the signature `(item, index, arrayLength)` where `item` is the resolved value of a respective promise in the input array.
+   * Filter an array, or a promise of an array,
+   * which contains a promises (or a mix of promises and values) with the given `filterer` function with the signature `(item, index, arrayLength)`
+   * where `item` is the resolved value of a respective promise in the input array.
    * If any promise in the input array is rejected the returned promise is rejected as well.
    *
    * The return values from the filtered functions are coerced to booleans, with the exception of promises and thenables which are awaited for their eventual result.
@@ -858,7 +876,9 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
     ): Bluebird<R[]>;
 
   /**
-   * Iterate over an array, or a promise of an array, which contains promises (or a mix of promises and values) with the given iterator function with the signature (item, index, value) where item is the resolved value of a respective promise in the input array.
+   * Iterate over an array, or a promise of an array,
+   * which contains promises (or a mix of promises and values) with the given iterator function with the signature `(item, index, value)`
+   * where item is the resolved value of a respective promise in the input array.
    * Iteration happens serially. If any promise in the input array is rejected the returned promise is rejected as well.
    *
    * Resolves to the original array unmodified, this method is meant to be used for side effects.
@@ -870,7 +890,8 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
     ): Bluebird<R[]>;
 
   /**
-   * Given an Iterable(arrays are Iterable), or a promise of an Iterable, which produces promises (or a mix of promises and values), iterate over all the values in the Iterable into an array and iterate over the array serially, in-order.
+   * Given an Iterable(arrays are Iterable), or a promise of an Iterable, which produces promises (or a mix of promises and values),
+   * iterate over all the values in the Iterable into an array and iterate over the array serially, in-order.
    *
    * Returns a promise for an array that contains the values returned by the iterator function in their respective positions.
    * The iterator won't be called for an item until its previous item, and the promise returned by the iterator for that item are fulfilled.
@@ -1104,7 +1125,8 @@ declare namespace Bluebird {
   /**
    * This is relevant to browser environments with no module loader.
    *
-   * Release control of the Promise namespace to whatever it was before this library was loaded. Returns a reference to the library namespace so you can attach it to something else.
+   * Release control of the Promise namespace to whatever it was before this library was loaded.
+   * Returns a reference to the library namespace so you can attach it to something else.
    */
   function noConflict(): typeof Bluebird;
 
