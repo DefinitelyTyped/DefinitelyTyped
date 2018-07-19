@@ -1,6 +1,7 @@
 {
     "files": [
-        "index.d.ts"
+        "index.d.ts",
+        "activedirectory2-tests.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",
@@ -10,7 +11,6 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strict": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
