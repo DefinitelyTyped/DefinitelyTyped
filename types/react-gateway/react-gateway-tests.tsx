@@ -27,6 +27,7 @@ class ReactGatewayProvider extends React.Component {
             <GatewayProvider>
                 <GatewayDest name="test" component={GatewayComponent} />
                 <GatewayDest name="test2" component="span" />
+                <GatewayDest name="test3" />
                 <div>
                     All the way down...
                     <div>
@@ -36,6 +37,7 @@ class ReactGatewayProvider extends React.Component {
                             <div>
                                 <ReactGateway into="test" />
                                 <ReactGateway into="test2" />
+                                <ReactGateway into="test3" />
                             </div>
                         </div>
                     </div>
