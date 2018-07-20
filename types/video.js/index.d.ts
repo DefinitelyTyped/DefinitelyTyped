@@ -39,7 +39,7 @@ declare namespace videojs {
 		muted?: boolean;
 		nativeControlsForTouch?: boolean;
 		notSupportedMessage?: string;
-		playbackRates?: Array<number>;
+		playbackRates?: number[];
 		plugins?: any;
 		poster?: string;
 		preload?: string;
