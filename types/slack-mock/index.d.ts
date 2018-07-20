@@ -4,10 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-import * as WebSocket from "ws";
 import { IncomingHttpHeaders } from "http";
 import * as nock from "nock";
 import { Url } from "url";
+import * as WebSocket from "ws";
 
 export = SlackMock;
 
