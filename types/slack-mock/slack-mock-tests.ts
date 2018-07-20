@@ -1,4 +1,4 @@
-import SlackMock = require("slack-mock")
+import SlackMock = require("slack-mock");
 
 // Initialization
 
@@ -31,7 +31,7 @@ slackMock.interactiveButtons.addResponse({
     statusCode: 201
 })
 
-const interactiveButtonPayload = { };
+const interactiveButtonPayload = {text: 'abc'};
 slackMock.interactiveButtons.send('http://localhost:9000/button', interactiveButtonPayload)
     .then(() => {
         slackMock.interactiveButtons.calls.length
@@ -39,7 +39,7 @@ slackMock.interactiveButtons.send('http://localhost:9000/button', interactiveBut
     })
 
 // Outgoing Webhooks
-const outgoingWebhookPayload = { };
+const outgoingWebhookPayload = {text: 'abc'};
 slackMock.outgoingWebhooks.send('http://localhost:9000/outgoing', outgoingWebhookPayload)
     .then(() => {
         slackMock.outgoingWebhooks.calls.length
@@ -102,6 +102,4 @@ slackMock.web.addResponse({
     }
   }
 })
-
-// 
 

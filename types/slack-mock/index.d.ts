@@ -1,5 +1,7 @@
 import * as WebSocket from "ws";
 import { IncomingHttpHeaders } from "http";
+import * as nock from "nock";
+import { Url } from "url";
 
 export = SlackMock;
 
@@ -11,12 +13,12 @@ declare namespace SlackMock {
 
     interface Instance { 
         events: Events<any>;
-        incomingWebhooks: IncomingWebhooks;
-        interactiveButtons: InteractiveButtons;
-        outgoingWebhooks: OutgoingWebhooks;
-        rtm: Rtm;
-        slashCommands: SlashCommands;
-        web: Web;
+        incomingWebhooks: IncomingWebhooks<any>;
+        interactiveButtons: InteractiveButtons<any>;
+        outgoingWebhooks: OutgoingWebhooks<any>;
+        rtm: Rtm<any>;
+        slashCommands: SlashCommands<any>;
+        web: Web<any>;
 
         reset: () => void;
     }
@@ -28,20 +30,26 @@ declare namespace SlackMock {
 
     // Events
     
+    type EventUrl = string | Url;
+    type EventHttpHeaders = IncomingHttpHeaders;
+
     interface Events<T> {
-        send: (targetUrl: string, body: T) => Promise<void>;
+        send: (targetUrl: EventUrl, body: T) => Promise<void>;
         reset: () => void;
         calls: EventCall<T>[];
     }
 
     interface EventCall<T> {
-        url: string;
+        url: EventUrl;
         params: T;
-        headers: object;
+        headers: EventHttpHeaders;
         statusCode: number;
     }
 
     // Incoming Webhooks 
+
+    type IncomingWebhookUrl = string;
+    type IncomingWebhookHttpHeaders = nock.HttpHeaders;
 
     interface IncomingWebhooks<T> { 
         addResponse: (opts: IncomingWebhookOptions<T>) => void;
@@ -50,54 +58,65 @@ declare namespace SlackMock {
     }
 
     interface IncomingWebhookOptions<T> {
-        url?: string;
+        url?: IncomingWebhookUrl;
         statusCode ?: number;
         body ?: T;
-        headers ?: object;
+        headers ?: IncomingWebhookHttpHeaders;
     }
 
     interface IncomingWebhookCall<T> {
-        url: string;
+        url: IncomingWebhookUrl;
         params: T;
-        headers: object;
+        headers: IncomingWebhookHttpHeaders;
     }
 
     // Interactive Buttons
 
+    type InteractiveButtonUrl = string | Url;
+    type InteractiveButtonHttpHeaders = nock.HttpHeaders;
+
     interface InteractiveButtons<T> { 
-        send: (targetUrl: string, body: T) => Promise<void>;
+        send: (targetUrl: InteractiveButtonUrl, body: T) => Promise<void>;
         addResponse: (opts: InteractiveButtonOptions<T>) => void;
         reset: () => void;
         calls: InteractiveButtonCall<T>[];
     }
 
     interface InteractiveButtonOptions<T> {
-        url?: string;
+        url?: InteractiveButtonUrl;
         statusCode ?: number;
         body ?: T;
-        headers ?: object;
+        headers ?: InteractiveButtonHttpHeaders;
     }
 
     interface InteractiveButtonCall<T> {
-        url: string;
+        url: InteractiveButtonUrl;
         params: T;
-        headers: object;
+        headers: InteractiveButtonHttpHeaders;
         statusCode: number;
-        type: string;
+        type: InteractiveButtonCallType;
+    }
+
+    enum InteractiveButtonCallType {
+        response = 'response',
+        response_url = 'response_url'
     }
 
     // Outgoing Webhooks
 
+    type OutgoingWebhookUrl = string | Url;
+    type OutgoingWebhookHttpHeaders = IncomingHttpHeaders;
+
     interface OutgoingWebhooks<T> { 
-        send: (targetUrl: string, body: T) => Promise<void>;
+        send: (targetUrl: OutgoingWebhookUrl, body: T) => Promise<void>;
         reset: () => void;
         calls: OutgoingWebhookCall<T>[];
     }
 
     interface OutgoingWebhookCall<T> {
-        url: string;
+        url: OutgoingWebhookUrl;
         params: T;
-        headers: object;
+        headers: OutgoingWebhookHttpHeaders;
         statusCode: number;
     }
 
@@ -120,46 +139,57 @@ declare namespace SlackMock {
 
     // Slash Commands
 
+    type SlashCommandUrl = string | Url;
+    type SlashCommandHttpHeaders = IncomingHttpHeaders;
+
     interface SlashCommands<T> { 
-        send: (targetUrl: string, body: T) => Promise<void>;
+        send: (targetUrl: SlashCommandUrl, body: T) => Promise<void>;
         addResponse: (opts: SlashCommandOptions<T>) => void;
         reset: () => void;
         calls: SlashCommandCall<T>[];
     }
 
     interface SlashCommandOptions<T> {
-        url?: string;
+        url?: SlashCommandUrl;
         statusCode ?: number;
         body ?: T;
-        headers ?: IncomingHttpHeaders;
+        headers ?: SlashCommandHttpHeaders;
     }
 
     interface SlashCommandCall<T> {
-        url: string;
+        url: SlashCommandUrl;
         params: T;
-        headers: IncomingHttpHeaders;
+        headers: SlashCommandHttpHeaders;
         statusCode: number;
-        type: string;
+        type: SlashCommandCallType;
+    }
+
+    enum SlashCommandCallType {
+        response = 'response',
+        response_url = 'response_url'
     }
 
     // Web
 
-    interface Web {
-        addResponse: (opts: WebOptions) => void;
+    type WebUrl = string;
+    type WebHttpHeaders = nock.HttpHeaders;
+
+    interface Web<T> {
+        addResponse: (opts: WebOptions<T>) => void;
         reset: () => void;
-        calls: WebCall<any>[];
+        calls: WebCall<T>[];
     }
 
-    interface WebOptions {
-        url?: string;
+    interface WebOptions<T> {
+        url?: WebUrl;
         statusCode ?: number;
-        body ?: object;
-        headers ?: object;
+        body ?: T;
+        headers ?: WebHttpHeaders;
     }
 
     interface WebCall<T> {
-        url: string;
+        url: WebUrl;
         params: T;
-        headers: object;
+        headers: WebHttpHeaders;
     }
 }
