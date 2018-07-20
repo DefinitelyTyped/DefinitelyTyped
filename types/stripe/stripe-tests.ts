@@ -1220,6 +1220,13 @@ stripe.plans.del("gold-plan").then(function (confirmation) {
     // asynchronously called
 });
 
+stripe.plans.list({ active: true, product: 'prod_someproduct' }, function(err, plans) {
+    // asynchronously called
+});
+stripe.plans.list({ active: true, product: 'prod_someproduct' }).then(function (plans) {
+    // asynchronously called
+});
+
 stripe.plans.list(null, function (err, plans) {
     // asynchronously called
 });

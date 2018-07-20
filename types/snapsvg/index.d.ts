@@ -31,7 +31,7 @@ declare namespace Snap {
     export function plugin(f:Function):void;
     export function select(query:string):Snap.Element;
     export function selectAll(query:string):any;
-    export function snapTo(values:Array<number>,value:number,tolerance?:number):number;
+    export function snapTo(values:Array<number>|number,value:number,tolerance?:number):number;
 
     export function animate(from:number|number[],to:number|number[],updater:(n:number)=>void,duration:number,easing?:(num:number)=>number,callback?:()=>void):mina.MinaAnimation;
     export function animation(attr:Object,duration:number,easing?:(num:number)=>number,callback?:()=>void):Snap.Animation;

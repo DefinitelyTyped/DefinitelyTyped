@@ -91,6 +91,16 @@ interface TracerOptions {
      * @default true
      */
     plugins?: boolean;
+
+    /**
+     * Custom logger to be used by the tracer (if debug = true),
+     * should support debug() and error() methods
+     * see https://datadog.github.io/dd-trace-js/#custom-logging__anchor
+     */
+    logger?: {
+        debug: (message: string) => void
+        error: (err: Error) => void
+    };
 }
 
 interface ExperimentalOptions {
@@ -135,5 +145,5 @@ interface TraceOptions {
     /**
      * Global tags that should be assigned to every span.
      */
-    tags?: { [key: string]: any; } | string;
+    tags?: { [key: string]: any } | string;
 }

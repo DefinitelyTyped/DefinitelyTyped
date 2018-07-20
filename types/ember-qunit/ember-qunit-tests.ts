@@ -2,6 +2,7 @@ import Ember from 'ember';
 import hbs from 'htmlbars-inline-precompile';
 import { module } from 'qunit';
 import {
+    start,
     test,
     skip,
     moduleFor,
@@ -137,3 +138,5 @@ module('x-foo', function(hooks) {
 module('foo service', function(hooks) {
     setupTest(hooks);
 });
+
+start();

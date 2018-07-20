@@ -1230,6 +1230,8 @@ export namespace plugins {
         reviver?: any;
 
         maxFieldsSize?: number;
+
+        maxFileSize: number;
     }
 
     /**
@@ -1284,6 +1286,7 @@ export namespace plugins {
         multipartHandler?: any;
         mapParams?: boolean;
         mapFiles?: boolean;
+        maxFileSize?: number;
     }
 
     /**

@@ -77,7 +77,7 @@ interface DateTimePickerProps extends ReactWidgetsCommonDropdownProps<DateTimePi
      * parsing yourself. When parse is unspecified and the format prop is a String parse will
      * automatically use that format as its default
      */
-    parse?: (str: string) => Date | string[];
+    parse?: ((str: string) => Date) | string[] | string;
     /**
      * The starting and lowest level view the calendar can navigate down to.
      * @enum "month" "year" "decade" "century"

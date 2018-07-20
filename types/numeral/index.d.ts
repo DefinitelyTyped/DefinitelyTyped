@@ -22,6 +22,14 @@ interface NumeralJSLocale {
 	};
 }
 
+interface NumeralJSOptions {
+	currentLocale: string;
+	zeroFormat: string;
+	nullFormat: string;
+	defaultFormat: string;
+	scalePercentBy100: boolean;
+}
+
 type RoundingFunction = (value: number) => number;
 
 // http://numeraljs.com/#custom-formats
@@ -41,7 +49,8 @@ interface Numeral {
 	(value?: any): Numeral;
 	version: string;
 	isNumeral: boolean;
-
+	options: NumeralJSOptions;
+	
 	/**
 	 * This function sets the current locale.  If no arguments are passed in,
 	 * it will simply return the current global locale key.

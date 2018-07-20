@@ -8,6 +8,8 @@ import * as React from "react";
 
 export interface IconBaseProps extends React.SVGProps<React.ReactSVGElement> {
     size?: string | number;
+    style?: any;
+    color?: string;
 }
 
 export default class IconBaseClass extends React.Component<IconBaseProps> {}

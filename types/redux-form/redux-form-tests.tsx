@@ -4,6 +4,7 @@ import {
     reduxForm,
     InjectedFormProps,
     Form,
+    FormName,
     GenericForm,
     FormSection,
     GenericFormSection,
@@ -400,6 +401,17 @@ class HandleSubmitTest extends React.Component {
         return <HandleSubmitTestForm onSubmit={this.handleSubmit} />;
     }
 }
+
+class FormNameTest extends React.Component {
+    render() {
+        return (
+            <FormName>
+                {({ form }) => <span>Form Name is: {form}</span>}
+            </FormName>
+        );
+    }
+}
+
 
 // Test SubmissionError with custom error format
 // See https://github.com/DefinitelyTyped/DefinitelyTyped/pull/26494

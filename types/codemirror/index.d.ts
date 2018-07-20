@@ -3,6 +3,7 @@
 // Definitions by: mihailik <https://github.com/mihailik>
 //                 nrbernard <https://github.com/nrbernard>
 //                 Pr1st0n <https://github.com/Pr1st0n>
+//                 rileymiller <https://github.com/rileymiller>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = CodeMirror;
@@ -16,6 +17,7 @@ declare namespace CodeMirror {
     export var Pos: CodeMirror.PositionConstructor;
     export var Pass: any;
 
+    function countColumn(line: string, index: number | null, tabSize: number): number;
     function fromTextArea(host: HTMLTextAreaElement, options?: EditorConfiguration): CodeMirror.EditorFromTextArea;
 
     /** It contains a string that indicates the version of the library. This is a triple of integers "major.minor.patch", 

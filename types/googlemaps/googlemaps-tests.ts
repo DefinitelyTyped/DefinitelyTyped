@@ -412,3 +412,28 @@ heatmap.setData([
     { weight: 1, location: new google.maps.LatLng(37.782551, -122.445368) },
     { weight: 2, location: new google.maps.LatLng(37.782745, -122.444586) }
 ]);
+
+/***** google.maps.places.PlacesService *****/
+let service = new google.maps.places.PlacesService(new HTMLDivElement());
+
+service.getDetails({
+    placeId: '-a1',
+    fields: ['name']
+}, (result, status) => {
+    if (status === google.maps.places.PlacesServiceStatus.NOT_FOUND) {
+        return;
+    }
+
+    result.name; // $ExpectType string
+})
+
+service.findPlaceFromQuery({
+    query: 'Big Ben London',
+    fields: ['name']
+}, (results, status) => {
+    if (status === google.maps.places.PlacesServiceStatus.ERROR) {
+        return;
+    }
+
+    results[0].name; // $ExpectType string
+});

@@ -88,6 +88,8 @@ module.exports = function(config: karma.Config) {
       'coverage'
     ],
 
+    middleware: ['foo', 'bar'],
+
     mime: {
       'text/x-typescript': ['ts', 'tsx']
     },
