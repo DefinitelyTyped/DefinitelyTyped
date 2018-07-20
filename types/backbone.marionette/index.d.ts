@@ -3,7 +3,8 @@
 // Definitions by: Zeeshan Hamid <https://github.com/zhamid>,
 //                 Natan Vivo <https://github.com/nvivo>,
 //                 Sven Tschui <https://github.com/sventschui>,
-//                 Volker Nauruhn <https://github.com/razorness>
+//                 Volker Nauruhn <https://github.com/razorness>,
+//                 Ard Timmerman <https://github.com/confususs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -1157,7 +1158,7 @@ export interface CollectionViewOptions<
     /**
      * Specify a child view to use.
      */
-    childView?: (() => typeof Backbone.View) | typeof Backbone.View;
+    childView?: ((model: TModel) => typeof Backbone.View) | typeof Backbone.View;
 
     /**
      * Define options to pass to the childView constructor.
@@ -1219,7 +1220,7 @@ export class CollectionView<TModel extends Backbone.Model, TView extends View<TM
     /**
      * Specify a child view to use.
      */
-    childView: (() => { new(...args: any[]): TView }) | { new(...args: any[]): TView };
+    childView: ((model: TModel) => { new(...args: any[]): TView }) | { new(...args: any[]): TView };
 
     /**
      * Define options to pass to the childView constructor.
