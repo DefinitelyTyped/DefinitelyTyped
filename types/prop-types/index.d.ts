@@ -16,7 +16,7 @@ export type OptionalKeys<V> = Exclude<keyof V, RequiredKeys<V>>;
 export type InferPropsInner<V> = { [K in keyof V]: InferType<V[K]>; };
 
 export interface Validator<T> {
-    (props: object, propName: string, componentName: string, location: string, propFullName: string, _NOMINAL_TYPE_HACK_DO_NOT_USE?: T): Error | null;
+    (props: object, propName: string, componentName: string, location: string, propFullName: string): Error | null;
     [nominalTypeHack]?: T;
 }
 
@@ -25,8 +25,6 @@ export interface Requireable<T> extends Validator<T | undefined | null> {
 }
 
 export type ValidationMap<T> = { [K in keyof T]-?: Validator<T[K]> };
-// Workaround for type inference, ValidationMap<{}> does not work correctly because of conditional types
-export type AnyValidationMap = { [K in keyof any]: Validator<any> | Requireable<any> };
 
 export type InferType<V> = V extends Validator<infer T> ? T : any;
 export type InferProps<V> =
@@ -48,7 +46,7 @@ export function oneOf<T>(types: T[]): Requireable<T>;
 export function oneOfType<T extends Validator<any>>(types: T[]): Requireable<NonNullable<InferType<T>>>;
 export function arrayOf<T>(type: Validator<T>): Requireable<T[]>;
 export function objectOf<T>(type: Validator<T>): Requireable<{ [K in keyof any]: T; }>;
-export function shape<P extends AnyValidationMap>(type: P): Requireable<InferProps<P>>;
+export function shape<P extends ValidationMap<any>>(type: P): Requireable<InferProps<P>>;
 
 /**
  * Assert that the values match with the type specs.
