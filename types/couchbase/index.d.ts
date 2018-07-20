@@ -145,9 +145,74 @@ declare enum errors {
 }
 
 /**
+ * Virtual base for authenticators.
+ */
+declare interface Authenticator {
+    username: string;
+    password: string;
+}
+
+/**
+ * Authenticator for using classic authentication.
+ */
+declare class ClassicAuthenticator implements Authenticator {
+    /**
+     * Create a new instance of the ClassicAuthenticator class.
+     * @param buckets Map of bucket names to passwords.
+     * @param username Cluster administration username.
+     * @param password Cluster administration password.
+     */
+    constructor(buckets: {[key: string]: string}, username: string, password: string);
+
+    username: string;
+    password: string;
+}
+
+/**
+ * Authenticator for using role-based authentication.
+ */
+declare class PasswordAuthenticator implements Authenticator {
+    /**
+     * Create a new instance of the PasswordAuthenticator class.
+     * @param username RBAC username.
+     * @param password RBAC password.
+     */
+    constructor(username: string, password: string);
+
+    username: string;
+    password: string;
+}
+
+/**
+ * Authenticator for performing certificate-based authentication.
+ */
+declare class CertAuthenticator implements Authenticator {
+    /**
+     * Create a new instance of the CertAuthenticator class.
+     */
+    constructor();
+
+    username: string;
+    password: string;
+}
+
+/**
  * Represents a singular cluster containing your buckets.
  */
 declare class Cluster {
+    /**
+     * Authenticate to the cluster using role-based authentication.
+     * @param username RBAC username.
+     * @param password RBAC password.
+     */
+    authenticate(username: string, password: string): void;
+
+    /**
+     * Authenticate to the cluster using a specific authentication type.
+     * @param auther
+     */
+    authenticate(auther: Authenticator): void;
+
     /**
      * Create a new instance of the Cluster class.
      * @param cnstr The connection string for your cluster.

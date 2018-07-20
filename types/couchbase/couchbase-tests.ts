@@ -1,5 +1,10 @@
 import couchbase = require('couchbase');
 var cluster = new couchbase.Cluster('couchbase://127.0.0.1');
+
+cluster.authenticate('username', 'password');
+cluster.authenticate({username: 'username', password: 'password'});
+cluster.authenticate(new couchbase.ClassicAuthenticator({'bucket': 'password'}, 'username', 'password'));
+
 var bucket = cluster.openBucket('default');
 var N1qlQuery = couchbase.N1qlQuery;
 
