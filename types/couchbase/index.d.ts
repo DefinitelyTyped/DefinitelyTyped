@@ -1851,21 +1851,21 @@ interface Bucket extends events.EventEmitter {
      * @param query The query to execute.
      * @param callback The callback function.
      */
-    query(query: ViewQuery | SpatialQuery, callback: Bucket.QueryCallback): Bucket.ViewQueryResponse;
+    query(query: ViewQuery | SpatialQuery, callback?: Bucket.QueryCallback): Bucket.ViewQueryResponse;
 
     /**
      * Executes a previously prepared query object.
      * @param query The query to execute.
      * @param callback The callback function.
      */
-    query(query: N1qlQuery, callback: Bucket.N1qlQueryCallback): Bucket.N1qlQueryResponse;
+    query(query: N1qlQuery, callback?: Bucket.N1qlQueryCallback): Bucket.N1qlQueryResponse;
 
     /**
      * Executes a previously prepared query object.
      * @param query The query to execute.
      * @param callback The callback function.
      */
-    query(query: SearchQuery, callback: Bucket.FtsQueryCallback): Bucket.FtsQueryResponse;
+    query(query: SearchQuery, callback?: Bucket.FtsQueryCallback): Bucket.FtsQueryResponse;
 
     /**
      * Executes a previously prepared query object.
@@ -1873,7 +1873,7 @@ interface Bucket extends events.EventEmitter {
      * @param params A list or map to do replacements on a N1QL query.
      * @param callback The callback function.
      */
-    query(query: N1qlQuery, params: {[param: string]: any} | any[], callback: Bucket.N1qlQueryCallback): Bucket.N1qlQueryResponse;
+    query(query: N1qlQuery, params: {[param: string]: any} | any[], callback?: Bucket.N1qlQueryCallback): Bucket.N1qlQueryResponse;
 
     /**
      * Deletes a document on the server.

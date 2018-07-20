@@ -31,6 +31,73 @@ bucket.manager().createPrimaryIndex(function() {
     });
 });
 
+// From https://developer.couchbase.com/documentation/server/current/sdk/nodejs/n1ql-queries-with-sdk.html
+function n1ql_a() {
+    const n1qlquery = N1qlQuery.fromString('SELECT name, email FROM users WHERE name=$1');
+    bucket.query(n1qlquery, ['Monty Python'], function(err, rows) {
+    // ...
+    });
+}
+
+function n1ql_b() {
+    const q = N1qlQuery.fromString('SELECT * FROM `travel-sample` LIMIT 10');
+    const req = bucket.query(q);
+    req.on('row', function(row) {
+    console.log('Got a row');
+    });
+    req.on('error', function(err) {
+    console.error('Got error %j', err);
+    });
+    req.on('end', function(meta) {
+    console.log('All rows received. Metadata is %j:', meta);
+    });
+}
+
+function n1ql_c() {
+    // Insert a document with a random x value
+    bucket.upsert('test-doc', {x: Math.round(Math.random()*10000000)}, function(err, res) {
+        if (err) {
+        throw err;
+        }
+
+        var qs = 'SELECT t.*, TOSTRING(META().cas) AS `_cas` FROM `travel-sample` t WHERE META().id="test-doc"';
+        var q = couchbase.N1qlQuery.fromString(qs);
+        q.consistency(couchbase.N1qlQuery.Consistency.REQUEST_PLUS);
+        bucket.query(q, function(err, rows) {
+            if (err) {
+                throw err;
+            }
+
+            if (rows.length !== 1) {
+                throw new Error('unexpected number of rows');
+            }
+
+            console.log('Query Result:', rows[0]);
+
+            var cas = rows[0]._cas;
+            var doc = rows[0];
+            delete(doc._cas);
+            doc.y = doc.x;
+
+            bucket.replace('test-doc', doc, {cas: cas}, function(err) {
+                if (err) {
+                    throw err;
+                }
+
+                bucket.get('test-doc', function(err, res) {
+                if (err) {
+                    throw err;
+                }
+
+                console.log('Updated:', res.value);
+
+                process.exit(0);
+                });
+            });
+        });
+    });
+}
+
 // From https://developer.couchbase.com/documentation/server/current/sdk/nodejs/full-text-searching-with-sdk.html
 const SearchQuery = couchbase.SearchQuery;
 const SearchFacet = couchbase.SearchFacet;
@@ -49,6 +116,27 @@ function search_b() {
     searchQuery.addFacet('countries', SearchFacet.term('country', 5));
     bucket.query(searchQuery, function(err, res, meta) {
         console.log('Total Countries:', meta.facets['countries'].total);
+    });
+}
+
+// From https://developer.couchbase.com/documentation/server/5.1/sdk/nodejs/view-queries-with-sdk.html
+const ViewQuery = couchbase.ViewQuery;
+
+function view_a() {
+    var query = ViewQuery.from('beer', 'by_name').skip(6).limit(3);
+    bucket.query(query, function(err, results) {
+        for(let i in results)
+            console.log(results[i]);
+    });
+}
+
+function view_b() {
+    var SpatialQuery = couchbase.SpatialQuery;
+
+    var query = SpatialQuery.from('spatial', 'by_location').limit(10);
+    bucket.query(query, function(err, results) {
+        for(let i in results)
+            console.log(results[i]);
     });
 }
 
