@@ -30,3 +30,33 @@ bucket.manager().createPrimaryIndex(function() {
         });
     });
 });
+
+// From https://developer.couchbase.com/documentation/server/current/sdk/nodejs/full-text-searching-with-sdk.html
+var SearchQuery = couchbase.SearchQuery;
+var query = SearchQuery.new('travel-search', SearchQuery.term('office'));
+bucket.query(query, function(err, res, meta) {
+  for (var i = 0; i < res.length; ++i) {
+    console.log('Hit:', res[i].id);
+  }
+});
+
+// From https://developer.couchbase.com/documentation/server/current/sdk/nodejs/sample-app-backend.html
+function userSearch(location: string | undefined, description: string | undefined) {
+    var qp = couchbase.SearchQuery.conjuncts(couchbase.SearchQuery.term('hotel').field('type'));
+    if (location && location !== '*') {
+        qp.and(couchbase.SearchQuery.disjuncts(
+            couchbase.SearchQuery.matchPhrase(location).field("country"),
+            couchbase.SearchQuery.matchPhrase(location).field("city"),
+            couchbase.SearchQuery.matchPhrase(location).field("state"),
+            couchbase.SearchQuery.matchPhrase(location).field("address")
+        ));
+    }
+
+    if (description && description !== '*') {
+        qp.and(
+            couchbase.SearchQuery.disjuncts(
+                couchbase.SearchQuery.matchPhrase(description).field("description"),
+                couchbase.SearchQuery.matchPhrase(description).field("name")
+            ));
+    }
+}

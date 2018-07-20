@@ -987,6 +987,580 @@ declare namespace SpatialQuery {
     }
 }
 
+declare abstract class SearchQuery {
+    /**
+     * Creates a new search query from an index name and search query definition.
+     * @param indexName The FTS index to search in.
+     * @param query The body of the FTS query.
+     */
+    static new(indexName: string, query: SearchQuery.Query): SearchQuery;
+
+    /**
+     * Creates a compound BooleanQuery composed of several other query objects.
+     */
+    static boolean(): SearchQuery.BooleanQuery;
+
+    /**
+     * Creates a BooleanFieldQuery for searching boolean fields in an index.
+     */
+    static booleanField(val: boolean): SearchQuery.BooleanFieldQuery;
+
+    /**
+     * Creates a query for matches all of a list of subqueries in an index.
+     */
+    static conjuncts(queries: ReadonlyArray<SearchQuery.Query>): SearchQuery.ConjunctionQuery;
+
+    /**
+     * Creates a query for matches all of a list of subqueries in an index.
+     */
+    static conjuncts(...queries: SearchQuery.Query[]): SearchQuery.ConjunctionQuery;
+
+    /**
+     * Creates a search query for matching date ranges in an index.
+     */
+    static dateRange(): SearchQuery.DateRangeQuery;
+
+    /**
+     * Creates a query for matches any of a list of subqueries in an index.
+     */
+    static disjuncts(queries: ReadonlyArray<SearchQuery.Query>): SearchQuery.DisjunctionQuery;
+
+    /**
+     * Creates a query for matches any of a list of subqueries in an index.
+     */
+    static disjuncts(...queries: SearchQuery.Query[]): SearchQuery.DisjunctionQuery;
+
+    /**
+     * Creates a query which allows you to match a list of document IDs in an index.
+     */
+    static docIds(ids: ReadonlyArray<string>): SearchQuery.DocIdQuery;
+
+    /**
+     * Creates a query which allows you to match a list of document IDs in an index.
+     */
+    static docIds(...ids: string[]): SearchQuery.DocIdQuery;
+
+    /**
+     * Creates a geographical bounding-box based query.
+     * @param tl_lat Top-left latitude.
+     * @param tl_lon Top-left longitude.
+     * @param br_lat Bottom-right latitude.
+     * @param br_lon Bottom-right longitude.
+     */
+    static geoBoundingBoxQuery(tl_lat: number, tl_lon: number, br_lat: number, br_lon: number): SearchQuery.GeoBoundingBoxQuery;
+
+    /**
+     * Creates a geographical distance based query.
+     */
+    static geoDistanceQuery(): SearchQuery.GeoDistanceQuery;
+
+    /**
+     * Creates a search query for matching text.
+     */
+    static match(match: string): SearchQuery.MatchQuery;
+
+    /**
+     * Creates a search query which matches anything.
+     */
+    static matchAll(): SearchQuery.MatchAllQuery;
+
+    /**
+     * Creates a search query which matches nothing.
+     */
+    static matchNone(): SearchQuery.MatchAllQuery;
+
+    /**
+     * Creates a search query for matching phrases in an index.
+     */
+    static matchPhrase(phrase: string): SearchQuery.MatchPhraseQuery;
+
+    /**
+     * Creates a search query for matching numeric ranges in an index.
+     */
+    static numericRange(): SearchQuery.NumericRangeQuery;
+
+    /**
+     * Creates a search query for a prefix in an index.
+     */
+    static phrase(terms: ReadonlyArray<string>): SearchQuery.PhraseQuery;
+
+    /**
+     * Creates a search query for a prefix in an index.
+     */
+    static prefix(prefix: string): SearchQuery.PrefixQuery;
+    /**
+     * Creates a query for matches any of a list of subqueries in an index.
+     */
+
+    /**
+     * Creates a search query for matching string.
+     */
+    static queryString(query: string): SearchQuery.QueryStringQuery;
+
+    /**
+     * Creates a search query for matching against a regexp query in an index.
+     */
+    static regexp(regexp: string): SearchQuery.RegexpQuery;
+
+    /**
+     * Creates a search query for searching terms in an index.
+     */
+    static term(term: string): SearchQuery.TermQuery;
+
+    /**
+     * Creates a search query for matching term ranges in the index.
+     */
+    static termRange(): SearchQuery.TermRangeQuery;
+
+    /**
+     * Creates a search query for matching a string with wildcards in an index.
+     */
+    static wildcard(wildcard: string): SearchQuery.WildcardQuery;
+
+    /**
+     * Specify the consistency level for this query.
+     */
+    consistency(val: SearchQuery.Consistency): this;
+
+    /**
+     * Includes information about the internal search semantics used to execute your query.
+     */
+    explain(explain: boolean): this;
+
+    /**
+     * Specifies the fields you wish to receive in the result set.
+     */
+    fields(fields: ReadonlyArray<string>): this;
+
+    /**
+     * Specifies the fields you wish to receive in the result set.
+     */
+    fields(...fields: string[]): this;
+
+    /**
+     * Request a particular highlight style and field list for this query.
+     */
+    highlight(style: SearchQuery.HighlightStyle, fields: ReadonlyArray<string>): this;
+
+    /**
+     * Request a particular highlight style and field list for this query.
+     */
+    highlight(style: SearchQuery.HighlightStyle, ...fields: string[]): this;
+
+    /**
+     * Specifies the maximum number of results to return.
+     * @param limit Maximum number of results to return.
+     */
+    limit(limit: number): this;
+
+    /**
+     * Specifies how many results to skip from the beginning of the result set.
+     * @param skip How many results to skip from the beginning of the result set.
+     */
+    skip(skip: number): this;
+
+    /**
+     * Specifies the maximum time to wait for this query to complete.
+     * @param timeout Maximum time to wait (in milliseconds) for this query to complete.
+     */
+    timeout(timeout: number): this;
+}
+
+declare namespace SearchQuery {
+    abstract class Query {
+    }
+
+    abstract class BooleanQuery extends Query {
+        /**
+         * Specifies a predicate query which must match.
+         * @param query
+         */
+        must(query: Query): this;
+
+        /**
+         * Specifies a predicate query which must not match.
+         * @param query
+         */
+        mustNot(query: Query): this;
+
+        /**
+         * Specifies a predicate query which should match.
+         * @param query
+         */
+        should(query: Query): this;
+
+        /**
+         * Specifies the minimum score for should predicate matches.
+         * @param shouldMin
+         */
+        shouldMin(shouldMin: number): this;
+
+        /**
+         * Defines the amount to boost the query.
+         * @param boost Amount to boost the query.
+         */
+        boost(boost: number): this;
+    }
+
+    abstract class BooleanFieldQuery extends Query {
+        /**
+         * Defines the amount to boost the query.
+         * @param boost Amount to boost the query.
+         */
+        boost(boost: number): this;
+
+        /**
+         * Specifies the field to query.
+         * @param boost The field to query.
+         */
+        field(field: string): this;
+    }
+
+    abstract class ConjunctionQuery extends Query {
+        /**
+         * Specifies additional predicate queries.
+         * @param queries Additional predicate queries.
+         */
+        and(queries: ReadonlyArray<SearchQuery.Query>): this;
+
+        /**
+         * Specifies additional predicate queries.
+         * @param queries Additional predicate queries.
+         */
+        and(...queries: SearchQuery.Query[]): this;
+
+        /**
+         * Defines the amount to boost the query.
+         * @param boost Amount to boost the query.
+         */
+        boost(boost: number): this;
+    }
+
+    abstract class DateRangeQuery extends Query {
+        /**
+         * Defines the lower bound of the date range query.
+         * @param start The lower bound of the query.
+         * @param inclusive True to set an inclusive bound. Defaults to true.
+         */
+        start(start: Date | string, inclusive?: boolean): this;
+
+        /**
+         * Defines the upper bound of the date range query.
+         * @param end The upper bound of the query.
+         * @param inclusive True to set an inclusive bound. Defaults to false.
+         */
+        end(end: Date | string, inclusive?: boolean): this;
+
+        /**
+         * Defines the amount to boost the query.
+         * @param boost Amount to boost the query.
+         */
+        boost(boost: number): this;
+
+        /**
+         * Specifies the field to query.
+         * @param field The field to query.
+         */
+        field(field: string): this;
+    }
+
+    abstract class DisjunctionQuery extends Query {
+        /**
+         * Specifies additional predicate queries.
+         * @param queries Additional predicate queries.
+         */
+        or(queries: ReadonlyArray<SearchQuery.Query>): this;
+
+        /**
+         * Specifies additional predicate queries.
+         * @param queries Additional predicate queries.
+         */
+        or(...queries: SearchQuery.Query[]): this;
+
+        /**
+         * Defines the amount to boost the query.
+         * @param boost Amount to boost the query.
+         */
+        boost(boost: number): this;
+    }
+
+    abstract class DocIdQuery extends Query {
+        /**
+         * Defines the amount to boost the query.
+         * @param boost Amount to boost the query.
+         */
+        boost(boost: number): this;
+
+        /**
+         * Specifies the field to query.
+         * @param field The field to query.
+         */
+        field(field: string): this;
+    }
+
+    abstract class GeoBoundingBoxQuery extends Query {
+        /**
+         * Defines the amount to boost the query.
+         * @param boost Amount to boost the query.
+         */
+        boost(boost: number): this;
+
+        /**
+         * Specifies the field to query.
+         * @param field The field to query.
+         */
+        field(field: string): this;
+    }
+
+    abstract class GeoDistanceQuery extends Query {
+        /**
+         * Defines the amount to boost the query.
+         * @param boost Amount to boost the query.
+         */
+        boost(boost: number): this;
+
+        /**
+         * Specifies the field to query.
+         * @param field The field to query.
+         */
+        field(field: string): this;
+    }
+
+    abstract class MatchAllQuery extends Query {
+    }
+
+    abstract class MatchNoneQuery extends Query {
+    }
+
+    abstract class MatchPhraseQuery extends Query {
+        /**
+         * Defines the amount to boost the query.
+         * @param boost Amount to boost the query.
+         */
+        boost(boost: number): this;
+
+        /**
+         * Specifies the field to query.
+         * @param field The field to query.
+         */
+        field(field: string): this;
+
+        /**
+         * Specifies the analyzer to use for the query.
+         * @param analyzer Analyzer to use for the query.
+         */
+        analyzer(analyzer: string): this;
+    }
+
+    abstract class MatchQuery extends Query {
+        /**
+         * Defines the amount to boost the query.
+         * @param boost Amount to boost the query.
+         */
+        boost(boost: number): this;
+
+        /**
+         * Specifies the field to query.
+         * @param field The field to query.
+         */
+        field(field: string): this;
+
+        /**
+         * Defines the level of fuzziness for the query.
+         * @param fuzziness Level of fuzziness for the query.
+         */
+        fuzziness(fuzziness: number): this;
+
+        /**
+         * Specifies the prefix length to consider for the query.
+         * @param prefixLength Prefix length to consider for the query.
+         */
+        prefixLength(prefixLength: number): this;
+
+        /**
+         * Specifies the analyzer to use for the query.
+         * @param analyzer Analyzer to use for the query.
+         */
+        analyzer(analyzer: string): this;
+    }
+
+    abstract class NumericRangeQuery extends Query {
+        /**
+         * Defines the lower bound of the numeric range query.
+         * @param min The lower bound of the query.
+         * @param inclusive True to set an inclusive bound. Defaults to true.
+         */
+        min(min: number, inclusive?: boolean): this;
+
+        /**
+         * Defines the upper bound of the numeric range query.
+         * @param max The upper bound of the query.
+         * @param inclusive True to set an inclusive bound. Defaults to false.
+         */
+        max(max: number, inclusive?: boolean): this;
+
+        /**
+         * Defines the amount to boost the query.
+         * @param boost Amount to boost the query.
+         */
+        boost(boost: number): this;
+
+        /**
+         * Specifies the field to query.
+         * @param field The field to query.
+         */
+        field(field: string): this;
+    }
+
+    abstract class PhraseQuery extends Query {
+        /**
+         * Defines the amount to boost the query.
+         * @param boost Amount to boost the query.
+         */
+        boost(boost: number): this;
+
+        /**
+         * Specifies the field to query.
+         * @param field The field to query.
+         */
+        field(field: string): this;
+    }
+
+    abstract class PrefixQuery extends Query {
+        /**
+         * Defines the amount to boost the query.
+         * @param boost Amount to boost the query.
+         */
+        boost(boost: number): this;
+
+        /**
+         * Specifies the field to query.
+         * @param field The field to query.
+         */
+        field(field: string): this;
+    }
+
+    abstract class QueryStringQuery extends Query {
+        /**
+         * Defines the amount to boost the query.
+         * @param boost Amount to boost the query.
+         */
+        boost(boost: number): this;
+    }
+
+    abstract class RegexpQuery extends Query {
+        /**
+         * Defines the amount to boost the query.
+         * @param boost Amount to boost the query.
+         */
+        boost(boost: number): this;
+
+        /**
+         * Specifies the field to query.
+         * @param field The field to query.
+         */
+        field(field: string): this;
+    }
+
+    abstract class TermQuery extends Query {
+        /**
+         * Defines the amount to boost the query.
+         * @param boost Amount to boost the query.
+         */
+        boost(boost: number): this;
+
+        /**
+         * Specifies the field to query.
+         * @param field The field to query.
+         */
+        field(field: string): this;
+
+        /**
+         * Defines the level of fuzziness for the query.
+         * @param fuzziness Level of fuzziness for the query.
+         */
+        fuzziness(fuzziness: number): this;
+
+        /**
+         * Specifies the prefix length to consider for the query.
+         * @param prefixLength Prefix length to consider for the query.
+         */
+        prefixLength(prefixLength: number): this;
+    }
+
+    abstract class TermRangeQuery extends Query {
+        /**
+         * Defines the lower bound of the term range query.
+         * @param min The lower bound of the query.
+         * @param inclusive True to set an inclusive bound. Defaults to true.
+         */
+        min(min: string, inclusive?: boolean): this;
+
+        /**
+         * Defines the upper bound of the term range query.
+         * @param max The upper bound of the query.
+         * @param inclusive True to set an inclusive bound. Defaults to false.
+         */
+        max(max: string, inclusive?: boolean): this;
+
+        /**
+         * Defines the amount to boost the query.
+         * @param boost Amount to boost the query.
+         */
+        boost(boost: number): this;
+
+        /**
+         * Specifies the field to query.
+         * @param field The field to query.
+         */
+        field(field: string): this;
+    }
+
+    abstract class WildcardQuery extends Query {
+        /**
+         * Defines the amount to boost the query.
+         * @param boost Amount to boost the query.
+         */
+        boost(boost: number): this;
+
+        /**
+         * Specifies the field to query.
+         * @param boost The field to query.
+         */
+        field(field: string): this;
+    }
+
+    /**
+     * Enumeration for specifying FTS consistency semantics.
+     */
+    enum Consistency {
+        /**
+         * This is the default (for single-statement requests).
+         */
+        NOT_BOUNDED,
+    }
+
+    /**
+     * Enumeration for specifying FTS highlight styling.
+     */
+    enum HighlightStyle {
+        /**
+         * This causes hits to be highlighted using the default style.
+         */
+        DEFAULT,
+
+        /**
+         * This causes hits to be highlighted using HTML tags.
+         */
+        HTML,
+
+        /**
+         * This causes hits to be highlighted with ANSI character codes.
+         */
+        ANSI,
+    }
+}
+
 /**
  * The Bucket class represents a connection to a Couchbase bucket. Never instantiate this class directly. Instead use the Cluster#openBucket method instead.
  */
@@ -1467,6 +2041,48 @@ declare namespace Bucket {
     }
 
     namespace ViewQueryResponse {
+        /**
+         * The meta-information available from a view query response.
+         */
+        interface Meta {
+            /**
+             * The total number of rows available in the index of the view that was queried.
+             */
+            total_rows: number;
+        }
+    }
+
+    /**
+     * An event emitter allowing you to bind to various query result set events.
+     */
+    interface FtsQueryResponse extends events.EventEmitter {
+        addListener(event: 'end', listener: (meta: FtsQueryResponse.Meta) => void): this;
+        addListener(event: 'error', listener: (error: CouchbaseError) => void): this;
+        addListener(event: 'row', listener: (row: any, meta: FtsQueryResponse.Meta) => void): this;
+        addListener(event: 'rows', listener: (rows: any[], meta: FtsQueryResponse.Meta) => void): this;
+
+        on(event: 'end', listener: (meta: FtsQueryResponse.Meta) => void): this;
+        on(event: 'error', listener: (error: CouchbaseError) => void): this;
+        on(event: 'row', listener: (row: any, meta: FtsQueryResponse.Meta) => void): this;
+        on(event: 'rows', listener: (rows: any[], meta: FtsQueryResponse.Meta) => void): this;
+
+        once(event: 'end', listener: (meta: FtsQueryResponse.Meta) => void): this;
+        once(event: 'error', listener: (error: CouchbaseError) => void): this;
+        once(event: 'row', listener: (row: any, meta: FtsQueryResponse.Meta) => void): this;
+        once(event: 'rows', listener: (rows: any[], meta: FtsQueryResponse.Meta) => void): this;
+
+        prependListener(event: 'end', listener: (meta: FtsQueryResponse.Meta) => void): this;
+        prependListener(event: 'error', listener: (error: CouchbaseError) => void): this;
+        prependListener(event: 'row', listener: (row: any, meta: FtsQueryResponse.Meta) => void): this;
+        prependListener(event: 'rows', listener: (rows: any[], meta: FtsQueryResponse.Meta) => void): this;
+
+        prependOnceListener(event: 'end', listener: (meta: FtsQueryResponse.Meta) => void): this;
+        prependOnceListener(event: 'error', listener: (error: CouchbaseError) => void): this;
+        prependOnceListener(event: 'row', listener: (row: any, meta: FtsQueryResponse.Meta) => void): this;
+        prependOnceListener(event: 'rows', listener: (rows: any[], meta: FtsQueryResponse.Meta) => void): this;
+    }
+
+    namespace FtsQueryResponse {
         /**
          * The meta-information available from a view query response.
          */
