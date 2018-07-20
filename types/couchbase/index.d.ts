@@ -255,7 +255,17 @@ interface CouchbaseError extends Error {
     /**
      * The error code for this error.
      */
-    code: errors;
+    code?: errors;
+
+    /**
+     * Possible response body included with the error.
+     */
+    responseBody?: any;
+
+    /**
+     * Possible inner error for this error.
+     */
+    innerError?: CouchbaseError;
 }
 
 interface AppendOptions {
