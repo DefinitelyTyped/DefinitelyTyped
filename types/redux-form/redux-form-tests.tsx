@@ -412,7 +412,6 @@ class FormNameTest extends React.Component {
     }
 }
 
-
 // Test SubmissionError with custom error format
 // See https://github.com/DefinitelyTyped/DefinitelyTyped/pull/26494
 // Note: explicit parameters not needed in TS 2.7
