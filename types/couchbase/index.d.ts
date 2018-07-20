@@ -1774,21 +1774,33 @@ interface Bucket extends events.EventEmitter {
     prepend(key: string, fragment: any, options: PrependOptions, callback: Bucket.OpCallback): void;
 
     /**
-     * Executes a previously prepared query object. This could be a ViewQuery or a N1qlQuery.
-     * Note: N1qlQuery queries are currently an uncommitted interface and may be subject to change in 2.0.0's final release.
+     * Executes a previously prepared query object.
      * @param query The query to execute.
      * @param callback The callback function.
      */
-    query(query: ViewQuery | N1qlQuery, callback: Bucket.QueryCallback): Bucket.ViewQueryResponse | Bucket.N1qlQueryResponse;
+    query(query: ViewQuery | SpatialQuery, callback: Bucket.QueryCallback): Bucket.ViewQueryResponse;
 
     /**
-     * Executes a previously prepared query object. This could be a ViewQuery or a N1qlQuery.
-     * Note: N1qlQuery queries are currently an uncommitted interface and may be subject to change in 2.0.0's final release.
+     * Executes a previously prepared query object.
+     * @param query The query to execute.
+     * @param callback The callback function.
+     */
+    query(query: N1qlQuery, callback: Bucket.N1qlQueryCallback): Bucket.N1qlQueryResponse;
+
+    /**
+     * Executes a previously prepared query object.
+     * @param query The query to execute.
+     * @param callback The callback function.
+     */
+    query(query: SearchQuery, callback: Bucket.FtsQueryCallback): Bucket.FtsQueryResponse;
+
+    /**
+     * Executes a previously prepared query object.
      * @param query The query to execute.
      * @param params A list or map to do replacements on a N1QL query.
      * @param callback The callback function.
      */
-    query(query: ViewQuery | N1qlQuery, params: Object | Array<any>, callback: Bucket.QueryCallback): Bucket.ViewQueryResponse | Bucket.N1qlQueryResponse;
+    query(query: N1qlQuery, params: {[param: string]: any} | any[], callback: Bucket.N1qlQueryCallback): Bucket.N1qlQueryResponse;
 
     /**
      * Deletes a document on the server.
@@ -1891,7 +1903,7 @@ interface Bucket extends events.EventEmitter {
 declare namespace Bucket {
 
     /**
-     * his is used as a callback from executed queries. It is a shortcut method that automatically subscribes to the rows and error events of the Bucket.ViewQueryResponse.
+     * This is used as a callback from executed queries. It is a shortcut method that automatically subscribes to the rows and error events of the Bucket.ViewQueryResponse.
      */
     interface QueryCallback {
         /**
@@ -1899,7 +1911,31 @@ declare namespace Bucket {
          * @param rows The rows returned from the query.
          * @param meta The metadata returned by the query.
          */
-        (error: CouchbaseError, rows: any[], meta: Bucket.ViewQueryResponse.Meta): void;
+        (error: CouchbaseError | null, rows: any[] | null, meta: Bucket.ViewQueryResponse.Meta): void;
+    }
+
+    /**
+     * This is used as a callback from executed queries. It is a shortcut method that automatically subscribes to the rows and error events of the Bucket.ViewQueryResponse.
+     */
+    interface N1qlQueryCallback {
+        /**
+         * @param error The error for the operation. This can either be an Error object or a falsy value.
+         * @param rows The rows returned from the query.
+         * @param meta The metadata returned by the query.
+         */
+        (error: CouchbaseError | null, rows: any[] | null, meta: Bucket.N1qlQueryResponse.Meta): void;
+    }
+
+    /**
+     * This is used as a callback from executed queries. It is a shortcut method that automatically subscribes to the rows and error events of the Bucket.ViewQueryResponse.
+     */
+    interface FtsQueryCallback {
+        /**
+         * @param error The error for the operation. This can either be an Error object or a falsy value.
+         * @param rows The rows returned from the query.
+         * @param meta The metadata returned by the query.
+         */
+        (error: CouchbaseError | null, rows: any[] | null, meta: Bucket.FtsQueryResponse.Meta): void;
     }
 
     /**
@@ -1954,7 +1990,7 @@ declare namespace Bucket {
 
     /**
      * The CAS value is a special object that indicates the current state of the item on the server. Each time an object is mutated on the server, the value is changed. CAS objects can be used in conjunction with mutation operations to ensure that the value on the server matches the local value retrieved by the client. This is useful when doing document updates on the server as you can ensure no changes were applied by other clients while you were in the process of mutating the document locally.
-     * In the Node.js SDK, the CAS is represented as an opaque value. As such,y ou cannot generate CAS objects, but should rather use the values returned from a Bucket.OpCallback.
+     * In the Node.js SDK, the CAS is represented as an opaque value. As such, you cannot generate CAS objects, but should rather use the values returned from a Bucket.OpCallback.
      */
     interface CAS {
 
@@ -2084,13 +2120,40 @@ declare namespace Bucket {
 
     namespace FtsQueryResponse {
         /**
-         * The meta-information available from a view query response.
+         * The meta-information available from a search query response.
          */
         interface Meta {
             /**
-             * The total number of rows available in the index of the view that was queried.
+             * The status information for this query, includes properties
+             * such as total, failed, and successful.
              */
-            total_rows: number;
+            status: any;
+
+            /**
+             * Any non-fatal errors that occurred during query processing.
+             */
+            errors: any;
+
+            /**
+             * The total number of hits that were available for this search query.
+             */
+            totalHits: number;
+
+            /**
+             * The resulting facet information for any facets that were specified
+             * in the search query.
+             */
+            facets: any;
+
+            /**
+             * The time spent processing this query.
+             */
+            took: number;
+
+            /**
+             * The maximum score out of all the results in this query.
+             */
+            maxScore: number;
         }
     }
 }
