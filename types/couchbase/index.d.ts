@@ -855,6 +855,9 @@ declare namespace ViewQuery {
  * Class for dynamically construction of N1QL queries. This class should never be constructed directly, instead you should use the N1qlQuery.fromString static method to instantiate a N1qlStringQuery.
  */
 declare class N1qlQuery {
+    // Private declaration to avoid other queries being misstaken for N1qlQuery
+    private __nominal: void;
+
     /**
      * Creates a query object directly from the passed query string.
      * @param str
@@ -1118,6 +1121,11 @@ declare abstract class SearchQuery {
     static wildcard(wildcard: string): SearchQuery.WildcardQuery;
 
     /**
+     * Adds a SearchFacet object to return information about as part of the execution of this query.
+     */
+    addFacet(name: string, facet: SearchFacet): this;
+
+    /**
      * Specify the consistency level for this query.
      */
     consistency(val: SearchQuery.Consistency): this;
@@ -1158,6 +1166,16 @@ declare abstract class SearchQuery {
      * @param skip How many results to skip from the beginning of the result set.
      */
     skip(skip: number): this;
+
+    /**
+     * Specifies the fields you wish to sort by in your result set.
+     */
+    sort(fields: ReadonlyArray<string | SearchSort>): this;
+
+    /**
+     * Specifies the fields you wish to sort by in your result set.
+     */
+    sort(...fields: (string | SearchSort)[]): this;
 
     /**
      * Specifies the maximum time to wait for this query to complete.
@@ -1559,6 +1577,61 @@ declare namespace SearchQuery {
          */
         ANSI,
     }
+}
+
+declare class SearchFacet {
+}
+
+declare namespace SearchFacet {
+    class TermFacet extends SearchFacet {
+    }
+
+    function term(field: string, size: number): TermFacet;
+
+    class NumericFacet extends SearchFacet {
+        addRange(name: string, min: number, max: number): this;
+    }
+
+    function numeric(field: string, size: number): NumericFacet;
+
+    class DateFacet extends SearchFacet {
+        addRange(name: string, start: string, end: string): this;
+    }
+
+    function date(field: string, size: number): DateFacet;
+}
+
+declare class SearchSort {
+    /**
+     * Specifies whether to sort descending or not.
+     */
+    descending(descending: boolean): this;
+}
+
+declare namespace SearchSort {
+    class ScoreSort extends SearchSort {
+    }
+
+    function score(): ScoreSort;
+
+    class IdSort extends SearchSort {
+    }
+
+    function id(): IdSort;
+
+    class FieldSort extends SearchSort {
+        type(type: string): this;
+        mode(mode: string): this;
+        missing(missing: string): this;
+    }
+
+    function field(field: string): FieldSort;
+
+    class GeoDistanceSort extends SearchSort {
+        unit(unit: string): this;
+    }
+
+    function geoDistance(field: string, lat: number, lon: number): GeoDistanceSort;
 }
 
 /**

@@ -32,13 +32,25 @@ bucket.manager().createPrimaryIndex(function() {
 });
 
 // From https://developer.couchbase.com/documentation/server/current/sdk/nodejs/full-text-searching-with-sdk.html
-var SearchQuery = couchbase.SearchQuery;
-var query = SearchQuery.new('travel-search', SearchQuery.term('office'));
-bucket.query(query, function(err, res, meta) {
-  for (var i = 0; i < res.length; ++i) {
-    console.log('Hit:', res[i].id);
-  }
-});
+const SearchQuery = couchbase.SearchQuery;
+const SearchFacet = couchbase.SearchFacet;
+
+function search_a() {
+    let searchQuery = SearchQuery.new('travel-search', SearchQuery.term('office'));
+    bucket.query(searchQuery, function(err, res, meta) {
+        for (var i = 0; i < res.length; ++i) {
+            console.log('Hit:', res[i].id);
+        }
+    });
+}
+
+function search_b() {
+    const searchQuery = SearchQuery.new('travel-search', SearchQuery.term('office'));
+    searchQuery.addFacet('countries', SearchFacet.term('country', 5));
+    bucket.query(searchQuery, function(err, res, meta) {
+        console.log('Total Countries:', meta.facets['countries'].total);
+    });
+}
 
 // From https://developer.couchbase.com/documentation/server/current/sdk/nodejs/sample-app-backend.html
 function userSearch(location: string | undefined, description: string | undefined) {
