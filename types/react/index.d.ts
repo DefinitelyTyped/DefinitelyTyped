@@ -2281,10 +2281,15 @@ declare namespace React {
     }
 }
 
-type Defaultize<P, D = {}> =
+// Declared props take priority over inferred props
+type MergePropTypes<P, T> = P & Pick<T, Exclude<keyof T, keyof P>>;
+
+// Any props that have a default prop becomes optional, but their type is unchanged
+// Undeclared default props are augmented into the resulting allowable attributes
+type Defaultize<P, D> =
     & Pick<P, Exclude<keyof P, keyof D>>
     & Partial<Pick<P, Extract<keyof P, keyof D>>>
-    & Partial<D>;
+    & Partial<Pick<D, Exclude<keyof D, keyof P>>>;
 
 declare global {
     namespace JSX {
@@ -2298,9 +2303,9 @@ declare global {
 
         type LibraryManagedAttributes<C, P> =
             C extends { propTypes: infer T; defaultProps: infer D; }
-            ? Defaultize<P & PropTypes.InferProps<T>, D>
+            ? Defaultize<MergePropTypes<P, PropTypes.InferProps<T>>, D>
             : C extends { propTypes: infer T; }
-            ? Defaultize<P & PropTypes.InferProps<T>>
+            ? MergePropTypes<P, PropTypes.InferProps<T>>
             : C extends { defaultProps: infer D; }
             ? Defaultize<P, D>
             : P;

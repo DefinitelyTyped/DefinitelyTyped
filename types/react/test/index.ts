@@ -16,12 +16,12 @@ import * as DOM from "react-dom-factories";
 
 interface Props extends React.Attributes {
     hello: string;
-    world?: string;
+    world?: string | null;
     foo: number;
 }
 
 interface State {
-    inputValue?: string;
+    inputValue?: string | null;
     seconds?: number;
 }
 
@@ -30,7 +30,7 @@ interface Snapshot {
 }
 
 interface Context {
-    someValue?: string;
+    someValue?: string | null;
 }
 
 interface ChildContext {
@@ -121,7 +121,7 @@ class ModernComponent extends React.Component<Props, State, Snapshot>
         hello: PropTypes.string.isRequired,
         world: PropTypes.string,
         foo: PropTypes.number.isRequired,
-        key: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+        key: <PropTypes.Validator<string | number | undefined>> PropTypes.oneOfType([PropTypes.number, PropTypes.string])
     };
 
     static contextTypes: React.ValidationMap<Context> = {
@@ -160,7 +160,7 @@ class ModernComponent extends React.Component<Props, State, Snapshot>
         return DOM.div(null,
             DOM.input({
                 ref: input => this._input = input,
-                value: this.state.inputValue
+                value: this.state.inputValue ? this.state.inputValue : undefined
             }),
             DOM.input({
                 onChange: event => console.log(event.target)
