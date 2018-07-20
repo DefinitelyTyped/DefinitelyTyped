@@ -213,7 +213,7 @@ const setColumnVisibility = (visible: boolean) => {
 
 // using selection -- https://msdn.microsoft.com/en-us/vba/excel-vba/articles/selecting-and-activating-cells
 {
-    const wks = app.ActiveWorkbook.Worksheets(1) as Excel.Worksheet;
+    const wks = app.ActiveWorkbook.Worksheets(1);
 
     // make a worksheet the active worksheet; otherwise code which uses the selection will fail
     wks.Select();
@@ -264,7 +264,7 @@ const setColumnVisibility = (visible: boolean) => {
         const enumerator = new Enumerator(book.Worksheets);
         enumerator.moveFirst();
         while (!enumerator.atEnd()) {
-            const wks = enumerator.item() as Excel.Worksheet;
+            const wks = enumerator.item();
             if (wks.Name === prm.Target.Name) { continue; }
 
             // If the value entered already exists in the defined range on the current worksheet, undo the entry.
@@ -282,7 +282,7 @@ const setColumnVisibility = (visible: boolean) => {
     {
         // using the AdvancedFilter property
         const book = app.ThisWorkbook;
-        const sheet = book.Worksheets("Sheet1") as Excel.Worksheet;
+        const sheet = book.Worksheets("Sheet1");
         const dataRange = sheet.Range('A1', sheet.Range("A100").End(Excel.XlDirection.xlUp));
         dataRange.AdvancedFilter(Excel.XlFilterAction.xlFilterCopy, undefined, sheet.Range('L1'), true);
         const data = sheet.Range("L2", sheet.Range('L100').End(Excel.XlDirection.xlUp)).Value() as SafeArray;
