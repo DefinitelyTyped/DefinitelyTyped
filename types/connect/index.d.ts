@@ -21,7 +21,7 @@ declare namespace createServer {
     type NextFunction = (err?: any) => void;
 
     export type SimpleHandleFunction = (req: http.IncomingMessage, res: http.ServerResponse) => void;
-    export type NextHandleFunction = (req: http.IncomingMessage, res: http.ServerResponse, next: NextFunction) => void;
+    export type NextHandleFunction = (req: http.IncomingMessage, res: http.ServerResponse, next?: NextFunction) => void;
     export type ErrorHandleFunction = (err: any, req: http.IncomingMessage, res: http.ServerResponse, next: NextFunction) => void;
     export type HandleFunction = SimpleHandleFunction | NextHandleFunction | ErrorHandleFunction;
 
