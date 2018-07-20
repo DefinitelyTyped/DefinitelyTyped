@@ -22,7 +22,7 @@
 //                 Dick van den Brink <https://github.com/DickvdBrink>
 //                 Thomas Schulz <https://github.com/King2500>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.3
 
 declare module 'jquery' {
     export = jQuery;
@@ -4327,7 +4327,7 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @see \`{@link https://api.jquery.com/insertAfter/ }\`
      * @since 1.0
      */
-    insertAfter<E extends Node>(target: JQuery.Selector | JQuery.htmlString | JQuery.TypeOrArray<E> | JQuery<E>): this;
+    insertAfter(target: JQuery.Selector | JQuery.htmlString | JQuery.TypeOrArray<Node> | JQuery<Node>): this;
     /**
      * Insert every element in the set of matched elements before the target.
      *
@@ -4336,7 +4336,7 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @see \`{@link https://api.jquery.com/insertBefore/ }\`
      * @since 1.0
      */
-    insertBefore<E extends Node>(target: JQuery.Selector | JQuery.htmlString | JQuery.TypeOrArray<E> | JQuery<E>): this;
+    insertBefore(target: JQuery.Selector | JQuery.htmlString | JQuery.TypeOrArray<Node> | JQuery<Node>): this;
     /**
      * Check the current matched set of elements against a selector, element, or jQuery object and return
      * true if at least one of these elements matches the given arguments.

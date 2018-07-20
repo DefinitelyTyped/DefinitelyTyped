@@ -5655,6 +5655,12 @@ function JQuery() {
 
             // $ExpectType JQuery<HTMLElement>
             $('span').insertAfter($('p'));
+
+            // $ExpectType JQuery<HTMLElement>
+            $('span').insertAfter(new Text('hello!'));
+
+            // $ExpectType JQuery<HTMLElement>
+            $('span').insertAfter($(new Text('hello!')));
         }
 
         function insertBefore() {
@@ -5672,6 +5678,12 @@ function JQuery() {
 
             // $ExpectType JQuery<HTMLElement>
             $('span').insertBefore($('p'));
+
+            // $ExpectType JQuery<HTMLElement>
+            $('span').insertBefore(new Text('hello!'));
+
+            // $ExpectType JQuery<HTMLElement>
+            $('span').insertBefore($(new Text('hello!')));
         }
 
         function prependTo() {
