@@ -97,7 +97,7 @@ async function main() {
         }
     }
 
-    // Check wether or not an interface is an overload or the main lodash function
+    // Check whether or not an interface is an overload or the main lodash function
     const isExportedInterface = (interfaceDef: Interface) => !!interfaceGroups.find(g => g.interfaces[0].name === interfaceDef.name);
 
     const interfaces = _.uniqBy(_.flatMap(interfaceGroups, g => g.interfaces), i => i.name);
@@ -112,7 +112,7 @@ async function main() {
         "// npm install && npm run generate",
         "",
         'import lodash = require("./index");',
-        'import { ConvertOptions } from "./fp/convert";',
+        'import { ConvertOptions } = require("./index");',
         "",
         "export = _;",
         "",
@@ -859,8 +859,8 @@ function interfaceToString(interfaceDef: Interface, exportedInterface: boolean):
     // Exported interface extends LodashConvertible to allow
     // calling `.convert({})` on each lodash/fp functions
     const interfaceExtendsStatement = exportedInterface
-        ? ` extends LodashConvertible`
-        : '';
+        ? " extends LodashConvertible"
+        : "";
 
     if (_.isEmpty(interfaceDef.overloads)) {
         // No point in creating an empty interface
