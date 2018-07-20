@@ -1734,7 +1734,7 @@ export class Feature extends Object {
      * @api stable
      * @observable
      */
-    setStyle(style: (ol.style.Style | ol.style.Style[] | ol.FeatureStyleFunction | ol.StyleFunction)): void;
+    setStyle(style: (ol.style.Style | ol.style.Style[] | ol.FeatureStyleFunction | ol.StyleFunction | null)): void;
 
     /**
      * Set the feature id.  The feature id is considered stable and may be used when
