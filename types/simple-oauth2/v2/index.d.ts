@@ -1,12 +1,10 @@
-// Type definitions for simple-oauth2 1.6
+// Type definitions for simple-oauth2 2.2
 // Project: https://github.com/lelylan/simple-oauth2
 // Definitions by: Michael Müller <https://github.com/mad-mike>,
 //                 Troy Lamerton <https://github.com/troy-lamerton>
 //                 Martín Rodriguez <https://github.com/netux>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
-
-import Bluebird = require("bluebird");
 
 /** Creates a new simple-oauth2 client with the passed configuration */
 export function create(options: ModuleOptions): OAuthClient;
@@ -46,7 +44,7 @@ export interface ModuleOptions {
         /**
          * Indicates the method used to send the client.id/client.secret authorization params at the token request.
          * If set to body, the bodyFormat option will be used to format the credentials.
-         * Defaults to header.
+         * Defaults to header
          */
         authorizationMethod?: "header" | "body"
     };
@@ -64,10 +62,11 @@ export interface AccessToken {
     /** Check if the access token is expired or not */
     expired(): boolean;
     /** Refresh the access token */
-    refresh(params: {}, callback: (error: any, result: AccessToken) => void): Bluebird<AccessToken>;
-    refresh(callback?: (error: any, result: AccessToken) => void): Bluebird<AccessToken>;
+    refresh(params?: {}): Promise<AccessToken>;
     /** Revoke access or refresh token */
-    revoke(tokenType: TokenType, callback?: (error: any) => void): Bluebird<void>;
+    revoke(tokenType: TokenType): Promise<void>;
+    /** Revoke both the existing access and refresh tokens */
+    revokeAll(): Promise<void>;
 }
 
 export type AuthorizationCode = string;
@@ -113,17 +112,17 @@ export interface OAuthClient {
         ): string,
 
         /** Returns the Access Token object */
-        getToken(params: AuthorizationTokenConfig, callback?: (error: any, result: Token) => void): Bluebird<Token>;
+        getToken(params: AuthorizationTokenConfig): Promise<Token>;
     };
 
     ownerPassword: {
         /** Returns the Access Token Object */
-        getToken(params: PasswordTokenConfig, callback?: (error: any, result: Token) => void): Bluebird<Token>;
+        getToken(params: PasswordTokenConfig): Promise<Token>;
     };
 
     clientCredentials: {
         /** Returns the Access Token Object */
-        getToken(params: ClientCredentialTokenConfig, callback?: (error: any, result: Token) => void): Bluebird<Token>;
+        getToken(params: ClientCredentialTokenConfig): Promise<Token>;
     };
 
     accessToken: {

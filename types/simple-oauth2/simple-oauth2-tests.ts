@@ -1,8 +1,11 @@
 // off https://github.com/lelylan/simple-oauth2/blob/master/README.md
 // slightly changed to remove external dependencies
 
+// Initialize the OAuth2 Library
+import * as oauth2lib from "simple-oauth2";
+
 // Set the configuration settings
-const credentials = {
+const credentials: oauth2lib.ModuleOptions = {
     client: {
         id: '<client-id>',
         secret: '<client-secret>'
@@ -12,9 +15,6 @@ const credentials = {
     }
 };
 
-// Initialize the OAuth2 Library
-// const oauth2 = require('simple-oauth2').create(credentials);
-import oauth2lib = require("simple-oauth2");
 const oauth2 = oauth2lib.create(credentials);
 
 // #Authorization Code flow
@@ -58,6 +58,36 @@ const oauth2 = oauth2lib.create(credentials);
         });
 })();
 
+// #Password Credentials Flow
+(() => {
+    const tokenConfig = {
+        username: 'username',
+        password: 'password',
+        scope: [ '<scope1>', '<scope2>' ],
+    };
+
+    // Callbacks
+    // Save the access token
+    oauth2.ownerPassword.getToken(tokenConfig, (error, result) => {
+        if (error) {
+            console.log('Access Token Error', error.message);
+            return;
+        }
+
+        const token = oauth2.accessToken.create(result);
+    });
+
+    // Promises
+    // Save the access token
+    oauth2.ownerPassword.getToken(tokenConfig)
+        .then((result) => {
+            const token = oauth2.accessToken.create(result);
+        })
+        .catch((error) => {
+            console.log('Access Token Error', error.message);
+        });
+})();
+
 // #Client Credentials Flow
 (() => {
     const tokenConfig = {};
@@ -75,8 +105,7 @@ const oauth2 = oauth2lib.create(credentials);
 
     // Promises
     // Get the access token object for the client
-    oauth2.clientCredentials
-        .getToken(tokenConfig)
+    oauth2.clientCredentials.getToken(tokenConfig)
         .then((result) => {
             const token = oauth2.accessToken.create(result);
         })
@@ -95,39 +124,39 @@ const oauth2 = oauth2lib.create(credentials);
     };
 
     // Create the access token wrapper
-    let token = oauth2.accessToken.create(tokenObject);
+    let accessToken = oauth2.accessToken.create(tokenObject);
 
     // Check if the token is expired. If expired it is refreshed.
-    if (token.expired()) {
+    if (accessToken.expired()) {
         // Callbacks
-        token.refresh((error, result) => {
-            token = result;
+        accessToken.refresh((error, result) => {
+            accessToken = result;
         });
 
         // Promises
-        token.refresh()
+        accessToken.refresh()
             .then((result) => {
-                token = result;
+                accessToken = result;
             });
     }
 
     // Callbacks
     // Revoke only the access token
-    token.revoke('access_token', (error) => {
+    accessToken.revoke('access_token', (error) => {
         // Session ended. But the refresh_token is still valid.
 
         // Revoke the refresh_token
-        token.revoke('refresh_token', (error) => {
+        accessToken.revoke('refresh_token', (error) => {
             console.log('token revoked.');
         });
     });
 
     // Promises
     // Revoke only the access token
-    token.revoke('access_token')
+    accessToken.revoke('access_token')
         .then(() => {
             // Revoke the refresh token
-            return token.revoke('refresh_token');
+            return accessToken.revoke('refresh_token');
         })
         .then(() => {
             console.log('Token revoked');
