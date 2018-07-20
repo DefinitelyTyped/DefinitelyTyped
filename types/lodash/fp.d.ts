@@ -3,7 +3,7 @@
 // npm install && npm run generate
 
 import lodash = require("./index");
-import { ConvertOptions } from "./fp/convert";
+import { ConvertOptions } = require("./index");
 
 export = _;
 
