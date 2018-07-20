@@ -37,6 +37,11 @@ export interface WritableReadablePair<T extends WritableStream<any>, U extends R
     readable: U;
 }
 
+export interface ReadResult<T> {
+    done: boolean;
+    value: T;
+}
+
 declare class ReadableStream<R = ArrayBufferView> {
     constructor(underlyingSource?: ReadableStreamSource<R>, strategy?: QueuingStrategy<R>);
     constructor(underlyingSource?: ReadableByteStreamSource, strategy?: QueuingStrategy<R>);
@@ -57,7 +62,7 @@ declare class ReadableStreamDefaultReader<R = ArrayBufferView> {
     readonly closed: Promise<void>;
 
     cancel(reason: any): Promise<void>;
-    read(): Promise<IteratorResult<R>>;
+    read(): Promise<ReadResult<R>>;
     releaseLock(): void;
 }
 
@@ -67,7 +72,7 @@ declare class ReadableStreamBYOBReader<R = ArrayBufferView> {
     readonly closed: Promise<void>;
 
     cancel(reason: any): Promise<void>;
-    read<T extends ArrayBufferView>(view: T): Promise<IteratorResult<T>>;
+    read<T extends ArrayBufferView>(view: T): Promise<ReadResult<T>>;
     releaseLock(): void;
 }
 
