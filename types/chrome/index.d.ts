@@ -6564,7 +6564,7 @@ declare namespace chrome.tabs {
      * @param callback Optional.
      * Parameter window: Contains details about the window whose tabs were highlighted.
      */
-    export function highlight(highlightInfo: HighlightInfo, callback: (window: chrome.windows.Window) => void): void;
+    export function highlight(highlightInfo: HighlightInfo, callback?: (window: chrome.windows.Window) => void): void;
     /**
      * Gets all tabs that have the specified properties, or all tabs if no properties are specified.
      * @since Chrome 16.
