@@ -1,3 +1,9 @@
+// Type definitions for slack-mock 1.1
+// Project: https://github.com/Skellington-Closet/slack-mock
+// Definitions by: Kris Kalavantavanich <https://github.com/kkalavantavanich>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
+
 import * as WebSocket from "ws";
 import { IncomingHttpHeaders } from "http";
 import * as nock from "nock";
@@ -8,10 +14,9 @@ export = SlackMock;
 declare function SlackMock(config?: SlackMock.ConfigOptions): SlackMock.Instance;
 
 declare namespace SlackMock {
-
     let instance: Instance;
 
-    interface Instance { 
+    interface Instance {
         events: Events<any>;
         incomingWebhooks: IncomingWebhooks<any>;
         interactiveButtons: InteractiveButtons<any>;
@@ -23,20 +28,20 @@ declare namespace SlackMock {
         reset: () => void;
     }
 
-    interface ConfigOptions { 
+    interface ConfigOptions {
         rtmPort?: number;
         logLevel?: string;
     }
 
     // Events
-    
+
     type EventUrl = string | Url;
     type EventHttpHeaders = IncomingHttpHeaders;
 
     interface Events<T> {
         send: (targetUrl: EventUrl, body: T) => Promise<void>;
         reset: () => void;
-        calls: EventCall<T>[];
+        calls: Array<EventCall<T>>;
     }
 
     interface EventCall<T> {
@@ -46,15 +51,15 @@ declare namespace SlackMock {
         statusCode: number;
     }
 
-    // Incoming Webhooks 
+    // Incoming Webhooks
 
     type IncomingWebhookUrl = string;
     type IncomingWebhookHttpHeaders = nock.HttpHeaders;
 
-    interface IncomingWebhooks<T> { 
+    interface IncomingWebhooks<T> {
         addResponse: (opts: IncomingWebhookOptions<T>) => void;
         reset: () => void;
-        calls: IncomingWebhookCall<T>[];
+        calls: Array<IncomingWebhookCall<T>>;
     }
 
     interface IncomingWebhookOptions<T> {
@@ -75,11 +80,11 @@ declare namespace SlackMock {
     type InteractiveButtonUrl = string | Url;
     type InteractiveButtonHttpHeaders = nock.HttpHeaders;
 
-    interface InteractiveButtons<T> { 
+    interface InteractiveButtons<T> {
         send: (targetUrl: InteractiveButtonUrl, body: T) => Promise<void>;
         addResponse: (opts: InteractiveButtonOptions<T>) => void;
         reset: () => void;
-        calls: InteractiveButtonCall<T>[];
+        calls: Array<InteractiveButtonCall<T>>;
     }
 
     interface InteractiveButtonOptions<T> {
@@ -107,10 +112,10 @@ declare namespace SlackMock {
     type OutgoingWebhookUrl = string | Url;
     type OutgoingWebhookHttpHeaders = IncomingHttpHeaders;
 
-    interface OutgoingWebhooks<T> { 
+    interface OutgoingWebhooks<T> {
         send: (targetUrl: OutgoingWebhookUrl, body: T) => Promise<void>;
         reset: () => void;
-        calls: OutgoingWebhookCall<T>[];
+        calls: Array<OutgoingWebhookCall<T>>;
     }
 
     interface OutgoingWebhookCall<T> {
@@ -122,11 +127,11 @@ declare namespace SlackMock {
 
     // RTM
 
-    interface Rtm<T> { 
+    interface Rtm<T> {
         clients: WebSocket[];
         send: (token: string, message: T) => Promise<void>;
         reset: () => void;
-        calls: RtmCall<T>[];
+        calls: Array<RtmCall<T>>;
         startServer: (token: string) => void;
         stopServer: (token: string) => void;
     }
@@ -142,11 +147,11 @@ declare namespace SlackMock {
     type SlashCommandUrl = string | Url;
     type SlashCommandHttpHeaders = IncomingHttpHeaders;
 
-    interface SlashCommands<T> { 
+    interface SlashCommands<T> {
         send: (targetUrl: SlashCommandUrl, body: T) => Promise<void>;
         addResponse: (opts: SlashCommandOptions<T>) => void;
         reset: () => void;
-        calls: SlashCommandCall<T>[];
+        calls: Array<SlashCommandCall<T>>;
     }
 
     interface SlashCommandOptions<T> {
@@ -177,7 +182,7 @@ declare namespace SlackMock {
     interface Web<T> {
         addResponse: (opts: WebOptions<T>) => void;
         reset: () => void;
-        calls: WebCall<T>[];
+        calls: Array<WebCall<T>>;
     }
 
     interface WebOptions<T> {
