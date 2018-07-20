@@ -971,6 +971,7 @@ declare namespace R {
          * Returns a list containing the names of all the enumerable own
          * properties of the supplied object.
          */
+        keys<T extends object>(x: T): Array<keyof T>;
         keys<T>(x: T): string[];
 
         /**

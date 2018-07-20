@@ -615,6 +615,7 @@ class WebViewTest extends React.Component {
             <WebView
                 originWhitelist={['https://origin.test']}
                 saveFormDataDisabled={false}
+                nativeConfig={{ component: 'test', props: {}, viewManager: {} }}
             />
         );
     }
@@ -694,6 +695,7 @@ class AccessibilityTest extends React.Component {
                 accessibilityElementsHidden={true}
                 importantForAccessibility={"no-hide-descendants"}
                 accessibilityTraits={'none'}
+                onAccessibilityTap={() => {}}
             >
                 <Text accessibilityTraits={['key', 'text']}>Text</Text>
                 <View />
