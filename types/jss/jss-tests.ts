@@ -1,12 +1,10 @@
 // API docs at http://cssinjs.org/js-api
 
-import { ObserverOrNext } from 'indefinite-observable';
 import {
 	create as createJSS,
 	SheetsRegistry,
 	default as sharedInstance,
 } from 'jss';
-import * as csstype from 'csstype';
 
 const jss = createJSS().setup({});
 jss.use({}, {}); // $ExpectType JSS
@@ -14,7 +12,7 @@ jss.use({}, {}); // $ExpectType JSS
 const styleSheet = jss.createStyleSheet<string>(
 	{
 		ruleWithMockObservable: {
-			subscribe: (observer: ObserverOrNext<csstype.PropertiesHyphen>) => {
+			subscribe: observer => {
 				const next = typeof observer === 'function' ? observer : observer.next;
 				next({ background: 'blue', display: 'flex' });
 				next({ invalidKey: 'blueish' }); // $ExpectError
@@ -23,7 +21,7 @@ const styleSheet = jss.createStyleSheet<string>(
 				next({ 'align-items': 'center' });
 				next({ alignItems: 'center' }); // $ExpectError
 				return {
-					unsubscribe() { }
+					unsubscribe() {}
 				};
 			}
 		},
@@ -97,7 +95,7 @@ const secondStyleSheet = jss.createStyleSheet(
 		ruleWithMockObservable: {
 			subscribe() {
 				return {
-					unsubscribe() { }
+					unsubscribe() {}
 				};
 			}
 		},
@@ -120,6 +118,6 @@ sheetsRegistry.index; // $ExpectType number
 sheetsRegistry.index = 5; // $ExpectError
 sheetsRegistry.toString(); // $ExpectType string
 // With css options
-sheetsRegistry.toString({ indent: 5 }); // $ExpectType string
+sheetsRegistry.toString({indent: 5}); // $ExpectType string
 
 sheetsRegistry.reset();
