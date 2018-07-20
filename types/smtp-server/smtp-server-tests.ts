@@ -1,3 +1,4 @@
+import { AddressInfo } from 'net';
 import { SMTPServer, SMTPServerAddress, SMTPServerAuthentication, SMTPServerAuthenticationResponse, SMTPServerOptions, SMTPServerSession } from 'smtp-server';
 import { Readable } from 'stream';
 
@@ -71,6 +72,6 @@ server.on('close', () => {
 });
 
 server.listen(port, () => {
-    const address = server.server.address();
+    const address = server.server.address() as AddressInfo;
     console.log(`Listening on [${address.address}]:${address.port}`);
 });

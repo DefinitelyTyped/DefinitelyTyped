@@ -44,8 +44,8 @@ declare module "react-custom-scrollbars" {
         universal?: boolean;
 
         autoHeight?: boolean;
-        autoHeightMin?: number;
-        autoHeightMax?: number;
+        autoHeightMin?: number | string;
+        autoHeightMax?: number | string;
     }
 
     export default class Scrollbars extends React.Component<ScrollbarProps> {

@@ -3,6 +3,7 @@
 // Definitions by: Alex Gorbatchev <https://github.com/alexgorbatchev>
 //                 Adrian Farmadin <https://github.com/AdrianFarmadin>
 //                 Pusztai Tibor <https://github.com/kondi>
+//                 Keiichiro Amemiya <https://github.com/hoishin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -54,6 +55,7 @@ declare module "rethinkdb" {
     export function expr(stuff: any): Expression<any>;
 
     export function now(): Expression<Time>;
+    export function epochTime(): Expression<Time>;
 
     // Control Structures
     export function branch(test: Expression<boolean>, trueBranch: Expression<any>, falseBranch: Expression<any>): Expression<any>;

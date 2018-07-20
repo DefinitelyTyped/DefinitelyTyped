@@ -31,7 +31,7 @@ declare namespace Snap {
     export function plugin(f:Function):void;
     export function select(query:string):Snap.Element;
     export function selectAll(query:string):any;
-    export function snapTo(values:Array<number>,value:number,tolerance?:number):number;
+    export function snapTo(values:Array<number>|number,value:number,tolerance?:number):number;
 
     export function animate(from:number|number[],to:number|number[],updater:(n:number)=>void,duration:number,easing?:(num:number)=>number,callback?:()=>void):mina.MinaAnimation;
     export function animation(attr:Object,duration:number,easing?:(num:number)=>number,callback?:()=>void):Snap.Animation;
@@ -166,6 +166,8 @@ declare namespace Snap {
         marker(x:number,y:number,width:number,height:number,refX:number,refY:number):Snap.Element;
         node:HTMLElement;
         outerSVG():string;
+        /** The top level element will included an reference to its Paper after it is rendered. */
+        paper?: Snap.Paper;
         parent():Snap.Element;
         pattern(x:any,y:any,width:any,height:any):Snap.Element;
         prepend(el:Snap.Element):Snap.Element;
@@ -229,6 +231,12 @@ declare namespace Snap {
                onEnd:   (event: MouseEvent) => void): Snap.Element;
         undrag(): Snap.Element;
     }
+    
+    interface Gradient extends Element {
+        stops: () => Snap.Element[];
+        addStop: (color: string, offset: number) => Gradient;
+        setStops:(str: string) => Gradient;
+    }
 
     export interface Fragment {
         //TODO: The documentation says that selectAll returns a set, but the getting started guide
@@ -266,13 +274,13 @@ declare namespace Snap {
         clear():void;
         el(name:string, attr:Object):Snap.Element;
         filter(filstr:string):Snap.Element;
-        gradient(gradient:string):any;
+        gradient(gradient:string):Snap.Gradient;
         g(varargs?:any):Snap.Paper;
         group(...els:any[]):Snap.Paper;
         mask(varargs:any):Object;
         ptrn(x:number,y:number,width:number,height:number,vbx:number,vby:number,vbw:number,vbh:number):Object;
         svg(x:number,y:number,width:number,height:number,vbx:number,vby:number,vbw:number,vbh:number):Object;
-        toDataUrl(): string;
+        toDataURL(): string;
         toString():string;
         use(id?:string):Object;
         use(id?:Snap.Element):Object;
@@ -305,6 +313,7 @@ declare namespace Snap {
         pop():Snap.Element;
         push(el:Snap.Element):Snap.Element;
         push(els:Snap.Element[]):Snap.Element;
+        remove(): Snap.Set;
         splice(index:number,count:number,insertion?:Object[]):Snap.Element[];
     }
 

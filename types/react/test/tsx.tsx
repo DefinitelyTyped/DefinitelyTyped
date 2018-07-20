@@ -141,6 +141,10 @@ class ComponentWithNewLifecycles extends React.Component<NewProps, NewState, { b
         return { bar: `${nextProps.foo}bar` };
     }
 
+    state = {
+        bar: 'foo'
+    };
+
     getSnapshotBeforeUpdate(prevProps: Readonly<NewProps>) {
         return { baz: `${prevProps.foo}baz` };
     }
@@ -159,6 +163,10 @@ class PureComponentWithNewLifecycles extends React.PureComponent<NewProps, NewSt
     static getDerivedStateFromProps: React.GetDerivedStateFromProps<NewProps, NewState> = (nextProps) => {
         return { bar: `${nextProps.foo}bar` };
     }
+
+    state = {
+        bar: 'foo'
+    };
 
     getSnapshotBeforeUpdate(prevProps: Readonly<NewProps>) {
         return { baz: `${prevProps.foo}baz` };

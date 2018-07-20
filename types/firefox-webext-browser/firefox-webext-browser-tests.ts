@@ -12,3 +12,5 @@ browser._manifest.NativeManifest; // $ExpectError
 // browser.runtime
 const port = browser.runtime.connect();
 port.postMessage(); // $ExpectError
+
+browser.bookmarks.getTree();

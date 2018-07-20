@@ -20,6 +20,7 @@ import {
 export type FormSubmitHandler<FormData = {}, P = {}> =
     (values: FormData, dispatch: Dispatch<any>, props: P) => void | FormErrors<FormData> | Promise<any>;
 
+export type GetFormState = (state: any) => FormStateMap;
 export interface SubmitHandler<FormData = {}, P = {}> {
     (
         submit: FormSubmitHandler<FormData, P>,
@@ -105,10 +106,11 @@ export interface ConfigProps<FormData = {}, P = {}> {
     destroyOnUnmount?: boolean;
     enableReinitialize?: boolean;
     forceUnregisterOnUnmount?: boolean;
-    getFormState?(state: any): FormStateMap;
+    getFormState?: GetFormState;
     immutableProps?: string[];
     initialValues?: Partial<FormData>;
     keepDirtyOnReinitialize?: boolean;
+    updateUnregisteredFields?: boolean;
     onChange?(values: Partial<FormData>, dispatch: Dispatch<any>, props: P & InjectedFormProps<FormData, P>): void;
     onSubmit?: FormSubmitHandler<FormData, P & InjectedFormProps<FormData, P>> | SubmitHandler<FormData, P & InjectedFormProps<FormData, P>>;
     onSubmitFail?(errors: FormErrors<FormData>, dispatch: Dispatch<any>, submitError: any, props: P & InjectedFormProps<FormData, P>): void;
@@ -132,6 +134,7 @@ export interface FormInstance<FormData, P> extends Component<P> {
     pristine: boolean;
     registeredFields: RegisteredFieldState[];
     reset(): void;
+    resetSection(...sections: string[]): void;
     submit(): Promise<any>;
     valid: boolean;
     values: Partial<FormData>;

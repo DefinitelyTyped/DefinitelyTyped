@@ -402,36 +402,36 @@ let any: any;
 
   result = validator.isBoolean('sample');
 
-  let isByteLengthOptions: ValidatorJS.IsByteLengthOptions;
+  let isByteLengthOptions: ValidatorJS.IsByteLengthOptions = {};
   result = validator.isByteLength('sample', isByteLengthOptions);
   result = validator.isByteLength('sample', 0);
   result = validator.isByteLength('sample', 0, 42);
 
   result = validator.isCreditCard('sample');
 
-  let isCurrencyOptions: ValidatorJS.IsCurrencyOptions;
+  let isCurrencyOptions: ValidatorJS.IsCurrencyOptions = {};
   result = validator.isCurrency('sample');
   result = validator.isCurrency('sample', isCurrencyOptions);
 
   result = validator.isDataURI('sample');
 
-  let isDecimalOptions: ValidatorJS.IsDecimalOptions;
+  let isDecimalOptions: ValidatorJS.IsDecimalOptions = {};
   result = validator.isDecimal('sample');
   result = validator.isDecimal('sample', isDecimalOptions);
 
   result = validator.isDivisibleBy('sample', 2);
 
-  let isEmailOptions: ValidatorJS.IsEmailOptions;
+  let isEmailOptions: ValidatorJS.IsEmailOptions = {};
   result = validator.isEmail('sample');
   result = validator.isEmail('sample', isEmailOptions);
 
   result = validator.isEmpty('sample');
 
-  let isFQDNOptions: ValidatorJS.IsFQDNOptions;
+  let isFQDNOptions: ValidatorJS.IsFQDNOptions = {};
   result = validator.isFQDN('sample');
   result = validator.isFQDN('sample', isFQDNOptions);
 
-  let isFloatOptions: ValidatorJS.IsFloatOptions;
+  let isFloatOptions: ValidatorJS.IsFloatOptions = {};
   result = validator.isFloat('sample');
   result = validator.isFloat('sample', isFloatOptions);
 
@@ -463,7 +463,7 @@ let any: any;
   result = validator.isISBN('sample');
   result = validator.isISBN('sample', 13);
 
-  let isISSNOptions: ValidatorJS.IsISSNOptions;
+  let isISSNOptions: ValidatorJS.IsISSNOptions = {};
   result = validator.isISSN('sample');
   result = validator.isISSN('sample', isISSNOptions);
 
@@ -477,7 +477,7 @@ let any: any;
 
   result = validator.isIn('sample', []);
 
-  let isIntOptions: ValidatorJS.IsIntOptions;
+  let isIntOptions: ValidatorJS.IsIntOptions = {};
   result = validator.isInt('sample');
   result = validator.isInt('sample', isIntOptions);
 
@@ -485,7 +485,7 @@ let any: any;
 
   result = validator.isLatLong('sample');
 
-  let isLengthOptions: ValidatorJS.IsLengthOptions;
+  let isLengthOptions: ValidatorJS.IsLengthOptions = {};
   result = validator.isLength('sample', isLengthOptions);
   result = validator.isLength('sample', 3);
   result = validator.isLength('sample', 3, 5);
@@ -498,7 +498,7 @@ let any: any;
 
   result = validator.isMimeType('sample');
 
-  let isMobilePhoneOptions: ValidatorJS.IsMobilePhoneOptions;
+  let isMobilePhoneOptions: ValidatorJS.IsMobilePhoneOptions = {};
   result = validator.isMobilePhone('sample', 'any', isMobilePhoneOptions);
   result = validator.isMobilePhone('sample', 'ar-AE');
   result = validator.isMobilePhone('sample', 'ar-DZ');
@@ -607,7 +607,7 @@ let any: any;
 
   result = validator.isSurrogatePair('sample');
 
-  let isURLOptions: ValidatorJS.IsURLOptions;
+  let isURLOptions: ValidatorJS.IsURLOptions = {};
   result = validator.isURL('sample');
   result = validator.isURL('sample', isURLOptions);
 
@@ -642,7 +642,7 @@ let any: any;
   result = validator.ltrim('sample');
   result = validator.ltrim('sample', ' ');
 
-  let normalizeEmailOptions: ValidatorJS.NormalizeEmailOptions;
+  let normalizeEmailOptions: ValidatorJS.NormalizeEmailOptions = {};
   let normalizeResult: string | false;
   normalizeResult = validator.normalizeEmail('sample');
   normalizeResult = validator.normalizeEmail('sample', normalizeEmailOptions);

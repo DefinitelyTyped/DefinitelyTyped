@@ -320,12 +320,12 @@ declare namespace adone {
         /**
          * Checks whether the given object is an adone subsystem
          */
-        export function subsystem(obj: any): obj is adone.application.Subsystem;
+        export function subsystem(obj: any): obj is adone.app.Subsystem;
 
         /**
          * Checks whether the given object is an adone application
          */
-        export function application(obj: any): obj is adone.application.Application;
+        export function application(obj: any): obj is adone.app.Application;
 
         /**
          * Checks whether the given object is an adone logger

@@ -825,6 +825,35 @@ namespace util_tests {
         util.deprecate(foo, 'foo() is deprecated, use bar() instead');
         // $ExpectType <T extends Function>(fn: T, message: string) => T
         util.deprecate(util.deprecate, 'deprecate() is deprecated, use bar() instead');
+
+        // util.TextDecoder()
+        var td = new util.TextDecoder();
+        new util.TextDecoder("utf-8");
+        new util.TextDecoder("utf-8", { fatal: true });
+        new util.TextDecoder("utf-8", { fatal: true, ignoreBOM: true });
+        var ignoreBom: boolean = td.ignoreBOM;
+        var fatal: boolean = td.fatal;
+        var encoding: string = td.encoding;
+        td.decode(new Int8Array(1));
+        td.decode(new Int16Array(1));
+        td.decode(new Int32Array(1));
+        td.decode(new Uint8Array(1));
+        td.decode(new Uint16Array(1));
+        td.decode(new Uint32Array(1));
+        td.decode(new Uint8ClampedArray(1));
+        td.decode(new Float32Array(1));
+        td.decode(new Float64Array(1));
+        td.decode(new DataView(new Int8Array(1).buffer));
+        td.decode(new ArrayBuffer(1));
+        td.decode(null);
+        td.decode(null, { stream: true });
+        td.decode(new Int8Array(1), { stream: true });
+        var decode: string = td.decode(new Int8Array(1));
+
+        // util.TextEncoder()
+        var te = new util.TextEncoder();
+        var teEncoding: string = te.encoding;
+        var teEncodeRes: Uint8Array = te.encode("TextEncoder");
     }
 }
 
@@ -3044,6 +3073,12 @@ namespace dns_tests {
         const _err: NodeJS.ErrnoException = err;
         const _addresses: string | dns.LookupAddress[] = addresses;
         const _family: number | undefined = family;
+    });
+
+    dns.lookupService("127.0.0.1", 0, (err, hostname, service) => {
+        const _err: NodeJS.ErrnoException = err;
+        const _hostname: string = hostname;
+        const _service: string = service;
     });
 
     dns.resolve("nodejs.org", (err, addresses) => {

@@ -39,7 +39,7 @@ declare namespace browserSync {
          * Specify which file events to respond to.
          * Available events: `add`, `change`, `unlink`, `addDir`, `unlinkDir`
          */
-        watchEvents?: string[];
+        watchEvents?: WatchEvents | string[];
         /**
          * Watch files automatically.
          */
@@ -72,7 +72,7 @@ declare namespace browserSync {
          * ws - Default: undefined
          * middleware - Default: undefined
          * reqHeaders - Default: undefined
-         * proxyRes - Default: undefined
+         * proxyRes - Default: undefined (http.ServerResponse if expecting single parameter)
          * proxyReq - Default: undefined
          */
         proxy?: string | ProxyOptions;
@@ -91,7 +91,7 @@ declare namespace browserSync {
          * Default: []
          * Note: Requires at least version 2.8.0.
          */
-        serveStatic?: (string | { route?: string | string[], dir?: string | string[]})[];
+        serveStatic?: StaticOptions[] | string[];
         /**
          * Options that are passed to the serve-static middleware when you use the
          * string[] syntax: eg: `serveStatic: ['./app']`.
@@ -120,7 +120,7 @@ declare namespace browserSync {
          * Can be either "info", "debug", "warn", or "silent"
          * Default: info
          */
-        logLevel?: string;
+        logLevel?: LogLevel;
         /**
          * Change the console logging prefix. Useful if you're creating your own project based on Browsersync
          * Default: BS
@@ -170,7 +170,7 @@ declare namespace browserSync {
          * Decide which URL to open automatically when Browsersync starts. Defaults to "local" if none set.
          * Can be true, local, external, ui, ui-external, tunnel or false
          */
-        open?: string | boolean;
+        open?: OpenOptions | boolean;
         /**
          * The browser(s) to open
          * Default: default
@@ -320,6 +320,12 @@ declare namespace browserSync {
         excludeFileTypes?: string[];
     }
 
+    type WatchEvents = "add" | "change" | "unlink" | "addDir" | "unlinkDir";
+
+    type LogLevel = "info" | "debug" | "warn" | "silent";
+
+    type OpenOptions = "local" | "external" | "ui" | "ui-external" | "tunnel";
+
     interface Hash<T> {
         [path: string]: T;
     }
@@ -353,16 +359,21 @@ declare namespace browserSync {
         routes?: Hash<string>;
         /** configure custom middleware */
         middleware?: (MiddlewareHandler | PerRouteMiddleware)[];
-        serveStaticOptions?: ServeStaticOptions
+        serveStaticOptions?: ServeStaticOptions;
     }
 
     interface ProxyOptions {
         target?: string;
         middleware?: MiddlewareHandler;
         ws?: boolean;
-        reqHeaders?: (config: any) => Hash<any>;
-        proxyRes?: ((res: http.ServerResponse, req: http.IncomingMessage, next: Function) => any)[] | ((res: http.ServerResponse, req: http.IncomingMessage, next: Function) => any);
-        proxyReq?: ((res: http.ServerRequest) => any)[] | ((res: http.ServerRequest) => any);
+        reqHeaders?: (config: object) => Hash<object>;
+        proxyRes?: ProxyResponseMiddleware | ProxyResponseMiddleware[];
+        proxyReq?: ((res: http.ServerRequest) => void)[] | ((res: http.ServerRequest) => void);
+        error?: (err: NodeJS.ErrnoException, req: http.IncomingMessage, res: http.ServerResponse) => void;
+    }
+
+    interface ProxyResponseMiddleware {
+        (proxyRes: http.ServerResponse | http.IncomingMessage, res: http.ServerResponse, req: http.IncomingMessage): void;
     }
 
     interface HttpsOptions {
@@ -370,11 +381,17 @@ declare namespace browserSync {
         cert?: string;
     }
 
+    interface StaticOptions {
+        route: string | string[],
+        dir: string | string[]
+    }
+
     interface MiddlewareHandler {
-        (req: http.IncomingMessage, res: http.ServerResponse, next: Function): any;
+        (req: http.IncomingMessage, res: http.ServerResponse, next: () => void): any;
     }
 
     interface PerRouteMiddleware {
+        id?: string;
         route: string;
         handle: MiddlewareHandler;
     }
@@ -382,18 +399,23 @@ declare namespace browserSync {
     interface GhostOptions {
         clicks?: boolean;
         scroll?: boolean;
-        forms?: boolean | {
-            submit?: boolean;
-            inputs?: boolean;
-            toggles?: boolean;
-        };
+        forms?: FormsOptions | boolean;
+    }
+
+    interface FormsOptions {
+        inputs: boolean,
+        submit: boolean,
+        toggles: boolean
     }
 
     interface SnippetOptions {
-        async?: boolean,
+        async?: boolean;
         whitelist?: string[],
         blacklist?: string[],
-        rule?: { match?: RegExp; fn?: (snippet: string, match: string) => any };
+        rule?: {
+            match?: RegExp;
+            fn?: (snippet: string, match: string) => any
+        };
     }
 
     interface SocketOptions {
@@ -435,10 +457,14 @@ declare namespace browserSync {
          */
         (config?: Options, callback?: (err: Error, bs: object) => any): BrowserSyncInstance;
         /**
+         * 
+         */
+        instances: Array<BrowserSyncInstance>;
+        /**
          * Create a Browsersync instance
          * @param name an identifier that can used for retrieval later
          */
-        create(name?: string): BrowserSyncInstance;
+        create(name?: string, emitter?: NodeJS.EventEmitter): BrowserSyncInstance;
         /**
          * Get a single instance by name. This is useful if you have your build scripts in separate files
          * @param name the identifier used for retrieval
@@ -449,6 +475,11 @@ declare namespace browserSync {
          * @param name the name of the instance
          */
         has(name: string): boolean;
+        /**
+         * Reset the state of the module.
+         * (should only be needed for test environments)
+         */
+        reset(): void;
     }
 
     interface BrowserSyncInstance {
@@ -459,6 +490,24 @@ declare namespace browserSync {
          * depending on your use-case.
          */
         init(config?: Options, callback?: (err: Error, bs: object) => any): BrowserSyncInstance;
+        /**
+         * This method will close any running server, stop file watching & exit the current process.
+         */
+        exit(): void;
+        /**
+         * Helper method for browser notifications
+         * @param message Can be a simple message such as 'Connected' or HTML
+         * @param timeout How long the message will remain in the browser. @since 1.3.0
+         */
+        notify(message: string, timeout?: number): void;
+        /**
+         * Method to pause file change events
+         */
+        pause(): void;
+        /**
+         * Method to resume paused watchers
+         */
+        resume(): void;
         /**
          * Reload the browser
          * The reload method will inform all browsers about changed files and will either cause the browser
@@ -488,28 +537,30 @@ declare namespace browserSync {
          */
         stream(opts?: StreamOptions): NodeJS.ReadWriteStream;
         /**
-         * Helper method for browser notifications
-         * @param message Can be a simple message such as 'Connected' or HTML
-         * @param timeout How long the message will remain in the browser. @since 1.3.0
+         * Instance Cleanup.
          */
-        notify(message: string, timeout?: number): void;
+        cleanup(fn?: (error: NodeJS.ErrnoException, bs: BrowserSyncInstance) => void): void;
         /**
-         * This method will close any running server, stop file watching & exit the current process.
+         * Register a plugin.
+         * Must implement at least a 'plugin' property that returns
+         * callable function.
+         *
+         * @method use
+         * @param {object} module The object to be `required`.
+         * @param {object} options The 
+         * @param {any} cb A callback function that will return any errors.
          */
-        exit(): void;
+        use(module: { "plugin:name"?: string, plugin: (opts: object, bs: BrowserSyncInstance) => any }, options?: object, cb?: any): void;
+        /**
+         * Callback helper to examine what options have been set.
+         * @param {string} name The key to search options map for.
+         */
+        getOption(name: string): any;
         /**
          * Stand alone file-watcher. Use this along with Browsersync to create your own, minimal build system
          */
         watch(patterns: string, opts?: chokidar.WatchOptions, fn?: (event: string, file: fs.Stats) => any)
             : NodeJS.EventEmitter;
-        /**
-         * Method to pause file change events
-         */
-        pause(): void;
-        /**
-         * Method to resume paused watchers
-         */
-        resume(): void;
         /**
          * The internal Event Emitter used by the running Browsersync instance (if there is one). You can use
          * this to emit your own events, such as changed files, logging etc.

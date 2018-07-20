@@ -100,6 +100,7 @@ declare namespace got {
     }
 
     interface GotJSONOptions extends GotOptions<string | null> {
+        // Body must be an object or array. See https://github.com/sindresorhus/got/issues/511
         body?: object;
         form?: boolean;
         json: true;
@@ -119,7 +120,7 @@ declare namespace got {
         followRedirect?: boolean;
         decompress?: boolean;
         useElectronNet?: boolean;
-        cache?: Map<string, any>;
+        cache?: Cache;
         agent?: http.Agent | boolean | AgentOptions;
         throwHttpErrors?: boolean;
     }
@@ -136,6 +137,12 @@ declare namespace got {
     }
 
     type RetryFunction = (retry: number, error: any) => number;
+
+    interface Cache {
+        set(key: string, value: any, ttl?: number): any;
+        get(key: string): any;
+        delete(key: string): any;
+    }
 
     interface Response<B extends Buffer | string | object> extends http.IncomingMessage {
         body: B;

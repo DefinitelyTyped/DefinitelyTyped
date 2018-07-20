@@ -1,7 +1,4 @@
-"use strict";
 import Knex = require('knex');
-import Promise = require('bluebird');
-import _ = require('lodash');
 
 // Initializing the Library
 var knex = Knex({
@@ -205,6 +202,11 @@ knex('users').where('votes', '>', 100);
 // Let null be used in a two or 3 parameter where filter
 knex('users').where('votes', null);
 knex('users').where('votes', 'is not', null);
+
+// Using Raw in where
+knex('users').where(knex.raw('votes + 1'), '>', 101);
+knex('users').where(knex.raw('votes + 1'), '>', knex.raw('100 + 1'));
+knex('users').where('votes', '>', knex.raw('100 + 1'));
 
 var subquery = knex('users').where('votes', '>', 100).andWhere('status', 'active').orWhere('name', 'John').select('id');
 knex('accounts').where('id', 'in', subquery);
@@ -762,7 +764,7 @@ knex.transaction<{ length: number }>(function(trx) {
 // transacting handles undefined
 knex.insert({ name: 'Old Books'}).transacting(undefined);
 
-knex.schema.withSchema("public").hasTable("table") as Promise<boolean>;
+knex.schema.withSchema("public").hasTable("table"); // $ExpectType Bluebird<boolean>
 
 knex.schema.createTable('users', function (table) {
   table.increments();
@@ -851,8 +853,8 @@ knex.select('name').from('users')
   .andWhere('id', '<', 200)
   .limit(10)
   .offset(x)
-  .then(function(rows: any) {
-    return _.map(rows, 'name');
+  .then(function(rows) {
+    return rows.map((r: any) => r.name);
   })
   .then(function(names: any) {
     return knex.select('id').from('nicknames').whereIn('nickname', names);
@@ -931,7 +933,7 @@ knex.select('name').from('users')
   .offset(x)
   .exec(function(err: any, rows: any[]) {
     if (err) return console.error(err);
-    knex.select('id').from('nicknames').whereIn('nickname', _.map(rows, 'name') as any)
+    knex.select('id').from('nicknames').whereIn('nickname', rows.map((r: any) => r.name))
       .exec(function(err: any, rows: any[]) {
         if (err) return console.error(err);
         console.log(rows);
@@ -1040,10 +1042,10 @@ knex('users')
   }).unionAll(function(builder) {
     let self: Knex.QueryBuilder = this;
     self = builder;
-  }).modify(function(builder) {
+  }).modify(function(builder, aBool) {
     let self: Knex.QueryBuilder = this;
     self = builder;
-  });
+  }, true);
 
 //
 // Migrations

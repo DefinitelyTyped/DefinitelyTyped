@@ -114,6 +114,7 @@ interface Auth0LockConstructorOptions {
     allowForgotPassword?: boolean;
     allowLogin?: boolean;
     allowSignUp?: boolean;
+    allowShowPassword?: boolean;
     assetsUrl?: string;
     auth?: Auth0LockAuthOptions;
     autoclose?: boolean;
@@ -161,10 +162,13 @@ interface Auth0LockShowOptions {
     initialScreen?: "login" | "signUp" | "forgotPassword";
     flashMessage?: Auth0LockFlashMessageOptions;
     rememberLastLogin?: boolean;
+    languageDictionary?: any;
 }
 
 interface AuthResult {
     accessToken: string;
+    appState?: any;
+    expiresIn: number;
     idToken: string;
     idTokenPayload: {
         aud: string;
@@ -174,8 +178,10 @@ interface AuthResult {
         sub: string;
     };
     refreshToken?: string;
+    scope?: string;
     state: string;
-}
+    tokenType: string;
+  }
 
 interface Auth0LockStatic {
     new (clientId: string, domain: string, options?: Auth0LockConstructorOptions): Auth0LockStatic;

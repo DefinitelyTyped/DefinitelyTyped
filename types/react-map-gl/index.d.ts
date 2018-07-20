@@ -221,6 +221,8 @@ export class InteractiveMap extends React.Component<InteractiveMapProps> {
     queryRenderedFeatures(geometry?: MapboxGL.PointLike | MapboxGL.PointLike[], parameters?: QueryRenderedFeaturesParams): Array<GeoJSON.Feature<GeoJSON.GeometryObject>>;
 }
 
+export default InteractiveMap;
+
 /**
  *
  * React Map Overlays

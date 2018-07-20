@@ -5,6 +5,6 @@
 // TypeScript Version: 2.1
 
 import * as bunyan from "bunyan";
-import { LoggerInstance } from "winston";
+import { Logger } from "winston";
 
-export function createAdapter(logger: LoggerInstance, mapping?: any): bunyan;
+export function createAdapter(logger: Logger, mapping?: any): bunyan;

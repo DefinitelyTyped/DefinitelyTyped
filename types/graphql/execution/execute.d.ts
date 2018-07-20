@@ -1,3 +1,4 @@
+import Maybe from "../tsutils/Maybe";
 import { GraphQLError, locatedError } from "../error";
 import { GraphQLSchema } from "../type/schema";
 import {
@@ -35,15 +36,19 @@ export interface ExecutionContext {
     errors: GraphQLError[];
 }
 
+export interface ExecutionResultDataDefault {
+    [key: string]: any
+}
+
 /**
  * The result of GraphQL execution.
  *
  *   - `errors` is included when any errors occurred as a non-empty array.
  *   - `data` is the result of a successful execution of the query.
  */
-export interface ExecutionResult {
+export interface ExecutionResult<TData = ExecutionResultDataDefault> {
     errors?: ReadonlyArray<GraphQLError>;
-    data?: { [key: string]: any };
+    data?: TData;
 }
 
 export type ExecutionArgs = {
@@ -51,9 +56,9 @@ export type ExecutionArgs = {
     document: DocumentNode;
     rootValue?: any;
     contextValue?: any;
-    variableValues?: { [key: string]: any } | void;
-    operationName?: string | void;
-    fieldResolver?: GraphQLFieldResolver<any, any> | void;
+    variableValues?: Maybe<{ [key: string]: any }>;
+    operationName?: Maybe<string>;
+    fieldResolver?: Maybe<GraphQLFieldResolver<any, any>>;
 };
 
 /**
@@ -68,16 +73,16 @@ export type ExecutionArgs = {
  *
  * Accepts either an object with named arguments, or individual arguments.
  */
-export function execute(args: ExecutionArgs): MaybePromise<ExecutionResult>;
-export function execute(
+export function execute<TData = ExecutionResultDataDefault>(args: ExecutionArgs): MaybePromise<ExecutionResult<TData>>;
+export function execute<TData = ExecutionResultDataDefault>(
     schema: GraphQLSchema,
     document: DocumentNode,
     rootValue?: any,
     contextValue?: any,
-    variableValues?: { [key: string]: any } | void,
-    operationName?: string | void,
-    fieldResolver?: GraphQLFieldResolver<any, any> | void
-): MaybePromise<ExecutionResult>;
+    variableValues?: Maybe<{ [key: string]: any }>,
+    operationName?: Maybe<string>,
+    fieldResolver?: Maybe<GraphQLFieldResolver<any, any>>
+): MaybePromise<ExecutionResult<TData>>;
 
 /**
  * Given a ResponsePath (found in the `path` entry in the information provided
@@ -88,6 +93,7 @@ export function responsePathAsArray(path: ResponsePath): ReadonlyArray<string | 
 /**
  * Given a ResponsePath and a key, return a new ResponsePath containing the
  * new key.
+
  */
 export function addPath(
     prev: ResponsePath | undefined,
@@ -101,7 +107,7 @@ export function addPath(
 export function assertValidExecutionArguments(
     schema: GraphQLSchema,
     document: DocumentNode,
-    rawVariableValues: { [key: string]: any } | void
+    rawVariableValues: Maybe<{ [key: string]: any }>
 ): void;
 
 /**
@@ -115,9 +121,9 @@ export function buildExecutionContext(
     document: DocumentNode,
     rootValue: any,
     contextValue: any,
-    rawVariableValues: { [key: string]: any } | void,
-    operationName: string | void,
-    fieldResolver: GraphQLFieldResolver<any, any> | void
+    rawVariableValues: Maybe<{ [key: string]: any }>,
+    operationName: Maybe<string>,
+    fieldResolver: Maybe<GraphQLFieldResolver<any, any>>
 ): ReadonlyArray<GraphQLError> | ExecutionContext;
 
 /**
@@ -181,4 +187,4 @@ export function getFieldDef(
     schema: GraphQLSchema,
     parentType: GraphQLObjectType,
     fieldName: string
-): GraphQLField<any, any> | void;
+): Maybe<GraphQLField<any, any>>;

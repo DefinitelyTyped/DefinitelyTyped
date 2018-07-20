@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Tree, { TreeNode, SelectData, CheckData } from 'rc-tree';
+import Tree, { TreeNode, SelectData, CheckData, InternalTreeNode } from 'rc-tree';
 
 interface Props {
     keys: string[];
@@ -13,24 +13,18 @@ interface State {
 }
 
 export class Demo extends React.Component<Props, State> {
-    constructor(props: Props) {
-        super(props);
-
-        const keys = this.props.keys;
-        this.state = {
+    static initState({keys}: Props) {
+        return {
             defaultExpandedKeys: keys,
             defaultSelectedKeys: keys,
             defaultCheckedKeys: keys,
             switchIt: true,
         };
     }
-
     static defaultProps: Props = {
         keys: ['0-0-0-0'],
     };
-
-    getInitialState() {
-    }
+    state = Demo.initState(this.props);
 
     onExpand(expandedKeys: string[]) {
         console.log('onExpand', expandedKeys, arguments);
@@ -44,15 +38,15 @@ export class Demo extends React.Component<Props, State> {
         console.log('onCheck', checkedKeys, info);
     }
 
-    onDragStart(params: {event: Event, node: TreeNode}) {
+    onDragStart(params: {event: Event, node: InternalTreeNode}) {
         console.log('onDragStart', params.event, params.node);
     }
 
-    OnDragEnterData(params: {event: Event, node: TreeNode, expandedKeys: string[]}) {
+    OnDragEnterData(params: {event: Event, node: InternalTreeNode, expandedKeys: string[]}) {
         console.log('OnDragEnterData', params.event, params.node, params.expandedKeys);
     }
 
-    OnDropData(params: {event: Event, node: TreeNode, dragNode: TreeNode, dragNodesKeys: string[]}) {
+    OnDropData(params: {event: Event, node: InternalTreeNode, dragNode: InternalTreeNode, dragNodesKeys: string[]}) {
         console.log('OnDropData', params.event, params.node, params.dragNode, params.dragNodesKeys);
     }
 

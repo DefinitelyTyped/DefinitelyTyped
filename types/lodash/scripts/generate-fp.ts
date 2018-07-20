@@ -13,6 +13,7 @@ import fs from "fs";
 import _ from "lodash";
 import convert from "lodash/fp/convert";
 import path from "path";
+import { readFile, getLineBreak, tab, getLineNumber } from "./utils";
 
 interface Definition {
     name: string;
@@ -45,10 +46,8 @@ interface TypeParam {
 
 let lineBreak = "\n";
 async function main() {
+    lineBreak = await getLineBreak();
     const commonTypes: string[] = [];
-    const tsconfigPath = path.join("..", "tsconfig.json");
-    const tsconfigFile = await readFile(tsconfigPath);
-    lineBreak = _.find(["\r\n", "\n", "\r"], x => tsconfigFile.includes(x)) || "\n";
 
     // Read each function definition and fp-ify it
     const subfolders = ["common"];
@@ -106,7 +105,7 @@ async function main() {
     const fpFile = [
         "// AUTO-GENERATED: do not modify this file directly.",
         "// If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:",
-        "// npm run fp",
+        "// npm install && npm run generate",
         "",
         'import lodash = require("./index");',
         "",
@@ -119,7 +118,7 @@ async function main() {
         "    interface LoDashFp {",
         ...interfaceGroups.map(g => `        ${g.functionName}: ${g.interfaces[0].name};`),
         "        __: lodash.__;",
-        "        placehodler: lodash.__;",
+        "        placeholder: lodash.__;",
         "    }",
         "}",
         "",
@@ -130,6 +129,8 @@ async function main() {
     });
 
     // Make sure the generated files are listed in tsconfig.json, so they are included in the lint checks
+    const tsconfigPath = path.join("..", "tsconfig.json");
+    const tsconfigFile = await readFile(tsconfigPath);
     const tsconfig = tsconfigFile.split(lineBreak).filter(row => !row.includes("fp/") || row.includes("fp/convert.d.ts"));
     const newRows = interfaceGroups.map(g => `        "fp/${g.functionName}.d.ts",`)
         .concat(["__", "placeholder"].map(p => `        "fp/${p}.d.ts",`));
@@ -143,22 +144,6 @@ async function main() {
     fs.writeFile(tsconfigPath, tsconfig.join(lineBreak), (err) => {
         if (err)
             console.error(`Failed to write ${tsconfigPath}: `, err);
-    });
-}
-
-function readFile(filePath: string): Promise<string> {
-    return new Promise<string>((resolve, reject) => {
-        fs.readFile(filePath, "utf8", (err, data) => {
-            if (err) {
-                reject(err);
-                return;
-            }
-            try {
-                resolve(data);
-            } catch (e) {
-                reject(e);
-            }
-        });
     });
 }
 
@@ -189,15 +174,14 @@ async function processDefinitions(filePaths: string[], commonTypes: string[]): P
                     } else if (args.length > 4 || definition.name === "flow" || definition.name === "flowRight") {
                         // Arity wasn't fixed by convert()
                         isFixed = false;
-                    } else {
-                        // For some reason, convert() doesn't seems to tell us which functions have unchanged argument order.
-                        // So we have to hard-code it.
-                        const unchangedOrders = ["add", "assign", "assignIn", "bind", "bindKey", "concat", "difference", "divide", "eq",
-                            "gt", "gte", "isEqual", "lt", "lte", "matchesProperty", "merge", "multiply", "overArgs", "partial", "partialRight",
-                            "propertyOf", "random", "range", "rangeRight", "subtract", "zip", "zipObject", "zipObjectDeep"];
-                        if (unchangedOrders.includes(definition.name))
-                            args = _.sortBy(args as number[][], (a: number[]) => a[0]);
                     }
+                    // For some reason, convert() doesn't seems to tell us which functions have unchanged argument order.
+                    // So we have to hard-code it.
+                    const unchangedOrders = ["add", "assign", "assignIn", "bind", "bindKey", "concat", "difference", "divide", "eq",
+                        "gt", "gte", "isEqual", "lt", "lte", "matchesProperty", "merge", "multiply", "overArgs", "partial", "partialRight",
+                        "propertyOf", "random", "range", "rangeRight", "subtract", "zip", "zipObject", "zipObjectDeep"];
+                    if (unchangedOrders.includes(definition.name))
+                        args = _.sortBy(args, a => typeof a === "number" ? a : a[0]);
 
                     return () => curryDefinition(definition, _.flatten(args), spreadIndex, isFixed);
                 };
@@ -255,7 +239,6 @@ async function parseFile(filePath: string, commonTypes: string[]): Promise<Defin
         definitons.push(...parsedDefinitions);
         lodashStaticMatch = lodashStaticRegExp.exec(definitionString);
     }
-    const __test = definitons.filter(d => !_.isEmpty(d.constants));
     return definitons;
 }
 
@@ -340,6 +323,12 @@ function parseDefinitions(definitionString: string, startIndex: number, endIndex
                 .map(o => _.trim(o, ","))
                 .filter(o => !!o);
             overload.returnType = overloadString.substring(paramEndIndex + 2).trim();
+            // Special case for unset: the return type should be the input type, not bolean. See https://github.com/DefinitelyTyped/DefinitelyTyped/issues/25361
+            if (name === "unset") {
+                overload.typeParams = [{ name: "T" }];
+                overload.params[0] = overload.params[0].replace(/\bany\b/, "T");
+                overload.returnType = "T";
+            }
             currentDefinition.overloads.push(overload);
         } else {
             // This overload actually points to an interface. Try to find said interface and get the overloads from there.
@@ -449,25 +438,33 @@ function curryDefinition(definition: Definition, paramOrder: number[], spreadInd
         // Spread/rest parameters could be in any of the following formats:
         // 1. The rest parameter is at spreadIndex, and it is the last parameter.
         // 2. The rest parameter is immediately after spreadIndex, e.g. assign(object, ...sources[]). In this case, convert it to assignAll(...object[])
-        // 3. The rest parameter is not the last parameter, e.g. assignWith(object, ...sources[], customizer)
+        // 3. The overload defines no rest parameters, e.g. mergeAll(T1, T2, T3)
+        // 4. The rest parameter is not the last parameter, e.g. assignWith(object, ...sources[], customizer)
         if (spreadIndex === arity - 1) {
-            // cases 1-2
             for (let i = 0; i < overloads.length; ++i) {
                 const overload = overloads[i];
                 if (overload.params.length === arity && overload.params[spreadIndex] && overload.params[spreadIndex].startsWith("...")) {
+                    // case 1
                     overload.params[spreadIndex] = overload.params[spreadIndex].replace("...", "");
                 } else if (overload.params.length === arity + 1 && overload.params[spreadIndex + 1] && overload.params[spreadIndex + 1].startsWith("...")) {
+                    // case 2
                     overload.params.splice(spreadIndex + 1, 1);
                     const parts = overload.params[spreadIndex].split(":").map(_.trim);
                     parts[1] = `ReadonlyArray<${parts[1]}>`;
                     overload.params[spreadIndex] = `${parts[0]}: ${parts[1]}`;
+                } else if (overload.params.length >= arity && overload.params[spreadIndex] && !overload.params.some(p => p.startsWith("..."))) {
+                    // case 3
+                    const paramName = getParamName(overload.params[spreadIndex]);
+                    const spreadParamTypes = overload.params.slice(spreadIndex).map(getParamType);
+                    overload.params = overload.params.slice(0, spreadIndex);
+                    overload.params.push(`${paramName}: [${spreadParamTypes.join(", ")}]`);
                 } else {
                     _.pull(overloads, overload);
                     --i;
                 }
             }
         } else {
-            // case 3
+            // case 4
             const overload = overloads[0];
             overloads = [{
                 jsdoc: overload.jsdoc,
@@ -897,15 +894,6 @@ function getPreviousLine(s: string, index: number): string {
     if (bol === -1)
         return "";
     return s.substring(bol + 1, eol);
-}
-
-function getLineNumber(fileContents: string, index: number) {
-    return fileContents.substring(0, index).split(lineBreak).length + 1;
-}
-
-function tab(s: string, count: number) {
-    const prepend: string = " ".repeat(count * 4);
-    return (s[0] === "\n" || s[0] === "\r" ? "" : prepend) + s.replace(/(?:\r\n|\n|\r)(.)/g, `${lineBreak}${prepend}$1`);
 }
 
 function indexOfAny(source: string, values: string[], position?: number): number {

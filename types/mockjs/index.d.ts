@@ -58,7 +58,7 @@ declare namespace mockjs {
     character(pool?: S): S;
 
     // Random.string
-    string(pool: S | N, min?: N, max?: N): S;
+    string(pool?: S | N, min?: N, max?: N): S;
 
     // Random.range
     range(start?: N, stop?: N, step?: N): N;

@@ -2,26 +2,26 @@ import fetch, { Headers, Request, RequestInit, Response } from 'node-fetch';
 import { Agent } from "http";
 
 function test_fetchUrlWithOptions() {
-	var headers = new Headers();
+	const headers = new Headers();
 	headers.append("Content-Type", "application/json");
-	var requestOptions: RequestInit = {
-		method: "POST",
-		headers: headers,
+	const requestOptions: RequestInit = {
 		compress: true,
 		follow: 10,
+		headers,
+		method: "POST",
 		redirect: 'manual',
 		size: 100,
-		timeout: 5000
+		timeout: 5000,
 	};
 	handlePromise(fetch("http://www.andlabs.net/html5/uCOR.php", requestOptions));
 }
 
 function test_fetchUrlWithHeadersObject() {
-	var requestOptions: RequestInit = {
-		method: "POST",
+	const requestOptions: RequestInit = {
 		headers: {
 			'Content-Type': 'application/json'
-		}
+		},
+		method: "POST",
 	};
 	handlePromise(fetch("http://www.andlabs.net/html5/uCOR.php", requestOptions));
 }
@@ -35,17 +35,17 @@ function test_fetchUrlArrayBuffer() {
 }
 
 function test_fetchUrlWithRequestObject() {
-	var requestOptions: RequestInit = {
+	const requestOptions: RequestInit = {
 		method: "POST",
 		headers: {
 			'Content-Type': 'application/json'
 		}
 	};
-	var request: Request = new Request("http://www.andlabs.net/html5/uCOR.php", requestOptions);
-	var timeout: number = request.timeout;
-	var size: number = request.size;
-	var agent: Agent = request.agent;
-	var protocol: string = request.protocol
+	const request: Request = new Request("http://www.andlabs.net/html5/uCOR.php", requestOptions);
+	const timeout: number = request.timeout;
+	const size: number = request.size;
+	const agent: Agent = request.agent;
+	const protocol: string = request.protocol;
 
 	handlePromise(fetch(request));
 }
@@ -58,7 +58,7 @@ function test_globalFetchVar() {
 }
 
 function handlePromise(promise: Promise<Response>, isArrayBuffer: boolean = false) {
-	promise.then((response):Promise<string | ArrayBuffer> => {
+	promise.then((response): Promise<string | ArrayBuffer> => {
 		if (response.type === 'basic') {
 			// for test only
 		}
@@ -67,7 +67,7 @@ function handlePromise(promise: Promise<Response>, isArrayBuffer: boolean = fals
 		} else {
 			return response.text();
 		}
-	}).then((text:string | ArrayBuffer) => {
+	}).then((text: string | ArrayBuffer) => {
 		console.log(text);
 	});
 }

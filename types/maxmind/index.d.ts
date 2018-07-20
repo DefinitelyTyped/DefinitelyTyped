@@ -17,7 +17,10 @@ export declare interface Options {
     cache?: {
         max?: number;
         maxAge?: number;
-    }
+    };
+    watchForUpdates?: boolean;
+    watchForUpdatesNonPersistent?: boolean;
+    watchForUpdatesHook?: () => void;
 }
 
 export declare interface Metadata {
@@ -68,6 +71,11 @@ export declare interface Response {
         readonly names: Translations;
     };
     readonly postal?: { code: string };
+    readonly isp?: {
+        readonly isp: string;
+        readonly autonomous_system_number: number;
+    };
+    readonly connection?: { connection_type: string };
 }
 
 export declare interface Translations {

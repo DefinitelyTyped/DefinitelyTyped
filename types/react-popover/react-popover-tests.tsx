@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Popover from 'react-popover';
+import Popover = require('react-popover');
 
 class Test extends React.Component {
     render() {

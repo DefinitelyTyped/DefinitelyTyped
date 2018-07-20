@@ -41,19 +41,15 @@ interface MyTable3State {
 
 class MyTable3 extends React.Component<{}, MyTable3State> {
 
-      constructor(props: {}) {
-        super(props);
-
-        this.state = {
-            myTableData: [
-                {name: "Rylan"},
-                {name: "Amelia"},
-                {name: "Estevan"},
-                {name: "Florence"},
-                {name: "Tressa"},
-            ]
-        };
-    }
+    state = {
+        myTableData: [
+            {name: "Rylan"},
+            {name: "Amelia"},
+            {name: "Estevan"},
+            {name: "Florence"},
+            {name: "Tressa"},
+        ]
+    };
 
     render(): React.ReactElement<any> {
         return (
@@ -127,18 +123,15 @@ interface MyTable4State {
 
 class MyTable4 extends React.Component<{}, MyTable4State> {
 
-    constructor(props: {}) {
-        super(props);
-        this.state = {
-            tableData: [
-                {name: "Rylan", email: "Angelita_Weimann42@gmail.com"},
-                {name: "Amelia", email: "Dexter.Trantow57@hotmail.com"},
-                {name: "Estevan", email: "Aimee7@hotmail.com"},
-                {name: "Florence", email: "Jarrod.Bernier13@yahoo.com"},
-                {name: "Tressa", email: "Yadira1@hotmail.com"}
-            ]
-        };
-    }
+    state = {
+        tableData: [
+            {name: "Rylan", email: "Angelita_Weimann42@gmail.com"},
+            {name: "Amelia", email: "Dexter.Trantow57@hotmail.com"},
+            {name: "Estevan", email: "Aimee7@hotmail.com"},
+            {name: "Florence", email: "Jarrod.Bernier13@yahoo.com"},
+            {name: "Tressa", email: "Yadira1@hotmail.com"}
+        ]
+    };
 
     render(): React.ReactElement<any> {
         return (

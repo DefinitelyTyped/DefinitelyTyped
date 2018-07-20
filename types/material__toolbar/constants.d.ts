@@ -28,6 +28,7 @@ export interface cssClasses extends MDCStrings {
 
 export interface strings extends MDCStrings {
     TITLE_SELECTOR: '.mdc-toolbar__title';
+    ICON_SELECTOR: '.mdc-toolbar__icon';
     FIRST_ROW_SELECTOR: '.mdc-toolbar__row:first-child';
     CHANGE_EVENT: 'MDCToolbar:change';
 }

@@ -242,6 +242,7 @@ declare namespace NodeJS {
         abort(): void;
         chdir(directory: string): void;
         cwd(): string;
+        debugPort: number;
         env: any;
         exit(code?: number): void;
         getgid(): number;
@@ -593,6 +594,7 @@ declare module "http" {
 	}
 
     export class Agent {
+		maxFreeSockets: number;
 		maxSockets: number;
 		sockets: any;
 		requests: any;
@@ -881,7 +883,7 @@ declare module "child_process" {
         unref(): void;
     }
 
-    export function spawn(command: string, args?: string[], options?: {
+    export function spawn(command: string, args?: ReadonlyArray<string>, options?: {
         cwd?: string;
         stdio?: any;
         custom?: any;

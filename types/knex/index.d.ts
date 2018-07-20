@@ -7,7 +7,7 @@
 //                 Satana Charuwichitratana <https://github.com/micksatana>
 //                 Shrey Jain <https://github.com/shreyjain1994>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 
@@ -23,7 +23,7 @@ type ColumnName = string | Knex.Raw | Knex.QueryBuilder | {[key: string]: string
 type TableName = string | Knex.Raw | Knex.QueryBuilder;
 
 interface Knex extends Knex.QueryInterface {
-    (tableName?: string): Knex.QueryBuilder;
+    (tableName?: TableName): Knex.QueryBuilder;
     VERSION: string;
     __knex__: string;
 
@@ -155,7 +155,7 @@ declare namespace Knex {
         pluck(column: string): QueryBuilder;
 
         insert(data: any, returning?: string | string[]): QueryBuilder;
-        modify(callback: QueryCallback, ...args: any[]): QueryBuilder;
+        modify(callback: QueryCallbackWithArgs, ...args: any[]): QueryBuilder;
         update(data: any, returning?: string | string[]): QueryBuilder;
         update(columnName: string, value: Value, returning?: string | string[]): QueryBuilder;
         returning(column: string | string[]): QueryBuilder;
@@ -179,7 +179,7 @@ declare namespace Knex {
     }
 
     interface Table {
-        (tableName: string): QueryBuilder;
+        (tableName: TableName): QueryBuilder;
         (callback: Function): QueryBuilder;
         (raw: Raw): QueryBuilder;
     }
@@ -269,8 +269,8 @@ declare namespace Knex {
         (callback: QueryCallback): QueryBuilder;
         (object: Object): QueryBuilder;
         (columnName: string, value: Value | null): QueryBuilder;
-        (columnName: string, operator: string, value: Value | null): QueryBuilder;
-        (columnName: string, operator: string, query: QueryBuilder): QueryBuilder;
+        (columnName: string, operator: string, value: Value | QueryBuilder | null): QueryBuilder;
+        (left: Raw, operator: string, right: Value | QueryBuilder | null): QueryBuilder;
     }
 
     interface WhereRaw extends RawQueryBuilder {
@@ -360,6 +360,8 @@ declare namespace Knex {
     //
 
     type QueryCallback = (this: QueryBuilder, builder: QueryBuilder) => void;
+    type QueryCallbackWithArgs = (this: QueryBuilder, builder: QueryBuilder, ...args: any[]) => void;
+
     interface QueryBuilder extends QueryInterface, ChainableInterface {
         or: QueryBuilder;
         and: QueryBuilder;

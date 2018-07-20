@@ -1,3 +1,5 @@
+/// <reference types="windows-script-host" />
+
 const collectionToArray = <T>(col: { Item(key: any): T }): T[] => {
     const results: T[] = [];
     const enumerator = new Enumerator<T>(col);

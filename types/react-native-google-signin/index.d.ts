@@ -5,9 +5,9 @@
 // TypeScript Version: 2.6
 
 import * as React from 'react';
-import { ViewProperties } from 'react-native';
+import { ViewProps } from 'react-native';
 
-export interface GoogleSigninButtonProps extends ViewProperties {
+export interface GoogleSigninButtonProps extends ViewProps {
     size?: GoogleSigninButton.Size;
     color?: GoogleSigninButton.Color;
     onPress?(): void;
