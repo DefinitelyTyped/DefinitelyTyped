@@ -362,10 +362,198 @@ interface InsertOptions {
     replicate_to?: number;
 }
 
+interface CreateIndexOptions {
+    /**
+     * If a secondary index already exists, an error will be thrown unless this is set to true.
+     */
+    ignoreIfExists?: boolean;
+
+    /**
+     * True to defer building of the index until buildDeferredIndexes is called (or a direct call to the corresponding query service API).
+     */
+    deferred?: boolean;
+}
+
+interface CreatePrimaryIndexOptions {
+    /**
+     * The custom name for the primary index.
+     */
+    name?: string;
+
+    /**
+     * If a primary index already exists, an error will be thrown unless this is set to true.
+     */
+    ignoreIfExists?: boolean;
+
+    /**
+     * True to defer building of the index until buildDeferredIndexes is called (or a direct call to the corresponding query service API).
+     */
+    deferred?: boolean;
+}
+
+interface DropIndexOptions {
+    /**
+     * If true, attempting to drop on a bucket without the specified index won't cause an error to be thrown.
+     */
+    ignoreIfNotExists?: boolean;
+}
+
+interface DropPrimaryIndexOptions {
+    /**
+     * The custom name for the primary index.
+     */
+    name?: string;
+
+    /**
+     * If true, attempting to drop on a bucket without the specified index won't cause an error to be thrown.
+     */
+    ignoreIfNotExists?: boolean;
+}
+
+interface CreatePrimaryIndexOptions {
+    /**
+     * The custom name for the primary index.
+     */
+    name?: string;
+
+    /**
+     * If a primary index already exists, an error will be thrown unless this is set to true.
+     */
+    ignoreIfExists?: boolean;
+
+    /**
+     * True to defer building of the index until buildDeferredIndexes is called (or a direct call to the corresponding query service API).
+     */
+    deferred?: boolean;
+}
+
+interface IndexInfo {
+    /**
+     * ID for the index.
+     */
+    id: string;
+
+    /**
+     * Name for the index.
+     */
+    name: string;
+
+    /**
+     * List of index keys.
+     */
+    index_key: string[];
+
+    /**
+     * True if this is a primary index.
+     */
+    is_primary: boolean;
+
+    /**
+     * ID for the keyspace to which the index belongs.
+     */
+    keyspace_id: string;
+
+    /**
+     * ID for the namespace to which the index belongs.
+     */
+    namespace_id: string;
+
+    /**
+     * ID for the datastore to which the index belongs.
+     */
+    store_id: string;
+
+    /**
+     * The current state of the index.
+     *
+     * Values include `online` and `pending`.
+     */
+    state: string;
+
+    /**
+     * The type of view, which will always be `gsi`.
+     */
+    using: 'gsi';
+}
+
+interface WatchIndexesOptions {
+    /**
+     * Timeout for the operation in milliseconds.
+     */
+    timeout?: number;
+}
+
 /**
  * A class for performing management operations against a bucket. This class should not be instantiated directly, but instead through the use of the Bucket#manager method instead.
  */
 interface BucketManager {
+    /**
+     * Builds any indexes that were previously created with the deferred attribute.
+     * @param callback The callback function.
+     */
+    buildDeferredIndexes(callback: (err: CouchbaseError | null, deferredIndexes: string[]) => void): void;
+
+    /**
+     * Creates a non-primary GSI index with an optional name.
+     * @param indexName The name of the index.
+     * @param fields The JSON fields to index.
+     * @param options
+     * @param callback The callback function.
+     */
+    createIndex(indexName: string, fields: string[], callback: (err: CouchbaseError | null) => void): void;
+
+    /**
+     * Creates a non-primary GSI index with an optional name.
+     * @param indexName The name of the index.
+     * @param fields The JSON fields to index.
+     * @param options
+     * @param callback The callback function.
+     */
+    createIndex(indexName: string, fields: string[], options: CreateIndexOptions, callback: (err: CouchbaseError | null) => void): void;
+
+    /**
+     * Creates a primary GSI index with an optional name.
+     * @param options
+     * @param callback The callback function.
+     */
+    createPrimaryIndex(callback: (err: CouchbaseError | null) => void): void;
+
+    /**
+     * Creates a primary GSI index with an optional name.
+     * @param options
+     * @param callback The callback function.
+     */
+    createPrimaryIndex(options: CreateIndexOptions, callback: (err: CouchbaseError | null) => void): void;
+
+    /**
+     * Drops a specific GSI index by name.
+     * @param indexName The name of the index.
+     * @param options
+     * @param callback The callback function.
+     */
+    dropIndex(indexName: string, callback: (err: CouchbaseError | null) => void): void;
+
+    /**
+     * Drops a specific GSI index by name.
+     * @param indexName The name of the index.
+     * @param options
+     * @param callback The callback function.
+     */
+    dropIndex(indexName: string, options: DropIndexOptions, callback: (err: CouchbaseError | null) => void): void;
+
+    /**
+     * Drops a primary GSI index.
+     * @param options
+     * @param callback The callback function.
+     */
+    dropPrimaryIndex(callback: (err: CouchbaseError | null) => void): void;
+
+    /**
+     * Drops a primary GSI index.
+     * @param options
+     * @param callback The callback function.
+     */
+    dropPrimaryIndex(options: DropPrimaryIndexOptions, callback: (err: CouchbaseError | null) => void): void;
 
     /**
      * Flushes the cluster, deleting all data stored within this bucket. Note that this method requires the Flush permission to be enabled on the bucket from the management console before it will work.
@@ -385,6 +573,12 @@ interface BucketManager {
      * @param callback The callback function.
      */
     getDesignDocuments(callback: Function): void;
+
+    /**
+     * Retrieves a list of the indexes currently configured on the cluster.
+     * @param callback The callback function.
+     */
+    getIndexes(callback: (err: CouchbaseError | null, indexes: IndexInfo[] | null) => void): void;
 
     /**
      * Registers a design document to this bucket, failing if it already exists.
@@ -411,6 +605,21 @@ interface BucketManager {
      * @returns {}
      */
     upsertDesignDocument(name: string, data: any, callback: Function): void;
+
+    /**
+     * Watches a list of indexes, waiting for them to become available for use.
+     * @param watchList List of indexes to watch.
+     * @param callback The callback function.
+     */
+    watchIndexes(watchList: string[], callback: (err: Error | null) => void): void;
+
+    /**
+     * Watches a list of indexes, waiting for them to become available for use.
+     * @param watchList List of indexes to watch.
+     * @param options
+     * @param callback The callback function.
+     */
+    watchIndexes(watchList: string[], options: WatchIndexesOptions, callback: (err: Error | null) => void): void;
 }
 
 /**
@@ -1116,7 +1325,30 @@ declare namespace Bucket {
      * An event emitter allowing you to bind to various query result set events.
      */
     interface N1qlQueryResponse extends events.EventEmitter {
+        addListener(event: 'end', listener: (meta: N1qlQueryResponse.Meta) => void): this;
+        addListener(event: 'error', listener: (error: CouchbaseError) => void): this;
+        addListener(event: 'row', listener: (row: any, meta: N1qlQueryResponse.Meta) => void): this;
+        addListener(event: 'rows', listener: (rows: any[], meta: N1qlQueryResponse.Meta) => void): this;
 
+        on(event: 'end', listener: (meta: N1qlQueryResponse.Meta) => void): this;
+        on(event: 'error', listener: (error: CouchbaseError) => void): this;
+        on(event: 'row', listener: (row: any, meta: N1qlQueryResponse.Meta) => void): this;
+        on(event: 'rows', listener: (rows: any[], meta: N1qlQueryResponse.Meta) => void): this;
+
+        once(event: 'end', listener: (meta: N1qlQueryResponse.Meta) => void): this;
+        once(event: 'error', listener: (error: CouchbaseError) => void): this;
+        once(event: 'row', listener: (row: any, meta: N1qlQueryResponse.Meta) => void): this;
+        once(event: 'rows', listener: (rows: any[], meta: N1qlQueryResponse.Meta) => void): this;
+
+        prependListener(event: 'end', listener: (meta: N1qlQueryResponse.Meta) => void): this;
+        prependListener(event: 'error', listener: (error: CouchbaseError) => void): this;
+        prependListener(event: 'row', listener: (row: any, meta: N1qlQueryResponse.Meta) => void): this;
+        prependListener(event: 'rows', listener: (rows: any[], meta: N1qlQueryResponse.Meta) => void): this;
+
+        prependOnceListener(event: 'end', listener: (meta: N1qlQueryResponse.Meta) => void): this;
+        prependOnceListener(event: 'error', listener: (error: CouchbaseError) => void): this;
+        prependOnceListener(event: 'row', listener: (row: any, meta: N1qlQueryResponse.Meta) => void): this;
+        prependOnceListener(event: 'rows', listener: (rows: any[], meta: N1qlQueryResponse.Meta) => void): this;
     }
 
     namespace N1qlQueryResponse {
@@ -1143,7 +1375,30 @@ declare namespace Bucket {
      * An event emitter allowing you to bind to various query result set events.
      */
     interface ViewQueryResponse extends events.EventEmitter {
+        addListener(event: 'end', listener: (meta: ViewQueryResponse.Meta) => void): this;
+        addListener(event: 'error', listener: (error: CouchbaseError) => void): this;
+        addListener(event: 'row', listener: (row: any, meta: ViewQueryResponse.Meta) => void): this;
+        addListener(event: 'rows', listener: (rows: any[], meta: ViewQueryResponse.Meta) => void): this;
 
+        on(event: 'end', listener: (meta: ViewQueryResponse.Meta) => void): this;
+        on(event: 'error', listener: (error: CouchbaseError) => void): this;
+        on(event: 'row', listener: (row: any, meta: ViewQueryResponse.Meta) => void): this;
+        on(event: 'rows', listener: (rows: any[], meta: ViewQueryResponse.Meta) => void): this;
+
+        once(event: 'end', listener: (meta: ViewQueryResponse.Meta) => void): this;
+        once(event: 'error', listener: (error: CouchbaseError) => void): this;
+        once(event: 'row', listener: (row: any, meta: ViewQueryResponse.Meta) => void): this;
+        once(event: 'rows', listener: (rows: any[], meta: ViewQueryResponse.Meta) => void): this;
+
+        prependListener(event: 'end', listener: (meta: ViewQueryResponse.Meta) => void): this;
+        prependListener(event: 'error', listener: (error: CouchbaseError) => void): this;
+        prependListener(event: 'row', listener: (row: any, meta: ViewQueryResponse.Meta) => void): this;
+        prependListener(event: 'rows', listener: (rows: any[], meta: ViewQueryResponse.Meta) => void): this;
+
+        prependOnceListener(event: 'end', listener: (meta: ViewQueryResponse.Meta) => void): this;
+        prependOnceListener(event: 'error', listener: (error: CouchbaseError) => void): this;
+        prependOnceListener(event: 'row', listener: (row: any, meta: ViewQueryResponse.Meta) => void): this;
+        prependOnceListener(event: 'rows', listener: (rows: any[], meta: ViewQueryResponse.Meta) => void): this;
     }
 
     namespace ViewQueryResponse {
