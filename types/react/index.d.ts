@@ -2211,15 +2211,6 @@ declare namespace React {
 
     type ValidationMap<T> = PropTypes.ValidationMap<T>;
 
-    // Infer a component's props from its static properties
-    type InferStaticProps<C> = C extends { propTypes: infer T; defaultProps: infer D; }
-        ? Undefaultize<PropTypes.InferProps<T>, D>
-        : C extends { propTypes: infer T; }
-        ? PropTypes.InferProps<T>
-        : C extends { defaultProps: infer D; }
-        ? Undefaultize<{}, D>
-        : {};
-
     interface ReactPropTypes {
         any: typeof PropTypes.any;
         array: typeof PropTypes.array;
@@ -2291,19 +2282,16 @@ declare namespace React {
 }
 
 // Declared props take priority over inferred props
+// If declared props have indexed properties, ignore inferred props entirely
 type MergePropTypes<P, T> = P & Pick<T, Exclude<keyof T, keyof P>>;
 
 // Any props that have a default prop becomes optional, but their type is unchanged
 // Undeclared default props are augmented into the resulting allowable attributes
+// If declared props have indexed properties, ignore default props entirely
 type Defaultize<P, D> = string extends keyof P ? P :
     & Pick<P, Exclude<keyof P, keyof D>>
     & Partial<Pick<P, Extract<keyof P, keyof D>>>
     & Partial<Pick<D, Exclude<keyof D, keyof P>>>;
-
-type Undefaultize<T, D> =
-    & Pick<T, Exclude<keyof T, keyof D>>
-    & { [K in Extract<keyof T, keyof D>]-?: NonNullable<T[K]>; }
-    & Required<Pick<D, Exclude<keyof D, keyof T>>>;
 
 declare global {
     namespace JSX {
