@@ -545,6 +545,10 @@ eles.difference(collNodes).abscomp().intersection(collSel).symdiff(collNodes);
 const diff = collSel.diff(collNodes);
 cy.collection().merge(diff.left).merge(diff.right).merge(diff.both).unmerge(collSel).filter((ele, i, eles) => true);
 
+nodes.map(n => n.degree(false));
+edges.map(e => e.source());
+eles.map(e => e.id());
+
 eles.sort((a, b) => 1).map((ele, i, eles) => [i, ele]);
 eles.reduce<any[]>((prev, ele, i, eles) => [...prev, [ele, i]], []).concat(['finish']);
 const min = eles.min((ele, i, eles) => ele.id.length + i); min.ele.scratch('min', min.value).scratch('min').value;

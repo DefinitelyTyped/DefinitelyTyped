@@ -2517,7 +2517,7 @@ declare namespace cytoscape {
          *
          * http://js.cytoscape.org/#eles.map
          */
-        map(fn: (ele: CollectionArgument, i: number, eles: CollectionArgument) => any, thisArg?: any): any[];
+        map<T>(fn: (ele: TOut, i: number, eles: CollectionArgument) => T, thisArg?: any): T[];
 
         /**
          * Reduce a single value by applying a
