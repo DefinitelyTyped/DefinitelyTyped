@@ -169,7 +169,7 @@ type Defaultize<T, D> =
 // This would be the type inside the component
 type Undefaultize<T, D> =
     & Pick<T, Exclude<keyof T, keyof D>>
-    & { [K in Extract<keyof T, keyof D>]-?: NonNullable<T[K]>; }
+    & { [K in Extract<keyof T, keyof D>]-?: Exclude<T[K], undefined>; }
     & Required<Pick<D, Exclude<keyof D, keyof T>>>;
 
 const componentPropTypes = {
@@ -203,5 +203,5 @@ type UndefaultizedPropsTest = {
     foo?: string | null;
     bar: number;
     baz: boolean;
-    bat: NonNullable<ReactNode>;
+    bat: Exclude<ReactNode, undefined>;
 } extends UndefaultizedProps ? true : false;
