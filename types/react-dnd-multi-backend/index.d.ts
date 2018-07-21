@@ -5,7 +5,7 @@
 // TypeScript Version: 2.6
 
 import { CSSProperties, PureComponent } from "react";
-import { Backend } from "react-dnd";
+import { BackendFactory } from "dnd-core";
 
 /**
  * Callback function type definition for checking whether an event represents a transition between
@@ -50,7 +50,7 @@ export interface BackendDeclaration {
     /**
      * Backend - e.g. the one provided by react-dnd-html5-backend.
      */
-    backend: Backend;
+    backend: BackendFactory;
     /**
      * Flag to indicate that this backend needs to have a custom preview generated. This is mainly
      * used for backends such as the react-dnd-touch-backend, where there is no default preview
@@ -112,4 +112,4 @@ export const HTML5DragTransition: Transition;
  * @param backends The list of backends in descending order of preference to use for drag and drop.
  * @returns A backend definition compatible with react-dnd.
  */
-export default function(backends: Backends): Backend;
+export default function(backends: Backends): BackendFactory;
