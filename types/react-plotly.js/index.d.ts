@@ -6,7 +6,6 @@
 
 import * as Plotly from 'plotly.js';
 import * as React from 'react';
-import { FrameAnimationEvent, LegendClickEvent, SliderChangeEvent, SliderEndEvent, SliderStartEvent } from "../plotly.js";
 
 export interface Frame {
     name: string;
@@ -75,7 +74,7 @@ export interface PlotParams {
     onAfterExport?: () => void;
     onAfterPlot?: () => void;
     onAnimated?: () => void;
-    onAnimatingFrame?: (event: Readonly<FrameAnimationEvent>) => void;
+    onAnimatingFrame?: (event: Readonly<Plotly.FrameAnimationEvent>) => void;
     onAnimationInterrupted?: () => void;
     onAutoSize?: () => void;
     onBeforeExport?: () => void;
@@ -86,16 +85,16 @@ export interface PlotParams {
     onDoubleClick?: () => void;
     onFramework?: () => void;
     onHover?: (event: Readonly<Plotly.PlotMouseEvent>) => void;
-    onLegendClick?: (event: Readonly<LegendClickEvent>) => boolean;
-    onLegendDoubleClick?: (event: Readonly<LegendClickEvent>) => boolean;
+    onLegendClick?: (event: Readonly<Plotly.LegendClickEvent>) => boolean;
+    onLegendDoubleClick?: (event: Readonly<Plotly.LegendClickEvent>) => boolean;
     onRelayout?: (event: Readonly<Plotly.PlotRelayoutEvent>) => void;
     onRestyle?: (event: Readonly<Plotly.PlotRestyleEvent>) => void;
     onRedraw?: () => void;
     onSelected?: (event: Readonly<Plotly.PlotSelectionEvent>) => void;
     onSelecting?: (event: Readonly<Plotly.PlotSelectionEvent>) => void;
-    onSliderChange?: (event: Readonly<SliderChangeEvent>) => void;
-    onSliderEnd?: (event: Readonly<SliderEndEvent>) => void;
-    onSliderStart?: (event: Readonly<SliderStartEvent>) => void;
+    onSliderChange?: (event: Readonly<Plotly.SliderChangeEvent>) => void;
+    onSliderEnd?: (event: Readonly<Plotly.SliderEndEvent>) => void;
+    onSliderStart?: (event: Readonly<Plotly.SliderStartEvent>) => void;
     onTransitioning?: () => void;
     onTransitionInterrupted?: () => void;
     onUnhover?: (event: Readonly<Plotly.PlotMouseEvent>) => void;
