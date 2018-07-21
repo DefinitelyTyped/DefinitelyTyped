@@ -2,7 +2,7 @@
 // Project: https://github.com/react-native-community/react-native-text-input-mask
 // Definitions by: Rodrigo Weber <https://github.com/RodrigoAWeber>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from "react";
 import * as ReactNative from "react-native";

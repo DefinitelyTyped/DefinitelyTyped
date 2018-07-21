@@ -2295,7 +2295,7 @@ type MergePropTypes<P, T> = P & Pick<T, Exclude<keyof T, keyof P>>;
 
 // Any props that have a default prop becomes optional, but their type is unchanged
 // Undeclared default props are augmented into the resulting allowable attributes
-type Defaultize<P, D> =
+type Defaultize<P, D> = string extends keyof P ? P :
     & Pick<P, Exclude<keyof P, keyof D>>
     & Partial<Pick<P, Extract<keyof P, keyof D>>>
     & Partial<Pick<D, Exclude<keyof D, keyof P>>>;

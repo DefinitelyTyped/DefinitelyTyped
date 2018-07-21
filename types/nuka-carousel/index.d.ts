@@ -2,7 +2,7 @@
 // Project: https://github.com/FormidableLabs/nuka-carousel
 // Definitions by: Roman Charugin <https://github.com/Romic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 

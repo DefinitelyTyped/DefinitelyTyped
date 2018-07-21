@@ -13,7 +13,7 @@
 //                 Dovydas Navickas <https://github.com/DovydasNavickas>
 //                 Stéphane Goetz <https://github.com/onigoetz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 /*
 Known Problems & Workarounds

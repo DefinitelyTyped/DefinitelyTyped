@@ -2,7 +2,7 @@
 // Project: https://github.com/text-mask/text-mask
 // Definitions by: Guilherme Hübner <https://github.com/guilhermehubner>, Deividi Cavarzan <https://github.com/cavarzan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 

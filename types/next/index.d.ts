@@ -7,7 +7,7 @@
 //                 Scott Jones <https://github.com/scottdj92>
 //                 Joao Vieira <https://github.com/joaovieira>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

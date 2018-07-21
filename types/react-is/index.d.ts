@@ -2,7 +2,7 @@
 // Project: https://reactjs.org/
 // Definitions by: Avi Vahl <https://github.com/AviVahl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 export as namespace ReactIs;
 
