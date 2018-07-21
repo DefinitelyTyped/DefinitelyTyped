@@ -203,16 +203,16 @@ declare namespace Snap {
         touchcancel(handler: (event: MouseEvent) => void, thisArg?: any): Snap.Element;
 
         unclick(handler?: (event: MouseEvent) => void): Snap.Element;
-        undblclick(handler: (event: MouseEvent) => void): Snap.Element;
-        unmousedown(handler: (event: MouseEvent) => void): Snap.Element;
-        unmousemove(handler: (event: MouseEvent) => void): Snap.Element;
-        unmouseout(handler: (event: MouseEvent) => void): Snap.Element;
-        unmouseover(handler: (event: MouseEvent) => void): Snap.Element;
-        unmouseup(handler: (event: MouseEvent) => void): Snap.Element;
-        untouchstart(handler: (event: MouseEvent) => void): Snap.Element;
-        untouchmove(handler: (event: MouseEvent) => void): Snap.Element;
-        untouchend(handler: (event: MouseEvent) => void): Snap.Element;
-        untouchcancel(handler: (event: MouseEvent) => void): Snap.Element;
+        undblclick(handler?: (event: MouseEvent) => void): Snap.Element;
+        unmousedown(handler?: (event: MouseEvent) => void): Snap.Element;
+        unmousemove(handler?: (event: MouseEvent) => void): Snap.Element;
+        unmouseout(handler?: (event: MouseEvent) => void): Snap.Element;
+        unmouseover(handler?: (event: MouseEvent) => void): Snap.Element;
+        unmouseup(handler?: (event: MouseEvent) => void): Snap.Element;
+        untouchstart(handler?: (event: MouseEvent) => void): Snap.Element;
+        untouchmove(handler?: (event: MouseEvent) => void): Snap.Element;
+        untouchend(handler?: (event: MouseEvent) => void): Snap.Element;
+        untouchcancel(handler?: (event: MouseEvent) => void): Snap.Element;
 
         hover(hoverInHandler: (event: MouseEvent) => void, hoverOutHandler: (event: MouseEvent) => void, thisArg?: any): Snap.Element;
         hover(hoverInHandler: (event: MouseEvent) => void, hoverOutHandler: (event: MouseEvent) => void, inThisArg?: any, outThisArg?: any): Snap.Element;
