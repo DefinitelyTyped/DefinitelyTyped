@@ -1,13 +1,16 @@
-// Type definitions for @google-cloud/storage 1.1
-// Project: https://github.com/GoogleCloudPlatform/google-cloud-node/tree/master/packages/storage
+// Type definitions for @google-cloud/storage 1.7
+// Project: https://github.com/googleapis/nodejs-storage
 // Definitions by: Brian Love <https://github.com/blove>
 //                 Nathan Brooker Perry <https://github.com/nbperry>
 //                 Matt Welke <https://github.com/welkie>
+//                 Futa Ogawa <https://github.com/ogawa0071>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 
 import { ReadStream, WriteStream } from "fs";
+import { CoreOptions } from "request";
 
 type PromiseLibrary<T> = () => PromiseLike<T>;
 
@@ -313,21 +316,26 @@ declare namespace Storage {
      * Options when uploading file to bucket.
      */
     interface UploadOptions extends WriteStreamOptions {
-        destination?: string;
+        destination?: string | File;
+        encryptionKey?: string;
+        kmsKeyName?: string;
+        requestOptions?: CoreOptions;
     }
 
     /**
      * Options when writing to a file stream.
      */
     interface WriteStreamOptions {
-        gzip?: boolean;
+        contentType?: string;
+        gzip?: string | boolean;
         metadata?: FileMetadata;
-        offset?: number;
+        offset?: string;
         predefinedAcl?: string;
         private?: boolean;
         public?: boolean;
         resumable?: boolean;
         uri?: string;
+        userProject?: string;
         validation?: string | boolean;
     }
 
