@@ -133,7 +133,7 @@ declare namespace Storage {
         get(): Promise<[File, ApiResponse]>;
         getMetadata(): Promise<[FileMetadata, ApiResponse]>;
         getSignedPolicy(options?: SignedPolicyOptions): Promise<[SignedPolicy]>;
-        getSignedUrl(config?: SignedUrlConfig): Promise<[string]>;
+        getSignedUrl(config: SignedUrlConfig): Promise<[string]>;
         makePrivate(options?: FilePrivateOptions): Promise<[ApiResponse]>;
         makePublic(): Promise<[ApiResponse]>;
         move(destination: string | Bucket | File): Promise<[File, ApiResponse]>;
@@ -199,7 +199,7 @@ declare namespace Storage {
         cname?: string;
         contentMd5?: string;
         contentType?: string;
-        expires?: number | string;
+        expires: any;
         extensionHeaders?: { [key: string]: string };
         promptSaveAs?: string;
         responseDisposition?: string;
