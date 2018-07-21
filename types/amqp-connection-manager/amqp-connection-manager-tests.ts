@@ -18,3 +18,8 @@ connection.on("disconnect", (_arg: { err: Error }): void => undefined);
 channelWrapper.on("close", () => undefined);
 channelWrapper.on("connect", () => undefined);
 channelWrapper.on("error", (_error: Error) => undefined);
+
+channelWrapper.sendToQueue("foo", Buffer.from("bar"))
+    .catch((error: Error): void => {
+        // nothing
+    });

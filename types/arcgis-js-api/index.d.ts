@@ -682,7 +682,7 @@ declare namespace __esri {
 
   export type AfterInterceptorCallback = (response: RequestResponse) => void;
 
-  export type BeforeInterceptorCallback = (params: any, requestOptions: RequestOptions) => any;
+  export type BeforeInterceptorCallback = (params: any) => any;
 
 
   export interface configRequest extends Object {
@@ -731,7 +731,7 @@ declare namespace __esri {
      */
     httpsDomains?: string[];
     /**
-     * Allows developers to modify requests before or after they are sent. An array of interceptors that will return the first one that matches. If no urls are specified, will apply to all relevant requests.  Example:
+     * Allows developers to modify requests before or after they are sent. The first interceptor that matches the request URL will be used.  Example:
      * ```js
      * const featureLayerUrl = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/0";
      * 
@@ -909,19 +909,19 @@ declare namespace __esri {
      */
     after?: AfterInterceptorCallback;
     /**
-     * Callback function that can make changes to the url or options before the request is sent.
+     * Callback function that can make changes to the URL or options before the request is sent.
      * 
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-config.html#RequestInterceptor)
      */
     before?: BeforeInterceptorCallback;
     /**
-     * Sets or adds headers into `requestOptions.headers`.
+     * Sets or adds headers into `requestOptions.headers`. See also: [requestOptions](https://developers.arcgis.com/javascript/latest/api-reference/esri-request.html#RequestOptions).
      * 
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-config.html#RequestInterceptor)
      */
     headers?: any;
     /**
-     * Appends a query statement to the request in the Query String Parameters of the header.
+     * Sets or adds a query parameter into `requestOptions.query`. See also: [requestOptions](https://developers.arcgis.com/javascript/latest/api-reference/esri-request.html#RequestOptions).
      * 
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-config.html#RequestInterceptor)
      */
@@ -933,11 +933,11 @@ declare namespace __esri {
      */
     responseData?: any;
     /**
-     * Specifies the url(s) to apply to the interceptors. If undefined, interceptors will apply to all relevant requests.
+     * Specifies the URL(s) to apply to the interceptors. If the value is type `String`, then it matches if the request URL starts with that string. If null or undefined, the interceptor will apply to all relevant requests.
      * 
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-config.html#RequestInterceptor)
      */
-    urls?: string | RegExp | any[];
+    urls?: string | RegExp | (string | RegExp)[];
   }
 
 
@@ -47653,7 +47653,7 @@ declare namespace __esri {
      */
     readonly expanded: boolean;
     /**
-     * Icon font used to style the Expand button.
+     * Icon font used to style the Expand button. Will automatically use the [content's](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Expand.html#content) iconClass if it has one.
      * 
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Expand.html#expandIconClass)
      */
@@ -47778,7 +47778,7 @@ declare namespace __esri {
      */
     content?: Node | string | WidgetProperties;
     /**
-     * Icon font used to style the Expand button.
+     * Icon font used to style the Expand button. Will automatically use the [content's](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Expand.html#content) iconClass if it has one.
      * 
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Expand.html#expandIconClass)
      */
@@ -49921,7 +49921,7 @@ declare namespace __esri {
      * 
      * [Read more...](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Popup.html#open)
      */
-    content?: string;
+    content?: string | HTMLElement | Widget;
     /**
      * Sets the popup's [location](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Popup.html#location), which is the geometry used to position the popup.
      * 

@@ -476,7 +476,7 @@ declare namespace Bull {
      * Returns a promise that will return the job instance associated with the jobId parameter.
      * If the specified job cannot be located, the promise callback parameter will be set to null.
      */
-    getJob(jobId: JobId): Promise<Job<T>>;
+    getJob(jobId: JobId): Promise<Job<T> | null>;
 
     /**
      * Returns a promise that will return an array with the waiting jobs between start and end.

@@ -472,10 +472,10 @@ export interface ReactSelectProps<TValue = OptionValues> extends React.Props<Rea
      * boolean to enable opening dropdown when focused
      * @default false
      */
-    openAfterFocus?: boolean;
+    openOnClick?: boolean;
     /**
      * open the options menu when the input gets focus (requires searchable = true)
-     * @default false
+     * @default true
      */
     openOnFocus?: boolean;
     /**
