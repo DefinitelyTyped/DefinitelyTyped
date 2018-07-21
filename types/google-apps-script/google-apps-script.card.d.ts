@@ -7,7 +7,7 @@
 /// <reference path="google-apps-script.gmail.d.ts" />
 
 declare namespace GoogleAppsScript {
-  export module Card_Service {
+  export module Card {
     /**
      * An action that enables interactivity within UI elements. The action does not happen directly on
      * the client but rather invokes an Apps Script callback function with optional parameters.
@@ -657,4 +657,4 @@ declare namespace GoogleAppsScript {
   }
 }
 
-declare var CardService: GoogleAppsScript.Card_Service.CardService;
+declare var CardService: GoogleAppsScript.Card.CardService;

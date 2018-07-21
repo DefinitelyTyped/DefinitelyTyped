@@ -20,7 +20,7 @@ const Child = ({ route }: RouteConfigComponentProps<void>) => (
     <div>
         <h2>Child</h2>
         {/* child routes won't render without this */}
-        {renderRoutes(route && route.routes)}
+        {route && renderRoutes(route.routes, null, {})}
     </div>
 );
 

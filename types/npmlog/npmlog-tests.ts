@@ -1,4 +1,4 @@
-import npmlog from "npmlog";
+import * as npmlog from "npmlog";
 
 const prefix = "str";
 const message = "otherStr";
@@ -12,7 +12,8 @@ npmlog.http(prefix, message);
 npmlog.warn(prefix, message);
 npmlog.error(prefix, message);
 
-npmlog.level = "silly";
+// ES6 module does't support changing variable exported by `export let`
+// npmlog.level = "silly";
 
 npmlog.enableColor();
 npmlog.disableColor();

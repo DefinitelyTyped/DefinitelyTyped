@@ -1,9 +1,9 @@
 import { Editor, Plugin, EditorProps } from "slate-react";
-import { Slate } from "slate";
+import { Change, Value } from "slate";
 import * as React from "react";
 
 class MyPlugin implements Plugin {
-    onChange(change: Slate.Change): void {
+    onChange(change: Change): void {
         change.blur();
     }
 }
@@ -11,14 +11,14 @@ class MyPlugin implements Plugin {
 const myPlugin = new MyPlugin();
 
 interface MyEditorState {
-    value: Slate.Value;
+    value: Value;
 }
 
 class MyEditor extends React.Component<EditorProps, MyEditorState> {
     constructor(props: EditorProps) {
         super(props);
         this.state = {
-            value: Slate.Value.create()
+            value: Value.create()
         };
     }
 

@@ -838,3 +838,60 @@ let customHandler: AWSLambda.Handler<CustomEvent, CustomResult> = (event, contex
 };
 
 let kinesisStreamHandler: AWSLambda.KinesisStreamHandler = (event: AWSLambda.KinesisStreamEvent, context: AWSLambda.Context, cb: AWSLambda.Callback<void>) => { };
+
+let SQSMessageHandler: AWSLambda.SQSHandler = (event: AWSLambda.SQSEvent, context: AWSLambda.Context, cb: AWSLambda.Callback<void>) => { };
+
+// See https://docs.aws.amazon.com/lambda/latest/dg/eventsources.html#eventsources-sqs
+const SQSEvent: AWSLambda.SQSEvent = {
+    Records: [
+        {
+            messageId: "c80e8021-a70a-42c7-a470-796e1186f753",
+            receiptHandle: "AQEBJQ+/u6NsnT5t8Q/VbVxgdUl4TMKZ5FqhksRdIQvLBhwNvADoBxYSOVeCBXdnS9P+",
+            body: "{\"foo\":\"bar\"}",
+            attributes: {
+                ApproximateReceiveCount: "3",
+                SentTimestamp: "1529104986221",
+                SenderId: "594035263019",
+                ApproximateFirstReceiveTimestamp: "1529104986230"
+            },
+            messageAttributes: {},
+            md5OfBody: "9bb58f26192e4ba00f01e2e7b136bbd8",
+            eventSource: "aws:sqs",
+            eventSourceARN: "arn:aws:sqs:us-west-2:594035263019:NOTFIFOQUEUE",
+            awsRegion: "us-west-2"
+        }
+    ]
+};
+
+let SQSMessageLegacyAsyncHandler: AWSLambda.SQSHandler = async (
+    event: AWSLambda.SQSEvent,
+    context: AWSLambda.Context,
+    cb: AWSLambda.Callback<void>,
+) => {
+    // $ExpectType SQSEvent
+    event;
+    str = event.Records[0].messageId;
+    anyObj = event.Records[0].body;
+    // $ExpectType Context
+    context;
+    str = context.functionName;
+    // $ExpectType Callback<void>
+    cb;
+    cb();
+    cb(null);
+    cb(new Error());
+};
+
+let SQSMessageNode8AsyncHandler: AWSLambda.SQSHandler = async (
+    event: AWSLambda.SQSEvent,
+    context: AWSLambda.Context
+) => {
+    // $ExpectType SQSEvent
+    event;
+    str = event.Records[0].messageId;
+    anyObj = event.Records[0].body;
+    // $ExpectType Context
+    context;
+    str = context.functionName;
+    return;
+};
