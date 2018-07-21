@@ -553,6 +553,10 @@ eles.sort((a, b) => 1).map((ele, i, eles) => [i, ele]);
 eles.reduce<any[]>((prev, ele, i, eles) => [...prev, [ele, i]], []).concat(['finish']);
 const min = eles.min((ele, i, eles) => ele.id.length + i); min.ele.scratch('min', min.value).scratch('min').value;
 const max = eles.max((ele, i, eles) => ele.id.length + i); max.ele.scratch('max', max.value);
+nodes.min(n => n.degree(false));
+nodes.max(n => n.degree(false));
+edges.max(n => n.source().id().length);
+edges.max(n => n.source().id().length);
 
 // TODO: traversing (need to actively check the nodes/edges distinction)
 // TODO: algorithms

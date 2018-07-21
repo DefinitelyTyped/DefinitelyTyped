@@ -2442,7 +2442,7 @@ declare namespace cytoscape {
          * var col = cy.collection(); // new, empty collection
          * col.merge('#j').merge('#e');
          */
-        merge(eles: CollectionArgument | string): this;
+        merge(eles: CollectionArgument | Selector): this;
         /**
          * Perform an in-place operation on the calling collection to remove the given elements.
          * @param eles The elements to remove  in-place or a selector representing the elements to remove .
@@ -2467,7 +2467,7 @@ declare namespace cytoscape {
          * col.merge( cy.nodes() );
          * col.unmerge('#e');
          */
-        unmerge(eles: CollectionArgument | string): this;
+        unmerge(eles: CollectionArgument | Selector): this;
 
         /**
          * Get a new collection containing elements that are accepted by the specified filter.
@@ -2504,7 +2504,7 @@ declare namespace cytoscape {
          *
          * http://js.cytoscape.org/#eles.sort
          */
-        sort(sort: (ele1: CollectionArgument, ele2: CollectionArgument) => number): CollectionReturnValue;
+        sort(sort: (ele1: TOut, ele2: TOut) => number): CollectionReturnValue;
 
         /**
          * Get an array containing values mapped from the collection.
@@ -2527,15 +2527,15 @@ declare namespace cytoscape {
          * given the previous value and the current element.
          * prevVal The value accumulated from previous elements.
          * ele The current element.
-         * ix The index of the current element.
+         * i The index of the current element.
          * eles The collection of elements being reduced.
          * @param initialValue The initial value for reducing
          * It is used also for type inference of output, but the type can be
          * also stated explicitly as generic
          * http://js.cytoscape.org/#eles.reduce
          */
-        reduce<T>(fn: (prevVal: T, ele: SingularElementReturnValue,
-            ix: number, eles: CollectionReturnValue) => T, initialValue: T): T;
+        reduce<T>(fn: (prevVal: T, ele: TOut,
+            i: number, eles: CollectionArgument) => T, initialValue: T): T;
 
         /**
          * Find a minimum value in a collection.
@@ -2548,11 +2548,11 @@ declare namespace cytoscape {
          *
          * http://js.cytoscape.org/#eles.min
          */
-        min(fn: (ele: SingularElementArgument, i: number, eles: CollectionArgument) => any, thisArg?: any): {
+        min<T>(fn: (ele: TOut, i: number, eles: CollectionArgument) => T, thisArg?: any): {
             /**
              * The minimum value found.
              */
-            value: any,
+            value: T,
             /**
              * The element that corresponds to the minimum value.
              */
@@ -2570,11 +2570,11 @@ declare namespace cytoscape {
          *
          * http://js.cytoscape.org/#eles.max
          */
-        max(fn: (ele: SingularElementArgument, i: number, eles: CollectionArgument) => any, thisArg?: any): {
+        max<T>(fn: (ele: TOut, i: number, eles: CollectionArgument) => T, thisArg?: any): {
             /**
              * The minimum value found.
              */
-            value: any,
+            value: T,
             /**
              * The element that corresponds to the minimum value.
              */
@@ -2676,14 +2676,14 @@ declare namespace cytoscape {
          * @param selector An optional selector that is used to filter the resultant collection.
          * http://js.cytoscape.org/#edge.source
          */
-        source(selector?: Selector): NodeCollection;
+        source(selector?: Selector): NodeSingular;
 
         /**
          * Get target node of this edge.
          * @param selector An optional selector that is used to filter the resultant collection.
          * http://js.cytoscape.org/#edge.target
          */
-        target(selector?: Selector): NodeCollection;
+        target(selector?: Selector): NodeSingular;
     }
     interface EdgeCollectionTraversing {
         // http://js.cytoscape.org/#collection/traversing
