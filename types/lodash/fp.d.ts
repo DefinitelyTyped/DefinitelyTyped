@@ -3978,7 +3978,7 @@ declare namespace _ {
     }
     type LodashTap1x1<T> = (value: T) => T;
     type LodashTap1x2<T> = (interceptor: (value: T) => void) => T;
-    type LodashTemplate = (string: string) => lodash.TemplateExecutor;
+    type LodashTemplate = (string: string) => lodash.TemplateExecutor<object>;
     interface LodashThrottle {
         (wait: number): LodashThrottle1x1;
         <T extends (...args: any[]) => any>(wait: lodash.__, func: T): LodashThrottle1x2<T>;

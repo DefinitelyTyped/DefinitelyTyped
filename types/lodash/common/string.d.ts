@@ -655,8 +655,8 @@ declare module "../index" {
         sourceURL?: string;
     }
 
-    interface TemplateExecutor {
-        (data?: object): string;
+    interface TemplateExecutor<T> {
+        (data?: T): string;
         source: string;
     }
 
@@ -690,21 +690,25 @@ declare module "../index" {
         template(
             string?: string,
             options?: TemplateOptions
-        ): TemplateExecutor;
+        ): TemplateExecutor<any>;
+        template<T>(
+            string?: string,
+            options?: TemplateOptions
+        ): TemplateExecutor<T>;
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.template
          */
-        template(options?: TemplateOptions): TemplateExecutor;
+        template(options?: TemplateOptions): TemplateExecutor<any>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.template
          */
-        template(options?: TemplateOptions): LoDashExplicitWrapper<TemplateExecutor>;
+        template(options?: TemplateOptions): LoDashExplicitWrapper<TemplateExecutor<any>>;
     }
 
     // toLower
