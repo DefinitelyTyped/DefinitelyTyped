@@ -12,6 +12,7 @@
 //                 Denys Bushulyak <https://github.com/denys-bushulyak>
 //                 Bastien Arata <https://github.com/BastienAr>
 //                 Wan Bachtiar <https://github.com/sindbach>
+//                 Geraldine Lemeur <https://github.com/geraldinelemeur>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -1286,8 +1287,8 @@ export class Cursor<T = Default> extends Readable {
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#min */
     min(min: number): Cursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#next */
-    next(): Promise<T>;
-    next(callback: MongoCallback<T>): void;
+    next(): Promise<T | null>;
+    next(callback: MongoCallback<T | null>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#project */
     project(value: Object): Cursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#read */
@@ -1365,8 +1366,8 @@ export class AggregationCursor<T = Default> extends Readable {
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#maxTimeMS */
     maxTimeMS(value: number): AggregationCursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#next */
-    next(): Promise<T>;
-    next(callback: MongoCallback<T>): void;
+    next(): Promise<T | null>;
+    next(callback: MongoCallback<T | null>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#out */
     out(destination: string): AggregationCursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#project */
