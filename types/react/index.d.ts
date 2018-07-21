@@ -2303,14 +2303,13 @@ declare global {
         interface ElementAttributesProperty { props: {}; }
         interface ElementChildrenAttribute { children: {}; }
 
-        type LibraryManagedAttributes<C, P> =
-            C extends { propTypes: infer T; defaultProps: infer D; }
+        type LibraryManagedAttributes<C, P> = C extends { propTypes: infer T; defaultProps: infer D; }
             ? Defaultize<MergePropTypes<P, PropTypes.InferProps<T>>, D>
             : C extends { propTypes: infer T; }
-            ? MergePropTypes<P, PropTypes.InferProps<T>>
-            : C extends { defaultProps: infer D; }
-            ? Defaultize<P, D>
-            : P;
+                ? MergePropTypes<P, PropTypes.InferProps<T>>
+                : C extends { defaultProps: infer D; }
+                    ? Defaultize<P, D>
+                    : P;
 
         // tslint:disable-next-line:no-empty-interface
         interface IntrinsicAttributes extends React.Attributes { }
