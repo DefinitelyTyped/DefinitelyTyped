@@ -145,19 +145,87 @@ declare namespace Storage {
     }
 
     /**
+     * Access controls on the object, containing one or more objectAccessControls Resources.
+     */
+    interface AclFileMetadata {
+        bucket?: string;
+        domain?: string;
+        email?: string;
+        entity?: string;
+        entityId?: string;
+        etag?: string;
+        generation?: number;
+        id?: string;
+        kind?: string;
+        object?: string;
+        projectTeam?: ProjectTeam;
+        role?: string;
+        selfLink?: string;
+    }
+
+    /**
+     * The project team associated with the entity, if any.
+     */
+    interface ProjectTeam {
+        projectNumber?: string;
+        team?: string;
+    }
+
+    /**
+     * Metadata of customer-supplied encryption key, if the object is encrypted by such a key.
+     */
+    interface CustomerEncryption {
+        encryptionAlgorithm?: string;
+        keySha256?: string;
+    }
+
+    /**
      * User-defined metadata.
      */
     interface CustomFileMetadata {
-        [key: string]: boolean | number | string | null;
+        [key: string]: string;
+    }
+
+    /**
+     * The owner of the object. This will always be the uploader of the object.
+     */
+    interface Owner {
+        entity?: string;
+        entityId?: string;
     }
 
     /**
      * File metadata.
      */
     interface FileMetadata {
-        contentType?: string;
-        metadata?: CustomFileMetadata;
+        acl?: AclFileMetadata[];
+        bucket?: string;
         cacheControl?: string;
+        componentCount?: number;
+        contentDisposition?: string;
+        contentEncoding?: string;
+        contentLanguage?: string;
+        contentType?: string;
+        crc32c?: string;
+        customerEncryption?: CustomerEncryption;
+        etag?: string;
+        generation?: number;
+        id?: string;
+        kind?: string;
+        kmsKeyName?: string;
+        md5Hash?: string;
+        mediaLink?: string;
+        metadata?: CustomFileMetadata;
+        metageneration?: number;
+        name?: string;
+        owner?: Owner;
+        selfLink?: string;
+        size?: null | number;
+        storageClass?: string;
+        timeCreated?: string;
+        timeDeleted?: string;
+        timeStorageClassUpdated?: string;
+        updated?: string;
     }
 
     /**
