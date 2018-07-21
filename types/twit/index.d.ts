@@ -3,6 +3,7 @@
 // Definitions by: Volox <https://github.com/Volox>
 //                 sapphiredev <https://github.com/sapphiredev>
 //                 abraham <https://github.com/abraham>
+//                 siwalik <https://github.com/siwalikm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -263,7 +264,7 @@ declare module 'twit' {
       long?: number,
       follow?: boolean,
       include_email?: boolean,
-      cursor?: number,
+      cursor?: number | string,
       tweet_mode?: string,
       trim_user?: boolean,
       exclude_replies?: boolean,
