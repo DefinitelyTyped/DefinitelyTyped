@@ -6400,12 +6400,12 @@ fp.now(); // $ExpectType number
     result.source; // $ExpectType string
     result({}); // $ExpectType string
 
-    _.template(""); // $ExpectType TemplateExecutor
-    _.template("", options); // $ExpectType TemplateExecutor
-    _("").template(); // $ExpectType TemplateExecutor
-    _("").template(options); // $ExpectType TemplateExecutor
-    _.chain("").template(); // $ExpectType LoDashExplicitWrapper<TemplateExecutor>
-    _.chain("").template(options); // $ExpectType LoDashExplicitWrapper<TemplateExecutor>
+    _.template(""); // $ExpectType TemplateExecutor<object>
+    _.template("", options); // $ExpectType TemplateExecutor<object>
+    _("").template(); // $ExpectType TemplateExecutor<object>
+    _("").template(options); // $ExpectType TemplateExecutor<object>
+    _.chain("").template(); // $ExpectType LoDashExplicitWrapper<TemplateExecutor<object>>
+    _.chain("").template(options); // $ExpectType LoDashExplicitWrapper<TemplateExecutor<object>>
 
     const result2 = fp.template("");
     result2(); // $ExpectType string
