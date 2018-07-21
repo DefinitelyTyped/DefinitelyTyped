@@ -2,6 +2,8 @@
 import mongodb = require('mongodb');
 var MongoClient = mongodb.MongoClient;
 
+const connectionString = 'mongodb://127.0.0.1:27017/test';
+
 var format = require('util').format;
 let options: mongodb.MongoClientOptions = {
     authSource: ' ',
@@ -30,7 +32,7 @@ let options: mongodb.MongoClientOptions = {
     promoteBuffers: false,
     useNewUrlParser: false
 }
-MongoClient.connect('mongodb://127.0.0.1:27017/test', options, function (err: mongodb.MongoError, client: mongodb.MongoClient) {
+MongoClient.connect(connectionString, options, function (err: mongodb.MongoError, client: mongodb.MongoClient) {
     if (err) throw err;
     const db = client.db('test');
     var collection = db.collection('test_insert');
@@ -166,3 +168,11 @@ MongoClient.connect('mongodb://127.0.0.1:27017/test', options, function (err: mo
         const res: mongodb.Cursor<TestCollection> = testCollection.find({ _id: 123 });
     }
 })
+
+let testFunc = async () => {
+    let testClient: mongodb.MongoClient;
+    testClient = await mongodb.connect(connectionString);
+};
+
+mongodb.connect(connectionString, (err: mongodb.MongoError, client: mongodb.MongoClient) => {});
+mongodb.connect(connectionString, options, (err: mongodb.MongoError, client: mongodb.MongoClient) => {});
