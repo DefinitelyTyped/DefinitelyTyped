@@ -926,7 +926,9 @@ declare namespace Parse {
         }
 
 
-        interface AfterSaveRequest extends TriggerRequest { }
+        interface AfterSaveRequest extends TriggerRequest {
+            original?: Parse.Object;
+        }
         interface AfterDeleteRequest extends TriggerRequest { }
         interface BeforeDeleteRequest extends TriggerRequest { }
         interface BeforeDeleteResponse extends FunctionResponse { }
