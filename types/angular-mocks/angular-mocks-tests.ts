@@ -87,7 +87,6 @@ timeoutService.verifyNoPendingTasks();
 let intervalService: ng.IIntervalService;
 let intervalServiceTimeActuallyAdvanced: number;
 
-intervalServiceTimeActuallyAdvanced = intervalService.flush();
 intervalServiceTimeActuallyAdvanced = intervalService.flush(1234);
 
 ///////////////////////////////////////
@@ -1516,6 +1515,23 @@ requestHandler.respond(404, { key: 'value' });
 requestHandler.respond(404, { key: 'value' }, { header: 'value' });
 requestHandler.respond(404, { key: 'value' }, { header: 'value' }, 'responseText');
 
+///////////////////////////////////////
+// IFlushPendingTasksService
+///////////////////////////////////////
+let $flushPendingTasks: ng.IFlushPendingTasksService;
+$flushPendingTasks();
+$flushPendingTasks(42);
+
+///////////////////////////////////////
+// IVerifyNoPendingTasksService
+///////////////////////////////////////
+let $verifyNoPendingTasks: ng.IVerifyNoPendingTasksService;
+$verifyNoPendingTasks();
+$verifyNoPendingTasks('task type');
+
+///////////////////////////////////////
+// browserTrigger
+///////////////////////////////////////
 browserTrigger(document.body, 'click');
 browserTrigger(angular.element(document.body), 'click');
 browserTrigger(angular.element(document.body), 'click', { which: 1, keys: ['ctrl'] });
