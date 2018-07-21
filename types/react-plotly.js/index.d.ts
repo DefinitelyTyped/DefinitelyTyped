@@ -2,7 +2,7 @@
 // Project: https://github.com/plotly/react-plotly.js#readme
 // Definitions by: Jon Freedman <https://github.com/jonfreedman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import * as Plotly from 'plotly.js';
 import * as React from 'react';
