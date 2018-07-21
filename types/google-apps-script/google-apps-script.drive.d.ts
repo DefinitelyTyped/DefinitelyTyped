@@ -32,29 +32,104 @@ declare namespace GoogleAppsScript {
     export interface DriveApp {
       Access: typeof Access;
       Permission: typeof Permission;
+      /**
+       * Adds the given file to the root of the user's Drive.
+       * This method does not move the file out of its existing parent folder;
+       * a file can have more than one parent simultaneously.
+       */
       addFile(child: File): Folder;
+      /**
+       * Adds the given folder to the root of the user's Drive.
+       * This method does not move the folder out of its existing parent folder;
+       * a folder can have more than one parent simultaneously.
+       */
       addFolder(child: Folder): Folder;
+      /**
+       * Resumes a file iteration using a continuation token from a previous iterator.
+       * This method is useful if processing an iterator in one execution would exceed
+       * the maximum execution time. Continuation tokens are generally valid for one week.
+       */
       continueFileIterator(continuationToken: string): FileIterator;
+      /**
+       * Resumes a folder iteration using a continuation token from a previous iterator.
+       * This method is useful if processing an iterator in one execution would exceed
+       * the maximum execution time. Continuation tokens are generally valid for one week.
+       */
       continueFolderIterator(continuationToken: string): FolderIterator;
+      /** Creates a file in the root of the user's Drive from a given Blob of arbitrary data. */
       createFile(blob: Base.BlobSource): File;
+      /**
+       * Creates a text file in the root of the user's Drive with the given name
+       * and contents. Throws an exception if content is larger than 50 MB.
+       */
       createFile(name: string, content: string): File;
+      /**
+       * Creates a file in the root of the user's Drive with the given name, contents, and MIME type.
+       * Throws an exception if content is larger than 10MB.
+       */
       createFile(name: string, content: string, mimeType: string): File;
+      /** Creates a folder in the root of the user's Drive with the given name. */
       createFolder(name: string): Folder;
+      /**
+       * Gets the file with the given ID.
+       * Throws a scripting exception if the file does not exist or
+       * the user does not have permission to access it.
+       */
       getFileById(id: string): File;
+      /** Gets a collection of all files in the user's Drive. */
       getFiles(): FileIterator;
+      /** Gets a collection of all files in the user's Drive that have the given name. */
       getFilesByName(name: string): FileIterator;
+      /** Gets a collection of all files in the user's Drive that have the given MIME type. */
       getFilesByType(mimeType: string): FileIterator;
+      /**
+       * Gets the folder with the given ID. Throws a scripting exception if the folder
+       * does not exist or the user does not have permission to access it.
+       */
       getFolderById(id: string): Folder;
+      /** Gets a collection of all folders in the user's Drive. */
       getFolders(): FolderIterator;
+      /** Gets a collection of all folders in the user's Drive that have the given name. */
       getFoldersByName(name: string): FolderIterator;
+      /** Gets the folder at the root of the user's Drive. */
       getRootFolder(): Folder;
+      /** Gets the number of bytes the user is allowed to store in Drive. */
       getStorageLimit(): Integer;
+      /** Gets the number of bytes the user is currently storing in Drive. */
       getStorageUsed(): Integer;
+      /** Gets a collection of all the files in the trash of the user's Drive. */
       getTrashedFiles(): FileIterator;
+      /** Gets a collection of all the folders in the trash of the user's Drive. */
       getTrashedFolders(): FolderIterator;
+      /**
+       * Removes the given file from the root of the user's Drive.
+       * This method does not delete the file, but if a file is removed from all
+       * of its parents, it cannot be seen in Drive except by searching for it
+       * or using the "All items" view.
+       */
       removeFile(child: File): Folder;
+      /**
+       * Removes the given folder from the root of the user's Drive.
+       * This method does not delete the folder or its contents, but if a folder
+       * is removed from all of its parents, it cannot be seen in Drive except
+       * by searching for it or using the "All items" view.
+       */
       removeFolder(child: Folder): Folder;
+      /**
+       * Gets a collection of all files in the user's Drive that match the given search criteria.
+       * The search criteria are detailed the Google Drive SDK documentation.
+       * Note that the params argument is a query string that may contain string values,
+       * so take care to escape quotation marks correctly
+       * (for example "title contains 'Gulliver\\'s Travels'" or 'title contains "Gulliver\'s Travels"').
+       */
       searchFiles(params: string): FileIterator;
+      /**
+       * Gets a collection of all folders in the user's Drive that match the given search criteria.
+       * The search criteria are detailed the Google Drive SDK documentation.
+       * Note that the params argument is a query string that may contain string values,
+       * so take care to escape quotation marks correctly
+       * (for example "title contains 'Gulliver\\'s Travels'" or 'title contains "Gulliver\'s Travels"').
+       */
       searchFolders(params: string): FolderIterator;
     }
 
@@ -138,8 +213,18 @@ declare namespace GoogleAppsScript {
      *     }
      */
     export interface FileIterator {
+      /**
+       * Gets a token that can be used to resume this iteration at a later time.
+       * This method is useful if processing an iterator in one execution would
+       * exceed the maximum execution time. Continuation tokens are generally valid for one week.
+       */
       getContinuationToken(): string;
+      /** Determines whether calling next() will return an item. */
       hasNext(): boolean;
+      /**
+       * Gets the next item in the collection of files or folders.
+       * Throws an exception if no items remain.
+       */
       next(): File;
     }
 
@@ -249,13 +334,26 @@ declare namespace GoogleAppsScript {
      *     }
      */
     export interface User {
+      /** Gets the domain name associated with the user's account. */
       getDomain(): string;
+      /**
+       * Gets the user's email address. The user's email address is only available
+       * if the user has chosen to share the address from the Google+ account settings
+       * page, or if the user belongs to the same domain as the user running the script
+       * and the domain administrator has allowed all users within the domain to see
+       * other users' email addresses.
+       */
       getEmail(): string;
+      /** Gets the user's name. This method returns null if the user's name is not available. */
       getName(): string;
+      /** Gets the URL for the user's photo. This method returns null if the user's photo is not available. */
       getPhotoUrl(): string;
+      /**
+       * Gets the user's email address.
+       * @deprecated As of June 24, 2013, replaced by getEmail()
+       */
       getUserLoginId(): string;
     }
-
   }
 }
 

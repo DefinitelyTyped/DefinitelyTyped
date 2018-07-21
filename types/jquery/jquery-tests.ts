@@ -2757,6 +2757,18 @@ function JQuery() {
             });
 
             // $ExpectType JQuery<HTMLElement>
+            $('p').offset({
+                left: 20
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').offset({});
+
+            // Weak type test. This may be removed if the TypeScript requirement is increased to 2.4+.
+            // $ExpectError
+            $('p').offset(20);
+
+            // $ExpectType JQuery<HTMLElement>
             $('p').offset(function(index, coords) {
                 // $ExpectType HTMLElement
                 this;
@@ -2767,6 +2779,20 @@ function JQuery() {
 
                 return {
                     left: 20,
+                    top: 50
+                };
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').offset(function(index, coords) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType Coordinates
+                coords;
+
+                return {
                     top: 50
                 };
             });
@@ -5655,6 +5681,12 @@ function JQuery() {
 
             // $ExpectType JQuery<HTMLElement>
             $('span').insertAfter($('p'));
+
+            // $ExpectType JQuery<HTMLElement>
+            $('span').insertAfter(new Text('hello!'));
+
+            // $ExpectType JQuery<HTMLElement>
+            $('span').insertAfter($(new Text('hello!')));
         }
 
         function insertBefore() {
@@ -5672,6 +5704,12 @@ function JQuery() {
 
             // $ExpectType JQuery<HTMLElement>
             $('span').insertBefore($('p'));
+
+            // $ExpectType JQuery<HTMLElement>
+            $('span').insertBefore(new Text('hello!'));
+
+            // $ExpectType JQuery<HTMLElement>
+            $('span').insertBefore($(new Text('hello!')));
         }
 
         function prependTo() {

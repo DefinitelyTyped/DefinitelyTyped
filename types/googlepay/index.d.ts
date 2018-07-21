@@ -1,12 +1,15 @@
-// Type definitions for Google Pay API 0.0
+// Type definitions for Google Pay API 0.1
 // Project: https://developers.google.com/pay/api/web/setup/
-// Definitions by: Florian Luccioni <https://github.com/Fluccioni>
+// Definitions by: Florian Luccioni <https://github.com/Fluccioni>,
+//                 Radu Raicea <https://github.com/Radu-Raicea>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace google.payments.api {
     type AddressFormat = 'FULL' | 'MIN';
     type AllowedCardNetwork = 'AMEX' | 'DISCOVER' | 'JCB' | 'MASTERCARD' | 'VISA';
     type AllowedPaymentMethod = 'CARD' | 'TOKENIZED_CARD';
+    type ButtonColor = 'default' | 'black' | 'white';
+    type ButtonType = 'long' | 'short';
     type CardClass = 'CREDIT' | 'DEBIT';
     type CardInfo = CardInfoMin | CardInfoFull;
     type CardRequirements = CardRequirementsMin | CardRequirementsFull;
@@ -18,6 +21,12 @@ declare namespace google.payments.api {
     type UserAddress = UserAddressFull | UserAddressMin;
     type PaymentDataRequest = PaymentDataRequestMin | PaymentDataRequestFull;
     type PaymentData = PaymentDataMin | PaymentDataFull;
+
+    interface ButtonOptions {
+        onClick: EventListener;
+        buttonColor?: ButtonColor;
+        buttonType?: ButtonType;
+    }
 
     interface PaymentOptions {
         environment?: EnvironmentType;
@@ -151,6 +160,7 @@ declare namespace google.payments.api {
 
     class PaymentsClient {
         constructor(paymentOptions: PaymentOptions);
+        createButton(request: ButtonOptions): HTMLElement;
         isReadyToPay(request: IsReadyToPayRequest): Promise<{result: boolean}>;
         loadPaymentData(request: PaymentDataRequestMin): Promise<PaymentDataMin>;
         loadPaymentData(request: PaymentDataRequestFull): Promise<PaymentDataFull>;

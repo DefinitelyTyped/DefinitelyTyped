@@ -8,6 +8,7 @@
 //                 Ethan Resnick <https://github.com/ethanresnick>
 //                 vologa <https://github.com/vologab>
 //                 jussikinnula <https://github.com/jussikinnula>
+//                 ondratra <https://github.com/ondratra>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -1599,6 +1600,13 @@ declare module "mongoose" {
      */
     count(callback?: (err: any, count: number) => void): Query<number>;
     count(criteria: any, callback?: (err: any, count: number) => void): Query<number>;
+
+    /**
+     * Counts number of matching documents in a database collection.
+     * @param criteria mongodb selector
+     */
+    countDocuments(callback?: (err: any, count: number) => void): Query<number>;
+    countDocuments(criteria: any, callback?: (err: any, count: number) => void): Query<number>;
 
     /**
      * Returns a wrapper around a mongodb driver cursor. A Query<T>Cursor exposes a
