@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
-import * as ReactDnd from "react-dnd";
+import { BackendFactory } from 'dnd-core';
 
-export default function createTouchBackend(options: TouchBackendOptions): ReactDnd.Backend;
+export default function createTouchBackend(option?: TouchBackendOptions): BackendFactory;
 
 export interface TouchBackendOptions {
     /**
