@@ -139,7 +139,7 @@ interface Options {
  * @param options Stampit options object containing refs, methods,
  * init, props, statics, configurations, and property descriptors.
  */
-declare function stampit(options?: Options): stampit.Stamp;
+declare function stampit(stamp: stampit.Stamp | Options, options?: Options): stampit.Stamp;
 
 declare namespace stampit {
     /**
