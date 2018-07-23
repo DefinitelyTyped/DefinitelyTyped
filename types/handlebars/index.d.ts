@@ -39,7 +39,8 @@ declare namespace Handlebars {
     export function registerHelper(name: HelperDeclareSpec): void;
     export function unregisterHelper(name: string): void;
 
-    export function registerPartial(name: string|any, fn?: Template): void;
+    export function registerPartial(name: string, fn: Template): void;
+    export function registerPartial(spec: { [name: string]: HandlebarsTemplateDelegate }): void;
     export function unregisterPartial(name: string): void;
 
     // TODO: replace Function with actual signature
