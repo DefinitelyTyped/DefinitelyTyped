@@ -113,6 +113,10 @@ export class LinearInterpolator extends TransitionInterpolator {
 
 export class FlyToInterpolator extends TransitionInterpolator {}
 
+export interface ViewStateChangeInfo {
+  viewState: Viewport;
+}
+
 export interface InteractiveMapProps extends StaticMapProps {
     maxZoom?: number;
     minZoom?: number;
@@ -120,7 +124,7 @@ export interface InteractiveMapProps extends StaticMapProps {
     minPitch?: number;
 
     onViewportChange?: (viewport: Viewport) => void;
-    onViewStateChange?: (viewport: Viewport) => void;
+    onViewStateChange?: (info: ViewStateChangeInfo) => void;
 
     transitionDuration?: number;
     transitionInterpolator?: TransitionInterpolator;
@@ -202,8 +206,8 @@ export interface PopupProps extends BaseControlProps {
 export class Popup extends BaseControl<PopupProps> {}
 
 export interface NavigationControlProps extends BaseControlProps {
-    classNAme?: string;
-    onViewStateChange: (viewport: Viewport) => void;
+    className?: string;
+    onViewStateChange: (info: ViewStateChangeInfo) => void;
     onViewportChange: (viewport: Viewport) => void;
     showCompass?: boolean;
     showZoom?: boolean;
@@ -251,7 +255,7 @@ export namespace experimental {
         // TODO(deprecate): remove this when `touchZoomRotate` gets deprecated
         touchZoomRotate?: boolean;
 
-        onViewStateChange?: (viewport: Viewport) => void;
+        onViewStateChange?: (info: ViewStateChangeInfo) => void;
         onViewportChange?: (viewport: Viewport) => void;
         onStateChange?: (state: MapState) => void;
         eventManager?: any;
