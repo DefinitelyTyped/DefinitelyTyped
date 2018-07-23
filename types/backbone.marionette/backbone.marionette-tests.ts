@@ -135,7 +135,14 @@ class MyView extends Marionette.View<MyModel> {
     }
 }
 
-class MyOtherView extends MyView {}
+class MyOtherView extends MyView {
+    private readonly foo: string;
+
+    constructor(model: MyModel) {
+        super(model);
+        this.foo = 'bar';
+    }
+}
 
 class MainRegion extends Marionette.Region {
     constructor() {
