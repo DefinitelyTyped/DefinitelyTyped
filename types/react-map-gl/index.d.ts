@@ -51,6 +51,7 @@ export interface MapboxProps extends Partial<Viewport> {
 export interface StaticMapProps extends MapboxProps {
     preventStyleDiffing?: boolean;
     visible?: boolean;
+    className?: string;
 }
 
 export interface QueryRenderedFeaturesParams {
