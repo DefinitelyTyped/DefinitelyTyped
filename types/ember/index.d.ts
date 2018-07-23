@@ -311,6 +311,10 @@ declare module 'ember' {
              * Given a fullName return a corresponding instance.
              */
             lookup(fullName: string, options?: {}): any;
+            /**
+             * Given a fullName return a corresponding factory.
+             */
+            factoryFor(fullName: string, options?: {}): any;
         }
         const _ContainerProxyMixin: Mixin<_ContainerProxyMixin>;
 

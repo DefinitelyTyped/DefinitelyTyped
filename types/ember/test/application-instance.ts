@@ -15,3 +15,6 @@ appInstance.register('some:injection', class Foo {}, {
     singleton: false,
     instantiate: true,
 });
+
+appInstance.factoryFor('router:main');
+appInstance.lookup('route:basic');
