@@ -144,7 +144,7 @@ export interface PolyfillProgressEvent extends EventTarget {
     total: number;
 }
 
-export declare class PolyfillBlob extends EventTarget {
+export declare class PolyfillBlob implements EventTarget {
     /**
      * RNFetchBlob Blob polyfill, create a Blob directly from file path, BASE64
      * encoded data, and string. The conversion is done implicitly according to
