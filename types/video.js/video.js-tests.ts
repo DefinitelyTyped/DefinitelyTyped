@@ -14,9 +14,9 @@ videojs("example_video_1").ready(function() {
 	this.src({ type: "video/mp4", src: "http://www.example.com/path/to/video.mp4" });
 
 	this.src([
-		{ type: "video/mp4", src: "http://www.example.com/path/to/video.mp4" },
-		{ type: "video/webm", src: "http://www.example.com/path/to/video.webm" },
-		{ type: "video/ogg", src: "http://www.example.com/path/to/video.ogv" }
+	  { type: "video/mp4", src: "http://www.example.com/path/to/video.mp4" },
+	  { type: "video/webm", src: "http://www.example.com/path/to/video.webm" },
+	  { type: "video/ogg", src: "http://www.example.com/path/to/video.ogv" }
 	]);
 
 	const whereYouAt: number = this.currentTime();
@@ -52,8 +52,6 @@ videojs("example_video_1").ready(function() {
 	const howTallIsIt: number = this.height();
 
 	this.height(480);
-
-	this.size(640, 480);
 
 	this.requestFullScreen();
 
