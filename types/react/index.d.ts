@@ -354,8 +354,8 @@ declare namespace React {
         displayName?: string;
     }
 
-    interface ComponentClass<P = {}> extends StaticLifecycle<P, any> {
-        new (props: P, context?: any): Component<P, ComponentState>;
+    interface ComponentClass<P = {}, S = ComponentState> extends StaticLifecycle<P, S> {
+        new (props: P, context?: any): Component<P, S>;
         propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         childContextTypes?: ValidationMap<any>;
