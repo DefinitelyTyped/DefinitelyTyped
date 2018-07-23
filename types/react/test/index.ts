@@ -125,7 +125,7 @@ class ModernComponent extends React.Component<Props, State, Snapshot>
     };
 
     static contextTypes: React.ValidationMap<Context> = {
-        someValue: PropTypes.string
+        someValue: (() => null) as React.Validator<Context>
     };
 
     static childContextTypes: React.ValidationMap<ChildContext> = {

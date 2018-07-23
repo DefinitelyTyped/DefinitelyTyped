@@ -102,7 +102,7 @@ export class Headers implements Iterable<[string, string]> {
     get(name: string): string | null;
     getAll(name: string): string[];
     has(name: string): boolean;
-    raw(): { [k: string]: string };
+    raw(): { [k: string]: string[] };
     set(name: string, value: string): void;
 
     // Iterator methods

@@ -1,6 +1,7 @@
 // Type definitions for Numeral.js
 // Project: https://github.com/adamwdraper/Numeral-js
 // Definitions by: Vincent Bortone <https://github.com/vbortone>
+//                 Behind The Math <https://github.com/BehindTheMath>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
@@ -71,7 +72,6 @@ interface Numeral {
 	defaultFormat(format: string): void;
 	clone(): Numeral;
 	format(inputString?: string, roundingFunction?: RoundingFunction): string;
-	formatCurrency(inputString?: string): string;
 	unformat(inputString: string): number;
 	value(): number;
 	valueOf(): number;

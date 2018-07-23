@@ -51,7 +51,6 @@ interface Enumerator<T = any> {
 
 interface EnumeratorConstructor {
     new <T = any>(collection: { Item(index: any): T }): Enumerator<T>;
-    // new (collection: any): Enumerator;
 }
 
 declare var Enumerator: EnumeratorConstructor;
