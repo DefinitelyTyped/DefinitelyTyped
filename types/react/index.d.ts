@@ -387,7 +387,7 @@ declare namespace React {
     // methods are present.
     interface ComponentLifecycle<P, S, SS = any> extends NewLifecycle<P, S, SS>, DeprecatedLifecycle<P, S> {
         /**
-         * Called immediately after a compoment is mounted. Setting state here will trigger re-rendering.
+         * Called immediately after a component is mounted. Setting state here will trigger re-rendering.
          */
         componentDidMount?(): void;
         /**
