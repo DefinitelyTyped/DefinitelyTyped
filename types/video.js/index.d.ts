@@ -1552,11 +1552,11 @@ declare namespace videojs {
 		 */
 		contentEl(): Element;
 
-    /**
-     *
-     */
+		/**
+		 *
+		 */
 		controlText(key: string): string;
-    
+
 		/**
 		 * Create the `Component`s DOM element.
 		 *
@@ -1872,10 +1872,10 @@ declare namespace videojs {
 		 * @deprecated since version 5
 		 */
 		options(obj: any): any;
-    
-    /**
-     *
-     */
+
+		/**
+		 *
+		 */
 		played(): TimeRanges;
 
 		/**
@@ -4179,27 +4179,27 @@ declare namespace videojs {
 	 * @extends Component
 	 */
 	interface Player extends Component {
-    
-    /**
-     *
-     */
-    bigPlayButton: Button;
-    
-    /**
-     *
-     */
+
+		/**
+	     *
+	     */
+		bigPlayButton: Button;
+
+    	/**
+		 *
+		 */
 		controlBar: ControlBar;
-    
-    /**
-     *
-     */
+
+		/**
+		 *
+		 */
 		errorDisplay: ModalDialog;
-    
-    /**
-     *
-     */
+
+		/**
+		 *
+		 */
 		loadingSpinner: Component;
-    
+
 		/**
 		 *
 		 */
