@@ -7,6 +7,7 @@
 //                 Gabriel Terwesten <https://github.com/blaugold>
 //                 Oleg Repin <https://github.com/iamolegga>
 //                 David Koblas <https://github.com/koblas>
+//                 Bond Akinmade <https://github.com/bondz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -142,6 +143,21 @@ declare namespace Bull {
      * Promotes a job that is currently "delayed" to the "waiting" state and executed as soon as possible.
      */
     promote(): Promise<void>;
+
+    /**
+     * The lock id of the job
+     */
+    lockKey(): string;
+
+    /**
+     * Releases the lock on the job. Only locks owned by the queue instance can be released.
+     */
+    releaseLock(): Promise<void>;
+
+    /**
+     * Takes a lock for this job so that no other queue worker can process it at the same time.
+     */
+    takeLock(): Promise<number | false>;
   }
 
   type JobStatus = 'completed' | 'waiting' | 'active' | 'delayed' | 'failed';
