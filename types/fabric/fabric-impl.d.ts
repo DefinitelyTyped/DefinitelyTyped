@@ -1651,11 +1651,6 @@ export class Group {
 	 */
 	destroy(): Group;
 	/**
-	 * Returns requested property
-	 * @param prop Property to get
-	 */
-	get(prop: string): any;
-	/**
 	 * Checks whether this group was moved (since `saveCoords` was called last)
 	 * @return true if an object was moved (since fabric.Group#saveCoords was called)
 	 */

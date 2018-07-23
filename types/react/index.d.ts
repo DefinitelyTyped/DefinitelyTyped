@@ -354,8 +354,8 @@ declare namespace React {
         displayName?: string;
     }
 
-    interface ComponentClass<P = {}> extends StaticLifecycle<P, any> {
-        new (props: P, context?: any): Component<P, ComponentState>;
+    interface ComponentClass<P = {}, S = ComponentState> extends StaticLifecycle<P, S> {
+        new (props: P, context?: any): Component<P, S>;
         propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         childContextTypes?: ValidationMap<any>;
@@ -387,7 +387,7 @@ declare namespace React {
     // methods are present.
     interface ComponentLifecycle<P, S, SS = any> extends NewLifecycle<P, S, SS>, DeprecatedLifecycle<P, S> {
         /**
-         * Called immediately after a compoment is mounted. Setting state here will trigger re-rendering.
+         * Called immediately after a component is mounted. Setting state here will trigger re-rendering.
          */
         componentDidMount?(): void;
         /**

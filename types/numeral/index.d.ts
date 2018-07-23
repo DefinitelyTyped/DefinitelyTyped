@@ -1,6 +1,8 @@
 // Type definitions for Numeral.js
 // Project: https://github.com/adamwdraper/Numeral-js
 // Definitions by: Vincent Bortone <https://github.com/vbortone>
+//                 Behind The Math <https://github.com/BehindTheMath>
+//                 Kenneth Luján <https://github.com/klujanrosas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
@@ -50,12 +52,21 @@ interface Numeral {
 	version: string;
 	isNumeral: boolean;
 	options: NumeralJSOptions;
-	
+
 	/**
 	 * This function sets the current locale.  If no arguments are passed in,
 	 * it will simply return the current global locale key.
 	 */
 	locale(key?: string): string;
+
+	/**
+	 * This function provides access to the loaded locale data.  If
+	 * no arguments are passed in, it will simply return the current
+	 * global locale object.
+	 *
+	 * @param key Locale key, e.g 'es' for a spanish locale definition
+	 */
+	localeData(key?: string): NumeralJSLocale;
 
 	/**
 	 * Registers a language definition or a custom format definition.
@@ -71,7 +82,6 @@ interface Numeral {
 	defaultFormat(format: string): void;
 	clone(): Numeral;
 	format(inputString?: string, roundingFunction?: RoundingFunction): string;
-	formatCurrency(inputString?: string): string;
 	unformat(inputString: string): number;
 	value(): number;
 	valueOf(): number;

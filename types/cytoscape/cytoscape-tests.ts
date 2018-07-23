@@ -469,6 +469,13 @@ const edgePoints: cytoscape.Position[] = [
 aliases(eles.layout, eles.createLayout, eles.makeLayout);
 const layout = eles.layout({name: 'random'}).run();
 
+layout.on('layoutstop', () => {
+  cy.fit();
+});
+layout.on('layoutstop', {}, (obj) => {
+  console.log(obj);
+});
+
 eles.select();
 assert(ele.selected()); // as we selected all, and this too
 aliases(eles.unselect, eles.deselect);
@@ -538,10 +545,18 @@ eles.difference(collNodes).abscomp().intersection(collSel).symdiff(collNodes);
 const diff = collSel.diff(collNodes);
 cy.collection().merge(diff.left).merge(diff.right).merge(diff.both).unmerge(collSel).filter((ele, i, eles) => true);
 
+nodes.map(n => n.degree(false));
+edges.map(e => e.source());
+eles.map(e => e.id());
+
 eles.sort((a, b) => 1).map((ele, i, eles) => [i, ele]);
 eles.reduce<any[]>((prev, ele, i, eles) => [...prev, [ele, i]], []).concat(['finish']);
 const min = eles.min((ele, i, eles) => ele.id.length + i); min.ele.scratch('min', min.value).scratch('min').value;
 const max = eles.max((ele, i, eles) => ele.id.length + i); max.ele.scratch('max', max.value);
+nodes.min(n => n.degree(false));
+nodes.max(n => n.degree(false));
+edges.max(n => n.source().id().length);
+edges.max(n => n.source().id().length);
 
 // TODO: traversing (need to actively check the nodes/edges distinction)
 // TODO: algorithms

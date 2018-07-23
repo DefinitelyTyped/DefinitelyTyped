@@ -18,10 +18,7 @@ declare const container: HTMLElement;
 
 {
     // $ExpectError
-    const config: h337.HeatmapConfiguration = {
-        container,
-        valueField: 'foo',
-    };
+    const config: h337.HeatmapConfiguration = { container, valueField: 'foo' };
 }
 
 {

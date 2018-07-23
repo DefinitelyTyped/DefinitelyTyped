@@ -133,13 +133,16 @@ interface Options {
     composers?: Composer[];
 }
 
+/** Stampit Composable for main stampit() function */
+type StampitComposable = stampit.Stamp | Descriptor | Options;
+
 /**
  * Return a factory (aka Stamp) function that will produce new objects using the
  * prototypes that are passed in or composed.
  * @param options Stampit options object containing refs, methods,
  * init, props, statics, configurations, and property descriptors.
  */
-declare function stampit(options?: Options): stampit.Stamp;
+declare function stampit(...composables: StampitComposable[]): stampit.Stamp;
 
 declare namespace stampit {
     /**
