@@ -480,6 +480,11 @@ declare module 'ember' {
             **/
             Router: Router;
             registry: Registry;
+            /**
+             *  Initialize the application and return a promise that resolves with the `Application`
+             *  object when the boot process is complete.
+             */
+            boot(): Promise<Application>;
         }
         /**
         The `ApplicationInstance` encapsulates all of the stateful aspects of a
@@ -1111,6 +1116,12 @@ declare module 'ember' {
              * Unregister a factory.
              */
             unregister(fullName: string): any;
+
+            /**
+             *  Initialize the `EngineInstance` and return a promise that resolves
+             *  with the instance itself when the boot process is complete.
+             */
+            boot(): Promise<EngineInstance>;
         }
         /**
          * This mixin defines the common interface implemented by enumerable objects

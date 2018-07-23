@@ -18,3 +18,9 @@ appInstance.register('some:injection', class Foo {}, {
 
 appInstance.factoryFor('router:main');
 appInstance.lookup('route:basic');
+
+appInstance.boot();
+
+(async function() {
+  await appInstance.boot();
+}());
