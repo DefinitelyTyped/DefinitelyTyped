@@ -1073,7 +1073,7 @@ declare namespace webpack {
     }
 
     abstract class MultiCompiler extends Tapable implements ICompiler {
-        compilers: ICompiler[];
+        compilers: Compiler[];
         run(handler: MultiCompiler.Handler): void;
         watch(watchOptions: MultiCompiler.WatchOptions, handler: MultiCompiler.Handler): MultiWatching;
     }
