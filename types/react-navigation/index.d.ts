@@ -437,6 +437,7 @@ export type NavigationStackAction =
   | NavigationSetParamsAction
   | NavigationResetAction
   | NavigationPopAction
+  | NavigationPushAction
   | NavigationPopToTopAction;
 
 export type NavigationTabAction =
