@@ -17,9 +17,10 @@
 
 declare module 'video.js' {
 
-	const videojs: videojs.Static;
-	export = videojs;
+	export = vjsObj;
 }
+
+declare const vjsObj: videojs.Static;
 
 /**
  *
@@ -1894,7 +1895,7 @@ declare namespace videojs {
 		 * @return {Component}
 		 *         Returns itself; method can be chained.
 		 */
-		ready(callback: (this: this) => void): this;
+		ready(callback: (this: Player) => void): this;
 
 		/**
 		 * Remove an attribute from the `Component`s element.
