@@ -4182,11 +4182,11 @@ declare namespace videojs {
 	interface Player extends Component {
 
 		/**
-	     *
-	     */
+		 *
+		 */
 		bigPlayButton: Button;
 
-    	/**
+		/**
 		 *
 		 */
 		controlBar: ControlBar;
