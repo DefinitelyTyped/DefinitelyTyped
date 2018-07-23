@@ -949,6 +949,7 @@ declare namespace webpack {
             usedModuleIds: any;
             fileTimestamps: Map<string, number>;
             contextTimestamps: Map<string, number>;
+            hash?: string;
             getStats(): Stats;
             addModule(module: CompilationModule, cacheGroup: any): any;
             // tslint:disable-next-line:ban-types
@@ -1097,6 +1098,10 @@ declare namespace webpack {
     }
 
     abstract class Stats {
+        compilation: compilation.Compilation;
+        hash?: string;
+        startTime?: Date;
+        endTime?: Date;
         /** Returns true if there were errors while compiling. */
         hasErrors(): boolean;
         /** Returns true if there were warnings while compiling. */
