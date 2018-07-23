@@ -3,7 +3,7 @@
 // Definitions by: Yu Hsin Lu <https://github.com/kerol2r20>
 //                 Tomek Łaziuk <https://github.com/tlaziuk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 /* =================== USAGE ===================
 

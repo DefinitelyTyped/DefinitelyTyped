@@ -2,7 +2,7 @@
 // Project: http://feathersjs.com/
 // Definitions by: Abraao Alves <https://github.com/AbraaoAlves>, Jan Lohage <https://github.com/j2L4e>
 // Definitions: https://github.com/feathersjs-ecosystem/feathers-typescript
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 import * as self from '@feathersjs/authentication-client';
 
 declare const feathersAuthClient: ((config?: FeathersAuthClientConfig) => () => void) & typeof self;

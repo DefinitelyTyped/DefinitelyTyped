@@ -2,6 +2,7 @@
 // Project: http://mandrill.com/
 // Definitions by: Paulo Cesar <https://github.com/pocesar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /* =================== USAGE ===================
 

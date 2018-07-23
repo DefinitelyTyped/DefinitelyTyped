@@ -4,7 +4,7 @@
 //                 BendingBender <https://github.com/BendingBender>
 //                 Christian Rackerseder <https://github.com/screendriver>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 /// <reference types="node"/>
 

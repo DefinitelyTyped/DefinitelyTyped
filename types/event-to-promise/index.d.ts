@@ -2,6 +2,7 @@
 // Project: https://github.com/JsCommunity/event-to-promise
 // Definitions by: flying-sheep <https://github.com/flying-sheep>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

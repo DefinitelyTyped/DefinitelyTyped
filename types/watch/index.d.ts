@@ -2,6 +2,7 @@
 // Project: https://github.com/mikeal/watch
 // Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>, Gyusun Yeom <https://github.com/Perlmint>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/watch.d.ts
 

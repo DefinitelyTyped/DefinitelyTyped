@@ -2,6 +2,7 @@
 // Project: https://github.com/marko-js/async-writer
 // Definitions by: Yuce Tekol <http://yuce.me/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

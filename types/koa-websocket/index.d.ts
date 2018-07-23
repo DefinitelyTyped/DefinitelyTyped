@@ -4,7 +4,7 @@
 //                 Jaco Greeff <https://github.com/jacogr>
 //                 Martin Ždila <https://github.com/zdila>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 import Koa = require('koa');
 import * as ws from 'ws';

@@ -2,6 +2,7 @@
 // Project: https://github.com/PoliteJS/gulp-change
 // Definitions by: Aankhen <https://github.com/Aankhen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 import * as eventStream from "event-stream";
 

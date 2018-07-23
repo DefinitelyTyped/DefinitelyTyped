@@ -2,6 +2,7 @@
 // Project: https://github.com/cryptocoinjs/ecurve#readme
 // Definitions by: Mohamed Hegazy <https://github.com/mhegazy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types= "node" />
 

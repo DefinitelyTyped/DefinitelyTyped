@@ -2,6 +2,7 @@
 // Project: https://github.com/sindresorhus/gulp-zip
 // Definitions by: Louis Orleans <https://github.com/dudeofawesome>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

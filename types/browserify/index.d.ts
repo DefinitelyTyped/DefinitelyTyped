@@ -2,6 +2,7 @@
 // Project: http://browserify.org/
 // Definitions by: Andrew Gaspar <https://github.com/AndrewGaspar>, John Vilk <https://github.com/jvilk>, Leonard Thieu <https://github.com/leonard-thieu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

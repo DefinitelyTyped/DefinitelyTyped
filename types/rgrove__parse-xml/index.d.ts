@@ -2,7 +2,7 @@
 // Project: https://github.com/rgrove/parse-xml
 // Definitions by: Pete Johanson <https://github.com/petejohanson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 declare function parseXml(name: string, options?: parseXml.ParseOptions): parseXml.Document;
 

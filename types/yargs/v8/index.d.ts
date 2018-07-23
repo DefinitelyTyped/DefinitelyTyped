@@ -5,7 +5,7 @@
 //                 Jeffery Grajkowski <https://github.com/pushplay>
 //                 Jeff Kenney <https://github.com/jeffkenney>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.4
 
 // The following TSLint rules have been disabled:
 // unified-signatures: Because there is useful information in the argument names of the overloaded signatures

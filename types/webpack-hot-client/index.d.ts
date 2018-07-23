@@ -3,7 +3,7 @@
 // Definitions by: Ryan Clark <https://github.com/rynclark>
 //                 ZSkycat <https://github.com/ZSkycat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

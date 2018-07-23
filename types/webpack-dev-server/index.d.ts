@@ -6,7 +6,7 @@
 //                 Alan Agius <https://github.com/alan-agius4>
 //                 Artur Androsovych <https://github.com/arturovt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 import * as webpack from 'webpack';
 import * as httpProxyMiddleware from 'http-proxy-middleware';

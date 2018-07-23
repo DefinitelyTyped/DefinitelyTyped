@@ -5,6 +5,7 @@
 //                 Daniel Zazula <https://github.com/daniel-zazula>
 //                 Daniel Cassidy <https://github.com/djcsdy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node"/>
 

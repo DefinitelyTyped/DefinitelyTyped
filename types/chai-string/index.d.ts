@@ -2,6 +2,7 @@
 // Project: https://github.com/onechiporenko/chai-string
 // Definitions by: Nick Malaguti <https://github.com/nmalaguti>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 ///<reference types="chai" />
 

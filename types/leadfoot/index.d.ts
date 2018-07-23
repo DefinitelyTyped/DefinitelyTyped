@@ -2,6 +2,7 @@
 // Project: https://github.com/theintern/leadfoot
 // Definitions by: theintern <https://github.com/theintern>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="dojo" />
 /// <reference types="node" />

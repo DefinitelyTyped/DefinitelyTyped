@@ -2,6 +2,7 @@
 // Project: https://github.com/domenic/svg2png
 // Definitions by: hans windhoff <https://github.com/hansrwindhoff>, songChengcheng <https://github.com/sccgithub>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

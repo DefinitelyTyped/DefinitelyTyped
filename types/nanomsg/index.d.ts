@@ -2,6 +2,7 @@
 // Project: https://github.com/nickdesaulniers/node-nanomsg
 // Definitions by: Titan <https://github.com/titan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

@@ -4,7 +4,7 @@
 //                  Charles Irick <https://github.com/cirick>,
 //                  Daniel Fischer <https://github.com/d-fischer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.4
 
 import Express = require("express");
 

@@ -2,6 +2,7 @@
 // Project: https://github.com/nanovazquez/yargs-interactive#readme
 // Definitions by: Steven Zeck <https://github.com/szeck87>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 declare function yargsInteractive(): yargsInteractive.Interactive;
 

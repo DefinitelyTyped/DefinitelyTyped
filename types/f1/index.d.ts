@@ -2,6 +2,7 @@
 // Project: https://github.com/jam3/f1
 // Definitions by: Neo <https://github.com/neolwc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

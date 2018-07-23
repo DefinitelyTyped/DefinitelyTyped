@@ -2,7 +2,7 @@
 // Project: https://github.com/marnusw/bunyan-bugsnag
 // Definitions by: Pasi Eronen <https://github.com/pasieronen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.4
 
 import * as Logger from 'bunyan';
 

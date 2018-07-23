@@ -2,6 +2,7 @@
 // Project: https://github.com/GaneshSPatil/chai-arrays
 // Definitions by: Clément Prévot <https://github.com/clementprevot>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="chai" />
 

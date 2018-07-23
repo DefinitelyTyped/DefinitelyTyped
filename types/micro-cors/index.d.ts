@@ -2,7 +2,7 @@
 // Project: https://github.com/possibilities/micro-cors#readme
 // Definitions by: Callum Denby <https://github.com/CallumDenby>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.4
 
 import { RequestHandler } from "micro";
 

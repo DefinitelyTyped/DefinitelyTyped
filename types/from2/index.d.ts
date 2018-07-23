@@ -2,6 +2,7 @@
 // Project: https://github.com/hughsk/from2
 // Definitions by: BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 import * as stream from 'stream';

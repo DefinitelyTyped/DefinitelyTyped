@@ -2,6 +2,7 @@
 // Project: https://www.github.com/jamon/playmusic
 // Definitions by: Nick Paddock <https://github.com/nickp10>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

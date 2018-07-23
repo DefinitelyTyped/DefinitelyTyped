@@ -2,7 +2,7 @@
 // Project: https://github.com/auth0/socketio-jwt
 // Definitions by: Eric Hallander <https://github.com/ehallander9591>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.4
 
 import SocketIO = require("socket.io");
 

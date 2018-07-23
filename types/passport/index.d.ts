@@ -6,7 +6,7 @@
 //                 Tomek Łaziuk <https://github.com/tlaziuk>
 //                 Daniel Perez Alvarez <https://github.com/danielpa9708>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 declare global {
     namespace Express {

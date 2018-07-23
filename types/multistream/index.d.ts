@@ -2,6 +2,7 @@
 // Project: https://github.com/feross/multistream
 // Definitions by: mrmlnc <https://github.com/mrmlnc>, Kenzie Togami <https://github.com/kenzierocks>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

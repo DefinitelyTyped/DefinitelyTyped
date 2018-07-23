@@ -2,6 +2,7 @@
 // Project: https://github.com/scriby/browser-harness
 // Definitions by: Chris Scribner <https://github.com/scriby>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

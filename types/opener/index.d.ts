@@ -2,6 +2,7 @@
 // Project: https://github.com/domenic/opener
 // Definitions by: Rahul Ravikumar <https://github.com/tikurahul>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types='node' />
 

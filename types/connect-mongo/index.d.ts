@@ -2,7 +2,7 @@
 // Project: https://github.com/kcbanner/connect-mongo
 // Definitions by: Mizuki Yamamoto <https://github.com/Syati>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 /// <reference types="express-session" />
 

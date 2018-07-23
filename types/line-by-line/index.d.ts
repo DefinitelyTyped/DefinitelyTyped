@@ -2,7 +2,7 @@
 // Project: https://github.com/Osterjour/line-by-line
 // Definitions by: Evgeny Tomsen <https://github.com/etomsen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

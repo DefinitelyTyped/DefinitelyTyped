@@ -2,6 +2,7 @@
 // Project: https://github.com/OverZealous/gulp-task-listing
 // Definitions by: Joe Skeen <https://github.com/joeskeen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /** 
  * Provides an easy way to get a listing of your tasks from your gulpfile. By default, the 

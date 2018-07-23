@@ -33,11 +33,11 @@ const factory: multistream.FactoryStream = (cb) => {
     cb(new Error('some error'), fs.createReadStream('.filepath'));
 };
 
-// $ExpectType ReadableStream
+// $ExpectType ReadableStream<string | Buffer>
 multistream(streams);
 multistream(factory);
 
-// $ExpectType ReadableStream
+// $ExpectType ReadableStream<string | Buffer>
 multistream.obj(streams);
 multistream.obj(factory);
 

@@ -2,6 +2,7 @@
 // Project: https://github.com/doctyper/gulp-modernizr
 // Definitions by: remisery <https://github.com/remisery>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

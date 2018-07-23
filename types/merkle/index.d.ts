@@ -2,7 +2,7 @@
 // Project: https://github.com/c-geek/merkle
 // Definitions by: Yu Hsin Lu <https://github.com/kerol2r20>
 // Definitions: https://github.com/kerol2r20/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

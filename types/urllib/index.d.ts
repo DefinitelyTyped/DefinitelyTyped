@@ -2,6 +2,7 @@
 // Project: http://github.com/node-modules/urllib
 // Definitions by: SoraYama <https://github.com/sorayama>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 import 'node';
 import * as https from 'https';

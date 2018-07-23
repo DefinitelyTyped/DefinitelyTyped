@@ -2,6 +2,7 @@
 // Project: https://github.com/jasmine/gulp-jasmine-browser
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

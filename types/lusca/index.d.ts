@@ -2,7 +2,7 @@
 // Project: https://github.com/krakenjs/lusca#readme
 // Definitions by: Corbin Crutchley <https://github.com/crutchcorn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.4
 
 import express = require('express');
 

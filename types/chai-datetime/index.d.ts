@@ -3,6 +3,7 @@
 // Definitions by: Cliff Burger <https://github.com/cliffburger>,
 //                 Matt Bishop <https://github.com/mattbishop>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="chai" />
 

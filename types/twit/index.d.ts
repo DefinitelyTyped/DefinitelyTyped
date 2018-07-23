@@ -5,7 +5,7 @@
 //                 abraham <https://github.com/abraham>
 //                 siwalik <https://github.com/siwalikm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 /// <reference types="geojson" />

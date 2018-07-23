@@ -2,6 +2,7 @@
 // Project: https://github.com/mcollina/msgpack5/
 // Definitions by: Wonshik Kim <https://github.com/wokim>, Kei Son <https://github.com/heycalmdown>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 import stream = require('stream');
 import bl = require('bl');

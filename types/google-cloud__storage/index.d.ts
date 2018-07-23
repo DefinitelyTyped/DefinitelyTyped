@@ -5,7 +5,7 @@
 //                 Matt Welke <https://github.com/welkie>
 //                 Futa Ogawa <https://github.com/ogawa0071>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

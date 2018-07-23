@@ -2,7 +2,7 @@
 // Project: https://github.com/JasonRammoray/HttpRx
 // Definitions by: L2jLiga <https://github.com/L2jLiga>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 import { Observable } from 'rxjs';
 import request = require('request');

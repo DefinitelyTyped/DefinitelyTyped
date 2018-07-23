@@ -2,7 +2,7 @@
 // Project: https://github.com/zeit/test-listen
 // Definitions by: Stephen Mathieson <https://github.com/stephenmathieson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

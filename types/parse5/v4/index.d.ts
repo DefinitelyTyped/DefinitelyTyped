@@ -3,7 +3,7 @@
 // Definitions by:  Ivan Nikulin <https://github.com/inikulin>
 //                  Andy Patterson <https://github.com/andnp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 import * as stream from "stream";

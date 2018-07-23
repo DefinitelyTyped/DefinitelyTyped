@@ -2,7 +2,7 @@
 // Project: https://github.com/liady/webpack-node-externals
 // Definitions by: Matt Traynham <https://github.com/mtraynham>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 import { ExternalsFunctionElement } from 'webpack';
 

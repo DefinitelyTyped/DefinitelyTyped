@@ -2,6 +2,7 @@
 // Project: https://github.com/visionmedia/node-blocked#readme
 // Definitions by: Jonas Lochmann <https://github.com/l-jonas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

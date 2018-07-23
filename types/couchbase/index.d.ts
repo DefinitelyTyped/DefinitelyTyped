@@ -2,6 +2,7 @@
 // Project: https://github.com/couchbase/couchnode
 // Definitions by: Marwan Aouida <https://github.com/maouida>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node"/>
 

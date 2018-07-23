@@ -2,6 +2,7 @@
 // Project: https://github.com/uhop/stream-csv-as-json#readme
 // Definitions by: Eugene Lazutkin <https://github.com/uhop>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 import * as AsObjects from './AsObjects';
 import * as Parser from './Parser';

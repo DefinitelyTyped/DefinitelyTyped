@@ -2,7 +2,7 @@
 // Project: https://github.com/yfinkelstein/node-zookeeper#readme
 // Definitions by: xialeistudio <https://github.com/xialeistudio>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.4
 /// <reference types="node" />
 
 type ACL = number | { perms: number, scheme: string, auth: string };

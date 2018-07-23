@@ -2,6 +2,7 @@
 // Project: https://github.com/chadkillingsworth/closure-compiler-npm
 // Definitions by: Evan Martin <http://neugierig.org>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

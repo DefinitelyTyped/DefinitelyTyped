@@ -2,6 +2,7 @@
 // Project: https://github.com/miickel/gulp-angular-templatecache
 // Definitions by: Aman Mahajan <https://github.com/amanmahajan7>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node"/>
 

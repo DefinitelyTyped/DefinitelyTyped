@@ -4,6 +4,7 @@
 //                 Chris Thompson <https://github.com/cjthompson>
 //                 Suraiya Hameed <https://github.com/v-suhame>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 ///<reference types="node" />
 

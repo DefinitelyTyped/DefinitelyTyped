@@ -3,6 +3,7 @@
 // Definitions by: Douglas Duteil <https://github.com/douglasduteil>
 //                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

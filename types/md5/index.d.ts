@@ -2,6 +2,7 @@
 // Project: https://github.com/pvorb/node-md5
 // Definitions by: Bill Sourour <https://github.com/arcdev1>, Cameron Crothers <https://github.com/jprogrammer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

@@ -4,6 +4,7 @@
 //                 Dmitrii Sorin <https://github.com/1999>
 //                 Shrey Jain <https://github.com/shreyjain1994>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

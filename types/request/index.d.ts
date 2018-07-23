@@ -9,7 +9,7 @@
 //                 Matt R. Wilson <https://github.com/mastermatt>
 //                 Jose Colella <https://github.com/josecolella>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/d.ts
 

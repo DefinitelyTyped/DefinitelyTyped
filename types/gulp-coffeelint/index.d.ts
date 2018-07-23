@@ -2,6 +2,7 @@
 // Project: https://github.com/janraasch/gulp-coffeelint
 // Definitions by: Qubo <https://github.com/tkQubo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

@@ -2,6 +2,7 @@
 // Project: https://github.com/vadimg/js_bintrees
 // Definitions by: Cayle Sharrock <https://github.com/CjS77>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 declare module 'bintrees' {
 

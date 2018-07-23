@@ -2,6 +2,7 @@
 // Project: https://github.com/dchest/fossil-delta-js
 // Definitions by: Endel Dreyer <https://github.com/endel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

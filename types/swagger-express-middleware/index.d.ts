@@ -2,7 +2,7 @@
 // Project: https://github.com/BigstickCarpet/swagger-express-middleware
 // Definitions by: Alexandre Roba <https://github.com/alexandreroba>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 /* =================== USAGE ===================
 import * as express from "express";

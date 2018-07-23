@@ -2,6 +2,7 @@
 // Project: https://github.com/natevw/pi-spi
 // Definitions by: Marcel Ernst <https://github.com/marcel-ernst>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

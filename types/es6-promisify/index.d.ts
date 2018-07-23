@@ -3,6 +3,7 @@
 // Definitions by: Harry Shipton <https://github.com/harryshipton>
 //                 Brian Schlenker <https://github.com/bschlenk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 // If the issue at https://github.com/Microsoft/TypeScript/issues/1360 is fixed,
 // then an update should be submitted replacing the promisify declaration with

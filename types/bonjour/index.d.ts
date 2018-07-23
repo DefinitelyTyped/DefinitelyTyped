@@ -2,6 +2,7 @@
 // Project: https://github.com/watson/bonjour
 // Definitions by: Quentin Lampin <https://github.com/quentin-ol>, Nicolas Voigt <https://github.com/octo-sniffle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

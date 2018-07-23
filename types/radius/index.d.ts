@@ -2,6 +2,7 @@
 // Project: https://github.com/retailnext/node-radius
 // Definitions by: Peter Harris <https://github.com/codeanimal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

@@ -2,6 +2,7 @@
 // Project: https://github.com/Project-OSRM/osrm-backend
 // Definitions by: Denis Carriere <https://github.com/DenisCarriere>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 

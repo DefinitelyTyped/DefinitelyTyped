@@ -2,7 +2,7 @@
 // Project: https://github.com/inikulin/parse5
 // Definitions by: Ivan Nikulin <https://github.com/inikulin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.4
 
 import * as ParserStream from "parse5-parser-stream";
 
