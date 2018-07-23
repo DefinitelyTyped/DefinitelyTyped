@@ -2,7 +2,7 @@
 // Project: http://marnusw.github.io/react-css-transition-replace/
 // Definitions by: Karol Janyst <https://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from "react";
 import * as CSSTransitionGroup from "react-addons-css-transition-group";

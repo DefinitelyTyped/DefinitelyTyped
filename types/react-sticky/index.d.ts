@@ -4,7 +4,7 @@
 //                 Curtis Warren <https://github.com/curtisw0>,
 //                 Andrew Hyndman <https://github.com/ajhyndman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from "react";
 

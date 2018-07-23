@@ -19,11 +19,12 @@
 //                 Olivier Pascal <https://github.com/pascaloliv>
 //                 Martin Hochel <https://github.com/hotell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 /// <reference path="global.d.ts" />
 
 import * as CSS from 'csstype';
+import * as PropTypes from 'prop-types';
 
 type NativeAnimationEvent = AnimationEvent;
 type NativeClipboardEvent = ClipboardEvent;
@@ -2204,31 +2205,29 @@ declare namespace React {
     //
     // React.PropTypes
     // ----------------------------------------------------------------------
+    type Validator<T> = PropTypes.Validator<T>;
 
-    type Validator<T> = { bivarianceHack(object: T, key: string, componentName: string, ...rest: any[]): Error | null }["bivarianceHack"];
+    type Requireable<T> = PropTypes.Requireable<T>;
 
-    interface Requireable<T> extends Validator<T> {
-        isRequired: Validator<T>;
-    }
-
-    type ValidationMap<T> = {[K in keyof T]?: Validator<T> };
+    type ValidationMap<T> = PropTypes.ValidationMap<T>;
 
     interface ReactPropTypes {
-        any: Requireable<any>;
-        array: Requireable<any>;
-        bool: Requireable<any>;
-        func: Requireable<any>;
-        number: Requireable<any>;
-        object: Requireable<any>;
-        string: Requireable<any>;
-        node: Requireable<any>;
-        element: Requireable<any>;
-        instanceOf(expectedClass: {}): Requireable<any>;
-        oneOf(types: any[]): Requireable<any>;
-        oneOfType(types: Array<Validator<any>>): Requireable<any>;
-        arrayOf(type: Validator<any>): Requireable<any>;
-        objectOf(type: Validator<any>): Requireable<any>;
-        shape(type: ValidationMap<any>): Requireable<any>;
+        any: typeof PropTypes.any;
+        array: typeof PropTypes.array;
+        bool: typeof PropTypes.bool;
+        func: typeof PropTypes.func;
+        number: typeof PropTypes.number;
+        object: typeof PropTypes.object;
+        string: typeof PropTypes.string;
+        node: typeof PropTypes.node;
+        element: typeof PropTypes.element;
+        symbol: typeof PropTypes.symbol;
+        instanceOf: typeof PropTypes.instanceOf;
+        oneOf: typeof PropTypes.oneOf;
+        oneOfType: typeof PropTypes.oneOfType;
+        arrayOf: typeof PropTypes.arrayOf;
+        objectOf: typeof PropTypes.objectOf;
+        shape: typeof PropTypes.shape;
     }
 
     //
@@ -2282,6 +2281,18 @@ declare namespace React {
     }
 }
 
+// Declared props take priority over inferred props
+// If declared props have indexed properties, ignore inferred props entirely
+type MergePropTypes<P, T> = P & Pick<T, Exclude<keyof T, keyof P>>;
+
+// Any props that have a default prop becomes optional, but their type is unchanged
+// Undeclared default props are augmented into the resulting allowable attributes
+// If declared props have indexed properties, ignore default props entirely
+type Defaultize<P, D> = string extends keyof P ? P :
+    & Pick<P, Exclude<keyof P, keyof D>>
+    & Partial<Pick<P, Extract<keyof P, keyof D>>>
+    & Partial<Pick<D, Exclude<keyof D, keyof P>>>;
+
 declare global {
     namespace JSX {
         // tslint:disable-next-line:no-empty-interface
@@ -2291,6 +2302,14 @@ declare global {
         }
         interface ElementAttributesProperty { props: {}; }
         interface ElementChildrenAttribute { children: {}; }
+
+        type LibraryManagedAttributes<C, P> = C extends { propTypes: infer T; defaultProps: infer D; }
+            ? Defaultize<MergePropTypes<P, PropTypes.InferProps<T>>, D>
+            : C extends { propTypes: infer T; }
+                ? MergePropTypes<P, PropTypes.InferProps<T>>
+                : C extends { defaultProps: infer D; }
+                    ? Defaultize<P, D>
+                    : P;
 
         // tslint:disable-next-line:no-empty-interface
         interface IntrinsicAttributes extends React.Attributes { }

@@ -4,6 +4,7 @@
  */
 
 import * as React from "react";
+import * as PropTypes from "prop-types";
 import * as reactMixin from "react-mixin";
 
 import {
@@ -63,7 +64,8 @@ const SomeFunctionalComponentWithIntl: React.ComponentClass<SomeComponentProps> 
 });
 
 class SomeComponent extends React.Component<SomeComponentProps & InjectedIntlProps> {
-    static propTypes: React.ValidationMap<any> = {
+    static propTypes = {
+        className: PropTypes.string.isRequired,
         intl: intlShape.isRequired
     };
     render(): React.ReactElement<{}> {

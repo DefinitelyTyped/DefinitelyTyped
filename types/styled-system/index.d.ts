@@ -7,7 +7,7 @@
 //                 Eloy Durán <https://github.com/alloy>
 //                 Matthieu Vachon <https://github.com/maoueh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 /**
  * Core

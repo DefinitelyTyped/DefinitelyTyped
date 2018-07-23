@@ -2,7 +2,7 @@
 // Project: https://github.com/souporserious/react-motion-slider
 // Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 declare module "react-motion-slider" {
     import * as React from "react";

@@ -2,7 +2,7 @@
 // Project: https://github.com/okonet/react-dropzone
 // Definitions by: Mathieu Larouche Dube <https://github.com/matdube>, Ivo Jesus <https://github.com/LynxEyes>, Luís Rodrigues <https://github.com/goblindegook>, Ben Bayard <https://github.com/benbayard>
 // Definitions: https://github.com/Vooban/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 /// <reference types="react"/>
 

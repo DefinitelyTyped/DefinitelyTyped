@@ -4,7 +4,7 @@
 //                 Anton Izmailov <https://github.com/wapgear>
 //                 Alec Hill <https://github.com/alechill>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as Storybook from '@storybook/react';
 
