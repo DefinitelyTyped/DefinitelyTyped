@@ -4,18 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-declare enum LogLevels {
-    trace,
-    debug,
-    info,
-    warn,
-    error,
-    fatal
-}
-
-type LogLevelNames = keyof typeof LogLevels;
-
 type PrefixFunction = (level: string) => string;
+
+type LogLevelNames = "trace" | "debug" | "info" | "warn" | "error" | "fatal";
 
 interface Options {
     level?: LogLevelNames;
@@ -23,17 +14,7 @@ interface Options {
     stderr?: boolean;
 }
 
-interface Logger {
-    fatal: (...args: any[]) => void;
-    error: (...args: any[]) => void;
-    warn: (...args: any[]) => void;
-    info: (...args: any[]) => void;
-    debug: (...args: any[]) => void;
-    trace: (...args: any[]) => void;
-}
-
-type ConsoleLogLevel = (opts: Options) => Logger;
-
-declare const consoleLogLevel: ConsoleLogLevel;
+declare function consoleLogLevel(opts: Options):
+    Record<LogLevelNames, (...args: any[]) => void>;
 
 export = consoleLogLevel;
