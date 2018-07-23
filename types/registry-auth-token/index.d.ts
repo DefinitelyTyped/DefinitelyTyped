@@ -30,7 +30,7 @@ declare namespace auth {
             /**
              * Registry url's with token information
              */
-            [registryUrls: string]: string;
+            [registryUrls: string]: string | undefined;
         };
     }
     /**
