@@ -41,7 +41,6 @@ type IterableOrNever<R> = Extract<R, Iterable<any>>;
 type Resolvable<R> = R | PromiseLike<R>;
 type ExtractFunction<T> = Extract<T, (...args: any[]) => any>;
 type IterateFunction<T, R> = (item: T, index: number, arrayLength: number) => Resolvable<R>;
-type IteraterItemIterateFunction<I, R> = IterateFunction<IterableItem<I>, R>;
 
 declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   /**
@@ -497,7 +496,7 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   /**
    * Same as calling `Bluebird.map(thisPromise, mapper)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
    */
-  map<U>(mapper: IteraterItemIterateFunction<R, U>, options?: Bluebird.ConcurrencyOption): Bluebird<R extends Iterable<any> ? U[] : never>;
+  map<U>(mapper: IterateFunction<IterableItem<R>, U>, options?: Bluebird.ConcurrencyOption): Bluebird<R extends Iterable<any> ? U[] : never>;
 
   /**
    * Same as calling `Promise.reduce(thisPromise, Function reducer, initialValue)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
@@ -507,17 +506,17 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   /**
    * Same as calling ``Promise.filter(thisPromise, filterer)``. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
    */
-  filter(filterer: IteraterItemIterateFunction<R, boolean>, options?: Bluebird.ConcurrencyOption): Bluebird<IterableOrNever<R>>;
+  filter(filterer: IterateFunction<IterableItem<R>, boolean>, options?: Bluebird.ConcurrencyOption): Bluebird<IterableOrNever<R>>;
 
   /**
    * Same as calling ``Bluebird.each(thisPromise, iterator)``. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
    */
-  each(iterator: IteraterItemIterateFunction<R, any>): Bluebird<IterableOrNever<R>>;
+  each(iterator: IterateFunction<IterableItem<R>, any>): Bluebird<IterableOrNever<R>>;
 
   /**
    * Same as calling ``Bluebird.mapSeries(thisPromise, iterator)``. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
    */
-  mapSeries<U>(iterator: IteraterItemIterateFunction<R, U>): Bluebird<R extends Iterable<any> ? U[] : never>;
+  mapSeries<U>(iterator: IterateFunction<IterableItem<R>, U>): Bluebird<R extends Iterable<any> ? U[] : never>;
 
   /**
    * Cancel this `promise`. Will not do anything if this promise is already settled or if the cancellation feature has not been enabled
