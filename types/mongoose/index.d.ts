@@ -9,6 +9,7 @@
 //                 vologa <https://github.com/vologab>
 //                 jussikinnula <https://github.com/jussikinnula>
 //                 ondratra <https://github.com/ondratra>
+//                 aherve <https://github.com/aherve>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -2587,7 +2588,12 @@ declare module "mongoose" {
     aggregate(aggregations: any[], cb: Function): Promise<any[]>;
 
     /** Counts number of matching documents in a database collection. */
+    /*
+     *This method is deprecated in favor of countDocuments & estimatedDocumentCount
+     */
     count(conditions: any, callback?: (err: any, count: number) => void): Query<number>;
+    countDocuments(conditions: any, callback?: (err: any, count: number) => void): Query<number>;
+    estimatedDocumentCount(conditions: any, callback?: (err: any, count: number) => void): Query<number>;
 
     /**
      * Shortcut for saving one or more documents to the database. MyModel.create(docs)
