@@ -78,6 +78,7 @@ export interface RouteProps {
   children?: ((props: RouteComponentProps<any>) => React.ReactNode) | React.ReactNode;
   path?: string;
   exact?: boolean;
+  sensitive?: boolean;
   strict?: boolean;
 }
 export class Route<T extends RouteProps = RouteProps> extends React.Component<T, any> { }
@@ -115,7 +116,7 @@ export interface match<P> {
 // Omit taken from https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
-export function matchPath<P>(pathname: string, props: RouteProps): match<P> | null;
+export function matchPath<P>(pathname: string, props: RouteProps, parent?: match<P> | null): match<P> | null;
 
 export function generatePath(pattern: string, params?: { [paramName: string]: string | number | boolean }): string;
 

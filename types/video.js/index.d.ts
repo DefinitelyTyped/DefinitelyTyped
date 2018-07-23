@@ -7,7 +7,9 @@
 //                 Gio Freitas <https://github.com/giofreitas>
 //                 Grzegorz Błaszczyk <https://github.com/gjanblaszczyk>
 //                 Stéphane Roucheray <https://github.com/sroucheray>
+//                 Adam Eisenreich <https://github.com/AkxeOne>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 // The Video.js API allows you to interact with the video through
 // Javascript, whether the browser is playing the video through HTML5
@@ -308,7 +310,7 @@ declare namespace videojs {
 		 * @returns {Object}
 		 *          A new object that is the merged result of all sources.
 		 */
-		mergeOptions(...sources: any[]): any;
+		mergeOptions< A, B, C, D, E, F >(option: A, option2?: B, option3?: C, option4?: D, option5?: E, option6?: F): A & B & C & D & E & F;
 
 		/**
 		 * Resolve and parse the elements of a URL.
@@ -1342,6 +1344,7 @@ declare namespace videojs {
 		 * @fires CloseButton#close
 		 */
 		handleClick(event: EventTarget.Event): void;
+
 	}
 
 	const CloseButton: {
@@ -1453,6 +1456,8 @@ declare namespace videojs {
 		 *         The `Component` that gets added as a child. When using a string the
 		 *         `Component` will get created by this process.
 		 */
+		addChild(component: string, optionsopt?: any, indexopt?: number): Component;
+		addChild(component: Element, optionsopt?: any, indexopt?: number): Element;
 		addChild<T extends Component>(child: string| T, options?: any, index?: number): T;
 
 		/**
@@ -1547,6 +1552,11 @@ declare namespace videojs {
 		 */
 		contentEl(): Element;
 
+    /**
+     *
+     */
+		controlText(key: string): string;
+    
 		/**
 		 * Create the `Component`s DOM element.
 		 *
@@ -1862,6 +1872,11 @@ declare namespace videojs {
 		 * @deprecated since version 5
 		 */
 		options(obj: any): any;
+    
+    /**
+     *
+     */
+		played(): TimeRanges;
 
 		/**
 		 * Return the {@link Player} that the `Component` has attached to.
@@ -4164,6 +4179,27 @@ declare namespace videojs {
 	 * @extends Component
 	 */
 	interface Player extends Component {
+    
+    /**
+     *
+     */
+    bigPlayButton: Button;
+    
+    /**
+     *
+     */
+		controlBar: ControlBar;
+    
+    /**
+     *
+     */
+		errorDisplay: ModalDialog;
+    
+    /**
+     *
+     */
+		loadingSpinner: Component;
+    
 		/**
 		 *
 		 */
@@ -4479,7 +4515,6 @@ declare namespace videojs {
 		 * @return {number}
 		 *         - The duration of the video in seconds when getting
 		 */
-
 		duration(seconds: number): void;
 		duration(): number;
 

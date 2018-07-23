@@ -2,7 +2,7 @@
 // Project: https://github.com/benbria/node-amqp-connection-manager
 // Definitions by: rogierschouten <https://github.com/rogierschouten>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import { ConfirmChannel, Connection, Message, Options, Replies } from "amqplib";
 import { EventEmitter } from "events";
@@ -146,7 +146,7 @@ export interface ChannelWrapper extends EventEmitter {
 	 * @param options
 	 * @param callback
 	 */
-    publish(exchange: string, routingKey: string, content: Buffer, options?: Options.Publish, callback?: (err: any, ok: Replies.Empty) => void): boolean;
+    publish(exchange: string, routingKey: string, content: Buffer, options?: Options.Publish, callback?: (err: any, ok: Replies.Empty) => void): Promise<void>;
 
 	/**
 	 * @see amqplib
@@ -155,7 +155,7 @@ export interface ChannelWrapper extends EventEmitter {
 	 * @param options
 	 * @param callback
 	 */
-    sendToQueue(queue: string, content: Buffer, options?: Options.Publish, callback?: (err: any, ok: Replies.Empty) => void): boolean;
+    sendToQueue(queue: string, content: Buffer, options?: Options.Publish, callback?: (err: any, ok: Replies.Empty) => void): Promise<void>;
 
 	/**
 	 * @see amqplib

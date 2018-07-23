@@ -14,7 +14,7 @@
 //                 Sam Walsh <https://github.com/samwalshnz>
 //                 Tim de Koning <https://github.com/reggino>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 /// <reference types="react" />
 /// <reference types="react-addons-linked-state-mixin" />
@@ -1908,6 +1908,8 @@ declare namespace __MaterialUI {
         minlength?: string;
         step?: number;
         autoComplete?: string;
+        placeholder?: string;
+        title?: string;
     }
     export class TextField extends React.Component<TextFieldProps> {
         blur(): void;

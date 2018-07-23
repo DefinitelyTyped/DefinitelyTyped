@@ -1,6 +1,7 @@
 // Type definitions for Numeral.js
 // Project: https://github.com/adamwdraper/Numeral-js
 // Definitions by: Vincent Bortone <https://github.com/vbortone>
+//                 Behind The Math <https://github.com/BehindTheMath>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
@@ -22,6 +23,14 @@ interface NumeralJSLocale {
 	};
 }
 
+interface NumeralJSOptions {
+	currentLocale: string;
+	zeroFormat: string;
+	nullFormat: string;
+	defaultFormat: string;
+	scalePercentBy100: boolean;
+}
+
 type RoundingFunction = (value: number) => number;
 
 // http://numeraljs.com/#custom-formats
@@ -41,7 +50,8 @@ interface Numeral {
 	(value?: any): Numeral;
 	version: string;
 	isNumeral: boolean;
-
+	options: NumeralJSOptions;
+	
 	/**
 	 * This function sets the current locale.  If no arguments are passed in,
 	 * it will simply return the current global locale key.
@@ -62,7 +72,6 @@ interface Numeral {
 	defaultFormat(format: string): void;
 	clone(): Numeral;
 	format(inputString?: string, roundingFunction?: RoundingFunction): string;
-	formatCurrency(inputString?: string): string;
 	unformat(inputString: string): number;
 	value(): number;
 	valueOf(): number;

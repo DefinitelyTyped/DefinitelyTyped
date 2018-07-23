@@ -60,7 +60,8 @@ auth0.auth.userInfo({
 auth0.webAuth.authorize({
     state: "state",
     nonce: "nonce",
-    scope: "openid"
+    scope: "openid",
+    language: "en"
 });
 
 auth0.webAuth.clearSession({ federated: false });
