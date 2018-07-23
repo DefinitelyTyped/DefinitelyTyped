@@ -21,13 +21,7 @@ declare module 'video.js' {
 
 declare const vjsObj: videojs.Static;
 
-/**
- *
- */
 declare namespace videojs {
-	/**
-	 *
-	 */
 	interface Static {
 		/**
 		 * Doubles as the main function for users to create a player instance and also
@@ -107,9 +101,6 @@ declare namespace videojs {
 		 */
 		browser: Browser;
 
-		/**
-		 *
-		 */
 		dom: Dom;
 
 		/**
@@ -547,16 +538,11 @@ declare namespace videojs {
 	}
 
 	namespace Hook {
-		/**
-		 *
-		 */
 		type BeforeSetup = (element: HTMLVideoElement, options: any) => any;
 
-		/**
-		 *
-		 */
 		type Setup = (player: Player) => void;
 	}
+
 	/**
 	 * A representation of a single `AudioTrack`. If it is part of an {AudioTrackList}
 	 * only one `AudioTrack` in the list will be enabled at a time.
@@ -1072,14 +1058,8 @@ declare namespace videojs {
 	 * extends MenuItem
 	 */
 	interface ChaptersTrackMenuItem extends MenuItem {
-		/**
-		 *
-		 */
 		track: TextTrack;
 
-		/**
-		 *
-		 */
 		cue: TextTrackCueList.TextTrackCue;
 
 		/**
@@ -1121,22 +1101,13 @@ declare namespace videojs {
 		new (player: Player, options?: ChaptersTrackMenuItem.Options): ChaptersTrackMenuItem;
 	};
 
-	/**
-	 *
-	 */
 	namespace ChaptersTrackMenuItem {
-		/**
-		 *
-		 */
 		interface Options extends MenuItem.Options {
 			track: TextTrack;
 			cue: TextTrackCueList.TextTrackCue;
 		}
 	}
 
-	/**
-	 *
-	 */
 	type Child = string | {
 		name: string,
 		children?: Child[]
@@ -1149,9 +1120,6 @@ declare namespace videojs {
 	 * extends Component
 	 */
 	interface ClickableComponent extends Component {
-		/**
-		 *
-		 */
 		options_: Component.Options;
 
 		/**
@@ -1341,13 +1309,7 @@ declare namespace videojs {
 		new (player: Player, options?: CloseButton.Options): CloseButton;
 	};
 
-	/**
-	 *
-	 */
 	namespace CloseButton {
-		/**
-		 *
-		 */
 		interface Options extends Component.Options {
 			controlText?: string;
 		}
@@ -1362,19 +1324,10 @@ declare namespace videojs {
 	 * Components can also use methods from {EventTarget}
 	 */
 	interface Component extends EventedMixin {
-		/**
-		 *
-		 */
 		options_: Component.Options;
 
-		/**
-		 *
-		 */
 		player_: Player;
 
-		/**
-		 *
-		 */
 		children_: Component[];
 
 		/**
@@ -1531,9 +1484,6 @@ declare namespace videojs {
 		 */
 		contentEl(): Element;
 
-		/**
-		 *
-		 */
 		controlText(key: string): string;
 
 		/**
@@ -1852,9 +1802,6 @@ declare namespace videojs {
 		 */
 		options(obj: any): any;
 
-		/**
-		 *
-		 */
 		played(): TimeRanges;
 
 		/**
@@ -2114,13 +2061,7 @@ declare namespace videojs {
 		registerComponent(name: string, ComponentToRegister: any): any;
 	};
 
-	/**
-	 *
-	 */
 	namespace Component {
-		/**
-		 *
-		 */
 		interface Options {
 			children?: Child[];
 		}
@@ -2160,9 +2101,6 @@ declare namespace videojs {
 		}
 	}
 
-	/**
-	 *
-	 */
 	type Content = string | Element | Node | (() => (string | Element | Node));
 
 	/**
@@ -2171,9 +2109,6 @@ declare namespace videojs {
 	 * extends Component
 	 */
 	interface ControlBar extends Component {
-		/**
-		 *
-		 */
 		options_: ControlBar.Options;
 
 		/**
@@ -2200,13 +2135,7 @@ declare namespace videojs {
 		new (player: Player, options?: ControlBar.Options): ControlBar;
 	};
 
-	/**
-	 *
-	 */
 	namespace ControlBar {
-		/**
-		 *
-		 */
 		interface Options extends Component.Options {
 			VolumePanel?: VolumePanel.Options;
 		}
@@ -3204,9 +3133,6 @@ declare namespace videojs {
 		new (tracks?: HTMLTrackElement[]): HTMLTrackElementList;
 	};
 
-	/**
-	 *
-	 */
 	interface LanguageTranslations {
 		[language: string]: string;
 	}
@@ -3522,9 +3448,6 @@ declare namespace videojs {
 		 */
 		createEl(): HTMLDivElement;
 
-		/**
-		 *
-		 */
 		dispose(): undefined;
 
 		/**
@@ -3584,19 +3507,10 @@ declare namespace videojs {
 	 * extends Component
 	 */
 	interface MenuButton extends Component {
-		/**
-		 *
-		 */
 		options_: MenuButton.Options;
 
-		/**
-		 *
-		 */
 		menu: Menu;
 
-		/**
-		 *
-		 */
 		menuButton_: Button;
 
 		/**
@@ -3762,13 +3676,8 @@ declare namespace videojs {
 		 */
 		new (player: Player, options?: MenuButton.Options): MenuButton;
 	};
-	/**
-	 *
-	 */
+
 	namespace MenuButton {
-		/**
-		 *
-		 */
 		interface Options extends Component.Options {
 			title?: string;
 			iniChildren?: boolean;
@@ -3781,9 +3690,6 @@ declare namespace videojs {
 	 * extends ClickableComponent
 	 */
 	interface MenuItem extends ClickableComponent {
-		/**
-		 *
-		 */
 		options_: MenuItem.Options;
 
 		/**
@@ -3840,13 +3746,8 @@ declare namespace videojs {
 		 */
 		new (player: Player, options?: MenuItem.Options): MenuItem;
 	};
-	/**
-	 *
-	 */
+
 	namespace MenuItem {
-		/**
-		 *
-		 */
 		interface Options extends Component.Options {
 			label?: string;
 			multiSelectable?: boolean;
@@ -3855,9 +3756,6 @@ declare namespace videojs {
 		}
 	}
 
-	/**
-	 *
-	 */
 	interface Middleware {
 		/**
 		 *
@@ -3877,14 +3775,8 @@ declare namespace videojs {
 	 * extends Component
 	 */
 	interface ModalDialog extends Component {
-		/**
-		 *
-		 */
 		options_: ModalDialog.Options;
 
-		/**
-		 *
-		 */
 		closeable_: boolean;
 
 		/**
@@ -3949,9 +3841,6 @@ declare namespace videojs {
 		 */
 		description(): string;
 
-		/**
-		 *
-		 */
 		dispose(): undefined;
 
 		/**
@@ -4041,9 +3930,6 @@ declare namespace videojs {
 		new (player: Player, options?: ModalDialog.Options): ModalDialog;
 	};
 
-	/**
-	 *
-	 */
 	namespace ModalDialog {
 		/**
 		 * Options for this class
@@ -5239,9 +5125,6 @@ declare namespace videojs {
 		}
 	}
 
-	/**
-	 *
-	 */
 	interface ProgressControl extends Component {
 		/**
 		 * Create the `Component`'s DOM element
@@ -5329,9 +5212,6 @@ declare namespace videojs {
 		new (player: Player, options?: Component.Options): ProgressControl;
 	};
 
-	/**
-	 *
-	 */
 	interface Representation {
 		id: string;
 		width: number;
@@ -5479,9 +5359,6 @@ declare namespace videojs {
 	 * extends Component
 	 */
 	interface Slider extends Component {
-		/**
-		 *
-		 */
 		options_: Slider.Options;
 
 		/**
@@ -5696,9 +5573,6 @@ declare namespace videojs {
 		new (player: Player, options?: Component.Options, ready?: Component.ReadyCallback): Spacer;
 	};
 
-	/**
-	 *
-	 */
 	interface Tech extends Component {
 		/**
 		 * Boolean indicating whether the `Tech` supports fullscreen resize control.
@@ -6337,9 +6211,6 @@ declare namespace videojs {
 		new (cues: TextTrackCueList.TextTrackCue[]): TextTrackCueList;
 	};
 
-	/**
-	 *
-	 */
 	namespace TextTrackCueList {
 		/**
 		 * typedef {Object} TextTrackCueList~TextTrackCue
@@ -6421,9 +6292,6 @@ declare namespace videojs {
 	};
 
 	namespace TextTrackMenuItem {
-		/**
-		 *
-		 */
 		interface Options extends MenuItem.Options {
 			track: TextTrack;
 		}
@@ -6559,13 +6427,7 @@ declare namespace videojs {
 		new (options: TextTrack.Options): TextTrack;
 	};
 
-	/**
-	 *
-	 */
 	namespace TextTrack {
-		/**
-		 *
-		 */
 		interface Options extends Track.Options {
 			tech?: Tech;
 			kind?: Kind;
@@ -6575,14 +6437,8 @@ declare namespace videojs {
 			default?: boolean;
 		}
 
-		/**
-		 *
-		 */
 		type Kind = 'subtitles' | 'captions' | 'descriptions' | 'chapters' | 'metadata';
 
-		/**
-		 *
-		 */
 		type Mode = 'disabled' | 'hidden' | 'showing';
 	}
 
@@ -6840,13 +6696,7 @@ declare namespace videojs {
 		new (options?: Track.Options): Track;
 	};
 
-	/**
-	 *
-	 */
 	namespace Track {
-		/**
-		 *
-		 */
 		interface Options {
 			id?: string;
 			kind?: string;
@@ -6876,9 +6726,6 @@ declare namespace videojs {
 	};
 
 	namespace TrackButton {
-		/**
-		 *
-		 */
 		interface Options extends MenuButton.Options {
 			track: Track[];
 		}
@@ -7073,9 +6920,6 @@ declare namespace videojs {
 	};
 
 	namespace VolumeControl {
-		/**
-		 *
-		 */
 		interface Options extends Component.Options {
 			volumeBar?: VolumeBar;
 			vertical?: boolean;
@@ -7158,9 +7002,6 @@ declare namespace videojs {
 		}
 	}
 
-	/**
-	 *
-	 */
 	namespace url {
 		/**
 		 * typedef {Object} url:URLObject
@@ -7197,9 +7038,6 @@ declare namespace videojs {
 		}
 	}
 
-	/**
-	 *
-	 */
 	interface XhrObject extends Xhr {
 		del: Xhr;
 		get: Xhr;
@@ -7209,22 +7047,13 @@ declare namespace videojs {
 		put: Xhr;
 	}
 
-	/**
-	 *
-	 */
 	type XhrCallback = (error?: Error, response?: XhrResponse, body?: any) => void;
 
-	/**
-	 *
-	 */
 	interface Xhr {
 		(url: string | XhrOptions, callback: XhrCallback): any;
 		(url: string, options: XhrOptions, callback: XhrCallback): any;
 	}
 
-	/**
-	 *
-	 */
 	interface XhrOptions {
 		beforeSend?: (xhrObject: XMLHttpRequest) => void;
 		body?: any;
@@ -7243,9 +7072,6 @@ declare namespace videojs {
 		withCredentials?: boolean;
 	}
 
-	/**
-	 *
-	 */
 	interface XhrResponse {
 		body: any;
 		statusCode: number;
