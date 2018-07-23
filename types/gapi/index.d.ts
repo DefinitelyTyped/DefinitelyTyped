@@ -247,7 +247,7 @@ declare namespace gapi.client {
     }
 
     interface HttpRequestRejected {
-        result: any;
+        result: any | boolean;
         body: string;
         headers?: any[];
         status?: number;
