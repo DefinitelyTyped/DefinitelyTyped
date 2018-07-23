@@ -27,7 +27,7 @@ export interface MapRequest {
     credentials: string;
 }
 
-export interface MapboxProps extends Viewport {
+export interface MapboxProps extends Partial<Viewport> {
     container?: {};
     mapboxApiAccessToken: string;
     attributionControl?: boolean;
