@@ -88,6 +88,11 @@ export interface NavigationState {
   routes: NavigationRoute[];
 }
 
+export interface DrawerNavigationState extends NavigationState {
+  isDrawerOpen: boolean;
+  isTransitioning: boolean;
+}
+
 export type NavigationRoute<Params = NavigationParams> =
   | NavigationLeafRoute<Params>
   | NavigationStateRoute<Params>;
