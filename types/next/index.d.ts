@@ -1,4 +1,4 @@
-// Type definitions for next 6.0
+// Type definitions for next 6.1
 // Project: https://github.com/zeit/next.js
 // Definitions by: Drew Hays <https://github.com/dru89>
 //                 Brice BERNARD <https://github.com/brikou>
