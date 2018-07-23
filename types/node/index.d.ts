@@ -26,6 +26,7 @@
 //                 Lishude <https://github.com/islishude>
 //                 Andrew Makarov <https://github.com/r3nya>
 //                 Zane Hannan AU <https://github.com/ZaneHannanAU>
+//                 Nicolas Polomack <https://github.com/Hirevo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /** inspector module types */
@@ -164,7 +165,9 @@ interface Iterator<T> {
     next(value?: any): IteratorResult<T>;
 }
 interface IteratorResult<T> { }
-interface AsyncIterableIterator<T> {}
+interface AsyncIterableIterator<T> {
+    next(value?: any): Promise<IteratorResult<T>>;
+}
 interface SymbolConstructor {
     readonly observable: symbol;
     readonly iterator: symbol;
