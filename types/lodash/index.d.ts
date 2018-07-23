@@ -10,7 +10,7 @@
 //                 Jack Moore <https://github.com/jtmthf>,
 //                 Dominique Rau <https://github.com/DomiR>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.6
 
 /// <reference path="./common/common.d.ts" />
 /// <reference path="./common/array.d.ts" />
