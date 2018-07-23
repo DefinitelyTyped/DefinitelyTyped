@@ -6,7 +6,7 @@
 
 // Currently maintained by https://github.com/TomFrost/Jexl
 
-type TransformFunction = (value: any, args?: object) => any;
+type TransformFunction = (value: any, ...args: any[]) => any;
 
 type BinaryOpFunction = (left: any, right: any) => any;
 
