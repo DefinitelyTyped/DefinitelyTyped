@@ -49,6 +49,7 @@ import {
     findNodeHandle,
     ScrollView,
     ScrollViewProps,
+    SectionListRenderItemInfo,
     RefreshControl,
     TabBarIOS,
     NativeModules,
@@ -350,9 +351,9 @@ export class SectionListTest extends React.Component<SectionListProps<string>, {
                             <Text>{section.title}</Text>
                         </View>
                     )}
-                    renderItem={(info: { item: string }) => (
+                    renderItem={(info: SectionListRenderItemInfo<string>) => (
                         <View>
-                            <Text>{info.item}</Text>
+                            <Text>{`${info.section.title} - ${info.item}`}</Text>
                         </View>
                     )}
                 />
