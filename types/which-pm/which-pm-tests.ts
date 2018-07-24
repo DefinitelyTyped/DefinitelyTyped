@@ -1,3 +1,4 @@
+/// <reference types="node" />
 import whichpm = require("which-pm");
 
 whichpm(process.cwd())

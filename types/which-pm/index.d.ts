@@ -3,7 +3,6 @@
 // Definitions by: Jorge Gonzalez <https://github.com/jorgegonzalez>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
-/// <reference types="node" />
 
 interface PMInfo {
     name: string;
