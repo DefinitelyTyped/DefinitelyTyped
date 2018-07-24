@@ -4,11 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface ProjectOptions {
-    topLeft?: boolean
+    topLeft?: boolean;
 }
 
 export interface UnprojectOptions extends ProjectOptions {
-    targetZ?: number
+    targetZ?: number;
 }
 
 export type Coordinates = [number, number];
@@ -112,7 +112,7 @@ export interface MatrixInput {
     bearing: number;
     altitude: number;
     center?: Vector3;
-    flipY?: boolean
+    flipY?: boolean;
 }
 
 export type ViewMatrix = any;
@@ -125,7 +125,7 @@ export interface ProjectionParameters {
     fov: number;
     aspect: number;
     focalDistance: number;
-    near:number;
+    near: number;
     far: number;
 }
 
