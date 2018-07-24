@@ -1016,7 +1016,10 @@ declare namespace cytoscape {
      * Get the entry point to modify the visual style of the graph after initialisation.
      * http://js.cytoscape.org/#core/style
      */
-    interface ElementStylesheet extends StylesheetStyle {
+    interface ElementStylesheetStyle extends StylesheetStyle {
+        json(): any;
+    }
+    interface ElementStylesheetCSS extends StylesheetCSS {
         json(): any;
     }
 
@@ -1024,11 +1027,11 @@ declare namespace cytoscape {
         /**
          * Get the current style object.
          */
-        style(): ElementStylesheet | string;
+        style(): ElementStylesheetStyle | ElementStylesheetCSS;
         /**
          * Assign a new stylesheet to replace the existing one.
          */
-        style(sheet: Stylesheet): Stylesheet;
+        style(sheet: Stylesheet | Stylesheet[] | string): Stylesheet;
     }
 
     /**
@@ -1140,7 +1143,7 @@ declare namespace cytoscape {
         CollectionLayout,
         CollectionSelection, CollectionStyle, CollectionAnimation,
         CollectionComparision, CollectionIteration<TIn, TOut>,
-        CollectionBuildingFiltering<TOut>, CollectionAlgorithms { }
+        CollectionBuildingFiltering<TIn, TOut>, CollectionAlgorithms { }
 
     /**
      * ele  --> Cy.Singular
@@ -1163,8 +1166,8 @@ declare namespace cytoscape {
     /**
      * The output is a collection of node and edge elements OR single element.
      */
-    type CollectionArgument = EdgeCollection | NodeCollection | SingularElementArgument;
-    type CollectionReturnValue = EdgeCollection & NodeCollection & SingularElementReturnValue;
+    type CollectionArgument = Collection | EdgeCollection | NodeCollection | SingularElementArgument;
+    type CollectionReturnValue = Collection & EdgeCollection & NodeCollection & SingularElementReturnValue;
 
     /**
      * edges -> Cy.EdgeCollection
@@ -1430,13 +1433,13 @@ declare namespace cytoscape {
          * Get whether the element is a node.
          * http://js.cytoscape.org/#ele.isNode
          */
-        isNode(): boolean;
+        isNode(): this is NodeSingular;
 
         /**
          * Get whether the element is an edge.
          * http://js.cytoscape.org/#ele.isEdge
          */
-        isEdge(): boolean;
+        isEdge(): this is EdgeSingular;
     }
     /**
      * http://js.cytoscape.org/#collection/data
@@ -2335,7 +2338,7 @@ declare namespace cytoscape {
     /**
      * http://js.cytoscape.org/#collection/building--filtering
      */
-    interface CollectionBuildingFiltering<TOut> {
+    interface CollectionBuildingFiltering<TIn, TOut> {
         /**
          * Get an element in the collection from its ID in a very performant way.
          * @param id The ID of the element to get.
@@ -2478,7 +2481,7 @@ declare namespace cytoscape {
          * ele - The element being considered.
          * http://js.cytoscape.org/#eles.filter
          */
-        filter(selector: Selector | ((ele: TOut, i: number, eles: CollectionArgument) => boolean)): CollectionReturnValue;
+        filter(selector: Selector | ((ele: TIn, i: number, eles: CollectionArgument) => boolean)): CollectionReturnValue;
         /**
          * Get the nodes that match the specified selector.
          *
@@ -2504,7 +2507,7 @@ declare namespace cytoscape {
          *
          * http://js.cytoscape.org/#eles.sort
          */
-        sort(sort: (ele1: TOut, ele2: TOut) => number): CollectionReturnValue;
+        sort(sort: (ele1: TIn, ele2: TIn) => number): CollectionReturnValue;
 
         /**
          * Get an array containing values mapped from the collection.
@@ -2517,7 +2520,7 @@ declare namespace cytoscape {
          *
          * http://js.cytoscape.org/#eles.map
          */
-        map<T>(fn: (ele: TOut, i: number, eles: CollectionArgument) => T, thisArg?: any): T[];
+        map<T>(fn: (ele: TIn, i: number, eles: CollectionArgument) => T, thisArg?: any): T[];
 
         /**
          * Reduce a single value by applying a
@@ -2534,7 +2537,7 @@ declare namespace cytoscape {
          * also stated explicitly as generic
          * http://js.cytoscape.org/#eles.reduce
          */
-        reduce<T>(fn: (prevVal: T, ele: TOut,
+        reduce<T>(fn: (prevVal: T, ele: TIn,
             i: number, eles: CollectionArgument) => T, initialValue: T): T;
 
         /**
@@ -2548,7 +2551,7 @@ declare namespace cytoscape {
          *
          * http://js.cytoscape.org/#eles.min
          */
-        min<T>(fn: (ele: TOut, i: number, eles: CollectionArgument) => T, thisArg?: any): {
+        min<T>(fn: (ele: TIn, i: number, eles: CollectionArgument) => T, thisArg?: any): {
             /**
              * The minimum value found.
              */
@@ -2570,7 +2573,7 @@ declare namespace cytoscape {
          *
          * http://js.cytoscape.org/#eles.max
          */
-        max<T>(fn: (ele: TOut, i: number, eles: CollectionArgument) => T, thisArg?: any): {
+        max<T>(fn: (ele: TIn, i: number, eles: CollectionArgument) => T, thisArg?: any): {
             /**
              * The minimum value found.
              */
