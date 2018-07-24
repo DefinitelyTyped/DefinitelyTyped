@@ -1,4 +1,8 @@
-import WebMercatorViewport, { getDistanceScales, getWorldPosition } from 'viewport-mercator-project';
+import WebMercatorViewport, {
+    DistanceScalesInput,
+    getDistanceScales,
+    getWorldPosition,
+} from 'viewport-mercator-project';
 
 const mercator = new WebMercatorViewport();
 
@@ -32,17 +36,29 @@ const fittedMercator = mercatorWithOptions.fitBounds([[10, 20], [30, 40]], {
 
 const equal2 = fittedMercator.equals(mercatorWithOptions);
 
-const distanceScalesInput = {
+const distanceScalesInputZoom = {
     longitude: 1,
     latitude: 2,
-    zoom: 3,
+    zoom: 1,
+};
+
+const { pixelsPerDegree } = getDistanceScales(distanceScalesInputZoom);
+
+const { pixelsPerDegree2 } = getDistanceScales({
+    ...distanceScalesInputZoom,
+    highPrecision: true,
+});
+
+const distanceScalesInputScale = {
+    longitude: 1,
+    latitude: 2,
     scale: 1,
 };
 
-const { pixelsPerDegree } = getDistanceScales(distanceScalesInput);
+const { metersPerPixel } = getDistanceScales(distanceScalesInputScale);
 
-const { pixelsPerDegree2 } = getDistanceScales({
-    ...distanceScalesInput,
+const { pixelsPerMeter2 } = getDistanceScales({
+    ...distanceScalesInputScale,
     highPrecision: true,
 });
 

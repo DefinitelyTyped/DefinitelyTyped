@@ -104,16 +104,18 @@ export interface HighPrecisionDistanceScales extends DistanceScales {
     pixelsPerMeter2: [number, number, number];
 }
 
-export interface DistanceScalesInput {
+export interface BaseDistanceScalesInput {
     longitude: number;
     latitude: number;
-    zoom: number;
-    scale: number;
 }
 
-export interface HighPrecisionDistanceScalesInput extends DistanceScalesInput {
+export type DistanceScalesInput = BaseDistanceScalesInput & { zoom: number } | BaseDistanceScalesInput & { scale: number };
+
+export interface BaseHighPrecisionDistanceScalesInput extends BaseDistanceScalesInput {
     highPrecision: true;
 }
+
+export type HighPrecisionDistanceScalesInput = BaseHighPrecisionDistanceScalesInput & { zoom: number } | BaseHighPrecisionDistanceScalesInput & { scale: number };
 
 export function getDistanceScales(input: DistanceScalesInput): DistanceScales;
 
