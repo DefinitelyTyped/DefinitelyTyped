@@ -270,6 +270,7 @@ declare module 'twit' {
       exclude_replies?: boolean,
       include_rts?: boolean,
       skip_status?: boolean,
+      url?: string,
     }
     export interface PromiseResponse {
       data: Response,
