@@ -1,7 +1,7 @@
 import ReactTextareaAutocomplete from "webscopeio__react-textarea-autocomplete";
 import * as React from "react";
 
-const Loading: React.SFC<{}> = () => {
+const Loading: React.SFC = () => {
     return <div>Loading</div>;
 };
 
@@ -18,7 +18,7 @@ class Autocomplete extends React.Component {
     private rta: ReactTextareaAutocomplete<string> | null;
     private textarea: HTMLTextAreaElement;
 
-    private names = [ "abc", "def", "ghi" ];
+    private readonly names = [ "abc", "def", "ghi" ];
 
     render() {
         return <ReactTextareaAutocomplete<string>
@@ -57,7 +57,7 @@ class Autocomplete extends React.Component {
             onSelect={(evt: React.SyntheticEvent<HTMLTextAreaElement>) => { console.log(evt); }}
             onChange={(evt: React.ChangeEvent<HTMLTextAreaElement>) => { console.log(evt); }}
             scrollToItem={false}
-            onCaretPositionChange={(pos: number) => { console.log(pos) }}
+            onCaretPositionChange={(pos: number) => { console.log(pos); }}
             containerClassName="container"
             dropdownClassName="dropdown"
             itemClassName="item"

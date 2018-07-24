@@ -1,8 +1,8 @@
-// Type definitions for webscopeio__react-textarea-autocomplete 2.3.0
+// Type definitions for webscopeio__react-textarea-autocomplete 2.3
 // Project: https://github.com/webscopeio/react-textarea-autocomplete
 // Definitions by: Michal Zochowski <https://github.com/michauzo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.9
 
 export default ReactTextareaAutocomplete;
 export as namespace ReactTextareaAutocomplete;
@@ -49,14 +49,14 @@ export interface SettingType<TItem> {
      */
     afterWhitespace?: boolean;
     /**
-     * (Optional for string based item. If the item is an object this method is required) This function defines text 
-     * which will be placed into textarea after the user makes a selection. 
-     * 
+     * (Optional for string based item. If the item is an object this method is required) This function defines text
+     * which will be placed into textarea after the user makes a selection.
+     *
      * You can also specify the behavior of caret if you return object {text: "item", caretPosition: "start"} the caret
      * will be before the word once the user confirms his selection. Other possible value are "next", "end" and number,
      * which is absolute number in contex of textarea (0 is equal position before the first char). Defaults to "next"
      * which is space after the injected word.
-     * 
+     *
      * The default behavior for string based item is a string: <TRIGGER><ITEM><TRIGGER>). This method should always
      * return a unique string, otherwise, you have to use object notation and specify your own key or return object
      * from dataProvider with key property.
@@ -64,9 +64,9 @@ export interface SettingType<TItem> {
     output?: (item: TItem, trigger?: string) => TextToReplaceType | string;
 }
 
-export type TriggerType<TItem> = {
-    [key: string]: SettingType<TItem>,
-};
+export interface TriggerType<TItem> {
+    [key: string]: SettingType<TItem>;
+}
 
 type PickedAttributes = "onChange" | "onSelect" | "onBlur" | "value";
 
@@ -78,7 +78,7 @@ export interface TextareaProps<TItem> extends Pick<React.InputHTMLAttributes<HTM
     /**
      * Gets data props which is already fetched (and displayed) suggestion.
      */
-    loadingComponent: React.SFC<{}>;
+    loadingComponent: React.SFC;
     /**
      * Listener called every time the textarea's caret position is changed. The listener is called with one attribute - caret position denoted by an integer number.
      */
@@ -93,17 +93,17 @@ export interface TextareaProps<TItem> extends Pick<React.InputHTMLAttributes<HTM
      */
     scrollToItem?: boolean | ((container: HTMLDivElement, item: HTMLDivElement) => void);
     /**
-     * 	When it's true autocomplete will close when use click outside. 
+     * 	When it's true autocomplete will close when use click outside.
      * @default false
      */
     closeOnClickOutside?: boolean;
     /**
-     * When it's true the textarea will move along with a caret as a user continues to type. 
+     * When it's true the textarea will move along with a caret as a user continues to type.
      * @default false
      */
     movePopupAsYouType?: boolean;
     /**
-     * Number of characters that user should type for trigger a suggestion. 
+     * Number of characters that user should type for trigger a suggestion.
      * @default 1
      */
     minChar?: number;
@@ -170,7 +170,7 @@ export interface TextareaState<TItem> {
     component?: React.SFC<ItemComponentProps<TItem>>;
 }
 
-declare class ReactTextareaAutocomplete<TItem extends string | Object> extends React.Component<TextareaProps<TItem>, TextareaState<TItem>> {
+declare class ReactTextareaAutocomplete<TItem extends string | object> extends React.Component<TextareaProps<TItem>, TextareaState<TItem>> {
     /**
      * Gets the current caret position in the textarea.
      */
