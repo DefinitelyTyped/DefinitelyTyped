@@ -411,6 +411,7 @@ feature.setGeometry(geometry);
 feature.setGeometryName(stringValue);
 feature.setId(stringValue);
 feature.setId(numberValue);
+feature.setStyle(null);
 feature.setStyle(style);
 feature.setStyle(styleArray);
 feature.setStyle(featureStyleFunction);
