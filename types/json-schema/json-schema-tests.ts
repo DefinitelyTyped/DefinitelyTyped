@@ -174,6 +174,7 @@ import {
         $id: 'foo',
         $ref: 'foo/bar',
         $schema: 'http://json-schema.org/schema#',
+        $comment: 'I\'m but a simple comment',
         title: 'foo',
         description: 'bar',
         default: 42,

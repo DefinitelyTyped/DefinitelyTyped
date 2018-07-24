@@ -512,6 +512,7 @@ export interface JSONSchema7 {
     $id?: string;
     $ref?: string;
     $schema?: JSONSchema7Version;
+    $comment?: string;
 
     /**
      * @see https://tools.ietf.org/html/draft-handrews-json-schema-validation-01#section-6.1
