@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+    	"baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "forceConsistentCasingInFileNames": true,
+        "noEmit": true
+    },
+    "files": [
+        "index.d.ts",
+        "wegame-api-tests.ts"
+    ]
+}
