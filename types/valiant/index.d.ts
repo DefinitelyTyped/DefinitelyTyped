@@ -2,14 +2,13 @@
 // Project: https://github.com/tweetdeck/valiant#readme
 // Definitions by: whatasoda <https://github.com/whatasoda>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 export as namespace Valiant;
 
-// TypeScript Version: 2.3
-export function createInterval<T = number>(compareValues?: IntervalConstrctor<T>['compareValues']): IntervalConstrctor<T>;
+export function createInterval<T = number>(compareValues?: IntervalConstructor<T>['compareValues']): IntervalConstructor<T>;
 
-// TypeScript Version: 2.3
-export interface IntervalConstrctor<T = number> {
+export interface IntervalConstructor<T = number> {
     new (from: Endpoint<T>, to: Endpoint<T>): Interval<T>;
     prototype: Interval<T>;
     empty: Interval<T>;
@@ -28,9 +27,8 @@ export interface IntervalConstrctor<T = number> {
     singleton(value: T): Interval<T>;
 }
 
-// TypeScript Version: 2.3
 export interface Interval<T = number> {
-    constructor: IntervalConstrctor;
+    constructor: IntervalConstructor;
     empty: boolean;
     from: Endpoint<T>;
     to: Endpoint<T>;
@@ -46,7 +44,6 @@ export interface Interval<T = number> {
     toComparator(a: Endpoint<T>, b: Endpoint<T>): number;
 }
 
-// TypeScript Version: 2.3
 export interface Endpoint<T = number> {
     finite: boolean;
     inclusive: boolean;
