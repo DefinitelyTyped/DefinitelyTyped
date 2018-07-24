@@ -338,8 +338,8 @@ declare module 'luxon' {
             ): Interval;
             static fromISO(string: string, options?: DateTimeOptions): Interval;
             static invalid(reason?: string): Interval;
-            static merge(intervals: Interval[]): [Interval];
-            static xor(intervals: Interval[]): [Interval];
+            static merge(intervals: Interval[]): Interval[];
+            static xor(intervals: Interval[]): Interval[];
             end: DateTime;
             invalidReason: string;
             isValid: boolean;
