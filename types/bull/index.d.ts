@@ -83,6 +83,13 @@ declare namespace Bull {
      * Delay before processing next job in case of internal error
      */
     retryProcessDelay?: number;
+
+    /**
+     * Define a custom backoff strategy
+     */
+    backoffStrategies: {
+      [key: string]: (attemptsMade: number, err: typeof Error) => number;
+    };
   }
 
   type DoneCallback = (error?: Error | null, value?: any) => void;
@@ -166,12 +173,12 @@ declare namespace Bull {
     /**
      * Backoff type, which can be either `fixed` or `exponential`
      */
-    type: 'fixed' | 'exponential';
+    type: string;
 
     /**
      * Backoff delay, in milliseconds
      */
-    delay: number;
+    delay?: number;
   }
 
   interface RepeatOptions {
