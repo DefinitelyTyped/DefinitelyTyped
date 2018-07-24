@@ -258,6 +258,12 @@ declare namespace Snap {
         translate(x:number,y:number):Matrix;
         x(x:number,y:number):number;
         y(x:number,y:number):number;
+        a:number;
+        b:number;
+        c:number;
+        d:number;
+        e:number;
+        f:number;
     }
 
     interface ExplicitTransform {
