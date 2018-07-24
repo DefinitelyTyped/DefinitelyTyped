@@ -53,7 +53,7 @@ declare module "moment" {
         names(): string[];
         guess(ignoreCache?: boolean): string;
 
-        setDefault(timezone: string): void;
+        setDefault(timezone: string): MomentTimezone;
     }
 
     interface Moment {
