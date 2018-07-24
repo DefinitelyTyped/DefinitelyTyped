@@ -319,8 +319,8 @@ declare module 'luxon' {
         }
 
         type IntervalObject = {
-            start: DateTime;
-            end: DateTime;
+            start?: DateTime;
+            end?: DateTime;
         };
 
         class Interval {
