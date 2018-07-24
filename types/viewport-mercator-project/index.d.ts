@@ -2,6 +2,7 @@
 // Project: https://github.com/uber-common/viewport-mercator-project#readme
 // Definitions by: Fabio Berta <https://github.com/fnberta>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 export interface ProjectOptions {
     topLeft?: boolean;
@@ -79,11 +80,11 @@ export function normalizeViewportProps(props: ViewportProps): NormalizedViewport
 
 export function flyToViewport(startProps: BaseViewportProps, endProps: BaseViewportProps): BaseViewportProps;
 
-export function lngLatToWorld(lngLat: Coordinates): Coordinates;
+export function lngLatToWorld(lngLat: Coordinates, scale: number): Coordinates;
 
 export function worldToLngLat(point: Coordinates, scale: number): Coordinates;
 
-export type ProjectionMatrix = any;
+export type ProjectionMatrix = number[];
 
 export function worldToPixels(coordinates: Coordinates | CoordinatesZ, pixelProjectionMatrix: ProjectionMatrix): CoordinatesZ;
 
@@ -96,30 +97,44 @@ export interface DistanceScales {
     metersPerPixel: [number, number, number];
     pixelsPerDegree: [number, number, number];
     degreesPerPixel: [number, number, number];
-    pixelsPerDegree2?: [number, number, number];
-    pixelsPerMeter2?: [number, number, number];
 }
 
-export function getDistanceScales(input: { longitude: number; latitude: number; zoom: number; scale: number; highPrecision?: boolean }): DistanceScales;
+export interface HighPrecisionDistanceScales extends DistanceScales {
+    pixelsPerDegree2: [number, number, number];
+    pixelsPerMeter2: [number, number, number];
+}
 
-export type Vector3 = any;
+export interface DistanceScalesInput {
+    longitude: number;
+    latitude: number;
+    zoom: number;
+    scale: number;
+}
 
-export function getWorldPosition(input: { longitude: number; latitude: number; zoom: number; scale: number; meterOffset: number; distanceScales?: DistanceScales }): Vector3;
+export interface HighPrecisionDistanceScalesInput extends DistanceScalesInput {
+    highPrecision: true;
+}
 
-export interface MatrixInput {
+export function getDistanceScales(input: DistanceScalesInput): DistanceScales;
+
+export function getDistanceScales(input: HighPrecisionDistanceScalesInput): HighPrecisionDistanceScales;
+
+// Type comes from https://github.com/uber-web/math.gl
+export class Vector3 extends Array {}
+
+export function getWorldPosition(input: { longitude: number; latitude: number; zoom: number; scale: number; meterOffset?: number; distanceScales?: DistanceScales }): Vector3;
+
+export type ViewMatrix = number[];
+
+export function getViewMatrix(input: { height: number; pitch: number; bearing: number; altitude: number; center?: CoordinatesZ; flipY?: boolean }): ViewMatrix;
+
+export interface ProjectionParametersInput {
+    width: number;
     height: number;
-    pitch: number;
-    bearing: number;
-    altitude: number;
-    center?: Vector3;
-    flipY?: boolean;
+    pitch?: number;
+    altitude?: number;
+    farZMultiplier?: number;
 }
-
-export type ViewMatrix = any;
-
-export function getViewMatrix(input: MatrixInput): ViewMatrix;
-
-export function getProjectionMatrix(input: MatrixInput): ProjectionMatrix;
 
 export interface ProjectionParameters {
     fov: number;
@@ -129,4 +144,6 @@ export interface ProjectionParameters {
     far: number;
 }
 
-export function getProjectionParameters(input: { width: number; height: number; altitude?: number; pitch?: number; farZMultiplier?: number }): ProjectionParameters;
+export function getProjectionParameters(input: ProjectionParametersInput): ProjectionParameters;
+
+export function getProjectionMatrix(input: ProjectionParametersInput): ProjectionMatrix;
