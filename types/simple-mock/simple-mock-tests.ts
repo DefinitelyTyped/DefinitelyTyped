@@ -1,8 +1,9 @@
 import Simple = require('simple-mock');
 declare function describe(desc: string, action: () => void): void;
 declare function beforeEach(action: () => void): void;
+declare function afterEach(action: () => void): void;
 declare function it(desc: string, action: (done: () => void) => void): void;
-declare var assert: {
+declare const assert: {
   (cond: any, message?: string): void;
   equal<T>(a: T, b: T): void;
   deepEqual<T>(a: T, b: T): void;
@@ -556,13 +557,151 @@ describe('Simple', function() {
       })
     })
 
+    describe('for withActions configurations', function() {
+      let stubFn: Simple.Stub<string>;
+
+      it('performs all types of actions', function(done) {
+        const firstAction: Simple.Action<string> = { cbArgs: [], returnValue: 'a', throwError: undefined }
+        const secondAction: Simple.Action<string> = { cbArgs: [1, 2, 3], returnValue: undefined, throwError: undefined }
+        const thirdAction: Simple.Action<string> = { cbArgs: [], returnValue: undefined, throwError: new Error('my message') }
+        stubFn = Simple.stub().withActions([firstAction, secondAction, thirdAction])
+        let returned: string = stubFn()   // Call 1
+        stubFn('a', function() { // Call 2
+          let call2Args = arguments
+          try {
+            stubFn()              // Call 3
+          } catch(e) {
+
+            assert.equal(stubFn.callCount, 3)
+
+            // Verify Call 1: return 'a'
+            assert(returned)
+            assert.equal(returned, 'a')
+
+            // Verify Call 2: callback with 1,2,3
+            assert(stubFn.called)
+            assert.equal(stubFn.calls[1].args[0], 'a')
+            assert.equal(call2Args.length, 3)
+            assert.equal(call2Args[0], 1)
+            assert.equal(call2Args[1], 2)
+            assert.equal(call2Args[2], 3)
+
+            // Verify Call 3: error thrown
+            assert(e instanceof Error)
+            assert.equal(e.message, 'my message')
+            done()
+          }
+        })
+      })
+
+      it('can return over multiple calls, looping per default', function() {
+        const firstAction: Simple.Action<string> = { cbArgs: [], returnValue: 'a', throwError: undefined }
+        const secondAction: Simple.Action<string> = { cbArgs: [], returnValue: 'b', throwError: undefined }
+        stubFn = Simple.stub().withActions([firstAction, secondAction])
+
+        let returned: string[] = []
+        returned.push(stubFn())
+        returned.push(stubFn())
+        returned.push(stubFn())
+
+        assert.equal(returned.length, 3)
+        assert(stubFn.called)
+        assert.equal(stubFn.callCount, 3)
+        assert.equal(returned[0], 'a')
+        assert.equal(returned[1], 'b')
+        assert.equal(returned[2], 'a')
+      })
+
+      it('can return over multiple calls, looping turned off', function() {
+        const firstAction: Simple.Action<string> = { cbArgs: [], returnValue: 'a', throwError: undefined }
+        const secondAction: Simple.Action<string> = { cbArgs: [], returnValue: 'b', throwError: undefined }
+        stubFn = Simple.stub().withActions([firstAction, secondAction])
+        stubFn.loop = false
+
+        let returned: string[] = []
+        returned.push(stubFn())
+        returned.push(stubFn())
+        returned.push(stubFn())
+
+        assert.equal(returned.length, 3)
+        assert(stubFn.called)
+        assert.equal(stubFn.callCount, 3)
+        assert.equal(returned[0], 'a')
+        assert.equal(returned[1], 'b')
+        assert.equal(returned[2], undefined)
+      })
+
+      it('preserves previously added configurations', function() {
+        const secondAction: Simple.Action<string> = { cbArgs: [], returnValue: 'b', throwError: undefined }
+        const thirdAction: Simple.Action<string> = { cbArgs: [], returnValue: 'c', throwError: undefined }
+        stubFn = Simple.stub().returnWith('a').withActions([secondAction, thirdAction])
+        let returned: string[] = []
+        returned.push(stubFn())
+        returned.push(stubFn())
+        returned.push(stubFn())
+
+        assert.equal(returned.length, 3)
+        assert(stubFn.called)
+        assert.equal(stubFn.callCount, 3)
+        assert.equal(returned[0], 'a')
+        assert.equal(returned[1], 'b')
+        assert.equal(returned[2], 'c')
+      })
+
+      it('is chainable and more configurations may be added after', function() {
+        const firstAction: Simple.Action<string> = { cbArgs: [], returnValue: 'a', throwError: undefined }
+        const secondAction: Simple.Action<string> = { cbArgs: [], returnValue: 'b', throwError: undefined }
+        stubFn = Simple.stub().withActions([firstAction, secondAction]).returnWith('c')
+        let returned: string[] = []
+        returned.push(stubFn())
+        returned.push(stubFn())
+        returned.push(stubFn())
+
+        assert.equal(returned.length, 3)
+        assert(stubFn.called)
+        assert.equal(stubFn.callCount, 3)
+        assert.equal(returned[0], 'a')
+        assert.equal(returned[1], 'b')
+        assert.equal(returned[2], 'c')
+      })
+
+      it('allows setting actions array and then calling withActions', function() {
+        stubFn = Simple.stub()
+        const firstAction: Simple.Action<string> = { cbArgs: [], returnValue: 'a', throwError: undefined }
+        stubFn.actions = [firstAction]
+        stubFn.withActions()
+
+        let returned: string = stubFn()
+
+        assert.equal(returned.length, 1)
+        assert(stubFn.called)
+        assert.equal(stubFn.callCount, 1)
+        assert.equal(returned, 'a')
+      })
+
+      it('allows calling withActions and then setting actions array', function() {
+        stubFn = Simple.stub()
+        stubFn.withActions()
+        const firstAction: Simple.Action<string> = { cbArgs: [], returnValue: 'a', throwError: undefined }
+        stubFn.actions = [firstAction]
+
+        let returned: string = stubFn()
+
+        assert.equal(returned.length, 1)
+        assert(stubFn.called)
+        assert.equal(stubFn.callCount, 1)
+        assert.equal(returned, 'a')
+      })
+
+    })
+
     describe('for a specified function to call', function() {
       it('should be called with arguments and return', function() {
         let stubFn = Simple.stub().callFn(function() {
           return arguments
         })
 
-        let returned = stubFn('z', 'x')
+        let returned: any = stubFn('z', 'x')
 
         assert.equal(stubFn.callCount, 1)
         assert.equal(returned[0], 'z')
@@ -576,7 +715,7 @@ describe('Simple', function() {
 
         try {
           stubFn()
-        } catch (e) {
+        } catch(e) {
           assert(e instanceof Error)
           assert.equal(e.message, 'my message')
         }
@@ -647,6 +786,10 @@ describe('Simple', function() {
             return promise
           }
         })
+      })
+
+      afterEach(function() {
+        Simple.restore()
       })
 
       describe('with a single resolving configuration', function() {
@@ -767,6 +910,8 @@ describe('Simple', function() {
         })
       })
     })
+
+    if (typeof Promise === 'undefined') return // Skip on unsupported platforms
 
     describe('for native/conforming promises', function() {
       let fulfilledStub: Simple.Stub<boolean>
@@ -894,6 +1039,82 @@ describe('Simple', function() {
           }, 0)
         })
       })
+    })
+
+    describe('#noLoop', function() {
+
+      it('should disable looping', function() {
+
+        let stub = Simple.stub().noLoop().returnWith('foo')
+
+        assert.equal(stub(), 'foo')
+        assert.equal(stub(), undefined)
+
+      })
+
+    })
+
+    describe('#withLoop', function() {
+
+      it('should enable looping', function() {
+
+        let stub = Simple.stub().withLoop().returnWith('foo')
+
+        assert.equal(stub(), 'foo')
+        assert.equal(stub(), 'foo')
+
+      })
+
+    })
+
+  })
+
+  describe('restore()', function() {
+    let objA: any
+    let objB: any
+    let originalValue: string
+    let mockedValue: string
+
+    beforeEach(function() {
+      originalValue = 'a'
+      mockedValue = 'b'
+
+      objA = {
+        name: 'objA',
+        valueMock: originalValue
+      }
+
+      objB = {
+        name: 'objB',
+        valueMock: originalValue
+      }
+
+      Simple.mock(objA, 'valueMock', mockedValue)
+      Simple.mock(objB, 'valueMock', mockedValue)
+    })
+
+    afterEach(function() {
+      Simple.restore()
+    })
+
+    it('can restore all mocks', function() {
+      Simple.restore()
+      assert.equal(objA.valueMock, originalValue)
+      assert.equal(objB.valueMock, originalValue)
+    })
+
+    it('can restore double-mocked values', function() {
+      Simple.mock(objA, 'valueMock', 'ac')
+      Simple.mock(objB, 'valueMock', 'bc')
+      Simple.restore()
+      assert.equal(objA.valueMock, originalValue)
+      assert.equal(objB.valueMock, originalValue)
+    })
+
+    it('can restore a single mock', function() {
+      Simple.restore(objA, 'valueMock')
+      assert.equal(objA.valueMock, originalValue)
+      assert.equal(objB.valueMock, mockedValue)
     })
   })
 
