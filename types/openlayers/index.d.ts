@@ -6424,7 +6424,7 @@ export namespace layer {
          * @param style Layer style.
          * @api stable
          */
-        setStyle(style: (ol.style.Style | ol.style.Style[] | ol.StyleFunction)): void;
+        setStyle(style: (ol.style.Style | ol.style.Style[] | ol.StyleFunction | null)): void;
     }
 
     /**
