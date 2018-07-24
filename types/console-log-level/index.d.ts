@@ -6,15 +6,18 @@
 
 type PrefixFunction = (level: string) => string;
 
-type LogLevelNames = "trace" | "debug" | "info" | "warn" | "error" | "fatal";
+declare namespace consoleLogLevel {
+    type LogLevelNames =
+        "trace" | "debug" | "info" | "warn" | "error" | "fatal";
+    type Logger = Record<LogLevelNames, (...args: any[]) => void>;
+}
 
 interface Options {
-    level?: LogLevelNames;
+    level?: consoleLogLevel.LogLevelNames;
     prefix?: string | PrefixFunction;
     stderr?: boolean;
 }
 
-declare function consoleLogLevel(opts: Options):
-    Record<LogLevelNames, (...args: any[]) => void>;
+declare function consoleLogLevel(opts: Options): consoleLogLevel.Logger;
 
 export = consoleLogLevel;
