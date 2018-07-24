@@ -1,3 +1,4 @@
+import * as RxJS from 'rxjs';
 import * as React from "react";
 import {
     // Higher-order components
@@ -385,6 +386,16 @@ function testWithObservableConfig() {
   let createEventHandlerMost = createEventHandlerWithConfig(mostConfig)
   let { handler: handler, stream: stream } = createEventHandler()
   createEventHandlerMost = createEventHandler
+}
+
+function testWithRxJSConfig() {
+    const mapPropsStreamRxjs = mapPropsStreamWithConfig(rxjsconfig);
+    type OwnProps = { a: number; };
+    type StreamProps = { b: number; };
+    const transformFn = (_props: RxJS.Observable<OwnProps>): RxJS.Observable<StreamProps> => RxJS.of({ b: 1 });
+    const enhancer = mapPropsStreamRxjs(transformFn)
+    // $ExpectType ComponentEnhancer<OwnProps, StreamProps>
+    enhancer
 }
 
 function testOnlyUpdateForKeys() {
