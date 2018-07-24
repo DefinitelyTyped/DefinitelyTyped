@@ -669,39 +669,39 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   // TODO: After https://github.com/Microsoft/TypeScript/issues/2983 is implemented, we can use
   // the return type propagation of generators to automatically infer the return type T.
   static coroutine<T>(
-      generatorFunction: () => IterableIterator<T>,
+      generatorFunction: () => IterableIterator<any>,
       options?: Bluebird.CoroutineOptions
     ): () => Bluebird<T>;
   static coroutine<T, A1>(
-      generatorFunction: (a1: A1) => IterableIterator<T>,
+      generatorFunction: (a1: A1) => IterableIterator<any>,
       options?: Bluebird.CoroutineOptions
     ): (a1: A1) => Bluebird<T>;
   static coroutine<T, A1, A2>(
-      generatorFunction: (a1: A1, a2: A2) => IterableIterator<T>,
+      generatorFunction: (a1: A1, a2: A2) => IterableIterator<any>,
       options?: Bluebird.CoroutineOptions
     ): (a1: A1, a2: A2) => Bluebird<T>;
   static coroutine<T, A1, A2, A3>(
-      generatorFunction: (a1: A1, a2: A2, a3: A3) => IterableIterator<T>,
+      generatorFunction: (a1: A1, a2: A2, a3: A3) => IterableIterator<any>,
       options?: Bluebird.CoroutineOptions
     ): (a1: A1, a2: A2, a3: A3) => Bluebird<T>;
   static coroutine<T, A1, A2, A3, A4>(
-      generatorFunction: (a1: A1, a2: A2, a3: A3, a4: A4) => IterableIterator<T>,
+      generatorFunction: (a1: A1, a2: A2, a3: A3, a4: A4) => IterableIterator<any>,
       options?: Bluebird.CoroutineOptions
     ): (a1: A1, a2: A2, a3: A3, a4: A4) => Bluebird<T>;
   static coroutine<T, A1, A2, A3, A4, A5>(
-      generatorFunction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5) => IterableIterator<T>,
+      generatorFunction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5) => IterableIterator<any>,
       options?: Bluebird.CoroutineOptions
     ): (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5) => Bluebird<T>;
   static coroutine<T, A1, A2, A3, A4, A5, A6>(
-      generatorFunction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6) => IterableIterator<T>,
+      generatorFunction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6) => IterableIterator<any>,
       options?: Bluebird.CoroutineOptions
     ): (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6) => Bluebird<T>;
   static coroutine<T, A1, A2, A3, A4, A5, A6, A7>(
-      generatorFunction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7) => IterableIterator<T>,
+      generatorFunction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7) => IterableIterator<any>,
       options?: Bluebird.CoroutineOptions
     ): (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7) => Bluebird<T>;
   static coroutine<T, A1, A2, A3, A4, A5, A6, A7, A8>(
-      generatorFunction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8) => IterableIterator<T>,
+      generatorFunction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8) => IterableIterator<any>,
       options?: Bluebird.CoroutineOptions
     ): (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8) => Bluebird<T>;
 

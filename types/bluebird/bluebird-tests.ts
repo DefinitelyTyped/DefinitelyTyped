@@ -883,15 +883,15 @@ obj = Promise.promisifyAll(obj, {
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 const generator1 = function*(a: number, b: string) { return "string"; };
-const coroutine1 = Promise.coroutine(generator1);
+const coroutine1 = Promise.coroutine<string, number, string>(generator1);
 strProm = coroutine1(5, "foo");
 
 const generator2 = function*(a: number, b: string) {
 	yield foo;
 	return bar;
 };
-const coroutine2 = Promise.coroutine(generator2);
-barProm = coroutine2(5, "foo") as Promise<Bar>;
+const coroutine2 = Promise.coroutine<Bar, number, string>(generator2);
+barProm = coroutine2(5, "foo");
 
 const coroutineCustomYield = Promise.coroutine(generator1, { yieldHandler: (value) => "whatever" });
 /*
