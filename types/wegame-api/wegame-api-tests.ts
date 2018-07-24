@@ -1,27 +1,30 @@
-//画布
+// 画布
 let canvas = wx.createCanvas();
 console.assert(canvas != null);
-//图片
+// 图片
 let images = wx.createImage();
 console.assert(images != null);
-//字体
+// 字体
 let texts = wx.getTextLineHeight({
-    text:"",
+    text: "",
     fontFamily: 'Arial',
-    fontSize:28,
-    fontWeight:'bold',
-    fontStyle:'normal',
-    success: function(res) {
-        console.assert(res.lineHeight == 0);
+    fontSize: 28,
+    fontWeight: 'bold',
+    fontStyle: 'normal',
+    success: res => {
+        console.assert(res.lineHeight === 0);
     }
 });
 let textload = wx.loadFont('Arial');
-console.assert(textload != null) //当前版本不支持此加载自定义字体
-//帧率
+console.assert(textload != null); // 当前版本不支持此加载自定义字体
+// 帧率
 wx.setPreferredFramesPerSecond(30);
-//系统信息
-let sys = wx.getBatteryInfo({
-    
+// 系统信息
+wx.getBatteryInfo({
+    success: info => {
+        console.info(info.isCharging);
+        console.info(info.level);
+    }
 });
 
 let sysinfo = wx.getSystemInfoSync();
@@ -42,430 +45,428 @@ console.assert(sysinfo.benchmarkLevel != null);
 console.assert(sysinfo.battery != null); // 手机电量 报错
 console.assert(sysinfo.wifiSignal != null); // 手机WIFI信号强度 报错
 
-
-//系统事件
-wx.onAudioInterruptionEnd(()=>{
+// 系统事件
+const audioEnd = () => {
     console.log("audio interrupted end");
-});
-let offAudioEnd = wx.offAudioInterruptionEnd(()=>{});
-console.assert(offAudioEnd == undefined);
-let onAudioBeg = wx.onAudioInterruptionBegin(()=>{});
-console.assert(onAudioBeg == undefined);
-let offAudioBeg = wx.offAudioInterruptionBegin(()=>{});
-console.assert(offAudioBeg == undefined);
-let onErr = wx.onError(()=>{});
+};
+wx.onAudioInterruptionEnd(audioEnd);
+wx.offAudioInterruptionEnd(audioEnd);
+const audioBegin = () => {
+    console.log("audio interrupted begin");
+};
+wx.onAudioInterruptionBegin(audioBegin);
+wx.offAudioInterruptionBegin(audioBegin);
 
-console.assert(onErr == undefined);
-let offErr = wx.offError;
-//触摸事件
-let onTouS = wx.onTouchStart;
-let offTouS = wx.offTouchStart;
-let onTouM = wx.onTouchMove;
-let offTouM = wx.offTouchMove;
-let onTouE = wx.onTouchEnd;
-let offTouE = wx.offTouchEnd;
-let onTouC = wx.onTouchCancel;
-let offTouC = wx.offTouchCancel;
-//加速计
-wx.onAccelerometerChange(function(res) {
-    console.assert(res.x != null)
-    console.assert(res.y !=null)
-    console.assert(res.z !=null)
-})
+const onWXError = (res: { message: string, stack: string }) => { console.error(`sys error: ${res.message}....${res.stack}`); };
+wx.onError(onWXError);
+wx.offError(onWXError);
+
+// 触摸事件
+wx.onTouchStart(d => { console.assert(d != null); });
+wx.onTouchMove(d => { console.assert(d != null); });
+wx.onTouchEnd(d => { console.assert(d != null); });
+wx.onTouchCancel(d => { console.assert(d != null); });
+// 加速计
+wx.onAccelerometerChange(res => {
+    console.assert(res.x != null);
+    console.assert(res.y != null);
+    console.assert(res.z != null);
+});
 wx.startAccelerometer({
-    interval:"game",
-    success:function(){
+    interval: "game",
+    success: () => {
         console.log("wx.startAccelerometer success");
     }
 });
 wx.stopAccelerometer({
-    success:function(){
+    success: () => {
         console.log("wx.stopAccelerometer success");
     }
 });
-//电量
+// 电量
 let getBat = wx.getBatteryInfoSync();
 console.dir(getBat);
-console.assert(getBat.isCharging != null);
-console.assert(getBat.level != null);
-//剪切板
+console.info(getBat.isCharging);
+console.info(getBat.level);
+// 剪切板
 wx.getClipboardData({
-    success:function(){
+    success: () => {
         console.log("wx.getClipboardData success");
     }
 });
 wx.setClipboardData({
-    data:"",
-    success:function(){
+    data: "test",
+    success: () => {
         console.log("wx.setClipboardData success");
     }
-})
-//罗盘
-wx.onCompassChange(function(res){
-    console.assert(res.direction !=null);
-})
+});
+// 罗盘
+wx.onCompassChange(res => {
+    console.assert(res.direction != null);
+});
 wx.startCompass({
-    success:function(){
+    success: () => {
         console.log("wx.startCompass success");
     }
-})
+});
 wx.stopCompass({
-    success:function(){
+    success: () => {
         console.log("wx.stopCompass success");
     }
-})
-//网络
+});
+// 网络
 wx.getNetworkType({
-    success:function(){
+    success: () => {
         console.log("wx.getNetworkType success");
     }
-})
-wx.onNetworkStatusChange(function(res){
-    console.assert(res.isConnected !=null)
-})
-//屏幕
+});
+wx.onNetworkStatusChange(res => {
+    console.assert(res.isConnected != null);
+});
+// 屏幕
 wx.getScreenBrightness({
-    success:function(){
+    success: () => {
         console.log("wx.getScreenBrightness success");
     }
-})
+});
 wx.setKeepScreenOn({
-    keepScreenOn:true,
-    success:function(){
+    keepScreenOn: true,
+    success: () => {
         console.log("wx.setKeepScreenOn success");
     }
-})
+});
 wx.setScreenBrightness({
-    value:1,
-    success:function(){
+    value: 1,
+    success: () => {
         console.log("wx.setScreenBrightness success");
     }
-})
-//震动
+});
+// 震动
 wx.vibrateShort({
-    success:function(){
+    success: () => {
         console.log("wx.vibrateShort success");
     }
-})
+});
 wx.vibrateLong({
-    success:function(){
+    success: () => {
         console.log("wx.vibrateLong success");
     }
-})
-//转屏
-wx.onDeviceOrientationChange(function(res){
-    console.assert(res.value != null)
-})
-//文件
+});
+// 转屏
+wx.onDeviceOrientationChange(res => {
+    console.assert(res.value != null);
+});
+// 文件
 let getFile = wx.getFileSystemManager();
 console.assert(getFile != null);
-//位置
+// 位置
 wx.getLocation({
-    success:function(res){
-        res.altitude !=null;
+    success: res => {
+        res.altitude != null;
         console.log("wx.getLocation success");
     }
-})
-//下载
+});
+// 下载
 let downLoad = wx.downloadFile({
-    url:"",
+    url: "",
     header: {},
-    filePath:"",
-    success: function(){
+    filePath: "",
+    success: () => {
         console.log("wx.downloadFile success");
     },
-    fail: function(){
-        console.log("wx.downloadFile fail")
+    fail: () => {
+        console.log("wx.downloadFile fail");
     },
-    complete: function(){
-        console.log("wx.downloadFile comp")
+    complete: () => {
+        console.log("wx.downloadFile comp");
     }
 });
-console.assert(downLoad !=null)
+console.assert(downLoad != null);
 downLoad.abort();
-//发起请求
+// 发起请求
 let requ = wx.request({
-    url:'https://www.baidu.com/',
-    success:function(){
+    url: 'https://www.baidu.com/',
+    success: () => {
         console.log("wx.request success");
     }
-})
-console.assert(requ !=null);
+});
+console.assert(requ != null);
 requ.abort();
-//WebSocket
+// WebSocket
 let conne = wx.connectSocket({
-    url:'wss://www.baidu.com/',
-    header:{},
-    protocols:[],
-    success: function(){
+    url: 'wss://www.baidu.com/',
+    header: {},
+    protocols: [],
+    success: () => {
         console.log("wx.connectSocket success");
     }
-})
-console.assert(conne !=null);
+});
+console.assert(conne != null);
 wx.closeSocket({
-    reason:'',
-    success: function(){
+    reason: 'normal close',
+    success: () => {
         console.log("wx.closeSocket success");
     }
-})
-wx.onSocketOpen(function(res){
-    console.assert(res.header !=null);
-})
+});
+wx.onSocketOpen(res => {
+    console.assert(res.header != null);
+});
 wx.onSocketClose;
 wx.sendSocketMessage({
-    data:"",
-    success: function(){
+    data: "testdata",
+    success: () => {
         console.log("wx.sendSocketMessage success");
     }
-})
+});
 // 上传
 let upLoad = wx.uploadFile({
-    url:"https://www.baidu.com/",
-    filePath:"./",
-    name:"111",
-    success: function(){
+    url: "https://www.baidu.com/",
+    filePath: "./",
+    name: "111",
+    success: () => {
         console.log("wx.uploadFile success");
     },
-    fail:function(){
+    fail: () => {
         console.log("wx.uploadFile fail");
     }
-})
-console.assert(upLoad !=null)
+});
+console.assert(upLoad != null);
+upLoad.onProgressUpdate(res => {
+    console.log(`upload progress: ${res.progress}, ${res.totalBytesSent / res.totalBytesExpectedToSend}`);
+});
+upLoad.abort();
 
-//开放数据
+// 开放数据
 let context = wx.getOpenDataContext();
 context.postMessage({
-    "item":"friend"
+    item: "friend"
 });
 context.postMessage({
-    "item":"group"
+    item: "group"
 });
 context.postMessage({
-    "item":"user"
+    item: "user"
 });
 
 wx.removeUserCloudStorage({
-    keyList:[]
-})
+    keyList: []
+});
 wx.setUserCloudStorage({
-    KVDataList:[]
-})
+    KVDataList: []
+});
 
-//登录
+// 登录
 wx.checkSession({
-
-})
+    success: () => {
+        console.log("session valid");
+    }
+});
 wx.login({
-    success:(res) => {
-        console.log(res.code);
+    success: (res) => {
+        console.log(`login code: ${res.code}`);
     }
-})
-//防沉迷
+});
+// 防沉迷
 wx.checkIsUserAdvisedToRest({
-    todayPlayedTime:10,
-    success:function(res){
-        res.result !=null
+    todayPlayedTime: 10,
+    success: res => {
+        console.assert(res.result != null);
     }
 });
-//用户信息
-let crea = wx.createUserInfoButton({
-    type:'text',
-    text:'',
-    image:'',
-    style:{
-        left:1,
-            top:1,
-            width:1,
-            height:1,
-            /**
-             * 格式#ff0000
-             */
-            backgroundColor:'',
-            /**
-             * 格式#ff0000
-             */
-            borderColor:'',
-            borderWidth:1,
-            borderRadius:1,
-            textAlign:"left",
-            fontSize:1,
-            lineHeight:1
-    },
-    withCredentials:true
-});
-console.assert(crea != null);
-wx.getUserInfo({
-    success: function(res) {
-        //console.assert(res.data.country !=null);
+// 用户信息
+let ubtn = wx.createUserInfoButton({
+    type: 'text',
+    text: 'test btn',
+    style: {
+        left: 1,
+        top: 1,
+        width: 100,
+        height: 40,
+        /**
+         * 格式#ff0000
+         */
+        backgroundColor: '#fefefe',
+        /**
+         * 格式#ff0000
+         */
+        borderColor: '#cccccc',
+        borderWidth: 1,
+        borderRadius: 3,
+        textAlign: "center",
+        fontSize: 24,
+        lineHeight: 24
     }
-})
-//设置
-let createOpenSet = wx.createOpenSettingButton(
-    'text',
-    'wenzi',
-    '',
-    {
+});
+console.assert(ubtn != null);
+ubtn.onTap(res => {
+    console.assert(res.errMsg != null && res.userInfo != null);
+});
+const newUserInfoParam: wx.types.NewUserInfoParam = {
+    success: res => {
+        console.assert(res.data != null);
+    }
+};
+wx.getUserInfo(newUserInfoParam);
+// 设置
+let createOpenSet = wx.createOpenSettingButton({
+    type: "text",
+    text: "testbtn",
+    style: {
         left: 10,
         top: 76,
         width: 200,
         height: 40,
         lineHeight: 40,
-        backgroundColor: '',
-        borderColor:'',
-        borderWidth:1,
-        borderRadius:1,
+        backgroundColor: '#ff12ff',
+        borderColor: '#000',
+        borderWidth: 1,
+        borderRadius: 3,
         textAlign: 'center',
         fontSize: 16
     }
-)
-console.assert(createOpenSet !=null);
+});
+console.assert(createOpenSet != null);
 wx.getSetting({
-    success:function(res){
+    success: res => {
         res.authSetting != null;
     }
-})
+});
 wx.openSetting({
-    success:function(res){
+    success: res => {
         res.authSetting != null;
     }
-})
-//微信运动
+});
+// 微信运动
 wx.getWeRunData({
-    success:function(res){
+    success: res => {
         res.encryptedData != null;
-        res.iv !=null;
+        res.iv != null;
     }
-})
-//授权
+});
+// 授权
 wx.authorize({
-    scope:""
-})
-//游戏圈
+    scope: "userInfo"
+});
+// 游戏圈
 let yxq = wx.createGameClubButton({
-    type:"text",
-    text:"dssss",
-    image:"",
-    style:{
+    type: "text",
+    text: "dssss",
+    style: {
         left: 10,
         top: 76,
         width: 200,
         height: 40,
         lineHeight: 40,
-        backgroundColor: '',
-        borderColor:'',
-        borderWidth:1,
-        borderRadius:1,
+        backgroundColor: '#f00ff0',
+        borderColor: '#fff222',
+        borderWidth: 1,
+        borderRadius: 3,
         textAlign: 'center',
         fontSize: 16
     },
-    icon:"green"
-})
-console.assert(yxq !=null)
-//意见反馈
+    icon: "green"
+});
+console.assert(yxq != null);
+// 意见反馈
 wx.createFeedbackButton({
-    type:"text",
-    text:"dssss",
-    image:"",
-    style:{
+    type: "text",
+    text: "dssss",
+    style: {
         left: 10,
         top: 76,
         width: 200,
         height: 40,
         lineHeight: 40,
-        backgroundColor: '',
-        borderColor:'',
-        borderWidth:1,
-        borderRadius:1,
+        backgroundColor: '#00f0f0',
+        borderColor: '#000',
+        borderWidth: 1,
+        borderRadius: 3,
         textAlign: 'center',
         fontSize: 16
     }
-})
-//客服消息
+});
+// 客服消息
 wx.openCustomerServiceConversation({
-    
-})
-//开放数据域
+    success: () => {
+        console.log("opened conversation window");
+    }
+});
+// 开放数据域
 let getOpenD = wx.getOpenDataContext();
-console.assert(getOpenD !=null);
-//转发
+console.assert(getOpenD != null);
+// 转发
 wx.getShareInfo({
-    shareTicket:"",
-    success:function(res){
-        res.encryptedData !=null;
-        res.errMsg !=null;
-        res.iv !=null;
+    shareTicket: "",
+    success: res => {
+        res.encryptedData != null;
+        res.errMsg != null;
+        res.iv != null;
     }
-})
-wx.hideShareMenu({
-
-})
-wx.onShareAppMessage(function(res){
-    res.imageUrl !=null;
-    res.query !=null;
+});
+wx.hideShareMenu();
+wx.onShareAppMessage(res => {
+    res.imageUrl != null;
+    res.query != null;
     res.title != null;
-
-})
+});
 wx.showShareMenu({
-    withShareTicket:true
-})
+    withShareTicket: true
+});
 wx.shareAppMessage({
-    title:''
-})
+    title: ''
+});
 wx.updateShareMenu({
-    withShareTicket:true
-})
-//性能
+    withShareTicket: true
+});
+// 性能
 let getPer = wx.getPerformance();
-console.assert(getPer !=null)
-//调试
+console.assert(getPer != null);
+// 调试
 wx.setEnableDebug({
-    enableDebug:true
-})
-//数据缓存
+    enableDebug: true
+});
+// 数据缓存
 wx.clearStorage({
-    success:function(){
-        console.log("wx.clearStorage success")
+    success: () => {
+        console.log("wx.clearStorage success");
     }
-})
+});
 wx.getStorage({
-    key:'',
-    success:function(res){
-        res.data !=null
+    key: 'test key',
+    success: res => {
+        console.assert(res.data != null);
     }
-})
+});
 wx.getStorageInfo({
-    success:function(res){
-        res.keys !=null;
-        res.currentSize !=null
-        res.limitSize !=null;
+    success: res => {
+        console.assert(res.keys != null);
+        console.assert(res.currentSize != null);
+        console.assert(res.limitSize != null);
         console.log('wx.getStorageInfo success');
     }
-})
+});
 wx.removeStorage({
-    key:"",
-    success:function(){
+    key: "test key",
+    success: () => {
         console.log('wx.removeStorage success');
     }
-})
+});
 wx.setStorage({
-    key:"",
-    data:"",
-    success:function(){
+    key: "",
+    data: "",
+    success: () => {
         console.log('wx.removeStorage success');
     }
-})
-//分包加载
+});
+// 分包加载
 let loadSu = wx.loadSubpackage({
-    name:'',
-    success:function(){
+    name: 'package name',
+    success: () => {
         console.log('wx.loadSubpackage success');
-    },
-    fail:function(){},
-    complete:function(){
     }
-})
-//菜单
-let getMenu = wx.getMenuButtonBoundingClientRect()
+});
+// 菜单
+let getMenu = wx.getMenuButtonBoundingClientRect();
 console.dir(getMenu);
 console.assert(getMenu.width != null);
 console.assert(getMenu.height != null);
@@ -474,104 +475,89 @@ console.assert(getMenu.right != null);
 console.assert(getMenu.bottom != null);
 console.assert(getMenu.left != null);
 wx.setMenuStyle({
-    style:'dark',
-    success:function(){
-
-    }
-})
-//交互
-wx.hideToast({
-
-})
-wx.hideLoading({
-
-})
+    style: 'dark'
+});
+// 交互
 wx.showModal({
-    title:"",
-    content:"",
-    confirmText:"",
-    cancelText:"",
-    success:function(res){
-        res.cancel=false
-    }
-
-})
+    title: "modal window"
+});
 wx.showToast({
-    title:"",
-    icon:"loading",
-    image:"",
-    duration:1
-})
+    duration: 1,
+    title: "show toast"
+});
 wx.showLoading({
-    title:""
-})
+    title: "loaidng..."
+});
 wx.showActionSheet({
-    itemList:[]
-})
-//键盘
+    itemList: []
+});
+wx.hideToast();
+wx.hideLoading();
+// 键盘
 wx.hideKeyboard();
-wx.onKeyboardInput(function(res){
-    res.value
-})
+wx.onKeyboardInput(res => {
+    console.assert(res.value != null);
+});
 wx.showKeyboard({
-    defaultValue:"",
-    maxLength:22,
+    defaultValue: "ABCDE",
+    maxLength: 22,
     multiple: true,
     confirmHold: false,
-    confirmType:"done",
-})
-wx.updateKeyboard({
-    value:''
-})
-//状态栏
-wx.setStatusBarStyle({
-    style:"black"
+    confirmType: "done"
 });
-//窗口
-wx.onWindowResize(function(res){
-    console.assert(res.windowHeight != 0);
-    console.assert(res.windowWidth != 0);
-})
-//更新
+wx.updateKeyboard({
+    value: 'DEFGHI'
+});
+// 状态栏
+wx.setStatusBarStyle({
+    style: "black"
+});
+// 窗口
+wx.onWindowResize(res => {
+    console.assert(res.windowHeight !== 0);
+    console.assert(res.windowWidth !== 0);
+});
+// 更新
 let getUpda = wx.getUpdateManager();
-console.assert(getUpda != null)
-//worker
+console.assert(getUpda != null);
+// worker
 let createWor = wx.createWorker();
 console.assert(createWor != null);
-//音频
+// 音频
 let creatInn = wx.createInnerAudioContext();
 console.assert(creatInn != null);
 
 wx.getAvailableAudioSources({
-
-})
-//录音
+    success: res => {
+        console.assert(res.audioSources.length > 0);
+    }
+});
+// 录音
 let getRecord = wx.getRecorderManager();
 console.assert(getRecord != null);
-//图片
+// 图片
 wx.chooseImage({
-    count:1,
-    sizeType:['original'],
-    sourceType:['album'],
-    success:function(res){
-        res.tempFilePaths
+    count: 1,
+    sizeType: ['original'],
+    sourceType: ['album'],
+    success: res => {
+        console.assert(res.tempFilePaths.length > 0);
     }
 });
 wx.previewImage({
-    urls:[]
+    urls: []
 });
 wx.saveImageToPhotosAlbum({
-    filePath:""
+    filePath: "./temp"
 });
-//视频
+// 视频
 wx.createVideo({
-    src:1,
-    poster:1,
-    objectFit:'fill'
-})
-//虚拟支付
+    src: "../res/testv.mp4",
+    objectFit: 'fill'
+});
+// 虚拟支付
 wx.requestMidasPayment({
-    mode:"game",
-    offerId:"",
-    currencyType:"CNY"
-})
+    mode: "game",
+    offerId: "",
+    currencyType: "CNY"
+});
