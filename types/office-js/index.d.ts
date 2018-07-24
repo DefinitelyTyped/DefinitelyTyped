@@ -1742,7 +1742,7 @@ declare namespace Office {
     * Represents the bindings the add-in has within the document.
     *
     * @remarks
-    * Hosts:
+    * <table><tr><td>Hosts</td><td>Access, Excel, Word</td></tr></table>
     */
     interface Bindings {
         /**
