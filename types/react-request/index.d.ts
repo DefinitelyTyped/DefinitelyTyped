@@ -2,7 +2,6 @@
 // Project: https://github.com/jamesplease/react-request
 // Definitions by: Danny Cochran <https://github.com/dannycochran>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-/// <reference path="../react/index.d.ts"/>
 
 declare module 'react-request' {
   import * as React from 'react';
