@@ -104,7 +104,7 @@ interface GridsterOptions {
 	* Base widget dimensions in pixels.  The first index for the width and the second for the height.
 	* Default = [400, 225]
 	**/
-	widget_base_dimensions?: number[];
+	widget_base_dimensions?: (string|number)[];
 
 	/**
 	* Add more columns in addition to those that have been calculated.
