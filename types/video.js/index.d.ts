@@ -77,8 +77,8 @@ declare namespace videojs {
     }
 
     interface Source {
-        type: string;
         src: string;
+        type?: string;
     }
 
     interface Dimensions {
