@@ -1,4 +1,4 @@
-// Type definitions for listr 0.13
+// Type definitions for listr 0.14
 // Project: https://github.com/samverschueren/listr#readme
 // Definitions by: Dusan Radovanovic <https://github.com/durad>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -17,6 +17,10 @@ declare namespace Listr {
     interface ListrOptions {
         concurrent?: boolean | number;
         exitOnError?: boolean;
+        showSubtasks?: boolean;
+        collapse?: boolean;
+        clearOutput?: boolean;
+        dateFormat?: boolean | string;
         renderer?: "silent" | "default" | "verbose" | ListrRenderer;
         nonTTYRenderer?: "silent" | "default" | "verbose" | ListrRenderer;
     }
