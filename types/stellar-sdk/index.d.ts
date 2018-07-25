@@ -862,6 +862,7 @@ export class Keypair {
 
     publicKey(): string;
     secret(): string;
+    rawPublicKey(): Buffer;
     rawSecretKey(): Buffer;
     canSign(): boolean;
     sign(data: Buffer): Buffer;
