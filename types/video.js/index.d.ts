@@ -16,7 +16,7 @@
 // video, Flash, or any other supported playback technologies.
 
 /**
- * Doubles as the main function for users to create a player instance and also
+ * Doubles as the main function for users to create a inplayer instance and also
  * the main library object.
  * The `videojs` function can be used to initialize or retrieve a player.
  *
@@ -6103,7 +6103,7 @@ declare namespace videojs {
 		 */
 		interface SourceObject {
 			src: string;
-			type: string;
+			type?: string;
 		}
 	}
 
