@@ -5,6 +5,7 @@
         "interface-name": false,
         "ban-types": false,
         "no-single-declare-module": false,
-        "no-declare-current-package": false
+        "no-declare-current-package": false,
+        "callable-types": false
     }
 }

@@ -28,6 +28,7 @@ import {
     ImageLoadEventData,
     ImageErrorEventData,
     ImageResolvedAssetSource,
+    ImageBackground,
     InteractionManager,
     ListView,
     ListViewDataSource,
@@ -66,6 +67,7 @@ import {
     TextInputContentSizeChangeEventData,
     TextInputEndEditingEventData,
     TextInputSubmitEditingEventData,
+    WebView,
 } from "react-native";
 
 declare module "react-native" {
@@ -608,6 +610,18 @@ class StatusBarTest extends React.Component {
     }
 }
 
+class WebViewTest extends React.Component {
+    render() {
+        return (
+            <WebView
+                originWhitelist={['https://origin.test']}
+                saveFormDataDisabled={false}
+                nativeConfig={{ component: 'test', props: {}, viewManager: {} }}
+            />
+        );
+    }
+}
+
 export class ImageTest extends React.Component {
     componentDidMount(): void {
         const image: ImageResolvedAssetSource = Image.resolveAssetSource({
@@ -648,6 +662,25 @@ export class ImageTest extends React.Component {
     }
 }
 
+export class ImageBackgroundProps extends React.Component {
+    private _imageRef: Image | null = null;
+
+    setImageRef = (image: Image) => {
+        this._imageRef = image;
+    }
+
+    render() {
+        return (
+            <View>
+                <ImageBackground
+                    source={{ uri: 'https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png' }}
+                    imageRef={this.setImageRef}
+                />
+            </View>
+        );
+    }
+}
+
 class StylePropsTest extends React.PureComponent {
     render() {
         const uri = 'https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png'
@@ -660,10 +693,14 @@ class StylePropsTest extends React.PureComponent {
                     margin={20}
                     overflow="visible" // ps: must fail if "scroll"
                     source={{ uri }}
-                    style={{ width: 200, height: 200, tintColor: 'green' }}
+                    style={{ width: 200, height: 200, tintColor: 'green', flexWrap: 'wrap-reverse' }}
                     // tintColor="green"
                     // width={200}
                 />
+
+                <Text style={{ /* iOs only */ textTransform: 'capitalize'  }}>
+                    Text
+                </Text>
             </View>
         );
     }
@@ -671,10 +708,16 @@ class StylePropsTest extends React.PureComponent {
 
 const listViewDataSourceTest = new ListView.DataSource({rowHasChanged: () => true})
 
-class AccessibilityViewHidingTest extends React.Component {
+class AccessibilityTest extends React.Component {
     render() {
         return (
-            <View accessibilityElementsHidden importantForAccessibility="no-hide-descendants">
+            <View
+                accessibilityElementsHidden={true}
+                importantForAccessibility={"no-hide-descendants"}
+                accessibilityTraits={'none'}
+                onAccessibilityTap={() => {}}
+            >
+                <Text accessibilityTraits={['key', 'text']}>Text</Text>
                 <View />
             </View>
         );

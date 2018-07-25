@@ -1,6 +1,7 @@
 // Type definitions for LevelDown 1.7
 // Project: https://github.com/level/leveldown
 // Definitions by: Thiago de Arruda <https://github.com/tarruda>
+//                 Linus Unnebäck <https://github.com/LinusU>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -137,9 +138,11 @@ interface LevelDown {
     iterator(options?: ValueAsStringIteratorOptions): ValueAsStringIterator;
     iterator(options?: KeyAndValueAsStringIteratorOptions): KeyAndValueAsStringIterator;
     iterator(options?: KeyAndValueAsBufferIteratorOptions): KeyAndValueAsBufferIterator;
+}
+
+interface Constructor {
+    (location: string): LevelDown;
     destroy(location: string, callback: ErrCallback): void;
     repair(location: string, callback: ErrCallback): void;
 }
-
-type Constructor = (location: string) => LevelDown;
 }

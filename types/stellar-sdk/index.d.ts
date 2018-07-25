@@ -3,6 +3,7 @@
 // Definitions by: Carl Foster <https://github.com/carl-foster>
 //                 Triston Jones <https://github.com/tristonj>
 //                 Paul Selden <https://github.com/pselden>
+//                 Max Bause <https://github.com/maxbause>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -21,7 +22,7 @@ export class CallBuilder<T extends Record> {
     cursor(cursor: string): this;
     limit(limit: number): this;
     order(direction: 'asc' | 'desc'): this;
-    stream(options?: { onmessage?: () => void, onerror?: () => void }): () => void;
+    stream(options?: { onmessage?: (record: T) => void, onerror?: (error: Error) => void }): () => void;
 }
 
 export interface CollectionPage<T extends Record> {

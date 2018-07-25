@@ -3,7 +3,6 @@
 // Definitions by: motemen <https://github.com/motemen>, grant <https://github.com/grant>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 /// <reference path="google-apps-script.base.d.ts"/>
 /// <reference path="google-apps-script.cache.d.ts"/>
 /// <reference path="google-apps-script.calendar.d.ts"/>
@@ -33,4 +32,3 @@
 /// <reference path="google-apps-script.url-fetch.d.ts"/>
 /// <reference path="google-apps-script.utilities.d.ts"/>
 /// <reference path="google-apps-script.xml-service.d.ts"/>
-

@@ -230,11 +230,27 @@ const reqCookies: string = req.cookies;
 
 console.log(`${reqMethod} request to ${reqUrl} cookies ${reqCookies}`);
 
-// Basic authentication
+// Authentication
 request.get('http://tobi:learnboost@local').end(callback);
+
 request
     .get('http://local')
     .auth('tobo', 'learnboost')
+    .end(callback);
+
+request
+    .get('http://local')
+    .auth('user', 'pass', { type: 'basic' })
+    .end(callback);
+
+request
+    .get('http://local')
+    .auth('user', 'pass', {type: 'auto'})
+    .end(callback);
+
+request
+    .get('http://local')
+    .auth('abearertoken', { type: 'bearer' })
     .end(callback);
 
 // Following redirects

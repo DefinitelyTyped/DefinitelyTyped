@@ -7,7 +7,6 @@ import installExtension, {
     MOBX_DEVTOOLS
 } from 'electron-devtools-installer';
 
-
 installExtension(EMBER_INSPECTOR);
 installExtension(REACT_DEVELOPER_TOOLS);
 installExtension(BACKBONE_DEBUGGER);
@@ -20,3 +19,6 @@ installExtension(CYCLEJS_DEVTOOL);
 installExtension(APOLLO_DEVELOPER_TOOLS);
 installExtension(MOBX_DEVTOOLS);
 installExtension('abcdefghijkl');
+installExtension([EMBER_INSPECTOR, JQUERY_DEBUGGER]);
+installExtension(['extension', 'another-extension']);
+installExtension([REACT_DEVELOPER_TOOLS, 'MOBX_DEVTOOLS']);

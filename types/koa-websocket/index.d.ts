@@ -2,6 +2,7 @@
 // Project: https://github.com/kudos/koa-websocket
 // Definitions by: Maël Lavault <https://github.com/moimael>
 //                 Jaco Greeff <https://github.com/jacogr>
+//                 Martin Ždila <https://github.com/zdila>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -36,6 +37,6 @@ declare namespace KoaWebsocket {
     }
 }
 
-declare function websockets(app: Koa): KoaWebsocket.App;
+declare function KoaWebsocket(app: Koa, wsOptions?: ws.ServerOptions, httpsOptions?: https.ServerOptions): KoaWebsocket.App;
 
-export = websockets;
+export = KoaWebsocket;

@@ -1,9 +1,5 @@
 import * as mongoose from 'mongoose';
 
-// test compatibility with other libraries
-import * as _ from 'lodash';
-var fs = require('fs');
-
 // dummy variables
 var cb = function () {};
 
@@ -747,7 +743,7 @@ interface MyEntity extends mongoose.Document {
   sub: mongoose.Types.Array<MySubEntity>
 }
 var myEntity = <MyEntity> {};
-var subDocArray = _.filter(myEntity.sub, function (sd) {
+var subDocArray = myEntity.sub.filter(sd => {
   sd.property1;
   sd.property2.toLowerCase();
   return true;

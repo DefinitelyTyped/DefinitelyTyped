@@ -1,4 +1,4 @@
-// Type definitions for react-select 1.2
+// Type definitions for react-select 1.3
 // Project: https://github.com/JedWatson/react-select
 // Definitions by: ESQUIBET Hugo <https://github.com/Hesquibet>
 //                 Gilad Gray <https://github.com/giladgray>
@@ -12,6 +12,8 @@
 //                 Anton Novik <https://github.com/tehbi4>
 //                 David Schkalee <https://github.com/misantronic>
 //                 Arthur Udalov <https://github.com/darkartur>
+//                 Sebastian Silbermann <https://github.com/eps1lon>
+//                 Guillaume Chartier <https://github.com/RCGuillaume>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -27,6 +29,7 @@ export class Async<TValue = OptionValues> extends React.Component<ReactAsyncSele
 export class AsyncCreatable<TValue = OptionValues> extends React.Component<ReactAsyncCreatableSelectProps<TValue>> { }
 
 export type OptionComponentType<TValue = OptionValues> = React.ComponentType<OptionComponentProps<TValue>>;
+export type ValueComponentType<TValue = OptionValues> =  React.ComponentType<ValueComponentProps<TValue>>;
 
 export type HandlerRendererResult = JSX.Element | null | false;
 
@@ -47,7 +50,7 @@ export type OnOpenHandler = () => void;
 export type OnFocusHandler = React.FocusEventHandler<HTMLDivElement | HTMLInputElement>;
 export type OnBlurHandler = React.FocusEventHandler<HTMLDivElement | HTMLInputElement>;
 export type OptionRendererHandler<TValue = OptionValues> = (option: Option<TValue>) => HandlerRendererResult;
-export type ValueRendererHandler<TValue = OptionValues> = (option: Option<TValue>) => HandlerRendererResult;
+export type ValueRendererHandler<TValue = OptionValues> = (option: Option<TValue>, index?: number) => HandlerRendererResult;
 export type OnValueClickHandler<TValue = OptionValues> = (option: Option<TValue>, event: React.MouseEvent<HTMLAnchorElement>) => void;
 export type IsOptionUniqueHandler<TValue = OptionValues> = (arg: { option: Option<TValue>, options: Options<TValue>, labelKey: string, valueKey: string }) => boolean;
 export type IsValidNewOptionHandler = (arg: { label: string }) => boolean;
@@ -215,6 +218,17 @@ export interface ArrowRendererProps {
      * whether the Select is open or not.
      */
     isOpen: boolean;
+}
+
+export interface ValueComponentProps<TValue = OptionValues> {
+    disabled: ReactSelectProps<TValue>['disabled'];
+    id: string;
+    instancePrefix: string;
+    onClick: OnValueClickHandler<TValue> | null;
+    onRemove?: SelectValueHandler<TValue>;
+    placeholder: ReactSelectProps<TValue>['placeholder'];
+    value: Option<TValue>;
+    values?: Array<Option<TValue>>;
 }
 
 export interface ReactSelectProps<TValue = OptionValues> extends React.Props<ReactSelectClass<TValue>> {
@@ -459,10 +473,10 @@ export interface ReactSelectProps<TValue = OptionValues> extends React.Props<Rea
      * boolean to enable opening dropdown when focused
      * @default false
      */
-    openAfterFocus?: boolean;
+    openOnClick?: boolean;
     /**
      * open the options menu when the input gets focus (requires searchable = true)
-     * @default false
+     * @default true
      */
     openOnFocus?: boolean;
     /**
@@ -552,7 +566,7 @@ export interface ReactSelectProps<TValue = OptionValues> extends React.Props<Rea
     /**
      *  value component to render
      */
-    valueComponent?: React.ComponentType<TValue>;
+    valueComponent?: ValueComponentType<TValue>;
 
     /**
      *  optional style to apply to the component wrapper
@@ -623,6 +637,10 @@ export interface ReactAsyncSelectProps<TValue = OptionValues> extends ReactSelec
      *  replaces the placeholder while options are loading
      */
     loadingPlaceholder?: string | JSX.Element;
+    /**
+     *  displayed in the drop down list when the user did not type anything yet
+     */
+    searchPromptText?: string;
 }
 
 export type ReactAsyncCreatableSelectProps<TValue = OptionValues> = ReactAsyncSelectProps<TValue> & ReactCreatableSelectProps<TValue>;

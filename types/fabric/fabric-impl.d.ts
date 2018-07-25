@@ -851,6 +851,12 @@ interface IStaticCanvasOptions {
 	 * Indicates whether the browser can be scrolled when using a touchscreen and dragging on the canvas
 	 */
 	allowTouchScrolling?: boolean;
+
+	/**
+	 * When true, canvas is scaled by devicePixelRatio for better rendering on retina screens
+	 */
+	enableRetinaScaling?: boolean;
+	
 	/**
 	 * Indicates whether this canvas will use image smoothing, this is on by default in browsers
 	 */
@@ -1644,11 +1650,6 @@ export class Group {
 	 * @chainable
 	 */
 	destroy(): Group;
-	/**
-	 * Returns requested property
-	 * @param prop Property to get
-	 */
-	get(prop: string): any;
 	/**
 	 * Checks whether this group was moved (since `saveCoords` was called last)
 	 * @return true if an object was moved (since fabric.Group#saveCoords was called)

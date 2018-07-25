@@ -1,4 +1,4 @@
-// Type definitions for react-native 0.55
+// Type definitions for react-native 0.56
 // Project: https://github.com/facebook/react-native
 // Definitions by: Eloy Durán <https://github.com/alloy>
 //                 HuHuanming <https://github.com/huhuanming>
@@ -571,7 +571,7 @@ export interface FlexStyle {
     flexDirection?: "row" | "column" | "row-reverse" | "column-reverse";
     flexGrow?: number;
     flexShrink?: number;
-    flexWrap?: "wrap" | "nowrap";
+    flexWrap?: "wrap" | "nowrap" | "wrap-reverse";
     height?: number | string;
     justifyContent?: "flex-start" | "flex-end" | "center" | "space-between" | "space-around" | "space-evenly";
     left?: number | string;
@@ -766,6 +766,7 @@ export interface TextStyleIOS extends ViewStyle {
     letterSpacing?: number;
     textDecorationColor?: string;
     textDecorationStyle?: "solid" | "double" | "dotted" | "dashed";
+    textTransform?: "none" | "capitalize" | "uppercase" | "lowercase";
     writingDirection?: "auto" | "ltr" | "rtl";
 }
 
@@ -1359,6 +1360,7 @@ interface TextInputState {
     currentlyFocusedField(): number;
 
     /**
+     * @deprecated
      * @param TextInputID id of the text field to focus
      * Focuses the specified text field
      * noop if the text field was already focused
@@ -1366,6 +1368,7 @@ interface TextInputState {
     focusTextInput(textFieldID?: number): void;
 
     /**
+     * @deprecated
      * @param textFieldID id of the text field to focus
      * Unfocuses the specified text field
      * noop if it wasn't focused
@@ -1830,13 +1833,13 @@ export interface AccessibilityPropsIOS {
      * Is this element a label? A button? A header? These questions are answered by accessibilityTraits.
      * @platform ios
      */
-    accessibilityTraits?: AccessibilityTraits | AccessibilityTraits[];
+    accessibilityTraits?: AccessibilityTrait | AccessibilityTrait[];
 
     /**
      * When `accessible` is true, the system will try to invoke this function when the user performs accessibility tap gesture.
      * @platform ios
      */
-    onAcccessibilityTap?: () => void;
+    onAccessibilityTap?: () => void;
 
     /**
      * When accessible is true, the system will invoke this function when the user performs the magic tap gesture.
@@ -1845,7 +1848,7 @@ export interface AccessibilityPropsIOS {
     onMagicTap?: () => void;
 }
 
-type AccessibilityTraits =
+type AccessibilityTrait =
     | "none"
     | "button"
     | "link"
@@ -2101,6 +2104,11 @@ Possible values for mixedContentMode are:
 'compatibility' - WebView will attempt to be compatible with the approach of a modern web browser with regard to mixed content.
     */
     mixedContentMode?: "never" | "always" | "compatibility";
+
+    /**
+     * Controls whether form autocomplete data should be saved
+     */
+    saveFormDataDisabled?: boolean;
 }
 
 export interface WebViewIOSLoadRequestEvent {
@@ -2175,41 +2183,60 @@ export interface WebViewPropsIOS {
 
 export interface WebViewUriSource {
     /*
-        * The URI to load in the WebView. Can be a local or remote file.
-        */
+     * The URI to load in the WebView. Can be a local or remote file.
+     */
     uri?: string;
 
     /*
-        * The HTTP Method to use. Defaults to GET if not specified.
-        * NOTE: On Android, only GET and POST are supported.
-        */
+     * The HTTP Method to use. Defaults to GET if not specified.
+     * NOTE: On Android, only GET and POST are supported.
+     */
     method?: string;
 
     /*
-        * Additional HTTP headers to send with the request.
-        * NOTE: On Android, this can only be used with GET requests.
-        */
+     * Additional HTTP headers to send with the request.
+     * NOTE: On Android, this can only be used with GET requests.
+     */
     headers?: any;
 
     /*
-        * The HTTP body to send with the request. This must be a valid
-        * UTF-8 string, and will be sent exactly as specified, with no
-        * additional encoding (e.g. URL-escaping or base64) applied.
-        * NOTE: On Android, this can only be used with POST requests.
-        */
+     * The HTTP body to send with the request. This must be a valid
+     * UTF-8 string, and will be sent exactly as specified, with no
+     * additional encoding (e.g. URL-escaping or base64) applied.
+     * NOTE: On Android, this can only be used with POST requests.
+     */
     body?: string;
 }
 
 export interface WebViewHtmlSource {
     /*
-        * A static HTML page to display in the WebView.
-        */
+     * A static HTML page to display in the WebView.
+     */
     html: string;
 
     /*
-        * The base URL to be used for any relative links in the HTML.
-        */
+     * The base URL to be used for any relative links in the HTML.
+     */
     baseUrl?: string;
+}
+
+export interface WebViewNativeConfig {
+    /*
+     * The native component used to render the WebView.
+     */
+    component?: any;
+
+    /*
+     * Set props directly on the native component WebView. Enables custom props which the
+     * original WebView doesn't pass through.
+     */
+    props?: object;
+
+    /*
+     * Set the ViewManager to use for communication with the native side.
+     * @platform ios
+     */
+    viewManager?: object;
 }
 
 /**
@@ -2303,6 +2330,20 @@ export interface WebViewProps extends ViewProps, WebViewPropsAndroid, WebViewPro
      * sets whether the webpage scales to fit the view and the user can change the scale
      */
     scalesPageToFit?: boolean;
+
+    /**
+     * List of origin strings to allow being navigated to.
+     * The strings allow wildcards and get matched against just the origin (not the full URL).
+     * If the user taps to navigate to a new page but the new page is not in this whitelist, the URL will be handled by the OS.
+     * The default whitelisted origins are "http://" and "https://".
+     */
+    originWhitelist?: string[];
+
+    /**
+     * Override the native component used to render the WebView. Enables a custom native
+     * WebView which uses the same JavaScript as the original WebView.
+     */
+    nativeConfig?: WebViewNativeConfig;
 }
 
 export class WebView extends React.Component<WebViewProps> {
@@ -3437,11 +3478,6 @@ export interface ImagePropsIOS {
     capInsets?: Insets;
 
     /**
-     * A static image to display while downloading the final image off the network.
-     */
-    defaultSource?: ImageURISource | number;
-
-    /**
      * Invoked on download progress with {nativeEvent: {loaded, total}}
      */
     onProgress?: (event: NativeSyntheticEvent<ImageProgressEventDataIOS>) => void;
@@ -3626,12 +3662,17 @@ export interface ImagePropsBase extends ImagePropsIOS, ImagePropsAndroid, Access
     testID?: string;
 
     /**
+     * A static image to display while downloading the final image off the network.
+     */
+    defaultSource?: ImageURISource | number;
+
+    /**
      * Currently broken
      * @see https://github.com/facebook/react-native/pull/19281
      */
-    width?: never,
-    height?: never,
-    tintColor?: never,
+    width?: never;
+    height?: never;
+    tintColor?: never;
 }
 
 export interface ImageProps extends ImagePropsBase {
@@ -3657,8 +3698,9 @@ export class Image extends ImageBase {
 }
 
 export interface ImageBackgroundProps extends ImagePropsBase {
-    style?: StyleProp<ViewStyle>;
     imageStyle?: StyleProp<ImageStyle>;
+    style?: StyleProp<ViewStyle>;
+    imageRef?(image: Image): void;
 }
 
 declare class ImageBackgroundComponent extends React.Component<ImageBackgroundProps> {}
