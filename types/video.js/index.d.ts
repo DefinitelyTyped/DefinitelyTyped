@@ -8,7 +8,7 @@
 //                 Grzegorz Błaszczyk <https://github.com/gjanblaszczyk>
 //                 Stéphane Roucheray <https://github.com/sroucheray>
 //                 Adam Eisenreich <https://github.com/AkxeOne>
-//                 Brian A. Danielak <briandaniela.k+github@gmail.com>
+//                 Brian A. Danielak <https://github.com/briandk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
