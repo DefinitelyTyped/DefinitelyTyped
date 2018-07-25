@@ -1,0 +1,48 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "test/autocomplete.test.ts",
+        "test/carousel.test.ts",
+        "test/character-counter.test.ts",
+        "test/chips.test.ts",
+        "test/collapsible.test.ts",
+        "test/common.test.ts",
+        "test/datepicker.test.ts",
+        "test/dropdown.test.ts",
+        "test/fab.test.ts",
+        "test/formselect.test.ts",
+        "test/inputfields.test.ts",
+        "test/materialbox.test.ts",
+        "test/modal.test.ts",
+        "test/parallax.test.ts",
+        "test/pushpin.test.ts",
+        "test/range.test.ts",
+        "test/scrollspy.test.ts",
+        "test/sidenav.test.ts",
+        "test/slider.test.ts",
+        "test/tabs.test.ts",
+        "test/taptarget.test.ts",
+        "test/timepicker.test.ts",
+        "test/toast.test.ts",
+        "test/tooltip.test.ts",
+        "test/waves.test.ts"
+    ]
+}

@@ -1,9 +1,0 @@
-{
-    "compilerOptions": {
-        "module": "es6",
-        "target": "es6"
-    },
-    "include": [
-      "*.ts"
-    ]
-}
