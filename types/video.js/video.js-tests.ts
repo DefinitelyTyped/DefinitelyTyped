@@ -1,5 +1,4 @@
-import { video } from "video.js";
-import { PlayerOptions } from "./index";
+import videojs, { PlayerOptions } from "video.js";
 
 try {
     const testPlayerOptions: PlayerOptions = { controls: true };
