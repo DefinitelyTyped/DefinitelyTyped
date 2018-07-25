@@ -3,7 +3,7 @@ import URITemplate = utmpl.URITemplate;
 
 let str: string;
 let u: URITemplate;
-let obj: Object;
+const obj: { [key: string]: string } = { test: 'test1' };
 
 u = utmpl(str);
 
@@ -12,7 +12,7 @@ str = u.fill(key => {
     return str;
 });
 str = u.fill(obj);
-obj = u.fromUri(str);
+const newObj = u.fromUri(str);
 
 let varNames: string[];
 
