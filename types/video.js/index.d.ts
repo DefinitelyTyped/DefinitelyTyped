@@ -20,7 +20,7 @@ declare function videojs(
     options?: videojs.PlayerOptions,
     ready?: () => void
 ): videojs.Player;
-export default videojs;
+export = videojs;
 export as namespace videojs;
 
 declare namespace videojs {
