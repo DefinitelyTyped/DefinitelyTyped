@@ -6,9 +6,21 @@
 export function create(args?: string[], config?: {
     phantomPath?: string,
     shimPath?: string,
-    logger?: typeof console.log,
+    logger?: {
+        info?: winstonLeveledLogMethod,
+        debug?: winstonLeveledLogMethod,
+        error?: winstonLeveledLogMethod,
+        warn?: winstonLeveledLogMethod,
+    },
     logLevel?: 'debug' | 'info' | 'warn' | 'error',
 }): Promise<PhantomJS>;
+
+export interface winstonLeveledLogMethod {
+    (message: string, callback: (...args: any[]) => void): any;
+    (message: string, meta: any, callback: (...args: any[]) => void): any;
+    (message: string, ...meta: any[]): any;
+    (infoObject: any): any;
+}
 
 export interface PhantomJS {
     callback(fn: (pageNum: number, numPages: number) => string): IPhantomCallback;
@@ -55,6 +67,12 @@ export interface WebPage {
     on(event: 'onResourceTimeout', listener: (request: IRequestData & { errorCode: number, errorString: string }) => void): Promise<{ pageId: string }>;
     on(event: 'onUrlChanged', runOnPhantom: false, listener: (targetUrl: string) => void): Promise<{ pageId: string }>;
     on(event: 'onUrlChanged', listener: (targetUrl: string) => void): Promise<{ pageId: string }>;
+    off(event: 'onResourceRequested' | 'onLoadFinished' | 'onAlert'
+        | 'onCallback' | 'onClosing' | 'onConfirm'
+        | 'onConsoleMessage' | 'onError' | 'onFilePicker'
+        | 'onInitialized' | 'onLoadStarted' | 'onNavigationRequested'
+        | 'onPageCreated' | 'onPrompt' | 'onResourceError'
+        | 'onResourceReceived' | 'onResourceTimeout' | 'onUrlChanged'): Promise<{ pageId: string }>;
     close(): Promise<void>;
 
     evaluate<R>(callback: () => R): Promise<R>;
