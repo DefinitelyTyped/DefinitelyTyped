@@ -1,4 +1,4 @@
-// Type definitions for Video.js 6.2
+// Type definitions for Video.js 6.2.10
 // Project: https://github.com/videojs/video.js
 // Definitions by: Vincent Bortone <https://github.com/vbortone>
 //                 Simon Clériot <https://github.com/scleriot>
