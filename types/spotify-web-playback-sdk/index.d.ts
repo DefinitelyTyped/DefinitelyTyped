@@ -100,15 +100,15 @@ declare namespace Spotify {
         getVolume(): Promise<number>;
         nextTrack(): Promise<void>;
 
-        addListener(event: 'ready', cb: PlaybackInstanceListener): void;
+        addListener(event: 'ready' | 'not_ready', cb: PlaybackInstanceListener): void;
         addListener(event: 'player_state_changed', cb: PlaybackStateListener): void;
         addListener(event: ErrorTypes, cb: ErrorListener): void;
-        on(event: 'ready', cb: PlaybackInstanceListener): void;
+        on(event: 'ready' | 'not_ready', cb: PlaybackInstanceListener): void;
         on(event: 'player_state_changed', cb: PlaybackStateListener): void;
         on(event: ErrorTypes, cb: ErrorListener): void;
 
         removeListener(
-            event: 'ready' | 'player_state_changed' | ErrorTypes,
+            event: 'ready' | 'not_ready' | 'player_state_changed' | ErrorTypes,
             cb?: ErrorListener | PlaybackInstanceListener | PlaybackStateListener,
         ): void;
 
