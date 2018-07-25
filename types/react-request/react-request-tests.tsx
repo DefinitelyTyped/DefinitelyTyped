@@ -1,8 +1,5 @@
-/// <reference path="../react/react.d.ts" />
-/// <reference path="./react-request.d.ts" />
-
-import * as React from "react"
-import { Fetch } from "react-request"
+import * as React from "react";
+import { Fetch } from "react-request";
 
 interface ServerResponse {
   foo: string;
@@ -18,7 +15,7 @@ export default class BasicReactRequest extends React.Component<{}, {}> {
         if (failed) {
           return <h2>Failed to load</h2>;
         }
-        return <p>{data.foo}</p>
+        return <p>{data ? data.foo : 'data was null'}</p>
       }}
     </Fetch>;
   }

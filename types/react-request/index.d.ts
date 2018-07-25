@@ -2,10 +2,10 @@
 // Project: https://github.com/jamesplease/react-request
 // Definitions by: Danny Cochran <https://github.com/dannycochran>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-/// <reference path="../react/react.d.ts"/>
+/// <reference path="../react/index.d.ts"/>
 
 declare module 'react-request' {
-  import React from 'react';
+  import * as React from 'react';
 
   interface RenderProps<T> {
     requestName: string;
