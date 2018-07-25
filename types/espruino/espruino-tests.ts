@@ -1,13 +1,13 @@
 import * as wifi from 'Wifi';
 
 wifi.connect('ssid', { password: 'pass', authMode: 'wpa_wpa2' }, err => {
-  if (err) throw err;
-  console.log('connected');
+    if (err) throw err;
+    console.log('connected');
 });
 
 wifi.startAP('ssid', { password: 'pass', authMode: 'wpa_wpa2' }, err => {
-  if (err) throw err;
-  console.log("created");
+    if (err) throw err;
+    console.log("created");
 });
 
 I2C1.setup({ scl: D4, sda: D0 });
