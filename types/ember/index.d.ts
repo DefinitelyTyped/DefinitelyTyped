@@ -2112,6 +2112,10 @@ declare module 'ember' {
              */
             static map(callback: (this: RouterDSL) => void): void;
             /**
+             * This property represent the logical name of the route, which is dot separated.
+             */
+            currentRouteName: string;
+            /**
              * The `location` property determines the type of URL's that your
              * application will use.
              */
