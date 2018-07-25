@@ -2555,7 +2555,7 @@ declare namespace videojs {
 		 *         A Coordinates object corresponding to the mouse position.
 		 *
 		 */
-		getPointerPosition(el: Element, event: Event): Coordinates;
+		getPointerPosition(el: Element, event: Event): Dom.Coordinates;
 
 		/**
 		 * Check if an element has a CSS class
