@@ -6,16 +6,16 @@
 export function requestIdleCallback(callback: IdleRequestCallback, options?: IdleRequestOptions): IdleCallbackHandle;
 export function cancelIdleCallback(handle: IdleCallbackHandle): void;
 
-type DOMHighResTimeStamp = number;
-type IdleCallbackHandle = number;
+export type DOMHighResTimeStamp = number;
+export type IdleCallbackHandle = number;
 
 export type IdleRequestCallback = (deadline: IdleDeadline) => void;
 
 export interface IdleDeadline {
-    timeRemaining(): DOMHighResTimeStamp;
-    readonly didTimeout: boolean;
+	timeRemaining(): DOMHighResTimeStamp;
+	readonly didTimeout: boolean;
 }
 
 export interface IdleRequestOptions {
-    timeout: number;
+	timeout: number;
 }
