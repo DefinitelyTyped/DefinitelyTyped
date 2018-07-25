@@ -35,6 +35,7 @@ declare namespace passport {
     interface AuthenticateOptions {
         authInfo?: boolean;
         assignProperty?: string;
+        state?: string; 
         failureFlash?: string | boolean;
         failureMessage?: boolean | string;
         failureRedirect?: string;
