@@ -825,7 +825,7 @@ export class Transaction {
     fee: number;
     source: string;
     memo: Memo;
-    signatures: xdr.Signature[];
+    signatures: xdr.DecoratedSignature[];
 }
 
 export class TransactionBuilder {
