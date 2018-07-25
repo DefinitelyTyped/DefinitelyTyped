@@ -3,7 +3,12 @@
 	"rules": {
 		"no-single-declare-module": false,
 		"no-declare-current-package": false,
-		"void-return": false,
+		"no-redundant-jsdoc": false
+	}
+}
+{
+	"extends": "dtslint/dtslint.json",
+	"rules":{
 		"no-redundant-jsdoc": false
 	}
 }
