@@ -2370,7 +2370,7 @@ declare namespace Cesium {
         stRotation: Property;
         fill: Property;
         outline: Property;
-        outlineColor: Property;
+        outlineColor: Property | Color;
         outlineWidth: Property;
         perPositionHeight: Property;
         constructor(options?: {
