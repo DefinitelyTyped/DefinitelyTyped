@@ -620,7 +620,7 @@ declare namespace Office {
         *
         * The following design considerations apply to dialog boxes:
         *
-        * - An Office Add-in can have only one dialog box open at any time.
+        * - An Office Add-in task pane can have only one dialog box open at any time. Multiple dialogs can be open at the same time from Add-in Commands (custom ribbon buttons or menu items).
         *
         * - Every dialog box can be moved and resized by the user.
         *
@@ -1742,7 +1742,7 @@ declare namespace Office {
     * Represents the bindings the add-in has within the document.
     *
     * @remarks
-    * Hosts:
+    * <table><tr><td>Hosts</td><td>Access, Excel, Word</td></tr></table>
     */
     interface Bindings {
         /**

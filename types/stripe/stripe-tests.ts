@@ -364,6 +364,10 @@ stripe.customers.list({ limit: 3 }).then(function (customers) {
     // asynchronously called
 });
 
+stripe.customers.list({ email: "test@example.com" }).then(function (customers) {
+	// asynchronously called
+});
+
 stripe.customers.createCard(
     "cus_5rfJKDJkuxzh5Q",
     { card: "tok_15V2YhEe31JkLCeQy9iUgsJX" },
