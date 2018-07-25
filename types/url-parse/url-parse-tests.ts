@@ -6,7 +6,7 @@ new URL('foo/bar', 'https://github.com/', (query: string) => ({ query }));
 parse('foo/bar', 'https://github.com/');
 parse('foo/bar', 'https://github.com/', (query: string) => ({ query }));
 
-const url1 = new URL('https://github.com/foo/bar?baz=true');
+const url1: URL = new URL('https://github.com/foo/bar?baz=true');
 url1.hash;
 url1.hostname;
 url1.query.baz;

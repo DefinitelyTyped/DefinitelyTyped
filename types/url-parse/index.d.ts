@@ -4,23 +4,25 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-type URLPart = 'auth'
-    | 'hash'
-    | 'host'
-    | 'hostname'
-    | 'href'
-    | 'origin'
-    | 'password'
-    | 'pathname'
-    | 'port'
-    | 'protocol'
-    | 'query'
-    | 'slashes'
-    | 'username';
+declare namespace URLParse {
+    type URLPart = 'auth'
+        | 'hash'
+        | 'host'
+        | 'hostname'
+        | 'href'
+        | 'origin'
+        | 'password'
+        | 'pathname'
+        | 'port'
+        | 'protocol'
+        | 'query'
+        | 'slashes'
+        | 'username';
 
-type QueryParser = (query: string) => object;
+    type QueryParser = (query: string) => object;
+}
 
-declare class URLParse {
+interface URLParse {
     readonly auth: string;
     readonly hash: string;
     readonly host: string;
@@ -34,13 +36,13 @@ declare class URLParse {
     readonly query: { [key: string]: string | undefined };
     readonly slashes: boolean;
     readonly username: string;
-    set(part: URLPart, value: string | object | number | undefined, fn?: boolean | QueryParser): URLParse;
+    set(part: URLParse.URLPart, value: string | object | number | undefined, fn?: boolean | URLParse.QueryParser): URLParse;
     toString(): string;
 }
 
-declare const parse: {
-    new(address: string, location?: string | object, parser?: boolean | QueryParser): URLParse;
-    (address: string, location?: string | object, parser?: boolean | QueryParser): URLParse;
+declare const URLParse: {
+    new(address: string, location?: string | object, parser?: boolean | URLParse.QueryParser): URLParse;
+    (address: string, location?: string | object, parser?: boolean | URLParse.QueryParser): URLParse;
 
     extractProtocol(url: string): {
         slashes: boolean;
@@ -49,9 +51,9 @@ declare const parse: {
     };
     location(url: string): object;
     qs: {
-        parse: QueryParser;
+        parse: URLParse.QueryParser;
         stringify(query: object): string;
     };
 };
 
-export = parse;
+export = URLParse;
