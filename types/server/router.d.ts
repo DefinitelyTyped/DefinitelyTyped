@@ -1,42 +1,42 @@
 import { Middleware, Middlewares, Context } from "./typings/common";
 
-type getType = (
+export type getType = (
     path: string,
     middlewares: Middleware | Middlewares,
     ...all: Middlewares
 ) => Middleware;
 
-type postType = (
+export type postType = (
     path: string,
     middlewares: Middleware | Middlewares,
     ...all: Middlewares
 ) => Middleware;
 
-type putType = (
+export type putType = (
     path: string,
     middlewares: Middleware | Middlewares,
     ...all: Middlewares
 ) => Middleware;
 
-type delType = (
+export type delType = (
     path: string,
     middlewares: Middleware | Middlewares,
     ...all: Middlewares
 ) => Middleware;
 
-type errorType = (
+export type errorType = (
     name: string,
     middlewares: Middleware | Middlewares,
     ...all: Middlewares
 ) => Middleware;
 
-type subType = (
+export type subType = (
     subdomain: string,
     middlewares: Middleware | Middlewares,
     ...all: Middlewares
 ) => Middleware;
 
-type socketType = (
+export type socketType = (
     name: string,
     middlewares: Middleware | Middlewares,
     ...all: Middlewares
@@ -50,7 +50,7 @@ export const error: errorType;
 export const sub: subType;
 export const socket: socketType;
 
-export interface IRouter {
+export interface Router {
     get: getType;
     post: postType;
     put: putType;

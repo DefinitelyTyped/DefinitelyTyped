@@ -1,4 +1,4 @@
-// Type definitions for server 1.0.18
+// Type definitions for server 1.0
 // Project: https://github.com/franciscop/server#readme
 // Definitions by: Santiago Aguilar <https://github.com/sant123>
 //                 Iddan Aaronsohn <https://github.com/iddan>
@@ -8,14 +8,14 @@
 import { Middlewares, Context } from "./typings/common";
 import { Options } from "./typings/options";
 
-import { IRouter } from "./router";
-import { IReply } from "./reply";
+import { Router } from "./router";
+import { Reply } from "./reply";
 
 export = server;
 
 declare namespace server {
-    export const router: IRouter;
-    export const reply: IReply;
+    const router: Router;
+    const reply: Reply;
 }
 
 declare function server(

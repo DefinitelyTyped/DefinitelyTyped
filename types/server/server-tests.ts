@@ -1,8 +1,7 @@
 import server = require("server");
+import { get, post, del, error, sub, socket } from "server/router";
 
-const { get, post, del, error, sub, socket } = server.router;
-
-const {
+import {
     cookie,
     download,
     header,
@@ -13,7 +12,7 @@ const {
     send,
     status,
     type
-} = server.reply;
+} from "server/reply";
 
 server([
     get("/", ctx => "Hello, World!"),

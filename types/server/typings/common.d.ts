@@ -2,7 +2,7 @@ import express = require("express");
 import formidable = require("formidable");
 
 import { Options } from "./options";
-import { IReply } from "../reply";
+import { Reply } from "../reply";
 
 export type BasicType = string | any[] | object | number;
 
@@ -37,5 +37,5 @@ export interface Context {
     res: express.Response;
 }
 
-export type Middleware = (ctx: Context) => IReply | BasicType | void;
+export type Middleware = (ctx: Context) => Reply | BasicType | void;
 export type Middlewares = Array<Middleware | Middleware[]>;
