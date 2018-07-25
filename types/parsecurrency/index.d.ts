@@ -3,7 +3,7 @@
 // Definitions by: Cristian Greco <https://github.com/cristianrgreco>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export interface ParsedCurrency {
+interface ParsedCurrency {
     raw: string;
     value: number;
     integer: string;
@@ -14,4 +14,6 @@ export interface ParsedCurrency {
     groupSeparator: string;
 }
 
-export default function parsecurrency(currency: string): ParsedCurrency;
+declare function parsecurrency(currency: string): ParsedCurrency;
+
+export = parsecurrency;
