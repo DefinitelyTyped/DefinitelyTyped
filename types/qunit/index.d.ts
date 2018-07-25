@@ -1,6 +1,7 @@
 // Type definitions for QUnit v2.5.0
 // Project: http://qunitjs.com/
 // Definitions by: James Bracy <https://github.com/waratuman>
+//                 Mike North <https://github.com/mike-north>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Assert {
@@ -234,6 +235,32 @@ interface Assert {
      */
     throws(block: () => void, expected?: any, message?: any): void;
     raises(block: () => void, expected?: any, message?: any): void;
+
+    /**
+     * A marker for progress in a given test.
+     * 
+     * The `step()` assertion registers a passing assertion with a provided message. This makes 
+     * it easy to check that specific portions of code are being executed, especially in 
+     * asynchronous test cases and when used with `verifySteps()`. 
+     * 
+     * Together with the `verifySteps()` method, `step()` assertions give you an easy way
+     * to verify both the count and order of code execution.
+     * 
+     * @param message Message to display for the step
+     */
+    step(message: string): void;
+
+    /**
+     * A helper assertion to verify the order and number of steps in a test.
+     * 
+     * The assert.verifySteps() assertion compares a given array of string values (representing steps)
+     * with the order and values of previous step() calls. This assertion is helpful for verifying
+     * the order and count of portions of code paths, especially asynchronous ones.
+     * 
+     * @param steps Array of strings representing steps to verify
+     * @param message A short description of the assertion
+     */
+    verifySteps(steps: string[], message?: string): void;
  
 }
 
