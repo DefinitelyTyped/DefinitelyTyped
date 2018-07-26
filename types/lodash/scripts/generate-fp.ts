@@ -112,7 +112,6 @@ async function main() {
         "// npm install && npm run generate",
         "",
         'import lodash = require("./index");',
-        'import { ConvertOptions } = require("./index");',
         "",
         "export = _;",
         "",
@@ -120,7 +119,7 @@ async function main() {
         "declare namespace _ {",
         // Add LodashConvertible to allow `.convert` method on each lodash/fp function
         "    interface LodashConvertible {",
-        "        convert: (options: ConvertOptions) => (...args: any[]) => any",
+        "        convert: (options: _.ConvertOptions) => (...args: any[]) => any",
         "    }",
         interfaceStrings,
         "",
