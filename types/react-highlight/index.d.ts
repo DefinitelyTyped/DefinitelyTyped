@@ -19,6 +19,6 @@ export interface HighlightProps {
 /**
  * Visually prettifies child code with highlight.js.
  */
-declare const Highlight: React.ComponentClass<IHighlightProps>;
+declare const Highlight: React.ComponentClass<HighlightProps>;
 
 export default Highlight;
