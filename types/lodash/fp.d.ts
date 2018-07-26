@@ -3,14 +3,13 @@
 // npm install && npm run generate
 
 import lodash = require("./index");
-import { ConvertOptions } = require("./index");
 
 export = _;
 
 declare const _: _.LoDashFp;
 declare namespace _ {
     interface LodashConvertible {
-        convert: (options: ConvertOptions) => (...args: any[]) => any
+        convert: (options: _.ConvertOptions) => (...args: any[]) => any
     }
     interface LodashAdd extends LodashConvertible {
         (augend: number): LodashAdd1x1;
