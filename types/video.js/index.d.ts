@@ -10,7 +10,7 @@
 //                 Adam Eisenreich <https://github.com/AkxeOne>
 //                 Brian A. Danielak <https://github.com/briandk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.7
 
 // The Video.js API allows you to interact with the video through
 // Javascript, whether the browser is playing the video through HTML5
