@@ -1,6 +1,7 @@
 // Type definitions for QUnit v2.5.0
 // Project: http://qunitjs.com/
 // Definitions by: James Bracy <https://github.com/waratuman>
+//                 Mike North <https://github.com/mike-north>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Assert {
@@ -313,6 +314,36 @@ interface NestedHooks {
     
 }
 
+interface QUnitBeginDetails { totalTests: number }
+interface QUnitDoneDetails { failed: number, passed: number, total: number, runtime: number }
+interface QUnitLogDetails {
+    result: boolean,
+    actual: any;
+    expected: any;
+    message: string;
+    source: string;
+    module: string;
+    name: string;
+    runtime: number;
+}
+interface QUnitModuleDoneDetails {
+    name: string;
+    failed: number;
+    passed: number;
+    total: number;
+    runtime: number;
+}
+interface QUnitModuleStartDetails { name: string }
+interface QUnitTestDoneDetails {
+    name: string;
+    module: string;
+    failed: number;
+    passed: number;
+    total: number;
+    runtime: number;
+}
+interface QUnitTestStartDetails { name: string; module: string; }
+
 interface QUnit {
     
     /**
@@ -333,7 +364,7 @@ interface QUnit {
      * 
      * @callback callback Callback to execute.
      */
-    begin(callback: (details: { totalTests: number }) => void): void;
+    begin(callback: (details: QUnitBeginDetails) => void): void;
 
     /**
      * Configuration for QUnit
@@ -348,7 +379,7 @@ interface QUnit {
      * 
      * @param callback Callback to execute
      */
-    done(callback: (details: { failed: number, passed: number, total: number, runtime: number }) => void): void;
+    done(callback: (details: QUnitDoneDetails) => void): void;
 
     /**
      * Advanced and extensible data dumping for JavaScript.
@@ -392,16 +423,7 @@ interface QUnit {
      * 
      * @param callback Callback to execute 
      */
-    log(callback: (details: {
-        result: boolean,
-        actual: any;
-        expected: any;
-        message: string;
-        source: string;
-        module: string;
-        name: string;
-        runtime: number;
-    }) => void): void;
+    log(callback: (details: QUnitLogDetails) => void): void;
 
     /**
      * Group related tests under a single label.
@@ -449,20 +471,14 @@ interface QUnit {
      * 
      * @param callback Callback to execute
      */
-    moduleDone(callback: (details: {
-        name: string;
-        failed: number;
-        passed: number;
-        total: number;
-        runtime: number;
-    }) => void): void;
+    moduleDone(callback: (details: QUnitModuleDoneDetails) => void): void;
 
     /**
      * Register a callback to fire whenever a module begins.
      * 
      * @param callback Callback to execute
      */
-    moduleStart(callback: (details: { name: string }) => void): void;
+    moduleStart(callback: (details: QUnitModuleStartDetails) => void): void;
 
     /**
      * Adds a test to exclusively run, preventing all other tests from running.
@@ -578,7 +594,7 @@ interface QUnit {
      * 
      * @param callback Callback to execute
      */
-    testStart(callback: (details: { name: string; module: string;}) => void): void;
+    testStart(callback: (details: QUnitTestStartDetails) => void): void;
 
     /**
      * Adds a test which expects at least one failing assertion during its run.
