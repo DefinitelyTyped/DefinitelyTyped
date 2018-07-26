@@ -76,8 +76,6 @@ videojs("example_video_1").ready(function() {
     testPlugin(this, {});
 });
 
-const;
-
 function testEvents(player: videojs.Player) {
     const myFunc = function(this: videojs.Player) {
         // Do something when the event is fired
