@@ -410,7 +410,7 @@ export interface ReactSelectProps<TValue = OptionValues> extends React.Props<Rea
      * multi-value input
      * @default false
      */
-    multi?: boolean;
+    isMulti?: boolean;
     /**
      * field name, for hidden `<input>` tag
      */
