@@ -7190,7 +7190,7 @@ declare module "http2" {
         readonly originSet?: string[];
         readonly pendingSettingsAck: boolean;
         ping(callback: (err: Error | null, duration: number, payload: Buffer) => void): boolean;
-        ping(payload: Buffer | DataView /*| TypedArray */, callback: (err: Error | null, duration: number, payload: Buffer) => void): boolean;
+        ping(payload: Buffer | DataView | NodeJS.TypedArray , callback: (err: Error | null, duration: number, payload: Buffer) => void): boolean;
         ref(): void;
         readonly remoteSettings: Settings;
         rstStream(stream: Http2Stream, code?: number): void;
