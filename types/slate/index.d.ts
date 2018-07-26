@@ -4,6 +4,7 @@
 //                 Jamie Talbot <https://github.com/majelbstoat>
 //                 Jan Löbel <https://github.com/JanLoebel>
 //                 Brandon Shelton <https://github.com/YangusKhan>
+//                 Kalley Powell <https://github.com/kalley>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 import * as Immutable from 'immutable';
@@ -114,6 +115,11 @@ export class Value extends Immutable.Record({}) {
   readonly focusBlock: Block;
   readonly startBlock: Block;
   readonly endBlock: Block;
+
+  readonly anchorInline: Inline;
+  readonly focusInline: Inline;
+  readonly startInline: Inline;
+  readonly endInline: Inline;
 
   readonly marks: Immutable.Set<Mark>;
   readonly activeMarks: Immutable.Set<Mark>;
