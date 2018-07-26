@@ -1,9 +1,12 @@
 // Type definitions for D3JS d3-hierarchy module 1.1
 // Project: https://github.com/d3/d3-hierarchy/
-// Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
+// Definitions by: Tom Wanzek <https://github.com/tomwanzek>
+//                 Alex Ford <https://github.com/gustavderdrache>
+//                 Boris Yankov <https://github.com/borisyankov>
+//                 denisname <https://github.com/denisname>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 1.1.1
+// Last module patch version validated against: 1.1.6
 
 // -----------------------------------------------------------------------
 // Hierarchy
@@ -18,8 +21,8 @@ export interface HierarchyNode<Datum> {
     data: Datum;
     readonly depth: number;
     readonly height: number;
-    parent: HierarchyNode<Datum> | null;
-    children?: Array<HierarchyNode<Datum>>;
+    parent: this | null;
+    children?: this[];
     /**
      * Aggregated numeric value as calculated by sum(value) or count(),
      * if previously invoked.
@@ -30,18 +33,18 @@ export interface HierarchyNode<Datum> {
      * hierarchical data was created from tabular data using stratify()
      */
     readonly id?: string;
-    ancestors(): Array<HierarchyNode<Datum>>;
-    descendants(): Array<HierarchyNode<Datum>>;
-    leaves(): Array<HierarchyNode<Datum>>;
-    path(target: HierarchyNode<Datum>): Array<HierarchyNode<Datum>>;
+    ancestors(): this[];
+    descendants(): this[];
+    leaves(): this[];
+    path(target: this): this[];
     links(): Array<HierarchyLink<Datum>>;
     sum(value: (d: Datum) => number): this;
     count(): this;
-    sort(compare: (a: HierarchyNode<Datum>, b: HierarchyNode<Datum>) => number): this;
-    each(func: (node: HierarchyNode<Datum>) => void): this;
-    eachAfter(func: (node: HierarchyNode<Datum>) => void): this;
-    eachBefore(func: (node: HierarchyNode<Datum>) => void): this;
-    copy(): HierarchyNode<Datum>;
+    sort(compare: (a: this, b: this) => number): this;
+    each(func: (node: this) => void): this;
+    eachAfter(func: (node: this) => void): this;
+    eachBefore(func: (node: this) => void): this;
+    copy(): this;
 }
 
 export function hierarchy<Datum>(data: Datum, children?: (d: Datum) => (Datum[] | null)): HierarchyNode<Datum>;
@@ -71,36 +74,10 @@ export interface HierarchyPointLink<Datum> {
     target: HierarchyPointNode<Datum>;
 }
 
-export interface HierarchyPointNode<Datum> {
+export interface HierarchyPointNode<Datum> extends HierarchyNode<Datum> {
     x: number;
     y: number;
-    data: Datum;
-    readonly depth: number;
-    readonly height: number;
-    parent: HierarchyPointNode<Datum> | null;
-    children?: Array<HierarchyPointNode<Datum>>;
-    /**
-     * Aggregated numeric value as calculated by sum(value) or count(),
-     * if previously invoked.
-     */
-    readonly value?: number;
-    /**
-     * Optional Node Id string set by StratifyOperator, if
-     * hierarchical data was created from tabular data using stratify()
-     */
-    readonly id?: string;
-    ancestors(): Array<HierarchyPointNode<Datum>>;
-    descendants(): Array<HierarchyPointNode<Datum>>;
-    leaves(): Array<HierarchyPointNode<Datum>>;
-    path(target: HierarchyPointNode<Datum>): Array<HierarchyPointNode<Datum>>;
     links(): Array<HierarchyPointLink<Datum>>;
-    sum(value: (d: Datum) => number): this;
-    count(): this;
-    sort(compare: (a: HierarchyPointNode<Datum>, b: HierarchyPointNode<Datum>) => number): this;
-    each(func: (node: HierarchyPointNode<Datum>) => void): this;
-    eachAfter(func: (node: HierarchyPointNode<Datum>) => void): this;
-    eachBefore(func: (node: HierarchyPointNode<Datum>) => void): this;
-    copy(): HierarchyPointNode<Datum>;
 }
 
 export interface ClusterLayout<Datum> {
@@ -140,38 +117,12 @@ export interface HierarchyRectangularLink<Datum> {
     target: HierarchyRectangularNode<Datum>;
 }
 
-export interface HierarchyRectangularNode<Datum> {
+export interface HierarchyRectangularNode<Datum> extends HierarchyNode<Datum> {
     x0: number;
     y0: number;
     x1: number;
     y1: number;
-    data: Datum;
-    readonly depth: number;
-    readonly height: number;
-    parent: HierarchyRectangularNode<Datum> | null;
-    children?: Array<HierarchyRectangularNode<Datum>>;
-    /**
-     * Aggregated numeric value as calculated by sum(value) or count(),
-     * if previously invoked.
-     */
-    readonly value?: number;
-    /**
-     * Optional Node Id string set by StratifyOperator, if
-     * hierarchical data was created from tabular data using stratify()
-     */
-    readonly id?: string;
-    ancestors(): Array<HierarchyRectangularNode<Datum>>;
-    descendants(): Array<HierarchyRectangularNode<Datum>>;
-    leaves(): Array<HierarchyRectangularNode<Datum>>;
-    path(target: HierarchyRectangularNode<Datum>): Array<HierarchyRectangularNode<Datum>>;
     links(): Array<HierarchyRectangularLink<Datum>>;
-    sum(value: (d: Datum) => number): this;
-    count(): this;
-    sort(compare: (a: HierarchyRectangularNode<Datum>, b: HierarchyRectangularNode<Datum>) => number): this;
-    each(func: (node: HierarchyRectangularNode<Datum>) => void): this;
-    eachAfter(func: (node: HierarchyRectangularNode<Datum>) => void): this;
-    eachBefore(func: (node: HierarchyRectangularNode<Datum>) => void): this;
-    copy(): HierarchyRectangularNode<Datum>;
 }
 
 export interface TreemapLayout<Datum> {
@@ -248,37 +199,11 @@ export interface HierarchyCircularLink<Datum> {
     target: HierarchyCircularNode<Datum>;
 }
 
-export interface HierarchyCircularNode<Datum> {
+export interface HierarchyCircularNode<Datum> extends HierarchyNode<Datum> {
     x: number;
     y: number;
     r: number;
-    data: Datum;
-    readonly depth: number;
-    readonly height: number;
-    parent: HierarchyCircularNode<Datum> | null;
-    children?: Array<HierarchyCircularNode<Datum>>;
-    /**
-     * Aggregated numeric value as calculated by sum(value) or count(),
-     * if previously invoked.
-     */
-    readonly value?: number;
-    /**
-     * Optional Node Id string set by StratifyOperator, if
-     * hierarchical data was created from tabular data using stratify()
-     */
-    readonly id?: string;
-    ancestors(): Array<HierarchyCircularNode<Datum>>;
-    descendants(): Array<HierarchyCircularNode<Datum>>;
-    leaves(): Array<HierarchyCircularNode<Datum>>;
-    path(target: HierarchyCircularNode<Datum>): Array<HierarchyCircularNode<Datum>>;
     links(): Array<HierarchyCircularLink<Datum>>;
-    sum(value: (d: Datum) => number): this;
-    count(): this;
-    sort(compare: (a: HierarchyCircularNode<Datum>, b: HierarchyCircularNode<Datum>) => number): this;
-    each(func: (node: HierarchyCircularNode<Datum>) => void): this;
-    eachAfter(func: (node: HierarchyCircularNode<Datum>) => void): this;
-    eachBefore(func: (node: HierarchyCircularNode<Datum>) => void): this;
-    copy(): HierarchyCircularNode<Datum>;
 }
 
 export interface PackLayout<Datum> {
