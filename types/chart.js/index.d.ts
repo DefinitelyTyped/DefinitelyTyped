@@ -584,7 +584,7 @@ declare namespace Chart {
         position?: string;
         ticks?: TickOptions;
         gridLines?: GridLineOptions;
-        barThickness?: number;
+        barThickness?: number | string;
         maxBarThickness?: number;
         scaleLabel?: ScaleTitleOptions;
         time?: TimeScale;
