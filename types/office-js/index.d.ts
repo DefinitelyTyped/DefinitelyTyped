@@ -7165,7 +7165,7 @@ declare namespace Office {
          *
          * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or read</td></tr></table>
          */
-        OWAView: "string";
+        OWAView: string;
     }
     /**
      * Provides the email properties of the sender or specified recipients of an email message or appointment.
