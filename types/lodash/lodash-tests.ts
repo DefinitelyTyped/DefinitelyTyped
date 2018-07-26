@@ -4972,17 +4972,7 @@ fp.now(); // $ExpectType number
     _.create(prototype, properties); // $ExpectType { a: number; } & { b: string; }
     _(prototype).create(properties); // $ExpectType LoDashImplicitWrapper<{ a: number; } & { b: string; }>
     _.chain(prototype).create(properties); // $ExpectType LoDashExplicitWrapper<{ a: number; } & { b: string; }>
-    // We can't expectType for this line because it fails in TS2.3
-    const result: { a: number; } = fp.create(prototype);
-}
-
-{
-    const obj = { a: "" };
-    const s1 = { b: 1 };
-    const s2 = { c: 1 };
-    const s3 = { d: 1 };
-    const s4 = { e: 1 };
-    const s5 = { f: 1 };
+    fp.create(prototype); // $ExpectType { a: number; }
 }
 
 // _.defaultsDeep
@@ -5531,24 +5521,24 @@ fp.now(); // $ExpectType number
     const dictionary: _.Dictionary<AbcObject> = anything;
     const numericDictionary: _.NumericDictionary<AbcObject> = anything;
 
-    _.omit(obj, "a"); // ExpectType Pick<AbcObject, "b" | "c">   // NOTE: ExpectType disabled because it fails in TS2.4
+    _.omit(obj, "a"); // $ExpectType Pick<AbcObject, "b" | "c">
     _.omit(obj, ["b", 1], 0, "a"); // $ExpectType Partial<AbcObject>
     _.omit(dictionary, "a"); // $ExpectType Dictionary<AbcObject>
     _.omit(numericDictionary, "a");  // $ExpectType NumericDictionary<AbcObject>
 
-    _(obj).omit("a"); // ExpectType LoDashImplicitWrapper<Pick<AbcObject, "b" | "c">>   // NOTE: ExpectType disabled because it fails in TS2.4
+    _(obj).omit("a"); // $ExpectType LoDashImplicitWrapper<Pick<AbcObject, "b" | "c">>
     _(obj).omit(["b", 1], 0, "a"); // $ExpectType LoDashImplicitWrapper<Partial<AbcObject>>
     _(dictionary).omit("a"); // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject>>
     _(numericDictionary).omit("a"); // $ExpectType LoDashImplicitWrapper<NumericDictionary<AbcObject>>
 
-    _.chain(obj).omit("a"); // ExpectType LoDashExplicitWrapper<Pick<AbcObject, "b" | "c">>   // NOTE: ExpectType disabled because it fails in TS2.4
+    _.chain(obj).omit("a"); // $ExpectType LoDashExplicitWrapper<Pick<AbcObject, "b" | "c">>
     _.chain(obj).omit(["b", 1], 0, "a"); // $ExpectType LoDashExplicitWrapper<Partial<AbcObject>>
     _.chain(dictionary).omit("a"); // $ExpectType LoDashExplicitWrapper<Dictionary<AbcObject>>
     _.chain(numericDictionary).omit("a"); // $ExpectType LoDashExplicitWrapper<NumericDictionary<AbcObject>>
 
-    fp.omit("a", obj); // ExpectType Pick<AbcObject, "b" | "c">   // NOTE: ExpectType disabled because it fails in TS2.4
-    fp.omit("a")(obj); // ExpectType Pick<AbcObject, "b" | "c">   // NOTE: ExpectType disabled because it fails in TS2.3
-    fp.omit(["a", "b"])(obj); // ExpectType Pick<AbcObject, "c">   // NOTE: ExpectType disabled because it fails in TS2.3
+    fp.omit("a", obj); // $ExpectType Pick<AbcObject, "b" | "c">
+    fp.omit("a")(obj); // $ExpectType Partial<AbcObject>
+    fp.omit(["a", "b"])(obj); // $ExpectType Partial<AbcObject>
 }
 
 // _.omitBy
@@ -5585,7 +5575,7 @@ fp.now(); // $ExpectType number
     _.pick(obj1, 0, "a"); // $ExpectType PartialDeep<AbcObject>
     _.pick(obj1, ["b", 1], 0, "a"); // $ExpectType PartialDeep<AbcObject>
     _.pick(obj1, readonlyArray); // $ExpectType PartialDeep<AbcObject>
-    _.pick(obj2, "a", "b"); // Pick<AbcObject, "a" | "b">
+    _.pick(obj2, "a", "b"); // $ExpectType Pick<AbcObject, "a" | "b">
     // We can't use ExpectType here because typescript keeps changing what order the types appear.
     let result1: Pick<AbcObject, "a" | "b">;
     result1 = _.pick(obj2, literalsArray);
@@ -5595,7 +5585,7 @@ fp.now(); // $ExpectType number
     _(obj1).pick(0, "a"); // $ExpectType LoDashImplicitWrapper<Partial<AbcObject>>
     _(obj1).pick(["b", 1], 0, "a"); // $ExpectType LoDashImplicitWrapper<Partial<AbcObject>>
     _(obj1).pick(readonlyArray); // $ExpectType LoDashImplicitWrapper<Partial<AbcObject>>
-    _(obj2).pick("a", "b"); // LoDashImplicitWrapper<Pick<AbcObject, "a" | "b">>
+    _(obj2).pick("a", "b"); // $ExpectType LoDashImplicitWrapper<Pick<AbcObject, "a" | "b">>
     let result2: _.LoDashImplicitWrapper<Pick<AbcObject, "a" | "b">>;
     result2 = _(obj2).pick(literalsArray);
     result2 = _(obj2).pick(roLiteralsArray);
@@ -5604,7 +5594,7 @@ fp.now(); // $ExpectType number
     _.chain(obj1).pick(0, "a"); // $ExpectType LoDashExplicitWrapper<Partial<AbcObject>>
     _.chain(obj1).pick(["b", 1], 0, "a"); // $ExpectType LoDashExplicitWrapper<Partial<AbcObject>>
     _.chain(obj1).pick(readonlyArray); // $ExpectType LoDashExplicitWrapper<Partial<AbcObject>>
-    _.chain(obj2).pick("a", "b"); // LoDashExplicitWrapper<Pick<AbcObject, "a" | "b">>
+    _.chain(obj2).pick("a", "b"); // $ExpectType LoDashExplicitWrapper<Pick<AbcObject, "a" | "b">>
     let result3: _.LoDashExplicitWrapper<Pick<AbcObject, "a" | "b">>;
     result3 = _.chain(obj2).pick(literalsArray);
     result3 = _.chain(obj2).pick(roLiteralsArray);
