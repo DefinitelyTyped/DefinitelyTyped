@@ -1,1 +1,2 @@
-export * from "./index";
+import centered from "./index";
+export default centered;
