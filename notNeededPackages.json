@@ -1225,6 +1225,12 @@
             "asOfVersion": "0.1.67"
         },
         {
+            "libraryName": "react-svg",
+            "typingsPackageName": "react-svg",
+            "sourceRepoURL": "https://github.com/tanem/react-svg",
+            "asOfVersion": "5.0.0"
+        },
+        {
             "libraryName": "realm",
             "typingsPackageName": "realm",
             "sourceRepoURL": "https://github.com/realm/realm-js",
