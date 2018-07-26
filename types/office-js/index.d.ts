@@ -12140,17 +12140,28 @@ declare namespace Office {
          * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Read</td></tr></table>
          *
          * @param parameters A dictionary containing all values to be filled in for the user in the new form. All parameters are optional.
+         * 
          *        toRecipients: An array of strings containing the email addresses or an array containing an {@link Office.EmailAddressDetails} object for each of the recipients on the To line. The array is limited to a maximum of 100 entries.
+         * 
          *        ccRecipients: An array of strings containing the email addresses or an array containing an {@link Office.EmailAddressDetails} object for each of the recipients on the Cc line. The array is limited to a maximum of 100 entries.
+         * 
          *        bccRecipients: An array of strings containing the email addresses or an array containing an {@link Office.EmailAddressDetails} object for each of the recipients on the Bcc line. The array is limited to a maximum of 100 entries.
+         * 
          *        subject: A string containing the subject of the message. The string is limited to a maximum of 255 characters.
+         * 
          *        htmlBody: The HTML body of the message. The body content is limited to a maximum size of 32 KB.
+         * 
          *        attachments: An array of JSON objects that are either file or item attachments.
+         * 
          *        attachments.type: Indicates the type of attachment. Must be file for a file attachment or item for an item attachment.
+         * 
          *        attachments.name: A string that contains the name of the attachment, up to 255 characters in length.
+         * 
          *        attachments.url: Only used if type is set to file. The URI of the location for the file.
+         * 
          *        attachments.isInline: Only used if type is set to file. If true, indicates that the attachment will be shown inline in the message body, and should not be displayed in the attachment list.
-         *        attachments.itemId: Only used if type is set to item. The EWS item id of the attachment. This is a string up to 100 characters.
+         * 
+         *        attachments.itemId: Only used if type is set to item. The EWS item id of the existing e-mail you want to attach to the new message. This is a string up to 100 characters.
          */
         displayNewMessageForm(parameters: any): void;
         /**
