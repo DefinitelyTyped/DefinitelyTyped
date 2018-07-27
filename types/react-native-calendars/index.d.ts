@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as React from 'react';
-import { ViewProps } from 'react-native';
+import { ViewProps, StyleProp } from 'react-native';
 
 interface DateObject {
     year: number;
@@ -36,7 +36,7 @@ interface CalendarTheme {
 }
 
 interface DayComponentProps {
-    state?: '' | 'disabled' | 'today';
+    state?: '' | 'selected' | 'disabled' | 'today';
     theme?: CalendarTheme;
     onPress?: () => any;
     onLongPress?: () => any;
@@ -45,7 +45,10 @@ interface DayComponentProps {
 }
 
 interface CalendarBaseProps {
-    style?: ViewProps;
+    /**
+     * Styles for the view
+     */
+    style?: StyleProp<ViewProps>;
 
     /**
      *  Specify theme properties to override specific styles for calendar parts. Default = {}
@@ -178,9 +181,7 @@ interface MultiPeriodMarking {
 }
 
 interface CustomMarking {
-    customStyles: {
-
-    }
+    customStyles: any;
 }
 
 type Marking =
@@ -235,22 +236,27 @@ type CalendarProps =
 export class Calendar extends React.Component<CalendarProps> {}
 
 interface CalendarListBaseProps extends CalendarBaseProps {
+
     /**
      *  Callback which gets executed when visible months change in scroll view. Default = undefined
      */
     onVisibleMonthsChange?: (months: number) => void;
+
     /**
      *  Max amount of months allowed to scroll to the past. Default = 50
      */
     pastScrollRange?: number;
+
     /**
      *  Max amount of months allowed to scroll to the future. Default = 50
      */
     futureScrollRange?: number;
+
     /**
      *  Enable or disable scrolling of calendar list
      */
     scrollEnabled?: boolean;
+
     /**
      *  Enable or disable vertical scroll indicator. Default = false
      */
@@ -295,70 +301,87 @@ interface AgendaProps<T> {
     items: {
         [key: string]: Array<T>;
     };
+
     /**
      * callback that gets called when items for a certain month should be loaded (month became visible)
      */
     loadItemsForMonth?: (date: DateObject) => void;
+
     /**
      * callback that fires when the calendar is opened or closed
      */
     onCalendarToggled?: (calendarOpened: boolean) => void;
+
     /**
      * callback that gets called on day press
      */
     onDayPress?: (day: number) => void;
+
     /**
      * callback that gets called when day changes while scrolling agenda list
      */
     onDayChange?: (day: number) => void;
+
     /**
      * initially selected day
      */
     selected?: Date | string;
+
     /**
      * Minimum date that can be selected, dates before minDate will be grayed out. Default = undefined
      */
     minDate?: Date | string;
+
     /**
      * Maximum date that can be selected, dates after maxDate will be grayed out. Default = undefined
      */
     maxDate?: Date | string;
+
     /**
      * Max amount of months allowed to scroll to the past. Default = 50
      */
     pastScrollRange?: number;
+
     /**
      * Max amount of months allowed to scroll to the future. Default = 50
      */
     futureScrollRange?: number;
+
     /**
      * specify how each item should be rendered in agenda
      */
     renderItem: (item: T, firstItemInDay?: T) => React.ReactNode;
+
     /**
      * specify how each date should be rendered. day can be undefined if the item is not first in that day.
      */
     renderDay?: (params: { day: Date; item: T }) => React.ReactNode;
+
     /**
      * specify how empty date content with no items should be rendered
      */
     renderEmptyDate?: () => React.ReactNode;
+
     /**
      * specify how agenda knob should look like
      */
     renderKn?: () => React.ReactNode;
+
     /**
      * specify what should be rendered instead of ActivityIndicator
      */
     renderEmptyData?: () => React.ReactNode;
+
     /**
      * specify your item comparison function for increased performance
      */
     rowHasChanged?: (r1: any, r2: any) => boolean;
+
     /**
      * Hide knob button. Default = false
      */
     hideKnob?: boolean;
+
     /**
      * By default, agenda dates are marked if they have at least one item, but you can override this if needed
      */
@@ -369,6 +392,7 @@ interface AgendaProps<T> {
             disabled: boolean;
         };
     };
+
     /**
      * agenda theme
      */
@@ -378,6 +402,7 @@ interface AgendaProps<T> {
         agendaTodayColor?: string;
         agendaKnobColor?: string;
     } & CalendarTheme;
+
     /**
      * agenda container style
      */
