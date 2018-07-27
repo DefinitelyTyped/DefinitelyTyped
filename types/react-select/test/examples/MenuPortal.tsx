@@ -1,7 +1,7 @@
-import React, { Component, Fragment } from 'react';
+import * as React from 'react';
 import Modal from '@atlaskit/modal-dialog';
 import Button from '@atlaskit/button';
-import Select from '../../src';
+import Select from 'react-select';
 import { H1, Note } from '../styled-components';
 
 import { colourOptions } from '../data';

@@ -1,6 +1,6 @@
-import React, { Fragment } from 'react';
+import * as React from 'react';
 
-import Select, { components } from '../../src';
+import Select, { components } from 'react-select';
 import { colourOptions, groupedOptions } from '../data';
 
 function getLength (options) {

@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import Button from '@atlaskit/button';
 
-import Select from '../../src';
-import { colors } from '../../src/theme';
+import Select from 'react-select';
+import { colors } from 'react-select/lib/theme';
 import { stateOptions } from '../data';
 
 const selectStyles = {

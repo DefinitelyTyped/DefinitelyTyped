@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 
-import CreatableSelect from '../../src/Creatable';
+import CreatableSelect from 'react-select/lib/Creatable';
 import { colourOptions } from '../data';
 
 export default class CreatableMulti extends Component<*, State> {

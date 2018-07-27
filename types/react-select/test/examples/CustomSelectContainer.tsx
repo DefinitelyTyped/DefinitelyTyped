@@ -1,5 +1,5 @@
-import React from 'react';
-import Select, { components } from '../../src';
+import * as React from 'react';
+import Select, { components } from 'react-select';
 import Tooltip from '@atlaskit/tooltip';
 import { colourOptions } from '../data';
 

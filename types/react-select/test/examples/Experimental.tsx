@@ -1,11 +1,11 @@
 // @flow
 
-import React, { Component } from 'react';
+import * as React from 'react';
 import moment from 'moment';
 import chrono from 'chrono-node';
 
-import Select from '../../src';
-import { components as SelectComponents } from '../../src';
+import Select from 'react-select';
+import { components as SelectComponents } from 'react-select';
 
 const createOptionForDate = d => {
   const date = moment.isMoment(d) ? d : moment(d);

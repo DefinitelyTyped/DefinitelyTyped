@@ -1,6 +1,6 @@
-import React from 'react';
+import * as React from 'react';
 
-import Select, { components } from '../../src';
+import Select, { components } from 'react-select';
 import { colourOptions, groupedOptions } from '../data';
 import EditorPanelIcon from '@atlaskit/icon/glyph/editor/panel';
 import Tooltip from '@atlaskit/tooltip';

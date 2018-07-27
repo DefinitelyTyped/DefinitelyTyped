@@ -1,6 +1,6 @@
-import React, { Component, Fragment } from 'react';
+import * as React from 'react';
 
-import Select from '../../src';
+import Select from 'react-select';
 import { colourOptions } from '../data';
 import { Note } from '../styled-components';
 

@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import Tooltip from '@atlaskit/tooltip';
-import Select, { components } from '../../src';
+import Select, { components } from 'react-select';
 import { colourOptions } from '../data';
 const msgStyles = {
   background: colourOptions[2].color,

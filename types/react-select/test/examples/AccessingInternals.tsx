@@ -1,8 +1,8 @@
-import React, { Component, type ElementRef, Fragment } from 'react';
+import * as React from 'react';
 
-import Select from '../../src';
-import AsyncSelect from '../../src/Async';
-import CreatableSelect from '../../src/Creatable';
+import Select from 'react-select';
+import AsyncSelect from 'react-select/lib/Async';
+import CreatableSelect from 'react-select/lib/Creatable';
 import { Note } from '../styled-components';
 import { colourOptions } from '../data';
 

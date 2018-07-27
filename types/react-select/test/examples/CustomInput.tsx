@@ -1,8 +1,8 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 import Tooltip from '@atlaskit/tooltip';
-import Select, { components } from '../../src';
+import Select, { components } from 'react-select';
 import { colourOptions } from '../data';
 
 const Input = (props) => {

@@ -1,8 +1,8 @@
-import React from 'react';
+import * as React from 'react';
 import chroma from 'chroma-js';
 
 import { colourOptions } from '../data';
-import Select from '../../src';
+import Select from 'react-select';
 
 const dot = (color = '#ccc') => ({
   alignItems: 'center',

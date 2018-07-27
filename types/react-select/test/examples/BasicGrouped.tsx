@@ -1,6 +1,6 @@
-import React from 'react';
+import * as React from 'react';
 
-import Select from '../../src';
+import Select from 'react-select';
 import { colourOptions, groupedOptions } from '../data';
 
 const groupStyles = {

@@ -1,9 +1,9 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 
-import Select from '../../src';
-import makeAnimated from '../../src/animated';
+import Select from 'react-select';
+import makeAnimated from 'react-select/lib/animated';
 import { colourOptions } from '../data';
 
 

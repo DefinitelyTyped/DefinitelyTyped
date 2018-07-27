@@ -1,5 +1,5 @@
-import React, { Component, Fragment } from 'react';
-import Select, { createFilter } from '../../src';
+import * as React from 'react';
+import Select, { createFilter } from 'react-select';
 import { colourOptions } from '../data';
 import { Note } from '../styled-components';
 

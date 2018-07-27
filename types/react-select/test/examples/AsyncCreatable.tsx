@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 
-import AsyncCreatableSelect from '../../src/AsyncCreatable';
+import AsyncCreatableSelect from 'react-select/lib/AsyncCreatable';
 import { colourOptions } from '../data';
 
 const filterColors = (inputValue: string) =>
