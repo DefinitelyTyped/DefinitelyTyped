@@ -2539,65 +2539,67 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType LoDashExplicitWrapper<number
 // _.keyBy
 {
     const valueIterator = (value: AbcObject) => "";
+    const subKey: string | number | symbol = anything;
 
     _.keyBy("abcd"); // $ExpectType Dictionary<string>
     _.keyBy("abcd", stringIterator); // $ExpectType Dictionary<string>
     _.keyBy(list); // $ExpectType Dictionary<AbcObject>
     _.keyBy(list, valueIterator); // $ExpectType Dictionary<AbcObject>
-    _.keyBy(list, "a"); // $ExpectType Dictionary<AbcObject>
+    _.keyBy(list, subKey); // $ExpectType Dictionary<AbcObject>
     _.keyBy(list, { a: 42 }); // $ExpectType Dictionary<AbcObject>
     _.keyBy(dictionary); // $ExpectType Dictionary<AbcObject>
     _.keyBy(dictionary, valueIterator); // $ExpectType Dictionary<AbcObject>
-    _.keyBy(dictionary, "a"); // $ExpectType Dictionary<AbcObject>
+    _.keyBy(dictionary, subKey); // $ExpectType Dictionary<AbcObject>
     _.keyBy(dictionary, { a: 42 }); // $ExpectType Dictionary<AbcObject>
     _.keyBy(numericDictionary); // $ExpectType Dictionary<AbcObject>
     _.keyBy(numericDictionary, valueIterator); // $ExpectType Dictionary<AbcObject>
     _.keyBy(numericDictionary, "a"); // $ExpectType Dictionary<AbcObject>
+    _.keyBy(numericDictionary, subKey); // $ExpectType Dictionary<AbcObject>
     _.keyBy(numericDictionary, { a: 42 }); // $ExpectType Dictionary<AbcObject>
 
     _("abcd").keyBy(); // $ExpectType LoDashImplicitWrapper<Dictionary<string>>
     _("abcd").keyBy(stringIterator); // $ExpectType LoDashImplicitWrapper<Dictionary<string>>
     _(list).keyBy(); // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject>>
     _(list).keyBy(valueIterator); // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject>>
-    _(list).keyBy("a"); // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject>>
+    _(list).keyBy(subKey); // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject>>
     _(list).keyBy({ a: 42 }); // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject>>
     _(dictionary).keyBy(); // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject>>
     _(dictionary).keyBy(valueIterator); // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject>>
-    _(dictionary).keyBy("a"); // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject>>
+    _(dictionary).keyBy(subKey); // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject>>
     _(dictionary).keyBy({ a: 42 }); // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject>>
     _(numericDictionary).keyBy(); // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject>>
     _(numericDictionary).keyBy(valueIterator); // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject>>
-    _(numericDictionary).keyBy("a"); // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject>>
+    _(numericDictionary).keyBy(subKey); // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject>>
     _(numericDictionary).keyBy({ a: 42 }); // $ExpectType LoDashImplicitWrapper<Dictionary<AbcObject>>
 
     _.chain("abcd").keyBy(); // $ExpectType LoDashExplicitWrapper<Dictionary<string>>
     _.chain("abcd").keyBy(stringIterator); // $ExpectType LoDashExplicitWrapper<Dictionary<string>>
     _.chain(list).keyBy(); // $ExpectType LoDashExplicitWrapper<Dictionary<AbcObject>>
     _.chain(list).keyBy(valueIterator); // $ExpectType LoDashExplicitWrapper<Dictionary<AbcObject>>
-    _.chain(list).keyBy("a"); // $ExpectType LoDashExplicitWrapper<Dictionary<AbcObject>>
+    _.chain(list).keyBy(subKey); // $ExpectType LoDashExplicitWrapper<Dictionary<AbcObject>>
     _.chain(list).keyBy({ a: 42 }); // $ExpectType LoDashExplicitWrapper<Dictionary<AbcObject>>
     _.chain(dictionary).keyBy(); // $ExpectType LoDashExplicitWrapper<Dictionary<AbcObject>>
     _.chain(dictionary).keyBy(valueIterator); // $ExpectType LoDashExplicitWrapper<Dictionary<AbcObject>>
-    _.chain(dictionary).keyBy("a"); // $ExpectType LoDashExplicitWrapper<Dictionary<AbcObject>>
+    _.chain(dictionary).keyBy(subKey); // $ExpectType LoDashExplicitWrapper<Dictionary<AbcObject>>
     _.chain(dictionary).keyBy({ a: 42 }); // $ExpectType LoDashExplicitWrapper<Dictionary<AbcObject>>
     _.chain(numericDictionary).keyBy(); // $ExpectType LoDashExplicitWrapper<Dictionary<AbcObject>>
     _.chain(numericDictionary).keyBy(valueIterator); // $ExpectType LoDashExplicitWrapper<Dictionary<AbcObject>>
-    _.chain(numericDictionary).keyBy("a"); // $ExpectType LoDashExplicitWrapper<Dictionary<AbcObject>>
+    _.chain(numericDictionary).keyBy(subKey); // $ExpectType LoDashExplicitWrapper<Dictionary<AbcObject>>
     _.chain(numericDictionary).keyBy({ a: 42 }); // $ExpectType LoDashExplicitWrapper<Dictionary<AbcObject>>
 
     fp.keyBy(valueIterator, list); // $ExpectType Dictionary<AbcObject>
     fp.keyBy(valueIterator)(list); // $ExpectType Dictionary<AbcObject>
-    fp.keyBy("a", list); // $ExpectType Dictionary<AbcObject>
+    fp.keyBy(subKey, list); // $ExpectType Dictionary<AbcObject>
     fp.keyBy({ a: 42 }, list); // $ExpectType Dictionary<AbcObject>
-    fp.keyBy(["a", 42], list); // $ExpectType Dictionary<AbcObject>
+    fp.keyBy([subKey, 42], list); // $ExpectType Dictionary<AbcObject>
     fp.keyBy(valueIterator, dictionary); // $ExpectType Dictionary<AbcObject>
-    fp.keyBy("a", dictionary); // $ExpectType Dictionary<AbcObject>
+    fp.keyBy(subKey, dictionary); // $ExpectType Dictionary<AbcObject>
     fp.keyBy({ a: 42 }, dictionary); // $ExpectType Dictionary<AbcObject>
-    fp.keyBy(["a", 42], dictionary); // $ExpectType Dictionary<AbcObject>
+    fp.keyBy([subKey, 42], dictionary); // $ExpectType Dictionary<AbcObject>
     fp.keyBy(valueIterator, numericDictionary); // $ExpectType Dictionary<AbcObject>
-    fp.keyBy("a", numericDictionary); // $ExpectType Dictionary<AbcObject>
+    fp.keyBy(subKey, numericDictionary); // $ExpectType Dictionary<AbcObject>
     fp.keyBy({ a: 42 }, numericDictionary); // $ExpectType Dictionary<AbcObject>
-    fp.keyBy(["a", 42], numericDictionary); // $ExpectType Dictionary<AbcObject>
+    fp.keyBy([subKey, 42], numericDictionary); // $ExpectType Dictionary<AbcObject>
 }
 
 // _.invoke
@@ -3026,74 +3028,76 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType LoDashExplicitWrapper<number
 
 // _.some
 {
+    const subKey: string | number | symbol = anything;
+
     _.some(list); // $ExpectType boolean
     _.some(list, listIterator); // $ExpectType boolean
-    _.some(list, "a"); // $ExpectType boolean
-    _.some(list, ["a", 42]); // $ExpectType boolean
+    _.some(list, subKey); // $ExpectType boolean
+    _.some(list, [subKey, 42]); // $ExpectType boolean
     _.some(list, { a: 42 }); // $ExpectType boolean
 
     _.some(dictionary); // $ExpectType boolean
     _.some(dictionary, dictionaryIterator); // $ExpectType boolean
-    _.some(dictionary, "a"); // $ExpectType boolean
-    _.some(dictionary, ["a", 42]); // $ExpectType boolean
+    _.some(dictionary, subKey); // $ExpectType boolean
+    _.some(dictionary, [subKey, 42]); // $ExpectType boolean
     _.some(dictionary, { a: 42 }); // $ExpectType boolean
 
     _.some(numericDictionary); // $ExpectType boolean
     _.some(numericDictionary, numericDictionaryIterator); // $ExpectType boolean
-    _.some(numericDictionary, "a"); // $ExpectType boolean
-    _.some(numericDictionary, ["a", 42]); // $ExpectType boolean
+    _.some(numericDictionary, subKey); // $ExpectType boolean
+    _.some(numericDictionary, [subKey, 42]); // $ExpectType boolean
     _.some(numericDictionary, { a: 42 }); // $ExpectType boolean
 
     _(list).some(); // $ExpectType boolean
     _(list).some(listIterator); // $ExpectType boolean
-    _(list).some("a"); // $ExpectType boolean
-    _(list).some(["a", 42]); // $ExpectType boolean
+    _(list).some(subKey); // $ExpectType boolean
+    _(list).some([subKey, 42]); // $ExpectType boolean
     _(list).some({ a: 42 }); // $ExpectType boolean
 
     _(dictionary).some(); // $ExpectType boolean
     _(dictionary).some(dictionaryIterator); // $ExpectType boolean
-    _(dictionary).some("a"); // $ExpectType boolean
-    _(dictionary).some(["a", 42]); // $ExpectType boolean
+    _(dictionary).some(subKey); // $ExpectType boolean
+    _(dictionary).some([subKey, 42]); // $ExpectType boolean
     _(dictionary).some({ a: 42 }); // $ExpectType boolean
 
     _(numericDictionary).some(); // $ExpectType boolean
     _(numericDictionary).some(numericDictionaryIterator); // $ExpectType boolean
-    _(numericDictionary).some("a"); // $ExpectType boolean
-    _(numericDictionary).some(["a", 42]); // $ExpectType boolean
+    _(numericDictionary).some(subKey); // $ExpectType boolean
+    _(numericDictionary).some([subKey, 42]); // $ExpectType boolean
     _(numericDictionary).some({ a: 42 }); // $ExpectType boolean
 
     _.chain(list).some(); // $ExpectType LoDashExplicitWrapper<boolean>
     _.chain(list).some(listIterator); // $ExpectType LoDashExplicitWrapper<boolean>
-    _.chain(list).some("a"); // $ExpectType LoDashExplicitWrapper<boolean>
-    _.chain(list).some(["a", 42]); // $ExpectType LoDashExplicitWrapper<boolean>
+    _.chain(list).some(subKey); // $ExpectType LoDashExplicitWrapper<boolean>
+    _.chain(list).some([subKey, 42]); // $ExpectType LoDashExplicitWrapper<boolean>
     _.chain(list).some({ a: 42 }); // $ExpectType LoDashExplicitWrapper<boolean>
 
     _.chain(dictionary).some(); // $ExpectType LoDashExplicitWrapper<boolean>
     _.chain(dictionary).some(dictionaryIterator); // $ExpectType LoDashExplicitWrapper<boolean>
-    _.chain(dictionary).some("a"); // $ExpectType LoDashExplicitWrapper<boolean>
-    _.chain(dictionary).some(["a", 42]); // $ExpectType LoDashExplicitWrapper<boolean>
+    _.chain(dictionary).some(subKey); // $ExpectType LoDashExplicitWrapper<boolean>
+    _.chain(dictionary).some([subKey, 42]); // $ExpectType LoDashExplicitWrapper<boolean>
     _.chain(dictionary).some({ a: 42 }); // $ExpectType LoDashExplicitWrapper<boolean>
 
     _.chain(numericDictionary).some(); // $ExpectType LoDashExplicitWrapper<boolean>
     _.chain(numericDictionary).some(numericDictionaryIterator); // $ExpectType LoDashExplicitWrapper<boolean>
-    _.chain(numericDictionary).some("a"); // $ExpectType LoDashExplicitWrapper<boolean>
-    _.chain(numericDictionary).some(["a", 42]); // $ExpectType LoDashExplicitWrapper<boolean>
+    _.chain(numericDictionary).some(subKey); // $ExpectType LoDashExplicitWrapper<boolean>
+    _.chain(numericDictionary).some([subKey, 42]); // $ExpectType LoDashExplicitWrapper<boolean>
     _.chain(numericDictionary).some({ a: 42 }); // $ExpectType LoDashExplicitWrapper<boolean>
 
     fp.some(valueIterator, list); // $ExpectType boolean
-    fp.some("a")(list); // $ExpectType boolean
+    fp.some(subKey)(list); // $ExpectType boolean
     fp.some({ a: 42 }, list); // $ExpectType boolean
-    fp.some(["a", 42], list); // $ExpectType boolean
+    fp.some([subKey, 42], list); // $ExpectType boolean
 
     fp.some(valueIterator, dictionary); // $ExpectType boolean
-    fp.some("a")(dictionary); // $ExpectType boolean
+    fp.some(subKey)(dictionary); // $ExpectType boolean
     fp.some({ a: 42 })(dictionary); // $ExpectType boolean
-    fp.some(["a", 42])(dictionary); // $ExpectType boolean
+    fp.some([subKey, 42])(dictionary); // $ExpectType boolean
 
     fp.some(valueIterator, numericDictionary); // $ExpectType boolean
-    fp.some("a")(numericDictionary); // $ExpectType boolean
+    fp.some(subKey)(numericDictionary); // $ExpectType boolean
     fp.some({ a: 42 })(numericDictionary); // $ExpectType boolean
-    fp.some(["a", 42])(numericDictionary); // $ExpectType boolean
+    fp.some([subKey, 42])(numericDictionary); // $ExpectType boolean
 }
 
 // _.sortBy
