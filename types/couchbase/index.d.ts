@@ -2019,10 +2019,10 @@ declare namespace Bucket {
      */
     interface OpCallback {
         /**
-         * @param error The error for the operation. This can either be an Error object or a value which evaluates to false (null, undefined, 0 or false).
+         * @param error The error for the operation. This can either be an Error object or a value which evaluates to false.
          * @param result The result of the operation that was executed. This usually contains at least a cas property, and on some operations will contain a value property as well.
          */
-        (error: CouchbaseError | number, result: any): void;
+        (error: CouchbaseError | null, result: any): void;
     }
 
     /**
