@@ -2,6 +2,8 @@
 // Project: https://github.com/jaeh/node-zopfli-es
 // Definitions by: My Self <https://github.com/me>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as zopfli from 'node-zopfli';
 
