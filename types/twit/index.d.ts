@@ -262,7 +262,7 @@ declare module 'twit' {
       user_id?: number | string,
       lat?: number,
       long?: number,
-      follow?: boolean,
+      follow?: boolean | string,
       include_email?: boolean,
       cursor?: number | string,
       tweet_mode?: string,
