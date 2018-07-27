@@ -51,13 +51,13 @@ export interface SpaceProps {
     py?: ResponsiveSpaceValue;
 }
 
-export function space(...args: any[]): string;
+export function space(...args: any[]): any;
 
 /**
  * Width
  */
 
-export type WidthValue = number | string;
+export type WidthValue = number | any;
 export type ResponsiveWidthValue = ResponsiveValue<WidthValue>;
 
 export interface WidthProps {
@@ -72,9 +72,9 @@ export interface MaxWidthProps {
     maxWidth?: ResponsiveWidthValue;
 }
 
-export function width(...args: any[]): string;
-export function minWidth(...args: any[]): string;
-export function maxWidth(...args: any[]): string;
+export function width(...args: any[]): any;
+export function minWidth(...args: any[]): any;
+export function maxWidth(...args: any[]): any;
 
 /**
  * Height
