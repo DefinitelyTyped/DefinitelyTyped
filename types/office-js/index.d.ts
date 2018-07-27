@@ -52959,7 +52959,7 @@ declare namespace OneNote {
     }
     /**
      *
-     * Represents data obtained by OCR (optical character recognition) of an image
+     * Represents data obtained by OCR (optical character recognition) of an image.
      *
      * [Api set: OneNoteApi 1.1]
      */
@@ -52981,7 +52981,7 @@ declare namespace OneNote {
     }
     /**
      *
-     * Weak reference to an ink stroke object and its content parent
+     * Weak reference to an ink stroke object and its content parent.
      *
      * [Api set: OneNoteApi 1.1]
      */
