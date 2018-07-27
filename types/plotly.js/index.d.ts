@@ -162,8 +162,8 @@ export interface DownloadImgopts {
 
 export type Root = string | HTMLElement;
 
-export function newPlot(root: Root, data: Data[], layout?: Partial<Layout>, config?: Partial<Config>): Promise<PlotlyHTMLElement>;
-export function plot(root: Root, data: Data[], layout?: Partial<Layout>, config?: Partial<Config>): Promise<PlotlyHTMLElement>;
+export function newPlot<TraceType = Data>(root: Root, data: TraceType[], layout?: Partial<Layout>, config?: Partial<Config>): Promise<PlotlyHTMLElement>;
+export function plot<TraceType = Data>(root: Root, data: TraceType[], layout?: Partial<Layout>, config?: Partial<Config>): Promise<PlotlyHTMLElement>;
 export function relayout(root: Root, layout: Partial<Layout>): Promise<PlotlyHTMLElement>;
 export function redraw(root: Root): Promise<PlotlyHTMLElement>;
 export function purge(root: Root): void;
@@ -177,7 +177,7 @@ export function extendTraces(root: Root, update: Data | Data[], indices: number 
 export function prependTraces(root: Root, update: Data | Data[], indices: number | number[]): Promise<PlotlyHTMLElement>;
 export function toImage(root: Root, opts: ToImgopts): Promise<string>;
 export function downloadImage(root: Root, opts: DownloadImgopts): Promise<string>;
-export function react(root: Root, data: Data[], layout?: Partial<Layout>, config?: Partial<Config>): Promise<PlotlyHTMLElement>;
+export function react<TraceType = Data>(root: Root, data: TraceType[], layout?: Partial<Layout>, config?: Partial<Config>): Promise<PlotlyHTMLElement>;
 export function addFrames(root: Root, frames: Array<Partial<Frame>>): Promise<PlotlyHTMLElement>;
 export function deleteFrames(root: Root, frames: number[]): Promise<PlotlyHTMLElement>;
 
