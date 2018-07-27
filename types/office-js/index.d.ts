@@ -25,7 +25,9 @@ declare namespace Office {
         startCustomFunctions(): Promise<void>;
     }
 
-    /** A Promise object. Promises can be chained via ".then", and errors can be caught via ".catch". When a browser-provided native Promise implementation is available, Office.Promise will switch to use the native Promise instead. */
+    /** A Promise object. Promises can be chained via ".then", and errors can be caught via ".catch". 
+     * When a browser-provided native Promise implementation is available, Office.Promise will switch to use the native Promise instead.
+     */
     var Promise: IPromiseConstructor;
 
     // Note: this is a copy of the PromiseConstructor object from
@@ -2905,12 +2907,10 @@ declare namespace Office {
          *
          * <tr><td>Requirement Sets</td><td>Settings</td></tr></table>
          * 
-         * This method is useful in Word and PowerPoint coauthoring scenarios when multiple instances of the same add-in are working against the same document. 
+         * This method is useful in Excel, Word, and PowerPoint coauthoring scenarios when multiple instances of the same add-in are working against the same document. 
          * Because each add-in is working against an in-memory copy of the settings loaded from the document at the time the user opened it, the settings values used by each user can get out of sync. 
          * This can happen whenever an instance of the add-in calls the Settings.saveAsync method to persist all of that user's settings to the document. 
          * Calling the refreshAsync method from the event handler for the settingsChanged event of the add-in will refresh the settings values for all users.
-         * 
-         * The refreshAsync method can be called from add-ins created for Excel, but since it doesn't support coauthoring there is no reason to do so.
          *
          * In the callback function passed to the refreshAsync method, you can use the properties of the AsyncResult object to return the following information.
          * 
@@ -2982,8 +2982,8 @@ declare namespace Office {
          * Any settings previously saved by an add-in are loaded when it is initialized, so during the lifetime of the session you can just use the set and get methods to work with the in-memory copy of the settings property bag. 
          * When you want to persist the settings so that they are available the next time the add-in is used, use the saveAsync method.
          *
-         * Note: The saveAsync method persists the in-memory settings property bag into the document file; however, the changes to the document file itself are saved only when the user (or AutoRecover setting) saves the document to the file system. 
-         * The refreshAsync method is only useful in coauthoring scenarios (which are only supported in Word) when other instances of the same add-in might change the settings and those changes should be made available to all instances.
+         * Note: The saveAsync method persists the in-memory settings property bag into the document file. However, the changes to the document file itself are saved only when the user (or AutoRecover setting) saves the document to the file system. 
+         * The refreshAsync method is only useful in coauthoring scenarios when other instances of the same add-in might change the settings and those changes should be made available to all instances.
          * 
          * <table>
          *   <tr>
