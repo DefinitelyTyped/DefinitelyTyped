@@ -54,52 +54,6 @@ export interface SpaceProps {
 export function space(...args: any[]): any;
 
 /**
- * Width
- */
-
-export type WidthValue = number | any;
-export type ResponsiveWidthValue = ResponsiveValue<WidthValue>;
-
-export interface WidthProps {
-    width?: ResponsiveWidthValue;
-}
-
-export interface MinWidthProps {
-    minWidth?: ResponsiveWidthValue;
-}
-
-export interface MaxWidthProps {
-    maxWidth?: ResponsiveWidthValue;
-}
-
-export function width(...args: any[]): any;
-export function minWidth(...args: any[]): any;
-export function maxWidth(...args: any[]): any;
-
-/**
- * Height
- */
-
-export type HeightValue = number | string;
-export type ResponsiveHeightValue = ResponsiveValue<HeightValue>;
-
-export interface HeightProps {
-    height?: ResponsiveHeightValue;
-}
-
-export interface MinHeightProps {
-    minHeight?: ResponsiveHeightValue;
-}
-
-export interface MaxHeightProps {
-    maxHeight?: ResponsiveHeightValue;
-}
-
-export function height(...args: any[]): any;
-export function minHeight(...args: any[]): any;
-export function maxHeight(...args: any[]): any;
-
-/**
  * Font Size
  */
 
@@ -118,9 +72,20 @@ export function fontSize(...args: any[]): any;
 export type ColorValue = string;
 export type ResponsiveColorValue = ResponsiveValue<ColorValue>;
 
-export interface ColorProps {
+
+export interface TextColorProps {
     color?: ResponsiveColorValue;
 }
+
+export function textColor(...args: any[]): any;
+
+export interface BgColorProps {
+    bg?: ResponsiveColorValue;
+}
+
+export function bgColor(...args: any[]): any;
+
+export interface ColorProps extends TextColorProps, BgColorProps {}
 
 export function color(...args: any[]): any;
 
@@ -199,9 +164,55 @@ export interface DisplayProps {
 
 export function display(...args: any[]): any;
 
-export interface SizeProps {
-    size?: ResponsiveWidthValue | ResponsiveHeightValue;
+export interface MaxWidthProps {
+    maxWidth?: ResponsiveSpaceValue;
 }
+
+export function maxWidth(...args: any[]): any;
+
+export interface MinWidthProps {
+    minWidth?: ResponsiveSpaceValue;
+}
+
+export function minWidth(...args: any[]): any;
+
+export interface WidthProps {
+    width?: ResponsiveSpaceValue;
+}
+
+export function width(...args: any[]): any;
+
+export interface MaxHeightProps {
+    maxHeight?: ResponsiveSpaceValue;
+}
+
+export function maxHeight(...args: any[]): any;
+
+export interface MinHeightProps {
+    minHeight?: ResponsiveSpaceValue;
+}
+
+export function minHeight(...args: any[]): any;
+
+export interface HeightProps {
+    height?: ResponsiveSpaceValue;
+}
+
+export function height(...args: any[]): any;
+
+export interface SizeWidthProps {
+    size?: ResponsiveSpaceValue;
+}
+
+export function sizeWidth(...args: any[]): any;
+
+export interface SizeHeightProps {
+    size?: ResponsiveSpaceValue;
+}
+
+export function sizeHeight(...args: any[]): any;
+
+export interface SizeProps extends SizeHeightProps, SizeWidthProps {}
 
 export function size(...args: any[]): any;
 
@@ -213,6 +224,25 @@ export interface RatioProps {
 }
 
 export function ratio(...args: any[]): any;
+
+export type VerticleAlignValue =
+    | "baseline"
+    | "sub"
+    | "super"
+    | "text-top"
+    | "text-bottom"
+    | "middle"
+    | "top"
+    | "bottom"
+    | string
+    | number
+export type ResponsiveVerticleAlignValue = ResponsiveValue<VerticleAlignValue>;
+
+export interface VerticleAlignProps {
+    verticalAlign?: ResponsiveVerticleAlignValue;
+}
+
+export function verticleAlign(...args: any[]): any;
 
 /**
  * Flexbox
@@ -242,6 +272,31 @@ export interface AlignItemsProps {
 }
 
 export function alignItems(...args: any[]): any;
+
+export type AlignContentValue =
+    | GlobalStyleValues
+    | "center"
+    | "start"
+    | "end"
+    | "flex-start"
+    | "flex-end"
+    | "normal"
+    | "baseline"
+    | "first baseline"
+    | "last baseline"
+    | "space-between"
+    | "space-around"
+    | "space-evenly"
+    | "stretch"
+    | "safe center"
+    | "unsafe center";
+export type ResponsiveAlignContentValue = ResponsiveValue<AlignContentValue>;
+
+export interface AlignContentProps {
+    alignContent?: ResponsiveAlignContentValue;
+}
+
+export function alignContent(...args: any[]): any;
 
 export type JustifyContentValue =
     | "center"
@@ -279,6 +334,26 @@ export interface FlexWrapProps {
 
 export function flexWrap(...args: any[]): any;
 
+export type FlexBasisValue =
+    | GlobalStyleValues
+    | "auto"
+    | "fill"
+    | "max-content"
+    | "min-content"
+    | "fit-content"
+    | "content";
+export type ResponsiveFlexBasisValue = ResponsiveValue<FlexBasisValue>;
+
+export interface FlexBasisProps {
+    // TODO: The FlexBasisValue currently really only exists for documentation
+    //       purposes, because flex-basis also accepts `Nem` and `Npx` strings.
+    //       Not sure there’s a way to still have the union values show up as
+    //       auto-completion results.
+    flexBasis?: ResponsiveFlexBasisValue | string;
+}
+
+export function flexBasis(...args: any[]): any;
+
 export type FlexDirectionValue =
     | GlobalStyleValues
     | "row"
@@ -302,31 +377,6 @@ export interface FlexProps {
 }
 
 export function flex(...args: any[]): any;
-
-export type AlignContentValue =
-    | GlobalStyleValues
-    | "center"
-    | "start"
-    | "end"
-    | "flex-start"
-    | "flex-end"
-    | "normal"
-    | "baseline"
-    | "first baseline"
-    | "last baseline"
-    | "space-between"
-    | "space-around"
-    | "space-evenly"
-    | "stretch"
-    | "safe center"
-    | "unsafe center";
-export type ResponsiveAlignContentValue = ResponsiveValue<AlignContentValue>;
-
-export interface AlignContentProps {
-    alignContent?: ResponsiveAlignContentValue;
-}
-
-export function alignContent(...args: any[]): any;
 
 export type JustifySelfValue =
     | GlobalStyleValues
@@ -391,26 +441,6 @@ export interface OrderProps {
 
 export function order(...args: any[]): any;
 
-export type FlexBasisValue =
-    | GlobalStyleValues
-    | "auto"
-    | "fill"
-    | "max-content"
-    | "min-content"
-    | "fit-content"
-    | "content";
-export type ResponsiveFlexBasisValue = ResponsiveValue<FlexBasisValue>;
-
-export interface FlexBasisProps {
-    // TODO: The FlexBasisValue currently really only exists for documentation
-    //       purposes, because flex-basis also accepts `Nem` and `Npx` strings.
-    //       Not sure there’s a way to still have the union values show up as
-    //       auto-completion results.
-    flexBasis?: ResponsiveFlexBasisValue | string;
-}
-
-export function flexBasis(...args: any[]): any;
-
 /**
  * Grid Layout
  */
@@ -424,17 +454,17 @@ export interface GridGapProps {
 
 export function gridGap(...args: any[]): any;
 
-export interface GridRowGapProps {
-    gridRowGap?: ResponsiveGridGapValue;
-}
-
-export function gridRowGap(...args: any[]): any;
-
 export interface GridColumnGapProps {
     gridColumnGap?: ResponsiveGridGapValue;
 }
 
 export function gridColumnGap(...args: any[]): any;
+
+export interface GridRowGapProps {
+    gridRowGap?: ResponsiveGridGapValue;
+}
+
+export function gridRowGap(...args: any[]): any;
 
 export type GridCellValue = string;
 export type ResponsiveGridCellValue = ResponsiveValue<GridCellValue>;
@@ -460,11 +490,6 @@ export interface GridAutoFlowProps {
 
 export function gridAutoFlow(...args: any[]): any;
 
-export interface GridAutoRowsProps {
-    gridAutoRows?: ResponsiveGridAutoValue;
-}
-
-export function gridAutoRows(...args: any[]): any;
 
 export interface GridAutoColumnsProps {
     gridAutoColumns?: ResponsiveGridAutoValue;
@@ -472,8 +497,20 @@ export interface GridAutoColumnsProps {
 
 export function gridAutoColumns(...args: any[]): any;
 
+export interface GridAutoRowsProps {
+    gridAutoRows?: ResponsiveGridAutoValue;
+}
+
+export function gridAutoRows(...args: any[]): any;
+
 export type GridTemplateValue = string;
 export type ResponsiveGridTemplateValue = ResponsiveValue<GridTemplateValue>;
+
+export interface GridTemplatesColumnsProps {
+    gridTemplateColumns?: ResponsiveGridTemplateValue;
+}
+
+export function gridTemplateColumns(...args: any[]): any;
 
 export interface GridTemplatesRowsProps {
     gridTemplateRows?: ResponsiveGridTemplateValue;
@@ -481,11 +518,82 @@ export interface GridTemplatesRowsProps {
 
 export function gridTemplateRows(...args: any[]): any;
 
-export interface GridTemplatesColumnsProps {
-    gridTemplateColumns?: ResponsiveGridTemplateValue;
+/**
+ * Borders
+ */
+
+export type BorderValue = string | number;
+export type ResponsiveBorderValue = ResponsiveValue<BorderValue>;
+
+export interface BorderProps {
+    border?: ResponsiveBorderValue;
 }
 
-export function gridTemplateColumns(...args: any[]): any;
+export function border(...args: any[]): any;
+
+export interface BorderTopProps {
+    borderTop?: ResponsiveBorderValue;
+}
+
+export function borderTop(...args: any[]): any;
+
+export interface BorderRightProps {
+    borderRight?: ResponsiveBorderValue;
+}
+
+export function borderRight(...args: any[]): any;
+
+export interface BorderBottomProps {
+    borderBottom?: ResponsiveBorderValue;
+}
+
+export function borderBottom(...args: any[]): any;
+
+export interface BorderLeftProps {
+    borderLeft?: ResponsiveBorderValue;
+}
+
+export function borderLeft(...args: any[]): any;
+
+export interface BordersProps extends BorderTopProps, BorderRightProps, BorderBottomProps, BorderLeftProps {}
+
+export function borders(...args: any[]): any;
+
+export type BorderColorValue = string;
+export type ResponsiveBorderColorValue = ResponsiveValue<BorderColorValue>;
+
+export interface BorderColorProps {
+    borderColor?: ResponsiveBorderColorValue;
+}
+
+export function borderColor(...args: any[]): any;
+
+export type BorderRadiusValue = string | number;
+export type ResponsiveBorderRadiusValue = ResponsiveValue<BorderRadiusValue>;
+
+export interface BorderRadiusProps {
+    borderRadius?: ResponsiveBorderRadiusValue;
+}
+
+export function borderRadius(...args: any[]): any;
+
+export type BoxShadowValue = string | number;
+export type ResponsiveBoxShadowValue = ResponsiveValue<BoxShadowValue>;
+
+export interface BoxShadowProps {
+    boxShadow?: ResponsiveBoxShadowValue;
+}
+
+export function boxShadow(...arg: any[]): any;
+
+export type OpacityValue = string | number;
+export type ResponsiveOpacityValue = ResponsiveValue<OpacityValue>;
+
+export interface OpacityProps {
+    opacity?: ResponsiveOpacityValue;
+}
+
+export function opacity(...arg: any[]): any;
 
 /**
  * Background
@@ -535,55 +643,6 @@ export interface BackgroundRepeatProps {
 }
 
 export function backgroundRepeat(...args: any[]): any;
-
-/**
- * Misc
- */
-
-export type BorderRadiusValue = string | number;
-export type ResponsiveBorderRadiusValue = ResponsiveValue<BorderRadiusValue>;
-
-export interface BorderRadiusProps {
-    borderRadius?: ResponsiveBorderRadiusValue;
-}
-
-export function borderRadius(...args: any[]): any;
-
-export type BorderColorValue = string;
-export type ResponsiveBorderColorValue = ResponsiveValue<BorderColorValue>;
-
-export interface BorderColorProps {
-    borderColor?: ResponsiveBorderColorValue;
-}
-
-export function borderColor(...args: any[]): any;
-
-export type BorderValue = string | number;
-export type ResponsiveBorderValue = ResponsiveValue<BorderValue>;
-
-export interface BorderProps {
-    border?: ResponsiveBorderValue;
-}
-
-export function border(...args: any[]): any;
-
-export interface BordersProps {
-    border?: ResponsiveBorderValue;
-    borderTop?: ResponsiveBorderValue;
-    borderRight?: ResponsiveBorderValue;
-    borderBottom?: ResponsiveBorderValue;
-    borderLeft?: ResponsiveBorderValue;
-}
-
-export function borders(...args: any[]): any;
-
-export type BoxShadowValue = string | number;
-
-export interface BoxShadowProps {
-    boxShadow?: BoxShadowValue;
-}
-
-export function boxShadow(...arg: any[]): any;
 
 /**
  * Position
@@ -647,6 +706,27 @@ export interface LeftProps {
 }
 
 export function left(...args: any[]): any;
+
+export type Variant = string
+export type ResponsiveVariant = ResponsiveValue<Variant>
+
+export interface TextStyleProps {
+    textStyle?: ResponsiveVariant;
+}
+
+export function textStyle(...args: any[]): any;
+
+export interface ColorStyleProps {
+    colors?: ResponsiveVariant;
+}
+
+export function colorStyle(...args: any[]): any;
+
+export interface ButtonStyleProps {
+    variant?: ResponsiveVariant;
+}
+
+export function buttonStyle(...args: any[]): any;
 
 /**
  * Utilities
