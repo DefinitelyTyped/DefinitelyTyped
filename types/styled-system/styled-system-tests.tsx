@@ -85,14 +85,6 @@ import {
     BackgroundPositionProps,
     BackgroundRepeatProps,
     BackgroundSizeProps,
-    hover,
-    HoverProps,
-    focus,
-    FocusProps,
-    active,
-    ActiveProps,
-    disabled,
-    DisabledProps,
     GridGapProps,
     GridRowGapProps,
     GridColumnGapProps,
@@ -145,11 +137,7 @@ interface BoxProps
         BackgroundImageProps,
         BackgroundPositionProps,
         BackgroundRepeatProps,
-        BackgroundSizeProps,
-        HoverProps,
-        FocusProps,
-        ActiveProps,
-        DisabledProps {}
+        BackgroundSizeProps {}
 const Box = styled.div.attrs<BoxProps>({})`
 
 border-radius: ${themeGet("radii.small", "4px")};
@@ -183,10 +171,6 @@ border-radius: ${themeGet("radii.small", "4px")};
   ${backgroundPosition}
   ${backgroundRepeat}
   ${backgroundSize}
-  ${hover}
-  ${focus}
-  ${active}
-  ${disabled}
 `;
 
 interface TextProps
