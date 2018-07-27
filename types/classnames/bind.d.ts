@@ -1,3 +1,3 @@
 import * as cn from "./index";
 
-export function bind(styles: Record<string, string>): typeof cn;
+export default function bind(styles: Record<string, string>): typeof cn;
