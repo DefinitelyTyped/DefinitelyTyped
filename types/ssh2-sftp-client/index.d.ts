@@ -4,16 +4,16 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as ssh2 from 'ssh2';
-
+import * as ssh2Stream from 'ssh2-streams';
 export = sftp;
 
 declare class sftp {
   connect(options: ssh2.ConnectConfig): Promise<void>;
   list(remoteFilePath: string): Promise<sftp.FileInfo[]>;
   get(remoteFilePath: string, useCompression?: boolean, encoding?: string | null): Promise<NodeJS.ReadableStream>;
-  fastGet(remoteFilePath: string, localPath: string, options?: any): Promise<any>;
+  fastGet(remoteFilePath: string, localPath: string, options?: ssh2Stream.TransferOptions): Promise<any>;
   put(input: string | Buffer | NodeJS.ReadableStream, remoteFilePath: string, useCompression?: boolean, encoding?: string): Promise<void>;
-  fastPut(localPath: string, emoteFilePath: string, options?: any): Promise<any>;
+  fastPut(localPath: string, emoteFilePath: string, options?: ssh2Stream.TransferOptions): Promise<any>;
   mkdir(remoteFilePath: string, recursive?: boolean): Promise<void>;
   rmdir(remoteFilePath: string, recursive?: boolean): Promise<void>;
   delete(remoteFilePath: string): Promise<void>;
