@@ -10,6 +10,17 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
+import * as util from './util';
+
+export { util };
+
+export {
+    style,
+    themeGet,
+    merge,
+    compose,
+} from './util';
+
 /**
  * Core
  */
@@ -71,7 +82,6 @@ export function fontSize(...args: any[]): any;
  */
 export type ColorValue = string;
 export type ResponsiveColorValue = ResponsiveValue<ColorValue>;
-
 
 export interface TextColorProps {
     color?: ResponsiveColorValue;
@@ -235,7 +245,7 @@ export type VerticleAlignValue =
     | "top"
     | "bottom"
     | string
-    | number
+    | number;
 export type ResponsiveVerticleAlignValue = ResponsiveValue<VerticleAlignValue>;
 
 export interface VerticleAlignProps {
@@ -490,7 +500,6 @@ export interface GridAutoFlowProps {
 
 export function gridAutoFlow(...args: any[]): any;
 
-
 export interface GridAutoColumnsProps {
     gridAutoColumns?: ResponsiveGridAutoValue;
 }
@@ -707,8 +716,8 @@ export interface LeftProps {
 
 export function left(...args: any[]): any;
 
-export type Variant = string
-export type ResponsiveVariant = ResponsiveValue<Variant>
+export type Variant = string;
+export type ResponsiveVariant = ResponsiveValue<Variant>;
 
 export interface TextStyleProps {
     textStyle?: ResponsiveVariant;
@@ -728,28 +737,20 @@ export interface ButtonStyleProps {
 
 export function buttonStyle(...args: any[]): any;
 
-/**
- * Utilities
- */
+// Other utils
 
-export function theme(keys: string): any;
-export function themeGet(keys: string, fallback?: string): any;
-
-export function cleanElement(component: any): any;
-
-export function removeProps(props: any): any;
-
-/**
- * Low-level style export functions
- */
-
-export interface LowLevelStylefunctionArguments {
-    prop: string;
-    cssProperty?: string;
+export interface VariantArgs {
     key?: string;
-    getter?: () => any;
-    transformValue?: () => any;
-    scale?: Array<string|number>;
+    // Defaults to "variant"
+    prop?: string;
 }
 
-export function style(args: LowLevelStylefunctionArguments): any;
+export function variant(props: VariantArgs): (...args: any[]) => any;
+
+export interface MixedProps {
+    key?: any;
+    // Defaults to "variant"
+    prop?: string;
+}
+
+export function mixed(...args: any[]): any;
