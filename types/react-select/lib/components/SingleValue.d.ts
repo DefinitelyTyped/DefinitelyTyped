@@ -1,8 +1,6 @@
-// @flow
-import React from 'react';
-import { css as emotionCss } from 'emotion';
+import { ComponentType } from 'react';
 import { colors, spacing } from '../theme';
-import type { CommonProps } from '../types';
+import { CommonProps } from '../types';
 
 type State = {
   /** Whether this is disabled */
@@ -18,36 +16,8 @@ type ValueProps = {
 };
 export type SingleValueProps = CommonProps & ValueProps & State;
 
-export const css = ({ isDisabled }: SingleValueProps) => ({
-  color: isDisabled ? colors.neutral40 : colors.text,
-  marginLeft: spacing.baseUnit / 2,
-  marginRight: spacing.baseUnit / 2,
-  maxWidth: `calc(100% - ${spacing.baseUnit * 2}px)`,
-  overflow: 'hidden',
-  position: 'absolute',
-  textOverflow: 'ellipsis',
-  whiteSpace: 'nowrap',
-  top: '50%',
-  transform: 'translateY(-50%)',
-});
+export const css: (props: SingleValueProps) => any; // TODO css type
 
-const SingleValue = (props: SingleValueProps) => {
-  const { children, className, cx, getStyles, isDisabled, innerProps } = props;
-  return (
-    <div
-      className={cx(
-        emotionCss(getStyles('singleValue', props)),
-        {
-          'single-value': true,
-          'single-value--is-disabled': isDisabled
-        },
-        className
-      )}
-      {...innerProps}
-    >
-      {children}
-    </div>
-  );
-};
+export const SingleValue: ComponentType<SingleValueProps>;
 
 export default SingleValue;

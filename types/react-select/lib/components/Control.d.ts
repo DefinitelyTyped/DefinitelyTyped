@@ -1,9 +1,7 @@
-// @flow
-import React, { type Node, type ElementRef } from 'react';
-import { css as emotionCSS } from 'emotion';
+import { ComponentType, ReactNode as Node, Ref as ElementRef } from 'react';
 
 import { borderRadius, colors, spacing } from '../theme';
-import type { CommonProps, PropsWithStyles } from '../types';
+import { CommonProps, PropsWithStyles } from '../types';
 
 type State = {
   /** Whether the select is disabled. */
@@ -17,54 +15,15 @@ export type ControlProps = CommonProps &
   State & {
     /** Children to render. */
     children: Node,
-    innerRef: ElementRef<*>,
+    innerRef: ElementRef<any>,
     /** The mouse down event and the innerRef to pass down to the controller element. */
     innerProps: {
-      onMouseDown: (SyntheticMouseEvent<HTMLElement>) => void,
+      onMouseDown: (event: React.MouseEvent<HTMLElement>) => void,
     },
   };
 
-export const css = ({ isDisabled, isFocused }: State) => ({
-  alignItems: 'center',
-  backgroundColor: isDisabled
-    ? colors.neutral5
-    : isFocused ? colors.neutral0 : colors.neutral2,
-  borderColor: isDisabled
-    ? colors.neutral10
-    : isFocused ? colors.primary : colors.neutral20,
-  borderRadius: borderRadius,
-  borderStyle: 'solid',
-  borderWidth: 1,
-  boxShadow: isFocused ? `0 0 0 1px ${colors.primary}` : null,
-  cursor: 'default',
-  display: 'flex',
-  flexWrap: 'wrap',
-  justifyContent: 'space-between',
-  minHeight: spacing.controlHeight,
-  outline: '0 !important',
-  position: 'relative',
-  transition: 'all 100ms',
+export const css: (state: State) => any; // TODO css type
 
-  '&:hover': {
-    borderColor: isFocused ? colors.primary : colors.neutral30,
-  },
-});
-
-const Control = (props: ControlProps) => {
-  const { children, cx, getStyles, className, isDisabled, isFocused, innerRef, innerProps } = props;
-  return (
-    <div
-      ref={innerRef}
-      className={cx(emotionCSS(getStyles('control', props)), {
-        'control': true,
-        'control--is-disabled': isDisabled,
-        'control--is-focused': isFocused
-      }, className)}
-      {...innerProps}
-    >
-      {children}
-    </div>
-  );
-};
+declare const Control: ComponentType<ControlProps>;
 
 export default Control;

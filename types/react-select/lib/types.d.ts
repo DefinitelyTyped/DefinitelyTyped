@@ -1,29 +1,26 @@
-// @flow
-import type { Ref } from 'react';
+import { default as React, Ref } from 'react';
 
 export type OptionType = {
-  [string]: any,
+  [key: string]: any,
 };
 
 export type OptionsType = Array<OptionType>;
 
 export type GroupType = {
   options: OptionsType,
-  [string]: any,
+  [key: string]: any,
 };
 
 export type ValueType = OptionType | OptionsType | null | void;
 
-export type FocusEventHandler = (SyntheticFocusEvent<HTMLElement>) => void;
-export type MouseEventHandler = (SyntheticMouseEvent<HTMLElement>) => void;
-export type KeyboardEventHandler = (
-  SyntheticKeyboardEvent<HTMLElement>
-) => void;
+export type FocusEventHandler = (event: React.FocusEvent<HTMLElement>) => void;
+export type MouseEventHandler = (event: React.MouseEvent<HTMLElement>) => void;
+export type KeyboardEventHandler = (event: React.KeyboardEvent<HTMLElement>) => void;
 
-export type InnerRef = Ref<*>;
+export type InnerRef = Ref<any>;
 export type PropsWithInnerRef = {
   /** The inner reference. */
-  innerRef: Ref<*>,
+  innerRef: Ref<any>,
 };
 
 export type PropsWithStyles = {
@@ -32,29 +29,29 @@ export type PropsWithStyles = {
     property as the first argument, and the current props as the second argument.
     See the `styles` object for the properties available.
   */
-  getStyles: (string, any) => {},
+  getStyles: (name: string, props: any) => {},
 };
 
 export type ClassNameList = Array<string>;
-export type ClassNamesState = { [string]: boolean } | void;
+export type ClassNamesState = { [key: string]: boolean } | void;
 
 export type CommonProps = {
   clearValue: () => void,
   className?: string,
-  cx: (?string | null, ClassNamesState | void, string | void) => string | void,
+  cx: (a: string | null, b: ClassNamesState | void, c: string | void) => string | void,
   /**
     Get the styles of a particular part of the select. Pass in the name of the
     property as the first argument, and the current props as the second argument.
     See the `styles` object for the properties available.
   */
-  getStyles: (string, any) => {},
+  getStyles: (name: string, props: any) => {},
   getValue: () => ValueType,
   hasValue: boolean,
   isMulti: boolean,
   options: OptionsType,
-  selectOption: OptionType => void,
+  selectOption: (option: OptionType) => void,
   selectProps: any,
-  setValue: (ValueType, ActionTypes) => void,
+  setValue: (value: ValueType, action: ActionTypes) => void,
 };
 
 export type ActionTypes =
@@ -76,9 +73,9 @@ export type InputActionTypes =
   | 'input-blur'
   | 'menu-close';
 
-export type InputActionMeta = {|
+export type InputActionMeta = {
   action: InputActionTypes,
-|};
+};
 
 export type MenuPlacement = 'auto' | 'bottom' | 'top';
 export type MenuPosition = 'absolute' | 'fixed';

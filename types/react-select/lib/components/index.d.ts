@@ -1,19 +1,18 @@
-// @flow
 import {
-  type ComponentType,
-  type Element,
+  ComponentType,
+  ReactElement as Element,
 } from 'react';
 import {
-  type IndicatorContainerProps,
-  type ContainerProps,
-  type ValueContainerProps,
+  IndicatorContainerProps,
+  ContainerProps,
+  ValueContainerProps,
   IndicatorsContainer,
   SelectContainer,
   ValueContainer,
 } from './containers';
 import {
-  type IndicatorProps,
-  type LoadingIconProps,
+  IndicatorProps,
+  LoadingIconProps,
   ClearIndicator,
   DropdownIndicator,
   LoadingIndicator,
@@ -22,28 +21,28 @@ import {
   CrossIcon,
 } from './indicators';
 
-import Control, { type ControlProps } from './Control';
-import Group, { type GroupProps, GroupHeading } from './Group';
-import Input, { type InputProps } from './Input';
+import Control, { ControlProps } from './Control';
+import Group, { GroupProps, GroupHeading } from './Group';
+import Input, { InputProps } from './Input';
 import Menu, {
-  type MenuProps,
+  MenuProps,
   MenuList,
-  type MenuListComponentProps,
+  MenuListComponentProps,
   MenuPortal,
-  type MenuPortalProps,
-  type NoticeProps,
+  MenuPortalProps,
+  NoticeProps,
   NoOptionsMessage,
   LoadingMessage,
 } from './Menu';
 import MultiValue, {
-  type MultiValueProps,
+  MultiValueProps,
   MultiValueContainer,
   MultiValueLabel,
   MultiValueRemove,
 } from './MultiValue';
-import Option, { type OptionProps } from './Option';
-import Placeholder, { type PlaceholderProps } from './Placeholder';
-import SingleValue, { type SingleValueProps } from './SingleValue';
+import Option, { OptionProps } from './Option';
+import Placeholder, { PlaceholderProps } from './Placeholder';
+import SingleValue, { SingleValueProps } from './SingleValue';
 
 export type PlaceholderOrValue =
   | Element<ComponentType<PlaceholderProps>>
@@ -80,41 +79,64 @@ export type SelectComponents = {
   ValueContainer: ComponentType<ValueContainerProps>,
 };
 
-export type SelectComponentsConfig = $Shape<SelectComponents>;
-
-export const components: SelectComponents = {
-  ClearIndicator: ClearIndicator,
-  Control: Control,
-  DropdownIndicator: DropdownIndicator,
-  DownChevron: DownChevron,
-  CrossIcon: CrossIcon,
-  Group: Group,
-  GroupHeading: GroupHeading,
-  IndicatorsContainer: IndicatorsContainer,
-  IndicatorSeparator: IndicatorSeparator,
-  Input: Input,
-  LoadingIndicator: LoadingIndicator,
-  Menu: Menu,
-  MenuList: MenuList,
-  MenuPortal: MenuPortal,
-  LoadingMessage: LoadingMessage,
-  NoOptionsMessage: NoOptionsMessage,
-  MultiValue: MultiValue,
-  MultiValueContainer: MultiValueContainer,
-  MultiValueLabel: MultiValueLabel,
-  MultiValueRemove: MultiValueRemove,
-  Option: Option,
-  Placeholder: Placeholder,
-  SelectContainer: SelectContainer,
-  SingleValue: SingleValue,
-  ValueContainer: ValueContainer,
+export type SelectComponentsConfig = {
+  ClearIndicator?: IndicatorComponentType | null,
+  Control?: ComponentType<ControlProps>,
+  DropdownIndicator?: IndicatorComponentType | null,
+  DownChevron?: ComponentType<any>,
+  CrossIcon?: ComponentType<any>,
+  Group?: ComponentType<GroupProps>,
+  GroupHeading?: ComponentType<any>,
+  IndicatorsContainer?: ComponentType<IndicatorContainerProps>,
+  IndicatorSeparator?: IndicatorComponentType | null,
+  Input?: ComponentType<InputProps>,
+  LoadingIndicator?: ComponentType<LoadingIconProps> | null,
+  Menu?: ComponentType<MenuProps>,
+  MenuList?: ComponentType<MenuListComponentProps>,
+  MenuPortal?: ComponentType<MenuPortalProps>,
+  LoadingMessage?: ComponentType<NoticeProps>,
+  NoOptionsMessage?: ComponentType<NoticeProps>,
+  MultiValue?: ComponentType<MultiValueProps>,
+  MultiValueContainer?: ComponentType<any>,
+  MultiValueLabel?: ComponentType<any>,
+  MultiValueRemove?: ComponentType<any>,
+  Option?: ComponentType<OptionProps>,
+  Placeholder?: ComponentType<PlaceholderProps>,
+  SelectContainer?: ComponentType<ContainerProps>,
+  SingleValue?: ComponentType<SingleValueProps>,
+  ValueContainer?: ComponentType<ValueContainerProps>,
 };
+
+export namespace components {
+  const ClearIndicator: IndicatorComponentType | null;
+  const Control: ComponentType<ControlProps>;
+  const DropdownIndicator: IndicatorComponentType | null;
+  const DownChevron: ComponentType<any>;
+  const CrossIcon: ComponentType<any>;
+  const Group: ComponentType<GroupProps>;
+  const GroupHeading: ComponentType<any>;
+  const IndicatorsContainer: ComponentType<IndicatorContainerProps>;
+  const IndicatorSeparator: IndicatorComponentType | null;
+  const Input: ComponentType<InputProps>;
+  const LoadingIndicator: ComponentType<LoadingIconProps> | null;
+  const Menu: ComponentType<MenuProps>;
+  const MenuList: ComponentType<MenuListComponentProps>;
+  const MenuPortal: ComponentType<MenuPortalProps>;
+  const LoadingMessage: ComponentType<NoticeProps>;
+  const NoOptionsMessage: ComponentType<NoticeProps>;
+  const MultiValue: ComponentType<MultiValueProps>;
+  const MultiValueContainer: ComponentType<any>;
+  const MultiValueLabel: ComponentType<any>;
+  const MultiValueRemove: ComponentType<any>;
+  const Option: ComponentType<OptionProps>;
+  const Placeholder: ComponentType<PlaceholderProps>;
+  const SelectContainer: ComponentType<ContainerProps>;
+  const SingleValue: ComponentType<SingleValueProps>;
+  const ValueContainer: ComponentType<ValueContainerProps>;
+}
 
 type Props = {
   components: SelectComponentsConfig,
 };
 
-export const defaultComponents = (props: Props) => ({
-  ...components,
-  ...props.components,
-});
+export const defaultComponents: (props: Props) => SelectComponentsConfig;

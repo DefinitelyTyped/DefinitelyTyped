@@ -1,42 +1,17 @@
-// @flow
-import React, { type Node } from 'react';
-import { css } from 'emotion';
+import { ComponentType, ReactNode as Node } from 'react';
 
 import { colors, spacing } from '../theme';
-import type { CommonProps } from '../types';
+import { CommonProps } from '../types';
 
 export type PlaceholderProps = CommonProps & {
   /** The children to be rendered. */
   children: Node,
   /** props passed to the wrapping element for the group. */
-  innerProps: { [string]: any },
+  innerProps: { [key: string]: any },
 };
 
-export const placeholderCSS = () => ({
-  color: colors.neutral50,
-  marginLeft: spacing.baseUnit / 2,
-  marginRight: spacing.baseUnit / 2,
-  position: 'absolute',
-  top: '50%',
-  transform: 'translateY(-50%)',
-});
+export const placeholderCSS: () => any; // TODO css type
 
-const Placeholder = (props: PlaceholderProps) => {
-  const { children, className, cx, getStyles, innerProps } = props;
-  return (
-    <div
-      className={cx(
-        css(getStyles('placeholder', props)),
-        {
-          'placeholder': true,
-        },
-        className
-      )}
-      {...innerProps}
-    >
-      {children}
-    </div>
-  );
-};
+export const Placeholder: ComponentType<PlaceholderProps>;
 
 export default Placeholder;

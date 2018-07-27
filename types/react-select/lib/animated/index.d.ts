@@ -1,32 +1,24 @@
-// @flow
-import memoize from 'memoize-one';
-import isEqual from '../internal/react-fast-compare';
-import { type SelectComponents, defaultComponents } from '../components/index';
+import { ComponentType } from 'react';
+import { SelectComponents, defaultComponents } from '../components/index';
 import { default as AnimatedInput } from './Input';
 import { default as AnimatedMultiValue } from './MultiValue';
 import { default as AnimatedPlaceholder } from './Placeholder';
 import { default as AnimatedSingleValue } from './SingleValue';
 import { default as AnimatedValueContainer } from './ValueContainer';
+import { InputProps } from '../components/Input';
+import { MultiValueProps } from '../components/MultiValue';
+import { PlaceholderProps } from '../components/Placeholder';
+import { SingleValueProps } from '../components/SingleValue';
+import { ValueContainerProps } from '../components/containers';
 
-const makeAnimated = (externalComponents?: SelectComponents) => {
-  const components = defaultComponents({ components: externalComponents });
-  const { Input, MultiValue, Placeholder, SingleValue, ValueContainer, ...rest } = components;
-  return {
-    Input: AnimatedInput(Input),
-    MultiValue: AnimatedMultiValue(MultiValue),
-    Placeholder: AnimatedPlaceholder(Placeholder),
-    SingleValue: AnimatedSingleValue(SingleValue),
-    ValueContainer: AnimatedValueContainer(ValueContainer),
-    ...rest,
-  };
-};
+declare const makeAnimated: (externalComponents?: SelectComponents) => SelectComponents;
 
-const AnimatedComponents = makeAnimated();
+declare const AnimatedComponents: SelectComponents;
 
-export const Input = AnimatedComponents.Input;
-export const MultiValue = AnimatedComponents.MultiValue;
-export const Placeholder = AnimatedComponents.Placeholder;
-export const SingleValue = AnimatedComponents.SingleValue;
-export const ValueContainer = AnimatedComponents.ValueContainer;
+export const Input: ComponentType<InputProps>;
+export const MultiValue: ComponentType<MultiValueProps>;
+export const Placeholder: ComponentType<PlaceholderProps>;
+export const SingleValue: ComponentType<SingleValueProps>;
+export const ValueContainer: ComponentType<ValueContainerProps>;
 
-export default memoize(makeAnimated, isEqual);
+export default makeAnimated;

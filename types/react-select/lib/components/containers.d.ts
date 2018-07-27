@@ -1,8 +1,6 @@
-// @flow
-import React, { Component, type Node } from 'react';
-import { css } from 'emotion';
+import { Component, ReactNode as Node, ComponentType } from 'react';
 import { spacing } from '../theme';
-import type { CommonProps, KeyboardEventHandler } from '../types';
+import { CommonProps, KeyboardEventHandler } from '../types';
 
 // ==============================
 // Root Container
@@ -22,29 +20,8 @@ export type ContainerProps = CommonProps &
     /** Inner props to be passed down to the container. */
     innerProps: { onKeyDown: KeyboardEventHandler },
   };
-export const containerCSS = ({ isDisabled, isRtl }: ContainerState) => ({
-  direction: isRtl ? 'rtl' : null,
-  pointerEvents: isDisabled ? 'none' : null, // cancel mouse events when disabled
-  position: 'relative',
-});
-export const SelectContainer = (props: ContainerProps) => {
-  const { children, className, cx, getStyles, innerProps, isDisabled, isRtl } = props;
-  return (
-    <div
-      className={cx(
-        css(getStyles('container', props)),
-        {
-          '--is-disabled': isDisabled,
-          '--is-rtl': isRtl
-        },
-        className
-      )}
-      {...innerProps}
-    >
-      {children}
-    </div>
-  );
-};
+export const containerCSS: (state: ContainerState) => any; // TODO css type;
+export const SelectContainer: ComponentType<ContainerProps>;
 
 // ==============================
 // Value Container
@@ -58,34 +35,8 @@ export type ValueContainerProps = CommonProps & {
   /** The children to be rendered. */
   children: Node,
 };
-export const valueContainerCSS = () => ({
-  alignItems: 'center',
-  display: 'flex',
-  flex: 1,
-  flexWrap: 'wrap',
-  padding: `${spacing.baseUnit / 2}px ${spacing.baseUnit * 2}px`,
-  WebkitOverflowScrolling: 'touch',
-  position: 'relative',
-});
-export class ValueContainer extends Component<ValueContainerProps> {
-  render() {
-    const { children, className, cx, isMulti, getStyles, hasValue } = this.props;
-
-    return (
-      <div
-        className={cx(
-          css(getStyles('valueContainer', this.props)),
-          {
-            'value-container': true,
-            'value-container--is-multi': isMulti,
-            'value-container--has-value': hasValue,
-          }, className)}
-      >
-        {children}
-      </div>
-    );
-  }
-}
+export const valueContainerCSS: () => any; // TODO css type;
+export class ValueContainer extends Component<ValueContainerProps> {}
 
 // ==============================
 // Indicator Container
@@ -102,26 +53,5 @@ export type IndicatorContainerProps = CommonProps &
     children: Node,
   };
 
-export const indicatorsContainerCSS = () => ({
-  alignItems: 'center',
-  alignSelf: 'stretch',
-  display: 'flex',
-  flexShrink: 0,
-});
-export const IndicatorsContainer = (props: IndicatorContainerProps) => {
-  const { children, className, cx, getStyles } = props;
-
-  return (
-    <div
-      className={cx(
-        css(getStyles('indicatorsContainer', props)),
-        {
-          'indicators': true,
-        },
-        className
-      )}
-    >
-      {children}
-    </div>
-  );
-};
+export const indicatorsContainerCSS: () => any; // TODO css type;
+export const IndicatorsContainer: ComponentType<IndicatorContainerProps>;
