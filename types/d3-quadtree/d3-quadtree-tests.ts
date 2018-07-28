@@ -83,8 +83,7 @@ quadtree = d3Quadtree.quadtree<TestDatum>(testData); // explicitly typed to Test
 
 // test without data
 quadtree = d3Quadtree.quadtree<TestDatum>();
-// $ExpectError
-quadtree = d3Quadtree.quadtree(); // fails, wrong underlying data type
+quadtree = d3Quadtree.quadtree(); // inferred type underlying quadtree TestDatum
 
 // Configure Quadtree ========================================================
 
