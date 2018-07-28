@@ -43,6 +43,8 @@ export class Request<T> implements Promise<T> {
 
     thenCall(callback?: (err: Error, records: T) => void): Query<T>;
 
+    finally(onfinally?: (() => void) | null | undefined): Promise<T>;
+
     readonly [Symbol.toStringTag]: 'Promise';
 }
 
