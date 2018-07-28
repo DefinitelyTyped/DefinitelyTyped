@@ -15,10 +15,10 @@
         ],
         "paths": {
             "simple-oauth2": [
-                "simple-oauth2/v2"
+                "simple-oauth2/v1"
             ],
             "simple-oauth2/*": [
-                "simple-oauth2/v2/*"
+                "simple-oauth2/v1/*"
             ]
         },
         "types": [],
