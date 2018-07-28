@@ -83,7 +83,6 @@ quadtree = d3Quadtree.quadtree<TestDatum>(testData); // explicitly typed to Test
 
 // test without data
 quadtree = d3Quadtree.quadtree<TestDatum>();
-quadtree = d3Quadtree.quadtree(); // inferred type underlying quadtree TestDatum
 
 // Configure Quadtree ========================================================
 
