@@ -6,7 +6,7 @@
 
 /// <reference types="jquery"/>
 
-// Interface options for the plugin 
+// Interface options for the plugin
 interface JQueryFileInputOptions {
 
     /**
@@ -199,7 +199,7 @@ interface JQueryFileInputOptions {
      * handlers using jQuery's Deferred callbacks:
      * data.submit().done(func).fail(func).always(func);
      */
-    add?:  (e: JQueryEventObject, data: JQueryFileUploadChangeObject) => void;
+    add?:  (e: JQueryEventObject, data: JqueryFileUploadAddObject) => void;
 
     // The plugin options are used as settings object for the ajax calls.
     // The following are jQuery ajax settings required for the file uploads:
@@ -263,14 +263,22 @@ interface JQuery {
     fileupload(action: string, message:string, settings: JQueryFileInputOptions | string): JQueryFileUpload;
 }
 
-interface JQuerySupport {
-    fileInput?: boolean;
-}
-
 interface JqueryFileUploadEnhancedPromise<T> extends JQueryPromise<T>{
     success: JQueryPromise<T>['done'],
     error: JQueryPromise<T>['fail'],
     complete: JQueryPromise<T>['always'],
+}
+
+interface JQuerySupport {
+    fileInput?: boolean;
+}
+
+interface JQueryFileUploadChangeObject {
+    fileInput?: JQuery;
+    fileInputClone?: JQuery;
+    files: File[];
+    form?: JQuery;
+    originalFiles: File[];
 }
 
 interface JqueryFileUploadConvenienceObject {
@@ -283,12 +291,8 @@ interface JqueryFileUploadConvenienceObject {
     state: () => JqueryFileUploadEnhancedPromise<any>;
 }
 
-interface JQueryFileUploadChangeObject extends JqueryFileUploadConvenienceObject {
-    fileInput?: JQuery;
-    fileInputClone?: JQuery;
-    files: File[];
-    form?: JQuery;
-    originalFiles: File[];
+interface JqueryFileUploadAddObject extends JQueryFileUploadChangeObject, JqueryFileUploadConvenienceObject {
+    paramName?: string | string[];
 }
 
 interface JQueryFileUploadProgressAllObject {
