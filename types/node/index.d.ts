@@ -7181,6 +7181,7 @@ declare module "http2" {
         readonly alpnProtocol?: string;
         close(callback?: () => void): void;
         readonly closed: boolean;
+        readonly connecting: boolean;
         destroy(error?: Error, code?: number): void;
         readonly destroyed: boolean;
         readonly encrypted?: boolean;
@@ -7188,6 +7189,8 @@ declare module "http2" {
         readonly localSettings: Settings;
         readonly originSet?: string[];
         readonly pendingSettingsAck: boolean;
+        ping(callback: (err: Error | null, duration: number, payload: Buffer) => void): boolean;
+        ping(payload: Buffer | DataView | NodeJS.TypedArray , callback: (err: Error | null, duration: number, payload: Buffer) => void): boolean;
         ref(): void;
         readonly remoteSettings: Settings;
         rstStream(stream: Http2Stream, code?: number): void;
