@@ -26,7 +26,9 @@ export as namespace videojs;
 declare namespace videojs {
     const getComponent: typeof Component.getComponent;
     const registerComponent: typeof Component.registerComponent;
-    function getPlayers(): {[index: string]: Player}
+    function getPlayer(id: string | HTMLElement): Player;
+    function getAllPlayers(): Player[];
+    function getPlayers(): {[key: string]: Player};
     const getPlugin: typeof Plugin.getPlugin;
     function registerPlugin(
         pluginName: string,
