@@ -3,7 +3,7 @@ import { InputProps } from '../components/Input';
 import { BaseTransition } from './transitions';
 import { PropsWithInnerRef } from '../types';
 
-type AnimatedInputProps = BaseTransition & PropsWithInnerRef;
+export type AnimatedInputProps = BaseTransition & PropsWithInnerRef & InputProps;
 
 declare const AnimatedInput: (WrappedComponent: ComponentType<InputProps>) => ComponentType<AnimatedInputProps>;
 

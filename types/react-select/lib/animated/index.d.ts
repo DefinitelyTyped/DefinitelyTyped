@@ -1,24 +1,19 @@
 import { ComponentType } from 'react';
 import { SelectComponents, defaultComponents } from '../components/index';
-import { default as AnimatedInput } from './Input';
-import { default as AnimatedMultiValue } from './MultiValue';
-import { default as AnimatedPlaceholder } from './Placeholder';
-import { default as AnimatedSingleValue } from './SingleValue';
-import { default as AnimatedValueContainer } from './ValueContainer';
-import { InputProps } from '../components/Input';
-import { MultiValueProps } from '../components/MultiValue';
-import { PlaceholderProps } from '../components/Placeholder';
-import { SingleValueProps } from '../components/SingleValue';
-import { ValueContainerProps } from '../components/containers';
+import { default as AnimatedInput, AnimatedInputProps } from './Input';
+import { default as AnimatedMultiValue, AnimatedMultiValueProps } from './MultiValue';
+import { default as AnimatedPlaceholder, AnimatedPlaceholderProps } from './Placeholder';
+import { default as AnimatedSingleValue, AnimatedSingleValueProps } from './SingleValue';
+import { default as AnimatedValueContainer, AnimatedValueContainerProps } from './ValueContainer';
 
 declare const makeAnimated: (externalComponents?: SelectComponents) => SelectComponents;
 
 declare const AnimatedComponents: SelectComponents;
 
-export const Input: ComponentType<InputProps>;
-export const MultiValue: ComponentType<MultiValueProps>;
-export const Placeholder: ComponentType<PlaceholderProps>;
-export const SingleValue: ComponentType<SingleValueProps>;
-export const ValueContainer: ComponentType<ValueContainerProps>;
+export const Input: ComponentType<AnimatedInputProps>;
+export const MultiValue: ComponentType<AnimatedMultiValueProps>;
+export const Placeholder: ComponentType<AnimatedPlaceholderProps>;
+export const SingleValue: ComponentType<AnimatedSingleValueProps>;
+export const ValueContainer: ComponentType<AnimatedValueContainerProps>;
 
 export default makeAnimated;

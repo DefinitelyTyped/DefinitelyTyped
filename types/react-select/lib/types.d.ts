@@ -11,6 +11,8 @@ export type GroupType = {
   [key: string]: any,
 };
 
+export type GroupedOptionsType = Array<GroupType>;
+
 export type ValueType = OptionType | OptionsType | null | void;
 
 export type FocusEventHandler = (event: React.FocusEvent<HTMLElement>) => void;

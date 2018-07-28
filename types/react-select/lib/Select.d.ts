@@ -107,7 +107,7 @@ export type Props = {
   /* Formats group labels in the menu as React components */
   formatGroupLabel: typeof formatGroupLabel,
   /* Formats option labels in the menu and control as React components */
-  formatOptionLabel?: (OptionType, FormatOptionLabelMeta) => Node,
+  formatOptionLabel?: (a: OptionType, b: FormatOptionLabelMeta) => Node,
   /* Resolves option data to a string to be displayed as the label by components */
   getOptionLabel: typeof getOptionLabel,
   /* Resolves option data to a string to compare options and specify value attributes */
@@ -129,9 +129,9 @@ export type Props = {
   /* Is the select in a state of loading (async) */
   isLoading: boolean,
   /* Override the built-in logic to detect whether an option is disabled */
-  isOptionDisabled: (OptionType, OptionsType) => boolean | false,
+  isOptionDisabled: (a: OptionType, b: OptionsType) => boolean | false,
   /* Override the built-in logic to detect whether an option is selected */
-  isOptionSelected?: (OptionType, OptionsType) => boolean,
+  isOptionSelected?: (a: OptionType, b: OptionsType) => boolean,
   /* Support multiple selected options */
   isMulti: boolean,
   /* Is the select direction right-to-left */
@@ -139,7 +139,7 @@ export type Props = {
   /* Whether to enable search functionality */
   isSearchable: boolean,
   /* Async: Text to display when loading options */
-  loadingMessage: ({ inputValue: string }) => string | null,
+  loadingMessage: (obj: { inputValue: string }) => string | null,
   /* Minimum height of the menu before flipping */
   minMenuHeight: number,
   /* Maximum height of the menu before scrolling */
@@ -160,15 +160,15 @@ export type Props = {
   /* Name of the HTML Input (optional - without this, no input will be rendered) */
   name?: string,
   /* Text to display when there are no options */
-  noOptionsMessage: ({ inputValue: string }) => string | null,
+  noOptionsMessage: (obj: { inputValue: string }) => string | null,
   /* Handle blur events on the control */
   onBlur?: FocusEventHandler,
   /* Handle change events on the select */
-  onChange: (ValueType, ActionMeta) => void,
+  onChange: (value: ValueType, action: ActionMeta) => void,
   /* Handle focus events on the control */
   onFocus?: FocusEventHandler,
   /* Handle change events on the input */
-  onInputChange: (string, InputActionMeta) => void,
+  onInputChange: (newValue: string, actionMeta: InputActionMeta) => void,
   /* Handle key down events on the select */
   onKeyDown?: KeyboardEventHandler,
   /* Handle the menu opening */
@@ -190,7 +190,7 @@ export type Props = {
   /* Placeholder text for the select value */
   placeholder: string,
   /* Status to relay to screen readers */
-  screenReaderStatus: ({ count: number }) => string,
+  screenReaderStatus: (obj: { count: number }) => string,
   /* Style modifier methods */
   styles: StylesConfig,
   /* Sets the tabIndex attribute on the input */
