@@ -11,3 +11,5 @@ const boundingBox = bounds({
     lon: 100,
     lat: 200,
 }, 14, [640, 480]);
+
+const boundingBox2 = bounds([100, 200], 14, [640, 480]);
