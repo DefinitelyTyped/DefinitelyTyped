@@ -2054,6 +2054,11 @@ export interface KeyboardAvoidingViewProps extends ViewProps {
      * may be non-zero in some use cases.
      */
     keyboardVerticalOffset?: number;
+    
+    /**
+     * Enabled or disabled KeyboardAvoidingView.
+     */
+    enabled?: boolean;
 }
 
 /**
