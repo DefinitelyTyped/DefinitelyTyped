@@ -109,3 +109,10 @@ function testPlugin(player: videojs.Player, options: {}) {
 	});
 	(player as any).uloztoExample(options);
 }
+
+function testGetPlayer(id: string) {
+	videojs.getAllPlayers();
+	videojs.getPlayer(id);
+	videojs.getPlayers();
+	videojs.getPlayers()[id];
+}
