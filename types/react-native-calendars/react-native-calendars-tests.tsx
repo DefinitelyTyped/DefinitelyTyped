@@ -1,6 +1,6 @@
-import * as React from "../react";
-import { Text, View } from "../react-native";
-import { Calendar, CalendarList, Agenda } from "../react-native-calendars";
+import * as React from "react";
+import { Text, View } from "react-native";
+import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 
 <Calendar
     // Initially visible month. Default = Date()

@@ -2,11 +2,12 @@
 // Project: https://github.com/wix/react-native-calendars#readme
 // Definitions by: Tyler Zhang <https://github.com/Tyler-Zhang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.6
 
 import * as React from 'react';
 import { ViewProps, StyleProp } from 'react-native';
 
-interface DateObject {
+export interface DateObject {
     year: number;
     month: number;
     day: number;
@@ -14,7 +15,7 @@ interface DateObject {
     dateString: string;
 }
 
-interface CalendarTheme {
+export interface CalendarTheme {
     backgroundColor?: string;
     calendarBackground?: string;
     textSectionTitleColor?: string;
@@ -36,7 +37,7 @@ interface CalendarTheme {
     textDayHeaderFontSize?: number;
 }
 
-interface DayComponentProps {
+export interface DayComponentProps {
     state: '' | 'selected' | 'disabled' | 'today';
     theme: CalendarTheme;
     onPress: () => any;
@@ -45,7 +46,7 @@ interface DayComponentProps {
     marking: false | Marking[];
 }
 
-interface CalendarBaseProps {
+export interface CalendarBaseProps {
     /**
      * Styles for the view
      */
@@ -140,23 +141,23 @@ interface CalendarBaseProps {
     /**
      * Custom day renderer
      */
-    dayComponent?: React.Component<DayComponentProps> | React.SFC<DayComponentProps>
+    dayComponent?: React.Component<DayComponentProps> | React.SFC<DayComponentProps>;
 }
 
-interface DotForMultiDot {
+export interface DotForMultiDot {
     key: string;
     color: string;
     selectedDotColor?: string;
 }
 
-interface MultiDotMarking {
-    dots: Array<DotForMultiDot>;
+export interface MultiDotMarking {
+    dots: DotForMultiDot[];
     selected?: boolean;
     selectedColor?: string;
     disabled?: boolean;
 }
 
-interface DotMarking {
+export interface DotMarking {
     selected?: boolean;
     marked?: boolean;
     selectedColor?: string;
@@ -166,7 +167,7 @@ interface DotMarking {
     disableTouchEvent?: boolean;
 }
 
-interface PeriodMarking {
+export interface PeriodMarking {
     textColor?: string;
     startingDay?: boolean;
     color?: string;
@@ -175,79 +176,75 @@ interface PeriodMarking {
     disabled?: boolean;
 }
 
-interface MultiPeriodMarking {
-    periods: {
+export interface MultiPeriodMarking {
+    periods: Array<{
         startingDay?: boolean;
         endingDay?: boolean;
         color?: string;
-    }[];
+    }>;
 }
 
-interface CustomMarking {
+export interface CustomMarking {
     customStyles: any;
 }
 
-type Marking =
+export type Marking =
     MultiDotMarking |
     DotMarking |
     PeriodMarking |
     MultiPeriodMarking |
     CustomMarking;
 
-interface MultiDotMarkingProps {
+export interface MultiDotMarkingProps {
     markingType: 'multi-dot';
     markedDates: {
         [date: string]: MultiDotMarking;
     };
 }
 
-interface DotMarkingProps {
-    markingType: 'simple';
+export interface DotMarkingProps {
+    markingType?: 'simple';
     markedDates: {
         [date: string]: DotMarking;
     };
 }
 
-interface PeriodMarkingProps {
+export interface PeriodMarkingProps {
     markingType: 'period';
     markedDates: {
         [date: string]: PeriodMarking;
     };
 }
 
-interface CustomMarkingProps {
+export interface CustomMarkingProps {
     markingType: 'custom';
     markedDates: {
         [date: string]: CustomMarking;
-    }
+    };
 }
 
 /**
  * This type of marking is only fully supported by <Calendar/> as it will expand the height
  * of the component
  */
-interface MultiPeriodMarkingProps extends CalendarBaseProps {
+export interface MultiPeriodMarkingProps {
     markingType: 'multi-period';
     markedDates: {
         [date: string]: MultiPeriodMarking
-    }
+    };
 }
 
-interface NoMarkingProps extends CalendarBaseProps {}
-
-type CalendarMarkingProps =
-    NoMarkingProps |
+export type CalendarMarkingProps =
     MultiDotMarkingProps |
     DotMarkingProps |
     PeriodMarkingProps |
-    CalendarBaseProps |
     MultiPeriodMarkingProps |
-    CustomMarkingProps;
+    CustomMarkingProps |
+    {};
 
 export class Calendar extends React.Component<CalendarMarkingProps & CalendarBaseProps> {}
 
-interface CalendarListBaseProps extends CalendarBaseProps {
-
+export interface CalendarListBaseProps extends CalendarBaseProps {
     /**
      *  Callback which gets executed when visible months change in scroll view. Default = undefined
      */
@@ -291,14 +288,14 @@ interface CalendarListBaseProps extends CalendarBaseProps {
 
 export class CalendarList extends React.Component<CalendarListBaseProps & CalendarMarkingProps> {}
 
-interface AgendaProps<T> {
+export interface AgendaProps<T> {
     /**
      * the list of items that have to be displayed in agenda. If you want to render item as empty date
      * the value of date key kas to be an empty array []. If there exists no value for date key it is
      * considered that the date in question is not yet loaded
      */
     items: {
-        [key: string]: Array<T>;
+        [key: string]: T[];
     };
 
     /**
@@ -387,7 +384,8 @@ interface AgendaProps<T> {
     refreshControl?: React.ReactNode;
 
     /**
-     * If provided, a standard RefreshControl will be added for "Pull to Refresh" functionality. Make sure to also set the refreshing prop correctly.
+     * If provided, a standard RefreshControl will be added for "Pull to Refresh" functionality.
+     * Make sure to also set the refreshing prop correctly.
      */
     onRefresh?: () => any;
 
