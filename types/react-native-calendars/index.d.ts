@@ -30,18 +30,19 @@ interface CalendarTheme {
     textDayFontFamily?: string;
     textMonthFontFamily?: string;
     textDayHeaderFontFamily?: string;
+    textMonthFontWeight?: string;
     textDayFontSize?: number;
     textMonthFontSize?: number;
     textDayHeaderFontSize?: number;
 }
 
 interface DayComponentProps {
-    state?: '' | 'selected' | 'disabled' | 'today';
-    theme?: CalendarTheme;
-    onPress?: () => any;
-    onLongPress?: () => any;
-    date?: DateObject;
-    marking?: false | Marking[];
+    state: '' | 'selected' | 'disabled' | 'today';
+    theme: CalendarTheme;
+    onPress: () => any;
+    onLongPress: () => any;
+    date: DateObject;
+    marking: false | Marking[];
 }
 
 interface CalendarBaseProps {
@@ -119,12 +120,12 @@ interface CalendarBaseProps {
     /**
      *  Hide day names. Default = false
      */
-    hideDayNames?: number;
+    hideDayNames?: boolean;
 
     /**
      *  Show week numbers to the left. Default = false
      */
-    showWeekNumbers?: number;
+    showWeekNumbers?: boolean;
 
     /**
      *  Handler which gets executed when press arrow icon left. It receive a callback can go back month
@@ -152,6 +153,7 @@ interface MultiDotMarking {
     dots: Array<DotForMultiDot>;
     selected?: boolean;
     selectedColor?: string;
+    disabled?: boolean;
 }
 
 interface DotMarking {
@@ -166,10 +168,11 @@ interface DotMarking {
 
 interface PeriodMarking {
     textColor?: string;
-    startDay?: boolean;
-    color?: boolean;
+    startingDay?: boolean;
+    color?: string;
     selected?: boolean;
     endingDay?: boolean;
+    disabled?: boolean;
 }
 
 interface MultiPeriodMarking {
@@ -191,28 +194,32 @@ type Marking =
     MultiPeriodMarking |
     CustomMarking;
 
-interface MultiDotMarkingProps extends CalendarBaseProps {
+interface MultiDotMarkingProps {
     markingType: 'multi-dot';
     markedDates: {
         [date: string]: MultiDotMarking;
     };
 }
 
-interface DotMarkingProps extends CalendarBaseProps {
+interface DotMarkingProps {
     markingType: 'simple';
     markedDates: {
         [date: string]: DotMarking;
     };
 }
 
-interface PeriodMarkingProps extends CalendarBaseProps {
+interface PeriodMarkingProps {
     markingType: 'period';
     markedDates: {
         [date: string]: PeriodMarking;
     };
 }
 
-interface CustomMarkingProps extends CalendarBaseProps {
+interface CustomMarkingProps {
+    markingType: 'custom';
+    markedDates: {
+        [date: string]: CustomMarking;
+    }
 }
 
 /**
@@ -226,14 +233,18 @@ interface MultiPeriodMarkingProps extends CalendarBaseProps {
     }
 }
 
-type CalendarProps =
-    | MultiDotMarkingProps
-    | DotMarkingProps
-    | PeriodMarkingProps
-    | CalendarBaseProps
-    | MultiPeriodMarkingProps;
+interface NoMarkingProps extends CalendarBaseProps {}
 
-export class Calendar extends React.Component<CalendarProps> {}
+type CalendarMarkingProps =
+    NoMarkingProps |
+    MultiDotMarkingProps |
+    DotMarkingProps |
+    PeriodMarkingProps |
+    CalendarBaseProps |
+    MultiPeriodMarkingProps |
+    CustomMarkingProps;
+
+export class Calendar extends React.Component<CalendarMarkingProps & CalendarBaseProps> {}
 
 interface CalendarListBaseProps extends CalendarBaseProps {
 
@@ -261,36 +272,24 @@ interface CalendarListBaseProps extends CalendarBaseProps {
      *  Enable or disable vertical scroll indicator. Default = false
      */
     showScrollIndicator?: boolean;
+
+    /**
+     * Enable horizontal scrolling, default = false
+     */
+    horizontal?: boolean;
+
+    /**
+     * Enable paging on horizontal, default = false
+     */
+    pagingEnabled?: boolean;
+
+    /**
+     * Set custom calendarWidth.
+     */
+    calendarWidth?: boolean;
 }
 
-interface MultiDotMarkingCalendarListProps extends CalendarListBaseProps {
-    markingType: 'multi-dot';
-    markedDates: {
-        [date: string]: MultiDotMarking;
-    };
-}
-
-interface DotMarkingCalendarListProps extends CalendarListBaseProps {
-    markingType: 'simple';
-    markedDates: {
-        [date: string]: DotMarking;
-    };
-}
-
-interface PeriodMarkingCalendarListProps extends CalendarListBaseProps {
-    markingType: 'period';
-    markedDates: {
-        [date: string]: PeriodMarking;
-    };
-}
-
-type CalendarListProps =
-    | MultiDotMarkingCalendarListProps
-    | DotMarkingCalendarListProps
-    | PeriodMarkingCalendarListProps
-    | CalendarListBaseProps;
-
-export class CalendarList extends React.Component<CalendarListProps> {}
+export class CalendarList extends React.Component<CalendarListBaseProps & CalendarMarkingProps> {}
 
 interface AgendaProps<T> {
     /**
@@ -355,7 +354,7 @@ interface AgendaProps<T> {
     /**
      * specify how each date should be rendered. day can be undefined if the item is not first in that day.
      */
-    renderDay?: (params: { day: Date; item: T }) => React.ReactNode;
+    renderDay?: (day: DateObject | undefined, item: T) => React.ReactNode;
 
     /**
      * specify how empty date content with no items should be rendered
@@ -365,7 +364,7 @@ interface AgendaProps<T> {
     /**
      * specify how agenda knob should look like
      */
-    renderKn?: () => React.ReactNode;
+    renderKnob?: () => React.ReactNode;
 
     /**
      * specify what should be rendered instead of ActivityIndicator
@@ -383,15 +382,24 @@ interface AgendaProps<T> {
     hideKnob?: boolean;
 
     /**
-     * By default, agenda dates are marked if they have at least one item, but you can override this if needed
+     * A RefreshControl component, used to provide pull-to-refresh funtionality for the ScrollView
      */
-    markedDates?: {
-        [key: string]: {
-            selected?: boolean;
-            marked?: boolean;
-            disabled: boolean;
-        };
-    };
+    refreshControl?: React.ReactNode;
+
+    /**
+     * If provided, a standard RefreshControl will be added for "Pull to Refresh" functionality. Make sure to also set the refreshing prop correctly.
+     */
+    onRefresh?: () => any;
+
+    /**
+     * Set this true while waiting for new data from a refresh
+     */
+    refreshing?: boolean;
+
+    /**
+     * Display loading indicator. Default = false
+     */
+    displayLoadingIndicator?: boolean;
 
     /**
      * agenda theme
@@ -406,7 +414,7 @@ interface AgendaProps<T> {
     /**
      * agenda container style
      */
-    style?: any;
+    style?: StyleProp<ViewProps>;
 }
 
-export class Agenda<T> extends React.Component<AgendaProps<T>> {}
+export class Agenda<T> extends React.Component<AgendaProps<T> & CalendarMarkingProps> {}
