@@ -59,17 +59,17 @@ export type Props = {
   /* Focus the control when it is mounted */
   autoFocus?: boolean,
   /* Remove the currently focused option when the user presses backspace */
-  backspaceRemovesValue: boolean,
+  backspaceRemovesValue?: boolean,
   /* Remove focus from the input when the user selects an option (handy for dismissing the keyboard on touch devices) */
-  blurInputOnSelect: boolean,
+  blurInputOnSelect?: boolean,
   /* When the user reaches the top/bottom of the menu, prevent scroll on the scroll-parent  */
-  captureMenuScroll: boolean,
+  captureMenuScroll?: boolean,
   /* className attribute applied to the outer component */
   className?: string,
   /* classNamePrefix attribute used as a base for inner component classNames */
   classNamePrefix?: string | null,
   /* Close the select menu when the user selects an option */
-  closeMenuOnSelect: boolean,
+  closeMenuOnSelect?: boolean,
   /*
      If `true`, close the select menu when the user scrolls the document/body.
 
@@ -82,7 +82,7 @@ export type Props = {
      This is useful when you have a scrollable modal and want to portal the menu out,
      but want to avoid graphical issues.
    */
-  closeMenuOnScroll: boolean | EventListener,
+  closeMenuOnScroll?: boolean | EventListener,
   /*
     This complex object includes all the compositional components that are used
     in `react-select`. If you wish to overwrite a component, pass in an object
@@ -92,32 +92,32 @@ export type Props = {
     instead. For a list of the components that can be passed in, and the shape
     that will be passed to them, see [the components docs](/api#components)
   */
-  components: SelectComponentsConfig,
+  components?: SelectComponentsConfig,
   /* Whether the value of the select, e.g. SingleValue, should be displayed in the control. */
-  controlShouldRenderValue: boolean,
+  controlShouldRenderValue?: boolean,
   /* Delimiter used to join multiple values into a single HTML Input value */
   delimiter?: string,
   /* Clear all values when the user presses escape AND the menu is closed */
-  escapeClearsValue: boolean,
+  escapeClearsValue?: boolean,
   /* Custom method to filter whether an option should be displayed in the menu */
-  filterOption: ((
+  filterOption?: ((
     option: Option,
     rawInput: string
   ) => boolean) | null,
   /* Formats group labels in the menu as React components */
-  formatGroupLabel: typeof formatGroupLabel,
+  formatGroupLabel?: typeof formatGroupLabel,
   /* Formats option labels in the menu and control as React components */
   formatOptionLabel?: (a: OptionType, b: FormatOptionLabelMeta) => Node,
   /* Resolves option data to a string to be displayed as the label by components */
-  getOptionLabel: typeof getOptionLabel,
+  getOptionLabel?: typeof getOptionLabel,
   /* Resolves option data to a string to compare options and specify value attributes */
-  getOptionValue: typeof getOptionValue,
+  getOptionValue?: typeof getOptionValue,
   /* Hide the selected option from the menu */
-  hideSelectedOptions: boolean,
+  hideSelectedOptions?: boolean,
   /* The id to set on the SelectContainer component. */
   id?: string,
   /* The value of the search input */
-  inputValue: string,
+  inputValue?: string,
   /* The id of the search input */
   inputId?: string,
   /* Define an id prefix for the select components e.g. {your-id}-value */
@@ -125,80 +125,84 @@ export type Props = {
   /* Is the select value clearable */
   isClearable?: boolean,
   /* Is the select disabled */
-  isDisabled: boolean,
+  isDisabled?: boolean,
   /* Is the select in a state of loading (async) */
-  isLoading: boolean,
+  isLoading?: boolean,
   /* Override the built-in logic to detect whether an option is disabled */
-  isOptionDisabled: (a: OptionType, b: OptionsType) => boolean | false,
+  isOptionDisabled?: (a: OptionType, b: OptionsType) => boolean | false,
   /* Override the built-in logic to detect whether an option is selected */
   isOptionSelected?: (a: OptionType, b: OptionsType) => boolean,
   /* Support multiple selected options */
-  isMulti: boolean,
+  isMulti?: boolean,
   /* Is the select direction right-to-left */
-  isRtl: boolean,
+  isRtl?: boolean,
   /* Whether to enable search functionality */
-  isSearchable: boolean,
+  isSearchable?: boolean,
   /* Async: Text to display when loading options */
-  loadingMessage: (obj: { inputValue: string }) => string | null,
+  loadingMessage?: (obj: { inputValue: string }) => string | null,
   /* Minimum height of the menu before flipping */
-  minMenuHeight: number,
+  minMenuHeight?: number,
   /* Maximum height of the menu before scrolling */
-  maxMenuHeight: number,
+  maxMenuHeight?: number,
   /* Whether the menu is open */
-  menuIsOpen: boolean,
+  menuIsOpen?: boolean,
   /* Default placement of the menu in relation to the control. 'auto' will flip
      when there isn't enough space below the control. */
-  menuPlacement: MenuPlacement,
+  menuPlacement?: MenuPlacement,
   /* The CSS position value of the menu, when "fixed" extra layout management is required */
-  menuPosition: MenuPosition,
+  menuPosition?: MenuPosition,
   /* Whether the menu should use a portal, and where it should attach */
   menuPortalTarget?: HTMLElement,
   /* Whether to block scroll events when the menu is open */
-  menuShouldBlockScroll: boolean,
+  menuShouldBlockScroll?: boolean,
   /* Whether the menu should be scrolled into view when it opens */
-  menuShouldScrollIntoView: boolean,
+  menuShouldScrollIntoView?: boolean,
   /* Name of the HTML Input (optional - without this, no input will be rendered) */
   name?: string,
   /* Text to display when there are no options */
-  noOptionsMessage: (obj: { inputValue: string }) => string | null,
+  noOptionsMessage?: (obj: { inputValue: string }) => string | null,
   /* Handle blur events on the control */
   onBlur?: FocusEventHandler,
   /* Handle change events on the select */
-  onChange: (value: ValueType, action: ActionMeta) => void,
+  onChange?: (value: ValueType, action: ActionMeta) => void,
   /* Handle focus events on the control */
   onFocus?: FocusEventHandler,
   /* Handle change events on the input */
-  onInputChange: (newValue: string, actionMeta: InputActionMeta) => void,
+  onInputChange?: (newValue: string, actionMeta: InputActionMeta) => void,
   /* Handle key down events on the select */
   onKeyDown?: KeyboardEventHandler,
   /* Handle the menu opening */
-  onMenuOpen: () => void,
+  onMenuOpen?: () => void,
   /* Handle the menu closing */
-  onMenuClose: () => void,
+  onMenuClose?: () => void,
   /* Fired when the user scrolls to the top of the menu */
   onMenuScrollToTop?: (event: SyntheticEvent<HTMLElement>) => void,
   /* Fired when the user scrolls to the bottom of the menu */
   onMenuScrollToBottom?: (event: SyntheticEvent<HTMLElement>) => void,
   /* Allows control of whether the menu is opened when the Select is focused */
-  openMenuOnFocus: boolean,
+  openMenuOnFocus?: boolean,
   /* Allows control of whether the menu is opened when the Select is clicked */
-  openMenuOnClick: boolean,
+  openMenuOnClick?: boolean,
   /* Array of options that populate the select menu */
-  options: OptionsType,
+  options?: OptionsType,
   /* Number of options to jump in menu when page{up|down} keys are used */
-  pageSize: number,
+  pageSize?: number,
   /* Placeholder text for the select value */
-  placeholder: string,
+  placeholder?: string,
   /* Status to relay to screen readers */
-  screenReaderStatus: (obj: { count: number }) => string,
+  screenReaderStatus?: (obj: { count: number }) => string,
   /* Style modifier methods */
-  styles: StylesConfig,
+  styles?: StylesConfig,
   /* Sets the tabIndex attribute on the input */
-  tabIndex: string,
+  tabIndex?: string,
   /* Select the currently focused option when the user presses tab */
-  tabSelectsValue: boolean,
+  tabSelectsValue?: boolean,
   /* The value of the select; reflected by the selected option */
-  value: ValueType,
+  value?: ValueType,
+
+  defaultInputValue?: string,
+  defaultMenuIsOpen?: boolean,
+  defaultValue?: ValueType,
 };
 
 export const defaultProps: Props;

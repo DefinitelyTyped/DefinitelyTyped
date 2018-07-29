@@ -3,9 +3,9 @@ import { Component, ComponentType, Ref as ElementRef } from 'react';
 import { ActionMeta, InputActionMeta, ValueType } from './types';
 
 export type Props = {
-  defaultInputValue: string,
-  defaultMenuIsOpen: boolean,
-  defaultValue: ValueType,
+  defaultInputValue?: string,
+  defaultMenuIsOpen?: boolean,
+  defaultValue?: ValueType,
   inputValue?: string,
   menuIsOpen?: boolean,
   value?: ValueType,
