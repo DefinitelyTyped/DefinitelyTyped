@@ -45,6 +45,7 @@ export interface LintResult {
 export namespace formatters {
     function json(results: LintResult[]): string;
     function string(results: LintResult[]): string;
+    function compact(results: LintResult[]): string;
     function verbose(results: LintResult[]): string;
 }
 
