@@ -209,7 +209,7 @@ interface JQueryFileInputOptions {
 
     cache?: boolean;
     timeout?: number;
-    
+
     active?: Function;
     progress?: (e: JQueryEventObject, data: JQueryFileUploadProgressObject) => void;
     send?: (e: JQueryEventObject, data: JQueryFileUploadProgressObject) => void;
