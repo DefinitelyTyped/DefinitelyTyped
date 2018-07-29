@@ -1,4 +1,4 @@
-// Type definitions for jQuery File Upload Plugin 5.40.1
+// Type definitions for jQuery File Upload Plugin 9.22.0
 // Project: https://github.com/blueimp/jQuery-File-Upload
 // Definitions by: Rob Alarcon <https://github.com/rob-alarcon/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
