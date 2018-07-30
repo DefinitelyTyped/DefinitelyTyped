@@ -891,7 +891,7 @@ declare namespace chrome {
              */
             uuids?: string[];
             /**
-             * The Received signal strength, in dBm. This field is avaliable and valid only during discovery. Outside of discovery it's value is not specified.
+             * The received signal strength, in dBm. This field is avaliable and valid only during discovery. Outside of discovery it's value is not specified.
              * @since Chrome 44
              */
             inquiryRssi: number;
@@ -1374,7 +1374,7 @@ declare namespace chrome {
     }
 
     /**
-     * Use the chrome.bluetoothSocket API to send and Receive data to Bluetooth devices using RFCOMM and L2CAP connections.
+     * Use the chrome.bluetoothSocket API to send and receive data to Bluetooth devices using RFCOMM and L2CAP connections.
      * @since Chrome 37
      * Manifest: 'bluetooth': {...}
      * Important: This API works only on OS X, Windows and Chrome OS.
@@ -1391,7 +1391,7 @@ declare namespace chrome {
             persistent?: boolean;
             /** An application-defined string associated with the socket. */
             name?: string;
-            /** (integer) The size of the buffer used to Receive data. The default value is 4096. */
+            /** (integer) The size of the buffer used to receive data. The default value is 4096. */
             bufferSize?: number;
         }
         interface ListenOptions {
@@ -1436,7 +1436,7 @@ declare namespace chrome {
             name?: string;
             /**
              * (integer)
-             * The size of the buffer used to Receive data.
+             * The size of the buffer used to receive data.
              * If no buffer size has been specified explictly,
              * the value is not provided.
              */
@@ -1518,7 +1518,7 @@ declare namespace chrome {
         interface OnReceiveEventData {
             /** The socket identifier. (integer) */
             socketId: number;
-            /** The data Received, with a maxium size of bufferSize. */
+            /** The data received, with a maxium size of bufferSize. */
             data: ArrayBuffer;
         }
         enum OnReceiveErrorCode {
@@ -1574,7 +1574,7 @@ declare namespace chrome {
          * sent by its peer. When a connected socket is paused,
          * no onReceiveevent is raised. When a socket is connected
          * and un-paused, onReceive events are raised again when
-         * messages are Received. When a listening socket is paused,
+         * messages are received. When a listening socket is paused,
          * new connections are accepted until its backlog is full
          * then additional connection requests are refused.
          * onAccept events are raised only when the socket is un-paused.
@@ -1626,7 +1626,7 @@ declare namespace chrome {
         /**
          * Connects the socket to a remote Bluetooth device.
          * When the connect operation completes successfully,
-         * onReceive events are raised when data is Received
+         * onReceive events are raised when data is received
          * from the peer. If a network error occur while the
          * runtime is receiving packets, a onReceiveError
          * event is raised, at which point no more onReceive
@@ -1690,7 +1690,7 @@ declare namespace chrome {
          */
         var onAcceptError: OnAcceptErrorEvent;
         /**
-         * Event raised when data has been Received for a given socket.
+         * Event raised when data has been received for a given socket.
          */
         var onReceive: OnReceiveEvent;
         /**
@@ -2639,7 +2639,7 @@ declare namespace chrome {
         export function unmount(options: UnmountOptions, callback?: () => void): void;
         /**
          * Returns all file systems mounted by the extension.
-         * @param callback Callback to Receive the result of getAll function.
+         * @param callback Callback to receive the result of getAll function.
          * The callback parameter should be a function that looks like this:
          * function(array of FileSystemInfo fileSystems) {...};
          */
@@ -2647,7 +2647,7 @@ declare namespace chrome {
         /**
          * Returns information about a file system with the passed fileSystemId.
          * @since Since Chrome 42.
-         * @param callback Callback to Receive the result of get function.
+         * @param callback Callback to receive the result of get function.
          * The callback parameter should be a function that looks like this:
          * function(FileSystemInfo fileSystem) {...};
          */
@@ -2719,7 +2719,7 @@ declare namespace chrome {
     // Google Cloud Messaging
     ////////////////////
     /**
-     * Use chrome.gcm to enable apps and extensions to send and Receive messages through the Google Cloud Messaging Service.
+     * Use chrome.gcm to enable apps and extensions to send and receive messages through the Google Cloud Messaging Service.
      * Availability: Since Chrome 35.
      * Permissions:  'gcm'
      */
@@ -2805,7 +2805,7 @@ declare namespace chrome {
          */
         export function send(message: OutgoingMessage, callback: (messageId: string) => void): void;
 
-        /** Fired when a message is Received through GCM. */
+        /** Fired when a message is received through GCM. */
         export var onMessage: MessageReceptionEvent;
         /** Fired when a GCM server had to delete messages sent by an app server to the application. See Messages deleted event section of Cloud Messaging documentation for details on handling this event. */
         export var onMessagesDeleted: MessageDeletionEvent;
@@ -2817,11 +2817,52 @@ declare namespace chrome {
     // HID
     ////////////////////
     /**
-     * Use the chrome.hid API to interact with connected HID devices. This API provides access to HID operations from within the context of an app. Using this API, apps can function as drivers for hardware devices. Errors generated by this API are reported by setting runtime.lastError and executing the function's regular callback. The callback's regular parameters will be undefined in this case.
-     * @since Chrome 38
+     * Use the chrome.hid API to interact with connected HID devices.
+     * This API provides access to HID operations from within the context of an app.
+     * Using this API, apps can function as drivers for hardware devices.
+     * Errors generated by this API are reported by setting runtime.lastError
+     * and executing the function's regular callback. The callback's regular
+     * parameters will be undefined in this case.
+     *
+     * Permissions: "hid"
+     * @since Available since Chrome 38
      */
     namespace hid {
-        /** NOT YET IMPLEMENTED */
+        interface Collection {
+            usagePage: number;
+            usage: number;
+            reportIds: number[];
+        }
+        interface HidDeviceInfo {
+            deviceId: number;
+            vendorId: number;
+            productId: number;
+            /** @since Chrome 46 */
+            productName: string;
+            serialNumber: string;
+            collections: Collection[];
+            maxInputReportSize: number;
+            maxOutputReportSize: number;
+            maxFeatureReportSize: number;
+            reportDescriptor: ArrayBuffer;
+        }
+        interface DeviceFilter {
+            vendorId?: number;
+            productId?: number;
+            usagePage?: number;
+            usage?: number;
+        }
+        function getDevices(options: { filters?: DeviceFilter[] }, callback: (devices: HidDeviceInfo[]) => void): void;
+        function getUserSelectedDevices(callback: (devices: HidDeviceInfo) => void): void;
+        function getUserSelectedDevices(options: { multiple: boolean, filters?: DeviceFilter[] }, callback: (devices: HidDeviceInfo) => void): void;
+        function connect(deviceId: number, callback: (connection: { connectionId: number }) => void): void;
+        function disconnect(connectionId: number, callback?: () => void): void;
+        function receive(connectionId: number, callback: (reportId: number, data: ArrayBuffer) => void): void;
+        function send(connectionId: number, reportId: number, data: ArrayBuffer, callback: () => void): void;
+        function receiveFeatureReport(connectionId: number, reportId: number, callback: (data: ArrayBuffer) => void): void;
+        function sendFeatureReport(connectionId: number, reportId: number, data: ArrayBuffer, callback: () => void): void;
+        var onDeviceAdded: chrome.events.Event<(device: HidDeviceInfo) => void>;
+        var onDeviceRemoved: chrome.events.Event<(deviceId: number) => void>;
     }
 
     ////////////////////
@@ -4408,7 +4449,7 @@ declare namespace chrome {
     }
 
     /**
-     * Use the chrome.sockets.udp API to send and Receive data over the network
+     * Use the chrome.sockets.udp API to send and receive data over the network
      * using UDP connections. This API supersedes the UDP functionality previously
      * found in the 'socket' API.
      *
@@ -4455,7 +4496,7 @@ declare namespace chrome {
 
             /**
              * The size of the buffer used to Receive data. If the buffer is too
-             * small to Receive the UDP packet, data is lost. The default value is
+             * small to receive the UDP packet, data is lost. The default value is
              * 4096.
              */
             bufferSize?: number;
@@ -4478,7 +4519,7 @@ declare namespace chrome {
             name?: string;
 
             /**
-             * The size of the buffer used to Receive data. If no buffer size ha
+             * The size of the buffer used to receive data. If no buffer size ha
              * been specified explictly, the value is not provided.
              */
             bufferSize?: number;
@@ -4601,7 +4642,7 @@ declare namespace chrome {
         export function getSockets(callback: (socketInfos: SocketInfo[]) => void): void;
 
         /**
-         * Joins the multicast group and starts to Receive packets from that group.
+         * Joins the multicast group and starts to receive packets from that group.
          * The socket must be bound to a local port before calling this method.
          *
          * @see https://developer.chrome.com/apps/sockets_udp#method-joinGroup
@@ -4649,7 +4690,7 @@ declare namespace chrome {
          * when there is more than one application on the same host joined to the
          * same multicast group while having different settings on multicast
          * loopback mode. On Windows, the applications with loopback off will not
-         * Receive the loopback packets; while on Unix-like systems, the
+         * receive the loopback packets; while on Unix-like systems, the
          * applications with loopback off will not SEND the loopback packets to
          * other applications on the same host.
          * @see MSDN: http://goo.gl/6vqbj
@@ -4684,7 +4725,7 @@ declare namespace chrome {
         export function setBroadcast(socketId: number, enabled: boolean, callback?: (result: number) => void): void;
 
         /**
-         * Event raised when a UDP packet has been Received for the given socket.
+         * Event raised when a UDP packet has been received for the given socket.
          *
          * @see https://developer.chrome.com/apps/sockets_udp#event-onReceive
          */
@@ -5669,7 +5710,7 @@ declare namespace chrome {
          */
         export function destroyConfig(id: string, callback?: Function): void;
         /**
-         * Sets the parameters for the VPN session. This should be called immediately after 'connected' is Received from the platform. This will succeed only when the VPN session is owned by the extension.
+         * Sets the parameters for the VPN session. This should be called immediately after 'connected' is received from the platform. This will succeed only when the VPN session is owned by the extension.
          * @param parameters The parameters for the VPN session.
          * @param callback Called when the parameters are set or if there is an error.
          */
@@ -5689,9 +5730,9 @@ declare namespace chrome {
          */
         export function notifyConnectionStateChanged(state: string, callback?: Function): void;
 
-        /** Triggered when a message is Received from the platform for a VPN configuration owned by the extension. */
+        /** Triggered when a message is received from the platform for a VPN configuration owned by the extension. */
         export var onPlatformMessage: VpnPlatformMessageEvent;
-        /** Triggered when an IP packet is Received via the tunnel for the VPN session owned by the extension. */
+        /** Triggered when an IP packet is received via the tunnel for the VPN session owned by the extension. */
         export var onPacketReceived: VpnPacketReceptionEvent;
         /** Triggered when a configuration created by the extension is removed by the platform. */
         export var onConfigRemoved: VpnConfigRemovalEvent;
@@ -6626,7 +6667,7 @@ declare namespace chrome {
         interface ContentWindow {
 
             /**
-            * @description <p>Posts a message to the embedded web content as long as the embedded content is displaying a page from the target origin. This method is available once the page has completed loading. Listen for the <a href='#event-contentload'>contentload</a> event and then call the method.</p><p>The guest will be able to send replies to the embedder by posting message to event.source on the message event it Receives.</p><p>This API is identical to the <a href='https://developer.mozilla.org/en-US/docs/DOM/window.postMessage'>HTML5 postMessage API</a> for communication between web pages. The embedder may listen for replies by adding a message event listener to its own frame.</p>
+            * @description <p>Posts a message to the embedded web content as long as the embedded content is displaying a page from the target origin. This method is available once the page has completed loading. Listen for the <a href='#event-contentload'>contentload</a> event and then call the method.</p><p>The guest will be able to send replies to the embedder by posting message to event.source on the message event it receives.</p><p>This API is identical to the <a href='https://developer.mozilla.org/en-US/docs/DOM/window.postMessage'>HTML5 postMessage API</a> for communication between web pages. The embedder may listen for replies by adding a message event listener to its own frame.</p>
             * @param message Message object to send to the guest.
             * @param {string} targetOrigin Specifies what the origin of the guest window must be for the event to be dispatched.
              */
