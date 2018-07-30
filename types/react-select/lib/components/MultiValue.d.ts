@@ -18,14 +18,14 @@ export type MultiValueProps = CommonProps &{
   },
 };
 
-export const multiValueCSS: () => any; // TODO css type
-export const multiValueLabelCSS: (props: MultiValueProps) => any; // TODO css type
-export const multiValueRemoveCSS: (props: MultiValueProps) => any; // TODO css type
+export function multiValueCSS(): any; // TODO css type
+export function multiValueLabelCSS(props: MultiValueProps): any; // TODO css type
+export function multiValueRemoveCSS(props: MultiValueProps): any; // TODO css type
 
 export type MultiValueGenericProps = {
   children: Node,
   data: any,
-  innerProps: { className?: String },
+  innerProps: { className?: string },
   selectProps: any,
 };
 export const MultiValueGeneric: ComponentType<MultiValueGenericProps>;
@@ -35,7 +35,7 @@ export const MultiValueLabel: typeof MultiValueGeneric;
 export type MultiValueRemoveProps = CommonProps & {
   children: Node,
   innerProps: {
-    className: String,
+    className: string,
     onTouchEnd: (event: any) => void,
     onClick: (event: any) => void,
     onMouseDown: (event: any) => void,
@@ -49,7 +49,7 @@ export class MultiValueRemove extends Component<MultiValueRemoveProps> {
 }
 
 export class MultiValue extends Component<MultiValueProps> {
-  static defaultProps:{
+  static defaultProps: {
     cropWithEllipsis: boolean,
   };
 }

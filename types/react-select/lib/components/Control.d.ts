@@ -22,7 +22,7 @@ export type ControlProps = CommonProps &
     },
   };
 
-export const css: (state: State) => any; // TODO css type
+export function css(state: State): any; // TODO css type
 
 declare const Control: ComponentType<ControlProps>;
 

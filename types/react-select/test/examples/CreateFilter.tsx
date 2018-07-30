@@ -3,26 +3,26 @@ import Select, { createFilter } from 'react-select';
 import { colourOptions } from '../data';
 import { Note } from '../styled-components';
 
-const Checkbox = props => <input type="checkbox" {...props} />;
+const Checkbox = (props: any) => <input type="checkbox" {...props} />;
 
 type State = {
   ignoreCase: boolean,
   ignoreAccents: boolean,
   trim: boolean,
-  matchFrom: boolean,
-}
+  matchFromStart: boolean,
+};
 
-export default class SelectCreateFilter extends Component<*, State> {
+export default class SelectCreateFilter extends React.Component<any, State> {
   state: State = {
     ignoreCase: false,
     ignoreAccents: false,
     trim: false,
     matchFromStart: false,
+  };
+  toggleOption = (key: string) => () => {
+    this.setState((state: any) => ({ ...state, [key]: !state[key] }));
   }
-  toggleOption = (key) => () => {
-    this.setState(state => ({ [key]: !state[key] }));
-  }
-  render () {
+  render() {
     const {
       ignoreCase,
       ignoreAccents,
@@ -34,11 +34,11 @@ export default class SelectCreateFilter extends Component<*, State> {
       ignoreCase,
       ignoreAccents,
       trim,
-      matchFrom: this.state.matchFromStart ? 'start' : 'any',
+      matchFrom: this.state.matchFromStart ? ('start' as 'start') : ('any' as 'any'),
     };
 
     return (
-      <Fragment>
+      <React.Fragment>
         <Select
           defaultValue={colourOptions[0]}
           isClearable
@@ -79,7 +79,7 @@ export default class SelectCreateFilter extends Component<*, State> {
           />
           Match from the start
         </Note>
-      </Fragment>
+      </React.Fragment>
     );
   }
 }

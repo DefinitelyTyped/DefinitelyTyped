@@ -9,7 +9,7 @@ const groupStyles = {
   background: '#f2fcff'
 };
 
-const Group = (props) => (
+const Group = (props: any) => (
   <div style={groupStyles}>
     <components.Group {...props}/>
   </div>

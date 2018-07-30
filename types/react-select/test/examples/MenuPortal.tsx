@@ -1,6 +1,5 @@
 import * as React from 'react';
-import Modal from '@atlaskit/modal-dialog';
-import Button from '@atlaskit/button';
+import { Modal, Button } from '../AtlaskitDummy';
 import Select from 'react-select';
 import { H1, Note } from '../styled-components';
 
@@ -12,8 +11,8 @@ type State = {
   portalPlacement: 'auto' | 'bottom' | 'top'
 };
 
-export default class MenuPortal extends Component<*, State> {
-  state = {
+export default class MenuPortal extends React.Component<any, State> {
+  state: State = {
     isOpen: false,
     isFixed: false,
     portalPlacement: 'bottom',
@@ -21,20 +20,20 @@ export default class MenuPortal extends Component<*, State> {
   open = () => {
     console.log('menuPortal is Open');
     this.setState({ isOpen: true });
-  };
+  }
   close = () => { this.setState({ isOpen: false }); };
-  setPlacement = ({ currentTarget }: SyntheticEvent<Event>) => {
+  setPlacement = ({ currentTarget }: any) => {
     const portalPlacement = currentTarget && currentTarget.value;
     this.setState({ portalPlacement });
-  };
+  }
   toggleMode = () => {
     this.setState(state => ({ isFixed: !state.isFixed }));
-  };
+  }
   render() {
     const { close, open } = this;
     const { isOpen, isFixed, portalPlacement } = this.state;
     return (
-      <Fragment>
+      <React.Fragment>
         <Button onClick={open}>Open Modal</Button>
         {
           isOpen ?
@@ -43,7 +42,7 @@ export default class MenuPortal extends Component<*, State> {
             <Select
               defaultValue={colourOptions[0]}
               isClearable
-              styles={{ menuPortal: base => ({ ...base, zIndex: 9999 }) }}
+              styles={{ menuPortal: (base: any) => ({ ...base, zIndex: 9999 }) }}
               menuPortalTarget={document.body}
               isSearchable
               name="color"
@@ -53,7 +52,7 @@ export default class MenuPortal extends Component<*, State> {
             />
             <Note Tag="label">
               <select
-                type="radio"
+                // TODO type="radio"
                 onChange={this.setPlacement}
                 value={portalPlacement}
                 id="cypress-portalled__radio-bottom"
@@ -86,7 +85,7 @@ export default class MenuPortal extends Component<*, State> {
           </Modal>
           : null
         }
-      </Fragment>
+      </React.Fragment>
     );
   }
 }

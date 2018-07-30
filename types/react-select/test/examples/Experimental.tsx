@@ -1,18 +1,15 @@
-// @flow
-
 import * as React from 'react';
-import moment from 'moment';
-import chrono from 'chrono-node';
+import * as moment from 'moment';
+import * as chrono from '../ChronoNodeDummy';
 
-import Select from 'react-select';
-import { components as SelectComponents } from 'react-select';
+import Select, { components as SelectComponents } from 'react-select';
 
-const createOptionForDate = d => {
+const createOptionForDate = (d: any) => {
   const date = moment.isMoment(d) ? d : moment(d);
   return {
     date,
     value: date.toDate(),
-    label: date.calendar(null, {
+    label: date.calendar(undefined, {
       sameDay: '[Today] (Do MMM YYYY)',
       nextDay: '[Tomorrow] (Do MMM YYYY)',
       nextWeek: '[Next] dddd (Do MMM YYYY)',
@@ -23,7 +20,7 @@ const createOptionForDate = d => {
   };
 };
 
-const defaultOptions = ['today', 'tomorrow', 'yesterday'].map(i =>
+const defaultOptions: any = ['today', 'tomorrow', 'yesterday'].map(i =>
   createOptionForDate(chrono.parseDate(i))
 );
 
@@ -31,7 +28,7 @@ const createCalendarOptions = (date = new Date()) => {
   // $FlowFixMe
   const daysInMonth = Array.apply(null, {
     length: moment(date).daysInMonth(),
-  }).map((x, i) => {
+  }).map((x: any, i: number) => {
     const d = moment(date).date(i + 1);
     return { ...createOptionForDate(d), display: 'calendar' };
   });
@@ -66,14 +63,14 @@ const suggestions = [
   'yesterday',
   'tomorrow',
   'today',
-].reduce((acc, str) => {
+].reduce((acc: any, str: string) => {
   for (let i = 1; i < str.length; i++) {
     acc[str.substr(0, i)] = str;
   }
   return acc;
 }, {});
 
-const suggest = str =>
+const suggest = (str: string) =>
   str
     .split(/\b/)
     .map(i => suggestions[i] || i)
@@ -90,20 +87,20 @@ const daysHeaderStyles = {
 const daysHeaderItemStyles = {
   color: '#999',
   cursor: 'default',
-  display: 'block',
+  // display: 'block',
   fontSize: '75%',
-  fontWeight: '500',
+  fontWeight: 500,
   display: 'inline-block',
   width: '12%',
   margin: '0 1%',
-  textAlign: 'center',
+  textAlign: 'center' as 'center',
 };
 const daysContainerStyles = {
   paddingTop: '5px',
   paddingLeft: '2%',
 };
 
-const Group = props => {
+const Group = (props: any) => {
   const { Heading, getStyles, children, label, innerProps, headingProps, cx } = props;
   return (
     <div aria-label={label} css={getStyles('group', props)} {...innerProps}>
@@ -114,19 +111,19 @@ const Group = props => {
       >
         {label}
       </Heading>
-      <div css={daysHeaderStyles}>
+      <div style={daysHeaderStyles}>// TODO css type
         {days.map((day, i) => (
-          <span key={`${i}-${day}`} css={daysHeaderItemStyles}>
+          <span key={`${i}-${day}`} style={daysHeaderItemStyles}>// TODO css type
             {day}
           </span>
         ))}
       </div>
-      <div css={daysContainerStyles}>{children}</div>
+      <div style={daysContainerStyles}>{children}</div>// TODO css type
     </div>
   );
 };
 
-const getOptionStyles = defaultStyles => ({
+const getOptionStyles = (defaultStyles: any) => ({
   ...defaultStyles,
   display: 'inline-block',
   width: '12%',
@@ -135,7 +132,7 @@ const getOptionStyles = defaultStyles => ({
   borderRadius: '4px',
 });
 
-const Option = props => {
+const Option = (props: any) => {
   const { data, getStyles, innerRef, innerProps } = props;
   if (data.display === 'calendar') {
     const defaultStyles = getStyles('option', props);
@@ -154,11 +151,11 @@ const Option = props => {
   } else return <SelectComponents.Option {...props} />;
 };
 
-class DatePicker extends Component<*, *> {
+class DatePicker extends React.Component<any> {
   state = {
     options: defaultOptions,
   };
-  handleInputChange = value => {
+  handleInputChange = (value: string) => {
     if (!value) {
       this.setState({ options: defaultOptions });
       return;
@@ -173,7 +170,7 @@ class DatePicker extends Component<*, *> {
         options: [],
       });
     }
-  };
+  }
   render() {
     const { value } = this.props;
     const { options } = this.state;
@@ -194,13 +191,13 @@ class DatePicker extends Component<*, *> {
   }
 }
 
-export default class Experimental extends Component<*, *> {
+export default class Experimental extends React.Component {
   state = {
     value: defaultOptions[0],
   };
   handleChange = (value: any) => {
     this.setState({ value });
-  };
+  }
   render() {
     const { value } = this.state;
     const displayValue = value && value.value ? value.value.toString() : 'null';

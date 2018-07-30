@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Tooltip from '@atlaskit/tooltip';
+import { Tooltip } from '../AtlaskitDummy';
 import Select, { components } from 'react-select';
 import { colourOptions } from '../data';
 const msgStyles = {
@@ -7,7 +7,7 @@ const msgStyles = {
   color: 'white'
 };
 
-const NoOptionsMessage = (props) => {
+const NoOptionsMessage = (props: any) => {
   return (
     <Tooltip content="Custom NoOptionsMessage Component">
       <components.NoOptionsMessage {...props} />
@@ -15,16 +15,13 @@ const NoOptionsMessage = (props) => {
   );
 };
 
-type State = {};
-
-export default class CustomNoOptionsMessage extends Component<*, State> {
-  state = {};
+export default class CustomNoOptionsMessage extends React.Component {
   render() {
     return (
       <Select
         isClearable
         components={{ NoOptionsMessage }}
-        styles={{ noOptionsMessage: (base) => ({ ...base, ...msgStyles }) }}
+        styles={{ noOptionsMessage: (base: any) => ({ ...base, ...msgStyles }) }}
         isSearchable
         name="color"
         options={[]}

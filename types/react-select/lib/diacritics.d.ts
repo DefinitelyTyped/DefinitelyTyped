@@ -1,1 +1,1 @@
-export const stripDiacritics: (str: string) => string;
+export function stripDiacritics(str: string): string;

@@ -9,7 +9,7 @@ const menuHeaderStyle = {
   color: 'white',
 };
 
-const MenuList = (props) => {
+const MenuList = (props: any) => {
   return (
     <components.MenuList {...props}>
       <div style={menuHeaderStyle}>

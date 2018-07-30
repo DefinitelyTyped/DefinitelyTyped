@@ -12,20 +12,20 @@ const filterColors = (inputValue: string) =>
     i.label.toLowerCase().includes(inputValue.toLowerCase())
   );
 
-const promiseOptions = inputValue =>
+const promiseOptions = (inputValue: string) =>
   new Promise(resolve => {
     setTimeout(() => {
       resolve(filterColors(inputValue));
     }, 1000);
   });
 
-export default class WithPromises extends Component<*, State> {
+export default class WithPromises extends React.Component<any, State> {
   state = { inputValue: '' };
   handleInputChange = (newValue: string) => {
     const inputValue = newValue.replace(/\W/g, '');
     this.setState({ inputValue });
     return inputValue;
-  };
+  }
   render() {
     return (
       <AsyncSelect cacheOptions defaultOptions loadOptions={promiseOptions} />

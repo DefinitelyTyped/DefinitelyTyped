@@ -6,7 +6,7 @@ import {
   ComponentType
 } from 'react';
 import { createPortal } from 'react-dom';
-import PropTypes from 'prop-types';
+import * as PropTypes from 'prop-types';
 
 import {
   animatedScrollTo,
@@ -52,7 +52,7 @@ export type MenuProps = CommonProps & {
   /** Callback to update the portal after possible flip. */
   getPortalPlacement: (state: MenuState) => void,
   /** Props to be passed to the menu wrapper. */
-  innerProps: Object,
+  innerProps: object,
   /** Set the maximum height of the menu. */
   maxMenuHeight: number,
   /** Set whether the menu should be at the top, at the bottom. The auto options sets it to bottom. */
@@ -65,7 +65,7 @@ export type MenuProps = CommonProps & {
   menuShouldScrollIntoView: boolean,
 };
 
-export const menuCSS: (state: MenuState) => any; // TODO css type
+export function menuCSS(state: MenuState): any; // TODO css type
 
 export class Menu extends Component<MenuProps, MenuState> {
   static contextTypes: {
@@ -97,15 +97,15 @@ export type MenuListProps = {
 export type MenuListComponentProps = CommonProps &
   MenuListProps &
   MenuListState;
-export const menuListCSS: (state: MenuState) => any; // TODO css type
+export function menuListCSS(state: MenuState): any; // TODO css type
 export const MenuList: ComponentType<MenuListComponentProps>;
 
 // ==============================
 // Menu Notices
 // ==============================
 
-export const noOptionsMessageCSS: () => any; // TODO css type
-export const loadingMessageCSS:  () => any; // TODO css type
+export function noOptionsMessageCSS(): any; // TODO css type
+export function loadingMessageCSS(): any; // TODO css type
 
 export type NoticeProps = CommonProps & {
   /** The children to be rendered. */
@@ -144,7 +144,7 @@ type PortalStyleArgs = {
   rect: RectType,
 };
 
-export const menuPortalCSS: (args: PortalStyleArgs) => any; // TODO css type
+export function menuPortalCSS(args: PortalStyleArgs): any; // TODO css type
 
 export class MenuPortal extends Component<MenuPortalProps, MenuPortalState> {
   static childContextTypes: {
@@ -152,7 +152,7 @@ export class MenuPortal extends Component<MenuPortalProps, MenuPortalState> {
   };
   getChildContext(): {
     getPortalPlacement: (state: MenuState) => void;
-  }
+  };
 
   // callback for occassions where the menu must "flip"
   getPortalPlacement: (state: MenuState) => void;

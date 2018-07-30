@@ -16,7 +16,7 @@ type ValueProps = {
 };
 export type SingleValueProps = CommonProps & ValueProps & State;
 
-export const css: (props: SingleValueProps) => any; // TODO css type
+export function css(props: SingleValueProps): any; // TODO css type
 
 export const SingleValue: ComponentType<SingleValueProps>;
 

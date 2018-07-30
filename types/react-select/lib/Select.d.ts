@@ -1,4 +1,4 @@
-import { ComponentType, Component, Ref as ElementRef, ReactNode as Node, MouseEvent as SyntheticMouseEvent, TouchEvent as SyntheticTouchEvent, SyntheticEvent, KeyboardEvent as SyntheticKeyboardEvent, FocusEvent as SyntheticFocusEvent } from 'react';
+import * as React from 'react';
 
 import { Option } from './filters';
 import {
@@ -42,11 +42,11 @@ import {
   GroupedOptionsType,
 } from './types';
 
-type MouseOrTouchEvent =
-  | SyntheticMouseEvent<HTMLElement>
-  | SyntheticTouchEvent<HTMLElement>;
-type FormatOptionLabelContext = 'menu' | 'value';
-type FormatOptionLabelMeta = {
+export type MouseOrTouchEvent =
+  | React.MouseEvent<HTMLElement>
+  | React.TouchEvent<HTMLElement>;
+export type FormatOptionLabelContext = 'menu' | 'value';
+export type FormatOptionLabelMeta = {
   context: FormatOptionLabelContext,
   inputValue: string,
   selectValue: ValueType,
@@ -177,9 +177,9 @@ export type Props = {
   /* Handle the menu closing */
   onMenuClose?: () => void,
   /* Fired when the user scrolls to the top of the menu */
-  onMenuScrollToTop?: (event: SyntheticEvent<HTMLElement>) => void,
+  onMenuScrollToTop?: (event: React.SyntheticEvent<HTMLElement>) => void,
   /* Fired when the user scrolls to the bottom of the menu */
-  onMenuScrollToBottom?: (event: SyntheticEvent<HTMLElement>) => void,
+  onMenuScrollToBottom?: (event: React.SyntheticEvent<HTMLElement>) => void,
   /* Allows control of whether the menu is opened when the Select is focused */
   openMenuOnFocus?: boolean,
   /* Allows control of whether the menu is opened when the Select is clicked */
@@ -208,12 +208,12 @@ export type Props = {
 
 export const defaultProps: Props;
 
-type MenuOptions = {
-  render: Array<OptionType>,
-  focusable: Array<OptionType>,
+export type MenuOptions = {
+  render: OptionType[],
+  focusable: OptionType[],
 };
 
-type State = {
+export type State = {
   ariaLiveSelection: string,
   ariaLiveContext: string,
   inputIsHidden: boolean,
@@ -225,9 +225,9 @@ type State = {
   selectValue: OptionsType,
 };
 
-type ElRef = ElementRef<any>;
+export type ElRef = React.Ref<any>;
 
-export default class Select extends Component<Props, State> {
+export default class Select extends React.Component<Props, State> {
   static defaultProps: Props;
 
   // Misc. Instance Properties
@@ -351,8 +351,8 @@ export default class Select extends Component<Props, State> {
   // Mouse Handlers
   // ==============================
 
-  onMenuMouseDown: (event: SyntheticMouseEvent<HTMLElement>) => void;
-  onMenuMouseMove: (event: SyntheticMouseEvent<HTMLElement>) => void;
+  onMenuMouseDown: (event: React.MouseEvent<HTMLElement>) => void;
+  onMenuMouseMove: (event: React.MouseEvent<HTMLElement>) => void;
   onControlMouseDown: (event: MouseOrTouchEvent) => void;
   onDropdownIndicatorMouseDown: (event: MouseOrTouchEvent) => void;
   onClearIndicatorMouseDown: (event: MouseOrTouchEvent) => void;
@@ -376,17 +376,17 @@ export default class Select extends Component<Props, State> {
   onTouchStart: (event: TouchEvent) => void;
   onTouchMove: (event: TouchEvent) => void;
   onTouchEnd: (event: TouchEvent) => void;
-  onControlTouchEnd: (event: SyntheticTouchEvent<HTMLElement>) => void;
-  onClearIndicatorTouchEnd: (event: SyntheticTouchEvent<HTMLElement>) => void;
-  onDropdownIndicatorTouchEnd: (event: SyntheticTouchEvent<HTMLElement>) => void;
+  onControlTouchEnd: (event: React.TouchEvent<HTMLElement>) => void;
+  onClearIndicatorTouchEnd: (event: React.TouchEvent<HTMLElement>) => void;
+  onDropdownIndicatorTouchEnd: (event: React.TouchEvent<HTMLElement>) => void;
 
   // ==============================
   // Focus Handlers
   // ==============================
 
-  handleInputChange: (event: SyntheticKeyboardEvent<HTMLInputElement>) => void;
-  onInputFocus: (event: SyntheticFocusEvent<HTMLInputElement>) => void;
-  onInputBlur: (event: SyntheticFocusEvent<HTMLInputElement>) => void;
+  handleInputChange: (event: React.KeyboardEvent<HTMLInputElement>) => void;
+  onInputFocus: (event: React.FocusEvent<HTMLInputElement>) => void;
+  onInputBlur: (event: React.FocusEvent<HTMLInputElement>) => void;
   onOptionHover: (focusedOption: OptionType) => void;
   shouldHideSelectedOptions: () => boolean;
 
@@ -394,7 +394,7 @@ export default class Select extends Component<Props, State> {
   // Keyboard Handlers
   // ==============================
 
-  onKeyDown: (event: SyntheticKeyboardEvent<HTMLElement>) => void;
+  onKeyDown: (event: React.KeyboardEvent<HTMLElement>) => void;
 
   // ==============================
   // Menu Options

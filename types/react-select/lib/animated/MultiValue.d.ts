@@ -7,6 +7,6 @@ export type AnimatedMultiValueProps = {
   onExited: fn,
 } & MultiValueProps;
 
-declare const AnimatedMultiValue: (WrappedComponent: ComponentType<MultiValueProps>) => ComponentType<AnimatedMultiValueProps>;
+export function AnimatedMultiValue(WrappedComponent: ComponentType<MultiValueProps>): ComponentType<AnimatedMultiValueProps>;
 
 export default AnimatedMultiValue;

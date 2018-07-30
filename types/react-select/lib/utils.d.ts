@@ -1,4 +1,4 @@
-import { Ref as ElementRef } from 'react';
+import * as React from 'react';
 import {
   ClassNamesState,
   InputActionMeta,
@@ -10,8 +10,8 @@ import {
 // NO OP
 // ==============================
 
-export const noop: () => void;
-export const emptyString: () => string;
+export function noop(): void;
+export function emptyString(): string;
 
 // ==============================
 // Class Name Prefixer
@@ -28,7 +28,7 @@ export function classNames(
 // Clean Value
 // ==============================
 
-export const cleanValue: (value: ValueType) => OptionsType;
+export function cleanValue(value: ValueType): OptionsType;
 
 // ==============================
 // Handle Input Change
@@ -61,7 +61,7 @@ export function scrollTo(el: Element, top: number): void;
 // Get Scroll Parent
 // ------------------------------
 
-export function getScrollParent(element: ElementRef<*>): Element;
+export function getScrollParent(element: React.Ref<any>): Element;
 
 // Animated Scroll To
 // ------------------------------

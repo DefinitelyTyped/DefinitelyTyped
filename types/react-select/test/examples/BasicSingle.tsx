@@ -4,7 +4,7 @@ import Select from 'react-select';
 import { colourOptions } from '../data';
 import { Note } from '../styled-components';
 
-const Checkbox = props => <input type="checkbox" {...props} />;
+const Checkbox = (props: any) => <input type="checkbox" {...props} />;
 
 type State = {
   isClearable: boolean,
@@ -14,7 +14,7 @@ type State = {
   isSearchable: boolean,
 };
 
-export default class SingleSelect extends Component<*, State> {
+export default class SingleSelect extends React.Component<any, State> {
   state = {
     isClearable: true,
     isDisabled: false,
@@ -24,14 +24,14 @@ export default class SingleSelect extends Component<*, State> {
   };
 
   toggleClearable = () =>
-    this.setState(state => ({ isClearable: !state.isClearable }));
+    this.setState(state => ({ isClearable: !state.isClearable }))
   toggleDisabled = () =>
-    this.setState(state => ({ isDisabled: !state.isDisabled }));
+    this.setState(state => ({ isDisabled: !state.isDisabled }))
   toggleLoading = () =>
-    this.setState(state => ({ isLoading: !state.isLoading }));
+    this.setState(state => ({ isLoading: !state.isLoading }))
   toggleRtl = () => this.setState(state => ({ isRtl: !state.isRtl }));
   toggleSearchable = () =>
-    this.setState(state => ({ isSearchable: !state.isSearchable }));
+    this.setState(state => ({ isSearchable: !state.isSearchable }))
   render() {
     const {
       isClearable,
@@ -41,7 +41,7 @@ export default class SingleSelect extends Component<*, State> {
       isRtl,
     } = this.state;
     return (
-      <Fragment>
+      <React.Fragment>
         <Select
           className="basic-single"
           classNamePrefix="select"
@@ -95,7 +95,7 @@ export default class SingleSelect extends Component<*, State> {
           />
           RTL
         </Note>
-      </Fragment>
+      </React.Fragment>
     );
   }
 }

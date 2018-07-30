@@ -14,14 +14,14 @@ const groupBadgeStyles = {
   color: '#172B4D',
   display: 'inline-block',
   fontSize: 12,
-  fontWeight: 'normal',
+  fontWeight: 'normal' as 'normal',
   lineHeight: '1',
   minWidth: 1,
   padding: '0.16666666666667em 0.5em',
-  textAlign: 'center',
+  textAlign: 'center' as 'center',
 };
 
-const formatGroupLabel = data => (
+const formatGroupLabel = (data: any) => (
   <div style={groupStyles}>
     <span>{data.label}</span>
     <span style={groupBadgeStyles}>{data.options.length}</span>

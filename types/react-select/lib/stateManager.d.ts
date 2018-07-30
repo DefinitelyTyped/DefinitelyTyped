@@ -31,6 +31,6 @@ export class StateManager extends Component<Props, State> {
   onMenuClose: () => void;
 }
 
-export const manageState: (SelectComponent: ComponentType<any>) => StateManager;
+export function manageState(SelectComponent: ComponentType<any>): StateManager;
 
 export default manageState;

@@ -2,8 +2,7 @@ import * as React from 'react';
 
 import Select, { components } from 'react-select';
 import { colourOptions, groupedOptions } from '../data';
-import EditorPanelIcon from '@atlaskit/icon/glyph/editor/panel';
-import Tooltip from '@atlaskit/tooltip';
+import { EditorPanelIcon, Tooltip } from '../AtlaskitDummy';
 
 const groupStyles = {
   border: `2px dotted ${colourOptions[2].color}`,
@@ -13,7 +12,7 @@ const groupStyles = {
   display: 'flex',
 };
 
-const GroupHeading = (props) => (
+const GroupHeading = (props: any) => (
   <div style={groupStyles}>
     <components.GroupHeading {...props}/>
     <Tooltip content="Custom GroupHeading Component">
@@ -27,6 +26,6 @@ export default () => (
     defaultValue={colourOptions[1]}
     options={groupedOptions}
     components={{ GroupHeading }}
-    styles={{ groupHeading: (base) => ({ ...base, flex: '1 1', color: 'white', margin: 0 }) }}
+    styles={{ groupHeading: (base: any) => ({ ...base, flex: '1 1', color: 'white', margin: 0 }) }}
   />
 );

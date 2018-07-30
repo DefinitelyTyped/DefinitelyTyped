@@ -1,32 +1,32 @@
-import { default as React, Ref } from 'react';
+import * as React from 'react';
 
 export type OptionType = {
   [key: string]: any,
 };
 
-export type OptionsType = Array<OptionType>;
+export type OptionsType = OptionType[];
 
 export type GroupType = {
   options: OptionsType,
   [key: string]: any,
 };
 
-export type GroupedOptionsType = Array<GroupType>;
+export type GroupedOptionsType = GroupType[];
 
-export type ValueType = OptionType | OptionsType | null | void;
+export type ValueType = OptionType | OptionsType | null | undefined;
 
 export type FocusEventHandler = (event: React.FocusEvent<HTMLElement>) => void;
 export type MouseEventHandler = (event: React.MouseEvent<HTMLElement>) => void;
 export type KeyboardEventHandler = (event: React.KeyboardEvent<HTMLElement>) => void;
 
-export type InnerRef = Ref<any>;
+export type InnerRef = React.Ref<any>;
 export type PropsWithInnerRef = {
   /** The inner reference. */
-  innerRef: Ref<any>,
+  innerRef: React.Ref<any>,
 };
 
 export type PropsWithStyles = {
-  /**
+  /*
     Get the styles of a particular part of the select. Pass in the name of the
     property as the first argument, and the current props as the second argument.
     See the `styles` object for the properties available.
@@ -34,14 +34,14 @@ export type PropsWithStyles = {
   getStyles: (name: string, props: any) => {},
 };
 
-export type ClassNameList = Array<string>;
-export type ClassNamesState = { [key: string]: boolean } | void;
+export type ClassNameList = string[];
+export type ClassNamesState = { [key: string]: boolean } | undefined;
 
 export type CommonProps = {
   clearValue: () => void,
   className?: string,
-  cx: (a: string | null, b: ClassNamesState | void, c: string | void) => string | void,
-  /**
+  cx: (a: string | null, b: ClassNamesState | undefined, c: string | undefined) => string | void,
+  /*
     Get the styles of a particular part of the select. Pass in the name of the
     property as the first argument, and the current props as the second argument.
     See the `styles` object for the properties available.

@@ -47,9 +47,9 @@ import SingleValue, { SingleValueProps } from './SingleValue';
 export type PlaceholderOrValue =
   | Element<ComponentType<PlaceholderProps>>
   | Element<ComponentType<SingleValueProps>>
-  | Array<Element<ComponentType<MultiValueProps>>>
+  | Array<Element<ComponentType<MultiValueProps>>>;
 
-type IndicatorComponentType = ComponentType<IndicatorProps>;
+export type IndicatorComponentType = ComponentType<IndicatorProps>;
 
 export type SelectComponents = {
   ClearIndicator: IndicatorComponentType | null,
@@ -135,8 +135,8 @@ export namespace components {
   const ValueContainer: ComponentType<ValueContainerProps>;
 }
 
-type Props = {
+export type Props = {
   components: SelectComponentsConfig,
 };
 
-export const defaultComponents: (props: Props) => SelectComponentsConfig;
+export function defaultComponents(props: Props): SelectComponentsConfig;

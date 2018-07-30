@@ -4,6 +4,6 @@ import { Fade } from './transitions';
 
 export type AnimatedSingleValueProps = SingleValueProps;
 
-declare const AnimatedSingleValue: (WrappedComponent: ComponentType<SingleValueProps>) => ComponentType<AnimatedSingleValueProps>;
+export function AnimatedSingleValue(WrappedComponent: ComponentType<SingleValueProps>): ComponentType<AnimatedSingleValueProps>;
 
 export default AnimatedSingleValue;

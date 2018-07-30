@@ -1,11 +1,9 @@
-// @flow
-
 import * as React from 'react';
-import EmojiIcon from '@atlaskit/icon/glyph/emoji';
+import { EmojiIcon } from '../AtlaskitDummy';
 import Select, { components } from 'react-select';
 import { colourOptions } from '../data';
 
-const DropdownIndicator = (props) => {
+const DropdownIndicator = (props: any) => {
   return components.DropdownIndicator && (
     <components.DropdownIndicator {...props}>
       <EmojiIcon

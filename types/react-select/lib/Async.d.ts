@@ -1,4 +1,4 @@
-import React, { Component, ComponentType, Ref as ElementRef } from 'react';
+import * as React from 'react';
 import Select, { Props as SelectProps } from './Select';
 import { handleInputChange } from './utils';
 import manageState from './stateManager';
@@ -10,7 +10,7 @@ export type AsyncProps = {
   defaultOptions: OptionsType | boolean,
   /* Function that returns a promise, which is the set of options to be used
      once the promise resolves. */
-  loadOptions: (inputValue: string, callback: (options: OptionsType) => void) => (Promise<any> | void),
+  loadOptions: (inputValue: string, callback: ((options: OptionsType) => void)) => Promise<any> | void,
   /* If cacheOptions is truthy, then the loaded data will be cached. The cache
      will remain until `cacheOptions` changes value. */
   cacheOptions: any,
@@ -29,9 +29,9 @@ export type State = {
   passEmptyOptions: boolean,
 };
 
-export class Async extends Component<Props, State> {
+export class Async extends React.Component<Props, State> {
   static defaultProps: Props;
-  select: ElementRef<any>;
+  select: React.Ref<any>;
   lastRequest: {};
   mounted: boolean;
   optionsCache: { [key: string]: OptionsType };
@@ -42,6 +42,6 @@ export class Async extends Component<Props, State> {
   handleInputChange: (newValue: string, actionMeta: InputActionMeta) => string;
 }
 
-export const makeAsyncSelect: (SelectComponent: ComponentType<any>) => Async;
+export function makeAsyncSelect(SelectComponent: React.ComponentType<any>): Async;
 
 export default Async;

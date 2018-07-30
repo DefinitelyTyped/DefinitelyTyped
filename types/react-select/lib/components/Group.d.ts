@@ -1,5 +1,4 @@
 import { ReactNode as  Node, ComponentType } from 'react';
-import { css } from 'emotion';
 
 import { spacing } from '../theme';
 import { CommonProps } from '../types';
@@ -14,11 +13,11 @@ type ComponentProps = {
 };
 export type GroupProps = CommonProps & ComponentProps;
 
-export const groupCSS: () => any; // TODO css type
+export function groupCSS(): any; // TODO css type
 
 export const Group: ComponentType<GroupProps>;
 
-export const groupHeadingCSS: () => any; // TODO css type
+export function groupHeadingCSS(): any; // TODO css type
 
 export const GroupHeading: ComponentType<any>;
 

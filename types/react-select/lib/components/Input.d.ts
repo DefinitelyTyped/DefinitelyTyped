@@ -15,8 +15,8 @@ export type InputProps = PropsWithStyles & {
   className?: string,
 };
 
-export const inputCSS: (props: InputProps) => any; // TODO css type;
-export const inputStyle: (isHidden: boolean) => any; // TODO css type
+export function inputCSS(props: InputProps): any; // TODO css type;
+export function inputStyle(isHidden: boolean): any; // TODO css type
 
 export const Input: ComponentType<InputProps>;
 

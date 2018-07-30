@@ -90,6 +90,7 @@ export const optionLength = [
   {
     value: 3,
     label:
+      // tslint:disable-next-line:max-line-length
       "It is now an easy matter to spell out the ethic of a truth: 'Do all that you can to persevere in that which exceeds your perseverance. Persevere in the interruption. Seize in your being that which has seized and broken you.",
   },
 ];

@@ -1,12 +1,12 @@
 import * as React from 'react';
-import chroma from 'chroma-js';
+import * as chroma from 'chroma-js';
 
 import { colourOptions } from '../data';
 import Select from 'react-select';
 
 const colourStyles = {
-  control: styles => ({ ...styles, backgroundColor: 'white' }),
-  option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+  control: (styles: any) => ({ ...styles, backgroundColor: 'white' }),
+  option: (styles: any, { data, isDisabled, isFocused, isSelected }: any) => {
     const color = chroma(data.color);
     return {
       ...styles,
@@ -21,18 +21,18 @@ const colourStyles = {
       cursor: isDisabled ? 'not-allowed' : 'default',
     };
   },
-  multiValue: (styles, { data }) => {
+  multiValue: (styles: any, { data }: any) => {
     const color = chroma(data.color);
     return {
       ...styles,
       backgroundColor: color.alpha(0.1).css(),
     };
   },
-  multiValueLabel: (styles, { data }) => ({
+  multiValueLabel: (styles: any, { data }: any) => ({
     ...styles,
     color: data.color,
   }),
-  multiValueRemove: (styles, { data }) => ({
+  multiValueRemove: (styles: any, { data }: any) => ({
     ...styles,
     color: data.color,
     ':hover': {

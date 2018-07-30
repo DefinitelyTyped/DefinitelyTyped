@@ -1,11 +1,9 @@
-// @flow
-
 import * as React from 'react';
-import Tooltip from '@atlaskit/tooltip';
+import { Tooltip } from '../AtlaskitDummy';
 import Select, { components } from 'react-select';
 import { colourOptions } from '../data';
 
-const MultiValueContainer = (props) => {
+const MultiValueContainer = (props: any) => {
   return (
     <Tooltip content={'Customise your multi-value container!'}>
       <components.MultiValueContainer {...props}/>
@@ -17,7 +15,7 @@ export default () => (
   <Select
     closeMenuOnSelect={false}
     components={{ MultiValueContainer }}
-    styles={{ multiValue: (base) => ({ ...base, border: `2px dotted ${colourOptions[2].color}` }) }}
+    styles={{ multiValue: (base: any) => ({ ...base, border: `2px dotted ${colourOptions[2].color}` }) }}
     defaultValue={[colourOptions[4], colourOptions[5]]}
     isMulti
     options={colourOptions}

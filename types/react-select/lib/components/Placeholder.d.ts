@@ -10,7 +10,7 @@ export type PlaceholderProps = CommonProps & {
   innerProps: { [key: string]: any },
 };
 
-export const placeholderCSS: () => any; // TODO css type
+export function placeholderCSS(): any; // TODO css type
 
 export const Placeholder: ComponentType<PlaceholderProps>;
 

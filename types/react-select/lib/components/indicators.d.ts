@@ -7,8 +7,8 @@ import { CommonProps } from '../types';
 // Dropdown & Clear Icons
 // ==============================
 
-export const CrossIcon: (props: any) => any; // TODO svg type
-export const DownChevron: (props: any) => any; // TODO svg type
+export function CrossIcon(props: any): any; // TODO svg type
+export function DownChevron(props: any): any; // TODO svg type
 
 // ==============================
 // Dropdown & Clear Buttons
@@ -25,7 +25,7 @@ export type IndicatorProps = CommonProps & {
   isRtl: boolean,
 };
 
-type baseCSS = (props: IndicatorProps) => any; // TODO css type
+export type baseCSS = (props: IndicatorProps) => any; // TODO css type
 
 export const dropdownIndicatorCSS: baseCSS;
 export const DropdownIndicator: ComponentType<IndicatorProps>;
@@ -37,9 +37,9 @@ export const ClearIndicator: ComponentType<IndicatorProps>;
 // Separator
 // ==============================
 
-type SeparatorState = { isDisabled: boolean };
+export type SeparatorState = { isDisabled: boolean };
 
-export const indicatorSeparatorCSS: (state: SeparatorState) => any; // TODO css type
+export function indicatorSeparatorCSS(state: SeparatorState): any; // TODO css type
 
 export const IndicatorSeparator: ComponentType<IndicatorProps>;
 
@@ -47,10 +47,10 @@ export const IndicatorSeparator: ComponentType<IndicatorProps>;
 // Loading
 // ==============================
 
-export const loadingIndicatorCSS: (state: {
+export function loadingIndicatorCSS(state: {
   isFocused: boolean,
   size: number,
-}) => any; // TODO css type
+}): any; // TODO css type
 
 export type LoadingIconProps = {
   /** Props that will be passed on to the children. */

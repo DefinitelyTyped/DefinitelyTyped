@@ -1,7 +1,7 @@
-type Config = {
+export type Config = {
   ignoreCase?: boolean,
   ignoreAccents?: boolean,
-  stringify?: (obj: Object) => string,
+  stringify?: (obj: any) => string,
   trim?: boolean,
   matchFrom?: 'any' | 'start',
 };
@@ -10,7 +10,7 @@ import { stripDiacritics } from './diacritics';
 
 export type Option = { label: string, value: string, data: any };
 
-export const createFilter: (config: Config | null) => (
+export function createFilter(config: Config | null): (
   option: Option,
   rawInput: string
 ) => boolean;

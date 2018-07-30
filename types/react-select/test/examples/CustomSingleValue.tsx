@@ -2,23 +2,19 @@ import * as React from 'react';
 import Select, { components } from 'react-select';
 import { colourOptions } from '../data';
 
-
-const SingleValue = ({ children, ...props }) => (
+const SingleValue = ({ children, ...props }: any) => (
     <components.SingleValue {...props}>
       {children}
     </components.SingleValue>
 );
 
-type State = {};
-
-export default class CustomControl extends Component<*, State> {
-  state = {};
-  render() {
+export default class CustomControl extends React.Component {
+    render() {
     return (
       <Select
         defaultValue={colourOptions[0]}
         isClearable
-        styles={{ singleValue: (base) => ({ ...base, padding: 5, borderRadius: 5, background: colourOptions[2].color, color: 'white', display: 'flex' }) }}
+        styles={{ singleValue: (base: any) => ({ ...base, padding: 5, borderRadius: 5, background: colourOptions[2].color, color: 'white', display: 'flex' }) }}
         components={{ SingleValue }}
         isSearchable
         name="color"

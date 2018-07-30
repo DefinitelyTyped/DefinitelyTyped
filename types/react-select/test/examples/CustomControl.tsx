@@ -9,17 +9,14 @@ const controlStyles = {
   color: 'white'
 };
 
-const ControlComponent = (props) => (
+const ControlComponent = (props: any) => (
   <div style={controlStyles}>
     {<p>Custom Control</p>}
     <components.Control {...props} />
   </div>
 );
 
-type State = {};
-
-export default class CustomControl extends Component<*, State> {
-  state = {};
+export default class CustomControl extends React.Component {
   render() {
     return (
       <Select

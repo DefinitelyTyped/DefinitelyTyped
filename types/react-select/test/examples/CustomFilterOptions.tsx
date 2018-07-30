@@ -2,14 +2,14 @@ import * as React from 'react';
 import Select from 'react-select';
 import { colourOptions } from '../data';
 
-
 type State = {
   ignoreCase: boolean,
   ignoreAccents: boolean,
   trim: boolean,
   matchFrom: boolean,
-}
-const filterOptions = (candidate, input) => {
+};
+
+const filterOptions = (candidate: any, input: string) => {
   if (input) {
     return candidate.value === customOptions[0].value;
   }
@@ -18,8 +18,8 @@ const filterOptions = (candidate, input) => {
 
 const customOptions = [{ value: 'custom', label: 'Using a custom filter to always display this option on search' }, ...colourOptions];
 
-export default class SelectCreateFilter extends Component<*, State> {
-  render () {
+export default class SelectCreateFilter extends React.Component<any, State> {
+  render() {
     return (
       <Select
         defaultValue={customOptions[0]}

@@ -1,12 +1,14 @@
 import * as React from 'react';
 import Select from 'react-select';
 import { colourOptions } from '../data';
+import { InputActionMeta } from 'react-select/lib/types';
 
-export default class OnSelectResetsInput extends Component {
+export default class OnSelectResetsInput extends React.Component {
   state = {
     inputValue: '',
-  }
-  onInputChange = (inputValue, { action }) => {
+    menuIsOpen: undefined
+  };
+  onInputChange = (inputValue: string, { action }: InputActionMeta) => {
     console.log(inputValue, action);
     switch (action) {
       case 'input-change':
@@ -14,7 +16,7 @@ export default class OnSelectResetsInput extends Component {
         return;
       case 'menu-close':
         console.log(this.state.inputValue);
-        let menuIsOpen = undefined;
+        let menuIsOpen;
         if (this.state.inputValue) {
           menuIsOpen = true;
         }
@@ -26,7 +28,7 @@ export default class OnSelectResetsInput extends Component {
         return;
     }
   }
-  render () {
+  render() {
     const { inputValue, menuIsOpen } = this.state;
     return (
       <Select
@@ -42,4 +44,4 @@ export default class OnSelectResetsInput extends Component {
       />
     );
   }
-};
+}

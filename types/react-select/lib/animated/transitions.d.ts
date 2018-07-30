@@ -1,4 +1,4 @@
-import { default as React, Component, ComponentType, Ref as ElementRef } from 'react';
+import * as React from 'react';
 import { Transition } from 'react-transition-group';
 
 export type fn = () => void;
@@ -13,11 +13,11 @@ export type BaseTransition = {
 // Fade Transition
 // ==============================
 
-type FadeProps = BaseTransition & {
-  component: ComponentType<any>,
+export type FadeProps = BaseTransition & {
+  component: React.ComponentType<any>,
   duration: number,
 };
-export const Fade: ComponentType<FadeProps>;
+export const Fade: React.ComponentType<FadeProps>;
 
 // ==============================
 // Collapse Transition
@@ -25,14 +25,14 @@ export const Fade: ComponentType<FadeProps>;
 
 export const collapseDuration: number;
 
-type TransitionState = 'exiting' | 'exited';
-type Width = number | 'auto';
-type CollapseProps = { children: any, in: boolean };
-type CollapseState = { width: Width };
+export type TransitionState = 'exiting' | 'exited';
+export type Width = number | 'auto';
+export type CollapseProps = { children: any, in: boolean };
+export type CollapseState = { width: Width };
 
 // wrap each MultiValue with a collapse transition; decreases width until
 // finally removing from DOM
-export class Collapse extends Component<CollapseProps, CollapseState> {
+export class Collapse extends React.Component<CollapseProps, CollapseState> {
   duration: number;
   transition: {
     exiting: any,
@@ -40,7 +40,7 @@ export class Collapse extends Component<CollapseProps, CollapseState> {
   };
 
   // width must be calculated; cannot transition from `undefined` to `number`
-  getWidth: (ref: ElementRef<any>) => void;
+  getWidth: (ref: React.Ref<any>) => void;
 
   // get base styles
   getStyle: (width: Width) => any;

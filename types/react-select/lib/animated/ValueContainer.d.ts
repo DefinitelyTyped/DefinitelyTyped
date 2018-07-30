@@ -4,6 +4,6 @@ import { ValueContainerProps } from '../components/containers';
 
 export type AnimatedValueContainerProps = ValueContainerProps;
 
-declare const AnimatedValueContainer: (WrappedComponent: ComponentType<ValueContainerProps>) => ComponentType<AnimatedValueContainerProps>;
+export function AnimatedValueContainer(WrappedComponent: ComponentType<ValueContainerProps>): ComponentType<AnimatedValueContainerProps>;
 
 export default AnimatedValueContainer;

@@ -11,17 +11,17 @@ const filterColors = (inputValue: string) =>
     i.label.toLowerCase().includes(inputValue.toLowerCase())
   );
 
-const promiseOptions = inputValue =>
+const promiseOptions = (inputValue: string) =>
   new Promise(resolve => {
     setTimeout(() => {
       resolve(filterColors(inputValue));
     }, 1000);
   });
 
-export default class AccessingInterals extends Component {
-  selectRef: ElementRef<*>;
-  asyncRef: ElementRef<*>;
-  creatableRef: ElementRef<*>;
+export default class AccessingInterals extends React.Component {
+  selectRef: Select;
+  asyncRef: AsyncSelect;
+  creatableRef: CreatableSelect;
   focus = () => {
     console.log(this.selectRef);
     this.selectRef.focus();
@@ -41,20 +41,19 @@ export default class AccessingInterals extends Component {
     this.creatableRef.blur();
   }
   blur = () => this.selectRef.blur();
-  onSelectRef =  (ref) => {
+  onSelectRef = (ref: any) => {
     console.log(ref);
     this.selectRef = ref;
   }
-  render () {
+  render() {
     return (
-      <Fragment>
+      <React.Fragment>
         <h4>
           Creatable Select
         </h4>
         <CreatableSelect
-          ref={ ref => { this.creatableRef = ref; }}
+          ref={ (ref: any) => { this.creatableRef = ref; }}
           isClearable
-          onChange={this.handleChange}
           options={colourOptions}
         />
         <Note Tag="label">
@@ -73,7 +72,7 @@ export default class AccessingInterals extends Component {
           Async Select
         </h4>
         <AsyncSelect
-          ref={ ref => { this.asyncRef = ref; }}
+          ref={ (ref: any) => { this.asyncRef = ref; }}
           cacheOptions
           defaultOptions
           loadOptions={promiseOptions}
@@ -92,7 +91,7 @@ export default class AccessingInterals extends Component {
         </Note>
         <h4>Select</h4>
         <Select
-          ref={ref => { this.selectRef = ref; }}
+          ref={(ref: any) => { this.selectRef = ref; }}
           defaultValue={colourOptions[2]}
           name="colors"
           options={colourOptions}
@@ -109,7 +108,7 @@ export default class AccessingInterals extends Component {
             id="cypress-single__clearable-checkbox"
           >Blur</button>
         </Note>
-      </Fragment>
+      </React.Fragment>
     );
   }
 }

@@ -1,5 +1,3 @@
-// @flow
-
 import {
   containerCSS,
   indicatorsContainerCSS,
@@ -30,77 +28,72 @@ import {
   multiValueRemoveCSS,
 } from './components/MultiValue';
 
-type Props = { [key: string]: any };
+export type Props = { [key: string]: any };
+
+/**
+ * @param base -- the component's default style
+ * @param state -- the component's current state e.g. `isFocused`
+ * @returns
+ */
+export type styleFn = (base: any, state: any) => any;
 
 export type Styles = {
-  clearIndicator?: Props => {},
-  container?: Props => {},
-  control?: Props => {},
-  dropdownIndicator?: Props => {},
-  group?: Props => {},
-  groupHeading?: Props => {},
-  indicatorsContainer?: Props => {},
-  indicatorSeparator?: Props => {},
-  input?: Props => {},
-  loadingIndicator?: Props => {},
-  loadingMessageCSS?: Props => {},
-  menu?: Props => {},
-  menuList?: Props => {},
-  menuPortal?: Props => {},
-  multiValue?: Props => {},
-  multiValueLabel?: Props => {},
-  multiValueRemove?: Props => {},
-  noOptionsMessageCSS?: Props => {},
-  option?: Props => {},
-  placeholder?: Props => {},
-  singleValue?: Props => {},
-  valueContainer: Props => {},
+  clearIndicator?: styleFn,
+  container?: styleFn,
+  control?: styleFn,
+  dropdownIndicator?: styleFn,
+  group?: styleFn,
+  groupHeading?: styleFn,
+  indicatorsContainer?: styleFn,
+  indicatorSeparator?: styleFn,
+  input?: styleFn,
+  loadingIndicator?: styleFn,
+  // TODO loadingMessageCSS?: styleFn,
+  loadingMessage?: styleFn,
+  menu?: styleFn,
+  menuList?: styleFn,
+  menuPortal?: styleFn,
+  multiValue?: styleFn,
+  multiValueLabel?: styleFn,
+  multiValueRemove?: styleFn,
+  // TODO noOptionsMessageCSS?: styleFn,
+  noOptionsMessage?: styleFn,
+  option?: styleFn,
+  placeholder?: styleFn,
+  singleValue?: styleFn,
+  valueContainer: styleFn,
 };
-export type StylesConfig = $Shape<Styles>;
-export type GetStyles = (string, Props) => {};
+export type StylesConfig = {
+  clearIndicator?: styleFn,
+  container?: styleFn,
+  control?: styleFn,
+  dropdownIndicator?: styleFn,
+  group?: styleFn,
+  groupHeading?: styleFn,
+  indicatorsContainer?: styleFn,
+  indicatorSeparator?: styleFn,
+  input?: styleFn,
+  loadingIndicator?: styleFn,
+  // TODO loadingMessageCSS?: styleFn,
+  loadingMessage?: styleFn,
+  menu?: styleFn,
+  menuList?: styleFn,
+  menuPortal?: styleFn,
+  multiValue?: styleFn,
+  multiValueLabel?: styleFn,
+  multiValueRemove?: styleFn,
+  // TODO noOptionsMessageCSS?: styleFn,
+  noOptionsMessage?: styleFn,
+  option?: styleFn,
+  placeholder?: styleFn,
+  singleValue?: styleFn,
+  valueContainer?: styleFn,
+};
+export type GetStyles = (a: string, b: Props) => any;
 
-export const defaultStyles: Styles = {
-  clearIndicator: clearIndicatorCSS,
-  container: containerCSS,
-  control: controlCSS,
-  dropdownIndicator: dropdownIndicatorCSS,
-  group: groupCSS,
-  groupHeading: groupHeadingCSS,
-  indicatorsContainer: indicatorsContainerCSS,
-  indicatorSeparator: indicatorSeparatorCSS,
-  input: inputCSS,
-  loadingIndicator: loadingIndicatorCSS,
-  loadingMessage: loadingMessageCSS,
-  menu: menuCSS,
-  menuList: menuListCSS,
-  menuPortal: menuPortalCSS,
-  multiValue: multiValueCSS,
-  multiValueLabel: multiValueLabelCSS,
-  multiValueRemove: multiValueRemoveCSS,
-  noOptionsMessage: noOptionsMessageCSS,
-  option: optionCSS,
-  placeholder: placeholderCSS,
-  singleValue: singleValueCSS,
-  valueContainer: valueContainerCSS,
-};
+export const defaultStyles: Styles;
 
 // Merge Utility
 // Allows consumers to extend a base Select with additional styles
 
-export function mergeStyles(source: Object, target: Object = {}) {
-  // initialize with source styles
-  const styles = { ...source };
-
-  // massage in target styles
-  Object.keys(target).forEach(key => {
-    if (source[key]) {
-      styles[key] = (rsCss, props) => {
-        return target[key](source[key](rsCss, props), props);
-      };
-    } else {
-      styles[key] = target[key];
-    }
-  });
-
-  return styles;
-}
+export function mergeStyles(source: any, target: any): any;

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import chroma from 'chroma-js';
+import * as chroma from 'chroma-js';
 
 import { colourOptions } from '../data';
 import Select from 'react-select';
@@ -20,8 +20,8 @@ const dot = (color = '#ccc') => ({
 });
 
 const colourStyles = {
-  control: styles => ({ ...styles, backgroundColor: 'white' }),
-  option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+  control: (styles: any) => ({ ...styles, backgroundColor: 'white' }),
+  option: (styles: any, { data, isDisabled, isFocused, isSelected }: any) => {
     const color = chroma(data.color);
     return {
       ...styles,
@@ -36,15 +36,15 @@ const colourStyles = {
       cursor: isDisabled ? 'not-allowed' : 'default',
     };
   },
-  input: styles => ({ ...styles, ...dot() }),
-  placeholder: styles => ({ ...styles, ...dot() }),
-  singleValue: (styles, { data }) => ({ ...styles, ...dot(data.color) }),
+  input: (styles: any) => ({ ...styles, ...dot() }),
+  placeholder: (styles: any) => ({ ...styles, ...dot() }),
+  singleValue: (styles: any, { data }: any) => ({ ...styles, ...dot(data.color) }),
 };
 
 export default () => (
   <Select
     defaultValue={colourOptions[2]}
-    label="Single select"
+    // TODO label="Single select"
     options={colourOptions}
     styles={colourStyles}
   />
