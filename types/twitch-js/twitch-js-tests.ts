@@ -1,40 +1,39 @@
 import * as twitchJs from 'twitch-js';
 import * as WebSocket from 'ws';
-import {RequestCallback, Options as ApiOptions} from 'request';
+import { RequestCallback, Options as ApiOptions } from 'request';
 
 // Implementation of Logger interface.
 class LoggerImpl implements twitchJs.Logger {
-    info: (message?: any, ...optionalParams: any[]) => void;
-    warn: (message?: any, ...optionalParams: any[]) => void;
-    error: (message?: any, ...optionalParams: any[]) => void;
+  info(message?: any, ...optionalParams: any[]) {}
+  warn(message?: any, ...optionalParams: any[]) {}
+  error(message?: any, ...optionalParams: any[]) {}
 }
-
 
 // =============================================================================
 // Basic typed variables to use as parameters, return types, etc.
 // =============================================================================
-let string: string = 'foo';
+let string = 'foo';
 let nullableString: string|null = string;
 let stringArr: string[] = [string];
-let number: number = 1;
-let nullableNumber: number|null = number;
-let boolean: boolean = true;
-let date: Date = new Date();
-let logger: twitchJs.Logger = new LoggerImpl();
-let webSocket: WebSocket|null = new WebSocket(string);
-let requestCallback: RequestCallback = () => {};
+let number = 1;
+const nullableNumber: number|null = number;
+let boolean = true;
+const date: Date = new Date();
+const logger: twitchJs.Logger = new LoggerImpl();
+const webSocket: WebSocket|null = new WebSocket(string);
+const requestCallback: RequestCallback = () => {};
 let readyState: 'CONNECTING'|'OPEN'|'CLOSING'|'CLOSED' = 'OPEN';
-let listener: twitchJs.Listener = () => {};
+const listener: twitchJs.Listener = () => {};
 let listenerArr: twitchJs.Listener[] = [listener];
-let stringOrNumber: string|number = string;
+const stringOrNumber: string|number = string;
 
 // Complex objects.
-let emote: twitchJs.Emote = {
+const emote: twitchJs.Emote = {
   code: string,
   id: number,
 };
 
-let tagsCollection: twitchJs.TagsCollection = {
+const tagsCollection: twitchJs.TagsCollection = {
   a: string,
   b: boolean,
   c: number,
@@ -63,10 +62,10 @@ let clientOpts: twitchJs.ClientOptions = {
     debug: boolean,
     commandTimeout: number,
   },
-  logger: logger,
+  logger,
 };
 
-let message: twitchJs.Message = {
+const message: twitchJs.Message = {
   raw: string,
   tags: tagsCollection,
   prefix: nullableString,
@@ -74,22 +73,20 @@ let message: twitchJs.Message = {
   params: stringArr,
 };
 
-let apiOpts: ApiOptions = {
+const apiOpts: ApiOptions = {
   url: string,
 };
 
 // Promises
-let executor = (resolve: (value: any) => void) => {};
-let promiseAny = new Promise<any>(executor);
-let promiseS = new Promise<[string]>(executor);
-let promiseSa = new Promise<string[]>(executor);
-let promiseSs = new Promise<[string, string]>(executor);
-let promiseSss = new Promise<[string, string, string]>(executor);
-let promiseN = new Promise<[number]>(executor);
-let promiseSn = new Promise<[string, number]>(executor);
-let promiseSsn = new Promise<[string, string, number]>(executor);
-let promiseSsns = new Promise<[string, string, number, string]>(executor);
-
+let promiseAny: Promise<any>;
+let promiseS: Promise<[string]>;
+let promiseSa: Promise<string[]>;
+let promiseSs: Promise<[string, string]>;
+let promiseSss: Promise<[string, string, string]>;
+let promiseN: Promise<[number]>;
+let promiseSn: Promise<[string, number]>;
+let promiseSsn: Promise<[string, string, number]>;
+let promiseSsns: Promise<[string, string, number, string]>;
 
 // =============================================================================
 // Client class constructor.
@@ -100,7 +97,6 @@ client = new twitchJs.Client({connection: {server: string}});
 client = new twitchJs.Client({identity: {username: string}});
 client = new twitchJs.Client({options: {clientId: string}});
 client = new twitchJs.Client(clientOpts);
-
 
 // =============================================================================
 // Client class fields.
@@ -134,7 +130,6 @@ client.username = string;
 client.userstate = tagsCollection;
 client.wasCloseCalled = boolean;
 client.ws = webSocket;
-
 
 // =============================================================================
 // Client class methods.
