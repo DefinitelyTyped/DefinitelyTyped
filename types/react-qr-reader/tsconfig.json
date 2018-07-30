@@ -20,6 +20,6 @@
     },
     "files": [
         "index.d.ts",
-        "react-qr-reader.tsx"
+        "react-qr-reader-tests.tsx"
     ]
 }
