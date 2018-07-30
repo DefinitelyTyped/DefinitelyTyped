@@ -7,24 +7,31 @@
 import * as Koa from 'koa';
 import * as Joi from 'joi';
 
-interface Spec {
-    method: string;
-    path: string|RegExp;
-    handler: (ctx: createRouter.Context) => void;
-    validate?: {
-        type: string;
-        body?: Joi.AnySchema;
-        params?: Joi.AnySchema;
-        output?: {[status: number]: Joi.AnySchema};
-    };
-}
-
 interface createRouter {
     (): createRouter.Router;
     Joi: typeof Joi;
 }
 
 declare namespace createRouter {
+    type Schema = Joi.AnySchema|{[key: string]: Joi.AnySchema};
+
+    interface Spec {
+        method: string;
+        path: string|RegExp;
+        handler: (ctx: createRouter.Context) => void;
+        validate?: {
+          header?: Schema;
+          query?: Schema;
+          params?: Schema;
+          body?: Schema;
+          maxBody?: number;
+          failure?: number;
+          type?: 'form'|'json'|'multipart';
+          output?: {[status: number]: Joi.AnySchema};
+          continueOnError?: boolean;
+      };
+    }
+
     interface Request extends Koa.Request {
         body: any;
         params: {[key: string]: string};
