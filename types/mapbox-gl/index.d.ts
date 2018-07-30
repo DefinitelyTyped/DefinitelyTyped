@@ -752,7 +752,7 @@ declare namespace mapboxgl {
     /**
      * Marker
      */
-    export class Marker {
+    export class Marker extends Evented {
         constructor(options?: mapboxgl.MarkerOptions);
 
         constructor(element?: HTMLElement, options?: mapboxgl.MarkerOptions);
@@ -784,6 +784,8 @@ declare namespace mapboxgl {
         anchor?: Anchor;
 
         color?: string
+
+        draggable?: boolean;
     }
 
     /**
