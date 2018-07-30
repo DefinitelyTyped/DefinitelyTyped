@@ -6,7 +6,6 @@
 
 import { ReactNode, Component, MouseEventHandler, TouchEventHandler } from 'react'
 
-
 export type Id = string | number
 export type Type = string | number
 export type Accepts = string | ReadonlyArray<string>
@@ -51,7 +50,10 @@ export interface DraggableProps {
     onDragEnd?: (data: any) => void,
     /** A function which will be called every time the user's cursor moves while dragging. */
     onDrag?: () => void,
-    /** An optional array of strings. For performance reasons you can limit which keys in the dragState your component subscribes to. For example, you may pass ['type', 'data'] to only rerender if these keys change. */
+    /**
+     * An optional array of strings. For performance reasons you can limit which keys in the dragState your component subscribes to.
+     * For example, you may pass ['type', 'data'] to only rerender if these keys change.
+     */
     subscribeTo?: ReadonlyArray<string> | null,
     /** An optional int representing the distance in pixels the user's pointer must travel to activate the draggable. Defaults to 8 */
     delay?: number,
@@ -68,7 +70,7 @@ export interface DraggableProps {
 
 /**
  * This defines a draggable zone. At a minimum, spread the events over the element that should be draggable (usually the root element).
-*/
+ */
 export class Draggable extends Component<DraggableProps, any> { }
 
 // ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -82,11 +84,20 @@ export interface DroppableProps {
     accepts?: Accepts,
     /** A function which will be called when a user drops a <DragComponent/> on this <Droppable/> with an accepted type. */
     onDrop?: (data: any) => void,
-    /** A function which will be called when the user's cursor enters the <Droppable/> while dragging. This function will be called regardless of whether the droppable accepts the draggable currently being dragged. */
+    /**
+     * A function which will be called when the user's cursor enters the <Droppable/> while dragging.
+     * This function will be called regardless of whether the droppable accepts the draggable currently being dragged.
+     */
     onDragEnter?: () => void,
-    /** A function which will be called when the user's cursor leaves the <Droppable/> while dragging. This function will be called regardless of whether the droppable accepts the draggable currently being dragged. */
+    /**
+     * A function which will be called when the user's cursor leaves the <Droppable/> while dragging.
+     * This function will be called regardless of whether the droppable accepts the draggable currently being dragged.
+     */
     onDragLeave?: () => void,
-    /** An optional array of strings. For performance reasons you can limit which keys in the dragState your component subscribes to. For example, you may pass ['type', 'data'] to only rerender if these keys change. */
+    /**
+     * An optional array of strings. For performance reasons you can limit which keys in the dragState your component subscribes to.
+     * For example, you may pass ['type', 'data'] to only rerender if these keys change.
+     */
     subscribeTo?: ReadonlyArray<string> | null,
 
     children: (arg: State & {
@@ -104,7 +115,7 @@ export interface DroppableProps {
 
 /**
  * This defines a droppable zone. At a minimum, spread the events over the element that should be droppable (usually the root element).
-*/
+ */
 export class Droppable extends Component<DroppableProps, any> { }
 
 // ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -118,15 +129,17 @@ export interface DragComponentProps {
     onDrag?: () => void,
     /** A boolean determining whether or not the DragComponent should always render. Defaults to false. */
     alwaysRender?: boolean,
-    /** subscribeTo: An optional array of strings. For performance reasons you can limit which keys in the dragState your component subscribes to. For example, you may pass ['type', 'data'] to only rerender if these keys change. */
+    /**
+     * An optional array of strings. For performance reasons you can limit which keys in the dragState your component subscribes to.
+     * For example, you may pass ['type', 'data'] to only rerender if these keys change.
+     */
     subscribeTo?: ReadonlyArray<string> | null,
 
     children: (arg: State & {
-        /** a boolean representing whether the user is currently hovering a <Droppable/> that accepts the type of the currently active <Draggable/> */
+        /** A boolean representing whether the user is currently hovering a <Droppable/> that accepts the type of the currently active <Draggable/> */
         isOverAccepted: boolean
     }) => ReactNode
 }
-
 
 /**
  * By default, children passed to this component will only render if the user is currently dragging, but this can be overridden.
@@ -138,7 +151,10 @@ export class DragComponent extends Component<DragComponentProps, any> { }
 // ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 export interface DragStateProps {
-    /** subscribeTo: An optional array of strings. For performance reasons you can limit which keys in the dragState your component subscribes to. For example, you may pass ['type', 'data'] to only rerender if these keys change. */
+    /**
+     * An optional array of strings. For performance reasons you can limit which keys in the dragState your component subscribes to.
+     * For example, you may pass ['type', 'data'] to only rerender if these keys change.
+     */
     subscribeTo?: ReadonlyArray<string> | null,
 
     children: (arg: State) => ReactNode
@@ -147,5 +163,5 @@ export interface DragStateProps {
 /**
  * This component is used just like a draggable or droppable, but does not accept or trigger any drag events.
  * Use it if you need to notify a component about changes in the dragState without making that component a draggable or droppable zone.
-*/
+ */
 export class DragState extends Component<DragStateProps, any> { }
