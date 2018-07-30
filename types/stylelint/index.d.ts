@@ -5,7 +5,7 @@
 
 export type FormatterType = "json" | "string" | "verbose";
 
-export type SyntaxType = "scss" | "less" | "sugarss";
+export type SyntaxType = "scss" | "sass" | "less" | "sugarss";
 
 export interface LinterOptions {
     code?: string;

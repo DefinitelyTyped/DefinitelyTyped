@@ -775,7 +775,7 @@ declare namespace jest {
          *
          * Note: `jest.fn(implementation)` is a shorthand for `jest.fn().mockImplementation(implementation)`.
          */
-        mockImplementation(fn: (...args: any[]) => any): Mock<T>;
+        mockImplementation(fn?: (...args: any[]) => any): Mock<T>;
         /**
          * Accepts a function that will be used as an implementation of the mock for one call to the mocked function.
          * Can be chained so that multiple function calls produce different results.

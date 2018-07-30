@@ -1,6 +1,7 @@
 // Type definitions for Espruino 1.94
 // Project: http://www.espruino.com/
 // Definitions by: Stanislav Berkov <https://github.com/stasberkov>
+//                 Jurand Niemczycki <https://github.com/createdbyjurand>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare interface Object {
@@ -9,6 +10,7 @@ declare interface Object {
 
 declare module "Wifi" {
     function connect(ssid: string, options: any, callback: (err: any) => any): any;
+    function startAP(ssid: string, options: any, callback: (err: any) => any): any;
 }
 
 declare module "InfluxDB" {
@@ -391,10 +393,10 @@ declare interface Timer {
 }
 
 
-    // write(data: any[]): any;
-    // on(event: string, handler: (data: any) => any): any;
-    // setup(boudrate: number, options: any): any;
-    // read(chars?: number): string;
+// write(data: any[]): any;
+// on(event: string, handler: (data: any) => any): any;
+// setup(boudrate: number, options: any): any;
+// read(chars?: number): string;
 
 
 /**

@@ -585,7 +585,9 @@ const CloudFrontRequestEvent: AWSLambda.CloudFrontRequestEvent = {
     {
       cf: {
         config: {
+          distributionDomainName: "d123.cloudfront.net",
           distributionId: "EDFDVBD6EXAMPLE",
+          eventType: "viewer-request",
           requestId: "MRVMF7KydIvxMWfJIglgwHQwZsbG2IhRJ07sn9AkKUFSHS9EXAMPLE=="
         },
         request: {
@@ -654,7 +656,9 @@ const CloudFrontResponseEvent: AWSLambda.CloudFrontResponseEvent = {
         {
             cf: {
                 config: {
+                    distributionDomainName: "d123.cloudfront.net",
                     distributionId: "EDFDVBD6EXAMPLE",
+                    eventType: "viewer-response",
                     requestId: "xGN7KWpVEmB9Dp7ctcVFQC4E-nrcOcEKS3QyAez--06dV7TEXAMPLE=="
                 },
                 request: {

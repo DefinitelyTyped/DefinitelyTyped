@@ -172,7 +172,7 @@ declare module "rethinkdb" {
         tableDrop(name: string): Operation<DropResult>;
         tableList(): Operation<string[]>;
         table(name: string, options?: GetTableOptions): Table;
-        wait(waitOptions?: WaitOptions): WaitResult;
+        wait(waitOptions?: WaitOptions): Operation<WaitResult>;
     }
 
     interface TableOptions {
@@ -271,7 +271,7 @@ declare module "rethinkdb" {
         getAll(key: string, index?: Index): Sequence; // without index defaults to primary key
         getAll(...keys: string[]): Sequence;
         getIntersecting(geometry: Geometry, index: Index): Sequence;
-        wait(WaitOptions?: WaitOptions): WaitResult;
+        wait(WaitOptions?: WaitOptions): Operation<WaitResult>;
     }
 
     interface Sequence extends Operation<Cursor>, Writeable {
