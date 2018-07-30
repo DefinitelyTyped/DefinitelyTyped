@@ -26,7 +26,9 @@ class Server implements App {
 	onUserLeft(user: User) {
 		if (this.usersPlaying[user.getNick()] == 1) {
 			KnuddelsServer.getDefaultBotUser()
-				.transferKnuddel(user, new KnuddelAmount(1), 'Du hast den Channel verlassen.');
+				.transferKnuddel(user, new KnuddelAmount(1), {
+					displayReasonText: 'Du hast den Channel verlassen.'
+				});
 
 			delete this.usersPlaying[user.getNick()];
 		}
@@ -43,7 +45,9 @@ class Server implements App {
 					.getUserById(userId);
 
 				KnuddelsServer.getDefaultBotUser()
-					.transferKnuddel(user, new KnuddelAmount(1), 'Die App fährt gleich herunter.');
+					.transferKnuddel(user, new KnuddelAmount(1), {
+						displayReasonText: 'Die App fährt gleich herunter.'
+					});
 				user.getAppContentSessions()
 					.forEach((session: AppContentSession) => {
 						session.remove();
@@ -112,7 +116,9 @@ class Server implements App {
 
 				if (hasWon) {
 					KnuddelsServer.getDefaultBotUser()
-						.transferKnuddel(user, new KnuddelAmount(2), 'Richtig getippt...');
+						.transferKnuddel(user, new KnuddelAmount(2), {
+							displayReasonText: 'Richtig getippt...'
+						});
 				}
 
 				setTimeout(() => {
