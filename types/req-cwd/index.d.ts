@@ -9,7 +9,7 @@ declare function reqCwd(moduleId: string): any;
 
 declare namespace reqCwd {
     /** Returns null instead of throwing when the module can't be found. */
-    export function silent<T = any>(moduleId: string): T | null;
+    function silent(moduleId: string): any;
 }
 
 export = reqCwd;
