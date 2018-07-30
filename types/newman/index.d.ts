@@ -1,7 +1,8 @@
-// Type definitions for newman 3.9
+// Type definitions for newman 3.10
 // Project: https://github.com/postmanlabs/newman
 // Definitions by: Leonid Logvinov <https://github.com/LogvinovLeon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 export interface NewmanRunSummary {
     run: NewmanRun;
@@ -23,4 +24,8 @@ export interface NewmanRunExecutionAssertion {
 export interface NewmanRunExecutionAssertionError {
     message: string;
 }
-export function run(options: any, callback?: (err: Error | null, summary: NewmanRunSummary) => void): void;
+
+export function run(
+    options: any,
+    callback?: (err: Error | null, summary: NewmanRunSummary) => void
+): void;
