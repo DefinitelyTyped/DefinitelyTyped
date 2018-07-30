@@ -1,5 +1,5 @@
-import * as React from 'react'
-import { Draggable, Droppable, DragComponent, DragState } from 'react-dragtastic'
+import * as React from 'react';
+import { Draggable, Droppable, DragComponent, DragState } from 'react-dragtastic';
 
 class DraggableZone extends React.Component {
   render() {
@@ -7,7 +7,7 @@ class DraggableZone extends React.Component {
       <Draggable id="unique-id" type="apple">
         {dragState => <div {...dragState.events}>I'm a draggable zone</div>}
       </Draggable>
-    )
+    );
   }
 }
 
@@ -17,7 +17,7 @@ class DroppableZone extends React.Component {
       <Droppable accepts="apple">
         {dragState => <div {...dragState.events}>I'm a droppable zone</div>}
       </Droppable>
-    )
+    );
   }
 }
 
@@ -38,7 +38,7 @@ class DragComponentWrapper extends React.Component {
           </div>
         )}
       </DragComponent>
-    )
+    );
   }
 }
 
@@ -52,6 +52,6 @@ class CompWithDragState extends React.Component {
           </div>
         )}
       </DragState>
-    )
+    );
   }
 }
