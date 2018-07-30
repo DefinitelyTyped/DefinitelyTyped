@@ -10,16 +10,50 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
-import * as util from './util';
+export namespace util {
+    const defaultBreakpoints: string[];
 
-export { util };
+    function is(n: any): boolean;
+
+    function num(n: any): boolean;
+
+    function px(n: any): string;
+
+    function get(obj: any, ...paths: Array<string | number>): any;
+
+    function themeGet(keys: string, fallback?: string): any;
+
+    function cloneFunc(fn: (...args: any[]) => any): (...args: any[]) => any;
+
+    function merge(a: any, b: any): any;
+
+    function compose(...funcs: Array<(...args: any[]) => any>): (...args: any[]) => any;
+
+    function createMediaQuery(n: string): string;
+
+    interface LowLevelStylefunctionArguments {
+      prop: string;
+      cssProperty?: string;
+      key?: string;
+      getter?: () => any;
+      transformValue?: () => any;
+      scale?: Array<string | number>;
+    }
+
+     function style(args: LowLevelStylefunctionArguments): any;
+}
+
+import style = util.style;
+import themeGet = util.themeGet;
+import merge = util.merge;
+import compose = util.compose;
 
 export {
     style,
     themeGet,
     merge,
     compose,
-} from './util';
+};
 
 /**
  * Core
