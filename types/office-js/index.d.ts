@@ -8708,7 +8708,7 @@ declare namespace Office {
          */
         getInitializationContextAsync(callback?: (result: AsyncResult) => void): void;
         /**
-         * Gets the entities found in the selected item.
+         * Gets the entities found in the selected item's body.
          *
          * Note: This method is not supported in Outlook for iOS or Outlook for Android.
          *
@@ -8722,7 +8722,7 @@ declare namespace Office {
          */
         getEntities(): Entities;
         /**
-         * Gets an array of all the entities of the specified entity type found in the selected item.
+         * Gets an array of all the entities of the specified entity type found in the selected item's body.
          *
          * Note: This method is not supported in Outlook for iOS or Outlook for Android.
          *
@@ -8731,7 +8731,7 @@ declare namespace Office {
          * @param entityType One of the EntityType enumeration values.
          *
          * @returns
-         * If the value passed in entityType is not a valid member of the EntityType enumeration, the method returns null. If no entities of the specified type are present on the item, the method returns an empty array. Otherwise, the type of the objects in the returned array depends on the type of entity requested in the entityType parameter.
+         * If the value passed in entityType is not a valid member of the EntityType enumeration, the method returns null. If no entities of the specified type are present in the item's body, the method returns an empty array. Otherwise, the type of the objects in the returned array depends on the type of entity requested in the entityType parameter.
          *
          * @remarks
          * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>Restricted</td></tr>
@@ -9989,7 +9989,7 @@ declare namespace Office {
          */
         getInitializationContextAsync(callback?: (result: AsyncResult) => void): void;
         /**
-         * Gets the entities found in the selected item.
+         * Gets the entities found in the selected item's body.
          *
          * Note: This method is not supported in Outlook for iOS or Outlook for Android.
          *
@@ -10003,7 +10003,7 @@ declare namespace Office {
          */
         getEntities(): Entities;
         /**
-         * Gets an array of all the entities of the specified entity type found in the selected item.
+         * Gets an array of all the entities of the specified entity type found in the selected item's body.
          *
          * Note: This method is not supported in Outlook for iOS or Outlook for Android.
          *
@@ -10012,7 +10012,7 @@ declare namespace Office {
          * @param entityType One of the EntityType enumeration values.
          *
          * @returns
-         * If the value passed in entityType is not a valid member of the EntityType enumeration, the method returns null. If no entities of the specified type are present on the item, the method returns an empty array. Otherwise, the type of the objects in the returned array depends on the type of entity requested in the entityType parameter.
+         * If the value passed in entityType is not a valid member of the EntityType enumeration, the method returns null. If no entities of the specified type are present in the item's body, the method returns an empty array. Otherwise, the type of the objects in the returned array depends on the type of entity requested in the entityType parameter.
          *
          * @remarks
          * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>Restricted</td></tr>
@@ -11523,7 +11523,7 @@ declare namespace Office {
          */
         getInitializationContextAsync(callback?: (result: AsyncResult) => void): void;
         /**
-         * Gets the entities found in the selected item.
+         * Gets the entities found in the selected item's body.
          *
          * Note: This method is not supported in Outlook for iOS or Outlook for Android.
          *
@@ -11537,7 +11537,7 @@ declare namespace Office {
          */
         getEntities(): Entities;
         /**
-         * Gets an array of all the entities of the specified entity type found in the selected item.
+         * Gets an array of all the entities of the specified entity type found in the selected item's body.
          *
          * Note: This method is not supported in Outlook for iOS or Outlook for Android.
          *
@@ -11546,7 +11546,7 @@ declare namespace Office {
          * @param entityType One of the EntityType enumeration values.
          * 
          * @returns
-         * If the value passed in entityType is not a valid member of the EntityType enumeration, the method returns null. If no entities of the specified type are present on the item, the method returns an empty array. Otherwise, the type of the objects in the returned array depends on the type of entity requested in the entityType parameter.
+         * If the value passed in entityType is not a valid member of the EntityType enumeration, the method returns null. If no entities of the specified type are present in the item's body, the method returns an empty array. Otherwise, the type of the objects in the returned array depends on the type of entity requested in the entityType parameter.
          *
          * @remarks
          * 
