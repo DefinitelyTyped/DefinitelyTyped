@@ -451,6 +451,6 @@ const test = () => (
             backgroundRepeat="repeat-x"
         />
 
-        <TestButton />
+        <TestButton variant="primary" m={2} />
     </div>
 );
