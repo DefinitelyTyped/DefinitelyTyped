@@ -39,6 +39,7 @@ import {
   OptionsType,
   OptionType,
   ValueType,
+  GroupedOptionsType,
 } from './types';
 
 type MouseOrTouchEvent =
@@ -184,7 +185,7 @@ export type Props = {
   /* Allows control of whether the menu is opened when the Select is clicked */
   openMenuOnClick?: boolean,
   /* Array of options that populate the select menu */
-  options?: OptionsType,
+  options?: GroupedOptionsType |OptionsType,
   /* Number of options to jump in menu when page{up|down} keys are used */
   pageSize?: number,
   /* Placeholder text for the select value */
