@@ -360,4 +360,55 @@ wve.addEventListener('loadredirect', (ev) => {
     return ev.newUrl || ev.oldUrl;
 });
 
-chrome.bluetoothLowEnergy.connect('1111111', () => { });
+chrome.bluetooth.getAdapterState((adapter) => {
+    console.log("Adapter " + adapter.address + ": " + adapter.name);
+});
+
+chrome.bluetooth.getDevices((devices) => {
+    for (const device of devices) {
+        console.log(device.address);
+    }
+});
+
+chrome.bluetooth.onDeviceAdded.addListener((device) => {
+    let uuid = '0000180d-0000-1000-8000-00805f9b34fb';
+    if (!device.uuids || device.uuids.indexOf(uuid) < 0)
+        return;
+
+    // The device has a service with the desired UUID.
+    chrome.bluetoothLowEnergy.connect(device.address, () => {
+        if (chrome.runtime.lastError) {
+            console.log('Failed to connect: ' + chrome.runtime.lastError.message);
+            return;
+        }
+        // Connected! Do stuff...
+    });
+});
+
+const uuid = '1105';
+
+chrome.bluetooth.getDevices((devices) => {
+    chrome.bluetoothSocket.create((createInfo) => {
+        chrome.bluetoothSocket.connect(createInfo.socketId,
+            devices[0].address, uuid, () => {
+                if (chrome.runtime.lastError) {
+                    console.log("Connection failed: " + chrome.runtime.lastError.message);
+                } else {
+                    chrome.bluetoothSocket.send(createInfo.socketId, new ArrayBuffer(4096), function (bytes_sent) {
+                        if (chrome.runtime.lastError) {
+                            console.log("Send failed: " + chrome.runtime.lastError.message);
+                        } else {
+                            console.log("Sent " + bytes_sent + " bytes")
+                        }
+                    });
+                }
+            });
+        chrome.bluetoothSocket.onRecieve.addListener((receiveInfo) => {
+            if (receiveInfo.socketId != createInfo.socketId)
+                return;
+            // receiveInfo.data is an ArrayBuffer.
+        });
+    });
+});
+
+

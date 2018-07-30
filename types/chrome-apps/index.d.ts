@@ -1,4 +1,3 @@
-import { onAcceptError } from './index.d';
 // Type definitions for Chrome packaged application development
 // Project: http://developer.chrome.com/apps/
 // Definitions by: Nikolai Ommundsen <https://github.com/niikoo>, Adam Lay <https://github.com/AdamLay>, MIZUNE Pine <https://github.com/pine613>, MIZUSHIMA Junki <https://github.com/mzsm>, Ingvar Stepanyan <https://github.com/RReverser>, Adam Pyle <https://github.com/pyle>, Matthew Kimber <https://github.com/matthewkimber>, otiai10 <https://github.com/otiai10>, couven92 <https://github.com/couven92>, RReverser <https://github.com/rreverser>, sreimer15 <https://github.com/sreimer15>
@@ -813,14 +812,14 @@ declare namespace chrome {
         /**
          * @description Gets the system-wide mute state for the specified stream type.
          * @param {StreamType} streamType Stream type for which mute state should be fetched.
-         * @param {(value: boolean) => {}} callback Callback reporting whether mute is set or not for specified stream type.
+         * @param {(value: boolean)=> void} callback Callback reporting whether mute is set or not for specified stream type.
          */
         export function getMute(streamType: StreamType, callback: (value: boolean) => void): void;
         /**
          * @description Sets mute state for a stream type. The mute state will apply to all audio devices with the specified audio stream type.
          * @param {StreamType} streamType Stream type for which mute state should be set.
          * @param {boolean} isMuted New mute value.
-         * @param {() => {}} [callback] If you specify the callback parameter, it should be a function that looks like this: function() {...};
+         * @param {()=> void} [callback] If you specify the callback parameter, it should be a function that looks like this: function() {...};
          */
         export function setMute(streamType: StreamType, isMuted: boolean, callback?: () => void): void;
         /** Fired when sound level changes for an active audio device. */
@@ -892,7 +891,7 @@ declare namespace chrome {
              */
             uuids?: string[];
             /**
-             * The received signal strength, in dBm. This field is avaliable and valid only during discovery. Outside of discovery it's value is not specified.
+             * The Recieved signal strength, in dBm. This field is avaliable and valid only during discovery. Outside of discovery it's value is not specified.
              * @since Chrome 44
              */
             inquiryRssi: number;
@@ -922,10 +921,15 @@ declare namespace chrome {
         export function getDevice(deviceAddress: string, callback: (deviceInfo: Device) => void): void;
         /**
          * Get a list of Bluetooth devices known to the system, including paired and recently discovered devices.
+         * @param callback Called when the search is completed.
+         */
+        export function getDevices(callback: (devices: Device[]) => void): void;
+        /**
+         * Get a list of Bluetooth devices known to the system, including paired and recently discovered devices.
          * @param filter Since Chrome 67. Some criteria to filter the list of returned bluetooth devices. If the filter is not set or set to {}, returned device list will contain all bluetooth devices. Right now this is only supported in ChromeOS, for other platforms, a full list is returned.
          * @param callback Called when the search is completed.
          */
-        export function getDevices(filter: DeviceFilter, callback: (deviceInfo: Device) => void): void;
+        export function getDevices(filter: DeviceFilter, callback: (devices: Device[]) => void): void;
         /**
          * Start discovery. Newly discovered devices will be returned via the onDeviceAdded event. Previously discovered devices already known to the adapter must be obtained using getDevices and will only be updated using the |onDeviceChanged| event if information about them changes.
          * Discovery will fail to start if this application has already called startDiscovery. Discovery can be resource intensive: stopDiscovery should be called as soon as possible.
@@ -1370,7 +1374,7 @@ declare namespace chrome {
     }
 
     /**
-     * Use the chrome.bluetoothSocket API to send and receive data to Bluetooth devices using RFCOMM and L2CAP connections.
+     * Use the chrome.bluetoothSocket API to send and Recieve data to Bluetooth devices using RFCOMM and L2CAP connections.
      * @since Chrome 37
      * Manifest: 'bluetooth': {...}
      * Important: This API works only on OS X, Windows and Chrome OS.
@@ -1387,7 +1391,7 @@ declare namespace chrome {
             persistent?: boolean;
             /** An application-defined string associated with the socket. */
             name?: string;
-            /** (integer) The size of the buffer used to receive data. The default value is 4096. */
+            /** (integer) The size of the buffer used to Recieve data. The default value is 4096. */
             bufferSize?: number;
         }
         interface ListenOptions {
@@ -1432,7 +1436,7 @@ declare namespace chrome {
             name?: string;
             /**
              * (integer)
-             * The size of the buffer used to receive data.
+             * The size of the buffer used to Recieve data.
              * If no buffer size has been specified explictly,
              * the value is not provided.
              */
@@ -1511,18 +1515,18 @@ declare namespace chrome {
              */
             error: OnAcceptErrorCode;
         }
-        interface OnReceiveEventData {
+        interface OnRecieveEventData {
             /** The socket identifier. (integer) */
             socketId: number;
-            /** The data received, with a maxium size of bufferSize. */
+            /** The data Recieved, with a maxium size of bufferSize. */
             data: ArrayBuffer;
         }
-        enum OnReceiveErrorCode {
+        enum OnRecieveErrorCode {
             "disconnected",
             "system_error",
             "not_connected"
         }
-        interface OnReceiveErrorEventData {
+        interface OnRecieveErrorEventData {
             /** The server socket identifier. (integer) */
             socketId: number;
             /** The error message */
@@ -1541,26 +1545,26 @@ declare namespace chrome {
         }
         interface OnAcceptEvent extends chrome.events.Event<(info: OnAcceptInfoData) => void> { }
         interface OnAcceptErrorEvent extends chrome.events.Event<(info: OnAcceptErrorEventData) => void> { }
-        interface OnReceiveEvent extends chrome.events.Event<(info: OnReceiveEventData) => void> { }
-        interface OnReceiveErrorEvent extends chrome.events.Event<(info: OnReceiveErrorEventData) => void> { }
+        interface OnRecieveEvent extends chrome.events.Event<(info: OnRecieveEventData) => void> { }
+        interface OnRecieveErrorEvent extends chrome.events.Event<(info: OnRecieveErrorEventData) => void> { }
         /**
          * Creates a Bluetooth socket.
          * @param callback Called when the socket has been created
          * */
-        function create(callback: (createInfo: CreateInfo) => {}): void;
+        function create(callback: (createInfo: CreateInfo) => void): void;
         /**
          * Creates a Bluetooth socket.
          * @param properties The socket properties (optional)
          * @param callback Called when the socket has been created
          */
-        function create(properties: SocketProperties, callback: (createInfo: CreateInfo) => {}): void;
+        function create(properties: SocketProperties, callback: (createInfo: CreateInfo) => void): void;
         /**
          * Updates the socket properties.
          * @param socketId The socket identifier. (integer)
          * @param properties  The properties to update.
          * @param [callback] Called when the properties are updated.
          */
-        function update(socketId: number, properties: SocketProperties, callback?: () => {}): void;
+        function update(socketId: number, properties: SocketProperties, callback?: () => void): void;
         /**
          * Enables or disables a connected socket from
          * receiving messages from its peer, or a listening
@@ -1568,9 +1572,9 @@ declare namespace chrome {
          * value is "false". Pausing a connected socket is
          * typically used by an application to throttle data
          * sent by its peer. When a connected socket is paused,
-         * no onReceiveevent is raised. When a socket is connected
-         * and un-paused, onReceive events are raised again when
-         * messages are received. When a listening socket is paused,
+         * no onRecieveevent is raised. When a socket is connected
+         * and un-paused, onRecieve events are raised again when
+         * messages are Recieved. When a listening socket is paused,
          * new connections are accepted until its backlog is full
          * then additional connection requests are refused.
          * onAccept events are raised only when the socket is un-paused.
@@ -1584,7 +1588,7 @@ declare namespace chrome {
              * See setPaused. The default value is "false".
          * @param [callback] Callback from the setPaused method.
          */
-        function setPaused(socketId: number, paused: boolean, callback?: () => {}): void;
+        function setPaused(socketId: number, paused: boolean, callback?: () => void): void;
         /**
          * Listen for connections using the RFCOMM protocol.
          *
@@ -1592,7 +1596,7 @@ declare namespace chrome {
          * @param uuid Service UUID to listen on.
          * @param callback Called when listen operation completes.
          */
-        function listenUsingRfcomm(socketId: number, uuid: string, callback: () => {}): void;
+        function listenUsingRfcomm(socketId: number, uuid: string, callback: () => void): void;
         /**
          * Listen for connections using the RFCOMM protocol.
          *
@@ -1601,7 +1605,7 @@ declare namespace chrome {
          * @param options Optional additional options for the service.
          * @param callback Called when listen operation completes.
          */
-        function listenUsingRfcomm(socketId: number, uuid: string, options: ListenOptions, callback: () => {}): void;
+        function listenUsingRfcomm(socketId: number, uuid: string, options: ListenOptions, callback: () => void): void;
         /**
          * Listen for connections using the L2CAP protocol.
          *
@@ -1609,7 +1613,7 @@ declare namespace chrome {
          * @param uuid Service UUID to listen on.
          * @param callback Called when listen operation completes.
          */
-        function listenUsingL2cap(socketId: number, uuid: string, callback: () => {}): void;
+        function listenUsingL2cap(socketId: number, uuid: string, callback: () => void): void;
         /**
          * Listen for connections using the L2CAP protocol.
          *
@@ -1618,14 +1622,14 @@ declare namespace chrome {
          * @param options Optional additional options for the service.
          * @param callback Called when listen operation completes.
          */
-        function listenUsingL2cap(socketId: number, uuid: string, options: ListenOptions, callback: () => {}): void;
+        function listenUsingL2cap(socketId: number, uuid: string, options: ListenOptions, callback: () => void): void;
         /**
          * Connects the socket to a remote Bluetooth device.
          * When the connect operation completes successfully,
-         * onReceive events are raised when data is received
+         * onRecieve events are raised when data is Recieved
          * from the peer. If a network error occur while the
-         * runtime is receiving packets, a onReceiveError
-         * event is raised, at which point no more onReceive
+         * runtime is receiving packets, a onRecieveError
+         * event is raised, at which point no more onRecieve
          * event will be raised for this socket until the
          * setPaused(false) method is called.
          *
@@ -1634,13 +1638,13 @@ declare namespace chrome {
          * @param uuid The UUID of the service to connect to.
          * @param callback Called when the connect attempt is complete.
          */
-        function connect(socketId: number, address: string, uuid: string, callback: () => {}): void;
+        function connect(socketId: number, address: string, uuid: string, callback: () => void): void;
         /**
          * Disconnects the socket. The socket identifier remains valid.
          * @param socketId The socket identifier. (integer)
          * @param [callback] Called when the disconnect attempt is complete.
          */
-        function disconnect(socketId: number, callback?: () => {}): void;
+        function disconnect(socketId: number, callback?: () => void): void;
         /**
          * Disconnects and destroys the socket.
          * Each socket created should be closed after use.
@@ -1651,27 +1655,27 @@ declare namespace chrome {
          * @param socketId The socket identifier. (integer)
          * @param callback Called when the `close` operation completes
          */
-        function close(socketId: number, callback: () => {}): void;
+        function close(socketId: number, callback: () => void): void;
         /**
          * Sends data on the given Bluetooth socket.
          * @param socketId The socket identifier. (integer)
          * @param data The data to send.
          * @param [callback] Called with the number of bytes sent.
          */
-        function send(socketId: number, data: ArrayBuffer, callback?: (bytesSent: number) => {}): void;
+        function send(socketId: number, data: ArrayBuffer, callback?: (bytesSent: number) => void): void;
         /**
          * Retrieves the state of the given socket.
          * @param socketId The socket identifier. (integer)
          * @param callback Called when the socket state is available.
          *                 Callback returning object containing the socket information.
          */
-        function getInfo(socketId: number, callback: (socketInfo: SocketInfo) => {}): void;
+        function getInfo(socketId: number, callback: (socketInfo: SocketInfo) => void): void;
         /**
          * Retrieves the list of currently opened sockets owned by the application.
          * @param callback Called when the list of sockets is available.
          *                 Returns an array of socket info.
          */
-        function getSockets(callback: (sockets: SocketInfo[]) => {}): void;
+        function getSockets(callback: (sockets: SocketInfo[]) => void): void;
         /**
          * Event raised when a connection has been established
          * for a given socket.
@@ -1686,16 +1690,16 @@ declare namespace chrome {
          */
         var onAcceptError: OnAcceptErrorEvent;
         /**
-         * Event raised when data has been received for a given socket.
+         * Event raised when data has been Recieved for a given socket.
          */
-        var onReceive: OnReceiveEvent;
+        var onRecieve: OnRecieveEvent;
         /**
          * Event raised when a network error occured while the runtime
          * was waiting for data on the socket. Once this event is raised,
-         * the socket is set to paused and no more onReceive events are
+         * the socket is set to paused and no more onRecieve events are
          * raised for this socket.
          */
-        var onReceiveError: OnReceiveErrorEvent;
+        var onRecieveError: OnRecieveErrorEvent;
     }
 
     ////////////////////
@@ -2635,7 +2639,7 @@ declare namespace chrome {
         export function unmount(options: UnmountOptions, callback?: () => void): void;
         /**
          * Returns all file systems mounted by the extension.
-         * @param callback Callback to receive the result of getAll function.
+         * @param callback Callback to Recieve the result of getAll function.
          * The callback parameter should be a function that looks like this:
          * function(array of FileSystemInfo fileSystems) {...};
          */
@@ -2643,7 +2647,7 @@ declare namespace chrome {
         /**
          * Returns information about a file system with the passed fileSystemId.
          * @since Since Chrome 42.
-         * @param callback Callback to receive the result of get function.
+         * @param callback Callback to Recieve the result of get function.
          * The callback parameter should be a function that looks like this:
          * function(FileSystemInfo fileSystem) {...};
          */
@@ -2715,7 +2719,7 @@ declare namespace chrome {
     // Google Cloud Messaging
     ////////////////////
     /**
-     * Use chrome.gcm to enable apps and extensions to send and receive messages through the Google Cloud Messaging Service.
+     * Use chrome.gcm to enable apps and extensions to send and Recieve messages through the Google Cloud Messaging Service.
      * Availability: Since Chrome 35.
      * Permissions:  'gcm'
      */
@@ -2801,7 +2805,7 @@ declare namespace chrome {
          */
         export function send(message: OutgoingMessage, callback: (messageId: string) => void): void;
 
-        /** Fired when a message is received through GCM. */
+        /** Fired when a message is Recieved through GCM. */
         export var onMessage: MessageReceptionEvent;
         /** Fired when a GCM server had to delete messages sent by an app server to the application. See Messages deleted event section of Cloud Messaging documentation for details on handling this event. */
         export var onMessagesDeleted: MessageDeletionEvent;
@@ -4150,12 +4154,12 @@ declare namespace chrome {
             bytesSent?: number;
         }
 
-        interface ReceiveEventArgs {
+        interface RecieveEventArgs {
             socketId: number;
             data: ArrayBuffer;
         }
 
-        interface ReceiveErrorEventArgs {
+        interface RecieveErrorEventArgs {
             socketId: number;
             resultCode: number;
         }
@@ -4199,8 +4203,8 @@ declare namespace chrome {
         export function getInfo(socketId: number, callback: (socketInfo: SocketInfo) => void): void;
         export function getSockets(callback: (socketInfos: SocketInfo[]) => void): void;
 
-        export var onReceive: chrome.events.Event<(args: ReceiveEventArgs) => void>;
-        export var onReceiveError: chrome.events.Event<(args: ReceiveErrorEventArgs) => void>;
+        export var onRecieve: chrome.events.Event<(args: RecieveEventArgs) => void>;
+        export var onRecieveError: chrome.events.Event<(args: RecieveErrorEventArgs) => void>;
     }
 
     /**
@@ -4404,7 +4408,7 @@ declare namespace chrome {
     }
 
     /**
-     * Use the chrome.sockets.udp API to send and receive data over the network
+     * Use the chrome.sockets.udp API to send and Recieve data over the network
      * using UDP connections. This API supersedes the UDP functionality previously
      * found in the 'socket' API.
      *
@@ -4421,14 +4425,14 @@ declare namespace chrome {
             bytesSent?: number;
         }
 
-        interface ReceiveEventArgs {
+        interface RecieveEventArgs {
             socketId: number;
             data: ArrayBuffer;
             remoteAddress: string;
             remotePort: number;
         }
 
-        interface ReceiveErrorEventArgs {
+        interface RecieveErrorEventArgs {
             socketId: number;
             resultCode: number;
         }
@@ -4450,8 +4454,8 @@ declare namespace chrome {
             name?: string;
 
             /**
-             * The size of the buffer used to receive data. If the buffer is too
-             * small to receive the UDP packet, data is lost. The default value is
+             * The size of the buffer used to Recieve data. If the buffer is too
+             * small to Recieve the UDP packet, data is lost. The default value is
              * 4096.
              */
             bufferSize?: number;
@@ -4474,13 +4478,13 @@ declare namespace chrome {
             name?: string;
 
             /**
-             * The size of the buffer used to receive data. If no buffer size ha
+             * The size of the buffer used to Recieve data. If no buffer size ha
              * been specified explictly, the value is not provided.
              */
             bufferSize?: number;
 
             /**
-             * Flag indicating whether the socket is blocked from firing onReceive
+             * Flag indicating whether the socket is blocked from firing onRecieve
              * events.
              */
             paused: boolean;
@@ -4525,7 +4529,7 @@ declare namespace chrome {
 
         /**
          * Pauses or unpauses a socket. A paused socket is blocked from firing
-         * onReceive events.
+         * onRecieve events.
          *
          * @see https://developer.chrome.com/apps/sockets_udp#method-setPaused
          * @param socketId The socket ID.
@@ -4539,7 +4543,7 @@ declare namespace chrome {
          * Binds the local address and port for the socket. For a client socket, it
          * is recommended to use port 0 to let the platform pick a free port.
          *
-         * Once the bind operation completes successfully, onReceive events are
+         * Once the bind operation completes successfully, onRecieve events are
          * raised when UDP packets arrive on the address/port specified -- unless
          * the socket is paused.
          *
@@ -4597,7 +4601,7 @@ declare namespace chrome {
         export function getSockets(callback: (socketInfos: SocketInfo[]) => void): void;
 
         /**
-         * Joins the multicast group and starts to receive packets from that group.
+         * Joins the multicast group and starts to Recieve packets from that group.
          * The socket must be bound to a local port before calling this method.
          *
          * @see https://developer.chrome.com/apps/sockets_udp#method-joinGroup
@@ -4645,7 +4649,7 @@ declare namespace chrome {
          * when there is more than one application on the same host joined to the
          * same multicast group while having different settings on multicast
          * loopback mode. On Windows, the applications with loopback off will not
-         * RECEIVE the loopback packets; while on Unix-like systems, the
+         * Recieve the loopback packets; while on Unix-like systems, the
          * applications with loopback off will not SEND the loopback packets to
          * other applications on the same host.
          * @see MSDN: http://goo.gl/6vqbj
@@ -4680,21 +4684,21 @@ declare namespace chrome {
         export function setBroadcast(socketId: number, enabled: boolean, callback?: (result: number) => void): void;
 
         /**
-         * Event raised when a UDP packet has been received for the given socket.
+         * Event raised when a UDP packet has been Recieved for the given socket.
          *
-         * @see https://developer.chrome.com/apps/sockets_udp#event-onReceive
+         * @see https://developer.chrome.com/apps/sockets_udp#event-onRecieve
          */
-        export var onReceive: chrome.events.Event<(args: ReceiveEventArgs) => void>;
+        export var onRecieve: chrome.events.Event<(args: RecieveEventArgs) => void>;
 
         /**
          * Event raised when a network error occured while the runtime was waiting
          * for data on the socket address and port. Once this event is raised, the
-         * socket is paused and no more onReceive events will be raised for this
+         * socket is paused and no more onRecieve events will be raised for this
          * socket until the socket is resumed.
          *
-         * @see https://developer.chrome.com/apps/sockets_udp#event-onReceiveError
+         * @see https://developer.chrome.com/apps/sockets_udp#event-onRecieveError
          */
-        export var onReceiveError: chrome.events.Event<(args: ReceiveErrorEventArgs) => void>;
+        export var onRecieveError: chrome.events.Event<(args: RecieveErrorEventArgs) => void>;
     }
 
     ////////////////////
@@ -5665,7 +5669,7 @@ declare namespace chrome {
          */
         export function destroyConfig(id: string, callback?: Function): void;
         /**
-         * Sets the parameters for the VPN session. This should be called immediately after 'connected' is received from the platform. This will succeed only when the VPN session is owned by the extension.
+         * Sets the parameters for the VPN session. This should be called immediately after 'connected' is Recieved from the platform. This will succeed only when the VPN session is owned by the extension.
          * @param parameters The parameters for the VPN session.
          * @param callback Called when the parameters are set or if there is an error.
          */
@@ -5685,10 +5689,10 @@ declare namespace chrome {
          */
         export function notifyConnectionStateChanged(state: string, callback?: Function): void;
 
-        /** Triggered when a message is received from the platform for a VPN configuration owned by the extension. */
+        /** Triggered when a message is Recieved from the platform for a VPN configuration owned by the extension. */
         export var onPlatformMessage: VpnPlatformMessageEvent;
-        /** Triggered when an IP packet is received via the tunnel for the VPN session owned by the extension. */
-        export var onPacketReceived: VpnPacketReceptionEvent;
+        /** Triggered when an IP packet is Recieved via the tunnel for the VPN session owned by the extension. */
+        export var onPacketRecieved: VpnPacketReceptionEvent;
         /** Triggered when a configuration created by the extension is removed by the platform. */
         export var onConfigRemoved: VpnConfigRemovalEvent;
         /** Triggered when a configuration is created by the platform for the extension. */
@@ -6622,7 +6626,7 @@ declare namespace chrome {
         interface ContentWindow {
 
             /**
-            * @description <p>Posts a message to the embedded web content as long as the embedded content is displaying a page from the target origin. This method is available once the page has completed loading. Listen for the <a href='#event-contentload'>contentload</a> event and then call the method.</p><p>The guest will be able to send replies to the embedder by posting message to event.source on the message event it receives.</p><p>This API is identical to the <a href='https://developer.mozilla.org/en-US/docs/DOM/window.postMessage'>HTML5 postMessage API</a> for communication between web pages. The embedder may listen for replies by adding a message event listener to its own frame.</p>
+            * @description <p>Posts a message to the embedded web content as long as the embedded content is displaying a page from the target origin. This method is available once the page has completed loading. Listen for the <a href='#event-contentload'>contentload</a> event and then call the method.</p><p>The guest will be able to send replies to the embedder by posting message to event.source on the message event it Recieves.</p><p>This API is identical to the <a href='https://developer.mozilla.org/en-US/docs/DOM/window.postMessage'>HTML5 postMessage API</a> for communication between web pages. The embedder may listen for replies by adding a message event listener to its own frame.</p>
             * @param message Message object to send to the guest.
             * @param {string} targetOrigin Specifies what the origin of the guest window must be for the event to be dispatched.
              */
