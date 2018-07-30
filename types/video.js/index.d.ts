@@ -8,8 +8,9 @@
 //                 Grzegorz Błaszczyk <https://github.com/gjanblaszczyk>
 //                 Stéphane Roucheray <https://github.com/sroucheray>
 //                 Adam Eisenreich <https://github.com/AkxeOne>
+//                 Brian A. Danielak <https://github.com/briandk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.7
 
 // The Video.js API allows you to interact with the video through
 // Javascript, whether the browser is playing the video through HTML5
@@ -20,7 +21,7 @@ declare function videojs(
     options?: videojs.PlayerOptions,
     ready?: () => void
 ): videojs.Player;
-export default videojs;
+export = videojs;
 export as namespace videojs;
 
 declare namespace videojs {
@@ -77,8 +78,8 @@ declare namespace videojs {
     }
 
     interface Source {
-        type: string;
         src: string;
+        type?: string;
     }
 
     interface Dimensions {
