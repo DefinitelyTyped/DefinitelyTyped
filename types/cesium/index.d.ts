@@ -1942,7 +1942,7 @@ declare namespace Cesium {
         stRotation: Property;
         fill: Property;
         outline: Property;
-        outlineColor: Property;
+        outlineColor: Color;
         outlineWidth: Property;
         numberOfVerticalLines: Property;
         constructor(options?: {
@@ -1954,7 +1954,7 @@ declare namespace Cesium {
             fill?: Property;
             material?: MaterialProperty;
             outline?: Property;
-            outlineColor?: Property;
+            outlineColor?: Color;
             outlineWidth?: Property;
             numberOfVerticalLines?: Property;
             rotation?: Property;
@@ -2207,7 +2207,7 @@ declare namespace Cesium {
     class LabelGraphics {
         definitionChanged: Event;
         text: Property;
-        font: Property;
+        font: string;
         style: Property;
         fillColor: Property;
         outlineColor: Property;
@@ -2222,7 +2222,7 @@ declare namespace Cesium {
         pixelOffsetScaleByDistance: Property;
         constructor(options?: {
             text?: Property;
-            font?: Property;
+            font?: string;
             style?: Property;
             fillColor?: Property;
             outlineColor?: Property;
@@ -2369,7 +2369,7 @@ declare namespace Cesium {
         extrudedHeight: Property;
         granularity: Property;
         stRotation: Property;
-        fill: Property;
+        fill: boolean;
         outline: Property;
         outlineColor: Color;
         outlineWidth: Property;
@@ -2379,10 +2379,10 @@ declare namespace Cesium {
             height?: number;
             extrudedHeight?: Property;
             show?: Property;
-            fill?: Property;
+            fill?: boolean;
             material?: MaterialProperty;
             outline?: boolean;
-            outlineColor?: Property;
+            outlineColor?: Color;
             outlineWidth?: number;
             stRotation?: Property;
             granularity?: Property;
