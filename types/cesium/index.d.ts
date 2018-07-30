@@ -2209,9 +2209,9 @@ declare namespace Cesium {
         text: Property;
         font: string;
         style: Property;
-        fillColor: Property;
-        outlineColor: Property;
-        outlineWidth: Property;
+        fillColor: Color;
+        outlineColor: Color;
+        outlineWidth: number;
         horizontalOrigin: Property;
         verticalOrigin: Property;
         eyeOffset: Property;
@@ -2224,9 +2224,9 @@ declare namespace Cesium {
             text?: Property;
             font?: string;
             style?: Property;
-            fillColor?: Property;
-            outlineColor?: Property;
-            outlineWidth?: Property;
+            fillColor?: Color;
+            outlineColor?: Color;
+            outlineWidth?: number;
             show?: Property;
             scale?: Property;
             horizontalOrigin?: Property;
