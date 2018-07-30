@@ -328,11 +328,11 @@ declare module 'ember' {
              */
             resolveRegistration(fullName: string): Function;
             /**
-             * Registers a factory that can be used for dependency injection (with
+             * Registers a factory or value that can be used for dependency injection (with
              * `inject`) or for service lookup. Each factory is registered with
              * a full name including two parts: `type:name`.
              */
-            register(fullName: string, factory: Function, options?: { singleton?: boolean, instantiate?: boolean }): any;
+            register(fullName: string, factory: any, options?: { singleton?: boolean, instantiate?: boolean }): any;
             /**
              * Unregister a factory.
              */
