@@ -448,7 +448,7 @@ declare namespace chrome {
              * For none, the -webkit-app-region CSS property can be used to apply draggability to the app's window.
              * -webkit-app-region: drag can be used to mark regions draggable. no-drag can be used to disable this style on nested elements.
              */
-            type?: 'chrome';
+            type: 'chrome';
             /**
              * Allows the frame color to be set. Frame coloring is only available if the frame type is chrome.
              * @since Frame coloring is new in Chrome 36.
@@ -2719,7 +2719,7 @@ declare namespace chrome {
     // mDNS
     ////////////////////
     /**
-     * 	Use the chrome.mdns API to discover services over mDNS. This comprises a subset of the features of the NSD spec: http://www.w3.org/TR/discovery-api/
+     *  Use the chrome.mdns API to discover services over mDNS. This comprises a subset of the features of the NSD spec: http://www.w3.org/TR/discovery-api/
      * @since Chrome 31
      */
     namespace mdns {
@@ -4589,7 +4589,7 @@ declare namespace chrome {
          * @since Chrome 57
          */
         interface TouchCalibrationPair {
-            /**	The coordinates of the display point. */
+            /** The coordinates of the display point. */
             displayPoint: Point;
             /** The coordinates of the touch point corresponding to the display point. */
             touchPoint: Point;
@@ -5509,7 +5509,7 @@ declare namespace chrome {
         /**
          * @description WebView element from html
          */
-        interface HTMLWebViewElement extends Element {
+        interface HTMLWebViewElement extends HTMLElement {
             /**
              * This sets the guest content's window.name object.
              */
