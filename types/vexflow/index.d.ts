@@ -1,4 +1,4 @@
-// Type definitions for VexFlow v1.2.84
+// Type definitions for VexFlow v1.2.85
 // Project: http://vexflow.com
 // Definitions by: Roman Quiring <https://github.com/rquiring>
 //                 Sebastian Haas <https://github.com/sebastianhaas>
