@@ -562,3 +562,11 @@ equivResult = QUnit.equiv({}, {});
 equivResult = QUnit.equiv(1, 2);
 equivResult = QUnit.equiv('foo', 'bar');
 equivResult = QUnit.equiv(['foo'], ['bar']);
+
+
+QUnit.test('steps', assert => {
+  assert.step('one');
+  assert.step('two');
+  assert.step('three');
+  assert.verifySteps(['one', 'two', 'three'], 'Counting to three correctly');
+});
