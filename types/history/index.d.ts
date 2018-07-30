@@ -5,7 +5,7 @@
 // TypeScript Version: 2.3
 export as namespace History;
 
-export type Action = 'PUSH' | 'POP' | 'REPLACE;
+export type Action = 'PUSH' | 'POP' | 'REPLACE';
 export type UnregisterCallback = () => void;
 
 export interface History {
