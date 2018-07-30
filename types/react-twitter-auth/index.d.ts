@@ -17,6 +17,9 @@ interface TwitterLoginProps {
     dialogHeight?: number;
     showIcon?: boolean;
     credentials?: "omit" | "same-origin" | "include";
+    customHeaders?: Headers;
+    children?: React.ReactNode;
+    forceLogin?: boolean;
 }
 
 declare var TwitterLogin: React.StatelessComponent<TwitterLoginProps>;
