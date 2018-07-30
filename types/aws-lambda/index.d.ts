@@ -19,6 +19,7 @@
 //                 Chris Redekop <https://github.com/repl-chris>
 //                 Aneil Mallavarapu <https://github.com/aneilbaboo>
 //                 Jeremy Nagel <https://github.com/jeznag>
+//                 Louis Larry <https://github.com/louislarry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -582,7 +583,9 @@ export interface CloudFrontRequest {
 
 export interface CloudFrontEvent {
     config: {
+        distributionDomainName: string;
         distributionId: string;
+        eventType: 'origin-request' | 'origin-response' | 'viewer-request' | 'viewer-response';
         requestId: string;
     };
 }

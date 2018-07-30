@@ -2905,7 +2905,7 @@ export interface ServerOptions {
      * Default value: none.
      * Used to create an HTTPS connection. The tls object is passed unchanged to the node HTTPS server as described in the node HTTPS documentation.
      */
-    tls?: true | https.RequestOptions;
+    tls?: boolean | https.RequestOptions;
 
     /**
      * Default value: constructed from runtime server information.

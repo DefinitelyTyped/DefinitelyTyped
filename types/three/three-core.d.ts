@@ -2793,6 +2793,7 @@ export class MeshDepthMaterial extends Material {
 
     wireframe: boolean;
     wireframeLinewidth: number;
+    depthPacking: DepthPackingStrategies;
 
     setValues(parameters: MeshDepthMaterialParameters): void;
 }

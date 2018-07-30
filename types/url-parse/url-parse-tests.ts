@@ -1,18 +1,19 @@
-import parse = require("url-parse");
+import URL = require('url-parse');
+const parse = URL;
 
-const url1 = new URL("foo/bar", "https://github.com/");
-const url2: parse.URL = parse("https://github.com/foo/bar?baz=true");
-const url3: parse.URL = parse("https://github.com/foo/bar", true, true);
-const url4: parse.URL = parse("foo/bar", "https://github.com/");
-const url5: parse.URL = parse("foo/bar", "https://github.com/", () => "queryParserOverride");
+new URL('foo/bar', 'https://github.com/');
+new URL('foo/bar', 'https://github.com/', (query: string) => ({ query }));
+parse('foo/bar', 'https://github.com/');
+parse('foo/bar', 'https://github.com/', (query: string) => ({ query }));
 
-url2.hash;
-url2.hostname;
-url2.query.baz;
+const url1: URL = new URL('https://github.com/foo/bar?baz=true');
+url1.hash;
+url1.hostname;
+url1.query.baz;
 
-url3.slashes;
-url3.set("protocol", "http://");
+const url2 = new URL('foo/bar', 'https://github.com/');
+url2.set('protocol', 'http://');
 
-parse.extractProtocol("https://github.com/foo/bar");
-parse.location("https://github.com/foo/bar");
-parse.qs;
+URL.extractProtocol('https://github.com/foo/bar');
+URL.location('https://github.com/foo/bar');
+URL.qs.parse('a=b');

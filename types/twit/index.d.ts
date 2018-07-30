@@ -262,7 +262,7 @@ declare module 'twit' {
       user_id?: number | string,
       lat?: number,
       long?: number,
-      follow?: boolean,
+      follow?: boolean | string,
       include_email?: boolean,
       cursor?: number | string,
       tweet_mode?: string,
@@ -270,6 +270,7 @@ declare module 'twit' {
       exclude_replies?: boolean,
       include_rts?: boolean,
       skip_status?: boolean,
+      url?: string,
     }
     export interface PromiseResponse {
       data: Response,

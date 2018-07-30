@@ -1,6 +1,7 @@
 // Type definitions for @google-cloud/datastore 1.3
 // Project: https://github.com/googleapis/nodejs-datastore
 // Definitions by: Antoine Beauvais-Lacasse <https://github.com/beaulac>
+//                 Futa Ogawa <https://github.com/ogawa0071>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
@@ -34,7 +35,7 @@ declare module '@google-cloud/datastore' {
     import { DatastoreTransaction } from '@google-cloud/datastore/transaction';
 
     class Datastore extends DatastoreRequest_ {
-        constructor(options: InitOptions);
+        constructor(options?: InitOptions);
 
         readonly KEY: typeof Datastore.KEY;
         readonly MORE_RESULTS_AFTER_CURSOR: MoreResultsAfterCursor;
