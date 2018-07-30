@@ -34,7 +34,7 @@ export interface RouterChildContext<P> {
       match: match<P>
     }
   };
-};
+}
 export interface MemoryRouterProps {
   initialEntries?: H.LocationDescriptor[];
   initialIndex?: number;
@@ -86,7 +86,7 @@ export class Route<T extends RouteProps = RouteProps> extends React.Component<T,
 export interface RouterProps {
   history: H.History;
 }
-export class Router extends React.Component<RouterProps, any> {}
+export class Router extends React.Component<RouterProps, any> { }
 
 export interface StaticRouterContext {
   url?: string;
@@ -116,7 +116,7 @@ export interface match<P> {
 // Omit taken from https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
-export function matchPath<P>(pathname: string, props: RouteProps): match<P> | null;
+export function matchPath<P>(pathname: string, props: RouteProps, parent?: match<P> | null): match<P> | null;
 
 export function generatePath(pattern: string, params?: { [paramName: string]: string | number | boolean }): string;
 
