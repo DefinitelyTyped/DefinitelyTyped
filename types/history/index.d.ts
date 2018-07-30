@@ -5,7 +5,7 @@
 // TypeScript Version: 2.3
 export as namespace History;
 
-export type Action = "PUSH" | "POP" | "REPLACE";
+export type Action = 'PUSH' | 'POP' | 'REPLACE;
 export type UnregisterCallback = () => void;
 
 export interface History {
@@ -41,30 +41,20 @@ export interface LocationDescriptorObject<S = LocationState> {
 }
 
 export namespace History {
-    export type LocationDescriptor<S = LocationState> =
-        | Path
-        | LocationDescriptorObject<S>;
+    export type LocationDescriptor<S = LocationState> = Path | LocationDescriptorObject<S>;
     export type LocationKey = string;
     export type LocationListener = (location: Location, action: Action) => void;
     export type LocationState = any;
     export type Path = string;
     export type Pathname = string;
     export type Search = string;
-    export type TransitionHook = (
-        location: Location,
-        callback: (result: any) => void
-    ) => any;
-    export type TransitionPromptHook = (
-        location: Location,
-        action: Action
-    ) => string | false | void;
+    export type TransitionHook = (location: Location, callback: (result: any) => void) => any;
+    export type TransitionPromptHook = (location: Location, action: Action) => string | false | void;
     export type Hash = string;
     export type Href = string;
 }
 
-export type LocationDescriptor<S = LocationState> = History.LocationDescriptor<
-    S
->;
+export type LocationDescriptor<S = LocationState> = History.LocationDescriptor<S>;
 export type LocationKey = History.LocationKey;
 export type LocationListener = History.LocationListener;
 export type LocationState = History.LocationState;
