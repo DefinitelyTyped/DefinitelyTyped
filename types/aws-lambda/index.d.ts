@@ -370,6 +370,7 @@ export interface CloudWatchLogsLogEvent {
     id: string;
     timestamp: number;
     message: string;
+    extractedFields?: object;
 }
 
 // Context
