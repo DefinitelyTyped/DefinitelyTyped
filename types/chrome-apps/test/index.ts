@@ -411,4 +411,15 @@ chrome.bluetooth.getDevices((devices) => {
     });
 });
 
+chrome.hid.getDevices({
+    filters: [
+        { vendorId: 5 }
+    ]
+}, (devices) => {
+    const productId = devices[0].productId;
+    chrome.hid.getUserSelectedDevices((selectedDevices) => {
+        const hmm = selectedDevices.productId == productId ? selectedDevices.vendorId : selectedDevices.maxFeatureReportSize;
+    });
+});
+
 

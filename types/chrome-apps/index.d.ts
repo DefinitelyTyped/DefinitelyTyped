@@ -12,6 +12,17 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 declare namespace chrome {
+    //////////////
+    // INTERNAL //
+    //////////////
+
+    /** @deprecated Could be used, if e.g. deprecated recently */
+    type deprecatedButUsable = any;
+
+    /** @deprecated Should never be used, used to guide migrations. */
+    type deprecated = never;
+
+
     ////////////////////
     // Accessibility Features
     ////////////////////
@@ -2829,39 +2840,180 @@ declare namespace chrome {
      */
     namespace hid {
         interface Collection {
+            /** HID usage page identifier. */
             usagePage: number;
+            /** Page-defined usage identifier. */
             usage: number;
+            /** Report IDs which belong to the collection and to its children. */
             reportIds: number[];
         }
         interface HidDeviceInfo {
+            /** Opaque device ID. */
             deviceId: number;
+            /** Vendor ID. */
             vendorId: number;
+            /** Product ID. */
             productId: number;
-            /** @since Chrome 46 */
+            /**
+             * The product name read from the device, if available.
+             * @since Chrome 46
+             * */
             productName: string;
+            /**
+             * The serial number read from the device, if available.
+             * @since Chrome 46
+             */
             serialNumber: string;
+            /**
+             * Top-level collections from this device's report descriptors.
+             */
             collections: Collection[];
+            /** Top-level collection's maximum input report size. */
             maxInputReportSize: number;
+            /** Top-level collection's maximum output report size. */
             maxOutputReportSize: number;
+            /** Top-level collection's maximum feature report size. */
             maxFeatureReportSize: number;
+            /**
+             * Raw device report descriptor (not available on Windows).
+             * @since Chrome 42
+             * */
             reportDescriptor: ArrayBuffer;
         }
         interface DeviceFilter {
+            /** Device vendor ID. */
             vendorId?: number;
+            /** Device product ID, only checked only if the vendor ID matches. */
             productId?: number;
+            /** HID usage page identifier. */
             usagePage?: number;
+            /** HID usage identifier, checked only if the HID usage page matches. */
             usage?: number;
         }
-        function getDevices(options: { filters?: DeviceFilter[] }, callback: (devices: HidDeviceInfo[]) => void): void;
+        interface DeviceOptions {
+            /**
+             * Equivalent to setting DeviceFilter.vendorId.
+             * @deprecated Deprecated since Chrome 39
+             */
+            vendorId?: chrome.deprecated;
+            /**
+             * Equivalent to setting DeviceFilter.productId.
+             * @deprecated Deprecated since Chrome 39.
+             */
+            productId?: chrome.deprecated;
+            /**
+             * A device matching any given filter will be returned.
+             * An empty filter list will return all devices the app has permission for.
+             * @since Chrome 39
+             */
+            filters?: DeviceFilter[];
+        }
+        interface UserSelectedDevicePickerOptions {
+            /**
+             * Allow the user to select multiple devices.
+             */
+            multiple?: boolean;
+            /**
+             * Filter the list of devices presented to the user.
+             * If multiple filters are provided devices matching any filter will be displayed.
+             */
+            filters?: DeviceFilter[];
+        }
+        /**
+         * Enumerate connected HID devices.
+         * @param options The properties to search for on target devices.
+         * @param callback
+         */
+        function getDevices(options: DeviceOptions, callback: (devices: HidDeviceInfo[]) => void): void;
+        /**
+         * @requires(dev) Dev channel only!
+         * @see[Learn more]{@link https://developer.chrome.com/apps/api_index#dev_apis}
+         * @description Presents a device picker to the user and returns
+         * HidDeviceInfo objects for the devices selected. If the user
+         * cancels the picker devices will be empty. A user gesture is
+         * required for the dialog to display. Without a user gesture,
+         * the callback will run as though the user cancelled. If multiple
+         * filters are provided devices matching any filter will be displayed.
+         * @param callback Invoked with a list of chosen Devices.
+         */
         function getUserSelectedDevices(callback: (devices: HidDeviceInfo) => void): void;
-        function getUserSelectedDevices(options: { multiple: boolean, filters?: DeviceFilter[] }, callback: (devices: HidDeviceInfo) => void): void;
+        /**
+         * @since Since Chrome 45.
+         * @requires(dev) Dev channel only!
+         * @see[Learn more]{@link https://developer.chrome.com/apps/api_index#dev_apis}
+         * @description Presents a device picker to the user and returns
+         * HidDeviceInfo objects for the devices selected. If the user
+         * cancels the picker devices will be empty. A user gesture is
+         * required for the dialog to display. Without a user gesture,
+         * the callback will run as though the user cancelled. If multiple
+         * filters are provided devices matching any filter will be displayed.
+         * @param options Configuration of the device picker dialog box.
+         * @param callback Invoked with a list of chosen Devices.
+         */
+        function getUserSelectedDevices(options: UserSelectedDevicePickerOptions, callback: (devices: HidDeviceInfo) => void): void;
+        /**
+         * Open a connection to an HID device for communication.
+         * @param deviceId The HidDeviceInfo.deviceId of the device to open.
+         * @param callback The callback function returns an object, containing the connectionId.
+         *                 The connectionId is the opaque ID used to identify this connection in all other functions.
+         */
         function connect(deviceId: number, callback: (connection: { connectionId: number }) => void): void;
+        /**
+         * Disconnect from a device.
+         * Invoking operations on a device after calling this is safe but has no effect.
+         * @param connectionId The connectionId returned by connect.
+         * @param [callback]
+         */
         function disconnect(connectionId: number, callback?: () => void): void;
+        /**
+         * Receive the next input report from the device.
+         * @param connectionId The connectionId returned by connect.
+         * @param callback The callback will return these parameters:
+         *                      * reportId - The report ID or 0 if none. (integer)
+         *                      * data - The report data, the report ID prefix (if present) is removed.
+         */
         function receive(connectionId: number, callback: (reportId: number, data: ArrayBuffer) => void): void;
+        /**
+         * Send an output report to the device.
+         * Note: Do not include a report ID prefix in data. It will be added if necessary.
+         * @param connectionId The connectionId returned by connect. (integer)
+         * @param reportId The connectionId returned by connect. (integer)
+         * @param data The report data.
+         * @param callback
+         */
         function send(connectionId: number, reportId: number, data: ArrayBuffer, callback: () => void): void;
+        /**
+         * Request a feature report from the device.
+         * @param connectionId The connectionId returned by connect. (integer)
+         * @param reportId The report ID, or 0 if none. (integer)
+         * @param callback Will provide `data` which contain the report data, including a report ID prefix if one is sent by the device.
+         */
         function receiveFeatureReport(connectionId: number, reportId: number, callback: (data: ArrayBuffer) => void): void;
+        /**
+         * Send a feature report to the device.
+         * Note: Do not include a report ID prefix in data. It will be added if necessary.
+         * @param connectionId The connectionId returned by connect. (integer)
+         * @param reportId The report ID to use, or 0 if none. (integer)
+         * @param data The report data.
+         * @param callback
+         */
         function sendFeatureReport(connectionId: number, reportId: number, data: ArrayBuffer, callback: () => void): void;
+        /**
+         * Event generated when a device is added to the system.
+         * Events are only broadcast to apps and extensions that
+         * have permission to access the device. Permission may
+         * have been granted at install time or when the user
+         * accepted an optional permission.
+         * @since Chrome 41.
+         * @see[permissions.request]{@link https://developer.chrome.com/apps/permissions#method-request}
+         */
         var onDeviceAdded: chrome.events.Event<(device: HidDeviceInfo) => void>;
+        /**
+         * Event generated when a device is removed from the system.
+         * The callback will contain the deviceId property of the device passed to onDeviceAdded.
+         * @since Chrome 41.
+         * @see[See onDeviceAdded for which events are delivered]{@link https://developer.chrome.com/apps/hid#event-onDeviceAdded}.
+         */
         var onDeviceRemoved: chrome.events.Event<(deviceId: number) => void>;
     }
 
