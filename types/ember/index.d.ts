@@ -3372,7 +3372,48 @@ declare module 'ember' {
     /**
      * The Router service is the public API that provides component/view layer access to the router.
      */
-    class RouterService extends Ember.Service {
+    export class RouterService extends Ember.Service {
+        //
+        /**
+             Name of the current route.
+            This property represent the logical name of the route,
+            which is comma separated.
+            For the following router:
+            ```app/router.js
+            Router.map(function() {
+            this.route('about');
+            this.route('blog', function () {
+                this.route('post', { path: ':post_id' });
+            });
+            });
+            ```
+            It will return:
+            * `index` when you visit `/`
+            * `about` when you visit `/about`
+            * `blog.index` when you visit `/blog`
+            * `blog.post` when you visit `/blog/some-post-id`
+        */
+        readonly currentRouteName: string;
+        //
+        /**
+             Current URL for the application.
+            This property represent the URL path for this route.
+            For the following router:
+            ```app/router.js
+            Router.map(function() {
+            this.route('about');
+            this.route('blog', function () {
+                this.route('post', { path: ':post_id' });
+            });
+            });
+            ```
+            It will return:
+            * `/` when you visit `/`
+            * `/about` when you visit `/about`
+            * `/blog` when you visit `/blog`
+            * `/blog/some-post-id` when you visit `/blog/some-post-id`
+        */
+        readonly currentURL: string;
         //
         /**
          * Determines whether a route is active.
@@ -3774,6 +3815,11 @@ declare module '@ember/routing/route' {
 declare module '@ember/routing/router' {
     import Ember from 'ember';
     export default class EmberRouter extends Ember.Router { }
+}
+
+declare module '@ember/routing/router-service' {
+    import { RouterService } from 'ember';
+    export default class extends RouterService { }
 }
 
 declare module '@ember/runloop' {
