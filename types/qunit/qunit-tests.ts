@@ -215,42 +215,42 @@ QUnit.log(function( details ) {
 });
 
 QUnit.log(function( details ) {
-  const aDetails: QUnitLogDetails = details;
+  const aDetails: QUnit.LogDetails = details;
   let x: { actual: number; expected: number; message: string; module: string; name: string; result: boolean; runtime: number; source: string } = details;
   x = aDetails;
 });
 
 QUnit.begin(function( details ) {
-  const aDetails: QUnitBeginDetails = details;
+  const aDetails: QUnit.BeginDetails = details;
   console.log( "Total tests running: ", details.totalTests);
   console.log( "Total tests running: ", aDetails.totalTests);
 });
 
 QUnit.done(function( details ) {
-  const aDetails: QUnitDoneDetails = details;
+  const aDetails: QUnit.DoneDetails = details;
   console.log( "Finished. Failed/total: ", details.failed, details.total, aDetails.passed, aDetails.runtime );
   console.log( "Finished. Failed/total: ", aDetails.failed, aDetails.total, aDetails.passed, aDetails.runtime );
 });
 
 QUnit.moduleDone(function( details ) {
-  const aDetails: QUnitModuleDoneDetails = details;
+  const aDetails: QUnit.ModuleDoneDetails = details;
   console.log( "Finished running: ", details.name, "Failed/total: ", details.failed, details.total, aDetails.passed, aDetails.runtime );
   console.log( "Finished running: ", aDetails.name, "Failed/total: ", aDetails.failed, aDetails.total, aDetails.passed, aDetails.runtime );
 });
 
 QUnit.moduleStart(function( details ) {
-  const aDetails: QUnitModuleStartDetails = details;
+  const aDetails: QUnit.ModuleStartDetails = details;
   console.log( "Now running: ", aDetails.name );
   console.log( "Now running: ", details.name );
 });
 QUnit.testDone(function( details ) {
-  const aDetails: QUnitTestDoneDetails = details;
+  const aDetails: QUnit.TestDoneDetails = details;
   console.log( "Finished running: ", details.name, "Failed/total: ", details.failed, details.total, details.passed, details.runtime);
   console.log( "Finished running: ", aDetails.name, "Failed/total: ", aDetails.failed, aDetails.total, aDetails.passed, aDetails.runtime);
 });
 
 QUnit.testStart(function( details ) {
-  const aDetails: QUnitTestStartDetails = details;
+  const aDetails: QUnit.TestStartDetails = details;
   console.log( "Now running: ", aDetails.name, ' from module ', aDetails.module );
   console.log( "Now running: ", details.name, ' from module ', details.module );
 });
