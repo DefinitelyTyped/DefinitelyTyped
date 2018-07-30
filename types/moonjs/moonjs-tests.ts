@@ -17,6 +17,7 @@ const count = app.get("count");
 count;                          // $ExpectType number
 app.get("increment")();         // $ExpectType void
 app.callMethod("increment");    // $ExpectType any
+app.get("blahblahblah");        // $ExpectError
 
 app.destroy();
 
