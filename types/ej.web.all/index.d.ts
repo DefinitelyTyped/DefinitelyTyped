@@ -8,7 +8,7 @@
 
 /*!
 *  filename: ej.web.all.d.ts
-*  version : 16.2.0.41
+*  version : 16.2.0.46
 *  Copyright Syncfusion Inc. 2001 - 2018. All rights reserved.
 *  Use of this code is subject to the terms of our license.
 *  A copy of the current license can be obtained at any time by e-mailing
@@ -16880,9 +16880,10 @@ declare namespace ej {
 
         /** This method helps to insert/paste the content at the current cursor (caret) position or the selected content to be replaced with our text by passing the value as parameter to the
          * pasteContent method in the Editor.
+         * @param {string} paste content
          * @returns {void}
          */
-        pasteContent(): void;
+        pasteContent(html: string): void;
 
         /** Refreshes the RTE control.
          * @returns {void}
@@ -23381,6 +23382,13 @@ declare namespace ej {
          * @returns {void}
          */
         refreshContent(templateRefresh?: boolean): void;
+
+        /** Refresh the grid contents with updated server Data, using XMLHttpRequest. Url Path should be provided in Grid datasource otherwise it refreshes with local data without
+         * XMLHttpRequest.
+         * @param {any} optionalData to the server
+         * @returns {void}
+         */
+        refreshData(additionalParameters?: any): void;
 
         /** Refresh the template of the grid
          * @returns {void}
@@ -36252,6 +36260,10 @@ declare namespace ej {
              */
             rowSelecting?(e: RowSelectingEventArgs): void;
 
+            /** Triggered after splitter resizing action in Gantt
+             */
+            splitterResized?(e: SplitterResizedEventArgs): void;
+
             /** Triggered when taskbar item is clicked in Gantt.
              */
             taskbarClick?(e: TaskbarClickEventArgs): void;
@@ -36850,6 +36862,33 @@ declare namespace ej {
             /** Returns the previous selected row grid element.
              */
             previousGridRow?: any;
+        }
+
+        export interface SplitterResizedEventArgs {
+
+            /** Returns the cancel option value.
+             */
+            cancel?: boolean;
+
+            /** Returns the value based on current splitter position.
+             */
+            currentSplitterPosition?: string;
+
+            /** To set custom position for splitter after resize action.
+             */
+            customSplitterPosition?: string;
+
+            /** Returns the value to differentiate whether splitter resizing is performed either by manual resizing or by method
+             */
+            isOnResize?: boolean;
+
+            /** To differentiate `customSplitterPosition` value was index or position.
+             */
+            isSplitterIndex?: boolean;
+
+            /** Returns the previous splitter position
+             */
+            prevSplitterPosition?: string;
         }
 
         export interface TaskbarClickEventArgs {
@@ -37455,8 +37494,14 @@ declare namespace ej {
             ///Enables the next time span icon in toolbar
             NextTimeSpan,
 
+            ///Enables the critical path icon in toolbar
+            CriticalPath,
+
             ///Enables the excel export toolbar icon
-            ExcelExport
+            ExcelExport,
+
+            ///Enables the pdf export toolbar icon
+            PdfExport
         }
 
 
@@ -40076,7 +40121,7 @@ declare namespace ej {
             editMode?: ej.TreeGrid.EditMode|string;
 
             /** Specifies the position where the new row has to be added.
-             * @Default {top}
+             * @Default {ej.TreeGrid.RowPosition.Top}
              */
             rowPosition?: ej.TreeGrid.RowPosition|string;
 
@@ -40140,7 +40185,7 @@ declare namespace ej {
             /** Gets or sets a value that indicates the maximum number of filter choices that can be showed in the excel styled filter menu.
              * @Default {1000}
              */
-            maxFilterChoice?: number;
+            maxFilterChoices?: number;
         }
 
         export interface PageSettings {
@@ -40307,6 +40352,10 @@ declare namespace ej {
 
         export interface SummaryRowsSummaryColumn {
 
+            /** Specifies the custom summary calculate function or text.
+             */
+            customSummaryValue?: string;
+
             /** Specifies summary column used to perform the summary calculation.
              */
             dataMember?: string;
@@ -40380,11 +40429,11 @@ declare namespace ej {
             ///At load time column are rendered with given width value, while resizing the column only current column width is changed
             FixedColumns,
 
-            ///At load time columns are stretched with control width,while resizing the column, current column width updated based on next column
-            Normal,
+            ///At load time columns are stretched with control width, while resizing the column, current column width adjusted based on next column
+            NextColumn,
 
-            ///In this mode columns are stretched with control width in load time and on resizing action.
-            NextColumn
+            ///In this mode columns are stretched with control width in load time and on resizing action current column width was adjusted with all columns.
+            Normal
         }
 
 
@@ -40600,7 +40649,10 @@ declare namespace ej {
             TrueCount,
 
             ///Displays the false count value for boolean summary columns
-            FalseCount
+            FalseCount,
+
+            ///Displays the value from custom summary function
+            Custom
         }
 
 
@@ -40634,7 +40686,10 @@ declare namespace ej {
             ExcelExport,
 
             ///Enables the printing icon in toolbar
-            Print
+            Print,
+
+            ///Enables the search textbox in toolbar
+            Search
         }
 
     }
@@ -64868,7 +64923,7 @@ declare namespace ej.datavisualization {
          */
         zoom(level: number, isAnimate: boolean): void;
 
-        /** Method to reload the shape marker with updated values.
+        /** Method to reload the specified layer based on layer and sublayer index value.
          * @returns {void}
          */
         refreshLayer(): void;
