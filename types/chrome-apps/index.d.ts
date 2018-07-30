@@ -1,3 +1,4 @@
+import { onAcceptError } from './index.d';
 // Type definitions for Chrome packaged application development
 // Project: http://developer.chrome.com/apps/
 // Definitions by: Nikolai Ommundsen <https://github.com/niikoo>, Adam Lay <https://github.com/AdamLay>, MIZUNE Pine <https://github.com/pine613>, MIZUSHIMA Junki <https://github.com/mzsm>, Ingvar Stepanyan <https://github.com/RReverser>, Adam Pyle <https://github.com/pyle>, Matthew Kimber <https://github.com/matthewkimber>, otiai10 <https://github.com/otiai10>, couven92 <https://github.com/couven92>, RReverser <https://github.com/rreverser>, sreimer15 <https://github.com/sreimer15>
@@ -1367,6 +1368,7 @@ declare namespace chrome {
          */
         var onDescriptorWriteRequest: chrome.events.Event<(descriptor: Descriptor) => void>;
     }
+
     /**
      * Use the chrome.bluetoothSocket API to send and receive data to Bluetooth devices using RFCOMM and L2CAP connections.
      * @since Chrome 37
@@ -1374,7 +1376,326 @@ declare namespace chrome {
      * Important: This API works only on OS X, Windows and Chrome OS.
      */
     namespace bluetoothSocket {
-        /* NOT IMPLEMENTED YET */
+        interface SocketProperties {
+            /**
+             * Flag indicating whether the socket is left open when
+             * the event page of the application is unloaded
+             * (see Manage App Lifecycle). The default value is false.
+             * When the application is loaded, any sockets previously
+             * opened with persistent=true can be fetched with $ref:getSockets.
+             */
+            persistent?: boolean;
+            /** An application-defined string associated with the socket. */
+            name?: string;
+            /** (integer) The size of the buffer used to receive data. The default value is 4096. */
+            bufferSize?: number;
+        }
+        interface ListenOptions {
+            /**
+             * (integer)
+             * The RFCOMM Channel used by listenUsingRfcomm.
+             * If specified, this channel must not be previously
+             * in use or the method call will fail. When not specified,
+             * an unused channel will be automatically allocated.
+             */
+            channel?: number;
+            /**
+             * (integer)
+             * The L2CAP PSM used by listenUsingL2cap.
+             * If specified, this PSM must not be previously
+             * in use or the method call with fail. When not specified,
+             * an unused PSM will be automatically allocated.
+             * */
+            psm?: number;
+            /**
+             * Length of the socket's listen queue.
+             * The default value depends on the operating system's host subsystem.
+             * */
+            backlog?: number;
+        }
+        interface SocketInfo {
+            /**
+             * (integer)
+             * The socket identifier.
+             * */
+            socketId: number;
+            /**
+             * Flag indicating if the socket remains
+             * open when the event page of the application
+             * is unloaded (see SocketProperties.persistent).
+             * The default value is "false".
+             */
+            persistent: boolean;
+            /**
+             * Application-defined string associated with the socket.
+             */
+            name?: string;
+            /**
+             * (integer)
+             * The size of the buffer used to receive data.
+             * If no buffer size has been specified explictly,
+             * the value is not provided.
+             */
+            bufferSize?: number;
+            /**
+             * Flag indicating whether a connected socket
+             * blocks its peer from sending more data, or
+             * whether connection requests on a listening
+             * socket are dispatched through the onAccept
+             * event or queued up in the listen queue backlog.
+             * See setPaused. The default value is "false".
+             */
+            paused: boolean;
+            /**
+             * Flag indicating whether the socket is connected to a remote peer.
+             */
+            connected: boolean;
+            /**
+             * If the underlying socket is connected,
+             * contains the Bluetooth address of the device it is connected to.
+             */
+            address?: string;
+            /**
+             * If the underlying socket is connected,
+             * contains information about the service
+             * UUID it is connected to, otherwise if
+             * the underlying socket is listening,
+             * contains information about the service
+             * UUID it is listening on.
+             */
+            uuid?: string;
+        }
+
+        interface CreateInfo {
+            /**
+             * (integer)
+             * The ID of the newly created socket.
+             * Note that socket IDs created from this
+             * API are not compatible with socket IDs
+             * created from other APIs, such as the
+             * sockets.tcp API.
+             */
+            socketId: number;
+        }
+        interface OnAcceptInfoData {
+            /** The server socket identifier. (integer) */
+            socketId: number;
+            /**
+             * (integer)
+             * The client socket identifier, i.e. the socket
+             * identifier of the newly established connection.
+             * This socket identifier should be used only with
+             * functions from the chrome.bluetoothSocket namespace.
+             * Note the client socket is initially paused and must
+             * be explictly un-paused by the application to start
+             * receiving data.
+             */
+            clientSocketId: number;
+        }
+        enum OnAcceptErrorCode {
+            "system_error",
+            "not_listening"
+        }
+        interface OnAcceptErrorEventData {
+            /** The server socket identifier. (integer) */
+            socketId: number;
+            /** The error message */
+            errorMessage: string;
+            /**
+             * An error code indicating what went wrong.
+             *
+             * system_error
+             *  > A system error occurred and the connection may be unrecoverable.
+             * not_listening
+             *  > The socket is not listening.
+             */
+            error: OnAcceptErrorCode;
+        }
+        interface OnReceiveEventData {
+            /** The socket identifier. (integer) */
+            socketId: number;
+            /** The data received, with a maxium size of bufferSize. */
+            data: ArrayBuffer;
+        }
+        enum OnReceiveErrorCode {
+            "disconnected",
+            "system_error",
+            "not_connected"
+        }
+        interface OnReceiveErrorEventData {
+            /** The server socket identifier. (integer) */
+            socketId: number;
+            /** The error message */
+            errorMessage: string;
+            /**
+             * An error code indicating what went wrong.
+             *
+             * disconnected
+             *  > The connection was disconnected.
+             * system_error
+             *  > A system error occurred and the connection may be unrecoverable.
+             * not_connected
+             *  > The socket has not been connected.
+             */
+            error: OnAcceptErrorCode;
+        }
+        interface OnAcceptEvent extends chrome.events.Event<(info: OnAcceptInfoData) => void> { }
+        interface OnAcceptErrorEvent extends chrome.events.Event<(info: OnAcceptErrorEventData) => void> { }
+        interface OnReceiveEvent extends chrome.events.Event<(info: OnReceiveEventData) => void> { }
+        interface OnReceiveErrorEvent extends chrome.events.Event<(info: OnReceiveErrorEventData) => void> { }
+        /**
+         * Creates a Bluetooth socket.
+         * @param callback Called when the socket has been created
+         * */
+        function create(callback: (createInfo: CreateInfo) => {}): void;
+        /**
+         * Creates a Bluetooth socket.
+         * @param properties The socket properties (optional)
+         * @param callback Called when the socket has been created
+         */
+        function create(properties: SocketProperties, callback: (createInfo: CreateInfo) => {}): void;
+        /**
+         * Updates the socket properties.
+         * @param socketId The socket identifier. (integer)
+         * @param properties  The properties to update.
+         * @param [callback] Called when the properties are updated.
+         */
+        function update(socketId: number, properties: SocketProperties, callback?: () => {}): void;
+        /**
+         * Enables or disables a connected socket from
+         * receiving messages from its peer, or a listening
+         * socket from accepting new connections. The default
+         * value is "false". Pausing a connected socket is
+         * typically used by an application to throttle data
+         * sent by its peer. When a connected socket is paused,
+         * no onReceiveevent is raised. When a socket is connected
+         * and un-paused, onReceive events are raised again when
+         * messages are received. When a listening socket is paused,
+         * new connections are accepted until its backlog is full
+         * then additional connection requests are refused.
+         * onAccept events are raised only when the socket is un-paused.
+         *
+         * @param socketId The socket identifier. (integer)
+         * @param paused Flag indicating whether a connected socket
+             * blocks its peer from sending more data, or
+             * whether connection requests on a listening
+             * socket are dispatched through the onAccept
+             * event or queued up in the listen queue backlog.
+             * See setPaused. The default value is "false".
+         * @param [callback] Callback from the setPaused method.
+         */
+        function setPaused(socketId: number, paused: boolean, callback?: () => {}): void;
+        /**
+         * Listen for connections using the RFCOMM protocol.
+         *
+         * @param socketId The socket identifier. (integer)
+         * @param uuid Service UUID to listen on.
+         * @param callback Called when listen operation completes.
+         */
+        function listenUsingRfcomm(socketId: number, uuid: string, callback: () => {}): void;
+        /**
+         * Listen for connections using the RFCOMM protocol.
+         *
+         * @param socketId The socket identifier. (integer)
+         * @param uuid Service UUID to listen on.
+         * @param options Optional additional options for the service.
+         * @param callback Called when listen operation completes.
+         */
+        function listenUsingRfcomm(socketId: number, uuid: string, options: ListenOptions, callback: () => {}): void;
+        /**
+         * Listen for connections using the L2CAP protocol.
+         *
+         * @param socketId The socket identifier. (integer)
+         * @param uuid Service UUID to listen on.
+         * @param callback Called when listen operation completes.
+         */
+        function listenUsingL2cap(socketId: number, uuid: string, callback: () => {}): void;
+        /**
+         * Listen for connections using the L2CAP protocol.
+         *
+         * @param socketId The socket identifier. (integer)
+         * @param uuid Service UUID to listen on.
+         * @param options Optional additional options for the service.
+         * @param callback Called when listen operation completes.
+         */
+        function listenUsingL2cap(socketId: number, uuid: string, options: ListenOptions, callback: () => {}): void;
+        /**
+         * Connects the socket to a remote Bluetooth device.
+         * When the connect operation completes successfully,
+         * onReceive events are raised when data is received
+         * from the peer. If a network error occur while the
+         * runtime is receiving packets, a onReceiveError
+         * event is raised, at which point no more onReceive
+         * event will be raised for this socket until the
+         * setPaused(false) method is called.
+         *
+         * @param socketId The socket identifier. (integer)
+         * @param address The address of the Bluetooth device.
+         * @param uuid The UUID of the service to connect to.
+         * @param callback Called when the connect attempt is complete.
+         */
+        function connect(socketId: number, address: string, uuid: string, callback: () => {}): void;
+        /**
+         * Disconnects the socket. The socket identifier remains valid.
+         * @param socketId The socket identifier. (integer)
+         * @param [callback] Called when the disconnect attempt is complete.
+         */
+        function disconnect(socketId: number, callback?: () => {}): void;
+        /**
+         * Disconnects and destroys the socket.
+         * Each socket created should be closed after use.
+         * The socket id is no longer valid as soon at the
+         * function is called. However, the socket is guaranteed
+         * to be closed only when the callback is invoked.
+         *
+         * @param socketId The socket identifier. (integer)
+         * @param callback Called when the `close` operation completes
+         */
+        function close(socketId: number, callback: () => {}): void;
+        /**
+         * Sends data on the given Bluetooth socket.
+         * @param socketId The socket identifier. (integer)
+         * @param data The data to send.
+         * @param [callback] Called with the number of bytes sent.
+         */
+        function send(socketId: number, data: ArrayBuffer, callback?: (bytesSent: number) => {}): void;
+        /**
+         * Retrieves the state of the given socket.
+         * @param socketId The socket identifier. (integer)
+         * @param callback Called when the socket state is available.
+         *                 Callback returning object containing the socket information.
+         */
+        function getInfo(socketId: number, callback: (socketInfo: SocketInfo) => {}): void;
+        /**
+         * Retrieves the list of currently opened sockets owned by the application.
+         * @param callback Called when the list of sockets is available.
+         *                 Returns an array of socket info.
+         */
+        function getSockets(callback: (sockets: SocketInfo[]) => {}): void;
+        /**
+         * Event raised when a connection has been established
+         * for a given socket.
+         */
+        var onAccept: OnAcceptEvent;
+        /**
+         * Event raised when a network error occurred while the
+         * runtime was waiting for new connections on the given
+         * socket. Once this event is raised, the socket is set
+         * to paused and no more onAccept events are raised for
+         * this socket.
+         */
+        var onAcceptError: OnAcceptErrorEvent;
+        /**
+         * Event raised when data has been received for a given socket.
+         */
+        var onReceive: OnReceiveEvent;
+        /**
+         * Event raised when a network error occured while the runtime
+         * was waiting for data on the socket. Once this event is raised,
+         * the socket is set to paused and no more onReceive events are
+         * raised for this socket.
+         */
+        var onReceiveError: OnReceiveErrorEvent;
     }
 
     ////////////////////
