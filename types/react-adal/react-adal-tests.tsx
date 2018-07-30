@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Route } from 'react-router-dom';
 import { AuthenticationContext, adalFetch, adalGetToken, runWithAdal, withAdalLogin, AdalConfig } from 'react-adal';
 
 const resourceUrl = 'https://graph.microsoft.net';
@@ -64,12 +63,13 @@ const AdalProtectedPage2 = withAdalLoginApi(ProtectedPage2, () => <h4>loading...
 
 // user must login to use only specific pages
 runWithAdal(authContext, () => {
-    const routes = <div>
-          <Route exact={true} path='/' component={SignInPage} />
-          <Route path='/private1' component={AdalProtectedPage1} />
-          <Route path='/private2' component={AdalProtectedPage2} />
+     const routes = <div>
+          <Route exact={true} path='/' component={SignInPage} /> // $ExpectError
+          <Route path='/private1' component={AdalProtectedPage1} /> // $ExpectError
+          <Route path='/private2' component={AdalProtectedPage2} /> // $ExpectError
         </div>;
-
-    // const App = <ConnectedRouter history={({} as any)} children={routes} />;
-    // ReactDOM.render(<App />, document.getElementById('react-app') as HTMLElement);
+        // $ExpectError
+     const App = <ConnectedRouter history={({} as any)} children={routes} />;
+     // $ExpectError
+     ReactDOM.render(<App />, document.getElementById('react-app') as HTMLElement);
 }, true);
