@@ -14,6 +14,8 @@ const optionsClient = new kafka.Client('localhost:2181/', 'sendMessage', {
 });
 optionsClient.topicExists(['topic'], (error: any) => {
 });
+optionsClient.loadMetadataForTopics(['topic'], (error: any, data: any) => {
+});
 optionsClient.refreshMetadata(['topic'], (error: any) => {
 });
 optionsClient.close();
@@ -46,6 +48,11 @@ const optionsProducer = new kafka.Producer(basicClient, {
   requireAcks: 0,
   ackTimeoutMs: 0,
   partitionerType: 0
+});
+
+optionsKafkaClient.getListGroups((error: any, data: any) => {
+});
+optionsKafkaClient.describeGroups([], (error: any, data: any) => {
 });
 
 const producer = new kafka.Producer(basicClient);
@@ -264,4 +271,10 @@ offset.fetchCommits('groupId', [
 offset.fetchLatestOffsets(['t'], (err, offsets) => {
 });
 offset.fetchEarliestOffsets(['t'], (err, offsets) => {
+});
+
+const admin = new kafka.Admin(basicKafkaClient);
+admin.listGroups((err, data) => {
+});
+admin.describeGroups({}, (err, data) => {
 });

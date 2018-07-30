@@ -464,7 +464,7 @@ export declare const reducer: {
         [formName: string]: {
             [fieldName: string]: Normalizer
         }
-    }): Reducer;
+    }): Reducer<any>;
 
     /**
      * Returns a form reducer that will also pass each action through
@@ -473,5 +473,5 @@ export declare const reducer: {
      * passed to each reducer will only be the slice that pertains to that
      * form.
      */
-    plugin(reducers: { [formName: string]: Reducer }): Reducer;
+    plugin(reducers: { [formName: string]: Reducer<any> }): Reducer<any>;
 };

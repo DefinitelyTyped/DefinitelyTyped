@@ -469,6 +469,7 @@ export interface ScatterData {
 	legendgroup: string;
 	name: string;
 	connectgaps: boolean;
+	visible: boolean | 'legendonly';
 }
 
 /**

@@ -61,6 +61,12 @@ jexl.addTransform('getStat', (val, stat) => {
 jexl.eval('name.last|getStat("weight")', context, (err, res) => {
 });
 
+// Transform with multiple arguments
+// $ExpectType void
+jexl.addTransform('substring', (val: string, start: number, end?: number) => {
+    return val.substring(start, end);
+});
+
 // Add your own (a)synchronous operators
 // Here's a case-insensitive string equality
 // $ExpectType void

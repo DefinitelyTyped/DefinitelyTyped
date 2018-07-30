@@ -21,9 +21,10 @@ type Value = string | number | boolean | Date | Array<string> | Array<number> | 
 type ValueMap = { [key: string]: Value | Knex.QueryBuilder };
 type ColumnName = string | Knex.Raw | Knex.QueryBuilder | {[key: string]: string };
 type TableName = string | Knex.Raw | Knex.QueryBuilder;
+type Identifier = { [alias: string]: string };
 
 interface Knex extends Knex.QueryInterface {
-    (tableName?: TableName): Knex.QueryBuilder;
+    (tableName?: TableName | Identifier): Knex.QueryBuilder;
     VERSION: string;
     __knex__: string;
 
@@ -179,7 +180,7 @@ declare namespace Knex {
     }
 
     interface Table {
-        (tableName: TableName): QueryBuilder;
+        (tableName: TableName | Identifier): QueryBuilder;
         (callback: Function): QueryBuilder;
         (raw: Raw): QueryBuilder;
     }

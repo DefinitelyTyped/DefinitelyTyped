@@ -103,7 +103,7 @@ const options: ServerOptions = {
         isSameSite: 'Strict',
         encoding: 'none'
     },
-    tls: undefined
+    tls: true
 };
 
 const server = new Server(options);
