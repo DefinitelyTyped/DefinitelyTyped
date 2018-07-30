@@ -18,7 +18,7 @@ declare namespace createRouter {
     interface Spec {
         method: string;
         path: string|RegExp;
-        handler: (ctx: createRouter.Context) => void;
+        handler: (ctx: Context) => void;
         validate?: {
           header?: Schema;
           query?: Schema;
