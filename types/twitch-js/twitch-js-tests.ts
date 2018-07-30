@@ -4,9 +4,9 @@ import { RequestCallback, Options as ApiOptions } from 'request';
 
 // Implementation of Logger interface.
 class LoggerImpl implements twitchJs.Logger {
-  info(message?: any, ...optionalParams: any[]) {}
-  warn(message?: any, ...optionalParams: any[]) {}
-  error(message?: any, ...optionalParams: any[]) {}
+    info(message?: any, ...optionalParams: any[]) {}
+    warn(message?: any, ...optionalParams: any[]) {}
+    error(message?: any, ...optionalParams: any[]) {}
 }
 
 // =============================================================================
@@ -29,52 +29,52 @@ const stringOrNumber: string|number = string;
 
 // Complex objects.
 const emote: twitchJs.Emote = {
-  code: string,
-  id: number,
+    code: string,
+    id: number,
 };
 
 const tagsCollection: twitchJs.TagsCollection = {
-  a: string,
-  b: boolean,
-  c: number,
-  d: null,
+    a: string,
+    b: boolean,
+    c: number,
+    d: null,
 };
 
 let clientOpts: twitchJs.ClientOptions = {
-  channels: stringArr,
-  connection: {
-    server: string,
-    port: number,
-    reconnect: boolean,
-    maxReconnectAttempts: number,
-    maxReconnectInterval: number,
-    reconnectDecay: number,
-    reconnectInterval: number,
-    secure: boolean,
-    timeout: number,
-  },
-  identity: {
-    username: string,
-    password: string,
-  },
-  options: {
-    clientId: string,
-    debug: boolean,
-    commandTimeout: number,
-  },
-  logger,
+    channels: stringArr,
+    connection: {
+        server: string,
+        port: number,
+        reconnect: boolean,
+        maxReconnectAttempts: number,
+        maxReconnectInterval: number,
+        reconnectDecay: number,
+        reconnectInterval: number,
+        secure: boolean,
+        timeout: number,
+    },
+    identity: {
+        username: string,
+        password: string,
+    },
+    options: {
+        clientId: string,
+        debug: boolean,
+        commandTimeout: number,
+    },
+    logger,
 };
 
 const message: twitchJs.Message = {
-  raw: string,
-  tags: tagsCollection,
-  prefix: nullableString,
-  command: string,
-  params: stringArr,
+    raw: string,
+    tags: tagsCollection,
+    prefix: nullableString,
+    command: string,
+    params: stringArr,
 };
 
 const apiOpts: ApiOptions = {
-  url: string,
+    url: string,
 };
 
 // Promises
