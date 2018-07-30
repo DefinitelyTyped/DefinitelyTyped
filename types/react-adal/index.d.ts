@@ -409,4 +409,3 @@ export function withAdalLogin(
     renderLoading: () => JSX.Element | null,
     renderError: (error: any) => JSX.Element | null
 ) => React.ComponentClass;
-
