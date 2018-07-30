@@ -3286,11 +3286,51 @@ declare namespace chrome {
     // mDNS
     ////////////////////
     /**
-     * Use the chrome.mdns API to discover services over mDNS. This comprises a subset of the features of the NSD spec: http://www.w3.org/TR/discovery-api/
+     * Use the chrome.mdns API to discover services over mDNS.
+     * This comprises a subset of the features of the NSD spec: @see[Spec link]{@link http://www.w3.org/TR/discovery-api/}
+     * Permissions: "mdns"
      * @since Chrome 31
      */
     namespace mdns {
-        /** NOT YET IMPLEMENTED */
+        interface Service {
+            /** The service name of an mDNS advertised service, .. */
+            serviceName: string;
+            /** The host:port pair of an mDNS advertised service. */
+            serviceHostPort: string;
+            /** The IP address of an mDNS advertised service. */
+            ipAddress: string;
+            /** Metadata for an mDNS advertised service. */
+            serviceData: string[];
+        }
+        /**
+         * The maximum number of service instances that will be
+         * included in onServiceList events. If more instances
+         * are available, they may be truncated from the
+         * onServiceList event.
+         * @default 2048
+         * @since Chrome 44.
+         */
+        const MAX_SERVICE_INSTANCES_PER_EVENT: number;
+        /**
+         * Immediately issues a multicast DNS query for all service types.
+         * |callback| is invoked immediately.
+         * At a later time, queries will be sent,
+         * and any service events will be fired.
+         * @since Chrome 45.
+         * @param callback Callback invoked after ForceDiscovery() has started.
+         */
+        function forceDiscovery(callback: () => void): void;
+        /**
+         * Event fired to inform clients of the current complete
+         * set of known available services. Clients should only
+         * need to store the list from the most recent event.
+         * The service type that the extension is interested in
+         * discovering should be specified as the event filter
+         * with the 'serviceType' key. Not specifying an event
+         * filter will not start any discovery listeners.
+         */
+        var onServiceList: chrome.events.Event<(services: Service[]) => void>;
+
     }
 
     ////////////////////
