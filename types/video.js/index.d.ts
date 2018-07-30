@@ -8,6 +8,7 @@
 //                 Grzegorz Błaszczyk <https://github.com/gjanblaszczyk>
 //                 Stéphane Roucheray <https://github.com/sroucheray>
 //                 Adam Eisenreich <https://github.com/AkxeOne>
+//                 Hao jie <https://github.com/dabuddha>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -26,6 +27,9 @@ export as namespace videojs;
 declare namespace videojs {
     const getComponent: typeof Component.getComponent;
     const registerComponent: typeof Component.registerComponent;
+    function getPlayer(id: string | HTMLElement): Player;
+    function getAllPlayers(): Player[];
+    function getPlayers(): {[key: string]: Player};
     const getPlugin: typeof Plugin.getPlugin;
     function registerPlugin(
         pluginName: string,
