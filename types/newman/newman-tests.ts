@@ -1,11 +1,3 @@
-import {
-    run,
-    NewmanRun,
-    NewmanRunExecution,
-    NewmanRunExecutionAssertion,
-    NewmanRunExecutionAssertionError,
-    NewmanRunExecutionItem,
-    NewmanRunSummary,
-} from 'newman';
+import { run } from "newman";
 
 run({});
