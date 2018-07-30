@@ -3227,17 +3227,66 @@ declare namespace chrome {
     ////////////////////
     /**
      * Use chrome.instanceID to access the Instance ID service.
+     * Permissions: "gcm"
      * @since Chrome 46
      */
     namespace instanceID {
-        /** NOT YET IMPLEMENTED */
+        interface TokenParams {
+            authorizedEntity: string;
+            scope: string;
+            options?: { [key: string]: string };
+        }
+        interface DeleteTokenParams {
+            authorizedEntity: string;
+            scope: string;
+        }
+        /**
+         * Retrieves an identifier for the app instance.
+         * The instance ID will be returned by the callback.
+         * The same ID will be returned as long as the application
+         * identity has not been revoked or expired.
+         * @param callback Function called when the retrieval completes.
+         *                 It should check runtime.lastError for error when instanceID is empty.
+         *                 Will be provided with instanceID: An Instance ID assigned to the app instance.
+         */
+        function getID(callback: (instanceId: string) => void): void;
+        /**
+         * Retrieves the time when the InstanceID has been generated.
+         * The creation time will be returned by the callback.
+         * @param callback Function called when the retrieval completes.
+         *                 It should check runtime.lastError for error when creationTime is zero.
+         *                 Provides `creationTime` (double)
+         *                  > The time when the Instance ID has been generated, represented in milliseconds since the epoch.
+         */
+        function getCreationTime(callback: (creationTime: number) => void): void;
+        /**
+         * Return a token that allows the authorized entity to access the service defined by scope.
+         * @param getTokenParams Parameters for getToken.
+         * @param callback Function called when the retrieval completes. It should check runtime.lastError for error when token is empty.
+         */
+        function getToken(getTokenParams: TokenParams, callback: (token: string) => void): void;
+        /**
+         * Revokes a granted token.
+         * @param deleteTokenParams Parameters for deleteToken.
+         * @param callback Function called when the token deletion completes.
+         *                 The token was revoked successfully if runtime.lastError is not set.
+         */
+        function deleteToken(deleteTokenParams: DeleteTokenParams, callback: () => void): void;
+        /**
+         * Fired when all the granted tokens need to be refreshed.
+         * @param callback Function called when the deletion completes.
+         *                 The instance identifier was revoked successfully if runtime.lastError is not set.
+         */
+        function deleteID(callback: () => void): void;
+        /** Fired when all the granted tokens need to be refreshed. */
+        var onTokenRefresh: chrome.events.Event<() => void>;
     }
 
     ////////////////////
     // mDNS
     ////////////////////
     /**
-     *  Use the chrome.mdns API to discover services over mDNS. This comprises a subset of the features of the NSD spec: http://www.w3.org/TR/discovery-api/
+     * Use the chrome.mdns API to discover services over mDNS. This comprises a subset of the features of the NSD spec: http://www.w3.org/TR/discovery-api/
      * @since Chrome 31
      */
     namespace mdns {
