@@ -1,4 +1,5 @@
 import Web3 = require("web3");
+import BigNumber = require("bn.js");
 const web3 = new Web3();
 const myProvider = new web3.providers.HttpProvider("http://localhost:5454");
 web3.setProvider(myProvider);
@@ -17,7 +18,5 @@ myContract.options.from = "0x1234567890123456789012345678901234567891";
 myContract.options.gasPrice = "20000000000000";
 myContract.options.gas = 5000000;
 
-const weiStr = web3.utils.toWei("100", "gwei");
-weiStr.endsWith(weiStr);
-const weiBn = web3.utils.toWei(web3.utils.toBN("1"));
-weiBn.toNumber().toFixed(4);
+const weiStr: string = web3.utils.toWei("100", "gwei");
+const weiBn: BigNumber = web3.utils.toWei(web3.utils.toBN("1"));
