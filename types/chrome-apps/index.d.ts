@@ -891,7 +891,7 @@ declare namespace chrome {
              */
             uuids?: string[];
             /**
-             * The Recieved signal strength, in dBm. This field is avaliable and valid only during discovery. Outside of discovery it's value is not specified.
+             * The Received signal strength, in dBm. This field is avaliable and valid only during discovery. Outside of discovery it's value is not specified.
              * @since Chrome 44
              */
             inquiryRssi: number;
@@ -1374,7 +1374,7 @@ declare namespace chrome {
     }
 
     /**
-     * Use the chrome.bluetoothSocket API to send and Recieve data to Bluetooth devices using RFCOMM and L2CAP connections.
+     * Use the chrome.bluetoothSocket API to send and Receive data to Bluetooth devices using RFCOMM and L2CAP connections.
      * @since Chrome 37
      * Manifest: 'bluetooth': {...}
      * Important: This API works only on OS X, Windows and Chrome OS.
@@ -1391,7 +1391,7 @@ declare namespace chrome {
             persistent?: boolean;
             /** An application-defined string associated with the socket. */
             name?: string;
-            /** (integer) The size of the buffer used to Recieve data. The default value is 4096. */
+            /** (integer) The size of the buffer used to Receive data. The default value is 4096. */
             bufferSize?: number;
         }
         interface ListenOptions {
@@ -1436,7 +1436,7 @@ declare namespace chrome {
             name?: string;
             /**
              * (integer)
-             * The size of the buffer used to Recieve data.
+             * The size of the buffer used to Receive data.
              * If no buffer size has been specified explictly,
              * the value is not provided.
              */
@@ -1515,18 +1515,18 @@ declare namespace chrome {
              */
             error: OnAcceptErrorCode;
         }
-        interface OnRecieveEventData {
+        interface OnReceiveEventData {
             /** The socket identifier. (integer) */
             socketId: number;
-            /** The data Recieved, with a maxium size of bufferSize. */
+            /** The data Received, with a maxium size of bufferSize. */
             data: ArrayBuffer;
         }
-        enum OnRecieveErrorCode {
+        enum OnReceiveErrorCode {
             "disconnected",
             "system_error",
             "not_connected"
         }
-        interface OnRecieveErrorEventData {
+        interface OnReceiveErrorEventData {
             /** The server socket identifier. (integer) */
             socketId: number;
             /** The error message */
@@ -1545,8 +1545,8 @@ declare namespace chrome {
         }
         interface OnAcceptEvent extends chrome.events.Event<(info: OnAcceptInfoData) => void> { }
         interface OnAcceptErrorEvent extends chrome.events.Event<(info: OnAcceptErrorEventData) => void> { }
-        interface OnRecieveEvent extends chrome.events.Event<(info: OnRecieveEventData) => void> { }
-        interface OnRecieveErrorEvent extends chrome.events.Event<(info: OnRecieveErrorEventData) => void> { }
+        interface OnReceiveEvent extends chrome.events.Event<(info: OnReceiveEventData) => void> { }
+        interface OnReceiveErrorEvent extends chrome.events.Event<(info: OnReceiveErrorEventData) => void> { }
         /**
          * Creates a Bluetooth socket.
          * @param callback Called when the socket has been created
@@ -1572,9 +1572,9 @@ declare namespace chrome {
          * value is "false". Pausing a connected socket is
          * typically used by an application to throttle data
          * sent by its peer. When a connected socket is paused,
-         * no onRecieveevent is raised. When a socket is connected
-         * and un-paused, onRecieve events are raised again when
-         * messages are Recieved. When a listening socket is paused,
+         * no onReceiveevent is raised. When a socket is connected
+         * and un-paused, onReceive events are raised again when
+         * messages are Received. When a listening socket is paused,
          * new connections are accepted until its backlog is full
          * then additional connection requests are refused.
          * onAccept events are raised only when the socket is un-paused.
@@ -1626,10 +1626,10 @@ declare namespace chrome {
         /**
          * Connects the socket to a remote Bluetooth device.
          * When the connect operation completes successfully,
-         * onRecieve events are raised when data is Recieved
+         * onReceive events are raised when data is Received
          * from the peer. If a network error occur while the
-         * runtime is receiving packets, a onRecieveError
-         * event is raised, at which point no more onRecieve
+         * runtime is receiving packets, a onReceiveError
+         * event is raised, at which point no more onReceive
          * event will be raised for this socket until the
          * setPaused(false) method is called.
          *
@@ -1690,16 +1690,16 @@ declare namespace chrome {
          */
         var onAcceptError: OnAcceptErrorEvent;
         /**
-         * Event raised when data has been Recieved for a given socket.
+         * Event raised when data has been Received for a given socket.
          */
-        var onRecieve: OnRecieveEvent;
+        var onReceive: OnReceiveEvent;
         /**
          * Event raised when a network error occured while the runtime
          * was waiting for data on the socket. Once this event is raised,
-         * the socket is set to paused and no more onRecieve events are
+         * the socket is set to paused and no more onReceive events are
          * raised for this socket.
          */
-        var onRecieveError: OnRecieveErrorEvent;
+        var onReceiveError: OnReceiveErrorEvent;
     }
 
     ////////////////////
@@ -2639,7 +2639,7 @@ declare namespace chrome {
         export function unmount(options: UnmountOptions, callback?: () => void): void;
         /**
          * Returns all file systems mounted by the extension.
-         * @param callback Callback to Recieve the result of getAll function.
+         * @param callback Callback to Receive the result of getAll function.
          * The callback parameter should be a function that looks like this:
          * function(array of FileSystemInfo fileSystems) {...};
          */
@@ -2647,7 +2647,7 @@ declare namespace chrome {
         /**
          * Returns information about a file system with the passed fileSystemId.
          * @since Since Chrome 42.
-         * @param callback Callback to Recieve the result of get function.
+         * @param callback Callback to Receive the result of get function.
          * The callback parameter should be a function that looks like this:
          * function(FileSystemInfo fileSystem) {...};
          */
@@ -2719,7 +2719,7 @@ declare namespace chrome {
     // Google Cloud Messaging
     ////////////////////
     /**
-     * Use chrome.gcm to enable apps and extensions to send and Recieve messages through the Google Cloud Messaging Service.
+     * Use chrome.gcm to enable apps and extensions to send and Receive messages through the Google Cloud Messaging Service.
      * Availability: Since Chrome 35.
      * Permissions:  'gcm'
      */
@@ -2805,7 +2805,7 @@ declare namespace chrome {
          */
         export function send(message: OutgoingMessage, callback: (messageId: string) => void): void;
 
-        /** Fired when a message is Recieved through GCM. */
+        /** Fired when a message is Received through GCM. */
         export var onMessage: MessageReceptionEvent;
         /** Fired when a GCM server had to delete messages sent by an app server to the application. See Messages deleted event section of Cloud Messaging documentation for details on handling this event. */
         export var onMessagesDeleted: MessageDeletionEvent;
@@ -4154,12 +4154,12 @@ declare namespace chrome {
             bytesSent?: number;
         }
 
-        interface RecieveEventArgs {
+        interface ReceiveEventArgs {
             socketId: number;
             data: ArrayBuffer;
         }
 
-        interface RecieveErrorEventArgs {
+        interface ReceiveErrorEventArgs {
             socketId: number;
             resultCode: number;
         }
@@ -4203,8 +4203,8 @@ declare namespace chrome {
         export function getInfo(socketId: number, callback: (socketInfo: SocketInfo) => void): void;
         export function getSockets(callback: (socketInfos: SocketInfo[]) => void): void;
 
-        export var onRecieve: chrome.events.Event<(args: RecieveEventArgs) => void>;
-        export var onRecieveError: chrome.events.Event<(args: RecieveErrorEventArgs) => void>;
+        export var onReceive: chrome.events.Event<(args: ReceiveEventArgs) => void>;
+        export var onReceiveError: chrome.events.Event<(args: ReceiveErrorEventArgs) => void>;
     }
 
     /**
@@ -4408,7 +4408,7 @@ declare namespace chrome {
     }
 
     /**
-     * Use the chrome.sockets.udp API to send and Recieve data over the network
+     * Use the chrome.sockets.udp API to send and Receive data over the network
      * using UDP connections. This API supersedes the UDP functionality previously
      * found in the 'socket' API.
      *
@@ -4425,14 +4425,14 @@ declare namespace chrome {
             bytesSent?: number;
         }
 
-        interface RecieveEventArgs {
+        interface ReceiveEventArgs {
             socketId: number;
             data: ArrayBuffer;
             remoteAddress: string;
             remotePort: number;
         }
 
-        interface RecieveErrorEventArgs {
+        interface ReceiveErrorEventArgs {
             socketId: number;
             resultCode: number;
         }
@@ -4454,8 +4454,8 @@ declare namespace chrome {
             name?: string;
 
             /**
-             * The size of the buffer used to Recieve data. If the buffer is too
-             * small to Recieve the UDP packet, data is lost. The default value is
+             * The size of the buffer used to Receive data. If the buffer is too
+             * small to Receive the UDP packet, data is lost. The default value is
              * 4096.
              */
             bufferSize?: number;
@@ -4478,13 +4478,13 @@ declare namespace chrome {
             name?: string;
 
             /**
-             * The size of the buffer used to Recieve data. If no buffer size ha
+             * The size of the buffer used to Receive data. If no buffer size ha
              * been specified explictly, the value is not provided.
              */
             bufferSize?: number;
 
             /**
-             * Flag indicating whether the socket is blocked from firing onRecieve
+             * Flag indicating whether the socket is blocked from firing onReceive
              * events.
              */
             paused: boolean;
@@ -4529,7 +4529,7 @@ declare namespace chrome {
 
         /**
          * Pauses or unpauses a socket. A paused socket is blocked from firing
-         * onRecieve events.
+         * onReceive events.
          *
          * @see https://developer.chrome.com/apps/sockets_udp#method-setPaused
          * @param socketId The socket ID.
@@ -4543,7 +4543,7 @@ declare namespace chrome {
          * Binds the local address and port for the socket. For a client socket, it
          * is recommended to use port 0 to let the platform pick a free port.
          *
-         * Once the bind operation completes successfully, onRecieve events are
+         * Once the bind operation completes successfully, onReceive events are
          * raised when UDP packets arrive on the address/port specified -- unless
          * the socket is paused.
          *
@@ -4601,7 +4601,7 @@ declare namespace chrome {
         export function getSockets(callback: (socketInfos: SocketInfo[]) => void): void;
 
         /**
-         * Joins the multicast group and starts to Recieve packets from that group.
+         * Joins the multicast group and starts to Receive packets from that group.
          * The socket must be bound to a local port before calling this method.
          *
          * @see https://developer.chrome.com/apps/sockets_udp#method-joinGroup
@@ -4649,7 +4649,7 @@ declare namespace chrome {
          * when there is more than one application on the same host joined to the
          * same multicast group while having different settings on multicast
          * loopback mode. On Windows, the applications with loopback off will not
-         * Recieve the loopback packets; while on Unix-like systems, the
+         * Receive the loopback packets; while on Unix-like systems, the
          * applications with loopback off will not SEND the loopback packets to
          * other applications on the same host.
          * @see MSDN: http://goo.gl/6vqbj
@@ -4684,21 +4684,21 @@ declare namespace chrome {
         export function setBroadcast(socketId: number, enabled: boolean, callback?: (result: number) => void): void;
 
         /**
-         * Event raised when a UDP packet has been Recieved for the given socket.
+         * Event raised when a UDP packet has been Received for the given socket.
          *
-         * @see https://developer.chrome.com/apps/sockets_udp#event-onRecieve
+         * @see https://developer.chrome.com/apps/sockets_udp#event-onReceive
          */
-        export var onRecieve: chrome.events.Event<(args: RecieveEventArgs) => void>;
+        export var onReceive: chrome.events.Event<(args: ReceiveEventArgs) => void>;
 
         /**
          * Event raised when a network error occured while the runtime was waiting
          * for data on the socket address and port. Once this event is raised, the
-         * socket is paused and no more onRecieve events will be raised for this
+         * socket is paused and no more onReceive events will be raised for this
          * socket until the socket is resumed.
          *
-         * @see https://developer.chrome.com/apps/sockets_udp#event-onRecieveError
+         * @see https://developer.chrome.com/apps/sockets_udp#event-onReceiveError
          */
-        export var onRecieveError: chrome.events.Event<(args: RecieveErrorEventArgs) => void>;
+        export var onReceiveError: chrome.events.Event<(args: ReceiveErrorEventArgs) => void>;
     }
 
     ////////////////////
@@ -5669,7 +5669,7 @@ declare namespace chrome {
          */
         export function destroyConfig(id: string, callback?: Function): void;
         /**
-         * Sets the parameters for the VPN session. This should be called immediately after 'connected' is Recieved from the platform. This will succeed only when the VPN session is owned by the extension.
+         * Sets the parameters for the VPN session. This should be called immediately after 'connected' is Received from the platform. This will succeed only when the VPN session is owned by the extension.
          * @param parameters The parameters for the VPN session.
          * @param callback Called when the parameters are set or if there is an error.
          */
@@ -5689,10 +5689,10 @@ declare namespace chrome {
          */
         export function notifyConnectionStateChanged(state: string, callback?: Function): void;
 
-        /** Triggered when a message is Recieved from the platform for a VPN configuration owned by the extension. */
+        /** Triggered when a message is Received from the platform for a VPN configuration owned by the extension. */
         export var onPlatformMessage: VpnPlatformMessageEvent;
-        /** Triggered when an IP packet is Recieved via the tunnel for the VPN session owned by the extension. */
-        export var onPacketRecieved: VpnPacketReceptionEvent;
+        /** Triggered when an IP packet is Received via the tunnel for the VPN session owned by the extension. */
+        export var onPacketReceived: VpnPacketReceptionEvent;
         /** Triggered when a configuration created by the extension is removed by the platform. */
         export var onConfigRemoved: VpnConfigRemovalEvent;
         /** Triggered when a configuration is created by the platform for the extension. */
@@ -6626,7 +6626,7 @@ declare namespace chrome {
         interface ContentWindow {
 
             /**
-            * @description <p>Posts a message to the embedded web content as long as the embedded content is displaying a page from the target origin. This method is available once the page has completed loading. Listen for the <a href='#event-contentload'>contentload</a> event and then call the method.</p><p>The guest will be able to send replies to the embedder by posting message to event.source on the message event it Recieves.</p><p>This API is identical to the <a href='https://developer.mozilla.org/en-US/docs/DOM/window.postMessage'>HTML5 postMessage API</a> for communication between web pages. The embedder may listen for replies by adding a message event listener to its own frame.</p>
+            * @description <p>Posts a message to the embedded web content as long as the embedded content is displaying a page from the target origin. This method is available once the page has completed loading. Listen for the <a href='#event-contentload'>contentload</a> event and then call the method.</p><p>The guest will be able to send replies to the embedder by posting message to event.source on the message event it Receives.</p><p>This API is identical to the <a href='https://developer.mozilla.org/en-US/docs/DOM/window.postMessage'>HTML5 postMessage API</a> for communication between web pages. The embedder may listen for replies by adding a message event listener to its own frame.</p>
             * @param message Message object to send to the guest.
             * @param {string} targetOrigin Specifies what the origin of the guest window must be for the event to be dispatched.
              */
