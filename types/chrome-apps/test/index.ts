@@ -403,7 +403,7 @@ chrome.bluetooth.getDevices((devices) => {
                     });
                 }
             });
-        chrome.bluetoothSocket.onRecieve.addListener((receiveInfo) => {
+        chrome.bluetoothSocket.onReceive.addListener((receiveInfo) => {
             if (receiveInfo.socketId != createInfo.socketId)
                 return;
             // receiveInfo.data is an ArrayBuffer.
