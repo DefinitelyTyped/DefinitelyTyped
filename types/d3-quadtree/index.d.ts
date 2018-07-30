@@ -22,6 +22,11 @@ export interface QuadtreeLeaf<T> {
      * The next datum in this leaf, if any.
      */
     next?: QuadtreeLeaf<T>;
+
+    /**
+     * The length property may be used to distinguish leaf nodes from internal nodes: it is undefined for leaf nodes, and 4 for internal nodes.
+     */
+    length?: undefined;
 }
 
 /**
@@ -34,7 +39,12 @@ export interface QuadtreeLeaf<T> {
  *
  * A child quadrant may be undefined if it is empty.
  */
-export interface QuadtreeInternalNode<T> extends Array<QuadtreeInternalNode<T> | QuadtreeLeaf<T> | undefined> { }
+export interface QuadtreeInternalNode<T> extends Array<QuadtreeInternalNode<T> | QuadtreeLeaf<T> | undefined> {
+    /**
+     * The length property may be used to distinguish leaf nodes from internal nodes: it is undefined for leaf nodes, and 4 for internal nodes.
+     */
+    length: 4;
+}
 
 export interface Quadtree<T> {
     /**

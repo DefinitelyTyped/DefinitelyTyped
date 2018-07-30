@@ -13,11 +13,13 @@ import * as d3Quadtree from 'd3-quadtree';
 // ---------------------------------------------------------------------------
 
 // custom type guard
-function isLeaf(a: any): a is d3Quadtree.QuadtreeLeaf<any> {
+function isLeaf<T>(a: d3Quadtree.QuadtreeInternalNode<T> | d3Quadtree.QuadtreeLeaf<T>): a is d3Quadtree.QuadtreeLeaf<T> {
     return a.length === undefined;
 }
 
 let num: number;
+let num4: 4;
+let undef: undefined;
 let extent: [[number, number], [number, number]] | undefined;
 
 interface TestDatum {
@@ -234,3 +236,15 @@ quadNode = internalNode[0];
 quadNode = internalNode[1];
 quadNode = internalNode[2];
 quadNode = internalNode[3];
+
+num = internalNode.length;
+num4 = internalNode.length;
+
+quadtree = quadtree.visit((node, x0, y0, x1, y1) => {
+    if (isLeaf(node)) {
+        undef = node.length;
+    } else {
+        num = node.length;
+        num4 = node.length;
+    }
+});
