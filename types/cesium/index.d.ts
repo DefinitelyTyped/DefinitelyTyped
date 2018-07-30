@@ -1940,10 +1940,10 @@ declare namespace Cesium {
         extrudedHeight: Property;
         granularity: Property;
         stRotation: Property;
-        fill: Property;
-        outline: Property;
+        fill: boolean;
+        outline: boolean;
         outlineColor: Color;
-        outlineWidth: Property;
+        outlineWidth: number;
         numberOfVerticalLines: Property;
         constructor(options?: {
             semiMajorAxis?: number;
@@ -1951,11 +1951,11 @@ declare namespace Cesium {
             height?: Property;
             extrudedHeight?: Property;
             show?: Property;
-            fill?: Property;
+            fill?: boolean;
             material?: MaterialProperty;
-            outline?: Property;
+            outline?: boolean;
             outlineColor?: Color;
-            outlineWidth?: Property;
+            outlineWidth?: number;
             numberOfVerticalLines?: Property;
             rotation?: Property;
             stRotation?: Property;
