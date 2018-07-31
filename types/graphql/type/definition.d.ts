@@ -151,6 +151,7 @@ export function assertAbstractType(type: GraphQLType): GraphQLAbstractType;
  *
  */
 export class GraphQLList<T extends GraphQLType> {
+    readonly __kind?: 'list'; // to differentiate from GraphQLNonNull
     readonly ofType: T;
     constructor(type: T);
     toString(): string;
@@ -179,6 +180,7 @@ export class GraphQLList<T extends GraphQLType> {
  * Note: the enforcement of non-nullability occurs within the executor.
  */
 export class GraphQLNonNull<T extends GraphQLNullableType> {
+    readonly __kind?: 'non-null'; // to differentiate from GraphQLList
     readonly ofType: T;
     constructor(type: T);
     toString(): string;

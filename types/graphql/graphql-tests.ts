@@ -1,4 +1,4 @@
-import * as graphql from 'graphql';
+import { GraphQLType, GraphQLInt, isNamedType, isNonNullType, isListType } from 'graphql';
 
 ///////////////////////////
 // graphql               //
@@ -179,4 +179,19 @@ function utilities_typeFromAST_tests() {
 
 function utilities_valueFromAST_tests() {
     // TODOS
+}
+
+declare function summonType(): GraphQLType;
+
+function definition_tests() {
+    const x: GraphQLType = summonType();
+
+    if (isNamedType(x))
+        return x.name; // x: GraphQLNamedType
+
+    if (isNonNullType(x))
+        return x.ofType;
+
+    if (isListType(x))
+        return x.ofType;
 }
