@@ -15,8 +15,8 @@ export namespace QrReader {
     onScan: (data: string | null) => void;
     onError: (err: any) => void;
     onLoad?: () => void;
-    onImageLoad?: () => void;
-    delay?: number | boolean;
+    onImageLoad?: (event: React.SyntheticEvent<HTMLImageElement>) => void;
+    delay?: number | false;
     facingMode?: 'user' | 'environment';
     legacyMode?: boolean;
     resolution?: number;
