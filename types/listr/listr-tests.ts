@@ -2,55 +2,58 @@ import Listr = require("listr");
 import * as fs from "fs";
 
 const tasks = new Listr([
-    {
-        title: 'Git',
-        task: () => {
-            return new Listr([
-                {
-                    title: 'Checking git status',
-                    task: () => new Promise(resolve => resolve())
-                        .then(result => {
-                        if (result !== '') {
-                            throw new Error('Unclean working tree. Commit or stash changes first.');
+        {
+            title: 'Git',
+            task: () => {
+                return new Listr([
+                        {
+                            title: 'Checking git status',
+                            task: () => new Promise(resolve => resolve())
+                                .then(result => {
+                                    if (result !== '') {
+                                        throw new Error('Unclean working tree. Commit or stash changes first.');
+                                    }
+                                })
+                        },
+                        {
+                            title: 'Checking remote history',
+                            task: () => new Promise(resolve => resolve())
+                                .then(result => {
+                                    if (result !== '0') {
+                                        throw new Error('Remote history differ. Please pull changes.');
+                                    }
+                                })
                         }
-                    })
-                },
-                {
-                    title: 'Checking remote history',
-                    task: () => new Promise(resolve => resolve())
-                        .then(result => {
-                        if (result !== '0') {
-                            throw new Error('Remote history differ. Please pull changes.');
-                        }
-                    })
-                }
-            ],
-            { concurrent: true });
-        }
-    },
-    {
-        title: 'Install package dependencies with Yarn',
-        task: (ctx, task) => new Promise(resolve => resolve())
-            .catch(() => {
-                ctx.yarn = false;
+                    ],
+                    {concurrent: true});
+            }
+        },
+        {
+            title: 'Install package dependencies with Yarn',
+            task: (ctx, task) => new Promise(resolve => resolve())
+                .catch(() => {
+                    ctx.yarn = false;
 
-                task.skip('Yarn not available, install it via `npm install -g yarn`');
-            })
-    },
+                    task.skip('Yarn not available, install it via `npm install -g yarn`');
+                })
+        },
+        {
+            title: 'Install package dependencies with npm',
+            enabled: ctx => ctx.yarn === false,
+            task: () => new Promise(resolve => resolve())
+        },
+        {
+            title: 'Run tests',
+            task: () => new Promise(resolve => resolve())
+        },
+        {
+            title: 'Publish package',
+            task: () => new Promise(resolve => resolve())
+        }
+    ],
     {
-        title: 'Install package dependencies with npm',
-        enabled: ctx => ctx.yarn === false,
-        task: () => new Promise(resolve => resolve())
-    },
-    {
-        title: 'Run tests',
-        task: () => new Promise(resolve => resolve())
-    },
-    {
-        title: 'Publish package',
-        task: () => new Promise(resolve => resolve())
-    }
-]);
+        collapse: false
+    });
 
 tasks.run().catch(err => {
 });
@@ -159,6 +162,19 @@ const tasks7 = new Listr([
         task: ctx => Promise.resolve(`${ctx.foo} ${ctx.bar}`)
     }
 ]);
+
+const tasks8 = new Listr([
+    {
+        title: 'Task 1',
+        task: () => Promise.resolve('Foo')
+    },
+    {
+        title: 'Task 2',
+        task: ctx => Promise.resolve('Clear output')
+    }
+], {
+    clearOutput: true
+});
 
 tasks.run({
     foo: 'bar'
