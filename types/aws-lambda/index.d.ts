@@ -649,6 +649,7 @@ export interface KinesisStreamEvent {
 // Kinesis Data Firehose Event
 // https://docs.aws.amazon.com/lambda/latest/dg/eventsources.html#eventsources-kinesis-firehose
 // https://docs.aws.amazon.com/firehose/latest/dev/data-transformation.html
+// https://aws.amazon.com/blogs/compute/amazon-kinesis-firehose-data-transformation-with-aws-lambda/
 // Examples in the lambda blueprints
 export interface FirehoseEvent {
     invocationId: string;
