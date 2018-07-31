@@ -12,10 +12,15 @@ setDefaults({
 });
 
 storiesOf('Component', module)
+  .add('no info',
+      withInfo()(() =>
+        <Component>Click the "?" mark at top-right to view the info.</Component>
+      )
+  )
   .add('simple info',
-       withInfo('doc string about my component')(() =>
-         <Component>Click the "?" mark at top-right to view the info.</Component>
-       )
+      withInfo('doc string about my component')(() =>
+        <Component>Click the "?" mark at top-right to view the info.</Component>
+      )
   )
   .add('using an options object',
        withInfo({
