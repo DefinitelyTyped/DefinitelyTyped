@@ -1,10 +1,10 @@
-import { OAuth2Authentication } from "zapier-platform-core";
+import * as zapier from "zapier-platform-core";
 
 const BASE_URL = "http://example.com";
 const OAUTH2_CLIENT_ID = "12345";
 const OAUTH2_CLIENT_SECRET = "abcdef";
 
-const authentication: OAuth2Authentication = {
+const authentication: zapier.OAuth2Authentication = {
     type: "oauth2",
     connectionLabel: "User account",
     oauth2Config: {
@@ -90,4 +90,11 @@ const authentication: OAuth2Authentication = {
 
         return true;
     }
+};
+
+zapier.version;
+
+const testCreateAppTester = async () => {
+    const zapierApp = {};
+    const appTester = await zapier.createAppTester(zapierApp);
 };

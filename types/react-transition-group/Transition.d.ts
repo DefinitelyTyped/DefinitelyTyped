@@ -4,6 +4,12 @@ export type EndHandler = (node: HTMLElement, done: () => void) => void;
 export type EnterHandler = (node: HTMLElement, isAppearing: boolean) => void;
 export type ExitHandler = (node: HTMLElement) => void;
 
+export const UNMOUNTED = 'unmounted';
+export const EXITED = 'exited';
+export const ENTERING = 'entering';
+export const ENTERED = 'entered';
+export const EXITING = 'exiting';
+
 export interface TransitionActions {
     appear?: boolean;
     enter?: boolean;

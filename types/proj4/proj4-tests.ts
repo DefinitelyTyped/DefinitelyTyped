@@ -1,4 +1,4 @@
-import * as proj4 from 'proj4';
+import proj4 = require('proj4');
 
 ///////////////////////////////////////////
 // Tests data initialisation

@@ -1,6 +1,6 @@
 import * as AWS from "aws-sdk";
 import * as nodemailer from "nodemailer";
-import * as sesTransport from 'nodemailer-ses-transport';
+import sesTransport = require('nodemailer-ses-transport');
 
 const opts: sesTransport.SesOptions = {
   SES: new AWS.SES(),

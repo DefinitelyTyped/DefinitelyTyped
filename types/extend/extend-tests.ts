@@ -1,6 +1,4 @@
-/// <reference types="node" />
-import * as assert from 'assert';
-import * as extend from 'extend';
+import extend = require('extend');
 
 const objectBase = {
     test: 'base'
@@ -25,19 +23,19 @@ const objectThree = {
 
 type ExtendedType = typeof objectBase & typeof objectOne;
 const extended: ExtendedType = extend(objectBase, objectOne);
-assert(extended.test === 'one');
-assert(extended.iamone);
+extended.test === 'one';
+extended.iamone;
 
 type MoreExtendedType = typeof objectBase & typeof objectOne & typeof objectTwo;
 const moreExtended: MoreExtendedType = extend(objectBase, objectOne, objectTwo);
-assert(moreExtended.test === 2);
-assert(moreExtended.iamone);
-assert(moreExtended.iamtwo);
+moreExtended.test === 2;
+moreExtended.iamone;
+moreExtended.iamtwo;
 
 type DeepExtendedType = typeof objectBase & typeof objectOne &
   typeof objectTwo & typeof objectThree;
 const deepExtended = extend(true, objectBase, objectOne, objectTwo, objectThree);
-assert(deepExtended.iamone);
-assert(deepExtended.iamtwo);
-assert(deepExtended.iamthree);
-assert(deepExtended.depth.innerType === 'deep');
+deepExtended.iamone;
+deepExtended.iamtwo;
+deepExtended.iamthree;
+deepExtended.depth.innerType === 'deep';

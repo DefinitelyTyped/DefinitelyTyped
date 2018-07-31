@@ -1,6 +1,8 @@
 // Type definitions for @vimeo/player 2.0
 // Project: https://github.com/vimeo/player.js
-// Definitions by: Denis Yılmaz <https://github.com/denisyilmaz>, Felix Albert <f.albert.work@icloud.com>
+// Definitions by: Denis Yılmaz <https://github.com/denisyilmaz>
+//                 Felix Albert <f.albert.work@icloud.com>
+//                 Tim Chen <https://github.com/timc13>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export function myMethod(a: string): string;
@@ -58,6 +60,7 @@ export class Player {
     getVideoUrl(): VimeoPromise<string, PrivacyError | Error>;
     getVolume(): VimeoPromise<number, Error>;
     setVolume(volume: number): VimeoPromise<number, RangeError | Error>;
+    destroy(): VimeoPromise<void, Error>;
 }
 
 export interface VimeoCuePoint {
@@ -103,3 +106,4 @@ export interface VimeoPromise<Result, Reason> extends Promise<Result> {
 /*~ You can declare properties of the module using const, let, or var */
 export const playerMap: WeakMap<any, any>;
 export const readyMap: WeakMap<any, any>;
+export default Player;

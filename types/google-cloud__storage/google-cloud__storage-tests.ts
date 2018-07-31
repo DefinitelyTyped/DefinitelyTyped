@@ -26,7 +26,7 @@ import {
     WriteStreamOptions,
     UploadOptions
 } from "@google-cloud/storage";
-import * as CloudStorage from "@google-cloud/storage";
+import CloudStorage = require("@google-cloud/storage");
 
 /**
  * Test the storage service.
@@ -39,9 +39,6 @@ export class TestStorage {
 
     // import Storage class
     static gcs = CloudStorage();
-
-    // the bucket
-    private buckets: Bucket[] = [];
 
     constructor() {
         // nothing to do
@@ -207,7 +204,7 @@ export class TestFile {
     }
 
     /** Get a signed URL to allow limited time access to the file */
-    getSignedUrl(config?: SignedUrlConfig): Promise<[string]> {
+    getSignedUrl(config: SignedUrlConfig): Promise<[string]> {
         return this.file.getSignedUrl(config);
     }
 

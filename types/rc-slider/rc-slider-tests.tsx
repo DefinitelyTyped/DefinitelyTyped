@@ -35,6 +35,7 @@ ReactDOM.render(
         onAfterChange={() => { }}
         defaultValue={0.1}
         value={0.1}
+        style={{backgroundColor: 'plum'}}
         dotStyle={{backgroundColor: 'antiquewhite'}}
         activeDotStyle={{backgroundColor: 'antiquewhite'}}
     />,
@@ -59,5 +60,10 @@ ReactDOM.render(
 
 ReactDOM.render(
     <RangeWithTooltip defaultValue={[1]} max={2} step={0.01} min={0.01} />,
+    document.querySelector('.app')
+);
+
+ReactDOM.render(
+    <SliderWithTooltip defaultValue={1} max={2} step={0.01} min={0.01} tipProps={{ placement: 'right' }}/>,
     document.querySelector('.app')
 );

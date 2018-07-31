@@ -1,6 +1,7 @@
-// Type definitions for @google-cloud/pubsub 0.14
+// Type definitions for @google-cloud/pubsub 0.18
 // Project: https://github.com/GoogleCloudPlatform/google-cloud-node/tree/master/packages/pubsub
 // Definitions by: Paul Huynh <https://github.com/pheromonez>
+//                 LunaPg <https://github.com/LunaPg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -13,9 +14,13 @@ declare namespace PubSub {
     // https://googlecloudplatform.github.io/google-cloud-node/#/docs/pubsub/0.14.1/pubsub/v1
     function v1(config?: GCloudConfiguration): any;
 
+    /**
+     * @version: Google PubSub 0.18.0
+     */
     interface GCloudConfiguration {
         projectId?: string;
         keyFilename?: string;
+        apiEndpoint?: string;
         email?: string;
         credentials?: {
             client_email?: string;
@@ -111,7 +116,7 @@ declare namespace PubSub {
     interface Publisher {
         publish(data: Buffer, callback: Publisher.PublishCallback): void;
         publish(data: Buffer, attributes: object, callback: Publisher.PublishCallback): void;
-        publish(data: Buffer, attributes?: object): Promise<any[]>;
+        publish(data: Buffer, attributes?: object): Promise<string>;
     }
     namespace Publisher {
         type PublishCallback = (error: Error | null, messageId: string) => void;

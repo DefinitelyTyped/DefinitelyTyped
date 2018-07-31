@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface NightwatchCustomPageObjects {
-    page: {};
+    page: {[name: string]: () => NightwatchBrowser};
 }
 
 export interface NightwatchDesiredCapabilities {
@@ -1822,7 +1822,7 @@ export interface NightwatchAPI {
      * @param frameId: Identifier for the frame to change focus to.
      * @param callback: Optional callback function to be called when the command finishes.
      */
-    frame(frameId?: string, callback?: () => void): this;
+    frame(frameId: string | undefined | null, callback?: () => void): this;
 
     /**
      * Change focus to the parent context. If the current context is the top level browsing context, the context remains unchanged.
@@ -2160,15 +2160,22 @@ export interface NightwatchCustomAssertions {}
 
 export interface NightwatchBrowser extends NightwatchAPI, NightwatchCustomCommands, NightwatchCustomAssertions, NightwatchCustomPageObjects { }
 
-/**
- * Performs an assertion
- *
- */
 export type NightwatchTest = (browser: NightwatchBrowser) => void;
 
-export interface NightwatchTests {
+export interface NightwatchTestFunctions {
     [key: string]: NightwatchTest;
 }
+
+export type NightwatchTestHook = (browser: NightwatchBrowser, done: () => void) => void;
+
+export interface NightwatchTestHooks {
+    before?: NightwatchTestHook;
+    after?: NightwatchTestHook;
+    beforeEach?: NightwatchTestHook;
+    afterEach?: NightwatchTestHook;
+}
+
+export type NightwatchTests = NightwatchTestFunctions | NightwatchTestHooks;
 
 /**
  * Performs an assertion

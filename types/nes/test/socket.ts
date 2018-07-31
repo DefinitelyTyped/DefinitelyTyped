@@ -4,13 +4,11 @@ import Nes = require('nes');
 
 const socket: Nes.Socket = undefined;
 
-const cb = () => { };
-socket.disconnect(cb);
+socket.disconnect();
 const s: string = socket.id;
 const o: Object = socket.app;
 const auth: Nes.SocketAuthObject = socket.auth;
 
-const cb2 = (err?: any) => { };
-socket.send('message', (err?: any) => { });
-socket.publish('path', 'message', cb2);
-socket.revoke('path', 'message', cb2);
+socket.send('message');
+socket.publish('path', 'message');
+socket.revoke('path', 'message');

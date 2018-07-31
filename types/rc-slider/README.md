@@ -1,11 +1,11 @@
 # Installation
-> `npm install --save @types/rc-select`
+> `npm install --save @types/rc-slider`
 
 # Summary
 This package contains type definitions for rc-slider (https://github.com/react-component/slider).
 
 Additional Details
- * Last updated: Tue, 24 Oct 2017
+ * Last updated: Fri, 15 Dec 2017
  * Dependencies: react
  * Global values: none
 

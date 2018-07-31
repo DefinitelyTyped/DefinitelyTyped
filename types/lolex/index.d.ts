@@ -75,14 +75,14 @@ export interface LolexClock<TTimerId extends TimerId> {
      * @param args   Any extra arguments to pass to the callback.
      * @returns Time identifier for cancellation.
      */
-    setTimeout(callback: () => any, timeout: number, ...args: any[]): TTimerId;
+    setTimeout: (callback: () => any, timeout: number, ...args: any[]) => TTimerId;
 
     /**
      * Clears a timer, as long as it was created using setTimeout.
      *
      * @param id   Timer ID or object.
      */
-    clearTimeout(id: TTimerId): void;
+    clearTimeout: (id: TTimerId) => void;
 
     /**
      * Schedules a callback to be fired every time timeout milliseconds have ticked by.
@@ -92,14 +92,14 @@ export interface LolexClock<TTimerId extends TimerId> {
      * @param args   Any extra arguments to pass to the callback.
      * @returns Time identifier for cancellation.
      */
-    setInterval(callback: () => any, timeout: number, ...args: any[]): TTimerId;
+    setInterval: (callback: () => any, timeout: number, ...args: any[]) => TTimerId;
 
     /**
      * Clears a timer, as long as it was created using setInterval.
      *
      * @param id   Timer ID or object.
      */
-    clearInterval(id: TTimerId): void;
+    clearInterval: (id: TTimerId) => void;
 
     /**
      * Schedules the callback to be fired once 0 milliseconds have ticked by.
@@ -108,44 +108,44 @@ export interface LolexClock<TTimerId extends TimerId> {
      * @remarks You'll still have to call clock.tick() for the callback to fire.
      * @remarks If called during a tick the callback won't fire until 1 millisecond has ticked by.
      */
-    setImmediate(callback: () => any): TTimerId;
+    setImmediate: (callback: () => any) => TTimerId;
 
     /**
      * Clears a timer, as long as it was created using setImmediate.
      *
      * @param id   Timer ID or object.
      */
-    clearImmediate(id: TTimerId): void;
+    clearImmediate: (id: TTimerId) => void;
 
     /**
      * Simulates process.nextTick();
      */
-    nextTick(callback: () => void): void;
+    nextTick: (callback: () => void) => void;
 
     /**
      * Advances the clock to the the moment of the first scheduled timer, firing it.
      */
-    next(): void;
+    next: () => void;
 
     /**
      * Advance the clock, firing callbacks if necessary.
      *
      * @param time   How many ticks to advance by.
      */
-    tick(time: number | string): void;
+    tick: (time: number | string) => void;
 
     /**
      * Runs all pending timers until there are none remaining.
      *
      * @remarks  If new timers are added while it is executing they will be run as well.
      */
-    runAll(): void;
+    runAll: () => void;
 
     /**
      * Takes note of the last scheduled timer when it is run, and advances the clock to
      * that time firing callbacks as necessary.
      */
-    runToLast(): void;
+    runToLast: () => void;
 
     /**
      * Simulates a user changing the system clock.
@@ -153,13 +153,13 @@ export interface LolexClock<TTimerId extends TimerId> {
      * @param now   New system time.
      * @remarks This affects the current time but it does not in itself cause timers to fire.
      */
-    setSystemTime(now?: number | Date): void;
+    setSystemTime: (now?: number | Date) => void;
 
     /**
      * Restores the original methods on the context that was passed to lolex.install,
      * or the native timers if no context was given.
      */
-    uninstall(): void;
+    uninstall: () => void;
 }
 
 /**
@@ -184,7 +184,7 @@ export interface LolexInstallOpts {
     /**
      * Installs lolex with the specified unix epoch (default: 0)
      */
-    now?: number;
+    now?: number | Date;
 
     /**
      * An array with explicit function names to hijack. When not set, lolex will automatically fake all methods except nextTick

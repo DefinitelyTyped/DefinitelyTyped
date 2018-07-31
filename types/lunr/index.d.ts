@@ -627,6 +627,19 @@ declare namespace lunr {
     function stemmer(token: Token): Token;
 
     /**
+     * lunr.generateStopWordFilter builds a stopWordFilter function from the provided
+     * list of stop words.
+     *
+     * The built in lunr.stopWordFilter is built using this generator and can be used
+     * to generate custom stopWordFilters for applications or non English languages.
+     *
+     * @param stopWords - The list of stop words
+     * @see lunr.Pipeline
+     * @see lunr.stopWordFilter
+     */
+    function generateStopWordFilter(stopWords: string[]): PipelineFunction;
+
+    /**
      * lunr.stopWordFilter is an English language stop word list filter, any words
      * contained in the list will not be passed through the filter.
      *
@@ -784,7 +797,7 @@ declare namespace lunr {
          *
          * @see lunr.tokenizer
          */
-        const separator: RegExp;
+        let separator: RegExp;
     }
 
     /**

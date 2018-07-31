@@ -13,6 +13,7 @@ declare let element: HTMLElement;
 declare let elements: HTMLElement[];
 declare const div: HTMLDivElement;
 declare const event: KeyboardEvent;
+declare const mouseEvent: MouseEvent;
 
 declare let buffer: Atom.TextBuffer;
 declare const color: Atom.Color;
@@ -31,6 +32,7 @@ declare let editor: Atom.TextEditor;
 declare let editors: Atom.TextEditor[];
 declare let emitter: Atom.Emitter;
 declare let file: Atom.File;
+declare let fileOrDir: Atom.File | Atom.Directory;
 declare let grammar: Atom.Grammar;
 declare let grammars: Atom.Grammar[];
 declare let gutter: Atom.Gutter;
@@ -41,7 +43,7 @@ declare let marker: Atom.Marker;
 declare let markers: Atom.Marker[];
 declare let markerLayer: Atom.MarkerLayer;
 declare let notification: Atom.Notification;
-declare let notifications: Atom.Notification[];
+declare let notifications: ReadonlyArray<Atom.Notification>;
 declare let pack: Atom.Package;
 declare let packs: Atom.Package[];
 declare let pane: Atom.Pane;
@@ -54,10 +56,12 @@ declare let posArr: Atom.Point[];
 declare let project: Atom.Project;
 declare let range: Atom.Range;
 declare let ranges: Atom.Range[];
+declare let readonlyStrs: ReadonlyArray<string>;
 declare let registry: Atom.GrammarRegistry;
 declare let repository: Atom.GitRepository;
 declare let repositories: Atom.GitRepository[];
 declare let scopeDescriptor: Atom.ScopeDescriptor;
+declare let scopes: ReadonlyArray<string>;
 declare let selection: Atom.Selection;
 declare let selections: Atom.Selection[];
 declare let styleManager: Atom.StyleManager;
@@ -65,6 +69,9 @@ declare let subscription: Atom.Disposable;
 declare let subscriptions: Atom.CompositeDisposable;
 declare let tooltips: Atom.Tooltip[];
 declare let workspaceCenter: Atom.WorkspaceCenter;
+declare let pixelPos: Atom.PixelPosition;
+declare let textEditorElement: Atom.TextEditorElement;
+declare let textEditorComponent: Atom.TextEditorComponent;
 
 // AtomEnvironment ============================================================
 function testAtomEnvironment() {
@@ -81,6 +88,10 @@ function testAtomEnvironment() {
                 { label: "Undo", command: "core:undo" },
                 { label: "Redo", command: "core:redo" },
             ],
+            after: ["test"],
+            before: ["test"],
+            afterGroupContaining: ["test"],
+            beforeGroupContaining: ["test"]
         }],
     });
 
@@ -183,6 +194,10 @@ function testAtomEnvironment() {
     // Messaging the User
     atom.beep();
 
+    atom.confirm({ defaultId: 42 }, (response, checked) => {
+        num = response;
+        bool = checked;
+    });
     atom.confirm({ message: "Test" });
     atom.confirm({ message: "Test", buttons: [ "a", "b" ], detailedMessage: "Test" });
     num = atom.confirm({ message: "Test", detailedMessage: "Test", buttons: {
@@ -196,6 +211,8 @@ function testAtomEnvironment() {
     }
 
     atom.executeJavaScriptInDevTools("Test");
+
+    const path: string = atom.getConfigDirPath();
 }
 
 // BufferedNodeProcess ========================================================
@@ -263,9 +280,25 @@ function testCommandRegistry() {
         "test-function2": (event) => {},
     });
     atom.commands.add("test", "test:function", {
-        didDispatch: (event) => event.stopImmediatePropagation(),
+        didDispatch: (event) => {
+            event.stopImmediatePropagation();
+        },
         description: "A Command Test",
         displayName: "Command: Test",
+    });
+    atom.commands.add("atom-text-editor", {
+        "test-function": (event) => {
+            event.currentTarget.getModel();
+        },
+        "test-function2": (event) => {
+            event.currentTarget.getComponent();
+        }
+    });
+    atom.commands.add("atom-workspace", {
+        "test-command": {
+            didDispatch: (event) => {},
+            hiddenInCommandPalette: true
+        }
     });
 
     const commands = atom.commands.findCommands({ target: element });
@@ -328,7 +361,7 @@ function testConfig() {
 
     const allConfigValues = atom.config.getAll("test");
     for (const { scopeDescriptor, value } of allConfigValues) {
-        scopeDescriptor.scopes;
+        scopes = scopeDescriptor.getScopesArray();
     }
     atom.config.getAll("test", { scope: scopeDescriptor });
     atom.config.getAll("test", { excludeSources: ["test"] });
@@ -505,6 +538,8 @@ function testDecoration() {
     // Decoration Details
     num = decoration.getId();
     displayMarker = decoration.getMarker();
+    bool = decoration.isType("line-number");
+    bool = decoration.isType(["line-number", "line"]);
 
     // Properties
     const decorationProps = decoration.getProperties();
@@ -700,6 +735,9 @@ function testDisplayMarker() {
 
 // DisplayMarkerLayer =========================================================
 function testDisplayMarkerLayer() {
+    // Properties
+    str = displayMarkerLayer.id;
+
     // Lifecycle
     displayMarkerLayer.destroy();
     displayMarkerLayer.clear();
@@ -831,6 +869,7 @@ function testDock() {
     subscription = dock.onDidDestroyPaneItem(event => {
         event.index && event.item && event.pane;
     });
+    subscription = dock.onDidChangeHovered(hovered => bool = hovered);
 
     // Pane Items
     objs = dock.getPaneItems();
@@ -844,9 +883,12 @@ function testDock() {
 }
 
 // Emitter ====================================================================
+interface TestEmissions {
+    "test-event": string;
+}
+
 function testEmitter() {
     emitter = new Atom.Emitter();
-
     emitter.clear();
     emitter.dispose();
 
@@ -858,6 +900,27 @@ function testEmitter() {
     // Event Emission
     emitter.emit("test-event");
     emitter.emit("test-event", 42);
+
+    // Optional Value Emitter
+    const optEmitter = new Atom.Emitter<{ "test-event": string }>();
+    optEmitter.emit("test-event");
+    optEmitter.emit("test-event", "test");
+    optEmitter.on("test-event", value => {
+        str = value ? value : "";
+    });
+
+    // Required Value Emitter
+    const reqEmitter = new Atom.Emitter<{}, TestEmissions>();
+    reqEmitter.on("test-event", value => {
+        str = value;
+    });
+    reqEmitter.emit("test-event", "test");
+
+    // Mixed Value Emitter
+    const mixedEmitter = new Atom.Emitter<{ "t1": "test" }, { "t2": "test" }>();
+    mixedEmitter.emit("t1");
+    mixedEmitter.emit("t1", "test");
+    mixedEmitter.emit("t2", "test");
 }
 
 // File =======================================================================
@@ -910,7 +973,8 @@ function testFile() {
 
     // Reading and Writing
     async function readFile() {
-        str = await file.read();
+        const res = await file.read();
+        if (res !== null) str = res;
     }
 
     const stream = file.createReadStream();
@@ -922,6 +986,16 @@ function testFile() {
 
     file.createWriteStream();
     file.writeSync("Test");
+}
+
+// File/Directory Type Guarding ===============================================
+function testFileDirectoryTypeGuarding() {
+    if (fileOrDir.isFile()) {
+      file = fileOrDir;
+    }
+    if (fileOrDir.isDirectory()) {
+      dir = fileOrDir;
+    }
 }
 
 // GitRepository ==============================================================
@@ -1032,6 +1106,10 @@ function testGrammar() {
     tokenizeLineResult.tokens;
     grammar.tokenizeLine("Test String", tokenizeLineResult.ruleStack);
     grammar.tokenizeLine("Test String", tokenizeLineResult.ruleStack, false);
+
+    let str: string;
+    str = grammar.name;
+    str = grammar.scopeName;
 }
 
 // GrammarRegistry ============================================================
@@ -1039,6 +1117,7 @@ function testGrammarRegistry() {
     // Event Subscription
     subscription = registry.onDidAddGrammar(grammar => grammar.name);
     subscription = registry.onDidUpdateGrammar(grammar => grammar.name);
+    subscription = registry.onDidRemoveGrammar(grammar => grammar.name);
 
     // Managing Grammars
     grammars = registry.getGrammars();
@@ -1216,6 +1295,9 @@ function testMarker() {
 
 // MarkerLayer ================================================================
 function testMarkerLayer() {
+    // Properties
+    str = markerLayer.id;
+
     // Lifecycle
     markerLayer = markerLayer.copy();
     bool = markerLayer.destroy();
@@ -1244,6 +1326,9 @@ function testMarkerLayer() {
     markers = markerLayer.findMarkers({ containsRange: [pos, [0, 0]] });
     markers = markerLayer.findMarkers({ containsRange: [[0, 0], pos] });
     markers = markerLayer.findMarkers({ containsRange: [[0, 0], [0, 0]] });
+
+    const role = markerLayer.getRole();
+    if (role) str = role;
 
     // Marker creation
     marker = markerLayer.markRange(range);
@@ -1310,6 +1395,7 @@ function testNotification() {
 function testNotificationManager() {
     // Events
     atom.notifications.onDidAddNotification(notification => notification.dismiss());
+    atom.notifications.onDidClearNotifications(() => undefined);
 
     // Adding Notifications
     atom.notifications.addSuccess("Test");
@@ -1344,6 +1430,9 @@ function testNotificationManager() {
 
     // Getting Notifications
     notifications = atom.notifications.getNotifications();
+
+    // Managing Notifications
+    atom.notifications.clear();
 }
 
 // Package ====================================================================
@@ -1372,6 +1461,9 @@ function testPackageManager() {
     subscription = atom.packages.onDidDeactivatePackage(pack => pack.path);
     subscription = atom.packages.onDidLoadPackage(pack => pack.isCompatible());
     subscription = atom.packages.onDidUnloadPackage(pack => pack.name);
+    subscription = atom.packages.onDidTriggerActivationHook(
+      'language-javascript:grammar-used', () => {}
+    );
 
     // Package system data
     str = atom.packages.getApmPath();
@@ -1397,6 +1489,14 @@ function testPackageManager() {
     }
 
     bool = atom.packages.isPackageDisabled("Test");
+
+    // Activating and deactivating packages
+    atom.packages.activatePackage("Test").then((activePack) => {
+        pack = activePack;
+    });
+    atom.packages.deactivatePackage("Test", true).then(() => {
+        // package is deactivated
+    });
 
     // Accessing active packages
     packs = atom.packages.getActivePackages();
@@ -1563,7 +1663,8 @@ function testPanel() {
 }
 
 // PathWatcher ================================================================
-function testPathWatcher() {
+async function testPathWatcher() {
+    const pathWatcher = await pathWatcherPromise;
     pathWatcher.dispose();
     subscription = pathWatcher.onDidError((error) => str = error.name);
 
@@ -1639,6 +1740,10 @@ function testProject() {
 
     subscription = project.onDidAddBuffer(buffer => buffer.id);
     subscription = project.observeBuffers(buffer => buffer.getUri());
+
+    subscription = project.onDidReplace(projectSpec => {
+        if (projectSpec != null) str = projectSpec.originPath;
+    });
 
     // Accessing the git repository
     repositories = project.getRepositories();
@@ -1756,7 +1861,7 @@ function testRange() {
 }
 
 // ScopeDescriptor ============================================================
-strs = scopeDescriptor.getScopesArray();
+readonlyStrs = scopeDescriptor.getScopesArray();
 
 // Selection ==================================================================
 function testSelection() {
@@ -1852,32 +1957,54 @@ function testSelection() {
     selection.insertText("Replacement", { autoDecreaseIndent: true });
     selection.insertText("Replacement", { normalizeLineEndings: true });
     selection.insertText("Replacement", { undo: "skip" });
+    selection.insertText("Replacement", { bypassReadOnly: true });
     selection.insertText("Replacement", { select: true, autoIndent: true,
         autoIndentNewline: true, autoDecreaseIndent: true, normalizeLineEndings: true,
-        undo: "skip" });
+        undo: "skip", preserveTrailingLineIndentation: false, bypassReadOnly: false });
 
     selection.backspace();
+    selection.backspace({ bypassReadOnly: true });
     selection.deleteToPreviousWordBoundary();
+    selection.deleteToPreviousWordBoundary({ bypassReadOnly: false });
     selection.deleteToNextWordBoundary();
+    selection.deleteToNextWordBoundary({ bypassReadOnly: true });
     selection.deleteToBeginningOfWord();
+    selection.deleteToBeginningOfWord({ bypassReadOnly: false });
     selection.deleteToBeginningOfLine();
+    selection.deleteToBeginningOfLine({ bypassReadOnly: true });
     selection.delete();
+    selection.delete({ bypassReadOnly: false });
     selection.deleteToEndOfLine();
+    selection.deleteToEndOfLine({ bypassReadOnly: true });
     selection.deleteToEndOfWord();
+    selection.deleteToEndOfWord({ bypassReadOnly: false });
     selection.deleteToBeginningOfSubword();
+    selection.deleteToBeginningOfSubword({ bypassReadOnly: true });
     selection.deleteToEndOfSubword();
+    selection.deleteToEndOfSubword({ bypassReadOnly: false });
     selection.deleteSelectedText();
+    selection.deleteSelectedText({ bypassReadOnly: true });
     selection.deleteLine();
+    selection.deleteLine({ bypassReadOnly: false });
     selection.joinLines();
+    selection.joinLines({ bypassReadOnly: true });
     selection.outdentSelectedRows();
+    selection.outdentSelectedRows({ bypassReadOnly: false });
     selection.autoIndentSelectedRows();
+    selection.autoIndentSelectedRows({ bypassReadOnly: true });
     selection.toggleLineComments();
+    selection.toggleLineComments({ bypassReadOnly: false });
     selection.cutToEndOfLine();
+    selection.cutToEndOfLine(true);
+    selection.cutToEndOfLine(undefined, { bypassReadOnly: true });
     selection.cutToEndOfBufferLine();
+    selection.cutToEndOfBufferLine(true);
+    selection.cutToEndOfBufferLine(false, { bypassReadOnly: false });
 
     selection.cut();
     selection.cut(true);
     selection.cut(true, true);
+    selection.cut(undefined, undefined, { bypassReadOnly: true });
 
     selection.copy();
     selection.copy(true);
@@ -1885,6 +2012,7 @@ function testSelection() {
 
     selection.fold();
     selection.indentSelectedRows();
+    selection.indentSelectedRows({ bypassReadOnly: false });
 
     // Managing multiple selections
     selection.addSelectionBelow();
@@ -1956,7 +2084,14 @@ function testTextBuffer() {
 
     // Event Subscription
     subscription = buffer.onWillChange(() => void {});
-    subscription = buffer.onDidChange(() => void {});
+
+    subscription = buffer.onDidChange((event): void => {
+        range = event.newRange;
+        for (const change of event.changes) {
+            range = change.newRange;
+        }
+    });
+
     subscription = buffer.onDidChangeText(() => void {});
 
     subscription = buffer.onDidStopChanging((event): void => {
@@ -2037,6 +2172,8 @@ function testTextBuffer() {
     if (nextRow) {
         num = nextRow;
     }
+
+    bool = buffer.hasAstral();
 
     // Mutating Text
     range = buffer.setText("Test");
@@ -2127,14 +2264,19 @@ function testTextBuffer() {
 
     // History
     bool = buffer.undo();
+    bool = buffer.undo({ selectionsMarkerLayer: markerLayer });
     bool = buffer.redo();
+    bool = buffer.redo({ selectionsMarkerLayer: markerLayer });
 
-    num = buffer.transact<number>(500, (): number => 42);
+    num = buffer.transact(500, (): number => 42);
+    num = buffer.transact({ groupingInterval: 500, selectionsMarkerLayer: markerLayer },
+        (): number => 42);
 
     buffer.clearUndoStack();
     num = buffer.createCheckpoint();
     bool = buffer.revertToCheckpoint(42);
     bool = buffer.groupChangesSinceCheckpoint(42);
+    bool = buffer.groupLastChanges();
     buffer.getChangesSinceCheckpoint(42);
 
     // Search And Replace
@@ -2222,6 +2364,7 @@ function testTextBuffer() {
     num = buffer.getLastRow();
     pos = buffer.getFirstPosition();
     pos = buffer.getEndPosition();
+    num = buffer.getLength();
     num = buffer.getMaxCharacterIndex();
     range = buffer.rangeForRow(42, true);
     num = buffer.characterIndexForPosition(pos);
@@ -2327,16 +2470,18 @@ function testTextEditor() {
 
     // Mutating Text
     editor.setText("Test");
+    editor.setText("Test", {});
+    editor.setText("Text", { bypassReadOnly: true });
 
-    editor.setTextInBufferRange(range, "Test");
-    editor.setTextInBufferRange([pos, pos], "Test");
-    editor.setTextInBufferRange([pos, [0, 0]], "Test");
-    editor.setTextInBufferRange([[0, 0], pos], "Test");
-    editor.setTextInBufferRange([[0, 0], [0, 0]], "Test");
-    editor.setTextInBufferRange(range, "Test", {});
-    editor.setTextInBufferRange([pos, pos], "Test", { normalizeLineEndings: true });
-    editor.setTextInBufferRange(range, "Test", { normalizeLineEndings: true,
-        undo: "skip" });
+    range = editor.setTextInBufferRange(range, "Test");
+    range = editor.setTextInBufferRange([pos, pos], "Test");
+    range = editor.setTextInBufferRange([pos, [0, 0]], "Test");
+    range = editor.setTextInBufferRange([[0, 0], pos], "Test");
+    range = editor.setTextInBufferRange([[0, 0], [0, 0]], "Test");
+    range = editor.setTextInBufferRange(range, "Test", {});
+    range = editor.setTextInBufferRange([pos, pos], "Test", { normalizeLineEndings: true });
+    range = editor.setTextInBufferRange(range, "Test", { normalizeLineEndings: true,
+        undo: "skip", bypassReadOnly: false });
 
     editor.insertText("Test");
     editor.insertText("Test", {});
@@ -2347,27 +2492,46 @@ function testTextEditor() {
     editor.insertText("Test", { select: true });
     editor.insertText("Test", { undo: "skip" });
     editor.insertText("Text", { autoDecreaseIndent: false, autoIndent: false,
-        autoIndentNewline: false, normalizeLineEndings: false, select: false, undo: "skip" });
+        autoIndentNewline: false, normalizeLineEndings: false, select: false,
+        undo: "skip", preserveTrailingLineIndentation: true, bypassReadOnly: true });
 
     editor.insertNewline();
+    editor.insertNewline({ bypassReadOnly: false });
     editor.delete();
+    editor.delete({ bypassReadOnly: true });
     editor.backspace();
+    editor.backspace({ bypassReadOnly: false });
     editor.mutateSelectedText((selection, index) => { selection.clear(); });
     editor.transpose();
+    editor.transpose({ bypassReadOnly: true });
     editor.upperCase();
+    editor.upperCase({ bypassReadOnly: false });
     editor.lowerCase();
+    editor.lowerCase({ bypassReadOnly: true });
     editor.toggleLineCommentsInSelection();
+    editor.toggleLineCommentsInSelection({ bypassReadOnly: false });
     editor.insertNewlineBelow();
+    editor.insertNewlineBelow({ bypassReadOnly: true });
     editor.insertNewlineAbove();
+    editor.insertNewlineAbove({ bypassReadOnly: false });
     editor.deleteToBeginningOfWord();
+    editor.deleteToBeginningOfWord({ bypassReadOnly: true });
     editor.deleteToPreviousWordBoundary();
+    editor.deleteToPreviousWordBoundary({ bypassReadOnly: false });
     editor.deleteToNextWordBoundary();
+    editor.deleteToNextWordBoundary({ bypassReadOnly: true });
     editor.deleteToBeginningOfSubword();
+    editor.deleteToBeginningOfSubword({ bypassReadOnly: false });
     editor.deleteToEndOfSubword();
+    editor.deleteToEndOfSubword({ bypassReadOnly: true });
     editor.deleteToBeginningOfLine();
+    editor.deleteToBeginningOfLine({ bypassReadOnly: false });
     editor.deleteToEndOfLine();
+    editor.deleteToEndOfLine({ bypassReadOnly: true });
     editor.deleteToEndOfWord();
+    editor.deleteToEndOfWord({ bypassReadOnly: false });
     editor.deleteLine();
+    editor.deleteLine({ bypassReadOnly: true });
 
     // History
     editor.undo();
@@ -2615,6 +2779,8 @@ function testTextEditor() {
     editor.moveToNextSubwordBoundary();
     editor.moveToBeginningOfNextParagraph();
     editor.moveToBeginningOfPreviousParagraph();
+    editor.selectLargerSyntaxNode();
+    editor.selectSmallerSyntaxNode();
     cursor = editor.getLastCursor();
 
     str = editor.getWordUnderCursor();
@@ -2813,13 +2979,15 @@ function testTextEditor() {
     editor.setIndentationForBufferRow(42, 42, { preserveLeadingWhitespace: true });
 
     editor.indentSelectedRows();
+    editor.indentSelectedRows({ bypassReadOnly: false });
     editor.outdentSelectedRows();
+    editor.outdentSelectedRows({ bypassReadOnly: true });
     num = editor.indentLevelForLine("Test");
     editor.autoIndentSelectedRows();
+    editor.autoIndentSelectedRows({ bypassReadOnly: false });
 
     // Grammars
     grammar = editor.getGrammar();
-    editor.setGrammar(grammar);
 
     // Managing Syntax Scopes
     scopeDescriptor = editor.getRootScopeDescriptor();
@@ -2833,6 +3001,7 @@ function testTextEditor() {
     // Clipboard Operations
     editor.copySelectedText();
     editor.cutSelectedText();
+    editor.cutSelectedText({ bypassReadOnly: true });
 
     editor.pasteText();
     editor.pasteText({});
@@ -2842,11 +3011,14 @@ function testTextEditor() {
     editor.pasteText({ normalizeLineEndings: true });
     editor.pasteText({ select: true });
     editor.pasteText({ undo: "skip" });
+    editor.pasteText({ bypassReadOnly: false });
     editor.pasteText({ autoIndentNewline: true, autoIndent: true, autoDecreaseIndent: true,
-        normalizeLineEndings: true, select: true, undo: "skip" });
+        normalizeLineEndings: true, select: true, undo: "skip", bypassReadOnly: true });
 
     editor.cutToEndOfLine();
+    editor.cutToEndOfLine({ bypassReadOnly: false });
     editor.cutToEndOfBufferLine();
+    editor.cutToEndOfBufferLine({ bypassReadOnly: true });
 
     // Folds
     editor.foldCurrentRow();
@@ -2898,6 +3070,15 @@ function testTextEditor() {
     // TextEditor Rendering
     str = editor.getPlaceholderText();
     editor.setPlaceholderText("Test");
+
+    range = editor.bufferRangeForScopeAtPosition('source.js', [0, 0]);
+    range = editor.bufferRangeForScopeAtPosition('source.js', {row: 10, column: 11});
+    range = editor.bufferRangeForScopeAtPosition('source.js', pos);
+
+    let token: {value: string, scopes: string[]};
+    token = editor.tokenForBufferPosition([5, 6]);
+    token = editor.tokenForBufferPosition({row: 0, column: 1});
+    token = editor.tokenForBufferPosition(pos);
 }
 
 // ThemeManager ===============================================================
@@ -2939,7 +3120,7 @@ function testTooltipManager() {
     subscription = atom.tooltips.add(element, { class: "test-class" });
     subscription = atom.tooltips.add(element, { placement: "top" });
 
-    subscription = atom.tooltips.add(element, { placement: () => "left" });
+    subscription = atom.tooltips.add(element, { placement: () => "auto left" });
 
     subscription = atom.tooltips.add(element, { trigger: "click" });
     subscription = atom.tooltips.add(element, { delay: { hide: 42, show: 42 }});
@@ -2957,6 +3138,7 @@ function testViewRegistry() {
     });
 
     element = atom.views.getView(element);
+    textEditorElement = atom.views.getView(editor);
 }
 
 // Workspace ==================================================================
@@ -3033,7 +3215,9 @@ function testWorkspace() {
 
     obj = atom.workspace.createItemForURI("https://test");
 
-    bool = atom.workspace.isTextEditor(obj);
+    if (atom.workspace.isTextEditor(obj)) {
+      const textEditor: Atom.TextEditor = obj;
+    }
 
     async function workspaceReopen() {
         const result = await atom.workspace.reopenItem();
@@ -3189,10 +3373,46 @@ function testWorkspaceCenter() {
 }
 
 // watchPath ==================================================================
-const pathWatcher = Atom.watchPath("/var/test", {}, (events) => {
+const pathWatcherPromise = Atom.watchPath("/var/test", {}, (events) => {
     for (const event of events) {
         str = event.path;
         str = event.action;
-        if (event.oldPath) str = event.oldPath;
+        if (event.action === "renamed") str = event.oldPath;
     }
 });
+
+// TextEditorElement ==========================================================
+function testTextEditorElement() {
+  textEditorComponent = textEditorElement.getComponent();
+  editor = textEditorElement.getModel();
+
+  textEditorElement.getNextUpdatePromise().then(() => {});
+  let num: number = textEditorElement.getBaseCharacterWidth();
+
+  textEditorElement.scrollToTop();
+  textEditorElement.scrollToBottom();
+  textEditorElement.setScrollTop(num);
+  num = textEditorElement.getScrollTop();
+  textEditorElement.setScrollLeft(num);
+  num = textEditorElement.getScrollLeft();
+  num = textEditorElement.getScrollHeight();
+
+  pixelPos = textEditorElement.pixelPositionForBufferPosition(pos);
+  pixelPos = textEditorElement.pixelPositionForScreenPosition({row: 1, column: 2});
+  pixelPos = textEditorElement.pixelPositionForScreenPosition(pos);
+
+  subscription = textEditorElement.onDidChangeScrollTop((scrollTop: number) => {});
+  subscription = textEditorElement.onDidChangeScrollLeft((scrollLeft: number) => {});
+  subscription = textEditorElement.onDidAttach(() => {});
+  subscription = textEditorElement.onDidDetach(() => {});
+
+  textEditorElement = document.createElement('atom-text-editor');
+}
+
+// TextEditorComponent ========================================================
+function testTextEditorComponent() {
+  pixelPos = textEditorComponent.pixelPositionForMouseEvent(mouseEvent);
+  pixelPos = textEditorComponent.pixelPositionForScreenPosition(pos);
+  pos = textEditorComponent.screenPositionForMouseEvent(mouseEvent);
+  pos = textEditorComponent.screenPositionForPixelPosition(pixelPos);
+}

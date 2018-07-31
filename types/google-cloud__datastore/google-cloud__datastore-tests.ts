@@ -14,8 +14,7 @@ interface TestEntity {
     name?: string;
     location?: string;
     symbol?: string;
-
-    [keySymbol: string]: any;
+    [Datastore.KEY]?: any;
 }
 
 const kind = 'Company';
@@ -35,12 +34,17 @@ ds.determineBaseUrl_('http://localhost:8081');
 
 // Keys components creation:
 const dsInt: DatastoreInt = ds.int(42);
+const isInt = ds.isInt(dsInt);
 const dsDouble: DatastoreDouble = ds.double('3.14');
+const isDouble = ds.isDouble(dsDouble);
+
 const dsGeopoint: DatastoreGeopoint = ds.geoPoint({latitude: 0, longitude: 0});
+const isGeoPoint = ds.isGeoPoint(dsGeopoint);
 
 // Keys creation:
 const keyPath: DatastoreKeyPath = [kind, 'Google', 'Department', dsInt];
 const key: DatastoreKey = ds.key(keyPath);
+const isKey = ds.isKey(key);
 const ancestorKey: DatastoreKey = ds.key(['ParentCompany', 'Alphabet']);
 const keyWithOptions: DatastoreKey = ds.key({
                                                 namespace: 'special-namespace',

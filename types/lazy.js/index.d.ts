@@ -210,6 +210,7 @@ declare namespace LazyJS {
         get(property: string): ObjectLikeSequence<T>;
         invert(): ObjectLikeSequence<T>;
         keys(): Sequence<string>;
+        merge(others: Object | ObjectLikeSequence<T>, mergeFn?: Function): ObjectLikeSequence<T>;
         omit(properties: string[]): ObjectLikeSequence<T>;
         pairs(): Sequence<T>;
         pick(properties: string[]): ObjectLikeSequence<T>;

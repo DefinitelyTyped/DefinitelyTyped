@@ -12,5 +12,7 @@ declare module "meteor/server-render" {
         appendToElementById?(id: string, html: string): void;
         renderIntoElementById?(id: string, html: string): void;
     }
-    function onPageLoad(sink: Sink): Promise<any> | any;
+    
+    type Callback = (sink: Sink) => Promise <any> | any;
+    export function onPageLoad<T extends Callback>(callback: T): T;
 }

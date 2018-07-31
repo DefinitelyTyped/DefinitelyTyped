@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import * as OSRM from 'osrm';
+import OSRM = require('osrm');
 
 // Access to Types from namespace
 const tile: OSRM.Tile = [0, 0, 0];

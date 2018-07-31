@@ -1,6 +1,7 @@
-// Type definitions for js-logging-sdk 1.0
+// Type definitions for js-logging-sdk 1.3
 // Project: https://github.com/SumoLogic/js-logging-sdk
 // Definitions by: forabi <https://github.com/forabi>
+//                 clementallen <https://github.com/clementallen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -67,6 +68,11 @@ declare namespace SumoLogger {
          * This value sets the Source Name for the logged message.
          */
         sourceName?: string;
+
+        /**
+         * This value enabled and disables sending data as graphite metrics
+         */
+        graphite?: boolean;
     }
 
     interface PerMessageOptions {
@@ -124,6 +130,21 @@ declare class SumoLogger {
      * messages are sent to Sumo Logic.
      */
     flushLogs(): void;
+
+    /**
+     * Stop sending batched logs
+     */
+    stopLogSending(): void;
+
+    /**
+     * Start sending batched logs at the preconfigured interval
+     */
+    startLogSending(): void;
+
+    /**
+     * Empty the current queue of logs
+     */
+    emptyLogQueue(): void;
 }
 
 export = SumoLogger;

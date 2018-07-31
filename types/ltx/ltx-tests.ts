@@ -2,6 +2,11 @@ import * as ltx from 'ltx';
 
 ltx.parse('<document/>');
 
+const getChildTextElement = ltx.parse('<test><child>body text</child></test>') as ltx.Element;
+if (getChildTextElement.getChildText('child') !== 'body text') {
+    throw new Error("body does not match");
+}
+
 const p = new ltx.Parser();
 
 p.on('tree', (ignored: any) => {});

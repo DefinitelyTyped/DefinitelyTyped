@@ -9,7 +9,7 @@ namespace demo.dialog {
     action:string;
 
 		static $inject:Array<string> = ["$ionicPlatform", "$cordovaDialogs"];
-		constructor($ionicPlatform:ionic.platform.IonicPlatformService, private $cordovaDialogs:ngCordova.IDialogsService) {
+		constructor($ionicPlatform:ionic.platform.IonicPlatformService, private readonly $cordovaDialogs:ngCordova.IDialogsService) {
       this.action = "Press any button !";
 		}
 

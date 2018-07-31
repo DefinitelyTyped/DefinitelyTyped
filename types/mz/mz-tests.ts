@@ -1,7 +1,10 @@
-/// <reference types="mocha" />
-
 import assert = require('assert')
 import fs = require('mz/fs')
+
+// Stub mocha functions
+const {describe, it, before, after, beforeEach, afterEach} = null as any as {
+  [s: string]: ((s: string, cb: (done: any) => void) => void) & ((cb: (done: any) => void) => void) & {only: any, skip: any};
+};
 
 describe('fs', function () {
 

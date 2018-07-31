@@ -111,7 +111,7 @@ declare namespace NodeVault {
         debug?(...args: any[]): any;
         tv4?(...args: any[]): any;
         commands?: Array<{ method: string, path: string, scheme: any }>;
-        mustache?: MustacheStatic;
+        mustache?: typeof mustache;
         "request-promise"?: any;
         Promise?: PromiseConstructor;
 
@@ -122,7 +122,5 @@ declare namespace NodeVault {
     }
 }
 
-type GetClient = (options?: NodeVault.VaultOptions) => NodeVault.client;
-
-declare const getClient: GetClient;
-export = getClient;
+declare function NodeVault(options?: NodeVault.VaultOptions): NodeVault.client;
+export = NodeVault;

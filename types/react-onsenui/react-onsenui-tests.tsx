@@ -12,10 +12,7 @@ class AppState {
 interface AppProps {} // tslint:disable-line no-empty-interface
 
 export class App extends React.Component<AppProps, AppState> {
-    constructor(props: AppProps) {
-        super(props);
-        this.state = new AppState();
-    }
+    state = new AppState();
 
     hide() {
         this.setState({ isOpen: false });
@@ -28,14 +25,15 @@ export class App extends React.Component<AppProps, AppState> {
         return (
             <Splitter>
                 <SplitterSide
+                    className='left'
                     side='left'
                     collapse={true}
                     isOpen={this.state.isOpen}
                     onClose={() => this.hide()}
-                    isSwipeable={true}>
+                    swipeable>
                     <Page>
                         Menu content
-					</Page>
+                    </Page>
                 </SplitterSide>
                 <SplitterContent>
                     <Page>

@@ -5,6 +5,9 @@
 //                 Derek Wickern <https://github.com/dwickern>
 //                 Chris Krycho <https://github.com/chriskrycho>
 //                 Theron Cross <https://github.com/theroncross>
+//                 Martin Feckie <https://github.com/mfeckie>
+//                 Alex LaFroscia <https://github.com/alexlafroscia>
+//                 Mike North <https://github.com/mike-north>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -17,13 +20,18 @@ declare module 'ember' {
     import Rsvp from 'rsvp';
     import { TemplateFactory } from 'htmlbars-inline-precompile';
 
+    import { Registry as ServiceRegistry } from '@ember/service';
+    import { Registry as ControllerRegistry } from '@ember/controller';
+    import ModuleComputed from '@ember/object/computed';
+
     // Get an alias to the global Array type to use in inner scope below.
     type GlobalArray<T> = T[];
 
     /**
      * Deconstructs computed properties into the types which would be returned by `.get()`.
      */
-    type ComputedProperties<T> = { [K in keyof T]: Ember.ComputedProperty<T[K]> | T[K] };
+    type ComputedPropertyGetters<T> = { [K in keyof T]: Ember.ComputedProperty<T[K], any> | ModuleComputed<T[K], any> | T[K] };
+    type ComputedPropertySetters<T> = { [K in keyof T]: Ember.ComputedProperty<any, T[K]> | ModuleComputed<any, T[K]> | T[K] };
 
     /**
      * Check that any arguments to `create()` match the type's properties.
@@ -64,13 +72,13 @@ declare module 'ember' {
      *
      * Generally you would use `EmberClass.create()` instead of `new EmberClass()`.
      *
-     * The no-arg constructor is required by the typescript compiler.
+     * The single-arg constructor is required by the typescript compiler.
      * The multi-arg constructor is included for better ergonomics.
      *
      * Implementation is carefully chosen for the reasons described in
      * https://github.com/typed-ember/ember-typings/pull/29
      */
-    type EmberClassConstructor<T> = (new () => T) & (new (...args: any[]) => T);
+    type EmberClassConstructor<T> = (new (properties?: object) => T) & (new (...args: any[]) => T);
 
     type ComputedPropertyGetterFunction<T> = (this: any, key: string) => T;
 
@@ -104,6 +112,8 @@ declare module 'ember' {
         | 'render'
         | 'afterRender'
         | 'destroy';
+    type QueryParamTypes = 'boolean' | 'number' | 'array' | 'string';
+    type QueryParamScopeTypes = 'controller' | 'model';
 
     type ObserverMethod<Target, Sender> =
         | (keyof Target)
@@ -300,7 +310,11 @@ declare module 'ember' {
             /**
              * Given a fullName return a corresponding instance.
              */
-            lookup(fullName: string, options: {}): any;
+            lookup(fullName: string, options?: {}): any;
+            /**
+             * Given a fullName return a corresponding factory.
+             */
+            factoryFor(fullName: string, options?: {}): any;
         }
         const _ContainerProxyMixin: Mixin<_ContainerProxyMixin>;
 
@@ -314,11 +328,11 @@ declare module 'ember' {
              */
             resolveRegistration(fullName: string): Function;
             /**
-             * Registers a factory that can be used for dependency injection (with
+             * Registers a factory or value that can be used for dependency injection (with
              * `inject`) or for service lookup. Each factory is registered with
              * a full name including two parts: `type:name`.
              */
-            register(fullName: string, factory: Function, options: {}): any;
+            register(fullName: string, factory: any, options?: { singleton?: boolean, instantiate?: boolean }): any;
             /**
              * Unregister a factory.
              */
@@ -383,7 +397,7 @@ declare module 'ember' {
         An instance of Ember.Application is the starting point for every Ember application. It helps to
         instantiate, initialize and coordinate the many objects that make up your app.
         **/
-        class Application extends Namespace {
+        class Application extends Engine {
             /**
             Call advanceReadiness after any asynchronous setup logic has completed.
             Each call to deferReadiness must be matched by a call to advanceReadiness
@@ -466,6 +480,11 @@ declare module 'ember' {
             **/
             Router: Router;
             registry: Registry;
+            /**
+             *  Initialize the application and return a promise that resolves with the `Application`
+             *  object when the boot process is complete.
+             */
+            boot(): Promise<Application>;
         }
         /**
         The `ApplicationInstance` encapsulates all of the stateful aspects of a
@@ -678,7 +697,7 @@ declare module 'ember' {
         will be cached. You can specify various properties that your computed property is dependent on.
         This will force the cached result to be recomputed if the dependencies are modified.
         **/
-        class ComputedProperty<T> {
+        class ComputedProperty<Get, Set = Get> {
             /**
              * Call on a computed property to set it into non-cached mode. When in this
              * mode the computed property will not automatically cache the return value.
@@ -731,7 +750,11 @@ declare module 'ember' {
             replaceRoute(name: string, ...args: any[]): void;
             transitionToRoute(name: string, ...args: any[]): void;
             model: any;
-            queryParams: string[] | Array<{ [key: string]: { type: string } }>;
+            queryParams: string | string[] | Array<{ [key: string]: {
+                type?: QueryParamTypes,
+                scope?: QueryParamScopeTypes,
+                as?: string
+            }}>;
             target: Object;
         }
         const ControllerMixin: Ember.Mixin<ControllerMixin>;
@@ -754,6 +777,12 @@ declare module 'ember' {
         }
         const Copyable: Ember.Mixin<Copyable>;
         class CoreObject {
+            /**
+             * As of Ember 3.1, CoreObject constructor takes initial object properties as an argument.
+             * See: https://github.com/emberjs/ember.js/commit/4709935854d4c29b0d2c054614d53fa2c55309b1
+             **/
+            constructor(properties?: object);
+
             _super(...args: any[]): any;
 
             /**
@@ -807,7 +836,7 @@ declare module 'ember' {
             static create<Instance>(this: EmberClassConstructor<Instance>): Fix<Instance>;
 
             static create<Instance, Args, T1 extends EmberInstanceArguments<Args>>(
-                this: EmberClassConstructor<Instance & ComputedProperties<Args>>,
+                this: EmberClassConstructor<Instance & ComputedPropertyGetters<Args>>,
                 arg1: T1 & ThisType<Fix<T1 & Instance>>
             ): Fix<Instance & T1>;
 
@@ -817,7 +846,7 @@ declare module 'ember' {
                 T1 extends EmberInstanceArguments<Args>,
                 T2 extends EmberInstanceArguments<Args>
             >(
-                this: EmberClassConstructor<Instance & ComputedProperties<Args>>,
+                this: EmberClassConstructor<Instance & ComputedPropertyGetters<Args>>,
                 arg1: T1 & ThisType<Fix<Instance & T1>>,
                 arg2: T2 & ThisType<Fix<Instance & T1 & T2>>
             ): Fix<Instance & T1 & T2>;
@@ -829,7 +858,7 @@ declare module 'ember' {
                 T2 extends EmberInstanceArguments<Args>,
                 T3 extends EmberInstanceArguments<Args>
             >(
-                this: EmberClassConstructor<Instance & ComputedProperties<Args>>,
+                this: EmberClassConstructor<Instance & ComputedPropertyGetters<Args>>,
                 arg1: T1 & ThisType<Fix<Instance & T1>>,
                 arg2: T2 & ThisType<Fix<Instance & T1 & T2>>,
                 arg3: T3 & ThisType<Fix<Instance & T1 & T2 & T3>>
@@ -1043,11 +1072,17 @@ declare module 'ember' {
              */
             namespace: Application;
         }
+        interface Initializer<T> {
+            name: string;
+            before?: string[];
+            after?: string[];
+            initialize(application: T): void;
+        }
         /**
          * The `Engine` class contains core functionality for both applications and
          * engines.
          */
-        class Engine extends Namespace {
+        class Engine extends Namespace.extend(_RegistryProxyMixin) {
             /**
              * The goal of initializers should be to register dependencies and injections.
              * This phase runs once. Because these initializers may load code, they are
@@ -1056,14 +1091,14 @@ declare module 'ember' {
              * after all initializers and therefore after all code is loaded and the app is
              * ready.
              */
-            initializer(initializer: {}): any;
+            static initializer(initializer: Initializer<Engine>): void;
             /**
              * Instance initializers run after all initializers have run. Because
              * instance initializers run after the app is fully set up. We have access
              * to the store, container, and other items. However, these initializers run
              * after code has loaded and are not allowed to defer readiness.
              */
-            instanceInitializer(instanceInitializer: any): any;
+            static instanceInitializer(instanceInitializer: Initializer<EngineInstance>): void;
             /**
              * Set this to provide an alternate class to `Ember.DefaultResolver`
              */
@@ -1081,6 +1116,12 @@ declare module 'ember' {
              * Unregister a factory.
              */
             unregister(fullName: string): any;
+
+            /**
+             *  Initialize the `EngineInstance` and return a promise that resolves
+             *  with the instance itself when the boot process is complete.
+             */
+            boot(): Promise<EngineInstance>;
         }
         /**
          * This mixin defines the common interface implemented by enumerable objects
@@ -1110,7 +1151,7 @@ declare module 'ember' {
              * item. This method corresponds to the `forEach()` method defined in
              * JavaScript 1.6.
              */
-            forEach(callbackfn: (value: T, index: number, array: T[]) => void, thisArg?: any): void;
+            forEach: GlobalArray<T>['forEach'];
             /**
              * Alias for `mapBy`
              */
@@ -1126,7 +1167,7 @@ declare module 'ember' {
              * Maps all of the items in the enumeration to another value, returning
              * a new array. This method corresponds to `map()` defined in JavaScript 1.6.
              */
-            map<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): U[];
+            map: GlobalArray<T>['map'];
             /**
              * Similar to map, this specialized function returns the value of the named
              * property on all items in the enumeration.
@@ -1137,57 +1178,47 @@ declare module 'ember' {
              * function returns true for. This method corresponds to `filter()` defined in
              * JavaScript 1.6.
              */
-            filter<S extends T>(
-                callbackfn: (value: T, index: number, array: T[]) => value is S,
-                thisArg?: any
-            ): S[];
-            filter(callbackfn: (value: T, index: number, array: T[]) => any, thisArg?: any): T[];
+            filter: GlobalArray<T>['filter'];
             /**
              * Returns an array with all of the items in the enumeration where the passed
              * function returns false. This method is the inverse of filter().
              */
-            reject(callbackfn: (value: T, index: number, array: T[]) => any, thisArg?: any): T[];
+            reject(callbackfn: (value: T, index: number, array: T[]) => any, thisArg?: any): NativeArray<T>;
             /**
              * Returns an array with just the items with the matched property. You
              * can pass an optional second argument with the target value. Otherwise
              * this will match any property that evaluates to `true`.
              */
-            filterBy(key: string, value?: any): any[];
+            filterBy(key: string, value?: any): NativeArray<T>;
             /**
              * Returns an array with the items that do not have truthy values for
              * key.  You can pass an optional second argument with the target value.  Otherwise
              * this will match any property that evaluates to false.
              */
-            rejectBy(key: string, value?: string): any[];
+            rejectBy(key: string, value?: any): NativeArray<T>;
             /**
              * Returns the first item in the array for which the callback returns true.
              * This method works similar to the `filter()` method defined in JavaScript 1.6
              * except that it will stop working on the array once a match is found.
              */
-            find(
-                predicate: (value: T, index: number, obj: T[]) => boolean,
-                thisArg?: any
-            ): T | undefined;
+            find: GlobalArray<T>['find'];
             /**
              * Returns the first item with a property matching the passed value. You
              * can pass an optional second argument with the target value. Otherwise
              * this will match any property that evaluates to `true`.
              */
-            findBy(key: string, value: string): T | undefined;
+            findBy(key: string, value?: any): T | undefined;
             /**
              * Returns `true` if the passed function returns true for every item in the
              * enumeration. This corresponds with the `every()` method in JavaScript 1.6.
              */
-            every(
-                callbackfn: (value: T, index: number, array: T[]) => boolean,
-                thisArg?: any
-            ): boolean;
+            every: GlobalArray<T>['every'];
             /**
              * Returns `true` if the passed property resolves to the value of the second
              * argument for all items in the enumerable. This method is often simpler/faster
              * than using a callback.
              */
-            isEvery(key: string, value: boolean): boolean;
+            isEvery(key: string, value?: any): boolean;
             /**
              * Returns `true` if the passed function returns true for any item in the
              * enumeration.
@@ -1198,14 +1229,13 @@ declare module 'ember' {
              * argument for any item in the enumerable. This method is often simpler/faster
              * than using a callback.
              */
-            isAny(key: string, value?: boolean): boolean;
+            isAny(key: string, value?: any): boolean;
             /**
              * This will combine the values of the enumerator into a single value. It
              * is a useful way to collect a summary value from an enumeration. This
              * corresponds to the `reduce()` method defined in JavaScript 1.8.
              */
-            reduce(callbackfn: (previousValue: T, currentValue: T, currentIndex: number, array: T[]) => T, initialValue?: T): T;
-            reduce<U>(callbackfn: (previousValue: U, currentValue: T, currentIndex: number, array: T[]) => U, initialValue: U): U;
+            reduce: GlobalArray<T>['reduce'];
             /**
              * Invokes the named method on every object in the receiver that
              * implements it. This method corresponds to the implementation in
@@ -1220,28 +1250,28 @@ declare module 'ember' {
             /**
              * Returns a copy of the array with all `null` and `undefined` elements removed.
              */
-            compact(): Enumerable<T>;
+            compact(): NativeArray<T>;
             /**
              * Returns a new enumerable that excludes the passed value. The default
              * implementation returns an array regardless of the receiver type.
              * If the receiver does not contain the value it returns the original enumerable.
              */
-            without(value: T): Enumerable<T>;
+            without(value: T): NativeArray<T>;
             /**
              * Returns a new enumerable that contains only unique values. The default
              * implementation returns an array regardless of the receiver type.
              */
-            uniq(): Enumerable<T>;
+            uniq(): NativeArray<T>;
             /**
              * Converts the enumerable into an array and sorts by the keys
              * specified in the argument.
              */
-            sortBy(property: string): Enumerable<T>;
+            sortBy(property: string): NativeArray<T>;
             /**
              * Returns a new enumerable that contains only items containing a unique property value.
              * The default implementation returns an array regardless of the receiver type.
              */
-            uniqBy(): Enumerable<T>;
+            uniqBy(property: string): NativeArray<T>;
             /**
              * Returns `true` if the passed object can be found in the enumerable.
              */
@@ -1479,12 +1509,31 @@ declare module 'ember' {
         class Mixin<T, Base = Ember.Object> {
             /**
              * Mixin needs to have *something* on its prototype, otherwise it's treated like an empty interface.
+             * It cannot be private, sadly.
              */
-            private __ember_mixin__: never;
+            __ember_mixin__: never;
 
             static create<T, Base = Ember.Object>(
-                args?: T & ThisType<Fix<T & Base>>
+              args?: MixinOrLiteral<T, Base> & ThisType<Fix<T & Base>>
             ): Mixin<T, Base>;
+
+            static create<T1, T2, Base = Ember.Object>(
+              arg1: MixinOrLiteral<T1, Base> & ThisType<Fix<T1 & Base>>,
+              arg2: MixinOrLiteral<T2, Base> & ThisType<Fix<T2 & Base>>
+            ): Mixin<T1 & T2, Base>;
+
+            static create<T1, T2, T3, Base = Ember.Object>(
+              arg1: MixinOrLiteral<T1, Base> & ThisType<Fix<T1 & Base>>,
+              arg2: MixinOrLiteral<T2, Base> & ThisType<Fix<T2 & Base>>,
+              arg3: MixinOrLiteral<T3, Base> & ThisType<Fix<T3 & Base>>
+            ): Mixin<T1 & T2 & T3, Base>;
+
+            static create<T1, T2, T3, T4, Base = Ember.Object>(
+              arg1: MixinOrLiteral<T1, Base> & ThisType<Fix<T1 & Base>>,
+              arg2: MixinOrLiteral<T2, Base> & ThisType<Fix<T2 & Base>>,
+              arg3: MixinOrLiteral<T3, Base> & ThisType<Fix<T3 & Base>>,
+              arg4: MixinOrLiteral<T4, Base> & ThisType<Fix<T4 & Base>>
+            ): Mixin<T1 & T2 & T3 & T4, Base>;
         }
         /**
          * This mixin defines the API for modifying array-like objects. These methods
@@ -1492,7 +1541,7 @@ declare module 'ember' {
          * It builds upon the Array mixin and adds methods to modify the array.
          * One concrete implementations of this class include ArrayProxy.
          */
-        interface MutableArray<T> extends Array<T>, MutableEnumberable<T> {
+        interface MutableArray<T> extends Array<T>, MutableEnumerable<T> {
             /**
              * __Required.__ You must implement this method to apply this mixin.
              */
@@ -1511,7 +1560,7 @@ declare module 'ember' {
              * Remove an object at the specified index using the `replace()` primitive
              * method. You can pass either a single index, or a start and a length.
              */
-            removeAt(start: number, len: number): this;
+            removeAt(start: number, len?: number): this;
             /**
              * Push the object onto the end of the array. Works just like `push()` but it
              * is KVO-compliant.
@@ -1559,7 +1608,7 @@ declare module 'ember' {
          * can be applied to an object regardless of whether it is ordered or
          * unordered.
          */
-        interface MutableEnumberable<T> extends Enumerable<T> {
+        interface MutableEnumerable<T> extends Enumerable<T> {
             /**
              * __Required.__ You must implement this method to apply this mixin.
              */
@@ -1577,7 +1626,7 @@ declare module 'ember' {
              */
             removeObjects(objects: Enumerable<T>): this;
         }
-        const MutableEnumerable: Mixin<MutableEnumberable<any>>;
+        const MutableEnumerable: Mixin<MutableEnumerable<any>>;
         /**
          * A Namespace is an object usually used to contain other objects or methods
          * such as an application or framework. Create a namespace anytime you want
@@ -1596,27 +1645,6 @@ declare module 'ember' {
              * __Required.__ You must implement this method to apply this mixin.
              */
             length: number;
-
-            // NOTE: some array polyfill methods are re-declared here because their signatures
-            // differ between typescript versions 2.4 and 2.6. Since we need to compile against
-            // both, pick the more recent signature and re-declare it here as a tie-breaker.
-
-            /**
-             * Returns the first item in the array for which the callback returns true.
-             * This method works similar to the `filter()` method defined in JavaScript 1.6
-             * except that it will stop working on the array once a match is found.
-             */
-            find(
-                predicate: (value: T, index: number, obj: T[]) => boolean,
-                thisArg?: any
-            ): T | undefined;
-            /**
-             * This will combine the values of the enumerator into a single value. It
-             * is a useful way to collect a summary value from an enumeration. This
-             * corresponds to the `reduce()` method defined in JavaScript 1.8.
-             */
-            reduce(callbackfn: (previousValue: T, currentValue: T, currentIndex: number, array: T[]) => T, initialValue?: T): T;
-            reduce<U>(callbackfn: (previousValue: U, currentValue: T, currentIndex: number, array: T[]) => U, initialValue: U): U;
         }
         const NativeArray: Mixin<NativeArray<any>>;
         /**
@@ -1649,27 +1677,27 @@ declare module 'ember' {
             /**
              * Retrieves the value of a property from the object.
              */
-            get<T, K extends keyof T>(this: ComputedProperties<T>, key: K): T[K];
+            get<T, K extends keyof T>(this: ComputedPropertyGetters<T>, key: K): T[K];
             /**
              * To get the values of multiple properties at once, call `getProperties`
              * with a list of strings or an array:
              */
-            getProperties<T, K extends keyof T>(this: ComputedProperties<T>, list: K[]): Pick<T, K>;
+            getProperties<T, K extends keyof T>(this: ComputedPropertyGetters<T>, list: K[]): Pick<T, K>;
             getProperties<T, K extends keyof T>(
-                this: ComputedProperties<T>,
+                this: ComputedPropertyGetters<T>,
                 ...list: K[]
             ): Pick<T, K>;
             /**
              * Sets the provided key or path to the value.
              */
-            set<T, K extends keyof T>(this: ComputedProperties<T>, key: K, value: T[K]): T[K];
+            set<T, K extends keyof T>(this: ComputedPropertySetters<T>, key: K, value: T[K]): T[K];
             /**
              * Sets a list of properties at once. These properties are set inside
              * a single `beginPropertyChanges` and `endPropertyChanges` batch, so
              * observers will be buffered.
              */
             setProperties<T, K extends keyof T>(
-                this: ComputedProperties<T>,
+                this: ComputedPropertySetters<T>,
                 hash: Pick<T, K>
             ): Pick<T, K>;
             /**
@@ -1685,6 +1713,10 @@ declare module 'ember' {
                 target: Target,
                 method: ObserverMethod<Target, this>
             ): void;
+            addObserver(
+                key: keyof this,
+                method: ObserverMethod<this, this>
+            ): void;
             /**
              * Remove an observer you have previously registered on this object. Pass
              * the same key, target, and method you passed to `addObserver()` and your
@@ -1695,12 +1727,16 @@ declare module 'ember' {
                 target: Target,
                 method: ObserverMethod<Target, this>
             ): any;
+            removeObserver(
+                key: keyof this,
+                method: ObserverMethod<this, this>
+            ): any;
             /**
              * Retrieves the value of a property, or a default value in the case that the
              * property returns `undefined`.
              */
             getWithDefault<T, K extends keyof T>(
-                this: ComputedProperties<T>,
+                this: ComputedPropertyGetters<T>,
                 key: K,
                 defaultValue: T[K]
             ): T[K];
@@ -1723,7 +1759,7 @@ declare module 'ember' {
              * without accidentally invoking it if it is intended to be
              * generated lazily.
              */
-            cacheFor<T, K extends keyof T>(this: ComputedProperties<T>, key: K): T[K] | undefined;
+            cacheFor<T, K extends keyof T>(this: ComputedPropertyGetters<T>, key: K): T[K] | undefined;
         }
         const Observable: Mixin<Observable, Ember.CoreObject>;
         /**
@@ -1799,7 +1835,7 @@ declare module 'ember' {
             logic that can only take place after the model has already
             resolved.
             */
-            afterModel(resolvedModel: any, transition: Transition): Rsvp.Promise<any>;
+            afterModel(resolvedModel: any, transition: Transition): any;
 
             /**
             This hook is the first of the route entry validation hooks
@@ -1821,14 +1857,14 @@ declare module 'ember' {
             be useful, for instance, for retrieving async code from
             the server that is required to enter a route.
             */
-            beforeModel(transition: Transition): Rsvp.Promise<any>;
+            beforeModel(transition: Transition): any;
 
             /**
              * Returns the controller for a particular route or name.
              * The controller instance must already have been created, either through entering the
              * associated route or using `generateController`.
              */
-            controllerFor(name: string): Controller;
+            controllerFor<K extends keyof ControllerRegistry>(name: K): ControllerRegistry[K];
 
             /**
              * Disconnects a view that has been rendered into an outlet.
@@ -1939,7 +1975,7 @@ declare module 'ember' {
              * This method is called when `transitionTo` is called with a context
              * in order to populate the URL.
              */
-            serialize(model: {}, params: string[]): string;
+            serialize(model: {}, params: string[]): string | object;
 
             /**
              * A hook you can use to setup the controller for the current route.
@@ -1969,6 +2005,19 @@ declare module 'ember' {
              * because it doesn't require a custom `renderTemplate` method.
              */
             transitionTo(name: string, ...object: any[]): Transition;
+
+            // https://emberjs.com/api/ember/3.2/classes/Route/methods/intermediateTransitionTo?anchor=intermediateTransitionTo
+            /**
+             * Perform a synchronous transition into another route without attempting to resolve promises,
+             * update the URL, or abort any currently active asynchronous transitions
+             * (i.e. regular transitions caused by transitionTo or URL changes).
+             *
+             * @param name           the name of the route or a URL
+             * @param object         the model(s) or identifier(s) to be used while
+             *                       transitioning to the route.
+             * @returns              the Transition object associated with this attempted transition
+             */
+            intermediateTransitionTo(name: string, ...object: any[]): Transition;
 
             // properties
             /**
@@ -2086,6 +2135,7 @@ declare module 'ember' {
              * Transition the application into another route. The route may
              * be either a single route or route path:
              */
+            transitionTo(name: string, options?: {}): Transition;
             transitionTo(name: string, ...models: any[]): Transition;
             transitionTo(name: string, options: {}): Transition;
         }
@@ -2097,7 +2147,15 @@ declare module 'ember' {
                 options?: { path?: string; resetNamespace?: boolean },
                 callback?: (this: RouterDSL) => void
             ): void;
-            mount(name: string): void;
+            mount(
+                name: string,
+                options?: {
+                    as?: string,
+                    path?: string,
+                    resetNamespace?: boolean,
+                    engineInfo?: any
+                }
+            ): void;
         }
         class Service extends Object {}
         /**
@@ -2174,7 +2232,9 @@ declare module 'ember' {
             actionContext: any;
         }
         const ViewTargetActionSupport: Mixin<ViewTargetActionSupport>;
-        const ViewUtils: {}; // TODO: define interface
+        const ViewUtils: {
+            isSimpleClick(event: Event): boolean;
+        };
 
         // FYI - RSVP source comes from https://github.com/tildeio/rsvp.js/blob/master/lib/rsvp/promise.js
         const RSVP: typeof Rsvp;
@@ -2230,7 +2290,6 @@ declare module 'ember' {
              * an instance of `Ember.Test.Promise`
              */
             function resolve<T>(value?: T | PromiseLike<T>, label?: string): Ember.Test.Promise<T>;
-            function resolve(): Ember.Test.Promise<void>;
             /**
              * This allows ember-testing to play nicely with other asynchronous
              * events, such as an application that is waiting for a CSS3
@@ -2306,12 +2365,18 @@ declare module 'ember' {
              * Creates a property that lazily looks up another controller in the container.
              * Can only be used when defining another controller.
              */
-            function controller(name?: string): ComputedProperty<Controller>;
+            function controller(): ComputedProperty<Ember.Controller>;
+            function controller<K extends keyof ControllerRegistry>(
+                name: K
+            ): ComputedProperty<ControllerRegistry[K]>;
             /**
              * Creates a property that lazily looks up a service in the container. There
              * are no restrictions as to what objects a service can be injected into.
              */
-            function service(name?: string): ComputedProperty<Service>;
+            function service(): ComputedProperty<Ember.Service>;
+            function service<K extends keyof ServiceRegistry>(
+                name: K
+            ): ComputedProperty<ServiceRegistry[K]>;
         }
         namespace ENV {
             const EXTEND_PROTOTYPES: typeof Ember.EXTEND_PROTOTYPES;
@@ -2338,7 +2403,7 @@ declare module 'ember' {
             function Exception(message: string): void;
             class SafeString {
                 constructor(str: string);
-                static toString(): string;
+                toString(): string;
             }
             function parse(string: string): any;
             function print(ast: any): void;
@@ -2464,12 +2529,12 @@ declare module 'ember' {
              * A computed property that performs a logical `and` on the
              * original values for the provided dependent properties.
              */
-            and(...dependentKeys: string[]): ComputedProperty<any>;
+            and(...dependentKeys: string[]): ComputedProperty<boolean>;
             /**
              * A computed property which performs a logical `or` on the
              * original values for the provided dependent properties.
              */
-            or(...dependentKeys: string[]): ComputedProperty<any>;
+            or(...dependentKeys: string[]): ComputedProperty<boolean>;
             /**
              * Creates a new property that is an alias for another property
              * on an object. Calls to `get` or `set` this property behave as
@@ -2981,7 +3046,7 @@ declare module 'ember' {
          * it to be created.
          */
         function cacheFor<T, K extends keyof T>(
-            obj: ComputedProperties<T>,
+            obj: ComputedPropertyGetters<T>,
             key: K
         ): T[K] | undefined;
         /**
@@ -2994,6 +3059,11 @@ declare module 'ember' {
             method: ObserverMethod<Target, Context>,
             once?: boolean
         ): void;
+        function addListener<Context>(
+            obj: Context,
+            key: keyof Context,
+            method: ObserverMethod<Context, Context>
+        ): void;
         /**
          * Remove an event listener
          */
@@ -3002,6 +3072,11 @@ declare module 'ember' {
             key: keyof Context,
             target: Target,
             method: ObserverMethod<Target, Context>
+        ): any;
+        function removeListener<Context>(
+            obj: Context,
+            key: keyof Context,
+            method: ObserverMethod<Context, Context>
         ): any;
         /**
          * Send an event. The execution of suspended listeners
@@ -3020,13 +3095,15 @@ declare module 'ember' {
          * with an object followed by a list of strings or an array:
          */
         function getProperties<T, K extends keyof T>(
-            obj: ComputedProperties<T>,
+            obj: ComputedPropertyGetters<T>,
             list: K[]
         ): Pick<T, K>;
+        function getProperties<T, K extends keyof T>(obj: T, list: K[]): Pick<T, K>; // for dynamic K
         function getProperties<T, K extends keyof T>(
-            obj: ComputedProperties<T>,
+            obj: ComputedPropertyGetters<T>,
             ...list: K[]
         ): Pick<T, K>;
+        function getProperties<T, K extends keyof T>(obj: T, ...list: K[]): Pick<T, K>; // for dynamic K
         /**
          * A value is blank if it is empty or a whitespace string.
          */
@@ -3094,6 +3171,11 @@ declare module 'ember' {
             target: Target,
             method: ObserverMethod<Target, Context>
         ): void;
+        function addObserver<Context>(
+            obj: Context,
+            key: keyof Context,
+            method: ObserverMethod<Context, Context>
+        ): void;
         /**
          * Remove an observer you have previously registered on this object. Pass
          * the same key, target, and method you passed to `addObserver()` and your
@@ -3105,21 +3187,28 @@ declare module 'ember' {
             target: Target,
             method: ObserverMethod<Target, Context>
         ): any;
+        function removeObserver<Context>(
+            obj: Context,
+            key: keyof Context,
+            method: ObserverMethod<Context, Context>
+        ): any;
         /**
          * Gets the value of a property on an object. If the property is computed,
          * the function will be invoked. If the property is not defined but the
          * object implements the `unknownProperty` method then that will be invoked.
          */
-        function get<T, K extends keyof T>(obj: ComputedProperties<T>, key: K): T[K];
+        function get<T, K extends keyof T>(obj: ComputedPropertyGetters<T>, key: K): T[K];
+        function get<T, K extends keyof T>(obj: T, key: K): T[K]; // for dynamic K
         /**
          * Retrieves the value of a property from an Object, or a default value in the
          * case that the property returns `undefined`.
          */
         function getWithDefault<T, K extends keyof T>(
-            obj: ComputedProperties<T>,
+            obj: ComputedPropertyGetters<T>,
             key: K,
             defaultValue: T[K]
         ): T[K];
+        function getWithDefault<T, K extends keyof T>(obj: T, key: K, defaultValue: T[K]): T[K]; // for dynamic K
         /**
          * Sets the value of a property on an object, respecting computed properties
          * and notifying observers and other listeners of the change. If the
@@ -3127,10 +3216,11 @@ declare module 'ember' {
          * method then that will be invoked as well.
          */
         function set<T, K extends keyof T, V extends T[K]>(
-            obj: ComputedProperties<T>,
+            obj: ComputedPropertySetters<T>,
             key: K,
             value: V
         ): V;
+        function set<T, K extends keyof T, V extends T[K]>(obj: T, key: K, value: V): V; // for dynamic K
         /**
          * Error-tolerant form of `Ember.set`. Will not blow up if any part of the
          * chain is `undefined`, `null`, or destroyed.
@@ -3142,9 +3232,10 @@ declare module 'ember' {
          * observers will be buffered.
          */
         function setProperties<T, K extends keyof T>(
-            obj: ComputedProperties<T>,
+            obj: ComputedPropertySetters<T>,
             hash: Pick<T, K>
         ): Pick<T, K>;
+        function setProperties<T, K extends keyof T>(obj: T, hash: Pick<T, K>): Pick<T, K>; // for dynamic K
         /**
          * Detects when a specific package of Ember (e.g. 'Ember.Application')
          * has fully loaded and is available for extension.
@@ -3276,12 +3367,135 @@ declare module 'ember' {
         function expandProperties(pattern: string, callback: (expanded: string) => void): void;
     }
 
+    type RouteModel = object | string | number;
+    // https://emberjs.com/api/ember/2.18/classes/RouterService
+    /**
+     * The Router service is the public API that provides component/view layer access to the router.
+     */
+    export class RouterService extends Ember.Service {
+        //
+        /**
+             Name of the current route.
+            This property represent the logical name of the route,
+            which is comma separated.
+            For the following router:
+            ```app/router.js
+            Router.map(function() {
+            this.route('about');
+            this.route('blog', function () {
+                this.route('post', { path: ':post_id' });
+            });
+            });
+            ```
+            It will return:
+            * `index` when you visit `/`
+            * `about` when you visit `/about`
+            * `blog.index` when you visit `/blog`
+            * `blog.post` when you visit `/blog/some-post-id`
+        */
+        readonly currentRouteName: string;
+        //
+        /**
+             Current URL for the application.
+            This property represent the URL path for this route.
+            For the following router:
+            ```app/router.js
+            Router.map(function() {
+            this.route('about');
+            this.route('blog', function () {
+                this.route('post', { path: ':post_id' });
+            });
+            });
+            ```
+            It will return:
+            * `/` when you visit `/`
+            * `/about` when you visit `/about`
+            * `/blog` when you visit `/blog`
+            * `/blog/some-post-id` when you visit `/blog/some-post-id`
+        */
+        readonly currentURL: string;
+        //
+        /**
+         * Determines whether a route is active.
+         *
+         * @param routeName the name of the route
+         * @param models    the model(s) or identifier(s) to be used while
+         *                  transitioning to the route
+         * @param options   optional hash with a queryParams property containing a
+         *                  mapping of query parameters
+         */
+        isActive(routeName: string, options?: { queryParams: object }): boolean;
+        isActive(routeName: string, models: RouteModel, options?: { queryParams: object }): boolean;
+        isActive(routeName: string, modelsA: RouteModel, modelsB: RouteModel, options?: { queryParams: object }): boolean;
+        isActive(routeName: string, modelsA: RouteModel, modelsB: RouteModel, modelsC: RouteModel, options?: { queryParams: object }): boolean;
+        isActive(routeName: string, modelsA: RouteModel, modelsB: RouteModel, modelsC: RouteModel, modelsD: RouteModel, options?: { queryParams: object }): boolean;
+
+        // https://emberjs.com/api/ember/2.18/classes/RouterService/methods/isActive?anchor=replaceWith
+        /**
+         * Transition into another route while replacing the current URL, if
+         * possible. The route may be either a single route or route path.
+         *
+         * @param routeNameOrUrl the name of the route or a URL
+         * @param models         the model(s) or identifier(s) to be used while
+         *                       transitioning to the route.
+         * @param options        optional hash with a queryParams property
+         *                       containing a mapping of query parameters
+         * @returns              the Transition object associated with this attempted transition
+         */
+        replaceWith(routeNameOrUrl: string, options?: { queryParams: object }): Ember.Transition;
+        replaceWith(routeNameOrUrl: string, models: RouteModel, options?: { queryParams: object }): Ember.Transition;
+        replaceWith(routeNameOrUrl: string, modelsA: RouteModel, modelsB: RouteModel, options?: { queryParams: object }): Ember.Transition;
+        replaceWith(routeNameOrUrl: string, modelsA: RouteModel, modelsB: RouteModel, modelsC: RouteModel, options?: { queryParams: object }): Ember.Transition;
+        replaceWith(routeNameOrUrl: string, modelsA: RouteModel, modelsB: RouteModel, modelsC: RouteModel, modelsD: RouteModel, options?: { queryParams: object }): Ember.Transition;
+
+        // https://emberjs.com/api/ember/2.18/classes/RouterService/methods/isActive?anchor=transitionTo
+        /**
+         * Transition the application into another route. The route may be
+         * either a single route or route path
+         *
+         * @param routeNameOrUrl the name of the route or a URL
+         * @param models         the model(s) or identifier(s) to be used while
+         *                       transitioning to the route.
+         * @param options        optional hash with a queryParams property
+         *                       containing a mapping of query parameters
+         * @returns              the Transition object associated with this attempted transition
+         */
+        transitionTo(routeNameOrUrl: string, options?: { queryParam: object }): Ember.Transition;
+        transitionTo(routeNameOrUrl: string, models: RouteModel, options?: { queryParams: object }): Ember.Transition;
+        transitionTo(routeNameOrUrl: string, modelsA: RouteModel, modelsB: RouteModel, options?: { queryParams: object }): Ember.Transition;
+        transitionTo(routeNameOrUrl: string, modelsA: RouteModel, modelsB: RouteModel, modelsC: RouteModel, options?: { queryParams: object }): Ember.Transition;
+        transitionTo(routeNameOrUrl: string, modelsA: RouteModel, modelsB: RouteModel, modelsC: RouteModel, modelsD: RouteModel, options?: { queryParams: object }): Ember.Transition;
+
+        // https://emberjs.com/api/ember/2.18/classes/RouterService/methods/isActive?anchor=urlFor
+        /**
+         * Generate a URL based on the supplied route name.
+         *
+         * @param routeName the name of the route or a URL
+         * @param models    the model(s) or identifier(s) to be used while
+         *                  transitioning to the route.
+         * @param options   optional hash with a queryParams property containing
+         *                  a mapping of query parameters
+         * @returns         the string representing the generated URL
+         */
+        urlFor(routeName: string, options?: { queryParams: object }): string;
+        urlFor(routeName: string, models: RouteModel, options?: { queryParams: object }): string;
+        urlFor(routeName: string, modelsA: RouteModel, modelsB: RouteModel, options?: { queryParams: object }): string;
+        urlFor(routeName: string, modelsA: RouteModel, modelsB: RouteModel, modelsC: RouteModel, options?: { queryParams: object }): string;
+        urlFor(routeName: string, modelsA: RouteModel, modelsB: RouteModel, modelsC: RouteModel, modelsD: RouteModel, options?: { queryParams: object }): string;
+    }
+
+    module '@ember/service' {
+        interface Registry {
+            'router': RouterService;
+        }
+    }
+
     export default Ember;
 }
 
 declare module '@ember/application' {
     import Ember from 'ember';
-    export default Ember.Application;
+    export default class Application extends Ember.Application { }
     export const getOwner: typeof Ember.getOwner;
     export const onLoad: typeof Ember.onLoad;
     export const runLoadHooks: typeof Ember.runLoadHooks;
@@ -3296,22 +3510,24 @@ declare module '@ember/application/deprecations' {
 
 declare module '@ember/application/globals-resolver' {
     import Ember from 'ember';
-    export default Ember.DefaultResolver;
+    export default class GlobalsResolver extends Ember.DefaultResolver { }
 }
 
 declare module '@ember/application/instance' {
     import Ember from 'ember';
-    export default Ember.ApplicationInstance;
+    export default class ApplicationInstance extends Ember.ApplicationInstance { }
 }
 
 declare module '@ember/application/resolver' {
     import Ember from 'ember';
-    export default Ember.Resolver;
+    export default class Resolver extends Ember.Resolver { }
 }
 
 declare module '@ember/array' {
     import Ember from 'ember';
-    export default Ember.Array;
+    type EmberArray<T> = Ember.Array<T>;
+    const EmberArray: typeof Ember.Array;
+    export default EmberArray;
     export const A: typeof Ember.A;
     export const isArray: typeof Ember.isArray;
     export const makeArray: typeof Ember.makeArray;
@@ -3319,44 +3535,63 @@ declare module '@ember/array' {
 
 declare module '@ember/array/mutable' {
     import Ember from 'ember';
-    export default Ember.MutableArray;
+    type MutableArray<T> = Ember.MutableArray<T>;
+    const MutableArray: typeof Ember.MutableArray;
+    export default MutableArray;
 }
 
 declare module '@ember/array/proxy' {
     import Ember from 'ember';
-    export default Ember.ArrayProxy;
+    export default class ArrayProxy<T> extends Ember.ArrayProxy<T> { }
 }
 
 declare module '@ember/component' {
     import Ember from 'ember';
-    export default Ember.Component;
+    export default class Component extends Ember.Component { }
 }
 
 declare module '@ember/component/checkbox' {
     import Ember from 'ember';
-    export default Ember.Checkbox;
+    export default class Checkbox extends Ember.Checkbox { }
 }
 
 declare module '@ember/component/helper' {
     import Ember from 'ember';
-    export default Ember.Helper;
-    export const helper: typeof Ember.Helper.helper;
+    export default class Helper extends Ember.Helper { }
+    /**
+     * In many cases, the ceremony of a full `Helper` class is not required.
+     * The `helper` method create pure-function helpers without instances. For
+     * example:
+     * ```app/helpers/format-currency.js
+     * import { helper } from '@ember/component/helper';
+     * export default helper(function(params, hash) {
+     *   let cents = params[0];
+     *   let currency = hash.currency;
+     *   return `${currency}${cents * 0.01}`;
+     * });
+     * ```
+     */
+    export function helper(helperFn: (params: any[], hash?: any) => any): any;
 }
 
 declare module '@ember/component/text-area' {
     import Ember from 'ember';
-    export default Ember.TextArea;
+    export default class TextArea extends Ember.TextArea { }
 }
 
 declare module '@ember/component/text-field' {
     import Ember from 'ember';
-    export default Ember.TextField;
+    export default class TextField extends Ember.TextField { }
 }
 
 declare module '@ember/controller' {
     import Ember from 'ember';
-    export default Ember.Controller;
+    export default class Controller extends Ember.Controller { }
     export const inject: typeof Ember.inject.controller;
+
+    // A type registry for Ember `Controller`s. Meant to be declaration-merged
+    // so string lookups resolve to the correct type.
+    export interface Registry {}
 }
 
 declare module '@ember/debug' {
@@ -3372,28 +3607,36 @@ declare module '@ember/debug' {
 
 declare module '@ember/debug/container-debug-adapter' {
     import Ember from 'ember';
-    export default Ember.ContainerDebugAdapter;
+    export default class ContainerDebugAdapter extends Ember.ContainerDebugAdapter { }
 }
 
 declare module '@ember/debug/data-adapter' {
     import Ember from 'ember';
-    export default Ember.DataAdapter;
+    export default class DataAdapter extends Ember.DataAdapter { }
 }
 
 declare module '@ember/engine' {
     import Ember from 'ember';
-    export default Ember.Engine;
+    export default class Engine extends Ember.Engine { }
     export const getEngineParent: typeof Ember.getEngineParent;
 }
 
 declare module '@ember/engine/instance' {
     import Ember from 'ember';
-    export default Ember.EngineInstance;
+    export default class EngineInstance extends Ember.EngineInstance { }
 }
 
 declare module '@ember/enumerable' {
     import Ember from 'ember';
-    export default Ember.Enumerable;
+    type Enumerable<T> = Ember.Enumerable<T>;
+    const Enumerable: typeof Ember.Enumerable;
+    export default Enumerable;
+}
+
+declare module '@ember/error' {
+    import Ember from 'ember';
+    const Error: typeof Ember.Error;
+    export default Error;
 }
 
 declare module '@ember/instrumentation' {
@@ -3406,17 +3649,17 @@ declare module '@ember/instrumentation' {
 
 declare module '@ember/map' {
     import Ember from 'ember';
-    export default Ember.Map;
+    export default class EmberMap extends Ember.Map { }
 }
 
 declare module '@ember/map/with-default' {
     import Ember from 'ember';
-    export default Ember.MapWithDefault;
+    export default class MapWithDefault extends Ember.MapWithDefault { }
 }
 
 declare module '@ember/object' {
     import Ember from 'ember';
-    export default Ember.Object;
+    export default class EmberObject extends Ember.Object { }
     export const aliasMethod: typeof Ember.aliasMethod;
     export const computed: typeof Ember.computed;
     export const defineProperty: typeof Ember.defineProperty;
@@ -3431,7 +3674,7 @@ declare module '@ember/object' {
 
 declare module '@ember/object/computed' {
     import Ember from 'ember';
-    export default Ember.ComputedProperty;
+    export default class ComputedProperty<Get, Set = Get> extends Ember.ComputedProperty<Get, Set> { }
     export const alias: typeof Ember.computed.alias;
     export const and: typeof Ember.computed.and;
     export const bool: typeof Ember.computed.bool;
@@ -3469,12 +3712,14 @@ declare module '@ember/object/computed' {
 
 declare module '@ember/object/core' {
     import Ember from 'ember';
-    export default Ember.CoreObject;
+    export default class CoreObject extends Ember.CoreObject { }
 }
 
 declare module '@ember/object/evented' {
     import Ember from 'ember';
-    export default Ember.Evented;
+    type Evented = Ember.Evented;
+    const Evented: typeof Ember.Evented;
+    export default Evented;
     export const on: typeof Ember.on;
 }
 
@@ -3494,12 +3739,14 @@ declare module '@ember/object/internals' {
 
 declare module '@ember/object/mixin' {
     import Ember from 'ember';
-    export default Ember.Mixin;
+    export default class Mixin<T, Base = Ember.Object> extends Ember.Mixin<T, Base> {}
 }
 
 declare module '@ember/object/observable' {
     import Ember from 'ember';
-    export default Ember.Observable;
+    type Observable = Ember.Observable;
+    const Observable: typeof Ember.Observable;
+    export default Observable;
 }
 
 declare module '@ember/object/observers' {
@@ -3510,12 +3757,14 @@ declare module '@ember/object/observers' {
 
 declare module '@ember/object/promise-proxy-mixin' {
     import Ember from 'ember';
-    export default Ember.PromiseProxyMixin;
+    type PromiseProxyMixin<T> = Ember.PromiseProxyMixin<T>;
+    const PromiseProxyMixin: typeof Ember.PromiseProxyMixin;
+    export default PromiseProxyMixin;
 }
 
 declare module '@ember/object/proxy' {
     import Ember from 'ember';
-    export default Ember.ObjectProxy;
+    export default class ObjectProxy extends Ember.ObjectProxy { }
 }
 
 declare module '@ember/polyfills' {
@@ -3529,42 +3778,48 @@ declare module '@ember/polyfills' {
 
 declare module '@ember/routing/auto-location' {
     import Ember from 'ember';
-    export default Ember.AutoLocation;
+    export default class AutoLocation extends Ember.AutoLocation { }
 }
 
 declare module '@ember/routing/hash-location' {
     import Ember from 'ember';
-    export default Ember.HashLocation;
+    export default class HashLocation extends Ember.HashLocation { }
 }
 
 declare module '@ember/routing/history-location' {
     import Ember from 'ember';
-    export default Ember.HistoryLocation;
+    export default class HistoryLocation extends Ember.HistoryLocation { }
 }
 
 declare module '@ember/routing/link-component' {
     import Ember from 'ember';
-    export default Ember.LinkComponent;
+    export default class LinkComponent extends Ember.LinkComponent { }
 }
 
 declare module '@ember/routing/location' {
     import Ember from 'ember';
-    export default Ember.Location;
+    const Location: typeof Ember.Location;
+    export default Location;
 }
 
 declare module '@ember/routing/none-location' {
     import Ember from 'ember';
-    export default Ember.NoneLocation;
+    export default class NoneLocation extends Ember.NoneLocation { }
 }
 
 declare module '@ember/routing/route' {
     import Ember from 'ember';
-    export default Ember.Route;
+    export default class Route extends Ember.Route { }
 }
 
 declare module '@ember/routing/router' {
     import Ember from 'ember';
-    export default Ember.Router;
+    export default class EmberRouter extends Ember.Router { }
+}
+
+declare module '@ember/routing/router-service' {
+    import { RouterService } from 'ember';
+    export default class extends RouterService { }
 }
 
 declare module '@ember/runloop' {
@@ -3586,8 +3841,12 @@ declare module '@ember/runloop' {
 
 declare module '@ember/service' {
     import Ember from 'ember';
-    export default Ember.Service;
+    export default class Service extends Ember.Service { }
     export const inject: typeof Ember.inject.service;
+
+    // A type registry for Ember `Service`s. Meant to be declaration-merged so
+    // string lookups resolve to the correct type.
+    interface Registry {}
 }
 
 declare module '@ember/string' {
@@ -3616,7 +3875,7 @@ declare module '@ember/test' {
 
 declare module '@ember/test/adapter' {
     import Ember from 'ember';
-    export default Ember.Test.Adapter;
+    export default class TestAdapter extends Ember.Test.Adapter { }
 }
 
 declare module '@ember/utils' {

@@ -1,13 +1,12 @@
+import * as React from 'react';
 import { CSSModule } from '../index';
 
-interface Props extends React.HTMLProps<HTMLAnchorElement> {
+export type NavbarTogglerProps<T = {}> = React.HTMLProps<HTMLAnchorElement> & {
   tag?: React.ReactType;
   type?: string;
   className?: string;
   cssModule?: CSSModule;
-  right?: boolean;
-  left?: boolean;
-}
+} & T;
 
-declare var NavbarToggler: React.StatelessComponent<Props>;
+declare class NavbarToggler<T = {[key: string]: any}> extends React.Component<NavbarTogglerProps<T>> {}
 export default NavbarToggler;

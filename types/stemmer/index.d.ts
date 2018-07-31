@@ -5,4 +5,6 @@
 
 declare function stemmer(value: string): string;
 
+declare namespace stemmer {}
+
 export = stemmer;

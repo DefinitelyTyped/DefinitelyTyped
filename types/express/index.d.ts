@@ -1,4 +1,4 @@
-// Type definitions for Express 4.x
+// Type definitions for Express 4.16
 // Project: http://expressjs.com
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -15,7 +15,7 @@
 /// <reference types="serve-static" />
 
 import * as bodyParser from "body-parser";
-import * as serveStatic from "serve-static";
+import serveStatic = require("serve-static");
 import * as core from "express-serve-static-core";
 
 /**

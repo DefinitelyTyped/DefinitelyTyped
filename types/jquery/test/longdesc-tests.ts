@@ -1,5 +1,3 @@
-/* tslint:disable:object-literal-key-quotes object-literal-shorthand one-variable-per-declaration only-arrow-functions prefer-const prefer-for-of triple-equals no-var */
-
 function longdesc() {
     function add_0() {
         $('p').add('div').addClass('widget');
@@ -1439,7 +1437,7 @@ function longdesc() {
         $.getJSON('ajax/test.json', function(data) {
             var items: string[] = [];
             $.each(data, function(key, val) {
-                items.push('<li id=\'' + key + '\'>' + val + '</li>');
+                items.push('<li id=\'' + (key as string) + '\'>' + val + '</li>');
             });
 
             $('<ul/>', {

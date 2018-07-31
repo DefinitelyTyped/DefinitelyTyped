@@ -1,8 +1,9 @@
-// Type definitions for React Router Native 4.0
+// Type definitions for React Router Native 4.2
 // Project: https://github.com/ReactTraining/react-router-native
 // Definitions by: Eduard Zintz <https://github.com/ezintz>
+//                 Fernando Helwanger <https://github.com/fhelwanger>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 export {
   match,
@@ -22,19 +23,21 @@ export {
 import * as React from 'react';
 import * as H from 'history';
 
-export interface AndroidBackButtonProps {
-  children: React.Component[];
+export interface BackButtonProps {
+  children?: React.ReactNode;
 }
 
-export class AndroidBackButton extends React.Component<AndroidBackButtonProps> {}
+export class BackButton extends React.Component<BackButtonProps> {}
+export class AndroidBackButton extends React.Component<BackButtonProps> {}
 
 export class DeepLinking extends React.Component {}
 
 export interface LinkProps {
-  component?: React.Component;
+  component?: React.ComponentType<any>;
   replace?: boolean;
   style?: any;
   to: H.LocationDescriptor;
+  [propName: string]: any;
 }
 
 export class Link extends React.Component<LinkProps> {}
@@ -42,6 +45,8 @@ export class Link extends React.Component<LinkProps> {}
 export interface NativeRouterProps {
   getUserConfirmation?: Function;
   keyLength?: number;
+  initialEntries?: string[];
+  initialIndex?: number;
 }
 
 export class NativeRouter extends React.Component<NativeRouterProps> {}

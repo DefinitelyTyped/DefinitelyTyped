@@ -8,11 +8,14 @@
 
 import * as http from "http";
 
+export function createAppHandler(appRawOrPath: object | string): (event: any, context: any, callback: any) => void;
+export function createAppTester(appRawOrPath: object | string): Promise<any>;
+export function integrationTestHandler(event: any, context: any, callback: any): any;
 export const version: string;
 
 export interface HttpRequestOptions {
     url?: string;
-    method?: "POST" | "GET" | "OPTIONS" | "HEAD" | "DELETE" | "PATCH";
+    method?: "POST" | "GET" | "OPTIONS" | "HEAD" | "DELETE" | "PATCH" | "PUT";
     body?: string | Buffer | NodeJS.ReadableStream | object | null;
     headers?: { [name: string]: string };
     json?: object | any[] | null;
@@ -55,6 +58,8 @@ export interface Z {
             new (message?: string): RefreshAuthError;
         };
     };
+    stashFile: (promise: Promise<HttpResponse>, knownLength?: number | string, filename?: string, contentType?: string) => Promise<string>;
+    dehydrate: <T>(callback: (z: Z, bundle: Bundle<T>) => any, inputData: T) => string;
 }
 
 export interface AuthData {

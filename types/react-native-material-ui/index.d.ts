@@ -1,8 +1,8 @@
-// Type definitions for react-native-material-ui 1.12
+// Type definitions for react-native-material-ui 1.19
 // Project: https://github.com/xotahal/react-native-material-ui
 // Definitions by: Kyle Roach <https://github.com/iRoachie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import { Component } from 'react';
 import { ViewStyle, TextStyle, Image } from 'react-native';
@@ -18,6 +18,7 @@ export interface ActionButtonProps {
     style?: {
         container?: ViewStyle
         icon?: TextStyle
+        positionContainer?: ViewStyle
     };
     transition?: 'toolbar' | 'speedDial';
     onPress?(): void;
@@ -337,7 +338,7 @@ export interface IconToggleProps {
 export class IconToggle extends Component<IconToggleProps, any> {}
 
 export interface ListItemCenterElement {
-    primaryText: string;
+    primaryText: string | JSX.Element;
     secondaryText?: string;
     tertiaryText?: string;
 }
@@ -425,11 +426,18 @@ export interface Searchable {
     onSearchClosed?(): void;
     onSearchPressed?(): void;
     onSubmitEditing?(): void;
+    onSearchCloseRequested?(): void;
 }
 
 export interface ToolBarRightElement {
     actions?: Array<JSX.Element | string>;
     menu?: {icon: string, labels: string[]};
+}
+
+export interface RightElementPressEvent {
+    action: string;
+    index: number;
+    result?: any;
 }
 
 export interface ToolbarProps {
@@ -443,7 +451,7 @@ export interface ToolbarProps {
     searchable?: Searchable;
     onPress?(): void;
     onLeftElementPress?(): void;
-    onRightElementPress?(): void;
+    onRightElementPress?(e: RightElementPressEvent): void;
 }
 
 /**

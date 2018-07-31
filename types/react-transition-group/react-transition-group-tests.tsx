@@ -1,8 +1,21 @@
 import * as React from "react";
 import CSSTransition = require("react-transition-group/CSSTransition");
-import Transition from "react-transition-group/Transition";
+import Transition, { UNMOUNTED, EXITED, ENTERING, ENTERED, EXITING } from "react-transition-group/Transition";
 import TransitionGroup = require("react-transition-group/TransitionGroup");
 import Components = require("react-transition-group");
+
+interface ContainerProps {
+    theme: string;
+    children?: Element[];
+}
+
+const Container: React.StatelessComponent<ContainerProps> = (props: ContainerProps) => {
+    return (
+        <div data-theme={props.theme}>
+            {props.children}
+        </div>
+    );
+};
 
 const Test: React.StatelessComponent = () => {
     function handleEnter(node: HTMLElement, isAppearing: boolean) {}
@@ -15,7 +28,8 @@ const Test: React.StatelessComponent = () => {
 
     return (
         <TransitionGroup
-            component="ul"
+            component={Container}
+            theme="test"
             className="animated-list"
             childFactory={ (child: React.ReactElement<any>) => child }
         >
@@ -71,8 +85,10 @@ const Test: React.StatelessComponent = () => {
                     appearActive: "fade-active-appear",
                     enter: "fade-enter",
                     enterActive: "fade-active-enter",
+                    enterDone: "fade-done-enter",
                     exit: "fade-exit",
-                    exitActive: "fade-active-exit"
+                    exitActive: "fade-active-exit",
+                    exitDone: "fade-done-exit",
                 } }
             >
                 <div>{ "test" }</div>

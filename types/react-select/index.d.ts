@@ -1,4 +1,4 @@
-// Type definitions for react-select 1.0
+// Type definitions for react-select 1.3
 // Project: https://github.com/JedWatson/react-select
 // Definitions by: ESQUIBET Hugo <https://github.com/Hesquibet>
 //                 Gilad Gray <https://github.com/giladgray>
@@ -10,18 +10,27 @@
 //                 Onat Yigit Mercan <https://github.com/onatm>
 //                 Ian Johnson <https://github.com/ninjaferret>
 //                 Anton Novik <https://github.com/tehbi4>
+//                 David Schkalee <https://github.com/misantronic>
+//                 Arthur Udalov <https://github.com/darkartur>
+//                 Sebastian Silbermann <https://github.com/eps1lon>
+//                 Endurance Idehen <https://github.com/endurance>
+//                 Guillaume Chartier <https://github.com/RCGuillaume>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import * as React from 'react';
 
 export default class ReactSelectClass<TValue = OptionValues> extends React.Component<ReactSelectProps<TValue>> {
     focus(): void;
+    setValue(value: Option<TValue>): void;
 }
 // Other components
 export class Creatable<TValue = OptionValues> extends React.Component<ReactCreatableSelectProps<TValue>> { }
 export class Async<TValue = OptionValues> extends React.Component<ReactAsyncSelectProps<TValue>> { }
-export class AsyncCreatable<TValue = OptionValues> extends React.Component<ReactAsyncSelectProps<TValue> & ReactCreatableSelectProps<TValue>> { }
+export class AsyncCreatable<TValue = OptionValues> extends React.Component<ReactAsyncCreatableSelectProps<TValue>> { }
+
+export type OptionComponentType<TValue = OptionValues> = React.ComponentType<OptionComponentProps<TValue>>;
+export type ValueComponentType<TValue = OptionValues> =  React.ComponentType<ValueComponentProps<TValue>>;
 
 export type HandlerRendererResult = JSX.Element | null | false;
 
@@ -29,19 +38,20 @@ export type HandlerRendererResult = JSX.Element | null | false;
 export type FocusOptionHandler<TValue = OptionValues> = (option: Option<TValue>) => void;
 export type SelectValueHandler<TValue = OptionValues> = (option: Option<TValue>) => void;
 export type ArrowRendererHandler = (props: ArrowRendererProps) => HandlerRendererResult;
+export type ClearRendererHandler = () => HandlerRendererResult;
 export type FilterOptionHandler<TValue = OptionValues> = (option: Option<TValue>, filter: string) => boolean;
 export type FilterOptionsHandler<TValue = OptionValues> = (options: Options<TValue>, filter: string, currentValues: Options<TValue>) => Options<TValue>;
 export type InputRendererHandler = (props: { [key: string]: any }) => HandlerRendererResult;
 export type MenuRendererHandler<TValue = OptionValues> = (props: MenuRendererProps<TValue>) => HandlerRendererResult;
 export type OnCloseHandler = () => void;
-export type OnInputChangeHandler = (inputValue: string) => void;
+export type OnInputChangeHandler = (inputValue: string) => string;
 export type OnInputKeyDownHandler = React.KeyboardEventHandler<HTMLDivElement | HTMLInputElement>;
 export type OnMenuScrollToBottomHandler = () => void;
 export type OnOpenHandler = () => void;
 export type OnFocusHandler = React.FocusEventHandler<HTMLDivElement | HTMLInputElement>;
 export type OnBlurHandler = React.FocusEventHandler<HTMLDivElement | HTMLInputElement>;
 export type OptionRendererHandler<TValue = OptionValues> = (option: Option<TValue>) => HandlerRendererResult;
-export type ValueRendererHandler<TValue = OptionValues> = (option: Option<TValue>) => HandlerRendererResult;
+export type ValueRendererHandler<TValue = OptionValues> = (option: Option<TValue>, index?: number) => HandlerRendererResult;
 export type OnValueClickHandler<TValue = OptionValues> = (option: Option<TValue>, event: React.MouseEvent<HTMLAnchorElement>) => void;
 export type IsOptionUniqueHandler<TValue = OptionValues> = (arg: { option: Option<TValue>, options: Options<TValue>, labelKey: string, valueKey: string }) => boolean;
 export type IsValidNewOptionHandler = (arg: { label: string }) => boolean;
@@ -126,6 +136,77 @@ export interface MenuRendererProps<TValue = OptionValues> {
      * Array of currently selected options.
      */
     valueArray: Options<TValue>;
+
+    /**
+     * Callback to remove selection from option; receives the option as a parameter.
+     */
+    removeValue: SelectValueHandler<TValue>;
+
+    /**
+     * function which returns a custom way to render the options in the menu
+     */
+    optionRenderer: OptionRendererHandler<TValue>;
+}
+
+export interface OptionComponentProps<TValue = OptionValues> {
+    /**
+     * Classname(s) to apply to the option component.
+     */
+    className?: string;
+
+    /**
+     * Currently focused option.
+     */
+    focusOption?: Option<TValue>;
+
+    inputValue?: string;
+    instancePrefix?: string;
+
+    /**
+     * True if this option is disabled.
+     */
+    isDisabled?: boolean;
+
+    /**
+     * True if this option is focused.
+     */
+    isFocused?: boolean;
+
+    /**
+     * True if this option is selected.
+     */
+    isSelected?: boolean;
+
+    /**
+     * Callback to be invoked when this option is focused.
+     */
+    onFocus?: (option: Option<TValue>, event: any) => void;
+
+    /**
+     * Callback to be invoked when this option is selected.
+     */
+    onSelect?: (option: Option<TValue>, event: any) => void;
+
+    /**
+     * Option to be rendered by this component.
+     */
+    option: Option<TValue>;
+
+    /**
+     * Index of the option being rendered in the list
+     */
+    optionIndex?: number;
+
+    /**
+     * Callback to invoke when removing an option from a multi-selection. (Not necessarily the one
+     * being rendered)
+     */
+    removeValue?: (value: TValue | TValue[]) => void;
+
+    /**
+     * Callback to invoke to select an option. (Not necessarily the one being rendered)
+     */
+    selectValue?: (value: TValue | TValue[]) => void;
 }
 
 export interface ArrowRendererProps {
@@ -133,6 +214,22 @@ export interface ArrowRendererProps {
      * Arrow mouse down event handler.
      */
     onMouseDown: React.MouseEventHandler<any>;
+
+    /**
+     * whether the Select is open or not.
+     */
+    isOpen: boolean;
+}
+
+export interface ValueComponentProps<TValue = OptionValues> {
+    disabled: ReactSelectProps<TValue>['disabled'];
+    id: string;
+    instancePrefix: string;
+    onClick: OnValueClickHandler<TValue> | null;
+    onRemove?: SelectValueHandler<TValue>;
+    placeholder: ReactSelectProps<TValue>['placeholder'];
+    value: Option<TValue>;
+    values?: Array<Option<TValue>>;
 }
 
 export interface ReactSelectProps<TValue = OptionValues> extends React.Props<ReactSelectClass<TValue>> {
@@ -145,7 +242,7 @@ export interface ReactSelectProps<TValue = OptionValues> extends React.Props<Rea
      * renders a custom drop-down arrow to be shown in the right-hand side of the select.
      * @default undefined
      */
-    arrowRenderer?: ArrowRendererHandler;
+    arrowRenderer?: ArrowRendererHandler | null;
     /**
      * blurs the input element after a selection has been made. Handy for lowering the keyboard on mobile devices.
      * @default false
@@ -153,9 +250,15 @@ export interface ReactSelectProps<TValue = OptionValues> extends React.Props<Rea
     autoBlur?: boolean;
     /**
      * autofocus the component on mount
+     * @deprecated. Use autoFocus instead
      * @default false
      */
     autofocus?: boolean;
+    /**
+     * autofocus the component on mount
+     * @default false
+     */
+    autoFocus?: boolean;
     /**
      *  If enabled, the input will expand as the length of its value increases
      */
@@ -176,10 +279,19 @@ export interface ReactSelectProps<TValue = OptionValues> extends React.Props<Rea
      */
     className?: string;
     /**
+     * Prefix prepended to element default className if no className is defined
+     */
+    classNamePrefix?: string;
+    /**
      * title for the "clear" control when `multi` is true
      * @default "Clear all"
      */
     clearAllText?: string;
+    /**
+     * Renders a custom clear to be shown in the right-hand side of the select when clearable true
+     * @default undefined
+     */
+    clearRenderer?: ClearRendererHandler;
     /**
      * title for the "clear" control
      * @default "Clear value"
@@ -223,6 +335,11 @@ export interface ReactSelectProps<TValue = OptionValues> extends React.Props<Rea
      * method to filter the options array
      */
     filterOptions?: FilterOptionsHandler<TValue>;
+    /**
+     * id for the underlying HTML input element
+     * @default undefined
+     */
+    id?: string;
     /**
      * whether to strip diacritics when filtering
      * @default true
@@ -314,6 +431,18 @@ export interface ReactSelectProps<TValue = OptionValues> extends React.Props<Rea
      */
     onBlurResetsInput?: boolean;
     /**
+     * whether the input value should be reset when options are selected.
+     * Also input value will be set to empty if 'onSelectResetsInput=true' and
+     * Select will get new value that not equal previous value.
+     * @default true
+     */
+    onSelectResetsInput?: boolean;
+    /**
+     * whether to clear input when closing the menu through the arrow
+     * @default true
+     */
+    onCloseResetsInput?: boolean;
+    /**
      * onChange handler: function (newValue) {}
      */
     onChange?: OnChangeHandler<TValue>;
@@ -345,10 +474,10 @@ export interface ReactSelectProps<TValue = OptionValues> extends React.Props<Rea
      * boolean to enable opening dropdown when focused
      * @default false
      */
-    openAfterFocus?: boolean;
+    openOnClick?: boolean;
     /**
      * open the options menu when the input gets focus (requires searchable = true)
-     * @default false
+     * @default true
      */
     openOnFocus?: boolean;
     /**
@@ -358,7 +487,7 @@ export interface ReactSelectProps<TValue = OptionValues> extends React.Props<Rea
     /**
      * option component to render in dropdown
      */
-    optionComponent?: React.ComponentType;
+    optionComponent?: OptionComponentType<TValue>;
     /**
      * function which returns a custom way to render the options in the menu
      */
@@ -369,10 +498,20 @@ export interface ReactSelectProps<TValue = OptionValues> extends React.Props<Rea
      */
     options?: Options<TValue>;
     /**
+     * number of options to jump when using page up/down keys
+     * @default 5
+     */
+    pageSize?: number;
+    /**
      * field placeholder, displayed when there's no value
      * @default "Select..."
      */
     placeholder?: string | JSX.Element;
+    /**
+     * whether the selected option is removed from the dropdown on multi selects
+     * @default true
+     */
+    removeSelected?: boolean;
     /**
      * applies HTML5 required attribute when needed
      * @default false
@@ -382,6 +521,11 @@ export interface ReactSelectProps<TValue = OptionValues> extends React.Props<Rea
      * value to use when you clear the control
      */
     resetValue?: any;
+    /**
+     * use react-select in right-to-left direction
+     * @default false
+     */
+    rtl?: boolean;
     /**
      * whether the viewport will shift to display the entire menu when engaged
      * @default true
@@ -418,12 +562,12 @@ export interface ReactSelectProps<TValue = OptionValues> extends React.Props<Rea
     /**
      *  optional tab index of the control
      */
-    tabIndex?: string;
+    tabIndex?: string | number;
 
     /**
      *  value component to render
      */
-    valueComponent?: React.ComponentType;
+    valueComponent?: ValueComponentType<TValue>;
 
     /**
      *  optional style to apply to the component wrapper
@@ -486,21 +630,6 @@ export interface ReactAsyncSelectProps<TValue = OptionValues> extends ReactSelec
     cache?: { [key: string]: any } | boolean;
 
     /**
-     *  whether to strip diacritics when filtering (shared with Select)
-     */
-    ignoreAccents?: boolean;
-
-    /**
-     *  whether to perform case-insensitive filtering (shared with Select)
-     */
-    ignoreCase?: boolean;
-
-    /**
-     *  overrides the isLoading state when set to true
-     */
-    isLoading?: boolean;
-
-    /**
      *  function to call to load options asynchronously
      */
     loadOptions: LoadOptionsHandler<TValue>;
@@ -508,29 +637,11 @@ export interface ReactAsyncSelectProps<TValue = OptionValues> extends ReactSelec
     /**
      *  replaces the placeholder while options are loading
      */
-    loadingPlaceholder?: string;
-
+    loadingPlaceholder?: string | JSX.Element;
     /**
-     *  the minimum number of characters that trigger loadOptions
-     */
-    minimumInput?: number;
-
-    /**
-     *  placeholder displayed when there are no matching search results (shared with Select)
-     */
-    noResultsText?: string | JSX.Element;
-    /**
-     *  field placeholder; displayed when there's no value (shared with Select)
-     */
-    placeholder?: string;
-
-    /**
-     *  label to prompt for search input
+     *  displayed in the drop down list when the user did not type anything yet
      */
     searchPromptText?: string;
-
-    /**
-     *  message to display while options are loading
-     */
-    searchingText?: string;
 }
+
+export type ReactAsyncCreatableSelectProps<TValue = OptionValues> = ReactAsyncSelectProps<TValue> & ReactCreatableSelectProps<TValue>;

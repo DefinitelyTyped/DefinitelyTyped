@@ -2,6 +2,7 @@
 // Project: https://github.com/Leaflet/Leaflet
 // Definitions by: Alejandro Sánchez <https://github.com/alejo90>
 //                 Arne Schubert <https://github.com/atd-schubert>
+//                 Michael Auer <https://github.com/mcauer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -18,18 +19,15 @@ export class Class {
 
 export class Transformation {
     constructor(a: number, b: number, c: number, d: number);
-
     transform(point: Point, scale?: number): Point;
-
     untransform(point: Point, scale?: number): Point;
 }
 
 export namespace LineUtil {
     function simplify(points: Point[], tolerance: number): Point[];
-
     function pointToSegmentDistance(p: Point, p1: Point, p2: Point): number;
-
     function closestPointOnSegment(p: Point, p1: Point, p2: Point): Point;
+    function isFlat(latlngs: LatLngExpression[]): boolean;
 }
 
 export namespace PolyUtil {
@@ -183,6 +181,10 @@ export class Point {
     toString(): string;
     x: number;
     y: number;
+}
+
+export interface Coords extends Point {
+    z: number;
 }
 
 export type PointExpression = Point | PointTuple;
@@ -388,6 +390,7 @@ export interface LayerOptions {
 
 export interface InteractiveLayerOptions extends LayerOptions {
     interactive?: boolean;
+    bubblingMouseEvents?: boolean;
 }
 
 export class Layer extends Evented {
@@ -423,6 +426,8 @@ export class Layer extends Evented {
     getEvents?(): {[name: string]: (event: LeafletEvent) => void};
     getAttribution?(): string | null;
     beforeAdd?(map: Map): this;
+
+    protected _map: Map;
 }
 
 export interface GridLayerOptions {
@@ -442,6 +447,19 @@ export interface GridLayerOptions {
     keepBuffer?: number;
 }
 
+export type DoneCallback = (error?: Error, tile?: HTMLElement) => void;
+
+export interface InternalTiles {
+    [key: string]: {
+        active?: boolean,
+        coords: Coords,
+        current: boolean,
+        el: HTMLElement,
+        loaded?: Date,
+        retain?: boolean,
+    };
+}
+
 export class GridLayer extends Layer {
     constructor(options?: GridLayerOptions);
     bringToFront(): this;
@@ -452,6 +470,12 @@ export class GridLayer extends Layer {
     isLoading(): boolean;
     redraw(): this;
     getTileSize(): Point;
+
+    protected createTile(coords: Coords, done: DoneCallback): HTMLElement;
+    protected _tileCoordsToKey(coords: Coords): string;
+
+    protected _tiles: InternalTiles;
+    protected _tileZoom?: number;
 }
 
 export function gridLayer(options?: GridLayerOptions): GridLayer;
@@ -474,6 +498,9 @@ export interface TileLayerOptions extends GridLayerOptions {
 export class TileLayer extends GridLayer {
     constructor(urlTemplate: string, options?: TileLayerOptions);
     setUrl(url: string, noRedraw?: boolean): this;
+
+    protected _abortLoading(): void;
+    protected _getZoomForUrl(): number;
 
     options: TileLayerOptions;
 }
@@ -516,12 +543,13 @@ export namespace tileLayer {
     function wms(baseUrl: string, options?: WMSOptions): TileLayer.WMS;
 }
 
-export interface ImageOverlayOptions extends LayerOptions {
+export interface ImageOverlayOptions extends InteractiveLayerOptions {
     opacity?: number;
     alt?: string;
     interactive?: boolean;
     attribution?: string;
     crossOrigin?: boolean;
+    className?: string;
 }
 
 export class ImageOverlay extends Layer {
@@ -586,7 +614,7 @@ export interface PolylineOptions extends PathOptions {
 export class Polyline<T extends geojson.GeometryObject = geojson.LineString | geojson.MultiLineString, P = any> extends Path {
     constructor(latlngs: LatLngExpression[], options?: PolylineOptions);
     toGeoJSON(): geojson.Feature<T, P>;
-    getLatLngs(): LatLng[];
+    getLatLngs(): LatLng[] | LatLng[][] | LatLng[][][];
     setLatLngs(latlngs: LatLngExpression[]): this;
     isEmpty(): boolean;
     getCenter(): LatLng;
@@ -1325,7 +1353,7 @@ export class Map extends Evented {
     flyToBounds(bounds: LatLngBoundsExpression, options?: FitBoundsOptions): this;
 
     // Other methods
-    addHandler(name: string, HandlerClass: () => Handler): this; // HandlerClass is actually a constructor function, is this the right way?
+    addHandler(name: string, HandlerClass: typeof Handler): this; // Alternatively, HandlerClass: new(map: Map) => Handler
     remove(): this;
     createPane(name: string, container?: HTMLElement): HTMLElement;
     /**
@@ -1378,6 +1406,7 @@ export class Map extends Evented {
     scrollWheelZoom: Handler;
     tap?: Handler;
     touchZoom: Handler;
+    zoomControl: Control.Zoom;
 
     options: MapOptions;
 }

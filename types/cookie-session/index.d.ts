@@ -78,17 +78,17 @@ declare namespace CookieSessionInterfaces {
         /**
          * Is true if the session has been changed during the request.
          */
-        isChanged: boolean;
+        isChanged?: boolean;
 
         /**
          * Is true if the session is new.
          */
-        isNew: boolean;
+        isNew?: boolean;
 
         /**
          * Determine if the session has been populated with data or is empty.
          */
-        isPopulated: boolean;
+        isPopulated?: boolean;
 
         [propertyName: string]: any;
     }
@@ -97,7 +97,7 @@ declare namespace CookieSessionInterfaces {
         /**
          * Represents the session for the given request.
          */
-        session: CookieSessionObject;
+        session?: CookieSessionObject;
 
         /**
          * Represents the session options for the current request. These options are a shallow clone of what was provided at middleware construction and can be altered to change cookie setting behavior on a per-request basis.

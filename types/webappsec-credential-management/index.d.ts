@@ -122,7 +122,7 @@ interface CredentialData {
     id: string;
 }
 
-type Credential = PasswordCredential|FederatedCredential;
+type Credential = PasswordCredential|FederatedCredential|PublicKeyCredential;
 
 /**
  * A generic and extensible Credential interface from which all credentials
@@ -309,6 +309,11 @@ interface CredentialRequestOptions {
      * request.
      */
     mediation?: CredentialMediationRequirement;
+
+    /**
+     * This property specifies options for requesting a public-key signature.
+     */
+    publicKey?: PublicKeyCredentialRequestOptions;
 }
 
 /**
@@ -333,6 +338,10 @@ interface CredentialCreationOptions {
      * @see {@link https://www.w3.org/TR/2017/WD-credential-management-1-20170804/#dom-credentialcreationoptions-federated}
      */
     federated?: FederatedCredentialInit;
+    /**
+     * @see {@link https://w3c.github.io/webauthn/#dictionary-makecredentialoptions}
+     */
+    publicKey?: PublicKeyCredentialCreationOptions;
 }
 
 /**
@@ -350,4 +359,136 @@ interface FederatedCredentialRequestOptions {
      * @see {@link https://www.w3.org/TR/credential-management-1/#dom-federatedcredentialrequestoptions-protocols}
      */
     protocols?: string[];
+}
+
+// Type definitions for webauthn
+// Spec: https://w3c.github.io/webauthn/
+
+/**
+ * @see {@link https://w3c.github.io/webauthn/#enumdef-publickeycredentialtype}
+ */
+type PublicKeyCredentialType = "public-key";
+
+/**
+ * @see {@link https://w3c.github.io/webauthn/#enumdef-userverificationrequirement}
+ */
+type UserVerificationRequirement = "required" | "preferred" | "discouraged";
+
+/**
+ * @see {@link https://w3c.github.io/webauthn/#dictdef-publickeycredentialrequestoptions}
+ */
+interface PublicKeyCredentialRequestOptions {
+    challenge: BufferSource;
+    timeout: number;
+    rpId: string;
+    allowCredentials: PublicKeyCredentialDescriptor[];
+    userVerification?: UserVerificationRequirement;
+    extensions?: any;
+}
+
+/**
+ * @see {@link https://w3c.github.io/webauthn/#dictdef-publickeycredentialrpentity}
+ */
+interface PublicKeyCredentialRpEntity {
+    id: string;
+    name: string;
+}
+
+/**
+ * @see {@link https://w3c.github.io/webauthn/#dictdef-publickeycredentialuserentity}
+ */
+interface PublicKeyCredentialUserEntity {
+    id: BufferSource;
+    name: string;
+    displayName: string;
+}
+
+/**
+ * @see {@link https://w3c.github.io/webauthn/#dictdef-publickeycredentialparameters}
+ */
+interface PublicKeyCredentialParameters {
+    type: PublicKeyCredentialType;
+    alg: number;
+}
+
+/**
+ * @see {@link https://w3c.github.io/webauthn/#transport}
+ */
+type AuthenticatorTransport = "usb" | "nfc" | "ble" | "internal";
+
+/**
+ * @see {@link https://w3c.github.io/webauthn/#dictdef-publickeycredentialdescriptor}
+ */
+interface PublicKeyCredentialDescriptor {
+    type: PublicKeyCredentialType;
+    id: BufferSource;
+    transports?: AuthenticatorTransport[];
+}
+
+/**
+ * @see {@link https://w3c.github.io/webauthn/#attachment}
+ */
+type AuthenticatorAttachment = "platform" | "cross-platform";
+
+/**
+ * @see {@link https://w3c.github.io/webauthn/#dictdef-authenticatorselectioncriteria}
+ */
+interface AuthenticatorSelectionCriteria {
+    authenticatorAttachment?: AuthenticatorAttachment;
+    requireResidentKey?: boolean;
+    requireUserVerification?: UserVerificationRequirement;
+}
+
+/**
+ * @see {@link https://w3c.github.io/webauthn/#attestation-convey}
+ */
+type AttestationConveyancePreference = "none" | "indirect" | "direct";
+
+/**
+ * @see {@link https://w3c.github.io/webauthn/#dictdef-makepublickeycredentialoptions}
+ */
+interface PublicKeyCredentialCreationOptions {
+    rp: PublicKeyCredentialRpEntity;
+    user: PublicKeyCredentialUserEntity;
+
+    challenge: BufferSource;
+    pubKeyCredParams: PublicKeyCredentialParameters[];
+
+    timeout?: number;
+    excludeCredentials?: PublicKeyCredentialDescriptor[];
+    authenticatorSelection?: AuthenticatorSelectionCriteria;
+    attestation?: AttestationConveyancePreference;
+    extensions?: any;
+}
+
+/**
+ * @see {@link https://w3c.github.io/webauthn/#authenticatorresponse}
+ */
+interface AuthenticatorResponse {
+    readonly clientDataJSON: ArrayBuffer;
+}
+
+/**
+ * @see {@link https://w3c.github.io/webauthn/#authenticatorattestationresponse}
+ */
+interface AuthenticatorAttestationResponse extends AuthenticatorResponse {
+    readonly attestationObject: ArrayBuffer;
+}
+
+/**
+ * @see {@link https://w3c.github.io/webauthn/#iface-authenticatorassertionresponse}
+ */
+interface AuthenticatorAssertionResponse extends AuthenticatorResponse {
+    readonly authenticatorData: ArrayBuffer;
+    readonly signature: ArrayBuffer;
+    readonly userHandle: ArrayBuffer;
+}
+
+/**
+ * @see {@link https://w3c.github.io/webauthn/#publickeycredential}
+ */
+interface PublicKeyCredential extends CredentialData {
+    readonly type: PublicKeyCredentialType;
+    readonly rawId: ArrayBuffer;
+    readonly response: AuthenticatorAttestationResponse|AuthenticatorAssertionResponse;
 }

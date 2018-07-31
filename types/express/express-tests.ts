@@ -1,4 +1,4 @@
-import * as express from 'express';
+import express = require('express');
 
 namespace express_tests {
     const app = express();
@@ -104,6 +104,9 @@ namespace express_tests {
             req.headers.existingHeader as string;
             req.headers.nonExistingHeader as any as undefined;
 
+            // Since 4.14.0 req.range() has options
+            req.range(2, { combine: true });
+
             res.send(req.query['token']);
         });
 
@@ -119,7 +122,27 @@ namespace express_tests {
         router(req, res, next);
     });
 
+    // Test append function
+    app.use((req, res, next) => {
+        res.append('Link', ['<http://localhost/>', '<http://localhost:3000/>']);
+        res.append('Set-Cookie', 'foo=bar; Path=/; HttpOnly');
+        res.append('Warning', '199 Miscellaneous warning');
+    });
+
     app.use(router);
+
+    // Test req.res, req.next, res.req should exists after middleware.init
+    app.use((req, res) => {
+        req.res;
+        req.next;
+        res.req;
+    });
+
+    // Test on mount event
+    app.on('mount', (parent) => true);
+
+    // Test mountpath
+    const mountPath: string|string[] = app.mountpath;
 
     app.listen(3000);
 
@@ -132,6 +155,7 @@ namespace express_tests {
  *                         *
  ***************************/
 import * as http from 'http';
+import { RequestRanges } from 'express-serve-static-core';
 
 namespace node_tests {
     {

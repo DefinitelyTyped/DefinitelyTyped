@@ -20,8 +20,11 @@ br.compress(Buffer.from('foo', 'utf8'), onCompress);
 
 br.compress(Buffer.from('foo', 'utf8'), opts, onCompress);
 
+const stream = br.compressStream();
+stream.flush();
+
 createReadStream(__filename)
-    .pipe(br.compressStream())
+    .pipe(stream)
     .pipe(createWriteStream('foo.ts'));
 
 createReadStream(__dirname)

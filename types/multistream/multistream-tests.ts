@@ -26,6 +26,11 @@ const factory: multistream.FactoryStream = (cb) => {
     if (1 === 1) return cb(null, fs.createReadStream('.filepath'));
 
     cb(null, fs.createReadStream('.filepath'));
+    cb(null, null);
+    cb(new Error('some error'), null);
+
+    // $ExpectError
+    cb(new Error('some error'), fs.createReadStream('.filepath'));
 };
 
 // $ExpectType ReadableStream

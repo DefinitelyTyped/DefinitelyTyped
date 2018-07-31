@@ -15,6 +15,10 @@ declare namespace SemanticUI {
          */
         (behavior: 'is valid'): boolean;
         /**
+         * Returns true/false whether a field passes its validation rules
+         */
+        (behavior: 'is valid', field: string): boolean;
+        /**
          * Adds rule to existing rules for field
          * @since 2.2.11
          */

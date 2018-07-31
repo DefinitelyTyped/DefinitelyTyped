@@ -423,6 +423,11 @@ connection.query({
     }
 });
 
+connection.query({sql: '...', values: ['test']}, (err: Error, results: any) => {
+});
+
 connection = mysql.createConnection("mysql://localhost/test?flags=-FOUND_ROWS");
 connection = mysql.createConnection({debug: true});
 connection = mysql.createConnection({debug: ['ComQueryPacket', 'RowDataPacket']});
+connection = mysql.createConnection({dateStrings: ['DATE']});
+connection = mysql.createConnection({dateStrings: true});

@@ -1,8 +1,9 @@
-// Type definitions for pino 4.7
-// Project: https://github.com/mcollina/pino.git
+// Type definitions for pino 4.16
+// Project: https://github.com/pinojs/pino.git
 // Definitions by: Peter Snider <https://github.com/psnider>
 //                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+//                 Christian Rackerseder <https://github.com/screendriver>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 /// <reference types="node"/>
@@ -18,7 +19,7 @@ export = P;
  * relative protocol is enabled. Default: process.stdout
  * @returns a new logger instance.
  */
-declare function P(optionsOrStream?: P.LoggerOptions | stream.Writable | stream.Duplex | stream.Transform): P.Logger;
+declare function P(optionsOrStream?: P.LoggerOptions | stream.Writable | stream.Duplex | stream.Transform | NodeJS.WritableStream): P.Logger;
 
 /**
  * @param [options]: an options object
@@ -26,7 +27,7 @@ declare function P(optionsOrStream?: P.LoggerOptions | stream.Writable | stream.
  * relative protocol is enabled. Default: process.stdout
  * @returns a new logger instance.
  */
-declare function P(options: P.LoggerOptions, stream: stream.Writable | stream.Duplex | stream.Transform): P.Logger;
+declare function P(options: P.LoggerOptions, stream: stream.Writable | stream.Duplex | stream.Transform | NodeJS.WritableStream): P.Logger;
 
 declare namespace P {
     /**
@@ -192,6 +193,10 @@ declare namespace P {
                 trace?: WriteFn;
             } & { [logLevel: string]: WriteFn });
         };
+        /**
+         * key-value object added as child logger to each log line. If set to null the base child logger is not added
+         */
+        base?: { [key: string]: any } | null;
     }
 
     interface PrettyOptions {

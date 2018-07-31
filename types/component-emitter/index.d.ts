@@ -13,9 +13,9 @@ interface Emitter {
     hasListeners(event: string): boolean;
 }
 
-declare const constructor: {
+declare const Emitter: {
     (obj?: any): Emitter;
     new (obj?: any): Emitter;
 };
 
-export = constructor;
+export = Emitter;

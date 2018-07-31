@@ -1,5 +1,5 @@
 import { Component, ComponentType } from "react";
-import { Formatter, Parser, WrappedFieldProps } from "redux-form";
+import { Formatter, Parser, WrappedFieldProps } from "../index";
 
 interface BaseFieldsProps<P = {}> {
     names: string[];
@@ -27,5 +27,5 @@ export class Fields<P = {}> extends Component<BaseFieldsProps<P> & P> implements
 }
 
 interface WrappedFieldsProps {
-    [name: string]: WrappedFieldsProps & WrappedFieldProps
+    [name: string]: WrappedFieldsProps & WrappedFieldProps;
 }

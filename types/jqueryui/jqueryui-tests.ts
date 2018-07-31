@@ -911,7 +911,12 @@ function test_autocomplete() {
                 "Nothing selected, input was " + this.value);
         }
     });
-
+    $("#birds").autocomplete({
+        classes: {
+            'ui-autocomplete': 'foo',
+            'ui-autocomplete-input': 'bar'
+        }
+    })
 }
 
 

@@ -1,5 +1,3 @@
-/* tslint:disable:no-arg object-literal-shorthand one-variable-per-declaration only-arrow-functions prefer-const prefer-for-of triple-equals no-var */
-
 function examples() {
     function add_0() {
         $('div').css('border', '2px solid red')
@@ -3430,7 +3428,7 @@ function examples() {
     function map_0() {
         $('p')
             .append($('input').map(function() {
-                return $(this).val();
+                return $(this).val() as string;
             })
                 .get()
                 .join(', '));

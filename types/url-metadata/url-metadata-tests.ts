@@ -1,4 +1,4 @@
-import * as urlMetadata from "url-metadata";
+import urlMetadata = require("url-metadata");
 
 const opts: urlMetadata.Options = {
     userAgent: "url-metadata-test",
