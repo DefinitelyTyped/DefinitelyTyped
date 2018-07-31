@@ -4,6 +4,7 @@
 //                 sapphiredev <https://github.com/sapphiredev>
 //                 abraham <https://github.com/abraham>
 //                 siwalik <https://github.com/siwalikm>
+//                 plhery <https://github.com/plhery>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -271,6 +272,8 @@ declare module 'twit' {
       include_rts?: boolean,
       skip_status?: boolean,
       url?: string,
+      include_user_entities?: boolean,
+      stringify_ids?: boolean,
     }
     export interface PromiseResponse {
       data: Response,

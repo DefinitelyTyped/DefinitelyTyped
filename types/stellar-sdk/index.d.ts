@@ -825,6 +825,7 @@ export class Transaction {
     fee: number;
     source: string;
     memo: Memo;
+    signatures: xdr.DecoratedSignature[];
 }
 
 export class TransactionBuilder {
@@ -862,9 +863,11 @@ export class Keypair {
 
     publicKey(): string;
     secret(): string;
+    rawPublicKey(): Buffer;
     rawSecretKey(): Buffer;
     canSign(): boolean;
     sign(data: Buffer): Buffer;
+    signatureHint(): xdr.SignatureHint;
     verify(data: Buffer, signature: Buffer): boolean;
 }
 
@@ -876,4 +879,9 @@ export namespace xdr {
     class Asset extends XDRStruct { }
     class Memo extends XDRStruct { }
     class TransactionEnvelope extends XDRStruct { }
+    class DecoratedSignature extends XDRStruct {
+      constructor(keys: { hint: SignatureHint, signature: Signature })
+    }
+    class SignatureHint { }
+    class Signature { }
 }

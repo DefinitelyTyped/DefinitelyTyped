@@ -22,6 +22,9 @@
             "@babel/generator": [
                 "babel__generator"
             ],
+            "@babel/parser": [
+                "babel__parser"
+            ],
             "@babel/template": [
                 "babel__template"
             ],
