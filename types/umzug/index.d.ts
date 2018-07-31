@@ -123,7 +123,7 @@ declare namespace umzug {
         /**
          * The MongoDB database connection instance.
          */
-        connection: MongoDB.Db;
+        connection?: MongoDB.Db;
 
         /**
          * The to be used Mongo collection cursor.
