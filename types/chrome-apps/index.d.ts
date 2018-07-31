@@ -57,6 +57,10 @@ declare namespace chrome {
             incognito?: boolean;
         }
 
+        enum LevelOfControl {
+            'not_controllable', 'controlled_by_other_extensions', 'controllable_by_this_extension', 'controlled_by_this_extension'
+        }
+
         interface AccessibilityFeaturesCallbackArg {
             /** The value of the setting. */
             value: any;
@@ -67,9 +71,13 @@ declare namespace chrome {
              * • controllable_by_this_extension: can be controlled by this extension
              * • controlled_by_this_extension: controlled by this extension
              */
-            levelOfControl: 'not_controllable' | 'controlled_by_other_extensions' | 'controllable_by_this_extension' | 'controlled_by_this_extension';
+            levelOfControl: LevelOfControl;
             /** Whether the effective value is specific to the incognito session. This property will only be present if the incognito property in the details parameter of get() was true.  */
             incognitoSpecific?: boolean;
+        }
+
+        enum Scope {
+            'regular', 'regular_only', 'incognito_persistent', 'incognito_session_only'
         }
 
         interface AccessibilityFeaturesSetArg {
@@ -79,26 +87,24 @@ declare namespace chrome {
              */
             value: any;
             /**
-             * Optional.
-              * The scope of the ChromeSetting. One of
+             * The scope of the ChromeSetting. One of
              * • regular: setting for the regular profile (which is inherited by the incognito profile if not overridden elsewhere),
              * • regular_only: setting for the regular profile only (not inherited by the incognito profile),
              * • incognito_persistent: setting for the incognito profile that survives browser restarts (overrides regular preferences),
              * • incognito_session_only: setting for the incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular and incognito_persistent preferences).
              */
-            scope?: 'regular' | 'regular_only' | 'incognito_persistent' | 'incognito_session_only';
+            scope?: Scope;
         }
 
         interface AccessibilityFeaturesClearArg {
             /**
-             * Optional.
-              * The scope of the ChromeSetting. One of
+             * The scope of the ChromeSetting. One of
              * • regular: setting for the regular profile (which is inherited by the incognito profile if not overridden elsewhere),
              * • regular_only: setting for the regular profile only (not inherited by the incognito profile),
              * • incognito_persistent: setting for the incognito profile that survives browser restarts (overrides regular preferences),
              * • incognito_session_only: setting for the incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular and incognito_persistent preferences).
              */
-            scope?: 'regular' | 'regular_only' | 'incognito_persistent' | 'incognito_session_only';
+            scope?: Scope;
         }
 
         interface AccessibilityFeaturesSetting {
@@ -292,10 +298,12 @@ declare namespace chrome {
      * and can shut down the app at anytime.
      */
     namespace app.runtime {
-        type LaunchSource = 'untracked' | 'app_launcher' | 'new_tab_page' | 'reload' | 'restart' |
-            'load_and_launch' | 'command_line' | 'file_handler' | 'url_handler' | 'system_tray' |
-            'about_page' | 'keyboard' | 'extensions_page' | 'management_api' | 'ephemeral_app' |
-            'background' | 'kiosk' | 'chrome_internal' | 'test' | 'installed_notification' | 'context_menu';
+        enum LaunchSource {
+            'untracked', 'app_launcher', 'new_tab_page', 'reload', 'restart',
+            'load_and_launch', 'command_line', 'file_handler', 'url_handler', 'system_tray',
+            'about_page', 'keyboard', 'extensions_page', 'management_api', 'ephemeral_app',
+            'background', 'kiosk', 'chrome_internal', 'test', 'installed_notification', 'context_menu'
+        }
 
         interface EmbedRequest {
             /**
@@ -498,6 +506,10 @@ declare namespace chrome {
             inactiveColor?: string;
         }
 
+        enum WindowState {
+            'normal', 'fullscreen', 'maximized', 'minimized'
+        }
+
         interface CreateWindowOptions {
             /**
              * Id to identify the window.
@@ -575,7 +587,7 @@ declare namespace chrome {
             /**
              * The initial state of the window, allowing it to be created already fullscreen, maximized, or minimized. Defaults to 'normal'.
              */
-            state?: 'normal' | 'fullscreen' | 'maximized' | 'minimized';
+            state?: WindowState;
             /**
              * If true, the window will be created in a hidden state. Call show() on the window to show it once it has been created. Defaults to false.
              */
@@ -747,14 +759,19 @@ declare namespace chrome {
      * This API is currently only implemented for ChromeOS.
      */
     namespace audio {
-        type StreamType = 'INPUT' | 'OUTPUT';
+        enum StreamType {
+            'INPUT', 'OUTPUT'
+        }
+        enum DeviceType {
+            'HEADPHONE', 'MIC', 'USB', 'BLUETOOTH', 'HDMI', 'INTERNAL_SPEAKER', 'INTERNAL_MIC', 'FRONT_MIC', 'REAR_MIC', 'KEYBOARD_MIC', 'HOTWORD', 'LINEOUT', 'POST_MIX_LOOPBACK', 'POST_DSP_LOOPBACK', 'OTHER'
+        }
         interface AudioDeviceInfo {
             /** The unique identifier of the audio device. */
             id: string;
             /** Stream type associated with this device. */
             streamType: StreamType;
             /** Type of the device. */
-            deviceType: 'HEADPHONE' | 'MIC' | 'USB' | 'BLUETOOTH' | 'HDMI' | 'INTERNAL_SPEAKER' | 'INTERNAL_MIC' | 'FRONT_MIC' | 'REAR_MIC' | 'KEYBOARD_MIC' | 'HOTWORD' | 'LINEOUT' | 'POST_MIX_LOOPBACK' | 'POST_DSP_LOOPBACK' | 'OTHER';
+            deviceType: DeviceType;
             /** The user-friendly name (e.g. 'USB Microphone'). */
             displayName: string;
             /** Device name. */
@@ -786,30 +803,21 @@ declare namespace chrome {
              */
             level?: integer;
         }
+        /** @todo TODO INTEGRATE */
         interface OnLevelChangedEvent {
-            /**
-             * The callback parameter should be a function that looks like this:
-             *   function(object event) {...};
-             * @param {(event: {
-             *             deviceId: string,
-             *             level: number
-             *         }) => void} callback
-             */
             addListener(callback: (event: {
                 deviceId: string,
                 level: number
             }) => void): void;
         }
+        /** @todo TODO INTEGRATE */
         interface OnMuteChangedEvent {
-            /**
-             * The callback parameter should be a function that looks like this:
-             * function(object event) {...};
-             */
             addListener(callback: (event: {
                 streamType: StreamType[],
                 isMuted: boolean
             }) => void): void;
         }
+        /** @todo TODO INTEGRATE */
         interface OnDeviceListChangedEvent {
             /**
              * The callback parameter should be a function that looks like this:
@@ -884,6 +892,12 @@ declare namespace chrome {
             /** Indicates whether or not the adapter is currently discovering. */
             discovering: boolean;
         }
+        enum DeviceType {
+            'computer', 'phone', 'modem', 'audio', 'carAudio', 'video', 'peripheral', 'joystick', 'gamepad', 'keyboard', 'mouse', 'tablet', 'keyboardMouseCombo'
+        }
+        enum DeviceVendorIdSource {
+            'bluetooth', 'usb'
+        }
         interface Device {
             /** The address of the device, in the format 'XX:XX:XX:XX:XX:XX'. */
             address: string;
@@ -892,7 +906,7 @@ declare namespace chrome {
             /** The class of the device, a bit-field defined by http://www.bluetooth.org/en-us/specification/assigned-numbers/baseband. */
             deviceClass?: number;
             /** The Device ID record of the device, where available. */
-            vendorIdSource?: 'bluetooth' | 'usb';
+            vendorIdSource?: DeviceVendorIdSource;
             vendorId?: number;
             productId?: number;
             deviceId?: number;
@@ -901,7 +915,7 @@ declare namespace chrome {
              * This is obtained from the |deviceClass| field and only represents a small fraction of the possible device types.
              * When in doubt you should use the |deviceClass| field directly.
              */
-            type?: 'computer' | 'phone' | 'modem' | 'audio' | 'carAudio' | 'video' | 'peripheral' | 'joystick' | 'gamepad' | 'keyboard' | 'mouse' | 'tablet' | 'keyboardMouseCombo';
+            type?: DeviceType;
             /** Indicates whether or not the device is paired with the system. */
             paired?: boolean;
             /** Indicates whether the device is currently connected to the system. */
@@ -939,43 +953,56 @@ declare namespace chrome {
             addListener(callback: (event: T) => void): void;
         }
 
+        enum DeviceFilterType {
+            'all', 'known'
+        }
+
         /**
          * Some criteria to filter the list of returned bluetooth devices. If the filter is not set or set to {}, returned device list will contain all bluetooth devices. Right now this is only supported in ChromeOS, for other platforms, a full list is returned.
          */
         interface DeviceFilter {
             /** Type of filter to apply to the device list. Default is all. */
-            filterType?: 'all' | 'known';
+            filterType?: DeviceFilterType;
             /** Maximum number of bluetoth devices to return. Default is 0 (no limit) if unspecified. */
             limit?: number;
         }
         /** Get information about the Bluetooth adapter. */
         function getAdapterState(callback: (adapterInfo: AdapterState) => void): void;
+
         /** Get information about a Bluetooth device known to the system. */
         function getDevice(deviceAddress: string, callback: (deviceInfo: Device) => void): void;
+
         /**
          * Get a list of Bluetooth devices known to the system, including paired and recently discovered devices.
          * @param callback Called when the search is completed.
          */
         function getDevices(callback: (devices: Device[]) => void): void;
+
         /**
          * Get a list of Bluetooth devices known to the system, including paired and recently discovered devices.
          * @param filter Since Chrome 67. Some criteria to filter the list of returned bluetooth devices. If the filter is not set or set to {}, returned device list will contain all bluetooth devices. Right now this is only supported in ChromeOS, for other platforms, a full list is returned.
          * @param callback Called when the search is completed.
          */
         function getDevices(filter: DeviceFilter, callback: (devices: Device[]) => void): void;
+
         /**
          * Start discovery. Newly discovered devices will be returned via the onDeviceAdded event. Previously discovered devices already known to the adapter must be obtained using getDevices and will only be updated using the |onDeviceChanged| event if information about them changes.
          * Discovery will fail to start if this application has already called startDiscovery. Discovery can be resource intensive: stopDiscovery should be called as soon as possible.
          */
         function startDiscovery(callback: () => void): void;
+
         /** Stop discovery. */
         function stopDiscovery(callback: () => void): void;
+
         /** Fired when the state of the Bluetooth adapter changes. */
         var onAdapterStateChanged: BluetoothEvent<AdapterState>;
+
         /** Fired when information about a new Bluetooth device is available. */
         var onDeviceAdded: BluetoothEvent<Device>;
+
         /** Fired when information about a known Bluetooth device has changed. */
         var onDeviceChanged: BluetoothEvent<Device>;
+
         /** Fired when a Bluetooth device that was previously discovered has been out of range for long enough to be considered unavailable again, and when a paired device is removed. */
         var onDeviceRemoved: BluetoothEvent<Device>;
     }
@@ -2452,7 +2479,7 @@ declare namespace chrome {
              */
             mimeTypes?: string[];
             /**
-             * Extensions to accept, e.g. 'jpg' | 'gif' | 'crx'.
+             * Extensions to accept, e.g. 'jpg', 'gif', 'crx'.
              */
             extensions?: string[];
         }
@@ -4214,8 +4241,8 @@ declare namespace chrome {
      * Use the chrome.mediaGalleries API to access media files (audio, images, video)
      * from the user's local disks (with the user's consent).
      * @since Available since Chrome 24.
-     * @requires Permissions: {"mediaGalleries": ["accessType1", "accessType2", ...]} 
-     *                        {"mediaGalleries": ["accessType1", "accessType2", ..., "allAutoDetected"]} 
+     * @requires Permissions: {"mediaGalleries": ["accessType1", "accessType2", ...]}
+     *                        {"mediaGalleries": ["accessType1", "accessType2", ..., "allAutoDetected"]}
      * @see[More information]{@link https://developer.chrome.com/apps/mediaGalleries}
      */
     namespace mediaGalleries {
@@ -4230,7 +4257,7 @@ declare namespace chrome {
              * the permitted set. Default is silent. If the value 'yes' is passed, or if the application
              * has not been granted access to any media galleries and the value 'if_needed' is passed,
              * then the media gallery configuration dialog will be displayed.
-             * 
+             *
              * **no**
              * Do not act interactively.
              * **yes**
@@ -4304,7 +4331,7 @@ declare namespace chrome {
             rawTags: RawTag[];
             /**
              * The images embedded in the media file's metadata.
-             * This is most often used for album art or video thumbnails. 
+             * This is most often used for album art or video thumbnails.
              */
             attachedImages: Blob[];
         }
@@ -4329,7 +4356,7 @@ declare namespace chrome {
             'finish',
             'error'
         }
-        
+
         interface ScanProgressEventArgs {
             /** The type of progress event, i.e. start, finish, etc. */
             type: ScanProgressType;
@@ -4450,127 +4477,121 @@ declare namespace chrome {
     // Open Network Configuration (ONC)
     ////////////////////////////////////
     /**
-     * The chrome.networking.onc API is used for configuring network connections (Cellular, Ethernet, VPN, WiFi or WiMAX). This API is available in Chrome OS kiosk sessions.
-     * Network connection configurations are specified following Open Network Configuration (ONC) specification.
-     * NOTE: Most dictionary properties and enum values use UpperCamelCase to match the ONC specification instead of the JavaScript lowerCamelCase convention.
+     * @requires(CrOS kiosk mode) This API is available in Chrome OS kiosk sessions.
+     * @requires Permissions: "networking.onc"
+     * @since Since Chrome 59
+     * @description
+     * The chrome.networking.onc API is used for configuring network connections
+     * (Cellular, Ethernet, VPN, WiFi or WiMAX).
+     * Network connection configurations are specified following
+     * @see[Open Network Configuration (ONC) specification.]{@link https://chromium.googlesource.com/chromium/src/+/master/components/onc/docs/onc_spec.md}
+     * @description
+     * **NOTE**
+     * Most dictionary properties and enum values use UpperCamelCase to match
+     * the ONC specification instead of the JavaScript lowerCamelCase convention.
      */
     namespace networking.onc {
-        type ActivationStateType = 'Activated' | 'Activating' | 'NotActivated' | 'PartiallyActivated';
-        type CaptivePortalStatus = 'Unknown' | 'Offline' | 'Online' | 'Portal' | 'ProxyAuthRequired';
-        type ConnectionStateType = 'Connected' | 'Connecting' | 'NotConnected';
-        type IPConfigType = 'DHCP' | 'Static';
-        type NetworkType = 'All' | 'Cellular' | 'Ethernet' | 'VPN' | 'Wireless' | 'WiFi' | 'WiMAX';
-        type ProxySettingsType = 'Direct' | 'Manual' | 'PAC' | 'WPAD';
+        enum ActivationStateType {
+            'Activated', 'Activating', 'NotActivated', 'PartiallyActivated'
+        }
+        enum CaptivePortalStatus {
+            'Unknown', 'Offline', 'Online', 'Portal', 'ProxyAuthRequired'
+        }
+        enum ConnectionStateType {
+            'Connected', 'Connecting', 'NotConnected'
+        }
+        enum IPConfigType {
+            'DHCP', 'Static'
+        }
+        enum NetworkType {
+            'All', 'Cellular', 'Ethernet', 'VPN', 'Wireless', 'WiFi', 'WiMAX'
+        }
+        enum ProxySettingsType {
+            'Direct', 'Manual', 'PAC', 'WPAD'
+        }
         interface ManagedBoolean {
             /**
-              * The active value currently used by the network configuration manager (e.g. Shill).
-             * @type {boolean}
-             * @memberof ManagedBoolean
+             * The active value currently used by the network configuration manager (e.g. Shill).
              */
             Active?: boolean,
             /**
-              * The source from which the effective property value was determined.
-             * @type {string}
-             * @memberof ManagedBoolean
+             * The source from which the effective property value was determined.
              */
             Effective?: string,
             /**
-              * The property value provided by the user policy.
-             * @type {boolean}
-             * @memberof ManagedBoolean
+             * The property value provided by the user policy.
              */
             UserPolicy?: boolean,
             /**
-              * The property value provided by the device policy.
-             * @type {boolean}
-             * @memberof ManagedBoolean
+             * The property value provided by the device policy.
              */
             DevicePolicy?: boolean,
             /**
-              * The property value set by the logged in user. Only provided if |UserEditable| is true.
-             * @type {boolean}
-             * @memberof ManagedBoolean
+             * The property value set by the logged in user. Only provided if |UserEditable| is true.
              */
             UserSettings?: boolean,
             /**
-              * The value set for all users of the device. Only provided if |DeviceEditiable| is true.
-             * @type {boolean}
-             * @memberof ManagedBoolean
+             * The value set for all users of the device. Only provided if |DeviceEditiable| is true.
              */
             SharedSettings?: boolean,
             /**
-              * Whether a UserPolicy for the property exists and allows the property to be edited (i.e. the policy set recommended property value). Defaults to false.
-             * @type {boolean}
-             * @memberof ManagedBoolean
+             * Whether a UserPolicy for the property exists and allows the property to be edited (i.e. the policy set recommended property value).
+             * @default false
              */
             UserEditable?: boolean,
             /**
-              * Whether a DevicePolicy for the property exists and allows the property to be edited (i.e. the policy set recommended property value). Defaults to false.
-             * @type {boolean}
-             * @memberof ManagedBoolean
+             * Whether a DevicePolicy for the property exists and allows the property to be edited (i.e. the policy set recommended property value).
+             * @default false
              */
             DeviceEditable?: boolean
         }
         interface ManagedLong {
             /**
-              * The active value currently used by the network configuration manager (e.g. Shill).
-             * @type {number}
-             * @memberof ManagedLong
+             * The active value currently used by the network configuration manager (e.g. Shill).
              */
-            Active?: number,
+            Active?: integer,
             /**
-              * The source from which the effective property value was determined.
-             * @type {string}
-             * @memberof ManagedLong
+             * The source from which the effective property value was determined.
              */
             Effective?: string,
             /**
-              * The property value provided by the user policy.
-             * @type {number}
-             * @memberof ManagedLong
+             * The property value provided by the user policy.
              */
-            UserPolicy?: number,
+            UserPolicy?: integer,
             /**
-              * The property value provided by the device policy.
-             * @type {number}
-             * @memberof ManagedLong
+             * The property value provided by the device policy.
              */
-            DevicePolicy?: number,
+            DevicePolicy?: integer,
             /**
-              * The property value set by the logged in user. Only provided if |UserEditable| is true.
-             * @type {number}
-             * @memberof ManagedLong
+             * The property value set by the logged in user. Only provided if UserEditable is true.
              */
-            UserSettings?: number,
+            UserSettings?: integer,
             /**
-              * The value set for all users of the device. Only provided if |DeviceEditiable| is true.
-             * @type {number}
-             * @memberof ManagedLong
+             * The value set for all users of the device. Only provided if DeviceEditiable is true.
              */
-            SharedSettings?: number,
+            SharedSettings?: integer,
             /**
-              * Whether a UserPolicy for the property exists and allows the property to be edited (i.e. the policy set recommended property value). Defaults to false.
-             * @type {boolean}
-             * @memberof ManagedLong
+             * Whether a UserPolicy for the property exists and allows the property to be edited (i.e. the policy set recommended property value).
+             * @default false
              */
             UserEditable?: boolean,
             /**
-              * Whether a DevicePolicy for the property exists and allows the property to be edited (i.e. the policy set recommended property value). Defaults to false.
-             * @type {boolean}
-             * @memberof ManagedLong
+             * Whether a DevicePolicy for the property exists and allows the property to be edited (i.e. the policy set recommended property value).
+             * @default false
              */
             DeviceEditable?: boolean
         }
     }
 
-    ////////////////////
-    // Notifications
-    // https://developer.chrome.com/extensions/notifications
-    ////////////////////
+    ///////////////////
+    // Notifications //
+    ///////////////////
     /**
-     * Use the chrome.notifications API to create rich notifications using templates and show these notifications to users in the system tray.
-     * Permissions:  'notifications'
+     * Use the chrome.notifications API to create rich notifications using
+     * templates and show these notifications to users in the system tray.
+     * @requires Permissions: 'notifications'
      * @since Chrome 28.
+     * @see[Docs]{@link https://developer.chrome.com/extensions/notifications}
      */
     namespace notifications {
         interface ButtonOptions {
@@ -6377,6 +6398,10 @@ declare namespace chrome {
             isSelected: boolean;
         }
 
+        enum DisplayPosition {
+            'top', 'right', 'bottom', 'left'
+        }
+
         /**
          * @since Chrome 53
          */
@@ -6386,7 +6411,7 @@ declare namespace chrome {
             /** The unique identifier of the parent display. Empty if this is the root. */
             parentId: string;
             /** The layout position of this display relative to the parent. This will be ignored for the root. */
-            position: 'top' | 'right' | 'bottom' | 'left';
+            position: DisplayPosition;
             /** The offset of the display along the connected edge. 0 indicates that the topmost or leftmost corners are aligned. */
             offset: number;
         }
@@ -6933,7 +6958,9 @@ declare namespace chrome {
     // USB
     ////////////////////
     namespace usb {
-        type Direction = 'in' | 'out';
+        enum Direction {
+            'in', 'out'
+        }
 
         interface Device {
             device: number,
@@ -6950,13 +6977,23 @@ declare namespace chrome {
             productId: number
         }
 
+        enum EndpointType {
+            'control', 'interrupt', 'isochronous', 'bulk'
+        }
+        enum EndpointSyncType {
+            'asynchronous', 'adaptive', 'synchronous'
+        }
+        enum EndpointUsage {
+            'data', 'feedback', 'explicitFeedback'
+        }
+
         interface EndpointDescriptor {
             address: number,
-            type: 'control' | 'interrupt' | 'isochronous' | 'bulk',
+            type: EndpointType,
             direction: Direction,
             maximumPacketSize: number,
-            synchronization?: 'asynchronous' | 'adaptive' | 'synchronous',
-            usage?: 'data' | 'feedback' | 'explicitFeedback',
+            synchronization?: EndpointSyncType,
+            usage?: EndpointUsage,
             pollingInterval?: number,
             extra_data: ArrayBuffer
         }
@@ -7004,10 +7041,18 @@ declare namespace chrome {
             interfaceProtocol?: number
         }
 
+        enum TransferRecipient {
+            'device', 'interface', 'endpoint', 'other'
+        }
+
+        enum TransferRequestType {
+            'standard', 'class', 'vendor', 'reserved'
+        }
+
         interface TransferInfo {
             direction: Direction;
-            recipient: 'device' | 'interface' | 'endpoint' | 'other';
-            requestType: 'standard' | 'class' | 'vendor' | 'reserved';
+            recipient: TransferRecipient;
+            requestType: TransferRequestType;
             request: number;
             value: number;
             index: number;
