@@ -26,12 +26,10 @@ declare namespace chrome {
 
     /**
      * Integer
-     * Whole number
      */
     type integer = number;
     /**
      * Double
-     * Decimal number
      */
     type double = number;
 
@@ -1866,77 +1864,103 @@ declare namespace chrome {
             'separator'
         }
 
+        enum MediaType {
+            'image',
+            'video',
+            'audio'
+        }
+
         interface OnClickData {
             /**
              * The ID of the menu item that was clicked.
              * @since Since Chrome 35.
              */
             menuItemId: integer | string;
+
             /**
              * The parent ID, if any, for the item clicked.
              * @since Since Chrome 35.
              */
             parentMenuItemId?: integer | string;
+
             /**
-             * Optional.
+             * One of 'image', 'video', or 'audio' if the context menu was
+             * activated on one of these types of elements.
              * @since Since Chrome 35.
-             * One of 'image', 'video', or 'audio' if the context menu was activated on one of these types of elements.
              */
-            mediaType?: string;
+            mediaType?: MediaType;
+
+            /**
+             * If the element is a link, the URL it points to.
+             * @since Since Chrome 35.
+             */
+            linkUrl?: string;
+
+            /**
+             * Will be present for elements with a 'src' URL.
+             * @since Since Chrome 35.
+             */
+            srcUrl?: string;
+
+            /**
+             * The URL of the page where the menu item was clicked.
+             * This property is not set if the click occured in a
+             * context where there is no current page, such as in
+             * a launcher context menu.
+             * @since Since Chrome 35.
+             */
+            pageUrl: string;
+
+            /**
+             * The URL of the frame of the element where the context menu was clicked,
+             * if it was in a frame.
+             * @since Since Chrome 35.
+             */
+            frameUrl?: string;
+
+            /**
+             * The ID of the frame of the element where the context menu was clicked,
+             * if it was in a frame.
+             * @since Since Chrome 35.
+             */
+            frameId?: integer;
+
             /**
              * The text for the context selection, if any.
              * @since Since Chrome 35.
              */
             selectionText?: string;
-            /**
-             * A flag indicating the state of a checkbox or radio item after it is clicked.
-             * @since Since Chrome 35.
-             */
-            checked?: boolean;
-            /**
-             * The URL of the frame of the element where the context menu was clicked, if it was in a frame.
-             * @since Since Chrome 35.
-             */
-            frameUrl?: string;
+
             /**
              * A flag indicating whether the element is editable (text input, textarea, etc.).
              * @since Since Chrome 35.
              */
             editable: boolean;
+
             /**
-             * Optional.
-             * @since Since Chrome 35.
              * A flag indicating the state of a checkbox or radio item before it was clicked.
+             * @since Since Chrome 35.
              */
             wasChecked?: boolean;
+
             /**
+             * A flag indicating the state of a checkbox or radio item after it is clicked.
              * @since Since Chrome 35.
-             * The URL of the page where the menu item was clicked. This property is not set if the click occured in a context where there is no current page, such as in a launcher context menu.
              */
-            pageUrl: string;
-            /**
-             * Optional.
-             * @since Since Chrome 35.
-             * If the element is a link, the URL it points to.
-             */
-            linkUrl?: string;
-            /**
-             * Optional.
-             * @since Since Chrome 35.
-             * Will be present for elements with a 'src' URL.
-             */
-            srcUrl?: string;
+            checked?: boolean;
         }
 
         interface CreateProperties {
             /** The type of menu item. Defaults to 'normal' if not specified.  */
             type?: ItemType;
+
             /**
              * The unique ID to assign to this item.
              * Mandatory for event pages.
              * Cannot be the same as another ID for this extension.
              */
             id?: string;
+
             /**
              * The text to be displayed in the item;
              * this is required unless type is 'separator'.
@@ -1949,6 +1973,7 @@ declare namespace chrome {
              * to Pig Latin'.
              **/
             title?: string;
+
             /**
              * The initial state of a checkbox or radio item:
              * true for selected and false for unselected.
@@ -1956,115 +1981,101 @@ declare namespace chrome {
              * in a given group of radio items.
              **/
             checked?: boolean;
+
             /**
              * List of contexts this menu item will appear in.
              * Defaults to ['page'] if not specified.
              **/
             contexts?: ContextType[];
+
             /**
              * Whether the item is visible in the menu.
              * @since Since Chrome 62.
              */
             visible?: boolean;
+
             /**
              * A function that will be called back when the menu item is clicked. Event pages cannot use this; instead, they should register a listener for chrome.contextMenus.onClicked.
              * @param info Information sent when a context menu item is clicked.
              */
             onclick?: (info: OnClickData) => void;
+
+            /** The ID of a parent menu item; this makes the item a child of a previously added item.  */
+            parentId?: integer | string;
+
             /**
              * Lets you restrict the item to apply only to documents whose URL
              * matches one of the given patterns. (This applies to frames as well.)
              * For details on the format of a pattern, see Match Patterns.
              **/
             documentUrlPatterns?: string[];
+
             /**
-             * Optional.
-             * Whether this context menu item is enabled or disabled. Defaults to true.
-             * @since Since Chrome 20.
+             * Similar to documentUrlPatterns,
+             * but lets you filter based on the src attribute
+             * of img/audio/video tags and the href of anchor tags.
+             **/
+            targetUrlPatterns?: string[];
+
+            /**
+             * Whether this context menu item is enabled or disabled.
+             * @default true
              */
             enabled?: boolean;
-            /** Similar to documentUrlPatterns, but lets you filter based on the src attribute of img/audio/video tags and the href of anchor tags.  */
-            targetUrlPatterns?: string[];
-            /** The ID of a parent menu item; this makes the item a child of a previously added item.  */
-            parentId?: any;
         }
 
         interface UpdateProperties {
-            documentUrlPatterns?: string[];
-            checked?: boolean;
+            type?: ItemType;
             title?: string;
-            contexts?: string[];
+            checked?: boolean;
+            contexts?: ContextType[];
             /**
-             * @since Chrome 20
-             **/
-            enabled?: boolean;
-            targetUrlPatterns?: string[];
-            onclick?: (info: OnClickData) => void;
-            /** Note: You cannot change an item to be a child of one of its own descendants.  */
-            parentId?: any;
-            type?: string;
-            /**
-              * Whether the item is visible or not.
-             * @since Since Chrome 62
+             * Whether the item is visible in the menu.
+             * @since Chrome 62.
              */
             visible?: boolean;
+            /**
+             * Information sent when a context menu item is clicked.
+             * @since Chrome 44
+             */
+            onclick?: (info: OnClickData) => void;
+            /** Note: You cannot change an item to be a child of one of its own descendants.  */
+            parentId?: integer | string;
+            documentUrlPatterns?: string[];
+            targetUrlPatterns?: string[];
+            enabled?: boolean;
         }
 
         interface MenuClickedEvent extends chrome.events.Event<(info: OnClickData) => void> { }
 
         /**
-         * Removes all context menu items added by this extension.
-          * @param callback Called when removal is complete.
-         * If you specify the callback parameter, it should be a function that looks like this:
-         * function() {...};
-         */
-        function removeAll(callback?: () => void): void;
-        /**
          * Creates a new context menu item. Note that if an error occurs during creation, you may not find out until the creation callback fires (the details will be in chrome.runtime.lastError).
-          * @param callback Called when the item has been created in the browser. If there were any problems creating the item, details will be available in chrome.runtime.lastError.
-         * If you specify the callback parameter, it should be a function that looks like this:
-         * function() {...};
+         * @param callback Called when the item has been created in the browser. If there were any problems creating the item, details will be available in chrome.runtime.lastError.
          */
         function create(createProperties: CreateProperties, callback?: () => void): void;
-        /**
-         * Updates a previously created context menu item.
-         * @param id The ID of the item to update.
-         * @param updateProperties The properties to update. Accepts the same values as the create function.
-          * @param callback Called when the context menu has been updated.
-         * If you specify the callback parameter, it should be a function that looks like this:
-         * function() {...};
-         */
-        function update(id: string, updateProperties: UpdateProperties, callback?: () => void): void;
-        /**
-         * Updates a previously created context menu item.
-         * @param id The ID of the item to update.
-         * @param updateProperties The properties to update. Accepts the same values as the create function.
-          * @param callback Called when the context menu has been updated.
-         * If you specify the callback parameter, it should be a function that looks like this:
-         * function() {...};
-         */
-        function update(id: number, updateProperties: UpdateProperties, callback?: () => void): void;
-        /**
-         * Removes a context menu item.
-         * @param menuItemId The ID of the context menu item to remove.
-          * @param callback Called when the context menu has been removed.
-         * If you specify the callback parameter, it should be a function that looks like this:
-         * function() {...};
-         */
-        function remove(menuItemId: string, callback?: () => void): void;
-        /**
-         * Removes a context menu item.
-         * @param menuItemId The ID of the context menu item to remove.
-          * @param callback Called when the context menu has been removed.
-         * If you specify the callback parameter, it should be a function that looks like this:
-         * function() {...};
-         */
-        function remove(menuItemId: number, callback?: () => void): void;
 
         /**
-         * Since Chrome 21.
-         * Fired when a context menu item is clicked.
+         * Updates a previously created context menu item.
+         * @param id The ID of the item to update.
+         * @param updateProperties The properties to update. Accepts the same values as the create function.
+         * @param callback Called when the context menu has been updated.
          */
+        function update(id: integer | string, updateProperties: UpdateProperties, callback?: () => void): void;
+
+        /**
+         * Removes a context menu item.
+         * @param menuItemId The ID of the context menu item to remove.
+         * @param callback Called when the context menu has been removed.
+         */
+        function remove(menuItemId: integer | string, callback?: () => void): void;
+
+        /**
+         * Removes all context menu items added by this extension.
+         * @param callback Called when removal is complete.
+         */
+        function removeAll(callback?: () => void): void;
+
+        /** Fired when a context menu item is clicked. */
         var onClicked: MenuClickedEvent;
 
     }
@@ -2073,10 +2084,19 @@ declare namespace chrome {
     // Document Scan
     ////////////////////
     /**
-     * Use the chrome.documentScan API to discover and retrieve images from attached paper document scanners.
-     * Availability: Since Chrome 44.
-     * Permissions:  'documentScan'
-     * Important: This API works only on Chrome OS.
+     * Use the chrome.documentScan API to discover and retrieve
+     * images from attached paper document scanners.
+     *
+     * The Document Scan API is designed to allow apps to view
+     * the content of paper documents on an attached document scanner.
+     *
+     * *Note: This API depends on OS features that may not be available*
+     * *depending on the underlying operating system. As of this writing only*
+     * *Chrome OS for certain USB-attached devices is known to successfully work.*
+     *
+     * @since Availability: Since Chrome 44.
+     * @requires Permissions: 'documentScan'
+     * @requires Important: This API works only on Chrome OS.
      */
     namespace documentScan {
         interface DocumentScanOptions {
@@ -2103,66 +2123,97 @@ declare namespace chrome {
         function scan(options: DocumentScanOptions, callback: (result: DocumentScanCallbackArg) => void): void;
     }
 
-    ////////////////////
-    // Events
-    ////////////////////
+    ////////////
+    // Events //
+    ////////////
     /**
-     * The chrome.events namespace  contains common types used by APIs dispatching events to notify you when something interesting happens.
-     * Availability: Since Chrome 21.
+     * The chrome.events namespace contains common types used by APIs
+     * dispatching events to notify you when something interesting happens.
+     *
+     * An Event is an object that allows you to be notified when something interesting happens.
+     * Here's an example of using the chrome.alarms.onAlarm event to be notified whenever an alarm has elapsed:
+     * @example
+     * chrome.alarms.onAlarm.addListener(function(alarm) {
+     *   appendToLog('alarms.onAlarm --'
+     *               + ' name: '          + alarm.name
+     *               + ' scheduledTime: ' + alarm.scheduledTime);
+     * });
+     * @description
+     * As the example shows, you register for notification using addListener().
+     * The argument to addListener() is always a function that you define to
+     * handle the event, but the parameters to the function depend on which
+     * event you're handling. Checking the documentation for alarms.onAlarm,
+     * you can see that the function has a single parameter: an alarms.Alarm
+     * object that has details about the elapsed alarm.
+     * @since Availability: Since Chrome 25.
      */
     namespace events {
         /** Filters URLs for various criteria. See event filtering. All criteria are case sensitive. */
         interface UrlFilter {
-            /** Matches if the scheme of the URL is equal to any of the schemes specified in the array.  */
-            schemes?: string[];
             /**
-             * Optional.
-              * Since Chrome 23.
-             * Matches if the URL (without fragment identifier) matches a specified regular expression. Port numbers are stripped from the URL if they match the default port number. The regular expressions use the RE2 syntax.
-             */
-            urlMatches?: string;
-            /** Matches if the path segment of the URL contains a specified string.  */
-            pathContains?: string;
-            /** Matches if the host name of the URL ends with a specified string.  */
-            hostSuffix?: string;
-            /** Matches if the host name of the URL starts with a specified string.  */
-            hostPrefix?: string;
-            /** Matches if the host name of the URL contains a specified string. To test whether a host name component has a prefix 'foo', use hostContains: '.foo'. This matches 'www.foobar.com' and 'foo.com', because an implicit dot is added at the beginning of the host name. Similarly, hostContains can be used to match against component suffix ('foo.') and to exactly match against components ('.foo.'). Suffix- and exact-matching for the last components need to be done separately using hostSuffix, because no implicit dot is added at the end of the host name.  */
+             * Matches if the host name of the URL contains a specified string.
+             * To test whether a host name component has a prefix 'foo',
+             * use hostContains: '.foo'. This matches 'www.foobar.com' and
+             * 'foo.com', because an implicit dot is added at the beginning of
+             * the host name. Similarly, hostContains can be used to match
+             * against component suffix ('foo.') and to exactly match against
+             * components ('.foo.'). Suffix- and exact-matching for the last
+             * components need to be done separately using hostSuffix, because
+             * no implicit dot is added at the end of the host name.
+             **/
             hostContains?: string;
-            /** Matches if the URL (without fragment identifier) contains a specified string. Port numbers are stripped from the URL if they match the default port number.  */
-            urlContains?: string;
-            /** Matches if the query segment of the URL ends with a specified string.  */
-            querySuffix?: string;
-            /** Matches if the URL (without fragment identifier) starts with a specified string. Port numbers are stripped from the URL if they match the default port number.  */
-            urlPrefix?: string;
             /** Matches if the host name of the URL is equal to a specified string.  */
             hostEquals?: string;
-            /** Matches if the URL (without fragment identifier) is equal to a specified string. Port numbers are stripped from the URL if they match the default port number.  */
-            urlEquals?: string;
-            /** Matches if the query segment of the URL contains a specified string.  */
-            queryContains?: string;
+            /** Matches if the host name of the URL starts with a specified string.  */
+            hostPrefix?: string;
+            /** Matches if the host name of the URL ends with a specified string.  */
+            hostSuffix?: string;
+            /** Matches if the path segment of the URL contains a specified string.  */
+            pathContains?: string;
             /** Matches if the path segment of the URL starts with a specified string.  */
-            pathPrefix?: string;
-            /** Matches if the path segment of the URL is equal to a specified string.  */
             pathEquals?: string;
             /** Matches if the path segment of the URL ends with a specified string.  */
+            pathPrefix?: string;
+            /** Matches if the path segment of the URL is equal to a specified string.  */
             pathSuffix?: string;
+            /** Matches if the query segment of the URL contains a specified string.  */
+            queryContains?: string;
             /** Matches if the query segment of the URL is equal to a specified string.  */
             queryEquals?: string;
             /** Matches if the query segment of the URL starts with a specified string.  */
             queryPrefix?: string;
-            /** Matches if the URL (without fragment identifier) ends with a specified string. Port numbers are stripped from the URL if they match the default port number.  */
-            urlSuffix?: string;
-            /** Matches if the port of the URL is contained in any of the specified port lists. For example [80, 443, [1000, 1200]] matches all requests on port 80, 443 and in the range 1000-1200.  */
-            ports?: any[];
+            /** Matches if the query segment of the URL ends with a specified string.  */
+            querySuffix?: string;
+            /** Matches if the URL (without fragment identifier) contains a specified string. Port numbers are stripped from the URL if they match the default port number.  */
+            urlContains?: string;
+            /** Matches if the URL (without fragment identifier) is equal to a specified string. Port numbers are stripped from the URL if they match the default port number.  */
+            urlEquals?: string;
+            /** Matches if the URL (without fragment identifier) matches a specified regular expression.
+             * Port numbers are stripped from the URL if they match the default port number.
+             * The regular expressions use the RE2 syntax.
+             * @see[RE2 syntax docs]{@link https://github.com/google/re2/blob/master/doc/syntax.txt}
+             */
+            urlMatches?: string;
             /**
-             * Optional.
-              * Since Chrome 28.
-             * Matches if the URL without query segment and fragment identifier matches a specified regular expression. Port numbers are stripped from the URL if they match the default port number. The regular expressions use the RE2 syntax.
+             * Matches if the URL without query segment and fragment identifier matches a specified regular expression.
+             * Port numbers are stripped from the URL if they match the default port number.
+             * The regular expressions use the RE2 syntax.
+             * @see[RE2 syntax docs]{@link https://github.com/google/re2/blob/master/doc/syntax.txt}
+             * @since Since Chrome 28.
              */
             originAndPathMatches?: string;
+            /** Matches if the URL (without fragment identifier) starts with a specified string. Port numbers are stripped from the URL if they match the default port number.  */
+            urlPrefix?: string;
+            /** Matches if the URL (without fragment identifier) ends with a specified string. Port numbers are stripped from the URL if they match the default port number.  */
+            urlSuffix?: string;
+            /** Matches if the scheme of the URL is equal to any of the schemes specified in the array. */
+            schemes?: string[];
+            /**
+             * Matches if the port of the URL is contained in any of the specified port lists.
+             * For example [80, 443, [1000, 1200]] matches all requests on port 80, 443 and in the range 1000-1200.
+             */
+            ports?: Array<integer | integer[]>;
         }
-
         /** An object which allows the addition and removal of listeners for a Chrome event. */
         interface Event<T> {
             /**
@@ -2229,126 +2280,166 @@ declare namespace chrome {
 
         /** Description of a declarative rule for handling events. */
         interface Rule {
-            /** Optional priority of this rule. Defaults to 100.  */
-            priority?: number;
-            /** List of conditions that can trigger the actions. */
-            conditions: any[];
-            /** Optional identifier that allows referencing this rule.  */
+            /** Identifier that allows referencing this rule.  */
             id?: string;
-            /** List of actions that are triggered if one of the condtions is fulfilled. */
-            actions: any[];
+
             /**
-             * Optional.
-              * Since Chrome 28.
              * Tags can be used to annotate rules and perform operations on sets of rules.
+             * @since Since Chrome 28.
              */
             tags?: string[];
+
+            /** List of conditions that can trigger the actions. */
+            conditions: any[];
+
+            /** List of actions that are triggered if one of the condtions is fulfilled. */
+            actions: any[];
+
+            /**
+             * Optional priority of this rule.
+             * @default 100
+             */
+            priority?: integer;
         }
     }
 
-    ////////////////////
-    // Extension Types
-    ////////////////////
+    /////////////////////
+    // Extension Types //
+    /////////////////////
 
     /**
      * Primary for extensions, but also used in apps.
      * https://developer.chrome.com/extensions/extensionTypes#type-ImageDetails
+     * @since Chrome 39.
      **/
     namespace extensionTypes {
         /**
          * The format of an image.
          **/
-        type ImageFormat = 'jpeg' | 'png';
+        enum ImageFormat {
+            'jpeg',
+            'png'
+        }
         /**
          * Details about the format and quality of an image.
          */
         interface ImageDetails {
-            /**
-              * The format of the resulting image. Default is 'jpeg'.
-             * @type {ImageFormat}
-             * @memberof ImageDetails
-             */
+            /** The format of the resulting image. Default is 'jpeg'. */
             format?: ImageFormat;
+
             /**
-              * When format is 'jpeg', controls the quality of the resulting image. This value is ignored for PNG images. As quality is decreased, the resulting image will have more visual artifacts, and the number of bytes needed to store it will decrease.
-             * @type {number}
-             * @memberof ImageDetails
+             * When format is 'jpeg', controls the quality of the resulting image.
+             * This value is ignored for PNG images. As quality is decreased,
+             * the resulting image will have more visual artifacts,
+             * and the number of bytes needed to store it will decrease.
              */
             quality?: number;
         }
         /**
          * The soonest that the JavaScript or CSS will be injected into the tab.
          **/
-        type RunAt = 'document_start' | 'document_end' | 'document_idle';
+        enum RunAt {
+            'document_start',
+            'document_end',
+            'document_idle'
+        }
         /**
          * The origin of injected CSS.
          **/
-        type CSSOrigin = 'author' | 'user';
+        enum CSSOrigin {
+            'author',
+            'user'
+        }
         /**
-          * Details of the script or CSS to inject. Either the code or the file property must be set, but both may not be set at the same time.
-         * @interface InjectDetails
+         * Internal interfaces, not to be used directly
+         * @private
+         * @internal
          */
-        interface InjectDetails {
+        namespace _internal_ {
+            /**
+             * Partial, use these interfaces instead:
+             * @see InjectCodeDetails
+             * @see InjectFileDetails
+             */
+            interface InjectDetailsBase {
+                /**
+                 * If allFrames is true, implies that the JavaScript or CSS should be
+                 * injected into all frames of current page. By default, it's false
+                 * and is only injected into the top frame. If true and frameId is set,
+                 * then the code is inserted in the selected frame and all of its child frames.
+                 */
+                allFrames?: boolean;
+                /**
+                 * The frame where the script or CSS should be injected. Defaults to 0 (the top-level frame).
+                 * @see[frame ref]{@link https://developer.chrome.com/apps/webNavigation#frame_ids}
+                 * @since Since Chrome 50.
+                 */
+                frameId?: number;
+                /**
+                 * If matchAboutBlank is true, then the code is also injected in about:blank
+                 * and about:srcdoc frames if your extension has access to its parent document.
+                 * Code cannot be inserted in top-level about:-frames. By default it is false.
+                 */
+                matchAboutBlank?: boolean;
+                /**
+                 * The soonest that the JavaScript or CSS will be injected into the tab.
+                 * @default 'document_idle'
+                 */
+                runAt: RunAt;
+                /**
+                 * The origin of the CSS to inject.
+                 * This may only be specified for CSS, not JavaScript.
+                 * @default 'author'
+                 * @since Since Chrome 66.
+                 */
+                cssOrigin: CSSOrigin;
+            }
+        }
+
+        interface InjectFileDetails extends _internal_.InjectDetailsBase {
+            /** JavaScript or CSS file to inject. */
+            file: string;
+        }
+
+        interface InjectCodeDetails extends _internal_.InjectDetailsBase {
             /**
              * JavaScript or CSS code to inject.
-             * Warning:
-             * Be careful using the code parameter. Incorrect use of it may open your extension to cross site scripting attacks.
-             * @type {string}
-             * @memberof InjectDetails
+             * **Warning**
+             * Be careful using the code parameter.
+             * Incorrect use of it may open your app
+             * to cross site scripting attacks.
+             * @see[More information]{https://en.wikipedia.org/wiki/Cross-site_scripting}
              */
-            code?: string;
-            /**
-              * JavaScript or CSS file to inject.
-             * @type {string}
-             * @memberof InjectDetails
-             */
-            file?: string;
-            /**
-              * If allFrames is true, implies that the JavaScript or CSS should be injected into all frames of current page. By default, it's false and is only injected into the top frame. If true and frameId is set, then the code is inserted in the selected frame and all of its child frames.
-             * @type {boolean}
-             * @memberof InjectDetails
-             */
-            allFrames?: boolean;
-            /**
-              * The frame where the script or CSS should be injected. Defaults to 0 (the top-level frame).
-             * @since Since Chrome 50.
-             * @type {number}
-             * @memberof InjectDetails
-             */
-            frameId?: number;
-            /**
-              * If matchAboutBlank is true, then the code is also injected in about:blank and about:srcdoc frames if your extension has access to its parent document. Code cannot be inserted in top-level about:-frames. By default it is false.
-             * @type {boolean}
-             * @memberof InjectDetails
-             */
-            matchAboutBlank?: boolean;
-            /**
-              * The soonest that the JavaScript or CSS will be injected into the tab. Defaults to 'document_idle'.
-             * @type {RunAt}
-             * @memberof InjectDetails
-             */
-            runAt: RunAt;
-            /**
-              * The origin of the CSS to inject. This may only be specified for CSS, not JavaScript. Defaults to 'author'.
-             * @since Since Chrome 66.
-             * @type {CSSOrigin}
-             * @memberof InjectDetails
-             */
-            cssOrigin: CSSOrigin;
+            code: string;
         }
     }
 
-    ////////////////////
-    // FileSystem
-    ////////////////////
+    ////////////////
+    // FileSystem //
+    ////////////////
     /**
      * Use the chrome.fileSystem API to create, read, navigate, and write to the user's local file system.
      * With this API, Chrome Apps can read and write to a user-selected location.
      * For example, a text editor app can use the API to read and write local documents.
      * All failures are notified via chrome.runtime.lastError.
+     * @since Availability: Since Chrome 24.
+     * @requires Permissions:
+     *   "fileSystem"
+     *   {"fileSystem": ["write"]}
+     *   {"fileSystem": ["write", "retainEntries", "directory"]}
      */
     namespace fileSystem {
-
+        enum ChildChangeType {
+            'created',
+            'removed',
+            'changed'
+        }
+        enum ChooseEntryOptionsTypes {
+            'openFile',
+            'openWritableFile',
+            'saveFile',
+            'openDirectory'
+        }
         interface AcceptOptions {
             /**
              * This is the optional text description for this option.
@@ -2370,16 +2461,26 @@ declare namespace chrome {
             /**
              * Type of the prompt to show. The default is 'openFile'.
              * openFile
-             *  - Prompts the user to open an existing file and returns a FileEntry on success. From Chrome 31 onwards, the FileEntry will be writable if the application has the 'write' permission under 'fileSystem'; otherwise, the FileEntry will be read-only.
+             *  - Prompts the user to open an existing file and returns a FileEntry on success.
+             *    From Chrome 31 onwards, the FileEntry will be writable if the application has
+             *    the 'write' permission under 'fileSystem'; otherwise, the FileEntry will be read-only.
              * openWritableFile
-             *  - Prompts the user to open an existing file and returns a writable FileEntry on success. Calls using this type will fail with a runtime error if the application doesn't have the 'write' permission under 'fileSystem'.
+             *  - Prompts the user to open an existing file and returns a writable FileEntry on success.
+             *    Calls using this type will fail with a runtime error if the application doesn't have the
+             *    'write' permission under 'fileSystem'.
              * saveFile
-             *  - Prompts the user to open an existing file or a new file and returns a writable FileEntry on success. Calls using this type will fail with a runtime error if the application doesn't have the 'write' permission under 'fileSystem'.
+             *  - Prompts the user to open an existing file or a new file and returns a writable FileEntry
+             *    on success. Calls using this type will fail with a runtime error if the application doesn't
+             *    have the 'write' permission under 'fileSystem'.
              * openDirectory
-             *  - Prompts the user to open a directory and returns a DirectoryEntry on success. Calls using this type will fail with a runtime error if the application doesn't have the 'directory' permission under 'fileSystem'. If the application has the 'write' permission under 'fileSystem', the returned DirectoryEntry will be writable; otherwise it will be read-only. New in Chrome 31.
+             *  - Prompts the user to open a directory and returns a DirectoryEntry on success. Calls using
+             *    this type will fail with a runtime error if the application doesn't have the 'directory'
+             *    permission under 'fileSystem'. If the application has the 'write' permission under
+             *    'fileSystem', the returned DirectoryEntry will be writable; otherwise it will be read-only.
+             *    New in Chrome 31.
              */
-            type?: 'openFile' | 'openWritableFile' | 'saveFile' | 'openDirectory';
-            /** The suggested file name that will be presented to the user as the default name to read or write. This is */
+            type?: ChooseEntryOptionsTypes;
+            /** The suggested file name that will be presented to the user as the default name to read or write. */
             suggestedName?: string;
             /** The optional list of accept options for this file opener. Each option will be presented as a unique group to the end-user. */
             accepts?: AcceptOptions[];
@@ -2390,17 +2491,23 @@ declare namespace chrome {
             acceptsAllTypes?: boolean;
             /**
              * Whether to accept multiple files. This is only supported for openFile and openWritableFile.
-             * The callback to chooseEntry will be called with a list of entries if this is set to true. Otherwise it will be called with a single Entry.
+             * The callback to chooseEntry will be called with a list of entries if this is set to true.
+             * Otherwise it will be called with a single Entry.
+             * @since Chrome 30.
              */
             acceptsMultiple?: boolean;
         }
 
-        type ChildChangeType = 'created' | 'removed' | 'changed';
-
+        /**
+         * @since Chrome 44.
+         */
         interface Volume {
             /** The ID of the requested volume. */
             volumeId: string;
-            /** Whether the requested file system should be writable. The default is read-only. */
+            /**
+             * Whether the requested file system should be writable. The default is read-only.
+             * @default false
+             **/
             writable?: boolean;
         }
 
@@ -2426,13 +2533,17 @@ declare namespace chrome {
         function chooseEntry(options: ChooseEntryOptions, callback: (fileEntries: FileEntry[]) => void): void;
         /** Returns the file entry with the given id if it can be restored. This call will fail with a runtime error otherwise. */
         function restoreEntry(id: string, callback: (entry: Entry) => void): void;
-        /** Returns whether the app has permission to restore the entry with the given id. */
+        /**
+         * Returns whether the app has permission to restore the entry with the given id.
+         * @since Chrome 29.
+         **/
         function isRestorable(id: string, callback: (isRestorable: boolean) => void): void;
         /**
          * Returns an id that can be passed to restoreEntry to regain access to a given file entry.
          * Only the 500 most recently used entries are retained, where calls to retainEntry and restoreEntry count as use.
          * If the app has the 'retainEntries' permission under 'fileSystem', entries are retained indefinitely.
          * Otherwise, entries are retained only while the app is running and across restarts.
+         * @since Chrome 29.
          * */
         function retainEntry(entry: Entry): string;
         /**
@@ -2443,6 +2554,7 @@ declare namespace chrome {
          * Available to kiosk apps running in kiosk session only.
          * For manual-launch kiosk mode, a confirmation dialog will be shown on top of the active app window.
          * In case of an error, fileSystem will be undefined, and chrome.runtime.lastError will be set.
+         * @since Chrome 44.
          */
         function requestFileSystem(options: Volume, callback: (fileSystem: FileSystem) => void): void;
         /**
@@ -2450,8 +2562,13 @@ declare namespace chrome {
          * The 'fileSystem': {'requestFileSystem'} manifest permission is required.
          * Available to kiosk apps running in the kiosk session only.
          * In case of an error, volumes will be undefined, and chrome.runtime.lastError will be set.
+         * @since Chrome 44.
          */
         function getVolumeList(callback: (volumes: Volume[]) => void): void;
+        /**
+         * Called when a list of available volumes is changed.
+         * @since Chrome 44.
+         */
         var onVolumeListChanged: chrome.events.Event<(object: Volume[]) => void>;
     }
 
@@ -2460,76 +2577,165 @@ declare namespace chrome {
     // File System Provider
     ////////////////////
     /**
-     * Use the chrome.fileSystemProvider API to create file systems, that can be accessible from the file manager on Chrome OS.
-     * Availability: Since Chrome 40.
-     * Permissions:  'fileSystemProvider'
-     * Important: This API works only on Chrome OS.
+     * Use the chrome.fileSystemProvider API to create file systems,
+     * that can be accessible from the file manager on Chrome OS.
+     * @since Availability: Since Chrome 40.
+     * @requires Permissions: 'fileSystemProvider'
+     * @requires Important: This API works only on Chrome OS.
+     * @requires Manifest:
+     * Requires an section in addition to the permission.
+     * The file_system_provider section must be declared as follows:
+     * **configurable (boolean)** - optional
+     * Whether configuring via onConfigureRequested is supported. By default: false.
+     * **multiple_mounts (boolean)** - optional
+     * Whether multiple (more than one) mounted file systems are supported. By default: false.
+     * **watchable (boolean)** - optional
+     * Whether setting watchers and notifying about changes is supported. By default: false.
+     * **source (enum of "file", "device", or "network") - required**
+     * Source of data for mounted file systems.
+     * @description
+     * Files app uses above information in order to render related UI elements approprietly.
+     * For example, if configurable is set to true, then a menu item for configuring volumes
+     * will be rendered. Similarly, if multiple_mounts is set to true, then Files app will
+     * allow to add more than one mount points from the UI. If watchable is false, then a
+     * refresh button will be rendered. Note, that if possible you should add support for
+     * watchers, so changes on the file system can be reflected immediately and automatically.
+     * @see[More information]{@link https://developer.chrome.com/apps/fileSystemProvider}
      */
     namespace fileSystemProvider {
-        interface OpenedFileInfo {
-            /** A request ID to be be used by consecutive read/write and close requests. */
-            openRequestId: number;
-            /** The path of the opened file. */
-            filePath: string;
-            /** Whether the file was opened for reading or writing. */
-            mode: string;
+        /**
+         * Error codes used by providing extensions in response to requests
+         * as well as in case of errors when calling methods of the API.
+         * For success, "OK" must be used.
+         * */
+        enum ProviderError {
+            "OK",
+            "FAILED",
+            "IN_USE",
+            "EXISTS",
+            "NOT_FOUND",
+            "ACCESS_DENIED",
+            "TOO_MANY_OPENED",
+            "NO_MEMORY",
+            "NO_SPACE",
+            "NOT_A_DIRECTORY",
+            "INVALID_OPERATION",
+            "SECURITY",
+            "ABORT",
+            "NOT_A_FILE",
+            "NOT_EMPTY",
+            "INVALID_URL",
+            "IO"
         }
-
-        interface FileWatchersInfo {
-            /** The path of the entry being observed. */
-            entryPath: string;
-            /** Whether watching should include all child entries recursively. It can be true for directories only. */
-            recursive: boolean;
-            /** Tag used by the last notification for the watcher.  */
-            lastTag?: string;
+        /** Mode of opening a file. Used by onOpenFileRequested. */
+        enum OpenFileMode {
+            "READ",
+            "WRITE"
+        }
+        /** Type of a change detected on the observed directory. */
+        enum ChangeType {
+            "CHANGED",
+            "DELETED"
+        }
+        /**
+         * List of common actions. "SHARE" is for sharing files with others.
+         * "SAVE_FOR_OFFLINE" for pinning (saving for offline access).
+         * "OFFLINE_NOT_NECESSARY" for notifying that the file doesn't
+         * need to be stored for offline access anymore.
+         * Used by onGetActionsRequested and onExecuteActionRequested.
+         */
+        enum CommonActionId {
+            "SAVE_FOR_OFFLINE",
+            "OFFLINE_NOT_NECESSARY",
+            "SHARE"
         }
 
         interface EntryMetadata {
-            /** True if it is a directory. */
-            isDirectory: boolean;
-            /** Name of this entry (not full path name). Must not contain '/'. For root it must be empty. */
-            name: string;
-            /** File size in bytes. */
-            size: number;
+            /** True if it is a directory. Must be provided if requested in options */
+            isDirectory?: boolean;
+            /**
+             * Name of this entry (not full path name).
+             * Must not contain '/'.
+             * For root it must be empty.
+             * Must be provided if requested in options.
+             **/
+            name?: string;
+            /** File size in bytes. Must be provided if requested in options. */
+            size?: double;
             /** The last modified time of this entry. */
-            modificationTime: any;
+            modificationTime?: Date;
             /** Mime type for the entry.  */
             mimeType?: string;
-            /** Thumbnail image as a data URI in either PNG, JPEG or WEBP format, at most 32 KB in size. Optional, but can be provided only when explicitly requested by the onGetMetadataRequested event.  */
+            /**
+             * Thumbnail image as a data URI in either PNG, JPEG or WEBP format, at most 32 KB in size.
+             * Optional, but can be provided only when explicitly requested
+             * by the onGetMetadataRequested event.
+             */
             thumbnail?: string;
         }
 
         interface FileSystemInfo {
             /** The identifier of the file system. */
             fileSystemId: string;
+
             /** A human-readable name for the file system. */
             displayName: string;
-            /** Whether the file system supports operations which may change contents of the file system (such as creating, deleting or writing to files). */
+
+            /**
+             * Whether the file system supports operations which may
+             * change contents of the file system (such as creating, deleting or writing to files).
+             */
             writable: boolean;
+
             /**
              * The maximum number of files that can be opened at once. If 0, then not limited.
              * @since Since Chrome 42.
              */
-            openedFilesLimit: number;
+            openedFilesLimit: integer;
+
             /**
              * List of currently opened files.
              * @since Since Chrome 42.
              */
             openedFiles: OpenedFileInfo[];
+
             /**
-             * Optional.
-              * Whether the file system supports the tag field for observing directories.
-             * @since Since Chrome 45. Warning: this is the current Beta channel.
+             * Whether the file system supports the tag field for observing directories.
+             * @since Since Chrome 45.
              */
             supportsNotifyTag?: boolean;
+
             /**
              * List of watchers.
-             * @since Since Chrome 45. Warning: this is the current Beta channel.
+             * @since Since Chrome 45.
              */
             watchers: FileWatchersInfo[];
         }
 
-        /** @since Since Chrome 45. Warning: this is the current Beta channel. */
+        interface OpenedFileInfo {
+            /** A request ID to be be used by consecutive read/write and close requests. */
+            openRequestId: integer;
+            /** The path of the opened file. */
+            filePath: string;
+            /** Whether the file was opened for reading or writing. */
+            mode: OpenFileMode;
+        }
+
+        interface FileWatchersInfo {
+            /** The path of the entry being observed. */
+            entryPath: string;
+
+            /**
+             * Whether watching should include all child entries recursively.
+             * It can be true for directories only.
+             */
+            recursive: boolean;
+
+            /** Tag used by the last notification for the watcher.  */
+            lastTag?: string;
+        }
+
+        /** @since Since Chrome 45. */
         interface GetActionsRequestedOptions {
             /** The identifier of the file system related to this operation. */
             fileSystemId: string;
@@ -2539,15 +2745,14 @@ declare namespace chrome {
             entryPath: string;
         }
 
-        /** @since Since Chrome 45. Warning: this is the current Beta channel. */
         interface Action {
             /** The identifier of the action. Any string or CommonActionId for common actions. */
-            id: string;
+            id: CommonActionId | string;
             /** The title of the action. It may be ignored for common actions.  */
             title?: string;
         }
 
-        /** @since Since Chrome 45. Warning: this is the current Beta channel. */
+        /** @since Since Chrome 45. */
         interface ExecuteActionRequestedOptions {
             /** The identifier of the file system related to this operation. */
             fileSystemId: string;
@@ -2564,20 +2769,27 @@ declare namespace chrome {
             fileSystemId: string;
             /** A human-readable name for the file system. */
             displayName: string;
-            /** Whether the file system supports operations which may change contents of the file system (such as creating, deleting or writing to files).  */
+            /**
+             * Whether the file system supports operations which may change contents
+             * of the file system (such as creating, deleting or writing to files).
+             */
             writable?: boolean;
             /**
-             * Optional.
-              * The maximum number of files that can be opened at once. If not specified, or 0, then not limited.
+             * The maximum number of files that can be opened at once. If not specified, or 0, then not limited.
              * @since Since Chrome 41.
              */
             openedFilesLimit?: number;
             /**
-             * Optional.
-              * Whether the file system supports the tag field for observed directories.
-             * @since Since Chrome 45. Warning: this is the current Beta channel.
+             * Whether the file system supports the tag field for observed directories.
+             * @since Since Chrome 45.
              */
             supportsNotifyTag?: boolean;
+            /**
+             * Whether the framework should resume the file system at the next sign-in session.
+             * @default true
+             * @since Since Chrome 64.
+             */
+            persistent?: boolean;
         }
 
         interface UnmountOptions {
@@ -2589,7 +2801,7 @@ declare namespace chrome {
             /** The path of the changed entry. */
             entryPath: string;
             /** The type of the change which happened to the entry. */
-            changeType: string;
+            changeType: ChangeType;
         }
 
         interface NotificationOptions {
@@ -2599,11 +2811,20 @@ declare namespace chrome {
             observedPath: string;
             /** Mode of the observed entry. */
             recursive: boolean;
-            /** The type of the change which happened to the observed entry. If it is DELETED, then the observed entry will be automatically removed from the list of observed entries. */
-            changeType: string;
+            /**
+             * The type of the change which happened to the observed entry.
+             * If it is DELETED, then the observed entry will be automatically
+             * removed from the list of observed entries.
+             */
+            changeType: ChangeType;
             /** List of changes to entries within the observed directory (including the entry itself)  */
             changes?: NotificationChange[];
-            /** Tag for the notification. Required if the file system was mounted with the supportsNotifyTag option. Note, that this flag is necessary to provide notifications about changes which changed even when the system was shutdown.  */
+            /**
+             * Tag for the notification.
+             * Required if the file system was mounted with the supportsNotifyTag option.
+             * Note, that this flag is necessary to provide notifications about changes
+             * which changed even when the system was shutdown.
+             */
             tag?: string;
         }
 
@@ -2611,7 +2832,7 @@ declare namespace chrome {
             /** The identifier of the file system related to this operation. */
             fileSystemId: string;
             /** The unique identifier of this request. */
-            requestId: number;
+            requestId: integer;
         }
 
         interface EntryPathRequestedEventOptions extends RequestedEventOptions {
@@ -2619,7 +2840,37 @@ declare namespace chrome {
             entryPath: string;
         }
 
+        interface GetActionsRequestedEventOptions extends RequestedEventOptions {
+            /** The path of the entry to which this operation is related to. */
+            entryPaths: string[];
+        }
+
         interface MetadataRequestedEventOptions extends EntryPathRequestedEventOptions {
+            /**
+             * Set to true if is_directory value is requested
+             * @since Chrome 49.
+             */
+            isDirectory: boolean;
+            /**
+             * Set to true if is_directory value is requested.
+             * @since Chrome 49.
+             */
+            name: boolean;
+            /**
+             * Set to true if size value is requested.
+             * @since Chrome 49.
+             */
+            size: boolean;
+            /**
+             * Set to true if modificationTime value is requested
+             * @since Chrome 49.
+             */
+            modificationTime: boolean;
+            /**
+             * Set to true if mimeType value is requested.
+             * @since Chrome 49.
+             */
+            mimeType: boolean;
             /** Set to true if the thumbnail is requested. */
             thumbnail: boolean;
         }
@@ -2636,19 +2887,19 @@ declare namespace chrome {
 
         interface OpenFileRequestedEventOptions extends FilePathRequestedEventOptions {
             /** Whether the file will be used for reading or writing. */
-            mode: string;
+            mode: OpenFileMode;
         }
 
         interface OpenedFileRequestedEventOptions extends RequestedEventOptions {
             /** A request ID used to open the file. */
-            openRequestId: number;
+            openRequestId: integer;
         }
 
-        interface OpenedFileOffsetRequestedEventOptions extends OpenedFileRequestedEventOptions {
+        interface ReadFileRequestedEventOptions extends OpenedFileRequestedEventOptions {
             /** Position in the file (in bytes) to start reading from. */
-            offset: number;
+            offset: double;
             /** Number of bytes to be returned. */
-            length: number;
+            length: double;
         }
 
         interface DirectoryPathRecursiveRequestedEventOptions extends DirectoryPathRequestedEventOptions {
@@ -2685,33 +2936,35 @@ declare namespace chrome {
             operationRequestId: number;
         }
 
-        interface RequestedEvent extends chrome.events.Event<(options: RequestedEventOptions, successCallback: Function, errorCallback: (error: string) => void) => void> { }
+        interface RequestedEvent extends chrome.events.Event<(options: RequestedEventOptions, successCallback: Function, errorCallback: (error: ProviderError) => void) => void> { }
 
-        interface MetadataRequestedEvent extends chrome.events.Event<(options: MetadataRequestedEventOptions, successCallback: (metadata: EntryMetadata) => void, errorCallback: (error: string) => void) => void> { }
+        interface MetadataRequestedEvent extends chrome.events.Event<(options: MetadataRequestedEventOptions, successCallback: (metadata: EntryMetadata) => void, errorCallback: (error: ProviderError) => void) => void> { }
 
-        interface DirectoryPathRequestedEvent extends chrome.events.Event<(options: DirectoryPathRequestedEventOptions, successCallback: (entries: EntryMetadata[], hasMore: boolean) => void, errorCallback: (error: string) => void) => void> { }
+        interface ActionsRequestedEvent extends chrome.events.Event<(options: GetActionsRequestedEventOptions, successCallback: (actions: Action[]) => void, errorCallback: (error: ProviderError) => void) => void> { }
 
-        interface OpenFileRequestedEvent extends chrome.events.Event<(options: OpenFileRequestedEventOptions, successCallback: Function, errorCallback: (error: string) => void) => void> { }
+        interface DirectoryPathRequestedEvent extends chrome.events.Event<(options: DirectoryPathRequestedEventOptions, successCallback: (entries: EntryMetadata[], hasMore: boolean) => void, errorCallback: (error: ProviderError) => void) => void> { }
 
-        interface OpenedFileRequestedEvent extends chrome.events.Event<(options: OpenedFileRequestedEventOptions, successCallback: Function, errorCallback: (error: string) => void) => void> { }
+        interface OpenFileRequestedEvent extends chrome.events.Event<(options: OpenFileRequestedEventOptions, successCallback: Function, errorCallback: (error: ProviderError) => void) => void> { }
 
-        interface OpenedFileOffsetRequestedEvent extends chrome.events.Event<(options: OpenedFileOffsetRequestedEventOptions, successCallback: (data: ArrayBuffer, hasMore: boolean) => void, errorCallback: (error: string) => void) => void> { }
+        interface OpenedFileRequestedEvent extends chrome.events.Event<(options: OpenedFileRequestedEventOptions, successCallback: Function, errorCallback: (error: ProviderError) => void) => void> { }
 
-        interface DirectoryPathRecursiveRequestedEvent extends chrome.events.Event<(options: DirectoryPathRecursiveRequestedEventOptions, successCallback: Function, errorCallback: (error: string) => void) => void> { }
+        interface ReadFileRequestedEvent extends chrome.events.Event<(options: ReadFileRequestedEventOptions, successCallback: (data: ArrayBuffer, hasMore: boolean) => void, errorCallback: (error: ProviderError) => void) => void> { }
 
-        interface EntryPathRecursiveRequestedEvent extends chrome.events.Event<(options: EntryPathRecursiveRequestedEventOptions, successCallback: Function, errorCallback: (error: string) => void) => void> { }
+        interface DirectoryPathRecursiveRequestedEvent extends chrome.events.Event<(options: DirectoryPathRecursiveRequestedEventOptions, successCallback: Function, errorCallback: (error: ProviderError) => void) => void> { }
 
-        interface FilePathRequestedEvent extends chrome.events.Event<(options: FilePathRequestedEventOptions, successCallback: Function, errorCallback: (error: string) => void) => void> { }
+        interface EntryPathRecursiveRequestedEvent extends chrome.events.Event<(options: EntryPathRecursiveRequestedEventOptions, successCallback: Function, errorCallback: (error: ProviderError) => void) => void> { }
 
-        interface SourceTargetPathRequestedEvent extends chrome.events.Event<(options: SourceTargetPathRequestedEventOptions, successCallback: Function, errorCallback: (error: string) => void) => void> { }
+        interface FilePathRequestedEvent extends chrome.events.Event<(options: FilePathRequestedEventOptions, successCallback: Function, errorCallback: (error: ProviderError) => void) => void> { }
 
-        interface FilePathLengthRequestedEvent extends chrome.events.Event<(options: FilePathLengthRequestedEventOptions, successCallback: Function, errorCallback: (error: string) => void) => void> { }
+        interface SourceTargetPathRequestedEvent extends chrome.events.Event<(options: SourceTargetPathRequestedEventOptions, successCallback: Function, errorCallback: (error: ProviderError) => void) => void> { }
 
-        interface OpenedFileIoRequestedEvent extends chrome.events.Event<(options: OpenedFileIoRequestedEventOptions, successCallback: Function, errorCallback: (error: string) => void) => void> { }
+        interface FilePathLengthRequestedEvent extends chrome.events.Event<(options: FilePathLengthRequestedEventOptions, successCallback: Function, errorCallback: (error: ProviderError) => void) => void> { }
 
-        interface OperationRequestedEvent extends chrome.events.Event<(options: OperationRequestedEventOptions, successCallback: Function, errorCallback: (error: string) => void) => void> { }
+        interface OpenedFileIoRequestedEvent extends chrome.events.Event<(options: OpenedFileIoRequestedEventOptions, successCallback: Function, errorCallback: (error: ProviderError) => void) => void> { }
 
-        interface OptionlessRequestedEvent extends chrome.events.Event<(successCallback: Function, errorCallback: (error: string) => void) => void> { }
+        interface OperationRequestedEvent extends chrome.events.Event<(options: OperationRequestedEventOptions, successCallback: Function, errorCallback: (error: ProviderError) => void) => void> { }
+
+        interface OptionlessRequestedEvent extends chrome.events.Event<(successCallback: Function, errorCallback: (error: ProviderError) => void) => void> { }
 
         /**
          * Mounts a file system with the given fileSystemId and displayName. displayName will be shown in the left panel of Files.app. displayName can contain any characters including '/', but cannot be an empty string. displayName must be descriptive but doesn't have to be unique. The fileSystemId must not be an empty string.
@@ -2722,6 +2975,7 @@ declare namespace chrome {
          * function() {...};
          */
         function mount(options: MountOptions, callback?: () => void): void;
+
         /**
          * Unmounts a file system with the given fileSystemId. It must be called after onUnmountRequested is invoked. Also, the providing extension can decide to perform unmounting if not requested (eg. in case of lost connection, or a file error).
          * In case of an error, runtime.lastError will be set with a corresponding error code.
@@ -2730,6 +2984,7 @@ declare namespace chrome {
          * function() {...};
          */
         function unmount(options: UnmountOptions, callback?: () => void): void;
+
         /**
          * Returns all file systems mounted by the extension.
           * @param callback Callback to receive the result of getAll function.
@@ -2737,6 +2992,7 @@ declare namespace chrome {
          * function(array of FileSystemInfo fileSystems) {...};
          */
         function getAll(callback: (fileSystems: FileSystemInfo[]) => void): void;
+
         /**
          * Returns information about a file system with the passed fileSystemId.
          * @since Since Chrome 42.
@@ -2745,6 +3001,7 @@ declare namespace chrome {
          * function(FileSystemInfo fileSystem) {...};
          */
         function get(fileSystemId: string, callback: (fileSystem: FileSystemInfo) => void): void;
+
         /**
          * Notifies about changes in the watched directory at observedPath in recursive mode. If the file system is mounted with supportsNofityTag, then tag must be provided, and all changes since the last notification always reported, even if the system was shutdown. The last tag can be obtained with getAll.
          * To use, the file_system_provider.notify manifest option must be set to true.
@@ -2758,34 +3015,108 @@ declare namespace chrome {
          */
         function notify(options: NotificationOptions, callback: () => void): void;
 
-        /** Raised when unmounting for the file system with the fileSystemId identifier is requested. In the response, the unmount API method must be called together with successCallback. If unmounting is not possible (eg. due to a pending operation), then errorCallback must be called.  */
+        /**
+         * Raised when unmounting for the file system with the fileSystemId identifier is requested.
+         * In the response, the unmount API method must be called together with successCallback.
+         * If unmounting is not possible (eg. due to a pending operation), then errorCallback must be called.
+         */
         var onUnmountRequested: RequestedEvent;
-        /** Raised when metadata of a file or a directory at entryPath is requested. The metadata must be returned with the successCallback call. In case of an error, errorCallback must be called. */
+
+        /**
+         * Raised when metadata of a file or a directory at entryPath is requested.
+         * The metadata must be returned with the successCallback call.
+         * In case of an error, errorCallback must be called.
+         */
         var onGetMetadataRequested: MetadataRequestedEvent;
-        /** Raised when contents of a directory at directoryPath are requested. The results must be returned in chunks by calling the successCallback several times. In case of an error, errorCallback must be called. */
+
+        /**
+         * Raised when a list of actions for a set of files or directories at entryPaths is requested.
+         * All of the returned actions must be applicable to each entry.
+         * If there are no such actions, an empty array should be returned.
+         * The actions must be returned with the successCallback call.
+         * In case of an error, errorCallback must be called.
+         * @since Since Chrome 48.
+         **/
+        var onGetActionsRequested: ActionsRequestedEvent;
+
+        /**
+         * Raised when contents of a directory at directoryPath are requested.
+         * The results must be returned in chunks by calling the successCallback several times.
+         * In case of an error, errorCallback must be called.
+         */
         var onReadDirectoryRequested: DirectoryPathRequestedEvent;
-        /** Raised when opening a file at filePath is requested. If the file does not exist, then the operation must fail. Maximum number of files opened at once can be specified with MountOptions. */
+
+        /**
+         * Raised when opening a file at filePath is requested.
+         * If the file does not exist, then the operation must fail.
+         * Maximum number of files opened at once can be specified with MountOptions.
+         */
         var onOpenFileRequested: OpenFileRequestedEvent;
-        /** Raised when opening a file previously opened with openRequestId is requested to be closed. */
+
+        /**
+         * Raised when opening a file previously opened
+         * with openRequestId is requested to be closed.
+         */
         var onCloseFileRequested: OpenedFileRequestedEvent;
-        /** Raised when reading contents of a file opened previously with openRequestId is requested. The results must be returned in chunks by calling successCallback several times. In case of an error, errorCallback must be called. */
-        var onReadFileRequested: OpenedFileOffsetRequestedEvent;
-        /** Raised when creating a directory is requested. The operation must fail with the EXISTS error if the target directory already exists. If recursive is true, then all of the missing directories on the directory path must be created. */
+
+        /**
+         * Raised when reading contents of a file opened previously with openRequestId is requested.
+         * The results must be returned in chunks by calling successCallback several times.
+         * In case of an error, errorCallback must be called.
+         */
+        var onReadFileRequested: ReadFileRequestedEvent;
+
+        /**
+         * Raised when creating a directory is requested.
+         * The operation must fail with the EXISTS error if the target directory already exists.
+         * If recursive is true, then all of the missing directories on the directory path must be created.
+         */
         var onCreateDirectoryRequested: DirectoryPathRecursiveRequestedEvent;
-        /** Raised when deleting an entry is requested. If recursive is true, and the entry is a directory, then all of the entries inside must be recursively deleted as well. */
+
+        /**
+         * Raised when deleting an entry is requested.
+         * If recursive is true, and the entry is a directory,
+         * then all of the entries inside must be recursively deleted as well.
+         */
         var onDeleteEntryRequested: EntryPathRecursiveRequestedEvent;
-        /** Raised when creating a file is requested. If the file already exists, then errorCallback must be called with the 'EXISTS' error code. */
+
+        /**
+         * Raised when creating a file is requested.
+         * If the file already exists, then errorCallback must be called with the 'EXISTS' error code.
+         */
         var onCreateFileRequested: FilePathRequestedEvent;
-        /** Raised when copying an entry (recursively if a directory) is requested. If an error occurs, then errorCallback must be called. */
+
+        /**
+         * Raised when copying an entry (recursively if a directory) is requested.
+         * If an error occurs, then errorCallback must be called.
+         */
         var onCopyEntryRequested: SourceTargetPathRequestedEvent;
-        /** Raised when moving an entry (recursively if a directory) is requested. If an error occurs, then errorCallback must be called. */
+
+        /**
+         * Raised when moving an entry (recursively if a directory) is requested.
+         * If an error occurs, then errorCallback must be called.
+         */
         var onMoveEntryRequested: SourceTargetPathRequestedEvent;
-        /** Raised when truncating a file to a desired length is requested. If an error occurs, then errorCallback must be called. */
+
+        /**
+         * Raised when truncating a file to a desired length is requested.
+         * If an error occurs, then errorCallback must be called.
+         */
         var onTruncateRequested: FilePathLengthRequestedEvent;
+
         /** Raised when writing contents to a file opened previously with openRequestId is requested. */
         var onWriteFileRequested: OpenedFileIoRequestedEvent;
-        /** Raised when aborting an operation with operationRequestId is requested. The operation executed with operationRequestId must be immediately stopped and successCallback of this abort request executed. If aborting fails, then errorCallback must be called. Note, that callbacks of the aborted operation must not be called, as they will be ignored. Despite calling errorCallback, the request may be forcibly aborted. */
+
+        /**
+         * Raised when aborting an operation with operationRequestId is requested.
+         * The operation executed with operationRequestId must be immediately stopped
+         * and successCallback of this abort request executed. If aborting fails,
+         * then errorCallback must be called. Note, that callbacks of the aborted
+         * operation must not be called, as they will be ignored. Despite calling
+         * errorCallback, the request may be forcibly aborted.
+         */
         var onAbortRequested: OperationRequestedEvent;
+
         /**
          * Raised when showing a configuration dialog for fileSystemId is requested. If it's handled, the file_system_provider.configurable manfiest option must be set to true.
          * @since Since Chrome 44.
@@ -2798,14 +3129,20 @@ declare namespace chrome {
         var onMountRequested: OptionlessRequestedEvent;
         /**
          * Raised when setting a new directory watcher is requested. If an error occurs, then errorCallback must be called.
-         * @since Since Chrome 45. Warning: this is the current Beta channel.
+         * @since Since Chrome 45.
          */
         var onAddWatcherRequested: EntryPathRecursiveRequestedEvent;
         /**
          * Raised when the watcher should be removed. If an error occurs, then errorCallback must be called.
-         * @since Since Chrome 45. Warning: this is the current Beta channel.
+         * @since Since Chrome 45.
          */
         var onRemoveWatcherRequested: EntryPathRecursiveRequestedEvent;
+        /**
+         * Raised when executing an action for a set of files or directories is\ requested. After the action is completed,
+         * successCallback must be called. On error, errorCallback must be called.
+         * @since Since Chrome 48.
+         */
+        var onExecuteActionRequested: EntryPathRecursiveRequestedEvent;
     }
 
     ////////////////////
@@ -6324,10 +6661,9 @@ declare namespace chrome {
           * WebView element from html
          */
         interface HTMLWebViewElement extends HTMLElement {
-            /**
-             * This sets the guest content's window.name object.
-             */
+            /** This sets the guest content's window.name object.**/
             name: string;
+
             /**
              * Returns the visible URL. Mirrors the logic in the browser's omnibox: either returning a pending new navigation if initiated by the embedder page, or the last committed navigation. Writing to this attribute initiates top-level navigation.
              * Assigning src its own value will reload the current page.
@@ -6335,6 +6671,7 @@ declare namespace chrome {
              * The src attribute can also accept data URLs, such as 'data:text/plain,Hello, world!'.
              */
             src: string;
+
             /**
              * Storage partition ID used by the webview tag.
              * If the storage partition ID starts with persist: (partition='persist:googlepluswidgets'),
@@ -6345,6 +6682,7 @@ declare namespace chrome {
              * By assigning the same partition ID, multiple webviews can share the same storage partition.
              */
             partition?: string;
+
             /**
              * If present, portions of the embedder could be visible through the webview,
              * where the contents are transparent. Without allowtransparency enabled,
@@ -6353,19 +6691,25 @@ declare namespace chrome {
              * This does not affect transparency within the contents of the webview itself.
              */
             allowtransparency?: boolean;
+
             /**
              * If 'on', the webview container will automatically resize within the bounds specified by the attributes minwidth, minheight, maxwidth, and maxheight.
              * These constraints do not impact the webview UNLESS autosize is enabled.
              * When autosize is enabled, the webview container size cannot be less than the minimum values or greater than the maximum.
              */
             autosize?: 'on';
+
             /**
              * Object reference which can be used to post messages into the guest page.
              */
             contentWindow: ContentWindow;
+
             /** Interface which provides access to webRequest events on the guest page. */
             request: WebRequestEventInterface;
-            /** Similar to chrome's ContextMenus API, but applies to webview instead of browser. Use the webview.contextMenus API to add items to webview's context menu. You can choose what types of objects your context menu additions apply to, such as images, hyperlinks, and pages. */
+
+            /** Similar to chrome's ContextMenus API, but applies to webview instead of browser.
+             * Use the webview.contextMenus API to add items to webview's context menu.
+             * You can choose what types of objects your context menu additions apply to, such as images, hyperlinks, and pages. */
             contextMenus: webview.ContextMenus;
             /**
              * Fired when the guest window attempts to close itself.
@@ -7126,14 +7470,14 @@ declare namespace chrome {
              * @param updateProperties The properties to update. Accepts the same values as the create function.
              * @param [callback]
              */
-            update(id: number | string, updateProperties: object, callback?: () => void): void;
+            update(id: integer | string, updateProperties: object, callback?: () => void): void;
 
             /**
              * Removes a context menu item.
              * @param menuItemId The ID of the context menu item to remove.
              * @param [callback]
              */
-            remove(menuItemId: number | string, callback?: () => void): void;
+            remove(menuItemId: integer | string, callback?: () => void): void;
 
             /**
              * Removes all context menu items added to this webview.

@@ -432,5 +432,3 @@ chrome.syncFileSystem.getConflictResolutionPolicy((policy) => {
     }
 })
 chrome.contextMenus.ACTION_MENU_TOP_LEVEL_LIMIT;
-
-
