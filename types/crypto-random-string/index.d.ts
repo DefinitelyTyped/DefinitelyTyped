@@ -3,11 +3,11 @@
 // Definitions by: Manuel Warum <https://github.com/MrManny>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export = cryptoRandomString;
-
 /**
  * Generate a hexadecimal string of the given length.
  * @param length the length of the random string.
  * @return a string of the specified length.
  */
 declare function cryptoRandomString(length: number): string;
+
+export = cryptoRandomString;
