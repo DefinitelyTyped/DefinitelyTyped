@@ -1935,7 +1935,7 @@ declare namespace Cesium {
         semiMinorAxis: Property;
         rotation: Property;
         show: Property;
-        material: MaterialProperty;
+        material: MaterialProperty | Color;
         height: Property;
         extrudedHeight: Property;
         granularity: Property;
@@ -1952,7 +1952,7 @@ declare namespace Cesium {
             extrudedHeight?: Property;
             show?: Property;
             fill?: boolean;
-            material?: MaterialProperty;
+            material?: MaterialProperty | Color
             outline?: boolean;
             outlineColor?: Color;
             outlineWidth?: number;
