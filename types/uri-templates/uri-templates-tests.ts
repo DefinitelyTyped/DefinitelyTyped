@@ -3,7 +3,7 @@ import URITemplate = utmpl.URITemplate;
 
 let str: string;
 let u: URITemplate;
-const obj: { [key: string]: string } = { test: 'test1' };
+const obj = { test: 'test1' };
 
 u = utmpl(str);
 
