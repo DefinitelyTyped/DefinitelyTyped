@@ -1,10 +1,11 @@
+// Type definitions for react-no-ssr 1.1
+// Project: https://github.com/kadirahq/react-no-ssr
+// Definitions by: Rafał Filipek <https://github.com/rafalfilipek>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.6
+
 import * as React from 'react';
 
-declare module 'react-no-ssr' {
-    export default class NoSSR extends React.Component<
-        {
-            onSSR?: React.ReactChild;
-        },
-        {}
-    > {}
-}
+export default class NoSSR extends React.Component<{
+    onSSR?: React.ReactChild;
+}> {}
