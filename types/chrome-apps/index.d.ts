@@ -4068,30 +4068,49 @@ declare namespace chrome {
          */
         function setDetectionInterval(intervalInSeconds: integer): void;
 
-        /*** Fired when the system changes to an active, idle or locked state.
+        /**
+         * Fired when the system changes to an active, idle or locked state.
          * The event fires with 'locked' if the screen is locked or the screensaver activates,
          * 'idle' if the system is unlocked and the user has not generated any input for a
          * specified number of seconds, and 'active' when the user generates input on an idle system.
          */
-        var onStateChanged: chrome.events.Event<(newState: IdleState) => void>;
+        const onStateChanged: chrome.events.Event<(newState: IdleState) => void>;
     }
 
-    ////////////////////
-    // InstanceID
-    ////////////////////
+    ////////////////
+    // InstanceID //
+    ////////////////
     /**
      * Use chrome.instanceID to access the Instance ID service.
-     * Permissions: 'gcm'
+     * @requires Permissions: 'gcm'
      * @since Chrome 46
      */
     namespace instanceID {
         interface TokenParams {
+            /**
+             * Identifies the entity that is authorized to access resources associated with this Instance ID.
+             * It can be a project ID from Google developer console.
+             */
             authorizedEntity: string;
+            /**
+             * Identifies authorized actions that the authorized entity can take.
+             * E.g. for sending GCM messages, GCM scope should be used.
+             */
             scope: string;
+            /**
+             * Allows including a small number of string key/value pairs that will
+             * be associated with the token and may be used in processing the request.
+             */
             options?: { [key: string]: string };
         }
         interface DeleteTokenParams {
+            /**
+             * The authorized entity that is used to obtain the token.
+             */
             authorizedEntity: string;
+            /**
+             * The scope that is used to obtain the token.
+             */
             scope: string;
         }
         /**
@@ -4141,8 +4160,9 @@ declare namespace chrome {
     ////////////////////
     /**
      * Use the chrome.mdns API to discover services over mDNS.
-     * This comprises a subset of the features of the NSD spec: @see[Spec link]{@link http://www.w3.org/TR/discovery-api/}
-     * Permissions: 'mdns'
+     * This comprises a subset of the features of the NSD spec:
+     * @see[NSD Spec]{@link http://www.w3.org/TR/discovery-api/}
+     * @requires Permissions: 'mdns'
      * @since Chrome 31
      */
     namespace mdns {
@@ -4190,51 +4210,83 @@ declare namespace chrome {
     ////////////////////
     // Media Galleries
     ////////////////////
+    /**
+     * Use the chrome.mediaGalleries API to access media files (audio, images, video)
+     * from the user's local disks (with the user's consent).
+     * @since Available since Chrome 24.
+     * @requires Permissions: {"mediaGalleries": ["accessType1", "accessType2", ...]} 
+     *                        {"mediaGalleries": ["accessType1", "accessType2", ..., "allAutoDetected"]} 
+     * @see[More information]{@link https://developer.chrome.com/apps/mediaGalleries}
+     */
     namespace mediaGalleries {
-        interface MediaFileSystemsOptions {
-            interactive?: 'no' | 'yes' | 'if_needed';
+        enum Interactive {
+            'no',
+            'yes',
+            'if_needed'
         }
-
+        interface MediaFileSystemsOptions {
+            /**
+             * Whether to prompt the user for permission to additional media galleries before returning
+             * the permitted set. Default is silent. If the value 'yes' is passed, or if the application
+             * has not been granted access to any media galleries and the value 'if_needed' is passed,
+             * then the media gallery configuration dialog will be displayed.
+             * 
+             * **no**
+             * Do not act interactively.
+             * **yes**
+             * Ask the user to manage permitted media galleries.
+             * **if_needed**
+             * Ask the user to manage permitted galleries only if the return set would otherwise be empty.
+             */
+            interactive?: Interactive;
+        }
         interface MediaFileSystemMetadata {
+            /** The name of the file system. */
             name: string;
+            /** A unique and persistent id for the media gallery. */
             galleryId: string;
+            /** If the media gallery is on a removable device, a unique id for the device while the device is online. */
             deviceId?: string;
+            /** True if the media gallery is on a removable device. */
             isRemovable: boolean;
+            /** True if the device the media gallery is on was detected as a media device. i.e. a PTP or MTP device, or a DCIM directory is present. */
             isMediaDevice: boolean;
+            /** True if the device is currently available. */
             isAvailable: boolean;
         }
 
+        enum MetadataOptionsType {
+            'all',
+            'mimeTypeAndTags',
+            'mimeTypeOnly'
+        }
+
         interface MetadataOptions {
-            metadataType: 'all' | 'mimeTypeAndTags' | 'mimeTypeOnly';
+            metadataType: MetadataOptionsType;
         }
 
         interface RawTag {
+            /**
+             * Describes format of container or codec of stream, i.e. "mp3", "h264".
+             */
             type: string;
+            /**
+             * An unfiltered string->string dictionary of tags for the stream.
+             */
             tags: { [name: string]: string; };
         }
 
         interface Metadata {
-            // The browser sniffed mime type.
+            /** The browser sniffed mime type. */
             mimeType: string;
-            // Defined for images and video. In pixels.
-            height?: number;
-            width?: number;
-            // Defined for images only.
-            xResolution?: number;
-            yResolution?: number;
-            // Defined for audio and video. In seconds.
-            duration?: number;
-            // Defined for images and video. In degrees.
-            rotation?: number;
-            // Defined for images only.
-            cameraMake?: string;
-            cameraModel?: string;
-            exposureTimeSeconds?: number;
-            flashFired?: boolean;
-            fNumber?: number;
-            focalLengthMm?: number;
-            isoEquivalent?: number;
-            // Defined for audio and video only.
+            /** Defined for images and video. In pixels. */
+            height?: integer;
+            width?: integer;
+            /** Defined for audio and video. In seconds. */
+            duration?: integer;
+            /** Defined for images and video. In degrees. */
+            rotation?: integer;
+            /** Defined for audio and video only. */
             album?: string;
             artist?: string;
             comment?: string;
@@ -4244,9 +4296,16 @@ declare namespace chrome {
             language?: string;
             title?: string;
             track?: number;
-            // All the metadata in the media file. For formats with multiple streams, stream order will be preserved. Container metadata is the first element.
+            /**
+             * All the metadata in the media file.
+             * For formats with multiple streams, stream order will be preserved.
+             * Container metadata is the first element.
+             */
             rawTags: RawTag[];
-            // The images embedded in the media file's metadata. This is most often used for album art or video thumbnails.
+            /**
+             * The images embedded in the media file's metadata.
+             * This is most often used for album art or video thumbnails. 
+             */
             attachedImages: Blob[];
         }
 
@@ -4255,39 +4314,135 @@ declare namespace chrome {
             success: boolean;
         }
 
+        enum GalleryChangedType {
+            'contents_changed',
+            'watch_dropped'
+        }
         interface GalleryChangedEventArgs {
-            type: 'contents_changed' | 'watch_dropped';
+            type: GalleryChangedType;
             galleryId: string;
         }
 
+        enum ScanProgressType {
+            'start',
+            'cancel',
+            'finish',
+            'error'
+        }
+        
         interface ScanProgressEventArgs {
-            // The type of progress event, i.e. start, finish, etc.
-            type: 'start' | 'cancel' | 'finish' | 'error';
-            // The number of Galleries found.
-            galleryCount?: number;
-            // Appoximate number of media files found; some file types can be either audio or video and are included in both counts.
-            audioCount?: number;
-            imageCount?: number;
-            videoCount?: number;
+            /** The type of progress event, i.e. start, finish, etc. */
+            type: ScanProgressType;
+            /** The number of Galleries found. */
+            galleryCount?: integer;
+            /**
+             * Appoximate number of media files found;
+             * some file types can be either audio or video
+             * and are included in both counts.
+             */
+            audioCount?: integer;
+            imageCount?: integer;
+            videoCount?: integer;
         }
 
+        /**
+         * Get the media galleries configured in this user agent.
+         * If none are configured or available, the callback will receive an empty array.
+         */
         function getMediaFileSystems(callback: (mediaFileSystems: FileSystem[]) => void): void;
+        /**
+         * Get the media galleries configured in this user agent.
+         * If none are configured or available, the callback will receive an empty array.
+         */
         function getMediaFileSystems(options: MediaFileSystemsOptions, callback: (mediaFileSystems: FileSystem[]) => void): void;
+        /**
+         * Present a directory picker to the user and add the selected directory as a gallery.
+         * If the user cancels the picker, selectedFileSystemName will be empty.
+         * A user gesture is required for the dialog to display.
+         * Without a user gesture, the callback will run as though the user canceled.
+         * @since Since Chrome 34.
+         */
         function addUserSelectedFolder(callback: (mediaFileSystems: FileSystem[], selectedFileSystemName: string) => void): void;
+        /**
+         * @deprecated Deprecated since Chrome 51. The user can manually drop access to galleries via the permissions dialog.
+         * @description Give up access to a given media gallery.
+         */
         function dropPermissionForMediaFileSystem(galleryId: string, callback?: () => void): void;
+        /**
+         * @deprecated Deprecated since Chrome 51. The mediaGalleries API no longer supports scanning.
+         * @description
+         * Start a scan of the user's hard disks for directories containing media.
+         * The scan may take a long time so progress and completion is communicated by events.
+         * No permission is granted as a result of the scan, see addScanResults.
+         */
         function startMediaScan(): void;
+        /**
+         * @deprecated Deprecated since Chrome 51. The mediaGalleries API no longer supports scanning.
+         * @description
+         * Cancel any pending media scan.
+         * Well behaved apps should provide a way for the user to cancel scans they start.
+         */
         function cancelMediaScan(): void;
+        /**
+         * @deprecated Deprecated since Chrome 51. The mediaGalleries API no longer supports scanning.
+         * @description
+         * Show the user the scan results and let them add any or all of them as galleries.
+         * This should be used after the 'finish' onScanProgress() event has happened.
+         * All galleries the app has access to are returned, not just the newly added galleries.
+         */
         function addScanResults(callback: (mediaFileSystems: FileSystem[]) => void): void;
+        /**
+         * Get metadata about a specific media file system
+         * @since Since Chrome 26.
+         */
         function getMediaFileSystemMetadata(mediaFileSystem: FileSystem): MediaFileSystemMetadata;
+        /**
+         * @deprecated Deprecated since Chrome 51. Use getMediaFileSystemMetadata instead
+         * Get metadata for all available media galleries.
+         */
         function getAllMediaFileSystemMetadata(callback: (metadatas: MediaFileSystemMetadata[]) => void): void;
+        /**
+         * Gets the media-specific metadata for a media file.
+         * This should work for files in media galleries as well as other DOM filesystems.
+         * @since Chrome 38.
+         */
         function getMetadata(mediaFile: Blob, callback: (metadata: Metadata) => void): void;
+        /**
+         * Gets the media-specific metadata for a media file.
+         * This should work for files in media galleries as well as other DOM filesystems.
+         * @since Chrome 38.
+         */
         function getMetadata(mediaFile: Blob, options: MetadataOptions, callback: (metadata: Metadata) => void): void;
+        /**
+         * Adds a gallery watch for the gallery with the specified gallery ID.
+         * The given callback is then fired with a success or failure result.
+         * @since Chrome 39.
+         */
         function addGalleryWatch(galleryId: string, callback: (result: GalleryWatchResult) => void): void;
+        /**
+         * Removes a gallery watch for the gallery with the specified gallery ID.
+         * @since Chrome 39.
+         */
         function removeGalleryWatch(galleryId: string): void;
+        /**
+         * @deprecated Deprecated since Chrome 51. Applications should store their own gallery watches as they are added.
+         * Notifies which galleries are being watched via the given callback.
+         */
         function getAllGalleryWatch(callback: (galleryIds: string[]) => void): void;
+        /**
+         * @deprecated Deprecated since Chrome 51. Use removeGalleryWatch instead.
+         * Removes all gallery watches.
+         */
         function removeAllGalleryWatch(): void;
-
+        /**
+         * Fired when a media gallery is changed or a gallery watch is dropped
+         * @since Since Chrome 38.
+         */
         var onGalleryChanged: chrome.events.Event<(args: GalleryChangedEventArgs) => void>;
+        /**
+         * @deprecated Deprecated since Chrome 51. The mediaGalleries API no longer supports scanning.
+         * The pending media scan has changed state. See details for more information.
+         */
         var onScanProgress: chrome.events.Event<(args: ScanProgressEventArgs) => void>;
     }
 
