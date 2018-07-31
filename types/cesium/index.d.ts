@@ -2362,7 +2362,7 @@ declare namespace Cesium {
     class PolygonGraphics {
         definitionChanged: Event;
         show: Property;
-        material: MaterialProperty;
+        material: MaterialProperty | Color;
         positions: Property;
         hierarchy: Property;
         height: Property;
@@ -2380,7 +2380,7 @@ declare namespace Cesium {
             extrudedHeight?: Property;
             show?: Property;
             fill?: boolean;
-            material?: MaterialProperty;
+            material?: MaterialProperty | Color;
             outline?: boolean;
             outlineColor?: Color;
             outlineWidth?: number;
