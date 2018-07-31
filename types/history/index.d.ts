@@ -5,7 +5,13 @@
 // TypeScript Version: 2.3
 export as namespace History;
 
-export type Action = 'PUSH' | 'POP' | 'REPLACE';
+export enum HistoryAction {
+    PUSH = 'PUSH',
+    POP = 'POP',
+    REPLACE = 'REPLACE'
+}
+
+export type Action = HistoryAction.PUSH | HistoryAction.POP | HistoryAction.REPLACE;
 export type UnregisterCallback = () => void;
 
 export interface History {
