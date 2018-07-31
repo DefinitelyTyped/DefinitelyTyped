@@ -347,77 +347,60 @@ declare namespace figlet {
         fontPath: string;
     }
 
-    interface TextMethod {
-        (
-            txt: string,
-            cb: (error: Error | null, result?: string) => void,
-        ): void;
-        (
-            txt: string,
-            font: Fonts,
-            cb: (error: Error | null, result?: string) => void,
-        ): void;
-        (
-            txt: string,
-            // tslint:disable-next-line: unified-signatures
-            options: Options | undefined,
-            cb: (error: Error | null, result?: string) => void,
-        ): void;
-    }
+    function text(txt: string, cb: (error: Error | null, result?: string) => void): void;
+    function text(txt: string, font: Fonts, cb: (error: Error | null, result?: string) => void): void;
+    /**
+     * @desc
+     * This `unified-signatures` is disabled because `Fonts` type is too long
+     */
+    // tslint:disable-next-line: unified-signatures
+    function text(txt: string, options: Options | undefined, cb: (error: Error | null, result?: string) => void): void;
 
-    interface TextSyncMethod {
-        (
-            txt: string,
-            font?: Fonts,
-        ): string;
-        (
-            txt: string,
-            // tslint:disable-next-line: unified-signatures
-            options: Options,
-        ): string;
-    }
+    function textSync(txt: string, font?: Fonts): string;
+    /**
+     * @desc
+     * This `unified-signatures` is disabled because `Fonts` type is too long
+     */
+    // tslint:disable-next-line: unified-signatures
+    function textSync(txt: string, options: Options): string;
 
-    interface Figlet extends TextMethod {
-        text: TextMethod;
-        textSync: TextSyncMethod;
-        metadata(
-            font: Fonts,
-            cb: (error: Error | null, fontOptions?: FontOptions, headerComment?: string) => void,
-        ): void;
-        defaults(opt?: Partial<Defaults>): Defaults;
-        loadFont(
-            font: Fonts,
-            cb: (error: Error | null, fontOptions?: FontOptions) => void,
-        ): void;
-        /**
-         * @todo
-         * Use 'node' namespace to add following methods only in node environment.
-         */
-        /**
-         * @warn
-         * This method works in node environment only.
-         * In browser environment, this method does not work.
-         */
-        loadFontSync(
-            font: Fonts,
-        ): FontOptions;
-        /**
-         * @warn
-         * This method exists in node environment only.
-         * In browser environment, this method does not exist.
-         */
-        fonts(
-            cb: (error: Error | null, fontList?: Fonts[]) => void,
-        ): void;
-        /**
-         * @warn
-         * This method exists in node environment only.
-         * In browser environment, this method does not exist.
-         */
-        fontsSync(): Fonts[];
-    }
+    function metadata(font: Fonts, cb: (error: Error | null, fontOptions?: FontOptions, headerComment?: string) => void): void;
+
+    function defaults(opt?: Partial<Defaults>): Defaults;
+
+    function loadFont(font: Fonts, cb: (error: Error | null, fontOptions?: FontOptions) => void): void;
+    /**
+     * @todo
+     * Use 'node' namespace to add following methods only in node environment.
+     */
+    /**
+     * @warn
+     * This method works in node environment only.
+     * In browser environment, this method does not work.
+     */
+    function loadFontSync(font: Fonts): FontOptions;
+    /**
+     * @warn
+     * This method exists in node environment only.
+     * In browser environment, this method does not exist.
+     */
+    function fonts(cb: (error: Error | null, fontList?: Fonts[]) => void): void;
+    /**
+     * @warn
+     * This method exists in node environment only.
+     * In browser environment, this method does not exist.
+     */
+    function fontsSync(): Fonts[];
 }
-declare const figlet: figlet.Figlet;
+
+declare function figlet(txt: string, cb: (error: Error | null, result?: string) => void): void;
+declare function figlet(txt: string, font: figlet.Fonts, cb: (error: Error | null, result?: string) => void): void;
+/**
+ * @desc
+ * This `unified-signatures` is disabled because `Fonts` type is too long
+ */
+// tslint:disable-next-line: unified-signatures
+declare function figlet(txt: string, options: figlet.Options | undefined, cb: (error: Error | null, result?: string) => void): void;
 
 export as namespace figlet;
 export = figlet;
