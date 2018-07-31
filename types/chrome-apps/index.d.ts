@@ -4359,12 +4359,13 @@ declare namespace chrome {
     // Serial
     ////////////////////
     /**
-     * Use the chrome.serial API to read from and write to a device connected to a serial port.
+     * Use the chrome.socket API to send and receive data over the network using TCP and UDP connections.
+     * @deprecated Note: Starting with Chrome 33,
+     *  this API is deprecated in favor of the
+     *  sockets.udp, sockets.tcp and sockets.tcpServer APIs.
      * @since Chrome 23
      */
-    namespace serial {
-        /** NOT YET IMPLEMENTED */
-    }
+    const serial: chrome.deprecated;
 
     ////////////////////
     // Socket
@@ -5098,11 +5099,147 @@ declare namespace chrome {
     // SyncFileSystem
     ////////////////////
     /**
-     * Use the chrome.syncFileSystem API to save and synchronize data on Google Drive. This API is NOT for accessing arbitrary user docs stored in Google Drive. It provides app-specific syncable storage for offline and caching usage so that the same data can be available across different clients. Read Manage Data for more on using this API.
+     * Use the chrome.syncFileSystem API to save and synchronize data on Google Drive.
+     * This API is NOT for accessing arbitrary user docs stored in Google Drive.
+     * It provides app-specific syncable storage for offline and caching usage so that
+     * the same data can be available across different clients. Read Manage Data for
+     * more on using this API.
+     *
+     * @requires[Permissions: "syncFileSystem"]
+     * @see[Learn more: Manage Data]{@link https://developer.chrome.com/apps/app_storage}
      * @since Chrome 27
      */
     namespace syncFileSystem {
-        /** NOT YET IMPLEMENTED */
+        /**
+         * "initializing"
+         *  - The sync service is being initialized (e.g. restoring data from the database, checking connectivity and authenticating to the service etc).
+         * "running"
+         *  - The sync service is up and running.
+         * "authentication_required"
+         *  - The sync service is not synchronizing files because the remote service needs to be authenticated by the user to proceed.
+         * "temporary_unavailable"
+         *  - The sync service is not synchronizing files because the remote service is (temporarily) unavailable due to some recoverable errors, e.g. network is offline, the remote service is down or not reachable etc. More details should be given by |description| parameter in OnServiceInfoUpdated (which could contain service-specific details).
+         * "disabled"
+         *  - The sync service is disabled and the content will never sync. (E.g. this could happen when the user has no account on the remote service or the sync service has had an unrecoverable error.)
+         */
+        enum ServiceStatus {
+            "initializing",
+            "running",
+            "authentication_required",
+            "temporary_unavailable",
+            "disabled"
+        }
+        /**
+         * "synced"
+         *  - Not conflicting and has no pending local changes.
+         * "pending"
+         *  - Has one or more pending local changes that haven't been synchronized.
+         * "conflicting"
+         *  - File conflicts with remote version and must be resolved manually.
+         */
+        enum FileStatus {
+            "synced",
+            "pending",
+            "conflicting"
+        }
+        enum ConflictResolutionPolicy {
+            "last_write_win",
+            "manual"
+        }
+        enum Action {
+            "added",
+            "updated",
+            "deleted"
+        }
+        enum Direction {
+            "local_to_remote",
+            "remote_to_local"
+        }
+        interface FileStatusInfo {
+            /** One of the Entry's originally given to getFileStatuses. */
+            fileEntry: Entry;
+            /** Status value */
+            status: FileStatus;
+            /** Optional error that is only returned if there was a problem retrieving the FileStatus for the given file. */
+            error?: string;
+        }
+        interface FileStatusChangedDetail {
+            /**
+             * fileEntry for the target file whose status has changed.
+             * Contains name and path information of synchronized file.
+             * On file deletion, fileEntry information will still be
+             * available but file will no longer exist.
+             */
+            fileEntry: Entry;
+            /**
+             * Resulting file status after onFileStatusChanged event.
+             * The status value can be 'synced', 'pending' or 'conflicting'.
+             */
+            status: FileStatus;
+            /**
+             * Sync action taken to fire onFileStatusChanged event.
+             * The action value can be 'added', 'updated' or 'deleted'.
+             * Only applies if status is 'synced'.
+             */
+            action?: Action;
+            /**
+             * Sync direction for the onFileStatusChanged event.
+             * Sync direction value can be 'local_to_remote' or
+             * 'remote_to_local'. Only applies if status is 'synced'.
+             */
+            direction?: Direction;
+        }
+        /**
+         * Returns a syncable filesystem backed by Google Drive.
+         * The returned DOMFileSystem instance can be operated on
+         * in the same way as the Temporary and Persistant file systems
+         * @see[More information]{@link http://dev.w3.org/2009/dap/file-system/file-dir-sys.html}
+         * @description
+         * Calling this multiple times from the same app will return the same handle to the same file system.
+         * Note this call can fail.
+         * For example, if the user is not signed in to Chrome
+         * or if there is no network operation. To handle these
+         * errors it is important chrome.runtime.lastError is
+         * checked in the callback.
+         * @param callback A callback type for requestFileSystem.
+         */
+        function requestFileSystem(callback: (fileSystem: FileSystem) => void): void;
+        /**
+         * Sets the default conflict resolution policy for the 'syncable' file storage
+         * for the app. By default it is set to 'last_write_win'. When conflict resolution
+         * policy is set to 'last_write_win' conflicts for existing files are automatically
+         * resolved next time the file is updated. |callback| can be optionally given to
+         * know if the request has succeeded or not.
+         * @param policy Policy
+         * @param [callback] A generic result callback to indicate success or failure.
+         */
+        function setConflictResolutionPolicy(policy: ConflictResolutionPolicy, callback?: () => void): void;
+        /** Gets the current conflict resolution policy. */
+        function getConflictResolutionPolicy(callback: (policy: ConflictResolutionPolicy) => void): void;
+        /**
+         * Returns the current usage and quota in bytes for the 'syncable' file storage for the app.
+         * @param fileSystem
+         * @param callback
+         */
+        function getUsageAndQuota(fileSystem: FileSystem, callback: (info: { usageBytes: number, quotaBytes: number }) => void): void;
+        /**
+         * Returns the FileStatus for the given fileEntry.
+         * Note that 'conflicting' state only happens when
+         * the service's conflict resolution policy is set to 'manual'.
+         * */
+        function getFileStatus(fileEntry: Entry, callback: (status: FileStatus) => void): void;
+        /** Returns each FileStatus for the given fileEntry array. Typically called with the result from dirReader.readEntries(). */
+        function getFileStatuses(fileEntries: Entry[], callback: (status: FileStatusInfo[]) => void): void;
+        /**
+         * Returns the current sync backend status.
+         * @since Chrome 31.
+         * @param callback
+         */
+        function getServiceStatus(callback: (status: ServiceStatus) => void): void;
+        /** Fired when an error or other status change has happened in the sync backend (for example, when the sync is temporarily disabled due to network or authentication error). */
+        var onServiceStatusChanged: chrome.events.Event<(detail: { state: ServiceStatus, description: string }) => void>;
+        /** Fired when a file has been updated by the background sync service. */
+        var onFileStatusChanged: chrome.events.Event<(detail: FileStatusChangedDetail) => void>;
     }
 
 

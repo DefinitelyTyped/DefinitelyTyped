@@ -422,4 +422,15 @@ chrome.hid.getDevices({
     });
 });
 
+chrome.syncFileSystem.getConflictResolutionPolicy((policy) => {
+    if (policy === chrome.syncFileSystem.ConflictResolutionPolicy.manual) {
+        chrome.syncFileSystem.requestFileSystem((fs) => {
+            if (fs.root.isFile) {
+                throw new Error('It was a file!');
+            }
+        });
+    }
+})
+
+
 
