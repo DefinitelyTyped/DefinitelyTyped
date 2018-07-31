@@ -1123,3 +1123,7 @@ knex({
         table1Id: 'table1.id',
         table2Id: 'table2.id'
     });
+
+knex('characters')
+    .select()
+    .whereIn(['name', 'class'], [['Bar', 'Fighter'], ['Foo', 'Druid']]);
