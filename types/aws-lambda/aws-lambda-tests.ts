@@ -905,7 +905,7 @@ const firehoseEventHandler: AWSLambda.FirehoseTransformationHandler = (
     context: AWSLambda.Context,
     callback: AWSLambda.FirehoseTransformationCallback
 ) => {
-    // $ExpectType FirehoseEvent
+    // $ExpectType FirehoseTransformationEvent
     event;
     str = event.records[0].recordId;
 
