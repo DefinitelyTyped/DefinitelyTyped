@@ -53,6 +53,8 @@
         "lib/Select.d.ts",
         "test/data.ts",
         "test/styled-components.tsx",
+		"test/AtlaskitDummy.ts",
+		"test/ChronoNodeDummy.ts",
         "test/examples/AccessingInternals.tsx",
         "test/examples/AnimatedMulti.tsx",
         "test/examples/AsyncCallbacks.tsx",

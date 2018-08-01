@@ -6,7 +6,6 @@ import {
   ComponentType
 } from 'react';
 import { createPortal } from 'react-dom';
-import * as PropTypes from 'prop-types';
 
 import {
   animatedScrollTo,

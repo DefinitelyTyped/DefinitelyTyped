@@ -1,1 +1,1 @@
-export function parseDate(a: any): any {};
+export function parseDate(a: any): any {}
