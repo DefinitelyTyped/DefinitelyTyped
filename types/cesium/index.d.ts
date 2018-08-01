@@ -3593,7 +3593,7 @@ declare namespace Cesium {
             cull?: boolean;
             asynchronous?: boolean;
             debugShowBoundingVolume?: boolean;
-            shadows: ShadowMode
+            shadows?: ShadowMode
         });
         destroy(): void;
         getGeometryInstanceAttributes(id: any): any;
