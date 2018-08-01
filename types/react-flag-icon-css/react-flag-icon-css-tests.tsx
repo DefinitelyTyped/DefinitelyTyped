@@ -20,7 +20,7 @@ export class SimpleFlagComponent extends React.PureComponent<SimpleFlagComponent
     }
 }
 
-const rootEL = document.body.querySelector('#app');
+const rootEL = document.getElementById('react-app') as HTMLElement;
 
 const appProps: SimpleFlagComponentProps = {
     code: 'it',
