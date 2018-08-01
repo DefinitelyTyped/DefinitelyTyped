@@ -1,3 +1,3 @@
 import * as menu from 'prosemirror-menu';
 
-let editorView = new menu.MenuBarEditorView();
+const menuBarPlugin = menu.menuBar({ content: [], floating: false });

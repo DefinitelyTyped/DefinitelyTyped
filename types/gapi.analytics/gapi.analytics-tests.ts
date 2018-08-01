@@ -19,19 +19,19 @@ function test_namespace() {
 		"enumDescriptions"  ?: string[];
 		"location"          ?: string;
 	}
-    var kBI : AnalyticsParameter = gapi.client.analytics.kB.parameters.alt;
+    var kBI : AnalyticsParameter = new gapi.client.analytics.kB.parameters.alt();
 	var kB = !!kBI;
-    kBI = gapi.client.analytics.kB.parameters.fields;
+    kBI = new gapi.client.analytics.kB.parameters.fields();
 	kB = kB && !!kBI;
-    kBI = gapi.client.analytics.kB.parameters.key;
+    kBI = new gapi.client.analytics.kB.parameters.key();
 	kB = kB && !!kBI;
-    kBI = gapi.client.analytics.kB.parameters.oauth_token;
+    kBI = new gapi.client.analytics.kB.parameters.oauth_token();
 	kB = kB && !!kBI;
-    kBI = gapi.client.analytics.kB.parameters.prettyPrint;
+    kBI = new gapi.client.analytics.kB.parameters.prettyPrint();
 	kB = kB && !!kBI;
-    kBI = gapi.client.analytics.kB.parameters.quotaUser;
+    kBI = new gapi.client.analytics.kB.parameters.quotaUser();
 	kB = kB && !!kBI;
-    kBI = gapi.client.analytics.kB.parameters.userIP;
+    kBI = new gapi.client.analytics.kB.parameters.userIP();
 	kB = kB && !!kBI;
 	analytics = analytics && kB;
 

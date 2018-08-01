@@ -8,25 +8,22 @@ FB.init({
    xfbml: true
 });
 
-FB.getLoginStatus(function(response: fb.AuthResponse) {
+FB.getLoginStatus(function(response: fb.StatusResponse) {
     console.log(response);
     console.log(response.status);
     console.log(response.authResponse.accessToken);
 });
 
-FB.getLoginStatus(function(response: fb.AuthResponse) {
+FB.getLoginStatus(function(response: fb.StatusResponse) {
     console.log(response);
     console.log(response.status);
     console.log(response.authResponse.accessToken);
 }, true);
 
-FB.getAuthResponse(function(response: fb.AuthResponse) {
-    console.log(response);
-    console.log(response.status);
-    console.log(response.authResponse.accessToken);
-});
+const authResponse: fb.AuthResponse = FB.getAuthResponse();
+console.log(authResponse.accessToken);
 
-FB.login(function(response: fb.AuthResponse) {
+FB.login(function(response: fb.StatusResponse) {
     console.log(response);
     console.log(response.status);
     console.log(response.authResponse.accessToken);
@@ -34,7 +31,7 @@ FB.login(function(response: fb.AuthResponse) {
     scope: 'public_profile'
 });
 
-FB.logout(function(response: fb.AuthResponse) {
+FB.logout(function(response: fb.StatusResponse) {
     console.log(response);
     console.log(response.status);
     console.log(response.authResponse.accessToken);
@@ -73,6 +70,15 @@ FB.ui({
 });
 
 FB.ui({
+    method: 'pay',
+    action: 'purchaseiap',
+    product_id: 'com.fb.friendsmash.coins.10',
+    developer_payload: 'this_is_a_test_payload'
+}, response => {
+    console.log(response);
+});
+
+FB.ui({
     method: 'pagetab',
     redirect_uri: 'YOUR_URL'
 }, response => {});
@@ -107,4 +113,5 @@ FB.ui({
     method: 'share',
     mobile_iframe: true,
     href: 'https://developers.facebook.com/docs/',
+    picture: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/2000px-Google_2015_logo.svg.png',
 }, response => {});

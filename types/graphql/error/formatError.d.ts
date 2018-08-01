@@ -1,4 +1,5 @@
-import { GraphQLError } from './GraphQLError';
+import { GraphQLError } from "./GraphQLError";
+import { SourceLocation } from "../language/location";
 
 /**
  * Given a GraphQLError, format it according to the rules described by the
@@ -6,13 +7,10 @@ import { GraphQLError } from './GraphQLError';
  */
 export function formatError(error: GraphQLError): GraphQLFormattedError;
 
-export type GraphQLFormattedError = {
-    message: string,
-    locations: Array<GraphQLErrorLocation>,
-    path: Array<string | number>
-};
-
-export type GraphQLErrorLocation = {
-    line: number,
-    column: number
-};
+export interface GraphQLFormattedError {
+    readonly message: string;
+    readonly locations: ReadonlyArray<SourceLocation> | undefined;
+    readonly path: ReadonlyArray<string | number> | undefined;
+    // Extensions
+    readonly [key: string]: any;
+}

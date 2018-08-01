@@ -1,6 +1,6 @@
 import { Component } from "react";
-import { CustomPickerProps } from "react-color";
+import { CustomPickerProps } from "../../..";
 
 export type AlphaProps = CustomPickerProps<Alpha>;
 
-export default class Alpha extends Component<AlphaProps, any> {}
+export default class Alpha extends Component<AlphaProps> {}

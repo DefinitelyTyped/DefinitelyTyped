@@ -2,9 +2,8 @@
 * Maintained by: jbondc <https://github.com/jbondc>
 */
 
-/// <reference types="node" />
-
 import nopt = require("nopt");
+declare var console: { log(x: any): void };
 
 nopt({"--foo" : String})
 

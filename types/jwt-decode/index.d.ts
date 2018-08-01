@@ -1,15 +1,15 @@
-// Type definitions for jwt-decode v1.4.0
+// Type definitions for jwt-decode 2.2
 // Project: https://github.com/auth0/jwt-decode
-// Definitions by: Giedrius Grabauskas <https://github.com/QuatroDevOfficial/>
+// Definitions by: Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>, Mads Madsen <https://github.com/madsmadsen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 declare namespace JwtDecode {
-    interface JwtDecodeStatic {
-        (token: string): any;
+    interface Options {
+        header: boolean;
     }
 }
 
-declare var jwtDecode: JwtDecode.JwtDecodeStatic;
-export = jwtDecode;
+declare function JwtDecode<TTokenDto>(token: string, options?: JwtDecode.Options): TTokenDto;
+
+export = JwtDecode;
 export as namespace jwt_decode;

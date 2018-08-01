@@ -2,11 +2,29 @@
 // Project: https://github.com/LSEducation/bunyan-config
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="bunyan"/>
 
 declare module "bunyan-config" {
     import * as bunyan from "bunyan";
+    interface StreamConfiguration {
+        name: string,
+        params?: {
+            host: string,
+            port: number
+        }
+    }
+
+    interface Stream {
+        type?: string;
+        level?: bunyan.LogLevel;
+        path?: string;
+        stream?: string | StreamConfiguration
+        closeOnExit?: boolean;
+        period?: string;
+        count?: number;
+    }
 
     /**
      * Configuration.
@@ -14,7 +32,7 @@ declare module "bunyan-config" {
      */
     interface Configuration {
         name: string;
-        streams?: bunyan.Stream[];
+        streams?: Stream[];
         level?: string | number;
         stream?: NodeJS.WritableStream;
         serializers?: {};

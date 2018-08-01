@@ -117,6 +117,7 @@ let ndefTagEvent = {
     AT_TARGET: 0,
     BUBBLING_PHASE: 0,
     CAPTURING_PHASE: 0,
+    NONE: 0,
     scoped: false,
     deepPath(): any { },
     tag: ndefTag

@@ -8,6 +8,7 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -20,6 +21,13 @@
     },
     "files": [
         "index.d.ts",
-        "react-i18next-tests.tsx"
+        "test/react-i18next-tests.tsx",
+        "src/context.d.ts",
+        "src/I18n.d.ts",
+        "src/I18nextProvider.d.ts",
+        "src/interpolate.d.ts",
+        "src/loadNamespaces.d.ts",
+        "src/trans.d.ts",
+        "src/translate.d.ts"
     ]
 }

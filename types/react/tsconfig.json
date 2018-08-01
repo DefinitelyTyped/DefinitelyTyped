@@ -8,12 +8,12 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6",
-            "dom"
+            "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": false,
         "strictNullChecks": true,
+        "strictFunctionTypes": false,
         "baseUrl": "../",
         "typeRoots": [
             "../"

@@ -2,14 +2,12 @@
  * Created by stefansteinhart on 31.01.15.
  */
 
-/// <reference types="node" />
-
 import * as es6styleimport from 'nedb';
 
 import nedb = require('nedb');
 
 class BaseCollection<T> {
-    private dataStore: nedb;
+    private readonly dataStore: nedb;
 
     constructor(dataStore: nedb) {
         this.dataStore = dataStore;
@@ -165,8 +163,7 @@ db = new Datastore({ filename: 'path/to/datafile', autoload: true });
 
 // Type 4: Persistent datastore for a Node Webkit app called 'nwtest'
 // For example on Linux, the datafile will be ~/.config/nwtest/nedb-data/something.db
-import path = require('path');
-db = new Datastore({ filename: path.join(require('nw.gui').App.dataPath, 'something.db') });
+db = new Datastore({ filename: 'something.db' });
 
 // Of course you can create multiple datastores if you need several
 // collections. In this case it's usually a good idea to use autoload for all collections.

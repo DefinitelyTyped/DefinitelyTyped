@@ -1,7 +1,9 @@
-// Type definitions for js-cookie v2.0
+// Type definitions for js-cookie 2.1
 // Project: https://github.com/js-cookie/js-cookie
 // Definitions by: Theodore Brown <https://github.com/theodorejb>
+//                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 declare namespace Cookies {
     interface CookieAttributes {
@@ -39,12 +41,12 @@ declare namespace Cookies {
         /**
          * Create a cookie
          */
-        set(name: string, value: string | any, options?: CookieAttributes): void;
+        set(name: string, value: string | object, options?: CookieAttributes): void;
 
         /**
          * Read cookie
          */
-        get(name: string): string;
+        get(name: string): string | undefined;
 
         /**
          * Read all available cookies
@@ -55,7 +57,7 @@ declare namespace Cookies {
          * Returns the parsed representation of the string
          * stored in the cookie according to JSON.parse
          */
-        getJSON(name: string): any;
+        getJSON(name: string): object;
 
         /**
          * Returns the parsed representation of
@@ -85,11 +87,13 @@ declare namespace Cookies {
          * will run the converter first for each cookie. The returned
          * string will be used as the cookie value.
          */
-        withConverter(converter: (value: string, name: string) => string): CookiesStatic;
+        withConverter(converter: CookieConverter | { write: CookieConverter; read: CookieConverter; }): CookiesStatic;
     }
+
+    type CookieConverter = (value: string, name: string) => string;
 }
 
-declare var Cookies: Cookies.CookiesStatic;
+declare const Cookies: Cookies.CookiesStatic;
 
 export = Cookies;
 export as namespace Cookies;

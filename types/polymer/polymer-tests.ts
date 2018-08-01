@@ -82,3 +82,11 @@ class MyElement3 implements polymer.Base {
 }
 
 Polymer(MyElement3);
+
+// Test splice computation
+const splices: polymer.PolymerSplice[] = Polymer.ArraySplice.calculateSplices(
+  [1,2,3], [1,2]);
+
+// Test that readonly arrays also work.
+const splices2: polymer.PolymerSplice[] = Polymer.ArraySplice.calculateSplices(
+  Object.freeze([1,2,3]), Object.freeze([1,2]));

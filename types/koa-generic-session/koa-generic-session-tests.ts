@@ -1,5 +1,5 @@
-import * as Koa from "koa";
-import {MemoryStore, Session} from "koa-generic-session";
+import Koa = require("koa");
+import { MemoryStore, Session } from "koa-generic-session";
 import session = require("koa-generic-session");
 
 const app = new Koa();
@@ -31,5 +31,17 @@ app.use(session({
     valid: (ctx: Koa.Context, session: Session) => true,
     beforeSave: (ctx: Koa.Context, session: Session) => {}
 }));
+
+app.use((context: Koa.Context) => {
+    if (! context.session) {
+        return;
+    }
+
+    context.regenerateSession();
+    context.sessionSave = true;
+    context.session.cookie;
+    context.session['key'] = 'value';
+    context.session = null;
+});
 
 app.listen(80);

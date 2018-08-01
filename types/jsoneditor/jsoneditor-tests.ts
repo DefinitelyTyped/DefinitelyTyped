@@ -1,4 +1,4 @@
-import JSONEditor, {JSONEditorMode, JSONEditorNode, JSONEditorOptions} from 'jsoneditor';
+import JSONEditor, {JSONEditorMode, JSONEditorNode, JSONEditorOptions } from 'jsoneditor';
 
 let options: JSONEditorOptions;
 options = {
@@ -17,6 +17,7 @@ options = {
     modes: ['tree', 'view', 'form', 'code', 'text'],
     name: 'foo',
     schema: {},
+    schemaRefs: { "otherSchema": {}},
     search: false,
     indentation: 2,
     theme: 'default'

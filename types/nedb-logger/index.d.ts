@@ -12,7 +12,7 @@ declare class NeDBLoggerDataStore {
 
     /**
      * Insert a new document
-     * @param {Function} cb Optional callback, signature: err, insertedDoc
+     * @param cb Optional callback, signature: err, insertedDoc
      */
     insert<T>(newDoc: T, cb?: (err: Error, document: T) => void): void;
 }

@@ -1,5 +1,5 @@
-import * as express from "express";
-import * as ExpressBrute from "express-brute";
+import express = require("express");
+import ExpressBrute = require("express-brute");
 import MemcachedStore from "express-brute-memcached";
 
 var app = express();

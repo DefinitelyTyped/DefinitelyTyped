@@ -1,26 +1,13 @@
-import * as orientjs from 'orientjs';
+import orientjs = require('orientjs');
 
-let dbserver = orientjs({
+const dbserver = orientjs({
     host: 'localhost',
     port: 2424,
     username: 'root',
     password: 'root'
-    });
-let db = dbserver.use({
-        name: 'mytestdb',
-        username: 'root',
-        password: 'root'
-    });
-
-
-{
-    var manager = new orientjs.Migration.Manager({
-        db: db,
-        dir: __dirname + '/migrations'
-    });
-
-    manager.up(1)
-    .then(function () {
-        console.log('migrated up by one!')
-    });
-}
+});
+const db = dbserver.use({
+    name: 'mytestdb',
+    username: 'root',
+    password: 'root'
+});

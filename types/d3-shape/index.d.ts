@@ -1,9 +1,9 @@
-// Type definitions for D3JS d3-shape module 1.1
+// Type definitions for D3JS d3-shape module 1.2
 // Project: https://github.com/d3/d3-shape/
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 1.1.0
+// Last module patch version validated against: 1.2.0
 
 import { Path } from 'd3-path';
 
@@ -32,9 +32,9 @@ export interface DefaultArcObject {
      */
     endAngle: number;
     /**
-     * Pad angle of arcin radians.
+     * Optional. Pad angle of arc in radians.
      */
-    padAngle: number;
+    padAngle?: number;
 }
 
 /**
@@ -230,7 +230,7 @@ export interface Arc<This, Datum> {
      * Returns the current pad angle accessor, which defaults to a function returning the padAngle property
      * of the first argument passed into it, or false if no data are passed in or the property is not defined.
      */
-    padAngle(): (this: This, d: Datum, ...args: any[]) => number;
+    padAngle(): (this: This, d: Datum, ...args: any[]) => number | undefined;
     /**
      * Sets the pad angle to the specified number and returns this arc generator.
      *
@@ -248,7 +248,7 @@ export interface Arc<This, Datum> {
      *
      * @param angle Constant angle in radians.
      */
-    padAngle(angle: number): this;
+    padAngle(angle: number | undefined): this;
     /**
      * Sets the pad angle to the specified function and returns this arc generator.
      *
@@ -267,7 +267,7 @@ export interface Arc<This, Datum> {
      * @param angle An accessor function returning a number in radians to be used as an angle. The accessor function is invoked in the same "this" context as the generator was invoked in and
      * receives the same arguments that were passed into the arc generator.
      */
-    padAngle(angle: (this: This, d: Datum, ...args: any[]) => number): this;
+    padAngle(angle: (this: This, d: Datum, ...args: any[]) => number | undefined): this;
 
     /**
      * Returns the current pad radius accessor, which defaults to null, indicating that the pad radius should be automatically computed as sqrt(innerRadius * innerRadius + outerRadius * outerRadius).
@@ -741,7 +741,7 @@ export interface Line<Datum> {
     /**
      * Returns the current curve factory, which defaults to curveLinear.
      *
-     * The generic allows to cast the curve factory to a specifc type, if known.
+     * The generic allows to cast the curve factory to a specific type, if known.
      */
     curve<C extends CurveFactory | CurveFactoryLineOnly>(): C;
     /**
@@ -799,7 +799,7 @@ export function line<Datum>(): Line<Datum>;
  *
  * The generic refers to the data type of an element in the input array passed into the line generator.
  */
-export interface RadialLine<Datum> {
+export interface LineRadial<Datum> {
     /**
      * Generates a radial line for the given array of data. Depending on this radial line generator’s associated curve,
      * the given input data may need to be sorted by x-value before being passed to the line generator.
@@ -916,7 +916,7 @@ export interface RadialLine<Datum> {
     /**
      * Returns the current curve factory, which defaults to curveLinear.
      *
-     * The generic allows to cast the curve factory to a specifc type, if known.
+     * The generic allows to cast the curve factory to a specific type, if known.
      */
     curve<C extends CurveFactory | CurveFactoryLineOnly>(): C;
     /**
@@ -957,7 +957,7 @@ export interface RadialLine<Datum> {
  * Ensure that the accessors used with the radial line generator correspond to the arguments passed into them,
  * or set them to constants as appropriate.
  */
-export function radialLine(): RadialLine<[number, number]>;
+export function lineRadial(): LineRadial<[number, number]>;
 /**
  * Constructs a new radial line generator with the default settings.
  *
@@ -965,6 +965,17 @@ export function radialLine(): RadialLine<[number, number]>;
  * or set them to constants as appropriate.
  *
  * The generic refers to the data type of an element in the input array passed into the radial line generator.
+ */
+export function lineRadial<Datum>(): LineRadial<Datum>;
+
+export type RadialLine<Datum> = LineRadial<Datum>;
+
+/**
+ * DEPRECATED: Use lineRadial()
+ */
+export function radialLine(): RadialLine<[number, number]>;
+/**
+ * DEPRECATED: Use lineRadial<Datum>()
  */
 export function radialLine<Datum>(): RadialLine<Datum>;
 
@@ -1202,7 +1213,7 @@ export interface Area<Datum> {
     /**
      * Returns the current curve factory, which defaults to curveLinear.
      *
-     * The generic allows to cast the curve factory to a specifc type, if known.
+     * The generic allows to cast the curve factory to a specific type, if known.
      */
     curve<C extends CurveFactory>(): C;
     /**
@@ -1283,7 +1294,7 @@ export function area<Datum>(): Area<Datum>;
  *
  * The generic refers to the data type of an element in the input array passed into the area generator.
  */
-export interface RadialArea<Datum> {
+export interface AreaRadial<Datum> {
     /**
      * Generates a radial area for the given array of data.
      *
@@ -1507,7 +1518,7 @@ export interface RadialArea<Datum> {
     /**
      * Returns the current curve factory, which defaults to curveLinear.
      *
-     * The generic allows to cast the curve factory to a specifc type, if known.
+     * The generic allows to cast the curve factory to a specific type, if known.
      */
     curve<C extends CurveFactory>(): C;
     /**
@@ -1544,25 +1555,25 @@ export interface RadialArea<Datum> {
      * Returns a new radial line generator that has this radial area generator’s current defined accessor, curve and context.
      * The line’s angle accessor is this area’s start angle accessor, and the line’s radius accessor is this area’s inner radius accessor.
      */
-    lineStartAngle(): RadialLine<Datum>;
+    lineStartAngle(): LineRadial<Datum>;
 
     /**
      * Returns a new radial line generator that has this radial area generator’s current defined accessor, curve and context.
      * The line’s angle accessor is this area’s start angle accessor, and the line’s radius accessor is this area’s inner radius accessor.
      */
-    lineInnerRadius(): RadialLine<Datum>;
+    lineInnerRadius(): LineRadial<Datum>;
 
     /**
      * Returns a new radial line generator that has this radial area generator’s current defined accessor, curve and context.
      * The line’s angle accessor is this area’s end angle accessor, and the line’s radius accessor is this area’s inner radius accessor.
      */
-    lineEndAngle(): RadialLine<Datum>;
+    lineEndAngle(): LineRadial<Datum>;
 
     /**
      * Returns a new radial line generator that has this radial area generator’s current defined accessor, curve and context.
      * The line’s angle accessor is this area’s start angle accessor, and the line’s radius accessor is this area’s outer radius accessor.
      */
-    lineOuterRadius(): RadialLine<Datum>;
+    lineOuterRadius(): LineRadial<Datum>;
 }
 
 /**
@@ -1571,7 +1582,7 @@ export interface RadialArea<Datum> {
  * Ensure that the accessors used with the area generator correspond to the arguments passed into them,
  * or set them to constants as appropriate.
  */
-export function radialArea(): RadialArea<[number, number]>;
+export function areaRadial(): AreaRadial<[number, number]>;
 /**
  * Constructs a new radial area generator with the default settings.
  *
@@ -1579,6 +1590,20 @@ export function radialArea(): RadialArea<[number, number]>;
  * or set them to constants as appropriate.
  *
  * The generic refers to the data type of an element in the input array passed into the radial area generator.
+ */
+export function areaRadial<Datum>(): AreaRadial<Datum>;
+
+/**
+ * DEPRECATED: Use AreaRadial interface
+ */
+export type RadialArea<Datum> = AreaRadial<Datum>;
+
+/**
+ * DEPRECATED: Use areaRadial()
+ */
+export function radialArea(): RadialArea<[number, number]>;
+/**
+ * DEPRECATED: Use areaRadial<Datum>()
  */
 export function radialArea<Datum>(): RadialArea<Datum>;
 
@@ -1870,7 +1895,7 @@ export const curveStepBefore: CurveFactory;
 
 /**
  * An interface describing the default Link Data structure expected
- * by the Link and RadialLink generators
+ * by the Link and LinkRadial generators
  */
 export interface DefaultLinkObject {
     /**
@@ -2085,7 +2110,7 @@ export function linkVertical<This, LinkDatum, NodeDatum>(): Link<This, LinkDatum
  *
  * The third generic corresponds to the datum type of the source/target node contained in the link object.
  */
-export interface RadialLink<This, LinkDatum, NodeDatum> {
+export interface LinkRadial<This, LinkDatum, NodeDatum> {
     /**
      * Generates a radial link for the given arguments.
      *
@@ -2188,12 +2213,17 @@ export interface RadialLink<This, LinkDatum, NodeDatum> {
 }
 
 /**
+ * DEPRECATED: Use LinkRadial interface
+ */
+export type RadialLink<This, LinkDatum, NodeDatum> = LinkRadial<This, LinkDatum, NodeDatum>;
+
+/**
  * Constructs a new default link generator with radial tangents, for example, to visualize links in a tree diagram
  * rooted in the center of the display.
  *
  * With the default settings the link generator accepts a link object conforming to the DefaultLinkObject interface.
  */
-export function linkRadial(): RadialLink<any, DefaultLinkObject, [number, number]>;
+export function linkRadial(): LinkRadial<any, DefaultLinkObject, [number, number]>;
 /**
  * Constructs a new link generator with radial tangents, for example, to visualize links in a tree diagram
  * rooted in the center of the display.
@@ -2205,7 +2235,7 @@ export function linkRadial(): RadialLink<any, DefaultLinkObject, [number, number
  *
  * The second generic corresponds to the datum type of the source/target node contained in the link object
  */
-export function linkRadial<LinkDatum, NodeDatum>(): RadialLink<any, LinkDatum, NodeDatum>;
+export function linkRadial<LinkDatum, NodeDatum>(): LinkRadial<any, LinkDatum, NodeDatum>;
 /**
  * Constructs a new link generator with radial tangents, for example, to visualize links in a tree diagram
  * rooted in the center of the display.
@@ -2219,7 +2249,7 @@ export function linkRadial<LinkDatum, NodeDatum>(): RadialLink<any, LinkDatum, N
  *
  * The third generic corresponds to the datum type of the source/target node contained in the link object
  */
-export function linkRadial<This, LinkDatum, NodeDatum>(): RadialLink<This, LinkDatum, NodeDatum>;
+export function linkRadial<This, LinkDatum, NodeDatum>(): LinkRadial<This, LinkDatum, NodeDatum>;
 
 // -----------------------------------------------------------------------------------
 // SYMBOLS
@@ -2250,7 +2280,7 @@ export interface SymbolType {
  * use a transform (see: SVG, Canvas) to move the arc to a different position.
  *
  * The first generic corresponds to the "this" context within which the symbol generator is invoked.
- * The second generic corrsponds to the data type of the datum underlying the symbol.
+ * The second generic corresponds to the data type of the datum underlying the symbol.
  */
 export interface Symbol<This, Datum> {
     /**
@@ -2352,7 +2382,7 @@ export function symbol(): Symbol<any, any>; // tslint:disable-line ban-types
 /**
  * Constructs a new symbol generator with the default settings.
  *
- * The generic corrsponds to the data type of the datum underlying the symbol.
+ * The generic corresponds to the data type of the datum underlying the symbol.
  */
 export function symbol<Datum>(): Symbol<any, Datum>; // tslint:disable-line ban-types
 
@@ -2360,7 +2390,7 @@ export function symbol<Datum>(): Symbol<any, Datum>; // tslint:disable-line ban-
  * Constructs a new symbol generator with the default settings.
  *
  * The first generic corresponds to the "this" context within which the symbol generator is invoked.
- * The second generic corrsponds to the data type of the datum underlying the symbol.
+ * The second generic corresponds to the data type of the datum underlying the symbol.
  */
 export function symbol<This, Datum>(): Symbol<This, Datum>; // tslint:disable-line ban-types
 
@@ -2406,6 +2436,17 @@ export const symbolTriangle: SymbolType;
 export const symbolWye: SymbolType;
 
 // -----------------------------------------------------------------------------------
+// pointRadial
+// -----------------------------------------------------------------------------------
+
+/**
+ * Returns the point [x, y] for the given angle and the given radius.
+ * @param angle Angle in radians, with 0 at -y (12 o’clock) and positive angles proceeding clockwise.
+ * @param radius Radius.
+ */
+export function pointRadial(angle: number, radius: number): [number, number];
+
+// -----------------------------------------------------------------------------------
 // STACKS
 // -----------------------------------------------------------------------------------
 
@@ -2419,11 +2460,11 @@ export const symbolWye: SymbolType;
  */
 export interface SeriesPoint<Datum> extends Array<number> {
     /**
-     * Correponds to y0, the lower value (baseline).
+     * Corresponds to y0, the lower value (baseline).
      */
     0: number;
     /**
-     * Correponds to y1, the upper value (topline).
+     * Corresponds to y1, the upper value (topline).
      */
     1: number;
     /**
@@ -2524,7 +2565,7 @@ export interface Stack<This, Datum, Key> {
     value(value: (d: Datum, key: Key, j: number, data: Datum[]) => number): this;
 
     /**
-     * Returns the current order acccesor, which defaults to stackOrderNone; this uses the order given by the key accessor.
+     * Returns the current order accessor, which defaults to stackOrderNone; this uses the order given by the key accessor.
      */
     order(): (series: Series<Datum, Key>) => number[];
     /**
@@ -2555,7 +2596,7 @@ export interface Stack<This, Datum, Key> {
     order(order: (series: Series<Datum, Key>) => number[]): this;
 
     /**
-     * Returns the current offset acccesor, which defaults to stackOffsetNone; this uses a zero baseline.
+     * Returns the current offset accessor, which defaults to stackOffsetNone; this uses a zero baseline.
      */
     offset(): (series: Series<Datum, Key>, order: number[]) => void;
     /**

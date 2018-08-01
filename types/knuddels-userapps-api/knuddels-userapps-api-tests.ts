@@ -1,9 +1,9 @@
 class Server implements App {
-	private usersPlaying: { [nick: string]: number } = {};
-	private isShuttingDown: boolean = false;
+	private readonly usersPlaying = new Map<string, number>();
+	private isShuttingDown = false;
 
-	private htmlFile: HTMLFile = new HTMLFile('start.html');
-	private appContent: AppContent = AppContent.overlayContent(this.htmlFile, 243, 266);
+	private readonly htmlFile: HTMLFile = new HTMLFile('start.html');
+	private readonly appContent: AppContent = AppContent.overlayContent(this.htmlFile, 243, 266);
 
 	onAppStart() {
 		KnuddelsServer.getChannel()
@@ -17,15 +17,15 @@ class Server implements App {
 		const botNick = KnuddelsServer.getDefaultBotUser()
 			.getNick()
 			.escapeKCode();
-		user.sendPrivateMessage('Lust auf ne Runde Ziegenphobie? Mit nur _°BB>_h1 Knuddel|/appknuddel ' + botNick + '<°°°_ bist du dabei!');
+		user.sendPrivateMessage(`Lust auf ne Runde Ziegenphobie? Mit nur _°BB>_h1 Knuddel|/appknuddel ${botNick}<°°°_ bist du dabei!`);
 	}
 
 	onUserLeft(user: User) {
-		if (this.usersPlaying[user.getNick()] === 1) {
+		if (this.usersPlaying.get(user.getNick()) === 1) {
 			KnuddelsServer.getDefaultBotUser()
 				.transferKnuddel(user, new KnuddelAmount(1), 'Du hast den Channel verlassen.');
 
-			delete this.usersPlaying[user.getNick()];
+			this.usersPlaying.delete(user.getNick());
 		}
 	}
 
@@ -46,7 +46,7 @@ class Server implements App {
 						session.remove();
 					});
 
-				delete this.usersPlaying[key];
+				this.usersPlaying.delete(key);
 			}
 		}
 	}
@@ -61,13 +61,13 @@ class Server implements App {
 			knuddelTransfer.accept();
 		} else if (this.isShuttingDown) {
 			knuddelTransfer.reject('Du App nimmt gerade keine neuen Spieler an.');
-		} else if (this.usersPlaying[sender.getNick()]) {
+		} else if (this.usersPlaying.get(sender.getNick())) {
 			knuddelTransfer.reject('Du spielst bereits.');
 		} else if (knuddelTransfer.getKnuddelAmount().asNumber() !== 1) {
 			const botNick = KnuddelsServer.getDefaultBotUser()
 				.getNick()
 				.escapeKCode();
-			knuddelTransfer.reject('Du musst genau _°BB>_h1 Knuddel senden|/appknuddel ' + botNick + '<°°°_...');
+			knuddelTransfer.reject(`Du musst genau _°BB>_h1 Knuddel senden|/appknuddel ${botNick}<°°°_...`);
 		} else {
 			knuddelTransfer.accept();
 		}
@@ -75,7 +75,7 @@ class Server implements App {
 
 	onKnuddelReceived(user: User, receiver: User, knuddelAmount: KnuddelAmount) {
 		if (knuddelAmount.asNumber() === 1) {
-			this.usersPlaying[user.getNick()] = 1;
+			this.usersPlaying.set(user.getNick(), 1);
 			user.sendAppContent(this.appContent);
 		} else {
 			user.sendPrivateMessage('Vielen Dank für die Einzahlung.');
@@ -83,8 +83,8 @@ class Server implements App {
 	}
 
 	onEventReceived(user: User, key: string, data: string) {
-		if (key === 'selectedEntry' && this.usersPlaying[user.getNick()] === 1) {
-			this.usersPlaying[user.getNick()] = 2;
+		if (key === 'selectedEntry' && this.usersPlaying.get(user.getNick()) === 1) {
+			this.usersPlaying.set(user.getNick(), 2);
 
 			setTimeout(() => {
 				const doorNumber = parseInt(data[data.length - 1], 10);
@@ -111,12 +111,12 @@ class Server implements App {
 					const botNick = KnuddelsServer.getDefaultBotUser()
 						.getNick()
 						.escapeKCode();
-					user.sendPrivateMessage('Na, Lust auf _°BB>_hnoch eine Runde|/appknuddel ' + botNick + '<°°°_?');
+					user.sendPrivateMessage(`Na, Lust auf _°BB>_hnoch eine Runde|/appknuddel ${botNick}<°°°_?`);
 					user.getAppContentSessions()
 						.forEach((session: AppContentSession) => {
 							session.remove();
 						});
-					delete this.usersPlaying[user.getNick()];
+					this.usersPlaying.delete(user.getNick());
 				}, 4000);
 			}, 1500);
 		}

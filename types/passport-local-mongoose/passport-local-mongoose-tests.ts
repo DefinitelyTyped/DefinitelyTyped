@@ -1,5 +1,3 @@
-/// <reference types="express" />
-
 /**
  * Created by Linus Brolin <https://github.com/linusbrolin/>.
  */
@@ -14,7 +12,7 @@ import {
     PassportLocalOptions,
     PassportLocalErrorMessages
 } from 'mongoose';
-import * as passportLocalMongoose from 'passport-local-mongoose';
+import passportLocalMongoose = require('passport-local-mongoose');
 
 import { Router, Request, Response } from 'express';
 import * as passport from 'passport';
@@ -31,13 +29,13 @@ interface User extends PassportLocalDocument {
     last: Date;
 }
 
-const UserSchema: PassportLocalSchema = new Schema({
+const UserSchema = new Schema({
     username: String,
     hash: String,
     salt: String,
     attempts: Number,
     last: Date
-});
+}) as PassportLocalSchema;
 
 let options: PassportLocalOptions = <PassportLocalOptions>{};
 options.iterations = 25000;

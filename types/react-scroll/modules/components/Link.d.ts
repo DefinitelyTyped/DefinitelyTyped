@@ -5,6 +5,7 @@ export interface ReactScrollLinkProps {
     containerId?: string;
     activeClass?: string;
     spy?: boolean;
+    hashSpy?: boolean;
     smooth?: boolean | string;
     offset?: number;
     delay?: number;
@@ -19,4 +20,4 @@ export interface ReactScrollLinkProps {
 
 export type LinkProps = ReactScrollLinkProps & React.HTMLProps<HTMLButtonElement>;
 
-export default class Link extends React.Component<LinkProps, any> { }
+export default class Link extends React.Component<LinkProps> { }

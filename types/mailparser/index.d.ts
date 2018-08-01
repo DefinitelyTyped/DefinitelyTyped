@@ -1,88 +1,305 @@
 // Type definitions for mailparser v2.0.0
 // Project: https://www.npmjs.com/package/mailparser
-// Definitions by: Peter Snider <https://github.com/psnider/>
+// Definitions by: Peter Snider <https://github.com/psnider>
+//                 Andrey Volynkin <https://github.com/Avol-V/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 
-import StreamModule = require("stream");
+import StreamModule = require('stream');
 import Stream = StreamModule.Stream;
-import WritableStream = NodeJS.WritableStream;
-import EventEmitter = NodeJS.EventEmitter;
 
-interface Options {
-    debug?: boolean;    // if set to true print all incoming lines to console
-    streamAttachments?: boolean;   // if set to true, stream attachments instead of including them
-    unescapeSMTP?: boolean;   // if set to true replace double dots in the beginning of the file
-    defaultCharset?: string;   // the default charset for text/plain and text/html content, if not set reverts to Latin-1
-    showAttachmentLinks?: boolean;    // if set to true, show inlined attachment links <a href="cid:...">filename</a>
+/**
+ * Structured object for headers with arguments.
+ *
+ * `content-type: text/plain; CHARSET="UTF-8"` =>
+ * ```
+ * {
+ *     "value": "text/plain",
+ *     "params": {
+ *         "charset": "UTF-8"
+ *     }
+ * }
+ * ```
+ */
+interface StructuredHeader {
+	/**
+	 * The main value.
+	 */
+	value: string;
+	/**
+	 * Additional arguments.
+	 */
+	params: {[key: string]: string};
 }
 
+/**
+ * Possible types of a header value.
+ */
+export type HeaderValue = string | string[] | AddressObject | Date | StructuredHeader;
 
+/**
+ * A Map object with lowercase header keys.
+ */
+export type Headers = Map<string, HeaderValue>;
+
+/**
+ * Address details.
+ */
 interface EmailAddress {
-    address: string;
-    name: string;
+	/**
+	 * The email address.
+	 */
+	address: string;
+	/**
+	 * The name part of the email/group.
+	 */
+	name: string;
+	/**
+	 * An array of grouped addresses.
+	 */
+	group?: EmailAddress[];
 }
 
-
-interface Attachment {
-    contentType: string;
-    fileName: string;
-    contentDisposition: string;    // e.g. 'attachment'
-    contentId: string;   // e.g. '5.1321281380971@localhost'
-    transferEncoding: string;   // e.g. 'base64'
-    length: number;   // length of the attachment in bytes
-    generatedFileName: string;   // e.g. 'image.png'
-    checksum: string;  // the md5 hash of the file, e.g. 'e4cef4c6e26037bcf8166905207ea09b'
-    content: Buffer;   // possibly a SlowBuffer
-    stream: Stream; // a stream to read the attachment if streamAttachments is set to true 
+/**
+ * Address object.
+ */
+interface AddressObject {
+	/**
+	 * An array with address details.
+	 */
+	value: EmailAddress[];
+	/**
+	 * A formatted address string for HTML context.
+	 */
+	html: string;
+	/**
+	 * A formatted address string for plaintext context.
+	 */
+	text: string;
 }
 
-// emitted with the 'end' event
+/**
+ * COmmon part of the Attachment object.
+ */
+interface AttachmentCommon {
+	/**
+	 * Message type.
+	 */
+	type: 'attachment';
+	/**
+	 * Attachment contents.
+	 */
+	content: any;
+	/**
+	 * MIME type of the message.
+	 */
+	contentType: string;
+	/**
+	 * Content disposition type for the attachment,
+	 * most probably `'attachment'`.
+	 */
+	contentDisposition: string;
+	/**
+	 * File name of the attachment.
+	 */
+	filename?: string;
+	/**
+	 * A Map value that holds MIME headers for the attachment node.
+	 */
+	headers: Headers;
+	/**
+	 * A MD5 hash of the message content.
+	 */
+	checksum: string;
+	/**
+	 * Message size in bytes.
+	 */
+	size: number;
+	/**
+	 * The header value from `Content-ID`.
+	 */
+	contentId?: string;
+	/**
+	 * `contentId` without `<` and `>`.
+	 */
+	cid?: string;   // e.g. '5.1321281380971@localhost'
+	/**
+	 * If true then this attachment should not be offered for download
+	 * (at least not in the main attachments list).
+	 */
+	related?: boolean;
+}
+
+/**
+ * Attachment object.
+ */
+interface Attachment extends AttachmentCommon {
+	/**
+	 * A Buffer that contains the attachment contents.
+	 */
+	content: Buffer;
+	/**
+	 * If true then this attachment should not be offered for download
+	 * (at least not in the main attachments list).
+	 */
+	related: boolean;
+}
+
+/**
+ * MailParser Attachment object.
+ */
+interface AttachmentStream extends AttachmentCommon {
+	/**
+	 * A Buffer that contains the attachment contents.
+	 */
+	content: Stream;
+	/**
+	 * Method must be called once you have processed the attachment.
+	 */
+	release(): void;
+}
+
+/**
+ * Parsed mail object.
+ */
 interface ParsedMail {
-    headers: any;  // unprocessed headers in the form of - {key: value} - if there were multiple fields with the same key then the value is an array
-    from: EmailAddress[];  // should be only one though)
-    to: EmailAddress[];
-    cc?: EmailAddress[];
-    bcc?: EmailAddress[];
-    subject: string;  // the subject line
-    references?: string[];  // an array of reference message id values (not set if no reference values present)
-    inReplyTo?: string[];  // an array of In-Reply-To message id values (not set if no in-reply-to values present)
-    priority?: string;   // priority of the e-mail, always one of the following: normal (default), high, low
-    text: string;    // text body
-    html: string;    // html body
-    date?: Date; // If date could not be resolved or is not found this field is not set. Check the original date string from headers.date
-    attachments?: Attachment[];
+	/**
+	 * An array of attachments.
+	 */
+	attachments?: Attachment[];
+	/**
+	 * A Map object with lowercase header keys.
+	 *
+	 * - All address headers are converted into address objects.
+	 * - `references` is a string if only a single reference-id exists or an
+	 *    array if multiple ids exist.
+	 * - `date` value is a Date object.
+	 */
+	headers: Headers;
+	/**
+	 * The HTML body of the message.
+	 *
+	 * Sets to `false` when there is no HTML body.
+	 *
+	 * If the message included embedded images as cid: urls then these are all
+	 * replaced with base64 formatted data: URIs.
+	 */
+	html: string | boolean;
+	/**
+	 * The plaintext body of the message.
+	 */
+	text: string;
+	/**
+	 * The plaintext body of the message formatted as HTML.
+	 */
+	textAsHtml: string;
+	/**
+	 * The subject line.
+	 */
+	subject: string;
+	/**
+	 * An array of referenced Message-ID values.
+	 *
+	 * Not set if no reference values present.
+	 */
+	references?: string[];
+	/**
+	 * A Date object for the `Date:` header.
+	 */
+	date?: Date;
+	/**
+	 * An address object for the `To:` header.
+	 */
+	to: AddressObject;
+	/**
+	 * An address object for the `From:` header.
+	 */
+	from: AddressObject;
+	/**
+	 * An address object for the `Cc:` header.
+	 */
+	cc?: AddressObject;
+	/**
+	 * An address object for the `Bcc:` header (usually not present).
+	 */
+	bcc?: AddressObject;
+	/**
+	 * An address object for the `Reply-To:` header.
+	 */
+	replyTo?: AddressObject;
+	/**
+	 * The Message-ID value string.
+	 */
+	messageId?: string;
+	/**
+	 * The In-Reply-To value string.
+	 */
+	inReplyTo?: string;
+	/**
+	 * Priority of the e-mail.
+	 */
+	priority?: 'normal' | 'low' | 'high';
 }
 
-export class MailParser extends StreamModule.Writable {
-    constructor(options?: Options);
-    on(event: string, callback: (any: any) => void): this;
-
-    // from WritableStream
-    writable: boolean;
-    write(buffer: Buffer, cb?: Function): boolean;
-    write(str: string, cb?: Function): boolean;
-    write(str: string, encoding?: string, cb?: Function): boolean;
-    end(): void;
-    end(buffer: Buffer, cb?: Function): void;
-    end(str: string, cb?: Function): void;
-    end(str: string, encoding?: string, cb?: Function): void;
-
-    // from EventEmitter
-    static listenerCount(emitter: EventEmitter, event: string): number;
-    addListener(event: string, listener: Function): this;
-    on(event: string, listener: Function): this;
-    once(event: string, listener: Function): this;
-    removeListener(event: string, listener: Function): this;
-    removeAllListeners(event?: string): this;
-    setMaxListeners(n: number): this;
-    getMaxListeners(): number;
-    listeners(event: string): Function[];
-    emit(event: string, ...args: any[]): boolean;
-    listenerCount(type: string): number;
+/**
+ * Text message content.
+ */
+interface MessageText {
+	/**
+	 * Message type.
+	 */
+	type: 'text';
+	/**
+	 * Includes the HTML version of the message.
+	 *
+	 * Is set if the message has at least one `text/html` node.
+	 */
+	html?: string | boolean;
+	/**
+	 * Includes the plaintext version of the message.
+	 *
+	 * Is set if the message has at least one `text/plain` node.
+	 */
+	text?: string;
+	/**
+	 * Includes the plaintext version of the message in HTML format.
+	 *
+	 * Is set if the message has at least one `text/plain` node.
+	 */
+	textAsHtml?: string;
 }
 
+/**
+ * A lower-level email parsing class.
+ *
+ * It is a transform stream that takes email source as bytestream for the input
+ * and emits data objects for attachments and text contents.
+ */
+export class MailParser extends StreamModule.Transform {
+	constructor(options?: StreamModule.TransformOptions);
+	on(event: string, callback: (any: any) => void): this;
+	on(event: 'headers', callback: (headers: Headers) => void): this;
+	on(event: 'data', callback: (data: AttachmentStream | MessageText) => void): this;
+	on(event: 'readable', callback: (data: AttachmentStream | MessageText) => void): this;
+}
+
+/**
+ * A message source.
+ */
 export type Source = Buffer | Stream | string;
+
+/**
+ * Parse email message to structure object.
+ *
+ * @param source A message source.
+ * @param callback Function to get a structured email object.
+ */
 export function simpleParser(source: Source, callback: (err: any, mail: ParsedMail) => void): void;
+
+/**
+ * Parse email message to structure object.
+ *
+ * @param source A message source.
+ */
 export function simpleParser(source: Source): Promise<ParsedMail>;

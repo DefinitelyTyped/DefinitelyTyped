@@ -2,6 +2,7 @@
 // Project: https://github.com/nemtsov/node-bunyan-logentries
 // Definitions by: Aymeric Beaumet <http://aymericbeaumet.me>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="node" />
 

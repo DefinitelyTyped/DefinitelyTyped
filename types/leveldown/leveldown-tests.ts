@@ -1,6 +1,6 @@
-import * as leveldown from "leveldown";
+import leveldown = require("leveldown");
 
-let db = leveldown("db1");
+const db = leveldown("db1");
 
 db.open((err) => {});
 db.open({createIfMissing: true}, (err) => {});
@@ -74,7 +74,7 @@ keyAndValueAsBufferIterator4.next((err, k, v) => {
 keyAndValueAsBufferIterator4.seek("k");
 keyAndValueAsBufferIterator4.end((err) => {});
 
-let s: string = db.getProperty("leveldb.stats");
+const s: string = db.getProperty("leveldb.stats");
 
 db.approximateSize("k1", "k2", (err, size) => {
     console.log(size.toExponential());
@@ -82,5 +82,5 @@ db.approximateSize("k1", "k2", (err, size) => {
 
 db.compactRange("k1", "k2", (err) => {});
 
-db.destroy("/path/to/db", (err) => {});
-db.repair("/path/to/db", (err) => {});
+leveldown.destroy("/path/to/db", (err) => {});
+leveldown.repair("/path/to/db", (err) => {});

@@ -1,4 +1,4 @@
-import {jdenticon} from "jdenticon";
+import { jdenticon } from "jdenticon";
 
 function testJdenticon() {
   if (typeof jdenticon.version !== 'string') {

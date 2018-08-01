@@ -1,9 +1,16 @@
 // Type definitions for Velocity 1.2.2
 // Project: http://velocityjs.org/
-// Definitions by: Greg Smith <https://github.com/smrq/>
+// Definitions by: Greg Smith <https://github.com/smrq>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery" />
+
+declare const Velocity: jquery.velocity.VelocityStatic;
+
+declare module "velocity-animate" {
+  export = Velocity;
+}
 
 interface JQuery {
 	velocity(name: string, options: jquery.velocity.RegisteredEffectOptions): JQuery;

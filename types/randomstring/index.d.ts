@@ -11,7 +11,7 @@ declare namespace Randomstring {
         capitalization?: string;
     }
 
-    function generate(options?: GenerateOptions): string;
+    function generate(options?: GenerateOptions | number): string;
 }
 
 declare module "randomstring" {

@@ -17,6 +17,23 @@ declare module 'cookiejs' {
 declare function cookie(key : string, fallback?: string) : string;
 declare function cookie(keys : string[], fallback?: string) : string;
 
+interface UtilStatic {
+  isArray: (value: any) => boolean;
+  isObject: (value: any) => boolean;
+  toArray: (...args: any[]) => any[];
+  getKeys: (value: {}) => any[];
+  encode: (value: string) => string;
+  decode: (value: string) => string;
+  retrieve: (x: string, y: string) => string;
+}
+
+interface Options {
+  expires: number | string | Date,
+  domain: string,
+  path: string,
+  secure: boolean,
+}
+
 declare namespace cookie {
   /**
    * Create a cookie. The value will automatically be escaped.
@@ -57,4 +74,12 @@ declare namespace cookie {
    * Test if cookies are enabled
    */
   export function enabled() : boolean;
+  /**
+   * Utility methods
+   */
+  export var utils: UtilStatic;
+  /**
+   * Set default options
+   */
+  export var defaults: Options;
 }

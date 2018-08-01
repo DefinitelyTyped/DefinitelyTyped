@@ -1,0 +1,9 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        // TODOs
+        "no-object-literal-type-assertion": false,
+        "only-arrow-functions": false,
+        "no-unnecessary-generics": false
+    }
+}

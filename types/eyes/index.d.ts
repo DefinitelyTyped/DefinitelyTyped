@@ -43,7 +43,7 @@ export interface EyesOptions {
     /** Don't output functions at all */
     hideFunctions?: boolean;
     /** Stream to write to, or null */
-    stream?: stream.Writable;
+    stream?: NodeJS.WritableStream;
     /** Truncate output if longer */
     maxLength?: number;
 }

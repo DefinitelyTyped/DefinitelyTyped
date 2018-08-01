@@ -2,7 +2,7 @@
 // Project: https://github.com/mgonto/angular-wizard
 // Definitions by: Marko Jurisic <https://github.com/mjurisic>, Ronald Wildenberg <https://github.com/rwwilden>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import * as angular from 'angular';
 

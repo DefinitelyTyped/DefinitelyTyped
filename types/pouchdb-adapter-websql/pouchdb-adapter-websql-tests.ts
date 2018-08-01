@@ -6,8 +6,6 @@ function isString(someString: string) {
 }
 
 function testConstructor() {
-    type MyModel = { numericProperty: number };
-
     let db = new PouchDB('basic');
     db = new PouchDB(null, {
         adapter: 'websql'

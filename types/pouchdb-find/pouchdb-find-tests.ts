@@ -6,12 +6,18 @@ function testFind() {
         fields: ['fieldName'],
         sort: ['fieldName'],
         limit: 1,
-        skip: 1
-    })
+        skip: 1,
+        use_index: 'ddocName'
+    });
 
     db.find({
         selector: {},
-        sort: [{'fieldName': 'asc'}]
+        use_index: ['ddocName', 'name']
+    });
+
+    db.find({
+        selector: {},
+        sort: [{fieldName: 'asc'}]
     });
 
     // test combinations of selectors

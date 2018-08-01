@@ -2,6 +2,7 @@
 // Project: https://github.com/angular-ui/ui-scroll
 // Definitions by: Mark Nadig <https://github.com/marknadig>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="angular" />
 

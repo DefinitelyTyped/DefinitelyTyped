@@ -1,43 +1,80 @@
-// Type definitions for d3Kit v3.1.2
+// Type definitions for d3Kit 3.2
 // Project: https://github.com/twitter/d3kit
 // Definitions by: Morgan Benton <https://github.com/morphatic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="d3" />
 
 export as namespace d3kit;
 
-export class AbstractChart {
-    container: Element;
-    constructor(selector: string|Element, options?: ChartOptions);
-    static getDefaultOptions(): ChartOptions;
-    static getCustomEventNames(): string[];
-    setupDispatcher(customEventNames?: string[]): void;
-    getCustomEventNames(): string[];
-    getInnerWidth(): number;
-    getInnerHeight(): number;
+export class Base {
+    constructor(options?: ChartOptions);
+    static getDefaultOptions(options?: ChartOptions): ChartOptions;
+    copyDimension(another: Base): this;
     width(value: number): this;
     width(): number;
     height(value: number): this;
     height(): number;
     dimension(dimensions: [number, number]): this;
     dimension(): [number, number];
-    data(data: any): this;
-    data(): any;
     margin(margins: ChartMargin): this;
     margin(): ChartMargin;
     offset(offset: [number, number]): this;
     offset(): [number, number];
+    pixelRatio(value: number): this;
+    pixelRatio(): number;
+    updateDimensionNow(): this;
+}
+
+export class AbstractPlate extends Base {
+    constructor(selector: string|Element, options?: ChartOptions);
+    static getDefaultOptions(options?: ChartOptions): ChartOptions;
+    getNode(): Element;
+    getSelection(): d3.Selection<d3.BaseType, any, d3.BaseType, any>;
+}
+
+export class CanvasPlate extends AbstractPlate {
+    constructor(options?: ChartOptions);
+    static getDefaultOptions(options?: ChartOptions): ChartOptions;
+    getContext2d(): CanvasRenderingContext2D;
+    clear(): this;
+}
+
+export class DivPlate extends AbstractPlate {
+    constructor(options?: ChartOptions);
+    static getDefaultOptions(options?: ChartOptions): ChartOptions;
+}
+
+export class SvgPlate extends AbstractPlate {
+    rootG: d3.Selection<d3.BaseType, any, d3.BaseType, any>;
+    layers: LayerOrganizer;
+    constructor(options?: ChartOptions);
+    static getDefaultOptions(options?: ChartOptions): ChartOptions;
+}
+
+export class AbstractChart extends Base {
+    constructor(selector: string|Element, options?: ChartOptions);
+    static getCustomEventNames(): string[];
+    addPlate(name: string, plate: AbstractPlate, doNotAppend: boolean): AbstractPlate;
+    addPlate(name: string, plate: AbstractPlate): this;
+    removePlate(name: string): this;
+    setupDispatcher(customEventNames?: string[]): this;
+    getCustomEventNames(): string[];
+    getInnerWidth(): number;
+    getInnerHeight(): number;
+    data(data: any): this;
+    data(): any;
     options(options: ChartOptions): this;
     options(): ChartOptions;
-    updateDimensionNow(): this;
     hasData(): boolean;
     hasNonZeroArea(): boolean;
-    fit(fitOptions: FitOptions, watchOptions?: WatchOptions): this;
+    fit(fitOptions?: FitOptions, watchOptions?: boolean|WatchOptions): this;
     stopFitWatcher(): this;
     on(name: string, listener: () => void): this;
     off(name: string): this;
-    destroy(): void;
+    dispatchAs(name: string, ...args: any[]): (...args: any[]) => void;
+    destroy(): this;
 }
 
 export interface ChartMargin {
@@ -68,7 +105,7 @@ export interface FitOptions {
 // from https://github.com/kristw/slimfit
 export interface WatchOptions {
     mode?: string;
-    target?: any; // lazy
+    target?: Element|[number, number]|{width: number, height: number}|null;
     interval?: number;
 }
 
@@ -76,6 +113,7 @@ export class SvgChart extends AbstractChart {
     svg: d3.Selection<d3.BaseType, any, d3.BaseType, any>;
     rootG: d3.Selection<d3.BaseType, any, d3.BaseType, any>;
     layers: LayerOrganizer;
+    plate: SvgPlate;
     constructor(selector: string|Element, options?: ChartOptions);
 }
 
@@ -84,6 +122,15 @@ export class CanvasChart extends AbstractChart {
     static getDefaultOptions(): ChartOptions;
     getContext2d(): CanvasRenderingContext2D;
     clear(): this;
+}
+
+export class HybridChart extends CanvasChart {
+    svg: d3.Selection<d3.BaseType, any, d3.BaseType, any>;
+    rootG: d3.Selection<d3.BaseType, any, d3.BaseType, any>;
+    layers: LayerOrganizer;
+    plate: SvgPlate;
+    constructor(selector: string|Element, options?: ChartOptions);
+    static getDefaultOptions(): ChartOptions;
 }
 
 export class LayerOrganizer {

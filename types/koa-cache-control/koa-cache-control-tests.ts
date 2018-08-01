@@ -1,5 +1,5 @@
-import * as Koa from "koa";
-import * as cacheControl from "koa-cache-control";
+import Koa = require("koa");
+import cacheControl = require("koa-cache-control");
 
 const app = new Koa();
 

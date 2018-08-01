@@ -1,5 +1,5 @@
 import * as webpack from 'webpack';
-import * as webpackStream from 'webpack-stream';
+import webpackStream = require('webpack-stream');
 
 let output: NodeJS.ReadWriteStream;
 

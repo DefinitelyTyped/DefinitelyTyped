@@ -1,6 +1,6 @@
 // Type definitions for gulp-plumber
 // Project: https://github.com/floatdrop/gulp-plumber
-// Definitions by: Joe Skeen <http://github.com/joeskeen>
+// Definitions by: Joe Skeen <https://github.com/joeskeen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
