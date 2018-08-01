@@ -158,8 +158,10 @@ export interface SocketOptions {
     autoReconnect?: boolean;
     // TCP Socket NoDelay option. default:true
     noDelay?: boolean;
-    // TCP KeepAlive on the socket with a X ms delay before start. default:0
-    keepAlive?: number;
+    // TCP KeepAlive enabled on the socket. default:true
+    keepAlive?: boolean;
+    // TCP KeepAlive initial delay before sending first keep-alive packet when idle. default:300000
+    keepAliveInitialDelay?: number;
     // TCP Connection timeout setting. default 0
     connectTimeoutMS?: number;
     // TCP Socket timeout setting. default 0
