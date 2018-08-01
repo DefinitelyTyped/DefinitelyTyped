@@ -25,7 +25,7 @@ export class InputRule<S extends Schema = any> {
       match: string[],
       start: number,
       end: number
-    ) => Transaction<S> | null)
+    ) => Transaction<S> | null);
 
   /**
    * Create an input rule. The rule applies when the user typed
