@@ -89,7 +89,7 @@ export interface CollapseOption {
      *
      * @default ""
      */
-    parent?: string | JQuery | Element;
+    parent?: string | JQuery | Element | null;
 
     /**
      * Toggles the collapsible element on invocation.
@@ -123,7 +123,7 @@ export interface DropdownOption {
      *
      * @default "scrollParent"
      */
-    boundary?: Popper.Boundary | HTMLElement;
+    boundary?: Popper.Boundary | HTMLElement | null;
 
     /**
      * Reference element of the dropdown menu. Accepts the values of 'toggle', 'parent', or an HTMLElement reference.
@@ -131,7 +131,7 @@ export interface DropdownOption {
      *
      * @default "toggle"
      */
-    reference?: "toggle" | "parent" | HTMLElement;
+    reference?: "toggle" | "parent" | HTMLElement | null;
 
     /**
      * By default, we use Popper.js for dynamic positioning. Disable this with 'static'.
@@ -315,7 +315,7 @@ export interface TooltipOption {
      *
      * @default "scrollParent"
      */
-    boundary?: Popper.Boundary | HTMLElement;
+    boundary?: Popper.Boundary | HTMLElement | null;
 }
 
 // --------------------------------------------------------------------------------------
