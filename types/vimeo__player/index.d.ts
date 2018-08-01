@@ -25,7 +25,7 @@ export type EventName = "play" | "pause" | "ended" | "timeupdate" | "progress" |
 export type EventCallback = (data: any) => any;
 
 export class Player {
-    constructor(element: HTMLIFrameElement|HTMLElement|string, options: Options);
+    constructor(element: HTMLIFrameElement|HTMLElement|string, options?: Options);
 
     on(event: EventName, callback: EventCallback): void;
     off(event: EventName, callback?: EventCallback): void;
