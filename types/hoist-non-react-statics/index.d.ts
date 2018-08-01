@@ -43,7 +43,7 @@ declare function hoistNonReactStatics<
         [key in Exclude<
             keyof S,
             // only extends static properties, exclude instance properties and known react statics
-            'prototype' | keyof REACT_STATICS | keyof KNOWN_STATICS | keyof C
+            keyof REACT_STATICS | keyof KNOWN_STATICS | keyof C
         >]: S[key]
     };
 
