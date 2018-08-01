@@ -17,6 +17,16 @@ import { EditorState, Plugin, Transaction } from 'prosemirror-state';
  * with `"> "` into a blockquote, or something entirely different.
  */
 export class InputRule<S extends Schema = any> {
+  match: RegExp;
+  handler:
+    | string
+    | ((
+      state: EditorState<S>,
+      match: string[],
+      start: number,
+      end: number
+    ) => Transaction<S> | null)
+
   /**
    * Create an input rule. The rule applies when the user typed
    * something and the text directly in front of the cursor matches
