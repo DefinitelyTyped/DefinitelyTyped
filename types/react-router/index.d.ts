@@ -64,9 +64,9 @@ export interface StaticContext {
   statusCode?: number;
 }
 
-export interface RouteComponentProps<P, C extends StaticContext = StaticContext> {
+export interface RouteComponentProps<P, C extends StaticContext = StaticContext, S = H.LocationState> {
   history: H.History;
-  location: H.Location;
+  location: H.Location<S>;
   match: match<P>;
   staticContext?: C;
 }

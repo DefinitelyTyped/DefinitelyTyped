@@ -86,11 +86,23 @@ export interface Format {
     eventTimeRangeEndFormat?: string;
 }
 
+export interface HeaderProps {
+    culture: BigCalendarProps['culture'];
+    date: Date;
+    format: string;
+    label: string;
+    localizer: object;
+}
+
 export interface Components {
     event?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
     eventWrapper?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
     dayWrapper?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
     dateCellWrapper?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
+    /**
+     * component used as a header for each column in the TimeGridHeader
+     */
+    header?: React.ComponentType<HeaderProps>;
     toolbar?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
     agenda?: {
         date?: React.SFC | React.Component | React.ComponentClass | JSX.Element;

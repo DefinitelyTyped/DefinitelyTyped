@@ -62,12 +62,9 @@ import createSinkStandalone from "recompose/createSink";
 import componentFromPropStandalone from "recompose/componentFromProp";
 import nestStandalone from "recompose/nest";
 import hoistStaticsStandalone from "recompose/hoistStatics";
-import componentFromStreamStandalone from "recompose/componentFromStream";
-import componentFromStreamWithConfigStandalone from "recompose/componentFromStreamWithConfig";
-import mapPropsStreamStandalone from "recompose/mapPropsStream";
-import mapPropsStreamWithConfigStandalone from "recompose/mapPropsStreamWithConfig";
-import createEventHandlerStandalone from "recompose/createEventHandler";
-import createEventHandlerWithConfigStandalone from "recompose/createEventHandlerWithConfig";
+import componentFromStreamStandalone, { componentFromStreamWithConfig as componentFromStreamWithConfigStandalone } from "recompose/componentFromStream";
+import mapPropsStreamStandalone, { mapPropsStreamWithConfig as mapPropsStreamWithConfigStandalone } from "recompose/mapPropsStream";
+import createEventHandlerStandalone, { createEventHandlerWithConfig as createEventHandlerWithConfigStandalone } from "recompose/createEventHandler";
 import setObservableConfigStandalone from "recompose/setObservableConfig";
 
 function testMapProps() {
