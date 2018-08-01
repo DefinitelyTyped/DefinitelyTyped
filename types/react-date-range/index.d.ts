@@ -2,7 +2,7 @@
 // Project: https://github.com/Adphorus/react-date-range/
 // Definitions by: Junbong Lee <https://github.com/Junbong>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 import * as moment from "moment-timezone";

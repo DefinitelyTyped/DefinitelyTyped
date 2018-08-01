@@ -4,7 +4,7 @@
 //                 Rajab Shakirov <https://github.com/radziksh>
 //                 Paito Anderson <https://github.com/PaitoAnderson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 // TODO: <Highlighter>, <Menu>, <MenuItem>, <Token> components
 
 import * as React from 'react';
