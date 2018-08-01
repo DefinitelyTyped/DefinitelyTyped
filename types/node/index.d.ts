@@ -414,10 +414,10 @@ declare var Buffer: {
      * Gives the actual byte length of a string. encoding defaults to 'utf8'.
      * This is not the same as String.prototype.length since that returns the number of characters in a string.
      *
-     * @param string string to test. (TypedArray is also allowed, but it is only available starting ES2017)
+     * @param string string to test.
      * @param encoding encoding used to evaluate (defaults to 'utf8')
      */
-    byteLength(string: string | ArrayBuffer | ArrayBufferView, encoding?: string): number;
+    byteLength(string: string | NodeJS.TypedArray | DataView | ArrayBuffer /*| SharedArrayBuffer */, encoding?: string): number;
     /**
      * Returns a buffer which is the result of concatenating all the buffers in the list together.
      *
@@ -694,7 +694,7 @@ declare namespace NodeJS {
         columns?: number;
         rows?: number;
         _write(chunk: any, encoding: string, callback: Function): void;
-        _destroy(err: Error, callback: Function): void;
+        _destroy(err: Error | null, callback: Function): void;
         _final(callback: Function): void;
         setDefaultEncoding(encoding: string): this;
         cork(): void;
@@ -707,7 +707,7 @@ declare namespace NodeJS {
         isRaw?: boolean;
         setRawMode?(mode: boolean): void;
         _read(size: number): void;
-        _destroy(err: Error, callback: Function): void;
+        _destroy(err: Error | null, callback: Function): void;
         push(chunk: any, encoding?: string): boolean;
         destroy(error?: Error): void;
     }
@@ -977,6 +977,8 @@ declare namespace NodeJS {
 
         constructor(id: string, parent?: Module);
     }
+
+    type TypedArray = Uint8Array | Uint8ClampedArray | Uint16Array | Uint32Array | Int8Array | Int16Array | Int32Array | Float32Array | Float64Array;
 }
 
 interface IterableIterator<T> { }
@@ -1552,7 +1554,7 @@ declare module "zlib" {
         level?: number; // compression only
         memLevel?: number; // compression only
         strategy?: number; // compression only
-        dictionary?: any; // deflate/inflate only, empty dictionary by default
+        dictionary?: Buffer | NodeJS.TypedArray | DataView | ArrayBuffer; // deflate/inflate only, empty dictionary by default
     }
 
     export interface Zlib {
@@ -1585,7 +1587,7 @@ declare module "zlib" {
     export function createInflateRaw(options?: ZlibOptions): InflateRaw;
     export function createUnzip(options?: ZlibOptions): Unzip;
 
-    type InputType = string | Buffer | DataView | ArrayBuffer /* | TypedArray */;
+    type InputType = string | Buffer | DataView | ArrayBuffer | NodeJS.TypedArray;
     export function deflate(buf: InputType, callback: (error: Error | null, result: Buffer) => void): void;
     export function deflate(buf: InputType, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
     export function deflateSync(buf: InputType, options?: ZlibOptions): Buffer;
@@ -2223,24 +2225,31 @@ declare module "child_process" {
         encoding: string | null; // specify `null`.
     }
 
+    export interface ExecException extends Error {
+        cmd?: string;
+        killed?: boolean;
+        code?: number;
+        signal?: string;
+    }
+
     // no `options` definitely means stdout/stderr are `string`.
-    export function exec(command: string, callback?: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
+    export function exec(command: string, callback?: (error: ExecException | null, stdout: string, stderr: string) => void): ChildProcess;
 
     // `options` with `"buffer"` or `null` for `encoding` means stdout/stderr are definitely `Buffer`.
-    export function exec(command: string, options: { encoding: "buffer" | null } & ExecOptions, callback?: (error: Error | null, stdout: Buffer, stderr: Buffer) => void): ChildProcess;
+    export function exec(command: string, options: { encoding: "buffer" | null } & ExecOptions, callback?: (error: ExecException | null, stdout: Buffer, stderr: Buffer) => void): ChildProcess;
 
     // `options` with well known `encoding` means stdout/stderr are definitely `string`.
-    export function exec(command: string, options: { encoding: BufferEncoding } & ExecOptions, callback?: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
+    export function exec(command: string, options: { encoding: BufferEncoding } & ExecOptions, callback?: (error: ExecException | null, stdout: string, stderr: string) => void): ChildProcess;
 
     // `options` with an `encoding` whose type is `string` means stdout/stderr could either be `Buffer` or `string`.
     // There is no guarantee the `encoding` is unknown as `string` is a superset of `BufferEncoding`.
-    export function exec(command: string, options: { encoding: string } & ExecOptions, callback?: (error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => void): ChildProcess;
+    export function exec(command: string, options: { encoding: string } & ExecOptions, callback?: (error: ExecException | null, stdout: string | Buffer, stderr: string | Buffer) => void): ChildProcess;
 
     // `options` without an `encoding` means stdout/stderr are definitely `string`.
-    export function exec(command: string, options: ExecOptions, callback?: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
+    export function exec(command: string, options: ExecOptions, callback?: (error: ExecException | null, stdout: string, stderr: string) => void): ChildProcess;
 
     // fallback if nothing else matches. Worst case is always `string | Buffer`.
-    export function exec(command: string, options: ({ encoding?: string | null } & ExecOptions) | undefined | null, callback?: (error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => void): ChildProcess;
+    export function exec(command: string, options: ({ encoding?: string | null } & ExecOptions) | undefined | null, callback?: (error: ExecException | null, stdout: string | Buffer, stderr: string | Buffer) => void): ChildProcess;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     export namespace exec {
@@ -2501,7 +2510,7 @@ declare module "url" {
         append(name: string, value: string): void;
         delete(name: string): void;
         entries(): IterableIterator<[string, string]>;
-        forEach(callback: (value: string, name: string) => void): void;
+        forEach(callback: (value: string, name: string, searchParams: this) => void): void;
         get(name: string): string | null;
         getAll(name: string): string[];
         has(name: string): boolean;
@@ -5740,9 +5749,9 @@ declare module "crypto" {
     import * as stream from "stream";
 
     export interface Certificate {
-        exportChallenge(spkac: string | ArrayBufferView): Buffer;
-        exportPublicKey(spkac: string | ArrayBufferView): Buffer;
-        verifySpkac(spkac: ArrayBufferView): boolean;
+        exportChallenge(spkac: string | Buffer | NodeJS.TypedArray | DataView): Buffer;
+        exportPublicKey(spkac: string | Buffer | NodeJS.TypedArray | DataView): Buffer;
+        verifySpkac(spkac: Buffer | NodeJS.TypedArray | DataView): boolean;
     }
     export var Certificate: {
         new(): Certificate;
@@ -5764,7 +5773,7 @@ declare module "crypto" {
     export interface Credentials { context?: any; }
     export function createCredentials(details: CredentialDetails): Credentials;
     export function createHash(algorithm: string, options?: stream.TransformOptions): Hash;
-    export function createHmac(algorithm: string, key: string | ArrayBufferView, options?: stream.TransformOptions): Hmac;
+    export function createHmac(algorithm: string, key: string | Buffer | NodeJS.TypedArray | DataView, options?: stream.TransformOptions): Hmac;
 
     type Utf8AsciiLatin1Encoding = "utf8" | "ascii" | "latin1";
     type HexBase64Latin1Encoding = "latin1" | "hex" | "base64";
@@ -5773,13 +5782,13 @@ declare module "crypto" {
     type ECDHKeyFormat = "compressed" | "uncompressed" | "hybrid";
 
     export interface Hash extends NodeJS.ReadWriteStream {
-        update(data: string | ArrayBufferView): Hash;
+        update(data: string | Buffer | NodeJS.TypedArray | DataView): Hash;
         update(data: string, input_encoding: Utf8AsciiLatin1Encoding): Hash;
         digest(): Buffer;
         digest(encoding: HexBase64Latin1Encoding): string;
     }
     export interface Hmac extends NodeJS.ReadWriteStream {
-        update(data: string | ArrayBufferView): Hmac;
+        update(data: string | Buffer | NodeJS.TypedArray | DataView): Hmac;
         update(data: string, input_encoding: Utf8AsciiLatin1Encoding): Hmac;
         digest(): Buffer;
         digest(encoding: HexBase64Latin1Encoding): string;
@@ -5793,19 +5802,19 @@ declare module "crypto" {
         authTagLength?: number;
     }
     /** @deprecated since v10.0.0 use createCipheriv() */
-    export function createCipher(algorithm: string, password: string | ArrayBufferView, options?: stream.TransformOptions): Cipher;
-    export function createCipher(algorithm: CipherCCMTypes, password: string | ArrayBufferView, options: CipherCCMOptions): CipherCCM;
-    export function createCipher(algorithm: CipherGCMTypes, password: string | ArrayBufferView, options: CipherGCMOptions): CipherGCM;
+    export function createCipher(algorithm: string, password: string | Buffer | NodeJS.TypedArray | DataView, options?: stream.TransformOptions): Cipher;
+    export function createCipher(algorithm: CipherCCMTypes, password: string | Buffer | NodeJS.TypedArray | DataView, options: CipherCCMOptions): CipherCCM;
+    export function createCipher(algorithm: CipherGCMTypes, password: string | Buffer | NodeJS.TypedArray | DataView, options: CipherGCMOptions): CipherGCM;
 
-    export function createCipheriv(algorithm: string, key: string | ArrayBufferView, iv: string | ArrayBufferView, options?: stream.TransformOptions): Cipher;
-    export function createCipheriv(algorithm: CipherGCMTypes, key: string | ArrayBufferView, iv: string | ArrayBufferView, options: CipherCCMOptions): CipherCCM;
-    export function createCipheriv(algorithm: CipherGCMTypes, key: string | ArrayBufferView, iv: string | ArrayBufferView, options: CipherGCMOptions): CipherGCM;
+    export function createCipheriv(algorithm: string, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options?: stream.TransformOptions): Cipher;
+    export function createCipheriv(algorithm: CipherGCMTypes, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options: CipherCCMOptions): CipherCCM;
+    export function createCipheriv(algorithm: CipherGCMTypes, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options: CipherGCMOptions): CipherGCM;
 
     export interface Cipher extends NodeJS.ReadWriteStream {
-        update(data: string | ArrayBufferView): Buffer;
+        update(data: string | Buffer | NodeJS.TypedArray | DataView): Buffer;
         update(data: string, input_encoding: Utf8AsciiBinaryEncoding): Buffer;
-        update(data: ArrayBufferView, output_encoding: HexBase64BinaryEncoding): string;
-        update(data: ArrayBufferView, input_encoding: any, output_encoding: HexBase64BinaryEncoding): string;
+        update(data: Buffer | NodeJS.TypedArray | DataView, output_encoding: HexBase64BinaryEncoding): string;
+        update(data: Buffer | NodeJS.TypedArray | DataView, input_encoding: any, output_encoding: HexBase64BinaryEncoding): string;
         // second arg ignored
         update(data: string, input_encoding: Utf8AsciiBinaryEncoding, output_encoding: HexBase64BinaryEncoding): string;
         final(): Buffer;
@@ -5823,62 +5832,62 @@ declare module "crypto" {
         getAuthTag(): Buffer;
     }
     /** @deprecated since v10.0.0 use createCipheriv() */
-    export function createDecipher(algorithm: string, password: string | ArrayBufferView, options?: stream.TransformOptions): Decipher;
-    export function createDecipher(algorithm: CipherCCMTypes, password: string | ArrayBufferView, options: CipherCCMOptions): DecipherCCM;
-    export function createDecipher(algorithm: CipherGCMTypes, password: string | ArrayBufferView, options: CipherGCMOptions): DecipherGCM;
+    export function createDecipher(algorithm: string, password: string | Buffer | NodeJS.TypedArray | DataView, options?: stream.TransformOptions): Decipher;
+    export function createDecipher(algorithm: CipherCCMTypes, password: string | Buffer | NodeJS.TypedArray | DataView, options: CipherCCMOptions): DecipherCCM;
+    export function createDecipher(algorithm: CipherGCMTypes, password: string | Buffer | NodeJS.TypedArray | DataView, options: CipherGCMOptions): DecipherGCM;
 
-    export function createDecipheriv(algorithm: string, key: string | ArrayBufferView, iv: string | ArrayBufferView, options?: stream.TransformOptions): Decipher;
-    export function createDecipheriv(algorithm: CipherCCMTypes, key: string | ArrayBufferView, iv: string | ArrayBufferView, options: CipherCCMOptions): DecipherCCM;
-    export function createDecipheriv(algorithm: CipherGCMTypes, key: string | ArrayBufferView, iv: string | ArrayBufferView, options: CipherGCMOptions): DecipherGCM;
+    export function createDecipheriv(algorithm: string, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options?: stream.TransformOptions): Decipher;
+    export function createDecipheriv(algorithm: CipherCCMTypes, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options: CipherCCMOptions): DecipherCCM;
+    export function createDecipheriv(algorithm: CipherGCMTypes, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options: CipherGCMOptions): DecipherGCM;
 
     export interface Decipher extends NodeJS.ReadWriteStream {
-        update(data: ArrayBufferView): Buffer;
+        update(data: Buffer | NodeJS.TypedArray | DataView): Buffer;
         update(data: string, input_encoding: HexBase64BinaryEncoding): Buffer;
-        update(data: ArrayBufferView, input_encoding: any, output_encoding: Utf8AsciiBinaryEncoding): string;
+        update(data: Buffer | NodeJS.TypedArray | DataView, input_encoding: any, output_encoding: Utf8AsciiBinaryEncoding): string;
         // second arg is ignored
         update(data: string, input_encoding: HexBase64BinaryEncoding, output_encoding: Utf8AsciiBinaryEncoding): string;
         final(): Buffer;
         final(output_encoding: string): string;
         setAutoPadding(auto_padding?: boolean): this;
-        // setAuthTag(tag: ArrayBufferView): this;
-        // setAAD(buffer: ArrayBufferView): this; // docs say buffer view
+        // setAuthTag(tag: Buffer | NodeJS.TypedArray | DataView): this;
+        // setAAD(buffer: Buffer | NodeJS.TypedArray | DataView): this;
     }
     export interface DecipherCCM extends Decipher {
-        setAuthTag(buffer: ArrayBufferView, options: { plainTextLength: number }): this;
-        setAAD(buffer: ArrayBufferView): this; // docs say buffer view
+        setAuthTag(buffer: Buffer | NodeJS.TypedArray | DataView, options: { plainTextLength: number }): this;
+        setAAD(buffer: Buffer | NodeJS.TypedArray | DataView): this;
     }
     export interface DecipherGCM extends Decipher {
-        setAuthTag(buffer: ArrayBufferView, options?: { plainTextLength: number }): this;
-        setAAD(buffer: ArrayBufferView): this; // docs say buffer view
+        setAuthTag(buffer: Buffer | NodeJS.TypedArray | DataView, options?: { plainTextLength: number }): this;
+        setAAD(buffer: Buffer | NodeJS.TypedArray | DataView): this;
     }
 
     export function createSign(algorithm: string, options?: stream.WritableOptions): Signer;
     export interface Signer extends NodeJS.WritableStream {
-        update(data: string | ArrayBufferView): Signer;
+        update(data: string | Buffer | NodeJS.TypedArray | DataView): Signer;
         update(data: string, input_encoding: Utf8AsciiLatin1Encoding): Signer;
         sign(private_key: string | { key: string; passphrase: string }): Buffer;
         sign(private_key: string | { key: string; passphrase: string }, output_format: HexBase64Latin1Encoding): string;
     }
     export function createVerify(algorith: string, options?: stream.WritableOptions): Verify;
     export interface Verify extends NodeJS.WritableStream {
-        update(data: string | ArrayBufferView): Verify;
+        update(data: string | Buffer | NodeJS.TypedArray | DataView): Verify;
         update(data: string, input_encoding: Utf8AsciiLatin1Encoding): Verify;
-        verify(object: string | Object, signature: ArrayBufferView): boolean;
+        verify(object: string | Object, signature: Buffer | NodeJS.TypedArray | DataView): boolean;
         verify(object: string | Object, signature: string, signature_format: HexBase64Latin1Encoding): boolean;
         // https://nodejs.org/api/crypto.html#crypto_verifier_verify_object_signature_signature_format
         // The signature field accepts a TypedArray type, but it is only available starting ES2017
     }
-    export function createDiffieHellman(prime_length: number, generator?: number | ArrayBufferView): DiffieHellman;
-    export function createDiffieHellman(prime: ArrayBufferView): DiffieHellman;
+    export function createDiffieHellman(prime_length: number, generator?: number | Buffer | NodeJS.TypedArray | DataView): DiffieHellman;
+    export function createDiffieHellman(prime: Buffer | NodeJS.TypedArray | DataView): DiffieHellman;
     export function createDiffieHellman(prime: string, prime_encoding: HexBase64Latin1Encoding): DiffieHellman;
-    export function createDiffieHellman(prime: string, prime_encoding: HexBase64Latin1Encoding, generator: number | ArrayBufferView): DiffieHellman;
+    export function createDiffieHellman(prime: string, prime_encoding: HexBase64Latin1Encoding, generator: number | Buffer | NodeJS.TypedArray | DataView): DiffieHellman;
     export function createDiffieHellman(prime: string, prime_encoding: HexBase64Latin1Encoding, generator: string, generator_encoding: HexBase64Latin1Encoding): DiffieHellman;
     export interface DiffieHellman {
         generateKeys(): Buffer;
         generateKeys(encoding: HexBase64Latin1Encoding): string;
-        computeSecret(other_public_key: ArrayBufferView): Buffer;
+        computeSecret(other_public_key: Buffer | NodeJS.TypedArray | DataView): Buffer;
         computeSecret(other_public_key: string, input_encoding: HexBase64Latin1Encoding): Buffer;
-        computeSecret(other_public_key: ArrayBufferView, output_encoding: HexBase64Latin1Encoding): string;
+        computeSecret(other_public_key: Buffer | NodeJS.TypedArray | DataView, output_encoding: HexBase64Latin1Encoding): string;
         computeSecret(other_public_key: string, input_encoding: HexBase64Latin1Encoding, output_encoding: HexBase64Latin1Encoding): string;
         getPrime(): Buffer;
         getPrime(encoding: HexBase64Latin1Encoding): string;
@@ -5888,25 +5897,25 @@ declare module "crypto" {
         getPublicKey(encoding: HexBase64Latin1Encoding): string;
         getPrivateKey(): Buffer;
         getPrivateKey(encoding: HexBase64Latin1Encoding): string;
-        setPublicKey(public_key: ArrayBufferView): void;
+        setPublicKey(public_key: Buffer | NodeJS.TypedArray | DataView): void;
         setPublicKey(public_key: string, encoding: string): void;
-        setPrivateKey(private_key: ArrayBufferView): void;
+        setPrivateKey(private_key: Buffer | NodeJS.TypedArray | DataView): void;
         setPrivateKey(private_key: string, encoding: string): void;
         verifyError: number;
     }
     export function getDiffieHellman(group_name: string): DiffieHellman;
-    export function pbkdf2(password: string | ArrayBufferView, salt: string | ArrayBufferView, iterations: number, keylen: number, digest: string, callback: (err: Error | null, derivedKey: Buffer) => any): void;
-    export function pbkdf2Sync(password: string | ArrayBufferView, salt: string | ArrayBufferView, iterations: number, keylen: number, digest: string): Buffer;
+    export function pbkdf2(password: string | Buffer | NodeJS.TypedArray | DataView, salt: string | Buffer | NodeJS.TypedArray | DataView, iterations: number, keylen: number, digest: string, callback: (err: Error | null, derivedKey: Buffer) => any): void;
+    export function pbkdf2Sync(password: string | Buffer | NodeJS.TypedArray | DataView, salt: string | Buffer | NodeJS.TypedArray | DataView, iterations: number, keylen: number, digest: string): Buffer;
 
     export function randomBytes(size: number): Buffer;
     export function randomBytes(size: number, callback: (err: Error | null, buf: Buffer) => void): void;
     export function pseudoRandomBytes(size: number): Buffer;
     export function pseudoRandomBytes(size: number, callback: (err: Error | null, buf: Buffer) => void): void;
 
-    export function randomFillSync<T extends Buffer | ArrayBufferView>(buffer: T, offset?: number, size?: number): T;
-    export function randomFill<T extends Buffer | ArrayBufferView>(buffer: T, callback: (err: Error | null, buf: T) => void): void;
-    export function randomFill<T extends Buffer | ArrayBufferView>(buffer: T, offset: number, callback: (err: Error | null, buf: T) => void): void;
-    export function randomFill<T extends Buffer | ArrayBufferView>(buffer: T, offset: number, size: number, callback: (err: Error | null, buf: T) => void): void;
+    export function randomFillSync<T extends Buffer | NodeJS.TypedArray | DataView>(buffer: T, offset?: number, size?: number): T;
+    export function randomFill<T extends Buffer | NodeJS.TypedArray | DataView>(buffer: T, callback: (err: Error | null, buf: T) => void): void;
+    export function randomFill<T extends Buffer | NodeJS.TypedArray | DataView>(buffer: T, offset: number, callback: (err: Error | null, buf: T) => void): void;
+    export function randomFill<T extends Buffer | NodeJS.TypedArray | DataView>(buffer: T, offset: number, size: number, callback: (err: Error | null, buf: T) => void): void;
 
     export interface ScryptOptions {
         N?: number;
@@ -5914,9 +5923,9 @@ declare module "crypto" {
         p?: number;
         maxmem?: number;
     }
-    export function scrypt(password: string | ArrayBufferView, salt: string | ArrayBufferView, keylen: number, callback: (err: Error | null, derivedKey: Buffer) => void): void;
-    export function scrypt(password: string | ArrayBufferView, salt: string | ArrayBufferView, keylen: number, options: ScryptOptions, callback: (err: Error | null, derivedKey: Buffer) => void): void;
-    export function scryptSync(password: string | ArrayBufferView, salt: string | ArrayBufferView, keylen: number, options?: ScryptOptions): Buffer;
+    export function scrypt(password: string | Buffer | NodeJS.TypedArray | DataView, salt: string | Buffer | NodeJS.TypedArray | DataView, keylen: number, callback: (err: Error | null, derivedKey: Buffer) => void): void;
+    export function scrypt(password: string | Buffer | NodeJS.TypedArray | DataView, salt: string | Buffer | NodeJS.TypedArray | DataView, keylen: number, options: ScryptOptions, callback: (err: Error | null, derivedKey: Buffer) => void): void;
+    export function scryptSync(password: string | Buffer | NodeJS.TypedArray | DataView, salt: string | Buffer | NodeJS.TypedArray | DataView, keylen: number, options?: ScryptOptions): Buffer;
 
     export interface RsaPublicKey {
         key: string;
@@ -5927,30 +5936,30 @@ declare module "crypto" {
         passphrase?: string;
         padding?: number;
     }
-    export function publicEncrypt(public_key: string | RsaPublicKey, buffer: ArrayBufferView): Buffer;
-    export function privateDecrypt(private_key: string | RsaPrivateKey, buffer: ArrayBufferView): Buffer;
-    export function privateEncrypt(private_key: string | RsaPrivateKey, buffer: ArrayBufferView): Buffer;
-    export function publicDecrypt(public_key: string | RsaPublicKey, buffer: ArrayBufferView): Buffer;
+    export function publicEncrypt(public_key: string | RsaPublicKey, buffer: Buffer | NodeJS.TypedArray | DataView): Buffer;
+    export function privateDecrypt(private_key: string | RsaPrivateKey, buffer: Buffer | NodeJS.TypedArray | DataView): Buffer;
+    export function privateEncrypt(private_key: string | RsaPrivateKey, buffer: Buffer | NodeJS.TypedArray | DataView): Buffer;
+    export function publicDecrypt(public_key: string | RsaPublicKey, buffer: Buffer | NodeJS.TypedArray | DataView): Buffer;
     export function getCiphers(): string[];
     export function getCurves(): string[];
     export function getHashes(): string[];
     export class ECDH {
-        static convertKey(key: string | ArrayBufferView, curve: string, inputEncoding?: HexBase64Latin1Encoding, outputEncoding?: "latin1" | "hex" | "base64", format?: "uncompressed" | "compressed" | "hybrid"): Buffer | string;
+        static convertKey(key: string | Buffer | NodeJS.TypedArray | DataView, curve: string, inputEncoding?: HexBase64Latin1Encoding, outputEncoding?: "latin1" | "hex" | "base64", format?: "uncompressed" | "compressed" | "hybrid"): Buffer | string;
         generateKeys(): Buffer;
         generateKeys(encoding: HexBase64Latin1Encoding, format?: ECDHKeyFormat): string;
-        computeSecret(other_public_key: ArrayBufferView): Buffer;
+        computeSecret(other_public_key: Buffer | NodeJS.TypedArray | DataView): Buffer;
         computeSecret(other_public_key: string, input_encoding: HexBase64Latin1Encoding): Buffer;
-        computeSecret(other_public_key: ArrayBufferView, output_encoding: HexBase64Latin1Encoding): string;
+        computeSecret(other_public_key: Buffer | NodeJS.TypedArray | DataView, output_encoding: HexBase64Latin1Encoding): string;
         computeSecret(other_public_key: string, input_encoding: HexBase64Latin1Encoding, output_encoding: HexBase64Latin1Encoding): string;
         getPrivateKey(): Buffer;
         getPrivateKey(encoding: HexBase64Latin1Encoding): string;
         getPublicKey(): Buffer;
         getPublicKey(encoding: HexBase64Latin1Encoding, format?: ECDHKeyFormat): string;
-        setPrivateKey(private_key: ArrayBufferView): void;
+        setPrivateKey(private_key: Buffer | NodeJS.TypedArray | DataView): void;
         setPrivateKey(private_key: string, encoding: HexBase64Latin1Encoding): void;
     }
     export function createECDH(curve_name: string): ECDH;
-    export function timingSafeEqual(a: ArrayBufferView, b: ArrayBufferView): boolean;
+    export function timingSafeEqual(a: Buffer | NodeJS.TypedArray | DataView, b: Buffer | NodeJS.TypedArray | DataView): boolean;
     /** @deprecated since v10.0.0 */
     export var DEFAULT_ENCODING: string;
 }
@@ -5970,7 +5979,7 @@ declare module "stream" {
             encoding?: string;
             objectMode?: boolean;
             read?: (this: Readable, size?: number) => any;
-            destroy?: (error?: Error) => any;
+            destroy?: (error: Error | null, callback: (error?: Error) => void) => void;
         }
 
         export class Readable extends Stream implements NodeJS.ReadableStream {
@@ -5988,7 +5997,7 @@ declare module "stream" {
             unshift(chunk: any): void;
             wrap(oldStream: NodeJS.ReadableStream): this;
             push(chunk: any, encoding?: string): boolean;
-            _destroy(err: Error, callback: Function): void;
+            _destroy(error: Error | null, callback: (error?: Error) => void): void;
             destroy(error?: Error): void;
 
             /**
@@ -6058,7 +6067,7 @@ declare module "stream" {
             objectMode?: boolean;
             write?: (chunk: any, encoding: string, callback: Function) => any;
             writev?: (chunks: Array<{ chunk: any, encoding: string }>, callback: Function) => any;
-            destroy?: (error?: Error) => any;
+            destroy?: (error: Error | null, callback: (error?: Error) => void) => void;
             final?: (callback: (error?: Error) => void) => void;
         }
 
@@ -6069,7 +6078,7 @@ declare module "stream" {
             constructor(opts?: WritableOptions);
             _write(chunk: any, encoding: string, callback: (err?: Error) => void): void;
             _writev?(chunks: Array<{ chunk: any, encoding: string }>, callback: (err?: Error) => void): void;
-            _destroy(err: Error, callback: Function): void;
+            _destroy(error: Error | null, callback: (error?: Error) => void): void;
             _final(callback: Function): void;
             write(chunk: any, cb?: Function): boolean;
             write(chunk: any, encoding?: string, cb?: Function): boolean;
@@ -6162,7 +6171,7 @@ declare module "stream" {
             constructor(opts?: DuplexOptions);
             _write(chunk: any, encoding: string, callback: (err?: Error) => void): void;
             _writev?(chunks: Array<{ chunk: any, encoding: string }>, callback: (err?: Error) => void): void;
-            _destroy(err: Error, callback: Function): void;
+            _destroy(error: Error | null, callback: (error?: Error) => void): void;
             _final(callback: Function): void;
             write(chunk: any, cb?: Function): boolean;
             write(chunk: any, encoding?: string, cb?: Function): boolean;
@@ -6333,7 +6342,7 @@ declare module "util" {
         export function isSharedArrayBuffer(object: any): boolean;
         export function isStringObject(object: any): boolean;
         export function isSymbolObject(object: any): boolean;
-        export function isTypedArray(object: any): object is Uint8Array | Uint8ClampedArray | Uint16Array | Uint32Array | Int8Array | Int16Array | Int32Array | Float32Array | Float64Array;
+        export function isTypedArray(object: any): object is NodeJS.TypedArray;
         export function isUint8Array(object: any): object is Uint8Array;
         export function isUint8ClampedArray(object: any): object is Uint8ClampedArray;
         export function isUint16Array(object: any): object is Uint16Array;
@@ -6352,19 +6361,7 @@ declare module "util" {
           options?: { fatal?: boolean; ignoreBOM?: boolean }
         );
         decode(
-          input?:
-            Int8Array
-            | Int16Array
-            | Int32Array
-            | Uint8Array
-            | Uint16Array
-            | Uint32Array
-            | Uint8ClampedArray
-            | Float32Array
-            | Float64Array
-            | DataView
-            | ArrayBuffer
-            | null,
+          input?: NodeJS.TypedArray | DataView | ArrayBuffer | null,
           options?: { stream?: boolean }
         ): string;
     }
@@ -7191,13 +7188,16 @@ declare module "http2" {
         readonly alpnProtocol?: string;
         close(callback?: () => void): void;
         readonly closed: boolean;
+        readonly connecting: boolean;
         destroy(error?: Error, code?: number): void;
         readonly destroyed: boolean;
         readonly encrypted?: boolean;
-        goaway(code?: number, lastStreamID?: number, opaqueData?: Buffer | DataView /*| TypedArray*/): void;
+        goaway(code?: number, lastStreamID?: number, opaqueData?: Buffer | DataView | NodeJS.TypedArray): void;
         readonly localSettings: Settings;
         readonly originSet?: string[];
         readonly pendingSettingsAck: boolean;
+        ping(callback: (err: Error | null, duration: number, payload: Buffer) => void): boolean;
+        ping(payload: Buffer | DataView | NodeJS.TypedArray , callback: (err: Error | null, duration: number, payload: Buffer) => void): boolean;
         ref(): void;
         readonly remoteSettings: Settings;
         rstStream(stream: Http2Stream, code?: number): void;

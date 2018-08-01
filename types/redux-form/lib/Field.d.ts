@@ -37,7 +37,6 @@ export interface CommonFieldProps extends CommonFieldInputProps {
 
 export interface BaseFieldProps<P = {}> extends Partial<CommonFieldProps> {
     name: string;
-    label?: string;
     component?: ComponentType<WrappedFieldProps & P> | "input" | "select" | "textarea";
     format?: Formatter | null;
     normalize?: Normalizer;
@@ -73,7 +72,6 @@ export class Field<P = GenericFieldHTMLAttributes | BaseFieldProps> extends Comp
 export interface WrappedFieldProps {
     input: WrappedFieldInputProps;
     meta: WrappedFieldMetaProps;
-    label?: string;
 }
 
 export interface WrappedFieldInputProps extends CommonFieldInputProps {

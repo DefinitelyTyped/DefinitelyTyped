@@ -14,7 +14,7 @@
 //                 Sam Walsh <https://github.com/samwalshnz>
 //                 Tim de Koning <https://github.com/reggino>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 /// <reference types="react" />
 /// <reference types="react-addons-linked-state-mixin" />
