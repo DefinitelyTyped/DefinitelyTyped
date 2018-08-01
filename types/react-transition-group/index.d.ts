@@ -3,7 +3,7 @@
 // Definitions by: Karol Janyst <https://github.com/LKay>
 //                 Epskampie <https://github.com/Epskampie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import CSSTransition = require("./CSSTransition");
 import Transition from "./Transition";

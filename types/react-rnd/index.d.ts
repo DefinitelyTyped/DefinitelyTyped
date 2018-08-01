@@ -3,7 +3,7 @@
 // Definitions by: Ragg <https://github.com/Ragg->
 //                 fsubal <https://github.com/fsubal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 import * as React from "react";
 
 type CSSProperties = React.CSSProperties;

@@ -2,7 +2,7 @@
 // Project: https://github.com/GenFirst/react-twitter-auth
 // Definitions by: Paul Fasola <https://github.com/paulfasola>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 interface TwitterLoginProps {
     tag?: React.ReactType;
