@@ -51,7 +51,7 @@ export class Player {
     setLoop(loop: boolean): VimeoPromise<boolean, Error>;
     getPaused(): VimeoPromise<boolean, Error>;
     getPlaybackRate(): VimeoPromise<number, Error>;
-    setPlaybackRate(playbackRate: number): VimeoPromise<number, Error>;
+    setPlaybackRate(playbackRate: number): VimeoPromise<number, RangeError | Error>;
     getTextTracks(): VimeoPromise<VimeoTextTrack[], Error>;
     getVideoEmbedCode(): VimeoPromise<string, Error>;
     getVideoId(): VimeoPromise<number, Error>;
