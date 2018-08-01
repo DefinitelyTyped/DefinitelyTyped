@@ -19,7 +19,7 @@ export declare class Date {
     setTimezone: (timezone: string) => void;
 
     // regular Date members
-    toString(): string;
+    toString(format?:string): string;
     toDateString(): string;
     toTimeString(): string;
     toLocaleString(): string;
