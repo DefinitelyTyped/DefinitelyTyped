@@ -1103,3 +1103,45 @@ knex.schema
         table.decimal('dec', null);
     })
     .dropTable('testTable');
+
+// allow specifying an alias for a table name
+knex.schema
+    .dropTableIfExists('foo')
+    .dropTableIfExists('bar')
+    .createTable('foo', function (table) {
+        table.uuid('id').primary();
+    })
+    .createTable('bar', function (table) {
+        table.uuid('id').primary();
+    });
+
+knex({
+    table1: 'foo',
+    table2: 'bar'
+})
+    .select({
+        table1Id: 'table1.id',
+        table2Id: 'table2.id'
+    });
+
+knex('characters')
+    .select()
+    .whereIn(['name', 'class'], [['Bar', 'Fighter'], ['Foo', 'Druid']]);
+
+knex('characters')
+    .select()
+    .whereIn('name', knex('characters').select('name'));
+knex('characters')
+    .select()
+    .whereIn(['name', 'class'], knex('characters').select('name', 'class'));
+
+knex('characters')
+    .select()
+    .whereIn('name', function() {
+        this.select('name').from('characters');
+    });
+knex('characters')
+    .select()
+    .whereIn(['name', 'class'], function() {
+        this.select('name', 'class').from('characters');
+    });

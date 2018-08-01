@@ -311,6 +311,10 @@ declare module 'ember' {
              * Given a fullName return a corresponding instance.
              */
             lookup(fullName: string, options?: {}): any;
+            /**
+             * Given a fullName return a corresponding factory.
+             */
+            factoryFor(fullName: string, options?: {}): any;
         }
         const _ContainerProxyMixin: Mixin<_ContainerProxyMixin>;
 
@@ -324,11 +328,11 @@ declare module 'ember' {
              */
             resolveRegistration(fullName: string): Function;
             /**
-             * Registers a factory that can be used for dependency injection (with
+             * Registers a factory or value that can be used for dependency injection (with
              * `inject`) or for service lookup. Each factory is registered with
              * a full name including two parts: `type:name`.
              */
-            register(fullName: string, factory: Function, options?: { singleton?: boolean, instantiate?: boolean }): any;
+            register(fullName: string, factory: any, options?: { singleton?: boolean, instantiate?: boolean }): any;
             /**
              * Unregister a factory.
              */
@@ -476,6 +480,11 @@ declare module 'ember' {
             **/
             Router: Router;
             registry: Registry;
+            /**
+             *  Initialize the application and return a promise that resolves with the `Application`
+             *  object when the boot process is complete.
+             */
+            boot(): Promise<Application>;
         }
         /**
         The `ApplicationInstance` encapsulates all of the stateful aspects of a
@@ -1107,6 +1116,12 @@ declare module 'ember' {
              * Unregister a factory.
              */
             unregister(fullName: string): any;
+
+            /**
+             *  Initialize the `EngineInstance` and return a promise that resolves
+             *  with the instance itself when the boot process is complete.
+             */
+            boot(): Promise<EngineInstance>;
         }
         /**
          * This mixin defines the common interface implemented by enumerable objects
@@ -3357,7 +3372,48 @@ declare module 'ember' {
     /**
      * The Router service is the public API that provides component/view layer access to the router.
      */
-    class RouterService extends Ember.Service {
+    export class RouterService extends Ember.Service {
+        //
+        /**
+             Name of the current route.
+            This property represent the logical name of the route,
+            which is comma separated.
+            For the following router:
+            ```app/router.js
+            Router.map(function() {
+            this.route('about');
+            this.route('blog', function () {
+                this.route('post', { path: ':post_id' });
+            });
+            });
+            ```
+            It will return:
+            * `index` when you visit `/`
+            * `about` when you visit `/about`
+            * `blog.index` when you visit `/blog`
+            * `blog.post` when you visit `/blog/some-post-id`
+        */
+        readonly currentRouteName: string;
+        //
+        /**
+             Current URL for the application.
+            This property represent the URL path for this route.
+            For the following router:
+            ```app/router.js
+            Router.map(function() {
+            this.route('about');
+            this.route('blog', function () {
+                this.route('post', { path: ':post_id' });
+            });
+            });
+            ```
+            It will return:
+            * `/` when you visit `/`
+            * `/about` when you visit `/about`
+            * `/blog` when you visit `/blog`
+            * `/blog/some-post-id` when you visit `/blog/some-post-id`
+        */
+        readonly currentURL: string;
         //
         /**
          * Determines whether a route is active.
@@ -3759,6 +3815,11 @@ declare module '@ember/routing/route' {
 declare module '@ember/routing/router' {
     import Ember from 'ember';
     export default class EmberRouter extends Ember.Router { }
+}
+
+declare module '@ember/routing/router-service' {
+    import { RouterService } from 'ember';
+    export default class extends RouterService { }
 }
 
 declare module '@ember/runloop' {
