@@ -576,7 +576,7 @@ export interface TreemapLayout<Datum> {
  */
 export function treemap<Datum>(): TreemapLayout<Datum>;
 
-// Tiling functions -----------------------------------------------------------------------
+// Tiling functions ------------------------------------------------------
 
 /**
  * Recursively partitions the specified nodes into an approximately-balanced binary tree,
