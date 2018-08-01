@@ -137,7 +137,7 @@ declare namespace videojs {
 	 *
 	 * @return	The created players
 	 */
-	function getPlayers(): Player;
+	function getPlayers(): {[key: string]: Player};
 
 	/**
 	 * Gets a plugin by name if it exists.

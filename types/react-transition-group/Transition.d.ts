@@ -16,6 +16,7 @@ export interface TransitionActions {
     exit?: boolean;
 }
 
+export type TransitionChildren = React.ReactNode | ((status: string) => React.ReactNode);
 export interface TransitionProps extends TransitionActions {
     in?: boolean;
     mountOnEnter?: boolean;
@@ -29,6 +30,7 @@ export interface TransitionProps extends TransitionActions {
     onExiting?: ExitHandler;
     onExited?: ExitHandler;
     [prop: string]: any;
+    children?: TransitionChildren;
 }
 
 /**
