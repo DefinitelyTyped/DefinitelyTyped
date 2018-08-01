@@ -900,31 +900,10 @@ const SQSMessageNode8AsyncHandler: AWSLambda.SQSHandler = async (
     return;
 };
 
-const FirehoseNode8AsyncEventHandler: AWSLambda.FirehoseTransformationHandler = async (
-    event: AWSLambda.FirehoseEvent,
-    context: AWSLambda.Context
-) => {
-    // $ExpectType FirehoseEvent
-    event;
-    str = event.records[0].recordId;
-
-    // $ExpectType Context
-    context;
-    str = context.functionName;
-    return {
-        records: [
-            {
-                recordId: str,
-                result: 'Ok' as AWSLambda.FirehoseRecordTransformationStatus,
-                data: 'eyJmb28iOiJiYXIifQ==',
-            }
-        ]
-    };
-};
-const FirehoseEventHandler: AWSLambda.FirehoseTransformationHandler = (
-    event: AWSLambda.FirehoseEvent,
+const firehoseEventHandler: AWSLambda.FirehoseTransformationHandler = (
+    event: AWSLambda.FirehoseTransformationEvent,
     context: AWSLambda.Context,
-    callback: AWSLambda.Callback
+    callback: AWSLambda.FirehoseTransformationCallback
 ) => {
     // $ExpectType FirehoseEvent
     event;

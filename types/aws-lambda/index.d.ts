@@ -651,19 +651,17 @@ export interface KinesisStreamEvent {
 // https://docs.aws.amazon.com/firehose/latest/dev/data-transformation.html
 // https://aws.amazon.com/blogs/compute/amazon-kinesis-firehose-data-transformation-with-aws-lambda/
 // Examples in the lambda blueprints
-export interface FirehoseEvent {
+export interface FirehoseTransformationEvent {
     invocationId: string;
     deliveryStreamArn: string;
     region: string;
-    records: FirehoseRecord[];
+    records: FirehoseTransformationEventRecord[];
 }
 
-export interface FirehoseRecord {
+export interface FirehoseTransformationEventRecord {
     recordId: string;
     approximateArrivalTimestamp: number;
-    /**
-     * Base64 encoded
-     */
+    /** Base64 encoded */
     data: string;
     kinesisRecordMetadata?: FirehoseRecordMetadata;
 }
@@ -677,29 +675,16 @@ export interface FirehoseRecordMetadata {
 }
 
 export type FirehoseRecordTransformationStatus = 'Ok' | 'Dropped' | 'ProcessingFailed';
-export interface FirehoseTransformedRecord {
+
+export interface FirehoseTransformationResultRecord {
     recordId: string;
     result: FirehoseRecordTransformationStatus;
-    /**
-     * Encode in Base64
-     */
+    /** Encode in Base64 */
     data: string;
 }
 
-export interface FirehoseTransformationResponse {
-    records: FirehoseTransformedRecord[];
-}
-
-// S3 Firehose Record Transformation Failed
-// https://docs.aws.amazon.com/firehose/latest/dev/data-transformation.html
-export interface FirehoseFailedRecordTransformationResponse {
-    attemptsMade: number;
-    arrivalTimestamp: string;
-    errorCode: string;
-    errorMessage: string;
-    attemptEndingTimestamp: string;
-    rawData: string;
-    lambdaArn: string;
+export interface FirehoseTransformationResult {
+    records: FirehoseTransformationResultRecord[];
 }
 
 // SQS
@@ -814,7 +799,8 @@ export type CloudFrontResponseCallback = Callback<CloudFrontResponseResult>;
 
 export type KinesisStreamHandler = Handler<KinesisStreamEvent, void>;
 
-export type FirehoseTransformationHandler = Handler<FirehoseEvent, FirehoseTransformationResponse>;
+export type FirehoseTransformationCallback = Callback<FirehoseTransformationResult>;
+export type FirehoseTransformationHandler = Handler<FirehoseTransformationEvent, FirehoseTransformationResult>;
 
 export type CustomAuthorizerHandler = Handler<CustomAuthorizerEvent, CustomAuthorizerResult>;
 export type CustomAuthorizerCallback = Callback<CustomAuthorizerResult>;
