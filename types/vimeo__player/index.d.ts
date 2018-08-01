@@ -6,9 +6,6 @@
 //                 Terry Mun <https://github.com/terrymun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export function myMethod(a: string): string;
-export function myOtherMethod(a: number): number;
-
 export type CallbackFunction = (...args: any[]) => any;
 
 export interface Error {name: string; message: string; method: string; }
