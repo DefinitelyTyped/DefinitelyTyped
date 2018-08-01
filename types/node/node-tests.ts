@@ -87,6 +87,8 @@ namespace assert_tests {
         assert.strictEqual(1, 1, "uses === comparator");
 
         assert.throws(() => { throw new Error("a hammer at your face"); }, undefined, "DODGED IT");
+
+        assert.strict.strict.deepEqual([[[1, 2, 3]], 4, 5], [[[1, 2, '3']], 4, 5]);
     }
 }
 
@@ -390,8 +392,12 @@ namespace fs_tests {
     {
         fs.copyFile('/path/to/src', '/path/to/dest', (err) => console.error(err));
         fs.copyFile('/path/to/src', '/path/to/dest', fs.constants.COPYFILE_EXCL, (err) => console.error(err));
+        fs.copyFile('/path/to/src', '/path/to/dest', fs.constants.COPYFILE_FICLONE, (err) => console.error(err));
+        fs.copyFile('/path/to/src', '/path/to/dest', fs.constants.COPYFILE_FICLONE_FORCE, (err) => console.error(err));
 
         fs.copyFileSync('/path/to/src', '/path/to/dest', fs.constants.COPYFILE_EXCL);
+        fs.copyFileSync('/path/to/src', '/path/to/dest', fs.constants.COPYFILE_FICLONE);
+        fs.copyFileSync('/path/to/src', '/path/to/dest', fs.constants.COPYFILE_FICLONE_FORCE);
 
         const cf = util.promisify(fs.copyFile);
         cf('/path/to/src', '/path/to/dest', fs.constants.COPYFILE_EXCL).then(console.log);
@@ -684,9 +690,10 @@ namespace url_tests {
         const searchParams = new url.URLSearchParams('abc=123');
 
         assert.equal(searchParams.toString(), 'abc=123');
-        searchParams.forEach((value: string, name: string): void => {
+        searchParams.forEach((value: string, name: string, me: url.URLSearchParams): void => {
             assert.equal(name, 'abc');
             assert.equal(value, '123');
+            assert.equal(me, searchParams);
         });
 
         assert.equal(searchParams.get('abc'), '123');
@@ -1313,9 +1320,9 @@ namespace crypto_tests {
         crypto.randomFillSync(buffer, 2);
         crypto.randomFillSync(buffer, 2, 3);
 
-        crypto.randomFill(buffer, (err: Error, buf: ArrayBufferView) => void {});
-        crypto.randomFill(buffer, 2, (err: Error, buf: ArrayBufferView) => void {});
-        crypto.randomFill(buffer, 2, 3, (err: Error, buf: ArrayBufferView) => void {});
+        crypto.randomFill(buffer, (err: Error, buf: Buffer) => void {});
+        crypto.randomFill(buffer, 2, (err: Error, buf: Buffer) => void {});
+        crypto.randomFill(buffer, 2, 3, (err: Error, buf: Buffer) => void {});
 
         // crypto_randomfill_uint8array_test
         let ui8arr: Uint8Array = new Uint8Array(10);
@@ -1323,9 +1330,9 @@ namespace crypto_tests {
         crypto.randomFillSync(ui8arr, 2);
         crypto.randomFillSync(ui8arr, 2, 3);
 
-        crypto.randomFill(ui8arr, (err: Error, buf: ArrayBufferView) => void {});
-        crypto.randomFill(ui8arr, 2, (err: Error, buf: ArrayBufferView) => void {});
-        crypto.randomFill(ui8arr, 2, 3, (err: Error, buf: ArrayBufferView) => void {});
+        crypto.randomFill(ui8arr, (err: Error, buf: Uint8Array) => void {});
+        crypto.randomFill(ui8arr, 2, (err: Error, buf: Uint8Array) => void {});
+        crypto.randomFill(ui8arr, 2, 3, (err: Error, buf: Uint8Array) => void {});
 
         // crypto_randomfill_int32array_test
         let i32arr: Int32Array = new Int32Array(10);
@@ -1333,9 +1340,27 @@ namespace crypto_tests {
         crypto.randomFillSync(i32arr, 2);
         crypto.randomFillSync(i32arr, 2, 3);
 
-        crypto.randomFill(i32arr, (err: Error, buf: ArrayBufferView) => void {});
-        crypto.randomFill(i32arr, 2, (err: Error, buf: ArrayBufferView) => void {});
-        crypto.randomFill(i32arr, 2, 3, (err: Error, buf: ArrayBufferView) => void {});
+        crypto.randomFill(i32arr, (err: Error, buf: Int32Array) => void {});
+        crypto.randomFill(i32arr, 2, (err: Error, buf: Int32Array) => void {});
+        crypto.randomFill(i32arr, 2, 3, (err: Error, buf: Int32Array) => void {});
+    }
+
+    {
+        // scrypt
+        const pwd: string | Buffer | Int32Array | DataView = Buffer.alloc(16);
+        const salt: string | Buffer | Int32Array | DataView = Buffer.alloc(16);
+        crypto.scrypt(pwd, salt, 64, (err: Error | null, derivedKey: Buffer): void => {});
+        const opts: crypto.ScryptOptions = {
+            N: 16384,
+            r: 8,
+            p: 1,
+            maxmem: 32 * 1024 * 1024
+        };
+        crypto.scrypt(pwd, salt, 64, opts, (err: Error | null, derivedKey: Buffer): void => {});
+        crypto.scrypt(pwd, salt, 64, { maxmem: 16 * 1024 * 1024 }, (err: Error | null, derivedKey: Buffer): void => {});
+        let buf: Buffer = crypto.scryptSync(pwd, salt, 64);
+        buf = crypto.scryptSync(pwd, salt, 64, opts);
+        buf = crypto.scryptSync(pwd, salt, 64, { N: 1024 });
     }
 
     {
@@ -3674,6 +3699,7 @@ namespace http2_tests {
         let pendingSettingsAck: boolean = http2Session.pendingSettingsAck;
         let settings: http2.Settings = http2Session.localSettings;
         let closed: boolean = http2Session.closed;
+        let connecting: boolean = http2Session.connecting;
         settings = http2Session.remoteSettings;
 
         http2Session.ref();
@@ -3720,6 +3746,10 @@ namespace http2_tests {
         });
 
         http2Session.settings(settings);
+
+      http2Session.ping((err: Error | null, duration: number, payload: Buffer) => {});
+      http2Session.ping(Buffer.from(''), (err: Error | null, duration: number, payload: Buffer) => {});
+      http2Session.ping(new DataView(new Int8Array(1).buffer), (err: Error | null, duration: number, payload: Buffer) => {});
     }
 
     // Http2Stream

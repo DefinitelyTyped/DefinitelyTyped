@@ -1,4 +1,4 @@
-// Type definitions for virtual-dom 2.0.1
+// Type definitions for virtual-dom 2.1.1
 // Project: https://github.com/Matt-Esch/virtual-dom
 // Definitions by: Christopher Brown <https://github.com/chbrown>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -42,11 +42,18 @@ declare namespace VirtualDOM {
     type: string; // 'VirtualNode'
   }
 
+  interface VNodeConstructor {
+    new (tagName: string, properties: VProperties, children: VTree[], key?: string, namespace?: string): VNode;
+  }
+
   interface VText {
     text: string;
-    new(text: any): VText;
     version: string;
     type: string; // 'VirtualText'
+  }
+
+  interface VTextConstructor {
+    new (text: string): VText;
   }
 
   interface Widget {
@@ -78,13 +85,18 @@ declare namespace VirtualDOM {
   interface VPatch {
     vNode: VNode;
     patch: any;
-    new(type: number, vNode: VNode, patch: any): VPatch;
     version: string;
     /**
     type is set to 'VirtualPatch' on the prototype, but overridden in the
     constructor with a number.
     */
     type: number;
+  }
+
+  type PatchFn<T extends Element> = (rootNode: T, patches: VPatch[], renderOptions: VPatchOptions<T>) => T;
+
+  interface VPatchOptions<T extends Element> {
+    patch?: PatchFn<T>;
   }
 
   interface createProperties extends VProperties {
@@ -107,7 +119,12 @@ declare namespace VirtualDOM {
   patch() usually just returns rootNode after doing stuff to it, so we want
   to preserve that type (though it will usually be just Element).
   */
-  function patch<T extends Element>(rootNode: T, patches: VPatch[], renderOptions?: any): T;
+  function patch<T extends Element>(rootNode: T, patches: VPatch[], renderOptions?: VPatchOptions<T>): T;
+
+  function isVNode(vTree: VTree): vTree is VNode;
+  function isVText(vTree: VTree): vTree is VText;
+  function isWidget(vTree: VTree): vTree is Widget;
+  function isThunk(vTree: VTree): vTree is Thunk;
 }
 
 declare module "virtual-dom/h" {
@@ -129,4 +146,30 @@ declare module "virtual-dom/patch" {
 }
 declare module "virtual-dom" {
   export = VirtualDOM;
+}
+declare module "virtual-dom/vnode/vnode" {
+  import VNodeConstructor = VirtualDOM.VNodeConstructor;
+  const VNode: VNodeConstructor;
+  export = VNode;
+}
+declare module "virtual-dom/vnode/vtext" {
+  import VTextConstructor = VirtualDOM.VTextConstructor;
+  const VText: VTextConstructor;
+  export = VText;
+}
+declare module "virtual-dom/vnode/is-vnode" {
+  import isVNode = VirtualDOM.isVNode;
+  export = isVNode;
+}
+declare module "virtual-dom/vnode/is-vtext" {
+  import isVText = VirtualDOM.isVText;
+  export = isVText;
+}
+declare module "virtual-dom/vnode/is-widget" {
+  import isWidget = VirtualDOM.isWidget;
+  export = isWidget;
+}
+declare module "virtual-dom/vnode/is-thunk" {
+  import isThunk = VirtualDOM.isThunk;
+  export = isThunk;
 }

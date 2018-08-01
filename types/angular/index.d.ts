@@ -250,8 +250,8 @@ declare namespace angular {
          */
         factory(name: string, $getFn: Injectable<Function>): IModule;
         factory(object: {[name: string]: Injectable<Function>}): IModule;
-        filter(name: string, filterFactoryFunction: Injectable<Function>): IModule;
-        filter(object: {[name: string]: Injectable<Function>}): IModule;
+        filter(name: string, filterFactoryFunction: Injectable<FilterFactory>): IModule;
+        filter(object: {[name: string]: Injectable<FilterFactory>}): IModule;
         provider(name: string, serviceProviderFactory: IServiceProviderFactory): IModule;
         provider(name: string, serviceProviderConstructor: IServiceProviderClass): IModule;
         provider(name: string, inlineAnnotatedConstructor: any[]): IModule;
@@ -2183,6 +2183,14 @@ declare namespace angular {
             has(name: string): boolean;
             instantiate<T>(typeConstructor: {new(...args: any[]): T}, locals?: any): T;
             invoke<T = any>(func: Injectable<Function | ((...args: any[]) => T)>, context?: any, locals?: any): T;
+            /**
+             * Add the specified modules to the current injector.
+             * This method will add each of the injectables to the injector and execute all of the config and run blocks for each module passed to the method.
+             * @param modules A module, module name or annotated injection function.
+             */
+            loadNewModules(modules: Array<IModule|string|Injectable<(...args: any[]) => void>>): void;
+            /** An object map of all the modules that have been loaded into the injector. */
+            modules: {[moduleName: string]: IModule};
             strictDi: boolean;
         }
 
@@ -2237,4 +2245,13 @@ declare namespace angular {
     interface IHttpParamSerializer {
         (obj: Object): string;
     }
+
+    interface IFilterFunction extends Function {
+        /**
+         * By default, filters are only run once the input value changes. By marking the filter as `$stateful`, the filter will be run on every `$digest` to update the output. **This is strongly discouraged.**
+         * See https://docs.angularjs.org/guide/filter#stateful-filters
+         */
+        $stateful?: boolean;
+    }
+    type FilterFactory = (...I: any[]) => IFilterFunction;
 }

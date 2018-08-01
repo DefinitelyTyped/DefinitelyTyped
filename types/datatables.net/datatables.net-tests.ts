@@ -1002,6 +1002,9 @@ const static_6 = new $.fn.dataTable.Api("selector");
 
 const version: boolean = $.fn.dataTable.versionCheck("1.10.0");
 const isDataTable: boolean = $.fn.dataTable.isDataTable("selector");
+const isDataTable_3: boolean = $.fn.dataTable.isDataTable(dt.row("selector").node());
+const isDataTable_2: boolean = $.fn.dataTable.isDataTable($("selector"));
+const isDataTable_4: boolean = $.fn.dataTable.isDataTable($("selector").dataTable().api());
 const escapeRegex: string = $.fn.dataTable.util.escapeRegex("");
 
 const throttle_1 = $.fn.dataTable.util.throttle((data) => {

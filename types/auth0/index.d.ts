@@ -2,7 +2,7 @@
 // Project: https://github.com/auth0/node-auth0
 // Definitions by: Wilson Hobbs <https://github.com/wbhob>, Seth Westphal <https://github.com/westy92>, Amiram Korach <https://github.com/amiram>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as Promise from 'bluebird';
 
@@ -264,7 +264,7 @@ export interface CreateClientGrant {
   scope: string[];
 }
 
-export type Strategy = 
+export type Strategy =
   'ad' | 'adfs' | 'amazon' | 'dropbox' | 'bitbucket' | 'aol' | 'auth0-adldap' | 'auth0-oidc' |
   'auth0' | 'baidu' | 'bitly' | 'box' | 'custom' | 'daccount' | 'dwolla' | 'email' |
   'evernote-sandbox' | 'evernote' | 'exact' | 'facebook' | 'fitbit' | 'flickr' | 'github' |

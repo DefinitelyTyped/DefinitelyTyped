@@ -251,6 +251,29 @@ tileLayer = new L.TileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png');
 tileLayer = new L.TileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', tileLayerOptions);
 tileLayer = new L.TileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png?{foo}&{bar}&{abc}', {foo: 'bar', bar: (data: any) => 'foo', abc: () => ''});
 
+// imageOverlay
+let imageOverlayOptions: L.ImageOverlayOptions;
+imageOverlayOptions = {
+    opacity: 100,
+    alt: 'alt',
+    interactive: true,
+    attribution: 'attribution',
+    crossOrigin: true,
+    className: 'className',
+    bubblingMouseEvents: false,
+    pane: 'pane'
+};
+
+const imageOverlayBounds = latLngBounds;
+let imageOverlay: L.ImageOverlay;
+imageOverlay = L.imageOverlay('https://www.google.ru/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png', imageOverlayBounds);
+imageOverlay = L.imageOverlay('https://www.google.ru/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png', imageOverlayBounds, imageOverlayOptions);
+imageOverlay = L.imageOverlay('https://www.google.ru/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png', imageOverlayBounds, {
+    opacity: 100,
+    alt: 'alt',
+    className: 'className',
+});
+
 const eventHandler = () => {};
 const domEvent: Event = {} as Event;
 L.DomEvent

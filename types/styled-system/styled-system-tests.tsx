@@ -92,7 +92,27 @@ import {
     active,
     ActiveProps,
     disabled,
-    DisabledProps
+    DisabledProps,
+    GridGapProps,
+    GridRowGapProps,
+    GridColumnGapProps,
+    GridRowProps,
+    GridColumnProps,
+    gridGap,
+    gridRowGap,
+    gridColumnGap,
+    gridRow,
+    gridColumn,
+    GridAutoFlowProps,
+    GridAutoColumnsProps,
+    GridAutoRowsProps,
+    GridTemplatesRowsProps,
+    GridTemplatesColumnsProps,
+    gridAutoFlow,
+    gridAutoRows,
+    gridAutoColumns,
+    gridTemplateColumns,
+    gridTemplateRows
 } from "styled-system";
 
 interface BoxProps
@@ -199,6 +219,30 @@ const Flex = styled.div.attrs<FlexComponentProps>({})`
     ${flexWrap};
     ${flexBasis};
     ${flexDirection};
+`;
+
+interface GridComponentProps
+    extends GridGapProps,
+        GridRowGapProps,
+        GridColumnGapProps,
+        GridRowProps,
+        GridColumnProps,
+        GridAutoFlowProps,
+        GridAutoColumnsProps,
+        GridAutoRowsProps,
+        GridTemplatesRowsProps,
+        GridTemplatesColumnsProps {}
+const Grid = styled.div.attrs<GridComponentProps>({})`
+    ${gridGap};
+    ${gridRowGap};
+    ${gridColumnGap};
+    ${gridRow};
+    ${gridColumn};
+    ${gridAutoFlow};
+    ${gridAutoRows};
+    ${gridAutoColumns};
+    ${gridTemplateRows};
+    ${gridTemplateColumns};
 `;
 
 const test = () => (
@@ -309,6 +353,34 @@ const test = () => (
         <Flex flexBasis="auto" />
         // flexDirection (responsive)
         <Flex flexDirection="column" />
+        // gridGap
+        <Grid gridGap="1px" />
+        <Grid gridGap={["1", "2"]} />
+        // gridRowGap
+        <Grid gridRowGap="1px" />
+        <Grid gridRowGap={["1", "2"]} />
+        // gridColumnGap
+        <Grid gridColumnGap="1px" />
+        <Grid gridColumnGap={["1", "2"]} />
+        // gridRow
+        <Grid gridRow="auto" />
+        // gridColumn
+        <Grid gridColumn="auto" />
+        // gridAutoFlow
+        <Grid gridAutoFlow="auto" />
+        <Grid gridAutoFlow={["auto", "1fr"]} />
+        // gridAutoRows
+        <Grid gridAutoRows="auto" />
+        <Grid gridAutoRows={["auto", "1fr"]} />
+        // gridAutoColumns
+        <Grid gridAutoColumns="auto" />
+        <Grid gridAutoColumns={["auto", "1fr"]} />
+        // gridTemplateRows
+        <Grid gridTemplateRows="auto" />
+        <Grid gridTemplateRows={["auto", "1fr"]} />
+        // gridTemplateColumns
+        <Grid gridTemplateColumns="auto" />
+        <Grid gridTemplateColumns={["auto", "1fr"]} />
         // flex (responsive)
         <Box flex="1 1 auto" />
         // justifySelf (responsive)

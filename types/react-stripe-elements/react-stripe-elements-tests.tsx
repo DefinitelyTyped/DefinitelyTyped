@@ -110,6 +110,22 @@ interface ComponentProps {
 class WrappedComponent extends React.Component<
     ComponentProps & InjectedStripeProps
 > {
+    constructor(props: ComponentProps & InjectedStripeProps) {
+        super(props);
+        // Test for paymentRequest
+        const paymentRequest = props.stripe && props.stripe.paymentRequest({
+            country: 'US',
+            currency: 'usd',
+            total: {
+                label: 'Demo total',
+                amount: 1
+            }
+        });
+        if (paymentRequest) {
+            paymentRequest.on('token', ({complete, token, ...data}) => undefined);
+            paymentRequest.canMakePayment().then(res => undefined);
+        }
+    }
     onSubmit = () => {
         this.props.stripe!
             .createToken({

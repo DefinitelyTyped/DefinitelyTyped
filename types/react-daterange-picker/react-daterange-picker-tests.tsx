@@ -12,12 +12,6 @@ const moment = MomentRange.extendMoment(Moment);
 type AppProps = ReactDateRangePicker.Props;
 
 class App extends React.Component<AppProps, any> {
-    constructor(props: AppProps, context: any) {
-        super(props, context);
-
-        this.state = {};
-    }
-
     handleSelect(value: AppProps, states: any): void {
         this.setState({ value, states });
     }
@@ -44,12 +38,6 @@ class App extends React.Component<AppProps, any> {
 }
 
 class DateSinglePicker extends React.Component<AppProps, any> {
-    constructor(props: AppProps, context: any) {
-        super(props, context);
-
-        this.state = {};
-    }
-
     handleSelect(value: AppProps) {
         this.setState({ value });
     }

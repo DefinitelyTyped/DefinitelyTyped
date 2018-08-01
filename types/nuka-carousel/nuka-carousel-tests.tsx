@@ -25,7 +25,7 @@ const props: CarouselProps = {
 	renderCenterCenterControls: () => <button />,
 	renderCenterRightControls: () => <button />,
 	renderBottomLeftControls: () => <button />,
-	renderBottomCenterControls: () => null,
+	renderBottomCenterControls: () => <button />,
 	renderBottomRightControls: () => <button />,
 	slideIndex: 2,
 	slidesToScroll: 'auto',

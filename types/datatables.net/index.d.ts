@@ -1094,13 +1094,13 @@ declare namespace DataTables {
         (): JQueryDataTables;
 
         /**
-         * Check is a table node is a DataTable or not
+         * Check if a table node is a DataTable already or not.
          *
          * Usage:
          * $.fn.dataTable.isDataTable("selector");
-         * @param table Selector string for table
+         * @param table The table to check.
          */
-        isDataTable(table: string): boolean;
+        isDataTable(table: string | Node | JQuery | Api): boolean;
 
         /**
          * Helpers for `columns.render`.

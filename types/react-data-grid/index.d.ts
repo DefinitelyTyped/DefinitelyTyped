@@ -130,6 +130,17 @@ declare namespace AdazzleReactDataGrid {
          * @param sortDirection The direction to sort ('ASC'/'DESC'/'NONE')
          */
         onGridSort?: (sortColumn: string, sortDirection: 'ASC' | 'DESC' | 'NONE') => void
+
+        /**
+         * Initial sorting direction
+         */
+        sortDirection?: 'ASC' | 'DESC' | 'NONE'
+
+        /**
+         * key of the initial sorted column
+         */
+        sortColumn?: string
+
         /**
          * Called when the user filters a column by some value.
          * Should restrict the rows in rowGetter to only things that match the filter.

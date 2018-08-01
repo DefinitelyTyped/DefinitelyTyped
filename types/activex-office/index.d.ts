@@ -10,6 +10,8 @@
 declare namespace Office {
     type MsoRGBType = number;
 
+    type ByteArray = SafeArray<number>;
+
     const enum BackstageGroupStyle {
         BackstageGroupStyleError = 2,
         BackstageGroupStyleNormal = 0,

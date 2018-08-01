@@ -25,6 +25,7 @@ export function configure(fn: () => void, module: NodeModule): void;
 export function setAddon(addon: object): void;
 export function storiesOf(name: string, module: NodeModule): Story;
 export function storiesOf<T>(name: string, module: NodeModule): Story & T;
+export function forceReRender(): void;
 
 export interface StoryObject {
     name: string;

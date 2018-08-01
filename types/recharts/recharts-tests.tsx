@@ -13,12 +13,9 @@ interface ComponentState {
 }
 
 class Component extends React.Component<{}, ComponentState> {
-    constructor(props: any) {
-        super(props);
-        this.state = {
-            activeIndex: 0
-        };
-    }
+    state = {
+        activeIndex: 0
+    };
 
     private clickHandler(...args: any[]) {
         console.log(`Handling a click on a chart: ${JSON.stringify(args)}`);
@@ -91,7 +88,7 @@ class Component extends React.Component<{}, ComponentState> {
                 <ResponsiveContainer>
                     <LineChart width={500} height={300} data={data}>
                         <XAxis dataKey="name">
-                            <Label>X axis - name</Label>
+                            <Label fontSize="8px">X axis - name</Label>
                         </XAxis>
                         <YAxis>
                             <Label>Y axis</Label>

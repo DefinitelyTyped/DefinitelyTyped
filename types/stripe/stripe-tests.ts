@@ -364,6 +364,10 @@ stripe.customers.list({ limit: 3 }).then(function (customers) {
     // asynchronously called
 });
 
+stripe.customers.list({ email: "test@example.com" }).then(function (customers) {
+	// asynchronously called
+});
+
 stripe.customers.createCard(
     "cus_5rfJKDJkuxzh5Q",
     { card: "tok_15V2YhEe31JkLCeQy9iUgsJX" },
@@ -1217,6 +1221,13 @@ stripe.plans.del(
     }
 );
 stripe.plans.del("gold-plan").then(function (confirmation) {
+    // asynchronously called
+});
+
+stripe.plans.list({ active: true, product: 'prod_someproduct' }, function(err, plans) {
+    // asynchronously called
+});
+stripe.plans.list({ active: true, product: 'prod_someproduct' }).then(function (plans) {
     // asynchronously called
 });
 

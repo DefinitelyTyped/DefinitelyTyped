@@ -2816,3 +2816,11 @@ function test_WordCloud() {
         }
     };
 }
+
+// Test wrapping the tooltip refresh behavior.
+function test_WrapTooltipBehavior() {
+    Highcharts.wrap(Highcharts.Tooltip.prototype, 'refresh', (proceed, points) => {
+        // When refresh is called, code inside this wrap is executed.
+        // Many prototype functions use this so arrow functions should only be used to replace behaviors.
+    });
+}

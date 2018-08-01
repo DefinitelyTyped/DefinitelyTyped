@@ -1261,3 +1261,42 @@ function test_interfaces_common(suites: Mocha.Suite[], context: Mocha.MochaGloba
     funcs.test.skip(string);
     funcs.test.retries(number);
 }
+
+// mocha-typescript (https://www.npmjs.com/package/mocha-typescript/) augments
+// the mocha functions and enables them to work as test class decorators.
+declare module "mocha" {
+    interface SuiteFunction {
+        <TFunction extends Function>(target: TFunction): TFunction | void;
+    }
+    interface PendingSuiteFunction {
+        <TFunction extends Function>(target: TFunction): TFunction | void;
+    }
+    interface ExclusiveSuiteFunction {
+        <TFunction extends Function>(target: TFunction): TFunction | void;
+    }
+    interface TestFunction {
+        (target: Object, propertyKey: string | symbol): void;
+    }
+    interface PendingTestFunction {
+        (target: Object, propertyKey: string | symbol): void;
+    }
+    interface ExclusiveTestFunction {
+        (target: Object, propertyKey: string | symbol): void;
+    }
+}
+
+@suite
+class TestClass1 {
+    @test method1() {}
+    @test.only method2() {}
+    @test.skip method3() {}
+}
+
+@suite.skip
+class TestClass2 {
+}
+
+@suite.only
+class TestClass3 {
+}
+// end of augmentations used by mocha-typescript

@@ -1,6 +1,6 @@
-import { Slate } from "slate";
+import { Value } from "slate";
 
-const value = Slate.Value.create();
+const value = Value.create();
 value.change()
 	.focus()
 	.selectAll()

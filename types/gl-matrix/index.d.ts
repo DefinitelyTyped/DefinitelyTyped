@@ -432,6 +432,14 @@ declare module 'gl-matrix' {
                               fn: (a: vec2 | number[], b: vec2 | number[], arg: any) => void, arg: any): Float32Array;
 
         /**
+         * Get the angle between two 2D vectors
+         * @param a The first operand
+         * @param b The second operand
+         * @returns The angle in radians
+         */
+        public static angle(a: vec2 | number[], b: vec2 | number[]): number;
+
+        /**
          * Perform some operation over an array of vec2s.
          *
          * @param a the array of vectors to iterate over

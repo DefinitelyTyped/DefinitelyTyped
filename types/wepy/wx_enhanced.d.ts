@@ -114,6 +114,22 @@ export interface UrlParam {
     url: string;
 }
 
+export interface RequestParam extends UrlParam {
+    data?: object | string | ArrayBuffer;
+    header?: object;
+    method?:
+        | "GET"
+        | "OPTIONS"
+        | "HEAD"
+        | "POST"
+        | "PUT"
+        | "DELETE"
+        | "TRACE"
+        | "CONNECT";
+    dataType?: "json" | "text";
+    responseType?: "text" | "arraybuffer";
+}
+
 export interface FilePathParam {
     filePath: string;
 }
@@ -332,7 +348,7 @@ export interface WxEnhances {
 
     removeStorage(params: { key: string }): Promise<void>;
 
-    request(params: UrlParam): Promise<any>;
+    request(params: RequestParam | string): Promise<any>;
 
     requestPayment(params: {
         timeStamp: string;

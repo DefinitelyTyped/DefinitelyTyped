@@ -291,3 +291,18 @@ downloadTask.onProgressUpdate((res) => {
 });
 
 downloadTask.abort(); // 取消下载任务
+
+wx.request({
+  url: 'https://www.baidu.com',
+  method: 'GET',
+  success(res) {
+    if (res.statusCode < 300) {
+      console.log(res.data);
+    } else {
+      console.warn(res.statusCode, res.header);
+    }
+  },
+  fail(e) {
+    console.error(e);
+  }
+}).abort();

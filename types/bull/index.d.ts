@@ -7,8 +7,10 @@
 //                 Gabriel Terwesten <https://github.com/blaugold>
 //                 Oleg Repin <https://github.com/iamolegga>
 //                 David Koblas <https://github.com/koblas>
+//                 Bond Akinmade <https://github.com/bondz>
+//                 Wuha Team <https://github.com/wuha-team>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as Redis from "ioredis";
 import * as Promise from "bluebird";
@@ -82,6 +84,13 @@ declare namespace Bull {
      * Delay before processing next job in case of internal error
      */
     retryProcessDelay?: number;
+
+    /**
+     * Define a custom backoff strategy
+     */
+    backoffStrategies?: {
+      [key: string]: (attemptsMade: number, err: typeof Error) => number;
+    };
   }
 
   type DoneCallback = (error?: Error | null, value?: any) => void;
@@ -142,6 +151,21 @@ declare namespace Bull {
      * Promotes a job that is currently "delayed" to the "waiting" state and executed as soon as possible.
      */
     promote(): Promise<void>;
+
+    /**
+     * The lock id of the job
+     */
+    lockKey(): string;
+
+    /**
+     * Releases the lock on the job. Only locks owned by the queue instance can be released.
+     */
+    releaseLock(): Promise<void>;
+
+    /**
+     * Takes a lock for this job so that no other queue worker can process it at the same time.
+     */
+    takeLock(): Promise<number | false>;
   }
 
   type JobStatus = 'completed' | 'waiting' | 'active' | 'delayed' | 'failed';
@@ -150,20 +174,15 @@ declare namespace Bull {
     /**
      * Backoff type, which can be either `fixed` or `exponential`
      */
-    type: 'fixed' | 'exponential';
+    type: string;
 
     /**
      * Backoff delay, in milliseconds
      */
-    delay: number;
+    delay?: number;
   }
 
   interface RepeatOptions {
-    /**
-     * Cron pattern specifying when the job should execute
-     */
-    cron: string;
-
     /**
      * Timezone
      */
@@ -178,6 +197,20 @@ declare namespace Bull {
      * Number of times the job should repeat at max.
      */
     limit?: number;
+  }
+
+  interface CronRepeatOptions extends RepeatOptions {
+    /**
+     * Cron pattern specifying when the job should execute
+     */
+    cron: string;
+  }
+
+  interface EveryRepeatOptions extends RepeatOptions {
+    /**
+     * Repeat every millis (cron setting cannot be used together with this setting.)
+     */
+    every: number;
   }
 
   interface JobOptions {
@@ -201,7 +234,7 @@ declare namespace Bull {
     /**
      * Repeat job according to a cron specification
      */
-    repeat?: RepeatOptions;
+    repeat?: CronRepeatOptions | EveryRepeatOptions;
 
     /**
      * Backoff setting for automatic retries if the job fails
@@ -467,7 +500,7 @@ declare namespace Bull {
      * Returns a promise that will return the job instance associated with the jobId parameter.
      * If the specified job cannot be located, the promise callback parameter will be set to null.
      */
-    getJob(jobId: JobId): Promise<Job<T>>;
+    getJob(jobId: JobId): Promise<Job<T> | null>;
 
     /**
      * Returns a promise that will return an array with the waiting jobs between start and end.
@@ -509,7 +542,7 @@ declare namespace Bull {
      * Removes a given repeatable job. The RepeatOptions and JobId needs to be the same as the ones
      * used for the job when it was added.
      */
-    removeRepeatable(repeat: RepeatOptions & { jobId?: JobId }): Promise<void>;
+    removeRepeatable(repeat: (CronRepeatOptions | EveryRepeatOptions) & { jobId?: JobId }): Promise<void>;
 
     /**
      * Removes a given repeatable job. The RepeatOptions and JobId needs to be the same as the ones
@@ -517,7 +550,13 @@ declare namespace Bull {
      *
      * name: The name of the to be removed job
      */
-    removeRepeatable(name: string, repeat: RepeatOptions & { jobId?: JobId }): Promise<void>;
+    removeRepeatable(name: string, repeat: (CronRepeatOptions | EveryRepeatOptions) & { jobId?: JobId }): Promise<void>;
+
+    /**
+     * Returns a promise that will return an array of job instances of the given types.
+     * Optional parameters for range and ordering are provided.
+     */
+    getJobs(types: string[], start?: number, end?: number, asc?: boolean): Promise<Job[]>;
 
     /**
      * Returns a promise that resolves with the job counts for the given queue.

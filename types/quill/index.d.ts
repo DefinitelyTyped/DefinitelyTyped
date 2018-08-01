@@ -3,6 +3,7 @@
 // Definitions by: Sumit <https://github.com/sumitkm>
 //                 Guillaume <https://github.com/guillaume-ro-fr>
 //                 James Garbutt <https://github.com/43081j>
+//                 Aniello Falcone <https://github.com/AnielloFalcone>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { Blot } from 'parchment/dist/src/blot/abstract/blot';
@@ -142,6 +143,7 @@ export class Quill implements EventEmitter {
     root: HTMLDivElement;
     clipboard: ClipboardStatic;
     scroll: Blot;
+    keyboard: KeyboardStatic;
     constructor(container: string | Element, options?: QuillOptionsStatic);
     deleteText(index: number, length: number, source?: Sources): DeltaStatic;
     disable(): void;
@@ -173,6 +175,8 @@ export class Quill implements EventEmitter {
     formatText(index: number, length: number, source?: Sources): DeltaStatic;
     formatText(index: number, length: number, format: string, value: any, source?: Sources): DeltaStatic;
     formatText(index: number, length: number, formats: StringMap, source?: Sources): DeltaStatic;
+    formatText(range: RangeStatic, format: string, value: any, source?: Sources): DeltaStatic;
+    formatText(range: RangeStatic, formats: StringMap, source?: Sources): DeltaStatic;
     getFormat(range?: RangeStatic): StringMap;
     getFormat(index: number, length?: number): StringMap;
     removeFormat(index: number, length: number, source?: Sources): DeltaStatic;

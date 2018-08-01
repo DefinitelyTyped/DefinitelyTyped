@@ -50,7 +50,7 @@ interface Options<T> {
     process?(ownTrackingData: T): T | Falsy;
 }
 
-export type TrackingInfo<T, P, S> = T | ((props: P, state: S) => T);
+export type TrackingInfo<T, P, S> = T | ((props: P, state: S, args: any[any]) => T);
 
 // Duplicated from ES6 lib to remove the `void` typing, otherwise `track` can’t be used as a HOC function that passes
 // through a JSX component that be used without casting.

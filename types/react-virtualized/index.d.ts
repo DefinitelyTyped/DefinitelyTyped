@@ -8,7 +8,7 @@
 //                 Steve Zhang <https://github.com/Stevearzh>
 //                 Maciej Goszczycki <https://github.com/mgoszcz2>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 export {
     ArrowKeyStepper,
@@ -65,7 +65,8 @@ export {
     ScrollParams,
     SectionRenderedParams,
     SizeAndPositionData,
-    VisibleCellRange
+    VisibleCellRange,
+    ScrollbarPresenceParams
 } from "./dist/es/Grid";
 export {
     InfiniteLoader,

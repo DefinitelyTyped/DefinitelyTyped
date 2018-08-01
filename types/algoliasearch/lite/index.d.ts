@@ -180,6 +180,11 @@ declare namespace algoliasearch {
      * https://github.com/algolia/algoliasearch-client-js#client-options
      */
     hosts?: { read?: string[]; write?: string[] };
+    /**
+     * enable the experimental feature: caching requests instead of responses
+     * see https://github.com/algolia/algoliasearch-client-javascript/pull/694
+     */
+    _useRequestCache?: boolean
   }
   interface BrowseResponse {
     cursor?: string;

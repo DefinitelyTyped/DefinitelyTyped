@@ -118,7 +118,12 @@ class ES6Store2 extends Reflux.Store {
     }
 }
 
-class ES6ComponentWithSingleStore extends Reflux.Component {
+interface State {
+    id: number;
+    data?: any;
+}
+
+class ES6ComponentWithSingleStore extends Reflux.Component<any, any, State> {
     constructor(props: any) {
         super(props);
         this.state = {
@@ -140,7 +145,7 @@ class ES6ComponentWithSingleStore extends Reflux.Component {
     }
 }
 
-class ES6ComponentWithMultipleStores extends Reflux.Component {
+class ES6ComponentWithMultipleStores extends Reflux.Component<any, any, State> {
     constructor(props: any) {
         super(props);
         this.state = {
