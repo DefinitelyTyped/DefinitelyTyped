@@ -35,6 +35,11 @@ export class Decoration {
    */
   to: number;
   /**
+   * Compares two decorations
+   * Useful to compare decorations when one of them has been copied
+   */
+  eq(other: Decoration): boolean;
+  /**
    * The spec provided when creating this decoration. Can be useful
    * if you've stored extra information in that object.
    */
