@@ -1,4 +1,4 @@
-import * as graphql from 'graphql';
+import { isInputType, isOutputType } from 'graphql';
 
 ///////////////////////////
 // graphql               //
@@ -50,7 +50,8 @@ function language_visitor_tests() {
 // graphql/type          //
 ///////////////////////////
 function type_definition_tests() {
-    // TODO
+    isInputType(null);
+    isOutputType(null);
 }
 
 function type_directives_tests() {
