@@ -10,7 +10,7 @@ function examples() {
     }
 
     function add_2() {
-        $('p').clone().add('<span>Again</span>').appendTo(document.body);
+        $('p').clone().add('<span>Again</span>').appendTo(document.body!);
     }
 
     function add_3() {
@@ -1365,7 +1365,7 @@ function examples() {
     }
 
     function each_0() {
-        $(document.body).click(function() {
+        $(document.body!).click(function() {
             $('div').each(function(i) {
                 if (this.style.color !== 'blue') {
                     this.style.color = 'blue';
@@ -1648,7 +1648,7 @@ function examples() {
     }
 
     function fade_in_0() {
-        $(document.body).click(function() {
+        $(document.body!).click(function() {
             $('div:hidden:first').fadeIn('slow');
         });
     }
@@ -1927,7 +1927,7 @@ function examples() {
     }
 
     function get_0() {
-        $('*', document.body).click(function(event) {
+        $('*', document.body!).click(function(event) {
             event.stopPropagation();
             var domElement = $(this).get(0);
             $('span:first').text('Clicked on - ' + domElement.nodeName);
@@ -2043,7 +2043,7 @@ function examples() {
 
     function hide_3() {
         for (var i = 0; i < 5; i++) {
-            $('<div>').appendTo(document.body);
+            $('<div>').appendTo(document.body!);
         }
         $('div').click(function() {
             $(this).hide(2000, function() {
@@ -2320,8 +2320,8 @@ function examples() {
     }
 
     function jQuery_contains_0() {
-        $.contains(document.documentElement, document.body); // true
-        $.contains(document.body, document.documentElement); // false
+        $.contains(document.documentElement!, document.body!); // true
+        $.contains(document.body!, document.documentElement!); // false
     }
 
     function jQuery_data_0() {
@@ -2731,7 +2731,7 @@ function examples() {
 
     function jQuery_is_xml_doc_0() {
         jQuery.isXMLDoc(document); // false
-        jQuery.isXMLDoc(document.body); // false
+        jQuery.isXMLDoc(document.body!); // false
     }
 
     function jQuery_make_array_0() {
@@ -2741,7 +2741,7 @@ function examples() {
         var arr = jQuery.makeArray(elems);
         // Use an Array method on list of dom elements
         arr.reverse();
-        $(arr).appendTo(document.body);
+        $(arr).appendTo(document.body!);
     }
 
     function jQuery_make_array_1() {
@@ -3120,7 +3120,7 @@ function examples() {
     }
 
     function jQuery_queue_1() {
-        $(document.body).click(function() {
+        $(document.body!).click(function() {
             var divs = $('div')
                 .show('slow')
                 .animate({ left: '+=200' }, 2000);
@@ -3262,7 +3262,7 @@ function examples() {
     }
 
     function jQuery_3() {
-        $(document.body).css('background', 'black');
+        $(document.body!).css('background', 'black');
     }
 
     function jQuery_4(myForm: HTMLFormElement) {
@@ -3382,9 +3382,9 @@ function examples() {
     }
 
     function length_0() {
-        $(document.body)
+        $(document.body!)
             .click(function() {
-                $(document.body).append($('<div>'));
+                $(document.body!).append($('<div>'));
                 var n = $('div').length;
                 $('span').text('There are ' + n + ' divs.' +
                     'Click to add more.');
@@ -3757,7 +3757,7 @@ function examples() {
     }
 
     function offset_1() {
-        $('*', document.body).click(function(event) {
+        $('*', document.body!).click(function(event) {
             var offset = $(this).offset()!;
             event.stopPropagation();
             $('#result').text(this.tagName +
@@ -3938,7 +3938,7 @@ function examples() {
     }
 
     function parent_1() {
-        $('*', document.body).each(function() {
+        $('*', document.body!).each(function() {
             var parentTag = $(this).parent().get(0).tagName;
             $(this).prepend(document.createTextNode(parentTag + ' > '));
         });
@@ -4134,7 +4134,7 @@ function examples() {
     }
 
     function queue_1() {
-        $(document.body).click(function() {
+        $(document.body!).click(function() {
             $('div')
                 .show('slow')
                 .animate({ left: '+=200' }, 2000)
@@ -4311,9 +4311,9 @@ function examples() {
     }
 
     function scroll_0() {
-        $('p').clone().appendTo(document.body);
-        $('p').clone().appendTo(document.body);
-        $('p').clone().appendTo(document.body);
+        $('p').clone().appendTo(document.body!);
+        $('p').clone().appendTo(document.body!);
+        $('p').clone().appendTo(document.body!);
         $(window).scroll(function() {
             $('span').css('display', 'inline').fadeOut('slow');
         });
@@ -4478,7 +4478,7 @@ function examples() {
     }
 
     function slide_down_0() {
-        $(document.body).click(function() {
+        $(document.body!).click(function() {
             if ($('div:first').is(':hidden')) {
                 $('div').slideDown('slow');
             } else {
@@ -4520,7 +4520,7 @@ function examples() {
     }
 
     function slide_up_0() {
-        $(document.body).click(function() {
+        $(document.body!).click(function() {
             if ($('div:first').is(':hidden')) {
                 $('div').show('slow');
             } else {

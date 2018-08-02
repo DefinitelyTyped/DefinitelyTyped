@@ -1339,13 +1339,13 @@ function longdesc() {
     }
 
     function jquery_data_0() {
-        jQuery.data(document.body, 'foo', 52);
-        jQuery.data(document.body, 'bar', 'test');
+        jQuery.data(document.body!, 'foo', 52);
+        jQuery.data(document.body!, 'bar', 'test');
     }
 
     function jquery_data_1() {
-        alert(jQuery.data(document.body, 'foo'));
-        alert(jQuery.data(document.body));
+        alert(jQuery.data(document.body!, 'foo'));
+        alert(jQuery.data(document.body!));
     }
 
     function jquery_each_0() {
