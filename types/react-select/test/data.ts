@@ -1,4 +1,4 @@
-import { GroupType } from "react-select/lib/types";
+import { GroupedOptionsType, GroupType } from "react-select/lib/types";
 
 export interface ColourOption {
     value: string;
@@ -129,4 +129,4 @@ const flavourGroup: GroupType<FlavourOption> = {
     options: flavourOptions,
 };
 
-export const groupedOptions = [ colourGroup, flavourGroup ];
+export const groupedOptions: GroupedOptionsType = [ colourGroup, flavourGroup ];
