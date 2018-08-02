@@ -20,11 +20,11 @@ export class Advertisement {
 }
 
 export class Options {
-    name: string;
-    host: string;
-    txt: any;
-    subtypes: string[];
-    interface: string;
+    name?: string;
+    host?: string;
+    txt?: any;
+    subtypes?: string[];
+    interface?: string;
 }
 
 /**
