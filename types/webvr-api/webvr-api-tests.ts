@@ -29,13 +29,13 @@ function fieldOfViewToProjectionMatrix(fov: VRFieldOfView, zNear: number, zFar: 
     return out;
 }
 
-var hmd: VRDisplay;
+declare const hmd: VRDisplay;
 var leftEyeParams = hmd.getEyeParameters("left");
 var rightEyeParams = hmd.getEyeParameters("right");
 var leftEyeRect = { width: leftEyeParams.renderWidth, height: leftEyeParams.renderHeight };
 var rightEyeRect = { width: rightEyeParams.renderWidth, height: rightEyeParams.renderHeight };
 
-var canvas: HTMLCanvasElement;
+declare const canvas: HTMLCanvasElement;
 canvas.width = rightEyeParams.renderWidth * 2;
 canvas.height = Math.max(leftEyeRect.height, rightEyeRect.height);
 
