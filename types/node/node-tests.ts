@@ -961,7 +961,7 @@ function simplified_stream_ctor_test() {
         destroy(error, cb) {
             // $ExpectType Error
             error;
-            // $ExpectType (error?: Error) => void
+            // $ExpectType (error: Error) => void
             cb;
         }
     });
@@ -990,7 +990,7 @@ function simplified_stream_ctor_test() {
             this;
             // $ExpectType Error
             error;
-            // $ExpectType (error?: Error) => void
+            // $ExpectType (error: Error) => void
             cb;
         },
         final(cb) {
@@ -1031,7 +1031,7 @@ function simplified_stream_ctor_test() {
             this;
             // $ExpectType Error
             error;
-            // $ExpectType (error?: Error) => void
+            // $ExpectType (error: Error) => void
             cb;
         },
         final(cb) {
@@ -1074,7 +1074,7 @@ function simplified_stream_ctor_test() {
             this;
             // $ExpectType Error
             error;
-            // $ExpectType (error?: Error) => void
+            // $ExpectType (error: Error) => void
             cb;
         },
         final(cb) {
