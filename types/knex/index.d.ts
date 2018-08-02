@@ -312,9 +312,9 @@ declare namespace Knex {
     }
 
     interface Union {
-        (callback: QueryCallback, wrap?: boolean): QueryBuilder;
-        (callbacks: QueryCallback[], wrap?: boolean): QueryBuilder;
-        (...callbacks: QueryCallback[]): QueryBuilder;
+        (callback: QueryCallback | QueryBuilder, wrap?: boolean): QueryBuilder;
+        (callbacks: (QueryCallback | QueryBuilder)[], wrap?: boolean): QueryBuilder;
+        (...callbacks: (QueryCallback | QueryBuilder)[]): QueryBuilder;
         // (...callbacks: QueryCallback[], wrap?: boolean): QueryInterface;
     }
 
