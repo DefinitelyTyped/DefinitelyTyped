@@ -4680,6 +4680,12 @@ declare namespace Stripe {
             trial_period_days?: number;
 
             /**
+             * Indicates if a plan’s trial_period_days should be applied to the subscription. Setting trial_end per subscription is preferred, 
+             * and this defaults to false. Setting this flag to true together with trial_end is not allowed.
+             */
+            trial_from_plan?: boolean;
+
+            /**
              * List of subscription items, each with an attached plan.
              */
             items?: ISubscriptionCreationItem[];
