@@ -1,4 +1,4 @@
-import * as cssnano from 'cssnano';
+import cssnano = require('cssnano');
 import { Transformer } from 'postcss';
 
 const nano1: Transformer = cssnano();
