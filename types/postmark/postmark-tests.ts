@@ -1,5 +1,3 @@
-/// <reference path="index.d.ts" />
-
 import { AdminClient, Client, Options } from 'postmark';
 
 declare var options: Options;
