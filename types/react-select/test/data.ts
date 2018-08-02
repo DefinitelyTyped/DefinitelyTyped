@@ -129,4 +129,4 @@ const flavourGroup: GroupType<FlavourOption> = {
     options: flavourOptions,
 };
 
-export const groupedOptions: GroupedOptionsType = [ colourGroup, flavourGroup ];
+export const groupedOptions: GroupedOptionsType<ColourOption | FlavourOption> = [ colourGroup, flavourGroup ];

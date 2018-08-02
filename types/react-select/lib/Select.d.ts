@@ -184,7 +184,7 @@ export interface Props<OptionType> {
   /* Allows control of whether the menu is opened when the Select is clicked */
   openMenuOnClick?: boolean;
   /* Array of options that populate the select menu */
-  options?: GroupedOptionsType | OptionsType<OptionType>;
+  options?: GroupedOptionsType<OptionType> | OptionsType<OptionType>;
   /* Number of options to jump in menu when page{up|down} keys are used */
   pageSize?: number;
   /* Placeholder text for the select value */

@@ -7,7 +7,7 @@ export interface GroupType<OptionType> {
   [key: string]: any;
 }
 
-export type GroupedOptionsType = Array<GroupType<any>>;
+export type GroupedOptionsType<UnionOptionType> = Array<GroupType<UnionOptionType>>;
 
 export type ValueType<OptionType> = OptionType | OptionsType<OptionType> | null | undefined;
 

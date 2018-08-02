@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import Select from 'react-select';
-import { colourOptions, groupedOptions } from '../data';
+import { ColourOption, colourOptions, FlavourOption, groupedOptions } from '../data';
 
 const groupStyles = {
   display: 'flex',
@@ -29,7 +29,7 @@ const formatGroupLabel = (data: any) => (
 );
 
 export default () => (
-  <Select<any>
+  <Select<ColourOption | FlavourOption>
     defaultValue={colourOptions[1]}
     options={groupedOptions}
     formatGroupLabel={formatGroupLabel}
