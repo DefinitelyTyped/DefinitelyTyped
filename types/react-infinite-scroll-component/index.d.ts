@@ -1,4 +1,4 @@
-// Type definitions for react-infinite-scroll-component 4.1
+// Type definitions for react-infinite-scroll-component 4.2
 // Project: https://github.com/ankeetmaini/react-infinite-scroll-component#readme
 // Definitions by: Stephanie Roy <https://github.com/sroy3>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
