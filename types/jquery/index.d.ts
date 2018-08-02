@@ -146,21 +146,32 @@ interface JQueryStatic {
      * Return a collection of matched elements either found in the DOM based on passed argument(s) or created
      * by passing an HTML string.
      *
-     * @param element_elementArray A DOM element to wrap in a jQuery object.
-     *                             An array containing a set of DOM elements to wrap in a jQuery object.
+     * @param element A DOM element to wrap in a jQuery object.
      * @see \`{@link https://api.jquery.com/jQuery/ }\`
      * @since 1.0
      */
-    <T extends Element>(element_elementArray: T | ArrayLike<T>): JQuery<T>;
+    // tslint:disable-next-line:unified-signatures
+    <T extends Element>(element: T): JQuery<T>;
+    /**
+     * Return a collection of matched elements either found in the DOM based on passed argument(s) or created
+     * by passing an HTML string.
+     *
+     * @param elementArray An array containing a set of DOM elements to wrap in a jQuery object.
+     * @see \`{@link https://api.jquery.com/jQuery/ }\`
+     * @since 1.0
+     */
+    // tslint:disable-next-line:unified-signatures
+    <T extends Element>(elementArray: ArrayLike<T>): JQuery<T>;
     /**
      * Return a collection of matched elements either found in the DOM based on passed argument(s) or created
      * by passing an HTML string.
      *
      * @param selection An existing jQuery object to clone.
+     *                  An array not containing a set of DOM elements.
      * @see \`{@link https://api.jquery.com/jQuery/ }\`
      * @since 1.0
      */
-    <T>(selection: JQuery<T>): JQuery<T>;
+    <T>(selection: ArrayLike<T>): JQuery<T>;
     /**
      * Binds a function to be executed when the DOM has finished loading.
      *
