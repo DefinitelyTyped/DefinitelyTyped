@@ -1189,6 +1189,10 @@ declare namespace fin {
      */
     interface OpenFinWindow {
         /**
+         * uuid of the application that the window belongs to.
+         */
+        uuid: string;
+        /**
          * Name of window
          */
         name: string;

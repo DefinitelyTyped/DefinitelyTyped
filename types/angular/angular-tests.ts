@@ -520,6 +520,20 @@ namespace TestInjector {
         anyResult = $injector.invoke(inlineAnnotatedFunction, 'anyContext');
         anyResult = $injector.invoke(inlineAnnotatedFunction, undefined, 'anyLocals');
     }
+
+    // $injector.loadNewModules
+    {
+        const inlineAnnotatedFunction: any[] = [false, (v: boolean) => {}];
+        const modA = angular.module('$injector.moduleA', []);
+        $injector.loadNewModules([modA]);
+        $injector.loadNewModules([modA.name]);
+        $injector.loadNewModules([inlineAnnotatedFunction]);
+    }
+
+    // $injector.modules
+    {
+        const module: angular.IModule = $injector.modules['$injector.module'];
+    }
 }
 
 // Promise signature tests
@@ -717,11 +731,12 @@ function test_angular_forEach() {
         this.push(`${key}: ${value}`);
     }, log);
     // expect(log).toEqual(['name: misko', 'gender: male']);
-    // $ExpectType NodeListOf<HTMLImageElement>
-    angular.forEach(document.getElementsByTagName('img'), (value, key, obj) => {
+    // TODO: Set minimum version to ts3.1 where this is always HTMLCollectionOf
+    type Collection = NodeListOf<HTMLImageElement> | HTMLCollectionOf<HTMLImageElement>;
+    const collection: Collection = angular.forEach(document.getElementsByTagName('img'), (value, key, obj) => {
         value; // $ExpectType HTMLImageElement
         key; // $ExpectType number
-        obj; // $ExpectType NodeListOf<HTMLImageElement>
+        const collection: Collection = obj;
     });
     // $ExpectType number[]
     angular.forEach([1, 2, 3], (value, key, obj) => {

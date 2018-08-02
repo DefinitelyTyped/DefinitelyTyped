@@ -430,6 +430,15 @@ describe("Examples", () => {
         />;
     });
 
+    it("Value render with custom value option and index", () => {
+        const valueRenderer = (option: ReactSelectModule.Option<CustomValueType>, index: number): ReactSelectModule.HandlerRendererResult =>
+            null;
+
+        <CustomValueReactSelect
+            valueRenderer={valueRenderer}
+        />;
+    });
+
     it("No Results renderer with string", () => {
         <ReactSelect noResultsText="no results" />;
     });

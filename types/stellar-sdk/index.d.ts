@@ -3,6 +3,7 @@
 // Definitions by: Carl Foster <https://github.com/carl-foster>
 //                 Triston Jones <https://github.com/tristonj>
 //                 Paul Selden <https://github.com/pselden>
+//                 Max Bause <https://github.com/maxbause>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -21,7 +22,7 @@ export class CallBuilder<T extends Record> {
     cursor(cursor: string): this;
     limit(limit: number): this;
     order(direction: 'asc' | 'desc'): this;
-    stream(options?: { onmessage?: () => void, onerror?: () => void }): () => void;
+    stream(options?: { onmessage?: (record: T) => void, onerror?: (error: Error) => void }): () => void;
 }
 
 export interface CollectionPage<T extends Record> {
@@ -824,6 +825,7 @@ export class Transaction {
     fee: number;
     source: string;
     memo: Memo;
+    signatures: xdr.DecoratedSignature[];
 }
 
 export class TransactionBuilder {
@@ -861,9 +863,11 @@ export class Keypair {
 
     publicKey(): string;
     secret(): string;
+    rawPublicKey(): Buffer;
     rawSecretKey(): Buffer;
     canSign(): boolean;
     sign(data: Buffer): Buffer;
+    signatureHint(): xdr.SignatureHint;
     verify(data: Buffer, signature: Buffer): boolean;
 }
 
@@ -875,4 +879,9 @@ export namespace xdr {
     class Asset extends XDRStruct { }
     class Memo extends XDRStruct { }
     class TransactionEnvelope extends XDRStruct { }
+    class DecoratedSignature extends XDRStruct {
+      constructor(keys: { hint: SignatureHint, signature: Signature })
+    }
+    class SignatureHint { }
+    class Signature { }
 }

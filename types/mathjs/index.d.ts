@@ -2647,7 +2647,6 @@ declare namespace math {
     interface Unit {
         valueOf(): string;
         clone(): Unit;
-        isDerived(): boolean;
         hasBase(base: any): boolean;
         equalBase(unit: Unit): boolean;
         equals(unit: Unit): boolean;
@@ -2658,13 +2657,12 @@ declare namespace math {
         to(unit: string): Unit;
         toNumber(unit: string): number;
         toNumeric(unit: string): number | Fraction | BigNumber;
+        toSI(): Unit;
         toString(): string;
         toJSON(): MathJSON;
         formatUnits(): string;
         format(options: FormatOptions): string;
-        parse(str: DOMStringList): Unit;
-        isValuelessUnit(name: string): boolean;
-        fromJSON(json: MathJSON): Unit;
+        splitUnit(parts: ReadonlyArray<string | Unit>): Unit[];
     }
 
     interface CreateUnitOptions {

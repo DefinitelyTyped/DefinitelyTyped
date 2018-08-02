@@ -339,6 +339,12 @@ Units examples
 
 	// the expression parser supports units too
 	math.eval('2 inch to cm');
+
+	// units can be converted to SI
+	math.unit('1 inch').toSI();
+
+	// units can be split into other units
+	math.unit('1 m').splitUnit(['ft', 'in']);
 }
 
 /*

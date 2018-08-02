@@ -451,7 +451,7 @@ export interface Request extends Podium {
      * An object where each key is the name assigned by a route pre-handler methods function. The values are the raw values provided to the continuation function as argument. For the wrapped response
      * object, use responses.
      */
-    readonly pre: Util.Dictionary<object>;
+    readonly pre: Util.Dictionary<any>;
 
     /**
      * Access: read / write (see limitations below).
@@ -463,7 +463,7 @@ export interface Request extends Podium {
     /**
      * Same as pre but represented as the response object created by the pre method.
      */
-    readonly preResponses: Util.Dictionary<object>;
+    readonly preResponses: Util.Dictionary<any>;
 
     /**
      * By default the object outputted from node's URL parse() method. Might also be set indirectly via request.setUrl in which case it may be a string (if url is set to an object with the query
@@ -2905,7 +2905,7 @@ export interface ServerOptions {
      * Default value: none.
      * Used to create an HTTPS connection. The tls object is passed unchanged to the node HTTPS server as described in the node HTTPS documentation.
      */
-    tls?: true | https.RequestOptions;
+    tls?: boolean | https.RequestOptions;
 
     /**
      * Default value: constructed from runtime server information.

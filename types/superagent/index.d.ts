@@ -5,6 +5,7 @@
 //                 Pap Lőrinc <https://github.com/paplorinc>
 //                 Shrey Jain <https://github.com/shreyjain1994>
 //                 Alec Zopf <https://github.com/zopf>
+//                 Adam Haglund <https://github.com/beeequeue>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -118,7 +119,8 @@ declare namespace request {
         abort(): void;
         accept(type: string): this;
         attach(field: string, file: MultipartValueSingle, options?: string | { filename?: string; contentType?: string }): this;
-        auth(user: string, name: string): this;
+        auth(user: string, pass: string, options?: { type: 'basic' | 'auto' }): this;
+        auth(token: string, options: { type: 'bearer' }): this;
         buffer(val?: boolean): this;
         ca(cert: Buffer): this;
         cert(cert: Buffer | string): this;

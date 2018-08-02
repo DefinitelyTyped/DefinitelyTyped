@@ -1,4 +1,4 @@
-// Type definitions for react-select 1.2
+// Type definitions for react-select 1.3
 // Project: https://github.com/JedWatson/react-select
 // Definitions by: ESQUIBET Hugo <https://github.com/Hesquibet>
 //                 Gilad Gray <https://github.com/giladgray>
@@ -13,6 +13,8 @@
 //                 David Schkalee <https://github.com/misantronic>
 //                 Arthur Udalov <https://github.com/darkartur>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
+//                 Endurance Idehen <https://github.com/endurance>
+//                 Guillaume Chartier <https://github.com/RCGuillaume>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -49,7 +51,7 @@ export type OnOpenHandler = () => void;
 export type OnFocusHandler = React.FocusEventHandler<HTMLDivElement | HTMLInputElement>;
 export type OnBlurHandler = React.FocusEventHandler<HTMLDivElement | HTMLInputElement>;
 export type OptionRendererHandler<TValue = OptionValues> = (option: Option<TValue>) => HandlerRendererResult;
-export type ValueRendererHandler<TValue = OptionValues> = (option: Option<TValue>) => HandlerRendererResult;
+export type ValueRendererHandler<TValue = OptionValues> = (option: Option<TValue>, index?: number) => HandlerRendererResult;
 export type OnValueClickHandler<TValue = OptionValues> = (option: Option<TValue>, event: React.MouseEvent<HTMLAnchorElement>) => void;
 export type IsOptionUniqueHandler<TValue = OptionValues> = (arg: { option: Option<TValue>, options: Options<TValue>, labelKey: string, valueKey: string }) => boolean;
 export type IsValidNewOptionHandler = (arg: { label: string }) => boolean;
@@ -240,7 +242,7 @@ export interface ReactSelectProps<TValue = OptionValues> extends React.Props<Rea
      * renders a custom drop-down arrow to be shown in the right-hand side of the select.
      * @default undefined
      */
-    arrowRenderer?: ArrowRendererHandler;
+    arrowRenderer?: ArrowRendererHandler | null;
     /**
      * blurs the input element after a selection has been made. Handy for lowering the keyboard on mobile devices.
      * @default false
@@ -472,10 +474,10 @@ export interface ReactSelectProps<TValue = OptionValues> extends React.Props<Rea
      * boolean to enable opening dropdown when focused
      * @default false
      */
-    openAfterFocus?: boolean;
+    openOnClick?: boolean;
     /**
      * open the options menu when the input gets focus (requires searchable = true)
-     * @default false
+     * @default true
      */
     openOnFocus?: boolean;
     /**
@@ -614,6 +616,13 @@ export interface ReactCreatableSelectProps<TValue = OptionValues> extends ReactS
      * new option click handler: function (option) {}
      */
     onNewOptionClick?: OnNewOptionClickHandler<TValue>;
+
+    /**
+     * true: Show new option at top of list
+     * false: Show new option at bottom of list
+     * @default true
+     */
+    showNewOptionAtTop?: boolean;
 }
 
 export interface ReactAsyncSelectProps<TValue = OptionValues> extends ReactSelectProps<TValue> {

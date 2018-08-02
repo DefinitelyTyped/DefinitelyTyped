@@ -9,7 +9,11 @@ declare namespace wx {
   // #region 基本参数
   interface DataResponse {
     /** 回调函数返回的内容 */
-    data: any;
+    data: object | string | ArrayBuffer;
+    /** 开发者服务器返回的 HTTP 状态码 */
+    statusCode: number;
+    /** 开发者服务器返回的 HTTP Response Header */
+    header: object;
   }
   interface ErrMsgResponse {
     /** 成功：ok，错误：详细信息 */
@@ -37,11 +41,11 @@ declare namespace wx {
     /** 开发者服务器接口地址 */
     url: string;
     /** 请求的参数 */
-    data?: string | any;
+    data?: string | object | ArrayBuffer;
     /** 设置请求的 header , header 中不能设置 Referer */
     header?: RequestHeader;
     /** 默认为 GET，有效值：OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT */
-    method?: string;
+    method?: "GET" | "OPTIONS" | "GET" | "HEAD" | "POST" | "PUT" | "DELETE" | "TRACE" | "CONNECT";
     /** 如果设为json，会尝试对返回的数据做一次 JSON.parse */
     dataType?: string;
     /**
@@ -55,7 +59,15 @@ declare namespace wx {
   /**
    * wx.request发起的是https请求。一个微信小程序，同时只能有5个网络请求连接。
    */
-  function request(options: RequestOptions): void;
+  function request(options: RequestOptions): RequestTask;
+
+  /**
+   * 返回一个 requestTask 对象，通过 requestTask，可中断请求任务。
+   */
+  interface RequestTask {
+    abort(): void;
+  }
+
   interface UploadTask {
     /**
      * 监听上传进度变化
@@ -3213,29 +3225,33 @@ interface Component<T> {
    * 检查组件是否具有 behavior
    * 检查时会递归检查被直接或间接引入的所有behavior
    */
-  hasBehavior(behavior: any): void;
+  hasBehavior(behavior: any): boolean;
   /**
    * 触发事件，参见 [组件事件](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/custom-component/events.html)
    */
-  triggerEvent(name: string): void;
+  triggerEvent(name: string, details?: any, options?: {
+    bubbles: boolean;
+    composed: boolean;
+    capturePhase: boolean;
+  }): void;
   /**
    * 创建一个 SelectorQuery 对象
    * 选择器选取范围为这个[组件实例](https://mp.weixin.qq.com/debug/wxadoc/dev/api/wxml-nodes-info.html)内
    */
-  createSelectorQuery(query: string): void;
+  createSelectorQuery(): wx.SelectorQuery;
   /**
    * 使用选择器选择组件实例节点
    * 返回匹配到的第一个组件实例对象
    */
-  selectComponent(selector: string): void;
+  selectComponent(selector: string): Component<any>;
   /**
    * selector  使用选择器选择组件实例节点，返回匹配到的全部组件实例对象组成的数组
    */
-  selectAllComponents(selector: string): void;
+  selectAllComponents(selector: string): Array<Component<any>>;
   /**
    * 获取所有这个关系对应的所有关联节点，参见 [组件间关系](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/custom-component/relations.html)
    */
-  getRelationNodes(relationKey: string): void;
+  getRelationNodes(relationKey: string): { [key: string]: ComponentRelation };
 }
 declare function Component<D, M, O, P>(options?: ThisTypedComponentOptionsWithRecordProps<Component<D>, D, M, O, P>): ExtendedComponent<Component<D>, D, M, O, P>;
 /**

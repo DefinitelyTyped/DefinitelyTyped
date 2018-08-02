@@ -2,6 +2,7 @@
 // Project: https://github.com/marcuswestin/store.js/
 // Definitions by: Vincent Bortone <https://github.com/vbortone>
 //                 harry0000 <https://github.com/harry0000>
+//                 Roman Nuritdinov (Ky6uk) <https://github.com/Ky6uk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Cross-browser storage for all use cases, used across the web.
@@ -26,6 +27,18 @@ interface StoreJsEngine {
 
 declare const store: StoreJsAPI;
 declare module 'store' {
+    export = store;
+}
+declare module 'store/dist/store.legacy' {
+    export = store;
+}
+declare module 'store/dist/store.legacy.min' {
+    export = store;
+}
+declare module 'store/dist/store.modern' {
+    export = store;
+}
+declare module 'store/dist/store.modern.min' {
     export = store;
 }
 

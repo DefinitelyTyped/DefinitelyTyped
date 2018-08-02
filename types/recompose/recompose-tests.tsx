@@ -62,12 +62,9 @@ import createSinkStandalone from "recompose/createSink";
 import componentFromPropStandalone from "recompose/componentFromProp";
 import nestStandalone from "recompose/nest";
 import hoistStaticsStandalone from "recompose/hoistStatics";
-import componentFromStreamStandalone from "recompose/componentFromStream";
-import componentFromStreamWithConfigStandalone from "recompose/componentFromStreamWithConfig";
-import mapPropsStreamStandalone from "recompose/mapPropsStream";
-import mapPropsStreamWithConfigStandalone from "recompose/mapPropsStreamWithConfig";
-import createEventHandlerStandalone from "recompose/createEventHandler";
-import createEventHandlerWithConfigStandalone from "recompose/createEventHandlerWithConfig";
+import componentFromStreamStandalone, { componentFromStreamWithConfig as componentFromStreamWithConfigStandalone } from "recompose/componentFromStream";
+import mapPropsStreamStandalone, { mapPropsStreamWithConfig as mapPropsStreamWithConfigStandalone } from "recompose/mapPropsStream";
+import createEventHandlerStandalone, { createEventHandlerWithConfig as createEventHandlerWithConfigStandalone } from "recompose/createEventHandler";
 import setObservableConfigStandalone from "recompose/setObservableConfig";
 
 function testMapProps() {
@@ -255,6 +252,15 @@ function testWithState() {
     const Enhanced2 = enhancer2(InnerComponent);
     const rendered2 = (
         <Enhanced2 title="foo" />
+    );
+
+    // We can also actually provide the generic necessary
+    const enhancer3 = withState<OutterProps, number, "count", "setCount">("count", "setCount", 1);
+    const Enhanced3 = enhancer3(props => {
+        return <div>{props.title}</div>; 
+    });
+    const rendered3 = (
+        <Enhanced3 title="foo" />
     );
 }
 
