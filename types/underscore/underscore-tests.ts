@@ -537,10 +537,6 @@ function chain_tests() {
     let valuePerYear: number[] = _.chain(yearObject)
         .values()
         .value()
-
-    let keyValuePerYear: (string|number)[][] = _.chain(yearObject)
-        .pairs()
-        .value()
 }
 
 var obj: { [k: string] : number } = {

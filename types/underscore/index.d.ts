@@ -3631,7 +3631,7 @@ declare module _ {
         * @param object Convert this object to a list of [key, value] pairs.
         * @return List of [key, value] pairs on `object`.
         **/
-        pairs(object: any): any[][];
+        pairs(object: any): [string, any][];
 
         /**
         * Returns a copy of the object where the keys have become the values and the values the keys.
@@ -4738,7 +4738,7 @@ declare module _ {
         * Wrapped type `object`.
         * @see _.pairs
         **/
-        pairs(): any[][];
+        pairs(): [string, any][];
 
         /**
         * Wrapped type `object`.
