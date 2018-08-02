@@ -2,6 +2,14 @@ import _ = require("../index");
 // tslint:disable-next-line:strict-export-declare-modifiers
 type GlobalPartial<T> = Partial<T>;
 declare module "../index" {
+    interface ConvertOptions {
+        cap?: boolean;
+        curry?: boolean;
+        fixed?: boolean;
+        immutable?: boolean;
+        rearg?: boolean;
+    }
+
     type PartialObject<T> = GlobalPartial<T>;
     type Many<T> = T | ReadonlyArray<T>;
     interface LoDashStatic {
