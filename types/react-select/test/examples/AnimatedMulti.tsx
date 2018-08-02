@@ -2,11 +2,11 @@ import * as React from 'react';
 
 import Select from 'react-select';
 import makeAnimated from 'react-select/lib/animated';
-import { colourOptions } from '../data';
+import { ColourOption, colourOptions } from '../data';
 
 export default function AnimatedMulti() {
   return (
-    <Select
+    <Select<ColourOption>
       closeMenuOnSelect={false}
       components={makeAnimated()}
       defaultValue={[colourOptions[4], colourOptions[5]]}

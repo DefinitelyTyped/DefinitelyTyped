@@ -14,7 +14,7 @@ export function DownChevron(props: any): any; // TODO svg type
 // Dropdown & Clear Buttons
 // ==============================
 
-export type IndicatorProps = CommonProps & {
+export type IndicatorProps<OptionType> = CommonProps<OptionType> & {
   /** The children to be rendered inside the indicator. */
   children: ElementType<any>,
   /** Props that will be passed on to the children. */
@@ -25,23 +25,23 @@ export type IndicatorProps = CommonProps & {
   isRtl: boolean,
 };
 
-export type baseCSS = (props: IndicatorProps) => any; // TODO css type
+export type baseCSS = (props: IndicatorProps<any>) => any; // TODO css type
 
 export const dropdownIndicatorCSS: baseCSS;
-export const DropdownIndicator: ComponentType<IndicatorProps>;
+export const DropdownIndicator: ComponentType<IndicatorProps<any>>;
 
 export const clearIndicatorCSS: baseCSS;
-export const ClearIndicator: ComponentType<IndicatorProps>;
+export const ClearIndicator: ComponentType<IndicatorProps<any>>;
 
 // ==============================
 // Separator
 // ==============================
 
-export type SeparatorState = { isDisabled: boolean };
+export interface SeparatorState { isDisabled: boolean; }
 
 export function indicatorSeparatorCSS(state: SeparatorState): any; // TODO css type
 
-export const IndicatorSeparator: ComponentType<IndicatorProps>;
+export const IndicatorSeparator: ComponentType<IndicatorProps<any>>;
 
 // ==============================
 // Loading
@@ -52,16 +52,16 @@ export function loadingIndicatorCSS(state: {
   size: number,
 }): any; // TODO css type
 
-export type LoadingIconProps = {
+export type LoadingIconProps<OptionType> = {
   /** Props that will be passed on to the children. */
   innerProps: any,
   /** The focused state of the select. */
   isFocused: boolean,
   /** Whether the text is right to left */
   isRtl: boolean,
-} & CommonProps & {
+} & CommonProps<OptionType> & {
   /** Set size of the container. */
   size: number,
 };
-export const LoadingIndicator: ComponentType<LoadingIconProps>;
+export const LoadingIndicator: ComponentType<LoadingIconProps<any>>;
 // TODO LoadingIndicator.defaultProps: { size: number };

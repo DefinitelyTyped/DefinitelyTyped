@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import Select, { components } from 'react-select';
-import { colourOptions, groupedOptions } from '../data';
+import { ColourOption, colourOptions, FlavourOption, groupedOptions } from '../data';
 
 const menuHeaderStyle = {
   padding: '8px 12px',
@@ -21,7 +21,7 @@ const MenuList = (props: any) => {
 };
 
 export default () => (
-  <Select
+  <Select<ColourOption | FlavourOption>
     defaultValue={colourOptions[1]}
     options={groupedOptions}
     components={{ MenuList }}

@@ -28,7 +28,7 @@ import {
   multiValueRemoveCSS,
 } from './components/MultiValue';
 
-export type Props = { [key: string]: any };
+export interface Props { [key: string]: any; }
 
 /**
  * @param base -- the component's default style
@@ -37,58 +37,58 @@ export type Props = { [key: string]: any };
  */
 export type styleFn = (base: any, state: any) => any;
 
-export type Styles = {
-  clearIndicator?: styleFn,
-  container?: styleFn,
-  control?: styleFn,
-  dropdownIndicator?: styleFn,
-  group?: styleFn,
-  groupHeading?: styleFn,
-  indicatorsContainer?: styleFn,
-  indicatorSeparator?: styleFn,
-  input?: styleFn,
-  loadingIndicator?: styleFn,
-  // TODO loadingMessageCSS?: styleFn,
-  loadingMessage?: styleFn,
-  menu?: styleFn,
-  menuList?: styleFn,
-  menuPortal?: styleFn,
-  multiValue?: styleFn,
-  multiValueLabel?: styleFn,
-  multiValueRemove?: styleFn,
-  // TODO noOptionsMessageCSS?: styleFn,
-  noOptionsMessage?: styleFn,
-  option?: styleFn,
-  placeholder?: styleFn,
-  singleValue?: styleFn,
-  valueContainer: styleFn,
-};
-export type StylesConfig = {
-  clearIndicator?: styleFn,
-  container?: styleFn,
-  control?: styleFn,
-  dropdownIndicator?: styleFn,
-  group?: styleFn,
-  groupHeading?: styleFn,
-  indicatorsContainer?: styleFn,
-  indicatorSeparator?: styleFn,
-  input?: styleFn,
-  loadingIndicator?: styleFn,
-  // TODO loadingMessageCSS?: styleFn,
-  loadingMessage?: styleFn,
-  menu?: styleFn,
-  menuList?: styleFn,
-  menuPortal?: styleFn,
-  multiValue?: styleFn,
-  multiValueLabel?: styleFn,
-  multiValueRemove?: styleFn,
-  // TODO noOptionsMessageCSS?: styleFn,
-  noOptionsMessage?: styleFn,
-  option?: styleFn,
-  placeholder?: styleFn,
-  singleValue?: styleFn,
-  valueContainer?: styleFn,
-};
+export interface Styles {
+  clearIndicator?: styleFn;
+  container?: styleFn;
+  control?: styleFn;
+  dropdownIndicator?: styleFn;
+  group?: styleFn;
+  groupHeading?: styleFn;
+  indicatorsContainer?: styleFn;
+  indicatorSeparator?: styleFn;
+  input?: styleFn;
+  loadingIndicator?: styleFn;
+  // TODO loadingMessageCSS?: styleFn;
+  loadingMessage?: styleFn;
+  menu?: styleFn;
+  menuList?: styleFn;
+  menuPortal?: styleFn;
+  multiValue?: styleFn;
+  multiValueLabel?: styleFn;
+  multiValueRemove?: styleFn;
+  // TODO noOptionsMessageCSS?: styleFn;
+  noOptionsMessage?: styleFn;
+  option?: styleFn;
+  placeholder?: styleFn;
+  singleValue?: styleFn;
+  valueContainer: styleFn;
+}
+export interface StylesConfig {
+  clearIndicator?: styleFn;
+  container?: styleFn;
+  control?: styleFn;
+  dropdownIndicator?: styleFn;
+  group?: styleFn;
+  groupHeading?: styleFn;
+  indicatorsContainer?: styleFn;
+  indicatorSeparator?: styleFn;
+  input?: styleFn;
+  loadingIndicator?: styleFn;
+  // TODO loadingMessageCSS?: styleFn;
+  loadingMessage?: styleFn;
+  menu?: styleFn;
+  menuList?: styleFn;
+  menuPortal?: styleFn;
+  multiValue?: styleFn;
+  multiValueLabel?: styleFn;
+  multiValueRemove?: styleFn;
+  // TODO noOptionsMessageCSS?: styleFn;
+  noOptionsMessage?: styleFn;
+  option?: styleFn;
+  placeholder?: styleFn;
+  singleValue?: styleFn;
+  valueContainer?: styleFn;
+}
 export type GetStyles = (a: string, b: Props) => any;
 
 export const defaultStyles: Styles;

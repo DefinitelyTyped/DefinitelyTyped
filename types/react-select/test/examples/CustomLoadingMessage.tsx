@@ -13,9 +13,9 @@ const LoadingMessage = (props: any) => {
   );
 };
 
-type State = {
-  inputValue: string,
-};
+interface State {
+  inputValue: string;
+}
 
 const filterColors = (inputValue: string) =>
   colourOptions.filter(i =>

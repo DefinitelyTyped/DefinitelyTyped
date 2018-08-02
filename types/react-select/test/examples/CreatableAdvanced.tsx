@@ -2,16 +2,16 @@ import * as React from 'react';
 
 import CreatableSelect from 'react-select/lib/Creatable';
 
-type Option = {
-  label: string,
-  value: string
-};
+interface Option {
+  label: string;
+  value: string;
+}
 
-type State = {
-  isLoading: boolean,
-  options: Option[],
-  value: string | undefined,
-};
+interface State {
+  isLoading: boolean;
+  options: Option[];
+  value: string | undefined;
+}
 
 const createOption = (label: string): Option => ({
   label,

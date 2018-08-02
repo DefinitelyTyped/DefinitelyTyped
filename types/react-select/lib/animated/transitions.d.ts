@@ -2,12 +2,12 @@ import * as React from 'react';
 import { Transition } from 'react-transition-group';
 
 export type fn = () => void;
-export type BaseTransition = {
+export interface BaseTransition {
   /** Whether we are in a transition. */
-  in: boolean,
+  in: boolean;
   /** Function to be called once transition finishes. */
-  onExited: fn
-};
+  onExited: fn;
+}
 
 // ==============================
 // Fade Transition
@@ -27,8 +27,8 @@ export const collapseDuration: number;
 
 export type TransitionState = 'exiting' | 'exited';
 export type Width = number | 'auto';
-export type CollapseProps = { children: any, in: boolean };
-export type CollapseState = { width: Width };
+export interface CollapseProps { children: any; in: boolean; }
+export interface CollapseState { width: Width; }
 
 // wrap each MultiValue with a collapse transition; decreases width until
 // finally removing from DOM

@@ -30,22 +30,22 @@ import {
 // Get Menu Placement
 // ------------------------------
 
-type MenuState = { placement: 'bottom' | 'top' | null, maxHeight: number };
-type PlacementArgs = {
-  maxHeight: number,
-  menuEl: ElementRef<any>,
-  minHeight: number,
-  placement: 'bottom' | 'top' | 'auto',
-  shouldScroll: boolean,
-  isFixedPosition: boolean,
-};
+interface MenuState { placement: 'bottom' | 'top' | null; maxHeight: number; }
+interface PlacementArgs {
+  maxHeight: number;
+  menuEl: ElementRef<any>;
+  minHeight: number;
+  placement: 'bottom' | 'top' | 'auto';
+  shouldScroll: boolean;
+  isFixedPosition: boolean;
+}
 
 export function getMenuPlacement(args: PlacementArgs): MenuState;
 
 // Menu Component
 // ------------------------------
 
-export type MenuProps = CommonProps & {
+export type MenuProps<OptionType> = CommonProps<OptionType> & {
   /** The children to be rendered. */
   children: ReactElement<any>,
   /** Callback to update the portal after possible flip. */
@@ -66,12 +66,12 @@ export type MenuProps = CommonProps & {
 
 export function menuCSS(state: MenuState): any; // TODO css type
 
-export class Menu extends Component<MenuProps, MenuState> {
+export class Menu<OptionType> extends Component<MenuProps<OptionType>, MenuState> {
   static contextTypes: {
     getPortalPlacement: (state: MenuState) => void,
   };
   getPlacement: (ref: ElementRef<any>) => void;
-  getState: () => MenuProps & MenuState;
+  getState: () => MenuProps<OptionType> & MenuState;
 }
 
 export default Menu;
@@ -80,24 +80,24 @@ export default Menu;
 // Menu List
 // ==============================
 
-type MenuListState = {
+interface MenuListState {
   /** Set classname for isMulti */
-  isMulti: boolean,
+  isMulti: boolean;
   /* Set the max height of the Menu component  */
-  maxHeight: number,
-};
+  maxHeight: number;
+}
 
-export type MenuListProps = {
+export interface MenuListProps {
   /** The children to be rendered. */
-  children: Node,
+  children: Node;
   /** Inner ref to DOM Node */
-  innerRef: InnerRef,
-};
-export type MenuListComponentProps = CommonProps &
+  innerRef: InnerRef;
+}
+export type MenuListComponentProps<OptionType> = CommonProps<OptionType> &
   MenuListProps &
   MenuListState;
 export function menuListCSS(state: MenuState): any; // TODO css type
-export const MenuList: ComponentType<MenuListComponentProps>;
+export const MenuList: ComponentType<MenuListComponentProps<any>>;
 
 // ==============================
 // Menu Notices
@@ -106,19 +106,19 @@ export const MenuList: ComponentType<MenuListComponentProps>;
 export function noOptionsMessageCSS(): any; // TODO css type
 export function loadingMessageCSS(): any; // TODO css type
 
-export type NoticeProps = CommonProps & {
+export type NoticeProps<OptionType> = CommonProps<OptionType> & {
   /** The children to be rendered. */
   children: Node,
   /** Props to be passed on to the wrapper. */
   innerProps: { [key: string]: any },
 };
 
-export const NoOptionsMessage: ComponentType<NoticeProps>;
+export const NoOptionsMessage: ComponentType<NoticeProps<any>>;
 // NoOptionsMessage.defaultProps = {
 //   children: 'No options',
 // };
 
-export const LoadingMessage: ComponentType<NoticeProps>;
+export const LoadingMessage: ComponentType<NoticeProps<any>>;
 // LoadingMessage.defaultProps = {
 //   children: 'Loading...',
 // };
@@ -127,25 +127,25 @@ export const LoadingMessage: ComponentType<NoticeProps>;
 // Menu Portal
 // ==============================
 
-export type MenuPortalProps = CommonProps & {
+export type MenuPortalProps<OptionType> = CommonProps<OptionType> & {
   appendTo: HTMLElement,
   children: Node, // ideally Menu<MenuProps>
   controlElement: HTMLElement,
   menuPlacement: MenuPlacement,
   menuPosition: MenuPosition,
 };
-type MenuPortalState = {
-  placement: 'bottom' | 'top' | null,
-};
-type PortalStyleArgs = {
-  offset: number,
-  position: MenuPosition,
-  rect: RectType,
-};
+interface MenuPortalState {
+  placement: 'bottom' | 'top' | null;
+}
+interface PortalStyleArgs {
+  offset: number;
+  position: MenuPosition;
+  rect: RectType;
+}
 
 export function menuPortalCSS(args: PortalStyleArgs): any; // TODO css type
 
-export class MenuPortal extends Component<MenuPortalProps, MenuPortalState> {
+export class MenuPortal<OptionType> extends Component<MenuPortalProps<OptionType>, MenuPortalState> {
   static childContextTypes: {
     getPortalPlacement: (state: MenuState) => void,
   };

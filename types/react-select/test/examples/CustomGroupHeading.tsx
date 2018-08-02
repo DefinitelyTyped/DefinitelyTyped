@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import Select, { components } from 'react-select';
-import { colourOptions, groupedOptions } from '../data';
+import { ColourOption, colourOptions, FlavourOption, groupedOptions } from '../data';
 import { EditorPanelIcon, Tooltip } from '../AtlaskitDummy';
 
 const groupStyles = {
@@ -22,7 +22,7 @@ const GroupHeading = (props: any) => (
 );
 
 export default () => (
-  <Select
+  <Select<ColourOption | FlavourOption>
     defaultValue={colourOptions[1]}
     options={groupedOptions}
     components={{ GroupHeading }}

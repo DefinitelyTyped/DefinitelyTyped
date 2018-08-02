@@ -10,7 +10,7 @@ const selectStyles = {
   menu: () => ({ boxShadow: 'inset 0 1px 0 rgba(0, 0, 0, 0.1)' }),
 };
 
-type State = { isOpen: boolean, value: any };
+interface State { isOpen: boolean; value: any; }
 
 export default class PopoutExample extends React.Component<any, State> {
   state: State = { isOpen: false, value: undefined };

@@ -6,12 +6,12 @@ import { default as AnimatedPlaceholder, AnimatedPlaceholderProps } from './Plac
 import { default as AnimatedSingleValue, AnimatedSingleValueProps } from './SingleValue';
 import { default as AnimatedValueContainer, AnimatedValueContainerProps } from './ValueContainer';
 
-export function makeAnimated(externalComponents?: SelectComponents): SelectComponents;
+export function makeAnimated<OptionType>(externalComponents?: SelectComponents<OptionType>): SelectComponents<OptionType>;
 
 export const Input: ComponentType<AnimatedInputProps>;
-export const MultiValue: ComponentType<AnimatedMultiValueProps>;
-export const Placeholder: ComponentType<AnimatedPlaceholderProps>;
-export const SingleValue: ComponentType<AnimatedSingleValueProps>;
-export const ValueContainer: ComponentType<AnimatedValueContainerProps>;
+export const MultiValue: ComponentType<AnimatedMultiValueProps<any>>;
+export const Placeholder: ComponentType<AnimatedPlaceholderProps<any>>;
+export const SingleValue: ComponentType<AnimatedSingleValueProps<any>>;
+export const ValueContainer: ComponentType<AnimatedValueContainerProps<any>>;
 
 export default makeAnimated;

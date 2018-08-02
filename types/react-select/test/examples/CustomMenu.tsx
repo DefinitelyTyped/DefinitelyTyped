@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import Select, { components } from 'react-select';
-import { colourOptions, groupedOptions } from '../data';
+import { ColourOption, colourOptions, FlavourOption, groupedOptions } from '../data';
 
 function getLength(options: any) {
   return options.reduce((acc: any, curr: any) => {
@@ -29,7 +29,7 @@ const Menu = (props: any) => {
 };
 
 export default () => (
-  <Select
+  <Select<ColourOption | FlavourOption>
     defaultValue={colourOptions[1]}
     options={groupedOptions}
     components={{ Menu }}

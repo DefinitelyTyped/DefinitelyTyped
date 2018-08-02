@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import Select, { components } from 'react-select';
-import { colourOptions, groupedOptions } from '../data';
+import { ColourOption, colourOptions, FlavourOption, groupedOptions } from '../data';
 
 const groupStyles = {
   border: `2px dotted ${colourOptions[2].color}`,
@@ -16,7 +16,7 @@ const Group = (props: any) => (
 );
 
 export default () => (
-  <Select
+  <Select<ColourOption | FlavourOption>
     defaultValue={colourOptions[1]}
     options={groupedOptions}
     components={{ Group }}

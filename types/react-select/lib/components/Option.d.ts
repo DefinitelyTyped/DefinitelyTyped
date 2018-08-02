@@ -3,23 +3,23 @@ import { ComponentType, ReactNode as Node, MouseEventHandler } from 'react';
 import { colors, spacing } from '../theme';
 import { CommonProps, PropsWithStyles, InnerRef } from '../types';
 
-type State = {
+interface State {
   /** Wether the option is disabled. */
-  isDisabled: boolean,
+  isDisabled: boolean;
   /** Wether the option is focused. */
-  isFocused: boolean,
+  isFocused: boolean;
   /** Whether the option is selected. */
-  isSelected: boolean,
-};
-type InnerProps = {
-  id: string,
-  key: string,
-  onClick: MouseEventHandler,
-  onMouseOver: MouseEventHandler,
-  tabIndex: number,
-};
-export type OptionProps = PropsWithStyles &
-  CommonProps &
+  isSelected: boolean;
+}
+interface InnerProps {
+  id: string;
+  key: string;
+  onClick: MouseEventHandler;
+  onMouseOver: MouseEventHandler;
+  tabIndex: number;
+}
+export type OptionProps<OptionType> = PropsWithStyles &
+  CommonProps<OptionType> &
   State & {
     /** The children to be rendered. */
     children: Node,
@@ -36,6 +36,6 @@ export type OptionProps = PropsWithStyles &
 
 export function optionCSS(state: State): any; // TODO css type
 
-export const Option: ComponentType<OptionProps>;
+export const Option: ComponentType<OptionProps<any>>;
 
 export default Option;

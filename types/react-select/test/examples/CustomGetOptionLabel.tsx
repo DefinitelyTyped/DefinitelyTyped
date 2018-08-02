@@ -1,8 +1,10 @@
 import * as React from 'react';
 import Select from 'react-select';
-import { flavourOptions } from '../data';
+import { FlavourOption, flavourOptions } from '../data';
 
 export default class CustomGetOptionLabel extends React.Component {
+  private readonly getFlavourOptionLabel = (option: FlavourOption): string => `${option.label}: ${option.rating}`;
+
   render() {
     return (
       <React.Fragment>
@@ -13,7 +15,7 @@ export default class CustomGetOptionLabel extends React.Component {
         isSearchable
         name="color"
         options={flavourOptions}
-        getOptionLabel={(option) => (`${option.label}: ${option.rating}`)}
+        getOptionLabel={this.getFlavourOptionLabel}
       />
       </React.Fragment>
     );

@@ -2,22 +2,22 @@ import { ComponentType } from 'react';
 import { colors, spacing } from '../theme';
 import { CommonProps } from '../types';
 
-type State = {
+interface State {
   /** Whether this is disabled */
-  isDisabled: boolean,
-};
-type ValueProps = {
+  isDisabled: boolean;
+}
+interface ValueProps<OptionType> {
   /** The children to be rendered. */
-  children: string,
+  children: string;
   /* The data of the selected option rendered in the Single Value componentn */
-  data: any,
+  data: OptionType;
   /** Props passed to the wrapping element for the group. */
-  innerProps: any,
-};
-export type SingleValueProps = CommonProps & ValueProps & State;
+  innerProps: any;
+}
+export type SingleValueProps<OptionType> = CommonProps<OptionType> & ValueProps<OptionType> & State;
 
-export function css(props: SingleValueProps): any; // TODO css type
+export function css(props: SingleValueProps<any>): any; // TODO css type
 
-export const SingleValue: ComponentType<SingleValueProps>;
+export const SingleValue: ComponentType<SingleValueProps<any>>;
 
 export default SingleValue;

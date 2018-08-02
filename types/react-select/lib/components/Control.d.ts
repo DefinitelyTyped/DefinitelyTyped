@@ -3,14 +3,14 @@ import { ComponentType, ReactNode as Node, Ref as ElementRef } from 'react';
 import { borderRadius, colors, spacing } from '../theme';
 import { CommonProps, PropsWithStyles } from '../types';
 
-type State = {
+interface State {
   /** Whether the select is disabled. */
-  isDisabled: boolean,
+  isDisabled: boolean;
   /** Whether the select is focused. */
-  isFocused: boolean,
-};
+  isFocused: boolean;
+}
 
-export type ControlProps = CommonProps &
+export type ControlProps<OptionType> = CommonProps<OptionType> &
   PropsWithStyles &
   State & {
     /** Children to render. */
@@ -24,6 +24,6 @@ export type ControlProps = CommonProps &
 
 export function css(state: State): any; // TODO css type
 
-declare const Control: ComponentType<ControlProps>;
+declare const Control: ComponentType<ControlProps<any>>;
 
 export default Control;
