@@ -18,8 +18,8 @@ type InnerProps = {
   onMouseOver: MouseEventHandler,
   tabIndex: number,
 };
-export type OptionProps = PropsWithStyles &
-  CommonProps &
+export type OptionProps<OptionType> = PropsWithStyles &
+  CommonProps<OptionType> &
   State & {
     /** The children to be rendered. */
     children: Node,
@@ -36,6 +36,6 @@ export type OptionProps = PropsWithStyles &
 
 export function optionCSS(state: State): any; // TODO css type
 
-export const Option: ComponentType<OptionProps>;
+export const Option: ComponentType<OptionProps<any>>;
 
 export default Option;

@@ -4,7 +4,7 @@ import Select from 'react-select';
 import AsyncSelect from 'react-select/lib/Async';
 import CreatableSelect from 'react-select/lib/Creatable';
 import { Note } from '../styled-components';
-import { colourOptions } from '../data';
+import { ColourOption, colourOptions } from '../data';
 
 const filterColors = (inputValue: string) =>
   colourOptions.filter(i =>
@@ -19,9 +19,9 @@ const promiseOptions = (inputValue: string) =>
   });
 
 export default class AccessingInterals extends React.Component {
-  selectRef: Select;
-  asyncRef: AsyncSelect;
-  creatableRef: CreatableSelect;
+  selectRef: Select<ColourOption>;
+  asyncRef: AsyncSelect<ColourOption>;
+  creatableRef: CreatableSelect<ColourOption>;
   focus = () => {
     console.log(this.selectRef);
     this.selectRef.focus();

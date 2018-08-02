@@ -2,22 +2,22 @@ import { Component, ComponentType, Ref as ElementRef } from 'react';
 
 import { ActionMeta, InputActionMeta, ValueType } from './types';
 
-export type Props = {
+export type Props<OptionType> = {
   defaultInputValue?: string,
   defaultMenuIsOpen?: boolean,
-  defaultValue?: ValueType,
+  defaultValue?: ValueType<OptionType>,
   inputValue?: string,
   menuIsOpen?: boolean,
-  value?: ValueType,
+  value?: ValueType<OptionType>,
 };
-type State = {
+type State<OptionType> = {
   inputValue: string,
   menuIsOpen: boolean,
-  value: ValueType,
+  value: ValueType<OptionType>,
 };
 
-export class StateManager extends Component<Props, State> {
-  static defaultProps: Props;
+export class StateManager<OptionType> extends Component<Props<OptionType>, State<OptionType>> {
+  static defaultProps: Props<any>;
 
   select: ElementRef<any>;
 
@@ -31,6 +31,6 @@ export class StateManager extends Component<Props, State> {
   onMenuClose: () => void;
 }
 
-export function manageState(SelectComponent: ComponentType<any>): StateManager;
+export function manageState(SelectComponent: ComponentType<any>): StateManager<any>;
 
 export default manageState;

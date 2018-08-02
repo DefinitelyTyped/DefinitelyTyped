@@ -37,7 +37,6 @@ import {
   MenuPlacement,
   MenuPosition,
   OptionsType,
-  OptionType,
   ValueType,
   GroupedOptionsType,
 } from './types';
@@ -46,13 +45,13 @@ export type MouseOrTouchEvent =
   | React.MouseEvent<HTMLElement>
   | React.TouchEvent<HTMLElement>;
 export type FormatOptionLabelContext = 'menu' | 'value';
-export type FormatOptionLabelMeta = {
+export type FormatOptionLabelMeta<OptionType> = {
   context: FormatOptionLabelContext,
   inputValue: string,
-  selectValue: ValueType,
+  selectValue: ValueType<OptionType>,
 };
 
-export type Props = {
+export type Props<OptionType> = {
   /* Aria label (for assistive tech) */
   'aria-label'?: string,
   /* HTML ID of an element that should be used as the label (for assistive tech) */
@@ -93,7 +92,7 @@ export type Props = {
     instead. For a list of the components that can be passed in, and the shape
     that will be passed to them, see [the components docs](/api#components)
   */
-  components?: SelectComponentsConfig,
+  components?: SelectComponentsConfig<OptionType>,
   /* Whether the value of the select, e.g. SingleValue, should be displayed in the control. */
   controlShouldRenderValue?: boolean,
   /* Delimiter used to join multiple values into a single HTML Input value */
@@ -108,7 +107,7 @@ export type Props = {
   /* Formats group labels in the menu as React components */
   formatGroupLabel?: typeof formatGroupLabel,
   /* Formats option labels in the menu and control as React components */
-  formatOptionLabel?: (a: OptionType, b: FormatOptionLabelMeta) => Node,
+  formatOptionLabel?: (a: OptionType, b: FormatOptionLabelMeta<OptionType>) => Node,
   /* Resolves option data to a string to be displayed as the label by components */
   getOptionLabel?: typeof getOptionLabel,
   /* Resolves option data to a string to compare options and specify value attributes */
@@ -130,9 +129,9 @@ export type Props = {
   /* Is the select in a state of loading (async) */
   isLoading?: boolean,
   /* Override the built-in logic to detect whether an option is disabled */
-  isOptionDisabled?: (a: OptionType, b: OptionsType) => boolean | false,
+  isOptionDisabled?: (a: OptionType, b: OptionsType<OptionType>) => boolean | false,
   /* Override the built-in logic to detect whether an option is selected */
-  isOptionSelected?: (a: OptionType, b: OptionsType) => boolean,
+  isOptionSelected?: (a: OptionType, b: OptionsType<OptionType>) => boolean,
   /* Support multiple selected options */
   isMulti?: boolean,
   /* Is the select direction right-to-left */
@@ -165,7 +164,7 @@ export type Props = {
   /* Handle blur events on the control */
   onBlur?: FocusEventHandler,
   /* Handle change events on the select */
-  onChange?: (value: ValueType, action: ActionMeta) => void,
+  onChange?: (value: ValueType<OptionType>, action: ActionMeta) => void,
   /* Handle focus events on the control */
   onFocus?: FocusEventHandler,
   /* Handle change events on the input */
@@ -185,7 +184,7 @@ export type Props = {
   /* Allows control of whether the menu is opened when the Select is clicked */
   openMenuOnClick?: boolean,
   /* Array of options that populate the select menu */
-  options?: GroupedOptionsType |OptionsType,
+  options?: GroupedOptionsType | OptionsType<OptionType>,
   /* Number of options to jump in menu when page{up|down} keys are used */
   pageSize?: number,
   /* Placeholder text for the select value */
@@ -199,21 +198,21 @@ export type Props = {
   /* Select the currently focused option when the user presses tab */
   tabSelectsValue?: boolean,
   /* The value of the select; reflected by the selected option */
-  value?: ValueType,
+  value?: ValueType<OptionType>,
 
   defaultInputValue?: string,
   defaultMenuIsOpen?: boolean,
-  defaultValue?: ValueType,
+  defaultValue?: ValueType<OptionType>,
 };
 
-export const defaultProps: Props;
+export const defaultProps: Props<any>;
 
-export type MenuOptions = {
+export type MenuOptions<OptionType> = {
   render: OptionType[],
   focusable: OptionType[],
 };
 
-export type State = {
+export type State<OptionType> = {
   ariaLiveSelection: string,
   ariaLiveContext: string,
   inputIsHidden: boolean,
@@ -221,14 +220,14 @@ export type State = {
   isComposing: boolean,
   focusedOption: OptionType | null,
   focusedValue: OptionType | null,
-  menuOptions: MenuOptions,
-  selectValue: OptionsType,
+  menuOptions: MenuOptions<OptionType>,
+  selectValue: OptionsType<OptionType>,
 };
 
 export type ElRef = React.Ref<any>;
 
-export default class Select extends React.Component<Props, State> {
-  static defaultProps: Props;
+export default class Select<OptionType> extends React.Component<Props<OptionType>, State<OptionType>> {
+  static defaultProps: Props<any>;
 
   // Misc. Instance Properties
   // ------------------------------
@@ -236,7 +235,7 @@ export default class Select extends React.Component<Props, State> {
   blockOptionHover: boolean;
   clearFocusValueOnUpdate: boolean;
   commonProps: any; // TODO
-  components: SelectComponents;
+  components: SelectComponents<OptionType>;
   hasGroups: boolean;
   initialTouchX: number;
   initialTouchY: number;
@@ -261,7 +260,7 @@ export default class Select extends React.Component<Props, State> {
   // Lifecycle
   // ------------------------------
 
-  cacheComponents: (components: SelectComponents) => void;
+  cacheComponents: (components: SelectComponents<OptionType>) => void;
 
   // ==============================
   // Consumer Handlers
@@ -287,7 +286,7 @@ export default class Select extends React.Component<Props, State> {
 
   focusOption(direction: FocusDirection): void;
   setValue: (
-    newValue: ValueType,
+    newValue: ValueType<OptionType>,
     action: ActionTypes,
     option?: OptionType
   ) => void;
@@ -308,17 +307,17 @@ export default class Select extends React.Component<Props, State> {
     hasValue: boolean;
     isMulti: boolean;
     isRtl: boolean;
-    options: OptionType[];
+    options: OptionsType<any>;
     selectOption: (newValue: OptionType) => void;
-    setValue: (newValue: ValueType, action: ActionTypes, option?: OptionType) => void;
+    setValue: (newValue: ValueType<OptionType>, action: ActionTypes, option?: OptionType) => void;
     selectProps: Readonly<{
         children?: Node;
-    }> & Readonly<Props>;
+    }> & Readonly<Props<OptionType>>;
 };
 
-  getNextFocusedValue(nextSelectValue: OptionsType): OptionType;
+  getNextFocusedValue(nextSelectValue: OptionsType<OptionType>): OptionType;
 
-  getNextFocusedOption(options: OptionsType): OptionType;
+  getNextFocusedOption(options: OptionsType<OptionType>): OptionType;
   getOptionLabel: (data: OptionType) => string;
   getOptionValue: (data: OptionType) => string;
   getStyles: (key: string, props: {}) => {};
@@ -341,11 +340,11 @@ export default class Select extends React.Component<Props, State> {
   hasOptions(): boolean;
   countOptions(): number;
   isClearable(): boolean;
-  isOptionDisabled(option: OptionType, selectValue: OptionsType): boolean;
-  isOptionSelected(option: OptionType, selectValue: OptionsType): boolean;
+  isOptionDisabled(option: OptionType, selectValue: OptionsType<OptionType>): boolean;
+  isOptionSelected(option: OptionType, selectValue: OptionsType<OptionType>): boolean;
   filterOption(option: {}, inputValue: string): boolean;
   formatOptionLabel(data: OptionType, context: FormatOptionLabelContext): Node;
-  formatGroupLabel(data: GroupType): Node;
+  formatGroupLabel(data: GroupType<OptionType>): Node;
 
   // ==============================
   // Mouse Handlers
@@ -400,7 +399,7 @@ export default class Select extends React.Component<Props, State> {
   // Menu Options
   // ==============================
 
-  buildMenuOptions(props: Props, selectValue: OptionsType): MenuOptions;
+  buildMenuOptions(props: Props<OptionType>, selectValue: OptionsType<OptionType>): MenuOptions<OptionType>;
 
   // ==============================
   // Renderers
@@ -408,7 +407,7 @@ export default class Select extends React.Component<Props, State> {
   constructAriaLiveMessage(): string;
 
   renderInput(): Node;
-  renderPlaceholderOrValue(): PlaceholderOrValue | null;
+  renderPlaceholderOrValue(): PlaceholderOrValue<OptionType> | null;
   renderClearIndicator(): Node;
   renderLoadingIndicator(): Node;
   renderIndicatorSeparator(): Node;

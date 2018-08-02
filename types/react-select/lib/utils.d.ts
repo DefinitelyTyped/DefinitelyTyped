@@ -28,7 +28,7 @@ export function classNames(
 // Clean Value
 // ==============================
 
-export function cleanValue(value: ValueType): OptionsType;
+export function cleanValue<OptionType>(value: ValueType<OptionType>): OptionsType<OptionType>;
 
 // ==============================
 // Handle Input Change

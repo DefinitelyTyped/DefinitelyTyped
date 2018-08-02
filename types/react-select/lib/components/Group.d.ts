@@ -11,11 +11,11 @@ type ComponentProps = {
   /** Label to be displayed in the heading component. */
   label: Node,
 };
-export type GroupProps = CommonProps & ComponentProps;
+export type GroupProps<OptionType> = CommonProps<OptionType> & ComponentProps;
 
 export function groupCSS(): any; // TODO css type
 
-export const Group: ComponentType<GroupProps>;
+export const Group: ComponentType<GroupProps<any>>;
 
 export function groupHeadingCSS(): any; // TODO css type
 

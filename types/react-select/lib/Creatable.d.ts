@@ -1,10 +1,10 @@
 import * as React from 'react';
 import Select, { Props as SelectProps } from './Select';
-import { OptionType, OptionsType, ValueType, ActionMeta } from './types';
+import { OptionsType, ValueType, ActionMeta } from './types';
 import { cleanValue } from './utils';
 import manageState from './stateManager';
 
-export type CreatableProps = {
+export type CreatableProps<OptionType> = {
   /* Allow options to be created while the `isLoading` prop is true. Useful to
      prevent the "create new ..." option being displayed while async results are
      still being loaded. */
@@ -14,7 +14,7 @@ export type CreatableProps = {
   formatCreateLabel?: (inputValue: string) => Node,
   /* Determines whether the "create new ..." option should be displayed based on
      the current input value, select value and options array. */
-  isValidNewOption?: (a: string, b: ValueType, c: OptionsType) => boolean,
+  isValidNewOption?: (a: string, b: ValueType<OptionType>, c: OptionsType<OptionType>) => boolean,
   /* Returns the data for the new option when it is created. Used to display the
      value, and is passed to `onChange`. */
   getNewOptionData?: (a: string, b: Node) => OptionType,
@@ -26,24 +26,24 @@ export type CreatableProps = {
   createOptionPosition?: 'first' | 'last',
 };
 
-export type Props = SelectProps & CreatableProps;
+export type Props<OptionType> = SelectProps<OptionType> & CreatableProps<OptionType>;
 
-export const defaultProps: Props;
+export const defaultProps: Props<any>;
 
-export type State = {
+export type State<OptionType> = {
   newOption: OptionType | undefined,
-  options: OptionsType,
+  options: OptionsType<OptionType>,
 };
 
-export class Creatable extends React.Component<Props, State> {
-  static defaultProps: Props;
+export class Creatable<OptionType> extends React.Component<Props<OptionType>, State<OptionType>> {
+  static defaultProps: Props<any>;
   select: React.Ref<any>;
 
-  onChange: (newValue: ValueType, actionMeta: ActionMeta) => void;
+  onChange: (newValue: ValueType<OptionType>, actionMeta: ActionMeta) => void;
   focus(): void;
   blur(): void;
 }
 
-export function makeCreatableSelect(SelectComponent: React.ComponentType<any>): Creatable;
+export function makeCreatableSelect(SelectComponent: React.ComponentType<any>): Creatable<any>;
 
 export default Creatable;

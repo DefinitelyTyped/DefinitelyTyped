@@ -43,7 +43,7 @@ export default class MenuPortal extends React.Component<any, State> {
               defaultValue={colourOptions[0]}
               isClearable
               styles={{ menuPortal: (base: any) => ({ ...base, zIndex: 9999 }) }}
-              menuPortalTarget={document.body}
+              menuPortalTarget={document.body as HTMLElement}
               isSearchable
               name="color"
               menuPosition={isFixed ? 'fixed' : 'absolute'}

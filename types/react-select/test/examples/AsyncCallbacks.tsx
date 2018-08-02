@@ -13,7 +13,7 @@ const filterColors = (inputValue: string) =>
     i.label.toLowerCase().includes(inputValue.toLowerCase())
   );
 
-const loadOptions = (inputValue: string, callback: (c: OptionsType) => void) => {
+const loadOptions = (inputValue: string, callback: (c: OptionsType<any>) => void) => {
   setTimeout(() => {
     callback(filterColors(inputValue));
   }, 1000);

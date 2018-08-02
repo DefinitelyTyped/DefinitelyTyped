@@ -45,7 +45,7 @@ export function getMenuPlacement(args: PlacementArgs): MenuState;
 // Menu Component
 // ------------------------------
 
-export type MenuProps = CommonProps & {
+export type MenuProps<OptionType> = CommonProps<OptionType> & {
   /** The children to be rendered. */
   children: ReactElement<any>,
   /** Callback to update the portal after possible flip. */
@@ -66,12 +66,12 @@ export type MenuProps = CommonProps & {
 
 export function menuCSS(state: MenuState): any; // TODO css type
 
-export class Menu extends Component<MenuProps, MenuState> {
+export class Menu<OptionType> extends Component<MenuProps<OptionType>, MenuState> {
   static contextTypes: {
     getPortalPlacement: (state: MenuState) => void,
   };
   getPlacement: (ref: ElementRef<any>) => void;
-  getState: () => MenuProps & MenuState;
+  getState: () => MenuProps<OptionType> & MenuState;
 }
 
 export default Menu;
@@ -93,11 +93,11 @@ export type MenuListProps = {
   /** Inner ref to DOM Node */
   innerRef: InnerRef,
 };
-export type MenuListComponentProps = CommonProps &
+export type MenuListComponentProps<OptionType> = CommonProps<OptionType> &
   MenuListProps &
   MenuListState;
 export function menuListCSS(state: MenuState): any; // TODO css type
-export const MenuList: ComponentType<MenuListComponentProps>;
+export const MenuList: ComponentType<MenuListComponentProps<any>>;
 
 // ==============================
 // Menu Notices
@@ -106,19 +106,19 @@ export const MenuList: ComponentType<MenuListComponentProps>;
 export function noOptionsMessageCSS(): any; // TODO css type
 export function loadingMessageCSS(): any; // TODO css type
 
-export type NoticeProps = CommonProps & {
+export type NoticeProps<OptionType> = CommonProps<OptionType> & {
   /** The children to be rendered. */
   children: Node,
   /** Props to be passed on to the wrapper. */
   innerProps: { [key: string]: any },
 };
 
-export const NoOptionsMessage: ComponentType<NoticeProps>;
+export const NoOptionsMessage: ComponentType<NoticeProps<any>>;
 // NoOptionsMessage.defaultProps = {
 //   children: 'No options',
 // };
 
-export const LoadingMessage: ComponentType<NoticeProps>;
+export const LoadingMessage: ComponentType<NoticeProps<any>>;
 // LoadingMessage.defaultProps = {
 //   children: 'Loading...',
 // };
@@ -127,7 +127,7 @@ export const LoadingMessage: ComponentType<NoticeProps>;
 // Menu Portal
 // ==============================
 
-export type MenuPortalProps = CommonProps & {
+export type MenuPortalProps<OptionType> = CommonProps<OptionType> & {
   appendTo: HTMLElement,
   children: Node, // ideally Menu<MenuProps>
   controlElement: HTMLElement,
@@ -145,7 +145,7 @@ type PortalStyleArgs = {
 
 export function menuPortalCSS(args: PortalStyleArgs): any; // TODO css type
 
-export class MenuPortal extends Component<MenuPortalProps, MenuPortalState> {
+export class MenuPortal<OptionType> extends Component<MenuPortalProps<OptionType>, MenuPortalState> {
   static childContextTypes: {
     getPortalPlacement: (state: MenuState) => void,
   };

@@ -10,7 +10,7 @@ type State = {
   isFocused: boolean,
 };
 
-export type ControlProps = CommonProps &
+export type ControlProps<OptionType> = CommonProps<OptionType> &
   PropsWithStyles &
   State & {
     /** Children to render. */
@@ -24,6 +24,6 @@ export type ControlProps = CommonProps &
 
 export function css(state: State): any; // TODO css type
 
-declare const Control: ComponentType<ControlProps>;
+declare const Control: ComponentType<ControlProps<any>>;
 
 export default Control;

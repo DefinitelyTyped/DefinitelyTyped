@@ -13,7 +13,7 @@ export type ContainerState = {
   isRtl: boolean,
 };
 
-export type ContainerProps = CommonProps &
+export type ContainerProps<OptionType> = CommonProps<OptionType> &
   ContainerState & {
     /** The children to be rendered. */
     children: Node,
@@ -21,13 +21,13 @@ export type ContainerProps = CommonProps &
     innerProps: { onKeyDown: KeyboardEventHandler },
   };
 export function containerCSS(state: ContainerState): any; // TODO css type;
-export const SelectContainer: ComponentType<ContainerProps>;
+export const SelectContainer: ComponentType<ContainerProps<any>>;
 
 // ==============================
 // Value Container
 // ==============================
 
-export type ValueContainerProps = CommonProps & {
+export type ValueContainerProps<OptionType> = CommonProps<OptionType> & {
   /** Set when the value container should hold multiple values */
   isMulti: boolean,
   /** Whether the value container currently holds a value. */
@@ -36,7 +36,7 @@ export type ValueContainerProps = CommonProps & {
   children: Node,
 };
 export function valueContainerCSS(): any; // TODO css type;
-export class ValueContainer extends Component<ValueContainerProps> {}
+export class ValueContainer extends Component<ValueContainerProps<any>> {}
 
 // ==============================
 // Indicator Container
@@ -47,11 +47,11 @@ export type IndicatorsState = {
   isRtl: boolean,
 };
 
-export type IndicatorContainerProps = CommonProps &
+export type IndicatorContainerProps<OptionType> = CommonProps<OptionType> &
   IndicatorsState & {
     /** The children to be rendered. */
     children: Node,
   };
 
 export function indicatorsContainerCSS(): any; // TODO css type;
-export const IndicatorsContainer: ComponentType<IndicatorContainerProps>;
+export const IndicatorsContainer: ComponentType<IndicatorContainerProps<any>>;

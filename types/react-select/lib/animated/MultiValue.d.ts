@@ -2,11 +2,11 @@ import { ComponentType } from 'react';
 import { MultiValueProps } from '../components/MultiValue';
 import { Collapse, fn } from './transitions';
 
-export type AnimatedMultiValueProps = {
+export type AnimatedMultiValueProps<OptionType> = {
   in: boolean,
   onExited: fn,
-} & MultiValueProps;
+} & MultiValueProps<OptionType>;
 
-export function AnimatedMultiValue(WrappedComponent: ComponentType<MultiValueProps>): ComponentType<AnimatedMultiValueProps>;
+export function AnimatedMultiValue<OptionType>(WrappedComponent: ComponentType<MultiValueProps<OptionType>>): ComponentType<AnimatedMultiValueProps<OptionType>>;
 
 export default AnimatedMultiValue;

@@ -22,7 +22,7 @@ const GroupHeading = (props: any) => (
 );
 
 export default () => (
-  <Select
+  <Select<any>
     defaultValue={colourOptions[1]}
     options={groupedOptions}
     components={{ GroupHeading }}

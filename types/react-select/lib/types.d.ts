@@ -1,19 +1,15 @@
 import * as React from 'react';
 
-export type OptionType = {
+export type OptionsType<OptionType> = OptionType[];
+
+export type GroupType<OptionType> = {
+  options: OptionsType<OptionType>,
   [key: string]: any,
 };
 
-export type OptionsType = OptionType[];
+export type GroupedOptionsType = Array<GroupType<any>>;
 
-export type GroupType = {
-  options: OptionsType,
-  [key: string]: any,
-};
-
-export type GroupedOptionsType = GroupType[];
-
-export type ValueType = OptionType | OptionsType | null | undefined;
+export type ValueType<OptionType> = OptionType | OptionsType<OptionType> | null | undefined;
 
 export type FocusEventHandler = (event: React.FocusEvent<HTMLElement>) => void;
 export type MouseEventHandler = (event: React.MouseEvent<HTMLElement>) => void;
@@ -37,7 +33,7 @@ export type PropsWithStyles = {
 export type ClassNameList = string[];
 export type ClassNamesState = { [key: string]: boolean } | undefined;
 
-export type CommonProps = {
+export type CommonProps<OptionType> = {
   clearValue: () => void,
   className?: string,
   cx: (a: string | null, b: ClassNamesState | undefined, c: string | undefined) => string | void,
@@ -47,13 +43,13 @@ export type CommonProps = {
     See the `styles` object for the properties available.
   */
   getStyles: (name: string, props: any) => {},
-  getValue: () => ValueType,
+  getValue: () => ValueType<OptionType>,
   hasValue: boolean,
   isMulti: boolean,
-  options: OptionsType,
+  options: OptionsType<OptionType>,
   selectOption: (option: OptionType) => void,
   selectProps: any,
-  setValue: (value: ValueType, action: ActionTypes) => void,
+  setValue: (value: ValueType<OptionType>, action: ActionTypes) => void,
 };
 
 export type ActionTypes =

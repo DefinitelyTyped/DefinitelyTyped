@@ -6,18 +6,18 @@ type State = {
   /** Whether this is disabled */
   isDisabled: boolean,
 };
-type ValueProps = {
+type ValueProps<OptionType> = {
   /** The children to be rendered. */
   children: string,
   /* The data of the selected option rendered in the Single Value componentn */
-  data: any,
+  data: OptionType,
   /** Props passed to the wrapping element for the group. */
   innerProps: any,
 };
-export type SingleValueProps = CommonProps & ValueProps & State;
+export type SingleValueProps<OptionType> = CommonProps<OptionType> & ValueProps<OptionType> & State;
 
-export function css(props: SingleValueProps): any; // TODO css type
+export function css(props: SingleValueProps<any>): any; // TODO css type
 
-export const SingleValue: ComponentType<SingleValueProps>;
+export const SingleValue: ComponentType<SingleValueProps<any>>;
 
 export default SingleValue;
