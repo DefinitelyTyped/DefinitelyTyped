@@ -280,7 +280,7 @@ declare namespace Office {
      * 
      * @remarks
      * 
-     * Returned by the status property of the AsyncResult object.
+     * Returned by the status property of the {@link Office.AsyncResult | AsyncResult} object.
      * 
      * **Support details**
      * 
@@ -1269,7 +1269,7 @@ declare namespace Office {
          */
         Matrix,
         /**
-         * Tabular data with a header row. Data is returned as a TableData object.
+         * Tabular data with a header row. Data is returned as a {@link Office.TableData | TableData} object.
          */
         Table
     }
@@ -1298,43 +1298,42 @@ declare namespace Office {
      */
     enum CoercionType {
         /**
-         * Return or set data as text (string).Data is returned or set as a one-dimensional run of characters.
+         * Return or set data as text (string). Data is returned or set as a one-dimensional run of characters.
          */
         Text,
         /**
          * Return or set data as tabular data with no headers. Data is returned or set as an array of arrays containing one-dimensional runs of characters. For example, three rows of  string values in two columns would be: [["R1C1", "R1C2"], ["R2C1", "R2C2"], ["R3C1", "R3C2"]].
-         * @remarks
-         * Only applies to data in Excel and Word.
+         *
+         * Note: Only applies to data in Excel and Word.
          */
         Matrix,
         /**
          * Return or set data as tabular data with optional headers. Data is returned or set as an array of arrays with optional headers.
-         * @remarks
-         * Only applies to data in Access, Excel and Word.
+         * 
+         * Note: Only applies to data in Access, Excel, and Word.
          */
         Table,
         /**
          * Return or set data as HTML.
-         * @remarks
-         * Only applies to data in add-ins for Word and Outlook add-ins for Outlook (compose mode).
+         * 
+         * Note: Only applies to data in add-ins for Word and Outlook add-ins for Outlook (compose mode).
          */
         Html,
         /**
          * Return or set data as Office Open XML.
-         * @remarks
-         * Only applies to data in Word.
+         * 
+         * Note: Only applies to data in Word.
          */
         Ooxml,
         /**
-         * Return a JSON object that contains an array of the ids, titles, and indexes of the selected slides.For example,  `{"slides":[{"id":257,"title":"Slide 2","index":2},{"id":256,"title":"Slide 1","index":1}]}` for a selection of two slides.
-         * @remarks
-         * Only applies to data in PowerPoint when calling the Document.getSelectedData method to get the current slide or selected range of slides.
+         * Return a JSON object that contains an array of the ids, titles, and indexes of the selected slides. For example, `{"slides":[{"id":257,"title":"Slide 2","index":2},{"id":256,"title":"Slide 1","index":1}]}` for a selection of two slides.
+         * 
+         * Note: Only applies to data in PowerPoint when calling the Document.getSelectedData method to get the current slide or selected range of slides.
          */
         SlideRange,
         /**
         * Data is returned or set as an image stream.
-        * @remarks
-        * Only applies to data in Excel, Word and PowerPoint.
+        * Note: Only applies to data in Excel, Word and PowerPoint.
         */
         Image
     }
