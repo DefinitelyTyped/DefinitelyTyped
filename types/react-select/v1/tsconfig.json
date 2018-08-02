@@ -1,18 +1,24 @@
 {
+    "files": [
+        "index.d.ts",
+        "lib/Option/index.d.ts",
+        "lib/utils/defaultMenuRenderer/index.d.ts",
+        "react-select-tests.tsx"
+    ],
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
             "es6",
             "dom"
         ],
-        "jsx": "react",
         "noImplicitAny": true,
-        "noImplicitThis": true,
-		"strictFunctionTypes": true,
-        "strictNullChecks": true,
-        "baseUrl": "../",
+        "noImplicitThis": false,
+        "strictNullChecks": false,
+        "strictFunctionTypes": true,
+        "baseUrl": "../../",
+        "jsx": "react",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "paths": {
             "react-select": [
@@ -25,9 +31,5 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
-    },
-    "files": [
-        "index.d.ts",
-        "react-virtualized-select-tests.tsx"
-    ]
+    }
 }
