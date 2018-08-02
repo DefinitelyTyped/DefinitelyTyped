@@ -153,7 +153,7 @@ export type Props = {
   /* The CSS position value of the menu, when "fixed" extra layout management is required */
   menuPosition?: MenuPosition,
   /* Whether the menu should use a portal, and where it should attach */
-  menuPortalTarget?: HTMLElement,
+  menuPortalTarget?: HTMLElement | null,
   /* Whether to block scroll events when the menu is open */
   menuShouldBlockScroll?: boolean,
   /* Whether the menu should be scrolled into view when it opens */
