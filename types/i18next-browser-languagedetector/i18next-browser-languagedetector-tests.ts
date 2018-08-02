@@ -19,7 +19,7 @@ const options: LngDetector.DetectorOptions = {
     cookieDomain: "myDomain",
 
     // optional htmlTag with lang attribute, the default is:
-    htmlTag: document.documentElement
+    htmlTag: document.documentElement!
 };
 
 i18next.use(LngDetector).init({
