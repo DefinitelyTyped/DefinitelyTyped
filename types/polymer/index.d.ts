@@ -263,7 +263,7 @@ declare global {
       setAttribute(name: string, value: any):void;
 
       removeAttribute(name: string):void;
-        
+
       observeNodes(callback: (info: ObservedNodeInfo) => void): {};
 
       unobserveNodes(observer: {}): void;
@@ -340,6 +340,16 @@ declare global {
       whenLoaded(cb: Function): void;
     }
 
+    interface BindingScopeModel {
+      [k: string]: Base;
+    }
+
+    interface Templatizer {
+      templatize(template: HTMLTemplateElement, mutableData?: boolean): void;
+      stamp(model: {}): Base;
+      modelForElement: (elem: HTMLElement) => BindingScopeModel;
+    }
+
     interface PolymerStatic {
       Settings: Settings;
 
@@ -351,12 +361,14 @@ declare global {
 
       Class(prototype: Base | { new (): Base }): CustomElementConstructor;
 
-      RenderStatus: RenderStatus
+      RenderStatus: RenderStatus;
 
       ArraySplice: ArraySplice;
 
       /** @deprecated */
-      ImportStatus: ImportStatus
+      ImportStatus: ImportStatus;
+
+      Templatizer: Templatizer;
     }
   }
 
