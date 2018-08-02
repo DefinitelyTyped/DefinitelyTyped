@@ -6,20 +6,20 @@ const components = {
   DropdownIndicator: null,
 };
 
-type Option = {
-  label: string,
-  value: string
-};
+interface Option {
+  label: string;
+  value: string;
+}
 
 const createOption = (label: string): Option => ({
   label,
   value: label,
 });
 
-type State = {
-  inputValue: string,
+interface State {
+  inputValue: string;
   value: Option[];
-};
+}
 
 export default class CreatableInputOnly extends React.Component<any, State> {
   state: State = {

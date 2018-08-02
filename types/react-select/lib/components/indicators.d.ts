@@ -37,7 +37,7 @@ export const ClearIndicator: ComponentType<IndicatorProps<any>>;
 // Separator
 // ==============================
 
-export type SeparatorState = { isDisabled: boolean };
+export interface SeparatorState { isDisabled: boolean; }
 
 export function indicatorSeparatorCSS(state: SeparatorState): any; // TODO css type
 

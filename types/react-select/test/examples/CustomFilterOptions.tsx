@@ -2,12 +2,12 @@ import * as React from 'react';
 import Select from 'react-select';
 import { colourOptions } from '../data';
 
-type State = {
-  ignoreCase: boolean,
-  ignoreAccents: boolean,
-  trim: boolean,
-  matchFrom: boolean,
-};
+interface State {
+  ignoreCase: boolean;
+  ignoreAccents: boolean;
+  trim: boolean;
+  matchFrom: boolean;
+}
 
 const filterOptions = (candidate: any, input: string) => {
   if (input) {

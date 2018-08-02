@@ -6,9 +6,9 @@ import { Note } from '../styled-components';
 
 const Checkbox = (props: any) => <input type="checkbox" {...props} />;
 
-type State = {
-  menuIsOpen: boolean,
-};
+interface State {
+  menuIsOpen: boolean;
+}
 
 export default class controlledMenu extends React.Component<any, State> {
   state = {

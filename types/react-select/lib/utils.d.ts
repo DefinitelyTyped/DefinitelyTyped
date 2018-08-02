@@ -94,13 +94,13 @@ export function getBoundingClientObj(element: HTMLElement): {
   top: number;
   width: number;
 };
-export type RectType = {
-  left: number,
-  right: number,
-  bottom: number,
-  height: number,
-  width: number,
-};
+export interface RectType {
+  left: number;
+  right: number;
+  bottom: number;
+  height: number;
+  width: number;
+}
 
 // ==============================
 // String to Key (kebabify)

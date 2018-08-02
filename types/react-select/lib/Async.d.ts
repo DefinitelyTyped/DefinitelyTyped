@@ -4,30 +4,30 @@ import { handleInputChange } from './utils';
 import manageState from './stateManager';
 import { OptionsType, InputActionMeta } from './types';
 
-export type AsyncProps<OptionType> = {
+export interface AsyncProps<OptionType> {
   /* The default set of options to show before the user starts searching. When
      set to `true`, the results for loadOptions('') will be autoloaded. */
-  defaultOptions: OptionsType<OptionType> | boolean,
+  defaultOptions: OptionsType<OptionType> | boolean;
   /* Function that returns a promise, which is the set of options to be used
      once the promise resolves. */
-  loadOptions: (inputValue: string, callback: ((options: OptionsType<OptionType>) => void)) => Promise<any> | void,
+  loadOptions: (inputValue: string, callback: ((options: OptionsType<OptionType>) => void)) => Promise<any> | void;
   /* If cacheOptions is truthy, then the loaded data will be cached. The cache
      will remain until `cacheOptions` changes value. */
-  cacheOptions: any,
-};
+  cacheOptions: any;
+}
 
 export type Props<OptionType> = SelectProps<OptionType> & AsyncProps<OptionType>;
 
 export const defaultProps: Props<any>;
 
-export type State<OptionType> = {
-  defaultOptions?: OptionsType<OptionType>,
-  inputValue: string,
-  isLoading: boolean,
-  loadedInputValue?: string,
-  loadedOptions: OptionsType<OptionType>,
-  passEmptyOptions: boolean,
-};
+export interface State<OptionType> {
+  defaultOptions?: OptionsType<OptionType>;
+  inputValue: string;
+  isLoading: boolean;
+  loadedInputValue?: string;
+  loadedOptions: OptionsType<OptionType>;
+  passEmptyOptions: boolean;
+}
 
 export class Async<OptionType> extends React.Component<Props<OptionType>, State<OptionType>> {
   static defaultProps: Props<any>;

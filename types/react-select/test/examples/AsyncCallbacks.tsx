@@ -4,9 +4,9 @@ import AsyncSelect from 'react-select/lib/Async';
 import { colourOptions } from '../data';
 import { OptionsType } from 'react-select/lib/types';
 
-type State = {
-  inputValue: string,
-};
+interface State {
+  inputValue: string;
+}
 
 const filterColors = (inputValue: string) =>
   colourOptions.filter(i =>

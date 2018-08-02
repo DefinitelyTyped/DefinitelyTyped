@@ -22,12 +22,12 @@ export function multiValueCSS(): any; // TODO css type
 export function multiValueLabelCSS(props: MultiValueProps<any>): any; // TODO css type
 export function multiValueRemoveCSS(props: MultiValueProps<any>): any; // TODO css type
 
-export type MultiValueGenericProps<OptionType> = {
-  children: Node,
-  data: OptionType,
-  innerProps: { className?: string },
-  selectProps: any,
-};
+export interface MultiValueGenericProps<OptionType> {
+  children: Node;
+  data: OptionType;
+  innerProps: { className?: string };
+  selectProps: any;
+}
 export const MultiValueGeneric: ComponentType<MultiValueGenericProps<any>>;
 
 export const MultiValueContainer: typeof MultiValueGeneric;

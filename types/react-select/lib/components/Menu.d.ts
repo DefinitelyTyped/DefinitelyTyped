@@ -30,15 +30,15 @@ import {
 // Get Menu Placement
 // ------------------------------
 
-type MenuState = { placement: 'bottom' | 'top' | null, maxHeight: number };
-type PlacementArgs = {
-  maxHeight: number,
-  menuEl: ElementRef<any>,
-  minHeight: number,
-  placement: 'bottom' | 'top' | 'auto',
-  shouldScroll: boolean,
-  isFixedPosition: boolean,
-};
+interface MenuState { placement: 'bottom' | 'top' | null; maxHeight: number; }
+interface PlacementArgs {
+  maxHeight: number;
+  menuEl: ElementRef<any>;
+  minHeight: number;
+  placement: 'bottom' | 'top' | 'auto';
+  shouldScroll: boolean;
+  isFixedPosition: boolean;
+}
 
 export function getMenuPlacement(args: PlacementArgs): MenuState;
 
@@ -80,19 +80,19 @@ export default Menu;
 // Menu List
 // ==============================
 
-type MenuListState = {
+interface MenuListState {
   /** Set classname for isMulti */
-  isMulti: boolean,
+  isMulti: boolean;
   /* Set the max height of the Menu component  */
-  maxHeight: number,
-};
+  maxHeight: number;
+}
 
-export type MenuListProps = {
+export interface MenuListProps {
   /** The children to be rendered. */
-  children: Node,
+  children: Node;
   /** Inner ref to DOM Node */
-  innerRef: InnerRef,
-};
+  innerRef: InnerRef;
+}
 export type MenuListComponentProps<OptionType> = CommonProps<OptionType> &
   MenuListProps &
   MenuListState;
@@ -134,14 +134,14 @@ export type MenuPortalProps<OptionType> = CommonProps<OptionType> & {
   menuPlacement: MenuPlacement,
   menuPosition: MenuPosition,
 };
-type MenuPortalState = {
-  placement: 'bottom' | 'top' | null,
-};
-type PortalStyleArgs = {
-  offset: number,
-  position: MenuPosition,
-  rect: RectType,
-};
+interface MenuPortalState {
+  placement: 'bottom' | 'top' | null;
+}
+interface PortalStyleArgs {
+  offset: number;
+  position: MenuPosition;
+  rect: RectType;
+}
 
 export function menuPortalCSS(args: PortalStyleArgs): any; // TODO css type
 

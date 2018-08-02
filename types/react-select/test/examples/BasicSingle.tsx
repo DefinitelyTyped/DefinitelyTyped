@@ -6,13 +6,13 @@ import { Note } from '../styled-components';
 
 const Checkbox = (props: any) => <input type="checkbox" {...props} />;
 
-type State = {
-  isClearable: boolean,
-  isDisabled: boolean,
-  isLoading: boolean,
-  isRtl: boolean,
-  isSearchable: boolean,
-};
+interface State {
+  isClearable: boolean;
+  isDisabled: boolean;
+  isLoading: boolean;
+  isRtl: boolean;
+  isSearchable: boolean;
+}
 
 export default class SingleSelect extends React.Component<any, State> {
   state = {

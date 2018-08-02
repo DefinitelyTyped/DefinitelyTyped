@@ -6,12 +6,12 @@ import { CommonProps, KeyboardEventHandler } from '../types';
 // Root Container
 // ==============================
 
-export type ContainerState = {
+export interface ContainerState {
   /** Whether the select is disabled. */
-  isDisabled: boolean,
+  isDisabled: boolean;
   /** Whether the text in the select is indented from right to left. */
-  isRtl: boolean,
-};
+  isRtl: boolean;
+}
 
 export type ContainerProps<OptionType> = CommonProps<OptionType> &
   ContainerState & {
@@ -42,10 +42,10 @@ export class ValueContainer extends Component<ValueContainerProps<any>> {}
 // Indicator Container
 // ==============================
 
-export type IndicatorsState = {
+export interface IndicatorsState {
   /** Whether the text should be rendered right to left. */
-  isRtl: boolean,
-};
+  isRtl: boolean;
+}
 
 export type IndicatorContainerProps<OptionType> = CommonProps<OptionType> &
   IndicatorsState & {

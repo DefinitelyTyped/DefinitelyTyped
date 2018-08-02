@@ -5,11 +5,11 @@ import { H1, Note } from '../styled-components';
 
 import { colourOptions } from '../data';
 
-type State = {
-  isOpen: boolean,
-  isFixed: boolean,
-  portalPlacement: 'auto' | 'bottom' | 'top'
-};
+interface State {
+  isOpen: boolean;
+  isFixed: boolean;
+  portalPlacement: 'auto' | 'bottom' | 'top';
+}
 
 export default class MenuPortal extends React.Component<any, State> {
   state: State = {

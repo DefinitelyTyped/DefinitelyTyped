@@ -51,61 +51,61 @@ export type PlaceholderOrValue<OptionType> =
 
 export type IndicatorComponentType<OptionType> = ComponentType<IndicatorProps<OptionType>>;
 
-export type SelectComponents<OptionType> = {
-  ClearIndicator: IndicatorComponentType<OptionType> | null,
-  Control: ComponentType<ControlProps<OptionType>>,
-  DropdownIndicator: IndicatorComponentType<OptionType> | null,
-  DownChevron: ComponentType<any>,
-  CrossIcon: ComponentType<any>,
-  Group: ComponentType<GroupProps<OptionType>>,
-  GroupHeading: ComponentType<any>,
-  IndicatorsContainer: ComponentType<IndicatorContainerProps<OptionType>>,
-  IndicatorSeparator: IndicatorComponentType<OptionType> | null,
-  Input: ComponentType<InputProps>,
-  LoadingIndicator: ComponentType<LoadingIconProps<OptionType>> | null,
-  Menu: ComponentType<MenuProps<OptionType>>,
-  MenuList: ComponentType<MenuListComponentProps<OptionType>>,
-  MenuPortal: ComponentType<MenuPortalProps<OptionType>>,
-  LoadingMessage: ComponentType<NoticeProps<OptionType>>,
-  NoOptionsMessage: ComponentType<NoticeProps<OptionType>>,
-  MultiValue: ComponentType<MultiValueProps<OptionType>>,
-  MultiValueContainer: ComponentType<any>,
-  MultiValueLabel: ComponentType<any>,
-  MultiValueRemove: ComponentType<any>,
-  Option: ComponentType<OptionProps<OptionType>>,
-  Placeholder: ComponentType<PlaceholderProps<OptionType>>,
-  SelectContainer: ComponentType<ContainerProps<OptionType>>,
-  SingleValue: ComponentType<SingleValueProps<OptionType>>,
-  ValueContainer: ComponentType<ValueContainerProps<OptionType>>,
-};
+export interface SelectComponents<OptionType> {
+  ClearIndicator: IndicatorComponentType<OptionType> | null;
+  Control: ComponentType<ControlProps<OptionType>>;
+  DropdownIndicator: IndicatorComponentType<OptionType> | null;
+  DownChevron: ComponentType<any>;
+  CrossIcon: ComponentType<any>;
+  Group: ComponentType<GroupProps<OptionType>>;
+  GroupHeading: ComponentType<any>;
+  IndicatorsContainer: ComponentType<IndicatorContainerProps<OptionType>>;
+  IndicatorSeparator: IndicatorComponentType<OptionType> | null;
+  Input: ComponentType<InputProps>;
+  LoadingIndicator: ComponentType<LoadingIconProps<OptionType>> | null;
+  Menu: ComponentType<MenuProps<OptionType>>;
+  MenuList: ComponentType<MenuListComponentProps<OptionType>>;
+  MenuPortal: ComponentType<MenuPortalProps<OptionType>>;
+  LoadingMessage: ComponentType<NoticeProps<OptionType>>;
+  NoOptionsMessage: ComponentType<NoticeProps<OptionType>>;
+  MultiValue: ComponentType<MultiValueProps<OptionType>>;
+  MultiValueContainer: ComponentType<any>;
+  MultiValueLabel: ComponentType<any>;
+  MultiValueRemove: ComponentType<any>;
+  Option: ComponentType<OptionProps<OptionType>>;
+  Placeholder: ComponentType<PlaceholderProps<OptionType>>;
+  SelectContainer: ComponentType<ContainerProps<OptionType>>;
+  SingleValue: ComponentType<SingleValueProps<OptionType>>;
+  ValueContainer: ComponentType<ValueContainerProps<OptionType>>;
+}
 
-export type SelectComponentsConfig<OptionType> = {
-  ClearIndicator?: IndicatorComponentType<OptionType> | null,
-  Control?: ComponentType<ControlProps<OptionType>>,
-  DropdownIndicator?: IndicatorComponentType<OptionType> | null,
-  DownChevron?: ComponentType<any>,
-  CrossIcon?: ComponentType<any>,
-  Group?: ComponentType<GroupProps<OptionType>>,
-  GroupHeading?: ComponentType<any>,
-  IndicatorsContainer?: ComponentType<IndicatorContainerProps<OptionType>>,
-  IndicatorSeparator?: IndicatorComponentType<OptionType> | null,
-  Input?: ComponentType<InputProps>,
-  LoadingIndicator?: ComponentType<LoadingIconProps<OptionType>> | null,
-  Menu?: ComponentType<MenuProps<OptionType>>,
-  MenuList?: ComponentType<MenuListComponentProps<any>>,
-  MenuPortal?: ComponentType<MenuPortalProps<any>>,
-  LoadingMessage?: ComponentType<NoticeProps<any>>,
-  NoOptionsMessage?: ComponentType<NoticeProps<any>>,
-  MultiValue?: ComponentType<MultiValueProps<OptionType>>,
-  MultiValueContainer?: ComponentType<any>,
-  MultiValueLabel?: ComponentType<any>,
-  MultiValueRemove?: ComponentType<any>,
-  Option?: ComponentType<OptionProps<OptionType>>,
-  Placeholder?: ComponentType<PlaceholderProps<OptionType>>,
-  SelectContainer?: ComponentType<ContainerProps<OptionType>>,
-  SingleValue?: ComponentType<SingleValueProps<OptionType>>,
-  ValueContainer?: ComponentType<ValueContainerProps<OptionType>>,
-};
+export interface SelectComponentsConfig<OptionType> {
+  ClearIndicator?: IndicatorComponentType<OptionType> | null;
+  Control?: ComponentType<ControlProps<OptionType>>;
+  DropdownIndicator?: IndicatorComponentType<OptionType> | null;
+  DownChevron?: ComponentType<any>;
+  CrossIcon?: ComponentType<any>;
+  Group?: ComponentType<GroupProps<OptionType>>;
+  GroupHeading?: ComponentType<any>;
+  IndicatorsContainer?: ComponentType<IndicatorContainerProps<OptionType>>;
+  IndicatorSeparator?: IndicatorComponentType<OptionType> | null;
+  Input?: ComponentType<InputProps>;
+  LoadingIndicator?: ComponentType<LoadingIconProps<OptionType>> | null;
+  Menu?: ComponentType<MenuProps<OptionType>>;
+  MenuList?: ComponentType<MenuListComponentProps<any>>;
+  MenuPortal?: ComponentType<MenuPortalProps<any>>;
+  LoadingMessage?: ComponentType<NoticeProps<any>>;
+  NoOptionsMessage?: ComponentType<NoticeProps<any>>;
+  MultiValue?: ComponentType<MultiValueProps<OptionType>>;
+  MultiValueContainer?: ComponentType<any>;
+  MultiValueLabel?: ComponentType<any>;
+  MultiValueRemove?: ComponentType<any>;
+  Option?: ComponentType<OptionProps<OptionType>>;
+  Placeholder?: ComponentType<PlaceholderProps<OptionType>>;
+  SelectContainer?: ComponentType<ContainerProps<OptionType>>;
+  SingleValue?: ComponentType<SingleValueProps<OptionType>>;
+  ValueContainer?: ComponentType<ValueContainerProps<OptionType>>;
+}
 
 export namespace components {
   const ClearIndicator: IndicatorComponentType<any> | null;
@@ -135,8 +135,8 @@ export namespace components {
   const ValueContainer: ComponentType<ValueContainerProps<any>>;
 }
 
-export type Props = {
-  components: SelectComponentsConfig<any>,
-};
+export interface Props {
+  components: SelectComponentsConfig<any>;
+}
 
 export function defaultComponents(props: Props): SelectComponentsConfig<any>;
