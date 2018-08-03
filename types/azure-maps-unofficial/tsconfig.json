@@ -4,7 +4,7 @@
             "es6",
             "dom"
         ],
-        "noImplicitAny": false,
+        "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "baseUrl": ":/",

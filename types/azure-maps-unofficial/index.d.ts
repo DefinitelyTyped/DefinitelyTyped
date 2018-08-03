@@ -13,14 +13,14 @@ declare namespace atlas {
          * @param circles The circles to add.
          * @param options The layer options for the circles.
          */
-        addCircles(circles: Array<atlas.data.Feature<atlas.data.Point, atlas.Models.CircleProperties>>, options?: atlas.Models.CircleLayerOptions);
+        addCircles(circles: Array<atlas.data.Feature<atlas.data.Point, atlas.Models.CircleProperties>>, options?: atlas.Models.CircleLayerOptions): void;
 
         /**
          * Add a control to the map.
          * @param control The control to add.
          * @param options The options for the added control.
          */
-        addControl(control: atlas.Models.Control, options?: atlas.Models.ControlOptions);
+        addControl(control: atlas.Models.Control, options?: atlas.Models.ControlOptions): void;
 
         /**
          * Add an event listener to the map.
@@ -49,7 +49,7 @@ declare namespace atlas {
          * 'load': Progression has been successful.
          * @param callback The callback to fire when the event occurs.
          */
-        addEventListener(type: string, callback: any);
+        addEventListener(type: string, callback: any): void;
 
         /**
          * Add an event listener to a layer of the map. Event listeners cannot be added to the default "base", "transit" and "labels" layers of the map.
@@ -66,7 +66,7 @@ declare namespace atlas {
          * @param layer The layer of the map.
          * @param callback The callback to fire when the event occurs.
          */
-        addEventListener(type: string, layer: string, callback: any);
+        addEventListener(type: string, layer: string, callback: any): void;
 
         /**
          * 
@@ -80,7 +80,7 @@ declare namespace atlas {
          * @param id The identifier of the icon.
          * @param icon The icon image.
          */
-        addIcon(id: string, icon: HTMLImageElement);
+        addIcon(id: string, icon: HTMLImageElement): void;
 
 
         /**
@@ -88,28 +88,28 @@ declare namespace atlas {
          * @param linestrings The linestrings to add.
          * @param options The layer options for the linestrings.
          */
-        addLinestrings(linestrings: Array<atlas.data.Feature<atlas.data.LineString | atlas.data.MultiLineString, atlas.Models.LinestringProperties>>, options?: atlas.Models.LinestringLayerOptions);
+        addLinestrings(linestrings: Array<atlas.data.Feature<atlas.data.LineString | atlas.data.MultiLineString, atlas.Models.LinestringProperties>>, options?: atlas.Models.LinestringLayerOptions): void;
 
         /**
          * Add a collection of points to a layer of the map as pins. The layer and its options can be specified through a PinLayerOptions object. Options for the layer can only be specified upon the layer's initial creation. Map must be fully loaded before the pins can be added. Use the addEventListener method with event type 'load'.
          * @param pins The points to add.
          * @param options The layer options for the pins.
          */
-        addPins(pins: Array<atlas.data.Feature<atlas.data.Point, atlas.Models.PinProperties>>, options?: atlas.Models.PinLayerOptions);
+        addPins(pins: Array<atlas.data.Feature<atlas.data.Point, atlas.Models.PinProperties>>, options?: atlas.Models.PinLayerOptions): void;
 
         /**
          * 
          * @param polygons The polygons to add.
          * @param options The layer options for the polygons.
          */
-        addPolygons(polygons: Array<atlas.data.Feature<atlas.data.Polygon | atlas.data.MultiPolygon, atlas.Models.PolygonProperties>>, options?: atlas.Models.PolygonLayerOptions)
+        addPolygons(polygons: Array<atlas.data.Feature<atlas.data.Polygon | atlas.data.MultiPolygon, atlas.Models.PolygonProperties>>, options?: atlas.Models.PolygonLayerOptions): void;
 
         /**
          * Adds a raster layer to the map. The layer and its options can be specified through a RasterLayerOptions object. Options for the layer can only be specified upon the layer's initial creation.
          * @param tileSources A list of endpoints specified as strings from which raster images can be requested. The endpoints can be parameterized with the tags '{z}', '{x}' and '{y}' to specify the zoom, x-index, and y-index of the needed tile respectively. The map control will request and place the tiles that are contained in the map's viewport.
          * @param options The options for the raster layer.
          */
-        addRaster(tileSources: string[], options?: atlas.Models.RasterLayerOptions);
+        addRaster(tileSources: string[], options?: atlas.Models.RasterLayerOptions): void;
 
         /**
          * Returns the camera's current properties.
@@ -159,20 +159,20 @@ declare namespace atlas {
         /**
          * Clean up the map's resources. Map will not function correctly after calling this method.
          */
-        remove();
+        remove(): void;
 
         /**
          * Remove a control from the map.
          * @param control The control to remove.
          */
-        removeControl(control: atlas.Models.Control);
+        removeControl(control: atlas.Models.Control) : void;
 
         /**
          * Remove an event listener from the map.
          * @param type The event type.
          * @param callback The callback of the event listener.
          */
-        removeEventListener(type: string, callback: any);
+        removeEventListener(type: string, callback: any) : void;
 
         /**
          * Remove an event listener from a layer of the map.
@@ -180,54 +180,54 @@ declare namespace atlas {
          * @param layerThe layer of the map.
          * @param callback The callback of the event listener.
          */
-        removeEventListener(type: string, layer: string, callback: any);
+        removeEventListener(type: string, layer: string, callback: any) : void;
 
         /**
          * Removes a custom HTMLElement from the map.
          * @param elementId Removes a custom HTMLElement from the map.
          */
-        removeHtml(elementId: string);
+        removeHtml(elementId: string) : void;
 
         /**
          * Removes a collection of layers from the map.
          * @param layerNames An array of layer names to remove from the map.
          */
-        removeLayers(layerNames: string[]);
+        removeLayers(layerNames: string[]) : void;
 
         /**
          * Resize the map according to the dimensions of its container element.
          */
-        resize();
+        resize() : void;
 
         /**
          * Set the camera of the map control with an animated transition. Any options not specified will default to their current values.
          * @param options The options for setting the map's camera and for the animation of any view change.
          */
-        setCamera(options?: atlas.Models.CameraOptions & atlas.Models.AnimationOptions);
+        setCamera(options?: atlas.Models.CameraOptions & atlas.Models.AnimationOptions) : void;
 
         /**
          * Set the camera bounds of the map control.
          * @param options The options for setting the map's camera bounds.
          */
-        setCameraBounds(options?: atlas.Models.CameraBoundsOptions);
+        setCameraBounds(options?: atlas.Models.CameraBoundsOptions) : void;
 
         /**
          * Set the map control's style options. Any options not specified will default to their current values.
          * @param options The options for setting the style of the map control.
          */
-        setStyle(options?: atlas.Models.StyleOptions);
+        setStyle(options?: atlas.Models.StyleOptions) : void;
 
         /**
          * Set the traffic options for the map. Any options not specified will default to their current values
          * @param options The options for defining the map's traffic display.
          */
-        setTraffic(options?: atlas.Models.TrafficOptions);
+        setTraffic(options?: atlas.Models.TrafficOptions) : void;
 
         /**
          * Set the map control's user interaction handlers. Any options not specified will default to their current values.
          * @param options The options for enabling/disabling the user interaction handlers.
          */
-        setUserInteraction(options?: atlas.Models.UserInteractionOptions);
+        setUserInteraction(options?: atlas.Models.UserInteractionOptions) : void;
 
     }
 
@@ -235,13 +235,13 @@ declare namespace atlas {
      * An information window anchored at a specified position on a map.
      * https://docs.microsoft.com/en-us/javascript/api/azure-maps-control/atlas.popup?view=azure-iot-typescript-latest
      */
-    export class Popup{
+    export class Popup {
 
         /**
          * Constructs a Popup object and initializes it with the specified options.
          * @param options The options for the popup.
          */
-        constructor (options?: atlas.Models.PopupOptions)
+        constructor(options?: atlas.Models.PopupOptions)
 
         /**
          * Attaches the popup to the HTML document in a hidden state.
@@ -273,7 +273,7 @@ declare namespace atlas {
          * Sets the options for the popup.
          * @param options The options for the popup.
          */
-        setPopupOptions(options?: atlas.Models.PopupOptions);
+        setPopupOptions(options?: atlas.Models.PopupOptions) : void;
     }
 }
 
@@ -915,13 +915,13 @@ declare namespace atlas.data {
      * An array that defines a shape whose edges follow lines of constant longitude, latitude, and elevation. Array should contain 4 elements. [minLon, minLat, maxLon, maxLat]
      * https://docs.microsoft.com/en-us/javascript/api/azure-maps-control/atlas.atlas.data.boundingbox?view=azure-iot-typescript-latest
      */
-    export class BoundingBox{
+    export class BoundingBox {
         /**
          * Constructs a BoundingBox.
          * @param southwestPosition The southwestern most position of the bounding box.
          * @param northeastPosition The northeastern most position of the bounding box.
          */
-        constructor (southwestPosition: Position, northeastPosition: Position);
+        constructor(southwestPosition: Position, northeastPosition: Position);
 
         static Array: ArrayConstructor;
     }
@@ -969,7 +969,7 @@ declare namespace atlas.data {
      * A GeoJSON FeatureCollection object - a JSON object that contains a collection of GeoJSON features. The full description is detailed in RFC 7946.
      * https://docs.microsoft.com/en-us/javascript/api/azure-maps-control/atlas.atlas.data.featurecollection?view=azure-iot-typescript-latest
      */
-    export class FeatureCollection{
+    export class FeatureCollection {
         /**
          * 
          * @param features The collection of features that make up the feature collection.
@@ -997,7 +997,7 @@ declare namespace atlas.data {
      * A base Geometry object in which all geometyr shapes extend; Point, LineString, Polygon, MultiPoint, MultiLineString, MultiPolygon, GeometryCollection
      * https://docs.microsoft.com/en-us/javascript/api/azure-maps-control/atlas.atlas.data.geometry?view=azure-iot-typescript-latest
      */
-    export class Geometry{
+    export class Geometry {
 
         /**
          * A GeoJSON type descriptor for the geometry.
@@ -1014,7 +1014,7 @@ declare namespace atlas.data {
      * A GeoJSON GeometryCollection object - a JSON object that contains a collection of a GeoJSON Geometry objects. The full description is detailed in RFC 7946.
      * https://docs.microsoft.com/en-us/javascript/api/azure-maps-control/atlas.atlas.data.geometrycollection?view=azure-iot-typescript-latest
      */
-    export class GeometryCollection{
+    export class GeometryCollection {
         /**
          * Constructs a GeometryCollection.
          * @param geometries The collection of geometries that make up the geometry collection.
@@ -1031,7 +1031,7 @@ declare namespace atlas.data {
      * A GeoJSON LineString object - a JSON object that represents a geographic curve. The full description is detailed in RFC 7946.
      * https://docs.microsoft.com/en-us/javascript/api/azure-maps-control/atlas.atlas.data.linestring?view=azure-iot-typescript-latest
      */
-    export class LineString{
+    export class LineString {
         /**
          * Constructs a LineString.
          * @param coordinates The bounding box of the geometry.
@@ -1054,7 +1054,7 @@ declare namespace atlas.data {
      * A GeoJSON MultiLineString object - a JSON object that represents multiple geographic curves. The full description is detailed in RFC 7946.
      * https://docs.microsoft.com/en-us/javascript/api/azure-maps-control/atlas.atlas.data.multilinestring?view=azure-iot-typescript-latest
      */
-    export class MultiLineString{
+    export class MultiLineString {
         /**
          * Constructs a MultiLineString.
          * @param coordinates The bounding box of the geometry.
@@ -1077,7 +1077,7 @@ declare namespace atlas.data {
      * A GeoJSON MultiPoint object - a JSON object that represents multiple geographic positions. The full description is detailed in RFC 7946.
      * https://docs.microsoft.com/en-us/javascript/api/azure-maps-control/atlas.atlas.data.multipoint?view=azure-iot-typescript-latest
      */
-    export class MultiPoint{
+    export class MultiPoint {
         /**
          * Constructs a MultiPoint.
          * @param coordinates The bounding box of the geometry.
@@ -1101,7 +1101,7 @@ declare namespace atlas.data {
      * A GeoJSON MultiPolygon object - a JSON object that represents multiple geographic polygons. The full description is detailed in RFC 7946.
      * https://docs.microsoft.com/en-us/javascript/api/azure-maps-control/atlas.atlas.data.multipolygon?view=azure-iot-typescript-latest
      */
-    export class MultiPolygon{
+    export class MultiPolygon {
         /**
          * @param coordinates The array of polygon coordinate arrays defining the multipolygon.
          * @param bbox The bounding box of the multipolygon.
@@ -1123,7 +1123,7 @@ declare namespace atlas.data {
      * A GeoJSON Point object - a JSON object that represents a geographic position. The full description is detailed in RFC 7946.
      * https://docs.microsoft.com/en-us/javascript/api/azure-maps-control/atlas.atlas.data.point?view=azure-iot-typescript-latest
      */
-    export class Point{
+    export class Point {
         /**
          * Constructs a Point.
          * @param coordinates The position defining the point.
@@ -1140,7 +1140,7 @@ declare namespace atlas.data {
      * A GeoJSON Polygon object - a JSON object that represents a geographic polygon. The full description is detailed in RFC 7946.
      * https://docs.microsoft.com/en-us/javascript/api/azure-maps-control/atlas.atlas.data.polygon?view=azure-iot-typescript-latest
      */
-    export class Polygon{
+    export class Polygon {
         /**
          * Constructs a Polygon.
          * @param coordinates The array of linear ring coordinate arrays defining the polygon.
@@ -1181,17 +1181,17 @@ declare namespace atlas.data {
     }
 }
 
-declare namespace atlas.control{
+declare namespace atlas.control {
     /**
      * A control for changing the rotation of the map.
      * https://docs.microsoft.com/en-us/javascript/api/azure-maps-control/atlas.atlas.control.compasscontrol?view=azure-iot-typescript-latest
      */
-    export class CompassControl{
+    export class CompassControl {
         /**
          * 
          * @param options The options for the control.
          */
-        constructor(options?: atlas.Models.CompassControlOptions);
+        constructor(options?: atlas.Models.CompassControlOptions) ;
 
 
         /**
@@ -1201,14 +1201,14 @@ declare namespace atlas.control{
          */
         onAdd(map: Map, options: atlas.Models.ControlOptions): HTMLElement;
 
-        onRemove();
+        onRemove() : void;
     }
 
     /**
      * A control for changing the pitch of the map.
      * https://docs.microsoft.com/en-us/javascript/api/azure-maps-control/atlas.atlas.control.pitchcontrol?view=azure-iot-typescript-latest
      */
-    export class PitchControl{
+    export class PitchControl {
         /**
          * Constructs a PitchControl.
          * @param options The options for the control.
@@ -1222,14 +1222,14 @@ declare namespace atlas.control{
          */
         onAdd(map: Map, options: atlas.Models.ControlOptions): HTMLElement;
 
-        onRemove();
+        onRemove() : void;
     }
 
     /**
      * A control for changing the style of the map.
      * https://docs.microsoft.com/en-us/javascript/api/azure-maps-control/atlas.atlas.control.stylecontrol?view=azure-iot-typescript-latest
      */
-    export class StyleControl{
+    export class StyleControl {
 
         /**
          * Constructs a StyleControl.
@@ -1239,14 +1239,14 @@ declare namespace atlas.control{
 
         onAdd(map: Map, options?: atlas.Models.ControlOptions): HTMLElement;
 
-        onRemove();
+        onRemove() : void;
     }
 
     /**
      * A control for changing the zoom of the map.
      * https://docs.microsoft.com/en-us/javascript/api/azure-maps-control/atlas.atlas.control.zoomcontrol?view=azure-iot-typescript-latest
      */
-    export class ZoomControl{
+    export class ZoomControl {
         /**
          * Constructs a ZoomControl.
          * @param options The options for the control.
@@ -1255,8 +1255,8 @@ declare namespace atlas.control{
 
         onAdd(map: Map): HTMLElement;
 
-        onRemove();
+        onRemove() : void;
 
-        
+
     }
 }
