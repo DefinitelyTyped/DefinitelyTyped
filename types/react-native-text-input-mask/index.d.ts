@@ -12,6 +12,7 @@ export type onChangeTextCallback = (formatted: string, extracted: string) => voi
 export interface TextInputMaskProps extends ReactNative.ViewProps, ReactNative.TextInputIOSProps, ReactNative.TextInputAndroidProps, ReactNative.AccessibilityProps {
     maskDefaultValue?: boolean;
     mask: string;
+    refInput: ReactNative.Ref<ReactNative.TextInput>;
     onChangeText: onChangeTextCallback;
 
     // Export standard TextInputProps from here on.
