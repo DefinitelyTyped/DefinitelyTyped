@@ -129,7 +129,7 @@ function test_updateContents() {
     }));
 }
 
-function test_setContents() {
+function test_setDeltaContents() {
     const quillEditor = new Quill('#editor');
     quillEditor.setContents(new Delta({ ops: [
         { insert: 'Hello ' },
@@ -138,7 +138,14 @@ function test_setContents() {
     ]}));
 }
 
-function test_setText() {
+function test_setHtmlContents() {
+    const quillEditor = new Quill('#editor');
+    var html = "<b>this is a bold text</b>"
+    var delta = quillEditor.clipboard.convert(html);
+    quillEditor.setContents(delta);
+}
+
+function test_setTextContents() {
     const quillEditor = new Quill('#editor');
     quillEditor.setText('Hello\n');
 }
