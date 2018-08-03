@@ -1,6 +1,6 @@
 // Type definitions for Chrome packaged application development
 // Project: http://developer.chrome.com/apps/
-// Definitions by: Nikolai Ommundsen <https://github.com/niikoo>, Adam Lay <https://github.com/AdamLay>, MIZUNE Pine <https://github.com/pine613>, MIZUSHIMA Junki <https://github.com/mzsm>, Ingvar Stepanyan <https://github.com/RReverser>, Adam Pyle <https://github.com/pyle>, Matthew Kimber <https://github.com/matthewkimber>, otiai10 <https://github.com/otiai10>, couven92 <https://github.com/couven92>, RReverser <https://github.com/rreverser>, sreimer15 <https://github.com/sreimer15>
+// Definitions by: Nikolai Ommundsen <https://github.com/niikoo>, Adam Lay <https://github.com/AdamLay>, MIZUNE Pine <https://github.com/pine613>, MIZUSHIMA Junki <https://github.com/mzsm>, Ingconst Stepanyan <https://github.com/RReverser>, Adam Pyle <https://github.com/pyle>, Matthew Kimber <https://github.com/matthewkimber>, otiai10 <https://github.com/otiai10>, couven92 <https://github.com/couven92>, RReverser <https://github.com/rreverser>, sreimer15 <https://github.com/sreimer15>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -134,61 +134,61 @@ declare namespace chrome {
         /**
          * Spoken feedback (text-to-speech). The value indicates whether the feature is enabled or not. get() requires accessibilityFeatures.read permission. set() and clear() require accessibilityFeatures.modify permission.
          */
-        var spokenFeedback: AccessibilityFeaturesSetting;
+        const spokenFeedback: AccessibilityFeaturesSetting;
         /**
          * Enlarged cursor. The value indicates whether the feature is enabled or not. get() requires accessibilityFeatures.read permission. set() and clear() require accessibilityFeatures.modify permission.
          */
-        var largeCursor: AccessibilityFeaturesSetting;
+        const largeCursor: AccessibilityFeaturesSetting;
         /**
          * Sticky modifier keys (like shift or alt). The value indicates whether the feature is enabled or not. get() requires accessibilityFeatures.read permission. set() and clear() require accessibilityFeatures.modify permission.
          */
-        var stickyKeys: AccessibilityFeaturesSetting;
+        const stickyKeys: AccessibilityFeaturesSetting;
         /**
          * High contrast rendering mode. The value indicates whether the feature is enabled or not. get() requires accessibilityFeatures.read permission. set() and clear() require accessibilityFeatures.modify permission.
          */
-        var highContrast: AccessibilityFeaturesSetting;
+        const highContrast: AccessibilityFeaturesSetting;
         /**
          * Full screen magnification. The value indicates whether the feature is enabled or not. get() requires accessibilityFeatures.read permission. set() and clear() require accessibilityFeatures.modify permission.
          */
-        var screenMagnifier: AccessibilityFeaturesSetting;
+        const screenMagnifier: AccessibilityFeaturesSetting;
         /**
          * Auto mouse click after mouse stops moving. The value indicates whether the feature is enabled or not. get() requires accessibilityFeatures.read permission. set() and clear() require accessibilityFeatures.modify permission.
          */
-        var autoclick: AccessibilityFeaturesSetting;
+        const autoclick: AccessibilityFeaturesSetting;
         /**
          * Virtual on-screen keyboard. The value indicates whether the feature is enabled or not. get() requires accessibilityFeatures.read permission. set() and clear() require accessibilityFeatures.modify permission.
          */
-        var virtualKeyboard: AccessibilityFeaturesSetting;
+        const virtualKeyboard: AccessibilityFeaturesSetting;
         /**
          * Caret highlighting. The value indicates whether the feature is enabled or not. get() requires accessibilityFeatures.read permission. set() and clear() require accessibilityFeatures.modify permission.
          * @since Since Chrome 51.
          */
-        var caretHighlight: AccessibilityFeaturesSetting;
+        const caretHighlight: AccessibilityFeaturesSetting;
         /**
          * Cursor highlighting. The value indicates whether the feature is enabled or not. get() requires accessibilityFeatures.read permission. set() and clear() require accessibilityFeatures.modify permission.
          * @since Since Chrome 51.
          */
-        var cursorHighlight: AccessibilityFeaturesSetting;
+        const cursorHighlight: AccessibilityFeaturesSetting;
         /**
          * Focus highlighting. The value indicates whether the feature is enabled or not. get() requires accessibilityFeatures.read permission. set() and clear() require accessibilityFeatures.modify permission.
          * @since Since Chrome 51.
          */
-        var focusHighlight: AccessibilityFeaturesSetting;
+        const focusHighlight: AccessibilityFeaturesSetting;
         /**
          * Select-to-speak. The value indicates whether the feature is enabled or not. get() requires accessibilityFeatures.read permission. set() and clear() require accessibilityFeatures.modify permission.
          * @since Since Chrome 51.
          */
-        var selectToSpeak: AccessibilityFeaturesSetting;
+        const selectToSpeak: AccessibilityFeaturesSetting;
         /**
          * Switch access. The value indicates whether the feature is enabled or not. get() requires accessibilityFeatures.read permission. set() and clear() require accessibilityFeatures.modify permission.
          * @since Since Chrome 51.
          */
-        var switchAccess: AccessibilityFeaturesSetting;
+        const switchAccess: AccessibilityFeaturesSetting;
         /**
          * get() requires accessibilityFeatures.read permission. set() and clear() require accessibilityFeatures.modify permission.
          * @since Since Chrome 42.
          */
-        var animationPolicy: AccessibilityFeaturesSetting;
+        const animationPolicy: AccessibilityFeaturesSetting;
     }
 
     ////////////
@@ -282,7 +282,7 @@ declare namespace chrome {
         function get(name: string, callback: (alarm: Alarm) => void): void;
 
         /** Fired when an alarm has elapsed. Useful for event pages. */
-        var onAlarm: AlarmEvent;
+        const onAlarm: AlarmEvent;
     }
 
     /////////////////
@@ -296,11 +296,37 @@ declare namespace chrome {
      * and can shut down the app at anytime.
      */
     namespace app.runtime {
-        type LaunchSource =
-            'untracked' | 'app_launcher' | 'new_tab_page' | 'reload' | 'restart' |
-            'load_and_launch' | 'command_line' | 'file_handler' | 'url_handler' | 'system_tray' |
-            'about_page' | 'keyboard' | 'extensions_page' | 'management_api' | 'ephemeral_app' |
-            'background' | 'kiosk' | 'chrome_internal' | 'test' | 'installed_notification' | 'context_menu';
+        /**
+         * @todo TODO UNDOCUMENTED?
+         */
+        enum PlayStoreStatus {
+            ENABLED = 'enabled',
+            AVAILABLE = 'available',
+            UNKNOWN = 'unknown'
+        }
+        enum LaunchSource {
+            ABOUT_PAGE = "about_page",
+            APP_LAUNCHER = "app_launcher",
+            BACKGROUND = "background",
+            CHROME_INTERNAL = "chrome_internal",
+            COMMAND_LINE = "command_line",
+            CONTEXT_MENU = "context_menu",
+            EPHEMERAL_APP = "ephemeral_app",
+            EXTENSIONS_PAGE = "extensions_page",
+            FILE_HANDLER = "file_handler",
+            INSTALLED_NOTIFICATION = "installed_notification",
+            KEYBOARD = "keyboard",
+            KIOSK = "kiosk",
+            LOAD_AND_LAUNCH = "load_and_launch",
+            MANAGEMENT_API = "management_api",
+            NEW_TAB_PAGE = "new_tab_page",
+            RELOAD = "reload",
+            RESTART = "restart",
+            SYSTEM_TRAY = "system_tray",
+            TEST = "test",
+            UNTRACKED = "untracked",
+            URL_HANDLER = "url_handler"
+        }
 
         interface EmbedRequest {
             /**
@@ -318,6 +344,10 @@ declare namespace chrome {
         }
 
         type actionType = 'new_note';
+
+        const ActionType: {
+            NEW_NOTE: actionType
+        }
 
         interface LaunchData {
             /**
@@ -382,18 +412,18 @@ declare namespace chrome {
          * Fired when an embedding app requests to embed this app. This event is only available on dev channel with the flag --enable-app-view.
          * @since Since Chrome 38.
          */
-        var onEmbedRequest: EmbedRequestedEvent;
+        const onEmbedRequest: EmbedRequestedEvent;
         /**
          * Fired when an app is launched from the launcher.
          */
-        var onLaunched: LaunchedEvent;
+        const onLaunched: LaunchedEvent;
         /**
          * Fired at Chrome startup to apps that were running when Chrome last shut down,
          * or when apps have been requested to restart from their previous state for other reasons
          * (e.g. when the user revokes access to an app's retained files the runtime will restart the app).
          * In these situations if apps do not have an onRestarted handler they will be sent an onLaunched event instead.
          */
-        var onRestarted: RestartedEvent;
+        const onRestarted: RestartedEvent;
     }
 
     ////////////////////
@@ -503,7 +533,12 @@ declare namespace chrome {
             inactiveColor?: string;
         }
 
-        type WindowState = 'normal' | 'fullscreen' | 'maximized' | 'minimized';
+        enum State {
+            NORMAL = 'normal',
+            FULLSCREEN = 'fullscreen',
+            MAXIMIZED = 'maximized',
+            MINIMIZED = 'minimized'
+        }
 
         interface CreateWindowOptions {
             /**
@@ -582,7 +617,7 @@ declare namespace chrome {
             /**
              * The initial state of the window, allowing it to be created already fullscreen, maximized, or minimized. Defaults to 'normal'.
              */
-            state?: WindowState;
+            state?: State;
             /**
              * If true, the window will be created in a hidden state. Call show() on the window to show it once it has been created. Defaults to false.
              */
@@ -859,11 +894,11 @@ declare namespace chrome {
          */
         function setMute(streamType: StreamType, isMuted: boolean, callback?: () => void): void;
         /** Fired when sound level changes for an active audio device. */
-        var onLevelChanged: OnLevelChangedEvent;
+        const onLevelChanged: OnLevelChangedEvent;
         /** Fired when the mute state of the audio input or output changes. Note that mute state is system-wide and the new value applies to every audio device with specified stream type. */
-        var onMuteChanged: OnMuteChangedEvent;
+        const onMuteChanged: OnMuteChangedEvent;
         /** Fired when audio devices change, either new devices being added, or existing devices being removed. */
-        var onDeviceListChanged: OnDeviceListChangedEvent;
+        const onDeviceListChanged: OnDeviceListChangedEvent;
     }
 
     ///////////////
@@ -992,16 +1027,16 @@ declare namespace chrome {
         function stopDiscovery(callback: () => void): void;
 
         /** Fired when the state of the Bluetooth adapter changes. */
-        var onAdapterStateChanged: BluetoothEvent<AdapterState>;
+        const onAdapterStateChanged: BluetoothEvent<AdapterState>;
 
         /** Fired when information about a new Bluetooth device is available. */
-        var onDeviceAdded: BluetoothEvent<Device>;
+        const onDeviceAdded: BluetoothEvent<Device>;
 
         /** Fired when information about a known Bluetooth device has changed. */
-        var onDeviceChanged: BluetoothEvent<Device>;
+        const onDeviceChanged: BluetoothEvent<Device>;
 
         /** Fired when a Bluetooth device that was previously discovered has been out of range for long enough to be considered unavailable again, and when a paired device is removed. */
-        var onDeviceRemoved: BluetoothEvent<Device>;
+        const onDeviceRemoved: BluetoothEvent<Device>;
     }
 
     /**
@@ -1289,7 +1324,7 @@ declare namespace chrome {
          * @param serviceId Unique ID of a created service.
          * @param callback Callback with the result of the register operation.
          */
-        function registerService(serviceId: string, callback: () => void): void;
+        function registerService(serviceId: string, callback: (result: any) => void): void;
         /**
          * Unregister the given service with the local GATT server.
          * If the service ID is invalid, the lastError will be set.
@@ -1300,7 +1335,7 @@ declare namespace chrome {
          * @param serviceId Unique ID of a current registered service.
          * @param callback Callback with the result of the register operation.
          */
-        function unregisterService(serviceId: string, callback: () => void): void;
+        function unregisterService(serviceId: string, callback: (result: any) => void): void;
         /**
          * Remove the specified service, unregistering it if it was registered.
          * If the service ID is invalid, the lastError will be set.
@@ -1349,7 +1384,7 @@ declare namespace chrome {
         /**
          * Set's the interval betweeen two consecutive advertisements.
          * Note: This is a best effort.
-         * The actual interval may vary non-trivially from the requested intervals.
+         * The actual interval may consty non-trivially from the requested intervals.
          * On some hardware, there is a minimum interval of 100ms.
          * The minimum and maximum values cannot exceed the the range allowed by the Bluetooth 4.2 specification.
          * @since Since Chrome 55.
@@ -1365,16 +1400,16 @@ declare namespace chrome {
          */
         function sendRequestResponse(response: IResponse): void;
         /** Fired whan a new GATT service has been discovered on a remote device. */
-        var onServiceAdded: chrome.events.Event<(service: Service) => void>;
+        const onServiceAdded: chrome.events.Event<(service: Service) => void>;
         /**
          * Fired when the state of a remote GATT service changes.
          * This involves any characteristics and/or descriptors
          *   that get added or removed from the service, as well as
          *   'ServiceChanged' notifications from the remote device.
          */
-        var onServiceChanged: chrome.events.Event<(service: Service) => void>;
+        const onServiceChanged: chrome.events.Event<(service: Service) => void>;
         /** Fired when a GATT service that was previously discovered on a remote device has been removed. */
-        var onServiceRemoved: chrome.events.Event<(service: Service) => void>;
+        const onServiceRemoved: chrome.events.Event<(service: Service) => void>;
         /**
          * Fired when the value of a remote GATT characteristic changes,
          *   either as a result of a read request,
@@ -1382,14 +1417,14 @@ declare namespace chrome {
          * This event will only be sent if the app has enabled notifications
          *   by calling startCharacteristicNotifications.
          */
-        var onCharacteristicValueChanged: chrome.events.Event<(characteristic: Characteristic) => void>;
+        const onCharacteristicValueChanged: chrome.events.Event<(characteristic: Characteristic) => void>;
         /**
          * Fired when the value of a remote GATT characteristic descriptor changes,
          *   usually as a result of a read request.
          * This event exists mostly for convenience and will always be sent after
          *   a successful call to readDescriptorValue.
          */
-        var onDescriptorValueChanged: chrome.events.Event<(descriptor: Descriptor) => void>;
+        const onDescriptorValueChanged: chrome.events.Event<(descriptor: Descriptor) => void>;
         /**
          * Fired when a connected central device requests to read the value of
          *   a characteristic registered on the local GATT server.
@@ -1399,7 +1434,7 @@ declare namespace chrome {
          * The peripheral permission may not be available to all apps.
          * @since Since Chrome 52.
          */
-        var onCharacteristicReadRequest: chrome.events.Event<(characteristic: Characteristic) => void>;
+        const onCharacteristicReadRequest: chrome.events.Event<(characteristic: Characteristic) => void>;
         /**
          * Fired when a connected central device requests to write the value of
          *   a characteristic registered on the local GATT server.
@@ -1409,7 +1444,7 @@ declare namespace chrome {
          * The peripheral permission may not be available to all apps.
          * @since Since Chrome 52.
          */
-        var onCharacteristicWriteRequest: chrome.events.Event<(characteristic: Characteristic) => void>;
+        const onCharacteristicWriteRequest: chrome.events.Event<(characteristic: Characteristic) => void>;
         /**
          * Fired when a connected central device requests to read the value of
          *   a descriptor registered on the local GATT server.
@@ -1419,7 +1454,7 @@ declare namespace chrome {
          * The peripheral permission may not be available to all apps.
          * @since Since Chrome 52.
          */
-        var onDescriptorReadRequest: chrome.events.Event<(descriptor: Descriptor) => void>;
+        const onDescriptorReadRequest: chrome.events.Event<(descriptor: Descriptor) => void>;
         /**
          * Fired when a connected central device requests to write the value of
          *   a descriptor registered on the local GATT server.
@@ -1428,7 +1463,7 @@ declare namespace chrome {
          *   and the bluetooth:peripheral permissions set to true.
          * The peripheral permission may not be available to all apps.
          */
-        var onDescriptorWriteRequest: chrome.events.Event<(descriptor: Descriptor) => void>;
+        const onDescriptorWriteRequest: chrome.events.Event<(descriptor: Descriptor) => void>;
     }
 
     /**
@@ -1734,7 +1769,7 @@ declare namespace chrome {
          * Event raised when a connection has been established
          * for a given socket.
          */
-        var onAccept: OnAcceptEvent;
+        const onAccept: OnAcceptEvent;
         /**
          * Event raised when a network error occurred while the
          * runtime was waiting for new connections on the given
@@ -1742,18 +1777,18 @@ declare namespace chrome {
          * to paused and no more onAccept events are raised for
          * this socket.
          */
-        var onAcceptError: OnAcceptErrorEvent;
+        const onAcceptError: OnAcceptErrorEvent;
         /**
          * Event raised when data has been received for a given socket.
          */
-        var onReceive: OnReceiveEvent;
+        const onReceive: OnReceiveEvent;
         /**
          * Event raised when a network error occured while the runtime
          * was waiting for data on the socket. Once this event is raised,
          * the socket is set to paused and no more onReceive events are
          * raised for this socket.
          */
-        var onReceiveError: OnReceiveErrorEvent;
+        const onReceiveError: OnReceiveErrorEvent;
     }
 
     /////////////
@@ -1823,7 +1858,7 @@ declare namespace chrome {
         function getAll(callback: (commands: Command[]) => void): void;
 
         /** Fired when a registered command is activated using a keyboard shortcut. */
-        var onCommand: CommandEvent;
+        const onCommand: CommandEvent;
     }
 
     ///////////////////
@@ -2091,7 +2126,7 @@ declare namespace chrome {
         function removeAll(callback?: () => void): void;
 
         /** Fired when a context menu item is clicked. */
-        var onClicked: MenuClickedEvent;
+        const onClicked: MenuClickedEvent;
 
     }
 
@@ -2132,8 +2167,6 @@ declare namespace chrome {
          * Performs a document scan. On success, the PNG data will be sent to the callback.
          * @param options Object containing scan parameters.
          * @param callback Called with the result and data from the scan.
-         * The callback parameter should be a function that looks like this:
-         * function(object result) {...};
          */
         function scan(options: DocumentScanOptions, callback: (result: DocumentScanCallbackArg) => void): void;
     }
@@ -2163,7 +2196,7 @@ declare namespace chrome {
      * @since Availability: Since Chrome 25.
      */
     namespace events {
-        /** Filters URLs for various criteria. See event filtering. All criteria are case sensitive. */
+        /** Filters URLs for constious criteria. See event filtering. All criteria are case sensitive. */
         interface UrlFilter {
             /**
              * Matches if the host name of the URL contains a specified string.
@@ -2256,9 +2289,11 @@ declare namespace chrome {
              */
             getRules(ruleIdentifiers: string[], callback: (rules: Rule[]) => void): void;
             /**
-             * @param callback Listener whose registration status shall be tested.
+             * Has this event this provided listener?
+             * @param listener Listener whose registration status shall be tested.
+             * @return If it has the provided listener
              */
-            hasListener(callback: T): boolean;
+            hasListener(callback: T | Function): boolean;
             /**
              * Unregisters currently registered rules.
              * @param ruleIdentifiers If an array is passed, only rules with identifiers contained in this array are unregistered.
@@ -2270,26 +2305,23 @@ declare namespace chrome {
             /**
              * Unregisters currently registered rules.
              * @param callback Called when rules were unregistered.
-             * If you specify the callback parameter, it should be a function that looks like this:
-             * function() {...};
              */
             removeRules(callback?: () => void): void;
             /**
              * Registers rules to handle events.
              * @param rules Rules to be registered. These do not replace previously registered rules.
              * @param callback Called with registered rules.
-             * If you specify the callback parameter, it should be a function that looks like this:
-             * function(array of Rule rules) {...};
              * Parameter rules: Rules that were registered, the optional parameters are filled with values.
              */
             addRules(rules: Rule[], callback?: (rules: Rule[]) => void): void;
             /**
              * Deregisters an event listener callback from an event.
              * @param callback Listener that shall be unregistered.
-             * The callback parameter should be a function that looks like this:
-             * function() {...};
              */
             removeListener(callback: T): void;
+            /**
+             * Has this event listeners?
+             */
             hasListeners(): boolean;
         }
 
@@ -2579,7 +2611,7 @@ declare namespace chrome {
          * Called when a list of available volumes is changed.
          * @since Chrome 44.
          */
-        var onVolumeListChanged: chrome.events.Event<(object: Volume[]) => void>;
+        const onVolumeListChanged: chrome.events.Event<(object: Volume[]) => void>;
     }
 
 
@@ -3089,7 +3121,7 @@ declare namespace chrome {
          * In the response, the unmount API method must be called together with successCallback.
          * If unmounting is not possible (eg. due to a pending operation), then errorCallback must be called.
          */
-        var onUnmountRequested: chrome.events.Event<(
+        const onUnmountRequested: chrome.events.Event<(
             options: UnmountRequestedEventOptions,
             successCallback: () => void,
             errorCallback: (error: ProviderError) => void
@@ -3100,7 +3132,7 @@ declare namespace chrome {
          * The metadata must be returned with the successCallback call.
          * In case of an error, errorCallback must be called.
          */
-        var onGetMetadataRequested: chrome.events.Event<(
+        const onGetMetadataRequested: chrome.events.Event<(
             options: MetadataRequestedEventOptions,
             successCallback: (metadata: EntryMetadata) => void,
             errorCallback: (error: ProviderError) => void
@@ -3114,7 +3146,7 @@ declare namespace chrome {
          * In case of an error, errorCallback must be called.
          * @since Since Chrome 48.
          **/
-        var onGetActionsRequested: chrome.events.Event<(
+        const onGetActionsRequested: chrome.events.Event<(
             options: GetActionsRequestedEventOptions,
             successCallback: (actions: Action[]) => void,
             errorCallback: (error: ProviderError) => void
@@ -3125,7 +3157,7 @@ declare namespace chrome {
          * The results must be returned in chunks by calling the successCallback several times.
          * In case of an error, errorCallback must be called.
          */
-        var onReadDirectoryRequested: chrome.events.Event<(
+        const onReadDirectoryRequested: chrome.events.Event<(
             options: ReadDirectoryRequestedEventOptions,
             successCallback: (entries: EntryMetadata[], hasMore: boolean) => void,
             errorCallback: (error: ProviderError) => void
@@ -3136,7 +3168,7 @@ declare namespace chrome {
          * If the file does not exist, then the operation must fail.
          * Maximum number of files opened at once can be specified with MountOptions.
          */
-        var onOpenFileRequested: chrome.events.Event<(
+        const onOpenFileRequested: chrome.events.Event<(
             options: OpenFileRequestedEventOptions,
             successCallback: () => void,
             errorCallback: (error: ProviderError) => void
@@ -3146,7 +3178,7 @@ declare namespace chrome {
          * Raised when opening a file previously opened
          * with openRequestId is requested to be closed.
          */
-        var onCloseFileRequested: chrome.events.Event<(
+        const onCloseFileRequested: chrome.events.Event<(
             options: CloseFileRequestedEventOptions,
             successCallback: () => void,
             errorCallback: (error: ProviderError) => void
@@ -3157,7 +3189,7 @@ declare namespace chrome {
          * The results must be returned in chunks by calling successCallback several times.
          * In case of an error, errorCallback must be called.
          */
-        var onReadFileRequested: chrome.events.Event<(
+        const onReadFileRequested: chrome.events.Event<(
             options: ReadFileRequestedEventOptions,
             successCallback: (data: ArrayBuffer, hasMore: boolean) => void,
             errorCallback: (error: ProviderError) => void
@@ -3168,7 +3200,7 @@ declare namespace chrome {
          * The operation must fail with the EXISTS error if the target directory already exists.
          * If recursive is true, then all of the missing directories on the directory path must be created.
          */
-        var onCreateDirectoryRequested: chrome.events.Event<(
+        const onCreateDirectoryRequested: chrome.events.Event<(
             options: CreateDirectoryRequestedEventOptions,
             successCallback: () => void,
             errorCallback: (error: ProviderError) => void
@@ -3179,7 +3211,7 @@ declare namespace chrome {
          * If recursive is true, and the entry is a directory,
          * then all of the entries inside must be recursively deleted as well.
          */
-        var onDeleteEntryRequested: chrome.events.Event<(
+        const onDeleteEntryRequested: chrome.events.Event<(
             options: DeleteEntryRequestedEventOptions,
             successCallback: () => void,
             errorCallback: (error: ProviderError) => void
@@ -3189,7 +3221,7 @@ declare namespace chrome {
          * Raised when creating a file is requested.
          * If the file already exists, then errorCallback must be called with the 'EXISTS' error code.
          */
-        var onCreateFileRequested: chrome.events.Event<(
+        const onCreateFileRequested: chrome.events.Event<(
             options: CreateFileRequestedEventOptions,
             successCallback: () => void,
             errorCallback: (error: ProviderError) => void
@@ -3199,7 +3231,7 @@ declare namespace chrome {
          * Raised when copying an entry (recursively if a directory) is requested.
          * If an error occurs, then errorCallback must be called.
          */
-        var onCopyEntryRequested: chrome.events.Event<(
+        const onCopyEntryRequested: chrome.events.Event<(
             options: CopyEntryRequestedEventOptions,
             successCallback: () => void,
             errorCallback: (error: ProviderError) => void
@@ -3209,7 +3241,7 @@ declare namespace chrome {
          * Raised when moving an entry (recursively if a directory) is requested.
          * If an error occurs, then errorCallback must be called.
          */
-        var onMoveEntryRequested: chrome.events.Event<(
+        const onMoveEntryRequested: chrome.events.Event<(
             options: MoveEntryRequestedEventOptions,
             successCallback: () => void,
             errorCallback: (error: ProviderError) => void
@@ -3219,14 +3251,14 @@ declare namespace chrome {
          * Raised when truncating a file to a desired length is requested.
          * If an error occurs, then errorCallback must be called.
          */
-        var onTruncateRequested: chrome.events.Event<(
+        const onTruncateRequested: chrome.events.Event<(
             options: TruncateRequestedEventOptions,
             successCallback: () => void,
             errorCallback: (error: ProviderError) => void
         ) => void>;
 
         /** Raised when writing contents to a file opened previously with openRequestId is requested. */
-        var onWriteFileRequested: chrome.events.Event<(
+        const onWriteFileRequested: chrome.events.Event<(
             options: WriteFileRequestedEventOptions,
             successCallback: () => void,
             errorCallback: (error: ProviderError) => void
@@ -3240,7 +3272,7 @@ declare namespace chrome {
          * operation must not be called, as they will be ignored. Despite calling
          * errorCallback, the request may be forcibly aborted.
          */
-        var onAbortRequested: chrome.events.Event<(
+        const onAbortRequested: chrome.events.Event<(
             options: AbortRequestedEventOptions,
             successCallback: () => void,
             errorCallback: (error: ProviderError) => void
@@ -3251,7 +3283,7 @@ declare namespace chrome {
          * If it's handled, the file_system_provider.configurable manfiest option must be set to true.
          * @since Since Chrome 44.
          */
-        var onConfigureRequested: chrome.events.Event<(
+        const onConfigureRequested: chrome.events.Event<(
             options: ConfigureRequestedEventOptions,
             successCallback: () => void,
             errorCallback: (error: ProviderError) => void
@@ -3264,7 +3296,7 @@ declare namespace chrome {
          * For multiple mounts, the file_system_provider.multiple_mounts manifest option must be set to true.
          * @since Since Chrome 44.
          */
-        var onMountRequested: chrome.events.Event<(
+        const onMountRequested: chrome.events.Event<(
             successCallback: () => void,
             errorCallback: (error: ProviderError) => void
         ) => void>;
@@ -3274,7 +3306,7 @@ declare namespace chrome {
          * If an error occurs, then errorCallback must be called.
          * @since Since Chrome 45.
          */
-        var onAddWatcherRequested: chrome.events.Event<(
+        const onAddWatcherRequested: chrome.events.Event<(
             options: WatcherRequestedEventOptions,
             successCallback: () => void,
             errorCallback: (error: ProviderError) => void
@@ -3285,7 +3317,7 @@ declare namespace chrome {
          * If an error occurs, then errorCallback must be called.
          * @since Since Chrome 45.
          */
-        var onRemoveWatcherRequested: chrome.events.Event<(
+        const onRemoveWatcherRequested: chrome.events.Event<(
             options: WatcherRequestedEventOptions,
             successCallback: () => void,
             errorCallback: (error: ProviderError) => void
@@ -3297,7 +3329,7 @@ declare namespace chrome {
          * On error, errorCallback must be called.
          * @since Since Chrome 48.
          */
-        var onExecuteActionRequested: chrome.events.Event<(
+        const onExecuteActionRequested: chrome.events.Event<(
             options: ExecuteActionRequestedEventOptions,
             successCallback: () => void,
             errorCallback: (error: ProviderError) => void
@@ -3410,11 +3442,11 @@ declare namespace chrome {
         function send(message: OutgoingMessage, callback: (messageId: string) => void): void;
 
         /** Fired when a message is received through GCM. */
-        var onMessage: chrome.events.Event<(message: IncomingMessage) => void>;
+        const onMessage: chrome.events.Event<(message: IncomingMessage) => void>;
         /** Fired when a GCM server had to delete messages sent by an app server to the application. See Messages deleted event section of Cloud Messaging documentation for details on handling this event. */
-        var onMessagesDeleted: chrome.events.Event<() => void>;
+        const onMessagesDeleted: chrome.events.Event<() => void>;
         /** Fired when it was not possible to send a message to the GCM server. */
-        var onSendError: chrome.events.Event<(error: GcmError) => void>;
+        const onSendError: chrome.events.Event<(error: GcmError) => void>;
     }
 
     /////////
@@ -3612,7 +3644,7 @@ declare namespace chrome {
          * @since Chrome 41.
          * @see[permissions.request]{@link https://developer.chrome.com/apps/permissions#method-request}
          */
-        var onDeviceAdded: chrome.events.Event<(device: HidDeviceInfo) => void>;
+        const onDeviceAdded: chrome.events.Event<(device: HidDeviceInfo) => void>;
 
         /**
          * Event generated when a device is removed from the system.
@@ -3620,7 +3652,7 @@ declare namespace chrome {
          * @since Chrome 41.
          * @see[See onDeviceAdded for which events are delivered]{@link https://developer.chrome.com/apps/hid#event-onDeviceAdded}.
          */
-        var onDeviceRemoved: chrome.events.Event<(deviceId: integer) => void>;
+        const onDeviceRemoved: chrome.events.Event<(deviceId: integer) => void>;
     }
 
     /////////////////////////////////
@@ -4039,7 +4071,7 @@ declare namespace chrome {
          * Fired when signin state changes for an account on the user's profile.
          * @since Chrome 33.
          */
-        var onSignInChanged: chrome.events.Event<(account: AccountInfo, signedIn: boolean) => void>;
+        const onSignInChanged: chrome.events.Event<(account: AccountInfo, signedIn: boolean) => void>;
     }
 
     //////////
@@ -4156,7 +4188,7 @@ declare namespace chrome {
          */
         function deleteID(callback: () => void): void;
         /** Fired when all the granted tokens need to be refreshed. */
-        var onTokenRefresh: chrome.events.Event<() => void>;
+        const onTokenRefresh: chrome.events.Event<() => void>;
     }
 
     ////////////////////
@@ -4207,7 +4239,7 @@ declare namespace chrome {
          * with the 'serviceType' key. Not specifying an event
          * filter will not start any discovery listeners.
          */
-        var onServiceList: chrome.events.Event<(services: Service[]) => void>;
+        const onServiceList: chrome.events.Event<(services: Service[]) => void>;
 
     }
 
@@ -4439,12 +4471,12 @@ declare namespace chrome {
          * Fired when a media gallery is changed or a gallery watch is dropped
          * @since Since Chrome 38.
          */
-        var onGalleryChanged: chrome.events.Event<(args: GalleryChangedEventArgs) => void>;
+        const onGalleryChanged: chrome.events.Event<(args: GalleryChangedEventArgs) => void>;
         /**
          * @deprecated Deprecated since Chrome 51. The mediaGalleries API no longer supports scanning.
          * The pending media scan has changed state. See details for more information.
          */
-        var onScanProgress: chrome.events.Event<(args: ScanProgressEventArgs) => void>;
+        const onScanProgress: chrome.events.Event<(args: ScanProgressEventArgs) => void>;
     }
 
     ////////////////////////////////////
@@ -4865,21 +4897,21 @@ declare namespace chrome {
         interface NotificationShowSettingsEvent extends chrome.events.Event<() => void> { }
 
         /** The notification closed, either by the system or by user action. */
-        var onClosed: NotificationClosedEvent;
+        const onClosed: NotificationClosedEvent;
         /** The user clicked in a non-button area of the notification. */
-        var onClicked: NotificationClickedEvent;
+        const onClicked: NotificationClickedEvent;
         /** The user pressed a button in the notification. */
-        var onButtonClicked: NotificationButtonClickedEvent;
+        const onButtonClicked: NotificationButtonClickedEvent;
         /**
          * The user changes the permission level.
          * @since Chrome 32.
          */
-        var onPermissionLevelChanged: NotificationPermissionLevelChangedEvent;
+        const onPermissionLevelChanged: NotificationPermissionLevelChangedEvent;
         /**
          * The user clicked on a link for the app's notification settings.
          * @since Chrome 32.
          */
-        var onShowSettings: NotificationShowSettingsEvent;
+        const onShowSettings: NotificationShowSettingsEvent;
 
         /**
          * Creates and displays a notification.
@@ -5009,9 +5041,9 @@ declare namespace chrome {
         function remove(permissions: Permissions, callback?: (removed: boolean) => void): void;
 
         /** Fired when access to permissions has been removed from the extension. */
-        var onRemoved: PermissionsRemovedEvent;
+        const onRemoved: PermissionsRemovedEvent;
         /** Fired when the extension acquires new permissions. */
-        var onAdded: PermissionsAddedEvent;
+        const onAdded: PermissionsAddedEvent;
     }
 
     ////////////////////
@@ -5066,17 +5098,17 @@ declare namespace chrome {
         }
 
         /** Event fired when print manager requests printers provided by extensions. */
-        var onGetPrintersRequested: chrome.events.Event<(resultCallback: (printerInfo: PrinterInfo[]) => void) => void>;
+        const onGetPrintersRequested: chrome.events.Event<(resultCallback: (printerInfo: PrinterInfo[]) => void) => void>;
         /**
          * Event fired when print manager requests information about a USB device that may be a printer.
          * Note: An application should not rely on this event being fired more than once per device. If a connected device is supported it should be returned in the onGetPrintersRequested event.
          * @since Chrome 45.
          */
-        var onGetUsbPrinterInfoRequested: chrome.events.Event<(device: any, resultCallback: (printerInfo?: PrinterInfo) => void) => void>;
+        const onGetUsbPrinterInfoRequested: chrome.events.Event<(device: any, resultCallback: (printerInfo?: PrinterInfo) => void) => void>;
         /** Event fired when print manager requests printer capabilities. */
-        var onGetCapabilityRequested: chrome.events.Event<(printerId: string, resultCallback: (capabilities: PrinterCapabilities) => void) => void>;
+        const onGetCapabilityRequested: chrome.events.Event<(printerId: string, resultCallback: (capabilities: PrinterCapabilities) => void) => void>;
         /** Event fired when print manager requests printing. */
-        var onPrintRequested: chrome.events.Event<(printJob: PrintJob, resultCallback: (result: string) => void) => void>;
+        const onPrintRequested: chrome.events.Event<(printJob: PrintJob, resultCallback: (result: string) => void) => void>;
     }
 
     ////////////////////
@@ -5088,9 +5120,9 @@ declare namespace chrome {
      */
     namespace runtime {
         /** This will be defined during an API method callback if there was an error */
-        var lastError: LastError | undefined;
+        const lastError: LastError | undefined;
         /** The ID of the extension/app. */
-        var id: string;
+        const id: string;
 
         interface LastError {
             /** Details about the error which occurred.  */
@@ -5184,9 +5216,9 @@ declare namespace chrome {
              */
             sender?: MessageSender;
             /** An object which allows the addition and removal of listeners for a Chrome event. */
-            onDisconnect: PortDisconnectEvent;
+            onDisconnect: chrome.events.Event<(port: Port) => void>;
             /** An object which allows the addition and removal of listeners for a Chrome event. */
-            onMessage: PortMessageEvent;
+            onMessage: chrome.events.Event<(message: any, port: Port) => void>;
             name: string;
         }
 
@@ -5199,22 +5231,6 @@ declare namespace chrome {
             /** The version of the available update. */
             version: string;
         }
-
-        interface PortDisconnectEvent extends chrome.events.Event<(port: Port) => void> { }
-
-        interface PortMessageEvent extends chrome.events.Event<(message: any, port: Port) => void> { }
-
-        interface ExtensionMessageEvent extends chrome.events.Event<(message: any, sender: MessageSender, sendResponse: (response: any) => void) => void> { }
-
-        interface ExtensionConnectEvent extends chrome.events.Event<(port: Port) => void> { }
-
-        interface RuntimeInstalledEvent extends chrome.events.Event<(details: InstalledDetails) => void> { }
-
-        interface RuntimeEvent extends chrome.events.Event<() => void> { }
-
-        interface RuntimeRestartRequiredEvent extends chrome.events.Event<(reason: string) => void> { }
-
-        interface RuntimeUpdateAvailableEvent extends chrome.events.Event<(details: UpdateAvailableDetails) => void> { }
 
         interface ManifestIcons {
             [size: number]: string;
@@ -5243,6 +5259,63 @@ declare namespace chrome {
             prepopulated_id?: number;
             is_default?: boolean;
         }
+
+        type Permissions =
+            'alarms' |
+            'audio' |
+            'audioCapture' |
+            'background' |
+            'browser' |
+            'certificateProvider' |
+            'clipboard' |
+            'clipboardRead' |
+            'clipboardWrite' |
+            'contextMenus' |
+            'desktopCapture' |
+            'diagnostics' |
+            'displaySource' |
+            'dns' |
+            'documentScan' |
+            'enterprise.deviceAttributes' |
+            'enterprise.platformKeys' |
+            'experimental' |
+            'fileBrowserHandler' |
+            'fileSystem' |
+            'gcm' |
+            'geolocation' |
+            'hid' |
+            'identity' |
+            'idle' |
+            'mdns' |
+            'mediaGalleries' |
+            'nativeMessaging' |
+            'networking.config' |
+            'networking.onc' |
+            'notifications' |
+            'platformKeys' |
+            'pointerLock' |
+            'power' |
+            'printerProvider' |
+            'proxy' |
+            'serial' |
+            'signedInDevices' |
+            'socket' |
+            'storage' |
+            'syncFileSystem' |
+            'system.cpu' |
+            'system.display' |
+            'system.memory' |
+            'system.network' |
+            'system.powerSource' |
+            'system.storage' |
+            'tts' |
+            'unlimitedStorage' |
+            'usb' |
+            'videoCapture' |
+            'virtualKeyboard' |
+            'vpnProvider' |
+            'wallpaper' |
+            'webview';
 
         interface Manifest {
             /** Required */
@@ -5426,34 +5499,46 @@ declare namespace chrome {
          * @param application The name of the registered application to connect to.
          */
         function connectNative(application: string): Port;
-        /** Retrieves the JavaScript 'window' object for the background page running inside the current extension/app. If the background page is an event page, the system will ensure it is loaded before calling the callback. If there is no background page, an error is set. */
-        function getBackgroundPage(callback: (backgroundPage?: Window) => void): void;
+
         /**
-         * Returns details about the app or extension from the manifest. The object returned is a serialization of the full manifest file.
+         * Retrieves the JavaScript 'window' object for the background page running inside the current extension/app.
+         * If the background page is an event page, the system will ensure it is loaded before calling the callback.
+         * If there is no background page, an error is set.
+         */
+        function getBackgroundPage(callback: (backgroundPage?: Window) => void): void;
+
+        /**
+         * Returns details about the app or extension from the manifest.
+         * The object returned is a serialization of the full manifest file.
          * @returns The manifest details.
          */
         function getManifest(): Manifest;
+
         /**
          * Returns a DirectoryEntry for the package directory.
          * @since Chrome 29.
          */
         function getPackageDirectoryEntry(callback: (directoryEntry: DirectoryEntry) => void): void;
+
         /**
          * Returns information about the current platform.
          * @since Chrome 29.
          * @param callback Called with results
          */
         function getPlatformInfo(callback: (platformInfo: PlatformInfo) => void): void;
+
         /**
          * Converts a relative path within an app/extension install directory to a fully-qualified URL.
          * @param path A path to a resource within an app/extension expressed relative to its install directory.
          */
         function getURL(path: string): string;
+
         /**
          * Reloads the app or extension.
          * @since Chrome 25.
          */
         function reload(): void;
+
         /**
          * Requests an update check for this app/extension.
          * @since Chrome 25.
@@ -5462,11 +5547,13 @@ declare namespace chrome {
          * Optional parameter details: If an update is available, this contains more information about the available update.
          */
         function requestUpdateCheck(callback: (status: string, details?: UpdateCheckDetails) => void): void;
+
         /**
          * Restart the ChromeOS device when the app runs in kiosk mode. Otherwise, it's no-op.
          * @since Chrome 32.
          */
         function restart(): void;
+
         /**
          * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use tabs.sendMessage.
          * @since Chrome 26.
@@ -5474,6 +5561,7 @@ declare namespace chrome {
          * Parameter response: The JSON response object sent by the handler of the message. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message.
          */
         function sendMessage(message: any, responseCallback?: (response: any) => void): void;
+
         /**
          * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use tabs.sendMessage.
          * @since Chrome 32.
@@ -5481,6 +5569,7 @@ declare namespace chrome {
          * Parameter response: The JSON response object sent by the handler of the message. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message.
          */
         function sendMessage(message: any, options: MessageOptions, responseCallback?: (response: any) => void): void;
+
         /**
          * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use tabs.sendMessage.
          * @since Chrome 26.
@@ -5489,6 +5578,7 @@ declare namespace chrome {
          * Parameter response: The JSON response object sent by the handler of the message. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message.
          */
         function sendMessage(extensionId: string, message: any, responseCallback?: (response: any) => void): void;
+
         /**
          * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use tabs.sendMessage.
          * @since Chrome 32.
@@ -5497,6 +5587,7 @@ declare namespace chrome {
          * Parameter response: The JSON response object sent by the handler of the message. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message.
          */
         function sendMessage(extensionId: string, message: any, options: MessageOptions, responseCallback?: (response: any) => void): void;
+
         /**
          * Send a single message to a native application.
          * @since Chrome 28.
@@ -5506,6 +5597,7 @@ declare namespace chrome {
          * Parameter response: The response message sent by the native messaging host. If an error occurs while connecting to the native messaging host, the callback will be called with no arguments and runtime.lastError will be set to the error message.
          */
         function sendNativeMessage(application: string, message: Object, responseCallback?: (response: any) => void): void;
+
         /**
          * Sets the URL to be visited upon uninstallation. This may be used to clean up server-side data, do analytics, and implement surveys. Maximum 255 characters.
          * @since Chrome 41.
@@ -5514,6 +5606,7 @@ declare namespace chrome {
          * @param callback Called when the uninstall URL is set. If the given URL is invalid, runtime.lastError will be set.
          */
         function setUninstallURL(url: string, callback?: () => void): void;
+
         /**
          * Open your Extension's options page, if possible.
          * The precise behavior may depend on your manifest's options_ui or options_page key, or what Chrome happens to support at the time. For example, the page may be opened in a new tab, within chrome://extensions, within an App, or it may just focus an open options page. It will never cause the caller page to reload.
@@ -5522,52 +5615,59 @@ declare namespace chrome {
          */
         function openOptionsPage(callback?: () => void): void;
 
+
+        interface ExtensionMessageEvent extends chrome.events.Event<(message: any, sender: MessageSender, sendResponse: (response: any) => void) => void> { }
+
+        interface ExtensionConnectEvent extends chrome.events.Event<(port: Port) => void> { }
+
+        interface RuntimeEvent extends chrome.events.Event<() => void> { }
+
         /**
          * Fired when a connection is made from either an extension process or a content script.
          * @since Chrome 26.
          */
-        var onConnect: ExtensionConnectEvent;
+        const onConnect: ExtensionConnectEvent;
         /**
          * Fired when a connection is made from another extension.
          * @since Chrome 26.
          */
-        var onConnectExternal: ExtensionConnectEvent;
+        const onConnectExternal: ExtensionConnectEvent;
         /** Sent to the event page just before it is unloaded. This gives the extension opportunity to do some clean up. Note that since the page is unloading, any asynchronous operations started while handling this event are not guaranteed to complete. If more activity for the event page occurs before it gets unloaded the onSuspendCanceled event will be sent and the page won't be unloaded. */
-        var onSuspend: RuntimeEvent;
+        const onSuspend: RuntimeEvent;
         /**
          * Fired when a profile that has this extension installed first starts up. This event is not fired when an incognito profile is started, even if this extension is operating in 'split' incognito mode.
          * @since Chrome 23.
          */
-        var onStartup: RuntimeEvent;
+        const onStartup: RuntimeEvent;
         /** Fired when the extension is first installed, when the extension is updated to a new version, and when Chrome is updated to a new version. */
-        var onInstalled: RuntimeInstalledEvent;
+        const onInstalled: chrome.events.Event<(details: InstalledDetails) => void>;
         /** Sent after onSuspend to indicate that the app won't be unloaded after all. */
-        var onSuspendCanceled: RuntimeEvent;
+        const onSuspendCanceled: RuntimeEvent;
         /**
          * Fired when a message is sent from either an extension process or a content script.
          * @since Chrome 26.
          */
-        var onMessage: ExtensionMessageEvent;
+        const onMessage: ExtensionMessageEvent;
         /**
          * Fired when a message is sent from another extension/app. Cannot be used in a content script.
          * @since Chrome 26.
          */
-        var onMessageExternal: ExtensionMessageEvent;
+        const onMessageExternal: ExtensionMessageEvent;
         /**
          * Fired when an app or the device that it runs on needs to be restarted. The app should close all its windows at its earliest convenient time to let the restart to happen. If the app does nothing, a restart will be enforced after a 24-hour grace period has passed. Currently, this event is only fired for Chrome OS kiosk apps.
          * @since Chrome 29.
          */
-        var onRestartRequired: RuntimeRestartRequiredEvent;
+        const onRestartRequired: chrome.events.Event<(reason: string) => void>;
         /**
          * Fired when an update is available, but isn't installed immediately because the app is currently running. If you do nothing, the update will be installed the next time the background page gets unloaded, if you want it to be installed sooner you can explicitly call chrome.runtime.reload(). If your extension is using a persistent background page, the background page of course never gets unloaded, so unless you call chrome.runtime.reload() manually in response to this event the update will not get installed until the next time chrome itself restarts. If no handlers are listening for this event, and your extension has a persistent background page, it behaves as if chrome.runtime.reload() is called in response to this event.
          * @since Chrome 25.
          */
-        var onUpdateAvailable: RuntimeUpdateAvailableEvent;
+        const onUpdateAvailable: chrome.events.Event<(details: UpdateAvailableDetails) => void>;
         /**
          * @deprecated since Chrome 33. Please use chrome.runtime.onRestartRequired.
          * Fired when a Chrome update is available, but isn't installed immediately because a browser restart is required.
          */
-        var onBrowserUpdateAvailable: RuntimeEvent;
+        const onBrowserUpdateAvailable: RuntimeEvent;
     }
 
     ////////////////////
@@ -5701,8 +5801,8 @@ declare namespace chrome {
         function getInfo(socketId: number, callback: (socketInfo: SocketInfo) => void): void;
         function getSockets(callback: (socketInfos: SocketInfo[]) => void): void;
 
-        var onReceive: chrome.events.Event<(args: ReceiveEventArgs) => void>;
-        var onReceiveError: chrome.events.Event<(args: ReceiveErrorEventArgs) => void>;
+        const onReceive: chrome.events.Event<(args: ReceiveEventArgs) => void>;
+        const onReceiveError: chrome.events.Event<(args: ReceiveErrorEventArgs) => void>;
     }
 
     /**
@@ -5892,7 +5992,7 @@ declare namespace chrome {
          *
          * @see https://developer.chrome.com/apps/sockets_tcpServer#event-onAccept
          */
-        var onAccept: chrome.events.Event<(args: AcceptEventArgs) => void>;
+        const onAccept: chrome.events.Event<(args: AcceptEventArgs) => void>;
 
         /**
          * Event raised when a network error occured while the runtime was waiting
@@ -5902,7 +6002,7 @@ declare namespace chrome {
          *
          * @see https://developer.chrome.com/apps/sockets_tcpServer#event-onAcceptError
          */
-        var onAcceptError: chrome.events.Event<(args: AcceptErrorEventArgs) => void>;
+        const onAcceptError: chrome.events.Event<(args: AcceptErrorEventArgs) => void>;
     }
 
     /**
@@ -6186,7 +6286,7 @@ declare namespace chrome {
          *
          * @see https://developer.chrome.com/apps/sockets_udp#event-onReceive
          */
-        var onReceive: chrome.events.Event<(args: ReceiveEventArgs) => void>;
+        const onReceive: chrome.events.Event<(args: ReceiveEventArgs) => void>;
 
         /**
          * Event raised when a network error occured while the runtime was waiting
@@ -6196,7 +6296,7 @@ declare namespace chrome {
          *
          * @see https://developer.chrome.com/apps/sockets_udp#event-onReceiveError
          */
-        var onReceiveError: chrome.events.Event<(args: ReceiveErrorEventArgs) => void>;
+        const onReceiveError: chrome.events.Event<(args: ReceiveErrorEventArgs) => void>;
     }
 
     ////////////////////
@@ -6296,18 +6396,18 @@ declare namespace chrome {
         interface StorageChangedEvent extends chrome.events.Event<(changes: { [key: string]: StorageChange }, areaName: string) => void> { }
 
         /** Items in the local storage area are local to each machine. */
-        var local: LocalStorageArea;
+        const local: LocalStorageArea;
         /** Items in the sync storage area are synced using Chrome Sync. */
-        var sync: SyncStorageArea;
+        const sync: SyncStorageArea;
 
         /**
          * Items in the managed storage area are set by the domain administrator, and are read-only for the extension; trying to modify this namespace  results in an error.
          * @since Chrome 33.
          */
-        var managed: StorageArea;
+        const managed: StorageArea;
 
         /** Fired when one or more items change. */
-        var onChanged: StorageChangedEvent;
+        const onChanged: StorageChangedEvent;
     }
 
     ////////////////////
@@ -6450,9 +6550,9 @@ declare namespace chrome {
          */
         function getServiceStatus(callback: (status: ServiceStatus) => void): void;
         /** Fired when an error or other status change has happened in the sync backend (for example, when the sync is temporarily disabled due to network or authentication error). */
-        var onServiceStatusChanged: chrome.events.Event<(detail: { state: ServiceStatus, description: string }) => void>;
+        const onServiceStatusChanged: chrome.events.Event<(detail: { state: ServiceStatus, description: string }) => void>;
         /** Fired when a file has been updated by the background sync service. */
-        var onFileStatusChanged: chrome.events.Event<(detail: FileStatusChangedDetail) => void>;
+        const onFileStatusChanged: chrome.events.Event<(detail: FileStatusChangedDetail) => void>;
     }
 
 
@@ -6836,7 +6936,7 @@ declare namespace chrome {
           * Fired when anything changes to the display configuration.
          * @export
          */
-        var onDisplayChanged: DisplayChangedEvent;
+        const onDisplayChanged: DisplayChangedEvent;
     }
 
     ////////////////////
@@ -6923,9 +7023,9 @@ declare namespace chrome {
         function getAvailableCapacity(id: string, callback: (info: StorageCapacityInfo) => void): void;
 
         /** Fired when a new removable storage is attached to the system. */
-        var onAttached: SystemStorageAttachedEvent;
+        const onAttached: SystemStorageAttachedEvent;
         /** Fired when a removable storage is detached from the system. */
-        var onDetached: SystemStorageDetachedEvent;
+        const onDetached: SystemStorageDetachedEvent;
     }
 
     ////////////////////
@@ -7157,7 +7257,6 @@ declare namespace chrome {
         }
 
         type EndpointType = 'control' | 'interrupt' | 'isochronous' | 'bulk';
-
         type EndpointSyncType = 'asynchronous' | 'adaptive' | 'synchronous';
         type EndpointUsage = 'data' | 'feedback' | 'explicitFeedback';
 
@@ -7233,8 +7332,8 @@ declare namespace chrome {
 
         interface DeviceEvent extends chrome.events.Event<(device: Device) => void> { }
 
-        var onDeviceAdded: DeviceEvent;
-        var onDeviceRemoved: DeviceEvent;
+        const onDeviceAdded: DeviceEvent;
+        const onDeviceRemoved: DeviceEvent;
 
         function getDevices(options: { vendorId?: number, productId?: number, filters?: DeviceFilter[] }, callback: (devices: Device[]) => void): void;
         function getUserSelectedDevices(options: { multiple?: boolean, filters?: DeviceFilter[] }, callback: (devices: Device[]) => void): void;
@@ -7333,15 +7432,15 @@ declare namespace chrome {
         function notifyConnectionStateChanged(state: string, callback?: Function): void;
 
         /** Triggered when a message is received from the platform for a VPN configuration owned by the extension. */
-        var onPlatformMessage: VpnPlatformMessageEvent;
+        const onPlatformMessage: VpnPlatformMessageEvent;
         /** Triggered when an IP packet is received via the tunnel for the VPN session owned by the extension. */
-        var onPacketReceived: VpnPacketReceptionEvent;
+        const onPacketReceived: VpnPacketReceptionEvent;
         /** Triggered when a configuration created by the extension is removed by the platform. */
-        var onConfigRemoved: VpnConfigRemovalEvent;
+        const onConfigRemoved: VpnConfigRemovalEvent;
         /** Triggered when a configuration is created by the platform for the extension. */
-        var onConfigCreated: VpnConfigCreationEvent;
+        const onConfigCreated: VpnConfigCreationEvent;
         /** Triggered when there is a UI event for the extension. UI events are signals from the platform that indicate to the app that a UI dialog needs to be shown to the user. */
-        var onUIEvent: VpnUiEvent;
+        const onUIEvent: VpnUiEvent;
     }
 
     ///////////////
@@ -7578,7 +7677,7 @@ declare namespace chrome {
              * The following example code will create and navigate a new webview in the embedder for each requested new window:
              * @example
              * webview.addEventListener('newwindow', function(e) {
-             *  var newWebview = document.createElement('webview');
+             *  const newWebview = document.createElement('webview');
              *  document.body.appendChild(newWebview);
              *  e.window.attach(newWebview);
              * });
@@ -7962,7 +8061,7 @@ declare namespace chrome {
              * in the embedder for each requested new window:
              * @example
              * webview.addEventListener('newwindow', function(e) {
-             *   var newWebview = document.createElement('webview');
+             *   const newWebview = document.createElement('webview');
              *   document.body.appendChild(newWebview);
              *   e.window.attach(newWebview);
              * });
@@ -8398,7 +8497,7 @@ declare namespace chrome {
          * Note that conditions and actions for declarative webview webRequests should be instantiated
          * from their chrome.webViewRequest.* counterparts. The following example code declaratively
          * blocks all requests to 'example.com' on the webview myWebview:
-         * @example var rule = { conditions: [ new chrome.webViewRequest.RequestMatcher({ url: { hostSuffix: 'example.com' } }) ], actions: [ new chrome.webViewRequest.CancelRequest() ] }; myWebview.request.onRequest.addRules([rule]);
+         * @example const rule = { conditions: [ new chrome.webViewRequest.RequestMatcher({ url: { hostSuffix: 'example.com' } }) ], actions: [ new chrome.webViewRequest.CancelRequest() ] }; myWebview.request.onRequest.addRules([rule]);
          **/
         interface WebRequestEventInterface {
             /** @todo TODO */

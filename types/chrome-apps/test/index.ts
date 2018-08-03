@@ -2,7 +2,7 @@ import runtime = chrome.app.runtime;
 import cwindow = chrome.app.window;
 
 const createOptions: cwindow.CreateWindowOptions = {
-    id: "My Window",
+    id: 'My Window',
     bounds: {
         left: 0,
         top: 0,
@@ -42,11 +42,11 @@ var visibleEverywhere: boolean = chrome.app.window.canSetVisibleOnAllWorkspaces(
 
 function test_fileSystem(): void {
     var accepts: chrome.fileSystem.AcceptOptions[] = [
-        { mimeTypes: ["text/*"], extensions: ['js', 'css', 'txt', 'html', 'xml', 'tsv', 'csv', 'rtf'] }
+        { mimeTypes: ['text/*'], extensions: ['js', 'css', 'txt', 'html', 'xml', 'tsv', 'csv', 'rtf'] }
     ];
     var chooseOption: chrome.fileSystem.ChooseEntryOptions = {
-        type: "openFile",
-        suggestedName: "foo.txt",
+        type: 'openFile',
+        suggestedName: 'foo.txt',
         accepts: accepts,
         acceptsAllTypes: false,
         acceptsMultiple: false
@@ -98,7 +98,7 @@ function test_socketsTcp(): void {
     chrome.sockets.tcp.setNoDelay(socketId, true, (result: number) => { });
 
     // connect
-    chrome.sockets.tcp.connect(socketId, "192.168.0.1", 8080, (result: number) => { });
+    chrome.sockets.tcp.connect(socketId, '192.168.0.1', 8080, (result: number) => { });
 
     // disconnect
     chrome.sockets.tcp.disconnect(socketId);
@@ -132,7 +132,7 @@ function testSocketsTcpTypes(): void {
 
     properties = {
         persistent: true,
-        name: "test",
+        name: 'test',
         bufferSize: 1024
     };
 
@@ -146,11 +146,11 @@ function testSocketsTcpTypes(): void {
         connected: false
     };
 
-    socketInfo.name = "test";
+    socketInfo.name = 'test';
     socketInfo.bufferSize = 1024;
-    socketInfo.localAddress = "192.168.0.2";
+    socketInfo.localAddress = '192.168.0.2';
     socketInfo.localPort = 8000;
-    socketInfo.peerAddress = "192.168.0.3";
+    socketInfo.peerAddress = '192.168.0.3';
     socketInfo.peerPort = 1000;
 }
 
@@ -178,10 +178,10 @@ function test_socketsUdp(): void {
     chrome.sockets.udp.setPaused(socketId, true, () => { });
 
     // bind
-    chrome.sockets.udp.bind(socketId, "0.0.0.0", 8080, (result: number) => { });
+    chrome.sockets.udp.bind(socketId, '0.0.0.0', 8080, (result: number) => { });
 
     // send
-    chrome.sockets.udp.send(socketId, buffer, "172.21.0.1", 10080, (info: chrome.sockets.udp.SendInfo) => { });
+    chrome.sockets.udp.send(socketId, buffer, '172.21.0.1', 10080, (info: chrome.sockets.udp.SendInfo) => { });
 
     // close
     chrome.sockets.udp.close(socketId);
@@ -194,10 +194,10 @@ function test_socketsUdp(): void {
     chrome.sockets.udp.getSockets((infos: chrome.sockets.udp.SocketInfo[]) => { });
 
     // joinGroup
-    chrome.sockets.udp.joinGroup(socketId, "224.0.0.1", (result: number) => { });
+    chrome.sockets.udp.joinGroup(socketId, '224.0.0.1', (result: number) => { });
 
     // leaveGroup
-    chrome.sockets.udp.leaveGroup(socketId, "224.0.0.1", (result: number) => { });
+    chrome.sockets.udp.leaveGroup(socketId, '224.0.0.1', (result: number) => { });
 
     // setMulticastTimeToLive
     chrome.sockets.udp.setMulticastTimeToLive(socketId, 100, (result: number) => { });
@@ -223,7 +223,7 @@ function testSocketsUdpTypes(): void {
 
     properties = {
         persistent: true,
-        name: "test",
+        name: 'test',
         bufferSize: 1024
     };
 
@@ -236,9 +236,9 @@ function testSocketsUdpTypes(): void {
         paused: true
     };
 
-    socketInfo.name = "test";
+    socketInfo.name = 'test';
     socketInfo.bufferSize = 1024;
-    socketInfo.localAddress = "192.168.0.2";
+    socketInfo.localAddress = '192.168.0.2';
     socketInfo.localPort = 8000;
 }
 
@@ -266,8 +266,8 @@ function test_socketsTcpServer(): void {
     chrome.sockets.tcpServer.setPaused(socketId, true, () => { });
 
     // listen
-    chrome.sockets.tcpServer.listen(socketId, "0.0.0.0", 80, (result: number) => { });
-    chrome.sockets.tcpServer.listen(socketId, "0.0.0.0", 80, 128, (result: number) => { });
+    chrome.sockets.tcpServer.listen(socketId, '0.0.0.0', 80, (result: number) => { });
+    chrome.sockets.tcpServer.listen(socketId, '0.0.0.0', 80, 128, (result: number) => { });
 
     // disconnect
     chrome.sockets.tcp.disconnect(socketId);
@@ -298,7 +298,7 @@ function testSocketsTcpServerTypes(): void {
 
     properties = {
         persistent: true,
-        name: "test"
+        name: 'test'
     };
 
     // SocketInfo
@@ -310,8 +310,8 @@ function testSocketsTcpServerTypes(): void {
         paused: true
     };
 
-    socketInfo.name = "test";
-    socketInfo.localAddress = "192.168.0.2";
+    socketInfo.name = 'test';
+    socketInfo.localAddress = '192.168.0.2';
     socketInfo.localPort = 8000;
 }
 
@@ -340,7 +340,7 @@ wve.addEventListener('close', () => {
     return;
 });
 wve.addEventListener('consolemessage', (ev) => {
-    if (ev.level === chrome.webview.ConsoleMessageLevel.LOG_ERROR) {
+    if (ev.level === 2) {
         const msg = ev.message;
     }
 });
@@ -361,7 +361,7 @@ wve.addEventListener('loadredirect', (ev) => {
 });
 
 chrome.bluetooth.getAdapterState((adapter) => {
-    console.log("Adapter " + adapter.address + ": " + adapter.name);
+    console.log('Adapter ' + adapter.address + ': ' + adapter.name);
 });
 
 chrome.bluetooth.getDevices((devices) => {
@@ -392,13 +392,13 @@ chrome.bluetooth.getDevices((devices) => {
         chrome.bluetoothSocket.connect(createInfo.socketId,
             devices[0].address, uuid, () => {
                 if (chrome.runtime.lastError) {
-                    console.log("Connection failed: " + chrome.runtime.lastError.message);
+                    console.log('Connection failed: ' + chrome.runtime.lastError.message);
                 } else {
                     chrome.bluetoothSocket.send(createInfo.socketId, new ArrayBuffer(4096), (bytes_sent) => {
                         if (chrome.runtime.lastError) {
-                            console.log("Send failed: " + chrome.runtime.lastError.message);
+                            console.log('Send failed: ' + chrome.runtime.lastError.message);
                         } else {
-                            console.log("Sent " + bytes_sent + " bytes")
+                            console.log('Sent ' + bytes_sent + ' bytes')
                         }
                     });
                 }
@@ -438,28 +438,85 @@ chrome.i18n.getMessage('click_here', ['string1', 'string2']);
 const TLSFormatExample = {
     NetworkConfigurations: <chrome.networking.onc.NetworkConfigProperties>
         {
-            GUID: "{00f79111-51e0-e6e0-76b3b55450d80a1b}",
-            Name: "MyTTLSNetwork",
+            GUID: '{00f79111-51e0-e6e0-76b3b55450d80a1b}',
+            Name: 'MyTTLSNetwork',
             Type: 'WiFi',
             WiFi: {
                 AutoConnect: false,
                 EAP: {
                     ClientCertPattern: {
                         EnrollmentURI: [
-                            "http://fetch-my-certificate.com"
+                            'http://fetch-my-certificate.com'
                         ],
                         IssuerCARef: [
-                            "{6ed8dce9-64c8-d568-d225d7e467e37828}"
+                            '{6ed8dce9-64c8-d568-d225d7e467e37828}'
                         ]
                     },
-                    "ClientCertType": "Pattern",
-                    "Outer": "EAP-TLS",
-                    "ServerCARef": "{6ed8dce9-64c8-d568-d225d7e467e37828}",
-                    "UseSystemCAs": true
+                    'ClientCertType': 'Pattern',
+                    'Outer': 'EAP-TLS',
+                    'ServerCARef': '{6ed8dce9-64c8-d568-d225d7e467e37828}',
+                    'UseSystemCAs': true
                 },
-                "HiddenSSID": false,
-                "SSID": "MyTTLSNetwork",
-                "Security": "WPA-EAP"
+                'HiddenSSID': false,
+                'SSID': 'MyTTLSNetwork',
+                'Security': 'WPA-EAP'
             }
         }
 }
+
+let serviceId: any = null;
+
+const runApp = () => {
+    var options = {
+        'id': 'Bluetooth Sample App',
+        'bounds': {
+            'width': 1024,
+            'height': 768
+        }
+    };
+
+    chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+        if (request.serviceId) {
+            serviceId = request.serviceId;
+            console.log('Received registered service Id: ' + serviceId);
+        }
+    });
+
+    chrome.app.window.create('test.html', options, (theWindow) => {
+        theWindow.onClosed.addListener(() => {
+            if (serviceId) {
+                console.log('Unregistering service: ' + serviceId);
+                chrome.bluetoothLowEnergy.unregisterService(serviceId, (status) => {
+                    console.log('Unregister service status = ' + status);
+                });
+            }
+        });
+    });
+}
+
+chrome.app.runtime.onLaunched.addListener(runApp);
+chrome.app.runtime.onRestarted.addListener(runApp);
+
+// networking.onc
+
+chrome.networking.onc.getNetworks({ 'networkType': 'All' }, (networkList) => {
+    console.log('Length of Network list: ' + networkList.length);
+    for (let networkObj of networkList) {
+        console.log('GUID: ' + networkObj.GUID);
+        console.log('Connectable: ' + networkObj.Connectable);
+        if (networkObj.WiFi) {
+            // WiFi active :)
+            console.log('Wifi BSID: ' + networkObj.WiFi.BSSID);
+        }
+    }
+});
+
+//// AUDIO
+
+chrome.audio.getDevices({}, (audioDeviceInfoList) => {
+    for (let audioObj of audioDeviceInfoList) {
+        console.log('ID: ' + audioObj.id);
+        console.log('Audio Stream Type: ' + audioObj.streamType);
+        console.log('Audio Device Name: ' + audioObj.deviceName);
+    }
+});
