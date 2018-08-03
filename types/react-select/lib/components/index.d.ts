@@ -79,33 +79,7 @@ export interface SelectComponents<OptionType> {
   ValueContainer: ComponentType<ValueContainerProps<OptionType>>;
 }
 
-export interface SelectComponentsConfig<OptionType> {
-  ClearIndicator?: IndicatorComponentType<OptionType> | null;
-  Control?: ComponentType<ControlProps<OptionType>>;
-  DropdownIndicator?: IndicatorComponentType<OptionType> | null;
-  DownChevron?: ComponentType<any>;
-  CrossIcon?: ComponentType<any>;
-  Group?: ComponentType<GroupProps<OptionType>>;
-  GroupHeading?: ComponentType<any>;
-  IndicatorsContainer?: ComponentType<IndicatorContainerProps<OptionType>>;
-  IndicatorSeparator?: IndicatorComponentType<OptionType> | null;
-  Input?: ComponentType<InputProps>;
-  LoadingIndicator?: ComponentType<LoadingIconProps<OptionType>> | null;
-  Menu?: ComponentType<MenuProps<OptionType>>;
-  MenuList?: ComponentType<MenuListComponentProps<any>>;
-  MenuPortal?: ComponentType<MenuPortalProps<any>>;
-  LoadingMessage?: ComponentType<NoticeProps<any>>;
-  NoOptionsMessage?: ComponentType<NoticeProps<any>>;
-  MultiValue?: ComponentType<MultiValueProps<OptionType>>;
-  MultiValueContainer?: ComponentType<any>;
-  MultiValueLabel?: ComponentType<any>;
-  MultiValueRemove?: ComponentType<any>;
-  Option?: ComponentType<OptionProps<OptionType>>;
-  Placeholder?: ComponentType<PlaceholderProps<OptionType>>;
-  SelectContainer?: ComponentType<ContainerProps<OptionType>>;
-  SingleValue?: ComponentType<SingleValueProps<OptionType>>;
-  ValueContainer?: ComponentType<ValueContainerProps<OptionType>>;
-}
+export type SelectComponentsConfig<OptionType> = Partial<SelectComponents<OptionType>>;
 
 export namespace components {
   const ClearIndicator: IndicatorComponentType<any> | null;

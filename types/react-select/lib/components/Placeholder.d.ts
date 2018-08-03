@@ -10,7 +10,7 @@ export type PlaceholderProps<OptionType> = CommonProps<OptionType> & {
   innerProps: { [key: string]: any },
 };
 
-export function placeholderCSS(): any; // TODO css type
+export function placeholderCSS(): React.CSSProperties;
 
 export const Placeholder: ComponentType<PlaceholderProps<any>>;
 

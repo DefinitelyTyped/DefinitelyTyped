@@ -25,7 +25,7 @@ export type IndicatorProps<OptionType> = CommonProps<OptionType> & {
   isRtl: boolean,
 };
 
-export type baseCSS = (props: IndicatorProps<any>) => any; // TODO css type
+export type baseCSS = (props: IndicatorProps<any>) => React.CSSProperties;
 
 export const dropdownIndicatorCSS: baseCSS;
 export const DropdownIndicator: ComponentType<IndicatorProps<any>>;
@@ -39,7 +39,7 @@ export const ClearIndicator: ComponentType<IndicatorProps<any>>;
 
 export interface SeparatorState { isDisabled: boolean; }
 
-export function indicatorSeparatorCSS(state: SeparatorState): any; // TODO css type
+export function indicatorSeparatorCSS(state: SeparatorState): React.CSSProperties;
 
 export const IndicatorSeparator: ComponentType<IndicatorProps<any>>;
 
@@ -50,7 +50,7 @@ export const IndicatorSeparator: ComponentType<IndicatorProps<any>>;
 export function loadingIndicatorCSS(state: {
   isFocused: boolean,
   size: number,
-}): any; // TODO css type
+}): React.CSSProperties;
 
 export type LoadingIconProps<OptionType> = {
   /** Props that will be passed on to the children. */

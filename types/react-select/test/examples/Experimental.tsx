@@ -111,14 +111,14 @@ const Group = (props: any) => {
       >
         {label}
       </Heading>
-      <div style={daysHeaderStyles}>// TODO css type
+      <div style={daysHeaderStyles}>
         {days.map((day, i) => (
-          <span key={`${i}-${day}`} style={daysHeaderItemStyles}>// TODO css type
+          <span key={`${i}-${day}`} style={daysHeaderItemStyles}>
             {day}
           </span>
         ))}
       </div>
-      <div style={daysContainerStyles}>{children}</div>// TODO css type
+      <div style={daysContainerStyles}>{children}</div>
     </div>
   );
 };

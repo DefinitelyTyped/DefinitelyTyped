@@ -18,9 +18,9 @@ export type MultiValueProps<OptionType> = CommonProps<OptionType> &{
   },
 };
 
-export function multiValueCSS(): any; // TODO css type
-export function multiValueLabelCSS(props: MultiValueProps<any>): any; // TODO css type
-export function multiValueRemoveCSS(props: MultiValueProps<any>): any; // TODO css type
+export function multiValueCSS(): React.CSSProperties;
+export function multiValueLabelCSS(props: MultiValueProps<any>): React.CSSProperties;
+export function multiValueRemoveCSS(props: MultiValueProps<any>): React.CSSProperties;
 
 export interface MultiValueGenericProps<OptionType> {
   children: Node;
