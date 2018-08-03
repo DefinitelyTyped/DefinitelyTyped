@@ -949,6 +949,9 @@ declare namespace webpack {
             usedModuleIds: any;
             fileTimestamps: Map<string, number>;
             contextTimestamps: Map<string, number>;
+            fileDependencies: SortableSet<string>;
+            contextDependencies: SortableSet<string>;
+            missingDependencies: SortableSet<string>;
             hash?: string;
             getStats(): Stats;
             addModule(module: CompilationModule, cacheGroup: any): any;
@@ -1038,6 +1041,13 @@ declare namespace webpack {
         rmdir(path: string, callback: (err: Error) => void): void;
         unlink(path: string, callback: (err: Error) => void): void;
         writeFile(path: string, data: any, callback: (err: Error) => void): void;
+    }
+
+    interface SortableSet<T> extends Set<T> {
+        sortWith(sortFn: (a: T, b: T) => number): void;
+        sort(): void;
+        getFromCache(fn: (set: SortableSet<T>) => T[]): T[];
+        getFromUnorderedCache(fn: (set: SortableSet<T>) => string|number|T[]): any;
     }
 
     class Compiler extends Tapable implements ICompiler {

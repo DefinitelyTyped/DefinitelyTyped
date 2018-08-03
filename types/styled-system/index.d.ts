@@ -447,21 +447,22 @@ export interface GridRowProps {
 export function gridRow(...args: any[]): any;
 
 export type GridAutoValue = string;
+export type ResponsiveGridAutoValue = ResponsiveValue<GridAutoValue>;
 
 export interface GridAutoFlowProps {
-    gridAutoFlow?: GridAutoValue;
+    gridAutoFlow?: ResponsiveGridAutoValue;
 }
 
 export function gridAutoFlow(...args: any[]): any;
 
 export interface GridAutoRowsProps {
-    gridAutoRows?: GridAutoValue;
+    gridAutoRows?: ResponsiveGridAutoValue;
 }
 
 export function gridAutoRows(...args: any[]): any;
 
 export interface GridAutoColumnsProps {
-    gridAutoColumns?: GridAutoValue;
+    gridAutoColumns?: ResponsiveGridAutoValue;
 }
 
 export function gridAutoColumns(...args: any[]): any;
