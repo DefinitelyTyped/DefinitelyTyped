@@ -107,7 +107,7 @@ export interface Props<OptionType> {
   /* Formats group labels in the menu as React components */
   formatGroupLabel?: typeof formatGroupLabel;
   /* Formats option labels in the menu and control as React components */
-  formatOptionLabel?: (a: OptionType, b: FormatOptionLabelMeta<OptionType>) => Node;
+  formatOptionLabel?: (option: OptionType, labelMeta: FormatOptionLabelMeta<OptionType>) => Node;
   /* Resolves option data to a string to be displayed as the label by components */
   getOptionLabel?: typeof getOptionLabel;
   /* Resolves option data to a string to compare options and specify value attributes */
@@ -129,9 +129,9 @@ export interface Props<OptionType> {
   /* Is the select in a state of loading (async) */
   isLoading?: boolean;
   /* Override the built-in logic to detect whether an option is disabled */
-  isOptionDisabled?: (a: OptionType, b: OptionsType<OptionType>) => boolean | false;
+  isOptionDisabled?: (option: OptionType, options: OptionsType<OptionType>) => boolean | false;
   /* Override the built-in logic to detect whether an option is selected */
-  isOptionSelected?: (a: OptionType, b: OptionsType<OptionType>) => boolean;
+  isOptionSelected?: (option: OptionType, options: OptionsType<OptionType>) => boolean;
   /* Support multiple selected options */
   isMulti?: boolean;
   /* Is the select direction right-to-left */
