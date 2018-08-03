@@ -1,4 +1,5 @@
 import { CSSModule } from '../index';
+import { ThemeColor } from "./Color";
 
 export interface ProgressProps {
   bar?: boolean;
@@ -8,7 +9,7 @@ export interface ProgressProps {
   max?: string | number;
   animated?: boolean;
   striped?: boolean;
-  color?: string;
+  color?: ThemeColor;
   className?: string;
   cssModule?: CSSModule;
   barClassName?: string;

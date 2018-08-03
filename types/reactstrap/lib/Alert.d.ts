@@ -1,9 +1,10 @@
 import { CSSModule } from '../index';
+import { ThemeColor } from "./Color";
 
 export interface UncontrolledProps {
   className?: string;
   cssModule?: CSSModule;
-  color?: string;
+  color?: ThemeColor;
   tag?: React.ReactType;
   transitionAppearTimeout?: number;
   transitionEnterTimeout?: number;

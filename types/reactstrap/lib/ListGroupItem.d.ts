@@ -1,10 +1,11 @@
 import { CSSModule } from '../index';
+import { ThemeColor } from "./Color";
 
 export interface ListGroupItemProps {
   tag?: React.ReactType;
   active?: boolean;
   disabled?: boolean;
-  color?: string;
+  color?: ThemeColor;
   action?: boolean;
   className?: string;
   cssModule?: CSSModule;

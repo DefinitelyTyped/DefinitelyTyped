@@ -1,7 +1,8 @@
 import { CSSModule } from '../index';
+import { ThemeColor } from "./Color";
 
 export interface TagProps {
-  color?: string;
+  color?: ThemeColor;
   pill?: boolean;
   tag?: React.ReactType;
   className?: string;

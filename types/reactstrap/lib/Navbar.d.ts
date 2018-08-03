@@ -1,4 +1,5 @@
 import { CSSModule } from '../index';
+import { ThemeColor } from "./Color";
 
 export interface NavbarProps {
   light?: boolean;
@@ -7,7 +8,7 @@ export interface NavbarProps {
   full?: boolean;
   fixed?: string;
   sticky?: string;
-  color?: string;
+  color?: ThemeColor | "faded";
   role?: string;
   tag?: React.ReactType;
   className?: string;

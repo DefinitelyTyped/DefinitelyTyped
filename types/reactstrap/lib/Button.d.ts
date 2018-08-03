@@ -1,10 +1,11 @@
 import { CSSModule } from '../index';
+import { ButtonColor } from './Color'
 
 export interface ButtonProps extends React.HTMLProps<HTMLButtonElement> {
   outline?: boolean;
   active?: boolean;
   block?: boolean;
-  color?: string;
+  color?: ButtonColor;
   disabled?: boolean;
   tag?: React.ReactType;
   innerRef?: string | ((instance: HTMLButtonElement) => any);

@@ -1,4 +1,5 @@
 import { CSSModule } from '../index';
+import { ButtonColor } from "./Color";
 
 export interface InputGroupButtonProps {
   tag?: React.ReactType;
@@ -6,7 +7,7 @@ export interface InputGroupButtonProps {
   groupAttributes?: any;
   className?: string;
   cssModule?: CSSModule;
-  color?: string;
+  color?: ButtonColor;
 }
 
 declare const InputGroupButton: React.StatelessComponent<InputGroupButtonProps>;

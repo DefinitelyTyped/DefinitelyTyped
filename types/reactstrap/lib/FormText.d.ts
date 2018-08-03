@@ -1,9 +1,10 @@
 import { CSSModule } from '../index';
+import { TextColor } from "./Color";
 
 export interface FormTextProps {
   inline?: boolean;
   tag?: React.ReactType;
-  color?: string;
+  color?: TextColor;
   className?: string;
   cssModule?: CSSModule;
 }

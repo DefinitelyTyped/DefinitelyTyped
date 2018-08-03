@@ -1,4 +1,5 @@
 import { CSSModule } from '../index';
+import { ButtonColor } from "./Color";
 
 export interface DropdownToggleProps {
   caret?: boolean;
@@ -11,7 +12,7 @@ export interface DropdownToggleProps {
   split?: boolean;
   tag?: React.ReactType;
   nav?: boolean;
-  color?: string;
+  color?: ButtonColor;
   size?: string;
 }
 

@@ -166,7 +166,7 @@ class Example4 extends React.Component {
   render() {
     return (
       <div>
-        <Badge color="default" pill>default</Badge>{' '}
+        <Badge color="secondary" pill>default</Badge>{' '}
         <Badge color="primary" pill>primary</Badge>{' '}
         <Badge color="success" pill>success</Badge>{' '}
         <Badge color="info" pill>info</Badge>{' '}

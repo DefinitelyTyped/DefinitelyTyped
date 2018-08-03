@@ -5,7 +5,6 @@ export interface FormGroupProps extends React.HTMLProps<HTMLDivElement> {
   check?: boolean;
   disabled?: boolean;
   tag?: React.ReactType;
-  color?: string;
   className?: string;
   cssModule?: CSSModule;
 }
