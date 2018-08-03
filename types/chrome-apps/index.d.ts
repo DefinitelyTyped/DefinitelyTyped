@@ -5,7 +5,6 @@
 // TypeScript Version: 2.6
 
 /// <reference types='filesystem'/>
-/// <reference types='webrtc'/>
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // WebView ref                                                                                                    //

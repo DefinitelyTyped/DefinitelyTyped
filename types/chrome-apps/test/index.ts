@@ -1,6 +1,5 @@
-/// <reference types="webrtc" />
 import runtime = chrome.app.runtime;
-let cwindow = chrome.app.window;
+const cwindow = chrome.app.window;
 
 const createOptions: chrome.app.CreateWindowOptions = {
     id: 'My Window',
