@@ -5,7 +5,7 @@
 //                 Zheyang Song <https://github.com/ZheyangSong>,
 //                 Andrew Hathaway <https://github.com/andrewhathaway>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from "react";
 
