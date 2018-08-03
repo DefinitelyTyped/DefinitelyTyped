@@ -509,6 +509,15 @@ chrome.networking.onc.getNetworks({ 'networkType': 'All' }, (networkList) => {
             // WiFi active :)
             console.log('Wifi BSID: ' + networkObj.WiFi.BSSID);
         }
+        chrome.networking.onc.setProperties(networkObj.GUID || '', {
+            WiFi: {
+                Passphrase: 'Can be set :) but not get?'
+            }
+        })
+        // Test that we can't get passphrase
+        chrome.networking.onc.getProperties(networkObj.GUID || '', (props) => {
+            const WiFiResult = props.WiFi;
+        });
     }
 });
 

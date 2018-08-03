@@ -4845,26 +4845,38 @@ declare namespace chrome {
         type IPConfigType = 'DHCP' | 'Static'
         type NetworkType = 'All' | 'Cellular' | 'Ethernet' | 'VPN' | 'Wireless' | 'WiFi' | 'WiMAX'
         type ProxySettingsType = 'Direct' | 'Manual' | 'PAC' | 'WPAD';
-
         /**
          * Partial classes for internal use
          * @internal
          * @private
          */
         namespace _internal_ {
+            type ObjectFunction = 'unknown' | 'getter' | 'setter';
             interface NetworkConfigBase<
                 M extends ManagedObject = 'unmanaged',
-                IF extends InterfaceType = 'full'> {
+                IF extends InterfaceType = 'full',
+                OF extends ObjectFunction = 'unknown'> {
+                /** For cellular networks, cellular network properties. */
                 Cellular?: IF extends 'partial' ? CellularBase : CellularProperties<M>;
+                /** For Ethernet networks, the Ethernet network properties. */
                 Ethernet?: IF extends 'partial' ? { Authentication: string; } : EthernetProperties<M>;
+                /** The network GUID. */
                 GUID?: string;
+                /** The network's IP address configuration type. */
                 IPAddressConfigType?: M extends 'managed' ? ManagedIPConfigType : IPConfigType;
+                /** A user friendly network name. */
                 Name?: M extends 'managed' ? ManagedDOMString : string;
+                /** The IP configuration type for the name servers used by the network. */
                 NameServersConfigType?: M extends 'managed' ? ManagedIPConfigType : IPConfigType;
+                /** The network priority. */
                 Priority?: M extends 'managed' ? ManagedLong : integer;
+                /** The network type. */
                 Type?: NetworkType;
+                /** For VPN networks, the network VPN properties. */
                 VPN?: IF extends 'partial' ? { Type: string; } : VPNProperties<M>;
-                WiFi?: IF extends 'partial' ? WiFiPropertiesBase : WiFiProperties<M>;
+                /** For WiFi networks, the network WiFi properties. */
+                WiFi?: IF extends 'partial' ? WiFiPropertiesBase : WiFiProperties<M, OF>;
+                /** For WiMAX networks, the network WiMAX properties. */
                 WiMAX?: IF extends 'partial' ? { SignalStrength?: integer } : WiMAXProperties<M>;
             }
         }
@@ -4901,20 +4913,47 @@ declare namespace chrome {
         interface ManagedIPConfigType extends ManagedType<IPConfigType[]> { }
 
         interface CellularProviderProperties {
+            /** The operator name. */
             Name: string;
+            /** Cellular network ID as a simple concatenation of the network's MCC (Mobile Country Code) and MNC (Mobile Network Code). */
             Code: string;
+            /** The two-letter country code. */
             Country?: string;
         }
         interface IssuerSubjectPattern {
+            /** If set, the value against which to match the certificate subject's common name. */
             CommonName?: string;
+            /** If set, the value against which to match the certificate subject's common location. */
             Locality?: string;
+            /**
+             * If set, the value against which to match the certificate subject's organizations.
+             * At least one organization should match the value.
+             */
             Organization?: string;
+            /**
+             * If set, the value against which to match the certificate subject's organizational units.
+             * At least one organizational unit should match the value.
+             */
             OrganizationalUnit?: string;
         }
         interface CertPattern {
+            /**
+             * List of URIs to which the user can be directed in case
+             * no certificates that match this pattern are found.
+             */
             EnrollmentURI?: string[];
+            /**
+             * If set, pattern against which X.509 issuer settings should be matched.
+             */
             Issuer?: IssuerSubjectPattern;
+            /**
+             * List of certificate issuer CA certificates.
+             * A certificate must be signed by one of them in order to match this pattern.
+             */
             IssuerCARef?: string[];
+            /**
+             * If set, pattern against which X.509 subject settings should be matched.
+             */
             IssuerSubjectPattern?: IssuerSubjectPattern;
         }
         type ClientCertType = 'Ref' | 'Pattern';
@@ -4927,6 +4966,7 @@ declare namespace chrome {
             ClientCertType?: ClientCertType;
             Identity?: string;
             Inner?: string;
+            /** The outer EAP type. Required by ONC, but may not be provided when translating from Shill. */
             Outer?: string;
             Password?: string;
             SaveCredentials?: boolean;
@@ -4938,10 +4978,15 @@ declare namespace chrome {
             UseSytemCAs?: boolean;
         }
         interface FoundNetworkProperties {
+            /** Network availability. */
             Status: string;
+            /** Network ID. */
             NetworkId: string;
+            /** Access technology used by the network. */
             Technology: string;
+            /** The network operator's short-format name. */
             ShortName?: string;
+            /** The network operator's long-format name. */
             LongName?: string;
         }
         type IPConfigurationType = 'IPv4' | 'IPv6';
@@ -4950,203 +4995,476 @@ declare namespace chrome {
             S = M extends 'managed' ? ManagedDOMString : string,
             SL = M extends 'managed' ? ManagedDOMStringList : string[],
             L = M extends 'managed' ? ManagedLong : integer> {
+            /** Gateway address used for the IP configuration. */
             Gateway?: S;
+            /** The IP address for a connection. Can be IPv4 or IPv6 address, depending on value of Type. */
             IPAddress?: S;
+            /** Array of addresses used for name servers. */
             NameServers?: SL;
+            /** The routing prefix. */
             RoutingPrefix?: L;
+            /** The IP configuration type. Can be IPv4 or IPv6. */
             Type?: M extends 'managed' ? ManagedType<IPConfigurationType> : IPConfigurationType;
+            /** The URL for WEb Proxy Auto-Discovery, as reported over DHCP. */
             WebProxyAutoDiscoveryUrl?: S;
         }
-        interface PaymentPortal {
-            Method: string;
+        interface PaymentPortalPost {
+            /** The HTTP method to use for the payment portal. */
+            Method: 'POST';
+            /** The post data to send to the payment portal. */
             PostData?: string;
+            /** The payment portal URL. */
+            Url?: string;
+        }
+        interface PaymentPortal {
+            /** The HTTP method to use for the payment portal. */
+            Method: string;
+            /** The payment portal URL. */
             Url?: string;
         }
         interface ProxyLocation {
+            /** The proxy IP address host. */
             Host?: string;
+            /** The port to use for the proxy */
             Port?: integer;
         }
         interface ManagedProxyLocation {
+            /** The proxy IP address host. */
             Host?: ManagedDOMString;
+            /** The port to use for the proxy */
             Port?: ManagedLong;
         }
         interface ManualProxySettings<M,
             P = M extends 'managed' ? ManagedProxyLocation : ProxyLocation> {
+            /** Settings for HTTP proxy. */
             HTTPProxy?: P;
+            /** Settings for secure HTTP proxy. */
             SecureHTTPProxy?: P;
+            /** Settings for FTP proxy. */
             FTPProxy?: P;
+            /** Settings for SOCKS proxy. */
             SOCKS?: P;
         }
         interface ProxySettings<M,
             S = M extends 'managed' ? ManagedDOMString : string,
             SL = M extends 'managed' ? ManagedDOMStringList : string[]> {
+            /** The type of proxy settings. */
             Type: M extends 'managed' ? ManagedType<ProxySettingsType> : ProxySettingsType;
+            /** Manual proxy settings - used only for *Manual* proxy settings. */
             Manual?: ManualProxySettings<M>;
+            /** Domains and hosts for which manual proxy settings are excluded. */
             ExcludeDomains?: SL;
+            /** URL for proxy auto-configuration file. */
             PAC?: S;
         }
         interface SIMLockStatus {
-            LockType: string;
+            /** The status of SIM lock - possible values are 'sim-pin', 'sim-puk' and ''. */
+            LockType: 'sim-pin' | 'sim-puk' | '';
+            /** Whether SIM lock is enabled. */
             LockEnabled: boolean;
+            /** Number of PIN lock tries allowed before PUK is required to unlock the SIM. */
             RetriesLeft?: integer;
         }
         interface ThirdPartyVPNProperties {
+            /** ID of the third-party VPN provider extension. */
             ExtensionID: string;
+            /** The VPN provider name. */
             ProviderName?: string;
         }
         interface ManagedThirdPartyVPNProperties {
+            /** ID of the third-party VPN provider extension. */
             ExtensionID: ManagedDOMString;
+            /** The VPN provider name. */
             ProviderName?: string;
         }
         interface CellularBase {
+            /** Carrier account activation state. */
             ActivationState?: ActivationStateType;
+            /** If the modem is registered on a network, the network technology currently in use. */
             NetworkTechnology?: string;
+            /** The roaming state of the cellular modem on the current network. */
             RoamingState?: string;
+            /** Whether a SIM card is present. */
             SIMPresent?: boolean;
+            /** The current network signal strength. */
             SignalStrength?: integer;
         }
         interface CellularProperties<M extends ManagedObject = 'unmanaged'> extends CellularBase {
+            /** Whether the cellular network should be connected automatically (when in range). */
             AutoConnect?: M extends 'managed' ? ManagedBoolean : boolean;
+            /** The cellular network activation type. */
             ActivationType?: string;
+            /** Whether roaming is allowed for the network. */
             AllowRoaming?: boolean;
+            /** The name of the carrier for which the cellular device is configured. */
             Carrier?: M extends 'managed' ? ManagedDOMString : string;
-            Family?: string;
+            /** Cellular device technology family - CDMA or GSM. */
+            Family?: 'CDMA' | 'GSM';
+            /** The firmware revision loaded in the cellular modem. */
             FirmwareRevision?: string;
+            /** The list of networks found during the most recent network scan. */
             FoundNetworks?: FoundNetworkProperties[];
+            /** The cellular modem hardware revision. */
             HardwareRevision?: string;
+            /** Information about the operator that issued the SIM card currently installed in the modem. */
             HomeProvider?: CellularProviderProperties;
+            /** The cellular modem manufacturer. */
             MAnufacturer?: string;
+            /** The cellular modem model ID. */
             ModelID?: string;
-            PaymentPortal?: PaymentPortal;
+            /** Online payment portal a user can use to sign-up for or modify a mobile data plan. */
+            PaymentPortal?: PaymentPortal | PaymentPortalPost;
+            /** The revision of the Preferred Roaming List loaded in the modem. */
             PRLVersion?: integer;
             /**
              * @since Chrome 63.
+             * True when a cellular network scan is in progress.
              */
             Scanning?: boolean;
+            /** Information about the operator on whose network the modem is currently registered. */
             ServingOperator?: CellularProviderProperties;
+            /** The state of SIM lock for GSM family networks. */
             SIMLockStatus?: SIMLockStatus;
+            /** Whether the cellular network supports scanning. */
             SupportNetworkScan?: boolean;
+            /** A list of supported carriers. */
             SupportedCarriers?: string[];
         }
         type EthernetAuthenticationType = 'None' | '8021X';
-        interface EthernetProperties<M> {
+        interface EthernetProperties<M extends ManagedObject = 'unmanaged'> {
+            /** Whether the Ethernet network should be connected automatically. */
             AutoConnect?: M extends 'managed' ? ManagedBoolean : boolean;
+            /** The authentication used by the Ethernet network. Possible values are None and 8021X. */
             Authentication?: M extends 'managed' ? ManagedType<EthernetAuthenticationType> : EthernetAuthenticationType;
+            /** Network's EAP settings. Required for 8021X authentication. */
             EAP?: EAPProperties;
         }
         interface VPNProperties<M extends ManagedObject = 'unmanaged',
             B = M extends 'managed' ? ManagedBoolean : boolean,
             S = M extends 'managed' ? ManagedDOMString : string> {
+            /** Whether the VPN network should be connected automatically. */
             AutoConnect?: B;
+            /** The VPN host. */
             Host?: S;
+            /**
+             * The VPN type.
+             * This cannot be an enum because of 'L2TP-IPSec'.
+             * This is optional for NetworkConfigProperties which is passed to
+             * *setProperties* which may be used to set only specific properties.
+             */
             Type?: S;
         }
         interface WiFiPropertiesBase<M extends ManagedObject = 'unmanaged',
             S = M extends 'managed' ? ManagedDOMString : string> {
+            /** The BSSID of the associated access point.. */
             BSSID?: string;
+            /**
+             * The WiFi service operating frequency in MHz.
+             * For connected networks, the current frequency on which the network is connected.
+             * Otherwise, the frequency of the best available BSS.
+             */
             Frequency?: integer;
+            /** HEX-encoded copy of the network SSID. */
             HexSSID?: S;
+            /** The network security type. */
             Security?: S;
+            /** The network SSID. */
             SSID?: S;
+            /** The network signal strength. */
             SignalStrength?: integer;
         }
         interface WiFiProperties<M extends ManagedObject = 'unmanaged',
+            OF extends _internal_.ObjectFunction = 'getter',
             B = M extends 'managed' ? ManagedBoolean : boolean,
             S = M extends 'managed' ? ManagedDOMString : string,
-            L = M extends 'managed' ? ManagedLong : integer> extends WiFiPropertiesBase<M> {
+            L = M extends 'managed' ? ManagedLong : integer>
+            extends WiFiPropertiesBase<M> {
+            /**
+             * Whether ARP polling of default gateway is allowed.
+             * @default true
+             */
             AllowGatewayARPPolling?: B;
+            /** Whether the WiFi network should be connected automatically when in range. */
             AutoConnect?: B;
+            /** The network EAP properties. Required for WEP-8021X and WPA-EAP networks. */
             EAP?: EAPProperties;
+            /** Contains all operating frequency recently seen for the WiFi network. */
             FrequencyList?: integer[];
+            /** Whether the network SSID will be broadcast. */
             HiddenSSID?: B;
-            /** @since Chrome 66. */
-            Passphrase?: string;
+            /** Signal-to-noise value (in dB) below which roaming to a new network should be attempted. */
             RoamTreshold?: L;
-
+            /**
+             * @since Chrome 66.
+             * The passphrase for WEP/WPA/WPA2 connections.
+             * *This property can only be set!*
+             */
+            Passphrase?: OF extends 'setter' ? string : never;
         }
         interface WiMAXProperties<M extends ManagedObject = 'unmanaged',
             B = M extends 'managed' ? ManagedBoolean : boolean> {
+            /** Whether the network should be connected automatically. */
             AutoConnect?: B;
+            /** The network EAP properties. */
             EAP?: EAPProperties;
+            /** The network signal strength. */
             SignalStrength?: integer;
         }
         type ManagedObject = 'managed' | 'unmanaged';
         type InterfaceType = 'partial' | 'full';
-        interface NetworkConfigProperties extends _internal_.NetworkConfigBase<'unmanaged', 'full'> { }
+
+        interface NetworkConfigProperties<OF extends _internal_.ObjectFunction = 'unknown'>
+            extends _internal_.NetworkConfigBase<'unmanaged', 'full', OF> { }
+
         interface NetworkProperties<
             M extends ManagedObject = 'unmanaged',
-            IF extends InterfaceType = 'full'> extends _internal_.NetworkConfigBase<M, IF> {
+            IF extends InterfaceType = 'full'> extends _internal_.NetworkConfigBase<M, IF, 'getter'> {
+            /** Whether the network is connectable. */
             Connectable?: boolean;
+            /** The network's current connection state. */
             ConnectionState?: ConnectionStateType;
+            /** The last recorded network error state. */
             ErrorState?: string;
+            /** The network's IP configuration. */
             IPConfigs?: IPConfigProperties[];
+            /** The network's MAC address. */
             MacAddress?: string;
+            /** The network's proxy settings. */
             ProxySettings?: ProxySettings<'unmanaged'>;
+            /**
+             * For a connected network, whether the network connectivity to the Internet is limited,
+             * e.g. if the network is behind a portal, or a cellular network is not activated.
+             */
             RestrictedConnectivity?: boolean;
+            /** The network's static IP configuration. */
             StaticIPConfig?: IPConfigProperties<M>;
+            /** IP configuration that was received from the DHCP server before applying static IP configuration. */
             SavedIPConfig?: IPConfigProperties<'unmanaged'>;
+            /**
+             * Indicates whether and how the network is configured.
+             * 'None' conflicts with extension code generation,
+             * so we must use a string for 'Source' instead of a SourceType enum.
+             */
             Source?: 'Device' | 'DevicePolicy' | 'User' | 'UserPolicy' | 'None';
         }
         interface ManagedProperties extends NetworkProperties<'managed'> { }
         interface NetworkStateProperties extends NetworkProperties<'unmanaged', 'partial'> { }
 
+        /** Describes which networks to return. */
         interface Filter {
+            /** The type of networks to return. */
             networkType: NetworkType;
-            /** @default false */
+            /**
+             * If true, only include visible (physically connected or in-range) networks.
+             * @default false
+             */
             visible?: boolean;
-            /** @default false */
+            /**
+             * If true, only include configured (saved) networks.
+             * @default false
+             */
             configured?: boolean;
             /**
+             * Maximum number of networks to return.
              * Use 0 for no limit
-             * @default 1000
+             * @default 1000 if unspecified.
              * */
             limit?: integer;
         }
 
+        /* The current state of the device. */
         type DeviceState = 'Uninitialized' | 'Disabled' | 'Enabling' | 'Enabled' | 'Prohibited';
 
+        /** A list of devices and their state. */
         interface DeviceStates {
+            /** Set if the device is enabled. True if the device is currently scanning. */
             Scanning?: boolean;
+            /** The SIM lock status if Type = Cellular and SIMPresent = True. */
             SIMLockStatus?: SIMLockStatus;
+            /** Set to the SIM present state if the device type is Cellular. */
             SIMPresent?: boolean;
+            /**
+             * The current state of the device.
+             *
+             * **Uninitialized**
+             *  - Device is available but not initialized.
+             * **Disabled**
+             *  - Device is initialized but not enabled.
+             * **Enabling**
+             *  - Enabled state has been requested but has not completed.
+             * **Enabled**
+             *  - Device is enabled.
+             * **Prohibited**
+             *  - Device is prohibited.
+             */
             State: DeviceState;
+            /** The network type associated with the device (Cellular, Ethernet, WiFi, or WiMAX). */
             Type: NetworkType;
         }
 
         interface GlobalPolicy {
+            /**
+             * If true, only policy networks may auto connect.
+             * @default false
+             */
             AllowOnlyPolicyNetworksToAutoconnect?: boolean;
+            /**
+             * If true, only policy networks may be connected to
+             * and no new networks may be added or configured.
+             * @default false
+             */
             AllowOnlyPolicyNetworksToConnect?: boolean;
+            /**
+             * List of blacklisted networks.
+             * Connections to blacklisted networks are prohibited.
+             * Networks can be whitelisted again by specifying an explicit network configuration.
+             * @default []
+             */
             BlacklistedHexSSIDs?: string[];
         }
 
+        /**
+         * Gets all the properties of the network with id *networkGuid*.
+         * Includes all properties of the network (read-only and read/write values).
+         * @param networkGuid The GUID of the network to get properties for.
+         * @param callback Called with the network properties when received.
+         */
         function getProperties(networkGuid: string, callback: (result: NetworkProperties) => void): void;
+        /**
+         * Gets the merged properties of the network with id networkGuid from the sources:
+         * User settings, shared settings, user policy, device policy and the currently active settings.
+         * @param networkGuid The GUID of the network to get properties for.
+         * @param callback Called with the managed network properties when received.
+         */
         function getManagedProperties(networkGuid: string, callback: (result: ManagedProperties) => void): void;
+        /**
+         * Gets the cached read-only properties of the network with id *networkGuid*.
+         * This is meant to be a higher performance function than *getProperties*,
+         * which requires a round trip to query the networking subsystem.
+         * The following properties are returned for all networks:
+         * GUID, Type, Name, WiFi.Security.
+         * Additional properties are provided for visible networks:
+         * ConnectionState, ErrorState, WiFi.SignalStrength,
+         * Cellular.NetworkTechnology, Cellular.ActivationState, Cellular.RoamingState.
+         * @param networkGuid The GUID of the network to get properties for.
+         * @param callback Called immediately with the network state properties.
+         */
         function getState(networkGuid: string, callback: (result: NetworkStateProperties) => void): void;
-        function setProperties(networkGuid: string, properties: NetworkConfigProperties, callback?: () => void): void;
-        function createNetwork(shared: boolean, properties: NetworkConfigProperties, callback?: () => void): void;
+        /**
+         * Sets the properties of the network with id *networkGuid*.
+         * This is only valid for configured networks (Source != None).
+         * Unconfigured visible networks should use **createNetwork** instead.
+         * **In kiosk sessions, calling this method on a shared network will fail.**
+         * @param networkGuid The GUID of the network to set properties for.
+         * @param properties The properties to set.
+         * @param [callback] Called when the operation has completed.
+         */
+        function setProperties(networkGuid: string, properties: NetworkConfigProperties<'setter'>, callback?: () => void): void;
+        /**
+         * Creates a new network configuration from properties.
+         * If a matching configured network already exists, this will fail.
+         * Otherwise returns the GUID of the new network.
+         * @param shared If true, share this network configuration with other users.
+         *               Note: This option is exposed only to Chrome's Web UI.
+         *               When called by apps, false is the only allowed value.
+         * @param properties The properties to configure the new network with.
+         * @param [callback] Called with the GUID for the new network configuration once the network has been created.
+         */
+        function createNetwork(shared: false, properties: NetworkConfigProperties<'setter'>, callback?: () => void): void;
+        /**
+         * Forgets a network configuration by clearing any configured properties for the network with GUID networkGuid.
+         * This may also include any other networks with matching identifiers (e.g. WiFi SSID and Security).
+         * If no such configuration exists, an error will be set and the operation will fail.
+         * **In kiosk sessions, this method will not be able to forget shared network configurations.**
+         * @param networkGuid The GUID of the network to forget.
+         * @param [callback] Called when the operation has completed.
+         */
         function forgetNetwork(networkGuid: string, callback?: () => void): void;
+        /**
+         * Returns a list of network objects with the same properties provided by *getState*.
+         * A filter is provided to specify the type of networks returned and to limit the number of networks.
+         * Networks are ordered by the system based on their priority, with connected or connecting networks listed first.
+         * @param callback Called with a dictionary of networks and their state properties when received.
+         */
         function getNetworks(filter: Filter, callback: (result: NetworkStateProperties[]) => void): void;
-        function getDeviceStates(callback?: (result: DeviceStates[]) => void): void;
+        /**
+         * Returns states of available networking devices.
+         * @param callback Called with a list of devices and their state.
+         */
+        function getDeviceStates(callback: (result: DeviceStates[]) => void): void;
+        /**
+         * Enables any devices matching the specified network type.
+         * Note, the type might represent multiple network types (e.g. 'Wireless').
+         * @param networkType The type of network to enable.
+         */
         function enableNetworkType(networkType: NetworkType): void;
+        /**
+         * Disables any devices matching the specified network type.
+         * Note, the type might represent multiple network types (e.g. 'Wireless').
+         * @param networkType The type of network to disable.
+         */
         function disableNetworkType(networkType: NetworkType): void;
+        /**
+         * Requests that the networking subsystem scan for new networks and update the list returned by *getVisibleNetworks*.
+         * This is only a request: the network subsystem can choose to ignore it.
+         * If the list is updated, then the *onNetworkListChanged* event will be fired.
+         */
         function requestNetworkScan(): void;
         /**
+         * Requests that the networking subsystem scan for new networks and update the list returned by *getVisibleNetworks*.
+         * This is only a request: the network subsystem can choose to ignore it.
+         * If the list is updated, then the *onNetworkListChanged* event will be fired.
          * @param networkType If provided, requests a scan specific to the type. For Cellular a mobile network scan will be requested if supported.
          * @since Chrome 63.
          */
         function requestNetworkScan(networkType: NetworkType): void;
+        /**
+         * @description Starts a connection to the network with networkGuid.
+         * @param networkGuid The GUID of the network to connect to.
+         * @param [callback] Creates a new network configuration from properties.
+         *                   If a matching configured network already exists, this will fail.
+         *                   Otherwise returns the GUID of the new network.
+         */
         function startConnect(networkGuid: string, callback?: () => void): void;
+        /**
+         * @description Starts a disconnect from the network with networkGuid.
+         * @param networkGuid The GUID of the network to connect to.
+         * @param [callback] Called when the disconnect request has been sent. See note for *startConnect*.
+         */
         function startDisconnect(networkGuid: string, callback?: () => void): void;
+        /**
+         * Returns captive portal status for the network matching 'networkGuid'.
+         * @param networkGuid The GUID of the network to get captive portal status for.
+         * @param callback A callback function that returns the results of the query for network captive portal status.
+         */
         function getCaptivePortalStatus(networkGuid: string, callback: (result: CaptivePortalStatus) => void): void;
+        /**
+         * Gets the global policy properties.
+         * These properties are not expected to change during a session.
+         */
         function getGlobalPolicy(callback: (result: GlobalPolicy) => void): void;
 
         //
         // EVENTS
         //
 
+        /**
+         * Fired when the properties change on any of the networks.
+         * Sends a list of GUIDs for networks whose properties have changed.
+         */
         const onNetworksChanged: chrome.events.Event<(changes: string[]) => void>;
+        /**
+         * Fired when the list of networks has changed. Sends a complete list of GUIDs for all the current networks.
+         */
         const onNetworkListChanged: chrome.events.Event<(changes: string[]) => void>;
+        /**
+         * Fired when the list of devices has changed or any device state properties have changed.
+         */
         const onDeviceStateListChanged: chrome.events.Event<() => void>;
+        /**
+         * Fired when a portal detection for a network completes.
+         * Sends the GUID of the network and the corresponding captive portal status.
+         */
         const onPortalDetectionCompleted: chrome.events.Event<(networkGuid: string, status: CaptivePortalStatus) => void>;
     }
 
@@ -5783,6 +6101,15 @@ declare namespace chrome {
                 pages: string[];
                 content_security_policy?: string;
             };
+            /**
+             * The short_name (maximum of 12 characters recommended) is
+             * a short version of the app's name. It is an optional field
+             * and if not specified, the name will be used, though it will
+             * likely be truncated. The short name is typically used where
+             * there is insufficient space to display the full name, such as:
+             * - App launcher
+             * - New Tab page
+             */
             short_name?: string;
             signature?: any;
             sockets?: {
@@ -5797,7 +6124,7 @@ declare namespace chrome {
                 managed_schema: string
             };
             system_indicator?: any;
-            update_url?: string;
+            // update_url?: string; // Listed but deprecated since Chrome 33 - leaving it here so it's not added again
             url_handlers?: {
                 [name: string]: {
                     matches: string[];
