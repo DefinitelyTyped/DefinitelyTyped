@@ -1,7 +1,9 @@
 import { CSSModule } from '../index';
 import { ButtonColor } from './Color'
 
-export interface ButtonProps extends React.HTMLProps<HTMLButtonElement> {
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
+
+export interface ButtonProps extends Omit<React.HTMLProps<HTMLButtonElement>, 'size'> {
   outline?: boolean;
   active?: boolean;
   block?: boolean;
@@ -11,7 +13,7 @@ export interface ButtonProps extends React.HTMLProps<HTMLButtonElement> {
   innerRef?: string | ((instance: HTMLButtonElement) => any);
 
   onClick?: React.MouseEventHandler<any>;
-  size?: any;
+  size?: 'sm' | 'lg';
   id?: string;
   style?: React.CSSProperties;
 
