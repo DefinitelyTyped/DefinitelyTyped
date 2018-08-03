@@ -42,6 +42,7 @@ export interface KeyboardStatic {
 }
 
 export interface ClipboardStatic {
+    convert(html: string|Blot): DeltaStatic;
     addMatcher(selectorOrNodeType: string|number, callback: (node: any, delta: DeltaStatic) => DeltaStatic): void;
     dangerouslyPasteHTML(html: string, source?: Sources): void;
     dangerouslyPasteHTML(index: number, html: string, source?: Sources): void;
