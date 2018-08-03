@@ -212,6 +212,7 @@ declare module "../index" {
     type ValueIterateeCustom<T, TResult> = ((value: T) => TResult) | IterateeShorthand<T>;
     type ValueIteratorTypeGuard<T, S extends T> = (value: T) => value is S;
     type ValueKeyIteratee<T> = ((value: T, key: string) => NotVoid) | IterateeShorthand<T>;
+    type ValueKeyIterateeTypeGuard<T, S extends T> = (value: T, key: string) => value is S;
     type Comparator<T> = (a: T, b: T) => boolean;
     type Comparator2<T1, T2> = (a: T1, b: T2) => boolean;
 

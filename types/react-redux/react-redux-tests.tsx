@@ -832,7 +832,12 @@ namespace TestDispatchToPropsAsObject {
 	<Header />
 }
 
-namespace TestInferredFunctionalComponent {
+namespace TestInferredFunctionalComponentWithExplicitOwnProps {
+  type Props = {
+    title: string,
+    extraText: string,
+    onClick: () => void,
+  };
 
 	const Header = connect(
 		(
@@ -845,7 +850,30 @@ namespace TestInferredFunctionalComponent {
 		(dispatch) => ({
 			onClick: () => dispatch({ type: 'test' })
 		})
-	)(({ title, extraText, onClick }) => {
+	)(({ title, extraText, onClick }: Props) => {
+		return <h1 onClick={onClick}>{title} {extraText}</h1>;
+	});
+	<Header extraText='text'/>
+}
+
+namespace TestInferredFunctionalComponentWithImplicitOwnProps {
+
+  type Props = {
+    title: string,
+    extraText: string,
+    onClick: () => void,
+  };
+
+	const Header = connect(
+		(
+			{ app: { title }}: { app: { title: string }},
+		) => ({
+			title,
+		}),
+		(dispatch) => ({
+			onClick: () => dispatch({ type: 'test' })
+		})
+	)(({ title, extraText, onClick }: Props) => {
 		return <h1 onClick={onClick}>{title} {extraText}</h1>;
 	});
 	<Header extraText='text'/>
