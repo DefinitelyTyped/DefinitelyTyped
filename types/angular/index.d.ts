@@ -1137,12 +1137,12 @@ declare namespace angular {
          *
          * @param value Value or a promise
          */
-        resolve<T>(value: IPromiseGlobal<T>|T): IPromise<T>;
+        resolve<T>(value: PromiseLike<T>|T): IPromise<T>;
         /**
          * @deprecated Since TS 2.4, inference is stricter and no longer produces the desired type when T1 !== T2.
          * To use resolve with two different types, pass a union type to the single-type-argument overload.
          */
-        resolve<T1, T2>(value: IPromiseGlobal<T1>|T2): IPromise<T1|T2>;
+        resolve<T1, T2>(value: PromiseLike<T1>|T2): IPromise<T1|T2>;
         /**
          * Wraps an object that might be a value or a (3rd party) then-able promise into a $q promise. This is useful when you are dealing with an object that might or might not be a promise, or if the promise comes from a source that can't be trusted.
          */
@@ -1152,11 +1152,11 @@ declare namespace angular {
          *
          * @param value Value or a promise
          */
-        when<T>(value: IPromiseGlobal<T>|T): IPromise<T>;
-        when<T1, T2>(value: IPromiseGlobal<T1>|T2): IPromise<T1|T2>;
-        when<TResult, T>(value: IPromiseGlobal<T>|T, successCallback: (promiseValue: T) => IPromise<TResult>|TResult): IPromise<TResult>;
+        when<T>(value: PromiseLike<T>|T): IPromise<T>;
+        when<T1, T2>(value: PromiseLike<T1>|T2): IPromise<T1|T2>;
+        when<TResult, T>(value: PromiseLike<T>|T, successCallback: (promiseValue: T) => IPromise<TResult>|TResult): IPromise<TResult>;
         when<TResult, T>(value: T, successCallback: (promiseValue: T) => IPromise<TResult>|TResult, errorCallback: null | undefined | ((reason: any) => any), notifyCallback?: (state: any) => any): IPromise<TResult>;
-        when<TResult, TResult2, T>(value: IPromiseGlobal<T>, successCallback: (promiseValue: T) => IPromise<TResult>|TResult, errorCallback: (reason: any) => TResult2 | IPromise<TResult2>, notifyCallback?: (state: any) => any): IPromise<TResult | TResult2>;
+        when<TResult, TResult2, T>(value: PromiseLike<T>, successCallback: (promiseValue: T) => IPromise<TResult>|TResult, errorCallback: (reason: any) => TResult2 | IPromise<TResult2>, notifyCallback?: (state: any) => any): IPromise<TResult | TResult2>;
         /**
          * Wraps an object that might be a value or a (3rd party) then-able promise into a $q promise. This is useful when you are dealing with an object that might or might not be a promise, or if the promise comes from a source that can't be trusted.
          */
@@ -1182,11 +1182,7 @@ declare namespace angular {
         errorOnUnhandledRejections(value: boolean): IQProvider;
     }
 
-    /**
-     * Spec that all promises should adhere to, for typing reasons -- so when and resolve can take
-     * 3rd party promises as arguments (ES6 Promises don't have finally)
-     */
-    interface IPromiseGlobal<T> {
+    interface IPromise<T> {
         /**
          * Regardless of when the promise was or will be resolved or rejected, then calls one of
          * the success or error callbacks asynchronously as soon as the result is available. The
@@ -1218,9 +1214,7 @@ declare namespace angular {
                 | ((reason: any) => IPromise<never> | IPromise<TResult> | TResult)
                 | null
         ): IPromise<T | TResult>;
-    }
 
-    interface IPromise<T> extends IPromiseGlobal<T> {
         /**
          * Allows you to observe either the fulfillment or rejection of a promise, but to do so without modifying the final value. This is useful to release resources or do some clean-up that needs to be done whether the promise was rejected or resolved. See the full specification for more information.
          *
