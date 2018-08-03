@@ -394,7 +394,7 @@ chrome.bluetooth.getDevices((devices) => {
                 if (chrome.runtime.lastError) {
                     console.log("Connection failed: " + chrome.runtime.lastError.message);
                 } else {
-                    chrome.bluetoothSocket.send(createInfo.socketId, new ArrayBuffer(4096), function (bytes_sent) {
+                    chrome.bluetoothSocket.send(createInfo.socketId, new ArrayBuffer(4096), (bytes_sent) => {
                         if (chrome.runtime.lastError) {
                             console.log("Send failed: " + chrome.runtime.lastError.message);
                         } else {
@@ -423,7 +423,7 @@ chrome.hid.getDevices({
 });
 
 chrome.syncFileSystem.getConflictResolutionPolicy((policy) => {
-    if (policy === chrome.syncFileSystem.ConflictResolutionPolicy.manual) {
+    if (policy === 'manual') {
         chrome.syncFileSystem.requestFileSystem((fs) => {
             if (fs.root.isFile) {
                 throw new Error('It was a file!');
@@ -434,3 +434,32 @@ chrome.syncFileSystem.getConflictResolutionPolicy((policy) => {
 chrome.contextMenus.ACTION_MENU_TOP_LEVEL_LIMIT;
 
 chrome.i18n.getMessage('click_here', ['string1', 'string2']);
+
+const TLSFormatExample = {
+    NetworkConfigurations: <chrome.networking.onc.NetworkConfigProperties>
+        {
+            GUID: "{00f79111-51e0-e6e0-76b3b55450d80a1b}",
+            Name: "MyTTLSNetwork",
+            Type: 'WiFi',
+            WiFi: {
+                AutoConnect: false,
+                EAP: {
+                    ClientCertPattern: {
+                        EnrollmentURI: [
+                            "http://fetch-my-certificate.com"
+                        ],
+                        IssuerCARef: [
+                            "{6ed8dce9-64c8-d568-d225d7e467e37828}"
+                        ]
+                    },
+                    "ClientCertType": "Pattern",
+                    "Outer": "EAP-TLS",
+                    "ServerCARef": "{6ed8dce9-64c8-d568-d225d7e467e37828}",
+                    "UseSystemCAs": true
+                },
+                "HiddenSSID": false,
+                "SSID": "MyTTLSNetwork",
+                "Security": "WPA-EAP"
+            }
+        }
+}

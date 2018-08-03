@@ -57,9 +57,9 @@ declare namespace chrome {
             incognito?: boolean;
         }
 
-        enum LevelOfControl {
-            'not_controllable', 'controlled_by_other_extensions', 'controllable_by_this_extension', 'controlled_by_this_extension'
-        }
+        type LevelOfControl =
+            'not_controllable' | 'controlled_by_other_extensions' |
+            'controllable_by_this_extension' | 'controlled_by_this_extension';
 
         interface AccessibilityFeaturesCallbackArg {
             /** The value of the setting. */
@@ -76,9 +76,7 @@ declare namespace chrome {
             incognitoSpecific?: boolean;
         }
 
-        enum Scope {
-            'regular', 'regular_only', 'incognito_persistent', 'incognito_session_only'
-        }
+        type Scope = 'regular' | 'regular_only' | 'incognito_persistent' | 'incognito_session_only';
 
         interface AccessibilityFeaturesSetArg {
             /**
@@ -298,12 +296,11 @@ declare namespace chrome {
      * and can shut down the app at anytime.
      */
     namespace app.runtime {
-        enum LaunchSource {
-            'untracked', 'app_launcher', 'new_tab_page', 'reload', 'restart',
-            'load_and_launch', 'command_line', 'file_handler', 'url_handler', 'system_tray',
-            'about_page', 'keyboard', 'extensions_page', 'management_api', 'ephemeral_app',
-            'background', 'kiosk', 'chrome_internal', 'test', 'installed_notification', 'context_menu'
-        }
+        type LaunchSource =
+            'untracked' | 'app_launcher' | 'new_tab_page' | 'reload' | 'restart' |
+            'load_and_launch' | 'command_line' | 'file_handler' | 'url_handler' | 'system_tray' |
+            'about_page' | 'keyboard' | 'extensions_page' | 'management_api' | 'ephemeral_app' |
+            'background' | 'kiosk' | 'chrome_internal' | 'test' | 'installed_notification' | 'context_menu';
 
         interface EmbedRequest {
             /**
@@ -356,7 +353,7 @@ declare namespace chrome {
             /**
              * Contains data that specifies the ActionType this app was launched with. This is null if the app was not launched with a specific action intent.
              *  ______________________________________________________________________________
-             * | enum of 'new_note' | actionType | new_note                                   |
+             * | type of 'new_note' | actionType | new_note                                   |
              * |                    |            | The user wants to quickly take a new note. |
              * |____________________|____________|____________________________________________|
              * @since Since Chrome 54.
@@ -506,9 +503,7 @@ declare namespace chrome {
             inactiveColor?: string;
         }
 
-        enum WindowState {
-            'normal', 'fullscreen', 'maximized', 'minimized'
-        }
+        type WindowState = 'normal' | 'fullscreen' | 'maximized' | 'minimized';
 
         interface CreateWindowOptions {
             /**
@@ -759,12 +754,14 @@ declare namespace chrome {
      * This API is currently only implemented for ChromeOS.
      */
     namespace audio {
-        enum StreamType {
-            'INPUT', 'OUTPUT'
-        }
-        enum DeviceType {
-            'HEADPHONE', 'MIC', 'USB', 'BLUETOOTH', 'HDMI', 'INTERNAL_SPEAKER', 'INTERNAL_MIC', 'FRONT_MIC', 'REAR_MIC', 'KEYBOARD_MIC', 'HOTWORD', 'LINEOUT', 'POST_MIX_LOOPBACK', 'POST_DSP_LOOPBACK', 'OTHER'
-        }
+        type StreamType = 'INPUT' | 'OUTPUT';
+        type DeviceType =
+            'HEADPHONE' | 'MIC' | 'USB' |
+            'BLUETOOTH' | 'HDMI' | 'INTERNAL_SPEAKER' |
+            'INTERNAL_MIC' | 'FRONT_MIC' | 'REAR_MIC' |
+            'KEYBOARD_MIC' | 'HOTWORD' | 'LINEOUT' |
+            'POST_MIX_LOOPBACK' | 'POST_DSP_LOOPBACK' | 'OTHER';
+
         interface AudioDeviceInfo {
             /** The unique identifier of the audio device. */
             id: string;
@@ -892,12 +889,14 @@ declare namespace chrome {
             /** Indicates whether or not the adapter is currently discovering. */
             discovering: boolean;
         }
-        enum DeviceType {
-            'computer', 'phone', 'modem', 'audio', 'carAudio', 'video', 'peripheral', 'joystick', 'gamepad', 'keyboard', 'mouse', 'tablet', 'keyboardMouseCombo'
-        }
-        enum DeviceVendorIdSource {
-            'bluetooth', 'usb'
-        }
+        type DeviceType =
+            'computer' | 'phone' | 'modem' |
+            'audio' | 'carAudio' | 'video' |
+            'peripheral' | 'joystick' | 'gamepad' |
+            'keyboard' | 'mouse' | 'tablet' | 'keyboardMouseCombo';
+
+        type DeviceVendorIdSource = 'bluetooth' | 'usb';
+
         interface Device {
             /** The address of the device, in the format 'XX:XX:XX:XX:XX:XX'. */
             address: string;
@@ -953,9 +952,7 @@ declare namespace chrome {
             addListener(callback: (event: T) => void): void;
         }
 
-        enum DeviceFilterType {
-            'all', 'known'
-        }
+        type DeviceFilterType = 'all' | 'known';
 
         /**
          * Some criteria to filter the list of returned bluetooth devices. If the filter is not set or set to {}, returned device list will contain all bluetooth devices. Right now this is only supported in ChromeOS, for other platforms, a full list is returned.
@@ -1035,22 +1032,21 @@ declare namespace chrome {
              */
             deviceAddress?: string;
         }
-        enum CharacteristicProperties {
-            'broadcast',
-            'read',
-            'writeWithoutResponse',
-            'write',
-            'notify',
-            'indicate',
-            'authenticatedSignedWrites',
-            'extendedProperties',
-            'reliableWrite',
-            'writableAuxiliaries',
-            'encryptRead',
-            'encryptWrite',
-            'encryptAuthenticatedRead',
-            'encryptAuthenticatedWrite'
-        }
+        type CharacteristicProperties =
+            'broadcast' |
+            'read' |
+            'writeWithoutResponse' |
+            'write' |
+            'notify' |
+            'indicate' |
+            'authenticatedSignedWrites' |
+            'extendedProperties' |
+            'reliableWrite' |
+            'writableAuxiliaries' |
+            'encryptRead' |
+            'encryptWrite' |
+            'encryptAuthenticatedRead' |
+            'encryptAuthenticatedWrite';
         interface Characteristic {
             /** The UUID of the characteristic, e.g. 00002a37-0000-1000-8000-00805f9b34fb. */
             uuid: string;
@@ -1063,14 +1059,14 @@ declare namespace chrome {
             /** The currently cached characteristic value. This value gets updated when the value of the characteristic is read or updated via a notification or indication. */
             value?: ArrayBuffer;
         }
-        enum DescriptorPermissions {
-            'read',
-            'write',
-            'encryptedRead',
-            'encryptedWrite',
-            'encryptedAuthenticatedRead',
-            'encryptedAuthenticatedWrite'
-        }
+        type DescriptorPermissions =
+            'read' |
+            'write' |
+            'encryptedRead' |
+            'encryptedWrite' |
+            'encryptedAuthenticatedRead' |
+            'encryptedAuthenticatedWrite';
+
         interface Descriptor {
             /** The UUID of the characteristic descriptor, e.g. 00002902-0000-1000-8000-00805f9b34fb. */
             uuid: string;
@@ -1118,9 +1114,7 @@ declare namespace chrome {
             /** Optional flag for sending an indication instead of a notification. */
             shouldIndicate: boolean;
         }
-        enum AdvertisementType {
-            'broadcast', 'peripheral'
-        }
+        type AdvertisementType = 'broadcast' | 'peripheral';
         interface Advertisement {
             /** Type of advertisement. */
             type: AdvertisementType;
@@ -1558,10 +1552,9 @@ declare namespace chrome {
              */
             clientSocketId: integer;
         }
-        enum OnAcceptErrorCode {
-            'system_error',
-            'not_listening'
-        }
+        type OnAcceptErrorCode =
+            'system_error' |
+            'not_listening';
         interface OnAcceptErrorEventData {
             /** The server socket identifier. */
             socketId: integer;
@@ -1583,11 +1576,10 @@ declare namespace chrome {
             /** The data received, with a maxium size of bufferSize. */
             data: ArrayBuffer;
         }
-        enum OnReceiveErrorCode {
-            'disconnected',
-            'system_error',
-            'not_connected'
-        }
+        type OnReceiveErrorCode =
+            'disconnected' |
+            'system_error' |
+            'not_connected';
         interface OnReceiveErrorEventData {
             /** The server socket identifier. */
             socketId: integer;
@@ -1867,36 +1859,32 @@ declare namespace chrome {
         /**
         * The different contexts a menu can appear in. Specifying 'all' is equivalent to the combination of all other contexts except for 'launcher'. The 'launcher' context is only supported by apps and is used to add menu items to the context menu that appears when clicking on the app icon in the launcher/taskbar/dock/etc. Different platforms might put limitations on what is actually supported in a launcher context menu.
         **/
-        enum ContextType {
-            'all',
-            'page',
-            'frame',
-            'selection',
-            'link',
-            'editable',
-            'image',
-            'video',
-            'audio',
-            'launcher',
-            'browser_action',
-            'page_action'
-        }
+        type ContextType =
+            'all' |
+            'page' |
+            'frame' |
+            'selection' |
+            'link' |
+            'editable' |
+            'image' |
+            'video' |
+            'audio' |
+            'launcher' |
+            'browser_action' |
+            'page_action';
         /**
         * The type of menu item.
         **/
-        enum ItemType {
-            'normal',
-            'checkbox',
-            'radio',
-            'separator'
-        }
+        type ItemType =
+            'normal' |
+            'checkbox' |
+            'radio' |
+            'separator';
 
-        enum MediaType {
-            'image',
-            'video',
-            'audio'
-        }
-
+        type MediaType =
+            'image' |
+            'video' |
+            'audio';
         interface OnClickData {
             /**
              * The ID of the menu item that was clicked.
@@ -2343,10 +2331,9 @@ declare namespace chrome {
         /**
          * The format of an image.
          **/
-        enum ImageFormat {
-            'jpeg',
-            'png'
-        }
+        type ImageFormat =
+            'jpeg' |
+            'png';
         /**
          * Details about the format and quality of an image.
          */
@@ -2365,18 +2352,16 @@ declare namespace chrome {
         /**
          * The soonest that the JavaScript or CSS will be injected into the tab.
          **/
-        enum RunAt {
-            'document_start',
-            'document_end',
-            'document_idle'
-        }
+        type RunAt =
+            'document_start' |
+            'document_end' |
+            'document_idle';
         /**
          * The origin of injected CSS.
          **/
-        enum CSSOrigin {
-            'author',
-            'user'
-        }
+        type CSSOrigin =
+            'author' |
+            'user';
         /**
          * Internal interfaces, not to be used directly
          * @private
@@ -2456,17 +2441,15 @@ declare namespace chrome {
      *   {'fileSystem': ['write', 'retainEntries', 'directory']}
      */
     namespace fileSystem {
-        enum ChildChangeType {
-            'created',
-            'removed',
-            'changed'
-        }
-        enum ChooseEntryOptionsTypes {
-            'openFile',
-            'openWritableFile',
-            'saveFile',
-            'openDirectory'
-        }
+        type ChildChangeType =
+            'created' |
+            'removed' |
+            'changed';
+        type ChooseEntryOptionsTypes =
+            'openFile' |
+            'openWritableFile' |
+            'saveFile' |
+            'openDirectory';
         interface AcceptOptions {
             /**
              * This is the optional text description for this option.
@@ -2618,7 +2601,7 @@ declare namespace chrome {
      * Whether multiple (more than one) mounted file systems are supported. By default: false.
      * **watchable (boolean)** - optional
      * Whether setting watchers and notifying about changes is supported. By default: false.
-     * **source (enum of 'file', 'device', or 'network') - required**
+     * **source (type of 'file', 'device', or 'network') - required**
      * Source of data for mounted file systems.
      * @description
      * Files app uses above information in order to render related UI elements approprietly.
@@ -2635,35 +2618,32 @@ declare namespace chrome {
          * as well as in case of errors when calling methods of the API.
          * For success, 'OK' must be used.
          * */
-        enum ProviderError {
-            'OK',
-            'FAILED',
-            'IN_USE',
-            'EXISTS',
-            'NOT_FOUND',
-            'ACCESS_DENIED',
-            'TOO_MANY_OPENED',
-            'NO_MEMORY',
-            'NO_SPACE',
-            'NOT_A_DIRECTORY',
-            'INVALID_OPERATION',
-            'SECURITY',
-            'ABORT',
-            'NOT_A_FILE',
-            'NOT_EMPTY',
-            'INVALID_URL',
-            'IO'
-        }
+        type ProviderError =
+            'OK' |
+            'FAILED' |
+            'IN_USE' |
+            'EXISTS' |
+            'NOT_FOUND' |
+            'ACCESS_DENIED' |
+            'TOO_MANY_OPENED' |
+            'NO_MEMORY' |
+            'NO_SPACE' |
+            'NOT_A_DIRECTORY' |
+            'INVALID_OPERATION' |
+            'SECURITY' |
+            'ABORT' |
+            'NOT_A_FILE' |
+            'NOT_EMPTY' |
+            'INVALID_URL' |
+            'IO';
         /** Mode of opening a file. Used by onOpenFileRequested. */
-        enum OpenFileMode {
-            'READ',
-            'WRITE'
-        }
+        type OpenFileMode =
+            'READ' |
+            'WRITE';
         /** Type of a change detected on the observed directory. */
-        enum ChangeType {
-            'CHANGED',
-            'DELETED'
-        }
+        type ChangeType =
+            'CHANGED' |
+            'DELETED';
         /**
          * List of common actions. 'SHARE' is for sharing files with others.
          * 'SAVE_FOR_OFFLINE' for pinning (saving for offline access).
@@ -2671,11 +2651,10 @@ declare namespace chrome {
          * need to be stored for offline access anymore.
          * Used by onGetActionsRequested and onExecuteActionRequested.
          */
-        enum CommonActionId {
-            'SAVE_FOR_OFFLINE',
-            'OFFLINE_NOT_NECESSARY',
-            'SHARE'
-        }
+        type CommonActionId =
+            'SAVE_FOR_OFFLINE' |
+            'OFFLINE_NOT_NECESSARY' |
+            'SHARE';
 
         interface EntryMetadata {
             /** True if it is a directory. Must be provided if requested in options */
@@ -3665,180 +3644,179 @@ declare namespace chrome {
         /**
          * @see[Source]{@link https://github.com/chromium/chromium/blob/master/ui/base/l10n/l10n_util.cc}
          */
-        enum kLanguageInfoTable {
-            'af',     // Afrikaans
-            'am',     // Amharic
-            'an',     // Aragonese
-            'ar',     // Arabic
-            'ast',    // Asturian
-            'az',     // Azerbaijani
-            'be',     // Belarusian
-            'bg',     // Bulgarian
-            'bh',     // Bihari
-            'bn',     // Bengali
-            'br',     // Breton
-            'bs',     // Bosnian
-            'ca',     // Catalan
-            'ceb',    // Cebuano
-            'ckb',    // Kurdish (Arabci),  Sorani
-            'co',     // Corsican
-            'cs',     // Czech
-            'cy',     // Welsh
-            'da',     // Danish
-            'de',     // German
-            'de-AT',  // German (Austria)
-            'de-CH',  // German (Switzerland)
-            'de-DE',  // German (Germany)
-            'de-LI',  // German (Liechtenstein)
-            'el',     // Greek
-            'en',     // English
-            'en-AU',  // English (Australia)
-            'en-CA',  // English (Canada)
-            'en-GB',  // English (UK)
-            'en-IN',  // English (India)
-            'en-NZ',  // English (New Zealand)
-            'en-US',  // English (US)
-            'en-ZA',  // English (South Africa)
-            'eo',     // Esperanto
+        type kLanguageInfoTable =
+            'af' |     // Afrikaans
+            'am' |     // Amharic
+            'an' |     // Aragonese
+            'ar' |     // Arabic
+            'ast' |    // Asturian
+            'az' |     // Azerbaijani
+            'be' |     // Belarusian
+            'bg' |     // Bulgarian
+            'bh' |     // Bihari
+            'bn' |     // Bengali
+            'br' |     // Breton
+            'bs' |     // Bosnian
+            'ca' |     // Catalan
+            'ceb' |    // Cebuano
+            'ckb' |    // Kurdish (Arabci),  Sorani
+            'co' |     // Corsican
+            'cs' |     // Czech
+            'cy' |     // Welsh
+            'da' |     // Danish
+            'de' |     // German
+            'de-AT' |  // German (Austria)
+            'de-CH' |  // German (Switzerland)
+            'de-DE' |  // German (Germany)
+            'de-LI' |  // German (Liechtenstein)
+            'el' |     // Greek
+            'en' |     // English
+            'en-AU' |  // English (Australia)
+            'en-CA' |  // English (Canada)
+            'en-GB' |  // English (UK)
+            'en-IN' |  // English (India)
+            'en-NZ' |  // English (New Zealand)
+            'en-US' |  // English (US)
+            'en-ZA' |  // English (South Africa)
+            'eo' |     // Esperanto
             // TODO(jungshik) : Do we want to list all es-Foo for Latin-American
             // Spanish speaking countries?
-            'es',      // Spanish
-            'es-419',  // Spanish (Latin America)
-            'es-AR',   // Spanish (Argentina)
-            'es-CL',   // Spanish (Chile)
-            'es-CO',   // Spanish (Colombia)
-            'es-CR',   // Spanish (Costa Rica)
-            'es-ES',   // Spanish (Spain)
-            'es-HN',   // Spanish (Honduras)
-            'es-MX',   // Spanish (Mexico)
-            'es-PE',   // Spanish (Peru)
-            'es-US',   // Spanish (US)
-            'es-UY',   // Spanish (Uruguay)
-            'es-VE',   // Spanish (Venezuela)
-            'et',      // Estonian
-            'eu',      // Basque
-            'fa',      // Persian
-            'fi',      // Finnish
-            'fil',     // Filipino
-            'fo',      // Faroese
-            'fr',      // French
-            'fr-CA',   // French (Canada)
-            'fr-CH',   // French (Switzerland)
-            'fr-FR',   // French (France)
-            'fy',      // Frisian
-            'ga',      // Irish
-            'gd',      // Scots Gaelic
-            'gl',      // Galician
-            'gn',      // Guarani
-            'gu',      // Gujarati
-            'ha',      // Hausa
-            'haw',     // Hawaiian
-            'he',      // Hebrew
-            'hi',      // Hindi
-            'hmn',     // Hmong
-            'hr',      // Croatian
-            'ht',      // Haitian Creole
-            'hu',      // Hungarian
-            'hy',      // Armenian
-            'ia',      // Interlingua
-            'id',      // Indonesian
-            'ig',      // Igbo
-            'is',      // Icelandic
-            'it',      // Italian
-            'it-CH',   // Italian (Switzerland)
-            'it-IT',   // Italian (Italy)
-            'ja',      // Japanese
-            'jv',      // Javanese
-            'ka',      // Georgian
-            'kk',      // Kazakh
-            'km',      // Cambodian
-            'kn',      // Kannada
-            'ko',      // Korean
-            'ku',      // Kurdish
-            'ky',      // Kyrgyz
-            'la',      // Latin
-            'lb',      // Luxembourgish
-            'ln',      // Lingala
-            'lo',      // Laothian
-            'lt',      // Lithuanian
-            'lv',      // Latvian
-            'mg',      // Malagasy
-            'mi',      // Maori
-            'mk',      // Macedonian
-            'ml',      // Malayalam
-            'mn',      // Mongolian
-            'mo',      // Moldavian
-            'mr',      // Marathi
-            'ms',      // Malay
-            'mt',      // Maltese
-            'my',      // Burmese
-            'nb',      // Norwegian (Bokmal)
-            'ne',      // Nepali
-            'nl',      // Dutch
-            'nn',      // Norwegian (Nynorsk)
-            'no',      // Norwegian
-            'ny',      // Nyanja
-            'oc',      // Occitan
-            'om',      // Oromo
-            'or',      // Oriya
-            'pa',      // Punjabi
-            'pl',      // Polish
-            'ps',      // Pashto
-            'pt',      // Portuguese (pt-BR and pt-PT are used)
-            'pt-BR',   // Portuguese (Brazil)
-            'pt-PT',   // Portuguese (Portugal)
-            'qu',      // Quechua
-            'rm',      // Romansh
-            'ro',      // Romanian
-            'ru',      // Russian
-            'sd',      // Sindhi
-            'sh',      // Serbo-Croatian
-            'si',      // Sinhalese
-            'sk',      // Slovak
-            'sl',      // Slovenian
-            'sm',      // Samoan
-            'sn',      // Shona
-            'so',      // Somali
-            'sq',      // Albanian
-            'sr',      // Serbian
-            'st',      // Sesotho
-            'su',      // Sundanese
-            'sv',      // Swedish
-            'sw',      // Swahili
-            'ta',      // Tamil
-            'te',      // Telugu
-            'tg',      // Tajik
-            'th',      // Thai
-            'ti',      // Tigrinya
-            'tk',      // Turkmen
-            'to',      // Tonga
-            'tr',      // Turkish
-            'tt',      // Tatar
-            'tw',      // Twi
-            'ug',      // Uighur
-            'uk',      // Ukrainian
-            'ur',      // Urdu
-            'uz',      // Uzbek
-            'vi',      // Vietnamese
-            'wa',      // Walloon
-            'xh',      // Xhosa
-            'yi',      // Yiddish
-            'yo',      // Yoruba
-            'zh',      // Chinese
-            'zh-CN',   // Chinese (China)
-            'zh-HK',   // Chinese (Hong Kong)
-            'zh-TW',   // Chinese (Taiwan)
-            'zu',      // Zulu
+            'es' |      // Spanish
+            'es-419' |  // Spanish (Latin America)
+            'es-AR' |   // Spanish (Argentina)
+            'es-CL' |   // Spanish (Chile)
+            'es-CO' |   // Spanish (Colombia)
+            'es-CR' |   // Spanish (Costa Rica)
+            'es-ES' |   // Spanish (Spain)
+            'es-HN' |   // Spanish (Honduras)
+            'es-MX' |   // Spanish (Mexico)
+            'es-PE' |   // Spanish (Peru)
+            'es-US' |   // Spanish (US)
+            'es-UY' |   // Spanish (Uruguay)
+            'es-VE' |   // Spanish (Venezuela)
+            'et' |      // Estonian
+            'eu' |      // Basque
+            'fa' |      // Persian
+            'fi' |      // Finnish
+            'fil' |     // Filipino
+            'fo' |      // Faroese
+            'fr' |      // French
+            'fr-CA' |   // French (Canada)
+            'fr-CH' |   // French (Switzerland)
+            'fr-FR' |   // French (France)
+            'fy' |      // Frisian
+            'ga' |      // Irish
+            'gd' |      // Scots Gaelic
+            'gl' |      // Galician
+            'gn' |      // Guarani
+            'gu' |      // Gujarati
+            'ha' |      // Hausa
+            'haw' |     // Hawaiian
+            'he' |      // Hebrew
+            'hi' |      // Hindi
+            'hmn' |     // Hmong
+            'hr' |      // Croatian
+            'ht' |      // Haitian Creole
+            'hu' |      // Hungarian
+            'hy' |      // Armenian
+            'ia' |      // Interlingua
+            'id' |      // Indonesian
+            'ig' |      // Igbo
+            'is' |      // Icelandic
+            'it' |      // Italian
+            'it-CH' |   // Italian (Switzerland)
+            'it-IT' |   // Italian (Italy)
+            'ja' |      // Japanese
+            'jv' |      // Javanese
+            'ka' |      // Georgian
+            'kk' |      // Kazakh
+            'km' |      // Cambodian
+            'kn' |      // Kannada
+            'ko' |      // Korean
+            'ku' |      // Kurdish
+            'ky' |      // Kyrgyz
+            'la' |      // Latin
+            'lb' |      // Luxembourgish
+            'ln' |      // Lingala
+            'lo' |      // Laothian
+            'lt' |      // Lithuanian
+            'lv' |      // Latvian
+            'mg' |      // Malagasy
+            'mi' |      // Maori
+            'mk' |      // Macedonian
+            'ml' |      // Malayalam
+            'mn' |      // Mongolian
+            'mo' |      // Moldavian
+            'mr' |      // Marathi
+            'ms' |      // Malay
+            'mt' |      // Maltese
+            'my' |      // Burmese
+            'nb' |      // Norwegian (Bokmal)
+            'ne' |      // Nepali
+            'nl' |      // Dutch
+            'nn' |      // Norwegian (Nynorsk)
+            'no' |      // Norwegian
+            'ny' |      // Nyanja
+            'oc' |      // Occitan
+            'om' |      // Oromo
+            'or' |      // Oriya
+            'pa' |      // Punjabi
+            'pl' |      // Polish
+            'ps' |      // Pashto
+            'pt' |      // Portuguese (pt-BR and pt-PT are used)
+            'pt-BR' |   // Portuguese (Brazil)
+            'pt-PT' |   // Portuguese (Portugal)
+            'qu' |      // Quechua
+            'rm' |      // Romansh
+            'ro' |      // Romanian
+            'ru' |      // Russian
+            'sd' |      // Sindhi
+            'sh' |      // Serbo-Croatian
+            'si' |      // Sinhalese
+            'sk' |      // Slovak
+            'sl' |      // Slovenian
+            'sm' |      // Samoan
+            'sn' |      // Shona
+            'so' |      // Somali
+            'sq' |      // Albanian
+            'sr' |      // Serbian
+            'st' |      // Sesotho
+            'su' |      // Sundanese
+            'sv' |      // Swedish
+            'sw' |      // Swahili
+            'ta' |      // Tamil
+            'te' |      // Telugu
+            'tg' |      // Tajik
+            'th' |      // Thai
+            'ti' |      // Tigrinya
+            'tk' |      // Turkmen
+            'to' |      // Tonga
+            'tr' |      // Turkish
+            'tt' |      // Tatar
+            'tw' |      // Twi
+            'ug' |      // Uighur
+            'uk' |      // Ukrainian
+            'ur' |      // Urdu
+            'uz' |      // Uzbek
+            'vi' |      // Vietnamese
+            'wa' |      // Walloon
+            'xh' |      // Xhosa
+            'yi' |      // Yiddish
+            'yo' |      // Yoruba
+            'zh' |      // Chinese
+            'zh-CN' |   // Chinese (China)
+            'zh-HK' |   // Chinese (Hong Kong)
+            'zh-TW' |   // Chinese (Taiwan)
+            'zu' |      // Zulu
             // Aliases:
-            "ar_001",
-            "en_001",
-            "en_150",
-            "zh_hans_cn",
-            "zh_hant_hk",
-            "zh_hant_mo",
-            "zh_hans_sg",
-            "zh_hant_tw",
-        }
+            'ar_001' |
+            'en_001' |
+            'en_150' |
+            'zh_hans_cn' |
+            'zh_hant_hk' |
+            'zh_hant_mo' |
+            'zh_hans_sg' |
+            'zh_hant_tw';
 
         /** Allow array of strings with length 1 to 9 */
         type StringSubstitutions =
@@ -4073,11 +4051,10 @@ declare namespace chrome {
      * @since Chrome 25.
      */
     namespace idle {
-        enum IdleState {
-            'active',
-            'idle',
-            'locked'
-        }
+        type IdleState =
+            'active' |
+            'idle' |
+            'locked';
         /**
          * Returns 'locked' if the system is locked, 'idle' if the user has not generated any input for a specified number of seconds, or 'active' otherwise.
          * @param detectionIntervalInSeconds The system is considered idle if detectionIntervalInSeconds seconds have elapsed since the last user input detected.
@@ -4241,16 +4218,15 @@ declare namespace chrome {
      * Use the chrome.mediaGalleries API to access media files (audio, images, video)
      * from the user's local disks (with the user's consent).
      * @since Available since Chrome 24.
-     * @requires Permissions: {"mediaGalleries": ["accessType1", "accessType2", ...]}
-     *                        {"mediaGalleries": ["accessType1", "accessType2", ..., "allAutoDetected"]}
+     * @requires Permissions: {'mediaGalleries': ['accessType1' | 'accessType2', ...]}
+     *                        {'mediaGalleries': ['accessType1' | 'accessType2', ..., 'allAutoDetected']}
      * @see[More information]{@link https://developer.chrome.com/apps/mediaGalleries}
      */
     namespace mediaGalleries {
-        enum Interactive {
-            'no',
-            'yes',
-            'if_needed'
-        }
+        type Interactive =
+            'no' |
+            'yes' |
+            'if_needed';
         interface MediaFileSystemsOptions {
             /**
              * Whether to prompt the user for permission to additional media galleries before returning
@@ -4282,11 +4258,10 @@ declare namespace chrome {
             isAvailable: boolean;
         }
 
-        enum MetadataOptionsType {
-            'all',
-            'mimeTypeAndTags',
-            'mimeTypeOnly'
-        }
+        type MetadataOptionsType =
+            'all' |
+            'mimeTypeAndTags' |
+            'mimeTypeOnly';
 
         interface MetadataOptions {
             metadataType: MetadataOptionsType;
@@ -4294,7 +4269,7 @@ declare namespace chrome {
 
         interface RawTag {
             /**
-             * Describes format of container or codec of stream, i.e. "mp3", "h264".
+             * Describes format of container or codec of stream, i.e. 'mp3' | 'h264'.
              */
             type: string;
             /**
@@ -4341,21 +4316,20 @@ declare namespace chrome {
             success: boolean;
         }
 
-        enum GalleryChangedType {
-            'contents_changed',
-            'watch_dropped'
-        }
+        type GalleryChangedType =
+            'contents_changed' |
+            'watch_dropped';
+
         interface GalleryChangedEventArgs {
             type: GalleryChangedType;
             galleryId: string;
         }
 
-        enum ScanProgressType {
-            'start',
-            'cancel',
-            'finish',
-            'error'
-        }
+        type ScanProgressType =
+            'start' |
+            'cancel' |
+            'finish' |
+            'error';
 
         interface ScanProgressEventArgs {
             /** The type of progress event, i.e. start, finish, etc. */
@@ -4478,7 +4452,7 @@ declare namespace chrome {
     ////////////////////////////////////
     /**
      * @requires(CrOS kiosk mode) This API is available in Chrome OS kiosk sessions.
-     * @requires Permissions: "networking.onc"
+     * @requires Permissions: 'networking.onc'
      * @since Since Chrome 59
      * @description
      * The chrome.networking.onc API is used for configuring network connections
@@ -4487,100 +4461,319 @@ declare namespace chrome {
      * @see[Open Network Configuration (ONC) specification.]{@link https://chromium.googlesource.com/chromium/src/+/master/components/onc/docs/onc_spec.md}
      * @description
      * **NOTE**
-     * Most dictionary properties and enum values use UpperCamelCase to match
+     * Most dictionary properties and type values use UpperCamelCase to match
      * the ONC specification instead of the JavaScript lowerCamelCase convention.
      */
     namespace networking.onc {
-        enum ActivationStateType {
-            'Activated', 'Activating', 'NotActivated', 'PartiallyActivated'
+        type ActivationStateType = 'Activated' | 'Activating' | 'NotActivated' | 'PartiallyActivated';
+        type CaptivePortalStatus = 'Unknown' | 'Offline' | 'Online' | 'Portal' | 'ProxyAuthRequired';
+        type ConnectionStateType = 'Connected' | 'Connecting' | 'NotConnected'
+        type IPConfigType = 'DHCP' | 'Static'
+        type NetworkType = 'All' | 'Cellular' | 'Ethernet' | 'VPN' | 'Wireless' | 'WiFi' | 'WiMAX'
+        type ProxySettingsType = 'Direct' | 'Manual' | 'PAC' | 'WPAD';
+
+        /**
+         * Partial classes for internal use
+         * @internal
+         * @private
+         */
+        namespace _internal_ {
+            interface NetworkConfigBase<
+                M extends ManagedObject = 'unmanaged',
+                IF extends InterfaceType = 'full'> {
+                Cellular?: IF extends 'partial' ? CellularBase : CellularProperties<M>;
+                Ethernet?: IF extends 'partial' ? { Authentication: string; } : EthernetProperties<M>;
+                GUID?: string;
+                IPAddressConfigType?: M extends 'managed' ? ManagedIPConfigType : IPConfigType;
+                Name?: M extends 'managed' ? ManagedDOMString : string;
+                NameServersConfigType?: M extends 'managed' ? ManagedIPConfigType : IPConfigType;
+                Priority?: M extends 'managed' ? ManagedLong : integer;
+                Type?: NetworkType;
+                VPN?: IF extends 'partial' ? { Type: string; } : VPNProperties<M>;
+                WiFi?: IF extends 'partial' ? WiFiPropertiesBase : WiFiProperties<M>;
+                WiMAX?: IF extends 'partial' ? { SignalStrength?: integer } : WiMAXProperties<M>;
+            }
         }
-        enum CaptivePortalStatus {
-            'Unknown', 'Offline', 'Online', 'Portal', 'ProxyAuthRequired'
-        }
-        enum ConnectionStateType {
-            'Connected', 'Connecting', 'NotConnected'
-        }
-        enum IPConfigType {
-            'DHCP', 'Static'
-        }
-        enum NetworkType {
-            'All', 'Cellular', 'Ethernet', 'VPN', 'Wireless', 'WiFi', 'WiMAX'
-        }
-        enum ProxySettingsType {
-            'Direct', 'Manual', 'PAC', 'WPAD'
-        }
-        interface ManagedBoolean {
+        interface ManagedType<T> {
+            /** The active value currently used by the network configuration manager (e.g. Shill). */
+            Active?: T;
+            /** The source from which the effective property value was determined. */
+            Effective?: string;
+            /** The property value provided by the user policy. */
+            UserPolicy?: T;
+            /** The property value provided by the device policy. */
+            DevicePolicy?: T;
+            /** The property value set by the logged in user. Only provided if *UserEditable* is true. */
+            UserSetting?: T;
+            /** The value set for all users of the device. Only provided if *DeviceEditiable* is true. */
+            SharedSetting?: T;
             /**
-             * The active value currently used by the network configuration manager (e.g. Shill).
-             */
-            Active?: boolean,
-            /**
-             * The source from which the effective property value was determined.
-             */
-            Effective?: string,
-            /**
-             * The property value provided by the user policy.
-             */
-            UserPolicy?: boolean,
-            /**
-             * The property value provided by the device policy.
-             */
-            DevicePolicy?: boolean,
-            /**
-             * The property value set by the logged in user. Only provided if |UserEditable| is true.
-             */
-            UserSettings?: boolean,
-            /**
-             * The value set for all users of the device. Only provided if |DeviceEditiable| is true.
-             */
-            SharedSettings?: boolean,
-            /**
-             * Whether a UserPolicy for the property exists and allows the property to be edited (i.e. the policy set recommended property value).
+             * Whether a UserPolicy for the property exists and allows the property
+             * to be edited (i.e. the policy set recommended property value).
              * @default false
              */
-            UserEditable?: boolean,
+            UserEditable?: boolean;
             /**
-             * Whether a DevicePolicy for the property exists and allows the property to be edited (i.e. the policy set recommended property value).
+             * Whether a DevicePolicy for the property exists and allows the property
+             * to be edited (i.e. the policy set recommended property value).
              * @default false
              */
-            DeviceEditable?: boolean
+            DeviceEditable?: boolean;
         }
-        interface ManagedLong {
-            /**
-             * The active value currently used by the network configuration manager (e.g. Shill).
-             */
-            Active?: integer,
-            /**
-             * The source from which the effective property value was determined.
-             */
-            Effective?: string,
-            /**
-             * The property value provided by the user policy.
-             */
-            UserPolicy?: integer,
-            /**
-             * The property value provided by the device policy.
-             */
-            DevicePolicy?: integer,
-            /**
-             * The property value set by the logged in user. Only provided if UserEditable is true.
-             */
-            UserSettings?: integer,
-            /**
-             * The value set for all users of the device. Only provided if DeviceEditiable is true.
-             */
-            SharedSettings?: integer,
-            /**
-             * Whether a UserPolicy for the property exists and allows the property to be edited (i.e. the policy set recommended property value).
-             * @default false
-             */
-            UserEditable?: boolean,
-            /**
-             * Whether a DevicePolicy for the property exists and allows the property to be edited (i.e. the policy set recommended property value).
-             * @default false
-             */
-            DeviceEditable?: boolean
+        interface ManagedBoolean extends ManagedType<boolean> { }
+        interface ManagedLong extends ManagedType<integer> { }
+        interface ManagedDOMString extends ManagedType<string> { }
+        interface ManagedDOMStringList extends ManagedType<string[]> { }
+        interface ManagedIPConfigType extends ManagedType<IPConfigType[]> { }
+
+        interface CellularProviderProperties {
+            Name: string;
+            Code: string;
+            Country?: string;
         }
+        interface IssuerSubjectPattern {
+            CommonName?: string;
+            Locality?: string;
+            Organization?: string;
+            OrganizationalUnit?: string;
+        }
+        interface CertPattern {
+            EnrollmentURI?: string[];
+            Issuer?: IssuerSubjectPattern;
+            IssuerCARef?: string[];
+            IssuerSubjectPattern?: IssuerSubjectPattern;
+        }
+        type ClientCertType = 'Ref' | 'Pattern';
+        interface EAPProperties {
+            AnonymousIdentity?: string;
+            ClientCertPattern?: CertPattern;
+            /** @since Chrome 60. */
+            ClientCertPKCS11Id?: string;
+            ClientCertRef?: string;
+            ClientCertType?: ClientCertType;
+            Identity?: string;
+            Inner?: string;
+            Outer?: string;
+            Password?: string;
+            SaveCredentials?: boolean;
+            ServerCAPEMs?: string[];
+            ServerCARefs?: string[];
+            /** @since Chrome 60. */
+            SubjectMatch?: ManagedDOMString;
+            UseProactiveKeyCaching?: boolean;
+            UseSytemCAs?: boolean;
+        }
+        interface FoundNetworkProperties {
+            Status: string;
+            NetworkId: string;
+            Technology: string;
+            ShortName?: string;
+            LongName?: string;
+        }
+        type IPConfigurationType = 'IPv4' | 'IPv6';
+        interface IPConfigProperties<M extends ManagedObject = 'unmanaged',
+            B = M extends 'managed' ? ManagedBoolean : boolean,
+            S = M extends 'managed' ? ManagedDOMString : string,
+            SL = M extends 'managed' ? ManagedDOMStringList : string[],
+            L = M extends 'managed' ? ManagedLong : integer> {
+            Gateway?: S;
+            IPAddress?: S;
+            NameServers?: SL;
+            RoutingPrefix?: L;
+            Type?: M extends 'managed' ? ManagedType<IPConfigurationType> : IPConfigurationType;
+            WebProxyAutoDiscoveryUrl?: S;
+        }
+        interface PaymentPortal {
+            Method: string;
+            PostData?: string;
+            Url?: string;
+        }
+        interface ProxyLocation {
+            Host?: string;
+            Port?: integer;
+        }
+        interface ManagedProxyLocation {
+            Host?: ManagedDOMString;
+            Port?: ManagedLong;
+        }
+        interface ManualProxySettings<M,
+            P = M extends 'managed' ? ManagedProxyLocation : ProxyLocation> {
+            HTTPProxy?: P;
+            SecureHTTPProxy?: P;
+            FTPProxy?: P;
+            SOCKS?: P;
+        }
+        interface ProxySettings<M,
+            S = M extends 'managed' ? ManagedDOMString : string,
+            SL = M extends 'managed' ? ManagedDOMStringList : string[]> {
+            Type: M extends 'managed' ? ManagedType<ProxySettingsType> : ProxySettingsType;
+            Manual?: ManualProxySettings<M>;
+            ExcludeDomains?: SL;
+            PAC?: S;
+        }
+        interface SIMLockStatus {
+            LockType: string;
+            LockEnabled: boolean;
+            RetriesLeft?: integer;
+        }
+        interface ThirdPartyVPNProperties {
+            ExtensionID: string;
+            ProviderName?: string;
+        }
+        interface ManagedThirdPartyVPNProperties {
+            ExtensionID: ManagedDOMString;
+            ProviderName?: string;
+        }
+        interface CellularBase {
+            ActivationState?: ActivationStateType;
+            NetworkTechnology?: string;
+            RoamingState?: string;
+            SIMPresent?: boolean;
+            SignalStrength?: integer;
+        }
+        interface CellularProperties<M extends ManagedObject = 'unmanaged'> extends CellularBase {
+            AutoConnect?: M extends 'managed' ? ManagedBoolean : boolean;
+            ActivationType?: string;
+            AllowRoaming?: boolean;
+            Carrier?: M extends 'managed' ? ManagedDOMString : string;
+            Family?: string;
+            FirmwareRevision?: string;
+            FoundNetworks?: FoundNetworkProperties[];
+            HardwareRevision?: string;
+            HomeProvider?: CellularProviderProperties;
+            MAnufacturer?: string;
+            ModelID?: string;
+            PaymentPortal?: PaymentPortal;
+            PRLVersion?: integer;
+            /**
+             * @since Chrome 63.
+             */
+            Scanning?: boolean;
+            ServingOperator?: CellularProviderProperties;
+            SIMLockStatus?: SIMLockStatus;
+            SupportNetworkScan?: boolean;
+            SupportedCarriers?: string[];
+        }
+        type EthernetAuthenticationType = 'None' | '8021X';
+        interface EthernetProperties<M> {
+            AutoConnect?: M extends 'managed' ? ManagedBoolean : boolean;
+            Authentication?: M extends 'managed' ? ManagedType<EthernetAuthenticationType> : EthernetAuthenticationType;
+            EAP?: EAPProperties;
+        }
+        interface VPNProperties<M extends ManagedObject = 'unmanaged',
+            B = M extends 'managed' ? ManagedBoolean : boolean,
+            S = M extends 'managed' ? ManagedDOMString : string> {
+            AutoConnect?: B;
+            Host?: S;
+            Type?: S;
+        }
+        interface WiFiPropertiesBase<M extends ManagedObject = 'unmanaged',
+            S = M extends 'managed' ? ManagedDOMString : string> {
+            BSSID?: string;
+            Frequency?: integer;
+            HexSSID?: S;
+            Security?: S;
+            SSID?: S;
+            SignalStrength?: integer;
+        }
+        interface WiFiProperties<M extends ManagedObject = 'unmanaged',
+            B = M extends 'managed' ? ManagedBoolean : boolean,
+            S = M extends 'managed' ? ManagedDOMString : string,
+            L = M extends 'managed' ? ManagedLong : integer> extends WiFiPropertiesBase<M> {
+            AllowGatewayARPPolling?: B;
+            AutoConnect?: B;
+            EAP?: EAPProperties;
+            FrequencyList?: integer[];
+            HiddenSSID?: B;
+            /** @since Chrome 66. */
+            Passphrase?: string;
+            RoamTreshold?: L;
+
+        }
+        interface WiMAXProperties<M extends ManagedObject = 'unmanaged',
+            B = M extends 'managed' ? ManagedBoolean : boolean> {
+            AutoConnect?: B;
+            EAP?: EAPProperties;
+            SignalStrength?: integer;
+        }
+        type ManagedObject = 'managed' | 'unmanaged';
+        type InterfaceType = 'partial' | 'full';
+        interface NetworkConfigProperties extends _internal_.NetworkConfigBase<'unmanaged', 'full'> { }
+        interface NetworkProperties<
+            M extends ManagedObject = 'unmanaged',
+            IF extends InterfaceType = 'full'> extends _internal_.NetworkConfigBase<M, IF> {
+            Connectable?: boolean;
+            ConnectionState?: ConnectionStateType;
+            ErrorState?: string;
+            IPConfigs?: IPConfigProperties[];
+            MacAddress?: string;
+            ProxySettings?: ProxySettings<'unmanaged'>;
+            RestrictedConnectivity?: boolean;
+            StaticIPConfig?: IPConfigProperties<M>;
+            SavedIPConfig?: IPConfigProperties<'unmanaged'>;
+            Source?: 'Device' | 'DevicePolicy' | 'User' | 'UserPolicy' | 'None';
+        }
+        interface ManagedProperties extends NetworkProperties<'managed'> { }
+        interface NetworkStateProperties extends NetworkProperties<'unmanaged', 'partial'> { }
+
+        interface Filter {
+            networkType: NetworkType;
+            /** @default false */
+            visible?: boolean;
+            /** @default false */
+            configured?: boolean;
+            /**
+             * Use 0 for no limit
+             * @default 1000
+             * */
+            limit?: integer;
+        }
+
+        type DeviceState = 'Uninitialized' | 'Disabled' | 'Enabling' | 'Enabled' | 'Prohibited';
+
+        interface DeviceStates {
+            Scanning?: boolean;
+            SIMLockStatus?: SIMLockStatus;
+            SIMPresent?: boolean;
+            State: DeviceState;
+            Type: NetworkType;
+        }
+
+        interface GlobalPolicy {
+            AllowOnlyPolicyNetworksToAutoconnect?: boolean;
+            AllowOnlyPolicyNetworksToConnect?: boolean;
+            BlacklistedHexSSIDs?: string[];
+        }
+
+        function getProperties(networkGuid: string, callback: (result: NetworkProperties) => void): void;
+        function getManagedProperties(networkGuid: string, callback: (result: ManagedProperties) => void): void;
+        function getState(networkGuid: string, callback: (result: NetworkStateProperties) => void): void;
+        function setProperties(networkGuid: string, properties: NetworkConfigProperties, callback?: () => void): void;
+        function createNetwork(shared: boolean, properties: NetworkConfigProperties, callback?: () => void): void;
+        function forgetNetwork(networkGuid: string, callback?: () => void): void;
+        function getNetworks(filter: Filter, callback: (result: NetworkStateProperties[]) => void): void;
+        function getDeviceStates(callback?: (result: DeviceStates[]) => void): void;
+        function enableNetworkType(networkType: NetworkType): void;
+        function disableNetworkType(networkType: NetworkType): void;
+        function requestNetworkScan(): void;
+        /**
+         * @param networkType If provided, requests a scan specific to the type. For Cellular a mobile network scan will be requested if supported.
+         * @since Chrome 63.
+         */
+        function requestNetworkScan(networkType: NetworkType): void;
+        function startConnect(networkGuid: string, callback?: () => void): void;
+        function startDisconnect(networkGuid: string, callback?: () => void): void;
+        function getCaptivePortalStatus(networkGuid: string, callback: (result: CaptivePortalStatus) => void): void;
+        function getGlobalPolicy(callback: (result: GlobalPolicy) => void): void;
+
+        //
+        // EVENTS
+        //
+
+        const onNetworksChanged: chrome.events.Event<(changes: string[]) => void>;
+        const onNetworkListChanged: chrome.events.Event<(changes: string[]) => void>;
+        const onDeviceStateListChanged: chrome.events.Event<() => void>;
+        const onPortalDetectionCompleted: chrome.events.Event<(networkGuid: string, status: CaptivePortalStatus) => void>;
     }
 
     ///////////////////
@@ -4872,26 +5065,18 @@ declare namespace chrome {
             document: Blob;
         }
 
-        interface PrinterRequestedEvent extends chrome.events.Event<(resultCallback: (printerInfo: PrinterInfo[]) => void) => void> { }
-
-        interface PrinterInfoRequestedEvent extends chrome.events.Event<(device: any, resultCallback: (printerInfo?: PrinterInfo) => void) => void> { }
-
-        interface CapabilityRequestedEvent extends chrome.events.Event<(printerId: string, resultCallback: (capabilities: PrinterCapabilities) => void) => void> { }
-
-        interface PrintRequestedEvent extends chrome.events.Event<(printJob: PrintJob, resultCallback: (result: string) => void) => void> { }
-
         /** Event fired when print manager requests printers provided by extensions. */
-        var onGetPrintersRequested: PrinterRequestedEvent;
+        var onGetPrintersRequested: chrome.events.Event<(resultCallback: (printerInfo: PrinterInfo[]) => void) => void>;
         /**
          * Event fired when print manager requests information about a USB device that may be a printer.
          * Note: An application should not rely on this event being fired more than once per device. If a connected device is supported it should be returned in the onGetPrintersRequested event.
          * @since Chrome 45.
          */
-        var onGetUsbPrinterInfoRequested: PrinterInfoRequestedEvent;
+        var onGetUsbPrinterInfoRequested: chrome.events.Event<(device: any, resultCallback: (printerInfo?: PrinterInfo) => void) => void>;
         /** Event fired when print manager requests printer capabilities. */
-        var onGetCapabilityRequested: CapabilityRequestedEvent;
+        var onGetCapabilityRequested: chrome.events.Event<(printerId: string, resultCallback: (capabilities: PrinterCapabilities) => void) => void>;
         /** Event fired when print manager requests printing. */
-        var onPrintRequested: PrintRequestedEvent;
+        var onPrintRequested: chrome.events.Event<(printJob: PrintJob, resultCallback: (result: string) => void) => void>;
     }
 
     ////////////////////
@@ -6152,13 +6337,12 @@ declare namespace chrome {
          * 'disabled'
          *  - The sync service is disabled and the content will never sync. (E.g. this could happen when the user has no account on the remote service or the sync service has had an unrecoverable error.)
          */
-        enum ServiceStatus {
-            'initializing',
-            'running',
-            'authentication_required',
-            'temporary_unavailable',
-            'disabled'
-        }
+        type ServiceStatus =
+            'initializing' |
+            'running' |
+            'authentication_required' |
+            'temporary_unavailable' |
+            'disabled';
         /**
          * 'synced'
          *  - Not conflicting and has no pending local changes.
@@ -6167,24 +6351,23 @@ declare namespace chrome {
          * 'conflicting'
          *  - File conflicts with remote version and must be resolved manually.
          */
-        enum FileStatus {
-            'synced',
-            'pending',
-            'conflicting'
-        }
-        enum ConflictResolutionPolicy {
-            'last_write_win',
+        type FileStatus =
+            'synced' |
+            'pending' |
+            'conflicting';
+        type ConflictResolutionPolicy =
+            'last_write_win' |
             'manual'
-        }
-        enum Action {
-            'added',
-            'updated',
+
+        type Action =
+            'added' |
+            'updated' |
             'deleted'
-        }
-        enum Direction {
-            'local_to_remote',
-            'remote_to_local'
-        }
+
+        type Direction =
+            'local_to_remote' |
+            'remote_to_local';
+
         interface FileStatusInfo {
             /** One of the Entry's originally given to getFileStatuses. */
             fileEntry: Entry;
@@ -6398,9 +6581,7 @@ declare namespace chrome {
             isSelected: boolean;
         }
 
-        enum DisplayPosition {
-            'top', 'right', 'bottom', 'left'
-        }
+        type DisplayPosition = 'top' | 'right' | 'bottom' | 'left';
 
         /**
          * @since Chrome 53
@@ -6958,9 +7139,7 @@ declare namespace chrome {
     // USB
     ////////////////////
     namespace usb {
-        enum Direction {
-            'in', 'out'
-        }
+        type Direction = 'in' | 'out';
 
         interface Device {
             device: number,
@@ -6977,15 +7156,10 @@ declare namespace chrome {
             productId: number
         }
 
-        enum EndpointType {
-            'control', 'interrupt', 'isochronous', 'bulk'
-        }
-        enum EndpointSyncType {
-            'asynchronous', 'adaptive', 'synchronous'
-        }
-        enum EndpointUsage {
-            'data', 'feedback', 'explicitFeedback'
-        }
+        type EndpointType = 'control' | 'interrupt' | 'isochronous' | 'bulk';
+
+        type EndpointSyncType = 'asynchronous' | 'adaptive' | 'synchronous';
+        type EndpointUsage = 'data' | 'feedback' | 'explicitFeedback';
 
         interface EndpointDescriptor {
             address: number,
@@ -7041,13 +7215,9 @@ declare namespace chrome {
             interfaceProtocol?: number
         }
 
-        enum TransferRecipient {
-            'device', 'interface', 'endpoint', 'other'
-        }
+        type TransferRecipient = 'device' | 'interface' | 'endpoint' | 'other';
 
-        enum TransferRequestType {
-            'standard', 'class', 'vendor', 'reserved'
-        }
+        type TransferRequestType = 'standard' | 'class' | 'vendor' | 'reserved';
 
         interface TransferInfo {
             direction: Direction;
@@ -7184,11 +7354,10 @@ declare namespace chrome {
      * @since Chrome 43.
      */
     namespace wallpaper {
-        enum WallpaperLayout {
-            'STRETCH',
-            'CENTER',
-            'CENTER_CROPPED'
-        }
+        type WallpaperLayout =
+            'STRETCH' |
+            'CENTER' |
+            'CENTER_CROPPED';
         interface WallpaperDetails {
             /** The jpeg or png encoded wallpaper image. */
             data?: any;
@@ -7242,12 +7411,11 @@ declare namespace chrome {
             sourceId: string;
         }
 
-        enum ExitEventReason {
-            'normal',
-            'abnormal',
-            'crash',
-            'kill'
-        }
+        type ExitEventReason =
+            'normal' |
+            'abnormal' |
+            'crash' |
+            'kill';
         interface ExitEvent extends Event {
             /** Chrome's internal ID of the process that exited. */
             processID: number;
@@ -7889,17 +8057,16 @@ declare namespace chrome {
         * The different contexts a menu can appear in.
         * Specifying 'all' is equivalent to the combination of all other contexts.
         **/
-        enum ContextType {
-            'all',
-            'page',
-            'frame',
-            'selection',
-            'link',
-            'editable',
-            'image',
-            'video',
-            'audio'
-        }
+        type ContextType =
+            'all' |
+            'page' |
+            'frame' |
+            'selection' |
+            'link' |
+            'editable' |
+            'image' |
+            'video' |
+            'audio';
         /**
          * Details of the script or CSS to inject.
          * Either the code or the file property must be set,
@@ -8258,27 +8425,20 @@ declare namespace chrome {
         *     The content will revert to the default zoom level,
         *     and all attempted zoom changes will be ignored.
         **/
-        enum ZoomMode {
-            'per-origin',
-            'per-view',
-            'disabled'
-        }
-        enum ConsoleMessageLevel {
-            LOG_VERBOSE = -1,
-            LOG_INFO = 0,
-            LOG_WARNING = 1,
-            LOG_ERROR = 2
-        }
-        enum LoadAbortReason {
-            'ERR_ABORTED',
-            'ERR_INVALID_URL',
-            'ERR_DISALLOWED_URL_SCHEME',
-            'ERR_BLOCKED_BY_CLIENT',
-            'ERR_ADDRESS_UNREACHABLE',
-            'ERR_EMPTY_RESPONSE',
-            'ERR_FILE_NOT_FOUND',
-            'ERR_UNKNOWN_URL_SCHEME'
-        }
+        type ZoomMode =
+            'per-origin' |
+            'per-view' |
+            'disabled';
+        type ConsoleMessageLevel = -1 | 0 | 1 | 2;
+        type LoadAbortReason =
+            'ERR_ABORTED' |
+            'ERR_INVALID_URL' |
+            'ERR_DISALLOWED_URL_SCHEME' |
+            'ERR_BLOCKED_BY_CLIENT' |
+            'ERR_ADDRESS_UNREACHABLE' |
+            'ERR_EMPTY_RESPONSE' |
+            'ERR_FILE_NOT_FOUND' |
+            'ERR_UNKNOWN_URL_SCHEME';
         interface ConsoleMessage {
             /**
              * The severity level of the log message.
@@ -8296,11 +8456,11 @@ declare namespace chrome {
             /** A string identifying the resource which logged the message. */
             sourceId: string;
         }
-        enum DialogMessageType {
-            'alert',
-            'confirm',
-            'prompt'
-        }
+        type DialogMessageType =
+            'alert' |
+            'confirm' |
+            'prompt';
+
         interface Dialog {
             /**
              * The type of modal dialog requested by the guest.
@@ -8315,12 +8475,11 @@ declare namespace chrome {
              */
             dialog: DialogController;
         }
-        enum ExitReason {
-            'normal',
-            'abnormal',
-            'crash',
-            'kill'
-        }
+        type ExitReason =
+            'normal' |
+            'abnormal' |
+            'crash' |
+            'kill';
         interface Exit {
             /** Chrome's internal ID of the process that exited. */
             processID: number;
@@ -8399,15 +8558,14 @@ declare namespace chrome {
             /** Whether the load is top-level or in a subframe. */
             isTopLevel: boolean;
         }
-        enum WindowOpenDisposition {
-            'ignore',
-            'save_to_disk',
-            'current_tab',
-            'new_background_tab',
-            'new_foreground_tab',
-            'new_window',
-            'new_popup'
-        }
+        type WindowOpenDisposition =
+            'ignore' |
+            'save_to_disk' |
+            'current_tab' |
+            'new_background_tab' |
+            'new_foreground_tab' |
+            'new_window' |
+            'new_popup';
         interface NewWindow {
             /**
              * An interface that can be used to either attach the requested
@@ -8431,15 +8589,14 @@ declare namespace chrome {
             /** The requested disposition of the new window. */
             windowOpenDisposition: WindowOpenDisposition;
         }
-        enum RequestedPermission {
-            'media',
-            'geolocation',
-            'pointerLock',
-            'download',
-            'loadplugin',
-            'filesystem',
-            'fullscreen'
-        }
+        type RequestedPermission =
+            'media' |
+            'geolocation' |
+            'pointerLock' |
+            'download' |
+            'loadplugin' |
+            'filesystem' |
+            'fullscreen';
         interface PermissionRequest {
             /** The type of permission being requested. */
             permission: RequestedPermission;
