@@ -593,6 +593,11 @@ export default function(schema: mongoose.Schema) {
 }
 
 // plugins
+function MyPlugin(schema: mongoose.Schema, opts?: string) {
+}
+mongoose.Schema({})
+    .plugin(MyPlugin)
+
 interface PluginOption {
     modelName: string;
     timestamp: string;
@@ -602,7 +607,7 @@ function logger(modelName: string, timestamp: string) {
     // call special logger with options
 }
 
-function AwesomeLoggerPlugin(schema: mongoose.Schema, options?: PluginOption) {
+function AwesomeLoggerPlugin(schema: mongoose.Schema, options: PluginOption) {
     if (options) {
         schema.pre('save', function (next: Function) {
             logger(options.modelName, options.timestamp)
