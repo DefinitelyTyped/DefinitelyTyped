@@ -36,7 +36,7 @@ export interface Props { [key: string]: any; }
  * @param state -- the component's current state e.g. `isFocused`
  * @returns
  */
-export type styleFn = (base: any, state: any) => CSSProperties;
+export type styleFn = (base: CSSProperties, state: any) => CSSProperties;
 
 export interface Styles {
   clearIndicator?: styleFn;
