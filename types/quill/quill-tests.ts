@@ -145,8 +145,8 @@ function test_setTextContents() {
 
 function test_setHtmlContents() {
     const quillEditor = new Quill('#editor');
-    var html = "<b>this is a bold text</b>"
-    var delta = quillEditor.clipboard.convert(html);
+    const html = "<b>this is a bold text</b>";
+    const delta = quillEditor.clipboard.convert(html);
     quillEditor.setContents(delta);
 }
 
