@@ -1,4 +1,4 @@
-import { ResponsiveValue } from './space';
+import { ResponsiveValue, ResponsiveSpaceValue, SpaceValue } from './space';
 
 export * from './space';
 
