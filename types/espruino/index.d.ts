@@ -3600,7 +3600,7 @@ declare function digitalPulse(pin: Pin, value: boolean, time: any): void;
 * @param value 
 * @url http://www.espruino.com/Reference#l__global_digitalWrite
 */
-declare function digitalWrite(pin: Pin, value: number): void;
+declare function digitalWrite(pin: Pin, value: number | boolean): void;
 
 /**
 * <p>Get the digital value of the given pin.</p>

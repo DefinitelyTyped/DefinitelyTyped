@@ -62,7 +62,16 @@ export interface RouterProps {
         options?: EventChangeOptions,
     ): Promise<boolean>;
 
-    // events
+    // events (deprecated soonish)
+    onAppUpdated?(nextRoute: string): void;
+    onBeforeHistoryChange?(as: string): void;
+    onHashChangeStart?(url: string): void;
+    onHashChangeComplete?(url: string): void;
+    onRouteChangeComplete?(url: string): void;
+    onRouteChangeError?(error: RouteChangeError, url: string): void;
+    onRouteChangeStart?(url: string): void;
+
+    // events API (6.1.1+)
     readonly events: {
         on: (eventName: EventName, handler: EventHandler | ErrorEventHandler) => void;
         off: (eventName: EventName, handler: (url: string) => any) => void;

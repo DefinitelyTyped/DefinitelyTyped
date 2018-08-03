@@ -1297,10 +1297,14 @@ declare module "./index" {
             this: LoDashExplicitSyncWrapper<T | null | undefined>,
             ...props: _.PropertyPath[]
         ): LoDashExplicitSyncWrapper<_.PartialObject<T>>;
-        pickBy<T extends object, S extends T[keyof T]>(
-            this: LoDashExplicitSyncWrapper<T | null | undefined>,
-            predicate: _.ObjectIteratorTypeGuard<T, S>
+        pickBy<T, S extends T>(
+            this: LoDashExplicitSyncWrapper<_.Dictionary<T> | null | undefined>,
+            predicate: _.ValueKeyIterateeTypeGuard<T, S>
         ): LoDashExplicitSyncWrapper<_.Dictionary<S>>;
+        pickBy<T, S extends T>(
+            this: LoDashExplicitSyncWrapper<_.NumericDictionary<T> | null | undefined>,
+            predicate: _.ValueKeyIterateeTypeGuard<T, S>
+        ): LoDashExplicitSyncWrapper<_.NumericDictionary<S>>;
         pickBy<T>(
             this: LoDashExplicitSyncWrapper<_.Dictionary<T> | null | undefined>,
             predicate?: _.ValueKeyIteratee<T>
@@ -2889,10 +2893,14 @@ declare module "./index" {
             this: LoDashExplicitAsyncWrapper<T | null | undefined>,
             ...props: _.PropertyPath[]
         ): LoDashExplicitAsyncWrapper<_.PartialObject<T>>;
-        pickBy<T extends object, S extends T[keyof T]>(
-            this: LoDashExplicitAsyncWrapper<T | null | undefined>,
-            predicate: _.ObjectIteratorTypeGuard<T, S>
+        pickBy<T, S extends T>(
+            this: LoDashExplicitAsyncWrapper<_.Dictionary<T> | null | undefined>,
+            predicate: _.ValueKeyIterateeTypeGuard<T, S>
         ): LoDashExplicitAsyncWrapper<_.Dictionary<S>>;
+        pickBy<T, S extends T>(
+            this: LoDashExplicitAsyncWrapper<_.NumericDictionary<T> | null | undefined>,
+            predicate: _.ValueKeyIterateeTypeGuard<T, S>
+        ): LoDashExplicitAsyncWrapper<_.NumericDictionary<S>>;
         pickBy<T>(
             this: LoDashExplicitAsyncWrapper<_.Dictionary<T> | null | undefined>,
             predicate?: _.ValueKeyIteratee<T>

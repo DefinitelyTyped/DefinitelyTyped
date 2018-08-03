@@ -96,3 +96,13 @@ console.log(
         RETURN u
     `.toArray()
 );
+
+const view = db._view("yolo")!;
+view.properties({
+    locale: "C",
+    commit: {
+        consolidate: {
+            bytes: { segmentThreshold: 20 }
+        }
+    }
+});

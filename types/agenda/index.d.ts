@@ -96,7 +96,7 @@ declare class Agenda extends EventEmitter {
      * Find all Jobs matching `query` and pass same back in cb().
      * @param query
      */
-    jobs<T extends Agenda.JobAttributesData = Agenda.JobAttributesData>(query: any): Promise<void>;
+    jobs<T extends Agenda.JobAttributesData = Agenda.JobAttributesData>(query: any): Promise<Agenda.Job<T>[]>;
 
     /**
      * Removes all jobs in the database without defined behaviors. Useful if you change a definition name and want

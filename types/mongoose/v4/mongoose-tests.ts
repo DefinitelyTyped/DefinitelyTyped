@@ -426,6 +426,29 @@ new mongoose.Schema({
   }
 });
 
+// plugins
+interface PluginOption {
+  modelName: string;
+  timestamp: string;
+}
+
+function logger(modelName: string, timestamp: string) {
+    // call special logger with options
+}
+
+function AwesomeLoggerPlugin(schema: mongoose.Schema, options?: PluginOption) {
+  if (options) {
+      schema.pre('save', function (next: Function) {
+          logger(options.modelName, options.timestamp)
+      })
+  }
+}
+
+new mongoose.Schema({})
+    .plugin<PluginOption>(AwesomeLoggerPlugin, {modelName: 'Executive', timestamp: 'yyyy/MM/dd'})
+
+mongoose.plugin<PluginOption>(AwesomeLoggerPlugin, {modelName: 'Executive', timestamp: 'yyyy/MM/dd'})
+
 export default function(schema: mongoose.Schema) {
   schema.pre('init', function(this: mongoose.Document, next: (err?: Error) => void, data: any): void {
     data.name = 'Hello world';
