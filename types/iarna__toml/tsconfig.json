@@ -1,0 +1,32 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "strictFunctionTypes": true,
+        "paths": {
+            "@iarna/*": [
+                "iarna__*"
+            ]
+        }
+    },
+    "files": [
+        "index.d.ts",
+        "parse-async.d.ts",
+        "parse-stream.d.ts",
+        "parse-string.d.ts",
+        "stringify.d.ts",
+        "iarna__toml-tests.ts"
+    ]
+}
