@@ -387,7 +387,6 @@ const test = () => (
         <Flex justifyContent="center" />
         // flexWrap (responsive)
         <Flex flexWrap="wrap" />
-        <Flex wrap="wrap" />
         // flexBasis (responsive)
         <Flex flexBasis="auto" />
         // flexDirection (responsive)
