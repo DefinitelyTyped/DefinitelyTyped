@@ -3,7 +3,7 @@ import * as videojs from 'video.js';
 videojs("example_video_1").ready(function() {
 	// EXAMPLE: Start playing the video.
 	const playPromise = this.play();
-	
+
 	if (playPromise) {
 		playPromise.then(() => {});
 	}
