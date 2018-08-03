@@ -2026,7 +2026,10 @@ declare namespace DataTables {
         sVersion: string;
         search: any[];
         selector: object;
-        type: object;
+        /**
+         * Type based plug-ins.
+         */
+        type: ExtTypeSettings;
     }
 
     interface ExtClassesSettings {
@@ -2208,4 +2211,36 @@ declare namespace DataTables {
         sJUIFooter?: string;
     }
     //#endregion "ext internal"
+
+    interface ExtTypeSettings {
+        /**
+         * Type detection functions for plug-in development.
+         *
+         * @see https://datatables.net/manual/plug-ins/type-detection
+         */
+        detect: FunctionExtTypeSettingsDetect[];
+        /**
+         * Type based ordering functions for plug-in development.
+         *
+         * @see https://datatables.net/manual/plug-ins/sorting
+         * @default {}
+         */
+        order: object;
+        /**
+         * Type based search formatting for plug-in development.
+         *
+         * @default {}
+         * @example
+         *   $.fn.dataTable.ext.type.search['title-numeric'] = function ( d ) {
+         *     return d.replace(/\n/g," ").replace( /<.*?>/g, "" );
+         *   }
+         */
+        search: object;
+    }
+
+    /**
+     * @param data Data from the column cell to be analysed.
+     * @param DataTables settings object.
+     */
+    type FunctionExtTypeSettingsDetect = (data: any, settings: Settings) => (string | null);
 }
