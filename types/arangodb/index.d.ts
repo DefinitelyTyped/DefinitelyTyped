@@ -837,11 +837,68 @@ declare namespace ArangoDB {
 
     // Views
 
-    interface View {
-        // TODO
-        [key: string]: any;
+    interface ArangoSearchView {
+        _dbName: string;
+        _id: string;
+        name(): string;
+        type(): ViewType;
+        rename(newName: string): void;
+        properties(
+            newProperties?: ArangoSearchViewPropertiesOptions
+        ): ArangoSearchViewProperties;
     }
-    type ViewProperties = object; // TODO
+
+    interface ArangoSearchViewConsolidate {
+        threshold: number;
+        segmentThreshold: number;
+    }
+
+    interface ArangoSearchViewCollectionLink {
+        analyzers?: string[];
+        fields?: { [key: string]: ArangoSearchViewCollectionLink | undefined };
+        includeAllFields?: boolean;
+        trackListPositions?: boolean;
+        storeValues?: "none" | "id";
+    }
+
+    interface ArangoSearchViewProperties {
+        id: string;
+        name: string;
+        type: "arangosearch";
+        commit: {
+            cleanupIntervalStep: number;
+            commitIntervalMsec: number;
+            consolidate: {
+                bytes?: ArangoSearchViewConsolidate;
+                bytes_accum?: ArangoSearchViewConsolidate;
+                count?: ArangoSearchViewConsolidate;
+                fill?: ArangoSearchViewConsolidate;
+            };
+        };
+        locale: string;
+        links: {
+            [key: string]: ArangoSearchViewCollectionLink | undefined;
+        };
+    }
+
+    interface ArangoSearchViewPropertiesOptions {
+        locale?: string;
+        commit?: {
+            consolidate?:
+                | "none"
+                | {
+                      count?: Partial<ArangoSearchViewConsolidate>;
+                      bytes?: Partial<ArangoSearchViewConsolidate>;
+                      bytes_accum?: Partial<ArangoSearchViewConsolidate>;
+                      fill?: Partial<ArangoSearchViewConsolidate>;
+                  };
+            commitIntervalMsec?: number;
+            cleanupIntervalStep?: number;
+        };
+        links?: {
+            [key: string]: ArangoSearchViewCollectionLink | undefined;
+        };
+    }
 
     // Global
 
@@ -923,13 +980,13 @@ declare namespace ArangoDB {
         ): DocumentMetadata;
 
         // Views
-        _view(name: string): View | null;
-        _views(): View[];
+        _view(name: string): ArangoSearchView | null;
+        _views(): ArangoSearchView[];
         _createView(
             name: string,
             type: ViewType,
-            properties: ViewProperties
-        ): View;
+            properties: ArangoSearchViewPropertiesOptions
+        ): ArangoSearchView;
         _dropView(name: string): void;
 
         // Global
@@ -1392,7 +1449,7 @@ declare module "@arangodb/foxx/router" {
 }
 
 declare module "@arangodb/foxx/graphql" {
-    import { GraphQLSchema, formatError } from "graphql";
+    import { formatError, GraphQLSchema } from "graphql";
     type GraphQLModule = object;
     type GraphQLFormatErrorFunction = typeof formatError;
     interface GraphQLOptions {

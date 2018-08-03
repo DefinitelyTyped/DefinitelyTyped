@@ -4293,6 +4293,7 @@
 /types/timer-machine/                           @dolanmiu
 /types/timezone-js/                             @bonnici
 /types/tinajs__tina/                            @Jimexist
+/types/tinajs__tina-redux/                      @Jimexist
 /types/tinder/                                  @pingec
 /types/tiny-slider-react/                       @screendriver
 /types/tinycolor2/                              @M-Zuber @geertjansen @nvh

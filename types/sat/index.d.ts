@@ -59,10 +59,10 @@ declare namespace SAT {
 		setPoints(points: Vector[]): Polygon;
 		setAngle(angle: number): Polygon;
 		setOffset(offset: Vector): Polygon;
-		recalc(): Polygon;
 		rotate(angle: number): Polygon;
 		translate(x: number, y: number): Polygon;
 		getAABB(): Polygon;
+        getCentroid(): Vector;
 
 	}
 	export class Box {

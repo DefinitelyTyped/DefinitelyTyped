@@ -5631,9 +5631,19 @@ fp.now(); // $ExpectType number
 
     const mixedDictionary: _.Dictionary<string | number> | null | undefined = anything;
 
-    _.pickBy(mixedDictionary, (item: string | number): item is number => typeof item === "number"); // $ExpectType Dictionary<number>
-    _(mixedDictionary).pickBy((item: string | number): item is number => typeof item === "number"); // $ExpectType LoDashImplicitWrapper<Dictionary<number>>
-    _.chain(mixedDictionary).pickBy((item: string | number): item is number => typeof item === "number"); // $ExpectType LoDashExplicitWrapper<Dictionary<number>>
+    const userDefinedTypeGuard = (item: string | number): item is number => typeof item === "number";
+
+    _.pickBy(mixedDictionary, userDefinedTypeGuard); // $ExpectType Dictionary<number>
+    _(mixedDictionary).pickBy(userDefinedTypeGuard); // $ExpectType LoDashImplicitWrapper<Dictionary<number>>
+    _.chain(mixedDictionary).pickBy(userDefinedTypeGuard); // $ExpectType LoDashExplicitWrapper<Dictionary<number>>
+    fp.pickBy(userDefinedTypeGuard)(mixedDictionary); // $ExpectType Dictionary<number>
+
+    const mixedNumericDictionary: _.NumericDictionary<string | number> | null | undefined = anything;
+
+    _.pickBy(mixedNumericDictionary, userDefinedTypeGuard); // $ExpectType NumericDictionary<number>
+    _(mixedNumericDictionary).pickBy(userDefinedTypeGuard); // $ExpectType LoDashImplicitWrapper<NumericDictionary<number>>
+    _.chain(mixedNumericDictionary).pickBy(userDefinedTypeGuard); // $ExpectType LoDashExplicitWrapper<NumericDictionary<number>>
+    fp.pickBy(userDefinedTypeGuard)(mixedNumericDictionary); // $ExpectType NumericDictionary<number>
 }
 
 // _.result

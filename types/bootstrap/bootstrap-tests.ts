@@ -1,3 +1,5 @@
+declare let aHtmlElement: HTMLElement;
+
 // --------------------------------------------------------------------------------------
 // Alert
 // --------------------------------------------------------------------------------------
@@ -78,7 +80,7 @@ $("#collapse").collapse({
 });
 
 $("#collapse").collapse({
-    parent: document.body,
+    parent: aHtmlElement,
 });
 
 $("#collapse").collapse({
@@ -122,11 +124,11 @@ $("#dropdown").dropdown({
 });
 
 $("#dropdown").dropdown({
-    boundary: document.body,
+    boundary: aHtmlElement,
 });
 
 $("#dropdown").dropdown({
-    reference: document.body,
+    reference: aHtmlElement,
 });
 
 // --------------------------------------------------------------------------------------
@@ -340,5 +342,5 @@ $("#tooltip").tooltip({
 });
 
 $("#tooltip").tooltip({
-    boundary: document.body,
+    boundary: aHtmlElement,
 });

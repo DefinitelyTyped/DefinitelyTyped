@@ -286,12 +286,6 @@ declare namespace Knex {
         (columnName: string): QueryBuilder;
     }
 
-    interface WhereIn {
-        (columnName: string, values: Value[]): QueryBuilder;
-        (columnName: string, callback: QueryCallback): QueryBuilder;
-        (columnName: string, query: QueryBuilder): QueryBuilder;
-    }
-
     interface WhereBetween {
         (columnName: string, range: [Value, Value]): QueryBuilder;
     }
@@ -306,7 +300,8 @@ declare namespace Knex {
     }
 
     interface WhereIn {
-        (columnName: string, values: Value[]): QueryBuilder;
+        (columnName: string, values: Value[] | QueryBuilder | QueryCallback): QueryBuilder;
+        (columnNames: string[], values: Value[][] | QueryBuilder | QueryCallback): QueryBuilder;
     }
 
     interface GroupBy extends RawQueryBuilder, ColumnNameQueryBuilder {

@@ -67,6 +67,9 @@ var mongoConnectionString = "mongodb://127.0.0.1/agenda";
     await job.save();
 
     const jobs = await agenda.jobs({ name: 'printAnalyticsReport' });
+    jobs.forEach((job) => {
+        job.save();
+    });
 
     let numRemoved = await agenda.cancel({ name: 'printAnalyticsReport' });
 

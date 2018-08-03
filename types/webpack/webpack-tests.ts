@@ -172,6 +172,10 @@ configuration = {
                 }
             });
 
+            compiler.hooks.afterCompile.tap("SomePlugin", (compilation: webpack.compilation.Compilation) => {
+                ['path/to/extra/dep', 'another/extra/dep'].forEach(path => compilation.fileDependencies.add(path));
+              });
+
             this.hooks.afterEmit.tapAsync("afterEmit", (stats, callback) => {
                 this.outputFileSystem.writeFile(
                     path.join(__dirname, "...", "stats.json"),
