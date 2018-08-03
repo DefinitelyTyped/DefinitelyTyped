@@ -5044,7 +5044,7 @@ declare namespace chrome {
             /** Settings for SOCKS proxy. */
             SOCKS?: P;
         }
-        interface ProxySettings<M,
+        interface ProxySettings<M = 'unmanaged',
             S = M extends 'managed' ? ManagedDOMString : string,
             SL = M extends 'managed' ? ManagedDOMStringList : string[]> {
             /** The type of proxy settings. */
@@ -5229,7 +5229,7 @@ declare namespace chrome {
             /** The network's MAC address. */
             MacAddress?: string;
             /** The network's proxy settings. */
-            ProxySettings?: ProxySettings<'unmanaged'>;
+            ProxySettings?: ProxySettings;
             /**
              * For a connected network, whether the network connectivity to the Internet is limited,
              * e.g. if the network is behind a portal, or a cellular network is not activated.
@@ -5238,7 +5238,7 @@ declare namespace chrome {
             /** The network's static IP configuration. */
             StaticIPConfig?: IPConfigProperties<M>;
             /** IP configuration that was received from the DHCP server before applying static IP configuration. */
-            SavedIPConfig?: IPConfigProperties<'unmanaged'>;
+            SavedIPConfig?: IPConfigProperties;
             /**
              * Indicates whether and how the network is configured.
              * 'None' conflicts with extension code generation,
