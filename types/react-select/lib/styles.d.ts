@@ -64,33 +64,8 @@ export interface Styles {
   singleValue?: styleFn;
   valueContainer: styleFn;
 }
-export interface StylesConfig {
-  clearIndicator?: styleFn;
-  container?: styleFn;
-  control?: styleFn;
-  dropdownIndicator?: styleFn;
-  group?: styleFn;
-  groupHeading?: styleFn;
-  indicatorsContainer?: styleFn;
-  indicatorSeparator?: styleFn;
-  input?: styleFn;
-  loadingIndicator?: styleFn;
-  // TODO loadingMessageCSS?: styleFn;
-  loadingMessage?: styleFn;
-  menu?: styleFn;
-  menuList?: styleFn;
-  menuPortal?: styleFn;
-  multiValue?: styleFn;
-  multiValueLabel?: styleFn;
-  multiValueRemove?: styleFn;
-  // TODO noOptionsMessageCSS?: styleFn;
-  noOptionsMessage?: styleFn;
-  option?: styleFn;
-  placeholder?: styleFn;
-  singleValue?: styleFn;
-  valueContainer?: styleFn;
-}
-export type GetStyles = (a: string, b: Props) => any;
+export type StylesConfig = Partial<Styles>;
+export type GetStyles = (a: string, b: Props) => CSSProperties;
 
 export const defaultStyles: Styles;
 
