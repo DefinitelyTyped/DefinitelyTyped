@@ -4,6 +4,7 @@
 //                 Guillaume <https://github.com/guillaume-ro-fr>
 //                 James Garbutt <https://github.com/43081j>
 //                 Aniello Falcone <https://github.com/AnielloFalcone>
+//                 Mohammad Hossein Amri <https://github.com/mhamri>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { Blot } from 'parchment/dist/src/blot/abstract/blot';
