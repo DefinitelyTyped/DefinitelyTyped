@@ -3229,11 +3229,11 @@ interface Component<T> {
   /**
    * 触发事件，参见 [组件事件](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/custom-component/events.html)
    */
-  triggerEvent(name: string, details?: any, options?: {
+  triggerEvent(name: string, details?: any, options?: Partial<{
     bubbles: boolean;
     composed: boolean;
     capturePhase: boolean;
-  }): void;
+  }>): void;
   /**
    * 创建一个 SelectorQuery 对象
    * 选择器选取范围为这个[组件实例](https://mp.weixin.qq.com/debug/wxadoc/dev/api/wxml-nodes-info.html)内
