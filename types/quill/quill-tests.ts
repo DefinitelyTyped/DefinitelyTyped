@@ -138,16 +138,16 @@ function test_setDeltaContents() {
     ]}));
 }
 
+function test_setTextContents() {
+    const quillEditor = new Quill('#editor');
+    quillEditor.setText('Hello\n');
+}
+
 function test_setHtmlContents() {
     const quillEditor = new Quill('#editor');
     var html = "<b>this is a bold text</b>"
     var delta = quillEditor.clipboard.convert(html);
     quillEditor.setContents(delta);
-}
-
-function test_setTextContents() {
-    const quillEditor = new Quill('#editor');
-    quillEditor.setText('Hello\n');
 }
 
 function test_getSelection() {
