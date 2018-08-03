@@ -20,7 +20,7 @@ export type ContainerProps<OptionType> = CommonProps<OptionType> &
     /** Inner props to be passed down to the container. */
     innerProps: { onKeyDown: KeyboardEventHandler },
   };
-export function containerCSS(state: ContainerState): any; // TODO css type;
+export function containerCSS(state: ContainerState): React.CSSProperties;
 export const SelectContainer: ComponentType<ContainerProps<any>>;
 
 // ==============================
@@ -35,7 +35,7 @@ export type ValueContainerProps<OptionType> = CommonProps<OptionType> & {
   /** The children to be rendered. */
   children: Node,
 };
-export function valueContainerCSS(): any; // TODO css type;
+export function valueContainerCSS(): React.CSSProperties;
 export class ValueContainer extends Component<ValueContainerProps<any>> {}
 
 // ==============================
@@ -53,5 +53,5 @@ export type IndicatorContainerProps<OptionType> = CommonProps<OptionType> &
     children: Node,
   };
 
-export function indicatorsContainerCSS(): any; // TODO css type;
+export function indicatorsContainerCSS(): React.CSSProperties;
 export const IndicatorsContainer: ComponentType<IndicatorContainerProps<any>>;
