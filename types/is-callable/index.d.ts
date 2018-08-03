@@ -3,6 +3,6 @@
 // Definitions by: Daniel <https://github.com/nieltg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function isCallable(val?: any): val is (...args: any[]) => any;
+declare function isCallable(val: any): val is (...args: any[]) => any;
 
 export = isCallable;
