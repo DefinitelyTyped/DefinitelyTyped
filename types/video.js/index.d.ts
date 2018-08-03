@@ -3760,9 +3760,9 @@ declare namespace videojs {
 		 *
 		 * @return The current value of autoplay when getting
 		 */
-		autoplay(value?: boolean): void;
+		autoplay(value?: boolean | string): void;
 
-		autoplay(): boolean;
+		autoplay(): boolean | string;
 
 		/**
 		 * Create a remote {@link TextTrack} and an {@link HTMLTrackElement}. It will
@@ -4559,7 +4559,7 @@ declare namespace videojs {
 
 	interface PlayerOptions extends ComponentOptions {
 		aspectRatio?: string;
-		autoplay?: boolean;
+		autoplay?: boolean | string;
 		controlBar?: ControlBarOptions | false;
 		textTrackSettings?: TextTrackSettingsOptions;
 		controls?: boolean;
