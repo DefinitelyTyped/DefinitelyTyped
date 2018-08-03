@@ -1,4 +1,4 @@
-import { isInputType, isOutputType } from 'graphql';
+import { assertInputType, isInputType, isOutputType } from 'graphql';
 
 ///////////////////////////
 // graphql               //
@@ -52,6 +52,8 @@ function language_visitor_tests() {
 function type_definition_tests() {
     isInputType(null);
     isOutputType(null);
+
+    assertInputType(null);
 }
 
 function type_directives_tests() {
