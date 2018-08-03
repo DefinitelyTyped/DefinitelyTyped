@@ -13,11 +13,11 @@ interface ComponentProps {
 }
 export type GroupProps<OptionType> = CommonProps<OptionType> & ComponentProps;
 
-export function groupCSS(): any; // TODO css type
+export function groupCSS(): React.CSSProperties;
 
 export const Group: ComponentType<GroupProps<any>>;
 
-export function groupHeadingCSS(): any; // TODO css type
+export function groupHeadingCSS(): React.CSSProperties;
 
 export const GroupHeading: ComponentType<any>;
 
