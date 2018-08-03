@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "meteor-univserse-i18n-tests.ts"
+        "meteor-universe-i18n-tests.ts"
     ]
 }
