@@ -2,9 +2,10 @@
 // Project: http://developer.chrome.com/apps/
 // Definitions by: Nikolai Ommundsen <https://github.com/niikoo>, Adam Lay <https://github.com/AdamLay>, MIZUNE Pine <https://github.com/pine613>, MIZUSHIMA Junki <https://github.com/mzsm>, Ingconst Stepanyan <https://github.com/RReverser>, Adam Pyle <https://github.com/pyle>, Matthew Kimber <https://github.com/matthewkimber>, otiai10 <https://github.com/otiai10>, couven92 <https://github.com/couven92>, RReverser <https://github.com/rreverser>, sreimer15 <https://github.com/sreimer15>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.6
 
 /// <reference types='filesystem'/>
+/// <reference types='webrtc'/>
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // WebView ref                                                                                                    //
@@ -402,28 +403,22 @@ declare namespace chrome {
             type?: string;
         }
 
-        interface EmbedRequestedEvent extends chrome.events.Event<(request: EmbedRequest) => void> { }
-
-        interface LaunchedEvent extends chrome.events.Event<(launchData: LaunchData) => void> { }
-
-        interface RestartedEvent extends chrome.events.Event<() => void> { }
-
         /**
          * Fired when an embedding app requests to embed this app. This event is only available on dev channel with the flag --enable-app-view.
          * @since Since Chrome 38.
          */
-        const onEmbedRequest: EmbedRequestedEvent;
+        const onEmbedRequest: chrome.events.Event<(request: EmbedRequest) => void>;
         /**
          * Fired when an app is launched from the launcher.
          */
-        const onLaunched: LaunchedEvent;
+        const onLaunched: chrome.events.Event<(launchData: LaunchData) => void>;
         /**
          * Fired at Chrome startup to apps that were running when Chrome last shut down,
          * or when apps have been requested to restart from their previous state for other reasons
          * (e.g. when the user revokes access to an app's retained files the runtime will restart the app).
          * In these situations if apps do not have an onRestarted handler they will be sent an onLaunched event instead.
          */
-        const onRestarted: RestartedEvent;
+        const onRestarted: chrome.events.Event<() => void>;
     }
 
     ////////////////////
@@ -437,7 +432,7 @@ declare namespace chrome {
      * They are not associated with any Chrome browser windows.
      * See the Window State Sample for a demonstration of these options.
      */
-    namespace app.window {
+    namespace app {
         interface ContentBounds {
             left?: number;
             top?: number;
@@ -650,7 +645,6 @@ declare namespace chrome {
              */
             visibleOnAllWorkspaces?: boolean;
         }
-
         interface AppWindow {
             /** Focus the window. */
             focus: () => void;
@@ -748,34 +742,53 @@ declare namespace chrome {
             onRestored: WindowEvent;
         }
         interface WindowEvent extends chrome.events.Event<() => void> { }
-        /**
-         * The size and position of a window can be specified in a number of different ways. The most simple option is not specifying anything at all, in which case a default size and platform dependent position will be used.
-         * To set the position, size and constraints of the window, use the innerBounds or outerBounds properties. Inner bounds do not include window decorations. Outer bounds include the window's title bar and frame. Note that the padding between the inner and outer bounds is determined by the OS. Therefore setting the same property for both inner and outer bounds is considered an error (for example, setting both innerBounds.left and outerBounds.left).
-         * To automatically remember the positions of windows you can give them ids. If a window has an id, This id is used to remember the size and position of the window whenever it is moved or resized. This size and position is then used instead of the specified bounds on subsequent opening of a window with the same id. If you need to open a window with an id at a location other than the remembered default, you can create it hidden, move it to the desired location, then show it.
-         *
-         * @param url
-         * @param [options]
-         * @param [callback] Called in the creating window (parent) before the load event is called in the created window (child). The parent can set fields or functions on the child usable from onload. E.g. background.js: function(createdWindow) { createdWindow.contentWindow.foo = function () { }; }; window.js: window.onload = function () { foo(); } If you specify the callback parameter, it should be a function that looks like this: function(AppWindow createdWindow) {...};
-         */
-        function create(url: string, options?: CreateWindowOptions, callback?: (created_window: AppWindow) => void): void;
-        /**
-         * Returns an AppWindow object for the current script context (ie JavaScript 'window' object). This can also be called on a handle to a script context for another page, for example: otherWindow.chrome.app.window.current().
-         */
-        function current(): AppWindow;
-        /**
-         * Gets an AppWindow with the given id. If no window with the given id exists null is returned. This method is new in Chrome 33.
-         */
-        function get(id: string): AppWindow;
-        /**
-         * Gets an array of all currently created app windows. This method is new in Chrome 33.
-         */
-        function getAll(): AppWindow[];
-        /**
-         * Whether the current platform supports windows being visible on all workspaces.
-         */
-        function canSetVisibleOnAllWorkspaces(): boolean;
-    }
 
+        interface WindowParams extends AppWindow {
+            id: string;
+            frameId?: integer;
+            existingWindow?: boolean;
+            [key: string]: any;
+        }
+
+        interface ChromeAppWindow extends AppWindow {
+            /**
+             * The size and position of a window can be specified in a number of different ways. The most simple option is not specifying anything at all, in which case a default size and platform dependent position will be used.
+             * To set the position, size and constraints of the window, use the innerBounds or outerBounds properties. Inner bounds do not include window decorations. Outer bounds include the window's title bar and frame. Note that the padding between the inner and outer bounds is determined by the OS. Therefore setting the same property for both inner and outer bounds is considered an error (for example, setting both innerBounds.left and outerBounds.left).
+             * To automatically remember the positions of windows you can give them ids. If a window has an id, This id is used to remember the size and position of the window whenever it is moved or resized. This size and position is then used instead of the specified bounds on subsequent opening of a window with the same id. If you need to open a window with an id at a location other than the remembered default, you can create it hidden, move it to the desired location, then show it.
+             *
+             * @param url
+             * @param [options]
+             * @param [callback] Called in the creating window (parent) before the load event is called in the created window (child). The parent can set fields or functions on the child usable from onload. E.g. background.js: function(createdWindow) { createdWindow.contentWindow.foo = function () { }; }; window.js: window.onload = function () { foo(); } If you specify the callback parameter, it should be a function that looks like this: function(AppWindow createdWindow) {...};
+             */
+            create(url: string, options?: CreateWindowOptions, callback?: (created_window: AppWindow) => void): void;
+            /**
+             * Returns an AppWindow object for the current script context (ie JavaScript 'window' object). This can also be called on a handle to a script context for another page, for example: otherWindow.chrome.app.window.current().
+             */
+            current(): AppWindow;
+            /**
+             * Gets an AppWindow with the given id. If no window with the given id exists null is returned. This method is new in Chrome 33.
+             */
+            get(id: string): AppWindow;
+            /**
+             * Gets an array of all currently created app windows. This method is new in Chrome 33.
+             */
+            getAll(): AppWindow[];
+            /**
+             * Whether the current platform supports windows being visible on all workspaces.
+             */
+            canSetVisibleOnAllWorkspaces(): boolean;
+
+
+            /**
+             * Undocumented
+             * @todo TODO Find info
+             * definition app.window.initializeAppWindow(state: object)
+             * @internal
+             */
+            initializeAppWindow(state: WindowParams): void;
+        }
+        const window: ChromeAppWindow;
+    }
 
     ////////////////////
     // Audio
@@ -2131,8 +2144,41 @@ declare namespace chrome {
     }
 
     ////////////////////
-    // Document Scan
+    // DesktopCapture //
     ////////////////////
+    /**
+     * Desktop Capture API that can be used to capture content of screen,
+     * individual windows or tabs.
+     * @since Availability: Since Chrome 34.
+     * @requires Permissions: "desktopCapture"
+     */
+    namespace desktopCapture {
+        const DesktopCaptureSourceType: {
+            SCREEN: "screen",
+            WINDOW: "window",
+            TAB: "tab",
+            AUDIO: "audio"
+        }
+
+        /**
+         * Shows desktop media picker UI with the specified set of sources.
+         * @param sources Set of sources that should be shown to the user.
+         * @param callback The callback parameter should be a function that looks like this:
+         * function(string streamId) {...};
+         * Parameter streamId: An opaque string that can be passed to getUserMedia() API to generate media stream that corresponds to the source selected by the user. If user didn't select any source (i.e. canceled the prompt) then the callback is called with an empty streamId. The created streamId can be used only once and expires after a few seconds when it is not used.
+         */
+        function chooseDesktopMedia<T extends keyof typeof DesktopCaptureSourceType>
+            (sources: Array<typeof DesktopCaptureSourceType[T]>, callback: (streamId: string) => void): number;
+        /**
+         * Hides desktop media picker dialog shown by chooseDesktopMedia().
+         * @param desktopMediaRequestId Id returned by chooseDesktopMedia()
+         */
+        function cancelChooseDesktopMedia(desktopMediaRequestId: number): void;
+    }
+
+    ///////////////////
+    // Document Scan //
+    ///////////////////
     /**
      * Use the chrome.documentScan API to discover and retrieve
      * images from attached paper document scanners.

@@ -1,7 +1,8 @@
+/// <reference types="webrtc" />
 import runtime = chrome.app.runtime;
-import cwindow = chrome.app.window;
+let cwindow = chrome.app.window;
 
-const createOptions: cwindow.CreateWindowOptions = {
+const createOptions: chrome.app.CreateWindowOptions = {
     id: 'My Window',
     bounds: {
         left: 0,
@@ -14,7 +15,7 @@ const createOptions: cwindow.CreateWindowOptions = {
 
 //Create new window on app launch
 chrome.app.runtime.onLaunched.addListener(function (launchData: runtime.LaunchData) {
-    chrome.app.window.create('app/url', createOptions, function (created_window: cwindow.AppWindow) {
+    chrome.app.window.create('app/url', createOptions, function (created_window: chrome.app.AppWindow) {
         return;
     });
 });
@@ -22,9 +23,9 @@ chrome.app.runtime.onLaunched.addListener(function (launchData: runtime.LaunchDa
 chrome.app.runtime.onRestarted.addListener(function () { return; });
 
 // retrieving windows
-var currentWindow: cwindow.AppWindow = chrome.app.window.current();
-var otherWindow: cwindow.AppWindow = chrome.app.window.get('some-string');
-var allWindows: cwindow.AppWindow[] = chrome.app.window.getAll();
+var currentWindow: chrome.app.AppWindow = chrome.app.window.current();
+var otherWindow: chrome.app.AppWindow = chrome.app.window.get('some-string');
+var allWindows: chrome.app.AppWindow[] = chrome.app.window.getAll();
 
 // listening to window events
 currentWindow.onBoundsChanged.addListener(function () { return; });
@@ -520,3 +521,8 @@ chrome.audio.getDevices({}, (audioDeviceInfoList) => {
         console.log('Audio Device Name: ' + audioObj.deviceName);
     }
 });
+
+
+chrome.desktopCapture.chooseDesktopMedia(["screen", "window", "tab"], () => { });
+chrome.desktopCapture.chooseDesktopMedia([chrome.desktopCapture.DesktopCaptureSourceType.AUDIO], () => { });
+
