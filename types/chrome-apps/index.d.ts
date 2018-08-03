@@ -1839,6 +1839,54 @@ declare namespace chrome {
         function openTab(options: Options): void;
     }
 
+    ///////////////
+    // Clipboard //
+    ///////////////
+    /**
+     * @requires(dev) **Dev** channel only.
+     * @requires Permissions: "clipboard"
+     * @description
+     * *This API is* **experimental**. *It is* **only** *available to Chrome users on the* **dev** *channel.*
+     * The chrome.clipboard API is provided to allow users to access data of the clipboard.
+     * This is a temporary solution for chromeos platform apps until open-web alternative is available.
+     * It will be deprecated once open-web solution is available.
+     * @see[Docs]{@link https://developer.chrome.com/apps/clipboard}
+     */
+    namespace clipboard {
+        interface AdditionalItems {
+            /** Type of the additional data item. */
+            type: 'textPlain' | 'textHtml';
+            /**
+             * Content of the additional data item.
+             * Either the plain text string if *type* is "textPlain" or
+             * markup string if *type* is "textHtml".
+             * The data can not exceed 2MB.
+             */
+            data: string;
+        }
+        /**
+         * **Dev channel only.**
+         * Sets image data to clipboard
+         * @param imageData The encoded image data. *Since Chrome 69. Warning: this is the current Beta channel.*
+         * @param type The type of image being passed. *Since Chrome 69. Warning: this is the current Beta channel.*
+         * @param [additionalItems] Additional data items for describing image data.
+         *      The callback is called with chrome.runtime.lastError set to error code if there is an error.
+         *      Requires clipboard and clipboardWrite permissions.
+         *      *Since Chrome 69. Warning: this is the current Beta channel.*
+         * @param [callback]
+         */
+        function setImageData(imageData: ArrayBuffer, type: 'png' | 'jpeg', additionalItems?: AdditionalItems, callback?: () => void): void;
+
+        /**
+         * **Dev channel only.**
+         * Fired when clipboard data changes.
+         * Requires clipboard and clipboardRead permissions for adding listener to
+         * chrome.clipboard.onClipboardDataChanged event. After this event fires, the
+         * clipboard data is available by calling document.execCommand('paste').
+         */
+        const onClipboardDataChanged: chrome.events.Event<() => void>;
+    }
+
     //////////////
     // Commands //
     //////////////
@@ -4314,7 +4362,7 @@ declare namespace chrome {
              * The type of this extension, app, or theme.
              * @since Chrome 23.
              */
-            type: string;
+            type: 'packaged_app' | string;
             /** The url for the item's options page, if it has one. */
             optionsUrl: string;
             /** The name of this extension, app, or theme. */
@@ -4384,7 +4432,6 @@ declare namespace chrome {
         function getPermissionWarningsById(id: string, callback?: (permissionWarnings: string[]) => void): void;
         /**
          * Returns information about the installed extension, app, or theme that has the given ID.
-         * @since Chrome 9.
          * @param id The ID from an item of management.ExtensionInfo.
          * @param [callback] If you specify the callback parameter, it should be a function that looks like this:
          * function( ExtensionInfo result) {...};
@@ -4397,13 +4444,13 @@ declare namespace chrome {
          */
         function getAll(callback?: (result: ExtensionInfo[]) => void): void;
         /**
-         * Returns a list of permission warnings for the given extension manifest string. Note: This function can be used without requesting the 'management' permission in the manifest.
-         * @since Chrome 15.
+         * Returns a list of permission warnings for the given extension manifest string.
+         * Note: This function can be used without requesting the 'management' permission in the manifest.
          * @param manifestStr Extension manifest JSON string.
          * @param [callback] If you specify the callback parameter, it should be a function that looks like this:
          * function(array of string permissionWarnings) {...};
          */
-        function getPermissionWarningsByManifest(manifestStr: string, callback?: (permissionwarnings: string[]) => void): void;
+        function getPermissionWarningsByManifest(manifestStr: string, callback?: (permissionWarnings: string[]) => void): void;
         /**
          * Launches an application.
          * @param id The extension id of the application.
