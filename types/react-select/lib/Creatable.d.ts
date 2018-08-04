@@ -1,3 +1,4 @@
+import { ReactNode as Node } from 'react';
 import * as React from 'react';
 import Select, { Props as SelectProps } from './Select';
 import { OptionsType, ValueType, ActionMeta } from './types';
