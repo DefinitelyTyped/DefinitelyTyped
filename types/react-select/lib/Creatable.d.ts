@@ -1,4 +1,3 @@
-import { ReactNode as Node } from 'react';
 import * as React from 'react';
 import Select, { Props as SelectProps } from './Select';
 import { OptionsType, ValueType, ActionMeta } from './types';
@@ -12,13 +11,13 @@ export interface CreatableProps<OptionType> {
   allowCreateWhileLoading?: boolean;
   /* Gets the label for the "create new ..." option in the menu. Is given the
      current input value. */
-  formatCreateLabel?: (inputValue: string) => Node;
+  formatCreateLabel?: (inputValue: string) => React.ReactNode;
   /* Determines whether the "create new ..." option should be displayed based on
      the current input value, select value and options array. */
   isValidNewOption?: (a: string, b: ValueType<OptionType>, c: OptionsType<OptionType>) => boolean;
   /* Returns the data for the new option when it is created. Used to display the
      value, and is passed to `onChange`. */
-  getNewOptionData?: (a: string, b: Node) => OptionType;
+  getNewOptionData?: (a: string, b: React.ReactNode) => OptionType;
   /* If provided, this will be called with the input value when a new option is
      created, and `onChange` will **not** be called. Use this when you need more
      control over what happens when new options are created. */
