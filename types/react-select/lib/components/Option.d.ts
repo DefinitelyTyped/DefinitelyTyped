@@ -1,4 +1,4 @@
-import { ComponentType, ReactNode as Node, MouseEventHandler } from 'react';
+import { ComponentType, ReactNode, MouseEventHandler } from 'react';
 
 import { colors, spacing } from '../theme';
 import { CommonProps, PropsWithStyles, InnerRef } from '../types';
@@ -22,7 +22,7 @@ export type OptionProps<OptionType> = PropsWithStyles &
   CommonProps<OptionType> &
   State & {
     /** The children to be rendered. */
-    children: Node,
+    children: ReactNode,
     /** Inner ref to DOM Node */
     innerRef: InnerRef,
     /** props passed to the wrapping element for the group. */
