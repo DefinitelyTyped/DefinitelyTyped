@@ -22,7 +22,7 @@ export type ControlProps<OptionType> = CommonProps<OptionType> &
     },
   };
 
-export function css(state: State): any; // TODO css type
+export function css(state: State): React.CSSProperties;
 
 declare const Control: ComponentType<ControlProps<any>>;
 

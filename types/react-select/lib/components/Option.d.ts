@@ -34,7 +34,7 @@ export type OptionProps<OptionType> = PropsWithStyles &
     type: 'option',
   };
 
-export function optionCSS(state: State): any; // TODO css type
+export function optionCSS(state: State): React.CSSProperties;
 
 export const Option: ComponentType<OptionProps<any>>;
 
