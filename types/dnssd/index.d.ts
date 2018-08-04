@@ -43,7 +43,7 @@ export class Service {
 }
 
 export class ServiceType {
-    constructor(...args: (string | string[])[])
+    constructor(...args: Array<string | string[]>)
     constructor(args: ServiceType);
 
     name: string;
