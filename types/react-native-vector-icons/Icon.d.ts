@@ -160,6 +160,8 @@ export class Icon extends React.Component<IconProps, any> {
   static hasIcon(
     name: string,
   ): boolean;
+  static getRawGlyphMap(): {};
+  static getFontFamily(): string;
 }
 
 export namespace Icon {
