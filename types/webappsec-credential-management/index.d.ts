@@ -314,6 +314,11 @@ interface CredentialRequestOptions {
      * This property specifies options for requesting a public-key signature.
      */
     publicKey?: PublicKeyCredentialRequestOptions;
+
+    /**
+     * This property lets the developer abort an ongoing get() operation.
+     */
+    signal?: AbortSignal;
 }
 
 /**
@@ -342,6 +347,10 @@ interface CredentialCreationOptions {
      * @see {@link https://w3c.github.io/webauthn/#dictionary-makecredentialoptions}
      */
     publicKey?: PublicKeyCredentialCreationOptions;
+    /**
+     * @see {@link https://w3c.github.io/webappsec-credential-management/#dom-credentialrequestoptions-signal}
+     */
+    signal?: AbortSignal;
 }
 
 /**
