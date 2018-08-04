@@ -3,11 +3,8 @@
 // Definitions by: Alex Hankins <https://github.com/AlexHankins>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/**
- * Importing this is rarely necessary.
- */
 export interface Stream {
-    write(str: string): any;
+    write(str: string): void;
 }
 
 export function fprintf(stream: Stream, format: string, ...args: any[]): any;
