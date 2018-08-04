@@ -16,7 +16,7 @@ interface ValueProps<OptionType> {
 }
 export type SingleValueProps<OptionType> = CommonProps<OptionType> & ValueProps<OptionType> & State;
 
-export function css(props: SingleValueProps<any>): any; // TODO css type
+export function css(props: SingleValueProps<any>): React.CSSProperties;
 
 export const SingleValue: ComponentType<SingleValueProps<any>>;
 
