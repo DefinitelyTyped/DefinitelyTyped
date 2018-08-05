@@ -36,10 +36,10 @@ interface Parse {
      * If no arguments are passed, the .git/config file relative to process.cwd() is used.
      */
     sync(options?: (Options | object) | string): Config;
-    /**
-     * Returns an object with only the properties that had ini-style keys converted to objects.
-     */
-    keys(config: Config): Config;
+	/**
+	 * Returns an object with only the properties that had ini-style keys converted to objects.
+	 */
+	expandKeys(config: Config): Config;
 }
 
 // no-empty-interface is disabled for a better debugging experience. Empty interfaces are used to alias a type alias.
