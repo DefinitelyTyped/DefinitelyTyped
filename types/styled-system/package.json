@@ -1,3 +1,6 @@
 {
-    "private": true
+    "private": true,
+    "devDependencies": {
+        "styled-components": "^3.3.2"
+    }
 }
