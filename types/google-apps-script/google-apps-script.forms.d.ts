@@ -151,6 +151,9 @@ declare namespace GoogleAppsScript {
      *     checkBoxItem.setValidation(checkBoxValidation);
      */
     export interface CheckboxValidation {
+      requireSelectAtLeast(number: Integer): CheckboxValidation;
+      requireSelectAtMost(number: Integer): CheckboxValidation;
+      requireSelectExactly(number: Integer): CheckboxValidation;
     }
 
     /**

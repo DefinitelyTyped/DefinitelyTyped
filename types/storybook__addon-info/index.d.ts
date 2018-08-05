@@ -1,4 +1,4 @@
-// Type definitions for @storybook/addon-info 3.2
+// Type definitions for @storybook/addon-info 3.4
 // Project: https://github.com/storybooks/storybook
 // Definitions by: Mark Kornblum <https://github.com/mkornblum>
 //                 Mattias Wikstrom <https://github.com/fyrkant>
@@ -29,6 +29,6 @@ export interface Options {
   maxPropStringLength?: number;
 }
 
-export function withInfo(textOrOptions: string | Options): (storyFn: RenderFunction) => (context?: object) => React.ReactElement<WrapStoryProps>;
+export function withInfo(textOrOptions?: string | Options): (storyFn: RenderFunction) => (context?: object) => React.ReactElement<WrapStoryProps>;
 
 export function setDefaults(newDefaults: Options): Options;

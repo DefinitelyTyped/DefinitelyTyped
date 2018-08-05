@@ -3,7 +3,7 @@ import _ = require("../index");
 type GlobalPartial<T> = Partial<T>;
 declare module "../index" {
     type PartialObject<T> = GlobalPartial<T>;
-    type Many<T> = T | T[]; // TODO: Should be ReadonlyArray<T>, but requires ts2.5 to not infinitely loop
+    type Many<T> = T | ReadonlyArray<T>;
     interface LoDashStatic {
         /**
         * Creates a lodash object which wraps value to enable implicit method chain sequences.
@@ -179,16 +179,17 @@ declare module "../index" {
     }
 
     type NotVoid = {} | null | undefined;
+    type IterateeShorthand<T> = PropertyName | [PropertyName, any] | PartialDeep<T>;
     type ArrayIterator<T, TResult> = (value: T, index: number, collection: T[]) => TResult;
     type ListIterator<T, TResult> = (value: T, index: number, collection: List<T>) => TResult;
-    type ListIteratee<T> = ListIterator<T, NotVoid> | string | [string, any] | PartialDeep<T>;
-    type ListIterateeCustom<T, TResult> = ListIterator<T, TResult> | string | [string, any] | PartialDeep<T>;
+    type ListIteratee<T> = ListIterator<T, NotVoid> | IterateeShorthand<T>;
+    type ListIterateeCustom<T, TResult> = ListIterator<T, TResult> | IterateeShorthand<T>;
     type ListIteratorTypeGuard<T, S extends T> = (value: T, index: number, collection: List<T>) => value is S;
 
     // Note: key should be string, not keyof T, because the actual object may contain extra properties that were not specified in the type.
     type ObjectIterator<TObject, TResult> = (value: TObject[keyof TObject], key: string, collection: TObject) => TResult;
-    type ObjectIteratee<TObject> = ObjectIterator<TObject, NotVoid> | string | [string, any] | PartialDeep<TObject[keyof TObject]>;
-    type ObjectIterateeCustom<TObject, TResult> = ObjectIterator<TObject, TResult> | string | [string, any] | PartialDeep<TObject[keyof TObject]>;
+    type ObjectIteratee<TObject> = ObjectIterator<TObject, NotVoid> | IterateeShorthand<TObject[keyof TObject]>;
+    type ObjectIterateeCustom<TObject, TResult> = ObjectIterator<TObject, TResult> | IterateeShorthand<TObject[keyof TObject]>;
     type ObjectIteratorTypeGuard<TObject, S extends TObject[keyof TObject]> = (value: TObject[keyof TObject], key: string, collection: TObject) => value is S;
 
     type StringIterator<TResult> = (char: string, index: number, string: string) => TResult;
@@ -207,10 +208,11 @@ declare module "../index" {
     type MemoVoidDictionaryIterator<T, TResult> = (acc: TResult, curr: T, key: string, dict: Dictionary<T>) => void;
     type MemoVoidIteratorCapped<T, TResult> = (acc: TResult, curr: T) => void;
 
-    type ValueIteratee<T> = ((value: T) => NotVoid) | string | [string, any] | PartialDeep<T>;
-    type ValueIterateeCustom<T, TResult> = ((value: T) => TResult) | string | [string, any] | PartialDeep<T>;
+    type ValueIteratee<T> = ((value: T) => NotVoid) | IterateeShorthand<T>;
+    type ValueIterateeCustom<T, TResult> = ((value: T) => TResult) | IterateeShorthand<T>;
     type ValueIteratorTypeGuard<T, S extends T> = (value: T) => value is S;
-    type ValueKeyIteratee<T> = ((value: T, key: string) => NotVoid) | string | [string, any] | PartialDeep<T>;
+    type ValueKeyIteratee<T> = ((value: T, key: string) => NotVoid) | IterateeShorthand<T>;
+    type ValueKeyIterateeTypeGuard<T, S extends T> = (value: T, key: string) => value is S;
     type Comparator<T> = (a: T, b: T) => boolean;
     type Comparator2<T1, T2> = (a: T1, b: T2) => boolean;
 
@@ -263,6 +265,6 @@ declare module "../index" {
     type DictionaryIteratorTypeGuard<T, S extends T> = ObjectIteratorTypeGuard<Dictionary<T>, S>;
     // NOTE: keys of objects at run time are always strings, even when a NumericDictionary is being iterated.
     type NumericDictionaryIterator<T, TResult> = (value: T, key: string, collection: NumericDictionary<T>) => TResult;
-    type NumericDictionaryIteratee<T> = NumericDictionaryIterator<T, NotVoid> | string | [string, any] | PartialDeep<T>;
-    type NumericDictionaryIterateeCustom<T, TResult> = NumericDictionaryIterator<T, TResult> | string | [string, any] | PartialDeep<T>;
+    type NumericDictionaryIteratee<T> = NumericDictionaryIterator<T, NotVoid> | IterateeShorthand<T>;
+    type NumericDictionaryIterateeCustom<T, TResult> = NumericDictionaryIterator<T, TResult> | IterateeShorthand<T>;
 }

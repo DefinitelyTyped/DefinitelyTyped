@@ -1,14 +1,13 @@
 import * as React from 'react';
 import { CSSModule } from '../index';
+import { FadeProps } from './Fade';
 
 export type UncontrolledProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   className?: string;
   cssModule?: CSSModule;
   color?: string;
   tag?: React.ReactType;
-  transitionAppearTimeout?: number;
-  transitionEnterTimeout?: number;
-  transitionLeaveTimeout?: number;
+  transition?: FadeProps;
 } & T;
 export type UncontrolledAlertProps<T = {}> = UncontrolledProps<T>;
 

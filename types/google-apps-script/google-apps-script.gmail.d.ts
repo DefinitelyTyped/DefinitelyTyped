@@ -119,13 +119,72 @@ declare namespace GoogleAppsScript {
      * A user-created draft message in a user's Gmail account.
      */
     export interface GmailDraft {
+      /**
+       * Deletes this draft message.
+       */
       deleteDraft(): void;
+      /**
+       * Gets the ID of this draft message.
+       */
       getId(): string;
+      /**
+       * Returns a GmailMessage representing this draft.
+       */
       getMessage(): GmailMessage;
+      /**
+       * Returns the ID of the `GmailMessage` representing this draft.
+       */
       getMessageId(): string;
+      /**
+       * Sends this draft email message.
+       */
       send(): GmailMessage;
+      /**
+       * Replaces the contents of this draft message.
+       */
       update(recipient: string, subject: string, body: string): GmailDraft;
-      update(recipient: string, subject: string, body: string, options: Object): GmailDraft;
+      /**
+       * Replaces the contents of this draft message using optional arguments.
+       */
+      update(recipient: string, subject: string, body: string, options: GmailDraftOptions): GmailDraft;
+    }
+
+    /**
+     * Options for a Gmail draft.
+     */
+    export type GmailDraftOptions = {
+      /**
+       * An array of files to send with the email.
+       */
+      attachments?: Base.BlobSource[];
+      /**
+       * A comma-separated list of email addresses to BCC.
+       */
+      bcc?: string;
+      /**
+       * A comma-separated list of email addresses to CC.
+       */
+      cc?: string;
+      /**
+       * The address that the email should be sent from, which must be one of the values returned by `GmailApp.getAliases()`.
+       */
+      from?: string;
+      /**
+       * If set, devices capable of rendering HTML will use it instead of the required body argument; you can add an optional `inlineImages` field in HTML body if you have inlined images for your email.
+       */
+      htmlBody?: string;
+      /**
+       * A JavaScript object containing a mapping from image key (`String`) to image data (`BlobSource`) ; this assumes that the `htmlBody` parameter is used and contains references to these images in the format `<img src="cid:imageKey" />`.
+       */
+      inlineImages?: { [imageKey: string]: Base.BlobSource };
+      /**
+       * The name of the sender of the email (default: the user's name).
+       */
+      name?: string;
+      /**
+       * An email address to use as the default reply-to address (default: the user's email address).
+       */
+      replyTo?: string;
     }
 
     /**
@@ -148,11 +207,11 @@ declare namespace GoogleAppsScript {
      */
     export interface GmailMessage {
       createDraftReply(body: string): GmailDraft;
-      createDraftReply(body: string, options: Object): GmailDraft;
+      createDraftReply(body: string, options: GmailDraftOptions): GmailDraft;
       createDraftReplyAll(body: string): GmailDraft;
-      createDraftReplyAll(body: string, options: Object): GmailDraft;
+      createDraftReplyAll(body: string, options: GmailDraftOptions): GmailDraft;
       forward(recipient: string): GmailMessage;
-      forward(recipient: string, options: Object): GmailMessage;
+      forward(recipient: string, options: GmailDraftOptions): GmailMessage;
       getAttachments(): GmailAttachment[];
       getBcc(): string;
       getBody(): string;
@@ -178,9 +237,9 @@ declare namespace GoogleAppsScript {
       moveToTrash(): GmailMessage;
       refresh(): GmailMessage;
       reply(body: string): GmailMessage;
-      reply(body: string, options: Object): GmailMessage;
+      reply(body: string, options: GmailDraftOptions): GmailMessage;
       replyAll(body: string): GmailMessage;
-      replyAll(body: string, options: Object): GmailMessage;
+      replyAll(body: string, options: GmailDraftOptions): GmailMessage;
       star(): GmailMessage;
       unstar(): GmailMessage;
     }
@@ -191,9 +250,9 @@ declare namespace GoogleAppsScript {
     export interface GmailThread {
       addLabel(label: GmailLabel): GmailThread;
       createDraftReply(body: string): GmailDraft;
-      createDraftReply(body: string, options: Object): GmailDraft;
+      createDraftReply(body: string, options: GmailDraftOptions): GmailDraft;
       createDraftReplyAll(body: string): GmailDraft;
-      createDraftReplyAll(body: string, options: Object): GmailDraft;
+      createDraftReplyAll(body: string, options: GmailDraftOptions): GmailDraft;
       getFirstMessageSubject(): string;
       getId(): string;
       getLabels(): GmailLabel[];
@@ -220,11 +279,10 @@ declare namespace GoogleAppsScript {
       refresh(): GmailThread;
       removeLabel(label: GmailLabel): GmailThread;
       reply(body: string): GmailThread;
-      reply(body: string, options: Object): GmailThread;
+      reply(body: string, options: GmailDraftOptions): GmailThread;
       replyAll(body: string): GmailThread;
-      replyAll(body: string, options: Object): GmailThread;
+      replyAll(body: string, options: GmailDraftOptions): GmailThread;
     }
-
   }
 }
 
