@@ -18,6 +18,11 @@ export function parseSimulcastStreamList(streams: string): Array<{
     scid: number | string;
     paused: boolean;
 }>;
+export interface ParamMap {
+    [paramName: string]: number | string;
+}
+export function parseParams(params: string): ParamMap;
+export function parseImageAttributes(params: string): ParamMap[];
 
 export interface MediaDescription extends SharedDescriptionFields, MediaAttributes {}
 
