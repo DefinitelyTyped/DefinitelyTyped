@@ -81,7 +81,6 @@ declare namespace nock {
 
         done(): void;
         isDone(): boolean;
-        restore(): void;
         pendingMocks(): string[];
     }
 
