@@ -23,11 +23,13 @@
 //                 Marcin Biernat <https://github.com/biern>
 //                 Rayhaneh Banyassady <https://github.com/rayhaneh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 declare let R: R.Static;
 
 declare namespace R {
+    type Invert<T extends boolean> = T extends true ? false : true;
+
     type Omit<T, K extends string> = Pick<T, Exclude<keyof T, K>>;
 
     type Ord = number | string | boolean;
@@ -376,7 +378,7 @@ declare namespace R {
          * - applying g to zero or more arguments will give false if applying the same arguments to f gives
          *   a logical true value.
          */
-        complement<T extends (...args: any[]) => boolean>(pred: T): T;
+        complement<T extends any[], S extends boolean>(pred: (...args: T) => S): (...args: T) => Invert<S>;
 
         /**
          * Performs right-to-left function composition. The rightmost function may have any arity; the remaining
