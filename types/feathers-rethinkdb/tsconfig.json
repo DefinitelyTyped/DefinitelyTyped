@@ -28,5 +28,9 @@
                 "feathersjs__socketio"
             ]
         }
-    }
+    },
+    "files": [
+        "feathers-rethinkdb-tests.ts",
+        "index.d.ts"
+    ]
 }
