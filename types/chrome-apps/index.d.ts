@@ -922,6 +922,7 @@ declare namespace chrome {
      * @description
      * Use the chrome.bluetooth API to connect to a Bluetooth device.
      * All functions report failures via chrome.runtime.lastError.
+     * **Important: This API works only on OS X, Windows and Chrome OS.**
      */
     namespace bluetooth {
         interface AdapterState {
@@ -6338,9 +6339,9 @@ declare namespace chrome {
         const onBrowserUpdateAvailable: RuntimeEvent;
     }
 
-    ////////////////////
-    // Serial
-    ////////////////////
+    ////////////
+    // Serial //
+    ////////////
     /**
      * Use the chrome.socket API to send and receive data over the network using TCP and UDP connections.
      * @deprecated Note: Starting with Chrome 33,
@@ -6350,66 +6351,24 @@ declare namespace chrome {
      */
     const serial: chrome.deprecated;
 
-    ////////////////////
-    // Socket
-    ////////////////////
-    namespace socket {
-        interface CreateInfo {
-            socketId: number;
-        }
+    ////////////
+    // Socket //
+    ////////////
+    /*
+     * @deprecated Since Chrome 33
+     * @description
+     * Use the chrome.socket API to send and receive data over the network using TCP and UDP connections.
+     * Note: Starting with Chrome 33, this API is deprecated in favor of the sockets.udp, sockets.tcp
+     * and sockets.tcpServer APIs.
+     */
+    // const socket: chrome.deprecated; // Removed to not be confused with chrome.sockets.*
 
-        interface AcceptInfo {
-            resultCode: number;
-            socketId?: number;
-        }
-
-        interface ReadInfo {
-            resultCode: number;
-            data: ArrayBuffer;
-        }
-
-        interface WriteInfo {
-            bytesWritten: number;
-        }
-
-        interface RecvFromInfo {
-            resultCode: number;
-            data: ArrayBuffer;
-            port: number;
-            address: string;
-        }
-
-        interface SocketInfo {
-            socketType: string;
-            localPort?: number;
-            peerAddress?: string;
-            peerPort?: number;
-            localAddress?: string;
-            connected: boolean;
-        }
-
-        interface NetworkInterface {
-            name: string;
-            address: string;
-        }
-
-        function create(type: string, options?: Object, callback?: (createInfo: CreateInfo) => void): void;
-        function destroy(socketId: number): void;
-        function connect(socketId: number, hostname: string, port: number, callback: (result: number) => void): void;
-        function bind(socketId: number, address: string, port: number, callback: (result: number) => void): void;
-        function disconnect(socketId: number): void;
-        function read(socketId: number, bufferSize?: number, callback?: (readInfo: ReadInfo) => void): void;
-        function write(socketId: number, data: ArrayBuffer, callback?: (writeInfo: WriteInfo) => void): void;
-        function recvFrom(socketId: number, bufferSize?: number, callback?: (recvFromInfo: RecvFromInfo) => void): void;
-        function sendTo(socketId: number, data: ArrayBuffer, address: string, port: number, callback?: (writeInfo: WriteInfo) => void): void;
-        function listen(socketId: number, address: string, port: number, backlog?: number, callback?: (result: number) => void): void;
-        function accept(socketId: number, callback?: (acceptInfo: AcceptInfo) => void): void;
-        function setKeepAlive(socketId: number, enable: boolean, delay?: number, callback?: (result: boolean) => void): void;
-        function setNoDelay(socketId: number, noDelay: boolean, callback?: (result: boolean) => void): void;
-        function getInfo(socketId: number, callback: (result: SocketInfo) => void): void;
-        function getNetworkList(callback: (result: NetworkInterface[]) => void): void;
-    }
-
+    /**
+     * Use the chrome.sockets.tcp API to send and receive data over the network using TCP connections.
+     * This API supersedes the TCP functionality previously found in the chrome.socket API.
+     * @since Chrome 33.
+     * @requires Manifest: "Sockets": {...}
+     */
     namespace sockets.tcp {
         interface CreateInfo {
             socketId: number;

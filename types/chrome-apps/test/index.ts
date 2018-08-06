@@ -13,13 +13,13 @@ const createOptions: chrome.app.CreateWindowOptions = {
 };
 
 //Create new window on app launch
-chrome.app.runtime.onLaunched.addListener(function (launchData: runtime.LaunchData) {
-    chrome.app.window.create('app/url', createOptions, function (created_window: chrome.app.AppWindow) {
+chrome.app.runtime.onLaunched.addListener((launchData: runtime.LaunchData) => {
+    chrome.app.window.create('app/url', createOptions, (created_window: chrome.app.AppWindow) => {
         return;
     });
 });
 
-chrome.app.runtime.onRestarted.addListener(function () { return; });
+chrome.app.runtime.onRestarted.addListener(() => { return; });
 
 // retrieving windows
 var currentWindow: chrome.app.AppWindow = chrome.app.window.current();
@@ -27,12 +27,12 @@ var otherWindow: chrome.app.AppWindow = chrome.app.window.get('some-string');
 var allWindows: chrome.app.AppWindow[] = chrome.app.window.getAll();
 
 // listening to window events
-currentWindow.onBoundsChanged.addListener(function () { return; });
-currentWindow.onClosed.addListener(function () { return; });
-currentWindow.onFullscreened.addListener(function () { return; });
-currentWindow.onMaximized.addListener(function () { return; });
-currentWindow.onMinimized.addListener(function () { return; });
-currentWindow.onRestored.addListener(function () { return; });
+currentWindow.onBoundsChanged.addListener(() => { return; });
+currentWindow.onClosed.addListener(() => { return; });
+currentWindow.onFullscreened.addListener(() => { return; });
+currentWindow.onMaximized.addListener(() => { return; });
+currentWindow.onMinimized.addListener(() => { return; });
+currentWindow.onRestored.addListener(() => { return; });
 
 // check platform capabilities
 var visibleEverywhere: boolean = chrome.app.window.canSetVisibleOnAllWorkspaces();
@@ -360,67 +360,6 @@ wve.addEventListener('loadredirect', (ev) => {
     return ev.newUrl || ev.oldUrl;
 });
 
-chrome.bluetooth.getAdapterState((adapter) => {
-    console.log('Adapter ' + adapter.address + ': ' + adapter.name);
-});
-
-chrome.bluetooth.getDevices((devices) => {
-    for (const device of devices) {
-        console.log(device.address);
-    }
-});
-
-chrome.bluetooth.onDeviceAdded.addListener((device) => {
-    let uuid = '0000180d-0000-1000-8000-00805f9b34fb';
-    if (!device.uuids || device.uuids.indexOf(uuid) < 0)
-        return;
-
-    // The device has a service with the desired UUID.
-    chrome.bluetoothLowEnergy.connect(device.address, () => {
-        if (chrome.runtime.lastError) {
-            console.log('Failed to connect: ' + chrome.runtime.lastError.message);
-            return;
-        }
-        // Connected! Do stuff...
-    });
-});
-
-const uuid = '1105';
-
-chrome.bluetooth.getDevices((devices) => {
-    chrome.bluetoothSocket.create((createInfo) => {
-        chrome.bluetoothSocket.connect(createInfo.socketId,
-            devices[0].address, uuid, () => {
-                if (chrome.runtime.lastError) {
-                    console.log('Connection failed: ' + chrome.runtime.lastError.message);
-                } else {
-                    chrome.bluetoothSocket.send(createInfo.socketId, new ArrayBuffer(4096), (bytes_sent) => {
-                        if (chrome.runtime.lastError) {
-                            console.log('Send failed: ' + chrome.runtime.lastError.message);
-                        } else {
-                            console.log('Sent ' + bytes_sent + ' bytes')
-                        }
-                    });
-                }
-            });
-        chrome.bluetoothSocket.onReceive.addListener((receiveInfo) => {
-            if (receiveInfo.socketId != createInfo.socketId)
-                return;
-            // receiveInfo.data is an ArrayBuffer.
-        });
-    });
-});
-
-chrome.hid.getDevices({
-    filters: [
-        { vendorId: 5 }
-    ]
-}, (devices) => {
-    const productId = devices[0].productId;
-    chrome.hid.getUserSelectedDevices((selectedDevices) => {
-        const hmm = selectedDevices.productId == productId ? selectedDevices.vendorId : selectedDevices.maxFeatureReportSize;
-    });
-});
 
 chrome.syncFileSystem.getConflictResolutionPolicy((policy) => {
     if (policy === 'manual') {
@@ -530,7 +469,208 @@ chrome.audio.getDevices({}, (audioDeviceInfoList) => {
     }
 });
 
+chrome.app.runtime.onEmbedRequested.addListener((request) => {
+    if (!request.data.message) {
+        request.allow('default.html');
+    } else if (request.data.message == 'camera') {
+        request.allow('camera.html');
+    } else {
+        request.deny();
+    }
+});
+
+chrome.app.runtime.onLaunched.addListener(() => {
+    chrome.app.window.create('index.html', {
+        id: "test",
+        innerBounds: {
+            width: 900,
+            height: 1280
+        }
+    }
+});
+
+
+
+const ManifestJSONTest1: chrome.runtime.Manifest = {
+    "manifest_version": 2,
+    "name": "Sample Appview Embedded",
+    "description": "This sample shows how to allow your app to be embedded into another app",
+    "version": "2",
+    "minimum_chrome_version": "43",
+    "permissions": ["videoCapture"],
+    "app": {
+        "background": {
+            "scripts": ["main.js"]
+        }
+    }
+}
+
+// BLUETOOTH
+// BLUETOOTH SOCKET
+// BLUETOOTH LE
+// Based on https://github.com/GoogleChrome/chrome-app-samples/blob/master/samples/ioio/main.js
+
+var kUUID = '00001101-0000-1000-8000-00805f9b34fb';
+var level = 1;
+var pin = 0;
+var buffer = new ArrayBuffer(4);
+var view = new Uint8Array(buffer);
+
+// Set the level of pin0 to level
+// constants taken from here:
+// https://github.com/ytai/ioio/wiki/
+view[2] = 4;
+view[3] = pin << 2 | level;
+level = (level == 0) ? 1 : 0;
+
+var connectToDevice = (result: chrome.bluetooth.Device[]) => {
+    if (chrome.runtime.lastError) {
+        console.log('Error searching for a device to connect to.');
+        return;
+    }
+    if (result.length == 0) {
+        console.log('No devices found to connect to.');
+        return;
+    }
+    for (const device of result) {
+        console.log('Connecting to device: ' + device.name + ' @ ' + device.address);
+        chrome.bluetoothSocket.create((socket) => {
+            chrome.bluetoothSocket.connect(
+                socket.socketId,
+                device.address, kUUID,
+                () => connectCallback(socket)
+        });
+    }
+};
+
+var connectCallback = (socket: chrome.sockets.CreateInfo) => {
+    if (socket) {
+        console.log('Connected!  Socket ID is: ' + socket.socketId + ' on service ');
+        // Set pin0 as output.
+        var buffer = new ArrayBuffer(2);
+        var view = new Uint8Array(buffer);
+        // constants taken from here:
+        // https://github.com/ytai/ioio/wiki/
+        view[0] = 3;
+        view[1] = pin << 2 | 2;
+        chrome.bluetoothSocket.send(socket.socketId, buffer,
+            (bytes) => {
+                if (chrome.runtime.lastError) {
+                    console.log('Write error: ' + chrome.runtime.lastError.message);
+                } else {
+                    console.log('wrote ' + bytes + ' bytes');
+                }
+            });
+    } else {
+        console.log('Failed to connect.');
+    }
+};
+
+
+chrome.bluetooth.getAdapterState((adapter) => {
+    console.log('Adapter ' + adapter.address + ': ' + adapter.name);
+});
+
+chrome.bluetooth.getDevices((devices) => {
+    for (const device of devices) {
+        console.log(device.address);
+    }
+});
+
+chrome.bluetooth.onDeviceAdded.addListener((device) => {
+    let uuid = '0000180d-0000-1000-8000-00805f9b34fb';
+    if (!device.uuids || device.uuids.indexOf(uuid) < 0)
+        return;
+
+    // The device has a service with the desired UUID.
+    chrome.bluetoothLowEnergy.connect(device.address, () => {
+        if (chrome.runtime.lastError) {
+            console.log('Failed to connect: ' + chrome.runtime.lastError.message);
+            return;
+        }
+        // Connected! Do stuff...
+    });
+});
+
+const uuid = '1105';
+
+chrome.bluetooth.getDevices((devices) => {
+    chrome.bluetoothSocket.create((createInfo) => {
+        chrome.bluetoothSocket.connect(createInfo.socketId,
+            devices[0].address, uuid, () => {
+                if (chrome.runtime.lastError) {
+                    console.log('Connection failed: ' + chrome.runtime.lastError.message);
+                } else {
+                    chrome.bluetoothSocket.send(createInfo.socketId, new ArrayBuffer(4096), (bytes_sent) => {
+                        if (chrome.runtime.lastError) {
+                            console.log('Send failed: ' + chrome.runtime.lastError.message);
+                        } else {
+                            console.log('Sent ' + bytes_sent + ' bytes')
+                        }
+                    });
+                }
+            });
+        chrome.bluetoothSocket.onReceive.addListener((receiveInfo) => {
+            if (receiveInfo.socketId != createInfo.socketId)
+                return;
+            // receiveInfo.data is an ArrayBuffer.
+        });
+    });
+});
+
+// CONTEXT MENU
+
+chrome.contextMenus.onClicked.addListener((info) => {
+    const isChecked = info.checked;
+    if (!document.hasFocus() && isChecked) {
+        return;
+    }
+});
+
+
+// DESKTOP CAPTURE
+
 
 chrome.desktopCapture.chooseDesktopMedia(["screen", "window", "tab"], () => { });
 chrome.desktopCapture.chooseDesktopMedia([chrome.desktopCapture.DesktopCaptureSourceType.AUDIO], () => { });
 
+
+// HID
+
+chrome.hid.getDevices({}, () => { });
+chrome.hid.onDeviceAdded.addListener(() => { });
+chrome.hid.onDeviceRemoved.addListener(() => { });
+
+chrome.hid.getDevices({
+    filters: [
+        { vendorId: 5 }
+    ]
+}, (devices) => {
+    const productId = devices[0].productId;
+    chrome.hid.getUserSelectedDevices((selectedDevices) => {
+        const hmm = selectedDevices.productId == productId ? selectedDevices.vendorId : selectedDevices.maxFeatureReportSize;
+    });
+    chrome.hid.connect(devices[0].deviceId, (connectInfo) => {
+        if (!connectInfo) {
+            console.warn("Unable to connect to device.");
+        }
+        const connection = connectInfo.connectionId;
+    });
+    chrome.hid.getUserSelectedDevices({ 'multiple': false },
+        (devices) => {
+            if (chrome.runtime.lastError != undefined) {
+                console.warn('chrome.hid.getUserSelectedDevices error: ' +
+                    chrome.runtime.lastError.message);
+                return;
+            }
+        });
+});
+
+// IDENTITY
+
+chrome.identity.getAuthToken({ interactive: true }, (token) => {
+    if (chrome.runtime.lastError) {
+        return;
+    }
+    chrome.identity.removeCachedAuthToken({ token: token }, () => { });
+});
