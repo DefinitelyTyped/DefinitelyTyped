@@ -18,6 +18,7 @@
 //                 Johann Rakotoharisoa <https://github.com/jrakotoharisoa>
 //                 Olivier Pascal <https://github.com/pascaloliv>
 //                 Martin Hochel <https://github.com/hotell>
+//                 Frank Li <https://github.com/franklixuefei>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -49,7 +50,7 @@ declare namespace React {
     // ----------------------------------------------------------------------
 
     type ReactType<P = any> = string | ComponentType<P>;
-    type ComponentType<P = {}> = ComponentClass<P> | StatelessComponent<P>;
+    type ComponentType<P = {}> = ComponentClass<P, any> | StatelessComponent<P>;
 
     type Key = string | number;
 
