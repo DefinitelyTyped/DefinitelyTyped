@@ -5902,7 +5902,7 @@ declare namespace chrome {
              *   '128': 'icon128.png'
              * }
              */
-            [size: integer]: string;
+            [size: number]: string;
         }
 
         interface ManifestAction {
@@ -6411,12 +6411,35 @@ declare namespace chrome {
                  * A device only needs to match one of the provided filters.
                  * A vendorId is required and only one of productId or interfaceClass may be provided.
                  */
-                filters: Require<chrome.usb.DeviceFilter>[];
+                filters: chrome.usb.DeviceFilterStrict[];
             };
+            /**
+             * version_name can be set to a descriptive version string and will be used for display purposes if present.
+             * If no version_name is present, the version field will be used for display purposes as well.
+             * @example
+             * "version_name": "0.8 beta"
+             * "version_name": "build rc3"
+             * "version_name": "Gold Edition"
+             */
             version_name?: string;
+            /**
+             * By default, webviews are prevented from loading any resources packaged with the app.
+             * However, webview partitions may be granted access to these resources via a webview.partitions
+             * section in the app manifest. Partitions may be granted access to a set of files by
+             * matching partition name patterns with file name patterns. Both sorts of patterns may
+             * contain the * wildcard.
+             * @see[Accessing packaged resources]{@link https://developer.chrome.com/apps/tags/webview#local_resources}
+             */
             webview?: {
                 partitions?: {
                     name: string;
+                    /**
+                     * Path to files, relative, absolute or pattern
+                     * @example
+                     * ["local_*.html", "*.png", "*.js"]
+                     * ["img/epic.html"]
+                     *
+                    */
                     accessible_resources: string[];
                 }[]
             }
@@ -8359,10 +8382,9 @@ declare namespace chrome {
             data?: ArrayBuffer;
         }
 
-        /** @since Since Chrome 39. */
-        interface DeviceFilter {
+        interface DeviceFilterStrict {
             /** Device vendor ID. */
-            vendorId?: integer;
+            vendorId: integer;
             /** Device product ID, checked only if the vendor ID matches. */
             productId?: integer;
             /** USB interface class, matches any interface on the device. */
@@ -8372,6 +8394,9 @@ declare namespace chrome {
             /** USB interface protocol, checked only if the interface sub-class matches. */
             interfaceProtocol?: integer;
         }
+
+        /** @since Since Chrome 39. */
+        interface DeviceFilter extends Partial<DeviceFilter> { }
 
         type TransferRecipient = 'device' | 'interface' | 'endpoint' | 'other';
 
