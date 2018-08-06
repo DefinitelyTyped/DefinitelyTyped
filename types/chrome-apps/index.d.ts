@@ -349,6 +349,10 @@ declare namespace chrome {
             NEW_NOTE: ActionType
         }
 
+        const ActionType: {
+            NEW_NOTE: actionType
+        }
+
         interface LaunchData {
             /**
              * The ID of the file or URL handler that the app is being invoked with.
@@ -9485,6 +9489,13 @@ declare namespace chrome {
             /** Excludes pages that this content script would otherwise be injected into. */
             exclude_matches?: any[]
 
+            /** JavaScript or CSS file to inject. */
+            file?: string
+        }
+        /** The type of injection item: code or a set of files. */
+        interface InjectionItems {
+            /** JavaScript code or CSS to be injected into matching pages. */
+            code?: string
             /**
              * Whether to insert the content script on about:blank and about:srcdoc.
              * Content scripts will only be injected on pages when their inherit URL

@@ -3,7 +3,7 @@
 // Definitions by: Karol Janyst <https://github.com/LKay>
 //                 Jason Unger <https://github.com/jsonunger>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
+// TypeScript Version: 2.8
 
 import { ComponentClass, InputHTMLAttributes, ReactNode } from "react";
 
