@@ -6363,13 +6363,8 @@ declare namespace chrome {
      */
     // const socket: chrome.deprecated; // Removed to not be confused with chrome.sockets.*
 
-    /**
-     * Use the chrome.sockets.tcp API to send and receive data over the network using TCP connections.
-     * This API supersedes the TCP functionality previously found in the chrome.socket API.
-     * @since Chrome 33.
-     * @requires Manifest: "Sockets": {...}
-     */
-    namespace sockets.tcp {
+    /** chrome.sockets.tcp API */
+    namespace sockets {
         interface CreateInfo {
             /**
              * The ID of the newly created socket.
@@ -6400,7 +6395,6 @@ declare namespace chrome {
             /** The result code returned from the underlying network call. */
             resultCode: number;
         }
-
         interface SocketProperties {
             /**
              * Flag indicating if the socket is left open when the event page of the
@@ -6440,6 +6434,15 @@ declare namespace chrome {
             /** If the underlying socket is connected, contains the peer port. */
             peerPort?: integer;
         }
+    }
+
+    /**
+     * Use the chrome.sockets.tcp API to send and receive data over the network using TCP connections.
+     * This API supersedes the TCP functionality previously found in the chrome.socket API.
+     * @since Chrome 33.
+     * @requires Manifest: "Sockets": {...}
+     */
+    namespace sockets.tcp {
         interface SecureOptions {
             /**
              * The minimum and maximum acceptable versions of TLS.
@@ -6592,20 +6595,6 @@ declare namespace chrome {
      * @see https://developer.chrome.com/apps/sockets_tcpServer
      */
     namespace sockets.tcpServer {
-        interface CreateInfo {
-            socketId: integer;
-        }
-
-        interface AcceptEventArgs {
-            socketId: integer;
-            clientSocketId: integer;
-        }
-
-        interface AcceptErrorEventArgs {
-            socketId: integer;
-            resultCode: integer;
-        }
-
         /**
          * @see https://developer.chrome.com/apps/sockets_tcpServer#type-SocketProperties
          */
@@ -6787,95 +6776,11 @@ declare namespace chrome {
      * Use the chrome.sockets.udp API to send and receive data over the network
      * using UDP connections. This API supersedes the UDP functionality previously
      * found in the 'socket' API.
-     *
+     * @requires Manifest: "sockets": {...}
      * @since Chrome 33
      * @see https://developer.chrome.com/apps/sockets_udp
      */
     namespace sockets.udp {
-        interface CreateInfo {
-            socketId: integer;
-        }
-
-        interface SendInfo {
-            resultCode: integer;
-            bytesSent?: integer;
-        }
-
-        interface ReceiveEventArgs {
-            socketId: integer;
-            data: ArrayBuffer;
-            remoteAddress: string;
-            remotePort: integer;
-        }
-
-        interface ReceiveErrorEventArgs {
-            socketId: integer;
-            resultCode: integer;
-        }
-
-        /**
-         * @see https://developer.chrome.com/apps/sockets_udp#type-SocketProperties
-         */
-        interface SocketProperties {
-            /**
-             * Flag indicating if the socket is left open when the event page of the
-             * application is unloaded. The default value is 'false.' When the
-             * application is loaded, any sockets previously opened with
-             * persistent=true can be fetched with getSockets.
-             * @see http://developer.chrome.com/apps/app_lifecycle.html
-             */
-            persistent?: boolean;
-
-            /** An application-defined string associated with the socket. */
-            name?: string;
-
-            /**
-             * The size of the buffer used to Receive data. If the buffer is too
-             * small to receive the UDP packet, data is lost. The default value is
-             * 4096.
-             */
-            bufferSize?: integer;
-        }
-
-        /**
-         * @see https://developer.chrome.com/apps/sockets_udp#type-SocketInfo
-         */
-        interface SocketInfo {
-            /** The socket identifier. */
-            socketId: integer;
-
-            /**
-             * Flag indicating whether the socket is left open when the application
-             * is suspended (see SocketProperties.persistent).
-             */
-            persistent: boolean;
-
-            /** Application-defined string associated with the socket. */
-            name?: string;
-
-            /**
-             * The size of the buffer used to receive data. If no buffer size ha
-             * been specified explictly, the value is not provided.
-             */
-            bufferSize?: integer;
-
-            /**
-             * Flag indicating whether the socket is blocked from firing onReceive
-             * events.
-             */
-            paused: boolean;
-
-            /**
-             * If the underlying socket is bound, contains its local IPv4/6 address.
-             */
-            localAddress?: string;
-
-            /**
-             * If the underlying socket is bound, contains its local port.
-             */
-            localPort?: integer;
-        }
-
         /**
          * Creates a UDP socket with default properties.
          *
@@ -7028,7 +6933,7 @@ declare namespace chrome {
          * receive the loopback packets; while on Unix-like systems, the
          * applications with loopback off will not SEND the loopback packets to
          * other applications on the same host.
-         * @see MSDN: http://goo.gl/6vqbj
+         * @see[MSDN]{@link http://goo.gl/6vqbj}
          *
          * Calling this method does not require multicast permissions.
          *
@@ -7077,9 +6982,9 @@ declare namespace chrome {
         const onReceiveError: chrome.events.Event<(args: ReceiveErrorEventArgs) => void>;
     }
 
-    ////////////////////
-    // Storage
-    ////////////////////
+    /////////////
+    // Storage //
+    /////////////
     /**
      * Use the chrome.storage API to store, retrieve, and track changes to user data.
      * Permissions:  'storage'
