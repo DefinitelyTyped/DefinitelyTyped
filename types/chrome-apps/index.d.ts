@@ -9659,6 +9659,216 @@ declare namespace chrome {
             /** Height of the rectangle. */
             height: integer;
         }
+
+        /** An HTTP Header, represented as an object containing a key and either a value or a binaryValue. */
+        interface HttpHeader {
+            name: string;
+            value?: string;
+            binaryValue?: ArrayBuffer;
+        }
+
+        interface ResourceRequest {
+            url: string;
+            /** The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to relate different events of the same request. */
+            requestId: string;
+            /** The value 0 indicates that the request happens in the main frame; a positive value indicates the ID of a subframe in which the request happens. If the document of a (sub-)frame is loaded (type is main_frame or sub_frame), frameId indicates the ID of this frame, not the ID of the outer frame. Frame IDs are unique within a tab. */
+            frameId: number;
+            /** ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists. */
+            parentFrameId: number;
+            /** The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab. */
+            tabId: number;
+            /**
+             * How the requested resource will be used.
+             */
+            type: webRequest.ResourceType;
+            /** The time when this signal is triggered, in milliseconds since the epoch. */
+            timeStamp: number;
+            /** The origin where the request was initiated. This does not change through redirects. If this is an opaque origin, the string 'null' will be used.
+             * @since Since Chrome 63.
+            */
+            initiator?: string;
+        }
+
+        interface WebRequestDetails extends ResourceRequest {
+            /** Standard HTTP method. */
+            method: string;
+        }
+
+        interface WebRequestHeadersDetails extends WebRequestDetails {
+            /** Optional. The HTTP request headers that are going to be sent out with this request. */
+            requestHeaders?: HttpHeader[];
+        }
+
+        interface WebRequestBodyDetails extends WebRequestDetails {
+            /**
+             * Contains the HTTP request body data. Only provided if extraInfoSpec contains 'requestBody'.
+             * @since Chrome 23.
+             */
+            requestBody: WebRequestBody;
+        }
+
+        /**
+         * Contains data uploaded in a URL request.
+         * @since Chrome 23.
+         */
+        interface UploadData {
+            /** Optional. An ArrayBuffer with a copy of the data. */
+            bytes?: ArrayBuffer;
+            /** Optional. A string with the file's path and name. */
+            file?: string;
+        }
+
+        interface WebRequestBody {
+            /** Optional. Errors when obtaining request body data. */
+            error?: string;
+            /**
+             * Optional.
+             * If the request method is POST and the body is a sequence of key-value pairs encoded in UTF8, encoded as either multipart/form-data, or application/x-www-form-urlencoded, this dictionary is present and for each key contains the list of all values for that key. If the data is of another media type, or if it is malformed, the dictionary is not present. An example value of this dictionary is {'key': ['value1', 'value2']}.
+             */
+            formData?: { [key: string]: string[] };
+            /**
+             * Optional.
+             * If the request method is PUT or POST, and the body is not already parsed in formData, then the unparsed request body elements are contained in this array.
+             */
+            raw?: UploadData[];
+        }
+
+        interface WebRequestFullDetails extends WebRequestHeadersDetails, WebRequestBodyDetails {
+        }
+
+        interface WebResponseDetails extends ResourceRequest {
+            /** HTTP status line of the response or the 'HTTP/0.9 200 OK' string for HTTP/0.9 responses (i.e., responses that lack a status line). */
+            statusLine: string;
+            /**
+             * Standard HTTP status code returned by the server.
+             * @since Chrome 43.
+             */
+            statusCode: number;
+        }
+
+        interface WebResponseHeadersDetails extends WebResponseDetails {
+            /** Optional. The HTTP response headers that have been received with this response. */
+            responseHeaders?: HttpHeader[];
+            /** standard HTTP method i.e. GET, POST, PUT, etc. */
+            method: string;
+        }
+
+        interface WebResponseCacheDetails extends WebResponseHeadersDetails {
+            /**
+             * Optional.
+             * The server IP address that the request was actually sent to. Note that it may be a literal IPv6 address.
+             */
+            ip?: string;
+            /** Indicates if this response was fetched from disk cache. */
+            fromCache: boolean;
+        }
+
+        interface WebRedirectionResponseDetails extends WebResponseCacheDetails {
+            /** The new URL. */
+            redirectUrl: string;
+        }
+
+        /** An object describing filters to apply to webRequest events. */
+        interface RequestFilter {
+            /** Optional. */
+            tabId?: number;
+            /**
+             * A list of request types. Requests that cannot match any of the types will be filtered out.
+             */
+            types?: chrome.webRequest.ResourceType[];
+            /** A list of URLs or URL patterns. Requests that cannot match any of the URLs will be filtered out. */
+            urls: string[];
+
+            /** Optional. */
+            windowId?: number;
+        }
+
+        export interface AuthCredentials {
+            username: string;
+            password: string;
+        }
+
+        /** Returns value for event handlers that have the 'blocking' extraInfoSpec applied. Allows the event handler to modify network requests. */
+        interface BlockingResponse {
+            /**
+             * If true, the request is cancelled.
+             * Used in onBeforeRequest, this prevents the request from being sent. */
+            cancel?: boolean;
+            /**
+             * Only used as a response to the onBeforeRequest and onHeadersReceived events.
+             * If set, the original request is prevented from being sent/completed and is
+             * instead redirected to the given URL. Redirections to non-HTTP schemes such
+             * as data: are allowed. Redirects initiated by a redirect action use the
+             * original request method for the redirect, with one exception: If the
+             * redirect is initiated at the onHeadersReceived stage, then the redirect
+             * will be issued using the GET method.
+             */
+            redirectUrl?: string;
+            /**
+             * Only used as a response to the onHeadersReceived event.
+             * If set, the server is assumed to have responded with these
+             * response headers instead. Only return responseHeaders if you really
+             * want to modify the headers in order to limit the number of conflicts
+             * (only one extension may modify responseHeaders for each request).
+             */
+            responseHeaders?: HttpHeader[];
+            /**
+             * Only used as a response to the onAuthRequired event.
+             * If set, the request is made using the supplied credentials.
+             */
+            authCredentials?: AuthCredentials;
+            /**
+             * Only used as a response to the onBeforeSendHeaders event.
+             * If set, the request is made with these request headers instead.
+             */
+            requestHeaders?: HttpHeader[];
+        }
+
+        interface WebAuthenticationChallengeDetails extends WebResponseHeadersDetails {
+            /** The authentication scheme, e.g. Basic or Digest. */
+            scheme: string;
+            /** The authentication realm provided by the server, if there is one. */
+            realm?: string;
+            /** The server requesting authentication. */
+            challenger: WebAuthChallenger;
+            /** True for Proxy-Authenticate, false for WWW-Authenticate. */
+            isProxy: boolean;
+        }
+
+        interface WebRequestBodyEvent extends chrome.events.Event<(details: WebRequestBodyDetails) => void> {
+            addListener(callback: (details: WebRequestBodyDetails) => void, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
+        }
+
+        interface WebRequestHeadersEvent extends chrome.events.Event<(details: WebRequestHeadersDetails) => void> {
+            addListener(callback: (details: WebRequestHeadersDetails) => void, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
+        }
+
+        interface _WebResponseHeadersEvent<T extends WebResponseHeadersDetails> extends chrome.events.Event<(details: T) => void> {
+            addListener(callback: (details: T) => void, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
+        }
+
+        interface WebResponseHeadersEvent extends _WebResponseHeadersEvent<WebResponseHeadersDetails> { }
+
+        interface WebResponseCacheEvent extends _WebResponseHeadersEvent<WebResponseCacheDetails> { }
+
+        interface WebRedirectionResponseEvent extends _WebResponseHeadersEvent<WebRedirectionResponseDetails> { }
+
+        interface WebAuthenticationChallengeEvent extends chrome.events.Event<(details: WebAuthenticationChallengeDetails, callback?: (response: BlockingResponse) => void) => void> {
+            addListener(callback: (details: WebAuthenticationChallengeDetails, callback?: (response: BlockingResponse) => void) => void, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
+        }
+
+        interface WebResponseErrorEvent extends _WebResponseHeadersEvent<WebResponseErrorDetails> { }
+
+        interface WebResponseErrorDetails extends WebResponseCacheDetails {
+            /** The error description. This string is not guaranteed to remain backwards compatible between releases. You must not parse and act based upon its content. */
+            error: string;
+        }
+
+        interface WebAuthChallenger {
+            host: string;
+            port: number;
+        }
+
         /**
          * Interface which provides access to webRequest events on the guest page.
          * @see[chrome.webRequest]{@link http://developer.chrome.com/extensions/webRequest}
@@ -9680,12 +9890,54 @@ declare namespace chrome {
          * @example const rule = { conditions: [ new chrome.webViewRequest.RequestMatcher({ url: { hostSuffix: 'example.com' } }) ], actions: [ new chrome.webViewRequest.CancelRequest() ] }; myWebview.request.onRequest.addRules([rule]);
          **/
         interface WebRequestEventInterface {
-            onBeforeRequest: chrome.events.Event<(details: any) => void>;
-            onBeforeSendHeaders: chrome.events.Event<(details: any) => void>;
-            onSendHeaders: chrome.events.Event<(details: any) => void>;
-            onHeadersReceived: chrome.events.Event<(details: any) => void>;
-            onAuthRequired: chrome.events.Event<(details: any) => void>;
-
+            /** Fired when a request is about to occur. */
+            onBeforeRequest: WebRequestBodyEvent;
+            /**
+             * Fired before sending an HTTP request, once the request headers are available.
+             * This may occur after a TCP connection is made to the server, but before any HTTP data is sent.
+             */
+            onBeforeSendHeaders: WebRequestHeadersEvent;
+            /**
+             * Fired just before a request is going to be sent to the server
+             * (modifications of previous onBeforeSendHeaders callbacks
+             * are visible by the time onSendHeaders is fired).
+             */
+            onSendHeaders: WebRequestHeadersEvent;
+            /** Fired when HTTP response headers of a request have been received. */
+            onHeadersReceived: WebResponseHeadersEvent;
+            /**
+             * Fired when an authentication failure is received.
+             * The listener has three options: it can provide authentication credentials,
+             * it can cancel the request and display the error page, or it can take no
+             * action on the challenge. If bad user credentials are provided, this may be
+             * called multiple times for the same request.
+             */
+            onAuthRequired: WebAuthenticationChallengeEvent;
+            /**
+             * Fired when the first byte of the response body is received.
+             * For HTTP requests, this means that the status line and
+             * response headers are available.
+             */
+            onResponseStarted: WebResponseCacheEvent;
+            /** Fired when a server-initiated redirect is about to occur. */
+            onBeforeRedirect: WebRedirectionResponseEvent;
+            /** Fired when a request is completed. */
+            onCompleted: WebResponseCacheEvent;
+            /** Fired when an error occurs. */
+            onErrorOccured: WebResponseErrorEvent;
+            /**
+             * Provides the Declarative Event API consisting of addRules, removeRules, and getRules.
+             * This interface supports declarative webRequest rules through
+             * **onRequest** and **onMessage** events.
+             * @see[See declarativeWebRequest for API details.]{@link http://developer.chrome.com/extensions/declarativeWebRequest.html}
+             */
+            onRequest: webViewRequest.OnRequestEvent;
+            /**
+             * This interface supports declarative webRequest rules through
+             * **onRequest** and **onMessage** events.
+             * @see[See declarativeWebRequest for API details.]{@link http://developer.chrome.com/extensions/declarativeWebRequest.html}
+             */
+            onMessage: webViewRequest.OnMessageEvent;
         }
         /**
         * Defines the how zooming is handled in the webview.
@@ -9910,6 +10162,117 @@ declare namespace chrome {
             oldzoomFactor: double;
             /** The new zoom factor that the page was zoomed to. */
             newzoomFactor: double;
+        }
+    }
+
+    namespace webRequest {
+        type ResourceType =
+            "main_frame" | "sub_frame" | "stylesheet" |
+            "script" | "image" | "font" | "object" |
+            "xmlhttprequest" | "ping" | "csp_report"
+            | "media" | "websocket" | "other";
+    }
+
+    namespace webViewRequest {
+        type Stage = "onBeforeRequest" | "onBeforeSendHeaders" | "onHeadersReceived" | "onAuthRequired";
+        interface HeaderFilter {
+            /** Matches if the header name starts with the specified string. */
+            namePrefix?: string;
+            /** Matches if the header name ends with the specified string. */
+            nameSuffix?: string;
+            /** Matches if the header name contains all of the specified strings. */
+            nameContains?: string | string[];
+            /** Matches if the header name is equal to the specified string. */
+            nameEquals?: string;
+            /** Matches if the header value starts with the specified string. */
+            valuePrefix?: string;
+            /** Matches if the header value ends with the specified string. */
+            valueSuffix?: string;
+            /** Matches if the header value contains all of the specified strings. */
+            valueContains?: string | string[];
+            /** Matches if the header value is equal to the specified string. */
+            valueEquals?: string;
+
+        }
+        interface RequestMatcherFields {
+            /** Matches if the conditions of the UrlFilter are fulfilled for the URL of the request. */
+            url?: chrome.events.UrlFilter;
+            /**
+             * Matches if the conditions of the UrlFilter are fulfilled for the
+             * 'first party' URL of the request. The 'first party' URL of a request,
+             * when present, can be different from the request's target URL, and
+             * describes what is considered 'first party' for the sake of third-party
+             * checks for cookies.
+             */
+            firstPartyForCookiesUrl?: chrome.events.UrlFilter;
+            /**
+             * Matches if the request type of a request is contained in the list.
+             * Requests that cannot match any of the types will be filtered out. */
+            resourceType?: webRequest.ResourceType[];
+            /**
+             * Matches if the MIME media type of a response
+             * (from the HTTP Content-Type header)
+             * is contained in the list. */
+            contentType?: string[];
+            /**
+             * Matches if the MIME media type of a response
+             * (from the HTTP Content-Type header) is not contained in the list.
+             */
+            excludeContentType?: string[];
+            /**
+             * Matches if some of the request headers is matched by one of the HeaderFilters.
+             */
+            requestHeaders?: HeaderFilter[];
+            /**
+             * Matches if none of the request headers is matched by any of the HeaderFilters.
+             */
+            excludeRequestHeaders?: HeaderFilter[];
+            /**
+             * Matches if some of the response headers is matched by one of the HeaderFilters.
+             */
+            responseHeaders?: HeaderFilter[];
+            /**
+             * Matches if none of the response headers is matched by any of the HeaderFilters.
+             */
+            excludeResponseHeaders?: HeaderFilter[];
+            /**
+             * If set to true, matches requests that are subject to third-party cookie policies.
+             * If set to false, matches all other requests.
+             */
+            thirdPartyForCookies?: boolean;
+            /**
+             * Contains a list of strings describing stages.
+             * If this attribute is present, then it limits the applicable stages to those listed.
+             * Note that the whole condition is only applicable in stages compatible with all attributes. */
+            stages?: Stage[];
+        }
+        /**
+         * @description Matches network events by various criteria.
+         */
+        export class RequestMatcher implements RequestMatcherFields {
+            /**
+             * Matches network events by various criteria.
+             * @param criterias Search using these criterias
+             */
+            constructor (criterias: RequestMatcherFields);
+        }
+        export class CancelRequest { }
+        /** Declarative event action that redirects a network request.  */
+        export class RedirectRequest {
+            /**
+             * Declarative event action that redirects a network request.
+             * @param redirectUrl Destination to where the request is redirected.
+             */
+            constructor (redirectUrl: string);
+        }
+
+        /** @todo TODO add extra supported actions */
+
+        interface OnRequestEvent {
+            /** @todo TODO */
+        }
+        interface OnMessageEvent {
+            /** @todo TODO */
         }
     }
 

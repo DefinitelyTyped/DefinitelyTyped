@@ -1113,8 +1113,21 @@ wve.addEventListener('loadstart', (ev) => {
     return;
 });
 wve.addEventListener('zoomchange', (ev) => {
-    return ev.newZoomFactor || ev.oldZoomFactor;
+    return ev.newzoomFactor || ev.oldzoomFactor;
 });
 wve.addEventListener('loadredirect', (ev) => {
     return ev.newUrl || ev.oldUrl;
 });
+
+wve.request.onBeforeRequest.addListener(
+    function (details) { return { cancel: true }; },
+    { urls: ["*://www.evil.com/*"] },
+    ["blocking"]);
+
+var rule = {
+    conditions: [
+        new chrome.webViewRequest.RequestMatcher({ url: { hostSuffix: 'example.com' } })
+    ],
+    actions: [new chrome.webViewRequest.CancelRequest()]
+};
+wve.request.onRequest.addRules([rule]);
