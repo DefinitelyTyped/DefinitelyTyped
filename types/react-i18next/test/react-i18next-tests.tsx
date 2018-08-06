@@ -107,6 +107,10 @@ class App extends React.Component {
     <App/>
 </I18nextProvider>;
 
+<I18nextProvider i18n={i18n} initialLanguage={'en'} initialI18nStore={{}}>
+    123
+</I18nextProvider>;
+
 loadNamespaces({components: [App], i18n}).then(() => {
 }).catch(error => {
 });
@@ -180,6 +184,10 @@ interface CustomTranslateFunctionProps {
             </div>
         )
     }
+</I18n>;
+
+<I18n>
+    {t => '123'}
 </I18n>;
 
 const defaults: ReactI18NextOptions = {
