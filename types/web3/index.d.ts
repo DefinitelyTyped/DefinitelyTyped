@@ -48,4 +48,6 @@ declare class Web3 {
     utils: Utils;
 }
 
-export = Web3;
+declare let Web3Augmented: typeof Web3 & Utils;
+
+export = Web3Augmented;
