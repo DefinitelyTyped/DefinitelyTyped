@@ -1,4 +1,4 @@
-import * as valiDate from 'vali-date';
+import valiDate = require('vali-date');
 
 valiDate('foo');
 valiDate('bar');

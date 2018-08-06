@@ -1,4 +1,4 @@
-import * as Readability from 'mozilla-readability';
+import Readability = require('mozilla-readability');
 import { JSDOM } from 'jsdom';
 
 // Compiling requires `--noImplicitUseStrict`

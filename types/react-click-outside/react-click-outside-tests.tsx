@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { render } from 'react-dom';
-import * as enhanceWithClickOutside from 'react-click-outside';
+import enhanceWithClickOutside = require('react-click-outside');
 
 interface Props {
     text: string;
@@ -11,10 +11,7 @@ interface State {
 }
 
 class StatefulComponent extends React.Component<Props, State> {
-    constructor(props: Props) {
-        super(props);
-        this.state = { isOpened: true };
-    }
+    state = { isOpened: true };
 
     handleClickOutside() {
         this.setState({ isOpened: false });

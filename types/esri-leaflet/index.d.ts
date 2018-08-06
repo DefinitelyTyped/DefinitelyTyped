@@ -1105,3 +1105,5 @@ declare module 'leaflet' {
         function find(options: FindOptions | MapService): Find;
     }
 }
+
+export = L.esri;

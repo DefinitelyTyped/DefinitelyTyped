@@ -67,6 +67,16 @@ namespace eventsTests {
             const a: number = new adone.event.Emitter().listenerCount("event");
             const b: number = new adone.event.Emitter().listenerCount(Symbol("event"));
         }
+
+        namespace propagateEvents {
+            const e = new adone.event.Emitter().propagateEvents(new adone.event.Emitter(), ["a"]);
+            e.end();
+        }
+
+        namespace staticPropagateEvents {
+            const e = adone.event.Emitter.propagateEvents(new adone.event.Emitter(), new adone.event.Emitter(), ["a"]);
+            e.end();
+        }
     }
 
     namespace AsyncEmitter {

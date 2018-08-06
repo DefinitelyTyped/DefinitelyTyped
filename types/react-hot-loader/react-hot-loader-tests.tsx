@@ -1,29 +1,59 @@
-import * as React from 'react'
-import { AppContainer } from 'react-hot-loader'
+import * as React from "react";
+import { AppContainer, hot, ReactComponent } from "react-hot-loader";
 
-interface ErrorReporterProps {
-  error: any
-}
+declare function describe(desc: string, f: () => void): void;
+declare function it(desc: string, f: () => void): void;
 
-class ErrorReporterComponent extends React.Component<ErrorReporterProps> {
-  public render() {
-    return <p>{this.props.error.message}</p>
-  }
-}
+it("Using AppContainer", () => {
+    interface ErrorReporterProps {
+        error: any;
+    }
 
-const DummyComponent = () => <p>Dummy component</p>
-const ErrorReporter = ({ error } : ErrorReporterProps) => <ErrorReporterComponent error={error} />
+    class ErrorReporterComponent extends React.Component<ErrorReporterProps> {
+        render() {
+            return <p>{this.props.error.message}</p>;
+        }
+    }
 
-class AppContainerTest extends React.Component {
-  public render() {
-    return (
-      <div>
-        <AppContainer errorReporter={ErrorReporterComponent}>
-          <DummyComponent />
-        </AppContainer>
-      </div>
-    )
-  }
-}
+    const DummyComponent = () => <p>Dummy component</p>;
+    const ErrorReporter = ({ error }: ErrorReporterProps) => <ErrorReporterComponent error={error} />;
 
-export default AppContainerTest
+    class AppContainerTest extends React.Component {
+        render() {
+            return (
+                <div>
+                    <AppContainer errorReporter={ErrorReporterComponent}>
+                        <DummyComponent />
+                    </AppContainer>
+                </div>
+            );
+        }
+    }
+});
+
+it("Using hot", () => {
+    interface Props {
+        name: string;
+    }
+
+    class Foo extends React.Component<Props> {
+        render(): JSX.Element {
+            return <div>Foo</div>;
+        }
+    }
+    const FooSFC = (props: { surname: string }) => {
+        return <div />;
+    };
+
+    const Bar = hot(module)(Foo);
+    const BarSFC = hot(module)(FooSFC);
+
+    const testRender = () => {
+        return (
+            <>
+                <Bar name="Something" />
+                <BarSFC surname="SomethingSFC" />
+            </>
+        );
+    };
+});

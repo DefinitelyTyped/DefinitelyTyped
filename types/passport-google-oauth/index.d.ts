@@ -33,7 +33,7 @@ interface VerifyFunction {
     (error: any, user?: any, msg?: VerifyOptions): void;
 }
 
-declare class OAuthStrategy implements passport.Strategy {
+declare class OAuthStrategy extends passport.Strategy {
     constructor(
         options: IOAuthStrategyOption,
         verify: (
@@ -44,7 +44,7 @@ declare class OAuthStrategy implements passport.Strategy {
         ) => void
     );
     name: string;
-    authenticate: (req: express.Request, options?: Object) => void;
+    authenticate(req: express.Request, options?: Object): void;
 }
 
 interface IOAuth2StrategyOption {

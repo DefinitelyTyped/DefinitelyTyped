@@ -3428,7 +3428,7 @@ function examples() {
     function map_0() {
         $('p')
             .append($('input').map(function() {
-                return $(this).val();
+                return $(this).val() as string;
             })
                 .get()
                 .join(', '));

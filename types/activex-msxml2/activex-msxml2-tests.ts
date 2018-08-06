@@ -1,18 +1,20 @@
+/// <reference types="windows-script-host" />
+
 // https://msdn.microsoft.com/en-us/library/ms764708(v=vs.85).aspx
-(() => {
+{
     const dom = new ActiveXObject('Msxml2.DOMDocument.6.0');
     dom.async = false;
     dom.resolveExternals = false;
     dom.loadXML('<a>A</a>');
     WScript.Echo(`dom: ${dom.xml}`);
-})();
+}
 
 // https://msdn.microsoft.com/en-us/library/ms766390(v=vs.85).aspx
-(() => {
+{
     const doc = new ActiveXObject('Msxml2.DOMDocument.6.0');
     doc.load('test.xml');
     WScript.Echo(`doc: ${doc.xml}`);
-})();
+}
 
 const MakeDOM = () => {
     try {
@@ -37,7 +39,7 @@ const LoadDOM = (file: string) => {
 };
 
 // https://msdn.microsoft.com/en-us/library/ms759105(v=vs.85).aspx
-(() => {
+{
     const doc = new ActiveXObject('Msxml2.DOMDocument.6.0');
     doc.async = false;
     doc.resolveExternals = false;
@@ -60,10 +62,10 @@ const LoadDOM = (file: string) => {
 `;
     doc.loadXML(xml);
     doc.save('saved.xml');
-})();
+}
 
 // https://msdn.microsoft.com/en-us/library/ms764656(v=vs.85).aspx
-(() => {
+{
     const doc = LoadDOM('test.xml')!;
     const xsl = (LoadDOM('test.xsl')! as any) as MSXML2.IXMLDOMNode;
 
@@ -73,10 +75,10 @@ const LoadDOM = (file: string) => {
     const out = MakeDOM()!;
     doc.transformNodeToObject(xsl, out);
     WScript.Echo('\ndoc.transformNodeToObject:\n' + out.xml);
-})();
+}
 
 // https://msdn.microsoft.com/en-us/library/ms763685(v=vs.85).aspx
-(() => {
+{
     const dom = MakeDOM()!;
 
     // Create a processing instruction targeted for xml.
@@ -148,10 +150,10 @@ const LoadDOM = (file: string) => {
 
     // Save the XML document to a file.
     dom.save("dynamDom.xml");
-})();
+}
 
 // https://msdn.microsoft.com/en-us/library/ms757050(v=vs.85).aspx
-(() => {
+{
     const dom = LoadDOM("stocks.xml")!;
     try {
         // Query a single node.
@@ -172,17 +174,17 @@ const LoadDOM = (file: string) => {
     } catch (e) {
         WScript.Echo(e.description);
     }
-})();
+}
 
 // https://msdn.microsoft.com/en-us/library/ms757064(v=vs.85).aspx
-(() => {
+{
     const xhr = new ActiveXObject("Msxml2.XMLHTTP.6.0");
     xhr.open("GET", "http://localhost/sxh/contact.asp?SearchID=John Doe", false);
     xhr.send();
 
     const doc = xhr.responseXML;
     WScript.Echo(doc.xml);
-})();
+}
 
 const xmlValidation = (fn: (x: MSXML2.DOMDocument60) => void) => {
     // Create and initialize the DOMDocument object
@@ -212,16 +214,16 @@ ${x.xml}
 };
 
 // https://msdn.microsoft.com/en-us/library/ms766449(v=vs.85).aspx
-(() => {
+{
     const validateFile = (filename: string) => xmlValidation(x => x.load(filename));
 
     let sOutput = validateFile("nn-valid.xml");
     sOutput = sOutput + validateFile("nn-notValid.xml");
     WScript.Echo(sOutput);
-})();
+}
 
 // https://msdn.microsoft.com/en-us/library/ms767542(v=vs.85).aspx
-(() => {
+{
     const validateFile = (filename: string) => xmlValidation(x => {
         // Configure DOM properties for namespace selection.
         x.setProperty("SelectionLanguage", "XPath");
@@ -235,10 +237,10 @@ ${x.xml}
     let sOutput = validateFile("sl-valid.xml");
     sOutput = sOutput + validateFile("sl-notValid.xml");
     WScript.Echo(sOutput);
-})();
+}
 
 // https://msdn.microsoft.com/en-us/library/ms766439(v=vs.85).aspx
-(() => {
+{
     const validateFile = (filename: string) => xmlValidation(xd => {
         // Create a schema cache and add books.xsd to it.
         const xs = new ActiveXObject('Msxml2.XMLSchemaCache');
@@ -253,10 +255,10 @@ ${x.xml}
     let sOutput = validateFile("sc-valid.xml");
     sOutput = sOutput + validateFile("sc-notValid.xml");
     WScript.Echo(sOutput);
-})();
+}
 
 // https://msdn.microsoft.com/en-us/library/ms767636(v=vs.85).aspx
-(() => {
+{
     const validateFile = (filename: string) => xmlValidation(x => {
         x.setProperty("UseInlineSchema", true);
         x.load(filename);
@@ -265,10 +267,10 @@ ${x.xml}
     let sOutput = validateFile("valid.xml");
     sOutput = sOutput + validateFile("notValid.xml");
     WScript.Echo(sOutput);
-})();
+}
 
 // https://msdn.microsoft.com/en-us/library/ms757833(v=vs.85).aspx
-(() => {
+{
     // Load an XML document into a DOM instance.
     const oXMLDoc = LoadDOM("books.xml")!;
 
@@ -326,4 +328,4 @@ ${oError.reason}`;
         }
         WScript.Echo(msg);
     }
-})();
+}

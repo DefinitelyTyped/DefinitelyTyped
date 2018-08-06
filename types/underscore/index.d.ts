@@ -856,7 +856,7 @@ declare module _ {
         * @param array Array to compact.
         * @return Copy of `array` without false values.
         **/
-        compact<T>(array: _.List<T>): T[];
+        compact<T>(array: _.List<T | null | undefined | false | "" | 0> | null | undefined): T[]
 
         /**
         * Flattens a nested array (the nesting can be to any depth). If you pass shallow, the array will

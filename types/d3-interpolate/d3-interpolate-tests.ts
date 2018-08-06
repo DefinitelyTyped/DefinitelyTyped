@@ -123,7 +123,7 @@ arrNum = iArrayNum(0.5);
 iArrayStr = d3Interpolate.interpolateArray<string[]>(['1', '2'], ['4', '8']); // explicit typing
 arrStr = iArrayStr(0.5);
 
-iArrayStr = d3Interpolate.interpolateArray([1, 2], ['4', '8']); // infered typing <string>
+iArrayStr = d3Interpolate.interpolateArray([1, 2], ['4', '8']); // inferred typing <string>
 arrStr = iArrayStr(0.5);
 
 // two element array with first element date and second element string
@@ -156,7 +156,7 @@ console.log('Recommended transition duration = %d', iZoom.duration);
 
 // test quantize(interpolator, n) signature ------------------------------------------------
 
-arrNum = d3Interpolate.quantize(d3Interpolate.interpolateRound(-1, 2), 4); // infered template parameter type
+arrNum = d3Interpolate.quantize(d3Interpolate.interpolateRound(-1, 2), 4); // inferred template parameter type
 arrStr = d3Interpolate.quantize<string>(d3Interpolate.interpolateString('-1', '2'), 4); // explicit template parameter typing
 
 // arrStr = d3Interpolate.quantize<string>(d3Interpolate.interpolateRound(-1, 2), 4); // test fails, due to explicit typing v argument type mismatch
@@ -229,3 +229,16 @@ iString = d3Interpolate.interpolateCubehelixLong.gamma(2.2)('purple', 'orange');
 iNum = d3Interpolate.interpolateBasis([1, 50, 30, 10]);
 
 iNum = d3Interpolate.interpolateBasisClosed([1, 50, 30, 10]);
+
+iString = d3Interpolate.piecewise(d3Interpolate.interpolateRgb.gamma(2.2), ['red', 'green', 'blue']);
+iString = d3Interpolate.piecewise(d3Interpolate.interpolateCubehelix, ['red', 'green', 'blue']);
+iZoom = d3Interpolate.piecewise(d3Interpolate.interpolateZoom, [[50, 50, 300], [100, 100, 500]]);
+iNum = d3Interpolate.piecewise(d3Interpolate.interpolateNumber, [1, 2, 3]);
+iNum = d3Interpolate.piecewise(d3Interpolate.interpolateRound, [1.1, 2.2, 3.3]);
+iString = d3Interpolate.piecewise(d3Interpolate.interpolateString, ['a', 'b', 'c']);
+iDate = d3Interpolate.piecewise(d3Interpolate.interpolateDate, [new Date(2018, 5, 1), new Date(2018, 5, 2), new Date(2018, 5, 3)]);
+iArrayNum = d3Interpolate.piecewise<number[]>(d3Interpolate.interpolateArray, [1, 2, 4, 8]);
+iArrayStr = d3Interpolate.piecewise<string[]>(d3Interpolate.interpolateArray, ['a', 'b', 'c', 'd']);
+iArrayMixed = d3Interpolate.piecewise<[Date, string]>(d3Interpolate.interpolateArray, [new Date(2016, 6, 1), 'b: 1']);
+iString = d3Interpolate.piecewise(d3Interpolate.interpolateTransformCss, ['rotate(0deg)', 'rotate(60deg)']);
+iString = d3Interpolate.piecewise(d3Interpolate.interpolateTransformSvg, ['rotate(0)', 'rotate(60)']);

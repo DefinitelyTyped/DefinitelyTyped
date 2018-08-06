@@ -6,13 +6,13 @@ interface CustomModalProps {
 }
 
 class CustomModal extends React.Component<CustomModalProps & ReactConfirmProps> {
-    modalStyle(): string {
-        return this.props.show ? "display: none;" : "";
+    modalStyle() {
+        return this.props.show ? { display: 'none' } : undefined;
     }
 
     render() {
         return (
-            <div style={this.modalStyle}>
+            <div style={this.modalStyle()}>
                 <h1>{this.props.title}</h1>
 
                 <div>

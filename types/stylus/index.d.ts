@@ -1190,7 +1190,7 @@ declare namespace Stylus {
             /**
              * Merges this query list with the `other`.
              */
-            merge(other: MediaQueryList): MediaQueryList;
+            merge(other: QueryList): QueryList;
 
             /**
              * Return a JSON representation of this node.

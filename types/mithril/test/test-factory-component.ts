@@ -1,4 +1,4 @@
-import * as m from 'mithril';
+import m = require('mithril');
 import { Component, FactoryComponent, Vnode } from 'mithril';
 
 ///////////////////////////////////////////////////////////
@@ -148,7 +148,7 @@ function comp5(): Component<Comp4Attrs, Comp5State> {
 //
 // Test that all are mountable components
 //
-m.route(document.body, '/', {
+m.route(document.body!, '/', {
 	'/comp0': comp0,
 	'/comp1': comp1,
 	'/comp2': comp2,

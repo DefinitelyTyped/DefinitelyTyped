@@ -1,4 +1,4 @@
-import * as SparkMD5 from "spark-md5";
+import SparkMD5 = require("spark-md5");
 
 SparkMD5.hash('Hi there');
 SparkMD5.hash('Hi there', true);

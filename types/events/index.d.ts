@@ -1,4 +1,4 @@
-// Type definitions for events 1.1
+// Type definitions for events 1.2
 // Project: https://github.com/Gozala/events
 // Definitions by: Yasunori Ohoka <https://github.com/yasupeke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -15,7 +15,7 @@ export class EventEmitter {
   on(type: string | number, listener: Listener): this;
   once(type: string | number, listener: Listener): this;
   removeListener(type: string | number, listener: Listener): this;
-  removeAllListeners(type: string | number): this;
+  removeAllListeners(type?: string | number): this;
   listeners(type: string | number): Listener[];
   listenerCount(type: string | number): number;
 }

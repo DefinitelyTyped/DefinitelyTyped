@@ -2296,10 +2296,10 @@ declare namespace browser.runtime {
     /** An object which allows two way communication with other pages. */
     interface Port {
         name: string;
-        disconnect: () => void;
+        disconnect(): void;
         onDisconnect: events.Event;
         onMessage: events.Event;
-        postMessage: () => void;
+        postMessage(message: object): void;
         /** This property will **only** be present on ports passed to onConnect/onConnectExternal listeners. */
         sender?: MessageSender;
     }
@@ -3915,10 +3915,6 @@ declare namespace browser.bookmarks {
         type?: BookmarkTreeNodeType;
     }
 
-    export {_import as import};
-
-    export {_export as export};
-
     /* bookmarks functions */
     /**
      * Retrieves the specified BookmarkTreeNode(s).
@@ -3985,18 +3981,6 @@ declare namespace browser.bookmarks {
 
     /** Recursively removes a bookmark folder. */
     function removeTree(id: string): Promise<void>;
-
-    /**
-     * Imports bookmarks from an html bookmark file
-     * @deprecated Unsupported on Firefox at this time.
-     */
-    function _import(): Promise<void>;
-
-    /**
-     * Exports bookmarks to an html bookmark file
-     * @deprecated Unsupported on Firefox at this time.
-     */
-    function _export(): Promise<void>;
 
     /* bookmarks events */
     /** Fired when a bookmark or folder is created. */

@@ -1,9 +1,11 @@
-// Type definitions for SuperAgent 3.5
+// Type definitions for SuperAgent 3.8
 // Project: https://github.com/visionmedia/superagent
 // Definitions by: Nico Zelaya <https://github.com/NicoZelaya>
 //                 Michael Ledin <https://github.com/mxl>
 //                 Pap Lőrinc <https://github.com/paplorinc>
 //                 Shrey Jain <https://github.com/shreyjain1994>
+//                 Alec Zopf <https://github.com/zopf>
+//                 Adam Haglund <https://github.com/beeequeue>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -12,6 +14,7 @@
 import * as fs from 'fs';
 import * as https from 'https';
 import * as stream from 'stream';
+import * as cookiejar from 'cookiejar';
 
 type CallbackHandler = (err: any, res: request.Response) => void;
 
@@ -48,6 +51,7 @@ declare namespace request {
     }
 
     interface SuperAgent<Req extends SuperAgentRequest> extends stream.Stream {
+        jar: cookiejar.CookieJar;
         attachCookies(req: Req): void;
         checkout(url: string, callback?: CallbackHandler): Req;
         connect(url: string, callback?: CallbackHandler): Req;
@@ -115,7 +119,8 @@ declare namespace request {
         abort(): void;
         accept(type: string): this;
         attach(field: string, file: MultipartValueSingle, options?: string | { filename?: string; contentType?: string }): this;
-        auth(user: string, name: string): this;
+        auth(user: string, pass: string, options?: { type: 'basic' | 'auto' }): this;
+        auth(token: string, options: { type: 'bearer' }): this;
         buffer(val?: boolean): this;
         ca(cert: Buffer): this;
         cert(cert: Buffer | string): this;
@@ -131,12 +136,12 @@ declare namespace request {
         on(name: string, handler: (event: any) => void): this;
         parse(parser: Parser): this;
         part(): this;
-        pfx(cert: Buffer | string): this;
+        pfx(cert: Buffer | string | { pfx: Buffer, passphrase: string }): this;
         pipe(stream: NodeJS.WritableStream, options?: object): stream.Writable;
         query(val: object | string): this;
         redirects(n: number): this;
         responseType(type: string): this;
-        retry(count?: number): this;
+        retry(count?: number, callback?: CallbackHandler): this;
         send(data?: string | object): this;
         serialize(serializer: Serializer): this;
         set(field: object): this;
@@ -149,7 +154,7 @@ declare namespace request {
         write(data: string | Buffer, encoding?: string): this;
     }
 
-    type Plugin = (req: Request) => void;
+    type Plugin = (req: SuperAgentRequest) => void;
 
     interface ProgressEvent {
         direction: 'download' | 'upload';

@@ -96,6 +96,12 @@ emailOpts = { minDomainAtoms: num };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
+let hexOpts: Joi.HexOptions = null;
+
+hexOpts = { byteAligned: bool };
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
 let ipOpts: Joi.IpOptions = null;
 
 ipOpts = { version: str };
@@ -128,10 +134,25 @@ whenOpts = { is: schemaLike, then: schemaLike, otherwise: schemaLike };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
+let whenSchemaOpts: Joi.WhenSchemaOptions = null;
+
+whenSchemaOpts = { then: schema };
+whenSchemaOpts = { otherwise: schema };
+whenSchemaOpts = { then: schemaLike, otherwise: schemaLike };
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
 let refOpts: Joi.ReferenceOptions = null;
 
 refOpts = { separator: str };
 refOpts = { contextPrefix: str };
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+let stringRegexOpts: Joi.StringRegexOptions = null;
+
+stringRegexOpts = { name: str };
+stringRegexOpts = { invert: bool };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -269,6 +290,7 @@ namespace common {
 
     altSchema = anySchema.when(str, whenOpts);
     altSchema = anySchema.when(ref, whenOpts);
+    altSchema = anySchema.when(schema, whenSchemaOpts);
 
     anySchema = anySchema.label(str);
     anySchema = anySchema.raw();
@@ -356,6 +378,7 @@ namespace common_copy_paste {
 
     altSchema = arrSchema.when(str, whenOpts);
     altSchema = arrSchema.when(ref, whenOpts);
+    altSchema = arrSchema.when(schema, whenSchemaOpts);
 }
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -426,6 +449,7 @@ namespace common_copy_paste {
 
     altSchema = boolSchema.when(str, whenOpts);
     altSchema = boolSchema.when(ref, whenOpts);
+    altSchema = boolSchema.when(schema, whenSchemaOpts);
 }
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -482,6 +506,7 @@ namespace common {
 
     altSchema = binSchema.when(str, whenOpts);
     altSchema = binSchema.when(ref, whenOpts);
+    altSchema = binSchema.when(schema, whenSchemaOpts);
 }
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -554,6 +579,7 @@ namespace common {
 
     altSchema = dateSchema.when(str, whenOpts);
     altSchema = dateSchema.when(ref, whenOpts);
+    altSchema = dateSchema.when(schema, whenSchemaOpts);
 }
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -582,6 +608,7 @@ numSchema = numSchema.precision(num);
 numSchema = numSchema.multiple(num);
 numSchema = numSchema.positive();
 numSchema = numSchema.negative();
+numSchema = numSchema.port();
 
 namespace common {
     numSchema = numSchema.allow(x);
@@ -628,6 +655,7 @@ namespace common {
 
     altSchema = numSchema.when(str, whenOpts);
     altSchema = numSchema.when(ref, whenOpts);
+    altSchema = numSchema.when(schema, whenSchemaOpts);
 }
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -637,6 +665,9 @@ objSchema = Joi.object(schemaMap);
 
 objSchema = objSchema.keys();
 objSchema = objSchema.keys(schemaMap);
+
+objSchema = objSchema.append();
+objSchema = objSchema.append(schemaMap);
 
 objSchema = objSchema.min(num);
 objSchema = objSchema.max(num);
@@ -742,6 +773,7 @@ namespace common {
 
     altSchema = objSchema.when(str, whenOpts);
     altSchema = objSchema.when(ref, whenOpts);
+    altSchema = objSchema.when(schema, whenSchemaOpts);
 }
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -764,6 +796,7 @@ strSchema = strSchema.length(ref);
 strSchema = strSchema.length(ref, str);
 strSchema = strSchema.regex(exp);
 strSchema = strSchema.regex(exp, str);
+strSchema = strSchema.regex(exp, stringRegexOpts);
 strSchema = strSchema.replace(exp, str);
 strSchema = strSchema.replace(str, str);
 strSchema = strSchema.alphanum();
@@ -778,6 +811,7 @@ strSchema = strSchema.guid();
 strSchema = strSchema.guid({ version: ['uuidv1', 'uuidv2', 'uuidv3', 'uuidv4', 'uuidv5'] } as Joi.GuidOptions);
 strSchema = strSchema.guid({ version: 'uuidv4' });
 strSchema = strSchema.hex();
+strSchema = strSchema.hex(hexOpts);
 strSchema = strSchema.hostname();
 strSchema = strSchema.isoDate();
 strSchema = strSchema.lowercase();
@@ -835,6 +869,7 @@ namespace common {
 
     altSchema = strSchema.when(str, whenOpts);
     altSchema = strSchema.when(ref, whenOpts);
+    altSchema = strSchema.when(schema, whenSchemaOpts);
 }
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -945,6 +980,7 @@ description = Joi.describe(schema);
 description = schema.describe();
 
 schema = Joi.reach(objSchema, '');
+schema = Joi.reach(objSchema, []);
 
 const Joi2 = Joi.extend({ name: '', base: schema });
 
@@ -964,13 +1000,13 @@ const Joi3 = Joi.extend({
         {
             name: 'asd',
             params: {
-                allowF: Joi.boolean().default(false),
+                allowFalse: Joi.boolean().default(false),
             },
             setup(params) {
-                const fIsAllowed = params.allowF;
+                const fIsAllowed = params.allowFalse;
             },
-            validate(params, value, state, options) {
-                if (value === 'asd' || params.allowF && value === 'asdf') {
+            validate(params, value: boolean, state, options) {
+                if (value || params.allowFalse && !value) {
                     return value;
                 }
                 return this.createError('asd', { v: value }, state, options);
@@ -1041,6 +1077,7 @@ schema = Joi.concat(x);
 
 schema = Joi.when(str, whenOpts);
 schema = Joi.when(ref, whenOpts);
+schema = Joi.when(schema, whenSchemaOpts);
 
 schema = Joi.label(str);
 schema = Joi.raw();
@@ -1094,6 +1131,7 @@ schema = Joi.concat(x);
 
 schema = Joi.when(str, whenOpts);
 schema = Joi.when(ref, whenOpts);
+schema = Joi.when(schema, whenSchemaOpts);
 
 schema = Joi.label(str);
 schema = Joi.raw();

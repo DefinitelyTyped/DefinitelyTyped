@@ -3,6 +3,7 @@
 // Definitions by: Philippe Vaillancourt <https://github.com/Neoflash1979>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="webvr-api" />
 /// <reference path="./engine/scriptype.d.ts" />
 /// <reference path="./engine/core/debug.d.ts" />
 /// <reference path="./engine/core/color.d.ts" />
@@ -52,10 +53,14 @@
 /// <reference path="./engine/math/vec3.d.ts" />
 /// <reference path="./engine/math/vec4.d.ts" />
 /// <reference path="./engine/net/http.d.ts" />
+/// <reference path="./engine/resources/animation.d.ts" />
 /// <reference path="./engine/resources/css.d.ts" />
+/// <reference path="./engine/resources/cubemap.d.ts" />
 /// <reference path="./engine/resources/loader.d.ts" />
-/// <reference path="./engine/resources/script.d.ts" />
+/// <reference path="./engine/resources/material.d.ts" />
 /// <reference path="./engine/resources/model.d.ts" />
+/// <reference path="./engine/resources/script.d.ts" />
+/// <reference path="./engine/resources/texture.d.ts" />
 /// <reference path="./engine/script/script-registry.d.ts" />
 /// <reference path="./engine/script/script.d.ts" />
 /// <reference path="./engine/shape/bounding-box.d.ts" />
@@ -72,6 +77,7 @@
 /// <reference path="./engine/scene/material.d.ts" />
 /// <reference path="./engine/scene/mesh.d.ts" />
 /// <reference path="./engine/scene/model.d.ts" />
+/// <reference path="./engine/scene/morph.d.ts" />
 /// <reference path="./engine/scene/pick.d.ts" />
 /// <reference path="./engine/scene/scene.d.ts" />
 /// <reference path="./engine/scene/procedural.d.ts" />

@@ -1,10 +1,11 @@
+import * as React from 'react';
 import { CSSModule } from '../index';
 
-export interface NavbarBrandProps extends React.HTMLProps<HTMLAnchorElement> {
+export type NavbarBrandProps<T = {}> = React.HTMLProps<HTMLAnchorElement> & {
   tag?: React.ReactType;
   className?: string;
   cssModule?: CSSModule;
-}
+} & T;
 
-declare const NavbarBrand: React.StatelessComponent<NavbarBrandProps>;
+declare class NavbarBrand<T = {[key: string]: any}> extends React.Component<NavbarBrandProps<T>> {}
 export default NavbarBrand;

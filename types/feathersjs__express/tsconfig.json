@@ -16,11 +16,16 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@feathersjs/express": ["feathersjs__express"],
-            "@feathersjs/feathers": ["feathersjs__feathers"]
+            "@feathersjs/express": [
+                "feathersjs__express"
+            ],
+            "@feathersjs/feathers": [
+                "feathersjs__feathers"
+            ]
         }
     },
     "files": [
-        "index.d.ts", "feathersjs__express-tests.ts"
+        "index.d.ts",
+        "feathersjs__express-tests.ts"
     ]
 }

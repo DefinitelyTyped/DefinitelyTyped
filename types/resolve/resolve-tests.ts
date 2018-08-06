@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import * as resolve from 'resolve';
+import resolve = require('resolve');
 
 function test_basic_async() {
   resolve('typescript', function(error, resolved, pkg) {
@@ -41,7 +41,8 @@ function test_options_async() {
           return cb(null, stat.isFile());
         }
       });
-    }
+    },
+    preserveSymlinks: false,
   }, function(error, resolved, pkg) {
     if (error) {
       console.error(error.message);
@@ -72,7 +73,8 @@ function test_options_sync() {
       } catch (error) {
         return false;
       }
-    }
+    },
+    preserveSymlinks: true,
   });
   console.log(resolved);
   resolved = resolve.sync('typescript', {

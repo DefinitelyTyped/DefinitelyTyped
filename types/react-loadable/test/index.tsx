@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as Loadable from 'react-loadable';
+import Loadable = require('react-loadable');
 
 class LoadingComponent extends React.Component<Loadable.LoadingComponentProps> {
   render() {
@@ -9,6 +9,7 @@ class LoadingComponent extends React.Component<Loadable.LoadingComponentProps> {
         {this.props.isLoading}
         {this.props.pastDelay}
         {this.props.timedOut}
+        <button onClick={this.props.retry}>Retry</button>
       </div>
     );
   }

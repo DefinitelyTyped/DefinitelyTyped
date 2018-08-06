@@ -1,6 +1,6 @@
 import { Vnode, Component, Comp, ClassComponent, FactoryComponent, RouteResolver } from 'mithril';
-import * as h from 'mithril/hyperscript';
-import * as route from 'mithril/route';
+import h = require('mithril/hyperscript');
+import route = require('mithril/route');
 
 const component1 = {
 	view() {
@@ -66,7 +66,7 @@ const routeResolver: RouteResolver<Attrs, RRState> & RRState = {
 	}
 };
 
-route(document.body, '/', {
+route(document.body!, '/', {
 	'/': component1,
 	'/test1': {
 		onmatch(args, path) {

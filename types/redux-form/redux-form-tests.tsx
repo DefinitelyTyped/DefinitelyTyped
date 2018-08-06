@@ -4,6 +4,7 @@ import {
     reduxForm,
     InjectedFormProps,
     Form,
+    FormName,
     GenericForm,
     FormSection,
     GenericFormSection,
@@ -396,5 +397,15 @@ class HandleSubmitTest extends React.Component {
     handleSubmit = (values: Partial<TestFormData>, dispatch: Dispatch<any>, props: {}) => {};
     render() {
         return <HandleSubmitTestForm onSubmit={this.handleSubmit} />;
+    }
+}
+
+class FormNameTest extends React.Component {
+    render() {
+        return (
+            <FormName>
+                {({ form }) => <span>Form Name is: {form}</span>}
+            </FormName>
+        );
     }
 }

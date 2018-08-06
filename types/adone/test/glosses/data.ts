@@ -570,4 +570,277 @@ namespace dataTests {
         bson.decode(bson.encode({ a: 1 }), { promoteLongs: false }).a;
         bson.decode(bson.encode({ a: 1 }), { promoteValues: true }).a;
     }
+
+    namespace protobuf {
+        const {
+            protobuf
+        } = data;
+
+        protobuf.create("hello");
+        protobuf.create(Buffer.from("hello"));
+        protobuf.create({});
+        protobuf.create({}, {});
+
+        namespace schema {
+            const {
+                schema
+            } = protobuf;
+
+            const s = schema.parse("hello");
+            s.syntax;
+            s.package;
+            if (!adone.is.null(s.package)) {
+                const c: string = s.package;
+            }
+            s.imports[0].charCodeAt(100);
+
+            namespace enums {
+                const [a] = s.enums;
+                a.name.charCodeAt(100);
+                a.values;
+                a.options;
+            }
+
+            namespace message {
+                const [msg] = s.messages;
+                msg.name;
+                {
+                    const [a] = msg.enums;
+                    a.name;
+                    a.options;
+                    a.values;
+                }
+                {
+                    const [a] = msg.extends;
+                    a.name;
+                    a.message;
+                }
+                {
+                    const [a] = msg.messages;
+                    a.name;
+                    a.enums;
+                    a.extends;
+                    a.messages;
+                    a.fields;
+                    a.extensions;
+                }
+                {
+                    const [a] = msg.fields;
+                    if (!adone.is.null(a.name)) {
+                        a.name.charCodeAt(100);
+                    }
+                    if (!adone.is.null(a.type)) {
+                        a.type.charCodeAt(100);
+                    }
+                    a.tag === 3;
+                    if (!adone.is.null(a.map)) {
+                        a.map.from.charCodeAt(100);
+                        a.map.to.charCodeAt(100);
+                    }
+                    if (!adone.is.null(a.oneof)) {
+                        a.oneof.charCodeAt(100);
+                    }
+                    a.required === false;
+                    a.repeated === true;
+                    a.options;
+                }
+                if (!adone.is.null(msg.extensions)) {
+                    msg.extensions.from === 2;
+                    msg.extensions.to === 3;
+                }
+            }
+
+            s.options;
+
+            s.extends[0].message;
+            s.extends[0].name;
+
+            if (!adone.is.nil(s.services)) {
+                const [svc] = s.services;
+
+                svc.name.charCodeAt(100);
+                svc.options;
+
+                const [m] = svc.methods;
+
+                m.name.charCodeAt(100);
+                if (!adone.is.null(m.input_type)) {
+                    m.input_type.charCodeAt(100);
+                }
+                if (!adone.is.null(m.output_type)) {
+                    m.output_type.charCodeAt(100);
+                }
+                m.client_streaming === true;
+                m.server_streaming === true;
+                m.options;
+            }
+        }
+    }
+
+    namespace base32 {
+        const {
+            base32
+        } = data;
+
+        base32.charmap("asd");
+        base32.charmap("asd", {});
+
+        base32.rfc4648.alphabet.charCodeAt(0);
+        base32.rfc4648.charmap["X"] === 2;
+
+        base32.crockford.alphabet.charCodeAt(0);
+        base32.crockford.charmap["X"] === 2;
+
+        base32.base32hex.alphabet.charCodeAt(0);
+        base32.base32hex.charmap["X"] === 2;
+
+        namespace decoder {
+            const {
+                Decoder
+            } = base32;
+            new Decoder();
+            new Decoder({
+                type: "base32hex"
+            });
+            new Decoder({
+                type: "crockford"
+            });
+            new Decoder({
+                type: "rfc4648"
+            });
+            new Decoder({
+                type: "rfc4648",
+                charmap: {}
+            });
+            const d = new Decoder();
+            d.write("asd").write("aa");
+            { const a: Buffer = d.finalize(); }
+            { const a: Buffer = d.finalize("c"); }
+        }
+
+        namespace encoder {
+            const {
+                Encoder
+            } = base32;
+
+            new Encoder();
+            new Encoder({
+                type: "base32hex"
+            });
+            new Encoder({
+                type: "crockford"
+            });
+            new Encoder({
+                type: "rfc4648"
+            });
+            new Encoder({
+                type: "rfc4648",
+                alphabet: "a"
+            });
+
+            const e = new Encoder();
+            e.write(Buffer.from("b")).write(Buffer.from("a"));
+            { const a: string = e.finalize(); }
+            { const a: string = e.finalize(Buffer.from("c")); }
+        }
+
+        base32.encode(Buffer.from("hello")).charCodeAt(100);
+        base32.encode(Buffer.from("hello"), {
+            type: "rfc4648"
+        }).charCodeAt(100);
+        base32.encode(Buffer.from("hello"), {
+            type: "crockford"
+        }).charCodeAt(100);
+        base32.encode(Buffer.from("hello"), {
+            type: "base32hex"
+        }).charCodeAt(100);
+        base32.encode(Buffer.from("hello"), {
+            type: "base32hex",
+            alphabet: "asd"
+        }).charCodeAt(100);
+
+        base32.decode("asd").writeUInt8(100, 0);
+        base32.decode("asd", {
+            type: "base32hex"
+        }).writeUInt8(100, 0);
+        base32.decode("asd", {
+            type: "crockford"
+        }).writeUInt8(100, 0);
+        base32.decode("asd", {
+            type: "rfc4648"
+        }).writeUInt8(100, 0);
+        base32.decode("asd", {
+            type: "rfc4648",
+            charmap: {}
+        }).writeUInt8(100, 0);
+    }
+
+    namespace basex {
+        const {
+            basex
+        } = data;
+
+        const d = basex("abc");
+        const a: Buffer = d.decode("str");
+        const b: string = d.encode(Buffer.from("hello"));
+        const c: Buffer = d.decodeUnsafe("hello");
+    }
+
+    namespace base58 {
+        const {
+            base58
+        } = data;
+
+        const a: Buffer = base58.decode("str");
+        const b: string = base58.encode(Buffer.from("hello"));
+        const c: Buffer = base58.decodeUnsafe("hello");
+    }
+
+    namespace base64url {
+        const {
+            base64url
+        } = data;
+
+        base64url.unescape("a").charCodeAt(100);
+        base64url.escape("a").charCodeAt(100);
+
+        base64url.encode("a").charCodeAt(100);
+        base64url.encode(Buffer.from("a")).charCodeAt(100);
+        base64url.encode(Buffer.from("a"), {}).charCodeAt(100);
+        base64url.encode(Buffer.from("a"), {
+            encoding: "utf8"
+        }).charCodeAt(100);
+
+        base64url.decode("a").charCodeAt(100);
+        base64url.decode("a", { buffer: true }).writeUInt8(0, 0);
+        base64url.decode("a", { encoding: "utf8" }).charCodeAt(100);
+    }
+
+    namespace varint {
+        const {
+            varint
+        } = data;
+
+        varint.encode(12)[0];
+        varint.encode(12, [])[0];
+        varint.encode(12, [], 1)[0];
+
+        varint.decode(Buffer.from("hello")) === 5;
+        varint.decode(Buffer.from("hello"), 2) === 5;
+        varint.encodingLength(100500) === 5;
+    }
+
+    namespace varintSigned {
+        const {
+            varintSigned
+        } = data;
+
+        varintSigned.encode(12)[0];
+        varintSigned.encode(12, [])[0];
+        varintSigned.encode(12, [], 1)[0];
+
+        varintSigned.decode(Buffer.from("hello")) === 5;
+        varintSigned.decode(Buffer.from("hello"), 2) === 5;
+        varintSigned.encodingLength(100500) === 5;
+    }
 }

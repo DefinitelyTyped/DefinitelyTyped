@@ -1,4 +1,4 @@
-import * as PouchDB from 'pouchdb-core';
+import PouchDB = require('pouchdb-core');
 
 function isString(someString: string) {
 }
@@ -47,10 +47,19 @@ function testBulkDocs() {
     const model = { property: 'test' };
     const model2 = { property: 'test' };
 
+    const isError = (
+        result: PouchDB.Core.Response | PouchDB.Core.Error
+    ): result is PouchDB.Core.Error => {
+        return !!(<PouchDB.Core.Error> result).error;
+    };
+
     db.bulkDocs([model, model2]).then((result) => {
-        result.forEach(({ ok, id, rev }) => {
+        result.forEach(result => {
+          if (!isError(result)) {
+            const { ok, id, rev } = result;
             isString(id);
             isString(rev);
+          }
         });
     });
 

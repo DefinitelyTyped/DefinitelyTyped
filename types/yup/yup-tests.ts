@@ -2,7 +2,7 @@ import * as yup from 'yup';
 import { setLocale } from 'yup/lib/customLocale';
 
 // tslint:disable-next-line:no-duplicate-imports
-import { reach, date, Schema, ObjectSchema, ValidationError, MixedSchema, SchemaDescription, TestOptions, ValidateOptions, NumberSchema } from 'yup';
+import { reach, date, Schema, ObjectSchema, ValidationError, MixedSchema, SchemaDescription, TestOptions, ValidateOptions, NumberSchema, TestContext } from 'yup';
 
 // reach function
 let schema = yup.object().shape({
@@ -35,7 +35,7 @@ schema = yup.object().shape({
 schema.cast({ foo: { bar: 'boom' } }, { context: { x: 5 } });
 
 // lazy function
-const node: ObjectSchema = yup.object().shape({
+const node: ObjectSchema<any> = yup.object().shape({
     id: yup.number(),
     child: yup.lazy(() =>
       node.default(undefined)
@@ -100,6 +100,7 @@ mixed.default(() => ({ number: 5}));
 mixed.default();
 mixed.nullable(true);
 mixed.required();
+mixed.notRequired(); // $ExpectType MixedSchema
 mixed.typeError('type error');
 mixed.oneOf(['hello', 'world'], 'message');
 mixed.notOneOf(['hello', 'world'], 'message');
@@ -121,6 +122,24 @@ mixed.test({
     // tslint:disable-next-line:no-invalid-template-strings
     message: '${path} must be less than 5 characters',
     test: value => value == null || value.length <= 5
+});
+mixed.test('with-promise', 'It contains invalid value', value => new Promise(resolve => true));
+const testContext = function(this: TestContext) {
+    // $ExpectType string
+    this.path;
+    // $ExpectType ValidateOptions
+    this.options;
+    // $ExpectType any
+    this.parent;
+    // $ExpectType Schema<any>
+    this.schema;
+    // $ExpectType ValidationError
+    this.createError({ path: '1', message: '1' });
+    return true;
+};
+mixed.test('with-context', 'it uses function context', testContext);
+mixed.test({
+    test: testContext
 });
 
 yup.string().transform(function(this, value: any, originalvalue: any) {
@@ -158,7 +177,7 @@ yup.object().shape({
 });
 
 // String schema
-const strSchema = yup.string();
+const strSchema = yup.string(); // $ExpectType StringSchema
 strSchema.isValid('hello'); // => true
 strSchema.required();
 strSchema.min(5, 'message');
@@ -172,7 +191,7 @@ strSchema.lowercase();
 strSchema.uppercase();
 
 // Number schema
-const numSchema = yup.number();
+const numSchema = yup.number(); // $ExpectType NumberSchema
 numSchema.isValid(10); // => true
 numSchema.min(5, 'message');
 numSchema.max(5, 'message');
@@ -209,6 +228,10 @@ arrSchema.required();
 arrSchema.ensure();
 arrSchema.compact(value => value === null);
 
+yup.array(); // $ExpectType ArraySchema<{}>
+yup.array(yup.string()); // $ExpectType ArraySchema<string>
+yup.array().of(yup.string()); // $ExpectType ArraySchema<string>
+
 // Object Schema
 const objSchema = yup.object().shape({
     name: yup.string().required(),
@@ -226,6 +249,7 @@ yup.object({
 
 objSchema.from('prop', 'myProp');
 objSchema.from('prop', 'myProp', true);
+objSchema.noUnknown();
 objSchema.noUnknown(true);
 objSchema.noUnknown(true, 'message');
 objSchema.transformKeys(key => key.toUpperCase());
@@ -247,6 +271,14 @@ const testOptions: TestOptions = {
     exclusive: true
 };
 
+const testOptionsWithPromise: TestOptions = {
+    name: 'name',
+    test: value => new Promise(resolve => true),
+    message: 'validation error message',
+    params: { param1: 'value'},
+    exclusive: true
+};
+
 const validateOptions: ValidateOptions = {
     strict: true,
     abortEarly: true,
@@ -260,4 +292,72 @@ const validateOptions: ValidateOptions = {
 setLocale({
     number: { max: "Max message", min: "Min message" },
     string: { email: "String message"}
+});
+
+interface MyInterface {
+    stringField: string;
+    numberField: number;
+    subFields: SubInterface;
+    arrayField: string[];
+}
+
+interface SubInterface {
+    testField: string;
+}
+
+// $ExpectType ObjectSchema<MyInterface>
+const typedSchema = yup.object<MyInterface>({
+    stringField: yup.string().required(), // $ExpectType StringSchema
+    numberField: yup.number().required(), // $ExpectType NumberSchema
+    subFields: yup.object({
+        testField: yup.string().required(),
+    }).required(),
+    arrayField: yup.array(yup.string()).required(), // $ExpectType ArraySchema<string>
+});
+
+const testObject: MyInterface = {
+    stringField: "test1",
+    numberField: 123,
+    subFields: {
+        testField: "test2"
+    },
+    arrayField: ["hi"],
+};
+
+typedSchema.validateSync(testObject); // $ExpectType MyInterface
+
+// $ExpectError
+yup.object<MyInterface>({
+    stringField: yup.string().required(),
+    subFields: yup.object({
+        testField: yup.string().required(),
+    }).required(),
+    arrayField: yup.array(yup.string()).required(),
+});
+
+// $ExpectError
+yup.object<MyInterface>({
+    stringField: yup.number().required(),
+    numberField: yup.number().required(),
+    subFields: yup.object({
+        testField: yup.string().required(),
+    }).required(),
+    arrayField: yup.array(yup.string()).required(),
+});
+
+// $ExpectError
+yup.object<MyInterface>({
+    stringField: yup.string().required(),
+    numberField: yup.number().required(),
+    arrayField: yup.array(yup.string()).required(),
+});
+
+// $ExpectError
+yup.object<MyInterface>({
+    stringField: yup.string().required(),
+    numberField: yup.number().required(),
+    subFields: yup.object({
+        testField: yup.number().required(),
+    }).required(),
+    arrayField: yup.array(yup.string()).required(),
 });

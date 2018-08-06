@@ -1,4 +1,6 @@
-import * as JSZip from 'jszip';
+import JSZip = require('jszip');
+
+import { Readable } from "stream";
 
 const SEVERITY = {
 	DEBUG: 0,
@@ -10,9 +12,12 @@ const SEVERITY = {
 
 function createTestZip(): JSZip {
 	const zip = new JSZip();
+	const stream = new Readable();
+	stream.push("test stream");
 	zip.file("test.txt", "test string");
 	zip.file("test", null, { dir: true });
 	zip.file("test/test.txt", "test string");
+	zip.file("stream.txt", stream);
 	return zip;
 }
 
@@ -103,6 +108,14 @@ function testJSZip() {
 		log(SEVERITY.INFO, "all ok");
 			} else {
 		log(SEVERITY.ERROR, "wrong number of files");
+	}
+		}).catch((e: any) => log(SEVERITY.ERROR, e));
+
+	newJszip.file("stream.txt").async('text').then((text: string) => {
+			if (text === "test stream") {
+		log(SEVERITY.INFO, "all ok");
+	} else {
+		log(SEVERITY.ERROR, "no matching file found");
 	}
 		}).catch((e: any) => log(SEVERITY.ERROR, e));
 	}).catch((e: any) => { console.error(e); });

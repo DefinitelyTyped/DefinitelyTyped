@@ -1,14 +1,26 @@
 // Added test in addition to docs, for request.query
+import { Lifecycle, Request, RequestQuery, ResponseToolkit, Server, ServerOptions, ServerRoute } from "hapi";
 
-import * as Hapi from 'hapi';
-
-interface GetThingQuery {
-    name: string;
-}
-
-const handler: Hapi.RouteHandler = function (request, reply) {
-
-    const query = request.query as GetThingQuery;
-
-    return reply(`You asked for ${query.name}`);
+const options: ServerOptions = {
+    port: 8000,
 };
+
+const handlerFn: Lifecycle.Method = (request, h) => {
+    const query1 = request.query as string;
+    console.log(query1);
+
+    const query2 = request.query as RequestQuery;
+    // http://localhost:8000/?name=test
+    return `You asked for ${query2.name}`;
+};
+
+const serverRoute: ServerRoute = {
+    path: '/',
+    method: 'GET',
+    handler: handlerFn
+};
+
+const server = new Server(options);
+server.route(serverRoute);
+server.start();
+console.log('Server started at: ' + server.info.uri);

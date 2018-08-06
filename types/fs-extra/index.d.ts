@@ -3,20 +3,22 @@
 // Definitions by: Alan Agius <https://github.com/alan-agius4>,
 //                 midknight41 <https://github.com/midknight41>,
 //                 Brendan Forster <https://github.com/shiftkey>,
-//                 Mees van Dijk <https://github.com/mees->
+//                 Mees van Dijk <https://github.com/mees->,
+//                 Justin Rockwood <https://github.com/jrockwood>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
 /// <reference types="node" />
 
-import { Stats } from "fs";
+import * as fs from "fs";
+import Stats = fs.Stats;
 
 export * from "fs";
 
 export function copy(src: string, dest: string, options?: CopyOptions): Promise<void>;
 export function copy(src: string, dest: string, callback: (err: Error) => void): void;
 export function copy(src: string, dest: string, options: CopyOptions, callback: (err: Error) => void): void;
-export function copySync(src: string, dest: string, options?: CopyOptions): void;
+export function copySync(src: string, dest: string, options?: CopyOptionsSync): void;
 
 export function move(src: string, dest: string, options?: MoveOptions): Promise<void>;
 export function move(src: string, dest: string, callback: (err: Error) => void): void;
@@ -205,8 +207,9 @@ export function rmdir(path: string | Buffer): Promise<void>;
 export function stat(path: string | Buffer, callback: (err: NodeJS.ErrnoException, stats: Stats) => any): void;
 export function stat(path: string | Buffer): Promise<Stats>;
 
-export function symlink(srcpath: string | Buffer, dstpath: string | Buffer, type: string, callback: (err: NodeJS.ErrnoException) => void): void;
-export function symlink(srcpath: string | Buffer, dstpath: string | Buffer, type?: string): Promise<void>;
+export function symlink(srcpath: string | Buffer, dstpath: string | Buffer, type: FsSymlinkType | undefined, callback: (err: NodeJS.ErrnoException) => void): void;
+export function symlink(srcpath: string | Buffer, dstpath: string | Buffer, callback: (err: NodeJS.ErrnoException) => void): void;
+export function symlink(srcpath: string | Buffer, dstpath: string | Buffer, type?: FsSymlinkType): Promise<void>;
 
 export function truncate(path: string | Buffer, callback: (err: NodeJS.ErrnoException) => void): void;
 export function truncate(path: string | Buffer, len: number, callback: (err: NodeJS.ErrnoException) => void): void;
@@ -254,17 +257,23 @@ export interface PathEntryStream {
     read(): PathEntry | null;
 }
 
-export type CopyFilter = (src: string, dest: string) => boolean;
+export type CopyFilterSync = (src: string, dest: string) => boolean;
+export type CopyFilterAsync = (src: string, dest: string) => Promise<boolean>;
 
 export type SymlinkType = "dir" | "file";
+export type FsSymlinkType = "dir" | "file" | "junction";
 
 export interface CopyOptions {
     dereference?: boolean;
     overwrite?: boolean;
     preserveTimestamps?: boolean;
     errorOnExist?: boolean;
-    filter?: CopyFilter;
+    filter?: CopyFilterSync | CopyFilterAsync;
     recursive?: boolean;
+}
+
+export interface CopyOptionsSync extends CopyOptions {
+    filter?: CopyFilterSync;
 }
 
 export interface MoveOptions {
@@ -290,6 +299,7 @@ export interface WriteOptions extends WriteFileOptions {
     fs?: object;
     replacer?: any;
     spaces?: number | string;
+    EOL?: string;
 }
 
 export interface ReadResult {

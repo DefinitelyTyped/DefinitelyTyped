@@ -87,7 +87,7 @@ export interface Path {
   options?: Operation;
   head?: Operation;
   patch?: Operation;
-  parameters?: [Parameter];
+  parameters?: Parameter[];
 }
 
 // ----------------------------- Operation -----------------------------------
@@ -147,7 +147,7 @@ export interface Schema extends BaseSchema {
   readOnly?: boolean;
   xml?: XML;
   externalDocs?: ExternalDocs;
-  example?: {[exampleName: string]: {}};
+  example?: any;
   required?: string[];
 }
 

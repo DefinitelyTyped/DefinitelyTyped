@@ -1,3 +1,6 @@
+import { Color } from "chroma-js";
+import chroma = require("chroma-js");
+
 function test_chroma() {
     chroma('hotpink');
     chroma('#ff3399');
@@ -187,3 +190,9 @@ function test_types() {
     const color: chroma.Color = chroma('orange');
     const scale: chroma.Scale = chroma.scale('RdYlBu');
 }
+
+// the following should actually, pass, but TS can't disambiguate between a parameter
+// which is passed as undefined/null or not passed at all
+// const scaleColors1: Color[] = chroma.scale(['black', 'white']).colors(12);
+const scaleColors2: Color[] = chroma.scale(['black', 'white']).colors(12, null);
+const scaleColors3: Color[] = chroma.scale(['black', 'white']).colors(12, undefined);

@@ -1,8 +1,8 @@
-// Type definitions for Rebass 0.2.5
+// Type definitions for Rebass 0.2.6
 // Project: https://github.com/jxnblk/rebass
 // Definitions by: rhysd <https://rhysd.github.io>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 ///<reference types="react" />
 
@@ -11,6 +11,7 @@ import * as React from "react";
 export interface BaseProps<C> extends React.Props<C> {
     tagName?: string;
     className?: string;
+    fontSize?: number | number[];
     baseStyle?: Object;
     style?: Object;
     m?: number;
@@ -47,6 +48,14 @@ export interface AvatarProps extends BaseProps<AvatarClass> {
 }
 type AvatarClass = React.StatelessComponent<AvatarProps>
 export declare const Avatar: AvatarClass;
+
+export interface ImageProps extends BaseProps<ImageClass> {
+    size?: number;
+    src?: string;
+    alt?: string;
+}
+type ImageClass = React.StatelessComponent<ImageProps>
+export declare const Image: ImageClass;
 
 export interface BadgeProps extends BaseProps<BadgeClass> {
     theme?: "primary" | "secondary" | "default" | "info" | "success" | "warning" | "error";
@@ -255,6 +264,13 @@ export interface HeadingLinkProps extends BaseProps<HeadingLinkClass> {
 }
 type HeadingLinkClass = React.StatelessComponent<HeadingLinkProps>
 export declare const HeadingLink: HeadingLinkClass;
+
+export interface LinkProps extends BaseProps<LinkClass> {
+    is?: string | Object | Function;
+    href?: string;
+}
+type LinkClass = React.StatelessComponent<LinkProps>
+export declare const Link: LinkClass;
 
 export interface InlineFormProps extends BaseProps<InlineFormClass> {
     label?: string;
@@ -490,7 +506,36 @@ type ToolbarClass = React.StatelessComponent<ToolbarProps>
 export declare const Toolbar: ToolbarClass;
 
 export interface TooltipProps extends BaseProps<TooltipClass> {
+    text?: string;
     title?: string;
 }
 type TooltipClass = React.StatelessComponent<TooltipProps>
 export declare const Tooltip: TooltipClass;
+
+export interface FontWeights {
+    normal?: number;
+    bold?: number;
+}
+
+export interface Fonts {
+    [0]?: string;
+    sans?: string;
+    mono?: string;
+}
+
+export interface Theme {
+    breakpoints?: string[];
+    space?: number[];
+    fontSizes?: number[];
+    fontWeights?: FontWeights;
+    fonts?: Fonts;
+    shadows?: string[];
+    radii?: number[];
+}
+
+export interface ProviderProps {
+    theme?: Theme;
+}
+
+type ProviderClass = React.StatelessComponent<ProviderProps>;
+export const Provider: ProviderClass;

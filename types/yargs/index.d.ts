@@ -1,4 +1,4 @@
-// Type definitions for yargs 10.0
+// Type definitions for yargs 11.1
 // Project: https://github.com/chevex/yargs
 // Definitions by: Martin Poelstra <https://github.com/poelstra>
 //                 Mizunashi Mana <https://github.com/mizunashi-mana>
@@ -116,6 +116,8 @@ declare namespace yargs {
 
         group(key: string | string[], groupName: string): Argv;
 
+        hide(key: string): Argv;
+
         help(): Argv;
         help(enableExplicit: boolean): Argv;
         help(option: string, enableExplicit: boolean): Argv;
@@ -183,7 +185,12 @@ declare namespace yargs {
          */
         reset(): Argv;
 
+        scriptName($0: string): Argv;
+
         showCompletionScript(): Argv;
+
+        showhidden(option?: string | boolean): Argv;
+        showhidden(option: string, description?: string): Argv;
 
         showHelp(consoleLevel?: string): Argv;
 
@@ -262,9 +269,17 @@ declare namespace yargs {
         nargs?: number;
         normalize?: boolean;
         number?: boolean;
+        /**
+         *  @deprecated since version 6.6.0
+         *  Use 'demandOption' instead
+         */
         require?: boolean | string;
+        /**
+         *  @deprecated since version 6.6.0
+         *  Use 'demandOption' instead
+         */
         required?: boolean | string;
-        requiresArg?: boolean | string;
+        requiresArg?: boolean;
         skipValidation?: boolean;
         string?: boolean;
         type?: "array" | "count" | PositionalOptionsType;

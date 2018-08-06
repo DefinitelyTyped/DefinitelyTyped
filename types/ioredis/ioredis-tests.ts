@@ -1,4 +1,4 @@
-import * as Redis from "ioredis";
+import Redis = require("ioredis");
 const redis = new Redis();
 
 redis.set('foo', 'bar');
@@ -29,7 +29,10 @@ new Redis({
     password: 'auth',
     db: 0,
     retryStrategy() { return false; },
-    showFriendlyErrorStack: true
+    showFriendlyErrorStack: true,
+    tls: {
+        servername: 'tlsservername'
+    }
 });
 
 const pub = new Redis();
@@ -105,7 +108,10 @@ redis.multi([
     // results = [[null, 'OK'], [null, 'bar']]
 });
 
-const keys = [ 'foo', 'bar' ];
+redis.Promise.onPossiblyUnhandledRejection((error) => {
+});
+
+const keys = ['foo', 'bar'];
 redis.mget(...keys);
 
 new Redis.Cluster([

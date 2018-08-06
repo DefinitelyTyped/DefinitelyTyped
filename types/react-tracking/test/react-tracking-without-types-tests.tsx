@@ -14,6 +14,11 @@ class ClassPage extends React.Component<any> {
     // ... other stuff
     }
 
+    @track((_props, _state, [e]) => ({ event: `drag started at ${e.screenX}x${e.screenY}` }))
+    handleDrag(event: any) {
+        // no-op
+    }
+
     // Only need to cast this to `any` because the settings for this project is to disallow implicit `any`.
     @track((props: any, state: any) => ({ event: `got ${props.someProp} and clicked ${state.isClicked}` }))
     render() {

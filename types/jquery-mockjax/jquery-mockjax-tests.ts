@@ -192,6 +192,81 @@ class Tests {
                 }
             });
         });
+
+        t('Standard logger type gets called', (assert) => {
+            let done = assert.async();
+            let wasLoggerCalled = false;
+
+            let logFunction = () => wasLoggerCalled = true;
+
+            let settings: MockJaxSettings = {
+                url: '/custom-logging-function',
+                logging: true,
+                logger: {
+                    error: logFunction,
+                    warn: logFunction,
+                    info: logFunction,
+                    log: logFunction,
+                    debug: logFunction
+                }
+            };
+
+            $.mockjax(settings);
+
+            $.ajax({
+                url: '/custom-logging-function',
+                error: self._noErrorCallbackExpected,
+                complete: (xhr) => {
+                    assert.equal(wasLoggerCalled, true, 'Standard logger was called');
+                    done();
+                }
+            });
+        });
+
+        t('Custom logger object gets called', (assert) => {
+            let done = assert.async();
+            let wasLoggerCalled = false;
+
+            let logFunction = () => wasLoggerCalled = true;
+
+            let settings: MockJaxSettings = {
+                url: '/custom-logging-function',
+                logging: true,
+                logger: {
+                    customName: logFunction
+                },
+                logLevelMethods: ['customName', 'customName', 'customName', 'customName', 'customName']
+            };
+
+            $.mockjax(settings);
+
+            $.ajax({
+                url: '/custom-logging-function',
+                error: self._noErrorCallbackExpected,
+                complete: (xhr) => {
+                    assert.equal(wasLoggerCalled, true, 'Custom logger was called');
+                    done();
+                }
+            });
+        });
+
+        t('Throws when ajax call is not mocked', (assert) => {
+            let done = assert.async();
+
+            $.mockjaxSettings.throwUnmocked = true;
+
+            $.ajax({
+                url: '/unmocked-ajax-call',
+                error: (error) => {
+                    assert.ok(error, 'Expected the call to fail because it was not mocked');
+                    done();
+                },
+                complete: (xhr) => {
+                    assert.ok(false, 'Expected a failure');
+                    done();
+                }
+            });
+        });
     }
 }
 

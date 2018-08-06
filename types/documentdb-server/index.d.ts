@@ -490,6 +490,10 @@ interface IRequest {
 	 */
     getBody(): Object;
     getBody<T>(): T;
+    /**
+     * Gets the OperationType for the request with a pre-trigger or post-trigger.
+     */
+    getOperationType(): "Create" | "Replace" | "Upsert" | "Delete";
 	/**
 	 * Gets a specified request header value.
 	 * @param key the name of the header to retrieve

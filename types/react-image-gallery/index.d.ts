@@ -2,7 +2,7 @@
 // Project: https://github.com/xiaolin/react-image-gallery
 // Definitions by: Adam Webb <https://github.com/adamwpc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 
@@ -79,7 +79,7 @@ declare class ReactImageGallery extends React.Component<ReactImageGalleryProps> 
     fullScreen: () => void;
     exitFullScreen: () => void;
     slideToIndex: (index: number) => void;
-    getCurrentIndex: () => void;
+    getCurrentIndex: () => number;
 }
 
 export default ReactImageGallery;

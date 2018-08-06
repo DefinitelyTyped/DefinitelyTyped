@@ -62,7 +62,7 @@ declare class USBAlternateInterface {
     readonly interfaceClass: number;
     readonly interfaceSubclass: number;
     readonly interfaceProtocol: number;
-    readonly alternatinterfaceName?: string;
+    readonly interfaceName?: string;
     readonly endpoints: USBEndpoint[];
 }
 
@@ -146,6 +146,7 @@ declare class USBDevice {
     transferOut(endpointNumber: number, data: BufferSource): Promise<USBOutTransferResult>;
     isochronousTransferIn(endpointNumber: number, packetLengths: number[]): Promise<USBIsochronousInTransferResult>;
     isochronousTransferOut(endpointNumber: number, data: BufferSource, packetLengths: number[]): Promise<USBIsochronousOutTransferResult>;
+    reset(): Promise<void>;
 }
 
 interface Navigator {

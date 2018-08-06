@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as JSONPretty from "react-json-pretty";
+import JSONPretty = require("react-json-pretty");
 
 export class Test extends React.Component {
     render() {

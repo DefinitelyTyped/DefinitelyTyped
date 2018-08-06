@@ -1,4 +1,4 @@
-import * as ioclient from 'socket.io-client';
+import ioclient = require('socket.io-client');
 import createSocketIoMiddleware from 'redux-socket.io';
 import { Action } from 'redux';
 

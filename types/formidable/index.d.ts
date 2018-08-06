@@ -14,6 +14,7 @@ export declare class IncomingForm extends events.EventEmitter {
     encoding: string;
     uploadDir: string;
     keepExtensions: boolean;
+    maxFileSize: number;
     maxFieldsSize: number;
     maxFields: number;
     hash: string | boolean;

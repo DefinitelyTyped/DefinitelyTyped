@@ -1,5 +1,5 @@
-import * as Koa from 'koa';
-import * as multer from 'koa-multer';
+import Koa = require('koa');
+import multer = require('koa-multer');
 
 const upload = multer({
     dest: 'uploads/',

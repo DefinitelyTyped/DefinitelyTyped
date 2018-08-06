@@ -1,5 +1,5 @@
-import * as Koa from 'koa';
-import * as session from 'koa-session';
+import Koa = require('koa');
+import session = require('koa-session');
 import * as ContextSession from "koa-session/lib/context";
 
 import {
@@ -38,5 +38,12 @@ app.use(session({
         },
     },
 }, app));
+
+app.use((ctx, next) => {
+    // reset the session
+    ctx.session = null;
+
+    return next();
+});
 
 app.listen(3000);

@@ -1,4 +1,4 @@
-import * as OpenTok from 'opentok';
+import OpenTok = require('opentok');
 
 const client = new OpenTok('API_KEY', 'API_SECRET');
 

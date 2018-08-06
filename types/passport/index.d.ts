@@ -4,6 +4,7 @@
 //                 Eric Naeseth <https://github.com/enaeseth>
 //                 Igor Belagorudsky <https://github.com/theigor>
 //                 Tomek Łaziuk <https://github.com/tlaziuk>
+//                 Daniel Perez Alvarez <https://github.com/danielpa9708>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -47,6 +48,7 @@ declare namespace passport {
         pauseStream?: boolean;
         userProperty?: string;
         passReqToCallback?: boolean;
+        prompt?: string;
     }
 
     interface Authenticator<InitializeRet = express.Handler, AuthenticateRet = any, AuthorizeRet = AuthenticateRet> {
@@ -69,6 +71,7 @@ declare namespace passport {
     interface PassportStatic extends Authenticator {
         Authenticator: { new(): Authenticator };
         Passport: PassportStatic["Authenticator"];
+        Strategy: { new(): Strategy & StrategyCreatedStatic };
     }
 
     interface Strategy {

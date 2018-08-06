@@ -196,7 +196,8 @@ interface BaseDeclaration extends BaseStatement { }
 
 export interface FunctionDeclaration extends BaseFunction, BaseDeclaration {
   type: "FunctionDeclaration";
-  id: Identifier;
+  /** It is null when a function declaration is a part of the `export default function` statement */
+  id: Identifier | null;
   body: BlockStatement;
 }
 
@@ -473,7 +474,8 @@ export interface MethodDefinition extends BaseNode {
 
 export interface ClassDeclaration extends BaseClass, BaseDeclaration {
   type: "ClassDeclaration";
-  id: Identifier;
+  /** It is null when a class declaration is a part of the `export default class` statement */
+  id: Identifier | null;
 }
 
 export interface ClassExpression extends BaseClass, BaseExpression {

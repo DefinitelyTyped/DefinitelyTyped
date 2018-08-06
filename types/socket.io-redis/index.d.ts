@@ -4,14 +4,10 @@
 //                 seeLuck <https://github.com/seeLuck>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+import SocketIO = require("socket.io");
 
-/// <reference types="socket.io" />
-
-declare module 'socket.io-redis' {
-	let redis: SocketIORedisStatic;
-
-	export = redis;
-}
+declare const SocketIORedis: SocketIORedisStatic;
+export = SocketIORedis;
 
 interface SocketIORedisStatic {
 	/**

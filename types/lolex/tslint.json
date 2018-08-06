@@ -43,6 +43,7 @@
         "no-self-import": false,
         "no-single-declare-module": false,
         "no-string-throw": false,
+        "no-unbound-method": true,
         "no-unnecessary-callback-wrapper": false,
         "no-unnecessary-class": false,
         "no-unnecessary-generics": false,

@@ -1,6 +1,6 @@
 // Tests taken from documentation samples.
 
-import * as SerialPort from 'serialport';
+import SerialPort = require('serialport');
 
 function test_basic_connect() {
     const port = new SerialPort('');
@@ -116,4 +116,13 @@ function test_parsers() {
     port.pipe(ReadlineParser);
     port.pipe(ReadyParser);
     port.pipe(RegexParser);
+}
+
+function test_properties() {
+    const port = new SerialPort('');
+
+    const baudRate: number = port.baudRate;
+    const binding: SerialPort.BaseBinding = port.binding;
+    const isOpen: boolean = port.isOpen;
+    const path: string = port.path;
 }

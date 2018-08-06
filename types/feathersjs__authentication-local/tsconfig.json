@@ -16,11 +16,16 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@feathersjs/authentication-local": ["feathersjs__authentication-local"],
-            "@feathersjs/feathers": ["feathersjs__feathers"]
+            "@feathersjs/authentication-local": [
+                "feathersjs__authentication-local"
+            ],
+            "@feathersjs/feathers": [
+                "feathersjs__feathers"
+            ]
         }
     },
     "files": [
-        "index.d.ts", "feathersjs__authentication-local-tests.ts"
+        "index.d.ts",
+        "feathersjs__authentication-local-tests.ts"
     ]
 }

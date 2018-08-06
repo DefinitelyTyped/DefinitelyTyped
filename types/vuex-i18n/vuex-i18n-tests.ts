@@ -23,7 +23,10 @@ Vue.use(vuexI18n.plugin, store);
 // structured as object trees and will automatically be flattened by the the
 // plugin
 const translationsEn = {
-  content: "This is some {type} content"
+  content: "This is some {type} content",
+  tree: {
+    nested: "This is nested content"
+  }
 };
 
 // translations can be kept in separate files for each language
@@ -39,3 +42,5 @@ Vue.i18n.add("de", translationsDe);
 
 // set the start locale to use
 Vue.i18n.set("en");
+
+Vue.i18n.translateIn("en", "tree.nested");

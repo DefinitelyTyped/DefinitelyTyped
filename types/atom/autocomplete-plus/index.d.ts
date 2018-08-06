@@ -34,7 +34,7 @@ export interface SuggestionInsertedEvent {
  *  An autocompletion suggestion for the user.
  *  Primary data type for the Atom Autocomplete+ service.
  */
-export interface Suggestion<T extends { text: string }|{ snippet: string }> {
+export interface SuggestionBase {
     /**
      *  A string that will show in the UI for this suggestion.
      *  When not set, snippet || text is displayed.
@@ -91,14 +91,20 @@ export interface Suggestion<T extends { text: string }|{ snippet: string }> {
      *  When specified, a More.. link will be displayed in the description area.
      */
     descriptionMoreURL?: string;
+
+    /**
+     *  (experimental) Description with Markdown formatting.
+     *  Takes precedence over plaintext description.
+     */
+    descriptionMarkdown?: string;
 }
 
-export interface TextSuggestion extends Suggestion<TextSuggestion> {
+export interface TextSuggestion extends SuggestionBase {
     /** The text which will be inserted into the editor, in place of the prefix. */
     text: string;
 }
 
-export interface SnippetSuggestion extends Suggestion<SnippetSuggestion> {
+export interface SnippetSuggestion extends SuggestionBase {
     /**
      *  A snippet string. This will allow users to tab through function arguments
      *  or other options.
@@ -106,7 +112,8 @@ export interface SnippetSuggestion extends Suggestion<SnippetSuggestion> {
     snippet: string;
 }
 
-export type Suggestions = Array<TextSuggestion|SnippetSuggestion>;
+export type AnySuggestion = TextSuggestion|SnippetSuggestion;
+export type Suggestions = AnySuggestion[];
 
 /** The interface that all Autocomplete+ providers must implement. */
 export interface AutocompleteProvider {
@@ -154,4 +161,13 @@ export interface AutocompleteProvider {
 
     /** Will be called if your provider is being destroyed by autocomplete+ */
     dispose?(): void;
+
+    /**
+     *  (experimental) Is called when a suggestion is selected by the user for
+     *  the purpose of loading more information about the suggestion. Return a
+     *  Promise of the new suggestion to replace it with or return null if
+     *  no change is needed.
+     */
+    getSuggestionDetailsOnSelect?:
+      (suggestion: AnySuggestion) => Promise<AnySuggestion | null> | AnySuggestion | null;
 }

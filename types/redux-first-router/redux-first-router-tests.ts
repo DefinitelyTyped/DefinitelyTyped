@@ -6,9 +6,11 @@ import {
     ReceivedAction,
     redirect,
     Action as ReduxFirstRouterAction,
-    QuerySerializer
+    QuerySerializer,
+    pathToAction
 } from 'redux-first-router';
 import {
+    AnyAction,
     createStore,
     applyMiddleware,
     Middleware,
@@ -17,21 +19,20 @@ import {
     Dispatch,
     compose,
     Action,
-    GenericStoreEnhancer,
+    StoreEnhancer,
     StoreEnhancerStoreCreator,
     combineReducers
 } from 'redux';
 import { History } from 'history';
 
-declare var console: any;
-declare var history: History;
+declare const console: any;
+declare const history: History;
 
 interface Keys {
     role: string;
 }
 interface State {
     location: LocationState<Keys, State>;
-    stale: boolean;
 }
 type StoreCreator = StoreEnhancerStoreCreator<State>;
 
@@ -77,7 +78,7 @@ const dumbMiddleware: Middleware = store => next => action => next(action);
 
 const composedMiddleware = applyMiddleware(middleware, dumbMiddleware);
 
-const storeEnhancer = compose<StoreCreator, StoreCreator, StoreCreator>(
+const storeEnhancer = compose(
     enhancer,
     composedMiddleware
 );
@@ -97,19 +98,21 @@ const receivedAction: ReceivedAction = {
     payload: {}
 };
 actionToPath(receivedAction, routesMap); // $ExpectType string
+pathToAction('/', routesMap); // $ExpectType ReceivedAction
 
 const querySerializer: QuerySerializer = {
     stringify: (params) => '',
     parse: (queryString) => ({})
 };
 actionToPath(receivedAction, routesMap, querySerializer); // $ExpectType string
+pathToAction('/', routesMap, querySerializer); // $ExpectType ReceivedAction
 
 const action: ReduxFirstRouterAction = {
     type: 'HOME'
 };
 redirect(action); // $ExpectType Action
 
-// $ExpectType Store<State>
+// $ExpectType Store<State, AnyAction>
 store;
 
 store.getState().location.routesMap; // $ExpectType RoutesMap<Keys, State>

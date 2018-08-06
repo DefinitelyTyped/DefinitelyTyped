@@ -2,13 +2,14 @@
 // Project: https://github.com/keppelen/react-facebook-login
 // Definitions by: Alexandre Paré <https://github.com/apare>, Jan Karres <https://github.com/jankarres>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as React from "react";
 
 interface ReactFacebookLoginProps {
     appId: string;
     callback(userInfo: ReactFacebookLoginInfo): void;
+    onFailure?(response: ReactFacebookFailureResponse): void;
 
     autoLoad?: boolean;
     buttonStyle?: React.CSSProperties;
@@ -20,7 +21,7 @@ interface ReactFacebookLoginProps {
     icon?: string | React.ReactNode;
     isDisabled?: boolean;
     language?: string;
-    onClick?(): void;
+    onClick?(event: React.MouseEvent<HTMLDivElement>): void;
     reAuthenticate?: boolean;
     redirectUri?: string;
     scope?: string;
@@ -33,9 +34,15 @@ interface ReactFacebookLoginProps {
     tag?: Node | React.Component<any>;
 }
 
+export interface ReactFacebookFailureResponse {
+    status?: string;
+}
+
 export interface ReactFacebookLoginInfo {
     id: string;
-    name: string;
+    accessToken: string;
+    name?: string;
+    email?: string;
 }
 
 interface ReactFacebookLoginState {
@@ -43,6 +50,9 @@ interface ReactFacebookLoginState {
     isProcessing?: boolean;
 }
 
-declare class ReactFacebookLogin extends React.Component<ReactFacebookLoginProps, ReactFacebookLoginState> { }
+declare class ReactFacebookLogin extends React.Component<
+    ReactFacebookLoginProps,
+    ReactFacebookLoginState
+> {}
 
 export default ReactFacebookLogin;

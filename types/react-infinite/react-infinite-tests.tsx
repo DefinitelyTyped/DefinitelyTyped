@@ -1,6 +1,5 @@
 import * as React from 'react';
 import Infinite = require('react-infinite');
-import * as ReactInfinite from 'react-infinite';
 
 class Test1 extends React.Component {
     render() {
@@ -52,15 +51,15 @@ class Test4 extends React.Component {
     }
 }
 
-class Test5 extends React.Component<ReactInfinite.InfiniteProps> {
+class Test5 extends React.Component<Infinite.InfiniteProps> {
     render() {
         return (
-            <ReactInfinite containerHeight={200} elementHeight={[111, 252, 143]}
+            <Infinite containerHeight={200} elementHeight={[111, 252, 143]}
                 displayBottomUpwards>
                 <div className="third-latest-chat" />
                 <div className="second-latest-chat" />
                 <div className="latest-chat-message" />
-            </ReactInfinite>
+            </Infinite>
         );
     }
 }
@@ -74,13 +73,10 @@ class ListItem extends React.Component<{ key: number; num: number }, {}> {
 }
 
 class InfiniteList extends React.Component<{}, { elements: React.ReactElement<any>[], isInfiniteLoading: boolean }> {
-    constructor(props?: {}, context?: any) {
-        super(props, context);
-        this.state = {
-            elements: this.buildElements(0, 20),
-            isInfiniteLoading: false
-        };
-    }
+    state = {
+        elements: this.buildElements(0, 20),
+        isInfiniteLoading: false
+    };
 
     buildElements(start: number, end: number) {
         var elements = [] as React.ReactElement<any>[];

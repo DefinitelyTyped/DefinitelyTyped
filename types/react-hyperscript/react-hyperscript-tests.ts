@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as h from 'react-hyperscript';
+import h = require('react-hyperscript');
 
 interface PropTypes {
     foo: string;

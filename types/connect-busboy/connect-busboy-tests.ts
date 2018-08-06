@@ -1,4 +1,4 @@
-import * as connectBusboy from 'connect-busboy';
+import connectBusboy = require('connect-busboy');
 
 import * as express from 'express';
 

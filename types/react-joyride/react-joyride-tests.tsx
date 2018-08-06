@@ -7,7 +7,7 @@ class NewComponent extends React.Component<undefined, undefined> {
     steps: Step[] = [{
             title: "Title",
             text: "Hurray",
-            selector: ".selectable",
+            target: ".selectable",
             position: "top-right",
             type: "click",
             style: {
@@ -37,7 +37,7 @@ class NewComponent extends React.Component<undefined, undefined> {
             parent: "MyParent"
         },
         {
-            selector: ".other-selectable",
+            target: ".other-selectable",
             text: (<div>Also works</div>)
         }];
 

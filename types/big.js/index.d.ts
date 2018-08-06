@@ -103,6 +103,12 @@ export interface Big {
     /** Returns a Big number whose value is the absolute value, i.e. the magnitude, of this Big number. */
     abs(): Big;
     /**
+     * Returns a Big number whose value is the value of this Big number plus n - alias for .plus().
+     *
+     * @throws `NaN` if n is invalid.
+     */
+    add(n: BigSource): Big;
+    /**
      * Compare the values.
      *
      * @throws `NaN` if n is invalid.
@@ -163,6 +169,12 @@ export interface Big {
      */
     mod(n: BigSource): Big;
     /**
+     * Returns a Big number whose value is the value of this Big number times n - alias for .times().
+     *
+     * @throws `NaN` if n is invalid.
+     */
+    mul(n: BigSource): Big;
+    /**
      * Returns a Big number whose value is the value of this Big number plus n.
      *
      * @throws `NaN` if n is invalid.
@@ -196,6 +208,12 @@ export interface Big {
      * @throws `NaN` if this Big number is negative.
      */
     sqrt(): Big;
+    /**
+     * Returns a Big number whose value is the value of this Big number minus n - alias for .minus().
+     *
+     * @throws `NaN` if n is invalid.
+     */
+    sub(n: BigSource): Big;
     /**
      * Returns a Big number whose value is the value of this Big number times n.
      *
@@ -295,6 +313,7 @@ export const Big: BigConstructor;
 export type Big_ = Big;
 export type BigConstructor_ = BigConstructor;
 export type BigSource_ = BigSource;
+export default Big;
 
 declare global {
     namespace BigJs {

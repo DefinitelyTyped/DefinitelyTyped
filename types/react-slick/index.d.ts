@@ -1,10 +1,10 @@
-// Type definitions for react-slick 0.15
+// Type definitions for react-slick 0.23
 // Project: https://github.com/akiran/react-slick
 // Definitions by: Andrey Balokha <https://github.com/andrewBalekha>
 //                 Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
 //                 Andrew Makarov <https://github.com/r3nya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as React from "react";
 
@@ -25,56 +25,67 @@ export interface ResponsiveObject {
 
 export type SwipeDirection = "left" | "down" | "right" | "up" | string;
 
+export type LazyLoadTypes = "ondemand" | "progressive";
+
 export interface Settings {
   accessibility?: boolean;
-  className?: string;
   adaptiveHeight?: boolean;
+  afterChange?(currentSlide: number): void;
+  appendDots?(dots: React.ReactNode): JSX.Element;
   arrows?: boolean;
-  nextArrow?: JSX.Element;
-  prevArrow?: JSX.Element;
-  autoplay?: boolean;
+  asNavFor?: Slider;
   autoplaySpeed?: number;
+  autoplay?: boolean;
+  beforeChange?(currentSlide: number, nextSlide: number): void;
   centerMode?: boolean;
   centerPadding?: string;
+  className?: string;
   cssEase?: string;
   customPaging?(index: number): JSX.Element;
-  dots?: boolean;
   dotsClass?: string;
+  dots?: boolean;
   draggable?: boolean;
   easing?: string;
+  edgeFriction?: number;
   fade?: boolean;
   focusOnSelect?: boolean;
   infinite?: boolean;
   initialSlide?: number;
-  lazyLoad?: boolean;
+  lazyLoad?: LazyLoadTypes;
+  nextArrow?: JSX.Element;
+  onEdge?(swipeDirection: SwipeDirection): void;
+  onInit?(): void;
+  onLazyLoad?(slidesToLoad: number[]): void;
+  onReInit?(): void;
+  onSwipe?(swipeDirection: SwipeDirection): void;
+  pauseOnDotsHover?: boolean;
+  pauseOnFocus?: boolean;
   pauseOnHover?: boolean;
+  prevArrow?: JSX.Element;
   responsive?: ResponsiveObject[];
+  rows?: number;
   rtl?: boolean;
   slide?: string;
-  slidesToShow?: number;
+  slidesPerRow?: number;
   slidesToScroll?: number;
+  slidesToShow?: number;
   speed?: number;
-  swipe?: boolean;
   swipeToSlide?: boolean;
+  swipe?: boolean;
+  swipeEvent?(swipeDirection: SwipeDirection): void;
   touchMove?: boolean;
   touchThreshold?: number;
-  variableWidth?: boolean;
   useCSS?: boolean;
+  useTransform?: boolean;
+  variableWidth?: boolean;
   vertical?: boolean;
-  afterChange?(currentSlide: number): void;
-  beforeChange?(currentSlide: number, nextSlide: number): void;
-  slickGoTo?: number;
-  edgeFriction?: number;
   waitForAnimate?: boolean;
-  edgeEvent?(swipeDirection: SwipeDirection): void;
-  swipeEvent?(swipeDirection: SwipeDirection): void;
-  init?(): void;
 }
 
 declare class Slider extends React.Component<Settings, never> {
   slickNext(): void;
   slickPrev(): void;
-  slickGoTo(slideNumber: number): void;
+  slickGoTo(slideNumber: number, dontAnimate?: boolean): void;
 }
 
 export default Slider;

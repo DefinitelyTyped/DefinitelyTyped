@@ -15,28 +15,25 @@
  */
 
 import MDCFoundation from 'material__base/foundation';
-import { MDCSelectionControlState } from 'material__selection-control';
 import MDCRadioAdapter from './adapter';
 import { cssClasses, strings } from './constants';
 
-export class MDCRadioFoundation extends MDCFoundation<MDCRadioAdapter> {
-  static readonly cssClasses: cssClasses;
+export default class MDCRadioFoundation extends MDCFoundation<MDCRadioAdapter> {
+    static readonly cssClasses: cssClasses;
 
-  static readonly strings: strings;
+    static readonly strings: strings;
 
-  static readonly defaultAdapter: MDCRadioAdapter;
+    static readonly defaultAdapter: MDCRadioAdapter;
 
-  isChecked(): boolean;
+    isChecked(): boolean;
 
-  setChecked(checked: boolean): void;
+    setChecked(checked: boolean): void;
 
-  isDisabled(): boolean;
+    isDisabled(): boolean;
 
-  setDisabled(disabled: boolean): void;
+    setDisabled(disabled: boolean): void;
 
-  getValue(): string;
+    getValue(): string;
 
-  setValue(value?: string): void;
+    setValue(value?: string): void;
 }
-
-export default MDCRadioFoundation;

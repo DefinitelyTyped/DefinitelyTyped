@@ -1,4 +1,4 @@
-import * as Redlock from 'redlock';
+import Redlock = require('redlock');
 import { Lock } from 'redlock';
 import { RedisClient } from 'redis';
 import { using } from 'bluebird';

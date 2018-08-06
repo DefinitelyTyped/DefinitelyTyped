@@ -20,7 +20,7 @@
 
         scene = new THREE.Scene();
 
-        var light: THREE.DirectionalLight, object: THREE.Mesh | THREE.AxisHelper | THREE.ArrowHelper;
+        var light: THREE.DirectionalLight, object: THREE.Mesh | THREE.AxesHelper | THREE.ArrowHelper;
 
         scene.add(new THREE.AmbientLight(0x404040));
 
@@ -96,7 +96,18 @@
         object.position.set(0, 0, -200);
         scene.add(object);
 
-        object = new THREE.AxisHelper(50);
+
+        object = new THREE.Mesh(
+            new THREE.ParametricGeometry(
+                (u:number, v:number, dest:THREE.Vector3):void => {
+                    dest.set(u, v, 0);
+                },
+                25,
+                25
+            )
+        );
+
+        object = new THREE.AxesHelper(50);
         object.position.set(200, 0, -200);
         scene.add(object);
 

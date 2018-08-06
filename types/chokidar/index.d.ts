@@ -149,7 +149,7 @@ export interface WatchOptions {
     /**
      * can be set to an object in order to adjust timing params:
      */
-    awaitWriteFinish?: AwaitWriteFinishOptions;
+    awaitWriteFinish?: AwaitWriteFinishOptions | boolean;
 }
 
 export interface AwaitWriteFinishOptions {

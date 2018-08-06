@@ -5,19 +5,17 @@
 // TypeScript Version: 2.2
 
 import { ErrorRequestHandler, Handler, Request, Response } from 'express';
-import { TransportInstance, Winston } from 'winston';
+import * as winston from 'winston';
+import * as Transport from 'winston-transport';
 
-export interface MetaObject {
-  [field: string]: string;
-}
-
-export type DynamicMetaFunction = (req: Request, res: Response, err: Error) => MetaObject | undefined;
+export type DynamicMetaFunction = (req: Request, res: Response, err: Error) => object;
+export type DynamicLevelFunction = (req: Request, res: Response, err: Error) => string;
 export type RequestFilter = (req: Request, propName: string) => boolean;
 export type ResponseFilter = (res: Response, propName: string) => boolean;
 export type RouteFilter = (req: Request, res: Response) => boolean;
 
 export interface BaseLoggerOptions {
-  baseMeta?: MetaObject;
+  baseMeta?: object;
   bodyBlacklist?: string[];
   bodyWhitelist?: string[];
   colorize?: boolean;
@@ -25,7 +23,8 @@ export interface BaseLoggerOptions {
   expressFormat?: boolean;
   ignoreRoute?: RouteFilter;
   ignoredRoutes?: string[];
-  level?: string;
+  level?: string | DynamicLevelFunction;
+  meta?: boolean;
   metaField?: string;
   msg?: string;
   requestFilter?: RequestFilter;
@@ -41,11 +40,11 @@ export interface BaseLoggerOptions {
 }
 
 export interface LoggerOptionsWithTransports extends BaseLoggerOptions {
-  transports: TransportInstance[];
+  transports: Transport[];
 }
 
 export interface LoggerOptionsWithWinstonInstance extends BaseLoggerOptions {
-  winstonInstance: Winston;
+  winstonInstance: typeof winston;
 }
 
 export type LoggerOptions = LoggerOptionsWithTransports | LoggerOptionsWithWinstonInstance;
@@ -53,9 +52,9 @@ export type LoggerOptions = LoggerOptionsWithTransports | LoggerOptionsWithWinst
 export function logger(options: LoggerOptions): Handler;
 
 export interface BaseErrorLoggerOptions {
-  baseMeta?: MetaObject;
+  baseMeta?: object;
   dynamicMeta?: DynamicMetaFunction;
-  level?: string;
+  level?: string | DynamicLevelFunction;
   metaField?: string;
   msg?: string;
   requestFilter?: RequestFilter;
@@ -63,11 +62,11 @@ export interface BaseErrorLoggerOptions {
 }
 
 export interface ErrorLoggerOptionsWithTransports extends BaseErrorLoggerOptions {
-  transports: TransportInstance[];
+  transports: Transport[];
 }
 
 export interface ErrorLoggerOptionsWithWinstonInstance extends BaseErrorLoggerOptions {
-  winstonInstance: Winston;
+  winstonInstance: typeof winston;
 }
 
 export type ErrorLoggerOptions = ErrorLoggerOptionsWithTransports | ErrorLoggerOptionsWithWinstonInstance;
@@ -91,9 +90,9 @@ export let defaultResponseFilter: ResponseFilter;
 export function defaultSkip(): boolean;
 
 export interface ExpressWinstonRequest extends Request {
-    _routeWhitelists: {
-        body: string[];
-        req: string[];
-        res: string[];
-    };
+  _routeWhitelists: {
+    body: string[];
+    req: string[];
+    res: string[];
+  };
 }

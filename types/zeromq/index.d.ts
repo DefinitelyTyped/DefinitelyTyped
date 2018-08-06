@@ -240,3 +240,14 @@ export function createSocket(type: string, options?: any): Socket;
  * @return The public and secret portions of the key.
  */
 export function curveKeypair(): CurveKeyPair;
+
+/**
+ * Connects a frontend socket to a backend socket.
+ * @param frontend The frontend socket to connect with the backend socket.
+ *                 Frontend socket should be a 'push', 'pull', 'xpub', 'router' or 'xrep' socket.
+ * @param backend The backend socket to connect with the frontend socket.
+ *                Backend socket should be a 'pull', 'push', 'xsub', 'dealer' or 'xreq' socket.
+ * @param capture If defined, this socket will receive all messages from frontend and backend socket
+ *                Capture socket should be a 'pub', 'dealer', 'push' or 'pair' socket.
+ */
+export function proxy(frontend: Socket, backend: Socket, capture ?: Socket): void;

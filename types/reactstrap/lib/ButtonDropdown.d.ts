@@ -1,15 +1,10 @@
+import * as React from 'react';
 import { UncontrolledDropdownProps, DropdownProps } from './Dropdown';
 
-export interface UncontrolledProps extends UncontrolledDropdownProps {
-  /* intentionally blank */
-}
-export interface UncontrolledButtonDropdownProps extends UncontrolledProps {
-  /* intentionally blank */
-}
+export type UncontrolledProps<T = {}> = UncontrolledDropdownProps<T>;
+export type UncontrolledButtonDropdownProps<T = {}> = UncontrolledProps<T>;
 
-export interface ButtonDropdownProps extends DropdownProps {
-  /* intentionally blank */
-}
+export type ButtonDropdownProps<T = {}> = DropdownProps<T>;
 
-declare const ButtonDropdown: React.StatelessComponent<ButtonDropdownProps>;
+declare class ButtonDropdown<T = {[key: string]: any}> extends React.Component<ButtonDropdownProps<T>> {}
 export default ButtonDropdown;

@@ -1,4 +1,13 @@
-import * as Koa from "koa";
+import Koa = require("koa");
+
+declare module 'koa' {
+    export interface BaseContext {
+        db(): void;
+    }
+    export interface Context {
+        user: {};
+    }
+}
 
 const app = new Koa();
 
@@ -6,6 +15,7 @@ app.context.db = () => {};
 
 app.use(async ctx => {
     console.log(ctx.db);
+    ctx.user = {};
 });
 
 app.use((ctx, next) => {

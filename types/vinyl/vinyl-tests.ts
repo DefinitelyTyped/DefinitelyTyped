@@ -1,12 +1,15 @@
-/// <reference types="mocha" />
-
 import * as fs from 'fs';
 import * as path from 'path';
-import * as expect from 'expect';
+import expect = require('expect');
 const miss = require('mississippi');
 const cloneable = require('cloneable-readable');
 
 import File = require('vinyl');
+
+// Stub mocha functions
+const {describe, it, before, after, beforeEach, afterEach} = null as any as {
+    [s: string]: ((s: string, cb: (done: any) => void) => void) & ((cb: (done: any) => void) => void) & {only: any, skip: any};
+};
 
 /**
  * Custom and private properties needed for tests.
