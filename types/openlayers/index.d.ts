@@ -9,6 +9,7 @@
 //                 Yair Tawil <https://github.com/yairtawil>
 //                 Pierre Marchand <https://github.com/pierremarc>
 //                 Hauke Stieler <https://github.com/hauke96>
+//                 Jan Suleiman <https://github.com/jansule>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Definitions partially generated using tsd-jsdoc (https://github.com/englercj/tsd-jsdoc)
 
@@ -10136,6 +10137,13 @@ export namespace style {
         getLineDash(): number[];
 
         /**
+         * Get the line dash offset style for the stroke.
+         * @return Line dash offset
+         * @api
+         */
+        getLineDashOffset(): number;
+
+        /**
          * Get the line join type for the stroke.
          * @return Line join.
          * @api
@@ -10185,6 +10193,14 @@ export namespace style {
          * @api
          */
         setLineDash(lineDash: number[]): void;
+
+        /**
+         * Set the line dash offset.
+         *
+         * @param lineDashOffset Line dash offset.
+         * @api
+         */
+        setLineDashOffset(lineDashOffset: number): void;
 
         /**
          * Set the line join.
@@ -12347,6 +12363,7 @@ export namespace olx {
             lineCap?: string;
             lineJoin?: string;
             lineDash?: number[];
+            lineDashOffset?: number;
             miterLimit?: number;
             width?: number;
         }
