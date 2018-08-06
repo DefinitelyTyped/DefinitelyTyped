@@ -30,7 +30,7 @@ declare namespace _fetch {
         slice(start?: number, end?: number, contentType?: string): Blob;
     }
     // TODO: check does Blob variable exist in node's global
-    var Blob: {
+    const Blob: {
         prototype: Blob;
         new(blobParts?: any[], options?: BlobPropertyBag): Blob;
     };
@@ -46,7 +46,7 @@ declare namespace _fetch {
         has(name: string): boolean;
         set(name: string, value: string): void;
     }
-    var Headers: {
+    const Headers: {
         prototype: Headers;
         new(init?: HeadersInit): Headers;
     };
@@ -65,7 +65,23 @@ declare namespace _fetch {
 
     //#region Request class typings
     interface RequestInit {
-        body?: NodeJS.ReadableStream | Blob | Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer | Buffer | string | null;
+        body?:
+            NodeJS.ReadableStream |
+            Blob |
+            Int8Array |
+            Int16Array |
+            Int32Array |
+            Uint8Array |
+            Uint16Array |
+            Uint32Array |
+            Uint8ClampedArray |
+            Float32Array |
+            Float64Array |
+            DataView |
+            ArrayBuffer |
+            Buffer |
+            string |
+            null;
         cache?: RequestCache;
         credentials?: RequestCredentials;
         headers?: HeadersInit;
@@ -94,7 +110,7 @@ declare namespace _fetch {
         readonly url: string;
         clone(): Request;
     }
-    var Request: {
+    const Request: {
         prototype: Request;
         new(input: Request | string, init?: RequestInit): Request;
     };
@@ -117,9 +133,26 @@ declare namespace _fetch {
         readonly url: string;
         clone(): Response;
     }
-    var Response: {
+    const Response: {
         prototype: Response;
-        new(body?: NodeJS.ReadableStream | Blob | Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer | Buffer | string | null, init?: ResponseInit): Response;
+        new(body?:
+            NodeJS.ReadableStream |
+            Blob |
+            Int8Array |
+            Int16Array |
+            Int32Array |
+            Uint8Array |
+            Uint16Array |
+            Uint32Array |
+            Uint8ClampedArray |
+            Float32Array |
+            Float64Array |
+            DataView |
+            ArrayBuffer |
+            Buffer |
+            string |
+            null,
+            init?: ResponseInit): Response;
         error(): Response;
         redirect(url: string, status?: number): Response;
     };
