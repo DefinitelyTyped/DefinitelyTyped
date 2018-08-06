@@ -141,7 +141,7 @@ declare module 'recompose' {
         stateUpdaterName: TStateUpdaterName,
         initialState: TState | mapper<TOutter, TState>
     ): InferableComponentEnhancerWithProps<
-        TOutter & stateProps<TState, TStateName, TStateUpdaterName>,
+        stateProps<TState, TStateName, TStateUpdaterName>,
         TOutter
     >;
 
