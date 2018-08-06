@@ -6388,6 +6388,7 @@ declare namespace chrome {
             /** The data received, with a maxium size of *bufferSize*. */
             data: ArrayBuffer;
         }
+        interface AcceptEventArgs extends ReceiveEventArgs { }
 
         interface ReceiveErrorEventArgs {
             /** The socket identifier. */
@@ -6395,6 +6396,8 @@ declare namespace chrome {
             /** The result code returned from the underlying network call. */
             resultCode: number;
         }
+        interface AcceptErrorEventArgs extends ReceiveErrorEventArgs { }
+
         interface SocketProperties {
             /**
              * Flag indicating if the socket is left open when the event page of the
@@ -7056,7 +7059,7 @@ declare namespace chrome {
 
         interface SyncStorageArea extends StorageArea {
             /** @deprecated since Chrome 40. The storage.sync API no longer has a sustained write operation quota. */
-            MAX_SUSTAINED_WRITE_OPERATIONS_PER_MINUTE: number;
+            MAX_SUSTAINED_WRITE_OPERATIONS_PER_MINUTE: chrome.deprecated;
             /** The maximum total amount (in bytes) of data that can be stored in sync storage, as measured by the JSON stringification of every value plus every key's length. Updates that would cause this limit to be exceeded fail immediately and set runtime.lastError. */
             QUOTA_BYTES: number;
             /** The maximum size (in bytes) of each individual item in sync storage, as measured by the JSON stringification of its value plus its key length. Updates containing items larger than this limit will fail immediately and set runtime.lastError. */
