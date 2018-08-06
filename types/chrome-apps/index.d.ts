@@ -204,18 +204,18 @@ declare namespace chrome {
     namespace alarms {
         interface AlarmCreateInfo {
             /** Length of time in minutes after which the onAlarm event should fire.  */
-            delayInMinutes?: number;
+            delayInMinutes?: integer;
             /** If set, the onAlarm event should fire every periodInMinutes minutes after the initial event specified by when or delayInMinutes. If not set, the alarm will only fire once.  */
-            periodInMinutes?: number;
+            periodInMinutes?: integer;
             /** Time at which the alarm should fire, in milliseconds past the epoch (e.g. Date.now() + n).  */
-            when?: number;
+            when?: integer;
         }
 
         interface Alarm {
             /** If not null, the alarm is a repeating alarm and will fire again in periodInMinutes minutes.  */
-            periodInMinutes?: number;
+            periodInMinutes?: integer;
             /** Time at which this alarm was scheduled to fire, in milliseconds past the epoch (e.g. Date.now() + n). For performance reasons, the alarm may have been delayed an arbitrary amount beyond this. */
-            scheduledTime: number;
+            scheduledTime: integer;
             /** Name of this alarm. */
             name: string;
         }
@@ -305,27 +305,27 @@ declare namespace chrome {
             UNKNOWN = 'unknown'
         }
         enum LaunchSource {
-            ABOUT_PAGE = "about_page",
-            APP_LAUNCHER = "app_launcher",
-            BACKGROUND = "background",
-            CHROME_INTERNAL = "chrome_internal",
-            COMMAND_LINE = "command_line",
-            CONTEXT_MENU = "context_menu",
-            EPHEMERAL_APP = "ephemeral_app",
-            EXTENSIONS_PAGE = "extensions_page",
-            FILE_HANDLER = "file_handler",
-            INSTALLED_NOTIFICATION = "installed_notification",
-            KEYBOARD = "keyboard",
-            KIOSK = "kiosk",
-            LOAD_AND_LAUNCH = "load_and_launch",
-            MANAGEMENT_API = "management_api",
-            NEW_TAB_PAGE = "new_tab_page",
-            RELOAD = "reload",
-            RESTART = "restart",
-            SYSTEM_TRAY = "system_tray",
-            TEST = "test",
-            UNTRACKED = "untracked",
-            URL_HANDLER = "url_handler"
+            ABOUT_PAGE = 'about_page',
+            APP_LAUNCHER = 'app_launcher',
+            BACKGROUND = 'background',
+            CHROME_INTERNAL = 'chrome_internal',
+            COMMAND_LINE = 'command_line',
+            CONTEXT_MENU = 'context_menu',
+            EPHEMERAL_APP = 'ephemeral_app',
+            EXTENSIONS_PAGE = 'extensions_page',
+            FILE_HANDLER = 'file_handler',
+            INSTALLED_NOTIFICATION = 'installed_notification',
+            KEYBOARD = 'keyboard',
+            KIOSK = 'kiosk',
+            LOAD_AND_LAUNCH = 'load_and_launch',
+            MANAGEMENT_API = 'management_api',
+            NEW_TAB_PAGE = 'new_tab_page',
+            RELOAD = 'reload',
+            RESTART = 'restart',
+            SYSTEM_TRAY = 'system_tray',
+            TEST = 'test',
+            UNTRACKED = 'untracked',
+            URL_HANDLER = 'url_handler'
         }
 
         interface EmbedRequest {
@@ -343,10 +343,10 @@ declare namespace chrome {
             deny: () => void;
         }
 
-        type actionType = 'new_note';
+        type ActionType = 'new_note';
 
         const ActionType: {
-            NEW_NOTE: actionType
+            NEW_NOTE: ActionType
         }
 
         interface LaunchData {
@@ -388,7 +388,7 @@ declare namespace chrome {
              * |____________________|____________|____________________________________________|
              * @since Since Chrome 54.
              */
-            actionData?: actionType;
+            actionData?: ActionType;
         }
 
         interface LaunchDataItem {
@@ -434,63 +434,63 @@ declare namespace chrome {
      */
     namespace app {
         interface ContentBounds {
-            left?: number;
-            top?: number;
-            width?: number;
-            height?: number;
+            left?: integer;
+            top?: integer;
+            width?: integer;
+            height?: integer;
         }
 
         interface BoundsSpecification {
             /** The X coordinate of the content or window. */
-            left?: number;
+            left?: integer;
             /** The Y coordinate of the content or window. */
-            top?: number;
+            top?: integer;
             /** The width of the content or window. */
-            width?: number;
+            width?: integer;
             /** The height of the content or window. */
-            height?: number;
+            height?: integer;
             /** The minimum width of the content or window. */
-            minWidth?: number;
+            minWidth?: integer;
             /** The minimum height of the content or window. */
-            minHeight?: number;
+            minHeight?: integer;
             /** The maximum width of the content or window. */
-            maxWidth?: number;
+            maxWidth?: integer;
             /** The maximum height of the content or window. */
-            maxHeight?: number;
+            maxHeight?: integer;
         }
 
         interface Bounds {
             /** This property can be used to read or write the current X coordinate of the content or window. */
-            left: number;
+            left: integer;
             /** This property can be used to read or write the current Y coordinate of the content or window. */
-            top: number;
+            top: integer;
             /** This property can be used to read or write the current width of the content or window. */
-            width: number;
+            width: integer;
             /** This property can be used to read or write the current height of the content or window. */
-            height: number;
+            height: integer;
             /** This property can be used to read or write the current minimum width of the content or window. A value of null indicates 'unspecified'. */
-            minWidth?: number | null;
+            minWidth?: integer | null;
             /** This property can be used to read or write the current minimum height of the content or window. A value of null indicates 'unspecified'. */
-            minHeight?: number | null;
+            minHeight?: integer | null;
             /** This property can be used to read or write the current maximum width of the content or window. A value of null indicates 'unspecified'. */
-            maxWidth?: number | null;
+            maxWidth?: integer | null;
             /** This property can be used to read or write the current maximum height of the content or window. A value of null indicates 'unspecified'. */
-            maxHeight?: number | null;
+            maxHeight?: integer | null;
             /** Set the left and top position of the content or window. */
-            setPosition(left: number, top: number): void;
+            setPosition(left: integer, top: integer): void;
             /** Set the width and height of the content or window. */
-            setSize(width: number, height: number): void;
+            setSize(width: integer, height: integer): void;
             /** Set the minimum size constraints of the content or window.
              * The minimum width or height can be set to null to remove the constraint.
              * A value of undefined will leave a constraint unchanged.
              **/
-            setMinimumSize(minWidth: number | null | undefined, minHeight: number | null | undefined): void;
+            setMinimumSize(minWidth: integer | null | undefined, minHeight: integer | null | undefined): void;
             /**
              * Set the maximum size constraints of the content or window.
              * The maximum width or height can be set to null to remove the constraint.
              * A value of undefined will leave a constraint unchanged.
              */
-            setMaximumSize(maxWidth: number | null | undefined, maxHeight: number | null | undefined): void;
+            setMaximumSize(maxWidth: integer | null | undefined, maxHeight: integer | null | undefined): void;
         }
         interface FrameOptions {
             /**
@@ -564,22 +564,22 @@ declare namespace chrome {
              * Minimum width of the window.
              * @deprecated Deprecated since Chrome 36. Use innerBounds or outerBounds.
              */
-            minWidth?: number;
+            minWidth?: integer;
             /**
              * Minimum height of the window.
              * @deprecated Deprecated since Chrome 36. Use innerBounds or outerBounds.
              */
-            minHeight?: number;
+            minHeight?: integer;
             /**
              * Maximum width of the window.
              * @deprecated Deprecated since Chrome 36. Use innerBounds or outerBounds.
              */
-            maxWidth?: number;
+            maxWidth?: integer;
             /**
              * Maximum height of the window.
              * @deprecated Deprecated since Chrome 36. Use innerBounds or outerBounds.
              */
-            maxHeight?: number;
+            maxHeight?: integer;
             /** Type of window to create */
             type?: 'shell';
             /**
@@ -675,12 +675,12 @@ declare namespace chrome {
              * Move the window to the position (|left|, |top|).
              * @deprecated Deprecated since Chrome 43. Use outerBounds.
              */
-            moveTo: (left: number, top: number) => void;
+            moveTo: (left: integer, top: integer) => void;
             /**
              * Resize the window to |width|x|height| pixels in size.
              * @deprecated Deprecated since Chrome 43. Use outerBounds.
              */
-            resizeTo: (width: number, height: number) => void;
+            resizeTo: (width: integer, height: integer) => void;
             /** Draw attention to the window. */
             drawAttention: () => void;
             /** Clear attention to the window. */
@@ -824,7 +824,7 @@ declare namespace chrome {
             /** True if this is the current active device. */
             isActive: boolean;
             /** The sound level of the device, volume for output, gain for input. */
-            level: number;
+            level: integer;
             /** The stable/persisted device id string when available. */
             stableDeviceId?: string;
         }
@@ -852,7 +852,7 @@ declare namespace chrome {
         interface OnLevelChangedEvent {
             addListener(callback: (event: {
                 deviceId: string,
-                level: number
+                level: integer
             }) => void): void;
         }
         /** @todo TODO INTEGRATE */
@@ -952,12 +952,12 @@ declare namespace chrome {
             /** The human-readable name of the device. */
             name?: string;
             /** The class of the device, a bit-field defined by http://www.bluetooth.org/en-us/specification/assigned-numbers/baseband. */
-            deviceClass?: number;
+            deviceClass?: integer;
             /** The Device ID record of the device, where available. */
             vendorIdSource?: DeviceVendorIdSource;
-            vendorId?: number;
-            productId?: number;
-            deviceId?: number;
+            vendorId?: integer;
+            productId?: integer;
+            deviceId?: integer;
             /**
              * The type of the device, if recognized by Chrome.
              * This is obtained from the |deviceClass| field and only represents a small fraction of the possible device types.
@@ -989,12 +989,12 @@ declare namespace chrome {
              * The received signal strength, in dBm. This field is avaliable and valid only during discovery. Outside of discovery it's value is not specified.
              * @since Chrome 44
              */
-            inquiryRssi: number;
+            inquiryRssi: integer;
             /**
              * The transmitted power level. This field is avaliable only for LE devices that include this field in AD. It is avaliable and valid only during discovery.
              * @since Chrome 44
              */
-            inquiryTxPower: number;
+            inquiryTxPower: integer;
         }
 
         interface BluetoothEvent<T> {
@@ -1010,7 +1010,7 @@ declare namespace chrome {
             /** Type of filter to apply to the device list. Default is all. */
             filterType?: DeviceFilterType;
             /** Maximum number of bluetoth devices to return. Default is 0 (no limit) if unspecified. */
-            limit?: number;
+            limit?: integer;
         }
         /** Get information about the Bluetooth adapter. */
         function getAdapterState(callback: (adapterInfo: AdapterState) => void): void;
@@ -1139,11 +1139,11 @@ declare namespace chrome {
             /** The class of the device, a bit - field defined by:
              * @see [Specs]{@link http://www.bluetooth.org/en-us/specification/assigned-numbers/baseband}
              **/
-            deviceClass?: number;
+            deviceClass?: integer;
         }
         interface Request {
             /** Unique ID for this request. Use this ID when responding to this request. */
-            requestId: number;
+            requestId: integer;
             /** Device that send this request. */
             device: RequestDevice;
             /** Value to write (if this is a write request). */
@@ -1170,15 +1170,15 @@ declare namespace chrome {
             /** List of UUIDs to include in the 'Service UUIDs' field of the Advertising Data. These UUIDs can be of the 16bit, 32bit or 128 formats. */
             serviceUuids?: string[];
             /** List of manufacturer specific data to be included in 'Manufacturer Specific Data' fields of the advertising data. */
-            manufacturerData?: { id: number, data: number[] };
+            manufacturerData?: { id: integer, data: integer[] };
             /** List of UUIDs to include in the 'Solicit UUIDs' field of the Advertising Data. These UUIDs can be of the 16bit, 32bit or 128 formats. */
             solicitUuids?: string[];
             /** List of service data to be included in 'Service Data' fields of the advertising data. */
-            serviceData: { uuid: string, data: number[] };
+            serviceData: { uuid: string, data: integer[] };
         }
         interface IResponse {
             /** Id of the request this is a response to. */
-            requestId: number;
+            requestId: integer;
             /** If this is an error response, this should be true. */
             isError: boolean;
             /** Response value. Write requests and error responses will ignore this parameter. */
@@ -1379,7 +1379,7 @@ declare namespace chrome {
          * @param advertisement The advertisement to advertise.
          * @param callback Called once the registeration is done and we've started advertising. Returns the id of the created advertisement.
          */
-        function registerAdvertisement(advertisement: Advertisement, callback: (advertisementId: number) => void): void;
+        function registerAdvertisement(advertisement: Advertisement, callback: (advertisementId: integer) => void): void;
         /**
          * Unregisters an advertisement and stops its advertising.
          * If the advertisement fails to unregister the only way
@@ -1388,7 +1388,7 @@ declare namespace chrome {
          * @param advertisementId Id of the advertisement to unregister.
          * @param callback Called once the advertisement is unregistered and is no longer being advertised.
          */
-        function unregisterAdvertisement(advertisementId: number, callback: () => void): void;
+        function unregisterAdvertisement(advertisementId: integer, callback: () => void): void;
         /**
          * Resets advertising on the current device. It will unregister and stop all existing advertisements.
          * @since Since Chrome 61.
@@ -1406,7 +1406,7 @@ declare namespace chrome {
          * @param maxInterval Maximum interval between advertisments (in milliseconds). This cannot be more than 10240ms (as per the spec).
          * @param callback Called once the interval has been set.
          */
-        function setAdvertisingInterval(minInterval: number, maxInterval: number, callback: () => void): void;
+        function setAdvertisingInterval(minInterval: integer, maxInterval: integer, callback: () => void): void;
         /**
          * Sends a response for a characteristic or descriptor read/write request. This function is only available if the app has both the bluetooth:low_energy and the bluetooth:peripheral permissions set to true. The peripheral permission may not be available to all apps.
          * @since Since Chrome 52.
@@ -1524,7 +1524,7 @@ declare namespace chrome {
              * Length of the socket's listen queue.
              * The default value depends on the operating system's host subsystem.
              * */
-            backlog?: number;
+            backlog?: integer;
         }
         interface SocketInfo {
             /**
@@ -1765,7 +1765,7 @@ declare namespace chrome {
          * @param data The data to send.
          * @param [callback] Called with the number of bytes sent.
          */
-        function send(socketId: integer, data: ArrayBuffer, callback?: (bytesSent: number) => void): void;
+        function send(socketId: integer, data: ArrayBuffer, callback?: (bytesSent: integer) => void): void;
         /**
          * Retrieves the state of the given socket.
          * @param socketId The socket identifier.
@@ -1845,7 +1845,7 @@ declare namespace chrome {
     ///////////////
     /**
      * @requires(dev) **Dev** channel only.
-     * @requires Permissions: "clipboard"
+     * @requires Permissions: 'clipboard'
      * @description
      * *This API is* **experimental**. *It is* **only** *available to Chrome users on the* **dev** *channel.*
      * The chrome.clipboard API is provided to allow users to access data of the clipboard.
@@ -1859,8 +1859,8 @@ declare namespace chrome {
             type: 'textPlain' | 'textHtml';
             /**
              * Content of the additional data item.
-             * Either the plain text string if *type* is "textPlain" or
-             * markup string if *type* is "textHtml".
+             * Either the plain text string if *type* is 'textPlain' or
+             * markup string if *type* is 'textHtml'.
              * The data can not exceed 2MB.
              */
             data: string;
@@ -1952,7 +1952,7 @@ declare namespace chrome {
          * can be added to an extension action context menu.
          * Any items beyond this limit will be ignored.
          */
-        const ACTION_MENU_TOP_LEVEL_LIMIT: number;
+        const ACTION_MENU_TOP_LEVEL_LIMIT: integer;
         /**
         * The different contexts a menu can appear in. Specifying 'all' is equivalent to the combination of all other contexts except for 'launcher'. The 'launcher' context is only supported by apps and is used to add menu items to the context menu that appears when clicking on the app icon in the launcher/taskbar/dock/etc. Different platforms might put limitations on what is actually supported in a launcher context menu.
         **/
@@ -2199,14 +2199,14 @@ declare namespace chrome {
      * Desktop Capture API that can be used to capture content of screen,
      * individual windows or tabs.
      * @since Availability: Since Chrome 34.
-     * @requires Permissions: "desktopCapture"
+     * @requires Permissions: 'desktopCapture'
      */
     namespace desktopCapture {
         const DesktopCaptureSourceType: {
-            SCREEN: "screen",
-            WINDOW: "window",
-            TAB: "tab",
-            AUDIO: "audio"
+            SCREEN: 'screen',
+            WINDOW: 'window',
+            TAB: 'tab',
+            AUDIO: 'audio'
         }
 
         /**
@@ -2217,12 +2217,12 @@ declare namespace chrome {
          * Parameter streamId: An opaque string that can be passed to getUserMedia() API to generate media stream that corresponds to the source selected by the user. If user didn't select any source (i.e. canceled the prompt) then the callback is called with an empty streamId. The created streamId can be used only once and expires after a few seconds when it is not used.
          */
         function chooseDesktopMedia<T extends keyof typeof DesktopCaptureSourceType>
-            (sources: Array<typeof DesktopCaptureSourceType[T]>, callback: (streamId: string) => void): number;
+            (sources: Array<typeof DesktopCaptureSourceType[T]>, callback: (streamId: string) => void): integer;
         /**
          * Hides desktop media picker dialog shown by chooseDesktopMedia().
          * @param desktopMediaRequestId Id returned by chooseDesktopMedia()
          */
-        function cancelChooseDesktopMedia(desktopMediaRequestId: number): void;
+        function cancelChooseDesktopMedia(desktopMediaRequestId: integer): void;
     }
 
     ///////////////////
@@ -2248,7 +2248,7 @@ declare namespace chrome {
             /** The MIME types that are accepted by the caller.  */
             mimeTypes?: string[];
             /** The number of scanned images allowed (defaults to 1).  */
-            maxImages?: number;
+            maxImages?: integer;
         }
 
         interface DocumentScanCallbackArg {
@@ -2474,7 +2474,7 @@ declare namespace chrome {
              * the resulting image will have more visual artifacts,
              * and the number of bytes needed to store it will decrease.
              */
-            quality?: number;
+            quality?: integer;
         }
         /**
          * The soonest that the JavaScript or CSS will be injected into the tab.
@@ -2513,7 +2513,7 @@ declare namespace chrome {
                  * @see[frame ref]{@link https://developer.chrome.com/apps/webNavigation#frame_ids}
                  * @since Since Chrome 50.
                  */
-                frameId?: number;
+                frameId?: integer;
                 /**
                  * If matchAboutBlank is true, then the code is also injected in about:blank
                  * and about:srcdoc frames if your extension has access to its parent document.
@@ -2873,7 +2873,7 @@ declare namespace chrome {
             /** The identifier of the file system related to this operation. */
             fileSystemId: string;
             /** The unique identifier of this request. */
-            requestId: number;
+            requestId: integer;
             /** The path of the entry to return the list of actions for. */
             entryPath: string;
         }
@@ -2890,7 +2890,7 @@ declare namespace chrome {
             /** The identifier of the file system related to this operation. */
             fileSystemId: string;
             /** The unique identifier of this request. */
-            requestId: number;
+            requestId: integer;
             /** The path of the entry to be used for the action. */
             entryPath: string;
             /** The identifier of the action to be executed. */
@@ -3109,7 +3109,7 @@ declare namespace chrome {
             /** A request ID used to open the file. */
             openRequestId: integer;
             /** Position in the file (in bytes) to start operating from. */
-            offset: number;
+            offset: integer;
             /** Buffer of bytes to be operated on the file. */
             data: ArrayBuffer;
         }
@@ -3683,7 +3683,7 @@ declare namespace chrome {
          * @param callback The callback function returns an object, containing the connectionId.
          *                 The connectionId is the opaque ID used to identify this connection in all other functions.
          */
-        function connect(deviceId: number, callback: (connection: { connectionId: number }) => void): void;
+        function connect(deviceId: integer, callback: (connection: { connectionId: integer }) => void): void;
 
         /**
          * Disconnect from a device.
@@ -4262,7 +4262,7 @@ declare namespace chrome {
          *                 Provides `creationTime` (double)
          *                  > The time when the Instance ID has been generated, represented in milliseconds since the epoch.
          */
-        function getCreationTime(callback: (creationTime: number) => void): void;
+        function getCreationTime(callback: (creationTime: integer) => void): void;
         /**
          * Return a token that allows the authorized entity to access the service defined by scope.
          * @param getTokenParams Parameters for getToken.
@@ -4293,7 +4293,7 @@ declare namespace chrome {
      * The chrome.management API provides ways to manage the list of extensions/apps
      * that are installed and running. It is particularly useful for extensions that
      * override the built-in New Tab page.
-     * @requires Permissions: "management"
+     * @requires Permissions: 'management'
      */
     namespace management {
         /** Information about an installed extension, app, or theme. */
@@ -4397,7 +4397,7 @@ declare namespace chrome {
             /** The URL for this icon image. To display a grayscale version of the icon (to indicate that an extension is disabled, for example), append ?grayscale=true to the URL. */
             url: string;
             /** A number representing the width and height of the icon. Likely values include (but are not limited to) 128, 48, 24, and 16. */
-            size: number;
+            size: integer;
         }
 
         interface UninstallOptions {
@@ -4517,7 +4517,7 @@ declare namespace chrome {
         /**
          * Generate an app for a URL. Returns the generated bookmark app.
          * @since Chrome 37.
-         * @param url The URL of a web page. The scheme of the URL can only be "http" or "https".
+         * @param url The URL of a web page. The scheme of the URL can only be 'http' or 'https'.
          * @param title The title of the generated app.
          * @param [callback] If you specify the callback parameter, it should be a function that looks like this:
          * function( ExtensionInfo result) {...};
@@ -4563,7 +4563,7 @@ declare namespace chrome {
          * @default 2048
          * @since Chrome 44.
          */
-        const MAX_SERVICE_INSTANCES_PER_EVENT: number;
+        const MAX_SERVICE_INSTANCES_PER_EVENT: integer;
         /**
          * Immediately issues a multicast DNS query for all service types.
          * |callback| is invoked immediately.
@@ -4668,11 +4668,11 @@ declare namespace chrome {
             artist?: string;
             comment?: string;
             copyright?: string;
-            disc?: number;
+            disc?: integer;
             genre?: string;
             language?: string;
             title?: string;
-            track?: number;
+            track?: integer;
             /**
              * All the metadata in the media file.
              * For formats with multiple streams, stream order will be preserved.
@@ -5512,9 +5512,9 @@ declare namespace chrome {
              */
             contextMessage?: string;
             /** Priority ranges from -2 to 2. -2 is lowest priority. 2 is highest. Zero is default. */
-            priority?: number;
+            priority?: integer;
             /** A timestamp associated with the notification, in milliseconds past the epoch (e.g. Date.now() + n). */
-            eventTime?: number;
+            eventTime?: integer;
             /** Text and icons for up to two notification action buttons. */
             buttons?: ButtonOptions[];
             /** Items for multi-item notifications. */
@@ -5524,7 +5524,7 @@ declare namespace chrome {
              * Current progress ranges from 0 to 100.
              * @since Chrome 30.
              */
-            progress?: number;
+            progress?: integer;
             /**
              * Optional.
              * Whether to show UI indicating that the app will visibly respond to clicks on the body of a notification.
@@ -5551,7 +5551,7 @@ declare namespace chrome {
 
         interface NotificationClickedEvent extends chrome.events.Event<(notificationId: string) => void> { }
 
-        interface NotificationButtonClickedEvent extends chrome.events.Event<(notificationId: string, buttonIndex: number) => void> { }
+        interface NotificationButtonClickedEvent extends chrome.events.Event<(notificationId: string, buttonIndex: integer) => void> { }
 
         interface NotificationPermissionLevelChangedEvent extends chrome.events.Event<(level: string) => void> { }
 
@@ -5829,7 +5829,7 @@ declare namespace chrome {
              * The frame that opened the connection. 0 for top-level frames, positive for child frames. This will only be set when tab is set.
              * @since Chrome 41.
              */
-            frameId?: number;
+            frameId?: integer;
             /**
              * The URL of the page or frame that opened the connection. If the sender is in an iframe, it will be iframe's URL not the URL of the page which hosts it.
              * @since Chrome 28.
@@ -5894,7 +5894,15 @@ declare namespace chrome {
         }
 
         interface ManifestIcons {
-            [size: number]: string;
+            /**
+             * @example
+             * {
+             *   '16': 'icon16.png',
+             *   '48': 'icon48.png',
+             *   '128': 'icon128.png'
+             * }
+             */
+            [size: integer]: string;
         }
 
         interface ManifestAction {
@@ -5917,15 +5925,26 @@ declare namespace chrome {
             instant_url_post_params?: string;
             image_url_post_params?: string;
             alternate_urls?: string[];
-            prepopulated_id?: number;
+            prepopulated_id?: integer;
             is_default?: boolean;
         }
 
-        type Permissions =
+        type UrlPermission =
+            "https://www.google-analytics.com/*"
+            | "https://www.googleapis.com/*"
+            | '<all_urls>'
+            | 'http://*/*'
+            | 'https://*/*'
+            | 'file:///*/*';
+
+        type Permission =
             'alarms' |
+            "app.window.fullscreen" |
+            "app.window.fullscreen.overrideEsc" |
             'audio' |
             'audioCapture' |
             'background' |
+            'bluetooth' |
             'browser' |
             'certificateProvider' |
             'clipboard' |
@@ -5947,6 +5966,7 @@ declare namespace chrome {
             'hid' |
             'identity' |
             'idle' |
+            'management' |
             'mdns' |
             'mediaGalleries' |
             'nativeMessaging' |
@@ -5958,7 +5978,7 @@ declare namespace chrome {
             'power' |
             'printerProvider' |
             'proxy' |
-            'serial' |
+            // 'serial' | // Deprecated
             'signedInDevices' |
             'socket' |
             'storage' |
@@ -5976,28 +5996,224 @@ declare namespace chrome {
             'virtualKeyboard' |
             'vpnProvider' |
             'wallpaper' |
-            'webview';
+            'webview' |
+            MediaGalleriesPermission |
+            SocketPermission |
+            PrivatePermissions |
+            USBDevicesPermission |
+            FileSystemPermission |
+            UrlPermission;
+
+        interface MediaGalleriesPermission {
+            mediaGalleries: Array<'read' | 'allAutoDetected'>;
+        }
+        interface USBDevicesPermission {
+            usbDevices: { vendorId: integer, productId: integer }[]
+        }
+        interface FileSystemPermission {
+            fileSystem: Array<'write' | 'retainEntries' | 'directory'>;
+        }
+        interface SocketPermission {
+            /**
+             * **Possible values includes:**
+             * 'tcp-connect',
+             * 'udp-send-to',
+             * 'udp-send-to::*'
+             * 'udp-bind',
+             * 'udp-multicast-membership',
+             * 'resolve-host',
+             * 'network-state'
+             */
+            socket: string[];
+        }
+
+        /**
+         * Only for whitelisted internal apps and extensions
+         * @private
+         * @internal
+         */
+        type PrivatePermissions = 'Private'
+            | 'metricsPrivate'
+            | 'developerPrivate'
+            | 'activityLogPrivate'
+            | 'networkingPrivate'
+            | 'terminalPrivate';
+
+
+        /// For chrome managed storage
+
+        type JSONBasicTypes = 'integer' | 'string' | 'number';
+
+        interface JSONSchemaBasicType {
+            type: JSONBasicTypes;
+        }
+        interface JSONSchemaRefType {
+            '$ref': string;
+        }
+        interface JSONSchemaObjectType {
+            /**
+             * An "object" can have known properties listed as "properties", and can
+             * optionally have "additionalProperties" indicating a schema to apply to
+             * keys that aren't found in "properties".
+             */
+            type: 'object';
+            properties?: {
+                [key: string]: JSONSchemaBasicType | JSONSchemaRefType;
+            }
+            additionalProperties?: JSONSchemaObjectType;
+        }
+        interface JSONSchemaArrayType {
+            type: 'array',
+            id?: string;
+            items: JSONSchemaBasicType | JSONSchemaObjectType | JSONSchemaRefType;
+        }
+
+
+        /// For chrome.sockets ///
+
+        type SocketPermissionOptions = '*:*' | '' | '*';
+        interface SocketTcpPermission {
+            /** The host:port pattern for connect operations. */
+            connect?: SocketPermissionOptions | string;
+        }
+        interface SocketTcpServerPermission {
+            /** The host:port pattern for listen operations. */
+            listen?: SocketPermissionOptions | string;
+        }
+        interface SocketUdpPermission {
+            /** The host:port pattern for bind operations. */
+            bind?: SocketPermissionOptions | string;
+            /** The host:port pattern for joinGroup operations. */
+            multicastMembership?: SocketPermissionOptions | string;
+            /** The host:port pattern for send operations. */
+            send?: SocketPermissionOptions | string;
+        }
+
+
+        /**
+         * The top-level object can't have additionalProperties.
+         * The properties declared are the policies for this app.
+         */
+        interface ManagedSchema {
+            /** Each schema must have either a $ref value or exactly one type. */
+            "$ref"?: string;
+            /** The top-level schema must have type object. */
+            type: 'object';
+            /**
+             * "properties" maps an optional key of this object to its schema. At the
+             * top-level object, these keys are the policy names supported.
+             */
+            properties?: {
+                [key: string]: JSONSchemaBasicType | JSONSchemaArrayType | JSONSchemaObjectType | JSONSchemaRefType;
+            };
+        }
 
         interface Manifest {
-            /** Required */
+            //////////////
+            // REQUIRED //
+            //////////////
+
+            /**
+             * Used by packaged apps to specify the app's background scripts.
+             * Also used by hosted apps to specify the URLs that the app uses.
+             * @required
+             */
             app: {
                 background: {
                     scripts?: string[];
                 }
             }
-            /** Should be set to 2 */
-            manifest_version: number;
+            /**
+             * One integer specifying the version of the manifest file format your package requires.
+             * As of Chrome 18, developers should specify 2 (without quotes).
+             * @see[Manifest Version Info]{@link https://developer.chrome.com/apps/manifest/manifest_version}
+             * @required
+             */
+            manifest_version: 2;
+            /**
+             * The *name* (maximum of 45 characters) is the primary identifier
+             * of the app and is a required field.
+             * It is displayed in the following locations:
+             *  - Install dialog
+             *  - Extension management UI
+             *  - Chrome Web Store
+             *
+             * You can specify locale-specific strings, see Internationalization docs:
+             * @see[Internationalization]{@see https://developer.chrome.com/extensions/i18n}
+             * @required
+             */
             name: string;
+            /**
+             * One to four dot-separated integers identifying the version of this extension.
+             * A couple of rules apply to the integers: they must be between 0 and 65535, inclusive,
+             * and non-zero integers can't start with 0. For example, 99999 and 032 are both invalid.
+             * A missing integer is equal to zero. For example, 1.1.9.9999 is newer than 1.1.
+             * @see[Manifest- Version Docs]{@link https://developer.chrome.com/apps/manifest/version}
+             * @required
+             */
             version: string;
 
-            // Recommended
+            /////////////////
+            // RECOMMENDED //
+            /////////////////
+
+            /**
+             * Specifies the subdirectory of _locales that contains the default strings for this extension.
+             * This field is required in extensions that have a _locales directory; it must be absent in
+             * extensions that have no _locales directory. For details, see Internationalization:
+             * @see[Internationalization]{@see https://developer.chrome.com/extensions/i18n}
+             */
             default_locale?: string;
+            /**
+             * A plain text string (no HTML or other formatting; no more than 132 characters)
+             * that describes the extension. The description should be suitable for both the
+             * browser's extension management UI and the Chrome Web Store. You can specify
+             * locale-specific strings for this field; see Internationalization for details.
+             * @see[Internationalization]{@see https://developer.chrome.com/extensions/i18n}
+             */
             description?: string;
+            /**
+             * One or more icons that represent the extension, app, or theme.
+             * You should always provide a 128x128 icon; it's used during
+             * installation and by the Chrome Web Store. Extensions should
+             * also provide a 48x48 icon, which is used in the extensions
+             * management page (chrome://extensions). You can also specify
+             * a 16x16 icon to be used as the favicon for an extension's pages.
+             *
+             * Icons should generally be in PNG format, because PNG has the best support for transparency.
+             * They can, however, be in any format supported by WebKit, including BMP, GIF, ICO, and JPEG.
+             *
+             * You may provide icons of any other size you wish, and Chrome will attempt to use the best size
+             * where appropriate. For example, Windows often requires 32-pixel icons, and if the app includes
+             * a 32-pixel icon, Chrome will choose that instead of shrinking a 48-pixel icon down. However,
+             * you should ensure that all of your icons are square, or unexpected behavior may result.
+             *
+             * @example
+             * 'icons': { '16': 'icon16.png',
+             *            '48': 'icon48.png',
+             *            '128': 'icon128.png' },
+             */
             icons?: ManifestIcons;
-            // Optional
-            action_handlers?: string[];
+
+            //////////////
+            // OPTIONAL //
+            //////////////
+
+            /**
+             * @requires(CrOS) **This API is only available on ChromeOS.**
+             * @description
+             * The action_handlers manifest property declares which user actions or intents the
+             * application supports; these can serve as alternate launch points for your application.
+             * This list contains one or more of the ActionType values specified
+             * in the ActionType entry of app.runtime.onLaunched.
+             * @example
+             * 'action_handlers': ['new_note']
+             */
+            action_handlers?: app.runtime.ActionType[];
             author?: any;
-            automation?: any;
+            automation?: boolean | {
+                [key: string]: string
+            };
             bluetooth?: {
                 uuids?: string[];
                 socket?: boolean;
@@ -6037,7 +6253,7 @@ declare namespace chrome {
             file_system_provider_capabilities?: {
                 configurable?: boolean;
                 multiple_mounts?: boolean;
-                source?: string;
+                source?: 'network' | string;
             };
             import?: {
                 id: string;
@@ -6049,7 +6265,11 @@ declare namespace chrome {
             };
             kiosk_enabled?: boolean,
             kiosk_only?: boolean,
-            kiosk_secondary_apps: any;
+            kiosk_secondary_apps?: any;
+            /**
+             * @example
+             * "minimum_chrome_version": "33.0.1715.0"
+             */
             minimum_chrome_version?: string;
             nacl_modules?: {
                 path: string;
@@ -6060,10 +6280,10 @@ declare namespace chrome {
                 scopes?: string[];
             };
             offline_enabled?: boolean;
-            optional_permissions?: string[];
-            permissions?: string[];
+            optional_permissions?: Permission[] | Array<Permission | string>;
+            permissions?: Permission[] | Array<Permission | string>;
             platforms?: {
-                nacl_arch?: string;
+                nacl_arch?: 'x86-64' | 'x86-32' | 'arm' | string;
                 sub_package_path: string;
             }[];
             /**
@@ -6110,36 +6330,88 @@ declare namespace chrome {
              * there is insufficient space to display the full name, such as:
              * - App launcher
              * - New Tab page
+             *
+             * You can specify locale-specific strings, see Internationalization docs:
+             * @see[Internationalization]{@see https://developer.chrome.com/extensions/i18n}
              */
             short_name?: string;
             signature?: any;
+            /**
+             * The sockets manifest property declares which permissions are available
+             * for the sockets.udp, sockets.tcp and sockets.tcpServer APIs.
+             */
             sockets?: {
-                tcp?: {
-                    connect: string | '*';
-                };
-                udp?: {
-                    send: string | '*';
-                }
+                /** The tcp manifest property declares which sockets.tcp operations an app can issue. */
+                tcp?: SocketTcpPermission;
+                /** The tcpServer manifest property declares which sockets.tcpServer operations an app can issue. */
+                tcpServer?: SocketTcpServerPermission;
+                /** The udp manifest property declares which sockets.udp operations an app can issue. */
+                udp?: SocketUdpPermission;
             };
+            /**
+             * Unlike the local and sync storage areas,
+             * the managed storage area requires its structure
+             * to be declared as JSON Schema and is strictly validated by Chrome.
+             * This schema must be stored in a file indicated by the "managed_schema"
+             * property of the "storage" manifest key and declares the enterprise
+             * policies supported by the app. Policies are analogous to options
+             * but are configured by a system administrator instead of the user,
+             * allowing the app to be preconfigured for all users of an organization.
+             *
+             * After declaring the policies they can be read from the storage.managed API.
+             * It's up to the app to enforce the policies configured by the administrator.
+             */
             storage?: {
-                managed_schema: string
+                /**
+                 * The storage.managed_schema property indicates a file within the app that contains the policy schema.
+                 * @see[Docs and Schema Format]{@link https://developer.chrome.com/apps/manifest/storage}
+                 */
+                managed_schema: ManagedSchema;
             };
             system_indicator?: any;
-            // update_url?: string; // Listed but deprecated since Chrome 33 - leaving it here so it's not added again
+            /**
+             * Autoupdating
+             * Only set this if you want to host somewhere other than the store.
+             * **Warning**
+             * As of M33, Windows stable / beta channel users can only
+             * download extensions hosted in the Chrome Web Store
+             * (@see[Protecting Windows users from malicious extensions]{@link http://blog.chromium.org/2013/11/protecting-windows-users-from-malicious.html}).
+             * @see[Documentation]{@link https://developer.chrome.com/apps/autoupdate}
+             */
+            update_url?: string;
+            /**
+             * Used by packaged apps to specify URL patterns the app wants to intercept and handle.
+             * An app can define multiple URL handlers under this manifest entry,
+             * each having an identifier, a URL pattern, and a title.
+             * Here's an example of how to specify url_handlers:
+             * @example
+             * "view_foobar_presentation": {
+             *   "matches": [
+             *     "https://www.foobar.com/presentation/view/*"
+             *   ],
+             *   "title": "View FooBar presentation"
+             * }
+             * @see[Documentation]{@link https://developer.chrome.com/apps/manifest/url_handlers}
+             */
             url_handlers?: {
                 [name: string]: {
+                    /** URLs to match and handle */
                     matches: string[];
+                    /**
+                     * The title field is reserved for future use in all relevant UI elements.
+                     * It should describe the action that the app performs when launched with this type of URL handler.
+                     */
                     title?: string;
                 }
             };
+            /** The usbPrinters manifest property declares which USB printers are supported by an app using the printerProvider API. */
             usb_printers?: {
-                filters: {
-                    vendorId?: number;
-                    productId?: number;
-                    interfaceClass?: number;
-                    interfaceSubclass?: number;
-                    interfaceProtocol?: number;
-                }[]
+                /**
+                 * A list of USB device filters matching supported devices.
+                 * A device only needs to match one of the provided filters.
+                 * A vendorId is required and only one of productId or interfaceClass may be provided.
+                 */
+                filters: Require<chrome.usb.DeviceFilter>[];
             };
             version_name?: string;
             webview?: {
@@ -6378,9 +6650,9 @@ declare namespace chrome {
 
         interface SendInfo {
             /** The result code returned from the underlying network call. A negative value indicates an error. */
-            resultCode: number;
+            resultCode: integer;
             /** The number of bytes sent (if result == 0) */
-            bytesSent?: number;
+            bytesSent?: integer;
         }
 
         interface ReceiveEventArgs {
@@ -6395,7 +6667,7 @@ declare namespace chrome {
             /** The socket identifier. */
             socketId: integer;
             /** The result code returned from the underlying network call. */
-            resultCode: number;
+            resultCode: integer;
         }
         interface AcceptErrorEventArgs extends ReceiveErrorEventArgs { }
 
@@ -6444,7 +6716,7 @@ declare namespace chrome {
      * Use the chrome.sockets.tcp API to send and receive data over the network using TCP connections.
      * This API supersedes the TCP functionality previously found in the chrome.socket API.
      * @since Chrome 33.
-     * @requires Manifest: "Sockets": {...}
+     * @requires Manifest: 'Sockets': {...}
      */
     namespace sockets.tcp {
         interface SecureOptions {
@@ -6473,7 +6745,7 @@ declare namespace chrome {
 
         /**
          * Enables or disables the application from receiving messages from its peer.
-         * The default value is "false". Pausing a socket is typically used by an
+         * The default value is 'false'. Pausing a socket is typically used by an
          * application to throttle data sent by its peer. When a socket is paused,
          * no onReceive event is raised. When a socket is connected and un-paused,
          * onReceive events are raised again when messages are received.
@@ -6780,7 +7052,7 @@ declare namespace chrome {
      * Use the chrome.sockets.udp API to send and receive data over the network
      * using UDP connections. This API supersedes the UDP functionality previously
      * found in the 'socket' API.
-     * @requires Manifest: "sockets": {...}
+     * @requires Manifest: 'sockets': {...}
      * @since Chrome 33
      * @see https://developer.chrome.com/apps/sockets_udp
      */
@@ -7001,14 +7273,14 @@ declare namespace chrome {
              * @param callback Callback with the amount of space being used by storage, or on failure (in which case runtime.lastError will be set).
              * Parameter bytesInUse: Amount of space being used in storage, in bytes.
              */
-            getBytesInUse(callback: (bytesInUse: number) => void): void;
+            getBytesInUse(callback: (bytesInUse: integer) => void): void;
             /**
              * Gets the amount of space (in bytes) being used by one or more items.
              * @param keys A single key or list of keys to get the total usage for. An empty list will return 0. Pass in null to get the total usage of all of storage.
              * @param callback Callback with the amount of space being used by storage, or on failure (in which case runtime.lastError will be set).
              * Parameter bytesInUse: Amount of space being used in storage, in bytes.
              */
-            getBytesInUse(keys: string | string[] | null, callback: (bytesInUse: number) => void): void;
+            getBytesInUse(keys: string | string[] | null, callback: (bytesInUse: integer) => void): void;
             /**
              * Removes all items from storage.
              * @param callback Optional.
@@ -7055,29 +7327,29 @@ declare namespace chrome {
 
         interface LocalStorageArea extends StorageArea {
             /** The maximum amount (in bytes) of data that can be stored in local storage, as measured by the JSON stringification of every value plus every key's length. This value will be ignored if the extension has the unlimitedStorage permission. Updates that would cause this limit to be exceeded fail immediately and set runtime.lastError. */
-            QUOTA_BYTES: number;
+            QUOTA_BYTES: integer;
         }
 
         interface SyncStorageArea extends StorageArea {
             /** @deprecated since Chrome 40. The storage.sync API no longer has a sustained write operation quota. */
             MAX_SUSTAINED_WRITE_OPERATIONS_PER_MINUTE: chrome.deprecated;
             /** The maximum total amount (in bytes) of data that can be stored in sync storage, as measured by the JSON stringification of every value plus every key's length. Updates that would cause this limit to be exceeded fail immediately and set runtime.lastError. */
-            QUOTA_BYTES: number;
+            QUOTA_BYTES: integer;
             /** The maximum size (in bytes) of each individual item in sync storage, as measured by the JSON stringification of its value plus its key length. Updates containing items larger than this limit will fail immediately and set runtime.lastError. */
-            QUOTA_BYTES_PER_ITEM: number;
+            QUOTA_BYTES_PER_ITEM: integer;
             /** The maximum number of items that can be stored in sync storage. Updates that would cause this limit to be exceeded will fail immediately and set runtime.lastError. */
-            MAX_ITEMS: number;
+            MAX_ITEMS: integer;
             /**
              * The maximum number of set, remove, or clear operations that can be performed each hour. This is 1 every 2 seconds, a lower ceiling than the short term higher writes-per-minute limit.
              * Updates that would cause this limit to be exceeded fail immediately and set runtime.lastError.
              */
-            MAX_WRITE_OPERATIONS_PER_HOUR: number;
+            MAX_WRITE_OPERATIONS_PER_HOUR: integer;
             /**
              * The maximum number of set, remove, or clear operations that can be performed each minute. This is 2 per second, providing higher throughput than writes-per-hour over a shorter period of time.
              * Updates that would cause this limit to be exceeded fail immediately and set runtime.lastError.
              * @since Chrome 40.
              */
-            MAX_WRITE_OPERATIONS_PER_MINUTE: number;
+            MAX_WRITE_OPERATIONS_PER_MINUTE: integer;
         }
 
         interface StorageChangedEvent extends chrome.events.Event<(changes: { [key: string]: StorageChange }, areaName: string) => void> { }
@@ -7221,7 +7493,7 @@ declare namespace chrome {
          * @param fileSystem
          * @param callback
          */
-        function getUsageAndQuota(fileSystem: FileSystem, callback: (info: { usageBytes: number, quotaBytes: number }) => void): void;
+        function getUsageAndQuota(fileSystem: FileSystem, callback: (info: { usageBytes: integer, quotaBytes: integer }) => void): void;
         /**
          * Returns the FileStatus for the given fileEntry.
          * Note that 'conflicting' state only happens when
@@ -7254,13 +7526,13 @@ declare namespace chrome {
     namespace system.cpu {
         interface ProcessorUsage {
             /** The cumulative time used by userspace programs on this processor. */
-            user: number;
+            user: integer;
             /** The cumulative time used by kernel programs on this processor. */
-            kernel: number;
+            kernel: integer;
             /** The cumulative time spent idle by this processor. */
-            idle: number;
+            idle: integer;
             /** The total cumulative time for this processor. This value is equal to user + kernel + idle. */
-            total: number;
+            total: integer;
         }
 
         interface ProcessorInfo {
@@ -7270,7 +7542,7 @@ declare namespace chrome {
 
         interface CpuInfo {
             /** The number of logical processors. */
-            numOfProcessors: number;
+            numOfProcessors: integer;
             /** The architecture name of the processors. */
             archName: string;
             /** The model name of the processors. */
@@ -7299,24 +7571,24 @@ declare namespace chrome {
     namespace system.display {
         interface Bounds {
             /**  The x-coordinate of the upper-left corner. */
-            left: number;
+            left: integer;
             /**  The y-coordinate of the upper-left corner. */
-            top: number;
+            top: integer;
             /** The width of the display in pixels. */
-            width: number;
+            width: integer;
             /** The height of the display in pixels. */
-            height: number;
+            height: integer;
         }
 
         interface Insets {
             /** The x-axis distance from the left bound. */
-            left: number;
+            left: integer;
             /** The y-axis distance from the top bound. */
-            top: number;
+            top: integer;
             /** The x-axis distance from the right bound. */
-            right: number;
+            right: integer;
             /** The y-axis distance from the bottom bound. */
-            bottom: number;
+            bottom: integer;
         }
 
         /**
@@ -7324,9 +7596,9 @@ declare namespace chrome {
          */
         interface Point {
             /** The x-coordinate of the point. */
-            x: number;
+            x: integer;
             /** The y-coordinate of the point. */
-            y: number;
+            y: integer;
         }
 
         /**
@@ -7344,22 +7616,22 @@ declare namespace chrome {
          */
         interface DisplayMode {
             /** The display mode width in device independent (user visible) pixels. */
-            width: number;
+            width: integer;
 
             /** The display mode height in device independent (user visible) pixels. */
-            height: number;
+            height: integer;
 
             /** The display mode width in native pixels. */
-            widthInNativePixels: number;
+            widthInNativePixels: integer;
 
             /** The display mode height in native pixels. */
-            heightInNativePixels: number;
+            heightInNativePixels: integer;
 
             /** The display mode UI scale factor. */
-            uiScale: number;
+            uiScale: integer;
 
             /** The display mode device scale factor. */
-            deviceScaleFactor: number;
+            deviceScaleFactor: integer;
 
             /** True if the mode is the display's native mode. */
             isNative: boolean;
@@ -7381,7 +7653,7 @@ declare namespace chrome {
             /** The layout position of this display relative to the parent. This will be ignored for the root. */
             position: DisplayPosition;
             /** The offset of the display along the connected edge. 0 indicates that the topmost or leftmost corners are aligned. */
-            offset: number;
+            offset: integer;
         }
 
         /**
@@ -7427,10 +7699,10 @@ declare namespace chrome {
             rotation?: 0 | 90 | 180 | 270;
 
             /** If set, updates the display's logical bounds origin along x-axis. Applied together with boundsOriginY, if boundsOriginY is set. Note that, when updating the display origin, some constraints will be applied, so the final bounds origin may be different than the one set. The final bounds can be retrieved using getInfo. The bounds origin is applied after rotation. The bounds origin cannot be changed on the primary display. Note that is also invalid to set bounds origin values if isPrimary is also set (as isPrimary parameter is applied first). */
-            boundsOriginX?: number;
+            boundsOriginX?: integer;
 
             /** If set, updates the display's logical bounds origin along y-axis. See documentation for boundsOriginX parameter. */
-            boundsOriginY: number;
+            boundsOriginY: integer;
 
             /**
              * @since Chrome 52
@@ -7469,11 +7741,11 @@ declare namespace chrome {
             /** True if this display is enabled. */
             isEnabled: boolean;
             /** The number of pixels per inch along the x-axis. */
-            dpiX: number;
+            dpiX: integer;
             /** The number of pixels per inch along the y-axis. */
-            dpiY: number;
+            dpiY: integer;
             /** The display's clockwise rotation in degrees relative to the vertical position. Currently exposed only on ChromeOS. Will be set to 0 on other platforms. */
-            rotation: number;
+            rotation: integer;
             /** The display's logical bounds. */
             bounds: Bounds;
             /** The display's insets within its screen's bounds. Currently exposed only on ChromeOS. Will be set to empty insets on other platforms. */
@@ -7491,11 +7763,11 @@ declare namespace chrome {
             /** If set, sets the display's overscan insets to the provided values. Note that overscan values may not be negative or larger than a half of the screen's size. Overscan cannot be changed on the internal monitor. It's applied after isPrimary parameter. */
             overscan?: Insets;
             /** If set, updates the display's rotation. Legal values are [0, 90, 180, 270]. The rotation is set clockwise, relative to the display's vertical position. It's applied after overscan paramter. */
-            rotation?: number;
+            rotation?: integer;
             /** If set, updates the display's logical bounds origin along x-axis. Applied together with boundsOriginY, if boundsOriginY is set. Note that, when updating the display origin, some constraints will be applied, so the final bounds origin may be different than the one set. The final bounds can be retrieved using getInfo. The bounds origin is applied after rotation. The bounds origin cannot be changed on the primary display. Note that is also invalid to set bounds origin values if isPrimary is also set (as isPrimary parameter is applied first). */
-            boundsOriginX?: number;
+            boundsOriginX?: integer;
             /** If set, updates the display's logical bounds origin along y-axis. See documentation for boundsOriginX parameter. */
-            boundsOriginY?: number;
+            boundsOriginY?: integer;
         }
 
         /**
@@ -7637,9 +7909,9 @@ declare namespace chrome {
     namespace system.memory {
         interface MemoryInfo {
             /** The total amount of physical memory capacity, in bytes. */
-            capacity: number;
+            capacity: integer;
             /** The amount of available capacity, in bytes. */
-            availableCapacity: number;
+            availableCapacity: integer;
         }
 
         /** Get physical memory information. */
@@ -7653,7 +7925,7 @@ declare namespace chrome {
         interface NetworkInterface {
             name: string;
             address: string;
-            prefixLength: number;
+            prefixLength: integer;
         }
 
         function getNetworkInterfaces(callback: (networkInterfaces: NetworkInterface[]) => void): void;
@@ -7681,14 +7953,14 @@ declare namespace chrome {
              */
             type: string;
             /** The total amount of the storage space, in bytes. */
-            capacity: number;
+            capacity: integer;
         }
 
         interface StorageCapacityInfo {
             /** A copied |id| of getAvailableCapacity function parameter |id|. */
             id: string;
             /** The available capacity of the storage device, in bytes. */
-            availableCapacity: number;
+            availableCapacity: integer;
         }
 
         interface SystemStorageAttachedEvent extends chrome.events.Event<(info: StorageUnitInfo) => void> { }
@@ -7727,7 +7999,7 @@ declare namespace chrome {
         /** An event from the TTS engine to communicate the status of an utterance. */
         interface TtsEvent {
             /** The index of the current character in the utterance. */
-            charIndex?: number;
+            charIndex?: integer;
             /** The error description, if the event type is 'error'. */
             errorMessage?: string;
             /**
@@ -7761,7 +8033,7 @@ declare namespace chrome {
 
         interface SpeakOptions {
             /** Speaking volume between 0 and 1 inclusive, with 0 being lowest and 1 being highest, with a default of 1.0. */
-            volume?: number;
+            volume?: integer;
             /**
              * Optional.
              * If true, enqueues this utterance if TTS is already in progress. If false (the default), interrupts any current speech and flushes the speech queue before speaking this new utterance.
@@ -7771,7 +8043,7 @@ declare namespace chrome {
              * Optional.
              * Speaking rate relative to the default rate for this voice. 1.0 is the default rate, normally around 180 to 220 words per minute. 2.0 is twice as fast, and 0.5 is half as fast. Values below 0.1 or above 10.0 are strictly disallowed, but many voices will constrain the minimum and maximum rates further—for example a particular voice may not actually speak faster than 3 times normal even if you specify a value larger than 3.0.
              */
-            rate?: number;
+            rate?: integer;
             /**
              * This function is called with events that occur in the process of speaking the utterance.
              * @param event The update event from the text-to-speech engine indicating the status of this utterance.
@@ -7781,7 +8053,7 @@ declare namespace chrome {
              * Optional.
              * Speaking pitch between 0 and 2 inclusive, with 0 being lowest and 2 being highest. 1.0 corresponds to a voice's default pitch.
              */
-            pitch?: number;
+            pitch?: integer;
             /** The language to be used for synthesis, in the form language-region. Examples: 'en', 'en-US', 'en-GB', 'zh-CN'. */
             lang?: string;
             /** The name of the voice to use for synthesis. If empty, uses any available voice. */
@@ -7922,83 +8194,183 @@ declare namespace chrome {
         }
     }
 
-    ////////////////////
-    // USB
-    ////////////////////
+    /////////
+    // USB //
+    /////////
+    /**
+     * @requires Permissions: "usb"
+     * @since Available since Chrome 26.
+     * Use the chrome.usb API to interact with connected USB devices.
+     * This API provides access to USB operations from within the context of an app.
+     * Using this API, apps can function as drivers for hardware devices.
+     * Errors generated by this API are reported by setting runtime.lastError
+     * and executing the function's regular callback. The callback's
+     * regular parameters will be undefined in this case.
+     * @see[Accessing Hardware Devices]{@link https://developer.chrome.com/apps/app_usb}
+     */
     namespace usb {
+        /** Direction, Recipient, RequestType, and TransferType all map to their namesakes within the USB specification. */
         type Direction = 'in' | 'out';
 
         interface Device {
-            device: number,
-            vendorId: number,
-            productId: number,
+            /**
+             * An opaque ID for the USB device. It remains unchanged until the device is unplugged.
+             * @since Chrome 31.
+             */
+            device: integer,
+            /** The vendor ID. */
+            vendorId: integer,
+            /** The product ID. */
+            productId: integer;
+            /**
+             * The device version (bcdDevice field).
+             * @since Chrome 46.
+             */
+            version: integer;
+            /**
+             * The iProduct string read from the device, if available.
+             * @since Chrome 46.
+             */
             productName: string,
+            /**
+             * The iManufacturer string read from the device, if available.
+             * @since Chrome 46.
+             */
             manufacturerName: string,
+            /**
+             * The iSerialNumber string read from the device, if available.
+             * @since Chrome 46.
+             */
             serialNumber: string
         }
 
+        /** Since Chrome 31. */
         interface ConnectionHandle {
-            handle: number,
-            vendorId: number,
-            productId: number
+            /**
+             * An opaque handle representing this connection to the USB device
+             * and all associated claimed interfaces and pending transfers.
+             * A new handle is created each time the device is opened.
+             * The connection handle is different from Device.device.
+             */
+            handle: integer;
+            /** The device vendor ID. */
+            vendorId: integer;
+            /** The product ID. */
+            productId: integer;
         }
 
         type EndpointType = 'control' | 'interrupt' | 'isochronous' | 'bulk';
         type EndpointSyncType = 'asynchronous' | 'adaptive' | 'synchronous';
-        type EndpointUsage = 'data' | 'feedback' | 'explicitFeedback';
+        type EndpointUsage = 'data' | 'feedback' | 'explicitFeedback' | 'periodic' | 'notification';
 
+        /** Since Chrome 29. */
         interface EndpointDescriptor {
-            address: number,
-            type: EndpointType,
-            direction: Direction,
-            maximumPacketSize: number,
-            synchronization?: EndpointSyncType,
-            usage?: EndpointUsage,
-            pollingInterval?: number,
-            extra_data: ArrayBuffer
+            /** Transfer type. */
+            address: integer;
+            /** Transfer type. */
+            type: EndpointType;
+            /** Transfer direction. */
+            direction: Direction;
+            /** Maximum packet size. */
+            maximumPacketSize: integer;
+            /** Transfer synchronization mode (isochronous only). */
+            synchronization?: EndpointSyncType;
+            /** Endpoint usage hint */
+            usage?: EndpointUsage;
+            /** Polling interval (interrupt and isochronous only). */
+            pollingInterval?: integer;
+            /**
+             * Extra descriptor data associated with this endpoint.
+             * @since Chrome 39.
+             */
+            extra_data: ArrayBuffer;
         }
 
+        /** @since Chrome 29. */
         interface InterfaceDescriptor {
-            interfaceNumber: number,
-            alternateSetting: number,
-            interfaceClass: number,
-            interfaceSubclass: number,
-            interfaceProtocol: number,
-            description?: string,
-            endpoints: EndpointDescriptor[],
-            extra_data: ArrayBuffer
+            /** The interface number */
+            interfaceNumber: integer;
+            /**
+             * The interface alternate setting number.
+             * @default 0
+             */
+            alternateSetting: integer;
+            /** The USB interface class. */
+            interfaceClass: integer;
+            /** The USB interface sub-class. */
+            interfaceSubclass: integer;
+            /** The USB interface protocol. */
+            interfaceProtocol: integer;
+            /** Description of the interface */
+            description?: string;
+            /** Available endpoints. */
+            endpoints: EndpointDescriptor[];
+            /**
+             * Extra descriptor data associated with this interface.
+             * @since Chrome 39.
+             */
+            extra_data: ArrayBuffer;
         }
 
+        /** @since Chrome 39. */
         interface ConfigDescriptor {
-            active: boolean,
-            configurationValue: number,
-            description?: string,
-            selfPowered: boolean,
-            remoteWakeup: boolean,
-            maxPower: number,
-            interfaces: InterfaceDescriptor[],
-            extra_data: ArrayBuffer
+            /**
+             * Is this the active configuration?
+             * @since Chrome 47.
+             */
+            active: boolean;
+            /** The configuration number. */
+            configurationValue: integer;
+            /** Description of the configuration. */
+            description?: string;
+            /** The device is self-powered. */
+            selfPowered: boolean;
+            /** The device supports remote wakeup. */
+            remoteWakeup: boolean;
+            /** The maximum power needed by this device in milliamps (mA). */
+            maxPower: integer;
+            /** Available interfaces. */
+            interfaces: InterfaceDescriptor[];
+            /** Extra descriptor data associated with this configuration. */
+            extra_data: ArrayBuffer;
         }
 
         interface GenericTransferInfo {
-            direction: Direction,
-            endpoint: number,
-            length?: number,
-            data?: ArrayBuffer,
-            timeout?: number
+            /** The transfer direction ("in" or "out"). */
+            direction: Direction;
+            /** The target endpoint address. The interface containing this endpoint must be claimed. */
+            endpoint: integer;
+            /** The maximum number of bytes to receive (required only by input transfers). */
+            length?: integer;
+            /** The data to transmit (required only by output transfers). */
+            data?: ArrayBuffer;
+            /**
+             * Request timeout (in milliseconds).
+             * The default value 0 indicates no timeout.
+             * @default 0
+             */
+            timeout?: integer;
         }
 
         interface TransferResultInfo {
-            resultCode: number,
-            data?: ArrayBuffer
+            /** A value of 0 indicates that the transfer was a success. Other values indicate failure. */
+            resultCode?: integer;
+            /** The data returned by an input transfer. undefined for output transfers. */
+            data?: ArrayBuffer;
         }
 
+        /** @since Since Chrome 39. */
         interface DeviceFilter {
-            vendorId?: number,
-            productId?: number,
-            interfaceClass?: number,
-            interfaceSubclass?: number,
-            interfaceProtocol?: number
+            /** Device vendor ID. */
+            vendorId?: integer;
+            /** Device product ID, checked only if the vendor ID matches. */
+            productId?: integer;
+            /** USB interface class, matches any interface on the device. */
+            interfaceClass?: integer;
+            /** USB interface sub-class, checked only if the interface class matches. */
+            interfaceSubclass?: integer;
+            /** USB interface protocol, checked only if the interface sub-class matches. */
+            interfaceProtocol?: integer;
         }
 
         type TransferRecipient = 'device' | 'interface' | 'endpoint' | 'other';
@@ -8006,40 +8378,238 @@ declare namespace chrome {
         type TransferRequestType = 'standard' | 'class' | 'vendor' | 'reserved';
 
         interface TransferInfo {
+            /** The transfer direction ("in" or "out"). */
             direction: Direction;
+            /** The transfer target. The target given by index must be claimed if "interface" or "endpoint". */
             recipient: TransferRecipient;
+            /** The request type. */
             requestType: TransferRequestType;
-            request: number;
-            value: number;
-            index: number;
-            length?: number;
+            /** The bRequest field, see *Universal Serial Bus Specification Revision 1.1 § 9.3.* */
+            request: integer;
+            /** The wValue field, see *Ibid*. */
+            value: integer;
+            /** The wIndex field, see *Ibid*. */
+            index: integer;
+            /** The maximum number of bytes to receive(required only by input transfers). */
+            length?: integer;
+            /** The data to transmit (required only by output transfers). */
             data?: ArrayBuffer;
-            timeout?: number;
+            /**
+             * @since Chrome 43.
+             * Request timeout (in milliseconds).
+             * The default value 0 indicates no timeout.
+             * @default 0
+             */
+            timeout?: integer;
         }
+
+        interface IsochronousTransferInfo {
+            /**
+             * Transfer parameters.
+             * The transfer length or data buffer specified in this parameter block is split
+             * along packetLength boundaries to form the individual packets of the transfer.
+             */
+            transferInfo: GenericTransferInfo;
+            /** The total number of packets in this transfer. */
+            packets: integer;
+            /** The length of each of the packets in this transfer. */
+            packetLength: integer;
+        }
+
+        /**
+         * @description Enumerates connected USB devices.
+         * @since Chrome 39.
+         * @param options The properties to search for on target devices.
+         * @param callback
+         */
+        function getDevices(options: { filters?: DeviceFilter[] }, callback: (devices: Device[]) => void): void;
+
+        /**
+         * Presents a device picker to the user and returns the Devices selected.
+         * If the user cancels the picker devices will be empty.
+         * A user gesture is required for the dialog to display. Without a user gesture,
+         * the callback will run as though the user cancelled.
+         * @since Chrome 40.
+         * @param options Configuration of the device picker dialog box.
+         *               - multiple: Allow the user to select multiple devices.
+         *               - filters: Filter the list of devices presented to the user.
+         *                   If multiple filters are provided, devices matching any filter will be displayed.
+         * @param callback Invoked with a list of chosen Devices.
+         */
+        function getUserSelectedDevices(options: { multiple?: boolean, filters?: DeviceFilter[] }, callback: (devices: Device[]) => void): void;
+
+        /**
+         * Returns the full set of device configuration descriptors.
+         * @since Chrome 47.
+         * @param device The Device to fetch descriptors from.
+         * @param callback
+         */
+        function getConfigurations(device: Device, callback: (configs: ConfigDescriptor[]) => void): void;
+
+        /**
+         * @deprecated Since Chrome 40.
+         * @requires(CrOS) Chrome OS specific. This operation is now implicitly performed as a part of *openDevice*.
+         */
+        function requestAccess(device: Device, interfaceId: integer, callback: (success: boolean) => void): void;
+
+        /**
+         * Opens a USB device returned by *getDevices*
+         * @since Chrome 31.
+         * @param device The device to open.
+         * @param callback
+         */
+        function openDevice(device: Device, callback: (handle: ConnectionHandle) => void): void;
+
+        /**
+         * Finds USB devices specified by the vendor, product and (optionally) interface IDs and if permissions allow opens them for use.
+         * If the access request is rejected or the device fails to be opened a connection handle will not be created or returned.
+         * Calling this method is equivalent to calling *getDevices* followed by *openDevice* for each device.
+         * @param options The properties to search for on target devices.
+         *                  - vendorId: The device vendor ID.
+         *                  - productId: The product ID.
+         * @param callback
+         */
+        function findDevices(options: { vendorId: integer, productId: integer }, callback: (handles: ConnectionHandle[]) => void): void;
+        /**
+         * Finds USB devices specified by the vendor, product and (optionally) interface IDs and if permissions allow opens them for use.
+         * If the access request is rejected or the device fails to be opened a connection handle will not be created or returned.
+         * Calling this method is equivalent to calling *getDevices* followed by *openDevice* for each device.
+         * @param options The properties to search for on target devices.
+         *                  - vendorId: The device vendor ID.
+         *                  - productId: The product ID.
+         *                  - The interface ID to request access to. Only available on Chrome OS. It has no effect on other platforms.
+         * @requires(CrOS) Chrome OS if you specify *interfaceId*
+         * @param callback
+         */
+        function findDevices(options: { vendorId: integer, productId: integer, interfaceId?: integer }, callback: (handles: ConnectionHandle[]) => void): void;
+
+        /**
+         * Closes a connection handle.
+         * Invoking operations on a handle after it has been closed is a safe operation but causes no action to be taken.
+         * @param handle The ConnectionHandle to close.
+         * @param [callback]
+         */
+        function closeDevice(handle: ConnectionHandle, callback?: () => void): void;
+
+        /**
+         * Select a device configuration.
+         * This function effectively resets the device by selecting one of the
+         * device's available configurations. Only configuration values greater
+         * than 0 are valid however some buggy devices have a working
+         * configuration 0 and so this value is allowed.
+         * @since Chrome 42.
+         * @param handle An open connection to the device.
+         * @param configurationValue
+         * @param callback
+         */
+        function setConfiguration(handle: ConnectionHandle, configurationValue: integer, callback: () => void): void;
+
+        /**
+         * Gets the configuration descriptor for the currently selected configuration.
+         * @since Chrome 39.
+         * @param handle An open connection to the device.
+         * @param callback
+         */
+        function getConfiguration(handle: ConnectionHandle, callback: (config: ConfigDescriptor) => void): void;
+
+        /**
+         * @description Lists all interfaces on a USB device.
+         * @param handle An open connection to the device.
+         * @param callback
+         */
+        function listInterfaces(handle: ConnectionHandle, callback: (descriptors: InterfaceDescriptor[]) => void): void;
+
+        /**
+         * Claims an interface on a USB device.
+         * Before data can be transfered to an interface or associated endpoints the interface must be claimed.
+         * Only one connection handle can claim an interface at any given time.
+         * If the interface is already claimed, this call will fail.
+         *
+         * **releaseInterface** should be called when the interface is no longer needed.
+         * @param handle An open connection to the device.
+         * @param interfaceNumber The interface to be claimed.
+         * @param callback
+         */
+        function claimInterface(handle: ConnectionHandle, interfaceNumber: integer, callback: () => void): void;
+
+        /**
+         * @description Releases a claimed interface.
+         * @param handle An open connection to the device.
+         * @param interfaceNumber The interface to be released.
+         * @param callback
+         */
+        function releaseInterface(handle: ConnectionHandle, interfaceNumber: integer, callback: () => void): void;
+
+        /**
+         * @description Selects an alternate setting on a previously claimed interface.
+         * @param handle An open connection to the device where this interface has been claimed.
+         * @param interfaceNumber The interface to configure.
+         * @param alternateSetting The alternate setting to configure.
+         * @param callback
+         */
+        function setInterfaceAlternateSetting(handle: ConnectionHandle, interfaceNumber: integer, alternateSetting: integer, callback: () => void): void;
+
+        /**
+         * Performs a control transfer on the specified device.
+         * Control transfers refer to either the device, an interface or an endpoint.
+         * Transfers to an interface or endpoint require the interface to be claimed.
+         * @param handle An open connection to the device.
+         * @param transferInfo Transfer info
+         * @param callback
+         */
+        function controlTransfer(handle: ConnectionHandle, transferInfo: TransferInfo, callback: (info: TransferResultInfo) => void): void;
+
+        /**
+         * @description Performs a bulk transfer on the specified device.
+         * @param handle An open connection to the device.
+         * @param transferInfo The transfer parameters.
+         * @param callback
+         */
+        function bulkTransfer(handle: ConnectionHandle, transferInfo: GenericTransferInfo, callback: (info: TransferResultInfo) => void): void;
+
+        /**
+         * @description Performs an interrupt transfer on the specified device.
+         * @param handle An open connection to the device.
+         * @param transferInfo The transfer parameters.
+         * @param callback
+         */
+        function interruptTransfer(handle: ConnectionHandle, transferInfo: GenericTransferInfo, callback: (info: TransferResultInfo) => void): void;
+
+        /**
+         * @description Performs an isochronous transfer on the specific device.
+         * @param handle An open connection to the device.
+         * @param transferInfo
+         * @param callback
+         */
+        function isochronousTransfer(handle: ConnectionHandle, transferInfo: IsochronousTransferInfo, callback: (info: TransferResultInfo) => void): void;
+
+        /**
+         * Tries to reset the USB device. If the reset fails, the given connection handle will be closed
+         * and the USB device will appear to be disconnected then reconnected.
+         * In this case **getDevices** or **findDevices** must be called again to acquire the device.
+         * @param handle A connection handle to reset.
+         * @param callback
+         */
+        function resetDevice(handle: ConnectionHandle, callback: (success: boolean) => void): void;
 
         interface DeviceEvent extends chrome.events.Event<(device: Device) => void> { }
 
+        /**
+         * Event generated when a device is added to the system.
+         * Events are only broadcast to apps and extensions that have permission to access the device.
+         * Permission may have been granted at install time, when the user accepted an optional permission
+         * (@see[permissions.request]{https://developer.chrome.com/apps/permissions#method-request}),
+         * or through **getUserSelectedDevices**.
+         * @since Chrome 42.
+         */
         const onDeviceAdded: DeviceEvent;
-        const onDeviceRemoved: DeviceEvent;
 
-        function getDevices(options: { vendorId?: number, productId?: number, filters?: DeviceFilter[] }, callback: (devices: Device[]) => void): void;
-        function getUserSelectedDevices(options: { multiple?: boolean, filters?: DeviceFilter[] }, callback: (devices: Device[]) => void): void;
-        function getConfigurations(device: Device, callback: (configs: ConfigDescriptor[]) => void): void;
-        function requestAccess(device: Device, interfaceId: number, callback: (success: boolean) => void): void;
-        function openDevice(device: Device, callback: (handle: ConnectionHandle) => void): void;
-        function findDevices(options: { vendorId: number, productId: number, interfaceId?: number }, callback: (handles: ConnectionHandle[]) => void): void;
-        function closeDevice(handle: ConnectionHandle, callback?: () => void): void;
-        function setConfiguration(handle: ConnectionHandle, configurationValue: number, callback: () => void): void;
-        function getConfiguration(handle: ConnectionHandle, callback: (config: ConfigDescriptor) => void): void;
-        function listInterfaces(handle: ConnectionHandle, callback: (descriptors: InterfaceDescriptor[]) => void): void;
-        function claimInterface(handle: ConnectionHandle, interfaceNumber: number, callback: () => void): void;
-        function releaseInterface(handle: ConnectionHandle, interfaceNumber: number, callback: () => void): void;
-        function setInterfaceAlternateSetting(handle: ConnectionHandle, interfaceNumber: number, alternateSetting: number, callback: () => void): void;
-        function controlTransfer(handle: ConnectionHandle, transferInfo: TransferInfo, callback: (info: TransferResultInfo) => void): void;
-        function bulkTransfer(handle: ConnectionHandle, transferInfo: GenericTransferInfo, callback: (info: TransferResultInfo) => void): void;
-        function interruptTransfer(handle: ConnectionHandle, transferInfo: GenericTransferInfo, callback: (info: TransferResultInfo) => void): void;
-        function isochronousTransfer(handle: ConnectionHandle, transferInfo: { transferInfo: GenericTransferInfo, packets: number, packetLength: number }, callback: (info: TransferResultInfo) => void): void;
-        function resetDevice(handle: ConnectionHandle, callback: (success: boolean) => void): void;
+        /**
+         * Event generated when a device is removed from the system.
+         * See **onDeviceAdded** for which events are delivered.
+         * @since Chrome 42.
+         */
+        const onDeviceRemoved: DeviceEvent;
     }
 
 
@@ -8182,17 +8752,17 @@ declare namespace chrome {
              * (accessible via the getTime method of the JavaScript *Date* object).
              * If absent, defaults to *0* (which would remove all browsing data).
              **/
-            since?: number;
+            since?: integer;
         }
         interface WindowEvent extends chrome.events.Event<() => void> { }
 
         interface ConsoleEvent extends Event {
             /** The severity level of the log message. Ranges from 0 to 4. */
-            level: number;
+            level: integer;
             /** The logged message contents.*/
             message: string;
             /** The line number of the message source.*/
-            line: number;
+            line: integer;
             /** A string identifying the resource which logged the message. */
             sourceId: string;
         }
@@ -8204,7 +8774,7 @@ declare namespace chrome {
             'kill';
         interface ExitEvent extends Event {
             /** Chrome's internal ID of the process that exited. */
-            processID: number;
+            processID: integer;
             /** String indicating the reason for the exit. */
             reason: ExitEventReason;
         }
@@ -8212,7 +8782,7 @@ declare namespace chrome {
         /** Description of a declarative rule for handling events. */
         interface Rule {
             /** Optional priority of this rule. Defaults to 100.  */
-            priority?: number;
+            priority?: integer;
             /** List of conditions that can trigger the actions. */
             conditions: any[];
             /** Optional identifier that allows referencing this rule.  */
@@ -8534,7 +9104,7 @@ declare namespace chrome {
              * Gets the current zoom factor.
             * @param callback
              */
-            getZoom(callback: (zoomFactor: number) => void): void;
+            getZoom(callback: (zoomFactor: integer) => void): void;
 
             /**
              * Gets the current zoom mode.
@@ -8550,7 +9120,7 @@ declare namespace chrome {
              *                        a value of -3 will navigate backward 3 entries.
             * @param callback
              */
-            go(relativeIndex: number, callback?: (success: boolean) => void): void;
+            go(relativeIndex: integer, callback?: (success: boolean) => void): void;
 
             /**
              * Injects CSS into the guest page.
@@ -8592,7 +9162,7 @@ declare namespace chrome {
              * @param zoomFactor The new zoom factor.
              * @param [callback]
              */
-            setZoom(zoomFactor: number, callback?: () => void): void;
+            setZoom(zoomFactor: integer, callback?: () => void): void;
 
             /**
              * Sets the zoom mode of the webview.
@@ -8979,7 +9549,7 @@ declare namespace chrome {
             /**
              * The ID of a parent menu item; this makes the item a child of a previously added item.
              */
-            parentId?: number | string;
+            parentId?: integer | string;
 
             /**
              * Lets you restrict the item to apply only to documents whose URL matches one of the given patterns. (This applies to frames as well.) For details on the format of a pattern, see <a href='match_patterns'>Match Patterns</a>.
@@ -9024,7 +9594,7 @@ declare namespace chrome {
             /**
              * The ID of a parent menu item; this makes the item a child of a previously added item. <em>Note:</em> You cannot change an item to be a child of one of its own descendants.
              */
-            parentId?: number | string;
+            parentId?: integer | string;
 
             /**
              * Lets you restrict the item to apply only to documents whose URL matches one of the given patterns.
@@ -9114,9 +9684,9 @@ declare namespace chrome {
         /** Contains all of the results of the find request. */
         interface FindCallbackResults {
             /** The number of times searchText was matched on the page. */
-            numberOfMatches: number;
+            numberOfMatches: integer;
             /** The ordinal number of the current match. */
-            activeMatchOrdinal: number;
+            activeMatchOrdinal: integer;
             /** Describes a rectangle around the active match in screen coordinates. */
             selectionRect: SelectionRect;
             /** Indicates whether this find request was canceled. */
@@ -9158,13 +9728,13 @@ declare namespace chrome {
          **/
         interface SelectionRect {
             /** Distance from the left edge of the screen to the left edge of the rectangle. */
-            left: number;
+            left: integer;
             /** Distance from the top edge of the screen to the top edge of the rectangle. */
-            top: number;
+            top: integer;
             /** Width of the rectangle. */
-            width: number;
+            width: integer;
             /** Height of the rectangle. */
-            height: number;
+            height: integer;
         }
         /**
          * Interface which provides access to webRequest events on the guest page.
@@ -9238,7 +9808,7 @@ declare namespace chrome {
             /** The logged message contents. */
             message: string;
             /** The line number of the message source. */
-            line: number;
+            line: integer;
             /** A string identifying the resource which logged the message. */
             sourceId: string;
         }
@@ -9268,7 +9838,7 @@ declare namespace chrome {
             'kill';
         interface Exit {
             /** Chrome's internal ID of the process that exited. */
-            processID: number;
+            processID: integer;
             /** String indicating the reason for the exit. */
             reason: ExitReason;
         }
@@ -9280,12 +9850,12 @@ declare namespace chrome {
             /**
              * The number of matches found for searchText on the page so far.
              */
-            numberOfMatches: number;
+            numberOfMatches: integer;
             /**
              * The ordinal number of the current active match,
              * if it has been found. This will be 0 until then.
              */
-            activeMatchOrdinal: number;
+            activeMatchOrdinal: integer;
             /**
              * Describes a rectangle around the active match,
              * if it has been found, in screen coordinates.
@@ -9364,10 +9934,10 @@ declare namespace chrome {
             targetUrl: string;
 
             /** The initial width requested for the new window. */
-            initialWidth: number;
+            initialWidth: integer;
 
             /** The initial height requested for the new window. */
-            initialHeight: number;
+            initialHeight: integer;
 
             /** The requested name of the new window. */
             name: string;
@@ -9391,27 +9961,27 @@ declare namespace chrome {
         }
         interface ProcessResponsive {
             /** Chrome's internal ID of the process that became responsive. */
-            processID: number;
+            processID: integer;
         }
         interface SizeChanged {
             /** Old width of embedded web content. */
-            oldWidth: number;
+            oldWidth: integer;
             /** Old height of embedded web content. */
-            oldHeight: number;
+            oldHeight: integer;
             /** New width of embedded web content. */
-            newWidth: number;
+            newWidth: integer;
             /** New height of embedded web content. */
-            newHeight: number;
+            newHeight: integer;
         }
         interface ProcessUnresponsive {
             /** Chrome's internal ID of the process that has become unresponsive. */
-            processID: number;
+            processID: integer;
         }
         interface ZoomChange {
             /** The page's previous zoom factor. */
-            oldZoomFactor: number;
+            oldZoomFactor: integer;
             /** The new zoom factor that the page was zoomed to. */
-            newZoomFactor: number;
+            newZoomFactor: integer;
         }
     }
 
@@ -9423,10 +9993,10 @@ declare namespace chrome {
      * Different page speed and load metrics
      */
     function csi(): {
-        onloadT: number;
-        pageT: number;
-        startE: number;
-        tran: number;
+        onloadT: integer;
+        pageT: integer;
+        startE: integer;
+        tran: integer;
     }
 
     /**

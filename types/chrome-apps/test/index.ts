@@ -173,23 +173,390 @@ chrome.app.runtime.onLaunched.addListener(() => {
         id: "test",
         innerBounds: {
             width: 900,
-            height: 1280
-        }
-    }
+            height: 1280,
+        },
+    });
 });
 
+// FORBIDDEN APIs
+document.write('forbidden');
+Document.prototype.write.call(document, 'Hello, world');
+window.addEventListener('beforeunload', () => { });
 
+// MANIFEST
 
 const ManifestJSONTest1: chrome.runtime.Manifest = {
+    "container": "GOOGLE_DRIVE",
+    "api_console_project_id": "619683526622",
     "manifest_version": 2,
-    "name": "Sample Appview Embedded",
-    "description": "This sample shows how to allow your app to be embedded into another app",
-    "version": "2",
-    "minimum_chrome_version": "43",
-    "permissions": ["videoCapture"],
+    "name": "Sample Appview Embedded - modified for manifest test",
+    "description": "__MSG_appDescription__",
+    "version": "2.1",
+    "minimum_chrome_version": "33.0.1715.0",
+    "default_locale": "en",
+    "options_page": "options.html",
+    "chrome_url_overrides": {
+        "newtab": "app.html"
+    },
+    "options_ui": {
+        "chrome_style": true,
+        "page": "options.html"
+    },
+    "launch": {
+        "web_url": "https://developer.mbed.org/compiler/#nav:/;"
+    },
+    "file_system_provider_capabilities": {
+        "configurable": false,
+        "multiple_mounts": true,
+        "source": "network"
+    },
+    "platforms": [{
+        "nacl_arch": "x86-64",
+        "sub_package_path": "_platform_specific/x86-64/"
+    }, {
+        "nacl_arch": "x86-32",
+        "sub_package_path": "_platform_specific/x86-32/"
+    }, {
+        "nacl_arch": "arm",
+        "sub_package_path": "_platform_specific/arm/"
+    }],
+    "web_accessible_resources": ["html/crosh.html", "html/nassh.html", "html/nassh_google_relay.html", "html/nassh_connect_dialog.html"],
+    "permissions": [
+        "https://www.google-analytics.com/*",
+        "http://localhost:8080/*",
+        "https://www.googleapis.com/*",
+        "identity",
+        "terminalPrivate",
+        "app.window.alpha", "app.window.shape",
+        "experimental",
+        "webview",
+        "alarms",
+        "storage",
+        "videoCapture",
+        "browser",
+        "clipboardWrite",
+        "usb",
+        "metricsPrivate", "networkingPrivate",
+        "bluetooth",
+        "tabCapture",
+        "unlimitedStorage",
+        { "fileSystem": ["write", "retainEntries", "directory"] },
+        "clipboardRead",
+        "desktopCapture",
+        "clipboardWrite",
+        "pointerLock",
+        "<all_urls>",
+        "mdns",
+        "gcm",
+        "power",
+        "clipboardRead",
+        "clipboardWrite",
+        "cookies", "tabs",
+        "http://*/*",
+        "https://*/*",
+        "file:///*/*",
+        "idle",
+        "app.window.fullscreen",
+        "app.window.fullscreen.overrideEsc",
+        "contextMenus",
+        "browser",
+        "system.cpu", "system.memory", "system.storage", "system.display",
+        "notifications",
+        "*://*/*",
+        "accessibilityFeatures.read", "accessibilityFeatures.modify",
+        "tts",
+        "fullscreen", "alwaysOnTopWindows",
+        "geolocation",
+        "audioCapture",
+        "hid",
+        "metricsPrivate", "nativeMessaging",
+        "management", "developerPrivate", "activityLogPrivate",
+        {
+            "mediaGalleries": ["read", "allAutoDetected"]
+        },
+        { "socket": ["udp-send-to::*", "tcp-connect", "udp-send-to", "udp-bind", "udp-multicast-membership", "resolve-host", "network-state", "tcp-connect", "resolve-host", "network-state"] },
+        "tts",
+        "syncFileSystem",
+        {
+            "usbDevices": [
+                { "vendorId": 10168, "productId": 493 }
+            ]
+        }
+    ],
+    "storage": {
+        "managed_schema": "schema.json"
+    },
+    "browser_action": {
+        "default_icon": {
+            "128": "img/icon.png"
+        },
+        "default_title": "AnimAlerts",
+        "default_popup": "html/popup.html"
+    },
+    "author": {
+        "name": "Your name here",
+        "email": "Email@yourmail.com"
+    },
+    "author": "hei",
+    "update_url": "https://clients2.google.com/service/update2/crx",
+    "version_name": "10.0.12-stable",
+    "kiosk_enabled": true,
+    "offline_enabled": true,
+    "bluetooth": {
+        "low_energy": true,
+        "uuids": ["180f"]
+    },
+    "url_handlers": {
+        "wiki_article": {
+            "title": "View Wikipedia article",
+            "matches": [
+                "*://en.wikipedia.org/wiki/*"
+            ]
+        },
+        "mobile_wiki_article": {
+            "title": "View Wikipedia article",
+            "matches": [
+                "*://en.m.wikipedia.org/wiki/*"
+            ]
+        },
+        "google_drive_open": {
+            "matches": ["https://api.chromerestclient.com/GDrive.html*"],
+            "title": "Open from Google Drive"
+        }
+    },
+    "sockets": {
+        "udp": { "bind": "*", "send": "*" },
+        "tcpServer": { "listen": "" },
+        "tcp": {
+            "connect": "*:*"
+        },
+        "tcp": { "connect": ["*:5555", "*:5559"] },
+        "udp": { "bind": ["*:5554", "*:5556"], "multicastMembership": "", "send": ["*:5554", "*:5556"] }
+    },
+    "optional_permissions": [
+        "audioCapture",
+        "serial",
+        { "usbDevices": [{ "vendorId": 2338, "productId": 32 }] }
+    ],
+    "webview": {
+        "partitions": [
+            {
+                "name": "blockable",
+                "accessible_resources": ["browser.css", "blocked.css", "blocked.html"]
+            },
+            {
+                "accessible_resources": ["player.*", "migrate.*"],
+                "name": "player"
+            }
+        ]
+    },
+    "externally_connectable": {
+        "matches": ["https://gauth.fusionlabs.net/*"]
+    },
+    "commands": {
+        "cmdNew": {
+            "suggested_key": {
+                "default": "Ctrl+Shift+1"
+            },
+            "global": true,
+            "description": "Create new window"
+        },
+        "new-team-login": {
+            "suggested_key": {
+                "default": "Ctrl+Shift+Y",
+                "mac": "Command+Shift+Y"
+            },
+            "description": "New team login"
+        },
+        "reload": {
+            "suggested_key": {
+                "default": "Ctrl+R"
+            },
+            "description": "Reload webview"
+        }
+    },
+    "automation": {
+        "desktop": true
+    },
+    "automation": true,
+    "sandbox": {
+        "content_security_policy": "sandbox allow-scripts allow-popups; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://ssl.google-analytics.com/ga.js;",
+        "pages": ["sandbox.html"]
+    },
+    "content_security_policy": "script-src 'self' https://www.gstatic.com/; object-src 'self'"
+    "file_handlers": {
+        "image": {
+            "types": [
+                "image/png",
+                "image/jpeg"
+            ]
+        },
+        "text": {
+            "types": [
+                "text/*"
+            ],
+            "extensions": ["abap", "as", "ada", "adb", "ads", "conf", "asciidoc", "asm", "ahk", "bat", "c", "cpp", "h", "hpp", "cc", "cirru", "clj", "cob", "cbl", "ccp", "cb2", "cof", "coffee", "cfm", "cfc", "cfml", "cs", "css", "curly", "dart", "diff", "djt", "djhtml", "dt", "d", "dot", "ejs", "erl", "frt", "ftl", "feature", "glsl", "go", "groovy", "haml", "hbs", "handlebars", "hs", "hx", "htm", "html", "erb", "ini", "jk", "jack", "jade", "java", "class", "js", "gs", "javascript", "jsoniq", "json", "jsp", "jsx", "jl", "latex", "less", "liquid", "lisp", "ls", "logic", "logiql", "lsl", "lua", "lp", "lucene", "make", "makefile", "mak", "md", "mat", "mel", "mc", "mush", "mysql", "nix", "m", "mm", "ml", "mli", "mll", "pas", "pl", "pm", "pgsql", "php", "inc", "text", "txt", "readme", "log", "ps1", "psm1", "pro", "p", "plg", "properties", "proto", "py", "rdoc", "rd", "rhtml", "r", "rb", "rbx", "rs", "sass", "scad", "scala", "scm", "ss", "scss", "sh", "sjs", "smarty", "snippets", "soy", "space", "sql", "styl", "stylus", "svg", "tcl", "tex", "textile", "tmsnippet", "toml", "twig", "ts", "vbs", "vbe", "vm", "v", "vhd", "vhdl", "xml", "rss", "atom", "xhtml", "xquery", "xq", "yaml", "yml", "mcc"]
+        },
+        "any": {
+            "extensions": [
+                "skrifa",
+                "skrup"
+            ]
+        },
+        "7zip": {
+            "extensions": ["7z"],
+            "types": ["application/x-7z", "application/x-7z-compressed"]
+        },
+        "Z": {
+            "extensions": ["Z"],
+            "types": ["application/x-compress"]
+        },
+        "ar": {
+            "extensions": ["a"],
+            "types": ["application/x-archive"]
+        },
+        "bzip2": {
+            "extensions": ["bz", "bz2"],
+            "types": ["application/x-bzip", "application/x-bzip2"]
+        },
+        "cab": {
+            "extensions": ["cab"],
+            "types": ["application/x-cab"]
+        },
+        "cpio": {
+            "extensions": ["cpio", "cpio.gz", "cpio.bz2", "cpio.xz"],
+            "types": ["application/x-cpio"]
+        },
+        "deb": {
+            "extensions": ["deb"],
+            "types": ["application/vnd.debian.binary-package"]
+        },
+        "gzip": {
+            "extensions": ["gz"],
+            "types": ["application/x-gzip"]
+        },
+        "iso": {
+            "extensions": ["iso"],
+            "types": ["application/x-iso9660-image"]
+        },
+        "lha": {
+            "extensions": ["lha", "lzh"],
+            "types": ["application/x-lha", "application/x-lzh", "application/x-lzh-compressed"]
+        },
+        "lz4": {
+            "extensions": ["lz4"],
+            "types": ["application/x-lz4"]
+        },
+        "lzip": {
+            "extensions": ["lzip"],
+            "types": ["application/x-lzip"]
+        },
+        "lzop": {
+            "extensions": ["lzop"],
+            "types": ["application/x-lzop"]
+        },
+        "pax": {
+            "extensions": ["pax", "pax.gz", "pax.bz2", "pax.xz"],
+            "types": ["application/x-pax"]
+        },
+        "rpm": {
+            "extensions": ["rpm"],
+            "types": ["application/x-rpm", "application/x-redhat-package-manager"]
+        },
+        "tar": {
+            "extensions": ["gtar", "tar", "tgz", "tbz2", "txz", "tz"],
+            "types": ["application/x-tar", "application/x-gtar", "application/x-gtar-compressed"]
+        },
+        "xz": {
+            "extensions": ["lzma", "xz"],
+            "types": ["application/x-lzma", "application/x-xz"]
+        },
+        "zip": {
+            "extensions": ["apk", "crx", "jar"],
+            "types": ["application/java-archive", "application/x-chrome-extension"]
+        }
+    },
+    "file_system_provider_capabilities": {
+        "multipleMounts": true,
+        "source": "file"
+    },
+    "requirements": {
+        "3D": {
+            "features": ["webgl"]
+        }
+    },
+    "display_in_launcher": false,
+    "display_in_new_tab_page": false,
+    "key": "FIMaMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCDJB6ZGcGxtlr/34s+TKgi84QiP7DMekqOjSUS2ubmbhchlM6CN9gYdGQ1aBI3TBXG3YaAu+XyutFA8M8NLLWc4OOGByW123aaa1DP6p67g8a+Ids/gX6cNSRnRHiDZXAd44ATxoN4OZjZJk9iQ26RIUjwX07bzntlI+frwwKCk4WQIDAQAB",
+    "oauth2": {
+        // client_id below is specifc to the application key. Follow the
+        // documentation to obtain one for your app.
+        "auto_approve": true,
+        "client_id": "1111111222333.apps.googleusercontent.com",
+        "scopes": ["https://www.googleapis.com/auth/plus.login"]
+    },
     "app": {
+        "icon_color": "#00FDFD",
+        "urls": ["http://walkerrandolphsmith.com/"],
         "background": {
-            "scripts": ["main.js"]
+            "scripts": ["angular.js", "lodash.js", "background.js"],
+            "persistent": false,
+            "transient": true
+        },
+        "linked_icons": [{
+            "size": 16,
+            "url": "https://test.bi:8080/assets/icon_16.png"
+        }, {
+            "size": 32,
+            "url": "https://test.bi:8080/favicon.ico"
+        }, {
+            "size": 48,
+            "url": "https://test.bi:8080/favicon.ico"
+        }, {
+            "size": 64,
+            "url": "https://test.bi:8080/favicon.ico"
+        }, {
+            "size": 72,
+            "url": "https://test.bi:8080/assets/icon_72.png"
+        }, {
+            "size": 96,
+            "url": "https://test.bi:8080/assets/icon_96.webp"
+        }, {
+            "size": 128,
+            "url": "https://test.bi:8080/assets/icon_128.webp"
+        }, {
+            "size": 144,
+            "url": "https://test.bi:8080/assets/icon_144.png"
+        }, {
+            "size": 168,
+            "url": "https://test.bi:8080/assets/icon_168.png"
+        }, {
+            "size": 192,
+            "url": "https://test.bi:8080/assets/icon_192.png"
+        }, {
+            "size": 256,
+            "url": "https://test.bi:8080/assets/exposer_splash_512.webp"
+        }, {
+            "size": 512,
+            "url": "https://test.bi:8080/assets/exposer_splash_512.png"
+        }],
+        "theme_color": "rgba(77,208,192,1)",
+        "launch": {
+            "web_url": "https://hyjk2000.github.io/party-lottery/?source=chrome-app",
+            "container": "panel"
+        }
+    },
+    "icons": {
+        "16": "icon16.png",
+        "48": "icon48.png",
+        "64": "assets/icon-64x64.png",
+        "128": "icon128.png"
+    },
+    "action_handlers": ["new_note"],
+    "offline_enabled": true,
+    "sockets": {
+        "tcp": {
+            "connect": "*:*"
         }
     }
 }
