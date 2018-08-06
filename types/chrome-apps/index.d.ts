@@ -328,7 +328,7 @@ declare namespace chrome {
             URL_HANDLER = 'url_handler'
         }
 
-        interface EmbedRequest {
+        interface EmbedRequested {
             /**
              * Optional developer specified data that the app to be embedded can use when making an embedding decision.
              */
@@ -343,11 +343,7 @@ declare namespace chrome {
             deny: () => void;
         }
 
-        type ActionType = 'new_note';
-
-        const ActionType: {
-            NEW_NOTE: ActionType
-        }
+        type actionType = 'new_note';
 
         const ActionType: {
             NEW_NOTE: actionType
@@ -2459,27 +2455,32 @@ declare namespace chrome {
      * @since Chrome 39.
      **/
     namespace extensionTypes {
-        /**
-         * The format of an image.
-         **/
-        type ImageFormat =
-            'jpeg' |
-            'png';
-        /**
-         * Details about the format and quality of an image.
-         */
-        interface ImageDetails {
-            /** The format of the resulting image. Default is 'jpeg'. */
-            format?: ImageFormat;
+        interface ImageDetailsPng {
+            /**
+             * The format of the resulting image.
+             * @default 'jpeg'
+             */
+            format?: 'jpeg';
 
             /**
-             * When format is 'jpeg', controls the quality of the resulting image.
-             * This value is ignored for PNG images. As quality is decreased,
-             * the resulting image will have more visual artifacts,
-             * and the number of bytes needed to store it will decrease.
+             * Controls the quality of the resulting image.
+             * As quality is decreased, the resulting image
+             * will have more visual artifacts, and the number
+             * of bytes needed to store it will decrease.
              */
             quality?: integer;
         }
+
+        interface ImageDetailsJpeg {
+            /**
+             * The format of the resulting image.
+             */
+            format?: 'png';
+        }
+        /**
+         * Details about the format and quality of an image.
+         */
+        type ImageDetails = ImageDetailsJpeg | ImageDetailsPng;
         /**
          * The soonest that the JavaScript or CSS will be injected into the tab.
          **/
@@ -6213,17 +6214,21 @@ declare namespace chrome {
              * @example
              * 'action_handlers': ['new_note']
              */
-            action_handlers?: app.runtime.ActionType[];
+            action_handlers?: app.runtime.actionType[];
+            /** @todo TODO */
             author?: any;
+            /** @todo TODO */
             automation?: boolean | {
                 [key: string]: string
             };
+            /** @todo TODO */
             bluetooth?: {
                 uuids?: string[];
                 socket?: boolean;
                 low_energy?: boolean;
                 peripheral?: boolean;
             };
+            /** @todo TODO */
             commands?: {
                 [name: string]: {
                     suggested_key?: {
@@ -6237,7 +6242,9 @@ declare namespace chrome {
                     global?: boolean
                 }
             };
+            /** @todo TODO */
             current_locale?: string;
+            /** @todo TODO */
             event_rules?: {
                 event?: string;
                 actions?: {
@@ -6248,44 +6255,58 @@ declare namespace chrome {
                     css?: string[]
                 }[];
             }[];
+            /** @todo TODO */
             file_handlers?: {
                 [key: string]: {
                     extensions?: Array<'*' | string | { include_directories: boolean }>;
                     types?: Array<'*' | string | { include_directories: boolean }>;
                 }
             }[];
+            /** @todo TODO */
             file_system_provider_capabilities?: {
                 configurable?: boolean;
                 multiple_mounts?: boolean;
                 source?: 'network' | string;
             };
+            /** @todo TODO */
             import?: {
                 id: string;
             }[];
+            /** @todo TODO */
             key?: string;
+            /** @todo TODO */
             kiosk?: {
                 always_update: any;
                 required_platform_version: any;
             };
-            kiosk_enabled?: boolean,
-            kiosk_only?: boolean,
+            /** @todo TODO */
+            kiosk_enabled?: boolean;
+            /** @todo TODO */
+            kiosk_only?: boolean;
+            /** @todo TODO */
             kiosk_secondary_apps?: any;
             /**
              * @example
              * "minimum_chrome_version": "33.0.1715.0"
              */
             minimum_chrome_version?: string;
+            /** @todo TODO */
             nacl_modules?: {
                 path: string;
                 mime_type: string;
             }[];
+            /** @todo TODO */
             oauth2?: {
                 client_id: string;
                 scopes?: string[];
             };
+            /** @todo TODO */
             offline_enabled?: boolean;
+            /** @todo TODO */
             optional_permissions?: Permission[] | Array<Permission | string>;
+            /** @todo TODO */
             permissions?: Permission[] | Array<Permission | string>;
+            /** @todo TODO */
             platforms?: {
                 nacl_arch?: 'x86-64' | 'x86-32' | 'arm' | string;
                 sub_package_path: string;
@@ -6339,6 +6360,7 @@ declare namespace chrome {
              * @see[Internationalization]{@see https://developer.chrome.com/extensions/i18n}
              */
             short_name?: string;
+            /** @todo TODO */
             signature?: any;
             /**
              * The sockets manifest property declares which permissions are available
@@ -6372,6 +6394,7 @@ declare namespace chrome {
                  */
                 managed_schema: ManagedSchema;
             };
+            /** @todo TODO */
             system_indicator?: any;
             /**
              * Autoupdating
@@ -6447,6 +6470,7 @@ declare namespace chrome {
                     accessible_resources: string[];
                 }[]
             }
+            /** @todo TODO */
             [key: string]: any;
         }
 
@@ -8773,16 +8797,18 @@ declare namespace chrome {
      * an embedded web page, react to error events that happen within it.
      */
     namespace webview {
-        /** Options that determine what data should be cleared by *clearData`* */
+        /** Options that determine what data should be cleared by *clearData* */
         interface ClearDataOptions {
             /**
              * Clear data accumulated on or after this date,
              * represented in milliseconds since the epoch
-             * (accessible via the getTime method of the JavaScript *Date* object).
-             * If absent, defaults to *0* (which would remove all browsing data).
-             **/
+             * (accessible via the getTime method of the JavaScript Date object).
+             * If absent, defaults to 0 (which would remove all browsing data).
+             * @default 0
+             */
             since?: integer;
         }
+
         interface WindowEvent extends chrome.events.Event<() => void> { }
 
         interface ConsoleEvent extends Event {
@@ -8991,29 +9017,36 @@ declare namespace chrome {
             addEventListener(type: 'zoomchange', listener: (this: HTMLWebViewElement, ev: ZoomChange) => void, useCapture?: boolean): void;
             /**
              * Queries audio state.
+             * @since Chrome 62.
              **/
             getAudioState(callback: (audible: boolean) => void): void;
 
             /**
              * Sets audio mute state of the webview.
              * @param mute Mute audio value
+             * @since Chrome 62.
              */
             setAudioMuted(mute: boolean): void;
 
             /**
              * Queries whether audio is muted.
+             * @since Chrome 62.
              */
             isAudioMuted(callback: (muted: boolean) => void): void;
 
             /**
              * Captures the visible region of the webview.
-            * @param callback A data URL which encodes an image of the visible area of the captured tab. May be assigned to the 'src' property of an HTML Image element for display.
+             * @param callback Provides a data URL which encodes an image of the visible area of the captured webview.
+             *                 May be assigned to the 'src' property of an HTML Image element for display.
+             * @since Chrome 50.
              */
             captureVisibleRegion(callback: (dataUrl: string) => void): void;
             /**
              * Captures the visible region of the webview.
-             * @param options
-            * @param callback
+             * @param options Extension type
+             * @param callback Provides a data URL which encodes an image of the visible area of the captured webview.
+             *                 May be assigned to the 'src' property of an HTML Image element for display.
+             * @since Chrome 50.
              */
             captureVisibleRegion(options: chrome.extensionTypes.ImageDetails, callback: (dataUrl: string) => void): void;
 
@@ -9022,6 +9055,7 @@ declare namespace chrome {
             * When the webview navigates to a page matching one or more rules, the associated scripts will be injected.
             * You can programmatically add rules or update existing rules.
             * The following example adds two rules to the webview: 'myRule' and 'anotherRule'.
+            * @example
             * webview.addContentScripts([
             * {
             *    name: 'myRule',
@@ -9037,12 +9071,13 @@ declare namespace chrome {
             *    run_at: 'document_end'
             *  }]);
             * ...
-            *
             * // Navigates webview.
             * webview.src = 'http://www.foo.com';
+            *
+            * @description
             * You can defer addContentScripts call until you needs to inject scripts.
             * The following example shows how to overwrite an existing rule.
-            *
+            * @example
             * webview.addContentScripts([{
             *    name: 'rule',
             *    matches: ['http://www.foo.com/*'],
@@ -9058,17 +9093,22 @@ declare namespace chrome {
             *   matches: ['http://www.bar.com/*'],
             *   js: { files: ['scriptB.js'] },
             *   run_at: 'document_end'}]);
-            * If webview has been naviagted to the origin (e.g., foo.com) and calls webview.addContentScripts to add 'myRule',
+            * @description
+            * If webview has been naviagted to the origin (e.g., foo.com) and
+            * calls webview.addContentScripts to add 'myRule',
             * you need to wait for next navigation to make the scripts injected.
             * If you want immediate injection, executeScript will do the right thing.
-            * Rules are preserved even if the guest process crashes or is killed or even if the webview is reparented.
+            * Rules are preserved even if the guest process crashes
+            * or is killed or even if the webview is reparented.
             * Refer to the /extensions/content_scripts documentation for more details.
             * @param {ContentScriptDetails[]} contentScriptList Details of the content scripts to add.
+            * @since Chrome 44.
             */
             addContentScripts(contentScriptList: ContentScriptDetails[]): void;
 
             /**
-             * Navigates backward one history entry if possible. Equivalent to go(-1).
+             * Navigates backward one history entry if possible.
+             * Equivalent to go(-1).
              * @param [callback] Called after the navigation has either failed or completed successfully. Success parameter indicates whether the navigation was successful.
              */
             back(callback?: (success: boolean) => void): void;
@@ -9091,7 +9131,8 @@ declare namespace chrome {
              * Clears browsing data for the webview partition.
              * @param options Options determining which data to clear.
              * @param types The types of data to be cleared.
-            * @param callback
+             * @param callback Called after the data has been successfully cleared.
+             * @since Chrome 33.
              */
             clearData(options: ClearDataOptions, types: ClearDataTypeSet, callback?: () => void): void;
 
@@ -9099,47 +9140,61 @@ declare namespace chrome {
              * Injects JavaScript code into the guest page.
              * The following sample code uses script injection
              * to set the guest page's background color to red:
-             * @example webview.executeScript({ code: 'document.body.style.backgroundColor = 'red'' });
-             * @param details Details of the script to run.
-            * @param callback
+             * @example
+             * webview.executeScript({ code: 'document.body.style.backgroundColor = 'red'' });
+             * @param details  Details of the script to run.
+             * @param [callback] Called after all the JavaScript has been executed.
              */
             executeScript(details: InjectDetails, callback?: (result?: any[]) => void): void;
 
             /**
              * Initiates a find-in-page request.
-             * @param {string} searchText The string to find in the page.
-             * @param options Options for the find request.
-            * @param callback
+             * @param searchText The string to find in the page.
+             * @param [options]  Options for the find request.
+             * @param [callback] Called after all find results have been returned for this find request.
+             *                 Provides optionally:
+             *                 results: Contains all of the results of the find request.
+             *                 results can be omitted if it is not utilized in the callback function body;
+             *                 e.g. if the callback is only used to discern when the find request has completed.
              */
-            find(searchText: string, options?: FindOptions, callback?: (results?: any) => void): void;
+            find(searchText: string, options?: FindOptions, callback?: (results?: FindCallbackResults) => void): void;
 
             /**
              * Navigates forward one history entry if possible. Equivalent to go(1).
-            * @param callback
+             * @param [callback] Called after the navigation has either failed or completed successfully.
+             *                   Provides *success* which indicates whether the navigation was successful.
              */
             forward(callback?: (success: boolean) => void): void;
 
             /**
-             * Returns Chrome's internal process ID for the guest web page's current process, allowing embedders to know how many guests would be affected by terminating the process. Two guests will share a process only if they belong to the same app and have the same <a href='#partition'>storage partition ID</a>. The call is synchronous and returns the embedder's cached notion of the current process ID. The process ID isn't the same as the operating system's process ID.
+             * Returns Chrome's internal process ID for the guest web page's current process,
+             * allowing embedders to know how many guests would be affected by terminating
+             * the process. Two guests will share a process only if they belong to the same
+             * app and have the same **storage partition ID**. The call is synchronous and returns
+             * the embedder's cached notion of the current process ID. The process ID isn't
+             * the same as the operating system's process ID.
              */
-            getProcessId(): void;
+            getProcessId(): integer;
 
             /**
              * Returns the user agent string used by the webview for guest page requests.
+             * @since Since Chrome 33.
              */
-            getUserAgent(): void;
+            getUserAgent(): string;
 
             /**
              * Gets the current zoom factor.
-            * @param callback
+             * @param callback Called after the current zoom factor is retrieved. Provides the current zoom factor.
+             * @since Chrome 36.
              */
-            getZoom(callback: (zoomFactor: integer) => void): void;
+            getZoom(callback: (zoomFactor: double) => void): void;
 
             /**
              * Gets the current zoom mode.
-            * @param callback
+             * @param callback Called with the webview's current zoom mode.
+             * @since Since Chrome 43.
              */
-            getZoomMode(callback: (ZoomMode: any) => void): void;
+            getZoomMode(callback: (ZoomMode: ZoomMode) => void): void;
 
             /**
              * Navigates to a history entry using a history index relative to the current navigation.
@@ -9147,21 +9202,29 @@ declare namespace chrome {
              * @param relativeIndex Relative history index to which the webview should be navigated.
              *                      For example, a value of 2 will navigate forward 2 history entries if possible;
              *                        a value of -3 will navigate backward 3 entries.
-            * @param callback
+             * @param [callback] Called after the navigation has either failed or completed successfully.
+             *                   Provides a boolean, *success*, which indicates whether the navigation was successful.
              */
             go(relativeIndex: integer, callback?: (success: boolean) => void): void;
 
             /**
              * Injects CSS into the guest page.
              * @param details Details of the CSS to insert.
-            * @param callback
+             * @param callback Called after the CSS has been inserted.
              */
             insertCSS(details: InjectDetails, callback?: () => void): void;
 
-            /** Indicates whether or not the webview's user agent string has been overridden by *setUserAgentOverride*. */
+            /**
+             * Indicates whether or not the webview's user agent string has been overridden by *setUserAgentOverride*.
+             * @since Since Chrome 33.
+             */
             isUserAgentOverridden(): void;
 
-            /** Prints the contents of the webview. This is equivalent to calling scripted print function from the webview itself. */
+            /**
+             * Prints the contents of the webview.
+             * This is equivalent to calling scripted print function from the webview itself.
+             * @since Since Chrome 38.
+             */
             print(): void;
 
             /** Reloads the current top-level page. */
@@ -9173,14 +9236,16 @@ declare namespace chrome {
              * @example webview.removeContentScripts(['myRule']);
              * @description You can remove all the rules by calling:
              * @example webview.removeContentScripts();
-             * @todo TODO LIST FIX
-             * @param {any[]} scriptNameList A list of names of content scripts that will be removed. If the list is empty, all the content scripts added to the webview will be removed.
+             * @param scriptNameList A list of names of content scripts that will be removed.
+             *                       If the list is empty, all the content scripts added to the webview will be removed.
+             * @since Chrome 44.
              */
-            removeContentScripts(scriptNameList?: any[]): void;
+            removeContentScripts(scriptNameList?: string[]): void;
 
             /**
              * Override the user agent string used by the webview for guest page requests.
              * @param userAgent The user agent string to use.
+             * @since Since Chrome 33.
              */
             setUserAgentOverride(userAgent: string): void;
 
@@ -9189,14 +9254,16 @@ declare namespace chrome {
              * The scope and persistence of this change
              * are determined by the webview's current zoom mode.
              * @param zoomFactor The new zoom factor.
-             * @param [callback]
+             * @param [callback] Called after the page has been zoomed.
+             * @since Since Chrome 36.
              */
-            setZoom(zoomFactor: integer, callback?: () => void): void;
+            setZoom(zoomFactor: double, callback?: () => void): void;
 
             /**
              * Sets the zoom mode of the webview.
              * @param ZoomMode Defines how zooming is handled in the webview.
-             * @param [callback]
+             * @param [callback] Called after the zoom mode has been changed.
+             * @since Since Chrome 43.
              */
             setZoomMode(ZoomMode: ZoomMode, callback?: () => void): void;
 
@@ -9207,16 +9274,22 @@ declare namespace chrome {
              * @todo TODO Fix action param
              * Ends the current find session (clearing all highlighting)
              * and cancels all find requests in progress.
-             * @param {string} action Determines what to do with the active match after the find session has ended. clear will clear the highlighting over the active match; keep will keep the active match highlighted; activate will keep the active match highlighted and simulate a user click on that match. The default action is keep.
+             * @param action Determines what to do with the active match after the find session has ended.
+             *               *clear* will clear the highlighting over the active match;
+             *               keep will keep the active match highlighted;
+             *               activate will keep the active match highlighted and simulate a user click on that match.
+             *               The default action is keep.
+             * @since Since Chrome 35.
              */
-            stopFinding(action?: string): void;
+            stopFinding(action?: 'clear' | 'keep' | 'activate'): void;
 
             /**
              * Loads a data URL with a specified base URL used for relative links.
              * Optionally, a virtual URL can be provided to be shown to the user instead of the data URL.
-             * @param {string} dataUrl The data URL to load.
-             * @param {string} baseUrl The base URL that will be used for relative links.
-             * @param {string} virtualUrl The URL that will be displayed to the user (in the address bar).
+             * @param dataUrl The data URL to load.
+             * @param baseUrl The base URL that will be used for relative links.
+             * @param virtualUrl The URL that will be displayed to the user (in the address bar).
+             * @since Since Chrome 40.
              */
             loadDataWithBaseUrl(dataUrl: string, baseUrl: string, virtualUrl?: string): void;
 
@@ -9226,194 +9299,8 @@ declare namespace chrome {
              * but it will not affect webview tags in other apps.
              */
             terminate(): void;
-
-            /**
-             * Fired when the guest window attempts to close itself.
-             * The following example code navigates the webview to
-             * about:blank when the guest attempts to close itself.
-             * @example
-             * webview.addEventListener('close', function() {
-             *   webview.src = 'about:blank';
-             * });
-             */
-            close(event: chrome.events.Event<Event>): void;
-
-            /**
-             * Fired when the guest window logs a console message.
-             * The following example code forwards all log messages
-             * to the embedder's console without regard for log level
-             * or other properties.
-             * @example
-             * webview.addEventListener('consolemessage', function(e) {
-             *   console.log('Guest page logged a message: ', e.message);
-             * });
-             */
-            consolemessage: chrome.events.Event<ConsoleMessage>;
-
-            /**
-             * Fired when the guest window fires a load event, i.e., when a new document is loaded.
-             * This does *not* include page navigation within the current document or asynchronous
-             * resource loads. The following example code modifies the default font size of the
-             * guest's body element after the page loads:
-             * @example
-             * webview.addEventListener('contentload', function() {
-             *   webview.executeScript({ code: 'document.body.style.fontSize = '42px'' });
-             * });
-             */
-            contentload: (event: chrome.events.Event<Event>) => void;
-
-            /**
-             * Fired when the guest window attempts to open a modal dialog via window.alert, window.confirm, or window.prompt.<p>Handling this event will block the guest process until each event listener returns or the dialog object becomes unreachable (if preventDefault() was called.)</p><p>The default behavior is to cancel the dialog.</p>
-            * @param callback
-             */
-
-            dialog: chrome.events.Event<Dialog>;
-
-            /**
-             * Fired when the process rendering the guest web content has exited.
-             * The following example code will show a farewell message whenever
-             * the guest page crashes:
-             * @example
-             * webview.addEventListener('exit', function(e) {
-             *   if (e.reason === 'crash') {
-             *     webview.src = 'data:text/plain,Goodbye, world!';
-             *   }
-             * });
-            * @param callback
-             */
-
-            exit: chrome.events.Event<ExitEvent>;
-
-            /**
-             * Fired when new find results are available for an active find request.
-             * This might happen multiple times for a single find request as matches are found.
-             */
-
-            findupdate: chrome.events.Event<FindUpdate>;
-
-            /**
-             * Fired when a top-level load has aborted without committing.
-             * An error message will be printed to the console unless the event is default-prevented.
-             * @requires Note: When a resource load is aborted,
-             * a loadabort event will eventually be followed by a loadstop event,
-             * even if all committed loads since the last loadstop event (if any)
-             * were aborted.
-             * @requires Note: When the load of either an about URL
-             * or a JavaScript URL is aborted, loadabort will be fired
-             * and then the webview will be navigated to 'about:blank'.
-             */
-
-            loadabort: chrome.events.Event<LoadAbort>;
-
-            /**
-             * Fired when a load has committed. This includes navigation within the current document as well as subframe document-level loads, but does <em>not</em> include asynchronous resource loads.
-            * @param callback
-             */
-
-            loadcommit: chrome.events.Event<chrome.webview.LoadCommit>;
-
-            /**
-             * Fired when a top-level load request has redirected to a different URL.
-            * @param callback
-             */
-
-            loadredirect: chrome.events.Event<chrome.webview.LoadRedirect>;
-
-            /**
-             * Fired when a load has begun.
-            * @param callback
-             */
-
-            loadstart: chrome.events.Event<chrome.webview.LoadStart>;
-
-            /**
-             * Fired when all frame-level loads in a guest page (including all its subframes)
-             * have completed. This includes navigation within the current document as well
-             * as subframe document-level loads, but does not(!) include asynchronousresource
-             * loads. This event fires every time the number of document-level loads transitions
-             * from one (or more) to zero. For example, if a page that has already finished loading
-             * (i.e., loadstop already fired once) creates a new iframe which loads a page,
-             * then a second loadstop will fire when the iframe page load completes. This pattern
-             * is commonly observed on pages that load ads.
-             * @requires Note: When a committed load is aborted,
-             * a loadstop event will eventually follow a loadabort event,
-             * even if all committed loads since the last loadstop event (if any) were aborted.
-             */
-            loadstop(event: chrome.events.Event<Event>): void;
-
-            /**
-             * Fired when the guest page attempts to open a new browser window.
-             * The following example code will create and navigate a new webview
-             * in the embedder for each requested new window:
-             * @example
-             * webview.addEventListener('newwindow', function(e) {
-             *   const newWebview = document.createElement('webview');
-             *   document.body.appendChild(newWebview);
-             *   e.window.attach(newWebview);
-             * });
-             */
-
-            newwindow: chrome.events.Event<NewWindow>;
-
-            /**
-             * Fired when the guest page needs to request special permission from the embedder.
-             * The following example code will grant the guest page access to the webkitGetUserMedia API.
-             * Note that an app using this example code must itself specify audioCapture and / or
-             * videoCapture manifest permissions:
-             * @example
-             * webview.addEventListener('permissionrequest', function(e) {
-             *   if (e.permission === 'media') {
-             *     e.request.allow();
-             *   }
-             * });
-             */
-
-            permissionrequest: chrome.events.Event<PermissionRequest>;
-
-            /**
-             * Fired when the process rendering the guest web content has become
-             * responsive again after being unresponsive.
-             *
-             * The following example code will fade the webview element
-             * in or out as it becomes responsive or unresponsive:
-             *
-             * @example
-             * webview.style.webkitTransition = 'opacity 250ms';
-             * webview.addEventListener('unresponsive', function() {
-             *   webview.style.opacity = '0.5';
-             * });
-             * webview.addEventListener('responsive', function() {
-             *   webview.style.opacity = '1';
-             * });
-             */
-            responsive: chrome.events.Event<chrome.webview.ProcessResponsive>;
-            /**
-             * Fired when the embedded web content has been resized via autosize.
-             * @requires Note: Only fires if autosize is enabled.
-             */
-            sizechanged: chrome.events.Event<chrome.webview.SizeChanged>;
-            /**
-             * Fired when the process rendering the guest web content has become unresponsive.
-             * This event will be generated once with a matching responsive event if the guest begins to respond again.
-             */
-            unresponsive: chrome.events.Event<chrome.webview.ProcessUnresponsive>;
-            /**
-             * Fired when the page's zoom changes.
-             */
-            zoomchange: chrome.events.Event<chrome.webview.ZoomChange>;
         }
 
-        /** Options that determine what data should be cleared by clearData. */
-        interface ClearDataOptions {
-            /**
-             * Clear data accumulated on or after this date,
-             * represented in milliseconds since the epoch
-             * (accessible via the getTime method of the JavaScript Date object).
-             * If absent, defaults to 0 (which would remove all browsing data).
-             * @default 0
-             */
-            since?: integer;
-        }
         /** A set of data types. Missing properties are interpreted as false. */
         interface ClearDataTypeSet {
             /** Websites' appcaches. */
@@ -9793,7 +9680,12 @@ declare namespace chrome {
          * @example const rule = { conditions: [ new chrome.webViewRequest.RequestMatcher({ url: { hostSuffix: 'example.com' } }) ], actions: [ new chrome.webViewRequest.CancelRequest() ] }; myWebview.request.onRequest.addRules([rule]);
          **/
         interface WebRequestEventInterface {
-            /** @todo TODO */
+            onBeforeRequest: chrome.events.Event<(details: any) => void>;
+            onBeforeSendHeaders: chrome.events.Event<(details: any) => void>;
+            onSendHeaders: chrome.events.Event<(details: any) => void>;
+            onHeadersReceived: chrome.events.Event<(details: any) => void>;
+            onAuthRequired: chrome.events.Event<(details: any) => void>;
+
         }
         /**
         * Defines the how zooming is handled in the webview.
@@ -10015,9 +9907,9 @@ declare namespace chrome {
         }
         interface ZoomChange {
             /** The page's previous zoom factor. */
-            oldZoomFactor: integer;
+            oldzoomFactor: double;
             /** The new zoom factor that the page was zoomed to. */
-            newZoomFactor: integer;
+            newzoomFactor: double;
         }
     }
 
