@@ -257,7 +257,7 @@ function testWithState() {
     // We can also actually provide the generic necessary
     const enhancer3 = withState<OutterProps, number, "count", "setCount">("count", "setCount", 1);
     const Enhanced3 = enhancer3(props => {
-        return <div>{props.title}</div>; 
+        return <div>{props.count}</div>;
     });
     const rendered3 = (
         <Enhanced3 title="foo" />

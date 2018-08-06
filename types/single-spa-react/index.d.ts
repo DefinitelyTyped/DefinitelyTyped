@@ -2,7 +2,7 @@
 // Project: https://github.com/CanopyTax/single-spa-react
 // Definitions by: Garrett Smith <https://github.com/Garrett-Smith-iq>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
