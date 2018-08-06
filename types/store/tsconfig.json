@@ -19,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "storejs-tests.ts"
+        "store-tests.ts"
     ]
 }

@@ -1,4 +1,3 @@
-// Tests for storagejs.d.ts
 import * as store from 'store';
 import * as engine from 'store/src/store-engine';
 import * as allPlugin from 'store/plugins/all';
