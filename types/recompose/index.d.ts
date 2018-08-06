@@ -6,7 +6,7 @@
 //                 Rasmus Eneman <https://github.com/Pajn>
 //                 Lucas Terra <https://github.com/lucasterra>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 ///<reference types="react" />
 

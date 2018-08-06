@@ -8,7 +8,7 @@
 //                 Matthieu Vachon <https://github.com/maoueh>
 //                 Adam Lavin <https://github.com/lavoaster>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as util from './dist/util';
 
