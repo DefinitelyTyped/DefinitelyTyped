@@ -148,6 +148,7 @@ function test_setHtmlContents() {
     const html = "<b>this is a bold text</b>";
     const delta = quillEditor.clipboard.convert(html);
     quillEditor.setContents(delta);
+    quillEditor.clipboard.convert();
 }
 
 function test_getSelection() {
