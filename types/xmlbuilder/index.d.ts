@@ -88,4 +88,5 @@ declare namespace xmlbuilder {
     }
 
     function create(nameOrObjSpec: string | { [name:string]: Object }, xmldec?: Object, doctype?: any, options?: Object): XMLElementOrXMLNode;
+    function begin(): XMLElementOrXMLNode;
 }
