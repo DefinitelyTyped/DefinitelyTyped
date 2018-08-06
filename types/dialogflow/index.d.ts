@@ -2,541 +2,553 @@
 // Project: https://github.com/dialogflow/dialogflow-nodejs-client-v2#readme
 // Definitions by: Daniel Dyla <https://github.com/dyladan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 export namespace v2 {
     class AgentsClient {
-      constructor(options?: ClientOptions);
+        constructor(options?: ClientOptions);
 
-      servicePath: string;
-      port: number;
-      scopes: string[];
+        servicePath: string;
+        port: number;
+        scopes: string[];
 
-      getProjectId(): Promise<string>;
-      getProjectId(callback?: (error: Error, id: string) => string): void;
+        getProjectId(): Promise<string>;
+        getProjectId(callback?: (error: Error, id: string) => string): void;
 
-      getAgent(
-        request: GetAgentRequest,
-        options?: gax.CallOptions,
-        cb?: (err?: Error, agent?: Agent) => void,
-      ): Promise<[Agent]>;
-      searchAgents(
-        request: SearchAgentRequest,
-        options?: gax.CallOptions,
-        cb?: (err?: Error, agents?: Agent[], arg3?: any, response?: any) => void,
-      ): Promise<Agent[]>;
-      searchAgentsStream(
-        request: SearchAgentRequest,
-        options?: gax.CallOptions,
-      ): NodeJS.ReadableStream;
-      trainAgent(
-        request: TrainAgentRequest,
-        options?: gax.CallOptions,
-        cb?: (err?: Error, operation?: gax.Operation) => void,
-      ): Promise<[gax.Operation]>;
-      exportAgent(
-        request: ExportAgentRequest,
-        options?: gax.CallOptions,
-        cb?: (err?: Error, operation?: gax.Operation) => void,
-      ): Promise<[gax.Operation]>;
-      importAgent(
-        request: ImportAgentRequest,
-        options?: gax.CallOptions,
-        cb?: (err?: Error, operation?: gax.Operation) => void,
-      ): Promise<[gax.Operation]>;
-      restoreAgent(
-        request: RestoreAgentRequest,
-        options?: gax.CallOptions,
-        cb?: (err?: Error, operation?: gax.Operation) => void,
-      ): Promise<[gax.Operation]>;
+        getAgent(
+            request: GetAgentRequest,
+            options?: gax.CallOptions,
+            cb?: (err?: Error, agent?: Agent) => void
+        ): Promise<[Agent]>;
+        searchAgents(
+            request: SearchAgentRequest,
+            options?: gax.CallOptions,
+            cb?: (
+                err?: Error,
+                agents?: Agent[],
+                arg3?: any,
+                response?: any
+            ) => void
+        ): Promise<Agent[]>;
+        searchAgentsStream(
+            request: SearchAgentRequest,
+            options?: gax.CallOptions
+        ): any;
+        trainAgent(
+            request: TrainAgentRequest,
+            options?: gax.CallOptions,
+            cb?: (err?: Error, operation?: gax.Operation) => void
+        ): Promise<[gax.Operation]>;
+        exportAgent(
+            request: ExportAgentRequest,
+            options?: gax.CallOptions,
+            cb?: (err?: Error, operation?: gax.Operation) => void
+        ): Promise<[gax.Operation]>;
+        importAgent(
+            request: ImportAgentRequest,
+            options?: gax.CallOptions,
+            cb?: (err?: Error, operation?: gax.Operation) => void
+        ): Promise<[gax.Operation]>;
+        restoreAgent(
+            request: RestoreAgentRequest,
+            options?: gax.CallOptions,
+            cb?: (err?: Error, operation?: gax.Operation) => void
+        ): Promise<[gax.Operation]>;
     }
 
     class ContextsClient {
-      constructor(options?: ClientOptions);
+        constructor(options?: ClientOptions);
 
-      servicePath: string;
-      port: number;
-      scopes: string[];
+        servicePath: string;
+        port: number;
+        scopes: string[];
 
-      getProjectId(): Promise<string>;
-      getProjectId(callback?: (error: Error, id: string) => string): void;
+        getProjectId(): Promise<string>;
+        getProjectId(callback?: (error: Error, id: string) => string): void;
 
-      listContexts(
-        request: ListContextsRequest,
-        options?: gax.CallOptions,
-      ): Promise<[Context[]]>;
-      listContextsStream(
-        request: ListContextsRequest,
-        options?: gax.CallOptions,
-      ): NodeJS.ReadableStream;
-      getContext(
-        request: GetContextRequest,
-        options?: gax.CallOptions,
-      ): Promise<[Context]>;
-      createContext(
-        request: CreateContextReqeust,
-        options?: gax.CallOptions,
-      ): Promise<[Context]>;
-      updateContext(
-        request: UpdateContextRequest,
-        options?: gax.CallOptions,
-      ): Promise<[Context]>;
-      deleteContext(
-        request: DeleteContextRequest,
-        options?: gax.CallOptions,
-      ): Promise<void>;
-      deleteAllContexts(
-        request: DeleteAllContextsRequest,
-        options?: gax.CallOptions,
-      ): Promise<void>;
+        listContexts(
+            request: ListContextsRequest,
+            options?: gax.CallOptions
+        ): Promise<[Context[]]>;
+        listContextsStream(
+            request: ListContextsRequest,
+            options?: gax.CallOptions
+        ): any;
+        getContext(
+            request: GetContextRequest,
+            options?: gax.CallOptions
+        ): Promise<[Context]>;
+        createContext(
+            request: CreateContextReqeust,
+            options?: gax.CallOptions
+        ): Promise<[Context]>;
+        updateContext(
+            request: UpdateContextRequest,
+            options?: gax.CallOptions
+        ): Promise<[Context]>;
+        deleteContext(
+            request: DeleteContextRequest,
+            options?: gax.CallOptions
+        ): Promise<void>;
+        deleteAllContexts(
+            request: DeleteAllContextsRequest,
+            options?: gax.CallOptions
+        ): Promise<void>;
 
-      sessionPath(project: string, session: string): string;
-      contextPath(project: string, session: string, context: string): string;
+        sessionPath(project: string, session: string): string;
+        contextPath(project: string, session: string, context: string): string;
 
-      matchProjectFromContextName(name: string): string;
-      matchSessionFromContextName(name: string): string;
-      matchContextFromContextName(name: string): string;
+        matchProjectFromContextName(name: string): string;
+        matchSessionFromContextName(name: string): string;
+        matchContextFromContextName(name: string): string;
 
-      matchProjectFromSessionName(name: string): string;
-      matchSessionFromSessionName(name: string): string;
+        matchProjectFromSessionName(name: string): string;
+        matchSessionFromSessionName(name: string): string;
     }
 
     class EntityTypesClient {
-      constructor(options?: ClientOptions);
+        constructor(options?: ClientOptions);
 
-      servicePath: string;
-      port: number;
-      scopes: string[];
+        servicePath: string;
+        port: number;
+        scopes: string[];
 
-      getProjectId(): Promise<string>;
-      getProjectId(callback?: (error: Error, id: string) => string): void;
+        getProjectId(): Promise<string>;
+        getProjectId(callback?: (error: Error, id: string) => string): void;
 
-      listEntityTypes(
-        request: ListEntityTypesRequest,
-        options?: gax.CallOptions,
-      ): Promise<[EntityType[]]>;
+        listEntityTypes(
+            request: ListEntityTypesRequest,
+            options?: gax.CallOptions
+        ): Promise<[EntityType[]]>;
 
-      listEntityTypesStream(
-        request: ListEntityTypesRequest,
-        options?: gax.CallOptions,
-      ): NodeJS.ReadableStream;
+        listEntityTypesStream(
+            request: ListEntityTypesRequest,
+            options?: gax.CallOptions
+        ): any;
 
-      getEntityType(
-        request: GetEntityTypeRequest,
-        options?: gax.CallOptions,
-      ): Promise<[EntityType]>;
-      createEntityType(
-        request: CreateEntityTypeRequest,
-        options?: gax.CallOptions,
-      ): Promise<[EntityType]>;
-      updateEntityType(
-        request: UpdateEntityTypeRequest,
-        options?: gax.CallOptions,
-      ): Promise<[EntityType]>;
-      deleteEntityType(
-        request: DeleteEntityTypeRequest,
-        options?: gax.CallOptions,
-      ): Promise<void>;
+        getEntityType(
+            request: GetEntityTypeRequest,
+            options?: gax.CallOptions
+        ): Promise<[EntityType]>;
+        createEntityType(
+            request: CreateEntityTypeRequest,
+            options?: gax.CallOptions
+        ): Promise<[EntityType]>;
+        updateEntityType(
+            request: UpdateEntityTypeRequest,
+            options?: gax.CallOptions
+        ): Promise<[EntityType]>;
+        deleteEntityType(
+            request: DeleteEntityTypeRequest,
+            options?: gax.CallOptions
+        ): Promise<void>;
 
-      // TODO: add batch style calls
-      // batchUpdateEntityTypes
-      // batchDeleteEntityTypes
-      // batchCreateEntities
-      // batchUpdateEntities
-      // batchDeleteEntities
+        // TODO: add batch style calls
+        // batchUpdateEntityTypes
+        // batchDeleteEntityTypes
+        // batchCreateEntities
+        // batchUpdateEntities
+        // batchDeleteEntities
 
-      projectAgentPath(project: string): string;
-      entityTypePath(project: string, entityType: string): string;
-      matchProjectFromProjectAgentName(entityTypeName: string): string;
-      matchProjectFromEntityTypeName(entityTypeName: string): string;
-      matchEntityTypeFromEntityTypeName(entityTypeName: string): string;
+        projectAgentPath(project: string): string;
+        entityTypePath(project: string, entityType: string): string;
+        matchProjectFromProjectAgentName(entityTypeName: string): string;
+        matchProjectFromEntityTypeName(entityTypeName: string): string;
+        matchEntityTypeFromEntityTypeName(entityTypeName: string): string;
     }
 
     class IntentsClient {
-      constructor(options?: ClientOptions);
+        constructor(options?: ClientOptions);
 
-      servicePath: string;
-      port: number;
-      scopes: string[];
+        servicePath: string;
+        port: number;
+        scopes: string[];
 
-      getProjectId(): Promise<string>;
-      getProjectId(callback?: (error: Error, id: string) => string): void;
+        getProjectId(): Promise<string>;
+        getProjectId(callback?: (error: Error, id: string) => string): void;
 
-      listIntents(
-        request: ListIntentsRequest,
-        options?: gax.CallOptions,
-      ): Promise<[Intent[]]>;
-      getIntent(
-        request: GetIntentRequest,
-        options?: gax.CallOptions,
-      ): Promise<[Intent]>;
-      createIntent(
-        request: CreateIntentRequest,
-        options?: gax.CallOptions,
-      ): Promise<[Intent]>;
-      updateIntent(
-        request: UpdateIntentRequest,
-        options?: gax.CallOptions,
-      ): Promise<[Intent]>;
-      deleteIntent(
-        request: DeleteIntentRequest,
-        options?: gax.CallOptions,
-      ): Promise<void>;
+        listIntents(
+            request: ListIntentsRequest,
+            options?: gax.CallOptions
+        ): Promise<[Intent[]]>;
+        getIntent(
+            request: GetIntentRequest,
+            options?: gax.CallOptions
+        ): Promise<[Intent]>;
+        createIntent(
+            request: CreateIntentRequest,
+            options?: gax.CallOptions
+        ): Promise<[Intent]>;
+        updateIntent(
+            request: UpdateIntentRequest,
+            options?: gax.CallOptions
+        ): Promise<[Intent]>;
+        deleteIntent(
+            request: DeleteIntentRequest,
+            options?: gax.CallOptions
+        ): Promise<void>;
 
-      // TODO: add batch style calls
-      // batchUpdateIntents(request: BatchUpdateIntentsRequest): void;
-      // batchDeleteIntents(request: BatchDeleteIntentsRequest): void;
+        // TODO: add batch style calls
+        // batchUpdateIntents(request: BatchUpdateIntentsRequest): void;
+        // batchDeleteIntents(request: BatchDeleteIntentsRequest): void;
 
-      projectAgentPath(project: string): string;
-      intentPath(project: string, intent: string): string;
-      agentPath(project: string, agent: string): string;
+        projectAgentPath(project: string): string;
+        intentPath(project: string, intent: string): string;
+        agentPath(project: string, agent: string): string;
 
-      matchProjectFromProjectAgentName(projectAgentName: string): string;
-      matchProjectFromIntentName(intentName: string): string;
-      matchIntentFromIntentName(intentName: string): string;
-      matchProjectFromAgentName(agentName: string): string;
-      matchAgentFromAgentName(agentName: string): string;
+        matchProjectFromProjectAgentName(projectAgentName: string): string;
+        matchProjectFromIntentName(intentName: string): string;
+        matchIntentFromIntentName(intentName: string): string;
+        matchProjectFromAgentName(agentName: string): string;
+        matchAgentFromAgentName(agentName: string): string;
     }
 
     class SessionEntityTypesClient {
-      constructor(options?: ClientOptions);
+        constructor(options?: ClientOptions);
 
-      servicePath: string;
-      port: number;
-      scopes: string[];
+        servicePath: string;
+        port: number;
+        scopes: string[];
 
-      getProjectId(): Promise<string>;
-      getProjectId(callback?: (error: Error, id: string) => string): void;
+        getProjectId(): Promise<string>;
+        getProjectId(callback?: (error: Error, id: string) => string): void;
 
-      // TODO: add Session Entity Types service methods
+        // TODO: add Session Entity Types service methods
     }
 
     class SessionsClient {
-      constructor(options?: ClientOptions);
+        constructor(options?: ClientOptions);
 
-      servicePath: string;
-      port: number;
-      scopes: string[];
+        servicePath: string;
+        port: number;
+        scopes: string[];
 
-      getProjectId(): Promise<string>;
-      getProjectId(callback?: (error: Error, id: string) => string): void;
+        getProjectId(): Promise<string>;
+        getProjectId(callback?: (error: Error, id: string) => string): void;
 
-      detectIntent(
-        request: DetectIntentRequest,
-        options?: gax.CallOptions,
-      ): Promise<DetectIntentResponse[]>;
-      streamingDetectIntent(options?: gax.CallOptions): Promise<any>;
+        detectIntent(
+            request: DetectIntentRequest,
+            options?: gax.CallOptions
+        ): Promise<DetectIntentResponse[]>;
+        streamingDetectIntent(options?: gax.CallOptions): Promise<any>;
 
-      sessionPath(projectId: string, sessionId: string): string;
+        sessionPath(projectId: string, sessionId: string): string;
     }
-  }
+}
 
-  export namespace v2beta1 {
+export namespace v2beta1 {
     class AgentsClient extends v2.AgentsClient {}
     class ContextsClient extends v2.ContextsClient {
-      environmentSessionPath(
-        project: string,
-        environment: string,
-        user: string,
-        session: string,
-      ): string;
+        environmentSessionPath(
+            project: string,
+            environment: string,
+            user: string,
+            session: string
+        ): string;
 
-      environmentContextPath(
-        project: string,
-        environment: string,
-        user: string,
-        session: string,
-        context: string,
-      ): string;
+        environmentContextPath(
+            project: string,
+            environment: string,
+            user: string,
+            session: string,
+            context: string
+        ): string;
 
-      matchProjectFromEnvironmentSessionName(
-        environmentSessionName: string,
-      ): string;
-      matchEnvironmentFromEnvironmentSessionName(
-        environmentSessionName: string,
-      ): string;
-      matchUserFromEnvironmentSessionName(environmentSessionName: string): string;
-      matchSessionFromEnvironmentSessionName(
-        environmentSessionName: string,
-      ): string;
+        matchProjectFromEnvironmentSessionName(
+            environmentSessionName: string
+        ): string;
+        matchEnvironmentFromEnvironmentSessionName(
+            environmentSessionName: string
+        ): string;
+        matchUserFromEnvironmentSessionName(
+            environmentSessionName: string
+        ): string;
+        matchSessionFromEnvironmentSessionName(
+            environmentSessionName: string
+        ): string;
 
-      matchProjectFromEnvironmentContextName(
-        environmentContextName: string,
-      ): string;
-      matchEnvironmentFromEnvironmentContextName(
-        environmentContextName: string,
-      ): string;
-      matchUserFromEnvironmentContextName(environmentContextName: string): string;
-      matchSessionFromEnvironmentContextName(
-        environmentContextName: string,
-      ): string;
-      matchContextFromEnvironmentContextName(
-        environmentContextName: string,
-      ): string;
+        matchProjectFromEnvironmentContextName(
+            environmentContextName: string
+        ): string;
+        matchEnvironmentFromEnvironmentContextName(
+            environmentContextName: string
+        ): string;
+        matchUserFromEnvironmentContextName(
+            environmentContextName: string
+        ): string;
+        matchSessionFromEnvironmentContextName(
+            environmentContextName: string
+        ): string;
+        matchContextFromEnvironmentContextName(
+            environmentContextName: string
+        ): string;
     }
     class EntityTypesClient extends v2.EntityTypesClient {}
     class IntentsClient extends v2.IntentsClient {}
     class SessionEntityTypesClient extends v2.SessionEntityTypesClient {}
     class SessionsClient extends v2.SessionsClient {
-      environmentSessionPath(
-        project: string,
-        environment: string,
-        user: string,
-        session: string,
-      ): string;
+        environmentSessionPath(
+            project: string,
+            environment: string,
+            user: string,
+            session: string
+        ): string;
 
-      matchProjectFromEnvironmentSessionName(
-        environmentSessionName: string,
-      ): string;
-      matchEnvironmentFromEnvironmentSessionName(
-        environmentSessionName: string,
-      ): string;
-      matchUserFromEnvironmentSessionName(environmentSessionName: string): string;
-      matchSessionFromEnvironmentSessionName(
-        environmentSessionName: string,
-      ): string;
+        matchProjectFromEnvironmentSessionName(
+            environmentSessionName: string
+        ): string;
+        matchEnvironmentFromEnvironmentSessionName(
+            environmentSessionName: string
+        ): string;
+        matchUserFromEnvironmentSessionName(
+            environmentSessionName: string
+        ): string;
+        matchSessionFromEnvironmentSessionName(
+            environmentSessionName: string
+        ): string;
     }
-  }
+}
 
-  export class AgentsClient extends v2.AgentsClient {}
-  export class ContextsClient extends v2.ContextsClient {}
-  export class EntityTypesClient extends v2.EntityTypesClient {}
-  export class IntentsClient extends v2.IntentsClient {}
-  export class SessionEntityTypesClient extends v2.SessionEntityTypesClient {}
-  export class SessionsClient extends v2.SessionsClient {}
+export class AgentsClient extends v2.AgentsClient {}
+export class ContextsClient extends v2.ContextsClient {}
+export class EntityTypesClient extends v2.EntityTypesClient {}
+export class IntentsClient extends v2.IntentsClient {}
+export class SessionEntityTypesClient extends v2.SessionEntityTypesClient {}
+export class SessionsClient extends v2.SessionsClient {}
 
-  export namespace entities {
+export namespace entities {
     namespace DateTimeVariants {
-      type DateTime = {
-        date_time: string;
-      };
+        interface DateTime {
+            date_time: string;
+        }
 
-      type DateTimePeriod = {
-        startDateTime: DateTime;
-        endDateTime: DateTime;
-      };
+        interface DateTimePeriod {
+            startDateTime: DateTime;
+            endDateTime: DateTime;
+        }
 
-      type DatePeriod = {
-        startDate: Date;
-        endDate: Date;
-      };
-      type TimePeriod = {
-        startTime: string;
-        endTime: string;
-      };
+        interface DatePeriod {
+            startDate: Date;
+            endDate: Date;
+        }
+        interface TimePeriod {
+            startTime: string;
+            endTime: string;
+        }
     }
 
     type DateTime =
-      | string
-      | DateTimeVariants.DatePeriod
-      | DateTimeVariants.TimePeriod
-      | DateTimeVariants.DateTime
-      | DateTimeVariants.DateTimePeriod;
+        | string
+        | DateTimeVariants.DatePeriod
+        | DateTimeVariants.TimePeriod
+        | DateTimeVariants.DateTime
+        | DateTimeVariants.DateTimePeriod;
 
-    type Duration = {
-      unit: string;
-      amount: number;
-    };
+    interface Duration {
+        unit: string;
+        amount: number;
+    }
 
     type Date = string;
 
     type Time = string;
-  }
+}
 
-  export namespace gax {
-    export interface BackoffSettings {
-      initialRetryDelayMillis: number;
-      retryDelayMultiplier: number;
-      maxRetryDelayMillis: number;
-      initialRpcTimeoutMillis: number;
-      maxRpcTimeoutMillis: number;
-      totalTimeoutMillis: number;
+export namespace gax {
+    interface BackoffSettings {
+        initialRetryDelayMillis: number;
+        retryDelayMultiplier: number;
+        maxRetryDelayMillis: number;
+        initialRpcTimeoutMillis: number;
+        maxRpcTimeoutMillis: number;
+        totalTimeoutMillis: number;
     }
 
-    export interface RetryOptions {
-      retryCodes: string[];
-      backoffSettings: BackoffSettings;
+    interface RetryOptions {
+        retryCodes: string[];
+        backoffSettings: BackoffSettings;
     }
 
-    export interface CallOptions {
-      timeout?: number;
-      retry?: RetryOptions;
-      autoPaginate?: boolean;
-      pageToken?: any;
-      isBundling?: boolean;
-      longrunning?: BackoffSettings;
-      promise?: PromiseConstructor;
+    interface CallOptions {
+        timeout?: number;
+        retry?: RetryOptions;
+        autoPaginate?: boolean;
+        pageToken?: any;
+        isBundling?: boolean;
+        longrunning?: BackoffSettings;
+        promise?: PromiseConstructor;
     }
 
-    export interface Operation {
-      grpcOp: longrunning.Operation;
-      longrunningDescriptor: any;
-      backoffSettings: BackoffSettings;
-      callOptions?: CallOptions;
+    interface Operation {
+        grpcOp: longrunning.Operation;
+        longrunningDescriptor: any;
+        backoffSettings: BackoffSettings;
+        callOptions?: CallOptions;
     }
-  }
+}
 
-  export namespace longrunning {
-    export type Operation =
-      | UnfinishedOperation
-      | FailedOperation
-      | SuccessfulOperation;
+export namespace longrunning {
+    type Operation =
+        | UnfinishedOperation
+        | FailedOperation
+        | SuccessfulOperation;
 
-    export interface BaseOperation {
-      name: string;
-      metadata: any;
-      done: boolean;
-    }
-
-    export interface UnfinishedOperation extends BaseOperation {
-      done: false;
+    interface BaseOperation {
+        name: string;
+        metadata: any;
+        done: boolean;
     }
 
-    export interface FailedOperation extends BaseOperation {
-      done: true;
-      error: Status;
+    interface UnfinishedOperation extends BaseOperation {
+        done: false;
     }
 
-    export interface SuccessfulOperation extends BaseOperation {
-      done: true;
-      response: any;
+    interface FailedOperation extends BaseOperation {
+        done: true;
+        error: Status;
     }
 
-    export interface Status {
-      code: number;
-      message: string;
-      details: any[];
+    interface SuccessfulOperation extends BaseOperation {
+        done: true;
+        response: any;
     }
-  }
 
-  export interface GetAgentRequest {
+    interface Status {
+        code: number;
+        message: string;
+        details: any[];
+    }
+}
+
+export interface GetAgentRequest {
     parent: string;
-  }
+}
 
-  export interface SearchAgentRequest {
+export interface SearchAgentRequest {
     parent: string;
     pageSize?: number;
-  }
+}
 
-  export interface TrainAgentRequest {
+export interface TrainAgentRequest {
     parent: string;
-  }
+}
 
-  export interface ExportAgentRequest {
+export interface ExportAgentRequest {
     parent: string;
     agentUri?: string;
-  }
+}
 
-  export interface ImportAgentRequest {
+export interface ImportAgentRequest {
     parent: string;
     agentUri?: string;
     agentContent?: string;
-  }
+}
 
-  export interface RestoreAgentRequest {
+export interface RestoreAgentRequest {
     parent: string;
     agentUri?: string;
     agentContent?: string;
-  }
+}
 
-  export interface ListContextsRequest {
+export interface ListContextsRequest {
     parent: string;
     pageSize?: number;
-  }
+}
 
-  export interface GetContextRequest {
+export interface GetContextRequest {
     name: string;
-  }
+}
 
-  export interface CreateContextReqeust {
+export interface CreateContextReqeust {
     parent: string;
     context: Context;
-  }
+}
 
-  export interface UpdateContextRequest {
+export interface UpdateContextRequest {
     context: Context;
     updatemask?: any;
-  }
+}
 
-  export interface DeleteContextRequest {
+export interface DeleteContextRequest {
     name: string;
-  }
+}
 
-  export interface DeleteAllContextsRequest {
+export interface DeleteAllContextsRequest {
     parent: string;
-  }
+}
 
-  export interface ListEntityTypesRequest {
+export interface ListEntityTypesRequest {
     parent: string;
     languageCode?: string;
     pageSize?: number;
-  }
+}
 
-  export interface GetEntityTypeRequest {
+export interface GetEntityTypeRequest {
     name: string;
     languageCode?: string;
-  }
+}
 
-  export interface CreateEntityTypeRequest {
+export interface CreateEntityTypeRequest {
     parent: string;
     entityType: EntityType;
-  }
+}
 
-  export interface UpdateEntityTypeRequest {
+export interface UpdateEntityTypeRequest {
     entityType: EntityType;
     languageCode?: string;
     /** @link https://github.com/google/protobuf/blob/master/src/google/protobuf/field_mask.proto */
     updateMask?: any;
-  }
+}
 
-  export interface DeleteEntityTypeRequest {
+export interface DeleteEntityTypeRequest {
     name: string;
-  }
+}
 
-  export interface ListIntentsRequest {
+export interface ListIntentsRequest {
     parent: string;
     languageCode?: string;
     intentView?: IntentView;
     pageSize?: number;
-  }
+}
 
-  export interface GetIntentRequest {
+export interface GetIntentRequest {
     name: string;
     languageCode?: string;
     intentView?: IntentView;
-  }
+}
 
-  export interface CreateIntentRequest {
+export interface CreateIntentRequest {
     parent: string;
     intent: Intent;
     languageCode?: string;
     intentView?: IntentView;
-  }
+}
 
-  export interface UpdateIntentRequest {
+export interface UpdateIntentRequest {
     intent: Intent;
     languageCode?: string;
     updateMask?: any;
     intentView?: IntentView;
-  }
+}
 
-  export interface DeleteIntentRequest {
+export interface DeleteIntentRequest {
     name: string;
-  }
+}
 
-  export interface DetectIntentRequest {
+export interface DetectIntentRequest {
     session: string;
     queryInput: QueryInput;
     queryParams?: QueryParams;
-    inputAudio?: Buffer;
-  }
+    inputAudio?: any;
+}
 
-  export interface DetectIntentResponse {
+export interface DetectIntentResponse {
     responseId: string;
     queryResult: QueryResult;
     webhookStatus: Status;
-  }
+}
 
-  export interface QueryResult {
+export interface QueryResult {
     queryText: string;
     laugnageCode: string;
     speechRecognitionConfidence: number;
@@ -551,15 +563,15 @@ export namespace v2 {
     intent: Intent;
     intentDetectionConfidence: number;
     diagnosticInfo: any;
-  }
+}
 
-  export interface Status {
+export interface Status {
     code: StatusCode;
     message: string;
     details: any[];
-  }
+}
 
-  export enum StatusCode {
+export enum StatusCode {
     // Not an error; returned on success
     //
     // HTTP Mapping: 200 OK
@@ -711,10 +723,10 @@ export namespace v2 {
     // Unrecoverable data loss or corruption.
     //
     // HTTP Mapping: 500 Internal Server Error
-    DATA_LOSS = 15,
-  }
+    DATA_LOSS = 15
+}
 
-  export interface Agent {
+export interface Agent {
     parent: string;
     displayName: string;
     defaultLanguageCode: string;
@@ -725,34 +737,34 @@ export namespace v2 {
     enableLogging?: boolean;
     matchMode?: MatchMode;
     classificationThreshold?: number;
-  }
+}
 
-  export interface Context {
+export interface Context {
     name: string;
     lifespanCount?: number;
     parameters?: any;
-  }
+}
 
-  export interface EntityType {
+export interface EntityType {
     name: string;
     entities: EntitySynonyms[];
     displayName: string;
     kind: EntityKind;
     autoExpansionMode: EntityAutoExpansionMode;
-  }
+}
 
-  export enum MatchMode {
+export enum MatchMode {
     MATCH_MODE_UNSPECIFIED = "MATCH_MODE_UNSPECIFIED",
     MATCH_MODE_HYBRID = "MATCH_MODE_HYBRID",
-    MATCH_MODE_ML_ONLY = "MATCH_MODE_ML_ONLY",
-  }
+    MATCH_MODE_ML_ONLY = "MATCH_MODE_ML_ONLY"
+}
 
-  export interface Credentials {
+export interface Credentials {
     clientEmail?: string;
     privateKey?: string;
-  }
+}
 
-  export interface ClientOptions {
+export interface ClientOptions {
     credentials?: Credentials;
     email?: string;
     keyFilename?: string;
@@ -760,29 +772,29 @@ export namespace v2 {
     projectId?: string;
     promise?: PromiseConstructor;
     servicePath?: string;
-  }
+}
 
-  export interface EntitySynonyms {
+export interface EntitySynonyms {
     synonyms: string[];
     value: string;
-  }
+}
 
-  export enum EntityKind {
+export enum EntityKind {
     KIND_MAP = "KIND_MAP",
-    KIND_LIST = "KIND_LIST",
-  }
+    KIND_LIST = "KIND_LIST"
+}
 
-  export enum EntityAutoExpansionMode {
+export enum EntityAutoExpansionMode {
     AUTO_EXPANSION_MODE_DEFAULT = "AUTO_EXPANSION_MODE_DEFAULT",
-    AUTO_EXPANSION_MODE_UNSPECIFIED = "AUTO_EXPANSION_MODE_UNSPECIFIED",
-  }
+    AUTO_EXPANSION_MODE_UNSPECIFIED = "AUTO_EXPANSION_MODE_UNSPECIFIED"
+}
 
-  export enum IntentView {
+export enum IntentView {
     INTENT_VIEW_UNSPECIFIED = "INTENT_VIEW_UNSPECIFIED",
-    INTENT_VIEW_FULL = "INTENT_VIEW_FULL",
-  }
+    INTENT_VIEW_FULL = "INTENT_VIEW_FULL"
+}
 
-  export interface Intent {
+export interface Intent {
     name: string;
     displayName: string;
     webhookState: string;
@@ -801,23 +813,23 @@ export namespace v2 {
     rootFollowupIntentName: string;
     parentFollowupIntentName: string;
     followupIntentInfo?: FollowupIntentInfo[];
-  }
+}
 
-  export interface TrainingPhrase {
+export interface TrainingPhrase {
     name: string;
     type: string;
     parts: Part[];
     timesAddedCount?: number;
-  }
+}
 
-  export interface Part {
+export interface Part {
     text: string;
     entityType?: string;
     alias?: string;
     userDefined?: boolean;
-  }
+}
 
-  export interface Parameter {
+export interface Parameter {
     name: string;
     displayName: string;
     value?: string;
@@ -826,90 +838,90 @@ export namespace v2 {
     mandatory?: boolean;
     prompts?: string[];
     isList?: boolean;
-  }
+}
 
-  export interface FollowupIntentInfo {
+export interface FollowupIntentInfo {
     followupIntentName: string;
     parentFollowupIntentName: string;
-  }
+}
 
-  export interface Message {
+export interface Message {
     platform?: string;
     text?: Text;
     card?: Card;
     payload?: any;
-  }
+}
 
-  export interface Text {
+export interface Text {
     text: string[];
-  }
+}
 
-  export interface Card {
+export interface Card {
     title?: string;
     subtitle?: string;
     imageUri?: string;
     buttons?: Button[];
-  }
+}
 
-  export interface Button {
+export interface Button {
     text?: string;
     postback?: string;
-  }
+}
 
-  export interface EventInput {
+export interface EventInput {
     name: string;
     languageCode: string;
     parameters?: any;
-  }
+}
 
-  export interface TextInput {
+export interface TextInput {
     text: string;
     languageCode: string;
-  }
+}
 
-  export interface QueryInput {
+export interface QueryInput {
     text?: TextInput;
     event?: EventInput;
-  }
+}
 
-  export interface QueryParams {
+export interface QueryParams {
     timeZone?: string;
     geoLocation?: LatLong;
     contexts?: Context[];
     resetContexts?: boolean;
     sessionEntityTypes?: SessionEntityType[];
     payload?: any;
-  }
+}
 
-  export interface LatLong {
+export interface LatLong {
     latitude: number;
     longitude: number;
-  }
+}
 
-  export interface SessionEntityType {
+export interface SessionEntityType {
     name: string;
     entityOverrideMode: string;
     entities: Entity[];
-  }
+}
 
-  export interface Entity {
+export interface Entity {
     value: string;
     synonyms: string[];
-  }
+}
 
-  export interface WebhookRequest {
+export interface WebhookRequest {
     session: string;
     responseId: string;
 
     queryResult: QueryResult;
     originalDetectIntentRequest?: any;
-  }
+}
 
-  export interface WebhookResponse {
+export interface WebhookResponse {
     fulfillmentText?: string;
     fulfillmentMessages?: Message[];
     source?: string;
     payload?: any;
     outputContexts?: Context[];
     followupEventInput?: EventInput;
-  }
+}
