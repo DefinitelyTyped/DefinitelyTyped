@@ -691,6 +691,35 @@ chrome.syncFileSystem.getConflictResolutionPolicy((policy) => {
     }
 });
 
+// TTS
+
+chrome.tts.isSpeaking((isSpeaking) => {
+    if (!isSpeaking) {
+        chrome.tts.speak('This is the typings calling!',
+            {
+                volume: 10,
+            });
+    }
+});
+
+// USB
+const devices: { [key: string]: chrome.usb.Device } = {};
+chrome.usb.onDeviceAdded.addListener((device) => {
+    devices[device.device] = device;
+});
+chrome.usb.onDeviceRemoved.addListener((device) => {
+    // tslint:disable-next-line:no-dynamic-delete
+    delete devices[device.device];
+});
+chrome.usb.getUserSelectedDevices({
+    'multiple': false
+}, (selected_devices) => {
+    if (chrome.runtime.lastError != undefined) {
+        console.warn('chrome.usb.getUserSelectedDevices error: ' + chrome.runtime.lastError.message);
+        return;
+    }
+});
+
 // WEBVIEW
 
 let wve: chrome.webview.HTMLWebViewElement = (<any>document.getElementById('webview'));
