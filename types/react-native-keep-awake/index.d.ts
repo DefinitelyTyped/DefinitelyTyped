@@ -2,7 +2,7 @@
 // Project: https://github.com/corbt/react-native-keep-awake
 // Definitions by: huhuanming <https://github.com/huhuanming>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 declare class KeepAwake extends React.Component<{ children?: JSX.Element }> {

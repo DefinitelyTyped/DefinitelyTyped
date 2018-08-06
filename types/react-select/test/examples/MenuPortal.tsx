@@ -52,7 +52,6 @@ export default class MenuPortal extends React.Component<any, State> {
             />
             <Note Tag="label">
               <select
-                // TODO type="radio"
                 onChange={this.setPlacement}
                 value={portalPlacement}
                 id="cypress-portalled__radio-bottom"

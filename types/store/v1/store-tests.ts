@@ -1,4 +1,3 @@
-// Tests for storagejs.d.ts
 import * as store from 'store';
 
 // Store 'marcus' at 'username'

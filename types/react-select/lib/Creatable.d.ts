@@ -14,10 +14,10 @@ export interface CreatableProps<OptionType> {
   formatCreateLabel?: (inputValue: string) => Node;
   /* Determines whether the "create new ..." option should be displayed based on
      the current input value, select value and options array. */
-  isValidNewOption?: (a: string, b: ValueType<OptionType>, c: OptionsType<OptionType>) => boolean;
+  isValidNewOption?: (inputValue: string, value: ValueType<OptionType>, options: OptionsType<OptionType>) => boolean;
   /* Returns the data for the new option when it is created. Used to display the
      value, and is passed to `onChange`. */
-  getNewOptionData?: (a: string, b: Node) => OptionType;
+  getNewOptionData?: (inputValue: string, optionLabel: Node) => OptionType;
   /* If provided, this will be called with the input value when a new option is
      created, and `onChange` will **not** be called. Use this when you need more
      control over what happens when new options are created. */

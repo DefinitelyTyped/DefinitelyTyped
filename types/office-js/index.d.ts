@@ -331,7 +331,7 @@ declare namespace Office {
      * 
      * @remarks
      * 
-     * Returned by the {@link Office.AsyncResult.status | status} property of the {@link Office.AsyncResult | AsyncResult} object.
+     * Returned by the `status` property of the {@link Office.AsyncResult | AsyncResult} object.
      * 
      * **Support details**
      * 
@@ -574,12 +574,10 @@ declare namespace Office {
         * Gets the payload or content of this asynchronous operation, if any.
         * 
         * @remarks
-        * You access the AsyncResult object in the function passed as the argument to the callback parameter of an "Async" method, 
-        * such as the {@link Office.Document.getSelectedDataAsync | getSelectedDataAsync} and {@link Office.Document.setSelectedDataAsync | setSelectedDataAsync} methods of the Document object.
+        * You access the AsyncResult object in the function passed as the argument to the callback parameter of an "Async" method, such as the `getSelectedDataAsync` and `setSelectedDataAsync` methods of the {@link Office.Document | Document} object.
         *
         * Note: What the value property returns for a particular "Async" method varies depending on the purpose and context of that method. 
-        * To determine what is returned by the value property for an "Async" method, refer to the "Callback value" section of the method's topic. 
-        * For a complete listing of the "Async" methods, see the Remarks section of the {@link Office.AsyncResult | AsyncResult} object topic.
+        * To determine what is returned by the value property for an "Async" method, refer to the "Callback value" section of the method's topic.
         * 
         * **Support details**
         * 
@@ -1582,7 +1580,7 @@ declare namespace Office {
         /**
          * Return a JSON object that contains an array of the ids, titles, and indexes of the selected slides. For example, `{"slides":[{"id":257,"title":"Slide 2","index":2},{"id":256,"title":"Slide 1","index":1}]}` for a selection of two slides.
          * 
-         * Note: Only applies to data in PowerPoint when calling the {@link Office.Document.getSelectedData | Document.getSelectedData} method to get the current slide or selected range of slides.
+         * Note: Only applies to data in PowerPoint when calling the {@link Office.Document | Document}.getSelectedData method to get the current slide or selected range of slides.
          */
         SlideRange,
         /**
@@ -1950,7 +1948,7 @@ declare namespace Office {
         Index
     }
     /**
-     * Specifies the relative PowerPoint slide
+     * Specifies the relative PowerPoint slide.
      * 
      * @remarks
      * 
@@ -1962,7 +1960,7 @@ declare namespace Office {
      * 
      * *Supported hosts, by platform*
      *  <table>
-     *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad /th></tr>
+     *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
      *   <tr><th> PowerPoint </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
      *  </table>
      */
@@ -1985,7 +1983,7 @@ declare namespace Office {
         Previous
     }
     /**
-     * Specifies whether to select (highlight) the location to navigate to (when using the {@link Office.Document.goToByIdAsync | Document.goToByIdAsync} method).
+     * Specifies whether to select (highlight) the location to navigate to (when using the {@link Office.Document | Document}.goToByIdAsync method).
      *
      * @remarks
      * 
@@ -1997,7 +1995,7 @@ declare namespace Office {
      * 
      * *Supported hosts, by platform*
      *  <table>
-     *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad /th></tr>
+     *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
      *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
      *   <tr><th> PowerPoint </th><td> Y                          </td><td>                            </td><td>                 </td></tr>
      *   <tr><th> Word       </th><td> Y                          </td><td>                            </td><td> Y               </td></tr>
@@ -4684,11 +4682,11 @@ declare namespace Office {
      */
     interface TextBinding extends Binding { }
     /**
-     * Specifies the project fields that are available as a parameter for the {@link Office.Document.getProjectFieldAsync | getProjectFieldAsync} method.
+     * Specifies the project fields that are available as a parameter for the {@link Office.Document | Document}.getProjectFieldAsync method.
      *
      * @remarks
      * 
-     * A ProjectProjectFields constant can be used as a parameter of the {@link Office.Document.getProjectFieldAsync | getProjectFieldAsync} method.
+     * A ProjectProjectFields constant can be used as a parameter of the {@link Office.Document | Document}.getProjectFieldAsync method.
      * 
      * **Support details**
      * 
@@ -4754,10 +4752,10 @@ declare namespace Office {
         WSSList
     }
     /**
-     * Specifies the resource fields that are available as a parameter for the {@link Office.Document.getResourceFieldAsync | getResourceFieldAsync} method.
+     * Specifies the resource fields that are available as a parameter for the {@link Office.Document | Document}.getResourceFieldAsync method.
      *
      * @remarks
-     * A ProjectResourceFields constant can be used as a parameter of the {@link Office.Document.getResourceFieldAsync | getResourceFieldAsync} method.
+     * A ProjectResourceFields constant can be used as a parameter of the {@link Office.Document | Document}.getResourceFieldAsync method.
      *
      * For more information about working with fields in Project, see {@link https://support.office.com/article/Available-fields-reference-615a4563-1cc3-40f4-b66f-1b17e793a460 | Available fields} reference. In Project Help, search for Available fields.
      * 
@@ -5576,10 +5574,10 @@ declare namespace Office {
         Text9
     }
     /**
-     * Specifies the task fields that are available as a parameter for the {@link Office.Document.getTaskFieldAsync | getTaskFieldAsync} method.
+     * Specifies the task fields that are available as a parameter for the {@link Office.Document | Document}.getTaskFieldAsync method.
      *
      * @remarks
-     * A ProjectTaskFields constant can be used as a parameter of the {@link Office.Document.getTaskFieldAsync | getTaskFieldAsync} method.
+     * A ProjectTaskFields constant can be used as a parameter of the {@link Office.Document | Document}.getTaskFieldAsync method.
      *
      * For more information about working with fields in Project, see the {@link https://support.office.com/article/Available-fields-reference-615a4563-1cc3-40f4-b66f-1b17e793a460 | Available fields} reference. In Project Help, search for Available fields.
      * 
@@ -6724,10 +6722,10 @@ declare namespace Office {
         WSSID
     }
     /**
-     * Specifies the types of views that the {@link Office.Document.getSelectedViewAsync | getSelectedViewAsync} method can recognize.
+     * Specifies the types of views that the {@link Office.Document | Document}.getSelectedViewAsync method can recognize.
      *
      * @remarks
-     * The {@link Office.Document.getSelectedViewAsync | getSelectedViewAsync} method returns the ProjectViewTypes constant value and name that corresponds to the active view.
+     * The {@link Office.Document | Document}.getSelectedViewAsync method returns the ProjectViewTypes constant value and name that corresponds to the active view.
      * 
      * **Support details**
      * 
