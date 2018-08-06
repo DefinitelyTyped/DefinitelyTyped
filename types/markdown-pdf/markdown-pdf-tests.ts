@@ -1,4 +1,4 @@
-import * as mdPdf from 'markdown-pdf';
+import mdPdf = require('markdown-pdf');
 
 mdPdf().from('path').to('path', () => { }); // $ExpectType void
 mdPdf().from.string('markdown').to('path', () => { }); // $ExpectType void
