@@ -147,11 +147,21 @@ interface JQueryStatic {
      * by passing an HTML string.
      *
      * @param element_elementArray A DOM element to wrap in a jQuery object.
-     *                             An array containing a set of DOM elements to wrap in a jQuery object.
      * @see \`{@link https://api.jquery.com/jQuery/ }\`
      * @since 1.0
      */
-    <T extends Element>(element_elementArray: T | T[]): JQuery<T>;
+    // tslint:disable-next-line:unified-signatures
+    <T extends Element>(element_elementArray: T): JQuery<T>;
+    /**
+     * Return a collection of matched elements either found in the DOM based on passed argument(s) or created
+     * by passing an HTML string.
+     *
+     * @param element_elementArray An array containing a set of DOM elements to wrap in a jQuery object.
+     * @see \`{@link https://api.jquery.com/jQuery/ }\`
+     * @since 1.0
+     */
+    // tslint:disable-next-line:unified-signatures
+    <T extends Element>(element_elementArray: T[]): JQuery<T>;
     /**
      * Return a collection of matched elements either found in the DOM based on passed argument(s) or created
      * by passing an HTML string.
