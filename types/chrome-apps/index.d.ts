@@ -403,10 +403,11 @@ declare namespace chrome {
         }
 
         /**
-         * Fired when an embedding app requests to embed this app. This event is only available on dev channel with the flag --enable-app-view.
+         * Fired when an embedding app requests to embed this app.
+         * @requires(dev) This event is only available on dev channel with the flag --enable-app-view.
          * @since Since Chrome 38.
          */
-        const onEmbedRequest: chrome.events.Event<(request: EmbedRequest) => void>;
+        const onEmbedRequested: chrome.events.Event<(request: EmbedRequested) => void>;
         /**
          * Fired when an app is launched from the launcher.
          */
