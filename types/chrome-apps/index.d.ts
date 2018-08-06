@@ -6371,64 +6371,215 @@ declare namespace chrome {
      */
     namespace sockets.tcp {
         interface CreateInfo {
-            socketId: number;
+            /**
+             * The ID of the newly created socket.
+             * Note that socket IDs created from this API are
+             * **not compatible** with socket IDs created from
+             * other APIs, such as the deprecated socket API.
+             */
+            socketId: integer;
         }
 
         interface SendInfo {
+            /** The result code returned from the underlying network call. A negative value indicates an error. */
             resultCode: number;
+            /** The number of bytes sent (if result == 0) */
             bytesSent?: number;
         }
 
         interface ReceiveEventArgs {
-            socketId: number;
+            /** The socket identifier. */
+            socketId: integer;
+            /** The data received, with a maxium size of *bufferSize*. */
             data: ArrayBuffer;
         }
 
         interface ReceiveErrorEventArgs {
-            socketId: number;
+            /** The socket identifier. */
+            socketId: integer;
+            /** The result code returned from the underlying network call. */
             resultCode: number;
         }
 
         interface SocketProperties {
+            /**
+             * Flag indicating if the socket is left open when the event page of the
+             * application is unloaded. When the application is loaded, any sockets
+             * previously opened with persistent=true can be fetched with *getSockets*.
+             * @default false
+             */
             persistent?: boolean;
+            /** An application-defined string associated with the socket. */
             name?: string;
-            bufferSize?: number;
+            /**
+             * The size of the buffer used to receive data.
+             * @default: 4096
+             */
+            bufferSize?: integer;
         }
 
         interface SocketInfo {
-            socketId: number;
+            /** The socket identifier. */
+            socketId: integer;
+            /** Flag indicating whether the socket is left open when the application is suspended (see SocketProperties.persistent). */
             persistent: boolean;
+            /** Application-defined string associated with the socket. */
             name?: string;
-            bufferSize?: number;
+            /** The size of the buffer used to receive data. If no buffer size has been specified explictly, the value is not provided. */
+            bufferSize?: integer;
+            /** Flag indicating whether a connected socket blocks its peer from sending more data (see setPaused). */
             paused: boolean;
+            /** Flag indicating whether the socket is connected to a remote peer. */
             connected: boolean;
+            /** If the underlying socket is connected, contains its local IPv4/6 address. */
             localAddress?: string;
-            localPort?: number;
+            /** If the underlying socket is connected, contains its local port. */
+            localPort?: integer;
+            /** If the underlying socket is connected, contains the peer/ IPv4/6 address. */
             peerAddress?: string;
-            peerPort?: number;
+            /** If the underlying socket is connected, contains the peer port. */
+            peerPort?: integer;
         }
-
+        interface SecureOptions {
+            /**
+             * The minimum and maximum acceptable versions of TLS.
+             * These will be tls1, tls1.1, or tls1.2.
+             * *Note*
+             * tls1.3 should be supported from Chrome 67.
+             * @see[TLS Info and support table]{@link https://en.wikipedia.org/wiki/Transport_Layer_Security#TLS_1.3}
+             */
+            tlsVersion?: {
+                min?: 'tls1' | 'tls1.1' | 'tls1.2' | 'tls1.3',
+                max?: 'tls1' | 'tls1.1' | 'tls1.2' | 'tls1.3',
+            },
+        }
+        /** Creates a TCP socket. */
         function create(callback: (createInfo: CreateInfo) => void): void;
+        /**
+         * Creates a TCP socket.
+         * @param properties The socket properties (optional).
+         */
         function create(properties: SocketProperties, callback: (createInfo: CreateInfo) => void): void;
 
-        function update(socketId: number, properties: SocketProperties, callback?: () => void): void;
-        function setPaused(socketId: number, paused: boolean, callback?: () => void): void;
+        /** Updates the socket properties. */
+        function update(socketId: integer, properties: SocketProperties, callback?: () => void): void;
 
-        function setKeepAlive(socketId: number,
-            enable: boolean, callback: (result: number) => void): void;
-        function setKeepAlive(socketId: number,
-            enable: boolean, delay: number, callback: (result: number) => void): void;
+        /**
+         * Enables or disables the application from receiving messages from its peer.
+         * The default value is "false". Pausing a socket is typically used by an
+         * application to throttle data sent by its peer. When a socket is paused,
+         * no onReceive event is raised. When a socket is connected and un-paused,
+         * onReceive events are raised again when messages are received.
+         */
+        function setPaused(socketId: integer, paused: boolean, callback?: () => void): void;
 
-        function setNoDelay(socketId: number, noDelay: boolean, callback: (result: number) => void): void;
-        function connect(socketId: number,
-            peerAddress: string, peerPort: number, callback: (result: number) => void): void;
-        function disconnect(socketId: number, callback?: () => void): void;
-        function send(socketId: number, data: ArrayBuffer, callback: (sendInfo: SendInfo) => void): void;
-        function close(socketId: number, callback?: () => void): void;
-        function getInfo(socketId: number, callback: (socketInfo: SocketInfo) => void): void;
+        /**
+         * @description Enables or disables the keep-alive functionality for a TCP connection.
+         * @param socketId The socket identifier.
+         * @param enable If true, enable keep-alive functionality.
+         * @param callback Provides the result code returned from the underlying network call. A negative value indicates an error.
+         */
+        function setKeepAlive(socketId: integer,
+            enable: boolean, callback: (result: integer) => void): void;
+        /**
+         * @description Enables or disables the keep-alive functionality for a TCP connection.
+         * @param socketId The socket identifier.
+         * @param enable If true, enable keep-alive functionality.
+         * @param [delay] Set the delay seconds between the last data packet received and the first keepalive probe. Default is 0.
+         * @param callback Provides the result code returned from the underlying network call. A negative value indicates an error.
+         */
+        function setKeepAlive(socketId: integer,
+            enable: boolean, delay: integer, callback: (result: integer) => void): void;
+
+        /**
+         * Sets or clears TCP_NODELAY for a TCP connection.
+         * Nagle's algorithm will be disabled when TCP_NODELAY is set.
+         * @param socketId The socket identifier.
+         * @param noDelay If true, disables Nagle's algorithm.
+         * @param callback Called when the setNoDelay attempt is complete. Provides the result code returned
+         *                 from the underlying network call. A negative value indicates an error.
+         */
+        function setNoDelay(socketId: integer, noDelay: boolean, callback: (result: integer) => void): void;
+
+        /**
+         * Connects the socket to a remote machine.
+         * When the connect operation completes successfully,
+         * onReceive events are raised when data is received from the peer.
+         * If a network error occurs while the runtime is receiving packets,
+         * a onReceiveError event is raised, at which point no more onReceive
+         * event will be raised for this socket until the resume method is called.
+         * @param socketId The socket identifier.
+         * @param peerAddress The address of the remote machine. DNS name, IPv4 and IPv6 formats are supported.
+         * @param peerPort The port of the remote machine.
+         * @param callback Called when the connect attempt is complete.
+         *                 The result code returned from the underlying network call.
+         *                 A negative value indicates an error.
+         */
+        function connect(socketId: integer,
+            peerAddress: string, peerPort: integer, callback: (result: integer) => void): void;
+
+        /**
+         * @description Disconnects the socket.
+         * @param socketId The socket identifier.
+         * @param [callback] Called when the disconnect attempt is complete.
+         */
+        function disconnect(socketId: integer, callback?: () => void): void;
+
+        /**
+         * Start a TLS client connection over the connected TCP client socket.
+         * @since Chrome 38.
+         * @param socketId The existing, connected socket to use.
+         * @param callback Called when the connection attempt is complete.
+         */
+        function secure(socketId: integer, callback: (result: integer) => void): void;
+        /**
+         * Start a TLS client connection over the connected TCP client socket.
+         * @since Chrome 38.
+         * @param socketId The existing, connected socket to use.
+         * @param [options] Constraints and parameters for the TLS connection.
+         * @param callback Called when the connection attempt is complete.
+         */
+        function secure(socketId: integer, options: SecureOptions, callback: (result: integer) => void): void;
+
+        /**
+         * @description Sends data on the given TCP socket.
+         * @param socketId The socket identifier.
+         * @param data The data to send.
+         * @param callback Called when the send operation completes.
+         */
+        function send(socketId: integer, data: ArrayBuffer, callback: (sendInfo: SendInfo) => void): void;
+
+        /**
+         * Closes the socket and releases the address/port the socket is bound to.
+         * Each socket created should be closed after use. The socket id is no longer
+         * valid as soon at the function is called. However, the socket is guaranteed
+         * to be closed only when the callback is invoked.
+         * @param socketId The socket identifier.
+         * @param [callback] Called when the close operation completes.
+         */
+        function close(socketId: integer, callback?: () => void): void;
+
+        /**
+         * Retrieves the state of the given socket.
+         * @param socketId The socket identifier.
+         * @param callback Called when the socket state is available. Provides an object containing the socket information.
+         */
+        function getInfo(socketId: integer, callback: (socketInfo: SocketInfo) => void): void;
+
+        /**
+         * @description Retrieves the list of currently opened sockets owned by the application.
+         * @param callback Called when the list of sockets is available. Provides an array of socket info.
+         */
         function getSockets(callback: (socketInfos: SocketInfo[]) => void): void;
 
+        /** Event raised when data has been received for a given socket. */
         const onReceive: chrome.events.Event<(args: ReceiveEventArgs) => void>;
+        /**
+         * Event raised when a network error occured while the runtime was
+         * waiting for data on the socket address and port. Once this event
+         * is raised, the socket is set to paused and no more onReceive
+         * events are raised for this socket.
+         */
         const onReceiveError: chrome.events.Event<(args: ReceiveErrorEventArgs) => void>;
     }
 
@@ -6442,17 +6593,17 @@ declare namespace chrome {
      */
     namespace sockets.tcpServer {
         interface CreateInfo {
-            socketId: number;
+            socketId: integer;
         }
 
         interface AcceptEventArgs {
-            socketId: number;
-            clientSocketId: number;
+            socketId: integer;
+            clientSocketId: integer;
         }
 
         interface AcceptErrorEventArgs {
-            socketId: number;
-            resultCode: number;
+            socketId: integer;
+            resultCode: integer;
         }
 
         /**
@@ -6478,7 +6629,7 @@ declare namespace chrome {
          */
         interface SocketInfo {
             /** The socket identifier. */
-            socketId: number;
+            socketId: integer;
 
             /**
              * Flag indicating if the socket remains open when the event page of the
@@ -6501,7 +6652,7 @@ declare namespace chrome {
             localAddress?: string;
 
             /** If the socket is listening, contains its local port. */
-            localPort?: number;
+            localPort?: integer;
         }
 
         /**
@@ -6529,7 +6680,7 @@ declare namespace chrome {
          * @param properties The properties to update.
          * @param callback   Called when the properties are updated.
          */
-        function update(socketId: number, properties: SocketProperties, callback?: () => void): void;
+        function update(socketId: integer, properties: SocketProperties, callback?: () => void): void;
 
         /**
          * Enables or disables a listening socket from accepting new connections.
@@ -6540,7 +6691,7 @@ declare namespace chrome {
          * @see https://developer.chrome.com/apps/sockets_tcpServer#method-setPaused
          * @param callback Callback from the setPaused method.
          */
-        function setPaused(socketId: number, paused: boolean, callback?: () => void): void;
+        function setPaused(socketId: integer, paused: boolean, callback?: () => void): void;
 
         /**
          * Listens for connections on the specified port and address. If the
@@ -6557,7 +6708,7 @@ declare namespace chrome {
          *                 ensures a reasonable queue length for most applications.
          * @param callback Called when listen operation completes.
          */
-        function listen(socketId: number, address: string, port: number, backlog: number, callback: (result: number) => void): void;
+        function listen(socketId: integer, address: string, port: integer, backlog: integer, callback: (result: integer) => void): void;
 
         /**
          * Listens for connections on the specified port and address. If the
@@ -6571,7 +6722,7 @@ declare namespace chrome {
          *                 be found by calling getInfo.
          * @param callback Called when listen operation completes.
          */
-        function listen(socketId: number, address: string, port: number, callback: (result: number) => void): void;
+        function listen(socketId: integer, address: string, port: integer, callback: (result: integer) => void): void;
 
         /**
          * Disconnects the listening socket, i.e. stops accepting new connections
@@ -6583,7 +6734,7 @@ declare namespace chrome {
          * @param socketId The socket identifier.
          * @param callback Called when the disconnect attempt is complete.
          */
-        function disconnect(socketId: number, callback?: () => void): void;
+        function disconnect(socketId: integer, callback?: () => void): void;
 
         /**
          * Disconnects and destroys the socket. Each socket created should be closed
@@ -6595,7 +6746,7 @@ declare namespace chrome {
          * @param socketId The socket identifier.
          * @param callback Called when the close operation completes.
          */
-        function close(socketId: number, callback?: () => void): void;
+        function close(socketId: integer, callback?: () => void): void;
 
         /**
          * Retrieves the state of the given socket.
@@ -6604,7 +6755,7 @@ declare namespace chrome {
          * @param socketId The socket identifier.
          * @param callback Called when the socket state is available.
          */
-        function getInfo(socketId: number, callback: (socketInfo: SocketInfo) => void): void;
+        function getInfo(socketId: integer, callback: (socketInfo: SocketInfo) => void): void;
 
         /**
          * Retrieves the list of currently opened sockets owned by the application.
@@ -6642,24 +6793,24 @@ declare namespace chrome {
      */
     namespace sockets.udp {
         interface CreateInfo {
-            socketId: number;
+            socketId: integer;
         }
 
         interface SendInfo {
-            resultCode: number;
-            bytesSent?: number;
+            resultCode: integer;
+            bytesSent?: integer;
         }
 
         interface ReceiveEventArgs {
-            socketId: number;
+            socketId: integer;
             data: ArrayBuffer;
             remoteAddress: string;
-            remotePort: number;
+            remotePort: integer;
         }
 
         interface ReceiveErrorEventArgs {
-            socketId: number;
-            resultCode: number;
+            socketId: integer;
+            resultCode: integer;
         }
 
         /**
@@ -6683,7 +6834,7 @@ declare namespace chrome {
              * small to receive the UDP packet, data is lost. The default value is
              * 4096.
              */
-            bufferSize?: number;
+            bufferSize?: integer;
         }
 
         /**
@@ -6691,7 +6842,7 @@ declare namespace chrome {
          */
         interface SocketInfo {
             /** The socket identifier. */
-            socketId: number;
+            socketId: integer;
 
             /**
              * Flag indicating whether the socket is left open when the application
@@ -6706,7 +6857,7 @@ declare namespace chrome {
              * The size of the buffer used to receive data. If no buffer size ha
              * been specified explictly, the value is not provided.
              */
-            bufferSize?: number;
+            bufferSize?: integer;
 
             /**
              * Flag indicating whether the socket is blocked from firing onReceive
@@ -6722,7 +6873,7 @@ declare namespace chrome {
             /**
              * If the underlying socket is bound, contains its local port.
              */
-            localPort?: number;
+            localPort?: integer;
         }
 
         /**
@@ -6750,7 +6901,7 @@ declare namespace chrome {
          * @param properties The properties to update.
          * @param callback   Called when the properties are updated.
          */
-        function update(socketId: number, properties: SocketProperties, callback?: () => void): void;
+        function update(socketId: integer, properties: SocketProperties, callback?: () => void): void;
 
         /**
          * Pauses or unpauses a socket. A paused socket is blocked from firing
@@ -6762,7 +6913,7 @@ declare namespace chrome {
          * @param callback Called when the socket has been successfully paused or
          *                 unpaused.
          */
-        function setPaused(socketId: number, paused: boolean, callback?: () => void): void;
+        function setPaused(socketId: integer, paused: boolean, callback?: () => void): void;
 
         /**
          * Binds the local address and port for the socket. For a client socket, it
@@ -6781,7 +6932,7 @@ declare namespace chrome {
          *                 port.
          * @param callback Called when the bind operation completes.
          */
-        function bind(socketId: number, address: string, port: number, callback: (result: number) => void): void;
+        function bind(socketId: integer, address: string, port: integer, callback: (result: integer) => void): void;
 
         /**
          * Sends data on the given socket to the given address and port. The socket
@@ -6794,7 +6945,7 @@ declare namespace chrome {
          * @param port     The port of the remote machine.
          * @param callback Called when the send operation completes.
          */
-        function send(socketId: number, data: ArrayBuffer, address: string, port: number, callback: (sendInfo: SendInfo) => void): void;
+        function send(socketId: integer, data: ArrayBuffer, address: string, port: integer, callback: (sendInfo: SendInfo) => void): void;
 
         /**
          * Closes the socket and releases the address/port the socket is bound to.
@@ -6806,7 +6957,7 @@ declare namespace chrome {
          * @param socketId The socket ID.
          * @param callback Called when the close operation completes.
          */
-        function close(socketId: number, callback?: () => void): void;
+        function close(socketId: integer, callback?: () => void): void;
 
         /**
          * Retrieves the state of the given socket.
@@ -6815,7 +6966,7 @@ declare namespace chrome {
          * @param socketId The socket ID.
          * @param callback Called when the socket state is available.
          */
-        function getInfo(socketId: number, callback: (socketInfo: SocketInfo) => void): void;
+        function getInfo(socketId: integer, callback: (socketInfo: SocketInfo) => void): void;
 
         /**
          * Retrieves the list of currently opened sockets owned by the application.
@@ -6834,7 +6985,7 @@ declare namespace chrome {
          * @param address  The group address to join. Domain names are not supported.
          * @param callback Called when the joinGroup operation completes.
          */
-        function joinGroup(socketId: number, address: string, callback: (result: number) => void): void;
+        function joinGroup(socketId: integer, address: string, callback: (result: integer) => void): void;
 
         /**
          * Leaves the multicast group previously joined using joinGroup. This is
@@ -6851,7 +7002,7 @@ declare namespace chrome {
          *                 supported.
          * @param callback Called when the leaveGroup operation completes.
          */
-        function leaveGroup(socketId: number, address: string, callback: (result: number) => void): void;
+        function leaveGroup(socketId: integer, address: string, callback: (result: integer) => void): void;
 
         /**
          * Sets the time-to-live of multicast packets sent to the multicast group.
@@ -6863,7 +7014,7 @@ declare namespace chrome {
          * @param ttl      The time-to-live value.
          * @param callback Called when the configuration operation completes.
          */
-        function setMulticastTimeToLive(socketId: number, ttl: number, callback: (result: number) => void): void;
+        function setMulticastTimeToLive(socketId: integer, ttl: integer, callback: (result: integer) => void): void;
 
         /**
          * Sets whether multicast packets sent from the host to the multicast group
@@ -6886,7 +7037,7 @@ declare namespace chrome {
          * @param enabled  Indicate whether to enable loopback mode.
          * @param callback Called when the configuration operation completes.
          */
-        function setMulticastLoopbackMode(socketId: number, enabled: boolean, callback: (result: number) => void): void;
+        function setMulticastLoopbackMode(socketId: integer, enabled: boolean, callback: (result: integer) => void): void;
 
         /**
          * Gets the multicast group addresses the socket is currently joined to.
@@ -6895,7 +7046,7 @@ declare namespace chrome {
          * @param socketId The socket ID.
          * @param callback Called with an array of strings of the result.
          */
-        function getJoinedGroups(socketId: number, callback: (groups: string[]) => void): void;
+        function getJoinedGroups(socketId: integer, callback: (groups: string[]) => void): void;
 
         /**
          * Enables or disables broadcast packets on this socket.
@@ -6906,7 +7057,7 @@ declare namespace chrome {
          * @param enabled  true to enable broadcast packets, false to disable them.
          * @param callback Callback from the setBroadcast method.
          */
-        function setBroadcast(socketId: number, enabled: boolean, callback?: (result: number) => void): void;
+        function setBroadcast(socketId: integer, enabled: boolean, callback?: (result: integer) => void): void;
 
         /**
          * Event raised when a UDP packet has been received for the given socket.
