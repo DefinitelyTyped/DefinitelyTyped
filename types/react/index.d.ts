@@ -50,7 +50,7 @@ declare namespace React {
     // ----------------------------------------------------------------------
 
     type ReactType<P = any> = string | ComponentType<P>;
-    type ComponentType<P = {}> = ComponentClass<P, any> | StatelessComponent<P>;
+    type ComponentType<P = {}> = ComponentClass<P> | StatelessComponent<P>;
 
     type Key = string | number;
 
@@ -356,7 +356,7 @@ declare namespace React {
         displayName?: string;
     }
 
-    interface ComponentClass<P = {}, S = ComponentState> extends StaticLifecycle<P, S> {
+    interface ComponentClass<P = {}, S = any> extends StaticLifecycle<P, S> {
         new (props: P, context?: any): Component<P, S>;
         propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
