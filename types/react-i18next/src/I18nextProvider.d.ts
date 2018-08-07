@@ -6,7 +6,7 @@ export interface I18nextProviderProps {
     i18n: i18n;
     initialI18nStore?: any;
     initialLanguage?: string;
-    children: JSX.Element;
+    children: React.ReactNode;
 }
 
 export default class I18nextProvider extends React.Component<I18nextProviderProps> { }

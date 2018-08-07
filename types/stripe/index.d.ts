@@ -189,7 +189,7 @@ declare namespace Stripe {
              * account holder to setup a username and password, and handle all account
              * management directly with them. Possible values are custom and standard.
              */
-            type: 'custom' | 'standard';
+            type: "custom" | "standard";
         }
 
         interface IAccountShared {
@@ -1470,7 +1470,7 @@ declare namespace Stripe {
             source?: sources.ISourceCreationOptionsExtended;
         }
 
-        interface ICustomerListOptions extends IListOptionsCreated {            
+        interface ICustomerListOptions extends IListOptionsCreated {
             /**
              * A filter on the list based on the customer’s email field. The value must be a string.
              */
@@ -4347,7 +4347,7 @@ declare namespace Stripe {
             /**
              * Value is 'card'
              */
-            object: 'card';
+            object: "card";
 
             /**
              * The card number
@@ -4680,7 +4680,7 @@ declare namespace Stripe {
             trial_period_days?: number;
 
             /**
-             * Indicates if a plan’s trial_period_days should be applied to the subscription. Setting trial_end per subscription is preferred, 
+             * Indicates if a plan’s trial_period_days should be applied to the subscription. Setting trial_end per subscription is preferred,
              * and this defaults to false. Setting this flag to true together with trial_end is not allowed.
              */
             trial_from_plan?: boolean;
@@ -5039,6 +5039,11 @@ declare namespace Stripe {
              * For other types of refunds, it can be pending, succeeded, failed, or canceled.
              */
             status: "pending" | "succeeded" | "failed" | "canceled";
+
+            /**
+             * If the refund failed, the reason for refund failure if known.
+             */
+            failure_reason?: "lost_or_stolen_card" | "expired_or_canceled_card" | "unknown";
         }
 
         interface IRefundCreationOptions extends IDataOptionsWithMetadata {

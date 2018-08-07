@@ -6,7 +6,7 @@
 //                 Rasmus Eneman <https://github.com/Pajn>
 //                 Lucas Terra <https://github.com/lucasterra>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 ///<reference types="react" />
 
@@ -141,7 +141,7 @@ declare module 'recompose' {
         stateUpdaterName: TStateUpdaterName,
         initialState: TState | mapper<TOutter, TState>
     ): InferableComponentEnhancerWithProps<
-        TOutter & stateProps<TState, TStateName, TStateUpdaterName>,
+        stateProps<TState, TStateName, TStateUpdaterName>,
         TOutter
     >;
 

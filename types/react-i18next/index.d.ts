@@ -3,6 +3,7 @@
 // Definitions by: Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
 //                 Simon Baumann <https://github.com/chnoch>
 //                 Benedict Etzel <https://github.com/beheh>
+//                 Wu Haotian <https://github.com/whtsky>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 

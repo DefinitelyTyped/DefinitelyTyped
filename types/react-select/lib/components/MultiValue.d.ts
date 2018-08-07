@@ -1,10 +1,10 @@
-import { ComponentType, Component, ReactNode as Node } from 'react';
+import { ComponentType, Component, ReactNode } from 'react';
 
 import { borderRadius, colors, spacing } from '../theme';
 import { CommonProps } from '../types';
 
 export type MultiValueProps<OptionType> = CommonProps<OptionType> &{
-  children: Node,
+  children: ReactNode,
   components: any,
   cropWithEllipsis: boolean,
   data: OptionType,
@@ -23,7 +23,7 @@ export function multiValueLabelCSS(props: MultiValueProps<any>): React.CSSProper
 export function multiValueRemoveCSS(props: MultiValueProps<any>): React.CSSProperties;
 
 export interface MultiValueGenericProps<OptionType> {
-  children: Node;
+  children: ReactNode;
   data: OptionType;
   innerProps: { className?: string };
   selectProps: any;
@@ -33,7 +33,7 @@ export const MultiValueGeneric: ComponentType<MultiValueGenericProps<any>>;
 export const MultiValueContainer: typeof MultiValueGeneric;
 export const MultiValueLabel: typeof MultiValueGeneric;
 export type MultiValueRemoveProps<OptionType> = CommonProps<OptionType> & {
-  children: Node,
+  children: ReactNode,
   innerProps: {
     className: string,
     onTouchEnd: (event: any) => void,
@@ -44,7 +44,7 @@ export type MultiValueRemoveProps<OptionType> = CommonProps<OptionType> & {
 };
 export class MultiValueRemove<OptionType> extends Component<MultiValueRemoveProps<OptionType>> {
   static defaultProps: {
-    children: Node,
+    children: ReactNode,
   };
 }
 

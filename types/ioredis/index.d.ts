@@ -6,6 +6,7 @@
 //                 Ebrahim <https://github.com/br8h>
 //                 Shahar Mor <https://github.com/shaharmor>
 //                 Whemoon Jang <https://github.com/palindrom615>
+//                 Francis Gulotta <https://github.com/reconbot>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -65,10 +66,23 @@ declare namespace IORedis {
 
         get(key: string, callback: (err: Error, res: string) => void): void;
         get(key: string): Promise<string>;
+
         getBuffer(key: string, callback: (err: Error, res: Buffer) => void): void;
         getBuffer(key: string): Promise<Buffer>;
 
-        set(key: string, value: any, ...args: any[]): any;
+        set(key: string, value: any, expiryMode?: string | any[], time?: number | string, setMode?: number | string): Promise<string>;
+
+        set(key: string, value: any, callback: (err: Error, res: string) => void): void;
+        set(key: string, value: any, setMode: string | any[], callback: (err: Error, res: string) => void): void;
+        set(key: string, value: any, expiryMode: string, time: number | string, callback: (err: Error, res: string) => void): void;
+        set(key: string, value: any, expiryMode: string, time: number | string, setMode: number | string, callback: (err: Error, res: string) => void): void;
+
+        setBuffer(key: string, value: any, expiryMode?: string | any[], time?: number | string, setMode?: number | string): Promise<Buffer>;
+
+        setBuffer(key: string, value: any, callback: (err: Error, res: Buffer) => void): void;
+        setBuffer(key: string, value: any, setMode: string, callback: (err: Error, res: Buffer) => void): void;
+        setBuffer(key: string, value: any, expiryMode: string, time: number, callback: (err: Error, res: Buffer) => void): void;
+        setBuffer(key: string, value: any, expiryMode: string, time: number | string, setMode: number | string, callback: (err: Error, res: Buffer) => void): void;
 
         setnx(key: string, value: any, callback: (err: Error, res: any) => void): void;
         setnx(key: string, value: any): Promise<any>;
@@ -241,12 +255,16 @@ declare namespace IORedis {
 
         hset(key: string, field: string, value: any, callback: (err: Error, res: 0 | 1) => void): void;
         hset(key: string, field: string, value: any): Promise<0 | 1>;
+        hsetBuffer(key: string, field: string, value: any, callback: (err: Error, res: 0 | 1) => void): void;
+        hsetBuffer(key: string, field: string, value: any): Promise<Buffer>;
 
         hsetnx(key: string, field: string, value: any, callback: (err: Error, res: 0 | 1) => void): void;
         hsetnx(key: string, field: string, value: any): Promise<0 | 1>;
 
         hget(key: string, field: string, callback: (err: Error, res: string) => void): void;
         hget(key: string, field: string): Promise<string>;
+        hgetBuffer(key: string, field: string, callback: (err: Error, res: Buffer) => void): void;
+        hgetBuffer(key: string, field: string): Promise<Buffer>;
 
         hmset(key: string, field: string, value: any, ...args: string[]): Promise<0 | 1>;
         hmset(key: string, data: any, callback: (err: Error, res: 0 | 1) => void): void;
@@ -471,7 +489,15 @@ declare namespace IORedis {
         get(key: string, callback?: (err: Error, res: string) => void): Pipeline;
         getBuffer(key: string, callback?: (err: Error, res: Buffer) => void): Pipeline;
 
-        set(key: string, value: any, ...args: any[]): Pipeline;
+        set(key: string, value: any, callback?: (err: Error, res: string) => void): Pipeline;
+        set(key: string, value: any, setMode: string, callback?: (err: Error, res: string) => void): Pipeline;
+        set(key: string, value: any, expiryMode: string, time: number, callback?: (err: Error, res: string) => void): Pipeline;
+        set(key: string, value: any, expiryMode: string, time: number, setMode: string, callback?: (err: Error, res: string) => void): Pipeline;
+
+        setBuffer(key: string, value: any, callback?: (err: Error, res: Buffer) => void): Pipeline;
+        setBuffer(key: string, value: any, setMode: string, callback?: (err: Error, res: Buffer) => void): Pipeline;
+        setBuffer(key: string, value: any, expiryMode: string, time: number, callback?: (err: Error, res: Buffer) => void): Pipeline;
+        setBuffer(key: string, value: any, expiryMode: string, time: number, setMode: string, callback?: (err: Error, res: Buffer) => void): Pipeline;
 
         setnx(key: string, value: any, callback?: (err: Error, res: any) => void): Pipeline;
 
@@ -602,10 +628,12 @@ declare namespace IORedis {
         zrevrank(key: string, member: string, callback?: (err: Error, res: number) => void): Pipeline;
 
         hset(key: string, field: string, value: any, callback?: (err: Error, res: 0 | 1) => void): Pipeline;
+        hsetBuffer(key: string, field: string, value: any, callback?: (err: Error, res: Buffer) => void): Pipeline;
 
         hsetnx(key: string, field: string, value: any, callback?: (err: Error, res: 0 | 1) => void): Pipeline;
 
         hget(key: string, field: string, callback?: (err: Error, res: string) => void): Pipeline;
+        hgetBuffer(key: string, field: string, callback?: (err: Error, res: Buffer) => void): Pipeline;
 
         hmset(key: string, field: string, value: any, ...args: string[]): Pipeline;
         hmset(key: string, data: any, callback?: (err: Error, res: 0 | 1) => void): Pipeline;

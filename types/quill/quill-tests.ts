@@ -129,7 +129,7 @@ function test_updateContents() {
     }));
 }
 
-function test_setContents() {
+function test_setDeltaContents() {
     const quillEditor = new Quill('#editor');
     quillEditor.setContents(new Delta({ ops: [
         { insert: 'Hello ' },
@@ -138,9 +138,17 @@ function test_setContents() {
     ]}));
 }
 
-function test_setText() {
+function test_setTextContents() {
     const quillEditor = new Quill('#editor');
     quillEditor.setText('Hello\n');
+}
+
+function test_setHtmlContents() {
+    const quillEditor = new Quill('#editor');
+    const html = "<b>this is a bold text</b>";
+    const delta = quillEditor.clipboard.convert(html);
+    quillEditor.setContents(delta);
+    quillEditor.clipboard.convert();
 }
 
 function test_getSelection() {

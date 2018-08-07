@@ -214,10 +214,7 @@ function signOutDeprecated() {
     }
 
     navigator.credentials.requireUserMediation().then(() => {
-        const location = document.location;
-        if (location) {
-          location.assign('/');
-        }
+        document.location!.assign('/');
     });
 }
 
@@ -227,10 +224,7 @@ function signOut() {
     }
 
     navigator.credentials.preventSilentAccess().then(() => {
-        const location = document.location;
-        if (location) {
-          location.assign('/');
-        }
+        document.location!.assign('/');
     });
 }
 

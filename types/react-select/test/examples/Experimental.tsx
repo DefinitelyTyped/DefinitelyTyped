@@ -89,7 +89,7 @@ const daysHeaderItemStyles = {
   cursor: 'default',
   // display: 'block',
   fontSize: '75%',
-  fontWeight: 500,
+  fontWeight: 500 as 500,
   display: 'inline-block',
   width: '12%',
   margin: '0 1%',

@@ -25,6 +25,7 @@
 //                 Alexander T. <https://github.com/a-tarasyuk>
 //                 Lishude <https://github.com/islishude>
 //                 Andrew Makarov <https://github.com/r3nya>
+//                 Eugene Y. Q. Shen <https://github.com/eyqs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /** inspector module types */
@@ -5708,7 +5709,7 @@ declare module "util" {
 }
 
 declare module "assert" {
-    function internal(value: any, message?: string): void;
+    function internal(value: any, message?: string | Error): void;
     namespace internal {
         export class AssertionError implements Error {
             name: string;
@@ -5717,34 +5718,30 @@ declare module "assert" {
             expected: any;
             operator: string;
             generatedMessage: boolean;
+            code: 'ERR_ASSERTION';
 
             constructor(options?: {
                 message?: string; actual?: any; expected?: any;
-                operator?: string; stackStartFunction?: Function
+                operator?: string; stackStartFn?: Function
             });
         }
 
-        export function fail(message: string): never;
-        export function fail(actual: any, expected: any, message?: string, operator?: string): never;
-        export function ok(value: any, message?: string): void;
-        export function equal(actual: any, expected: any, message?: string): void;
-        export function notEqual(actual: any, expected: any, message?: string): void;
-        export function deepEqual(actual: any, expected: any, message?: string): void;
-        export function notDeepEqual(acutal: any, expected: any, message?: string): void;
-        export function strictEqual(actual: any, expected: any, message?: string): void;
-        export function notStrictEqual(actual: any, expected: any, message?: string): void;
-        export function deepStrictEqual(actual: any, expected: any, message?: string): void;
-        export function notDeepStrictEqual(actual: any, expected: any, message?: string): void;
+        export function fail(message?: string | Error): never;
+        export function fail(actual: any, expected: any, message?: string | Error, operator?: string, stackStartFn?: Function): never;
+        export function ok(value: any, message?: string | Error): void;
+        export function equal(actual: any, expected: any, message?: string | Error): void;
+        export function notEqual(actual: any, expected: any, message?: string | Error): void;
+        export function deepEqual(actual: any, expected: any, message?: string | Error): void;
+        export function notDeepEqual(actual: any, expected: any, message?: string | Error): void;
+        export function strictEqual(actual: any, expected: any, message?: string | Error): void;
+        export function notStrictEqual(actual: any, expected: any, message?: string | Error): void;
+        export function deepStrictEqual(actual: any, expected: any, message?: string | Error): void;
+        export function notDeepStrictEqual(actual: any, expected: any, message?: string | Error): void;
 
-        export function throws(block: Function, message?: string): void;
-        export function throws(block: Function, error: Function, message?: string): void;
-        export function throws(block: Function, error: RegExp, message?: string): void;
-        export function throws(block: Function, error: (err: any) => boolean, message?: string): void;
-
-        export function doesNotThrow(block: Function, message?: string): void;
-        export function doesNotThrow(block: Function, error: Function, message?: string): void;
-        export function doesNotThrow(block: Function, error: RegExp, message?: string): void;
-        export function doesNotThrow(block: Function, error: (err: any) => boolean, message?: string): void;
+        export function throws(block: Function, message?: string | Error): void;
+        export function throws(block: Function, error: RegExp | Function, message?: string | Error): void;
+        export function doesNotThrow(block: Function, message?: string | Error): void;
+        export function doesNotThrow(block: Function, error: RegExp | Function, message?: string | Error): void;
 
         export function ifError(value: any): void;
     }
