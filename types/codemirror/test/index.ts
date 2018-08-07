@@ -67,6 +67,15 @@ myCodeMirror.on(
   (instance: CodeMirror.Editor, line: CodeMirror.LineHandle, element: HTMLElement) => { }
 );
 
+myCodeMirror.on(
+  "beforeChange",
+  (instance: CodeMirror.Editor, change: CodeMirror.EditorChangeCancellable) => {
+    // $ExpectError
+    change.update();
+    if (change.update != null) change.update();
+  }
+);
+
 CodeMirror.registerHelper("lint", "javascript", {});
 
 myCodeMirror.isReadOnly();

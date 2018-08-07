@@ -716,8 +716,9 @@ declare namespace CodeMirror {
     }
 
     interface EditorChangeCancellable extends CodeMirror.EditorChange {
-        /** may be used to modify the change. All three arguments to update are optional, and can be left off to leave the existing value for that field intact. */
-        update(from?: CodeMirror.Position, to?: CodeMirror.Position, text?: string[]): void;
+        /** may be used to modify the change. All three arguments to update are optional, and can be left off to leave the existing value for that field intact.
+        If the change came from undo/redo, `update` is undefined and the change cannot be modified. */
+        update?(from?: CodeMirror.Position, to?: CodeMirror.Position, text?: string[]): void;
 
         cancel(): void;
     }
