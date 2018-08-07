@@ -49,6 +49,8 @@ interface Options extends Pick<_Options, keyof _Options> { }
 interface _Options {
     cwd: string;
     path: string;
+    include?: boolean;
+    expandKeys?: boolean;
 }
 
 type ParseCallback = ((err: Error | null, config: Config) => void);
