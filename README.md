@@ -6,7 +6,7 @@
 
 Also see the [definitelytyped.org](http://definitelytyped.org) website, although information in this README is more up-to-date.
 
-*[You can also read this README in Spanish!](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md)*
+*You can also read this README in [Spanish](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md) and [Korean!](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md)*
 
 ## What are declaration files?
 

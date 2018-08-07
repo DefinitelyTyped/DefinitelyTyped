@@ -1,4 +1,4 @@
-import { Component, ReactNode as Node, ComponentType } from 'react';
+import { Component, ReactNode, ComponentType } from 'react';
 import { spacing } from '../theme';
 import { CommonProps, KeyboardEventHandler } from '../types';
 
@@ -16,7 +16,7 @@ export interface ContainerState {
 export type ContainerProps<OptionType> = CommonProps<OptionType> &
   ContainerState & {
     /** The children to be rendered. */
-    children: Node,
+    children: ReactNode,
     /** Inner props to be passed down to the container. */
     innerProps: { onKeyDown: KeyboardEventHandler },
   };
@@ -33,7 +33,7 @@ export type ValueContainerProps<OptionType> = CommonProps<OptionType> & {
   /** Whether the value container currently holds a value. */
   hasValue: boolean,
   /** The children to be rendered. */
-  children: Node,
+  children: ReactNode,
 };
 export function valueContainerCSS(): React.CSSProperties;
 export class ValueContainer extends Component<ValueContainerProps<any>> {}
@@ -50,7 +50,7 @@ export interface IndicatorsState {
 export type IndicatorContainerProps<OptionType> = CommonProps<OptionType> &
   IndicatorsState & {
     /** The children to be rendered. */
-    children: Node,
+    children: ReactNode,
   };
 
 export function indicatorsContainerCSS(): React.CSSProperties;

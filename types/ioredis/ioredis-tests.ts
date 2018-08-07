@@ -16,7 +16,20 @@ redis.sadd('set', 1, 3, 5, 7);
 redis.sadd('set', [1, 3, 5, 7]);
 
 // All arguments are passed directly to the redis server:
-redis.set('key', '100', 'EX', 10);
+redis.set('key', '100');
+redis.set('key', '100', 'XX');
+redis.set('key', '100', 'PX', 10);
+redis.set('key', '100', 'EX', 10, 'NX');
+redis.set('key', '100', 'NX', 'EX', 10);
+redis.set('key', '100', ['EX', 10, 'NX']);
+redis.setBuffer('key', '100', 'NX', 'EX', 10);
+
+redis.set('key', '100', (err, data) => {});
+redis.set('key', '100', 'XX', (err, data) => {});
+redis.set('key', '100', 'PX', 10, (err, data) => {});
+redis.set('key', '100', 'EX', 10, 'NX', (err, data) => {});
+redis.set('key', '100', ['EX', 10, 'NX'], (err, data) => {});
+redis.setBuffer('key', '100', 'NX', 'EX', 10, (err, data) => {});
 
 new Redis();       // Connect to 127.0.0.1:6379
 new Redis(6380);   // 127.0.0.1:6380
@@ -59,6 +72,10 @@ redis.on('messageBuffer', (channel: any, message: any) => {
 const pipeline = redis.pipeline();
 pipeline.set('foo', 'bar');
 pipeline.del('cc');
+pipeline.hset('hash', 'foo', 4);
+pipeline.hget('hash', 'foo');
+pipeline.hsetBuffer('hash', 'fooBuffer', 4);
+pipeline.hgetBuffer('hash', 'fooBuffer');
 pipeline.exec((err, results) => {
     // `err` is always null, and `results` is an array of responses
     // corresponding to the sequence of queued commands.

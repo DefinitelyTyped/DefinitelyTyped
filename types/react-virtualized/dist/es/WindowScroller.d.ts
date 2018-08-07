@@ -11,26 +11,16 @@ export type WindowScrollerChildProps = {
     width: number;
     isScrolling: boolean;
     scrollTop: number;
-    onChildScroll: () => void;
+    onChildScroll: (params: { scrollTop: number }) => void;
 };
 
 export type WindowScrollerProps = {
     /**
      * Function responsible for rendering children.
      * This function should implement the following signature:
-     * ({ height, isScrolling, scrollLeft, scrollTop, width }) => PropTypes.element
+     * ({ height, isScrolling, scrollLeft, scrollTop, width, onChildScroll }) => PropTypes.element
      */
-    children: (
-        params: {
-            onChildScroll: (params: { scrollTop: number }) => void;
-            registerChild: (params?: Element) => void;
-            height: number;
-            isScrolling: boolean;
-            scrollLeft: number;
-            scrollTop: number;
-            width: number;
-        }
-    ) => React.ReactNode;
+    children: (params: WindowScrollerChildProps) => React.ReactNode;
 
     /** Callback to be invoked on-resize: ({ height, width }) */
     onResize?: (params: { height: number; width: number }) => void;
