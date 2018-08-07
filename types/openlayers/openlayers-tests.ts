@@ -1133,13 +1133,13 @@ styleStroke.setLineDashOffset(10);
 styleStroke.setMiterLimit(20);
 styleStroke.setWidth(5);
 
-styleStroke.getColor();
-styleStroke.getLineCap();
-styleStroke.getLineJoin();
-styleStroke.getLineDash();
-styleStroke.getLineDashOffset();
-styleStroke.getMiterLimit();
-styleStroke.getWidth();
+const strokeColor: ol.Color|ol.ColorLike = styleStroke.getColor();
+const strokeLineCap: string = styleStroke.getLineCap();
+const strokeLineJoin: string = styleStroke.getLineJoin();
+const strokeLineDash: number[] = styleStroke.getLineDash();
+const strokeLineDashOffset: number = styleStroke.getLineDashOffset();
+const strokeMiterLimit: number = styleStroke.getMiterLimit();
+const strokeWidth: number = styleStroke.getWidth();
 
 //
 // ol.proj

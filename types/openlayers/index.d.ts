@@ -9,7 +9,6 @@
 //                 Yair Tawil <https://github.com/yairtawil>
 //                 Pierre Marchand <https://github.com/pierremarc>
 //                 Hauke Stieler <https://github.com/hauke96>
-//                 Jan Suleiman <https://github.com/jansule>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Definitions partially generated using tsd-jsdoc (https://github.com/englercj/tsd-jsdoc)
 
