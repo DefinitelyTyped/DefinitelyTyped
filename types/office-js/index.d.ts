@@ -765,7 +765,7 @@ declare namespace Office {
          */
         roamingSettings: Office.RoamingSettings;
         /**
-        * Specifies whether the platform and device allows touch interaction. True if the add-in is running on a touch device, such as an iPad; False otherwise.
+        * Specifies whether the platform and device allows touch interaction. True if the add-in is running on a touch device, such as an iPad; false otherwise.
         * 
         * @remarks
         * Use the touchEnabled property to determine when your add-in is running on a touch device and if necessary, adjust the kind of controls, and size and spacing of elements in your add-in's UI to accommodate touch interactions.
