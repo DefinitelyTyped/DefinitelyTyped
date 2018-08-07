@@ -270,6 +270,10 @@ declare module "rethinkdb" {
         get<TObjectType extends object>(key: string): Operation<TObjectType | null> & Writeable;
         getAll(key: string, index?: Index): Sequence; // without index defaults to primary key
         getAll(...keys: string[]): Sequence;
+        getAll(...keys: string[]): Sequence;
+        getAll(keys: Expression<any[]>): Sequence;
+        getAll(key: Expression<any>): Sequence;
+
         getIntersecting(geometry: Geometry, index: Index): Sequence;
         wait(WaitOptions?: WaitOptions): Operation<WaitResult>;
     }
@@ -287,14 +291,6 @@ declare module "rethinkdb" {
 
         merge(object: Object): Sequence;
         merge(cb: ExpressionFunction<Expression<any>>): Sequence;
-
-        /**
-         * Turn a sequence into an array or object, necessary when merging a sequence.
-         * 
-         * See: https://www.rethinkdb.com/api/javascript/coerce_to/
-         */
-        coerceTo(key: 'array'): Expression<any[]>;
-        coerceTo(key: 'object'): Expression<Object>;
 
         filter(rql: ExpressionFunction<boolean>): Sequence;
         filter(rql: Expression<boolean>): Sequence;
