@@ -3,6 +3,7 @@
 // Definitions by: Wouter Hardeman <https://github.com/wouterhardeman>
 //                 Jovica Zoric <https://github.com/jzoric>
 //                 Kevin Perrine <https://github.com/kevinsperrine>
+//                 Alex Maclean <https://github.com/acemac>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
