@@ -23,5 +23,8 @@
     "devDependencies": {
         "dtslint": "github:Microsoft/dtslint#production",
         "types-publisher": "Microsoft/types-publisher#production"
+    },
+    "dependencies": {
+        "dts-gen": "^0.5.7"
     }
 }
