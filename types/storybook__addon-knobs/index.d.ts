@@ -1,9 +1,9 @@
-// Type definitions for @storybook/addon-knobs 3.3
+// Type definitions for @storybook/addon-knobs 3.4
 // Project: https://github.com/storybooks/storybook
 // Definitions by: Joscha Feth <https://github.com/joscha>
 //                 Martynas Kadisa <https://github.com/martynaskadisa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 import { RenderFunction } from '@storybook/react';
@@ -50,6 +50,9 @@ export type SelectValue = string | number;
 export function select<T extends string>(name: string, options: { [s: string]: string }, value: T, groupId?: string): T;
 export function select<T extends number>(name: string, options: { [s: number]: string }, value: T, groupId?: string): T;
 export function select<T extends SelectValue>(name: string, options: T[], value: T, groupId?: string): T;
+
+export function selectV2<T extends string | number>(name: string, options: { [s: string]: T | T[] }, value: T | T[], groupId?: string): T;
+export function selectV2<T extends SelectValue>(name: string, options: T[], value: T, groupId?: string): T;
 
 export function date(name: string, value?: Date, groupId?: string): Date;
 

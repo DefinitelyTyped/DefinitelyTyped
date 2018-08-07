@@ -5,7 +5,7 @@
 //                 Krzysztof Bezrąk <https://github.com/pikpok>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 

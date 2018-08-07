@@ -26,6 +26,7 @@
 //                 Lishude <https://github.com/islishude>
 //                 Andrew Makarov <https://github.com/r3nya>
 //                 Zane Hannan AU <https://github.com/ZaneHannanAU>
+//                 Eugene Y. Q. Shen <https://github.com/eyqs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /** inspector module types */
@@ -1151,7 +1152,6 @@ declare module "http" {
         constructor();
 
         setTimeout(msecs: number, callback?: () => void): this;
-        destroy(error: Error): void;
         setHeader(name: string, value: number | string | string[]): void;
         getHeader(name: string): number | string | string[] | undefined;
         getHeaders(): OutgoingHttpHeaders;
@@ -2777,7 +2777,6 @@ declare module "net" {
 
         bufferSize: number;
         setEncoding(encoding?: string): this;
-        destroy(err?: any): void;
         pause(): this;
         resume(): this;
         setTimeout(timeout: number, callback?: Function): this;
@@ -3143,7 +3142,6 @@ declare module "fs" {
 
     export class ReadStream extends stream.Readable {
         close(): void;
-        destroy(): void;
         bytesRead: number;
         path: string | Buffer;
 
@@ -5865,8 +5863,8 @@ declare module "crypto" {
     export interface Signer extends NodeJS.WritableStream {
         update(data: string | Buffer | NodeJS.TypedArray | DataView): Signer;
         update(data: string, input_encoding: Utf8AsciiLatin1Encoding): Signer;
-        sign(private_key: string | { key: string; passphrase: string }): Buffer;
-        sign(private_key: string | { key: string; passphrase: string }, output_format: HexBase64Latin1Encoding): string;
+        sign(private_key: string | { key: string; passphrase: string, padding?: number, saltLength?: number }): Buffer;
+        sign(private_key: string | { key: string; passphrase: string, padding?: number, saltLength?: number }, output_format: HexBase64Latin1Encoding): string;
     }
     export function createVerify(algorith: string, options?: stream.WritableOptions): Verify;
     export interface Verify extends NodeJS.WritableStream {
@@ -5978,8 +5976,8 @@ declare module "stream" {
             highWaterMark?: number;
             encoding?: string;
             objectMode?: boolean;
-            read?: (this: Readable, size?: number) => any;
-            destroy?: (error: Error | null, callback: (error?: Error) => void) => void;
+            read?(this: Readable, size: number): void;
+            destroy?(this: Readable, error: Error | null, callback: (error: Error | null) => void): void;
         }
 
         export class Readable extends Stream implements NodeJS.ReadableStream {
@@ -5997,7 +5995,7 @@ declare module "stream" {
             unshift(chunk: any): void;
             wrap(oldStream: NodeJS.ReadableStream): this;
             push(chunk: any, encoding?: string): boolean;
-            _destroy(error: Error | null, callback: (error?: Error) => void): void;
+            _destroy(error: Error | null, callback: (error: Error | null) => void): void;
             destroy(error?: Error): void;
 
             /**
@@ -6009,66 +6007,66 @@ declare module "stream" {
              * 4. readable
              * 5. error
              */
-            addListener(event: string, listener: (...args: any[]) => void): this;
             addListener(event: "close", listener: () => void): this;
-            addListener(event: "data", listener: (chunk: Buffer | string) => void): this;
+            addListener(event: "data", listener: (chunk: any) => void): this;
             addListener(event: "end", listener: () => void): this;
             addListener(event: "readable", listener: () => void): this;
             addListener(event: "error", listener: (err: Error) => void): this;
+            addListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-            emit(event: string | symbol, ...args: any[]): boolean;
             emit(event: "close"): boolean;
-            emit(event: "data", chunk: Buffer | string): boolean;
+            emit(event: "data", chunk: any): boolean;
             emit(event: "end"): boolean;
             emit(event: "readable"): boolean;
             emit(event: "error", err: Error): boolean;
+            emit(event: string | symbol, ...args: any[]): boolean;
 
-            on(event: string, listener: (...args: any[]) => void): this;
             on(event: "close", listener: () => void): this;
-            on(event: "data", listener: (chunk: Buffer | string) => void): this;
+            on(event: "data", listener: (chunk: any) => void): this;
             on(event: "end", listener: () => void): this;
             on(event: "readable", listener: () => void): this;
             on(event: "error", listener: (err: Error) => void): this;
+            on(event: string | symbol, listener: (...args: any[]) => void): this;
 
-            once(event: string, listener: (...args: any[]) => void): this;
             once(event: "close", listener: () => void): this;
-            once(event: "data", listener: (chunk: Buffer | string) => void): this;
+            once(event: "data", listener: (chunk: any) => void): this;
             once(event: "end", listener: () => void): this;
             once(event: "readable", listener: () => void): this;
             once(event: "error", listener: (err: Error) => void): this;
+            once(event: string | symbol, listener: (...args: any[]) => void): this;
 
-            prependListener(event: string, listener: (...args: any[]) => void): this;
             prependListener(event: "close", listener: () => void): this;
-            prependListener(event: "data", listener: (chunk: Buffer | string) => void): this;
+            prependListener(event: "data", listener: (chunk: any) => void): this;
             prependListener(event: "end", listener: () => void): this;
             prependListener(event: "readable", listener: () => void): this;
             prependListener(event: "error", listener: (err: Error) => void): this;
+            prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-            prependOnceListener(event: string, listener: (...args: any[]) => void): this;
             prependOnceListener(event: "close", listener: () => void): this;
-            prependOnceListener(event: "data", listener: (chunk: Buffer | string) => void): this;
+            prependOnceListener(event: "data", listener: (chunk: any) => void): this;
             prependOnceListener(event: "end", listener: () => void): this;
             prependOnceListener(event: "readable", listener: () => void): this;
             prependOnceListener(event: "error", listener: (err: Error) => void): this;
+            prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-            removeListener(event: string, listener: (...args: any[]) => void): this;
             removeListener(event: "close", listener: () => void): this;
-            removeListener(event: "data", listener: (chunk: Buffer | string) => void): this;
+            removeListener(event: "data", listener: (chunk: any) => void): this;
             removeListener(event: "end", listener: () => void): this;
             removeListener(event: "readable", listener: () => void): this;
             removeListener(event: "error", listener: (err: Error) => void): this;
+            removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-            [Symbol.asyncIterator](): AsyncIterableIterator<Buffer | string>;
+            [Symbol.asyncIterator](): AsyncIterableIterator<any>;
         }
 
         export interface WritableOptions {
             highWaterMark?: number;
             decodeStrings?: boolean;
             objectMode?: boolean;
-            write?: (chunk: any, encoding: string, callback: Function) => any;
-            writev?: (chunks: Array<{ chunk: any, encoding: string }>, callback: Function) => any;
-            destroy?: (error: Error | null, callback: (error?: Error) => void) => void;
-            final?: (callback: (error?: Error) => void) => void;
+            write?(this: Writable, chunk: any, encoding: string, callback: (error?: Error | null) => void): void;
+            writev?(this: Writable, chunks: Array<{ chunk: any, encoding: string }>, callback: (error?: Error | null) => void): void;
+            destroy?(this: Writable, error: Error | null, callback: (error: Error | null) => void): void;
+            final?(this: Writable, callback: (error?: Error | null) => void): void;
         }
 
         export class Writable extends Stream implements NodeJS.WritableStream {
@@ -6076,16 +6074,16 @@ declare module "stream" {
             readonly writableHighWaterMark: number;
             readonly writableLength: number;
             constructor(opts?: WritableOptions);
-            _write(chunk: any, encoding: string, callback: (err?: Error) => void): void;
-            _writev?(chunks: Array<{ chunk: any, encoding: string }>, callback: (err?: Error) => void): void;
-            _destroy(error: Error | null, callback: (error?: Error) => void): void;
-            _final(callback: Function): void;
-            write(chunk: any, cb?: Function): boolean;
-            write(chunk: any, encoding?: string, cb?: Function): boolean;
+            _write(chunk: any, encoding: string, callback: (error?: Error | null) => void): void;
+            _writev?(chunks: Array<{ chunk: any, encoding: string }>, callback: (error?: Error | null) => void): void;
+            _destroy(error: Error | null, callback: (error: Error | null) => void): void;
+            _final(callback: (error?: Error | null) => void): void;
+            write(chunk: any, cb?: (error: Error | null | undefined) => void): boolean;
+            write(chunk: any, encoding?: string, cb?: (error: Error | null | undefined) => void): boolean;
             setDefaultEncoding(encoding: string): this;
-            end(cb?: Function): void;
-            end(chunk: any, cb?: Function): void;
-            end(chunk: any, encoding?: string, cb?: Function): void;
+            end(cb?: () => void): void;
+            end(chunk: any, cb?: () => void): void;
+            end(chunk: any, encoding?: string, cb?: () => void): void;
             cork(): void;
             uncork(): void;
             destroy(error?: Error): void;
@@ -6100,67 +6098,72 @@ declare module "stream" {
              * 5. pipe
              * 6. unpipe
              */
-            addListener(event: string, listener: (...args: any[]) => void): this;
             addListener(event: "close", listener: () => void): this;
             addListener(event: "drain", listener: () => void): this;
             addListener(event: "error", listener: (err: Error) => void): this;
             addListener(event: "finish", listener: () => void): this;
             addListener(event: "pipe", listener: (src: Readable) => void): this;
             addListener(event: "unpipe", listener: (src: Readable) => void): this;
+            addListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-            emit(event: string | symbol, ...args: any[]): boolean;
             emit(event: "close"): boolean;
-            emit(event: "drain", chunk: Buffer | string): boolean;
+            emit(event: "drain"): boolean;
             emit(event: "error", err: Error): boolean;
             emit(event: "finish"): boolean;
             emit(event: "pipe", src: Readable): boolean;
             emit(event: "unpipe", src: Readable): boolean;
+            emit(event: string | symbol, ...args: any[]): boolean;
 
-            on(event: string, listener: (...args: any[]) => void): this;
             on(event: "close", listener: () => void): this;
             on(event: "drain", listener: () => void): this;
             on(event: "error", listener: (err: Error) => void): this;
             on(event: "finish", listener: () => void): this;
             on(event: "pipe", listener: (src: Readable) => void): this;
             on(event: "unpipe", listener: (src: Readable) => void): this;
+            on(event: string | symbol, listener: (...args: any[]) => void): this;
 
-            once(event: string, listener: (...args: any[]) => void): this;
             once(event: "close", listener: () => void): this;
             once(event: "drain", listener: () => void): this;
             once(event: "error", listener: (err: Error) => void): this;
             once(event: "finish", listener: () => void): this;
             once(event: "pipe", listener: (src: Readable) => void): this;
             once(event: "unpipe", listener: (src: Readable) => void): this;
+            once(event: string | symbol, listener: (...args: any[]) => void): this;
 
-            prependListener(event: string, listener: (...args: any[]) => void): this;
             prependListener(event: "close", listener: () => void): this;
             prependListener(event: "drain", listener: () => void): this;
             prependListener(event: "error", listener: (err: Error) => void): this;
             prependListener(event: "finish", listener: () => void): this;
             prependListener(event: "pipe", listener: (src: Readable) => void): this;
             prependListener(event: "unpipe", listener: (src: Readable) => void): this;
+            prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-            prependOnceListener(event: string, listener: (...args: any[]) => void): this;
             prependOnceListener(event: "close", listener: () => void): this;
             prependOnceListener(event: "drain", listener: () => void): this;
             prependOnceListener(event: "error", listener: (err: Error) => void): this;
             prependOnceListener(event: "finish", listener: () => void): this;
             prependOnceListener(event: "pipe", listener: (src: Readable) => void): this;
             prependOnceListener(event: "unpipe", listener: (src: Readable) => void): this;
+            prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-            removeListener(event: string, listener: (...args: any[]) => void): this;
             removeListener(event: "close", listener: () => void): this;
             removeListener(event: "drain", listener: () => void): this;
             removeListener(event: "error", listener: (err: Error) => void): this;
             removeListener(event: "finish", listener: () => void): this;
             removeListener(event: "pipe", listener: (src: Readable) => void): this;
             removeListener(event: "unpipe", listener: (src: Readable) => void): this;
+            removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
         }
 
         export interface DuplexOptions extends ReadableOptions, WritableOptions {
             allowHalfOpen?: boolean;
             readableObjectMode?: boolean;
             writableObjectMode?: boolean;
+            read?(this: Duplex, size: number): void;
+            write?(this: Duplex, chunk: any, encoding: string, callback: (error?: Error | null) => void): void;
+            writev?(this: Duplex, chunks: Array<{ chunk: any, encoding: string }>, callback: (error?: Error | null) => void): void;
+            final?(this: Duplex, callback: (error?: Error | null) => void): void;
+            destroy?(this: Duplex, error: Error | null, callback: (error: Error | null) => void): void;
         }
 
         // Note: Duplex extends both Readable and Writable.
@@ -6169,31 +6172,36 @@ declare module "stream" {
             readonly writableHighWaterMark: number;
             readonly writableLength: number;
             constructor(opts?: DuplexOptions);
-            _write(chunk: any, encoding: string, callback: (err?: Error) => void): void;
-            _writev?(chunks: Array<{ chunk: any, encoding: string }>, callback: (err?: Error) => void): void;
-            _destroy(error: Error | null, callback: (error?: Error) => void): void;
-            _final(callback: Function): void;
-            write(chunk: any, cb?: Function): boolean;
-            write(chunk: any, encoding?: string, cb?: Function): boolean;
+            _write(chunk: any, encoding: string, callback: (error?: Error | null) => void): void;
+            _writev?(chunks: Array<{ chunk: any, encoding: string }>, callback: (error?: Error | null) => void): void;
+            _destroy(error: Error | null, callback: (error: Error | null) => void): void;
+            _final(callback: (error?: Error | null) => void): void;
+            write(chunk: any, cb?: (error: Error | null | undefined) => void): boolean;
+            write(chunk: any, encoding?: string, cb?: (error: Error | null | undefined) => void): boolean;
             setDefaultEncoding(encoding: string): this;
-            end(cb?: Function): void;
-            end(chunk: any, cb?: Function): void;
-            end(chunk: any, encoding?: string, cb?: Function): void;
+            end(cb?: () => void): void;
+            end(chunk: any, cb?: () => void): void;
+            end(chunk: any, encoding?: string, cb?: () => void): void;
             cork(): void;
             uncork(): void;
         }
 
-        type TransformCallback = (err?: Error, data?: any) => void;
+        type TransformCallback = (error?: Error, data?: any) => void;
 
         export interface TransformOptions extends DuplexOptions {
-            transform?: (chunk: any, encoding: string, callback: TransformCallback) => any;
-            flush?: (callback: TransformCallback) => any;
+            read?(this: Transform, size: number): void;
+            write?(this: Transform, chunk: any, encoding: string, callback: (error?: Error | null) => void): void;
+            writev?(this: Transform, chunks: Array<{ chunk: any, encoding: string }>, callback: (error?: Error | null) => void): void;
+            final?(this: Transform, callback: (error?: Error | null) => void): void;
+            destroy?(this: Transform, error: Error | null, callback: (error: Error | null) => void): void;
+            transform?(this: Transform, chunk: any, encoding: string, callback: TransformCallback): void;
+            flush?(this: Transform, callback: TransformCallback): void;
         }
 
         export class Transform extends Duplex {
             constructor(opts?: TransformOptions);
             _transform(chunk: any, encoding: string, callback: TransformCallback): void;
-            destroy(error?: Error): void;
+            _flush(callback: TransformCallback): void;
         }
 
         export class PassThrough extends Transform { }
@@ -6374,7 +6382,7 @@ declare module "util" {
 }
 
 declare module "assert" {
-    function internal(value: any, message?: string): void;
+    function internal(value: any, message?: string | Error): void;
     namespace internal {
         export class AssertionError implements Error {
             name: string;
@@ -6383,46 +6391,42 @@ declare module "assert" {
             expected: any;
             operator: string;
             generatedMessage: boolean;
+            code: 'ERR_ASSERTION';
 
             constructor(options?: {
                 message?: string; actual?: any; expected?: any;
-                operator?: string; stackStartFunction?: Function
+                operator?: string; stackStartFn?: Function
             });
         }
 
-        export function fail(message: string): never;
-        /** @deprecated since v10.0.0 */
-        export function fail(actual: any, expected: any, message?: string, operator?: string): never;
-        export function ok(value: any, message?: string): void;
-        /** @deprecated use strictEqual() */
-        export function equal(actual: any, expected: any, message?: string): void;
-        /** @deprecated use notStrictEqual() */
-        export function notEqual(actual: any, expected: any, message?: string): void;
-        /** @deprecated use deepStrictEqual() */
-        export function deepEqual(actual: any, expected: any, message?: string): void;
-        /** @deprecated use notDeepStrictEqual() */
-        export function notDeepEqual(acutal: any, expected: any, message?: string): void;
-        export function strictEqual(actual: any, expected: any, message?: string): void;
-        export function notStrictEqual(actual: any, expected: any, message?: string): void;
-        export function deepStrictEqual(actual: any, expected: any, message?: string): void;
-        export function notDeepStrictEqual(actual: any, expected: any, message?: string): void;
+        export function fail(message?: string | Error): never;
+        /** @deprecated since v10.0.0 - use fail([message]) or other assert functions instead. */
+        export function fail(actual: any, expected: any, message?: string | Error, operator?: string, stackStartFn?: Function): never;
+        export function ok(value: any, message?: string | Error): void;
+        /** @deprecated since v9.9.0 - use strictEqual() instead. */
+        export function equal(actual: any, expected: any, message?: string | Error): void;
+        /** @deprecated since v9.9.0 - use notStrictEqual() instead. */
+        export function notEqual(actual: any, expected: any, message?: string | Error): void;
+        /** @deprecated since v9.9.0 - use deepStrictEqual() instead. */
+        export function deepEqual(actual: any, expected: any, message?: string | Error): void;
+        /** @deprecated since v9.9.0 - use notDeepStrictEqual() instead. */
+        export function notDeepEqual(actual: any, expected: any, message?: string | Error): void;
+        export function strictEqual(actual: any, expected: any, message?: string | Error): void;
+        export function notStrictEqual(actual: any, expected: any, message?: string | Error): void;
+        export function deepStrictEqual(actual: any, expected: any, message?: string | Error): void;
+        export function notDeepStrictEqual(actual: any, expected: any, message?: string | Error): void;
 
-        export function throws(block: Function, message?: string): void;
-        export function throws(block: Function, error: Function, message?: string): void;
-        export function throws(block: Function, error: RegExp, message?: string): void;
-        export function throws(block: Function, error: (err: any) => boolean, message?: string): void;
-
-        export function doesNotThrow(block: Function, message?: string): void;
-        export function doesNotThrow(block: Function, error: Function, message?: string): void;
-        export function doesNotThrow(block: Function, error: RegExp, message?: string): void;
-        export function doesNotThrow(block: Function, error: (err: any) => boolean, message?: string): void;
+        export function throws(block: Function, message?: string | Error): void;
+        export function throws(block: Function, error: RegExp | Function | Object | Error, message?: string | Error): void;
+        export function doesNotThrow(block: Function, message?: string | Error): void;
+        export function doesNotThrow(block: Function, error: RegExp | Function, message?: string | Error): void;
 
         export function ifError(value: any): void;
 
-        export function rejects(block: Function | Promise<any>, message?: string): Promise<void>;
-        export function rejects(block: Function | Promise<any>, error: Function | RegExp | Object | Error, message?: string): Promise<void>;
-        export function doesNotReject(block: Function | Promise<any>, message?: string): Promise<void>;
-        export function doesNotReject(block: Function | Promise<any>, error: Function | RegExp | Object | Error, message?: string): Promise<void>;
+        export function rejects(block: Function | Promise<any>, message?: string | Error): Promise<void>;
+        export function rejects(block: Function | Promise<any>, error: RegExp | Function | Object | Error, message?: string | Error): Promise<void>;
+        export function doesNotReject(block: Function | Promise<any>, message?: string | Error): Promise<void>;
+        export function doesNotReject(block: Function | Promise<any>, error: RegExp | Function, message?: string | Error): Promise<void>;
 
         export var strict: typeof internal;
     }

@@ -114,6 +114,8 @@ function testBasics() {
 
     const db = new PouchDB<MyModel>();
 
+    db.on("closed", () => {});
+
     db.post(model).then((result) => {
         isString(result.id);
     });

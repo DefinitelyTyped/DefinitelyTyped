@@ -3130,7 +3130,7 @@ declare namespace Highcharts {
          * chart's two series to be updated with respective options.
          * @since 5.0.0
          */
-        chartOptions?: ChartOptions;
+        chartOptions?: Options;
 
         /**
          * Under which conditions the rule applies.
