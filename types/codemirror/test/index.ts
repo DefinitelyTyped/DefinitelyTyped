@@ -13,9 +13,9 @@ var head = range.head;
 var from = range.from();
 var to = range.to();
 
-var myTextArea: HTMLTextAreaElement;
+var myTextArea: HTMLTextAreaElement = undefined!;
 var myCodeMirror3: CodeMirror.Editor = CodeMirror(function (elt) {
-    myTextArea.parentNode.replaceChild(elt, myTextArea);
+    myTextArea.parentNode!.replaceChild(elt, myTextArea);
 }, { value: myTextArea.value });
 
 var myCodeMirror4: CodeMirror.Editor = CodeMirror.fromTextArea(myTextArea);
