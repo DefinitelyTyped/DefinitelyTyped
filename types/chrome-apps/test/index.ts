@@ -1124,10 +1124,41 @@ wve.request.onBeforeRequest.addListener(
     { urls: ["*://www.evil.com/*"] },
     ["blocking"]);
 
-var rule = {
+const rule: chrome.webViewRequest.OnRequestRule = {
     conditions: [
+        // new chrome.webViewRequest.CancelRequest(), // This is incompatible - should break it :)
         new chrome.webViewRequest.RequestMatcher({ url: { hostSuffix: 'example.com' } })
     ],
-    actions: [new chrome.webViewRequest.CancelRequest()]
+    actions: [
+        new chrome.webViewRequest.CancelRequest(),
+        new chrome.webViewRequest.IgnoreRules({
+            'lowerPriorityThan': 1000
+        }),
+        new chrome.webViewRequest.SendMessageToExtension({
+            'message': JSON.stringify({
+                'type': 'error',
+                'action': 'cancelled'
+            })
+        })
+    ]
 };
+
+new chrome.webViewRequest.RequestMatcher({
+    'url': { 'urlMatches': '.*' },
+    'resourceType': [
+        'image'
+    ]
+});
+
+new chrome.webViewRequest.RedirectRequest({ redirectUrl: 'http://127.0.0.1' });
+
+new chrome.webViewRequest.RedirectByRegEx({
+    'from': '^.*:\/\/([^/]*)[^#?]*\/([^#?]*)([#?].*)?$',
+    'to': 'http://dummyimage.com/xga/000/0f0.png&text=BLOCKED:$1/.../$2'
+});
+
+new chrome.webViewRequest.RequestMatcher({
+    'url': { 'hostSuffix': 'dummyimage.com' }
+});
+
 wve.request.onRequest.addRules([rule]);

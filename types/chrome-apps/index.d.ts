@@ -2420,8 +2420,12 @@ declare namespace chrome {
             hasListeners(): boolean;
         }
 
-        /** Description of a declarative rule for handling events. */
-        interface Rule {
+        /**
+         * Description of a declarative rule for handling events.
+         * @template T Type for conditions array, default: any.
+         * @template K Type for actions array, default: any.
+         */
+        interface Rule<T extends object = any, K extends object = any> {
             /** Identifier that allows referencing this rule.  */
             id?: string;
 
@@ -2432,10 +2436,10 @@ declare namespace chrome {
             tags?: string[];
 
             /** List of conditions that can trigger the actions. */
-            conditions: any[];
+            conditions: T[];
 
             /** List of actions that are triggered if one of the condtions is fulfilled. */
-            actions: any[];
+            actions: K[];
 
             /**
              * Optional priority of this rule.
@@ -8834,23 +8838,6 @@ declare namespace chrome {
             reason: ExitEventReason;
         }
 
-        /** Description of a declarative rule for handling events. */
-        interface Rule {
-            /** Optional priority of this rule. Defaults to 100.  */
-            priority?: integer;
-            /** List of conditions that can trigger the actions. */
-            conditions: any[];
-            /** Optional identifier that allows referencing this rule.  */
-            id?: string;
-            /** List of actions that are triggered if one of the condtions is fulfilled. */
-            actions: any[];
-            /**
-             * Tags can be used to annotate rules and perform operations on sets of rules.¨
-             * @since Chrome 28
-             */
-            tags?: string[];
-        }
-
         /**
          * Details of the script or CSS to inject. Either the code or the file property must be set, but both may not be set at the same time.
          */
@@ -9783,7 +9770,7 @@ declare namespace chrome {
             windowId?: number;
         }
 
-        export interface AuthCredentials {
+        interface AuthCredentials {
             username: string;
             password: string;
         }
@@ -10249,31 +10236,469 @@ declare namespace chrome {
         /**
          * @description Matches network events by various criteria.
          */
-        export class RequestMatcher implements RequestMatcherFields {
-            /**
-             * Matches network events by various criteria.
-             * @param criterias Search using these criterias
-             */
-            constructor (criterias: RequestMatcherFields);
+        class RequestMatcher {
+            protected readonly typeGuard: 'RequestMatcher';
+            constructor (parameters?: RequestMatcherFields);
+            public readonly instanceType: string;
         }
-        export class CancelRequest { }
+
+        /** Declarative event action that cancels a network request. */
+        class CancelRequest {
+            protected readonly typeGuard: 'CancelRequest';
+            public readonly instanceType: string;
+        }
+
+        interface RedirectRequestParams {
+            /** Destination to where the request is redirected. */
+            redirectUrl: string;
+        }
+
         /** Declarative event action that redirects a network request.  */
-        export class RedirectRequest {
+        class RedirectRequest {
+            protected readonly typeGuard: 'RedirectRequest';
+            constructor (parameters: RedirectRequestParams);
+            public readonly instanceType: string;
+        }
+
+        /** Declarative event action that redirects a network request to a transparent image. */
+        class RedirectToTransparentImage {
+            protected readonly typeGuard: 'RedirectToTransparentImage';
+            public readonly instanceType: string;
+        }
+
+        /** Declarative event action that redirects a network request to an empty document. */
+        class RedirectToEmptyDocument {
+            protected readonly typeGuard: 'RedirectToEmptyDocument';
+            public readonly instanceType: string;
+        }
+
+        interface RedirectByRegExParams {
             /**
-             * Declarative event action that redirects a network request.
-             * @param redirectUrl Destination to where the request is redirected.
+             * A match pattern that may contain capture groups.
+             * Capture groups are referenced in the Perl syntax ($1, $2, ...)
+             * instead of the RE2 syntax (\1, \2, ...) in order to be closer
+             * to JavaScript Regular Expressions.
              */
-            constructor (redirectUrl: string);
+            from: string;
+            /** Destination pattern. @see from */
+            to: string;
         }
 
-        /** @todo TODO add extra supported actions */
+        /**
+         * Redirects a request by applying a regular expression on the URL.
+         * The regular expressions use the RE2 syntax.
+         * @see[RE2 syntax]{@link https://github.com/google/re2/blob/master/doc/syntax.txt}
+         */
+        class RedirectByRegEx {
+            protected readonly typeGuard: 'RedirectByRegEx';
+            constructor (parameters: RedirectByRegExParams);
+            public readonly instanceType: string;
+        }
 
+        interface SetRequestHeaderParams {
+            /** HTTP request header name */
+            name: string;
+            /** HTTP request header value */
+            value: string;
+        }
+
+        /**
+         * Sets the request header of the specified name to the specified value.
+         * If a header with the specified name did not exist before, a new one is created.
+         * Header name comparison is always case-insensitive.
+         * Each request header name occurs only once in each request.
+         */
+        class SetRequestHeader {
+            protected readonly typeGuard: 'SetRequestHeader';
+            constructor (parameters: SetRequestHeaderParams);
+            public readonly instanceType: string;
+        }
+
+        interface RemoveRequestHeaderParams {
+            /** HTTP request header name (case-insensitive) */
+            name: string;
+        }
+
+        /**
+         * Removes the request header of the specified name.
+         * Do not use SetRequestHeader and RemoveRequestHeader with
+         * the same header name on the same request.
+         * Each request header name occurs only once in each request.
+         */
+        class RemoveRequestHeader {
+            protected readonly typeGuard: 'RemoveRequestHeader';
+            constructor (parameters: RemoveRequestHeaderParams);
+            public readonly instanceType: string;
+        }
+
+        interface AddResponseHeaderParams {
+            /** HTTP response header name */
+            name: string;
+            /** HTTP response header value */
+            value: string;
+        }
+
+        /**
+         * Adds the response header to the response of this web request.
+         * As multiple response headers may share the same name,
+         * you need to first remove and then add a new
+         * response header in order to replace one.
+         */
+        class AddResponseHeader {
+            protected readonly typeGuard: 'AddResponseHeader';
+            constructor (parameters: AddResponseHeaderParams);
+            public readonly instanceType: string;
+        }
+
+        interface RemoveResponseHeaderParams {
+            /** HTTP request header name (case-insensitive). */
+            name: string;
+            /** HTTP request header value (case-insensitive). */
+            value?: string;
+        }
+
+        /**
+         * Removes all response headers of the specified names and values.
+         */
+        class RemoveResponseHeader {
+            protected readonly typeGuard: 'RemoveResponseHeader';
+            constructor (parameters: RemoveResponseHeaderParams);
+            public readonly instanceType: string;
+        }
+
+        interface IgnoreRulesParams {
+            /**
+             * If set, rules with a lower priority than the specified value are ignored.
+             * This boundary is not persisted, it affects only rules and their actions
+             * of the same network request stage.
+             */
+            lowerPriorityThan?: integer;
+            /**
+             * If set, rules with the specified tag are ignored. This ignoring is not persisted,
+             * it affects only rules and their actions of the same network request stage.
+             * Note that rules are executed in descending order of their priorities.
+             * This action affects rules of lower priority than the current rule.
+             * Rules with the same priority may or may not be ignored.
+             */
+            hasTag?: string;
+        }
+
+        /**
+         * Masks all rules that match the specified criteria.
+         */
+        class IgnoreRules {
+            protected readonly typeGuard: 'IgnoreRules';
+            constructor (parameters: IgnoreRulesParams);
+            public readonly instanceType: string;
+        }
+
+        interface SendMessageParams {
+            /**
+             * The value that will be passed in the message attribute
+             * of the dictionary that is passed to the event handler.
+             */
+            message: string;
+        }
+
+        /**
+         * Triggers the webviewWebRequest.*OnMessageEvent* event which are used in webviews.
+         */
+        class SendMessageToExtension {
+            protected readonly typeGuard: 'SendMessageToExtension';
+            constructor (parameters: SendMessageParams);
+            public readonly instanceType: string;
+        }
+
+        /**
+         * A filter or specification of a cookie in HTTP Requests.
+         */
+        interface RequestCookie {
+            /** Name of a cookie. */
+            name?: string;
+            /** Value of a AddRequestCookie, may be padded in double-quotes. */
+            value?: string;
+        }
+
+        /**
+         * A specification of a cookie in HTTP Responses.
+         */
+
+        interface ResponseCookie {
+            /** Name of a cookie. */
+            name?: string;
+            /** Value of a cookie, may be padded in double-quotes. */
+            value?: string;
+            /** Value of the Expires cookie attribute. */
+            expires?: string;
+            /** Value of the Max-Age cookie attribute */
+            maxAge?: number;
+            /** Value of the Domain cookie attribute. */
+            domain?: string;
+            /** Value of the Path cookie attribute. */
+            path?: string;
+            /** Existence of the Secure cookie attribute. */
+            secure?: string;
+            /** Existence of the HttpOnly cookie attribute. */
+            httpOnly?: string;
+        }
+
+        /** A filter of a cookie in HTTP Responses. */
+        interface FilterResponseCookie {
+            /** Name of a cookie. */
+            name?: string;
+            /** Value of a cookie, may be padded in double-quotes. */
+            value?: string;
+            /** Value of the Expires cookie attribute. */
+            expires?: string;
+            /** Value of the Max-Age cookie attribute */
+            maxAge?: double;
+            /** Value of the Domain cookie attribute. */
+            domain?: string;
+            /** Value of the Path cookie attribute. */
+            path?: string;
+            /** Existence of the Secure cookie attribute. */
+            secure?: string;
+            /** Existence of the HttpOnly cookie attribute */
+            httpOnly?: string;
+            /**
+             * Inclusive upper bound on the cookie lifetime (specified in seconds after current time).
+             * Only cookies whose expiration date-time is in the interval [now, now + ageUpperBound]
+             * fulfill this criterion. Session cookies and cookies whose expiration date-time is
+             * in the past do not meet the criterion of this filter. The cookie lifetime is calculated
+             * from either 'max-age' or 'expires' cookie attributes. If both are specified, 'max-age'
+             * is used to calculate the cookie lifetime.
+             */
+            ageUpperBound?: integer;
+            /**
+             * Inclusive lower bound on the cookie lifetime (specified in seconds after current time).
+             * Only cookies whose expiration date-time is set to 'now + ageLowerBound' or later fulfill
+             * this criterion. Session cookies do not meet the criterion of this filter. The cookie
+             * lifetime is calculated from either 'max-age' or 'expires' cookie attributes. If both
+             * are specified, 'max-age' is used to calculate the cookie lifetime.
+             */
+            ageLowerBound?: integer;
+            /**
+             * Filters session cookies.
+             * Session cookies have no lifetime specified in any of 'max-age' or 'expires' attributes.
+             */
+            sessionCookie?: boolean;
+        }
+
+        /**
+         * @private
+         * @template T Type of cookie
+         */
+        interface AddCookie<T> {
+            /**
+             * Cookie to be added to the request.
+             * No field may be undefined.
+             * The name and value need to be specified.
+             */
+            cookie: T;
+        }
+
+        /**
+         * Adds a cookie to the request or overrides a cookie, in case another cookie of the same name exists already.
+         * Note that it is preferred to use the Cookies API because this is computationally less expensive.
+         */
+        class AddRequestCookie {
+            protected readonly typeGuard: 'AddRequestCookie';
+            constructor (parameters: AddCookie<RequestCookie>);
+            public readonly instanceType: string;
+        }
+
+
+        /**
+         * Adds a cookie to the response or overrides a cookie, in case another cookie of the same name exists already.
+         * Note that it is preferred to use the Cookies API because this is computationally less expensive.
+         */
+        class AddResponseCookie {
+            protected readonly typeGuard: 'AddResponseCookie';
+            constructor (parameters: AddCookie<ResponseCookie>);
+            public readonly instanceType: string;
+        }
+
+        /**
+         * @private
+         * @template T First parameter type
+         * @template K Second parameter type
+         */
+        interface EditCookieParams<T, K> {
+            /**
+             * Filter for cookies that will be modified.
+             * All empty entries are ignored.
+             */
+            filter: T;
+            /**
+             * Attributes that shall be overridden in cookies that machted the filter
+             * Attributes that are set to an empty string are removed.
+             */
+            modification: K;
+        }
+
+        /**
+         * Edits one or more cookies of request.
+         * Note that it is preferred to use the Cookies API because this is computationally less expensive.
+         */
+        class EditRequestCookie {
+            protected readonly typeGuard: 'EditRequestCookie';
+            /**
+             * @param filter
+             * @param modification Attributes that shall be overridden in cookies that machted the filter.
+             *                     Attributes that are set to an empty string are removed.
+             */
+            constructor (parameters: EditCookieParams<RequestCookie, RequestCookie>);
+            public readonly instanceType: string;
+        }
+
+        /**
+         * Edits one or more cookies of response.
+         * Note that it is preferred to use the Cookies API because this is computationally less expensive.
+         */
+        class EditResponseCookie {
+            protected readonly typeGuard: 'EditResponseCookie';
+            /**
+             * @param filter Filter for cookies that will be modified.All empty entries are ignored.
+             * @param modification
+             */
+            constructor (parameter: EditCookieParams<FilterResponseCookie, ResponseCookie>);
+            public readonly instanceType: string;
+        }
+
+        /**
+         * Removes one or more cookies of request.
+         * Note that it is preferred to use the Cookies API because this is computationally less expensive.
+         */
+        class RemoveRequestCookie {
+            protected readonly typeGuard: 'RemoveRequestCookie';
+            constructor (parameters: RemoveCookieParams<RequestCookie>);
+            public readonly instanceType: string;
+        }
+
+
+
+        /**
+         * @private
+         * @template T Filter type
+         */
+        interface RemoveCookieParams<T> {
+            /**
+             * Filter for cookies that will be removed.
+             * All empty entries are ignored.
+             */
+            filter: T;
+        }
+
+        /**
+         * Removes one or more cookies of response.
+         * Note that it is preferred to use the Cookies API because this is computationally less expensive.
+         */
+        class RemoveResponseCookie {
+            protected readonly typeGuard: 'RemoveResponseCookie';
+            constructor (parameters: RemoveCookieParams<FilterResponseCookie>);
+            public readonly instanceType: string;
+        }
+
+        /** Supported conditions */
+        type OnRequestConditions =
+            RequestMatcher;
+
+        /** Supported actions */
+        type OnRequestActions =
+            AddRequestCookie |
+            AddResponseCookie |
+            AddResponseHeader |
+            CancelRequest |
+            EditRequestCookie |
+            EditResponseCookie |
+            RedirectRequest |
+            RedirectToTransparentImage |
+            RedirectToEmptyDocument |
+            RedirectByRegEx |
+            RemoveRequestCookie |
+            RemoveResponseCookie |
+            RemoveRequestHeader |
+            RemoveResponseHeader |
+            SetRequestHeader |
+            SendMessageToExtension |
+            IgnoreRules;
+
+        /**
+         * Description of a declarative rule for handling events.
+         * With correct types for the onRequest event.
+         */
+        interface OnRequestRule extends chrome.events.Rule<OnRequestConditions, OnRequestActions> { }
+
+        /**
+         * Provides the Declarative Event API consisting of addRules, removeRules, and getRules.
+         */
         interface OnRequestEvent {
-            /** @todo TODO */
+            /**
+             * Registers rules to handle events.
+             * @param rules Rules to be registered. These do not replace previously registered rules.
+             * @param [callback] Called with registered rules.
+             */
+            addRules(rules: OnRequestRule[], callback?: (rules: OnRequestRule[]) => void): void;
+
+            /**
+             * Returns currentlt registered rules.
+             * @param callback Called with registered rules.
+             */
+            getRules(callback: (rules: OnRequestRule[]) => void): void;
+
+            /**
+             * Returns currentlt registered rules.
+             * @param ruleIdentifiers If an array is passed, only rules with identifiers contained in this array are returned.
+             * @param callback Called with registered rules.
+             */
+            getRules(ruleIdentifiers: string[], callback: (rules: OnRequestRule[]) => void): void;
+
+            /**
+             * Unregisters currently registered rules.
+             * @param [ruleIdentifiers] If an array is passed, only rules with identifiers contained in this array are unregistered.
+             * @param [callback] Called when rules were unregistered.
+             */
+            removeRules(ruleIdentifiers?: string[], callback?: () => void): void;
         }
-        interface OnMessageEvent {
-            /** @todo TODO */
+
+        interface OnMessageEventDetails {
+            /** The message sent by the calling script. */
+            message: string;
+            /** The stage of the network request during which the event was triggered. */
+            stage: Stage;
+            /**
+             * The ID of the request.
+             * Request IDs are unique within a browser session.
+             * As a result, they could be used to relate different events of the same request.
+             */
+            requestId: string;
+            /** URL */
+            url: string;
+            /** Standard HTTP method. */
+            method: string;
+            /**
+             * The value 0 indicates that the request happens in the main frame;
+             * a positive value indicates the ID of a subframe in which the request happens.
+             * If the document of a (sub-)frame is loaded (type is main_frame or sub_frame),
+             * frameId indicates the ID of this frame, not the ID of the outer frame.
+             * Frame IDs are unique within a tab.
+             */
+            frameId: integer;
+            /** ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists. */
+            parentFrameId: integer;
+            /** The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab. */
+            tabId: integer;
+            /** How the requested resource will be used. */
+            type: webRequest.ResourceType;
+            /** The time when this signal is triggered, in milliseconds since the epoch. */
+            timeStamp: double;
         }
+
+        /**
+         * Fired when a message is sent via **declarativeWebRequest.SendMessageToExtension**
+         * from an action of the declarative web request API.
+         */
+        interface OnMessageEvent extends chrome.events.Event<(details: OnMessageEventDetails) => void> { }
     }
 
     /////////////
