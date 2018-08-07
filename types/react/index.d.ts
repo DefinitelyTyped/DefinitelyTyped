@@ -61,7 +61,7 @@ declare namespace React {
     type Ref<T> = string | { bivarianceHack(instance: T | null): any }["bivarianceHack"] | RefObject<T>;
 
     // tslint:disable-next-line:interface-over-type-literal
-    type ComponentState = {};
+    type ComponentState = any;
 
     interface Attributes {
         key?: Key;
@@ -356,7 +356,7 @@ declare namespace React {
         displayName?: string;
     }
 
-    interface ComponentClass<P = {}, S = any> extends StaticLifecycle<P, S> {
+    interface ComponentClass<P = {}, S = ComponentState> extends StaticLifecycle<P, S> {
         new (props: P, context?: any): Component<P, S>;
         propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
