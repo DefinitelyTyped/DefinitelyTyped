@@ -1448,6 +1448,15 @@ export class Geometry extends EventDispatcher {
 }
 
 /**
+ * @see <a href="https://github.com/mrdoob/three.js/blob/master/examples/js/BufferGeometryUtils.js">examples/js/BufferGeometryUtils.js</a>
+ */
+export namespace BufferGeometryUtils {
+  export function mergeBufferGeometries(geometries: any[]): BufferGeometry;
+  export function computeTangents(geometry: BufferGeometry): null;
+  export function mergeBufferAttributes(attributes: any[]): BufferAttribute;
+}
+
+/**
  * @deprecated
  */
 export namespace GeometryUtils {
