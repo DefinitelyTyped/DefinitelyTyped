@@ -561,6 +561,14 @@ const ManifestJSONTest1: chrome.runtime.Manifest = {
     }
 }
 
+
+// ALARMS
+
+chrome.alarms.create('name', {
+    delayInMinutes: 10
+})
+
+
 // BLUETOOTH
 // BLUETOOTH SOCKET
 // BLUETOOTH LE
@@ -594,7 +602,7 @@ var connectToDevice = (result: chrome.bluetooth.Device[]) => {
             chrome.bluetoothSocket.connect(
                 socket.socketId,
                 device.address, kUUID,
-                () => connectCallback(socket)
+                () => connectCallback(socket))
         });
     }
 };
@@ -791,7 +799,7 @@ chrome.runtime.sendMessage(
 // SOCKETS
 // https://developer.chrome.com/apps/sockets_tcp
 function test_socketsTcp(): void {
-    var socketId: number = 0;
+    var socketId: chrome.integer = 0;
     var properties: chrome.sockets.SocketProperties = {};
     var buffer: ArrayBuffer = new ArrayBuffer(256);
 
@@ -813,14 +821,14 @@ function test_socketsTcp(): void {
     chrome.sockets.tcp.setPaused(socketId, true, () => { });
 
     // setKeepAlive
-    chrome.sockets.tcp.setKeepAlive(socketId, true, (result: number) => { });
-    chrome.sockets.tcp.setKeepAlive(socketId, true, 0, (result: number) => { });
+    chrome.sockets.tcp.setKeepAlive(socketId, true, (result) => { });
+    chrome.sockets.tcp.setKeepAlive(socketId, true, 0, (result) => { });
 
     // setNoDelay
-    chrome.sockets.tcp.setNoDelay(socketId, true, (result: number) => { });
+    chrome.sockets.tcp.setNoDelay(socketId, true, (result) => { });
 
     // connect
-    chrome.sockets.tcp.connect(socketId, '192.168.0.1', 8080, (result: number) => { });
+    chrome.sockets.tcp.connect(socketId, '192.168.0.1', 8080, (result) => { });
 
     // disconnect
     chrome.sockets.tcp.disconnect(socketId);
@@ -878,7 +886,7 @@ function testSocketsTcpTypes(): void {
 
 // https://developer.chrome.com/apps/sockets_udp
 function test_socketsUdp(): void {
-    var socketId: number = 0
+    var socketId: chrome.integer = 0
     var properties: chrome.sockets.SocketProperties = {};
     var buffer: ArrayBuffer = new ArrayBuffer(256);
 
@@ -967,7 +975,7 @@ function testSocketsUdpTypes(): void {
 
 // https://developer.chrome.com/apps/sockets_tcpServer
 function test_socketsTcpServer(): void {
-    var socketId: number = 0;
+    var socketId: chrome.integer = 0;
     var properties: chrome.sockets.tcpServer.SocketProperties = {};
     var buffer: ArrayBuffer = new ArrayBuffer(256);
 
@@ -989,8 +997,8 @@ function test_socketsTcpServer(): void {
     chrome.sockets.tcpServer.setPaused(socketId, true, () => { });
 
     // listen
-    chrome.sockets.tcpServer.listen(socketId, '0.0.0.0', 80, (result: number) => { });
-    chrome.sockets.tcpServer.listen(socketId, '0.0.0.0', 80, 128, (result: number) => { });
+    chrome.sockets.tcpServer.listen(socketId, '0.0.0.0', 80, (result) => { });
+    chrome.sockets.tcpServer.listen(socketId, '0.0.0.0', 80, 128, (result) => { });
 
     // disconnect
     chrome.sockets.tcp.disconnect(socketId);

@@ -26,13 +26,19 @@ declare namespace chrome {
 
     /**
      * Integer
+     * -
+     * Chrome uses JS number, but internally requires an integer or double.
+     * This is a helper type to prevent mixup.
      */
-    type integer = number;
+    type integer = number | 'integer';
+
     /**
      * Double
+     * -
+     * Chrome uses JS number, but internally requires an integer or double.
+     * This is a helper type to prevent mixup.
      */
-    type double = number;
-
+    type double = number | 'double';
 
     ////////////////////////////
     // Accessibility Features //
@@ -9659,17 +9665,17 @@ declare namespace chrome {
             /** The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to relate different events of the same request. */
             requestId: string;
             /** The value 0 indicates that the request happens in the main frame; a positive value indicates the ID of a subframe in which the request happens. If the document of a (sub-)frame is loaded (type is main_frame or sub_frame), frameId indicates the ID of this frame, not the ID of the outer frame. Frame IDs are unique within a tab. */
-            frameId: number;
+            frameId: integer;
             /** ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists. */
-            parentFrameId: number;
+            parentFrameId: integer;
             /** The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab. */
-            tabId: number;
+            tabId: integer;
             /**
              * How the requested resource will be used.
              */
             type: webRequest.ResourceType;
             /** The time when this signal is triggered, in milliseconds since the epoch. */
-            timeStamp: number;
+            timeStamp: double;
             /** The origin where the request was initiated. This does not change through redirects. If this is an opaque origin, the string 'null' will be used.
              * @since Since Chrome 63.
             */
@@ -9730,7 +9736,7 @@ declare namespace chrome {
              * Standard HTTP status code returned by the server.
              * @since Chrome 43.
              */
-            statusCode: number;
+            statusCode: integer;
         }
 
         interface WebResponseHeadersDetails extends WebResponseDetails {
@@ -9758,7 +9764,7 @@ declare namespace chrome {
         /** An object describing filters to apply to webRequest events. */
         interface RequestFilter {
             /** Optional. */
-            tabId?: number;
+            tabId?: integer;
             /**
              * A list of request types. Requests that cannot match any of the types will be filtered out.
              */
@@ -9767,7 +9773,7 @@ declare namespace chrome {
             urls: string[];
 
             /** Optional. */
-            windowId?: number;
+            windowId?: integer;
         }
 
         interface AuthCredentials {
@@ -9853,7 +9859,7 @@ declare namespace chrome {
 
         interface WebAuthChallenger {
             host: string;
-            port: number;
+            port: integer;
         }
 
         /**
@@ -10431,7 +10437,7 @@ declare namespace chrome {
             /** Value of the Expires cookie attribute. */
             expires?: string;
             /** Value of the Max-Age cookie attribute */
-            maxAge?: number;
+            maxAge?: integer;
             /** Value of the Domain cookie attribute. */
             domain?: string;
             /** Value of the Path cookie attribute. */
