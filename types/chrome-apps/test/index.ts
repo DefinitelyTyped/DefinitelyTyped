@@ -782,6 +782,7 @@ chrome.fileSystem.getVolumeList((volumes) => {
     });
 });
 
+
 // MESSAGING
 
 chrome.runtime.onMessageExternal.addListener((request, sender, sendResponse) => {
@@ -794,6 +795,26 @@ chrome.runtime.sendMessage(
         console.log("Response: " + JSON.stringify(response));
     }
 );
+
+// POWER
+
+chrome.power.requestKeepAwake(chrome.power.Level.DISPLAY);
+chrome.power.requestKeepAwake('display');
+
+type IEnum<T, K, F = K extends keyof T ? T[K] : never> = F;
+type EnumType<
+    C extends Object,
+    T = undefined,
+    K = keyof C,
+    V = K extends keyof C ? Exclude<K, C[K]> : never> = IEnum<C, V>;
+type ETEST = EnumType<{
+    SYSTEM: "system",
+    DISPLAY: "display"
+}>;
+let etest: ETEST;
+etest = 'display';
+etest = 'DISPLAY';
+etest = etest.DISPLAY;
 
 
 // SOCKETS
@@ -908,7 +929,7 @@ function test_socketsUdp(): void {
     chrome.sockets.udp.setPaused(socketId, true, () => { });
 
     // bind
-    chrome.sockets.udp.bind(socketId, '0.0.0.0', 8080, (result: number) => { });
+    chrome.sockets.udp.bind(socketId, '0.0.0.0', 8080, (result) => { });
 
     // send
     chrome.sockets.udp.send(socketId, buffer, '172.21.0.1', 10080, (info: chrome.sockets.SendInfo) => { });
@@ -924,16 +945,16 @@ function test_socketsUdp(): void {
     chrome.sockets.udp.getSockets((infos: chrome.sockets.SocketInfo[]) => { });
 
     // joinGroup
-    chrome.sockets.udp.joinGroup(socketId, '224.0.0.1', (result: number) => { });
+    chrome.sockets.udp.joinGroup(socketId, '224.0.0.1', (result) => { });
 
     // leaveGroup
-    chrome.sockets.udp.leaveGroup(socketId, '224.0.0.1', (result: number) => { });
+    chrome.sockets.udp.leaveGroup(socketId, '224.0.0.1', (result) => { });
 
     // setMulticastTimeToLive
-    chrome.sockets.udp.setMulticastTimeToLive(socketId, 100, (result: number) => { });
+    chrome.sockets.udp.setMulticastTimeToLive(socketId, 100, (result) => { });
 
     // setMulticastLoopbackMode
-    chrome.sockets.udp.setMulticastLoopbackMode(socketId, true, (result: number) => { });
+    chrome.sockets.udp.setMulticastLoopbackMode(socketId, true, (result) => { });
 
     // getJoinedGroups
     chrome.sockets.udp.getJoinedGroups(socketId, (groups: string[]) => { });
@@ -1097,7 +1118,7 @@ chrome.usb.getUserSelectedDevices({
 
 // WEBVIEW
 
-let wve: chrome.webview.HTMLWebViewElement = (<any>document.getElementById('webview'));
+let wve: HTMLWebViewElement = (<any>document.getElementById('webview'));
 wve.name = 'test';
 wve.src = 'https://github.com/DefinitelyTyped';
 wve.allowtransparency = true;
@@ -1128,7 +1149,7 @@ wve.addEventListener('loadredirect', (ev) => {
 });
 
 wve.request.onBeforeRequest.addListener(
-    function (details) { return { cancel: true }; },
+    (details) => { return { cancel: true }; },
     { urls: ["*://www.evil.com/*"] },
     ["blocking"]);
 
