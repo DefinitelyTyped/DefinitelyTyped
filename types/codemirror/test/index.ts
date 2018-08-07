@@ -4,7 +4,18 @@ var myCodeMirror: CodeMirror.Editor = CodeMirror(document.body);
 
 var myCodeMirror2: CodeMirror.Editor = CodeMirror(document.body, {
     value: "function myScript(){return 100;}\n",
-    mode: "javascript"
+    mode: "javascript",
+    extraKeys: {
+        Enter: (cm) => { console.log("save"); },
+        Esc: (cm) => { return CodeMirror.Pass; }
+    }
+});
+
+// $ExpectError
+var myCodeMirror2_1: CodeMirror.Editor = CodeMirror(document.body, {
+    extraKeys: {
+        "Shift-Enter": (cm) => { return 42; }  // not a valid return value
+    }
 });
 
 var range = myCodeMirror2.findWordAt(CodeMirror.Pos(0, 2));
