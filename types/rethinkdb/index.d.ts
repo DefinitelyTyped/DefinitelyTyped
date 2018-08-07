@@ -277,6 +277,25 @@ declare module "rethinkdb" {
     interface Sequence extends Operation<Cursor>, Writeable {
         between(lower: any, upper: any, index?: Index): Sequence;
 
+        /**
+         * Turn a sequence into an array or object, necessary when merging a sequence.
+         * 
+         * See: https://www.rethinkdb.com/api/javascript/coerce_to/
+         */
+        coerceTo(key: 'array'): Expression<any[]>;
+        coerceTo(key: 'object'): Expression<Object>;
+
+        merge(object: Object): Sequence;
+        merge(cb: ExpressionFunction<Expression<any>>): Sequence;
+
+        /**
+         * Turn a sequence into an array or object, necessary when merging a sequence.
+         * 
+         * See: https://www.rethinkdb.com/api/javascript/coerce_to/
+         */
+        coerceTo(key: 'array'): Expression<any[]>;
+        coerceTo(key: 'object'): Expression<Object>;
+
         filter(rql: ExpressionFunction<boolean>): Sequence;
         filter(rql: Expression<boolean>): Sequence;
         filter(obj: { [key: string]: any }): Sequence;
