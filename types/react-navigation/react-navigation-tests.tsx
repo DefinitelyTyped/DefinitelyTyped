@@ -24,6 +24,7 @@ import {
     NavigationStackScreenOptions,
     NavigationTabScreenOptions,
     NavigationTransitionProps,
+    StackViewTransitionConfigs,
     createStackNavigator,
     StackNavigatorConfig,
     createSwitchNavigator,
@@ -573,3 +574,10 @@ class MyScreen extends React.Component<NavigationInjectedProps<MyScreenParams>> 
         return <button title={title} onClick={() => { this.props.navigation.goBack(); }} />;
     }
 }
+
+// Test createStackNavigator
+
+createStackNavigator(
+    routeConfigMap,
+    {transitionConfig: () => ({screenInterpolator: StackViewTransitionConfigs.SlideFromRightIOS.screenInterpolator})}
+);
