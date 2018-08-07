@@ -1,10 +1,20 @@
 import { FormErrors, GetFormState } from "../index";
 
-export type DataSelector<FormData = {}, State = {}> = (formName: string, getFormState?: GetFormState) => (state: State) => FormData;
-export type ErrorSelector<FormData = {}, State = {}> = (formName: string, getFormState?: GetFormState) => (state: State) => FormErrors<FormData>;
-export type BooleanSelector<State = {}> = (formName: string, getFormState?: GetFormState) => (state: State) => boolean;
-export type NamesSelector<State = {}> = (getFormState?: GetFormState) => (state: State) => string[];
-export type FormOrFieldsBooleanSelector<State = {}> = (formName: string, getFormState?: GetFormState) => (state: State, ...fields: string[]) => boolean;
+export interface DataSelector<FormData = {}, State = {}> {
+  (formName: string, getFormState?: GetFormState): (state: State) => FormData;
+}
+export interface ErrorSelector<FormData = {}, State = {}> {
+  (formName: string, getFormState?: GetFormState): (state: State) => FormErrors<FormData>;
+}
+export interface BooleanSelector<State = {}> {
+  (formName: string, getFormState?: GetFormState): (state: State) => boolean;
+}
+export interface NamesSelector<State = {}> {
+  (getFormState?: GetFormState): (state: State) => string[];
+}
+export interface FormOrFieldsBooleanSelector<State = {}> {
+  (formName: string, getFormState?: GetFormState): (state: State, ...fields: string[]) => boolean;
+}
 
 export const getFormValues: DataSelector;
 export const getFormInitialValues: DataSelector;
