@@ -2652,8 +2652,14 @@ declare module "dns" {
         value: string;
     }
 
+    export interface AnyCnameRecord {
+        type: "CNAME";
+        value: string;
+    }
+
     export type AnyRecord = AnyARecord |
         AnyAaaaRecord |
+        AnyCnameRecord |
         AnyMxRecord |
         AnyNaptrRecord |
         AnyNsRecord |
