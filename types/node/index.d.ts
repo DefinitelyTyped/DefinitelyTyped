@@ -2579,7 +2579,7 @@ declare module "dns" {
         ttl: number;
     }
 
-    // For backward compatibility.
+    /** @deprecated Use AnyARecord or AnyAaaaRecord instead. */
     export type AnyRecordWithTtl = AnyARecord | AnyAaaaRecord;
 
     export interface AnyARecord extends RecordWithTtl {
