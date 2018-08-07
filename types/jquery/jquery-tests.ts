@@ -42,7 +42,7 @@ function JQueryStatic() {
         $([new HTMLParagraphElement()]);
 
         // $ExpectType JQuery<{ foo: string; hello: string; }>
-        $({ foo: 'baz', hello: 'world' });
+        $({ foo: 'bar', hello: 'world' });
 
         // $ExpectType JQuery<SVGSVGElement>
         $($(document.createElementNS("http://www.w3.org/2000/svg", "svg")));
