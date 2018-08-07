@@ -28,6 +28,7 @@ export * from "./three-copyshader";
 export * from "./three-css3drenderer";
 export * from "./three-ctmloader";
 export * from "./three-ddsloader";
+export * from './three-dragcontrols';
 export * from "./three-editorcontrols";
 export * from "./three-effectcomposer";
 export * from "./three-examples";
