@@ -92,3 +92,10 @@ import * as https from 'https';
         }
     });
 }
+
+{
+    const ws = new WebSocket('ws://www.host.com/path', {
+        maxPayload: 10 * 1024 * 1024
+    });
+    ws.on('open', () => ws.send('something assume to be really long'));
+}
