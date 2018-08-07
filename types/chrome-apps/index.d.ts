@@ -406,7 +406,7 @@ declare namespace chrome {
              * |____________________|____________|____________________________________________|
              * @since Since Chrome 54.
              */
-            actionData?: ActionType;
+            actionData?: actionType;
         }
 
         interface LaunchDataItem {
@@ -6157,6 +6157,18 @@ declare namespace chrome {
             };
         }
 
+        interface AutomationDesktop {
+            desktop: true;
+            interact?: true;
+        }
+        interface AutomationNonInteractive {
+            interact: false;
+            desktop?: false;
+            /** Patterns for matching */
+            matches?: string[];
+        }
+        type AutomationOptions = boolean | AutomationDesktop | AutomationNonInteractive;
+
         interface Manifest {
             //////////////
             // REQUIRED //
@@ -6262,9 +6274,7 @@ declare namespace chrome {
             /** @todo TODO */
             author?: any;
             /** @todo TODO */
-            automation?: boolean | {
-                [key: string]: string
-            };
+            automation?: AutomationOptions;
             /** @todo TODO */
             bluetooth?: {
                 uuids?: string[];
@@ -6346,17 +6356,31 @@ declare namespace chrome {
             };
             /** @todo TODO */
             offline_enabled?: boolean;
-            /** @todo TODO */
+            /**
+             * Permissions that are optional and user controlled.
+             */
             optional_permissions?: Permission[] | Array<Permission | string>;
-            /** @todo TODO */
+            /**
+             * Permissions your application needs access to.
+             */
             permissions?: Permission[] | Array<Permission | string>;
-            /** @todo TODO */
+            /**
+             * Native Client
+             * @see[NDK Docs]{@link https://github.com/crosswalk-project/chromium-crosswalk/blob/af36cc3ce3f5fcb8033f16236725718f8012abfe/native_client_sdk/src/doc/devguide/distributing.rst}
+             * @see[Chromium Source]{@link https://github.com/crosswalk-project/chromium-crosswalk/blob/af36cc3ce3f5fcb8033f16236725718f8012abfe/native_client_sdk/src/tools/fix_manifest.py}
+             */
             platforms?: {
-                nacl_arch?: 'x86-64' | 'x86-32' | 'arm' | string;
+                nacl_arch: 'x86-64' | 'x86-32' | 'arm';
                 sub_package_path: string;
             }[];
             /**
-             * Technologies required by the app or extension. Hosting sites such as the Chrome Web Store may use this list to dissuade users from installing apps or extensions that will not work on their computer. Supported requirements currently include '3D' and 'plugins'; additional requirements checks may be added in the future.
+             * Technologies required by the app or extension.
+             * Hosting sites such as the Chrome Web Store may use
+             * this list to dissuade users from installing apps or
+             * extensions that will not work on their computer.
+             * Supported requirements currently include '3D'
+             * and 'plugins'; additional requirements checks
+             * may be added in the future.
              */
             requirements?: {
                 /**
@@ -6434,12 +6458,12 @@ declare namespace chrome {
             storage?: {
                 /**
                  * The storage.managed_schema property indicates a file within the app that contains the policy schema.
+                 * @see ManagedSchema for schema content typings
                  * @see[Docs and Schema Format]{@link https://developer.chrome.com/apps/manifest/storage}
                  */
-                managed_schema: ManagedSchema;
+                managed_schema: string;
             };
-            /** @todo TODO */
-            system_indicator?: any;
+            // system_indicator?: any; // Deprecated / removed: https://bugs.chromium.org/p/chromium/issues/detail?id=142450
             /**
              * Autoupdating
              * Only set this if you want to host somewhere other than the store.

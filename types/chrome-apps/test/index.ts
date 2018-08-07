@@ -220,7 +220,6 @@ const ManifestJSONTest1: chrome.runtime.Manifest = {
         "nacl_arch": "arm",
         "sub_package_path": "_platform_specific/arm/"
     }],
-    "web_accessible_resources": ["html/crosh.html", "html/nassh.html", "html/nassh_google_relay.html", "html/nassh_connect_dialog.html"],
     "permissions": [
         "https://www.google-analytics.com/*",
         "http://localhost:8080/*",
