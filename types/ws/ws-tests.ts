@@ -88,7 +88,20 @@ import * as https from 'https';
             clientNoContextTakeover: true,
             serverMaxWindowBits: 0,
             clientMaxWindowBits: 0,
-            memLevel: 0
+            zlibDeflateOptions: {
+                flush: 0,
+                finishFlush: 0,
+                chunkSize: 0,
+                windowBits: 0,
+                level: 0,
+                memLevel: 0,
+                strategy: 0,
+                dictionary: new Buffer('test'),
+                info: false
+            }
+        },
+        verifyClient: (info: any, cb: any) => {
+            cb(true, 123, 'message', { Upgrade: "websocket" });
         }
     });
 }
