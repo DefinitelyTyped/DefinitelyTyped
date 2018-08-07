@@ -141,6 +141,7 @@ declare namespace WebSocket {
         key?: CertMeta;
         pfx?: string | Buffer;
         ca?: CertMeta;
+        maxPayload?: number;
     }
 
     interface PerMessageDeflateOptions {
