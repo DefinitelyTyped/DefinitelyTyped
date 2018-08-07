@@ -64,7 +64,7 @@ function test_abstract_plate() {
     let sel: d3.Selection<d3.BaseType, any, d3.BaseType, any>;
 
     // create a div, append to body, return Node as type Element
-    el = document.body!.appendChild(document.createElement('div')) as Element;
+    el = document.body.appendChild(document.createElement('div')) as Element;
 
     // create example of options
     margins = { top: 20, right: 20, bottom: 20, left: 20};
@@ -193,7 +193,7 @@ function test_abstract_chart() {
     let plate: d3kit.AbstractPlate;
 
     // create a div, append to body, return Node as type Element
-    el = document.body!.appendChild(document.createElement('div')) as Element;
+    el = document.body.appendChild(document.createElement('div')) as Element;
 
     // create examples of margins, offsets, options, fit options, watch options
     margins = { top: 20, right: 20, bottom: 20, left: 20};
@@ -285,7 +285,7 @@ function test_svg_chart() {
     let plate: d3kit.SvgPlate;
 
     // create a div, append to body, return Node as type Element
-    el = document.body!.appendChild(document.createElement('div')) as Element;
+    el = document.body.appendChild(document.createElement('div')) as Element;
 
     // create examples of margins, offsets, options, fit options, watch options
     margins = { top: 20, right: 20, bottom: 20, left: 20};
@@ -326,7 +326,7 @@ function test_canvas_chart() {
     let context: CanvasRenderingContext2D;
 
     // create a div, append to body, return Node as type Element
-    el = document.body!.appendChild(document.createElement('div')) as Element;
+    el = document.body.appendChild(document.createElement('div')) as Element;
 
     // create examples of margins, offsets, options, fit options, watch options
     margins = { top: 20, right: 20, bottom: 20, left: 20};
@@ -362,7 +362,7 @@ function test_hybrid_chart() {
     let context: CanvasRenderingContext2D;
 
     // create a div, append to body, return Node as type Element
-    el = document.body!.appendChild(document.createElement('div')) as Element;
+    el = document.body.appendChild(document.createElement('div')) as Element;
 
     // create examples of margins, offsets, options, fit options, watch options
     margins = { top: 20, right: 20, bottom: 20, left: 20};
