@@ -35,6 +35,11 @@ import Module = require("module");
 // Specifically test buffer module regression.
 import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer } from "buffer";
 
+// Forward-declare SharedArrayBuffer (available starting es2017)
+interface SharedArrayBuffer {
+    readonly byteLength: number;
+}
+
 //////////////////////////////////////////////////////////
 /// Global Tests : https://nodejs.org/api/global.html  ///
 //////////////////////////////////////////////////////////
@@ -446,6 +451,8 @@ function bufferTests() {
         const arrUint8: Uint8Array = new Uint8Array(2);
         const buf5: Buffer = Buffer.from(arrUint8);
         const buf6: Buffer = Buffer.from(buf1);
+        const sharedArrayBuffer: SharedArrayBuffer = {byteLength: 10};
+        const buf7: Buffer = Buffer.from(sharedArrayBuffer);
     }
 
     // Class Method: Buffer.from(arrayBuffer[, byteOffset[, length]])
