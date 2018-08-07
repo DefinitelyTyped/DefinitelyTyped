@@ -21,8 +21,8 @@ export type ViewMatrix = number[];
 export type ProjectionMatrix = number[];
 
 export interface ViewportOptions {
-    width: number;
-    height: number;
+    width?: number;
+    height?: number;
     viewMatrix?: ViewMatrix;
     projectionMatrix?: ProjectionMatrix;
 }
