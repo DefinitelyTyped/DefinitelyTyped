@@ -70,6 +70,12 @@ export interface OnDragPreviousAndNextLocation extends PreviousAndNextLocation {
     nextParent: TreeItem | null;
 }
 
+export interface ShouldCopyData {
+    node: TreeItem,
+    prevPath: NumberArrayOrStringArray,
+    prevTreeIndex: number
+}
+
 export interface OnMovePreviousAndNextLocation extends PreviousAndNextLocation {
     nextParentNode: TreeItem | null;
 }
@@ -186,6 +192,7 @@ export interface ReactSortableTreeProps {
     dndType?: string;
     placeholderRenderer?: PlaceholderRenderer;
     theme?: ThemeProps;
+    shouldCopyOnOutsideDrop?: boolean | ((data: ShouldCopyData) => boolean);
 }
 
 declare const SortableTree: React.ComponentClass<ReactSortableTreeProps>;
