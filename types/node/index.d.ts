@@ -33,11 +33,6 @@
 /** inspector module types */
 /// <reference path="./inspector.d.ts" />
 
-// Forward-declare SharedArrayBuffer (available starting es2017)
-interface SharedArrayBuffer {
-    readonly byteLength: number;
-}
-
 // This needs to be global to avoid TS2403 in case lib.dom.d.ts is present in the same build
 interface Console {
     Console: NodeJS.ConsoleConstructor;
@@ -178,6 +173,10 @@ interface SymbolConstructor {
     readonly asyncIterator: symbol;
 }
 declare var Symbol: SymbolConstructor;
+interface SharedArrayBuffer {
+    readonly byteLength: number;
+    slice(begin?: number, end?: number): SharedArrayBuffer;
+}
 
 // Node.js ESNEXT support
 interface String {
