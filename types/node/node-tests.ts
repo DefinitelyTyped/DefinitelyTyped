@@ -1691,7 +1691,8 @@ namespace http_tests {
             keepAlive: true,
             keepAliveMsecs: 10000,
             maxSockets: Infinity,
-            maxFreeSockets: 256
+            maxFreeSockets: 256,
+            timeout: 15000
         });
 
         var agent: http.Agent = http.globalAgent;
@@ -1748,7 +1749,8 @@ namespace https_tests {
         keepAliveMsecs: 10000,
         maxSockets: Infinity,
         maxFreeSockets: 256,
-        maxCachedSessions: 100
+        maxCachedSessions: 100,
+        timeout: 15000
     });
 
     var agent: https.Agent = https.globalAgent;
