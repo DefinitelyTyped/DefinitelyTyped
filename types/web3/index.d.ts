@@ -25,6 +25,7 @@ import Utils from "./utils";
 import Eth from "./eth/index";
 
 declare class Web3 {
+    static utils: Utils;
     static providers: Providers;
     static givenProvider: Provider;
     static modules: {
