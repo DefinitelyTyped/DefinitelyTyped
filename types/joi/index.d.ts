@@ -1122,7 +1122,7 @@ export function ref(key: string, options?: ReferenceOptions): Reference;
 export function isRef(ref: any): ref is Reference;
 
 /**
- * Get a sub-schema of an existing schema based on a `path` that can be either a string or an array 
+ * Get a sub-schema of an existing schema based on a `path` that can be either a string or an array
  * of strings For string values path separator is a dot (`.`)
  */
 export function reach(schema: ObjectSchema, path: string): Schema;
@@ -1188,6 +1188,11 @@ export function not(values: any[]): Schema;
  * Marks a key as required which will not allow undefined as value. All keys are optional by default.
  */
 export function required(): Schema;
+
+/**
+ * Alias of `required`.
+ */
+export function exist(): Schema;
 
 /**
  * Marks a key as optional which will allow undefined as values. Used to annotate the schema for readability as all keys are optional by default.
