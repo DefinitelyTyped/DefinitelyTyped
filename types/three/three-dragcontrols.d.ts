@@ -1,5 +1,5 @@
-import {Camera} from './three-core';
+import {Camera, Object3D} from './three-core';
 
 export class DragControls {
-    constructor(objects: any, camera: Camera, domElement?: HTMLElement);
+    constructor(objects: Object3D[], camera: Camera, domElement?: HTMLElement);
 }
