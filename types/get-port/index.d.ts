@@ -4,6 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "get-port" {
-    var getPort: (options?: { port?: number, host?: string }) => PromiseLike<number>
+    var getPort: (options?: { port?: number | number[], host?: string }) => PromiseLike<number>
     export = getPort;
 }
