@@ -613,7 +613,20 @@ declare namespace Office {
         * True, if the current platform allows the add-in to display a UI for selling or upgrading; otherwise returns False.
         * 
         * @remarks
-        * The iOS App Store doesn't support apps with add-ins that provide links to additional payment systems. However, Office Add-ins running on the Windows desktop or for Office Online in the browser, do allow such links. If you want the UI of your add-in to provide a link to an external payment system on platforms other than iOS, you can use the commerceAllowed property to control when that link is displayed.
+        * The iOS App Store doesn't support apps with add-ins that provide links to additional payment systems. However, Office Add-ins running on the Windows desktop or for Office Online in the browser do allow such links. If you want the UI of your add-in to provide a link to an external payment system on platforms other than iOS, you can use the commerceAllowed property to control when that link is displayed.
+        * 
+        * **Support details**
+        * 
+        * A capital Y in the following matrix indicates that this property is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this enumeration.
+        * 
+        * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+        * 
+        * *Supported hosts, by platform*
+        *  <table>
+        *   <tr><th>            </th><th> Office for iPad </th></tr>
+        *   <tr><th> Excel      </th><td> Y               </td></tr>
+        *   <tr><th> Word       </th><td> Y               </td></tr>
+        *  </table>
         */
         commerceAllowed: boolean;
         /**
@@ -698,7 +711,7 @@ declare namespace Office {
         *   <tr><th> Word       </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
         *  </table>
         */
-        document: Document;
+        document: Office.Document;
         /**
         * Contains the Office application host in which the add-in is running.
         */
@@ -725,7 +738,7 @@ declare namespace Office {
          *
          * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or read</td></tr></table>
          */
-        mailbox: Mailbox;
+        mailbox: Office.Mailbox;
         /**
         * Provides access to the properties for Office theme colors.
         */
@@ -750,12 +763,26 @@ declare namespace Office {
          *
          * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or read</td></tr></table>
          */
-        roamingSettings: RoamingSettings;
+        roamingSettings: Office.RoamingSettings;
         /**
-        * Specifies whether the platform and device allows touch interaction.
+        * Specifies whether the platform and device allows touch interaction. True if the add-in is running on a touch device, such as an iPad; false otherwise.
         * 
         * @remarks
         * Use the touchEnabled property to determine when your add-in is running on a touch device and if necessary, adjust the kind of controls, and size and spacing of elements in your add-in's UI to accommodate touch interactions.
+        * 
+        * **Support details**
+        * 
+        * A capital Y in the following matrix indicates that this property is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this enumeration.
+        * 
+        * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+        * 
+        * *Supported hosts, by platform*
+        *  <table>
+        *   <tr><th>            </th><th> Office for iPad </th></tr>
+        *   <tr><th> Excel      </th><td> Y               </td></tr>
+        *   <tr><th> PowerPoint </th><td> Y               </td></tr>
+        *   <tr><th> Word       </th><td> Y               </td></tr>
+        *  </table>
         */
         touchEnabled: boolean;
         /**
@@ -2048,11 +2075,11 @@ declare namespace Office {
     * Represents a binding to a section of the document.
     *
     * @remarks
-    * <tr><td>Requirement Sets</td><td>MatrixBinding, TableBinding, TextBinding</td></tr></table>
+    * <table><tr><td>Requirement Sets</td><td>MatrixBinding, TableBinding, TextBinding</td></tr></table>
     *
     * The Binding object exposes the functionality possessed by all bindings regardless of type.
     *
-    * The Binding object is never called directly. It is the abstract parent class of the objects that represent each type of binding: MatrixBinding, TableBinding, or TextBinding. All three of these objects inherit the getDataAsync and setDataAsync methods from the Binding object that enable to you interact with the data in the binding. They also inherit the id and type properties for querying those property values. Additionally, the MatrixBinding and TableBinding objects expose additional methods for matrix- and table-specific features, such as counting the number of rows and columns.
+    * The Binding object is never called directly. It is the abstract parent class of the objects that represent each type of binding: {@link Office.MatrixBinding}, {@link Office.TableBinding}, or {@link Office.TextBinding}. All three of these objects inherit the getDataAsync and setDataAsync methods from the Binding object that enable to you interact with the data in the binding. They also inherit the id and type properties for querying those property values. Additionally, the MatrixBinding and TableBinding objects expose additional methods for matrix- and table-specific features, such as counting the number of rows and columns.
     * 
     * **Support details**
     * 
@@ -2074,15 +2101,15 @@ declare namespace Office {
         /**
         * Get the Document object associated with the binding.
         */
-        document: Document;
+        document: Office.Document;
         /**
-         * A string that uniquely identifies this binding among the bindings in the same Document object.
+         * A string that uniquely identifies this binding among the bindings in the same {@link Office.Document} object.
          */
         id: string;
         /**
         * Gets the type of the binding.
         */
-        type: BindingType;
+        type: Office.BindingType;
         /**
          * Adds an event handler to the object for the specified {@link Office.EventType}. Supported EventTypes are `Office.EventType.BindingDataChanged` and `Office.EventType.BindingSelectionChanged`.
          *
@@ -2092,26 +2119,26 @@ declare namespace Office {
          * @param eventType The event type. For bindings, it can be `Office.EventType.BindingDataChanged` or `Office.EventType.BindingSelectionChanged`.
          * @param handler The event handler function to add, whose only parameter is of type {@link Office.BindingDataChangedEventArgs} or {@link Office.BindingSelectionChangedEventArgs}.
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
-         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
          */
-        addHandlerAsync(eventType: Office.EventType, handler: any, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        addHandlerAsync(eventType: Office.EventType, handler: any, options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult) => void): void;
         /**
          * Returns the data contained within the binding.
          *
          * @remarks
-         * <tr><td>Requirement Sets</td><td>MatrixBindings, TableBindings, TextBindings</td></tr></table>
+         * <table><tr><td>Requirement Sets</td><td>MatrixBindings, TableBindings, TextBindings</td></tr></table>
          *
          * When called from a MatrixBinding or TableBinding, the getDataAsync method will return a subset of the bound values if the optional startRow, startColumn, rowCount, and columnCount parameters are specified (and they specify a contiguous and valid range).
          *
          * @param options Provides options for how to get the data in a binding.
-         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
          */
         getDataAsync(options?: GetBindingDataOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Removes the specified handler from the binding for the specified event type.
          *
          * @remarks
-         * <tr><td>Requirement Sets</td><td>BindingEvents</td></tr></table>
+         * <table><tr><td>Requirement Sets</td><td>BindingEvents</td></tr></table>
          *
          * @param eventType The event type. For bindings, it can be `Office.EventType.BindingDataChanged` or `Office.EventType.BindingSelectionChanged`.
          * @param options Provides options to determine which event handler or handlers are removed.
@@ -2123,7 +2150,7 @@ declare namespace Office {
          *
          * @remarks
          *
-         * <tr><td>Requirement Sets</td><td>MatrixBindings, TableBindings, TextBindings</td></tr></table>
+         * <table><tr><td>Requirement Sets</td><td>MatrixBindings, TableBindings, TextBindings</td></tr></table>
          * 
          * The value passed for data contains the data to be written in the binding. The kind of value passed determines what will be written as described in the following table.
          * 
@@ -2341,7 +2368,7 @@ declare namespace Office {
          * Creates a binding against a named object in the document.
          *
          * @remarks
-         * <tr><td>Requirement Sets</td><td>MatrixBindings, TableBindings, TextBindings</td></tr></table>
+         * <table><tr><td>Requirement Sets</td><td>MatrixBindings, TableBindings, TextBindings</td></tr></table>
          *
          * For Excel, the itemName parameter can refer to a named range or a table.
          *
@@ -2378,7 +2405,7 @@ declare namespace Office {
          * Create a binding by prompting the user to make a selection on the document.
          *
          * @remarks
-         * <tr><td>Requirement Sets</td><td>Not in a set</td></tr></table>
+         * <table><tr><td>Requirement Sets</td><td>Not in a set</td></tr></table>
          *
          * Adds a binding object of the specified type to the Bindings collection, which will be identified with the supplied id. The method fails if the specified selection cannot be bound.
          * 
@@ -2404,7 +2431,7 @@ declare namespace Office {
          * Create a binding based on the user's current selection.
          *
          * @remarks
-         * <tr><td>Requirement Sets</td><td>MatrixBindings, TableBindings, TextBindings</td></tr></table>
+         * <table><tr><td>Requirement Sets</td><td>MatrixBindings, TableBindings, TextBindings</td></tr></table>
          *
          * Adds the specified type of binding object to the Bindings collection, which will be identified with the supplied id.
          *
@@ -2434,7 +2461,7 @@ declare namespace Office {
          * Gets all bindings that were previously created.
          *
          * @remarks
-         * <tr><td>Requirement Sets</td><td>MatrixBindings, TableBindings, TextBindings</td></tr></table>
+         * <table><tr><td>Requirement Sets</td><td>MatrixBindings, TableBindings, TextBindings</td></tr></table>
          * 
          * **Support details**
          * 
@@ -2458,7 +2485,7 @@ declare namespace Office {
          * Retrieves a binding based on its Name
          *
          * @remarks
-         * <tr><td>Requirement Sets</td><td>CustomXmlParts, MatrixBindings, TableBindings, TextBindings</td></tr></table>
+         * <table><tr><td>Requirement Sets</td><td>CustomXmlParts, MatrixBindings, TableBindings, TextBindings</td></tr></table>
          *
          * Fails if the specified id does not exist.
          * 
@@ -2485,7 +2512,7 @@ declare namespace Office {
          * Removes the binding from the document
          *
          * @remarks
-         * <tr><td>Requirement Sets</td><td>MatrixBindings, TableBindings, TextBindings</td></tr></table>
+         * <table><tr><td>Requirement Sets</td><td>MatrixBindings, TableBindings, TextBindings</td></tr></table>
          *
          * Fails if the specified id does not exist.
          * 
@@ -2532,28 +2559,28 @@ declare namespace Office {
          * Gets the base name of the node without the namespace prefix, if one exists.
          *
          * @remarks
-         * <tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
+         * <table><tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
          */
         baseName: string;
         /**
          * Retrieves the string GUID of the CustomXMLPart.
          *
          * @remarks
-         * <tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
+         * <table><tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
          */
         namespaceUri: string;
         /**
          * Gets the type of the CustomXMLNode.
          *
          * @remarks
-         * <tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
+         * <table><tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
          */
         nodeType: string;
         /**
          * Gets the nodes associated with the XPath expression.
          *
          * @remarks
-         * <tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
+         * <table><tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
          *
          * @param xPath The XPath expression that specifies the nodes to get. Required.
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
@@ -2564,7 +2591,7 @@ declare namespace Office {
          * Gets the node value.
          *
          * @remarks
-         * <tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
+         * <table><tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
          *
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
@@ -2574,7 +2601,7 @@ declare namespace Office {
          * Gets the text of an XML node in a custom XML part.
          *
          * @remarks
-         * <tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
+         * <table><tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
          *
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
@@ -2584,7 +2611,7 @@ declare namespace Office {
          * Gets the node's XML.
          *
          * @remarks
-         * <tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
+         * <table><tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
          *
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
@@ -2594,7 +2621,7 @@ declare namespace Office {
          * Sets the node value.
          *
          * @remarks
-         * <tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
+         * <table><tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
          *
          * @param value The value to be set on the node
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
@@ -2618,7 +2645,7 @@ declare namespace Office {
          * Sets the node XML.
          *
          * @remarks
-         * <tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
+         * <table><tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
          *
          * @param xml The XML to be set on the node
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
@@ -2779,6 +2806,7 @@ declare namespace Office {
     /**
      * Provides information about the replaced node that raised the nodeReplaced event.
      * 
+     * @remarks
      * **Support details**
      * 
      * A capital Y in the following matrix indicates that this interface is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this interface.
