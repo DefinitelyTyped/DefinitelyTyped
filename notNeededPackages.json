@@ -679,6 +679,12 @@
             "asOfVersion": "3.8.7"
         },
         {
+            "libraryName": "interactjs",
+            "typingsPackageName": "interact.js",
+            "sourceRepoURL": "https://github.com/taye/interact.js",
+            "asOfVersion": "1.3.0"
+        },
+        {
             "libraryName": "inversify",
             "typingsPackageName": "inversify",
             "sourceRepoURL": "http://inversify.io",
