@@ -34,7 +34,6 @@ export interface Validator<T> {
 
 export interface Requireable<T> extends Validator<T | undefined | null> {
     isRequired: Validator<NonNullable<T>>;
-    [nominalTypeHack]?: T;
 }
 
 export type ValidationMap<T> = { [K in keyof T]-?: Validator<T[K]> };
