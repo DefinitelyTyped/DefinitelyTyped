@@ -104,7 +104,7 @@ const propTypesWithoutAnnotation = {
     objectOf: PropTypes.objectOf(PropTypes.number.isRequired).isRequired,
     shape: PropTypes.shape(innerProps).isRequired,
     optionalNumber: PropTypes.number,
-    customProp: (() => null) as PropTypes.Validator<typeof uniqueType | undefined>
+    customProp: customPropFunc,
 };
 
 const partialPropTypes = {
