@@ -124,7 +124,7 @@
             "libraryName": "axe-core",
             "typingsPackageName": "axe-core",
             "sourceRepoURL": "https://github.com/dequelabs/axe-core",
-            "asOfVersion": "2.0.7"
+            "asOfVersion": "3.0.3"
         },
         {
             "libraryName": "axios",
@@ -1009,12 +1009,6 @@
             "asOfVersion": "1.1.2"
         },
         {
-            "libraryName": "parse5",
-            "typingsPackageName": "parse5",
-            "sourceRepoURL": "https://github.com/inikulin/parse5",
-            "asOfVersion": "3.0.0"
-        },
-        {
             "libraryName": "pascal-case",
             "typingsPackageName": "pascal-case",
             "sourceRepoURL": "https://github.com/blakeembrey/pascal-case",
@@ -1147,6 +1141,24 @@
             "asOfVersion": "5.3.0"
         },
         {
+            "libraryName": "react-dnd",
+            "typingsPackageName": "react-dnd",
+            "sourceRepoURL": "https://github.com/react-dnd/react-dnd",
+            "asOfVersion": "3.0.2"
+        },
+        {
+            "libraryName": "react-dnd-html5-backend",
+            "typingsPackageName": "react-dnd-html5-backend",
+            "sourceRepoURL": "https://github.com/react-dnd/react-dnd",
+            "asOfVersion": "3.0.2"
+        },
+        {
+            "libraryName": "react-dnd-test-backend",
+            "typingsPackageName": "react-dnd-test-backend",
+            "sourceRepoURL": "https://github.com/react-dnd/react-dnd",
+            "asOfVersion": "3.0.2"
+        },
+        {
             "libraryName": "react-flip-move",
             "typingsPackageName": "react-flip-move",
             "sourceRepoURL": "https://github.com/joshwcomeau/react-flip-move",
@@ -1201,10 +1213,22 @@
             "asOfVersion": "4.1.1"
         },
         {
+            "libraryName": "react-native-navigation",
+            "typingsPackageName": "react-native-navigation",
+            "sourceRepoURL": "https://github.com/wix/react-native-navigation",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "react-split-pane",
             "typingsPackageName": "react-split-pane",
             "sourceRepoURL": "https://github.com/tomkp/react-split-pane",
             "asOfVersion": "0.1.67"
+        },
+        {
+            "libraryName": "react-svg",
+            "typingsPackageName": "react-svg",
+            "sourceRepoURL": "https://github.com/tanem/react-svg",
+            "asOfVersion": "5.0.0"
         },
         {
             "libraryName": "realm",
@@ -1225,7 +1249,7 @@
             "asOfVersion": "0.1.5"
         },
         {
-            "libraryName": "react-bootstrap",
+            "libraryName": "redux-bootstrap",
             "typingsPackageName": "redux-bootstrap",
             "sourceRepoURL": "https://github.com/remojansen/redux-bootstrap",
             "asOfVersion": "1.1.0"
@@ -1589,6 +1613,12 @@
             "typingsPackageName": "webix",
             "sourceRepoURL": "http://webix.com",
             "asOfVersion": "5.1.1"
+        },
+        {
+            "libraryName": "winston",
+            "typingsPackageName": "winston",
+            "sourceRepoURL": "https://github.com/winstonjs/winston.git",
+            "asOfVersion": "2.4.4"
         },
         {
             "libraryName": "wolfy87-eventemitter",

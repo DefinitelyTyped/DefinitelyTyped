@@ -3,7 +3,7 @@ import Pointable from 'react-pointable';
 
 class Test extends React.Component<object, object> {
     elementRef(el: HTMLElement) {}
-    somePointerEvent(evt: PointerEvent) {}
+    somePointerEvent(evt: React.PointerEvent) {}
 
     render() {
         return (

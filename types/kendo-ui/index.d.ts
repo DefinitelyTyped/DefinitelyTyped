@@ -1081,6 +1081,7 @@ declare namespace kendo.data {
         query(options?: any): JQueryPromise<any>;
         read(data?: any): JQueryPromise<any>;
         remove(model: kendo.data.ObservableObject): void;
+        skip(): number;
         sort(sort: DataSourceSortItem): void;
         sort(sort: DataSourceSortItem[]): void;
         sort(): DataSourceSortItem[];
@@ -4311,7 +4312,7 @@ declare namespace kendo.ui {
         scrollable?: boolean | GridScrollable;
         selectable?: boolean|string;
         sortable?: boolean | GridSortable;
-        toolbar?: GridToolbarItem[];
+        toolbar?: string|Function|(string|GridToolbarItem)[];
         beforeEdit?(e: GridBeforeEditEvent): void;
         cancel?(e: GridCancelEvent): void;
         cellClose?(e: GridCellCloseEvent): void;

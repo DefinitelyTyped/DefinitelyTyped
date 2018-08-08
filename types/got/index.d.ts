@@ -100,6 +100,7 @@ declare namespace got {
     }
 
     interface GotJSONOptions extends GotOptions<string | null> {
+        // Body must be an object or array. See https://github.com/sindresorhus/got/issues/511
         body?: object;
         form?: boolean;
         json: true;

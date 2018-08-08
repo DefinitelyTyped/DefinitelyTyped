@@ -6,6 +6,7 @@ export type TableProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   cssModule?: CSSModule;
   size?: string;
   bordered?: boolean;
+  borderless?: boolean;
   striped?: boolean;
   inverse?: boolean;
   hover?: boolean;

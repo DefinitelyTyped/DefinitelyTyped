@@ -17,8 +17,10 @@
 //                 Ciaran Liedeman <https://github.com/cliedeman>
 //                 Edward Sammut Alessi <https://github.com/Slessi>
 //                 Jérémy Magrin <https://github.com/magrinj>
+//                 Luca Campana <https://github.com/TizioFittizio>
+//                 Ullrich Schaefer <https://github.com/stigi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 /**
  * Reference: https://github.com/react-navigation/react-navigation/tree/a37473c5e4833f48796ee6c7c9cb4a8ac49d9c06
@@ -86,6 +88,11 @@ export interface NavigationState {
   routes: NavigationRoute[];
 }
 
+export interface DrawerNavigationState extends NavigationState {
+  isDrawerOpen: boolean;
+  isTransitioning: boolean;
+}
+
 export type NavigationRoute<Params = NavigationParams> =
   | NavigationLeafRoute<Params>
   | NavigationStateRoute<Params>;
@@ -96,6 +103,10 @@ export interface NavigationLeafRoute<Params = NavigationParams> {
    * they will be defined by the router.
    */
   key: string;
+  /**
+   * Index that represents the depth of the stack
+   */
+  index: number;
   /**
    * For example 'Home'.
    * This is used as a key in a route config when creating a navigator.
@@ -260,6 +271,30 @@ export interface NavigationInitAction extends NavigationInitActionPayload {
   type: 'Navigation/INIT';
 }
 
+export interface NavigationReplaceActionPayload {
+    key: string;
+    routeName: string;
+    params?: NavigationParams;
+    action?: NavigationNavigateAction;
+}
+
+export interface NavigationReplaceAction {
+    type: 'Navigation/REPLACE';
+    key: string;
+    routeName: string;
+    params?: NavigationParams;
+    action?: NavigationNavigateAction;
+}
+
+export interface NavigationCompleteTransitionActionPayload {
+    key?: string;
+}
+
+export interface NavigationCompleteTransitionAction {
+    type: 'Navigation/COMPLETE_TRANSITION';
+    key: string;
+}
+
 export interface NavigationResetActionPayload {
   index: number;
   key?: string | null;
@@ -296,6 +331,36 @@ export interface NavigationPopToTopActionPayload {
 export interface NavigationPopToTopAction
   extends NavigationPopToTopActionPayload {
   type: 'Navigation/POP_TO_TOP';
+}
+
+export interface NavigationPushActionPayload {
+    routeName: string;
+    params?: NavigationParams;
+    action?: NavigationNavigateAction;
+    key?: string;
+}
+
+export interface NavigationPushAction {
+    type: 'Navigation/PUSH';
+    routeName: string;
+    params?: NavigationParams;
+    action?: NavigationNavigateAction;
+    key?: string;
+}
+
+export interface NavigationOpenDrawerAction {
+    key?: string;
+    type: 'Navigation/OPEN_DRAWER';
+}
+
+export interface NavigationCloseDrawerAction {
+    key?: string;
+    type: 'Navigation/CLOSE_DRAWER';
+}
+
+export interface NavigationToggleDrawerAction {
+    key?: string;
+    type: 'Navigation/TOGGLE_DRAWER';
 }
 
 export interface NavigationStackViewConfig {
@@ -335,22 +400,24 @@ export interface NavigationSwitchRouterConfig {
 export interface NavigationStackScreenOptions {
   title?: string;
   header?:
-  | (
-    | React.ReactElement<any>
-    | ((headerProps: HeaderProps) => React.ReactElement<any>))
+  | React.ReactElement<any>
+  | ((headerProps: HeaderProps) => React.ReactElement<any>)
   | null;
   headerTransparent?: boolean;
   headerTitle?: string | React.ReactElement<any>;
   headerTitleStyle?: StyleProp<TextStyle>;
   headerTitleAllowFontScaling?: boolean;
   headerTintColor?: string;
-  headerLeft?: React.ReactElement<any>;
+  headerLeft?:
+  | React.ReactElement<any>
+  | ((backButtonProps: HeaderBackButtonProps) => React.ReactElement<any>)
+  | null;
   headerBackTitle?: string | null;
   headerBackImage?: React.ReactElement<any>;
   headerTruncatedBackTitle?: string;
   headerBackTitleStyle?: StyleProp<TextStyle>;
   headerPressColorAndroid?: string;
-  headerRight?: React.ReactElement<any>;
+  headerRight?: React.ReactElement<any> | null;
   headerStyle?: StyleProp<ViewStyle>;
   headerForceInset?: HeaderForceInset;
   headerBackground?: React.ReactNode | React.ReactType;
@@ -375,6 +442,7 @@ export type NavigationStackAction =
   | NavigationSetParamsAction
   | NavigationResetAction
   | NavigationPopAction
+  | NavigationPushAction
   | NavigationPopToTopAction;
 
 export type NavigationTabAction =
@@ -518,9 +586,9 @@ export interface NavigationScreenProp<S, P = NavigationParams> {
   closeDrawer: () => any;
   toggleDrawer: () => any;
   getParam: <T extends keyof P>(param: T, fallback?: P[T]) => P[T];
-  setParams: (newParams: P) => boolean;
+  setParams: (newParams: Partial<P>) => boolean;
   addListener: (
-    eventName: string,
+    eventName: 'willBlur' | 'willFocus' | 'didFocus' | 'didBlur',
     callback: NavigationEventCallback
   ) => NavigationEventSubscription;
   push: (
@@ -564,6 +632,7 @@ export interface NavigationScene {
   isStale: boolean;
   key: string;
   route: NavigationRoute;
+  descriptor: NavigationDescriptor;
 }
 
 export interface NavigationTransitionProps {
@@ -922,6 +991,47 @@ export namespace NavigationActions {
 }
 
 /**
+ * DrawerActions
+ */
+export namespace DrawerActions {
+    const OPEN_DRAWER: 'Navigation/OPEN_DRAWER';
+    const CLOSE_DRAWER: 'Navigation/CLOSE_DRAWER';
+    const TOGGLE_DRAWER: 'Navigation/TOGGLE_DRAWER';
+
+    function openDrawer(): NavigationOpenDrawerAction;
+    function closeDrawer(): NavigationCloseDrawerAction;
+    function toggleDrawer(): NavigationToggleDrawerAction;
+}
+
+/**
+ * StackActions
+ */
+export namespace StackActions {
+    const POP: 'Navigation/POP';
+    const POP_TO_TOP: 'Navigation/POP_TO_TOP';
+    const PUSH: 'Navigation/PUSH';
+    const RESET: 'Navigation/RESET';
+    const REPLACE: 'Navigation/REPLACE';
+    const COMPLETE_TRANSITION: 'Navigation/COMPLETE_TRANSITION';
+
+    function pop(options: NavigationPopActionPayload): NavigationPopAction;
+    function popToTop(
+        options: NavigationPopToTopActionPayload
+    ): NavigationPopToTopAction;
+
+    function push(options: NavigationPushActionPayload): NavigationPushAction;
+    function reset(options: NavigationResetActionPayload): NavigationResetAction;
+
+    function replace(
+        options: NavigationReplaceActionPayload
+    ): NavigationReplaceAction;
+
+    function completeTransition(
+        payload: NavigationCompleteTransitionActionPayload
+    ): NavigationCompleteTransitionAction;
+}
+
+/**
  * Transitioner
  * @desc From react-navigation/src/views/Transitioner.js
  */
@@ -987,6 +1097,7 @@ export interface NavigationDescriptor<Params = NavigationParams> {
   key: string;
   state: NavigationLeafRoute<Params> | NavigationStateRoute<Params>;
   navigation: NavigationScreenProp<any>;
+  options: NavigationScreenOptions;
   getComponent: () => React.ComponentType;
 }
 
@@ -1055,17 +1166,20 @@ export const HeaderBackButton: React.ComponentClass<HeaderBackButtonProps>;
  */
 export const Header: React.ComponentClass<HeaderProps>;
 
-export interface NavigationInjectedProps {
-  navigation: NavigationScreenProp<NavigationState>;
+export interface NavigationInjectedProps<P = NavigationParams> {
+  navigation: NavigationScreenProp<NavigationState, P>;
 }
 
 export function withNavigation<T = {}>(
   Component: React.ComponentType<T & NavigationInjectedProps>
-): React.ComponentType<T>;
+): React.ComponentType<T & { onRef?: React.Ref<React.Component<T & NavigationInjectedProps>> }>;
 
+export interface NavigationFocusInjectedProps extends NavigationInjectedProps {
+  isFocused: boolean;
+}
 export function withNavigationFocus<T = {}>(
-  Component: React.ComponentType<T & NavigationInjectedProps>
-): React.ComponentType<T>;
+  Component: React.ComponentType<T & NavigationFocusInjectedProps>
+): React.ComponentType<T & { onRef?: React.Ref<typeof Component> }>;
 
 /**
  * SafeAreaView Component

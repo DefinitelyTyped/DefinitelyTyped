@@ -1,8 +1,8 @@
-// Type definitions for react-joyride 1.10
+// Type definitions for react-joyride 1.11
 // Project: https://github.com/gilbarbara/react-joyride
 // Definitions by: Daniel Rosenwasser <https://github.com/DanielRosenwasser>, Ben Dixon <https://github.com/bendxn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from "react";
 
@@ -156,7 +156,7 @@ export interface Props {
 export interface Step {
     title?: string;
     text?: React.ReactNode;
-    selector: string;
+    target: string;
     position?: "top" | "top-left" | "top-right" | "bottom" | "bottom-left" | "bottom-right" | "right" | "left";
     type?: "click" | "hover";
     isFixed?: boolean;

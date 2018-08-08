@@ -6,7 +6,7 @@
 //                 Rasmus Eneman <https://github.com/Pajn>
 //                 Lucas Terra <https://github.com/lucasterra>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 ///<reference types="react" />
 
@@ -661,37 +661,22 @@ declare module 'recompose/hoistStatics' {
 // https://github.com/acdlite/recompose/blob/master/docs/API.md#componentfromstream
 declare module 'recompose/componentFromStream' {
     import { componentFromStream } from 'recompose';
+    export { componentFromStreamWithConfig } from 'recompose';
     export default componentFromStream;
-}
-
-// https://github.com/acdlite/recompose/blob/master/docs/API.md#componentfromstreamwithconfig
-declare module 'recompose/componentFromStreamWithConfig' {
-    import { componentFromStreamWithConfig } from 'recompose';
-    export default componentFromStreamWithConfig;
 }
 
 // https://github.com/acdlite/recompose/blob/master/docs/API.md#mappropsstream
 declare module 'recompose/mapPropsStream' {
     import { mapPropsStream } from 'recompose';
+    export { mapPropsStreamWithConfig } from 'recompose';
     export default mapPropsStream;
-}
-
-// https://github.com/acdlite/recompose/blob/master/docs/API.md#mappropsstreamwithconfig
-declare module 'recompose/mapPropsStreamWithConfig' {
-    import { mapPropsStreamWithConfig } from 'recompose';
-    export default mapPropsStreamWithConfig;
 }
 
 // https://github.com/acdlite/recompose/blob/master/docs/API.md#createeventhandler
 declare module 'recompose/createEventHandler' {
     import { createEventHandler } from 'recompose';
+    export { createEventHandlerWithConfig } from 'recompose';
     export default createEventHandler;
-}
-
-// https://github.com/acdlite/recompose/blob/master/docs/API.md#createeventhandlerwithconfig
-declare module 'recompose/createEventHandlerWithConfig' {
-    import { createEventHandlerWithConfig } from 'recompose';
-    export default createEventHandlerWithConfig;
 }
 
 // https://github.com/acdlite/recompose/blob/master/docs/API.md#setobservableconfig

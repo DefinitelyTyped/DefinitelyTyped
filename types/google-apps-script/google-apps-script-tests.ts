@@ -1,8 +1,4 @@
-
-
-
 // from https://developers.google.com/apps-script/overview
-
 function createAndSendDocument() {
   // Create a new Google Doc named 'Hello, world!'
   var doc = DocumentApp.create('Hello, world!');
@@ -27,7 +23,5 @@ function createAndSendDocument() {
 }
 
 // Regression
-
 ScriptApp.getService().getUrl();
-
 CalendarApp.GuestStatus.NO;

@@ -5,6 +5,10 @@ const tracer = ddTrace.init({
     service: 'MyLovelyService',
     hostname: 'localhost',
     port: 8126,
+    logger: {
+        debug: msg => { },
+        error: err => { }
+    }
 });
 
 tracer

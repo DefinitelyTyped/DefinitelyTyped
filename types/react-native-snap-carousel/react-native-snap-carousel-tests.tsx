@@ -65,10 +65,7 @@ class SnapCarouselTest extends React.Component {
 }
 
 class SnapCarouselWithPaginationTest extends React.Component<{}, {activeSlide: number}> {
-    constructor(props: {}) {
-        super(props);
-        this.state = { activeSlide: 0 };
-    }
+    state = { activeSlide: 0 };
 
     renderItem({ item }: { item: string }): React.ReactNode {
         return (

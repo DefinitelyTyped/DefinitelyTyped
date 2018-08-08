@@ -1,4 +1,4 @@
-import * as each from 'jest-each';
+import each from "jest-each";
 
 const params = [[1, 0, 1], [1, 1, 0], ['1', 'two', 'three']];
 

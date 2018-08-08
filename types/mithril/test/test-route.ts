@@ -66,7 +66,7 @@ const routeResolver: RouteResolver<Attrs, RRState> & RRState = {
 	}
 };
 
-route(document.body, '/', {
+route(document.body!, '/', {
 	'/': component1,
 	'/test1': {
 		onmatch(args, path) {

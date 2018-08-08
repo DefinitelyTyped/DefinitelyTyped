@@ -1,6 +1,6 @@
 import webpack = require('webpack');
 import WebpackDevServer = require('webpack-dev-server');
-import * as core from 'express-serve-static-core';
+import { Application } from 'express';
 const compiler = webpack({});
 const multipleCompiler = webpack([]);
 
@@ -46,7 +46,7 @@ const config: WebpackDevServer.Configuration = {
         "**": "http://localhost:9090"
     },
 
-    setup: (app: core.Express) => {
+    setup: (app: Application) => {
         // Here you can access the Express app object and add your own custom middleware to it.
         // For example, to define custom handlers for some paths:
         app.get('/some/path', (req, res) => {
@@ -69,8 +69,7 @@ const config: WebpackDevServer.Configuration = {
     },
     // It's a required option.
     publicPath: "/assets/",
-    headers: { "X-Custom-Header": "yes" },
-    stats: { colors: true }
+    headers: { "X-Custom-Header": "yes" }
 };
 
 // API example
@@ -87,13 +86,23 @@ server.listen(8080, "localhost", () => { });
 
 server.close();
 
-WebpackDevServer.addDevServerEntrypoints(config, {
+const webpackConfig: webpack.Configuration = {
+    context: __dirname,
+
+    mode: 'development',
+
+    target: 'node',
+
+    devServer: config
+};
+
+WebpackDevServer.addDevServerEntrypoints(webpackConfig, {
     publicPath: "/assets/",
     https: true
 });
 
 WebpackDevServer.addDevServerEntrypoints(
-    [config],
+    [webpackConfig],
     {
         publicPath: "/assets/",
         https: true

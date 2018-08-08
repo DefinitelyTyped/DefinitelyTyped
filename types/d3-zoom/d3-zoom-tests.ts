@@ -166,7 +166,7 @@ svgZoom = svgZoom.touchable(true);
 svgZoom = svgZoom.touchable(function(d, i, group) {
     const that: SVGRectElement = this;
     const datum: SVGDatum = d;
-    const g: SVGRectElement[] | NodeListOf<SVGRectElement> = group;
+    const g: SVGRectElement[] | ArrayLike<SVGRectElement> = group;
     return "ontouchstart" in this && datum.height > 0;
 });
 

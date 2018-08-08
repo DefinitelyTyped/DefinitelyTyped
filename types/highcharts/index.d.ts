@@ -1995,7 +1995,7 @@ declare namespace Highcharts {
         fontWeight?: string;
         left?: string;
         opacity?: number;
-		overflow?: string;
+        overflow?: string;
         padding?: string | number;
         position?: string;
         top?: string;
@@ -2354,7 +2354,7 @@ declare namespace Highcharts {
          * can be customized by defining a new array of items and assigning null to unwanted positions.
          * @since 2.0
          */
-        menuItems?: MenuItem[];
+        menuItems?: string[] | MenuItem[];
         /**
          * A click handler callback to use on the button directly instead of the popup menu.
          * @since 2.0
@@ -2661,6 +2661,12 @@ declare namespace Highcharts {
          * @default ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
          */
         shortMonths?: string[];
+        /**
+         * Short week days, starting Sunday. If not specified, Highcharts uses the first three letters of the lang.weekdays option.
+         * @default undefined
+         * @since 4.2.4
+         */
+        shortWeekdays?: string[];
         /**
          * The default thousands separator used in the Highcharts.numberFormat method unless otherwise specified in the
          * function arguments. Since Highcharts 4.1 it defaults to a single space character, which is compatible with ISO
@@ -3124,7 +3130,7 @@ declare namespace Highcharts {
          * chart's two series to be updated with respective options.
          * @since 5.0.0
          */
-        chartOptions?: ChartOptions;
+        chartOptions?: Options;
 
         /**
          * Under which conditions the rule applies.
@@ -6801,6 +6807,16 @@ declare namespace Highcharts {
 
         map(array: any[], fn: Function): any[];
 
+        /**
+         * Wrap an existing behavior of a part of the chart to extend or replace it.
+         * @since 2.3.0
+         *
+         * @see {@link https://www.highcharts.com/docs/extending-highcharts/extending-highcharts}
+         *
+         * @param prototype The prototype for the part of the chart to extend.
+         * @param type The type of behavior you are extending.
+         * @param cb The function that executes when the behavior occurs.
+         */
         wrap(prototype: any, type: string, cb: (proceed: Function, ...args: any[]) => void): void;
 
         /**
@@ -6832,6 +6848,15 @@ declare namespace Highcharts {
                   type: string,
                   eventArguments?: any,
                   defaultFunction?: () => void): void;
+
+        distribute(array: any[], value: number): void;
+
+        /**
+         * Prototype used to extend tooltip behavior in a chart.
+         *
+         * @see {@link https://www.highcharts.com/docs/extending-highcharts/extending-highcharts}
+         */
+        Tooltip: TooltipPrototype;
     }
 
     /**
@@ -7072,6 +7097,19 @@ declare namespace Highcharts {
          * @since 5.0.0
          */
         update(options: LegendOptions, redraw?: boolean): void;
+    }
+
+    /**
+     * The Tooltip prototype is used to to wrap and extend tooltip behaviors.
+     *
+     * @see {@link https://www.highcharts.com/docs/extending-highcharts/extending-highcharts}
+     */
+    interface TooltipPrototype {
+        /**
+         * The behavior prototypes for the tooltips in a chart.
+         * @since 2.3.0
+         */
+        prototype: any;
     }
 }
 

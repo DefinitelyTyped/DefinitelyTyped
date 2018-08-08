@@ -1143,6 +1143,7 @@ export interface IndicesDeleteParams extends GenericParams {
     timeout?: TimeSpan;
     masterTimeout?: TimeSpan;
     index: NameList;
+    ignoreUnavailable?: boolean;
 }
 
 export interface IndicesDeleteAliasParams extends GenericParams {

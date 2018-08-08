@@ -1,6 +1,6 @@
 import * as React from 'react';
+import * as Popper from 'popper.js';
 import { CSSModule } from '../index';
-import {Popper} from './Popper';
 
 export type UncontrolledProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   target: string | HTMLElement;

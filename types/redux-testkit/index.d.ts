@@ -31,7 +31,7 @@ export function Selector(selector: (state: any, action: any) => any): {
 	execute(state: any, ...args: any[]): any;
 };
 
-export function Thunk(thunkFunc: ThunkAction<any, any, any>, extraArg?: any): ThunkTestkit & {
+export function Thunk(thunkFunc: ThunkAction<any, any, any, any>, extraArg?: any): ThunkTestkit & {
 	withState(state: any): ThunkTestkit;
 };
 

@@ -23,16 +23,12 @@ class Example extends React.Component<{}, State> {
   modal4: Modal;
   modal6: Modal;
 
-  constructor() {
-    super({});
-
-    this.state = {
-      isOpen: false,
-      isDisabled: false,
-      swipeToClose: true,
-      sliderValue: 0.3
-    };
-  }
+  state = {
+    isOpen: false,
+    isDisabled: false,
+    swipeToClose: true,
+    sliderValue: 0.3
+  };
 
   onClose() {
     console.log('Modal just closed');

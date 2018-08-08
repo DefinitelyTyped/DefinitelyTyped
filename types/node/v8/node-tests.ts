@@ -654,9 +654,10 @@ namespace url_tests {
         const searchParams = new url.URLSearchParams('abc=123');
 
         assert.equal(searchParams.toString(), 'abc=123');
-        searchParams.forEach((value: string, name: string): void => {
+        searchParams.forEach((value: string, name: string, me: url.URLSearchParams): void => {
             assert.equal(name, 'abc');
             assert.equal(value, '123');
+            assert.equal(me, searchParams);
         });
 
         assert.equal(searchParams.get('abc'), '123');
@@ -913,8 +914,9 @@ function simplified_stream_ctor_test() {
         read(size) {
             size.toFixed();
         },
-        destroy(error) {
+        destroy(error, cb) {
             error.stack;
+            cb(error);
         }
     });
 
@@ -929,8 +931,9 @@ function simplified_stream_ctor_test() {
             chunks[0].encoding.charAt(0);
             cb();
         },
-        destroy(error) {
+        destroy(error, cb) {
             error.stack;
+            cb(error);
         },
         final(cb) {
             cb(null);
@@ -950,6 +953,10 @@ function simplified_stream_ctor_test() {
             chunks[0].chunk.slice(0);
             chunks[0].encoding.charAt(0);
             cb();
+        },
+        destroy(error, cb) {
+            error.stack;
+            cb(error);
         },
         readableObjectMode: true,
         writableObjectMode: true
@@ -977,8 +984,9 @@ function simplified_stream_ctor_test() {
             chunks[0].encoding.charAt(0);
             cb();
         },
-        destroy(error) {
+        destroy(error, cb) {
             error.stack;
+            cb(error);
         },
         allowHalfOpen: true,
         readableObjectMode: true,
@@ -3073,6 +3081,12 @@ namespace dns_tests {
         const _err: NodeJS.ErrnoException = err;
         const _addresses: string | dns.LookupAddress[] = addresses;
         const _family: number | undefined = family;
+    });
+
+    dns.lookupService("127.0.0.1", 0, (err, hostname, service) => {
+        const _err: NodeJS.ErrnoException = err;
+        const _hostname: string = hostname;
+        const _service: string = service;
     });
 
     dns.resolve("nodejs.org", (err, addresses) => {

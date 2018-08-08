@@ -60,6 +60,5 @@ declare module 'ember-mocha' {
 
 declare module 'mocha' {
     // augment test callback context
-    interface ITestCallbackContext extends TestContext {}
-    interface IHookCallbackContext extends TestContext {}
+    interface Context extends TestContext {}
 }

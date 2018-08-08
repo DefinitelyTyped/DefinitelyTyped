@@ -1,4 +1,4 @@
-// Type definitions for ej.web.all 16.1
+// Type definitions for ej.web.all 16.2
 // Project: http://help.syncfusion.com/js/typescript
 // Definitions by: Syncfusion <https://github.com/syncfusion>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,7 +8,7 @@
 
 /*!
 *  filename: ej.web.all.d.ts
-*  version : 16.1.0.37
+*  version : 16.2.0.41
 *  Copyright Syncfusion Inc. 2001 - 2018. All rights reserved.
 *  Use of this code is subject to the terms of our license.
 *  A copy of the current license can be obtained at any time by e-mailing
@@ -23226,10 +23226,9 @@ declare namespace ej {
         getCurrentViewData(): any[];
 
         /** Get the data of given row index in grid.
-         * @param {number} Pass the index of the row to get the corresponding data
          * @returns {any}
          */
-        getDataByIndex(rowIndex: number): any;
+        getDataByIndex(): any;
 
         /** Get the column field name from the given header text in grid.
          * @param {string} Pass header text of the column to get its corresponding field name
@@ -24809,6 +24808,10 @@ declare namespace ej {
             /** Returns whether the shift key is pressed while selecting cell
              */
             isShiftKeyPressed?: boolean;
+
+            /** Returns the cancel option value.
+             */
+            cancel?: boolean;
 
             /** Returns the grid model.
              */
@@ -30849,6 +30852,10 @@ declare namespace ej {
              */
             beforeServiceInvoke?(e: BeforeServiceInvokeEventArgs): void;
 
+            /** Triggers before rendering multiple series with multiple axes.
+             */
+            beforeSeriesRender?(e: BeforeSeriesRenderEventArgs): void;
+
             /** Triggers when performing drill up/down operation in the pivot chart control.
              */
             drillSuccess?(e: DrillSuccessEventArgs): void;
@@ -30913,6 +30920,13 @@ declare namespace ej {
             /** returns the HTML element of PivotChart control.
              */
             element?: any;
+        }
+
+        export interface BeforeSeriesRenderEventArgs {
+
+            /** series - Instance of the series which is about to get rendered
+             */
+            data?: any;
         }
 
         export interface DrillSuccessEventArgs {
@@ -33114,10 +33128,6 @@ declare namespace ej {
              */
             load?(e: LoadEventArgs): void;
 
-            /** Triggers before populating the pivot engine from datasource.
-             */
-            beforePivotEnginePopulate?(e: BeforePivotEnginePopulateEventArgs): void;
-
             /** Triggers when drill up/down happens in PivotTreeMap control. And it returns the outer HTML of PivotTreeMap control.
              */
             drillSuccess?(e: DrillSuccessEventArgs): void;
@@ -33178,13 +33188,6 @@ declare namespace ej {
             /** returns the HTML element of PivotTreeMap control.
              */
             element?: any;
-        }
-
-        export interface BeforePivotEnginePopulateEventArgs {
-
-            /** returns the current instance of PivotTreeMap control.
-             */
-            treeMapObject?: any;
         }
 
         export interface DrillSuccessEventArgs {
@@ -35392,6 +35395,11 @@ declare namespace ej {
          */
         clearFilter(): void;
 
+        /** To clear the sorted columns in Gantt.
+         * @returns {void}
+         */
+        clearSorting(): void;
+
         /** To collapse all the parent items in Gantt
          * @returns {void}
          */
@@ -35450,6 +35458,16 @@ declare namespace ej {
          */
         filterContent(ejPredicate: Gantt.EjPredicate): void;
 
+        /** To get available column collection in Gantt.
+         * @returns {void}
+         */
+        getColumns(): void;
+
+        /** To get the column collection which are used to edit the task by using task add/edit dialog in resource view.
+         * @returns {void}
+         */
+        getResourceViewEditColumns(): void;
+
         /** To hide the column by using header text
          * @param {string} you can pass a header text of a column to hide
          * @returns {void}
@@ -35499,6 +35517,12 @@ declare namespace ej {
          * @returns {void}
          */
         selectMultipleRows(rowIndexes: any[]): void;
+
+        /** Method to set scroll top value for Gantt control.
+         * @param {number} Pass a value to set top position of vertical scroll bar.
+         * @returns {void}
+         */
+        setScrollTop(Top: number): void;
 
         /** Positions the splitter by the specified column index.
          * @param {number} Set the splitter position based on column index.
@@ -35552,6 +35576,13 @@ declare namespace ej {
          * @returns {void}
          */
         updateRecordByIndex(index: number, data: any): void;
+
+        /** To update the schedule start date and schedule end date of project.
+         * @param {string} New schedule start date of project
+         * @param {string} New schedule end date of project
+         * @returns {void}
+         */
+        updateScheduleDates(startDate: string, endDate: string): void;
 
         /** To change an existing Gantt ID by new ID value dynamically
          * @param {number} you can pass an existing ID value to be change
@@ -37237,7 +37268,7 @@ declare namespace ej {
             /** Specifies the list of toolbar items to be rendered in Gantt toolbar
              * @Default {[]}
              */
-            toolbarItems?: any[];
+            toolbarItems?: Array<ej.Gantt.ToolbarItems|string>;
 
             /** Allows the user to insert custom toolbar items.
              */
@@ -37383,6 +37414,49 @@ declare namespace ej {
 
             ///Duration value remains constant while editing work and resource unit values.
             FixedDuration
+        }
+
+
+        enum ToolbarItems {
+
+            ///Enables the add icon in toolbar
+            Add,
+
+            ///Enables the edit icon in toolbar
+            Edit,
+
+            ///Enables the edit icon in toolbar
+            Delete,
+
+            ///Enables the update icon in toolbar
+            Update,
+
+            ///Enables the cancel icon in toolbar
+            Cancel,
+
+            ///Enables the search icon in toolbar
+            Search,
+
+            ///Enables the indent icon in toolbar
+            Indent,
+
+            ///Enables the outdent icon in toolbar
+            Outdent,
+
+            ///Enables the expand all icon in toolbar
+            ExpandAll,
+
+            ///Enables the collapse all icon in toolbar
+            CollapseAll,
+
+            ///Enables the previous time span icon in toolbar
+            PrevTimeSpan,
+
+            ///Enables the next time span icon in toolbar
+            NextTimeSpan,
+
+            ///Enables the excel export toolbar icon
+            ExcelExport
         }
 
 
@@ -38083,48 +38157,27 @@ declare namespace ej {
          */
         addRow(data: any, rowPosition: string): void;
 
+        /** Clears the filter applied to a specific column.
+         * @param {string} Pass the column field name to clear filtering done in that column.
+         * @returns {void}
+         */
+        clearFilter(fieldName: string): void;
+
         /** To clear all the selection in TreeGrid
          * @param {number} you can pass a row index to clear the row selection.
          * @returns {void}
          */
         clearSelection(index: number): void;
 
-        /** To select cell based on the cell and row index dynamically.
-         * @param {any[]} array of cell indexes to be select
-         * @param {boolean} Defines that we need to preserve the previously selected cells or not
+        /** To clear the sorting from sorted columns in TreeGrid.
          * @returns {void}
          */
-        selectCells(Indexes: any[], preservePreviousSelectedCell: boolean): void;
-
-        /** To rename a column with the specified name
-         * @param {number} Index of the column to be renamed
-         * @param {string} Header text of the column
-         * @returns {void}
-         */
-        renameColumn(columnIndex: number, name: string): void;
-
-        /** To delete the specified column
-         * @param {number} Index of the column to be deleted
-         * @returns {void}
-         */
-        deleteColumn(columnIndex: number): void;
+        clearSorting(): void;
 
         /** To collapse all the parent items in tree grid
          * @returns {void}
          */
         collapseAll(): void;
-
-        /** To hide the column by using header text
-         * @param {string} you can pass a header text of a column to hide.
-         * @returns {void}
-         */
-        hideColumn(headerText: string): void;
-
-        /** Expands the records at specific hierarchical level
-         * @param {number} you can pass the level as index number to expand
-         * @returns {void}
-         */
-        expandAtLevel(index: number): void;
 
         /** Collapses the records at specific hierarchical level
          * @param {number} you can pass the particular level as index.
@@ -38132,124 +38185,28 @@ declare namespace ej {
          */
         collapseAtLevel(index: number): void;
 
-        /** To refresh the changes in tree grid
-         * @param {any[]} Pass which data source you want to show in tree grid
-         * @param {any} Pass which data you want to show in tree grid
+        /** To change the index of the tree column in TreeGrid.
+         * @param {number} Pass the column index to make the column as treeColumnIndex.
          * @returns {void}
          */
-        refresh(dataSource: any[], query: any): void;
+        columnIndex(Index: number): void;
 
-        /** Freeze all the columns preceding to the column specified by the field name.
-         * @param {string} Freeze all Columns before this field column.
+        /** To delete the specified column
+         * @param {number} Index of the column to be deleted
          * @returns {void}
          */
-        freezePrecedingColumns(field: string): void;
+        deleteColumn(columnIndex: number): void;
 
-        /** Freeze/unfreeze the specified column.
-         * @param {string} Freeze/Unfreeze this field column.
-         * @param {boolean} Decides to Freeze/Unfreeze this field column.
+        /** To expand all the root level nodes in TreeGrid.
          * @returns {void}
          */
-        freezeColumn(field: string, isFrozen: boolean): void;
+        expandAll(): void;
 
-        /** To save the edited cell in TreeGrid
+        /** Expands the records at specific hierarchical level
+         * @param {number} you can pass the level as index number to expand
          * @returns {void}
          */
-        saveCell(): void;
-
-        /** To show the column by using header text
-         * @param {string} you can pass a header text of a column to show.
-         * @returns {void}
-         */
-        showColumn(headerText: string): void;
-
-        /** To sorting the data based on the particular fields
-         * @param {string} you can pass a name of column to sort.
-         * @param {string} you can pass a sort direction to sort the column.
-         * @returns {void}
-         */
-        sortColumn(fieldName: string, columnSortDirection: string): void;
-
-        /** To move the TreeGrid rows programmatically with from index ,to index and position.
-         * @param {number} you can pass drag Index of the row
-         * @param {number} you can pass target Index of the row.
-         * @param {string} you can pass the drop position as above,below,child
-         * @returns {void}
-         */
-        moveRow(fromIndex: number, toIndex: number, position: string): void;
-
-        /** To reorder the column with field name and target index values
-         * @param {string} you can pass a name of column to reorder.
-         * @param {string} you can pass a target column index to be inserted.
-         * @returns {void}
-         */
-        reorderColumn(fieldName: string, targetIndex: string): void;
-
-        /** To get the updated data source of TreeGrid.
-         * @returns {any[]}
-         */
-        getUpdatedRecords(): any[];
-
-        /** Sends request to navigate to a specific page in TreeGrid.
-         * @param {number} Pass the page index to perform paging at specified page index.
-         * @returns {void}
-         */
-        gotoPage(PageIndex: number): void;
-
-        /** To change the checkbox selection to any column.
-         * @param {string} Pass the column field name to check box selection to that column.
-         * @returns {void}
-         */
-        updateCheckboxColumn(fieldName: string): void;
-
-        /** Gets the selected cell(s) element details in TreeGrid.
-         * @returns {any[]}
-         */
-        getSelectedCells(): any[];
-
-        /** Sets the minimum responsive width for TreeGrid.
-         * @param {string} Pass the minimum responsive width, above which the TreeGrid needs to work in responsive mode.
-         * @returns {void}
-         */
-        updateResponsiveMinWidth(width: string): void;
-
-        /** To open the dialog to add new record/row in TreeGrid.
-         * @returns {void}
-         */
-        showAddDialog(): void;
-
-        /** To open the dialog to edit a row/record in TreeGrid.
-         * @param {number} Pass the index of row to be edit.
-         * @returns {void}
-         */
-        showEditDialog(Index: number): void;
-
-        /** Sets the scroll left and scroll top offsets of TreeGrid.
-         * @param {string} Pass a value to set left position of horizontal scroll bar.
-         * @param {string} Pass a value to set top position of vertical scroll bar.
-         * @returns {void}
-         */
-        scrollOffset(Left: string, Top: string): void;
-
-        /** Gets the scroll top offset of TreeGrid.
-         * @returns {number}
-         */
-        getScrollTopOffset(): number;
-
-        /** Gets the scroll left offset of TreeGrid.
-         * @returns {number}
-         */
-        getScrollLeftOffset(): number;
-
-        /** Sets the scroll top offset of TreeGrid to 0.
-         * @returns {void}
-         */
-        scrollToTop(): void;
-
-        /** Sets the scroll top offset of TreeGrid to maximum value.
-         * @returns {void}
-         */
-        scrollToBottom(): void;
+        expandAtLevel(index: number): void;
 
         /** To expand and collapse an item in TreeGrid using itemâ€™s index.
          * @param {number} Pass the row index of row to expand/collapse.
@@ -38257,16 +38214,11 @@ declare namespace ej {
          */
         expandCollapseRow(Index: number): void;
 
-        /** To expand all the root level nodes in TreeGrid.
+        /** To expand collapse the total summary row.
+         * @param {boolean} Decides to expand/collapse the total summary
          * @returns {void}
          */
-        expandAll(): void;
-
-        /** Show/Hide the detail row of a specific record.
-         * @param {number} Pass the row index of record to show/hide the detail row.
-         * @returns {void}
-         */
-        showHideDetailsRow(rowIndex: number): void;
+        expandCollapseTotalSummary(expanded: boolean): void;
 
         /** Sends filtering request to filter a column in TreeGrid.
          * @param {string} Pass the field name of the column.
@@ -38286,16 +38238,30 @@ declare namespace ej {
          */
         filterContent(ejPredicate: TreeGrid.EjPredicate): void;
 
-        /** To change the index of the tree column in TreeGrid.
-         * @param {number} Pass the column index to make the column as treeColumnIndex.
+        /** Freeze/unfreeze the specified column.
+         * @param {string} Freeze/Unfreeze this field column.
+         * @param {boolean} Decides to Freeze/Unfreeze this field column.
          * @returns {void}
          */
-        columnIndex(Index: number): void;
+        freezeColumn(field: string, isFrozen: boolean): void;
 
-        /** To clear the sorting from sorted columns in TreeGrid.
+        /** Freeze all the columns preceding to the column specified by the field name.
+         * @param {string} Freeze all Columns before this field column.
          * @returns {void}
          */
-        clearSorting(): void;
+        freezePrecedingColumns(field: string): void;
+
+        /** Gets the column object of specific column.
+         * @param {string} Pass the column field name to get details of that column.
+         * @returns {any}
+         */
+        getColumnByField(fieldName: string): any;
+
+        /** Gets the column object of specific column.
+         * @param {string} Pass the column header text to get details of that column.
+         * @returns {any}
+         */
+        getColumnByHeaderText(headerText: string): any;
 
         /** Gets the column index of specific column with data source field.
          * @param {string} Pass the column field name to get its index.
@@ -38309,23 +38275,144 @@ declare namespace ej {
          */
         getFieldNameByHeaderText(headerText: string): string;
 
-        /** Gets the column object of specific column.
-         * @param {string} Pass the column header text to get details of that column.
-         * @returns {any}
+        /** Gets the scroll left offset of TreeGrid.
+         * @returns {number}
          */
-        getColumnByHeaderText(headerText: string): any;
+        getScrollLeftOffset(): number;
 
-        /** Clears the filter applied to a specific column.
-         * @param {string} Pass the column field name to clear filtering done in that column.
+        /** Gets the scroll top offset of TreeGrid.
+         * @returns {number}
+         */
+        getScrollTopOffset(): number;
+
+        /** Gets the selected cell(s) element details in TreeGrid.
+         * @returns {any[]}
+         */
+        getSelectedCells(): any[];
+
+        /** To get the updated data source of TreeGrid.
+         * @returns {any[]}
+         */
+        getUpdatedRecords(): any[];
+
+        /** Sends request to navigate to a specific page in TreeGrid.
+         * @param {number} Pass the page index to perform paging at specified page index.
          * @returns {void}
          */
-        clearFilter(fieldName: string): void;
+        gotoPage(PageIndex: number): void;
 
-        /** Gets the column object of specific column.
-         * @param {string} Pass the column field name to get details of that column.
-         * @returns {any}
+        /** To hide the column by using header text
+         * @param {string} you can pass a header text of a column to hide.
+         * @returns {void}
          */
-        getColumnByField(fieldName: string): any;
+        hideColumn(headerText: string): void;
+
+        /** To move the TreeGrid rows programmatically with from index ,to index and position.
+         * @param {number} you can pass drag Index of the row
+         * @param {number} you can pass target Index of the row.
+         * @param {string} you can pass the drop position as above,below,child
+         * @returns {void}
+         */
+        moveRow(fromIndex: number, toIndex: number, position: string): void;
+
+        /** To refresh the changes in tree grid
+         * @param {any[]} Pass which data source you want to show in tree grid
+         * @param {any} Pass which data you want to show in tree grid
+         * @returns {void}
+         */
+        refresh(dataSource: any[], query: any): void;
+
+        /** To rename a column with the specified name
+         * @param {number} Index of the column to be renamed
+         * @param {string} Header text of the column
+         * @returns {void}
+         */
+        renameColumn(columnIndex: number, name: string): void;
+
+        /** To reorder the column with field name and target index values
+         * @param {string} you can pass a name of column to reorder.
+         * @param {string} you can pass a target column index to be inserted.
+         * @returns {void}
+         */
+        reorderColumn(fieldName: string, targetIndex: string): void;
+
+        /** To save the edited cell in TreeGrid
+         * @returns {void}
+         */
+        saveCell(): void;
+
+        /** Sets the scroll left and scroll top offsets of TreeGrid.
+         * @param {string} Pass a value to set left position of horizontal scroll bar.
+         * @param {string} Pass a value to set top position of vertical scroll bar.
+         * @returns {void}
+         */
+        scrollOffset(Left: string, Top: string): void;
+
+        /** Sets the scroll top offset of TreeGrid to maximum value.
+         * @returns {void}
+         */
+        scrollToBottom(): void;
+
+        /** Sets the scroll top offset of TreeGrid to 0.
+         * @returns {void}
+         */
+        scrollToTop(): void;
+
+        /** To select cell based on the cell and row index dynamically.
+         * @param {any[]} array of cell indexes to be select
+         * @param {boolean} Defines that we need to preserve the previously selected cells or not
+         * @returns {void}
+         */
+        selectCells(Indexes: any[], preservePreviousSelectedCell: boolean): void;
+
+        /** To open the dialog to add new record/row in TreeGrid.
+         * @returns {void}
+         */
+        showAddDialog(): void;
+
+        /** To show the column by using header text
+         * @param {string} you can pass a header text of a column to show.
+         * @returns {void}
+         */
+        showColumn(headerText: string): void;
+
+        /** To open the dialog to edit a row/record in TreeGrid.
+         * @param {number} Pass the index of row to be edit.
+         * @returns {void}
+         */
+        showEditDialog(Index: number): void;
+
+        /** Show/Hide the detail row of a specific record.
+         * @param {number} Pass the row index of record to show/hide the detail row.
+         * @returns {void}
+         */
+        showHideDetailsRow(rowIndex: number): void;
+
+        /** To sorting the data based on the particular fields
+         * @param {string} you can pass a name of column to sort.
+         * @param {string} you can pass a sort direction to sort the column.
+         * @returns {void}
+         */
+        sortColumn(fieldName: string, columnSortDirection: string): void;
+
+        /** To change the checkbox selection to any column.
+         * @param {string} Pass the column field name to check box selection to that column.
+         * @returns {void}
+         */
+        updateCheckboxColumn(fieldName: string): void;
+
+        /** To update the value of TreeGrid row by using row index.
+         * @param {number} index of record to be updated
+         * @param {any} object with modified field value
+         * @returns {void}
+         */
+        updateRecordByIndex(index: number, data: any): void;
+
+        /** Sets the minimum responsive width for TreeGrid.
+         * @param {string} Pass the minimum responsive width, above which the TreeGrid needs to work in responsive mode.
+         * @returns {void}
+         */
+        updateResponsiveMinWidth(width: string): void;
     }
     export namespace TreeGrid {
 
@@ -38350,15 +38437,15 @@ declare namespace ej {
 
         export interface Model {
 
-            /** Enables or disables the ability to resize the column width interactively.
-             * @Default {false}
-             */
-            allowColumnResize?: boolean;
-
             /** Enables or disables the option for column reordering
              * @Default {false}
              */
             allowColumnReordering?: boolean;
+
+            /** Enables or disables the ability to resize the column width interactively.
+             * @Default {false}
+             */
+            allowColumnResize?: boolean;
 
             /** Enables or disables the ability to drag and drop the row interactively to reorder the rows.
              * @Default {false}
@@ -38381,6 +38468,16 @@ declare namespace ej {
              */
             allowMultiSorting?: boolean;
 
+            /** Enables/disables pagination of rows in TreeGrid
+             * @Default {false}
+             */
+            allowPaging?: boolean;
+
+            /** Enables or disables the toolbar searching in TreeGrid.
+             * @Default {false}
+             */
+            allowSearching?: boolean;
+
             /** Enables or disables the ability to select a row interactively.
              * @Default {true}
              */
@@ -38391,16 +38488,6 @@ declare namespace ej {
              */
             allowSorting?: boolean;
 
-            /** Enables or disables the toolbar searching in TreeGrid.
-             * @Default {false}
-             */
-            allowSearching?: boolean;
-
-            /** Enables/disables pagination of rows in TreeGrid
-             * @Default {false}
-             */
-            allowPaging?: boolean;
-
             /** Gets or sets a value that indicates whether the Content will wrap to the next line if the content exceeds the boundary of the Column Cells.
              * @Default {false}
              */
@@ -38410,22 +38497,37 @@ declare namespace ej {
              */
             altRowTemplateID?: string;
 
-            /** Specifies the mapping property path for the expand status of a record in data source.
+            /** Specifies the template for cell tooltip
+             * @Default {null}
              */
-            expandStateMapping?: string;
+            cellTooltipTemplate?: string;
 
             /** Specifies the mapping property path for sub tasks in datasource
              */
             childMapping?: string;
 
-            /** Option for adding columns; each column has the option to bind to a field in the dataSource.
+            /** Enables or disables the expandable/collapsible footer summary row. By default expander icon for footer summary will be rendered in first column of first summary row.
+             * @Default {false}
              */
-            columns?: Column[];
+            collapsibleTotalSummary?: boolean;
 
             /** To Specify the column fields to be displayed in the dialog while inserting a column using column menu.
              * @Default {[]}
              */
             columnDialogFields?: any[];
+
+            /** Specifies the settings for column resize
+             */
+            columnResizeSettings?: ColumnResizeSettings;
+
+            /** Option for adding columns; each column has the option to bind to a field in the dataSource.
+             */
+            columns?: Column[];
+
+            /** Defines the common width for all the columns in TreeGrid
+             * @Default {150}
+             */
+            commonWidth?: number;
 
             /** Options for displaying and customizing context menu items.
              */
@@ -38440,10 +38542,14 @@ declare namespace ej {
              */
             dataSource?: any[];
 
-            /** Specifies whether to wrap the header text when it is overflown i.e., when it exceeds the header width.
-             * @Default {ej.TreeGrid.HeaderTextOverflow.None}
+            /** Specifies the template for details view
              */
-            headerTextOverflow?: ej.TreeGrid.HeaderTextOverflow|string;
+            detailsTemplate?: string;
+
+            /** Specifies the row height of the details view
+             * @Default {100}
+             */
+            detailsRowHeight?: number;
 
             /** Options for displaying and customizing the tooltip. This tooltip will show the preview of the row that is being dragged.
              */
@@ -38463,6 +38569,11 @@ declare namespace ej {
              */
             enableCollapseAll?: boolean;
 
+            /** Gets or sets a value that indicates whether to enable load on demand approach, for rendering child records and page records.
+             * @Default {false}
+             */
+            enableLoadOnDemand?: boolean;
+
             /** Specifies whether to resize TreeGrid whenever window size changes.
              * @Default {false}
              */
@@ -38473,33 +38584,18 @@ declare namespace ej {
              */
             enableVirtualization?: boolean;
 
-            /** Gets or sets a value that indicates whether to enable load on demand approach, for rendering child records and page records.
-             * @Default {false}
+            /** Specifies the mapping property path for the expand status of a record in data source.
              */
-            enableLoadOnDemand?: boolean;
-
-            /** Specifies the settings for column resize
-             */
-            columnResizeSettings?: ColumnResizeSettings;
-
-            /** Defines the common width for all the columns in TreeGrid
-             * @Default {150}
-             */
-            commonWidth?: number;
+            expandStateMapping?: string;
 
             /** Options for filtering and customizing filter actions.
              */
             filterSettings?: FilterSettings;
 
-            /** Specifies the localization information to customize the User Interface (UI) to support regional language and culture
-             * @Default {en-US}
+            /** Specifies whether to wrap the header text when it is overflown i.e., when it exceeds the header width.
+             * @Default {ej.TreeGrid.HeaderTextOverflow.None}
              */
-            locale?: string;
-
-            /** Enables or disables internal parsing of a row. When disabled this property, row will be displayed using the defined template without any internal event bindings.
-             * @Default {true}
-             */
-            parseRowTemplate?: boolean;
+            headerTextOverflow?: ej.TreeGrid.HeaderTextOverflow|string;
 
             /** Specifies the name of the field in the dataSource, which contains the id of that row.
              */
@@ -38510,19 +38606,24 @@ declare namespace ej {
              */
             isResponsive?: boolean;
 
-            /** Specifies the name of the field in the dataSource, which contains the parent's id. This is necessary to form a parent-child hierarchy, if the dataSource contains self-referential
-             * data.
+            /** Specifies the localization information to customize the User Interface (UI) to support regional language and culture
+             * @Default {en-US}
              */
-            parentIdMapping?: string;
+            locale?: string;
 
             /** Specifies the options for customizing the pager.
              */
             pageSettings?: PageSettings;
 
-            /** Specifies the template for cell tooltip
-             * @Default {null}
+            /** Specifies the name of the field in the dataSource, which contains the parent's id. This is necessary to form a parent-child hierarchy, if the dataSource contains self-referential
+             * data.
              */
-            cellTooltipTemplate?: string;
+            parentIdMapping?: string;
+
+            /** Enables or disables internal parsing of a row. When disabled this property, row will be displayed using the defined template without any internal event bindings.
+             * @Default {true}
+             */
+            parseRowTemplate?: boolean;
 
             /** Specifies ej.Query to select data from the dataSource. This property is applicable only when the dataSource is ej.DataManager.
              * @Default {null}
@@ -38538,29 +38639,33 @@ declare namespace ej {
              */
             rowTemplateID?: string;
 
-            /** Specifies the index of the selected row.
-             * @Default {-1}
+            /** Specifies the toolbar searching customizations.
              */
-            selectedRowIndex?: number;
+            searchSettings?: SearchSettings;
 
             /** Specifies the selected cell information on rendering TreeGrid.
              */
             selectedCellIndexes?: SelectedCellIndex[];
 
+            /** Specifies the index of the selected row.
+             * @Default {-1}
+             */
+            selectedRowIndex?: number;
+
             /** Specifies the settings for row and cell selection.
              */
             selectionSettings?: SelectionSettings;
-
-            /** Enables/disables the options for inserting , deleting and renaming  columns.
-             * @Default {false}
-             */
-            showColumnOptions?: boolean;
 
             /** Controls the visibility of the menu button, which is displayed on the column header. Clicking on this button will show a popup menu. When you choose Columns item from this popup,
              * a list box with column names will be shown, from which you can select/deselect a column name to control the visibility of the respective columns.
              * @Default {false}
              */
             showColumnChooser?: boolean;
+
+            /** Enables/disables the options for inserting , deleting and renaming  columns.
+             * @Default {false}
+             */
+            showColumnOptions?: boolean;
 
             /** Specifies the visibility of details view
              * @Default {false}
@@ -38572,28 +38677,20 @@ declare namespace ej {
              */
             showDetailsRowInfoColumn?: boolean;
 
-            /** Specifies the template for details view
+            /** Specifies whether to show tooltip when mouse is hovered on the cell.
+             * @Default {true}
              */
-            detailsTemplate?: string;
+            showGridCellTooltip?: boolean;
 
-            /** Specifies the row height of the details view
-             * @Default {100}
+            /** Specifies whether to show tooltip for the cells, which has expander button.
+             * @Default {true}
              */
-            detailsRowHeight?: number;
+            showGridExpandCellTooltip?: boolean;
 
             /** Gets or sets a value that indicates stacked header should be shown on TreeGrid layout when the property â€œstackedHeaderRowsâ€ is set.
              * @Default {false}
              */
             showStackedHeader?: boolean;
-
-            /** Gets or sets an object that indicates to managing the collection of stacked header rows for the treegrid.
-             * @Default {[]}
-             */
-            stackedHeaderRows?: StackedHeaderRow[];
-
-            /** Specifies the toolbar searching customizations.
-             */
-            searchSettings?: SearchSettings;
 
             /** Specifies the visibility of summary row
              * @Default {false}
@@ -38605,21 +38702,6 @@ declare namespace ej {
              */
             showTotalSummary?: boolean;
 
-            /** Specifies the summary row collection object to be displayed
-             * @Default {[]}
-             */
-            summaryRows?: SummaryRow[];
-
-            /** Specifies whether to show tooltip when mouse is hovered on the cell.
-             * @Default {true}
-             */
-            showGridCellTooltip?: boolean;
-
-            /** Specifies whether to show tooltip for the cells, which has expander button.
-             * @Default {true}
-             */
-            showGridExpandCellTooltip?: boolean;
-
             /** Options for setting width and height for TreeGrid.
              */
             sizeSettings?: SizeSettings;
@@ -38628,9 +38710,24 @@ declare namespace ej {
              */
             sortSettings?: SortSettings;
 
+            /** Gets or sets an object that indicates to managing the collection of stacked header rows for the TreeGrid.
+             * @Default {[]}
+             */
+            stackedHeaderRows?: StackedHeaderRow[];
+
+            /** Specifies the summary row collection object to be displayed
+             * @Default {[]}
+             */
+            summaryRows?: SummaryRow[];
+
             /** Options for displaying and customizing the toolbar items.
              */
             toolbarSettings?: ToolbarSettings;
+
+            /** Specifies the height of footer summary container.
+             * @Default {90}
+             */
+            totalSummaryHeight?: number;
 
             /** Specifies the index of the column that needs to have the expander button. By default, cells in the first column contain the expander button.
              * @Default {0}
@@ -38653,6 +38750,14 @@ declare namespace ej {
              */
             beginEdit?(e: BeginEditEventArgs): void;
 
+            /** Triggered after selected a cell
+             */
+            cellSelected?(e: CellSelectedEventArgs): void;
+
+            /** Triggered before selecting a cell
+             */
+            cellSelecting?(e: CellSelectingEventArgs): void;
+
             /** Triggered after collapsed the TreeGrid record
              */
             collapsed?(e: CollapsedEventArgs): void;
@@ -38661,29 +38766,29 @@ declare namespace ej {
              */
             collapsing?(e: CollapsingEventArgs): void;
 
-            /** Triggered  when you start to drag a column
-             */
-            columnDragStart?(e: ColumnDragStartEventArgs): void;
-
             /** Triggered while dragging a column
              */
             columnDrag?(e: ColumnDragEventArgs): void;
+
+            /** Triggered  when you start to drag a column
+             */
+            columnDragStart?(e: ColumnDragStartEventArgs): void;
 
             /** Triggered when a column is dropped
              */
             columnDrop?(e: ColumnDropEventArgs): void;
 
-            /** Triggered after a column resized
+            /** Triggered when a column has been resized
              */
-            columnResized?(e: ColumnResizedEventArgs): void;
+            columnResizeEnd?(e: ColumnResizeEndEventArgs): void;
 
             /** Triggered while start to resize a column
              */
             columnResizeStart?(e: ColumnResizeStartEventArgs): void;
 
-            /** Triggered when a column has been resized
+            /** Triggered after a column resized
              */
-            columnResizeEnd?(e: ColumnResizeEndEventArgs): void;
+            columnResized?(e: ColumnResizedEventArgs): void;
 
             /** Triggered while Context Menu is rendered in TreeGrid control
              */
@@ -38697,13 +38802,13 @@ declare namespace ej {
              */
             detailsDataBound?(e: DetailsDataBoundEventArgs): void;
 
-            /** Triggered when details template pop-up is shown.
-             */
-            detailsShown?(e: DetailsShownEventArgs): void;
-
             /** Triggered when details template pop-up is hidden.
              */
             detailsHidden?(e: DetailsHiddenEventArgs): void;
+
+            /** Triggered when details template pop-up is shown.
+             */
+            detailsShown?(e: DetailsShownEventArgs): void;
 
             /** Triggered after saved the modified cellValue in TreeGrid
              */
@@ -38725,6 +38830,14 @@ declare namespace ej {
              */
             queryCellInfo?(e: QueryCellInfoEventArgs): void;
 
+            /** Triggered while clicking a row, even when allowSelection property is disabled.
+             */
+            recordClick?(e: RecordClickEventArgs): void;
+
+            /** Triggered during record double click action, even when allowSelection property is disabled.
+             */
+            recordDoubleClick?(e: RecordDoubleClickEventArgs): void;
+
             /** Triggered while rendering each row
              */
             rowDataBound?(e: RowDataBoundEventArgs): void;
@@ -38745,14 +38858,6 @@ declare namespace ej {
              */
             rowDropActionBegin?(e: RowDropActionBeginEventArgs): void;
 
-            /** Triggered before selecting a cell
-             */
-            cellSelecting?(e: CellSelectingEventArgs): void;
-
-            /** Triggered after selected a cell
-             */
-            cellSelected?(e: CellSelectedEventArgs): void;
-
             /** Triggered after the row is selected.
              */
             rowSelected?(e: RowSelectedEventArgs): void;
@@ -38760,14 +38865,6 @@ declare namespace ej {
             /** Triggered before the row is going to be selected.
              */
             rowSelecting?(e: RowSelectingEventArgs): void;
-
-            /** Triggered while clicking a row, even when allowSelection property is disabled.
-             */
-            recordClick?(e: RecordClickEventArgs): void;
-
-            /** Triggered during record double click action, even when allowSelection property is disabled.
-             */
-            recordDoubleClick?(e: RecordDoubleClickEventArgs): void;
 
             /** Triggered when toolbar item is clicked in TreeGrid.
              */
@@ -38854,7 +38951,7 @@ declare namespace ej {
              */
             cancel?: boolean;
 
-            /** Returns the treegrid element which is going to be print
+            /** Returns the TreeGrid element which is going to be print
              */
             element?: any;
 
@@ -38884,6 +38981,88 @@ declare namespace ej {
             /** Returns the column Index of cell belongs.
              */
             columnIndex?: number;
+        }
+
+        export interface CellSelectedEventArgs {
+
+            /** Returns the cancel option value.
+             */
+            cancel?: boolean;
+
+            /** Returns the cell index on the selection.
+             */
+            cellIndex?: number;
+
+            /** Returns the row index on the selection
+             */
+            rowIndex?: number;
+
+            /** Returns the selecting cell element
+             */
+            targetCell?: any;
+
+            /** Returns the selecting row element
+             */
+            targetRow?: any;
+
+            /** Returns the selecting record object
+             */
+            data?: any;
+
+            /** Returns the Gantt object Model
+             */
+            model?: any;
+
+            /** Returns the previously selected row data
+             */
+            previousData?: any;
+
+            /** Returns the previously selected cell index
+             */
+            previousCellIndex?: any;
+
+            /** Returns the previously selected row index
+             */
+            previousRowIndex?: any;
+
+            /** Returns the previously selected cell element
+             */
+            previousTargetCell?: any;
+
+            /** Returns the previously selected row element
+             */
+            previousTargetRow?: any;
+        }
+
+        export interface CellSelectingEventArgs {
+
+            /** Returns the cancel option value.
+             */
+            cancel?: boolean;
+
+            /** Returns the cell index on the selection.
+             */
+            cellIndex?: number;
+
+            /** Returns the row index on the selection
+             */
+            rowIndex?: number;
+
+            /** Returns the selecting cell element
+             */
+            targetCell?: any;
+
+            /** Returns the selecting row element
+             */
+            targetRow?: any;
+
+            /** Returns the selecting record object
+             */
+            data?: any;
+
+            /** Returns the Gantt object Model
+             */
+            model?: any;
         }
 
         export interface CollapsedEventArgs {
@@ -38936,29 +39115,6 @@ declare namespace ej {
             expanded?: boolean;
         }
 
-        export interface ColumnDragStartEventArgs {
-
-            /** Returns the cancel option value.
-             */
-            cancel?: boolean;
-
-            /** Returns the control model values.
-             */
-            model?: any;
-
-            /** Returns the event Type.
-             */
-            type?: string;
-
-            /** Returns the column data which is dragged
-             */
-            draggedColumn?: any;
-
-            /** Returns the index of the column being dragged
-             */
-            draggedColumnIndex?: number;
-        }
-
         export interface ColumnDragEventArgs {
 
             /** Returns the cancel option value.
@@ -38994,6 +39150,29 @@ declare namespace ej {
             canDrop?: boolean;
         }
 
+        export interface ColumnDragStartEventArgs {
+
+            /** Returns the cancel option value.
+             */
+            cancel?: boolean;
+
+            /** Returns the control model values.
+             */
+            model?: any;
+
+            /** Returns the event Type.
+             */
+            type?: string;
+
+            /** Returns the column data which is dragged
+             */
+            draggedColumn?: any;
+
+            /** Returns the index of the column being dragged
+             */
+            draggedColumnIndex?: number;
+        }
+
         export interface ColumnDropEventArgs {
 
             /** Returns the cancel option value.
@@ -39023,68 +39202,6 @@ declare namespace ej {
             /** Returns the index of the target column
              */
             targetColumnIndex?: number;
-        }
-
-        export interface ColumnResizedEventArgs {
-
-            /** Returns the cancel option value.
-             */
-            cancel?: boolean;
-
-            /** Returns the control model values.
-             */
-            model?: any;
-
-            /** Returns the event Type.
-             */
-            type?: string;
-
-            /** Returns the column data which is resized
-             */
-            column?: any;
-
-            /** Returns the index of the column being resized.
-             */
-            columnIndex?: number;
-
-            /** Returns resized column width after resized.
-             */
-            newWidth?: number;
-
-            /** Returns resized column width before resizing
-             */
-            oldWidth?: number;
-        }
-
-        export interface ColumnResizeStartEventArgs {
-
-            /** Returns the cancel option value.
-             */
-            cancel?: boolean;
-
-            /** Returns the control model values.
-             */
-            model?: any;
-
-            /** Returns the event Type.
-             */
-            type?: string;
-
-            /** Returns the column data in which the resizing started
-             */
-            column?: any;
-
-            /** Returns the column index in which the resizing started
-             */
-            columnIndex?: number;
-
-            /** Returns column width before dragging
-             */
-            oldWidth?: number;
-
-            /** Returns initial column element object.
-             */
-            target?: any;
         }
 
         export interface ColumnResizeEndEventArgs {
@@ -39124,6 +39241,68 @@ declare namespace ej {
             /** Returns initial column element object.
              */
             target?: any;
+        }
+
+        export interface ColumnResizeStartEventArgs {
+
+            /** Returns the cancel option value.
+             */
+            cancel?: boolean;
+
+            /** Returns the control model values.
+             */
+            model?: any;
+
+            /** Returns the event Type.
+             */
+            type?: string;
+
+            /** Returns the column data in which the resizing started
+             */
+            column?: any;
+
+            /** Returns the column index in which the resizing started
+             */
+            columnIndex?: number;
+
+            /** Returns column width before dragging
+             */
+            oldWidth?: number;
+
+            /** Returns initial column element object.
+             */
+            target?: any;
+        }
+
+        export interface ColumnResizedEventArgs {
+
+            /** Returns the cancel option value.
+             */
+            cancel?: boolean;
+
+            /** Returns the control model values.
+             */
+            model?: any;
+
+            /** Returns the event Type.
+             */
+            type?: string;
+
+            /** Returns the column data which is resized
+             */
+            column?: any;
+
+            /** Returns the index of the column being resized.
+             */
+            columnIndex?: number;
+
+            /** Returns resized column width after resized.
+             */
+            newWidth?: number;
+
+            /** Returns resized column width before resizing
+             */
+            oldWidth?: number;
         }
 
         export interface ContextMenuOpenEventArgs {
@@ -39191,6 +39370,25 @@ declare namespace ej {
             type?: string;
         }
 
+        export interface DetailsHiddenEventArgs {
+
+            /** Returns the cancel option value.
+             */
+            cancel?: boolean;
+
+            /** Returns the TreeGrid model
+             */
+            model?: any;
+
+            /** Returns the data collection of hidden details Template
+             */
+            rowData?: any;
+
+            /** Returns the name of the event.
+             */
+            type?: string;
+        }
+
         export interface DetailsShownEventArgs {
 
             /** Returns the cancel option value.
@@ -39212,25 +39410,6 @@ declare namespace ej {
             /** Returns the TreeGrid model
              */
             model?: any;
-
-            /** Returns the name of the event.
-             */
-            type?: string;
-        }
-
-        export interface DetailsHiddenEventArgs {
-
-            /** Returns the cancel option value.
-             */
-            cancel?: boolean;
-
-            /** Returns the TreeGrid model
-             */
-            model?: any;
-
-            /** Returns the data collection of hidden details Template
-             */
-            rowData?: any;
 
             /** Returns the name of the event.
              */
@@ -39350,6 +39529,68 @@ declare namespace ej {
             /** Returns the column of cell belongs.
              */
             column?: any;
+        }
+
+        export interface RecordClickEventArgs {
+
+            /** Returns the cancel option value.
+             */
+            cancel?: boolean;
+
+            /** Returns the element of clicked cell.
+             */
+            cell?: any;
+
+            /** Returns the index of the clicked cell.
+             */
+            cellIndex?: number;
+
+            /** Returns the data of clicked cell.
+             */
+            cellValue?: any;
+
+            /** Returns the element of the clicked row.
+             */
+            row?: any;
+
+            /** Returns the index of the clicked row.
+             */
+            rowIndex?: number;
+
+            /** Returns the column name of the clicked cell.
+             */
+            columnName?: string;
+        }
+
+        export interface RecordDoubleClickEventArgs {
+
+            /** Returns the cancel option value.
+             */
+            cancel?: boolean;
+
+            /** Returns the element of clicked cell.
+             */
+            cell?: any;
+
+            /** Returns the index of the clicked cell.
+             */
+            cellIndex?: number;
+
+            /** Returns the data of clicked cell.
+             */
+            cellValue?: any;
+
+            /** Returns the element of the clicked row.
+             */
+            row?: any;
+
+            /** Returns the index of the clicked row.
+             */
+            rowIndex?: number;
+
+            /** Returns the column name of the clicked cell.
+             */
+            columnName?: string;
         }
 
         export interface RowDataBoundEventArgs {
@@ -39511,88 +39752,6 @@ declare namespace ej {
             type?: string;
         }
 
-        export interface CellSelectingEventArgs {
-
-            /** Returns the cancel option value.
-             */
-            cancel?: boolean;
-
-            /** Returns the cell index on the selection.
-             */
-            cellIndex?: number;
-
-            /** Returns the row index on the selection
-             */
-            rowIndex?: number;
-
-            /** Returns the selecting cell element
-             */
-            targetCell?: any;
-
-            /** Returns the selecting row element
-             */
-            targetRow?: any;
-
-            /** Returns the selecting record object
-             */
-            data?: any;
-
-            /** Returns the Gantt object Model
-             */
-            model?: any;
-        }
-
-        export interface CellSelectedEventArgs {
-
-            /** Returns the cancel option value.
-             */
-            cancel?: boolean;
-
-            /** Returns the cell index on the selection.
-             */
-            cellIndex?: number;
-
-            /** Returns the row index on the selection
-             */
-            rowIndex?: number;
-
-            /** Returns the selecting cell element
-             */
-            targetCell?: any;
-
-            /** Returns the selecting row element
-             */
-            targetRow?: any;
-
-            /** Returns the selecting record object
-             */
-            data?: any;
-
-            /** Returns the Gantt object Model
-             */
-            model?: any;
-
-            /** Returns the previously selected row data
-             */
-            previousData?: any;
-
-            /** Returns the previously selected cell index
-             */
-            previousCellIndex?: any;
-
-            /** Returns the previously selected row index
-             */
-            previousRowIndex?: any;
-
-            /** Returns the previously selected cell element
-             */
-            previousTargetCell?: any;
-
-            /** Returns the previously selected row element
-             */
-            previousTargetRow?: any;
-        }
-
         export interface RowSelectedEventArgs {
 
             /** Returns the cancel option value.
@@ -39647,68 +39806,6 @@ declare namespace ej {
             previousTreeGridRow?: any;
         }
 
-        export interface RecordClickEventArgs {
-
-            /** Returns the cancel option value.
-             */
-            cancel?: boolean;
-
-            /** Returns the element of clicked cell.
-             */
-            cell?: any;
-
-            /** Returns the index of the clicked cell.
-             */
-            cellIndex?: number;
-
-            /** Returns the data of clicked cell.
-             */
-            cellValue?: any;
-
-            /** Returns the element of the clicked row.
-             */
-            row?: any;
-
-            /** Returns the index of the clicked row.
-             */
-            rowIndex?: number;
-
-            /** Returns the column name of the clicked cell.
-             */
-            columnName?: string;
-        }
-
-        export interface RecordDoubleClickEventArgs {
-
-            /** Returns the cancel option value.
-             */
-            cancel?: boolean;
-
-            /** Returns the element of clicked cell.
-             */
-            cell?: any;
-
-            /** Returns the index of the clicked cell.
-             */
-            cellIndex?: number;
-
-            /** Returns the data of clicked cell.
-             */
-            cellValue?: any;
-
-            /** Returns the element of the clicked row.
-             */
-            row?: any;
-
-            /** Returns the index of the clicked row.
-             */
-            rowIndex?: number;
-
-            /** Returns the column name of the clicked cell.
-             */
-            columnName?: string;
-        }
-
         export interface ToolbarClickEventArgs {
 
             /** Returns the cancel option value.
@@ -39732,6 +39829,14 @@ declare namespace ej {
             type?: string;
         }
 
+        export interface ColumnResizeSettings {
+
+            /** Specifies the mode for column resizing
+             * @Default {ej.TreeGrid.ColumnResizeMode.Normal}
+             */
+            columnResizeMode?: ej.TreeGrid.ColumnResizeMode|string;
+        }
+
         export interface ColumnsCommand {
 
             /** Gets or sets an object to customize command button with available ejButton properties.
@@ -39745,6 +39850,16 @@ declare namespace ej {
 
         export interface Column {
 
+            /** Enables/disables cell selection.
+             * @Default {false}
+             */
+            allowCellSelection?: boolean;
+
+            /** Enables or disables the ability to edit a row or cell.
+             * @Default {false}
+             */
+            allowEditing?: boolean;
+
             /** Enables or disables the ability to filter the rows based on this column.
              * @Default {false}
              */
@@ -39755,15 +39870,38 @@ declare namespace ej {
              */
             allowFilteringBlankContent?: boolean;
 
+            /** Enables or disables the ability to freeze/unfreeze the columns
+             * @Default {false}
+             */
+            allowFreezing?: boolean;
+
             /** Enables or disables the ability to sort the rows based on this column/field.
              * @Default {false}
              */
             allowSorting?: boolean;
 
-            /** Enables/disables cell selection.
+            /** Specifies the template ID or the template string of the AngularJS script element to enable column template for a column.
+             */
+            angularTemplate?: string;
+
+            /** Sets the clip mode for TreeGrid cell as ellipsis or clipped content(both header and content)
+             * @Default {ej.TreeGrid.ClipMode.Clip}
+             */
+            clipMode?: ej.TreeGrid.ClipMode|string;
+
+            /** Gets or sets an object to define a command column in TreeGrid.
+             * @Default {[]}
+             */
+            commands?: ColumnsCommand[];
+
+            /** Gets or sets a value that indicates to display a column value as checkbox or string
              * @Default {false}
              */
-            allowCellSelection?: boolean;
+            displayAsCheckbox?: boolean;
+
+            /** To bind the dropdown data for TreeGrid column mapped with ejDropDownList
+             */
+            dropdownData?: string;
 
             /** To customize the ej controls defined in TreeGrid column with their native property.
              */
@@ -39779,25 +39917,9 @@ declare namespace ej {
              */
             editType?: ej.TreeGrid.EditingType|string;
 
-            /** To bind the dropdown data for TreeGrid column mapped with ejDropDownList
-             */
-            dropdownData?: string;
-
             /** Specifies the name of the field from the dataSource to bind with this column.
              */
             field?: string;
-
-            /** Specifies the template string of the script element to enable column template for a column.
-             */
-            template?: string;
-
-            /** Specifies the template ID of the script element to enable column template for a column.
-             */
-            templateID?: string;
-
-            /** Specifies the template ID or the template string of the AngularJS script element to enable column template for a column.
-             */
-            angularTemplate?: string;
 
             /** Specifies the type of the editor control to be used to filter the rows.
              * @Default {ej.TreeGrid.EditingType.String}
@@ -39809,102 +39931,85 @@ declare namespace ej {
              */
             filterType?: ej.TreeGrid.FilterType|string;
 
-            /** Header text of the column.
-             * @Default {null}
-             */
-            headerText?: string;
-
-            /** Gets or sets a value that indicates to display a column value as checkbox or string
-             * @Default {false}
-             */
-            displayAsCheckbox?: boolean;
-
-            /** Enables or disables the checkbox visibility in a column for checkbox selection.
-             * @Default {false}
-             */
-            showCheckbox?: boolean;
-
-            /** Controls the visibility of the column.
-             * @Default {true}
-             */
-            visible?: boolean;
-
-            /** Gets or sets a value for treegrid column width
-             */
-            width?: number;
-
-            /** Specifies the header template value for the column header
-             */
-            headerTemplateID?: string;
-
             /** Specifies the display format of a column
              * @Default {null}
              */
             format?: any;
 
-            /** Specifies whether the column is a template column
-             * @Default {false}
+            /** Specifies the header template value for the column header
              */
-            isTemplateColumn?: boolean;
+            headerTemplateID?: string;
+
+            /** Header text of the column.
+             * @Default {null}
+             */
+            headerText?: string;
 
             /** Specifies the alignment of the column header text
              * @Default {ej.TextAlign.Left}
              */
             headerTextAlign?: ej.TextAlign|string;
 
-            /** Specifies whether the column is frozen
-             * @Default {false}
-             */
-            isFrozen?: boolean;
-
-            /** Specifies the text alignment for the column
-             * @Default {ej.TextAlign.Left}
-             */
-            textAlign?: ej.TextAlign|string;
-
-            /** Enables or disables the ability to edit a row or cell.
-             * @Default {false}
-             */
-            allowEditing?: boolean;
-
-            /** Gets or sets an object to define a command column in TreeGrid.
-             * @Default {[]}
-             */
-            commands?: ColumnsCommand[];
-
-            /** We can include or exclude particular column from column visibility list in column menu.
-             * @Default {true}
-             */
-            showInColumnChooser?: boolean;
-
-            /** Sets the clip mode for TreeGrid cell as ellipsis or clipped content(both header and content)
-             * @Default {ej.TreeGrid.ClipMode.Clip}
-             */
-            clipMode?: ej.TreeGrid.ClipMode|string;
-
-            /** Sets the tooltip template for the specific column.
-             * @Default {null}
-             */
-            tooltip?: string;
-
             /** Sets the tooltip template for the column header
              * @Default {null}
              */
             headerTooltip?: string;
 
-            /** specifies the conditions for saving data to the database while adding or editing the fields.
+            /** Specifies whether the column is frozen
+             * @Default {false}
              */
-            validationRules?: any;
+            isFrozen?: boolean;
+
+            /** Specifies whether the column is a template column
+             * @Default {false}
+             */
+            isTemplateColumn?: boolean;
 
             /** Gets or sets the priority value of the column. It is used to show/hide TreeGrid columns in responsive mode.
              * @Default {-1}
              */
             priority?: number;
 
-            /** Enables or disables the ability to freeze/unfreeze the columns
+            /** Enables or disables the checkbox visibility in a column for checkbox selection.
              * @Default {false}
              */
-            allowFreezing?: boolean;
+            showCheckbox?: boolean;
+
+            /** We can include or exclude particular column from column visibility list in column menu.
+             * @Default {true}
+             */
+            showInColumnChooser?: boolean;
+
+            /** Specifies the template string of the script element to enable column template for a column.
+             */
+            template?: string;
+
+            /** Specifies the template ID of the script element to enable column template for a column.
+             */
+            templateID?: string;
+
+            /** Specifies the text alignment for the column
+             * @Default {ej.TextAlign.Left}
+             */
+            textAlign?: ej.TextAlign|string;
+
+            /** Sets the tooltip template for the specific column.
+             * @Default {null}
+             */
+            tooltip?: string;
+
+            /** specifies the conditions for saving data to the database while adding or editing the fields.
+             */
+            validationRules?: any;
+
+            /** Controls the visibility of the column.
+             * @Default {true}
+             */
+            visible?: boolean;
+
+            /** Gets or sets a value for TreeGrid column width
+             */
+            width?: number;
         }
 
         export interface ContextMenuSettings {
@@ -39912,7 +40017,7 @@ declare namespace ej {
             /** Option for adding items to context menu.
              * @Default {[]}
              */
-            contextMenuItems?: any[];
+            contextMenuItems?: Array<ej.TreeGrid.ContextMenuItems|string>;
 
             /** Shows/hides the context menu.
              * @Default {false}
@@ -39960,6 +40065,11 @@ declare namespace ej {
              */
             beginEditAction?: ej.TreeGrid.BeginEditAction|string;
 
+            /** Specifies the template ID for the custom dialog.
+             * @Default {null}
+             */
+            dialogEditorTemplateID?: string;
+
             /** specifies the edit mode in TreeGrid , &quot;cellEditing&quot; is for cell type editing and &quot;rowEditing&quot; is for entire row.
              * @Default {ej.TreeGrid.EditMode.CellEditing}
              */
@@ -39970,50 +40080,52 @@ declare namespace ej {
              */
             rowPosition?: ej.TreeGrid.RowPosition|string;
 
-            /** Specifies the template ID for the custom dialog.
-             * @Default {null}
-             */
-            dialogEditorTemplateID?: string;
-
             /** Enable or disable the confirmation dialog while deleting the record.
              * @Default {false}
              */
             showDeleteConfirmDialog?: boolean;
         }
 
-        export interface ColumnResizeSettings {
-
-            /** Specifies the mode for column resizing
-             * @Default {ej.TreeGrid.ColumnResizeMode.Normal}
-             */
-            columnResizeMode?: ej.TreeGrid.ColumnResizeMode|string;
-        }
-
         export interface FilterSettingsFilteredColumn {
-
-            /** Specifies the value to be filtered in TreeGrid.
-             */
-            value?: string;
 
             /** Specifies the field where filtering has to be performed.
              */
             field?: string;
 
+            /** Specifies the filter condition to filtered column. See operator
+             */
+            operator?: string;
+
             /** Specifies the predicate(and/or) value to perform filtering.
              */
             predicate?: string;
 
-            /** Specifies the filter condition to filtered column. See operator
+            /** Specifies the value to be filtered in TreeGrid.
              */
-            operator?: string;
+            value?: string;
         }
 
         export interface FilterSettings {
+
+            /** Gets or sets a value that indicates to perform the filter operation with case sensitive in excel styled filter menu mode.
+             * @Default {false}
+             */
+            enableCaseSensitivity?: boolean;
+
+            /** Enables or disables the ability to filter the columns with empty, null and undefined values.
+             * @Default {true}
+             */
+            enableComplexBlankFilter?: boolean;
 
             /** Specifies the mode on which column filtering should start
              * @Default {immediate}
              */
             filterBarMode?: string;
+
+            /** Specifies the mode of filtering to filter the record with or without hierarchy.
+             * @Default {ej.TreeGrid.FilterHierarchyMode.Parent}
+             */
+            filterHierarchyMode?: ej.TreeGrid.FilterHierarchyMode|string;
 
             /** Specifies the type of column filtering.
              * @Default {ej.TreeGrid.FilterType.FilterBar}
@@ -40029,24 +40141,14 @@ declare namespace ej {
              * @Default {1000}
              */
             maxFilterChoice?: number;
-
-            /** Gets or sets a value that indicates to perform the filter operation with case sensitive in excel styled filter menu mode.
-             * @Default {false}
-             */
-            enableCaseSensitivity?: boolean;
-
-            /** Enables or disables the ability to filter the columns with empty, null and undefined values.
-             * @Default {true}
-             */
-            enableComplexBlankFilter?: boolean;
-
-            /** Specifies the mode of filtering to filter the record with or without hierarchy.
-             * @Default {ej.TreeGrid.FilterHierarchyMode.Parent}
-             */
-            filterHierarchyMode?: ej.TreeGrid.FilterHierarchyMode|string;
         }
 
         export interface PageSettings {
+
+            /** Specifies the current page to display at load time.
+             * @Default {1}
+             */
+            currentPage?: number;
 
             /** Using this property we can specify the number of pages should pager contains, according to this count TreeGrid height will be updated.
              * @Default {8}
@@ -40057,16 +40159,6 @@ declare namespace ej {
              * @Default {12}
              */
             pageSize?: number;
-
-            /** Get the value of records which is bound to TreeGrid. The totalRecordsCount value is calculated based on the datasource bound to TreeGrid.
-             * @Default {null}
-             */
-            totalRecordsCount?: number;
-
-            /** Specifies the current page to display at load time.
-             * @Default {1}
-             */
-            currentPage?: number;
 
             /** Specifies the mode of record count in a page, whether it should count all the records or the root to count zero level parent records.
              * @Default {ej.TreeGrid.PageSizeMode.All}
@@ -40082,31 +40174,47 @@ declare namespace ej {
              * @Default {null}
              */
             template?: string;
+
+            /** Get the value of records which is bound to TreeGrid. The totalRecordsCount value is calculated based on the datasource bound to TreeGrid.
+             * @Default {null}
+             */
+            totalRecordsCount?: number;
+        }
+
+        export interface SearchSettings {
+
+            /** Default Value
+             * @Default {[]}
+             */
+            fields?: any[];
+
+            /** Default Value
+             * @Default {true}
+             */
+            ignoreCase?: boolean;
+
+            /** Default Value
+             */
+            key?: string;
+
+            /** Specifies the operator for the search key words in toolbar searching.
+             * @Default {contains}
+             */
+            operator?: string;
         }
 
         export interface SelectedCellIndex {
 
+            /** Specifies the cell index to be selected in the row.
+             */
+            cellIndex?: number;
+
             /** Specifies the row index of the cell to be selected in TreeGrid control
              */
             rowIndex?: number;
-
-            /** Specifies the cell index to be selected in the row.
-             * @Default { }
-             */
-            cellIndex?: number;
         }
 
         export interface SelectionSettings {
-
-            /** Specifies the type of selection whether to select row or cell.
-             * @Default {ej.TreeGrid.SelectionMode.Row}
-             */
-            selectionMode?: ej.TreeGrid.SelectionMode|string;
-
-            /** Specifies the type of selection whether single, multiple or checkbox.
-             * @Default {ej.TreeGrid.SelectionType.Single}
-             */
-            selectionType?: ej.TreeGrid.SelectionType|string;
 
             /** Enables or disables the selection by hierarchy in check box selection
              * @Default {true}
@@ -40117,6 +40225,48 @@ declare namespace ej {
              * @Default {true}
              */
             enableSelectAll?: boolean;
+
+            /** Specifies the type of selection whether to select row or cell.
+             * @Default {ej.TreeGrid.SelectionMode.Row}
+             */
+            selectionMode?: ej.TreeGrid.SelectionMode|string;
+
+            /** Specifies the type of selection whether single, multiple or checkbox.
+             * @Default {ej.TreeGrid.SelectionType.Single}
+             */
+            selectionType?: ej.TreeGrid.SelectionType|string;
+        }
+
+        export interface SizeSettings {
+
+            /** Height of the TreeGrid.
+             * @Default {450px}
+             */
+            height?: string;
+
+            /** Width of the TreeGrid.
+             * @Default {100%}
+             */
+            width?: string;
+        }
+
+        export interface SortSettingsSortedColumn {
+
+            /** Specifies the sort direction in TreeGrid
+             */
+            direction?: string;
+
+            /** Specifies the field to be sorted in TreeGrid
+             */
+            field?: string;
+        }
+
+        export interface SortSettings {
+
+            /** Option to add columns based on which the rows have to be sorted recursively.
+             * @Default {[]}
+             */
+            sortedColumns?: SortSettingsSortedColumn[];
         }
 
         export interface StackedHeaderRowsStackedHeaderColumn {
@@ -40155,33 +40305,7 @@ declare namespace ej {
             stackedHeaderColumns?: StackedHeaderRowsStackedHeaderColumn[];
         }
 
-        export interface SearchSettings {
-
-            /** Default Value
-             * @Default {[]}
-             */
-            fields?: any[];
-
-            /** Default Value
-             */
-            key?: string;
-
-            /** Specifies the operator for the search key words in toolbar searching.
-             * @Default {contains}
-             */
-            operator?: string;
-
-            /** Default Value
-             * @Default {true}
-             */
-            ignoreCase?: boolean;
-        }
-
         export interface SummaryRowsSummaryColumn {
-
-            /** Specifies the summary type to perform calculations in a corresponding summary column. See summaryType.
-             */
-            summaryType?: ej.TreeGrid.SummaryType|string;
 
             /** Specifies summary column used to perform the summary calculation.
              */
@@ -40191,6 +40315,10 @@ declare namespace ej {
              */
             displayColumn?: string;
 
+            /** Specifies the format to be applied on the summary column value.
+             */
+            format?: string;
+
             /** Specifies the text to be displayed before the summary column value.
              */
             prefix?: string;
@@ -40199,52 +40327,20 @@ declare namespace ej {
              */
             suffix?: string;
 
-            /** Specifies the format to be applied on the summary column value.
+            /** Specifies the summary type to perform calculations in a corresponding summary column. See summaryType.
              */
-            format?: string;
+            summaryType?: ej.TreeGrid.SummaryType|string;
         }
 
         export interface SummaryRow {
 
-            /** Specifies the title for summary row collection in TreeGrid
-             */
-            title?: string;
-
             /** Specifies the summary columns in the summary rows.
              */
             summaryColumns?: SummaryRowsSummaryColumn[];
-        }
 
-        export interface SizeSettings {
-
-            /** Height of the TreeGrid.
-             * @Default {null}
+            /** Specifies the title for summary row collection in TreeGrid
              */
-            height?: string;
-
-            /** Width of the TreeGrid.
-             * @Default {null}
-             */
-            width?: string;
-        }
-
-        export interface SortSettingsSortedColumn {
-
-            /** Specifies the field to be sorted in TreeGrid
-             */
-            field?: string;
-
-            /** Specifies the sort direction in TreeGrid
-             */
-            direction?: string;
-        }
-
-        export interface SortSettings {
-
-            /** Option to add columns based on which the rows have to be sorted recursively.
-             * @Default {[]}
-             */
-            sortedColumns?: SortSettingsSortedColumn[];
+            title?: string;
         }
 
         export interface ToolbarSettingsCustomToolbarItem {
@@ -40264,6 +40360,10 @@ declare namespace ej {
 
         export interface ToolbarSettings {
 
+            /** Allows the user to insert custom toolbar items.
+             */
+            customToolbarItems?: ToolbarSettingsCustomToolbarItem[];
+
             /** Shows/hides the toolbar.
              * @Default {false}
              */
@@ -40272,12 +40372,47 @@ declare namespace ej {
             /** Specifies the list of toolbar items to be rendered in TreeGrid toolbar
              * @Default {[]}
              */
-            toolbarItems?: any[];
-
-            /** Allows the user to insert custom toolbar items.
-             */
-            customToolbarItems?: ToolbarSettingsCustomToolbarItem[];
+            toolbarItems?: Array<ej.TreeGrid.ToolbarItems|string>;
         }
+
+        enum ColumnResizeMode {
+
+            ///At load time column are rendered with given width value, while resizing the column only current column width is changed
+            FixedColumns,
+
+            ///At load time columns are stretched with control width,while resizing the column, current column width updated based on next column
+            Normal,
+
+            ///In this mode columns are stretched with control width in load time and on resizing action.
+            NextColumn
+        }
+
+
+        enum ClipMode {
+
+            ///Shows ellipsis for the overflown cell.
+            Ellipsis,
+
+            ///Truncate the text in the cell.
+            Clip
+        }
+
+
+        enum UnboundType {
+
+            ///Unbound type to perform edit action
+            Edit,
+
+            ///Unbound type to perform save action
+            Save,
+
+            ///Unbound type to perform delete action
+            Delete,
+
+            ///Unbound type to perform cancel action
+            Cancel
+        }
+
 
         enum EditingType {
 
@@ -40314,39 +40449,16 @@ declare namespace ej {
         }
 
 
-        enum UnboundType {
+        enum ContextMenuItems {
 
-            ///Unbound type to perform edit action
+            ///Enables the add menu item in context menu
+            Add,
+
+            ///Enables the edit menu item in context menu
             Edit,
 
-            ///Unbound type to perform save action
-            Save,
-
-            ///Unbound type to perform delete action
-            Delete,
-
-            ///Unbound type to perform cancel action
-            Cancel
-        }
-
-
-        enum ClipMode {
-
-            ///Shows ellipsis for the overflown cell.
-            Ellipsis,
-
-            ///Truncate the text in the cell.
-            Clip
-        }
-
-
-        enum HeaderTextOverflow {
-
-            ///You can disable the word wrap
-            None,
-
-            ///You can wrap the header content
-            Wrap
+            ///Enables the edit menu item in context menu
+            Delete
         }
 
 
@@ -40392,19 +40504,6 @@ declare namespace ej {
         }
 
 
-        enum ColumnResizeMode {
-
-            ///At load time column are rendered with given width value, while resizing the column only current column width is changed
-            FixedColumns,
-
-            ///At load time columns are stretched with control width,while resizing the column, current column width updated based on next column
-            Normal,
-
-            ///In this mode columns are stretched with control width in load time and on resizing action.
-            NextColumn
-        }
-
-
         enum FilterHierarchyMode {
 
             ///Shows the filtered record with parent record
@@ -40418,6 +40517,16 @@ declare namespace ej {
 
             ///Shows only filtered record.
             None
+        }
+
+
+        enum HeaderTextOverflow {
+
+            ///You can disable the word wrap
+            None,
+
+            ///You can wrap the header content
+            Wrap
         }
 
 
@@ -40492,6 +40601,40 @@ declare namespace ej {
 
             ///Displays the false count value for boolean summary columns
             FalseCount
+        }
+
+
+        enum ToolbarItems {
+
+            ///Enables the add icon in toolbar
+            Add,
+
+            ///Enables the edit icon in toolbar
+            Edit,
+
+            ///Enables the edit icon in toolbar
+            Delete,
+
+            ///Enables the update icon in toolbar
+            Update,
+
+            ///Enables the cancel icon in toolbar
+            Cancel,
+
+            ///Enables the expand all icon in toolbar
+            ExpandAll,
+
+            ///Enables the collapse all icon in toolbar
+            CollapseAll,
+
+            ///Enables the PDF export icon in toolbar
+            PdfExport,
+
+            ///Enables the excel export icon in toolbar
+            ExcelExport,
+
+            ///Enables the printing icon in toolbar
+            Print
         }
 
     }
@@ -42652,9 +42795,10 @@ declare namespace ej {
 
         /** This method is used to set the width for the columns in the Spreadsheet.
          * @param {any[]|any} Pass the column index and width of the columns.
+         * @param {number} Optional. If sheetIdx is specified, it will set the width for columns to the specified sheet else it will use active sheet.
          * @returns {void}
          */
-        setWidthToColumns(widthColl: any[]|any): void;
+        setWidthToColumns(widthColl: any[]|any, sheetIndex?: number): void;
 
         /** This method is used to rename the active sheet.
          * @param {string} Pass the sheet name that you want to change the current active sheet name.
@@ -46184,6 +46328,33 @@ declare namespace ej {
          */
         zoomTo(zoomValue: number): void;
 
+        /** Searches the target text in the PDF document and highlights the occurrences in the pages.
+         * @param {string} The text to be searched in the pages in the PDF viewer.
+         * @returns {void}
+         */
+        searchText(targetText: string): void;
+
+        /** Searches the next occurrence of the searched text from the current occurrence in the PDF viewer control.
+         * @returns {void}
+         */
+        searchNext(): void;
+
+        /** Searches the previous occurrence of the searched text from the current occurrence in the PDF viewer control.
+         * @returns {void}
+         */
+        searchPrevious(): void;
+
+        /** Searches the target text with its casing.
+         * @param {boolean} Specifies whether the text search must be performed with match case or not.
+         * @returns {void}
+         */
+        matchCase(enableMatchCase: boolean): void;
+
+        /** Cancels the text search and removes the highlighted occurrences from the PDF viewer.
+         * @returns {void}
+         */
+        cancelSearchText(): void;
+
         /** Adds annotations to the PDF document.
          * @param {ej.PdfViewer.AnnotationType} type of the annotation to be added in the PDF document.
          * @returns {void}
@@ -48197,6 +48368,410 @@ declare namespace ej {
 
             ///The data source is sorting with descending order.
             Descending
+        }
+
+    }
+
+    class ReportDesigner extends ej.Widget {
+        static fn: ReportDesigner;
+        constructor(element: JQuery | Element, options?: ReportDesigner.Model);
+        static Locale: any;
+        model: ReportDesigner.Model;
+        defaults: ReportDesigner.Model;
+
+        /** Determines whether a copy operation is possible.
+         * @returns {boolean}
+         */
+        canCopy(): boolean;
+
+        /** Determines whether a cut operation is possible.
+         * @returns {boolean}
+         */
+        canCut(): boolean;
+
+        /** Determines whether a delete operation is possible.
+         * @returns {boolean}
+         */
+        canRemove(): boolean;
+
+        /** Determines whether a paste operation is possible.
+         * @returns {boolean}
+         */
+        canPaste(): boolean;
+
+        /** Returns the bool value indicating whether the user can redo the previous action in the report.
+         * @returns {boolean}
+         */
+        canRedo(): boolean;
+
+        /** Returns a bool value indicating whether the user can undo the previous action in the report.
+         * @returns {boolean}
+         */
+        canUndo(): boolean;
+
+        /** Copies the selected ReportItem from design panel to Report Designer internal clipboard.
+         * @returns {void}
+         */
+        copy(): void;
+
+        /** Cuts the selected ReportItem from design panel to Report Designer internal clipboard.
+         * @returns {void}
+         */
+        cut(): void;
+
+        /** Deletes the selected item from the report.
+         * @returns {void}
+         */
+        remove(): void;
+
+        /** Returns the bool value that specifies whether the report has changes or not.
+         * @returns {boolean}
+         */
+        hasReportChanges(): boolean;
+
+        /** Returns the bool value that specifies whether the currently processing report is a new report or not.
+         * @returns {boolean}
+         */
+        isNewReport(): boolean;
+
+        /** Returns the bool value that specifies whether the currently processing report is a new server report or not.
+         * @returns {boolean}
+         */
+        isNewServerReport(): boolean;
+
+        /** Returns the bool value that specifies whether the currently processing report is obtained from the server or local.
+         * @returns {boolean}
+         */
+        isServerReport(): boolean;
+
+        /** To create a new report.
+         * @returns {void}
+         */
+        newReport(): void;
+
+        /** To create a new report in the server.
+         * @returns {void}
+         */
+        newServerReport(): void;
+
+        /** This method opens the report from the ReportServer.
+         * @returns {void}
+         */
+        openReport(): void;
+
+        /** To open the report client browse dialog.
+         * @returns {void}
+         */
+        openReportFromDevice(): void;
+
+        /** To open the report open server browse dialog.
+         * @returns {void}
+         */
+        openServerReportDialog(): void;
+
+        /** Pastes the selected ReportItem from Report Designer internal clipboard to design panel.
+         * @returns {void}
+         */
+        paste(): void;
+
+        /** Reverses the action of the last Undo command.
+         * @returns {void}
+         */
+        redo(): void;
+
+        /** This method saves the report into the ReportServer.
+         * @returns {void}
+         */
+        saveReport(): void;
+
+        /** To open the report save server browse dialog.
+         * @returns {void}
+         */
+        saveServerReportDialog(): void;
+
+        /** To download the designed report.
+         * @returns {void}
+         */
+        saveToDevice(): void;
+
+        /** To show the report design.
+         * @returns {void}
+         */
+        showDesign(): void;
+
+        /** To open the new report dialog.
+         * @returns {void}
+         */
+        showNewReportDialog(): void;
+
+        /** To open the server browse dialog.
+         * @returns {void}
+         */
+        showOpenSaveReportDialog(): void;
+
+        /** To show the report preview.
+         * @returns {void}
+         */
+        showPreview(): void;
+
+        /** Reverses the last action that was performed.
+         * @returns {void}
+         */
+        undo(): void;
+    }
+    export namespace ReportDesigner {
+
+        export interface Model {
+
+            /** Specifies the locale for report designer.
+             * @Default {en-US}
+             */
+            locale?: string;
+
+            /** Gets or Sets the report path of server.
+             * @Default {null}
+             */
+            reportPath?: string;
+
+            /** Gets or Sets the reports server URL.
+             * @Default {null}
+             */
+            reportServerUrl?: string;
+
+            /** Gets or sets the serviceAuthorizationToken to access the Report Server API services.
+             * @Default {empty}
+             */
+            serviceAuthorizationToken?: string;
+
+            /** Gets or Sets the URL of the  WebAPI service; it will be used for processing the report.
+             * @Default {null}
+             */
+            serviceUrl?: string;
+
+            /** Specifies the toolbar settings.
+             */
+            toolbarSettings?: ToolbarSettings;
+
+            /** This event will be triggered before AJAX loads.
+             */
+            ajaxBeforeLoad?(e: AjaxBeforeLoadEventArgs): void;
+
+            /** This event will be triggered when AJAX result is failed.
+             */
+            ajaxError?(e: AjaxErrorEventArgs): void;
+
+            /** This event will be triggered when AJAX result is succeeded.
+             */
+            ajaxSuccess?(e: AjaxSuccessEventArgs): void;
+
+            /** This event will be triggered when the Report Designer widget is created.
+             */
+            create?(e: CreateEventArgs): void;
+
+            /** This event will be triggered when the Report Designer widget is destroyed.
+             */
+            destroy?(e: DestroyEventArgs): void;
+
+            /** This event will be triggered while clicking open menu items.
+             */
+            openReportClick?(e: OpenReportClickEventArgs): void;
+
+            /** This event will be triggered when the report is modified.
+             */
+            reportModified?(e: ReportModifiedEventArgs): void;
+
+            /** This event will be triggered when the report is opened.
+             */
+            reportOpened?(e: ReportOpenedEventArgs): void;
+
+            /** This event will be triggered when the report is saved.
+             */
+            reportSaved?(e: ReportSavedEventArgs): void;
+
+            /** This event will be triggered when the save menu items are clicked.
+             */
+            saveReportClick?(e: SaveReportClickEventArgs): void;
+
+            /** This event will be triggered while clicking the toolbar items.
+             */
+            toolbarClick?(e: ToolbarClickEventArgs): void;
+
+            /** This event will be triggered on rendering the Report Designer toolbar.
+             */
+            toolbarRendering?(e: ToolbarRenderingEventArgs): void;
+        }
+
+        export interface AjaxBeforeLoadEventArgs {
+
+            /** AJAX headers, we can pass any custom header through this property.
+             */
+            headers?: any[];
+
+            /** To pass the custom data while AJAX post back.
+             */
+            data?: any;
+
+            /** Token of report designer.
+             */
+            reportDesignerToken?: string;
+
+            /** Token of ReportingService.
+             */
+            serviceAuthorizationToken?: string;
+
+            /** Action type of AJAX call back.
+             */
+            actionType?: string;
+        }
+
+        export interface AjaxErrorEventArgs {
+        }
+
+        export interface AjaxSuccessEventArgs {
+        }
+
+        export interface CreateEventArgs {
+        }
+
+        export interface DestroyEventArgs {
+        }
+
+        export interface OpenReportClickEventArgs {
+
+            /** DOM of the clicked target.
+             */
+            target?: JQuery;
+
+            /** Name of selected item.
+             */
+            select?: string;
+        }
+
+        export interface ReportModifiedEventArgs {
+
+            /** Specifies whether the report is modified or not.
+             */
+            isModified?: boolean;
+
+            /** Name of Opened Report.
+             */
+            reportName?: string;
+        }
+
+        export interface ReportOpenedEventArgs {
+
+            /** Specifies whether report opened from device or server.
+             */
+            isServerReport?: boolean;
+
+            /** Name of Opened Report.
+             */
+            reportName?: string;
+        }
+
+        export interface ReportSavedEventArgs {
+
+            /** Specifies whether report opened from device or server.
+             */
+            isServerReport?: boolean;
+
+            /** States whether report is downloaded from ReportServer.
+             */
+            reportAction?: string;
+        }
+
+        export interface SaveReportClickEventArgs {
+
+            /** DOM of the clicked target.
+             */
+            target?: JQuery;
+
+            /** Name of selected item.
+             */
+            select?: string;
+        }
+
+        export interface ToolbarClickEventArgs {
+
+            /** DOM of the clicked target.
+             */
+            target?: JQuery;
+
+            /** Name of clicked item.
+             */
+            click?: string;
+        }
+
+        export interface ToolbarRenderingEventArgs {
+        }
+
+        export interface ToolbarSettings {
+
+            /** Shows or hides the grouped items in the toolbar with the help of enum ej.ReportDesigner.ToolbarItems.
+             * @Default {ej.ReportDesigner.ToolbarItems.All}
+             */
+            items?: ej.ReportDesigner.ToolbarItems|string;
+
+            /** Shows or hides the toolbar.
+             * @Default {true}
+             */
+            showToolbar?: boolean;
+
+            /** Specifies the toolbar template ID.
+             * @Default {empty}
+             */
+            templateId?: string;
+        }
+
+        enum ToolbarItems {
+
+            ///Creates a new, blank report.
+            New,
+
+            ///Displays the Open dialog box to retrieve an existing report.
+            Open,
+
+            ///Saves the active report to a specified location.
+            Save,
+
+            ///Removes the selected item from the active report.
+            Cut,
+
+            ///Copies selected text or object to the clipboard.
+            Copy,
+
+            ///Pastes the item that cut or copied into (the position of the insertion point) the report from the clipboard.
+            Paste,
+
+            ///Deletes the selected item or text from the report.
+            Delete,
+
+            ///Reverses the last action or deletes the last entry that is typed.
+            Undo,
+
+            ///Reverses the action of the last Undo command.
+            Redo,
+
+            ///Used to "zoom in" to get a close-up view of a report or "zoom out" to see more of the page at a reduced size.
+            Zoom,
+
+            ///Previews the active report in report viewer.
+            Preview,
+
+            ///Enables/Disables the gridline in active report.
+            GridLine,
+
+            ///Enables header area in the report.
+            Header,
+
+            ///Enables footer area in the report.
+            Footer,
+
+            ///Switches from preview to design view of the report.
+            EditDesign,
+
+            ///Shows all the toolbar items.
+            All
         }
 
     }
@@ -64292,6 +64867,16 @@ declare namespace ej.datavisualization {
          * @returns {void}
          */
         zoom(level: number, isAnimate: boolean): void;
+
+        /** Method to reload the shape marker with updated values.
+         * @returns {void}
+         */
+        refreshLayer(): void;
+
+        /** Add markers dynamically based on layer and sublayer index value.
+         * @returns {void}
+         */
+        addMarkers(): void;
     }
     export namespace Map {
 
@@ -64413,6 +64998,10 @@ declare namespace ej.datavisualization {
              */
             Click?(e: ClickEventArgs): void;
 
+            /** Fires on clicking the legend item.
+             */
+            legendItemClick?(e: LegendItemClickEventArgs): void;
+
             /** Fires, on double clicking the map.
              */
             doubleClick?(e: DoubleClickEventArgs): void;
@@ -64424,6 +65013,18 @@ declare namespace ej.datavisualization {
             /** Fires before loading the map.
              */
             onLoad?(e: OnLoadEventArgs): void;
+
+            /** Triggers while entering the hovered marker shape.
+             */
+            markerEnter?(e: MarkerEnterEventArgs): void;
+
+            /** Triggers while leaving the hovered marker shape.
+             */
+            markerLeave?(e: MarkerLeaveEventArgs): void;
+
+            /** Triggers after refreshing the map items.
+             */
+            refreshed?(e: RefreshedEventArgs): void;
         }
 
         export interface MarkerSelectedEventArgs {
@@ -64518,6 +65119,27 @@ declare namespace ej.datavisualization {
             originalEvent?: any;
         }
 
+        export interface LegendItemClickEventArgs {
+
+            /** Set this option to true to cancel the event
+             */
+            cancel?: boolean;
+
+            /** Instance of the map model object
+             */
+            model?: any;
+
+            /** Name of the event
+             */
+            type?: string;
+
+            /** startX - X-coordinate of legend item in pixel        LegendItem - Instance of the legend item object that is about to be rendered    style - Options to customize the legend item
+             * styles such as border, color, size, etcâ€¦,        symbolShape - Name of the legend item shape. Use this option to customize legend item shape before rendering    map - Instance
+             * of the map object corresponding to the legend item
+             */
+            data?: any;
+        }
+
         export interface DoubleClickEventArgs {
 
             /** Returns double clicked shape object.
@@ -64547,7 +65169,49 @@ declare namespace ej.datavisualization {
             type?: string;
         }
 
+        export interface MarkerEnterEventArgs {
+
+            /** Set this option to true to cancel the event
+             */
+            cancel?: boolean;
+
+            /** Instance of the map model object
+             */
+            model?: any;
+
+            /** Name of the event
+             */
+            type?: string;
+        }
+
+        export interface MarkerLeaveEventArgs {
+
+            /** Set this option to true to cancel the event
+             */
+            cancel?: boolean;
+
+            /** Instance of the map model object
+             */
+            model?: any;
+
+            /** Name of the event
+             */
+            type?: string;
+        }
+
+        export interface RefreshedEventArgs {
+
+            /** Refresh and load the map.
+             */
+            originalEvent?: any;
+        }
+
         export interface ZoomSettings {
+
+            /** Specifies animation duration for map shapes while zooming.
+             * @Default {600}
+             */
+            animationDuration?: string;
 
             /** Enables or Disables the zooming of map
              * @Default {true}
@@ -64805,6 +65469,11 @@ declare namespace ej.datavisualization {
              * @Default {false}
              */
             showLegend?: boolean;
+
+            /** Toggle the visibility of the legend.
+             * @Default {false}
+             */
+            toggleVisibility?: boolean;
 
             /** to get title of legend setting
              * @Default {null}
@@ -65639,6 +66308,11 @@ declare namespace ej.datavisualization {
          * @returns {void}
          */
         refresh(): void;
+
+        /** Method to drilldown the treemap.
+         * @returns {void}
+         */
+        drillDown(): void;
     }
     export namespace TreeMap {
 
@@ -65710,6 +66384,16 @@ declare namespace ej.datavisualization {
              * @Default {false}
              */
             enableDrillDown?: boolean;
+
+            /** Specifies to drill the particular data of the treemap.
+             * @Default {null}
+             */
+            drillDownValue?: string;
+
+            /** Specifies to render particular level of the treemap.
+             * @Default {0}
+             */
+            drillDownLevel?: number;
 
             /** Controls whether Treemap has to be responsive while resizing the window.
              * @Default {true}
@@ -68109,6 +68793,11 @@ declare namespace ej.datavisualization {
              */
             margin?: ConnectorsLabelsMargin;
 
+            /** Sets the padding for connector label.
+             * @Default {ej.datavisualization.Diagram.Point(0.5, 0.5)}
+             */
+            padding?: any;
+
             /** Sets the value which is used to drag the label within certain bounds.
              * @Default {null}
              */
@@ -69322,6 +70011,11 @@ declare namespace ej.datavisualization {
              * @Default {ej.datavisualization.Diagram.OverflowType.Ellipsis}
              */
             overflowType?: ej.datavisualization.Diagram.OverflowType|string;
+
+            /** To set the padding of the node label
+             * @Default {ej.datavisualization.Diagram.Padding()}
+             */
+            padding?: any;
 
             /** Defines whether the label is editable or not
              * @Default {false}
@@ -70713,6 +71407,10 @@ declare namespace ej.datavisualization {
             BridgeObstacle,
             //Enables connector to be selected and dragged.
             Interaction,
+            //Enables the Routing for an connector
+            Routing,
+            //Inherit the routing option defined in the diagram constraints.
+            InheritRouting,
             //Enables all constraints
             Default,
         }
@@ -70919,6 +71617,8 @@ declare namespace ej.datavisualization {
             ZoomTextEditor,
             //Enables/Disables the drag and drop of element from one diagram to the other
             FloatElements,
+            //Enables the routing for an connector in diagram
+            Routing,
             //Enables all Constraints
             Default,
         }
@@ -74355,6 +75055,9 @@ interface JQuery {
     ejRecurrenceEditor(options?: ej.RecurrenceEditor.Model): JQuery;
     ejRecurrenceEditor(memberName: any, value?: any, param?: any): any;
 
+    ejReportDesigner(options?: ej.ReportDesigner.Model): JQuery;
+    ejReportDesigner(memberName: any, value?: any, param?: any): any;
+
     ejReportViewer(options?: ej.ReportViewer.Model): JQuery;
     ejReportViewer(memberName: any, value?: any, param?: any): any;
 
@@ -74501,6 +75204,7 @@ interface JQuery {
     data(key: "ejRangeNavigator"): ej.datavisualization.RangeNavigator;
     data(key: "ejRating"): ej.Rating;
     data(key: "ejRecurrenceEditor"): ej.RecurrenceEditor;
+    data(key: "ejReportDesigner"): ej.ReportDesigner;
     data(key: "ejReportViewer"): ej.ReportViewer;
     data(key: "ejResizable"): ej.Resizable;
     data(key: "ejRibbon"): ej.Ribbon;

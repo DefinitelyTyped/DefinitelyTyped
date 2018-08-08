@@ -1,0 +1,27 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": ["es6"],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": ["../"],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "app.d.ts",
+        "base.d.ts",
+        "component.d.ts",
+        "event.d.ts",
+        "index.d.ts",
+        "mixin.d.ts",
+        "page.d.ts",
+        "util.d.ts",
+        "wx_enhanced.d.ts",
+        "wepy-tests.ts"
+    ]
+}

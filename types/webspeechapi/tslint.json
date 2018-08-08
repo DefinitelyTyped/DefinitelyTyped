@@ -1,8 +1,0 @@
-{
-    "extends": "dtslint/dt.json",
-    "rules": {
-        // TODOs
-        "dt-header": false,
-        "prefer-method-signature": false
-    }
-}

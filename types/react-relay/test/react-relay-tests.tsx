@@ -76,9 +76,8 @@ const MyEmptyQueryRenderer = () => (
 type StoryLike = (storyID: string) => void;
 
 // Artifact produced by relay-compiler-language-typescript
-// tslint:disable-next-line:no-const-enum
-const enum _Story_story$ref {}
-type Story_story$ref = _Story_story$ref & FragmentReference;
+declare const _Story_story$ref: unique symbol;
+type Story_story$ref = typeof _Story_story$ref;
 // tslint:disable-next-line:interface-over-type-literal
 type Story_story = {
     readonly id: string;
@@ -150,8 +149,7 @@ const Story = (() => {
     function doesNotRequireRelayPropToBeProvided() {
         const onLike = (id: string) => console.log(`Liked story #${id}`);
         const story: { " $fragmentRefs": Story_story$ref } = {} as any;
-        // TODO: Fix requirement to cast fragment reference as `any`.
-        <StoryRefetchContainer story={story as any} onLike={onLike} />;
+        <StoryRefetchContainer story={story} onLike={onLike} />;
     }
 
     return StoryRefetchContainer;
@@ -162,15 +160,14 @@ const Story = (() => {
 // ~~~~~~~~~~~~~~~~~~~~~
 
 // Artifact produced by relay-compiler-language-typescript
-// tslint:disable-next-line:no-const-enum
-const enum _FeedStories_feed$ref {}
-type FeedStories_feed$ref = _FeedStories_feed$ref & FragmentReference;
+declare const _FeedStories_feed$ref: unique symbol;
+type FeedStories_feed$ref = typeof _FeedStories_feed$ref;
 // tslint:disable-next-line:interface-over-type-literal
 type FeedStories_feed = {
     readonly edges: ReadonlyArray<{
         readonly node: {
             readonly id: string;
-            readonly " $fragmentRefs": Story_story$ref;
+            readonly " $fragmentRefs": Story_story$ref & FeedStories_feed$ref;
         };
     }>;
     readonly " $refType": FeedStories_feed$ref;
@@ -189,8 +186,7 @@ const Feed = (() => {
         //       If you have a good relavant example, please update!
         relay.environment;
         const stories = feed.edges.map(edge => {
-            // TODO: Fix requirement to cast fragment reference as `any`.
-            return <Story story={edge.node as any} key={edge.node.id} onLike={onStoryLike} />;
+            return <Story story={edge.node} key={edge.node.id} onLike={onStoryLike} />;
         });
         return <div>{stories}</div>;
     };
@@ -214,8 +210,7 @@ const Feed = (() => {
     function doesNotRequireRelayPropToBeProvided() {
         const onStoryLike = (id: string) => console.log(`Liked story #${id}`);
         const feed: { " $fragmentRefs": FeedStories_feed$ref } = {} as any;
-        // TODO: Fix requirement to cast fragment reference as `any`.
-        <FeedFragmentContainer feed={feed as any} onStoryLike={onStoryLike} />;
+        <FeedFragmentContainer feed={feed} onStoryLike={onStoryLike} />;
     }
 
     return FeedFragmentContainer;
@@ -226,9 +221,8 @@ const Feed = (() => {
 // ~~~~~~~~~~~~~~~~~~~~~
 
 // Artifact produced by relay-compiler-language-typescript
-// tslint:disable-next-line:no-const-enum
-const enum _UserFeed_user$ref {}
-type UserFeed_user$ref = _UserFeed_user$ref & FragmentReference;
+declare const _UserFeed_user$ref: unique symbol;
+type UserFeed_user$ref = typeof _UserFeed_user$ref;
 // tslint:disable-next-line:interface-over-type-literal
 type UserFeed_user = {
     readonly feed: {
@@ -252,11 +246,9 @@ type UserFeed_user = {
     class UserFeed extends React.Component<Props> {
         render() {
             const onStoryLike = (id: string) => console.log(`Liked story #${id}`);
-            // TODO: Fix requirement to cast fragment reference as `any`.
-            const feed = this.props.user.feed as any;
             return (
                 <div>
-                    <Feed feed={feed} onStoryLike={onStoryLike} />
+                    <Feed feed={this.props.user.feed} onStoryLike={onStoryLike} />
                     <button onClick={() => this._loadMore()} title={this.props.loadMoreTitle} />
                 </div>
             );
@@ -329,8 +321,7 @@ type UserFeed_user = {
 
     function doesNotRequireRelayPropToBeProvided() {
         const user: { " $fragmentRefs": UserFeed_user$ref } = {} as any;
-        // TODO: Fix requirement to cast fragment reference as `any`.
-        <UserFeedPaginationContainer loadMoreTitle="Load More" user={user as any} />;
+        <UserFeedPaginationContainer loadMoreTitle="Load More" user={user} />;
     }
 };
 

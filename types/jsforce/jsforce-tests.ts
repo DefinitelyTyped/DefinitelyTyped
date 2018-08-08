@@ -45,8 +45,8 @@ salesforceConnection.sobject("Account").create({
     Name: "Test Acc 2",
     BillingStreet: "Maplestory street",
     BillingPostalCode: "ME4 666"
-}, (err: Error, ret: sf.RecordResult) => {
-    if (err || !ret.success) {
+}, (err: Error, ret: sf.RecordResult | sf.RecordResult[]) => {
+    if (err || !Array.isArray(ret) && !ret.success) {
         return;
     }
 });
@@ -56,8 +56,8 @@ salesforceConnection.sobject("ContentVersion").create({
     Title: 'hello',
     PathOnClient: './hello-world.jpg',
     VersionData: '{ Test: Data }'
-}, (err: Error, ret: sf.RecordResult) => {
-    if (err || !ret.success) {
+}, (err: Error, ret: sf.RecordResult | sf.RecordResult[]) => {
+    if (err || !Array.isArray(ret) && !ret.success) {
         return;
     }
 });
@@ -77,8 +77,8 @@ salesforceConnection.sobject("ContentDocumentLink").create({
     ContentDocumentId: '',
     LinkedEntityId: '',
     ShareType: "I"
-}, (err: Error, ret: sf.RecordResult) => {
-    if (err || !ret.success) {
+}, (err: Error, ret: sf.RecordResult | sf.RecordResult[]) => {
+    if (err || !Array.isArray(ret) && !ret.success) {
         return;
     }
 });
@@ -157,7 +157,7 @@ async function testMetadata(conn: sf.Connection): Promise<void> {
         m.metadataObjects.filter((value: sf.MetadataObject) => value.directoryName === 'pages');
     console.log(`ApexPage?: ${pages[0].xmlName === 'ApexPage'}`);
 
-    const types: sf.ListMetadataQuery[] = [{ type: 'CustomObject', folder: null }];
+    const types: sf.ListMetadataQuery[] = [{ type: 'CustomObject', folder: undefined }];
     md.list(types, '39.0', (err, properties: sf.FileProperties[]) => {
         if (err) {
             console.error('err', err);
@@ -335,7 +335,8 @@ batch.on("response", (rets: sf.BatchResultInfo[]) => {
         if (rets[i].success) {
             console.log(`# ${(i + 1)} loaded successfully, id = ${rets[i].id}`);
         } else {
-            console.log(`# ${(i + 1)} error occurred, message = ${rets[i].errors.join(', ')}`);
+            const errors = rets[i].errors;
+            console.log(`# ${(i + 1)} error occurred, message = ${errors ? errors.join(', ') : ''}`);
         }
     }
 });
@@ -350,3 +351,31 @@ salesforceConnection.streaming.topic("InvoiceStatementUpdates").subscribe((messa
     console.log('Event Created : ' + message.event.createdDate);
     console.log('Object Id : ' + message.sobject.Id);
 });
+
+async function testDescribe() {
+    const global: sf.DescribeGlobalResult = await salesforceConnection.describeGlobal();
+    const globalCached: sf.DescribeGlobalResult = salesforceConnection.describeGlobal$();
+    const globalCachedCorrectly = global === globalCached;
+    salesforceConnection.describeGlobal$.clear();
+
+    globalCached.sobjects.forEach(async (sobject: sf.DescribeGlobalSObjectResult) => {
+        const object: sf.DescribeSObjectResult = await salesforceConnection.describe(sobject.name);
+        const cachedObject: sf.DescribeSObjectResult = salesforceConnection.describe$(sobject.name);
+        salesforceConnection.describe$.clear();
+
+        object.fields.forEach(field => {
+            const type: sf.FieldType = field.type;
+            // following should never compile
+            // const fail = type === 'hey'
+
+            const isString = type === 'string';
+        });
+
+        // following should never compile (if StrictNullChecks is on)
+        // object.keyPrefix.length;
+
+        console.log(`${sobject.name} Label: `, object.label);
+
+        const correctlyCached = object === cachedObject;
+    });
+}

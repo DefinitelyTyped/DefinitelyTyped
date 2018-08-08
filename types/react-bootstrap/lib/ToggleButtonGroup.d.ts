@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { ButtonGroup } from 'react-bootstrap';
 import { Omit } from "../index";
 
 declare namespace ToggleButtonGroup {
@@ -34,5 +35,5 @@ declare namespace ToggleButtonGroup {
                                        & Omit<React.HTMLProps<ToggleButtonGroup>, "defaultValue" | "type" | "value" | "onChange">;
 
 }
-declare class ToggleButtonGroup extends React.Component<ToggleButtonGroup.ToggleButtonGroupProps> { }
+declare class ToggleButtonGroup extends React.Component<ToggleButtonGroup.ToggleButtonGroupProps & ButtonGroup.ButtonGroupProps> { }
 export = ToggleButtonGroup;

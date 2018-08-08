@@ -3,6 +3,7 @@
 // Definitions by: Microsoft TypeScript <http://typescriptlang.org>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
+//                 Sander Koenders <https://github.com/Archcry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /************************************************
@@ -407,6 +408,10 @@ declare namespace NodeJS {
         isTTY?: true;
     }
 
+    export interface ProcessEnv {
+        [key: string]: string | undefined;
+    }
+
     export interface Process extends EventEmitter {
         stdout: Socket;
         stderr: Socket;
@@ -418,7 +423,7 @@ declare namespace NodeJS {
         chdir(directory: string): void;
         cwd(): string;
         debugPort: number;
-        env: any;
+        env: ProcessEnv;
         exit(code?: number): void;
         exitCode: number;
         getgid(): number;
@@ -849,6 +854,7 @@ declare module "http" {
     }
 
     export class Agent {
+        maxFreeSockets: number;
         maxSockets: number;
         sockets: any;
         requests: any;
@@ -1444,6 +1450,8 @@ declare module "dns" {
     export function lookup(hostname: string, options: LookupAllOptions, callback: (err: NodeJS.ErrnoException, addresses: LookupAddress[]) => void): void;
     export function lookup(hostname: string, options: LookupOptions, callback: (err: NodeJS.ErrnoException, address: string | LookupAddress[], family: number) => void): void;
     export function lookup(hostname: string, callback: (err: NodeJS.ErrnoException, address: string, family: number) => void): void;
+
+    export function lookupService(address: string, port: number, callback: (err: NodeJS.ErrnoException, hostname: string, service: string) => void): void;
 
     export interface MxRecord {
         priority: number;
@@ -2432,7 +2440,7 @@ declare module "util" {
 }
 
 declare module "assert" {
-    function internal (value: any, message?: string): void;
+    function internal(value: any, message?: string): void;
     namespace internal {
         export class AssertionError implements Error {
             name: string;
@@ -2442,8 +2450,10 @@ declare module "assert" {
             operator: string;
             generatedMessage: boolean;
 
-            constructor(options?: {message?: string; actual?: any; expected?: any;
-                                  operator?: string; stackStartFunction?: Function});
+            constructor(options?: {
+                message?: string; actual?: any; expected?: any;
+                operator?: string; stackStartFn?: Function
+            });
         }
 
         export function fail(actual: any, expected: any, message?: string, operator?: string): never;
@@ -2451,21 +2461,16 @@ declare module "assert" {
         export function equal(actual: any, expected: any, message?: string): void;
         export function notEqual(actual: any, expected: any, message?: string): void;
         export function deepEqual(actual: any, expected: any, message?: string): void;
-        export function notDeepEqual(acutal: any, expected: any, message?: string): void;
+        export function notDeepEqual(actual: any, expected: any, message?: string): void;
         export function strictEqual(actual: any, expected: any, message?: string): void;
         export function notStrictEqual(actual: any, expected: any, message?: string): void;
         export function deepStrictEqual(actual: any, expected: any, message?: string): void;
         export function notDeepStrictEqual(actual: any, expected: any, message?: string): void;
 
         export function throws(block: Function, message?: string): void;
-        export function throws(block: Function, error: Function, message?: string): void;
-        export function throws(block: Function, error: RegExp, message?: string): void;
-        export function throws(block: Function, error: (err: any) => boolean, message?: string): void;
-
+        export function throws(block: Function, error: RegExp | Function, message?: string): void;
         export function doesNotThrow(block: Function, message?: string): void;
-        export function doesNotThrow(block: Function, error: Function, message?: string): void;
-        export function doesNotThrow(block: Function, error: RegExp, message?: string): void;
-        export function doesNotThrow(block: Function, error: (err: any) => boolean, message?: string): void;
+        export function doesNotThrow(block: Function, error: RegExp | Function, message?: string): void;
 
         export function ifError(value: any): void;
     }

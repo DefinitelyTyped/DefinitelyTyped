@@ -1,6 +1,11 @@
-// Type definitions for socket.io 1.4.4
+// Type definitions for socket.io 1.4.5
 // Project: http://socket.io/
-// Definitions by: PROGRE <https://github.com/progre>, Damian Connolly <https://github.com/divillysausages>, Florent Poujol <https://github.com/florentpoujol>, KentarouTakeda <https://github.com/KentarouTakeda>, Alexey Snigirev <https://github.com/gigi>
+// Definitions by: PROGRE <https://github.com/progre>
+//                 Damian Connolly <https://github.com/divillysausages>
+//                 Florent Poujol <https://github.com/florentpoujol>
+//                 KentarouTakeda <https://github.com/KentarouTakeda>
+//                 Alexey Snigirev <https://github.com/gigi>
+//                 Ezinwa Okpoechi <https://github.com/BrainMaestro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference types="node" />
@@ -127,7 +132,7 @@ declare namespace SocketIO {
 		 * Gets the allowed origins for requests
 		 * @default "*:*"
 		 */
-		origins(): string;
+		origins(): string|string[];
 
 		/**
 		 * Sets the allowed origins for requests
@@ -135,7 +140,7 @@ declare namespace SocketIO {
 		 * @default "*:*"
 		 * return This Server
 		 */
-		origins( v: string ): Server;
+		origins( v: string|string[] ): Server;
 
 		/**
 		 * Attaches socket.io to a server
@@ -299,7 +304,7 @@ declare namespace SocketIO {
 		 * Accepted origins
 		 * @default '*:*'
 		 */
-		origins?: string;
+		origins?: string|string[];
 
 		/**
 		 * How many milliseconds without a pong packed to consider the connection closed (engine.io)
@@ -553,49 +558,7 @@ declare namespace SocketIO {
 		/**
 		 * The object used when negociating the handshake
 		 */
-		handshake: {
-			/**
-			 * The headers passed along with the request. e.g. 'host',
-			 * 'connection', 'accept', 'referer', 'cookie'
-			 */
-			headers: any;
-
-			/**
-			 * The current time, as a string
-			 */
-			time: string;
-
-			/**
-			 * The remote address of the connection request
-			 */
-			address: string;
-
-			/**
-			 * Is this a cross-domain request?
-			 */
-			xdomain: boolean;
-
-			/**
-			 * Is this a secure request?
-			 */
-			secure: boolean;
-
-			/**
-			 * The timestamp for when this was issued
-			 */
-			issued: number;
-
-			/**
-			 * The request url
-			 */
-			url: string;
-
-			/**
-			 * Any query string parameters in the request url
-			 */
-			query: any;
-		};
-
+		handshake: Handshake;
 		/**
 		 * Sets the 'json' flag when emitting an event
 		 */
@@ -629,7 +592,7 @@ declare namespace SocketIO {
 
 		/**
 		 * Registers a middleware, which is a function that gets executed for every incoming Packet and receives as parameter the packet and a function to optionally defer execution to the next registered middleware.
-		 * 
+		 *
 		 * Errors passed to middleware callbacks are sent as special error packets to clients.
 		 */
 		use( fn: ( packet: Packet, next: (err?: any) => void ) => void ): Socket;
@@ -688,6 +651,49 @@ declare namespace SocketIO {
 		 * @return This Socket
 		 */
 		compress( compress: boolean ): Socket;
+	}
+
+	interface Handshake {
+		/**
+		 * The headers passed along with the request. e.g. 'host',
+		 * 'connection', 'accept', 'referer', 'cookie'
+		 */
+		headers: any;
+
+		/**
+		 * The current time, as a string
+		 */
+		time: string;
+
+		/**
+		 * The remote address of the connection request
+		 */
+		address: string;
+
+		/**
+		 * Is this a cross-domain request?
+		 */
+		xdomain: boolean;
+
+		/**
+		 * Is this a secure request?
+		 */
+		secure: boolean;
+
+		/**
+		 * The timestamp for when this was issued
+		 */
+		issued: number;
+
+		/**
+		 * The request url
+		 */
+		url: string;
+
+		/**
+		 * Any query string parameters in the request url
+		 */
+		query: any;
 	}
 
 	/**
