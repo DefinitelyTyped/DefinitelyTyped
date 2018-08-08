@@ -19,6 +19,7 @@
 //                 Jérémy Magrin <https://github.com/magrinj>
 //                 Luca Campana <https://github.com/TizioFittizio>
 //                 Ullrich Schaefer <https://github.com/stigi>
+//                 Jake <https://github.com/jakebooyah>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -441,6 +442,7 @@ export type NavigationStackAction =
   | NavigationBackAction
   | NavigationSetParamsAction
   | NavigationResetAction
+  | NavigationReplaceAction
   | NavigationPopAction
   | NavigationPushAction
   | NavigationPopToTopAction;
