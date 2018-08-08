@@ -86,6 +86,7 @@ export interface ReactDatePickerProps {
 	startDate?: moment.Moment;
 	startOpen?: boolean;
 	tabIndex?: number;
+	timeCaption?: string;
 	timeFormat?: string;
 	timeIntervals?: number;
 	title?: string;
