@@ -232,7 +232,7 @@ export namespace WebRTC {
 }
 
 export interface TransportOptions {
-    wsServers?: string | Array<string>;
+    wsServers?: string | string[];
     connectionTimeout?: number;
     maxReconnectionAttempts?: number;
     reconnectionTimeout?: number;
