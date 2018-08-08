@@ -2,7 +2,6 @@
 // Project: https://github.com/react-navigation/react-navigation-material-bottom-tab-navigator#readme
 // Definitions by: Kyle Roach <https://github.com/iRoachie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // TypeScript Version: 2.8
 
 import { StyleProp, TextStyle, ViewStyle } from 'react-native';
