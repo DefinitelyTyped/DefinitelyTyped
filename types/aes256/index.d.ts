@@ -58,4 +58,4 @@ export declare class AesCipher {
     decrypt(encrypted: string): string;
 }
 
-export default aes256;
+module.exports = aes256;
