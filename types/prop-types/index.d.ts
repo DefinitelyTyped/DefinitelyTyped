@@ -29,7 +29,7 @@ export interface Validator<T> {
         location: string,
         propFullName: string,
     ): Error | null;
-    [nominalTypeHack]?: T | undefined | null;
+    [nominalTypeHack]?: T | null;
 }
 
 export interface Requireable<T> extends Validator<T | undefined | null> {
