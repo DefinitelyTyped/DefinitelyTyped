@@ -231,6 +231,16 @@ export namespace WebRTC {
     }
 }
 
+export interface TransportOptions {
+    wsServers?: string | Array<string>;
+    connectionTimeout?: number;
+    maxReconnectionAttempts?: number;
+    reconnectionTimeout?: number;
+    keepAliveInterval?: number;
+    keepAliveDebounce?: number;
+    traceSip?: number;
+}
+
 /* Parameters */
 export interface ConfigurationParameters {
     uri?: string;
@@ -276,6 +286,7 @@ export interface ConfigurationParameters {
     userAgentString?: string;
     wsServerMaxReconnection?: number;
     wsServerReconnectionTimeout?: number;
+    transportOptions?: TransportOptions;
 }
 
 export interface SimpleConfigurationParameters {
