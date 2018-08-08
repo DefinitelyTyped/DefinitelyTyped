@@ -185,6 +185,8 @@ declare namespace yargs {
          */
         reset(): Argv;
 
+        scriptName($0: string): Argv;
+
         showCompletionScript(): Argv;
 
         showhidden(option?: string | boolean): Argv;

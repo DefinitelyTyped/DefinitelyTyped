@@ -1,4 +1,4 @@
-// Type definitions for stripe 5.0
+// Type definitions for stripe 5.0.19
 // Project: https://github.com/stripe/stripe-node/
 // Definitions by: William Johnston <https://github.com/wjohnsto>
 //                 Peter Harris <https://github.com/codeanimal>
@@ -11,6 +11,7 @@
 //                 Gal Talmor <https://github.com/galtalmor>
 //                 Hunter Tunnicliff <https://github.com/htunnicliff>
 //                 Tyler Jones <https://github.com/squirly>
+//                 Troy Zarger <https://github.com/tzarger>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -188,7 +189,7 @@ declare namespace Stripe {
              * account holder to setup a username and password, and handle all account
              * management directly with them. Possible values are custom and standard.
              */
-            type: 'custom' | 'standard';
+            type: "custom" | "standard";
         }
 
         interface IAccountShared {
@@ -1467,6 +1468,13 @@ declare namespace Stripe {
              * customer, Stripe will automatically validate the card.
              */
             source?: sources.ISourceCreationOptionsExtended;
+        }
+
+        interface ICustomerListOptions extends IListOptionsCreated {
+            /**
+             * A filter on the list based on the customer’s email field. The value must be a string.
+             */
+            email?: string;
         }
 
         interface ICustomerSourceCreationOptions extends IDataOptionsWithMetadata {
@@ -4339,7 +4347,7 @@ declare namespace Stripe {
             /**
              * Value is 'card'
              */
-            object: 'card';
+            object: "card";
 
             /**
              * The card number
@@ -4670,6 +4678,12 @@ declare namespace Stripe {
              * Integer representing the number of trial period days before the customer is charged for the first time.
              */
             trial_period_days?: number;
+
+            /**
+             * Indicates if a plan’s trial_period_days should be applied to the subscription. Setting trial_end per subscription is preferred,
+             * and this defaults to false. Setting this flag to true together with trial_end is not allowed.
+             */
+            trial_from_plan?: boolean;
 
             /**
              * List of subscription items, each with an attached plan.
@@ -5025,6 +5039,11 @@ declare namespace Stripe {
              * For other types of refunds, it can be pending, succeeded, failed, or canceled.
              */
             status: "pending" | "succeeded" | "failed" | "canceled";
+
+            /**
+             * If the refund failed, the reason for refund failure if known.
+             */
+            failure_reason?: "lost_or_stolen_card" | "expired_or_canceled_card" | "unknown";
         }
 
         interface IRefundCreationOptions extends IDataOptionsWithMetadata {
@@ -5855,8 +5874,8 @@ declare namespace Stripe {
              *
              * @param data Allows you to filter the customers you want.
              */
-            list(data: IListOptionsCreated, options: HeaderOptions, response?: IResponseFn<IList<customers.ICustomer>>): Promise<IList<customers.ICustomer>>;
-            list(data: IListOptionsCreated, response?: IResponseFn<IList<customers.ICustomer>>): Promise<IList<customers.ICustomer>>;
+            list(data: customers.ICustomerListOptions, options: HeaderOptions, response?: IResponseFn<IList<customers.ICustomer>>): Promise<IList<customers.ICustomer>>;
+            list(data: customers.ICustomerListOptions, response?: IResponseFn<IList<customers.ICustomer>>): Promise<IList<customers.ICustomer>>;
             list(options: HeaderOptions, response?: IResponseFn<IList<customers.ICustomer>>): Promise<IList<customers.ICustomer>>;
             list(response?: IResponseFn<IList<customers.ICustomer>>): Promise<IList<customers.ICustomer>>;
 

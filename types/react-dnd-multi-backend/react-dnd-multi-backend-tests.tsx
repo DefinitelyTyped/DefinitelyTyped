@@ -1,26 +1,21 @@
-// Examples based on documentation at https://github.com/LouisBrunner/react-dnd-multi-backend
-
 import * as React from 'react';
-import * as ReactDnd from 'react-dnd';
-import MultiBackend, { Backends, createTransition, Preview, TouchTransition, HTML5DragTransition } from 'react-dnd-multi-backend';
-import HTML5toTouch from 'react-dnd-multi-backend/lib/HTML5toTouch';
-import HTML5Backend from 'react-dnd-html5-backend';
+import { createDragDropManager } from 'dnd-core';
+import MultiBackend, { createTransition, TouchTransition, Backends, Preview } from 'react-dnd-multi-backend';
+import HTML5ToTouch from 'react-dnd-multi-backend/lib/HTML5toTouch';
 import TouchBackend from 'react-dnd-touch-backend';
 
-const component = () => null;
+const context = {};
 
 /**
  * Most common use case - using the default HTML5 with Touch as a fallback.
  */
-const multiDndComponent = ReactDnd.DragDropContext(MultiBackend(HTML5toTouch))(component);
+const multiDndComponent = createDragDropManager(MultiBackend(HTML5ToTouch), context);
 
 /**
  * Creating a custom list of backends, including creating a touch transition.
  */
 const CustomBackends: Backends = {
-    backends: [{
-        backend: HTML5Backend
-    },
+    backends: [
     {
         backend: TouchBackend({ enableMouseEvents: false }),
         preview: true,
@@ -29,16 +24,11 @@ const CustomBackends: Backends = {
         })
     },
     {
-        backend: HTML5Backend,
-        transition: HTML5DragTransition,
-        preview: true
-    },
-    {
         backend: TouchBackend({}),
         transition: TouchTransition
     }]
 };
-const multiCustomBackendsComponent = ReactDnd.DragDropContext(MultiBackend(CustomBackends))(component);
+const multiCustomBackendsComponent = createDragDropManager(MultiBackend(CustomBackends), context);
 
 /**
  * Testing the Preview component.

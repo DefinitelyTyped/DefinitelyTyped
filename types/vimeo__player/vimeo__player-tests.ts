@@ -6,7 +6,21 @@ let player: Player ;
 
 player = new Player('handstick', {
     id: 19231868,
-    width: 640
+    width: 640,
+
+    // Use default values for settings, to test typings
+    autopause: true,
+    autoplay: false,
+    background: false,
+    byline: true,
+    color: '#00adef',
+    loop: false,
+    muted: false,
+    playsinline: true,
+    portrait: true,
+    speed: false,
+    title: true,
+    transparent: true
 });
 
 const onPlay = (data: any) => {
@@ -281,12 +295,33 @@ player.getPaused().then((paused) => {
     // an error occurred
 });
 
+player.getPlaybackRate().then((playbackRate) => {
+   // playbackRate = a numeric value of the current playback rate
+}).catch((error) => {
+    // an error occurred
+});
+
+player.setPlaybackRate(0.5).then((playbackRate) => {
+    // playback rate was set
+}).catch((error) => {
+    switch (error.name) {
+        case 'RangeError':
+            // the playback rate was less than 0.5 or greater than 2
+            break;
+
+        default:
+            // some other error occurred
+            break;
+    }
+});
+
 player.getTextTracks().then((tracks) => {
     // tracks = an array of track objects
     tracks.forEach((track) => {
         console.log(track.label);
         console.log(track.kind);
         console.log(track.language);
+        console.log(track.mode);
     });
 }).catch((error) => {
     // an error occurred
@@ -434,6 +469,19 @@ player.on('cuepoint', (data) => {
 player.on('volumechange', (data) => {
     // data is an object containing properties specific to that event
     console.log(data.volume);
+});
+
+player.on('playbackratechange', (data) => {
+   // data is an object containing properties specific to that event
+   console.log(data.playbackRate);
+});
+
+player.on('bufferstart', (data) => {
+   // no associated data with this event
+});
+
+player.on('bufferend', (data) => {
+   // no associated data with this event
 });
 
 player.on('error', (data) => {

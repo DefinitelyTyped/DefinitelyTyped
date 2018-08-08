@@ -85,14 +85,6 @@ import {
     BackgroundPositionProps,
     BackgroundRepeatProps,
     BackgroundSizeProps,
-    hover,
-    HoverProps,
-    focus,
-    FocusProps,
-    active,
-    ActiveProps,
-    disabled,
-    DisabledProps,
     GridGapProps,
     GridRowGapProps,
     GridColumnGapProps,
@@ -112,8 +104,31 @@ import {
     gridAutoRows,
     gridAutoColumns,
     gridTemplateColumns,
-    gridTemplateRows
+    gridTemplateRows,
+    bgColor,
+    BgColorProps,
+    border,
+    borderBottom,
+    borderLeft,
+    borderRight,
+    borderTop,
+    BorderProps,
+    textStyle,
+    colorStyle,
+    buttonStyle,
+    variant,
+    mixed,
+    ColorStyleProps,
+    TextStyleProps,
+    VariantArgs,
+    ButtonStyleProps,
+    MixedProps,
 } from "styled-system";
+
+const boxStyle = variant({
+    prop: 'boxStyle',
+    key: 'box',
+});
 
 interface BoxProps
     extends SpaceProps,
@@ -122,6 +137,7 @@ interface BoxProps
         ColorProps,
         DisplayProps,
         BackgroundProps,
+        BgColorProps,
         MaxWidthProps,
         MinWidthProps,
         HeightProps,
@@ -133,6 +149,7 @@ interface BoxProps
         FlexProps,
         JustifySelfProps,
         AlignSelfProps,
+        BorderProps,
         BordersProps,
         BorderRadiusProps,
         PositionProps,
@@ -146,10 +163,11 @@ interface BoxProps
         BackgroundPositionProps,
         BackgroundRepeatProps,
         BackgroundSizeProps,
-        HoverProps,
-        FocusProps,
-        ActiveProps,
-        DisabledProps {}
+        ColorStyleProps,
+        TextStyleProps,
+        MixedProps {
+            boxStyle?: string;
+        }
 const Box = styled.div.attrs<BoxProps>({})`
 
 border-radius: ${themeGet("radii.small", "4px")};
@@ -170,7 +188,12 @@ border-radius: ${themeGet("radii.small", "4px")};
   ${flex}
   ${justifySelf}
   ${alignSelf}
+  ${border}
   ${borders}
+  ${borderTop}
+  ${borderRight}
+  ${borderBottom}
+  ${borderLeft}
   ${borderRadius}
   ${position}
   ${zIndex}
@@ -183,11 +206,18 @@ border-radius: ${themeGet("radii.small", "4px")};
   ${backgroundPosition}
   ${backgroundRepeat}
   ${backgroundSize}
-  ${hover}
-  ${focus}
-  ${active}
-  ${disabled}
+  ${alignContent}
+  ${alignItems}
+  ${bgColor}
+  ${backgroundImage}
+  ${textStyle}
+  ${colorStyle}
+  ${mixed}
 `;
+
+Box.defaultProps = {
+    boxStyle: 'normal',
+};
 
 interface TextProps
     extends FontSizeProps,
@@ -243,6 +273,15 @@ const Grid = styled.div.attrs<GridComponentProps>({})`
     ${gridAutoColumns};
     ${gridTemplateRows};
     ${gridTemplateColumns};
+`;
+
+interface ButtonProps
+    extends SpaceProps,
+        ButtonStyleProps {}
+
+const TestButton = styled.button.attrs<ButtonProps>({})`
+    ${buttonStyle}
+    ${space}
 `;
 
 const test = () => (
@@ -348,7 +387,6 @@ const test = () => (
         <Flex justifyContent="center" />
         // flexWrap (responsive)
         <Flex flexWrap="wrap" />
-        <Flex wrap="wrap" />
         // flexBasis (responsive)
         <Flex flexBasis="auto" />
         // flexDirection (responsive)
@@ -411,14 +449,7 @@ const test = () => (
             backgroundPosition="center"
             backgroundRepeat="repeat-x"
         />
-        <Box
-            hover={{
-                textDecoration: "underline",
-                color: "blue"
-            }}
-        />
-        <Box focus={{ color: "blue" }} />
-        <Box active={{ color: "navy" }} />
-        <Box disabledStyle={{ color: "gray" }} />
+
+        <TestButton variant="primary" m={2} />
     </div>
 );

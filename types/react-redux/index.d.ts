@@ -1,4 +1,4 @@
-// Type definitions for react-redux 6.0.3
+// Type definitions for react-redux 6.0.4
 // Project: https://github.com/reduxjs/react-redux
 // Definitions by: Qubo <https://github.com/tkqubo>,
 //                 Thomas Hasner <https://github.com/thasner>,
@@ -55,27 +55,24 @@ interface AdvancedComponentDecorator<TProps, TOwnProps> {
 /**
  * a property P will be present if :
  * - it is present in both DecorationTargetProps and InjectedProps
- * - DecorationTargetProps[P] extends InjectedProps[P]
+ * - InjectedProps[P] can satisfy DecorationTargetProps[P]
  * ie: decorated component can accept more types than decorator is injecting
  *
- * For decoration, inject props or ownProps are all optionnaly
+ * For decoration, inject props or ownProps are all optionally
  * required by the decorated (right hand side) component.
- * But any property required by the decorated component must extend the injected property
+ * But any property required by the decorated component must be satisfied by the injected property.
  */
 type Shared<
     InjectedProps,
     DecorationTargetProps extends Shared<InjectedProps, DecorationTargetProps>
     > = {
-        [P in Extract<keyof InjectedProps, keyof DecorationTargetProps>]?: DecorationTargetProps[P] extends InjectedProps[P] ? InjectedProps[P] : never;
+        [P in Extract<keyof InjectedProps, keyof DecorationTargetProps>]?: InjectedProps[P] extends DecorationTargetProps[P] ? DecorationTargetProps[P] : never;
     };
 
 // Injects props and removes them from the prop requirements.
 // Will not pass through the injected props if they are passed in during
 // render. Also adds new prop requirements from TNeedsProps.
 export interface InferableComponentEnhancerWithProps<TInjectedProps, TNeedsProps> {
-	(
-		component: StatelessComponent<TInjectedProps>
-	): ComponentClass<TNeedsProps> & {WrappedComponent: StatelessComponent<TInjectedProps>}
 	<P extends Shared<TInjectedProps, P>>(
 		component: ComponentType<P>
 	): ComponentClass<Omit<P, keyof Shared<TInjectedProps, P>> & TNeedsProps> & {WrappedComponent: ComponentType<P>}

@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import * as ReactDOMServer from "react-dom/server";
+import * as PropTypes from "prop-types";
 import createFragment = require("react-addons-create-fragment");
 import CSSTransitionGroup = require("react-addons-css-transition-group");
 import * as LinkedStateMixin from "react-addons-linked-state-mixin";
@@ -11,17 +12,16 @@ import * as TestUtils from "react-addons-test-utils";
 import TransitionGroup = require("react-addons-transition-group");
 import update = require("react-addons-update");
 import createReactClass = require("create-react-class");
-import * as PropTypes from "prop-types";
 import * as DOM from "react-dom-factories";
 
 interface Props extends React.Attributes {
     hello: string;
-    world?: string;
+    world?: string | null;
     foo: number;
 }
 
 interface State {
-    inputValue?: string;
+    inputValue?: string | null;
     seconds?: number;
 }
 
@@ -30,7 +30,7 @@ interface Snapshot {
 }
 
 interface Context {
-    someValue?: string;
+    someValue?: string | null;
 }
 
 interface ChildContext {
@@ -91,10 +91,10 @@ declare const container: Element;
             };
 
             // Even if state is not set, this is allowed by React
-            this.setState({inputValue: 'hello'});
+            this.setState({ inputValue: 'hello' });
             this.setState((prevState, props) => {
                 // $ExpectError
-                props = {foo: 'nope'};
+                props = { foo: 'nope' };
                 // $ExpectError
                 props.foo = 'nope';
 
@@ -118,7 +118,10 @@ declare const container: Element;
 class ModernComponent extends React.Component<Props, State, Snapshot>
     implements MyComponent, React.ChildContextProvider<ChildContext> {
     static propTypes: React.ValidationMap<Props> = {
-        foo: PropTypes.number
+        hello: PropTypes.string.isRequired,
+        world: PropTypes.string,
+        foo: PropTypes.number.isRequired,
+        key: <PropTypes.Validator<string | number | undefined>> PropTypes.oneOfType([PropTypes.number, PropTypes.string])
     };
 
     static contextTypes: React.ValidationMap<Context> = {
@@ -126,7 +129,7 @@ class ModernComponent extends React.Component<Props, State, Snapshot>
     };
 
     static childContextTypes: React.ValidationMap<ChildContext> = {
-        someOtherValue: PropTypes.string
+        someOtherValue: PropTypes.string.isRequired
     };
 
     context: Context;
@@ -157,7 +160,7 @@ class ModernComponent extends React.Component<Props, State, Snapshot>
         return DOM.div(null,
             DOM.input({
                 ref: input => this._input = input,
-                value: this.state.inputValue
+                value: this.state.inputValue ? this.state.inputValue : undefined
             }),
             DOM.input({
                 onChange: event => console.log(event.target)
@@ -180,7 +183,7 @@ class ModernComponent extends React.Component<Props, State, Snapshot>
 class ModernComponentArrayRender extends React.Component<Props> {
     render() {
         return [DOM.h1({ key: "1" }, "1"),
-                DOM.h1({ key: "2" }, "2")];
+        DOM.h1({ key: "2" }, "2")];
     }
 }
 
@@ -435,99 +438,6 @@ DOM.svg({
         fillRule: "evenodd"
     })
 );
-
-//
-// PropTypes
-// --------------------------------------------------------------------------
-
-const PropTypesSpecification: React.ComponentSpec<any, any> = {
-    propTypes: {
-        optionalArray: PropTypes.array,
-        optionalBool: PropTypes.bool,
-        optionalFunc: PropTypes.func,
-        optionalNumber: PropTypes.number,
-        optionalObject: PropTypes.object,
-        optionalString: PropTypes.string,
-        optionalNode: PropTypes.node,
-        optionalElement: PropTypes.element,
-        optionalMessage: PropTypes.instanceOf(Date),
-        optionalEnum: PropTypes.oneOf(["News", "Photos"]),
-        optionalUnion: PropTypes.oneOfType([
-            PropTypes.string,
-            PropTypes.number,
-            PropTypes.instanceOf(Date)
-        ]),
-        optionalArrayOf: PropTypes.arrayOf(PropTypes.number),
-        optionalObjectOf: PropTypes.objectOf(PropTypes.number),
-        optionalObjectWithShape: PropTypes.shape({
-            color: PropTypes.string,
-            fontSize: PropTypes.number
-        }),
-        requiredFunc: PropTypes.func.isRequired,
-        requiredAny: PropTypes.any.isRequired,
-        customProp(props: any, propName: string, componentName: string): Error | null {
-            if (!/matchme/.test(props[propName])) {
-                return new Error("Validation failed!");
-            }
-            return null;
-        },
-        // https://facebook.github.io/react/warnings/dont-call-proptypes.html#fixing-the-false-positive-in-third-party-proptypes
-        percentage: (object: any, key: string, componentName: string, ...rest: any[]): Error | null => {
-            const error = PropTypes.number(object, key, componentName, ...rest);
-            if (error) {
-                return error;
-            }
-            if (object[key] < 0 || object[key] > 100) {
-                return new Error(`prop ${key} must be between 0 and 100`);
-            }
-            return null;
-        }
-    },
-    render: (): React.ReactElement<any> | null => {
-        return null;
-    }
-};
-
-//
-// ContextTypes
-// --------------------------------------------------------------------------
-
-const ContextTypesSpecification: React.ComponentSpec<any, any> = {
-    contextTypes: {
-        optionalArray: PropTypes.array,
-        optionalBool: PropTypes.bool,
-        optionalFunc: PropTypes.func,
-        optionalNumber: PropTypes.number,
-        optionalObject: PropTypes.object,
-        optionalString: PropTypes.string,
-        optionalNode: PropTypes.node,
-        optionalElement: PropTypes.element,
-        optionalMessage: PropTypes.instanceOf(Date),
-        optionalEnum: PropTypes.oneOf(["News", "Photos"]),
-        optionalUnion: PropTypes.oneOfType([
-            PropTypes.string,
-            PropTypes.number,
-            PropTypes.instanceOf(Date)
-        ]),
-        optionalArrayOf: PropTypes.arrayOf(PropTypes.number),
-        optionalObjectOf: PropTypes.objectOf(PropTypes.number),
-        optionalObjectWithShape: PropTypes.shape({
-            color: PropTypes.string,
-            fontSize: PropTypes.number
-        }),
-        requiredFunc: PropTypes.func.isRequired,
-        requiredAny: PropTypes.any.isRequired,
-        customProp(props: any, propName: string, componentName: string): Error | null {
-            if (!/matchme/.test(props[propName])) {
-                return new Error("Validation failed!");
-            }
-            return null;
-        }
-    },
-    render: (): null => {
-        return null;
-    }
-};
 
 //
 // React.Children

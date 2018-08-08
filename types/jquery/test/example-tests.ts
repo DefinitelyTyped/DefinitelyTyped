@@ -1,3 +1,17 @@
+// tslint:disable:no-arg
+// tslint:disable:no-var-keyword
+// tslint:disable:object-literal-key-quotes
+// tslint:disable:object-literal-shorthand
+// tslint:disable:one-variable-per-declaration
+// tslint:disable:only-arrow-functions
+// tslint:disable:prefer-conditional-expression
+// tslint:disable:prefer-const
+// tslint:disable:prefer-for-of
+// tslint:disable:prefer-switch
+// tslint:disable:prefer-template
+// tslint:disable:space-within-parens
+// tslint:disable:triple-equals
+
 function examples() {
     function add_0() {
         $('div').css('border', '2px solid red')
@@ -816,7 +830,7 @@ function examples() {
             var len = kids.addClass('hilite').length;
 
             $('#results span:first').text(len);
-            $('#results span:last').text((<HTMLElement> event.target).tagName);
+            $('#results span:last').text(event.target.tagName);
 
             event.preventDefault();
         });
@@ -1600,7 +1614,7 @@ function examples() {
 
     function event_target_0() {
         $('body').click(function(event) {
-            $('#log').html('clicked: ' + (<HTMLElement> event.target).nodeName);
+            $('#log').html('clicked: ' + event.target.nodeName);
         });
     }
 
@@ -2320,8 +2334,8 @@ function examples() {
     }
 
     function jQuery_contains_0() {
-        $.contains(document.documentElement, document.body); // true
-        $.contains(document.body, document.documentElement); // false
+        $.contains(document.documentElement!, document.body); // true
+        $.contains(document.body, document.documentElement!); // false
     }
 
     function jQuery_data_0() {

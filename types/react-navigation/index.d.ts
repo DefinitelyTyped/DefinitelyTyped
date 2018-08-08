@@ -20,7 +20,7 @@
 //                 Luca Campana <https://github.com/TizioFittizio>
 //                 Ullrich Schaefer <https://github.com/stigi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 /**
  * Reference: https://github.com/react-navigation/react-navigation/tree/a37473c5e4833f48796ee6c7c9cb4a8ac49d9c06
@@ -86,6 +86,11 @@ export interface NavigationState {
    */
   index: number;
   routes: NavigationRoute[];
+}
+
+export interface DrawerNavigationState extends NavigationState {
+  isDrawerOpen: boolean;
+  isTransitioning: boolean;
 }
 
 export type NavigationRoute<Params = NavigationParams> =
@@ -437,6 +442,7 @@ export type NavigationStackAction =
   | NavigationSetParamsAction
   | NavigationResetAction
   | NavigationPopAction
+  | NavigationPushAction
   | NavigationPopToTopAction;
 
 export type NavigationTabAction =

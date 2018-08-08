@@ -12,7 +12,7 @@
 //                 Tanguy Krotoff <https://github.com/tkrotoff>
 //                 Alexander T. <https://github.com/a-tarasyuk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -1009,6 +1009,54 @@ export interface TextInputIOSProps {
      * If false, disables spell-check style (i.e. red underlines). The default value is inherited from autoCorrect
      */
     spellCheck?: boolean;
+
+
+    /**
+     * Give the keyboard and the system information about the expected
+     * semantic meaning for the content that users enter.
+     *
+     * For iOS 11+ you can set `textContentType` to `username` or `password` to
+     * enable autofill of login details from the device keychain.
+     *
+     * To disable autofill, set textContentType to `none`.
+     *
+     * Possible values for `textContentType` are:
+     *
+     *  - `'none'`
+     *  - `'URL'`
+     *  - `'addressCity'`
+     *  - `'addressCityAndState'`
+     *  - `'addressState'`
+     *  - `'countryName'`
+     *  - `'creditCardNumber'`
+     *  - `'emailAddress'`
+     *  - `'familyName'`
+     *  - `'fullStreetAddress'`
+     *  - `'givenName'`
+     *  - `'jobTitle'`
+     *  - `'location'`
+     *  - `'middleName'`
+     *  - `'name'`
+     *  - `'namePrefix'`
+     *  - `'nameSuffix'`
+     *  - `'nickname'`
+     *  - `'organizationName'`
+     *  - `'postalCode'`
+     *  - `'streetAddressLine1'`
+     *  - `'streetAddressLine2'`
+     *  - `'sublocality'`
+     *  - `'telephoneNumber'`
+     *  - `'username'`
+     *  - `'password'`
+     *
+     */
+    textContentType?: "none" | "URL" | "addressCity" | "addressCityAndState" |
+        "addressState" | "countryName" | "creditCardNumber" | "emailAddress" |
+        "familyName" | "fullStreetAddress" | "givenName" | "jobTitle" |
+        "location" | "middleName" | "name" | "namePrefix" | "nameSuffix" |
+        "nickname" | "organizationName" | "postalCode" | "streetAddressLine1" |
+        "streetAddressLine2" | "sublocality" | "telephoneNumber" | "username" |
+        "password";
 }
 
 /**
@@ -1839,7 +1887,7 @@ export interface AccessibilityPropsIOS {
      * When `accessible` is true, the system will try to invoke this function when the user performs accessibility tap gesture.
      * @platform ios
      */
-    onAcccessibilityTap?: () => void;
+    onAccessibilityTap?: () => void;
 
     /**
      * When accessible is true, the system will invoke this function when the user performs the magic tap gesture.
@@ -3698,8 +3746,9 @@ export class Image extends ImageBase {
 }
 
 export interface ImageBackgroundProps extends ImagePropsBase {
-    style?: StyleProp<ViewStyle>;
     imageStyle?: StyleProp<ImageStyle>;
+    style?: StyleProp<ViewStyle>;
+    imageRef?(image: Image): void;
 }
 
 declare class ImageBackgroundComponent extends React.Component<ImageBackgroundProps> {}

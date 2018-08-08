@@ -2591,8 +2591,10 @@ function test_ResponsiveOptions() {
     const responsiveOptions: Highcharts.ResponsiveOptions = <Highcharts.ResponsiveOptions> {
         rules: [
             <Highcharts.RulesOptions> {
-                chartOptions: <Highcharts.ChartOptions> {
-                    description: 'just a test'
+                chartOptions: <Highcharts.Options> {
+                    chart: {
+                        description: 'just a test'
+                    }
                 },
                 condition: <Highcharts.ConditionOptions> {
                     callback: () => { },

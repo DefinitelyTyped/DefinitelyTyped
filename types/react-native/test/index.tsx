@@ -28,6 +28,7 @@ import {
     ImageLoadEventData,
     ImageErrorEventData,
     ImageResolvedAssetSource,
+    ImageBackground,
     InteractionManager,
     ListView,
     ListViewDataSource,
@@ -546,6 +547,7 @@ class TextInputTest extends React.Component<{}, {username: string}> {
 
                 <TextInput
                     ref={input => this.username = input}
+                    textContentType="username"
                     value={this.state.username}
                     onChangeText={this.handleUsernameChange}
                 />
@@ -661,6 +663,25 @@ export class ImageTest extends React.Component {
     }
 }
 
+export class ImageBackgroundProps extends React.Component {
+    private _imageRef: Image | null = null;
+
+    setImageRef = (image: Image) => {
+        this._imageRef = image;
+    }
+
+    render() {
+        return (
+            <View>
+                <ImageBackground
+                    source={{ uri: 'https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png' }}
+                    imageRef={this.setImageRef}
+                />
+            </View>
+        );
+    }
+}
+
 class StylePropsTest extends React.PureComponent {
     render() {
         const uri = 'https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png'
@@ -695,6 +716,7 @@ class AccessibilityTest extends React.Component {
                 accessibilityElementsHidden={true}
                 importantForAccessibility={"no-hide-descendants"}
                 accessibilityTraits={'none'}
+                onAccessibilityTap={() => {}}
             >
                 <Text accessibilityTraits={['key', 'text']}>Text</Text>
                 <View />

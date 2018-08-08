@@ -25,7 +25,9 @@ declare namespace Office {
         startCustomFunctions(): Promise<void>;
     }
 
-    /** A Promise object. Promises can be chained via ".then", and errors can be caught via ".catch". When a browser-provided native Promise implementation is available, Office.Promise will switch to use the native Promise instead. */
+    /** A Promise object. Promises can be chained via ".then", and errors can be caught via ".catch". 
+     * When a browser-provided native Promise implementation is available, Office.Promise will switch to use the native Promise instead.
+     */
     var Promise: IPromiseConstructor;
 
     // Note: this is a copy of the PromiseConstructor object from
@@ -237,6 +239,25 @@ declare namespace Office {
 
     /**
      * Gets the Context object that represents the runtime environment of the add-in and provides access to the top-level objects of the API.
+     * 
+     * @remarks
+     * 
+     * **Support details**
+     * 
+     * A capital Y in the following matrix indicates that this property is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this enumeration.
+     * 
+     * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+     * 
+     * *Supported hosts, by platform*
+     *  <table>
+     *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
+     *   <tr><th> Access     </th><td>                            </td><td> Y                          </td><td>                 </td><td>                 </td><td>                </td></tr>
+     *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
+     *   <tr><th> Outlook    </th><td> Y                          </td><td> Y                          </td><td>                 </td><td> Y               </td><td> Y              </td></tr>
+     *   <tr><th> PowerPoint </th><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
+     *   <tr><th> Project    </th><td> Y                          </td><td>                            </td><td>                 </td><td>                 </td><td>                </td></tr>
+     *   <tr><th> Word       </th><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
+     *  </table>
      */
     var context: Context;
     /**
@@ -251,7 +272,23 @@ declare namespace Office {
      * *Note*: The reason parameter of the initialize event listener function only returns an `InitializationReason` enumeration value for task pane and content add-ins. It does not return a value for Outlook add-ins.
      * 
      * @remarks
-     * <table><tr><td>Hosts</td><td>Access, Excel, Outlook, PowerPoint, Project, Word</td></tr></table>
+     * 
+     * **Support details**
+     * 
+     * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this method.
+     * 
+     * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+     * 
+     * *Supported hosts, by platform*
+     *  <table>
+     *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
+     *   <tr><th> Access     </th><td>                            </td><td> Y                          </td><td>                 </td><td>                 </td><td>                </td></tr>
+     *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
+     *   <tr><th> Outlook    </th><td> Y                          </td><td> Y                          </td><td>                 </td><td> Y               </td><td> Y              </td></tr>
+     *   <tr><th> PowerPoint </th><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
+     *   <tr><th> Project    </th><td> Y                          </td><td>                            </td><td>                 </td><td>                 </td><td>                </td></tr>
+     *   <tr><th> Word       </th><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
+     *  </table>
      * 
      * @param reason Indicates how the app was initialized.
      */
@@ -267,7 +304,23 @@ declare namespace Office {
      * Toggles on and off the `Office` alias for the full `Microsoft.Office.WebExtension` namespace.
      * 
      * @remarks
-     * <table><tr><td>Hosts</td><td>Access, Excel, Outlook, PowerPoint, Project, Word</td></tr></table>
+     * 
+     * **Support details**
+     * 
+     * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this method.
+     * 
+     * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+     * 
+     * *Supported hosts, by platform*
+     *  <table>
+     *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
+     *   <tr><th> Access     </th><td>                            </td><td> Y                          </td><td>                 </td><td>                 </td><td>                </td></tr>
+     *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
+     *   <tr><th> Outlook    </th><td> Y                          </td><td> Y                          </td><td>                 </td><td> Y               </td><td> Y              </td></tr>
+     *   <tr><th> PowerPoint </th><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
+     *   <tr><th> Project    </th><td> Y                          </td><td>                            </td><td>                 </td><td>                 </td><td>                </td></tr>
+     *   <tr><th> Word       </th><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
+     *  </table>
      * 
      * @param useShortNamespace True to use the shortcut alias; otherwise false to disable it. The default is true.
      */
@@ -277,9 +330,25 @@ declare namespace Office {
      * Specifies the result of an asynchronous call.
      * 
      * @remarks
-     * <table><tr><td>Hosts</td><td>Access, Excel, Outlook, PowerPoint, Project, Word</td></tr></table>
      * 
-     * Returned by the status property of the AsyncResult object.
+     * Returned by the `status` property of the {@link Office.AsyncResult | AsyncResult} object.
+     * 
+     * **Support details**
+     * 
+     * A capital Y in the following matrix indicates that this enumeration is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this enumeration.
+     * 
+     * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+     * 
+     * *Supported hosts, by platform*
+     *  <table>
+     *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
+     *   <tr><th> Access     </th><td> Y                          </td><td>                            </td><td>                 </td><td>                 </td><td>                </td></tr>
+     *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
+     *   <tr><th> Outlook    </th><td> Y                          </td><td> Y                          </td><td>                 </td><td> Y               </td><td> Y              </td></tr>
+     *   <tr><th> PowerPoint </th><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
+     *   <tr><th> Project    </th><td> Y                          </td><td>                            </td><td>                 </td><td>                 </td><td>                </td></tr>
+     *   <tr><th> Word       </th><td> Y                          </td><td>                            </td><td> Y               </td><td>                 </td><td>                </td></tr>
+     *  </table>
      */
     enum AsyncResultStatus {
         /**
@@ -295,7 +364,20 @@ declare namespace Office {
      * Specifies whether the add-in was just inserted or was already contained in the document.
      *
      * @remarks
-     * <table><tr><td>Hosts</td><td>Excel, Project, Word</td></tr></table>
+     * 
+     * **Support details**
+     * 
+     * A capital Y in the following matrix indicates that this enumeration is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this enumeration.
+     * 
+     * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+     * 
+     * *Supported hosts, by platform*
+     *  <table>
+     *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+     *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+     *   <tr><th> Project    </th><td> Y                          </td><td>                            </td><td>                 </td></tr>
+     *   <tr><th> Word       </th><td> Y                          </td><td>                            </td><td> Y               </td></tr>
+     *  </table>
      */
     enum InitializationReason {
         /**
@@ -311,7 +393,24 @@ declare namespace Office {
      * Specifies the host Office application in which the add-in is running.
      *
      * @remarks
-     * <table><tr><td>Hosts</td><td>Excel, Word, PowerPoint, Outlook, OneNote, Project, Access</td></tr></table>
+     * 
+     * **Support details**
+     * 
+     * A capital Y in the following matrix indicates that this enumeration is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this enumeration.
+     * 
+     * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+     * 
+     * *Supported hosts, by platform*
+     *  <table>
+     *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
+     *   <tr><th> Access     </th><td> Y                          </td><td>                            </td><td>                 </td><td>                 </td><td>                </td></tr>
+     *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
+     *   <tr><th> OneNote    </th><td>                            </td><td> Y                          </td><td>                 </td><td> Y               </td><td>                </td></tr>
+     *   <tr><th> Outlook    </th><td> Y                          </td><td> Y                          </td><td>                 </td><td> Y               </td><td> Y              </td></tr>
+     *   <tr><th> PowerPoint </th><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
+     *   <tr><th> Project    </th><td> Y                          </td><td>                            </td><td>                 </td><td>                 </td><td>                </td></tr>
+     *   <tr><th> Word       </th><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
+     *  </table>
      */
     enum HostType {
         /**
@@ -347,7 +446,24 @@ declare namespace Office {
      * Specifies the OS or other platform on which the Office host application is running.
      *
      * @remarks
-     * <table><tr><td>Hosts</td><td>Excel, Word, PowerPoint, Outlook, OneNote, Project, Access</td></tr></table>
+     * 
+     * **Support details**
+     * 
+     * A capital Y in the following matrix indicates that this enumeration is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this enumeration.
+     * 
+     * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+     * 
+     * *Supported hosts, by platform*
+     *  <table>
+     *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
+     *   <tr><th> Access     </th><td> Y                          </td><td>                            </td><td>                 </td><td>                 </td><td>                </td></tr>
+     *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
+     *   <tr><th> OneNote    </th><td>                            </td><td> Y                          </td><td>                 </td><td> Y               </td><td>                </td></tr>
+     *   <tr><th> Outlook    </th><td> Y                          </td><td> Y                          </td><td>                 </td><td> Y               </td><td> Y              </td></tr>
+     *   <tr><th> PowerPoint </th><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
+     *   <tr><th> Project    </th><td> Y                          </td><td>                            </td><td>                 </td><td>                 </td><td>                </td></tr>
+     *   <tr><th> Word       </th><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
+     *  </table>
      */
     enum PlatformType {
         /**
@@ -386,35 +502,99 @@ declare namespace Office {
         */
         interface AsyncResult {
         /**
-        * Gets the user-defined item passed to the optional `asyncContext` parameter of the invoked method in the same state as it was passed in. This the user-defined item (which can be of any JavaScript type: String, Number, Boolean, Object, Array, Null, or Undefined) passed to the optional `asyncContext` parameter of the invoked method. Returns Undefined, if you didn't pass anything to the asyncContext parameter.
+        * Gets the user-defined item passed to the optional `asyncContext` parameter of the invoked method in the same state as it was passed in. This returns the user-defined item (which can be of any JavaScript type: String, Number, Boolean, Object, Array, Null, or Undefined) passed to the optional `asyncContext` parameter of the invoked method. Returns Undefined, if you didn't pass anything to the asyncContext parameter.
         *
         * @remarks
-        * <table><tr><td>Hosts</td><td>Access, Excel, Outlook, PowerPoint, Project, Word</td></tr></table>
+        * 
+        * **Support details**
+        * 
+        * A capital Y in the following matrix indicates that this property is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this enumeration.
+        * 
+        * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+        * 
+        * *Supported hosts, by platform*
+        *  <table>
+        *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
+        *   <tr><th> Access     </th><td> Y                          </td><td>                            </td><td>                 </td><td>                 </td><td>                </td></tr>
+        *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
+        *   <tr><th> Outlook    </th><td> Y                          </td><td> Y                          </td><td>                 </td><td> Y               </td><td> Y              </td></tr>
+        *   <tr><th> PowerPoint </th><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
+        *   <tr><th> Project    </th><td>                            </td><td>                            </td><td>                 </td><td>                 </td><td>                </td></tr>
+        *   <tr><th> Word       </th><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
+        *  </table>
         */
         asyncContext: any;
-        /**
-        * Gets the {@link Office.AsyncResultStatus} of the asynchronous operation.
-        *
-        * @remarks
-        * <table><tr><td>Hosts</td><td>Access, Excel, Outlook, PowerPoint, Project, Word</td></tr></table>
-        */
-        status: AsyncResultStatus;
         /**
         * Gets an {@link Office.Error} object that provides a description of the error, if any error occurred.
         *
         * @remarks
-        * <table><tr><td>Hosts</td><td>Access, Excel, Outlook, PowerPoint, Project, Word</td></tr></table>
+        * 
+        * **Support details**
+        * 
+        * A capital Y in the following matrix indicates that this property is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this enumeration.
+        * 
+        * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+        * 
+        * *Supported hosts, by platform*
+        *  <table>
+        *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
+        *   <tr><th> Access     </th><td>                            </td><td> Y                          </td><td>                 </td><td>                 </td><td>                </td></tr>
+        *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
+        *   <tr><th> Outlook    </th><td> Y                          </td><td> Y                          </td><td>                 </td><td> Y               </td><td> Y              </td></tr>
+        *   <tr><th> PowerPoint </th><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
+        *   <tr><th> Project    </th><td> Y                          </td><td>                            </td><td>                 </td><td>                 </td><td>                </td></tr>
+        *   <tr><th> Word       </th><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
+        *  </table>
         */
         error: Office.Error;
+        /**
+        * Gets the {@link Office.AsyncResultStatus} of the asynchronous operation.
+        *
+        * @remarks
+        * 
+        * **Support details**
+        * 
+        * A capital Y in the following matrix indicates that this property is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this enumeration.
+        * 
+        * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+        * 
+        * *Supported hosts, by platform*
+        *  <table>
+        *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
+        *   <tr><th> Access     </th><td>                            </td><td> Y                          </td><td>                 </td><td>                 </td><td>                </td></tr>
+        *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
+        *   <tr><th> Outlook    </th><td> Y                          </td><td> Y                          </td><td>                 </td><td> Y               </td><td> Y              </td></tr>
+        *   <tr><th> PowerPoint </th><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
+        *   <tr><th> Project    </th><td> Y                          </td><td>                            </td><td>                 </td><td>                 </td><td>                </td></tr>
+        *   <tr><th> Word       </th><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
+        *  </table>
+        */
+        status: AsyncResultStatus;
         /**
         * Gets the payload or content of this asynchronous operation, if any.
         * 
         * @remarks
-        * <table><tr><td>Hosts</td><td>Access, Excel, Outlook, PowerPoint, Project, Word</td></tr></table>
-        * 
-        * You access the AsyncResult object in the function passed as the argument to the callback parameter of an "Async" method, such as the `getSelectedDataAsync` and `setSelectedDataAsync` methods of the Document object.
+        * You access the AsyncResult object in the function passed as the argument to the callback parameter of an "Async" method, such as the `getSelectedDataAsync` and `setSelectedDataAsync` methods of the {@link Office.Document | Document} object.
         *
-        * Note: What the value property returns for a particular "Async" method varies depending on the purpose and context of that method. To determine what is returned by the value property for an "Async" method, refer to the "Callback value" section of the method's topic. For a complete listing of the "Async" methods, see the Remarks section of the AsyncResult object topic.
+        * Note: What the value property returns for a particular "Async" method varies depending on the purpose and context of that method. 
+        * To determine what is returned by the value property for an "Async" method, refer to the "Callback value" section of the method's topic.
+        * 
+        * **Support details**
+        * 
+        * A capital Y in the following matrix indicates that this property is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this enumeration.
+        * 
+        * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+        * 
+        * *Supported hosts, by platform*
+        *  <table>
+        *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
+        *   <tr><th> Access     </th><td>                            </td><td> Y                          </td><td>                 </td><td>                 </td><td>                </td></tr>
+        *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
+        *   <tr><th> Outlook    </th><td> Y                          </td><td> Y                          </td><td>                 </td><td> Y               </td><td> Y              </td></tr>
+        *   <tr><th> PowerPoint </th><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
+        *   <tr><th> Project    </th><td> Y                          </td><td>                            </td><td>                 </td><td>                 </td><td>                </td></tr>
+        *   <tr><th> Word       </th><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
+        *  </table>
         */
         value: any;
     }
@@ -438,6 +618,28 @@ declare namespace Office {
         commerceAllowed: boolean;
         /**
         * Gets the locale (language) specified by the user for editing the document or item.
+        * 
+        * @remarks
+        * The `contentLanguage` value reflects the **Editing Language** setting specified with **File > Options > Language** in the Office host application.
+        * 
+        * In content add-ins for Access web apps, the `contentLanguage` property gets the add-in culture (e.g., "en-GB").
+        * 
+        * **Support details**
+        * 
+        * A capital Y in the following matrix indicates that this property is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this enumeration.
+        * 
+        * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+        * 
+        * *Supported hosts, by platform*
+        *  <table>
+        *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
+        *   <tr><th> Access     </th><td>                            </td><td> Y                          </td><td>                 </td><td>                 </td><td>                </td></tr>
+        *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
+        *   <tr><th> Outlook    </th><td> Y                          </td><td> Y                          </td><td>                 </td><td> Y               </td><td> Y              </td></tr>
+        *   <tr><th> PowerPoint </th><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
+        *   <tr><th> Project    </th><td> Y                          </td><td>                            </td><td>                 </td><td>                 </td><td>                </td></tr>
+        *   <tr><th> Word       </th><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
+        *  </table>
         */
         contentLanguage: string;
         /**
@@ -446,12 +648,55 @@ declare namespace Office {
         diagnostics: ContextInformation;
         /**
         * Gets the locale (language) specified by the user for the UI of the Office host application.
+        * 
         * @remarks
+        * 
+        * The returned value is a string in the RFC 1766 Language tag format, such as en-US.
+        * 
+        * The `displayLanguage` value reflects the current **Display Language** setting specified with **File > Options > Language** in the Office host application.
+        * 
+        * In content add-ins for Access web apps, the `displayLanguage property` gets the add-in language (e.g., "en-US").
+        * 
         * When using in Outlook, the applicable modes are Compose or read.
+        * 
+        * **Support details**
+        * 
+        * A capital Y in the following matrix indicates that this property is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this enumeration.
+        * 
+        * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+        * 
+        * *Supported hosts, by platform*
+        *  <table>
+        *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
+        *   <tr><th> Access     </th><td> Y                          </td><td>                            </td><td>                 </td><td>                 </td><td>                </td></tr>
+        *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
+        *   <tr><th> Outlook    </th><td> Y                          </td><td> Y                          </td><td>                 </td><td> Y               </td><td> Y              </td></tr>
+        *   <tr><th> PowerPoint </th><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
+        *   <tr><th> Project    </th><td> Y                          </td><td>                            </td><td>                 </td><td>                 </td><td>                </td></tr>
+        *   <tr><th> Word       </th><td> Y                          </td><td>                            </td><td> Y               </td><td>                 </td><td>                </td></tr>
+        *  </table>
         */
         displayLanguage: string;
         /**
         * Gets an object that represents the document the content or task pane add-in is interacting with.
+        * 
+        * @remarks
+        * 
+        * **Support details**
+        * 
+        * A capital Y in the following matrix indicates that this property is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this enumeration.
+        * 
+        * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+        * 
+        * *Supported hosts, by platform*
+        *  <table>
+        *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+        *   <tr><th> Access     </th><td>                            </td><td> Y                          </td><td>                 </td></tr>
+        *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+        *   <tr><th> PowerPoint </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+        *   <tr><th> Project    </th><td> Y                          </td><td>                            </td><td>                 </td></tr>
+        *   <tr><th> Word       </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+        *  </table>
         */
         document: Document;
         /**
@@ -522,9 +767,24 @@ declare namespace Office {
      * Provides specific information about an error that occurred during an asynchronous data operation.
      *
      * @remarks
-     * <table><tr><td>Hosts</td><td>Access, Excel, Outlook, PowerPoint, Project, Word</td></tr></table>
-     * 
      * The Error object is accessed from the AsyncResult object that is returned in the function passed as the callback argument of an asynchronous data operation, such as the setSelectedDataAsync method of the Document object.
+     * 
+     * **Support details**
+     * 
+     * A capital Y in the following matrix indicates that this interface is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this interface.
+     * 
+     * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+     * 
+     * *Supported hosts, by platform*
+     *  <table>
+     *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
+     *   <tr><th> Access     </th><td>                            </td><td> Y                          </td><td>                 </td><td>                 </td><td>                </td></tr>
+     *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
+     *   <tr><th> Outlook    </th><td> Y                          </td><td> Y                          </td><td>                 </td><td> Y               </td><td> Y              </td></tr>
+     *   <tr><th> PowerPoint </th><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
+     *   <tr><th> Project    </th><td> Y                          </td><td>                            </td><td>                 </td><td>                 </td><td>                </td></tr>
+     *   <tr><th> Word       </th><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
+     *  </table>
      */
     interface Error {
         /**
@@ -544,13 +804,9 @@ declare namespace Office {
         /**
          * The event object is passed as a parameter to add-in functions invoked by UI-less command buttons. The object allows the add-in to identify which button was clicked and to signal the host that it has completed its processing.
          * 
-         * [Api set: Mailbox 1.3]
-         * 
          * @remarks
          * 
-         * <table><tr><td>Hosts</td><td>Excel, Outlook, PowerPoint, Word</td></tr>
-         * 
-         * <tr><td>Add-in type</td><td>Content, task pane, Outlook</td></tr>
+         * <table><tr><td>Add-in type</td><td>Content, task pane, Outlook</td></tr>
          * 
          * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>Restricted</td></tr>
          *
@@ -559,10 +815,21 @@ declare namespace Office {
         interface Event {
             
             /**
-             * Information about the control that triggered calling this function
+             * Information about the control that triggered calling this function.
+             * 
+             * **Support details**
+             * 
+             * A capital Y in the following matrix indicates that this property is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this property.
+             * 
+             * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+             * 
+             * *Supported hosts, by platform*
+             *  <table>
+             *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+             *   <tr><th> Outlook    </th><td> Y (Mailbox 1.3)            </td><td>                            </td><td>                 </td></tr>
+             *  </table>
              */
             source:Source;
-
             /**
              * Indicates that the add-in has completed processing that was triggered by an add-in command button or event handler.
              * 
@@ -577,6 +844,21 @@ declare namespace Office {
              * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>Restricted</td></tr>
              *
              * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or read</td></tr></table>
+             * 
+             * **Support details**
+             * 
+             * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this method.
+             * 
+             * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+             * 
+             * *Supported hosts, by platform*
+             *  <table>
+             *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+             *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+             *   <tr><th> Outlook    </th><td> Y (Mailbox 1.3)            </td><td>                            </td><td>                 </td></tr>
+             *   <tr><th> PowerPoint </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+             *   <tr><th> Word       </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+             *  </table>
              * 
              * @param options Optional. An object literal that contains one or more of the following properties.
              *        allowEvent: A boolean value. When the completed method is used to signal completion of an event handler, this value indicates of the handled event should continue execution or be canceled. For example, an add-in that handles the ItemSend event can set allowEvent = false to cancel sending of the message.
@@ -620,7 +902,7 @@ declare namespace Office {
         *
         * The following design considerations apply to dialog boxes:
         *
-        * - An Office Add-in can have only one dialog box open at any time.
+        * - An Office Add-in task pane can have only one dialog box open at any time. Multiple dialogs can be open at the same time from Add-in Commands (custom ribbon buttons or menu items).
         *
         * - Every dialog box can be moved and resized by the user.
         *
@@ -758,7 +1040,8 @@ declare namespace Office {
         * @remarks
         * <table><tr><td>Hosts</td><td>Excel, OneNote, Outlook, PowerPoint, Word</td></tr>
         *
-        * <tr><td>Requirement sets</td><td>IdentityAPI</td></tr></table>
+        * <tr><td>Requirement sets</td><td>{@link https://docs.microsoft.com/office/dev/add-ins/develop/specify-office-hosts-and-api-requirements
+| IdentityAPI}</td></tr></table>
         *
         * This API requires a single sign-on configuration that bridges the add-in to an Azure application. Office users sign-in with Organizational Accounts and Microsoft Accounts. Microsoft Azure returns tokens intended for both user account types to access resources in the Microsoft Graph.
         *
@@ -1101,7 +1384,21 @@ declare namespace Office {
      * Using Office theme colors lets you coordinate the color scheme of your add-in with the current Office theme selected by the user with File > Office Account > Office Theme UI, which is applied across all Office host applications. Using Office theme colors is appropriate for mail and task pane add-ins.
      *
      * @remarks
-     * <table><tr><td>Hosts</td><td>Excel, Outlook, Powerpoint, Project, Word</td></tr></table>
+     * 
+     * **Support details**
+     * 
+     * A capital Y in the following matrix indicates that these properties are supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this enumeration.
+     * 
+     * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+     * 
+     * *Supported hosts, by platform*
+     *  <table>
+     *   <tr><th>            </th><th> Office for Windows desktop </th></tr>
+     *   <tr><th> Excel      </th><td> Y                          </td></tr>
+     *   <tr><th> Outlook    </th><td> Y                          </td></tr>
+     *   <tr><th> PowerPoint </th><td> Y                          </td></tr>
+     *   <tr><th> Word       </th><td> Y                          </td></tr>
+     *  </table>
      */
     interface OfficeTheme {
         /**
@@ -1149,13 +1446,40 @@ declare namespace Office {
      * Returns a promise of an object described in the expression. Callback is invoked only if method fails.
      * @param expression The object to be retrieved. Example "bindings#BindingName", retrieves a binding promise for a binding named 'BindingName'
      * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+     * 
+     * @remarks
+     * 
+     * **Support details**
+     * 
+     * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this method.
+     * 
+     * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+     * 
+     * *Supported hosts, by platform*
+     *  <table>
+     *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+     *   <tr><th> Access     </th><td>                            </td><td> Y                          </td><td>                 </td></tr>
+     *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+     *   <tr><th> Word       </th><td> Y                          </td><td>                            </td><td> Y               </td></tr>
+     *  </table>
      */
     function select(expression: string, callback?: (result: AsyncResult) => void): Binding;
     // Enumerations
     /**
      * Specifies the state of the active view of the document, for example, whether the user can edit the document.
      * @remarks
-     * <table><tr><td>Hosts</td><td>PowerPoint</td></tr></table>
+     * 
+     * **Support details**
+     * 
+     * A capital Y in the following matrix indicates that this enumeration is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this enumeration.
+     * 
+     * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+     * 
+     * *Supported hosts, by platform*
+     *  <table>
+     *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+     *   <tr><th> PowerPoint </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+     *  </table>
      */
     enum ActiveView {
         /**
@@ -1170,7 +1494,20 @@ declare namespace Office {
     /**
      * Specifies the type of the binding object that should be returned.
      * @remarks
-     * <table><tr><td>Hosts</td><td>Access, Excel, Word</td></tr></table>
+     * 
+     * **Support details**
+     * 
+     * A capital Y in the following matrix indicates that this enumeration is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this enumeration.
+     * 
+     * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+     * 
+     * *Supported hosts, by platform*
+     *  <table>
+     *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+     *   <tr><th> Access     </th><td> Y                          </td><td>                            </td><td>                 </td></tr>
+     *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+     *   <tr><th> Word       </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+     *  </table>
      */
     enum BindingType {
         /**
@@ -1182,7 +1519,7 @@ declare namespace Office {
          */
         Matrix,
         /**
-         * Tabular data with a header row. Data is returned as a TableData object.
+         * Tabular data with a header row. Data is returned as a {@link Office.TableData | TableData} object.
          */
         Table
     }
@@ -1190,49 +1527,65 @@ declare namespace Office {
      * Specifies how to coerce data returned or set by the invoked method.
      *
      * @remarks
-     * <table><tr><td>Hosts</td><td>Access, Excel, Outlook, PowerPoint, Project, Word</td></tr></table>
+     * PowerPoint supports only `Office.CoercionType.Text`, `Office.CoercionType.Image`, and `Office.CoercionType.SlideRange`.
      * 
-     * PowerPoint supports only `Office.CoercionType.Text`, `Office.CoercionType.Image`, and `Office.CoercionType.SlideRange`. Project supports only `Office.CoercionType.Text`.
+     * Project supports only `Office.CoercionType.Text`.
+     * 
+     * **Support details**
+     * 
+     * A capital Y in the following matrix indicates that this enumeration is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this enumeration.
+     * 
+     * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+     * 
+     * *Supported hosts, by platform*
+     *  <table>
+     *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
+     *   <tr><th> Access     </th><td> Y                          </td><td>                            </td><td>                 </td><td>                 </td><td>                </td></tr>
+     *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
+     *   <tr><th> Outlook    </th><td> Y                          </td><td> Y                          </td><td>                 </td><td> Y               </td><td> Y              </td></tr>
+     *   <tr><th> PowerPoint </th><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
+     *   <tr><th> Project    </th><td> Y                          </td><td>                            </td><td>                 </td><td>                 </td><td>                </td></tr>
+     *   <tr><th> Word       </th><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
+     *  </table>
      */
     enum CoercionType {
         /**
-         * Return or set data as text (string).Data is returned or set as a one-dimensional run of characters.
+         * Return or set data as text (string). Data is returned or set as a one-dimensional run of characters.
          */
         Text,
         /**
          * Return or set data as tabular data with no headers. Data is returned or set as an array of arrays containing one-dimensional runs of characters. For example, three rows of  string values in two columns would be: [["R1C1", "R1C2"], ["R2C1", "R2C2"], ["R3C1", "R3C2"]].
-         * @remarks
-         * Only applies to data in Excel and Word.
+         *
+         * Note: Only applies to data in Excel and Word.
          */
         Matrix,
         /**
          * Return or set data as tabular data with optional headers. Data is returned or set as an array of arrays with optional headers.
-         * @remarks
-         * Only applies to data in Access, Excel and Word.
+         * 
+         * Note: Only applies to data in Access, Excel, and Word.
          */
         Table,
         /**
          * Return or set data as HTML.
-         * @remarks
-         * Only applies to data in add-ins for Word and Outlook add-ins for Outlook (compose mode).
+         * 
+         * Note: Only applies to data in add-ins for Word and Outlook add-ins for Outlook (compose mode).
          */
         Html,
         /**
          * Return or set data as Office Open XML.
-         * @remarks
-         * Only applies to data in Word.
+         * 
+         * Note: Only applies to data in Word.
          */
         Ooxml,
         /**
-         * Return a JSON object that contains an array of the ids, titles, and indexes of the selected slides.For example,  `{"slides":[{"id":257,"title":"Slide 2","index":2},{"id":256,"title":"Slide 1","index":1}]}` for a selection of two slides.
-         * @remarks
-         * Only applies to data in PowerPoint when calling the Document.getSelectedData method to get the current slide or selected range of slides.
+         * Return a JSON object that contains an array of the ids, titles, and indexes of the selected slides. For example, `{"slides":[{"id":257,"title":"Slide 2","index":2},{"id":256,"title":"Slide 1","index":1}]}` for a selection of two slides.
+         * 
+         * Note: Only applies to data in PowerPoint when calling the {@link Office.Document | Document}.getSelectedData method to get the current slide or selected range of slides.
          */
         SlideRange,
         /**
         * Data is returned or set as an image stream.
-        * @remarks
-        * Only applies to data in Excel, Word and PowerPoint.
+        * Note: Only applies to data in Excel, Word and PowerPoint.
         */
         Image
     }
@@ -1240,9 +1593,23 @@ declare namespace Office {
      * Specifies whether the document in the associated application is read-only or read-write.
      * 
      * @remarks
-     * <table><tr><td>Hosts</td><td>Excel, PowerPoint, Project, Word</td></tr></table>
+     *  
+     * Returned by the mode property of the {@link Office.Document | Document} object.
      * 
-     * Returned by the mode property of the Document object.
+     * **Support details**
+     * 
+     * A capital Y in the following matrix indicates that this enumeration is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this enumeration.
+     * 
+     * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+     * 
+     * *Supported hosts, by platform*
+     *  <table>
+     *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+     *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+     *   <tr><th> PowerPoint </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+     *   <tr><th> Project    </th><td> Y                          </td><td>                            </td><td>                 </td></tr>
+     *   <tr><th> Word       </th><td> Y                          </td><td>                            </td><td> Y               </td></tr>
+     *  </table>
      */
     enum DocumentMode {
         /**
@@ -1258,9 +1625,19 @@ declare namespace Office {
      * Specifies the type of the XML node.
      *
      * @remarks
-     * <table><tr><td>Hosts</td><td>Word</td></tr>
+     * <table><tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
      * 
-     * <tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
+     * **Support details**
+     * 
+     * A capital Y in the following matrix indicates that this enumeration is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this enumeration.
+     * 
+     * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+     * 
+     * *Supported hosts, by platform*
+     *  <table>
+     *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+     *   <tr><th> Word       </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+     *  </table>
      */
     enum CustomXMLNodeType {
         /**
@@ -1294,29 +1671,88 @@ declare namespace Office {
     }
     /**
      * Specifies the kind of event that was raised. Returned by the `type` property of an *EventArgs object.
-     *
-     * @remarks
-     * <table><tr><td>Hosts</td><td>Access, Excel, PowerPoint, Project, Word</td></tr>
-     * <tr><td>Hosts (BindingDataChanged and BindingSelectionChanged)</td><td>Access, Excel, Word</td></tr></table>
-     * 
      * 
      * Add-ins for Project support the `Office.EventType.ResourceSelectionChanged`, `Office.EventType.TaskSelectionChanged`, and `Office.EventType.ViewSelectionChanged` event types.
+     * 
+     * <table>BindingDataChanged and BindingSelectionChanged hosts</td><td>Access, Excel, Word</td></tr></table>
+     *
+     * @remarks
+     * 
+     * **Support details**
+     * 
+     * A capital Y in the following matrix indicates that this enumeration is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this enumeration.
+     * 
+     * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+     * 
+     * *Supported hosts, by platform*
+     *  <table>
+     *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+     *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+     *   <tr><th> Outlook    </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+     *   <tr><th> PowerPoint </th><td> Y                          </td><td> Y                          </td><td>                 </td></tr>
+     *   <tr><th> Project    </th><td> Y                          </td><td>                            </td><td>                 </td></tr>
+     *   <tr><th> Word       </th><td> Y                          </td><td>                            </td><td> Y               </td></tr>
+     *  </table>
      */
     enum EventType {
         /**
          * A Document.ActiveViewChanged event was raised.
+         * 
+         * **Support details**
+         * 
+         * A capital Y in the following matrix indicates that this enumeration is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this enumeration.
+         * 
+         * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+         * 
+         * *Supported hosts, by platform*
+         *  <table>
+         *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+         *   <tr><th> PowerPoint </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *  </table>
          */
         ActiveViewChanged,
         /**
          * Occurs when data within the binding is changed. 
          * To add an event handler for the BindingDataChanged event of a binding, use the addHandlerAsync method of the Binding object. 
          * The event handler receives an argument of type {@link Office.BindingDataChangedEventArgs}.
+         * 
+         * @remarks
+         * 
+         * **Support details**
+         * 
+         * A capital Y in the following matrix indicates that this enumeration is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this enumeration.
+         * 
+         * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+         * 
+         * *Supported hosts, by platform*
+         *  <table>
+         *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+         *   <tr><th> Access     </th><td>                            </td><td> Y                          </td><td>                 </td></tr>
+         *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th> Word       </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *  </table>
          */
         BindingDataChanged,
         /**
          * Occurs when the selection is changed within the binding.
          * To add an event handler for the BindingSelectionChanged event of a binding, use the addHandlerAsync method of the Binding object. 
          * The event handler receives an argument of type {@link Office.BindingSelectionChangedEventArgs}.
+         * 
+         * @remarks
+         * 
+         * **Support details**
+         * 
+         * A capital Y in the following matrix indicates that this enumeration is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this enumeration.
+         * 
+         * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+         * 
+         * *Supported hosts, by platform*
+         *  <table>
+         *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+         *   <tr><th> Access     </th><td>                            </td><td> Y                          </td><td>                 </td></tr>
+         *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th> Word       </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *  </table>
          */
         BindingSelectionChanged,
         /**
@@ -1329,26 +1765,45 @@ declare namespace Office {
         DialogEventReceived,
         /**
          * Triggers when a document level selection happens
+         * 
+         * **Support details**
+         * 
+         * A capital Y in the following matrix indicates that this enumeration is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this enumeration.
+         * 
+         * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+         * 
+         * *Supported hosts, by platform*
+         *  <table>
+         *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+         *   <tr><th> Excel      </th><td>                            </td><td> Y                          </td><td>                 </td></tr>
+         *   <tr><th> Word       </th><td> Y                          </td><td> Y                          </td><td>                 </td></tr>
+         *  </table>
          */
         DocumentSelectionChanged,
         /**
-         * A Document.SelectionChanged event was raised.
+         * Triggers when the selected Outlook item was changed.
+         * 
+         * [Api set: Mailbox 1.1]
          */
         ItemChanged,
         /**
-         * Triggers when a customXmlPart node was deleted
+         * Triggers when a customXmlPart node was deleted.
          */
         NodeDeleted,
         /**
-         * Triggers when a customXmlPart node was inserted
+         * Triggers when a customXmlPart node was inserted.
          */
         NodeInserted,
         /**
-         * Triggers when a customXmlPart node was replaced
+         * Triggers when a customXmlPart node was replaced.
          */
         NodeReplaced,
         /**
-         * The recurrence pattern of the selected series has changed.
+         * Triggers when the recurrence pattern of the selected series was changed in Outlook.
+         * 
+         * [Api set: Mailbox Preview]
+         * 
+         * @beta
          */
         RecurrencePatternChanged,
         /**
@@ -1357,6 +1812,21 @@ declare namespace Office {
         ResourceSelectionChanged,
         /**
          * A Settings.settingsChanged event was raised.
+         * 
+         * **Support details**
+         * 
+         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this method.
+         * 
+         * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+         * 
+         * *Supported hosts, by platform*
+         *  <table>
+         *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+         *   <tr><th> Access     </th><td>                            </td><td> Y                          </td><td>                 </td></tr>
+         *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th> PowerPoint </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th> Word       </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *  </table>
          */
         SettingsChanged,
         /**
@@ -1372,7 +1842,21 @@ declare namespace Office {
      * Specifies the format in which to return the document.
      *
      * @remarks
-     * <table><tr><td>Hosts</td><td>PowerPoint, Word</td></tr></table>
+     * FileType.Text is only supported in Word, FileType.Pdf is only supported in Word for Windows, Word for Mac, Word Online, and PowerPoint.
+     * 
+     * **Support details**
+     * 
+     * A capital Y in the following matrix indicates that this enumeration is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this enumeration.
+     * 
+     * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+     * 
+     * *Supported hosts, by platform*
+     *  <table>
+     *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+     *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+     *   <tr><th> PowerPoint </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+     *   <tr><th> Word       </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+     *  </table>
      */
     enum FileType {
         /**
@@ -1380,7 +1864,7 @@ declare namespace Office {
          */
         Text,
         /**
-         * Returns the entire document (.pptx, .docx, or .xslx) in Office Open XML (OOXML) format as a byte array.
+         * Returns the entire document (.pptx, .docx, or .xlsx) in Office Open XML (OOXML) format as a byte array.
          */
         Compressed,
         /**
@@ -1392,7 +1876,20 @@ declare namespace Office {
      * Specifies whether filtering from the host application is applied when the data is retrieved.
      *
      * @remarks
-     * <table><tr><td>Hosts</td><td>Excel, Project, Word</td></tr></table>
+     * 
+     * **Support details**
+     * 
+     * A capital Y in the following matrix indicates that this enumeration is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this enumeration.
+     * 
+     * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+     * 
+     * *Supported hosts, by platform*
+     *  <table>
+     *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+     *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+     *   <tr><th> Project    </th><td> Y                          </td><td>                            </td><td>                 </td></tr>
+     *   <tr><th> Word       </th><td> Y                          </td><td>                            </td><td> Y               </td></tr>
+     *  </table>
      */
     enum FilterType {
         /**
@@ -1408,32 +1905,101 @@ declare namespace Office {
      * Specifies the type of place or object to navigate to.
      *
      * @remarks
-     * <table><tr><td>Hosts</td><td>Excel, PowerPoint, Word</td></tr></table>
+     * 
+     * **Support details**
+     * 
+     * A capital Y in the following matrix indicates that this enumeration is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this enumeration.
+     * 
+     * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+     * 
+     * *Supported hosts, by platform*
+     *  <table>
+     *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+     *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+     *   <tr><th> PowerPoint </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+     *   <tr><th> Word       </th><td> Y                          </td><td>                            </td><td> Y               </td></tr>
+     *  </table>
      */
     enum GoToType {
         /**
          * Goes to a binding object using the specified binding id.
+         * 
+         * Supported hosts: Excel, Word
          */
         Binding,
         /**
          * Goes to a named item using that item's name.
          * In Excel, you can use any structured reference for a named range or table: "Worksheet2!Table1"
+         * 
+         * Supported hosts: Excel
          */
         NamedItem,
         /**
          * Goes to a slide using the specified id.
+         * 
+         * Supported hosts: PowerPoint
          */
         Slide,
         /**
-         * Goes to the specified index by slide number or Office.Index
+         * Goes to the specified index by slide number or {@link Office.Index}.
+         * 
+         * Supported hosts: PowerPoint
          */
         Index
     }
     /**
-     * Specifies whether to select (highlight) the location to navigate to (when using the Document.goToByIdAsync method).
+     * Specifies the relative PowerPoint slide.
+     * 
+     * @remarks
+     * 
+     * **Support details**
+     * 
+     * A capital Y in the following matrix indicates that this enumeration is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this enumeration.
+     * 
+     * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+     * 
+     * *Supported hosts, by platform*
+     *  <table>
+     *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+     *   <tr><th> PowerPoint </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+     *  </table>
+     */
+    enum Index {
+        /**
+         * Represents the first PowerPoint slide
+         */
+        First,
+        /**
+         * Represents the last PowerPoint slide
+         */
+        Last,
+        /**
+         * Represents the next PowerPoint slide
+         */
+        Next,
+        /**
+         * Represents the previous PowerPoint slide
+         */
+        Previous
+    }
+    /**
+     * Specifies whether to select (highlight) the location to navigate to (when using the {@link Office.Document | Document}.goToByIdAsync method).
      *
      * @remarks
-     * <table><tr><td>Hosts</td><td>Excel, PowerPoint, Word</td></tr></table>
+     * 
+     * **Support details**
+     * 
+     * A capital Y in the following matrix indicates that this enumeration is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this enumeration.
+     * 
+     * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+     * 
+     * *Supported hosts, by platform*
+     *  <table>
+     *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+     *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+     *   <tr><th> PowerPoint </th><td> Y                          </td><td>                            </td><td>                 </td></tr>
+     *   <tr><th> Word       </th><td> Y                          </td><td>                            </td><td> Y               </td></tr>
+     *  </table>
      */
     enum SelectionMode {
         Default,
@@ -1442,7 +2008,7 @@ declare namespace Office {
          */
         Selected,
         /**
-         * The cursor is moved the beginning of the location.
+         * The cursor is moved to the beginning of the location.
          */
         None
     }
@@ -1450,10 +2016,22 @@ declare namespace Office {
      * Specifies whether values, such as numbers and dates, returned by the invoked method are returned with their formatting applied.
      *
      * @remarks
-     * <table><tr><td>Hosts</td><td>Excel, Project, Word</td></tr></table>
-     * 
      * For example, if the valueFormat parameter is specified as "formatted", a number formatted as currency, or a date formatted as mm/dd/yy in the host application will have its formatting preserved. 
      * If the valueFormat parameter is specified as "unformatted", a date will be returned in its underlying sequential serial number form.
+     * 
+     * **Support details**
+     * 
+     * A capital Y in the following matrix indicates that this enumeration is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this enumeration.
+     * 
+     * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+     * 
+     * *Supported hosts, by platform*
+     *  <table>
+     *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+     *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+     *   <tr><th> Project    </th><td> Y                          </td><td>                            </td><td>                 </td></tr>
+     *   <tr><th> Word       </th><td> Y                          </td><td>                            </td><td> Y               </td></tr>
+     *  </table>
      */
     enum ValueFormat {
         /**
@@ -1470,36 +2048,39 @@ declare namespace Office {
     * Represents a binding to a section of the document.
     *
     * @remarks
-    * <table><tr><td>Hosts</td><td>Access, Excel, Word</td></tr>
-    *
     * <tr><td>Requirement Sets</td><td>MatrixBinding, TableBinding, TextBinding</td></tr></table>
     *
     * The Binding object exposes the functionality possessed by all bindings regardless of type.
     *
     * The Binding object is never called directly. It is the abstract parent class of the objects that represent each type of binding: MatrixBinding, TableBinding, or TextBinding. All three of these objects inherit the getDataAsync and setDataAsync methods from the Binding object that enable to you interact with the data in the binding. They also inherit the id and type properties for querying those property values. Additionally, the MatrixBinding and TableBinding objects expose additional methods for matrix- and table-specific features, such as counting the number of rows and columns.
+    * 
+    * **Support details**
+    * 
+    * A capital Y in the following matrix indicates that this interface is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this interface.
+    * 
+    * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+    * 
+    * *Supported hosts, by platform*
+    *  <table>
+    *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+    *   <tr><th> Access     </th><td>                            </td><td> Y                          </td><td>                 </td></tr>
+    *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+    *   <tr><th> Word       </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+    *  </table>
     */
     interface Binding {
 
 
         /**
         * Get the Document object associated with the binding.
-        *
-        * @remarks
-        * <table><tr><td>Hosts</td><td>Access, Excel, Word</td></tr></table>
         */
         document: Document;
         /**
          * A string that uniquely identifies this binding among the bindings in the same Document object.
-         *
-         * @remarks
-         * <table><tr><td>Hosts</td><td>Access, Excel, Word</td></tr></table>
          */
         id: string;
         /**
         * Gets the type of the binding.
-        *
-        * @remarks
-        * <table><tr><td>Hosts</td><td>Access, Excel, Word</td></tr></table>
         */
         type: BindingType;
         /**
@@ -1518,8 +2099,6 @@ declare namespace Office {
          * Returns the data contained within the binding.
          *
          * @remarks
-         * <table><tr><td>Hosts</td><td>Access, Excel, Word</td></tr>
-         *
          * <tr><td>Requirement Sets</td><td>MatrixBindings, TableBindings, TextBindings</td></tr></table>
          *
          * When called from a MatrixBinding or TableBinding, the getDataAsync method will return a subset of the bound values if the optional startRow, startColumn, rowCount, and columnCount parameters are specified (and they specify a contiguous and valid range).
@@ -1532,8 +2111,6 @@ declare namespace Office {
          * Removes the specified handler from the binding for the specified event type.
          *
          * @remarks
-         * <table><tr><td>Hosts</td><td>Access, Excel, Word</td></tr>
-         *
          * <tr><td>Requirement Sets</td><td>BindingEvents</td></tr></table>
          *
          * @param eventType The event type. For bindings, it can be `Office.EventType.BindingDataChanged` or `Office.EventType.BindingSelectionChanged`.
@@ -1545,8 +2122,6 @@ declare namespace Office {
          * Writes data to the bound section of the document represented by the specified binding object.
          *
          * @remarks
-         * 
-         * <table><tr><td>Hosts</td><td>Access, Excel, Word</td></tr>
          *
          * <tr><td>Requirement Sets</td><td>MatrixBindings, TableBindings, TextBindings</td></tr></table>
          * 
@@ -1740,24 +2315,32 @@ declare namespace Office {
 
     /**
     * Represents the bindings the add-in has within the document.
-    *
-    * @remarks
-    * Hosts:
     */
     interface Bindings {
         /**
-        * Gets an {@link Office.Document} object that represents the document associated with this set of bindings.
-        *
-        * @remarks
-        * <table><tr><td>Hosts</td><td>Access, Excel, Word</td></tr></table>
-        */
+         * Gets an {@link Office.Document} object that represents the document associated with this set of bindings.
+         *
+         * @remarks
+         * 
+         * **Support details**
+         * 
+         * A capital Y in the following matrix indicates that this property is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this property.
+         * 
+         * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+         * 
+         * *Supported hosts, by platform*
+         *  <table>
+         *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+         *   <tr><th> Access     </th><td>                            </td><td> Y                          </td><td>                 </td></tr>
+         *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th> Word       </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *  </table>
+         */
         document: Document;
         /**
          * Creates a binding against a named object in the document.
          *
          * @remarks
-         * <table><tr><td>Hosts</td><td>Access, Excel, Word</td></tr>
-         *
          * <tr><td>Requirement Sets</td><td>MatrixBindings, TableBindings, TextBindings</td></tr></table>
          *
          * For Excel, the itemName parameter can refer to a named range or a table.
@@ -1772,6 +2355,19 @@ declare namespace Office {
          *
          *     Note: In Word, if there are multiple Rich Text content controls with the same Title property value (name), and you try to bind to one these content controls with this method (by specifying its name as the itemName parameter), the operation will fail.
          *
+         * **Support details**
+         * 
+         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this method.
+         * 
+         * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+         * 
+         * *Supported hosts, by platform*
+         *  <table>
+         *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+         *   <tr><th> Access     </th><td>                            </td><td> Y                          </td><td>                 </td></tr>
+         *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th> Word       </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *  </table>
          * @param itemName Name of the bindable object in the document. For Example 'MyExpenses' table in Excel."
          * @param bindingType The {@link Office.BindingType} for the data. The method returns null if the selected object cannot be coerced into the specified type.
          * @param options Provides options for configuring the binding that is created.
@@ -1782,11 +2378,22 @@ declare namespace Office {
          * Create a binding by prompting the user to make a selection on the document.
          *
          * @remarks
-         * <table><tr><td>Hosts</td><td>Access, Excel</td></tr>
-         *
          * <tr><td>Requirement Sets</td><td>Not in a set</td></tr></table>
          *
          * Adds a binding object of the specified type to the Bindings collection, which will be identified with the supplied id. The method fails if the specified selection cannot be bound.
+         * 
+         * **Support details**
+         * 
+         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this method.
+         * 
+         * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+         * 
+         * *Supported hosts, by platform*
+         *  <table>
+         *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+         *   <tr><th> Access     </th><td>                            </td><td> Y                          </td><td>                 </td></tr>
+         *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *  </table>
          *
          * @param bindingType Specifies the type of the binding object to create. Required. Returns null if the selected object cannot be coerced into the specified type.
          * @param options Provides options for configuring the prompt and identifying the binding that is created.
@@ -1797,13 +2404,26 @@ declare namespace Office {
          * Create a binding based on the user's current selection.
          *
          * @remarks
-         * <table><tr><td>Hosts</td><td>Access, Excel, Word</td></tr>
-         *
          * <tr><td>Requirement Sets</td><td>MatrixBindings, TableBindings, TextBindings</td></tr></table>
          *
          * Adds the specified type of binding object to the Bindings collection, which will be identified with the supplied id.
          *
-         * Note In Excel, if you call the addFromSelectionAsync method passing in the Binding.id of an existing binding, the Binding.type of that binding is used, and its type cannot be changed by specifying a different value for the bindingType parameter.If you need to use an existing id and change the bindingType, call the Bindings.releaseByIdAsync method first to release the binding, and then call the addFromSelectionAsync method to reestablish the binding with a new type.
+         * Note In Excel, if you call the addFromSelectionAsync method passing in the Binding.id of an existing binding, the Binding.type of that binding is used, and its type cannot be changed by specifying a different value for the bindingType parameter. 
+         * If you need to use an existing id and change the bindingType, call the Bindings.releaseByIdAsync method first to release the binding, and then call the addFromSelectionAsync method to reestablish the binding with a new type.
+         * 
+         * **Support details**
+         * 
+         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this method.
+         * 
+         * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+         * 
+         * *Supported hosts, by platform*
+         *  <table>
+         *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+         *   <tr><th> Access     </th><td>                            </td><td> Y                          </td><td>                 </td></tr>
+         *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th> Word       </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *  </table>
          *
          * @param bindingType Specifies the type of the binding object to create. Required. Returns null if the selected object cannot be coerced into the specified type.
          * @param options Provides options for configuring the prompt and identifying the binding that is created.
@@ -1814,9 +2434,21 @@ declare namespace Office {
          * Gets all bindings that were previously created.
          *
          * @remarks
-         * <table><tr><td>Hosts</td><td>Access, Excel, Word</td></tr>
-         *
          * <tr><td>Requirement Sets</td><td>MatrixBindings, TableBindings, TextBindings</td></tr></table>
+         * 
+         * **Support details**
+         * 
+         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this method.
+         * 
+         * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+         * 
+         * *Supported hosts, by platform*
+         *  <table>
+         *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+         *   <tr><th> Access     </th><td>                            </td><td> Y                          </td><td>                 </td></tr>
+         *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th> Word       </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *  </table>
          *
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
@@ -1826,11 +2458,23 @@ declare namespace Office {
          * Retrieves a binding based on its Name
          *
          * @remarks
-         * <table><tr><td>Hosts</td><td>Access, Excel, Word</td></tr>
-         *
          * <tr><td>Requirement Sets</td><td>CustomXmlParts, MatrixBindings, TableBindings, TextBindings</td></tr></table>
          *
          * Fails if the specified id does not exist.
+         * 
+         * **Support details**
+         * 
+         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this method.
+         * 
+         * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+         * 
+         * *Supported hosts, by platform*
+         *  <table>
+         *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+         *   <tr><th> Access     </th><td>                            </td><td> Y                          </td><td>                 </td></tr>
+         *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th> Word       </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *  </table>
          *
          * @param id Specifies the unique name of the binding object. Required.
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
@@ -1841,11 +2485,23 @@ declare namespace Office {
          * Removes the binding from the document
          *
          * @remarks
-         * <table><tr><td>Hosts</td><td>Access, Excel, Word</td></tr>
-         *
          * <tr><td>Requirement Sets</td><td>MatrixBindings, TableBindings, TextBindings</td></tr></table>
          *
          * Fails if the specified id does not exist.
+         * 
+         * **Support details**
+         * 
+         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this method.
+         * 
+         * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+         * 
+         * *Supported hosts, by platform*
+         *  <table>
+         *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+         *   <tr><th> Access     </th><td>                            </td><td> Y                          </td><td>                 </td></tr>
+         *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th> Word       </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *  </table>
          *
          * @param id Specifies the unique name to be used to identify the binding object. Required.
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
@@ -1857,17 +2513,25 @@ declare namespace Office {
      * Represents an XML node in a tree in a document.
      *
      * @remarks
-     * <table><tr><td>Hosts</td><td>Word</td></tr>
-     *
-     * <tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
+     * <table><tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
+     * 
+     * **Support details**
+     * 
+     * A capital Y in the following matrix indicates that this interface is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this interface.
+     * 
+     * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+     * 
+     * *Supported hosts, by platform*
+     *  <table>
+     *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+     *   <tr><th> Word       </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+     *  </table>
      */
     interface CustomXmlNode {
         /**
          * Gets the base name of the node without the namespace prefix, if one exists.
          *
          * @remarks
-         * <table><tr><td>Hosts</td><td>Word</td></tr>
-         *
          * <tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
          */
         baseName: string;
@@ -1875,8 +2539,6 @@ declare namespace Office {
          * Retrieves the string GUID of the CustomXMLPart.
          *
          * @remarks
-         * <table><tr><td>Hosts</td><td>Word</td></tr>
-         *
          * <tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
          */
         namespaceUri: string;
@@ -1884,8 +2546,6 @@ declare namespace Office {
          * Gets the type of the CustomXMLNode.
          *
          * @remarks
-         * <table><tr><td>Hosts</td><td>Word</td></tr>
-         *
          * <tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
          */
         nodeType: string;
@@ -1893,8 +2553,6 @@ declare namespace Office {
          * Gets the nodes associated with the XPath expression.
          *
          * @remarks
-         * <table><tr><td>Hosts</td><td>Word</td></tr>
-         *
          * <tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
          *
          * @param xPath The XPath expression that specifies the nodes to get. Required.
@@ -1906,8 +2564,6 @@ declare namespace Office {
          * Gets the node value.
          *
          * @remarks
-         * <table><tr><td>Hosts</td><td>Word</td></tr>
-         *
          * <tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
          *
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
@@ -1918,8 +2574,6 @@ declare namespace Office {
          * Gets the text of an XML node in a custom XML part.
          *
          * @remarks
-         * <table><tr><td>Hosts</td><td>Word</td></tr>
-         *
          * <tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
          *
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
@@ -1930,8 +2584,6 @@ declare namespace Office {
          * Gets the node's XML.
          *
          * @remarks
-         * <table><tr><td>Hosts</td><td>Word</td></tr>
-         *
          * <tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
          *
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
@@ -1942,8 +2594,6 @@ declare namespace Office {
          * Sets the node value.
          *
          * @remarks
-         * <table><tr><td>Hosts</td><td>Word</td></tr>
-         *
          * <tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
          *
          * @param value The value to be set on the node
@@ -1968,8 +2618,6 @@ declare namespace Office {
          * Sets the node XML.
          *
          * @remarks
-         * <table><tr><td>Hosts</td><td>Word</td></tr>
-         *
          * <tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
          *
          * @param xml The XML to be set on the node
@@ -1982,36 +2630,31 @@ declare namespace Office {
      * Represents a single CustomXMLPart in an {@link Office.CustomXmlParts} collection.
      *
      * @remarks
-     * <table><tr><td>Hosts</td><td>Word</td></tr>
-     *
-     * <tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
+     * <table><tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
+     * 
+     * **Support details**
+     * 
+     * A capital Y in the following matrix indicates that this interface is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this interface.
+     * 
+     * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+     * 
+     * *Supported hosts, by platform*
+     *  <table>
+     *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+     *   <tr><th> Word       </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+     *  </table>
      */
     interface CustomXmlPart {
         /**
          * True, if the custom XML part is built in; otherwise false.
-         *
-         * @remarks
-         * <table><tr><td>Hosts</td><td>Word</td></tr>
-         *
-         * <tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
          */
         builtIn: boolean;
         /**
          * Gets the GUID of the CustomXMLPart.
-         *
-         * @remarks
-         * <table><tr><td>Hosts</td><td>Word</td></tr>
-         *
-         * <tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
          */
         id: string;
         /**
          * Gets the set of namespace prefix mappings ({@link Office.CustomXmlPrefixMappings}) used against the current CustomXMLPart.
-         *
-         * @remarks
-         * <table><tr><td>Hosts</td><td>Word</td></tr>
-         *
-         * <tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
          */
         namespaceManager: CustomXmlPrefixMappings;
 
@@ -2019,7 +2662,6 @@ declare namespace Office {
          * Adds an event handler to the object using the specified event type.
          *
          * @remarks
-         * <table><tr><td>Hosts</td><td>Word</td></tr></table>
          *
          * You can add multiple event handlers for the specified eventType as long as the name of each event handler function is unique.
          *
@@ -2033,9 +2675,6 @@ declare namespace Office {
          * Deletes the Custom XML Part.
          *
          * @remarks
-         * <table><tr><td>Hosts</td><td>Word</td></tr>
-         *
-         * <tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
          *
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
@@ -2045,9 +2684,6 @@ declare namespace Office {
          * Asynchronously gets any CustomXmlNodes in this custom XML part which match the specified XPath.
          *
          * @remarks
-         * <table><tr><td>Hosts</td><td>Word</td></tr>
-         *
-         * <tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
          *
          * @param xPath An XPath expression that specifies the nodes you want returned. Required.
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
@@ -2058,9 +2694,6 @@ declare namespace Office {
          * Asynchronously gets the XML inside this custom XML part.
          *
          * @remarks
-         * <table><tr><td>Hosts</td><td>Word</td></tr>
-         *
-         * <tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
          *
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
@@ -2070,9 +2703,6 @@ declare namespace Office {
          * Removes an event handler for the specified event type.
          *
          * @remarks
-         * <table><tr><td>Hosts</td><td>Word</td></tr>
-         *
-         * <tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
          *
          * @param eventType Specifies the type of event to remove. For a CustomXmlPart object, the eventType parameter can be specified as `Office.EventType.NodeDeleted`, `Office.EventType.NodeInserted`, and `Office.EventType.NodeReplaced`.
          * @param handler The name of the handler to remove.
@@ -2086,7 +2716,18 @@ declare namespace Office {
      * Provides information about the deleted node that raised the nodeDeleted event.
      * 
      * @remarks
-     * <table><tr><td>Hosts</td><td>Word</td></tr></table>
+     * 
+     * **Support details**
+     * 
+     * A capital Y in the following matrix indicates that this interface is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this interface.
+     * 
+     * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+     * 
+     * *Supported hosts, by platform*
+     *  <table>
+     *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+     *   <tr><th> Word       </th><td> Y                          </td><td>                            </td><td> Y               </td></tr>
+     *  </table>
      */
     interface NodeDeletedEventArgs {
         /**
@@ -2109,7 +2750,18 @@ declare namespace Office {
      * Provides information about the inserted node that raised the nodeInserted event.
      * 
      * @remarks
-     * <table><tr><td>Hosts</td><td>Word</td></tr></table>
+     * 
+     * **Support details**
+     * 
+     * A capital Y in the following matrix indicates that this interface is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this interface.
+     * 
+     * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+     * 
+     * *Supported hosts, by platform*
+     *  <table>
+     *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+     *   <tr><th> Word       </th><td> Y                          </td><td>                            </td><td> Y               </td></tr>
+     *  </table>
      */
     interface NodeInsertedEventArgs  {
         /**
@@ -2126,6 +2778,18 @@ declare namespace Office {
     
     /**
      * Provides information about the replaced node that raised the nodeReplaced event.
+     * 
+     * **Support details**
+     * 
+     * A capital Y in the following matrix indicates that this interface is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this interface.
+     * 
+     * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+     * 
+     * *Supported hosts, by platform*
+     *  <table>
+     *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+     *   <tr><th> Word       </th><td> Y                          </td><td>                            </td><td> Y               </td></tr>
+     *  </table>
      */
     interface NodeReplacedEventArgs  {
         /**
@@ -2150,18 +2814,23 @@ declare namespace Office {
      * Represents a collection of CustomXmlPart objects.
      *
      * @remarks
-     * <table><tr><td>Hosts</td><td>Word</td></tr>
-     *
-     * <tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
+     * <table><tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
+     * 
+     * **Support details**
+     * 
+     * A capital Y in the following matrix indicates that this interface is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this interface.
+     * 
+     * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+     * 
+     * *Supported hosts, by platform*
+     *  <table>
+     *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+     *   <tr><th> Word       </th><td> Y                          </td><td>                            </td><td> Y               </td></tr>
+     *  </table>
      */
     interface CustomXmlParts {
         /**
          * Asynchronously adds a new custom XML part to a file.
-         *
-         * @remarks
-         * <table><tr><td>Hosts</td><td>Word</td></tr>
-         *
-         * <tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
          *
          * @param xml The XML to add to the newly created custom XML part.
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
@@ -2171,11 +2840,6 @@ declare namespace Office {
         /**
          * Asynchronously gets the specified custom XML part by its id.
          *
-         * @remarks
-         * <table><tr><td>Hosts</td><td>Word</td></tr>
-         *
-         * <tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
-         *
          * @param id The GUID of the custom XML part, including opening and closing braces.
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
@@ -2183,11 +2847,6 @@ declare namespace Office {
         getByIdAsync(id: string, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Asynchronously gets the specified custom XML part(s) by its namespace.
-         *
-         * @remarks
-         * <table><tr><td>Hosts</td><td>Word</td></tr>
-         *
-         * <tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
          *
          * @param ns  The namespace URI.
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
@@ -2199,17 +2858,26 @@ declare namespace Office {
      * Represents a collection of CustomXmlPart objects.
      *
      * @remarks
-     * <table><tr><td>Hosts</td><td>Word</td></tr></table>
+     *
+     * <table><tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
+     * 
+     * **Support details**
+     * 
+     * A capital Y in the following matrix indicates that this interface is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this interface.
+     * 
+     * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+     * 
+     * *Supported hosts, by platform*
+     *  <table>
+     *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+     *   <tr><th> Word       </th><td> Y                          </td><td>                            </td><td> Y               </td></tr>
+     *  </table>
      */
     interface CustomXmlPrefixMappings {
         /**
          * Asynchronously adds a prefix to namespace mapping to use when querying an item.
          *
          * @remarks
-         * <table><tr><td>Hosts</td><td>Word</td></tr>
-         *
-         * <tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
-         *
          * If no namespace is assigned to the requested prefix, the method returns an empty string ("").
          *
          * @param prefix Specifies the prefix to add to the prefix mapping list. Required.
@@ -2222,9 +2890,6 @@ declare namespace Office {
          * Asynchronously gets the namespace mapped to the specified prefix.
          *
          * @remarks
-         * <table><tr><td>Hosts</td><td>Word</td></tr>
-         *
-         * <tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
          *
          * If the prefix already exists in the namespace manager, this method will overwrite the mapping of that prefix except when the prefix is one added or used by the data store internally, in which case it will return an error.
          *
@@ -2237,9 +2902,6 @@ declare namespace Office {
          * Asynchronously gets the prefix for the specified namespace.
          *
          * @remarks
-         * <table><tr><td>Hosts</td><td>Word</td></tr>
-         *
-         * <tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
          *
          * If no prefix is assigned to the requested namespace, the method returns an empty string (""). If there are multiple prefixes specified in the namespace manager, the method returns the first prefix that matches the supplied namespace.
          *
@@ -2260,48 +2922,126 @@ declare namespace Office {
          * Gets an object that provides access to the bindings defined in the document.
          *
          * @remarks
-         * <table><tr><td>Hosts</td><td>Access, Excel, Word</td></tr></table>
-         *
          * You don't instantiate the Document object directly in your script. To call members of the Document object to interact with the current document or worksheet, use `Office.context.document` in your script.
+         * 
+         * **Support details**
+         * 
+         * A capital Y in the following matrix indicates that this property is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this property.
+         * 
+         * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+         * 
+         * *Supported hosts, by platform*
+         *  <table>
+         *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+         *   <tr><th> Access     </th><td>                            </td><td> Y                          </td><td>                 </td></tr>
+         *   <tr><th> PowerPoint </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th> Word       </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *  </table>
          */
         bindings: Bindings;
         /**
          * Gets an object that represents the custom XML parts in the document.
          *
          * @remarks
-         * <table><tr><td>Hosts</td><td>Word</td></tr></table>
+         * 
+         * **Support details**
+         * 
+         * A capital Y in the following matrix indicates that this property is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this property.
+         * 
+         * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+         * 
+         * *Supported hosts, by platform*
+         *  <table>
+         *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+         *   <tr><th> Word       </th><td> Y                          </td><td>                            </td><td> Y               </td></tr>
+         *  </table>
          */
         customXmlParts: CustomXmlParts;
         /**
          * Gets the mode the document is in.
          *
          * @remarks
-         * <table><tr><td>Hosts</td><td>Word</td></tr></table>
+         * 
+         * **Support details**
+         * 
+         * A capital Y in the following matrix indicates that this property is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this property.
+         * 
+         * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+         * 
+         * *Supported hosts, by platform*
+         *  <table>
+         *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+         *   <tr><th> Access     </th><td>                            </td><td> Y                          </td><td>                 </td></tr>
+         *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th> PowerPoint </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th> Word       </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *  </table>
          */
         mode: DocumentMode;
         /**
          * Gets an object that represents the saved custom settings of the content or task pane add-in for the current document.
          *
          * @remarks
-         * <table><tr><td>Hosts</td><td>Word</td></tr></table>
+         * 
+         * **Support details**
+         * 
+         * A capital Y in the following matrix indicates that this property is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this property.
+         * 
+         * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+         * 
+         * *Supported hosts, by platform*
+         *  <table>
+         *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+         *   <tr><th> Access     </th><td>                            </td><td> Y                          </td><td>                 </td></tr>
+         *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th> PowerPoint </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th> Word       </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *  </table>
          */
         settings: Settings;
         /**
          * Gets the URL of the document that the host application currently has open. Returns null if the URL is unavailable.
          *
          * @remarks
-         * <table><tr><td>Hosts</td><td>Word</td></tr></table>
+         * 
+         * **Support details**
+         * 
+         * A capital Y in the following matrix indicates that this property is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this property.
+         * 
+         * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+         * 
+         * *Supported hosts, by platform*
+         *  <table>
+         *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+         *   <tr><th> Access     </th><td>                            </td><td> Y                          </td><td>                 </td></tr>
+         *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th> PowerPoint </th><td> Y                          </td><td>                            </td><td>                 </td></tr>
+         *   <tr><th> Word       </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *  </table>
          */
         url: string;
         /**
          * Adds an event handler for a Document object event.
          *
          * @remarks
-         * <table><tr><td>Hosts</td><td>Excel, PowerPoint, Project, Word</td></tr>
-         *
-         * <tr><td>Requirement Sets</td><td>DocumentEvents</td></tr></table>
+         * <table><tr><td>Requirement Sets</td><td>DocumentEvents</td></tr></table>
          *
          * You can add multiple event handlers for the specified eventType as long as the name of each event handler function is unique.
+         * 
+         * **Support details**
+         * 
+         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this method.
+         * 
+         * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+         * 
+         * *Supported hosts, by platform*
+         *  <table>
+         *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+         *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th> PowerPoint </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th> Project    </th><td> Y                          </td><td>                            </td><td>                 </td></tr>
+         *   <tr><th> Word       </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *  </table>
          *
          * @param eventType For a Document object event, the eventType parameter can be specified as `Office.EventType.Document.SelectionChanged` or `Office.EventType.Document.ActiveViewChanged`, or the corresponding text value of this enumeration.
          * @param handler The event handler function to add, whose only parameter is of type {@link Office.DocumentSelectionChangedEventArgs}. Required.
@@ -2313,11 +3053,23 @@ declare namespace Office {
          * Returns the state of the current view of the presentation (edit or read).
          *
          * @remarks
-         * <table><tr><td>Hosts</td><td>Excel, PowerPoint, Word</td></tr>
-         *
-         * <tr><td>Requirement Sets</td><td>ActiveView</td></tr></table>
+         * <table><tr><td>Requirement Sets</td><td>ActiveView</td></tr></table>
          *
          * Can trigger an event when the view changes.
+         * 
+         * **Support details**
+         * 
+         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this method.
+         * 
+         * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+         * 
+         * *Supported hosts, by platform*
+         *  <table>
+         *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+         *   <tr><th> Excel      </th><td>                            </td><td>                            </td><td> Y               </td></tr>
+         *   <tr><th> PowerPoint </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th> Word       </th><td>                            </td><td>                            </td><td> Y               </td></tr>
+         *  </table>
          *
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
@@ -2327,9 +3079,7 @@ declare namespace Office {
          * Returns the entire document file in slices of up to 4194304 bytes (4 MB). For add-ins for iOS, file slice is supported up to 65536 (64 KB). Note that specifying file slice size of above permitted limit will result in an "Internal Error" failure.
          *
          * @remarks
-         * <table><tr><td>Hosts</td><td>Excel, PowerPoint, Word</td></tr>
-         *
-         * <tr><td>Requirement Sets</td><td>File</td></tr></table>
+         * <table><tr><td>Requirement Sets</td><td>File</td></tr></table>
          *
          * For add-ins running in Office host applications other than Office for iOS, the getFileAsync method supports getting files in slices of up to 4194304 bytes (4 MB). For add-ins running in Office for iOS apps, the getFileAsync method supports getting files in slices of up to 65536 (64 KB).
          *
@@ -2342,6 +3092,20 @@ declare namespace Office {
          * Word on Windows desktop, Word on Mac, and Word Online: `Office.FileType.Compressed`, `Office.FileType.Pdf`, `Office.FileType.Text`
          *
          * Word on iPad: `Office.FileType.Compressed`, `Office.FileType.Text`
+         * 
+         * **Support details**
+         * 
+         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this method.
+         * 
+         * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+         * 
+         * *Supported hosts, by platform*
+         *  <table>
+         *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+         *   <tr><th> Excel      </th><td> Y                          </td><td>                            </td><td>                 </td></tr>
+         *   <tr><th> PowerPoint </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th> Word       </th><td> Y                          </td><td>                            </td><td> Y               </td></tr>
+         *  </table>
          *
          * @param fileType The format in which the file will be returned
          * @param options Provides options for setting the size of slices that the document will be divided into.
@@ -2352,11 +3116,23 @@ declare namespace Office {
          * Gets file properties of the current document.
          *
          * @remarks
-         * <table><tr><td>Hosts</td><td>Excel, PowerPoint, Word</td></tr>
-         *
-         * <tr><td>Requirement Sets</td><td>not in a set</td></tr></table>
+         * <table><tr><td>Requirement Sets</td><td>Not in a set</td></tr></table>
          *
          * You get the file's URL with the url property `asyncResult.value.url`.
+         * 
+         * **Support details**
+         * 
+         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this method.
+         * 
+         * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+         * 
+         * *Supported hosts, by platform*
+         *  <table>
+         *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+         *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th> PowerPoint </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th> Word       </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *  </table>
          *
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
@@ -2366,9 +3142,7 @@ declare namespace Office {
          * Reads the data contained in the current selection in the document.
          *
          * @remarks
-         * <table><tr><td>Hosts</td><td>Access, Excel, PowerPoint, Project, Word</td></tr>
-         *
-         * <tr><td>Requirement Sets</td><td>Selection</td></tr></table>
+         * <table><tr><td>Requirement Sets</td><td>Selection</td></tr></table>
          * 
          * In the callback function that is passed to the getSelectedDataAsync method, you can use the properties of the AsyncResult object to return the following information.
          * 
@@ -2395,21 +3169,56 @@ declare namespace Office {
          *   </tr>
          * </table>
          * 
-         * @param coercionType The type of data structure to return.
+         * The possible values for the {@link Office.CoercionType} parameter vary by the host. 
          * 
-         * The possible values for the {@link Office.CoercionType} parameter vary by the host:
-         *
-         * - Excel, Excel Online, PowerPoint, PowerPoint Online, Word, and Word Online only: `Office.CoercionType.Text` (string)
-         *
-         * - Excel, Word, and Word Online only: `Office.CoercionType.Matrix` (array of arrays)
-         *
-         * - Access, Excel, Word, and Word Online only: `Office.CoercionType.Table` (TableData object)
-         *
-         * - Word only: `Office.CoercionType.Html`
-         *
-         * - Word and Word Online only: `Office.CoercionType.Ooxml` (Office Open XML)
-         *
-         * - PowerPoint and PowerPoint Online only: `Office.CoercionType.SlideRange`
+         * <table>
+         *   <tr>
+         *     <th>Host</th>
+         *     <th>Supported coercionType</th>
+         *   </tr>
+         *   <tr>
+         *     <td>Excel, Excel Online, PowerPoint, PowerPoint Online, Word, and Word Online</td>
+         *     <td>`Office.CoercionType.Text` (string)</td>
+         *   </tr>
+         *   <tr>
+         *     <td>Excel, Word, and Word Online</td>
+         *     <td>`Office.CoercionType.Matrix` (array of arrays)</td>
+         *   </tr>
+         *   <tr>
+         *     <td>Access, Excel, Word, and Word Online</td>
+         *     <td>`Office.CoercionType.Table` (TableData object)</td>
+         *   </tr>
+         *   <tr>
+         *     <td>Word</td>
+         *     <td>`Office.CoercionType.Html`</td>
+         *   </tr>
+         *   <tr>
+         *     <td>Word and Word Online </td>
+         *     <td>`Office.CoercionType.Ooxml` (Office Open XML)</td>
+         *   </tr>
+         *   <tr>
+         *     <td>PowerPoint and PowerPoint Online</td>
+         *     <td>`Office.CoercionType.SlideRange`</td>
+         *   </tr>
+         * </table>
+         * 
+         * **Support details**
+         * 
+         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this method.
+         * 
+         * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+         * 
+         * *Supported hosts, by platform*
+         *  <table>
+         *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+         *   <tr><th> Access     </th><td>                            </td><td> Y                          </td><td>                 </td></tr>
+         *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th> PowerPoint </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th> Project    </th><td> Y                          </td><td> Y                          </td><td>                 </td></tr>
+         *   <tr><th> Word       </th><td> Y                          </td><td>                            </td><td> Y               </td></tr>
+         *  </table>
+         * 
+         * @param coercionType The type of data structure to return. See the remarks section for each host's supported coercion types.
          * 
          * @param options Provides options for customizing what data is returned and how it is formatted.
          * 
@@ -2420,9 +3229,7 @@ declare namespace Office {
          * Goes to the specified object or location in the document.
          *
          * @remarks
-         * <table><tr><td>Hosts</td><td>Excel, PowerPoint, Word</td></tr>
-         *
-         * <tr><td>Requirement Sets</td><td>not in a set</td></tr></table>
+         * <table><tr><td>Requirement Sets</td><td>not in a set</td></tr></table>
          *
          * PowerPoint doesn't support the goToByIdAsync method in Master Views.
          *
@@ -2433,6 +3240,20 @@ declare namespace Office {
          * In PowerPoint: `Office.SelectionMode.Selected` selects the slide title or first textbox on the slide. `Office.SelectionMode.None` Doesn't select anything.
          *
          * In Word: `Office.SelectionMode.Selected` selects all content in the binding. Office.SelectionMode.None for text bindings, moves the cursor to the beginning of the text; for matrix bindings and table bindings, selects the first data cell (not first cell in header row for tables).
+         * 
+         * **Support details**
+         * 
+         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this method.
+         * 
+         * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+         * 
+         * *Supported hosts, by platform*
+         *  <table>
+         *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+         *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th> PowerPoint </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th> Word       </th><td> Y                          </td><td>                            </td><td> Y               </td></tr>
+         *  </table>
          *
          * @param id The identifier of the object or location to go to.
          * @param goToType The type of the location to go to.
@@ -2444,9 +3265,21 @@ declare namespace Office {
          * Removes an event handler for the specified event type.
          *
          * @remarks
-         * <table><tr><td>Hosts</td><td>Excel, PowerPoint, Project, Word</td></tr>
-         *
-         * <tr><td>Requirement Sets</td><td>DocumentEvents</td></tr></table>
+         * <table><tr><td>Requirement Sets</td><td>DocumentEvents</td></tr></table>
+         * 
+         * **Support details**
+         * 
+         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this method.
+         * 
+         * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+         * 
+         * *Supported hosts, by platform*
+         *  <table>
+         *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+         *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th> PowerPoint </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th> Word       </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *  </table>
          *
          * @param eventType The event type. For document can be 'Document.SelectionChanged' or 'Document.ActiveViewChanged'.
          * @param options Provides options to determine which event handler or handlers are removed.
@@ -2457,9 +3290,7 @@ declare namespace Office {
          * Writes the specified data into the current selection.
          *
          * @remarks
-         * <table><tr><td>Hosts</td><td>Access, Excel, PowerPoint, Project, Word, Word Online</td></tr>
-         *
-         * <tr><td>Requirement Sets</td><td>Selection</td></tr></table>
+         * <table><tr><td>Requirement Sets</td><td>Selection</td></tr></table>
          * 
          * **Application-specific behaviors**
          * 
@@ -2488,21 +3319,55 @@ declare namespace Office {
          * <tr><td>PowerPoint</td><td>Insert image</td><td>Inserted images are floating. The position imageLeft and imageTop parameters are optional but if provided, both should be present. If a single value is provided, it will be ignored. Negative imageLeft and imageTop values are allowed and can position an image outside of a slide. If no optional parameter is given and slide has a placeholder, the image will replace the placeholder in the slide. Image aspect ratio will be locked unless both imageWidth and imageHeight parameters are provided. If only one of the imageWidth and imageHeight parameter is given, the other value will be automatically scaled to keep the original aspect ratio.</td></tr>
          * </table>
          * 
-         * @param data The data to be set. Either a string or  {@link Office.CoercionType} value, 2d array or TableData object.
+         * The possible values for the {@link Office.CoercionType} parameter vary by the host. 
          * 
-         * The possible CoercionTypes that can be used for the data parameter, or for the coercionType option, vary by host:
-         *
-         * - `Office.CoercionType.Text`: Excel, Word, PowerPoint
-         *
-         * - `Office.CoercionType.Matrix`: Excel, Word
-         *
-         * - `Office.CoercionType.Table`: Access, Excel, Word
-         *
-         * - `Office.CoercionType.Html`: Word
-         *
-         * - `Office.CoercionType.Ooxml`: Word
-         *
-         * - `Office.CoercionType.Image`: Excel, Word, PowerPoint
+         * <table>
+         *   <tr>
+         *     <th>Host</th>
+         *     <th>Supported coercionType</th>
+         *   </tr>
+         *   <tr>
+         *     <td>Excel, Excel Online, PowerPoint, PowerPoint Online, Word, and Word Online</td>
+         *     <td>`Office.CoercionType.Text` (string)</td>
+         *   </tr>
+         *   <tr>
+         *     <td>Excel, Word, and Word Online</td>
+         *     <td>`Office.CoercionType.Matrix` (array of arrays)</td>
+         *   </tr>
+         *   <tr>
+         *     <td>Access, Excel, Word, and Word Online</td>
+         *     <td>`Office.CoercionType.Table` (TableData object)</td>
+         *   </tr>
+         *   <tr>
+         *     <td>Word</td>
+         *     <td>`Office.CoercionType.Html`</td>
+         *   </tr>
+         *   <tr>
+         *     <td>Word and Word Online </td>
+         *     <td>`Office.CoercionType.Ooxml` (Office Open XML)</td>
+         *   </tr>
+         *   <tr>
+         *     <td>PowerPoint and PowerPoint Online</td>
+         *     <td>`Office.CoercionType.SlideRange`</td>
+         *   </tr>
+         * </table>
+         * 
+         * **Support details**
+         * 
+         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this method.
+         * 
+         * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+         * 
+         * *Supported hosts, by platform*
+         *  <table>
+         *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+         *   <tr><th> Access     </th><td> y                          </td><td>                            </td><td>                 </td></tr>
+         *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th> PowerPoint </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th> Word       </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *  </table>
+         * 
+         * @param data The data to be set. Either a string or  {@link Office.CoercionType} value, 2d array or TableData object.
          * 
          * If the value passed for `data` is:
          * 
@@ -2525,6 +3390,20 @@ declare namespace Office {
          * @param fieldId Project level fields.
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * 
+         * @remarks
+         * 
+         * **Support details**
+         * 
+         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this method.
+         * 
+         * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+         * 
+         * *Supported hosts, by platform*
+         *  <table>
+         *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
+         *   <tr><th> Project    </th><td> Y                          </td><td>                           </td></tr>
+         *  </table>
          */
         getProjectFieldAsync(fieldId: number, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
@@ -2533,24 +3412,80 @@ declare namespace Office {
          * @param fieldId Resource Fields.
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * 
+         * @remarks
+         * 
+         * **Support details**
+         * 
+         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this method.
+         * 
+         * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+         * 
+         * *Supported hosts, by platform*
+         *  <table>
+         *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
+         *   <tr><th> Project    </th><td> Y                          </td><td>                           </td></tr>
+         *  </table>
          */
         getResourceFieldAsync(resourceId: string, fieldId: number, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Project documents only. Get the current selected Resource's Id.
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * 
+         * @remarks
+         * 
+         * **Support details**
+         * 
+         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this method.
+         * 
+         * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+         * 
+         * *Supported hosts, by platform*
+         *  <table>
+         *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
+         *   <tr><th> Project    </th><td> Y                          </td><td>                           </td></tr>
+         *  </table>
          */
         getSelectedResourceAsync(options?: Office.AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Project documents only. Get the current selected Task's Id.
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * 
+         * @remarks
+         * 
+         * **Support details**
+         * 
+         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this method.
+         * 
+         * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+         * 
+         * *Supported hosts, by platform*
+         *  <table>
+         *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
+         *   <tr><th> Project    </th><td> Y                          </td><td>                           </td></tr>
+         *  </table>
          */
         getSelectedTaskAsync(options?: Office.AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Project documents only. Get the current selected View Type (Ex. Gantt) and View Name.
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * 
+         * @remarks
+         * 
+         * **Support details**
+         * 
+         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this method.
+         * 
+         * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+         * 
+         * *Supported hosts, by platform*
+         *  <table>
+         *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
+         *   <tr><th> Project    </th><td> Y                          </td><td>                           </td></tr>
+         *  </table>
          */
         getSelectedViewAsync(options?: Office.AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
@@ -2558,6 +3493,20 @@ declare namespace Office {
          * @param taskId Either a string or value of the Task Id.
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * 
+         * @remarks
+         * 
+         * **Support details**
+         * 
+         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this method.
+         * 
+         * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+         * 
+         * *Supported hosts, by platform*
+         *  <table>
+         *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
+         *   <tr><th> Project    </th><td> Y                          </td><td>                           </td></tr>
+         *  </table>
          */
         getTaskAsync(taskId: string, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
@@ -2566,12 +3515,40 @@ declare namespace Office {
          * @param fieldId Task Fields.
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * 
+         * @remarks
+         * 
+         * **Support details**
+         * 
+         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this method.
+         * 
+         * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+         * 
+         * *Supported hosts, by platform*
+         *  <table>
+         *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
+         *   <tr><th> Project    </th><td> Y                          </td><td>                           </td></tr>
+         *  </table>
          */
         getTaskFieldAsync(taskId: string, fieldId: number, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Project documents only. Get the WSS Url and list name for the Tasks List, the MPP is synced too.
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * 
+         * @remarks
+         * 
+         * **Support details**
+         * 
+         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this method.
+         * 
+         * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+         * 
+         * *Supported hosts, by platform*
+         *  <table>
+         *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
+         *   <tr><th> Project    </th><td> Y                          </td><td>                           </td></tr>
+         *  </table>
          */
         getWSSUrlAsync(options?: Office.AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
@@ -2581,6 +3558,20 @@ declare namespace Office {
          * 
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * 
+         * @remarks
+         * 
+         * **Support details**
+         * 
+         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this method.
+         * 
+         * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+         * 
+         * *Supported hosts, by platform*
+         *  <table>
+         *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
+         *   <tr><th> Project    </th><td> Y                          </td><td>                           </td></tr>
+         *  </table>
          */
         getMaxResourceIndexAsync(options?: Office.AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
@@ -2590,6 +3581,20 @@ declare namespace Office {
          * 
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * 
+         * @remarks
+         * 
+         * **Support details**
+         * 
+         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this method.
+         * 
+         * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+         * 
+         * *Supported hosts, by platform*
+         *  <table>
+         *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
+         *   <tr><th> Project    </th><td> Y                          </td><td>                           </td></tr>
+         *  </table>
          */
         getMaxTaskIndexAsync(options?: Office.AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
@@ -2600,6 +3605,20 @@ declare namespace Office {
          * @param resourceIndex The index of the resource in the collection of resources for the project.
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * 
+         * @remarks
+         * 
+         * **Support details**
+         * 
+         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this method.
+         * 
+         * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+         * 
+         * *Supported hosts, by platform*
+         *  <table>
+         *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
+         *   <tr><th> Project    </th><td> Y                          </td><td>                           </td></tr>
+         *  </table>
          */
         getResourceByIndexAsync(resourceIndex: number, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
@@ -2610,6 +3629,20 @@ declare namespace Office {
          * @param taskIndex The index of the task in the collection of tasks for the project.
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * 
+         * @remarks
+         * 
+         * **Support details**
+         * 
+         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this method.
+         * 
+         * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+         * 
+         * *Supported hosts, by platform*
+         *  <table>
+         *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
+         *   <tr><th> Project    </th><td> Y                          </td><td>                           </td></tr>
+         *  </table>
          */
         getTaskByIndexAsync(taskIndex: number, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
@@ -2622,6 +3655,20 @@ declare namespace Office {
          * @param fieldValue Value of the target field.
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * 
+         * @remarks
+         * 
+         * **Support details**
+         * 
+         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this method.
+         * 
+         * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+         * 
+         * *Supported hosts, by platform*
+         *  <table>
+         *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
+         *   <tr><th> Project    </th><td> Y                          </td><td>                           </td></tr>
+         *  </table>
          */
         setResourceFieldAsync(resourceId: string, fieldId: number, fieldValue: string | number | boolean | object, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
@@ -2634,6 +3681,20 @@ declare namespace Office {
          * @param fieldValue Value of the target field.
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
+         * 
+         * @remarks
+         * 
+         * **Support details**
+         * 
+         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this method.
+         * 
+         * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+         * 
+         * *Supported hosts, by platform*
+         *  <table>
+         *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
+         *   <tr><th> Project    </th><td> Y                          </td><td>                           </td></tr>
+         *  </table>
          */
         setTaskFieldAsync(taskId: string, fieldId: number, fieldValue: string | number | boolean | object, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
     }
@@ -2654,24 +3715,31 @@ declare namespace Office {
      * Represents the document file associated with an Office Add-in.
      *
      * @remarks
-     * <table><tr><td>Hosts</td><td>PowerPoint, Word</td></tr></table>
-     * 
      * Access the File object with the AsyncResult.value property in the callback function passed to the Document.getFileAsync method.
+     * 
+     * **Support details**
+     * 
+     * A capital Y in the following matrix indicates that this interface is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this interface.
+     * 
+     * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+     * 
+     * *Supported hosts, by platform*
+     *  <table>
+     *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+     *   <tr><th> PowerPoint </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+     *   <tr><th> Word       </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+     *  </table>
      */
     interface File {
         /**
          * Gets the document file size in bytes.
          *
          * @remarks
-         * <table><tr><td>Hosts</td><td>PowerPoint, Word</td></tr>
-         *
-         * <tr><td>Requirement Sets</td><td>File</td></tr></table>
+         * <table><tr><td>Requirement Sets</td><td>File</td></tr></table>
          */
         size: number;
         /**
          * Gets the number of slices into which the file is divided.
-         * @remarks
-         * <table><tr><td>Hosts</td><td>PowerPoint, Word</td></tr></table>
          */
         sliceCount: number;
         /**
@@ -2679,9 +3747,7 @@ declare namespace Office {
          * 
          * @remarks
          * 
-         * <table><tr><td>Hosts</td><td>PowerPoint, Word</td></tr>
-         * 
-         * <tr><td>Requirement Sets</td><td>File</td></tr></table>
+         * <table><tr><td>Requirement Sets</td><td>File</td></tr></table>
          * 
          * No more than two documents are allowed to be in memory; otherwise the Document.getFileAsync operation will fail. Use the File.closeAsync method to close the file when you are finished working with it.
          * 
@@ -2717,9 +3783,7 @@ declare namespace Office {
          * Returns the specified slice.
          * 
          * @remarks
-         * <table><tr><td>Hosts</td><td>PowerPoint, Word</td></tr>
-         * 
-         * <tr><td>Requirement Sets</td><td>File</td></tr></table>
+         * <table><tr><td>Requirement Sets</td><td>File</td></tr></table>
          * 
          * In the callback function passed to the getSliceAsync method, you can use the properties of the AsyncResult object to return the following information.
          * 
@@ -2761,11 +3825,22 @@ declare namespace Office {
      * Represents a binding in two dimensions of rows and columns.
      *
      * @remarks
-     * <table><tr><td>Hosts</td><td>Excel, Word</td></tr>
-     *
-     * <tr><td>Requirement Sets</td><td>MatrixBindings</td></tr></table>
+     * <table><tr><td>Requirement Sets</td><td>MatrixBindings</td></tr></table>
      *
      * The MatrixBinding object inherits the id property, type property, getDataAsync method, and setDataAsync method from the Binding object.
+     * 
+     * **Support details**
+     * 
+     * A capital Y in the following matrix indicates that this interface is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this interface.
+     * 
+     * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+     * 
+     * *Supported hosts, by platform*
+     *  <table>
+     *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+     *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+     *   <tr><th> Word       </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+     *  </table>
      */
     interface MatrixBinding extends Binding {
         /**
@@ -2811,9 +3886,7 @@ declare namespace Office {
          *
          * @remarks
          *
-         * <table><tr><td>Hosts</td><td>Excel</td></tr>
-         *
-         * <tr><td>Requirement Sets</td><td>Settings</td></tr></table>
+         * <table><tr><td>Requirement Sets</td><td>Settings</td></tr></table>
          * 
          * You can add multiple event handlers for the specified eventType as long as the name of each event handler function is unique.
          *
@@ -2844,15 +3917,40 @@ declare namespace Office {
          *     <td>A user-defined item of any type that is returned in the AsyncResult object without being altered.</td>
          *   </tr>
          * </table>
+         * 
+         * **Support details**
+         * 
+         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this method.
+         * 
+         * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+         * 
+         * *Supported hosts, by platform*
+         *  <table>
+         *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+         *   <tr><th> Excel      </th><td>                            </td><td> Y                          </td><td>                 </td></tr>
+         *  </table>
          */
         addHandlerAsync(eventType: Office.EventType, handler: any, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Retrieves the specified setting.
          *
          * @remarks
-         * <table><tr><td>Hosts</td><td>Access, Excel, PowerPoint, Word</td></tr>
-         *
-         * <tr><td>Requirement Sets</td><td>Settings</td></tr></table>
+         * <table><tr><td>Requirement Sets</td><td>Settings</td></tr></table>
+         * 
+         * **Support details**
+         * 
+         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this method.
+         * 
+         * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+         * 
+         * *Supported hosts, by platform*
+         *  <table>
+         *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+         *   <tr><th> Access     </th><td>                            </td><td> Y                          </td><td>                 </td></tr>
+         *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th> PowerPoint </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th> Word       </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *  </table>
          *
          * @param settingName The case-sensitive name of the setting to retrieve.
          * @returns An object that has property names mapped to JSON serialized values.
@@ -2863,16 +3961,12 @@ declare namespace Office {
          *
          * @remarks
          * 
-         * <table><tr><td>Hosts</td><td>Access, Excel, PowerPoint, Word</td></tr>
-         *
-         * <tr><td>Requirement Sets</td><td>Settings</td></tr></table>
+         * <table><tr><td>Requirement Sets</td><td>Settings</td></tr></table>
          * 
-         * This method is useful in Word and PowerPoint coauthoring scenarios when multiple instances of the same add-in are working against the same document. 
+         * This method is useful in Excel, Word, and PowerPoint coauthoring scenarios when multiple instances of the same add-in are working against the same document. 
          * Because each add-in is working against an in-memory copy of the settings loaded from the document at the time the user opened it, the settings values used by each user can get out of sync. 
          * This can happen whenever an instance of the add-in calls the Settings.saveAsync method to persist all of that user's settings to the document. 
          * Calling the refreshAsync method from the event handler for the settingsChanged event of the add-in will refresh the settings values for all users.
-         * 
-         * The refreshAsync method can be called from add-ins created for Excel, but since it doesn't support coauthoring there is no reason to do so.
          *
          * In the callback function passed to the refreshAsync method, you can use the properties of the AsyncResult object to return the following information.
          * 
@@ -2898,6 +3992,21 @@ declare namespace Office {
          *     <td>A user-defined item of any type that is returned in the AsyncResult object without being altered.</td>
          *   </tr>
          * </table>
+         * 
+         * **Support details**
+         * 
+         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this method.
+         * 
+         * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+         * 
+         * *Supported hosts, by platform*
+         *  <table>
+         *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+         *   <tr><th> Access     </th><td>                            </td><td> Y                          </td><td>                 </td></tr>
+         *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th> PowerPoint </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th> Word       </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *  </table>
          *
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult. When the function you passed to the callback parameter executes, it receives an AsyncResult object that you can access from the callback function's only parameter.
          */
@@ -2908,11 +4017,24 @@ declare namespace Office {
          * Important: Be aware that the Settings.remove method affects only the in-memory copy of the settings property bag. To persist the removal of the specified setting in the document, at some point after calling the Settings.remove method and before the add-in is closed, you must call the Settings.saveAsync method.
          *
          * @remarks
-         * <table><tr><td>Hosts</td><td>Access, Excel, PowerPoint, Word</td></tr>
-         *
-         * <tr><td>Requirement Sets</td><td>Settings</td></tr></table>
+         * <table><tr><td>Requirement Sets</td><td>Settings</td></tr></table>
          * 
          * null is a valid value for a setting. Therefore, assigning null to the setting will not remove it from the settings property bag.
+         * 
+         * **Support details**
+         * 
+         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this method.
+         * 
+         * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+         * 
+         * *Supported hosts, by platform*
+         *  <table>
+         *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+         *   <tr><th> Access     </th><td>                            </td><td> Y                          </td><td>                 </td></tr>
+         *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th> PowerPoint </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th> Word       </th><td> Y                          </td><td>                            </td><td> Y               </td></tr>
+         *  </table>
          *
          * @param settingName The case-sensitive name of the setting to remove.
          */
@@ -2921,31 +4043,43 @@ declare namespace Office {
          * Removes an event handler for the settingsChanged event.
          *
          * @remarks
+         *
+         * <table><tr><td>Requirement Sets</td><td>Settings</td></tr></table>
+         * 
          * If the optional handler parameter is omitted when calling the removeHandlerAsync method, all event handlers for the specified eventType will be removed.
-         *
-         * <table><tr><td>Hosts</td><td>Access, Excel, PowerPoint</td></tr>
-         *
-         * <tr><td>Requirement Sets</td><td>Settings</td></tr></table>
+         * 
+         * When the function you passed to the callback parameter executes, it receives an AsyncResult object that you can access from the callback function's only parameter.
+         * 
+         * In the callback function passed to the removeHandlerAsync method, you can use the properties of the AsyncResult object to return the following information.
+         * 
+         * **Support details**
+         * 
+         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this method.
+         * 
+         * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+         * 
+         * *Supported hosts, by platform*
+         *  <table>
+         *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+         *   <tr><th> Access     </th><td>                            </td><td> Y                          </td><td>                 </td></tr>
+         *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th> PowerPoint </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *  </table>
          *
          * @param eventType Specifies the type of event to remove. Required.
          * @param options Provides options to determine which event handler or handlers are removed.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
-         * @remarks
-         * When the function you passed to the callback parameter executes, it receives an AsyncResult object that you can access from the callback function's only parameter.
-         * In the callback function passed to the removeHandlerAsync method, you can use the properties of the AsyncResult object to return the following information.
          */
         removeHandlerAsync(eventType: Office.EventType, options?: RemoveHandlerOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Persists the in-memory copy of the settings property bag in the document.
          * 
-         * @remarks 
-         * <table><tr><td>Hosts</td><td>Access, Excel, PowerPoint, Word</td></tr></table>
-         * 
+         * @remarks
          * Any settings previously saved by an add-in are loaded when it is initialized, so during the lifetime of the session you can just use the set and get methods to work with the in-memory copy of the settings property bag. 
          * When you want to persist the settings so that they are available the next time the add-in is used, use the saveAsync method.
          *
-         * Note: The saveAsync method persists the in-memory settings property bag into the document file; however, the changes to the document file itself are saved only when the user (or AutoRecover setting) saves the document to the file system. 
-         * The refreshAsync method is only useful in coauthoring scenarios (which are only supported in Word) when other instances of the same add-in might change the settings and those changes should be made available to all instances.
+         * Note: The saveAsync method persists the in-memory settings property bag into the document file. However, the changes to the document file itself are saved only when the user (or AutoRecover setting) saves the document to the file system. 
+         * The refreshAsync method is only useful in coauthoring scenarios when other instances of the same add-in might change the settings and those changes should be made available to all instances.
          * 
          * <table>
          *   <tr>
@@ -2970,6 +4104,21 @@ declare namespace Office {
          *   </tr>
          * </table>
          * 
+         * **Support details**
+         * 
+         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this method.
+         * 
+         * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+         * 
+         * *Supported hosts, by platform*
+         *  <table>
+         *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+         *   <tr><th> Access     </th><td>                            </td><td> Y                          </td><td>                 </td></tr>
+         *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th> PowerPoint </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th> Word       </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *  </table>
+         * 
          * @param options Provides options for saving settings.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult. When the function you passed to the callback parameter executes, it receives an AsyncResult object that you can access from the callback function's only parameter to return the following information.
          */
@@ -2981,12 +4130,26 @@ declare namespace Office {
          * To make sure that additions or changes to settings will be available to your add-in the next time the document is opened, at some point after calling the Settings.set method and before the add-in is closed, you must call the Settings.saveAsync method to persist settings in the document.
          *
          * @remarks
-         * <table><tr><td>Hosts</td><td>Access, Excel, PowerPoint, Word</td></tr>
-         *
-         * <tr><td>Requirement Sets</td><td>Settings</td></tr></table>
+         * <table><tr><td>Requirement Sets</td><td>Settings</td></tr></table>
          * 
          * The set method creates a new setting of the specified name if it does not already exist, or sets an existing setting of the specified name in the in-memory copy of the settings property bag. 
          * After you call the Settings.saveAsync method, the value is stored in the document as the serialized JSON representation of its data type. A maximum of 2MB is available for the settings of each add-in.
+         * 
+         * **Support details**
+         * 
+         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this method.
+         * 
+         * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+         * 
+         * *Supported hosts, by platform*
+         *  <table>
+         *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+         *   <tr><th> Access     </th><td>                            </td><td> Y                          </td><td>                 </td></tr>
+         *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th> PowerPoint </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th> Word       </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *  </table>
+         * 
          * @param settingName The case-sensitive name of the setting to set or create.
          * @param value Specifies the value to be stored.
          */
@@ -2996,84 +4159,97 @@ declare namespace Office {
      * Represents a slice of a document file.
      *
      * @remarks
-     * <table><tr><td>Hosts</td><td>PowerPoint, Word</td></tr>
-     *
-     * <tr><td>Requirement Sets</td><td>File</td></tr></table>
+     * <table><tr><td>Requirement Sets</td><td>File</td></tr></table>
      * 
      * The Slice object is accessed with the File.getSliceAsync method.
+     * 
+     * **Support details**
+     * 
+     * A capital Y in the following matrix indicates that this interface is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this interface.
+     * 
+     * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+     * 
+     * *Supported hosts, by platform*
+     *  <table>
+     *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+     *   <tr><th> PowerPoint </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+     *   <tr><th> Word       </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+     *  </table>
      */
     interface Slice {
         /**
          * Gets the raw data of the file slice in `Office.FileType.Text` ("text") or `Office.FileType.Compressed` ("compressed") format as specified by the fileType parameter of the call to the Document.getFileAsync method.
          *
          * @remarks
-         * <table><tr><td>Hosts</td><td>PowerPoint, Word</td></tr>
-         *
-         * <tr><td>Requirement Sets</td><td>File</td></tr></table>
          * 
          * Files in the "compressed" format will return a byte array that can be transformed to a base64-encoded string if required.
          */
         data: any;
         /**
          * Gets the zero-based index of the file slice.
-         *
-         * @remarks
-         * <table><tr><td>Hosts</td><td>PowerPoint, Word</td></tr>
-         *
-         * <tr><td>Requirement Sets</td><td>File</td></tr></table>
          */
         index: number;
         /**
          * Gets the size of the slice in bytes.
-         *
-         * @remarks
-         * <table><tr><td>Hosts</td><td>PowerPoint, Word</td></tr>
-         *
-         * <tr><td>Requirement Sets</td><td>File</td></tr></table>
          */
         size: number;
     }
     /**
-    * Represents a binding in two dimensions of rows and columns, optionally with headers.
-    *
-    * @remarks
-    * <table><tr><td>Hosts</td><td>Access, Excel, PowerPoint, Project, Word</td></tr>
-    *
-    * <tr><td>Requirement Sets</td><td>TableBindings</td></tr></table>
-    *
-    * The TableBinding object inherits the id property, type property, getDataAsync method, and setDataAsync method from the Binding object.
-    *
-    * For Excel, note that after you establish a table binding in Excel, each new row a user adds to the table is automatically included in the binding and rowCount increases.
-    */
+     * Represents a binding in two dimensions of rows and columns, optionally with headers.
+     *
+     * @remarks
+     * <table><tr><td>Requirement Sets</td><td>TableBindings</td></tr></table>
+     *
+     * The TableBinding object inherits the id property, type property, getDataAsync method, and setDataAsync method from the Binding object.
+     *
+     * For Excel, note that after you establish a table binding in Excel, each new row a user adds to the table is automatically included in the binding and rowCount increases.
+     */
     interface TableBinding extends Binding {
         /**
         * Gets the number of columns in the TableBinding, as an integer value.
         *
         * @remarks
-        * <table><tr><td>Hosts</td><td>Access, Excel,Word</td></tr>
-        *
-        * <tr><td>Requirement Sets</td><td>TableBindings</td></tr></table>
+        * 
+        * **Support details**
+        * 
+        * A capital Y in the following matrix indicates that this property is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this property.
+        * 
+        * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+        * 
+        * *Supported hosts, by platform*
+        *  <table>
+        *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+        *   <tr><th> Access     </th><td>                            </td><td> Y                          </td><td>                 </td></tr>
+        *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+        *   <tr><th> Word       </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+        *  </table>
         */
         columnCount: number;
         /**
         * True, if the table has headers; otherwise false.
         *
         * @remarks
-        * <table><tr><td>Hosts</td><td>Access, Excel, PowerPoint, Project, Word</td></tr>
-        *
-        * <tr><td>Requirement Sets</td><td>TableBindings</td></tr></table>
+        * 
+        * **Support details**
+        * 
+        * A capital Y in the following matrix indicates that this property is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this property.
+        * 
+        * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+        * 
+        * *Supported hosts, by platform*
+        *  <table>
+        *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+        *   <tr><th> Access     </th><td>                            </td><td> Y                          </td><td>                 </td></tr>
+        *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+        *   <tr><th> Word       </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+        *  </table>
         */
         hasHeaders: boolean;
          /**
         * Gets the number of rows in the TableBinding, as an integer value.
         *
         * @remarks
-        * <table><tr><td>Hosts</td><td>Access, Excel,Word</td></tr>
-        *
-        * <tr><td>Requirement Sets</td><td>TableBindings</td></tr></table>
-        *
         * When you insert an empty table by selecting a single row in Excel 2013 and Excel Online (using Table on the Insert tab), both Office host applications create a single row of headers followed by a single blank row. However, if your add-in's script creates a binding for this newly inserted table (for example, by using the addFromSelectionAsync method), and then checks the value of the rowCount property, the value returned will differ depending whether the spreadsheet is open in Excel 2013 or Excel Online.
-
         * - In Excel on the desktop, rowCount will return 0 (the blank row following the headers is not counted).
         *
         * - In Excel Online, rowCount will return 1 (the blank row following the headers is counted).
@@ -3081,15 +4257,26 @@ declare namespace Office {
         * You can work around this difference in your script by checking if rowCount == 1, and if so, then checking if the row contains all empty strings.
         *
         * In content add-ins for Access, for performance reasons the rowCount property always returns -1.
+        * 
+        * **Support details**
+        * 
+        * A capital Y in the following matrix indicates that this property is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this property.
+        * 
+        * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+        * 
+        * *Supported hosts, by platform*
+        *  <table>
+        *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+        *   <tr><th> Access     </th><td>                            </td><td> Y                          </td><td>                 </td></tr>
+        *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+        *   <tr><th> Word       </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+        *  </table>
         */
         rowCount: number;
         /**
          * Adds the specified data to the table as additional columns.
          *
          * @remarks
-         * <table><tr><td>Hosts</td><td>Excel, Word</td></tr>
-         *
-         * <tr><td>Requirement Sets</td><td>TableBindings</td></tr></table>
          *
          * To add one or more columns specifying the values of the data and headers, pass a TableData object as the data parameter. To add one or more columns specifying only the data, pass an array of arrays ("matrix") as the data parameter.
          *
@@ -3102,6 +4289,19 @@ declare namespace Office {
          *  - If you pass a TableData object as the data argument, the number of header rows must match that of the table being updated.
          *
          * Additional remark for Excel Online: The total number of cells in the TableData object passed to the data parameter can't exceed 20,000 in a single call to this method.
+         * 
+         * **Support details**
+         * 
+         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this method.
+        * 
+         * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+         * 
+         * *Supported hosts, by platform*
+         *  <table>
+         *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+         *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th> Word       </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *  </table>
          *
          * @param tableData An array of arrays ("matrix") or a TableData object that contains one or more columns of data to add to the table. Required.
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
@@ -3112,9 +4312,6 @@ declare namespace Office {
          * Adds the specified data to the table as additional rows.
          *
          * @remarks
-         * <table><tr><td>Hosts</td><td>Access, Excel, Word</td></tr>
-         *
-         * <tr><td>Requirement Sets</td><td>TableBindings</td></tr></table>
          *
          * To add one or more columns specifying the values of the data and headers, pass a TableData object as the data parameter. To add one or more columns specifying only the data, pass an array of arrays ("matrix") as the data parameter.
          *
@@ -3127,6 +4324,20 @@ declare namespace Office {
          *  - If you pass a TableData object as the data argument, the number of header rows must match that of the table being updated.
          *
          * Additional remark for Excel Online: The total number of cells in the TableData object passed to the data parameter can't exceed 20,000 in a single call to this method.
+         * 
+         * **Support details**
+         * 
+         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this method.
+         * 
+         * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+         * 
+         * *Supported hosts, by platform*
+         *  <table>
+         *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+         *   <tr><th> Access     </th><td>                            </td><td> Y                          </td><td>                 </td></tr>
+         *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th> Word       </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *  </table>
          *
          * @param rows An array of arrays ("matrix") or a TableData object that contains one or more rows of data to add to the table. Required.
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
@@ -3137,11 +4348,22 @@ declare namespace Office {
          * Deletes all non-header rows and their values in the table, shifting appropriately for the host application.
          *
          * @remarks
-         * <table><tr><td>Hosts</td><td>Access, Excel, Word</td></tr>
-         *
-         * <tr><td>Requirement Sets</td><td>TableBindings</td></tr></table>
          *
          * In Excel, if the table has no header row, this method will delete the table itself.
+         * 
+         * **Support details**
+         * 
+         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this method.
+         * 
+         * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+         * 
+         * *Supported hosts, by platform*
+         *  <table>
+         *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+         *   <tr><th> Access     </th><td>                            </td><td> Y                          </td><td>                 </td></tr>
+         *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th> Word       </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *  </table>
          *
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
@@ -3151,11 +4373,19 @@ declare namespace Office {
          * Clears formatting on the bound table.
          *
          * @remarks
-         * <table><tr><td>Hosts</td><td>Excel</td></tr>
-         *
-         * <tr><td>Requirement Sets</td><td>Not in a set</td></tr></table>
-         *
          * See {@link https://docs.microsoft.com/en-us/office/dev/add-ins/excel/excel-add-ins-tables#format-a-table | Format tables in add-ins for Excel} for more information.
+         * 
+         * **Support details**
+         * 
+         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this method.
+         * 
+         * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+         * 
+         * *Supported hosts, by platform*
+         *  <table>
+         *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+         *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *  </table>
          *
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type AsyncResult.
@@ -3173,9 +4403,6 @@ declare namespace Office {
          * Sets formatting on specified items and data in the table.
          *
          * @remarks
-         * <table><tr><td>Hosts</td><td>Excel</td></tr>
-         *
-         * <tr><td>Requirement Sets</td><td>Not in a set</td></tr></table>
          * 
          * **Specifying the cellFormat parameter**
          * 
@@ -3284,6 +4511,18 @@ declare namespace Office {
          *     <td>A user-defined item of any type that is returned in the AsyncResult object without being altered.</td>
          *   </tr>
          * </table>
+         * 
+         * **Support details**
+         * 
+         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this method.
+         * 
+         * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+         * 
+         * *Supported hosts, by platform*
+         *  <table>
+         *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+         *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *  </table>
          *
          * @param cellFormat An array that contains one or more JavaScript objects that specify which cells to target and the formatting to apply to them.
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
@@ -3322,6 +4561,18 @@ declare namespace Office {
          *     <td>A user-defined item of any type that is returned in the AsyncResult object without being altered.</td>
          *   </tr>
          * </table>
+         * 
+         * **Support details**
+         * 
+         * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this method.
+         * 
+         * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+         * 
+         * *Supported hosts, by platform*
+         *  <table>
+         *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+         *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *  </table>
          *
          * @param tableOptions An object literal containing a list of property name-value pairs that define the table options to apply.
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
@@ -3378,10 +4629,21 @@ declare namespace Office {
         rows: any[][];
     }
     /**
-     * Specifies enumerated values for the cells: property in the cellFormat parameter of {@link https://docs.microsoft.com/en-us/office/dev/add-ins/excel/excel-add-ins-tables#format-a-table | table formatting methods}.
+     * Specifies enumerated values for the `cells` property in the cellFormat parameter of {@link https://docs.microsoft.com/en-us/office/dev/add-ins/excel/excel-add-ins-tables#format-a-table | table formatting methods}.
      *
      * @remarks
-     * <table><tr><td>Hosts</td><td>Excel</td></tr></table>
+     * 
+     * **Support details**
+     * 
+     * A capital Y in the following matrix indicates that this enumeration is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this enumeration.
+     * 
+     * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+     * 
+     * *Supported hosts, by platform*
+     *  <table>
+     *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+     *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+     *  </table>
      */
     enum Table {
         /**
@@ -3398,23 +4660,45 @@ declare namespace Office {
         Headers
     }
     /**
-    * Represents a bound text selection in the document.
-    *
-    * @remarks
-    * <table><tr><td>Hosts</td><td>Access, Excel, PowerPoint, Project, Word</td></tr>
-    *
-    * <tr><td>Requirement Sets</td><td>TextBindings</td></tr></table>
-    *
-    * The TextBinding object inherits the id property, type property, getDataAsync method, and setDataAsync method from the {@link Office.Binding} object. It does not implement any additional properties or methods of its own.
-    */
-    interface TextBinding extends Binding { }
-    /**
-     * Specifies the project fields that are available as a parameter for the getProjectFieldAsync method.
+     * Represents a bound text selection in the document.
      *
      * @remarks
-     * <table><tr><td>Hosts</td><td>Project</td></tr></table>
+     * <table><tr><td>Requirement Sets</td><td>TextBindings</td></tr></table>
+     *
+     * The TextBinding object inherits the id property, type property, getDataAsync method, and setDataAsync method from the {@link Office.Binding} object. It does not implement any additional properties or methods of its own.
      * 
-     * A ProjectProjectFields constant can be used as a parameter of the getProjectFieldAsync method.
+     * **Support details**
+     * 
+     * A capital Y in the following matrix indicates that this interface is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this interface.
+     * 
+     * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+     * 
+     * *Supported hosts, by platform*
+     *  <table>
+     *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+     *   <tr><th> Excel      </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+     *   <tr><th> Word       </th><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+     *  </table>
+     */
+    interface TextBinding extends Binding { }
+    /**
+     * Specifies the project fields that are available as a parameter for the {@link Office.Document | Document}.getProjectFieldAsync method.
+     *
+     * @remarks
+     * 
+     * A ProjectProjectFields constant can be used as a parameter of the {@link Office.Document | Document}.getProjectFieldAsync method.
+     * 
+     * **Support details**
+     * 
+     * A capital Y in the following matrix indicates that this enumeration is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this enumeration.
+     * 
+     * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+     * 
+     * *Supported hosts, by platform*
+     *  <table>
+     *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th></tr>
+     *   <tr><th> Project    </th><td> Y                          </td><td>                            </td></tr>
+     *  </table>
      */
     enum ProjectProjectFields {
         /**
@@ -3468,12 +4752,24 @@ declare namespace Office {
         WSSList
     }
     /**
-     * Specifies the resource fields that are available as a parameter for the getResourceFieldAsync method.
+     * Specifies the resource fields that are available as a parameter for the {@link Office.Document | Document}.getResourceFieldAsync method.
      *
      * @remarks
-     * A ProjectResourceFields constant can be used as a parameter of the getResourceFieldAsync method.
+     * A ProjectResourceFields constant can be used as a parameter of the {@link Office.Document | Document}.getResourceFieldAsync method.
      *
      * For more information about working with fields in Project, see {@link https://support.office.com/article/Available-fields-reference-615a4563-1cc3-40f4-b66f-1b17e793a460 | Available fields} reference. In Project Help, search for Available fields.
+     * 
+     * **Support details**
+     * 
+     * A capital Y in the following matrix indicates that this enumeration is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this enumeration.
+     * 
+     * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+     * 
+     * *Supported hosts, by platform*
+     *  <table>
+     *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th></tr>
+     *   <tr><th> Project    </th><td> Y                          </td><td>                            </td></tr>
+     *  </table>
      */
     enum ProjectResourceFields {
         /**
@@ -4278,14 +5574,24 @@ declare namespace Office {
         Text9
     }
     /**
-     * Specifies the task fields that are available as a parameter for the getTaskFieldAsync method.
+     * Specifies the task fields that are available as a parameter for the {@link Office.Document | Document}.getTaskFieldAsync method.
      *
      * @remarks
-     * A ProjectTaskFields constant can be used as a parameter of the getTaskFieldAsync method.
+     * A ProjectTaskFields constant can be used as a parameter of the {@link Office.Document | Document}.getTaskFieldAsync method.
      *
      * For more information about working with fields in Project, see the {@link https://support.office.com/article/Available-fields-reference-615a4563-1cc3-40f4-b66f-1b17e793a460 | Available fields} reference. In Project Help, search for Available fields.
-     *
-     * <table><tr><td>Hosts</td><td>Project</td></tr></table>
+     * 
+     * **Support details**
+     * 
+     * A capital Y in the following matrix indicates that this enumeration is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this enumeration.
+     * 
+     * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+     * 
+     * *Supported hosts, by platform*
+     *  <table>
+     *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th></tr>
+     *   <tr><th> Project    </th><td> Y                          </td><td>                            </td></tr>
+     *  </table>
      */
     enum ProjectTaskFields {
         /**
@@ -5416,12 +6722,22 @@ declare namespace Office {
         WSSID
     }
     /**
-     * Specifies the types of views that the getSelectedViewAsync method can recognize.
+     * Specifies the types of views that the {@link Office.Document | Document}.getSelectedViewAsync method can recognize.
      *
      * @remarks
-     * <table><tr><td>Hosts</td><td>Project</td></tr></table>
+     * The {@link Office.Document | Document}.getSelectedViewAsync method returns the ProjectViewTypes constant value and name that corresponds to the active view.
      * 
-     * The getSelectedViewAsync method returns the ProjectViewTypes constant value and name that corresponds to the active view.
+     * **Support details**
+     * 
+     * A capital Y in the following matrix indicates that this enumeration is supported in the corresponding Office host application. An empty cell indicates that the Office host application doesn't support this enumeration.
+     * 
+     * For more information about Office host application and server requirements, see {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+     * 
+     * *Supported hosts, by platform*
+     *  <table>
+     *   <tr><th>            </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th></tr>
+     *   <tr><th> Project    </th><td> Y                          </td><td>                            </td></tr>
+     *  </table>
      */
     enum ProjectViewTypes {
         /**
@@ -5729,6 +7045,23 @@ declare namespace Office {
              * December
              */
             Dec = "dec"
+        }
+        /**
+         * Represents the current view of Outlook Web App.
+         */
+        enum OWAView {
+            /**
+             * One column view. Displayed when the screen is narrow. Outlook Web App uses this single-column layout on the entire screen of a smartphone.
+             */
+            OneColumn = "OneColumn",
+            /**
+             * Two column view. Displayed when the screen is wider. Outlook Web App uses this view on most tablets.
+             */
+            TwoColumns = "TwoColumns",
+            /**
+             Three column view. Displayed when the screen is wide. For example, Outlook Web App uses this view in a full screen window on a desktop computer.
+             */
+            ThreeColumns = "ThreeColumns"
         }
         /**
          * Specifies the type of recipient for an appointment.
@@ -7165,7 +8498,7 @@ declare namespace Office {
          *
          * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or read</td></tr></table>
          */
-        OWAView: "string";
+        OWAView: MailboxEnums.OWAView | "OneColumn" | "TwoColumns" | "ThreeColumns";
     }
     /**
      * Provides the email properties of the sender or specified recipients of an email message or appointment.
@@ -7804,7 +9137,9 @@ declare namespace Office {
          *
          * @param options Optional. An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type AsyncResult. On success, the initialization data is provided in the asyncResult.value property as a string. If there is no initialization context, the asyncResult object will contain an Error object with its code property set to 9020 and its name property set to GenericResponseError.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type AsyncResult. 
+         * On success, the initialization data is provided in the asyncResult.value property as a string. 
+         * If there is no initialization context, the asyncResult object will contain an Error object with its code property set to 9020 and its name property set to GenericResponseError.
          *
          * @beta
          */
@@ -8623,7 +9958,9 @@ declare namespace Office {
          * 
          * @param options Optional. An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object. On success, the initialization data is provided in the asyncResult.value property as a string. If there is no initialization context, the asyncResult object will contain an Error object with its code property set to 9020 and its name property set to GenericResponseError.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object. 
+         * On success, the initialization data is provided in the asyncResult.value property as a string. 
+         * If there is no initialization context, the asyncResult object will contain an Error object with its code property set to 9020 and its name property set to GenericResponseError.
          *
          * @beta
          */
@@ -8641,13 +9978,15 @@ declare namespace Office {
          *
          * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Appointment Attendee</td></tr></table>
          * 
-         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object. On success, the initialization data is provided in the asyncResult.value property as a string. If there is no initialization context, the asyncResult object will contain an Error object with its code property set to 9020 and its name property set to GenericResponseError.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object. 
+         * On success, the initialization data is provided in the asyncResult.value property as a string. 
+         * If there is no initialization context, the asyncResult object will contain an Error object with its code property set to 9020 and its name property set to GenericResponseError.
          *
          * @beta
          */
         getInitializationContextAsync(callback?: (result: AsyncResult) => void): void;
         /**
-         * Gets the entities found in the selected item.
+         * Gets the entities found in the selected item's body.
          *
          * Note: This method is not supported in Outlook for iOS or Outlook for Android.
          *
@@ -8661,7 +10000,7 @@ declare namespace Office {
          */
         getEntities(): Entities;
         /**
-         * Gets an array of all the entities of the specified entity type found in the selected item.
+         * Gets an array of all the entities of the specified entity type found in the selected item's body.
          *
          * Note: This method is not supported in Outlook for iOS or Outlook for Android.
          *
@@ -8670,7 +10009,7 @@ declare namespace Office {
          * @param entityType One of the EntityType enumeration values.
          *
          * @returns
-         * If the value passed in entityType is not a valid member of the EntityType enumeration, the method returns null. If no entities of the specified type are present on the item, the method returns an empty array. Otherwise, the type of the objects in the returned array depends on the type of entity requested in the entityType parameter.
+         * If the value passed in entityType is not a valid member of the EntityType enumeration, the method returns null. If no entities of the specified type are present in the item's body, the method returns an empty array. Otherwise, the type of the objects in the returned array depends on the type of entity requested in the entityType parameter.
          *
          * @remarks
          * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>Restricted</td></tr>
@@ -9382,7 +10721,9 @@ declare namespace Office {
          *
          * @param options Optional. An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type AsyncResult. On success, the initialization data is provided in the asyncResult.value property as a string. If there is no initialization context, the asyncResult object will contain an Error object with its code property set to 9020 and its name property set to GenericResponseError.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type AsyncResult. 
+         * On success, the initialization data is provided in the asyncResult.value property as a string. 
+         * If there is no initialization context, the asyncResult object will contain an Error object with its code property set to 9020 and its name property set to GenericResponseError.
          *
          * @beta
          */
@@ -9898,7 +11239,9 @@ declare namespace Office {
          * 
          * @param options Optional. An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object. On success, the initialization data is provided in the asyncResult.value property as a string. If there is no initialization context, the asyncResult object will contain an Error object with its code property set to 9020 and its name property set to GenericResponseError.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object. 
+         * On success, the initialization data is provided in the asyncResult.value property as a string. 
+         * If there is no initialization context, the asyncResult object will contain an Error object with its code property set to 9020 and its name property set to GenericResponseError.
          *
          * @beta
          */
@@ -9916,13 +11259,15 @@ declare namespace Office {
          *
          * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Read</td></tr></table>
          * 
-         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object. On success, the initialization data is provided in the asyncResult.value property as a string. If there is no initialization context, the asyncResult object will contain an Error object with its code property set to 9020 and its name property set to GenericResponseError.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object. 
+         * On success, the initialization data is provided in the asyncResult.value property as a string. 
+         * If there is no initialization context, the asyncResult object will contain an Error object with its code property set to 9020 and its name property set to GenericResponseError.
          *
          * @beta
          */
         getInitializationContextAsync(callback?: (result: AsyncResult) => void): void;
         /**
-         * Gets the entities found in the selected item.
+         * Gets the entities found in the selected item's body.
          *
          * Note: This method is not supported in Outlook for iOS or Outlook for Android.
          *
@@ -9936,7 +11281,7 @@ declare namespace Office {
          */
         getEntities(): Entities;
         /**
-         * Gets an array of all the entities of the specified entity type found in the selected item.
+         * Gets an array of all the entities of the specified entity type found in the selected item's body.
          *
          * Note: This method is not supported in Outlook for iOS or Outlook for Android.
          *
@@ -9945,7 +11290,7 @@ declare namespace Office {
          * @param entityType One of the EntityType enumeration values.
          *
          * @returns
-         * If the value passed in entityType is not a valid member of the EntityType enumeration, the method returns null. If no entities of the specified type are present on the item, the method returns an empty array. Otherwise, the type of the objects in the returned array depends on the type of entity requested in the entityType parameter.
+         * If the value passed in entityType is not a valid member of the EntityType enumeration, the method returns null. If no entities of the specified type are present in the item's body, the method returns an empty array. Otherwise, the type of the objects in the returned array depends on the type of entity requested in the entityType parameter.
          *
          * @remarks
          * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>Restricted</td></tr>
@@ -10603,7 +11948,9 @@ declare namespace Office {
          *
          * @param options Optional. An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type AsyncResult. On success, the initialization data is provided in the asyncResult.value property as a string. If there is no initialization context, the asyncResult object will contain an Error object with its code property set to 9020 and its name property set to GenericResponseError.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type AsyncResult. 
+         * On success, the initialization data is provided in the asyncResult.value property as a string. 
+         * If there is no initialization context, the asyncResult object will contain an Error object with its code property set to 9020 and its name property set to GenericResponseError.
          *
          * @beta
          */
@@ -11426,7 +12773,9 @@ declare namespace Office {
          * 
          * @param options Optional. An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object. On success, the initialization data is provided in the asyncResult.value property as a string. If there is no initialization context, the asyncResult object will contain an Error object with its code property set to 9020 and its name property set to GenericResponseError.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object. 
+         * On success, the initialization data is provided in the asyncResult.value property as a string. 
+         * If there is no initialization context, the asyncResult object will contain an Error object with its code property set to 9020 and its name property set to GenericResponseError.
          *
          * @beta
          */
@@ -11444,13 +12793,15 @@ declare namespace Office {
          *
          * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Read</td></tr></table>
          * 
-         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object. On success, the initialization data is provided in the asyncResult.value property as a string. If there is no initialization context, the asyncResult object will contain an Error object with its code property set to 9020 and its name property set to GenericResponseError.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object. 
+         * On success, the initialization data is provided in the asyncResult.value property as a string. 
+         * If there is no initialization context, the asyncResult object will contain an Error object with its code property set to 9020 and its name property set to GenericResponseError.
          *
          * @beta
          */
         getInitializationContextAsync(callback?: (result: AsyncResult) => void): void;
         /**
-         * Gets the entities found in the selected item.
+         * Gets the entities found in the selected item's body.
          *
          * Note: This method is not supported in Outlook for iOS or Outlook for Android.
          *
@@ -11464,7 +12815,7 @@ declare namespace Office {
          */
         getEntities(): Entities;
         /**
-         * Gets an array of all the entities of the specified entity type found in the selected item.
+         * Gets an array of all the entities of the specified entity type found in the selected item's body.
          *
          * Note: This method is not supported in Outlook for iOS or Outlook for Android.
          *
@@ -11473,7 +12824,7 @@ declare namespace Office {
          * @param entityType One of the EntityType enumeration values.
          * 
          * @returns
-         * If the value passed in entityType is not a valid member of the EntityType enumeration, the method returns null. If no entities of the specified type are present on the item, the method returns an empty array. Otherwise, the type of the objects in the returned array depends on the type of entity requested in the entityType parameter.
+         * If the value passed in entityType is not a valid member of the EntityType enumeration, the method returns null. If no entities of the specified type are present in the item's body, the method returns an empty array. Otherwise, the type of the objects in the returned array depends on the type of entity requested in the entityType parameter.
          *
          * @remarks
          * 
@@ -11898,7 +13249,7 @@ declare namespace Office {
          * 
          *  - hostVersion (string): A string that represents the version of either the host application or the Exchange Server. If the mail add-in is running on the Outlook desktop client or Outlook for iOS, the hostVersion property returns the version of the host application, Outlook. In Outlook Web App, the property returns the version of the Exchange Server. An example is the string 15.0.468.0.
          * 
-         *  - OWAView (string): A string that represents the current view of Outlook Web App. If the host application is not Outlook Web App, then accessing this property results in undefined. Outlook Web App has three views (OneColumn - displayed when the screen is narrow, TwoColumns - displayed when the screen is wider, and ThreeColumns - displayed when the screen is wide.) that correspond to the width of the screen and the window, and the number of columns that can be displayed.
+         *  - OWAView (MailboxEnums.OWAView or string): An enum (or string literal) that represents the current view of Outlook Web App. If the host application is not Outlook Web App, then accessing this property results in undefined. Outlook Web App has three views (OneColumn - displayed when the screen is narrow, TwoColumns - displayed when the screen is wider, and ThreeColumns - displayed when the screen is wide) that correspond to the width of the screen and the window, and the number of columns that can be displayed.
          *
          *  More information is under {@link Office.Diagnostics}. 
          *
@@ -12140,17 +13491,28 @@ declare namespace Office {
          * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Read</td></tr></table>
          *
          * @param parameters A dictionary containing all values to be filled in for the user in the new form. All parameters are optional.
+         * 
          *        toRecipients: An array of strings containing the email addresses or an array containing an {@link Office.EmailAddressDetails} object for each of the recipients on the To line. The array is limited to a maximum of 100 entries.
+         * 
          *        ccRecipients: An array of strings containing the email addresses or an array containing an {@link Office.EmailAddressDetails} object for each of the recipients on the Cc line. The array is limited to a maximum of 100 entries.
+         * 
          *        bccRecipients: An array of strings containing the email addresses or an array containing an {@link Office.EmailAddressDetails} object for each of the recipients on the Bcc line. The array is limited to a maximum of 100 entries.
+         * 
          *        subject: A string containing the subject of the message. The string is limited to a maximum of 255 characters.
+         * 
          *        htmlBody: The HTML body of the message. The body content is limited to a maximum size of 32 KB.
+         * 
          *        attachments: An array of JSON objects that are either file or item attachments.
+         * 
          *        attachments.type: Indicates the type of attachment. Must be file for a file attachment or item for an item attachment.
+         * 
          *        attachments.name: A string that contains the name of the attachment, up to 255 characters in length.
+         * 
          *        attachments.url: Only used if type is set to file. The URI of the location for the file.
+         * 
          *        attachments.isInline: Only used if type is set to file. If true, indicates that the attachment will be shown inline in the message body, and should not be displayed in the attachment list.
-         *        attachments.itemId: Only used if type is set to item. The EWS item id of the attachment. This is a string up to 100 characters.
+         * 
+         *        attachments.itemId: Only used if type is set to item. The EWS item id of the existing e-mail you want to attach to the new message. This is a string up to 100 characters.
          */
         displayNewMessageForm(parameters: any): void;
         /**
@@ -14395,7 +15757,7 @@ declare namespace Excel {
         readonly runtime: Runtime;
     }
     interface RunOptions extends OfficeExtension.RunOptions<Session> {
-    /**
+        /**
          * Determines whether Excel will delay the batch request until the user exits cell edit mode.
          *
          * When false, if the user is in cell edit when the batch request is processed by the host, the batch will automatically fail.
@@ -14403,47 +15765,49 @@ declare namespace Excel {
          */
         delayForCellEdit?: boolean;
     }
-	/**
-	 * Executes a batch script that performs actions on the Excel object model, using the RequestContext of a previously-created API object. When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
-	 * @param object - A previously-created API object. The batch will use the same RequestContext as the passed-in object, which means that any changes applied to the object will be picked up by "context.sync()".
-	 * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the Excel application. Since the Office add-in and the Excel application run in two different processes, the RequestContext is required to get access to the Excel object model from the add-in.
-	 */
-	export function run<T>(object: OfficeExtension.ClientObject, batch: (context: Excel.RequestContext) => Promise<T>): Promise<T>;
-
-	/**
-	 * Executes a batch script that performs actions on the Excel object model, using the RequestContext of previously-created API objects.
-	 * @param objects - An array of previously-created API objects. The array will be validated to make sure that all of the objects share the same context. The batch will use this shared RequestContext, which means that any changes applied to these objects will be picked up by "context.sync()".
-	 * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the Excel application. Since the Office add-in and the Excel application run in two different processes, the RequestContext is required to get access to the Excel object model from the add-in.
-	 */
-	export function run<T>(objects: OfficeExtension.ClientObject[], batch: (context: Excel.RequestContext) => Promise<T>): Promise<T>;
-
-	/**
-	* Executes a batch script that performs actions on the Excel object model, using the RequestContext of a previously-created API object. When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
-	* @param options - The additional options for this Excel.run which specify previous objects, whether to delay the request for cell edit, session info, etc.
-	* @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the Excel application. Since the Office add-in and the Excel application run in two different processes, the RequestContext is required to get access to the Excel object model from the add-in.
-	*/
-    export function run<T>(options: Excel.RunOptions, batch: (context: Excel.RequestContext) => Promise<T>): Promise<T>;    
     /**
-	 * Executes a batch script that performs actions on the Excel object model, using a new RequestContext. When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
-	 * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the Excel application. Since the Office add-in and the Excel application run in two different processes, the RequestContext is required to get access to the Excel object model from the add-in.
-	 */
-    export function run<T>(batch: (context: Excel.RequestContext) => Promise<T>): Promise<T>;
+     * Executes a batch script that performs actions on the Excel object model, using a new RequestContext. When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
+     * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the Excel application. Since the Office add-in and the Excel application run in two different processes, the RequestContext is required to get access to the Excel object model from the add-in.
+     */
+    function run<T>(batch: (context: Excel.RequestContext) => Promise<T>): Promise<T>;
+    /**
+     * Executes a batch script that performs actions on the Excel object model, using the RequestContext of a previously-created API object. When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
+     * @param object - A previously-created API object. The batch will use the same RequestContext as the passed-in object, which means that any changes applied to the object will be picked up by "context.sync()".
+     * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the Excel application. Since the Office add-in and the Excel application run in two different processes, the RequestContext is required to get access to the Excel object model from the add-in.
+     */
+    function run<T>(object: OfficeExtension.ClientObject, batch: (context: Excel.RequestContext) => Promise<T>): Promise<T>;
+    /**
+     * Executes a batch script that performs actions on the Excel object model, using the RequestContext of previously-created API objects.
+     * @param objects - An array of previously-created API objects. The array will be validated to make sure that all of the objects share the same context. The batch will use this shared RequestContext, which means that any changes applied to these objects will be picked up by "context.sync()".
+     * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the Excel application. Since the Office add-in and the Excel application run in two different processes, the RequestContext is required to get access to the Excel object model from the add-in.
+     */
+    function run<T>(objects: OfficeExtension.ClientObject[], batch: (context: Excel.RequestContext) => Promise<T>): Promise<T>;
+    /**
+    * Executes a batch script that performs actions on the Excel object model, using the RequestContext of a previously-created API object. When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
+    * @param options - The additional options for this Excel.run which specify previous objects, whether to delay the request for cell edit, session info, etc.
+    * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the Excel application. Since the Office add-in and the Excel application run in two different processes, the RequestContext is required to get access to the Excel object model from the add-in.
+    */
+    function run<T>(options: Excel.RunOptions, batch: (context: Excel.RequestContext) => Promise<T>): Promise<T>;
     /**
 	 * Executes a batch script that performs actions on the Excel object model, using the RequestContext of a previously-created object. When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
-	 * @param contextObject - A previously-created object. The batch will use the same RequestContext as the passed-in object, which means that any changes applied to the object will be picked up by "context.sync()".
+	 *
+	 * @remarks
+	 *
+	 * In addition to this signature, the method also has the following signatures:
+	 *
+	 * `run<T>(object: OfficeExtension.ClientObject, batch: (context: Excel.RequestContext) => Promise<T>): Promise<T>;`
+	 *
+	 * `run<T>(objects: OfficeExtension.ClientObject[], batch: (context: Excel.RequestContext) => Promise<T>): Promise<T>;`
+	 *
+	 * `run<T>(options: Excel.RunOptions, batch: (context: Excel.RequestContext) => Promise<T>): Promise<T>;`
+	 *
+	 * `run<T>(batch: (context: Excel.RequestContext) => Promise<T>): Promise<T>;`
+	 *
+	 * @param context - A previously-created object. The batch will use the same RequestContext as the passed-in object, which means that any changes applied to the object will be picked up by "context.sync()".
 	 * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the Excel application. Since the Office add-in and the Excel application run in two different processes, the RequestContext is required to get access to the Excel object model from the add-in.
-     * @remarks
-     * In addition to this signature, the method also has the following signatures:
-     * 
-     * `run<T>(object: OfficeExtension.ClientObject, batch: (context: Excel.RequestContext) => Promise<T>): Promise<T>;`
-     * 
-     * `run<T>(objects: OfficeExtension.ClientObject[], batch: (context: Excel.RequestContext) => Promise<T>): Promise<T>;`
-     * 
-     * `run<T>(options: Excel.RunOptions, batch: (context: Excel.RequestContext) => Promise<T>): Promise<T>;`
-     * 
-     * `run<T>(batch: (context: Excel.RequestContext) => Promise<T>): Promise<T>;`
 	 */
-	export function run<T>(contextObject: OfficeExtension.ClientRequestContext, batch: (context: Excel.RequestContext) => Promise<T>): Promise<T>;
+	function run<T>(context: OfficeExtension.ClientRequestContext, batch: (context: Excel.RequestContext) => Promise<T>): Promise<T>;
+    function createWorkbook(base64?: string): Promise<object>;
     /**
      *
      * Provides information about the binding that raised the SelectionChanged event.
@@ -15073,6 +16437,8 @@ declare namespace Excel {
          * Occurs when the selection in the document is changed.
          *
          * [Api set: ExcelApi 1.2]
+         *
+         * @eventproperty
          */
         readonly onSelectionChanged: OfficeExtension.EventHandlers<Excel.SelectionChangedEventArgs>;
         toJSON(): Excel.Interfaces.WorkbookData;
@@ -15084,6 +16450,13 @@ declare namespace Excel {
      * [Api set: ExcelApi 1.7]
      */
     class WorkbookProtection extends OfficeExtension.ClientObject {
+        /**
+         *
+         * Indicates if the workbook is protected. Read-Only.
+         *
+         * [Api set: ExcelApi 1.7]
+         */
+        readonly protected: boolean;
         /**
          *
          * Protects a workbook. Fails if the workbook has been protected.
@@ -15102,9 +16475,28 @@ declare namespace Excel {
          * @param password workbook protection password.
          */
         unprotect(password?: string): void;
-        toJSON(): {
-            [key: string]: string;
-        };
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): Excel.WorkbookProtection` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): Excel.WorkbookProtection` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Excel.WorkbookProtection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(option?: Excel.Interfaces.WorkbookProtectionLoadOptions): Excel.WorkbookProtection;
+        load(option?: string | string[]): Excel.WorkbookProtection;
+        load(option?: {
+            select?: string;
+            expand?: string;
+        }): Excel.WorkbookProtection;
+        toJSON(): Excel.Interfaces.WorkbookProtectionData;
     }
     /**
      *
@@ -15242,7 +16634,7 @@ declare namespace Excel {
          * Copy a worksheet and place it at the specified position. Return the copied worksheet.
          *
          * [Api set: ExcelApi 1.7]
-         * 
+         *
          * @param positionType Optional.
          * @param relativeTo Optional.
          */
@@ -15375,6 +16767,8 @@ declare namespace Excel {
          * Occurs when the worksheet is activated.
          *
          * [Api set: ExcelApi 1.7]
+         *
+         * @eventproperty
          */
         readonly onActivated: OfficeExtension.EventHandlers<Excel.WorksheetActivatedEventArgs>;
         /**
@@ -15382,6 +16776,8 @@ declare namespace Excel {
          * Occurs when data changed on a specific worksheet.
          *
          * [Api set: ExcelApi 1.7]
+         *
+         * @eventproperty
          */
         readonly onChanged: OfficeExtension.EventHandlers<Excel.WorksheetChangedEventArgs>;
         /**
@@ -15389,6 +16785,8 @@ declare namespace Excel {
          * Occurs when the worksheet is deactivated.
          *
          * [Api set: ExcelApi 1.7]
+         *
+         * @eventproperty
          */
         readonly onDeactivated: OfficeExtension.EventHandlers<Excel.WorksheetDeactivatedEventArgs>;
         /**
@@ -15396,6 +16794,8 @@ declare namespace Excel {
          * Occurs when the selection changes on a specific worksheet.
          *
          * [Api set: ExcelApi 1.7]
+         *
+         * @eventproperty
          */
         readonly onSelectionChanged: OfficeExtension.EventHandlers<Excel.WorksheetSelectionChangedEventArgs>;
         toJSON(): Excel.Interfaces.WorksheetData;
@@ -15493,6 +16893,8 @@ declare namespace Excel {
          * Occurs when any worksheet in the workbook is activated.
          *
          * [Api set: ExcelApi 1.7]
+         *
+         * @eventproperty
          */
         readonly onActivated: OfficeExtension.EventHandlers<Excel.WorksheetActivatedEventArgs>;
         /**
@@ -15500,6 +16902,8 @@ declare namespace Excel {
          * Occurs when a new worksheet is added to the workbook.
          *
          * [Api set: ExcelApi 1.7]
+         *
+         * @eventproperty
          */
         readonly onAdded: OfficeExtension.EventHandlers<Excel.WorksheetAddedEventArgs>;
         /**
@@ -15507,6 +16911,8 @@ declare namespace Excel {
          * Occurs when any worksheet in the workbook is deactivated.
          *
          * [Api set: ExcelApi 1.7]
+         *
+         * @eventproperty
          */
         readonly onDeactivated: OfficeExtension.EventHandlers<Excel.WorksheetDeactivatedEventArgs>;
         /**
@@ -15514,6 +16920,8 @@ declare namespace Excel {
          * Occurs when a worksheet is deleted from the workbook.
          *
          * [Api set: ExcelApi 1.7]
+         *
+         * @eventproperty
          */
         readonly onDeleted: OfficeExtension.EventHandlers<Excel.WorksheetDeletedEventArgs>;
         toJSON(): Excel.Interfaces.WorksheetCollectionData;
@@ -16574,6 +17982,8 @@ declare namespace Excel {
          * Occurs when the Settings in the document are changed.
          *
          * [Api set: ExcelApi 1.4]
+         *
+         * @eventproperty
          */
         readonly onSettingsChanged: OfficeExtension.EventHandlers<Excel.SettingsChangedEventArgs>;
         toJSON(): Excel.Interfaces.SettingCollectionData;
@@ -16978,6 +18388,8 @@ declare namespace Excel {
          * Occurs when data or formatting within the binding is changed.
          *
          * [Api set: ExcelApi 1.2]
+         *
+         * @eventproperty
          */
         readonly onDataChanged: OfficeExtension.EventHandlers<Excel.BindingDataChangedEventArgs>;
         /**
@@ -16985,6 +18397,8 @@ declare namespace Excel {
          * Occurs when the selected content in the binding is changed.
          *
          * [Api set: ExcelApi 1.2]
+         *
+         * @eventproperty
          */
         readonly onSelectionChanged: OfficeExtension.EventHandlers<Excel.BindingSelectionChangedEventArgs>;
         toJSON(): Excel.Interfaces.BindingData;
@@ -17210,6 +18624,8 @@ declare namespace Excel {
          * Occurs when data changes on any table in a workbook, or a worksheet.
          *
          * [Api set: ExcelApi 1.7]
+         *
+         * @eventproperty
          */
         readonly onChanged: OfficeExtension.EventHandlers<Excel.TableChangedEventArgs>;
         toJSON(): Excel.Interfaces.TableCollectionData;
@@ -17415,6 +18831,8 @@ declare namespace Excel {
          * Occurs when data in cells changes on a specific table.
          *
          * [Api set: ExcelApi 1.7]
+         *
+         * @eventproperty
          */
         readonly onChanged: OfficeExtension.EventHandlers<Excel.TableChangedEventArgs>;
         /**
@@ -17422,6 +18840,8 @@ declare namespace Excel {
          * Occurs when the selection changes on a specific table.
          *
          * [Api set: ExcelApi 1.7]
+         *
+         * @eventproperty
          */
         readonly onSelectionChanged: OfficeExtension.EventHandlers<Excel.TableSelectionChangedEventArgs>;
         toJSON(): Excel.Interfaces.TableData;
@@ -17624,7 +19044,7 @@ declare namespace Excel {
     /**
      *
      * Represents a collection of all the rows that are part of the table.
-
+            
             Note that unlike Ranges or Columns, which will adjust if new rows/columns are added before them,
             a TableRow object represent the physical location of the table row, but not the data.
             That is, if the data is sorted or if new rows are added, a table row will continue
@@ -17645,7 +19065,7 @@ declare namespace Excel {
         /**
          *
          * Adds one or more rows to the table. The return object will be the top of the newly added row(s).
-
+            
             Note that unlike Ranges or Columns, which will adjust if new rows/columns are added before them,
             a TableRow object represent the physical location of the table row, but not the data.
             That is, if the data is sorted or if new rows are added, a table row will continue
@@ -17667,7 +19087,7 @@ declare namespace Excel {
         /**
          *
          * Gets a row based on its position in the collection.
-
+            
             Note that unlike Ranges or Columns, which will adjust if new rows/columns are added before them,
             a TableRow object represent the physical location of the table row, but not the data.
             That is, if the data is sorted or if new rows are added, a table row will continue
@@ -17701,7 +19121,7 @@ declare namespace Excel {
     /**
      *
      * Represents a row in a table.
-
+            
             Note that unlike Ranges or Columns, which will adjust if new rows/columns are added before them,
             a TableRow object represent the physical location of the table row, but not the data.
             That is, if the data is sorted or if new rows are added, a table row will continue
@@ -18288,7 +19708,7 @@ declare namespace Excel {
          * @param sourceData The Range object corresponding to the source data.
          * @param seriesBy Optional. Specifies the way columns or rows are used as data series on the chart. See Excel.ChartSeriesBy for details.
          */
-        add(type: Excel.ChartType, sourceData: Range | string, seriesBy?: Excel.ChartSeriesBy): Excel.Chart;
+        add(type: Excel.ChartType, sourceData: Range, seriesBy?: Excel.ChartSeriesBy): Excel.Chart;
         /**
          *
          * Creates a new chart.
@@ -18299,7 +19719,7 @@ declare namespace Excel {
          * @param sourceData The Range object corresponding to the source data.
          * @param seriesBy Optional. Specifies the way columns or rows are used as data series on the chart. See Excel.ChartSeriesBy for details.
          */
-        add(type: "Invalid" | "ColumnClustered" | "ColumnStacked" | "ColumnStacked100" | "3DColumnClustered" | "3DColumnStacked" | "3DColumnStacked100" | "BarClustered" | "BarStacked" | "BarStacked100" | "3DBarClustered" | "3DBarStacked" | "3DBarStacked100" | "LineStacked" | "LineStacked100" | "LineMarkers" | "LineMarkersStacked" | "LineMarkersStacked100" | "PieOfPie" | "PieExploded" | "3DPieExploded" | "BarOfPie" | "XYScatterSmooth" | "XYScatterSmoothNoMarkers" | "XYScatterLines" | "XYScatterLinesNoMarkers" | "AreaStacked" | "AreaStacked100" | "3DAreaStacked" | "3DAreaStacked100" | "DoughnutExploded" | "RadarMarkers" | "RadarFilled" | "Surface" | "SurfaceWireframe" | "SurfaceTopView" | "SurfaceTopViewWireframe" | "Bubble" | "Bubble3DEffect" | "StockHLC" | "StockOHLC" | "StockVHLC" | "StockVOHLC" | "CylinderColClustered" | "CylinderColStacked" | "CylinderColStacked100" | "CylinderBarClustered" | "CylinderBarStacked" | "CylinderBarStacked100" | "CylinderCol" | "ConeColClustered" | "ConeColStacked" | "ConeColStacked100" | "ConeBarClustered" | "ConeBarStacked" | "ConeBarStacked100" | "ConeCol" | "PyramidColClustered" | "PyramidColStacked" | "PyramidColStacked100" | "PyramidBarClustered" | "PyramidBarStacked" | "PyramidBarStacked100" | "PyramidCol" | "3DColumn" | "Line" | "3DLine" | "3DPie" | "Pie" | "XYScatter" | "3DArea" | "Area" | "Doughnut" | "Radar", sourceData: Range | string, seriesBy?: "Auto" | "Columns" | "Rows"): Excel.Chart;
+        add(type: "Invalid" | "ColumnClustered" | "ColumnStacked" | "ColumnStacked100" | "3DColumnClustered" | "3DColumnStacked" | "3DColumnStacked100" | "BarClustered" | "BarStacked" | "BarStacked100" | "3DBarClustered" | "3DBarStacked" | "3DBarStacked100" | "LineStacked" | "LineStacked100" | "LineMarkers" | "LineMarkersStacked" | "LineMarkersStacked100" | "PieOfPie" | "PieExploded" | "3DPieExploded" | "BarOfPie" | "XYScatterSmooth" | "XYScatterSmoothNoMarkers" | "XYScatterLines" | "XYScatterLinesNoMarkers" | "AreaStacked" | "AreaStacked100" | "3DAreaStacked" | "3DAreaStacked100" | "DoughnutExploded" | "RadarMarkers" | "RadarFilled" | "Surface" | "SurfaceWireframe" | "SurfaceTopView" | "SurfaceTopViewWireframe" | "Bubble" | "Bubble3DEffect" | "StockHLC" | "StockOHLC" | "StockVHLC" | "StockVOHLC" | "CylinderColClustered" | "CylinderColStacked" | "CylinderColStacked100" | "CylinderBarClustered" | "CylinderBarStacked" | "CylinderBarStacked100" | "CylinderCol" | "ConeColClustered" | "ConeColStacked" | "ConeColStacked100" | "ConeBarClustered" | "ConeBarStacked" | "ConeBarStacked100" | "ConeCol" | "PyramidColClustered" | "PyramidColStacked" | "PyramidColStacked100" | "PyramidBarClustered" | "PyramidBarStacked" | "PyramidBarStacked100" | "PyramidCol" | "3DColumn" | "Line" | "3DLine" | "3DPie" | "Pie" | "XYScatter" | "3DArea" | "Area" | "Doughnut" | "Radar" | "Histogram" | "Pareto" | "RegionMap", sourceData: Range, seriesBy?: "Auto" | "Columns" | "Rows"): Excel.Chart;
         /**
          *
          * Returns the number of charts in the worksheet.
@@ -18417,7 +19837,7 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi 1.7]
          */
-        chartType: Excel.ChartType | "Invalid" | "ColumnClustered" | "ColumnStacked" | "ColumnStacked100" | "3DColumnClustered" | "3DColumnStacked" | "3DColumnStacked100" | "BarClustered" | "BarStacked" | "BarStacked100" | "3DBarClustered" | "3DBarStacked" | "3DBarStacked100" | "LineStacked" | "LineStacked100" | "LineMarkers" | "LineMarkersStacked" | "LineMarkersStacked100" | "PieOfPie" | "PieExploded" | "3DPieExploded" | "BarOfPie" | "XYScatterSmooth" | "XYScatterSmoothNoMarkers" | "XYScatterLines" | "XYScatterLinesNoMarkers" | "AreaStacked" | "AreaStacked100" | "3DAreaStacked" | "3DAreaStacked100" | "DoughnutExploded" | "RadarMarkers" | "RadarFilled" | "Surface" | "SurfaceWireframe" | "SurfaceTopView" | "SurfaceTopViewWireframe" | "Bubble" | "Bubble3DEffect" | "StockHLC" | "StockOHLC" | "StockVHLC" | "StockVOHLC" | "CylinderColClustered" | "CylinderColStacked" | "CylinderColStacked100" | "CylinderBarClustered" | "CylinderBarStacked" | "CylinderBarStacked100" | "CylinderCol" | "ConeColClustered" | "ConeColStacked" | "ConeColStacked100" | "ConeBarClustered" | "ConeBarStacked" | "ConeBarStacked100" | "ConeCol" | "PyramidColClustered" | "PyramidColStacked" | "PyramidColStacked100" | "PyramidBarClustered" | "PyramidBarStacked" | "PyramidBarStacked100" | "PyramidCol" | "3DColumn" | "Line" | "3DLine" | "3DPie" | "Pie" | "XYScatter" | "3DArea" | "Area" | "Doughnut" | "Radar";
+        chartType: Excel.ChartType | "Invalid" | "ColumnClustered" | "ColumnStacked" | "ColumnStacked100" | "3DColumnClustered" | "3DColumnStacked" | "3DColumnStacked100" | "BarClustered" | "BarStacked" | "BarStacked100" | "3DBarClustered" | "3DBarStacked" | "3DBarStacked100" | "LineStacked" | "LineStacked100" | "LineMarkers" | "LineMarkersStacked" | "LineMarkersStacked100" | "PieOfPie" | "PieExploded" | "3DPieExploded" | "BarOfPie" | "XYScatterSmooth" | "XYScatterSmoothNoMarkers" | "XYScatterLines" | "XYScatterLinesNoMarkers" | "AreaStacked" | "AreaStacked100" | "3DAreaStacked" | "3DAreaStacked100" | "DoughnutExploded" | "RadarMarkers" | "RadarFilled" | "Surface" | "SurfaceWireframe" | "SurfaceTopView" | "SurfaceTopViewWireframe" | "Bubble" | "Bubble3DEffect" | "StockHLC" | "StockOHLC" | "StockVHLC" | "StockVOHLC" | "CylinderColClustered" | "CylinderColStacked" | "CylinderColStacked100" | "CylinderBarClustered" | "CylinderBarStacked" | "CylinderBarStacked100" | "CylinderCol" | "ConeColClustered" | "ConeColStacked" | "ConeColStacked100" | "ConeBarClustered" | "ConeBarStacked" | "ConeBarStacked100" | "ConeCol" | "PyramidColClustered" | "PyramidColStacked" | "PyramidColStacked100" | "PyramidBarClustered" | "PyramidBarStacked" | "PyramidBarStacked100" | "PyramidCol" | "3DColumn" | "Line" | "3DLine" | "3DPie" | "Pie" | "XYScatter" | "3DArea" | "Area" | "Doughnut" | "Radar" | "Histogram" | "Pareto" | "RegionMap";
         /**
          *
          * Represents the height, in points, of the chart object.
@@ -18521,7 +19941,7 @@ declare namespace Excel {
          * @param sourceData The range corresponding to the source data.
          * @param seriesBy Specifies the way columns or rows are used as data series on the chart. Can be one of the following: Auto (default), Rows, and Columns. See Excel.ChartSeriesBy for details.
          */
-        setData(sourceData: Range | string, seriesBy?: Excel.ChartSeriesBy): void;
+        setData(sourceData: Range, seriesBy?: Excel.ChartSeriesBy): void;
         /**
          *
          * Resets the source data for the chart.
@@ -18531,7 +19951,7 @@ declare namespace Excel {
          * @param sourceData The range corresponding to the source data.
          * @param seriesBy Specifies the way columns or rows are used as data series on the chart. Can be one of the following: Auto (default), Rows, and Columns. See Excel.ChartSeriesBy for details.
          */
-        setData(sourceData: Range | string, seriesBy?: "Auto" | "Columns" | "Rows"): void;
+        setData(sourceData: Range, seriesBy?: "Auto" | "Columns" | "Rows"): void;
         /**
          *
          * Positions the chart relative to cells on the worksheet.
@@ -18726,7 +20146,7 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi 1.7]
          */
-        chartType: Excel.ChartType | "Invalid" | "ColumnClustered" | "ColumnStacked" | "ColumnStacked100" | "3DColumnClustered" | "3DColumnStacked" | "3DColumnStacked100" | "BarClustered" | "BarStacked" | "BarStacked100" | "3DBarClustered" | "3DBarStacked" | "3DBarStacked100" | "LineStacked" | "LineStacked100" | "LineMarkers" | "LineMarkersStacked" | "LineMarkersStacked100" | "PieOfPie" | "PieExploded" | "3DPieExploded" | "BarOfPie" | "XYScatterSmooth" | "XYScatterSmoothNoMarkers" | "XYScatterLines" | "XYScatterLinesNoMarkers" | "AreaStacked" | "AreaStacked100" | "3DAreaStacked" | "3DAreaStacked100" | "DoughnutExploded" | "RadarMarkers" | "RadarFilled" | "Surface" | "SurfaceWireframe" | "SurfaceTopView" | "SurfaceTopViewWireframe" | "Bubble" | "Bubble3DEffect" | "StockHLC" | "StockOHLC" | "StockVHLC" | "StockVOHLC" | "CylinderColClustered" | "CylinderColStacked" | "CylinderColStacked100" | "CylinderBarClustered" | "CylinderBarStacked" | "CylinderBarStacked100" | "CylinderCol" | "ConeColClustered" | "ConeColStacked" | "ConeColStacked100" | "ConeBarClustered" | "ConeBarStacked" | "ConeBarStacked100" | "ConeCol" | "PyramidColClustered" | "PyramidColStacked" | "PyramidColStacked100" | "PyramidBarClustered" | "PyramidBarStacked" | "PyramidBarStacked100" | "PyramidCol" | "3DColumn" | "Line" | "3DLine" | "3DPie" | "Pie" | "XYScatter" | "3DArea" | "Area" | "Doughnut" | "Radar";
+        chartType: Excel.ChartType | "Invalid" | "ColumnClustered" | "ColumnStacked" | "ColumnStacked100" | "3DColumnClustered" | "3DColumnStacked" | "3DColumnStacked100" | "BarClustered" | "BarStacked" | "BarStacked100" | "3DBarClustered" | "3DBarStacked" | "3DBarStacked100" | "LineStacked" | "LineStacked100" | "LineMarkers" | "LineMarkersStacked" | "LineMarkersStacked100" | "PieOfPie" | "PieExploded" | "3DPieExploded" | "BarOfPie" | "XYScatterSmooth" | "XYScatterSmoothNoMarkers" | "XYScatterLines" | "XYScatterLinesNoMarkers" | "AreaStacked" | "AreaStacked100" | "3DAreaStacked" | "3DAreaStacked100" | "DoughnutExploded" | "RadarMarkers" | "RadarFilled" | "Surface" | "SurfaceWireframe" | "SurfaceTopView" | "SurfaceTopViewWireframe" | "Bubble" | "Bubble3DEffect" | "StockHLC" | "StockOHLC" | "StockVHLC" | "StockVOHLC" | "CylinderColClustered" | "CylinderColStacked" | "CylinderColStacked100" | "CylinderBarClustered" | "CylinderBarStacked" | "CylinderBarStacked100" | "CylinderCol" | "ConeColClustered" | "ConeColStacked" | "ConeColStacked100" | "ConeBarClustered" | "ConeBarStacked" | "ConeBarStacked100" | "ConeCol" | "PyramidColClustered" | "PyramidColStacked" | "PyramidColStacked100" | "PyramidBarClustered" | "PyramidBarStacked" | "PyramidBarStacked100" | "PyramidCol" | "3DColumn" | "Line" | "3DLine" | "3DPie" | "Pie" | "XYScatter" | "3DArea" | "Area" | "Doughnut" | "Radar" | "Histogram" | "Pareto" | "RegionMap";
         /**
          *
          * Represents the doughnut hole size of a chart series.  Only valid on doughnut and doughnutExploded charts.
@@ -21413,7 +22833,7 @@ declare namespace Excel {
          *
          * The first criterion used to filter data. Used as an operator in the case of "custom" filtering.
              For example ">50" for number greater than 50 or "=*s" for values ending in "s".
-
+            
              Used as a number in the case of top/bottom items/percents. E.g. "5" for the top 5 items if filterOn is set to "topItems"
          *
          * [Api set: ExcelApi 1.2]
@@ -24352,6 +25772,9 @@ declare namespace Excel {
         area = "Area",
         doughnut = "Doughnut",
         radar = "Radar",
+        histogram = "Histogram",
+        pareto = "Pareto",
+        regionMap = "RegionMap",
     }
     /**
      * [Api set: ExcelApi 1.1]
@@ -24905,6 +26328,7 @@ declare namespace Excel {
         justify = "Justify",
         distributed = "Distributed",
     }
+
     /**
      * [Api set: ExcelApi 1.7]
      */
@@ -25075,10 +26499,34 @@ declare namespace Excel {
         visualSelectionChanged = "VisualSelectionChanged",
         /**
          *
+         * AgaveVisualUpdate represents the type of an event that is associated with an agave visual, and carries a new data view following a data change
+         *
+         */
+        agaveVisualUpdate = "AgaveVisualUpdate",
+        /**
+         *
          * TableAdded represents the type of event registered on TableCollection, and occurs when a table is added.
          *
          */
         tableAdded = "TableAdded",
+        /**
+         *
+         * TableDeleted represents the type of event that is registered on TableCollection, and occurs when a table is deleted.
+         *
+         */
+        tableDeleted = "TableDeleted",
+        /**
+         *
+         * ShapeActivated represents the type of event that is registered on Shape, and occurs when shape activates.
+         *
+         */
+        shapeActivated = "ShapeActivated",
+        /**
+         *
+         * ShapeDeactivated represents the type of event that is registered on Shape, and occurs when shape deactivates.
+         *
+         */
+        shapeDeactivated = "ShapeDeactivated",
     }
     /**
      * [Api set: ExcelApi 1.7]
@@ -29626,7 +31074,7 @@ declare namespace Excel {
              *
              * [Api set: ExcelApi 1.7]
              */
-            chartType?: Excel.ChartType | "Invalid" | "ColumnClustered" | "ColumnStacked" | "ColumnStacked100" | "3DColumnClustered" | "3DColumnStacked" | "3DColumnStacked100" | "BarClustered" | "BarStacked" | "BarStacked100" | "3DBarClustered" | "3DBarStacked" | "3DBarStacked100" | "LineStacked" | "LineStacked100" | "LineMarkers" | "LineMarkersStacked" | "LineMarkersStacked100" | "PieOfPie" | "PieExploded" | "3DPieExploded" | "BarOfPie" | "XYScatterSmooth" | "XYScatterSmoothNoMarkers" | "XYScatterLines" | "XYScatterLinesNoMarkers" | "AreaStacked" | "AreaStacked100" | "3DAreaStacked" | "3DAreaStacked100" | "DoughnutExploded" | "RadarMarkers" | "RadarFilled" | "Surface" | "SurfaceWireframe" | "SurfaceTopView" | "SurfaceTopViewWireframe" | "Bubble" | "Bubble3DEffect" | "StockHLC" | "StockOHLC" | "StockVHLC" | "StockVOHLC" | "CylinderColClustered" | "CylinderColStacked" | "CylinderColStacked100" | "CylinderBarClustered" | "CylinderBarStacked" | "CylinderBarStacked100" | "CylinderCol" | "ConeColClustered" | "ConeColStacked" | "ConeColStacked100" | "ConeBarClustered" | "ConeBarStacked" | "ConeBarStacked100" | "ConeCol" | "PyramidColClustered" | "PyramidColStacked" | "PyramidColStacked100" | "PyramidBarClustered" | "PyramidBarStacked" | "PyramidBarStacked100" | "PyramidCol" | "3DColumn" | "Line" | "3DLine" | "3DPie" | "Pie" | "XYScatter" | "3DArea" | "Area" | "Doughnut" | "Radar";
+            chartType?: Excel.ChartType | "Invalid" | "ColumnClustered" | "ColumnStacked" | "ColumnStacked100" | "3DColumnClustered" | "3DColumnStacked" | "3DColumnStacked100" | "BarClustered" | "BarStacked" | "BarStacked100" | "3DBarClustered" | "3DBarStacked" | "3DBarStacked100" | "LineStacked" | "LineStacked100" | "LineMarkers" | "LineMarkersStacked" | "LineMarkersStacked100" | "PieOfPie" | "PieExploded" | "3DPieExploded" | "BarOfPie" | "XYScatterSmooth" | "XYScatterSmoothNoMarkers" | "XYScatterLines" | "XYScatterLinesNoMarkers" | "AreaStacked" | "AreaStacked100" | "3DAreaStacked" | "3DAreaStacked100" | "DoughnutExploded" | "RadarMarkers" | "RadarFilled" | "Surface" | "SurfaceWireframe" | "SurfaceTopView" | "SurfaceTopViewWireframe" | "Bubble" | "Bubble3DEffect" | "StockHLC" | "StockOHLC" | "StockVHLC" | "StockVOHLC" | "CylinderColClustered" | "CylinderColStacked" | "CylinderColStacked100" | "CylinderBarClustered" | "CylinderBarStacked" | "CylinderBarStacked100" | "CylinderCol" | "ConeColClustered" | "ConeColStacked" | "ConeColStacked100" | "ConeBarClustered" | "ConeBarStacked" | "ConeBarStacked100" | "ConeCol" | "PyramidColClustered" | "PyramidColStacked" | "PyramidColStacked100" | "PyramidBarClustered" | "PyramidBarStacked" | "PyramidBarStacked100" | "PyramidCol" | "3DColumn" | "Line" | "3DLine" | "3DPie" | "Pie" | "XYScatter" | "3DArea" | "Area" | "Doughnut" | "Radar" | "Histogram" | "Pareto" | "RegionMap";
             /**
              *
              * Represents the height, in points, of the chart object.
@@ -29706,7 +31154,7 @@ declare namespace Excel {
              *
              * [Api set: ExcelApi 1.7]
              */
-            chartType?: Excel.ChartType | "Invalid" | "ColumnClustered" | "ColumnStacked" | "ColumnStacked100" | "3DColumnClustered" | "3DColumnStacked" | "3DColumnStacked100" | "BarClustered" | "BarStacked" | "BarStacked100" | "3DBarClustered" | "3DBarStacked" | "3DBarStacked100" | "LineStacked" | "LineStacked100" | "LineMarkers" | "LineMarkersStacked" | "LineMarkersStacked100" | "PieOfPie" | "PieExploded" | "3DPieExploded" | "BarOfPie" | "XYScatterSmooth" | "XYScatterSmoothNoMarkers" | "XYScatterLines" | "XYScatterLinesNoMarkers" | "AreaStacked" | "AreaStacked100" | "3DAreaStacked" | "3DAreaStacked100" | "DoughnutExploded" | "RadarMarkers" | "RadarFilled" | "Surface" | "SurfaceWireframe" | "SurfaceTopView" | "SurfaceTopViewWireframe" | "Bubble" | "Bubble3DEffect" | "StockHLC" | "StockOHLC" | "StockVHLC" | "StockVOHLC" | "CylinderColClustered" | "CylinderColStacked" | "CylinderColStacked100" | "CylinderBarClustered" | "CylinderBarStacked" | "CylinderBarStacked100" | "CylinderCol" | "ConeColClustered" | "ConeColStacked" | "ConeColStacked100" | "ConeBarClustered" | "ConeBarStacked" | "ConeBarStacked100" | "ConeCol" | "PyramidColClustered" | "PyramidColStacked" | "PyramidColStacked100" | "PyramidBarClustered" | "PyramidBarStacked" | "PyramidBarStacked100" | "PyramidCol" | "3DColumn" | "Line" | "3DLine" | "3DPie" | "Pie" | "XYScatter" | "3DArea" | "Area" | "Doughnut" | "Radar";
+            chartType?: Excel.ChartType | "Invalid" | "ColumnClustered" | "ColumnStacked" | "ColumnStacked100" | "3DColumnClustered" | "3DColumnStacked" | "3DColumnStacked100" | "BarClustered" | "BarStacked" | "BarStacked100" | "3DBarClustered" | "3DBarStacked" | "3DBarStacked100" | "LineStacked" | "LineStacked100" | "LineMarkers" | "LineMarkersStacked" | "LineMarkersStacked100" | "PieOfPie" | "PieExploded" | "3DPieExploded" | "BarOfPie" | "XYScatterSmooth" | "XYScatterSmoothNoMarkers" | "XYScatterLines" | "XYScatterLinesNoMarkers" | "AreaStacked" | "AreaStacked100" | "3DAreaStacked" | "3DAreaStacked100" | "DoughnutExploded" | "RadarMarkers" | "RadarFilled" | "Surface" | "SurfaceWireframe" | "SurfaceTopView" | "SurfaceTopViewWireframe" | "Bubble" | "Bubble3DEffect" | "StockHLC" | "StockOHLC" | "StockVHLC" | "StockVOHLC" | "CylinderColClustered" | "CylinderColStacked" | "CylinderColStacked100" | "CylinderBarClustered" | "CylinderBarStacked" | "CylinderBarStacked100" | "CylinderCol" | "ConeColClustered" | "ConeColStacked" | "ConeColStacked100" | "ConeBarClustered" | "ConeBarStacked" | "ConeBarStacked100" | "ConeCol" | "PyramidColClustered" | "PyramidColStacked" | "PyramidColStacked100" | "PyramidBarClustered" | "PyramidBarStacked" | "PyramidBarStacked100" | "PyramidCol" | "3DColumn" | "Line" | "3DLine" | "3DPie" | "Pie" | "XYScatter" | "3DArea" | "Area" | "Doughnut" | "Radar" | "Histogram" | "Pareto" | "RegionMap";
             /**
              *
              * Represents the doughnut hole size of a chart series.  Only valid on doughnut and doughnutExploded charts.
@@ -31457,6 +32905,13 @@ declare namespace Excel {
             properties?: Excel.Interfaces.DocumentPropertiesData;
             /**
             *
+            * Returns workbook protection object for a workbook. Read-only.
+            *
+            * [Api set: ExcelApi 1.7]
+            */
+            protection?: Excel.Interfaces.WorkbookProtectionData;
+            /**
+            *
             * Represents a collection of Settings associated with the workbook. Read-only.
             *
             * [Api set: ExcelApi 1.4]
@@ -31490,6 +32945,16 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.7]
              */
             name?: string;
+        }
+        /** An interface describing the data returned by calling "workbookProtection.toJSON()". */
+        interface WorkbookProtectionData {
+            /**
+             *
+             * Indicates if the workbook is protected. Read-Only.
+             *
+             * [Api set: ExcelApi 1.7]
+             */
+            protected?: boolean;
         }
         /** An interface describing the data returned by calling "worksheet.toJSON()". */
         interface WorksheetData {
@@ -32446,7 +33911,7 @@ declare namespace Excel {
              *
              * [Api set: ExcelApi 1.7]
              */
-            chartType?: Excel.ChartType | "Invalid" | "ColumnClustered" | "ColumnStacked" | "ColumnStacked100" | "3DColumnClustered" | "3DColumnStacked" | "3DColumnStacked100" | "BarClustered" | "BarStacked" | "BarStacked100" | "3DBarClustered" | "3DBarStacked" | "3DBarStacked100" | "LineStacked" | "LineStacked100" | "LineMarkers" | "LineMarkersStacked" | "LineMarkersStacked100" | "PieOfPie" | "PieExploded" | "3DPieExploded" | "BarOfPie" | "XYScatterSmooth" | "XYScatterSmoothNoMarkers" | "XYScatterLines" | "XYScatterLinesNoMarkers" | "AreaStacked" | "AreaStacked100" | "3DAreaStacked" | "3DAreaStacked100" | "DoughnutExploded" | "RadarMarkers" | "RadarFilled" | "Surface" | "SurfaceWireframe" | "SurfaceTopView" | "SurfaceTopViewWireframe" | "Bubble" | "Bubble3DEffect" | "StockHLC" | "StockOHLC" | "StockVHLC" | "StockVOHLC" | "CylinderColClustered" | "CylinderColStacked" | "CylinderColStacked100" | "CylinderBarClustered" | "CylinderBarStacked" | "CylinderBarStacked100" | "CylinderCol" | "ConeColClustered" | "ConeColStacked" | "ConeColStacked100" | "ConeBarClustered" | "ConeBarStacked" | "ConeBarStacked100" | "ConeCol" | "PyramidColClustered" | "PyramidColStacked" | "PyramidColStacked100" | "PyramidBarClustered" | "PyramidBarStacked" | "PyramidBarStacked100" | "PyramidCol" | "3DColumn" | "Line" | "3DLine" | "3DPie" | "Pie" | "XYScatter" | "3DArea" | "Area" | "Doughnut" | "Radar";
+            chartType?: Excel.ChartType | "Invalid" | "ColumnClustered" | "ColumnStacked" | "ColumnStacked100" | "3DColumnClustered" | "3DColumnStacked" | "3DColumnStacked100" | "BarClustered" | "BarStacked" | "BarStacked100" | "3DBarClustered" | "3DBarStacked" | "3DBarStacked100" | "LineStacked" | "LineStacked100" | "LineMarkers" | "LineMarkersStacked" | "LineMarkersStacked100" | "PieOfPie" | "PieExploded" | "3DPieExploded" | "BarOfPie" | "XYScatterSmooth" | "XYScatterSmoothNoMarkers" | "XYScatterLines" | "XYScatterLinesNoMarkers" | "AreaStacked" | "AreaStacked100" | "3DAreaStacked" | "3DAreaStacked100" | "DoughnutExploded" | "RadarMarkers" | "RadarFilled" | "Surface" | "SurfaceWireframe" | "SurfaceTopView" | "SurfaceTopViewWireframe" | "Bubble" | "Bubble3DEffect" | "StockHLC" | "StockOHLC" | "StockVHLC" | "StockVOHLC" | "CylinderColClustered" | "CylinderColStacked" | "CylinderColStacked100" | "CylinderBarClustered" | "CylinderBarStacked" | "CylinderBarStacked100" | "CylinderCol" | "ConeColClustered" | "ConeColStacked" | "ConeColStacked100" | "ConeBarClustered" | "ConeBarStacked" | "ConeBarStacked100" | "ConeCol" | "PyramidColClustered" | "PyramidColStacked" | "PyramidColStacked100" | "PyramidBarClustered" | "PyramidBarStacked" | "PyramidBarStacked100" | "PyramidCol" | "3DColumn" | "Line" | "3DLine" | "3DPie" | "Pie" | "XYScatter" | "3DArea" | "Area" | "Doughnut" | "Radar" | "Histogram" | "Pareto" | "RegionMap";
             /**
              *
              * Represents the height, in points, of the chart object.
@@ -32547,7 +34012,7 @@ declare namespace Excel {
              *
              * [Api set: ExcelApi 1.7]
              */
-            chartType?: Excel.ChartType | "Invalid" | "ColumnClustered" | "ColumnStacked" | "ColumnStacked100" | "3DColumnClustered" | "3DColumnStacked" | "3DColumnStacked100" | "BarClustered" | "BarStacked" | "BarStacked100" | "3DBarClustered" | "3DBarStacked" | "3DBarStacked100" | "LineStacked" | "LineStacked100" | "LineMarkers" | "LineMarkersStacked" | "LineMarkersStacked100" | "PieOfPie" | "PieExploded" | "3DPieExploded" | "BarOfPie" | "XYScatterSmooth" | "XYScatterSmoothNoMarkers" | "XYScatterLines" | "XYScatterLinesNoMarkers" | "AreaStacked" | "AreaStacked100" | "3DAreaStacked" | "3DAreaStacked100" | "DoughnutExploded" | "RadarMarkers" | "RadarFilled" | "Surface" | "SurfaceWireframe" | "SurfaceTopView" | "SurfaceTopViewWireframe" | "Bubble" | "Bubble3DEffect" | "StockHLC" | "StockOHLC" | "StockVHLC" | "StockVOHLC" | "CylinderColClustered" | "CylinderColStacked" | "CylinderColStacked100" | "CylinderBarClustered" | "CylinderBarStacked" | "CylinderBarStacked100" | "CylinderCol" | "ConeColClustered" | "ConeColStacked" | "ConeColStacked100" | "ConeBarClustered" | "ConeBarStacked" | "ConeBarStacked100" | "ConeCol" | "PyramidColClustered" | "PyramidColStacked" | "PyramidColStacked100" | "PyramidBarClustered" | "PyramidBarStacked" | "PyramidBarStacked100" | "PyramidCol" | "3DColumn" | "Line" | "3DLine" | "3DPie" | "Pie" | "XYScatter" | "3DArea" | "Area" | "Doughnut" | "Radar";
+            chartType?: Excel.ChartType | "Invalid" | "ColumnClustered" | "ColumnStacked" | "ColumnStacked100" | "3DColumnClustered" | "3DColumnStacked" | "3DColumnStacked100" | "BarClustered" | "BarStacked" | "BarStacked100" | "3DBarClustered" | "3DBarStacked" | "3DBarStacked100" | "LineStacked" | "LineStacked100" | "LineMarkers" | "LineMarkersStacked" | "LineMarkersStacked100" | "PieOfPie" | "PieExploded" | "3DPieExploded" | "BarOfPie" | "XYScatterSmooth" | "XYScatterSmoothNoMarkers" | "XYScatterLines" | "XYScatterLinesNoMarkers" | "AreaStacked" | "AreaStacked100" | "3DAreaStacked" | "3DAreaStacked100" | "DoughnutExploded" | "RadarMarkers" | "RadarFilled" | "Surface" | "SurfaceWireframe" | "SurfaceTopView" | "SurfaceTopViewWireframe" | "Bubble" | "Bubble3DEffect" | "StockHLC" | "StockOHLC" | "StockVHLC" | "StockVOHLC" | "CylinderColClustered" | "CylinderColStacked" | "CylinderColStacked100" | "CylinderBarClustered" | "CylinderBarStacked" | "CylinderBarStacked100" | "CylinderCol" | "ConeColClustered" | "ConeColStacked" | "ConeColStacked100" | "ConeBarClustered" | "ConeBarStacked" | "ConeBarStacked100" | "ConeCol" | "PyramidColClustered" | "PyramidColStacked" | "PyramidColStacked100" | "PyramidBarClustered" | "PyramidBarStacked" | "PyramidBarStacked100" | "PyramidCol" | "3DColumn" | "Line" | "3DLine" | "3DPie" | "Pie" | "XYScatter" | "3DArea" | "Area" | "Doughnut" | "Radar" | "Histogram" | "Pareto" | "RegionMap";
             /**
              *
              * Represents the doughnut hole size of a chart series.  Only valid on doughnut and doughnutExploded charts.
@@ -34511,6 +35976,13 @@ declare namespace Excel {
             properties?: Excel.Interfaces.DocumentPropertiesLoadOptions;
             /**
             *
+            * Returns workbook protection object for a workbook.
+            *
+            * [Api set: ExcelApi 1.7]
+            */
+            protection?: Excel.Interfaces.WorkbookProtectionLoadOptions;
+            /**
+            *
             * Represents a collection of tables associated with the workbook.
             *
             * [Api set: ExcelApi 1.1]
@@ -34523,6 +35995,22 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.7]
              */
             name?: boolean;
+        }
+        /**
+         *
+         * Represents the protection of a workbook object.
+         *
+         * [Api set: ExcelApi 1.7]
+         */
+        interface WorkbookProtectionLoadOptions {
+            $all?: boolean;
+            /**
+             *
+             * Indicates if the workbook is protected. Read-Only.
+             *
+             * [Api set: ExcelApi 1.7]
+             */
+            protected?: boolean;
         }
         /**
          *
@@ -35646,7 +37134,7 @@ declare namespace Excel {
         /**
          *
          * Represents a collection of all the rows that are part of the table.
-
+                
                 Note that unlike Ranges or Columns, which will adjust if new rows/columns are added before them,
                 a TableRow object represent the physical location of the table row, but not the data.
                 That is, if the data is sorted or if new rows are added, a table row will continue
@@ -35674,7 +37162,7 @@ declare namespace Excel {
         /**
          *
          * Represents a row in a table.
-
+                
                 Note that unlike Ranges or Columns, which will adjust if new rows/columns are added before them,
                 a TableRow object represent the physical location of the table row, but not the data.
                 That is, if the data is sorted or if new rows are added, a table row will continue
@@ -39119,14 +40607,14 @@ declare namespace Excel {
 declare namespace Word {
     /**
      *
-     * The Application object.
+     * Represents the application object.
      *
      * [Api set: WordApi 1.3]
      */
     class Application extends OfficeExtension.ClientObject {
         /**
          *
-         * Creates a new hidden document by using an optional base64 encoded .docx file.
+         * Creates a new document by using an optional base64 encoded .docx file.
          *
          * [Api set: WordApi 1.3]
          *
@@ -39164,7 +40652,7 @@ declare namespace Word {
         readonly font: Word.Font;
         /**
          *
-         * Gets the collection of inlinePicture objects in the body. The collection does not include floating images. Read-only.
+         * Gets the collection of InlinePicture objects in the body. The collection does not include floating images. Read-only.
          *
          * [Api set: WordApi 1.1]
          */
@@ -39291,7 +40779,7 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.3]
          *
-         * @param rangeLocation Optional. The range location can be 'Whole', 'Start', 'End', 'After' or 'Content'.
+         * @param rangeLocation Optional. The range location can be 'Whole', 'Start', 'End', 'After', or 'Content'.
          */
         getRange(rangeLocation?: Word.RangeLocation): Word.Range;
         /**
@@ -39300,7 +40788,7 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.3]
          *
-         * @param rangeLocation Optional. The range location can be 'Whole', 'Start', 'End', 'After' or 'Content'.
+         * @param rangeLocation Optional. The range location can be 'Whole', 'Start', 'End', 'After', or 'Content'.
          */
         getRange(rangeLocation?: "Whole" | "Start" | "End" | "Before" | "After" | "Content"): Word.Range;
         /**
@@ -39332,42 +40820,42 @@ declare namespace Word {
         insertContentControl(): Word.ContentControl;
         /**
          *
-         * Inserts a document into the body at the specified location. The insertLocation value can be 'Replace', 'Start' or 'End'.
+         * Inserts a document into the body at the specified location. The insertLocation value can be 'Replace', 'Start', or 'End'.
          *
          * [Api set: WordApi 1.1]
          *
          * @param base64File Required. The base64 encoded content of a .docx file.
-         * @param insertLocation Required. The value can be 'Replace', 'Start' or 'End'.
+         * @param insertLocation Required. The value can be 'Replace', 'Start', or 'End'.
          */
         insertFileFromBase64(base64File: string, insertLocation: Word.InsertLocation): Word.Range;
         /**
          *
-         * Inserts a document into the body at the specified location. The insertLocation value can be 'Replace', 'Start' or 'End'.
+         * Inserts a document into the body at the specified location. The insertLocation value can be 'Replace', 'Start', or 'End'.
          *
          * [Api set: WordApi 1.1]
          *
          * @param base64File Required. The base64 encoded content of a .docx file.
-         * @param insertLocation Required. The value can be 'Replace', 'Start' or 'End'.
+         * @param insertLocation Required. The value can be 'Replace', 'Start', or 'End'.
          */
         insertFileFromBase64(base64File: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.Range;
         /**
          *
-         * Inserts HTML at the specified location. The insertLocation value can be 'Replace', 'Start' or 'End'.
+         * Inserts HTML at the specified location. The insertLocation value can be 'Replace', 'Start', or 'End'.
          *
          * [Api set: WordApi 1.1]
          *
          * @param html Required. The HTML to be inserted in the document.
-         * @param insertLocation Required. The value can be 'Replace', 'Start' or 'End'.
+         * @param insertLocation Required. The value can be 'Replace', 'Start', or 'End'.
          */
         insertHtml(html: string, insertLocation: Word.InsertLocation): Word.Range;
         /**
          *
-         * Inserts HTML at the specified location. The insertLocation value can be 'Replace', 'Start' or 'End'.
+         * Inserts HTML at the specified location. The insertLocation value can be 'Replace', 'Start', or 'End'.
          *
          * [Api set: WordApi 1.1]
          *
          * @param html Required. The HTML to be inserted in the document.
-         * @param insertLocation Required. The value can be 'Replace', 'Start' or 'End'.
+         * @param insertLocation Required. The value can be 'Replace', 'Start', or 'End'.
          */
         insertHtml(html: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.Range;
         /**
@@ -39392,22 +40880,22 @@ declare namespace Word {
         insertInlinePictureFromBase64(base64EncodedImage: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.InlinePicture;
         /**
          *
-         * Inserts OOXML at the specified location.  The insertLocation value can be 'Replace', 'Start' or 'End'.
+         * Inserts OOXML at the specified location.  The insertLocation value can be 'Replace', 'Start', or 'End'.
          *
          * [Api set: WordApi 1.1]
          *
          * @param ooxml Required. The OOXML to be inserted.
-         * @param insertLocation Required. The value can be 'Replace', 'Start' or 'End'.
+         * @param insertLocation Required. The value can be 'Replace', 'Start', or 'End'.
          */
         insertOoxml(ooxml: string, insertLocation: Word.InsertLocation): Word.Range;
         /**
          *
-         * Inserts OOXML at the specified location.  The insertLocation value can be 'Replace', 'Start' or 'End'.
+         * Inserts OOXML at the specified location.  The insertLocation value can be 'Replace', 'Start', or 'End'.
          *
          * [Api set: WordApi 1.1]
          *
          * @param ooxml Required. The OOXML to be inserted.
-         * @param insertLocation Required. The value can be 'Replace', 'Start' or 'End'.
+         * @param insertLocation Required. The value can be 'Replace', 'Start', or 'End'.
          */
         insertOoxml(ooxml: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.Range;
         /**
@@ -39456,27 +40944,27 @@ declare namespace Word {
         insertTable(rowCount: number, columnCount: number, insertLocation: "Before" | "After" | "Start" | "End" | "Replace", values?: string[][]): Word.Table;
         /**
          *
-         * Inserts text into the body at the specified location. The insertLocation value can be 'Replace', 'Start' or 'End'.
+         * Inserts text into the body at the specified location. The insertLocation value can be 'Replace', 'Start', or 'End'.
          *
          * [Api set: WordApi 1.1]
          *
          * @param text Required. Text to be inserted.
-         * @param insertLocation Required. The value can be 'Replace', 'Start' or 'End'.
+         * @param insertLocation Required. The value can be 'Replace', 'Start', or 'End'.
          */
         insertText(text: string, insertLocation: Word.InsertLocation): Word.Range;
         /**
          *
-         * Inserts text into the body at the specified location. The insertLocation value can be 'Replace', 'Start' or 'End'.
+         * Inserts text into the body at the specified location. The insertLocation value can be 'Replace', 'Start', or 'End'.
          *
          * [Api set: WordApi 1.1]
          *
          * @param text Required. Text to be inserted.
-         * @param insertLocation Required. The value can be 'Replace', 'Start' or 'End'.
+         * @param insertLocation Required. The value can be 'Replace', 'Start', or 'End'.
          */
         insertText(text: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.Range;
         /**
          *
-         * Performs a search with the specified searchOptions on the scope of the body object. The search results are a collection of range objects.
+         * Performs a search with the specified SearchOptions on the scope of the body object. The search results are a collection of range objects.
          *
          * [Api set: WordApi 1.1]
          *
@@ -39498,7 +40986,7 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.1]
          *
-         * @param selectionMode Optional. The selection mode can be 'Select', 'Start' or 'End'. 'Select' is the default.
+         * @param selectionMode Optional. The selection mode can be 'Select', 'Start', or 'End'. 'Select' is the default.
          */
         select(selectionMode?: Word.SelectionMode): void;
         /**
@@ -39507,7 +40995,7 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.1]
          *
-         * @param selectionMode Optional. The selection mode can be 'Select', 'Start' or 'End'. 'Select' is the default.
+         * @param selectionMode Optional. The selection mode can be 'Select', 'Start', or 'End'. 'Select' is the default.
          */
         select(selectionMode?: "Select" | "Start" | "End"): void;
         /**
@@ -39629,7 +41117,7 @@ declare namespace Word {
         readonly tables: Word.TableCollection;
         /**
          *
-         * Gets or sets the appearance of the content control. The value can be 'boundingBox', 'tags' or 'hidden'.
+         * Gets or sets the appearance of the content control. The value can be 'BoundingBox', 'Tags', or 'Hidden'.
          *
          * [Api set: WordApi 1.1]
          */
@@ -39765,7 +41253,7 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.3]
          *
-         * @param rangeLocation Optional. The range location can be 'Whole', 'Before', 'Start', 'End', 'After' or 'Content'.
+         * @param rangeLocation Optional. The range location can be 'Whole', 'Before', 'Start', 'End', 'After', or 'Content'.
          */
         getRange(rangeLocation?: Word.RangeLocation): Word.Range;
         /**
@@ -39774,7 +41262,7 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.3]
          *
-         * @param rangeLocation Optional. The range location can be 'Whole', 'Before', 'Start', 'End', 'After' or 'Content'.
+         * @param rangeLocation Optional. The range location can be 'Whole', 'Before', 'Start', 'End', 'After', or 'Content'.
          */
         getRange(rangeLocation?: "Whole" | "Start" | "End" | "Before" | "After" | "Content"): Word.Range;
         /**
@@ -39784,176 +41272,176 @@ declare namespace Word {
          * [Api set: WordApi 1.3]
          *
          * @param endingMarks Required. The punctuation marks and/or other ending marks as an array of strings.
-         * @param trimSpacing Optional. Indicates whether to trim spacing characters (spaces, tabs, column breaks and paragraph end marks) from the start and end of the ranges returned in the range collection. Default is false which indicates that spacing characters at the start and end of the ranges are included in the range collection.
+         * @param trimSpacing Optional. Indicates whether to trim spacing characters (spaces, tabs, column breaks, and paragraph end marks) from the start and end of the ranges returned in the range collection. Default is false which indicates that spacing characters at the start and end of the ranges are included in the range collection.
          */
         getTextRanges(endingMarks: string[], trimSpacing?: boolean): Word.RangeCollection;
         /**
          *
-         * Inserts a break at the specified location in the main document. The insertLocation value can be 'Start', 'End', 'Before' or 'After'. This method cannot be used with 'RichTextTable', 'RichTextTableRow' and 'RichTextTableCell' content controls.
+         * Inserts a break at the specified location in the main document. The insertLocation value can be 'Start', 'End', 'Before', or 'After'. This method cannot be used with 'RichTextTable', 'RichTextTableRow' and 'RichTextTableCell' content controls.
          *
          * [Api set: WordApi 1.1]
          *
          * @param breakType Required. Type of break.
-         * @param insertLocation Required. The value can be 'Start', 'End', 'Before' or 'After'.
+         * @param insertLocation Required. The value can be 'Start', 'End', 'Before', or 'After'.
          */
         insertBreak(breakType: Word.BreakType, insertLocation: Word.InsertLocation): void;
         /**
          *
-         * Inserts a break at the specified location in the main document. The insertLocation value can be 'Start', 'End', 'Before' or 'After'. This method cannot be used with 'RichTextTable', 'RichTextTableRow' and 'RichTextTableCell' content controls.
+         * Inserts a break at the specified location in the main document. The insertLocation value can be 'Start', 'End', 'Before', or 'After'. This method cannot be used with 'RichTextTable', 'RichTextTableRow' and 'RichTextTableCell' content controls.
          *
          * [Api set: WordApi 1.1]
          *
          * @param breakType Required. Type of break.
-         * @param insertLocation Required. The value can be 'Start', 'End', 'Before' or 'After'.
+         * @param insertLocation Required. The value can be 'Start', 'End', 'Before', or 'After'.
          */
         insertBreak(breakType: "Page" | "Next" | "SectionNext" | "SectionContinuous" | "SectionEven" | "SectionOdd" | "Line", insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): void;
         /**
          *
-         * Inserts a document into the content control at the specified location. The insertLocation value can be 'Replace', 'Start' or 'End'.
+         * Inserts a document into the content control at the specified location. The insertLocation value can be 'Replace', 'Start', or 'End'.
          *
          * [Api set: WordApi 1.1]
          *
          * @param base64File Required. The base64 encoded content of a .docx file.
-         * @param insertLocation Required. The value can be 'Replace', 'Start' or 'End'. 'Replace' cannot be used with 'RichTextTable' and 'RichTextTableRow' content controls.
+         * @param insertLocation Required. The value can be 'Replace', 'Start', or 'End'. 'Replace' cannot be used with 'RichTextTable' and 'RichTextTableRow' content controls.
          */
         insertFileFromBase64(base64File: string, insertLocation: Word.InsertLocation): Word.Range;
         /**
          *
-         * Inserts a document into the content control at the specified location. The insertLocation value can be 'Replace', 'Start' or 'End'.
+         * Inserts a document into the content control at the specified location. The insertLocation value can be 'Replace', 'Start', or 'End'.
          *
          * [Api set: WordApi 1.1]
          *
          * @param base64File Required. The base64 encoded content of a .docx file.
-         * @param insertLocation Required. The value can be 'Replace', 'Start' or 'End'. 'Replace' cannot be used with 'RichTextTable' and 'RichTextTableRow' content controls.
+         * @param insertLocation Required. The value can be 'Replace', 'Start', or 'End'. 'Replace' cannot be used with 'RichTextTable' and 'RichTextTableRow' content controls.
          */
         insertFileFromBase64(base64File: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.Range;
         /**
          *
-         * Inserts HTML into the content control at the specified location. The insertLocation value can be 'Replace', 'Start' or 'End'.
+         * Inserts HTML into the content control at the specified location. The insertLocation value can be 'Replace', 'Start', or 'End'.
          *
          * [Api set: WordApi 1.1]
          *
          * @param html Required. The HTML to be inserted in to the content control.
-         * @param insertLocation Required. The value can be 'Replace', 'Start' or 'End'. 'Replace' cannot be used with 'RichTextTable' and 'RichTextTableRow' content controls.
+         * @param insertLocation Required. The value can be 'Replace', 'Start', or 'End'. 'Replace' cannot be used with 'RichTextTable' and 'RichTextTableRow' content controls.
          */
         insertHtml(html: string, insertLocation: Word.InsertLocation): Word.Range;
         /**
          *
-         * Inserts HTML into the content control at the specified location. The insertLocation value can be 'Replace', 'Start' or 'End'.
+         * Inserts HTML into the content control at the specified location. The insertLocation value can be 'Replace', 'Start', or 'End'.
          *
          * [Api set: WordApi 1.1]
          *
          * @param html Required. The HTML to be inserted in to the content control.
-         * @param insertLocation Required. The value can be 'Replace', 'Start' or 'End'. 'Replace' cannot be used with 'RichTextTable' and 'RichTextTableRow' content controls.
+         * @param insertLocation Required. The value can be 'Replace', 'Start', or 'End'. 'Replace' cannot be used with 'RichTextTable' and 'RichTextTableRow' content controls.
          */
         insertHtml(html: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.Range;
         /**
          *
-         * Inserts an inline picture into the content control at the specified location. The insertLocation value can be 'Replace', 'Start' or 'End'.
+         * Inserts an inline picture into the content control at the specified location. The insertLocation value can be 'Replace', 'Start', or 'End'.
          *
          * [Api set: WordApi 1.2]
          *
          * @param base64EncodedImage Required. The base64 encoded image to be inserted in the content control.
-         * @param insertLocation Required. The value can be 'Replace', 'Start' or 'End'. 'Replace' cannot be used with 'RichTextTable' and 'RichTextTableRow' content controls.
+         * @param insertLocation Required. The value can be 'Replace', 'Start', or 'End'. 'Replace' cannot be used with 'RichTextTable' and 'RichTextTableRow' content controls.
          */
         insertInlinePictureFromBase64(base64EncodedImage: string, insertLocation: Word.InsertLocation): Word.InlinePicture;
         /**
          *
-         * Inserts an inline picture into the content control at the specified location. The insertLocation value can be 'Replace', 'Start' or 'End'.
+         * Inserts an inline picture into the content control at the specified location. The insertLocation value can be 'Replace', 'Start', or 'End'.
          *
          * [Api set: WordApi 1.2]
          *
          * @param base64EncodedImage Required. The base64 encoded image to be inserted in the content control.
-         * @param insertLocation Required. The value can be 'Replace', 'Start' or 'End'. 'Replace' cannot be used with 'RichTextTable' and 'RichTextTableRow' content controls.
+         * @param insertLocation Required. The value can be 'Replace', 'Start', or 'End'. 'Replace' cannot be used with 'RichTextTable' and 'RichTextTableRow' content controls.
          */
         insertInlinePictureFromBase64(base64EncodedImage: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.InlinePicture;
         /**
          *
-         * Inserts OOXML into the content control at the specified location.  The insertLocation value can be 'Replace', 'Start' or 'End'.
+         * Inserts OOXML into the content control at the specified location.  The insertLocation value can be 'Replace', 'Start', or 'End'.
          *
          * [Api set: WordApi 1.1]
          *
          * @param ooxml Required. The OOXML to be inserted in to the content control.
-         * @param insertLocation Required. The value can be 'Replace', 'Start' or 'End'. 'Replace' cannot be used with 'RichTextTable' and 'RichTextTableRow' content controls.
+         * @param insertLocation Required. The value can be 'Replace', 'Start', or 'End'. 'Replace' cannot be used with 'RichTextTable' and 'RichTextTableRow' content controls.
          */
         insertOoxml(ooxml: string, insertLocation: Word.InsertLocation): Word.Range;
         /**
          *
-         * Inserts OOXML into the content control at the specified location.  The insertLocation value can be 'Replace', 'Start' or 'End'.
+         * Inserts OOXML into the content control at the specified location.  The insertLocation value can be 'Replace', 'Start', or 'End'.
          *
          * [Api set: WordApi 1.1]
          *
          * @param ooxml Required. The OOXML to be inserted in to the content control.
-         * @param insertLocation Required. The value can be 'Replace', 'Start' or 'End'. 'Replace' cannot be used with 'RichTextTable' and 'RichTextTableRow' content controls.
+         * @param insertLocation Required. The value can be 'Replace', 'Start', or 'End'. 'Replace' cannot be used with 'RichTextTable' and 'RichTextTableRow' content controls.
          */
         insertOoxml(ooxml: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.Range;
         /**
          *
-         * Inserts a paragraph at the specified location. The insertLocation value can be 'Start', 'End', 'Before' or 'After'.
+         * Inserts a paragraph at the specified location. The insertLocation value can be 'Start', 'End', 'Before', or 'After'.
          *
          * [Api set: WordApi 1.1]
          *
-         * @param paragraphText Required. The paragrph text to be inserted.
-         * @param insertLocation Required. The value can be 'Start', 'End', 'Before' or 'After'. 'Before' and 'After' cannot be used with 'RichTextTable', 'RichTextTableRow' and 'RichTextTableCell' content controls.
+         * @param paragraphText Required. The paragraph text to be inserted.
+         * @param insertLocation Required. The value can be 'Start', 'End', 'Before', or 'After'. 'Before' and 'After' cannot be used with 'RichTextTable', 'RichTextTableRow' and 'RichTextTableCell' content controls.
          */
         insertParagraph(paragraphText: string, insertLocation: Word.InsertLocation): Word.Paragraph;
         /**
          *
-         * Inserts a paragraph at the specified location. The insertLocation value can be 'Start', 'End', 'Before' or 'After'.
+         * Inserts a paragraph at the specified location. The insertLocation value can be 'Start', 'End', 'Before', or 'After'.
          *
          * [Api set: WordApi 1.1]
          *
-         * @param paragraphText Required. The paragrph text to be inserted.
-         * @param insertLocation Required. The value can be 'Start', 'End', 'Before' or 'After'. 'Before' and 'After' cannot be used with 'RichTextTable', 'RichTextTableRow' and 'RichTextTableCell' content controls.
+         * @param paragraphText Required. The paragraph text to be inserted.
+         * @param insertLocation Required. The value can be 'Start', 'End', 'Before', or 'After'. 'Before' and 'After' cannot be used with 'RichTextTable', 'RichTextTableRow' and 'RichTextTableCell' content controls.
          */
         insertParagraph(paragraphText: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.Paragraph;
         /**
          *
-         * Inserts a table with the specified number of rows and columns into, or next to, a content control. The insertLocation value can be 'Start', 'End', 'Before' or 'After'.
+         * Inserts a table with the specified number of rows and columns into, or next to, a content control. The insertLocation value can be 'Start', 'End', 'Before', or 'After'.
          *
          * [Api set: WordApi 1.3]
          *
          * @param rowCount Required. The number of rows in the table.
          * @param columnCount Required. The number of columns in the table.
-         * @param insertLocation Required. The value can be 'Start', 'End', 'Before' or 'After'. 'Before' and 'After' cannot be used with 'RichTextTable', 'RichTextTableRow' and 'RichTextTableCell' content controls.
+         * @param insertLocation Required. The value can be 'Start', 'End', 'Before', or 'After'. 'Before' and 'After' cannot be used with 'RichTextTable', 'RichTextTableRow' and 'RichTextTableCell' content controls.
          * @param values Optional 2D array. Cells are filled if the corresponding strings are specified in the array.
          */
         insertTable(rowCount: number, columnCount: number, insertLocation: Word.InsertLocation, values?: string[][]): Word.Table;
         /**
          *
-         * Inserts a table with the specified number of rows and columns into, or next to, a content control. The insertLocation value can be 'Start', 'End', 'Before' or 'After'.
+         * Inserts a table with the specified number of rows and columns into, or next to, a content control. The insertLocation value can be 'Start', 'End', 'Before', or 'After'.
          *
          * [Api set: WordApi 1.3]
          *
          * @param rowCount Required. The number of rows in the table.
          * @param columnCount Required. The number of columns in the table.
-         * @param insertLocation Required. The value can be 'Start', 'End', 'Before' or 'After'. 'Before' and 'After' cannot be used with 'RichTextTable', 'RichTextTableRow' and 'RichTextTableCell' content controls.
+         * @param insertLocation Required. The value can be 'Start', 'End', 'Before', or 'After'. 'Before' and 'After' cannot be used with 'RichTextTable', 'RichTextTableRow' and 'RichTextTableCell' content controls.
          * @param values Optional 2D array. Cells are filled if the corresponding strings are specified in the array.
          */
         insertTable(rowCount: number, columnCount: number, insertLocation: "Before" | "After" | "Start" | "End" | "Replace", values?: string[][]): Word.Table;
         /**
          *
-         * Inserts text into the content control at the specified location. The insertLocation value can be 'Replace', 'Start' or 'End'.
+         * Inserts text into the content control at the specified location. The insertLocation value can be 'Replace', 'Start', or 'End'.
          *
          * [Api set: WordApi 1.1]
          *
          * @param text Required. The text to be inserted in to the content control.
-         * @param insertLocation Required. The value can be 'Replace', 'Start' or 'End'. 'Replace' cannot be used with 'RichTextTable' and 'RichTextTableRow' content controls.
+         * @param insertLocation Required. The value can be 'Replace', 'Start', or 'End'. 'Replace' cannot be used with 'RichTextTable' and 'RichTextTableRow' content controls.
          */
         insertText(text: string, insertLocation: Word.InsertLocation): Word.Range;
         /**
          *
-         * Inserts text into the content control at the specified location. The insertLocation value can be 'Replace', 'Start' or 'End'.
+         * Inserts text into the content control at the specified location. The insertLocation value can be 'Replace', 'Start', or 'End'.
          *
          * [Api set: WordApi 1.1]
          *
          * @param text Required. The text to be inserted in to the content control.
-         * @param insertLocation Required. The value can be 'Replace', 'Start' or 'End'. 'Replace' cannot be used with 'RichTextTable' and 'RichTextTableRow' content controls.
+         * @param insertLocation Required. The value can be 'Replace', 'Start', or 'End'. 'Replace' cannot be used with 'RichTextTable' and 'RichTextTableRow' content controls.
          */
         insertText(text: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.Range;
         /**
          *
-         * Performs a search with the specified searchOptions on the scope of the content control object. The search results are a collection of range objects.
+         * Performs a search with the specified SearchOptions on the scope of the content control object. The search results are a collection of range objects.
          *
          * [Api set: WordApi 1.1]
          *
@@ -39975,7 +41463,7 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.1]
          *
-         * @param selectionMode Optional. The selection mode can be 'Select', 'Start' or 'End'. 'Select' is the default.
+         * @param selectionMode Optional. The selection mode can be 'Select', 'Start', or 'End'. 'Select' is the default.
          */
         select(selectionMode?: Word.SelectionMode): void;
         /**
@@ -39984,7 +41472,7 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.1]
          *
-         * @param selectionMode Optional. The selection mode can be 'Select', 'Start' or 'End'. 'Select' is the default.
+         * @param selectionMode Optional. The selection mode can be 'Select', 'Start', or 'End'. 'Select' is the default.
          */
         select(selectionMode?: "Select" | "Start" | "End"): void;
         /**
@@ -39996,7 +41484,7 @@ declare namespace Word {
          * @param delimiters Required. The delimiters as an array of strings.
          * @param multiParagraphs Optional. Indicates whether a returned child range can cover multiple paragraphs. Default is false which indicates that the paragraph boundaries are also used as delimiters.
          * @param trimDelimiters Optional. Indicates whether to trim delimiters from the ranges in the range collection. Default is false which indicates that the delimiters are included in the ranges returned in the range collection.
-         * @param trimSpacing Optional. Indicates whether to trim spacing characters (spaces, tabs, column breaks and paragraph end marks) from the start and end of the ranges returned in the range collection. Default is false which indicates that spacing characters at the start and end of the ranges are included in the range collection.
+         * @param trimSpacing Optional. Indicates whether to trim spacing characters (spaces, tabs, column breaks, and paragraph end marks) from the start and end of the ranges returned in the range collection. Default is false which indicates that spacing characters at the start and end of the ranges are included in the range collection.
          */
         split(delimiters: string[], multiParagraphs?: boolean, trimDelimiters?: boolean, trimSpacing?: boolean): Word.RangeCollection;
         /**
@@ -40020,7 +41508,7 @@ declare namespace Word {
     }
     /**
      *
-     * Contains a collection of [contentControl](contentControl.md) objects. Content controls are bounded and potentially labeled regions in a document that serve as containers for specific types of content. Individual content controls may contain contents such as images, tables, or paragraphs of formatted text. Currently, only rich text content controls are supported.
+     * Contains a collection of {@link Word.ContentControl} objects. Content controls are bounded and potentially labeled regions in a document that serve as containers for specific types of content. Individual content controls may contain contents such as images, tables, or paragraphs of formatted text. Currently, only rich text content controls are supported.
      *
      * [Api set: WordApi 1.1]
      */
@@ -40171,7 +41659,7 @@ declare namespace Word {
     }
     /**
      *
-     * Contains the collection of [customProperty](customProperty.md) objects.
+     * Contains the collection of {@link Word.CustomProperty} objects.
      *
      * [Api set: WordApi 1.3]
      */
@@ -40363,7 +41851,7 @@ declare namespace Word {
         set(properties: DocumentCreated): void;
         /**
          *
-         * Open the document.
+         * Opens the document.
          *
          * [Api set: WordApi 1.3]
          */
@@ -40573,14 +42061,14 @@ declare namespace Word {
         color: string;
         /**
          *
-         * Gets or sets a value that indicates whether the font has a double strike through. True if the font is formatted as double strikethrough text, otherwise, false.
+         * Gets or sets a value that indicates whether the font has a double strikethrough. True if the font is formatted as double strikethrough text, otherwise, false.
          *
          * [Api set: WordApi 1.1]
          */
         doubleStrikeThrough: boolean;
         /**
          *
-         * Gets or sets the highlight color. To set it, use a value either in the '#RRGGBB' format or the color name. To remove highlight color, set it to null. The returned highlight color can be in the '#RRGGBB' format, or an empty string for mixed highlight colors, or null for no highlight color.
+         * Gets or sets the highlight color. To set it, use a value either in the '#RRGGBB' format or the color name. To remove highlight color, set it to null. The returned highlight color can be in the '#RRGGBB' format, an empty string for mixed highlight colors, or null for no highlight color.
          *
          * [Api set: WordApi 1.1]
          */
@@ -40608,7 +42096,7 @@ declare namespace Word {
         size: number;
         /**
          *
-         * Gets or sets a value that indicates whether the font has a strike through. True if the font is formatted as strikethrough text, otherwise, false.
+         * Gets or sets a value that indicates whether the font has a strikethrough. True if the font is formatted as strikethrough text, otherwise, false.
          *
          * [Api set: WordApi 1.1]
          */
@@ -40715,7 +42203,7 @@ declare namespace Word {
         readonly parentTableOrNullObject: Word.Table;
         /**
          *
-         * Gets or sets a string that represents the alternative text associated with the inline image
+         * Gets or sets a string that represents the alternative text associated with the inline image.
          *
          * [Api set: WordApi 1.1]
          */
@@ -40793,7 +42281,7 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.3]
          *
-         * @param rangeLocation Optional. The range location can be 'Whole', 'Start' or 'End'.
+         * @param rangeLocation Optional. The range location can be 'Whole', 'Start', or 'End'.
          */
         getRange(rangeLocation?: Word.RangeLocation): Word.Range;
         /**
@@ -40802,7 +42290,7 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.3]
          *
-         * @param rangeLocation Optional. The range location can be 'Whole', 'Start' or 'End'.
+         * @param rangeLocation Optional. The range location can be 'Whole', 'Start', or 'End'.
          */
         getRange(rangeLocation?: "Whole" | "Start" | "End" | "Before" | "After" | "Content"): Word.Range;
         /**
@@ -40874,22 +42362,22 @@ declare namespace Word {
         insertHtml(html: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.Range;
         /**
          *
-         * Inserts an inline picture at the specified location. The insertLocation value can be 'Replace', 'Before' or 'After'.
+         * Inserts an inline picture at the specified location. The insertLocation value can be 'Replace', 'Before', or 'After'.
          *
          * [Api set: WordApi 1.2]
          *
          * @param base64EncodedImage Required. The base64 encoded image to be inserted.
-         * @param insertLocation Required. The value can be 'Replace', 'Before' or 'After'.
+         * @param insertLocation Required. The value can be 'Replace', 'Before', or 'After'.
          */
         insertInlinePictureFromBase64(base64EncodedImage: string, insertLocation: Word.InsertLocation): Word.InlinePicture;
         /**
          *
-         * Inserts an inline picture at the specified location. The insertLocation value can be 'Replace', 'Before' or 'After'.
+         * Inserts an inline picture at the specified location. The insertLocation value can be 'Replace', 'Before', or 'After'.
          *
          * [Api set: WordApi 1.2]
          *
          * @param base64EncodedImage Required. The base64 encoded image to be inserted.
-         * @param insertLocation Required. The value can be 'Replace', 'Before' or 'After'.
+         * @param insertLocation Required. The value can be 'Replace', 'Before', or 'After'.
          */
         insertInlinePictureFromBase64(base64EncodedImage: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.InlinePicture;
         /**
@@ -40958,7 +42446,7 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.2]
          *
-         * @param selectionMode Optional. The selection mode can be 'Select', 'Start' or 'End'. 'Select' is the default.
+         * @param selectionMode Optional. The selection mode can be 'Select', 'Start', or 'End'. 'Select' is the default.
          */
         select(selectionMode?: Word.SelectionMode): void;
         /**
@@ -40967,7 +42455,7 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.2]
          *
-         * @param selectionMode Optional. The selection mode can be 'Select', 'Start' or 'End'. 'Select' is the default.
+         * @param selectionMode Optional. The selection mode can be 'Select', 'Start', or 'End'. 'Select' is the default.
          */
         select(selectionMode?: "Select" | "Start" | "End"): void;
         /**
@@ -40991,7 +42479,7 @@ declare namespace Word {
     }
     /**
      *
-     * Contains a collection of [inlinePicture](inlinePicture.md) objects.
+     * Contains a collection of {@link Word.InlinePicture} objects.
      *
      * [Api set: WordApi 1.1]
      */
@@ -41030,7 +42518,7 @@ declare namespace Word {
     }
     /**
      *
-     * Contains a collection of [paragraph](paragraph.md) objects.
+     * Contains a collection of {@link Word.Paragraph} objects.
      *
      * [Api set: WordApi 1.3]
      */
@@ -41058,7 +42546,7 @@ declare namespace Word {
         readonly levelExistences: boolean[];
         /**
          *
-         * Gets all 9 level types in the list. Each type can be 'Bullet', 'Number' or 'Picture'. Read-only.
+         * Gets all 9 level types in the list. Each type can be 'Bullet', 'Number', or 'Picture'. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
@@ -41083,22 +42571,22 @@ declare namespace Word {
         getLevelString(level: number): OfficeExtension.ClientResult<string>;
         /**
          *
-         * Inserts a paragraph at the specified location. The insertLocation value can be 'Start', 'End', 'Before' or 'After'.
+         * Inserts a paragraph at the specified location. The insertLocation value can be 'Start', 'End', 'Before', or 'After'.
          *
          * [Api set: WordApi 1.3]
          *
          * @param paragraphText Required. The paragraph text to be inserted.
-         * @param insertLocation Required. The value can be 'Start', 'End', 'Before' or 'After'.
+         * @param insertLocation Required. The value can be 'Start', 'End', 'Before', or 'After'.
          */
         insertParagraph(paragraphText: string, insertLocation: Word.InsertLocation): Word.Paragraph;
         /**
          *
-         * Inserts a paragraph at the specified location. The insertLocation value can be 'Start', 'End', 'Before' or 'After'.
+         * Inserts a paragraph at the specified location. The insertLocation value can be 'Start', 'End', 'Before', or 'After'.
          *
          * [Api set: WordApi 1.3]
          *
          * @param paragraphText Required. The paragraph text to be inserted.
-         * @param insertLocation Required. The value can be 'Start', 'End', 'Before' or 'After'.
+         * @param insertLocation Required. The value can be 'Start', 'End', 'Before', or 'After'.
          */
         insertParagraph(paragraphText: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.Paragraph;
         /**
@@ -41108,7 +42596,7 @@ declare namespace Word {
          * [Api set: WordApi 1.3]
          *
          * @param level Required. The level in the list.
-         * @param alignment Required. The level alignment that can be 'left', 'centered' or 'right'.
+         * @param alignment Required. The level alignment that can be 'Left', 'Centered', or 'Right'.
          */
         setLevelAlignment(level: number, alignment: Word.Alignment): void;
         /**
@@ -41118,7 +42606,7 @@ declare namespace Word {
          * [Api set: WordApi 1.3]
          *
          * @param level Required. The level in the list.
-         * @param alignment Required. The level alignment that can be 'left', 'centered' or 'right'.
+         * @param alignment Required. The level alignment that can be 'Left', 'Centered', or 'Right'.
          */
         setLevelAlignment(level: number, alignment: "Mixed" | "Unknown" | "Left" | "Centered" | "Right" | "Justified"): void;
         /**
@@ -41209,7 +42697,7 @@ declare namespace Word {
     }
     /**
      *
-     * Contains a collection of [list](list.md) objects.
+     * Contains a collection of {@link Word.List} objects.
      *
      * [Api set: WordApi 1.3]
      */
@@ -41289,7 +42777,7 @@ declare namespace Word {
         level: number;
         /**
          *
-         * Gets the list item bullet, number or picture as a string. Read-only.
+         * Gets the list item bullet, number, or picture as a string. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
@@ -41307,20 +42795,20 @@ declare namespace Word {
         set(properties: ListItem): void;
         /**
          *
-         * Gets the list item parent, or the closest ancestor if the parent does not exist. Throws if the list item has no ancester.
+         * Gets the list item parent, or the closest ancestor if the parent does not exist. Throws if the list item has no ancestor.
          *
          * [Api set: WordApi 1.3]
          *
-         * @param parentOnly Optional. Specified only the list item's parent will be returned. The default is false that specifies to get the lowest ancestor.
+         * @param parentOnly Optional. Specifies only the list item's parent will be returned. The default is false that specifies to get the lowest ancestor.
          */
         getAncestor(parentOnly?: boolean): Word.Paragraph;
         /**
          *
-         * Gets the list item parent, or the closest ancestor if the parent does not exist. Returns a null object if the list item has no ancester.
+         * Gets the list item parent, or the closest ancestor if the parent does not exist. Returns a null object if the list item has no ancestor.
          *
          * [Api set: WordApi 1.3]
          *
-         * @param parentOnly Optional. Specified only the list item's parent will be returned. The default is false that specifies to get the lowest ancestor.
+         * @param parentOnly Optional. Specifies only the list item's parent will be returned. The default is false that specifies to get the lowest ancestor.
          */
         getAncestorOrNullObject(parentOnly?: boolean): Word.Paragraph;
         /**
@@ -41329,7 +42817,7 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.3]
          *
-         * @param directChildrenOnly Optional. Specified only the list item's direct children will be returned. The default is false that indicates to get all descendant items.
+         * @param directChildrenOnly Optional. Specifies only the list item's direct children will be returned. The default is false that indicates to get all descendant items.
          */
         getDescendants(directChildrenOnly?: boolean): Word.ParagraphCollection;
         /**
@@ -41374,7 +42862,7 @@ declare namespace Word {
         readonly font: Word.Font;
         /**
          *
-         * Gets the collection of inlinePicture objects in the paragraph. The collection does not include floating images. Read-only.
+         * Gets the collection of InlinePicture objects in the paragraph. The collection does not include floating images. Read-only.
          *
          * [Api set: WordApi 1.1]
          */
@@ -41500,7 +42988,7 @@ declare namespace Word {
         lineSpacing: number;
         /**
          *
-         * Gets or sets the amount of spacing, in grid lines. after the paragraph.
+         * Gets or sets the amount of spacing, in grid lines, after the paragraph.
          *
          * [Api set: WordApi 1.1]
          */
@@ -41651,7 +43139,7 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.3]
          *
-         * @param rangeLocation Optional. The range location can be 'Whole', 'Start', 'End', 'After' or 'Content'.
+         * @param rangeLocation Optional. The range location can be 'Whole', 'Start', 'End', 'After', or 'Content'.
          */
         getRange(rangeLocation?: Word.RangeLocation): Word.Range;
         /**
@@ -41660,7 +43148,7 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.3]
          *
-         * @param rangeLocation Optional. The range location can be 'Whole', 'Start', 'End', 'After' or 'Content'.
+         * @param rangeLocation Optional. The range location can be 'Whole', 'Start', 'End', 'After', or 'Content'.
          */
         getRange(rangeLocation?: "Whole" | "Start" | "End" | "Before" | "After" | "Content"): Word.Range;
         /**
@@ -41670,7 +43158,7 @@ declare namespace Word {
          * [Api set: WordApi 1.3]
          *
          * @param endingMarks Required. The punctuation marks and/or other ending marks as an array of strings.
-         * @param trimSpacing Optional. Indicates whether to trim spacing characters (spaces, tabs, column breaks and paragraph end marks) from the start and end of the ranges returned in the range collection. Default is false which indicates that spacing characters at the start and end of the ranges are included in the range collection.
+         * @param trimSpacing Optional. Indicates whether to trim spacing characters (spaces, tabs, column breaks, and paragraph end marks) from the start and end of the ranges returned in the range collection. Default is false which indicates that spacing characters at the start and end of the ranges are included in the range collection.
          */
         getTextRanges(endingMarks: string[], trimSpacing?: boolean): Word.RangeCollection;
         /**
@@ -41702,82 +43190,82 @@ declare namespace Word {
         insertContentControl(): Word.ContentControl;
         /**
          *
-         * Inserts a document into the paragraph at the specified location. The insertLocation value can be 'Replace', 'Start' or 'End'.
+         * Inserts a document into the paragraph at the specified location. The insertLocation value can be 'Replace', 'Start', or 'End'.
          *
          * [Api set: WordApi 1.1]
          *
          * @param base64File Required. The base64 encoded content of a .docx file.
-         * @param insertLocation Required. The value can be 'Replace', 'Start' or 'End'.
+         * @param insertLocation Required. The value can be 'Replace', 'Start', or 'End'.
          */
         insertFileFromBase64(base64File: string, insertLocation: Word.InsertLocation): Word.Range;
         /**
          *
-         * Inserts a document into the paragraph at the specified location. The insertLocation value can be 'Replace', 'Start' or 'End'.
+         * Inserts a document into the paragraph at the specified location. The insertLocation value can be 'Replace', 'Start', or 'End'.
          *
          * [Api set: WordApi 1.1]
          *
          * @param base64File Required. The base64 encoded content of a .docx file.
-         * @param insertLocation Required. The value can be 'Replace', 'Start' or 'End'.
+         * @param insertLocation Required. The value can be 'Replace', 'Start', or 'End'.
          */
         insertFileFromBase64(base64File: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.Range;
         /**
          *
-         * Inserts HTML into the paragraph at the specified location. The insertLocation value can be 'Replace', 'Start' or 'End'.
+         * Inserts HTML into the paragraph at the specified location. The insertLocation value can be 'Replace', 'Start', or 'End'.
          *
          * [Api set: WordApi 1.1]
          *
          * @param html Required. The HTML to be inserted in the paragraph.
-         * @param insertLocation Required. The value can be 'Replace', 'Start' or 'End'.
+         * @param insertLocation Required. The value can be 'Replace', 'Start', or 'End'.
          */
         insertHtml(html: string, insertLocation: Word.InsertLocation): Word.Range;
         /**
          *
-         * Inserts HTML into the paragraph at the specified location. The insertLocation value can be 'Replace', 'Start' or 'End'.
+         * Inserts HTML into the paragraph at the specified location. The insertLocation value can be 'Replace', 'Start', or 'End'.
          *
          * [Api set: WordApi 1.1]
          *
          * @param html Required. The HTML to be inserted in the paragraph.
-         * @param insertLocation Required. The value can be 'Replace', 'Start' or 'End'.
+         * @param insertLocation Required. The value can be 'Replace', 'Start', or 'End'.
          */
         insertHtml(html: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.Range;
         /**
          *
-         * Inserts a picture into the paragraph at the specified location. The insertLocation value can be 'Replace', 'Start' or 'End'.
+         * Inserts a picture into the paragraph at the specified location. The insertLocation value can be 'Replace', 'Start', or 'End'.
          *
          * [Api set: WordApi 1.1]
          *
          * @param base64EncodedImage Required. The base64 encoded image to be inserted.
-         * @param insertLocation Required. The value can be 'Replace', 'Start' or 'End'.
+         * @param insertLocation Required. The value can be 'Replace', 'Start', or 'End'.
          */
         insertInlinePictureFromBase64(base64EncodedImage: string, insertLocation: Word.InsertLocation): Word.InlinePicture;
         /**
          *
-         * Inserts a picture into the paragraph at the specified location. The insertLocation value can be 'Replace', 'Start' or 'End'.
+         * Inserts a picture into the paragraph at the specified location. The insertLocation value can be 'Replace', 'Start', or 'End'.
          *
          * [Api set: WordApi 1.1]
          *
          * @param base64EncodedImage Required. The base64 encoded image to be inserted.
-         * @param insertLocation Required. The value can be 'Replace', 'Start' or 'End'.
+         * @param insertLocation Required. The value can be 'Replace', 'Start', or 'End'.
          */
         insertInlinePictureFromBase64(base64EncodedImage: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.InlinePicture;
         /**
          *
-         * Inserts OOXML into the paragraph at the specified location. The insertLocation value can be 'Replace', 'Start' or 'End'.
+         * Inserts OOXML into the paragraph at the specified location. The insertLocation value can be 'Replace', 'Start', or 'End'.
          *
          * [Api set: WordApi 1.1]
          *
          * @param ooxml Required. The OOXML to be inserted in the paragraph.
-         * @param insertLocation Required. The value can be 'Replace', 'Start' or 'End'.
+         * @param insertLocation Required. The value can be 'Replace', 'Start', or 'End'.
          */
         insertOoxml(ooxml: string, insertLocation: Word.InsertLocation): Word.Range;
         /**
          *
-         * Inserts OOXML into the paragraph at the specified location. The insertLocation value can be 'Replace', 'Start' or 'End'.
+         * Inserts OOXML into the paragraph at the specified location. The insertLocation value can be 'Replace', 'Start', or 'End'.
          *
          * [Api set: WordApi 1.1]
          *
          * @param ooxml Required. The OOXML to be inserted in the paragraph.
-         * @param insertLocation Required. The value can be 'Replace', 'Start' or 'End'.
+         * @param insertLocation Required. The value can be 'Replace', 'Start', or 'End'.
          */
         insertOoxml(ooxml: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.Range;
         /**
@@ -41826,27 +43314,27 @@ declare namespace Word {
         insertTable(rowCount: number, columnCount: number, insertLocation: "Before" | "After" | "Start" | "End" | "Replace", values?: string[][]): Word.Table;
         /**
          *
-         * Inserts text into the paragraph at the specified location. The insertLocation value can be 'Replace', 'Start' or 'End'.
+         * Inserts text into the paragraph at the specified location. The insertLocation value can be 'Replace', 'Start', or 'End'.
          *
          * [Api set: WordApi 1.1]
          *
          * @param text Required. Text to be inserted.
-         * @param insertLocation Required. The value can be 'Replace', 'Start' or 'End'.
+         * @param insertLocation Required. The value can be 'Replace', 'Start', or 'End'.
          */
         insertText(text: string, insertLocation: Word.InsertLocation): Word.Range;
         /**
          *
-         * Inserts text into the paragraph at the specified location. The insertLocation value can be 'Replace', 'Start' or 'End'.
+         * Inserts text into the paragraph at the specified location. The insertLocation value can be 'Replace', 'Start', or 'End'.
          *
          * [Api set: WordApi 1.1]
          *
          * @param text Required. Text to be inserted.
-         * @param insertLocation Required. The value can be 'Replace', 'Start' or 'End'.
+         * @param insertLocation Required. The value can be 'Replace', 'Start', or 'End'.
          */
         insertText(text: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.Range;
         /**
          *
-         * Performs a search with the specified searchOptions on the scope of the paragraph object. The search results are a collection of range objects.
+         * Performs a search with the specified SearchOptions on the scope of the paragraph object. The search results are a collection of range objects.
          *
          * [Api set: WordApi 1.1]
          *
@@ -41868,7 +43356,7 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.1]
          *
-         * @param selectionMode Optional. The selection mode can be 'Select', 'Start' or 'End'. 'Select' is the default.
+         * @param selectionMode Optional. The selection mode can be 'Select', 'Start', or 'End'. 'Select' is the default.
          */
         select(selectionMode?: Word.SelectionMode): void;
         /**
@@ -41877,7 +43365,7 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.1]
          *
-         * @param selectionMode Optional. The selection mode can be 'Select', 'Start' or 'End'. 'Select' is the default.
+         * @param selectionMode Optional. The selection mode can be 'Select', 'Start', or 'End'. 'Select' is the default.
          */
         select(selectionMode?: "Select" | "Start" | "End"): void;
         /**
@@ -41888,7 +43376,7 @@ declare namespace Word {
          *
          * @param delimiters Required. The delimiters as an array of strings.
          * @param trimDelimiters Optional. Indicates whether to trim delimiters from the ranges in the range collection. Default is false which indicates that the delimiters are included in the ranges returned in the range collection.
-         * @param trimSpacing Optional. Indicates whether to trim spacing characters (spaces, tabs, column breaks and paragraph end marks) from the start and end of the ranges returned in the range collection. Default is false which indicates that spacing characters at the start and end of the ranges are included in the range collection.
+         * @param trimSpacing Optional. Indicates whether to trim spacing characters (spaces, tabs, column breaks, and paragraph end marks) from the start and end of the ranges returned in the range collection. Default is false which indicates that spacing characters at the start and end of the ranges are included in the range collection.
          */
         split(delimiters: string[], trimDelimiters?: boolean, trimSpacing?: boolean): Word.RangeCollection;
         /**
@@ -41919,7 +43407,7 @@ declare namespace Word {
     }
     /**
      *
-     * Contains a collection of [paragraph](paragraph.md) objects.
+     * Contains a collection of {@link Word.Paragraph} objects.
      *
      * [Api set: WordApi 1.1]
      */
@@ -42169,7 +43657,7 @@ declare namespace Word {
          * [Api set: WordApi 1.3]
          *
          * @param endingMarks Required. The punctuation marks and/or other ending marks as an array of strings.
-         * @param trimSpacing Optional. Indicates whether to trim spacing characters (spaces, tabs, column breaks and paragraph end marks) from the start and end of the returned range. Default is false which indicates that spacing characters at the start and end of the range are included.
+         * @param trimSpacing Optional. Indicates whether to trim spacing characters (spaces, tabs, column breaks, and paragraph end marks) from the start and end of the returned range. Default is false which indicates that spacing characters at the start and end of the range are included.
          */
         getNextTextRange(endingMarks: string[], trimSpacing?: boolean): Word.Range;
         /**
@@ -42179,7 +43667,7 @@ declare namespace Word {
          * [Api set: WordApi 1.3]
          *
          * @param endingMarks Required. The punctuation marks and/or other ending marks as an array of strings.
-         * @param trimSpacing Optional. Indicates whether to trim spacing characters (spaces, tabs, column breaks and paragraph end marks) from the start and end of the returned range. Default is false which indicates that spacing characters at the start and end of the range are included.
+         * @param trimSpacing Optional. Indicates whether to trim spacing characters (spaces, tabs, column breaks, and paragraph end marks) from the start and end of the returned range. Default is false which indicates that spacing characters at the start and end of the range are included.
          */
         getNextTextRangeOrNullObject(endingMarks: string[], trimSpacing?: boolean): Word.Range;
         /**
@@ -42195,7 +43683,7 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.3]
          *
-         * @param rangeLocation Optional. The range location can be 'Whole', 'Start', 'End', 'After' or 'Content'.
+         * @param rangeLocation Optional. The range location can be 'Whole', 'Start', 'End', 'After', or 'Content'.
          */
         getRange(rangeLocation?: Word.RangeLocation): Word.Range;
         /**
@@ -42204,7 +43692,7 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.3]
          *
-         * @param rangeLocation Optional. The range location can be 'Whole', 'Start', 'End', 'After' or 'Content'.
+         * @param rangeLocation Optional. The range location can be 'Whole', 'Start', 'End', 'After', or 'Content'.
          */
         getRange(rangeLocation?: "Whole" | "Start" | "End" | "Before" | "After" | "Content"): Word.Range;
         /**
@@ -42214,7 +43702,7 @@ declare namespace Word {
          * [Api set: WordApi 1.3]
          *
          * @param endingMarks Required. The punctuation marks and/or other ending marks as an array of strings.
-         * @param trimSpacing Optional. Indicates whether to trim spacing characters (spaces, tabs, column breaks and paragraph end marks) from the start and end of the ranges returned in the range collection. Default is false which indicates that spacing characters at the start and end of the ranges are included in the range collection.
+         * @param trimSpacing Optional. Indicates whether to trim spacing characters (spaces, tabs, column breaks, and paragraph end marks) from the start and end of the ranges returned in the range collection. Default is false which indicates that spacing characters at the start and end of the ranges are included in the range collection.
          */
         getTextRanges(endingMarks: string[], trimSpacing?: boolean): Word.RangeCollection;
         /**
@@ -42246,82 +43734,82 @@ declare namespace Word {
         insertContentControl(): Word.ContentControl;
         /**
          *
-         * Inserts a document at the specified location. The insertLocation value can be 'Replace', 'Start', 'End', 'Before' or 'After'.
+         * Inserts a document at the specified location. The insertLocation value can be 'Replace', 'Start', 'End', 'Before', or 'After'.
          *
          * [Api set: WordApi 1.1]
          *
          * @param base64File Required. The base64 encoded content of a .docx file.
-         * @param insertLocation Required. The value can be 'Replace', 'Start', 'End', 'Before' or 'After'.
+         * @param insertLocation Required. The value can be 'Replace', 'Start', 'End', 'Before', or 'After'.
          */
         insertFileFromBase64(base64File: string, insertLocation: Word.InsertLocation): Word.Range;
         /**
          *
-         * Inserts a document at the specified location. The insertLocation value can be 'Replace', 'Start', 'End', 'Before' or 'After'.
+         * Inserts a document at the specified location. The insertLocation value can be 'Replace', 'Start', 'End', 'Before', or 'After'.
          *
          * [Api set: WordApi 1.1]
          *
          * @param base64File Required. The base64 encoded content of a .docx file.
-         * @param insertLocation Required. The value can be 'Replace', 'Start', 'End', 'Before' or 'After'.
+         * @param insertLocation Required. The value can be 'Replace', 'Start', 'End', 'Before', or 'After'.
          */
         insertFileFromBase64(base64File: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.Range;
         /**
          *
-         * Inserts HTML at the specified location. The insertLocation value can be 'Replace', 'Start', 'End', 'Before' or 'After'.
+         * Inserts HTML at the specified location. The insertLocation value can be 'Replace', 'Start', 'End', 'Before', or 'After'.
          *
          * [Api set: WordApi 1.1]
          *
          * @param html Required. The HTML to be inserted.
-         * @param insertLocation Required. The value can be 'Replace', 'Start', 'End', 'Before' or 'After'.
+         * @param insertLocation Required. The value can be 'Replace', 'Start', 'End', 'Before', or 'After'.
          */
         insertHtml(html: string, insertLocation: Word.InsertLocation): Word.Range;
         /**
          *
-         * Inserts HTML at the specified location. The insertLocation value can be 'Replace', 'Start', 'End', 'Before' or 'After'.
+         * Inserts HTML at the specified location. The insertLocation value can be 'Replace', 'Start', 'End', 'Before', or 'After'.
          *
          * [Api set: WordApi 1.1]
          *
          * @param html Required. The HTML to be inserted.
-         * @param insertLocation Required. The value can be 'Replace', 'Start', 'End', 'Before' or 'After'.
+         * @param insertLocation Required. The value can be 'Replace', 'Start', 'End', 'Before', or 'After'.
          */
         insertHtml(html: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.Range;
         /**
          *
-         * Inserts a picture at the specified location. The insertLocation value can be 'Replace', 'Start', 'End', 'Before' or 'After'.
+         * Inserts a picture at the specified location. The insertLocation value can be 'Replace', 'Start', 'End', 'Before', or 'After'.
          *
          * [Api set: WordApi 1.2]
          *
          * @param base64EncodedImage Required. The base64 encoded image to be inserted.
-         * @param insertLocation Required. The value can be 'Replace', 'Start', 'End', 'Before' or 'After'.
+         * @param insertLocation Required. The value can be 'Replace', 'Start', 'End', 'Before', or 'After'.
          */
         insertInlinePictureFromBase64(base64EncodedImage: string, insertLocation: Word.InsertLocation): Word.InlinePicture;
         /**
          *
-         * Inserts a picture at the specified location. The insertLocation value can be 'Replace', 'Start', 'End', 'Before' or 'After'.
+         * Inserts a picture at the specified location. The insertLocation value can be 'Replace', 'Start', 'End', 'Before', or 'After'.
          *
          * [Api set: WordApi 1.2]
          *
          * @param base64EncodedImage Required. The base64 encoded image to be inserted.
-         * @param insertLocation Required. The value can be 'Replace', 'Start', 'End', 'Before' or 'After'.
+         * @param insertLocation Required. The value can be 'Replace', 'Start', 'End', 'Before', or 'After'.
          */
         insertInlinePictureFromBase64(base64EncodedImage: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.InlinePicture;
         /**
          *
-         * Inserts OOXML at the specified location.  The insertLocation value can be 'Replace', 'Start', 'End', 'Before' or 'After'.
+         * Inserts OOXML at the specified location.  The insertLocation value can be 'Replace', 'Start', 'End', 'Before', or 'After'.
          *
          * [Api set: WordApi 1.1]
          *
          * @param ooxml Required. The OOXML to be inserted.
-         * @param insertLocation Required. The value can be 'Replace', 'Start', 'End', 'Before' or 'After'.
+         * @param insertLocation Required. The value can be 'Replace', 'Start', 'End', 'Before', or 'After'.
          */
         insertOoxml(ooxml: string, insertLocation: Word.InsertLocation): Word.Range;
         /**
          *
-         * Inserts OOXML at the specified location.  The insertLocation value can be 'Replace', 'Start', 'End', 'Before' or 'After'.
+         * Inserts OOXML at the specified location.  The insertLocation value can be 'Replace', 'Start', 'End', 'Before', or 'After'.
          *
          * [Api set: WordApi 1.1]
          *
          * @param ooxml Required. The OOXML to be inserted.
-         * @param insertLocation Required. The value can be 'Replace', 'Start', 'End', 'Before' or 'After'.
+         * @param insertLocation Required. The value can be 'Replace', 'Start', 'End', 'Before', or 'After'.
          */
         insertOoxml(ooxml: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.Range;
         /**
@@ -42370,22 +43858,22 @@ declare namespace Word {
         insertTable(rowCount: number, columnCount: number, insertLocation: "Before" | "After" | "Start" | "End" | "Replace", values?: string[][]): Word.Table;
         /**
          *
-         * Inserts text at the specified location. The insertLocation value can be 'Replace', 'Start', 'End', 'Before' or 'After'.
+         * Inserts text at the specified location. The insertLocation value can be 'Replace', 'Start', 'End', 'Before', or 'After'.
          *
          * [Api set: WordApi 1.1]
          *
          * @param text Required. Text to be inserted.
-         * @param insertLocation Required. The value can be 'Replace', 'Start', 'End', 'Before' or 'After'.
+         * @param insertLocation Required. The value can be 'Replace', 'Start', 'End', 'Before', or 'After'.
          */
         insertText(text: string, insertLocation: Word.InsertLocation): Word.Range;
         /**
          *
-         * Inserts text at the specified location. The insertLocation value can be 'Replace', 'Start', 'End', 'Before' or 'After'.
+         * Inserts text at the specified location. The insertLocation value can be 'Replace', 'Start', 'End', 'Before', or 'After'.
          *
          * [Api set: WordApi 1.1]
          *
          * @param text Required. Text to be inserted.
-         * @param insertLocation Required. The value can be 'Replace', 'Start', 'End', 'Before' or 'After'.
+         * @param insertLocation Required. The value can be 'Replace', 'Start', 'End', 'Before', or 'After'.
          */
         insertText(text: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.Range;
         /**
@@ -42408,7 +43896,7 @@ declare namespace Word {
         intersectWithOrNullObject(range: Word.Range): Word.Range;
         /**
          *
-         * Performs a search with the specified searchOptions on the scope of the range object. The search results are a collection of range objects.
+         * Performs a search with the specified SearchOptions on the scope of the range object. The search results are a collection of range objects.
          *
          * [Api set: WordApi 1.1]
          *
@@ -42430,7 +43918,7 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.1]
          *
-         * @param selectionMode Optional. The selection mode can be 'Select', 'Start' or 'End'. 'Select' is the default.
+         * @param selectionMode Optional. The selection mode can be 'Select', 'Start', or 'End'. 'Select' is the default.
          */
         select(selectionMode?: Word.SelectionMode): void;
         /**
@@ -42439,7 +43927,7 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.1]
          *
-         * @param selectionMode Optional. The selection mode can be 'Select', 'Start' or 'End'. 'Select' is the default.
+         * @param selectionMode Optional. The selection mode can be 'Select', 'Start', or 'End'. 'Select' is the default.
          */
         select(selectionMode?: "Select" | "Start" | "End"): void;
         /**
@@ -42451,7 +43939,7 @@ declare namespace Word {
          * @param delimiters Required. The delimiters as an array of strings.
          * @param multiParagraphs Optional. Indicates whether a returned child range can cover multiple paragraphs. Default is false which indicates that the paragraph boundaries are also used as delimiters.
          * @param trimDelimiters Optional. Indicates whether to trim delimiters from the ranges in the range collection. Default is false which indicates that the delimiters are included in the ranges returned in the range collection.
-         * @param trimSpacing Optional. Indicates whether to trim spacing characters (spaces, tabs, column breaks and paragraph end marks) from the start and end of the ranges returned in the range collection. Default is false which indicates that spacing characters at the start and end of the ranges are included in the range collection.
+         * @param trimSpacing Optional. Indicates whether to trim spacing characters (spaces, tabs, column breaks, and paragraph end marks) from the start and end of the ranges returned in the range collection. Default is false which indicates that spacing characters at the start and end of the ranges are included in the range collection.
          */
         split(delimiters: string[], multiParagraphs?: boolean, trimDelimiters?: boolean, trimSpacing?: boolean): Word.RangeCollection;
         /**
@@ -42475,7 +43963,7 @@ declare namespace Word {
     }
     /**
      *
-     * Contains a collection of [range](range.md) objects.
+     * Contains a collection of {@link Word.Range} objects.
      *
      * [Api set: WordApi 1.1]
      */
@@ -42536,7 +44024,7 @@ declare namespace Word {
         ignoreSpace: boolean;
         /**
          *
-         * Gets or sets a value that indicates whether to perform a case sensitive search. Corresponds to the Match case check box in the Find and Replace dialog box (Edit menu).
+         * Gets or sets a value that indicates whether to perform a case sensitive search. Corresponds to the Match case check box in the Find and Replace dialog box.
          *
          * [Api set: WordApi 1.1]
          */
@@ -42612,7 +44100,7 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.1]
          *
-         * @param type Required. The type of footer to return. This value can be: 'primary', 'firstPage' or 'evenPages'.
+         * @param type Required. The type of footer to return. This value can be: 'Primary', 'FirstPage', or 'EvenPages'.
          */
         getFooter(type: Word.HeaderFooterType): Word.Body;
         /**
@@ -42621,7 +44109,7 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.1]
          *
-         * @param type Required. The type of footer to return. This value can be: 'primary', 'firstPage' or 'evenPages'.
+         * @param type Required. The type of footer to return. This value can be: 'Primary', 'FirstPage', or 'EvenPages'.
          */
         getFooter(type: "Primary" | "FirstPage" | "EvenPages"): Word.Body;
         /**
@@ -42630,7 +44118,7 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.1]
          *
-         * @param type Required. The type of header to return. This value can be: 'primary', 'firstPage' or 'evenPages'.
+         * @param type Required. The type of header to return. This value can be: 'Primary', 'FirstPage', or 'EvenPages'.
          */
         getHeader(type: Word.HeaderFooterType): Word.Body;
         /**
@@ -42639,7 +44127,7 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.1]
          *
-         * @param type Required. The type of header to return. This value can be: 'primary', 'firstPage' or 'evenPages'.
+         * @param type Required. The type of header to return. This value can be: 'Primary', 'FirstPage', or 'EvenPages'.
          */
         getHeader(type: "Primary" | "FirstPage" | "EvenPages"): Word.Body;
         /**
@@ -42677,7 +44165,7 @@ declare namespace Word {
     }
     /**
      *
-     * Contains the collection of the document's [section](section.md) objects.
+     * Contains the collection of the document's {@link Word.Section} objects.
      *
      * [Api set: WordApi 1.1]
      */
@@ -42793,7 +44281,7 @@ declare namespace Word {
         readonly tables: Word.TableCollection;
         /**
          *
-         * Gets or sets the alignment of the table against the page column. The value can be 'left', 'centered' or 'right'.
+         * Gets or sets the alignment of the table against the page column. The value can be 'Left', 'Centered', or 'Right'.
          *
          * [Api set: WordApi 1.3]
          */
@@ -42807,7 +44295,7 @@ declare namespace Word {
         headerRowCount: number;
         /**
          *
-         * Gets and sets the horizontal alignment of every cell in the table. The value can be 'left', 'centered', 'right', or 'justified'.
+         * Gets and sets the horizontal alignment of every cell in the table. The value can be 'Left', 'Centered', 'Right', or 'Justified'.
          *
          * [Api set: WordApi 1.3]
          */
@@ -42835,7 +44323,7 @@ declare namespace Word {
         readonly rowCount: number;
         /**
          *
-         * Gets and sets the shading color.
+         * Gets and sets the shading color. Color is specified in "#RRGGBB" format or by using the color name.
          *
          * [Api set: WordApi 1.3]
          */
@@ -42898,7 +44386,7 @@ declare namespace Word {
         values: string[][];
         /**
          *
-         * Gets and sets the vertical alignment of every cell in the table. The value can be 'top', 'center' or 'bottom'.
+         * Gets and sets the vertical alignment of every cell in the table. The value can be 'Top', 'Center', or 'Bottom'.
          *
          * [Api set: WordApi 1.3]
          */
@@ -43050,7 +44538,7 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.3]
          *
-         * @param cellPaddingLocation Required. The cell padding location can be 'Top', 'Left', 'Bottom' or 'Right'.
+         * @param cellPaddingLocation Required. The cell padding location can be 'Top', 'Left', 'Bottom', or 'Right'.
          */
         getCellPadding(cellPaddingLocation: Word.CellPaddingLocation): OfficeExtension.ClientResult<number>;
         /**
@@ -43059,7 +44547,7 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.3]
          *
-         * @param cellPaddingLocation Required. The cell padding location can be 'Top', 'Left', 'Bottom' or 'Right'.
+         * @param cellPaddingLocation Required. The cell padding location can be 'Top', 'Left', 'Bottom', or 'Right'.
          */
         getCellPadding(cellPaddingLocation: "Top" | "Left" | "Bottom" | "Right"): OfficeExtension.ClientResult<number>;
         /**
@@ -43110,7 +44598,7 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.3]
          *
-         * @param rangeLocation Optional. The range location can be 'Whole', 'Start', 'End' or 'After'.
+         * @param rangeLocation Optional. The range location can be 'Whole', 'Start', 'End', or 'After'.
          */
         getRange(rangeLocation?: Word.RangeLocation): Word.Range;
         /**
@@ -43119,7 +44607,7 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.3]
          *
-         * @param rangeLocation Optional. The range location can be 'Whole', 'Start', 'End' or 'After'.
+         * @param rangeLocation Optional. The range location can be 'Whole', 'Start', 'End', or 'After'.
          */
         getRange(rangeLocation?: "Whole" | "Start" | "End" | "Before" | "After" | "Content"): Word.Range;
         /**
@@ -43175,7 +44663,7 @@ declare namespace Word {
         insertTable(rowCount: number, columnCount: number, insertLocation: "Before" | "After" | "Start" | "End" | "Replace", values?: string[][]): Word.Table;
         /**
          *
-         * Performs a search with the specified searchOptions on the scope of the table object. The search results are a collection of range objects.
+         * Performs a search with the specified SearchOptions on the scope of the table object. The search results are a collection of range objects.
          *
          * [Api set: WordApi 1.3]
          *
@@ -43197,7 +44685,7 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.3]
          *
-         * @param selectionMode Optional. The selection mode can be 'Select', 'Start' or 'End'. 'Select' is the default.
+         * @param selectionMode Optional. The selection mode can be 'Select', 'Start', or 'End'. 'Select' is the default.
          */
         select(selectionMode?: Word.SelectionMode): void;
         /**
@@ -43206,7 +44694,7 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.3]
          *
-         * @param selectionMode Optional. The selection mode can be 'Select', 'Start' or 'End'. 'Select' is the default.
+         * @param selectionMode Optional. The selection mode can be 'Select', 'Start', or 'End'. 'Select' is the default.
          */
         select(selectionMode?: "Select" | "Start" | "End"): void;
         /**
@@ -43215,7 +44703,7 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.3]
          *
-         * @param cellPaddingLocation Required. The cell padding location can be 'Top', 'Left', 'Bottom' or 'Right'.
+         * @param cellPaddingLocation Required. The cell padding location can be 'Top', 'Left', 'Bottom', or 'Right'.
          * @param cellPadding Required. The cell padding.
          */
         setCellPadding(cellPaddingLocation: Word.CellPaddingLocation, cellPadding: number): void;
@@ -43225,7 +44713,7 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.3]
          *
-         * @param cellPaddingLocation Required. The cell padding location can be 'Top', 'Left', 'Bottom' or 'Right'.
+         * @param cellPaddingLocation Required. The cell padding location can be 'Top', 'Left', 'Bottom', or 'Right'.
          * @param cellPadding Required. The cell padding.
          */
         setCellPadding(cellPaddingLocation: "Top" | "Left" | "Bottom" | "Right", cellPadding: number): void;
@@ -43324,7 +44812,7 @@ declare namespace Word {
         readonly cellCount: number;
         /**
          *
-         * Gets and sets the horizontal alignment of every cell in the row. The value can be 'left', 'centered', 'right', or 'justified'.
+         * Gets and sets the horizontal alignment of every cell in the row. The value can be 'Left', 'Centered', 'Right', or 'Justified'.
          *
          * [Api set: WordApi 1.3]
          */
@@ -43352,7 +44840,7 @@ declare namespace Word {
         readonly rowIndex: number;
         /**
          *
-         * Gets and sets the shading color.
+         * Gets and sets the shading color. Color is specified in "#RRGGBB" format or by using the color name.
          *
          * [Api set: WordApi 1.3]
          */
@@ -43366,7 +44854,7 @@ declare namespace Word {
         values: string[][];
         /**
          *
-         * Gets and sets the vertical alignment of the cells in the row. The value can be 'top', 'center' or 'bottom'.
+         * Gets and sets the vertical alignment of the cells in the row. The value can be 'Top', 'Center', or 'Bottom'.
          *
          * [Api set: WordApi 1.3]
          */
@@ -43413,7 +44901,7 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.3]
          *
-         * @param cellPaddingLocation Required. The cell padding location can be 'Top', 'Left', 'Bottom' or 'Right'.
+         * @param cellPaddingLocation Required. The cell padding location can be 'Top', 'Left', 'Bottom', or 'Right'.
          */
         getCellPadding(cellPaddingLocation: Word.CellPaddingLocation): OfficeExtension.ClientResult<number>;
         /**
@@ -43422,7 +44910,7 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.3]
          *
-         * @param cellPaddingLocation Required. The cell padding location can be 'Top', 'Left', 'Bottom' or 'Right'.
+         * @param cellPaddingLocation Required. The cell padding location can be 'Top', 'Left', 'Bottom', or 'Right'.
          */
         getCellPadding(cellPaddingLocation: "Top" | "Left" | "Bottom" | "Right"): OfficeExtension.ClientResult<number>;
         /**
@@ -43463,7 +44951,7 @@ declare namespace Word {
         insertRows(insertLocation: "Before" | "After" | "Start" | "End" | "Replace", rowCount: number, values?: string[][]): Word.TableRowCollection;
         /**
          *
-         * Performs a search with the specified searchOptions on the scope of the row. The search results are a collection of range objects.
+         * Performs a search with the specified SearchOptions on the scope of the row. The search results are a collection of range objects.
          *
          * [Api set: WordApi 1.3]
          *
@@ -43485,7 +44973,7 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.3]
          *
-         * @param selectionMode Optional. The selection mode can be 'Select', 'Start' or 'End'. 'Select' is the default.
+         * @param selectionMode Optional. The selection mode can be 'Select', 'Start', or 'End'. 'Select' is the default.
          */
         select(selectionMode?: Word.SelectionMode): void;
         /**
@@ -43494,7 +44982,7 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.3]
          *
-         * @param selectionMode Optional. The selection mode can be 'Select', 'Start' or 'End'. 'Select' is the default.
+         * @param selectionMode Optional. The selection mode can be 'Select', 'Start', or 'End'. 'Select' is the default.
          */
         select(selectionMode?: "Select" | "Start" | "End"): void;
         /**
@@ -43503,7 +44991,7 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.3]
          *
-         * @param cellPaddingLocation Required. The cell padding location can be 'Top', 'Left', 'Bottom' or 'Right'.
+         * @param cellPaddingLocation Required. The cell padding location can be 'Top', 'Left', 'Bottom', or 'Right'.
          * @param cellPadding Required. The cell padding.
          */
         setCellPadding(cellPaddingLocation: Word.CellPaddingLocation, cellPadding: number): void;
@@ -43513,7 +45001,7 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.3]
          *
-         * @param cellPaddingLocation Required. The cell padding location can be 'Top', 'Left', 'Bottom' or 'Right'.
+         * @param cellPaddingLocation Required. The cell padding location can be 'Top', 'Left', 'Bottom', or 'Right'.
          * @param cellPadding Required. The cell padding.
          */
         setCellPadding(cellPaddingLocation: "Top" | "Left" | "Bottom" | "Right", cellPadding: number): void;
@@ -43619,7 +45107,7 @@ declare namespace Word {
         columnWidth: number;
         /**
          *
-         * Gets and sets the horizontal alignment of the cell. The value can be 'left', 'centered', 'right', or 'justified'.
+         * Gets and sets the horizontal alignment of the cell. The value can be 'Left', 'Centered', 'Right', or 'Justified'.
          *
          * [Api set: WordApi 1.3]
          */
@@ -43647,7 +45135,7 @@ declare namespace Word {
         value: string;
         /**
          *
-         * Gets and sets the vertical alignment of the cell. The value can be 'top', 'center' or 'bottom'.
+         * Gets and sets the vertical alignment of the cell. The value can be 'Top', 'Center', or 'Bottom'.
          *
          * [Api set: WordApi 1.3]
          */
@@ -43701,7 +45189,7 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.3]
          *
-         * @param cellPaddingLocation Required. The cell padding location can be 'Top', 'Left', 'Bottom' or 'Right'.
+         * @param cellPaddingLocation Required. The cell padding location can be 'Top', 'Left', 'Bottom', or 'Right'.
          */
         getCellPadding(cellPaddingLocation: Word.CellPaddingLocation): OfficeExtension.ClientResult<number>;
         /**
@@ -43710,7 +45198,7 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.3]
          *
-         * @param cellPaddingLocation Required. The cell padding location can be 'Top', 'Left', 'Bottom' or 'Right'.
+         * @param cellPaddingLocation Required. The cell padding location can be 'Top', 'Left', 'Bottom', or 'Right'.
          */
         getCellPadding(cellPaddingLocation: "Top" | "Left" | "Bottom" | "Right"): OfficeExtension.ClientResult<number>;
         /**
@@ -43734,7 +45222,7 @@ declare namespace Word {
          * [Api set: WordApi 1.3]
          *
          * @param insertLocation Required. It can be 'Before' or 'After'.
-         * @param columnCount Required. Number of columns to add
+         * @param columnCount Required. Number of columns to add.
          * @param values Optional 2D array. Cells are filled if the corresponding strings are specified in the array.
          */
         insertColumns(insertLocation: Word.InsertLocation, columnCount: number, values?: string[][]): void;
@@ -43745,7 +45233,7 @@ declare namespace Word {
          * [Api set: WordApi 1.3]
          *
          * @param insertLocation Required. It can be 'Before' or 'After'.
-         * @param columnCount Required. Number of columns to add
+         * @param columnCount Required. Number of columns to add.
          * @param values Optional 2D array. Cells are filled if the corresponding strings are specified in the array.
          */
         insertColumns(insertLocation: "Before" | "After" | "Start" | "End" | "Replace", columnCount: number, values?: string[][]): void;
@@ -43777,7 +45265,7 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.3]
          *
-         * @param cellPaddingLocation Required. The cell padding location can be 'Top', 'Left', 'Bottom' or 'Right'.
+         * @param cellPaddingLocation Required. The cell padding location can be 'Top', 'Left', 'Bottom', or 'Right'.
          * @param cellPadding Required. The cell padding.
          */
         setCellPadding(cellPaddingLocation: Word.CellPaddingLocation, cellPadding: number): void;
@@ -43787,7 +45275,7 @@ declare namespace Word {
          *
          * [Api set: WordApi 1.3]
          *
-         * @param cellPaddingLocation Required. The cell padding location can be 'Top', 'Left', 'Bottom' or 'Right'.
+         * @param cellPaddingLocation Required. The cell padding location can be 'Top', 'Left', 'Bottom', or 'Right'.
          * @param cellPadding Required. The cell padding.
          */
         setCellPadding(cellPaddingLocation: "Top" | "Left" | "Bottom" | "Right", cellPadding: number): void;
@@ -43851,14 +45339,14 @@ declare namespace Word {
     }
     /**
      *
-     * Specifies the border style
+     * Specifies the border style.
      *
      * [Api set: WordApi 1.3]
      */
     class TableBorder extends OfficeExtension.ClientObject {
         /**
          *
-         * Gets or sets the table border color, as a hex value or name.
+         * Gets or sets the table border color.
          *
          * [Api set: WordApi 1.3]
          */
@@ -43910,8 +45398,23 @@ declare namespace Word {
         unknown = "Unknown",
         richTextInline = "RichTextInline",
         richTextParagraphs = "RichTextParagraphs",
+        /**
+         *
+         * Contains a whole cell.
+         *
+         */
         richTextTableCell = "RichTextTableCell",
+        /**
+         *
+         * Contains a whole row.
+         *
+         */
         richTextTableRow = "RichTextTableRow",
+        /**
+         *
+         * Contains a whole table.
+         *
+         */
         richTextTable = "RichTextTable",
         plainTextInline = "PlainTextInline",
         plainTextParagraph = "PlainTextParagraph",
@@ -43922,6 +45425,11 @@ declare namespace Word {
         dropDownList = "DropDownList",
         datePicker = "DatePicker",
         repeatingSection = "RepeatingSection",
+        /**
+         *
+         * Identifies a rich text content control.
+         *
+         */
         richText = "RichText",
         plainText = "PlainText",
     }
@@ -43932,8 +45440,23 @@ declare namespace Word {
      * [Api set: WordApi]
      */
     enum ContentControlAppearance {
+        /**
+         *
+         * Represents a content control shown as a shaded rectangle or bounding box (with optional title).
+         *
+         */
         boundingBox = "BoundingBox",
+        /**
+         *
+         * Represents a content control shown as start and end markers.
+         *
+         */
         tags = "Tags",
+        /**
+         *
+         * Represents a content control that is not shown.
+         *
+         */
         hidden = "Hidden",
     }
     /**
@@ -43944,6 +45467,11 @@ declare namespace Word {
      */
     enum UnderlineType {
         mixed = "Mixed",
+        /**
+         *
+         * No underline.
+         *
+         */
         none = "None",
         /**
          *
@@ -43955,34 +45483,79 @@ declare namespace Word {
          * @deprecated DotLine is no longer supported.
          */
         dotLine = "DotLine",
+        /**
+         *
+         * A single underline. This is the default value.
+         *
+         */
         single = "Single",
+        /**
+         *
+         * Only underline individual words.
+         *
+         */
         word = "Word",
+        /**
+         *
+         * A double underline.
+         *
+         */
         double = "Double",
+        /**
+         *
+         * A single thick underline.
+         *
+         */
         thick = "Thick",
+        /**
+         *
+         * A dotted underline.
+         *
+         */
         dotted = "Dotted",
         dottedHeavy = "DottedHeavy",
+        /**
+         *
+         * A single dash underline.
+         *
+         */
         dashLine = "DashLine",
         dashLineHeavy = "DashLineHeavy",
         dashLineLong = "DashLineLong",
         dashLineLongHeavy = "DashLineLongHeavy",
+        /**
+         *
+         * An alternating dot-dash underline.
+         *
+         */
         dotDashLine = "DotDashLine",
         dotDashLineHeavy = "DotDashLineHeavy",
+        /**
+         *
+         * An alternating dot-dot-dash underline.
+         *
+         */
         twoDotDashLine = "TwoDotDashLine",
         twoDotDashLineHeavy = "TwoDotDashLineHeavy",
+        /**
+         *
+         * A single wavy underline.
+         *
+         */
         wave = "Wave",
         waveHeavy = "WaveHeavy",
         waveDouble = "WaveDouble",
     }
     /**
      *
-     * Page break, line break, and four section breaks
+     * Specifies the form of a break.
      *
      * [Api set: WordApi]
      */
     enum BreakType {
         /**
          *
-         * Page break.
+         * Page break at the insertion point.
          *
          */
         page = "Page",
@@ -43993,25 +45566,25 @@ declare namespace Word {
         next = "Next",
         /**
          *
-         * Section break, with the new section starting on the next page.
+         * Section break on next page.
          *
          */
         sectionNext = "SectionNext",
         /**
          *
-         * Section break, with the new section starting on the same page.
+         * New section without a corresponding page break.
          *
          */
         sectionContinuous = "SectionContinuous",
         /**
          *
-         * Section break, with the new section starting on the next even-numbered page.
+         * Section break with the next section beginning on the next even-numbered page. If the section break falls on an even-numbered page, Word leaves the next odd-numbered page blank.
          *
          */
         sectionEven = "SectionEven",
         /**
          *
-         * Section break, with the new section starting on the next odd-numbered page.
+         * Section break with the next section beginning on the next odd-numbered page. If the section break falls on an odd-numbered page, Word leaves the next even-numbered page blank.
          *
          */
         sectionOdd = "SectionOdd",
@@ -44029,10 +45602,35 @@ declare namespace Word {
      * [Api set: WordApi]
      */
     enum InsertLocation {
+        /**
+         *
+         * Add content before the contents of the calling object.
+         *
+         */
         before = "Before",
+        /**
+         *
+         * Add content after the contents of the calling object.
+         *
+         */
         after = "After",
+        /**
+         *
+         * Prepend content to the contents of the calling object.
+         *
+         */
         start = "Start",
+        /**
+         *
+         * Append content to the contents of the calling object.
+         *
+         */
         end = "End",
+        /**
+         *
+         * Replace the contents of the current object.
+         *
+         */
         replace = "Replace",
     }
     /**
@@ -44040,18 +45638,58 @@ declare namespace Word {
      */
     enum Alignment {
         mixed = "Mixed",
+        /**
+         *
+         * Unknown alignment.
+         *
+         */
         unknown = "Unknown",
+        /**
+         *
+         * Alignment to the left.
+         *
+         */
         left = "Left",
+        /**
+         *
+         * Alignment to the center.
+         *
+         */
         centered = "Centered",
+        /**
+         *
+         * Alignment to the right.
+         *
+         */
         right = "Right",
+        /**
+         *
+         * Fully justified alignment.
+         *
+         */
         justified = "Justified",
     }
     /**
      * [Api set: WordApi]
      */
     enum HeaderFooterType {
+        /**
+         *
+         * Returns the header or footer on all pages of a section, with the first page or odd pages excluded if they are different.
+         *
+         */
         primary = "Primary",
+        /**
+         *
+         * Returns the header or footer on the first page of a section.
+         *
+         */
         firstPage = "FirstPage",
+        /**
+         *
+         * Returns all headers or footers on even-numbered pages of a section.
+         *
+         */
         evenPages = "EvenPages",
     }
     /**
@@ -44096,30 +45734,130 @@ declare namespace Word {
      * [Api set: WordApi]
      */
     enum RangeLocation {
+        /**
+         *
+         * The object's whole range. If the object is a paragraph content control or table content control, the EOP or Table characters after the content control are also included.
+         *
+         */
         whole = "Whole",
+        /**
+         *
+         * The starting point of the object. For content control, it is the point after the opening tag.
+         *
+         */
         start = "Start",
+        /**
+         *
+         * The ending point of the object. For paragraph, it is the point before the EOP. For content control, it is the point before the closing tag.
+         *
+         */
         end = "End",
+        /**
+         *
+         * For content control only. It is the point before the opening tag.
+         *
+         */
         before = "Before",
+        /**
+         *
+         * The point after the object. If the object is a paragraph content control or table content control, it is the point after the EOP or Table characters.
+         *
+         */
         after = "After",
+        /**
+         *
+         * The range between 'Start' and 'End'.
+         *
+         */
         content = "Content",
     }
     /**
      * [Api set: WordApi]
      */
     enum LocationRelation {
+        /**
+         *
+         * Indicates that this instance and the range are in different sub-documents.
+         *
+         */
         unrelated = "Unrelated",
+        /**
+         *
+         * Indicates that this instance and the range represent the same range.
+         *
+         */
         equal = "Equal",
+        /**
+         *
+         * Indicates that this instance contains the range and that it shares the same start character. The range does not share the same end character as this instance.
+         *
+         */
         containsStart = "ContainsStart",
+        /**
+         *
+         * Indicates that this instance contains the range and that it shares the same end character. The range does not share the same start character as this instance.
+         *
+         */
         containsEnd = "ContainsEnd",
+        /**
+         *
+         * Indicates that this instance contains the range, with the exception of the start and end character of this instance.
+         *
+         */
         contains = "Contains",
+        /**
+         *
+         * Indicates that this instance is inside the range and that it shares the same start character. The range does not share the same end character as this instance.
+         *
+         */
         insideStart = "InsideStart",
+        /**
+         *
+         * Indicates that this instance is inside the range and that it shares the same end character. The range does not share the same start character as this instance.
+         *
+         */
         insideEnd = "InsideEnd",
+        /**
+         *
+         * Indicates that this instance is inside the range. The range does not share the same start and end characters as this instance.
+         *
+         */
         inside = "Inside",
+        /**
+         *
+         * Indicates that this instance occurs before, and is adjacent to, the range.
+         *
+         */
         adjacentBefore = "AdjacentBefore",
+        /**
+         *
+         * Indicates that this instance starts before the range and overlaps the range’s first character.
+         *
+         */
         overlapsBefore = "OverlapsBefore",
+        /**
+         *
+         * Indicates that this instance occurs before the range.
+         *
+         */
         before = "Before",
+        /**
+         *
+         * Indicates that this instance occurs after, and is adjacent to, the range.
+         *
+         */
         adjacentAfter = "AdjacentAfter",
+        /**
+         *
+         * Indicates that this instance starts inside the range and overlaps the range’s last character.
+         *
+         */
         overlapsAfter = "OverlapsAfter",
+        /**
+         *
+         * Indicates that this instance occurs after the range.
+         *
+         */
         after = "After",
     }
     /**
@@ -44463,7 +46201,7 @@ declare namespace Word {
         itemNotFound = "ItemNotFound",
         notImplemented = "NotImplemented",
     }
-    namespace Interfaces {
+    module Interfaces {
         interface CollectionLoadOptions {
             $top?: number;
             $skip?: number;
@@ -44503,7 +46241,7 @@ declare namespace Word {
             font?: Word.Interfaces.FontUpdateData;
             /**
              *
-             * Gets or sets the appearance of the content control. The value can be 'boundingBox', 'tags' or 'hidden'.
+             * Gets or sets the appearance of the content control. The value can be 'BoundingBox', 'Tags', or 'Hidden'.
              *
              * [Api set: WordApi 1.1]
              */
@@ -44715,14 +46453,14 @@ declare namespace Word {
             color?: string;
             /**
              *
-             * Gets or sets a value that indicates whether the font has a double strike through. True if the font is formatted as double strikethrough text, otherwise, false.
+             * Gets or sets a value that indicates whether the font has a double strikethrough. True if the font is formatted as double strikethrough text, otherwise, false.
              *
              * [Api set: WordApi 1.1]
              */
             doubleStrikeThrough?: boolean;
             /**
              *
-             * Gets or sets the highlight color. To set it, use a value either in the '#RRGGBB' format or the color name. To remove highlight color, set it to null. The returned highlight color can be in the '#RRGGBB' format, or an empty string for mixed highlight colors, or null for no highlight color.
+             * Gets or sets the highlight color. To set it, use a value either in the '#RRGGBB' format or the color name. To remove highlight color, set it to null. The returned highlight color can be in the '#RRGGBB' format, an empty string for mixed highlight colors, or null for no highlight color.
              *
              * [Api set: WordApi 1.1]
              */
@@ -44750,7 +46488,7 @@ declare namespace Word {
             size?: number;
             /**
              *
-             * Gets or sets a value that indicates whether the font has a strike through. True if the font is formatted as strikethrough text, otherwise, false.
+             * Gets or sets a value that indicates whether the font has a strikethrough. True if the font is formatted as strikethrough text, otherwise, false.
              *
              * [Api set: WordApi 1.1]
              */
@@ -44781,7 +46519,7 @@ declare namespace Word {
         interface InlinePictureUpdateData {
             /**
              *
-             * Gets or sets a string that represents the alternative text associated with the inline image
+             * Gets or sets a string that represents the alternative text associated with the inline image.
              *
              * [Api set: WordApi 1.1]
              */
@@ -44893,7 +46631,7 @@ declare namespace Word {
             lineSpacing?: number;
             /**
              *
-             * Gets or sets the amount of spacing, in grid lines. after the paragraph.
+             * Gets or sets the amount of spacing, in grid lines, after the paragraph.
              *
              * [Api set: WordApi 1.1]
              */
@@ -45005,7 +46743,7 @@ declare namespace Word {
             ignoreSpace?: boolean;
             /**
              *
-             * Gets or sets a value that indicates whether to perform a case sensitive search. Corresponds to the Match case check box in the Find and Replace dialog box (Edit menu).
+             * Gets or sets a value that indicates whether to perform a case sensitive search. Corresponds to the Match case check box in the Find and Replace dialog box.
              *
              * [Api set: WordApi 1.1]
              */
@@ -45064,7 +46802,7 @@ declare namespace Word {
             font?: Word.Interfaces.FontUpdateData;
             /**
              *
-             * Gets or sets the alignment of the table against the page column. The value can be 'left', 'centered' or 'right'.
+             * Gets or sets the alignment of the table against the page column. The value can be 'Left', 'Centered', or 'Right'.
              *
              * [Api set: WordApi 1.3]
              */
@@ -45078,14 +46816,14 @@ declare namespace Word {
             headerRowCount?: number;
             /**
              *
-             * Gets and sets the horizontal alignment of every cell in the table. The value can be 'left', 'centered', 'right', or 'justified'.
+             * Gets and sets the horizontal alignment of every cell in the table. The value can be 'Left', 'Centered', 'Right', or 'Justified'.
              *
              * [Api set: WordApi 1.3]
              */
             horizontalAlignment?: Word.Alignment | "Mixed" | "Unknown" | "Left" | "Centered" | "Right" | "Justified";
             /**
              *
-             * Gets and sets the shading color.
+             * Gets and sets the shading color. Color is specified in "#RRGGBB" format or by using the color name.
              *
              * [Api set: WordApi 1.3]
              */
@@ -45148,7 +46886,7 @@ declare namespace Word {
             values?: string[][];
             /**
              *
-             * Gets and sets the vertical alignment of every cell in the table. The value can be 'top', 'center' or 'bottom'.
+             * Gets and sets the vertical alignment of every cell in the table. The value can be 'Top', 'Center', or 'Bottom'.
              *
              * [Api set: WordApi 1.3]
              */
@@ -45176,7 +46914,7 @@ declare namespace Word {
             font?: Word.Interfaces.FontUpdateData;
             /**
              *
-             * Gets and sets the horizontal alignment of every cell in the row. The value can be 'left', 'centered', 'right', or 'justified'.
+             * Gets and sets the horizontal alignment of every cell in the row. The value can be 'Left', 'Centered', 'Right', or 'Justified'.
              *
              * [Api set: WordApi 1.3]
              */
@@ -45190,7 +46928,7 @@ declare namespace Word {
             preferredHeight?: number;
             /**
              *
-             * Gets and sets the shading color.
+             * Gets and sets the shading color. Color is specified in "#RRGGBB" format or by using the color name.
              *
              * [Api set: WordApi 1.3]
              */
@@ -45204,7 +46942,7 @@ declare namespace Word {
             values?: string[][];
             /**
              *
-             * Gets and sets the vertical alignment of the cells in the row. The value can be 'top', 'center' or 'bottom'.
+             * Gets and sets the vertical alignment of the cells in the row. The value can be 'Top', 'Center', or 'Bottom'.
              *
              * [Api set: WordApi 1.3]
              */
@@ -45232,7 +46970,7 @@ declare namespace Word {
             columnWidth?: number;
             /**
              *
-             * Gets and sets the horizontal alignment of the cell. The value can be 'left', 'centered', 'right', or 'justified'.
+             * Gets and sets the horizontal alignment of the cell. The value can be 'Left', 'Centered', 'Right', or 'Justified'.
              *
              * [Api set: WordApi 1.3]
              */
@@ -45253,7 +46991,7 @@ declare namespace Word {
             value?: string;
             /**
              *
-             * Gets and sets the vertical alignment of the cell. The value can be 'top', 'center' or 'bottom'.
+             * Gets and sets the vertical alignment of the cell. The value can be 'Top', 'Center', or 'Bottom'.
              *
              * [Api set: WordApi 1.3]
              */
@@ -45267,7 +47005,7 @@ declare namespace Word {
         interface TableBorderUpdateData {
             /**
              *
-             * Gets or sets the table border color, as a hex value or name.
+             * Gets or sets the table border color.
              *
              * [Api set: WordApi 1.3]
              */
@@ -45305,7 +47043,7 @@ declare namespace Word {
             font?: Word.Interfaces.FontData;
             /**
             *
-            * Gets the collection of inlinePicture objects in the body. The collection does not include floating images. Read-only.
+            * Gets the collection of InlinePicture objects in the body. The collection does not include floating images. Read-only.
             *
             * [Api set: WordApi 1.1]
             */
@@ -45497,7 +47235,7 @@ declare namespace Word {
             tables?: Word.Interfaces.TableData[];
             /**
              *
-             * Gets or sets the appearance of the content control. The value can be 'boundingBox', 'tags' or 'hidden'.
+             * Gets or sets the appearance of the content control. The value can be 'BoundingBox', 'Tags', or 'Hidden'.
              *
              * [Api set: WordApi 1.1]
              */
@@ -45856,14 +47594,14 @@ declare namespace Word {
             color?: string;
             /**
              *
-             * Gets or sets a value that indicates whether the font has a double strike through. True if the font is formatted as double strikethrough text, otherwise, false.
+             * Gets or sets a value that indicates whether the font has a double strikethrough. True if the font is formatted as double strikethrough text, otherwise, false.
              *
              * [Api set: WordApi 1.1]
              */
             doubleStrikeThrough?: boolean;
             /**
              *
-             * Gets or sets the highlight color. To set it, use a value either in the '#RRGGBB' format or the color name. To remove highlight color, set it to null. The returned highlight color can be in the '#RRGGBB' format, or an empty string for mixed highlight colors, or null for no highlight color.
+             * Gets or sets the highlight color. To set it, use a value either in the '#RRGGBB' format or the color name. To remove highlight color, set it to null. The returned highlight color can be in the '#RRGGBB' format, an empty string for mixed highlight colors, or null for no highlight color.
              *
              * [Api set: WordApi 1.1]
              */
@@ -45891,7 +47629,7 @@ declare namespace Word {
             size?: number;
             /**
              *
-             * Gets or sets a value that indicates whether the font has a strike through. True if the font is formatted as strikethrough text, otherwise, false.
+             * Gets or sets a value that indicates whether the font has a strikethrough. True if the font is formatted as strikethrough text, otherwise, false.
              *
              * [Api set: WordApi 1.1]
              */
@@ -45971,7 +47709,7 @@ declare namespace Word {
             parentTableOrNullObject?: Word.Interfaces.TableData;
             /**
              *
-             * Gets or sets a string that represents the alternative text associated with the inline image
+             * Gets or sets a string that represents the alternative text associated with the inline image.
              *
              * [Api set: WordApi 1.1]
              */
@@ -46041,7 +47779,7 @@ declare namespace Word {
             levelExistences?: boolean[];
             /**
              *
-             * Gets all 9 level types in the list. Each type can be 'Bullet', 'Number' or 'Picture'. Read-only.
+             * Gets all 9 level types in the list. Each type can be 'Bullet', 'Number', or 'Picture'. Read-only.
              *
              * [Api set: WordApi 1.3]
              */
@@ -46062,7 +47800,7 @@ declare namespace Word {
             level?: number;
             /**
              *
-             * Gets the list item bullet, number or picture as a string. Read-only.
+             * Gets the list item bullet, number, or picture as a string. Read-only.
              *
              * [Api set: WordApi 1.3]
              */
@@ -46093,7 +47831,7 @@ declare namespace Word {
             font?: Word.Interfaces.FontData;
             /**
             *
-            * Gets the collection of inlinePicture objects in the paragraph. The collection does not include floating images. Read-only.
+            * Gets the collection of InlinePicture objects in the paragraph. The collection does not include floating images. Read-only.
             *
             * [Api set: WordApi 1.1]
             */
@@ -46219,7 +47957,7 @@ declare namespace Word {
             lineSpacing?: number;
             /**
              *
-             * Gets or sets the amount of spacing, in grid lines. after the paragraph.
+             * Gets or sets the amount of spacing, in grid lines, after the paragraph.
              *
              * [Api set: WordApi 1.1]
              */
@@ -46443,7 +48181,7 @@ declare namespace Word {
             ignoreSpace?: boolean;
             /**
              *
-             * Gets or sets a value that indicates whether to perform a case sensitive search. Corresponds to the Match case check box in the Find and Replace dialog box (Edit menu).
+             * Gets or sets a value that indicates whether to perform a case sensitive search. Corresponds to the Match case check box in the Find and Replace dialog box.
              *
              * [Api set: WordApi 1.1]
              */
@@ -46565,7 +48303,7 @@ declare namespace Word {
             tables?: Word.Interfaces.TableData[];
             /**
              *
-             * Gets or sets the alignment of the table against the page column. The value can be 'left', 'centered' or 'right'.
+             * Gets or sets the alignment of the table against the page column. The value can be 'Left', 'Centered', or 'Right'.
              *
              * [Api set: WordApi 1.3]
              */
@@ -46579,7 +48317,7 @@ declare namespace Word {
             headerRowCount?: number;
             /**
              *
-             * Gets and sets the horizontal alignment of every cell in the table. The value can be 'left', 'centered', 'right', or 'justified'.
+             * Gets and sets the horizontal alignment of every cell in the table. The value can be 'Left', 'Centered', 'Right', or 'Justified'.
              *
              * [Api set: WordApi 1.3]
              */
@@ -46607,7 +48345,7 @@ declare namespace Word {
             rowCount?: number;
             /**
              *
-             * Gets and sets the shading color.
+             * Gets and sets the shading color. Color is specified in "#RRGGBB" format or by using the color name.
              *
              * [Api set: WordApi 1.3]
              */
@@ -46670,7 +48408,7 @@ declare namespace Word {
             values?: string[][];
             /**
              *
-             * Gets and sets the vertical alignment of every cell in the table. The value can be 'top', 'center' or 'bottom'.
+             * Gets and sets the vertical alignment of every cell in the table. The value can be 'Top', 'Center', or 'Bottom'.
              *
              * [Api set: WordApi 1.3]
              */
@@ -46719,7 +48457,7 @@ declare namespace Word {
             cellCount?: number;
             /**
              *
-             * Gets and sets the horizontal alignment of every cell in the row. The value can be 'left', 'centered', 'right', or 'justified'.
+             * Gets and sets the horizontal alignment of every cell in the row. The value can be 'Left', 'Centered', 'Right', or 'Justified'.
              *
              * [Api set: WordApi 1.3]
              */
@@ -46747,7 +48485,7 @@ declare namespace Word {
             rowIndex?: number;
             /**
              *
-             * Gets and sets the shading color.
+             * Gets and sets the shading color. Color is specified in "#RRGGBB" format or by using the color name.
              *
              * [Api set: WordApi 1.3]
              */
@@ -46761,7 +48499,7 @@ declare namespace Word {
             values?: string[][];
             /**
              *
-             * Gets and sets the vertical alignment of the cells in the row. The value can be 'top', 'center' or 'bottom'.
+             * Gets and sets the vertical alignment of the cells in the row. The value can be 'Top', 'Center', or 'Bottom'.
              *
              * [Api set: WordApi 1.3]
              */
@@ -46810,7 +48548,7 @@ declare namespace Word {
             columnWidth?: number;
             /**
              *
-             * Gets and sets the horizontal alignment of the cell. The value can be 'left', 'centered', 'right', or 'justified'.
+             * Gets and sets the horizontal alignment of the cell. The value can be 'Left', 'Centered', 'Right', or 'Justified'.
              *
              * [Api set: WordApi 1.3]
              */
@@ -46838,7 +48576,7 @@ declare namespace Word {
             value?: string;
             /**
              *
-             * Gets and sets the vertical alignment of the cell. The value can be 'top', 'center' or 'bottom'.
+             * Gets and sets the vertical alignment of the cell. The value can be 'Top', 'Center', or 'Bottom'.
              *
              * [Api set: WordApi 1.3]
              */
@@ -46859,7 +48597,7 @@ declare namespace Word {
         interface TableBorderData {
             /**
              *
-             * Gets or sets the table border color, as a hex value or name.
+             * Gets or sets the table border color.
              *
              * [Api set: WordApi 1.3]
              */
@@ -47031,7 +48769,7 @@ declare namespace Word {
             parentTableOrNullObject?: Word.Interfaces.TableLoadOptions;
             /**
              *
-             * Gets or sets the appearance of the content control. The value can be 'boundingBox', 'tags' or 'hidden'.
+             * Gets or sets the appearance of the content control. The value can be 'BoundingBox', 'Tags', or 'Hidden'.
              *
              * [Api set: WordApi 1.1]
              */
@@ -47130,7 +48868,7 @@ declare namespace Word {
         }
         /**
          *
-         * Contains a collection of [contentControl](contentControl.md) objects. Content controls are bounded and potentially labeled regions in a document that serve as containers for specific types of content. Individual content controls may contain contents such as images, tables, or paragraphs of formatted text. Currently, only rich text content controls are supported.
+         * Contains a collection of {@link Word.ContentControl} objects. Content controls are bounded and potentially labeled regions in a document that serve as containers for specific types of content. Individual content controls may contain contents such as images, tables, or paragraphs of formatted text. Currently, only rich text content controls are supported.
          *
          * [Api set: WordApi 1.1]
          */
@@ -47194,7 +48932,7 @@ declare namespace Word {
             parentTableOrNullObject?: Word.Interfaces.TableLoadOptions;
             /**
              *
-             * For EACH ITEM in the collection: Gets or sets the appearance of the content control. The value can be 'boundingBox', 'tags' or 'hidden'.
+             * For EACH ITEM in the collection: Gets or sets the appearance of the content control. The value can be 'BoundingBox', 'Tags', or 'Hidden'.
              *
              * [Api set: WordApi 1.1]
              */
@@ -47323,7 +49061,7 @@ declare namespace Word {
         }
         /**
          *
-         * Contains the collection of [customProperty](customProperty.md) objects.
+         * Contains the collection of {@link Word.CustomProperty} objects.
          *
          * [Api set: WordApi 1.3]
          */
@@ -47570,14 +49308,14 @@ declare namespace Word {
             color?: boolean;
             /**
              *
-             * Gets or sets a value that indicates whether the font has a double strike through. True if the font is formatted as double strikethrough text, otherwise, false.
+             * Gets or sets a value that indicates whether the font has a double strikethrough. True if the font is formatted as double strikethrough text, otherwise, false.
              *
              * [Api set: WordApi 1.1]
              */
             doubleStrikeThrough?: boolean;
             /**
              *
-             * Gets or sets the highlight color. To set it, use a value either in the '#RRGGBB' format or the color name. To remove highlight color, set it to null. The returned highlight color can be in the '#RRGGBB' format, or an empty string for mixed highlight colors, or null for no highlight color.
+             * Gets or sets the highlight color. To set it, use a value either in the '#RRGGBB' format or the color name. To remove highlight color, set it to null. The returned highlight color can be in the '#RRGGBB' format, an empty string for mixed highlight colors, or null for no highlight color.
              *
              * [Api set: WordApi 1.1]
              */
@@ -47605,7 +49343,7 @@ declare namespace Word {
             size?: boolean;
             /**
              *
-             * Gets or sets a value that indicates whether the font has a strike through. True if the font is formatted as strikethrough text, otherwise, false.
+             * Gets or sets a value that indicates whether the font has a strikethrough. True if the font is formatted as strikethrough text, otherwise, false.
              *
              * [Api set: WordApi 1.1]
              */
@@ -47691,7 +49429,7 @@ declare namespace Word {
             parentTableOrNullObject?: Word.Interfaces.TableLoadOptions;
             /**
              *
-             * Gets or sets a string that represents the alternative text associated with the inline image
+             * Gets or sets a string that represents the alternative text associated with the inline image.
              *
              * [Api set: WordApi 1.1]
              */
@@ -47734,7 +49472,7 @@ declare namespace Word {
         }
         /**
          *
-         * Contains a collection of [inlinePicture](inlinePicture.md) objects.
+         * Contains a collection of {@link Word.InlinePicture} objects.
          *
          * [Api set: WordApi 1.1]
          */
@@ -47791,7 +49529,7 @@ declare namespace Word {
             parentTableOrNullObject?: Word.Interfaces.TableLoadOptions;
             /**
              *
-             * For EACH ITEM in the collection: Gets or sets a string that represents the alternative text associated with the inline image
+             * For EACH ITEM in the collection: Gets or sets a string that represents the alternative text associated with the inline image.
              *
              * [Api set: WordApi 1.1]
              */
@@ -47834,7 +49572,7 @@ declare namespace Word {
         }
         /**
          *
-         * Contains a collection of [paragraph](paragraph.md) objects.
+         * Contains a collection of {@link Word.Paragraph} objects.
          *
          * [Api set: WordApi 1.3]
          */
@@ -47856,7 +49594,7 @@ declare namespace Word {
             levelExistences?: boolean;
             /**
              *
-             * Gets all 9 level types in the list. Each type can be 'Bullet', 'Number' or 'Picture'. Read-only.
+             * Gets all 9 level types in the list. Each type can be 'Bullet', 'Number', or 'Picture'. Read-only.
              *
              * [Api set: WordApi 1.3]
              */
@@ -47864,7 +49602,7 @@ declare namespace Word {
         }
         /**
          *
-         * Contains a collection of [list](list.md) objects.
+         * Contains a collection of {@link Word.List} objects.
          *
          * [Api set: WordApi 1.3]
          */
@@ -47886,7 +49624,7 @@ declare namespace Word {
             levelExistences?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Gets all 9 level types in the list. Each type can be 'Bullet', 'Number' or 'Picture'. Read-only.
+             * For EACH ITEM in the collection: Gets all 9 level types in the list. Each type can be 'Bullet', 'Number', or 'Picture'. Read-only.
              *
              * [Api set: WordApi 1.3]
              */
@@ -47909,7 +49647,7 @@ declare namespace Word {
             level?: boolean;
             /**
              *
-             * Gets the list item bullet, number or picture as a string. Read-only.
+             * Gets the list item bullet, number, or picture as a string. Read-only.
              *
              * [Api set: WordApi 1.3]
              */
@@ -48058,7 +49796,7 @@ declare namespace Word {
             lineSpacing?: boolean;
             /**
              *
-             * Gets or sets the amount of spacing, in grid lines. after the paragraph.
+             * Gets or sets the amount of spacing, in grid lines, after the paragraph.
              *
              * [Api set: WordApi 1.1]
              */
@@ -48129,7 +49867,7 @@ declare namespace Word {
         }
         /**
          *
-         * Contains a collection of [paragraph](paragraph.md) objects.
+         * Contains a collection of {@link Word.Paragraph} objects.
          *
          * [Api set: WordApi 1.1]
          */
@@ -48263,7 +50001,7 @@ declare namespace Word {
             lineSpacing?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Gets or sets the amount of spacing, in grid lines. after the paragraph.
+             * For EACH ITEM in the collection: Gets or sets the amount of spacing, in grid lines, after the paragraph.
              *
              * [Api set: WordApi 1.1]
              */
@@ -48434,7 +50172,7 @@ declare namespace Word {
         }
         /**
          *
-         * Contains a collection of [range](range.md) objects.
+         * Contains a collection of {@link Word.Range} objects.
          *
          * [Api set: WordApi 1.1]
          */
@@ -48556,7 +50294,7 @@ declare namespace Word {
             ignoreSpace?: boolean;
             /**
              *
-             * Gets or sets a value that indicates whether to perform a case sensitive search. Corresponds to the Match case check box in the Find and Replace dialog box (Edit menu).
+             * Gets or sets a value that indicates whether to perform a case sensitive search. Corresponds to the Match case check box in the Find and Replace dialog box.
              *
              * [Api set: WordApi 1.1]
              */
@@ -48608,7 +50346,7 @@ declare namespace Word {
         }
         /**
          *
-         * Contains the collection of the document's [section](section.md) objects.
+         * Contains the collection of the document's {@link Word.Section} objects.
          *
          * [Api set: WordApi 1.1]
          */
@@ -48688,7 +50426,7 @@ declare namespace Word {
             parentTableOrNullObject?: Word.Interfaces.TableLoadOptions;
             /**
              *
-             * Gets or sets the alignment of the table against the page column. The value can be 'left', 'centered' or 'right'.
+             * Gets or sets the alignment of the table against the page column. The value can be 'Left', 'Centered', or 'Right'.
              *
              * [Api set: WordApi 1.3]
              */
@@ -48702,7 +50440,7 @@ declare namespace Word {
             headerRowCount?: boolean;
             /**
              *
-             * Gets and sets the horizontal alignment of every cell in the table. The value can be 'left', 'centered', 'right', or 'justified'.
+             * Gets and sets the horizontal alignment of every cell in the table. The value can be 'Left', 'Centered', 'Right', or 'Justified'.
              *
              * [Api set: WordApi 1.3]
              */
@@ -48730,7 +50468,7 @@ declare namespace Word {
             rowCount?: boolean;
             /**
              *
-             * Gets and sets the shading color.
+             * Gets and sets the shading color. Color is specified in "#RRGGBB" format or by using the color name.
              *
              * [Api set: WordApi 1.3]
              */
@@ -48793,7 +50531,7 @@ declare namespace Word {
             values?: boolean;
             /**
              *
-             * Gets and sets the vertical alignment of every cell in the table. The value can be 'top', 'center' or 'bottom'.
+             * Gets and sets the vertical alignment of every cell in the table. The value can be 'Top', 'Center', or 'Bottom'.
              *
              * [Api set: WordApi 1.3]
              */
@@ -48872,7 +50610,7 @@ declare namespace Word {
             parentTableOrNullObject?: Word.Interfaces.TableLoadOptions;
             /**
              *
-             * For EACH ITEM in the collection: Gets or sets the alignment of the table against the page column. The value can be 'left', 'centered' or 'right'.
+             * For EACH ITEM in the collection: Gets or sets the alignment of the table against the page column. The value can be 'Left', 'Centered', or 'Right'.
              *
              * [Api set: WordApi 1.3]
              */
@@ -48886,7 +50624,7 @@ declare namespace Word {
             headerRowCount?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Gets and sets the horizontal alignment of every cell in the table. The value can be 'left', 'centered', 'right', or 'justified'.
+             * For EACH ITEM in the collection: Gets and sets the horizontal alignment of every cell in the table. The value can be 'Left', 'Centered', 'Right', or 'Justified'.
              *
              * [Api set: WordApi 1.3]
              */
@@ -48914,7 +50652,7 @@ declare namespace Word {
             rowCount?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Gets and sets the shading color.
+             * For EACH ITEM in the collection: Gets and sets the shading color. Color is specified in "#RRGGBB" format or by using the color name.
              *
              * [Api set: WordApi 1.3]
              */
@@ -48977,7 +50715,7 @@ declare namespace Word {
             values?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Gets and sets the vertical alignment of every cell in the table. The value can be 'top', 'center' or 'bottom'.
+             * For EACH ITEM in the collection: Gets and sets the vertical alignment of every cell in the table. The value can be 'Top', 'Center', or 'Bottom'.
              *
              * [Api set: WordApi 1.3]
              */
@@ -49021,7 +50759,7 @@ declare namespace Word {
             cellCount?: boolean;
             /**
              *
-             * Gets and sets the horizontal alignment of every cell in the row. The value can be 'left', 'centered', 'right', or 'justified'.
+             * Gets and sets the horizontal alignment of every cell in the row. The value can be 'Left', 'Centered', 'Right', or 'Justified'.
              *
              * [Api set: WordApi 1.3]
              */
@@ -49049,7 +50787,7 @@ declare namespace Word {
             rowIndex?: boolean;
             /**
              *
-             * Gets and sets the shading color.
+             * Gets and sets the shading color. Color is specified in "#RRGGBB" format or by using the color name.
              *
              * [Api set: WordApi 1.3]
              */
@@ -49063,7 +50801,7 @@ declare namespace Word {
             values?: boolean;
             /**
              *
-             * Gets and sets the vertical alignment of the cells in the row. The value can be 'top', 'center' or 'bottom'.
+             * Gets and sets the vertical alignment of the cells in the row. The value can be 'Top', 'Center', or 'Bottom'.
              *
              * [Api set: WordApi 1.3]
              */
@@ -49100,7 +50838,7 @@ declare namespace Word {
             cellCount?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Gets and sets the horizontal alignment of every cell in the row. The value can be 'left', 'centered', 'right', or 'justified'.
+             * For EACH ITEM in the collection: Gets and sets the horizontal alignment of every cell in the row. The value can be 'Left', 'Centered', 'Right', or 'Justified'.
              *
              * [Api set: WordApi 1.3]
              */
@@ -49128,7 +50866,7 @@ declare namespace Word {
             rowIndex?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Gets and sets the shading color.
+             * For EACH ITEM in the collection: Gets and sets the shading color. Color is specified in "#RRGGBB" format or by using the color name.
              *
              * [Api set: WordApi 1.3]
              */
@@ -49142,7 +50880,7 @@ declare namespace Word {
             values?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Gets and sets the vertical alignment of the cells in the row. The value can be 'top', 'center' or 'bottom'.
+             * For EACH ITEM in the collection: Gets and sets the vertical alignment of the cells in the row. The value can be 'Top', 'Center', or 'Bottom'.
              *
              * [Api set: WordApi 1.3]
              */
@@ -49193,7 +50931,7 @@ declare namespace Word {
             columnWidth?: boolean;
             /**
              *
-             * Gets and sets the horizontal alignment of the cell. The value can be 'left', 'centered', 'right', or 'justified'.
+             * Gets and sets the horizontal alignment of the cell. The value can be 'Left', 'Centered', 'Right', or 'Justified'.
              *
              * [Api set: WordApi 1.3]
              */
@@ -49221,7 +50959,7 @@ declare namespace Word {
             value?: boolean;
             /**
              *
-             * Gets and sets the vertical alignment of the cell. The value can be 'top', 'center' or 'bottom'.
+             * Gets and sets the vertical alignment of the cell. The value can be 'Top', 'Center', or 'Bottom'.
              *
              * [Api set: WordApi 1.3]
              */
@@ -49279,7 +51017,7 @@ declare namespace Word {
             columnWidth?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Gets and sets the horizontal alignment of the cell. The value can be 'left', 'centered', 'right', or 'justified'.
+             * For EACH ITEM in the collection: Gets and sets the horizontal alignment of the cell. The value can be 'Left', 'Centered', 'Right', or 'Justified'.
              *
              * [Api set: WordApi 1.3]
              */
@@ -49307,7 +51045,7 @@ declare namespace Word {
             value?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Gets and sets the vertical alignment of the cell. The value can be 'top', 'center' or 'bottom'.
+             * For EACH ITEM in the collection: Gets and sets the vertical alignment of the cell. The value can be 'Top', 'Center', or 'Bottom'.
              *
              * [Api set: WordApi 1.3]
              */
@@ -49322,7 +51060,7 @@ declare namespace Word {
         }
         /**
          *
-         * Specifies the border style
+         * Specifies the border style.
          *
          * [Api set: WordApi 1.3]
          */
@@ -49330,7 +51068,7 @@ declare namespace Word {
             $all?: boolean;
             /**
              *
-             * Gets or sets the table border color, as a hex value or name.
+             * Gets or sets the table border color.
              *
              * [Api set: WordApi 1.3]
              */
@@ -49367,15 +51105,16 @@ declare namespace Word {
      */
     function run<T>(batch: (context: Word.RequestContext) => Promise<T>): Promise<T>;
     /**
-     * Executes a batch script that performs actions on the Word object model, using the RequestContext of previously-created API objects.
-     * @param objects - An array of previously-created API objects. The array will be validated to make sure that all of the objects share the same context. The batch will use this shared RequestContext, which means that any changes applied to these objects will be picked up by "context.sync()".
-     * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the Word application. Since the Office add-in and the Word application run in two different processes, the RequestContext is required to get access to the Word object model from the add-in.
-     */
-    function run<T>(objects: OfficeExtension.ClientObject[], batch: (context: Word.RequestContext) => Promise<T>): Promise<T>;
-    /**
      * Executes a batch script that performs actions on the Word object model, using the RequestContext of a previously-created API object. When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
      * @param object - A previously-created API object. The batch will use the same RequestContext as the passed-in object, which means that any changes applied to the object will be picked up by "context.sync()".
      * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the Word application. Since the Office add-in and the Word application run in two different processes, the RequestContext is required to get access to the Word object model from the add-in.
+     */
+    function run<T>(object: OfficeExtension.ClientObject, batch: (context: Word.RequestContext) => Promise<T>): Promise<T>;
+    /**
+     * Executes a batch script that performs actions on the Word object model, using the RequestContext of previously-created API objects.
+     * @param objects - An array of previously-created API objects. The array will be validated to make sure that all of the objects share the same context. The batch will use this shared RequestContext, which means that any changes applied to these objects will be picked up by "context.sync()".
+     * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the Word application. Since the Office add-in and the Word application run in two different processes, the RequestContext is required to get access to the Word object model from the add-in.
+     * 
      * @remarks
      * In addition to this signature, the method also has the following signatures:
      * 
@@ -49383,7 +51122,7 @@ declare namespace Word {
      * 
      * `run<T>(objects: OfficeExtension.ClientObject[], batch: (context: Word.RequestContext) => Promise<T>): Promise<T>;`
      */
-    function run<T>(object: OfficeExtension.ClientObject, batch: (context: Word.RequestContext) => Promise<T>): Promise<T>;
+    function run<T>(objects: OfficeExtension.ClientObject[], batch: (context: Word.RequestContext) => Promise<T>): Promise<T>;
 }
 
 
@@ -49464,14 +51203,14 @@ declare namespace OneNote {
          *
          * Gets the active Paragraph if one exists, If no Paragraph is active, throws ItemNotFound.
          *
-         * [Api set: OneNoteApi]
+         * [Api set: OneNoteApi 1.1]
          */
         getActiveParagraph(): OneNote.Paragraph;
         /**
          *
          * Gets the active Paragraph if one exists, otherwise returns null.
          *
-         * [Api set: OneNoteApi]
+         * [Api set: OneNoteApi 1.1]
          */
         getActiveParagraphOrNull(): OneNote.Paragraph;
         /**
@@ -49488,15 +51227,9 @@ declare namespace OneNote {
          * [Api set: OneNoteApi 1.1]
          */
         getActiveSectionOrNull(): OneNote.Section;
-        /**
-         *
-         * The collection of pages in the section. Read only
-         *
-         * [Api set: OneNoteApi 1.1]
-         */
-        getSelectedPages(): OneNote.PageCollection;
-        getWindowSize(): OfficeExtension.ClientResult<Array<number>>;
+        getWindowSize(): OfficeExtension.ClientResult<number[]>;
         insertHtmlAtCurrentPosition(html: string): void;
+        isViewingDeletedNotes(): OfficeExtension.ClientResult<boolean>;
         /**
          *
          * Opens the specified page in the application instance.
@@ -49517,6 +51250,18 @@ declare namespace OneNote {
         navigateToPageWithClientUrl(url: string): OneNote.Page;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): OneNote.Application` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): OneNote.Application` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.Application` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
          */
         load(option?: OneNote.Interfaces.ApplicationLoadOptions): OneNote.Application;
         load(option?: string | string[]): OneNote.Application;
@@ -49542,29 +51287,39 @@ declare namespace OneNote {
         readonly page: OneNote.Page;
         /**
          *
-         * Gets the ink analysis paragraphs in this page. Read-only.
-         *
-         * [Api set: OneNoteApi 1.1]
-         */
-        readonly paragraphs: OneNote.InkAnalysisParagraphCollection;
-        /**
-         *
          * Gets the ID of the InkAnalysis object. Read-only.
          *
          * [Api set: OneNoteApi 1.1]
          */
         readonly id: string;
-        /** Sets multiple properties on the object at the same time, based on JSON input. */
-        set(properties: Interfaces.InkAnalysisUpdateData, options?: {
-            /**
-             * Throw an error if the passed-in property list includes read-only properties (default = true).
-             */
-            throwOnReadOnly?: boolean;
-        }): void;
+        /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
+         *
+         * @remarks
+         *
+         * This method has the following additional signature:
+         *
+         * `set(properties: OneNote.InkAnalysis): void`
+         *
+         * @param properties A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called.
+         * @param options Provides an option to suppress errors if the properties object tries to set any read-only properties.
+         */
+        set(properties: Interfaces.InkAnalysisUpdateData, options?: OfficeExtension.UpdateOptions): void;
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
-        set(properties: InkAnalysis): void;
+        set(properties: OneNote.InkAnalysis): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): OneNote.InkAnalysis` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): OneNote.InkAnalysis` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.InkAnalysis` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
          */
         load(option?: OneNote.Interfaces.InkAnalysisLoadOptions): OneNote.InkAnalysis;
         load(option?: string | string[]): OneNote.InkAnalysis;
@@ -49610,17 +51365,34 @@ declare namespace OneNote {
          * [Api set: OneNoteApi 1.1]
          */
         readonly id: string;
-        /** Sets multiple properties on the object at the same time, based on JSON input. */
-        set(properties: Interfaces.InkAnalysisParagraphUpdateData, options?: {
-            /**
-             * Throw an error if the passed-in property list includes read-only properties (default = true).
-             */
-            throwOnReadOnly?: boolean;
-        }): void;
+        /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
+         *
+         * @remarks
+         *
+         * This method has the following additional signature:
+         *
+         * `set(properties: OneNote.InkAnalysisParagraph): void`
+         *
+         * @param properties A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called.
+         * @param options Provides an option to suppress errors if the properties object tries to set any read-only properties.
+         */
+        set(properties: Interfaces.InkAnalysisParagraphUpdateData, options?: OfficeExtension.UpdateOptions): void;
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
-        set(properties: InkAnalysisParagraph): void;
+        set(properties: OneNote.InkAnalysisParagraph): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): OneNote.InkAnalysisParagraph` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): OneNote.InkAnalysisParagraph` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.InkAnalysisParagraph` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
          */
         load(option?: OneNote.Interfaces.InkAnalysisParagraphLoadOptions): OneNote.InkAnalysisParagraph;
         load(option?: string | string[]): OneNote.InkAnalysisParagraph;
@@ -49646,7 +51418,7 @@ declare namespace OneNote {
      */
     class InkAnalysisParagraphCollection extends OfficeExtension.ClientObject {
         /** Gets the loaded child items in this collection. */
-        readonly items: Array<OneNote.InkAnalysisParagraph>;
+        readonly items: OneNote.InkAnalysisParagraph[];
         /**
          *
          * Returns the number of InkAnalysisParagraphs in the page. Read-only.
@@ -49674,6 +51446,18 @@ declare namespace OneNote {
         getItemAt(index: number): OneNote.InkAnalysisParagraph;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): OneNote.InkAnalysisParagraphCollection` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): OneNote.InkAnalysisParagraphCollection` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.InkAnalysisParagraphCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
          */
         load(option?: OneNote.Interfaces.InkAnalysisParagraphCollectionLoadOptions & OneNote.Interfaces.CollectionLoadOptions): OneNote.InkAnalysisParagraphCollection;
         load(option?: string | string[]): OneNote.InkAnalysisParagraphCollection;
@@ -49716,17 +51500,34 @@ declare namespace OneNote {
          * [Api set: OneNoteApi 1.1]
          */
         readonly id: string;
-        /** Sets multiple properties on the object at the same time, based on JSON input. */
-        set(properties: Interfaces.InkAnalysisLineUpdateData, options?: {
-            /**
-             * Throw an error if the passed-in property list includes read-only properties (default = true).
-             */
-            throwOnReadOnly?: boolean;
-        }): void;
+        /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
+         *
+         * @remarks
+         *
+         * This method has the following additional signature:
+         *
+         * `set(properties: OneNote.InkAnalysisLine): void`
+         *
+         * @param properties A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called.
+         * @param options Provides an option to suppress errors if the properties object tries to set any read-only properties.
+         */
+        set(properties: Interfaces.InkAnalysisLineUpdateData, options?: OfficeExtension.UpdateOptions): void;
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
-        set(properties: InkAnalysisLine): void;
+        set(properties: OneNote.InkAnalysisLine): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): OneNote.InkAnalysisLine` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): OneNote.InkAnalysisLine` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.InkAnalysisLine` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
          */
         load(option?: OneNote.Interfaces.InkAnalysisLineLoadOptions): OneNote.InkAnalysisLine;
         load(option?: string | string[]): OneNote.InkAnalysisLine;
@@ -49752,7 +51553,7 @@ declare namespace OneNote {
      */
     class InkAnalysisLineCollection extends OfficeExtension.ClientObject {
         /** Gets the loaded child items in this collection. */
-        readonly items: Array<OneNote.InkAnalysisLine>;
+        readonly items: OneNote.InkAnalysisLine[];
         /**
          *
          * Returns the number of InkAnalysisLines in the page. Read-only.
@@ -49780,6 +51581,18 @@ declare namespace OneNote {
         getItemAt(index: number): OneNote.InkAnalysisLine;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): OneNote.InkAnalysisLineCollection` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): OneNote.InkAnalysisLineCollection` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.InkAnalysisLineCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
          */
         load(option?: OneNote.Interfaces.InkAnalysisLineCollectionLoadOptions & OneNote.Interfaces.CollectionLoadOptions): OneNote.InkAnalysisLineCollection;
         load(option?: string | string[]): OneNote.InkAnalysisLineCollection;
@@ -49828,25 +51641,42 @@ declare namespace OneNote {
          *
          * [Api set: OneNoteApi 1.1]
          */
-        readonly strokePointers: Array<OneNote.InkStrokePointer>;
+        readonly strokePointers: OneNote.InkStrokePointer[];
         /**
          *
          * The words that were recognized in this ink word, in order of likelihood. Read-only.
          *
          * [Api set: OneNoteApi 1.1]
          */
-        readonly wordAlternates: Array<string>;
-        /** Sets multiple properties on the object at the same time, based on JSON input. */
-        set(properties: Interfaces.InkAnalysisWordUpdateData, options?: {
-            /**
-             * Throw an error if the passed-in property list includes read-only properties (default = true).
-             */
-            throwOnReadOnly?: boolean;
-        }): void;
+        readonly wordAlternates: string[];
+        /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
+         *
+         * @remarks
+         *
+         * This method has the following additional signature:
+         *
+         * `set(properties: OneNote.InkAnalysisWord): void`
+         *
+         * @param properties A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called.
+         * @param options Provides an option to suppress errors if the properties object tries to set any read-only properties.
+         */
+        set(properties: Interfaces.InkAnalysisWordUpdateData, options?: OfficeExtension.UpdateOptions): void;
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
-        set(properties: InkAnalysisWord): void;
+        set(properties: OneNote.InkAnalysisWord): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): OneNote.InkAnalysisWord` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): OneNote.InkAnalysisWord` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.InkAnalysisWord` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
          */
         load(option?: OneNote.Interfaces.InkAnalysisWordLoadOptions): OneNote.InkAnalysisWord;
         load(option?: string | string[]): OneNote.InkAnalysisWord;
@@ -49872,7 +51702,7 @@ declare namespace OneNote {
      */
     class InkAnalysisWordCollection extends OfficeExtension.ClientObject {
         /** Gets the loaded child items in this collection. */
-        readonly items: Array<OneNote.InkAnalysisWord>;
+        readonly items: OneNote.InkAnalysisWord[];
         /**
          *
          * Returns the number of InkAnalysisWords in the page. Read-only.
@@ -49900,6 +51730,18 @@ declare namespace OneNote {
         getItemAt(index: number): OneNote.InkAnalysisWord;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): OneNote.InkAnalysisWordCollection` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): OneNote.InkAnalysisWordCollection` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.InkAnalysisWordCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
          */
         load(option?: OneNote.Interfaces.InkAnalysisWordCollectionLoadOptions & OneNote.Interfaces.CollectionLoadOptions): OneNote.InkAnalysisWordCollection;
         load(option?: string | string[]): OneNote.InkAnalysisWordCollection;
@@ -49944,6 +51786,18 @@ declare namespace OneNote {
         readonly id: string;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): OneNote.FloatingInk` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): OneNote.FloatingInk` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.FloatingInk` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
          */
         load(option?: OneNote.Interfaces.FloatingInkLoadOptions): OneNote.FloatingInk;
         load(option?: string | string[]): OneNote.FloatingInk;
@@ -49984,6 +51838,18 @@ declare namespace OneNote {
         readonly id: string;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): OneNote.InkStroke` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): OneNote.InkStroke` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.InkStroke` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
          */
         load(option?: OneNote.Interfaces.InkStrokeLoadOptions): OneNote.InkStroke;
         load(option?: string | string[]): OneNote.InkStroke;
@@ -50009,7 +51875,7 @@ declare namespace OneNote {
      */
     class InkStrokeCollection extends OfficeExtension.ClientObject {
         /** Gets the loaded child items in this collection. */
-        readonly items: Array<OneNote.InkStroke>;
+        readonly items: OneNote.InkStroke[];
         /**
          *
          * Returns the number of InkStrokes in the page. Read-only.
@@ -50037,6 +51903,18 @@ declare namespace OneNote {
         getItemAt(index: number): OneNote.InkStroke;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): OneNote.InkStrokeCollection` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): OneNote.InkStrokeCollection` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.InkStrokeCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
          */
         load(option?: OneNote.Interfaces.InkStrokeCollectionLoadOptions & OneNote.Interfaces.CollectionLoadOptions): OneNote.InkStrokeCollection;
         load(option?: string | string[]): OneNote.InkStrokeCollection;
@@ -50083,11 +51961,23 @@ declare namespace OneNote {
          *
          * The words that were recognized in this ink word, in order of likelihood. Read-only.
          *
-         * [Api set: OneNoteApi]
+         * [Api set: OneNoteApi 1.1]
          */
-        readonly wordAlternates: Array<string>;
+        readonly wordAlternates: string[];
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): OneNote.InkWord` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): OneNote.InkWord` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.InkWord` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
          */
         load(option?: OneNote.Interfaces.InkWordLoadOptions): OneNote.InkWord;
         load(option?: string | string[]): OneNote.InkWord;
@@ -50113,7 +52003,7 @@ declare namespace OneNote {
      */
     class InkWordCollection extends OfficeExtension.ClientObject {
         /** Gets the loaded child items in this collection. */
-        readonly items: Array<OneNote.InkWord>;
+        readonly items: OneNote.InkWord[];
         /**
          *
          * Returns the number of InkWords in the page. Read-only.
@@ -50141,6 +52031,18 @@ declare namespace OneNote {
         getItemAt(index: number): OneNote.InkWord;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): OneNote.InkWordCollection` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): OneNote.InkWordCollection` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.InkWordCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
          */
         load(option?: OneNote.Interfaces.InkWordCollectionLoadOptions & OneNote.Interfaces.CollectionLoadOptions): OneNote.InkWordCollection;
         load(option?: string | string[]): OneNote.InkWordCollection;
@@ -50199,6 +52101,13 @@ declare namespace OneNote {
         readonly id: string;
         /**
          *
+         * True if the Notebook is not created by the user (i.e. 'Misplaced Sections'). Read only
+         *
+         * [Api set: OneNoteApi 1.2]
+         */
+        readonly isVirtual: boolean;
+        /**
+         *
          * Gets the name of the notebook. Read-only.
          *
          * [Api set: OneNoteApi 1.1]
@@ -50226,11 +52135,23 @@ declare namespace OneNote {
          *
          * Gets the REST API ID.
          *
-         * [Api set: OneNoteApi]
+         * [Api set: OneNoteApi 1.1]
          */
         getRestApiId(): OfficeExtension.ClientResult<string>;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): OneNote.Notebook` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): OneNote.Notebook` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.Notebook` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
          */
         load(option?: OneNote.Interfaces.NotebookLoadOptions): OneNote.Notebook;
         load(option?: string | string[]): OneNote.Notebook;
@@ -50256,7 +52177,7 @@ declare namespace OneNote {
      */
     class NotebookCollection extends OfficeExtension.ClientObject {
         /** Gets the loaded child items in this collection. */
-        readonly items: Array<OneNote.Notebook>;
+        readonly items: OneNote.Notebook[];
         /**
          *
          * Returns the number of notebooks in the collection. Read-only.
@@ -50293,6 +52214,18 @@ declare namespace OneNote {
         getItemAt(index: number): OneNote.Notebook;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): OneNote.NotebookCollection` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): OneNote.NotebookCollection` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.NotebookCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
          */
         load(option?: OneNote.Interfaces.NotebookCollectionLoadOptions & OneNote.Interfaces.CollectionLoadOptions): OneNote.NotebookCollection;
         load(option?: string | string[]): OneNote.NotebookCollection;
@@ -50392,11 +52325,23 @@ declare namespace OneNote {
          *
          * Gets the REST API ID.
          *
-         * [Api set: OneNoteApi]
+         * [Api set: OneNoteApi 1.1]
          */
         getRestApiId(): OfficeExtension.ClientResult<string>;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): OneNote.SectionGroup` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): OneNote.SectionGroup` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.SectionGroup` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
          */
         load(option?: OneNote.Interfaces.SectionGroupLoadOptions): OneNote.SectionGroup;
         load(option?: string | string[]): OneNote.SectionGroup;
@@ -50422,7 +52367,7 @@ declare namespace OneNote {
      */
     class SectionGroupCollection extends OfficeExtension.ClientObject {
         /** Gets the loaded child items in this collection. */
-        readonly items: Array<OneNote.SectionGroup>;
+        readonly items: OneNote.SectionGroup[];
         /**
          *
          * Returns the number of section groups in the collection. Read-only.
@@ -50459,6 +52404,18 @@ declare namespace OneNote {
         getItemAt(index: number): OneNote.SectionGroup;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): OneNote.SectionGroupCollection` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): OneNote.SectionGroupCollection` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.SectionGroupCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
          */
         load(option?: OneNote.Interfaces.SectionGroupCollectionLoadOptions & OneNote.Interfaces.CollectionLoadOptions): OneNote.SectionGroupCollection;
         load(option?: string | string[]): OneNote.SectionGroupCollection;
@@ -50524,6 +52481,20 @@ declare namespace OneNote {
         readonly id: string;
         /**
          *
+         * True if this section is encrypted with a password. Read only
+         *
+         * [Api set: OneNoteApi 1.2]
+         */
+        readonly isEncrypted: boolean;
+        /**
+         *
+         * True if this section is locked. Read only
+         *
+         * [Api set: OneNoteApi 1.2]
+         */
+        readonly isLocked: boolean;
+        /**
+         *
          * Gets the name of the section. Read-only.
          *
          * [Api set: OneNoteApi 1.1]
@@ -50567,7 +52538,7 @@ declare namespace OneNote {
          *
          * Gets the REST API ID.
          *
-         * [Api set: OneNoteApi]
+         * [Api set: OneNoteApi 1.1]
          */
         getRestApiId(): OfficeExtension.ClientResult<string>;
         /**
@@ -50579,9 +52550,31 @@ declare namespace OneNote {
          * @param location The location of the new section relative to the current section.
          * @param title The name of the new section.
          */
-        insertSectionAsSibling(location: string, title: string): OneNote.Section;
+        insertSectionAsSibling(location: OneNote.InsertLocation, title: string): OneNote.Section;
+        /**
+         *
+         * Inserts a new section before or after the current section.
+         *
+         * [Api set: OneNoteApi 1.1]
+         *
+         * @param location The location of the new section relative to the current section.
+         * @param title The name of the new section.
+         */
+        insertSectionAsSibling(location: "Before" | "After", title: string): OneNote.Section;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): OneNote.Section` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): OneNote.Section` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.Section` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
          */
         load(option?: OneNote.Interfaces.SectionLoadOptions): OneNote.Section;
         load(option?: string | string[]): OneNote.Section;
@@ -50607,7 +52600,7 @@ declare namespace OneNote {
      */
     class SectionCollection extends OfficeExtension.ClientObject {
         /** Gets the loaded child items in this collection. */
-        readonly items: Array<OneNote.Section>;
+        readonly items: OneNote.Section[];
         /**
          *
          * Returns the number of sections in the collection. Read-only.
@@ -50644,6 +52637,18 @@ declare namespace OneNote {
         getItemAt(index: number): OneNote.Section;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): OneNote.SectionCollection` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): OneNote.SectionCollection` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.SectionCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
          */
         load(option?: OneNote.Interfaces.SectionCollectionLoadOptions & OneNote.Interfaces.CollectionLoadOptions): OneNote.SectionCollection;
         load(option?: string | string[]): OneNote.SectionCollection;
@@ -50728,15 +52733,20 @@ declare namespace OneNote {
          * [Api set: OneNoteApi 1.1]
          */
         readonly webUrl: string;
-        /** Sets multiple properties on the object at the same time, based on JSON input. */
-        set(properties: Interfaces.PageUpdateData, options?: {
-            /**
-             * Throw an error if the passed-in property list includes read-only properties (default = true).
-             */
-            throwOnReadOnly?: boolean;
-        }): void;
+        /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
+         *
+         * @remarks
+         *
+         * This method has the following additional signature:
+         *
+         * `set(properties: OneNote.Page): void`
+         *
+         * @param properties A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called.
+         * @param options Provides an option to suppress errors if the properties object tries to set any read-only properties.
+         */
+        set(properties: Interfaces.PageUpdateData, options?: OfficeExtension.UpdateOptions): void;
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
-        set(properties: Page): void;
+        set(properties: OneNote.Page): void;
         /**
          *
          * Adds an Outline to the page at the specified position.
@@ -50745,14 +52755,14 @@ declare namespace OneNote {
          *
          * @param left The left position of the top, left corner of the Outline.
          * @param top The top position of the top, left corner of the Outline.
-         * @param html An HTML string that describes the visual presentation of the Outline. See [supported HTML](../../docs/onenote/onenote-add-ins-page-content.md#supported-html) for the OneNote add-ins JavaScript API.
+         * @param html An HTML string that describes the visual presentation of the Outline. See {@link https://docs.microsoft.com/en-us/office/dev/add-ins/onenote/onenote-add-ins-page-content#supported-html | Supported HTML} for the OneNote add-ins JavaScript API.
          */
         addOutline(left: number, top: number, html: string): OneNote.Outline;
         /**
          *
          * Return a json string with node id and content in html format.
          *
-         * [Api set: OneNoteApi]
+         * [Api set: OneNoteApi 1.1]
          */
         analyzePage(): OfficeExtension.ClientResult<string>;
         /**
@@ -50784,14 +52794,14 @@ declare namespace OneNote {
          *
          * Gets the REST API ID.
          *
-         * [Api set: OneNoteApi]
+         * [Api set: OneNoteApi 1.1]
          */
         getRestApiId(): OfficeExtension.ClientResult<string>;
         /**
          *
          * Does the page has content title.
          *
-         * [Api set: OneNoteApi]
+         * [Api set: OneNoteApi 1.1]
          */
         hasTitleContent(): OfficeExtension.ClientResult<boolean>;
         /**
@@ -50803,9 +52813,31 @@ declare namespace OneNote {
          * @param location The location of the new page relative to the current page.
          * @param title The title of the new page.
          */
-        insertPageAsSibling(location: string, title: string): OneNote.Page;
+        insertPageAsSibling(location: OneNote.InsertLocation, title: string): OneNote.Page;
+        /**
+         *
+         * Inserts a new page before or after the current page.
+         *
+         * [Api set: OneNoteApi 1.1]
+         *
+         * @param location The location of the new page relative to the current page.
+         * @param title The title of the new page.
+         */
+        insertPageAsSibling(location: "Before" | "After", title: string): OneNote.Page;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): OneNote.Page` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): OneNote.Page` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.Page` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
          */
         load(option?: OneNote.Interfaces.PageLoadOptions): OneNote.Page;
         load(option?: string | string[]): OneNote.Page;
@@ -50831,7 +52863,7 @@ declare namespace OneNote {
      */
     class PageCollection extends OfficeExtension.ClientObject {
         /** Gets the loaded child items in this collection. */
-        readonly items: Array<OneNote.Page>;
+        readonly items: OneNote.Page[];
         /**
          *
          * Returns the number of pages in the collection. Read-only.
@@ -50868,6 +52900,18 @@ declare namespace OneNote {
         getItemAt(index: number): OneNote.Page;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): OneNote.PageCollection` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): OneNote.PageCollection` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.PageCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
          */
         load(option?: OneNote.Interfaces.PageCollectionLoadOptions & OneNote.Interfaces.CollectionLoadOptions): OneNote.PageCollection;
         load(option?: string | string[]): OneNote.PageCollection;
@@ -50944,16 +52988,21 @@ declare namespace OneNote {
          *
          * [Api set: OneNoteApi 1.1]
          */
-        readonly type: string;
-        /** Sets multiple properties on the object at the same time, based on JSON input. */
-        set(properties: Interfaces.PageContentUpdateData, options?: {
-            /**
-             * Throw an error if the passed-in property list includes read-only properties (default = true).
-             */
-            throwOnReadOnly?: boolean;
-        }): void;
+        readonly type: OneNote.PageContentType | "Outline" | "Image" | "Ink" | "Other";
+        /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
+         *
+         * @remarks
+         *
+         * This method has the following additional signature:
+         *
+         * `set(properties: OneNote.PageContent): void`
+         *
+         * @param properties A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called.
+         * @param options Provides an option to suppress errors if the properties object tries to set any read-only properties.
+         */
+        set(properties: Interfaces.PageContentUpdateData, options?: OfficeExtension.UpdateOptions): void;
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
-        set(properties: PageContent): void;
+        set(properties: OneNote.PageContent): void;
         /**
          *
          * Deletes the PageContent object.
@@ -50963,6 +53012,18 @@ declare namespace OneNote {
         delete(): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): OneNote.PageContent` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): OneNote.PageContent` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.PageContent` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
          */
         load(option?: OneNote.Interfaces.PageContentLoadOptions): OneNote.PageContent;
         load(option?: string | string[]): OneNote.PageContent;
@@ -50988,7 +53049,7 @@ declare namespace OneNote {
      */
     class PageContentCollection extends OfficeExtension.ClientObject {
         /** Gets the loaded child items in this collection. */
-        readonly items: Array<OneNote.PageContent>;
+        readonly items: OneNote.PageContent[];
         /**
          *
          * Returns the number of page contents in the collection. Read-only.
@@ -51016,6 +53077,18 @@ declare namespace OneNote {
         getItemAt(index: number): OneNote.PageContent;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): OneNote.PageContentCollection` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): OneNote.PageContentCollection` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.PageContentCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
          */
         load(option?: OneNote.Interfaces.PageContentCollectionLoadOptions & OneNote.Interfaces.CollectionLoadOptions): OneNote.PageContentCollection;
         load(option?: string | string[]): OneNote.PageContentCollection;
@@ -51064,7 +53137,7 @@ declare namespace OneNote {
          *
          * [Api set: OneNoteApi 1.1]
          *
-         * @param html The HTML string to append. See [supported HTML](../../docs/onenote/onenote-add-ins-page-content.md#supported-html) for the OneNote add-ins JavaScript API.
+         * @param html The HTML string to append. See {@link https://docs.microsoft.com/en-us/office/dev/add-ins/onenote/onenote-add-ins-page-content#supported-html | Supported HTML} for the OneNote add-ins JavaScript API.
          */
         appendHtml(html: string): void;
         /**
@@ -51097,7 +53170,7 @@ declare namespace OneNote {
          * @param columnCount Required. The number of columns in the table.
          * @param values Optional 2D array. Cells are filled if the corresponding strings are specified in the array.
          */
-        appendTable(rowCount: number, columnCount: number, values?: Array<Array<string>>): OneNote.Table;
+        appendTable(rowCount: number, columnCount: number, values?: string[][]): OneNote.Table;
         /**
          *
          * Check if the outline is title outline.
@@ -51107,6 +53180,18 @@ declare namespace OneNote {
         isTitle(): OfficeExtension.ClientResult<boolean>;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): OneNote.Outline` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): OneNote.Outline` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.Outline` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
          */
         load(option?: OneNote.Interfaces.OutlineLoadOptions): OneNote.Outline;
         load(option?: string | string[]): OneNote.Outline;
@@ -51214,16 +53299,21 @@ declare namespace OneNote {
          *
          * [Api set: OneNoteApi 1.1]
          */
-        readonly type: string;
-        /** Sets multiple properties on the object at the same time, based on JSON input. */
-        set(properties: Interfaces.ParagraphUpdateData, options?: {
-            /**
-             * Throw an error if the passed-in property list includes read-only properties (default = true).
-             */
-            throwOnReadOnly?: boolean;
-        }): void;
+        readonly type: OneNote.ParagraphType | "RichText" | "Image" | "Table" | "Ink" | "Other";
+        /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
+         *
+         * @remarks
+         *
+         * This method has the following additional signature:
+         *
+         * `set(properties: OneNote.Paragraph): void`
+         *
+         * @param properties A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called.
+         * @param options Provides an option to suppress errors if the properties object tries to set any read-only properties.
+         */
+        set(properties: Interfaces.ParagraphUpdateData, options?: OfficeExtension.UpdateOptions): void;
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
-        set(properties: Paragraph): void;
+        set(properties: OneNote.Paragraph): void;
         /**
          *
          * Add NoteTag to the paragraph.
@@ -51233,7 +53323,17 @@ declare namespace OneNote {
          * @param type The type of the NoteTag.
          * @param status The status of the NoteTag.
          */
-        addNoteTag(type: string, status: string): OneNote.NoteTag;
+        addNoteTag(type: OneNote.NoteTagType, status: OneNote.NoteTagStatus): OneNote.NoteTag;
+        /**
+         *
+         * Add NoteTag to the paragraph.
+         *
+         * [Api set: OneNoteApi 1.1]
+         *
+         * @param type The type of the NoteTag.
+         * @param status The status of the NoteTag.
+         */
+        addNoteTag(type: "Unknown" | "ToDo" | "Important" | "Question" | "Contact" | "Address" | "PhoneNumber" | "Website" | "Idea" | "Critical" | "ToDoPriority1" | "ToDoPriority2", status: "Unknown" | "Normal" | "Completed" | "Disabled" | "OutlookTask" | "TaskNotSyncedYet" | "TaskRemoved"): OneNote.NoteTag;
         /**
          *
          * Deletes the paragraph
@@ -51255,9 +53355,19 @@ declare namespace OneNote {
          * [Api set: OneNoteApi 1.1]
          *
          * @param insertLocation The location of new contents relative to the current Paragraph.
-         * @param html An HTML string that describes the visual presentation of the content. See [supported HTML](../../docs/onenote/onenote-add-ins-page-content.md#supported-html) for the OneNote add-ins JavaScript API.
+         * @param html An HTML string that describes the visual presentation of the content. See {@link https://docs.microsoft.com/en-us/office/dev/add-ins/onenote/onenote-add-ins-page-content#supported-html | Supported HTML} for the OneNote add-ins JavaScript API.
          */
-        insertHtmlAsSibling(insertLocation: string, html: string): void;
+        insertHtmlAsSibling(insertLocation: OneNote.InsertLocation, html: string): void;
+        /**
+         *
+         * Inserts the specified HTML content
+         *
+         * [Api set: OneNoteApi 1.1]
+         *
+         * @param insertLocation The location of new contents relative to the current Paragraph.
+         * @param html An HTML string that describes the visual presentation of the content. See {@link https://docs.microsoft.com/en-us/office/dev/add-ins/onenote/onenote-add-ins-page-content#supported-html | Supported HTML} for the OneNote add-ins JavaScript API.
+         */
+        insertHtmlAsSibling(insertLocation: "Before" | "After", html: string): void;
         /**
          *
          * Inserts the image at the specified insert location..
@@ -51269,7 +53379,19 @@ declare namespace OneNote {
          * @param width Optional. Width in the unit of Points. The default value is null and image width will be respected.
          * @param height Optional. Height in the unit of Points. The default value is null and image height will be respected.
          */
-        insertImageAsSibling(insertLocation: string, base64EncodedImage: string, width: number, height: number): OneNote.Image;
+        insertImageAsSibling(insertLocation: OneNote.InsertLocation, base64EncodedImage: string, width: number, height: number): OneNote.Image;
+        /**
+         *
+         * Inserts the image at the specified insert location..
+         *
+         * [Api set: OneNoteApi 1.1]
+         *
+         * @param insertLocation The location of the table relative to the current Paragraph.
+         * @param base64EncodedImage HTML string to append.
+         * @param width Optional. Width in the unit of Points. The default value is null and image width will be respected.
+         * @param height Optional. Height in the unit of Points. The default value is null and image height will be respected.
+         */
+        insertImageAsSibling(insertLocation: "Before" | "After", base64EncodedImage: string, width: number, height: number): OneNote.Image;
         /**
          *
          * Inserts the paragraph text at the specifiec insert location.
@@ -51279,7 +53401,17 @@ declare namespace OneNote {
          * @param insertLocation The location of the table relative to the current Paragraph.
          * @param paragraphText HTML string to append.
          */
-        insertRichTextAsSibling(insertLocation: string, paragraphText: string): OneNote.RichText;
+        insertRichTextAsSibling(insertLocation: OneNote.InsertLocation, paragraphText: string): OneNote.RichText;
+        /**
+         *
+         * Inserts the paragraph text at the specifiec insert location.
+         *
+         * [Api set: OneNoteApi 1.1]
+         *
+         * @param insertLocation The location of the table relative to the current Paragraph.
+         * @param paragraphText HTML string to append.
+         */
+        insertRichTextAsSibling(insertLocation: "Before" | "After", paragraphText: string): OneNote.RichText;
         /**
          *
          * Adds a table with the specified number of rows and columns before or after the current paragraph.
@@ -51291,9 +53423,33 @@ declare namespace OneNote {
          * @param columnCount The number of columns in the table.
          * @param values Optional 2D array. Cells are filled if the corresponding strings are specified in the array.
          */
-        insertTableAsSibling(insertLocation: string, rowCount: number, columnCount: number, values?: Array<Array<string>>): OneNote.Table;
+        insertTableAsSibling(insertLocation: OneNote.InsertLocation, rowCount: number, columnCount: number, values?: string[][]): OneNote.Table;
+        /**
+         *
+         * Adds a table with the specified number of rows and columns before or after the current paragraph.
+         *
+         * [Api set: OneNoteApi 1.1]
+         *
+         * @param insertLocation The location of the table relative to the current Paragraph.
+         * @param rowCount The number of rows in the table.
+         * @param columnCount The number of columns in the table.
+         * @param values Optional 2D array. Cells are filled if the corresponding strings are specified in the array.
+         */
+        insertTableAsSibling(insertLocation: "Before" | "After", rowCount: number, columnCount: number, values?: string[][]): OneNote.Table;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): OneNote.Paragraph` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): OneNote.Paragraph` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.Paragraph` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
          */
         load(option?: OneNote.Interfaces.ParagraphLoadOptions): OneNote.Paragraph;
         load(option?: string | string[]): OneNote.Paragraph;
@@ -51319,7 +53475,7 @@ declare namespace OneNote {
      */
     class ParagraphCollection extends OfficeExtension.ClientObject {
         /** Gets the loaded child items in this collection. */
-        readonly items: Array<OneNote.Paragraph>;
+        readonly items: OneNote.Paragraph[];
         /**
          *
          * Returns the number of paragraphs in the page. Read-only.
@@ -51347,6 +53503,18 @@ declare namespace OneNote {
         getItemAt(index: number): OneNote.Paragraph;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): OneNote.ParagraphCollection` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): OneNote.ParagraphCollection` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.ParagraphCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
          */
         load(option?: OneNote.Interfaces.ParagraphCollectionLoadOptions & OneNote.Interfaces.CollectionLoadOptions): OneNote.ParagraphCollection;
         load(option?: string | string[]): OneNote.ParagraphCollection;
@@ -51381,16 +53549,28 @@ declare namespace OneNote {
          *
          * [Api set: OneNoteApi 1.1]
          */
-        readonly status: string;
+        readonly status: OneNote.NoteTagStatus | "Unknown" | "Normal" | "Completed" | "Disabled" | "OutlookTask" | "TaskNotSyncedYet" | "TaskRemoved";
         /**
          *
          * Gets the type of the NoteTag object. Read-only.
          *
          * [Api set: OneNoteApi 1.1]
          */
-        readonly type: string;
+        readonly type: OneNote.NoteTagType | "Unknown" | "ToDo" | "Important" | "Question" | "Contact" | "Address" | "PhoneNumber" | "Website" | "Idea" | "Critical" | "ToDoPriority1" | "ToDoPriority2";
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): OneNote.NoteTag` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): OneNote.NoteTag` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.NoteTag` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
          */
         load(option?: OneNote.Interfaces.NoteTagLoadOptions): OneNote.NoteTag;
         load(option?: string | string[]): OneNote.NoteTag;
@@ -51447,12 +53627,24 @@ declare namespace OneNote {
          *
          * Get the HTML of the rich text
          *
-         * [Api set: OneNoteApi]
+         * [Api set: OneNoteApi 1.1]
          * @returns The html of the rich text
          */
         getHtml(): OfficeExtension.ClientResult<string>;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): OneNote.RichText` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): OneNote.RichText` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.RichText` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
          */
         load(option?: OneNote.Interfaces.RichTextLoadOptions): OneNote.RichText;
         load(option?: string | string[]): OneNote.RichText;
@@ -51533,15 +53725,20 @@ declare namespace OneNote {
          * [Api set: OneNoteApi 1.1]
          */
         width: number;
-        /** Sets multiple properties on the object at the same time, based on JSON input. */
-        set(properties: Interfaces.ImageUpdateData, options?: {
-            /**
-             * Throw an error if the passed-in property list includes read-only properties (default = true).
-             */
-            throwOnReadOnly?: boolean;
-        }): void;
+        /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
+         *
+         * @remarks
+         *
+         * This method has the following additional signature:
+         *
+         * `set(properties: OneNote.Image): void`
+         *
+         * @param properties A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called.
+         * @param options Provides an option to suppress errors if the properties object tries to set any read-only properties.
+         */
+        set(properties: Interfaces.ImageUpdateData, options?: OfficeExtension.UpdateOptions): void;
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
-        set(properties: Image): void;
+        set(properties: OneNote.Image): void;
         /**
          *
          * Gets the base64-encoded binary representation of the Image.
@@ -51552,6 +53749,18 @@ declare namespace OneNote {
         getBase64Image(): OfficeExtension.ClientResult<string>;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): OneNote.Image` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): OneNote.Image` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.Image` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
          */
         load(option?: OneNote.Interfaces.ImageLoadOptions): OneNote.Image;
         load(option?: string | string[]): OneNote.Image;
@@ -51618,15 +53827,20 @@ declare namespace OneNote {
          * [Api set: OneNoteApi 1.1]
          */
         readonly rowCount: number;
-        /** Sets multiple properties on the object at the same time, based on JSON input. */
-        set(properties: Interfaces.TableUpdateData, options?: {
-            /**
-             * Throw an error if the passed-in property list includes read-only properties (default = true).
-             */
-            throwOnReadOnly?: boolean;
-        }): void;
+        /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
+         *
+         * @remarks
+         *
+         * This method has the following additional signature:
+         *
+         * `set(properties: OneNote.Table): void`
+         *
+         * @param properties A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called.
+         * @param options Provides an option to suppress errors if the properties object tries to set any read-only properties.
+         */
+        set(properties: Interfaces.TableUpdateData, options?: OfficeExtension.UpdateOptions): void;
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
-        set(properties: Table): void;
+        set(properties: OneNote.Table): void;
         /**
          *
          * Adds a column to the end of the table. Values, if specified, are set in the new column. Otherwise the column is empty.
@@ -51635,7 +53849,7 @@ declare namespace OneNote {
          *
          * @param values Optional. Strings to insert in the new column, specified as an array. Must not have more values than rows in the table.
          */
-        appendColumn(values?: Array<string>): void;
+        appendColumn(values?: string[]): void;
         /**
          *
          * Adds a row to the end of the table. Values, if specified, are set in the new row. Otherwise the row is empty.
@@ -51644,7 +53858,7 @@ declare namespace OneNote {
          *
          * @param values Optional. Strings to insert in the new row, specified as an array. Must not have more values than columns in the table.
          */
-        appendRow(values?: Array<string>): OneNote.TableRow;
+        appendRow(values?: string[]): OneNote.TableRow;
         /**
          *
          * Clears the contents of the table.
@@ -51671,7 +53885,7 @@ declare namespace OneNote {
          * @param index Index where the column will be inserted in the table.
          * @param values Optional. Strings to insert in the new column, specified as an array. Must not have more values than rows in the table.
          */
-        insertColumn(index: number, values?: Array<string>): void;
+        insertColumn(index: number, values?: string[]): void;
         /**
          *
          * Inserts a row at the given index in the table. Values, if specified, are set in the new row. Otherwise the row is empty.
@@ -51681,10 +53895,29 @@ declare namespace OneNote {
          * @param index Index where the row will be inserted in the table.
          * @param values Optional. Strings to insert in the new row, specified as an array. Must not have more values than columns in the table.
          */
-        insertRow(index: number, values?: Array<string>): OneNote.TableRow;
+        insertRow(index: number, values?: string[]): OneNote.TableRow;
+        /**
+         *
+         * Sets the shading color of all cells in the table.
+            The color code to set the cells to.
+         *
+         * [Api set: OneNoteApi 1.1]
+         */
         setShadingColor(colorCode: string): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): OneNote.Table` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): OneNote.Table` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.Table` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
          */
         load(option?: OneNote.Interfaces.TableLoadOptions): OneNote.Table;
         load(option?: string | string[]): OneNote.Table;
@@ -51760,10 +53993,39 @@ declare namespace OneNote {
          * @param insertLocation Where the new rows should be inserted relative to the current row.
          * @param values Strings to insert in the new row, specified as an array. Must not have more cells than in the current row. Optional.
          */
-        insertRowAsSibling(insertLocation: string, values?: Array<string>): OneNote.TableRow;
+        insertRowAsSibling(insertLocation: OneNote.InsertLocation, values?: string[]): OneNote.TableRow;
+        /**
+         *
+         * Inserts a row before or after the current row.
+         *
+         * [Api set: OneNoteApi 1.1]
+         *
+         * @param insertLocation Where the new rows should be inserted relative to the current row.
+         * @param values Strings to insert in the new row, specified as an array. Must not have more cells than in the current row. Optional.
+         */
+        insertRowAsSibling(insertLocation: "Before" | "After", values?: string[]): OneNote.TableRow;
+        /**
+         *
+         * Sets the shading color of all cells in the row.
+            The color code to set the cells to.
+         *
+         * [Api set: OneNoteApi 1.1]
+         */
         setShadingColor(colorCode: string): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): OneNote.TableRow` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): OneNote.TableRow` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.TableRow` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
          */
         load(option?: OneNote.Interfaces.TableRowLoadOptions): OneNote.TableRow;
         load(option?: string | string[]): OneNote.TableRow;
@@ -51789,7 +54051,7 @@ declare namespace OneNote {
      */
     class TableRowCollection extends OfficeExtension.ClientObject {
         /** Gets the loaded child items in this collection. */
-        readonly items: Array<OneNote.TableRow>;
+        readonly items: OneNote.TableRow[];
         /**
          *
          * Returns the number of table rows in this collection. Read-only.
@@ -51817,6 +54079,18 @@ declare namespace OneNote {
         getItemAt(index: number): OneNote.TableRow;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): OneNote.TableRowCollection` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): OneNote.TableRowCollection` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.TableRowCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
          */
         load(option?: OneNote.Interfaces.TableRowCollectionLoadOptions & OneNote.Interfaces.CollectionLoadOptions): OneNote.TableRowCollection;
         load(option?: string | string[]): OneNote.TableRowCollection;
@@ -51880,22 +54154,27 @@ declare namespace OneNote {
          * [Api set: OneNoteApi 1.1]
          */
         shadingColor: string;
-        /** Sets multiple properties on the object at the same time, based on JSON input. */
-        set(properties: Interfaces.TableCellUpdateData, options?: {
-            /**
-             * Throw an error if the passed-in property list includes read-only properties (default = true).
-             */
-            throwOnReadOnly?: boolean;
-        }): void;
+        /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
+         *
+         * @remarks
+         *
+         * This method has the following additional signature:
+         *
+         * `set(properties: OneNote.TableCell): void`
+         *
+         * @param properties A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called.
+         * @param options Provides an option to suppress errors if the properties object tries to set any read-only properties.
+         */
+        set(properties: Interfaces.TableCellUpdateData, options?: OfficeExtension.UpdateOptions): void;
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
-        set(properties: TableCell): void;
+        set(properties: OneNote.TableCell): void;
         /**
          *
          * Adds the specified HTML to the bottom of the TableCell.
          *
          * [Api set: OneNoteApi 1.1]
          *
-         * @param html The HTML string to append. See [supported HTML](../../docs/onenote/onenote-add-ins-page-content.md#supported-html) for the OneNote add-ins JavaScript API.
+         * @param html The HTML string to append. See {@link https://docs.microsoft.com/en-us/office/dev/add-ins/onenote/onenote-add-ins-page-content#supported-html | Supported HTML} for the OneNote add-ins JavaScript API.
          */
         appendHtml(html: string): void;
         /**
@@ -51928,7 +54207,7 @@ declare namespace OneNote {
          * @param columnCount Required. The number of columns in the table.
          * @param values Optional 2D array. Cells are filled if the corresponding strings are specified in the array.
          */
-        appendTable(rowCount: number, columnCount: number, values?: Array<Array<string>>): OneNote.Table;
+        appendTable(rowCount: number, columnCount: number, values?: string[][]): OneNote.Table;
         /**
          *
          * Clears the contents of the cell.
@@ -51938,6 +54217,18 @@ declare namespace OneNote {
         clear(): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): OneNote.TableCell` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): OneNote.TableCell` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.TableCell` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
          */
         load(option?: OneNote.Interfaces.TableCellLoadOptions): OneNote.TableCell;
         load(option?: string | string[]): OneNote.TableCell;
@@ -51963,7 +54254,7 @@ declare namespace OneNote {
      */
     class TableCellCollection extends OfficeExtension.ClientObject {
         /** Gets the loaded child items in this collection. */
-        readonly items: Array<OneNote.TableCell>;
+        readonly items: OneNote.TableCell[];
         /**
          *
          * Returns the number of tablecells in this collection. Read-only.
@@ -51991,6 +54282,18 @@ declare namespace OneNote {
         getItemAt(index: number): OneNote.TableCell;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): OneNote.TableCellCollection` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): OneNote.TableCellCollection` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): OneNote.TableCellCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
          */
         load(option?: OneNote.Interfaces.TableCellCollectionLoadOptions & OneNote.Interfaces.CollectionLoadOptions): OneNote.TableCellCollection;
         load(option?: string | string[]): OneNote.TableCellCollection;
@@ -52007,7 +54310,7 @@ declare namespace OneNote {
     }
     /**
      *
-     * Represents data obtained by OCR (optical character recognition) of an image
+     * Represents data obtained by OCR (optical character recognition) of an image.
      *
      * [Api set: OneNoteApi 1.1]
      */
@@ -52029,7 +54332,7 @@ declare namespace OneNote {
     }
     /**
      *
-     * Weak reference to an ink stroke object and its content parent
+     * Weak reference to an ink stroke object and its content parent.
      *
      * [Api set: OneNoteApi 1.1]
      */
@@ -52048,66 +54351,6 @@ declare namespace OneNote {
          * [Api set: OneNoteApi 1.1]
          */
         inkStrokeId: string;
-    }
-    /**
-     *
-     * Service token for Application::_GetServiceToken.
-     *
-     * [Api set: OneNoteApi 1.1]
-     */
-    interface ServiceToken {
-        /**
-         *
-         * Account type
-         *
-         * [Api set: OneNoteApi 1.1]
-         */
-        accountType: string;
-        /**
-         *
-         * //
-            Header name of the service token
-         *
-         * [Api set: OneNoteApi 1.1]
-         */
-        headerName: string;
-        /**
-         *
-         * Header value of the service token
-         *
-         * [Api set: OneNoteApi 1.1]
-         */
-        headerValue: string;
-    }
-    /**
-     *
-     * Account information.
-     *
-     * [Api set: OneNoteApi 1.1]
-     */
-    interface AccountInfo {
-        /**
-         *
-         * Account type
-         *
-         * [Api set: OneNoteApi 1.1]
-         */
-        accountType: string;
-        /**
-         *
-         * Account email
-         *
-         * [Api set: OneNoteApi 1.1]
-         */
-        email: string;
-        /**
-         *
-         * //
-            Account user name
-         *
-         * [Api set: OneNoteApi 1.1]
-         */
-        userName: string;
     }
     /**
      *
@@ -52139,7 +54382,7 @@ declare namespace OneNote {
          *
          * [Api set: OneNoteApi 1.1]
          */
-        listType: string;
+        listType: OneNote.ListType | "None" | "Number" | "Bullet";
         /**
          *
          * //
@@ -52147,338 +54390,162 @@ declare namespace OneNote {
          *
          * [Api set: OneNoteApi 1.1]
          */
-        numberType: string;
+        numberType: OneNote.NumberType | "None" | "Arabic" | "UCRoman" | "LCRoman" | "UCLetter" | "LCLetter" | "Ordinal" | "Cardtext" | "Ordtext" | "Hex" | "ChiManSty" | "DbNum1" | "DbNum2" | "Aiueo" | "Iroha" | "DbChar" | "SbChar" | "DbNum3" | "DbNum4" | "Circlenum" | "DArabic" | "DAiueo" | "DIroha" | "ArabicLZ" | "Bullet" | "Ganada" | "Chosung" | "GB1" | "GB2" | "GB3" | "GB4" | "Zodiac1" | "Zodiac2" | "Zodiac3" | "TpeDbNum1" | "TpeDbNum2" | "TpeDbNum3" | "TpeDbNum4" | "ChnDbNum1" | "ChnDbNum2" | "ChnDbNum3" | "ChnDbNum4" | "KorDbNum1" | "KorDbNum2" | "KorDbNum3" | "KorDbNum4" | "Hebrew1" | "Arabic1" | "Hebrew2" | "Arabic2" | "Hindi1" | "Hindi2" | "Hindi3" | "Thai1" | "Thai2" | "NumInDash" | "LCRus" | "UCRus" | "LCGreek" | "UCGreek" | "Lim" | "Custom";
     }
     /**
-     *
-     * Account information.
-     *
      * [Api set: OneNoteApi 1.1]
      */
-    interface LoggingInfo {
-        /**
-         *
-         * //
-            Correlation Id
-         *
-         * [Api set: OneNoteApi 1.1]
-         */
-        correlationId: string;
-        /**
-         *
-         * //
-            UI Language
-         *
-         * [Api set: OneNoteApi 1.1]
-         */
-        market: string;
-        /**
-         *
-         * //
-            Session Id
-         *
-         * [Api set: OneNoteApi 1.1]
-         */
-        sessionId: string;
-        /**
-         *
-         * //
-            UI Language
-         *
-         * [Api set: OneNoteApi 1.1]
-         */
-        uiLanguage: string;
-        /**
-         *
-         * //
-            User Id
-         *
-         * [Api set: OneNoteApi 1.1]
-         */
-        userId: string;
+    enum EntityType {
+        notebook = "Notebook",
+        sectionGroup = "SectionGroup",
+        section = "Section",
+        page = "Page",
     }
     /**
-     *
-     * Account information.
-     *
      * [Api set: OneNoteApi 1.1]
      */
-    interface LogData {
+    enum InsertLocation {
+        before = "Before",
+        after = "After",
+    }
+    /**
+     * [Api set: OneNoteApi 1.1]
+     */
+    enum PageContentType {
+        outline = "Outline",
+        image = "Image",
+        ink = "Ink",
+        other = "Other",
+    }
+    /**
+     * [Api set: OneNoteApi 1.1]
+     */
+    enum ParagraphType {
+        richText = "RichText",
+        image = "Image",
+        table = "Table",
+        ink = "Ink",
+        other = "Other",
+    }
+    /**
+     * [Api set: OneNoteApi 1.1]
+     */
+    enum NoteTagType {
+        unknown = "Unknown",
+        toDo = "ToDo",
+        important = "Important",
+        question = "Question",
+        contact = "Contact",
+        address = "Address",
+        phoneNumber = "PhoneNumber",
+        website = "Website",
+        idea = "Idea",
+        critical = "Critical",
+        toDoPriority1 = "ToDoPriority1",
+        toDoPriority2 = "ToDoPriority2",
+    }
+    /**
+     * [Api set: OneNoteApi 1.1]
+     */
+    enum NoteTagStatus {
+        unknown = "Unknown",
+        normal = "Normal",
+        completed = "Completed",
+        disabled = "Disabled",
+        outlookTask = "OutlookTask",
+        taskNotSyncedYet = "TaskNotSyncedYet",
+        taskRemoved = "TaskRemoved",
+    }
+    /**
+     * [Api set: OneNoteApi 1.1]
+     */
+    enum ListType {
+        none = "None",
+        number = "Number",
+        bullet = "Bullet",
+    }
+    /**
+     * [Api set: OneNoteApi 1.1]
+     */
+    enum NumberType {
+        none = "None",
+        arabic = "Arabic",
+        ucroman = "UCRoman",
+        lcroman = "LCRoman",
+        ucletter = "UCLetter",
+        lcletter = "LCLetter",
+        ordinal = "Ordinal",
+        cardtext = "Cardtext",
+        ordtext = "Ordtext",
+        hex = "Hex",
+        chiManSty = "ChiManSty",
+        dbNum1 = "DbNum1",
+        dbNum2 = "DbNum2",
+        aiueo = "Aiueo",
+        iroha = "Iroha",
+        dbChar = "DbChar",
+        sbChar = "SbChar",
+        dbNum3 = "DbNum3",
+        dbNum4 = "DbNum4",
+        circlenum = "Circlenum",
+        darabic = "DArabic",
+        daiueo = "DAiueo",
+        diroha = "DIroha",
+        arabicLZ = "ArabicLZ",
+        bullet = "Bullet",
+        ganada = "Ganada",
+        chosung = "Chosung",
+        gb1 = "GB1",
+        gb2 = "GB2",
+        gb3 = "GB3",
+        gb4 = "GB4",
+        zodiac1 = "Zodiac1",
+        zodiac2 = "Zodiac2",
+        zodiac3 = "Zodiac3",
+        tpeDbNum1 = "TpeDbNum1",
+        tpeDbNum2 = "TpeDbNum2",
+        tpeDbNum3 = "TpeDbNum3",
+        tpeDbNum4 = "TpeDbNum4",
+        chnDbNum1 = "ChnDbNum1",
+        chnDbNum2 = "ChnDbNum2",
+        chnDbNum3 = "ChnDbNum3",
+        chnDbNum4 = "ChnDbNum4",
+        korDbNum1 = "KorDbNum1",
+        korDbNum2 = "KorDbNum2",
+        korDbNum3 = "KorDbNum3",
+        korDbNum4 = "KorDbNum4",
+        hebrew1 = "Hebrew1",
+        arabic1 = "Arabic1",
+        hebrew2 = "Hebrew2",
+        arabic2 = "Arabic2",
+        hindi1 = "Hindi1",
+        hindi2 = "Hindi2",
+        hindi3 = "Hindi3",
+        thai1 = "Thai1",
+        thai2 = "Thai2",
+        numInDash = "NumInDash",
+        lcrus = "LCRus",
+        ucrus = "UCRus",
+        lcgreek = "LCGreek",
+        ucgreek = "UCGreek",
+        lim = "Lim",
+        custom = "Custom",
+    }
+    enum ErrorCodes {
+        generalException = "GeneralException",
+    }
+    module Interfaces {
         /**
-         *
-         * //
-            None PII
-         *
-         * [Api set: OneNoteApi 1.1]
-         */
-        isNonPII: boolean;
-        /**
-         *
-         * //
-            data tag
-         *
-         * [Api set: OneNoteApi 1.1]
-         */
-        tag: string;
-        /**
-         *
-         * //
-            data value
-         *
-         * [Api set: OneNoteApi 1.1]
-         */
-        value: string;
-    }
-    /**
-     * [Api set: OneNoteApi]
-     */
-    namespace InsertLocation {
-        var before: string;
-        var after: string;
-    }
-    /**
-     * [Api set: OneNoteApi]
-     */
-    namespace Platform {
-        var other: string;
-        var web: string;
-        var uwp: string;
-        var win32: string;
-        var mac: string;
-        var ios: string;
-    }
-    /**
-     * [Api set: OneNoteApi]
-     */
-    namespace Alignment {
-        var left: string;
-        var centered: string;
-        var right: string;
-        var justified: string;
-    }
-    /**
-     * [Api set: OneNoteApi]
-     */
-    namespace Selected {
-        var notSelected: string;
-        var partialSelected: string;
-        var selected: string;
-    }
-    /**
-     * [Api set: OneNoteApi]
-     */
-    namespace PageContentType {
-        var outline: string;
-        var image: string;
-        var ink: string;
-        var other: string;
-    }
-    /**
-     * [Api set: OneNoteApi]
-     */
-    namespace ParagraphType {
-        var richText: string;
-        var image: string;
-        var table: string;
-        var ink: string;
-        var other: string;
-    }
-    /**
-     * [Api set: OneNoteApi]
-     */
-    namespace NoteTagType {
-        var unknown: string;
-        var toDo: string;
-        var important: string;
-        var question: string;
-        var contact: string;
-        var address: string;
-        var phoneNumber: string;
-        var website: string;
-        var idea: string;
-        var critical: string;
-        var toDoPriority1: string;
-        var toDoPriority2: string;
-    }
-    /**
-     * [Api set: OneNoteApi]
-     */
-    namespace NoteTagStatus {
-        var unknown: string;
-        var normal: string;
-        var completed: string;
-        var disabled: string;
-        var outlookTask: string;
-        var taskNotSyncedYet: string;
-        var taskRemoved: string;
-    }
-    /**
-     * [Api set: OneNoteApi]
-     */
-    namespace ServiceId {
-        var form: string;
-        var entity: string;
-        var graph: string;
-        var oneService: string;
-    }
-    /**
-     * [Api set: OneNoteApi]
-     */
-    namespace IdentityFilter {
-        var selection: string;
-        var activeProfile: string;
-        var liveId: string;
-        var orgId: string;
-        var adal: string;
-        var notebook: string;
-    }
-    /**
-     * [Api set: OneNoteApi]
-     */
-    namespace ListType {
-        var none: string;
-        var number: string;
-        var bullet: string;
-    }
-    /**
-     * [Api set: OneNoteApi]
-     */
-    namespace AccountType {
-        var other: string;
-        var liveId: string;
-        var orgId: string;
-        var adal: string;
-    }
-    /**
-     * [Api set: OneNoteApi]
-     */
-    namespace LogLevel {
-        var trace: string;
-        var data: string;
-        var exception: string;
-        var warning: string;
-    }
-    /**
-     * [Api set: OneNoteApi]
-     */
-    namespace EventFlag {
-        /**
-         *
-         * DefaultEventFlags
-         *
-         */
-        var defaultFlag: string;
-        /**
-         *
-         * CriticalDataEventFlags
-         *
-         */
-        var criticalFlag: string;
-        /**
-         *
-         * MeasureDataEventFlags
-         *
-         */
-        var measureFlag: string;
-    }
-    /**
-     * [Api set: OneNoteApi]
-     */
-    namespace NumberType {
-        var none: string;
-        var arabic: string;
-        var ucroman: string;
-        var lcroman: string;
-        var ucletter: string;
-        var lcletter: string;
-        var ordinal: string;
-        var cardtext: string;
-        var ordtext: string;
-        var hex: string;
-        var chiManSty: string;
-        var dbNum1: string;
-        var dbNum2: string;
-        var aiueo: string;
-        var iroha: string;
-        var dbChar: string;
-        var sbChar: string;
-        var dbNum3: string;
-        var dbNum4: string;
-        var circlenum: string;
-        var darabic: string;
-        var daiueo: string;
-        var diroha: string;
-        var arabicLZ: string;
-        var bullet: string;
-        var ganada: string;
-        var chosung: string;
-        var gb1: string;
-        var gb2: string;
-        var gb3: string;
-        var gb4: string;
-        var zodiac1: string;
-        var zodiac2: string;
-        var zodiac3: string;
-        var tpeDbNum1: string;
-        var tpeDbNum2: string;
-        var tpeDbNum3: string;
-        var tpeDbNum4: string;
-        var chnDbNum1: string;
-        var chnDbNum2: string;
-        var chnDbNum3: string;
-        var chnDbNum4: string;
-        var korDbNum1: string;
-        var korDbNum2: string;
-        var korDbNum3: string;
-        var korDbNum4: string;
-        var hebrew1: string;
-        var arabic1: string;
-        var hebrew2: string;
-        var arabic2: string;
-        var hindi1: string;
-        var hindi2: string;
-        var hindi3: string;
-        var thai1: string;
-        var thai2: string;
-        var numInDash: string;
-        var lcrus: string;
-        var ucrus: string;
-        var lcgreek: string;
-        var ucgreek: string;
-        var lim: string;
-        var custom: string;
-    }
-    /**
-     * [Api set: OneNoteApi]
-     */
-    namespace ControlId {
-        var preinstallClassNotebook: string;
-        var distributePageId: string;
-        var distributeSection: string;
-        var reviewStudentWork: string;
-        var openTabForCreateClassNotebook: string;
-        var openTabForManageStudent: string;
-        var openTabForManageTeacher: string;
-        var openTabForGetNotebookLink: string;
-        var openTabForTeacherTraining: string;
-        var openTabForAddinGuide: string;
-        var openTabForEducationBlog: string;
-        var openTabForEducatorCommunity: string;
-        var openTabToSendFeedback: string;
-        var openTabForViewKnowledgeBase: string;
-        var openTabForSuggestingFeature: string;
-        var createAssignment: string;
-        var connections: string;
-        var mapClassNotebooks: string;
-        var mapStudents: string;
-        var manageClasses: string;
-    }
-    namespace ErrorCodes {
-        var generalException: string;
-    }
-    namespace Interfaces {
+        * Provides ways to load properties of only a subset of members of a collection.
+        */
         interface CollectionLoadOptions {
+            /**
+            * Specify the number of items in the queried collection to be included in the result.
+            */
             $top?: number;
+            /**
+            * Specify the number of items in the collection that are to be skipped and not included in the result. If top is specified, the selection of result will start after skipping the specified number of items.
+            */
             $skip?: number;
         }
         /** An interface for updating data on the InkAnalysis object, for use in "inkAnalysis.set({ ... })". */
@@ -52808,14 +54875,14 @@ declare namespace OneNote {
              *
              * [Api set: OneNoteApi 1.1]
              */
-            strokePointers?: Array<OneNote.InkStrokePointer>;
+            strokePointers?: OneNote.InkStrokePointer[];
             /**
              *
              * The words that were recognized in this ink word, in order of likelihood. Read-only.
              *
              * [Api set: OneNoteApi 1.1]
              */
-            wordAlternates?: Array<string>;
+            wordAlternates?: string[];
         }
         /** An interface describing the data returned by calling "inkAnalysisWordCollection.toJSON()". */
         interface InkAnalysisWordCollectionData {
@@ -52893,9 +54960,9 @@ declare namespace OneNote {
              *
              * The words that were recognized in this ink word, in order of likelihood. Read-only.
              *
-             * [Api set: OneNoteApi]
+             * [Api set: OneNoteApi 1.1]
              */
-            wordAlternates?: Array<string>;
+            wordAlternates?: string[];
         }
         /** An interface describing the data returned by calling "inkWordCollection.toJSON()". */
         interface InkWordCollectionData {
@@ -52938,6 +55005,13 @@ declare namespace OneNote {
              * [Api set: OneNoteApi 1.1]
              */
             id?: string;
+            /**
+             *
+             * True if the Notebook is not created by the user (i.e. 'Misplaced Sections'). Read only
+             *
+             * [Api set: OneNoteApi 1.2]
+             */
+            isVirtual?: boolean;
             /**
              *
              * Gets the name of the notebook. Read-only.
@@ -53057,6 +55131,20 @@ declare namespace OneNote {
              * [Api set: OneNoteApi 1.1]
              */
             id?: string;
+            /**
+             *
+             * True if this section is encrypted with a password. Read only
+             *
+             * [Api set: OneNoteApi 1.2]
+             */
+            isEncrypted?: boolean;
+            /**
+             *
+             * True if this section is locked. Read only
+             *
+             * [Api set: OneNoteApi 1.2]
+             */
+            isLocked?: boolean;
             /**
              *
              * Gets the name of the section. Read-only.
@@ -53203,7 +55291,7 @@ declare namespace OneNote {
              *
              * [Api set: OneNoteApi 1.1]
              */
-            type?: string;
+            type?: OneNote.PageContentType | "Outline" | "Image" | "Ink" | "Other";
         }
         /** An interface describing the data returned by calling "pageContentCollection.toJSON()". */
         interface PageContentCollectionData {
@@ -53318,7 +55406,7 @@ declare namespace OneNote {
              *
              * [Api set: OneNoteApi 1.1]
              */
-            type?: string;
+            type?: OneNote.ParagraphType | "RichText" | "Image" | "Table" | "Ink" | "Other";
         }
         /** An interface describing the data returned by calling "paragraphCollection.toJSON()". */
         interface ParagraphCollectionData {
@@ -53339,14 +55427,14 @@ declare namespace OneNote {
              *
              * [Api set: OneNoteApi 1.1]
              */
-            status?: string;
+            status?: OneNote.NoteTagStatus | "Unknown" | "Normal" | "Completed" | "Disabled" | "OutlookTask" | "TaskNotSyncedYet" | "TaskRemoved";
             /**
              *
              * Gets the type of the NoteTag object. Read-only.
              *
              * [Api set: OneNoteApi 1.1]
              */
-            type?: string;
+            type?: OneNote.NoteTagType | "Unknown" | "ToDo" | "Important" | "Question" | "Contact" | "Address" | "PhoneNumber" | "Website" | "Idea" | "Critical" | "ToDoPriority1" | "ToDoPriority2";
         }
         /** An interface describing the data returned by calling "richText.toJSON()". */
         interface RichTextData {
@@ -53937,7 +56025,7 @@ declare namespace OneNote {
              *
              * The words that were recognized in this ink word, in order of likelihood. Read-only.
              *
-             * [Api set: OneNoteApi]
+             * [Api set: OneNoteApi 1.1]
              */
             wordAlternates?: boolean;
         }
@@ -53974,7 +56062,7 @@ declare namespace OneNote {
              *
              * For EACH ITEM in the collection: The words that were recognized in this ink word, in order of likelihood. Read-only.
              *
-             * [Api set: OneNoteApi]
+             * [Api set: OneNoteApi 1.1]
              */
             wordAlternates?: boolean;
         }
@@ -54021,6 +56109,13 @@ declare namespace OneNote {
              * [Api set: OneNoteApi 1.1]
              */
             id?: boolean;
+            /**
+             *
+             * True if the Notebook is not created by the user (i.e. 'Misplaced Sections'). Read only
+             *
+             * [Api set: OneNoteApi 1.2]
+             */
+            isVirtual?: boolean;
             /**
              *
              * Gets the name of the notebook. Read-only.
@@ -54072,6 +56167,13 @@ declare namespace OneNote {
              * [Api set: OneNoteApi 1.1]
              */
             id?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: True if the Notebook is not created by the user (i.e. 'Misplaced Sections'). Read only
+             *
+             * [Api set: OneNoteApi 1.2]
+             */
+            isVirtual?: boolean;
             /**
              *
              * For EACH ITEM in the collection: Gets the name of the notebook. Read-only.
@@ -54262,6 +56364,20 @@ declare namespace OneNote {
             id?: boolean;
             /**
              *
+             * True if this section is encrypted with a password. Read only
+             *
+             * [Api set: OneNoteApi 1.2]
+             */
+            isEncrypted?: boolean;
+            /**
+             *
+             * True if this section is locked. Read only
+             *
+             * [Api set: OneNoteApi 1.2]
+             */
+            isLocked?: boolean;
+            /**
+             *
              * Gets the name of the section. Read-only.
              *
              * [Api set: OneNoteApi 1.1]
@@ -54325,6 +56441,20 @@ declare namespace OneNote {
              * [Api set: OneNoteApi 1.1]
              */
             id?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: True if this section is encrypted with a password. Read only
+             *
+             * [Api set: OneNoteApi 1.2]
+             */
+            isEncrypted?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: True if this section is locked. Read only
+             *
+             * [Api set: OneNoteApi 1.2]
+             */
+            isLocked?: boolean;
             /**
              *
              * For EACH ITEM in the collection: Gets the name of the section. Read-only.
@@ -55203,10 +57333,186 @@ declare namespace OneNote {
              */
             shadingColor?: boolean;
         }
+        /**
+         *
+         * Represents a OneNote accessibility violation.
+         *
+         * [Api set: OneNoteApi 1.2]
+         */
+        interface AccessibilityViolationLoadOptions {
+            $all?: boolean;
+            /**
+             *
+             * Gets the ID of the accessibility violation. Read-only.
+             *
+             * [Api set: OneNoteApi 1.2]
+             */
+            id?: boolean;
+            /**
+             *
+             * Gets the location of the accessibility violation. Read-only.
+             *
+             * [Api set: OneNoteApi 1.2]
+             */
+            location?: boolean;
+            /**
+             *
+             * Gets the name of the accessibility violation. Read-only.
+             *
+             * [Api set: OneNoteApi 1.2]
+             */
+            name?: boolean;
+            /**
+             *
+             * Gets the type of the accessibility violation. Read-only.
+             *
+             * [Api set: OneNoteApi 1.2]
+             */
+            type?: boolean;
+        }
+        /**
+         *
+         * Represents the collection of AccessibilityViolations
+         *
+         * [Api set: OneNoteApi 1.2]
+         */
+        interface AccessibilityViolationCollectionLoadOptions {
+            $all?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Gets the ID of the accessibility violation. Read-only.
+             *
+             * [Api set: OneNoteApi 1.2]
+             */
+            id?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Gets the location of the accessibility violation. Read-only.
+             *
+             * [Api set: OneNoteApi 1.2]
+             */
+            location?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Gets the name of the accessibility violation. Read-only.
+             *
+             * [Api set: OneNoteApi 1.2]
+             */
+            name?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Gets the type of the accessibility violation. Read-only.
+             *
+             * [Api set: OneNoteApi 1.2]
+             */
+            type?: boolean;
+        }
+        /**
+         *
+         * A OneNote structure that stores metadata about accessibility violations for an entity.
+         *
+         * [Api set: OneNoteApi 1.2]
+         */
+        interface AccessibilityViolationsByEntityLoadOptions {
+            $all?: boolean;
+            /**
+            *
+            * Gets the parent section section group (if any) of the entity.
+            *
+            * [Api set: OneNoteApi 1.2]
+            */
+            parentSectionGroupOrNull?: OneNote.Interfaces.SectionGroupLoadOptions;
+            /**
+            *
+            * Gets the parent section (if any) of the entity.
+            *
+            * [Api set: OneNoteApi 1.2]
+            */
+            parentSectionOrNull?: OneNote.Interfaces.SectionLoadOptions;
+            /**
+             *
+             * Gets the name of the entity for which this structure holds metadata. Read-only.
+             *
+             * [Api set: OneNoteApi 1.2]
+             */
+            entityName?: boolean;
+            /**
+             *
+             * Gets the type of the entity for which this structure holds metadata. Read-only.
+             *
+             * [Api set: OneNoteApi 1.2]
+             */
+            entityType?: boolean;
+            /**
+             *
+             * Gets the ID of the AccessibilityViolationsByEntity. Read-only.
+             *
+             * [Api set: OneNoteApi 1.2]
+             */
+            id?: boolean;
+            /**
+             *
+             * Gets the count of accessibility violations for the entity. Read-only.
+             *
+             * [Api set: OneNoteApi 1.2]
+             */
+            violationsCount?: boolean;
+        }
+        /**
+         *
+         * Represents the collection of AccessibilityViolationsByEntity
+         *
+         * [Api set: OneNoteApi 1.2]
+         */
+        interface AccessibilityViolationsByEntityCollectionLoadOptions {
+            $all?: boolean;
+            /**
+            *
+            * For EACH ITEM in the collection: Gets the parent section section group (if any) of the entity.
+            *
+            * [Api set: OneNoteApi 1.2]
+            */
+            parentSectionGroupOrNull?: OneNote.Interfaces.SectionGroupLoadOptions;
+            /**
+            *
+            * For EACH ITEM in the collection: Gets the parent section (if any) of the entity.
+            *
+            * [Api set: OneNoteApi 1.2]
+            */
+            parentSectionOrNull?: OneNote.Interfaces.SectionLoadOptions;
+            /**
+             *
+             * For EACH ITEM in the collection: Gets the name of the entity for which this structure holds metadata. Read-only.
+             *
+             * [Api set: OneNoteApi 1.2]
+             */
+            entityName?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Gets the type of the entity for which this structure holds metadata. Read-only.
+             *
+             * [Api set: OneNoteApi 1.2]
+             */
+            entityType?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Gets the ID of the AccessibilityViolationsByEntity. Read-only.
+             *
+             * [Api set: OneNoteApi 1.2]
+             */
+            id?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Gets the count of accessibility violations for the entity. Read-only.
+             *
+             * [Api set: OneNoteApi 1.2]
+             */
+            violationsCount?: boolean;
+        }
     }
 }
 declare namespace OneNote {
-    class RequestContext extends OfficeExtension.ClientRequestContext {
+    class RequestContext extends OfficeCore.RequestContext {
         constructor(url?: string);
         readonly application: Application;
     }
@@ -55216,15 +57522,16 @@ declare namespace OneNote {
      */
     function run<T>(batch: (context: OneNote.RequestContext) => Promise<T>): Promise<T>;
     /**
-     * Executes a batch script that performs actions on the OneNote object model, using the request context of previously-created API objects.
-     * @param object - An array of previously-created API objects. The array will be validated to make sure that all of the objects share the same context. The batch will use this shared request context, which means that any changes applied to these objects will be picked up by "context.sync()".
-     * @param batch - A function that takes in an OneNote.RequestContext and returns a promise (typically, just the result of "context.sync()"). When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
-     */
-    function run<T>(objects: OfficeExtension.ClientObject[], batch: (context: OneNote.RequestContext) => Promise<T>): Promise<T>;
-    /**
      * Executes a batch script that performs actions on the OneNote object model, using the request context of a previously-created API object.
      * @param object - A previously-created API object. The batch will use the same request context as the passed-in object, which means that any changes applied to the object will be picked up by "context.sync()".
      * @param batch - A function that takes in an OneNote.RequestContext and returns a promise (typically, just the result of "context.sync()"). When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
+     */
+    function run<T>(object: OfficeExtension.ClientObject, batch: (context: OneNote.RequestContext) => Promise<T>): Promise<T>;
+    /**
+     * Executes a batch script that performs actions on the OneNote object model, using the request context of previously-created API objects.
+     * @param object - An array of previously-created API objects. The array will be validated to make sure that all of the objects share the same context. The batch will use this shared request context, which means that any changes applied to these objects will be picked up by "context.sync()".
+     * @param batch - A function that takes in an OneNote.RequestContext and returns a promise (typically, just the result of "context.sync()"). When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
+     * 
      * @remarks
      * In addition to this signature, the method also has the following signatures:
      * 
@@ -55232,7 +57539,7 @@ declare namespace OneNote {
      * 
      * `run<T>(objects: OfficeExtension.ClientObject[], batch: (context: OneNote.RequestContext) => Promise<T>): Promise<T>;`
      */
-    function run<T>(object: OfficeExtension.ClientObject, batch: (context: OneNote.RequestContext) => Promise<T>): Promise<T>;
+    function run<T>(objects: OfficeExtension.ClientObject[], batch: (context: OneNote.RequestContext) => Promise<T>): Promise<T>;
 }
 
 
@@ -55267,7 +57574,7 @@ declare namespace Visio {
         pageName: string;
         /**
          *
-         * Gets the shape object that raised the ShapeMouseEnter event.
+         * Gets the name of the shape object that raised the ShapeMouseEnter event.
          *
          * [Api set:  1.1]
          */
@@ -55289,7 +57596,7 @@ declare namespace Visio {
         pageName: string;
         /**
          *
-         * Gets the shape object that raised the ShapeMouseLeave event.
+         * Gets the name of the shape object that raised the ShapeMouseLeave event.
          *
          * [Api set:  1.1]
          */
@@ -55311,7 +57618,7 @@ declare namespace Visio {
         pageName: string;
         /**
          *
-         * Gets the success/failure of the PageLoadComplete event.
+         * Gets the success or failure of the PageLoadComplete event.
          *
          * [Api set:  1.1]
          */
@@ -55333,7 +57640,7 @@ declare namespace Visio {
         document: Visio.Document;
         /**
          *
-         * Gets the success/failure of the DataRefreshComplete event.
+         * Gets the success or failure of the DataRefreshComplete event.
          *
          * [Api set:  1.1]
          */
@@ -55355,22 +57662,44 @@ declare namespace Visio {
         pageName: string;
         /**
          *
-         * Gets the ShapeCollection object that raised the SelectionChanged event.
+         * Gets the array of shape names that raised the SelectionChanged event.
          *
          * [Api set:  1.1]
          */
-        shapeNames: Array<string>;
+        shapeNames: string[];
     }
     /**
      *
-     * Provides information about the drawing that raised the DiagramLoadComplete event.
+     * Provides information about the success or failure of the DocumentLoadComplete event.
      *
      * [Api set:  1.1]
      */
     interface DocumentLoadCompleteEventArgs {
         /**
          *
-         * Gets the success/failure of the DocumentLoadComplete event.
+         * Gets the success or failure of the DocumentLoadComplete event.
+         *
+         * [Api set:  1.1]
+         */
+        success: boolean;
+    }
+    /**
+     *
+     * Provides information about the page that raised the PageRenderComplete event.
+     *
+     * [Api set:  1.1]
+     */
+    interface PageRenderCompleteEventArgs {
+        /**
+         *
+         * Gets the name of the page that raised the PageLoad event.
+         *
+         * [Api set:  1.1]
+         */
+        pageName: string;
+        /**
+         *
+         * Gets the success/failure of the PageRender event.
          *
          * [Api set:  1.1]
          */
@@ -55385,36 +57714,66 @@ declare namespace Visio {
     class Application extends OfficeExtension.ClientObject {
         /**
          *
-         * Show/Hide the application borders.
+         * Show or hide the iFrame application borders.
          *
          * [Api set:  1.1]
          */
         showBorders: boolean;
         /**
          *
-         * Show or Hide the standard toolbars.
+         * Show or hide the standard toolbars.
          *
          * [Api set:  1.1]
          */
         showToolbars: boolean;
-        /** Sets multiple properties on the object at the same time, based on JSON input. */
-        set(properties: Interfaces.ApplicationUpdateData, options?: {
-            /**
-             * Throw an error if the passed-in property list includes read-only properties (default = true).
-             */
-            throwOnReadOnly?: boolean;
-        }): void;
+        /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
+         *
+         * @remarks
+         *
+         * This method has the following additional signature:
+         *
+         * `set(properties: Visio.Application): void`
+         *
+         * @param properties A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called.
+         * @param options Provides an option to suppress errors if the properties object tries to set any read-only properties.
+         */
+        set(properties: Interfaces.ApplicationUpdateData, options?: OfficeExtension.UpdateOptions): void;
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
-        set(properties: Application): void;
+        set(properties: Visio.Application): void;
         /**
          *
-         * Show or Hide a particular toolbar.
+         * Sets the visibility of a specific toolbar in the application.
          *
          * [Api set:  1.1]
+         *
+         * @param id The type of the Toolbar
+         * @param show Whether the toolbar is visibile or not.
          */
-        showToolbar(id: string, show: boolean): void;
+        showToolbar(id: Visio.ToolBarType, show: boolean): void;
+        /**
+         *
+         * Sets the visibility of a specific toolbar in the application.
+         *
+         * [Api set:  1.1]
+         *
+         * @param id The type of the Toolbar
+         * @param show Whether the toolbar is visibile or not.
+         */
+        showToolbar(id: "CommandBar" | "PageNavigationBar" | "StatusBar", show: boolean): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): Visio.Application` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): Visio.Application` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Visio.Application` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
          */
         load(option?: Visio.Interfaces.ApplicationLoadOptions): Visio.Application;
         load(option?: string | string[]): Visio.Application;
@@ -55447,20 +57806,25 @@ declare namespace Visio {
         readonly pages: Visio.PageCollection;
         /**
          *
-         * Returns the DocumentView object.
+         * Returns the DocumentView object. Read-only.
          *
          * [Api set:  1.1]
          */
         readonly view: Visio.DocumentView;
-        /** Sets multiple properties on the object at the same time, based on JSON input. */
-        set(properties: Interfaces.DocumentUpdateData, options?: {
-            /**
-             * Throw an error if the passed-in property list includes read-only properties (default = true).
-             */
-            throwOnReadOnly?: boolean;
-        }): void;
+        /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
+         *
+         * @remarks
+         *
+         * This method has the following additional signature:
+         *
+         * `set(properties: Visio.Document): void`
+         *
+         * @param properties A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called.
+         * @param options Provides an option to suppress errors if the properties object tries to set any read-only properties.
+         */
+        set(properties: Interfaces.DocumentUpdateData, options?: OfficeExtension.UpdateOptions): void;
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
-        set(properties: Document): void;
+        set(properties: Visio.Document): void;
         /**
          *
          * Returns the Active Page of the document.
@@ -55486,6 +57850,18 @@ declare namespace Visio {
         startDataRefresh(): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): Visio.Document` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): Visio.Document` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Visio.Document` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
          */
         load(option?: Visio.Interfaces.DocumentLoadOptions): Visio.Document;
         load(option?: string | string[]): Visio.Document;
@@ -55498,6 +57874,8 @@ declare namespace Visio {
          * Occurs when the data is refreshed in the diagram.
          *
          * [Api set:  1.1]
+         *
+         * @eventproperty
          */
         readonly onDataRefreshComplete: OfficeExtension.EventHandlers<Visio.DataRefreshCompleteEventArgs>;
         /**
@@ -55505,6 +57883,8 @@ declare namespace Visio {
          * Occurs when the Document is loaded, refreshed, or changed.
          *
          * [Api set:  1.1]
+         *
+         * @eventproperty
          */
         readonly onDocumentLoadComplete: OfficeExtension.EventHandlers<Visio.DocumentLoadCompleteEventArgs>;
         /**
@@ -55512,6 +57892,8 @@ declare namespace Visio {
          * Occurs when the page is finished loading.
          *
          * [Api set:  1.1]
+         *
+         * @eventproperty
          */
         readonly onPageLoadComplete: OfficeExtension.EventHandlers<Visio.PageLoadCompleteEventArgs>;
         /**
@@ -55519,6 +57901,8 @@ declare namespace Visio {
          * Occurs when the current selection of shapes changes.
          *
          * [Api set:  1.1]
+         *
+         * @eventproperty
          */
         readonly onSelectionChanged: OfficeExtension.EventHandlers<Visio.SelectionChangedEventArgs>;
         /**
@@ -55526,6 +57910,8 @@ declare namespace Visio {
          * Occurs when the user moves the mouse pointer into the bounding box of a shape.
          *
          * [Api set:  1.1]
+         *
+         * @eventproperty
          */
         readonly onShapeMouseEnter: OfficeExtension.EventHandlers<Visio.ShapeMouseEnterEventArgs>;
         /**
@@ -55533,6 +57919,8 @@ declare namespace Visio {
          * Occurs when the user moves the mouse out of the bounding box of a shape.
          *
          * [Api set:  1.1]
+         *
+         * @eventproperty
          */
         readonly onShapeMouseLeave: OfficeExtension.EventHandlers<Visio.ShapeMouseLeaveEventArgs>;
         toJSON(): Visio.Interfaces.DocumentData;
@@ -55567,22 +57955,39 @@ declare namespace Visio {
         disableZoom: boolean;
         /**
          *
-         * Disable Hyperlinks.
+         * Hide Diagram Boundary.
          *
          * [Api set:  1.1]
          */
         hideDiagramBoundary: boolean;
-        /** Sets multiple properties on the object at the same time, based on JSON input. */
-        set(properties: Interfaces.DocumentViewUpdateData, options?: {
-            /**
-             * Throw an error if the passed-in property list includes read-only properties (default = true).
-             */
-            throwOnReadOnly?: boolean;
-        }): void;
+        /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
+         *
+         * @remarks
+         *
+         * This method has the following additional signature:
+         *
+         * `set(properties: Visio.DocumentView): void`
+         *
+         * @param properties A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called.
+         * @param options Provides an option to suppress errors if the properties object tries to set any read-only properties.
+         */
+        set(properties: Interfaces.DocumentViewUpdateData, options?: OfficeExtension.UpdateOptions): void;
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
-        set(properties: DocumentView): void;
+        set(properties: Visio.DocumentView): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): Visio.DocumentView` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): Visio.DocumentView` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Visio.DocumentView` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
          */
         load(option?: Visio.Interfaces.DocumentViewLoadOptions): Visio.DocumentView;
         load(option?: string | string[]): Visio.DocumentView;
@@ -55601,21 +58006,21 @@ declare namespace Visio {
     class Page extends OfficeExtension.ClientObject {
         /**
          *
-         * All shapes in the page. Read-only.
+         * All shapes in the Page, including subshapes. Read-only.
          *
          * [Api set:  1.1]
          */
         readonly allShapes: Visio.ShapeCollection;
         /**
          *
-         * Returns the Comments Collection
+         * Returns the Comments Collection.  Read-only.
          *
          * [Api set:  1.1]
          */
         readonly comments: Visio.CommentCollection;
         /**
          *
-         * Shapes at root level, in the page. Read-only.
+         * All top-level shapes in the Page.Read-only.
          *
          * [Api set:  1.1]
          */
@@ -55636,7 +58041,7 @@ declare namespace Visio {
         readonly height: number;
         /**
          *
-         * Index of the Page.
+         * Index of the Page. Read-only.
          *
          * [Api set:  1.1]
          */
@@ -55662,15 +58067,20 @@ declare namespace Visio {
          * [Api set:  1.1]
          */
         readonly width: number;
-        /** Sets multiple properties on the object at the same time, based on JSON input. */
-        set(properties: Interfaces.PageUpdateData, options?: {
-            /**
-             * Throw an error if the passed-in property list includes read-only properties (default = true).
-             */
-            throwOnReadOnly?: boolean;
-        }): void;
+        /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
+         *
+         * @remarks
+         *
+         * This method has the following additional signature:
+         *
+         * `set(properties: Visio.Page): void`
+         *
+         * @param properties A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called.
+         * @param options Provides an option to suppress errors if the properties object tries to set any read-only properties.
+         */
+        set(properties: Interfaces.PageUpdateData, options?: OfficeExtension.UpdateOptions): void;
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
-        set(properties: Page): void;
+        set(properties: Visio.Page): void;
         /**
          *
          * Set the page as Active Page of the document.
@@ -55680,6 +58090,18 @@ declare namespace Visio {
         activate(): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): Visio.Page` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): Visio.Page` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Visio.Page` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
          */
         load(option?: Visio.Interfaces.PageLoadOptions): Visio.Page;
         load(option?: string | string[]): Visio.Page;
@@ -55698,20 +58120,25 @@ declare namespace Visio {
     class PageView extends OfficeExtension.ClientObject {
         /**
          *
-         * Get/Set Page's Zoom level. The value can be between 10 and 400 and denotes the percentage of zoom.
+         * Get and set Page's Zoom level. The value can be between 10 and 400 and denotes the percentage of zoom.
          *
          * [Api set:  1.1]
          */
         zoom: number;
-        /** Sets multiple properties on the object at the same time, based on JSON input. */
-        set(properties: Interfaces.PageViewUpdateData, options?: {
-            /**
-             * Throw an error if the passed-in property list includes read-only properties (default = true).
-             */
-            throwOnReadOnly?: boolean;
-        }): void;
+        /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
+         *
+         * @remarks
+         *
+         * This method has the following additional signature:
+         *
+         * `set(properties: Visio.PageView): void`
+         *
+         * @param properties A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called.
+         * @param options Provides an option to suppress errors if the properties object tries to set any read-only properties.
+         */
+        set(properties: Interfaces.PageViewUpdateData, options?: OfficeExtension.UpdateOptions): void;
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
-        set(properties: PageView): void;
+        set(properties: Visio.PageView): void;
         /**
          *
          * Pans the Visio drawing to place the specified shape in the center of the view.
@@ -55762,6 +58189,18 @@ declare namespace Visio {
         setPosition(Position: Visio.Position): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): Visio.PageView` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): Visio.PageView` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Visio.PageView` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
          */
         load(option?: Visio.Interfaces.PageViewLoadOptions): Visio.PageView;
         load(option?: string | string[]): Visio.PageView;
@@ -55779,7 +58218,7 @@ declare namespace Visio {
      */
     class PageCollection extends OfficeExtension.ClientObject {
         /** Gets the loaded child items in this collection. */
-        readonly items: Array<Visio.Page>;
+        readonly items: Visio.Page[];
         /**
          *
          * Gets the number of pages in the collection.
@@ -55798,6 +58237,18 @@ declare namespace Visio {
         getItem(key: number | string): Visio.Page;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): Visio.PageCollection` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): Visio.PageCollection` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Visio.PageCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
          */
         load(option?: Visio.Interfaces.PageCollectionLoadOptions & Visio.Interfaces.CollectionLoadOptions): Visio.PageCollection;
         load(option?: string | string[]): Visio.PageCollection;
@@ -55812,7 +58263,7 @@ declare namespace Visio {
      */
     class ShapeCollection extends OfficeExtension.ClientObject {
         /** Gets the loaded child items in this collection. */
-        readonly items: Array<Visio.Shape>;
+        readonly items: Visio.Shape[];
         /**
          *
          * Gets the number of Shapes in the collection.
@@ -55831,6 +58282,18 @@ declare namespace Visio {
         getItem(key: number | string): Visio.Shape;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): Visio.ShapeCollection` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): Visio.ShapeCollection` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Visio.ShapeCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
          */
         load(option?: Visio.Interfaces.ShapeCollectionLoadOptions & Visio.Interfaces.CollectionLoadOptions): Visio.ShapeCollection;
         load(option?: string | string[]): Visio.ShapeCollection;
@@ -55846,7 +58309,7 @@ declare namespace Visio {
     class Shape extends OfficeExtension.ClientObject {
         /**
          *
-         * Returns the Comments Collection
+         * Returns the Comments Collection. Read-only.
          *
          * [Api set:  1.1]
          */
@@ -55867,7 +58330,7 @@ declare namespace Visio {
         readonly shapeDataItems: Visio.ShapeDataItemCollection;
         /**
          *
-         * Gets SubShape Collection.
+         * Gets SubShape Collection. Read-only.
          *
          * [Api set:  1.1]
          */
@@ -55881,14 +58344,14 @@ declare namespace Visio {
         readonly view: Visio.ShapeView;
         /**
          *
-         * Shape's Identifier.
+         * Shape's identifier. Read-only.
          *
          * [Api set:  1.1]
          */
         readonly id: number;
         /**
          *
-         * Shape's name.
+         * Shape's name. Read-only.
          *
          * [Api set:  1.1]
          */
@@ -55902,20 +58365,25 @@ declare namespace Visio {
         select: boolean;
         /**
          *
-         * Shape's Text.
+         * Shape's text. Read-only.
          *
          * [Api set:  1.1]
          */
         readonly text: string;
-        /** Sets multiple properties on the object at the same time, based on JSON input. */
-        set(properties: Interfaces.ShapeUpdateData, options?: {
-            /**
-             * Throw an error if the passed-in property list includes read-only properties (default = true).
-             */
-            throwOnReadOnly?: boolean;
-        }): void;
+        /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
+         *
+         * @remarks
+         *
+         * This method has the following additional signature:
+         *
+         * `set(properties: Visio.Shape): void`
+         *
+         * @param properties A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called.
+         * @param options Provides an option to suppress errors if the properties object tries to set any read-only properties.
+         */
+        set(properties: Interfaces.ShapeUpdateData, options?: OfficeExtension.UpdateOptions): void;
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
-        set(properties: Shape): void;
+        set(properties: Visio.Shape): void;
         /**
          *
          * Returns the BoundingBox object that specifies bounding box of the shape.
@@ -55925,6 +58393,18 @@ declare namespace Visio {
         getBounds(): OfficeExtension.ClientResult<Visio.BoundingBox>;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): Visio.Shape` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): Visio.Shape` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Visio.Shape` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
          */
         load(option?: Visio.Interfaces.ShapeLoadOptions): Visio.Shape;
         load(option?: string | string[]): Visio.Shape;
@@ -55948,29 +58428,48 @@ declare namespace Visio {
          * [Api set:  1.1]
          */
         highlight: Visio.Highlight;
-        /** Sets multiple properties on the object at the same time, based on JSON input. */
-        set(properties: Interfaces.ShapeViewUpdateData, options?: {
-            /**
-             * Throw an error if the passed-in property list includes read-only properties (default = true).
-             */
-            throwOnReadOnly?: boolean;
-        }): void;
+        /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
+         *
+         * @remarks
+         *
+         * This method has the following additional signature:
+         *
+         * `set(properties: Visio.ShapeView): void`
+         *
+         * @param properties A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called.
+         * @param options Provides an option to suppress errors if the properties object tries to set any read-only properties.
+         */
+        set(properties: Interfaces.ShapeViewUpdateData, options?: OfficeExtension.UpdateOptions): void;
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
-        set(properties: ShapeView): void;
+        set(properties: Visio.ShapeView): void;
         /**
          *
          * Adds an overlay on top of the shape.
          *
          * [Api set:  1.1]
          *
-         * @param OverlayType An Overlay Type -Text, Image.
+         * @param OverlayType An Overlay Type. Can be 'Text' or 'Image'.
          * @param Content Content of Overlay.
-         * @param OverlayHorizontalAlignment Horizontal Alignment of Overlay - Left, Center, Right
-         * @param OverlayVerticalAlignment Vertical Alignment of Overlay - Top, Middle, Bottom
+         * @param OverlayHorizontalAlignment Horizontal Alignment of Overlay. Can be 'Left', 'Center', or 'Right'.
+         * @param OverlayVerticalAlignment Vertical Alignment of Overlay. Can be 'Top', 'Middle', 'Bottom'.
          * @param Width Overlay Width.
          * @param Height Overlay Height.
          */
-        addOverlay(OverlayType: string, Content: string, OverlayHorizontalAlignment: string, OverlayVerticalAlignment: string, Width: number, Height: number): OfficeExtension.ClientResult<number>;
+        addOverlay(OverlayType: Visio.OverlayType, Content: string, OverlayHorizontalAlignment: Visio.OverlayHorizontalAlignment, OverlayVerticalAlignment: Visio.OverlayVerticalAlignment, Width: number, Height: number): OfficeExtension.ClientResult<number>;
+        /**
+         *
+         * Adds an overlay on top of the shape.
+         *
+         * [Api set:  1.1]
+         *
+         * @param OverlayType An Overlay Type. Can be 'Text' or 'Image'.
+         * @param Content Content of Overlay.
+         * @param OverlayHorizontalAlignment Horizontal Alignment of Overlay. Can be 'Left', 'Center', or 'Right'.
+         * @param OverlayVerticalAlignment Vertical Alignment of Overlay. Can be 'Top', 'Middle', 'Bottom'.
+         * @param Width Overlay Width.
+         * @param Height Overlay Height.
+         */
+        addOverlay(OverlayType: "Text" | "Image", Content: string, OverlayHorizontalAlignment: "Left" | "Center" | "Right", OverlayVerticalAlignment: "Top" | "Middle" | "Bottom", Width: number, Height: number): OfficeExtension.ClientResult<number>;
         /**
          *
          * Removes particular overlay or all overlays on the Shape.
@@ -55982,6 +58481,18 @@ declare namespace Visio {
         removeOverlay(OverlayId: number): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): Visio.ShapeView` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): Visio.ShapeView` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Visio.ShapeView` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
          */
         load(option?: Visio.Interfaces.ShapeViewLoadOptions): Visio.ShapeView;
         load(option?: string | string[]): Visio.ShapeView;
@@ -56079,7 +58590,7 @@ declare namespace Visio {
      */
     class ShapeDataItemCollection extends OfficeExtension.ClientObject {
         /** Gets the loaded child items in this collection. */
-        readonly items: Array<Visio.ShapeDataItem>;
+        readonly items: Visio.ShapeDataItem[];
         /**
          *
          * Gets the number of Shape Data Items.
@@ -56098,6 +58609,18 @@ declare namespace Visio {
         getItem(key: string): Visio.ShapeDataItem;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): Visio.ShapeDataItemCollection` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): Visio.ShapeDataItemCollection` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Visio.ShapeDataItemCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
          */
         load(option?: Visio.Interfaces.ShapeDataItemCollectionLoadOptions & Visio.Interfaces.CollectionLoadOptions): Visio.ShapeDataItemCollection;
         load(option?: string | string[]): Visio.ShapeDataItemCollection;
@@ -56113,34 +58636,46 @@ declare namespace Visio {
     class ShapeDataItem extends OfficeExtension.ClientObject {
         /**
          *
-         * A string that specifies the format of the shape data item.
+         * A string that specifies the format of the shape data item. Read-only.
          *
          * [Api set:  1.1]
          */
         readonly format: string;
         /**
          *
-         * A string that specifies the formatted value of the shape data item.
+         * A string that specifies the formatted value of the shape data item. Read-only.
          *
          * [Api set:  1.1]
          */
         readonly formattedValue: string;
         /**
          *
-         * A string that specifies the label of the shape data item.
+         * A string that specifies the label of the shape data item. Read-only.
          *
          * [Api set:  1.1]
          */
         readonly label: string;
         /**
          *
-         * A string that specifies the value of the shape data item.
+         * A string that specifies the value of the shape data item. Read-only.
          *
          * [Api set:  1.1]
          */
         readonly value: string;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): Visio.ShapeDataItem` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): Visio.ShapeDataItem` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Visio.ShapeDataItem` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
          */
         load(option?: Visio.Interfaces.ShapeDataItemLoadOptions): Visio.ShapeDataItem;
         load(option?: string | string[]): Visio.ShapeDataItem;
@@ -56158,7 +58693,7 @@ declare namespace Visio {
      */
     class HyperlinkCollection extends OfficeExtension.ClientObject {
         /** Gets the loaded child items in this collection. */
-        readonly items: Array<Visio.Hyperlink>;
+        readonly items: Visio.Hyperlink[];
         /**
          *
          * Gets the number of hyperlinks.
@@ -56177,6 +58712,18 @@ declare namespace Visio {
         getItem(Key: number | string): Visio.Hyperlink;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): Visio.HyperlinkCollection` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): Visio.HyperlinkCollection` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Visio.HyperlinkCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
          */
         load(option?: Visio.Interfaces.HyperlinkCollectionLoadOptions & Visio.Interfaces.CollectionLoadOptions): Visio.HyperlinkCollection;
         load(option?: string | string[]): Visio.HyperlinkCollection;
@@ -56192,34 +58739,46 @@ declare namespace Visio {
     class Hyperlink extends OfficeExtension.ClientObject {
         /**
          *
-         * Gets the address of the Hyperlink object.
+         * Gets the address of the Hyperlink object. Read-only.
          *
          * [Api set:  1.1]
          */
         readonly address: string;
         /**
          *
-         * Gets the description of a hyperlink.
+         * Gets the description of a hyperlink. Read-only.
          *
          * [Api set:  1.1]
          */
         readonly description: string;
         /**
          *
-         * Gets the extra info of a hyperlink.
+         * Gets the extra URL request information used to resolve the hyperlink's URL. Read-only.
          *
          * [Api set:  1.1]
          */
         readonly extraInfo: string;
         /**
          *
-         * Gets the sub-address of the Hyperlink object.
+         * Gets the sub-address of the Hyperlink object. Read-only.
          *
          * [Api set:  1.1]
          */
         readonly subAddress: string;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): Visio.Hyperlink` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): Visio.Hyperlink` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Visio.Hyperlink` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
          */
         load(option?: Visio.Interfaces.HyperlinkLoadOptions): Visio.Hyperlink;
         load(option?: string | string[]): Visio.Hyperlink;
@@ -56237,10 +58796,10 @@ declare namespace Visio {
      */
     class CommentCollection extends OfficeExtension.ClientObject {
         /** Gets the loaded child items in this collection. */
-        readonly items: Array<Visio.Comment>;
+        readonly items: Visio.Comment[];
         /**
          *
-         * Gets the number of Shape Data Items.
+         * Gets the number of Comments.
          *
          * [Api set:  1.1]
          */
@@ -56256,6 +58815,18 @@ declare namespace Visio {
         getItem(key: string): Visio.Comment;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): Visio.CommentCollection` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): Visio.CommentCollection` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Visio.CommentCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
          */
         load(option?: Visio.Interfaces.CommentCollectionLoadOptions & Visio.Interfaces.CollectionLoadOptions): Visio.CommentCollection;
         load(option?: string | string[]): Visio.CommentCollection;
@@ -56271,36 +58842,53 @@ declare namespace Visio {
     class Comment extends OfficeExtension.ClientObject {
         /**
          *
-         * A string that specifies the label of the shape data item.
+         * A string that specifies the name of the author of the comment.
          *
          * [Api set:  1.1]
          */
         author: string;
         /**
          *
-         * A string that specifies the format of the shape data item.
+         * A string that specifies the date when the comment was created.
          *
          * [Api set:  1.1]
          */
         date: string;
         /**
          *
-         * A string that specifies the value of the shape data item.
+         * A string that contains the comment text.
          *
          * [Api set:  1.1]
          */
         text: string;
-        /** Sets multiple properties on the object at the same time, based on JSON input. */
-        set(properties: Interfaces.CommentUpdateData, options?: {
-            /**
-             * Throw an error if the passed-in property list includes read-only properties (default = true).
-             */
-            throwOnReadOnly?: boolean;
-        }): void;
+        /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
+         *
+         * @remarks
+         *
+         * This method has the following additional signature:
+         *
+         * `set(properties: Visio.Comment): void`
+         *
+         * @param properties A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called.
+         * @param options Provides an option to suppress errors if the properties object tries to set any read-only properties.
+         */
+        set(properties: Interfaces.CommentUpdateData, options?: OfficeExtension.UpdateOptions): void;
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
-        set(properties: Comment): void;
+        set(properties: Visio.Comment): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): Visio.Comment` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): Visio.Comment` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Visio.Comment` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
          */
         load(option?: Visio.Interfaces.CommentLoadOptions): Visio.Comment;
         load(option?: string | string[]): Visio.Comment;
@@ -56319,13 +58907,25 @@ declare namespace Visio {
     class Selection extends OfficeExtension.ClientObject {
         /**
          *
-         * Gets the Shapes of the Selection
+         * Gets the Shapes of the Selection. Read-only.
          *
          * [Api set:  1.1]
          */
         readonly shapes: Visio.ShapeCollection;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): Visio.Selection` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): Visio.Selection` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Visio.Selection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
          */
         load(option?: string | string[]): Visio.Selection;
         load(option?: {
@@ -56340,25 +58940,25 @@ declare namespace Visio {
      *
      * [Api set:  1.1]
      */
-    namespace OverlayHorizontalAlignment {
+    enum OverlayHorizontalAlignment {
         /**
          *
          * left
          *
          */
-        var left: string;
+        left = "Left",
         /**
          *
          * center
          *
          */
-        var center: string;
+        center = "Center",
         /**
          *
          * right
          *
          */
-        var right: string;
+        right = "Right",
     }
     /**
      *
@@ -56366,25 +58966,25 @@ declare namespace Visio {
      *
      * [Api set:  1.1]
      */
-    namespace OverlayVerticalAlignment {
+    enum OverlayVerticalAlignment {
         /**
          *
          * top
          *
          */
-        var top: string;
+        top = "Top",
         /**
          *
          * middle
          *
          */
-        var middle: string;
+        middle = "Middle",
         /**
          *
          * bottom
          *
          */
-        var bottom: string;
+        bottom = "Bottom",
     }
     /**
      *
@@ -56392,19 +58992,19 @@ declare namespace Visio {
      *
      * [Api set:  1.1]
      */
-    namespace OverlayType {
+    enum OverlayType {
         /**
          *
          * text
          *
          */
-        var text: string;
+        text = "Text",
         /**
          *
          * image
          *
          */
-        var image: string;
+        image = "Image",
     }
     /**
      *
@@ -56412,51 +59012,60 @@ declare namespace Visio {
      *
      * [Api set:  1.1]
      */
-    namespace ToolBarType {
+    enum ToolBarType {
         /**
          *
          * CommandBar
          *
          */
-        var commandBar: string;
+        commandBar = "CommandBar",
         /**
          *
          * PageNavigationBar
          *
          */
-        var pageNavigationBar: string;
+        pageNavigationBar = "PageNavigationBar",
         /**
          *
          * StatusBar
          *
          */
-        var statusBar: string;
+        statusBar = "StatusBar",
     }
-    namespace ErrorCodes {
-        var accessDenied: string;
-        var generalException: string;
-        var invalidArgument: string;
-        var itemNotFound: string;
-        var notImplemented: string;
-        var unsupportedOperation: string;
+    enum ErrorCodes {
+        accessDenied = "AccessDenied",
+        generalException = "GeneralException",
+        invalidArgument = "InvalidArgument",
+        itemNotFound = "ItemNotFound",
+        notImplemented = "NotImplemented",
+        unsupportedOperation = "UnsupportedOperation",
     }
-    namespace Interfaces {
+    module Interfaces {
+        /**
+        * Provides ways to load properties of only a subset of members of a collection.
+        */
         interface CollectionLoadOptions {
+            /**
+            * Specify the number of items in the queried collection to be included in the result.
+            */
             $top?: number;
+            /**
+            * Specify the number of items in the collection that are to be skipped and not included in the result. If top is specified, the selection of result will start after skipping the specified number of items.
+            */
             $skip?: number;
         }
         /** An interface for updating data on the Application object, for use in "application.set({ ... })". */
         interface ApplicationUpdateData {
             /**
              *
-             * Show/Hide the application borders.
+             * Show or hide the iFrame application borders.
              *
              * [Api set:  1.1]
              */
             showBorders?: boolean;
             /**
              *
-             * Show or Hide the standard toolbars.
+             * Show or hide the standard toolbars.
              *
              * [Api set:  1.1]
              */
@@ -56504,7 +59113,7 @@ declare namespace Visio {
             disableZoom?: boolean;
             /**
              *
-             * Disable Hyperlinks.
+             * Hide Diagram Boundary.
              *
              * [Api set:  1.1]
              */
@@ -56524,7 +59133,7 @@ declare namespace Visio {
         interface PageViewUpdateData {
             /**
              *
-             * Get/Set Page's Zoom level. The value can be between 10 and 400 and denotes the percentage of zoom.
+             * Get and set Page's Zoom level. The value can be between 10 and 400 and denotes the percentage of zoom.
              *
              * [Api set:  1.1]
              */
@@ -56581,21 +59190,21 @@ declare namespace Visio {
         interface CommentUpdateData {
             /**
              *
-             * A string that specifies the label of the shape data item.
+             * A string that specifies the name of the author of the comment.
              *
              * [Api set:  1.1]
              */
             author?: string;
             /**
              *
-             * A string that specifies the format of the shape data item.
+             * A string that specifies the date when the comment was created.
              *
              * [Api set:  1.1]
              */
             date?: string;
             /**
              *
-             * A string that specifies the value of the shape data item.
+             * A string that contains the comment text.
              *
              * [Api set:  1.1]
              */
@@ -56605,14 +59214,14 @@ declare namespace Visio {
         interface ApplicationData {
             /**
              *
-             * Show/Hide the application borders.
+             * Show or hide the iFrame application borders.
              *
              * [Api set:  1.1]
              */
             showBorders?: boolean;
             /**
              *
-             * Show or Hide the standard toolbars.
+             * Show or hide the standard toolbars.
              *
              * [Api set:  1.1]
              */
@@ -56636,7 +59245,7 @@ declare namespace Visio {
             pages?: Visio.Interfaces.PageData[];
             /**
             *
-            * Returns the DocumentView object.
+            * Returns the DocumentView object. Read-only.
             *
             * [Api set:  1.1]
             */
@@ -56667,7 +59276,7 @@ declare namespace Visio {
             disableZoom?: boolean;
             /**
              *
-             * Disable Hyperlinks.
+             * Hide Diagram Boundary.
              *
              * [Api set:  1.1]
              */
@@ -56677,21 +59286,21 @@ declare namespace Visio {
         interface PageData {
             /**
             *
-            * All shapes in the page. Read-only.
+            * All shapes in the Page, including subshapes. Read-only.
             *
             * [Api set:  1.1]
             */
             allShapes?: Visio.Interfaces.ShapeData[];
             /**
             *
-            * Returns the Comments Collection
+            * Returns the Comments Collection.  Read-only.
             *
             * [Api set:  1.1]
             */
             comments?: Visio.Interfaces.CommentData[];
             /**
             *
-            * Shapes at root level, in the page. Read-only.
+            * All top-level shapes in the Page.Read-only.
             *
             * [Api set:  1.1]
             */
@@ -56712,7 +59321,7 @@ declare namespace Visio {
             height?: number;
             /**
              *
-             * Index of the Page.
+             * Index of the Page. Read-only.
              *
              * [Api set:  1.1]
              */
@@ -56743,7 +59352,7 @@ declare namespace Visio {
         interface PageViewData {
             /**
              *
-             * Get/Set Page's Zoom level. The value can be between 10 and 400 and denotes the percentage of zoom.
+             * Get and set Page's Zoom level. The value can be between 10 and 400 and denotes the percentage of zoom.
              *
              * [Api set:  1.1]
              */
@@ -56761,7 +59370,7 @@ declare namespace Visio {
         interface ShapeData {
             /**
             *
-            * Returns the Comments Collection
+            * Returns the Comments Collection. Read-only.
             *
             * [Api set:  1.1]
             */
@@ -56782,7 +59391,7 @@ declare namespace Visio {
             shapeDataItems?: Visio.Interfaces.ShapeDataItemData[];
             /**
             *
-            * Gets SubShape Collection.
+            * Gets SubShape Collection. Read-only.
             *
             * [Api set:  1.1]
             */
@@ -56796,14 +59405,14 @@ declare namespace Visio {
             view?: Visio.Interfaces.ShapeViewData;
             /**
              *
-             * Shape's Identifier.
+             * Shape's identifier. Read-only.
              *
              * [Api set:  1.1]
              */
             id?: number;
             /**
              *
-             * Shape's name.
+             * Shape's name. Read-only.
              *
              * [Api set:  1.1]
              */
@@ -56817,7 +59426,7 @@ declare namespace Visio {
             select?: boolean;
             /**
              *
-             * Shape's Text.
+             * Shape's text. Read-only.
              *
              * [Api set:  1.1]
              */
@@ -56841,28 +59450,28 @@ declare namespace Visio {
         interface ShapeDataItemData {
             /**
              *
-             * A string that specifies the format of the shape data item.
+             * A string that specifies the format of the shape data item. Read-only.
              *
              * [Api set:  1.1]
              */
             format?: string;
             /**
              *
-             * A string that specifies the formatted value of the shape data item.
+             * A string that specifies the formatted value of the shape data item. Read-only.
              *
              * [Api set:  1.1]
              */
             formattedValue?: string;
             /**
              *
-             * A string that specifies the label of the shape data item.
+             * A string that specifies the label of the shape data item. Read-only.
              *
              * [Api set:  1.1]
              */
             label?: string;
             /**
              *
-             * A string that specifies the value of the shape data item.
+             * A string that specifies the value of the shape data item. Read-only.
              *
              * [Api set:  1.1]
              */
@@ -56876,28 +59485,28 @@ declare namespace Visio {
         interface HyperlinkData {
             /**
              *
-             * Gets the address of the Hyperlink object.
+             * Gets the address of the Hyperlink object. Read-only.
              *
              * [Api set:  1.1]
              */
             address?: string;
             /**
              *
-             * Gets the description of a hyperlink.
+             * Gets the description of a hyperlink. Read-only.
              *
              * [Api set:  1.1]
              */
             description?: string;
             /**
              *
-             * Gets the extra info of a hyperlink.
+             * Gets the extra URL request information used to resolve the hyperlink's URL. Read-only.
              *
              * [Api set:  1.1]
              */
             extraInfo?: string;
             /**
              *
-             * Gets the sub-address of the Hyperlink object.
+             * Gets the sub-address of the Hyperlink object. Read-only.
              *
              * [Api set:  1.1]
              */
@@ -56911,21 +59520,21 @@ declare namespace Visio {
         interface CommentData {
             /**
              *
-             * A string that specifies the label of the shape data item.
+             * A string that specifies the name of the author of the comment.
              *
              * [Api set:  1.1]
              */
             author?: string;
             /**
              *
-             * A string that specifies the format of the shape data item.
+             * A string that specifies the date when the comment was created.
              *
              * [Api set:  1.1]
              */
             date?: string;
             /**
              *
-             * A string that specifies the value of the shape data item.
+             * A string that contains the comment text.
              *
              * [Api set:  1.1]
              */
@@ -56935,7 +59544,7 @@ declare namespace Visio {
         interface SelectionData {
             /**
             *
-            * Gets the Shapes of the Selection
+            * Gets the Shapes of the Selection. Read-only.
             *
             * [Api set:  1.1]
             */
@@ -56951,14 +59560,14 @@ declare namespace Visio {
             $all?: boolean;
             /**
              *
-             * Show/Hide the application borders.
+             * Show or hide the iFrame application borders.
              *
              * [Api set:  1.1]
              */
             showBorders?: boolean;
             /**
              *
-             * Show or Hide the standard toolbars.
+             * Show or hide the standard toolbars.
              *
              * [Api set:  1.1]
              */
@@ -57018,7 +59627,7 @@ declare namespace Visio {
             disableZoom?: boolean;
             /**
              *
-             * Disable Hyperlinks.
+             * Hide Diagram Boundary.
              *
              * [Api set:  1.1]
              */
@@ -57048,7 +59657,7 @@ declare namespace Visio {
             height?: boolean;
             /**
              *
-             * Index of the Page.
+             * Index of the Page. Read-only.
              *
              * [Api set:  1.1]
              */
@@ -57085,7 +59694,7 @@ declare namespace Visio {
             $all?: boolean;
             /**
              *
-             * Get/Set Page's Zoom level. The value can be between 10 and 400 and denotes the percentage of zoom.
+             * Get and set Page's Zoom level. The value can be between 10 and 400 and denotes the percentage of zoom.
              *
              * [Api set:  1.1]
              */
@@ -57115,7 +59724,7 @@ declare namespace Visio {
             height?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Index of the Page.
+             * For EACH ITEM in the collection: Index of the Page. Read-only.
              *
              * [Api set:  1.1]
              */
@@ -57159,14 +59768,14 @@ declare namespace Visio {
             view?: Visio.Interfaces.ShapeViewLoadOptions;
             /**
              *
-             * For EACH ITEM in the collection: Shape's Identifier.
+             * For EACH ITEM in the collection: Shape's identifier. Read-only.
              *
              * [Api set:  1.1]
              */
             id?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Shape's name.
+             * For EACH ITEM in the collection: Shape's name. Read-only.
              *
              * [Api set:  1.1]
              */
@@ -57180,7 +59789,7 @@ declare namespace Visio {
             select?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Shape's Text.
+             * For EACH ITEM in the collection: Shape's text. Read-only.
              *
              * [Api set:  1.1]
              */
@@ -57203,14 +59812,14 @@ declare namespace Visio {
             view?: Visio.Interfaces.ShapeViewLoadOptions;
             /**
              *
-             * Shape's Identifier.
+             * Shape's identifier. Read-only.
              *
              * [Api set:  1.1]
              */
             id?: boolean;
             /**
              *
-             * Shape's name.
+             * Shape's name. Read-only.
              *
              * [Api set:  1.1]
              */
@@ -57224,7 +59833,7 @@ declare namespace Visio {
             select?: boolean;
             /**
              *
-             * Shape's Text.
+             * Shape's text. Read-only.
              *
              * [Api set:  1.1]
              */
@@ -57256,28 +59865,28 @@ declare namespace Visio {
             $all?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: A string that specifies the format of the shape data item.
+             * For EACH ITEM in the collection: A string that specifies the format of the shape data item. Read-only.
              *
              * [Api set:  1.1]
              */
             format?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: A string that specifies the formatted value of the shape data item.
+             * For EACH ITEM in the collection: A string that specifies the formatted value of the shape data item. Read-only.
              *
              * [Api set:  1.1]
              */
             formattedValue?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: A string that specifies the label of the shape data item.
+             * For EACH ITEM in the collection: A string that specifies the label of the shape data item. Read-only.
              *
              * [Api set:  1.1]
              */
             label?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: A string that specifies the value of the shape data item.
+             * For EACH ITEM in the collection: A string that specifies the value of the shape data item. Read-only.
              *
              * [Api set:  1.1]
              */
@@ -57293,28 +59902,28 @@ declare namespace Visio {
             $all?: boolean;
             /**
              *
-             * A string that specifies the format of the shape data item.
+             * A string that specifies the format of the shape data item. Read-only.
              *
              * [Api set:  1.1]
              */
             format?: boolean;
             /**
              *
-             * A string that specifies the formatted value of the shape data item.
+             * A string that specifies the formatted value of the shape data item. Read-only.
              *
              * [Api set:  1.1]
              */
             formattedValue?: boolean;
             /**
              *
-             * A string that specifies the label of the shape data item.
+             * A string that specifies the label of the shape data item. Read-only.
              *
              * [Api set:  1.1]
              */
             label?: boolean;
             /**
              *
-             * A string that specifies the value of the shape data item.
+             * A string that specifies the value of the shape data item. Read-only.
              *
              * [Api set:  1.1]
              */
@@ -57330,28 +59939,28 @@ declare namespace Visio {
             $all?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Gets the address of the Hyperlink object.
+             * For EACH ITEM in the collection: Gets the address of the Hyperlink object. Read-only.
              *
              * [Api set:  1.1]
              */
             address?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Gets the description of a hyperlink.
+             * For EACH ITEM in the collection: Gets the description of a hyperlink. Read-only.
              *
              * [Api set:  1.1]
              */
             description?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Gets the extra info of a hyperlink.
+             * For EACH ITEM in the collection: Gets the extra URL request information used to resolve the hyperlink's URL. Read-only.
              *
              * [Api set:  1.1]
              */
             extraInfo?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Gets the sub-address of the Hyperlink object.
+             * For EACH ITEM in the collection: Gets the sub-address of the Hyperlink object. Read-only.
              *
              * [Api set:  1.1]
              */
@@ -57367,28 +59976,28 @@ declare namespace Visio {
             $all?: boolean;
             /**
              *
-             * Gets the address of the Hyperlink object.
+             * Gets the address of the Hyperlink object. Read-only.
              *
              * [Api set:  1.1]
              */
             address?: boolean;
             /**
              *
-             * Gets the description of a hyperlink.
+             * Gets the description of a hyperlink. Read-only.
              *
              * [Api set:  1.1]
              */
             description?: boolean;
             /**
              *
-             * Gets the extra info of a hyperlink.
+             * Gets the extra URL request information used to resolve the hyperlink's URL. Read-only.
              *
              * [Api set:  1.1]
              */
             extraInfo?: boolean;
             /**
              *
-             * Gets the sub-address of the Hyperlink object.
+             * Gets the sub-address of the Hyperlink object. Read-only.
              *
              * [Api set:  1.1]
              */
@@ -57404,21 +60013,21 @@ declare namespace Visio {
             $all?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: A string that specifies the label of the shape data item.
+             * For EACH ITEM in the collection: A string that specifies the name of the author of the comment.
              *
              * [Api set:  1.1]
              */
             author?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: A string that specifies the format of the shape data item.
+             * For EACH ITEM in the collection: A string that specifies the date when the comment was created.
              *
              * [Api set:  1.1]
              */
             date?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: A string that specifies the value of the shape data item.
+             * For EACH ITEM in the collection: A string that contains the comment text.
              *
              * [Api set:  1.1]
              */
@@ -57434,21 +60043,21 @@ declare namespace Visio {
             $all?: boolean;
             /**
              *
-             * A string that specifies the label of the shape data item.
+             * A string that specifies the name of the author of the comment.
              *
              * [Api set:  1.1]
              */
             author?: boolean;
             /**
              *
-             * A string that specifies the format of the shape data item.
+             * A string that specifies the date when the comment was created.
              *
              * [Api set:  1.1]
              */
             date?: boolean;
             /**
              *
-             * A string that specifies the value of the shape data item.
+             * A string that contains the comment text.
              *
              * [Api set:  1.1]
              */
@@ -57475,17 +60084,17 @@ declare namespace Visio {
      * @param batch - A function that takes in an Visio.RequestContext and returns a promise (typically, just the result of "context.sync()"). When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
      */
     function run<T>(object: OfficeExtension.ClientObject | OfficeExtension.EmbeddedSession, batch: (context: Visio.RequestContext) => Promise<T>): Promise<T>;
-
-    /**
-     * Executes a batch script that performs actions on the Visio object model, using the request context of previously-created API objects.
-     * @param objects - An array of previously-created API objects. The array will be validated to make sure that all of the objects share the same context. The batch will use this shared request context, which means that any changes applied to these objects will be picked up by "context.sync()".
-     * @param batch - A function that takes in a Visio.RequestContext and returns a promise (typically, just the result of "context.sync()"). When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
-     */
-    function run<T>(objects: OfficeExtension.ClientObject[], batch: (context: Visio.RequestContext) => Promise<T>): Promise<T>;
     /**
      * Executes a batch script that performs actions on the Visio object model, using the RequestContext of a previously-created object. When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
      * @param contextObject - A previously-created Visio.RequestContext. This context will get re-used by the batch function (instead of having a new context created). This means that the batch will be able to pick up changes made to existing API objects, if those objects were derived from this same context.
      * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the Visio application. Since the Office add-in and the Visio application run in two different processes, the RequestContext is required to get access to the Visio object model from the add-in.
+     */
+    function run<T>(contextObject: OfficeExtension.ClientRequestContext, batch: (context: Visio.RequestContext) => Promise<T>): Promise<T>;
+    /**
+     * Executes a batch script that performs actions on the Visio object model, using the request context of previously-created API objects.
+     * @param objects - An array of previously-created API objects. The array will be validated to make sure that all of the objects share the same context. The batch will use this shared request context, which means that any changes applied to these objects will be picked up by "context.sync()".
+     * @param batch - A function that takes in a Visio.RequestContext and returns a promise (typically, just the result of "context.sync()"). When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
+     * 
      * @remarks
      * In addition to this signature, the method also has the following signatures:
      * 
@@ -57495,10 +60104,28 @@ declare namespace Visio {
      * 
      * `run<T>(objects: OfficeExtension.ClientObject[], batch: (context: Visio.RequestContext) => Promise<T>): Promise<T>;`
      */
-    function run<T>(contextObject: OfficeExtension.ClientRequestContext, batch: (context: Visio.RequestContext) => Promise<T>): Promise<T>;
+    function run<T>(objects: OfficeExtension.ClientObject[], batch: (context: Visio.RequestContext) => Promise<T>): Promise<T>;
 }
 
 
 ////////////////////////////////////////////////////////////////
 //////////////////////// End Visio APIs ////////////////////////
+////////////////////////////////////////////////////////////////
+
+
+
+
+////////////////////////////////////////////////////////////////
+
+
+
+
+////////////////////////////////////////////////////////////////
+///////////////////// Begin PowerPoint APIs ////////////////////
+////////////////////////////////////////////////////////////////
+
+// Empty placeholder, for now
+
+////////////////////////////////////////////////////////////////
+////////////////////// End PowerPoint APIs /////////////////////
 ////////////////////////////////////////////////////////////////

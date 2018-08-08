@@ -19,6 +19,12 @@ export interface CleaveOptions {
     datePattern?: ReadonlyArray<string>;
 }
 
+// Time Options
+export interface CleaveOptions {
+    time?: boolean;
+    timePattern?: ReadonlyArray<string>;
+}
+
 // Numeral Options
 export type NumeralThousandsGroupStyleType = "lakh" | "thousand" | "wan" | "none";
 

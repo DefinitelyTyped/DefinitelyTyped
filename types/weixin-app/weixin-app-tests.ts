@@ -29,22 +29,31 @@ Component({
     },
     myProperty2: String // 简化的定义方式
   },
-  data: {}, // 私有数据，可用于模版渲染
+  data: {
+    key: 'value',
+    anotherKey: 'value'
+  }, // 私有数据，可用于模版渲染
 
   // 生命周期函数，可以为函数，或一个在methods段中定义的方法名
-  attached() { },
+  attached() {
+    this.setData({}, () => { });
+  },
   moved() { },
   detached() { },
   methods: {
     onMyButtonTap() {
+      // 更新属性和数据的方法与更新页面数据的方法类似
       this.setData({
-        // 更新属性和数据的方法与更新页面数据的方法类似
+        key: 123 // note this is edge case where it cannot detect wrong types...
       });
     },
     _myPrivateMethod() {
       // 内部方法建议以下划线开头
       // this.replaceDataOnPath(['A', 0, 'B'], 'myPrivateData'); // 这里将 data.A[0].B 设为 'myPrivateData'
       // this.applyDataUpdates();
+      this.setData({
+        anotherKey: 123
+      });
     },
     _propertyChange(newVal: string, oldVal: string) {
       //
@@ -71,8 +80,11 @@ Page({
   data: {
     text: "This is page data."
   },
-  onLoad: () => {
+  onLoad() {
     // Do some initialize when page load.
+    this.setData({}, () => {
+      // callback
+    });
   },
   onReady: () => {
     // Do something when page ready.
@@ -291,3 +303,18 @@ downloadTask.onProgressUpdate((res) => {
 });
 
 downloadTask.abort(); // 取消下载任务
+
+wx.request({
+  url: 'https://www.baidu.com',
+  method: 'GET',
+  success(res) {
+    if (res.statusCode < 300) {
+      console.log(res.data);
+    } else {
+      console.warn(res.statusCode, res.header);
+    }
+  },
+  fail(e) {
+    console.error(e);
+  }
+}).abort();

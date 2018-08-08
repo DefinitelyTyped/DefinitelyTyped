@@ -88,7 +88,7 @@ declare namespace google {
             getColumnProperties(columnIndex: number): Properties;
             getColumnProperty(columnIndex: number, name: string): any;
             getColumnRange(columnIndex: number): { min: any; max: any };
-            getColumnRole(columnIndex: string): string;
+            getColumnRole(columnIndex: number): string;
             getColumnType(columnIndex: number): string;
             getDistinctValues(columnIndex: number): any[];
             getFilteredRows(filters: DataTableCellFilter[]): number[];
