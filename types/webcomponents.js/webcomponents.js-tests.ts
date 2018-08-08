@@ -16,7 +16,7 @@ const XFoo = document.registerElement("x-foo", {
 
 const xFoo = new XFoo();
 xFoo.textContent = "";
-document.body!.appendChild(xFoo);
+document.body.appendChild(xFoo);
 
 window.CustomElements.hasNative;
 window.CustomElements.flags;

@@ -1145,3 +1145,19 @@ knex('characters')
     .whereIn(['name', 'class'], function() {
         this.select('name', 'class').from('characters');
     });
+
+knex('characters')
+    .select()
+    .where({ name: 'Bar', class: 'Fighter' })
+    .union(knex('characters').select().where({ name: 'Foo', class: 'Druid' }));
+knex('characters')
+    .select()
+    .where({ name: 'Bar', class: 'Fighter' })
+    .union([knex('characters').select().where({ name: 'Foo', class: 'Druid' })]);
+knex('characters')
+    .select()
+    .where({ name: 'Bar', class: 'Fighter' })
+    .union(
+        knex('characters').select().where({ name: 'Foo', class: 'Druid' }),
+        knex('characters').select().where({ name: 'Baz', class: 'Paladin' })
+    );

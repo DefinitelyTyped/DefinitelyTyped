@@ -31,7 +31,7 @@ client.add(magnetURI, {}, torrent => {
                 a.href = url;
             }
             a.textContent = 'Download ' + file.name;
-            document.body!.appendChild(a);
+            document.body.appendChild(a);
         });
     });
 
