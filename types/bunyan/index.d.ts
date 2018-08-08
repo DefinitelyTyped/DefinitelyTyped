@@ -270,12 +270,18 @@ declare namespace Logger {
         destroy(): void;
         destroySoon(): void;
     }
-    
+
+    interface RotatingFileStreamOptions {
+        path?: string;
+        count?: number;
+        period?: string;
+    }
+
     class RotatingFileStream extends EventEmitter implements NodeJS.WritableStream {
-        constructor(options: Stream);
+        constructor(options: RotatingFileStreamOptions);
 
         writable: boolean;
-        periodNum : number;
+        periodNum: number;
         periodScope: string;
         stream: any;
         rotQueue: any[];
@@ -285,7 +291,7 @@ declare namespace Logger {
         end(record?: any): void;
         destroy(): void;
         destroySoon(): void;
-        rotate() : void;
+        rotate(): void;
     }
 }
 

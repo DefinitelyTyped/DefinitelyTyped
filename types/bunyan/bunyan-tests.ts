@@ -6,7 +6,7 @@ const ringBufferOptions: Logger.RingBufferOptions = {
 const ringBuffer: Logger.RingBuffer = new Logger.RingBuffer(ringBufferOptions);
 ringBuffer.write("hello");
 
-const rotatingFileStreamOptions : Logger.Stream = {
+const rotatingFileStreamOptions: Logger.RotatingFileStreamOptions = {
     period: "1d",
     count: 10,
     path: "path"
