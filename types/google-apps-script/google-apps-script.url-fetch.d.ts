@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2018-08-09
+// Type definitions for Google Apps Script 2018-08-08
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 //                 takoyaki9n <https://github.com/takoyaki9n>
@@ -10,7 +10,7 @@
 declare namespace GoogleAppsScript {
   export module URL_Fetch {
     /**
-     * This class allows users to access specific information on HTTP response.
+     * This class allows users to access specific information on HTTP responses.
      * See also
      *
      * UrlFetchApp
