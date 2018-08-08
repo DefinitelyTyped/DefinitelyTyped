@@ -73,6 +73,12 @@ declare namespace ForkTsCheckerWebpackPlugin {
 
     type Formatter = (message: NormalizedMessage, useColors: boolean) => string;
 
+    interface Logger {
+        error(message?: any): void;
+        warn(message?: any): void;
+        info(message?: any): void;
+    }
+
     interface Options {
         tsconfig?: string;
         tslint?: string | true;
@@ -81,7 +87,7 @@ declare namespace ForkTsCheckerWebpackPlugin {
         ignoreDiagnostics?: number[];
         ignoreLints?: string[];
         colors?: boolean;
-        logger?: Console;
+        logger?: Logger;
         formatter?: 'default' | 'codeframe' | Formatter;
         formatterOptions?: {
             highlightCode?: boolean
