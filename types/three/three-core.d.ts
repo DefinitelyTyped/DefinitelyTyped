@@ -7511,13 +7511,13 @@ export class TorusGeometry extends Geometry {
 }
 
 export class TorusKnotBufferGeometry extends BufferGeometry {
-    constructor(radius?: number, tube?: number, radialSegments?: number, tubularSegments?: number, p?: number, q?: number);
+    constructor(radius?: number, tube?: number, tubularSegments?: number, radialSegments?: number, p?: number, q?: number);
 
     parameters: {
         radius: number;
         tube: number;
-        radialSegments: number;
         tubularSegments: number;
+        radialSegments: number;
         p: number;
         q: number;
         heightScale: number;
@@ -7525,13 +7525,13 @@ export class TorusKnotBufferGeometry extends BufferGeometry {
 }
 
 export class TorusKnotGeometry extends Geometry {
-    constructor(radius?: number, tube?: number, radialSegments?: number, tubularSegments?: number, p?: number, q?: number);
+    constructor(radius?: number, tube?: number, tubularSegments?: number, radialSegments?: number, p?: number, q?: number);
 
     parameters: {
         radius: number;
         tube: number;
-        radialSegments: number;
         tubularSegments: number;
+        radialSegments: number;
         p: number;
         q: number;
         heightScale: number;
