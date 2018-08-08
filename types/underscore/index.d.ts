@@ -7,7 +7,7 @@ declare var _: _.UnderscoreStatic;
 export = _;
 export as namespace _;
 
-// The DOM is not required to be present, but these definitions reference type Element for the 
+// The DOM is not required to be present, but these definitions reference type Element for the
 // isElement check. If the DOM is present, this declaration will merge.
 declare global {
     interface Element { }
@@ -5704,7 +5704,7 @@ declare module _ {
         * Wrapped type `object`.
         * @see _.pairs
         **/
-        pairs(): _Chain<any[]>;
+        pairs(): _Chain<[string, any]>;
 
         /**
         * Wrapped type `object`.
