@@ -130,6 +130,7 @@ interface JQueryStatic {
      * @since 1.0
      * @since 1.4
      */
+    // Using a unified signature is not possible due to a TypeScript 2.4 bug (DefinitelyTyped#27810)
     // tslint:disable-next-line:no-unnecessary-generics
     <TElement extends HTMLElement = HTMLElement>(html: JQuery.htmlString, ownerDocument_attributes?: Document | JQuery.PlainObject): JQuery<TElement>;
     /**
@@ -140,6 +141,7 @@ interface JQueryStatic {
      * @see \`{@link https://api.jquery.com/jQuery/ }\`
      * @since 1.0
      */
+    // Using a unified signature is not possible due to a TypeScript 2.4 bug (DefinitelyTyped#27810)
     // tslint:disable-next-line:no-unnecessary-generics
     <TElement extends Element = HTMLElement>(selector: JQuery.Selector, context?: Element | Document | JQuery): JQuery<TElement>;
     /**
