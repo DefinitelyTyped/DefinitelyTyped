@@ -761,6 +761,7 @@ export interface AuthorizeOptions {
     scope?: string;
     audience?: string;
 	language?: string;
+	prompt?: string;
 }
 
 export interface CheckSessionOptions extends AuthorizeOptions {

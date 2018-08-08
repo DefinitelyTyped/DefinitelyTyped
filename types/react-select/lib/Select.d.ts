@@ -107,7 +107,7 @@ export interface Props<OptionType> {
   /* Formats group labels in the menu as React components */
   formatGroupLabel?: typeof formatGroupLabel;
   /* Formats option labels in the menu and control as React components */
-  formatOptionLabel?: (option: OptionType, labelMeta: FormatOptionLabelMeta<OptionType>) => Node;
+  formatOptionLabel?: (option: OptionType, labelMeta: FormatOptionLabelMeta<OptionType>) => React.ReactNode;
   /* Resolves option data to a string to be displayed as the label by components */
   getOptionLabel?: typeof getOptionLabel;
   /* Resolves option data to a string to compare options and specify value attributes */
@@ -311,7 +311,7 @@ export default class Select<OptionType> extends React.Component<Props<OptionType
     selectOption: (newValue: OptionType) => void;
     setValue: (newValue: ValueType<OptionType>, action: ActionTypes, option?: OptionType) => void;
     selectProps: Readonly<{
-        children?: Node;
+        children?: React.ReactNode;
     }> & Readonly<Props<OptionType>>;
 };
 
@@ -343,8 +343,8 @@ export default class Select<OptionType> extends React.Component<Props<OptionType
   isOptionDisabled(option: OptionType, selectValue: OptionsType<OptionType>): boolean;
   isOptionSelected(option: OptionType, selectValue: OptionsType<OptionType>): boolean;
   filterOption(option: {}, inputValue: string): boolean;
-  formatOptionLabel(data: OptionType, context: FormatOptionLabelContext): Node;
-  formatGroupLabel(data: GroupType<OptionType>): Node;
+  formatOptionLabel(data: OptionType, context: FormatOptionLabelContext): React.ReactNode;
+  formatGroupLabel(data: GroupType<OptionType>): React.ReactNode;
 
   // ==============================
   // Mouse Handlers
@@ -406,14 +406,14 @@ export default class Select<OptionType> extends React.Component<Props<OptionType
   // ==============================
   constructAriaLiveMessage(): string;
 
-  renderInput(): Node;
+  renderInput(): React.ReactNode;
   renderPlaceholderOrValue(): PlaceholderOrValue<OptionType> | null;
-  renderClearIndicator(): Node;
-  renderLoadingIndicator(): Node;
-  renderIndicatorSeparator(): Node;
-  renderDropdownIndicator(): Node;
-  renderMenu(): Node;
-  renderFormField(): Node;
+  renderClearIndicator(): React.ReactNode;
+  renderLoadingIndicator(): React.ReactNode;
+  renderIndicatorSeparator(): React.ReactNode;
+  renderDropdownIndicator(): React.ReactNode;
+  renderMenu(): React.ReactNode;
+  renderFormField(): React.ReactNode;
 
-  renderLiveRegion(): Node;
+  renderLiveRegion(): React.ReactNode;
 }

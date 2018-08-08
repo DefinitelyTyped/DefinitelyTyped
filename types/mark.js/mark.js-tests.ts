@@ -3,7 +3,7 @@ import * as Mark from 'mark.js';
 /* test instance */
 const mark = new Mark(document.querySelectorAll('div'));
 const markBySelector = new Mark('div');
-const markByElement = new Mark(document.body!);
+const markByElement = new Mark(document.body);
 
 mark.mark('keyword');
 mark.mark('keyword', {

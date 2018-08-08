@@ -21,4 +21,16 @@ config = {
     ]
 };
 
+config = {
+    plugins: [
+        new ForkTsCheckerWebpackPlugin({
+            logger: {
+                error: message => console.error(message),
+                warn: message => console.warn(message),
+                info: message => console.info(message),
+            }
+        })
+    ]
+};
+
 export default config;
