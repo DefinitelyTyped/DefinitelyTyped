@@ -60,7 +60,6 @@ declare namespace React {
 
     type Ref<T> = string | { bivarianceHack(instance: T | null): any }["bivarianceHack"] | RefObject<T>;
 
-    // tslint:disable-next-line:interface-over-type-literal
     type ComponentState = any;
 
     interface Attributes {
