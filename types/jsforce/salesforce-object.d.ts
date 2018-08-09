@@ -15,6 +15,7 @@ export class SObject<T> {
     retrieve(ids: SalesforceId[], options?: Object, callback?: (err: Error, ret: Array<Record<T>>) => void): Promise<Array<Record<T>>>;
     update(record: Partial<T>, options?: Object, callback?: (err: Error, ret: RecordResult) => void): Promise<RecordResult>;
     update(records: Array<Partial<T>>, options?: Object, callback?: (err: Error, ret: RecordResult[]) => void): Promise<RecordResult[]>;
+    updateBulk(input?: Record[] | stream.Stream | string, callback?: (err: Error, ret: RecordResult[]) => void): Batch;
     updated(start: string | Date, end: string | Date, callback?: (err: Error, ret: UpdatedRecordsInfo) => void): Promise<UpdatedRecordsInfo>;
     upsert(records: Record<T>, extIdField: SalesforceId, options?: Object, callback?: (err: Error, ret: RecordResult) => void): Promise<RecordResult>;
     upsert(records: Array<Record<T>>, extIdField: SalesforceId, options?: Object, callback?: (err: Error, ret: RecordResult[]) => void): Promise<RecordResult[]>;
