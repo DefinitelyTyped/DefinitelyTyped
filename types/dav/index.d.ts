@@ -1,4 +1,4 @@
-// Type definitions for dav v1.7
+// Type definitions for dav 1.7
 // Project: https://github.com/lambdabaa/dav/
 // Definitions by: ToastHawaii <https://github.com/ToastHawaii/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -352,6 +352,8 @@ export namespace transport {
          * @param credentials user authorization.
          */
         constructor(credentials: Credentials);
+
+        send(request: Request, url: string, options?: TransportOptions): Promise<any>;
     }
 
     interface TransportOptions {
@@ -375,9 +377,9 @@ export namespace transport {
          * @param request object with request info.
          * @param url
          * @param options
-         * @return a promise that will be resolved with an xhr request after 
-         * its readyState is 4 or the result of applying an optional request 
-         * `transformResponse` function to the xhr object after its readyState 
+         * @return a promise that will be resolved with an xhr request after
+         * its readyState is 4 or the result of applying an optional request
+         * `transformResponse` function to the xhr object after its readyState
          * is 4.
          */
         send(request: Request, url: string, options?: TransportOptions): Promise<any>;
@@ -395,8 +397,8 @@ export namespace transport {
          * @param request object with request info.
          * @param url
          * @param options
-         * @return a promise that will be resolved with an xhr request after 
-         * its readyState is 4 or the result of applying an optional request 
+         * @return a promise that will be resolved with an xhr request after
+         * its readyState is 4 or the result of applying an optional request
          * `transformResponse` function to the xhr object after its readyState
          * is 4.
          */
@@ -541,18 +543,18 @@ export class Client {
      * Send a request using this client's transport (and perhaps baseUrl).
      * @param  req dav request.
      * @param options
-     * @return a promise that will be resolved with an xhr request after 
-     * its readyState is 4 or the result of applying an optional request 
-     * `transformResponse` function to the xhr object after its readyState 
+     * @return a promise that will be resolved with an xhr request after
+     * its readyState is 4 or the result of applying an optional request
+     * `transformResponse` function to the xhr object after its readyState
      * is 4.
      */
     send(req: Request, uri: string, options?: ClientSendOptions): Promise<any>;
 
     /**
-      * Perform an initial download of a caldav or carddav account's data.
-      * @param options
-      * @returns a Promise which will be fulfilled with a dav.Account object.
-      */
+     * Perform an initial download of a caldav or carddav account's data.
+     * @param options
+     * @returns a Promise which will be fulfilled with a dav.Account object.
+     */
     createAccount(options?: CreateAccountOptions): Promise<Account>;
 
     /**
@@ -655,7 +657,7 @@ export interface ClientSendOptions {
     url?: string;
 }
 
-type Partial<T> = {
+export type Partial<T> = {
     [P in keyof T]?: T[P];
 };
 
@@ -790,13 +792,13 @@ export class Request {
 export type RequestOptions = Partial<Request>;
 
 export namespace debug {
-    export let enabled: boolean;
+    let enabled: boolean;
 }
 
 export namespace ns {
-    export const CALENDAR_SERVER = 'http://calendarserver.org/ns/';
-    export const CALDAV_APPLE = 'http://apple.com/ns/ical/';
-    export const CALDAV = 'urn:ietf:params:xml:ns:caldav';
-    export const CARDDAV = 'urn:ietf:params:xml:ns:carddav';
-    export const DAV = 'DAV:';
+    const CALENDAR_SERVER = 'http://calendarserver.org/ns/';
+    const CALDAV_APPLE = 'http://apple.com/ns/ical/';
+    const CALDAV = 'urn:ietf:params:xml:ns:caldav';
+    const CARDDAV = 'urn:ietf:params:xml:ns:carddav';
+    const DAV = 'DAV:';
 }

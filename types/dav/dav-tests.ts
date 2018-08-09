@@ -9,8 +9,8 @@ import * as dav from "dav";
     );
 
     dav.createAccount({ server: 'http://dav.example.com', xhr })
-        .then(function (account) {
-            account.calendars.forEach(function () {
+        .then((account) => {
+            account.calendars.forEach(() => {
             });
         });
     const client = new dav.Client(xhr);
@@ -18,8 +18,8 @@ import * as dav from "dav";
     client.createAccount({
         server: 'http://dav.example.com',
         accountType: 'carddav'
-    }).then(function (account) {
-        account.addressBooks.forEach(function () {
+    }).then((account) => {
+        account.addressBooks.forEach(() => {
         });
     });
 })();
@@ -205,7 +205,7 @@ dav.debug.enabled = true;
 
     const req: dav.Request = {
         method: 'GET',
-        transformRequest: (xhr:any) => xhr
+        transformRequest: (xhr: any) => xhr
     };
 
     const sandbox = dav.createSandbox();
