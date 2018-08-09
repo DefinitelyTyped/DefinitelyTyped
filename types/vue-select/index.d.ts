@@ -94,5 +94,5 @@ export const VueSelect: {
     data: () => VueSelectData,
     watch: VueSelectWatch,
     methods: VueSelectMethods,
-    computed: VueSelectComputed,
+    computed: VueSelectComputed
 }
