@@ -112,6 +112,9 @@ export interface CachedObject {
 export type CacheItem = any;
 
 export interface ClientOptions {
+    /**
+     * this will store items under keys that start with this value.
+     */
     partition: string;
 }
 

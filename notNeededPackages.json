@@ -679,6 +679,12 @@
             "asOfVersion": "3.8.7"
         },
         {
+            "libraryName": "interactjs",
+            "typingsPackageName": "interact.js",
+            "sourceRepoURL": "https://github.com/taye/interact.js",
+            "asOfVersion": "1.3.0"
+        },
+        {
             "libraryName": "inversify",
             "typingsPackageName": "inversify",
             "sourceRepoURL": "http://inversify.io",
@@ -1223,6 +1229,12 @@
             "typingsPackageName": "react-split-pane",
             "sourceRepoURL": "https://github.com/tomkp/react-split-pane",
             "asOfVersion": "0.1.67"
+        },
+        {
+            "libraryName": "react-svg",
+            "typingsPackageName": "react-svg",
+            "sourceRepoURL": "https://github.com/tanem/react-svg",
+            "asOfVersion": "5.0.0"
         },
         {
             "libraryName": "realm",

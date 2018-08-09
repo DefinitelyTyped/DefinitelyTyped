@@ -690,9 +690,10 @@ namespace url_tests {
         const searchParams = new url.URLSearchParams('abc=123');
 
         assert.equal(searchParams.toString(), 'abc=123');
-        searchParams.forEach((value: string, name: string): void => {
+        searchParams.forEach((value: string, name: string, me: url.URLSearchParams): void => {
             assert.equal(name, 'abc');
             assert.equal(value, '123');
+            assert.equal(me, searchParams);
         });
 
         assert.equal(searchParams.get('abc'), '123');
@@ -952,74 +953,149 @@ const unzipped: Buffer = zlib.unzipSync(compressMe);
 function simplified_stream_ctor_test() {
     new stream.Readable({
         read(size) {
-            size.toFixed();
+            // $ExpectType Readable
+            this;
+            // $ExpectType number
+            size;
         },
-        destroy(error) {
-            error.stack;
+        destroy(error, cb) {
+            // $ExpectType Error
+            error;
+            // $ExpectType (error: Error) => void
+            cb;
         }
     });
 
     new stream.Writable({
         write(chunk, enc, cb) {
-            chunk.slice(1);
-            enc.charAt(0);
-            cb();
+            // $ExpectType Writable
+            this;
+            // $ExpectType any
+            chunk;
+            // $ExpectType string
+            enc;
+            // $ExpectType (error?: Error) => void
+            cb;
         },
         writev(chunks, cb) {
-            chunks[0].chunk.slice(0);
-            chunks[0].encoding.charAt(0);
-            cb();
+            // $ExpectType Writable
+            this;
+            // $ExpectType { chunk: any; encoding: string; }[]
+            chunks;
+            // $ExpectType (error?: Error) => void
+            cb;
         },
-        destroy(error) {
-            error.stack;
+        destroy(error, cb) {
+            // $ExpectType Writable
+            this;
+            // $ExpectType Error
+            error;
+            // $ExpectType (error: Error) => void
+            cb;
         },
         final(cb) {
-            cb(null);
+            // $ExpectType Writable
+            this;
+            // $ExpectType (error?: Error) => void
+            cb;
         }
     });
 
     new stream.Duplex({
         read(size) {
-            size.toFixed();
+            // $ExpectType Duplex
+            this;
+            // $ExpectType number
+            size;
         },
         write(chunk, enc, cb) {
-            chunk.slice(1);
-            enc.charAt(0);
-            cb();
+            // $ExpectType Duplex
+            this;
+            // $ExpectType any
+            chunk;
+            // $ExpectType string
+            enc;
+            // $ExpectType (error?: Error) => void
+            cb;
         },
         writev(chunks, cb) {
-            chunks[0].chunk.slice(0);
-            chunks[0].encoding.charAt(0);
-            cb();
+            // $ExpectType Duplex
+            this;
+            // $ExpectType { chunk: any; encoding: string; }[]
+            chunks;
+            // $ExpectType (error?: Error) => void
+            cb;
+        },
+        destroy(error, cb) {
+            // $ExpectType Duplex
+            this;
+            // $ExpectType Error
+            error;
+            // $ExpectType (error: Error) => void
+            cb;
+        },
+        final(cb) {
+            // $ExpectType Duplex
+            this;
+            // $ExpectType (error?: Error) => void
+            cb;
         },
         readableObjectMode: true,
         writableObjectMode: true
     });
 
     new stream.Transform({
-        transform(chunk, enc, cb) {
-            chunk.slice(1);
-            enc.charAt(0);
-            cb();
-        },
-        flush(cb) {
-            cb();
-        },
         read(size) {
-            size.toFixed();
+            // $ExpectType Transform
+            this;
+            // $ExpectType number
+            size;
         },
         write(chunk, enc, cb) {
-            chunk.slice(1);
-            enc.charAt(0);
-            cb();
+            // $ExpectType Transform
+            this;
+            // $ExpectType any
+            chunk;
+            // $ExpectType string
+            enc;
+            // $ExpectType (error?: Error) => void
+            cb;
         },
         writev(chunks, cb) {
-            chunks[0].chunk.slice(0);
-            chunks[0].encoding.charAt(0);
-            cb();
+            // $ExpectType Transform
+            this;
+            // $ExpectType { chunk: any; encoding: string; }[]
+            chunks;
+            // $ExpectType (error?: Error) => void
+            cb;
         },
-        destroy(error) {
-            error.stack;
+        destroy(error, cb) {
+            // $ExpectType Transform
+            this;
+            // $ExpectType Error
+            error;
+            // $ExpectType (error: Error) => void
+            cb;
+        },
+        final(cb) {
+            // $ExpectType Transform
+            this;
+            // $ExpectType (error?: Error) => void
+            cb;
+        },
+        transform(chunk, enc, cb) {
+            // $ExpectType Transform
+            this;
+            // $ExpectType any
+            chunk;
+            // $ExpectType string
+            enc;
+            // $ExpectType TransformCallback
+            cb;
+        },
+        flush(cb) {
+            // $ExpectType TransformCallback
+            cb;
         },
         allowHalfOpen: true,
         readableObjectMode: true,
@@ -3623,6 +3699,7 @@ namespace http2_tests {
         let pendingSettingsAck: boolean = http2Session.pendingSettingsAck;
         let settings: http2.Settings = http2Session.localSettings;
         let closed: boolean = http2Session.closed;
+        let connecting: boolean = http2Session.connecting;
         settings = http2Session.remoteSettings;
 
         http2Session.ref();
@@ -3669,6 +3746,10 @@ namespace http2_tests {
         });
 
         http2Session.settings(settings);
+
+      http2Session.ping((err: Error | null, duration: number, payload: Buffer) => {});
+      http2Session.ping(Buffer.from(''), (err: Error | null, duration: number, payload: Buffer) => {});
+      http2Session.ping(new DataView(new Int8Array(1).buffer), (err: Error | null, duration: number, payload: Buffer) => {});
     }
 
     // Http2Stream

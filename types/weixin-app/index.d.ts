@@ -3218,9 +3218,14 @@ interface Component<T> {
    */
   data: T;
   /**
-   * 设置data并执行视图层渲染
+   * 将数据从逻辑层发送到视图层，同时改变对应的 this.data 的值
+   * 1. 直接修改 this.data 而不调用 this.setData 是无法改变页面的状态的，还会造成数据不一致。
+   * 2. 单次设置的数据不能超过1024kB，请尽量避免一次设置过多的数据。
+   * 3. 请不要把 data 中任何一项的 value 设为 undefined ，否则这一项将不被设置并可能遗留一些潜在问题
+   * @param data object 以 key，value 的形式表示将 this.data 中的 key 对应的值改变成 value
+   * @param [callback] callback 是一个回调函数，在这次setData对界面渲染完毕后调用
    */
-  setData(data: object): void;
+  setData(data: { [key in keyof T]?: string | number | boolean | symbol | object | null | any[] }, callback?: () => any): void;
   /**
    * 检查组件是否具有 behavior
    * 检查时会递归检查被直接或间接引入的所有behavior
@@ -3229,11 +3234,11 @@ interface Component<T> {
   /**
    * 触发事件，参见 [组件事件](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/custom-component/events.html)
    */
-  triggerEvent(name: string, details?: any, options?: {
+  triggerEvent(name: string, details?: any, options?: Partial<{
     bubbles: boolean;
     composed: boolean;
     capturePhase: boolean;
-  }): void;
+  }>): void;
   /**
    * 创建一个 SelectorQuery 对象
    * 选择器选取范围为这个[组件实例](https://mp.weixin.qq.com/debug/wxadoc/dev/api/wxml-nodes-info.html)内
@@ -3332,6 +3337,7 @@ interface PageOptions {
    */
   onTabItemTap?: (item: any) => void;
 }
+
 interface Page {
   /**
    * 强制更新

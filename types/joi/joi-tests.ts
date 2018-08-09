@@ -1110,6 +1110,7 @@ schema = Joi.not(x, x);
 schema = Joi.not([x, x, x]);
 
 schema = Joi.required();
+schema = Joi.exist();
 schema = Joi.optional();
 schema = Joi.forbidden();
 schema = Joi.strip();

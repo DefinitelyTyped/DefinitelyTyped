@@ -10,10 +10,10 @@ import { GeneratorOptions } from "@babel/generator";
 import traverse, { Visitor, NodePath } from "@babel/traverse";
 import template from "@babel/template";
 import * as t from "@babel/types";
-import { BabylonOptions } from "babylon";
+import { ParseOptions } from "@babel/parser";
 
 export {
-    BabylonOptions,
+    ParseOptions,
     GeneratorOptions,
     t as types,
     template,
@@ -217,7 +217,7 @@ export interface TransformOptions {
      *
      * Default: `{}`
      */
-    parserOpts?: BabylonOptions | null;
+    parserOpts?: ParseOptions | null;
 
     /**
      * List of plugins to load and use

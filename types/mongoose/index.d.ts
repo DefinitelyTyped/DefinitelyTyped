@@ -151,7 +151,7 @@ declare module "mongoose" {
    * @param fn plugin callback
    * @param opts optional options
    */
-  export function plugin(fn: Function, opts?: any): typeof mongoose;
+  export function plugin<T>(fn: Function, opts?: T): typeof mongoose;
 
   /** Sets mongoose options */
   export function set(key: string, value: any): void;
@@ -655,7 +655,7 @@ declare module "mongoose" {
      * Registers a plugin for this schema.
      * @param plugin callback
      */
-    plugin(plugin: (schema: Schema, options?: any) => void, opts?: any): this;
+    plugin<T>(plugin: (schema: Schema, options?: T) => void, opts?: T): this;
 
     /**
      * Defines a post hook for the document
@@ -2983,6 +2983,8 @@ declare module "mongoose" {
     rawResult?: boolean;
     /** overwrites the schema's strict mode option for this update */
     strict?: boolean;
+    /** The context option lets you set the value of this in update validators to the underlying query. */
+    context?: string;
   }
 
   interface ModelFindOneAndUpdateOptions extends ModelFindByIdAndUpdateOptions {

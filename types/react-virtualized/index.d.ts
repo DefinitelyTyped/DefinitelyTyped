@@ -7,6 +7,7 @@
 //                 Kræn Hansen <https://github.com/kraenhansen>
 //                 Steve Zhang <https://github.com/Stevearzh>
 //                 Maciej Goszczycki <https://github.com/mgoszcz2>
+//                 Brandon Hall <https://github.com/brandonhall>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 

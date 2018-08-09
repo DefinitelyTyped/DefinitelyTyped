@@ -21,9 +21,10 @@ type Value = string | number | boolean | Date | Array<string> | Array<number> | 
 type ValueMap = { [key: string]: Value | Knex.QueryBuilder };
 type ColumnName = string | Knex.Raw | Knex.QueryBuilder | {[key: string]: string };
 type TableName = string | Knex.Raw | Knex.QueryBuilder;
+type Identifier = { [alias: string]: string };
 
 interface Knex extends Knex.QueryInterface {
-    (tableName?: TableName): Knex.QueryBuilder;
+    (tableName?: TableName | Identifier): Knex.QueryBuilder;
     VERSION: string;
     __knex__: string;
 
@@ -179,7 +180,7 @@ declare namespace Knex {
     }
 
     interface Table {
-        (tableName: TableName): QueryBuilder;
+        (tableName: TableName | Identifier): QueryBuilder;
         (callback: Function): QueryBuilder;
         (raw: Raw): QueryBuilder;
     }
@@ -285,12 +286,6 @@ declare namespace Knex {
         (columnName: string): QueryBuilder;
     }
 
-    interface WhereIn {
-        (columnName: string, values: Value[]): QueryBuilder;
-        (columnName: string, callback: QueryCallback): QueryBuilder;
-        (columnName: string, query: QueryBuilder): QueryBuilder;
-    }
-
     interface WhereBetween {
         (columnName: string, range: [Value, Value]): QueryBuilder;
     }
@@ -305,7 +300,8 @@ declare namespace Knex {
     }
 
     interface WhereIn {
-        (columnName: string, values: Value[]): QueryBuilder;
+        (columnName: string, values: Value[] | QueryBuilder | QueryCallback): QueryBuilder;
+        (columnNames: string[], values: Value[][] | QueryBuilder | QueryCallback): QueryBuilder;
     }
 
     interface GroupBy extends RawQueryBuilder, ColumnNameQueryBuilder {
@@ -316,9 +312,9 @@ declare namespace Knex {
     }
 
     interface Union {
-        (callback: QueryCallback, wrap?: boolean): QueryBuilder;
-        (callbacks: QueryCallback[], wrap?: boolean): QueryBuilder;
-        (...callbacks: QueryCallback[]): QueryBuilder;
+        (callback: QueryCallback | QueryBuilder | Raw, wrap?: boolean): QueryBuilder;
+        (callbacks: (QueryCallback | QueryBuilder | Raw)[], wrap?: boolean): QueryBuilder;
+        (...callbacks: (QueryCallback | QueryBuilder | Raw)[]): QueryBuilder;
         // (...callbacks: QueryCallback[], wrap?: boolean): QueryInterface;
     }
 

@@ -74,7 +74,7 @@ function test_serialize() {
     dom.serialize() === '<!DOCTYPE html><html><head></head><body>hello</body></html>';
 
     // Contrast with:
-    dom.window.document.documentElement.outerHTML === '<html><head></head><body>hello</body></html>';
+    dom.window.document.documentElement!.outerHTML === '<html><head></head><body>hello</body></html>';
 }
 
 function test_nodeLocation() {
