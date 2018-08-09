@@ -5,22 +5,29 @@ import { DescribeSObjectResult } from './describe-result';
 import { Query } from './query';
 import { Record, RecordReference } from './record';
 import { RecordResult } from './record-result';
-import { Connection, Callback } from './connection';
+import { Connection, RestApiOptions, Callback } from './connection';
 import { SalesforceId } from './salesforce-id';
 import { Batch, BatchResultInfo } from './batch';
 import { QuickAction, QuickActionInfo } from './quick-action';
 
 export class SObject<T> {
     record(id: SalesforceId): RecordReference<T>;
-    retrieve(id: SalesforceId, options?: Object, callback?: Callback<Record<T>>): Promise<Record<T>>;
-    retrieve(ids: SalesforceId[], options?: Object, callback?: Callback<Array<Record<T>>>): Promise<Array<Record<T>>>;
-    update(record: Partial<T>, options?: Object, callback?: Callback<RecordResult>): Promise<RecordResult>;
-    update(records: Array<Partial<T>>, options?: Object, callback?: Callback<RecordResult[]>): Promise<RecordResult[]>;
+    retrieve(id: SalesforceId, callback?: Callback<Record<T>>): Promise<Record<T>>;
+    retrieve(id: SalesforceId, options?: object, callback?: Callback<Record<T>>): Promise<Record<T>>;
+    retrieve(ids: SalesforceId[], callback?: Callback<Array<Record<T>>>): Promise<Array<Record<T>>>;
+    retrieve(ids: SalesforceId[], options?: object, callback?: Callback<Array<Record<T>>>): Promise<Array<Record<T>>>;
+    // Should update require that the record Id field be provided?
+    update(record: Partial<T>, callback?: Callback<RecordResult>): Promise<RecordResult>;
+    update(record: Partial<T>, options?: RestApiOptions, callback?: Callback<RecordResult>): Promise<RecordResult>;
+    update(records: Array<Partial<T>>, callback?: Callback<RecordResult[]>): Promise<RecordResult[]>;
+    update(records: Array<Partial<T>>, options?: RestApiOptions, callback?: Callback<RecordResult[]>): Promise<RecordResult[]>;
     // FIXME: should input really be optional? the documentation says so, but how can you actually update without it?
     updateBulk(input?: Record[] | stream.Stream | string, callback?: Callback<RecordResult[]>): Batch;
     updated(start: string | Date, end: string | Date, callback?: Callback<UpdatedRecordsInfo>): Promise<UpdatedRecordsInfo>;
-    upsert(records: Record<T>, extIdField: SalesforceId, options?: Object, callback?: Callback<RecordResult>): Promise<RecordResult>;
-    upsert(records: Array<Record<T>>, extIdField: SalesforceId, options?: Object, callback?: Callback<RecordResult[]>): Promise<RecordResult[]>;
+    upsert(records: Record<T>, extIdField: string, callback?: Callback<RecordResult>): Promise<RecordResult>;
+    upsert(records: Record<T>, extIdField: string, options?: RestApiOptions, callback?: Callback<RecordResult>): Promise<RecordResult>;
+    upsert(records: Array<Record<T>>, extIdField: string, callback?: Callback<RecordResult[]>): Promise<RecordResult[]>;
+    upsert(records: Array<Record<T>>, extIdField: string, options?: RestApiOptions, callback?: Callback<RecordResult[]>): Promise<RecordResult[]>;
     upsertBulk(input?: Array<Record<T>> | stream.Stream | string, callback?: Callback<RecordResult[] | BatchResultInfo[]>): Batch;
 
     find<T>(query?: object | string, callback?: Callback<Array<Record<T>>>): Query<Array<Record<T>>>;
@@ -45,9 +52,9 @@ export class SObject<T> {
     }
     compactLayouts(callback?: Callback<CompactLayoutInfo>): Promise<CompactLayoutInfo>;
     count(conditions?: Object | string, callback?: Callback<number>): Query<number>;
-    create(record: T, options: object, callback?: Callback<RecordResult>): Promise<RecordResult>;
+    create(record: T, options?: RestApiOptions, callback?: Callback<RecordResult>): Promise<RecordResult>;
     create(record: T, callback?: Callback<RecordResult>): Promise<RecordResult>;
-    create(record: Array<T>, options: object, callback?: Callback<RecordResult[]>): Promise<RecordResult[]>;
+    create(record: Array<T>, options?: RestApiOptions, callback?: Callback<RecordResult[]>): Promise<RecordResult[]>;
     create(record: Array<T>, callback?: Callback<RecordResult[]>): Promise<RecordResult[]>;
     // FIXME: why does the callback return a single RecordResult instead of an array as in the documentation?
     createBulk(input?: Array<Record<T>> | stream.Stream | string, callback?: Callback<RecordResult>): Batch;

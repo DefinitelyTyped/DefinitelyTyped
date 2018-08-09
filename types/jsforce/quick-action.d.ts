@@ -1,4 +1,4 @@
-import { Callback } from './global';
+import { Callback } from './connection';
 import { Record } from './record';
 
 export class QuickAction {
