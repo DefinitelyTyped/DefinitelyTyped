@@ -19,9 +19,9 @@ export class SObject<T> {
     upsert(records: Array<Record<T>>, extIdField: SalesforceId, options?: Object, callback?: (err: Error, ret: RecordResult[]) => void): Promise<RecordResult[]>;
     upsertBulk(input?: Array<Record<T>> | stream.Stream | string, callback?: (err: Error, ret: RecordResult[] | BatchResultInfo[]) => void): Batch;
 
-    find<T>(query?: any, callback?: (err: Error, ret: T[]) => void): Query<T>;
-    find<T>(query?: any, fields?: Object | string[] | string, callback?: (err: Error, ret: T[]) => void): Query<T>;
-    find<T>(query?: any, fields?: Object | string[] | string, options?: Object, callback?: (err: Error, ret: T[]) => void): Query<T>;
+    find<T>(query?: any, callback?: (err: Error, ret: T[]) => void): Query<T[]>;
+    find<T>(query?: any, fields?: Object | string[] | string, callback?: (err: Error, ret: T[]) => void): Query<T[]>;
+    find<T>(query?: any, fields?: Object | string[] | string, options?: Object, callback?: (err: Error, ret: T[]) => void): Query<T[]>;
 
     findOne<T>(query?: any, callback?: (err: Error, ret: T) => void): Query<T>;
     findOne<T>(query?: any, fields?: Object | string[] | string, callback?: (err: Error, ret: T) => void): Query<T>;
