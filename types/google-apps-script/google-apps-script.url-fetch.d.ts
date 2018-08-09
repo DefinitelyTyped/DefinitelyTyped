@@ -48,7 +48,7 @@ declare namespace GoogleAppsScript {
        * payload. It can be a string, a byte array, or a JavaScript object. A JavaScript object will be
        * interpretted as a map of form field names to values, where the values can be either strings or blobs.
        */
-      payload?: Object;
+      payload?: string | object | Base.Blob;
 
       /**
        * Deprecated. This instructs fetch to resolve the specified URL within the intranet linked to your
