@@ -10,7 +10,7 @@ export default VueSelect;
 
 export const VueSelect: VueSelectConstructor;
 
-export type Option = string | any | null;
+export type Option = any | null;
 
 export type OptionConsumer = (option: Option) => void;
 
