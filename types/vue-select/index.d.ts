@@ -25,7 +25,7 @@ export interface VueSelectProps {
     transition: string;
     clearSearchOnSelect: boolean;
     closeOnSelect: boolean;
-    label: boolean;
+    label: string;
     getOptionLabel: (option: Option) => string;
     onChange: OptionConsumer;
     taggable: boolean;
