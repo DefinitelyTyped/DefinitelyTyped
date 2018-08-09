@@ -4058,9 +4058,7 @@ declare namespace videojs {
 		 * Get the value of `ended` from the media element. `ended` indicates whether
 		 * the media has reached the end or not.
 		 *
-		 * @method Html5#ended
-		 * @return {boolean}
-		 *         - The value of `ended` from the media element.
+		 * @return - The value of `ended` from the media element.
 		 *         - True indicates that the media has ended.
 		 *         - False indicates that the media has not ended.
 		 *
