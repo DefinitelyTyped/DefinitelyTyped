@@ -42,7 +42,7 @@ export class SObject<T> {
         clear(): void;
     }
     compactLayouts(callback?: CompactLayoutInfo): Promise<CompactLayoutInfo>;
-    count(conditions?: Object | string, callback?: (err: Error, num: number) => void): Promise<number>;
+    count(conditions?: Object | string, callback?: (err: Error, num: number) => void): Query<number>;
     create(options: any | any[], callback?: (err: Error, ret: RecordResult | RecordResult[]) => void): Promise<RecordResult | RecordResult[]>;
     createBulk(input?: Array<Record<T>> | stream.Stream | string, callback?: (err: Error, ret: RecordResult) => void): Batch;
     del(ids: string | string[], callback?: (err: Error, ret: any) => void): Promise<RecordResult | RecordResult[]>;
