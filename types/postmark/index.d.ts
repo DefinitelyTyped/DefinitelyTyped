@@ -1,13 +1,10 @@
-// Type definitions for postmark 1.4
+// Type definitions for postmark 1.6
 // Project: http://wildbit.github.io/postmark.js
-// Definitions by: Ben Bayard <https://github.com/benbayard>
+// Definitions by: Ben Bayard <https://github.com/benbayard>, Sascha Wolff <https://github.com/justdoitsascha>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-export = postmark;
-
-declare const postmark: Postmark.Postmark;
-declare namespace Postmark {
+declare module Postmark {
     const defaults: Options;
 
     interface PostmarkError {
@@ -666,3 +663,5 @@ declare namespace Postmark {
         WithReadTimeRecorded: number;
     }
 }
+
+export = Postmark;

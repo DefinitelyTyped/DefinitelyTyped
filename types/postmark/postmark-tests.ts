@@ -1,6 +1,6 @@
-import postmark = require('postmark');
+import { AdminClient, Client, Options } from 'postmark';
 
-declare var options: typeof postmark.defaults;
+declare var options: Options;
 const message = { To: 'me', From: 'you' };
 const templateMessage = {...message, TemplateId: '1'};
 const filter = { offset: 0 };
@@ -13,8 +13,8 @@ const templateValidator = {
 
 declare function callback(err: any, data: any): undefined;
 
-const client = new postmark.Client('124345', options);
-const adminClient = new postmark.AdminClient('1123235', options);
+const client = new Client('124345', options);
+const adminClient = new AdminClient('1123235', options);
 
 client.send(message, callback);
 client.sendEmailWithTemplate(templateMessage, callback);
