@@ -15,6 +15,7 @@ export class SObject<T> {
     retrieve(ids: SalesforceId[], options?: Object, callback?: (err: Error, ret: Array<Record<T>>) => void): Promise<Array<Record<T>>>;
     update(record: Partial<T>, options?: Object, callback?: (err: Error, ret: RecordResult) => void): Promise<RecordResult>;
     update(records: Array<Partial<T>>, options?: Object, callback?: (err: Error, ret: RecordResult[]) => void): Promise<RecordResult[]>;
+    updated(start: string | Date, end: string | Date, callback?: (err: Error, ret: UpdatedRecordsInfo) => void): Promise<UpdatedRecordsInfo>;
     upsert(records: Record<T>, extIdField: SalesforceId, options?: Object, callback?: (err: Error, ret: RecordResult) => void): Promise<RecordResult>;
     upsert(records: Array<Record<T>>, extIdField: SalesforceId, options?: Object, callback?: (err: Error, ret: RecordResult[]) => void): Promise<RecordResult[]>;
     upsertBulk(input?: Array<Record<T>> | stream.Stream | string, callback?: (err: Error, ret: RecordResult[] | BatchResultInfo[]) => void): Batch;
@@ -73,6 +74,11 @@ export class SObject<T> {
     select(callback?: (err: Error, ret: T[]) => void): Query<T[]>;
     // TODO:use a typed pluck to turn `fields` into a subset of T's fields so that the output is slimmed down appropriately
     select(fields?: {[P in keyof T]: boolean}  | Array<(keyof T)> | (keyof T), callback?: (err: Error, ret: Array<Partial<T>>) => void): Query<Array<Partial<T>>>;
+}
+
+export interface UpdatedRecordsInfo {
+    latestDateCovered: string;
+    ids: string[];
 }
 
 export interface ApprovalLayoutInfo {
