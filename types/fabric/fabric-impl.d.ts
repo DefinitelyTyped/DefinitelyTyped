@@ -3295,6 +3295,38 @@ interface IITextOptions extends IObjectOptions, ITextOptions {
 	 */
 	caching?: boolean;
 }
+export interface Textbox extends IITextOptions {}
+export class Textbox extends Object {
+    /**
+     * Constructor
+     * @param text Text string
+     * @param [options] Options object
+     */
+    constructor(text: string, options?: IITextOptions);
+
+    /**
+     * Enters editing state
+     */
+    enterEditing(): Textbox;
+
+    /**
+     * Exits from editing state
+     * @return thisArg
+     * @chainable
+     */
+    exitEditing(): Textbox;
+    /**
+     * Sets selection start (left boundary of a selection)
+     * @param index Index to set selection start to
+     */
+    setSelectionStart(index: number): void;
+    /**
+     * Sets selection end (right boundary of a selection)
+     * @param index Index to set selection end to
+     */
+    setSelectionEnd(index: number): void;
+
+}
 export interface IText extends Text, IITextOptions { }
 export class IText extends Object {
 	/**
