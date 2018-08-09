@@ -1,5 +1,5 @@
 import * as React from 'react';
-import ReactPaginate from 'react-paginate';
+import ReactPaginate = require('react-paginate');
 
 class Test extends React.Component {
     render() {
