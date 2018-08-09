@@ -30,14 +30,14 @@ export class SObject<T> {
 
     approvalLayouts$: {
         /** Returns a value from the cache if it exists, otherwise calls SObject.approvalLayouts */
-        (callback?: (layoutInfo: ApprovalLayoutInfo) => void): ApprovalLayoutInfo;
+        (callback?: (err: Error, layoutInfo: ApprovalLayoutInfo) => void): ApprovalLayoutInfo;
         clear(): void;
     }
     approvalLayouts(callback?: (layoutInfo: ApprovalLayoutInfo) => void): Promise<ApprovalLayoutInfo>;
     bulkload(operation: string, options?: { extIdField?: string }, input?: Array<Record<T>> | stream.Stream[] | string[], callback?: (err: Error, ret: RecordResult) => void): Batch;
     compactLayouts$: {
         /** Returns a value from the cache if it exists, otherwise calls SObject.compactLayouts */
-        (callback?: CompactLayoutInfo): CompactLayoutInfo;
+        (callback?: (err: Error, layoutInfo: CompactLayoutInfo) => void): CompactLayoutInfo;
         clear(): void;
     }
     compactLayouts(callback?: CompactLayoutInfo): Promise<CompactLayoutInfo>;
