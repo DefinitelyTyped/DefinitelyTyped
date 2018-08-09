@@ -1,19 +1,19 @@
 import * as dav from "dav";
 
-(function () {
-    var xhr = new dav.transport.Basic(
+(() => {
+    const xhr = new dav.transport.Basic(
         new dav.Credentials({
             username: 'xxx',
             password: 'xxx'
         })
     );
 
-    dav.createAccount({ server: 'http://dav.example.com', xhr: xhr })
+    dav.createAccount({ server: 'http://dav.example.com', xhr })
         .then(function (account) {
             account.calendars.forEach(function () {
             });
         });
-    var client = new dav.Client(xhr);
+    const client = new dav.Client(xhr);
 
     client.createAccount({
         server: 'http://dav.example.com',
@@ -24,8 +24,8 @@ import * as dav from "dav";
     });
 })();
 
-(function () {
-    var client = new dav.Client(
+(() => {
+    const client = new dav.Client(
         new dav.transport.Basic(
             new dav.Credentials({
                 username: 'xxx',
@@ -37,64 +37,63 @@ import * as dav from "dav";
         }
     );
 
-    var req = dav.request.basic({
+    const req = dav.request.basic({
         method: 'PUT',
         data: 'BEGIN:VCALENDAR\nEND:VCALENDAR',
         etag: '12345'
     });
 
     client.send(req, '/calendars/123.ics')
-        .then(function () {
-        });
+        .then(() => { });
 })();
 
-(function () {
-    var xhr = new dav.transport.Basic(
+(() => {
+    const xhr = new dav.transport.Basic(
         new dav.Credentials({
             username: 'xxx',
             password: 'xxx'
         })
     );
 
-    var req = dav.request.basic({
+    const req = dav.request.basic({
         method: 'PUT',
         data: 'BEGIN:VCALENDAR\nEND:VCALENDAR',
         etag: '12345'
     });
 
     xhr.send(req, 'https://mail.mozilla.com/calendars/123.ics')
-        .then(function () {
+        .then(() => {
         });
 })();
 
 dav.debug.enabled = true;
 
-(function () {
-    let xhr = new dav.transport.Basic(
+(() => {
+    const xhr = new dav.transport.Basic(
         new dav.Credentials({
             username: 'Killer BOB',
             password: 'blacklodge'
         })
     );
 
-    let client = new dav.Client(xhr, { baseUrl: 'https://mail.mozilla.com' });
+    const client = new dav.Client(xhr, { baseUrl: 'https://mail.mozilla.com' });
 
-    let url = 'https://mail.mozilla.com/';
-    let req = dav.request.basic({
+    const url = 'https://mail.mozilla.com/';
+    const req = dav.request.basic({
         method: 'PUT',
         data: 'BEGIN:VCALENDAR\nEND:VCALENDAR',
         etag: 'abc123'
     });
 
-    let sandbox = dav.createSandbox();
-    client.send(req, url, { sandbox: sandbox });
-    xhr.send(req, url, { sandbox: sandbox });
+    const sandbox = dav.createSandbox();
+    client.send(req, url, { sandbox });
+    xhr.send(req, url, { sandbox });
 
     client.createAccount({ sandbox: {}, server: 'http://dav.example.com' });
     dav.createAccount({
         sandbox: {},
         server: 'http://dav.example.com',
-        xhr: xhr
+        xhr
     });
 
     let calendar = new dav.Calendar();
@@ -107,7 +106,7 @@ dav.debug.enabled = true;
         {
             data: 'BEGIN:VCALENDAR\nEND:VCALENDAR',
             filename: 'test.ics',
-            xhr: xhr
+            xhr
         });
 
     let object = new dav.CalendarObject();
@@ -115,7 +114,7 @@ dav.debug.enabled = true;
     dav.updateCalendarObject(
         object,
         {
-            xhr: xhr
+            xhr
         }
     );
 
@@ -124,7 +123,7 @@ dav.debug.enabled = true;
     dav.deleteCalendarObject(
         object,
         {
-            xhr: xhr
+            xhr
         }
     );
 
@@ -134,7 +133,7 @@ dav.debug.enabled = true;
         calendar,
         {
             syncMethod: 'webdav',
-            xhr: xhr
+            xhr
         }
     );
 
@@ -144,7 +143,7 @@ dav.debug.enabled = true;
         account,
         {
             syncMethod: 'webdav',
-            xhr: xhr
+            xhr
         }
     );
 
@@ -157,7 +156,7 @@ dav.debug.enabled = true;
         {
             data: 'BEGIN:VCARD\nEND:VCARD',
             filename: 'test.vcf',
-            xhr: xhr
+            xhr
         });
 
     let vcard = new dav.VCard();
@@ -165,7 +164,7 @@ dav.debug.enabled = true;
     dav.updateCard(
         vcard,
         {
-            xhr: xhr
+            xhr
         }
     );
     vcard = new dav.VCard();
@@ -173,7 +172,7 @@ dav.debug.enabled = true;
     dav.deleteCard(
         vcard,
         {
-            xhr: xhr
+            xhr
         });
 
     addressBook = new dav.AddressBook();
@@ -185,7 +184,7 @@ dav.debug.enabled = true;
         addressBook,
         {
             syncMethod: 'basic',
-            xhr: xhr
+            xhr
         });
 
     account = new dav.Account();
@@ -195,40 +194,40 @@ dav.debug.enabled = true;
         account,
         {
             syncMethod: 'basic',
-            xhr: xhr
+            xhr
         });
 })();
 
-(function () {
-    let xhr = new dav.transport.Basic(
+(() => {
+    const xhr = new dav.transport.Basic(
         new dav.Credentials({ username: 'admin', password: 'admin' })
     );
 
-    let req: dav.Request = {
+    const req: dav.Request = {
         method: 'GET',
-        transformRequest: xhr => xhr
+        transformRequest: (xhr:any) => xhr
     };
 
-    let sandbox = dav.createSandbox();
-    xhr.send(req, 'http://127.0.0.1:1337', { sandbox: sandbox });
+    const sandbox = dav.createSandbox();
+    xhr.send(req, 'http://127.0.0.1:1337', { sandbox });
     sandbox.requestList;
 
     xhr.send(req, 'http://127.0.0.1:1337');
 })();
 
-(function () {
-    let credentials = new dav.Credentials({
+(() => {
+    const credentials = new dav.Credentials({
         clientId: '605300196874-1ki833poa7uqabmh3hq' +
-        '6u1onlqlsi54h.apps.googleusercontent.com',
+            '6u1onlqlsi54h.apps.googleusercontent.com',
         clientSecret: 'jQTKlOhF-RclGaGJot3HIcVf',
         redirectUrl: 'https://oauth.gaiamobile.org/authenticated',
         tokenUrl: 'https://accounts.google.com/o/oauth2/token',
         authorizationCode: 'gareth'
     });
 
-    let xhr = new dav.transport.OAuth2(credentials);
+    const xhr = new dav.transport.OAuth2(credentials);
 
-    let req = { method: 'GET' };
+    const req = { method: 'GET' };
 
     credentials.accessToken = 'EXPIRED';
     credentials.refreshToken = '1/oPHTPFgECWFPrs7KgHdis24u6Xl4E4EnRrkkiwLfzdk';
@@ -240,7 +239,7 @@ dav.debug.enabled = true;
 
     credentials.accessToken = 'Little Bear';
     credentials.refreshToken = 'spicy tamales';
-    let expiration = credentials.expiration = Date.now() + 60 * 60 * 1000;
+    const expiration = credentials.expiration = Date.now() + 60 * 60 * 1000;
 
     credentials.accessToken = 'EXPIRED';
     credentials.refreshToken = 'raspberry pie';

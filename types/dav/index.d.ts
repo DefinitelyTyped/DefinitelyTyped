@@ -1,15 +1,16 @@
-// Type definitions for dav v1.7.9
+// Type definitions for dav v1.7
 // Project: https://github.com/lambdabaa/dav/
 // Definitions by: ToastHawaii <https://github.com/ToastHawaii/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 export let version: string;
 
 /**
-  * Perform an initial download of a caldav or carddav account's data.
-  * @param options
-  * @returns a Promise which will be fulfilled with a dav.Account object.
-  */
+ * Perform an initial download of a caldav or carddav account's data.
+ * @param options
+ * @returns a Promise which will be fulfilled with a dav.Account object.
+ */
 export function createAccount(options: CreateAccountOptions): Promise<Account>;
 
 export interface CreateAccountOptions {
@@ -206,13 +207,13 @@ export interface SyncCaldavAccountOptions {
 export function createCard(addressBook: AddressBook, options: CreateCardOptions): Promise<AddressBook>;
 
 export interface CreateCardOptions {
-	/**
+    /**
      * VCARD object.
-	 */
+     */
     data: string;
-	/**
+    /**
      * name for the vcard vcf file.
-	 */
+     */
     filename: string;
 
     /**
@@ -226,7 +227,7 @@ export interface CreateCardOptions {
 }
 
 /**
- * 	Persist updates to the parameter vcard object to the server.
+ *     Persist updates to the parameter vcard object to the server.
  * @param  card updated vcard object.
  * @param options
  * @returns a Promise which will be fulfilled when the vcard has been updated.
@@ -234,9 +235,9 @@ export interface CreateCardOptions {
 export function updateCard(card: VCard, options: UpdateCardOptions): Promise<VCard>;
 
 export interface UpdateCardOptions {
-	/**
+    /**
      * request sandbox.
-	 */
+     */
     sandbox?: Sandbox;
     /**
      * request sender.
@@ -253,9 +254,9 @@ export interface UpdateCardOptions {
 export function deleteCard(card: VCard, options: DeleteCardOptions): Promise<VCard>;
 
 export interface DeleteCardOptions {
-	/**
+    /**
      * request sandbox.
-	 */
+     */
     sandbox?: Sandbox;
     /**
      * request sender.
@@ -272,14 +273,14 @@ export interface DeleteCardOptions {
 export function syncAddressBook(addressBook: AddressBook, options: SyncAddressBookOptions): Promise<AddressBook>;
 
 export interface SyncAddressBookOptions {
-	/**
+    /**
      * request sandbox.
-	 */
+     */
     sandbox?: Sandbox;
-	/**
+    /**
      * either 'basic' or 'webdav'.If unspecified, will try to do webdav sync
      * and failover to basic sync if rfc 6578 is not supported by the server.
-	 */
+     */
     syncMethod?: "basic" | "webdav";
 
     /**
@@ -346,14 +347,14 @@ export class Sandbox {
 export function createSandbox(): Sandbox;
 
 export namespace transport {
-    export class Transport {
+    class Transport {
         /**
          * @param credentials user authorization.
          */
         constructor(credentials: Credentials);
     }
 
-    export interface TransportOptions {
+    interface TransportOptions {
         /**
          *  request sandbox.
          */
@@ -362,10 +363,10 @@ export namespace transport {
         retry?: boolean;
     }
 
-    export class Basic extends Transport {
+    class Basic extends Transport {
         /**
          * Create a new Basic object. This sends dav requests using http basic authentication.
-         * @param {dav.Credentials} credentials user authorization.
+         * @param credentials user authorization.
          */
         constructor(credentials: Credentials);
 
@@ -374,16 +375,19 @@ export namespace transport {
          * @param request object with request info.
          * @param url
          * @param options
-         * @return a promise that will be resolved with an xhr request after its readyState is 4 or the result of applying an optional request `transformResponse` function to the xhr object after its readyState is 4.
+         * @return a promise that will be resolved with an xhr request after 
+         * its readyState is 4 or the result of applying an optional request 
+         * `transformResponse` function to the xhr object after its readyState 
+         * is 4.
          */
         send(request: Request, url: string, options?: TransportOptions): Promise<any>;
     }
 
     /**
      * Create a new OAuth2 object.This sends dav requests authorized via rfc 6749 oauth2.
-     * @param {dav.Credentials} credentials user authorization.
+     * @param credentials user authorization.
      */
-    export class OAuth2 extends Transport {
+    class OAuth2 extends Transport {
         constructor(credentials: Credentials);
 
         /**
@@ -391,7 +395,10 @@ export namespace transport {
          * @param request object with request info.
          * @param url
          * @param options
-         * @return a promise that will be resolved with an xhr request after its readyState is 4 or the result of applying an optional request `transformResponse` function to the xhr object after its readyState is 4.
+         * @return a promise that will be resolved with an xhr request after 
+         * its readyState is 4 or the result of applying an optional request 
+         * `transformResponse` function to the xhr object after its readyState
+         * is 4.
          */
         send(request: Request, url: string, options?: TransportOptions): Promise<any>;
     }
@@ -403,9 +410,9 @@ export namespace request {
      * @param options
      * @returns
      */
-    export function addressBookQuery(options: AddressBookQueryOptions): string;
+    function addressBookQuery(options: AddressBookQueryOptions): string;
 
-    export interface AddressBookQueryOptions {
+    interface AddressBookQueryOptions {
         /**
          * value for Depth header.
          */
@@ -422,9 +429,9 @@ export namespace request {
      * @param options
      * @returns
      */
-    export function basic(options: BasicOptions): Request;
+    function basic(options: BasicOptions): Request;
 
-    export interface BasicOptions {
+    interface BasicOptions {
         /**
          * put request body.
          */
@@ -446,9 +453,9 @@ export namespace request {
      * @param options
      * @returns
      */
-    export function calendarQuery(options: CalendarQueryOptions): string;
+    function calendarQuery(options: CalendarQueryOptions): string;
 
-    export interface CalendarQueryOptions {
+    interface CalendarQueryOptions {
         /**
          * value for Depth header.
          */
@@ -475,9 +482,9 @@ export namespace request {
      * @param options
      * @returns
      */
-    export function propfind(options: PropfindOptions): string;
+    function propfind(options: PropfindOptions): string;
 
-    export interface PropfindOptions {
+    interface PropfindOptions {
         /**
          *  value for Depth header.
          */
@@ -494,9 +501,9 @@ export namespace request {
      * @param options
      * @returns
      */
-    export function syncCollection(options: SyncCollectionOptions): string;
+    function syncCollection(options: SyncCollectionOptions): string;
 
-    export interface SyncCollectionOptions {
+    interface SyncCollectionOptions {
         /**
          * option value for Depth header.
          */
@@ -531,10 +538,13 @@ export class Client {
     constructor(xhr: transport.Transport, options?: ClientOptions);
 
     /**
-	 * Send a request using this client's transport (and perhaps baseUrl).
+     * Send a request using this client's transport (and perhaps baseUrl).
      * @param  req dav request.
      * @param options
-     * @return a promise that will be resolved with an xhr request after its readyState is 4 or the result of applying an optional request `transformResponse` function to the xhr object after its readyState is 4.
+     * @return a promise that will be resolved with an xhr request after 
+     * its readyState is 4 or the result of applying an optional request 
+     * `transformResponse` function to the xhr object after its readyState 
+     * is 4.
      */
     send(req: Request, uri: string, options?: ClientSendOptions): Promise<any>;
 
@@ -628,26 +638,26 @@ export class Client {
 }
 
 export interface ClientOptions {
-	/**
+    /**
      * root url to resolve relative request urls with.
-	 */
+     */
     baseUrl: string;
 }
 
 export interface ClientSendOptions {
-	/**
+    /**
      * request sandbox.
-	 */
+     */
     sandbox?: Sandbox;
-	/**
+    /**
      * relative url for request.
-	 */
+     */
     url?: string;
 }
 
 type Partial<T> = {
     [P in keyof T]?: T[P];
-}
+};
 
 export class Account {
     constructor(options?: AccountOptions);
