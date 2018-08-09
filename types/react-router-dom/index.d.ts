@@ -1,4 +1,4 @@
-// Type definitions for React Router 4.2
+// Type definitions for React Router 4.3
 // Project: https://github.com/ReactTraining/react-router
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 //                 Huy Nguyen <https://github.com/huy-nguyen>
@@ -11,6 +11,7 @@ import * as React from 'react';
 import * as H from 'history';
 
 export {
+    generatePath,
     Prompt,
     MemoryRouter,
     RedirectProps,

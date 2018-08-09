@@ -1,4 +1,4 @@
-// Type definitions for stripe 5.0
+// Type definitions for stripe 5.0.19
 // Project: https://github.com/stripe/stripe-node/
 // Definitions by: William Johnston <https://github.com/wjohnsto>
 //                 Peter Harris <https://github.com/codeanimal>
@@ -10,6 +10,8 @@
 //                 Thomas Bruun <https://github.com/bruun>
 //                 Gal Talmor <https://github.com/galtalmor>
 //                 Hunter Tunnicliff <https://github.com/htunnicliff>
+//                 Tyler Jones <https://github.com/squirly>
+//                 Troy Zarger <https://github.com/tzarger>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -187,7 +189,7 @@ declare namespace Stripe {
              * account holder to setup a username and password, and handle all account
              * management directly with them. Possible values are custom and standard.
              */
-            type: 'custom' | 'standard';
+            type: "custom" | "standard";
         }
 
         interface IAccountShared {
@@ -1468,6 +1470,13 @@ declare namespace Stripe {
             source?: sources.ISourceCreationOptionsExtended;
         }
 
+        interface ICustomerListOptions extends IListOptionsCreated {
+            /**
+             * A filter on the list based on the customer’s email field. The value must be a string.
+             */
+            email?: string;
+        }
+
         interface ICustomerSourceCreationOptions extends IDataOptionsWithMetadata {
             /**
              * When adding a card to a customer, the parameter name is source. When
@@ -1896,6 +1905,16 @@ declare namespace Stripe {
             amount_due: number;
 
             /**
+             * The amount, in cents, that was paid.
+             */
+            amount_paid: number;
+
+            /**
+             * The amount remaining, in cents, that is due.
+             */
+            amount_remaining: number;
+
+            /**
              * The fee in cents that will be applied to the invoice and transferred to the application owner's
              * Stripe account when the invoice is paid.
              */
@@ -1916,6 +1935,16 @@ declare namespace Stripe {
             attempted: boolean;
 
             /**
+             * Either charge_automatically, or send_invoice. When charging automatically, Stripe will attempt to pay this invoice using the default source attached to the customer. When sending an invoice, Stripe will email this invoice to the customer with payment instructions.
+             */
+            billing: "charge_automatically" | "send_invoice";
+
+            /**
+             * Indicates the reason why the invoice was created. subscription_cycle indicates an invoice created by a subscription advancing into a new period. subscription_update indicates an invoice created due to creating or updating a subscription. subscription is set for all old invoices to indicate either a change to a subscription or a period advancement. manual is set for all invoices unrelated to a subscription (for example: created via the invoice editor). The upcoming value is reserved for simulated invoices per the upcoming invoice endpoint.
+             */
+            billing_reason: "subscription_cycle" | "subscription_update" | "subscription" | "manual" | "upcoming";
+
+            /**
              * ID of the latest charge generated for this invoice, if any. [Expandable]
              */
             charge: string | charges.ICharge;
@@ -1926,17 +1955,35 @@ declare namespace Stripe {
              */
             closed: boolean;
 
+            /**
+             * Three-letter ISO currency code, in lowercase. Must be a supported currency.
+             */
             currency: string;
+
             customer: string;
+
+            /**
+             * Time at which the object was created. Measured in seconds since the Unix epoch.
+             */
             date: number;
+
+            /**
+             * An arbitrary string attached to the object. Often useful for displaying to users.
+             */
             description: string;
+
             discount: coupons.IDiscount;
+
+            /**
+             * The date on which payment for this invoice is due. This value will be null for invoices where billing=charge_automatically.
+             */
+            due_date: number | null;
 
             /**
              * Ending customer balance after attempting to pay invoice. If the invoice has not been attempted yet,
              * this will be null.
              */
-            ending_balance: number;
+            ending_balance: number | null;
 
             /**
              * Whether or not the invoice has been forgiven. Forgiving an invoice instructs us to update the subscription
@@ -1946,19 +1993,41 @@ declare namespace Stripe {
             forgiven: boolean;
 
             /**
+             * The URL for the hosted invoice page, which allows customers to view and pay an invoice. If the invoice has not been frozen yet, this will be null.
+             */
+            hosted_invoice_url: string | null;
+
+            /**
+             * The link to download the PDF for the invoice. If the invoice has not been frozen yet, this will be null.
+             */
+            invoice_pdf: string | null;
+
+            /**
              * The individual line items that make up the invoice.
              *
              * lines is sorted as follows: invoice items in reverse chronological order, followed by the subscription, if any.
              */
             lines: IList<IInvoiceLineItem>;
 
+            /**
+             * Has the value true if the object exists in live mode or the value false if the object exists in test mode.
+             */
             livemode: boolean;
+
+            /**
+             * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+             */
             metadata: IMetadata;
 
             /**
              * The time at which payment will next be attempted.
              */
             next_payment_attempt: number;
+
+            /**
+             * A unique, identifying string that appears on emails sent to the customer for this invoice. This starts with the customer’s unique invoice_prefix if it is specified.
+             */
+            number: string;
 
             /**
              * Whether or not payment was successfully collected for this invoice. An invoice can be paid (most commonly)
@@ -1988,7 +2057,7 @@ declare namespace Stripe {
             starting_balance: number;
 
             /**
-             * Extra information about an invoice for the customer�s credit card statement.
+             * Extra information about an invoice for the customer's credit card statement.
              */
             statement_descriptor: string;
 
@@ -2011,14 +2080,14 @@ declare namespace Stripe {
              * The amount of tax included in the total, calculated from tax_percent and the subtotal. If no tax_percent
              * is defined, this value will be null.
              */
-            tax: number;
+            tax: number | null;
 
             /**
              * This percentage of the subtotal has been added to the total amount of the invoice, including invoice line
              * items and discounts. This field is inherited from the subscription's tax_percent field, but can be changed
              * before the invoice is paid. This field defaults to null.
              */
-            tax_percent: number;
+            tax_percent: number | null;
 
             /**
              * Total after discount
@@ -4278,7 +4347,7 @@ declare namespace Stripe {
             /**
              * Value is 'card'
              */
-            object: string;
+            object: "card";
 
             /**
              * The card number
@@ -4337,7 +4406,7 @@ declare namespace Stripe {
             /**
              * Cardholder name
              */
-            name: string;
+            name: string | null;
 
             /**
              * Uniquely identifies this particular card number. You can use this attribute to check
@@ -4609,6 +4678,12 @@ declare namespace Stripe {
              * Integer representing the number of trial period days before the customer is charged for the first time.
              */
             trial_period_days?: number;
+
+            /**
+             * Indicates if a plan’s trial_period_days should be applied to the subscription. Setting trial_end per subscription is preferred,
+             * and this defaults to false. Setting this flag to true together with trial_end is not allowed.
+             */
+            trial_from_plan?: boolean;
 
             /**
              * List of subscription items, each with an attached plan.
@@ -4964,6 +5039,11 @@ declare namespace Stripe {
              * For other types of refunds, it can be pending, succeeded, failed, or canceled.
              */
             status: "pending" | "succeeded" | "failed" | "canceled";
+
+            /**
+             * If the refund failed, the reason for refund failure if known.
+             */
+            failure_reason?: "lost_or_stolen_card" | "expired_or_canceled_card" | "unknown";
         }
 
         interface IRefundCreationOptions extends IDataOptionsWithMetadata {
@@ -5794,8 +5874,8 @@ declare namespace Stripe {
              *
              * @param data Allows you to filter the customers you want.
              */
-            list(data: IListOptionsCreated, options: HeaderOptions, response?: IResponseFn<IList<customers.ICustomer>>): Promise<IList<customers.ICustomer>>;
-            list(data: IListOptionsCreated, response?: IResponseFn<IList<customers.ICustomer>>): Promise<IList<customers.ICustomer>>;
+            list(data: customers.ICustomerListOptions, options: HeaderOptions, response?: IResponseFn<IList<customers.ICustomer>>): Promise<IList<customers.ICustomer>>;
+            list(data: customers.ICustomerListOptions, response?: IResponseFn<IList<customers.ICustomer>>): Promise<IList<customers.ICustomer>>;
             list(options: HeaderOptions, response?: IResponseFn<IList<customers.ICustomer>>): Promise<IList<customers.ICustomer>>;
             list(response?: IResponseFn<IList<customers.ICustomer>>): Promise<IList<customers.ICustomer>>;
 

@@ -88,7 +88,7 @@ class Component extends React.Component<{}, ComponentState> {
                 <ResponsiveContainer>
                     <LineChart width={500} height={300} data={data}>
                         <XAxis dataKey="name">
-                            <Label>X axis - name</Label>
+                            <Label fontSize="8px">X axis - name</Label>
                         </XAxis>
                         <YAxis>
                             <Label>Y axis</Label>

@@ -523,6 +523,9 @@ class SetParamsTest extends React.Component<NavigationScreenProps<ScreenProps>> 
 
 interface BackButtonProps { title: string; }
 class MyBackButton extends React.Component<BackButtonProps & NavigationInjectedProps> {
+    triggerBack() {
+        console.log("Not implemented, すみません");
+    }
     render() {
       return <button title={this.props.title} onClick={() => { this.props.navigation.goBack(); }} />;
     }
@@ -533,6 +536,16 @@ class MyBackButton extends React.Component<BackButtonProps & NavigationInjectedP
 const BackButtonWithNavigation = withNavigation<BackButtonProps>(MyBackButton);
 const BackButtonInstance = <BackButtonWithNavigation
     title="Back" onRef={ref => { const backButtonRef = ref; }}
+/>;
+
+// if you have class methods, you should have a way to use them
+const BackButtonWithNavigationSpecified = withNavigation<BackButtonProps>(MyBackButton);
+const BackButtonSpecifiedInstance = <BackButtonWithNavigationSpecified
+    title="Back" onRef={ref => {
+        if (!ref) return;
+        const backButtonRef = ref as MyBackButton;
+        backButtonRef.triggerBack();
+    }}
 />;
 
 // Test withNavigationFocus
@@ -550,3 +563,13 @@ const MyFocusedComponentWithNavigationFocus = withNavigationFocus<MyFocusedCompo
 const MyFocusedComponentInstance = <MyFocusedComponentWithNavigationFocus
     expectsFocus={true} onRef={ref => { const backButtonRef = ref; }}
 />;
+
+// Test Screen with params
+
+interface MyScreenParams { title: string; }
+class MyScreen extends React.Component<NavigationInjectedProps<MyScreenParams>> {
+    render() {
+        const title = this.props.navigation.getParam('title');
+        return <button title={title} onClick={() => { this.props.navigation.goBack(); }} />;
+    }
+}

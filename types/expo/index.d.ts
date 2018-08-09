@@ -9,8 +9,9 @@
 //                 Moshe Feuchtwanger <https://github.com/moshfeu>
 //                 Michael Prokopchuk <https://github.com/prokopcm>
 //                 Tina Roh <https://github.com/tinaroh>
+//                 Nathan Phillip Brink <https://github.com/binki>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import { EventSubscription } from 'fbemitter';
 import { Component, ComponentClass, Ref, ComponentType } from 'react';
@@ -18,6 +19,7 @@ import {
     ColorPropType,
     ImageRequireSource,
     ImageURISource,
+    LinkingStatic as ReactNativeLinkingStatic,
     NativeEventEmitter,
     ViewProps,
     ViewStyle,
@@ -36,6 +38,7 @@ export type ResizeModeStretch = 'stretch';
 export type URISource = ImageURISource;
 
 export interface HashMap { [key: string]: any; }
+export interface StringHashMap { [key: string]: string; }
 
 /** Access the device accelerometer sensor(s) to respond to changes in acceleration in 3d space. */
 export namespace Accelerometer {
@@ -1711,6 +1714,21 @@ export interface LinearGradientProps {
 
 export class LinearGradient extends Component<LinearGradientProps> { }
 // #endregion
+
+/**
+ * Linking
+ */
+export interface LinkInfo {
+    path: string;
+    queryParams: Partial<StringHashMap>;
+}
+
+export interface LinkingStatic extends ReactNativeLinkingStatic {
+    makeUrl(path: string, queryParams?: HashMap): string;
+    parse(url: string): LinkInfo;
+    parseInitialURLAsync(): Promise<LinkInfo>;
+}
+export const Linking: LinkingStatic;
 
 /**
  * Location

@@ -2,7 +2,7 @@ import packager = require("electron-packager");
 
 function callback(err: Error, appPaths: string[]) {
 	const msg = err.message;
-	const	index = appPaths.indexOf("test");
+	const index = appPaths.indexOf("test");
 }
 
 function completeFunction(buildPath: string, electronVersion: string, platform: string, arch: string, callbackFn: () => void) {
@@ -12,6 +12,8 @@ function completeFunction(buildPath: string, electronVersion: string, platform: 
 function ignoreFunction(path: string) {
 	return true;
 }
+
+// this is the obsolete API and will be removed in a future version
 
 packager({
 	dir: ".",
@@ -30,6 +32,29 @@ packager({
 	}
 }, callback);
 
+function onCompleted(appPaths: string | string[]) {
+}
+
+function onError(error: Error) {
+}
+
+packager({
+	dir: ".",
+	name: "myapplication",
+	platform: "win32",
+	arch: "all",
+	electronVersion: "0.34.0",
+	win32metadata: {
+		CompanyName: "Acme CO",
+		FileDescription: "My application",
+		OriginalFilename: "myapp.exe",
+		ProductName: "Application",
+		InternalName: "roadrunner",
+		"requested-execution-level": "highestAvailable",
+		"application-manifest": "manifest.xml"
+	}
+}).then(onCompleted).catch(onError);
+
 packager({
 	dir: ".",
 	name: "myapplication",
@@ -44,7 +69,7 @@ packager({
 		"requested-execution-level": "requireAdministrator",
 		"application-manifest": "manifest.xml"
 	}
-}, callback);
+}).then(onCompleted).catch(onError);
 
 packager({
 	dir: ".",
@@ -52,14 +77,14 @@ packager({
 	platform: "all",
 	arch: "all",
 	electronVersion: "0.34.0"
-}, callback);
+}).then(onCompleted).catch(onError);
 
 packager({
 	dir: ".",
 	name: "myapplication",
 	electronVersion: "0.34.0",
 	all: true
-}, callback);
+}).then(onCompleted).catch(onError);
 
 packager({
 	dir: ".",
@@ -67,7 +92,7 @@ packager({
 	electronVersion: "0.34.0",
 	arch: "arm64",
 	executableName: "myapp"
-}, callback);
+}).then(onCompleted).catch(onError);
 
 packager({
 	dir: ".",
@@ -110,7 +135,7 @@ packager({
 		"requested-execution-level": "asInvoker",
 		"application-manifest": "manifest.xml"
 	}
-}, callback);
+}).then(onCompleted).catch(onError);
 
 packager({
 	dir: ".",
@@ -142,7 +167,7 @@ packager({
 	extendInfo: "plist.txt",
 	helperBundleId: "23223f",
 	osxSign: true
-}, callback);
+}).then(onCompleted).catch(onError);
 
 packager({
 	dir: ".",
@@ -161,7 +186,7 @@ packager({
 	ignore: ignoreFunction,
 	packageManager: "cnpm",
 	platform: "linux"
-}, callback);
+}).then(onCompleted).catch(onError);
 
 packager({
 	dir: ".",
@@ -192,4 +217,4 @@ packager({
 			"myapp2"
 		]
 	}]
-}, callback);
+}).then(onCompleted).catch(onError);

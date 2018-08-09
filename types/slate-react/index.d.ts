@@ -6,8 +6,8 @@
 //                 Patrick Sachs <https://github.com/PatrickSachs>
 //                 Brandon Shelton <https://github.com/YangusKhan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
-import { Slate } from 'slate';
+// TypeScript Version: 2.8
+import { Mark, Node, Block, Change, Schema, Value, Stack } from 'slate';
 import * as Immutable from 'immutable';
 import * as React from 'react';
 
@@ -20,9 +20,9 @@ export interface RenderMarkProps {
   attributes: RenderAttributes;
   children: React.ReactNode;
   editor: Editor;
-  mark: Slate.Mark;
-  marks: Immutable.Set<Slate.Mark>;
-  node: Slate.Node;
+  mark: Mark;
+  marks: Immutable.Set<Mark>;
+  node: Node;
   offset: number;
   text: string;
 }
@@ -33,26 +33,26 @@ export interface RenderNodeProps {
   editor: Editor;
   isSelected: boolean;
   key: string;
-  node: Slate.Block;
-  parent: Slate.Node;
+  node: Block;
+  parent: Node;
 }
 
 export interface Plugin {
-  onBeforeInput?: (event: Event, change: Slate.Change, editor: Editor) => Slate.Change | void;
-  onBlur?: (event: Event, change: Slate.Change, editor: Editor) => Slate.Change | void;
-  onFocus?: (event: Event, change: Slate.Change, editor: Editor) => Slate.Change | void;
-  onClick?: (event: Event, change: Slate.Change, editor: Editor) => Slate.Change | void;
-  onCopy?: (event: Event, change: Slate.Change, editor: Editor) => Slate.Change | void;
-  onCut?: (event: Event, change: Slate.Change, editor: Editor) => Slate.Change | void;
-  onDrop?: (event: Event, change: Slate.Change, editor: Editor) => Slate.Change | void;
-  onKeyDown?: (event: Event, change: Slate.Change, editor: Editor) => Slate.Change | void;
-  onKeyUp?: (event: Event, change: Slate.Change, editor: Editor) => Slate.Change | void;
-  onPaste?: (event: Event, change: Slate.Change, editor: Editor) => Slate.Change | void;
-  onSelect?: (event: Event, change: Slate.Change, editor: Editor) => Slate.Change | void;
-  onChange?: (change: Slate.Change) => any;
+  onBeforeInput?: (event: Event, change: Change, editor: Editor) => Change | void;
+  onBlur?: (event: Event, change: Change, editor: Editor) => Change | void;
+  onFocus?: (event: Event, change: Change, editor: Editor) => Change | void;
+  onClick?: (event: Event, change: Change, editor: Editor) => Change | void;
+  onCopy?: (event: Event, change: Change, editor: Editor) => Change | void;
+  onCut?: (event: Event, change: Change, editor: Editor) => Change | void;
+  onDrop?: (event: Event, change: Change, editor: Editor) => Change | void;
+  onKeyDown?: (event: Event, change: Change, editor: Editor) => Change | void;
+  onKeyUp?: (event: Event, change: Change, editor: Editor) => Change | void;
+  onPaste?: (event: Event, change: Change, editor: Editor) => Change | void;
+  onSelect?: (event: Event, change: Change, editor: Editor) => Change | void;
+  onChange?: (change: Change) => any;
   renderEditor?: (props: RenderAttributes, editor: Editor) => object | void;
-  schema?: Slate.Schema;
-  decorateNode?: (node: Slate.Node) => Slate.Range[] | void;
+  schema?: Schema;
+  decorateNode?: (node: Node) => Range[] | void;
   renderMark?: (props: RenderMarkProps) => any;
   renderNode?: (props: RenderNodeProps) => any;
   renderPlaceholder?: (props: RenderAttributes) => any;
@@ -61,16 +61,16 @@ export interface Plugin {
 }
 
 export interface BasicEditorProps {
-  value: Slate.Value;
+  value: Value;
   autoCorrect?: boolean;
   autoFocus?: boolean;
   className?: string;
-  onChange?: (change: Slate.Change) => any;
+  onChange?: (change: Change) => any;
   placeholder?: any;
   plugins?: Plugin[];
   readOnly?: boolean;
   role?: string;
-  schema?: Slate.Schema;
+  schema?: Schema;
   spellCheck?: boolean;
   style?: { [key: string]: string };
   tabIndex?: number;
@@ -80,29 +80,29 @@ export interface BasicEditorProps {
 export type EditorProps = BasicEditorProps & Plugin;
 
 export interface EditorState {
-  schema: Slate.Schema;
-  value: Slate.Value;
-  stack: Slate.Stack; // [TODO] define stack
+  schema: Schema;
+  value: Value;
+  stack: Stack; // [TODO] define stack
 }
 
 export class Editor extends React.Component<EditorProps, EditorState> {
-  schema: Slate.Schema;
-  value: Slate.Value;
-  stack: Slate.Stack;
+  schema: Schema;
+  value: Value;
+  stack: Stack;
 
   // Instance Methods
   blur(): void;
-  change(fn: (change: Slate.Change) => any): void;
+  change(fn: (change: Change) => any): void;
   change(...args: any[]): void;
   focus(): void;
 }
 
 export type SlateType = 'fragment' | 'html' | 'node' | 'rich' | 'text' | 'files';
 
-export function findDOMNode(node: Slate.Node): Element;
-export function findDOMRange(range: Slate.Range): Range;
-export function findNode(element: Element, value: Slate.Value): Slate.Node;
-export function findRange(selection: Selection, value: Slate.Value): Slate.Range;
-export function getEventRange(event: Event, value: Slate.Value): Slate.Range;
-export function getEventTransfer(event: Event): { type: SlateType; node: Slate.Node };
+export function findDOMNode(node: Node): Element;
+export function findDOMRange(range: Range): Range;
+export function findNode(element: Element, value: Value): Node;
+export function findRange(selection: Selection, value: Value): Range;
+export function getEventRange(event: Event, value: Value): Range;
+export function getEventTransfer(event: Event): { type: SlateType; node: Node };
 export function setEventTransfer(event: Event, type: SlateType, data: any): void;

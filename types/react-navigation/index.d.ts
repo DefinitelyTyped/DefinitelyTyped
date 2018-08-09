@@ -19,8 +19,9 @@
 //                 Jérémy Magrin <https://github.com/magrinj>
 //                 Luca Campana <https://github.com/TizioFittizio>
 //                 Ullrich Schaefer <https://github.com/stigi>
+//                 Jake <https://github.com/jakebooyah>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 /**
  * Reference: https://github.com/react-navigation/react-navigation/tree/a37473c5e4833f48796ee6c7c9cb4a8ac49d9c06
@@ -86,6 +87,11 @@ export interface NavigationState {
    */
   index: number;
   routes: NavigationRoute[];
+}
+
+export interface DrawerNavigationState extends NavigationState {
+  isDrawerOpen: boolean;
+  isTransitioning: boolean;
 }
 
 export type NavigationRoute<Params = NavigationParams> =
@@ -395,22 +401,24 @@ export interface NavigationSwitchRouterConfig {
 export interface NavigationStackScreenOptions {
   title?: string;
   header?:
-  | (
-    | React.ReactElement<any>
-    | ((headerProps: HeaderProps) => React.ReactElement<any>))
+  | React.ReactElement<any>
+  | ((headerProps: HeaderProps) => React.ReactElement<any>)
   | null;
   headerTransparent?: boolean;
   headerTitle?: string | React.ReactElement<any>;
   headerTitleStyle?: StyleProp<TextStyle>;
   headerTitleAllowFontScaling?: boolean;
   headerTintColor?: string;
-  headerLeft?: React.ReactElement<any>;
+  headerLeft?:
+  | React.ReactElement<any>
+  | ((backButtonProps: HeaderBackButtonProps) => React.ReactElement<any>)
+  | null;
   headerBackTitle?: string | null;
   headerBackImage?: React.ReactElement<any>;
   headerTruncatedBackTitle?: string;
   headerBackTitleStyle?: StyleProp<TextStyle>;
   headerPressColorAndroid?: string;
-  headerRight?: React.ReactElement<any>;
+  headerRight?: React.ReactElement<any> | null;
   headerStyle?: StyleProp<ViewStyle>;
   headerForceInset?: HeaderForceInset;
   headerBackground?: React.ReactNode | React.ReactType;
@@ -434,7 +442,9 @@ export type NavigationStackAction =
   | NavigationBackAction
   | NavigationSetParamsAction
   | NavigationResetAction
+  | NavigationReplaceAction
   | NavigationPopAction
+  | NavigationPushAction
   | NavigationPopToTopAction;
 
 export type NavigationTabAction =
@@ -1158,13 +1168,13 @@ export const HeaderBackButton: React.ComponentClass<HeaderBackButtonProps>;
  */
 export const Header: React.ComponentClass<HeaderProps>;
 
-export interface NavigationInjectedProps {
-  navigation: NavigationScreenProp<NavigationState>;
+export interface NavigationInjectedProps<P = NavigationParams> {
+  navigation: NavigationScreenProp<NavigationState, P>;
 }
 
 export function withNavigation<T = {}>(
   Component: React.ComponentType<T & NavigationInjectedProps>
-): React.ComponentType<T & { onRef?: React.Ref<typeof Component> }>;
+): React.ComponentType<T & { onRef?: React.Ref<React.Component<T & NavigationInjectedProps>> }>;
 
 export interface NavigationFocusInjectedProps extends NavigationInjectedProps {
   isFocused: boolean;

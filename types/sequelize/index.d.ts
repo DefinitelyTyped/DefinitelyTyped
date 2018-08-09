@@ -15,7 +15,7 @@
 //                 Nick Schultz <https://github.com/nrschultz>
 //                 Thomas Breleur <https://github.com/thomas-b>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 // Based on original work by: samuelneff <https://github.com/samuelneff/sequelize-auto-ts/blob/master/lib/sequelize.d.ts>
 
@@ -5263,7 +5263,7 @@ declare namespace sequelize {
          * Set to true or a string with the attribute name you want to use to enable.
          */
         version?: boolean | string;
-                     
+
         /**
          * Throws an error when no records found
          */

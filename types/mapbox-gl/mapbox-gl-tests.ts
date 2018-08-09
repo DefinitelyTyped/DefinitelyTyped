@@ -225,7 +225,7 @@ map.addLayer({
 /**
  * Popup
  */
-var popup = new mapboxgl.Popup({closeOnClick: false, closeButton: true, anchor: 'top-right', offset: {'top': [0,0], 'bottom': [25,-50]} })
+var popup = new mapboxgl.Popup({closeOnClick: false, closeButton: true, anchor: 'top-right', offset: {'top': [0,0], 'bottom': [25,-50]}, className: 'custom-class' })
 	.setLngLat([-50, 50])
 	.setHTML('<h1>Hello World!</h1>')
 	.addTo(map);

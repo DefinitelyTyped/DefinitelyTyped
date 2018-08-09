@@ -5,8 +5,11 @@
 //                 João Loff <https://github.com/jfloff>
 //                 John Reilly <https://github.com/johnnyreilly>
 //                 Alberto Restifo <https://github.com/albertorestifo>
+//                 Behind The Math <https://github.com/BehindTheMath>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
+
+import "node";
 
 export as namespace Papa;
 
@@ -17,9 +20,9 @@ export function parse(csvString: string, config?: ParseConfig): ParseResult;
 
 export function parse(file: File, config?: ParseConfig): ParseResult;
 
-export function parse(stream: ReadableStream, config?: ParseConfig): ParseResult;
+export function parse(stream: NodeJS.ReadableStream, config?: ParseConfig): ParseResult;
 
-export function parse(stream: typeof NODE_STREAM_INPUT, config?: ParseConfig): ReadableStream;
+export function parse(stream: typeof NODE_STREAM_INPUT, config?: ParseConfig): NodeJS.ReadableStream;
 
 /**
  * Unparses javascript data objects and returns a csv string

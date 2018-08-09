@@ -6,13 +6,13 @@
 //                 Tommy Troy Lin <https://github.com/tommytroylin>
 //                 Mohsen Azimi <https://github.com/mohsen1>
 //                 Jonathan Creamer <https://github.com/jcreamer898>
-//                 Ahmed T. Ali <https://github.com/ahmed-taj>
 //                 Alan Agius <https://github.com/alan-agius4>
 //                 Spencer Elliott <https://github.com/elliottsj>
 //                 Jason Cheatham <https://github.com/jason0x43>
 //                 Dennis George <https://github.com/dennispg>
 //                 Christophe Hurpeau <https://github.com/christophehurpeau>
 //                 ZSkycat <https://github.com/ZSkycat>
+//                 John Reilly <https://github.com/johnnyreilly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -947,6 +947,12 @@ declare namespace webpack {
             childrenCounters: any;
             usedChunkIds: any;
             usedModuleIds: any;
+            fileTimestamps: Map<string, number>;
+            contextTimestamps: Map<string, number>;
+            fileDependencies: SortableSet<string>;
+            contextDependencies: SortableSet<string>;
+            missingDependencies: SortableSet<string>;
+            hash?: string;
             getStats(): Stats;
             addModule(module: CompilationModule, cacheGroup: any): any;
             // tslint:disable-next-line:ban-types
@@ -1017,6 +1023,33 @@ declare namespace webpack {
         invalidate(): void;
     }
 
+    interface InputFileSystem {
+        purge(): void;
+        readFile(path: string, callback: (err: Error, contents: Buffer) => void): void;
+        readFileSync(path: string): Buffer;
+        readlink(path: string, callback: (err: Error, linkString: string) => void): void;
+        readlinkSync(path: string): string;
+        stat(path: string, callback: (err: Error, stats: any) => void): void;
+        statSync(path: string): any;
+    }
+
+    interface OutputFileSystem {
+        join(...paths: string[]): string;
+        mkdir(path: string, callback: (err: Error) => void): void;
+        mkdirp(path: string, callback: (err: Error) => void): void;
+        purge(): void;
+        rmdir(path: string, callback: (err: Error) => void): void;
+        unlink(path: string, callback: (err: Error) => void): void;
+        writeFile(path: string, data: any, callback: (err: Error) => void): void;
+    }
+
+    interface SortableSet<T> extends Set<T> {
+        sortWith(sortFn: (a: T, b: T) => number): void;
+        sort(): void;
+        getFromCache(fn: (set: SortableSet<T>) => T[]): T[];
+        getFromUnorderedCache(fn: (set: SortableSet<T>) => string|number|T[]): any;
+    }
+
     class Compiler extends Tapable implements ICompiler {
         constructor();
 
@@ -1025,7 +1058,10 @@ declare namespace webpack {
 
         name: string;
         options: Configuration;
-        outputFileSystem: any;
+        inputFileSystem: InputFileSystem;
+        outputFileSystem: OutputFileSystem;
+        fileTimestamps: Map<string, number>;
+        contextTimestamps: Map<string, number>;
         run(handler: Compiler.Handler): void;
         watch(watchOptions: Compiler.WatchOptions, handler: Compiler.Handler): Compiler.Watching;
     }
@@ -1048,7 +1084,7 @@ declare namespace webpack {
     }
 
     abstract class MultiCompiler extends Tapable implements ICompiler {
-        compilers: ICompiler[];
+        compilers: Compiler[];
         run(handler: MultiCompiler.Handler): void;
         watch(watchOptions: MultiCompiler.WatchOptions, handler: MultiCompiler.Handler): MultiWatching;
     }
@@ -1072,6 +1108,10 @@ declare namespace webpack {
     }
 
     abstract class Stats {
+        compilation: compilation.Compilation;
+        hash?: string;
+        startTime?: Date;
+        endTime?: Date;
         /** Returns true if there were errors while compiling. */
         hasErrors(): boolean;
         /** Returns true if there were warnings while compiling. */

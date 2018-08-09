@@ -1230,6 +1230,8 @@ export namespace plugins {
         reviver?: any;
 
         maxFieldsSize?: number;
+
+        maxFileSize: number;
     }
 
     /**

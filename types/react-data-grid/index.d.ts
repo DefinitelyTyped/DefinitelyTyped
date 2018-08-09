@@ -2,7 +2,7 @@
 // Project: https://github.com/adazzle/react-data-grid.git
 // Definitions by: Simon Gellis <https://github.com/SupernaviX>, Kieran Peat <https://github.com/KieranPeat>, Martin Novak <https://github.com/martinnov92>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 /// <reference types="react" />
 
@@ -130,6 +130,17 @@ declare namespace AdazzleReactDataGrid {
          * @param sortDirection The direction to sort ('ASC'/'DESC'/'NONE')
          */
         onGridSort?: (sortColumn: string, sortDirection: 'ASC' | 'DESC' | 'NONE') => void
+
+        /**
+         * Initial sorting direction
+         */
+        sortDirection?: 'ASC' | 'DESC' | 'NONE'
+
+        /**
+         * key of the initial sorted column
+         */
+        sortColumn?: string
+
         /**
          * Called when the user filters a column by some value.
          * Should restrict the rows in rowGetter to only things that match the filter.

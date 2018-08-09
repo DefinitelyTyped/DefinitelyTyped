@@ -36,37 +36,37 @@ export function isType(type: any): type is GraphQLType;
 
 export function assertType(type: any): GraphQLType;
 
-export function isScalarType(type: GraphQLType): type is GraphQLScalarType;
+export function isScalarType(type: any): type is GraphQLScalarType;
 
-export function assertScalarType(type: GraphQLType): GraphQLScalarType;
+export function assertScalarType(type: any): GraphQLScalarType;
 
-export function isObjectType(type: GraphQLType): type is GraphQLObjectType;
+export function isObjectType(type: any): type is GraphQLObjectType;
 
-export function assertObjectType(type: GraphQLType): GraphQLObjectType;
+export function assertObjectType(type: any): GraphQLObjectType;
 
-export function isInterfaceType(type: GraphQLType): type is GraphQLInterfaceType;
+export function isInterfaceType(type: any): type is GraphQLInterfaceType;
 
-export function assertInterfaceType(type: GraphQLType): GraphQLInterfaceType;
+export function assertInterfaceType(type: any): GraphQLInterfaceType;
 
-export function isUnionType(type: GraphQLType): type is GraphQLUnionType;
+export function isUnionType(type: any): type is GraphQLUnionType;
 
-export function assertUnionType(type: GraphQLType): GraphQLUnionType;
+export function assertUnionType(type: any): GraphQLUnionType;
 
-export function isEnumType(type: GraphQLType): type is GraphQLEnumType;
+export function isEnumType(type: any): type is GraphQLEnumType;
 
-export function assertEnumType(type: GraphQLType): GraphQLEnumType;
+export function assertEnumType(type: any): GraphQLEnumType;
 
-export function isInputObjectType(type: GraphQLType): type is GraphQLInputObjectType;
+export function isInputObjectType(type: any): type is GraphQLInputObjectType;
 
-export function assertInputObjectType(type: GraphQLType): GraphQLInputObjectType;
+export function assertInputObjectType(type: any): GraphQLInputObjectType;
 
-export function isListType(type: GraphQLType): type is GraphQLList<any>;
+export function isListType(type: any): type is GraphQLList<any>;
 
-export function assertListType(type: GraphQLType): GraphQLList<any>;
+export function assertListType(type: any): GraphQLList<any>;
 
-export function isNonNullType(type: GraphQLType): type is GraphQLNonNull<any>;
+export function isNonNullType(type: any): type is GraphQLNonNull<any>;
 
-export function assertNonNullType(type: GraphQLType): GraphQLNonNull<any>;
+export function assertNonNullType(type: any): GraphQLNonNull<any>;
 
 /**
  * These types may be used as input types for arguments and directives.
@@ -78,9 +78,9 @@ export type GraphQLInputType =
     | GraphQLList<any>
     | GraphQLNonNull<GraphQLScalarType | GraphQLEnumType | GraphQLInputObjectType | GraphQLList<any>>;
 
-export function isInputType(type: GraphQLType): type is GraphQLInputType;
+export function isInputType(type: any): type is GraphQLInputType;
 
-export function assertInputType(type: GraphQLType): GraphQLInputType;
+export function assertInputType(type: any): GraphQLInputType;
 
 /**
  * These types may be used as output types as the result of fields.
@@ -101,36 +101,36 @@ export type GraphQLOutputType =
           | GraphQLList<any>
       >;
 
-export function isOutputType(type: GraphQLType): type is GraphQLOutputType;
+export function isOutputType(type: any): type is GraphQLOutputType;
 
-export function assertOutputType(type: GraphQLType): GraphQLOutputType;
+export function assertOutputType(type: any): GraphQLOutputType;
 
 /**
  * These types may describe types which may be leaf values.
  */
 export type GraphQLLeafType = GraphQLScalarType | GraphQLEnumType;
 
-export function isLeafType(type: GraphQLType): type is GraphQLLeafType;
+export function isLeafType(type: any): type is GraphQLLeafType;
 
-export function assertLeafType(type: GraphQLType): GraphQLLeafType;
+export function assertLeafType(type: any): GraphQLLeafType;
 
 /**
  * These types may describe the parent context of a selection set.
  */
 export type GraphQLCompositeType = GraphQLObjectType | GraphQLInterfaceType | GraphQLUnionType;
 
-export function isCompositeType(type: GraphQLType): type is GraphQLCompositeType;
+export function isCompositeType(type: any): type is GraphQLCompositeType;
 
-export function assertCompositeType(type: GraphQLType): GraphQLCompositeType;
+export function assertCompositeType(type: any): GraphQLCompositeType;
 
 /**
  * These types may describe the parent context of a selection set.
  */
 export type GraphQLAbstractType = GraphQLInterfaceType | GraphQLUnionType;
 
-export function isAbstractType(type: GraphQLType): type is GraphQLAbstractType;
+export function isAbstractType(type: any): type is GraphQLAbstractType;
 
-export function assertAbstractType(type: GraphQLType): GraphQLAbstractType;
+export function assertAbstractType(type: any): GraphQLAbstractType;
 
 /**
  * List Modifier
@@ -188,9 +188,9 @@ export class GraphQLNonNull<T extends GraphQLNullableType> {
 
 export type GraphQLWrappingType = GraphQLList<any> | GraphQLNonNull<any>;
 
-export function isWrappingType(type: GraphQLType): type is GraphQLWrappingType;
+export function isWrappingType(type: any): type is GraphQLWrappingType;
 
-export function assertWrappingType(type: GraphQLType): GraphQLWrappingType;
+export function assertWrappingType(type: any): GraphQLWrappingType;
 
 /**
  * These types can all accept null as a value.
@@ -204,9 +204,9 @@ export type GraphQLNullableType =
     | GraphQLInputObjectType
     | GraphQLList<any>;
 
-export function isNullableType(type: GraphQLType): type is GraphQLNullableType;
+export function isNullableType(type: any): type is GraphQLNullableType;
 
-export function assertNullableType(type: GraphQLType): GraphQLNullableType;
+export function assertNullableType(type: any): GraphQLNullableType;
 
 export function getNullableType(type: void): undefined;
 export function getNullableType<T extends GraphQLNullableType>(type: T): T;
@@ -223,9 +223,9 @@ export type GraphQLNamedType =
     | GraphQLEnumType
     | GraphQLInputObjectType;
 
-export function isNamedType(type: GraphQLType): type is GraphQLNamedType;
+export function isNamedType(type: any): type is GraphQLNamedType;
 
-export function assertNamedType(type: GraphQLType): GraphQLNamedType;
+export function assertNamedType(type: any): GraphQLNamedType;
 
 export function getNamedType(type: void): undefined;
 export function getNamedType(type: GraphQLType): GraphQLNamedType;

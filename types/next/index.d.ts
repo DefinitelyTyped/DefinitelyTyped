@@ -1,4 +1,4 @@
-// Type definitions for next 6.0
+// Type definitions for next 6.1
 // Project: https://github.com/zeit/next.js
 // Definitions by: Drew Hays <https://github.com/dru89>
 //                 Brice BERNARD <https://github.com/brikou>
@@ -7,7 +7,7 @@
 //                 Scott Jones <https://github.com/scottdj92>
 //                 Joao Vieira <https://github.com/joaovieira>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

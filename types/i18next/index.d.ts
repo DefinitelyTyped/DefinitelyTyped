@@ -493,7 +493,7 @@ declare namespace i18next {
         /**
          * Returns rtl or ltr depending on languages read direction.
          */
-        dir(lng?: string): void;
+        dir(lng?: string): "ltr" | "rtl";
 
         /**
          * Exposes interpolation.format function added on init.

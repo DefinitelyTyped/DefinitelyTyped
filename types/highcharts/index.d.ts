@@ -3130,7 +3130,7 @@ declare namespace Highcharts {
          * chart's two series to be updated with respective options.
          * @since 5.0.0
          */
-        chartOptions?: ChartOptions;
+        chartOptions?: Options;
 
         /**
          * Under which conditions the rule applies.
@@ -6807,6 +6807,16 @@ declare namespace Highcharts {
 
         map(array: any[], fn: Function): any[];
 
+        /**
+         * Wrap an existing behavior of a part of the chart to extend or replace it.
+         * @since 2.3.0
+         *
+         * @see {@link https://www.highcharts.com/docs/extending-highcharts/extending-highcharts}
+         *
+         * @param prototype The prototype for the part of the chart to extend.
+         * @param type The type of behavior you are extending.
+         * @param cb The function that executes when the behavior occurs.
+         */
         wrap(prototype: any, type: string, cb: (proceed: Function, ...args: any[]) => void): void;
 
         /**
@@ -6838,6 +6848,15 @@ declare namespace Highcharts {
                   type: string,
                   eventArguments?: any,
                   defaultFunction?: () => void): void;
+
+        distribute(array: any[], value: number): void;
+
+        /**
+         * Prototype used to extend tooltip behavior in a chart.
+         *
+         * @see {@link https://www.highcharts.com/docs/extending-highcharts/extending-highcharts}
+         */
+        Tooltip: TooltipPrototype;
     }
 
     /**
@@ -7078,6 +7097,19 @@ declare namespace Highcharts {
          * @since 5.0.0
          */
         update(options: LegendOptions, redraw?: boolean): void;
+    }
+
+    /**
+     * The Tooltip prototype is used to to wrap and extend tooltip behaviors.
+     *
+     * @see {@link https://www.highcharts.com/docs/extending-highcharts/extending-highcharts}
+     */
+    interface TooltipPrototype {
+        /**
+         * The behavior prototypes for the tooltips in a chart.
+         * @since 2.3.0
+         */
+        prototype: any;
     }
 }
 

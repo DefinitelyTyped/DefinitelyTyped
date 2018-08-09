@@ -1,14 +1,14 @@
-// Type definitions for grid-styled 4.1
+// Type definitions for grid-styled 4.2
 // Project: https://github.com/jxnblk/grid-styled
 // Definitions by: Anton Vasin <https://github.com/antonvasin>
 //                 Victor Orlov <https://github.com/vittorio>
 //                 Louis Hache <https://github.com/lhache>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 export type Omit<T, K extends keyof T> = Pick<T, ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never, [x: number]: never })[keyof T]>;
 
-import { ComponentClass } from "react";
+import { ComponentType } from "react";
 import { StyledComponentClass } from "styled-components";
 
 export type ResponsiveProp = number | string | Array<string | number>;
@@ -39,7 +39,7 @@ export interface BoxProps
     extends Omit<React.HTMLProps<HTMLDivElement>, "width" | "wrap" | "is"> {
     flex?: ResponsiveProp;
     order?: ResponsiveProp;
-    is?: string | ComponentClass<any>;
+    is?: string | ComponentType<any>;
     alignSelf?: ResponsiveProp;
 }
 
@@ -77,4 +77,4 @@ export const theme: Theme;
 export type DivProps = Omit<React.HTMLProps<HTMLDivElement>, "ref"> & {
     innerRef?: (el: HTMLDivElement) => any;
 };
-export const div: ComponentClass<DivProps>;
+export const div: ComponentType<DivProps>;

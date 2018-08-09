@@ -4327,7 +4327,7 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @see \`{@link https://api.jquery.com/insertAfter/ }\`
      * @since 1.0
      */
-    insertAfter(target: JQuery.Selector | JQuery.htmlString | JQuery.TypeOrArray<Element> | JQuery): this;
+    insertAfter(target: JQuery.Selector | JQuery.htmlString | JQuery.TypeOrArray<Node> | JQuery<Node>): this;
     /**
      * Insert every element in the set of matched elements before the target.
      *
@@ -4336,7 +4336,7 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @see \`{@link https://api.jquery.com/insertBefore/ }\`
      * @since 1.0
      */
-    insertBefore(target: JQuery.Selector | JQuery.htmlString | JQuery.TypeOrArray<Element> | JQuery): this;
+    insertBefore(target: JQuery.Selector | JQuery.htmlString | JQuery.TypeOrArray<Node> | JQuery<Node>): this;
     /**
      * Check the current matched set of elements against a selector, element, or jQuery object and return
      * true if at least one of these elements matches the given arguments.
@@ -4704,7 +4704,7 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @see \`{@link https://api.jquery.com/offset/ }\`
      * @since 1.4
      */
-    offset(coordinates: JQuery.Coordinates | ((this: TElement, index: number, coords: JQuery.Coordinates) => JQuery.Coordinates)): this;
+    offset(coordinates: JQuery.CoordinatesPartial | ((this: TElement, index: number, coords: JQuery.Coordinates) => JQuery.CoordinatesPartial)): this;
     /**
      * Get the current coordinates of the first element in the set of matched elements, relative to the document.
      *
@@ -8333,6 +8333,12 @@ declare namespace JQuery {
         left: number;
         top: number;
     }
+
+    // Workaround for TypeScript 2.3 which does not have support for weak types handling.
+    type CoordinatesPartial =
+        Pick<Coordinates, 'left'> |
+        Pick<Coordinates, 'top'> |
+        { [key: string]: never; };
 
     interface ValHook<TElement> {
         get?(elem: TElement): any;

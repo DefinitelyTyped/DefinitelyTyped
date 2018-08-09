@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { assertType } from './lib/assert';
 
 const AppRouter = Ember.Router.extend({
 });
@@ -25,6 +26,12 @@ AppRouter.map(function() {
 
 const RouterServiceConsumer = Ember.Service.extend({
     router: Ember.inject.service('router'),
+    currentRouteName() {
+        const x: string = Ember.get(this, 'router').currentRouteName;
+    },
+    currentURL() {
+        const x: string = Ember.get(this, 'router').currentURL;
+    },
     transitionWithoutModel() {
         Ember.get(this, 'router')
         .transitionTo('some-route');
@@ -33,6 +40,11 @@ const RouterServiceConsumer = Ember.Service.extend({
         const model = Ember.Object.create();
         Ember.get(this, 'router')
         .transitionTo('some.other.route', model);
+    },
+    transitionWithMultiModel() {
+        const model = Ember.Object.create();
+        Ember.get(this, 'router')
+        .transitionTo('some.other.route', model, model);
     },
     transitionWithModelAndOptions() {
         const model = Ember.Object.create();
