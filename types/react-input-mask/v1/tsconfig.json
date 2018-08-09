@@ -18,7 +18,7 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "react-input-mask": ["react-input-mask/v2"]
+            "react-input-mask": ["react-input-mask/v1"]
         }
     },
     "files": [
