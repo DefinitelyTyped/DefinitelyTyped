@@ -13,16 +13,12 @@ export type FileTypes = '.csv' | '.zip' | '.json' | 'image/*';
 
 declare module "react-file-reader" {
     interface ReactFileReaderProps {
-        fileTypes: FileTypes | Array<FileTypes>
-        multipleFiles: boolean,
-        base64: boolean,
-        disabled: boolean,
+        fileTypes: FileTypes | FileTypes[];
+        multipleFiles: boolean;
+        base64: boolean;
+        disabled: boolean;
         handleFiles: (event: React.SyntheticEvent<any>, fileList: ReadonlyArray<FileList>) => void;
         children: any;
-    }
-
-    interface FileReader {
-        new(): FileReader;
     }
 
     export class ReactFileReader extends React.Component<ReactFileReaderProps> {
