@@ -10,7 +10,7 @@ export type RequestHandler = (req: IncomingMessage, res: ServerResponse) => any;
 
 export function run(req: IncomingMessage, res: ServerResponse, fn: RequestHandler): Promise<void>;
 
-declare function serve(fn: RequestHandler): Server;
+declare function serve(fn: RequestHandler | Promise<RequestHandler>): Server;
 export default serve;
 
 export function send(res: ServerResponse, code: number, data?: any): Promise<void>;
