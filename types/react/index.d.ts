@@ -2228,6 +2228,7 @@ declare namespace React {
         arrayOf: typeof PropTypes.arrayOf;
         objectOf: typeof PropTypes.objectOf;
         shape: typeof PropTypes.shape;
+        exact: typeof PropTypes.exact;
     }
 
     //
