@@ -45,10 +45,10 @@ export class SObject<T> {
     }
     compactLayouts(callback?: Callback<CompactLayoutInfo>): Promise<CompactLayoutInfo>;
     count(conditions?: Object | string, callback?: Callback<number>): Query<number>;
-    create(record: Record<T>, options: object, callback?: Callback<RecordResult>): Promise<RecordResult>;
-    create(record: Record<T>, callback?: Callback<RecordResult>): Promise<RecordResult>;
-    create(record: Array<Record<T>>, options: object, callback?: Callback<RecordResult[]>): Promise<RecordResult[]>;
-    create(record: Array<Record<T>>, callback?: Callback<RecordResult[]>): Promise<RecordResult[]>;
+    create(record: T, options: object, callback?: Callback<RecordResult>): Promise<RecordResult>;
+    create(record: T, callback?: Callback<RecordResult>): Promise<RecordResult>;
+    create(record: Array<T>, options: object, callback?: Callback<RecordResult[]>): Promise<RecordResult[]>;
+    create(record: Array<T>, callback?: Callback<RecordResult[]>): Promise<RecordResult[]>;
     // FIXME: why does the callback return a single RecordResult instead of an array as in the documentation?
     createBulk(input?: Array<Record<T>> | stream.Stream | string, callback?: Callback<RecordResult>): Batch;
     del(id: string, callback?: Callback<RecordResult>): Promise<RecordResult>;
