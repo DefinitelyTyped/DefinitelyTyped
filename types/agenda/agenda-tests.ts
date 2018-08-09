@@ -81,6 +81,10 @@ var mongoConnectionString = "mongodb://127.0.0.1/agenda";
 
     job.repeatEvery('10 minutes');
 
+    job.repeatEvery('10 minutes', { timezone: 'America/New_York' });
+
+    job.repeatEvery('10 minutes', { skipImmediate: true });
+
     job.repeatAt('3:30pm');
 
     job.schedule('tomorrow at 6pm');
