@@ -20,6 +20,6 @@
 	"files": [
 		"index.d.ts",
 		"qiniu-js-tests.ts",
-		"qiniu-js-tests-global.ts"
+		"qiniu-js-global-tests.ts"
 	]
 }
