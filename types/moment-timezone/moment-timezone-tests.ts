@@ -23,6 +23,7 @@ const language = "en";
 
 moment.tz();
 moment.tz("America/Los_Angeles");
+moment.tz("America/Los_Angeles").tz("Asia/Tomsk", true);
 
 moment.tz(num, "America/Los_Angeles");
 moment.tz(arr, "America/Los_Angeles");

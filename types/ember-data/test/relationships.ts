@@ -12,6 +12,20 @@ const Polymorphic = DS.Model.extend({
     paymentMethods: DS.hasMany('payment-method', { polymorphic: true })
 });
 
+Polymorphic.eachRelationship(() => '');
+Polymorphic.eachRelationship(() => '', {});
+Polymorphic.eachRelationship((n, meta) => {
+    let s: string = n;
+    let m: 'belongsTo' | 'hasMany' = meta.kind;
+});
+let p = Polymorphic.create();
+p.eachRelationship(() => '');
+p.eachRelationship(() => '', {});
+p.eachRelationship((n, meta) => {
+    let s: string = n;
+    let m: 'belongsTo' | 'hasMany' = meta.kind;
+});
+
 class Comment extends DS.Model {
     author = DS.attr('string');
 }

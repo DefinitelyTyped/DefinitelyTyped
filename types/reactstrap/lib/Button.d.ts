@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { CSSModule } from '../index';
 
-export interface ButtonProps extends React.HTMLProps<HTMLButtonElement> {
+export type ButtonProps<T = {}> = React.HTMLProps<HTMLButtonElement> & {
   outline?: boolean;
   active?: boolean;
   block?: boolean;
@@ -16,7 +16,7 @@ export interface ButtonProps extends React.HTMLProps<HTMLButtonElement> {
   style?: React.CSSProperties;
 
   cssModule?: CSSModule;
-}
+} & T;
 
-declare class Button extends React.Component<ButtonProps> {}
+declare class Button<T = {[key: string]: any}> extends React.Component<ButtonProps<T>> {}
 export default Button;

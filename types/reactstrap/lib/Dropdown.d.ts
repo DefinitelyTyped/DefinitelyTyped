@@ -7,29 +7,28 @@ export type Direction =
   | "left"
   | "right"
 
-export interface UncontrolledProps extends React.HTMLAttributes<HTMLElement> {
+export type UncontrolledProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   isOpen?: boolean;
   toggle?: () => void;
   className?: string;
   cssModule?: CSSModule;
   nav?: boolean;
   inNavbar?: boolean;
-}
-export interface UncontrolledDropdownProps extends UncontrolledProps {
-  /* intentionally blank */
-}
+  setActiveFromChild?: boolean;
+} & T;
 
-export interface Props extends UncontrolledProps {
+export type UncontrolledDropdownProps<T = {}> = UncontrolledProps<T>;
+
+export type Props<T = {}> = UncontrolledProps<T> & {
   disabled?: boolean;
   direction?: Direction;
   group?: boolean;
   size?: string;
   tag?: React.ReactType;
   addonType?: boolean | 'prepend' | 'append';
-}
-export interface DropdownProps extends Props {
-  /* intentionally blank */
-}
+};
 
-declare class Dropdown extends React.Component<DropdownProps> {}
+export type DropdownProps<T = {}> = Props<T>;
+
+declare class Dropdown<T = {[key: string]: any}> extends React.Component<DropdownProps<T>> {}
 export default Dropdown;

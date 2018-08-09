@@ -2,7 +2,7 @@ import * as React from 'react';
 import { CSSModule } from '../index';
 import { FadeProps } from './Fade';
 
-export interface ModalProps extends React.HTMLAttributes<HTMLElement> {
+export type ModalProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   isOpen?: boolean;
   autoFocus?: boolean;
   size?: string;
@@ -27,7 +27,7 @@ export interface ModalProps extends React.HTMLAttributes<HTMLElement> {
   external?: React.ReactNode;
   labelledBy?: string;
   role?: string;
-}
+} & T;
 
-declare class Modal extends React.Component<ModalProps> {}
+declare class Modal<T> extends React.Component<ModalProps<T>> {}
 export default Modal;

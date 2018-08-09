@@ -4412,12 +4412,7 @@ declare namespace EngineAPI {
     /**
      * NxCellRows...
      */
-    interface INxCellRows {
-        /**
-         * Array of data.
-         */
-        NxCellRows: INxCell[];
-    }
+    type INxCellRows = INxCell[];
 
     /**
      * INxDataPage...
@@ -8715,7 +8710,7 @@ declare namespace EngineAPI {
         /**
          * Information on the measure.
          */
-        qMeasureInfo: INxMeasureInfo;
+        qMeasureInfo: INxMeasureInfo[];
 
         /**
          * Sort order of the columns in the hypercube.

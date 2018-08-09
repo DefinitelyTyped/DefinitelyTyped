@@ -5,8 +5,10 @@
 //                 Yoga Aliarham <https://github.com/aliarham11>
 //                 Ebrahim <https://github.com/br8h>
 //                 Shahar Mor <https://github.com/shaharmor>
+//                 Whemoon Jang <https://github.com/palindrom615>
+//                 Francis Gulotta <https://github.com/reconbot>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /* =================== USAGE ===================
     import * as Redis from "ioredis";
@@ -16,6 +18,7 @@
 /// <reference types="node" />
 
 import Promise = require('bluebird');
+import tls = require('tls');
 
 interface RedisStatic {
     new(port?: number, host?: string, options?: IORedis.RedisOptions): IORedis.Redis;
@@ -63,10 +66,23 @@ declare namespace IORedis {
 
         get(key: string, callback: (err: Error, res: string) => void): void;
         get(key: string): Promise<string>;
+
         getBuffer(key: string, callback: (err: Error, res: Buffer) => void): void;
         getBuffer(key: string): Promise<Buffer>;
 
-        set(key: string, value: any, ...args: any[]): any;
+        set(key: string, value: any, expiryMode?: string | any[], time?: number | string, setMode?: number | string): Promise<string>;
+
+        set(key: string, value: any, callback: (err: Error, res: string) => void): void;
+        set(key: string, value: any, setMode: string | any[], callback: (err: Error, res: string) => void): void;
+        set(key: string, value: any, expiryMode: string, time: number | string, callback: (err: Error, res: string) => void): void;
+        set(key: string, value: any, expiryMode: string, time: number | string, setMode: number | string, callback: (err: Error, res: string) => void): void;
+
+        setBuffer(key: string, value: any, expiryMode?: string | any[], time?: number | string, setMode?: number | string): Promise<Buffer>;
+
+        setBuffer(key: string, value: any, callback: (err: Error, res: Buffer) => void): void;
+        setBuffer(key: string, value: any, setMode: string, callback: (err: Error, res: Buffer) => void): void;
+        setBuffer(key: string, value: any, expiryMode: string, time: number, callback: (err: Error, res: Buffer) => void): void;
+        setBuffer(key: string, value: any, expiryMode: string, time: number | string, setMode: number | string, callback: (err: Error, res: Buffer) => void): void;
 
         setnx(key: string, value: any, callback: (err: Error, res: any) => void): void;
         setnx(key: string, value: any): Promise<any>;
@@ -228,8 +244,8 @@ declare namespace IORedis {
         zcard(key: string, callback: (err: Error, res: number) => void): void;
         zcard(key: string): Promise<number>;
 
-        zscore(key: string, member: string, callback: (err: Error, res: number) => void): void;
-        zscore(key: string, member: string): Promise<number>;
+        zscore(key: string, member: string, callback: (err: Error, res: string) => void): void;
+        zscore(key: string, member: string): Promise<string>;
 
         zrank(key: string, member: string, callback: (err: Error, res: number) => void): void;
         zrank(key: string, member: string): Promise<number>;
@@ -239,12 +255,16 @@ declare namespace IORedis {
 
         hset(key: string, field: string, value: any, callback: (err: Error, res: 0 | 1) => void): void;
         hset(key: string, field: string, value: any): Promise<0 | 1>;
+        hsetBuffer(key: string, field: string, value: any, callback: (err: Error, res: 0 | 1) => void): void;
+        hsetBuffer(key: string, field: string, value: any): Promise<Buffer>;
 
         hsetnx(key: string, field: string, value: any, callback: (err: Error, res: 0 | 1) => void): void;
         hsetnx(key: string, field: string, value: any): Promise<0 | 1>;
 
         hget(key: string, field: string, callback: (err: Error, res: string) => void): void;
         hget(key: string, field: string): Promise<string>;
+        hgetBuffer(key: string, field: string, callback: (err: Error, res: Buffer) => void): void;
+        hgetBuffer(key: string, field: string): Promise<Buffer>;
 
         hmset(key: string, field: string, value: any, ...args: string[]): Promise<0 | 1>;
         hmset(key: string, data: any, callback: (err: Error, res: 0 | 1) => void): void;
@@ -435,6 +455,8 @@ declare namespace IORedis {
 
         scan(cursor: number, ...args: any[]): any;
 
+        sscan(key: string, cursor: number, ...args: any[]): any;
+
         hscan(key: string, cursor: number, ...args: any[]): any;
 
         zscan(key: string, cursor: number, ...args: any[]): any;
@@ -448,18 +470,34 @@ declare namespace IORedis {
         pipeline(commands?: string[][]): Pipeline;
 
         scanStream(options?: ScanStreamOption): NodeJS.EventEmitter;
+        sscanStream(key: string, options?: ScanStreamOption): NodeJS.EventEmitter;
         hscanStream(key: string, options?: ScanStreamOption): NodeJS.EventEmitter;
         zscanStream(key: string, options?: ScanStreamOption): NodeJS.EventEmitter;
     }
 
     interface Pipeline {
+        redis: Redis;
+        isCluster: boolean;
+        options: RedisOptions;
+        _queue: Command[];
+        _result: any[];
+        _transactions: number;
+        _shaToScript: {};
         bitcount(key: string, callback?: (err: Error, res: number) => void): Pipeline;
         bitcount(key: string, start: number, end: number, callback?: (err: Error, res: number) => void): Pipeline;
 
         get(key: string, callback?: (err: Error, res: string) => void): Pipeline;
         getBuffer(key: string, callback?: (err: Error, res: Buffer) => void): Pipeline;
 
-        set(key: string, value: any, ...args: any[]): Pipeline;
+        set(key: string, value: any, callback?: (err: Error, res: string) => void): Pipeline;
+        set(key: string, value: any, setMode: string, callback?: (err: Error, res: string) => void): Pipeline;
+        set(key: string, value: any, expiryMode: string, time: number, callback?: (err: Error, res: string) => void): Pipeline;
+        set(key: string, value: any, expiryMode: string, time: number, setMode: string, callback?: (err: Error, res: string) => void): Pipeline;
+
+        setBuffer(key: string, value: any, callback?: (err: Error, res: Buffer) => void): Pipeline;
+        setBuffer(key: string, value: any, setMode: string, callback?: (err: Error, res: Buffer) => void): Pipeline;
+        setBuffer(key: string, value: any, expiryMode: string, time: number, callback?: (err: Error, res: Buffer) => void): Pipeline;
+        setBuffer(key: string, value: any, expiryMode: string, time: number, setMode: string, callback?: (err: Error, res: Buffer) => void): Pipeline;
 
         setnx(key: string, value: any, callback?: (err: Error, res: any) => void): Pipeline;
 
@@ -590,10 +628,12 @@ declare namespace IORedis {
         zrevrank(key: string, member: string, callback?: (err: Error, res: number) => void): Pipeline;
 
         hset(key: string, field: string, value: any, callback?: (err: Error, res: 0 | 1) => void): Pipeline;
+        hsetBuffer(key: string, field: string, value: any, callback?: (err: Error, res: Buffer) => void): Pipeline;
 
         hsetnx(key: string, field: string, value: any, callback?: (err: Error, res: 0 | 1) => void): Pipeline;
 
         hget(key: string, field: string, callback?: (err: Error, res: string) => void): Pipeline;
+        hgetBuffer(key: string, field: string, callback?: (err: Error, res: Buffer) => void): Pipeline;
 
         hmset(key: string, field: string, value: any, ...args: string[]): Pipeline;
         hmset(key: string, data: any, callback?: (err: Error, res: 0 | 1) => void): Pipeline;
@@ -736,6 +776,8 @@ declare namespace IORedis {
 
         scan(cursor: number, ...args: any[]): Pipeline;
 
+        sscan(key: string, cursor: number, ...args: any[]): Pipeline;
+
         hscan(key: string, cursor: number, ...args: any[]): Pipeline;
 
         zscan(key: string, cursor: number, ...args: any[]): Pipeline;
@@ -827,9 +869,7 @@ declare namespace IORedis {
          */
         autoResendUnfulfilledCommands?: boolean;
         lazyConnect?: boolean;
-        tls?: {
-            ca: Buffer;
-        };
+        tls?: tls.ConnectionOptions;
         sentinels?: Array<{ host: string; port: number; }>;
         name?: string;
         /**

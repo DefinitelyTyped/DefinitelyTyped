@@ -45,7 +45,7 @@ console.log('Test Results -> BasicExample', basicExampleHtml);
 
 // Full API Example Test - based on API Documentation
 // http://intljusticemission.github.io/react-big-calendar/examples/index.html#api
-class FullAPIExample extends React.Component<BigCalendarProps> {
+class FullAPIExample extends React.Component<BigCalendarProps<CalendarEvent>> {
     render() {
         return (
             <BigCalendar

@@ -511,6 +511,10 @@ declare namespace PouchDB {
           interval?: number;
         }
 
+        interface PutOptions extends Options {
+          force?: boolean;
+        }
+
         interface RemoveAttachmentResponse extends BasicResponse {
             id: DocumentId;
             rev: RevisionId;
@@ -622,7 +626,7 @@ declare namespace PouchDB {
         };
     }
 
-    interface Database<Content extends {} = {}>  {
+    interface Database<Content extends {} = {}> extends EventEmitter {
         /** The name passed to the PouchDB constructor and unique identifier of the database. */
         name: string;
 
@@ -722,7 +726,7 @@ declare namespace PouchDB {
          * see inconsistent results.
          */
         put<Model>(doc: Core.PutDocument<Content & Model>,
-                   options: Core.Options | null,
+                   options: Core.PutOptions | null,
                    callback: Core.Callback<Core.Response>): void;
 
         /**
@@ -735,7 +739,7 @@ declare namespace PouchDB {
          * see inconsistent results.
          */
         put<Model>(doc: Core.PutDocument<Content & Model>,
-                   options?: Core.Options): Promise<Core.Response>;
+                   options?: Core.PutOptions): Promise<Core.Response>;
 
         /** Remove a doc from the database */
         remove(doc: Core.RemoveDocument,

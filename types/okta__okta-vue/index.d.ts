@@ -12,8 +12,18 @@ declare namespace OktaVuePlugin {
 		issuer: string;
 		client_id: string;
 		redirect_uri: string;
-		scope: string;
+        scope?: string;
+        response_type?: string;
 	}
+
+    interface OktaOpenIDOptions {
+        sessionToken?: string;
+        responseMode?: string;
+        responseType?: string | string[];
+        scopes?: string[];
+        state?: string;
+        nonce?: string;
+    }
 
 	function install(vm: VueConstructor, options: OktaVueOptions): PluginFunction<VueConstructor>;
     function handleCallback(): VueConstructor;
@@ -24,7 +34,7 @@ export default OktaVuePlugin;
 declare module 'vue/types/vue' {
     interface Vue {
         $auth: {
-            loginRedirect(): void;
+            loginRedirect(fromUri?: string, additionalParams?: OktaVuePlugin.OktaOpenIDOptions): void;
             logout(): Promise<void>;
             isAuthenticated(): Promise<boolean>;
             handleAuthentication(): Promise<void>;

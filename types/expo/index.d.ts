@@ -1,4 +1,4 @@
-// Type definitions for expo 26.0
+// Type definitions for expo 27.0
 // Project: https://github.com/expo/expo-sdk
 // Definitions by: Konstantin Kai <https://github.com/KonstantinKai>
 //                 Martynas Kadiša <https://github.com/martynaskadisa>
@@ -6,8 +6,12 @@
 //                 Sergio Sánchez <https://github.com/ssanchezmarc>
 //                 Fernando Helwanger <https://github.com/fhelwanger>
 //                 Umidbek Karimov <https://github.com/umidbekkarimov>
+//                 Moshe Feuchtwanger <https://github.com/moshfeu>
+//                 Michael Prokopchuk <https://github.com/prokopcm>
+//                 Tina Roh <https://github.com/tinaroh>
+//                 Nathan Phillip Brink <https://github.com/binki>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import { EventSubscription } from 'fbemitter';
 import { Component, ComponentClass, Ref, ComponentType } from 'react';
@@ -15,6 +19,7 @@ import {
     ColorPropType,
     ImageRequireSource,
     ImageURISource,
+    LinkingStatic as ReactNativeLinkingStatic,
     NativeEventEmitter,
     ViewProps,
     ViewStyle,
@@ -24,7 +29,6 @@ import {
 
 export type Axis = number;
 export type BarCodeReadCallback = (params: { type: string; data: string; }) => void;
-export type FloatFromZeroToOne = 0 | 0.1 | 0.2 | 0.3 | 0.4 | 0.5 | 0.6 | 0.7 | 0.8 | 0.9 | 1;
 export type Md5 = string;
 export type Orientation = 'portrait' | 'landscape';
 export type RequireSource = ImageRequireSource;
@@ -34,6 +38,7 @@ export type ResizeModeStretch = 'stretch';
 export type URISource = ImageURISource;
 
 export interface HashMap { [key: string]: any; }
+export interface StringHashMap { [key: string]: string; }
 
 /** Access the device accelerometer sensor(s) to respond to changes in acceleration in 3d space. */
 export namespace Accelerometer {
@@ -547,14 +552,16 @@ export type PlaybackStatus = {
 
 export interface PlaybackStatusToSet {
     androidImplementation?: string;
-    progressUpdateIntervalMillis?: number;
-    positionMillis?: number;
-    shouldPlay?: boolean;
-    rate?: FloatFromZeroToOne;
-    shouldCorrectPitch?: boolean;
-    volume?: FloatFromZeroToOne;
-    isMuted?: boolean;
     isLooping?: boolean;
+    isMuted?: boolean;
+    positionMillis?: number;
+    progressUpdateIntervalMillis?: number;
+    /** The desired playback rate of the media. This value must be between `0.0` and `32.0`. Only available on Android API version 23 and later and iOS. */
+    rate?: number;
+    shouldCorrectPitch?: boolean;
+    shouldPlay?: boolean;
+    /** A number between `0.0` (silence) and `1.0` (maximum volume). */
+    volume?: number;
 }
 
 export type PlaybackSource = RequireSource | { uri: string } | Asset;
@@ -667,7 +674,6 @@ export class PlaybackObject {
     setRateAsync(
         /** The desired playback rate of the media. This value must be between `0.0` and `32.0`. Only available on Android API version 23 and later and iOS. */
         rate: number,
-
         /** A boolean describing if we should correct the pitch for a changed rate. If set to `true`, the pitch of the audio will be corrected (so a rate different than `1.0` will timestretch the audio). */
         shouldCorrectPitch: boolean
     ): Promise<PlaybackStatus>;
@@ -729,13 +735,32 @@ export class BlurView extends Component<BlurViewProps> { }
 // #endregion
 
 /**
- * Brightness
+ * An API to get and set screen brightness.
  */
 export namespace Brightness {
-    function setBrightnessAsync(brightnessValue: FloatFromZeroToOne): Promise<void>;
-    function getBrightnessAsync(): Promise<FloatFromZeroToOne>;
-    function getSystemBrightnessAsync(): Promise<FloatFromZeroToOne>;
-    function setSystemBrightnessAsync(brightnessValue: FloatFromZeroToOne): Promise<void>;
+    /** Sets screen brightness. */
+    function setBrightnessAsync(
+        /** A number between `0` and `1`, representing the desired screen brightness. */
+        brightnessValue: number
+    ): Promise<void>;
+
+    /**
+     * Gets screen brightness.
+     * @returns A Promise that is resolved with a number between `0` and `1`, representing the current screen brightness.
+     */
+    function getBrightnessAsync(): Promise<number>;
+
+    /**
+     * Gets global system screen brightness.
+     * @returns A Promise that is resolved with a number between `0` and `1`, representing the current system screen brightness.
+     */
+    function getSystemBrightnessAsync(): Promise<number>;
+
+    /** Sets global system screen brightness, requires `WRITE_SETTINGS` permissions on Android. */
+    function setSystemBrightnessAsync(
+        /** A number between `0` and `1`, representing the desired screen brightness. */
+        brightnessValue: number
+    ): Promise<void>;
 }
 
 // #region Camera
@@ -768,30 +793,52 @@ export class CameraObject {
 }
 
 export interface CameraProps extends ViewProps {
-    zoom?: FloatFromZeroToOne;
-    ratio?: string;
-    focusDepth?: FloatFromZeroToOne;
-    type?: string | number;
-    onCameraReady?: () => void;
-    onBarCodeRead?: BarCodeReadCallback;
+    autoFocus?: string | number | boolean;
+    barCodeTypes?: Array<string | number>;
+    faceDetectionClassifications?: number;
+    faceDetectionLandmarks?: number;
     faceDetectionMode?: number;
     flashMode?: string | number;
-    barCodeTypes?: Array<string | number>;
-    whiteBalance?: string | number;
-    faceDetectionLandmarks?: number;
-    autoFocus?: string | number | boolean;
-    faceDetectionClassifications?: number;
-    onMountError?: () => void;
+    /** Distance to plane of sharpest focus. A value between `0` and `1`. `0`: infinity focus, `1`: focus as close as possible. Default: `0`. For Android this is available only for some devices and when `useCamera2Api` is set to `true`. */
+    focusDepth?: number;
+    onBarCodeRead?: BarCodeReadCallback;
+    onCameraReady?: () => void;
     onFacesDetected?: (options: { faces: TrackedFaceFeature[] }) => void;
+    onMountError?: () => void;
+    ratio?: string;
     ref?: Ref<CameraObject>;
+    type?: string | number;
+    whiteBalance?: string | number;
+    /** A value between `0` and `1` being a percentage of device's max zoom. `0`: not zoomed, `1`: maximum zoom. Default: `0`. */
+    zoom?: number;
 }
 
 export interface CameraConstants {
-    readonly Type: string;
-    readonly FlashMode: string;
-    readonly AutoFocus: string;
-    readonly WhiteBalance: string;
-    readonly VideoQuality: string;
+    readonly Type: {
+        back: string;
+        front: string;
+    };
+    readonly FlashMode: {
+        on: string;
+        off: string;
+        auto: string;
+        torch: string;
+    };
+    readonly AutoFocus: {
+        on: string;
+        off: string;
+    };
+    readonly WhiteBalance: {
+        auto: string;
+        sunny: string;
+        cloudy: string;
+        shadow: string;
+        fluorescent: string;
+        incandescent: string;
+    };
+    readonly VideoQuality: {
+        [videoQuality: string]: number;
+    };
     readonly BarCodeType: {
         aztec: string;
         codabar: string;
@@ -877,7 +924,7 @@ export namespace Constants {
         };
         appKey?: string;
         androidStatusBar?: {
-            barStyle?: 'lignt-content' | 'dark-content',
+            barStyle?: 'light-content' | 'dark-content',
             backgroundColor?: string
         };
         androidShowExponentNotificationInShellApp?: boolean;
@@ -1389,12 +1436,24 @@ export namespace Font {
 }
 
 // #region GLView
+export interface ExpoWebGLRenderingContext extends WebGLRenderingContext {
+    endFrameEXP(): void;
+}
+
 /**
- * GLView
+ * A View that acts as an OpenGL ES render target. On mounting, an OpenGL ES
+ * context is created. Its drawing buffer is presented as the contents of
+ * the View every frame.
  */
 export interface GLViewProps extends ViewProps {
-    onContextCreate(): void;
-    msaaSamples: number;
+    /**
+     * A function that will be called when the OpenGL ES context is created.
+     * Passes an object with a WebGLRenderingContext interface as an argument.
+     */
+    onContextCreate(gl: ExpoWebGLRenderingContext): void;
+
+    /** Number of MSAA samples to use on iOS. Defaults to 4. Ignored on Android. */
+    msaaSamples?: number;
 }
 
 export class GLView extends Component<GLViewProps, { msaaSamples: number }> { }
@@ -1457,6 +1516,27 @@ export namespace Gyroscope {
  * ImageManipulator
  */
 export namespace ImageManipulator {
+    type Action = Resize | Rotate | Flip | Crop;
+
+    interface Resize {
+        resize: { width: number, height: number };
+    }
+
+    interface Rotate {
+        rotate: number;
+    }
+
+    interface Flip {
+        flip?: { vertical?: boolean; horizontal?: boolean };
+    }
+
+    interface Crop {
+        originX: number;
+        originY: number;
+        width: number;
+        height: number;
+    }
+
     interface ImageResult {
         uri: string;
         width: number;
@@ -1466,25 +1546,12 @@ export namespace ImageManipulator {
 
     interface SaveOptions {
         base64?: boolean;
-        compress?: FloatFromZeroToOne;
+        /** A value in range `0` - `1` specifying compression level of the result image. `1` means no compression and `0` the highest compression. */
+        compress?: number;
         format?: 'jpeg' | 'png';
     }
 
-    interface CropParameters {
-        originX: number;
-        originY: number;
-        width: number;
-        height: number;
-    }
-
-    interface ImageManipulationOptions {
-        resize?: { width?: number; height?: number };
-        rotate?: number;
-        flip?: { vertical?: boolean; horizontal?: boolean };
-        crop?: CropParameters;
-    }
-
-    function manipulate(uri: string, actions: ImageManipulationOptions, saveOptions?: SaveOptions): Promise<ImageResult>;
+    function manipulate(uri: string, actions: Action[], saveOptions?: SaveOptions): Promise<ImageResult>;
 }
 
 /**
@@ -1520,6 +1587,9 @@ export namespace ImagePicker {
         mediaTypes?: keyof _MediaTypeOptions;
     }
 
+    /**
+     * require Permissions.CAMERA_ROLL
+     */
     function launchImageLibraryAsync(options?: ImageLibraryOptions): Promise<ImageResult>;
 
     interface CameraOptions {
@@ -1528,6 +1598,9 @@ export namespace ImagePicker {
         quality?: number;
     }
 
+    /**
+     * require Permissions.CAMERA_ROLL
+     */
     function launchCameraAsync(options?: CameraOptions): Promise<ImageResult>;
 }
 
@@ -1641,6 +1714,21 @@ export interface LinearGradientProps {
 
 export class LinearGradient extends Component<LinearGradientProps> { }
 // #endregion
+
+/**
+ * Linking
+ */
+export interface LinkInfo {
+    path: string;
+    queryParams: Partial<StringHashMap>;
+}
+
+export interface LinkingStatic extends ReactNativeLinkingStatic {
+    makeUrl(path: string, queryParams?: HashMap): string;
+    parse(url: string): LinkInfo;
+    parseInitialURLAsync(): Promise<LinkInfo>;
+}
+export const Linking: LinkingStatic;
 
 /**
  * Location
@@ -2035,6 +2123,8 @@ export interface SvgUseProps extends SvgCommonProps {
     href: string;
     x: number | string;
     y: number | string;
+    width?: number | string;
+    height?: number | string;
 }
 
 export interface SvgSymbolProps extends SvgCommonProps {
@@ -2181,6 +2271,7 @@ export interface VideoProps {
     translateY?: number;
     rotation?: number;
     ref?: Ref<PlaybackObject>;
+    style?: StyleProp<ViewStyle>;
 }
 
 export interface VideoState {
@@ -2729,7 +2820,7 @@ export namespace Calendar {
 }
 // #endregion
 
-// #region Calendar
+// #region MailComposer
 /**
  * An API to compose mails using OS specific UI.
  */
@@ -2852,3 +2943,189 @@ export namespace Updates {
      */
     function reloadFromCache(): void;
 }
+
+// #region MediaLibrary
+/**
+ * https://docs.expo.io/versions/latest/sdk/media-library
+ * Provides access to user's media library
+ * Requires Permissions.CAMERA_ROLL permissions.
+ */
+
+export namespace MediaLibrary {
+  /**
+   * Creates an asset from existing file. The most common use case is to save a picture taken by Camera.
+   */
+  function createAssetAsync(localUri: string): Promise<Asset>;
+
+  /**
+   * Fetches a page of assets matching the provided criteria.
+   */
+  function getAssetsAsync(options: GetAssetsOptions): Promise<GetAssetsResult>;
+
+  /**
+   * Provides more informations about an asset, including GPS location, local URI and EXIF metadata.
+   */
+  function getAssetInfoAsync(asset: string | Asset): Promise<Asset>;
+
+  /**
+   * Deletes assets from the library. On iOS it deletes assets from all albums they belong to, while on Android it keeps all copies of them
+   * (album is strictly connected to the asset). Also, there is additional dialog on iOS that requires user to confirm this action.
+   */
+  function deleteAssetsAsync(asset: string[] | Asset[]): Promise<boolean>;
+
+  /**
+   * Queries for user-created albums in media gallery.
+   */
+  function getAlbumsAsync(): Promise<Album[]>;
+
+  /**
+   * Queries for an album with a specific name.
+   */
+  function getAlbumAsync(albumName: string): Promise<Album>;
+
+  /**
+   * Creates an album with given name and initial asset.
+   * The asset parameter is required on Android, since it's not possible to create empty album on this platform.
+   */
+  function createAlbumAsync(albumName: string, asset: string | Asset): Promise<Album>;
+
+  /**
+   * Adds array of assets to the album.
+   * On Android, by default it copies assets from the current album to provided one, however it's also possible to move them by passing false as copyAssets argument.
+   * In case they're copied you should keep in mind that getAssetsAsync will return duplicated assets.
+   */
+  function addAssetsToAlbumAsync(assets: Asset[], album: string | Album, copyAssets?: boolean /* default true */): Promise<boolean>;
+
+  /**
+   * Removes given assets from album.
+   * On Android, album will be automatically deleted if there are no more assets inside.
+   */
+  function removeAssetsFromAlbumAsync(assets: Asset[], album: string | Album): Promise<boolean>;
+
+  /**
+   * Available on iOS only. Fetches a list of moments, which is a group of assets taken around the same place and time.
+   */
+  function getMomentsAsync(): Promise<Album[]>;
+
+  enum MediaType {
+    audio = 'audio',
+    photo = 'photo',
+    video = 'video',
+    unknow = 'unknow'
+  }
+
+  enum SortBy {
+    default = 'default',
+    id = 'id',
+    creationTime = 'creationTime',
+    modificationTime = 'modificationTime',
+    mediaType = 'mediaType',
+    width = 'width',
+    height = 'height',
+    duration = 'duration'
+  }
+
+  // region Asset
+  interface AssetAndroid {
+    albumId?: string;
+  }
+
+  interface AssetIos {
+    mediaSubtypes?: MediaType[];
+    // *
+    orientation: number;
+    // *
+    isFavorite: boolean;
+  }
+
+  interface Asset extends AssetAndroid, AssetIos {
+    id: string;
+    filename: string;
+    uri: string;
+    mediaType: string;
+    width: number;
+    height: number;
+    creationTime: number;
+    modificationTime: number;
+    duration: number;
+    // *
+    localUri?: string;
+    // *
+    location?: Location.LocationProps;
+    // *
+    exif?: object;
+  }
+
+  /**
+   * These fields can be obtained only by calling getAssetInfoAsync method
+   */
+  //#endregion
+
+  // #region Album
+  interface AlbumIos {
+    type?: string;
+    // *
+    startTime: number;
+    // *
+    endTime: number;
+    // *
+    approximateLocation?: Location.LocationProps;
+    // *
+    locationNames?: string[];
+  }
+
+  /**
+   * These fields apply only to albums whose type is moment
+   */
+
+  interface Album extends AlbumIos {
+    id: string;
+    title: string;
+    assetCount: number;
+  }
+  // #endregion
+
+  interface GetAssetsOptions {
+    first?: number;
+    after?: string;
+    album?: string | Album;
+    sortBy?: SortBy;
+    mediaType?: MediaType;
+  }
+
+  interface GetAssetsResult {
+    assets: Asset[];
+    endCursor: string;
+    hasNextPage: boolean;
+    totalCount: number;
+  }
+}
+// #endregion
+
+// #region Haptic
+/**
+ * https://docs.expo.io/versions/latest/sdk/haptic
+ * Provides haptic feedback for iOS 10+ devices using the Taptic Engine.
+ * If this is used in Android the device will use ReactNative.Vibrate instead, it's best to just avoid this.
+ */
+export namespace Haptic {
+  /**
+   * Used to let a user know when a selection change has been registered
+   */
+  function selection(): void;
+  function notification(notificationType?: NotificationType): void;
+  function impact(impactStyles?: ImpactStyles): void;
+
+  enum ImpactStyles {
+    Light = 'light',
+    Medium = 'medium',
+    Heavy = 'heavy'
+  }
+
+  enum NotificationType {
+    Success = 'success',
+    Warning = 'warning',
+    Error = 'error'
+  }
+}
+// #endregion

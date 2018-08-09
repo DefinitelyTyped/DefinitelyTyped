@@ -4,7 +4,7 @@
 //                 Jacob Froman <https://github.com/j-fro>
 //                 Nikolay Polukhin <https://github.com/gazaret>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 import {
@@ -45,6 +45,10 @@ export interface CarouselProps<T> extends React.Props<ScrollViewProps> {
      * Width in pixels of your slides, must be the same for all of them
      * Note: Required with horizontal carousel
      */
+    /**
+     * Reverses the direction of scroll. Uses scale transforms of -1.
+     */
+    inverted?: boolean;
     itemWidth?: number;
     /**
      * Height in pixels of carousel's items, must be the same for all of them

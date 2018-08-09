@@ -3,7 +3,7 @@
 // Definitions by: UNCOVER TRUTH Inc. <https://github.com/uncovertruth>
 //                 MartynasZilinskas <https://github.com/MartynasZilinskas>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from "react";
 import * as moment from "moment";
@@ -39,7 +39,7 @@ export interface Props<T = DateRangePicker> extends React.Props<T> {
     singleDateRange?: boolean;
     showLegend?: boolean;
     stateDefinitions?: StateDefinitions;
-    value?: momentRange.MomentRangeExtends | momentRange.DateRange;
+    value?: momentRange.MomentRangeExtends | momentRange.DateRange | moment.Moment;
 }
 
 export interface DateState {

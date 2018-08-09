@@ -7,6 +7,7 @@
 //                 Jason Dreyzehner <https://github.com/bitjson>
 //                 Synarque <https://github.com/synarque>
 //                 Justin Rockwood <https://github.com/jrockwood>
+//                 Keith Kelly <https://github.com/kwkelly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // TypeScript Version: 2.3
@@ -21,6 +22,13 @@ declare namespace inquirer {
         | Question<T>
         | ReadonlyArray<Question<T>>
         | Rx.Observable<Question<T>>;
+    interface OutputStreamOption {
+        output: NodeJS.WriteStream
+    }
+    interface InputStreamOption {
+        input: NodeJS.ReadStream
+    }
+    type StreamOptions = InputStreamOption | OutputStreamOption | (InputStreamOption & OutputStreamOption);
 
     interface Inquirer {
         restoreDefaultPrompts(): void;
@@ -32,8 +40,9 @@ declare namespace inquirer {
         registerPrompt(name: string, prompt: PromptModule): void;
         /**
          * Create a new self-contained prompt module.
+         * @param opt Object specifying input and output streams for the prompt
          */
-        createPromptModule(): PromptModule;
+        createPromptModule(opt?: StreamOptions): PromptModule;
         /**
          * Public CLI helper interface
          * @param questions Questions settings array

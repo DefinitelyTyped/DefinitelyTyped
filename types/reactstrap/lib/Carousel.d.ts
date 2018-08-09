@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { CSSModule } from '../index';
 
-export interface CarouselProps extends React.HTMLProps<HTMLElement> {
+export type CarouselProps<T = {}> = React.HTMLProps<HTMLElement> & {
     activeIndex?: number;
     next: () => void;
     previous: () => void;
@@ -13,7 +13,7 @@ export interface CarouselProps extends React.HTMLProps<HTMLElement> {
     mouseExit?: () => void;
     slide?: boolean;
     cssModule?: CSSModule
-}
+} & T;
 
-declare class Carousel extends React.Component<CarouselProps> {}
+declare class Carousel<T = {[key: string]: any}> extends React.Component<CarouselProps<T>> {}
 export default Carousel;

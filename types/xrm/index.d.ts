@@ -970,7 +970,7 @@ declare namespace Xrm {
          * Opens a lookup control to select one or more items.
          * @param lookupOptions Defines the options for opening the lookup dialog
          */
-        lookupObjects(lookupOptions: LookupOptions): Async.PromiseLike<LookupValue>;
+        lookupObjects(lookupOptions: LookupOptions): Async.PromiseLike<LookupValue[]>;
 
         /**
          * Refreshes the parent grid containing the specified record.
@@ -4198,6 +4198,13 @@ declare namespace Xrm {
             confirmed: boolean;
         }
 
+        interface OpenFormResult {
+            /**
+             * Identifies the record displayed or created
+             */
+            savedEntityReference: LookupValue[];
+        }
+
         /**
          * Details to show in the Error dialog
          */
@@ -4354,31 +4361,31 @@ declare namespace Xrm {
          * @param alertStrings The strings to be used in the alert dialog.
          * @param alertOptions The height and width options for alert dialog
          */
-        openAlertDialog(alertStrings: Navigation.AlertStrings, alertOptions: Navigation.DialogSizeOptions): Async.PromiseLike<any>;
+        openAlertDialog(alertStrings: Navigation.AlertStrings, alertOptions?: Navigation.DialogSizeOptions): Async.PromiseLike<any>;
 
         /**
          * Displays a confirmation dialog box containing a message and two buttons.
          * @param confirmStrings The strings to be used in the confirm dialog.
          * @param confirmOptions The height and width options for alert dialog
          */
-        openConfirmDialog(confirmStrings: Navigation.ConfirmStrings, confirmOptions: Navigation.DialogSizeOptions): Async.PromiseLike<Navigation.ConfirmResult>;
+        openConfirmDialog(confirmStrings: Navigation.ConfirmStrings, confirmOptions?: Navigation.DialogSizeOptions): Async.PromiseLike<Navigation.ConfirmResult>;
 
         /**
          * Displays an error dialog.
          * @param confirmStrings The strings to be used in the confirm dialog.
          * @param confirmOptions The height and width options for alert dialog
          */
-        openConfirmDialog(errorOptions: Navigation.ErrorDialogOptions): Async.PromiseLike<any>;
+        openErrorDialog(errorOptions: Navigation.ErrorDialogOptions): Async.PromiseLike<any>;
 
         /**
          * Opens a file.
          */
-        openFile(file: Navigation.FileDetails, openFileOptions: XrmEnum.OpenFileOptions): void;
+        openFile(file: Navigation.FileDetails, openFileOptions?: XrmEnum.OpenFileOptions): void;
 
         /**
          * Opens an entity form or a quick create form.
          */
-        openForm(entityFormOptions: Navigation.EntityFormOptions, formParameters: Utility.OpenParameters): Async.PromiseLike<any>;
+        openForm(entityFormOptions: Navigation.EntityFormOptions, formParameters?: Utility.OpenParameters): Async.PromiseLike<Navigation.OpenFormResult>;
 
         /**
          * Opens a URL, including file URLs.

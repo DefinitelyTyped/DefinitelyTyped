@@ -1361,6 +1361,39 @@ suite('assert', () => {
         assert.notDeepEqual(circularObject, secondCircularObject);
     });
 
+    test('deepStrictEqual', () => {
+        assert.deepStrictEqual({tea: 'chai'}, {tea: 'chai'});
+        assert.throws(() => assert.deepStrictEqual({tea: 'chai'}, {tea: 'black'}));
+
+        const obja = Object.create({tea: 'chai'});
+        const objb = Object.create({tea: 'chai'});
+
+        assert.deepStrictEqual(obja, objb);
+
+        const obj1 = Object.create({tea: 'chai'});
+        const obj2 = Object.create({tea: 'black'});
+
+        assert.throws(() => assert.deepStrictEqual(obj1, obj2));
+    });
+
+    test('deepStrictEqual (ordering)', () => {
+        const a = {a: 'b', c: 'd'};
+        const b = {c: 'd', a: 'b'};
+        assert.deepStrictEqual(a, b);
+    });
+
+    test('deepStrictEqual (circular)', () => {
+        const circularObject: any = {};
+        const secondCircularObject: any = {};
+        circularObject.field = circularObject;
+        secondCircularObject.field = secondCircularObject;
+
+        assert.deepStrictEqual(circularObject, secondCircularObject);
+
+        secondCircularObject.field2 = secondCircularObject;
+        assert.deepStrictEqual(circularObject, secondCircularObject);
+    });
+
     test('isNull', () => {
         assert.isNull(null);
         assert.isNull(undefined);

@@ -44,6 +44,13 @@ client.indices.delete({
 }, (error) => {
 });
 
+client.indices.delete({
+  index: 'test_index',
+  ignoreUnavailable: true
+}).then((body) => {
+}, (error) => {
+});
+
 client.deleteByQuery({
   index: 'test_index',
   type: 'test_type',
@@ -206,7 +213,8 @@ client.mget({
   index: 'myindex',
   type: 'mytype',
   body: {
-    ids: [1, 2, 3]
+    ids: [1, 2, 3],
+    _source: ['test']
   }
 }, (error, response) => {
   // ...

@@ -40,6 +40,7 @@ declare namespace Handlebars {
     export function unregisterHelper(name: string): void;
 
     export function registerPartial(name: string, fn: Template): void;
+    export function registerPartial(spec: { [name: string]: HandlebarsTemplateDelegate }): void;
     export function unregisterPartial(name: string): void;
 
     // TODO: replace Function with actual signature
@@ -338,6 +339,6 @@ declare module "handlebars" {
     export = Handlebars;
 }
 
-declare module "handlebars/handlebars.runtime" {
+declare module "handlebars/runtime" {
     export = Handlebars;
 }

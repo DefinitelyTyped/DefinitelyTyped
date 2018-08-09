@@ -390,6 +390,7 @@ export interface LayerOptions {
 
 export interface InteractiveLayerOptions extends LayerOptions {
     interactive?: boolean;
+    bubblingMouseEvents?: boolean;
 }
 
 export class Layer extends Evented {
@@ -542,12 +543,13 @@ export namespace tileLayer {
     function wms(baseUrl: string, options?: WMSOptions): TileLayer.WMS;
 }
 
-export interface ImageOverlayOptions extends LayerOptions {
+export interface ImageOverlayOptions extends InteractiveLayerOptions {
     opacity?: number;
     alt?: string;
     interactive?: boolean;
     attribution?: string;
     crossOrigin?: boolean;
+    className?: string;
 }
 
 export class ImageOverlay extends Layer {
@@ -1404,6 +1406,7 @@ export class Map extends Evented {
     scrollWheelZoom: Handler;
     tap?: Handler;
     touchZoom: Handler;
+    zoomControl: Control.Zoom;
 
     options: MapOptions;
 }

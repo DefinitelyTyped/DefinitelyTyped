@@ -9,7 +9,6 @@
 //                 Vítor Castro <https://github.com/teves-castro>
 //                 Jordan Quagliatini <https://github.com/1M0reBug>
 //                 Simon Højberg <https://github.com/hojberg>
-//                 Charles-Philippe Clermont <https://github.com/charlespwd>
 //                 Samson Keung <https://github.com/samsonkeung>
 //                 Angelo Ocana <https://github.com/angeloocana>
 //                 Rayner Pupo <https://github.com/raynerd>
@@ -254,6 +253,16 @@ declare namespace R {
          * Returns a new list, composed of n-tuples of consecutive elements If n is greater than the length of the list,
          * an empty list is returned.
          */
+        aperture<T>(n: 1, list: T[]): Array<[T]>;
+        aperture<T>(n: 2, list: T[]): Array<[T, T]>;
+        aperture<T>(n: 3, list: T[]): Array<[T, T, T]>;
+        aperture<T>(n: 4, list: T[]): Array<[T, T, T, T]>;
+        aperture<T>(n: 5, list: T[]): Array<[T, T, T, T, T]>;
+        aperture<T>(n: 6, list: T[]): Array<[T, T, T, T, T, T]>;
+        aperture<T>(n: 7, list: T[]): Array<[T, T, T, T, T, T, T]>;
+        aperture<T>(n: 8, list: T[]): Array<[T, T, T, T, T, T, T, T]>;
+        aperture<T>(n: 9, list: T[]): Array<[T, T, T, T, T, T, T, T, T]>;
+        aperture<T>(n: 10, list: T[]): Array<[T, T, T, T, T, T, T, T, T, T]>;
         aperture<T>(n: number, list: ReadonlyArray<T>): T[][];
         aperture(n: number): <T>(list: ReadonlyArray<T>) => T[][];
 
@@ -410,12 +419,72 @@ declare namespace R {
             fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T6;
 
         /**
-         * TODO composeK
+         * Returns the right-to-left Kleisli composition of the provided functions, each of which must return a value of a type supported by chain.
+         * The typings only support arrays for now.
+         * All functions must be unary.
+         * R.composeK(h, g, f) is equivalent to R.compose(R.chain(h), R.chain(g), f).
          */
+        composeK<V0, T1>(
+            fn0: (x0: V0) => T1[]): (x0: V0) => T1[];
+        composeK<V0, T1, T2>(
+            fn1: (x: T1) => T2[],
+            fn0: (x0: V0) => T1[]): (x0: V0) => T2[];
+        composeK<V0, T1, T2, T3>(
+            fn2: (x: T2) => T3[],
+            fn1: (x: T1) => T2[],
+            fn0: (x: V0) => T1[]): (x: V0) => T3[];
+        composeK<V0, T1, T2, T3, T4>(
+            fn3: (x: T3) => T4[],
+            fn2: (x: T2) => T3[],
+            fn1: (x: T1) => T2[],
+            fn0: (x: V0) => T1[]): (x: V0) => T4[];
+        composeK<V0, T1, T2, T3, T4, T5>(
+            fn4: (x: T4) => T5[],
+            fn3: (x: T3) => T4[],
+            fn2: (x: T2) => T3[],
+            fn1: (x: T1) => T2[],
+            fn0: (x: V0) => T1[]): (x: V0) => T5[];
+        composeK<V0, T1, T2, T3, T4, T5, T6>(
+            fn5: (x: T5) => T6[],
+            fn4: (x: T4) => T5[],
+            fn3: (x: T3) => T4[],
+            fn2: (x: T2) => T3[],
+            fn1: (x: T1) => T2[],
+            fn0: (x: V0) => T1[]): (x: V0) => T6[];
 
         /**
-         * TODO composeP
+         * Performs right-to-left composition of one or more Promise-returning functions.
+         * All functions must be unary.
          */
+        composeP<V0, T1>(
+            fn0: (x0: V0) => Promise<T1>): (x0: V0) => Promise<T1>;
+        composeP<V0, T1, T2>(
+            fn1: (x: T1) => Promise<T2>,
+            fn0: (x0: V0) => Promise<T1>): (x0: V0) => Promise<T2>;
+        composeP<V0, T1, T2, T3>(
+            fn2: (x: T2) => Promise<T3>,
+            fn1: (x: T1) => Promise<T2>,
+            fn0: (x: V0) => Promise<T1>): (x: V0) => Promise<T3>;
+        composeP<V0, T1, T2, T3, T4>(
+            fn3: (x: T3) => Promise<T4>,
+            fn2: (x: T2) => Promise<T3>,
+            fn1: (x: T1) => Promise<T2>,
+            fn0: (x: V0) => Promise<T1>): (x: V0) => Promise<T4>;
+        composeP<V0, T1, T2, T3, T4, T5>(
+            fn4: (x: T4) => Promise<T5>,
+            fn3: (x: T3) => Promise<T4>,
+            fn2: (x: T2) => Promise<T3>,
+            fn1: (x: T1) => Promise<T2>,
+            fn0: (x: V0) => Promise<T1>):
+        (x: V0) => Promise<T5>;
+        composeP<V0, T1, T2, T3, T4, T5, T6>(
+            fn5: (x: T5) => Promise<T6>,
+            fn4: (x: T4) => Promise<T5>,
+            fn3: (x: T3) => Promise<T4>,
+            fn2: (x: T2) => Promise<T3>,
+            fn1: (x: T1) => Promise<T2>,
+            fn0: (x: V0) => Promise<T1>):
+        (x: V0) => Promise<T6>;
 
         /**
          * Returns a new list consisting of the elements of the first list followed by the elements
@@ -523,9 +592,9 @@ declare namespace R {
          * Duplication is determined according to the value returned by applying the supplied predicate to two list
          * elements.
          */
-        differenceWith<T>(pred: (a: T, b: T) => boolean, list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
-        differenceWith<T>(pred: (a: T, b: T) => boolean): (list1: ReadonlyArray<T>, list2: ReadonlyArray<T>) => T[];
-        differenceWith<T>(pred: (a: T, b: T) => boolean, list1: ReadonlyArray<T>): (list2: ReadonlyArray<T>) => T[];
+        differenceWith<T1, T2>(pred: (a: T1, b: T2) => boolean, list1: ReadonlyArray<T1>, list2: ReadonlyArray<T2>): T1[];
+        differenceWith<T1, T2>(pred: (a: T1, b: T2) => boolean): (list1: ReadonlyArray<T1>, list2: ReadonlyArray<T2>) => T1[];
+        differenceWith<T1, T2>(pred: (a: T1, b: T2) => boolean, list1: ReadonlyArray<T1>): (list2: ReadonlyArray<T2>) => T1[];
 
         /*
          * Returns a new object that does not contain a prop property.
@@ -901,6 +970,7 @@ declare namespace R {
          * Returns a list containing the names of all the enumerable own
          * properties of the supplied object.
          */
+        keys<T extends object>(x: T): Array<keyof T>;
         keys<T>(x: T): string[];
 
         /**
@@ -1004,6 +1074,16 @@ declare namespace R {
         /**
          * Like mapObj, but but passes additional arguments to the predicate function.
          */
+        mapObjIndexed<T, TResult>(
+            fn: (value: T, key: string, obj?: {
+                [key: string]: T
+            }) => TResult,
+            obj: {
+                [key: string]: T
+            }
+        ): {
+            [key: string]: TResult
+        };
         mapObjIndexed<T, TResult>(fn: (value: T, key: string, obj?: any) => TResult, obj: any): { [index: string]: TResult };
         mapObjIndexed<T, TResult>(fn: (value: T, key: string, obj?: any) => TResult): (obj: any) => { [index: string]: TResult };
 
@@ -1490,6 +1570,148 @@ declare namespace R {
             fn7: (x: T7) => T8,
             fn8: (x: T8) => T9,
             fn9: (x: T9) => T10): (x0: V0, x1: V1, x2: V2) => T10;
+
+        /*
+         * Returns the left-to-right Kleisli composition of the provided functions, each of which must return a value of a type supported by chain.
+         * The typings currently support arrays only as return values.
+         * All functions need to be unary.
+         * R.pipeK(f, g, h) is equivalent to R.pipe(f, R.chain(g), R.chain(h)).
+         */
+        pipeK<V0, T1>(
+            fn0: (x0: V0) => T1[]): (x0: V0) => T1[];
+        pipeK<V0, T1, T2>(
+            fn0: (x0: V0) => T1[],
+            fn1: (x: T1) => T2[]): (x0: V0) => T2[];
+        pipeK<V0, T1, T2, T3>(
+            fn0: (x: V0) => T1[],
+            fn1: (x: T1) => T2[],
+            fn2: (x: T2) => T3[]): (x: V0) => T3[];
+        pipeK<V0, T1, T2, T3, T4>(
+            fn0: (x: V0) => T1[],
+            fn1: (x: T1) => T2[],
+            fn2: (x: T2) => T3[],
+            fn3: (x: T3) => T4[]): (x: V0) => T4[];
+        pipeK<V0, T1, T2, T3, T4, T5>(
+            fn0: (x: V0) => T1[],
+            fn1: (x: T1) => T2[],
+            fn2: (x: T2) => T3[],
+            fn3: (x: T3) => T4[],
+            fn4: (x: T4) => T5[]): (x: V0) => T5[];
+        pipeK<V0, T1, T2, T3, T4, T5, T6>(
+            fn0: (x: V0) => T1[],
+            fn1: (x: T1) => T2[],
+            fn2: (x: T2) => T3[],
+            fn3: (x: T3) => T4[],
+            fn4: (x: T4) => T5[],
+            fn5: (x: T5) => T6[]): (x: V0) => T6[];
+        pipeK<V0, T1, T2, T3, T4, T5, T6, T7>(
+            fn0: (x: V0) => T1[],
+            fn1: (x: T1) => T2[],
+            fn2: (x: T2) => T3[],
+            fn3: (x: T3) => T4[],
+            fn4: (x: T4) => T5[],
+            fn5: (x: T5) => T6[],
+            fn: (x: T6) => T7[]): (x: V0) => T7[];
+        pipeK<V0, T1, T2, T3, T4, T5, T6, T7, T8>(
+            fn0: (x: V0) => T1[],
+            fn1: (x: T1) => T2[],
+            fn2: (x: T2) => T3[],
+            fn3: (x: T3) => T4[],
+            fn4: (x: T4) => T5[],
+            fn5: (x: T5) => T6[],
+            fn6: (x: T6) => T7[],
+            fn: (x: T7) => T8[]): (x: V0) => T8[];
+        pipeK<V0, T1, T2, T3, T4, T5, T6, T7, T8, T9>(
+            fn0: (x0: V0) => T1[],
+            fn1: (x: T1) => T2[],
+            fn2: (x: T2) => T3[],
+            fn3: (x: T3) => T4[],
+            fn4: (x: T4) => T5[],
+            fn5: (x: T5) => T6[],
+            fn6: (x: T6) => T7[],
+            fn7: (x: T7) => T8[],
+            fn8: (x: T8) => T9[]): (x0: V0) => T9[];
+        pipeK<V0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
+            fn0: (x0: V0) => T1[],
+            fn1: (x: T1) => T2[],
+            fn2: (x: T2) => T3[],
+            fn3: (x: T3) => T4[],
+            fn4: (x: T4) => T5[],
+            fn5: (x: T5) => T6[],
+            fn6: (x: T6) => T7[],
+            fn7: (x: T7) => T8[],
+            fn8: (x: T8) => T9[],
+            fn9: (x: T9) => T10[]): (x0: V0) => T10[];
+
+        /*
+         * Performs left-to-right composition of one or more Promise-returning functions.
+         * All functions need to be unary.
+         */
+        pipeP<V0, T1>(
+            fn0: (x0: V0) => Promise<T1>): (x0: V0) => Promise<T1>;
+        pipeP<V0, T1, T2>(
+            fn0: (x0: V0) => Promise<T1>,
+            fn1: (x: T1) => Promise<T2>): (x0: V0) => Promise<T2>;
+        pipeP<V0, T1, T2, T3>(
+            fn0: (x: V0) => Promise<T1>,
+            fn1: (x: T1) => Promise<T2>,
+            fn2: (x: T2) => Promise<T3>): (x: V0) => Promise<T3>;
+        pipeP<V0, T1, T2, T3, T4>(
+            fn0: (x: V0) => Promise<T1>,
+            fn1: (x: T1) => Promise<T2>,
+            fn2: (x: T2) => Promise<T3>,
+            fn3: (x: T3) => Promise<T4>): (x: V0) => Promise<T4>;
+        pipeP<V0, T1, T2, T3, T4, T5>(
+            fn0: (x: V0) => Promise<T1>,
+            fn1: (x: T1) => Promise<T2>,
+            fn2: (x: T2) => Promise<T3>,
+            fn3: (x: T3) => Promise<T4>,
+            fn4: (x: T4) => Promise<T5>): (x: V0) => Promise<T5>;
+        pipeP<V0, T1, T2, T3, T4, T5, T6>(
+            fn0: (x: V0) => Promise<T1>,
+            fn1: (x: T1) => Promise<T2>,
+            fn2: (x: T2) => Promise<T3>,
+            fn3: (x: T3) => Promise<T4>,
+            fn4: (x: T4) => Promise<T5>,
+            fn5: (x: T5) => Promise<T6>): (x: V0) => Promise<T6>;
+        pipeP<V0, T1, T2, T3, T4, T5, T6, T7>(
+            fn0: (x: V0) => Promise<T1>,
+            fn1: (x: T1) => Promise<T2>,
+            fn2: (x: T2) => Promise<T3>,
+            fn3: (x: T3) => Promise<T4>,
+            fn4: (x: T4) => Promise<T5>,
+            fn5: (x: T5) => Promise<T6>,
+            fn: (x: T6) => Promise<T7>): (x: V0) => Promise<T7>;
+        pipeP<V0, T1, T2, T3, T4, T5, T6, T7, T8>(
+            fn0: (x: V0) => Promise<T1>,
+            fn1: (x: T1) => Promise<T2>,
+            fn2: (x: T2) => Promise<T3>,
+            fn3: (x: T3) => Promise<T4>,
+            fn4: (x: T4) => Promise<T5>,
+            fn5: (x: T5) => Promise<T6>,
+            fn6: (x: T6) => Promise<T7>,
+            fn: (x: T7) => Promise<T8>): (x: V0) => Promise<T8>;
+        pipeP<V0, T1, T2, T3, T4, T5, T6, T7, T8, T9>(
+            fn0: (x0: V0) => Promise<T1>,
+            fn1: (x: T1) => Promise<T2>,
+            fn2: (x: T2) => Promise<T3>,
+            fn3: (x: T3) => Promise<T4>,
+            fn4: (x: T4) => Promise<T5>,
+            fn5: (x: T5) => Promise<T6>,
+            fn6: (x: T6) => Promise<T7>,
+            fn7: (x: T7) => Promise<T8>,
+            fn8: (x: T8) => Promise<T9>): (x0: V0) => Promise<T9>;
+        pipeP<V0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
+            fn0: (x0: V0) => Promise<T1>,
+            fn1: (x: T1) => Promise<T2>,
+            fn2: (x: T2) => Promise<T3>,
+            fn3: (x: T3) => Promise<T4>,
+            fn4: (x: T4) => Promise<T5>,
+            fn5: (x: T5) => Promise<T6>,
+            fn6: (x: T6) => Promise<T7>,
+            fn7: (x: T7) => Promise<T8>,
+            fn8: (x: T8) => Promise<T9>,
+            fn9: (x: T9) => Promise<T10>): (x0: V0) => Promise<T10>;
 
         /**
          * Returns a new list by plucking the same named property off all objects in the list supplied.

@@ -24,6 +24,11 @@ import {
     Dimensions,
     Image,
     ImageStyle,
+    ImageResizeMode,
+    ImageLoadEventData,
+    ImageErrorEventData,
+    ImageResolvedAssetSource,
+    ImageBackground,
     InteractionManager,
     ListView,
     ListViewDataSource,
@@ -49,8 +54,20 @@ import {
     NativeModules,
     MaskedViewIOS,
     TextInput,
+    TouchableNativeFeedback,
+    TextInputFocusEventData,
     InputAccessoryView,
-    StatusBar
+    StatusBar,
+    NativeSyntheticEvent,
+    GestureResponderEvent,
+    TextInputScrollEventData,
+    TextInputSelectionChangeEventData,
+    TextInputKeyPressEventData,
+    TextInputChangeEventData,
+    TextInputContentSizeChangeEventData,
+    TextInputEndEditingEventData,
+    TextInputSubmitEditingEventData,
+    WebView,
 } from "react-native";
 
 declare module "react-native" {
@@ -145,6 +162,25 @@ const viewProperty = StyleSheet.flatten(viewStyle).backgroundColor;
 const textProperty = StyleSheet.flatten(textStyle).fontSize;
 const imageProperty = StyleSheet.flatten(imageStyle).resizeMode;
 
+const testNativeSyntheticEvent = <T extends {}>(e: NativeSyntheticEvent<T>): void => {
+    e.isDefaultPrevented();
+    e.preventDefault();
+    e.isPropagationStopped();
+    e.stopPropagation();
+    e.persist();
+    e.cancelable;
+    e.bubbles;
+    e.currentTarget;
+    e.defaultPrevented;
+    e.eventPhase;
+    e.isTrusted;
+    e.nativeEvent;
+    e.target;
+    e.timeStamp;
+    e.type;
+    e.nativeEvent;
+}
+
 class CustomView extends React.Component {
     render() {
         return <Text style={[StyleSheet.absoluteFill, { ...StyleSheet.absoluteFillObject }]}>Custom View</Text>;
@@ -193,8 +229,28 @@ class Welcome extends React.Component {
 
 export default Welcome;
 
-// App State
+// TouchableNativeFeedbackTest
+export class TouchableNativeFeedbackTest extends React.Component {
+    onPressButton = (e: GestureResponderEvent) => {
+        e.persist();
+        e.isPropagationStopped();
+        e.isDefaultPrevented();
+    }
 
+    render() {
+        return (
+            <TouchableNativeFeedback
+                onPress={this.onPressButton}
+            >
+                <View style={{width: 150, height: 100, backgroundColor: 'red'}}>
+                    <Text style={{margin: 30}}>Button</Text>
+                </View>
+            </TouchableNativeFeedback>
+        )
+    }
+}
+
+// App State
 function appStateListener(state: string) {
     console.log("New state: " + state);
 }
@@ -210,7 +266,6 @@ function appStateIOSTest() {
 }
 
 // ViewPagerAndroid
-
 export class ViewPagerAndroidTest {
     render() {
         return (
@@ -427,20 +482,113 @@ deviceEventEmitterStatic.addListener("keyboardWillShow", data => true);
 deviceEventEmitterStatic.addListener("keyboardWillShow", data => true, {});
 
 
-class TextInputRefTest extends React.Component<{}, {username: string}> {
+class TextInputTest extends React.Component<{}, {username: string}> {
     username: TextInput | null = null;
 
-    handleUsernameChange(text: string) {
+    handleUsernameChange = (text: string) => {
+        console.log(`text: ${ text }`);
+    }
+
+    onScroll = (e: NativeSyntheticEvent<TextInputScrollEventData>) => {
+        testNativeSyntheticEvent(e);
+        console.log(`x: ${ e.nativeEvent.contentOffset.x }`);
+        console.log(`y: ${ e.nativeEvent.contentOffset.y }`);
+    }
+
+    handleOnBlur = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+        testNativeSyntheticEvent(e);
+    }
+
+    handleOnFocus = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+        testNativeSyntheticEvent(e);
+    }
+
+    handleOnSelectionChange = (e: NativeSyntheticEvent<TextInputSelectionChangeEventData>) => {
+        testNativeSyntheticEvent(e);
+
+        console.log(`target: ${ e.nativeEvent.target }`);
+        console.log(`start: ${ e.nativeEvent.selection.start }`);
+        console.log(`end: ${ e.nativeEvent.selection.end }`);
+    }
+
+    handleOnKeyPress = (e: NativeSyntheticEvent<TextInputKeyPressEventData>) => {
+        testNativeSyntheticEvent(e);
+        console.log(`key: ${ e.nativeEvent.key }`);
+    }
+
+    handleOnChange = (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
+        testNativeSyntheticEvent(e);
+
+        console.log(`eventCount: ${ e.nativeEvent.eventCount }`);
+        console.log(`target: ${ e.nativeEvent.target }`);
+        console.log(`text: ${ e.nativeEvent.text }`);
+    }
+
+    handleOnContentSizeChange = (e: NativeSyntheticEvent<TextInputContentSizeChangeEventData>) => {
+        testNativeSyntheticEvent(e);
+        console.log(`contentSize.width: ${ e.nativeEvent.contentSize.width }`);
+        console.log(`contentSize.height: ${ e.nativeEvent.contentSize.height }`);
+    }
+
+    handleOnEndEditing = (e: NativeSyntheticEvent<TextInputEndEditingEventData>) => {
+        testNativeSyntheticEvent(e);
+        console.log(`text: ${ e.nativeEvent.text }`);
+    }
+
+    handleOnSubmitEditing = (e: NativeSyntheticEvent<TextInputSubmitEditingEventData>) => {
+        testNativeSyntheticEvent(e);
+        console.log(`text: ${ e.nativeEvent.text }`);
     }
 
     render() {
         return (
             <View>
                 <Text onPress={() => this.username.focus()}>Username</Text>
+
                 <TextInput
                     ref={input => this.username = input}
+                    textContentType="username"
                     value={this.state.username}
-                    onChangeText={this.handleUsernameChange.bind(this)}
+                    onChangeText={this.handleUsernameChange}
+                />
+
+                <TextInput
+                    multiline
+                    onScroll={this.onScroll}
+                />
+
+                <TextInput
+                    onBlur={this.handleOnBlur}
+                    onFocus={this.handleOnFocus}
+                />
+
+                <TextInput
+                    onSelectionChange={this.handleOnSelectionChange}
+                />
+
+                <TextInput
+                    onKeyPress={this.handleOnKeyPress}
+                />
+
+                <TextInput
+                    onChange={this.handleOnChange}
+                />
+
+                <TextInput
+                    onChange={this.handleOnChange}
+                />
+
+                <TextInput
+                    onEndEditing={this.handleOnEndEditing}
+                />
+
+                <TextInput
+                    onSubmitEditing={this.handleOnSubmitEditing}
+                />
+
+                <TextInput
+                    multiline
+                    onContentSizeChange={this.handleOnContentSizeChange}
                 />
             </View>
         );
@@ -463,6 +611,77 @@ class StatusBarTest extends React.Component {
     }
 }
 
+class WebViewTest extends React.Component {
+    render() {
+        return (
+            <WebView
+                originWhitelist={['https://origin.test']}
+                saveFormDataDisabled={false}
+                nativeConfig={{ component: 'test', props: {}, viewManager: {} }}
+            />
+        );
+    }
+}
+
+export class ImageTest extends React.Component {
+    componentDidMount(): void {
+        const image: ImageResolvedAssetSource = Image.resolveAssetSource({
+            uri: 'https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png'
+        });
+        console.log(image.width, image.height, image.scale, image.uri);
+    }
+
+    handleOnLoad = (e: NativeSyntheticEvent<ImageLoadEventData>) => {
+        testNativeSyntheticEvent(e);
+        console.log('height:', e.nativeEvent.source.height);
+        console.log('width:', e.nativeEvent.source.width);
+        console.log('url:', e.nativeEvent.source.url);
+    }
+
+    handleOnError = (e: NativeSyntheticEvent<ImageErrorEventData>) => {
+        testNativeSyntheticEvent(e);
+        console.log('error:', e.nativeEvent.error);
+    }
+
+    render() {
+        const resizeMode: ImageResizeMode = 'contain';
+
+        return (
+            <View>
+                <Image
+                    source={{ uri: 'https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png' }}
+                    onLoad={this.handleOnLoad}
+                    onError={this.handleOnError}
+                />
+
+                <Image
+                    source={{ uri: 'https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png' }}
+                    resizeMode={resizeMode}
+                />
+            </View>
+        );
+    }
+}
+
+export class ImageBackgroundProps extends React.Component {
+    private _imageRef: Image | null = null;
+
+    setImageRef = (image: Image) => {
+        this._imageRef = image;
+    }
+
+    render() {
+        return (
+            <View>
+                <ImageBackground
+                    source={{ uri: 'https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png' }}
+                    imageRef={this.setImageRef}
+                />
+            </View>
+        );
+    }
+}
+
 class StylePropsTest extends React.PureComponent {
     render() {
         const uri = 'https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png'
@@ -475,13 +694,33 @@ class StylePropsTest extends React.PureComponent {
                     margin={20}
                     overflow="visible" // ps: must fail if "scroll"
                     source={{ uri }}
-                    style={{ width: 200, height: 200, tintColor: 'green' }}
+                    style={{ width: 200, height: 200, tintColor: 'green', flexWrap: 'wrap-reverse' }}
                     // tintColor="green"
                     // width={200}
                 />
+
+                <Text style={{ /* iOs only */ textTransform: 'capitalize'  }}>
+                    Text
+                </Text>
             </View>
         );
     }
 }
 
 const listViewDataSourceTest = new ListView.DataSource({rowHasChanged: () => true})
+
+class AccessibilityTest extends React.Component {
+    render() {
+        return (
+            <View
+                accessibilityElementsHidden={true}
+                importantForAccessibility={"no-hide-descendants"}
+                accessibilityTraits={'none'}
+                onAccessibilityTap={() => {}}
+            >
+                <Text accessibilityTraits={['key', 'text']}>Text</Text>
+                <View />
+            </View>
+        );
+    }
+}

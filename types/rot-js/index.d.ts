@@ -406,7 +406,7 @@ export class Display {
     clear(): void;
     computeSize(availWidth: number, availHeight: number): [number, number];
     computeFontSize(availWidth: number, availHeight: number): number;
-    draw(x: number, y: number, character: string | string[], fg?: string, bg?: string): void;
+    draw(x: number, y: number, character: string | string[], fg?: string | string[], bg?: string | string[]): void;
     drawText(x: number, y: number, text: string, maxWidth?: number): number;
     eventToPosition(e: UIEvent): [number, number] | number;
     getContainer(): Node;

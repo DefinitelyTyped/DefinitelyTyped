@@ -1081,6 +1081,7 @@ declare namespace kendo.data {
         query(options?: any): JQueryPromise<any>;
         read(data?: any): JQueryPromise<any>;
         remove(model: kendo.data.ObservableObject): void;
+        skip(): number;
         sort(sort: DataSourceSortItem): void;
         sort(sort: DataSourceSortItem[]): void;
         sort(): DataSourceSortItem[];
@@ -1855,7 +1856,7 @@ declare namespace kendo.ui {
         dates?: any;
         depth?: string;
         disableDates?: any|Function;
-        footer?: string|Function;
+        footer?: false | string | Function;
         format?: string;
         max?: Date;
         messages?: CalendarMessages;
@@ -4293,7 +4294,7 @@ declare namespace kendo.ui {
         columnMenu?: boolean | GridColumnMenu;
         dataSource?: any|any|kendo.data.DataSource;
         detailTemplate?: string|Function;
-        editable?: boolean | GridEditable;
+        editable?: boolean | "inline" | "incell" | "popup" | GridEditable;
         excel?: GridExcel;
         filterable?: boolean | GridFilterable;
         groupable?: boolean | GridGroupable;
@@ -4311,7 +4312,7 @@ declare namespace kendo.ui {
         scrollable?: boolean | GridScrollable;
         selectable?: boolean|string;
         sortable?: boolean | GridSortable;
-        toolbar?: GridToolbarItem[];
+        toolbar?: string|Function|(string|GridToolbarItem)[];
         beforeEdit?(e: GridBeforeEditEvent): void;
         cancel?(e: GridCancelEvent): void;
         cellClose?(e: GridCellCloseEvent): void;

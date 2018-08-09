@@ -35,3 +35,26 @@ var options: Less.Options = {
 };
 
 less.render("h1 { background: red; }", options);
+
+less.modifyVars({
+  '@buttonFace': '#5B83AD',
+  '@buttonText': '#D9EEF2'
+}).then((output) => {
+    console.log('Successfully modified vars.');
+});
+
+less.refreshStyles();
+
+less.watch();
+
+less.refresh(true, {
+    '@buttonFace': '#5B83AD'
+}, true).then((output) => {
+    console.log('successfully refreshed less files');
+});
+
+if (less.importManager) {
+    for (let fileName in less.importManager.contents) {
+        let fileContents = less.importManager.contents[fileName];
+    }
+}

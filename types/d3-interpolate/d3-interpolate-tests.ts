@@ -229,3 +229,16 @@ iString = d3Interpolate.interpolateCubehelixLong.gamma(2.2)('purple', 'orange');
 iNum = d3Interpolate.interpolateBasis([1, 50, 30, 10]);
 
 iNum = d3Interpolate.interpolateBasisClosed([1, 50, 30, 10]);
+
+iString = d3Interpolate.piecewise(d3Interpolate.interpolateRgb.gamma(2.2), ['red', 'green', 'blue']);
+iString = d3Interpolate.piecewise(d3Interpolate.interpolateCubehelix, ['red', 'green', 'blue']);
+iZoom = d3Interpolate.piecewise(d3Interpolate.interpolateZoom, [[50, 50, 300], [100, 100, 500]]);
+iNum = d3Interpolate.piecewise(d3Interpolate.interpolateNumber, [1, 2, 3]);
+iNum = d3Interpolate.piecewise(d3Interpolate.interpolateRound, [1.1, 2.2, 3.3]);
+iString = d3Interpolate.piecewise(d3Interpolate.interpolateString, ['a', 'b', 'c']);
+iDate = d3Interpolate.piecewise(d3Interpolate.interpolateDate, [new Date(2018, 5, 1), new Date(2018, 5, 2), new Date(2018, 5, 3)]);
+iArrayNum = d3Interpolate.piecewise<number[]>(d3Interpolate.interpolateArray, [1, 2, 4, 8]);
+iArrayStr = d3Interpolate.piecewise<string[]>(d3Interpolate.interpolateArray, ['a', 'b', 'c', 'd']);
+iArrayMixed = d3Interpolate.piecewise<[Date, string]>(d3Interpolate.interpolateArray, [new Date(2016, 6, 1), 'b: 1']);
+iString = d3Interpolate.piecewise(d3Interpolate.interpolateTransformCss, ['rotate(0deg)', 'rotate(60deg)']);
+iString = d3Interpolate.piecewise(d3Interpolate.interpolateTransformSvg, ['rotate(0)', 'rotate(60)']);

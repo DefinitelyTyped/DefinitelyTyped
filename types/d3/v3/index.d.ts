@@ -3277,7 +3277,7 @@ declare namespace d3 {
             round(round: boolean): Treemap<T>;
 
             sticky(): boolean;
-            sticky(sticky: boolean): boolean;
+            sticky(sticky: boolean): Treemap<T>;
 
             mode(): string;
             mode(mode: "squarify"): Treemap<T>;

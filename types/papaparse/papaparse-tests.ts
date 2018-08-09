@@ -36,6 +36,9 @@ Papa.parse(file, {
 	}
 });
 
+
+Papa.parse(Papa.NODE_STREAM_INPUT);
+
 /**
  * Unparsing
  */

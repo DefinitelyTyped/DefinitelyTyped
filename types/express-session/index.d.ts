@@ -32,6 +32,7 @@ declare global {
       httpOnly: boolean;
       domain?: string;
       expires: Date | boolean;
+      sameSite?: boolean | string;
     }
 
     interface SessionCookie extends SessionCookieData {

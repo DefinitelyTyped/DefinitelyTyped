@@ -96,6 +96,12 @@ emailOpts = { minDomainAtoms: num };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
+let hexOpts: Joi.HexOptions = null;
+
+hexOpts = { byteAligned: bool };
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
 let ipOpts: Joi.IpOptions = null;
 
 ipOpts = { version: str };
@@ -602,6 +608,7 @@ numSchema = numSchema.precision(num);
 numSchema = numSchema.multiple(num);
 numSchema = numSchema.positive();
 numSchema = numSchema.negative();
+numSchema = numSchema.port();
 
 namespace common {
     numSchema = numSchema.allow(x);
@@ -658,6 +665,9 @@ objSchema = Joi.object(schemaMap);
 
 objSchema = objSchema.keys();
 objSchema = objSchema.keys(schemaMap);
+
+objSchema = objSchema.append();
+objSchema = objSchema.append(schemaMap);
 
 objSchema = objSchema.min(num);
 objSchema = objSchema.max(num);
@@ -801,6 +811,7 @@ strSchema = strSchema.guid();
 strSchema = strSchema.guid({ version: ['uuidv1', 'uuidv2', 'uuidv3', 'uuidv4', 'uuidv5'] } as Joi.GuidOptions);
 strSchema = strSchema.guid({ version: 'uuidv4' });
 strSchema = strSchema.hex();
+strSchema = strSchema.hex(hexOpts);
 strSchema = strSchema.hostname();
 strSchema = strSchema.isoDate();
 strSchema = strSchema.lowercase();
@@ -969,6 +980,7 @@ description = Joi.describe(schema);
 description = schema.describe();
 
 schema = Joi.reach(objSchema, '');
+schema = Joi.reach(objSchema, []);
 
 const Joi2 = Joi.extend({ name: '', base: schema });
 
@@ -988,13 +1000,13 @@ const Joi3 = Joi.extend({
         {
             name: 'asd',
             params: {
-                allowF: Joi.boolean().default(false),
+                allowFalse: Joi.boolean().default(false),
             },
             setup(params) {
-                const fIsAllowed = params.allowF;
+                const fIsAllowed = params.allowFalse;
             },
-            validate(params, value, state, options) {
-                if (value === 'asd' || params.allowF && value === 'asdf') {
+            validate(params, value: boolean, state, options) {
+                if (value || params.allowFalse && !value) {
                     return value;
                 }
                 return this.createError('asd', { v: value }, state, options);
@@ -1098,6 +1110,7 @@ schema = Joi.not(x, x);
 schema = Joi.not([x, x, x]);
 
 schema = Joi.required();
+schema = Joi.exist();
 schema = Joi.optional();
 schema = Joi.forbidden();
 schema = Joi.strip();

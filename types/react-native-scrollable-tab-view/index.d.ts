@@ -3,7 +3,7 @@
 // Definitions by: CaiHuan <https://github.com/CaiHuan>
 //                 Egor Shulga <https://github.com/egorshulga>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 import { Animated, ScrollViewProps, ViewStyle, TextStyle } from 'react-native';
