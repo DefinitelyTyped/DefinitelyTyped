@@ -4,7 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Typescript version: 2.4.0
 
+import {VueConstructor} from 'vue';
+
 export default VueSelect;
+
+export const VueSelect: VueSelectConstructor;
 
 export type Option = string | any | null;
 
@@ -89,10 +93,10 @@ export interface DropdownClasses {
     disabled: boolean;
 }
 
-export const VueSelect: {
-    props: VueSelectProps,
-    data: () => VueSelectData,
-    watch: VueSelectWatch,
-    methods: VueSelectMethods,
-    computed: VueSelectComputed
+export interface VueSelectConstructor extends VueConstructor{
+  props: VueSelectProps;
+  data: () => VueSelectData;
+  watch: VueSelectWatch;
+  methods: VueSelectMethods;
+  computed: VueSelectComputed;
 }
