@@ -1,6 +1,12 @@
 import runtime = chrome.app.runtime;
 const cwindow = chrome.app.window;
 
+// APP.WINDOW
+
+// Test enums
+cwindow.WindowType.PANEL;
+cwindow.State.FULLSCREEN;
+
 const createOptions: chrome.app.CreateWindowOptions = {
     id: 'My Window',
     bounds: {
@@ -194,13 +200,8 @@ const ManifestJSONTest1: chrome.runtime.Manifest = {
     "version": "2.1",
     "minimum_chrome_version": "33.0.1715.0",
     "default_locale": "en",
-    "options_page": "options.html",
     "chrome_url_overrides": {
         "newtab": "app.html"
-    },
-    "options_ui": {
-        "chrome_style": true,
-        "page": "options.html"
     },
     "launch": {
         "web_url": "https://developer.mbed.org/compiler/#nav:/;"
@@ -237,7 +238,6 @@ const ManifestJSONTest1: chrome.runtime.Manifest = {
         "usb",
         "metricsPrivate", "networkingPrivate",
         "bluetooth",
-        "tabCapture",
         "unlimitedStorage",
         { "fileSystem": ["write", "retainEntries", "directory"] },
         "clipboardRead",
@@ -248,8 +248,6 @@ const ManifestJSONTest1: chrome.runtime.Manifest = {
         "mdns",
         "gcm",
         "power",
-        "clipboardRead",
-        "clipboardWrite",
         "cookies", "tabs",
         "http://*/*",
         "https://*/*",
@@ -324,11 +322,7 @@ const ManifestJSONTest1: chrome.runtime.Manifest = {
         }
     },
     "sockets": {
-        "udp": { "bind": "*", "send": "*" },
         "tcpServer": { "listen": "" },
-        "tcp": {
-            "connect": "*:*"
-        },
         "tcp": { "connect": ["*:5555", "*:5559"] },
         "udp": { "bind": ["*:5554", "*:5556"], "multicastMembership": "", "send": ["*:5554", "*:5556"] }
     },
@@ -382,7 +376,7 @@ const ManifestJSONTest1: chrome.runtime.Manifest = {
         "content_security_policy": "sandbox allow-scripts allow-popups; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://ssl.google-analytics.com/ga.js;",
         "pages": ["sandbox.html"]
     },
-    "content_security_policy": "script-src 'self' https://www.gstatic.com/; object-src 'self'"
+    "content_security_policy": "script-src 'self' https://www.gstatic.com/; object-src 'self'",
     "file_handlers": {
         "image": {
             "types": [
@@ -394,29 +388,13 @@ const ManifestJSONTest1: chrome.runtime.Manifest = {
             "types": [
                 "text/*"
             ],
-            "extensions": ["abap", "as", "ada", "adb", "ads", "conf", "asciidoc", "asm", "ahk", "bat", "c", "cpp", "h", "hpp", "cc", "cirru", "clj", "cob", "cbl", "ccp", "cb2", "cof", "coffee", "cfm", "cfc", "cfml", "cs", "css", "curly", "dart", "diff", "djt", "djhtml", "dt", "d", "dot", "ejs", "erl", "frt", "ftl", "feature", "glsl", "go", "groovy", "haml", "hbs", "handlebars", "hs", "hx", "htm", "html", "erb", "ini", "jk", "jack", "jade", "java", "class", "js", "gs", "javascript", "jsoniq", "json", "jsp", "jsx", "jl", "latex", "less", "liquid", "lisp", "ls", "logic", "logiql", "lsl", "lua", "lp", "lucene", "make", "makefile", "mak", "md", "mat", "mel", "mc", "mush", "mysql", "nix", "m", "mm", "ml", "mli", "mll", "pas", "pl", "pm", "pgsql", "php", "inc", "text", "txt", "readme", "log", "ps1", "psm1", "pro", "p", "plg", "properties", "proto", "py", "rdoc", "rd", "rhtml", "r", "rb", "rbx", "rs", "sass", "scad", "scala", "scm", "ss", "scss", "sh", "sjs", "smarty", "snippets", "soy", "space", "sql", "styl", "stylus", "svg", "tcl", "tex", "textile", "tmsnippet", "toml", "twig", "ts", "vbs", "vbe", "vm", "v", "vhd", "vhdl", "xml", "rss", "atom", "xhtml", "xquery", "xq", "yaml", "yml", "mcc"]
+            "extensions": ["abap", "as", "ada", "adb", "ads", "cfm", "cfc", "cfml", "cs", "css", "dt", "d", "dot", "ejs", "erl", "frt", "ftl", "html", "erb", "ini", "jk", "java", "class", "js", "gs", "javascript", "jsoniq", "json", "jsp", "jsx", "lisp", "ls", "logic", "make", "makefile", "mak", "md", "mysql", "nix", "m", "php", "inc", "text", "txt", "log", "ps1", "rd", "sass", "scad", "scala", "scm", "ss", "scss", "sh", "sjs", "sql", "svg", "tcl", "tex", "ts", "vbs", "vbe", "vm", "v", "vhd", "vhdl", "xml", "rss", "atom", "xhtml", "yaml", "yml", "mcc"]
         },
         "any": {
             "extensions": [
                 "skrifa",
                 "skrup"
             ]
-        },
-        "7zip": {
-            "extensions": ["7z"],
-            "types": ["application/x-7z", "application/x-7z-compressed"]
-        },
-        "Z": {
-            "extensions": ["Z"],
-            "types": ["application/x-compress"]
-        },
-        "ar": {
-            "extensions": ["a"],
-            "types": ["application/x-archive"]
-        },
-        "bzip2": {
-            "extensions": ["bz", "bz2"],
-            "types": ["application/x-bzip", "application/x-bzip2"]
         },
         "cab": {
             "extensions": ["cab"],
@@ -475,10 +453,6 @@ const ManifestJSONTest1: chrome.runtime.Manifest = {
             "types": ["application/java-archive", "application/x-chrome-extension"]
         }
     },
-    "file_system_provider_capabilities": {
-        "multipleMounts": true,
-        "source": "file"
-    },
     "requirements": {
         "3D": {
             "features": ["webgl"]
@@ -490,7 +464,6 @@ const ManifestJSONTest1: chrome.runtime.Manifest = {
     "oauth2": {
         // client_id below is specifc to the application key. Follow the
         // documentation to obtain one for your app.
-        "auto_approve": true,
         "client_id": "1111111222333.apps.googleusercontent.com",
         "scopes": ["https://www.googleapis.com/auth/plus.login"]
     },
@@ -551,15 +524,8 @@ const ManifestJSONTest1: chrome.runtime.Manifest = {
         "64": "assets/icon-64x64.png",
         "128": "icon128.png"
     },
-    "action_handlers": ["new_note"],
-    "offline_enabled": true,
-    "sockets": {
-        "tcp": {
-            "connect": "*:*"
-        }
-    }
+    "action_handlers": ["new_note"]
 }
-
 
 // ALARMS
 
@@ -697,6 +663,10 @@ chrome.contextMenus.onClicked.addListener((info) => {
 chrome.desktopCapture.chooseDesktopMedia(["screen", "window", "tab"], () => { });
 chrome.desktopCapture.chooseDesktopMedia([chrome.desktopCapture.DesktopCaptureSourceType.AUDIO], () => { });
 
+// EVENTS
+
+const e = new chrome.Event(); // Used const instead of class to be able to return the interface
+e.addListener(() => { });
 
 // HID
 
@@ -800,21 +770,23 @@ chrome.runtime.sendMessage(
 chrome.power.requestKeepAwake(chrome.power.Level.DISPLAY);
 chrome.power.requestKeepAwake('display');
 
-type IEnum<T, K, F = K extends keyof T ? T[K] : never> = F;
-type EnumType<
-    C extends Object,
-    T = undefined,
-    K = keyof C,
-    V = K extends keyof C ? Exclude<K, C[K]> : never> = IEnum<C, V>;
-type ETEST = EnumType<{
-    SYSTEM: "system",
-    DISPLAY: "display"
-}>;
-let etest: ETEST;
-etest = 'display';
-etest = 'DISPLAY';
-etest = etest.DISPLAY;
+// RUNTIME
 
+chrome.runtime.reload();
+chrome.runtime.requestUpdateCheck((status, details) => {
+    if (status === chrome.runtime.RequestUpdateCheckStatus.THROTTLED) {
+        if (details !== undefined) {
+            console.log(details.version);
+        } else {
+            console.log('Unknown');
+        }
+    }
+});
+const os = chrome.runtime.PlatformOs.ANDROID;
+if (os === 'android') {
+    console.log('Enum ok');
+}
+const appId = chrome.runtime.id;
 
 // SOCKETS
 // https://developer.chrome.com/apps/sockets_tcp

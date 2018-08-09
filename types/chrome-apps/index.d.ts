@@ -317,33 +317,39 @@ declare namespace chrome {
      * and can shut down the app at anytime.
      */
     namespace app.runtime {
-        enum PlayStoreStatus {
-            ENABLED = 'enabled',
-            AVAILABLE = 'available',
-            UNKNOWN = 'unknown'
+        /** @enum */
+        const PlayStoreStatus: {
+            ENABLED: 'enabled',
+            AVAILABLE: 'available',
+            UNKNOWN: 'unknown'
         }
-        enum LaunchSource {
-            ABOUT_PAGE = 'about_page',
-            APP_LAUNCHER = 'app_launcher',
-            BACKGROUND = 'background',
-            CHROME_INTERNAL = 'chrome_internal',
-            COMMAND_LINE = 'command_line',
-            CONTEXT_MENU = 'context_menu',
-            EPHEMERAL_APP = 'ephemeral_app',
-            EXTENSIONS_PAGE = 'extensions_page',
-            FILE_HANDLER = 'file_handler',
-            INSTALLED_NOTIFICATION = 'installed_notification',
-            KEYBOARD = 'keyboard',
-            KIOSK = 'kiosk',
-            LOAD_AND_LAUNCH = 'load_and_launch',
-            MANAGEMENT_API = 'management_api',
-            NEW_TAB_PAGE = 'new_tab_page',
-            RELOAD = 'reload',
-            RESTART = 'restart',
-            SYSTEM_TRAY = 'system_tray',
-            TEST = 'test',
-            UNTRACKED = 'untracked',
-            URL_HANDLER = 'url_handler'
+        /** @enum */
+        const ActionType: {
+            NEW_NOTE: 'new_note'
+        }
+        /** @enum */
+        const LaunchSource: {
+            ABOUT_PAGE: 'about_page',
+            APP_LAUNCHER: 'app_launcher',
+            BACKGROUND: 'background',
+            CHROME_INTERNAL: 'chrome_internal',
+            COMMAND_LINE: 'command_line',
+            CONTEXT_MENU: 'context_menu',
+            EPHEMERAL_APP: 'ephemeral_app',
+            EXTENSIONS_PAGE: 'extensions_page',
+            FILE_HANDLER: 'file_handler',
+            INSTALLED_NOTIFICATION: 'installed_notification',
+            KEYBOARD: 'keyboard',
+            KIOSK: 'kiosk',
+            LOAD_AND_LAUNCH: 'load_and_launch',
+            MANAGEMENT_API: 'management_api',
+            NEW_TAB_PAGE: 'new_tab_page',
+            RELOAD: 'reload',
+            RESTART: 'restart',
+            SYSTEM_TRAY: 'system_tray',
+            TEST: 'test',
+            UNTRACKED: 'untracked',
+            URL_HANDLER: 'url_handler'
         }
 
         interface EmbedRequested {
@@ -359,12 +365,6 @@ declare namespace chrome {
              * Prevents embedderId from embedding this app in an <appview> element.
              */
             deny: () => void;
-        }
-
-        type actionType = 'new_note';
-
-        const ActionType: {
-            NEW_NOTE: actionType
         }
 
         interface LaunchData {
@@ -396,8 +396,9 @@ declare namespace chrome {
             isPublicSession?: boolean;
             /**
              * Where the app is launched from.
+             * @see enum LaunchSource
              */
-            source?: LaunchSource;
+            source?: ToStringLiteral<typeof LaunchSource>;
             /**
              * Contains data that specifies the ActionType this app was launched with. This is null if the app was not launched with a specific action intent.
              *  ______________________________________________________________________________
@@ -406,7 +407,7 @@ declare namespace chrome {
              * |____________________|____________|____________________________________________|
              * @since Since Chrome 54.
              */
-            actionData?: actionType;
+            actionData?: ToStringLiteral<typeof ActionType>;
         }
 
         interface LaunchDataItem {
@@ -456,6 +457,18 @@ declare namespace chrome {
             top?: integer;
             width?: integer;
             height?: integer;
+        }
+
+        /**
+         * @enum
+         * @internal
+         * @private
+         */
+        const _State: {
+            NORMAL: 'normal',
+            FULLSCREEN: 'fullscreen',
+            MAXIMIZED: 'maximized',
+            MINIMIZED: 'minimized'
         }
 
         interface BoundsSpecification {
@@ -546,13 +559,6 @@ declare namespace chrome {
             inactiveColor?: string;
         }
 
-        enum State {
-            NORMAL = 'normal',
-            FULLSCREEN = 'fullscreen',
-            MAXIMIZED = 'maximized',
-            MINIMIZED = 'minimized'
-        }
-
         interface CreateWindowOptions {
             /**
              * Id to identify the window.
@@ -630,7 +636,7 @@ declare namespace chrome {
             /**
              * The initial state of the window, allowing it to be created already fullscreen, maximized, or minimized. Defaults to 'normal'.
              */
-            state?: State;
+            state?: ToStringLiteral<typeof _State>;
             /**
              * If true, the window will be created in a hidden state. Call show() on the window to show it once it has been created. Defaults to false.
              */
@@ -769,6 +775,17 @@ declare namespace chrome {
         }
 
         interface ChromeAppWindow extends AppWindow {
+            /**
+             * @enum
+             * Window state enum
+             */
+            readonly State: typeof _State;
+
+            readonly WindowType: {
+                SHELL: 'shell',
+                PANEL: 'panel'
+            }
+
             /**
              * The size and position of a window can be specified in a number of different ways. The most simple option is not specifying anything at all, in which case a default size and platform dependent position will be used.
              * To set the position, size and constraints of the window, use the innerBounds or outerBounds properties. Inner bounds do not include window decorations. Outer bounds include the window's title bar and frame. Note that the padding between the inner and outer bounds is determined by the OS. Therefore setting the same property for both inner and outer bounds is considered an error (for example, setting both innerBounds.left and outerBounds.left).
@@ -2228,12 +2245,13 @@ declare namespace chrome {
         /**
          * Shows desktop media picker UI with the specified set of sources.
          * @param sources Set of sources that should be shown to the user.
-         * @param callback The callback parameter should be a function that looks like this:
-         * function(string streamId) {...};
-         * Parameter streamId: An opaque string that can be passed to getUserMedia() API to generate media stream that corresponds to the source selected by the user. If user didn't select any source (i.e. canceled the prompt) then the callback is called with an empty streamId. The created streamId can be used only once and expires after a few seconds when it is not used.
+         * @param callback Provides an opaque string that can be passed to getUserMedia() API to generate media stream that corresponds to the source selected by the user.
+         *                 If user didn't select any source (i.e. canceled the prompt) then the callback is called with an empty streamId.
+         *                 The created streamId can be used only once and expires after a few seconds when it is not used.
+         * @return Request ID to be used by cancelChooseDesktopMedia
          */
-        function chooseDesktopMedia<T extends keyof typeof DesktopCaptureSourceType>
-            (sources: Array<typeof DesktopCaptureSourceType[T]>, callback: (streamId: string) => void): integer;
+        function chooseDesktopMedia(sources: ToStringLiteral<typeof DesktopCaptureSourceType>[], callback: (streamId: string) => void): integer;
+
         /**
          * Hides desktop media picker dialog shown by chooseDesktopMedia().
          * @param desktopMediaRequestId Id returned by chooseDesktopMedia()
@@ -2709,19 +2727,20 @@ declare namespace chrome {
          * */
         function retainEntry(entry: Entry): string;
         /**
+         * @requires(Kiosk) Kiosk mode only
+         * @requires Permissions: The writable option requires the 'fileSystem': {'write'} permission in the manifest.
          * Requests access to a file system for a volume represented by options.volumeId.
          * If options.writable is set to true, then the file system will be writable.
          * Otherwise, it will be read-only.
-         * The writable option requires the 'fileSystem': {'write'} permission in the manifest.
-         * Available to kiosk apps running in kiosk session only.
          * For manual-launch kiosk mode, a confirmation dialog will be shown on top of the active app window.
          * In case of an error, fileSystem will be undefined, and chrome.runtime.lastError will be set.
          * @since Chrome 44.
          */
         function requestFileSystem(options: Volume, callback: (fileSystem: FileSystem) => void): void;
         /**
+         * @requires(Kiosk) Chrome OS Kiosk mode only
+         * @requires Permissions: The 'fileSystem': {'requestFileSystem'} manifest permission is required.
          * Returns a list of volumes available for requestFileSystem().
-         * The 'fileSystem': {'requestFileSystem'} manifest permission is required.
          * Available to kiosk apps running in the kiosk session only.
          * In case of an error, volumes will be undefined, and chrome.runtime.lastError will be set.
          * @since Chrome 44.
@@ -2743,7 +2762,7 @@ declare namespace chrome {
      * that can be accessible from the file manager on Chrome OS.
      * @since Availability: Since Chrome 40.
      * @requires Permissions: 'fileSystemProvider'
-     * @requires Important: This API works only on Chrome OS.
+     * @requires(CrOS) This API works only on Chrome OS.
      * @requires Manifest:
      * Requires an section in addition to the permission.
      * The file_system_provider section must be declared as follows:
@@ -4315,111 +4334,139 @@ declare namespace chrome {
     // Management //
     ////////////////
     /**
-     * The chrome.management API provides ways to manage the list of extensions/apps
-     * that are installed and running. It is particularly useful for extensions that
-     * override the built-in New Tab page.
-     * @requires Permissions: 'management'
+     * The chrome.management API provides ways to
+     * manage the list of extensions/apps
+     * that are installed and running.
      */
     namespace management {
+        const ExtensionDisabledReason: {
+            UNKNOWN: "unknown",
+            PERMISSIONS_INCREASE: "permissions_increase"
+        };
+        const ExtensionInstallType: {
+            ADMIN: "admin",
+            DEVELOPMENT: "development",
+            NORMAL: "normal",
+            SIDELOAD: "sideload",
+            OTHER: "other"
+        };
+        const ExtensionType: {
+            EXTENSION: "extension",
+            HOSTED_APP: "hosted_app",
+            PACKAGED_APP: "packaged_app",
+            LEGACY_PACKAGED_APP: "legacy_packaged_app",
+            THEME: "theme"
+        };
+        const LaunchType: {
+            OPEN_AS_REGULAR_TAB: "OPEN_AS_REGULAR_TAB",
+            OPEN_AS_PINNED_TAB: "OPEN_AS_PINNED_TAB",
+            OPEN_AS_WINDOW: "OPEN_AS_WINDOW",
+            OPEN_FULL_SCREEN: "OPEN_FULL_SCREEN"
+        };
         /** Information about an installed extension, app, or theme. */
         interface ExtensionInfo {
             /**
-             * Optional.
              * A reason the item is disabled.
              * @since Chrome 17.
+             * @see enum ExtensionDisabledReason
              */
-            disabledReason?: string;
-            /** Optional. The launch url (only present for apps). */
+            disabledReason?: ToStringLiteral<typeof ExtensionDisabledReason>;
+            /**
+             * The launch url.
+             */
             appLaunchUrl?: string;
             /**
-             * The description of this extension, app, or theme.
-             * @since Chrome 9.
+             * The description of this app.
              */
             description: string;
             /**
              * Returns a list of API based permissions.
-             * @since Chrome 9.
              */
-            permissions: string[];
+            permissions: chrome.runtime.Permission[];
             /**
-             * Optional.
-             * A list of icon information. Note that this just reflects what was declared in the manifest, and the actual image at that url may be larger or smaller than what was declared, so you might consider using explicit width and height attributes on img tags referencing these images. See the manifest documentation on icons for more details.
+             * A list of icon information.
+             * Note that this just reflects what was declared in the manifest,
+             * and the actual image at that url may be larger or smaller than what was declared,
+             * so you might consider using explicit width and height attributes on img tags
+             * referencing these images. See the manifest documentation on icons for more details.
              */
             icons?: IconInfo[];
             /**
              * Returns a list of host based permissions.
-             * @since Chrome 9.
+             * Permissions regarding url access.
              */
             hostPermissions: string[];
             /** Whether it is currently enabled or disabled. */
             enabled: boolean;
             /**
-             * Optional.
-             * The URL of the homepage of this extension, app, or theme.
+             * The URL of the homepage of this app.
              * @since Chrome 11.
              */
             homepageUrl?: string;
             /**
-             * Whether this extension can be disabled or uninstalled by the user.
-             * @since Chrome 12.
+             * Whether this app can be disabled or uninstalled by the user.
              */
             mayDisable: boolean;
             /**
-             * How the extension was installed.
+             * How the app was installed.
              * @since Chrome 22.
              */
-            installType: string;
-            /** The version of this extension, app, or theme. */
+            installType: ToStringLiteral<typeof ExtensionInstallType>;
+
+            /** The version of this app. */
             version: string;
+
+            /** This app's version name */
+            versionName: string;
+
             /** The extension's unique identifier. */
             id: string;
+
             /**
-             * Whether the extension, app, or theme declares that it supports offline.
+             * Whether the app declares that it supports offline.
              * @since Chrome 15.
              */
             offlineEnabled: boolean;
             /**
-             * Optional.
-             * The update URL of this extension, app, or theme.
+             * The update URL of this app.
              * @since Chrome 16.
              */
             updateUrl?: string;
             /**
-             * The type of this extension, app, or theme.
+             * The type of this app.
              * @since Chrome 23.
              */
-            type: 'packaged_app' | string;
-            /** The url for the item's options page, if it has one. */
-            optionsUrl: string;
-            /** The name of this extension, app, or theme. */
+            type: 'packaged_app';
+            /** The name of this app. */
             name: string;
             /**
-             * A short version of the name of this extension, app, or theme.
+             * A short version of the name of this app.
              * @since Chrome 31.
              */
             shortName: string;
             /**
-             * True if this is an app.
+             * True if this is an app, which it will be till this is removed.
              * @deprecated since Chrome 33. Please use management.ExtensionInfo.type.
              */
-            isApp: boolean;
+            isApp?: true;
             /**
-             * Optional.
-             * The app launch type (only present for apps).
+             * The app launch type.
              * @since Chrome 37.
              */
-            launchType?: string;
+            launchType?: ToStringLiteral<typeof LaunchType>;
             /**
-             * Optional.
-             * The currently available launch types (only present for apps).
+             * The currently available launch types.
              * @since Chrome 37.
              */
-            availableLaunchTypes?: string[];
+            availableLaunchTypes?: ToStringLiteral<typeof LaunchType>[];
         }
 
         /** Information about an icon belonging to an extension, app, or theme. */
         interface IconInfo {
-            /** The URL for this icon image. To display a grayscale version of the icon (to indicate that an extension is disabled, for example), append ?grayscale=true to the URL. */
+            /**
+             * The URL for this icon image.
+             * To display a grayscale version of the icon (to indicate that an extension is disabled, for example),
+             * append ?grayscale=true to the URL. */
             url: string;
             /** A number representing the width and height of the icon. Likely values include (but are not limited to) 128, 48, 24, and 16. */
             size: integer;
@@ -4427,79 +4474,21 @@ declare namespace chrome {
 
         interface UninstallOptions {
             /**
-             * Optional.
-             * Whether or not a confirm-uninstall dialog should prompt the user. Defaults to false for self uninstalls. If an extension uninstalls another extension, this parameter is ignored and the dialog is always shown.
+             * Whether or not a confirm-uninstall dialog should prompt the user. Defaults to false for self uninstalls.
+             * If an extension uninstalls another extension, this parameter is ignored and the dialog is always shown.
              */
             showConfirmDialog?: boolean;
         }
 
-        interface ManagementDisabledEvent extends chrome.events.Event<(info: ExtensionInfo) => void> { }
-
-        interface ManagementUninstalledEvent extends chrome.events.Event<(id: string) => void> { }
-
-        interface ManagementInstalledEvent extends chrome.events.Event<(info: ExtensionInfo) => void> { }
-
-        interface ManagementEnabledEvent extends chrome.events.Event<(info: ExtensionInfo) => void> { }
-
-        /**
-         * Enables or disables an app or extension.
-         * @param id This should be the id from an item of management.ExtensionInfo.
-         * @param enabled Whether this item should be enabled or disabled.
-         * @param [callback]
-         */
-        function setEnabled(id: string, enabled: boolean, callback?: () => void): void;
-        /**
-         * Returns a list of permission warnings for the given extension id.
-         * @since Chrome 15.
-         * @param id The ID of an already installed extension.
-         * @param [callback] If you specify the callback parameter, it should be a function that looks like this:
-         * function(array of string permissionWarnings) {...};
-         */
-        function getPermissionWarningsById(id: string, callback?: (permissionWarnings: string[]) => void): void;
-        /**
-         * Returns information about the installed extension, app, or theme that has the given ID.
-         * @param id The ID from an item of management.ExtensionInfo.
-         * @param [callback] If you specify the callback parameter, it should be a function that looks like this:
-         * function( ExtensionInfo result) {...};
-         */
-        function get(id: string, callback?: (result: ExtensionInfo) => void): void;
-        /**
-         * Returns a list of information about installed extensions and apps.
-         * @param [callback] If you specify the callback parameter, it should be a function that looks like this:
-         * function(array of ExtensionInfo result) {...};
-         */
-        function getAll(callback?: (result: ExtensionInfo[]) => void): void;
         /**
          * Returns a list of permission warnings for the given extension manifest string.
-         * Note: This function can be used without requesting the 'management' permission in the manifest.
-         * @param manifestStr Extension manifest JSON string.
-         * @param [callback] If you specify the callback parameter, it should be a function that looks like this:
-         * function(array of string permissionWarnings) {...};
+         * @param manifestStr Extension manifest JSON string. See example
+         * @param [callback] Permissions warnings as string array
+         * @example
+         * chrome.management.getPermissionWarningsByManifest(JSON.stringify(chrome.runtime.getManifest()), (warnings) => { *Do something here* });
          */
         function getPermissionWarningsByManifest(manifestStr: string, callback?: (permissionWarnings: string[]) => void): void;
-        /**
-         * Launches an application.
-         * @param id The extension id of the application.
-         * @param [callback] If you specify the callback parameter, it should be a function that looks like this:
-         * function() {...};
-         */
-        function launchApp(id: string, callback?: () => void): void;
-        /**
-         * Uninstalls a currently installed app or extension.
-         * @since Chrome 21.
-         * @param id This should be the id from an item of management.ExtensionInfo.
-         * @param [callback] If you specify the callback parameter, it should be a function that looks like this:
-         * function() {...};
-         */
-        function uninstall(id: string, options?: UninstallOptions, callback?: () => void): void;
-        /**
-         * Uninstalls a currently installed app or extension.
-         * @deprecated since Chrome 21. The options parameter was added to this function.
-         * @param id This should be the id from an item of management.ExtensionInfo.
-         * @param [callback] If you specify the callback parameter, it should be a function that looks like this:
-         * function() {...};
-         */
-        function uninstall(id: string, callback?: () => void): void;
+
         /**
          * Returns information about the calling extension, app, or theme. Note: This function can be used without requesting the 'management' permission in the manifest.
          * @since Chrome 39.
@@ -4507,56 +4496,15 @@ declare namespace chrome {
          * function( ExtensionInfo result) {...};
          */
         function getSelf(callback?: (result: ExtensionInfo) => void): void;
+
         /**
          * Uninstalls the calling extension.
          * Note: This function can be used without requesting the 'management' permission in the manifest.
          * @since Chrome 26.
-         * @param [callback] If you specify the callback parameter, it should be a function that looks like this:
-         * function() {...};
+         * @param [options] Optional unstall options
+         * @param [callback]
          */
         function uninstallSelf(options?: UninstallOptions, callback?: () => void): void;
-        /**
-         * Uninstalls the calling extension.
-         * Note: This function can be used without requesting the 'management' permission in the manifest.
-         * @since Chrome 26.
-         * @param [callback] If you specify the callback parameter, it should be a function that looks like this:
-         * function() {...};
-         */
-        function uninstallSelf(callback?: () => void): void;
-        /**
-         * Display options to create shortcuts for an app. On Mac, only packaged app shortcuts can be created.
-         * @since Chrome 37.
-         * @param [callback] If you specify the callback parameter, it should be a function that looks like this:
-         * function() {...};
-         */
-        function createAppShortcut(id: string, callback?: () => void): void;
-        /**
-         * Set the launch type of an app.
-         * @since Chrome 37.
-         * @param id This should be the id from an app item of management.ExtensionInfo.
-         * @param launchType The target launch type. Always check and make sure this launch type is in ExtensionInfo.availableLaunchTypes, because the available launch types vary on different platforms and configurations.
-         * @param [callback] If you specify the callback parameter, it should be a function that looks like this:
-         * function() {...};
-         */
-        function setLaunchType(id: string, launchType: string, callback?: () => void): void;
-        /**
-         * Generate an app for a URL. Returns the generated bookmark app.
-         * @since Chrome 37.
-         * @param url The URL of a web page. The scheme of the URL can only be 'http' or 'https'.
-         * @param title The title of the generated app.
-         * @param [callback] If you specify the callback parameter, it should be a function that looks like this:
-         * function( ExtensionInfo result) {...};
-         */
-        function generateAppForLink(url: string, title: string, callback?: (result: ExtensionInfo) => void): void;
-
-        /** Fired when an app or extension has been disabled. */
-        var onDisabled: ManagementDisabledEvent;
-        /** Fired when an app or extension has been uninstalled. */
-        var onUninstalled: ManagementUninstalledEvent;
-        /** Fired when an app or extension has been installed. */
-        var onInstalled: ManagementInstalledEvent;
-        /** Fired when an app or extension has been enabled. */
-        var onEnabled: ManagementEnabledEvent;
     }
 
     ////////////////////
@@ -5817,6 +5765,39 @@ declare namespace chrome {
      * @since Chrome 22
      */
     namespace runtime {
+        const OnInstalledReason: {
+            INSTALL: 'install',
+            UPDATE: 'update',
+            CHROME_UPDATE: 'chrome_update',
+            SHARED_MODULE_UPDATE: 'shared_module_update'
+        };
+        const OnRestartRequiredReason: {
+            APP_UPDATE: 'app_update',
+            OS_UPDATE: 'os_update',
+            PERIODIC: 'periodic'
+        };
+        const PlatformArch: {
+            ARM: 'arm',
+            X86_32: 'x86-32',
+            X86_64: 'x86-64',
+            MIPS: 'mips',
+            MIPS64: 'mips64'
+        };
+        const PlatformNaclArch: typeof PlatformArch;
+        const PlatformOs: {
+            ANDROID: 'android',
+            CROS: 'cros',
+            LINUX: 'linux',
+            MAC: 'mac',
+            OPENBSD: 'openbsd',
+            WIN: 'win'
+        };
+        const RequestUpdateCheckStatus: {
+            THROTTLED: 'throttled',
+            NO_UPDATE: 'no_update',
+            UPDATE_AVAILABLE: 'update_available'
+        };
+
         /** This will be defined during an API method callback if there was an error */
         const lastError: LastError | undefined;
         /** The ID of the extension/app. */
@@ -5834,9 +5815,9 @@ declare namespace chrome {
         interface InstalledDetails {
             /**
              * The reason that this event is being dispatched.
-             * One of: 'install', 'update', 'chrome_update', or 'shared_module_update'
+             * @see enum OnInstalledReason
              */
-            reason: string;
+            reason: ToStringLiteral<typeof OnInstalledReason>;
             /**
              * Optional.
              * Indicates the previous version of the extension, which has just been updated. This is present only if 'reason' is 'update'.
@@ -5886,19 +5867,19 @@ declare namespace chrome {
         interface PlatformInfo {
             /**
              * The operating system chrome is running on.
-             * One of: 'mac', 'win', 'android', 'cros', 'linux', or 'openbsd'
+             * @see enum PlatformOs
              */
-            os: string;
+            os: ToStringLiteral<typeof PlatformOs>;
             /**
              * The machine's processor architecture.
-             * One of: 'arm', 'x86-32', or 'x86-64'
+             * @see enum PlatformArch
              */
-            arch: string;
+            arch: ToStringLiteral<typeof PlatformArch>;
             /**
              * The native client architecture. This may be different from arch on some platforms.
-             * One of: 'arm', 'x86-32', or 'x86-64'
+             * @see enum PlatformNaclArch
              */
-            nacl_arch: string;
+            nacl_arch: ToStringLiteral<typeof PlatformNaclArch>;
         }
 
         /**
@@ -5967,24 +5948,54 @@ declare namespace chrome {
         }
 
         type UrlPermission =
-            "https://www.google-analytics.com/*"
-            | "https://www.googleapis.com/*"
+            'https://www.google-analytics.com/*'
+            | 'https://www.googleapis.com/*'
             | '<all_urls>'
             | 'http://*/*'
             | 'https://*/*'
             | 'file:///*/*';
 
+        type ChromeOSOnlyPermissions =
+            'certificateProvider' |
+            'clipboard' |
+            'documentScan' |
+            'enterprise.platformKeys' |
+            'fileBrowserHandler' |
+            'fileSystemProvider' |
+            'enterprise' | // ?
+            'enterprise.platformKeys' |
+            'enterprise.deviceAttributes' |
+            'networking.config' |
+            'platformKeys' |
+            'virtualKeyboard' |
+            'vpnProvider' |
+            'wallpaper';
+
+        type KioskOnlyPermissions =
+            'networking.onc';
+
+        /** Undocumented but used permissions */
+        type UndocumentedPermissions =
+            'experimental' |
+            'app.window.alpha' |
+            'app.window.shape' |
+            'geolocation' |
+            'alwaysOnTopWindows' |
+            'overrideEscFullscreen' |
+            'geolocation' |
+            'experimental' |
+            'diagnostics' |
+            'app.window.fullscreen' |
+            'app.window.fullscreen.overrideEsc';
+
         type Permission =
             'alarms' |
-            "app.window.fullscreen" |
-            "app.window.fullscreen.overrideEsc" |
+            'app.window.fullscreen' |
+            'app.window.fullscreen.overrideEsc' |
             'audio' |
             'audioCapture' |
             'background' |
-            'bluetooth' |
             'browser' |
-            'certificateProvider' |
-            'clipboard' |
             'clipboardRead' |
             'clipboardWrite' |
             'contextMenus' |
@@ -5992,48 +6003,36 @@ declare namespace chrome {
             'diagnostics' |
             'displaySource' |
             'dns' |
-            'documentScan' |
-            'enterprise.deviceAttributes' |
-            'enterprise.platformKeys' |
             'experimental' |
-            'fileBrowserHandler' |
             'fileSystem' |
             'gcm' |
             'geolocation' |
             'hid' |
             'identity' |
             'idle' |
-            'management' |
             'mdns' |
             'mediaGalleries' |
             'nativeMessaging' |
-            'networking.config' |
-            'networking.onc' |
             'notifications' |
-            'platformKeys' |
             'pointerLock' |
             'power' |
             'printerProvider' |
-            'proxy' |
             // 'serial' | // Deprecated
             'signedInDevices' |
-            'socket' |
             'storage' |
             'syncFileSystem' |
             'system.cpu' |
             'system.display' |
             'system.memory' |
             'system.network' |
-            'system.powerSource' |
             'system.storage' |
             'tts' |
             'unlimitedStorage' |
             'usb' |
             'videoCapture' |
-            'virtualKeyboard' |
-            'vpnProvider' |
-            'wallpaper' |
             'webview' |
+            ChromeOSOnlyPermissions |
+            KioskOnlyPermissions |
             MediaGalleriesPermission |
             SocketPermission |
             PrivatePermissions |
@@ -6089,9 +6088,9 @@ declare namespace chrome {
         }
         interface JSONSchemaObjectType {
             /**
-             * An "object" can have known properties listed as "properties", and can
-             * optionally have "additionalProperties" indicating a schema to apply to
-             * keys that aren't found in "properties".
+             * An 'object' can have known properties listed as 'properties', and can
+             * optionally have 'additionalProperties' indicating a schema to apply to
+             * keys that aren't found in 'properties'.
              */
             type: 'object';
             properties?: {
@@ -6131,8 +6130,8 @@ declare namespace chrome {
             /**
              * Path to files, relative, absolute or pattern
              * @example
-             * ["local_*.html", "*.png", "*.js"]
-             * ["img/epic.html"]
+             * ['local_*.html', '*.png', '*.js']
+             * ['img/epic.html']
              *
             */
             accessible_resources: string[];
@@ -6145,11 +6144,11 @@ declare namespace chrome {
          */
         interface ManagedSchema {
             /** Each schema must have either a $ref value or exactly one type. */
-            "$ref"?: string;
+            '$ref'?: string;
             /** The top-level schema must have type object. */
             type: 'object';
             /**
-             * "properties" maps an optional key of this object to its schema. At the
+             * 'properties' maps an optional key of this object to its schema. At the
              * top-level object, these keys are the policy names supported.
              */
             properties?: {
@@ -6169,7 +6168,36 @@ declare namespace chrome {
         }
         type AutomationOptions = boolean | AutomationDesktop | AutomationNonInteractive;
 
-        interface Manifest {
+        interface InvalidManifest extends ValidManifest {
+            //
+            // Never types - should never exist
+            // Are declared to prevent use since many
+            // legacy app are using them. Will result
+            // in errors. Many examples and code bases
+            // have these included.
+            //
+
+            /** Not for packaged apps */
+            options_ui?: never;
+            /** Not for packaged apps */
+            options_page?: never;
+            /** Not for packaged apps */
+            browser_action?: never;
+            /**
+             * Not for packaged apps
+             * Only for extensions and legacy packaged apps
+             */
+            content_security_policy?: never;
+            /**
+             * Not for packaged apps
+             * Only for extensions and legacy packaged apps
+             */
+            chrome_url_overrides?: never;
+        }
+
+        type Manifest = ValidManifest | InvalidManifest;
+
+        interface ValidManifest {
             //////////////
             // REQUIRED //
             //////////////
@@ -6182,8 +6210,8 @@ declare namespace chrome {
             app: {
                 background: {
                     scripts?: string[];
-                }
-            }
+                } | never;
+            } | never;
             /**
              * One integer specifying the version of the manifest file format your package requires.
              * As of Chrome 18, developers should specify 2 (without quotes).
@@ -6202,6 +6230,7 @@ declare namespace chrome {
              * You can specify locale-specific strings, see Internationalization docs:
              * @see[Internationalization]{@see https://developer.chrome.com/extensions/i18n}
              * @required
+             * @requires string - Maximum 45 characters!
              */
             name: string;
             /**
@@ -6220,11 +6249,12 @@ declare namespace chrome {
 
             /**
              * Specifies the subdirectory of _locales that contains the default strings for this extension.
-             * This field is required in extensions that have a _locales directory; it must be absent in
-             * extensions that have no _locales directory. For details, see Internationalization:
+             * This field is required in apps that have a _locales directory; it must be absent in
+             * apps that have no _locales directory. For details, see Internationalization:
              * @see[Internationalization]{@see https://developer.chrome.com/extensions/i18n}
              */
             default_locale?: string;
+
             /**
              * A plain text string (no HTML or other formatting; no more than 132 characters)
              * that describes the extension. The description should be suitable for both the
@@ -6233,6 +6263,7 @@ declare namespace chrome {
              * @see[Internationalization]{@see https://developer.chrome.com/extensions/i18n}
              */
             description?: string;
+
             /**
              * One or more icons that represent the extension, app, or theme.
              * You should always provide a 128x128 icon; it's used during
@@ -6270,7 +6301,7 @@ declare namespace chrome {
              * @example
              * 'action_handlers': ['new_note']
              */
-            action_handlers?: app.runtime.actionType[];
+            action_handlers?: ToStringLiteral<typeof app.runtime.ActionType>[];
             /** @todo TODO */
             author?: any;
             /** @todo TODO */
@@ -6282,7 +6313,7 @@ declare namespace chrome {
                 low_energy?: boolean;
                 peripheral?: boolean;
             };
-            /** @todo TODO */
+            /** Keyboard command shorcuts */
             commands?: {
                 [name: string]: {
                     suggested_key?: {
@@ -6296,19 +6327,56 @@ declare namespace chrome {
                     global?: boolean
                 }
             };
-            /** @todo TODO */
+            /**
+             * @todo TODO ?
+             */
             current_locale?: string;
-            /** @todo TODO */
+            display_in_launcher?: boolean;
+            display_in_new_tab_page?: boolean;
+            /**
+             * The *event_rules* manifest property provides a mechanism to add rules that
+             * intercept, block, or modify web requests in-flight using **declarativeWebRequest**
+             * or take actions depending on the content of a page, without requiring permission
+             * to read the page's content using **declarativeContent**.
+             * @see[event_rules docs]{@link https://developer.chrome.com/extensions/manifest/event_rules}
+             */
             event_rules?: {
-                event?: string;
+                /** Event name */
+                event?: chrome.webViewRequest.DeclarativeWebRequestEventList;
                 actions?: {
-                    type: string;
+                    /** Action type */
+                    type: chrome.webViewRequest.DeclarativeWebRequestActionsList;
                 }[];
                 conditions?: {
-                    type: string,
-                    css?: string[]
+                    /** Condition */
+                    type: chrome.webViewRequest.DeclarativeWebRequestConditionsList,
+                    /** Arguments, see original condition docs in chrome.webViewRequest */
+                    [key: string]: any | any[];
                 }[];
             }[];
+            /**
+             * Declares which extensions, apps, and web pages can connect
+             * to your extension via runtime.connect and runtime.sendMessage.
+             */
+            externally_connectable: {
+                /**
+                 * The IDs of extensions or apps that are allowed to connect.
+                 * If left empty or unspecified, no extensions or apps can connect.
+                 * The wildcard '*' will allow all extensions and apps to connect.
+                 */
+                id: string[];
+                /**
+                 * The URL patterns for web pages that are allowed to connect.
+                 * This does not affect content scripts.
+                 * If left empty or unspecified, no web pages can connect.
+                 */
+                matches: string[];
+                /**
+                 * Determines if messages sent via `runtime.connect` or `runtime.sendMessage`
+                 * are allowed to set `runtime.MessageSender.tlsChannelId`.
+                 */
+                accept_tls_channel_id: boolean;
+            }
             /** @todo TODO */
             file_handlers?: {
                 [key: string]: {
@@ -6326,7 +6394,7 @@ declare namespace chrome {
             import?: {
                 id: string;
             }[];
-            /** @todo TODO */
+            /** This value can be used to control the unique ID of an app when it is loaded during development. */
             key?: string;
             /** @todo TODO */
             kiosk?: {
@@ -6341,27 +6409,42 @@ declare namespace chrome {
             kiosk_secondary_apps?: any;
             /**
              * @example
-             * "minimum_chrome_version": "33.0.1715.0"
+             * 'minimum_chrome_version': '33.0.1715.0'
              */
             minimum_chrome_version?: string;
-            /** @todo TODO */
+            /** One or more mappings from MIME types to the Native Client module that handles each type. */
             nacl_modules?: {
+                /** The location of a Native Client manifest (a .nmf file) within the extension directory. */
                 path: string;
+                /** The MIME type for which the Native Client module will be registered as content handler. */
                 mime_type: string;
             }[];
-            /** @todo TODO */
+            /**
+             * Use the Chrome Identity API to authenticate users:
+             * the getAuthToken for users logged into their Google Account
+             * and the launchWebAuthFlow for users logged into a non-Google account.
+             */
             oauth2?: {
+                /** You need to register your app in the Google APIs Console to get the client ID. */
                 client_id: string;
-                scopes?: string[];
+                /** Applies to these scopes */
+                scopes: string[];
             };
-            /** @todo TODO */
+            /**
+             * Whether the app or extension is expected to work offline.
+             * When Chrome detects that it is offline, apps with this field set to true will be highlighted on the New Tab page.
+             */
             offline_enabled?: boolean;
             /**
-             * Permissions that are optional and user controlled.
+             * Use the chrome.permissions API to request declared optional permissions
+             * at run time rather than install time, so users understand why the
+             * permissions are needed and grant only those that are necessary.
              */
             optional_permissions?: Permission[] | Array<Permission | string>;
             /**
-             * Permissions your application needs access to.
+             * Permissions help to limit damage if your app is compromised by malware.
+             * Some permissions are also displayed to users before installation,
+             * as detailed in Permission Warnings.
              */
             permissions?: Permission[] | Array<Permission | string>;
             /**
@@ -6370,16 +6453,15 @@ declare namespace chrome {
              * @see[Chromium Source]{@link https://github.com/crosswalk-project/chromium-crosswalk/blob/af36cc3ce3f5fcb8033f16236725718f8012abfe/native_client_sdk/src/tools/fix_manifest.py}
              */
             platforms?: {
-                nacl_arch: 'x86-64' | 'x86-32' | 'arm';
+                nacl_arch: ToStringLiteral<typeof chrome.runtime.PlatformNaclArch>;
                 sub_package_path: string;
             }[];
             /**
-             * Technologies required by the app or extension.
-             * Hosting sites such as the Chrome Web Store may use
-             * this list to dissuade users from installing apps or
-             * extensions that will not work on their computer.
-             * Supported requirements currently include '3D'
-             * and 'plugins'; additional requirements checks
+             * Technologies required by the app. Hosting sites such
+             * as the Chrome Web Store may use this list to dissuade
+             * users from installing apps or extensions that will not
+             * work on their computer. Supported requirements currently
+             * include '3D' and 'plugins'; additional requirements checks
              * may be added in the future.
              */
             requirements?: {
@@ -6392,10 +6474,14 @@ declare namespace chrome {
                  * }
                  */
                 '3D'?: {
-                    features?: Array<string | 'webgl'>;
+                    features: 'webgl';
                 };
                 /**
-                 * The 'plugins' requirement indicates if an app or extension requires NPAPI to run. This requirement is enabled by default when the manifest includes the 'plugins' field. For apps and extensions that still work when plugins aren't available, you can disable this requirement by setting NPAPI to false. You can also enable this requirement manually, by setting NPAPI to true, as shown in this example:
+                 * The 'plugins' requirement indicates if an app or extension requires NPAPI to run.
+                 * This requirement is enabled by default when the manifest includes the 'plugins' field.
+                 * For apps and extensions that still work when plugins aren't available,
+                 * you can disable this requirement by setting NPAPI to false.
+                 * You can also enable this requirement manually, by setting NPAPI to true, as shown in this example:
                  * 'requirements': {
                  *   'plugins': {
                  *     'npapi': true
@@ -6403,16 +6489,21 @@ declare namespace chrome {
                  * }
                  */
                 plugins?: {
-                    npapi?: boolean;
+                    /** @default true */
+                    npapi: boolean;
                 }
-
-                [key: string]: any;
             };
             /**
-             * @deprecated Warning: Starting in version 57, Chrome will no longer allow external web content (including embedded frames and scripts) inside sandboxed pages. Please use a webview instead.
+             * @deprecated
+             * Warning: Starting in version 57, Chrome will no longer allow external web content
+             * (including embedded frames and scripts) inside sandboxed pages.
+             * Please use a webview instead.
              */
             sandbox?: {
                 pages: string[];
+                /**
+                 * @default "sandbox allow-scripts allow-forms"
+                 */
                 content_security_policy?: string;
             };
             /**
@@ -6428,7 +6519,7 @@ declare namespace chrome {
              * @see[Internationalization]{@see https://developer.chrome.com/extensions/i18n}
              */
             short_name?: string;
-            /** @todo TODO */
+            /** @todo TODO What is this? */
             signature?: any;
             /**
              * The sockets manifest property declares which permissions are available
@@ -6446,8 +6537,8 @@ declare namespace chrome {
              * Unlike the local and sync storage areas,
              * the managed storage area requires its structure
              * to be declared as JSON Schema and is strictly validated by Chrome.
-             * This schema must be stored in a file indicated by the "managed_schema"
-             * property of the "storage" manifest key and declares the enterprise
+             * This schema must be stored in a file indicated by the 'managed_schema'
+             * property of the 'storage' manifest key and declares the enterprise
              * policies supported by the app. Policies are analogous to options
              * but are configured by a system administrator instead of the user,
              * allowing the app to be preconfigured for all users of an organization.
@@ -6465,11 +6556,12 @@ declare namespace chrome {
             };
             // system_indicator?: any; // Deprecated / removed: https://bugs.chromium.org/p/chromium/issues/detail?id=142450
             /**
-             * Autoupdating
-             * Only set this if you want to host somewhere other than the store.
+             * If you publish using the Chrome Developer Dashboard, ignore this field.
+             * If you host your own extension or app: URL to an update manifest XML file.
              * **Warning**
              * As of M33, Windows stable / beta channel users can only
              * download extensions hosted in the Chrome Web Store
+             * @requires(not Windows)
              * (@see[Protecting Windows users from malicious extensions]{@link http://blog.chromium.org/2013/11/protecting-windows-users-from-malicious.html}).
              * @see[Documentation]{@link https://developer.chrome.com/apps/autoupdate}
              */
@@ -6480,13 +6572,14 @@ declare namespace chrome {
              * each having an identifier, a URL pattern, and a title.
              * Here's an example of how to specify url_handlers:
              * @example
-             * "view_foobar_presentation": {
-             *   "matches": [
-             *     "https://www.foobar.com/presentation/view/*"
+             * 'view_foobar_presentation': {
+             *   'matches': [
+             *     'https://www.foobar.com/presentation/view/*'
              *   ],
-             *   "title": "View FooBar presentation"
+             *   'title': 'View FooBar presentation'
              * }
              * @see[Documentation]{@link https://developer.chrome.com/apps/manifest/url_handlers}
+             *
              */
             url_handlers?: {
                 [name: string]: {
@@ -6512,9 +6605,9 @@ declare namespace chrome {
              * version_name can be set to a descriptive version string and will be used for display purposes if present.
              * If no version_name is present, the version field will be used for display purposes as well.
              * @example
-             * "version_name": "0.8 beta"
-             * "version_name": "build rc3"
-             * "version_name": "Gold Edition"
+             * 'version_name': '0.8 beta'
+             * 'version_name': 'build rc3'
+             * 'version_name': 'Gold Edition'
              */
             version_name?: string;
             /**
@@ -6529,6 +6622,7 @@ declare namespace chrome {
                 /** Webview partition list */
                 partitions: WebViewPartition[]
             }
+
         }
 
         /**
@@ -6593,10 +6687,10 @@ declare namespace chrome {
          * Requests an update check for this app/extension.
          * @since Chrome 25.
          * @param callback
-         * Parameter status: Result of the update check. One of: 'throttled', 'no_update', or 'update_available'
+         * Parameter status: Result of the update check. See enum RequestUpdateCheckStatus.
          * Optional parameter details: If an update is available, this contains more information about the available update.
          */
-        function requestUpdateCheck(callback: (status: string, details?: UpdateCheckDetails) => void): void;
+        function requestUpdateCheck(callback: (status: ToStringLiteral<typeof RequestUpdateCheckStatus>, details?: UpdateCheckDetails) => void): void;
 
         /**
          * Restart the ChromeOS device when the app runs in kiosk mode. Otherwise, it's no-op.
@@ -6657,14 +6751,6 @@ declare namespace chrome {
          */
         function setUninstallURL(url: string, callback?: () => void): void;
 
-        /**
-         * Open your Extension's options page, if possible.
-         * The precise behavior may depend on your manifest's options_ui or options_page key, or what Chrome happens to support at the time. For example, the page may be opened in a new tab, within chrome://extensions, within an App, or it may just focus an open options page. It will never cause the caller page to reload.
-         * If your Extension does not declare an options page, or Chrome failed to create one for some other reason, the callback will set lastError.
-         * @since Chrome 42.
-         */
-        function openOptionsPage(callback?: () => void): void;
-
 
         interface ExtensionMessageEvent extends chrome.events.Event<(message: any, sender: MessageSender, sendResponse: (response: any) => void) => void> { }
 
@@ -6704,17 +6790,27 @@ declare namespace chrome {
          */
         const onMessageExternal: ExtensionMessageEvent;
         /**
-         * Fired when an app or the device that it runs on needs to be restarted. The app should close all its windows at its earliest convenient time to let the restart to happen. If the app does nothing, a restart will be enforced after a 24-hour grace period has passed. Currently, this event is only fired for Chrome OS kiosk apps.
+         * @required(Chrome OS Kiosk app) Currently, this event is only fired for Chrome OS kiosk apps.
+         * Fired when an app or the device that it runs on needs to be restarted.
+         * The app should close all its windows at its earliest convenient time to let the restart to happen.
+         * If the app does nothing, a restart will be enforced after a 24-hour grace period has passed.
          * @since Chrome 29.
          */
-        const onRestartRequired: chrome.events.Event<(reason: string) => void>;
+        const onRestartRequired: chrome.events.Event<(reason: ToStringLiteral<typeof OnRestartRequiredReason>) => void>;
         /**
-         * Fired when an update is available, but isn't installed immediately because the app is currently running. If you do nothing, the update will be installed the next time the background page gets unloaded, if you want it to be installed sooner you can explicitly call chrome.runtime.reload(). If your extension is using a persistent background page, the background page of course never gets unloaded, so unless you call chrome.runtime.reload() manually in response to this event the update will not get installed until the next time chrome itself restarts. If no handlers are listening for this event, and your extension has a persistent background page, it behaves as if chrome.runtime.reload() is called in response to this event.
+         * Fired when an update is available, but isn't installed immediately because the app is currently running.
+         * If you do nothing, the update will be installed the next time the background page gets unloaded,
+         * if you want it to be installed sooner you can explicitly call chrome.runtime.reload().
+         * If your extension is using a persistent background page, the background page of course never gets unloaded,
+         * so unless you call chrome.runtime.reload() manually in response to this event the update
+         * will not get installed until the next time chrome itself restarts. If no handlers are listening for this event,
+         * and your extension has a persistent background page, it behaves as if chrome.runtime.reload()
+         * is called in response to this event.
          * @since Chrome 25.
          */
         const onUpdateAvailable: chrome.events.Event<(details: UpdateAvailableDetails) => void>;
         /**
-         * @deprecated since Chrome 33. Please use chrome.runtime.onRestartRequired.
+         * @deprecated since Chrome 33. Please use **chrome.runtime.onRestartRequired**.
          * Fired when a Chrome update is available, but isn't installed immediately because a browser restart is required.
          */
         const onBrowserUpdateAvailable: RuntimeEvent;
@@ -6742,7 +6838,7 @@ declare namespace chrome {
      * Note: Starting with Chrome 33, this API is deprecated in favor of the sockets.udp, sockets.tcp
      * and sockets.tcpServer APIs.
      */
-    // const socket: chrome.deprecated; // Removed to not be confused with chrome.sockets.*
+    // const socket: chrome.deprecatedButUsable; // Removed to not be confused with chrome.sockets.*
 
     /** chrome.sockets.tcp API */
     namespace sockets {
@@ -8306,7 +8402,7 @@ declare namespace chrome {
     // USB //
     /////////
     /**
-     * @requires Permissions: "usb"
+     * @requires Permissions: 'usb'
      * @since Available since Chrome 26.
      * Use the chrome.usb API to interact with connected USB devices.
      * This API provides access to USB operations from within the context of an app.
@@ -8444,7 +8540,7 @@ declare namespace chrome {
         }
 
         interface GenericTransferInfo {
-            /** The transfer direction ("in" or "out"). */
+            /** The transfer direction ('in' or 'out'). */
             direction: Direction;
             /** The target endpoint address. The interface containing this endpoint must be claimed. */
             endpoint: integer;
@@ -8488,9 +8584,9 @@ declare namespace chrome {
         type TransferRequestType = 'standard' | 'class' | 'vendor' | 'reserved';
 
         interface TransferInfo {
-            /** The transfer direction ("in" or "out"). */
+            /** The transfer direction ('in' or 'out'). */
             direction: Direction;
-            /** The transfer target. The target given by index must be claimed if "interface" or "endpoint". */
+            /** The transfer target. The target given by index must be claimed if 'interface' or 'endpoint'. */
             recipient: TransferRecipient;
             /** The request type. */
             requestType: TransferRequestType;
@@ -8723,13 +8819,13 @@ declare namespace chrome {
     }
 
 
-    ////////////////////
-    // VPN Provider
-    ////////////////////
+    //////////////////
+    // VPN Provider //
+    //////////////////
     /**
      * Use the chrome.vpnProvider API to implement a VPN client.
-     * Permissions:  'vpnProvider'
-     * Important: This API works only on Chrome OS.
+     * @requires(CrOS) Important: This API works only on Chrome OS.
+     * @requires Permissions: 'vpnProvider'
      * @since Chrome 43.
      */
     namespace vpnProvider {
@@ -8741,11 +8837,23 @@ declare namespace chrome {
             /** MTU setting for the VPN interface. (default: 1500 bytes) */
             mtu?: string;
             /**
-             * Exclude network traffic to the list of IP blocks in CIDR notation from the tunnel. This can be used to bypass traffic to and from the VPN server. When many rules match a destination, the rule with the longest matching prefix wins. Entries that correspond to the same CIDR block are treated as duplicates. Such duplicates in the collated (exclusionList + inclusionList) list are eliminated and the exact duplicate entry that will be eliminated is undefined.
+             * Exclude network traffic to the list of IP blocks in CIDR notation from the tunnel.
+             * This can be used to bypass traffic to and from the VPN server.
+             * When many rules match a destination, the rule with the longest matching prefix wins.
+             * Entries that correspond to the same CIDR block are treated as duplicates.
+             * Such duplicates in the collated (exclusionList + inclusionList) list
+             * are eliminated and the exact duplicate entry that will be eliminated is undefined.
              */
             exclusionList: string[];
             /**
-             * Include network traffic to the list of IP blocks in CIDR notation to the tunnel. This parameter can be used to set up a split tunnel. By default no traffic is directed to the tunnel. Adding the entry '0.0.0.0/0' to this list gets all the user traffic redirected to the tunnel. When many rules match a destination, the rule with the longest matching prefix wins. Entries that correspond to the same CIDR block are treated as duplicates. Such duplicates in the collated (exclusionList + inclusionList) list are eliminated and the exact duplicate entry that will be eliminated is undefined.
+             * Include network traffic to the list of IP blocks in CIDR notation to the tunnel.
+             * This parameter can be used to set up a split tunnel.
+             * By default no traffic is directed to the tunnel.
+             * Adding the entry '0.0.0.0/0' to this list gets all the user traffic redirected to the tunnel.
+             * When many rules match a destination, the rule with the longest matching prefix wins.
+             * Entries that correspond to the same CIDR block are treated as duplicates.
+             * Such duplicates in the collated (exclusionList + inclusionList) list are
+             * eliminated and the exact duplicate entry that will be eliminated is undefined.
              */
             inclusionList: string[];
             /** A list of search domains. (default: no search domain) */
@@ -8849,14 +8957,46 @@ declare namespace chrome {
 
     namespace webRequest {
         type ResourceType =
-            "main_frame" | "sub_frame" | "stylesheet" |
-            "script" | "image" | "font" | "object" |
-            "xmlhttprequest" | "ping" | "csp_report"
-            | "media" | "websocket" | "other";
+            'main_frame' | 'sub_frame' | 'stylesheet' |
+            'script' | 'image' | 'font' | 'object' |
+            'xmlhttprequest' | 'ping' | 'csp_report'
+            | 'media' | 'websocket' | 'other';
     }
 
     namespace webViewRequest {
-        type Stage = "onBeforeRequest" | "onBeforeSendHeaders" | "onHeadersReceived" | "onAuthRequired";
+        type Stage = 'onBeforeRequest' | 'onBeforeSendHeaders' | 'onHeadersReceived' | 'onAuthRequired';
+        type DeclarativeWebRequestEventList =
+            'declarativeContent.onBeforeRequest' |
+            'declarativeContent.onBeforeSendHeaders' |
+            'declarativeContent.onSendHeaders' |
+            'declarativeContent.onHeadersReceived' |
+            'declarativeContent.onAuthRequired' |
+            'declarativeContent.onResponseStarted' |
+            'declarativeContent.onBeforeRedirect' |
+            'declarativeContent.onCompleted' |
+            'declarativeContent.onErrorOccured' |
+            'declarativeContent.onRequest' |
+            'declarativeContent.onMessage';
+        type DeclarativeWebRequestConditionsList =
+            'declarativeContent.PageStateMatcher';
+        type DeclarativeWebRequestActionsList =
+            'declarativeWebRequest.AddRequestCookie' |
+            'declarativeWebRequest.AddResponseCookie' |
+            'declarativeWebRequest.AddResponseHeader' |
+            'declarativeWebRequest.CancelRequest' |
+            'declarativeWebRequest.EditRequestCookie' |
+            'declarativeWebRequest.EditResponseCookie' |
+            'declarativeWebRequest.RedirectRequest' |
+            'declarativeWebRequest.RedirectToTransparentImage' |
+            'declarativeWebRequest.RedirectToEmptyDocument' |
+            'declarativeWebRequest.RedirectByRegEx' |
+            'declarativeWebRequest.RemoveRequestCookie' |
+            'declarativeWebRequest.RemoveResponseCookie' |
+            'declarativeWebRequest.RemoveRequestHeader' |
+            'declarativeWebRequest.RemoveResponseHeader' |
+            'declarativeWebRequest.SetRequestHeader' |
+            'declarativeWebRequest.SendMessageToExtension' |
+            'declarativeWebRequest.IgnoreRules';
         interface HeaderFilter {
             /** Matches if the header name starts with the specified string. */
             namePrefix?: string;
@@ -9394,6 +9534,18 @@ declare namespace chrome {
          * from an action of the declarative web request API.
          */
         interface OnMessageEvent extends chrome.events.Event<(details: OnMessageEventDetails) => void> { }
+    }
+
+    /////////////
+    // CLASSES //
+    /////////////
+
+    /**
+     * New Chrome Event
+     * @constructor
+     */
+    const Event: {
+        new <T = any>(): chrome.events.Event<T>;
     }
 
     /////////////
