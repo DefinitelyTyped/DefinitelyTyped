@@ -110,6 +110,7 @@ interface MyFieldCustomProps {
 type MyFieldProps = MyFieldCustomProps & WrappedFieldProps;
 const MyField: React.StatelessComponent<MyFieldProps> = ({
     children,
+    label,
     input,
     meta,
     foo
