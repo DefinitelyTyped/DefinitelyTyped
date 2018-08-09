@@ -11,6 +11,19 @@
 // WebView ref                                                                                                    //
 // https://chromium.googlesource.com/chromium/src/+/68.0.3432.1/chrome/common/extensions/api/webview_tag.json     //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// Extra sources in addition to the Chromium source code and official documentation:
+//
+// Manifest:
+// - https://github.com/jasonkarns/chrome-extension-manifest-schema/blob/master/manifest.schema.cson
+// - https://github.com/chromium/chromium/blob/master/chrome/browser/chromeos/extensions/device_local_account_management_policy_provider.cc#L155
+// - https://chromium.googlesource.com/chromium/src.git/+/master/extensions/common/api/_manifest_features.json
+// - https://chromium.googlesource.com/chromium/src/+/master/extensions/common/api/
+// - https://chromium.googlesource.com/chromium/src/+/master/extensions/common/manifest_constants.cc
+//
+// Permissions:
+// - https://chromium.googlesource.com/chromium/src/+/master/extensions/common/api/_permission_features.json
+//
 
 declare namespace chrome {
     //////////////
@@ -5958,33 +5971,40 @@ declare namespace chrome {
         type ChromeOSOnlyPermissions =
             'certificateProvider' |
             'clipboard' |
+            'dns' |
             'documentScan' |
-            'enterprise.platformKeys' |
-            'fileBrowserHandler' |
-            'fileSystemProvider' |
-            'enterprise' | // ?
+            'enterprise' |
             'enterprise.platformKeys' |
             'enterprise.deviceAttributes' |
+            'fileBrowserHandler' |
+            'fileSystemProvider' |
             'networking.config' |
             'platformKeys' |
-            'virtualKeyboard' |
             'vpnProvider' |
             'wallpaper';
 
+        type DevOnly =
+            'app.window.alpha' |
+            'audio' | // Dev channel except for ChromeOS kiosk
+            'diagnostics' |
+            'displaySource';
+
         type KioskOnlyPermissions =
-            'networking.onc';
+            'audio' |
+            'networking.onc' |
+            'system.powerSource' |
+            'virtualKeyboard';
 
         /** Undocumented but used permissions */
         type UndocumentedPermissions =
+            'appview' |
             'experimental' |
-            'app.window.alpha' |
-            'app.window.shape' |
+            'app.window.shape' | // Works on stable
             'geolocation' |
             'alwaysOnTopWindows' |
             'overrideEscFullscreen' |
             'geolocation' |
             'experimental' |
-            'diagnostics' |
             'app.window.fullscreen' |
             'app.window.fullscreen.overrideEsc';
 
@@ -5992,7 +6012,6 @@ declare namespace chrome {
             'alarms' |
             'app.window.fullscreen' |
             'app.window.fullscreen.overrideEsc' |
-            'audio' |
             'audioCapture' |
             'background' |
             'browser' |
@@ -6001,8 +6020,6 @@ declare namespace chrome {
             'contextMenus' |
             'desktopCapture' |
             'diagnostics' |
-            'displaySource' |
-            'dns' |
             'experimental' |
             'fileSystem' |
             'gcm' |
@@ -6017,7 +6034,10 @@ declare namespace chrome {
             'pointerLock' |
             'power' |
             'printerProvider' |
-            // 'serial' | // Deprecated
+            /** Runtime is not actually a permisison, but some sysems check these values to verify restrictions. */
+            'runtime' |
+            /** @deprecated Serial is deprecated */
+            'serial' |
             'signedInDevices' |
             'storage' |
             'syncFileSystem' |
@@ -6029,16 +6049,16 @@ declare namespace chrome {
             'tts' |
             'unlimitedStorage' |
             'usb' |
+            'usbDevices' |
             'videoCapture' |
             'webview' |
             ChromeOSOnlyPermissions |
+            FileSystemPermission |
             KioskOnlyPermissions |
             MediaGalleriesPermission |
             SocketPermission |
-            PrivatePermissions |
-            USBDevicesPermission |
-            FileSystemPermission |
-            UrlPermission;
+            UrlPermission |
+            USBDevicesPermission;
 
         interface MediaGalleriesPermission {
             mediaGalleries: Array<'read' | 'allAutoDetected'>;
@@ -6047,7 +6067,10 @@ declare namespace chrome {
             usbDevices: { vendorId: integer, productId: integer }[]
         }
         interface FileSystemPermission {
-            fileSystem: Array<'write' | 'retainEntries' | 'directory'>;
+            /**
+             * 'requestFileSystem' is only for ChromeOS
+             */
+            fileSystem: Array<'write' | 'retainEntries' | 'directory' | 'requestFileSystem'>;
         }
         interface SocketPermission {
             /**
@@ -6062,19 +6085,6 @@ declare namespace chrome {
              */
             socket: string[];
         }
-
-        /**
-         * Only for whitelisted internal apps and extensions
-         * @private
-         * @internal
-         */
-        type PrivatePermissions = 'Private'
-            | 'metricsPrivate'
-            | 'developerPrivate'
-            | 'activityLogPrivate'
-            | 'networkingPrivate'
-            | 'terminalPrivate';
-
 
         /// For chrome managed storage
 
@@ -6168,36 +6178,7 @@ declare namespace chrome {
         }
         type AutomationOptions = boolean | AutomationDesktop | AutomationNonInteractive;
 
-        interface InvalidManifest extends ValidManifest {
-            //
-            // Never types - should never exist
-            // Are declared to prevent use since many
-            // legacy app are using them. Will result
-            // in errors. Many examples and code bases
-            // have these included.
-            //
-
-            /** Not for packaged apps */
-            options_ui?: never;
-            /** Not for packaged apps */
-            options_page?: never;
-            /** Not for packaged apps */
-            browser_action?: never;
-            /**
-             * Not for packaged apps
-             * Only for extensions and legacy packaged apps
-             */
-            content_security_policy?: never;
-            /**
-             * Not for packaged apps
-             * Only for extensions and legacy packaged apps
-             */
-            chrome_url_overrides?: never;
-        }
-
-        type Manifest = ValidManifest | InvalidManifest;
-
-        interface ValidManifest {
+        interface PartialManifest {
             //////////////
             // REQUIRED //
             //////////////
@@ -6210,8 +6191,8 @@ declare namespace chrome {
             app: {
                 background: {
                     scripts?: string[];
-                } | never;
-            } | never;
+                };
+            };
             /**
              * One integer specifying the version of the manifest file format your package requires.
              * As of Chrome 18, developers should specify 2 (without quotes).
@@ -6292,7 +6273,7 @@ declare namespace chrome {
             //////////////
 
             /**
-             * @requires(CrOS) **This API is only available on ChromeOS.**
+             * @requires(CrOS) **Will only work on Chrome OS.**
              * @description
              * The action_handlers manifest property declares which user actions or intents the
              * application supports; these can serve as alternate launch points for your application.
@@ -6302,20 +6283,46 @@ declare namespace chrome {
              * 'action_handlers': ['new_note']
              */
             action_handlers?: ToStringLiteral<typeof app.runtime.ActionType>[];
+
+            /**
+             * App author information
+             * @see[Not implemented anywhere in code]{@link https://github.com/chromium/chromium/blob/master/chrome/browser/chromeos/extensions/device_local_account_management_policy_provider.cc#L46}
+             */
+            author?: {
+                name: string,
+                email: string,
+            } | any;
+
             /** @todo TODO */
-            author?: any;
-            /** @todo TODO */
-            automation?: AutomationOptions;
-            /** @todo TODO */
+            automation?: AutomationOptions | boolean;
+
+            /**
+             * Note: The "bluetooth" manifest permission is used by the
+             * chrome.bluetooth, chrome.bluetoothSocket and
+             * chrome.bluetoothLowEnergy APIs.
+             * @requires Platforms: Chrome OS, Windows and Mac
+             */
             bluetooth?: {
-                uuids?: string[];
-                socket?: boolean;
-                low_energy?: boolean;
-                peripheral?: boolean;
+                uuids?: string[],
+                socket?: boolean,
+                low_energy?: boolean,
+                peripheral?: boolean,
             };
-            /** Keyboard command shorcuts */
+            /**
+             * Use the commands API to add keyboard shortcuts that trigger actions in your app.
+             * E.g. an action to open the browser action or send a command to the app.
+             */
             commands?: {
                 [name: string]: {
+                    /**
+                     * Keys can be provided matching this pattern:
+                     * ^(Ctrl|Command|MacCtrl|Alt|Option)\\+(Shift\\+)?[A-Z]
+                     * @example
+                     * "suggested_key": {
+                     *     "default": "Ctrl+Shift+Y",
+                     *     "mac": "Command+Shift+Y"
+                     * },
+                     */
                     suggested_key?: {
                         default?: string;
                         windows?: string;
@@ -6323,15 +6330,19 @@ declare namespace chrome {
                         chromeos?: string;
                         linux?: string;
                     };
+                    /** Command description */
                     description?: string;
+                    /** Global scope? */
                     global?: boolean
                 }
             };
             /**
-             * @todo TODO ?
+             * An implementation detail (actually written by Chrome, not the app author).
              */
-            current_locale?: string;
+            readonly current_locale?: string;
+            /** Restricted to whitelist */
             display_in_launcher?: boolean;
+            /** Restricted to whitelist */
             display_in_new_tab_page?: boolean;
             /**
              * The *event_rules* manifest property provides a mechanism to add rules that
@@ -6342,18 +6353,19 @@ declare namespace chrome {
              */
             event_rules?: {
                 /** Event name */
-                event?: chrome.webViewRequest.DeclarativeWebRequestEventList;
+                event?: chrome.webViewRequest.DeclarativeWebRequestEventList,
                 actions?: {
                     /** Action type */
-                    type: chrome.webViewRequest.DeclarativeWebRequestActionsList;
+                    type: chrome.webViewRequest.DeclarativeWebRequestActionsList,
                 }[];
                 conditions?: {
                     /** Condition */
                     type: chrome.webViewRequest.DeclarativeWebRequestConditionsList,
                     /** Arguments, see original condition docs in chrome.webViewRequest */
-                    [key: string]: any | any[];
-                }[];
+                    [key: string]: any | any[],
+                }[],
             }[];
+
             /**
              * Declares which extensions, apps, and web pages can connect
              * to your extension via runtime.connect and runtime.sendMessage.
@@ -6364,54 +6376,51 @@ declare namespace chrome {
                  * If left empty or unspecified, no extensions or apps can connect.
                  * The wildcard '*' will allow all extensions and apps to connect.
                  */
-                id: string[];
+                id: string[],
                 /**
                  * The URL patterns for web pages that are allowed to connect.
                  * This does not affect content scripts.
                  * If left empty or unspecified, no web pages can connect.
                  */
-                matches: string[];
+                matches: string[],
                 /**
                  * Determines if messages sent via `runtime.connect` or `runtime.sendMessage`
                  * are allowed to set `runtime.MessageSender.tlsChannelId`.
                  */
-                accept_tls_channel_id: boolean;
+                accept_tls_channel_id: boolean,
             }
+
             /** @todo TODO */
             file_handlers?: {
                 [key: string]: {
-                    extensions?: Array<'*' | string | { include_directories: boolean }>;
-                    types?: Array<'*' | string | { include_directories: boolean }>;
-                }
-            }[];
+                    extensions?: Array<'*' | string | { include_directories: boolean }>,
+                    types?: Array<'*' | string | { include_directories: boolean }>,
+                },
+            };
+
             /** @todo TODO */
             file_system_provider_capabilities?: {
-                configurable?: boolean;
-                multiple_mounts?: boolean;
-                source?: 'network' | string;
+                configurable?: boolean,
+                multiple_mounts?: boolean,
+                watchable?: boolean,
+                source?: 'network' | string,
             };
+
             /** @todo TODO */
             import?: {
                 id: string;
             }[];
+
             /** This value can be used to control the unique ID of an app when it is loaded during development. */
             key?: string;
-            /** @todo TODO */
-            kiosk?: {
-                always_update: any;
-                required_platform_version: any;
-            };
-            /** @todo TODO */
-            kiosk_enabled?: boolean;
-            /** @todo TODO */
-            kiosk_only?: boolean;
-            /** @todo TODO */
-            kiosk_secondary_apps?: any;
+
             /**
+             * The minimum version of Chrome that your app, if any.
              * @example
              * 'minimum_chrome_version': '33.0.1715.0'
              */
             minimum_chrome_version?: string;
+
             /** One or more mappings from MIME types to the Native Client module that handles each type. */
             nacl_modules?: {
                 /** The location of a Native Client manifest (a .nmf file) within the extension directory. */
@@ -6419,6 +6428,7 @@ declare namespace chrome {
                 /** The MIME type for which the Native Client module will be registered as content handler. */
                 mime_type: string;
             }[];
+
             /**
              * Use the Chrome Identity API to authenticate users:
              * the getAuthToken for users logged into their Google Account
@@ -6430,23 +6440,27 @@ declare namespace chrome {
                 /** Applies to these scopes */
                 scopes: string[];
             };
+
             /**
              * Whether the app or extension is expected to work offline.
              * When Chrome detects that it is offline, apps with this field set to true will be highlighted on the New Tab page.
              */
             offline_enabled?: boolean;
+
             /**
              * Use the chrome.permissions API to request declared optional permissions
              * at run time rather than install time, so users understand why the
              * permissions are needed and grant only those that are necessary.
              */
             optional_permissions?: Permission[] | Array<Permission | string>;
+
             /**
              * Permissions help to limit damage if your app is compromised by malware.
              * Some permissions are also displayed to users before installation,
              * as detailed in Permission Warnings.
              */
             permissions?: Permission[] | Array<Permission | string>;
+
             /**
              * Native Client
              * @see[NDK Docs]{@link https://github.com/crosswalk-project/chromium-crosswalk/blob/af36cc3ce3f5fcb8033f16236725718f8012abfe/native_client_sdk/src/doc/devguide/distributing.rst}
@@ -6456,6 +6470,7 @@ declare namespace chrome {
                 nacl_arch: ToStringLiteral<typeof chrome.runtime.PlatformNaclArch>;
                 sub_package_path: string;
             }[];
+
             /**
              * Technologies required by the app. Hosting sites such
              * as the Chrome Web Store may use this list to dissuade
@@ -6466,7 +6481,14 @@ declare namespace chrome {
              */
             requirements?: {
                 /**
-                 * The '3D' requirement denotes GPU hardware acceleration. The 'webgl' requirement refers to the WebGL API. For more information on Chrome 3D graphics support, see the help article on WebGL and 3D graphics. You can list the 3D-related features your app requires, as demonstrated in the following example:
+                 * The '3D' requirement denotes GPU hardware acceleration.
+                 *
+                 * The 'webgl' requirement refers to the WebGL API.
+                 * For more information on Chrome 3D graphics support,
+                 * see the help article on WebGL and 3D graphics.
+                 * You can list the 3D-related features your app requires,
+                 * as demonstrated in the following example:
+                 * @example
                  * 'requirements': {
                  *   '3D': {
                  *     'features': ['webgl']
@@ -6474,14 +6496,19 @@ declare namespace chrome {
                  * }
                  */
                 '3D'?: {
-                    features: 'webgl';
+                    /** List of the 3D-related features your app requires. */
+                    features: ['webgl'];
                 };
+
                 /**
-                 * The 'plugins' requirement indicates if an app or extension requires NPAPI to run.
+                 * The 'plugins' requirement indicates if an app requires NPAPI to run.
+                 *
                  * This requirement is enabled by default when the manifest includes the 'plugins' field.
                  * For apps and extensions that still work when plugins aren't available,
                  * you can disable this requirement by setting NPAPI to false.
-                 * You can also enable this requirement manually, by setting NPAPI to true, as shown in this example:
+                 * You can also enable this requirement manually,
+                 * by setting NPAPI to true as shown in this example:
+                 * @example
                  * 'requirements': {
                  *   'plugins': {
                  *     'npapi': true
@@ -6493,6 +6520,7 @@ declare namespace chrome {
                     npapi: boolean;
                 }
             };
+
             /**
              * @deprecated
              * Warning: Starting in version 57, Chrome will no longer allow external web content
@@ -6506,6 +6534,7 @@ declare namespace chrome {
                  */
                 content_security_policy?: string;
             };
+
             /**
              * The short_name (maximum of 12 characters recommended) is
              * a short version of the app's name. It is an optional field
@@ -6519,8 +6548,10 @@ declare namespace chrome {
              * @see[Internationalization]{@see https://developer.chrome.com/extensions/i18n}
              */
             short_name?: string;
+
             /** @todo TODO What is this? */
             signature?: any;
+
             /**
              * The sockets manifest property declares which permissions are available
              * for the sockets.udp, sockets.tcp and sockets.tcpServer APIs.
@@ -6533,6 +6564,7 @@ declare namespace chrome {
                 /** The udp manifest property declares which sockets.udp operations an app can issue. */
                 udp?: SocketUdpPermission;
             };
+
             /**
              * Unlike the local and sync storage areas,
              * the managed storage area requires its structure
@@ -6554,6 +6586,7 @@ declare namespace chrome {
                  */
                 managed_schema: string;
             };
+
             // system_indicator?: any; // Deprecated / removed: https://bugs.chromium.org/p/chromium/issues/detail?id=142450
             /**
              * If you publish using the Chrome Developer Dashboard, ignore this field.
@@ -6566,6 +6599,7 @@ declare namespace chrome {
              * @see[Documentation]{@link https://developer.chrome.com/apps/autoupdate}
              */
             update_url?: string;
+
             /**
              * Used by packaged apps to specify URL patterns the app wants to intercept and handle.
              * An app can define multiple URL handlers under this manifest entry,
@@ -6592,6 +6626,7 @@ declare namespace chrome {
                     title?: string;
                 }
             };
+
             /** The usbPrinters manifest property declares which USB printers are supported by an app using the printerProvider API. */
             usb_printers?: {
                 /**
@@ -6601,6 +6636,7 @@ declare namespace chrome {
                  */
                 filters: chrome.usb.DeviceFilterStrict[];
             };
+
             /**
              * version_name can be set to a descriptive version string and will be used for display purposes if present.
              * If no version_name is present, the version field will be used for display purposes as well.
@@ -6610,6 +6646,7 @@ declare namespace chrome {
              * 'version_name': 'Gold Edition'
              */
             version_name?: string;
+
             /**
              * By default, webviews are prevented from loading any resources packaged with the app.
              * However, webview partitions may be granted access to these resources via a webview.partitions
@@ -6622,8 +6659,74 @@ declare namespace chrome {
                 /** Webview partition list */
                 partitions: WebViewPartition[]
             }
-
         }
+
+        /**
+         * Manifest for Chrome OS Kiosk apps
+         * @requires(CrOS Kiosk App) **Only for Chrome OS Kiosk Apps.**
+         */
+        interface ValidKioskManifest extends PartialManifest {
+            /**
+             * Enable this app to be used as a kiosk app.
+             */
+            kiosk_enabled: true;
+
+            /** Kiosk settings */
+            kiosk?: {
+                /**
+                 * If the key is specified and its value is true, it allows the app to
+                 * be always updated regardless of whether the underlying platform is
+                 * compliant or not. If the value is false or the key is not specified,
+                 * the required platform version is respected and the app update is
+                 * deferred until the underlying platform becomes compliant.
+                 */
+                always_update?: boolean;
+                required_platform_version?: string;
+            };
+
+            /**
+             * This app can only be used as a kiosk app on Chrome OS
+             */
+            kiosk_only?: boolean;
+
+            /**
+             * Not useful since it will prevent app from running.
+             * @see[Source]{@link https://github.com/chromium/chromium/blob/master/chrome/browser/chromeos/extensions/device_local_account_management_policy_provider.cc#L155}
+             */
+            kiosk_secondary_apps?: any;
+        }
+        interface ValidNonKioskManifest extends PartialManifest {
+            kiosk_enabled?: false;
+        }
+
+        interface InvalidManifest extends PartialManifest {
+            //
+            // Never types - should never exist
+            // Are declared to prevent use since many
+            // legacy app are using them. Will result
+            // in errors. Many examples and code bases
+            // have these included.
+            //
+
+            /** Not for packaged apps */
+            options_ui?: never;
+            /** Not for packaged apps */
+            options_page?: never;
+            /** Not for packaged apps */
+            browser_action?: never;
+            /**
+             * Not for packaged apps
+             * Only for extensions and legacy packaged apps
+             */
+            content_security_policy?: never;
+            /**
+             * Not for packaged apps
+             * Only for extensions and legacy packaged apps
+             */
+            chrome_url_overrides?: never;
+        }
+
+        type Manifest = ValidKioskManifest | C | ValidNonKioskManifest | InvalidManifest;
 
         /**
          * Attempts to connect to connect listeners within an extension/app (such as the background page), or other extensions/apps. This is useful for content scripts connecting to their extension processes, inter-app/extension communication, and web messaging. Note that this does not connect to any listeners in a content script. Extensions may connect to content scripts embedded in tabs via tabs.connect.

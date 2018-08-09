@@ -294,7 +294,6 @@ const ManifestJSONTest1: chrome.runtime.Manifest = {
         "name": "Your name here",
         "email": "Email@yourmail.com"
     },
-    "author": "hei",
     "update_url": "https://clients2.google.com/service/update2/crx",
     "version_name": "10.0.12-stable",
     "kiosk_enabled": true,
@@ -371,7 +370,6 @@ const ManifestJSONTest1: chrome.runtime.Manifest = {
     "automation": {
         "desktop": true
     },
-    "automation": true,
     "sandbox": {
         "content_security_policy": "sandbox allow-scripts allow-popups; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://ssl.google-analytics.com/ga.js;",
         "pages": ["sandbox.html"]
