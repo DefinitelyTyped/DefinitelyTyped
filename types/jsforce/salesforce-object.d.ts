@@ -43,9 +43,9 @@ export class SObject<T> {
     count(conditions?: Object | string, callback?: (err: Error, num: number) => void): Promise<number>;
     create(options: any | any[], callback?: (err: Error, ret: RecordResult | RecordResult[]) => void): Promise<RecordResult | RecordResult[]>;
     createBulk(input?: Array<Record<T>> | stream.Stream | string, callback?: (err: Error, ret: RecordResult) => void): Batch;
-    del(ids: string | string[], callback?: (err: Error, ret: any) => void): void;
-    destroy(ids: string | string[], callback?: (err: Error, ret: any) => void): void;
-    delete(ids: string | string[], callback?: (err: Error, ret: any) => void): void;
+    del(ids: string | string[], callback?: (err: Error, ret: any) => void): Promise<RecordResult | RecordResult[]>;
+    destroy(ids: string | string[], callback?: (err: Error, ret: any) => void): Promise<RecordResult | RecordResult[]>;
+    delete(ids: string | string[], callback?: (err: Error, ret: any) => void): Promise<RecordResult | RecordResult[]>;
     deleteBulk(input?: Array<Record<T>> | stream.Stream | string, callback?: (err: Error, ret: RecordResult) => void): Batch;
     destroyBulk(input?: Array<Record<T>> | stream.Stream | string, callback?: (err: Error, ret: RecordResult) => void): Batch;
     destroyHardBulk(input?: Array<Record<T>> | stream.Stream | string, callback?: (err: Error, ret: RecordResult) => void): Batch;
