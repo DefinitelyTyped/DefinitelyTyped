@@ -30,7 +30,7 @@ slack.send({
 
 app.post('/yesman', function(req, res) {
 
-    var reply = slack.respond(req.body, function(hook: any) {
+    var reply = slack.respond(req.body as any, function(hook: any) {
 
         return {
             text: 'Good point, ' + hook.user_name,

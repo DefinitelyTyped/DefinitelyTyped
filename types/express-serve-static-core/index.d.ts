@@ -5,8 +5,9 @@
 //                 Kacper Polak <https://github.com/kacepe>
 //                 Satana Charuwichitratana <https://github.com/micksatana>
 //                 Sami Jaber <https://github.com/samijaber>
+//                 Linus Unnebäck <https://github.com/LinusU>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 3.0
 
 // This extracts the core definitions from express to prevent a circular dependency between express and serve-static
 /// <reference types="node" />
@@ -423,8 +424,10 @@ export interface Request extends http.IncomingMessage, Express.Request {
      */
     xhr: boolean;
 
-    //body: { username: string; password: string; remember: boolean; title: string; };
-    body: any;
+    /**
+     * The parsed request body.
+     */
+    body: unknown;
 
     //cookies: { string; remember: boolean; };
     cookies: any;
