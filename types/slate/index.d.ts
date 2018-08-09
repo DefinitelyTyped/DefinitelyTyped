@@ -5,6 +5,7 @@
 //                 Jan Löbel <https://github.com/JanLoebel>
 //                 Brandon Shelton <https://github.com/YangusKhan>
 //                 Kalley Powell <https://github.com/kalley>
+//                 Francesco Agnoletto <https://github.com/Kornil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 import * as Immutable from 'immutable';
