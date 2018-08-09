@@ -1,6 +1,6 @@
 // Type definitions for dav 1.7
 // Project: https://github.com/lambdabaa/dav/
-// Definitions by: ToastHawaii <https://github.com/ToastHawaii/>
+// Definitions by: ToastHawaii <https://github.com/ToastHawaii>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -614,9 +614,9 @@ export class Client {
     updateCard(card: VCard, options?: UpdateCardOptions): Promise<VCard>;
 
     /**
-         *
-        * Delete the parameter vcard object on the server.
-        * @param card target vcard object.
+     *
+     * Delete the parameter vcard object on the server.
+     * @param card target vcard object.
      * @param options
      * @returns a Promise which will be fulfilled when the vcard has been deleted.
      */
