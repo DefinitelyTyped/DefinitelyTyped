@@ -93,10 +93,10 @@ export interface DropdownClasses {
     disabled: boolean;
 }
 
-export interface VueSelectConstructor extends VueConstructor{
-  props: VueSelectProps;
-  data: () => VueSelectData;
-  watch: VueSelectWatch;
-  methods: VueSelectMethods;
-  computed: VueSelectComputed;
+export interface VueSelectConstructor extends VueConstructor {
+    props: VueSelectProps;
+    data: () => VueSelectData;
+    watch: VueSelectWatch;
+    methods: VueSelectMethods;
+    computed: VueSelectComputed;
 }
