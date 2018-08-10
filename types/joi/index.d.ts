@@ -714,6 +714,7 @@ export interface ArraySchema extends AnySchema {
      * Specifies the exact number of items in the array.
      */
     length(limit: number): this;
+    length(limit: Reference): this;
 
     /**
      * Requires the array values to be unique.
