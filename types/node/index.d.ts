@@ -2343,6 +2343,7 @@ declare module "child_process" {
     export function fork(modulePath: string, args?: ReadonlyArray<string>, options?: ForkOptions): ChildProcess;
 
     export interface SpawnSyncOptions {
+        argv0?: string; // Not specified in the docs
         cwd?: string;
         input?: string | Buffer | Uint8Array;
         stdio?: StdioOptions;
