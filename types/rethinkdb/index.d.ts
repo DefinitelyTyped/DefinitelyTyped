@@ -317,7 +317,7 @@ declare module "rethinkdb" {
          * See [getAll](https://www.rethinkdb.com/api/javascript/get_all/) and
          * [compound indexes](https://www.rethinkdb.com/docs/secondary-indexes/javascript/#compound-indexes)
          */
-        getAll(compoundKey: string[], compoundKey2: string[], index?: Index): Sequence; // without index defaults to primary key
+        getAll(compoundKey: string[], compoundKey2: string[], index: Index): Sequence; // without index defaults to primary key
         /**
          * Get all documents matching 2 or more compound index keys.
          * See [getAll](https://www.rethinkdb.com/api/javascript/get_all/) and
