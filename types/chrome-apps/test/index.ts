@@ -231,7 +231,9 @@ const ManifestJSONTest1: chrome.runtime.Manifest = {
         "metricsPrivate", "networkingPrivate",
         "bluetooth",
         "unlimitedStorage",
-        { "fileSystem": ["write", "retainEntries", "directory"] },
+        {
+            fileSystem: ["write", "retainEntries", "directory"]
+        },
         "clipboardRead",
         "desktopCapture",
         "clipboardWrite",

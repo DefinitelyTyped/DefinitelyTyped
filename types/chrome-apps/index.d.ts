@@ -829,9 +829,9 @@ declare namespace chrome {
         const window: ChromeAppWindow;
     }
 
-    ////////////////////
-    // Audio
-    ////////////////////
+    ///////////
+    // Audio //
+    ///////////
     /**
      * @since Since Chrome 59.
      * @requires Permissions: 'audio'
@@ -2758,9 +2758,9 @@ declare namespace chrome {
     }
 
 
-    ////////////////////
-    // File System Provider
-    ////////////////////
+    //////////////////////////
+    // File System Provider //
+    //////////////////////////
     /**
      * Use the chrome.fileSystemProvider API to create file systems,
      * that can be accessible from the file manager on Chrome OS.
@@ -5987,49 +5987,79 @@ declare namespace chrome {
             | 'chrome://extension-icon/';
 
         type ChromeOSOnlyPermissions =
-            /** Gives your app access to the chrome.certificateProvider API. */
+            /**
+             * Gives your app access to the chrome.certificateProvider API.
+             * @todo TODO Implement API.
+             */
             'certificateProvider' |
             /** Gives your app access to the chrome.clipboard API. */
             'clipboard' |
-            /** Gives your app access to the chrome.dns API. */
+            /**
+             * Gives your app access to the chrome.dns API.
+             * @todo TODO Implement API.
+             */
             'dns' |
             /** Gives your app access to the chrome.documentScan API. */
             'documentScan' |
-            /** Gives your app access to the chrome.enterprise.platformKeys API. */
+            /**
+             * Gives your app access to the chrome.enterprise.platformKeys API.
+             * @todo TODO Implement API.
+             */
             'enterprise.platformKeys' |
-            /** Gives your app access to the chrome.enterprise.deviceAttributes API. */
+            /**
+             * Gives your app access to the chrome.enterprise.deviceAttributes API.
+             * @todo TODO Implement API.
+             */
             'enterprise.deviceAttributes' |
-            /** Gives your app access to the chrome.fileBrowserHandler API. */
+            /**
+             * Gives your app access to the chrome.fileBrowserHandler API.
+             * @todo TODO Implement API.
+             */
             'fileBrowserHandler' |
             /**
              * Gives your app access to the chrome.fileSystemProvider API.
              * Use the chrome.fileSystemProvider API to create file systems, that can be accessible from the file manager on Chrome OS.
              */
             'fileSystemProvider' |
-            /** Gives your app access to the chrome.networking.config API. */
+            /**
+             * Gives your app access to the chrome.networking.config API.
+             * @todo TODO Implement API.
+             */
             'networking.config' |
-            /** Gives your app access to the chrome.platformKeys API. */
+            /**
+             * Gives your app access to the chrome.platformKeys API.
+             * @todo TODO Implement API.
+             */
             'platformKeys' |
             /** Gives your app access to the chrome.vpnProvider API. */
             'vpnProvider' |
             /** Gives your app access to the chrome.wallpaper API. */
-            'wallpaper';
+            'wallpaper' |
+            FileSystemPermission;
 
         type DevOnly =
+            /** @todo TODO Implement API. */
             'app.window.alpha' |
+            /**
+             * Gives your app access to the chrome.diagnostics API.
+             * @todo TODO Implement API.
+             */
             'diagnostics' |
+            /** @todo TODO Implement API. */
             'displaySource';
 
         type KioskOnlyPermissions =
             'audio' |
             'networking.onc' |
+            /** @todo TODO Implement API. */
             'system.powerSource' |
+            /** @todo TODO Document? */
             'virtualKeyboard';
 
         /** Undocumented but used permissions */
         type UndocumentedPermissions =
+            /** @todo TODO Document these */
             'appview' |
-            'experimental' |
             'app.window.shape' | // Works on stable
             'alwaysOnTopWindows' |
             'overrideEscFullscreen' |
@@ -6067,7 +6097,10 @@ declare namespace chrome {
             /** That is also the behavior in Chrome Apps unless the app.window.fullscreen.overrideEsc
              * permission is used to enable the app to call preventDefault on keydown and keyup events. */
             'app.window.fullscreen.overrideEsc' |
-            /** Requests that the app be granted permissions to capture audio directly from the user's Microphone via the getUserMedia API. */
+            /**
+             * Requests that the app be granted permissions to capture audio
+             * directly from the user's Microphone via the getUserMedia API.
+             */
             'audioCapture' |
             /**
              * Makes Chrome start up early and and shut down late, so that apps and extensions can have a longer life.
@@ -6090,8 +6123,6 @@ declare namespace chrome {
             'contextMenus' |
             /** Gives your app access to the chrome.desktopCapture API. */
             'desktopCapture' |
-            /** Gives your app access to the chrome.diagnostics API. */
-            'diagnostics' |
             /** Required if the app uses any chrome.experimental.* APIs. */
             'experimental' |
             /** Gives your app access to the chrome.fileSystem API. */
@@ -6177,7 +6208,6 @@ declare namespace chrome {
             /** Required if the app uses the Webview Tag to embed live content from the web in the packaged app. */
             'webview' |
             ChromeOSOnlyPermissions |
-            FileSystemPermission |
             KioskOnlyPermissions |
             MediaGalleriesPermission |
             SocketPermission |
@@ -6201,7 +6231,8 @@ declare namespace chrome {
         }
         interface FileSystemPermission {
             /**
-             * 'requestFileSystem' is only for ChromeOS
+             * @enum {string}
+             * @requires(CrOS) 'requestFileSystem' is only for ChromeOS
              */
             fileSystem: Array<'write' | 'retainEntries' | 'directory' | 'requestFileSystem'>;
         }
@@ -9826,6 +9857,17 @@ declare namespace chrome {
          */
         interface OnMessageEvent extends chrome.events.Event<(details: OnMessageEventDetails) => void> { }
     }
+
+    //////////////////
+    // PLACEHOLDERS //
+    //////////////////
+
+    /**
+     * Chrome experimental apis may be using this namespace.
+     * Please consult the official documentation.
+     * @see[Documentation]{@link https://developer.chrome.com/apps/experimental}
+     */
+    const experimental: any;
 
     /////////////
     // CLASSES //
