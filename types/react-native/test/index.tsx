@@ -68,6 +68,7 @@ import {
     TextInputEndEditingEventData,
     TextInputSubmitEditingEventData,
     WebView,
+    KeyboardAvoidingView,
 } from "react-native";
 
 declare module "react-native" {
@@ -724,3 +725,8 @@ class AccessibilityTest extends React.Component {
         );
     }
 }
+
+
+const KeyboardAvoidingViewTest = () => (
+    <KeyboardAvoidingView enabled />
+);
