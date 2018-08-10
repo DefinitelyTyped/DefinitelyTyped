@@ -26,20 +26,22 @@ export type PopStateCallback = (state: any) => boolean | undefined;
 
 export type RouterCallback = () => void;
 
-export interface RouterProps {
+interface DefaultQuery {
+    [key: string]:
+    | boolean
+    | boolean[]
+    | number
+    | number[]
+    | string
+    | string[];
+}
+
+export interface RouterProps<Q = DefaultQuery> {
     // url property fields
     readonly pathname: string;
     readonly route: string;
     readonly asPath?: string;
-    readonly query?: {
-        [key: string]:
-            | boolean
-            | boolean[]
-            | number
-            | number[]
-            | string
-            | string[];
-    };
+    readonly query?: Q;
 
     // property fields
     readonly components: {
@@ -78,14 +80,14 @@ export interface RouterProps {
     };
 }
 
-export interface SingletonRouter extends RouterProps {
-    router: RouterProps | null;
+export interface SingletonRouter<Q = DefaultQuery> extends RouterProps<Q> {
+    router: RouterProps<Q> | null;
     readyCallbacks: RouterCallback[];
     ready(cb: RouterCallback): void;
 }
 
-export interface WithRouterProps {
-    router: SingletonRouter;
+export interface WithRouterProps<Q = DefaultQuery> {
+    router: SingletonRouter<Q>;
 }
 
 export function withRouter<T extends {}>(
