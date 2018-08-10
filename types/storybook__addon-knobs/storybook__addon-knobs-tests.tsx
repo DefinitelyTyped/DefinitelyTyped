@@ -94,6 +94,14 @@ stories.add('dynamic knobs', () => {
   );
 });
 
+const readonlyOptionsArray: ReadonlyArray<string> = ['hi'];
+select('With readonly array', readonlyOptionsArray, readonlyOptionsArray[0]);
+
+const genericArray = array('With regular array', ['hi', 'there']);
+
+const userInputArray = array('With readonly array', readonlyOptionsArray);
+userInputArray.push('Make sure that the output is still mutable although the input need not be!');
+
 // groups
 const groupId = 'GROUP-ID1';
 

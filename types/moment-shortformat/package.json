@@ -1,7 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "tslint": "*",
-        "typescript": "*"
+        "moment": ">=2.22.2"
     }
 }

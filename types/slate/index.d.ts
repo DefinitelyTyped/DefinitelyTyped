@@ -201,6 +201,7 @@ export class Document<DataMap = Record<string, any>> extends BaseNode<
   static create(
     properties: DocumentProperties | Document | Immutable.List<Node> | Node[]
   ): Document;
+
   static fromJSON(properties: DocumentJSON | Document): Document;
   static fromJS(properties: DocumentJSON | Document): Document;
   static isDocument(maybeDocument: any): maybeDocument is Document;
