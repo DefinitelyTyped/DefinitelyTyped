@@ -2190,11 +2190,13 @@ declare module "child_process" {
         keepOpen?: boolean;
     }
 
+    export type StdioOptions = "pipe" | "ignore" | "inherit" | Array<("pipe" | "ipc" | "ignore" | stream.Stream | number | null | undefined)>;
+
     export interface SpawnOptions {
-        argv0?: string;
         cwd?: string;
-        env?: any;
-        stdio?: any;
+        env?: NodeJS.ProcessEnv;
+        argv0?: string;
+        stdio?: StdioOptions;
         detached?: boolean;
         uid?: number;
         gid?: number;
@@ -2207,7 +2209,7 @@ declare module "child_process" {
 
     export interface ExecOptions {
         cwd?: string;
-        env?: any;
+        env?: NodeJS.ProcessEnv;
         shell?: string;
         timeout?: number;
         maxBuffer?: number;
@@ -2262,7 +2264,7 @@ declare module "child_process" {
 
     export interface ExecFileOptions {
         cwd?: string;
-        env?: any;
+        env?: NodeJS.ProcessEnv;
         timeout?: number;
         maxBuffer?: number;
         killSignal?: string;
@@ -2329,32 +2331,32 @@ declare module "child_process" {
 
     export interface ForkOptions {
         cwd?: string;
-        env?: any;
+        env?: NodeJS.ProcessEnv;
         execPath?: string;
         execArgv?: string[];
         silent?: boolean;
-        stdio?: any[];
+        stdio?: StdioOptions;
+        windowsVerbatimArguments?: boolean;
         uid?: number;
         gid?: number;
-        windowsVerbatimArguments?: boolean;
     }
     export function fork(modulePath: string, args?: ReadonlyArray<string>, options?: ForkOptions): ChildProcess;
 
     export interface SpawnSyncOptions {
-        argv0?: string;
+        argv0?: string; // Not specified in the docs
         cwd?: string;
-        input?: string | Buffer;
-        stdio?: any;
-        env?: any;
+        input?: string | Buffer | Uint8Array;
+        stdio?: StdioOptions;
+        env?: NodeJS.ProcessEnv;
         uid?: number;
         gid?: number;
         timeout?: number;
-        killSignal?: string;
+        killSignal?: string | number;
         maxBuffer?: number;
         encoding?: string;
         shell?: boolean | string;
-        windowsHide?: boolean;
         windowsVerbatimArguments?: boolean;
+        windowsHide?: boolean;
     }
     export interface SpawnSyncOptionsWithStringEncoding extends SpawnSyncOptions {
         encoding: BufferEncoding;
@@ -2381,14 +2383,14 @@ declare module "child_process" {
 
     export interface ExecSyncOptions {
         cwd?: string;
-        input?: string | Buffer;
-        stdio?: any;
-        env?: any;
+        input?: string | Buffer | Uint8Array;
+        stdio?: StdioOptions;
+        env?: NodeJS.ProcessEnv;
         shell?: string;
         uid?: number;
         gid?: number;
         timeout?: number;
-        killSignal?: string;
+        killSignal?: string | number;
         maxBuffer?: number;
         encoding?: string;
         windowsHide?: boolean;
@@ -2406,16 +2408,17 @@ declare module "child_process" {
 
     export interface ExecFileSyncOptions {
         cwd?: string;
-        input?: string | Buffer;
-        stdio?: any;
-        env?: any;
+        input?: string | Buffer | Uint8Array;
+        stdio?: StdioOptions;
+        env?: NodeJS.ProcessEnv;
         uid?: number;
         gid?: number;
         timeout?: number;
-        killSignal?: string;
+        killSignal?: string | number;
         maxBuffer?: number;
         encoding?: string;
         windowsHide?: boolean;
+        shell?: boolean | string;
     }
     export interface ExecFileSyncOptionsWithStringEncoding extends ExecFileSyncOptions {
         encoding: BufferEncoding;
