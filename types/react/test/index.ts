@@ -16,7 +16,8 @@ import * as DOM from "react-dom-factories";
 
 interface Props extends React.Attributes {
     hello: string;
-    world?: string | null;
+    world_undefined?: string;
+    world_undefined_null?: string | null;
     foo: number;
 }
 
@@ -119,7 +120,8 @@ class ModernComponent extends React.Component<Props, State, Snapshot>
     implements MyComponent, React.ChildContextProvider<ChildContext> {
     static propTypes: React.ValidationMap<Props> = {
         hello: PropTypes.string.isRequired,
-        world: PropTypes.string,
+        world_undefined: PropTypes.string,
+        world_undefined_null: PropTypes.string,
         foo: PropTypes.number.isRequired,
         key: <PropTypes.Validator<string | number | undefined>> PropTypes.oneOfType([PropTypes.number, PropTypes.string])
     };

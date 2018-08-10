@@ -17,7 +17,7 @@ export type InferPropsInner<V> = { [K in keyof V]: InferType<V[K]>; };
 
 export interface Validator<T> {
     (props: object, propName: string, componentName: string, location: string, propFullName: string): Error | null;
-    [nominalTypeHack]?: T;
+    [nominalTypeHack]?: T | null;
 }
 
 export interface Requireable<T> extends Validator<T | undefined | null> {
