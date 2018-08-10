@@ -3790,7 +3790,7 @@ export class Server extends Podium {
      * * path - the route path.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servertablehost)
      */
-    table(host?: string): Array<{settings: ServerRoute; method: Util.HTTP_METHODS_PARTIAL_LOWERCASE, path: string}>; // TODO I am not sure if the ServerRoute is the object expected here
+    table(host?: string): RequestRoute[];
 }
 
 /* + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
