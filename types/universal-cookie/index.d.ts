@@ -2,34 +2,33 @@
 // Project: https://github.com/reactivestack/cookies/tree/master/packages/universal-cookie#readme
 // Definitions by: Jake Marsh <https://github.com/jakemmarsh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
-declare module 'universal-cookie' {
-  interface IGetOptions {
-    doNotParse?: boolean;
-  }
+export interface GetOptions {
+  doNotParse?: boolean;
+}
 
-  interface ISetOptions {
-    domain?: string;
-    expires?: Date;
-    httpOnly?: boolean;
-    path?: string;
-    secure?: boolean;
-  }
+export interface SetOptions {
+  domain?: string;
+  expires?: Date;
+  httpOnly?: boolean;
+  path?: string;
+  secure?: boolean;
+}
 
-  interface IHooks {
-    onSet?: (name: string, finalOptions: ISetOptions) => any;
-    onRemove?: (name: string, finalOptions: ISetOptions) => any;
-  }
+export interface Hooks {
+  onSet?: (name: string, finalOptions: SetOptions) => any;
+  onRemove?: (name: string, finalOptions: SetOptions) => any;
+}
 
-  export default class Cookies {
-    public constructor(cookies?: string | object, hooks?: IHooks);
+export default class Cookies {
+  constructor(cookies?: string | object, hooks?: Hooks);
 
-    public get(name: string, options?: IGetOptions): string;
+  get(name: string, options?: GetOptions): string;
 
-    public getAll(options?: IGetOptions): { [key: string]: string };
+  getAll(options?: GetOptions): { [key: string]: string };
 
-    public set(name: string, value: string | object, options?: ISetOptions): void;
+  set(name: string, value: string | object, options?: SetOptions): void;
 
-    public remove(name: string, options?: ISetOptions): any;
-  }
+  remove(name: string, options?: SetOptions): any;
 }
