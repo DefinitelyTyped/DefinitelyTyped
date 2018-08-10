@@ -122,7 +122,7 @@ config
 			.use('eslint')
 				.loader('eslint-loader')
 				.options({})
-				.after('compile')
+				.after('babel')
 				.end()
 			.uses
 				.delete('babel')
