@@ -1,22 +1,18 @@
-// Type definitions for vue-select 2.4.0
+// Type definitions for vue-select 2.4
 // Project: https://github.com/sagalbot/vue-select#readme
 // Definitions by: Ilia Beliaev <https://github.com/silh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Typescript version: 2.4.0
+// TypeScript Version: 2.3
 
-import {VueConstructor} from 'vue';
+import { VueConstructor } from 'vue';
 
 export default VueSelect;
-
 export const VueSelect: VueSelectConstructor;
-
-export type Option = any | null;
-
-export type OptionConsumer = (option: Option) => void;
+export type OptionConsumer = (option: any) => void;
 
 export interface VueSelectProps {
-    value: Option;
-    options: Option[];
+    value: any;
+    options: any[];
     disabled: boolean;
     maxHeight: string;
     searchable: boolean;
@@ -26,13 +22,13 @@ export interface VueSelectProps {
     clearSearchOnSelect: boolean;
     closeOnSelect: boolean;
     label: string;
-    getOptionLabel: (option: Option) => string;
+    getOptionLabel: (option: any) => string;
     onChange: OptionConsumer;
     taggable: boolean;
     tabindex: number | null;
     pushTags: boolean;
     filterable: boolean;
-    createOption: (option: Option) => Option;
+    createOption: (option: any) => any;
     resetOnOptionsChange: boolean;
     noDrop: boolean;
     inputId: string | null;
@@ -42,14 +38,14 @@ export interface VueSelectProps {
 export interface VueSelectData {
     search: string;
     open: boolean;
-    mutableValue: Option;
-    mutableOptions: Option[];
+    mutableValue: any;
+    mutableOptions: any[];
 }
 
 export interface VueSelectWatch {
-    value: (val: Option) => void;
-    mutableValue: (val: Option, old: Option) => void;
-    options: (val: Option) => void;
+    value: (val: any) => void;
+    mutableValue: (val: any, old: any) => void;
+    options: (val: any) => void;
     mutableOptions: () => void;
     multiple: (reset: boolean) => void;
     created: () => void;
@@ -61,12 +57,12 @@ export interface VueSelectMethods {
     clearSelection: () => void;
     onAfterSelect: OptionConsumer;
     toggleDropdown: (e: Event) => void;
-    isOptionSelected: (option: Option) => boolean;
+    isOptionSelected: (option: any) => boolean;
     onEscape: () => void;
     onSearchBlur: () => void;
     onSearchFocus: () => void;
     maybeDeleteValue: () => void;
-    optionExists: (option: Option) => boolean;
+    optionExists: (option: any) => boolean;
     maybePushTag: OptionConsumer;
 }
 
@@ -76,9 +72,9 @@ export interface VueSelectComputed {
     searching: () => boolean;
     dropdownOpen: () => boolean;
     searchPlaceholder: () => boolean;
-    filteredOptions: () => Option[];
+    filteredOptions: () => any[];
     isValueEmpty: () => boolean;
-    valueAsArray: () => Option[];
+    valueAsArray: () => any[];
     showClearButton: () => boolean;
 }
 

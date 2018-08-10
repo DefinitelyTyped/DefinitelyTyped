@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import VueSelect, {Option} from 'vue-select';
+import VueSelect from 'vue-select';
 
 const options = [
     {
@@ -8,29 +8,27 @@ const options = [
     {
         name: 'SomeName2'
     }
-]
+];
 
 new Vue({
-
     el: '#app',
     data: {
         options,
         value: null,
-
     },
     components: {
         'vue-select': VueSelect
     },
     methods: {
-        getOptionLabel(option: Option) {
+        getOptionLabel(option: any) {
             if (option && option.name) {
                 return option.name;
             }
             return '';
         },
-        optionConsumer(option: Option) {
+        optionConsumer(option: any) {
         },
-        optionToOption(option: Option) {
+        optionToOption(option: any) {
             return option;
         },
         onSearch(search: string, loading: (b: boolean) => void) {
