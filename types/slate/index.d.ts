@@ -10,13 +10,11 @@
 // TypeScript Version: 2.3
 import * as Immutable from 'immutable';
 
-type StringObject = Record<string, any>;
-
 export class Data {
   [key: string]: any;
   static create(options: Data): Data;
-  static fromJSON(object: StringObject): Data;
-  static fromJS(object: StringObject): Data;
+  static fromJSON(object: Record<string, any>): Data;
+  static fromJS(object: Record<string, any>): Data;
 }
 
 export interface RulesByNodeType {
@@ -60,7 +58,7 @@ export interface Rules {
   normalize?: (
     change: Change,
     reason: InvalidReason,
-    context: StringObject
+    context: Record<string, any>
   ) => void;
   parent?: ObjectsAndTypes;
   text?: RegExp;
@@ -109,7 +107,7 @@ export interface ValueProperties {
   selection?: Range;
   history?: History;
   schema?: Schema;
-  data?: StringObject;
+  data?: Record<string, any>;
   decorations?: Immutable.List<Range> | null;
 }
 
@@ -118,7 +116,7 @@ export interface ValueJSON {
   selection?: Range;
   history?: History;
   schema?: Schema;
-  data?: StringObject;
+  data?: Record<string, any>;
   decorations?: Immutable.List<Range> | null;
   object?: 'value';
 }
@@ -128,7 +126,7 @@ export class Value extends Immutable.Record({}) {
   selection: Range;
   history: History;
   schema: Schema;
-  data: StringObject;
+  data: Record<string, any>;
   object: 'value';
   decorations: Immutable.List<Range> | null;
 
@@ -184,17 +182,17 @@ export class Value extends Immutable.Record({}) {
 export interface DocumentProperties {
   nodes?: Immutable.List<Node> | Node[];
   key?: string;
-  data?: Immutable.Map<string, any> | StringObject;
+  data?: Immutable.Map<string, any> | Record<string, any>;
 }
 
 export interface DocumentJSON {
   nodes?: NodeJSON[];
   key?: string;
-  data?: StringObject;
+  data?: Record<string, any>;
   object?: 'document';
 }
 
-export class Document<DataMap = StringObject> extends BaseNode<
+export class Document<DataMap = Record<string, any>> extends BaseNode<
   DataMap
 > {
   object: 'document';
@@ -215,7 +213,7 @@ export interface BlockProperties {
   key?: string;
   nodes?: Immutable.List<Node>;
   isVoid?: boolean;
-  data?: Immutable.Map<string, any> | StringObject;
+  data?: Immutable.Map<string, any> | Record<string, any>;
 }
 
 export interface BlockJSON {
@@ -223,7 +221,7 @@ export interface BlockJSON {
   key?: string;
   nodes?: NodeJSON[];
   isVoid?: boolean;
-  data?: StringObject;
+  data?: Record<string, any>;
   object: 'block';
 }
 
@@ -248,7 +246,7 @@ export interface InlineProperties {
   key?: string;
   nodes?: Immutable.List<Node>;
   isVoid?: boolean;
-  data?: Immutable.Map<string, any> | StringObject;
+  data?: Immutable.Map<string, any> | Record<string, any>;
 }
 
 export interface InlineJSON {
@@ -256,7 +254,7 @@ export interface InlineJSON {
   key?: string;
   nodes?: NodeJSON[];
   isVoid?: boolean;
-  data?: StringObject;
+  data?: Record<string, any>;
   object: 'inline';
 }
 
@@ -312,7 +310,7 @@ export type Node = Document | Block | Inline | Text;
 export type NodeJSON = DocumentJSON | BlockJSON | InlineJSON | TextJSON;
 
 // tslint:disable-next-line strict-export-declare-modifiers
-declare class BaseNode<DataMap = StringObject> extends Immutable.Record(
+declare class BaseNode<DataMap = Record<string, any>> extends Immutable.Record(
   {}
 ) {
   data: Immutable.Map<keyof DataMap, DataMap[keyof DataMap]>;
@@ -383,12 +381,12 @@ export class Character extends Immutable.Record({}) {
 
 export interface MarkProperties {
   type: string;
-  data?: Immutable.Map<string, any> | StringObject;
+  data?: Immutable.Map<string, any> | Record<string, any>;
 }
 
 export interface MarkJSON {
   type: string;
-  data?: StringObject;
+  data?: Record<string, any>;
 }
 
 export class Mark extends Immutable.Record({}) {
