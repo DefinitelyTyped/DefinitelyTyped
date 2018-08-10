@@ -825,15 +825,6 @@ declare namespace chrome {
              * Whether the current platform supports windows being visible on all workspaces.
              */
             canSetVisibleOnAllWorkspaces(): boolean;
-
-
-            /**
-             * Undocumented
-             * @todo TODO Find info
-             * definition app.window.initializeAppWindow(state: object)
-             * @internal
-             */
-            initializeAppWindow(state: WindowParams): void;
         }
         const window: ChromeAppWindow;
     }
@@ -3863,8 +3854,6 @@ declare namespace chrome {
             'en-US' |  // English (US)
             'en-ZA' |  // English (South Africa)
             'eo' |     // Esperanto
-            // TODO(jungshik) : Do we want to list all es-Foo for Latin-American
-            // Spanish speaking countries?
             'es' |      // Spanish
             'es-419' |  // Spanish (Latin America)
             'es-AR' |   // Spanish (Argentina)
@@ -5466,6 +5455,25 @@ declare namespace chrome {
      * @see[Docs]{@link https://developer.chrome.com/extensions/notifications}
      */
     namespace notifications {
+        /** @enum */
+        const TemplateType: {
+            /** icon, title, message, expandedMessage, up to two buttons */
+            BASIC: "basic",
+            /** icon, title, message, expandedMessage, image, up to two buttons */
+            IMAGE: "image",
+            /** icon, title, message, items, up to two buttons. Users on Mac OS X only see the first item. */
+            LIST: "list",
+            /** icon, title, message, progress, up to two buttons */
+            PROGRESS: "progress"
+        }
+        /** @enum */
+        const PermissionLevel: {
+            /** User has elected to show notifications from the app or extension. This is the default at install time. */
+            GRANTED: "granted",
+            /** User has elected not to show notifications from the app or extension. */
+            DENIED: "denied"
+        }
+
         interface ButtonOptions {
             title: string;
             iconUrl?: string;
@@ -5479,218 +5487,214 @@ declare namespace chrome {
         }
 
         interface NotificationOptions {
-            /** Which type of notification to display. Required for notifications.create method. */
-            type?: string;
+            /**
+             * Which type of notification to display. Required for notifications.create method.
+             * @see enum TemplateType
+             */
+            type: ToStringLiteral<typeof TemplateType>;
             /**
              * Optional.
              * A URL to the sender's avatar, app icon, or a thumbnail for image notifications.
              * URLs can be a data URL, a blob URL, or a URL relative to a resource within this extension's .crx file Required for notifications.create method.
              */
-            iconUrl?: string;
-            /** Title of the notification (e.g. sender name for email). Required for notifications.create method. */
-            title?: string;
-            /** Main notification content. Required for notifications.create method. */
-            message?: string;
+            iconUrl: string;
+
             /**
-             * Optional.
+             * @deprecated since Chrome 59. The app icon mask is not visible for Mac OS X users.
+             * A URL to the app icon mask. URLs have the same restrictions as iconUrl.
+             * The app icon mask should be in alpha channel,
+             * as only the alpha channel of the image will be considered.
+             */
+            appIconMaskUrl?: string;
+
+            /** Title of the notification (e.g. sender name for email). Required for notifications.create method. */
+            title: string;
+
+            /** Main notification content. Required for notifications.create method. */
+            message: string;
+
+            /**
              * Alternate notification content with a lower-weight font.
              * @since Chrome 31.
              */
             contextMessage?: string;
-            /** Priority ranges from -2 to 2. -2 is lowest priority. 2 is highest. Zero is default. */
-            priority?: integer;
+
+            /**
+             * Priority ranges from -2 to 2. -2 is lowest priority. 2 is highest.
+             * On platforms that don't support a notification center (Windows, Linux & Mac),
+             * -2 and -1 result in an error as notifications with those priorities will not be shown at all.
+             * @default 0
+             */
+            priority?: -2 | -1 | 0 | 1 | 2;
+
             /** A timestamp associated with the notification, in milliseconds past the epoch (e.g. Date.now() + n). */
-            eventTime?: integer;
+            eventTime?: double;
+
             /** Text and icons for up to two notification action buttons. */
             buttons?: ButtonOptions[];
-            /** Items for multi-item notifications. */
-            items?: ItemOptions[];
+
             /**
-             * Optional.
+             * @deprecated Deprecated since Chrome 59. The image is not visible for Mac OS X users.
+             * A URL to the image thumbnail for image-type notifications.
+             * URLs have the same restrictions as iconUrl.
+             */
+            imageUrl?: string;
+
+            /**
+             * Items for multi-item notifications.
+             * Items for multi-item notifications. Users on Mac OS X only see the first item.
+             */
+            items?: ItemOptions[];
+
+            /**
              * Current progress ranges from 0 to 100.
              * @since Chrome 30.
              */
             progress?: integer;
+
             /**
-             * Optional.
              * Whether to show UI indicating that the app will visibly respond to clicks on the body of a notification.
              * @since Chrome 32.
              */
             isClickable?: boolean;
+
             /**
-             * Optional.
-             * A URL to the app icon mask. URLs have the same restrictions as iconUrl. The app icon mask should be in alpha channel, as only the alpha channel of the image will be considered.
-             * @since Chrome 38.
-             */
-            appIconMaskUrl?: string;
-            /** A URL to the image thumbnail for image-type notifications. URLs have the same restrictions as iconUrl. */
-            imageUrl?: string;
-            /**
-             * Indicates that the notification should remain visible on screen until the user activates or dismisses the notification.
+             * Indicates that the notification should remain visible
+             * on screen until the user activates or dismisses the notification.
              * This defaults to false.
              * @since Chrome 50
              */
             requireInteraction?: boolean;
         }
 
-        interface NotificationClosedEvent extends chrome.events.Event<(notificationId: string, byUser: boolean) => void> { }
-
-        interface NotificationClickedEvent extends chrome.events.Event<(notificationId: string) => void> { }
-
-        interface NotificationButtonClickedEvent extends chrome.events.Event<(notificationId: string, buttonIndex: integer) => void> { }
-
-        interface NotificationPermissionLevelChangedEvent extends chrome.events.Event<(level: string) => void> { }
-
-        interface NotificationShowSettingsEvent extends chrome.events.Event<() => void> { }
-
         /** The notification closed, either by the system or by user action. */
-        const onClosed: NotificationClosedEvent;
+        const onClosed: chrome.events.Event<(notificationId: string, byUser: boolean) => void>;
         /** The user clicked in a non-button area of the notification. */
-        const onClicked: NotificationClickedEvent;
+        const onClicked: chrome.events.Event<(notificationId: string) => void>;
         /** The user pressed a button in the notification. */
-        const onButtonClicked: NotificationButtonClickedEvent;
+        const onButtonClicked: chrome.events.Event<(notificationId: string, buttonIndex: integer) => void>;
         /**
          * The user changes the permission level.
          * @since Chrome 32.
          */
-        const onPermissionLevelChanged: NotificationPermissionLevelChangedEvent;
+        const onPermissionLevelChanged: chrome.events.Event<(level: string) => void>;
         /**
          * The user clicked on a link for the app's notification settings.
          * @since Chrome 32.
          */
-        const onShowSettings: NotificationShowSettingsEvent;
+        const onShowSettings: chrome.events.Event<() => void>;
 
         /**
          * Creates and displays a notification.
-         * @param notificationId Identifier of the notification. If not set or empty, an ID will automatically be generated. If it matches an existing notification, this method first clears that notification before proceeding with the create operation.
+         * @param notificationId Identifier of the notification.
+         * If not set or empty, an ID will automatically be generated.
+         * If it matches an existing notification, this method first
+         * clears that notification before proceeding with the create operation.
          * The notificationId parameter is required before Chrome 42.
          * @param options Contents of the notification.
-         * @param callback Returns the notification id (either supplied or generated) that represents the created notification.
-         * The callback is required before Chrome 42.
-         * If you specify the callback parameter, it should be a function that looks like this:
-         * function(string notificationId) {...};
+         * @param [callback] Returns the notification id (either supplied or generated) that represents the created notification.
          */
         function create(notificationId: string, options: NotificationOptions, callback?: (notificationId: string) => void): void;
         /**
          * Creates and displays a notification.
-         * @param notificationId Identifier of the notification. If not set or empty, an ID will automatically be generated. If it matches an existing notification, this method first clears that notification before proceeding with the create operation.
-         * The notificationId parameter is required before Chrome 42.
+         * @param notificationId Identifier of the notification.
          * @param options Contents of the notification.
-         * @param callback Returns the notification id (either supplied or generated) that represents the created notification.
-         * The callback is required before Chrome 42.
-         * If you specify the callback parameter, it should be a function that looks like this:
-         * function(string notificationId) {...};
+         * @param [callback] Returns the notification id (either supplied or generated) that represents the created notification.
          */
         function create(options: NotificationOptions, callback?: (notificationId: string) => void): void;
         /**
          * Updates an existing notification.
          * @param notificationId The id of the notification to be updated. This is returned by notifications.create method.
          * @param options Contents of the notification to update to.
-         * @param callback Called to indicate whether a matching notification existed.
-         * The callback is required before Chrome 42.
-         * If you specify the callback parameter, it should be a function that looks like this:
-         * function(boolean wasUpdated) {...};
+         * @param [callback] Called to indicate whether a matching notification existed.
          */
         function update(notificationId: string, options: NotificationOptions, callback?: (wasUpdated: boolean) => void): void;
+
         /**
          * Clears the specified notification.
          * @param notificationId The id of the notification to be cleared. This is returned by notifications.create method.
          * @param callback Called to indicate whether a matching notification existed.
-         * The callback is required before Chrome 42.
-         * If you specify the callback parameter, it should be a function that looks like this:
-         * function(boolean wasCleared) {...};
          */
         function clear(notificationId: string, callback?: (wasCleared: boolean) => void): void;
+
         /**
-         * Retrieves all the notifications.
+         * Retrieves all the active notifications.
          * @since Chrome 29.
          * @param callback Returns the set of notification_ids currently in the system.
-         * The callback parameter should be a function that looks like this:
-         * function(object notifications) {...};
+         * Get list of notifications ids using Object.keys();
+         * @example
+         * getAll((result) => {
+         *  console.log('Active notifications:', Object.keys(result));
+         * });
          */
-        function getAll(callback: (notifications: Object) => void): void;
+        function getAll(callback: (notifications: { [notificationId: string]: true }) => void): void;
+
         /**
          * Retrieves whether the user has enabled notifications from this app or extension.
          * @since Chrome 32.
          * @param callback Returns the current permission level.
-         * The callback parameter should be a function that looks like this:
-         * function( PermissionLevel level) {...};
+         * @see enum PermissionLevel
          */
-        function getPermissionLevel(callback: (level: string) => void): void;
+        function getPermissionLevel(callback: (level: ToStringLiteral<typeof PermissionLevel>) => void): void;
     }
 
     ////////////////////
     // Permissions
     ////////////////////
     /**
-     * Use the chrome.permissions API to request declared optional permissions at run time rather than install time, so users understand why the permissions are needed and grant only those that are necessary.
+     * Use the chrome.permissions API to request declared optional permissions at run time rather than install time,
+     * so users understand why the permissions are needed and grant only those that are necessary.
      * @since Chrome 16.
      */
     namespace permissions {
         interface Permissions {
             /**
              * Optional.
-             * List of named permissions (does not include hosts or origins). Anything listed here must appear in the optional_permissions list in the manifest.
+             * List of named permissions (does not include hosts or origins).
+             * Anything listed here must appear in the optional_permissions list in the manifest.
              */
-            origins?: string[];
+            origins?: chrome.runtime.OptionalPermissions[];
             /**
              * Optional.
-             * List of origin permissions. Anything listed here must be a subset of a host that appears in the optional_permissions list in the manifest. For example, if http://*.example.com/ or http://* appears in optional_permissions, you can request an origin of http://help.example.com/. Any path is ignored.
+             * List of origin permissions.
+             * Anything listed here must be a subset of a host that appears in the
+             * optional_permissions list in the manifest. For example, if
+             * http://*.example.com/ or http://* appears in optional_permissions,
+             * you can request an origin of http://help.example.com/.
+             * Any path is ignored.
              */
-            permissions?: string[];
+            permissions?: chrome.runtime.UrlMatches[] | string[];
         }
 
-        interface PermissionsRemovedEvent {
-            /**
-             * @param callback The callback parameter should be a function that looks like this:
-             * function( Permissions permissions) {...};
-             * Parameter permissions: The permissions that have been removed.
-             */
-            addListener(callback: (permissions: Permissions) => void): void;
-        }
-
-        interface PermissionsAddedEvent {
-            /**
-             * @param callback The callback parameter should be a function that looks like this:
-             * function( Permissions permissions) {...};
-             * Parameter permissions: The newly acquired permissions.
-             */
-            addListener(callback: (permissions: Permissions) => void): void;
-        }
+        interface PermissionEvent extends chrome.events.Event<(permissions: chrome.runtime.Permission[]) => void> { }
 
         /**
-         * Checks if the extension has the specified permissions.
-         * @param callback The callback parameter should be a function that looks like this:
-         * function(boolean result) {...};
-         * Parameter result: True if the extension has the specified permissions.
+         * Checks if the app has the specified permissions.
+         * @param callback Parameter result: True if the app has the specified permissions.
          */
-        function contains(permissions: Permissions, callback: (result: boolean) => void): void;
+        function contains(permissions: chrome.runtime.Permission[], callback: (result: boolean) => void): void;
         /**
-         * Gets the extension's current set of permissions.
-         * @param callback The callback parameter should be a function that looks like this:
-         * function( Permissions permissions) {...};
-         * Parameter permissions: The extension's active permissions.
+         * Gets the app's current set of permissions.
+         * @param callback Parameter permissions: The app's active permissions.
          */
-        function getAll(callback: (permissions: Permissions) => void): void;
+        function getAll(callback: (permissions: chrome.runtime.Permission[]) => void): void;
         /**
-         * Requests access to the specified permissions. These permissions must be defined in the optional_permissions field of the manifest. If there are any problems requesting the permissions, runtime.lastError will be set.
-         * @param [callback] If you specify the callback parameter, it should be a function that looks like this:
-         * function(boolean granted) {...};
-         * Parameter granted: True if the user granted the specified permissions.
+         * Requests access to the specified permissions.
+         * These permissions must be defined in the optional_permissions field of the manifest.
+         * If there are any problems requesting the permissions, runtime.lastError will be set.
+         * @param [callback] Parameter granted: True if the user granted the specified permissions.
          */
-        function request(permissions: Permissions, callback?: (granted: boolean) => void): void;
+        function request(permissions: chrome.runtime.Permission[], callback?: (granted: boolean) => void): void;
         /**
          * Removes access to the specified permissions. If there are any problems removing the permissions, runtime.lastError will be set.
-         * @param [callback] If you specify the callback parameter, it should be a function that looks like this:
-         * function(boolean removed) {...};
-         * Parameter removed: True if the permissions were removed.
+         * @param [callback] Parameter removed: True if the permissions were removed.
          */
-        function remove(permissions: Permissions, callback?: (removed: boolean) => void): void;
+        function remove(permissions: chrome.runtime.Permission[], callback?: (removed: boolean) => void): void;
 
-        /** Fired when access to permissions has been removed from the extension. */
-        const onRemoved: PermissionsRemovedEvent;
-        /** Fired when the extension acquires new permissions. */
-        const onAdded: PermissionsAddedEvent;
+        /** Fired when access to permissions has been removed from the app. */
+        const onRemoved: PermissionEvent;
+        /** Fired when the app acquires new permissions. */
+        const onAdded: PermissionEvent;
     }
 
     ///////////
@@ -5724,8 +5728,11 @@ declare namespace chrome {
     // Printer Provider //
     //////////////////////
     /**
-     * The chrome.printerProvider API exposes events used by print manager to query printers controlled by extensions, to query their capabilities and to submit print jobs to these printers.
-     * Permissions:  'printerProvider'
+     * The chrome.printerProvider API exposes events used by print manager
+     * to query printers controlled by extensions, to query their
+     * capabilities and to submit print jobs to these printers.
+     *
+     * @requires Permissions: 'printerProvider'
      * @since Chrome 44.
      */
     namespace printerProvider {
@@ -5960,32 +5967,56 @@ declare namespace chrome {
             is_default?: boolean;
         }
 
-        type UrlPermission =
+        type UrlMatches =
             'https://www.google-analytics.com/*'
             | 'https://www.googleapis.com/*'
             | '<all_urls>'
             | 'http://*/*'
             | 'https://*/*'
-            | 'file:///*/*';
+            | 'file:///*/*'
+            /**
+             * Required if the extension uses the "chrome://favicon/**url**" mechanism to display the favicon of a page.
+             * For example, to display the favicon of http://www.google.com/, you declare the "chrome://favicon/"
+             * permission and use HTML code like this:
+             * @example
+             * <pre>
+             * <img src="chrome://favicon/http://www.google.com/">
+             * </pre>
+             */
+            | 'chrome://favicon/'
+            | 'chrome://extension-icon/';
 
         type ChromeOSOnlyPermissions =
+            /** Gives your app access to the chrome.certificateProvider API. */
             'certificateProvider' |
+            /** Gives your app access to the chrome.clipboard API. */
             'clipboard' |
+            /** Gives your app access to the chrome.dns API. */
             'dns' |
+            /** Gives your app access to the chrome.documentScan API. */
             'documentScan' |
-            'enterprise' |
+            /** Gives your app access to the chrome.enterprise.platformKeys API. */
             'enterprise.platformKeys' |
+            /** Gives your app access to the chrome.enterprise.deviceAttributes API. */
             'enterprise.deviceAttributes' |
+            /** Gives your app access to the chrome.fileBrowserHandler API. */
             'fileBrowserHandler' |
+            /**
+             * Gives your app access to the chrome.fileSystemProvider API.
+             * Use the chrome.fileSystemProvider API to create file systems, that can be accessible from the file manager on Chrome OS.
+             */
             'fileSystemProvider' |
+            /** Gives your app access to the chrome.networking.config API. */
             'networking.config' |
+            /** Gives your app access to the chrome.platformKeys API. */
             'platformKeys' |
+            /** Gives your app access to the chrome.vpnProvider API. */
             'vpnProvider' |
+            /** Gives your app access to the chrome.wallpaper API. */
             'wallpaper';
 
         type DevOnly =
             'app.window.alpha' |
-            'audio' | // Dev channel except for ChromeOS kiosk
             'diagnostics' |
             'displaySource';
 
@@ -6000,64 +6031,166 @@ declare namespace chrome {
             'appview' |
             'experimental' |
             'app.window.shape' | // Works on stable
-            'geolocation' |
             'alwaysOnTopWindows' |
             'overrideEscFullscreen' |
-            'geolocation' |
-            'experimental' |
             'app.window.fullscreen' |
             'app.window.fullscreen.overrideEsc';
 
-        type Permission =
-            'alarms' |
-            'app.window.fullscreen' |
-            'app.window.fullscreen.overrideEsc' |
-            'audioCapture' |
-            'background' |
-            'browser' |
-            'clipboardRead' |
-            'clipboardWrite' |
-            'contextMenus' |
-            'desktopCapture' |
-            'diagnostics' |
+        type NotAllowedAsOptionalPermissions =
+            'debugger' |
             'experimental' |
-            'fileSystem' |
-            'gcm' |
             'geolocation' |
-            'hid' |
-            'identity' |
-            'idle' |
             'mdns' |
+            'proxy' |
+            'tts' |
+            'wallpaper';
+
+        type OptionalPermission = Exclude<Permission, NotAllowedAsOptionalPermissions>;
+        /**
+         * Optional permissions
+         * @see NotAllowedAsOptionalPermissions for permissions that you're not allowed to set.
+         */
+        type OptionalPermissions = Array<OptionalPermission> | Array<OptionalPermission | string>;
+
+        type Permission =
+            /** Gives your app access to the chrome.alarms API. */
+            'alarms' |
+            /** Gives your app access to the chrome.audio API. */
+            'audio' |
+            /**
+             * In Chrome Apps, fullscreen is entered without prompting the user or providing exit instructions.
+             * HTML5 fullscreen requires the app.window.fullscreen permission in the manifest.
+             * In normal webpages, the browser intercepts the ESC key to exit pointer lock ensuring a consistent escape method for users.
+             * To block this, set the 'app.window.fullscreen.overrideEsc permission
+             */
+            'app.window.fullscreen' |
+            /** That is also the behavior in Chrome Apps unless the app.window.fullscreen.overrideEsc
+             * permission is used to enable the app to call preventDefault on keydown and keyup events. */
+            'app.window.fullscreen.overrideEsc' |
+            /** Requests that the app be granted permissions to capture audio directly from the user's Microphone via the getUserMedia API. */
+            'audioCapture' |
+            /**
+             * Makes Chrome start up early and and shut down late, so that apps and extensions can have a longer life.
+             * When any installed app has "background" permission, Chrome runs (invisibly) as soon as the user logs
+             * into their computer—before the user launches Chrome. The "background" permission also makes Chrome
+             * continue running (even after its last window is closed) until the user explicitly quits Chrome.
+             * Note: Disabled apps and extensions are treated as if they aren't installed.
+             */
+            'background' |
+            /** Gives your app access to the chrome.browser API. */
+            'browser' |
+            /** Required if the extension or app uses document.execCommand('paste'). */
+            'clipboardRead' |
+            /**
+             * Indicates the extension or app uses document.execCommand('copy') or document.execCommand('cut').
+             * This permission is recommended for packaged apps.
+             */
+            'clipboardWrite' |
+            /** Gives your app access to the chrome.contextMenus API. */
+            'contextMenus' |
+            /** Gives your app access to the chrome.desktopCapture API. */
+            'desktopCapture' |
+            /** Gives your app access to the chrome.diagnostics API. */
+            'diagnostics' |
+            /** Required if the app uses any chrome.experimental.* APIs. */
+            'experimental' |
+            /** Gives your app access to the chrome.fileSystem API. */
+            'fileSystem' |
+            /**
+             * @deprecated
+             * Gives your app access to the chrome.gcm API.
+             */
+            'gcm' |
+            /** Allows the extension or app to use the proposed HTML5 geolocation API without prompting the user for permission. */
+            'geolocation' |
+            /** Gives your app access to the chrome.hid API. */
+            'hid' |
+            /** Gives your app access to the chrome.identity API. */
+            'identity' |
+            /** Gives your app access to the chrome.idle API. */
+            'idle' |
+            /** Gives your app access to the chrome.mdns API. */
+            'mdns' |
+            /** Gives your app access to the chrome.mediaGalleries API. */
             'mediaGalleries' |
+            /** Gives your app access to the native messaging API. */
             'nativeMessaging' |
+            /**
+             * Required if the app uses the chrome.notifications API.
+             *
+             * Also allows the app to use the proposed HTML5 notification API
+             * without calling permission methods (such as checkPermission()).
+             */
             'notifications' |
+            /**
+             * Required to use Pointer Lock via calls to **requestPointerLock** or Pepper's Mouse Lock API.
+             * In Chrome Apps, pointer lock is entered without requiring a user gesture, prompting the user,
+             * or providing exit instructions. Pointer lock requires the pointerlock permission in the manifest.
+             * Also, there is no default exit behavior.
+             * In normal webpages, the browser intercepts the ESC key to exit pointer lock.
+             * This behavior is not present in Chrome Apps.
+             * @see[Pointer Lock Docs]{@link http://www.w3.org/TR/pointerlock/}
+             * @see[Pepper's Mouse Lock API]{@link https://developers.google.com/native-client/peppercpp/classpp_1_1_mouse_lock}
+             */
             'pointerLock' |
+            /** Gives your app access to the chrome.power API. */
             'power' |
+            /** Gibes your app access to the chrome.printerProvider API. */
             'printerProvider' |
             /** Runtime is not actually a permisison, but some sysems check these values to verify restrictions. */
             'runtime' |
             /** @deprecated Serial is deprecated */
             'serial' |
+            /** Gives your app access to the chrome.signedInDevices API. */
             'signedInDevices' |
+            /** Gives your app access to the chrome.storage API. */
             'storage' |
+            /** Required if the app uses the chrome.syncFileSystem API to save and synchronize data on Google Drive. */
             'syncFileSystem' |
+            /** Gives your app access to the chrome.system.cpu API. */
             'system.cpu' |
+            /** Gives your app access to the chrome.system.display API. */
             'system.display' |
+            /** Gives your app access to the chrome.system.memory API. */
             'system.memory' |
+            /** Gives your app access to the chrome.system.network API. */
             'system.network' |
+            /** Gives your app access to the chrome.system.storage API. */
             'system.storage' |
+            /** Gives your app access to the chrome.tts API. */
             'tts' |
+            /**
+             * Provides an unlimited quota for storing HTML5 client-side data, such as databases and local storage files.
+             * Without this permission, the extension or app is limited to 5 MB of local storage.
+             *
+             * *Note*
+             * *This permission applies only to Web SQL Database and application cache*
+             * *Also, it doesn't currently work with wildcard subdomains such as*
+             * @example
+             * http://*.example.com
+             */
             'unlimitedStorage' |
             'usb' |
             'usbDevices' |
+            /** Requests that the app be granted permissions to capture video directly from the user's Web Cam via the getUserMedia API. */
             'videoCapture' |
+            /** Required if the app uses the Webview Tag to embed live content from the web in the packaged app. */
             'webview' |
             ChromeOSOnlyPermissions |
             FileSystemPermission |
             KioskOnlyPermissions |
             MediaGalleriesPermission |
             SocketPermission |
-            UrlPermission |
+            /**
+             * Specifies a **host permission**.
+             * Required if the app wants to interact with the code running on pages.
+             * Many capabilities, such as cross-origin XMLHttpRequests,
+             * programmatically injected content scripts require host permissions.
+             * For details on the syntax:
+             * @see[Match Patterns]{@link https://developer.chrome.com/apps/match_patterns}
+             * A path is allowed but treated as /*
+             */
+            UrlMatches |
             USBDevicesPermission;
 
         interface MediaGalleriesPermission {
@@ -6117,22 +6250,36 @@ declare namespace chrome {
 
         /// For chrome.sockets ///
 
-        type SocketPermissionOptions = '*:*' | '' | '*';
         interface SocketTcpPermission {
-            /** The host:port pattern for connect operations. */
-            connect?: SocketPermissionOptions | string;
+            /**
+             * The host:port pattern for connect operations.
+             * *:* are allowed
+             */
+            connect?: string | string[];
         }
         interface SocketTcpServerPermission {
-            /** The host:port pattern for listen operations. */
-            listen?: SocketPermissionOptions | string;
+            /**
+             * The host:port pattern for listen operations.
+             * *:* are allowed
+             */
+            listen?: string | string[];
         }
         interface SocketUdpPermission {
-            /** The host:port pattern for bind operations. */
-            bind?: SocketPermissionOptions | string;
-            /** The host:port pattern for joinGroup operations. */
-            multicastMembership?: SocketPermissionOptions | string;
-            /** The host:port pattern for send operations. */
-            send?: SocketPermissionOptions | string;
+            /**
+             * The host:port pattern for bind operations.
+             * *:* are allowed
+             */
+            bind?: string | string[];
+            /**
+             * The host:port pattern for joinGroup operations.
+             * *:* are allowed
+             */
+            multicastMembership?: string | string[];
+            /**
+             * The host:port pattern for send operations.
+             * *:* are allowed
+             */
+            send?: string | string[];
         }
 
         interface WebViewPartition {
@@ -6173,8 +6320,8 @@ declare namespace chrome {
         interface AutomationNonInteractive {
             interact: false;
             desktop?: false;
-            /** Patterns for matching */
-            matches?: string[];
+            /** Patterns for matching, use chrome url pattern */
+            matches?: UrlMatches[] | string[];
         }
         type AutomationOptions = boolean | AutomationDesktop | AutomationNonInteractive;
 
@@ -6191,7 +6338,7 @@ declare namespace chrome {
             app: {
                 background: {
                     scripts?: string[];
-                };
+                }
             };
             /**
              * One integer specifying the version of the manifest file format your package requires.
@@ -6293,7 +6440,10 @@ declare namespace chrome {
                 email: string,
             } | any;
 
-            /** @todo TODO */
+            /**
+             * Allows inspection of page contents, not enabled on stable anyways except for whitelist.
+             * @see[Docs]{@link https://github.com/chromium/chromium/blob/master/extensions/common/manifest_handlers/automation.cc}
+             */
             automation?: AutomationOptions | boolean;
 
             /**
@@ -6340,10 +6490,13 @@ declare namespace chrome {
              * An implementation detail (actually written by Chrome, not the app author).
              */
             readonly current_locale?: string;
+
             /** Restricted to whitelist */
             display_in_launcher?: boolean;
+
             /** Restricted to whitelist */
             display_in_new_tab_page?: boolean;
+
             /**
              * The *event_rules* manifest property provides a mechanism to add rules that
              * intercept, block, or modify web requests in-flight using **declarativeWebRequest**
@@ -6387,26 +6540,47 @@ declare namespace chrome {
                  * Determines if messages sent via `runtime.connect` or `runtime.sendMessage`
                  * are allowed to set `runtime.MessageSender.tlsChannelId`.
                  */
-                accept_tls_channel_id: boolean,
+                accept_tls_channel_id?: boolean,
             }
 
-            /** @todo TODO */
+            /**
+             * Triggers a launch of the app when one of these files are handled.
+             */
             file_handlers?: {
                 [key: string]: {
                     extensions?: Array<'*' | string | { include_directories: boolean }>,
+                    /** File types to handle */
                     types?: Array<'*' | string | { include_directories: boolean }>,
                 },
             };
 
-            /** @todo TODO */
+            /**
+             * Files app uses above information in order to render related UI elements approprietly.
+             */
             file_system_provider_capabilities?: {
+                /**
+                 * For example, if *configurable* is set to **true**,
+                 * then a menu item for configuring volumes will be rendered.
+                 */
                 configurable?: boolean,
+                /**
+                 * If *multiple_mounts* is set to **true**, then *Files app*
+                 * will allow to add more than one mount points from the UI.
+                 */
                 multiple_mounts?: boolean,
+                /**
+                 * If *watchable* is **false**, then a refresh button will be rendered.
+                 * Note, that if possible you should add support for watchers, so changes
+                 * on the file system can be reflected immediately and automatically.
+                 */
                 watchable?: boolean,
-                source?: 'network' | string,
+                source?: 'network',
             };
 
-            /** @todo TODO */
+            /**
+             * Import resources from another extension / app.
+             * @see[Shared modules]{@link https://developer.chrome.com/apps/shared_modules}
+             */
             import?: {
                 id: string;
             }[];
@@ -6452,7 +6626,7 @@ declare namespace chrome {
              * at run time rather than install time, so users understand why the
              * permissions are needed and grant only those that are necessary.
              */
-            optional_permissions?: Permission[] | Array<Permission | string>;
+            optional_permissions?: OptionalPermissions;
 
             /**
              * Permissions help to limit damage if your app is compromised by malware.
@@ -6549,7 +6723,7 @@ declare namespace chrome {
              */
             short_name?: string;
 
-            /** @todo TODO What is this? */
+            /** Doc missing. Declared as a feature, but unused. */
             signature?: any;
 
             /**
@@ -6726,7 +6900,7 @@ declare namespace chrome {
             chrome_url_overrides?: never;
         }
 
-        type Manifest = ValidKioskManifest | C | ValidNonKioskManifest | InvalidManifest;
+        type Manifest = ValidKioskManifest | ValidNonKioskManifest | InvalidManifest;
 
         /**
          * Attempts to connect to connect listeners within an extension/app (such as the background page), or other extensions/apps. This is useful for content scripts connecting to their extension processes, inter-app/extension communication, and web messaging. Note that this does not connect to any listeners in a content script. Extensions may connect to content scripts embedded in tabs via tabs.connect.
@@ -7822,9 +7996,9 @@ declare namespace chrome {
     }
 
 
-    ////////////////////
-    // System CPU
-    ////////////////////
+    ////////////////
+    // System CPU //
+    ////////////////
     /**
      * Use the system.cpu API to query CPU metadata.
      * Permissions: 'system.cpu'
@@ -7868,7 +8042,7 @@ declare namespace chrome {
     }
 
     ////////////////////
-    // System Display
+    // System Display //
     ////////////////////
     /**
      * Use the system.display API to query display metadata.
@@ -8205,9 +8379,9 @@ declare namespace chrome {
         const onDisplayChanged: DisplayChangedEvent;
     }
 
-    ////////////////////
-    // System Memory
-    ////////////////////
+    ///////////////////
+    // System Memory //
+    ///////////////////
     /**
      * The chrome.system.memory API.
      * Permissions:  'system.memory'
@@ -8225,9 +8399,9 @@ declare namespace chrome {
         function getInfo(callback: (info: MemoryInfo) => void): void;
     }
 
-    ////////////////////
-    // System - Network
-    ////////////////////
+    //////////////////////
+    // System - Network //
+    //////////////////////
     namespace system.network {
         interface NetworkInterface {
             name: string;
@@ -8238,8 +8412,22 @@ declare namespace chrome {
         function getNetworkInterfaces(callback: (networkInterfaces: NetworkInterface[]) => void): void;
     }
 
+    /////////////////////////
+    // System Power Source //
+    /////////////////////////
+    /**
+     * The chrome.system.powerSource API.
+     * @requires Permissions: 'system.powerSource'
+     * @since Latest
+     */
+    namespace system.powerSource {
+        /** @todo TODO Document this */
+        function getPowerSourceInfo(arg?: any | any[]): any;
+        function requestStatusUpdate(arg?: any | any[]): any;
+    }
+
     ////////////////////
-    // System Storage
+    // System Storage //
     ////////////////////
     /**
      * Use the chrome.system.storage API to query storage device information and be notified when a removable storage device is attached and detached.
@@ -8295,7 +8483,7 @@ declare namespace chrome {
     }
 
     ////////////////////
-    // Text to Speech
+    // Text to Speech //
     ////////////////////
     /**
      * Use the chrome.tts API to play synthesized text-to-speech (TTS). See also the related ttsEngine API, which allows an extension to implement a speech engine.
