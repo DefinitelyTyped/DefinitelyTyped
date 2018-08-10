@@ -1,4 +1,4 @@
-// Type definitions for ioredis 4.0
+// Type definitions for ioredis 3.2
 // Project: https://github.com/luin/ioredis
 // Definitions by: York Yao <https://github.com/plantain-00>
 //                 Christopher Eck <https://github.com/chrisleck>
@@ -12,11 +12,12 @@
 
 /* =================== USAGE ===================
     import * as Redis from "ioredis";
-    const redis = new Redis();
+    var redis = new Redis();
  =============================================== */
 
 /// <reference types="node" />
 
+import Promise = require('bluebird');
 import tls = require('tls');
 
 interface RedisStatic {

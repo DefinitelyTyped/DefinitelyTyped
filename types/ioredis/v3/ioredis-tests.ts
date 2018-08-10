@@ -125,6 +125,9 @@ redis.multi([
     // results = [[null, 'OK'], [null, 'bar']]
 });
 
+redis.Promise.onPossiblyUnhandledRejection((error) => {
+});
+
 const keys = ['foo', 'bar'];
 redis.mget(...keys);
 
