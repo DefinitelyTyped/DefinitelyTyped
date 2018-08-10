@@ -47,4 +47,4 @@ declare function hoistNonReactStatics<
         >]: S[key]
     };
 
-export = hoistNonReactStatics;
+export default hoistNonReactStatics;
