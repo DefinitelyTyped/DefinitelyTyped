@@ -46,8 +46,20 @@ config
 		.use(webpack.DefinePlugin, [])
 		.end()
 
+	.plugin('bar')
+		.use(webpack.DefinePlugin, [])
+		.before('foo')
+		.end()
+
+	.plugin('baz')
+		.use(webpack.DefinePlugin, [])
+		.after('bar')
+		.end()
+
 	.plugins
 		.delete('foo')
+		.delete('bar')
+		.delete('baz')
 		.end()
 
 	.devServer
@@ -112,6 +124,14 @@ config
 				.end()
 			.pre()
 			.post()
+			.end()
+		.rule('lint')
+			.test(/.js$/)
+			.use('eslint')
+				.loader('eslint-loader')
+				.options({})
+				.after('compile')
+				.end()
 			.end()
 		.rules
 			.delete('compile')
