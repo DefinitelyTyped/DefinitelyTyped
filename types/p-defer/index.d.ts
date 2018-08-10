@@ -4,11 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace pDefer {
-	interface DeferredPromise<T> {
-		resolve<U>(value?: U | PromiseLike<U>): Promise<U>;
-		reject(reason: any): Promise<never>;
-		promise: Promise<T>;
-	}
+    interface DeferredPromise<T> {
+        resolve(value?: T | PromiseLike<T>): void;
+        reject(reason: any): void;
+        promise: Promise<T>;
+    }
 }
 
 declare function pDefer<T>(): pDefer.DeferredPromise<T>;
