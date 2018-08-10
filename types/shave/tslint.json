@@ -1,5 +1,9 @@
 {
     "extends": "dtslint/dt.json",
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
     "rules": {
         // This package uses the Function type, and it will take effort to fix.
         "ban-types": false
