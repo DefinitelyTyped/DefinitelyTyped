@@ -17,7 +17,7 @@ function test_executing_scripts1() {
 </body>`);
 
     // The script will not be executed, by default:
-    dom.window.document.body!.children.length === 1;
+    dom.window.document.body.children.length === 1;
 }
 
 function test_executing_scripts2() {
@@ -26,14 +26,14 @@ function test_executing_scripts2() {
 </body>`, { runScripts: 'dangerously' });
 
     // The script will be executed and modify the DOM:
-    dom.window.document.body!.children.length === 2;
+    dom.window.document.body.children.length === 2;
 }
 
 function test_executing_scripts3() {
     const window = (new JSDOM(``, { runScripts: 'outside-only' })).window;
 
     window.eval(`document.body.innerHTML = "<p>Hello, world!</p>";`);
-    window.document.body!.children.length === 1;
+    window.document.body.children.length === 1;
 }
 
 function test_virtualConsole() {
@@ -86,7 +86,7 @@ function test_nodeLocation() {
     );
 
     const document = dom.window.document;
-    const bodyEl = document.body!; // implicitly created
+    const bodyEl = document.body; // implicitly created
     const pEl = document.querySelector('p')!;
     const textNode = pEl.firstChild!;
     const imgEl = document.querySelector('img')!;

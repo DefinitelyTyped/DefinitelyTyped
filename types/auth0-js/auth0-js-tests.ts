@@ -10,7 +10,8 @@ webAuth.authorize({
     scope: 'read:order write:order',
     responseType: 'token',
     redirectUri: 'https://example.com/auth/callback',
-	language: 'en'
+	language: 'en',
+	prompt: 'login',
 });
 
 webAuth.parseHash((err, authResult) => {

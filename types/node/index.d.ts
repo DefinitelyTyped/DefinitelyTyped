@@ -26,6 +26,7 @@
 //                 Lishude <https://github.com/islishude>
 //                 Andrew Makarov <https://github.com/r3nya>
 //                 Zane Hannan AU <https://github.com/ZaneHannanAU>
+//                 Eugene Y. Q. Shen <https://github.com/eyqs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /** inspector module types */
@@ -5862,8 +5863,8 @@ declare module "crypto" {
     export interface Signer extends NodeJS.WritableStream {
         update(data: string | Buffer | NodeJS.TypedArray | DataView): Signer;
         update(data: string, input_encoding: Utf8AsciiLatin1Encoding): Signer;
-        sign(private_key: string | { key: string; passphrase: string }): Buffer;
-        sign(private_key: string | { key: string; passphrase: string }, output_format: HexBase64Latin1Encoding): string;
+        sign(private_key: string | { key: string; passphrase: string, padding?: number, saltLength?: number }): Buffer;
+        sign(private_key: string | { key: string; passphrase: string, padding?: number, saltLength?: number }, output_format: HexBase64Latin1Encoding): string;
     }
     export function createVerify(algorith: string, options?: stream.WritableOptions): Verify;
     export interface Verify extends NodeJS.WritableStream {
@@ -6381,7 +6382,7 @@ declare module "util" {
 }
 
 declare module "assert" {
-    function internal(value: any, message?: string): void;
+    function internal(value: any, message?: string | Error): void;
     namespace internal {
         export class AssertionError implements Error {
             name: string;
@@ -6390,46 +6391,42 @@ declare module "assert" {
             expected: any;
             operator: string;
             generatedMessage: boolean;
+            code: 'ERR_ASSERTION';
 
             constructor(options?: {
                 message?: string; actual?: any; expected?: any;
-                operator?: string; stackStartFunction?: Function
+                operator?: string; stackStartFn?: Function
             });
         }
 
-        export function fail(message: string): never;
-        /** @deprecated since v10.0.0 */
-        export function fail(actual: any, expected: any, message?: string, operator?: string): never;
-        export function ok(value: any, message?: string): void;
-        /** @deprecated use strictEqual() */
-        export function equal(actual: any, expected: any, message?: string): void;
-        /** @deprecated use notStrictEqual() */
-        export function notEqual(actual: any, expected: any, message?: string): void;
-        /** @deprecated use deepStrictEqual() */
-        export function deepEqual(actual: any, expected: any, message?: string): void;
-        /** @deprecated use notDeepStrictEqual() */
-        export function notDeepEqual(acutal: any, expected: any, message?: string): void;
-        export function strictEqual(actual: any, expected: any, message?: string): void;
-        export function notStrictEqual(actual: any, expected: any, message?: string): void;
-        export function deepStrictEqual(actual: any, expected: any, message?: string): void;
-        export function notDeepStrictEqual(actual: any, expected: any, message?: string): void;
+        export function fail(message?: string | Error): never;
+        /** @deprecated since v10.0.0 - use fail([message]) or other assert functions instead. */
+        export function fail(actual: any, expected: any, message?: string | Error, operator?: string, stackStartFn?: Function): never;
+        export function ok(value: any, message?: string | Error): void;
+        /** @deprecated since v9.9.0 - use strictEqual() instead. */
+        export function equal(actual: any, expected: any, message?: string | Error): void;
+        /** @deprecated since v9.9.0 - use notStrictEqual() instead. */
+        export function notEqual(actual: any, expected: any, message?: string | Error): void;
+        /** @deprecated since v9.9.0 - use deepStrictEqual() instead. */
+        export function deepEqual(actual: any, expected: any, message?: string | Error): void;
+        /** @deprecated since v9.9.0 - use notDeepStrictEqual() instead. */
+        export function notDeepEqual(actual: any, expected: any, message?: string | Error): void;
+        export function strictEqual(actual: any, expected: any, message?: string | Error): void;
+        export function notStrictEqual(actual: any, expected: any, message?: string | Error): void;
+        export function deepStrictEqual(actual: any, expected: any, message?: string | Error): void;
+        export function notDeepStrictEqual(actual: any, expected: any, message?: string | Error): void;
 
-        export function throws(block: Function, message?: string): void;
-        export function throws(block: Function, error: Function, message?: string): void;
-        export function throws(block: Function, error: RegExp, message?: string): void;
-        export function throws(block: Function, error: (err: any) => boolean, message?: string): void;
-
-        export function doesNotThrow(block: Function, message?: string): void;
-        export function doesNotThrow(block: Function, error: Function, message?: string): void;
-        export function doesNotThrow(block: Function, error: RegExp, message?: string): void;
-        export function doesNotThrow(block: Function, error: (err: any) => boolean, message?: string): void;
+        export function throws(block: Function, message?: string | Error): void;
+        export function throws(block: Function, error: RegExp | Function | Object | Error, message?: string | Error): void;
+        export function doesNotThrow(block: Function, message?: string | Error): void;
+        export function doesNotThrow(block: Function, error: RegExp | Function, message?: string | Error): void;
 
         export function ifError(value: any): void;
 
-        export function rejects(block: Function | Promise<any>, message?: string): Promise<void>;
-        export function rejects(block: Function | Promise<any>, error: Function | RegExp | Object | Error, message?: string): Promise<void>;
-        export function doesNotReject(block: Function | Promise<any>, message?: string): Promise<void>;
-        export function doesNotReject(block: Function | Promise<any>, error: Function | RegExp | Object | Error, message?: string): Promise<void>;
+        export function rejects(block: Function | Promise<any>, message?: string | Error): Promise<void>;
+        export function rejects(block: Function | Promise<any>, error: RegExp | Function | Object | Error, message?: string | Error): Promise<void>;
+        export function doesNotReject(block: Function | Promise<any>, message?: string | Error): Promise<void>;
+        export function doesNotReject(block: Function | Promise<any>, error: RegExp | Function, message?: string | Error): Promise<void>;
 
         export var strict: typeof internal;
     }

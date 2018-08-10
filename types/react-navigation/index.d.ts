@@ -19,6 +19,8 @@
 //                 Jérémy Magrin <https://github.com/magrinj>
 //                 Luca Campana <https://github.com/TizioFittizio>
 //                 Ullrich Schaefer <https://github.com/stigi>
+//                 Yosuke Seki <https://github.com/jshosomichi>
+//                 Jake <https://github.com/jakebooyah>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -441,6 +443,7 @@ export type NavigationStackAction =
   | NavigationBackAction
   | NavigationSetParamsAction
   | NavigationResetAction
+  | NavigationReplaceAction
   | NavigationPopAction
   | NavigationPushAction
   | NavigationPopToTopAction;
@@ -697,6 +700,28 @@ export interface TransitionConfig {
   // 100% opacity and the underlying container is visible.
   containerStyle?: StyleProp<ViewStyle>;
 }
+
+export type TransitionConfigurer = (
+  transitionProps: NavigationTransitionProps,
+  prevTransitionProps: NavigationTransitionProps,
+  isModal: boolean
+) => TransitionConfig;
+
+export interface StackViewTransitionConfigsType {
+  defaultTransitionConfig: TransitionConfigurer;
+  getTransitionConfig: (
+    transitionConfigurer: TransitionConfigurer,
+    transitionProps: NavigationTransitionProps,
+    prevTransitionProps: NavigationTransitionProps,
+    isModal: boolean
+  ) => TransitionConfig;
+  SlideFromRightIOS: TransitionConfig;
+  ModalSlideFromBottomIOS: TransitionConfig;
+  FadeInFromBottomAndroid: TransitionConfig;
+  FadeOutToBottomAndroid: TransitionConfig;
+}
+
+export const StackViewTransitionConfigs: StackViewTransitionConfigsType;
 
 export type NavigationAnimationSetter = (
   position: AnimatedValue,

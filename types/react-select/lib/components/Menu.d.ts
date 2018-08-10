@@ -2,7 +2,7 @@ import {
   Component,
   ReactElement,
   Ref as ElementRef,
-  ReactNode as Node,
+  ReactNode,
   ComponentType
 } from 'react';
 import { createPortal } from 'react-dom';
@@ -89,7 +89,7 @@ interface MenuListState {
 
 export interface MenuListProps {
   /** The children to be rendered. */
-  children: Node;
+  children: ReactNode;
   /** Inner ref to DOM Node */
   innerRef: InnerRef;
 }
@@ -108,7 +108,7 @@ export function loadingMessageCSS(): React.CSSProperties;
 
 export type NoticeProps<OptionType> = CommonProps<OptionType> & {
   /** The children to be rendered. */
-  children: Node,
+  children: ReactNode,
   /** Props to be passed on to the wrapper. */
   innerProps: { [key: string]: any },
 };
@@ -129,7 +129,7 @@ export const LoadingMessage: ComponentType<NoticeProps<any>>;
 
 export type MenuPortalProps<OptionType> = CommonProps<OptionType> & {
   appendTo: HTMLElement,
-  children: Node, // ideally Menu<MenuProps>
+  children: ReactNode, // ideally Menu<MenuProps>
   controlElement: HTMLElement,
   menuPlacement: MenuPlacement,
   menuPosition: MenuPosition,

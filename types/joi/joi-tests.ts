@@ -318,6 +318,7 @@ arrSchema = arrSchema.ordered([schemaMap, schemaMap, schemaLike]);
 arrSchema = arrSchema.min(num);
 arrSchema = arrSchema.max(num);
 arrSchema = arrSchema.length(num);
+arrSchema = arrSchema.length(ref);
 arrSchema = arrSchema.unique();
 arrSchema = arrSchema.unique((a, b) => a.test === b.test);
 arrSchema = arrSchema.unique('customer.id');
@@ -1110,6 +1111,7 @@ schema = Joi.not(x, x);
 schema = Joi.not([x, x, x]);
 
 schema = Joi.required();
+schema = Joi.exist();
 schema = Joi.optional();
 schema = Joi.forbidden();
 schema = Joi.strip();

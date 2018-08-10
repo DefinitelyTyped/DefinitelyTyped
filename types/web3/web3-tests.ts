@@ -20,3 +20,4 @@ myContract.options.gas = 5000000;
 
 const weiStr: string = web3.utils.toWei("100", "gwei");
 const weiBn: BigNumber = web3.utils.toWei(web3.utils.toBN("1"));
+const rndHex: string = Web3.utils.randomHex(10);
