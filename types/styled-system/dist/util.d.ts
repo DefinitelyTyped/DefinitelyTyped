@@ -19,7 +19,7 @@ export interface LowLevelStylefunctionArguments {
     cssProperty?: string;
     key?: string;
     getter?: () => any;
-    transformValue?: () => any;
+    transformValue?: (n: string|number) => any;
     scale?: Array<string|number>;
 }
 
