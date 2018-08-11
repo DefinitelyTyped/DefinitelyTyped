@@ -7,6 +7,7 @@
 //                 Eloy Durán <https://github.com/alloy>
 //                 Matthieu Vachon <https://github.com/maoueh>
 //                 Adam Lavin <https://github.com/lavoaster>
+//                 Nicholas Pappagalo <https://github.com/nicholaai>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
