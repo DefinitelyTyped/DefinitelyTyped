@@ -6790,7 +6790,8 @@ export interface AlertIOSStatic {
         message?: string,
         callbackOrButtons?: ((value: string) => void) | Array<AlertIOSButton>,
         type?: AlertType,
-        defaultValue?: string
+        defaultValue?: string,
+        keyboardType?: KeyboardType | KeyboardTypeIOS,
     ) => void;
 }
 

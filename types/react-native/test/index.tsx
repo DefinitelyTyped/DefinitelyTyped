@@ -16,6 +16,7 @@ import {
     Alert,
     AppState,
     AppStateIOS,
+    AlertIOS,
     BackAndroid,
     BackHandler,
     Button,
@@ -730,3 +731,25 @@ class AccessibilityTest extends React.Component {
 const KeyboardAvoidingViewTest = () => (
     <KeyboardAvoidingView enabled />
 );
+
+
+const AlertIOSTest = () => {
+    AlertIOS.prompt(
+        'My Prompt',
+        'Enter your email',
+        [
+            {
+                text: 'Cancel',
+                style: 'cancel'
+            },
+            {
+                text: 'Add',
+                onPress: (value: string) => {
+                  console.log(value);
+                },
+              },
+        ],
+        'default',
+        'email-address'
+    );
+}
