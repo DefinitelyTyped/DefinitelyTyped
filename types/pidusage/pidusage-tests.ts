@@ -1,8 +1,25 @@
-import pusage = require("pidusage");
+import * as pidusage from 'pidusage';
 
-pusage.stat(0, (err: Error, stat: pusage.Stat) => {
-	const cpu = stat.cpu;
-	const memory = stat.memory;
+let cpu: number;
+let memory: number;
+let ppid: number;
+let pid: number;
+let ctime: number;
+let elapsed: number;
+let timestamp: number;
+
+pidusage(1, (err: Error | null, stats: pidusage.Stat) => {
+    cpu = stats.cpu;
+    memory = stats.memory;
+    ppid = stats.ppid;
+    pid = stats.pid;
+    ctime = stats.ctime;
+    elapsed = stats.elapsed;
+    timestamp = stats.timestamp;
 });
 
-pusage.unmonitor(0);
+let stats: Promise<pidusage.Stat>;
+
+stats = pidusage([1, 2]);
+stats = pidusage('string');
+stats = pidusage(['string', 'string']);
