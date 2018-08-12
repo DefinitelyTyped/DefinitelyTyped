@@ -3,7 +3,7 @@ import * as cache from 'koa-redis-cache';
 
 const app = new Koa();
 
-const routeOptions: Array<cache.RouteOptions> = [
+const routeOptions: cache.RouteOptions[] = [
     {
         route: '/api/test',
         expire: 60
