@@ -18,7 +18,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "accounts.d.ts",
+        "accounts-base.d.ts",
         "blaze.d.ts",
         "browser-policy-common.d.ts",
         "check.d.ts",
@@ -29,10 +29,12 @@
         "http.d.ts",
         "meteor.d.ts",
         "mongo.d.ts",
+        "random.d.ts",
         "reactive-var.d.ts",
         "server-render.d.ts",
         "service-configuration.d.ts",
         "session.d.ts",
+        "templating.d.ts",
         "tiny-test.d.ts",
         "tools.d.ts",
         "tracker.d.ts",
