@@ -1,4 +1,4 @@
-import { getSession, LockContention } from '@mysql/xdevapi';
+import { getSession, LockContention, Table, Collection } from '@mysql/xdevapi';
 
 interface TestCollectionItem {
 	number1: number;
@@ -17,9 +17,9 @@ interface TestTableRow {
 getSession({host: 'localhost'}).then(session => {
 	const schema = session.getSchema('Schema');
 
-	schema.createCollection<TestCollectionItem>('TestCollection', {
+	schema.createCollection('TestCollection', {
 		ReuseExistingObject: false
-	});
+	}) as Promise<Collection<TestCollectionItem>>;
 
 	schema.existsInDatabase(); // $ExpectType Promise<boolean>
 
@@ -36,7 +36,7 @@ getSession({host: 'localhost'}).then(session => {
 	/**
 	 * Since we know the schema works, move on to collections
 	 */
-	const testCollection = schema.getCollection<TestCollectionItem>('TestCollection');
+	const testCollection = schema.getCollection('TestCollection') as Collection<TestCollectionItem>;
 
 	testCollection.count(); // $ExpectType Promise<number>
 
@@ -137,7 +137,7 @@ getSession({host: 'localhost'}).then(session => {
 		remove.sort('number1 ASC'); // $ExpectType CollectionRemove<TestCollectionItem>
 	}
 
-	const testTableCollection = schema.getCollectionAsTable<TestTableRow>('TestCollection'); // $ExpectType Table<TestTableRow>
+	const testTableCollection = schema.getCollectionAsTable('TestCollection') as Table<TestTableRow>; // $ExpectType Table<TestTableRow>
 
 	testTableCollection.count(); // $ExpectType Promise<number>
 

@@ -58,9 +58,9 @@ export interface Warning {
 	msg: string;
 }
 
-export interface Binding<T> {
-	bind(parameter: any): Binding<T>;
-	bind(parameter: string, value: any): Binding<T>;
+export interface Binding {
+	bind(parameter: any): Binding;
+	bind(parameter: string, value: any): Binding;
 }
 
 export interface CollectionOrdering {
@@ -111,7 +111,7 @@ export interface TableOrdering {
 	orderBy(SortExprStr: string | ReadonlyArray<string>): TableOrdering;
 }
 
-export class Collection<T = {}> implements DatabaseObject {
+export class Collection<T> implements DatabaseObject {
 	add(expr: T): CollectionAdd<T>;
 
 	addOrReplaceOne(id: string, data: T): Promise<Result>;
@@ -155,14 +155,12 @@ export class CollectionAdd<T> {
 }
 
 export class CollectionFind<T>
-	implements Binding<T>, CollectionOrdering, Grouping, Limiting, Locking {
+	implements Binding, CollectionOrdering, Grouping, Limiting, Locking {
 	execute(callback: (fields: T) => void): Promise<Result>;
 
 	fields(projections: ReadonlyArray<string> | string): CollectionFind<T>;
 
-	// tslint:disable-next-line
 	bind(parameter: any): CollectionFind<T>;
-	// tslint:disable-next-line
 	bind(parameter: string, value: any): CollectionFind<T>;
 
 	sort(...SortExprStr: string[]): CollectionFind<T>;
@@ -182,7 +180,7 @@ export class CollectionFind<T>
 	lockShared(mode: LockContention): CollectionFind<T>;
 }
 
-export class CollectionModify<T> implements Binding<T>, CollectionOrdering, Limiting {
+export class CollectionModify<T> implements Binding, CollectionOrdering, Limiting {
 	arrayAppend<
 		K extends keyof T = keyof T,
 		// tslint:disable-next-line:no-unnecessary-generics
@@ -207,9 +205,7 @@ export class CollectionModify<T> implements Binding<T>, CollectionOrdering, Limi
 
 	unset(fields: string | ReadonlyArray<string>): CollectionModify<T>;
 
-	// tslint:disable-next-line
 	bind(parameter: any): CollectionModify<T>;
-	// tslint:disable-next-line
 	bind(parameter: string, value: any): CollectionModify<T>;
 
 	sort(...SortExprStr: string[]): CollectionModify<T>;
@@ -220,12 +216,10 @@ export class CollectionModify<T> implements Binding<T>, CollectionOrdering, Limi
 	offset(value: number): CollectionModify<T>;
 }
 
-export class CollectionRemove<T> implements Binding<T>, CollectionOrdering, Limiting {
+export class CollectionRemove<T> implements Binding, CollectionOrdering, Limiting {
 	execute(): Promise<Result>;
 
-	// tslint:disable-next-line
 	bind(parameter: any): CollectionRemove<T>;
-	// tslint:disable-next-line
 	bind(parameter: string, value: any): CollectionRemove<T>;
 
 	sort(...SortExprStr: string[]): CollectionRemove<T>;
@@ -251,11 +245,9 @@ export class Result {
 }
 
 export class Schema implements DatabaseObject {
-	// tslint:disable-next-line
 	createCollection<T>(
 		name: string,
 		options: CreateCollectionOptions
-	// tslint:disable-next-line
 	): Promise<Collection<T>>;
 
 	dropCollection(name: string): Promise<boolean>;
@@ -264,20 +256,18 @@ export class Schema implements DatabaseObject {
 
 	getClassName(): string;
 
-	// tslint:disable-next-line:no-unnecessary-generics
-	getCollection<T = {}>(name: string): Collection<T>;
+	getCollection<T>(name: string): Collection<T>;
 
-	// tslint:disable-next-line:no-unnecessary-generics
-	getCollectionAsTable<T = {}>(name: string): Table<T>;
+	getCollectionAsTable<T>(name: string): Table<T>;
 
-	getCollections(): Promise<Collection[]>;
+	getCollections(): Promise<Collection<any>[]>;
 
 	getName(): string;
 
 	// tslint:disable-next-line:no-unnecessary-generics
 	getTable<T = {}>(name: string): Table<T>;
 
-	getTables(): Promise<Table[]>;
+	getTables(): Promise<Table<any>[]>;
 
 	inspect(): { name: string };
 
@@ -391,7 +381,7 @@ export class SqlExecute implements Statement {
 	getSession(): Session;
 }
 
-export class Table<T = {}> {
+export class Table<T> {
 	/**
 	 * Retrieve the total number of rows in the table
 	 *
@@ -419,12 +409,10 @@ export class Table<T = {}> {
 	update(expr: string): TableUpdate<T>;
 }
 
-export class TableDelete<T> implements Binding<T>, Limiting, TableOrdering {
+export class TableDelete<T> implements Binding, Limiting, TableOrdering {
 	execute(): Promise<Result>;
 
-	// tslint:disable-next-line
 	bind(parameters: any): TableDelete<T>;
-	// tslint:disable-next-line
 	bind(parameter: string, value: any): TableDelete<T>;
 
 	limit(count: number, offset?: number): TableDelete<T>;
@@ -441,7 +429,7 @@ export class TableInsert<T> {
 }
 
 export class TableSelect<T>
-	implements Binding<T>, Grouping, Limiting, Locking, TableFiltering, TableOrdering {
+	implements Binding, Grouping, Limiting, Locking, TableFiltering, TableOrdering {
 	execute(
 		rowcb?: (item: T) => void,
 		metacb?: (metadata: any) => void
@@ -449,9 +437,7 @@ export class TableSelect<T>
 
 	getViewDefinition(): string;
 
-	// tslint:disable-next-line
 	bind(parameter: any): TableSelect<T>;
-	// tslint:disable-next-line
 	bind(parameter: string, value: any): TableSelect<T>;
 
 	sort(...SortExprStr: string[]): TableSelect<T>;
@@ -475,16 +461,14 @@ export class TableSelect<T>
 	where(criteria: string): TableSelect<T>;
 }
 
-export class TableUpdate<T> implements Binding<T>, Limiting, TableOrdering {
+export class TableUpdate<T> implements Binding, Limiting, TableOrdering {
 	execute(): Promise<Result>;
 
 	getClassName(): string;
 
 	set<K extends keyof T = keyof T>(field: K, expr: T[K]): TableUpdate<T>;
 
-	// tslint:disable-next-line
 	bind(parameter: any): TableUpdate<T>;
-	// tslint:disable-next-line
 	bind(parameter: string, value: any): TableUpdate<T>;
 
 	limit(count: number, offset?: number): TableUpdate<T>;
