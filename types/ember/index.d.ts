@@ -332,7 +332,11 @@ declare module 'ember' {
              * `inject`) or for service lookup. Each factory is registered with
              * a full name including two parts: `type:name`.
              */
-            register(fullName: string, factory: any, options?: { singleton?: boolean, instantiate?: boolean }): any;
+            register(
+                fullName: string,
+                factory: any,
+                options?: { singleton?: boolean, instantiate?: boolean }
+            ): any;
             /**
              * Unregister a factory.
              */
@@ -428,10 +432,12 @@ declare module 'ember' {
             injectTestHelpers(): void;
             /**
             registers a factory for later injection
-            @param fullName type:name (e.g., 'model:user')
-            @param factory (e.g., App.Person)
             **/
-            register(fullName: string, factory: object, options?: {}): void;
+            register(
+                fullName: string,
+                factory: any,
+                options?: { singleton?: boolean, instantiate?: boolean }
+            ): void;
             /**
             This removes all helpers that have been registered, and resets and functions
             that were overridden by the helpers.
@@ -1816,8 +1822,8 @@ declare module 'ember' {
         class Registry {
             register(
                 fullName: string,
-                factory: EmberClassConstructor<any>,
-                options?: { singleton?: boolean }
+                factory: any,
+                options?: { singleton?: boolean, instantiate?: boolean }
             ): void;
         }
         class Resolver extends Ember.Object {}
