@@ -17,9 +17,9 @@ interface TestTableRow {
 getSession({host: 'localhost'}).then(session => {
 	const schema = session.getSchema('Schema');
 
-	schema.createCollection('TestCollection', {
+	schema.createCollection<TestCollectionItem>('TestCollection', {
 		ReuseExistingObject: false
-	}) as Promise<Collection<TestCollectionItem>>;
+	});
 
 	schema.existsInDatabase(); // $ExpectType Promise<boolean>
 
@@ -29,14 +29,14 @@ getSession({host: 'localhost'}).then(session => {
 
 	schema.getSession(); // $ExpectType Session
 
-	schema.getTables(); // $ExpectType Promise<Table<{}>[]>
+	schema.getTables(); // $ExpectType Promise<Table<any>[]>
 
-	schema.getCollections(); // $ExpectType Promise<Collection<{}>[]>
+	schema.getCollections(); // $ExpectType Promise<Collection<any>[]>
 
 	/**
 	 * Since we know the schema works, move on to collections
 	 */
-	const testCollection = schema.getCollection('TestCollection') as Collection<TestCollectionItem>;
+	const testCollection = schema.getCollection<TestCollectionItem>('TestCollection');
 
 	testCollection.count(); // $ExpectType Promise<number>
 
@@ -137,7 +137,7 @@ getSession({host: 'localhost'}).then(session => {
 		remove.sort('number1 ASC'); // $ExpectType CollectionRemove<TestCollectionItem>
 	}
 
-	const testTableCollection = schema.getCollectionAsTable('TestCollection') as Table<TestTableRow>; // $ExpectType Table<TestTableRow>
+	const testTableCollection = schema.getCollectionAsTable<TestTableRow>('TestCollection'); // $ExpectType Table<TestTableRow>
 
 	testTableCollection.count(); // $ExpectType Promise<number>
 

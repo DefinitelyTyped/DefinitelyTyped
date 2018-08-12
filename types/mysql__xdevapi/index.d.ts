@@ -245,9 +245,11 @@ export class Result {
 }
 
 export class Schema implements DatabaseObject {
+	// tslint:disable-next-line
 	createCollection<T>(
 		name: string,
 		options: CreateCollectionOptions
+	// tslint:disable-next-line
 	): Promise<Collection<T>>;
 
 	dropCollection(name: string): Promise<boolean>;
@@ -256,18 +258,20 @@ export class Schema implements DatabaseObject {
 
 	getClassName(): string;
 
+	// tslint:disable-next-line
 	getCollection<T>(name: string): Collection<T>;
 
+	// tslint:disable-next-line
 	getCollectionAsTable<T>(name: string): Table<T>;
 
-	getCollections(): Promise<Collection<any>[]>;
+	getCollections(): Promise<Array<Collection<any>>>;
 
 	getName(): string;
 
 	// tslint:disable-next-line:no-unnecessary-generics
 	getTable<T = {}>(name: string): Table<T>;
 
-	getTables(): Promise<Table<any>[]>;
+	getTables(): Promise<Array<Table<any>>>;
 
 	inspect(): { name: string };
 
