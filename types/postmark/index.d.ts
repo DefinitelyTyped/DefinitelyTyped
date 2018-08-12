@@ -803,6 +803,6 @@ declare namespace Postmark {
   }
 }
 
-const Postmark: Postmark.Postmark
+declare const Postmark: Postmark.Postmark
 
 export = Postmark
