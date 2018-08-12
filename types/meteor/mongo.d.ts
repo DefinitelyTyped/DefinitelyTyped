@@ -205,7 +205,7 @@ declare module Mongo {
     interface Cursor<T> {
         count(applySkipLimit?: boolean): number;
         fetch(): Array<T>;
-        forEach(callback: < T > (doc: T, index: number, cursor: Cursor<T>) => void, thisArg?: any): void;
+        forEach(callback: (doc: T, index: number, cursor: Cursor<T>) => void, thisArg?: any): void;
         map<U>(callback: (doc: T, index: number, cursor: Cursor<T>) => U, thisArg?: any): Array<U>;
         observe(callbacks: ObserveCallbacks): Meteor.LiveQueryHandle;
         observeChanges(callbacks: ObserveChangesCallbacks): Meteor.LiveQueryHandle;
