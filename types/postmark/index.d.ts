@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-namespace Postmark {
+declare namespace Postmark {
   const defaults: Options
 
   interface PostmarkError {
