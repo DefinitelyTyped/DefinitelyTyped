@@ -1,6 +1,5 @@
 // Example uses styled-components, but styled-system works with most other css-in-js libraries as well
 import * as React from "react";
-import styled from "styled-components";
 import {
     themeGet,
     space,
@@ -125,6 +124,11 @@ import {
     MixedProps,
 } from "styled-system";
 
+// tslint:disable-next-line:strict-export-declare-modifiers
+declare type StyledFunction = (...props: any[]) => React.ComponentType;
+// tslint:disable-next-line:strict-export-declare-modifiers
+declare const styled: StyledFunction;
+
 const boxStyle = variant({
     prop: 'boxStyle',
     key: 'box',
@@ -168,9 +172,8 @@ interface BoxProps
         MixedProps {
             boxStyle?: string;
         }
-const Box = styled.div.attrs<BoxProps>({})`
-
-border-radius: ${themeGet("radii.small", "4px")};
+const Box: React.ComponentType<BoxProps> = styled`
+  border-radius: ${themeGet("radii.small", "4px")};
   ${space}
   ${width}
   ${fontSize}
@@ -226,7 +229,7 @@ interface TextProps
         LineHeightProps,
         FontWeightProps,
         LetterSpacingProps {}
-const Text = styled.div.attrs<TextProps>({})`
+const Text: React.ComponentType<TextProps> = styled`
     ${fontSize};
     ${fontFamily};
     ${textAlign};
@@ -242,7 +245,7 @@ interface FlexComponentProps
         FlexWrapProps,
         FlexBasisProps,
         FlexDirectionProps {}
-const Flex = styled.div.attrs<FlexComponentProps>({})`
+const Flex: React.ComponentType<FlexComponentProps> = styled`
     ${alignItems};
     ${alignContent};
     ${justifyContent};
@@ -262,7 +265,7 @@ interface GridComponentProps
         GridAutoRowsProps,
         GridTemplatesRowsProps,
         GridTemplatesColumnsProps {}
-const Grid = styled.div.attrs<GridComponentProps>({})`
+const Grid: React.ComponentType<GridComponentProps> = styled`
     ${gridGap};
     ${gridRowGap};
     ${gridColumnGap};
@@ -279,7 +282,7 @@ interface ButtonProps
     extends SpaceProps,
         ButtonStyleProps {}
 
-const TestButton = styled.button.attrs<ButtonProps>({})`
+const TestButton: React.ComponentType<ButtonProps> = styled`
     ${buttonStyle}
     ${space}
 `;
