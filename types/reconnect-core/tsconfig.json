@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+        "baseUrl": "../",
+        "forceConsistentCasingInFileNames": true,
+        "lib": [
+            "es2016"
+        ],
+        "module": "commonjs",
+        "noEmit": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "target": "es6",
+        "types": [],
+        "typeRoots": [
+            "../"
+        ]
+    },
+    "files": [
+        "index.d.ts",
+        "reconnect-core-tests.ts"
+    ]
+}

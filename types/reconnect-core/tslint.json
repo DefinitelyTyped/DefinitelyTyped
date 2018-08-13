@@ -1,0 +1,9 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        // I don't understand why turning this on breaks the linter, would welcome feedback
+        "strict-export-declare-modifiers": false,
+        // Flags exported interface member as invalid when returning void, see dtslint issue #110
+        "void-return": false
+    }
+}
