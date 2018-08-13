@@ -987,7 +987,7 @@ declare namespace Office {
         *   </tr>
         *   <tr>
         *     <td>AsyncResult.error</td>
-        *     <td>Access an Error object that provides error information if the operation failed.<td>
+        *     <td>Access an Error object that provides error information if the operation failed.</td>
         *   </tr>
         *   <tr>
         *     <td>AsyncResult.asyncContext</td>
