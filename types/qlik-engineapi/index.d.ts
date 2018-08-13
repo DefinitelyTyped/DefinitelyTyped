@@ -9265,6 +9265,7 @@ declare namespace EngineAPI {
      * DimensionItemLayout...
      */
     interface IDimensionItemLayout {
+        qInfo: INxInfo;
         qMeta: INxMetaTitleDescriptionTag;
         qData: null;
     }
