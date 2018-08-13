@@ -1154,9 +1154,9 @@ declare namespace angular {
          */
         when<T>(value: PromiseLike<T>|T): IPromise<T>;
         when<T1, T2>(value: PromiseLike<T1>|T2): IPromise<T1|T2>;
-        when<TResult, T>(value: PromiseLike<T>|T, successCallback: (promiseValue: T) => IPromise<TResult>|TResult): IPromise<TResult>;
-        when<TResult, T>(value: T, successCallback: (promiseValue: T) => IPromise<TResult>|TResult, errorCallback: null | undefined | ((reason: any) => any), notifyCallback?: (state: any) => any): IPromise<TResult>;
-        when<TResult, TResult2, T>(value: PromiseLike<T>, successCallback: (promiseValue: T) => IPromise<TResult>|TResult, errorCallback: (reason: any) => TResult2 | IPromise<TResult2>, notifyCallback?: (state: any) => any): IPromise<TResult | TResult2>;
+        when<TResult, T>(value: PromiseLike<T>|T, successCallback: (promiseValue: T) => PromiseLike<TResult>|TResult): IPromise<TResult>;
+        when<TResult, T>(value: T, successCallback: (promiseValue: T) => PromiseLike<TResult>|TResult, errorCallback: null | undefined | ((reason: any) => any), notifyCallback?: (state: any) => any): IPromise<TResult>;
+        when<TResult, TResult2, T>(value: PromiseLike<T>, successCallback: (promiseValue: T) => PromiseLike<TResult>|TResult, errorCallback: (reason: any) => TResult2 | PromiseLike<TResult2>, notifyCallback?: (state: any) => any): IPromise<TResult | TResult2>;
         /**
          * Wraps an object that might be a value or a (3rd party) then-able promise into a $q promise. This is useful when you are dealing with an object that might or might not be a promise, or if the promise comes from a source that can't be trusted.
          */
