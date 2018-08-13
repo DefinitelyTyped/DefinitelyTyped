@@ -24,11 +24,11 @@ declare namespace next {
      * Context object used in methods like `getInitialProps()`
      * <<https://github.com/zeit/next.js/issues/1651>>
      */
-    interface NextContext {
+    interface NextContext<Q = QueryStringMapObject> {
         /** path section of URL */
         pathname: string;
         /** query string section of URL parsed as an object */
-        query: QueryStringMapObject;
+        query: Q;
         /** String of the actual path (including the query) shows in the browser */
         asPath: string;
         /** HTTP request object (server only) */
