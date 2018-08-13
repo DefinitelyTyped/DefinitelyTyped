@@ -13,17 +13,17 @@ declare namespace GulpUglify {
         /**
          * Pass false to skip mangling names.
          */
-        mangle?: boolean;
+        mangle?: UglifyJS.MangleOptions | boolean;
 
         /**
          * Pass if you wish to specify additional output options. The defaults are optimized for best compression.
          */
-        output?: UglifyJS.BeautifierOptions;
+        output?: UglifyJS.OutputOptions;
 
         /**
          * Pass an object to specify custom compressor options. Pass false to skip compression completely.
          */
-        compress?: UglifyJS.CompressorOptions | boolean;
+        compress?: UglifyJS.CompressOptions | boolean;
     }
 }
 
