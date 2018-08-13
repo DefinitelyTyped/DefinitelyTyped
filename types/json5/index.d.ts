@@ -1,6 +1,7 @@
 // Type definitions for JSON5
 // Project: http://json5.org/
 // Definitions by: Jason Swearingen <https://jasonswearingen.github.io>
+//                 Kacper Wiszczuk <https://github.com/Esemesek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
