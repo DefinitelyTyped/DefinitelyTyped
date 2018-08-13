@@ -273,6 +273,92 @@ async function testSObject(connection: sf.Connection) {
         });
     }
 
+    { // Test SObject.createBulk
+        // $ExpectType Batch
+        dummySObject.createBulk();
+        // $ExpectType Batch
+        dummySObject.createBulk('hi.csv');
+        // $ExpectType Batch
+        dummySObject.createBulk([{ Id: 'hi', thing: true, other: 1, person: 'you' }]);
+        // $ExpectType Batch
+        dummySObject.createBulk([{ Id: 'hi', thing: true, other: 1, person: 'you' }], (err, res) => {
+            err; // $ExpectType Error | null
+            res; // $ExpectType RecordResult[]
+        });
+        dummySObject.createBulk('hi.csv', (err, res) => {
+            err; // $ExpectType Error | null
+            res; // $ExpectType RecordResult[]
+        });
+    }
+
+    { // Test SObject.deleteBulk and aliases
+        // $ExpectType Batch
+        dummySObject.deleteBulk();
+        // $ExpectType Batch
+        dummySObject.deleteBulk('hi.csv');
+        // $ExpectType Batch
+        dummySObject.deleteBulk([{ Id: 'hi', thing: true, other: 1, person: 'you' }]);
+        // $ExpectType Batch
+        dummySObject.deleteBulk([{ Id: 'hi', thing: true, other: 1, person: 'you' }], (err, res) => {
+            err; // $ExpectType Error | null
+            res; // $ExpectType RecordResult[]
+        });
+        dummySObject.deleteBulk('hi.csv', (err, res) => {
+            err; // $ExpectType Error | null
+            res; // $ExpectType RecordResult[]
+        });
+
+        // $ExpectType Batch
+        dummySObject.destroyBulk();
+        // $ExpectType Batch
+        dummySObject.destroyBulk('hi.csv');
+        // $ExpectType Batch
+        dummySObject.destroyBulk([{ Id: 'hi', thing: true, other: 1, person: 'you' }]);
+        // $ExpectType Batch
+        dummySObject.destroyBulk([{ Id: 'hi', thing: true, other: 1, person: 'you' }], (err, res) => {
+            err; // $ExpectType Error | null
+            res; // $ExpectType RecordResult[]
+        });
+        dummySObject.destroyBulk('hi.csv', (err, res) => {
+            err; // $ExpectType Error | null
+            res; // $ExpectType RecordResult[]
+        });
+    }
+
+    { // Test SObject.deleteHardBulk and aliases
+        // $ExpectType Batch
+        dummySObject.deleteHardBulk();
+        // $ExpectType Batch
+        dummySObject.deleteHardBulk('hi.csv');
+        // $ExpectType Batch
+        dummySObject.deleteHardBulk([{ Id: 'hi', thing: true, other: 1, person: 'you' }]);
+        // $ExpectType Batch
+        dummySObject.deleteHardBulk([{ Id: 'hi', thing: true, other: 1, person: 'you' }], (err, res) => {
+            err; // $ExpectType Error | null
+            res; // $ExpectType RecordResult[]
+        });
+        dummySObject.deleteHardBulk('hi.csv', (err, res) => {
+            err; // $ExpectType Error | null
+            res; // $ExpectType RecordResult[]
+        });
+
+        // $ExpectType Batch
+        dummySObject.destroyHardBulk();
+        // $ExpectType Batch
+        dummySObject.destroyHardBulk('hi.csv');
+        // $ExpectType Batch
+        dummySObject.destroyHardBulk([{ Id: 'hi', thing: true, other: 1, person: 'you' }]);
+        // $ExpectType Batch
+        dummySObject.destroyHardBulk([{ Id: 'hi', thing: true, other: 1, person: 'you' }], (err, res) => {
+            err; // $ExpectType Error | null
+            res; // $ExpectType RecordResult[]
+        });
+        dummySObject.destroyHardBulk('hi.csv', (err, res) => {
+            err; // $ExpectType Error | null
+            res; // $ExpectType RecordResult[]
+        });
+    }
+
     { // Test SObject.destroy and aliases
         // $ExpectType RecordResult
         await dummySObject.del('Id');
