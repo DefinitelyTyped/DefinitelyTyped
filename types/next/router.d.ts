@@ -90,8 +90,12 @@ export interface WithRouterProps<Q = DefaultQuery> {
     router: SingletonRouter<Q>;
 }
 
-export function withRouter<T extends {}>(
-    Component: React.ComponentType<T & WithRouterProps>,
+// Manually disabling the no-unnecessary-generics rule so users can
+// retain type inference if they warp their component in withRouter
+// without defining props explicitly
+export function withRouter<T extends {}, Q = DefaultQuery>(
+    // tslint:disable-next-line:no-unnecessary-generics
+    Component: React.ComponentType<T & WithRouterProps<Q>>,
 ): React.ComponentType<T>;
 
 declare const Router: SingletonRouter;
