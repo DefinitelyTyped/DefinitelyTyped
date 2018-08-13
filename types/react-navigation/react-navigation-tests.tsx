@@ -11,6 +11,7 @@ import {
     DrawerNavigatorConfig,
     NavigationAction,
     NavigationActions,
+    NavigationEvents,
     NavigationBackAction,
     NavigationInitAction,
     NavigationNavigateAction,
@@ -580,4 +581,15 @@ class MyScreen extends React.Component<NavigationInjectedProps<MyScreenParams>> 
 createStackNavigator(
     routeConfigMap,
     {transitionConfig: () => ({screenInterpolator: StackViewTransitionConfigs.SlideFromRightIOS.screenInterpolator})}
+);
+
+// Test NavigationEvents component
+
+const ViewWithNavigationEvents = (
+  <NavigationEvents
+    onWillFocus={console.log}
+    onDidFocus={console.log}
+    onWillBlur={console.log}
+    onDidBlur={console.log}
+  />
 );

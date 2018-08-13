@@ -21,6 +21,7 @@
 //                 Ullrich Schaefer <https://github.com/stigi>
 //                 Yosuke Seki <https://github.com/jshosomichi>
 //                 Jake <https://github.com/jakebooyah>
+//                 Gustavo Brunoro <https://github.com/brunoro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -563,6 +564,16 @@ export type NavigationEventCallback = (payload: NavigationEventPayload) => void;
 export interface NavigationEventSubscription {
   remove: () => void;
 }
+
+export interface NavigationEventsProps extends ViewProps {
+  navigation?: NavigationNavigator;
+  onWillFocus?: NavigationEventCallback;
+  onDidFocus?: NavigationEventCallback;
+  onWillBlur?: NavigationEventCallback;
+  onDidBlur?: NavigationEventCallback;
+}
+
+export const NavigationEvents: React.ComponentType<NavigationEventsProps>;
 
 export interface NavigationScreenProp<S, P = NavigationParams> {
   state: S;
