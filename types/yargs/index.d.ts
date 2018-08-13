@@ -1,4 +1,4 @@
-// Type definitions for yargs 11.1
+// Type definitions for yargs 11.2
 // Project: https://github.com/chevex/yargs
 // Definitions by: Martin Poelstra <https://github.com/poelstra>
 //                 Mizunashi Mana <https://github.com/mizunashi-mana>
@@ -282,7 +282,7 @@ declare namespace yargs {
         requiresArg?: boolean;
         skipValidation?: boolean;
         string?: boolean;
-        type?: "array" | "count" | PositionalOptionsType;
+        type?: string;
     }
 
     interface PositionalOptions {
