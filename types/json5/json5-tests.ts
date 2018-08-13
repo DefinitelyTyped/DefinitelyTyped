@@ -5,11 +5,11 @@ const STR = "{ key:'val', 'key2':[0,1,2,] } //comment ";
 const OBJ = { key: 'value', key2: [0, 1, 2] };
 
 function reviverFunction(key: any, value: any): any {
-  return { [key]: value };
+    return { [key]: value };
 }
 
 function replacerFunction(key: string, value: any) {
-  return { [key]: value };
+    return { [key]: value };
 }
 
 const str1: string = JSON5.stringify(OBJ);
