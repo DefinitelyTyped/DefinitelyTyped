@@ -43,10 +43,10 @@ declare namespace next {
         isServer?: boolean;
     }
 
-    type NextSFC<TProps = {}> = NextStatelessComponent<TProps>;
-    interface NextStatelessComponent<TProps = {}>
+    type NextSFC<TProps = {}, Q = QueryStringMapObject> = NextStatelessComponent<TProps, Q>;
+    interface NextStatelessComponent<TProps = {}, Q = QueryStringMapObject>
         extends React.StatelessComponent<TProps> {
-        getInitialProps?: (ctx: NextContext) => Promise<TProps>;
+        getInitialProps?: (ctx: NextContext<Q>) => Promise<TProps>;
     }
 
     type UrlLike = url.UrlObject | url.Url;

@@ -26,7 +26,7 @@ export type PopStateCallback = (state: any) => boolean | undefined;
 
 export type RouterCallback = () => void;
 
-interface DefaultQuery {
+export interface DefaultQuery {
     [key: string]:
     | boolean
     | boolean[]
