@@ -38,6 +38,8 @@ declare class SerialPort extends Stream.Duplex {
 
 	on(event: string, callback: (data?: any) => void): this;
 
+	pipe<T extends NodeJS.WritableStream>(parser: T): T;
+
 	static Binding: SerialPort.BaseBinding;
 
 	static list(): Promise<any>;
