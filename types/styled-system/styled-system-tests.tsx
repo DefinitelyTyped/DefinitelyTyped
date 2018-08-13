@@ -125,9 +125,7 @@ import {
 } from "styled-system";
 
 // tslint:disable-next-line:strict-export-declare-modifiers
-declare type StyledFunction = (...props: any[]) => React.ComponentType;
-// tslint:disable-next-line:strict-export-declare-modifiers
-declare const styled: StyledFunction;
+declare const styled: (...props: any[]) => React.ComponentType;
 
 const boxStyle = variant({
     prop: 'boxStyle',
