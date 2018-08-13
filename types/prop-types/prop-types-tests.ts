@@ -48,6 +48,10 @@ const arrayOfTypes = [PropTypes.string, PropTypes.bool, PropTypes.shape({
 })];
 type PropTypesMap = PropTypes.ValidationMap<Props>;
 
+const customPropFunc: PropTypes.Validator<typeof uniqueType> = () => null;
+
+(customPropFunc as PropTypes.Requireable<typeof uniqueType>).isRequired = () => null;
+
 // TS checking
 const propTypes: PropTypesMap = {
     any: PropTypes.any,
@@ -74,7 +78,7 @@ const propTypes: PropTypesMap = {
     objectOf: PropTypes.objectOf(PropTypes.number.isRequired).isRequired,
     shape: PropTypes.shape(innerProps).isRequired,
     optionalNumber: PropTypes.number,
-    customProp: (() => null) as PropTypes.Validator<typeof uniqueType | undefined>
+    customProp: customPropFunc,
 };
 
 // JS checking
@@ -100,7 +104,7 @@ const propTypesWithoutAnnotation = {
     objectOf: PropTypes.objectOf(PropTypes.number.isRequired).isRequired,
     shape: PropTypes.shape(innerProps).isRequired,
     optionalNumber: PropTypes.number,
-    customProp: (() => null) as PropTypes.Validator<typeof uniqueType | undefined>
+    customProp: customPropFunc,
 };
 
 const partialPropTypes = {
