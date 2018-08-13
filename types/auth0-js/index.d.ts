@@ -762,6 +762,7 @@ export interface AuthorizeOptions {
     audience?: string;
 	language?: string;
 	prompt?: string;
+    mode?: "login" | "signUp";
 }
 
 export interface CheckSessionOptions extends AuthorizeOptions {
