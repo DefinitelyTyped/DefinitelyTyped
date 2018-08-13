@@ -1,5 +1,5 @@
 // Type definitions for @mysql/xdevapi 8.0
-// Project: https://github.com/mysql/mysql-connector-nodejs (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
+// Project: https://github.com/mysql/mysql-connector-nodejs
 // Definitions by: Andrew Rioux <https://github.com/r-a303931>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
