@@ -1,5 +1,4 @@
 import * as yup from 'yup';
-import { setLocale } from 'yup/lib/customLocale';
 
 // tslint:disable-next-line:no-duplicate-imports
 import { reach, date, Schema, ObjectSchema, ValidationError, MixedSchema, SchemaDescription, TestOptions, ValidateOptions, NumberSchema, TestContext } from 'yup';
@@ -289,7 +288,7 @@ const validateOptions: ValidateOptions = {
     }
 };
 
-setLocale({
+yup.setLocale({
     number: { max: "Max message", min: "Min message" },
     string: { email: "String message"}
 });
