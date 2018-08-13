@@ -340,14 +340,10 @@ declare global {
       whenLoaded(cb: Function): void;
     }
 
-    interface BindingScopeModel {
-      [k: string]: Base;
-    }
-
     interface Templatizer {
       templatize(template: HTMLTemplateElement, mutableData?: boolean): void;
       stamp(model: {}): Base;
-      modelForElement: (elem: HTMLElement) => BindingScopeModel;
+      modelForElement: (elem: HTMLElement) => Base;
     }
 
     interface PolymerStatic {
