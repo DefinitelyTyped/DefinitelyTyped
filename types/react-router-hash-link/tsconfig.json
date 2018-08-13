@@ -19,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "react-router-hash-link-tests.ts"
+        "react-router-hash-link-tests.tsx"
     ]
 }

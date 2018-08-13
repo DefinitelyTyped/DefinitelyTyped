@@ -9,15 +9,16 @@ interface Props extends NavHashLinkProps {
 
 const getIsActive = (extraProp: string) => (match: match<any>, location: H.Location) => !!extraProp;
 
-export default function (props: Props) {
+export default function(props: Props) {
   const {extraProp, ...rest} = props;
   const isActive = getIsActive(extraProp);
   return (
     <NavHashLink {...rest} isActive={isActive} />
-);
+  );
 }
 
-<HashLink to="url" />
+<HashLink to="url" />;
 
-const acceptRef = (node: HTMLAnchorElement | null) => {};
+const acceptRef = (node: HTMLAnchorElement | null) => {
+};
 <HashLink to="/url" replace={true} innerRef={acceptRef} />;
