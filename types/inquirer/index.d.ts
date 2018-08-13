@@ -87,7 +87,7 @@ declare namespace inquirer {
          * </ul>
          * @defaults: 'input'
          */
-        type?: string;
+        type?: 'input' | 'confirm' | 'list' | 'rawlist' | 'expand' | 'checkbox' | 'password' | 'editor';
         /**
          * The name to use when storing the answer in the anwers hash.
          */
