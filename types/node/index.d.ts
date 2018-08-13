@@ -1,4 +1,4 @@
-// Type definitions for Node.js 10.5.x
+// Type definitions for Node.js 10.7.x
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <http://typescriptlang.org>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
@@ -1248,6 +1248,10 @@ declare module "http" {
          * Maximum number of sockets to leave open in a free state. Only relevant if keepAlive is set to true. Default = 256.
          */
         maxFreeSockets?: number;
+        /**
+         * Socket timeout in milliseconds. This will set the timeout after the socket is connected.
+         */
+        timeout?: number;
     }
 
     export class Agent {
