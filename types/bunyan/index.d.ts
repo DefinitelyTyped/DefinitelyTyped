@@ -272,7 +272,7 @@ declare namespace Logger {
     }
 
     interface RotatingFileStreamOptions {
-        path?: string;
+        path: string;
         count?: number;
         period?: string;
     }
