@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { Request, Response, NextFunction } from 'express';
+import { Request, RequestHandler } from 'express';
 
 export interface MiddlewareOptions {
     verify: string;
@@ -52,10 +52,10 @@ export interface SteamRequest extends Request {
     user?: SteamUser;
 }
 
-export function middleware(opts: MiddlewareOptions): (req: Request, res: Response, next: NextFunction) => void;
+export function middleware(opts: MiddlewareOptions): RequestHandler;
 
-export function enforceLogin(redirect: string): (req: Request, res: Response, next: NextFunction) => NextFunction;
+export function enforceLogin(redirect: string): RequestHandler;
 
-export function verify(): (req: Request, res: Response, next: NextFunction) => NextFunction;
+export function verify(): RequestHandler;
 
-export function authenticate(): (req: Request, res: Response, next: NextFunction) => NextFunction;
+export function authenticate(): RequestHandler;
