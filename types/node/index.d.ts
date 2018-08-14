@@ -27,6 +27,7 @@
 //                 Andrew Makarov <https://github.com/r3nya>
 //                 Zane Hannan AU <https://github.com/ZaneHannanAU>
 //                 Eugene Y. Q. Shen <https://github.com/eyqs>
+//                 Matthieu Sieben <https://github.com/matthieusieben>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /** inspector module types */
@@ -824,7 +825,7 @@ declare namespace NodeJS {
         emit(event: "unhandledRejection", reason: any, promise: Promise<any>): boolean;
         emit(event: "warning", warning: Error): boolean;
         emit(event: "message", message: any, sendHandle: any): this;
-        emit(event: Signals): boolean;
+        emit(event: Signals, signal: Signals): boolean;
         emit(event: "newListener", eventName: string | symbol, listener: (...args: any[]) => void): this;
         emit(event: "removeListener", eventName: string, listener: (...args: any[]) => void): this;
 
