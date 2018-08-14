@@ -13,5 +13,5 @@
     "noEmit": true,
     "forceConsistentCasingInFileNames": true
   },
-  "files": ["index.d.ts", "tests.tsx"]
+  "files": ["index.d.ts", "react-visibility-sensor-tests.tsx"]
 }
