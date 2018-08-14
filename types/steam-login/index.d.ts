@@ -48,8 +48,8 @@ export interface SteamUser {
 }
 
 export interface SteamRequest extends Request {
-    logout(): (req: Request) => () => void;
-    user: SteamUser;
+    logout?(): (req: Request) => () => void;
+    user?: SteamUser;
 }
 
 export function middleware(opts: MiddlewareOptions): (req: Request, res: Response, next: NextFunction) => void;

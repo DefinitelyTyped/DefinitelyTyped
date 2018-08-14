@@ -27,7 +27,7 @@ app.get('/verify', steam.verify(), (req: steam.SteamRequest, res) => {
 });
 
 app.get('/logout', steam.enforceLogin('/'), (req: steam.SteamRequest, res) => {
-    req.logout();
+    req.logout ? req.logout() : null;
     res.redirect('/');
 });
 
