@@ -6,7 +6,8 @@ export {
     PickerProps,
     EmojiProps,
     I18n,
-    PartialI18n
+    PartialI18n,
+    CategoryName
 } from './utils/shared-props';
 
 export {
