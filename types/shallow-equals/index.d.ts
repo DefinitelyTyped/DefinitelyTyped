@@ -3,14 +3,14 @@
 // Definitions by: Ross Solomon <https://github.com/rsolomon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function shallowEquals<A, B>(
+export = shallow_equals;
+
+declare function shallow_equals<A, B>(
     a?: A,
     b?: B,
     compare?: (objA?: A, objB?: B) => boolean,
 ): boolean;
 
-declare namespace shallowEquals {
+declare namespace shallow_equals {
 
 }
-
-export = shallowEquals;
