@@ -18,6 +18,7 @@
 //                 Jérémy Magrin <https://github.com/magrinj>
 //                 Luca Campana <https://github.com/TizioFittizio>
 //                 Ullrich Schaefer <https://github.com/stigi>
+//                 Linus Unnebäck <https://github.com/LinusU>
 //                 Yosuke Seki <https://github.com/jshosomichi>
 //                 Jake <https://github.com/jakebooyah>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -588,7 +589,8 @@ export interface NavigationScreenProp<S, P = NavigationParams> {
   openDrawer: () => any;
   closeDrawer: () => any;
   toggleDrawer: () => any;
-  getParam: <T extends keyof P>(param: T, fallback?: P[T]) => P[T];
+  getParam<T extends keyof P>(param: T, fallback: NonNullable<P[T]>): NonNullable<P[T]>;
+  getParam<T extends keyof P>(param: T): P[T];
   setParams: (newParams: Partial<P>) => boolean;
   addListener: (
     eventName: 'willBlur' | 'willFocus' | 'didFocus' | 'didBlur',
