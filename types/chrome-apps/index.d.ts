@@ -102,8 +102,8 @@ declare namespace chrome {
              * One of
              * • not_controllable: cannot be controlled by any extension
              * • controlled_by_other_extensions: controlled by extensions with higher precedence
-             * • controllable_by_this_extension: can be controlled by this extension
-             * • controlled_by_this_extension: controlled by this extension
+             * • controllable_by_this_extension: can be controlled by this app
+             * • controlled_by_this_extension: controlled by this app
              */
             levelOfControl: LevelOfControl;
             /** Whether the effective value is specific to the incognito session. This property will only be present if the incognito property in the details parameter of get() was true.  */
@@ -261,7 +261,7 @@ declare namespace chrome {
          * In order to reduce the load on the user's machine, Chrome limits alarms to at most once every 1 minute but may delay them an arbitrary amount more.
          * That is, setting delayInMinutes or periodInMinutes to less than 1 will not be honored and will cause a warning.
          * `when` can be set to less than 1 minute after 'now' without warning but won't actually cause the alarm to fire for at least 1 minute.
-         * To help you debug your app or extension, when you've loaded it unpacked, there's no limit to how often the alarm can fire.
+         * To help you debug your app, when you've loaded it unpacked, there's no limit to how often the alarm can fire.
          * @param alarmInfo Describes when the alarm should fire. The initial time must be specified by either when or delayInMinutes (but not both). If periodInMinutes is set, the alarm will repeat every periodInMinutes minutes after the initial event. If neither when or delayInMinutes is set for a repeating alarm, periodInMinutes is used as the default for delayInMinutes.
          */
         function create(alarmInfo: AlarmCreateInfo): void;
@@ -271,7 +271,7 @@ declare namespace chrome {
          * In order to reduce the load on the user's machine, Chrome limits alarms to at most once every 1 minute but may delay them an arbitrary amount more.
          * That is, setting delayInMinutes or periodInMinutes to less than 1 will not be honored and will cause a warning.
          * `when` can be set to less than 1 minute after 'now' without warning but won't actually cause the alarm to fire for at least 1 minute.
-         * To help you debug your app or extension, when you've loaded it unpacked, there's no limit to how often the alarm can fire.
+         * To help you debug your app, when you've loaded it unpacked, there's no limit to how often the alarm can fire.
          * @param name Optional name to identify this alarm. Defaults to the empty string.
          * @param alarmInfo Describes when the alarm should fire. The initial time must be specified by either when or delayInMinutes (but not both). If periodInMinutes is set, the alarm will repeat every periodInMinutes minutes after the initial event. If neither when or delayInMinutes is set for a repeating alarm, periodInMinutes is used as the default for delayInMinutes.
          */
@@ -622,13 +622,15 @@ declare namespace chrome {
             /**
              * If true, the window will have its own shelf icon.
              * Otherwise the window will be grouped in the shelf with other windows that are associated with the app.
-             * Defaults to false.
              * If showInShelf is set to true you need to specify an id for the window.
+             * @default false
              * @since Since Chrome 54.
              */
             showInShelf?: boolean;
             /**
-             * URL of the window icon. A window can have its own icon when showInShelf is set to true. The URL should be a global or an extension local URL.
+             * URL of the window icon.
+             * A window can have its own icon when showInShelf is set to true.
+             * The URL should be a global or an app's local URL.
              * @since Since Chrome 54.
              */
             icon?: string;
@@ -1972,9 +1974,9 @@ declare namespace chrome {
      */
     namespace commands {
         interface Command {
-            /** The name of the Extension Command  */
+            /** The name of the command  */
             name?: string;
-            /** The Extension Command description  */
+            /** The command description  */
             description?: string;
             /** The shortcut active for this command, or blank if not active.  */
             shortcut?: string;
@@ -1983,7 +1985,7 @@ declare namespace chrome {
         interface CommandEvent extends chrome.events.Event<(command: string) => void> { }
 
         /**
-         * Returns all the registered extension commands for this extension and their shortcut (if active).
+         * Returns all the registered commands for this app and their shortcut (if active).
          * @param callback Called to return the registered commands.
          */
         function getAll(callback: (commands: Command[]) => void): void;
@@ -2018,7 +2020,7 @@ declare namespace chrome {
          * @default 6
          * @description
          * The maximum number of top level extension items that
-         * can be added to an extension action context menu.
+         * can be added to an app's action context menu.
          * Any items beyond this limit will be ignored.
          */
         const ACTION_MENU_TOP_LEVEL_LIMIT: integer;
@@ -2147,7 +2149,7 @@ declare namespace chrome {
             /**
              * The unique ID to assign to this item.
              * Mandatory for event pages.
-             * Cannot be the same as another ID for this extension.
+             * Cannot be the same as another ID for this app.
              */
             id?: string;
 
@@ -2263,7 +2265,7 @@ declare namespace chrome {
         function remove(menuItemId: integer | string, callback?: () => void): void;
 
         /**
-         * Removes all context menu items added by this extension.
+         * Removes all context menu items added by this app.
          * @param callback Called when removal is complete.
          */
         function removeAll(callback?: () => void): void;
@@ -2289,8 +2291,7 @@ declare namespace chrome {
     // Desktop Capture //
     /////////////////////
     /**
-     * Desktop Capture API that can be used to capture content of screen,
-     * individual windows or tabs.
+     * Desktop Capture API that can be used to capture content of screen or individual windows.
      * @since Availability: Since Chrome 34.
      * @requires Permissions: 'desktopCapture'
      */
@@ -2760,7 +2761,7 @@ declare namespace chrome {
              */
             description?: string;
             /**
-             * Mime-types to accept, e.g. 'image/jpeg' or 'audio/*'. One of mimeTypes or extensions must contain at least one valid element.
+             * Mime-types to accept, e.g. 'image/jpeg' or 'audio/*'. One of mimeTypess must contain at least one valid element.
              */
             mimeTypes?: string[];
             /**
@@ -3355,7 +3356,7 @@ declare namespace chrome {
         function unmount(options: UnmountOptions, callback?: () => void): void;
 
         /**
-         * Returns all file systems mounted by the extension.
+         * Returns all file systems mounted by the app.
          * @param callback Callback to receive the result of getAll function.
          */
         function getAll(callback: (fileSystems: FileSystemInfo[]) => void): void;
@@ -3377,7 +3378,7 @@ declare namespace chrome {
          *
          * Value of tag can be any string which is unique per call,
          * so it's possible to identify the last registered notification.
-         * Eg. if the providing extension starts after a reboot,
+         * Eg. if the providing app starts after a reboot,
          * and the last registered notification's tag is equal to '123',
          * then it should call notify for all changes which happened since
          * the change tagged as '123'. It cannot be an empty string.
@@ -3648,7 +3649,7 @@ declare namespace chrome {
     // Google Cloud Messaging //
     ////////////////////////////
     /**
-     * Use chrome.gcm to enable apps and extensions to send and receive
+     * Use chrome.gcm to enable apps to send and receive
      * messages through the Google Cloud Messaging Service.
      * @deprecated
      * As of April 10, 2018, Google has deprecated GCM.
@@ -3945,7 +3946,7 @@ declare namespace chrome {
 
         /**
          * Event generated when a device is added to the system.
-         * Events are only broadcast to apps and extensions that
+         * Events are only broadcast to apps that
          * have permission to access the device. Permission may
          * have been granted at install time or when the user
          * accepted an optional permission.
@@ -4502,7 +4503,7 @@ declare namespace chrome {
     ////////////////
     /**
      * The chrome.management API provides ways to
-     * manage the list of extensions/apps
+     * manage the list of apps
      * that are installed and running.
      */
     namespace management {
@@ -5636,22 +5637,26 @@ declare namespace chrome {
      * @see[Docs]{@link https://developer.chrome.com/extensions/notifications}
      */
     namespace notifications {
-        /** @enum */
+        /**
+         * @enum
+         * @prop BASIC - icon, title, message, expandedMessage, up to two buttons.
+         * @prop IMAGE - icon, title, message, expandedMessage, image, up to two buttons.
+         * @prop LIST - icon, title, message, items, up to two buttons. Users on Mac OS X only see the first item.
+         * @prop PROGRESS - icon, title, message, progress, up to two buttons.
+         */
         const TemplateType: {
-            /** icon, title, message, expandedMessage, up to two buttons */
             BASIC: "basic",
-            /** icon, title, message, expandedMessage, image, up to two buttons */
             IMAGE: "image",
-            /** icon, title, message, items, up to two buttons. Users on Mac OS X only see the first item. */
             LIST: "list",
-            /** icon, title, message, progress, up to two buttons */
             PROGRESS: "progress"
         }
-        /** @enum */
+        /**
+         * @enum
+         * @property GRANTED - User has elected to show notifications from the app . This is the default at install time.
+         * @property DENIED - User has elected not to show notifications from the app.
+         */
         const PermissionLevel: {
-            /** User has elected to show notifications from the app or extension. This is the default at install time. */
             GRANTED: "granted",
-            /** User has elected not to show notifications from the app or extension. */
             DENIED: "denied"
         }
 
@@ -5676,7 +5681,7 @@ declare namespace chrome {
             /**
              * Optional.
              * A URL to the sender's avatar, app icon, or a thumbnail for image notifications.
-             * URLs can be a data URL, a blob URL, or a URL relative to a resource within this extension's .crx file Required for notifications.create method.
+             * URLs can be a data URL, a blob URL, or a URL relative to a resource within this app's .crx file Required for notifications.create method.
              */
             iconUrl: string;
 
@@ -5811,7 +5816,7 @@ declare namespace chrome {
         function getAll(callback: (notifications: { [notificationId: string]: true }) => void): void;
 
         /**
-         * Retrieves whether the user has enabled notifications from this app or extension.
+         * Retrieves whether the user has enabled notifications from this app .
          * @since Chrome 32.
          * @param callback Returns the current permission level.
          * @see enum PermissionLevel
@@ -5878,6 +5883,25 @@ declare namespace chrome {
         const onAdded: PermissionEvent;
     }
 
+    ///////////////////
+    // Platform Keys //
+    ///////////////////
+    /**
+     * @requires(CrOS) Only for Chrome OS.
+     * @requires Permissions: 'platformKeys'
+     * @todo TODO Documentation needed
+     */
+    namespace platformKeys {
+        const ClientCertificateType: {
+            "RSA_SIGN": "rsaSign",
+            "ECDSA_SIGN": "ecdsaSign"
+        };
+        const selectClientCertificates: Function;
+        const getKeyPair: Function;
+        const subtleCrypto: Function;
+        const verifyTLSServerCertificate: Function;
+    }
+
     ///////////
     // Power //
     ///////////
@@ -5887,11 +5911,13 @@ declare namespace chrome {
      * @since Chrome 27.
      */
     namespace power {
-        /** @enum */
+        /**
+         * @enum
+         * @property SYSTEM - Prevent the system from sleeping in response to user inactivity.
+         * @property DISPLAY - Prevent the display from being turned off or dimmed or the system from sleeping in response to user inactivity.
+        */
         const Level: {
-            /** Prevent the system from sleeping in response to user inactivity. */
             SYSTEM: 'system',
-            /** Prevent the display from being turned off or dimmed or the system from sleeping in response to user inactivity. */
             DISPLAY: 'display'
         }
         /**
@@ -5962,7 +5988,7 @@ declare namespace chrome {
     // Runtime
     ////////////////////
     /**
-     * Use the chrome.runtime API to retrieve the background page, return details about the manifest, and listen for and respond to events in the app or extension lifecycle. You can also use this API to convert the relative path of URLs to fully-qualified URLs.
+     * Use the chrome.runtime API to retrieve the background page, return details about the manifest, and listen for and respond to events in the app lifecycle. You can also use this API to convert the relative path of URLs to fully-qualified URLs.
      * @since Chrome 22
      */
     namespace runtime {
@@ -6002,7 +6028,7 @@ declare namespace chrome {
         /** This will be defined during an API method callback if there was an error */
         const lastError: LastError | undefined;
 
-        /** The ID of the extension/app. */
+        /** The ID of the app. */
         const id: string;
 
         interface LastError {
@@ -6043,7 +6069,7 @@ declare namespace chrome {
          * @since Chrome 26.
          */
         interface MessageSender {
-            /** The ID of the extension or app that opened the connection, if any. */
+            /** The ID of the app that opened the connection, if any. */
             id?: string;
             /**
              * The frame that opened the connection. 0 for top-level frames, positive for child frames. This will only be set when tab is set.
@@ -6056,7 +6082,7 @@ declare namespace chrome {
              */
             url?: string;
             /**
-             * The TLS channel ID of the page or frame that opened the connection, if requested by the extension or app, and if available.
+             * The TLS channel ID of the page or frame that opened the connection, if requested by the app, and if available.
              * @since Chrome 32.
              */
             tlsChannelId?: string;
@@ -6285,19 +6311,19 @@ declare namespace chrome {
              */
             'audioCapture' |
             /**
-             * Makes Chrome start up early and and shut down late, so that apps and extensions can have a longer life.
+             * Makes Chrome start up early and and shut down late, so that apps can have a longer life.
              * When any installed app has "background" permission, Chrome runs (invisibly) as soon as the user logs
              * into their computer—before the user launches Chrome. The "background" permission also makes Chrome
              * continue running (even after its last window is closed) until the user explicitly quits Chrome.
-             * Note: Disabled apps and extensions are treated as if they aren't installed.
+             * Note: Disabled apps are treated as if they aren't installed.
              */
             'background' |
             /** Gives your app access to the chrome.browser API. */
             'browser' |
-            /** Required if the extension or app uses document.execCommand('paste'). */
+            /** Required if the app uses document.execCommand('paste'). */
             'clipboardRead' |
             /**
-             * Indicates the extension or app uses document.execCommand('copy') or document.execCommand('cut').
+             * Indicates the app uses document.execCommand('copy') or document.execCommand('cut').
              * This permission is recommended for packaged apps.
              */
             'clipboardWrite' |
@@ -6314,7 +6340,7 @@ declare namespace chrome {
              * Gives your app access to the chrome.gcm API.
              */
             'gcm' |
-            /** Allows the extension or app to use the proposed HTML5 geolocation API without prompting the user for permission. */
+            /** Allows the app to use the proposed HTML5 geolocation API without prompting the user for permission. */
             'geolocation' |
             /** Gives your app access to the chrome.hid API. */
             'hid' |
@@ -6374,7 +6400,7 @@ declare namespace chrome {
             'tts' |
             /**
              * Provides an unlimited quota for storing HTML5 client-side data, such as databases and local storage files.
-             * Without this permission, the extension or app is limited to 5 MB of local storage.
+             * Without this permission, the app is limited to 5 MB of local storage.
              *
              * *Note*
              * *This permission applies only to Web SQL Database and application cache*
@@ -6575,7 +6601,7 @@ declare namespace chrome {
              */
             name: string;
             /**
-             * One to four dot-separated integers identifying the version of this extension.
+             * One to four dot-separated integers identifying the version of this app.
              * A couple of rules apply to the integers: they must be between 0 and 65535, inclusive,
              * and non-zero integers can't start with 0. For example, 99999 and 032 are both invalid.
              * A missing integer is equal to zero. For example, 1.1.9.9999 is newer than 1.1.
@@ -6589,7 +6615,7 @@ declare namespace chrome {
             /////////////////
 
             /**
-             * Specifies the subdirectory of _locales that contains the default strings for this extension.
+             * Specifies the subdirectory of _locales that contains the default strings for this app.
              * This field is required in apps that have a _locales directory; it must be absent in
              * apps that have no _locales directory. For details, see Internationalization:
              * @see[Internationalization]{@see https://developer.chrome.com/extensions/i18n}
@@ -6810,7 +6836,7 @@ declare namespace chrome {
 
             /** One or more mappings from MIME types to the Native Client module that handles each type. */
             nacl_modules?: {
-                /** The location of a Native Client manifest (a .nmf file) within the extension directory. */
+                /** The location of a Native Client manifest (a .nmf file) within the app's directory. */
                 path: string;
                 /** The MIME type for which the Native Client module will be registered as content handler. */
                 mime_type: string;
@@ -6829,7 +6855,7 @@ declare namespace chrome {
             };
 
             /**
-             * Whether the app or extension is expected to work offline.
+             * Whether the app is expected to work offline.
              * When Chrome detects that it is offline, apps with this field set to true will be highlighted on the New Tab page.
              */
             offline_enabled?: boolean;
@@ -6861,7 +6887,7 @@ declare namespace chrome {
             /**
              * Technologies required by the app. Hosting sites such
              * as the Chrome Web Store may use this list to dissuade
-             * users from installing apps or extensions that will not
+             * users from installing appss that will not
              * work on their computer. Supported requirements currently
              * include '3D' and 'plugins'; additional requirements checks
              * may be added in the future.
@@ -6891,7 +6917,7 @@ declare namespace chrome {
                  * The 'plugins' requirement indicates if an app requires NPAPI to run.
                  *
                  * This requirement is enabled by default when the manifest includes the 'plugins' field.
-                 * For apps and extensions that still work when plugins aren't available,
+                 * For apps that still work when plugins aren't available,
                  * you can disable this requirement by setting NPAPI to false.
                  * You can also enable this requirement manually,
                  * by setting NPAPI to true as shown in this example:
@@ -6977,10 +7003,10 @@ declare namespace chrome {
             // system_indicator?: any; // Deprecated / removed: https://bugs.chromium.org/p/chromium/issues/detail?id=142450
             /**
              * If you publish using the Chrome Developer Dashboard, ignore this field.
-             * If you host your own extension or app: URL to an update manifest XML file.
+             * If you host your own app: URL to an update manifest XML file.
              * **Warning**
              * As of M33, Windows stable / beta channel users can only
-             * download extensions hosted in the Chrome Web Store
+             * download apps hosted in the Chrome Web Store
              * @requires(not Windows)
              * (@see[Protecting Windows users from malicious extensions]{@link http://blog.chromium.org/2013/11/protecting-windows-users-from-malicious.html}).
              * @see[Documentation]{@link https://developer.chrome.com/apps/autoupdate}
@@ -7116,15 +7142,21 @@ declare namespace chrome {
         type Manifest = ValidKioskManifest | ValidNonKioskManifest | InvalidManifest;
 
         /**
-         * Attempts to connect to connect listeners within an extension/app (such as the background page), or other extensions/apps. This is useful for content scripts connecting to their extension processes, inter-app/extension communication, and web messaging. Note that this does not connect to any listeners in a content script. Extensions may connect to content scripts embedded in tabs via tabs.connect.
+         * Attempts to connect to connect listeners within an app (such as the background page), or other apps.
+         * This is useful for content scripts connecting to their extension processes, inter-app communication, and web messaging.
+         * Note that this does not connect to any listeners in a content script.
          * @since Chrome 26.
          */
         function connect(connectInfo?: ConnectInfo): Port;
         /**
-         * Attempts to connect to connect listeners within an extension/app (such as the background page), or other extensions/apps. This is useful for content scripts connecting to their extension processes, inter-app/extension communication, and web messaging. Note that this does not connect to any listeners in a content script. Extensions may connect to content scripts embedded in tabs via tabs.connect.
+         * Attempts to connect to connect listeners within an app (such as the background page), or other apps.
+         * This is useful for content scripts connecting to their extension processes, inter-app communication, and web messaging.
+         * Note that this does not connect to any listeners in a content script.
          * @since Chrome 26.
-         * @param extensionId Optional.
-         * The ID of the extension or app to connect to. If omitted, a connection will be attempted with your own extension. Required if sending messages from a web page for web messaging.
+         * @param extensionId Optional; ID of the extension.
+         * The ID of the extension or app to connect to.
+         * If omitted, a connection will be attempted with your own app.
+         * Required if sending messages from a web page for web messaging.
          */
         function connect(extensionId: string, connectInfo?: ConnectInfo): Port;
         /**
@@ -7135,14 +7167,14 @@ declare namespace chrome {
         function connectNative(application: string): Port;
 
         /**
-         * Retrieves the JavaScript 'window' object for the background page running inside the current extension/app.
+         * Retrieves the JavaScript 'window' object for the background page running inside the current app.
          * If the background page is an event page, the system will ensure it is loaded before calling the callback.
          * If there is no background page, an error is set.
          */
         function getBackgroundPage(callback: (backgroundPage?: Window) => void): void;
 
         /**
-         * Returns details about the app or extension from the manifest.
+         * Returns details about the app from the manifest.
          * The object returned is a serialization of the full manifest file.
          * @returns The manifest details.
          */
@@ -7162,19 +7194,19 @@ declare namespace chrome {
         function getPlatformInfo(callback: (platformInfo: PlatformInfo) => void): void;
 
         /**
-         * Converts a relative path within an app/extension install directory to a fully-qualified URL.
-         * @param path A path to a resource within an app/extension expressed relative to its install directory.
+         * Converts a relative path within an app install directory to a fully-qualified URL.
+         * @param path A path to a resource within an app expressed relative to its install directory.
          */
         function getURL(path: string): string;
 
         /**
-         * Reloads the app or extension.
+         * Reloads the app .
          * @since Chrome 25.
          */
         function reload(): void;
 
         /**
-         * Requests an update check for this app/extension.
+         * Requests an update check for this app.
          * @since Chrome 25.
          * @param callback
          * Parameter status: Result of the update check. See enum RequestUpdateCheckStatus.
@@ -7189,7 +7221,9 @@ declare namespace chrome {
         function restart(): void;
 
         /**
-         * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use tabs.sendMessage.
+         * Sends a single message to event listeners within your app or a different app. Similar to runtime.connect but only sends a single message, with an optional response.
+         * If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension.
+         * Note that extensions cannot send messages to content scripts using this method.
          * @since Chrome 26.
          * @param responseCallback Optional
          * Parameter response: The JSON response object sent by the handler of the message. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message.
@@ -7197,7 +7231,7 @@ declare namespace chrome {
         function sendMessage(message: any, responseCallback?: (response: any) => void): void;
 
         /**
-         * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use tabs.sendMessage.
+         * Sends a single message to event listeners within your app or a different app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method.
          * @since Chrome 32.
          * @param responseCallback Optional
          * Parameter response: The JSON response object sent by the handler of the message. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message.
@@ -7205,18 +7239,18 @@ declare namespace chrome {
         function sendMessage(message: any, options: MessageOptions, responseCallback?: (response: any) => void): void;
 
         /**
-         * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use tabs.sendMessage.
+         * Sends a single message to event listeners within your app or a different app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method.
          * @since Chrome 26.
-         * @param extensionId The ID of the extension/app to send the message to. If omitted, the message will be sent to your own extension/app. Required if sending messages from a web page for web messaging.
+         * @param extensionId The ID of the app to send the message to. If omitted, the message will be sent to your own app. Required if sending messages from a web page for web messaging.
          * @param responseCallback Optional
          * Parameter response: The JSON response object sent by the handler of the message. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message.
          */
         function sendMessage(extensionId: string, message: any, responseCallback?: (response: any) => void): void;
 
         /**
-         * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use tabs.sendMessage.
+         * Sends a single message to event listeners within your app or a different app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method.
          * @since Chrome 32.
-         * @param extensionId The ID of the extension/app to send the message to. If omitted, the message will be sent to your own extension/app. Required if sending messages from a web page for web messaging.
+         * @param extensionId The ID of the app to send the message to. If omitted, the message will be sent to your own app. Required if sending messages from a web page for web messaging.
          * @param responseCallback Optional
          * Parameter response: The JSON response object sent by the handler of the message. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message.
          */
@@ -7261,7 +7295,7 @@ declare namespace chrome {
         /** Sent to the event page just before it is unloaded. This gives the extension opportunity to do some clean up. Note that since the page is unloading, any asynchronous operations started while handling this event are not guaranteed to complete. If more activity for the event page occurs before it gets unloaded the onSuspendCanceled event will be sent and the page won't be unloaded. */
         const onSuspend: RuntimeEvent;
         /**
-         * Fired when a profile that has this extension installed first starts up. This event is not fired when an incognito profile is started, even if this extension is operating in 'split' incognito mode.
+         * Fired when a profile that has this app installed first starts up. This event is not fired when an incognito profile is started, even if this app is operating in 'split' incognito mode.
          * @since Chrome 23.
          */
         const onStartup: RuntimeEvent;
@@ -7275,7 +7309,7 @@ declare namespace chrome {
          */
         const onMessage: ExtensionMessageEvent;
         /**
-         * Fired when a message is sent from another extension/app. Cannot be used in a content script.
+         * Fired when a message is sent from another app. Cannot be used in a content script.
          * @since Chrome 26.
          */
         const onMessageExternal: ExtensionMessageEvent;
@@ -8020,7 +8054,12 @@ declare namespace chrome {
         }
 
         interface LocalStorageArea extends StorageArea {
-            /** The maximum amount (in bytes) of data that can be stored in local storage, as measured by the JSON stringification of every value plus every key's length. This value will be ignored if the extension has the unlimitedStorage permission. Updates that would cause this limit to be exceeded fail immediately and set runtime.lastError. */
+            /** The maximum amount (in bytes) of data that can be stored in local storage,
+             * as measured by the JSON stringification of every value plus every key's length.
+             * This value will be ignored if the extension has the unlimitedStorage permission.
+             * Updates that would cause this limit to be exceeded fail immediately and set runtime.lastError.
+             * @default 5242880
+             */
             QUOTA_BYTES: integer;
         }
 
@@ -8079,6 +8118,7 @@ declare namespace chrome {
      */
     namespace syncFileSystem {
         /**
+         * @enum
          * 'initializing'
          *  - The sync service is being initialized (e.g. restoring data from the database, checking connectivity and authenticating to the service etc).
          * 'running'
@@ -8090,13 +8130,16 @@ declare namespace chrome {
          * 'disabled'
          *  - The sync service is disabled and the content will never sync. (E.g. this could happen when the user has no account on the remote service or the sync service has had an unrecoverable error.)
          */
-        type ServiceStatus =
-            'initializing' |
-            'running' |
-            'authentication_required' |
-            'temporary_unavailable' |
-            'disabled';
+        const ServiceStatus: {
+            "INITIALIZING": "initializing",
+            "RUNNING": "running",
+            "AUTHENTICATION_REQUIRED": "authentication_required",
+            "TEMPORARY_UNAVAILABLE": "temporary_unavailable",
+            "DISABLED": "disabled"
+        };
+
         /**
+         * @enum
          * 'synced'
          *  - Not conflicting and has no pending local changes.
          * 'pending'
@@ -8104,28 +8147,36 @@ declare namespace chrome {
          * 'conflicting'
          *  - File conflicts with remote version and must be resolved manually.
          */
-        type FileStatus =
-            'synced' |
-            'pending' |
-            'conflicting';
-        type ConflictResolutionPolicy =
-            'last_write_win' |
-            'manual'
+        const FileStatus: {
+            "SYNCED": "synced",
+            "PENDING": "pending",
+            "CONFLICTING": "conflicting"
+        }
 
-        type Action =
-            'added' |
-            'updated' |
-            'deleted'
+        const ConflictResolutionPolicy: {
+            "LAST_WRITE_WIN": "last_write_win",
+            "MANUAL": "manual"
+        };
 
-        type Direction =
-            'local_to_remote' |
-            'remote_to_local';
+        const SyncAction: {
+            "ADDED": "added",
+            "UPDATED": "updated",
+            "DELETED": "deleted"
+        }
+
+        const SyncDirection: {
+            "LOCAL_TO_REMOTE": "local_to_remote",
+            "REMOTE_TO_LOCAL": "remote_to_local"
+        };
 
         interface FileStatusInfo {
             /** One of the Entry's originally given to getFileStatuses. */
             fileEntry: Entry;
-            /** Status value */
-            status: FileStatus;
+            /**
+             * Status value
+             * @see FileStatus
+             */
+            status: ToStringLiteral<typeof FileStatus>;
             /** Optional error that is only returned if there was a problem retrieving the FileStatus for the given file. */
             error?: string;
         }
@@ -8139,21 +8190,21 @@ declare namespace chrome {
             fileEntry: Entry;
             /**
              * Resulting file status after onFileStatusChanged event.
-             * The status value can be 'synced', 'pending' or 'conflicting'.
+             * @see FileStatus
              */
-            status: FileStatus;
+            status: ToStringLiteral<typeof FileStatus>;
             /**
              * Sync action taken to fire onFileStatusChanged event.
-             * The action value can be 'added', 'updated' or 'deleted'.
              * Only applies if status is 'synced'.
+             * @see SyncAction
              */
-            action?: Action;
+            action?: ToStringLiteral<typeof SyncAction>;
             /**
              * Sync direction for the onFileStatusChanged event.
-             * Sync direction value can be 'local_to_remote' or
-             * 'remote_to_local'. Only applies if status is 'synced'.
+             * Only applies if status is 'synced'.
+             * @see SyncDirection
              */
-            direction?: Direction;
+            direction?: ToStringLiteral<typeof SyncDirection>;
         }
         /**
          * Returns a syncable filesystem backed by Google Drive.
@@ -8177,11 +8228,15 @@ declare namespace chrome {
          * resolved next time the file is updated. |callback| can be optionally given to
          * know if the request has succeeded or not.
          * @param policy Policy
+         * @see ConflictResolutionPolicy
          * @param [callback] A generic result callback to indicate success or failure.
          */
-        function setConflictResolutionPolicy(policy: ConflictResolutionPolicy, callback?: () => void): void;
-        /** Gets the current conflict resolution policy. */
-        function getConflictResolutionPolicy(callback: (policy: ConflictResolutionPolicy) => void): void;
+        function setConflictResolutionPolicy(policy: ToStringLiteral<typeof ConflictResolutionPolicy>, callback?: () => void): void;
+        /**
+         * Gets the current conflict resolution policy.
+         * @see ConflictResolutionPolicy
+         */
+        function getConflictResolutionPolicy(callback: (policy: ToStringLiteral<typeof ConflictResolutionPolicy>) => void): void;
         /**
          * Returns the current usage and quota in bytes for the 'syncable' file storage for the app.
          * @param fileSystem
@@ -8192,18 +8247,24 @@ declare namespace chrome {
          * Returns the FileStatus for the given fileEntry.
          * Note that 'conflicting' state only happens when
          * the service's conflict resolution policy is set to 'manual'.
+         * @see FileStatus
          * */
-        function getFileStatus(fileEntry: Entry, callback: (status: FileStatus) => void): void;
+        function getFileStatus(fileEntry: Entry, callback: (status: ToStringLiteral<typeof FileStatus>) => void): void;
         /** Returns each FileStatus for the given fileEntry array. Typically called with the result from dirReader.readEntries(). */
         function getFileStatuses(fileEntries: Entry[], callback: (status: FileStatusInfo[]) => void): void;
         /**
          * Returns the current sync backend status.
          * @since Chrome 31.
          * @param callback
+         * @see ServiceStatus
          */
-        function getServiceStatus(callback: (status: ServiceStatus) => void): void;
-        /** Fired when an error or other status change has happened in the sync backend (for example, when the sync is temporarily disabled due to network or authentication error). */
-        const onServiceStatusChanged: chrome.events.Event<(detail: { state: ServiceStatus, description: string }) => void>;
+        function getServiceStatus(callback: (status: ToStringLiteral<typeof ServiceStatus>) => void): void;
+        /**
+         * Fired when an error or other status change has happened in the sync backend
+         * (for example, when the sync is temporarily disabled due to network or authentication error).
+         * @see ServiceStatus
+         */
+        const onServiceStatusChanged: chrome.events.Event<(detail: { state: ToStringLiteral<typeof ServiceStatus>, description: string }) => void>;
         /** Fired when a file has been updated by the background sync service. */
         const onFileStatusChanged: chrome.events.Event<(detail: FileStatusChangedDetail) => void>;
     }
@@ -8937,8 +8998,8 @@ declare namespace chrome {
              * One of
              * • not_controllable: cannot be controlled by any extension
              * • controlled_by_other_extensions: controlled by extensions with higher precedence
-             * • controllable_by_this_extension: can be controlled by this extension
-             * • controlled_by_this_extension: controlled by this extension
+             * • controllable_by_this_extension: can be controlled by this app
+             * • controlled_by_this_extension: controlled by this app
              */
             levelOfControl: string;
             /** The value of the setting. */
@@ -8993,7 +9054,43 @@ declare namespace chrome {
      */
     namespace usb {
         /** Direction, Recipient, RequestType, and TransferType all map to their namesakes within the USB specification. */
-        type Direction = 'in' | 'out';
+        const Direction: {
+            "IN": "in",
+            "OUT": "out"
+        };
+        /** Direction, Recipient, RequestType, and TransferType all map to their namesakes within the USB specification. */
+        const Recipient: {
+            "DEVICE": "device",
+            "INTERFACE": "interface",
+            "ENDPOINT": "endpoint",
+            "OTHER": "other"
+        };
+        /** Direction, Recipient, RequestType, and TransferType all map to their namesakes within the USB specification. */
+        const RequestType: {
+            "STANDARD": "standard",
+            "CLASS": "class",
+            "VENDOR": "vendor",
+            "RESERVED": "reserved"
+        };
+        /** Direction, Recipient, RequestType, and TransferType all map to their namesakes within the USB specification. */
+        const TransferType: {
+            "CONTROL": "control",
+            "INTERRUPT": "interrupt",
+            "ISOCHRONOUS": "isochronous",
+            "BULK": "bulk"
+        };
+        const SynchronizationType: {
+            "ASYNCHRONOUS": "asynchronous",
+            "ADAPTIVE": "adaptive",
+            "SYNCHRONOUS": "synchronous"
+        };
+        const UsageType: {
+            "DATA": "data",
+            "FEEDBACK": "feedback",
+            "EXPLICIT_FEEDBACK": "explicitFeedback",
+            "PERIODIC": "periodic",
+            "NOTIFICATION": "notification"
+        };
 
         interface Device {
             /**
@@ -9042,24 +9139,33 @@ declare namespace chrome {
             productId: integer;
         }
 
-        type EndpointType = 'control' | 'interrupt' | 'isochronous' | 'bulk';
-        type EndpointSyncType = 'asynchronous' | 'adaptive' | 'synchronous';
-        type EndpointUsage = 'data' | 'feedback' | 'explicitFeedback' | 'periodic' | 'notification';
-
         /** Since Chrome 29. */
         interface EndpointDescriptor {
             /** Transfer type. */
             address: integer;
-            /** Transfer type. */
-            type: EndpointType;
-            /** Transfer direction. */
-            direction: Direction;
+            /**
+             * Transfer type.
+             * @see TransferType
+             *
+             */
+            type: ToStringLiteral<typeof TransferType>;
+            /**
+             * Transfer direction.
+             * @see Direction
+             */
+            direction: ToStringLiteral<typeof Direction>;
             /** Maximum packet size. */
             maximumPacketSize: integer;
-            /** Transfer synchronization mode (isochronous only). */
-            synchronization?: EndpointSyncType;
-            /** Endpoint usage hint */
-            usage?: EndpointUsage;
+            /**
+             * Transfer synchronization mode (isochronous only).
+             * @see SynchronizationType
+             */
+            synchronization?: ToStringLiteral<typeof SynchronizationType>;
+            /**
+             * Endpoint usage hint
+             * @see UsageType
+             */
+            usage?: ToStringLiteral<typeof UsageType>;
             /** Polling interval (interrupt and isochronous only). */
             pollingInterval?: integer;
             /**
@@ -9119,8 +9225,11 @@ declare namespace chrome {
         }
 
         interface GenericTransferInfo {
-            /** The transfer direction ('in' or 'out'). */
-            direction: Direction;
+            /**
+             * The transfer direction ('in' or 'out').
+             * @see Direction
+             */
+            direction: ToStringLiteral<typeof Direction>;
             /** The target endpoint address. The interface containing this endpoint must be claimed. */
             endpoint: integer;
             /** The maximum number of bytes to receive (required only by input transfers). */
@@ -9158,17 +9267,23 @@ declare namespace chrome {
         /** @since Since Chrome 39. */
         interface DeviceFilter extends Partial<DeviceFilter> { }
 
-        type TransferRecipient = 'device' | 'interface' | 'endpoint' | 'other';
-
-        type TransferRequestType = 'standard' | 'class' | 'vendor' | 'reserved';
-
         interface TransferInfo {
-            /** The transfer direction ('in' or 'out'). */
-            direction: Direction;
-            /** The transfer target. The target given by index must be claimed if 'interface' or 'endpoint'. */
-            recipient: TransferRecipient;
-            /** The request type. */
-            requestType: TransferRequestType;
+            /**
+             * The transfer direction ('in' or 'out').
+             * @see Direction
+             */
+            direction: ToStringLiteral<typeof Direction>;
+            /**
+             * The transfer target.
+             * The target given by index must be claimed if 'interface' or 'endpoint'.
+             * @see Recipient
+             */
+            recipient: ToStringLiteral<typeof Recipient>;
+            /**
+             * The request type.
+             * @see RequestType
+             */
+            requestType: ToStringLiteral<typeof RequestType>;
             /** The bRequest field, see *Universal Serial Bus Specification Revision 1.1 § 9.3.* */
             request: integer;
             /** The wValue field, see *Ibid*. */
@@ -9381,7 +9496,7 @@ declare namespace chrome {
 
         /**
          * Event generated when a device is added to the system.
-         * Events are only broadcast to apps and extensions that have permission to access the device.
+         * Events are only broadcast to apps that have permission to access the device.
          * Permission may have been granted at install time, when the user accepted an optional permission
          * (@see[permissions.request]{https://developer.chrome.com/apps/permissions#method-request}),
          * or through **getUserSelectedDevices**.
@@ -9530,17 +9645,21 @@ declare namespace chrome {
      * @since Chrome 43.
      */
     namespace wallpaper {
-        type WallpaperLayout =
-            'STRETCH' |
-            'CENTER' |
-            'CENTER_CROPPED';
+        const WallpaperLayout: {
+            "STRETCH": "STRETCH",
+            "CENTER": "CENTER",
+            "CENTER_CROPPED": "CENTER_CROPPED"
+        };
         interface WallpaperDetails {
             /** The jpeg or png encoded wallpaper image. */
             data?: any;
             /** The URL of the wallpaper to be set. */
             url?: string;
-            /** The supported wallpaper layouts. */
-            layout: WallpaperLayout;
+            /**
+             * The supported wallpaper layouts.
+             * @see WallpaperLayout
+             */
+            layout: ToStringLiteral<typeof WallpaperLayout>;
             /** The file name of the saved wallpaper. */
             filename: string;
             /** True if a 128x60 thumbnail should be generated. */
