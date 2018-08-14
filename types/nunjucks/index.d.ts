@@ -140,6 +140,10 @@ export class PrecompiledLoader extends Loader implements ILoader {
 
 export namespace runtime {
     class SafeString {
-        constructor(...args: any[]);
+        constructor(val: string);
+        val: string;
+        length: number;
+        valueOf(): string;
+        toString(): string;
     }
 }
