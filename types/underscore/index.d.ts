@@ -1,13 +1,13 @@
 // Type definitions for Underscore 1.8
 // Project: http://underscorejs.org/
-// Definitions by: Boris Yankov <https://github.com/borisyankov>, Josh Baldwin <https://github.com/jbaldwin>, Christopher Currens <https://github.com/ccurrens>, Cassey Lottman <https://github.com/clottman>
+// Definitions by: Boris Yankov <https://github.com/borisyankov>, Josh Baldwin <https://github.com/jbaldwin>, Christopher Currens <https://github.com/ccurrens>, Cassey Lottman <https://github.com/clottman>, Ard Timmerman <https://github.com/confususs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var _: _.UnderscoreStatic;
 export = _;
 export as namespace _;
 
-// The DOM is not required to be present, but these definitions reference type Element for the 
+// The DOM is not required to be present, but these definitions reference type Element for the
 // isElement check. If the DOM is present, this declaration will merge.
 declare global {
     interface Element { }
@@ -3631,7 +3631,7 @@ declare module _ {
         * @param object Convert this object to a list of [key, value] pairs.
         * @return List of [key, value] pairs on `object`.
         **/
-        pairs(object: any): any[][];
+        pairs(object: any): [string, any][];
 
         /**
         * Returns a copy of the object where the keys have become the values and the values the keys.
@@ -4738,7 +4738,7 @@ declare module _ {
         * Wrapped type `object`.
         * @see _.pairs
         **/
-        pairs(): any[][];
+        pairs(): [string, any][];
 
         /**
         * Wrapped type `object`.
@@ -5692,7 +5692,7 @@ declare module _ {
         * Wrapped type `object`.
         * @see _.values
         **/
-        values(): _Chain<T>;
+        values(): _Chain<any>;
 
         /**
         * Wrapped type `object`.
@@ -5704,7 +5704,7 @@ declare module _ {
         * Wrapped type `object`.
         * @see _.pairs
         **/
-        pairs(): _Chain<T[]>;
+        pairs(): _Chain<[string, any]>;
 
         /**
         * Wrapped type `object`.
