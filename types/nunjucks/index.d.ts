@@ -1,4 +1,4 @@
-// Type definitions for nunjucks 3.0
+// Type definitions for nunjucks 3.1
 // Project: http://mozilla.github.io/nunjucks/
 // Definitions by: Ruben Slabbert <https://github.com/RubenSlabbert>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -128,7 +128,7 @@ export class FileSystemLoader extends Loader implements ILoader {
     constructor(searchPaths?: string | string[], opts?: FileSystemLoaderOptions);
 }
 
-export class WebLoader implements ILoader {
+export class WebLoader extends Loader implements ILoader {
     constructor(baseUrl: string, opts?: any);
     getSource(name: string): LoaderSource;
 }
