@@ -42,6 +42,7 @@ interface FieldsProps<FieldValue> {
     remove(index: number): void;
     shift(): FieldValue;
     swap(indexA: number, indexB: number): void;
+    move(from: number, to: number): void;
     unshift(value: FieldValue): void;
 }
 

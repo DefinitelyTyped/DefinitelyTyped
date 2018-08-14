@@ -2,7 +2,7 @@
 // Project: https://github.com/wix/react-native-calendars#readme
 // Definitions by: Tyler Zhang <https://github.com/Tyler-Zhang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 import { ViewProps, StyleProp } from 'react-native';

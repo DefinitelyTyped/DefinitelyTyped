@@ -6,9 +6,31 @@
 
 import * as React from 'react';
 
+interface REACT_STATICS {
+    childContextTypes: true;
+    contextTypes: true;
+    defaultProps: true;
+    displayName: true;
+    getDefaultProps: true;
+    getDerivedStateFromProps: true;
+    mixins: true;
+    propTypes: true;
+    type: true;
+}
+
+interface KNOWN_STATICS {
+    name: true;
+    length: true;
+    prototype: true;
+    caller: true;
+    callee: true;
+    arguments: true;
+    arity: true;
+}
+
 declare function hoistNonReactStatics<
-    T extends React.ComponentType,
-    S extends React.ComponentType,
+    T extends React.ComponentType<any>,
+    S extends React.ComponentType<any>,
     C extends {
         [key: string]: true
     } = {}
@@ -20,8 +42,8 @@ declare function hoistNonReactStatics<
     {
         [key in Exclude<
             keyof S,
-            // only extends static properties, exclude instance properties
-            'prototype' | keyof C
+            // only extends static properties, exclude instance properties and known react statics
+            keyof REACT_STATICS | keyof KNOWN_STATICS | keyof C
         >]: S[key]
     };
 

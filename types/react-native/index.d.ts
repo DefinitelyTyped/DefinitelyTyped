@@ -12,7 +12,7 @@
 //                 Tanguy Krotoff <https://github.com/tkrotoff>
 //                 Alexander T. <https://github.com/a-tarasyuk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -1009,6 +1009,54 @@ export interface TextInputIOSProps {
      * If false, disables spell-check style (i.e. red underlines). The default value is inherited from autoCorrect
      */
     spellCheck?: boolean;
+
+
+    /**
+     * Give the keyboard and the system information about the expected
+     * semantic meaning for the content that users enter.
+     *
+     * For iOS 11+ you can set `textContentType` to `username` or `password` to
+     * enable autofill of login details from the device keychain.
+     *
+     * To disable autofill, set textContentType to `none`.
+     *
+     * Possible values for `textContentType` are:
+     *
+     *  - `'none'`
+     *  - `'URL'`
+     *  - `'addressCity'`
+     *  - `'addressCityAndState'`
+     *  - `'addressState'`
+     *  - `'countryName'`
+     *  - `'creditCardNumber'`
+     *  - `'emailAddress'`
+     *  - `'familyName'`
+     *  - `'fullStreetAddress'`
+     *  - `'givenName'`
+     *  - `'jobTitle'`
+     *  - `'location'`
+     *  - `'middleName'`
+     *  - `'name'`
+     *  - `'namePrefix'`
+     *  - `'nameSuffix'`
+     *  - `'nickname'`
+     *  - `'organizationName'`
+     *  - `'postalCode'`
+     *  - `'streetAddressLine1'`
+     *  - `'streetAddressLine2'`
+     *  - `'sublocality'`
+     *  - `'telephoneNumber'`
+     *  - `'username'`
+     *  - `'password'`
+     *
+     */
+    textContentType?: "none" | "URL" | "addressCity" | "addressCityAndState" |
+        "addressState" | "countryName" | "creditCardNumber" | "emailAddress" |
+        "familyName" | "fullStreetAddress" | "givenName" | "jobTitle" |
+        "location" | "middleName" | "name" | "namePrefix" | "nameSuffix" |
+        "nickname" | "organizationName" | "postalCode" | "streetAddressLine1" |
+        "streetAddressLine2" | "sublocality" | "telephoneNumber" | "username" |
+        "password";
 }
 
 /**
@@ -2054,6 +2102,13 @@ export interface KeyboardAvoidingViewProps extends ViewProps {
      * may be non-zero in some use cases.
      */
     keyboardVerticalOffset?: number;
+
+    /**
+     * Enables or disables the KeyboardAvoidingView.
+     *
+     * Default is true
+     */
+    enabled?: boolean;
 }
 
 /**
@@ -3973,7 +4028,7 @@ export interface SectionBase<ItemT> {
 
     key?: string;
 
-    renderItem?: ListRenderItem<ItemT>;
+    renderItem?: SectionListRenderItem<ItemT>;
 
     ItemSeparatorComponent?: React.ComponentClass<any> | (() => React.ReactElement<any>) | null;
 
@@ -3983,6 +4038,16 @@ export interface SectionBase<ItemT> {
 export interface SectionListData<ItemT> extends SectionBase<ItemT> {
     [key: string]: any;
 }
+
+/**
+ * @see https://facebook.github.io/react-native/docs/sectionlist.html#props
+ */
+
+export interface SectionListRenderItemInfo<ItemT> extends ListRenderItemInfo<ItemT> {
+  section: SectionListData<ItemT>;
+}
+
+export type SectionListRenderItem<ItemT> = (info: SectionListRenderItemInfo<ItemT>) => React.ReactElement<any> | null;
 
 export interface SectionListProps<ItemT> extends ScrollViewProps {
     /**
@@ -4087,7 +4152,7 @@ export interface SectionListProps<ItemT> extends ScrollViewProps {
     /**
      * Default renderer for every item in every section. Can be over-ridden on a per-section basis.
      */
-    renderItem?: ListRenderItem<ItemT>;
+    renderItem?: SectionListRenderItem<ItemT>;
 
     /**
      * Rendered at the top of each section. Sticky headers are not yet supported.
@@ -6735,7 +6800,8 @@ export interface AlertIOSStatic {
         message?: string,
         callbackOrButtons?: ((value: string) => void) | Array<AlertIOSButton>,
         type?: AlertType,
-        defaultValue?: string
+        defaultValue?: string,
+        keyboardType?: KeyboardType | KeyboardTypeIOS,
     ) => void;
 }
 
@@ -6792,7 +6858,7 @@ export interface AsyncStorageStatic {
     /**
      * Fetches key and passes the result to callback, along with an Error if there is any.
      */
-    getItem(key: string, callback?: (error?: Error, result?: string) => void): Promise<string>;
+    getItem(key: string, callback?: (error?: Error, result?: string) => void): Promise<string | null>;
 
     /**
      * Sets value for key and calls callback on completion, along with an Error if there is any

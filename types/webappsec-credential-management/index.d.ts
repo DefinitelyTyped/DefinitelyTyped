@@ -25,6 +25,9 @@ interface GlobalFetch {
     // variant for navigator.credentials monkey patching
     fetch(url: Request|string, init?: CMRequestInit): Promise<Response>;
 }
+interface WindowOrWorkerGlobalScope {
+    fetch(url: Request|string, init?: CMRequestInit): Promise<Response>;
+}
 
 /**
  * Variant of TS 2.2 {@link RequestInit} that permits a

@@ -1,4 +1,4 @@
-// Type definitions for Video.js 7.0
+// Type definitions for Video.js 7.2
 // Project: https://github.com/videojs/video.js
 // Definitions by: Vincent Bortone <https://github.com/vbortone>
 //                 Simon Clériot <https://github.com/scleriot>
@@ -137,7 +137,7 @@ declare namespace videojs {
 	 *
 	 * @return	The created players
 	 */
-	function getPlayers(): Player;
+	function getPlayers(): {[key: string]: Player};
 
 	/**
 	 * Gets a plugin by name if it exists.
@@ -1962,7 +1962,7 @@ declare namespace videojs {
 	};
 
 	interface ControlBarOptions extends ComponentOptions {
-		VolumePanel?: VolumePanelOptions;
+		volumePanel?: VolumePanelOptions;
 	}
 
 	/**
@@ -3527,7 +3527,7 @@ declare namespace videojs {
 		 *
 		 * @return The current content of the modal dialog
 		 */
-		content(value: Content): any;
+		content(value?: Content): any;
 
 		/**
 		 * Create the `ModalDialog`'s DOM element
@@ -3570,7 +3570,7 @@ declare namespace videojs {
 		 * @param [content]
 		 *        The same rules apply to this as apply to the `content` option.
 		 */
-		fillWith(content: Content): void;
+		fillWith(content?: Content): void;
 
 		/**
 		 * Keydown handler. Attached when modal is focused.
@@ -3760,9 +3760,9 @@ declare namespace videojs {
 		 *
 		 * @return The current value of autoplay when getting
 		 */
-		autoplay(value?: boolean): void;
+		autoplay(value?: boolean | string): void;
 
-		autoplay(): boolean;
+		autoplay(): boolean | string;
 
 		/**
 		 * Create a remote {@link TextTrack} and an {@link HTMLTrackElement}. It will
@@ -4055,6 +4055,18 @@ declare namespace videojs {
 		getVideoPlaybackQuality(): any;
 
 		/**
+		 * Get the value of `ended` from the media element. `ended` indicates whether
+		 * the media has reached the end or not.
+		 *
+		 * @return - The value of `ended` from the media element.
+		 *         - True indicates that the media has ended.
+		 *         - False indicates that the media has not ended.
+		 *
+		 * @see [Spec]{@link https://www.w3.org/TR/html5/embedded-content-0.html#dom-media-ended}
+		 */
+		ended(): boolean;
+
+		/**
 		 * When fullscreen isn't supported we can stretch the
 		 * video container to as wide as the browser will let us.
 		 *
@@ -4073,7 +4085,7 @@ declare namespace videojs {
 		 *
 		 * @return The current MediaError when getting (or null)
 		 */
-		error(err: MediaError | string | number): void;
+		error(err: MediaError | string | number | null): void;
 
 		error(): MediaError | null;
 
@@ -4243,7 +4255,7 @@ declare namespace videojs {
 		 *         is ready to begin playback. For some browsers and all non-ready
 		 *         situations, this will return `undefined`.
 		 */
-		play(): Player;
+		play(): Promise<void> | undefined;
 
 		/**
 		 * Gets or sets the current playback rate. A playback rate of
@@ -4559,7 +4571,7 @@ declare namespace videojs {
 
 	interface PlayerOptions extends ComponentOptions {
 		aspectRatio?: string;
-		autoplay?: boolean;
+		autoplay?: boolean | string;
 		controlBar?: ControlBarOptions | false;
 		textTrackSettings?: TextTrackSettingsOptions;
 		controls?: boolean;
@@ -4741,7 +4753,7 @@ declare namespace videojs {
 		 * @return For advanced plugins, a factory function for that plugin. For
 		 *          basic plugins, a wrapper function that initializes the plugin.
 		 */
-		registerPlugin<T>(name: string, plugin: (this: Player, options: any) => T): () => T;
+		registerPlugin<T, K>(name: string, plugin: (this: Player, ...options: K[]) => T): (...options: K[]) => T;
 		registerPlugin<T extends typeof Plugin>(name: string, plugin: T): () => T;
 	};
 

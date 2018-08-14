@@ -99,12 +99,12 @@ function test_sync() {
     }
 }
 
-function test_keys() {
+function test_expandKeys() {
     const config = {
         'foo "bar"': { doStuff: true },
         'foo "baz"': { doStuff: true }
     };
-    const keys = parse.keys(config);
+    const keys = parse.expandKeys(config);
 
     keys.foo.bar.doStuff === true;
     keys.foo.baz.doStuff === true;

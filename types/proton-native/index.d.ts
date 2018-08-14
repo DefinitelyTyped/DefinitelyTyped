@@ -2,7 +2,7 @@
 // Project: https://github.com/kusti8/proton-native
 // Definitions by: Nguyen Xuan Khanh <https://github.com/khanhas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 

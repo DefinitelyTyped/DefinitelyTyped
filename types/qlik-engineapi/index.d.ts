@@ -9265,6 +9265,7 @@ declare namespace EngineAPI {
      * DimensionItemLayout...
      */
     interface IDimensionItemLayout {
+        qInfo: INxInfo;
         qMeta: INxMetaTitleDescriptionTag;
         qData: null;
     }
@@ -9297,7 +9298,7 @@ declare namespace EngineAPI {
      * GenericDimensionsListProperties width extend GenericProperties
      */
     interface IGenericDimensionsListProperties extends IGenericProperties {
-        qInfo: IGenericMeassureListNxInfo;
+        qInfo: IGenericDimensionListNxInfo;
         qDimensionListDef: IDimensionListDef;
     }
 

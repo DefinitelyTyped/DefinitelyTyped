@@ -2819,13 +2819,13 @@ declare namespace cytoscape {
 
     /**
      * The handler returns true when it finds the desired node, and it returns false to cancel the search.
-     * i - The index indicating this node is the ith visited node.
-     * depth - How many edge hops away this node is from the root nodes.
      * v - The current node.
      * e - The edge connecting the previous node to the current node.
      * u - The previous node.
+     * i - The index indicating this node is the ith visited node.
+     * depth - How many edge hops away this node is from the root nodes.
      */
-    type SearchVisitFunction = (i: number, depth: number, v: NodeCollection, e: EdgeCollection, u: NodeCollection) => boolean;
+    type SearchVisitFunction = (v: NodeCollection,  e: EdgeCollection, u: NodeCollection, i: number, depth: number) => boolean | void;
     interface SearchFirstOptions {
         /**
          * The root nodes (selector or collection) to start the search from.

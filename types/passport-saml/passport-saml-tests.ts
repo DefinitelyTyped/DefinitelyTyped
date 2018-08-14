@@ -5,6 +5,7 @@ import fs = require('fs');
 
 const samlStrategy = new SamlStrategy.Strategy(
 	{
+		name: 'samlCustomName',
 		path: '/login/callback',
 		entryPoint: 'https://openidp.feide.no/simplesaml/saml2/idp/SSOService.php',
 		issuer: 'passport-saml',
@@ -29,6 +30,6 @@ const samlStrategy = new SamlStrategy.Strategy(
 );
 
 passport.use(samlStrategy);
-passport.authenticate('saml', {failureRedirect: '/', failureFlash: true});
+passport.authenticate('samlCustomName', {failureRedirect: '/', failureFlash: true});
 
 const metadata = samlStrategy.generateServiceProviderMetadata("decryptionCert");
