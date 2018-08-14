@@ -6,11 +6,12 @@
 
 import * as React from 'react';
 import { ImageURISource } from 'react-native';
+import * as moment from 'moment';
 
 export interface DatePickerProps {
     mode?: 'date' | 'datetime' | 'time';
     androidMode?: 'default' | 'calendar' | 'spinner';
-    date?: string | Date;
+    date?: string | Date | moment.Moment;
     format?: string;
     iconSource?: ImageURISource;
     iconComponent?: JSX.Element;
