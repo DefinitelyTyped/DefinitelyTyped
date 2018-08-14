@@ -29,6 +29,7 @@ declare namespace fileUpload {
         mimetype: string;
         data: Buffer;
         mv(path: string, callback: (err: any) => void): void;
+        mv(path: string): Promise<void>;
     }
 
     interface Options {
