@@ -12,6 +12,7 @@ export interface DateTimePickerProps {
     options?: flatpickr.Options.Options;
     onChange?: flatpickr.Options.Hook;
     value?: string;
+    className?: string;
 }
 
 export default class DatePicker extends Component<DateTimePickerProps> {}

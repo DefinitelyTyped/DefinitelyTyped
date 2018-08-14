@@ -18,6 +18,7 @@
 //                 Apurva Ojas <https://github.com/apurvaojas>,
 //                 Tiger Oakes <https://github.com/NotWoods>,
 //                 Seth Kingsley <https://github.com/sethk>
+//                 Ethan Kay <https://github.com/elk941>
 // Definitions: https://github.com//DefinitelyTyped
 
 export * from "./three-core";
@@ -28,6 +29,7 @@ export * from "./three-copyshader";
 export * from "./three-css3drenderer";
 export * from "./three-ctmloader";
 export * from "./three-ddsloader";
+export * from './three-dragcontrols';
 export * from "./three-editorcontrols";
 export * from "./three-effectcomposer";
 export * from "./three-examples";

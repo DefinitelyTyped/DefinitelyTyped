@@ -11,7 +11,7 @@ import {
     QueryRenderer,
     RelayRefetchProp,
     RelayPaginationProp,
-    RelayProp
+    RelayProp,
 } from "react-relay";
 
 // ~~~~~~~~~~~~~~~~~~~~~
@@ -28,16 +28,20 @@ const modernEnvironment = new Environment({ network, store });
 // ~~~~~~~~~~~~~~~~~~~~~
 // Modern QueryRenderer
 // ~~~~~~~~~~~~~~~~~~~~~
-const MyQueryRenderer = (props: { name: string, show: boolean }) => (
+const MyQueryRenderer = (props: { name: string; show: boolean }) => (
     <QueryRenderer
         environment={modernEnvironment}
-        query={props.show ? graphql`
-            query ExampleQuery($pageID: ID!) {
-                page(id: $pageID) {
-                    name
-                }
-            }
-        ` : null}
+        query={
+            props.show
+                ? graphql`
+                      query ExampleQuery($pageID: ID!) {
+                          page(id: $pageID) {
+                              name
+                          }
+                      }
+                  `
+                : null
+        }
         variables={{
             pageID: "110798995619330",
         }}
@@ -62,7 +66,7 @@ const MyEmptyQueryRenderer = () => (
             if (error) {
                 return <div>{error.message}</div>;
             } else if (props) {
-                throw new Error('This code path should never be hit');
+                throw new Error("This code path should never be hit");
             }
             return <div>Loading</div>;
         }}
@@ -100,7 +104,7 @@ const Story = (() => {
 
     class Story extends React.Component<Props> {
         state = {
-            isLoading: false
+            isLoading: false,
         };
 
         componentDidMount() {
@@ -109,9 +113,14 @@ const Story = (() => {
 
         handleRefresh() {
             this.setState({ isLoading: true });
-            this.props.relay.refetch({ id: this.props.story.id }, {}, error => {
-                this.setState({ isLoading: false });
-            }, { force: true });
+            this.props.relay.refetch(
+                { id: this.props.story.id },
+                {},
+                error => {
+                    this.setState({ isLoading: false });
+                },
+                { force: true }
+            );
         }
 
         render() {
@@ -162,6 +171,8 @@ const Story = (() => {
 // Artifact produced by relay-compiler-language-typescript
 declare const _FeedStories_feed$ref: unique symbol;
 type FeedStories_feed$ref = typeof _FeedStories_feed$ref;
+declare const _FeedStory_edges$ref: unique symbol;
+type FeedStory_edges$ref = typeof _FeedStory_edges$ref;
 // tslint:disable-next-line:interface-over-type-literal
 type FeedStories_feed = {
     readonly edges: ReadonlyArray<{
@@ -169,9 +180,15 @@ type FeedStories_feed = {
             readonly id: string;
             readonly " $fragmentRefs": Story_story$ref & FeedStories_feed$ref;
         };
+        readonly " $fragmentRefs": FeedStory_edges$ref;
     }>;
     readonly " $refType": FeedStories_feed$ref;
 };
+// tslint:disable-next-line:interface-over-type-literal
+type FeedStory_edges = ReadonlyArray<{
+    readonly publishedAt: string;
+    readonly " $refType": FeedStory_edges$ref;
+}>;
 
 const Feed = (() => {
     interface Props {
@@ -181,6 +198,18 @@ const Feed = (() => {
         ignoreMe?: {};
     }
 
+    const FeedStoryEdges: React.SFC<{ edges: FeedStory_edges }> = ({ edges }) => (
+        <div>{edges.map(({ publishedAt }) => publishedAt).join(", ")}</div>
+    );
+
+    const FeedStoryEdgesFragmentContainer = createFragmentContainer(FeedStoryEdges, {
+        edges: graphql`
+            fragment FeedStory_edges on FeedStoryEdge @relay(plural: true) {
+                publishedAt
+            }
+        `,
+    });
+
     const FeedStories: React.SFC<Props> = ({ feed, onStoryLike, relay }) => {
         // TODO: Getting env here for no good reason other than needing to test it works.
         //       If you have a good relavant example, please update!
@@ -188,24 +217,27 @@ const Feed = (() => {
         const stories = feed.edges.map(edge => {
             return <Story story={edge.node} key={edge.node.id} onLike={onStoryLike} />;
         });
-        return <div>{stories}</div>;
+        return (
+            <div>
+                {stories}
+                <span>{<FeedStoryEdgesFragmentContainer edges={feed.edges} />}</span>
+            </div>
+        );
     };
 
-    const FeedFragmentContainer = createFragmentContainer(
-        FeedStories,
-        {
-            feed: graphql`
-                fragment FeedStories_feed on Feed {
-                    edges {
-                        node {
-                            id
-                            ...Story_story
-                        }
+    const FeedFragmentContainer = createFragmentContainer(FeedStories, {
+        feed: graphql`
+            fragment FeedStories_feed on Feed {
+                edges {
+                    node {
+                        id
+                        ...Story_story
                     }
+                    ...FeedStoryEdges_feed
                 }
-            `,
-        }
-    );
+            }
+        `,
+    });
 
     function doesNotRequireRelayPropToBeProvided() {
         const onStoryLike = (id: string) => console.log(`Liked story #${id}`);
@@ -290,8 +322,7 @@ type UserFeed_user = {
         {
             direction: "forward",
             getConnectionFromProps(props) {
-                // TODO: Fix requirement to have `edges` and both `pageInfo` details for forward and backward pagination
-                return props.user && props.user.feed as any;
+                return props.user && props.user.feed;
             },
             getFragmentVariables(prevVars, totalCount) {
                 return {
@@ -398,7 +429,7 @@ function markNotificationAsRead(source: string, storyID: string) {
             if (field) {
                 field.setValue(data.story, "story");
             }
-        }
+        },
     });
 }
 

@@ -33,7 +33,7 @@ export interface RenderNodeProps {
   editor: Editor;
   isSelected: boolean;
   key: string;
-  node: Block;
+  node: Node;
   parent: Node;
 }
 

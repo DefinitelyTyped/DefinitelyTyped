@@ -4055,6 +4055,18 @@ declare namespace videojs {
 		getVideoPlaybackQuality(): any;
 
 		/**
+		 * Get the value of `ended` from the media element. `ended` indicates whether
+		 * the media has reached the end or not.
+		 *
+		 * @return - The value of `ended` from the media element.
+		 *         - True indicates that the media has ended.
+		 *         - False indicates that the media has not ended.
+		 *
+		 * @see [Spec]{@link https://www.w3.org/TR/html5/embedded-content-0.html#dom-media-ended}
+		 */
+		ended(): boolean;
+
+		/**
 		 * When fullscreen isn't supported we can stretch the
 		 * video container to as wide as the browser will let us.
 		 *

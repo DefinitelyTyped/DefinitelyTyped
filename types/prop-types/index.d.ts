@@ -47,6 +47,7 @@ export function oneOfType<T extends Validator<any>>(types: T[]): Requireable<Non
 export function arrayOf<T>(type: Validator<T>): Requireable<T[]>;
 export function objectOf<T>(type: Validator<T>): Requireable<{ [K in keyof any]: T; }>;
 export function shape<P extends ValidationMap<any>>(type: P): Requireable<InferProps<P>>;
+export function exact<P extends ValidationMap<any>>(type: P): Requireable<Required<InferProps<P>>>;
 
 /**
  * Assert that the values match with the type specs.
