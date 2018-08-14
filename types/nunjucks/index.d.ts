@@ -94,7 +94,7 @@ export function installJinjaCompat(): void;
 
 export interface ILoader {
     async?: boolean;
-    getSource(name: string): LoaderSource;
+    getSource(name: string, callback?: (err?: any, result?: LoaderSource) => void): LoaderSource | void;
     extend?(extender: ILoader): ILoader;
 }
 
@@ -136,4 +136,10 @@ export class WebLoader implements ILoader {
 export class PrecompiledLoader extends Loader implements ILoader {
     init(searchPaths: string[], opts: any): void;
     getSource(name: string): LoaderSource;
+}
+
+export namespace runtime {
+    class SafeString {
+        constructor(...args: any[]);
+    }
 }
