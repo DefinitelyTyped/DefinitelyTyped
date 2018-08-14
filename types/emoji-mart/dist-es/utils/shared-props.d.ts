@@ -1,6 +1,5 @@
 import React = require('react');
 
-import { Data } from './data';
 import { EmojiData, EmojiSkin, CustomEmoji } from './emoji-index/nimble-emoji-index';
 
 export type BackgroundImageFn = (set: EmojiSet, sheetSize: EmojiSheetSize) => string;
