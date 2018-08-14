@@ -3129,6 +3129,7 @@ namespace dns_tests {
     }
     {
         const resolver = new dns.Resolver();
+        resolver.setServers(["4.4.4.4"]);
         resolver.resolve("nodejs.org", (err, addresses) => {
             const _addresses: string[] = addresses;
         });
