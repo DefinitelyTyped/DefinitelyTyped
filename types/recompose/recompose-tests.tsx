@@ -412,3 +412,11 @@ function testLifecycle() {
         }
     })(component)
 }
+
+function testShallowEqual() {
+    const a = { prop: 1 }
+    const b = { prop: 1 }
+    // Generics are not needed inside this function, however they should flow through for outside
+    // inference.
+    shallowEqual(a, b)
+}

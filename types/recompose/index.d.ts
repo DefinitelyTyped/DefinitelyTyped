@@ -309,8 +309,8 @@ declare module 'recompose' {
     ): string;
 
     // shallowEqual: https://github.com/acdlite/recompose/blob/master/docs/API.md#shallowEqual
-    export function shallowEqual(
-        a: Object, b: Object
+    export function shallowEqual<A, B>(
+        a: A, b: B
     ): boolean;
 
     // isClassComponent: https://github.com/acdlite/recompose/blob/master/docs/API.md#isClassComponent
