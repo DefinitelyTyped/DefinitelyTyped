@@ -1877,6 +1877,38 @@ declare namespace chrome {
         function openTab(options: Options): void;
     }
 
+    //////////////////////////
+    // Certificate Provider //
+    //////////////////////////
+    /**
+     * @requires(CrOS) Chrome OS only.
+     * @requires Permissions: 'certificateProvider'
+     * @todo TODO Finish documentation
+     */
+    namespace certificateProvider {
+        const Hash: {
+            "MD5_SHA1": "MD5_SHA1",
+            "SHA1": "SHA1",
+            "SHA256": "SHA256",
+            "SHA384": "SHA384",
+            "SHA512": "SHA512"
+        };
+        const PinRequestType: {
+            "PIN": "PIN",
+            "PUK": "PUK"
+        };
+        const PinRequestErrorType: {
+            "INVALID_PIN": "INVALID_PIN",
+            "INVALID_PUK": "INVALID_PUK",
+            "MAX_ATTEMPTS_EXCEEDED": "MAX_ATTEMPTS_EXCEEDED",
+            "UNKNOWN_ERROR": "UNKNOWN_ERROR"
+        };
+        const requestPin: Function;
+        const stopPinRequest: Function;
+        const onCertificatesRequested: chrome.events.Event<(...args: any[]) => any>;
+        const onSignDigestRequested: chrome.events.Event<(...args: any[]) => any>;
+    }
+
     ///////////////
     // Clipboard //
     ///////////////
@@ -1991,29 +2023,34 @@ declare namespace chrome {
          */
         const ACTION_MENU_TOP_LEVEL_LIMIT: integer;
         /**
-        * The different contexts a menu can appear in. Specifying 'all' is equivalent to the combination of all other contexts except for 'launcher'. The 'launcher' context is only supported by apps and is used to add menu items to the context menu that appears when clicking on the app icon in the launcher/taskbar/dock/etc. Different platforms might put limitations on what is actually supported in a launcher context menu.
+        * The different contexts a menu can appear in.
+        * Specifying 'all' is equivalent to the combination of all other contexts except for 'launcher'.
+        * The 'launcher' context is only supported by apps and is used to add menu items to the context menu that appears when clicking on the app icon in the launcher/taskbar/dock/etc.
+        * Different platforms might put limitations on what is actually supported in a launcher context menu.
         **/
-        type ContextType =
-            'all' |
-            'page' |
-            'frame' |
-            'selection' |
-            'link' |
-            'editable' |
-            'image' |
-            'video' |
-            'audio' |
-            'launcher' |
-            'browser_action' |
-            'page_action';
+        const ContextType: {
+            "ALL": "all",
+            "PAGE": "page",
+            "FRAME": "frame",
+            "SELECTION": "selection",
+            "LINK": "link",
+            "EDITABLE": "editable",
+            "IMAGE": "image",
+            "VIDEO": "video",
+            "AUDIO": "audio",
+            "LAUNCHER": "launcher",
+            "BROWSER_ACTION": "browser_action",
+            "PAGE_ACTION": "page_action"
+        };
         /**
         * The type of menu item.
         **/
-        type ItemType =
-            'normal' |
-            'checkbox' |
-            'radio' |
-            'separator';
+        const ItemType: {
+            "NORMAL": "normal",
+            "CHECKBOX": "checkbox",
+            "RADIO": "radio",
+            "SEPARATOR": "separator"
+        };
 
         type MediaType =
             'image' |
@@ -2100,8 +2137,12 @@ declare namespace chrome {
         }
 
         interface CreateProperties {
-            /** The type of menu item. Defaults to 'normal' if not specified.  */
-            type?: ItemType;
+            /**
+             * The type of menu item.
+             * @default 'normal' - Defaults to 'normal' if not specified.
+             * @see ItemType
+             */
+            type?: ToStringLiteral<typeof ItemType>;
 
             /**
              * The unique ID to assign to this item.
@@ -2133,9 +2174,10 @@ declare namespace chrome {
 
             /**
              * List of contexts this menu item will appear in.
-             * Defaults to ['page'] if not specified.
+             * @default ['page'] - Defaults to ['page'] if not specified.
+             * @see ContextType
              **/
-            contexts?: ContextType[];
+            contexts?: ToStringLiteral<typeof ContextType>[];
 
             /**
              * Whether the item is visible in the menu.
@@ -2174,10 +2216,12 @@ declare namespace chrome {
         }
 
         interface UpdateProperties {
-            type?: ItemType;
+            /** @see ItemType */
+            type?: ToStringLiteral<typeof ItemType>;
             title?: string;
             checked?: boolean;
-            contexts?: ContextType[];
+            /** @see ContextType */
+            contexts?: ToStringLiteral<typeof ContextType>[];
             /**
              * Whether the item is visible in the menu.
              * @since Chrome 62.
@@ -2229,9 +2273,21 @@ declare namespace chrome {
 
     }
 
-    ////////////////////
-    // DesktopCapture //
-    ////////////////////
+    /////////////////
+    // Diagnostics //
+    /////////////////
+    /**
+     * @requires(CrOS) Only Chrome OS. Crashes app on Windows.
+     * @requires Permissions: 'diagnostics'
+     */
+    namespace diagnostics {
+        /** @todo TODO PROPER DOCS */
+        function sendPacket(options: Object, callback: () => void): void;
+    }
+
+    /////////////////////
+    // Desktop Capture //
+    /////////////////////
     /**
      * Desktop Capture API that can be used to capture content of screen,
      * individual windows or tabs.
@@ -2261,6 +2317,41 @@ declare namespace chrome {
          * @param desktopMediaRequestId Id returned by chooseDesktopMedia()
          */
         function cancelChooseDesktopMedia(desktopMediaRequestId: integer): void;
+    }
+
+    ////////////////////
+    // Display Source //
+    ////////////////////
+    /**
+     * @requires(dev) Development versions only
+     * @requires Permissions: 'displaySource'
+     * Display Source API
+     * @todo TODO Documentation
+     */
+    namespace displaySource {
+        const ErrorType: {
+            "CONNECTION_ERROR": "connection_error",
+            "CAPABILITIES_NEGOTIATION_ERROR": "capabilities_negotiation_error",
+            "MEDIA_PIPELINE_ERROR": "media_pipeline_error",
+            "TIMEOUT_ERROR": "timeout_error",
+            "UNKNOWN_ERROR": "unknown_error"
+        };
+        const SinkState: {
+            "CONNECTED": "Connected",
+            "CONNECTING": "Connecting",
+            "DISCONNECTED": "Disconnected"
+        };
+        const AuthenticationMethod: {
+            "PBC": "PBC",
+            "PIN": "PIN"
+        };
+        const getAvailableSinks: Function;
+        const requestAuthentication: Function;
+        const startSession: Function;
+        const terminateSession: Function;
+        const onSinksUpdated: chrome.events.Event<any>;
+        const onSessionTerminated: chrome.events.Event<any>;
+        const onSessionErrorOccured: chrome.events.Event<any>;
     }
 
     ///////////////////
@@ -2600,6 +2691,19 @@ declare namespace chrome {
         }
     }
 
+    /////////////////////////
+    // File Browser Handle //
+    /////////////////////////
+    /**
+     * @requires(CrOS) Chrome OS Only
+     * @requires Permissions: 'fileBrowserHandle'
+     * @todo TODO Documentation
+     */
+    namespace fileBrowserHandler {
+        const selectFile: Function;
+        const onExecute: chrome.events.Event<any>;
+    }
+
     ////////////////
     // FileSystem //
     ////////////////
@@ -2615,15 +2719,39 @@ declare namespace chrome {
      *   {'fileSystem': ['write', 'retainEntries', 'directory']}
      */
     namespace fileSystem {
-        type ChildChangeType =
-            'created' |
-            'removed' |
-            'changed';
-        type ChooseEntryOptionsTypes =
-            'openFile' |
-            'openWritableFile' |
-            'saveFile' |
-            'openDirectory';
+        /** @enum */
+        const ChildChangeType: {
+            CREATED: "created",
+            REMOVED: "removed",
+            CHANGED: "changed"
+        };
+        /**
+         * **openFile**
+         *  - Prompts the user to open an existing file and returns a FileEntry on success.
+         *    From Chrome 31 onwards, the FileEntry will be writable if the application has
+         *    the 'write' permission under 'fileSystem'; otherwise, the FileEntry will be read-only.
+         * **openWritableFile**
+         *  - Prompts the user to open an existing file and returns a writable FileEntry on success.
+         *    Calls using this type will fail with a runtime error if the application doesn't have the
+         *    'write' permission under 'fileSystem'.
+         * **saveFile**
+         *  - Prompts the user to open an existing file or a new file and returns a writable FileEntry
+         *    on success. Calls using this type will fail with a runtime error if the application doesn't
+         *    have the 'write' permission under 'fileSystem'.
+         * **openDirectory**
+         *  - Prompts the user to open a directory and returns a DirectoryEntry on success. Calls using
+         *    this type will fail with a runtime error if the application doesn't have the 'directory'
+         *    permission under 'fileSystem'. If the application has the 'write' permission under
+         *    'fileSystem', the returned DirectoryEntry will be writable; otherwise it will be read-only.
+         *    New in Chrome 31.
+         * @enum
+         */
+        const ChooseEntryType: {
+            OPEN_FILE: "openFile",
+            OPEN_WRITABLE_FILE: "openWritableFile",
+            SAVE_FILE: "saveFile",
+            OPEN_DIRECTORY: "openDirectory"
+        };
         interface AcceptOptions {
             /**
              * This is the optional text description for this option.
@@ -2643,34 +2771,24 @@ declare namespace chrome {
 
         interface ChooseEntryOptions {
             /**
-             * Type of the prompt to show. The default is 'openFile'.
-             * openFile
-             *  - Prompts the user to open an existing file and returns a FileEntry on success.
-             *    From Chrome 31 onwards, the FileEntry will be writable if the application has
-             *    the 'write' permission under 'fileSystem'; otherwise, the FileEntry will be read-only.
-             * openWritableFile
-             *  - Prompts the user to open an existing file and returns a writable FileEntry on success.
-             *    Calls using this type will fail with a runtime error if the application doesn't have the
-             *    'write' permission under 'fileSystem'.
-             * saveFile
-             *  - Prompts the user to open an existing file or a new file and returns a writable FileEntry
-             *    on success. Calls using this type will fail with a runtime error if the application doesn't
-             *    have the 'write' permission under 'fileSystem'.
-             * openDirectory
-             *  - Prompts the user to open a directory and returns a DirectoryEntry on success. Calls using
-             *    this type will fail with a runtime error if the application doesn't have the 'directory'
-             *    permission under 'fileSystem'. If the application has the 'write' permission under
-             *    'fileSystem', the returned DirectoryEntry will be writable; otherwise it will be read-only.
-             *    New in Chrome 31.
+             * Type of the prompt to show.
+             * @default 'openFile'
+             * @see ChooseEntryType
              */
-            type?: ChooseEntryOptionsTypes;
-            /** The suggested file name that will be presented to the user as the default name to read or write. */
+            type?: ToStringLiteral<typeof ChooseEntryType>;
+            /**
+             * The suggested file name that will be presented to the user as the default name to read or write.
+             */
             suggestedName?: string;
-            /** The optional list of accept options for this file opener. Each option will be presented as a unique group to the end-user. */
+            /**
+             * The optional list of accept options for this file opener.
+             * Each option will be presented as a unique group to the end-user.
+             */
             accepts?: AcceptOptions[];
             /**
              * Whether to accept all file types, in addition to the options specified in the accepts argument.
-             * The default is true. If the accepts field is unset or contains no valid entries, this will always be reset to true.
+             * If the accepts field is unset or contains no valid entries, this will always be reset to true.
+             * @default true
              */
             acceptsAllTypes?: boolean;
             /**
@@ -2755,6 +2873,12 @@ declare namespace chrome {
          * @since Chrome 44.
          */
         const onVolumeListChanged: chrome.events.Event<(object: Volume[]) => void>;
+        /** @todo TODO Document these: */
+        const observeDirectory: Function;
+        const unobserveEntry: Function;
+        const getObservedEntries: Function;
+        const onEntrychanged: chrome.events.Event<any>;
+        const onEntryRemoved: chrome.events.Event<any>;
     }
 
 
@@ -2793,32 +2917,35 @@ declare namespace chrome {
          * as well as in case of errors when calling methods of the API.
          * For success, 'OK' must be used.
          * */
-        type ProviderError =
-            'OK' |
-            'FAILED' |
-            'IN_USE' |
-            'EXISTS' |
-            'NOT_FOUND' |
-            'ACCESS_DENIED' |
-            'TOO_MANY_OPENED' |
-            'NO_MEMORY' |
-            'NO_SPACE' |
-            'NOT_A_DIRECTORY' |
-            'INVALID_OPERATION' |
-            'SECURITY' |
-            'ABORT' |
-            'NOT_A_FILE' |
-            'NOT_EMPTY' |
-            'INVALID_URL' |
-            'IO';
+        const ProviderError: {
+            "OK": "OK",
+            "FAILED": "FAILED",
+            "IN_USE": "IN_USE",
+            "EXISTS": "EXISTS",
+            "NOT_FOUND": "NOT_FOUND",
+            "ACCESS_DENIED": "ACCESS_DENIED",
+            "TOO_MANY_OPENED": "TOO_MANY_OPENED",
+            "NO_MEMORY": "NO_MEMORY",
+            "NO_SPACE": "NO_SPACE",
+            "NOT_A_DIRECTORY": "NOT_A_DIRECTORY",
+            "INVALID_OPERATION": "INVALID_OPERATION",
+            "SECURITY": "SECURITY",
+            "ABORT": "ABORT",
+            "NOT_A_FILE": "NOT_A_FILE",
+            "NOT_EMPTY": "NOT_EMPTY",
+            "INVALID_URL": "INVALID_URL",
+            "IO": "IO"
+        };
         /** Mode of opening a file. Used by onOpenFileRequested. */
-        type OpenFileMode =
-            'READ' |
-            'WRITE';
+        const OpenFileMode: {
+            "READ": "READ",
+            "WRITE": "WRITE"
+        };
         /** Type of a change detected on the observed directory. */
-        type ChangeType =
-            'CHANGED' |
-            'DELETED';
+        const ChangeType: {
+            "CHANGED": "CHANGED",
+            "DELETED": "DELETED"
+        };
         /**
          * List of common actions. 'SHARE' is for sharing files with others.
          * 'SAVE_FOR_OFFLINE' for pinning (saving for offline access).
@@ -2826,10 +2953,11 @@ declare namespace chrome {
          * need to be stored for offline access anymore.
          * Used by onGetActionsRequested and onExecuteActionRequested.
          */
-        type CommonActionId =
-            'SAVE_FOR_OFFLINE' |
-            'OFFLINE_NOT_NECESSARY' |
-            'SHARE';
+        const CommonActionId: {
+            "SAVE_FOR_OFFLINE": "SAVE_FOR_OFFLINE",
+            "OFFLINE_NOT_NECESSARY": "OFFLINE_NOT_NECESSARY",
+            "SHARE": "SHARE"
+        };
 
         interface EntryMetadata {
             /** True if it is a directory. Must be provided if requested in options */
@@ -2898,8 +3026,11 @@ declare namespace chrome {
             openRequestId: integer;
             /** The path of the opened file. */
             filePath: string;
-            /** Whether the file was opened for reading or writing. */
-            mode: OpenFileMode;
+            /**
+             * Whether the file was opened for reading or writing.
+             * @see OpenFileMode
+             */
+            mode: ToStringLiteral<typeof OpenFileMode>;
         }
 
         interface FileWatchersInfo {
@@ -2927,8 +3058,12 @@ declare namespace chrome {
         }
 
         interface Action {
-            /** The identifier of the action. Any string or CommonActionId for common actions. */
-            id: CommonActionId | string;
+            /**
+             * The identifier of the action.
+             * Any string or CommonActionId for common actions.
+             * @see CommonActionId
+             **/
+            id: ToStringLiteral<typeof CommonActionId> | string;
             /** The title of the action. It may be ignored for common actions.  */
             title?: string;
         }
@@ -2981,8 +3116,11 @@ declare namespace chrome {
         interface NotificationChange {
             /** The path of the changed entry. */
             entryPath: string;
-            /** The type of the change which happened to the entry. */
-            changeType: ChangeType;
+            /**
+             * The type of the change which happened to the entry.
+             * @see ChangeType
+             */
+            changeType: ToStringLiteral<typeof ChangeType>;
         }
 
         interface NotificationOptions {
@@ -2996,8 +3134,9 @@ declare namespace chrome {
              * The type of the change which happened to the observed entry.
              * If it is DELETED, then the observed entry will be automatically
              * removed from the list of observed entries.
+             * @see ChangeType
              */
-            changeType: ChangeType;
+            changeType: ToStringLiteral<typeof ChangeType>;
             /** List of changes to entries within the observed directory (including the entry itself)  */
             changes?: NotificationChange[];
             /**
@@ -3114,8 +3253,11 @@ declare namespace chrome {
             thumbnail: boolean;
         }
         interface OpenFileRequestedEventOptions extends _internal_.FilePathRequestedEventOptions {
-            /** Whether the file will be used for reading or writing. */
-            mode: OpenFileMode;
+            /**
+             * Whether the file will be used for reading or writing.
+             * @see ChangeType
+             */
+            mode: ToStringLiteral<typeof OpenFileMode>;
         }
         interface CloseFileRequestedEventOptions extends _internal_.RequestedEventOptions {
             /** A request ID used to open the file. */
@@ -3226,12 +3368,12 @@ declare namespace chrome {
         function get(fileSystemId: string, callback: (fileSystem: FileSystemInfo) => void): void;
 
         /**
+         * @requires Manifest: 'file_system_provider.notify' = true
+         * @description
          * Notifies about changes in the watched directory at observedPath in recursive mode.
          * If the file system is mounted with supportsNofityTag, then tag must be provided,
          * and all changes since the last notification always reported, even if the system was shutdown.
          * The last tag can be obtained with getAll.
-         *
-         * To use, the file_system_provider.notify manifest option must be set to true.
          *
          * Value of tag can be any string which is unique per call,
          * so it's possible to identify the last registered notification.
@@ -3263,22 +3405,24 @@ declare namespace chrome {
          * Raised when unmounting for the file system with the fileSystemId identifier is requested.
          * In the response, the unmount API method must be called together with successCallback.
          * If unmounting is not possible (eg. due to a pending operation), then errorCallback must be called.
+         * @see ProviderError
          */
         const onUnmountRequested: chrome.events.Event<(
             options: UnmountRequestedEventOptions,
             successCallback: () => void,
-            errorCallback: (error: ProviderError) => void
+            errorCallback: (error: ToStringLiteral<typeof ProviderError>) => void
         ) => void>;
 
         /**
          * Raised when metadata of a file or a directory at entryPath is requested.
          * The metadata must be returned with the successCallback call.
          * In case of an error, errorCallback must be called.
+         * @see ProviderError
          */
         const onGetMetadataRequested: chrome.events.Event<(
             options: MetadataRequestedEventOptions,
             successCallback: (metadata: EntryMetadata) => void,
-            errorCallback: (error: ProviderError) => void
+            errorCallback: (error: ToStringLiteral<typeof ProviderError>) => void
         ) => void>;
 
         /**
@@ -3287,124 +3431,138 @@ declare namespace chrome {
          * If there are no such actions, an empty array should be returned.
          * The actions must be returned with the successCallback call.
          * In case of an error, errorCallback must be called.
+         * @see ProviderError
          * @since Since Chrome 48.
          **/
         const onGetActionsRequested: chrome.events.Event<(
             options: GetActionsRequestedEventOptions,
             successCallback: (actions: Action[]) => void,
-            errorCallback: (error: ProviderError) => void
+            errorCallback: (error: ToStringLiteral<typeof ProviderError>) => void
         ) => void>;
 
         /**
          * Raised when contents of a directory at directoryPath are requested.
          * The results must be returned in chunks by calling the successCallback several times.
          * In case of an error, errorCallback must be called.
+         * @see ProviderError
          */
         const onReadDirectoryRequested: chrome.events.Event<(
             options: ReadDirectoryRequestedEventOptions,
             successCallback: (entries: EntryMetadata[], hasMore: boolean) => void,
-            errorCallback: (error: ProviderError) => void
+            errorCallback: (error: ToStringLiteral<typeof ProviderError>) => void
         ) => void>;
 
         /**
          * Raised when opening a file at filePath is requested.
          * If the file does not exist, then the operation must fail.
          * Maximum number of files opened at once can be specified with MountOptions.
+         * @see ProviderError
          */
         const onOpenFileRequested: chrome.events.Event<(
             options: OpenFileRequestedEventOptions,
             successCallback: () => void,
-            errorCallback: (error: ProviderError) => void
+            errorCallback: (error: ToStringLiteral<typeof ProviderError>) => void
         ) => void>;
 
         /**
          * Raised when opening a file previously opened
          * with openRequestId is requested to be closed.
+         * @see ProviderError
          */
         const onCloseFileRequested: chrome.events.Event<(
             options: CloseFileRequestedEventOptions,
             successCallback: () => void,
-            errorCallback: (error: ProviderError) => void
+            errorCallback: (error: ToStringLiteral<typeof ProviderError>) => void
         ) => void>
 
         /**
          * Raised when reading contents of a file opened previously with openRequestId is requested.
          * The results must be returned in chunks by calling successCallback several times.
          * In case of an error, errorCallback must be called.
+         * @see ProviderError
          */
         const onReadFileRequested: chrome.events.Event<(
             options: ReadFileRequestedEventOptions,
             successCallback: (data: ArrayBuffer, hasMore: boolean) => void,
-            errorCallback: (error: ProviderError) => void
+            errorCallback: (error: ToStringLiteral<typeof ProviderError>) => void
         ) => void>;
 
         /**
          * Raised when creating a directory is requested.
          * The operation must fail with the EXISTS error if the target directory already exists.
          * If recursive is true, then all of the missing directories on the directory path must be created.
+         * @see ProviderError
          */
         const onCreateDirectoryRequested: chrome.events.Event<(
             options: CreateDirectoryRequestedEventOptions,
             successCallback: () => void,
-            errorCallback: (error: ProviderError) => void
+            errorCallback: (error: ToStringLiteral<typeof ProviderError>) => void
         ) => void>;
 
         /**
          * Raised when deleting an entry is requested.
          * If recursive is true, and the entry is a directory,
          * then all of the entries inside must be recursively deleted as well.
+         * @see ProviderError
          */
         const onDeleteEntryRequested: chrome.events.Event<(
             options: DeleteEntryRequestedEventOptions,
             successCallback: () => void,
-            errorCallback: (error: ProviderError) => void
+            errorCallback: (error: ToStringLiteral<typeof ProviderError>) => void
         ) => void>;
 
         /**
          * Raised when creating a file is requested.
          * If the file already exists, then errorCallback must be called with the 'EXISTS' error code.
+         * @see ProviderError
          */
         const onCreateFileRequested: chrome.events.Event<(
             options: CreateFileRequestedEventOptions,
             successCallback: () => void,
-            errorCallback: (error: ProviderError) => void
+            errorCallback: (error: ToStringLiteral<typeof ProviderError>) => void
         ) => void>;
 
         /**
          * Raised when copying an entry (recursively if a directory) is requested.
          * If an error occurs, then errorCallback must be called.
+         * @see ProviderError
          */
         const onCopyEntryRequested: chrome.events.Event<(
             options: CopyEntryRequestedEventOptions,
             successCallback: () => void,
-            errorCallback: (error: ProviderError) => void
+            errorCallback: (error: ToStringLiteral<typeof ProviderError>) => void
         ) => void>;
 
         /**
          * Raised when moving an entry (recursively if a directory) is requested.
          * If an error occurs, then errorCallback must be called.
+         * @see ProviderError
          */
         const onMoveEntryRequested: chrome.events.Event<(
             options: MoveEntryRequestedEventOptions,
             successCallback: () => void,
-            errorCallback: (error: ProviderError) => void
+            errorCallback: (error: ToStringLiteral<typeof ProviderError>) => void
         ) => void>;
 
         /**
          * Raised when truncating a file to a desired length is requested.
          * If an error occurs, then errorCallback must be called.
+         * @see ProviderError
          */
         const onTruncateRequested: chrome.events.Event<(
             options: TruncateRequestedEventOptions,
             successCallback: () => void,
-            errorCallback: (error: ProviderError) => void
+            errorCallback: (error: ToStringLiteral<typeof ProviderError>) => void
         ) => void>;
 
-        /** Raised when writing contents to a file opened previously with openRequestId is requested. */
+        /**
+         * Raised when writing contents to a file opened previously with openRequestId is requested.
+         * @see ProviderError
+         */
         const onWriteFileRequested: chrome.events.Event<(
             options: WriteFileRequestedEventOptions,
             successCallback: () => void,
-            errorCallback: (error: ProviderError) => void
+            errorCallback: (error: ToStringLiteral<typeof ProviderError>) => void
         ) => void>;
 
         /**
@@ -3414,68 +3572,75 @@ declare namespace chrome {
          * then errorCallback must be called. Note, that callbacks of the aborted
          * operation must not be called, as they will be ignored. Despite calling
          * errorCallback, the request may be forcibly aborted.
+         * @see ProviderError
          */
         const onAbortRequested: chrome.events.Event<(
             options: AbortRequestedEventOptions,
             successCallback: () => void,
-            errorCallback: (error: ProviderError) => void
+            errorCallback: (error: ToStringLiteral<typeof ProviderError>) => void
         ) => void>;
 
         /**
          * Raised when showing a configuration dialog for fileSystemId is requested.
-         * If it's handled, the file_system_provider.configurable manfiest option must be set to true.
+         * If it's handled, the *file_system_provider.configurable* manfiest option must be set to true.
+         * @requires Manifest: 'file_system_provider.configurable' = true
+         * @see ProviderError
          * @since Since Chrome 44.
          */
         const onConfigureRequested: chrome.events.Event<(
             options: ConfigureRequestedEventOptions,
             successCallback: () => void,
-            errorCallback: (error: ProviderError) => void
+            errorCallback: (error: ToStringLiteral<typeof ProviderError>) => void
         ) => void>;
 
         /**
          * Raised when showing a dialog for mounting a new file system is requested.
-         * If the extension/app is a file handler, then this event shouldn't be handled.
+         * If the app is a file handler, then this event shouldn't be handled.
          * Instead app.runtime.onLaunched should be handled in order to mount new file systems when a file is opened.
-         * For multiple mounts, the file_system_provider.multiple_mounts manifest option must be set to true.
+         * @requires Manifest (for multiple mounts): 'file_system_provider.multiple_mounts' = true
+         * @see ProviderError
          * @since Since Chrome 44.
          */
         const onMountRequested: chrome.events.Event<(
             successCallback: () => void,
-            errorCallback: (error: ProviderError) => void
+            errorCallback: (error: ToStringLiteral<typeof ProviderError>) => void
         ) => void>;
 
         /**
          * Raised when setting a new directory watcher is requested.
          * If an error occurs, then errorCallback must be called.
+         * @see ProviderError
          * @since Since Chrome 45.
          */
         const onAddWatcherRequested: chrome.events.Event<(
             options: WatcherRequestedEventOptions,
             successCallback: () => void,
-            errorCallback: (error: ProviderError) => void
+            errorCallback: (error: ToStringLiteral<typeof ProviderError>) => void
         ) => void>;
 
         /**
          * Raised when the watcher should be removed.
          * If an error occurs, then errorCallback must be called.
+         * @see ProviderError
          * @since Since Chrome 45.
          */
         const onRemoveWatcherRequested: chrome.events.Event<(
             options: WatcherRequestedEventOptions,
             successCallback: () => void,
-            errorCallback: (error: ProviderError) => void
+            errorCallback: (error: ToStringLiteral<typeof ProviderError>) => void
         ) => void>;
 
         /**
-         * Raised when executing an action for a set of files or directories is\ requested.
+         * Raised when executing an action for a set of files or directories is requested.
          * After the action is completed, successCallback must be called.
          * On error, errorCallback must be called.
+         * @see ProviderError
          * @since Since Chrome 48.
          */
         const onExecuteActionRequested: chrome.events.Event<(
             options: ExecuteActionRequestedEventOptions,
             successCallback: () => void,
-            errorCallback: (error: ProviderError) => void
+            errorCallback: (error: ToStringLiteral<typeof ProviderError>) => void
         ) => void>;
     }
 
@@ -4797,6 +4962,22 @@ declare namespace chrome {
         const onScanProgress: chrome.events.Event<(args: ScanProgressEventArgs) => void>;
     }
 
+    namespace networking {
+        const NetworkType: {
+            'WI_FI': 'WiFi'
+        };
+        const AuthenticationResult: {
+            UNHANDLED: 'unhandled',
+            SUCCEEDED: 'succeeded',
+            REJECTED: 'rejected',
+            FAILED: 'failed'
+        }
+        /** @todo TODO DOCUMENT THESE */
+        const setNetworkFilter: Function;
+        const finishAuthentication: Function;
+        const onCaptivePortalDetected: any;
+    }
+
     ////////////////////////////////////
     // Open Network Configuration (ONC)
     ////////////////////////////////////
@@ -5820,6 +6001,7 @@ declare namespace chrome {
 
         /** This will be defined during an API method callback if there was an error */
         const lastError: LastError | undefined;
+
         /** The ID of the extension/app. */
         const id: string;
 
@@ -8081,6 +8263,17 @@ declare namespace chrome {
      * @since Chrome 30.
      */
     namespace system.display {
+        const DisplayPosition: {
+            TOP: 'top',
+            RIGHT: 'right',
+            BOTTOM: 'bottom',
+            LEFT: 'left'
+        };
+        const MirrorMode: {
+            OFF: 'off',
+            NORMAL: 'normal',
+            MIXED: 'mixed'
+        };
         interface Bounds {
             /**  The x-coordinate of the upper-left corner. */
             left: integer;
@@ -8152,8 +8345,6 @@ declare namespace chrome {
             isSelected: boolean;
         }
 
-        type DisplayPosition = 'top' | 'right' | 'bottom' | 'left';
-
         /**
          * @since Chrome 53
          */
@@ -8162,16 +8353,18 @@ declare namespace chrome {
             id: string;
             /** The unique identifier of the parent display. Empty if this is the root. */
             parentId: string;
-            /** The layout position of this display relative to the parent. This will be ignored for the root. */
-            position: DisplayPosition;
+            /**
+             * The layout position of this display relative to the parent.
+             * This will be ignored for the root.
+             * @see enum DisplayPosition
+             */
+            position: ToStringLiteral<typeof DisplayPosition>;
             /** The offset of the display along the connected edge. 0 indicates that the topmost or leftmost corners are aligned. */
             offset: integer;
         }
 
         /**
-          * The pairs of point used to calibrate the display.
-         * @export
-         * @interface TouchCalibrationPairs
+         * The pairs of point used to calibrate the display.
          */
         interface TouchCalibrationPairs {
             /** First pair of touch and display point required for touch calibration. */
@@ -8185,55 +8378,87 @@ declare namespace chrome {
         }
 
         /**
-          * Representation of info data to be used in chrome.system.display.setDisplayProperties()
-         * @export
-         * @interface DisplayPropertiesInfo
+         * Representation of info data to be used in chrome.system.display.setDisplayProperties()
          */
         interface DisplayPropertiesInfo {
             /**
-              * Chrome OS only. If set to true, changes the display mode to unified desktop (see enableUnifiedDesktop for details). If set to false, unified desktop mode will be disabled. This is only valid for the primary display. If provided, mirroringSourceId must not be provided and other properties may not apply. This is has no effect if not provided.
+             * @requires(CrOS) Chrome OS only.
+             * @description
+             * If set to true, changes the display mode to unified desktop.
+             * If set to false, unified desktop mode will be disabled.
+             * This is only valid for the primary display.
+             * If provided, mirroringSourceId must not be provided and other properties may not apply. This is has no effect if not provided.
+             * @see(See enableUnifiedDesktop for details).
              * @since Chrome 59
              * */
             isUnified?: boolean;
 
             /**
-             * Chrome OS only. If set and not empty, enables mirroring for this display. Otherwise disables mirroring for this display. This value should indicate the id of the source display to mirror, which must not be the same as the id passed to setDisplayProperties. If set, no other property may be set.
+             * @requires(CrOS) Chrome OS only.
+             * @description
+             * If set and not empty, enables mirroring for this display.
+             * Otherwise disables mirroring for this display.
+             * This value should indicate the id of the source display to mirror,
+             * which must not be the same as the id passed to setDisplayProperties.
+             * If set, no other property may be set.
              */
             mirroringSourceId?: string;
 
-            /** If set to true, makes the display primary. No-op if set to false. */
+            /**
+             * If set to true, makes the display primary.
+             * No-op if set to false.
+             */
             isPrimary?: boolean;
 
-            /** If set, sets the display's overscan insets to the provided values. Note that overscan values may not be negative or larger than a half of the screen's size. Overscan cannot be changed on the internal monitor. It's applied after isPrimary parameter. */
+            /**
+             * If set, sets the display's overscan insets to the provided values.
+             * Note that overscan values may not be negative or larger than a half of the screen's size.
+             * Overscan cannot be changed on the internal monitor. It's applied after isPrimary parameter.
+             */
             overscan?: Insets;
 
-            /** If set, updates the display's rotation. Legal values are [0, 90, 180, 270]. The rotation is set clockwise, relative to the display's vertical position. It's applied after overscan paramter. */
+            /**
+             * If set, updates the display's rotation.
+             * Legal values are [0, 90, 180, 270].
+             * The rotation is set clockwise, relative to the display's vertical position.
+             * It's applied after overscan paramter.
+             */
             rotation?: 0 | 90 | 180 | 270;
 
-            /** If set, updates the display's logical bounds origin along x-axis. Applied together with boundsOriginY, if boundsOriginY is set. Note that, when updating the display origin, some constraints will be applied, so the final bounds origin may be different than the one set. The final bounds can be retrieved using getInfo. The bounds origin is applied after rotation. The bounds origin cannot be changed on the primary display. Note that is also invalid to set bounds origin values if isPrimary is also set (as isPrimary parameter is applied first). */
+            /**
+             * If set, updates the display's logical bounds origin along x-axis.
+             * Applied together with boundsOriginY, if boundsOriginY is set.
+             * Note that, when updating the display origin, some constraints will be applied,
+             * so the final bounds origin may be different than the one set.
+             * The final bounds can be retrieved using getInfo. The bounds origin is applied
+             * after rotation. The bounds origin cannot be changed on the primary display.
+             * Note that is also invalid to set bounds origin values if isPrimary is also set
+             * (as isPrimary parameter is applied first).
+             */
             boundsOriginX?: integer;
 
-            /** If set, updates the display's logical bounds origin along y-axis. See documentation for boundsOriginX parameter. */
+            /**
+             * If set, updates the display's logical bounds origin along y-axis.
+             * @see[See documentation for boundsOriginX parameter.]
+             */
             boundsOriginY: integer;
 
             /**
+             * If set, updates the display mode to the mode matching this value.
              * @since Chrome 52
-              * If set, updates the display mode to the mode matching this value.
              */
             displayMode?: DisplayMode;
         }
 
         /**
-          * Options affecting how the information is returned.
+         * Options affecting how the information is returned.
          * @since Chrome 59
-         * @export
-         * @interface DisplayInfoFlags
          */
         interface DisplayInfoFlags {
             /**
-              * If set to true, only a single DisplayUnitInfo will be returned by getInfo when in unified desktop mode (see enableUnifiedDesktop). Defaults to false.
-             * @type {boolean}
-             * @memberof DisplayInfoFlags
+             * If set to true, only a single DisplayUnitInfo will be returned by getInfo when in unified desktop mode.
+             * @see[enableUnifiedDesktop]
+             * @default false
              */
             singleUnified?: boolean;
         }
@@ -8266,7 +8491,7 @@ declare namespace chrome {
             workArea: Bounds;
         }
 
-        /** The information about display properties that should be changed. A property will be changed only if a new value for it is specified in |info|. */
+        /** The information about display properties that should be changed. A property will be changed only if a new value for it is specified in **info**. */
         interface DisplayProps {
             /** If set and not empty, starts mirroring between this and the display with the provided id (the system will determine which of the displays is actually mirrored). If set and not empty, stops mirroring between this and the display with the specified id (if mirroring is in progress). If set, no other parameter may be set. */
             mirroringSourceId?: string;
@@ -8283,39 +8508,33 @@ declare namespace chrome {
         }
 
         /**
-          * Fired when anything changes to the display configuration.
-         * @export
-         * @interface DisplayChangedEvent
-         * @extends {chrome.events.Event<() => void>}
-         */
-        interface DisplayChangedEvent extends chrome.events.Event<() => void> { }
-
-        /**
-          * Requests the information for all attached display devices.
-         * @export
-         * @param {(info: DisplayInfo[]) => void} callback The callback to invoke with the results.
+         * Requests the information for all attached display devices.
+         * @param callback The callback to invoke with the results.
          */
         function getInfo(callback: (info: DisplayInfo[]) => void): void;
         /**
-          * Requests the information for all attached display devices.
-         * @export
+         * Requests the information for all attached display devices.
          * @since Chrome 59
-         * @param {DisplayInfoFlags} [flags] Options affecting how the information is returned.
-         * @param {(info: DisplayInfo[]) => void} callback The callback to invoke with the results.
+         * @param flags Options affecting how the information is returned.
+         * @param callback The callback to invoke with the results.
          */
         function getInfo(flags: DisplayInfoFlags, callback: (info: DisplayInfo[]) => void): void;
 
         /**
-          * Requests the layout info for all displays. NOTE: This is only available to Chrome OS Kiosk apps and Web UI.
+         * @requires(CrOS Kiosk apps | WebUI) This is only available to Chrome OS Kiosk apps and Web UI.
+         * @description Requests the layout info for all displays.
          * @since Chrome 53
          * @export
-         * @param {(layouts: DisplayLayout[]) => void} callback The callback to invoke with the results.
+         * @param callback The callback to invoke with the results.
          */
         function getDisplayLayout(callback: (layouts: DisplayLayout[]) => void): void;
 
         /**
-          * Updates the properties for the display specified by |id|, according to the information provided in |info|. On failure, runtime.lastError will be set. NOTE: This is only available to Chrome OS Kiosk apps and Web UI.
-         * @export
+         * @requires(CrOS Kiosk apps | WebUI) This is only available to Chrome OS Kiosk apps and Web UI.
+         * @description
+         * Updates the properties for the display specified by **id**,
+         * according to the information provided in **info**.
+         * On failure, runtime.lastError will be set.
          * @param {string} id The display's unique identifier.
          * @param {DisplayPropertiesInfo} info The information about display properties that should be changed. A property will be changed only if a new value for it is specified in |info|.
          * @param {() => void} [callback] Empty function called when the function finishes. To find out whether the function succeeded, runtime.lastError should be queried.
@@ -8323,91 +8542,104 @@ declare namespace chrome {
         function setDisplayProperties(id: string, info: DisplayPropertiesInfo, callback?: () => void): void;
 
         /**
-          * Set the layout for all displays. Any display not included will use the default layout. If a layout would overlap or be otherwise invalid it will be adjusted to a valid layout. After layout is resolved, an onDisplayChanged event will be triggered. NOTE: This is only available to Chrome OS Kiosk apps and Web UI.
+         * @requires(CrOS Kiosk apps | WebUI) This is only available to Chrome OS Kiosk apps and Web UI.
+         * @description
+         * Set the layout for all displays.
+         * Any display not included will use the default layout.
+         * If a layout would overlap or be otherwise invalid it will be adjusted to a valid layout.
+         * After layout is resolved, an onDisplayChanged event will be triggered.
          * @since Chrome 53
-         * @export
-         * @param {DisplayLayout[]} layouts The layout information, required for all displays except the primary display.
-         * @param {() => void} callback Empty function called when the function finishes. To find out whether the function succeeded, runtime.lastError should be queried.
+         * @param layouts The layout information, required for all displays except the primary display.
+         * @param callback Empty function called when the function finishes. To find out whether the function succeeded, runtime.lastError should be queried.
          */
         function setDisplayLayout(layouts: DisplayLayout[], callback?: () => void): void;
 
         /**
-          * Enables/disables the unified desktop feature. Note that this simply enables the feature, but will not change the actual desktop mode. (That is, if the desktop is in mirror mode, it will stay in mirror mode) NOTE: This is only available to Chrome OS Kiosk apps and Web UI.
+         * @requires(CrOS Kiosk apps | WebUI) This is only available to Chrome OS Kiosk apps and Web UI.
+         * @description
+         * Enables/disables the unified desktop feature.
+         * Note that this simply enables the feature, but will not change the actual desktop mode.
+         * (That is, if the desktop is in mirror mode, it will stay in mirror mode)
          * @since Chrome 46
-         * @export
          * @param {boolean} enabled True if unified desktop should be enabled.
          */
         function enableUnifiedDesktop(enabled: boolean): void;
         /**
-          * Starts overscan calibration for a display. This will show an overlay on the screen indicating the current overscan insets. If overscan calibration for display |id| is in progress this will reset calibration.
+         * Starts overscan calibration for a display.
+         * This will show an overlay on the screen indicating the current overscan insets.
+         * If overscan calibration for display **id** is in progress this will reset calibration.
          * @since Chrome 53
-         * @export
-         * @param {string} id The display's unique identifier.
+         * @param id The display's unique identifier.
          */
         function overscanCalibrationStart(id: string): void;
         /**
-          * Adjusts the current overscan insets for a display. Typically this should etiher move the display along an axis (e.g. left+right have the same value) or scale it along an axis (e.g. top+bottom have opposite values). Each Adjust call is cumulative with previous calls since Start.
+         * Adjusts the current overscan insets for a display.
+         * Typically this should etiher move the display along an axis (e.g. left+right have the same value)
+         * or scale it along an axis (e.g. top+bottom have opposite values).
+         * Each Adjust call is cumulative with previous calls since Start.
          * @since Chrome 53
-         * @export
-         * @param {string} id The display's unique identifier.
-         * @param {Insets} delta The amount to change the overscan insets.
+         * @param id The display's unique identifier.
+         * @param delta The amount to change the overscan insets.
          */
         function overscanCalibrationAdjust(id: string, delta: Insets): void;
 
         /**
-          * Resets the overscan insets for a display to the last saved value (i.e before Start was called).
+         * Resets the overscan insets for a display to the last saved value (i.e before Start was called).
          * @since Chrome 53
-         * @export
-         * @param {string} id The display's unique identifier.
+         * @param id The display's unique identifier.
          */
         function overscanCalibrationReset(id: string): void;
 
         /**
-          * Complete overscan adjustments for a display by saving the current values and hiding the overlay.
+         * Complete overscan adjustments for a display by saving the current values and hiding the overlay.
          * @since Chrome 53
-         * @export
-         * @param {string} id The display's unique identifier.
+         * @param id The display's unique identifier.
          */
         function overscanCalibrationComplete(id: string): void;
 
         /**
-          * Displays the native touch calibration UX for the display with |id| as display id. This will show an overlay on the screen with required instructions on how to proceed. The callback will be invoked in case of successful calibraion only. If the calibration fails, this will throw an error.
+         * Displays the native touch calibration UX for the display with **id** as display id.
+         * This will show an overlay on the screen with required instructions on how to proceed.
+         * The callback will be invoked in case of successful calibraion only.
+         * If the calibration fails, this will throw an error.
          * @since Chrome 57
-         * @export
-         * @param {string} id The display's unique identifier.
-         * @param {(success) => void} callback Optional callback to inform the caller that the touch calibration has ended. The argument of the callback informs if the calibration was a success or not.
+         * @param id The display's unique identifier.
+         * @param callback Optional callback to inform the caller that the touch calibration has ended. The argument of the callback informs if the calibration was a success or not.
          */
         function showNativeTouchCalibration(id: string, callback: (success: boolean) => void): void;
 
         /**
-          * Starts custom touch calibration for a display. This should be called when using a custom UX for collecting calibration data. If another touch calibration is already in progress this will throw an error.
+         * Starts custom touch calibration for a display.
+         * This should be called when using a custom UX for collecting calibration data.
+         * If another touch calibration is already in progress this will throw an error.
          * @since Chrome 57
-         * @export
-         * @param {string} id The display's unique identifier.
+         * @param id The display's unique identifier.
          */
         function startCustomTouchCalibration(id: string): void;
 
         /**
-          * Sets the touch calibration pairs for a display. These |pairs| would be used to calibrate the touch screen for display with |id| called in startCustomTouchCalibration(). Always call |startCustomTouchCalibration| before calling this method. If another touch calibration is already in progress this will throw an error.
+         * Sets the touch calibration pairs for a display.
+         * These **pairs** would be used to calibrate the touch screen for display with **id** called in startCustomTouchCalibration().
+         * Always call **startCustomTouchCalibration** before calling this method.
+         * If another touch calibration is already in progress this will throw an error.
          * @since Chrome 57
-         * @export
-         * @param {TouchCalibrationPairs} pairs The pairs of point used to calibrate the display.
-         * @param {Bounds} bounds Bounds of the display when the touch calibration was performed. |bounds.left| and |bounds.top| values are ignored.
+         * @param pairs The pairs of point used to calibrate the display.
+         * @param bounds Bounds of the display when the touch calibration was performed. |bounds.left| and |bounds.top| values are ignored.
+         * @throws Error
          */
         function completeCustomTouchCalibration(pairs: TouchCalibrationPairs, bounds: Bounds): void;
+
         /**
-          * Resets the touch calibration for the display and brings it back to its default state by clearing any touch calibration data associated with the display.
+         * Resets the touch calibration for the display and brings it back to its default state by clearing any touch calibration data associated with the display.
          * @since Chrome 57
-         * @export
-         * @param {string} id The display's unique identifier.
+         * @param id The display's unique identifier.
          */
         function clearTouchCalibration(id: string): void;
 
         /**
-          * Fired when anything changes to the display configuration.
-         * @export
+         * Fired when anything changes to the display configuration.
          */
-        const onDisplayChanged: DisplayChangedEvent;
+        const onDisplayChanged: chrome.events.Event<() => void>;
     }
 
     ///////////////////
@@ -8415,7 +8647,7 @@ declare namespace chrome {
     ///////////////////
     /**
      * The chrome.system.memory API.
-     * Permissions:  'system.memory'
+     * @requires Permissions: 'system.memory'
      * @since Chrome 32.
      */
     namespace system.memory {
@@ -8433,6 +8665,10 @@ declare namespace chrome {
     //////////////////////
     // System - Network //
     //////////////////////
+    /**
+     * The chrome.system.network API.
+     * @requires Permissions: 'system.network'
+     */
     namespace system.network {
         interface NetworkInterface {
             name: string;
@@ -8462,12 +8698,27 @@ declare namespace chrome {
     ////////////////////
     /**
      * Use the chrome.system.storage API to query storage device information and be notified when a removable storage device is attached and detached.
-     * Permissions:  'system.storage'
+     * @requires Permissions: 'system.storage'
      * @since Chrome 30.
      */
     namespace system.storage {
+        const StorageUnitType: {
+            FIXED: "fixed",
+            REMOVABLE: "removable",
+            UNKNOWN: "unknown"
+        };
+        const EjectDeviceResultCode: {
+            SUCCESS: "success",
+            IN_USE: "in_use",
+            NO_SUCH_DEVICE: "no_such_device",
+            FAILURE: "failure"
+        };
         interface StorageUnitInfo {
-            /** The transient ID that uniquely identifies the storage device. This ID will be persistent within the same run of a single application. It will not be a persistent identifier between different runs of an application, or between different applications. */
+            /**
+             * The transient ID that uniquely identifies the storage device.
+             * This ID will be persistent within the same run of a single application.
+             * It will not be a persistent identifier between different runs of an application, or between different applications.
+             */
             id: string;
             /** The name of the storage unit. */
             name: string;
@@ -8476,31 +8727,37 @@ declare namespace chrome {
              * fixed: The storage has fixed media, e.g. hard disk or SSD.
              * removable: The storage is removable, e.g. USB flash drive.
              * unknown: The storage type is unknown.
+             * @see enum StorageUnitType
              */
-            type: string;
+            type: ToStringLiteral<typeof StorageUnitType>;
             /** The total amount of the storage space, in bytes. */
             capacity: integer;
         }
 
         interface StorageCapacityInfo {
-            /** A copied |id| of getAvailableCapacity function parameter |id|. */
+            /** A copied **id** of getAvailableCapacity function parameter **id**. */
             id: string;
             /** The available capacity of the storage device, in bytes. */
             availableCapacity: integer;
         }
-
-        interface SystemStorageAttachedEvent extends chrome.events.Event<(info: StorageUnitInfo) => void> { }
-
-        interface SystemStorageDetachedEvent extends chrome.events.Event<(id: string) => void> { }
 
         /** Get the storage information from the system. The argument passed to the callback is an array of StorageUnitInfo objects. */
         function getInfo(callback: (info: StorageUnitInfo[]) => void): void;
         /**
          * Ejects a removable storage device.
          * @param callback
-         * Parameter result: success: The ejection command is successful -- the application can prompt the user to remove the device; in_use: The device is in use by another application. The ejection did not succeed; the user should not remove the device until the other application is done with the device; no_such_device: There is no such device known. failure: The ejection command failed.
+         * Parameter **result**:
+         *
+         * **success:** The ejection command is successful -- the application can prompt the user to remove the device;
+         *
+         * **in_use:** The device is in use by another application. The ejection did not succeed;
+         *   the user should not remove the device until the other application is done with the device;
+         *
+         * **no_such_device:** There is no such device known.
+         *
+         * **failure:** The ejection command failed.
          */
-        function ejectDevice(id: string, callback: (result: string) => void): void;
+        function ejectDevice(id: string, callback: (result: ToStringLiteral<typeof EjectDeviceResultCode>) => void): void;
         /**
          * Get the available capacity of a specified |id| storage device. The |id| is the transient device ID from StorageUnitInfo.
          * @since Dev channel only.
@@ -8508,9 +8765,9 @@ declare namespace chrome {
         function getAvailableCapacity(id: string, callback: (info: StorageCapacityInfo) => void): void;
 
         /** Fired when a new removable storage is attached to the system. */
-        const onAttached: SystemStorageAttachedEvent;
+        const onAttached: chrome.events.Event<(info: StorageUnitInfo) => void>;
         /** Fired when a removable storage is detached from the system. */
-        const onDetached: SystemStorageDetachedEvent;
+        const onDetached: chrome.events.Event<(id: string) => void>;
     }
 
     ////////////////////
@@ -9151,6 +9408,24 @@ declare namespace chrome {
      * @since Chrome 43.
      */
     namespace vpnProvider {
+        const PlatformMessage: {
+            CONNECTED: "connected",
+            DISCONNECTED: "disconnected",
+            ERROR: "error",
+            LINK_DOWN: "linkDown",
+            LINK_UP: "linkUp",
+            LINK_CHANGED: "linkChanged",
+            SUSPEND: "suspend",
+            RESUME: "resume"
+        };
+        const VpnConnectionState: {
+            CONNECTED: "connected",
+            FAILURE: "failure"
+        };
+        const UIEvent: {
+            SHOW_ADD_DIALOG: "showAddDialog",
+            SHOW_CONFIGURE_DIALOG: "showConfigureDialog"
+        };
         interface VpnSessionParameters {
             /** IP address for the VPN interface in CIDR notation. IPv4 is currently the only supported mode. */
             address: string;
@@ -9184,6 +9459,7 @@ declare namespace chrome {
             dnsServer: string[];
         }
 
+        /** @todo TODO Move to consts. Implement PlatformMessage enum & check usage of the other enums */
         interface VpnPlatformMessageEvent extends chrome.events.Event<(id: string, message: string, error: string) => void> { }
 
         interface VpnPacketReceptionEvent extends chrome.events.Event<(data: ArrayBuffer) => void> { }
@@ -9192,7 +9468,7 @@ declare namespace chrome {
 
         interface VpnConfigCreationEvent extends chrome.events.Event<(id: string, name: string, data: Object) => void> { }
 
-        interface VpnUiEvent extends chrome.events.Event<(event: string, id?: string) => void> { }
+        interface VpnUiEvent extends chrome.events.Event<(event: ToStringLiteral<typeof UIEvent>, id?: string) => void> { }
 
         /**
          * Creates a new VPN configuration that persists across multiple login sessions of the user.
@@ -9224,9 +9500,10 @@ declare namespace chrome {
          * @param state The VPN session state of the VPN client.
          * connected: VPN connection was successful.
          * failure: VPN connection failed.
+         * @see enum VpnConnectionState
          * @param callback Called when the notification is complete or if there is an error.
          */
-        function notifyConnectionStateChanged(state: string, callback?: Function): void;
+        function notifyConnectionStateChanged(state: ToStringLiteral<typeof VpnConnectionState>, callback?: Function): void;
 
         /** Triggered when a message is received from the platform for a VPN configuration owned by the extension. */
         const onPlatformMessage: VpnPlatformMessageEvent;
@@ -9236,7 +9513,10 @@ declare namespace chrome {
         const onConfigRemoved: VpnConfigRemovalEvent;
         /** Triggered when a configuration is created by the platform for the extension. */
         const onConfigCreated: VpnConfigCreationEvent;
-        /** Triggered when there is a UI event for the extension. UI events are signals from the platform that indicate to the app that a UI dialog needs to be shown to the user. */
+        /**
+         * Triggered when there is a UI event for the extension.
+         * UI events are signals from the platform that indicate to the app that a UI dialog needs to be shown to the user.
+         */
         const onUIEvent: VpnUiEvent;
     }
 
