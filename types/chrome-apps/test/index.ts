@@ -603,6 +603,19 @@ chrome.bluetooth.getDevices((devices) => {
     });
 });
 
+// CERTIFICATE PROVIDER
+
+const requestId = 555;
+chrome.certificateProvider.requestPin({ signRequestId: requestId }, (codeVal: Object) => {
+    codeVal
+});
+
+chrome.certificateProvider.stopPinRequest({ signRequestId: requestId }, () => {
+    if (chrome.runtime.lastError) {
+        console.error('Error:', chrome.runtime.lastError);
+    }
+});
+
 // CONTEXT MENU
 
 chrome.contextMenus.onClicked.addListener((info) => {
@@ -618,6 +631,26 @@ chrome.contextMenus.onClicked.addListener((info) => {
 
 chrome.desktopCapture.chooseDesktopMedia(["screen", "window", "tab"], () => { });
 chrome.desktopCapture.chooseDesktopMedia([chrome.desktopCapture.DesktopCaptureSourceType.AUDIO], () => { });
+
+// ENTERPRISE - DEVICE ATTRIBUTES
+
+const deviceAttr = chrome.enterprise.deviceAttributes;
+
+if (deviceAttr.getDirectoryDeviceId && deviceAttr.getDeviceAssetId) {
+    if (deviceAttr.getDeviceSerialNumber && deviceAttr.getDeviceAnnotatedLocation) {
+        console.log('API OK :)');
+    }
+}
+
+// ENTERPRISE - PLATFORM KEYS
+
+if (chrome.enterprise.platformKeys.getTokens) {
+    if (chrome.enterprise.platformKeys.importCertificate) {
+        if (chrome.enterprise.platformKeys.removeCertificate) {
+            console.log('API Present');
+        }
+    }
+}
 
 // EVENTS
 
@@ -653,6 +686,23 @@ chrome.hid.getDevices({
                 return;
             }
         });
+});
+
+// File Browser Handle
+
+chrome.fileBrowserHandler.onExecute.addListener((id, details) => {
+    /*chrome.fileBrowserHandler.selectFile(
+        {
+            suggestedName: 'some_file_name.txt',
+            allowedFileExtensions: ['txt', 'html']
+        },
+        (result: any) => {
+            chrome.test.assertTrue(!!result);
+            chrome.test.assertTrue(result.success);
+            chrome.test.assertTrue(!!result.entry);
+
+            ensureFileExists(result.entry, writeToFile, errorCallback);
+        });*/
 });
 
 // FILE SYSTEM

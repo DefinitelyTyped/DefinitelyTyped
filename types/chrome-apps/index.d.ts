@@ -1885,9 +1885,11 @@ declare namespace chrome {
     /**
      * @requires(CrOS) Chrome OS only.
      * @requires Permissions: 'certificateProvider'
+     * @description Provide certificates for authentication
      * @todo TODO Finish documentation
      */
     namespace certificateProvider {
+        /** @enum */
         const Hash: {
             "MD5_SHA1": "MD5_SHA1",
             "SHA1": "SHA1",
@@ -1895,20 +1897,38 @@ declare namespace chrome {
             "SHA384": "SHA384",
             "SHA512": "SHA512"
         };
+        /** @enum */
         const PinRequestType: {
             "PIN": "PIN",
             "PUK": "PUK"
         };
+        /** @enum */
         const PinRequestErrorType: {
             "INVALID_PIN": "INVALID_PIN",
             "INVALID_PUK": "INVALID_PUK",
             "MAX_ATTEMPTS_EXCEEDED": "MAX_ATTEMPTS_EXCEEDED",
             "UNKNOWN_ERROR": "UNKNOWN_ERROR"
         };
-        const requestPin: Function;
-        const stopPinRequest: Function;
-        const onCertificatesRequested: chrome.events.Event<(...args: any[]) => any>;
-        const onSignDigestRequested: chrome.events.Event<(...args: any[]) => any>;
+        interface RequestOptions {
+            signRequestId: number;
+            /** @see PinRequestType */
+            requestType?: ToStringLiteral<typeof PinRequestType>;
+            /** @see PinRequestErrorType */
+            errorType?: ToStringLiteral<typeof PinRequestErrorType>;
+            attemptsLeft?: number;
+        }
+        interface CodeValue {
+            userInput?: string;
+        }
+        /** @todo TODO Test to find proper types */
+        interface SignRequestDigest {
+            hash?: any;
+            certificate?: any;
+        }
+        function requestPin(opts: RequestOptions, callback: (codeValue: CodeValue) => void): void;
+        function stopPinRequest(opts: RequestOptions, callback: () => void): void;
+        const onCertificatesRequested: chrome.events.Event<(param: any) => any>;
+        const onSignDigestRequested: chrome.events.Event<(signRequest: SignRequestDigest, signCallback: Function) => any>;
     }
 
     ///////////////
@@ -2396,6 +2416,29 @@ declare namespace chrome {
         function scan(options: DocumentScanOptions, callback: (result: DocumentScanCallbackArg) => void): void;
     }
 
+    ////////////////
+    // ENTERPRISE //
+    ////////////////
+    /**
+     * @requires Permissions: 'enterprise.platformKeys'
+     * @todo TODO Document this?
+     */
+    namespace enterprise.deviceAttributes {
+        const getDirectoryDeviceId: Function;
+        const getDeviceSerialNumber: Function;
+        const getDeviceAssetId: Function;
+        const getDeviceAnnotatedLocation: Function;
+    }
+    /**
+     * @requires Permissions: 'enterprise.platformKeys'
+     * @todo TODO Document this?
+     */
+    namespace enterprise.platformKeys {
+        const getTokens: Function;
+        const importCertificate: Function;
+        const removeCertificate: Function;
+    }
+
     ////////////
     // Events //
     ////////////
@@ -2701,8 +2744,11 @@ declare namespace chrome {
      * @todo TODO Documentation
      */
     namespace fileBrowserHandler {
+        type FileBrowserHandleExecuteId =
+            'ReadOnly' |
+            'ReadWrite';
         const selectFile: Function;
-        const onExecute: chrome.events.Event<any>;
+        const onExecute: chrome.events.Event<(id: FileBrowserHandleExecuteId, details: { entries: Entry[] }) => void>;
     }
 
     ////////////////
