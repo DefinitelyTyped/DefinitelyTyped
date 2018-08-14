@@ -1,4 +1,3 @@
-// Example uses styled-components, but styled-system works with most other css-in-js libraries as well
 import * as React from "react";
 import {
     themeGet,
