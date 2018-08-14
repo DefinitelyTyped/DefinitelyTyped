@@ -16,14 +16,14 @@ type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 
 export type FontAwesome5IconVariants = keyof Omit<typeof FA5Style, "regular">;
 
-// borrowed from https://stackoverflow.com/a/49725198/1105281
-type RequireOnlyOne<T, Keys extends keyof T = keyof T> = Omit<T, Keys> &
+// modified from https://stackoverflow.com/a/49725198/1105281
+type AllowOnlyOne<T, Keys extends keyof T = keyof T> = Omit<T, Keys> &
     {
-        [K in Keys]-?: Required<Pick<T, K>> &
+        [K in Keys]-?: Partial<Pick<T, K>> &
             Partial<Record<Exclude<Keys, K>, undefined>>
     }[Keys];
 
-export type FontAwesome5IconProps = RequireOnlyOne<
+export type FontAwesome5IconProps = AllowOnlyOne<
     { [K in FontAwesome5IconVariants]?: boolean } & IconProps,
     FontAwesome5IconVariants
 >;

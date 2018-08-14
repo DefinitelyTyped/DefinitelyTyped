@@ -29,6 +29,7 @@ class Example extends React.Component {
       <View>
         {/* Normal Icon */}
         <MaterialIcon size={30} color="red" name="exit" />
+        <FontAwesome5Icon size={10} name="handshake" />
         <FontAwesome5Icon size={10} name="handshake" solid />
         <FontAwesome5ProIcon size={10} name="parachute-box" light />
 
