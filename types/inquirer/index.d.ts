@@ -23,10 +23,10 @@ declare namespace inquirer {
         | ReadonlyArray<Question<T>>
         | Rx.Observable<Question<T>>;
     interface OutputStreamOption {
-        output: NodeJS.WriteStream
+        output: NodeJS.WritableStream
     }
     interface InputStreamOption {
-        input: NodeJS.ReadStream
+        input: NodeJS.ReadableStream
     }
     type StreamOptions = InputStreamOption | OutputStreamOption | (InputStreamOption & OutputStreamOption);
 
