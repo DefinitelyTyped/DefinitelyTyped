@@ -1,4 +1,4 @@
-// Type definitions for echarts
+// Type definitions for echarts 4.1.0
 // Project: http://echarts.baidu.com/
 // Definitions by: Xie Jingyang <https://github.com/xieisabug>
 //                 AntiMoron <https://github.com/AntiMoron>
