@@ -1,4 +1,4 @@
-import { Component } from "../../../../../Library/Caches/typescript/2.9/node_modules/@types/react";
+import { Component } from "react";
 import { Icon, IconProps, ImageSource } from "./Icon";
 
 export const FA5Style: {
