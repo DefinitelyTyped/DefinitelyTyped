@@ -1,3 +1,5 @@
+import { SpanContext } from 'opentracing';
+
 /**
  * SpanContext represents Span state that must propagate to descendant Spans
  * and across process boundaries.
@@ -8,7 +10,7 @@
  * identify or otherwise contextualize the associated Span instance (e.g., a
  * <trace_id, span_id, sampled> tuple).
  */
-declare class SpanContext {
+declare class DatadogSpanContext extends SpanContext {
     /**
      * Use to create references to parent spans.
      */
@@ -35,4 +37,4 @@ interface SpanContextLike {
     spanId: number;
 }
 
-export = SpanContext;
+export = DatadogSpanContext;
