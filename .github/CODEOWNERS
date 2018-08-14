@@ -3968,6 +3968,7 @@
 /types/set-value/                               @DanielRosenwasser
 /types/settings/                                @shreyjain1994
 /types/sha1/                                    @arcdev1
+/types/shallow-equals/                          @rsolomon
 /types/shallowequal/                            @seansfkelley
 /types/shapefile/                               @DenisCarriere
 /types/sharedworker/                            @nakakura
