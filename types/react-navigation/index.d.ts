@@ -445,7 +445,8 @@ export type NavigationStackAction =
   | NavigationReplaceAction
   | NavigationPopAction
   | NavigationPushAction
-  | NavigationPopToTopAction;
+  | NavigationPopToTopAction
+  | NavigationCompleteTransitionAction;
 
 export type NavigationTabAction =
   | NavigationInitAction
