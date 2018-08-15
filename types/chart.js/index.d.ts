@@ -14,6 +14,7 @@
 //                 Slavik Nychkalo <https://github.com/gebeto>
 //                 Francesco Benedetto <https://github.com/frabnt>
 //                 Alexandros Dorodoulis <https://github.com/alexdor>
+//                 Kallu609 <https://github.com/Kallu609>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -497,6 +498,7 @@ declare namespace Chart {
         reverse?: boolean;
         showLabelBackdrop?: boolean;
         source?: 'auto' | 'data' | 'labels';
+        stepSize?: number;
     }
 
     interface AngleLineOptions {
