@@ -1891,23 +1891,23 @@ declare namespace chrome {
     namespace certificateProvider {
         /** @enum */
         const Hash: {
-            "MD5_SHA1": "MD5_SHA1",
-            "SHA1": "SHA1",
-            "SHA256": "SHA256",
-            "SHA384": "SHA384",
-            "SHA512": "SHA512"
+            'MD5_SHA1': 'MD5_SHA1',
+            'SHA1': 'SHA1',
+            'SHA256': 'SHA256',
+            'SHA384': 'SHA384',
+            'SHA512': 'SHA512'
         };
         /** @enum */
         const PinRequestType: {
-            "PIN": "PIN",
-            "PUK": "PUK"
+            'PIN': 'PIN',
+            'PUK': 'PUK'
         };
         /** @enum */
         const PinRequestErrorType: {
-            "INVALID_PIN": "INVALID_PIN",
-            "INVALID_PUK": "INVALID_PUK",
-            "MAX_ATTEMPTS_EXCEEDED": "MAX_ATTEMPTS_EXCEEDED",
-            "UNKNOWN_ERROR": "UNKNOWN_ERROR"
+            'INVALID_PIN': 'INVALID_PIN',
+            'INVALID_PUK': 'INVALID_PUK',
+            'MAX_ATTEMPTS_EXCEEDED': 'MAX_ATTEMPTS_EXCEEDED',
+            'UNKNOWN_ERROR': 'UNKNOWN_ERROR'
         };
         interface RequestOptions {
             signRequestId: number;
@@ -2051,27 +2051,27 @@ declare namespace chrome {
         * Different platforms might put limitations on what is actually supported in a launcher context menu.
         **/
         const ContextType: {
-            "ALL": "all",
-            "PAGE": "page",
-            "FRAME": "frame",
-            "SELECTION": "selection",
-            "LINK": "link",
-            "EDITABLE": "editable",
-            "IMAGE": "image",
-            "VIDEO": "video",
-            "AUDIO": "audio",
-            "LAUNCHER": "launcher",
-            "BROWSER_ACTION": "browser_action",
-            "PAGE_ACTION": "page_action"
+            'ALL': 'all',
+            'PAGE': 'page',
+            'FRAME': 'frame',
+            'SELECTION': 'selection',
+            'LINK': 'link',
+            'EDITABLE': 'editable',
+            'IMAGE': 'image',
+            'VIDEO': 'video',
+            'AUDIO': 'audio',
+            'LAUNCHER': 'launcher',
+            'BROWSER_ACTION': 'browser_action',
+            'PAGE_ACTION': 'page_action'
         };
         /**
         * The type of menu item.
         **/
         const ItemType: {
-            "NORMAL": "normal",
-            "CHECKBOX": "checkbox",
-            "RADIO": "radio",
-            "SEPARATOR": "separator"
+            'NORMAL': 'normal',
+            'CHECKBOX': 'checkbox',
+            'RADIO': 'radio',
+            'SEPARATOR': 'separator'
         };
 
         type MediaType =
@@ -2295,18 +2295,6 @@ declare namespace chrome {
 
     }
 
-    /////////////////
-    // Diagnostics //
-    /////////////////
-    /**
-     * @requires(CrOS) Only Chrome OS. Crashes app on Windows.
-     * @requires Permissions: 'diagnostics'
-     */
-    namespace diagnostics {
-        /** @todo TODO PROPER DOCS */
-        function sendPacket(options: Object, callback: () => void): void;
-    }
-
     /////////////////////
     // Desktop Capture //
     /////////////////////
@@ -2340,32 +2328,119 @@ declare namespace chrome {
         function cancelChooseDesktopMedia(desktopMediaRequestId: integer): void;
     }
 
+    /////////////////
+    // Diagnostics //
+    /////////////////
+    /**
+     * @requires(CrOS) Only Chrome OS. Crashes app on Windows.
+     * @requires Permissions: 'diagnostics'
+     */
+    namespace diagnostics {
+        /** @todo TODO PROPER DOCS */
+        function sendPacket(options: Object, callback: () => void): void;
+    }
+
     ////////////////////
     // Display Source //
     ////////////////////
     /**
      * @requires(dev) Development versions only
      * @requires Permissions: 'displaySource'
-     * Display Source API
-     * @todo TODO Documentation
+     * The *chrome.displaySource* API creates a Display session using WebMediaStreamTrack as sources.
      */
     namespace displaySource {
+        /**
+         * @enum
+         * @description
+         * **'connection_error'**
+         * The connection with sink cannot be established or has dropped unexpectedly.
+         *
+         * **'capabilities_negotiation_error'**
+         * The capabilities of this Display Source and the connected
+         * sink do not fit (e.g. the sink cannot play the media content of
+         * the formats given by the source).
+         *
+         * **'media_pipeline_error'**
+         * There was an error in media pipeline: while encoding, packetizing or
+         * sending the media content.
+         *
+         * **'timeout_error'**
+         * The sink became unresponsive.
+         *
+         * **'unknown_error'**
+         * Unspecified error.
+         */
         const ErrorType: {
-            "CONNECTION_ERROR": "connection_error",
-            "CAPABILITIES_NEGOTIATION_ERROR": "capabilities_negotiation_error",
-            "MEDIA_PIPELINE_ERROR": "media_pipeline_error",
-            "TIMEOUT_ERROR": "timeout_error",
-            "UNKNOWN_ERROR": "unknown_error"
+            CONNECTION_ERROR: 'connection_error',
+            CAPABILITIES_NEGOTIATION_ERROR: 'capabilities_negotiation_error',
+            MEDIA_PIPELINE_ERROR: 'media_pipeline_error',
+            TIMEOUT_ERROR: 'timeout_error',
+            UNKNOWN_ERROR: 'unknown_error'
         };
+        /**
+         * @enum
+         * @description
+         * **'connected'**
+         * Connected using this Display Source (i.e., there is an active session)
+         *
+         * **'connecting'**
+         * In process of connection to this Display Source
+         *
+         * **'disconnected'**
+         * Disconnected from this Display Source
+         */
         const SinkState: {
-            "CONNECTED": "Connected",
-            "CONNECTING": "Connecting",
-            "DISCONNECTED": "Disconnected"
+            CONNECTED: 'Connected',
+            CONNECTING: 'Connecting',
+            DISCONNECTED: 'Disconnected'
         };
+        /**
+         * @enum
+         * @description
+         *
+         * **'PBC'**
+         * Push Button Config authentication method.
+         *
+         * **'PIN'**
+         * PIN authentication method.
+         */
         const AuthenticationMethod: {
-            "PBC": "PBC",
-            "PIN": "PIN"
+            PBC: 'PBC',
+            PIN: 'PIN'
         };
+        interface ErrorInfo {
+            /** @see ErrorType */
+            type: ToStringLiteral<typeof ErrorType>;
+            description?: string;
+        }
+        interface SinkInfo {
+            /** Id of the sink. It is guaranteed to be unique during the browser session. */
+            id: integer;
+            /** Human readable name of the sink. */
+            name: string;
+            /**
+             * State of the sink.
+             * @see SinkState
+             */
+            state: ToStringLiteral<typeof SinkState>;
+        }
+        interface AuthenticationInfo {
+            /**
+             * Authentication method.
+             * @see AuthenticationMethod
+             */
+            method?: ToStringLiteral<typeof AuthenticationMethod>;
+            /**
+             * Authentication data (e.g. PIN value).
+             */
+            data?: string;
+        }
+        interface StartSessionInfo {
+            sinkId: integer;
+            authenticationInfo?: AuthenticationInfo;
+            audioTrack?: object;
+            videoTrack?: object;
+        }
         const getAvailableSinks: Function;
         const requestAuthentication: Function;
         const startSession: Function;
@@ -2373,6 +2448,34 @@ declare namespace chrome {
         const onSinksUpdated: chrome.events.Event<any>;
         const onSessionTerminated: chrome.events.Event<any>;
         const onSessionErrorOccured: chrome.events.Event<any>;
+    }
+
+    /////////
+    // DNS //
+    /////////
+    /**
+     * @requires(CrOS) Only Chrome OS. Crashes app on Windows.
+     * @requires Permissions: 'diagnostics'
+     * @description
+     * Use the *chrome.dns* API for dns resolution.
+     */
+    namespace dns {
+        interface ResolveCallbackResolveInfo {
+            /** The result code. Zero indicates success. */
+            resultCode: integer;
+            /**
+             * A string representing the IP address literal.
+             * Supplied only if resultCode indicates success.
+             * Note that we presently return only IPv4 addresses.
+             */
+            address?: string;
+        }
+        /**
+         * Resolves the given hostname or IP address literal.
+         * @param hostname The hostname to resolve.
+         * @param callback Called when the resolution operation completes.
+         */
+        function resolve(hostname: string, callback: (resolveInfo: ResolveCallbackResolveInfo) => void): void;
     }
 
     ///////////////////
@@ -2478,7 +2581,7 @@ declare namespace chrome {
         interface Token {
             /**
              * Uniquely identifies this Token.
-             * Static IDs are "user" and "system", referring to the platform's user-specific and the system-wide hardware token, respectively.
+             * Static IDs are 'user' and 'system', referring to the platform's user-specific and the system-wide hardware token, respectively.
              * Any other tokens (with other identifiers) might be returned by enterprise.platformKeys.getTokens.
              */
             id: string;
@@ -2495,8 +2598,8 @@ declare namespace chrome {
         }
         /**
          * Returns the available Tokens.
-         * In a regular user's session the list will always contain the user's token with id "user".
-         * If a system-wide TPM token is available, the returned list will also contain the system-wide token with id "system".
+         * In a regular user's session the list will always contain the user's token with id 'user'.
+         * If a system-wide TPM token is available, the returned list will also contain the system-wide token with id 'system'.
          * The system-wide token will be the same for all sessions on this device (device in the sense of e.g. a Chromebook).
          * @param callback Invoked by getTokens with the list of available Tokens.
          */
@@ -2542,7 +2645,7 @@ declare namespace chrome {
          *    This function is highly restricted and will fail if the current device is not managed,
          *    the current user is not managed, or if this operation has not explicitly been enabled
          *    for the caller by enterprise device policy. The Enterprise Machine Key does not reside
-         *    in the "system" token and is not accessible by any other API.
+         *    in the 'system' token and is not accessible by any other API.
          * @param challenge A challenge as emitted by the Verified Access Web API.
          * @param callback Called back with the challenge response.
          */
@@ -2562,9 +2665,9 @@ declare namespace chrome {
          *    This function is highly restricted and will fail if the current device is not managed,
          *    the current user is not managed, or if this operation has not explicitly been enabled
          *    for the caller by enterprise device policy. The Enterprise Machine Key does not reside
-         *    in the "system" token and is not accessible by any other API.
+         *    in the 'system' token and is not accessible by any other API.
          * @param challenge A challenge as emitted by the Verified Access Web API.
-         * @param registerKey If set, the current Enterprise Machine Key is registered with the "system" token and relinquishes the Enterprise Machine Key role.
+         * @param registerKey If set, the current Enterprise Machine Key is registered with the 'system' token and relinquishes the Enterprise Machine Key role.
          *                    The key can then be associated with a certificate and used like any other signing key. This key is 2048-bit RSA.
          *                    Subsequent calls to this function will then generate a new Enterprise Machine Key.
          * @param callback Called back with the challenge response.
@@ -2583,9 +2686,9 @@ declare namespace chrome {
          *  - The public key emitted by the verification is tightly bound to the hardware of the current device and to the current signed-in user.
          * This function is highly restricted and will fail if the current device is not managed, the current user is not managed,
          * or if this operation has not explicitly been enabled for the caller by enterprise user policy.
-         * The Enterprise User Key does not reside in the "user" token and is not accessible by any other API.
+         * The Enterprise User Key does not reside in the 'user' token and is not accessible by any other API.
          * @param challenge A challenge as emitted by the Verified Access Web API.
-         * @param registerKey If set, the current Enterprise User Key is registered with the "user" token and relinquishes the Enterprise User Key role.
+         * @param registerKey If set, the current Enterprise User Key is registered with the 'user' token and relinquishes the Enterprise User Key role.
          *                    The key can then be associated with a certificate and used like any other signing key.
          *                    This key is 2048-bit RSA. Subsequent calls to this function will then generate a new Enterprise User Key.
          * @param callback Called back with the challenge response.
@@ -2894,8 +2997,12 @@ declare namespace chrome {
     /////////////////////////
     /**
      * @requires(CrOS) Chrome OS Only
-     * @requires Permissions: 'fileBrowserHandle'
-     * @todo TODO Documentation
+     * @requires Permissions: 'fileBrowserHandler'
+     * @requires Manifest: 'file_browser_handlers'
+     * @description
+     * Use the chrome.fileBrowserHandler API to extend the Chrome OS file browser.
+     * For example, you can use this API to enable users to upload files to your website.
+     * @see[Documentation]{@linkhttps://developer.chrome.com/extensions/fileBrowserHandler}
      */
     namespace fileBrowserHandler {
         type FileBrowserHandleExecuteId =
@@ -2922,9 +3029,9 @@ declare namespace chrome {
     namespace fileSystem {
         /** @enum */
         const ChildChangeType: {
-            CREATED: "created",
-            REMOVED: "removed",
-            CHANGED: "changed"
+            CREATED: 'created',
+            REMOVED: 'removed',
+            CHANGED: 'changed'
         };
         /**
          * **openFile**
@@ -2948,10 +3055,10 @@ declare namespace chrome {
          * @enum
          */
         const ChooseEntryType: {
-            OPEN_FILE: "openFile",
-            OPEN_WRITABLE_FILE: "openWritableFile",
-            SAVE_FILE: "saveFile",
-            OPEN_DIRECTORY: "openDirectory"
+            OPEN_FILE: 'openFile',
+            OPEN_WRITABLE_FILE: 'openWritableFile',
+            SAVE_FILE: 'saveFile',
+            OPEN_DIRECTORY: 'openDirectory'
         };
         interface AcceptOptions {
             /**
@@ -3119,33 +3226,33 @@ declare namespace chrome {
          * For success, 'OK' must be used.
          * */
         const ProviderError: {
-            "OK": "OK",
-            "FAILED": "FAILED",
-            "IN_USE": "IN_USE",
-            "EXISTS": "EXISTS",
-            "NOT_FOUND": "NOT_FOUND",
-            "ACCESS_DENIED": "ACCESS_DENIED",
-            "TOO_MANY_OPENED": "TOO_MANY_OPENED",
-            "NO_MEMORY": "NO_MEMORY",
-            "NO_SPACE": "NO_SPACE",
-            "NOT_A_DIRECTORY": "NOT_A_DIRECTORY",
-            "INVALID_OPERATION": "INVALID_OPERATION",
-            "SECURITY": "SECURITY",
-            "ABORT": "ABORT",
-            "NOT_A_FILE": "NOT_A_FILE",
-            "NOT_EMPTY": "NOT_EMPTY",
-            "INVALID_URL": "INVALID_URL",
-            "IO": "IO"
+            'OK': 'OK',
+            'FAILED': 'FAILED',
+            'IN_USE': 'IN_USE',
+            'EXISTS': 'EXISTS',
+            'NOT_FOUND': 'NOT_FOUND',
+            'ACCESS_DENIED': 'ACCESS_DENIED',
+            'TOO_MANY_OPENED': 'TOO_MANY_OPENED',
+            'NO_MEMORY': 'NO_MEMORY',
+            'NO_SPACE': 'NO_SPACE',
+            'NOT_A_DIRECTORY': 'NOT_A_DIRECTORY',
+            'INVALID_OPERATION': 'INVALID_OPERATION',
+            'SECURITY': 'SECURITY',
+            'ABORT': 'ABORT',
+            'NOT_A_FILE': 'NOT_A_FILE',
+            'NOT_EMPTY': 'NOT_EMPTY',
+            'INVALID_URL': 'INVALID_URL',
+            'IO': 'IO'
         };
         /** Mode of opening a file. Used by onOpenFileRequested. */
         const OpenFileMode: {
-            "READ": "READ",
-            "WRITE": "WRITE"
+            'READ': 'READ',
+            'WRITE': 'WRITE'
         };
         /** Type of a change detected on the observed directory. */
         const ChangeType: {
-            "CHANGED": "CHANGED",
-            "DELETED": "DELETED"
+            'CHANGED': 'CHANGED',
+            'DELETED': 'DELETED'
         };
         /**
          * List of common actions. 'SHARE' is for sharing files with others.
@@ -3155,9 +3262,9 @@ declare namespace chrome {
          * Used by onGetActionsRequested and onExecuteActionRequested.
          */
         const CommonActionId: {
-            "SAVE_FOR_OFFLINE": "SAVE_FOR_OFFLINE",
-            "OFFLINE_NOT_NECESSARY": "OFFLINE_NOT_NECESSARY",
-            "SHARE": "SHARE"
+            'SAVE_FOR_OFFLINE': 'SAVE_FOR_OFFLINE',
+            'OFFLINE_NOT_NECESSARY': 'OFFLINE_NOT_NECESSARY',
+            'SHARE': 'SHARE'
         };
 
         interface EntryMetadata {
@@ -4708,28 +4815,28 @@ declare namespace chrome {
      */
     namespace management {
         const ExtensionDisabledReason: {
-            UNKNOWN: "unknown",
-            PERMISSIONS_INCREASE: "permissions_increase"
+            UNKNOWN: 'unknown',
+            PERMISSIONS_INCREASE: 'permissions_increase'
         };
         const ExtensionInstallType: {
-            ADMIN: "admin",
-            DEVELOPMENT: "development",
-            NORMAL: "normal",
-            SIDELOAD: "sideload",
-            OTHER: "other"
+            ADMIN: 'admin',
+            DEVELOPMENT: 'development',
+            NORMAL: 'normal',
+            SIDELOAD: 'sideload',
+            OTHER: 'other'
         };
         const ExtensionType: {
-            EXTENSION: "extension",
-            HOSTED_APP: "hosted_app",
-            PACKAGED_APP: "packaged_app",
-            LEGACY_PACKAGED_APP: "legacy_packaged_app",
-            THEME: "theme"
+            EXTENSION: 'extension',
+            HOSTED_APP: 'hosted_app',
+            PACKAGED_APP: 'packaged_app',
+            LEGACY_PACKAGED_APP: 'legacy_packaged_app',
+            THEME: 'theme'
         };
         const LaunchType: {
-            OPEN_AS_REGULAR_TAB: "OPEN_AS_REGULAR_TAB",
-            OPEN_AS_PINNED_TAB: "OPEN_AS_PINNED_TAB",
-            OPEN_AS_WINDOW: "OPEN_AS_WINDOW",
-            OPEN_FULL_SCREEN: "OPEN_FULL_SCREEN"
+            OPEN_AS_REGULAR_TAB: 'OPEN_AS_REGULAR_TAB',
+            OPEN_AS_PINNED_TAB: 'OPEN_AS_PINNED_TAB',
+            OPEN_AS_WINDOW: 'OPEN_AS_WINDOW',
+            OPEN_FULL_SCREEN: 'OPEN_FULL_SCREEN'
         };
         /** Information about an installed extension, app, or theme. */
         interface ExtensionInfo {
@@ -5163,25 +5270,90 @@ declare namespace chrome {
         const onScanProgress: chrome.events.Event<(args: ScanProgressEventArgs) => void>;
     }
 
-    namespace networking {
+    ///////////////////////
+    // NETWORKING CONFIG //
+    ///////////////////////
+    /**
+     *
+     */
+    namespace networking.config {
+        /** Indicator for the type of network used */
         const NetworkType: {
             'WI_FI': 'WiFi'
         };
+        /**
+         * Argument to finishAuthentication indicating the result of the captive portal authentication attempt.
+         * **'unhandled':** - The extension does not handle this network or captive portal (e.g. server end-point not found or not compatible).
+         * **'succeeded':** - The extension handled this network and authenticated successfully.
+         * **'rejected':** - The extension handled this network, tried to authenticate, however was rejected by the server.
+         * **'failed':** - The extension handled this network, tried to authenticate, however failed due to an unspecified error.
+         */
         const AuthenticationResult: {
             UNHANDLED: 'unhandled',
             SUCCEEDED: 'succeeded',
             REJECTED: 'rejected',
             FAILED: 'failed'
         }
-        /** @todo TODO DOCUMENT THESE */
-        const setNetworkFilter: Function;
-        const finishAuthentication: Function;
-        const onCaptivePortalDetected: any;
+        interface NetworkInfo {
+            /** Currently only WiFi supported. */
+            Type: ToStringLiteral<typeof NetworkType>;
+            /** A unique identifier of the network. */
+            GUID?: string;
+            /**
+             * A hex-encoded byte sequence.
+             */
+            HexSSID?: string;
+            /**
+             * The decoded SSID of the network (default encoding is UTF-8).
+             * To filter for non-UTF-8 SSIDs, use HexSSID instead.
+             */
+            SSID?: string;
+            /**
+             * The basic service set identification (BSSID) uniquely identifying the
+             * basic service set. <code>BSSID</code> is represented as a human readable,
+             * hex-encoded string with bytes separated by colons, e.g.
+             * 45:67:89:ab:cd:ef.
+             */
+            BSSID?: string;
+            /** Identifier indicating the security type of the network. */
+            Security?: 'None' | 'WEP-PSK' | 'WPA-PSK' | 'WPA-EAP';
+        }
+        interface NetworkInfoFilterHexSSID {
+            /**
+             * A hex-encoded byte sequence.
+             */
+            HexSSID?: string;
+        }
+        interface NetworkInfoFilterSSID {
+            /**
+             * The decoded SSID of the network (default encoding is UTF-8).
+             * To filter for non-UTF-8 SSIDs, use HexSSID instead.
+             */
+            SSID?: string;
+        }
+        /**
+         * Allows an extension to define network filters for the networks it can handle.
+         * A call to this function will remove all filters previously
+         * installed by the extension before setting the new list.
+         * @param networks Network filters to set. Array of objects with either HexSSID or SSID set.
+         * @param callback Called back when this operation is finished.
+         */
+        function setNetworkFilter(networks: Array<NetworkInfoFilterHexSSID | NetworkInfoFilterSSID>, callback: () => void): void;
+        /**
+         * Called by the extension to notify the network config API that it finished
+         * a captive portal authentication attempt and hand over the result of the attempt.
+         * This function must only be called with the GUID of the latest *onCaptivePortalDetected* event.
+         * @param GUID Unique network identifier obtained from *onCaptivePortalDetected*.
+         * @param result The result of the authentication attempt.
+         * @param [callback] Called back when this operation is finished.
+         */
+        function finishAuthentication(GUID: string, result: ToStringLiteral<typeof AuthenticationResult>, callback?: () => void): void;
+        const onCaptivePortalDetected: chrome.events.Event<(networkInfo: NetworkInfo) => void>;
     }
 
-    ////////////////////////////////////
-    // Open Network Configuration (ONC)
-    ////////////////////////////////////
+    //////////////////////////////////////
+    // Open Network Configuration (ONC) //
+    //////////////////////////////////////
     /**
      * @requires(CrOS kiosk mode) This API is available in Chrome OS kiosk sessions.
      * @requires Permissions: 'networking.onc'
@@ -5845,10 +6017,10 @@ declare namespace chrome {
          * @prop PROGRESS - icon, title, message, progress, up to two buttons.
          */
         const TemplateType: {
-            BASIC: "basic",
-            IMAGE: "image",
-            LIST: "list",
-            PROGRESS: "progress"
+            BASIC: 'basic',
+            IMAGE: 'image',
+            LIST: 'list',
+            PROGRESS: 'progress'
         }
         /**
          * @enum
@@ -5856,8 +6028,8 @@ declare namespace chrome {
          * @property DENIED - User has elected not to show notifications from the app.
          */
         const PermissionLevel: {
-            GRANTED: "granted",
-            DENIED: "denied"
+            GRANTED: 'granted',
+            DENIED: 'denied'
         }
 
         interface ButtonOptions {
@@ -6093,8 +6265,8 @@ declare namespace chrome {
      */
     namespace platformKeys {
         const ClientCertificateType: {
-            "RSA_SIGN": "rsaSign",
-            "ECDSA_SIGN": "ecdsaSign"
+            'RSA_SIGN': 'rsaSign',
+            'ECDSA_SIGN': 'ecdsaSign'
         };
         const selectClientCertificates: Function;
         const getKeyPair: Function;
@@ -6383,12 +6555,12 @@ declare namespace chrome {
             | 'https://*/*'
             | 'file:///*/*'
             /**
-             * Required if the extension uses the "chrome://favicon/**url**" mechanism to display the favicon of a page.
-             * For example, to display the favicon of http://www.google.com/, you declare the "chrome://favicon/"
+             * Required if the extension uses the 'chrome://favicon/**url**' mechanism to display the favicon of a page.
+             * For example, to display the favicon of http://www.google.com/, you declare the 'chrome://favicon/'
              * permission and use HTML code like this:
              * @example
              * <pre>
-             * <img src="chrome://favicon/http://www.google.com/">
+             * <img src='chrome://favicon/http://www.google.com/'>
              * </pre>
              */
             | 'chrome://favicon/'
@@ -6402,36 +6574,30 @@ declare namespace chrome {
             'certificateProvider' |
             /** Gives your app access to the chrome.clipboard API. */
             'clipboard' |
-            /**
-             * Gives your app access to the chrome.dns API.
-             * @todo TODO Implement API.
-             */
+            /** Gives your app access to the chrome.dns API. */
             'dns' |
             /** Gives your app access to the chrome.documentScan API. */
             'documentScan' |
             /**
              * Gives your app access to the chrome.enterprise.platformKeys API.
-             * @todo TODO Implement API.
              */
             'enterprise.platformKeys' |
             /**
              * Gives your app access to the chrome.enterprise.deviceAttributes API.
-             * @todo TODO Implement API.
              */
             'enterprise.deviceAttributes' |
             /**
              * Gives your app access to the chrome.fileBrowserHandler API.
-             * @todo TODO Implement API.
              */
             'fileBrowserHandler' |
             /**
              * Gives your app access to the chrome.fileSystemProvider API.
-             * Use the chrome.fileSystemProvider API to create file systems, that can be accessible from the file manager on Chrome OS.
+             * Use the chrome.fileSystemProvider API to create file systems,
+             * that can be accessible from the file manager on Chrome OS.
              */
             'fileSystemProvider' |
             /**
              * Gives your app access to the chrome.networking.config API.
-             * @todo TODO Implement API.
              */
             'networking.config' |
             /**
@@ -6512,8 +6678,8 @@ declare namespace chrome {
             'audioCapture' |
             /**
              * Makes Chrome start up early and and shut down late, so that apps can have a longer life.
-             * When any installed app has "background" permission, Chrome runs (invisibly) as soon as the user logs
-             * into their computer—before the user launches Chrome. The "background" permission also makes Chrome
+             * When any installed app has 'background' permission, Chrome runs (invisibly) as soon as the user logs
+             * into their computer—before the user launches Chrome. The 'background' permission also makes Chrome
              * continue running (even after its last window is closed) until the user explicitly quits Chrome.
              * Note: Disabled apps are treated as if they aren't installed.
              */
@@ -6886,7 +7052,7 @@ declare namespace chrome {
             automation?: AutomationOptions | boolean;
 
             /**
-             * Note: The "bluetooth" manifest permission is used by the
+             * Note: The 'bluetooth' manifest permission is used by the
              * chrome.bluetooth, chrome.bluetoothSocket and
              * chrome.bluetoothLowEnergy APIs.
              * @requires Platforms: Chrome OS, Windows and Mac
@@ -6907,9 +7073,9 @@ declare namespace chrome {
                      * Keys can be provided matching this pattern:
                      * ^(Ctrl|Command|MacCtrl|Alt|Option)\\+(Shift\\+)?[A-Z]
                      * @example
-                     * "suggested_key": {
-                     *     "default": "Ctrl+Shift+Y",
-                     *     "mac": "Command+Shift+Y"
+                     * 'suggested_key': {
+                     *     'default': 'Ctrl+Shift+Y',
+                     *     'mac': 'Command+Shift+Y'
                      * },
                      */
                     suggested_key?: {
@@ -6981,6 +7147,26 @@ declare namespace chrome {
                  */
                 accept_tls_channel_id?: boolean,
             }
+
+            /**
+             * @requires Permissions: 'fileBrowserHandle'
+             * @requires Location': 'component'
+             * You can specify locale-specific strings for the value of 'default_title'
+             */
+            file_browser_handlers?: {
+                /** Handler id */
+                id: string,
+                /** What the button will display */
+                default_title: string,
+                /** Icon */
+                default_icon: string,
+                /**
+                 * To match all files, use 'filesystem:*.*'
+                 */
+                file_filters: string[],
+                /** ['read'] = read only mode */
+                file_access?: ['read'] | string[]
+            }[];
 
             /**
              * Triggers a launch of the app when one of these files are handled.
@@ -7143,7 +7329,7 @@ declare namespace chrome {
             sandbox?: {
                 pages: string[];
                 /**
-                 * @default "sandbox allow-scripts allow-forms"
+                 * @default 'sandbox allow-scripts allow-forms'
                  */
                 content_security_policy?: string;
             };
@@ -8331,11 +8517,11 @@ declare namespace chrome {
          *  - The sync service is disabled and the content will never sync. (E.g. this could happen when the user has no account on the remote service or the sync service has had an unrecoverable error.)
          */
         const ServiceStatus: {
-            "INITIALIZING": "initializing",
-            "RUNNING": "running",
-            "AUTHENTICATION_REQUIRED": "authentication_required",
-            "TEMPORARY_UNAVAILABLE": "temporary_unavailable",
-            "DISABLED": "disabled"
+            'INITIALIZING': 'initializing',
+            'RUNNING': 'running',
+            'AUTHENTICATION_REQUIRED': 'authentication_required',
+            'TEMPORARY_UNAVAILABLE': 'temporary_unavailable',
+            'DISABLED': 'disabled'
         };
 
         /**
@@ -8348,25 +8534,25 @@ declare namespace chrome {
          *  - File conflicts with remote version and must be resolved manually.
          */
         const FileStatus: {
-            "SYNCED": "synced",
-            "PENDING": "pending",
-            "CONFLICTING": "conflicting"
+            'SYNCED': 'synced',
+            'PENDING': 'pending',
+            'CONFLICTING': 'conflicting'
         }
 
         const ConflictResolutionPolicy: {
-            "LAST_WRITE_WIN": "last_write_win",
-            "MANUAL": "manual"
+            'LAST_WRITE_WIN': 'last_write_win',
+            'MANUAL': 'manual'
         };
 
         const SyncAction: {
-            "ADDED": "added",
-            "UPDATED": "updated",
-            "DELETED": "deleted"
+            'ADDED': 'added',
+            'UPDATED': 'updated',
+            'DELETED': 'deleted'
         }
 
         const SyncDirection: {
-            "LOCAL_TO_REMOTE": "local_to_remote",
-            "REMOTE_TO_LOCAL": "remote_to_local"
+            'LOCAL_TO_REMOTE': 'local_to_remote',
+            'REMOTE_TO_LOCAL': 'remote_to_local'
         };
 
         interface FileStatusInfo {
@@ -8944,14 +9130,56 @@ declare namespace chrome {
     // System Power Source //
     /////////////////////////
     /**
-     * The chrome.system.powerSource API.
+     * @requires(CrOS Kiosk) Chrome OS kiosk app.
      * @requires Permissions: 'system.powerSource'
+     * @description The chrome.system.powerSource API allows Chrome Kiosk Apps to query the state of connected power sources.
      * @since Latest
      */
     namespace system.powerSource {
-        /** @todo TODO Document this */
-        function getPowerSourceInfo(arg?: any | any[]): any;
-        function requestStatusUpdate(arg?: any | any[]): any;
+        enum PowerSourceType {
+            /** Unspecified type. */
+            unknown = 'unknown',
+
+            /**
+             * Dedicated charger. Typically single-purpose and non-USB
+             * (e.g. barrel jack plugs)
+             */
+            mains = 'mains',
+
+            /**
+             * USB charger, including both low-power Type-A chargers and high-power
+             * Type-C chargers using USB Power Delivery.
+             */
+            usb = 'usb'
+        }
+        interface PowerSourceInfo {
+            /**
+             * Type of power source
+             * @see PowerSourceType
+             */
+            type: keyof typeof PowerSourceType | PowerSourceType;
+            /**
+             * Maximum power this source is capable of delivering if known.
+             * Reported in watts, rounded to two significant digits.
+             */
+            maxPower?: double;
+            /** Whether this power source is connected to the device. */
+            active: boolean;
+        }
+        /**
+         * Requests information on attached power sources.
+         * @param callback The callback to invoke with the results or undefined if the power source information is not known.
+         */
+        function getPowerSourceInfo(callback: (powerSourceInfo?: PowerSourceInfo[]) => void): void;
+        /**
+         * Requests a power source status update.
+         * Resulting power source status updates are observable using *onPowerChanged*.
+         */
+        function requestStatusUpdate(): void;
+        /**
+         * Event for changes in the set of connected power sources.
+         */
+        const onPowerChanged: chrome.events.Event<(powerSourceInfo: PowerSourceInfo[]) => void>;
     }
 
     ////////////////////
@@ -8964,15 +9192,15 @@ declare namespace chrome {
      */
     namespace system.storage {
         const StorageUnitType: {
-            FIXED: "fixed",
-            REMOVABLE: "removable",
-            UNKNOWN: "unknown"
+            FIXED: 'fixed',
+            REMOVABLE: 'removable',
+            UNKNOWN: 'unknown'
         };
         const EjectDeviceResultCode: {
-            SUCCESS: "success",
-            IN_USE: "in_use",
-            NO_SUCH_DEVICE: "no_such_device",
-            FAILURE: "failure"
+            SUCCESS: 'success',
+            IN_USE: 'in_use',
+            NO_SUCH_DEVICE: 'no_such_device',
+            FAILURE: 'failure'
         };
         interface StorageUnitInfo {
             /**
@@ -9255,41 +9483,41 @@ declare namespace chrome {
     namespace usb {
         /** Direction, Recipient, RequestType, and TransferType all map to their namesakes within the USB specification. */
         const Direction: {
-            "IN": "in",
-            "OUT": "out"
+            'IN': 'in',
+            'OUT': 'out'
         };
         /** Direction, Recipient, RequestType, and TransferType all map to their namesakes within the USB specification. */
         const Recipient: {
-            "DEVICE": "device",
-            "INTERFACE": "interface",
-            "ENDPOINT": "endpoint",
-            "OTHER": "other"
+            'DEVICE': 'device',
+            'INTERFACE': 'interface',
+            'ENDPOINT': 'endpoint',
+            'OTHER': 'other'
         };
         /** Direction, Recipient, RequestType, and TransferType all map to their namesakes within the USB specification. */
         const RequestType: {
-            "STANDARD": "standard",
-            "CLASS": "class",
-            "VENDOR": "vendor",
-            "RESERVED": "reserved"
+            'STANDARD': 'standard',
+            'CLASS': 'class',
+            'VENDOR': 'vendor',
+            'RESERVED': 'reserved'
         };
         /** Direction, Recipient, RequestType, and TransferType all map to their namesakes within the USB specification. */
         const TransferType: {
-            "CONTROL": "control",
-            "INTERRUPT": "interrupt",
-            "ISOCHRONOUS": "isochronous",
-            "BULK": "bulk"
+            'CONTROL': 'control',
+            'INTERRUPT': 'interrupt',
+            'ISOCHRONOUS': 'isochronous',
+            'BULK': 'bulk'
         };
         const SynchronizationType: {
-            "ASYNCHRONOUS": "asynchronous",
-            "ADAPTIVE": "adaptive",
-            "SYNCHRONOUS": "synchronous"
+            'ASYNCHRONOUS': 'asynchronous',
+            'ADAPTIVE': 'adaptive',
+            'SYNCHRONOUS': 'synchronous'
         };
         const UsageType: {
-            "DATA": "data",
-            "FEEDBACK": "feedback",
-            "EXPLICIT_FEEDBACK": "explicitFeedback",
-            "PERIODIC": "periodic",
-            "NOTIFICATION": "notification"
+            'DATA': 'data',
+            'FEEDBACK': 'feedback',
+            'EXPLICIT_FEEDBACK': 'explicitFeedback',
+            'PERIODIC': 'periodic',
+            'NOTIFICATION': 'notification'
         };
 
         interface Device {
@@ -9712,6 +9940,47 @@ declare namespace chrome {
         const onDeviceRemoved: DeviceEvent;
     }
 
+    //////////////////////
+    // Virtual Keyboard //
+    //////////////////////
+    /**
+     * @requires(CrOS Kiosk) Important: This API works only in Chrome OS apps.
+     * @requires Permissions: 'virtualKeyboard'
+     * @since Chrome 58
+     * @description
+     * The *chrome.virtualKeybaord* API is a kiosk only API used
+     * to configure virtual keyboard layout and behavior in kiosk sessions.
+     */
+    namespace virtualKeyboard {
+        /**
+         * Determines whether advanced virtual keyboard features should be enabled or not.
+         * They are enabled by default.
+         *
+         * On **Chrome 58** all properties are expected to have the same value.
+         *
+         * From **Chrome 63** the properties can be distinct and are optional.
+         * If omitted, the current value is preserved.
+         */
+        interface FeatureRestrictions {
+            /** Whether virtual keyboards can provide auto-complete. */
+            autoCompleteEnabled?: boolean;
+            /** Whether virtual keyboards can provide auto-correct. */
+            autoCorrectEnabled?: boolean;
+            /** Whether virtual keyboards can provide input via handwriting recognition. */
+            handwritingEnabled?: boolean;
+            /** Whether virtual keyboards can provide spell-check. */
+            spellCheckEnabled?: boolean;
+            /** Whether virtual keyboards can provide voice input. */
+            voiceInputEnabled?: boolean;
+        }
+
+        /**
+         * Sets restrictions on features provided by the virtual keyboard.
+         * @param restrictions the preferences to enabled/disabled virtual keyboard features.
+         * @param [callback] Invoked with the values which were updated.
+         */
+        function restrictFeatures(restrictions: FeatureRestrictions, callback?: (update: FeatureRestrictions) => void): void;
+    }
 
     //////////////////
     // VPN Provider //
@@ -9724,22 +9993,22 @@ declare namespace chrome {
      */
     namespace vpnProvider {
         const PlatformMessage: {
-            CONNECTED: "connected",
-            DISCONNECTED: "disconnected",
-            ERROR: "error",
-            LINK_DOWN: "linkDown",
-            LINK_UP: "linkUp",
-            LINK_CHANGED: "linkChanged",
-            SUSPEND: "suspend",
-            RESUME: "resume"
+            CONNECTED: 'connected',
+            DISCONNECTED: 'disconnected',
+            ERROR: 'error',
+            LINK_DOWN: 'linkDown',
+            LINK_UP: 'linkUp',
+            LINK_CHANGED: 'linkChanged',
+            SUSPEND: 'suspend',
+            RESUME: 'resume'
         };
         const VpnConnectionState: {
-            CONNECTED: "connected",
-            FAILURE: "failure"
+            CONNECTED: 'connected',
+            FAILURE: 'failure'
         };
         const UIEvent: {
-            SHOW_ADD_DIALOG: "showAddDialog",
-            SHOW_CONFIGURE_DIALOG: "showConfigureDialog"
+            SHOW_ADD_DIALOG: 'showAddDialog',
+            SHOW_CONFIGURE_DIALOG: 'showConfigureDialog'
         };
         interface VpnSessionParameters {
             /** IP address for the VPN interface in CIDR notation. IPv4 is currently the only supported mode. */
@@ -9846,9 +10115,9 @@ declare namespace chrome {
      */
     namespace wallpaper {
         const WallpaperLayout: {
-            "STRETCH": "STRETCH",
-            "CENTER": "CENTER",
-            "CENTER_CROPPED": "CENTER_CROPPED"
+            'STRETCH': 'STRETCH',
+            'CENTER': 'CENTER',
+            'CENTER_CROPPED': 'CENTER_CROPPED'
         };
         interface WallpaperDetails {
             /** The jpeg or png encoded wallpaper image. */

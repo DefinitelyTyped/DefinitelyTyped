@@ -198,6 +198,21 @@ const ManifestJSONTest1: chrome.runtime.Manifest = {
     version: "2.1",
     minimum_chrome_version: "33.0.1715.0",
     default_locale: "en",
+    file_browser_handlers: [
+        {
+            id: "ReadOnly",
+            default_title: "Test read-only action.",
+            default_icon: "icon.png",
+            file_filters: ["filesystem:*.xul"],
+            file_access: ["read"]
+        },
+        {
+            id: "ReadWrite",
+            default_title: "Test read-write action",
+            default_icon: "icon.png",
+            file_filters: ["filesystem:*.tiff"]
+        }
+    ],
     file_system_provider_capabilities: {
         configurable: false,
         multiple_mounts: true,
@@ -632,6 +647,12 @@ chrome.contextMenus.onClicked.addListener((info) => {
 chrome.desktopCapture.chooseDesktopMedia(["screen", "window", "tab"], () => { });
 chrome.desktopCapture.chooseDesktopMedia([chrome.desktopCapture.DesktopCaptureSourceType.AUDIO], () => { });
 
+// DNS
+
+chrome.dns.resolve("github.com", (info) => {
+    console.log([info.resultCode === 0, info.address]);
+});
+
 // ENTERPRISE - DEVICE ATTRIBUTES
 
 const deviceAttr = chrome.enterprise.deviceAttributes;
@@ -1060,6 +1081,28 @@ chrome.syncFileSystem.getConflictResolutionPolicy((policy) => {
     }
 });
 
+// SYSTEM APIs
+
+function getPowerSourceInfo() {
+    chrome.system.powerSource.getPowerSourceInfo(info => {
+        if (info === undefined) {
+            return true;
+        }
+        if (info.length === 1 && info[0].type !== chrome.system.powerSource.PowerSourceType.mains) {
+            return false;
+        }
+    }));
+},
+
+function onPowerChanged() {
+    chrome.system.powerSource.onPowerChanged.addListener(info => {
+        if (info[0].active) {
+            return true;
+        }
+    });
+    chrome.system.powerSource.requestStatusUpdate();
+},
+
 // TTS
 
 chrome.tts.isSpeaking((isSpeaking) => {
@@ -1072,6 +1115,7 @@ chrome.tts.isSpeaking((isSpeaking) => {
 });
 
 // USB
+
 const devices: { [key: string]: chrome.usb.Device } = {};
 chrome.usb.onDeviceAdded.addListener((device) => {
     devices[device.device] = device;
