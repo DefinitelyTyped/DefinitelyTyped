@@ -117,7 +117,7 @@ declare namespace webpack {
         [name: string]: string | string[];
     }
 
-    type EntryFunc = () => (string | string[] | Promise<string | string[]>);
+    type EntryFunc = () => (string | string[] | Entry | Promise<string | string[] | Entry>);
 
     interface DevtoolModuleFilenameTemplateInfo {
         identifier: string;
