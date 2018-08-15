@@ -56,11 +56,11 @@ configuration = {
 };
 
 configuration = {
-    entry: () => {
+    entry: () => ({
         p1: "./page1",
         p2: "./page2",
         p3: "./page3"
-    }
+    })
 };
 
 configuration = {
