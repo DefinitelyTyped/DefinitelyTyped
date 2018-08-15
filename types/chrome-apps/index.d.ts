@@ -2526,7 +2526,7 @@ declare namespace chrome {
          * @param certificate The DER encoding of a X.509 certificate.
          * @param [callback] Called back when this operation is finished.
          */
-        function removeCertificae(tokenId: string, certificate: ArrayBuffer, callback: () => void): void;
+        function removeCertificate(tokenId: string, certificate: ArrayBuffer, callback: () => void): void;
         /**
          * @since Since Chrome 50.
          * @description

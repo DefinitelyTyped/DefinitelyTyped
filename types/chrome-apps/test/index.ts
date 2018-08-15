@@ -691,18 +691,14 @@ chrome.hid.getDevices({
 // File Browser Handle
 
 chrome.fileBrowserHandler.onExecute.addListener((id, details) => {
-    /*chrome.fileBrowserHandler.selectFile(
+    chrome.fileBrowserHandler.selectFile(
         {
             suggestedName: 'some_file_name.txt',
             allowedFileExtensions: ['txt', 'html']
         },
-        (result: any) => {
-            chrome.test.assertTrue(!!result);
-            chrome.test.assertTrue(result.success);
-            chrome.test.assertTrue(!!result.entry);
-
-            ensureFileExists(result.entry, writeToFile, errorCallback);
-        });*/
+        (result) => {
+            console.log(result.entry);
+        });
 });
 
 // FILE SYSTEM
