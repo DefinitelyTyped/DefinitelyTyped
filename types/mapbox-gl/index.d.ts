@@ -1050,7 +1050,7 @@ declare namespace mapboxgl {
         base?: number;
         type?: 'identity' | 'exponential' | 'interval' | 'categorical';
         default?: any;
-        'colorSpace'?: 'rgb' | 'lab' | 'interval';
+        'colorSpace'?: 'rgb' | 'lab' | 'hcl';
     }
 
     export interface BackgroundLayout {
