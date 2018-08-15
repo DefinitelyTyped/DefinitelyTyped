@@ -60,13 +60,15 @@ export interface LinkGetProps {
 
 export class Link<TState> extends React.Component<LinkProps<TState>> {}
 
-export interface RedirectProps {
+export interface RedirectProps<TState> {
     from?: string;
     to: string;
     noThrow?: boolean;
+    state?: TState;
+    replace?: boolean;
 }
 
-export class Redirect extends React.Component<RedirectProps> {}
+export class Redirect<TState> extends React.Component<RedirectProps<TState>> {}
 
 export interface MatchProps<TParams> {
     path: string;
@@ -74,7 +76,7 @@ export interface MatchProps<TParams> {
 }
 
 export type MatchRenderFn<TParams> = (
-    props: MatchRenderProps<TParams>,
+    props: MatchRenderProps<TParams>
 ) => React.ReactNode;
 
 export interface MatchRenderProps<TParams> {
@@ -104,7 +106,7 @@ export interface LocationProviderProps {
 }
 
 export type LocationProviderRenderFn = (
-    context: LocationContext,
+    context: LocationContext
 ) => React.ReactNode;
 
 export interface LocationContext {
