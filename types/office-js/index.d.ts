@@ -600,6 +600,7 @@ declare namespace Office {
     }
     /**
      * Represents the runtime environment of the add-in and provides access to key objects of the API. 
+     * The current context exists as a property of Office. It is accessed using `Office.context`.
      *
      * @remarks 
      * <table><tr><td>Hosts</td><td>Access, Excel, Outlook, PowerPoint, Project, Word </td></tr></table>
