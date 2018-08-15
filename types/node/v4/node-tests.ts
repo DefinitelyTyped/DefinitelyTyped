@@ -240,9 +240,19 @@ function bufferTests() {
     var result1 = Buffer.concat([utf8Buffer, base64Buffer]);
     var result2 = Buffer.concat([utf8Buffer, base64Buffer], 9999999);
 
-    // Class Method: Buffer.from(array)
+    // Class Method: Buffer.from(data)
     {
-        const buf: Buffer = Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72]);
+        // Array
+        const buf1: Buffer = Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72]);
+        // Buffer
+        const buf2: Buffer = Buffer.from(buf1);
+        // String
+        const buf3: Buffer = Buffer.from('this is a tést');
+        // ArrayBuffer
+        const arr: Uint16Array = new Uint16Array(2);
+        arr[0] = 5000;
+        arr[1] = 4000;
+        const buf4: Buffer = Buffer.from(arr.buffer);
     }
 
     // Class Method: Buffer.from(arrayBuffer[, byteOffset[, length]])
@@ -252,22 +262,15 @@ function bufferTests() {
         arr[1] = 4000;
 
         let buf: Buffer;
-        buf = Buffer.from(arr.buffer);
         buf = Buffer.from(arr.buffer, 1);
         buf = Buffer.from(arr.buffer, 0, 1);
     }
 
-    // Class Method: Buffer.from(buffer)
-    {
-        const buf1: Buffer = Buffer.from('buffer');
-        const buf2: Buffer = Buffer.from(buf1);
-    }
-
     // Class Method: Buffer.from(str[, encoding])
     {
-        const buf1: Buffer = Buffer.from('this is a tést');
         const buf2: Buffer = Buffer.from('7468697320697320612074c3a97374', 'hex');
     }
+
     // Class Method: Buffer.alloc(size[, fill[, encoding]])
     {
         const buf1: Buffer = Buffer.alloc(5);
@@ -561,6 +564,8 @@ namespace https_tests {
     });
 
     https.request('http://www.example.com/xyz');
+
+    https.globalAgent.options.ca = [];
 }
 
 ////////////////////////////////////////////////////
@@ -729,19 +734,7 @@ namespace path_tests {
     // returns
     //        ['foo', 'bar', 'baz']
 
-    console.log(process.env.PATH)
-    // '/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin'
-
-    process.env.PATH.split(path.delimiter)
-    // returns
-    //        ['/usr/bin', '/bin', '/usr/sbin', '/sbin', '/usr/local/bin']
-
-    console.log(process.env.PATH)
-    // 'C:\Windows\system32;C:\Windows;C:\Program Files\nodejs\'
-
-    process.env.PATH.split(path.delimiter)
-    // returns
-    //        ['C:\Windows\system32', 'C:\Windows', 'C:\Program Files\nodejs\']
+    process.env["PATH"]; // $ExpectType string
 
     path.parse('/home/user/dir/file.txt')
     // returns
@@ -1189,6 +1182,12 @@ namespace dns_tests {
         const _err: NodeJS.ErrnoException = err;
         const _addresses: string | dns.LookupAddress[] = addresses;
         const _family: number | undefined = family;
+    });
+
+    dns.lookupService("127.0.0.1", 0, (err, hostname, service) => {
+        const _err: NodeJS.ErrnoException = err;
+        const _hostname: string = hostname;
+        const _service: string = service;
     });
 
     dns.resolve("nodejs.org", (err, addresses) => {

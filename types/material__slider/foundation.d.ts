@@ -16,9 +16,8 @@
 
 import { cssClasses, strings, numbers } from './constants';
 
-import { getCorrectEventName, getCorrectPropertyName } from 'material__animation';
 import MDCFoundation from 'material__base/foundation';
-import { MDCSliderAdapter } from './adapter';
+import MDCSliderAdapter from './adapter';
 
 export default class MDCSliderFoundation extends MDCFoundation<MDCSliderAdapter> {
     static readonly cssClasses: cssClasses;

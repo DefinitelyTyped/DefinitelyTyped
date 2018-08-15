@@ -173,7 +173,8 @@ declare module "mongoose" {
    * @param fn plugin callback
    * @param opts optional options
    */
-  export function plugin(fn: Function, opts?: any): typeof mongoose;
+  export function plugin(fn: Function): typeof mongoose;
+  export function plugin<T>(fn: Function, opts: T): typeof mongoose;
 
   /** Sets mongoose options */
   export function set(key: string, value: any): void;
@@ -678,7 +679,8 @@ declare module "mongoose" {
      * Registers a plugin for this schema.
      * @param plugin callback
      */
-    plugin(plugin: (schema: Schema, options?: any) => void, opts?: any): this;
+    plugin(plugin: (schema: Schema) => void): this;
+    plugin<T>(plugin: (schema: Schema, options: T) => void, opts: T): this;
 
     /**
      * Defines a post hook for the document
@@ -754,6 +756,8 @@ declare module "mongoose" {
     methods: any;
     /** Object of currently defined statics on this schema. */
     statics: any;
+    /** Object of currently defined query helpers on this schema. */
+    query: any;
     /** The original object passed to the schema constructor */
     obj: any;
   }
@@ -1600,9 +1604,12 @@ declare module "mongoose" {
     findOneAndUpdate(callback?: (err: any, doc: DocType | null) => void): DocumentQuery<DocType | null, DocType>;
     findOneAndUpdate(update: any,
       callback?: (err: any, doc: DocType | null, res: any) => void): DocumentQuery<DocType | null, DocType>;
-    findOneAndUpdate(query: any | Query<any>, update: any,
+    findOneAndUpdate(query: any, update: any,
       callback?: (err: any, doc: DocType | null, res: any) => void): DocumentQuery<DocType | null, DocType>;
-    findOneAndUpdate(query: any | Query<any>, update: any, options: QueryFindOneAndUpdateOptions,
+    findOneAndUpdate(query: any, update: any,
+      options: { upsert: true, new: true } & QueryFindOneAndUpdateOptions,
+      callback?: (err: any, doc: DocType, res: any) => void): DocumentQuery<DocType, DocType>;
+    findOneAndUpdate(query: any, update: any, options: QueryFindOneAndUpdateOptions,
       callback?: (err: any, doc: DocType | null, res: any) => void): DocumentQuery<DocType | null, DocType>;
 
     /**
@@ -2529,6 +2536,9 @@ declare module "mongoose" {
     findByIdAndUpdate(id: any | number | string, update: any,
       callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T>;
     findByIdAndUpdate(id: any | number | string, update: any,
+      options: { upsert: true, new: true } & ModelFindByIdAndUpdateOptions,
+      callback?: (err: any, res: T) => void): DocumentQuery<T, T>;
+    findByIdAndUpdate(id: any | number | string, update: any,
       options: ModelFindByIdAndUpdateOptions,
       callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T>;
 
@@ -2573,6 +2583,9 @@ declare module "mongoose" {
     findOneAndUpdate(): DocumentQuery<T | null, T>;
     findOneAndUpdate(conditions: any, update: any,
       callback?: (err: any, doc: T | null, res: any) => void): DocumentQuery<T | null, T>;
+    findOneAndUpdate(conditions: any, update: any,
+      options: { upsert: true, new: true } & ModelFindOneAndUpdateOptions,
+      callback?: (err: any, doc: T, res: any) => void): DocumentQuery<T, T>;
     findOneAndUpdate(conditions: any, update: any,
       options: ModelFindOneAndUpdateOptions,
       callback?: (err: any, doc: T | null, res: any) => void): DocumentQuery<T | null, T>;
@@ -2730,7 +2743,7 @@ declare module "mongoose" {
      * If this is a discriminator model, baseModelName is the
      * name of the base model.
      */
-    baseModelName: String;
+    baseModelName: string | undefined;
 
     /** Collection the model uses. */
     collection: Collection;

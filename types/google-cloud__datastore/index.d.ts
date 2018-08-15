@@ -1,8 +1,10 @@
 // Type definitions for @google-cloud/datastore 1.3
 // Project: https://github.com/googleapis/nodejs-datastore
 // Definitions by: Antoine Beauvais-Lacasse <https://github.com/beaulac>
+//                 Futa Ogawa <https://github.com/ogawa0071>
+//                 Thomas den Hollander <https://github.com/ThomasdenH>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.7
 
 /// <reference types="node" />
 
@@ -34,9 +36,18 @@ declare module '@google-cloud/datastore' {
     import { DatastoreTransaction } from '@google-cloud/datastore/transaction';
 
     class Datastore extends DatastoreRequest_ {
-        constructor(options: InitOptions);
+        static readonly KEY: unique symbol;
+        static readonly MORE_RESULTS_AFTER_CURSOR: MoreResultsAfterCursor;
+        static readonly MORE_RESULTS_AFTER_LIMIT: MoreResultsAfterLimit;
+        static readonly NO_MORE_RESULTS: NoMoreResults;
 
-        readonly KEY: KEY_SYMBOL;
+        static readonly Query: typeof DatastoreQuery;
+        static readonly DatastoreRequest: typeof DatastoreRequest_;
+        static readonly Transaction: typeof DatastoreTransaction;
+
+        constructor(options?: InitOptions);
+
+        readonly KEY: typeof Datastore.KEY;
         readonly MORE_RESULTS_AFTER_CURSOR: MoreResultsAfterCursor;
         readonly MORE_RESULTS_AFTER_LIMIT: MoreResultsAfterLimit;
         readonly NO_MORE_RESULTS: NoMoreResults;
@@ -79,20 +90,11 @@ declare module '@google-cloud/datastore' {
         keyFilename?: string;
         credentials?: object;
     }
-
-    namespace Datastore {
-        const KEY: KEY_SYMBOL;
-        const MORE_RESULTS_AFTER_CURSOR: MoreResultsAfterCursor;
-        const MORE_RESULTS_AFTER_LIMIT: MoreResultsAfterLimit;
-        const NO_MORE_RESULTS: NoMoreResults;
-
-        const Query: typeof DatastoreQuery;
-        const DatastoreRequest: typeof DatastoreRequest_;
-        const Transaction: typeof DatastoreTransaction;
-    }
 }
 
 declare module '@google-cloud/datastore/entity' {
+    import Datastore = require("@google-cloud/datastore");
+
     interface DatastoreInt {
         value: string;
     }
@@ -133,7 +135,7 @@ declare module '@google-cloud/datastore/entity' {
         parent?: DatastoreKey;
     }
 
-    type KEY_SYMBOL = symbol;
+    type KEY_SYMBOL = typeof Datastore.KEY;
 
     interface DatastorePayload<T> {
         key: DatastoreKey;

@@ -8,13 +8,14 @@ import {
     configure,
     EnzymeAdapter,
     ShallowRendererProps,
+    ComponentClass as EnzymeComponentClass
 } from "enzyme";
 import { Component, ReactElement, HTMLAttributes, ComponentClass, StatelessComponent } from "react";
 
 // Help classes/interfaces
 interface MyComponentProps {
-    stringProp?: string;
-    numberProp?: number;
+    stringProp: string;
+    numberProp: number;
 }
 
 interface AnotherComponentProps {
@@ -35,8 +36,16 @@ interface MyComponentState {
 }
 
 class MyComponent extends Component<MyComponentProps, MyComponentState> {
+    handleEcho(value: string) {
+        return value;
+    }
     setState(...args: any[]) {
         console.log(args);
+    }
+}
+class MyComponentPropsOnly extends Component<MyComponentProps> {
+    handleEcho(value: string) {
+        return value;
     }
 }
 
@@ -65,27 +74,55 @@ function configureTest() {
 // ShallowWrapper
 function ShallowWrapperTest() {
     let shallowWrapper: ShallowWrapper<MyComponentProps, MyComponentState> =
-        shallow<MyComponentProps, MyComponentState>(<MyComponent stringProp="value" />);
+        shallow<MyComponentProps, MyComponentState>(<MyComponent stringProp="value" numberProp={1} />);
 
     let reactElement: ReactElement<any>;
     let reactElements: Array<ReactElement<any>>;
     let domElement: Element;
     let boolVal: boolean;
     let stringVal: string;
-    let numOrStringVal: number | string;
+    let numOrStringVal: number | string | undefined;
     let elementWrapper: ShallowWrapper<HTMLAttributes<{}>>;
     let anotherStatelessWrapper: ShallowWrapper<AnotherStatelessProps, never>;
     let anotherComponentWrapper: ShallowWrapper<AnotherComponentProps, any>;
 
+    // testStatePropsInstanceFn(shallow<MyComponent>(<MyComponent stringProp="value" numberProp={1}/>));
+    function testStatePropsInstance() {
+        const wrapper = shallow<MyComponent>(<MyComponent stringProp="value" numberProp={1}/>);
+
+        const {
+            numberProp, // $ExpectType number
+            stringProp // $ExpectType string
+        } = wrapper.props();
+        const {
+            stateProperty // $ExpectType string
+        } = wrapper.state();
+        const {
+            handleEcho // $ExpectType (value: string) => string
+        } = wrapper.instance();
+
+        // $ExpectError
+        wrapper.setState({stateProperty: 123});
+        // $ExpectError
+        wrapper.setState({statePropertyzasd: 'hello'});
+        wrapper.setState({stateProperty: 'hello'});
+
+        // $ExpectError
+        wrapper.setProps({numberProp: '123'});
+        // $ExpectError
+        wrapper.setProps({numberPropzasd: 'hello'});
+        wrapper.setProps({numberProp: 123});
+    }
+
     function test_props_state_inferring() {
         let wrapper: ShallowWrapper<MyComponentProps, MyComponentState>;
-        wrapper = shallow(<MyComponent stringProp="value" />);
+        wrapper = shallow(<MyComponent stringProp="value" numberProp={1} />);
         wrapper.state().stateProperty;
         wrapper.props().stringProp.toUpperCase();
     }
 
     function test_shallow_options() {
-        shallow(<MyComponent stringProp="1" />, {
+        shallow(<MyComponent stringProp="1" numberProp={1} />, {
             context: {
                 test: "a",
             },
@@ -99,6 +136,9 @@ function ShallowWrapperTest() {
         anotherStatelessWrapper = shallowWrapper.find(AnotherStatelessComponent);
         shallowWrapper = shallowWrapper.find({ prop: 'value' });
         elementWrapper = shallowWrapper.find('.selector');
+        // Since AnotherComponent does not have a constructor, it cannot match the
+        // previous selector overload of ComponentClass { new(props?, contenxt? ) }
+        const s1: EnzymeComponentClass<AnotherComponentProps> = AnotherComponent;
     }
 
     function test_findWhere() {
@@ -155,7 +195,7 @@ function ShallowWrapperTest() {
     }
 
     function test_hostNodes() {
-	    shallowWrapper.hostNodes();
+        shallowWrapper.hostNodes();
     }
 
     function test_equals() {
@@ -336,7 +376,16 @@ function ShallowWrapperTest() {
     }
 
     function test_instance() {
-        const myComponent: MyComponent = shallowWrapper.instance();
+        const myComponent = shallowWrapper.instance() as MyComponent;
+        myComponent.handleEcho('it works');
+
+        const wrapper = shallow<MyComponent>(<MyComponent stringProp="value" numberProp={1}/>);
+        wrapper.instance().handleEcho('it works');
+
+        const wrapperPropsOnly = shallow<MyComponentProps>(<MyComponent stringProp="value" numberProp={1}/>);
+        wrapperPropsOnly.setProps({stringProp: 'new value'});
+        // $ExpectError
+        wrapperPropsOnly.instance().handleEcho;
     }
 
     function test_update() {
@@ -411,20 +460,19 @@ function ShallowWrapperTest() {
 
     function test_constructor() {
         let anyWrapper: ShallowWrapper;
-        anyWrapper = new ShallowWrapper(<MyComponent />);
-        anyWrapper = new ShallowWrapper<MyComponentProps>(<MyComponent />);
-        shallowWrapper = new ShallowWrapper<MyComponentProps, MyComponentState>(<MyComponent />);
-        shallowWrapper = new ShallowWrapper<MyComponentProps, MyComponentState>([<MyComponent />, <MyComponent />]);
-        shallowWrapper = new ShallowWrapper<MyComponentProps, MyComponentState>(<MyComponent />, shallowWrapper);
-        shallowWrapper = new ShallowWrapper<MyComponentProps, MyComponentState>(<MyComponent />, null, { lifecycleExperimental: true });
-        shallowWrapper = new ShallowWrapper<MyComponentProps, MyComponentState>(<MyComponent />, shallowWrapper, { lifecycleExperimental: true });
+        anyWrapper = new ShallowWrapper(<MyComponent stringProp="1" numberProp={1} />);
+        shallowWrapper = new ShallowWrapper<MyComponentProps, MyComponentState>(<MyComponent stringProp="1" numberProp={1} />);
+        shallowWrapper = new ShallowWrapper<MyComponentProps, MyComponentState>([<MyComponent stringProp="1" numberProp={1} />, <MyComponent stringProp="1" numberProp={1} />]);
+        shallowWrapper = new ShallowWrapper<MyComponentProps, MyComponentState>(<MyComponent stringProp="1" numberProp={1} />, shallowWrapper);
+        shallowWrapper = new ShallowWrapper<MyComponentProps, MyComponentState>(<MyComponent stringProp="1" numberProp={1} />, undefined, { lifecycleExperimental: true });
+        shallowWrapper = new ShallowWrapper<MyComponentProps, MyComponentState>(<MyComponent stringProp="1" numberProp={1} />, shallowWrapper, { lifecycleExperimental: true });
     }
 }
 
 // ReactWrapper
 function ReactWrapperTest() {
     let reactWrapper: ReactWrapper<MyComponentProps, MyComponentState> =
-        mount<MyComponentProps, MyComponentState>(<MyComponent stringProp="value" />);
+        mount<MyComponentProps, MyComponentState>(<MyComponent stringProp="value" numberProp={1} />);
 
     let reactElement: ReactElement<any>;
     let reactElements: Array<ReactElement<any>>;
@@ -435,9 +483,36 @@ function ReactWrapperTest() {
     let anotherStatelessWrapper: ReactWrapper<AnotherStatelessProps, never>;
     let anotherComponentWrapper: ReactWrapper<AnotherComponentProps, any>;
 
+    function testStatePropsInstance() {
+        const wrapper = mount<MyComponent>(<MyComponent stringProp="value" numberProp={1}/>);
+
+        const {
+            numberProp, // $ExpectType number
+            stringProp // $ExpectType string
+        } = wrapper.props();
+        const {
+            stateProperty // $ExpectType string
+        } = wrapper.state();
+        const {
+            handleEcho // $ExpectType (value: string) => string
+        } = wrapper.instance();
+
+        // $ExpectError
+        wrapper.setState({stateProperty: 123});
+        // $ExpectError
+        wrapper.setState({statePropertyzasd: 'hello'});
+        wrapper.setState({stateProperty: 'hello'});
+
+        // $ExpectError
+        wrapper.setProps({numberProp: '123'});
+        // $ExpectError
+        wrapper.setProps({numberPropzasd: 'hello'});
+        wrapper.setProps({numberProp: 123});
+    }
+
     function test_prop_state_inferring() {
         let wrapper: ReactWrapper<MyComponentProps, MyComponentState>;
-        wrapper = mount(<MyComponent stringProp="value" />);
+        wrapper = mount(<MyComponent stringProp="value" numberProp={1} />);
         wrapper.state().stateProperty;
         wrapper.props().stringProp.toUpperCase();
     }
@@ -449,7 +524,7 @@ function ReactWrapperTest() {
     function test_mount() {
         reactWrapper = reactWrapper.mount();
 
-        mount(<MyComponent stringProp='1' />, {
+        mount(<MyComponent stringProp='1' numberProp={1} />, {
             attachTo: document.getElementById('test'),
             context: {
                 a: "b"
@@ -685,7 +760,7 @@ function ReactWrapperTest() {
     }
 
     function test_setProps() {
-        reactWrapper = reactWrapper.setProps({ stringProp: 'foo' }, () => {});
+        reactWrapper = reactWrapper.setProps({ stringProp: 'foo' }, () => { });
     }
 
     function test_setContext() {
@@ -693,7 +768,16 @@ function ReactWrapperTest() {
     }
 
     function test_instance() {
-        const myComponent: MyComponent = reactWrapper.instance();
+        const myComponent = reactWrapper.instance() as MyComponent;
+        myComponent.handleEcho('it works');
+
+        const wrapperPropsOnly = mount<MyComponentProps>(<MyComponent stringProp="value" numberProp={1}/>);
+        wrapperPropsOnly.setProps({stringProp: 'new value'});
+        // $ExpectError
+        wrapperPropsOnly.instance().handleEcho;
+
+        const wrapper = mount<MyComponent>(<MyComponent stringProp="value" numberProp={1}/>);
+        wrapper.instance().handleEcho('it works');
     }
 
     function test_update() {
@@ -764,13 +848,12 @@ function ReactWrapperTest() {
 
     function test_constructor() {
         let anyWrapper: ReactWrapper;
-        anyWrapper = new ReactWrapper(<MyComponent />);
-        anyWrapper = new ReactWrapper<MyComponentProps>(<MyComponent />);
-        reactWrapper = new ReactWrapper<MyComponentProps, MyComponentState>(<MyComponent />);
-        reactWrapper = new ReactWrapper<MyComponentProps, MyComponentState>([<MyComponent />, <MyComponent />]);
-        reactWrapper = new ReactWrapper<MyComponentProps, MyComponentState>(<MyComponent />, reactWrapper);
-        reactWrapper = new ReactWrapper<MyComponentProps, MyComponentState>(<MyComponent />, null, { attachTo: document.createElement('div') });
-        reactWrapper = new ReactWrapper<MyComponentProps, MyComponentState>(<MyComponent />, reactWrapper, { attachTo: document.createElement('div') });
+        anyWrapper = new ReactWrapper(<MyComponent stringProp="1" numberProp={1} />);
+        reactWrapper = new ReactWrapper<MyComponentProps, MyComponentState>(<MyComponent stringProp="1" numberProp={1} />);
+        reactWrapper = new ReactWrapper<MyComponentProps, MyComponentState>([<MyComponent stringProp="1" numberProp={1} />, <MyComponent stringProp="1" numberProp={1} />]);
+        reactWrapper = new ReactWrapper<MyComponentProps, MyComponentState>(<MyComponent stringProp="1" numberProp={1} />, reactWrapper);
+        reactWrapper = new ReactWrapper<MyComponentProps, MyComponentState>(<MyComponent stringProp="1" numberProp={1} />, undefined, { attachTo: document.createElement('div') });
+        reactWrapper = new ReactWrapper<MyComponentProps, MyComponentState>(<MyComponent stringProp="1" numberProp={1} />, reactWrapper, { attachTo: document.createElement('div') });
     }
 }
 

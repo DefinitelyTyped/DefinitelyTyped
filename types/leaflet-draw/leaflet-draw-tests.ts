@@ -121,3 +121,18 @@ function testExampleControlOptions() {
         }
     });
 }
+
+function testMarkerOptionsIcon() {
+    const markerIcon = new L.Draw.Marker(map, {
+        icon: new L.Icon({
+            iconUrl: 'my-icon.png',
+            iconSize: new L.Point(32, 32),
+        }),
+    });
+    const markerDivIcon = new L.Draw.Marker(map, {
+        icon: new L.DivIcon({
+            className: "marker-icon",
+            iconSize: new L.Point(32, 32),
+        }),
+    });
+}

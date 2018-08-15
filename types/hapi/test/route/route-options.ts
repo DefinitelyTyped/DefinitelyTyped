@@ -102,8 +102,18 @@ const routeOptionsValidate: RouteOptionsValidate = {
     query: true,
 };
 
+declare module 'hapi' {
+    interface RouteOptionsApp {
+        one: number;
+        two: string;
+    }
+}
+
 const routeOptions: RouteOptions = {
-    app: {},
+    app: {
+        one: 1,
+        two: "2"
+    },
     auth: routeOptionsAccess,
     bind: null,
     cache: {

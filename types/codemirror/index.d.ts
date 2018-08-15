@@ -3,6 +3,7 @@
 // Definitions by: mihailik <https://github.com/mihailik>
 //                 nrbernard <https://github.com/nrbernard>
 //                 Pr1st0n <https://github.com/Pr1st0n>
+//                 rileymiller <https://github.com/rileymiller>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = CodeMirror;
@@ -14,11 +15,18 @@ declare function CodeMirror(callback: (host: HTMLElement) => void , options?: Co
 declare namespace CodeMirror {
     export var Doc : CodeMirror.DocConstructor;
     export var Pos: CodeMirror.PositionConstructor;
-    export var Pass: any;
+    export var Pass: {toString(): "CodeMirror.PASS"};
 
+    function countColumn(line: string, index: number | null, tabSize: number): number;
     function fromTextArea(host: HTMLTextAreaElement, options?: EditorConfiguration): CodeMirror.EditorFromTextArea;
 
+    /** It contains a string that indicates the version of the library. This is a triple of integers "major.minor.patch", 
+    where patch is zero for releases, and something else (usually one) for dev snapshots. */
     var version: string;
+
+    /** An object containing default values for all options. 
+    You can assign to its properties to modify defaults (though this won't affect editors that have already been created). */
+    var defaults: any;
 
     /** If you want to define extra methods in terms of the CodeMirror API, it is possible to use defineExtension.
     This will cause the given value(usually a method) to be added to all CodeMirror instances created from then on. */
@@ -121,6 +129,10 @@ declare namespace CodeMirror {
         state: any;
     }
 
+    interface KeyMap {
+        [keyName: string]: false | string | ((instance: Editor) => void | typeof Pass);
+    }
+
     interface Editor {
 
         /** Tells you whether the editor currently has focus. */
@@ -151,11 +163,11 @@ declare namespace CodeMirror {
         Maps added in this way have a higher precedence than the extraKeys and keyMap options, and between them,
         the maps added earlier have a lower precedence than those added later, unless the bottom argument was passed,
         in which case they end up below other keymaps added with this method. */
-        addKeyMap(map: any, bottom?: boolean): void;
+        addKeyMap(map: string | KeyMap, bottom?: boolean): void;
 
         /** Disable a keymap added with addKeyMap.Either pass in the keymap object itself , or a string,
         which will be compared against the name property of the active keymaps. */
-        removeKeyMap(map: any): void;
+        removeKeyMap(map: string | KeyMap): void;
 
         /** Enable a highlighting overlay.This is a stateless mini - mode that can be used to add extra highlighting.
         For example, the search add - on uses it to highlight the term that's currently being searched.
@@ -314,6 +326,11 @@ declare namespace CodeMirror {
 
         /** Retrieves information about the token the current mode found before the given position (a {line, ch} object). */
         getTokenAt(pos: CodeMirror.Position, precise?: boolean): Token;
+
+        /** This is a (much) cheaper version of getTokenAt useful for when you just need the type of the token at a given position, 
+        and no other information. Will return null for unstyled tokens, and a string, potentially containing multiple 
+        space-separated style names, otherwise. */
+        getTokenTypeAt(pos: CodeMirror.Position): string;
 
         /** This is similar to getTokenAt, but collects all tokens for a given line into an array. */
         getLineTokens(line: number, precise?: boolean): Token[];
@@ -669,7 +686,7 @@ declare namespace CodeMirror {
 
         /** Returns a {from, to} object (both holding document positions), indicating the current position of the marked range,
         or undefined if the marker is no longer in the document. */
-        find(): CodeMirror.Range;
+        find(): {from: CodeMirror.Position, to: CodeMirror.Position};
 
         /**  Returns an object representing the options for the marker. If copyWidget is given true, it will clone the value of the replacedWith option, if any. */
         getOptions(copyWidget: boolean): CodeMirror.TextMarkerOptions;
@@ -703,8 +720,9 @@ declare namespace CodeMirror {
     }
 
     interface EditorChangeCancellable extends CodeMirror.EditorChange {
-        /** may be used to modify the change. All three arguments to update are optional, and can be left off to leave the existing value for that field intact. */
-        update(from?: CodeMirror.Position, to?: CodeMirror.Position, text?: string[]): void;
+        /** may be used to modify the change. All three arguments to update are optional, and can be left off to leave the existing value for that field intact.
+        If the change came from undo/redo, `update` is undefined and the change cannot be modified. */
+        update?(from?: CodeMirror.Position, to?: CodeMirror.Position, text?: string[]): void;
 
         cancel(): void;
     }
@@ -767,7 +785,7 @@ declare namespace CodeMirror {
         keyMap?: string;
 
         /** Can be used to specify extra keybindings for the editor, alongside the ones defined by keyMap. Should be either null, or a valid keymap value. */
-        extraKeys?: any;
+        extraKeys?: string | KeyMap;
 
         /** Whether CodeMirror should scroll or wrap for long lines. Defaults to false (scroll). */
         lineWrapping?: boolean;

@@ -7,6 +7,7 @@ declare namespace TabPane {
         'aria-labelledby'?: string;
         bsClass?: string;
         eventKey?: any;
+        mountOnEnter?: boolean;
         unmountOnExit?: boolean;
     }
 }

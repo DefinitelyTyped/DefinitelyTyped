@@ -1,6 +1,17 @@
 // https://github.com/hapijs/hapi/blob/master/API.md#-serverplugins
 import { Plugin, Server, ServerRegisterOptions } from "hapi";
 
+declare module 'hapi' {
+	interface PluginProperties {
+		example1: {
+			util(): void;
+		};
+		example2: {
+			util(): void;
+		};
+	}
+}
+
 const plugin1: Plugin<any> = {
     name: 'example1',
     async register(server: Server, options: ServerRegisterOptions) {
@@ -22,3 +33,6 @@ const server = new Server({
 server.start();
 server.register(plugin1);
 server.register(plugin2);
+
+server.plugins.example1.util();
+server.plugins.example2.util();

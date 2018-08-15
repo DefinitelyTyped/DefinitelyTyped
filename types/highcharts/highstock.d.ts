@@ -1,4 +1,4 @@
-// Type definitions for Highstock 2.1.5
+// Type definitions for Highstock 2.1.6
 // Project: http://www.highcharts.com/
 
 // Definitions by: David Deutsch <http://github.com/DavidKDeutsch>
@@ -87,12 +87,39 @@ declare namespace Highstock {
         scrollbar?: ScrollbarOptions;
     }
 
+    interface XAxisOptions extends AxisOptions {
+        ordinal?: boolean;
+        overscroll?: number;
+    }
+
+    interface YAxisOptions extends AxisOptions {
+        height?: number | string;
+        maxLength?: number | string;
+        minLength?: number | string;
+        resize?: {
+            controlledAxis?: {
+                next?: Array<number | string>;
+                prev?: Array<number | string>;
+            },
+            cursor?: string;
+            enabled?: boolean;
+            lineColor?: string;
+            lineDashStyle?: string;
+            lineWidth?: number;
+            x?: number;
+            y?: number;
+        };
+        reversedStacks?: boolean;
+        tooltipValueFormat?: string;
+        top?: number | string;
+    }
+
     interface Options extends Highcharts.Options {
         navigator?: NavigatorOptions;
         rangeSelector?: RangeSelectorOptions;
         scrollbar?: ScrollbarOptions;
-        xAxis?: AxisOptions[] | AxisOptions;
-        yAxis?: AxisOptions[] | AxisOptions;
+        xAxis?: XAxisOptions[] |XAxisOptions;
+        yAxis?: YAxisOptions[] | YAxisOptions;
     }
 
     interface Chart {

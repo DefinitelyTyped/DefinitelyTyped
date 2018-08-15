@@ -1,6 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "styled-components": ">=2.0 || >=3.0"
+        "styled-components": "2.x - 3.x"
     }
 }

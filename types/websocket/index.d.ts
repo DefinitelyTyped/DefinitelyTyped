@@ -62,8 +62,8 @@ export interface IConfig {
 }
 
 export interface IServerConfig extends IConfig {
-    /** The http server instance to attach to */
-    httpServer: http.Server;
+    /** The http or https server instance(s) to attach to */
+    httpServer: http.Server | https.Server | (http.Server | https.Server)[];
 
     /**
      * The maximum allowed received frame size in bytes.
@@ -668,6 +668,35 @@ declare class router extends events.EventEmitter {
     unmount(path: string, protocol?: string): void;
     unmount(path: RegExp, protocol?: string): void;
 
+}
+
+declare class w3cwebsocket {
+    static CONNECTING: number;
+    static OPEN: number;
+    static CLOSING: number;
+    static CLOSED: number;
+
+    url: string;
+    readyState: number;
+    protocol?: string;
+    extenstions: IExtension[];
+    bufferedAmount: number;
+
+    CONNECTING: number;
+    OPEN: number;
+    CLOSING: number;
+    CLOSED: number;
+
+    onopen: () => void;
+    onerror: (error: Error) => void;
+    onclose: () => void;
+    onmessage: (message: any) => void;
+
+    constructor(url: string, protocols?: string[], origin?: string, headers?: any[], requestOptions?: object, clientConfig?: IClientConfig);
+
+    send(data: Buffer): void;
+    send(data: IStringified): void;
+    close(code?: number, reason?: string): void;
 }
 
 export declare var version: string;

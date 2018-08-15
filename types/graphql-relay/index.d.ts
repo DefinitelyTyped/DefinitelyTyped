@@ -21,6 +21,9 @@ import {
     GraphQLOutputType,
     GraphQLFieldResolver,
     GraphQLTypeResolver,
+    GraphQLUnionType,
+    GraphQLEnumType,
+    GraphQLScalarType,
     Thunk
 } from "graphql";
 
@@ -58,9 +61,20 @@ export const backwardConnectionArgs: GraphQLFieldConfigArgumentMap & {
  */
 export const connectionArgs: GraphQLFieldConfigArgumentMap & ForwardConnectionArgs & BackwardConnectionArgs;
 
+export type ConnectionConfigNodeTypeNullable =
+    | GraphQLScalarType
+    | GraphQLObjectType
+    | GraphQLInterfaceType
+    | GraphQLUnionType
+    | GraphQLEnumType;
+
+export type ConnectionConfigNodeType =
+    | ConnectionConfigNodeTypeNullable
+    | GraphQLNonNull<ConnectionConfigNodeTypeNullable>;
+
 export interface ConnectionConfig {
     name?: string | null;
-    nodeType: GraphQLObjectType;
+    nodeType: ConnectionConfigNodeType;
     resolveNode?: GraphQLFieldResolver<any, any> | null;
     resolveCursor?: GraphQLFieldResolver<any, any> | null;
     edgeFields?: Thunk<GraphQLFieldConfigMap<any, any>> | null;

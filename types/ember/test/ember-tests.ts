@@ -130,8 +130,9 @@ const isHappy = (person: typeof Person3.prototype): boolean => {
 };
 people2.every(isHappy);
 people2.any(isHappy);
+people2.isEvery('isHappy');
 people2.isEvery('isHappy', true);
-people2.isAny('isHappy', true);
+people2.isAny('isHappy', 'true');
 people2.isAny('isHappy');
 
 // Examples taken from http://emberjs.com/api/classes/Em.RSVP.Promise.html

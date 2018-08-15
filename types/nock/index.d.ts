@@ -1,17 +1,20 @@
-// Type definitions for nock v9.1.3
+// Type definitions for nock v9.3.3
 // Project: https://github.com/node-nock/nock
 // Definitions by: bonnici <https://github.com/bonnici>
 //                 Horiuchi_H <https://github.com/horiuchi>
 //                 afharo <https://github.com/afharo>
 //                 Matt R. Wilson <https://github.com/mastermatt>
 //                 Garanzha Dmitriy <https://github.com/damour>
+//                 GP <https://github.com/paambaati>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 
+import { Url } from 'url';
+
 export = nock;
 
-declare function nock(basePath: string | RegExp, options?: nock.Options): nock.Scope;
+declare function nock(basePath: string | RegExp | Url, options?: nock.Options): nock.Scope;
 
 declare namespace nock {
     export function cleanAll(): void;
@@ -158,6 +161,13 @@ declare namespace nock {
 
         (fixtureName: string, nockedFn: (nockDone: () => void) => void): void;
         (fixtureName: string, options: NockBackOptions, nockedFn: (nockDone: () => void) => void): void;
+        (fixtureName: string, options?: NockBackOptions): Promise<{ nockDone: () => void, context: NockBackContext }>;
+    }
+
+    export interface NockBackContext {
+      scopes: Scope[];
+      assertScopesFinished(): void;
+      isLoaded: boolean;
     }
 
     export interface NockBackOptions {

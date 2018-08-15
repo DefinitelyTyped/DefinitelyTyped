@@ -4,13 +4,16 @@ import { assertType } from './lib/assert';
 
 declare const store: DS.Store;
 
+class PostComment extends DS.Model {}
 class Post extends DS.Model {
     title = DS.attr('string');
+    comments = DS.hasMany('comment');
 }
 
 declare module 'ember-data' {
     interface ModelRegistry {
-        post: Post;
+        'post': Post;
+        'post-comment': PostComment;
     }
 }
 
@@ -48,7 +51,7 @@ store.queryRecord('user', {}).then(function(user) {
     console.log(`Currently logged in as ${username}`);
 });
 
-store.findAll('post'); // => GET /blog-posts
+store.findAll('post'); // => GET /posts
 store.findAll('author', { reload: true }).then(function(authors) {
     authors.getEach('id'); // ['first', 'second']
 });
@@ -106,6 +109,34 @@ const SomeComponent = Ember.Component.extend({
         assertType<DS.PromiseArray<User>>(this.get('store').findAll('user'));
     }
 });
+
+const MyRouteAsync = Ember.Route.extend({
+    async beforeModel(): Promise<Ember.Array<DS.Model>> {
+        const store = Ember.get(this, 'store');
+        return await store.findAll('post-comment');
+    },
+    async model(): Promise<DS.Model> {
+        const store = this.get('store');
+        return await store.findRecord('post-comment', 1);
+    },
+    async afterModel(): Promise<Ember.Array<PostComment>> {
+        const post = await this.get('store').findRecord('post', 1);
+        return await post.get('comments');
+    }
+});
+
+class MyRouteAsyncES6 extends Ember.Route {
+    async beforeModel(): Promise<Ember.Array<DS.Model>> {
+        return await this.store.findAll('post-comment');
+    }
+    async model(): Promise<DS.Model> {
+        return await this.store.findRecord('post-comment', 1);
+    }
+    async afterModel(): Promise<Ember.Array<PostComment>> {
+        const post = await this.store.findRecord('post', 1);
+        return await post.get('comments');
+    }
+}
 
 // GET to /users?filter[email]=tomster@example.com
 const tom = store

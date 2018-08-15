@@ -9,15 +9,14 @@ const minio = new Minio.Client({
     secretKey: 'Go1hhOkXnl',
 });
 
-minio.makeBucket('testBucket', (error: Error|null) => { console.log(error); });
 minio.makeBucket('testBucket', 'ap-southeast-2', (error: Error|null) => { console.log(error); });
-minio.makeBucket('testBucket');
 minio.makeBucket('testBucket', 'eu-west-1');
+minio.makeBucket('testBucket', 'region-not-from-list');
 
 minio.listBuckets((error: Error|null, bucketList: Minio.BucketItemFromList[]) => { console.log(error, bucketList); });
 minio.listBuckets();
 
-minio.bucketExists('testBucket', (error: Error|null) => { console.log(error); });
+minio.bucketExists('testBucket', (error: Error|null, exists: boolean) => { console.log(error, exists); });
 minio.bucketExists('testBucket');
 
 minio.removeBucket('testBucket', (error: Error|null) => { console.log(error); });
@@ -45,15 +44,21 @@ minio.getPartialObject('testBucket', 'hello.jpg', 10, 20);
 minio.fGetObject('testBucket', 'hello.jpg', 'file/path', (error: Error|null) => { console.log(error); });
 minio.fGetObject('testBucket', 'hello.jpg', 'file/path');
 
+const metaData = {
+    'Content-Type': 'text/html',
+    'Content-Language': 123,
+    'X-Amz-Meta-Testing': 1234,
+    example: 5678
+};
 minio.putObject('testBucket', 'hello.jpg', new Stream(), (error: Error|null, etag: string) => { console.log(error, etag); });
 minio.putObject('testBucket', 'hello.jpg', new Buffer('string'), 100, (error: Error|null, etag: string) => { console.log(error, etag); });
-minio.putObject('testBucket', 'hello.txt', 'hello.txt content', 100, 'text/plain', (error: Error|null, etag: string) => { console.log(error, etag); });
+minio.putObject('testBucket', 'hello.txt', 'hello.txt content', 100, metaData, (error: Error|null, etag: string) => { console.log(error, etag); });
 minio.putObject('testBucket', 'hello.jpg', new Stream());
 minio.putObject('testBucket', 'hello.jpg', new Buffer('string'), 100);
-minio.putObject('testBucket', 'hello.txt', 'hello.txt content', 100, 'text/plain');
+minio.putObject('testBucket', 'hello.txt', 'hello.txt content', 100, metaData);
 
-minio.fPutObject('testBucket', 'hello.jpg', 'file/path', 'image/jpg', (error: Error|null, etag: string) => { console.log(error, etag); });
-minio.fPutObject('testBucket', 'hello.jpg', 'file/path', 'image/jpg');
+minio.fPutObject('testBucket', 'hello.jpg', 'file/path', metaData, (error: Error|null, etag: string) => { console.log(error, etag); });
+minio.fPutObject('testBucket', 'hello.jpg', 'file/path', metaData);
 
 const conditions = new Minio.CopyConditions();
 conditions.setMatchETag('bd891862ea3e22c93ed53a098218791d');
@@ -65,6 +70,9 @@ minio.statObject('testBucket', 'hello.jpg');
 
 minio.removeObject('testBucket', 'hello.jpg', (error: Error|null) => { console.log(error); });
 minio.removeObject('testBucket', 'hello.jpg');
+
+minio.removeObjects('testBucket', ['hello.jpg', 'hello.txt'], (error: Error|null) => { console.log(error); });
+minio.removeObjects('testBucket', ['hello.jpg', 'hello.txt']);
 
 minio.removeIncompleteUpload('testBucket', 'hello.jpg', (error: Error|null) => { console.log(error); });
 minio.removeIncompleteUpload('testBucket', 'hello.jpg');
@@ -107,8 +115,14 @@ minio.removeAllBucketNotification('testBucket');
 
 minio.listenBucketNotification('testBucket', 'pref_', '_suf', [ Minio.ObjectCreatedAll ]);
 
-minio.getBucketPolicy('testBucket', 'pref_', (error: Error|null, policy: Minio.PolicyValue) => { console.log(error, policy); });
-minio.getBucketPolicy('testBucket', '');
+minio.getBucketPolicy('testBucket', (error: Error|null, policy: string) => { console.log(error, policy); });
+minio.getBucketPolicy('testBucket');
 
-minio.setBucketPolicy('testBucket', '', Minio.Policy.READWRITE, (error: Error|null) => { console.log(error); });
-minio.setBucketPolicy('testBucket', 'pref_', Minio.Policy.WRITEONLY);
+const testPolicy = `{"Version":"2012-10-17","Statement":[{"Action":["s3:GetBucketLocation"],"Effect":"Allow",
+"Principal":{"AWS":["*"]},"Resource":["arn:aws:s3:::bucketName"],"Sid":""},{"Action":["s3:ListBucket"],
+"Condition":{"StringEquals":{"s3:prefix":["foo","prefix/"]}},"Effect":"Allow","Principal":{"AWS":["*"]},
+"Resource":["arn:aws:s3:::bucketName"],"Sid":""},{"Action":["s3:GetObject"],"Effect":"Allow",
+"Principal":{"AWS":["*"]},"Resource":["arn:aws:s3:::bucketName/foo*","arn:aws:s3:::bucketName/prefix/*"],"Sid":""}]}
+`;
+minio.setBucketPolicy('testBucket',  testPolicy, (error: Error|null) => { console.log(error); });
+minio.setBucketPolicy('testBucket', testPolicy);

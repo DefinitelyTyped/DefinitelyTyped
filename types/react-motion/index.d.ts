@@ -4,7 +4,7 @@
 //                 Alexey Svetliakov <https://github.com/asvetliakov>
 //                 Dimitar Nestorov <https://github.com/dimitarnestorov>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import { Component, ReactElement } from 'react';
 
@@ -94,7 +94,7 @@ interface TransitionStyle {
  * Default style for transition
  */
 interface TransitionPlainStyle {
-    key: any;
+    key: string;
     data?: any;
     // same as TransitionStyle, passed as argument to style/children function
     style: PlainStyle;

@@ -58,6 +58,7 @@ declare namespace Yallist {
     interface Node<T> {
         prev: Node<T> | null;
         next: Node<T> | null;
+        value: T;
         list?: Yallist<T>;
     }
 }

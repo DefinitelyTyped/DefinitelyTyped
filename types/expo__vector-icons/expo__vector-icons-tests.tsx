@@ -41,13 +41,9 @@ class Example extends React.Component {
 }
 
 class TabTest extends React.Component<{}, { selectedTab: string }> {
-  constructor() {
-    super({});
-
-    this.state = {
-      selectedTab: 'tab1'
-    };
-  }
+  state = {
+    selectedTab: 'tab1'
+  };
 
   render() {
     return (

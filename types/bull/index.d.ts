@@ -5,8 +5,12 @@
 //                 Marshall Cottrell <https://github.com/marshall007>
 //                 Weeco <https://github.com/weeco>
 //                 Gabriel Terwesten <https://github.com/blaugold>
+//                 Oleg Repin <https://github.com/iamolegga>
+//                 David Koblas <https://github.com/koblas>
+//                 Bond Akinmade <https://github.com/bondz>
+//                 Wuha Team <https://github.com/wuha-team>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as Redis from "ioredis";
 import * as Promise from "bluebird";
@@ -41,7 +45,7 @@ declare namespace Bull {
      * When specified, the `Queue` will use this function to create new `ioredis` client connections.
      * This is useful if you want to re-use connections.
      */
-    createClient?(type: 'client' | 'subscriber', redisOpts?: Redis.RedisOptions): Redis.Redis;
+    createClient?(type: 'client' | 'subscriber' | 'bclient', redisOpts?: Redis.RedisOptions): Redis.Redis;
 
     /**
      * Prefix to use for all redis keys
@@ -51,6 +55,8 @@ declare namespace Bull {
     settings?: AdvancedSettings;
 
     limiter?: RateLimiter;
+
+    defaultJobOptions?: JobOptions;
   }
 
   interface AdvancedSettings {
@@ -78,19 +84,31 @@ declare namespace Bull {
      * Delay before processing next job in case of internal error
      */
     retryProcessDelay?: number;
+
+    /**
+     * Define a custom backoff strategy
+     */
+    backoffStrategies?: {
+      [key: string]: (attemptsMade: number, err: typeof Error) => number;
+    };
   }
 
   type DoneCallback = (error?: Error | null, value?: any) => void;
 
   type JobId = number | string;
 
-  interface Job {
+  interface Job<T = any> {
     id: JobId;
 
     /**
      * The custom data passed when the job was created
      */
-    data: any;
+    data: T;
+
+    /**
+     * How many attempts where made to run this job
+     */
+    attemptsMade: number;
 
     /**
      * Report progress on a job
@@ -133,6 +151,21 @@ declare namespace Bull {
      * Promotes a job that is currently "delayed" to the "waiting" state and executed as soon as possible.
      */
     promote(): Promise<void>;
+
+    /**
+     * The lock id of the job
+     */
+    lockKey(): string;
+
+    /**
+     * Releases the lock on the job. Only locks owned by the queue instance can be released.
+     */
+    releaseLock(): Promise<void>;
+
+    /**
+     * Takes a lock for this job so that no other queue worker can process it at the same time.
+     */
+    takeLock(): Promise<number | false>;
   }
 
   type JobStatus = 'completed' | 'waiting' | 'active' | 'delayed' | 'failed';
@@ -141,20 +174,15 @@ declare namespace Bull {
     /**
      * Backoff type, which can be either `fixed` or `exponential`
      */
-    type: 'fixed' | 'exponential';
+    type: string;
 
     /**
      * Backoff delay, in milliseconds
      */
-    delay: number;
+    delay?: number;
   }
 
   interface RepeatOptions {
-    /**
-     * Cron pattern specifying when the job should execute
-     */
-    cron: string;
-
     /**
      * Timezone
      */
@@ -164,6 +192,25 @@ declare namespace Bull {
      * End date when the repeat job should stop repeating
      */
     endDate?: Date | string | number;
+
+    /**
+     * Number of times the job should repeat at max.
+     */
+    limit?: number;
+  }
+
+  interface CronRepeatOptions extends RepeatOptions {
+    /**
+     * Cron pattern specifying when the job should execute
+     */
+    cron: string;
+  }
+
+  interface EveryRepeatOptions extends RepeatOptions {
+    /**
+     * Repeat every millis (cron setting cannot be used together with this setting.)
+     */
+    every: number;
   }
 
   interface JobOptions {
@@ -187,7 +234,7 @@ declare namespace Bull {
     /**
      * Repeat job according to a cron specification
      */
-    repeat?: RepeatOptions;
+    repeat?: CronRepeatOptions | EveryRepeatOptions;
 
     /**
      * Backoff setting for automatic retries if the job fails
@@ -245,7 +292,7 @@ declare namespace Bull {
     next: number;
   }
 
-  interface Queue {
+  interface Queue<T = any> {
     /**
      * Returns a promise that resolves when Redis is connected and the queue is ready to accept jobs.
      * This replaces the `ready` event emitted on Queue in previous verisons.
@@ -263,25 +310,37 @@ declare namespace Bull {
      * Errors will be passed as a second argument to the "failed" event;
      * results, as a second argument to the "completed" event.
      */
-    process(callback: (job: Job, done: DoneCallback) => void): void;
+    process(callback: (job: Job<T>, done: DoneCallback) => void): void;
 
     /**
      * Defines a processing function for the jobs placed into a given Queue.
      *
      * The callback is called everytime a job is placed in the queue.
      * It is passed an instance of the job as first argument.
+     * The callback can also be defined as the string path to a module
+     * exporting the callback function. Using a path has several advantages:
+     * - The process is sandboxed so if it crashes it does not affect the worker.
+     * - You can run blocking code without affecting the queue (jobs will not stall).
+     * - Much better utilization of multi-core CPUs.
+     * - Less connections to redis.
      *
      * A promise must be returned to signal job completion.
      * If the promise is rejected, the error will be passed as a second argument to the "failed" event.
      * If it is resolved, its value will be the "completed" event's second argument.
      */
-    process(callback: (job: Job) => void): Promise<any>;
+    process(callback: ((job: Job<T>) => void) | string): Promise<any>;
 
     /**
      * Defines a processing function for the jobs placed into a given Queue.
      *
      * The callback is called everytime a job is placed in the queue.
      * It is passed an instance of the job as first argument.
+     * The callback can also be defined as the string path to a module
+     * exporting the callback function. Using a path has several advantages:
+     * - The process is sandboxed so if it crashes it does not affect the worker.
+     * - You can run blocking code without affecting the queue (jobs will not stall).
+     * - Much better utilization of multi-core CPUs.
+     * - Less connections to redis.
      *
      * A promise must be returned to signal job completion.
      * If the promise is rejected, the error will be passed as a second argument to the "failed" event.
@@ -289,7 +348,7 @@ declare namespace Bull {
      *
      * @param concurrency Bull will then call you handler in parallel respecting this max number.
      */
-    process(concurrency: number, callback: (job: Job) => void): Promise<any>;
+    process(concurrency: number, callback: ((job: Job<T>) => void) | string): Promise<any>;
 
     /**
      * Defines a processing function for the jobs placed into a given Queue.
@@ -304,13 +363,19 @@ declare namespace Bull {
      *
      * @param concurrency Bull will then call you handler in parallel respecting this max number.
      */
-    process(concurrency: number, callback: (job: Job, done: DoneCallback) => void): void;
+    process(concurrency: number, callback: (job: Job<T>, done: DoneCallback) => void): void;
 
     /**
      * Defines a named processing function for the jobs placed into a given Queue.
      *
      * The callback is called everytime a job is placed in the queue.
      * It is passed an instance of the job as first argument.
+     * The callback can also be defined as the string path to a module
+     * exporting the callback function. Using a path has several advantages:
+     * - The process is sandboxed so if it crashes it does not affect the worker.
+     * - You can run blocking code without affecting the queue (jobs will not stall).
+     * - Much better utilization of multi-core CPUs.
+     * - Less connections to redis.
      *
      * A promise must be returned to signal job completion.
      * If the promise is rejected, the error will be passed as a second argument to the "failed" event.
@@ -319,7 +384,7 @@ declare namespace Bull {
      * @param name Bull will only call the handler if the job name matches
      */
     // tslint:disable-next-line:unified-signatures
-    process(name: string, callback: (job: Job) => void): Promise<any>;
+    process(name: string, callback: ((job: Job<T>) => void) | string): Promise<any>;
 
     /**
      * Defines a processing function for the jobs placed into a given Queue.
@@ -335,13 +400,19 @@ declare namespace Bull {
      * @param name Bull will only call the handler if the job name matches
      */
     // tslint:disable-next-line:unified-signatures
-    process(name: string, callback: (job: Job, done: DoneCallback) => void): void;
+    process(name: string, callback: (job: Job<T>, done: DoneCallback) => void): void;
 
     /**
      * Defines a named processing function for the jobs placed into a given Queue.
      *
      * The callback is called everytime a job is placed in the queue.
      * It is passed an instance of the job as first argument.
+     * The callback can also be defined as the string path to a module
+     * exporting the callback function. Using a path has several advantages:
+     * - The process is sandboxed so if it crashes it does not affect the worker.
+     * - You can run blocking code without affecting the queue (jobs will not stall).
+     * - Much better utilization of multi-core CPUs.
+     * - Less connections to redis.
      *
      * A promise must be returned to signal job completion.
      * If the promise is rejected, the error will be passed as a second argument to the "failed" event.
@@ -350,7 +421,7 @@ declare namespace Bull {
      * @param name Bull will only call the handler if the job name matches
      * @param concurrency Bull will then call you handler in parallel respecting this max number.
      */
-    process(name: string, concurrency: number, callback: (job: Job) => void): Promise<any>;
+    process(name: string, concurrency: number, callback: ((job: Job<T>) => void) | string): Promise<any>;
 
     /**
      * Defines a processing function for the jobs placed into a given Queue.
@@ -366,21 +437,21 @@ declare namespace Bull {
      * @param name Bull will only call the handler if the job name matches
      * @param concurrency Bull will then call you handler in parallel respecting this max number.
      */
-    process(name: string, concurrency: number, callback: (job: Job, done: DoneCallback) => void): void;
+    process(name: string, concurrency: number, callback: (job: Job<T>, done: DoneCallback) => void): void;
 
     /**
      * Creates a new job and adds it to the queue.
      * If the queue is empty the job will be executed directly,
      * otherwise it will be placed in the queue and executed as soon as possible.
      */
-    add(data: any, opts?: JobOptions): Promise<Job>;
+    add(data: T, opts?: JobOptions): Promise<Job<T>>;
 
     /**
      * Creates a new named job and adds it to the queue.
      * If the queue is empty the job will be executed directly,
      * otherwise it will be placed in the queue and executed as soon as possible.
      */
-    add(name: string, data: any, opts?: JobOptions): Promise<Job>;
+    add(name: string, data: T, opts?: JobOptions): Promise<Job<T>>;
 
     /**
      * Returns a promise that resolves when the queue is paused.
@@ -429,32 +500,32 @@ declare namespace Bull {
      * Returns a promise that will return the job instance associated with the jobId parameter.
      * If the specified job cannot be located, the promise callback parameter will be set to null.
      */
-    getJob(jobId: JobId): Promise<Job>;
+    getJob(jobId: JobId): Promise<Job<T> | null>;
 
     /**
      * Returns a promise that will return an array with the waiting jobs between start and end.
      */
-    getWaiting(start?: number, end?: number): Promise<Job[]>;
+    getWaiting(start?: number, end?: number): Promise<Array<Job<T>>>;
 
     /**
      * Returns a promise that will return an array with the active jobs between start and end.
      */
-    getActive(start?: number, end?: number): Promise<Job[]>;
+    getActive(start?: number, end?: number): Promise<Array<Job<T>>>;
 
     /**
      * Returns a promise that will return an array with the delayed jobs between start and end.
      */
-    getDelayed(start?: number, end?: number): Promise<Job[]>;
+    getDelayed(start?: number, end?: number): Promise<Array<Job<T>>>;
 
     /**
      * Returns a promise that will return an array with the completed jobs between start and end.
      */
-    getCompleted(start?: number, end?: number): Promise<Job[]>;
+    getCompleted(start?: number, end?: number): Promise<Array<Job<T>>>;
 
     /**
      * Returns a promise that will return an array with the failed jobs between start and end.
      */
-    getFailed(start?: number, end?: number): Promise<Job[]>;
+    getFailed(start?: number, end?: number): Promise<Array<Job<T>>>;
 
     /**
      * Returns JobInformation of repeatable jobs (ordered descending). Provide a start and/or an end
@@ -465,13 +536,13 @@ declare namespace Bull {
     /**
      * ???
      */
-    nextRepeatableJob(name: string, data: any, opts: JobOptions): Promise<Job>;
+    nextRepeatableJob(name: string, data: any, opts: JobOptions): Promise<Job<T>>;
 
     /**
      * Removes a given repeatable job. The RepeatOptions and JobId needs to be the same as the ones
      * used for the job when it was added.
      */
-    removeRepeatable(repeat: RepeatOptions & { jobId?: JobId }): Promise<void>;
+    removeRepeatable(repeat: (CronRepeatOptions | EveryRepeatOptions) & { jobId?: JobId }): Promise<void>;
 
     /**
      * Removes a given repeatable job. The RepeatOptions and JobId needs to be the same as the ones
@@ -479,7 +550,13 @@ declare namespace Bull {
      *
      * name: The name of the to be removed job
      */
-    removeRepeatable(name: string, repeat: RepeatOptions & { jobId?: JobId }): Promise<void>;
+    removeRepeatable(name: string, repeat: (CronRepeatOptions | EveryRepeatOptions) & { jobId?: JobId }): Promise<void>;
+
+    /**
+     * Returns a promise that will return an array of job instances of the given types.
+     * Optional parameters for range and ordering are provided.
+     */
+    getJobs(types: string[], start?: number, end?: number, asc?: boolean): Promise<Job[]>;
 
     /**
      * Returns a promise that resolves with the job counts for the given queue.
@@ -528,7 +605,7 @@ declare namespace Bull {
      * @param status Status of the job to clean. Values are completed, wait, active, delayed, and failed. Defaults to completed.
      * @param limit Maximum amount of jobs to clean per call. If not provided will clean all matching jobs.
      */
-    clean(grace: number, status?: JobStatus, limit?: number): Promise<Job[]>;
+    clean(grace: number, status?: JobStatus, limit?: number): Promise<Array<Job<T>>>;
 
     /**
      * Listens to queue events
@@ -543,28 +620,28 @@ declare namespace Bull {
     /**
      * A job has started. You can use `jobPromise.cancel()` to abort it
      */
-    on(event: 'active', callback: ActiveEventCallback): this;
+    on(event: 'active', callback: ActiveEventCallback<T>): this;
 
     /**
      * A job has been marked as stalled.
      * This is useful for debugging job workers that crash or pause the event loop.
      */
-    on(event: 'stalled', callback: StalledEventCallback): this;
+    on(event: 'stalled', callback: StalledEventCallback<T>): this;
 
     /**
      * A job's progress was updated
      */
-    on(event: 'progress', callback: ProgressEventCallback): this;
+    on(event: 'progress', callback: ProgressEventCallback<T>): this;
 
     /**
      * A job successfully completed with a `result`
      */
-    on(event: 'completed', callback: CompletedEventCallback): this;
+    on(event: 'completed', callback: CompletedEventCallback<T>): this;
 
     /**
      * A job failed with `err` as the reason
      */
-    on(event: 'failed', callback: FailedEventCallback): this;
+    on(event: 'failed', callback: FailedEventCallback<T>): this;
 
     /**
      * The queue has been paused
@@ -582,7 +659,7 @@ declare namespace Bull {
      *
      * @see Queue#clean() for details
      */
-    on(event: 'cleaned', callback: CleanedEventCallback): this;
+    on(event: 'cleaned', callback: CleanedEventCallback<T>): this;
   }
 
   type EventCallback = () => void;
@@ -596,17 +673,17 @@ declare namespace Bull {
     cancel(): void;
   }
 
-  type ActiveEventCallback = (job: Job, jobPromise?: JobPromise) => void;
+  type ActiveEventCallback<T = any> = (job: Job<T>, jobPromise?: JobPromise) => void;
 
-  type StalledEventCallback = (job: Job) => void;
+  type StalledEventCallback<T = any> = (job: Job<T>) => void;
 
-  type ProgressEventCallback = (job: Job, progress: any) => void;
+  type ProgressEventCallback<T = any> = (job: Job<T>, progress: any) => void;
 
-  type CompletedEventCallback = (job: Job, result: any) => void;
+  type CompletedEventCallback<T = any> = (job: Job<T>, result: any) => void;
 
-  type FailedEventCallback = (job: Job, error: Error) => void;
+  type FailedEventCallback<T = any> = (job: Job<T>, error: Error) => void;
 
-  type CleanedEventCallback = (jobs: Job[], status: JobStatus) => void;
+  type CleanedEventCallback<T = any> = (jobs: Array<Job<T>>, status: JobStatus) => void;
 }
 
 export = Bull;

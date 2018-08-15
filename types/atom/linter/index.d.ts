@@ -5,6 +5,10 @@
 
 import { Disposable, Point, Range, TextEditor } from "../index";
 
+export interface Config {
+    name: string;
+}
+
 export interface ReplacementSolution {
     title?: string;
     position: Range;
@@ -60,6 +64,9 @@ export interface Message {
      *  do things like HTTP requests.
      */
     description?: string|(() => Promise<string>|string);
+
+    /** Optionally override the displayed linter name. Defaults to provider name. */
+    linterName?: string;
 }
 
 export interface IndieDelegate {
@@ -73,10 +80,14 @@ export interface IndieDelegate {
     dispose(): void;
 }
 
+export type LintResult = Message[] | null;
+
 export interface LinterProvider {
     name: string;
     scope: "file"|"project";
     lintsOnChange: boolean;
     grammarScopes: string[];
-    lint(textEditor: TextEditor): Message[]|null|Promise<Message[]|null>;
+    lint(editor: TextEditor): LintResult | Promise<LintResult>;
 }
+
+export type IndieProvider = (register: (config: Config) => IndieDelegate) => void;

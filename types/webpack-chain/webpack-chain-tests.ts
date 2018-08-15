@@ -150,6 +150,28 @@ config
 		.umdNamedDefine(true)
 		.end()
 
+	.optimization
+		.concatenateModules(true)
+		.flagIncludedChunks(true)
+		.mergeDuplicateChunks(true)
+		.minimize(true)
+		.minimizer([])
+		.namedChunks(true)
+		.namedModules(true)
+		.nodeEnv(true)
+		.noEmitOnErrors(true)
+		.occurrenceOrder(true)
+		.portableRecords(true)
+		.providedExports(true)
+		.removeAvailableModules(true)
+		.removeEmptyChunks(true)
+		.runtimeChunk("single")
+		.runtimeChunk({ name: ({}) => "hello" })
+		.sideEffects(true)
+		.splitChunks({})
+		.usedExports(true)
+		.end()
+
 	.performance
 		.hints(true)
 		.hints('warning')

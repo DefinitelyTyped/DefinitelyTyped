@@ -3,6 +3,7 @@
 // Definitions by: Microsoft TypeScript <http://typescriptlang.org>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
+//                 Sander Koenders <https://github.com/Archcry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /************************************************
@@ -165,10 +166,6 @@ declare var Buffer: {
     new (buffer: Buffer): Buffer;
     prototype: Buffer;
     /**
-     * Allocates a new Buffer using an {array} of octets.
-     */
-    from(array: any[]): Buffer;
-    /**
      * When passed a reference to the .buffer property of a TypedArray instance,
      * the newly created Buffer will share the same allocated memory as the TypedArray.
      * The optional {byteOffset} and {length} arguments specify a memory range
@@ -178,9 +175,10 @@ declare var Buffer: {
      */
     from(arrayBuffer: ArrayBuffer, byteOffset?: number, length?:number): Buffer;
     /**
-     * Copies the passed {buffer} data onto a new Buffer instance.
+     * Creates a new Buffer using the passed {data}
+     * @param data data to create a new Buffer
      */
-    from(buffer: Buffer): Buffer;
+    from(data: any[] | string | Buffer | ArrayBuffer /*| TypedArray*/): Buffer;
     /**
      * Creates a new Buffer containing the given JavaScript string {str}.
      * If provided, the {encoding} parameter identifies the character encoding.
@@ -410,6 +408,10 @@ declare namespace NodeJS {
         isTTY?: true;
     }
 
+    export interface ProcessEnv {
+        [key: string]: string | undefined;
+    }
+
     export interface Process extends EventEmitter {
         stdout: Socket;
         stderr: Socket;
@@ -420,7 +422,8 @@ declare namespace NodeJS {
         abort(): void;
         chdir(directory: string): void;
         cwd(): string;
-        env: any;
+        debugPort: number;
+        env: ProcessEnv;
         exit(code?: number): void;
         exitCode: number;
         getgid(): number;
@@ -851,6 +854,7 @@ declare module "http" {
     }
 
     export class Agent {
+        maxFreeSockets: number;
         maxSockets: number;
         sockets: any;
         requests: any;
@@ -1081,7 +1085,9 @@ declare module "https" {
         secureProtocol?: string;
     }
 
-    export interface Agent extends http.Agent { }
+    export interface Agent extends http.Agent {
+        options?: AgentOptions;
+    }
 
     export interface AgentOptions extends http.AgentOptions {
         pfx?: any;
@@ -1241,7 +1247,7 @@ declare module "child_process" {
         gid?: number;
         shell?: boolean | string;
     }
-    export function spawn(command: string, args?: string[], options?: SpawnOptions): ChildProcess;
+    export function spawn(command: string, args?: ReadonlyArray<string>, options?: SpawnOptions): ChildProcess;
 
     export interface ExecOptions {
         cwd?: string;
@@ -1444,6 +1450,8 @@ declare module "dns" {
     export function lookup(hostname: string, options: LookupAllOptions, callback: (err: NodeJS.ErrnoException, addresses: LookupAddress[]) => void): void;
     export function lookup(hostname: string, options: LookupOptions, callback: (err: NodeJS.ErrnoException, address: string | LookupAddress[], family: number) => void): void;
     export function lookup(hostname: string, callback: (err: NodeJS.ErrnoException, address: string, family: number) => void): void;
+
+    export function lookupService(address: string, port: number, callback: (err: NodeJS.ErrnoException, hostname: string, service: string) => void): void;
 
     export interface MxRecord {
         priority: number;
@@ -2366,8 +2374,8 @@ declare module "stream" {
         highWaterMark?: number;
         decodeStrings?: boolean;
         objectMode?: boolean;
-        write?: (chunk: string | Buffer, encoding: string, callback: Function) => any;
-        writev?: (chunks: { chunk: string | Buffer, encoding: string }[], callback: Function) => any;
+        write?: (chunk: any, encoding: string, callback: Function) => any;
+        writev?: (chunks: { chunk: any, encoding: string }[], callback: Function) => any;
     }
 
     export class Writable extends Stream implements NodeJS.WritableStream {
@@ -2432,7 +2440,7 @@ declare module "util" {
 }
 
 declare module "assert" {
-    function internal (value: any, message?: string): void;
+    function internal(value: any, message?: string): void;
     namespace internal {
         export class AssertionError implements Error {
             name: string;
@@ -2442,30 +2450,27 @@ declare module "assert" {
             operator: string;
             generatedMessage: boolean;
 
-            constructor(options?: {message?: string; actual?: any; expected?: any;
-                                  operator?: string; stackStartFunction?: Function});
+            constructor(options?: {
+                message?: string; actual?: any; expected?: any;
+                operator?: string; stackStartFn?: Function
+            });
         }
 
-        export function fail(actual: any, expected: any, message?: string, operator?: string): void;
+        export function fail(actual: any, expected: any, message?: string, operator?: string): never;
         export function ok(value: any, message?: string): void;
         export function equal(actual: any, expected: any, message?: string): void;
         export function notEqual(actual: any, expected: any, message?: string): void;
         export function deepEqual(actual: any, expected: any, message?: string): void;
-        export function notDeepEqual(acutal: any, expected: any, message?: string): void;
+        export function notDeepEqual(actual: any, expected: any, message?: string): void;
         export function strictEqual(actual: any, expected: any, message?: string): void;
         export function notStrictEqual(actual: any, expected: any, message?: string): void;
         export function deepStrictEqual(actual: any, expected: any, message?: string): void;
         export function notDeepStrictEqual(actual: any, expected: any, message?: string): void;
 
         export function throws(block: Function, message?: string): void;
-        export function throws(block: Function, error: Function, message?: string): void;
-        export function throws(block: Function, error: RegExp, message?: string): void;
-        export function throws(block: Function, error: (err: any) => boolean, message?: string): void;
-
+        export function throws(block: Function, error: RegExp | Function, message?: string): void;
         export function doesNotThrow(block: Function, message?: string): void;
-        export function doesNotThrow(block: Function, error: Function, message?: string): void;
-        export function doesNotThrow(block: Function, error: RegExp, message?: string): void;
-        export function doesNotThrow(block: Function, error: (err: any) => boolean, message?: string): void;
+        export function doesNotThrow(block: Function, error: RegExp | Function, message?: string): void;
 
         export function ifError(value: any): void;
     }

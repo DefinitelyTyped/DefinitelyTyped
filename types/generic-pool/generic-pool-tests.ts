@@ -11,8 +11,8 @@ const factory = {
             resolve(conn);
         });
     },
-    destroy: (conn: Connection): Promise<undefined> => {
-        return new Promise<undefined>(resolve => {
+    destroy: (conn: Connection): Promise<void> => {
+        return new Promise<void>(resolve => {
             conn.connected = false;
             resolve();
         });
@@ -41,6 +41,11 @@ const opts = {
 
 const pool = genericPool.createPool<Connection>(factory, opts);
 
+pool.start();
+
+pool.use((conn: Connection) => 'test')
+    .then((result: string) => { });
+
 pool.acquire()
     .then((conn: Connection) => {
         return pool.release(conn);
@@ -50,7 +55,7 @@ pool.acquire()
         return pool.destroy(conn);
     }).then(() => {
         return pool.clear();
-    }).then((results: undefined[]) => {
+    }).then(() => {
     });
 
 pool.on('factoryCreateError', (err: Error) => {

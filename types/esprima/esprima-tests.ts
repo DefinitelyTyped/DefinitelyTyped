@@ -29,6 +29,7 @@ program = esprima.parseScript('answer = 42 // TODO: why', { comment: true, range
 // Tokenizing
 token = esprima.tokenize('code')[0];
 token = esprima.tokenize('code', {range: true})[0];
+token = esprima.tokenize('/E\/\w*/.exec("e")', { tolerant: true })[0];
 
 // Syntax Delegate
 esprima.parseScript('answer = 42', {}, (node) => {

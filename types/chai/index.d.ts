@@ -9,6 +9,7 @@
 //                 Shaun Luttin <https://github.com/shaunluttin>
 //                 Gintautas Miselis <https://github.com/Naktibalda>
 //                 Satana Charuwichitratana <https://github.com/micksatana>
+//                 Erik Schierboom <https://github.com/ErikSchierboom>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Chai {
@@ -150,10 +151,11 @@ declare namespace Chai {
         most: NumberComparer;
         lte: NumberComparer;
         within(start: number, finish: number, message?: string): Assertion;
+        within(start: Date, finish: Date, message?: string): Assertion;
     }
 
     interface NumberComparer {
-        (value: number, message?: string): Assertion;
+        (value: number | Date, message?: string): Assertion;
     }
 
     interface TypeComparison {
@@ -351,7 +353,7 @@ declare namespace Chai {
         notStrictEqual<T>(actual: T, expected: T, message?: string): void;
 
         /**
-         * Asserts that actual is deeply equal to expected.
+         * Asserts that actual is deeply equal (==) to expected.
          *
          * @type T   Type of the objects.
          * @param actual   Actual value.
@@ -361,7 +363,7 @@ declare namespace Chai {
         deepEqual<T>(actual: T, expected: T, message?: string): void;
 
         /**
-         * Asserts that actual is not deeply equal to expected.
+         * Asserts that actual is not deeply equal (==) to expected.
          *
          * @type T   Type of the objects.
          * @param actual   Actual value.
@@ -369,6 +371,16 @@ declare namespace Chai {
          * @param message   Message to display on error.
          */
         notDeepEqual<T>(actual: T, expected: T, message?: string): void;
+
+        /**
+         * Asserts that actual is deeply strict equal (===) to expected.
+         *
+         * @type T   Type of the objects.
+         * @param actual   Actual value.
+         * @param expected   Potential expected value.
+         * @param message   Message to display on error.
+         */
+        deepStrictEqual<T>(actual: T, expected: T, message?: string): void;
 
         /**
          * Asserts valueToCheck is strictly greater than (>) valueToBeAbove.

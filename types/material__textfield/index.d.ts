@@ -1,6 +1,6 @@
-// Type definitions for Material Components Web 0.26
+// Type definitions for Material Components Web 0.35
 // Project: https://material.io/components/
-// Definitions by: Brent Douglas <https://github.com/BrentDouglas>
+// Definitions by: Brent Douglas <https://github.com/BrentDouglas>, Collin Kostichuk <https://github.com/ckosti>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -22,25 +22,29 @@
  */
 
 import MDCComponent from 'material__base/component';
-import { MDCRipple } from 'material__ripple';
-
-import { cssClasses, strings } from './constants';
-import { MDCTextFieldAdapter } from './adapter';
 import MDCTextFieldFoundation from './foundation';
-import { MDCTextFieldBottomLine } from './bottom-line/index';
-import { MDCTextFieldHelperText } from './helper-text/index';
+import MDCTextFieldAdapter, { FoundationMapType } from './adapter';
+import { MDCTextFieldHelperText, MDCTextFieldHelperTextFoundation, MDCTextFieldHelperTextAdapter } from './helper-text';
+import { MDCTextFieldIcon, MDCTextFieldIconFoundation, MDCTextFieldIconAdapter } from './icon';
+import { MDCRipple, MDCRippleFoundation } from 'material__ripple';
+import { MDCLineRipple } from 'material__line-ripple';
+import { MDCFloatingLabel } from 'material__floating-label';
+import { MDCNotchedOutline } from 'material__notched-outline';
 
-export {MDCTextFieldAdapter, MDCTextFieldFoundation};
+export { MDCTextFieldFoundation, MDCTextFieldAdapter, MDCTextFieldHelperText };
+export { MDCTextFieldHelperTextFoundation, MDCTextFieldHelperTextAdapter, MDCTextFieldIcon };
+export { MDCTextFieldIconFoundation, MDCTextFieldIconAdapter };
 
 export class MDCTextField extends MDCComponent<MDCTextFieldAdapter, MDCTextFieldFoundation> {
     static attachTo(root: Element): MDCTextField;
 
     initialize(
-      rippleFactory?: (el: Element) => MDCRipple,
-      bottomLineFactory?: (el: Element) => MDCTextFieldBottomLine
-    ): void;
-
-    destroy(): void;
+        rippleFactory?: (el: Element, foundation: MDCRippleFoundation) => MDCRipple,
+        lineRippleFactory?: (el: Element) => MDCLineRipple,
+        helperTextFactory?: (el: Element) => MDCTextFieldHelperText,
+        iconFactory?: (el: Element) => MDCTextFieldIcon,
+        labelFactory?: (el: Element) => MDCFloatingLabel,
+        outlineFactory?: (el: Element) => MDCNotchedOutline): void;
 
     /**
      * Initiliazes the Text Field's internal state based on the environment's
@@ -48,14 +52,30 @@ export class MDCTextField extends MDCComponent<MDCTextFieldAdapter, MDCTextField
      */
     initialSyncWithDom(): void;
 
+    value: string;
+
     disabled: boolean;
 
     valid: boolean;
 
-    /**
-     * Sets the helper text element content.
-     */
+    required: boolean;
+
+    pattern: string;
+
+    minLength: number;
+
+    maxLength: number;
+
+    min: string;
+
+    max: string;
+
+    step: string;
+
     helperTextContent: string;
 
-    getDefaultFoundation(): MDCTextFieldFoundation;
+    /**
+     * Recomputes the outline SVG path for the outline element.
+     */
+    layout(): void;
 }

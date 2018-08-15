@@ -9,10 +9,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-type ClassValue = string | number | ClassDictionary | ClassArray | undefined | null | false;
+type ClassValue = string | number | ClassDictionary | ClassArray | undefined | null | boolean;
 
 interface ClassDictionary {
-	[id: string]: boolean | undefined | null;
+	[id: string]: any;
 }
 
 // This is the only way I found to break circular references between ClassArray and ClassValue
@@ -21,7 +21,9 @@ interface ClassArray extends Array<ClassValue> { } // tslint:disable-line no-emp
 
 type ClassNamesFn = (...classes: ClassValue[]) => string;
 
-declare const classNames: ClassNamesFn;
+type ClassNamesExport = ClassNamesFn & { default: ClassNamesFn };
+
+declare const classNames: ClassNamesExport;
 
 export = classNames;
 export as namespace classNames;

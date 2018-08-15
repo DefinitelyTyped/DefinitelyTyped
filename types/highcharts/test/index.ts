@@ -1631,12 +1631,18 @@ function test_Gauge() {
             type: 'gauge'
         },
         pane: {
+            center: ['50%', '85%'],
             startAngle: -150,
             endAngle: 150
         },
         yAxis: {
             min: 0,
-            max: 100
+            max: 100,
+            stops: [
+                [0.1, '#DF5353'],
+                [0.5, '#DDDF0D'],
+                [0.9, '#55BF3B'],
+            ],
         },
         plotOptions: {
             gauge: {
@@ -2585,8 +2591,10 @@ function test_ResponsiveOptions() {
     const responsiveOptions: Highcharts.ResponsiveOptions = <Highcharts.ResponsiveOptions> {
         rules: [
             <Highcharts.RulesOptions> {
-                chartOptions: <Highcharts.ChartOptions> {
-                    description: 'just a test'
+                chartOptions: <Highcharts.Options> {
+                    chart: {
+                        description: 'just a test'
+                    }
                 },
                 condition: <Highcharts.ConditionOptions> {
                     callback: () => { },
@@ -2781,5 +2789,40 @@ function test_TitleUpdate() {
         style: {
             color: 'green'
         }
+    });
+}
+
+function test_AddAndFireEvent() {
+    const chart = $('#container').highcharts();
+    const type = 'drilldown';
+    const evt = Highcharts.addEvent(chart, type, it => {});
+    Highcharts.fireEvent(chart, type);
+}
+
+function test_WordCloud() {
+    const allDefaults: Highcharts.WordCloudChartSeriesOptions = {};
+
+    // partial wordcloud demo
+    const series: Highcharts.WordCloudChartSeriesOptions = {
+        type: 'wordcloud',
+        data: [],
+        name: 'Occurrences',
+        rotation: {
+            to: 0
+        },
+        tooltip: {
+            headerFormat: null,
+            pointFormatter() {
+                return `<strong>${this.name}</strong>: Occurrence ${this.weight}`;
+            }
+        }
+    };
+}
+
+// Test wrapping the tooltip refresh behavior.
+function test_WrapTooltipBehavior() {
+    Highcharts.wrap(Highcharts.Tooltip.prototype, 'refresh', (proceed, points) => {
+        // When refresh is called, code inside this wrap is executed.
+        // Many prototype functions use this so arrow functions should only be used to replace behaviors.
     });
 }

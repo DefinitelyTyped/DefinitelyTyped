@@ -2,7 +2,7 @@
 // Project: https://github.com/FormidableLabs/redux-little-router
 // Definitions by: priecint <https://github.com/priecint>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from "react";
 import { Reducer, Middleware, StoreEnhancer } from "redux";

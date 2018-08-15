@@ -59,7 +59,7 @@ declare namespace pc {
      *     });
      * @author Will Eastcott
      */
-    function createMesh(device: pc.GraphicsDevice, positions: number[], opts: {
+    function createMesh(device: pc.GraphicsDevice, positions: number[], opts?: {
         normals: number[],
         tangents: number[],
         colors: number[],
@@ -86,7 +86,7 @@ declare namespace pc {
      * @returns {pc.Mesh} A new torus-shaped mesh.
      * @author Will Eastcott
      */
-    function createTorus(device: pc.GraphicsDevice, opts: {
+    function createTorus(device: pc.GraphicsDevice, opts?: {
         tubeRadius: number,
         ringRadius: number,
         segments: number,
@@ -111,7 +111,7 @@ declare namespace pc {
      * @returns {pc.Mesh} A new cylinder-shaped mesh.
      * @author Will Eastcott
      */
-    function createCylinder(device: pc.GraphicsDevice, opts: {
+    function createCylinder(device: pc.GraphicsDevice, opts?: {
         radius: number,
         height: number,
         heightSegments: number,
@@ -136,7 +136,7 @@ declare namespace pc {
      * @returns {pc.Mesh} A new cylinder-shaped mesh.
      * @author Will Eastcott
      */
-    function createCapsule(device: pc.GraphicsDevice, opts: {
+    function createCapsule(device: pc.GraphicsDevice, opts?: {
         radius: number,
         height: number,
         heightSegments: number,
@@ -162,7 +162,7 @@ declare namespace pc {
      * @returns {pc.Mesh} A new cone-shaped mesh.
      * @author Will Eastcott
      */
-    function createCone(device: pc.GraphicsDevice, opts: {
+    function createCone(device: pc.GraphicsDevice, opts?: {
         baseRadius: number,
         peakRadius: number,
         height: number,
@@ -186,7 +186,7 @@ declare namespace pc {
      * @returns {pc.Mesh} A new sphere-shaped mesh.
      * @author Will Eastcott
      */
-    function createSphere(device: pc.GraphicsDevice, opts: {
+    function createSphere(device: pc.GraphicsDevice, opts?: {
         radius: number,
         segments: number
     }): pc.Mesh;
@@ -209,7 +209,7 @@ declare namespace pc {
      * @returns {pc.Mesh} A new plane-shaped mesh.
      * @author Will Eastcott
      */
-    function createPlane(device: pc.GraphicsDevice, opts: {
+    function createPlane(device: pc.GraphicsDevice, opts?: {
         halfExtents: pc.Vec2,
         widthSegments: number,
         lenghtSegments: number
@@ -233,7 +233,7 @@ declare namespace pc {
      * @return {pc.Mesh} A new box-shaped mesh.
      * @author Will Eastcott
      */
-    function createBox(device: pc.GraphicsDevice, opts: {
+    function createBox(device: pc.GraphicsDevice, opts?: {
         halfExtents: pc.Vec3,
         widthSegments: number,
         lengthSegments: number,

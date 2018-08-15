@@ -41,7 +41,7 @@ export class Reference {
     isTag(): number;
     name(): string;
     owner(): Repository;
-    peel(type: number): Promise<Object>;
+    peel(type: Object.TYPE): Promise<Object>;
     rename(newName: string, force: number, logMessage: string): Promise<Reference>;
     resolve(): Promise<Reference>;
     setTarget(id: Oid, logMessage: string): Promise<Reference>;

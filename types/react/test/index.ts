@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import * as ReactDOMServer from "react-dom/server";
+import * as PropTypes from "prop-types";
 import createFragment = require("react-addons-create-fragment");
 import CSSTransitionGroup = require("react-addons-css-transition-group");
 import * as LinkedStateMixin from "react-addons-linked-state-mixin";
@@ -11,22 +12,25 @@ import * as TestUtils from "react-addons-test-utils";
 import TransitionGroup = require("react-addons-transition-group");
 import update = require("react-addons-update");
 import createReactClass = require("create-react-class");
-import * as PropTypes from "prop-types";
 import * as DOM from "react-dom-factories";
 
 interface Props extends React.Attributes {
     hello: string;
-    world?: string;
+    world?: string | null;
     foo: number;
 }
 
 interface State {
-    inputValue?: string;
+    inputValue?: string | null;
     seconds?: number;
 }
 
+interface Snapshot {
+    baz: string;
+}
+
 interface Context {
-    someValue?: string;
+    someValue?: string | null;
 }
 
 interface ChildContext {
@@ -37,23 +41,87 @@ interface MyComponent extends React.Component<Props, State> {
     reset(): void;
 }
 
-const props: Props & React.ClassAttributes<{}> = {
+// use any for ClassAttribute type sine we're using string refs
+const props: Props & React.ClassAttributes<any> = {
     key: 42,
     ref: "myComponent42",
     hello: "world",
     foo: 42
 };
 
-const container: Element = document.createElement("div");
+declare const container: Element;
 
 //
 // Top-Level API
 // --------------------------------------------------------------------------
+{
+    interface State {
+        inputValue: string;
+        seconds: number;
+    }
+    class SettingStateFromCtorComponent extends React.Component<Props, State, Snapshot> {
+        constructor(props: Props) {
+            super(props);
+            // $ExpectError
+            this.state = {
+                inputValue: 'hello'
+            };
+        }
+        render() { return null; }
+    }
 
-class ModernComponent extends React.Component<Props, State>
+    class BadlyInitializedState extends React.Component<Props, State, Snapshot> {
+        // $ExpectError -> this throws error on TS 2.6 uncomment once TS requirement is TS >= 2.7
+        // state = {
+        //     secondz: 0,
+        //     inputValuez: 'hello'
+        // };
+        render() { return null; }
+    }
+    class BetterPropsAndStateChecksComponent extends React.Component<Props, State, Snapshot> {
+        render() { return null; }
+        componentDidMount() {
+            // $ExpectError -> this will be true in next BC release where state is gonna be `null | Readonly<S>`
+            console.log(this.state.inputValue);
+        }
+        mutateState() {
+            // $ExpectError
+            this.state = {
+                inputValue: 'hello'
+            };
+
+            // Even if state is not set, this is allowed by React
+            this.setState({ inputValue: 'hello' });
+            this.setState((prevState, props) => {
+                // $ExpectError
+                props = { foo: 'nope' };
+                // $ExpectError
+                props.foo = 'nope';
+
+                return { inputValue: prevState.inputValue + ' foo' };
+            });
+        }
+        mutateProps() {
+            // $ExpectError
+            this.props = {};
+            // $ExpectError
+            this.props = {
+                key: 42,
+                ref: "myComponent42",
+                hello: "world",
+                foo: 42
+            };
+        }
+    }
+}
+
+class ModernComponent extends React.Component<Props, State, Snapshot>
     implements MyComponent, React.ChildContextProvider<ChildContext> {
     static propTypes: React.ValidationMap<Props> = {
-        foo: PropTypes.number
+        hello: PropTypes.string.isRequired,
+        world: PropTypes.string,
+        foo: PropTypes.number.isRequired,
+        key: <PropTypes.Validator<string | number | undefined>> PropTypes.oneOfType([PropTypes.number, PropTypes.string])
     };
 
     static contextTypes: React.ValidationMap<Context> = {
@@ -61,7 +129,7 @@ class ModernComponent extends React.Component<Props, State>
     };
 
     static childContextTypes: React.ValidationMap<ChildContext> = {
-        someOtherValue: PropTypes.string
+        someOtherValue: PropTypes.string.isRequired
     };
 
     context: Context;
@@ -92,7 +160,7 @@ class ModernComponent extends React.Component<Props, State>
         return DOM.div(null,
             DOM.input({
                 ref: input => this._input = input,
-                value: this.state.inputValue
+                value: this.state.inputValue ? this.state.inputValue : undefined
             }),
             DOM.input({
                 onChange: event => console.log(event.target)
@@ -102,12 +170,20 @@ class ModernComponent extends React.Component<Props, State>
     shouldComponentUpdate(nextProps: Props, nextState: State, nextContext: any): boolean {
         return shallowCompare(this, nextProps, nextState);
     }
+
+    getSnapshotBeforeUpdate(prevProps: Readonly<Props>) {
+        return { baz: `${prevProps.foo}baz` };
+    }
+
+    componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<State>, snapshot: Snapshot) {
+        return;
+    }
 }
 
 class ModernComponentArrayRender extends React.Component<Props> {
     render() {
         return [DOM.h1({ key: "1" }, "1"),
-                DOM.h1({ key: "2" }, "2")];
+        DOM.h1({ key: "2" }, "2")];
     }
 }
 
@@ -193,19 +269,16 @@ React.cloneElement(element, {});
 React.cloneElement(element, {}, null);
 
 const clonedElement2: React.CElement<Props, ModernComponent> =
-    // known problem: cloning with key or ref requires cast
     React.cloneElement(element, {
         ref: c => c && c.reset()
-    } as React.ClassAttributes<ModernComponent>);
+    });
 const clonedElement3: React.CElement<Props, ModernComponent> =
     React.cloneElement(element, {
         key: "8eac7",
         foo: 55
-    } as { foo: number } & React.Attributes);
+    });
 const clonedStatelessElement: React.SFCElement<SCProps> =
-    // known problem: cloning with optional props don't work properly
-    // workaround: cast to actual props type
-    React.cloneElement(statelessElement, { foo: 44 } as SCProps);
+    React.cloneElement(statelessElement, { foo: 44 });
 // Clone base DOMElement
 const clonedDOMElement: React.DOMElement<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> =
     React.cloneElement(domElement, {
@@ -226,9 +299,9 @@ const clonedSvgElement: React.ReactSVGElement =
 const component: ModernComponent = ReactDOM.render(element, container);
 const componentNullContainer: ModernComponent = ReactDOM.render(element, null);
 
-const componentElementOrNull: ModernComponent = ReactDOM.render(element, document.getElementById("anelement"));
+const componentElementOrNull: ModernComponent = ReactDOM.render(element, container);
 const componentNoState: ModernComponentNoState = ReactDOM.render(elementNoState, container);
-const componentNoStateElementOrNull: ModernComponentNoState = ReactDOM.render(elementNoState, document.getElementById("anelement"));
+const componentNoStateElementOrNull: ModernComponentNoState = ReactDOM.render(elementNoState, container);
 const domComponent: Element = ReactDOM.render(domElement, container);
 
 // Other Top-Level API
@@ -237,8 +310,8 @@ const str: string = ReactDOMServer.renderToString(element);
 const markup: string = ReactDOMServer.renderToStaticMarkup(element);
 const notValid: boolean = React.isValidElement(props); // false
 const isValid = React.isValidElement(element); // true
-let domNode: Element = ReactDOM.findDOMNode(component);
-domNode = ReactDOM.findDOMNode(domNode);
+let domNode = ReactDOM.findDOMNode(component);
+domNode = ReactDOM.findDOMNode(domNode as Element);
 const fragmentType: React.ComponentType = React.Fragment;
 
 //
@@ -288,6 +361,15 @@ DOM.div({ ref: node => domNodeRef = node });
 let inputNodeRef: HTMLInputElement | null;
 DOM.input({ ref: node => inputNodeRef = node as HTMLInputElement });
 
+const ForwardingRefComponent = React.forwardRef((props: {}, ref: React.Ref<RefComponent>) => {
+    return React.createElement(RefComponent, { ref });
+});
+
+function RefCarryingComponent() {
+    const ref: React.RefObject<RefComponent> = React.createRef();
+    return React.createElement(ForwardingRefComponent, { ref });
+}
+
 //
 // Attributes
 // --------------------------------------------------------------------------
@@ -313,7 +395,7 @@ const htmlAttr: React.HTMLProps<HTMLElement> = {
         event.stopPropagation();
     },
     onAnimationStart: event => {
-        console.log(event.currentTarget.className);
+        const currentTarget: EventTarget & HTMLElement = event.currentTarget;
     },
     dangerouslySetInnerHTML: {
         __html: "<strong>STRONG</strong>"
@@ -356,99 +438,6 @@ DOM.svg({
         fillRule: "evenodd"
     })
 );
-
-//
-// PropTypes
-// --------------------------------------------------------------------------
-
-const PropTypesSpecification: React.ComponentSpec<any, any> = {
-    propTypes: {
-        optionalArray: PropTypes.array,
-        optionalBool: PropTypes.bool,
-        optionalFunc: PropTypes.func,
-        optionalNumber: PropTypes.number,
-        optionalObject: PropTypes.object,
-        optionalString: PropTypes.string,
-        optionalNode: PropTypes.node,
-        optionalElement: PropTypes.element,
-        optionalMessage: PropTypes.instanceOf(Date),
-        optionalEnum: PropTypes.oneOf(["News", "Photos"]),
-        optionalUnion: PropTypes.oneOfType([
-            PropTypes.string,
-            PropTypes.number,
-            PropTypes.instanceOf(Date)
-        ]),
-        optionalArrayOf: PropTypes.arrayOf(PropTypes.number),
-        optionalObjectOf: PropTypes.objectOf(PropTypes.number),
-        optionalObjectWithShape: PropTypes.shape({
-            color: PropTypes.string,
-            fontSize: PropTypes.number
-        }),
-        requiredFunc: PropTypes.func.isRequired,
-        requiredAny: PropTypes.any.isRequired,
-        customProp(props: any, propName: string, componentName: string): Error | null {
-            if (!/matchme/.test(props[propName])) {
-                return new Error("Validation failed!");
-            }
-            return null;
-        },
-        // https://facebook.github.io/react/warnings/dont-call-proptypes.html#fixing-the-false-positive-in-third-party-proptypes
-        percentage: (object: any, key: string, componentName: string, ...rest: any[]): Error | null => {
-            const error = PropTypes.number(object, key, componentName, ...rest);
-            if (error) {
-                return error;
-            }
-            if (object[key] < 0 || object[key] > 100) {
-                return new Error(`prop ${key} must be between 0 and 100`);
-            }
-            return null;
-        }
-    },
-    render: (): React.ReactElement<any> | null => {
-        return null;
-    }
-};
-
-//
-// ContextTypes
-// --------------------------------------------------------------------------
-
-const ContextTypesSpecification: React.ComponentSpec<any, any> = {
-    contextTypes: {
-        optionalArray: PropTypes.array,
-        optionalBool: PropTypes.bool,
-        optionalFunc: PropTypes.func,
-        optionalNumber: PropTypes.number,
-        optionalObject: PropTypes.object,
-        optionalString: PropTypes.string,
-        optionalNode: PropTypes.node,
-        optionalElement: PropTypes.element,
-        optionalMessage: PropTypes.instanceOf(Date),
-        optionalEnum: PropTypes.oneOf(["News", "Photos"]),
-        optionalUnion: PropTypes.oneOfType([
-            PropTypes.string,
-            PropTypes.number,
-            PropTypes.instanceOf(Date)
-        ]),
-        optionalArrayOf: PropTypes.arrayOf(PropTypes.number),
-        optionalObjectOf: PropTypes.objectOf(PropTypes.number),
-        optionalObjectWithShape: PropTypes.shape({
-            color: PropTypes.string,
-            fontSize: PropTypes.number
-        }),
-        requiredFunc: PropTypes.func.isRequired,
-        requiredAny: PropTypes.any.isRequired,
-        customProp(props: any, propName: string, componentName: string): Error | null {
-            if (!/matchme/.test(props[propName])) {
-                return new Error("Validation failed!");
-            }
-            return null;
-        }
-    },
-    render: (): null => {
-        return null;
-    }
-};
 
 //
 // React.Children
@@ -624,7 +613,7 @@ if (TestUtils.isElementOfType(emptyElement2, StatelessComponent)) {
 }
 
 if (TestUtils.isDOMComponent(container)) {
-    container.getAttribute("className");
+    const reassignedContainer: Element = container;
 } else if (TestUtils.isCompositeComponent(new ModernComponent({ hello: 'hi', foo: 3 }))) {
     new ModernComponent({ hello: 'hi', foo: 3 }).props;
 }
@@ -663,6 +652,7 @@ React.createFactory(TransitionGroup)({ component: "div" });
 // The SyntheticEvent.target.value should be accessible for onChange
 // --------------------------------------------------------------------------
 class SyntheticEventTargetValue extends React.Component<{}, { value: string }> {
+    state: { value: string };
     constructor(props: {}) {
         super(props);
         this.state = { value: 'a' };
@@ -670,7 +660,9 @@ class SyntheticEventTargetValue extends React.Component<{}, { value: string }> {
     render() {
         return DOM.textarea({
             value: this.state.value,
-            onChange: e => this.setState({ value: e.target.value })
+            onChange: e => {
+                const target: HTMLTextAreaElement = e.target;
+            }
         });
     }
 }
@@ -678,7 +670,7 @@ class SyntheticEventTargetValue extends React.Component<{}, { value: string }> {
 DOM.input({
     onChange: event => {
         // `event.target` is guaranteed to be HTMLInputElement
-        event.target.value;
+        const target: HTMLInputElement = event.target;
     }
 });
 

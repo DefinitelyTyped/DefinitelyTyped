@@ -10,6 +10,8 @@ declare namespace pc {
     * @param {Number} [w] The w value
     */
     class Vec4 {
+        data: Float32Array;
+
         constructor(x: number, y: number, z: number, w: number)
         constructor(x: [number, number, number, number])
         constructor();

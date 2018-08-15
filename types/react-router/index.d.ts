@@ -15,8 +15,11 @@
 //                 Daniel Roth <https://github.com/DaIgeb>
 //                 Egor Shulga <https://github.com/egorshulga>
 //                 Youen Toupin <https://github.com/neuoy>
+//                 Rahul Raina <https://github.com/rraina>
+//                 Maksim Sharipov <https://github.com/pret-a-porter>
+//                 Duong Tran <https://github.com/t49tran>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 import * as H from 'history';
@@ -57,11 +60,15 @@ export interface RedirectProps {
 }
 export class Redirect extends React.Component<RedirectProps, any> { }
 
-export interface RouteComponentProps<P> {
-  match: match<P>;
-  location: H.Location;
+export interface StaticContext {
+  statusCode?: number;
+}
+
+export interface RouteComponentProps<P, C extends StaticContext = StaticContext, S = H.LocationState> {
   history: H.History;
-  staticContext?: any;
+  location: H.Location<S>;
+  match: match<P>;
+  staticContext?: C;
 }
 
 export interface RouteProps {
@@ -71,19 +78,25 @@ export interface RouteProps {
   children?: ((props: RouteComponentProps<any>) => React.ReactNode) | React.ReactNode;
   path?: string;
   exact?: boolean;
+  sensitive?: boolean;
   strict?: boolean;
 }
 export class Route<T extends RouteProps = RouteProps> extends React.Component<T, any> { }
 
 export interface RouterProps {
-  history: any;
+  history: H.History;
 }
 export class Router extends React.Component<RouterProps, any> { }
 
+export interface StaticRouterContext {
+  url?: string;
+  action?: 'PUSH' | 'REPLACE';
+  location?: object;
+}
 export interface StaticRouterProps {
   basename?: string;
   location?: string | object;
-  context?: object;
+  context?: StaticRouterContext;
 }
 
 export class StaticRouter extends React.Component<StaticRouterProps, any> { }
@@ -100,11 +113,12 @@ export interface match<P> {
   url: string;
 }
 
-// Diff / Omit taken from https://github.com/Microsoft/TypeScript/issues/12215#issuecomment-311923766
-export type Diff<T extends string, U extends string> = ({ [P in T]: P } & { [P in U]: never } & { [x: string]: never })[T];
-export type Omit<T, K extends keyof T> = Pick<T, Diff<keyof T, K>>;
+// Omit taken from https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html
+export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
-export function matchPath<P>(pathname: string, props: RouteProps): match<P> | null;
+export function matchPath<P>(pathname: string, props: RouteProps, parent?: match<P> | null): match<P> | null;
+
+export function generatePath(pattern: string, params?: { [paramName: string]: string | number | boolean }): string;
 
 // There is a known issue in TypeScript, which doesn't allow decorators to change the signature of the classes
 // they are decorating. Due to this, if you are using @withRouter decorator in your code,

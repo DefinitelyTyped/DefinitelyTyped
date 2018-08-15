@@ -251,6 +251,29 @@ tileLayer = new L.TileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png');
 tileLayer = new L.TileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', tileLayerOptions);
 tileLayer = new L.TileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png?{foo}&{bar}&{abc}', {foo: 'bar', bar: (data: any) => 'foo', abc: () => ''});
 
+// imageOverlay
+let imageOverlayOptions: L.ImageOverlayOptions;
+imageOverlayOptions = {
+    opacity: 100,
+    alt: 'alt',
+    interactive: true,
+    attribution: 'attribution',
+    crossOrigin: true,
+    className: 'className',
+    bubblingMouseEvents: false,
+    pane: 'pane'
+};
+
+const imageOverlayBounds = latLngBounds;
+let imageOverlay: L.ImageOverlay;
+imageOverlay = L.imageOverlay('https://www.google.ru/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png', imageOverlayBounds);
+imageOverlay = L.imageOverlay('https://www.google.ru/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png', imageOverlayBounds, imageOverlayOptions);
+imageOverlay = L.imageOverlay('https://www.google.ru/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png', imageOverlayBounds, {
+    opacity: 100,
+    alt: 'alt',
+    className: 'className',
+});
+
 const eventHandler = () => {};
 const domEvent: Event = {} as Event;
 L.DomEvent
@@ -510,3 +533,50 @@ lg = new L.LayerGroup([new L.Layer(), new L.Layer()], {
 	pane: 'overlayPane',
 	attribution: 'test'
 });
+
+// adapted from GridLayer documentation
+const CanvasLayer = L.GridLayer.extend({
+	createTile(coords: L.Coords, done: L.DoneCallback) {
+		const tile = (L.DomUtil.create('canvas', 'leaflet-tile') as HTMLCanvasElement);
+		const size = this.getTileSize();
+		tile.width = size.x;
+		tile.height = size.y;
+		return tile;
+	}
+});
+
+// adapted from GridLayer documentation
+const AsyncCanvasLayer = L.GridLayer.extend({
+	createTile(coords: L.Coords, done: L.DoneCallback) {
+		const tile = (L.DomUtil.create('canvas', 'leaflet-tile') as HTMLCanvasElement);
+		const size = this.getTileSize();
+		tile.width = size.x;
+		tile.height = size.y;
+		setTimeout(() => done(undefined, tile), 1000);
+		return tile;
+	}
+});
+
+export class ExtendedTileLayer extends L.TileLayer {
+	options: L.TileLayerOptions;
+	createTile(coords: L.Coords, done: L.DoneCallback) {
+		const newCoords: L.Coords = (new L.Point(coords.x, coords.y) as L.Coords);
+		newCoords.z = coords.z;
+		return super.createTile(newCoords, done);
+	}
+	_abortLoading() {
+		// adapted from TileLayer's implementation
+		for (const i in this._tiles) {
+			if (this._tiles[i].coords.z !== this._tileZoom) {
+				const tile = this._tiles[i].el;
+				tile.onload = L.Util.falseFn;
+				tile.onerror = L.Util.falseFn;
+				if (tile instanceof HTMLImageElement && !tile.complete) {
+					tile.src = L.Util.emptyImageUrl;
+					L.DomUtil.remove(tile);
+					this._tiles[i] = undefined;
+				}
+			}
+		}
+	}
+}

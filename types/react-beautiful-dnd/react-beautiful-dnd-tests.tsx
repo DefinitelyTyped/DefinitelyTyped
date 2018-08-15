@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
+import { DragDropContext, Draggable, Droppable, DropResult, DragStart, DragUpdate, HookProvided } from 'react-beautiful-dnd';
 
 interface Item {
   id: string;
@@ -40,16 +40,23 @@ interface AppState {
 }
 
 class App extends React.Component<{}, AppState> {
+  state = {
+    items: getItems(10)
+  };
   constructor(props: any) {
     super(props);
-
-    this.state = {
-      items: getItems(10)
-    };
     this.onDragEnd = this.onDragEnd.bind(this);
   }
 
-  onDragEnd(result: DropResult) {
+  onDragStart(dragStart: DragStart, provided: HookProvided) {
+    //
+  }
+
+  onDragUpdate(dragUpdate: DragUpdate, provided: HookProvided) {
+    //
+  }
+
+  onDragEnd(result: DropResult, provided: HookProvided) {
     if (!result.destination) {
       return;
     }
@@ -65,10 +72,10 @@ class App extends React.Component<{}, AppState> {
 
   render() {
     return (
-      <DragDropContext onDragEnd={this.onDragEnd}>
+      <DragDropContext onDragStart={this.onDragStart} onDragUpdate={this.onDragUpdate} onDragEnd={this.onDragEnd}>
         <Droppable droppableId="droppable">
           {(provided, snapshot) => (
-            <div ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)}>
+            <div ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)} {...provided.droppableProps}>
               {this.state.items.map((item, index) => (
                 <Draggable key={item.id} draggableId={item.id} index={index}>
                   {(provided, snapshot) => (

@@ -3,6 +3,7 @@
 // Definitions by: Marc Bornträger <https://github.com/BorntraegerMarc>
 //                 Rafael Souza Fijalkowski <https://github.com/rafaelsouzaf>
 //                 Justin Simms <https://github.com/jhsimms>
+//                 Simon Schick <https://github.com/SimonSchick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -120,7 +121,7 @@ export interface PluginBase<T> {
      * * server - the server object with a plugin-specific server.realm.
      * * options - any options passed to the plugin during registration via server.register().
      */
-    register: (server: Server, options: T) => Promise<void>;
+    register: (server: Server, options: T) => void | Promise<void>;
 
     /** (optional) if true, allows the plugin to be registered multiple times with the same server. Defaults to false. */
     multiple?: boolean;
@@ -334,6 +335,10 @@ export interface RequestLog {
     channel: string;
 }
 
+export interface RequestQuery {
+    [key: string]: string | string[];
+}
+
 /**
  * The request object is created internally for each incoming request. It is not the same object received from the node
  * HTTP server callback (which is available via [request.raw.req](https://github.com/hapijs/hapi/blob/master/API.md#request.raw)). The request properties change throughout
@@ -446,25 +451,25 @@ export interface Request extends Podium {
      * An object where each key is the name assigned by a route pre-handler methods function. The values are the raw values provided to the continuation function as argument. For the wrapped response
      * object, use responses.
      */
-    readonly pre: Util.Dictionary<object>;
+    readonly pre: Util.Dictionary<any>;
 
     /**
      * Access: read / write (see limitations below).
      * The response object when set. The object can be modified but must not be assigned another object. To replace the response with another from within an extension point, use reply(response) to
      * override with a different response. Contains null when no response has been set (e.g. when a request terminates prematurely when the client disconnects).
      */
-    response: ResponseObject | Boom.BoomError | null;
+    response: ResponseObject | Boom | null;
 
     /**
      * Same as pre but represented as the response object created by the pre method.
      */
-    readonly preResponses: Util.Dictionary<object>;
+    readonly preResponses: Util.Dictionary<any>;
 
     /**
      * By default the object outputted from node's URL parse() method. Might also be set indirectly via request.setUrl in which case it may be a string (if url is set to an object with the query
      * attribute as an unparsed string).
      */
-    readonly query: any;
+    readonly query: RequestQuery | string;
 
     /**
      * An object containing the Node HTTP server objects. Direct interaction with these raw objects is not recommended.
@@ -539,7 +544,7 @@ export interface Request extends Podium {
      * @return void
      * [See docs](https://hapijs.com/api/17.0.1#-requestseturlurl-striptrailingslash)
      */
-    setUrl(url: string | url.URL, stripTrailingSlash?: boolean): void;
+    setUrl(url: string | url.Url, stripTrailingSlash?: boolean): void;
 }
 
 /* + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
@@ -1004,7 +1009,7 @@ export interface ResponseToolkit {
      * @return Return value: none.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-hstatename-value-options)
      */
-    state(name: string, value: string, options?: ServerStateCookieOptions): void;
+    state(name: string, value: string | object, options?: ServerStateCookieOptions): void;
 
     /**
      * Used by the [authentication] method to indicate authentication failed and pass back the credentials received where:
@@ -1139,7 +1144,7 @@ export interface RouteOptionsAccess {
  * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionscache)
  */
 export type RouteOptionsCache = {
-    privacy?: 'default' | 'public' | 'privacy';
+    privacy?: 'default' | 'public' | 'private';
     statuses?: number[];
     otherwise?: string;
 } & (
@@ -1377,6 +1382,7 @@ export interface ValidationObject {
 export type RouteOptionsResponseSchema =
     boolean
     | ValidationObject
+    | AnySchema
     | ((value: object | Buffer | string, options: ValidationOptions) => Promise<any>);
 
 /**
@@ -1630,6 +1636,13 @@ export interface RouteOptionsValidate {
 export type RouteCompressionEncoderSettings = object;
 
 /**
+ * Empty interface to allow for user-defined augmentations.
+ */
+/* tslint:disable-next-line:no-empty-interface */
+export interface RouteOptionsApp {
+}
+
+/**
  * Each route can be customized to change the default behavior of the request lifecycle.
  * For context [See docs](https://github.com/hapijs/hapi/blob/master/API.md#route-options)
  */
@@ -1638,7 +1651,7 @@ export interface RouteOptions {
      * Application-specific route configuration state. Should not be used by plugins which should use options.plugins[name] instead.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsapp)
      */
-    app?: any;
+    app?: RouteOptionsApp;
 
     /**
      * Route authentication configuration. Value can be:
@@ -1694,7 +1707,7 @@ export interface RouteOptions {
      * * credentials - if true, allows user credentials to be sent ('Access-Control-Allow-Credentials'). Defaults to false.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionscors)
      */
-    cors?: false | RouteOptionsCors;
+    cors?: boolean | RouteOptionsCors;
 
     /**
      * Default value: none.
@@ -1712,12 +1725,7 @@ export interface RouteOptions {
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#request-lifecycle)
      */
     ext?: {
-        onPreAuth?: Lifecycle.Method;
-        onCredentials?: Lifecycle.Method;
-        onPostAuth?: Lifecycle.Method;
-        onPreHandler?: Lifecycle.Method;
-        onPostHandler?: Lifecycle.Method;
-        onPreResponse?: Lifecycle.Method;
+        [key in RouteRequestExtType]?: RouteExtObject | RouteExtObject[];
     };
 
     /**
@@ -2217,8 +2225,8 @@ export interface RequestEvent {
     error: object;
 }
 
-export type LogEventHandler = (event: LogEvent, tags: object) => void;
-export type RequestEventHandler = (request: Request, event: RequestEvent, tags: object) => void;
+export type LogEventHandler = (event: LogEvent, tags: { [key: string]: true }) => void;
+export type RequestEventHandler = (request: Request, event: RequestEvent, tags: { [key: string]: true }) => void;
 export type ResponseEventHandler = (request: Request) => void;
 export type RouteEventHandler = (route: ServerRoute) => void;
 export type StartEventHandler = () => void;
@@ -2342,14 +2350,16 @@ export interface ServerEvents extends Podium {
  * For context [See docs](https://github.com/hapijs/hapi/blob/master/API.md#request-lifecycle)
  */
 export type ServerExtType = 'onPreStart' | 'onPostStart' | 'onPreStop' | 'onPostStop';
-export type ServerRequestExtType =
-    'onRequest'
-    | 'onPreAuth'
+export type RouteRequestExtType = 'onPreAuth'
     | 'onCredentials'
     | 'onPostAuth'
     | 'onPreHandler'
     | 'onPostHandler'
     | 'onPreResponse';
+
+export type ServerRequestExtType =
+    RouteRequestExtType
+    | 'onRequest';
 
 /**
  * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverextevents)
@@ -2389,14 +2399,11 @@ export interface ServerExtEventsObject {
      * * request extension points: a lifecycle method.
      */
     method: ServerExtPointFunction | ServerExtPointFunction[];
-    /**
-     * options - (optional) an object with the following:
-     * * before - a string or array of strings of plugin names this method must execute before (on the same event). Otherwise, extension methods are executed in the order added.
-     * * after - a string or array of strings of plugin names this method must execute after (on the same event). Otherwise, extension methods are executed in the order added.
-     * * bind - a context object passed back to the provided method (via this) when called. Ignored if the method is an arrow function.
-     * * sandbox - if set to 'plugin' when adding a request extension points the extension is only added to routes defined by the current plugin. Not allowed when configuring route-level extensions,
-     * or when adding server extensions. Defaults to 'server' which applies to any route added to the server the extension is added to.
-     */
+    options?: ServerExtOptions;
+}
+
+export interface RouteExtObject {
+    method: Lifecycle.Method;
     options?: ServerExtOptions;
 }
 
@@ -2465,15 +2472,15 @@ export interface ServerExtOptions {
     /**
      * a string or array of strings of plugin names this method must execute before (on the same event). Otherwise, extension methods are executed in the order added.
      */
-    before: string | string[];
+    before?: string | string[];
     /**
      * a string or array of strings of plugin names this method must execute after (on the same event). Otherwise, extension methods are executed in the order added.
      */
-    after: string | string[];
+    after?: string | string[];
     /**
      * a context object passed back to the provided method (via this) when called. Ignored if the method is an arrow function.
      */
-    bind: object;
+    bind?: object;
     /**
      * if set to 'plugin' when adding a request extension points the extension is only added to routes defined by the current plugin. Not allowed when configuring route-level extensions, or when
      * adding server extensions. Defaults to 'server' which applies to any route added to the server the extension is added to.
@@ -2574,7 +2581,7 @@ export interface ServerInjectOptions extends Shot.RequestOptions {
     /**
      * sets the initial value of request.app, defaults to {}.
      */
-    app?: any;
+    app?: ApplicationState;
     /**
      * sets the initial value of request.plugins, defaults to {}.
      */
@@ -2656,7 +2663,7 @@ export interface ServerMethodOptions {
      * unique key if the function's arguments are all of types 'string', 'number', or 'boolean'. However if the method uses other types of arguments, a key generation function must be provided which
      * takes the same arguments as the function and returns a unique string (or null if no key can be generated).
      */
-    generateKey?: (...args: any[]) => any;
+    generateKey?: (...args: any[]) => string | null;
 }
 
 /**
@@ -2711,6 +2718,13 @@ export interface ServerOptionsCompression {
 }
 
 /**
+ * Empty interface to allow for custom augmentation.
+ */
+/* tslint:disable-next-line:no-empty-interface */
+export interface ServerOptionsApp {
+}
+
+/**
  * The server options control the behavior of the server object. Note that the options object is deeply cloned
  * (with the exception of listener which is shallowly copied) and should not contain any values that are unsafe to perform deep copy on.
  * All options are optionals.
@@ -2732,7 +2746,7 @@ export interface ServerOptions {
      * state.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serveroptionsapp)
      */
-    app?: any;
+    app?: ServerOptionsApp;
 
     /**
      * Default value: true.
@@ -2891,7 +2905,7 @@ export interface ServerOptions {
      * Default value: none.
      * Used to create an HTTPS connection. The tls object is passed unchanged to the node HTTPS server as described in the node HTTPS documentation.
      */
-    tls?: true | https.RequestOptions;
+    tls?: boolean | https.RequestOptions;
 
     /**
      * Default value: constructed from runtime server information.
@@ -3186,7 +3200,7 @@ export interface ServerState {
      * Note that this utility uses the server configuration but does not change the server state. It is provided for manual cookie formating (e.g. when headers are set manually).
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-async-serverstatesformatcookies)
      */
-    format(cookies: ServerStateFormat | ServerStateFormat[]): string;
+    format(cookies: ServerStateFormat | ServerStateFormat[]): Promise<string>;
 
     /**
      * Parses an HTTP 'Cookies' header based on the server.options.state where:
@@ -3195,7 +3209,7 @@ export interface ServerState {
      * Note that this utility uses the server configuration but does not change the server state. It is provided for manual cookie parsing (e.g. when server parsing is disabled).
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-async-serverstatesparseheader)
      */
-    parse(header: string): Util.Dictionary<string>;
+    parse(header: string): Promise<Util.Dictionary<string>>;
 }
 
 /**
@@ -3211,6 +3225,13 @@ export interface HandlerDecorationMethod {
  * The general case for decorators added via server.decorate.
  */
 export type DecorationMethod<T> = (this: T, ...args: any[]) => any;
+
+/**
+ * An empty interface to allow typings of custom plugin properties.
+ */
+/* tslint:disable-next-line:no-empty-interface */
+export interface PluginProperties {
+}
 
 /**
  * The server object is the main application container. The server manages all incoming requests along with all
@@ -3231,7 +3252,7 @@ export class Server extends Podium {
      * Initialized with an empty object.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverapp)
      */
-    app?: ApplicationState;
+    app: ApplicationState;
 
     /**
      * Server Auth: properties and methods
@@ -3363,7 +3384,7 @@ export class Server extends Podium {
      * the server.plugins[name] object directly or via the server.expose() method.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverplugins)
      */
-    plugins: any;
+    plugins: PluginProperties;
 
     /**
      * The realm object contains sandboxed server settings specific to each plugin or authentication strategy. When
@@ -3847,7 +3868,7 @@ export namespace Lifecycle {
     type ReturnValueTypes =
         (null | string | number | boolean) |
         (Buffer) |
-        (Error | Boom.BoomError) |
+        (Error | Boom) |
         (stream.Stream) |
         (object | object[]) |
         symbol |

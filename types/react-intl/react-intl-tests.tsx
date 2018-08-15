@@ -4,6 +4,7 @@
  */
 
 import * as React from "react";
+import * as PropTypes from "prop-types";
 import * as reactMixin from "react-mixin";
 
 import {
@@ -63,8 +64,9 @@ const SomeFunctionalComponentWithIntl: React.ComponentClass<SomeComponentProps> 
 });
 
 class SomeComponent extends React.Component<SomeComponentProps & InjectedIntlProps> {
-    static propTypes: React.ValidationMap<any> = {
-        intl: intlShape.isRequired
+    static propTypes: React.ValidationMap<SomeComponentProps & InjectedIntlProps> = {
+        intl: intlShape.isRequired,
+        className: PropTypes.string.isRequired
     };
     render(): React.ReactElement<{}> {
         const intl = this.props.intl;
@@ -142,6 +144,45 @@ class SomeComponent extends React.Component<SomeComponentProps & InjectedIntlPro
                 defaultMessage="Hi {blank} and {empty}!"
                 values={{ blank: null, empty: undefined }}
                 tagName="div" />
+
+            <FormattedMessage
+                id="test"
+                description="Test"
+            >
+                {(text) => <div className="messageDiv">{text}</div>}
+            </FormattedMessage>
+
+            <FormattedMessage
+                id="test"
+                description="Test"
+            >
+                {(text) => <input placeholder={text as string} />}
+            </FormattedMessage>
+
+            <FormattedMessage
+                id="test"
+                description="Test"
+            >
+                {(...text) => <ul>{text.map(t => <li>{t}</li>)}</ul>}
+            </FormattedMessage>
+
+            <FormattedMessage
+                id="legal-statement"
+                values={{
+                    privacy_policy: (
+                        <a href="/privacy-policy">
+                            <FormattedMessage id="request_invite.privacy_policy" />
+                        </a>
+                    ),
+                    terms_of_service: (
+                        <a href="/terms-of-service">
+                            <FormattedMessage id="request_invite.terms_of_service" />
+                        </a>
+                    )
+                }}
+            >
+                {(...messages) => messages.map(message => <>{message}</>)}
+            </FormattedMessage>
 
             <FormattedHTMLMessage
                 id="test"

@@ -1,6 +1,6 @@
 // https://github.com/hapijs/hapi/blob/master/API.md#-servereventevents
 // https://github.com/hapijs/hapi/blob/master/API.md#-requestevents
-import { Lifecycle, Request, ResponseToolkit, RouteOptions, Server, ServerOptions, ServerRoute } from "hapi";
+import { Lifecycle, Request, Server, ServerOptions, ServerRoute } from "hapi";
 import * as Crypto from 'crypto';
 
 const options: ServerOptions = {
@@ -10,7 +10,7 @@ const options: ServerOptions = {
 const serverRoute: ServerRoute = {
     path: '/',
     method: 'GET',
-    handler(request, h) {
+    handler(request) {
         return 'ok: ' + request.path;
     }
 };
@@ -42,7 +42,7 @@ const onRequest: Lifecycle.Method = (request, h) => {
      */
     const hash = Crypto.createHash('sha1');
 
-    request.events.on("peek", (chunk, encoding) => {
+    request.events.on("peek", (chunk) => {
         hash.update(chunk);
     });
 
@@ -59,7 +59,9 @@ const onRequest: Lifecycle.Method = (request, h) => {
 
 const server = new Server(options);
 server.route(serverRoute);
-server.ext('onRequest', onRequest);
+server.ext('onRequest', onRequest, {
+    before: 'test',
+});
 
 server.start();
 console.log('Server started at: ' + server.info.uri);

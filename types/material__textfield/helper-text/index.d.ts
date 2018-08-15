@@ -26,6 +26,4 @@ export class MDCTextFieldHelperText extends MDCComponent<MDCTextFieldHelperTextA
     static attachTo(root: Element): MDCTextFieldHelperText;
 
     readonly foundation: MDCTextFieldHelperTextFoundation;
-
-    getDefaultFoundation(): MDCTextFieldHelperTextFoundation;
 }

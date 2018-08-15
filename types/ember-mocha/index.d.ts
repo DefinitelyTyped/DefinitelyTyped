@@ -60,19 +60,5 @@ declare module 'ember-mocha' {
 
 declare module 'mocha' {
     // augment test callback context
-    interface ITestCallbackContext extends TestContext {}
-    interface IHookCallbackContext extends TestContext {}
-
-    // re-export mocha globals as named exports
-    export const describe: Mocha.IContextDefinition;
-    export const context: Mocha.IContextDefinition;
-    export const it: Mocha.ITestDefinition;
-    export const setup: mochaSetup;
-    export const teardown: mochaTeardown;
-    export const suiteSetup: mochaSuiteSetup;
-    export const suiteTeardown: mochaSuiteTeardown;
-    export const before: mochaBefore;
-    export const after: mochaAfter;
-    export const beforeEach: mochaBeforeEach;
-    export const afterEach: mochaAfterEach;
+    interface Context extends TestContext {}
 }

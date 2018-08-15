@@ -1,3 +1,14 @@
+// tslint:disable:no-var-keyword
+// tslint:disable:object-literal-key-quotes
+// tslint:disable:object-literal-shorthand
+// tslint:disable:one-variable-per-declaration
+// tslint:disable:only-arrow-functions
+// tslint:disable:prefer-const
+// tslint:disable:prefer-for-of
+// tslint:disable:prefer-template
+// tslint:disable:space-within-parens
+// tslint:disable:triple-equals
+
 function longdesc() {
     function add_0() {
         $('p').add('div').addClass('widget');
@@ -1437,7 +1448,7 @@ function longdesc() {
         $.getJSON('ajax/test.json', function(data) {
             var items: string[] = [];
             $.each(data, function(key, val) {
-                items.push('<li id=\'' + key + '\'>' + val + '</li>');
+                items.push('<li id=\'' + (key as string) + '\'>' + val + '</li>');
             });
 
             $('<ul/>', {
@@ -2358,9 +2369,9 @@ function longdesc() {
     }
 
     function toggle_3(display: boolean) {
-        if (display === true) {
+        if (display) {
             $('#foo').show();
-        } else if (display === false) {
+        } else {
             $('#foo').hide();
         }
     }

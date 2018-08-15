@@ -1,3 +1,11 @@
-import isSvg = require('is-svg');
+import * as isSvg from 'is-svg';
 
-const result: boolean = isSvg('<svg xmlns="http://www.w3.org/2000/svg"><path fill="#00CD9F"/></svg>');
+const data = '<svg></svg>';
+let result = false;
+
+result = isSvg(data);
+result = isSvg(Buffer.from(data));
+result = isSvg(false);
+result = isSvg(null);
+result = isSvg(undefined);
+result = isSvg();

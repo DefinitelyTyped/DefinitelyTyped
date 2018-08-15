@@ -1,9 +1,5 @@
 import * as mongoose from 'mongoose';
 
-// test compatibility with other libraries
-import * as _ from 'lodash';
-var fs = require('fs');
-
 // dummy variables
 var cb = function () {};
 
@@ -28,7 +24,8 @@ const connection2: Promise<mongoose.Mongoose> = mongoose.connect(connectUri, {
     autoIndex: true
   },
   mongos: true,
-  bufferCommands: false
+  bufferCommands: false,
+  useNewUrlParser: true
 });
 const connection3: null = mongoose.connect(connectUri, function (error) {
   error.stack;
@@ -37,6 +34,11 @@ const connection3: null = mongoose.connect(connectUri, function (error) {
 var mongooseConnection: mongoose.Connection = mongoose.createConnection();
 mongooseConnection.dropDatabase().then(()=>{});
 mongooseConnection.dropCollection('foo').then(()=>{});
+mongoose.createConnection(connectUri).then((conn)=> {
+  return conn.collections;
+}, () => {
+
+});
 mongoose.createConnection(connectUri).open('');
 mongoose.createConnection(connectUri, {
   db: {
@@ -51,6 +53,7 @@ mongoose.model('Actor', new mongoose.Schema({
 }), 'collectionName', true).find({});
 mongoose.model('Actor').find({});
 mongoose.modelNames()[0].toLowerCase();
+mongoose.models.Actor.findOne({}).exec();
 new (new mongoose.Mongoose(9, 8, 7)).Mongoose(1, 2, 3).connect('');
 mongoose.plugin(cb, {}).connect('');
 mongoose.set('test', 'value');
@@ -64,6 +67,25 @@ mongoose.SchemaTypes.Decimal128;
 mongoose.Types.ObjectId;
 mongoose.Types.Decimal128;
 mongoose.version.toLowerCase();
+
+const sslConnections: {[key: string]: mongoose.Connection} = {
+  basic: mongoose.createConnection(connectUri, {ssl: true}),
+  customCA: mongoose.createConnection(
+    connectUri,
+    {
+      ssl: true,
+      sslCA: [new Buffer('ca string')],
+      sslCRL: [new Buffer('crl buffer')],
+      sslCert: 'ssl cert',
+      sslKey: new Buffer('ssl private key'),
+      sslPass: 'ssl password',
+      servername: 'localhost',
+      checkServerIdentity: true,
+      ciphers: 'ciphers',
+      ecdhCurve: 'ecdhCurve',
+    }
+  ),
+};
 
 /*
  * section collection.js
@@ -109,9 +131,19 @@ conn1.openSet('mongodb://localhost/test', 'db', {
   replset: null,
   mongos: true
 }, function (err) {}).then(cb).catch(cb);
-conn1.close().catch(function (err) {});
+conn1.openUri('mongodb://localhost/test', 'myDb', 27017, {
+  replset: null,
+  config: {
+    autoIndex: false
+  }
+}, function (err) {}).open('');
+conn1.close().then(function () {}).catch(function (err) {});
+conn1.close(true).then(function () {}).catch(function (err) {});
+conn1.close(function (err) {});
+conn1.close(true, function (err) {});
 conn1.collection('name').$format(999);
 conn1.model('myModel', new mongoose.Schema({}), 'myCol').find();
+conn1.models.myModel.findOne().exec();
 interface IStatics {
   staticMethod1: (a: number) => string;
 }
@@ -125,6 +157,13 @@ mongoose.Connection.STATES.hasOwnProperty('');
 /* inherited properties */
 conn1.on('data', cb);
 conn1.addListener('close', cb);
+
+// The connection returned by useDb is *not* thenable.
+// From https://github.com/DefinitelyTyped/DefinitelyTyped/pull/26057#issuecomment-396150819
+const getDB = async (tenant: string)=> {
+  return conn1.useDb(tenant);
+};
+
 
 /*
  * section error/validation.js
@@ -149,7 +188,8 @@ mongooseError.stack;
 mongoose.Error.messages.hasOwnProperty('');
 mongoose.Error.Messages.hasOwnProperty('');
 
-const plural: string = mongoose.pluralize('foo');
+const pluralize = mongoose.pluralize();
+const plural: string = pluralize('foo');
 
 /*
  * section querycursor.js
@@ -253,12 +293,124 @@ schema.method('name', cb).method({
 });
 schema.path('a', mongoose.Schema.Types.Buffer).path('a');
 schema.pathType('m1').toLowerCase();
-schema.plugin(function (schema, opts) {
+schema.plugin(function (schema: mongoose.Schema, opts?: any) {
   schema.get('path');
   if (opts) {
     opts.hasOwnProperty('');
   }
 }).plugin(cb, {opts: true});
+
+/* `.pre` hook tests */
+
+interface PreHookTestDocumentInterface extends mongoose.Document {}
+interface PreHookTestQueryInterface<T> extends mongoose.Query<T> {}
+interface PreHookTestAggregateInterface<T> extends mongoose.Aggregate<T> {}
+interface PreHookTestModelInterface<T extends mongoose.Document> extends mongoose.Model<T> {}
+
+// it is used to ensure that all testing cases return a value of mongoose.Schema type
+const preHookTestSchemaArr: mongoose.Schema[] = [];
+
+// testing order:
+//   serial with default value and returning void
+//   serial with a type argument and returning a promise
+//   parallel with default value and returning void
+//   parallel with a type argument and returning a promise
+
+// Document
+preHookTestSchemaArr.push(
+  schema.pre("init", function (next) {
+    const isDefaultType: mongoose.Document = this;
+  }, err => {})
+);
+preHookTestSchemaArr.push(
+  schema.pre<PreHookTestDocumentInterface>("init", function (next) {
+    const isSpecificType: PreHookTestDocumentInterface = this;
+    return Promise.resolve("");
+  }, err => {})
+);
+preHookTestSchemaArr.push(
+  schema.pre("init", true, function (next, done) {
+    const isDefaultType: mongoose.Document = this;
+  }, err => {})
+);
+preHookTestSchemaArr.push(
+  schema.pre<PreHookTestDocumentInterface>("init", true, function (next, done) {
+    const isSpecificType: PreHookTestDocumentInterface = this;
+    return Promise.resolve("");
+  }, err => {})
+);
+
+// Query
+preHookTestSchemaArr.push(
+  schema.pre("count", function (next) {
+    const isDefaultType: mongoose.Query<any> = this;
+  }, err => {})
+);
+preHookTestSchemaArr.push(
+  schema.pre<PreHookTestQueryInterface<number>>("count", function (next) {
+    const isSpecificType: PreHookTestQueryInterface<number> = this;
+    return Promise.resolve("");
+  }, err => {})
+);
+preHookTestSchemaArr.push(
+  schema.pre("count", true, function (next, done) {
+    const isDefaultType: mongoose.Query<any> = this;
+  }, err => {})
+);
+preHookTestSchemaArr.push(
+  schema.pre<PreHookTestQueryInterface<number>>("count", true, function (next, done) {
+    const isSpecificType: PreHookTestQueryInterface<number> = this;
+    return Promise.resolve("");
+  }, err => {})
+);
+
+// Aggregate
+preHookTestSchemaArr.push(
+  schema.pre("aggregate", function(next) {
+    const isDefaultType: mongoose.Aggregate<any> = this;
+  }, err => {})
+);
+preHookTestSchemaArr.push(
+  schema.pre<PreHookTestAggregateInterface<number>>("aggregate", function(next) {
+    const isSpecificType: PreHookTestAggregateInterface<number> = this;
+    return Promise.resolve("")
+  }, err => {})
+);
+preHookTestSchemaArr.push(
+  schema.pre("aggregate", true, function(next, done) {
+    const isDefaultType: mongoose.Aggregate<any> = this;
+  }, err => {})
+);
+preHookTestSchemaArr.push(
+  schema.pre<PreHookTestAggregateInterface<number>>("aggregate", true, function(next, done) {
+    const isSpecificType: PreHookTestAggregateInterface<number> = this;
+    return Promise.resolve("")
+  }, err => {})
+);
+
+// Model<Document>
+preHookTestSchemaArr.push(
+  schema.pre("insertMany", function(next) {
+    const isDefaultType: mongoose.Model<mongoose.Document> = this;
+  }, err => {})
+);
+preHookTestSchemaArr.push(
+  schema.pre<PreHookTestModelInterface<PreHookTestDocumentInterface>>("insertMany", function(next) {
+    const isSpecificType: PreHookTestModelInterface<PreHookTestDocumentInterface> = this;
+    return Promise.resolve("")
+  }, err => {})
+);
+preHookTestSchemaArr.push(
+  schema.pre("insertMany", true, function(next, done) {
+    const isDefaultType: mongoose.Model<mongoose.Document> = this;
+  }, err => {})
+);
+preHookTestSchemaArr.push(
+  schema.pre<PreHookTestModelInterface<PreHookTestDocumentInterface>>("insertMany", true, function(next, done) {
+    const isSpecificType: PreHookTestModelInterface<PreHookTestDocumentInterface> = this;
+    return Promise.resolve("")
+  }, err => {})
+);
 
 schema
 .post('save', function (error, doc, next) {
@@ -412,25 +564,25 @@ new mongoose.Schema({
   }
 });
 
-(new mongoose.Schema({})).plugin(function (schema: any, options: any) {
+(new mongoose.Schema({})).plugin<any>(function (schema: mongoose.Schema, options: any) {
   schema.add({ lastMod: Date })
   schema.pre('save', function (next: Function) {
-    this.lastMod = new Date
+    (this as any).lastMod = new Date
     next()
   })
   if (options && options['index']) {
     schema.path('lastMod').index(options['index'])
   }
-}, { index: true }).plugin(function (schema: any, options: any) {
+}, { index: true }).plugin<any>(function (schema: mongoose.Schema, options: any) {
   schema.add({ lastMod: Date })
   schema.pre('save', function (next: Function) {
-    this.lastMod = new Date
+    (this as any).lastMod = new Date
     next()
   })
   if (options && options['index']) {
     schema.path('lastMod').index(options['index'])
   }
-});
+}, {index: true});
 
 new mongoose.Schema({foo: String}, {strict: 'throw'});
 
@@ -439,6 +591,35 @@ export default function(schema: mongoose.Schema) {
      console.log('success!');
   });
 }
+
+// plugins
+function MyPlugin(schema: mongoose.Schema, opts?: string) {
+}
+new mongoose.Schema({})
+    .plugin(MyPlugin)
+
+interface PluginOption {
+    modelName: string;
+    timestamp: string;
+}
+
+function logger(modelName: string, timestamp: string) {
+    // call special logger with options
+}
+
+function AwesomeLoggerPlugin(schema: mongoose.Schema, options: PluginOption) {
+    if (options) {
+        schema.pre('save', function (next: Function) {
+            logger(options.modelName, options.timestamp)
+        })
+    }
+}
+
+new mongoose.Schema({})
+    .plugin<PluginOption>(AwesomeLoggerPlugin, {modelName: 'Executive', timestamp: 'yyyy/MM/dd'})
+
+mongoose.plugin<PluginOption>(AwesomeLoggerPlugin, {modelName: 'Executive', timestamp: 'yyyy/MM/dd'})
+
 
 /*
  * section document.js
@@ -591,7 +772,7 @@ interface MyEntity extends mongoose.Document {
   sub: mongoose.Types.Array<MySubEntity>
 }
 var myEntity = <MyEntity> {};
-var subDocArray = _.filter(myEntity.sub, function (sd) {
+var subDocArray = myEntity.sub.filter(sd => {
   sd.property1;
   sd.property2.toLowerCase();
   return true;
@@ -758,6 +939,7 @@ query.findOneAndUpdate({name: 'aa'}, {name: 'bb'}, {
 }, cb);
 query.findOneAndUpdate({name: 'aa'}, {name: 'bb'}, cb);
 query.findOneAndUpdate({name: 'aa'}, {name: 'bb'});
+query.findOneAndUpdate({}, {}, { upsert: true, new: true });
 query.findOneAndUpdate({name: 'bb'}, cb);
 query.findOneAndUpdate({name: 'bb'});
 query.findOneAndUpdate(cb);
@@ -1044,6 +1226,7 @@ aggregate.allowDiskUse(true).allowDiskUse(false, []);
 aggregate.append({ $project: { field: 1 }}, { $limit: 2 });
 aggregate.append([{ $match: { daw: 'Logic Audio X' }} ]);
 aggregate.collation({ locale: 'en_US', strength: 1 });
+aggregate.count('countName');
 aggregate.cursor({ batchSize: 1000 }).exec().each(cb);
 aggregate.exec().then(cb).catch(cb);
 aggregate.option({foo: 'bar'}).exec();
@@ -1286,6 +1469,7 @@ var MongoModel = mongoose.model('MongoModel', new mongoose.Schema({
     required: true
   }
 }), 'myCollection', true);
+MongoModel.init().then(cb);
 MongoModel.find({}).$where('indexOf("val") !== -1').exec(function (err, docs) {
   docs[0].save();
   docs[0].__v;
@@ -1387,6 +1571,7 @@ MongoModel.findByIdAndRemove(999);
 MongoModel.findByIdAndRemove();
 MongoModel.findByIdAndUpdate(999, {}, {}, cb);
 MongoModel.findByIdAndUpdate(999, {}, {});
+MongoModel.findByIdAndUpdate(999, {}, { upsert: true, new: true });
 MongoModel.findByIdAndUpdate(999, {}, cb);
 MongoModel.findByIdAndUpdate(999, {});
 MongoModel.findByIdAndUpdate();
@@ -1415,6 +1600,7 @@ MongoModel.findOneAndRemove({});
 MongoModel.findOneAndRemove();
 MongoModel.findOneAndUpdate({}, {}, {}, cb);
 MongoModel.findOneAndUpdate({}, {}, {});
+MongoModel.findOneAndUpdate({}, {}, { upsert: true, new: true });
 MongoModel.findOneAndUpdate({}, {}, cb);
 MongoModel.findOneAndUpdate({}, {});
 MongoModel.findOneAndUpdate();
@@ -1479,7 +1665,7 @@ MongoModel.update({ name: 'Tobi' }, { ferret: true }, { multi: true }, cb);
 MongoModel.where('age').gte(21).lte(65).exec(cb);
 MongoModel.where('age').gte(21).lte(65).where('name', /^b/i);
 new (mongoModel.base.model(''))();
-mongoModel.baseModelName.toLowerCase();
+mongoModel.baseModelName && mongoModel.baseModelName.toLowerCase();
 mongoModel.collection.$format(99);
 mongoModel.collection.initializeOrderedBulkOp;
 mongoModel.collection.findOne;

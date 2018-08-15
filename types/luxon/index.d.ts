@@ -1,7 +1,8 @@
-// Type definitions for luxon 0.2
+// Type definitions for luxon 1.2
 // Project: https://github.com/moment/luxon#readme
 // Definitions by: Colby DeHart <https://github.com/colbydehart>
 //                 Hyeonseok Yang <https://github.com/FourwingsY>
+//                 Jonathan Siebern <https://github.com/jsiebern>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -134,8 +135,10 @@ declare module 'luxon' {
                 second?: number,
                 millisecond?: number
             ): DateTime;
-            static max(...dateTimes: DateTime[]): DateTime | undefined;
-            static min(...dateTimes: DateTime[]): DateTime | undefined;
+            static max(): undefined;
+            static max(...dateTimes: DateTime[]): DateTime;
+            static min(): undefined;
+            static min(...dateTimes: DateTime[]): DateTime;
             static utc(
                 year?: number,
                 month?: number,
@@ -165,24 +168,26 @@ declare module 'luxon' {
             offsetNameShort: string;
             ordinal: number;
             outputCalendar: string;
+            quarter: number;
             second: number;
             weekNumber: number;
             weekYear: number;
             weekday: number;
             weekdayLong: string;
             weekdayShort: string;
+            weeksInWeekYear: number;
             year: number;
             zoneName: string;
             diff(
                 other: DateTime,
-                unit?: string | string[],
+                unit?: DurationUnit | DurationUnit[],
                 options?: DiffOptions
             ): Duration;
-            diffNow(unit?: string | string[], options?: DiffOptions): Duration;
-            endOf(unit: string): DateTime;
+            diffNow(unit?: DurationUnit | DurationUnit[], options?: DiffOptions): Duration;
+            endOf(unit: DurationUnit): DateTime;
             equals(other: DateTime): boolean;
-            get(unit: string): number;
-            hasSame(other: DateTime, unit: string): boolean;
+            get(unit: keyof DateTime): number;
+            hasSame(other: DateTime, unit: DurationUnit): boolean;
             minus(duration: Duration | number | DurationObject): DateTime;
             plus(duration: Duration | number | DurationObject): DateTime;
             reconfigure(properties: LocaleOptions): DateTime;
@@ -190,7 +195,8 @@ declare module 'luxon' {
             set(values: DateObjectUnits): DateTime;
             setLocale(locale: any): DateTime;
             setZone(zone: string | Zone, options?: ZoneOptions): DateTime;
-            startOf(unit: string): DateTime;
+            startOf(unit: DurationUnit): DateTime;
+            toBSON(): Date;
             toFormat(format: string, options?: ToFormatOptions): string;
             toHTTP(): string;
             toISO(options?: ISOTimeOptions): string;
@@ -202,6 +208,8 @@ declare module 'luxon' {
             toLocal(): DateTime;
             toLocaleParts(options?: DateTimeFormatOptions): any[];
             toLocaleString(options?: DateTimeFormatOptions): string;
+            toMillis(): number;
+            toMillis(): number;
             toObject(options?: { includeConfig?: boolean }): DateObject;
             toRFC2822(): string;
             toSQL(options?: Object): string;
@@ -209,7 +217,7 @@ declare module 'luxon' {
             toSQLTime(options?: Object): string;
             toString(): string;
             toUTC(offset?: number, options?: ZoneOptions): DateTime;
-            until(other: DateTime): Duration;
+            until(other: DateTime): Interval;
             valueOf(): number;
         }
 
@@ -232,6 +240,9 @@ declare module 'luxon' {
 
         type DurationObject = DurationObjectUnits & DurationOptions;
 
+        type DurationUnit = 'year' | 'years' | 'quarter' | 'quarters' | 'month' | 'months' | 'week' | 'weeks' | 'day' | 'days'
+                            | 'hour' | 'hours' | 'minute' | 'minutes' | 'second' | 'seconds' | 'millisecond' | 'milliseconds';
+
         class Duration {
             static fromISO(text: string, options?: DurationOptions): Duration;
             static fromMillis(
@@ -251,19 +262,20 @@ declare module 'luxon' {
             minutes: number;
             months: number;
             numberingSystem: string;
+            quarters: number;
             seconds: number;
             weeks: number;
             years: number;
-            as(unit: string): number;
+            as(unit: DurationUnit): number;
             equals(other: Duration): boolean;
-            get(unit: string): number;
+            get(unit: DurationUnit): number;
             minus(duration: Duration | number | DurationObject): Duration;
             negate(): Duration;
             normalize(): Duration;
             plus(duration: Duration | number | DurationObject): Duration;
             reconfigure(objectPattern: DurationOptions): Duration;
             set(values: DurationObjectUnits): Duration;
-            shiftTo(...units: string[]): Duration;
+            shiftTo(...units: DurationUnit[]): Duration;
             toFormat(format: string, options?: ToFormatOptions): string;
             toISO(): string;
             toJSON(): string;
@@ -271,6 +283,7 @@ declare module 'luxon' {
                 includeConfig?: boolean;
             }): DurationObject;
             toString(): string;
+            valueOf(): number;
         }
 
         type EraLength = 'short' | 'long';
@@ -306,8 +319,8 @@ declare module 'luxon' {
         }
 
         type IntervalObject = {
-            start: DateTime;
-            end: DateTime;
+            start?: DateTime;
+            end?: DateTime;
         };
 
         class Interval {
@@ -325,8 +338,8 @@ declare module 'luxon' {
             ): Interval;
             static fromISO(string: string, options?: DateTimeOptions): Interval;
             static invalid(reason?: string): Interval;
-            static merge(intervals: Interval[]): [Interval];
-            static xor(intervals: Interval[]): [Interval];
+            static merge(intervals: Interval[]): Interval[];
+            static xor(intervals: Interval[]): Interval[];
             end: DateTime;
             invalidReason: string;
             isValid: boolean;
@@ -334,23 +347,23 @@ declare module 'luxon' {
             abutsEnd(other: Interval): boolean;
             abutsStart(other: Interval): boolean;
             contains(dateTime: DateTime): boolean;
-            count(unit?: string): number;
-            difference(...intervals: Interval[]): Interval;
+            count(unit?: DurationUnit): number;
+            difference(...intervals: Interval[]): Interval[];
             divideEqually(numberOfParts?: number): Interval[];
             engulfs(other: Interval): boolean;
             equals(other: Interval): boolean;
-            hasSame(unit: string): boolean;
+            hasSame(unit: DurationUnit): boolean;
             intersection(other: Interval): Interval;
             isAfter(dateTime: DateTime): boolean;
             isBefore(dateTime: DateTime): boolean;
             isEmpty(): boolean;
-            length(unit?: string): number;
+            length(unit?: DurationUnit): number;
             overlaps(other: Interval): boolean;
             set(values: IntervalObject): Interval;
             splitAt(...dateTimes: DateTime[]): Interval[];
             splitBy(duration: Duration | DurationObject | number): Interval[];
             toDuration(
-                unit: string | string[],
+                unit: DurationUnit | DurationUnit[],
                 options?: DiffOptions
             ): Duration;
             toFormat(
@@ -372,7 +385,7 @@ declare module 'luxon' {
             let defaultZoneName: string;
             let throwOnInvalid: boolean;
             let now: () => number;
-            function resetCache(): void;
+            function resetCaches(): void;
         }
 
         type ZoneOffsetOptions = {
@@ -388,6 +401,10 @@ declare module 'luxon' {
             static universal: boolean;
             equals(other: Zone): boolean;
             offset(ts: number): number;
+        }
+
+        class IANAZone extends Zone {
+            constructor(ianaString: string);
         }
     }
 

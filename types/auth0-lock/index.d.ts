@@ -1,4 +1,4 @@
-// Type definitions for auth0-lock 10.16
+// Type definitions for auth0-lock 11.4
 // Project: http://auth0.com
 // Definitions by: Brian Caruso <https://github.com/carusology>
 //                 Dan Caddigan <https://github.com/goldcaddy77>
@@ -114,22 +114,29 @@ interface Auth0LockConstructorOptions {
     allowForgotPassword?: boolean;
     allowLogin?: boolean;
     allowSignUp?: boolean;
+    allowShowPassword?: boolean;
     assetsUrl?: string;
     auth?: Auth0LockAuthOptions;
     autoclose?: boolean;
     autofocus?: boolean;
-    avatar?: Auth0LockAvatarOptions;
+    avatar?: Auth0LockAvatarOptions | null;
+    clientBaseUrl?: string;
     closable?: boolean;
+    configurationBaseUrl?: string;
     container?: string;
     defaultADUsernameFromEmailPrefix?: string;
     defaultDatabaseConnection?: string;
     defaultEnterpriseConnection?: string;
     forgotPasswordLink?: string;
+    hashCleanup?: boolean;
     initialScreen?: "login" | "signUp" | "forgotPassword";
     language?: string;
+    languageBaseUrl?: string;
     languageDictionary?: any;
+    leeway?: number;
     loginAfterSignUp?: boolean;
     mustAcceptTerms?: boolean;
+    oidcConformant?: boolean;
     popupOptions?: Auth0LockPopupOptions;
     prefill?: { email?: string, username?: string};
     rememberLastLogin?: boolean;
@@ -137,7 +144,8 @@ interface Auth0LockConstructorOptions {
     socialButtonStyle?: "big" | "small";
     theme?: Auth0LockThemeOptions;
     usernameStyle?: string;
-    oidcConformant?: boolean;
+    _enableImpersonation?: boolean;
+    _enableIdPInitiatedLogin?: boolean;
 }
 
 interface Auth0LockFlashMessageOptions {
@@ -154,10 +162,13 @@ interface Auth0LockShowOptions {
     initialScreen?: "login" | "signUp" | "forgotPassword";
     flashMessage?: Auth0LockFlashMessageOptions;
     rememberLastLogin?: boolean;
+    languageDictionary?: any;
 }
 
 interface AuthResult {
     accessToken: string;
+    appState?: any;
+    expiresIn: number;
     idToken: string;
     idTokenPayload: {
         aud: string;
@@ -167,8 +178,10 @@ interface AuthResult {
         sub: string;
     };
     refreshToken?: string;
+    scope?: string;
     state: string;
-}
+    tokenType: string;
+  }
 
 interface Auth0LockStatic {
     new (clientId: string, domain: string, options?: Auth0LockConstructorOptions): Auth0LockStatic;

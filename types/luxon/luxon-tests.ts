@@ -1,4 +1,4 @@
-import { DateTime, Duration, Interval, Info, Settings } from 'luxon';
+import { DateTime, Duration, Interval, Info, Settings, IANAZone } from 'luxon';
 
 /* DateTime */
 const dt = DateTime.local(2017, 5, 15, 8, 30);
@@ -11,6 +11,11 @@ const fromObject = DateTime.fromObject({
     hour: 12,
     zone: 'America/Los_Angeles',
     numberingSystem: 'beng'
+});
+
+const ianaZone = new IANAZone('America/Los_Angeles');
+const ianaZoneTest = DateTime.fromObject({
+    zone: ianaZone
 });
 
 const fromIso = DateTime.fromISO('2017-05-15'); // => May 15, 2017 at midnight
@@ -54,6 +59,8 @@ DateTime.utc();
 DateTime.local().toUTC();
 DateTime.utc().toLocal();
 
+DateTime.fromMillis(1527780819458).toMillis();
+
 /* Duration */
 const dur = Duration.fromObject({ hours: 2, minutes: 7 });
 dt.plus(dur);
@@ -71,6 +78,7 @@ const i = Interval.fromDateTimes(now, later);
 i.length();
 i.length('years');
 i.contains(DateTime.local(2019));
+i.set({end: DateTime.local(2020)});
 
 i.toISO();
 i.toString();
@@ -88,6 +96,7 @@ Settings.defaultLocale = 'en';
 Settings.defaultZoneName = 'Europe/Paris';
 Settings.now();
 Settings.now = () => 0;
+Settings.resetCaches();
 
 // $ExpectError
 Settings.defaultZone = Settings.defaultZone;

@@ -5,8 +5,9 @@
 //                 Pablo Rodríguez <https://github.com/MeLlamoPablo>
 //                 Matt R. Wilson <https://github.com/mastermatt>
 //                 Satana Charuwichitratana <https://github.com/micksatana>
+//                 Shrey Jain <https://github.com/shreyjain1994>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 
@@ -17,11 +18,13 @@ import Bluebird = require("bluebird");
 type Callback = Function;
 type Client = Function;
 type Value = string | number | boolean | Date | Array<string> | Array<number> | Array<Date> | Array<boolean> | Buffer | Knex.Raw;
+type ValueMap = { [key: string]: Value | Knex.QueryBuilder };
 type ColumnName = string | Knex.Raw | Knex.QueryBuilder | {[key: string]: string };
 type TableName = string | Knex.Raw | Knex.QueryBuilder;
+type Identifier = { [alias: string]: string };
 
 interface Knex extends Knex.QueryInterface {
-    (tableName?: string): Knex.QueryBuilder;
+    (tableName?: TableName | Identifier): Knex.QueryBuilder;
     VERSION: string;
     __knex__: string;
 
@@ -124,6 +127,7 @@ declare namespace Knex {
         havingRaw: RawQueryBuilder;
         orHaving: Having;
         orHavingRaw: RawQueryBuilder;
+        havingIn: HavingIn;
 
         // Clear
         clearSelect(): QueryBuilder;
@@ -152,6 +156,7 @@ declare namespace Knex {
         pluck(column: string): QueryBuilder;
 
         insert(data: any, returning?: string | string[]): QueryBuilder;
+        modify(callback: QueryCallbackWithArgs, ...args: any[]): QueryBuilder;
         update(data: any, returning?: string | string[]): QueryBuilder;
         update(columnName: string, value: Value, returning?: string | string[]): QueryBuilder;
         returning(column: string | string[]): QueryBuilder;
@@ -175,7 +180,7 @@ declare namespace Knex {
     }
 
     interface Table {
-        (tableName: string): QueryBuilder;
+        (tableName: TableName | Identifier): QueryBuilder;
         (callback: Function): QueryBuilder;
         (raw: Raw): QueryBuilder;
     }
@@ -265,8 +270,8 @@ declare namespace Knex {
         (callback: QueryCallback): QueryBuilder;
         (object: Object): QueryBuilder;
         (columnName: string, value: Value | null): QueryBuilder;
-        (columnName: string, operator: string, value: Value | null): QueryBuilder;
-        (columnName: string, operator: string, query: QueryBuilder): QueryBuilder;
+        (columnName: string, operator: string, value: Value | QueryBuilder | null): QueryBuilder;
+        (left: Raw, operator: string, right: Value | QueryBuilder | null): QueryBuilder;
     }
 
     interface WhereRaw extends RawQueryBuilder {
@@ -279,12 +284,6 @@ declare namespace Knex {
 
     interface WhereNull {
         (columnName: string): QueryBuilder;
-    }
-
-    interface WhereIn {
-        (columnName: string, values: Value[]): QueryBuilder;
-        (columnName: string, callback: QueryCallback): QueryBuilder;
-        (columnName: string, query: QueryBuilder): QueryBuilder;
     }
 
     interface WhereBetween {
@@ -301,7 +300,8 @@ declare namespace Knex {
     }
 
     interface WhereIn {
-        (columnName: string, values: Value[]): QueryBuilder;
+        (columnName: string, values: Value[] | QueryBuilder | QueryCallback): QueryBuilder;
+        (columnNames: string[], values: Value[][] | QueryBuilder | QueryCallback): QueryBuilder;
     }
 
     interface GroupBy extends RawQueryBuilder, ColumnNameQueryBuilder {
@@ -312,14 +312,18 @@ declare namespace Knex {
     }
 
     interface Union {
-        (callback: QueryCallback, wrap?: boolean): QueryBuilder;
-        (callbacks: QueryCallback[], wrap?: boolean): QueryBuilder;
-        (...callbacks: QueryCallback[]): QueryBuilder;
+        (callback: QueryCallback | QueryBuilder | Raw, wrap?: boolean): QueryBuilder;
+        (callbacks: (QueryCallback | QueryBuilder | Raw)[], wrap?: boolean): QueryBuilder;
+        (...callbacks: (QueryCallback | QueryBuilder | Raw)[]): QueryBuilder;
         // (...callbacks: QueryCallback[], wrap?: boolean): QueryInterface;
     }
 
     interface Having extends RawQueryBuilder, WhereWrapped {
         (tableName: string, column1: string, operator: string, column2: string): QueryBuilder;
+    }
+
+    interface HavingIn {
+        (columnName: string, values: Value[]): QueryBuilder;
     }
 
     // commons
@@ -330,8 +334,8 @@ declare namespace Knex {
     }
 
     interface RawQueryBuilder {
-        (sql: string, ...bindings: Value[]): QueryBuilder;
-        (sql: string, bindings: Value[]): QueryBuilder;
+        (sql: string, ...bindings: (Value | QueryBuilder)[]): QueryBuilder;
+        (sql: string, bindings: (Value | QueryBuilder)[] | ValueMap): QueryBuilder;
         (raw: Raw): QueryBuilder;
     }
 
@@ -343,9 +347,8 @@ declare namespace Knex {
 
     interface RawBuilder {
         (value: Value): Raw;
-        (sql: string, ...bindings: Value[]): Raw;
-        (sql: string, bindings: Value[]): Raw;
-        (sql: string, bindings: Object): Raw;
+        (sql: string, ...bindings: (Value | QueryBuilder)[]): Raw;
+        (sql: string, bindings: (Value | QueryBuilder)[] | ValueMap): Raw;
     }
 
     //
@@ -353,6 +356,8 @@ declare namespace Knex {
     //
 
     type QueryCallback = (this: QueryBuilder, builder: QueryBuilder) => void;
+    type QueryCallbackWithArgs = (this: QueryBuilder, builder: QueryBuilder, ...args: any[]) => void;
+
     interface QueryBuilder extends QueryInterface, ChainableInterface {
         or: QueryBuilder;
         and: QueryBuilder;
@@ -402,6 +407,7 @@ declare namespace Knex {
     interface SchemaBuilder extends Bluebird<any> {
         createTable(tableName: string, callback: (tableBuilder: CreateTableBuilder) => any): SchemaBuilder;
         createTableIfNotExists(tableName: string, callback: (tableBuilder: CreateTableBuilder) => any): SchemaBuilder;
+        alterTable(tableName: string, callback: (tableBuilder: CreateTableBuilder) => any): SchemaBuilder;
         renameTable(oldTableName: string, newTableName: string): Bluebird<void>;
         dropTable(tableName: string): SchemaBuilder;
         hasTable(tableName: string): Bluebird<boolean>;
@@ -423,7 +429,7 @@ declare namespace Knex {
         text(columnName: string, textType?: string): ColumnBuilder;
         string(columnName: string, length?: number): ColumnBuilder;
         float(columnName: string, precision?: number, scale?: number): ColumnBuilder;
-        decimal(columnName: string, precision?: number, scale?: number): ColumnBuilder;
+        decimal(columnName: string, precision?: number | null, scale?: number): ColumnBuilder;
         boolean(columnName: string): ColumnBuilder;
         date(columnName: string): ColumnBuilder;
         dateTime(columnName: string): ColumnBuilder;
@@ -524,6 +530,8 @@ declare namespace Knex {
             MySqlConnectionConfig | MsSqlConnectionConfig | Sqlite3ConnectionConfig | SocketConnectionConfig;
         pool?: PoolConfig;
         migrations?: MigratorConfig;
+        postProcessResponse?: (result: any, queryContext: any) => any;
+        wrapIdentifier?: (value: string, origImpl: (value: string) => string, queryContext: any) => string;
         seeds?: SeedsConfig;
         acquireConnectionTimeout?: number;
         useNullAsDefault?: boolean;

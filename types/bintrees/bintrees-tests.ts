@@ -1,7 +1,10 @@
-/// <reference types="mocha" />
 /// <reference types="node" />
 import assert = require('assert');
 import { BinTree, RBTree } from 'bintrees';
+
+// Declaring shims removes mocha dependency.  These tests are never executed, only typechecked, so this is fine.
+declare function describe(description: string, callback: () => void): void;
+declare function it(description: string, callback: () => void): void;
 
 describe('bintrees', () => {
     it('builds a simple tree', () => {

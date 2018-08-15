@@ -397,9 +397,19 @@ function bufferTests() {
         buf.swap64();
     }
 
-    // Class Method: Buffer.from(array)
+    // Class Method: Buffer.from(data)
     {
-        const buf: Buffer = Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72]);
+        // Array
+        const buf1: Buffer = Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72]);
+        // Buffer
+        const buf2: Buffer = Buffer.from(buf1);
+        // String
+        const buf3: Buffer = Buffer.from('this is a tést');
+        // ArrayBuffer
+        const arr: Uint16Array = new Uint16Array(2);
+        arr[0] = 5000;
+        arr[1] = 4000;
+        const buf4: Buffer = Buffer.from(arr.buffer);
     }
 
     // Class Method: Buffer.from(arrayBuffer[, byteOffset[, length]])
@@ -409,22 +419,15 @@ function bufferTests() {
         arr[1] = 4000;
 
         let buf: Buffer;
-        buf = Buffer.from(arr.buffer);
         buf = Buffer.from(arr.buffer, 1);
         buf = Buffer.from(arr.buffer, 0, 1);
     }
 
-    // Class Method: Buffer.from(buffer)
-    {
-        const buf1: Buffer = Buffer.from('buffer');
-        const buf2: Buffer = Buffer.from(buf1);
-    }
-
     // Class Method: Buffer.from(str[, encoding])
     {
-        const buf1: Buffer = Buffer.from('this is a tést');
         const buf2: Buffer = Buffer.from('7468697320697320612074c3a97374', 'hex');
     }
+
     // Class Method: Buffer.alloc(size[, fill[, encoding]])
     {
         const buf1: Buffer = Buffer.alloc(5);
@@ -610,6 +613,11 @@ namespace url_tests {
     }
 
     {
+        const ascii: string = url.domainToASCII('español.com');
+        const unicode: string = url.domainToUnicode('xn--espaol-zwa.com');
+    }
+
+    {
         let myURL = new url.URL('https://theuser:thepwd@example.org:81/foo/path?query=string#bar');
         assert.equal(myURL.hash, '#bar');
         assert.equal(myURL.host, 'example.org:81');
@@ -646,9 +654,10 @@ namespace url_tests {
         const searchParams = new url.URLSearchParams('abc=123');
 
         assert.equal(searchParams.toString(), 'abc=123');
-        searchParams.forEach((value: string, name: string): void => {
+        searchParams.forEach((value: string, name: string, me: url.URLSearchParams): void => {
             assert.equal(name, 'abc');
             assert.equal(value, '123');
+            assert.equal(me, searchParams);
         });
 
         assert.equal(searchParams.get('abc'), '123');
@@ -817,6 +826,35 @@ namespace util_tests {
         util.deprecate(foo, 'foo() is deprecated, use bar() instead');
         // $ExpectType <T extends Function>(fn: T, message: string) => T
         util.deprecate(util.deprecate, 'deprecate() is deprecated, use bar() instead');
+
+        // util.TextDecoder()
+        var td = new util.TextDecoder();
+        new util.TextDecoder("utf-8");
+        new util.TextDecoder("utf-8", { fatal: true });
+        new util.TextDecoder("utf-8", { fatal: true, ignoreBOM: true });
+        var ignoreBom: boolean = td.ignoreBOM;
+        var fatal: boolean = td.fatal;
+        var encoding: string = td.encoding;
+        td.decode(new Int8Array(1));
+        td.decode(new Int16Array(1));
+        td.decode(new Int32Array(1));
+        td.decode(new Uint8Array(1));
+        td.decode(new Uint16Array(1));
+        td.decode(new Uint32Array(1));
+        td.decode(new Uint8ClampedArray(1));
+        td.decode(new Float32Array(1));
+        td.decode(new Float64Array(1));
+        td.decode(new DataView(new Int8Array(1).buffer));
+        td.decode(new ArrayBuffer(1));
+        td.decode(null);
+        td.decode(null, { stream: true });
+        td.decode(new Int8Array(1), { stream: true });
+        var decode: string = td.decode(new Int8Array(1));
+
+        // util.TextEncoder()
+        var te = new util.TextEncoder();
+        var teEncoding: string = te.encoding;
+        var teEncodeRes: Uint8Array = te.encode("TextEncoder");
     }
 }
 
@@ -876,8 +914,9 @@ function simplified_stream_ctor_test() {
         read(size) {
             size.toFixed();
         },
-        destroy(error) {
+        destroy(error, cb) {
             error.stack;
+            cb(error);
         }
     });
 
@@ -892,8 +931,9 @@ function simplified_stream_ctor_test() {
             chunks[0].encoding.charAt(0);
             cb();
         },
-        destroy(error) {
+        destroy(error, cb) {
             error.stack;
+            cb(error);
         },
         final(cb) {
             cb(null);
@@ -913,6 +953,10 @@ function simplified_stream_ctor_test() {
             chunks[0].chunk.slice(0);
             chunks[0].encoding.charAt(0);
             cb();
+        },
+        destroy(error, cb) {
+            error.stack;
+            cb(error);
         },
         readableObjectMode: true,
         writableObjectMode: true
@@ -940,8 +984,9 @@ function simplified_stream_ctor_test() {
             chunks[0].encoding.charAt(0);
             cb();
         },
-        destroy(error) {
+        destroy(error, cb) {
             error.stack;
+            cb(error);
         },
         allowHalfOpen: true,
         readableObjectMode: true,
@@ -1470,6 +1515,8 @@ namespace https_tests {
     });
 
     https.request('http://www.example.com/xyz');
+
+    https.globalAgent.options.ca = [];
 
     {
         const server = new https.Server();
@@ -2023,14 +2070,18 @@ namespace string_decoder_tests {
 namespace child_process_tests {
     {
         childProcess.exec("echo test");
+        childProcess.spawn("echo", ["test"], { windowsHide: true });
+        childProcess.exec("echo test", { windowsHide: true });
         childProcess.spawnSync("echo test");
+        childProcess.spawnSync("echo test", { windowsVerbatimArguments: false });
     }
 
     {
         childProcess.execFile("npm", () => {});
+        childProcess.execFile("npm", { windowsHide: true }, () => {});
         childProcess.execFile("npm", ["-v"], () => {});
-        childProcess.execFile("npm", ["-v"], { encoding: 'utf-8' }, (stdout, stderr) => { assert(stdout instanceof String); });
-        childProcess.execFile("npm", ["-v"], { encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
+        childProcess.execFile("npm", ["-v"], { windowsHide: true, encoding: 'utf-8' }, (stdout, stderr) => { assert(stdout instanceof String); });
+        childProcess.execFile("npm", ["-v"], { windowsHide: true, encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
         childProcess.execFile("npm", { encoding: 'utf-8' }, (stdout, stderr) => { assert(stdout instanceof String); });
         childProcess.execFile("npm", { encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
     }
@@ -2518,6 +2569,10 @@ namespace vm_tests {
     {
         const Debug = vm.runInDebugContext('Debug');
         Debug.scripts().forEach((script: any) => { console.log(script.name); });
+    }
+
+    {
+        vm.runInThisContext('console.log("hello world"', './my-file.js');
     }
 }
 
@@ -3028,6 +3083,12 @@ namespace dns_tests {
         const _family: number | undefined = family;
     });
 
+    dns.lookupService("127.0.0.1", 0, (err, hostname, service) => {
+        const _err: NodeJS.ErrnoException = err;
+        const _hostname: string = hostname;
+        const _service: string = service;
+    });
+
     dns.resolve("nodejs.org", (err, addresses) => {
         const _addresses: string[] = addresses;
     });
@@ -3065,6 +3126,14 @@ namespace dns_tests {
         dns.resolve6("nodejs.org", { ttl }, (err, addresses) => {
             const _addresses: string[] | dns.RecordWithTtl[] = addresses;
         });
+    }
+    {
+        const resolver = new dns.Resolver();
+        resolver.setServers(["4.4.4.4"]);
+        resolver.resolve("nodejs.org", (err, addresses) => {
+            const _addresses: string[] = addresses;
+        });
+        resolver.cancel();
     }
 }
 
@@ -3304,6 +3373,16 @@ namespace async_hooks_tests {
             this.emitDestroy();
         }
     }
+
+    // check AsyncResource constructor options.
+    new async_hooks.AsyncResource('');
+    new async_hooks.AsyncResource('', 0);
+    new async_hooks.AsyncResource('', {});
+    new async_hooks.AsyncResource('', { triggerAsyncId: 0 });
+    new async_hooks.AsyncResource('', {
+      triggerAsyncId: 0,
+      requireManualDestroy: true
+    });
 }
 
 ////////////////////////////////////////////////////
@@ -3932,6 +4011,7 @@ namespace module_tests {
 
     const m1: Module = new Module("moduleId");
     const m2: Module = new Module.Module("moduleId");
+    const b: string[] = Module.builtinModules;
     let paths: string[] = module.paths;
     paths = m1.paths;
 }

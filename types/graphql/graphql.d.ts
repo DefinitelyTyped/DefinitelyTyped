@@ -1,7 +1,8 @@
-import { Source } from './language/source';
-import { GraphQLFieldResolver } from './type/definition';
-import { GraphQLSchema } from './type/schema';
-import { ExecutionResult } from './execution/execute';
+import Maybe from "./tsutils/Maybe";
+import { Source } from "./language/source";
+import { GraphQLFieldResolver } from "./type/definition";
+import { GraphQLSchema } from "./type/schema";
+import { ExecutionResult, ExecutionResultDataDefault } from "./execution/execute";
 
 /**
  * This is the primary entry point function for fulfilling GraphQL operations
@@ -33,25 +34,40 @@ import { ExecutionResult } from './execution/execute';
  *    If not provided, the default field resolver is used (which looks for a
  *    value or method on the source value with the field's name).
  */
-export function graphql(args: {
+export interface GraphQLArgs {
+    schema: GraphQLSchema;
+    source: Source | string;
+    rootValue?: any;
+    contextValue?: any;
+    variableValues?: Maybe<{ [key: string]: any }>;
+    operationName?: Maybe<string>;
+    fieldResolver?: Maybe<GraphQLFieldResolver<any, any>>;
+}
+
+export function graphql<TData = ExecutionResultDataDefault>(args: GraphQLArgs): Promise<ExecutionResult<TData>>;
+export function graphql<TData = ExecutionResultDataDefault>(
     schema: GraphQLSchema,
-    source: string | Source,
+    source: Source | string,
     rootValue?: any,
     contextValue?: any,
-    variableValues?: {
-        [key: string]: any
-    },
-    operationName?: string,
-    fieldResolver?: GraphQLFieldResolver<any, any>
-}): Promise<ExecutionResult>;
-export function graphql(
+    variableValues?: Maybe<{ [key: string]: any }>,
+    operationName?: Maybe<string>,
+    fieldResolver?: Maybe<GraphQLFieldResolver<any, any>>
+): Promise<ExecutionResult<TData>>;
+
+/**
+ * The graphqlSync function also fulfills GraphQL operations by parsing,
+ * validating, and executing a GraphQL document along side a GraphQL schema.
+ * However, it guarantees to complete synchronously (or throw an error) assuming
+ * that all field resolvers are also synchronous.
+ */
+export function graphqlSync<TData = ExecutionResultDataDefault>(args: GraphQLArgs): ExecutionResult<TData>;
+export function graphqlSync<TData = ExecutionResultDataDefault>(
     schema: GraphQLSchema,
-    source: string | Source,
+    source: Source | string,
     rootValue?: any,
     contextValue?: any,
-    variableValues?: {
-        [key: string]: any
-    },
-    operationName?: string,
-    fieldResolver?: GraphQLFieldResolver<any, any>
-): Promise<ExecutionResult>;
+    variableValues?: Maybe<{ [key: string]: any }>,
+    operationName?: Maybe<string>,
+    fieldResolver?: Maybe<GraphQLFieldResolver<any, any>>
+): ExecutionResult<TData>;

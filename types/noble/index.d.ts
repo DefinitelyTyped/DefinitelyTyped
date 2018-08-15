@@ -1,11 +1,11 @@
 // Type definitions for noble
 // Project: https://github.com/sandeepmistry/noble
 // Definitions by: Seon-Wook Park <https://github.com/swook>
-//                 Hans Bakker <https://github.com/wind-rider>
 //                 Shantanu Bhadoria <https://github.com/shantanubhadoria>
 //                 Luke Libraro <https://github.com/lukel99>
 //                 Dan Chao <https://github.com/bioball>
 //                 Michal Lower <https://github.com/keton>
+//                 Rob Moran <https://github.com/thegecko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -41,7 +41,7 @@ export declare class Peripheral extends events.EventEmitter {
     advertisement: Advertisement;
     rssi:          number;
     services:      Service[];
-    state:         string;
+    state:         'error' | 'connecting' | 'connected' | 'disconnecting' | 'disconnected';
 
     connect(callback?: (error: string) => void): void;
     disconnect(callback?: () => void): void;
@@ -63,7 +63,10 @@ export declare class Peripheral extends events.EventEmitter {
 
 export interface Advertisement {
     localName: string;
-    serviceData: Buffer;
+    serviceData: {
+        uuid: string,
+        data: Buffer
+    };
     txPowerLevel: number;
     manufacturerData: Buffer;
     serviceUuids: string[];

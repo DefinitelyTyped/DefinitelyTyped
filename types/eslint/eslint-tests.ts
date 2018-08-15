@@ -336,6 +336,7 @@ rule = {
             onCodePathSegmentStart(segment, node) {},
             onCodePathSegmentEnd(segment, node) {},
             onCodePathSegmentLoop(fromSegment, toSegment, node) {},
+            IfStatement(node) {},
             'Program:exit'() {},
         };
     },
@@ -445,6 +446,7 @@ let cli: CLIEngine;
 
 cli = new CLIEngine({ allowInlineConfig: false });
 cli = new CLIEngine({ baseConfig: false });
+cli = new CLIEngine({ baseConfig: { extends: ['lynt'] }});
 cli = new CLIEngine({ cache: true });
 cli = new CLIEngine({ cacheFile: 'foo' });
 cli = new CLIEngine({ configFile: 'foo' });
@@ -456,6 +458,7 @@ cli = new CLIEngine({ globals: ['foo'] });
 cli = new CLIEngine({ ignore: true });
 cli = new CLIEngine({ ignorePath: 'foo' });
 cli = new CLIEngine({ ignorePattern: 'foo' });
+cli = new CLIEngine({ ignorePattern: ['foo', 'bar'] });
 cli = new CLIEngine({ useEslintrc: false });
 cli = new CLIEngine({ parserOptions: {} });
 cli = new CLIEngine({ plugins: ['foo'] });

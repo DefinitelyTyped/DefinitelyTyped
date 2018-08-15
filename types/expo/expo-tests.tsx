@@ -3,6 +3,10 @@ import { Text } from 'react-native';
 
 import {
     Accelerometer,
+    AdMobAppEvent,
+    AdMobBanner,
+    AdMobInterstitial,
+    AdMobRewarded,
     Amplitude,
     Asset,
     AuthSession,
@@ -21,14 +25,28 @@ import {
     ImagePicker,
     ImageManipulator,
     FaceDetector,
+    Linking,
     Svg,
     IntentLauncherAndroid,
     KeepAwake,
     LinearGradient,
     Permissions,
+    PublisherBanner,
     registerRootComponent,
-    ScreenOrientation
+    ScreenOrientation,
+    SQLite,
+    Calendar,
+    MailComposer,
+    Location,
+    Updates,
+    MediaLibrary,
+    Haptic
 } from 'expo';
+
+const reverseGeocode: Promise<Location.GeocodeData[]> = Location.reverseGeocodeAsync({
+    latitude: 0,
+    longitude: 0
+});
 
 Accelerometer.addListener((obj) => {
     obj.x;
@@ -37,6 +55,41 @@ Accelerometer.addListener((obj) => {
 });
 Accelerometer.removeAllListeners();
 Accelerometer.setUpdateInterval(1000);
+
+() => (
+    <AdMobBanner
+        bannerSize="leaderboard"
+        adUnitID="ca-app-pub-3940256099942544/6300978111"
+        testDeviceID="EMULATOR"
+        didFailToReceiveAdWithError={(error: string) => console.log(error)}
+        style={{ flex: 1 }}
+    />
+);
+
+() => (
+    <PublisherBanner
+        bannerSize="leaderboard"
+        adUnitID="ca-app-pub-3940256099942544/6300978111"
+        testDeviceID="EMULATOR"
+        didFailToReceiveAdWithError={(error: string) => console.log(error)}
+        onAdMobDispatchAppEvent={(event: AdMobAppEvent) => console.log(event)}
+        style={{ flex: 1 }}
+    />
+);
+
+AdMobInterstitial.setAdUnitID('ca-app-pub-3940256099942544/1033173712'); // Test ID, Replace with your-admob-unit-id
+AdMobInterstitial.setTestDeviceID('EMULATOR');
+async () => {
+    await AdMobInterstitial.requestAdAsync();
+    await AdMobInterstitial.showAdAsync();
+};
+
+AdMobRewarded.setAdUnitID('ca-app-pub-3940256099942544/1033173712'); // Test ID, Replace with your-admob-unit-id
+AdMobRewarded.setTestDeviceID('EMULATOR');
+async () => {
+    await AdMobRewarded.requestAdAsync();
+    await AdMobRewarded.showAdAsync();
+};
 
 Amplitude.initialize('key');
 Amplitude.setUserId('userId');
@@ -171,8 +224,8 @@ Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY;
 Audio.RECORDING_OPTIONS_PRESET_LOW_QUALITY;
 async () => {
     const result = await Audio.Sound.create({uri: 'uri'}, {
-        volume: 0.5,
-        rate: 0.6
+        volume: 0.55,
+        rate: 16.5
     }, null, true);
 
     const sound = result.sound;
@@ -196,10 +249,7 @@ async () => {
         onError={(error) => console.log(error)} />
 );
 () => (
-    <AppLoading
-        startAsync={null}
-        onFinish={null}
-        onError={null} />
+    <AppLoading />
 );
 
 const barcodeReadCallback = () => {};
@@ -207,7 +257,7 @@ const barcodeReadCallback = () => {};
     <BarCodeScanner
         type="front"
         torchMode="off"
-        barCodeTypes={['s']}
+        barCodeTypes={[BarCodeScanner.Constants.BarCodeType.aztec]}
         onBarCodeRead={barcodeReadCallback} />
 );
 
@@ -218,8 +268,8 @@ const barcodeReadCallback = () => {};
 );
 
 async () => {
-    await Brightness.setBrightnessAsync(.6);
-    await Brightness.setSystemBrightnessAsync(.7);
+    await Brightness.setBrightnessAsync(0.65);
+    await Brightness.setSystemBrightnessAsync(0.75);
     const br1 = await Brightness.getBrightnessAsync();
     const br2 = await Brightness.getSystemBrightnessAsync();
 };
@@ -289,22 +339,48 @@ async () => {
 };
 
 async () => {
+    // Video test
     const result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Videos
+        mediaTypes: ImagePicker.MediaTypeOptions.Videos,
     });
 
     if (!result.cancelled) {
         result.uri;
         result.width;
         result.height;
+        result.duration;
+        result.type;
     }
 };
 
 async () => {
-    const result = await ImageManipulator.manipulate('url', {
-        rotate: 90
-    }, {
-        compress: 0.5
+    // Image test
+    const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        base64: true,
+        aspect: [4, 3],
+        quality: 1,
+        exif: true,
+    });
+
+    if (!result.cancelled) {
+        result.uri;
+        result.width;
+        result.height;
+        result.exif;
+        result.base64;
+        result.type;
+    }
+};
+
+async () => {
+    const result = await ImageManipulator.manipulate('url', [
+        { rotate: 90 },
+        { resize: { width: 300 } },
+        { resize: { height: 300 } },
+        { resize: { height: 300, width: 300 } },
+    ], {
+        compress: 0.75
     });
 
     result.height;
@@ -326,6 +402,38 @@ async () => {
     });
 
     result.faces[0];
+};
+
+async () => {
+    function isBoolean(x: boolean) {
+    }
+    function isString(x: string) {
+    }
+    // Two examples of members inherited from react-native Linking
+    // to prove that inheritence is working.
+    Linking.addEventListener('url', (e) => {
+        e.url === '';
+    });
+    isBoolean(await Linking.canOpenURL('expo://'));
+
+    // Extensions added by expo.
+
+    isString(Linking.makeUrl('path'));
+    isString(Linking.makeUrl('path', { q: 2, u: 'ery', }));
+
+    const {
+        path,
+        queryParams,
+    } = Linking.parse('');
+    isString(path);
+    isString(queryParams['x'] || '');
+
+    const {
+        path: path2,
+        queryParams: queryParams2,
+    } = await Linking.parseInitialURLAsync();
+    isString(path2);
+    isString(queryParams2['y'] || '');
 };
 
 () => (
@@ -406,6 +514,7 @@ async () => {
             />
         </Svg.G>
         <Svg.Use href="#shape" x="20" y="0" />
+        <Svg.Use href="#shape" x="20" y="0" width="20" height="20"/>
         <Svg.Symbol id="symbol" viewBox="0 0 150 110" width="100" height="50">
             <Svg.Circle cx="50" cy="50" r="40" strokeWidth="8" stroke="red" fill="red"/>
             <Svg.Circle cx="90" cy="60" r="40" strokeWidth="8" stroke="green" fill="white"/>
@@ -515,9 +624,13 @@ KeepAwake.deactivate();
 () => (
     <LinearGradient
         colors={['#fff']}
-        start={[1, 1]}
-        end={[3, 3]}
-        locations={[1, 2]} />
+        start={[1, 1]} />
+);
+
+() => (
+    <LinearGradient
+        colors={['#fff']}
+        style={{ flex: 1 }} />
 );
 
 Permissions.CAMERA === 'camera';
@@ -527,6 +640,8 @@ Permissions.CONTACTS === 'contacts';
 Permissions.NOTIFICATIONS === 'remoteNotifications';
 Permissions.REMOTE_NOTIFICATIONS === 'remoteNotifications';
 Permissions.SYSTEM_BRIGHTNESS === 'systemBrightness';
+Permissions.USER_FACING_NOTIFICATIONS === 'userFacingNotifications';
+Permissions.REMINDERS === 'reminders';
 async () => {
     const result = await Permissions.askAsync(Permissions.CAMERA);
 
@@ -548,3 +663,190 @@ class __TestEntry__ extends React.Component {
     }
 }
 registerRootComponent(__TestEntry__);
+
+Calendar.EntityTypes.EVENT === 'event';
+Calendar.EntityTypes.REMINDER === 'reminder';
+
+Calendar.CalendarType.LOCAL === 'local';
+Calendar.CalendarType.CALDAV === 'caldav';
+Calendar.CalendarType.EXCHANGE === 'exchange';
+Calendar.CalendarType.SUBSCRIBED === 'subscribed';
+Calendar.CalendarType.BIRTHDAYS === 'birthdays';
+
+async () => {
+    const result = await Calendar.getCalendarsAsync(Calendar.EntityTypes.EVENT);
+    result.length;
+
+    const calendar = result[0];
+    calendar.id === '';
+    calendar.title === '';
+    calendar.sourceId === '';
+    calendar.type === Calendar.CalendarType.BIRTHDAYS;
+    calendar.color === '';
+    calendar.entityType === Calendar.EntityTypes.EVENT;
+    calendar.allowsModifications === true;
+    calendar.allowedAvailabilities === [''];
+    calendar.isPrimary === true;
+    calendar.name === '';
+    calendar.ownerAccount === '';
+    calendar.timeZone === '';
+    calendar.allowedReminders === [''];
+    calendar.allowedAttendeeTypes === [''];
+    calendar.isVisible === false;
+    calendar.isSynced === false;
+    calendar.accessLevel === Calendar.CalendarAccessLevel.CONTRIBUTOR;
+
+    if (calendar.source) {
+        calendar.source.id === '';
+        calendar.source.type === '';
+        calendar.source.name === '';
+        calendar.source.isLocalAccount === false;
+    }
+
+    const id1 =  await Calendar.createCalendarAsync({
+        accessLevel: Calendar.CalendarAccessLevel.EDITOR
+    });
+
+    id1 === '';
+
+    const id2 = await Calendar.updateCalendarAsync('1234', {
+        isVisible: false
+    });
+
+    id2 === '';
+
+    const id3 = await Calendar.updateCalendarAsync('1234', null);
+
+    await Calendar.deleteCalendarAsync('1234');
+
+    const events = await Calendar.getEventsAsync(
+        ['123', '124'],
+        new Date(),
+        new Date()
+    );
+
+    const event1 = events[0];
+
+    event1.accessLevel === Calendar.EventAccessLevel.CONFIDENTIAL;
+    event1.alarms === [];
+    event1.allDay === true;
+    event1.availability === Calendar.Availability.FREE;
+    event1.calendarId === '';
+    event1.creationDate === '';
+    event1.endDate === '';
+    event1.endTimeZone === '';
+    event1.guestsCanInviteOthers === true;
+    event1.guestsCanModify === true;
+    event1.guestsCanSeeGuests === false;
+    event1.id === '';
+    event1.instanceId === '';
+    event1.isDetached === false;
+
+    const event2 = await Calendar.getEventAsync('123', {
+        futureEvents: true
+    });
+
+    const eventId1 = await Calendar.createEventAsync('123');
+
+    const eventId2 = await Calendar.updateEventAsync('1234');
+
+    await Calendar.deleteEventAsync('1234');
+
+    const attendees = await Calendar.getAttendeesForEventAsync('123');
+
+    const aId1 = await Calendar.createAttendeeAsync('123');
+
+    const aId2 = await Calendar.updateAttendeeAsync('123');
+
+    await Calendar.deleteAttendeeAsync('123');
+
+    const reminders = await Calendar.getRemindersAsync(['123']);
+
+    const reminder = await Calendar.getReminderAsync('123');
+
+    const remId1 = await Calendar.createReminderAsync('123');
+
+    const remId2 = await Calendar.updateReminderAsync('123');
+
+    await Calendar.deleteReminderAsync('123');
+
+    const sources = await Calendar.getSourcesAsync();
+
+    const source = await Calendar.getSourceAsync('123');
+
+    Calendar.openEventInCalendar('123');
+};
+
+async () => {
+    const result = await MailComposer.composeAsync({
+        subject: 'sss'
+    });
+
+    result.status === 'saved';
+};
+
+async () => {
+    const updateEventListener: Updates.UpdateEventListener = ({ type, manifest, message }) => {
+        switch (type) {
+            case Updates.EventType.DOWNLOAD_STARTED:
+            case Updates.EventType.DOWNLOAD_PROGRESS:
+            case Updates.EventType.DOWNLOAD_FINISHED:
+            case Updates.EventType.NO_UPDATE_AVAILABLE:
+            case Updates.EventType.ERROR:
+                return true;
+        }
+    };
+
+    Updates.reload();
+
+    Updates.reloadFromCache();
+
+    Updates.addListener(updateEventListener);
+
+    const updateCheckResult = await Updates.checkForUpdateAsync();
+
+    if (updateCheckResult.isAvailable) {
+        console.log(updateCheckResult.manifest);
+    }
+
+    Updates.fetchUpdateAsync(updateEventListener);
+
+    const bundleFetchResult = await Updates.fetchUpdateAsync();
+
+    if (bundleFetchResult.isNew) {
+        console.log(bundleFetchResult.manifest);
+    }
+};
+
+// #region MediaLibrary
+async () => {
+  const mlAsset: MediaLibrary.Asset = await MediaLibrary.createAssetAsync('localUri');
+  const mlAssetResult: MediaLibrary.GetAssetsResult = await MediaLibrary.getAssetsAsync({
+    first: 0,
+    after: '',
+    album: 'Album',
+    sortBy: MediaLibrary.SortBy.creationTime,
+    mediaType: MediaLibrary.MediaType.photo
+  });
+  const mlAsset1: MediaLibrary.Asset = await MediaLibrary.getAssetInfoAsync(mlAsset);
+  const areDeleted: boolean = await MediaLibrary.deleteAssetsAsync([mlAsset]);
+  const albums: MediaLibrary.Album[] = await MediaLibrary.getAlbumsAsync();
+  const album: MediaLibrary.Album = await MediaLibrary.getAlbumAsync('album');
+  const album1: MediaLibrary.Album = await MediaLibrary.createAlbumAsync('album', mlAsset);
+  const areAddedToAlbum: boolean = await MediaLibrary.addAssetsToAlbumAsync([mlAsset, mlAsset1], 'album');
+  const areDeletedFromAlbum: boolean = await MediaLibrary.removeAssetsFromAlbumAsync([mlAsset, mlAsset1], 'album');
+  const momuents: MediaLibrary.Album[] = await MediaLibrary.getMomentsAsync();
+};
+//#endregion
+
+// #region Haptic
+Haptic.impact(Haptic.ImpactStyles.Heavy);
+Haptic.impact(Haptic.ImpactStyles.Light);
+Haptic.impact(Haptic.ImpactStyles.Medium);
+
+Haptic.notification(Haptic.NotificationType.Error);
+Haptic.notification(Haptic.NotificationType.Success);
+Haptic.notification(Haptic.NotificationType.Error);
+
+Haptic.selection();
+// #endregion

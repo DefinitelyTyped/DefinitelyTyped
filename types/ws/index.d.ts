@@ -1,9 +1,10 @@
-// Type definitions for ws 4.0
+// Type definitions for ws 6.0
 // Project: https://github.com/websockets/ws
 // Definitions by: Paul Loyd <https://github.com/loyd>
 //                 Matt Silverlock <https://github.com/elithrar>
 //                 Margus Lamp <https://github.com/mlamp>
 //                 Philippe D'Alva <https://github.com/TitaneBoy>
+//                 Orblazer <https://github.com/orblazer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -67,14 +68,14 @@ declare class WebSocket extends events.EventEmitter {
     removeEventListener(method: string, listener?: () => void): void;
 
     // Events
-    on(event: 'close', listener: (code: number, reason: string) => void): this;
-    on(event: 'error', listener: (err: Error) => void): this;
-    on(event: 'upgrade', listener: (request: http.IncomingMessage) => void): this;
-    on(event: 'message', listener: (data: WebSocket.Data) => void): this;
-    on(event: 'open' , listener: () => void): this;
-    on(event: 'ping' | 'pong', listener: (data: Buffer) => void): this;
-    on(event: 'unexpected-response', listener: (request: http.ClientRequest, response: http.IncomingMessage) => void): this;
-    on(event: string | symbol, listener: (...args: any[]) => void): this;
+    on(event: 'close', listener: (this: WebSocket, code: number, reason: string) => void): this;
+    on(event: 'error', listener: (this: WebSocket, err: Error) => void): this;
+    on(event: 'upgrade', listener: (this: WebSocket, request: http.IncomingMessage) => void): this;
+    on(event: 'message', listener: (this: WebSocket, data: WebSocket.Data) => void): this;
+    on(event: 'open' , listener: (this: WebSocket) => void): this;
+    on(event: 'ping' | 'pong', listener: (this: WebSocket, data: Buffer) => void): this;
+    on(event: 'unexpected-response', listener: (this: WebSocket, request: http.ClientRequest, response: http.IncomingMessage) => void): this;
+    on(event: string | symbol, listener: (this: WebSocket, ...args: any[]) => void): this;
 
     addListener(event: 'close', listener: (code: number, message: string) => void): this;
     addListener(event: 'error', listener: (err: Error) => void): this;
@@ -119,7 +120,7 @@ declare namespace WebSocket {
      * whether or not to accept the handshake.
      */
     type VerifyClientCallbackAsync = (info: { origin: string; secure: boolean; req: http.IncomingMessage }
-        , callback: (res: boolean, code?: number, message?: string) => void) => void;
+        , callback: (res: boolean, code?: number, message?: string, headers?: http.OutgoingHttpHeaders) => void) => void;
 
     interface ClientOptions {
         protocol?: string;
@@ -140,6 +141,7 @@ declare namespace WebSocket {
         key?: CertMeta;
         pfx?: string | Buffer;
         ca?: CertMeta;
+        maxPayload?: number;
     }
 
     interface PerMessageDeflateOptions {
@@ -147,8 +149,17 @@ declare namespace WebSocket {
         clientNoContextTakeover?: boolean;
         serverMaxWindowBits?: number;
         clientMaxWindowBits?: number;
-        level?: number;
-        memLevel?: number;
+        zlibDeflateOptions?: {
+            flush?: number;
+            finishFlush?: number;
+            chunkSize?: number;
+            windowBits?: number;
+            level?: number;
+            memLevel?: number;
+            strategy?: number;
+            dictionary?: Buffer | Buffer[] | DataView;
+            info?: boolean;
+        };
         threshold?: number;
         concurrencyLimit?: number;
     }
@@ -167,6 +178,12 @@ declare namespace WebSocket {
         maxPayload?: number;
     }
 
+    interface AddressInfo {
+        address: string;
+        family: string;
+        port: number;
+    }
+
     // WebSocket Server
     class Server extends events.EventEmitter {
         options: ServerOptions;
@@ -175,17 +192,18 @@ declare namespace WebSocket {
 
         constructor(options?: ServerOptions, callback?: () => void);
 
+        address(): AddressInfo | string;
         close(cb?: (err?: Error) => void): void;
         handleUpgrade(request: http.IncomingMessage, socket: net.Socket,
             upgradeHead: Buffer, callback: (client: WebSocket) => void): void;
         shouldHandle(request: http.IncomingMessage): boolean;
 
         // Events
-        on(event: 'connection', cb: (socket: WebSocket, request: http.IncomingMessage) => void): this;
-        on(event: 'error', cb: (error: Error) => void): this;
-        on(event: 'headers', cb: (headers: string[], request: http.IncomingMessage) => void): this;
-        on(event: 'listening', cb: () => void): this;
-        on(event: string | symbol, listener: (...args: any[]) => void): this;
+        on(event: 'connection', cb: (this: WebSocket, socket: WebSocket, request: http.IncomingMessage) => void): this;
+        on(event: 'error', cb: (this: WebSocket, error: Error) => void): this;
+        on(event: 'headers', cb: (this: WebSocket, headers: string[], request: http.IncomingMessage) => void): this;
+        on(event: 'listening', cb: (this: WebSocket) => void): this;
+        on(event: string | symbol, listener: (this: WebSocket, ...args: any[]) => void): this;
 
         addListener(event: 'connection', cb: (client: WebSocket) => void): this;
         addListener(event: 'error', cb: (err: Error) => void): this;

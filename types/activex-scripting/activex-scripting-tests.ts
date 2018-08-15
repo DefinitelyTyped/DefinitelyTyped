@@ -1,3 +1,5 @@
+/// <reference types="windows-script-host" />
+
 // Note -- running these tests under cscript requires some ES5 polyfills
 
 const collectionToArray = <T>(col: { Item(key: any): T }): T[] => {

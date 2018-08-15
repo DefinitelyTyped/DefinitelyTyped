@@ -3,10 +3,10 @@
 // Definitions by: CaiHuan <https://github.com/CaiHuan>
 //                 Egor Shulga <https://github.com/egorshulga>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
-import { Animated, ScrollViewProperties, ViewStyle, TextStyle } from 'react-native';
+import { Animated, ScrollViewProps, ViewStyle, TextStyle } from 'react-native';
 
 export interface ScrollableTabViewProperties extends React.Props<ScrollableTabView> {
     /**
@@ -88,7 +88,7 @@ export interface ScrollableTabViewProperties extends React.Props<ScrollableTabVi
      * props that are applied to root ScrollView/ViewPagerAndroid.
      * Note that overriding defaults set by the library may break functionality; see the source for details.
      */
-    contentProps?: ScrollViewProperties;
+    contentProps?: ScrollViewProps;
 
     /**
      * on tab press change tab without animation.

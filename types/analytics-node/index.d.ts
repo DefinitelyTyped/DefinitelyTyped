@@ -39,7 +39,9 @@ declare namespace AnalyticsNode {
   export class Analytics {
     constructor(writeKey: string, opts?: {
       flushAt?: number,
-      flushAfter?: number
+      flushAfter?: number,
+      host?: string,
+      enable?: boolean
     });
 
     /* The identify method lets you tie a user to their actions and record
