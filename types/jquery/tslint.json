@@ -1,0 +1,12 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "callable-types": false,
+        "interface-name": false,
+        "no-any-union": false,
+        "no-declare-current-package": false,
+
+        "ban-types": false,
+        "no-object-literal-type-assertion": false
+    }
+}
