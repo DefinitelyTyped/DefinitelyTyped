@@ -5,6 +5,27 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
+// this is to set console type
+interface Console {
+  clear(): void;
+  debug(message?: any, ...optionalParams: any[]): void;
+  error(message?: any, ...optionalParams: any[]): void;
+  group(groupTitle?: string, ...optionalParams: any[]): void;
+  groupCollapsed(groupTitle?: string, ...optionalParams: any[]): void;
+  groupEnd(): void;
+  info(message?: any, ...optionalParams: any[]): void;
+  log(message?: any, ...optionalParams: any[]): void;
+  time(label?: string): void;
+  timeEnd(label?: string): void;
+  timeStamp(label?: string): void;
+  timeline(label?: string): void;
+  timelineEnd(label?: string): void;
+  trace(message?: any, ...optionalParams: any[]): void;
+  warn(message?: any, ...optionalParams: any[]): void;
+}
+
+declare var console: Console;
+
 declare namespace wx {
   // #region 基本参数
   interface DataResponse {
