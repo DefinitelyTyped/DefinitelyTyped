@@ -8,16 +8,16 @@ export const FA5Style: {
     brand: 3;
 };
 
-type ValueOf<T> = T[keyof T];
+export type ValueOf<T> = T[keyof T];
 
 // borrowed from
 // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html
-type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
+export type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 
 export type FontAwesome5IconVariants = keyof Omit<typeof FA5Style, "regular">;
 
 // modified from https://stackoverflow.com/a/49725198/1105281
-type AllowOnlyOne<T, Keys extends keyof T = keyof T> = Omit<T, Keys> &
+export type AllowOnlyOne<T, Keys extends keyof T = keyof T> = Omit<T, Keys> &
     {
         [K in Keys]-?: Partial<Pick<T, K>> &
             Partial<Record<Exclude<Keys, K>, undefined>>
