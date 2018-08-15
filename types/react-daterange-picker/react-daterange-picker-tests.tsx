@@ -170,13 +170,13 @@ export class Main extends React.Component {
                         />
                     </div>
                     <div className="example">
-                        <h4>Single with custom SFC paginationArrowComponent</h4>
+                        <h4>With custom SFC paginationArrowComponent</h4>
                         <DateSinglePicker
                             paginationArrowComponent={ CustomSFCPaginationArrow }
                         />
                     </div>
                     <div className="example">
-                        <h4>Single with custom ComponentClass paginationArrowComponent</h4>
+                        <h4>With custom ComponentClass paginationArrowComponent</h4>
                         <DateSinglePicker
                             paginationArrowComponent={ CustomComponentClassPaginationArrow }
                         />
