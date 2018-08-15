@@ -5,8 +5,8 @@
 // TypeScript Version: 2.8
 
 import * as React from "react";
-import { Location } from "history";
-export type WindowLocation = Window["location"] & Location;
+import { Location as HLocation } from "history";
+export type WindowLocation = Window["location"] & HLocation;
 
 export interface History {
     readonly location: string;
