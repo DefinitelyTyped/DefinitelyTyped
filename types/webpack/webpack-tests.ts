@@ -56,11 +56,27 @@ configuration = {
 };
 
 configuration = {
+    entry: () => ({
+        p1: "./page1",
+        p2: "./page2",
+        p3: "./page3"
+    })
+};
+
+configuration = {
     entry: () => new Promise((resolve) => resolve('./demo'))
 };
 
 configuration = {
     entry: () => new Promise((resolve) => resolve(['./demo', './demo2']))
+};
+
+configuration = {
+    entry: () => new Promise((resolve) => resolve({
+        p1: "./page1",
+        p2: "./page2",
+        p3: "./page3"
+    }))
 };
 
 //
