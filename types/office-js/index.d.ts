@@ -8287,7 +8287,7 @@ declare namespace Office {
          *
          * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (<a>) to "LPNoLP" (please see the Examples section for a sample).
          *
-         * [Api set: Mailbox 1.1]
+         * [Api set: Mailbox 1.2]
          *
          * @remarks
          * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
@@ -8318,7 +8318,7 @@ declare namespace Office {
          *
          * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (<a>) to "LPNoLP" (please see the Examples section for a sample).
          *
-         * [Api set: Mailbox 1.1]
+         * [Api set: Mailbox 1.2]
          *
          * @remarks
          * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
@@ -8340,7 +8340,7 @@ declare namespace Office {
          *
          * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (<a>) to "LPNoLP" (please see the Examples section for a sample).
          *
-         * [Api set: Mailbox 1.1]
+         * [Api set: Mailbox 1.2]
          *
          * @remarks
          * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
@@ -8360,7 +8360,7 @@ declare namespace Office {
          *
          * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (<a>) to "LPNoLP" (please see the Examples section for a sample).
          *
-         * [Api set: Mailbox 1.1]
+         * [Api set: Mailbox 1.2]
          *
          * @remarks
          * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
@@ -9274,7 +9274,7 @@ declare namespace Office {
          *
          * To access the selected data from the callback method, call asyncResult.value.data. To access the source property that the selection comes from, call asyncResult.value.sourceProperty, which will be either body or subject.
          *
-         * [Api set: Mailbox 1.0]
+         * [Api set: Mailbox 1.2]
          *
          * @returns
          * The selected data as a string with format determined by coercionType.
@@ -9298,7 +9298,7 @@ declare namespace Office {
          *
          * To access the selected data from the callback method, call asyncResult.value.data. To access the source property that the selection comes from, call asyncResult.value.sourceProperty, which will be either body or subject.
          *
-         * [Api set: Mailbox 1.0]
+         * [Api set: Mailbox 1.2]
          *
          * @returns
          * The selected data as a string with format determined by coercionType.
@@ -10883,7 +10883,7 @@ declare namespace Office {
          *
          * To access the selected data from the callback method, call asyncResult.value.data. To access the source property that the selection comes from, call asyncResult.value.sourceProperty, which will be either body or subject.
          *
-         * [Api set: Mailbox 1.0]
+         * [Api set: Mailbox 1.2]
          *
          * @returns
          * The selected data as a string with format determined by coercionType.
@@ -10905,7 +10905,7 @@ declare namespace Office {
          *
          * To access the selected data from the callback method, call asyncResult.value.data. To access the source property that the selection comes from, call asyncResult.value.sourceProperty, which will be either body or subject.
          *
-         * [Api set: Mailbox 1.0]
+         * [Api set: Mailbox 1.2]
          *
          * @returns
          * The selected data as a string with format determined by coercionType.
@@ -12134,7 +12134,7 @@ declare namespace Office {
          *
          * To access the selected data from the callback method, call asyncResult.value.data. To access the source property that the selection comes from, call asyncResult.value.sourceProperty, which will be either body or subject.
          *
-         * [Api set: Mailbox 1.0]
+         * [Api set: Mailbox 1.2]
          *
          * @returns
          * The selected data as a string with format determined by coercionType.
@@ -12156,7 +12156,7 @@ declare namespace Office {
          *
          * To access the selected data from the callback method, call asyncResult.value.data. To access the source property that the selection comes from, call asyncResult.value.sourceProperty, which will be either body or subject.
          *
-         * [Api set: Mailbox 1.0]
+         * [Api set: Mailbox 1.2]
          *
          * @returns
          * The selected data as a string with format determined by coercionType.
