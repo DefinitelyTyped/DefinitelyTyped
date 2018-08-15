@@ -735,12 +735,12 @@ export interface TransformsStyle {
         | TranslateYTransform
         | SkewXTransform
         | SkewYTransform)[];
-    transformMatrix?: Array<number>;
-    rotation?: number;
-    scaleX?: number;
-    scaleY?: number;
-    translateX?: number;
-    translateY?: number;
+    transformMatrix?: Array<Animated.Value | number>;
+    rotation?: Animated.Value | number;
+    scaleX?: Animated.Value | number;
+    scaleY?: Animated.Value | number;
+    translateX?: Animated.Value | number;
+    translateY?: Animated.Value | number;
 }
 
 export interface StyleSheetProperties {
