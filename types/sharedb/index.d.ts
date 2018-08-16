@@ -8,21 +8,21 @@ declare namespace ShareDB {
     type Path = ReadonlyArray<string|number>;
     type Snapshot = number;
 
-    interface AddNumOp { p: Path, na: number; };
+    interface AddNumOp { p: Path; na: number; }
 
-    interface ListInsertOp  { p: Path; li: any; };
-    interface ListDeleteOp  { p: Path; ld: any; };
-    interface ListReplaceOp { p: Path; li: any; ld: any; }:
-    interface ListMoveOp    { p: Path; lm: any; }:
+    interface ListInsertOp  { p: Path; li: any; }
+    interface ListDeleteOp  { p: Path; ld: any; }
+    interface ListReplaceOp { p: Path; li: any; ld: any; }
+    interface ListMoveOp    { p: Path; lm: any; }
 
-    interface ObjectInsertOp  { p: Path; oi: any; };
-    interface ObjectDeleteOp  { p: Path; od: any; };
-    interface ObjectReplaceOp { p: Path; oi: any; od: any; };
+    interface ObjectInsertOp  { p: Path; oi: any; }
+    interface ObjectDeleteOp  { p: Path; od: any; }
+    interface ObjectReplaceOp { p: Path; oi: any; od: any; }
 
-    interface StringInsertOp { p: Path; si: string; };
-    interface StringDeleteOp { p: Path; sd: string; };
+    interface StringInsertOp { p: Path; si: string; }
+    interface StringDeleteOp { p: Path; sd: string; }
 
-    interface SubtypeOp { p: Path; t: string; o: any; };
+    interface SubtypeOp { p: Path; t: string; o: any; }
 
     type Op = AddNumOp | ListInsertOp | ListDeleteOp | ListReplaceOp | ListMoveOp | ObjectInsertOp | ObjectDeleteOp | ObjectReplaceOp | StringInsertOp | StringDeleteOp | SubtypeOp;
 
@@ -40,38 +40,38 @@ declare namespace ShareDB {
     interface Error {
         code: number;
         message: string;
-    };
-    interface ShareDBSourceOptions { source?: boolean; };
-    interface ShareDBCreateOptions extends ShareDBSourceOptions {};
-    interface ShareDBDelOptions extends ShareDBSourceOptions {};
-    interface ShareDBSubmitOpOptions extends ShareDBSourceOptions {};
+    }
+    interface ShareDBSourceOptions { source?: boolean; }
+    // interface ShareDBCreateOptions extends ShareDBSourceOptions {}
+    // interface ShareDBDelOptions extends ShareDBSourceOptions {}
+    // interface ShareDBSubmitOpOptions extends ShareDBSourceOptions {}
 
-    type Callback = (err: ShareDB.Error) => any;
+    type Callback = (err: Error) => any;
 
     class Doc {
         type: string;
         id: DocumentID;
         data: any;
-        fetch: (callback: (err: ShareDB.Error)=>void) => void;
-        subscribe: (callback: (err: ShareDB.Error)=>void) => void;
-        on: (event: 'load'|'create'|'before op'|'op'|'del'|'error', callback: (...args: Array<any>) => any) => void;
+        fetch: (callback: (err: Error) => void) => void;
+        subscribe: (callback: (err: Error) => void) => void;
+        on: (event: 'load'|'create'|'before op'|'op'|'del'|'error', callback: (...args: any[]) => any) => void;
         ingestSnapshot: (snapshot: Snapshot, callback: Callback) => void;
         destroy: () => void;
         create(data: any, callback?: Callback): void;
         create(data: any, type?: OTType, callback?: Callback): void;
-        create(data: any, type?: OTType, options?: ShareDBCreateOptions, callback?: Callback): void;
-        submitOp: (data: ReadonlyArray<Op>, options?: ShareDBSubmitOpOptions, callback?: Callback) => void;
-        del: (options: ShareDBDelOptions, callback: (err: ShareDB.Error) => void) => void;
-        removeListener: (eventName: string, listener: Function) => void;
-    };
+        create(data: any, type?: OTType, options?: ShareDBSourceOptions, callback?: Callback): void;
+        submitOp: (data: ReadonlyArray<Op>, options?: ShareDBSourceOptions, callback?: Callback) => void;
+        del: (options: ShareDBSourceOptions, callback: (err: Error) => void) => void;
+        removeListener: (eventName: string, listener: () => any) => void;
+    }
 
     class Query {
         ready: boolean;
-        results: ShareDB.Doc[];
+        results: Doc[];
         extra: any;
         on: (event: 'ready'|'error'|'changed'|'insert'|'move'|'remove'|'extra', callback: (...args: any[]) => any) => any;
         destroy: () => void;
-    };
+    }
 }
 
 declare module 'sharedb/lib/client' {
@@ -88,26 +88,23 @@ declare module 'sharedb/lib/client' {
 
 declare module 'sharedb' {
     class ShareDBServer {
-        constructor(options?: {db?: ShareDBServer.DB, pubsub?: ShareDBServer.PubSub, disableDocAction?: boolean, disableSpaceDelimitedActions?: boolean});
+        constructor(options?: {db?: any, pubsub?: ShareDBServer.PubSub, disableDocAction?: boolean, disableSpaceDelimitedActions?: boolean});
         connect: () => ShareDBServer.Connection;
         addProjection(name: string, collection: string, fields: {}): any;
         listen(stream: any): void;
         close(callback?: (err: ShareDBServer.Error) => any): void;
         use(action: ShareDB.Action, fn: ShareDBServer.UseCallback);
         types: {
-            register: Function
+            register: () => void
         };
     }
     namespace ShareDBServer {
-        type UseCallback = ((request: {action: ShareDB.Action,agent: any,req: any,collection: string,id: string,query: any,op: ShareDB.RawOp}, callback: Function) => void);
+        type UseCallback = ((request: {action: ShareDB.Action, agent: any, req: any, collection: string, id: string, query: any, op: ShareDB.RawOp}, callback: () => void) => void);
         interface Error {
             code: number;
             message: string;
         }
 
-        interface DB { }
-
-        class MemoryDB implements DB { }
         interface PubSubOptions {
             prefix?: string;
         }
