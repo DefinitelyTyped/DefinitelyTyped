@@ -1,7 +1,6 @@
 // Type definitions for hapi 17.0
 // Project: https://github.com/hapijs/hapi
-// Definitions by: Marc Bornträger <https://github.com/BorntraegerMarc>
-//                 Rafael Souza Fijalkowski <https://github.com/rafaelsouzaf>
+// Definitions by: Rafael Souza Fijalkowski <https://github.com/rafaelsouzaf>
 //                 Justin Simms <https://github.com/jhsimms>
 //                 Simon Schick <https://github.com/SimonSchick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
