@@ -184,8 +184,6 @@ const traceEnvelope = new Microsoft.ApplicationInsights.Telemetry.Common.Envelop
 context.track(traceEnvelope);
 
 // UtilHelpers
-const Util: Microsoft.ApplicationInsights.IUtilHelpers = {
-    newId(): string { return null; }
-};
+let Util: typeof Microsoft.ApplicationInsights.UtilHelpers;
 
 Util.newId();

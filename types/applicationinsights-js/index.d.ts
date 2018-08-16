@@ -800,17 +800,17 @@ declare module Microsoft.ApplicationInsights {
         _onerror(message: string, url: string, lineNumber: number, columnNumber: number, error: Error): any;
     }
 
-    interface IUtilHelpers {
+    class UtilHelpers {
         /**
          * Generate a random ID string
          */
-        newId?(): string;
+        static newId(): string;
     }
 }
 
 declare module 'applicationinsights-js' {
     const AppInsights: Microsoft.ApplicationInsights.IAppInsights;
-    const Util: Microsoft.ApplicationInsights.IUtilHelpers;
+    const Util: typeof Microsoft.ApplicationInsights.UtilHelpers;
 }
 
 declare var appInsights: Microsoft.ApplicationInsights.IAppInsights;
