@@ -17,17 +17,24 @@ const config: Microsoft.ApplicationInsights.IConfig = {
     autoTrackPageVisitTime: true,
     disableExceptionTracking: false,
     disableAjaxTracking: false,
+    disableFetchTracking: true,
     overridePageViewDuration: false,
     maxAjaxCallsPerView: -1,
     disableDataLossAnalysis: true,
     disableCorrelationHeaders: true,
+    correlationHeaderExcludedDomains: [],
     disableFlushOnBeforeUnload: false,
     enableSessionStorageBuffer: false,
     cookieDomain: "",
     isCookieUseDisabled: true,
     isRetryDisabled: true,
-    isPerfAnalyzerEnabled: true,
-    isStorageUseDisabled: true
+    url: "url",
+    isStorageUseDisabled: true,
+    isBeaconApiDisabled: false,
+    sdkExtension: "sdkExtension",
+    isBrowserLinkTrackingEnabled: false,
+    appId: "appId",
+    enableCorsCorrelation: false
 };
 
 appInsights = {
