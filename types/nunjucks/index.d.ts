@@ -94,7 +94,8 @@ export function installJinjaCompat(): void;
 
 export interface ILoader {
     async?: boolean;
-    getSource(name: string, callback?: (err?: any, result?: LoaderSource) => void): LoaderSource | void;
+    getSource(name: string): LoaderSource;
+    getSource(name: string, callback: (err?: any, result?: LoaderSource) => void): void;
     extend?(extender: ILoader): ILoader;
 }
 
