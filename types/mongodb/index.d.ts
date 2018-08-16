@@ -12,6 +12,8 @@
 //                 Denys Bushulyak <https://github.com/denys-bushulyak>
 //                 Bastien Arata <https://github.com/BastienAr>
 //                 Wan Bachtiar <https://github.com/sindbach>
+//                 Geraldine Lemeur <https://github.com/geraldinelemeur>
+//                 Jimmy Shimizu <https://github.com/jishi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -24,9 +26,9 @@ import { ObjectID } from 'bson';
 import { EventEmitter } from 'events';
 import { Readable, Writable } from "stream";
 
-export function connect(uri: string, options?: MongoClientOptions): Promise<Db>;
-export function connect(uri: string, callback: MongoCallback<Db>): void;
-export function connect(uri: string, options: MongoClientOptions, callback: MongoCallback<Db>): void;
+export function connect(uri: string, options?: MongoClientOptions): Promise<MongoClient>;
+export function connect(uri: string, callback: MongoCallback<MongoClient>): void;
+export function connect(uri: string, options: MongoClientOptions, callback: MongoCallback<MongoClient>): void;
 
 export { Binary, DBRef, Decimal128, Double, Long, MaxKey, MinKey, ObjectID, ObjectId, Timestamp } from 'bson';
 
@@ -200,8 +202,10 @@ export interface SocketOptions {
     autoReconnect?: boolean;
     // TCP Socket NoDelay option. default:true
     noDelay?: boolean;
-    // TCP KeepAlive on the socket with a X ms delay before start. default:0
-    keepAlive?: number;
+    // TCP KeepAlive enabled on the socket. default:true
+    keepAlive?: boolean;
+    // TCP KeepAlive initial delay before sending first keep-alive packet when idle. default:300000
+    keepAliveInitialDelay?: number;
     // TCP Connection timeout setting. default 0
     connectTimeoutMS?: number;
     // TCP Socket timeout setting. default 0
@@ -1264,6 +1268,7 @@ export class Cursor<T = Default> extends Readable {
     filter(filter: Object): Cursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#forEach */
     forEach(iterator: IteratorCallback<T>, callback: EndCallback): void;
+    forEach(iterator: IteratorCallback<T>): Promise<void>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#hasNext */
     hasNext(): Promise<boolean>;
     hasNext(callback: MongoCallback<boolean>): void;
@@ -1286,8 +1291,8 @@ export class Cursor<T = Default> extends Readable {
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#min */
     min(min: number): Cursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#next */
-    next(): Promise<T>;
-    next(callback: MongoCallback<T>): void;
+    next(): Promise<T | null>;
+    next(callback: MongoCallback<T | null>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#project */
     project(value: Object): Cursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#read */
@@ -1365,8 +1370,8 @@ export class AggregationCursor<T = Default> extends Readable {
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#maxTimeMS */
     maxTimeMS(value: number): AggregationCursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#next */
-    next(): Promise<T>;
-    next(callback: MongoCallback<T>): void;
+    next(): Promise<T | null>;
+    next(callback: MongoCallback<T | null>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#out */
     out(destination: string): AggregationCursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#project */

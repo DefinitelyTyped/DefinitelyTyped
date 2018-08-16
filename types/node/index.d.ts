@@ -1,4 +1,4 @@
-// Type definitions for Node.js 10.5.x
+// Type definitions for Node.js 10.7.x
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <http://typescriptlang.org>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
@@ -26,6 +26,8 @@
 //                 Lishude <https://github.com/islishude>
 //                 Andrew Makarov <https://github.com/r3nya>
 //                 Zane Hannan AU <https://github.com/ZaneHannanAU>
+//                 Thomas den Hollander <https://github.com/ThomasdenH>
+//                 Eugene Y. Q. Shen <https://github.com/eyqs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /** inspector module types */
@@ -171,6 +173,10 @@ interface SymbolConstructor {
     readonly asyncIterator: symbol;
 }
 declare var Symbol: SymbolConstructor;
+interface SharedArrayBuffer {
+    readonly byteLength: number;
+    slice(begin?: number, end?: number): SharedArrayBuffer;
+}
 
 // Node.js ESNEXT support
 interface String {
@@ -348,13 +354,13 @@ declare var Buffer: {
     new(array: Uint8Array): Buffer;
     /**
      * Produces a Buffer backed by the same allocated memory as
-     * the given {ArrayBuffer}.
+     * the given {ArrayBuffer}/{SharedArrayBuffer}.
      *
      *
      * @param arrayBuffer The ArrayBuffer with which to share memory.
      * @deprecated since v10.0.0 - Use `Buffer.from(arrayBuffer[, byteOffset[, length]])` instead.
      */
-    new(arrayBuffer: ArrayBuffer): Buffer;
+    new(arrayBuffer: ArrayBuffer | SharedArrayBuffer): Buffer;
     /**
      * Allocates a new buffer containing the given {array} of octets.
      *
@@ -378,8 +384,7 @@ declare var Buffer: {
      *
      * @param arrayBuffer The .buffer property of any TypedArray or a new ArrayBuffer()
      */
-    from(arrayBuffer: ArrayBuffer, byteOffset?: number, length?: number): Buffer;
-    // from(arrayBuffer: SharedArrayBuffer, byteOffset?: number, length?: number): Buffer;
+    from(arrayBuffer: ArrayBuffer | SharedArrayBuffer, byteOffset?: number, length?: number): Buffer;
     /**
      * Creates a new Buffer using the passed {data}
      * @param data data to create a new Buffer
@@ -414,10 +419,10 @@ declare var Buffer: {
      * Gives the actual byte length of a string. encoding defaults to 'utf8'.
      * This is not the same as String.prototype.length since that returns the number of characters in a string.
      *
-     * @param string string to test. (TypedArray is also allowed, but it is only available starting ES2017)
+     * @param string string to test.
      * @param encoding encoding used to evaluate (defaults to 'utf8')
      */
-    byteLength(string: string | ArrayBuffer | ArrayBufferView, encoding?: string): number;
+    byteLength(string: string | NodeJS.TypedArray | DataView | ArrayBuffer | SharedArrayBuffer, encoding?: string): number;
     /**
      * Returns a buffer which is the result of concatenating all the buffers in the list together.
      *
@@ -694,7 +699,7 @@ declare namespace NodeJS {
         columns?: number;
         rows?: number;
         _write(chunk: any, encoding: string, callback: Function): void;
-        _destroy(err: Error, callback: Function): void;
+        _destroy(err: Error | null, callback: Function): void;
         _final(callback: Function): void;
         setDefaultEncoding(encoding: string): this;
         cork(): void;
@@ -707,7 +712,7 @@ declare namespace NodeJS {
         isRaw?: boolean;
         setRawMode?(mode: boolean): void;
         _read(size: number): void;
-        _destroy(err: Error, callback: Function): void;
+        _destroy(err: Error | null, callback: Function): void;
         push(chunk: any, encoding?: string): boolean;
         destroy(error?: Error): void;
     }
@@ -977,6 +982,8 @@ declare namespace NodeJS {
 
         constructor(id: string, parent?: Module);
     }
+
+    type TypedArray = Uint8Array | Uint8ClampedArray | Uint16Array | Uint32Array | Int8Array | Int16Array | Int32Array | Float32Array | Float64Array;
 }
 
 interface IterableIterator<T> { }
@@ -1149,7 +1156,6 @@ declare module "http" {
         constructor();
 
         setTimeout(msecs: number, callback?: () => void): this;
-        destroy(error: Error): void;
         setHeader(name: string, value: number | string | string[]): void;
         getHeader(name: string): number | string | string[] | undefined;
         getHeaders(): OutgoingHttpHeaders;
@@ -1246,6 +1252,10 @@ declare module "http" {
          * Maximum number of sockets to leave open in a free state. Only relevant if keepAlive is set to true. Default = 256.
          */
         maxFreeSockets?: number;
+        /**
+         * Socket timeout in milliseconds. This will set the timeout after the socket is connected.
+         */
+        timeout?: number;
     }
 
     export class Agent {
@@ -1552,7 +1562,7 @@ declare module "zlib" {
         level?: number; // compression only
         memLevel?: number; // compression only
         strategy?: number; // compression only
-        dictionary?: any; // deflate/inflate only, empty dictionary by default
+        dictionary?: Buffer | NodeJS.TypedArray | DataView | ArrayBuffer; // deflate/inflate only, empty dictionary by default
     }
 
     export interface Zlib {
@@ -1585,7 +1595,7 @@ declare module "zlib" {
     export function createInflateRaw(options?: ZlibOptions): InflateRaw;
     export function createUnzip(options?: ZlibOptions): Unzip;
 
-    type InputType = string | Buffer | DataView | ArrayBuffer /* | TypedArray */;
+    type InputType = string | Buffer | DataView | ArrayBuffer | NodeJS.TypedArray;
     export function deflate(buf: InputType, callback: (error: Error | null, result: Buffer) => void): void;
     export function deflate(buf: InputType, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
     export function deflateSync(buf: InputType, options?: ZlibOptions): Buffer;
@@ -2188,11 +2198,13 @@ declare module "child_process" {
         keepOpen?: boolean;
     }
 
+    export type StdioOptions = "pipe" | "ignore" | "inherit" | Array<("pipe" | "ipc" | "ignore" | stream.Stream | number | null | undefined)>;
+
     export interface SpawnOptions {
-        argv0?: string;
         cwd?: string;
-        env?: any;
-        stdio?: any;
+        env?: NodeJS.ProcessEnv;
+        argv0?: string;
+        stdio?: StdioOptions;
         detached?: boolean;
         uid?: number;
         gid?: number;
@@ -2205,7 +2217,7 @@ declare module "child_process" {
 
     export interface ExecOptions {
         cwd?: string;
-        env?: any;
+        env?: NodeJS.ProcessEnv;
         shell?: string;
         timeout?: number;
         maxBuffer?: number;
@@ -2223,24 +2235,31 @@ declare module "child_process" {
         encoding: string | null; // specify `null`.
     }
 
+    export interface ExecException extends Error {
+        cmd?: string;
+        killed?: boolean;
+        code?: number;
+        signal?: string;
+    }
+
     // no `options` definitely means stdout/stderr are `string`.
-    export function exec(command: string, callback?: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
+    export function exec(command: string, callback?: (error: ExecException | null, stdout: string, stderr: string) => void): ChildProcess;
 
     // `options` with `"buffer"` or `null` for `encoding` means stdout/stderr are definitely `Buffer`.
-    export function exec(command: string, options: { encoding: "buffer" | null } & ExecOptions, callback?: (error: Error | null, stdout: Buffer, stderr: Buffer) => void): ChildProcess;
+    export function exec(command: string, options: { encoding: "buffer" | null } & ExecOptions, callback?: (error: ExecException | null, stdout: Buffer, stderr: Buffer) => void): ChildProcess;
 
     // `options` with well known `encoding` means stdout/stderr are definitely `string`.
-    export function exec(command: string, options: { encoding: BufferEncoding } & ExecOptions, callback?: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
+    export function exec(command: string, options: { encoding: BufferEncoding } & ExecOptions, callback?: (error: ExecException | null, stdout: string, stderr: string) => void): ChildProcess;
 
     // `options` with an `encoding` whose type is `string` means stdout/stderr could either be `Buffer` or `string`.
     // There is no guarantee the `encoding` is unknown as `string` is a superset of `BufferEncoding`.
-    export function exec(command: string, options: { encoding: string } & ExecOptions, callback?: (error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => void): ChildProcess;
+    export function exec(command: string, options: { encoding: string } & ExecOptions, callback?: (error: ExecException | null, stdout: string | Buffer, stderr: string | Buffer) => void): ChildProcess;
 
     // `options` without an `encoding` means stdout/stderr are definitely `string`.
-    export function exec(command: string, options: ExecOptions, callback?: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
+    export function exec(command: string, options: ExecOptions, callback?: (error: ExecException | null, stdout: string, stderr: string) => void): ChildProcess;
 
     // fallback if nothing else matches. Worst case is always `string | Buffer`.
-    export function exec(command: string, options: ({ encoding?: string | null } & ExecOptions) | undefined | null, callback?: (error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => void): ChildProcess;
+    export function exec(command: string, options: ({ encoding?: string | null } & ExecOptions) | undefined | null, callback?: (error: ExecException | null, stdout: string | Buffer, stderr: string | Buffer) => void): ChildProcess;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     export namespace exec {
@@ -2253,7 +2272,7 @@ declare module "child_process" {
 
     export interface ExecFileOptions {
         cwd?: string;
-        env?: any;
+        env?: NodeJS.ProcessEnv;
         timeout?: number;
         maxBuffer?: number;
         killSignal?: string;
@@ -2320,32 +2339,32 @@ declare module "child_process" {
 
     export interface ForkOptions {
         cwd?: string;
-        env?: any;
+        env?: NodeJS.ProcessEnv;
         execPath?: string;
         execArgv?: string[];
         silent?: boolean;
-        stdio?: any[];
+        stdio?: StdioOptions;
+        windowsVerbatimArguments?: boolean;
         uid?: number;
         gid?: number;
-        windowsVerbatimArguments?: boolean;
     }
     export function fork(modulePath: string, args?: ReadonlyArray<string>, options?: ForkOptions): ChildProcess;
 
     export interface SpawnSyncOptions {
-        argv0?: string;
+        argv0?: string; // Not specified in the docs
         cwd?: string;
-        input?: string | Buffer;
-        stdio?: any;
-        env?: any;
+        input?: string | Buffer | Uint8Array;
+        stdio?: StdioOptions;
+        env?: NodeJS.ProcessEnv;
         uid?: number;
         gid?: number;
         timeout?: number;
-        killSignal?: string;
+        killSignal?: string | number;
         maxBuffer?: number;
         encoding?: string;
         shell?: boolean | string;
-        windowsHide?: boolean;
         windowsVerbatimArguments?: boolean;
+        windowsHide?: boolean;
     }
     export interface SpawnSyncOptionsWithStringEncoding extends SpawnSyncOptions {
         encoding: BufferEncoding;
@@ -2372,14 +2391,14 @@ declare module "child_process" {
 
     export interface ExecSyncOptions {
         cwd?: string;
-        input?: string | Buffer;
-        stdio?: any;
-        env?: any;
+        input?: string | Buffer | Uint8Array;
+        stdio?: StdioOptions;
+        env?: NodeJS.ProcessEnv;
         shell?: string;
         uid?: number;
         gid?: number;
         timeout?: number;
-        killSignal?: string;
+        killSignal?: string | number;
         maxBuffer?: number;
         encoding?: string;
         windowsHide?: boolean;
@@ -2397,16 +2416,17 @@ declare module "child_process" {
 
     export interface ExecFileSyncOptions {
         cwd?: string;
-        input?: string | Buffer;
-        stdio?: any;
-        env?: any;
+        input?: string | Buffer | Uint8Array;
+        stdio?: StdioOptions;
+        env?: NodeJS.ProcessEnv;
         uid?: number;
         gid?: number;
         timeout?: number;
-        killSignal?: string;
+        killSignal?: string | number;
         maxBuffer?: number;
         encoding?: string;
         windowsHide?: boolean;
+        shell?: boolean | string;
     }
     export interface ExecFileSyncOptionsWithStringEncoding extends ExecFileSyncOptions {
         encoding: BufferEncoding;
@@ -2501,7 +2521,7 @@ declare module "url" {
         append(name: string, value: string): void;
         delete(name: string): void;
         entries(): IterableIterator<[string, string]>;
-        forEach(callback: (value: string, name: string) => void): void;
+        forEach(callback: (value: string, name: string, searchParams: this) => void): void;
         get(name: string): string | null;
         getAll(name: string): string[];
         has(name: string): boolean;
@@ -2570,8 +2590,15 @@ declare module "dns" {
         ttl: number;
     }
 
-    export interface AnyRecordWithTtl extends RecordWithTtl {
-        type: "A" | "AAAA";
+    /** @deprecated Use AnyARecord or AnyAaaaRecord instead. */
+    export type AnyRecordWithTtl = AnyARecord | AnyAaaaRecord;
+
+    export interface AnyARecord extends RecordWithTtl {
+        type: "A";
+    }
+
+    export interface AnyAaaaRecord extends RecordWithTtl {
+        type: "AAAA";
     }
 
     export interface MxRecord {
@@ -2626,10 +2653,36 @@ declare module "dns" {
         entries: string[];
     }
 
+    export interface AnyNsRecord {
+        type: "NS";
+        value: string;
+    }
+
+    export interface AnyPtrRecord {
+        type: "PTR";
+        value: string;
+    }
+
+    export interface AnyCnameRecord {
+        type: "CNAME";
+        value: string;
+    }
+
+    export type AnyRecord = AnyARecord |
+        AnyAaaaRecord |
+        AnyCnameRecord |
+        AnyMxRecord |
+        AnyNaptrRecord |
+        AnyNsRecord |
+        AnyPtrRecord |
+        AnySoaRecord |
+        AnySrvRecord |
+        AnyTxtRecord;
+
     export function resolve(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
     export function resolve(hostname: string, rrtype: "A", callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
     export function resolve(hostname: string, rrtype: "AAAA", callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
-    export function resolve(hostname: string, rrtype: "ANY", callback: (err: NodeJS.ErrnoException, addresses: ReadonlyArray<AnySrvRecord | AnySoaRecord | AnyNaptrRecord | AnyRecordWithTtl | AnyMxRecord | AnyTxtRecord>) => void): void;
+    export function resolve(hostname: string, rrtype: "ANY", callback: (err: NodeJS.ErrnoException, addresses: AnyRecord[]) => void): void;
     export function resolve(hostname: string, rrtype: "CNAME", callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
     export function resolve(hostname: string, rrtype: "MX", callback: (err: NodeJS.ErrnoException, addresses: MxRecord[]) => void): void;
     export function resolve(hostname: string, rrtype: "NAPTR", callback: (err: NodeJS.ErrnoException, addresses: NaptrRecord[]) => void): void;
@@ -2638,18 +2691,18 @@ declare module "dns" {
     export function resolve(hostname: string, rrtype: "SOA", callback: (err: NodeJS.ErrnoException, addresses: SoaRecord) => void): void;
     export function resolve(hostname: string, rrtype: "SRV", callback: (err: NodeJS.ErrnoException, addresses: SrvRecord[]) => void): void;
     export function resolve(hostname: string, rrtype: "TXT", callback: (err: NodeJS.ErrnoException, addresses: string[][]) => void): void;
-    export function resolve(hostname: string, rrtype: string, callback: (err: NodeJS.ErrnoException, addresses: string[] | MxRecord[] | NaptrRecord[] | SoaRecord | SrvRecord[] | string[][]) => void): void;
+    export function resolve(hostname: string, rrtype: string, callback: (err: NodeJS.ErrnoException, addresses: string[] | MxRecord[] | NaptrRecord[] | SoaRecord | SrvRecord[] | string[][] | AnyRecord[]) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     export namespace resolve {
         export function __promisify__(hostname: string, rrtype?: "A" | "AAAA" | "CNAME" | "NS" | "PTR"): Promise<string[]>;
-        export function __promisify__(hostname: string, rrtype: "ANY"): Promise<ReadonlyArray<AnySrvRecord | AnySoaRecord | AnyNaptrRecord | AnyRecordWithTtl | AnyMxRecord | AnyTxtRecord>>;
+        export function __promisify__(hostname: string, rrtype: "ANY"): Promise<AnyRecord[]>;
         export function __promisify__(hostname: string, rrtype: "MX"): Promise<MxRecord[]>;
         export function __promisify__(hostname: string, rrtype: "NAPTR"): Promise<NaptrRecord[]>;
         export function __promisify__(hostname: string, rrtype: "SOA"): Promise<SoaRecord>;
         export function __promisify__(hostname: string, rrtype: "SRV"): Promise<SrvRecord[]>;
         export function __promisify__(hostname: string, rrtype: "TXT"): Promise<string[][]>;
-        export function __promisify__(hostname: string, rrtype?: string): Promise<string[] | MxRecord[] | NaptrRecord[] | SoaRecord | SrvRecord[] | string[][]>;
+        export function __promisify__(hostname: string, rrtype: string): Promise<string[] | MxRecord[] | NaptrRecord[] | SoaRecord | SrvRecord[] | string[][] | AnyRecord[]>;
     }
 
     export function resolve4(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
@@ -2674,18 +2727,54 @@ declare module "dns" {
         export function __promisify__(hostname: string, options?: ResolveOptions): Promise<string[] | RecordWithTtl[]>;
     }
 
-    export function resolveAny(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: ReadonlyArray<AnySrvRecord | AnySoaRecord | AnyNaptrRecord | AnyRecordWithTtl | AnyMxRecord | AnyTxtRecord>) => void): void;
     export function resolveCname(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
+    export namespace resolveCname {
+        export function __promisify__(hostname: string): Promise<string[]>;
+    }
+
     export function resolveMx(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: MxRecord[]) => void): void;
+    export namespace resolveMx {
+        export function __promisify__(hostname: string): Promise<MxRecord[]>;
+    }
+
     export function resolveNaptr(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: NaptrRecord[]) => void): void;
+    export namespace resolveNaptr {
+        export function __promisify__(hostname: string): Promise<NaptrRecord[]>;
+    }
+
     export function resolveNs(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
+    export namespace resolveNs {
+        export function __promisify__(hostname: string): Promise<string[]>;
+    }
+
     export function resolvePtr(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
+    export namespace resolvePtr {
+        export function __promisify__(hostname: string): Promise<string[]>;
+    }
+
     export function resolveSoa(hostname: string, callback: (err: NodeJS.ErrnoException, address: SoaRecord) => void): void;
+    export namespace resolveSoa {
+        export function __promisify__(hostname: string): Promise<SoaRecord>;
+    }
+
     export function resolveSrv(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: SrvRecord[]) => void): void;
+    export namespace resolveSrv {
+        export function __promisify__(hostname: string): Promise<SrvRecord[]>;
+    }
+
     export function resolveTxt(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[][]) => void): void;
+    export namespace resolveTxt {
+        export function __promisify__(hostname: string): Promise<string[][]>;
+    }
+
+    export function resolveAny(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: AnyRecord[]) => void): void;
+    export namespace resolveAny {
+        export function __promisify__(hostname: string): Promise<AnyRecord[]>;
+    }
 
     export function reverse(ip: string, callback: (err: NodeJS.ErrnoException, hostnames: string[]) => void): void;
     export function setServers(servers: string[]): void;
+    export function getServers(): string[];
 
     // Error codes
     export var NODATA: string;
@@ -2712,6 +2801,25 @@ declare module "dns" {
     export var LOADIPHLPAPI: string;
     export var ADDRGETNETWORKPARAMS: string;
     export var CANCELLED: string;
+
+    export class Resolver {
+        getServers: typeof getServers;
+        setServers: typeof setServers;
+        resolve: typeof resolve;
+        resolve4: typeof resolve4;
+        resolve6: typeof resolve6;
+        resolveAny: typeof resolveAny;
+        resolveCname: typeof resolveCname;
+        resolveMx: typeof resolveMx;
+        resolveNaptr: typeof resolveNaptr;
+        resolveNs: typeof resolveNs;
+        resolvePtr: typeof resolvePtr;
+        resolveSoa: typeof resolveSoa;
+        resolveSrv: typeof resolveSrv;
+        resolveTxt: typeof resolveTxt;
+        reverse: typeof reverse;
+        cancel(): void;
+    }
 }
 
 declare module "net" {
@@ -2768,7 +2876,6 @@ declare module "net" {
 
         bufferSize: number;
         setEncoding(encoding?: string): this;
-        destroy(err?: any): void;
         pause(): this;
         resume(): this;
         setTimeout(timeout: number, callback?: Function): this;
@@ -3134,7 +3241,6 @@ declare module "fs" {
 
     export class ReadStream extends stream.Readable {
         close(): void;
-        destroy(): void;
         bytesRead: number;
         path: string | Buffer;
 
@@ -5740,9 +5846,9 @@ declare module "crypto" {
     import * as stream from "stream";
 
     export interface Certificate {
-        exportChallenge(spkac: string | ArrayBufferView): Buffer;
-        exportPublicKey(spkac: string | ArrayBufferView): Buffer;
-        verifySpkac(spkac: ArrayBufferView): boolean;
+        exportChallenge(spkac: string | Buffer | NodeJS.TypedArray | DataView): Buffer;
+        exportPublicKey(spkac: string | Buffer | NodeJS.TypedArray | DataView): Buffer;
+        verifySpkac(spkac: Buffer | NodeJS.TypedArray | DataView): boolean;
     }
     export var Certificate: {
         new(): Certificate;
@@ -5764,7 +5870,7 @@ declare module "crypto" {
     export interface Credentials { context?: any; }
     export function createCredentials(details: CredentialDetails): Credentials;
     export function createHash(algorithm: string, options?: stream.TransformOptions): Hash;
-    export function createHmac(algorithm: string, key: string | ArrayBufferView, options?: stream.TransformOptions): Hmac;
+    export function createHmac(algorithm: string, key: string | Buffer | NodeJS.TypedArray | DataView, options?: stream.TransformOptions): Hmac;
 
     type Utf8AsciiLatin1Encoding = "utf8" | "ascii" | "latin1";
     type HexBase64Latin1Encoding = "latin1" | "hex" | "base64";
@@ -5773,13 +5879,13 @@ declare module "crypto" {
     type ECDHKeyFormat = "compressed" | "uncompressed" | "hybrid";
 
     export interface Hash extends NodeJS.ReadWriteStream {
-        update(data: string | ArrayBufferView): Hash;
+        update(data: string | Buffer | NodeJS.TypedArray | DataView): Hash;
         update(data: string, input_encoding: Utf8AsciiLatin1Encoding): Hash;
         digest(): Buffer;
         digest(encoding: HexBase64Latin1Encoding): string;
     }
     export interface Hmac extends NodeJS.ReadWriteStream {
-        update(data: string | ArrayBufferView): Hmac;
+        update(data: string | Buffer | NodeJS.TypedArray | DataView): Hmac;
         update(data: string, input_encoding: Utf8AsciiLatin1Encoding): Hmac;
         digest(): Buffer;
         digest(encoding: HexBase64Latin1Encoding): string;
@@ -5793,19 +5899,19 @@ declare module "crypto" {
         authTagLength?: number;
     }
     /** @deprecated since v10.0.0 use createCipheriv() */
-    export function createCipher(algorithm: string, password: string | ArrayBufferView, options?: stream.TransformOptions): Cipher;
-    export function createCipher(algorithm: CipherCCMTypes, password: string | ArrayBufferView, options: CipherCCMOptions): CipherCCM;
-    export function createCipher(algorithm: CipherGCMTypes, password: string | ArrayBufferView, options: CipherGCMOptions): CipherGCM;
+    export function createCipher(algorithm: string, password: string | Buffer | NodeJS.TypedArray | DataView, options?: stream.TransformOptions): Cipher;
+    export function createCipher(algorithm: CipherCCMTypes, password: string | Buffer | NodeJS.TypedArray | DataView, options: CipherCCMOptions): CipherCCM;
+    export function createCipher(algorithm: CipherGCMTypes, password: string | Buffer | NodeJS.TypedArray | DataView, options: CipherGCMOptions): CipherGCM;
 
-    export function createCipheriv(algorithm: string, key: string | ArrayBufferView, iv: string | ArrayBufferView, options?: stream.TransformOptions): Cipher;
-    export function createCipheriv(algorithm: CipherGCMTypes, key: string | ArrayBufferView, iv: string | ArrayBufferView, options: CipherCCMOptions): CipherCCM;
-    export function createCipheriv(algorithm: CipherGCMTypes, key: string | ArrayBufferView, iv: string | ArrayBufferView, options: CipherGCMOptions): CipherGCM;
+    export function createCipheriv(algorithm: string, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options?: stream.TransformOptions): Cipher;
+    export function createCipheriv(algorithm: CipherGCMTypes, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options: CipherCCMOptions): CipherCCM;
+    export function createCipheriv(algorithm: CipherGCMTypes, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options: CipherGCMOptions): CipherGCM;
 
     export interface Cipher extends NodeJS.ReadWriteStream {
-        update(data: string | ArrayBufferView): Buffer;
+        update(data: string | Buffer | NodeJS.TypedArray | DataView): Buffer;
         update(data: string, input_encoding: Utf8AsciiBinaryEncoding): Buffer;
-        update(data: ArrayBufferView, output_encoding: HexBase64BinaryEncoding): string;
-        update(data: ArrayBufferView, input_encoding: any, output_encoding: HexBase64BinaryEncoding): string;
+        update(data: Buffer | NodeJS.TypedArray | DataView, output_encoding: HexBase64BinaryEncoding): string;
+        update(data: Buffer | NodeJS.TypedArray | DataView, input_encoding: any, output_encoding: HexBase64BinaryEncoding): string;
         // second arg ignored
         update(data: string, input_encoding: Utf8AsciiBinaryEncoding, output_encoding: HexBase64BinaryEncoding): string;
         final(): Buffer;
@@ -5823,62 +5929,62 @@ declare module "crypto" {
         getAuthTag(): Buffer;
     }
     /** @deprecated since v10.0.0 use createCipheriv() */
-    export function createDecipher(algorithm: string, password: string | ArrayBufferView, options?: stream.TransformOptions): Decipher;
-    export function createDecipher(algorithm: CipherCCMTypes, password: string | ArrayBufferView, options: CipherCCMOptions): DecipherCCM;
-    export function createDecipher(algorithm: CipherGCMTypes, password: string | ArrayBufferView, options: CipherGCMOptions): DecipherGCM;
+    export function createDecipher(algorithm: string, password: string | Buffer | NodeJS.TypedArray | DataView, options?: stream.TransformOptions): Decipher;
+    export function createDecipher(algorithm: CipherCCMTypes, password: string | Buffer | NodeJS.TypedArray | DataView, options: CipherCCMOptions): DecipherCCM;
+    export function createDecipher(algorithm: CipherGCMTypes, password: string | Buffer | NodeJS.TypedArray | DataView, options: CipherGCMOptions): DecipherGCM;
 
-    export function createDecipheriv(algorithm: string, key: string | ArrayBufferView, iv: string | ArrayBufferView, options?: stream.TransformOptions): Decipher;
-    export function createDecipheriv(algorithm: CipherCCMTypes, key: string | ArrayBufferView, iv: string | ArrayBufferView, options: CipherCCMOptions): DecipherCCM;
-    export function createDecipheriv(algorithm: CipherGCMTypes, key: string | ArrayBufferView, iv: string | ArrayBufferView, options: CipherGCMOptions): DecipherGCM;
+    export function createDecipheriv(algorithm: string, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options?: stream.TransformOptions): Decipher;
+    export function createDecipheriv(algorithm: CipherCCMTypes, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options: CipherCCMOptions): DecipherCCM;
+    export function createDecipheriv(algorithm: CipherGCMTypes, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options: CipherGCMOptions): DecipherGCM;
 
     export interface Decipher extends NodeJS.ReadWriteStream {
-        update(data: ArrayBufferView): Buffer;
+        update(data: Buffer | NodeJS.TypedArray | DataView): Buffer;
         update(data: string, input_encoding: HexBase64BinaryEncoding): Buffer;
-        update(data: ArrayBufferView, input_encoding: any, output_encoding: Utf8AsciiBinaryEncoding): string;
+        update(data: Buffer | NodeJS.TypedArray | DataView, input_encoding: any, output_encoding: Utf8AsciiBinaryEncoding): string;
         // second arg is ignored
         update(data: string, input_encoding: HexBase64BinaryEncoding, output_encoding: Utf8AsciiBinaryEncoding): string;
         final(): Buffer;
         final(output_encoding: string): string;
         setAutoPadding(auto_padding?: boolean): this;
-        // setAuthTag(tag: ArrayBufferView): this;
-        // setAAD(buffer: ArrayBufferView): this; // docs say buffer view
+        // setAuthTag(tag: Buffer | NodeJS.TypedArray | DataView): this;
+        // setAAD(buffer: Buffer | NodeJS.TypedArray | DataView): this;
     }
     export interface DecipherCCM extends Decipher {
-        setAuthTag(buffer: ArrayBufferView, options: { plainTextLength: number }): this;
-        setAAD(buffer: ArrayBufferView): this; // docs say buffer view
+        setAuthTag(buffer: Buffer | NodeJS.TypedArray | DataView, options: { plainTextLength: number }): this;
+        setAAD(buffer: Buffer | NodeJS.TypedArray | DataView): this;
     }
     export interface DecipherGCM extends Decipher {
-        setAuthTag(buffer: ArrayBufferView, options?: { plainTextLength: number }): this;
-        setAAD(buffer: ArrayBufferView): this; // docs say buffer view
+        setAuthTag(buffer: Buffer | NodeJS.TypedArray | DataView, options?: { plainTextLength: number }): this;
+        setAAD(buffer: Buffer | NodeJS.TypedArray | DataView): this;
     }
 
     export function createSign(algorithm: string, options?: stream.WritableOptions): Signer;
     export interface Signer extends NodeJS.WritableStream {
-        update(data: string | ArrayBufferView): Signer;
+        update(data: string | Buffer | NodeJS.TypedArray | DataView): Signer;
         update(data: string, input_encoding: Utf8AsciiLatin1Encoding): Signer;
-        sign(private_key: string | { key: string; passphrase: string }): Buffer;
-        sign(private_key: string | { key: string; passphrase: string }, output_format: HexBase64Latin1Encoding): string;
+        sign(private_key: string | { key: string; passphrase: string, padding?: number, saltLength?: number }): Buffer;
+        sign(private_key: string | { key: string; passphrase: string, padding?: number, saltLength?: number }, output_format: HexBase64Latin1Encoding): string;
     }
     export function createVerify(algorith: string, options?: stream.WritableOptions): Verify;
     export interface Verify extends NodeJS.WritableStream {
-        update(data: string | ArrayBufferView): Verify;
+        update(data: string | Buffer | NodeJS.TypedArray | DataView): Verify;
         update(data: string, input_encoding: Utf8AsciiLatin1Encoding): Verify;
-        verify(object: string | Object, signature: ArrayBufferView): boolean;
+        verify(object: string | Object, signature: Buffer | NodeJS.TypedArray | DataView): boolean;
         verify(object: string | Object, signature: string, signature_format: HexBase64Latin1Encoding): boolean;
         // https://nodejs.org/api/crypto.html#crypto_verifier_verify_object_signature_signature_format
         // The signature field accepts a TypedArray type, but it is only available starting ES2017
     }
-    export function createDiffieHellman(prime_length: number, generator?: number | ArrayBufferView): DiffieHellman;
-    export function createDiffieHellman(prime: ArrayBufferView): DiffieHellman;
+    export function createDiffieHellman(prime_length: number, generator?: number | Buffer | NodeJS.TypedArray | DataView): DiffieHellman;
+    export function createDiffieHellman(prime: Buffer | NodeJS.TypedArray | DataView): DiffieHellman;
     export function createDiffieHellman(prime: string, prime_encoding: HexBase64Latin1Encoding): DiffieHellman;
-    export function createDiffieHellman(prime: string, prime_encoding: HexBase64Latin1Encoding, generator: number | ArrayBufferView): DiffieHellman;
+    export function createDiffieHellman(prime: string, prime_encoding: HexBase64Latin1Encoding, generator: number | Buffer | NodeJS.TypedArray | DataView): DiffieHellman;
     export function createDiffieHellman(prime: string, prime_encoding: HexBase64Latin1Encoding, generator: string, generator_encoding: HexBase64Latin1Encoding): DiffieHellman;
     export interface DiffieHellman {
         generateKeys(): Buffer;
         generateKeys(encoding: HexBase64Latin1Encoding): string;
-        computeSecret(other_public_key: ArrayBufferView): Buffer;
+        computeSecret(other_public_key: Buffer | NodeJS.TypedArray | DataView): Buffer;
         computeSecret(other_public_key: string, input_encoding: HexBase64Latin1Encoding): Buffer;
-        computeSecret(other_public_key: ArrayBufferView, output_encoding: HexBase64Latin1Encoding): string;
+        computeSecret(other_public_key: Buffer | NodeJS.TypedArray | DataView, output_encoding: HexBase64Latin1Encoding): string;
         computeSecret(other_public_key: string, input_encoding: HexBase64Latin1Encoding, output_encoding: HexBase64Latin1Encoding): string;
         getPrime(): Buffer;
         getPrime(encoding: HexBase64Latin1Encoding): string;
@@ -5888,25 +5994,25 @@ declare module "crypto" {
         getPublicKey(encoding: HexBase64Latin1Encoding): string;
         getPrivateKey(): Buffer;
         getPrivateKey(encoding: HexBase64Latin1Encoding): string;
-        setPublicKey(public_key: ArrayBufferView): void;
+        setPublicKey(public_key: Buffer | NodeJS.TypedArray | DataView): void;
         setPublicKey(public_key: string, encoding: string): void;
-        setPrivateKey(private_key: ArrayBufferView): void;
+        setPrivateKey(private_key: Buffer | NodeJS.TypedArray | DataView): void;
         setPrivateKey(private_key: string, encoding: string): void;
         verifyError: number;
     }
     export function getDiffieHellman(group_name: string): DiffieHellman;
-    export function pbkdf2(password: string | ArrayBufferView, salt: string | ArrayBufferView, iterations: number, keylen: number, digest: string, callback: (err: Error | null, derivedKey: Buffer) => any): void;
-    export function pbkdf2Sync(password: string | ArrayBufferView, salt: string | ArrayBufferView, iterations: number, keylen: number, digest: string): Buffer;
+    export function pbkdf2(password: string | Buffer | NodeJS.TypedArray | DataView, salt: string | Buffer | NodeJS.TypedArray | DataView, iterations: number, keylen: number, digest: string, callback: (err: Error | null, derivedKey: Buffer) => any): void;
+    export function pbkdf2Sync(password: string | Buffer | NodeJS.TypedArray | DataView, salt: string | Buffer | NodeJS.TypedArray | DataView, iterations: number, keylen: number, digest: string): Buffer;
 
     export function randomBytes(size: number): Buffer;
     export function randomBytes(size: number, callback: (err: Error | null, buf: Buffer) => void): void;
     export function pseudoRandomBytes(size: number): Buffer;
     export function pseudoRandomBytes(size: number, callback: (err: Error | null, buf: Buffer) => void): void;
 
-    export function randomFillSync<T extends Buffer | ArrayBufferView>(buffer: T, offset?: number, size?: number): T;
-    export function randomFill<T extends Buffer | ArrayBufferView>(buffer: T, callback: (err: Error | null, buf: T) => void): void;
-    export function randomFill<T extends Buffer | ArrayBufferView>(buffer: T, offset: number, callback: (err: Error | null, buf: T) => void): void;
-    export function randomFill<T extends Buffer | ArrayBufferView>(buffer: T, offset: number, size: number, callback: (err: Error | null, buf: T) => void): void;
+    export function randomFillSync<T extends Buffer | NodeJS.TypedArray | DataView>(buffer: T, offset?: number, size?: number): T;
+    export function randomFill<T extends Buffer | NodeJS.TypedArray | DataView>(buffer: T, callback: (err: Error | null, buf: T) => void): void;
+    export function randomFill<T extends Buffer | NodeJS.TypedArray | DataView>(buffer: T, offset: number, callback: (err: Error | null, buf: T) => void): void;
+    export function randomFill<T extends Buffer | NodeJS.TypedArray | DataView>(buffer: T, offset: number, size: number, callback: (err: Error | null, buf: T) => void): void;
 
     export interface ScryptOptions {
         N?: number;
@@ -5914,9 +6020,9 @@ declare module "crypto" {
         p?: number;
         maxmem?: number;
     }
-    export function scrypt(password: string | ArrayBufferView, salt: string | ArrayBufferView, keylen: number, callback: (err: Error | null, derivedKey: Buffer) => void): void;
-    export function scrypt(password: string | ArrayBufferView, salt: string | ArrayBufferView, keylen: number, options: ScryptOptions, callback: (err: Error | null, derivedKey: Buffer) => void): void;
-    export function scryptSync(password: string | ArrayBufferView, salt: string | ArrayBufferView, keylen: number, options?: ScryptOptions): Buffer;
+    export function scrypt(password: string | Buffer | NodeJS.TypedArray | DataView, salt: string | Buffer | NodeJS.TypedArray | DataView, keylen: number, callback: (err: Error | null, derivedKey: Buffer) => void): void;
+    export function scrypt(password: string | Buffer | NodeJS.TypedArray | DataView, salt: string | Buffer | NodeJS.TypedArray | DataView, keylen: number, options: ScryptOptions, callback: (err: Error | null, derivedKey: Buffer) => void): void;
+    export function scryptSync(password: string | Buffer | NodeJS.TypedArray | DataView, salt: string | Buffer | NodeJS.TypedArray | DataView, keylen: number, options?: ScryptOptions): Buffer;
 
     export interface RsaPublicKey {
         key: string;
@@ -5927,30 +6033,30 @@ declare module "crypto" {
         passphrase?: string;
         padding?: number;
     }
-    export function publicEncrypt(public_key: string | RsaPublicKey, buffer: ArrayBufferView): Buffer;
-    export function privateDecrypt(private_key: string | RsaPrivateKey, buffer: ArrayBufferView): Buffer;
-    export function privateEncrypt(private_key: string | RsaPrivateKey, buffer: ArrayBufferView): Buffer;
-    export function publicDecrypt(public_key: string | RsaPublicKey, buffer: ArrayBufferView): Buffer;
+    export function publicEncrypt(public_key: string | RsaPublicKey, buffer: Buffer | NodeJS.TypedArray | DataView): Buffer;
+    export function privateDecrypt(private_key: string | RsaPrivateKey, buffer: Buffer | NodeJS.TypedArray | DataView): Buffer;
+    export function privateEncrypt(private_key: string | RsaPrivateKey, buffer: Buffer | NodeJS.TypedArray | DataView): Buffer;
+    export function publicDecrypt(public_key: string | RsaPublicKey, buffer: Buffer | NodeJS.TypedArray | DataView): Buffer;
     export function getCiphers(): string[];
     export function getCurves(): string[];
     export function getHashes(): string[];
     export class ECDH {
-        static convertKey(key: string | ArrayBufferView, curve: string, inputEncoding?: HexBase64Latin1Encoding, outputEncoding?: "latin1" | "hex" | "base64", format?: "uncompressed" | "compressed" | "hybrid"): Buffer | string;
+        static convertKey(key: string | Buffer | NodeJS.TypedArray | DataView, curve: string, inputEncoding?: HexBase64Latin1Encoding, outputEncoding?: "latin1" | "hex" | "base64", format?: "uncompressed" | "compressed" | "hybrid"): Buffer | string;
         generateKeys(): Buffer;
         generateKeys(encoding: HexBase64Latin1Encoding, format?: ECDHKeyFormat): string;
-        computeSecret(other_public_key: ArrayBufferView): Buffer;
+        computeSecret(other_public_key: Buffer | NodeJS.TypedArray | DataView): Buffer;
         computeSecret(other_public_key: string, input_encoding: HexBase64Latin1Encoding): Buffer;
-        computeSecret(other_public_key: ArrayBufferView, output_encoding: HexBase64Latin1Encoding): string;
+        computeSecret(other_public_key: Buffer | NodeJS.TypedArray | DataView, output_encoding: HexBase64Latin1Encoding): string;
         computeSecret(other_public_key: string, input_encoding: HexBase64Latin1Encoding, output_encoding: HexBase64Latin1Encoding): string;
         getPrivateKey(): Buffer;
         getPrivateKey(encoding: HexBase64Latin1Encoding): string;
         getPublicKey(): Buffer;
         getPublicKey(encoding: HexBase64Latin1Encoding, format?: ECDHKeyFormat): string;
-        setPrivateKey(private_key: ArrayBufferView): void;
+        setPrivateKey(private_key: Buffer | NodeJS.TypedArray | DataView): void;
         setPrivateKey(private_key: string, encoding: HexBase64Latin1Encoding): void;
     }
     export function createECDH(curve_name: string): ECDH;
-    export function timingSafeEqual(a: ArrayBufferView, b: ArrayBufferView): boolean;
+    export function timingSafeEqual(a: Buffer | NodeJS.TypedArray | DataView, b: Buffer | NodeJS.TypedArray | DataView): boolean;
     /** @deprecated since v10.0.0 */
     export var DEFAULT_ENCODING: string;
 }
@@ -5969,8 +6075,8 @@ declare module "stream" {
             highWaterMark?: number;
             encoding?: string;
             objectMode?: boolean;
-            read?: (this: Readable, size?: number) => any;
-            destroy?: (error?: Error) => any;
+            read?(this: Readable, size: number): void;
+            destroy?(this: Readable, error: Error | null, callback: (error: Error | null) => void): void;
         }
 
         export class Readable extends Stream implements NodeJS.ReadableStream {
@@ -5988,7 +6094,7 @@ declare module "stream" {
             unshift(chunk: any): void;
             wrap(oldStream: NodeJS.ReadableStream): this;
             push(chunk: any, encoding?: string): boolean;
-            _destroy(err: Error, callback: Function): void;
+            _destroy(error: Error | null, callback: (error: Error | null) => void): void;
             destroy(error?: Error): void;
 
             /**
@@ -6000,66 +6106,66 @@ declare module "stream" {
              * 4. readable
              * 5. error
              */
-            addListener(event: string, listener: (...args: any[]) => void): this;
             addListener(event: "close", listener: () => void): this;
-            addListener(event: "data", listener: (chunk: Buffer | string) => void): this;
+            addListener(event: "data", listener: (chunk: any) => void): this;
             addListener(event: "end", listener: () => void): this;
             addListener(event: "readable", listener: () => void): this;
             addListener(event: "error", listener: (err: Error) => void): this;
+            addListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-            emit(event: string | symbol, ...args: any[]): boolean;
             emit(event: "close"): boolean;
-            emit(event: "data", chunk: Buffer | string): boolean;
+            emit(event: "data", chunk: any): boolean;
             emit(event: "end"): boolean;
             emit(event: "readable"): boolean;
             emit(event: "error", err: Error): boolean;
+            emit(event: string | symbol, ...args: any[]): boolean;
 
-            on(event: string, listener: (...args: any[]) => void): this;
             on(event: "close", listener: () => void): this;
-            on(event: "data", listener: (chunk: Buffer | string) => void): this;
+            on(event: "data", listener: (chunk: any) => void): this;
             on(event: "end", listener: () => void): this;
             on(event: "readable", listener: () => void): this;
             on(event: "error", listener: (err: Error) => void): this;
+            on(event: string | symbol, listener: (...args: any[]) => void): this;
 
-            once(event: string, listener: (...args: any[]) => void): this;
             once(event: "close", listener: () => void): this;
-            once(event: "data", listener: (chunk: Buffer | string) => void): this;
+            once(event: "data", listener: (chunk: any) => void): this;
             once(event: "end", listener: () => void): this;
             once(event: "readable", listener: () => void): this;
             once(event: "error", listener: (err: Error) => void): this;
+            once(event: string | symbol, listener: (...args: any[]) => void): this;
 
-            prependListener(event: string, listener: (...args: any[]) => void): this;
             prependListener(event: "close", listener: () => void): this;
-            prependListener(event: "data", listener: (chunk: Buffer | string) => void): this;
+            prependListener(event: "data", listener: (chunk: any) => void): this;
             prependListener(event: "end", listener: () => void): this;
             prependListener(event: "readable", listener: () => void): this;
             prependListener(event: "error", listener: (err: Error) => void): this;
+            prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-            prependOnceListener(event: string, listener: (...args: any[]) => void): this;
             prependOnceListener(event: "close", listener: () => void): this;
-            prependOnceListener(event: "data", listener: (chunk: Buffer | string) => void): this;
+            prependOnceListener(event: "data", listener: (chunk: any) => void): this;
             prependOnceListener(event: "end", listener: () => void): this;
             prependOnceListener(event: "readable", listener: () => void): this;
             prependOnceListener(event: "error", listener: (err: Error) => void): this;
+            prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-            removeListener(event: string, listener: (...args: any[]) => void): this;
             removeListener(event: "close", listener: () => void): this;
-            removeListener(event: "data", listener: (chunk: Buffer | string) => void): this;
+            removeListener(event: "data", listener: (chunk: any) => void): this;
             removeListener(event: "end", listener: () => void): this;
             removeListener(event: "readable", listener: () => void): this;
             removeListener(event: "error", listener: (err: Error) => void): this;
+            removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-            [Symbol.asyncIterator](): AsyncIterableIterator<Buffer | string>;
+            [Symbol.asyncIterator](): AsyncIterableIterator<any>;
         }
 
         export interface WritableOptions {
             highWaterMark?: number;
             decodeStrings?: boolean;
             objectMode?: boolean;
-            write?: (chunk: any, encoding: string, callback: Function) => any;
-            writev?: (chunks: Array<{ chunk: any, encoding: string }>, callback: Function) => any;
-            destroy?: (error?: Error) => any;
-            final?: (callback: (error?: Error) => void) => void;
+            write?(this: Writable, chunk: any, encoding: string, callback: (error?: Error | null) => void): void;
+            writev?(this: Writable, chunks: Array<{ chunk: any, encoding: string }>, callback: (error?: Error | null) => void): void;
+            destroy?(this: Writable, error: Error | null, callback: (error: Error | null) => void): void;
+            final?(this: Writable, callback: (error?: Error | null) => void): void;
         }
 
         export class Writable extends Stream implements NodeJS.WritableStream {
@@ -6067,16 +6173,16 @@ declare module "stream" {
             readonly writableHighWaterMark: number;
             readonly writableLength: number;
             constructor(opts?: WritableOptions);
-            _write(chunk: any, encoding: string, callback: (err?: Error) => void): void;
-            _writev?(chunks: Array<{ chunk: any, encoding: string }>, callback: (err?: Error) => void): void;
-            _destroy(err: Error, callback: Function): void;
-            _final(callback: Function): void;
-            write(chunk: any, cb?: Function): boolean;
-            write(chunk: any, encoding?: string, cb?: Function): boolean;
+            _write(chunk: any, encoding: string, callback: (error?: Error | null) => void): void;
+            _writev?(chunks: Array<{ chunk: any, encoding: string }>, callback: (error?: Error | null) => void): void;
+            _destroy(error: Error | null, callback: (error: Error | null) => void): void;
+            _final(callback: (error?: Error | null) => void): void;
+            write(chunk: any, cb?: (error: Error | null | undefined) => void): boolean;
+            write(chunk: any, encoding?: string, cb?: (error: Error | null | undefined) => void): boolean;
             setDefaultEncoding(encoding: string): this;
-            end(cb?: Function): void;
-            end(chunk: any, cb?: Function): void;
-            end(chunk: any, encoding?: string, cb?: Function): void;
+            end(cb?: () => void): void;
+            end(chunk: any, cb?: () => void): void;
+            end(chunk: any, encoding?: string, cb?: () => void): void;
             cork(): void;
             uncork(): void;
             destroy(error?: Error): void;
@@ -6091,67 +6197,72 @@ declare module "stream" {
              * 5. pipe
              * 6. unpipe
              */
-            addListener(event: string, listener: (...args: any[]) => void): this;
             addListener(event: "close", listener: () => void): this;
             addListener(event: "drain", listener: () => void): this;
             addListener(event: "error", listener: (err: Error) => void): this;
             addListener(event: "finish", listener: () => void): this;
             addListener(event: "pipe", listener: (src: Readable) => void): this;
             addListener(event: "unpipe", listener: (src: Readable) => void): this;
+            addListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-            emit(event: string | symbol, ...args: any[]): boolean;
             emit(event: "close"): boolean;
-            emit(event: "drain", chunk: Buffer | string): boolean;
+            emit(event: "drain"): boolean;
             emit(event: "error", err: Error): boolean;
             emit(event: "finish"): boolean;
             emit(event: "pipe", src: Readable): boolean;
             emit(event: "unpipe", src: Readable): boolean;
+            emit(event: string | symbol, ...args: any[]): boolean;
 
-            on(event: string, listener: (...args: any[]) => void): this;
             on(event: "close", listener: () => void): this;
             on(event: "drain", listener: () => void): this;
             on(event: "error", listener: (err: Error) => void): this;
             on(event: "finish", listener: () => void): this;
             on(event: "pipe", listener: (src: Readable) => void): this;
             on(event: "unpipe", listener: (src: Readable) => void): this;
+            on(event: string | symbol, listener: (...args: any[]) => void): this;
 
-            once(event: string, listener: (...args: any[]) => void): this;
             once(event: "close", listener: () => void): this;
             once(event: "drain", listener: () => void): this;
             once(event: "error", listener: (err: Error) => void): this;
             once(event: "finish", listener: () => void): this;
             once(event: "pipe", listener: (src: Readable) => void): this;
             once(event: "unpipe", listener: (src: Readable) => void): this;
+            once(event: string | symbol, listener: (...args: any[]) => void): this;
 
-            prependListener(event: string, listener: (...args: any[]) => void): this;
             prependListener(event: "close", listener: () => void): this;
             prependListener(event: "drain", listener: () => void): this;
             prependListener(event: "error", listener: (err: Error) => void): this;
             prependListener(event: "finish", listener: () => void): this;
             prependListener(event: "pipe", listener: (src: Readable) => void): this;
             prependListener(event: "unpipe", listener: (src: Readable) => void): this;
+            prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-            prependOnceListener(event: string, listener: (...args: any[]) => void): this;
             prependOnceListener(event: "close", listener: () => void): this;
             prependOnceListener(event: "drain", listener: () => void): this;
             prependOnceListener(event: "error", listener: (err: Error) => void): this;
             prependOnceListener(event: "finish", listener: () => void): this;
             prependOnceListener(event: "pipe", listener: (src: Readable) => void): this;
             prependOnceListener(event: "unpipe", listener: (src: Readable) => void): this;
+            prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-            removeListener(event: string, listener: (...args: any[]) => void): this;
             removeListener(event: "close", listener: () => void): this;
             removeListener(event: "drain", listener: () => void): this;
             removeListener(event: "error", listener: (err: Error) => void): this;
             removeListener(event: "finish", listener: () => void): this;
             removeListener(event: "pipe", listener: (src: Readable) => void): this;
             removeListener(event: "unpipe", listener: (src: Readable) => void): this;
+            removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
         }
 
         export interface DuplexOptions extends ReadableOptions, WritableOptions {
             allowHalfOpen?: boolean;
             readableObjectMode?: boolean;
             writableObjectMode?: boolean;
+            read?(this: Duplex, size: number): void;
+            write?(this: Duplex, chunk: any, encoding: string, callback: (error?: Error | null) => void): void;
+            writev?(this: Duplex, chunks: Array<{ chunk: any, encoding: string }>, callback: (error?: Error | null) => void): void;
+            final?(this: Duplex, callback: (error?: Error | null) => void): void;
+            destroy?(this: Duplex, error: Error | null, callback: (error: Error | null) => void): void;
         }
 
         // Note: Duplex extends both Readable and Writable.
@@ -6160,31 +6271,36 @@ declare module "stream" {
             readonly writableHighWaterMark: number;
             readonly writableLength: number;
             constructor(opts?: DuplexOptions);
-            _write(chunk: any, encoding: string, callback: (err?: Error) => void): void;
-            _writev?(chunks: Array<{ chunk: any, encoding: string }>, callback: (err?: Error) => void): void;
-            _destroy(err: Error, callback: Function): void;
-            _final(callback: Function): void;
-            write(chunk: any, cb?: Function): boolean;
-            write(chunk: any, encoding?: string, cb?: Function): boolean;
+            _write(chunk: any, encoding: string, callback: (error?: Error | null) => void): void;
+            _writev?(chunks: Array<{ chunk: any, encoding: string }>, callback: (error?: Error | null) => void): void;
+            _destroy(error: Error | null, callback: (error: Error | null) => void): void;
+            _final(callback: (error?: Error | null) => void): void;
+            write(chunk: any, cb?: (error: Error | null | undefined) => void): boolean;
+            write(chunk: any, encoding?: string, cb?: (error: Error | null | undefined) => void): boolean;
             setDefaultEncoding(encoding: string): this;
-            end(cb?: Function): void;
-            end(chunk: any, cb?: Function): void;
-            end(chunk: any, encoding?: string, cb?: Function): void;
+            end(cb?: () => void): void;
+            end(chunk: any, cb?: () => void): void;
+            end(chunk: any, encoding?: string, cb?: () => void): void;
             cork(): void;
             uncork(): void;
         }
 
-        type TransformCallback = (err?: Error, data?: any) => void;
+        type TransformCallback = (error?: Error, data?: any) => void;
 
         export interface TransformOptions extends DuplexOptions {
-            transform?: (chunk: any, encoding: string, callback: TransformCallback) => any;
-            flush?: (callback: TransformCallback) => any;
+            read?(this: Transform, size: number): void;
+            write?(this: Transform, chunk: any, encoding: string, callback: (error?: Error | null) => void): void;
+            writev?(this: Transform, chunks: Array<{ chunk: any, encoding: string }>, callback: (error?: Error | null) => void): void;
+            final?(this: Transform, callback: (error?: Error | null) => void): void;
+            destroy?(this: Transform, error: Error | null, callback: (error: Error | null) => void): void;
+            transform?(this: Transform, chunk: any, encoding: string, callback: TransformCallback): void;
+            flush?(this: Transform, callback: TransformCallback): void;
         }
 
         export class Transform extends Duplex {
             constructor(opts?: TransformOptions);
             _transform(chunk: any, encoding: string, callback: TransformCallback): void;
-            destroy(error?: Error): void;
+            _flush(callback: TransformCallback): void;
         }
 
         export class PassThrough extends Transform { }
@@ -6333,7 +6449,7 @@ declare module "util" {
         export function isSharedArrayBuffer(object: any): boolean;
         export function isStringObject(object: any): boolean;
         export function isSymbolObject(object: any): boolean;
-        export function isTypedArray(object: any): object is Uint8Array | Uint8ClampedArray | Uint16Array | Uint32Array | Int8Array | Int16Array | Int32Array | Float32Array | Float64Array;
+        export function isTypedArray(object: any): object is NodeJS.TypedArray;
         export function isUint8Array(object: any): object is Uint8Array;
         export function isUint8ClampedArray(object: any): object is Uint8ClampedArray;
         export function isUint16Array(object: any): object is Uint16Array;
@@ -6352,19 +6468,7 @@ declare module "util" {
           options?: { fatal?: boolean; ignoreBOM?: boolean }
         );
         decode(
-          input?:
-            Int8Array
-            | Int16Array
-            | Int32Array
-            | Uint8Array
-            | Uint16Array
-            | Uint32Array
-            | Uint8ClampedArray
-            | Float32Array
-            | Float64Array
-            | DataView
-            | ArrayBuffer
-            | null,
+          input?: NodeJS.TypedArray | DataView | ArrayBuffer | null,
           options?: { stream?: boolean }
         ): string;
     }
@@ -6377,7 +6481,7 @@ declare module "util" {
 }
 
 declare module "assert" {
-    function internal(value: any, message?: string): void;
+    function internal(value: any, message?: string | Error): void;
     namespace internal {
         export class AssertionError implements Error {
             name: string;
@@ -6386,46 +6490,42 @@ declare module "assert" {
             expected: any;
             operator: string;
             generatedMessage: boolean;
+            code: 'ERR_ASSERTION';
 
             constructor(options?: {
                 message?: string; actual?: any; expected?: any;
-                operator?: string; stackStartFunction?: Function
+                operator?: string; stackStartFn?: Function
             });
         }
 
-        export function fail(message: string): never;
-        /** @deprecated since v10.0.0 */
-        export function fail(actual: any, expected: any, message?: string, operator?: string): never;
-        export function ok(value: any, message?: string): void;
-        /** @deprecated use strictEqual() */
-        export function equal(actual: any, expected: any, message?: string): void;
-        /** @deprecated use notStrictEqual() */
-        export function notEqual(actual: any, expected: any, message?: string): void;
-        /** @deprecated use deepStrictEqual() */
-        export function deepEqual(actual: any, expected: any, message?: string): void;
-        /** @deprecated use notDeepStrictEqual() */
-        export function notDeepEqual(acutal: any, expected: any, message?: string): void;
-        export function strictEqual(actual: any, expected: any, message?: string): void;
-        export function notStrictEqual(actual: any, expected: any, message?: string): void;
-        export function deepStrictEqual(actual: any, expected: any, message?: string): void;
-        export function notDeepStrictEqual(actual: any, expected: any, message?: string): void;
+        export function fail(message?: string | Error): never;
+        /** @deprecated since v10.0.0 - use fail([message]) or other assert functions instead. */
+        export function fail(actual: any, expected: any, message?: string | Error, operator?: string, stackStartFn?: Function): never;
+        export function ok(value: any, message?: string | Error): void;
+        /** @deprecated since v9.9.0 - use strictEqual() instead. */
+        export function equal(actual: any, expected: any, message?: string | Error): void;
+        /** @deprecated since v9.9.0 - use notStrictEqual() instead. */
+        export function notEqual(actual: any, expected: any, message?: string | Error): void;
+        /** @deprecated since v9.9.0 - use deepStrictEqual() instead. */
+        export function deepEqual(actual: any, expected: any, message?: string | Error): void;
+        /** @deprecated since v9.9.0 - use notDeepStrictEqual() instead. */
+        export function notDeepEqual(actual: any, expected: any, message?: string | Error): void;
+        export function strictEqual(actual: any, expected: any, message?: string | Error): void;
+        export function notStrictEqual(actual: any, expected: any, message?: string | Error): void;
+        export function deepStrictEqual(actual: any, expected: any, message?: string | Error): void;
+        export function notDeepStrictEqual(actual: any, expected: any, message?: string | Error): void;
 
-        export function throws(block: Function, message?: string): void;
-        export function throws(block: Function, error: Function, message?: string): void;
-        export function throws(block: Function, error: RegExp, message?: string): void;
-        export function throws(block: Function, error: (err: any) => boolean, message?: string): void;
-
-        export function doesNotThrow(block: Function, message?: string): void;
-        export function doesNotThrow(block: Function, error: Function, message?: string): void;
-        export function doesNotThrow(block: Function, error: RegExp, message?: string): void;
-        export function doesNotThrow(block: Function, error: (err: any) => boolean, message?: string): void;
+        export function throws(block: Function, message?: string | Error): void;
+        export function throws(block: Function, error: RegExp | Function | Object | Error, message?: string | Error): void;
+        export function doesNotThrow(block: Function, message?: string | Error): void;
+        export function doesNotThrow(block: Function, error: RegExp | Function, message?: string | Error): void;
 
         export function ifError(value: any): void;
 
-        export function rejects(block: Function | Promise<any>, message?: string): Promise<void>;
-        export function rejects(block: Function | Promise<any>, error: Function | RegExp | Object | Error, message?: string): Promise<void>;
-        export function doesNotReject(block: Function | Promise<any>, message?: string): Promise<void>;
-        export function doesNotReject(block: Function | Promise<any>, error: Function | RegExp | Object | Error, message?: string): Promise<void>;
+        export function rejects(block: Function | Promise<any>, message?: string | Error): Promise<void>;
+        export function rejects(block: Function | Promise<any>, error: RegExp | Function | Object | Error, message?: string | Error): Promise<void>;
+        export function doesNotReject(block: Function | Promise<any>, message?: string | Error): Promise<void>;
+        export function doesNotReject(block: Function | Promise<any>, error: RegExp | Function, message?: string | Error): Promise<void>;
 
         export var strict: typeof internal;
     }
@@ -7191,13 +7291,16 @@ declare module "http2" {
         readonly alpnProtocol?: string;
         close(callback?: () => void): void;
         readonly closed: boolean;
+        readonly connecting: boolean;
         destroy(error?: Error, code?: number): void;
         readonly destroyed: boolean;
         readonly encrypted?: boolean;
-        goaway(code?: number, lastStreamID?: number, opaqueData?: Buffer | DataView /*| TypedArray*/): void;
+        goaway(code?: number, lastStreamID?: number, opaqueData?: Buffer | DataView | NodeJS.TypedArray): void;
         readonly localSettings: Settings;
         readonly originSet?: string[];
         readonly pendingSettingsAck: boolean;
+        ping(callback: (err: Error | null, duration: number, payload: Buffer) => void): boolean;
+        ping(payload: Buffer | DataView | NodeJS.TypedArray , callback: (err: Error | null, duration: number, payload: Buffer) => void): boolean;
         ref(): void;
         readonly remoteSettings: Settings;
         rstStream(stream: Http2Stream, code?: number): void;

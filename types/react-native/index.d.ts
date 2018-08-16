@@ -12,7 +12,7 @@
 //                 Tanguy Krotoff <https://github.com/tkrotoff>
 //                 Alexander T. <https://github.com/a-tarasyuk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -766,6 +766,7 @@ export interface TextStyleIOS extends ViewStyle {
     letterSpacing?: number;
     textDecorationColor?: string;
     textDecorationStyle?: "solid" | "double" | "dotted" | "dashed";
+    textTransform?: "none" | "capitalize" | "uppercase" | "lowercase";
     writingDirection?: "auto" | "ltr" | "rtl";
 }
 
@@ -1008,6 +1009,54 @@ export interface TextInputIOSProps {
      * If false, disables spell-check style (i.e. red underlines). The default value is inherited from autoCorrect
      */
     spellCheck?: boolean;
+
+
+    /**
+     * Give the keyboard and the system information about the expected
+     * semantic meaning for the content that users enter.
+     *
+     * For iOS 11+ you can set `textContentType` to `username` or `password` to
+     * enable autofill of login details from the device keychain.
+     *
+     * To disable autofill, set textContentType to `none`.
+     *
+     * Possible values for `textContentType` are:
+     *
+     *  - `'none'`
+     *  - `'URL'`
+     *  - `'addressCity'`
+     *  - `'addressCityAndState'`
+     *  - `'addressState'`
+     *  - `'countryName'`
+     *  - `'creditCardNumber'`
+     *  - `'emailAddress'`
+     *  - `'familyName'`
+     *  - `'fullStreetAddress'`
+     *  - `'givenName'`
+     *  - `'jobTitle'`
+     *  - `'location'`
+     *  - `'middleName'`
+     *  - `'name'`
+     *  - `'namePrefix'`
+     *  - `'nameSuffix'`
+     *  - `'nickname'`
+     *  - `'organizationName'`
+     *  - `'postalCode'`
+     *  - `'streetAddressLine1'`
+     *  - `'streetAddressLine2'`
+     *  - `'sublocality'`
+     *  - `'telephoneNumber'`
+     *  - `'username'`
+     *  - `'password'`
+     *
+     */
+    textContentType?: "none" | "URL" | "addressCity" | "addressCityAndState" |
+        "addressState" | "countryName" | "creditCardNumber" | "emailAddress" |
+        "familyName" | "fullStreetAddress" | "givenName" | "jobTitle" |
+        "location" | "middleName" | "name" | "namePrefix" | "nameSuffix" |
+        "nickname" | "organizationName" | "postalCode" | "streetAddressLine1" |
+        "streetAddressLine2" | "sublocality" | "telephoneNumber" | "username" |
+        "password";
 }
 
 /**
@@ -1838,7 +1887,7 @@ export interface AccessibilityPropsIOS {
      * When `accessible` is true, the system will try to invoke this function when the user performs accessibility tap gesture.
      * @platform ios
      */
-    onAcccessibilityTap?: () => void;
+    onAccessibilityTap?: () => void;
 
     /**
      * When accessible is true, the system will invoke this function when the user performs the magic tap gesture.
@@ -2053,6 +2102,13 @@ export interface KeyboardAvoidingViewProps extends ViewProps {
      * may be non-zero in some use cases.
      */
     keyboardVerticalOffset?: number;
+
+    /**
+     * Enables or disables the KeyboardAvoidingView.
+     *
+     * Default is true
+     */
+    enabled?: boolean;
 }
 
 /**
@@ -2182,41 +2238,60 @@ export interface WebViewPropsIOS {
 
 export interface WebViewUriSource {
     /*
-        * The URI to load in the WebView. Can be a local or remote file.
-        */
+     * The URI to load in the WebView. Can be a local or remote file.
+     */
     uri?: string;
 
     /*
-        * The HTTP Method to use. Defaults to GET if not specified.
-        * NOTE: On Android, only GET and POST are supported.
-        */
+     * The HTTP Method to use. Defaults to GET if not specified.
+     * NOTE: On Android, only GET and POST are supported.
+     */
     method?: string;
 
     /*
-        * Additional HTTP headers to send with the request.
-        * NOTE: On Android, this can only be used with GET requests.
-        */
+     * Additional HTTP headers to send with the request.
+     * NOTE: On Android, this can only be used with GET requests.
+     */
     headers?: any;
 
     /*
-        * The HTTP body to send with the request. This must be a valid
-        * UTF-8 string, and will be sent exactly as specified, with no
-        * additional encoding (e.g. URL-escaping or base64) applied.
-        * NOTE: On Android, this can only be used with POST requests.
-        */
+     * The HTTP body to send with the request. This must be a valid
+     * UTF-8 string, and will be sent exactly as specified, with no
+     * additional encoding (e.g. URL-escaping or base64) applied.
+     * NOTE: On Android, this can only be used with POST requests.
+     */
     body?: string;
 }
 
 export interface WebViewHtmlSource {
     /*
-        * A static HTML page to display in the WebView.
-        */
+     * A static HTML page to display in the WebView.
+     */
     html: string;
 
     /*
-        * The base URL to be used for any relative links in the HTML.
-        */
+     * The base URL to be used for any relative links in the HTML.
+     */
     baseUrl?: string;
+}
+
+export interface WebViewNativeConfig {
+    /*
+     * The native component used to render the WebView.
+     */
+    component?: any;
+
+    /*
+     * Set props directly on the native component WebView. Enables custom props which the
+     * original WebView doesn't pass through.
+     */
+    props?: object;
+
+    /*
+     * Set the ViewManager to use for communication with the native side.
+     * @platform ios
+     */
+    viewManager?: object;
 }
 
 /**
@@ -2318,6 +2393,12 @@ export interface WebViewProps extends ViewProps, WebViewPropsAndroid, WebViewPro
      * The default whitelisted origins are "http://" and "https://".
      */
     originWhitelist?: string[];
+
+    /**
+     * Override the native component used to render the WebView. Enables a custom native
+     * WebView which uses the same JavaScript as the original WebView.
+     */
+    nativeConfig?: WebViewNativeConfig;
 }
 
 export class WebView extends React.Component<WebViewProps> {
@@ -3672,8 +3753,9 @@ export class Image extends ImageBase {
 }
 
 export interface ImageBackgroundProps extends ImagePropsBase {
-    style?: StyleProp<ViewStyle>;
     imageStyle?: StyleProp<ImageStyle>;
+    style?: StyleProp<ViewStyle>;
+    imageRef?(image: Image): void;
 }
 
 declare class ImageBackgroundComponent extends React.Component<ImageBackgroundProps> {}
@@ -3946,7 +4028,7 @@ export interface SectionBase<ItemT> {
 
     key?: string;
 
-    renderItem?: ListRenderItem<ItemT>;
+    renderItem?: SectionListRenderItem<ItemT>;
 
     ItemSeparatorComponent?: React.ComponentClass<any> | (() => React.ReactElement<any>) | null;
 
@@ -3956,6 +4038,16 @@ export interface SectionBase<ItemT> {
 export interface SectionListData<ItemT> extends SectionBase<ItemT> {
     [key: string]: any;
 }
+
+/**
+ * @see https://facebook.github.io/react-native/docs/sectionlist.html#props
+ */
+
+export interface SectionListRenderItemInfo<ItemT> extends ListRenderItemInfo<ItemT> {
+  section: SectionListData<ItemT>;
+}
+
+export type SectionListRenderItem<ItemT> = (info: SectionListRenderItemInfo<ItemT>) => React.ReactElement<any> | null;
 
 export interface SectionListProps<ItemT> extends ScrollViewProps {
     /**
@@ -4060,7 +4152,7 @@ export interface SectionListProps<ItemT> extends ScrollViewProps {
     /**
      * Default renderer for every item in every section. Can be over-ridden on a per-section basis.
      */
-    renderItem?: ListRenderItem<ItemT>;
+    renderItem?: SectionListRenderItem<ItemT>;
 
     /**
      * Rendered at the top of each section. Sticky headers are not yet supported.
@@ -4662,7 +4754,7 @@ declare class MaskedViewComponent extends React.Component<MaskedViewIOSProps> {}
 declare const MaskedViewBase: Constructor<NativeMethodsMixin> & typeof MaskedViewComponent;
 export class MaskedViewIOS extends MaskedViewBase {}
 
-export interface ModalProps {
+export interface ModalBaseProps {
     // Only `animated` is documented. The JS code says `animated` is
     // deprecated and `animationType` is preferred.
     animated?: boolean;
@@ -4692,34 +4784,41 @@ export interface ModalProps {
      * The `onShow` prop allows passing a function that will be called once the modal has been shown.
      */
     onShow?: (event: NativeSyntheticEvent<any>) => void;
+}
+
+export interface ModalPropsIOS {
+    /**
+     * The `presentationStyle` determines the style of modal to show
+     */
+    presentationStyle?: "fullScreen" | "pageSheet" | "formSheet" | "overFullScreen";
+
     /**
      * The `supportedOrientations` prop allows the modal to be rotated to any of the specified orientations.
      * On iOS, the modal is still restricted by what's specified in your app's Info.plist's UISupportedInterfaceOrientations field.
-     * @platform ios
      */
-    supportedOrientations?: (
-        | "portrait"
-        | "portrait-upside-down"
-        | "landscape"
-        | "landscape-left"
-        | "landscape-right")[];
+    supportedOrientations?: Array<"portrait" | "portrait-upside-down" | "landscape" | "landscape-left" | "landscape-right">;
+
+    /**
+     * The `onDismiss` prop allows passing a function that will be called once the modal has been dismissed.
+     */
+    onDismiss?: () => void;
+
     /**
      * The `onOrientationChange` callback is called when the orientation changes while the modal is being displayed.
      * The orientation provided is only 'portrait' or 'landscape'. This callback is also called on initial render, regardless of the current orientation.
-     * @platform ios
      */
     onOrientationChange?: (event?: NativeSyntheticEvent<any>) => void;
-     /**
-     * The `onDismiss` prop allows passing a function that will be called once the modal has been dismissed.
-     * @platform ios
-     */
-    onDismiss?: () => void;
-    /**
-     * The `presentationStyle` determines the style of modal to show
-     * @platform ios
-     */
-    presentationStyle?: "fullScreen" | "pageSheet" | "formSheet" | "overFullScreen";
 }
+
+export interface ModalPropsAndroid {
+    /**
+     *  Controls whether to force hardware acceleration for the underlying window.
+     */
+    hardwareAccelerated?: boolean;
+}
+
+
+export type ModalProps = ModalBaseProps & ModalPropsIOS & ModalPropsAndroid;
 
 export class Modal extends React.Component<ModalProps> {}
 
@@ -6708,7 +6807,8 @@ export interface AlertIOSStatic {
         message?: string,
         callbackOrButtons?: ((value: string) => void) | Array<AlertIOSButton>,
         type?: AlertType,
-        defaultValue?: string
+        defaultValue?: string,
+        keyboardType?: KeyboardType | KeyboardTypeIOS,
     ) => void;
 }
 
@@ -6765,7 +6865,7 @@ export interface AsyncStorageStatic {
     /**
      * Fetches key and passes the result to callback, along with an Error if there is any.
      */
-    getItem(key: string, callback?: (error?: Error, result?: string) => void): Promise<string>;
+    getItem(key: string, callback?: (error?: Error, result?: string) => void): Promise<string | null>;
 
     /**
      * Sets value for key and calls callback on completion, along with an Error if there is any

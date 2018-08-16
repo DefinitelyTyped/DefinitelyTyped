@@ -44,7 +44,7 @@ function test_fetchUrlWithRequestObject() {
 	const request: Request = new Request("http://www.andlabs.net/html5/uCOR.php", requestOptions);
 	const timeout: number = request.timeout;
 	const size: number = request.size;
-	const agent: Agent = request.agent;
+	const agent: Agent | undefined = request.agent;
 	const protocol: string = request.protocol;
 
 	handlePromise(fetch(request));
@@ -70,4 +70,10 @@ function handlePromise(promise: Promise<Response>, isArrayBuffer: boolean = fals
 	}).then((text: string | ArrayBuffer) => {
 		console.log(text);
 	});
+}
+
+function test_headersRaw() {
+	const headers = new Headers();
+	const myHeader = 'foo';
+	headers.raw()[myHeader]; // $ExpectType string[]
 }

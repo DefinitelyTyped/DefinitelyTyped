@@ -16,6 +16,7 @@ import {
     Alert,
     AppState,
     AppStateIOS,
+    AlertIOS,
     BackAndroid,
     BackHandler,
     Button,
@@ -28,6 +29,7 @@ import {
     ImageLoadEventData,
     ImageErrorEventData,
     ImageResolvedAssetSource,
+    ImageBackground,
     InteractionManager,
     ListView,
     ListViewDataSource,
@@ -48,6 +50,7 @@ import {
     findNodeHandle,
     ScrollView,
     ScrollViewProps,
+    SectionListRenderItemInfo,
     RefreshControl,
     TabBarIOS,
     NativeModules,
@@ -67,6 +70,8 @@ import {
     TextInputEndEditingEventData,
     TextInputSubmitEditingEventData,
     WebView,
+    KeyboardAvoidingView,
+    Modal,
 } from "react-native";
 
 declare module "react-native" {
@@ -349,9 +354,9 @@ export class SectionListTest extends React.Component<SectionListProps<string>, {
                             <Text>{section.title}</Text>
                         </View>
                     )}
-                    renderItem={(info: { item: string }) => (
+                    renderItem={(info: SectionListRenderItemInfo<string>) => (
                         <View>
-                            <Text>{info.item}</Text>
+                            <Text>{`${info.section.title} - ${info.item}`}</Text>
                         </View>
                     )}
                 />
@@ -546,6 +551,7 @@ class TextInputTest extends React.Component<{}, {username: string}> {
 
                 <TextInput
                     ref={input => this.username = input}
+                    textContentType="username"
                     value={this.state.username}
                     onChangeText={this.handleUsernameChange}
                 />
@@ -615,6 +621,7 @@ class WebViewTest extends React.Component {
             <WebView
                 originWhitelist={['https://origin.test']}
                 saveFormDataDisabled={false}
+                nativeConfig={{ component: 'test', props: {}, viewManager: {} }}
             />
         );
     }
@@ -660,6 +667,25 @@ export class ImageTest extends React.Component {
     }
 }
 
+export class ImageBackgroundProps extends React.Component {
+    private _imageRef: Image | null = null;
+
+    setImageRef = (image: Image) => {
+        this._imageRef = image;
+    }
+
+    render() {
+        return (
+            <View>
+                <ImageBackground
+                    source={{ uri: 'https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png' }}
+                    imageRef={this.setImageRef}
+                />
+            </View>
+        );
+    }
+}
+
 class StylePropsTest extends React.PureComponent {
     render() {
         const uri = 'https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png'
@@ -676,6 +702,10 @@ class StylePropsTest extends React.PureComponent {
                     // tintColor="green"
                     // width={200}
                 />
+
+                <Text style={{ /* iOs only */ textTransform: 'capitalize'  }}>
+                    Text
+                </Text>
             </View>
         );
     }
@@ -690,6 +720,7 @@ class AccessibilityTest extends React.Component {
                 accessibilityElementsHidden={true}
                 importantForAccessibility={"no-hide-descendants"}
                 accessibilityTraits={'none'}
+                onAccessibilityTap={() => {}}
             >
                 <Text accessibilityTraits={['key', 'text']}>Text</Text>
                 <View />
@@ -697,3 +728,34 @@ class AccessibilityTest extends React.Component {
         );
     }
 }
+
+
+const KeyboardAvoidingViewTest = () => (
+    <KeyboardAvoidingView enabled />
+);
+
+
+const AlertIOSTest = () => {
+    AlertIOS.prompt(
+        'My Prompt',
+        'Enter your email',
+        [
+            {
+                text: 'Cancel',
+                style: 'cancel'
+            },
+            {
+                text: 'Add',
+                onPress: (value: string) => {
+                  console.log(value);
+                },
+              },
+        ],
+        'default',
+        'email-address'
+    );
+}
+
+const ModalTest = () => (
+    <Modal hardwareAccelerated />
+)

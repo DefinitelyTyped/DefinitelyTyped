@@ -239,7 +239,7 @@ declare namespace Chart {
         type?: ChartType | string;
         data?: ChartData;
         options?: ChartOptions;
-        plugins?: PluginServiceRegistrationOptions;
+        plugins?: PluginServiceRegistrationOptions[];
     }
 
     interface ChartData {
@@ -584,7 +584,7 @@ declare namespace Chart {
         position?: string;
         ticks?: TickOptions;
         gridLines?: GridLineOptions;
-        barThickness?: number;
+        barThickness?: number | "flex";
         maxBarThickness?: number;
         scaleLabel?: ScaleTitleOptions;
         time?: TimeScale;

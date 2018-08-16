@@ -446,6 +446,11 @@ function bufferTests() {
         const arrUint8: Uint8Array = new Uint8Array(2);
         const buf5: Buffer = Buffer.from(arrUint8);
         const buf6: Buffer = Buffer.from(buf1);
+        const sharedArrayBuffer: SharedArrayBuffer = {
+            byteLength: 10,
+            slice: (begin?: number, end?: number) => sharedArrayBuffer
+        };
+        const buf7: Buffer = Buffer.from(sharedArrayBuffer);
     }
 
     // Class Method: Buffer.from(arrayBuffer[, byteOffset[, length]])
@@ -690,9 +695,10 @@ namespace url_tests {
         const searchParams = new url.URLSearchParams('abc=123');
 
         assert.equal(searchParams.toString(), 'abc=123');
-        searchParams.forEach((value: string, name: string): void => {
+        searchParams.forEach((value: string, name: string, me: url.URLSearchParams): void => {
             assert.equal(name, 'abc');
             assert.equal(value, '123');
+            assert.equal(me, searchParams);
         });
 
         assert.equal(searchParams.get('abc'), '123');
@@ -952,74 +958,149 @@ const unzipped: Buffer = zlib.unzipSync(compressMe);
 function simplified_stream_ctor_test() {
     new stream.Readable({
         read(size) {
-            size.toFixed();
+            // $ExpectType Readable
+            this;
+            // $ExpectType number
+            size;
         },
-        destroy(error) {
-            error.stack;
+        destroy(error, cb) {
+            // $ExpectType Error
+            error;
+            // $ExpectType (error: Error) => void
+            cb;
         }
     });
 
     new stream.Writable({
         write(chunk, enc, cb) {
-            chunk.slice(1);
-            enc.charAt(0);
-            cb();
+            // $ExpectType Writable
+            this;
+            // $ExpectType any
+            chunk;
+            // $ExpectType string
+            enc;
+            // $ExpectType (error?: Error) => void
+            cb;
         },
         writev(chunks, cb) {
-            chunks[0].chunk.slice(0);
-            chunks[0].encoding.charAt(0);
-            cb();
+            // $ExpectType Writable
+            this;
+            // $ExpectType { chunk: any; encoding: string; }[]
+            chunks;
+            // $ExpectType (error?: Error) => void
+            cb;
         },
-        destroy(error) {
-            error.stack;
+        destroy(error, cb) {
+            // $ExpectType Writable
+            this;
+            // $ExpectType Error
+            error;
+            // $ExpectType (error: Error) => void
+            cb;
         },
         final(cb) {
-            cb(null);
+            // $ExpectType Writable
+            this;
+            // $ExpectType (error?: Error) => void
+            cb;
         }
     });
 
     new stream.Duplex({
         read(size) {
-            size.toFixed();
+            // $ExpectType Duplex
+            this;
+            // $ExpectType number
+            size;
         },
         write(chunk, enc, cb) {
-            chunk.slice(1);
-            enc.charAt(0);
-            cb();
+            // $ExpectType Duplex
+            this;
+            // $ExpectType any
+            chunk;
+            // $ExpectType string
+            enc;
+            // $ExpectType (error?: Error) => void
+            cb;
         },
         writev(chunks, cb) {
-            chunks[0].chunk.slice(0);
-            chunks[0].encoding.charAt(0);
-            cb();
+            // $ExpectType Duplex
+            this;
+            // $ExpectType { chunk: any; encoding: string; }[]
+            chunks;
+            // $ExpectType (error?: Error) => void
+            cb;
+        },
+        destroy(error, cb) {
+            // $ExpectType Duplex
+            this;
+            // $ExpectType Error
+            error;
+            // $ExpectType (error: Error) => void
+            cb;
+        },
+        final(cb) {
+            // $ExpectType Duplex
+            this;
+            // $ExpectType (error?: Error) => void
+            cb;
         },
         readableObjectMode: true,
         writableObjectMode: true
     });
 
     new stream.Transform({
-        transform(chunk, enc, cb) {
-            chunk.slice(1);
-            enc.charAt(0);
-            cb();
-        },
-        flush(cb) {
-            cb();
-        },
         read(size) {
-            size.toFixed();
+            // $ExpectType Transform
+            this;
+            // $ExpectType number
+            size;
         },
         write(chunk, enc, cb) {
-            chunk.slice(1);
-            enc.charAt(0);
-            cb();
+            // $ExpectType Transform
+            this;
+            // $ExpectType any
+            chunk;
+            // $ExpectType string
+            enc;
+            // $ExpectType (error?: Error) => void
+            cb;
         },
         writev(chunks, cb) {
-            chunks[0].chunk.slice(0);
-            chunks[0].encoding.charAt(0);
-            cb();
+            // $ExpectType Transform
+            this;
+            // $ExpectType { chunk: any; encoding: string; }[]
+            chunks;
+            // $ExpectType (error?: Error) => void
+            cb;
         },
-        destroy(error) {
-            error.stack;
+        destroy(error, cb) {
+            // $ExpectType Transform
+            this;
+            // $ExpectType Error
+            error;
+            // $ExpectType (error: Error) => void
+            cb;
+        },
+        final(cb) {
+            // $ExpectType Transform
+            this;
+            // $ExpectType (error?: Error) => void
+            cb;
+        },
+        transform(chunk, enc, cb) {
+            // $ExpectType Transform
+            this;
+            // $ExpectType any
+            chunk;
+            // $ExpectType string
+            enc;
+            // $ExpectType TransformCallback
+            cb;
+        },
+        flush(cb) {
+            // $ExpectType TransformCallback
+            cb;
         },
         allowHalfOpen: true,
         readableObjectMode: true,
@@ -1244,9 +1325,9 @@ namespace crypto_tests {
         crypto.randomFillSync(buffer, 2);
         crypto.randomFillSync(buffer, 2, 3);
 
-        crypto.randomFill(buffer, (err: Error, buf: ArrayBufferView) => void {});
-        crypto.randomFill(buffer, 2, (err: Error, buf: ArrayBufferView) => void {});
-        crypto.randomFill(buffer, 2, 3, (err: Error, buf: ArrayBufferView) => void {});
+        crypto.randomFill(buffer, (err: Error, buf: Buffer) => void {});
+        crypto.randomFill(buffer, 2, (err: Error, buf: Buffer) => void {});
+        crypto.randomFill(buffer, 2, 3, (err: Error, buf: Buffer) => void {});
 
         // crypto_randomfill_uint8array_test
         let ui8arr: Uint8Array = new Uint8Array(10);
@@ -1254,9 +1335,9 @@ namespace crypto_tests {
         crypto.randomFillSync(ui8arr, 2);
         crypto.randomFillSync(ui8arr, 2, 3);
 
-        crypto.randomFill(ui8arr, (err: Error, buf: ArrayBufferView) => void {});
-        crypto.randomFill(ui8arr, 2, (err: Error, buf: ArrayBufferView) => void {});
-        crypto.randomFill(ui8arr, 2, 3, (err: Error, buf: ArrayBufferView) => void {});
+        crypto.randomFill(ui8arr, (err: Error, buf: Uint8Array) => void {});
+        crypto.randomFill(ui8arr, 2, (err: Error, buf: Uint8Array) => void {});
+        crypto.randomFill(ui8arr, 2, 3, (err: Error, buf: Uint8Array) => void {});
 
         // crypto_randomfill_int32array_test
         let i32arr: Int32Array = new Int32Array(10);
@@ -1264,9 +1345,9 @@ namespace crypto_tests {
         crypto.randomFillSync(i32arr, 2);
         crypto.randomFillSync(i32arr, 2, 3);
 
-        crypto.randomFill(i32arr, (err: Error, buf: ArrayBufferView) => void {});
-        crypto.randomFill(i32arr, 2, (err: Error, buf: ArrayBufferView) => void {});
-        crypto.randomFill(i32arr, 2, 3, (err: Error, buf: ArrayBufferView) => void {});
+        crypto.randomFill(i32arr, (err: Error, buf: Int32Array) => void {});
+        crypto.randomFill(i32arr, 2, (err: Error, buf: Int32Array) => void {});
+        crypto.randomFill(i32arr, 2, 3, (err: Error, buf: Int32Array) => void {});
     }
 
     {
@@ -1615,7 +1696,8 @@ namespace http_tests {
             keepAlive: true,
             keepAliveMsecs: 10000,
             maxSockets: Infinity,
-            maxFreeSockets: 256
+            maxFreeSockets: 256,
+            timeout: 15000
         });
 
         var agent: http.Agent = http.globalAgent;
@@ -1672,7 +1754,8 @@ namespace https_tests {
         keepAliveMsecs: 10000,
         maxSockets: Infinity,
         maxFreeSockets: 256,
-        maxCachedSessions: 100
+        maxCachedSessions: 100,
+        timeout: 15000
     });
 
     var agent: https.Agent = https.globalAgent;
@@ -2246,6 +2329,7 @@ namespace child_process_tests {
         childProcess.exec("echo test", { windowsHide: true });
         childProcess.spawn("echo", ["test"], { windowsHide: true });
         childProcess.spawn("echo", ["test"], { windowsHide: true, argv0: "echo-test" });
+        childProcess.spawn("echo", ["test"], { stdio: [0xdeadbeef, undefined, "pipe"] });
         childProcess.spawnSync("echo test");
         childProcess.spawnSync("echo test", {windowsVerbatimArguments: false});
         childProcess.spawnSync("echo test", {windowsVerbatimArguments: false, argv0: "echo-test"});
@@ -3278,7 +3362,7 @@ namespace dns_tests {
         const _addresses: string[] = addresses;
     });
     dns.resolve("nodejs.org", "ANY", (err, addresses) => {
-        const _addresses: ReadonlyArray<dns.AnySrvRecord | dns.AnySoaRecord | dns.AnyNaptrRecord | dns.AnyRecordWithTtl | dns.AnyMxRecord | dns.AnyTxtRecord> = addresses;
+        const _addresses: dns.AnyRecord[] = addresses;
     });
     dns.resolve("nodejs.org", "MX", (err, addresses) => {
         const _addresses: dns.MxRecord[] = addresses;
@@ -3308,6 +3392,14 @@ namespace dns_tests {
         dns.resolve6("nodejs.org", { ttl }, (err, addresses) => {
             const _addresses: string[] | dns.RecordWithTtl[] = addresses;
         });
+    }
+    {
+        const resolver = new dns.Resolver();
+        resolver.setServers(["4.4.4.4"]);
+        resolver.resolve("nodejs.org", (err, addresses) => {
+            const _addresses: string[] = addresses;
+        });
+        resolver.cancel();
     }
 }
 
@@ -3623,6 +3715,7 @@ namespace http2_tests {
         let pendingSettingsAck: boolean = http2Session.pendingSettingsAck;
         let settings: http2.Settings = http2Session.localSettings;
         let closed: boolean = http2Session.closed;
+        let connecting: boolean = http2Session.connecting;
         settings = http2Session.remoteSettings;
 
         http2Session.ref();
@@ -3669,6 +3762,10 @@ namespace http2_tests {
         });
 
         http2Session.settings(settings);
+
+      http2Session.ping((err: Error | null, duration: number, payload: Buffer) => {});
+      http2Session.ping(Buffer.from(''), (err: Error | null, duration: number, payload: Buffer) => {});
+      http2Session.ping(new DataView(new Int8Array(1).buffer), (err: Error | null, duration: number, payload: Buffer) => {});
     }
 
     // Http2Stream

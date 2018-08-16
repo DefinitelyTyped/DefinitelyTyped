@@ -5,6 +5,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
+// Prettified with:
+// $ prettier --parser typescript --tab-width 4 --semi --trailing-comma es5 --write --print-width 120 \
+//   types/{react-relay,relay-runtime}/{,*}/*.ts*
+
 /**
  * SOURCE:
  * Relay 1.3.0

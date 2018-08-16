@@ -1448,6 +1448,15 @@ export class Geometry extends EventDispatcher {
 }
 
 /**
+ * @see <a href="https://github.com/mrdoob/three.js/blob/master/examples/js/BufferGeometryUtils.js">examples/js/BufferGeometryUtils.js</a>
+ */
+export namespace BufferGeometryUtils {
+    export function mergeBufferGeometries(geometries: BufferGeometry[]): BufferGeometry;
+    export function computeTangents(geometry: BufferGeometry): null;
+    export function mergeBufferAttributes(attributes: BufferAttribute[]): BufferAttribute;
+}
+
+/**
  * @deprecated
  */
 export namespace GeometryUtils {
@@ -2302,7 +2311,20 @@ export class LoadingManager {
      */
     onError: (url: string) => void;
 
+    /**
+     * If provided, the callback will be passed each resource URL before a request is sent.
+     * The callback may return the original URL, or a new URL to override loading behavior.
+     * This behavior can be used to load assets from .ZIP files, drag-and-drop APIs, and Data URIs.
+     * @param callback URL modifier callback. Called with url argument, and must return resolvedURL.
+     */
     setURLModifier(callback?: (url: string) => string): void;
+
+    /**
+     * Given a URL, uses the URL modifier callback (if any) and returns a resolved URL.
+     * If no URL modifier is set, returns the original URL.
+     * @param url the url to load
+     */
+    resolveURL(url: string): string;
 
     itemStart(url: string): void;
     itemEnd(url: string): void;
@@ -2793,6 +2815,7 @@ export class MeshDepthMaterial extends Material {
 
     wireframe: boolean;
     wireframeLinewidth: number;
+    depthPacking: DepthPackingStrategies;
 
     setValues(parameters: MeshDepthMaterialParameters): void;
 }
@@ -3649,6 +3672,17 @@ export namespace Math {
     export function radToDeg(radians: number): number;
 
     export function isPowerOfTwo(value: number): boolean;
+
+	/**
+     * Returns a value linearly interpolated from two known points based
+     * on the given interval - t = 0 will return x and t = 1 will return y.
+     *
+     * @param x Start point.
+     * @param y End point.
+     * @param t interpolation factor in the closed interval [0, 1]
+     * @return {number}
+     */
+    export function lerp (x: number, y: number, t: number): number;
 
     /**
      * @deprecated Use {@link Math#floorPowerOfTwo .floorPowerOfTwo()}
@@ -5198,10 +5232,21 @@ export class LOD extends Object3D {
     objects: any[];
 }
 
+
+/**
+ * An intermediate material type that casts more precisely the possible materials assignable to a [[Line]] object.
+ *
+ * [[LineDashedMaterial]] is omitted as it extends [[LineBasicMaterial]].
+ *
+ * // Todo:
+ * // - can [[Line]] take in an array of materials ?
+ */
+export type LineMaterialType = LineBasicMaterial | ShaderMaterial | MeshDepthMaterial;
+
 export class Line extends Object3D {
     constructor(
         geometry?: Geometry | BufferGeometry,
-        material?: LineDashedMaterial | LineBasicMaterial | ShaderMaterial,
+        material?: LineMaterialType | LineMaterialType[],
         mode?: number
     );
 
@@ -5227,18 +5272,23 @@ export const LinePieces: number;
 export class LineSegments extends Line {
     constructor(
         geometry?: Geometry | BufferGeometry,
-        material?: LineDashedMaterial | LineBasicMaterial | ShaderMaterial | (LineDashedMaterial | LineBasicMaterial | ShaderMaterial)[],
+        material?: LineMaterialType | LineMaterialType[],
         mode?: number
     );
 }
 
-type MeshMaterial = MeshBasicMaterial | MeshLambertMaterial | MeshPhongMaterial | MeshDepthMaterial | MeshStandardMaterial | MeshPhysicalMaterial | MeshNormalMaterial | MeshFaceMaterial | ShaderMaterial;
+/**
+ * An intermediate material type that casts more precisely the possible materials assignable to a [[Mesh]] object.
+ *
+ * `MeshToonMaterial` and [[MeshPhysicalMaterial]] are omitted as they extend [[MeshPhongMaterial]] and [[MeshStandardMaterial]] respectively.
+ */
+export type MeshMaterialType = MeshBasicMaterial | MeshDepthMaterial | MeshFaceMaterial | MeshLambertMaterial | MeshNormalMaterial | MeshPhongMaterial | MeshStandardMaterial | ShaderMaterial | ShadowMaterial;
 
 export class Mesh extends Object3D {
-    constructor(geometry?: Geometry | BufferGeometry, material?: MeshMaterial | MeshMaterial[]);
+    constructor(geometry?: Geometry | BufferGeometry, material?: MeshMaterialType | MeshMaterialType[]);
 
     geometry: Geometry|BufferGeometry;
-    material: MeshMaterial | MeshMaterial[];
+    material: MeshMaterialType | MeshMaterialType[];
     drawMode: TrianglesDrawModes;
     morphTargetInfluences?: number[];
     morphTargetDictionary?: { [key: string]: number; };
@@ -5250,6 +5300,14 @@ export class Mesh extends Object3D {
     raycast(raycaster: Raycaster, intersects: Intersection[]): void;
     copy(source: this, recursive?: boolean): this;
 }
+
+/**
+ * An intermediate material type that casts more precisely the possible materials assignable to a [[Points]] object.
+ *
+ * // Todo:
+ * // - can [[Points]] take in an array of materials ?
+ */
+export type PointsMaterialType = PointsMaterial | ShaderMaterial | MeshDepthMaterial;
 
 /**
  * A class for displaying particles in the form of variable size points. For example, if using the WebGLRenderer, the particles are displayed using GL_POINTS.
@@ -5264,7 +5322,7 @@ export class Points extends Object3D {
      */
     constructor(
         geometry?: Geometry | BufferGeometry,
-        material?: PointsMaterial | ShaderMaterial
+        material?: PointsMaterialType | PointsMaterialType[]
     );
 
     type: "Points";
@@ -5533,6 +5591,9 @@ export class WebGLRenderer implements Renderer {
     getPixelRatio(): number;
     setPixelRatio(value: number): void;
 
+    getDrawingBufferSize(): { width: number; height: number; };
+    setDrawingBufferSize(width: number, height: number, pixelRatio: number): void;
+
     getSize(): { width: number; height: number; };
 
     /**
@@ -5540,6 +5601,7 @@ export class WebGLRenderer implements Renderer {
      */
     setSize(width: number, height: number, updateStyle?: boolean): void;
 
+    getCurrentViewport(): Vector4;
     /**
      * Sets the viewport to render from (x, y) to (x + width, y + height).
      */
@@ -5604,6 +5666,11 @@ export class WebGLRenderer implements Renderer {
     /**
      * A build in function that can be used instead of requestAnimationFrame. For WebVR projects this function must be used.
      * @param callback The function will be called every available frame. If `null` is passed it will stop any already ongoing animation.
+     */
+    setAnimationLoop(callback: Function): void;
+
+    /**
+     * @deprecated Use {@link WebGLRenderer#setAnimationLoop .setAnimationLoop()} instead.
      */
     animate(callback: Function): void;
 
@@ -5738,6 +5805,7 @@ export interface WebGLRenderTargetOptions {
     anisotropy?: number; // 1;
     depthBuffer?: boolean; // true;
     stencilBuffer?: boolean; // true;
+    generateMipmaps?: boolean; // true;
 }
 
 export class WebGLRenderTarget extends EventDispatcher {

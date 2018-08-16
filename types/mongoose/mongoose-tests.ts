@@ -1,9 +1,5 @@
 import * as mongoose from 'mongoose';
 
-// test compatibility with other libraries
-import * as _ from 'lodash';
-var fs = require('fs');
-
 // dummy variables
 var cb = function () {};
 
@@ -297,7 +293,7 @@ schema.method('name', cb).method({
 });
 schema.path('a', mongoose.Schema.Types.Buffer).path('a');
 schema.pathType('m1').toLowerCase();
-schema.plugin(function (schema, opts) {
+schema.plugin(function (schema: mongoose.Schema, opts?: any) {
   schema.get('path');
   if (opts) {
     opts.hasOwnProperty('');
@@ -568,25 +564,25 @@ new mongoose.Schema({
   }
 });
 
-(new mongoose.Schema({})).plugin(function (schema: any, options: any) {
+(new mongoose.Schema({})).plugin<any>(function (schema: mongoose.Schema, options: any) {
   schema.add({ lastMod: Date })
   schema.pre('save', function (next: Function) {
-    this.lastMod = new Date
+    (this as any).lastMod = new Date
     next()
   })
   if (options && options['index']) {
     schema.path('lastMod').index(options['index'])
   }
-}, { index: true }).plugin(function (schema: any, options: any) {
+}, { index: true }).plugin<any>(function (schema: mongoose.Schema, options: any) {
   schema.add({ lastMod: Date })
   schema.pre('save', function (next: Function) {
-    this.lastMod = new Date
+    (this as any).lastMod = new Date
     next()
   })
   if (options && options['index']) {
     schema.path('lastMod').index(options['index'])
   }
-});
+}, {index: true});
 
 new mongoose.Schema({foo: String}, {strict: 'throw'});
 
@@ -595,6 +591,35 @@ export default function(schema: mongoose.Schema) {
      console.log('success!');
   });
 }
+
+// plugins
+function MyPlugin(schema: mongoose.Schema, opts?: string) {
+}
+new mongoose.Schema({})
+    .plugin(MyPlugin)
+
+interface PluginOption {
+    modelName: string;
+    timestamp: string;
+}
+
+function logger(modelName: string, timestamp: string) {
+    // call special logger with options
+}
+
+function AwesomeLoggerPlugin(schema: mongoose.Schema, options: PluginOption) {
+    if (options) {
+        schema.pre('save', function (next: Function) {
+            logger(options.modelName, options.timestamp)
+        })
+    }
+}
+
+new mongoose.Schema({})
+    .plugin<PluginOption>(AwesomeLoggerPlugin, {modelName: 'Executive', timestamp: 'yyyy/MM/dd'})
+
+mongoose.plugin<PluginOption>(AwesomeLoggerPlugin, {modelName: 'Executive', timestamp: 'yyyy/MM/dd'})
+
 
 /*
  * section document.js
@@ -747,7 +772,7 @@ interface MyEntity extends mongoose.Document {
   sub: mongoose.Types.Array<MySubEntity>
 }
 var myEntity = <MyEntity> {};
-var subDocArray = _.filter(myEntity.sub, function (sd) {
+var subDocArray = myEntity.sub.filter(sd => {
   sd.property1;
   sd.property2.toLowerCase();
   return true;

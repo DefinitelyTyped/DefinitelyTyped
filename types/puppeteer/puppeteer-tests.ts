@@ -27,8 +27,8 @@ import * as puppeteer from "puppeteer";
   // Get the "viewport" of the page, as reported by the page.
   const dimensions = await page.evaluate(() => {
     return {
-      width: document.documentElement.clientWidth,
-      height: document.documentElement.clientHeight,
+      width: document.documentElement!.clientWidth,
+      height: document.documentElement!.clientHeight,
       deviceScaleFactor: window.devicePixelRatio
     };
   });
@@ -300,7 +300,7 @@ puppeteer.launch().then(async browser => {
   someElement; // $ExpectType ElementHandle<HTMLDivElement>
 
   // If one passes an ElementHandle, puppeteer will unwrap its DOM reference instead
-  await page.$eval('.hello-world', (e, x1: HTMLDivElement) => x1.noWrap, someElement);
+  await page.$eval('.hello-world', (e, x1) => (x1 as any).noWrap, someElement);
 
   browser.close();
 })();

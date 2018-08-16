@@ -189,6 +189,10 @@ stratificatorizer = d3Hierarchy.stratify<TabularHierarchyDatum>();
 
 // id(...)
 
+stratificatorizer = stratificatorizer.id((d) => {
+    return d.name; // d is of type TabularHierarchyDatum
+});
+
 stratificatorizer = stratificatorizer.id((d, i, data) => {
     console.log('Length of tabular array: ', data.length);
     console.log('Name of first entry in tabular array: ', data[0].name); // data of type Array<TabularHierarchyDatum>
@@ -198,6 +202,10 @@ stratificatorizer = stratificatorizer.id((d, i, data) => {
 idStringAccessor = stratificatorizer.id();
 
 // parentId(...)
+
+stratificatorizer = stratificatorizer.parentId((d) => {
+    return d.parentId; // d is of type TabularHierarchyDatum
+});
 
 stratificatorizer = stratificatorizer.parentId((d, i, data) => {
     console.log('Length of tabular array: ', data.length);
@@ -225,14 +233,12 @@ clusterLayout = d3Hierarchy.cluster<HierarchyDatumWithParentId>();
 
 // size() ----------------------------------------------------------------
 
-clusterLayout = clusterLayout.size(null);
 clusterLayout = clusterLayout.size([200, 200]);
 
 size = clusterLayout.size();
 
 // nodeSize() ------------------------------------------------------------
 
-clusterLayout = clusterLayout.nodeSize(null);
 clusterLayout = clusterLayout.nodeSize([10, 10]);
 size = clusterLayout.nodeSize();
 
@@ -358,14 +364,12 @@ treeLayout = d3Hierarchy.tree<HierarchyDatumWithParentId>();
 
 // size() ----------------------------------------------------------------
 
-treeLayout = treeLayout.size(null);
 treeLayout = treeLayout.size([200, 200]);
 
 size = treeLayout.size();
 
 // nodeSize() ------------------------------------------------------------
 
-treeLayout = treeLayout.nodeSize(null);
 treeLayout = treeLayout.nodeSize([10, 10]);
 size = treeLayout.nodeSize();
 
@@ -416,7 +420,6 @@ tilingFn = treemapLayout.tile();
 
 // size() ----------------------------------------------------------------
 
-treemapLayout = treemapLayout.size(null);
 treemapLayout = treemapLayout.size([400, 200]);
 
 size = treemapLayout.size();
@@ -635,7 +638,6 @@ partitionLayout = d3Hierarchy.partition<HierarchyDatumWithParentId>();
 
 // size() ----------------------------------------------------------------
 
-partitionLayout = partitionLayout.size(null);
 partitionLayout = partitionLayout.size([400, 200]);
 
 size = partitionLayout.size();
@@ -674,7 +676,6 @@ packLayout = d3Hierarchy.pack<HierarchyDatumWithParentId>();
 
 // size() ----------------------------------------------------------------
 
-packLayout = packLayout.size(null);
 packLayout = packLayout.size([400, 400]);
 
 size = packLayout.size();

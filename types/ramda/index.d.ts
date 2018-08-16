@@ -9,7 +9,6 @@
 //                 Vítor Castro <https://github.com/teves-castro>
 //                 Jordan Quagliatini <https://github.com/1M0reBug>
 //                 Simon Højberg <https://github.com/hojberg>
-//                 Charles-Philippe Clermont <https://github.com/charlespwd>
 //                 Samson Keung <https://github.com/samsonkeung>
 //                 Angelo Ocana <https://github.com/angeloocana>
 //                 Rayner Pupo <https://github.com/raynerd>
@@ -971,6 +970,7 @@ declare namespace R {
          * Returns a list containing the names of all the enumerable own
          * properties of the supplied object.
          */
+        keys<T extends object>(x: T): Array<keyof T>;
         keys<T>(x: T): string[];
 
         /**

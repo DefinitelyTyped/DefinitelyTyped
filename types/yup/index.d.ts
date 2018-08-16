@@ -12,6 +12,7 @@ export function addMethod<T extends Schema<any>>(schemaCtor: AnySchemaConstructo
 export function ref(path: string, options?: { contextPrefix: string }): Ref;
 export function lazy<T>(fn: (value: T) => Schema<T>): Lazy;
 export function ValidationError(errors: string | string[], value: any, path: string, type?: any): ValidationError;
+export function setLocale(customLocale: LocaleObject): void;
 
 export const mixed: MixedSchemaConstructor;
 export const string: StringSchemaConstructor;

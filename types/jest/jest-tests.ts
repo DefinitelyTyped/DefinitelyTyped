@@ -298,6 +298,7 @@ spy2.mockReset();
 
 const spy3Mock: jest.Mock<() => string> = spy3
     .mockImplementation(() => "")
+    .mockImplementation()
     .mockImplementation((arg: {}) => arg)
     .mockImplementation((...args: string[]) => args.join(""))
     .mockImplementationOnce(() => "")
@@ -610,6 +611,21 @@ describe("", () => {
 
         expect({}).toMatchSnapshot();
         expect({}).toMatchSnapshot("snapshotName");
+        expect({ abc: "def" }).toMatchSnapshot({ abc: expect.any(String) }, "snapshotName");
+        expect({
+            one: 1,
+            two: "2",
+            date: new Date(),
+        }).toMatchSnapshot({ one: expect.any(Number), date: expect.any(Date) });
+
+        expect({}).toMatchInlineSnapshot();
+        expect({}).toMatchInlineSnapshot("snapshot");
+        expect({ abc: "def" }).toMatchInlineSnapshot({ abc: expect.any(String) }, "snapshot");
+        expect({
+            one: 1,
+            two: "2",
+            date: new Date(),
+        }).toMatchInlineSnapshot({ one: expect.any(Number), date: expect.any(Date) });
 
         expect(jest.fn()).toReturn();
 
@@ -634,6 +650,15 @@ describe("", () => {
         expect(willThrow).toThrowErrorMatchingSnapshot();
         expect(jest.fn()).toThrowErrorMatchingSnapshot();
         expect(jest.fn(willThrow)).toThrowErrorMatchingSnapshot();
+
+        expect(() => {}).toThrowErrorMatchingInlineSnapshot();
+        expect(() => {}).toThrowErrorMatchingInlineSnapshot('Error Message');
+        expect(willThrow).toThrowErrorMatchingInlineSnapshot();
+        expect(willThrow).toThrowErrorMatchingInlineSnapshot('Error Message');
+        expect(jest.fn()).toThrowErrorMatchingInlineSnapshot();
+        expect(jest.fn()).toThrowErrorMatchingInlineSnapshot('Error Message');
+        expect(jest.fn(willThrow)).toThrowErrorMatchingInlineSnapshot();
+        expect(jest.fn(willThrow)).toThrowErrorMatchingInlineSnapshot('Error Message');
 
         /* not */
 

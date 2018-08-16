@@ -698,6 +698,17 @@ declare namespace JQueryUI {
         value?: number;
         values?: number[];
         highlight?: boolean;
+        classes? : SliderClasses;
+    }
+
+    interface SliderClasses {
+        "ui-slider"?: string;
+        "ui-slider-horizontal"?: string;
+        "ui-slider-vertical"?: string;
+        "ui-slider-handle"?: string;
+        "ui-slider-range"?: string;
+        "ui-slider-range-min"?: string;
+        "ui-slider-range-max"?: string;
     }
 
     interface SliderUIParams {

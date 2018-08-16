@@ -5,9 +5,10 @@
 //                 Austin Turner <https://github.com/paustint>
 //                 Jacob Froman <https://github.com/j-fro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from "react";
+import { RCTooltip } from 'rc-tooltip';
 
 export interface Marks {
     [number: number]:
@@ -178,9 +179,14 @@ export interface HandleProps extends CommonApiProps {
     offset: number;
 }
 
+export interface WithTooltipProps {
+    tipFormatter?: (value: number) => React.ReactNode;
+    tipProps?: Partial<RCTooltip.Props>;
+}
+
 export default class Slider extends React.Component<SliderProps> { }
 export class Range extends React.Component<RangeProps> { }
 export class Handle extends React.Component<HandleProps> { }
 
-export function createSliderWithTooltip(slider: typeof Slider): new() => Slider;
-export function createSliderWithTooltip(range: typeof Range): new() => Range;
+export function createSliderWithTooltip(slider: typeof Slider): new() => React.Component<WithTooltipProps & SliderProps>;
+export function createSliderWithTooltip(range: typeof Range): new() => React.Component<WithTooltipProps & RangeProps>;

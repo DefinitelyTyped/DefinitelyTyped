@@ -13,6 +13,8 @@
 //                 Baris Gumustas <https://github.com/matrushka>
 //                 André Vitor de Lima Matos <https://github.com/andrevmatos>
 //                 Levin Keller <https://github.com/levino>
+//                 Dmitry Radkovskiy <https://github.com/zlumer>
+//                 Konstantin Melnikov <https://github.com/archangel-irk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 import BigNumber = require("bn.js");
@@ -33,6 +35,7 @@ declare class Web3 {
         Shh: new (provider: Provider) => Shh;
         Bzz: new (provider: Provider) => Bzz;
     };
+    static utils: Utils;
     constructor(provider?: Provider | string);
     version: string;
     BatchRequest: new () => BatchRequest;

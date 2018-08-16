@@ -8,7 +8,7 @@
 //                 Koala Human <https://github.com/KoalaHuman>
 //                 Sean Kelley <https://github.com/seansfkelley>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from "react";
 import * as moment from "moment";
@@ -86,6 +86,7 @@ export interface ReactDatePickerProps {
 	startDate?: moment.Moment;
 	startOpen?: boolean;
 	tabIndex?: number;
+	timeCaption?: string;
 	timeFormat?: string;
 	timeIntervals?: number;
 	title?: string;

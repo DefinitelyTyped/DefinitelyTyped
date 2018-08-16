@@ -187,14 +187,14 @@ function makeReadableByteFileStream(filename: string) {
         pull(controller: ReadableByteStreamController) {
             // Even when the consumer is using the default reader, the auto-allocation
             // feature allocates a buffer and passes it to us via byobRequest.
-            const v = controller.byobRequest.view;
+            const v = controller.byobRequest!.view;
 
             return fs.read(fd, <any>v.buffer, v.byteOffset, v.byteLength, position).then(bytesRead => {
                 if (bytesRead === 0) {
                     return fs.close(fd).then(() => controller.close());
                 } else {
                     position += bytesRead;
-                    controller.byobRequest.respond(bytesRead);
+                    controller.byobRequest!.respond(bytesRead);
                 }
             });
         },

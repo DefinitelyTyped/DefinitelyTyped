@@ -214,7 +214,7 @@ function signOutDeprecated() {
     }
 
     navigator.credentials.requireUserMediation().then(() => {
-        document.location.assign('/');
+        document.location!.assign('/');
     });
 }
 
@@ -224,7 +224,7 @@ function signOut() {
     }
 
     navigator.credentials.preventSilentAccess().then(() => {
-        document.location.assign('/');
+        document.location!.assign('/');
     });
 }
 
@@ -295,8 +295,20 @@ function webauthnRegister() {
             pubKeyCredParams: [
                 {type: 'public-key', alg: -7},
             ],
+            excludeCredentials: [
+                {
+                    id: (new Uint8Array(1)).buffer,
+                    type: 'public-key',
+                    transports: ['ble', 'internal']
+                }
+            ],
             timeout: 5000,
-            authenticatorSelection: {},
+            attestation: "direct",
+            authenticatorSelection: {
+                requireUserVerification: "preferred",
+                requireResidentKey: false,
+                authenticatorAttachment: "platform"
+            },
         }
     });
 
@@ -324,6 +336,7 @@ function webauthnAuthenticate() {
         allowCredentials: [{
             type: "public-key",
             id: credentialID,
+            transports: ['internal', 'ble', 'nfc', 'usb']
         }],
     }});
 
