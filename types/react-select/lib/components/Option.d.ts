@@ -14,8 +14,8 @@ interface State {
 interface InnerProps {
   id: string;
   key: string;
-  onClick: MouseEventHandler;
-  onMouseOver: MouseEventHandler;
+  onClick: MouseEventHandler<React.MouseEvent<HTMLElement>>;
+  onMouseOver: MouseEventHandler<React.MouseEvent<HTMLElement>>;
   tabIndex: number;
 }
 export type OptionProps<OptionType> = PropsWithStyles &
