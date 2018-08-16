@@ -769,8 +769,8 @@ declare module "mongoose" {
      * @param key option name
      * @param value if not passed, the current option value is returned
      */
-    set(key: string): any;
-    set(key: string, value: any): this;
+    set<T extends keyof SchemaOptions>(key: T): SchemaOptions[T];
+    set<T extends keyof SchemaOptions>(key: T, value: SchemaOptions[T]): this;
 
     /**
      * Adds static "class" methods to Models compiled from this schema.
