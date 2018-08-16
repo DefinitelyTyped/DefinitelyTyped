@@ -1,11 +1,10 @@
-// Type definitions for dd-trace-js 0.2
+// Type definitions for dd-trace-js 0.5
 // Project: https://github.com/DataDog/dd-trace-js
 // Definitions by: Colin Bradley <https://github.com/ColinBradley>
+//                 Eloy Durán <https://github.com/alloy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import Tracer = require('./src/opentracing/tracer');
-import Span = require('./src/opentracing/span');
-import SpanContext = require('./src/opentracing/span_context');
+import { Tracer, Span, SpanContext } from "opentracing";
 
 declare var trace: TraceProxy;
 export = trace;
@@ -42,6 +41,11 @@ declare class TraceProxy extends Tracer {
      * @returns The current span or null if outside a trace context.
      */
     currentSpan(): Span | null;
+
+    /**
+     * Get the scope manager to manager context propagation for the tracer.
+     */
+    scopeManager(): ScopeManager;
 }
 
 interface TracerOptions {
@@ -146,4 +150,35 @@ interface TraceOptions {
      * Global tags that should be assigned to every span.
      */
     tags?: { [key: string]: any } | string;
+}
+
+declare class ScopeManager {
+    /**
+     * Get the current active scope or null if there is none.
+     *
+     * @todo The dd-trace source returns null, but opentracing's childOf span
+     *       option is typed as taking undefined or a scope, so using undefined
+     *       here instead.
+     */
+    active(): Scope | undefined;
+
+    /**
+     * Activate a new scope wrapping the provided span.
+     *
+     * @param span The span for which to activate the new scope.
+     * @param finishSpanOnClose Whether to automatically finish the span when the scope is closed.
+     */
+    activate(span: Span, finishSpanOnClose?: boolean): Scope;
+}
+
+declare class Scope {
+    /**
+     * Get the span wrapped by this scope.
+     */
+    span(): Span;
+
+    /**
+     * Close the scope, and finish the span if the scope was created with `finishSpanOnClose` set to true.
+     */
+    close(): void;
 }
