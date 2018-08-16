@@ -453,32 +453,32 @@ declare class Application extends EventEmitter {
         port?: number,
         hostname?: string,
         backlog?: number,
-        listeningListener?: Function,
+        listeningListener?: (err?: Error) => void,
     ): Server;
     listen(
         port: number,
         hostname?: string,
-        listeningListener?: Function,
+        listeningListener?: (err?: Error) => void,
     ): Server;
     listen(
         port: number,
         backlog?: number,
-        listeningListener?: Function,
+        listeningListener?: (err?: Error) => void,
     ): Server;
-    listen(port: number, listeningListener?: Function): Server;
+    listen(port: number, listeningListener?: (err?: Error) => void): Server;
     listen(
         path: string,
         backlog?: number,
-        listeningListener?: Function,
+        listeningListener?: (err?: Error) => void,
     ): Server;
-    listen(path: string, listeningListener?: Function): Server;
-    listen(options: ListenOptions, listeningListener?: Function): Server;
+    listen(path: string, listeningListener?: (err?: Error) => void): Server;
+    listen(options: ListenOptions, listeningListener?: (err?: Error) => void): Server;
     listen(
         handle: any,
         backlog?: number,
-        listeningListener?: Function,
+        listeningListener?: (err?: Error) => void,
     ): Server;
-    listen(handle: any, listeningListener?: Function): Server;
+    listen(handle: any, listeningListener?: (err?: Error) => void): Server;
 
     /**
      * Return JSON representation.
