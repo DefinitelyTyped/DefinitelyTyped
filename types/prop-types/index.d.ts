@@ -15,10 +15,14 @@ export type RequiredKeys<V> = { [K in keyof V]: V[K] extends Validator<infer T> 
 export type OptionalKeys<V> = Exclude<keyof V, RequiredKeys<V>>;
 export type InferPropsInner<V> = { [K in keyof V]: InferType<V[K]>; };
 
-export interface Validator<T> {
-    (props: object, propName: string, componentName: string, location: string, propFullName: string): Error | null;
-    [nominalTypeHack]?: T;
-}
+export type Validator<T> = (
+    props: object,
+    propName: string,
+    componentName: string,
+    location: string,
+    propFullName: string,
+    _nominalTypeParam?: T,
+) => Error | null;
 
 export interface Requireable<T> extends Validator<T | undefined | null> {
     isRequired: Validator<NonNullable<T>>;
