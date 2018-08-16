@@ -1,4 +1,4 @@
-// Type definitions for Mongoose 5.2.2
+// Type definitions for Mongoose 5.2.1
 // Project: http://mongoosejs.com/
 // Definitions by: horiuchi <https://github.com/horiuchi>
 //                 sindrenm <https://github.com/sindrenm>
@@ -10,7 +10,6 @@
 //                 jussikinnula <https://github.com/jussikinnula>
 //                 ondratra <https://github.com/ondratra>
 //                 alfirin <https://github.com/alfirin>
-//                 Idan Dardikman <https://github.com/idandrd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
