@@ -1567,7 +1567,7 @@
 /types/hapi/v12/                                @jasonswearingen
 /types/hapi/v15/                                @jasonswearingen
 /types/hapi/v16/                                @jasonswearingen @AJamesPhillips
-/types/hapi/                                    @BorntraegerMarc @rafaelsouzaf @jhsimms @SimonSchick
+/types/hapi/                                    @rafaelsouzaf @jhsimms @SimonSchick
 /types/hapi-auth-basic/                         @AJamesPhillips @saboya
 /types/hapi-auth-jwt2/v7/                       @warrenseymour
 /types/hapi-auth-jwt2/                          @warrenseymour @SimonSchick

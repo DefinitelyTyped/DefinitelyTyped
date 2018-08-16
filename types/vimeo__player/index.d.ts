@@ -111,6 +111,4 @@ export interface VimeoPromise<Result, Reason> extends Promise<Result> {
 }
 
 /*~ You can declare properties of the module using const, let, or var */
-export const playerMap: WeakMap<any, any>;
-export const readyMap: WeakMap<any, any>;
 export default Player;

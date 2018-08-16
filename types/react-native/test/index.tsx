@@ -71,6 +71,7 @@ import {
     TextInputSubmitEditingEventData,
     WebView,
     KeyboardAvoidingView,
+    Modal,
 } from "react-native";
 
 declare module "react-native" {
@@ -754,3 +755,7 @@ const AlertIOSTest = () => {
         'email-address'
     );
 }
+
+const ModalTest = () => (
+    <Modal hardwareAccelerated />
+)

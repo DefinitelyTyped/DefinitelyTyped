@@ -497,6 +497,7 @@ const CustomHeaderStack = createStackNavigator({
 
 interface ScreenProps {
     name: string;
+    optionalAge?: number;
     onPlay(): void;
 }
 
@@ -513,9 +514,16 @@ class SetParamsTest extends React.Component<NavigationScreenProps<ScreenProps>> 
 
     render() {
         const name = this.props.navigation.getParam('name');
+        const age = this.props.navigation.getParam('optionalAge');
+
+        // $ExpectType number | undefined
+        this.props.navigation.getParam('optionalAge');
+
+        // $ExpectType number
+        this.props.navigation.getParam('optionalAge', 0);
 
         return (
-            <Text>My name is {name}</Text>
+            <Text>My name is {name} and I am {age} years old.</Text>
         );
     }
 }

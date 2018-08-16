@@ -90,7 +90,7 @@ class Component extends React.Component<{}, ComponentState> {
                         <XAxis dataKey="name">
                             <Label fontSize="8px">X axis - name</Label>
                         </XAxis>
-                        <YAxis>
+                        <YAxis stroke="#8884d8">
                             <Label>Y axis</Label>
                         </YAxis>
                         <CartesianGrid vertical={true} horizontal={false} verticalFill={["#fafafa", "#c8c8c8"]}  />

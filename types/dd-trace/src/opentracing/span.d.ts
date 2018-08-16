@@ -1,7 +1,8 @@
 import Tracer = require('./tracer');
 import SpanContext = require('./span_context');
+import { Span } from 'opentracing';
 
-declare class Span {
+declare class DatadogSpan extends Span {
     /**
      * Returns the SpanContext object associated with this Span.
      */
@@ -117,4 +118,4 @@ declare class Span {
     finish(finishTime?: number): void;
 }
 
-export = Span;
+export = DatadogSpan;

@@ -1,6 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "styled-components": "^3.3.2"
+        "moment": ">=2.14.0"
     }
 }
