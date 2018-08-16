@@ -793,10 +793,18 @@ declare module Microsoft.ApplicationInsights {
          */
         _onerror(message: string, url: string, lineNumber: number, columnNumber: number, error: Error): any;
     }
+
+    interface IUtilHelpers {
+        /**
+         * Generate a random ID string
+         */
+        newId?(): string;
+    }
 }
 
 declare module 'applicationinsights-js' {
     const AppInsights: Microsoft.ApplicationInsights.IAppInsights;
+    const Util: Microsoft.ApplicationInsights.IUtilHelpers;
 }
 
 declare var appInsights: Microsoft.ApplicationInsights.IAppInsights;

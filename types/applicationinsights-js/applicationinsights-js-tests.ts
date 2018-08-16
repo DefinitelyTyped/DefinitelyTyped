@@ -175,3 +175,10 @@ const traceObj = new Microsoft.ApplicationInsights.Telemetry.Trace("message", nu
 const traceData = new Microsoft.ApplicationInsights.Telemetry.Common.Data<Microsoft.ApplicationInsights.Telemetry.Trace>(Microsoft.ApplicationInsights.Telemetry.Trace.dataType, traceObj);
 const traceEnvelope = new Microsoft.ApplicationInsights.Telemetry.Common.Envelope(traceData, Microsoft.ApplicationInsights.Telemetry.Trace.envelopeType);
 context.track(traceEnvelope);
+
+// UtilHelpers
+const Util: Microsoft.ApplicationInsights.IUtilHelpers = {
+    newId(): string { return null; }
+};
+
+Util.newId();
