@@ -1537,6 +1537,12 @@
             "asOfVersion": "1.5.7"
         },
         {
+            "libraryName": "typed.js",
+            "typingsPackageName": "typed.js",
+            "sourceRepoURL": "https://github.com/mattboldt/typed.js",
+            "asOfVersion": "2.0.9"
+        },
+        {
             "libraryName": "TypeScript",
             "typingsPackageName": "typescript",
             "sourceRepoURL": "https://github.com/Microsoft/TypeScript",
