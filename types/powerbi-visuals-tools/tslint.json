@@ -1,0 +1,9 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "no-relative-import-in-test": false,
+        "interface-name": false,
+        "no-mergeable-namespace": false,
+        "no-const-enum": false
+    }
+}

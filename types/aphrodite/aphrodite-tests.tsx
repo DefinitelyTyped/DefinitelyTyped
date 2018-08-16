@@ -1,5 +1,5 @@
 import * as React from "react";
-import { StyleSheet, css, StyleSheetServer, StyleSheetTestUtils } from "aphrodite";
+import { StyleSheet, css, StyleSheetServer, StyleSheetTestUtils, FontFamily } from "aphrodite";
 
 const styles = StyleSheet.create({
     red: {
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     }
 });
 
-const coolFont = {
+const coolFont: FontFamily = {
     fontFamily: "CoolFont",
     fontStyle: "normal",
     fontWeight: "normal",

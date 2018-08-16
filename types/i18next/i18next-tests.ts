@@ -156,7 +156,7 @@ i18next
 const updateContent2 = () => {
     const value: string = i18next.t('title', { what: 'i18next' });
     const value2: string = i18next.t('common:button.save', { count: Math.floor(Math.random() * 2 + 1) });
-    const value3: string = `detected user language: "${i18next.language}"  --> loaded languages: "${i18next.languages.join(', ')}"`;
+    const value3 = `detected user language: "${i18next.language}"  --> loaded languages: "${i18next.languages.join(', ')}"`;
 };
 
 i18next.init({
@@ -165,13 +165,19 @@ i18next.init({
     defaultNS: 'file1',
     debug: true
 }, (err: any, t: i18next.TranslationFunction) => {
-    if (err) return console.log('something went wrong loading', err);
+    if (err) {
+        console.log('something went wrong loading', err);
+        return;
+    }
     t('key'); // -> same as i18next.t
 });
 
 // with only callback
 i18next.init((err: any, t: i18next.TranslationFunction) => {
-    if (err) return console.log('something went wrong loading', err);
+    if (err) {
+        console.log('something went wrong loading', err);
+        return;
+    }
     t('key'); // -> same as i18next.t
 });
 
@@ -187,7 +193,10 @@ const anotherNamespace = i18next.getFixedT(null, 'anotherNamespace');
 const x: string = anotherNamespace('anotherNamespaceKey'); // no need to prefix ns i18n.t('anotherNamespace:anotherNamespaceKey');
 
 i18next.changeLanguage('en', (err: any, t: i18next.TranslationFunction) => {
-    if (err) return console.log('something went wrong loading', err);
+    if (err) {
+        console.log('something went wrong loading', err);
+        return;
+    }
     t('key'); // -> same as i18next.t
 });
 
@@ -225,7 +234,10 @@ const newInstance = i18next.createInstance({
     defaultNS: 'file1',
     debug: true
 }, (err: any, t: i18next.TranslationFunction) => {
-    if (err) return console.log('something went wrong loading', err);
+    if (err) {
+        console.log('something went wrong loading', err);
+        return;
+    }
     t('key'); // -> same as i18next.t
 });
 
@@ -236,7 +248,10 @@ newInstance.init({
     defaultNS: 'file1',
     debug: true
 }, (err: any, t: i18next.TranslationFunction) => {
-    if (err) return console.log('something went wrong loading', err);
+    if (err) {
+        console.log('something went wrong loading', err);
+        return;
+    }
     t('key'); // -> same as i18next.t
 });
 
@@ -246,7 +261,10 @@ const newInstance2 = i18next.cloneInstance({
     defaultNS: 'file1',
     debug: true
 }, (err: any, t: i18next.TranslationFunction) => {
-    if (err) return console.log('something went wrong loading', err);
+    if (err) {
+        console.log('something went wrong loading', err);
+        return;
+    }
     t('key'); // -> same as i18next.t
 });
 
@@ -258,7 +276,10 @@ newInstance.init({
     defaultNS: 'file1',
     debug: true
 }, (err: any, t: i18next.TranslationFunction) => {
-    if (err) return console.log('something went wrong loading', err);
+    if (err) {
+        console.log('something went wrong loading', err);
+        return;
+    }
     t('key'); // -> same as i18next.t
 });
 
@@ -414,21 +435,21 @@ interface CustomOptions {
     myVar: string;
 }
 
-i18next.t<string, object, KeyList>("friend");
-i18next.t<string, object, KeyList>(["friend", "tree"]);
-i18next.t<string, CustomOptions, KeyList>("friend", { myVar: "someValue" });
-i18next.t<string, CustomOptions, KeyList>(["friend", "tree"], { myVar: "someValue" });
-i18next.t<string, CustomOptions>("friend", { myVar: "someValue" });
-i18next.t<string, CustomOptions>(["friend", "tree"], { myVar: "someValue" });
+i18next.t("friend");
+i18next.t(["friend", "tree"]);
+i18next.t("friend", { myVar: "someValue" });
+i18next.t(["friend", "tree"], { myVar: "someValue" });
+i18next.t("friend", { myVar: "someValue" });
+i18next.t(["friend", "tree"], { myVar: "someValue" });
 
 const t1: i18next.TranslationFunction = (key: string, options: i18next.TranslationOptions) => "";
 const t2: i18next.TranslationFunction<{ value: string }> = (key: string, options: i18next.TranslationOptions) => ({ value: "asd" });
 const t3: i18next.TranslationFunction<string, CustomOptions> = (key: string | string[], options: i18next.TranslationOptions<CustomOptions>) => "";
-const t4: i18next.TranslationFunction<string, object, KeyList> = (key: KeyList | KeyList[], options: i18next.TranslationOptions<object>) => "";
+const t4: i18next.TranslationFunction<string, object, KeyList> = (key: KeyList | KeyList[], options: i18next.TranslationOptions) => "";
 
-i18next.exists<boolean, object, KeyList>("friend");
-i18next.exists<boolean, object, KeyList>(["friend", "tree"]);
-i18next.exists<boolean, CustomOptions, KeyList>("friend", { myVar: "someValue" });
-i18next.exists<boolean, CustomOptions, KeyList>(["friend", "tree"], { myVar: "someValue" });
-i18next.exists<boolean, CustomOptions>("friend", { myVar: "someValue" });
-i18next.exists<boolean, CustomOptions>(["friend", "tree"], { myVar: "someValue" });
+i18next.exists("friend");
+i18next.exists(["friend", "tree"]);
+i18next.exists("friend", { myVar: "someValue" });
+i18next.exists(["friend", "tree"], { myVar: "someValue" });
+i18next.exists("friend", { myVar: "someValue" });
+i18next.exists(["friend", "tree"], { myVar: "someValue" });

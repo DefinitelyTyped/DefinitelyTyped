@@ -24,6 +24,7 @@ declare namespace SemanticUI {
 
     namespace StickySettings {
         type Param = (Pick<_Impl, 'pushing'> |
+            Pick<_Impl, 'setSize'> |
             Pick<_Impl, 'jitter'> |
             Pick<_Impl, 'observeChanges'> |
             Pick<_Impl, 'context'> |
@@ -55,6 +56,14 @@ declare namespace SemanticUI {
              * @default false
              */
             pushing: boolean;
+            /**
+             * Sets size of fixed content to match its width before fixing to screen dynamically.
+             * This is used because fixed may display block or 100% width content differently than it appears before sticking.
+             *
+             * @default true
+             * @since 2.2.11
+             */
+            setSize: boolean;
             /**
              * Sticky container height will only be set if the difference between heights of container and context is larger than this jitter value.
              *

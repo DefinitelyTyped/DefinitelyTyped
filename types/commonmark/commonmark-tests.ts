@@ -26,18 +26,18 @@ function logNode(node: commonmark.Node) {
 const parser = new commonmark.Parser({ smart: true, time: true });
 const node = parser.parse('# a piece of _markdown_');
 
-let w = node.walker();
-let step = w.next();
+const w = node.walker();
+const step = w.next();
 if (step.entering) {
     logNode(step.node);
 }
 
-let xmlRenderer = new commonmark.XmlRenderer({ sourcepos: true, time: true });
-let xml = xmlRenderer.render(node);
+const xmlRenderer = new commonmark.XmlRenderer({ sourcepos: true, time: true });
+const xml = xmlRenderer.render(node);
 console.log(xml);
 
-let htmlRenderer = new commonmark.HtmlRenderer({ safe: true, smart: true, sourcepos: true, time: true });
-let html = htmlRenderer.render(node);
+const htmlRenderer = new commonmark.HtmlRenderer({ safe: true, smart: true, sourcepos: true, time: true });
+const html = htmlRenderer.render(node);
 console.log(html);
 
 function basic_usage() {

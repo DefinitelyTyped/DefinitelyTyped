@@ -1,7 +1,6 @@
 import * as Excel from 'exceljs';
 import * as stream from 'stream';
 import * as fs from 'fs';
-import * as Bluebird from 'bluebird';
 
 // most examples taken and adapted from README.md
 
@@ -111,6 +110,7 @@ row.hidden = true;
 worksheet.getRow(4).outlineLevel = 0;
 worksheet.getRow(5).outlineLevel = 1;
 worksheet.getRow(4).collapsed;
+worksheet.getRow(4).number;
 
 row.getCell(1).value = 5;
 row.getCell('name').value = 'Zeb';
@@ -463,4 +463,4 @@ worksheet.commit();
 
 workbook.commit().then(() => null);
 
-Excel.config.setValue('promise', Bluebird);
+Excel.config.setValue('promise', Promise);

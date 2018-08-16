@@ -43,16 +43,17 @@ function send(req: restify.Request, res: restify.Response, next: restify.Next) {
     req.trailer('key', 'val');
     req.trailer('key') === 'val';
 
-    req.accepts('test') === true;
-    req.accepts(['test']) === true;
-    req.acceptsEncoding('test') === true;
-    req.acceptsEncoding(['test']) === true;
-    req.is('test') === true;
-    req.isChunked() === true;
-    req.isKeepAlive() === true;
-    req.isSecure() === true;
-    req.isUpgradeRequest() === true;
-    req.isUpload() === true;
+    let b: boolean;
+    b = req.accepts('test');
+    b = req.accepts(['test']);
+    b = req.acceptsEncoding('test');
+    b = req.acceptsEncoding(['test']);
+    b = req.is('test');
+    b = req.isChunked();
+    b = req.isKeepAlive();
+    b = req.isSecure();
+    b = req.isUpgradeRequest();
+    b = req.isUpload();
     req.userAgent() === 'test';
     req.startHandlerTimer('test');
     req.endHandlerTimer('test');
@@ -76,7 +77,7 @@ function send(req: restify.Request, res: restify.Response, next: restify.Next) {
     req.path() === 'test';
     req.getQuery() === 'test';
     req.query === 'test';
-    req.secure === true;
+    b = req.secure;
     req.time() === 1463518410080;
     req.getUrl() === url.parse('http://test.test.test/test');
     req.getVersion() === 'test';
@@ -325,7 +326,7 @@ client.get('/foo/bar', (err: any, req: restify.Request, res: restify.Response, d
     console.log('%s', data);
 });
 
-let client2 = restify.createClient({
+const client2 = restify.createClient({
     url: 'http://127.0.0.1'
 });
 

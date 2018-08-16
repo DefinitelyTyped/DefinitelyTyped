@@ -1,4 +1,4 @@
-// Type definitions for clone 0.1.11
+// Type definitions for deep-assign 0.1
 // Project: https://github.com/sindresorhus/deep-assign
 // Definitions by: Ionut Costica <https://github.com/souldreamer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

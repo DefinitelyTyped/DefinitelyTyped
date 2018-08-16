@@ -1,8 +1,32 @@
 import * as React from "react";
-import Highlighter = require("react-highlight-words");
+import Highlighter from "react-highlight-words";
 
-<Highlighter
-  highlightClassName='YourHighlightClass'
-  searchWords={['and', 'or', 'the']}
-  textToHighlight="The dog is chasing the cat. Or perhaps they're just playing?"
-/>;
+class HighlighterTest extends React.Component {
+    render() {
+        return (
+            <div>
+                <Highlighter
+                    searchWords={["el", "or"]}
+                    textToHighlight="Hello World"
+                />
+                <Highlighter
+                    activeClassName="activeClassName"
+                    activeIndex="activeIndex"
+                    activeStyle={{ color: "red" }}
+                    autoEscape={true}
+                    className="className"
+                    caseSensitive={true}
+                    findChunks={() => {}}
+                    highlightClassName="highlightClassName"
+                    highlightStyle={{ color: "red" }}
+                    highlightTag="span"
+                    sanitize={(text: string) => text}
+                    searchWords={["el", "or"]}
+                    textToHighlight="Hello World"
+                    unhighlightClassName="unhighlightClassName"
+                    unhighlightStyle={{ color: "red" }}
+                />
+            </div>
+        );
+    }
+}

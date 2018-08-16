@@ -1,5 +1,5 @@
 import * as angular from "angular";
-import {ClipboardService} from "angular-clipboard";
+import { ClipboardService } from "angular-clipboard";
 
 interface TestScope extends ng.IScope {
     [index: string]: any;

@@ -29,7 +29,7 @@ qWithResults = d3Queue.queue(3);
 
 function delayedHello(name: string, delay: number, callback: (error: any | null) => void) {
     setTimeout(() => {
-        console.log('Hello, ' + name + '!');
+        console.log(`Hello, ${name}!`);
         callback(null);
     }, delay);
 }
@@ -38,7 +38,7 @@ qNoResult = qNoResult.defer(delayedHello, 'Alice', 250);
 
 qNoResult.defer(delayedHello, 'Bob', 500);
 
-// Task with Reuslts -------------------------------------------------
+// Task with Results -------------------------------------------------
 
 function getFileStats(path: string, callback: (error: any | null, stats?: any) => void) {
     // magically get file stats and behave like fs.stat when invoking the callback
@@ -57,7 +57,7 @@ qNoResult = qNoResult.await((error) => {
     console.log('Goodbye!');
 });
 
-// Task with Reuslts -------------------------------------------------
+// Task with Results -------------------------------------------------
 
 // await
 qWithResults

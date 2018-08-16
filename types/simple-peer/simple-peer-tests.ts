@@ -1,4 +1,4 @@
-import * as SimplePeer from 'simple-peer';
+import SimplePeer = require('simple-peer');
 
 const peer = new SimplePeer();
 peer.write(new Buffer('hey'));

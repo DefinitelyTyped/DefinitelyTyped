@@ -143,8 +143,8 @@ Model.findOne({ name: 'john' }, (err: any, doc: mongoose.Document) => {
 
   doc.toJSON({ getters: true, virtuals: false });
   var data: any = doc.toObject();
-  delete data['age'];
-  delete data['weight'];
+  delete data['age']; // tslint:disable-line no-dynamic-delete
+  delete data['weight']; // tslint:disable-line no-dynamic-delete
   data['isAwesome'] = true;
 });
 
@@ -388,3 +388,26 @@ var eq = id.equals(id2);
 var kitty1 = new Kitty({});
 var kitty2 = new Kitty({});
 var kittyEq = kitty1._id.equals(kitty2._id);
+
+// plugins
+interface PluginOption {
+    modelName: string;
+    timestamp: string;
+}
+
+function logger(modelName: string, timestamp: string) {
+    // call special logger with options
+}
+
+function AwesomeLoggerPlugin(schema: mongoose.Schema, options?: PluginOption) {
+    if (options) {
+        schema.pre('save', function (next: Function) {
+            logger(options.modelName, options.timestamp)
+        })
+    }
+}
+
+new mongoose.Schema({})
+    .plugin<PluginOption>(AwesomeLoggerPlugin, {modelName: 'Executive', timestamp: 'yyyy/MM/dd'})
+
+mongoose.plugin<PluginOption>(AwesomeLoggerPlugin, {modelName: 'Executive', timestamp: 'yyyy/MM/dd'})

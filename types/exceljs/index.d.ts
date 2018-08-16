@@ -455,6 +455,11 @@ export interface Row extends Style {
 	outlineLevel?: number;
 
 	/**
+	 * The row number
+	 */
+	readonly number: number;
+
+	/**
 	 * Indicate the collapsed state based on outlineLevel
 	 */
 	readonly collapsed: boolean;
@@ -501,17 +506,17 @@ export interface Column {
 	/**
 	 * Can be a string to set one row high header or an array to set multi-row high header
 	 */
-	header: string | string[];
+	header?: string | string[];
 
 	/**
 	 * The name of the properties associated with this column in each row
 	 */
-	key: string;
+	key?: string;
 
 	/**
 	 * The width of the column
 	 */
-	width: number;
+	width?: number;
 
 	/**
 	 * Set an outline level for columns

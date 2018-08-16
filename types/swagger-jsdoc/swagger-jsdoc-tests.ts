@@ -1,6 +1,4 @@
-/// <reference types="express" />
-
-import * as express from 'express';
+import express = require('express');
 import swaggerJSDoc = require('swagger-jsdoc');
 const app = express();
 

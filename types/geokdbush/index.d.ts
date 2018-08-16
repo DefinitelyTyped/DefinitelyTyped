@@ -3,7 +3,7 @@
 // Definitions by: Denis Carriere <https://github.com/DenisCarriere>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import {KDBush} from 'kdbush';
+import { KDBush } from 'kdbush';
 
 export function around<T>(
   index: KDBush<T>,

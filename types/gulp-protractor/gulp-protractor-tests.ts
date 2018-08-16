@@ -1,6 +1,3 @@
-
-
-
 import gulp = require('gulp');
 import protractor = require('gulp-protractor');
 

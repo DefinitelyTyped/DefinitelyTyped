@@ -1,20 +1,17 @@
 import { Action } from "redux";
 import { Location } from "history";
-import { AuthWrapperDecorator } from "redux-auth-wrapper";
+import { AuthWrapperDecorator } from "..";
 import {
     ConnectedRouterRedirectConfig,
     InjectedAuthReduxProps
-} from "redux-auth-wrapper/history3/redirect";
+} from "../history3/redirect";
 
 export {
     connectedRouterRedirect,
     ConnectedRouterRedirectConfig,
     InjectedAuthReduxProps,
-    InjectedAuthRouterProps,
-    locationHelperBuilder,
-    LocationHelper,
-    LocationHelperConfig
-} from "redux-auth-wrapper/history3/redirect";
+    InjectedAuthRouterProps
+} from "../history3/redirect";
 
 export interface ConnectedReduxRedirectConfig<OwnProps = {}, State = {}> extends ConnectedRouterRedirectConfig<OwnProps, State> {
     redirectAction(location: Location): Action;

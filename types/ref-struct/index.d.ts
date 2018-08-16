@@ -2,6 +2,7 @@
 // Project: https://github.com/TooTallNate/ref-struct
 // Definitions by: Paul Loyd <https://github.com/loyd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 import ref = require('ref');
 
@@ -50,9 +51,9 @@ interface StructType extends ref.Type {
 
 /** The struct type meta-constructor. */
 declare var StructType: {
-    new (fields?: {}): StructType;
+    new (fields?: object, opt?: object): StructType;
     new (fields?: any[]): StructType;
-    (fields?: {}): StructType;
+    (fields?: object, opt?: object): StructType;
     (fields?: any[]): StructType;
 }
 

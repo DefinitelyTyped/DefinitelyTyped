@@ -1,7 +1,8 @@
 // Type definitions for HERE Maps API for JavaScript 3.0
 // Project: https://developer.here.com/
-// Definitions by: Joshua Efiong <https://github.com/Josh-ES/>
+// Definitions by: Joshua Efiong <https://github.com/Josh-ES>
 //                 Bernd Hacker <https://github.com/denyo>
+//                 Ferdinand Armbruster <https://github.com/fx88>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -264,6 +265,12 @@ declare namespace H {
          * @param opt_scope {Object=} - An optional scope to call the callback in.
          */
         addOnDisposeCallback(callback: () => void, opt_scope?: {}): void;
+
+        /**
+         * This returns the map's render engine
+         * @return {H.map.render.p2d.RenderEngine} - map render engine
+         */
+        getEngine(): H.map.render.p2d.RenderEngine;
     }
 
     namespace Map {
@@ -751,6 +758,31 @@ declare namespace H {
     /***** geo *****/
     namespace geo {
         /**
+         * The base class for all geometry types.
+         */
+        class AbstractGeometry {
+            /**
+             * Returns the bounding rectangle of the geometry.
+             * @return {H.geo.Rect} - the bounding rectangle of the geometry or null if the bounding rectangle can't be computed (e.g. for a geometry without coordinates)
+             */
+            getBounds(): H.geo.Rect;
+
+            /**
+             * Checks whether the geometry is equal to the geometry supplied by the caller.
+             * Two geometries are considered as equal if they represent the same geometry type and have equal coordinate values.
+             * @param other {any} - The geometry to check against
+             * @return {boolean} - true if the two geometries are equal, otherwise false
+             */
+            equals(other: any): boolean;
+
+            /**
+             * To obtain a Well-Known-Text (WKT) representation of the geometry.
+             * @return {string} - the resulting WKT string
+             */
+            toString(): string;
+        }
+
+        /**
          * A Geographic coordinate that specifies the height of a point in meters. A value of undefined is treated as 0.
          */
         type Altitude = number;
@@ -805,6 +837,355 @@ declare namespace H {
          * A Geographic coordinate that specifies the east-west position of a point on the Earth's surface in the range from -180 to 180 degrees, inclusive.
          */
         type Longitude = number;
+
+        class LineString {
+            /**
+             * Constructor
+             * @param opt_latLngAlts {number[]=} - An optional array of latitude, longitude and altitude triples to initialize the LineString with.
+             * @param opt_ctx {H.geo.AltitudeContext=} - An optional altitude context for all altitudes contained in this LineString.
+             * @throws {H.lang.InvalidArgumentError} - in case of invalid lat, lng, alt values
+             */
+            constructor(opt_latLngAlts?: number[], opt_ctx?: H.geo.AltitudeContext);
+
+            /**
+             * This method pushes a lat, lng, alt to the end of this LineString.
+             * @param lat {H.geo.Latitude}
+             * @param lng {H.geo.Longitude}
+             * @param alt {H.geo.Altitude}
+             * @throws {H.lang.InvalidArgumentError} - in case of invalid lat, lng, alt value
+             */
+            pushLatLngAlt(lat: H.geo.Latitude, lng: H.geo.Longitude, alt: H.geo.Altitude): void;
+
+            /**
+             * This method splices the LineString at the provided index, removing the specified number of items at that index and inserting the lat, lng, alt array.
+             * @param index {number} - The index at which to splice
+             * @param opt_nRemove {number=} - The number of lat, lng, alt values to remove
+             * @param opt_latLngAlts {number[]=} - The lat, lng, alt values to add
+             * @return {number[]} - An array of removed elements
+             * @throws {H.lang.InvalidArgumentError} - in case of invalid opt_latLngAlts argument
+             */
+            spliceLatLngAlts(index: number, opt_nRemove?: number, opt_latLngAlts?: number[]): number[];
+
+            /**
+             * This method inserts one set of lat, lng, alt values into the LineString at the specified index.
+             * @param index {number} - the index at which to add the element
+             * @param lat {H.geo.Latitude} - the latitude to insert
+             * @param lng {H.geo.Longitude} - the longitude to insert
+             * @param alt {H.geo.Altitude} - the altitude to insert
+             */
+            insertLatLngAlt(index: number, lat: H.geo.Latitude, lng: H.geo.Longitude, alt: H.geo.Altitude): void;
+
+            /**
+             * This method removes one set of lat, lng, alt values from the LineString at the specified index
+             * @param index {number}
+             */
+            removeLatLngAlt(index: number): void;
+
+            /**
+             * This method pushes the lat, lng, alt values of a {H.geo.Point} to the end of this LineString.
+             * @param geoPoint {H.geo.IPoint}
+             * @throws {H.lang.InvalidArgumentError} - in case of invalid geoPoint argument
+             */
+            pushPoint(geoPoint: H.geo.IPoint): void;
+
+            /**
+             * This method inserts the lat, lng, alt values of a H.geo.Point into the list at the specified index.
+             * @param pointIndex {number}
+             * @param geoPoint {H.geo.IPoint}
+             */
+            insertPoint(pointIndex: number, geoPoint: H.geo.IPoint): void;
+
+            /**
+             * This method removes one set of lat, lng, alt values from this LineString at the virtual point index specified.
+             * @param pointIndex {number} - the virtual point index
+             */
+            removePoint(pointIndex: number): void;
+
+            /**
+             * This method extracts a H.geo.Point from this LineString at the virtual point index.
+             * If the extracted point has an alt value, the LineString's altitude context will be supplied to the point.
+             * @param pointIndex {number} - the virtual point index in the LineString
+             * @param opt_out {H.geo.Point=} - an optional point object to store the lat, lng, alt values
+             * @return {H.geo.Point} - Returns either the 'opt_out' point object or a new point object.
+             */
+            extractPoint(pointIndex: number, opt_out?: H.geo.Point): H.geo.Point;
+
+            /**
+             * A utility method to iterate over the points of a line string.
+             * @param eachFn {function(lat, lng, alt, index)} - The function to invoke for every point. It gets the point's latitude, longitude, altitude and index as arguments.
+             * @param opt_start {number=} - The point's start index (inclusive) to iterate from, defaults to 0.
+             * @param opt_end {number=} - The point's end index (exclusive) to iterate to, defaults to Infinity.
+             */
+            eachLatLngAlt(eachFn: (lat: H.geo.Latitude, lng: H.geo.Longitude, alt: H.geo.Altitude, index: number) => void, opt_start?: number, opt_end?: number): void;
+
+            /**
+             * To obtain whether a leg (formed by the given two longitudes) crosses the International Date Line.
+             * @param lng1 {H.geo.Longitude} - The start longitude of the leg
+             * @param lng2 {H.geo.Longitude} - The end longitude of the leg
+             * @return {boolean}
+             */
+            static isDBC(lng1: H.geo.Longitude, lng2: H.geo.Longitude): boolean;
+
+            /**
+             * To obtain the number of times that this LineString cross the International Date Line.
+             * @param opt_asClosed {boolean=} - Indicates whether the LineString is treated as closed (the LineString's last and first coordinates form the closing leg of a polygon).
+             * It defaults to false.
+             * @return {number}
+             */
+            getDBCs(opt_asClosed?: boolean): number;
+
+            /**
+             * This method return the number of points stored in this LineString.
+             * @return {number} - The number of points in this LineString
+             */
+            getPointCount(): number;
+
+            /**
+             * Returns the vertices of the line segments as an array of alternating latitude, longitude and altitude coordinates.
+             * The returned array must be treated as read-only to not violate the integrity of the line-string.
+             * @return {number[]} - Returns the raw lat, lng, alt values of this LineString
+             */
+            getLatLngAltArray(): number[];
+
+            /**
+             * This method returns the bounding box of this LineString.
+             * Note: The LineString is treated as an open path. If the bounding rectangle for a closed shape is required, the closing leg must be merged in an extra step.
+             * @return {H.geo.Rect} - This LineString's bounding rectangle
+             */
+            getBounds(): H.geo.Rect;
+
+            /**
+             * This method initializes a new LineString with an array of lat, lng values. Arrays are expected to have an even length with the format [lat, lng, lat, lng, ...].
+             * @param latLngs {number[]} - the array of lat, lng value.
+             * @return {H.geo.LineString} - The LineString containing the lat, lng values
+             * @throws {H.lang.InvalidArgumentError} - throws an error in case the latLngs array has an odd length
+             */
+            static fromLatLngArray(latLngs: number[]): H.geo.LineString;
+
+            /**
+             * Checks whether the geometry is equal to the geometry supplied by the caller.
+             * Two geometries are considered as equal if they represent the same geometry type and have equal coordinate values.
+             * @param other {any} - The geometry to check against
+             * @return {boolean} - true if the two geometries are equal, otherwise false
+             */
+            equals(other: any): boolean;
+
+            /**
+             * To obtain a Well-Known-Text (WKT) representation of the geometry.
+             * @return {string} - the resulting WKT string
+             */
+            toString(): string;
+        }
+
+        class MultiGeometry<T> extends H.geo.AbstractGeometry {
+            /**
+             * The base class for a geometry that is a container for multiple geometries of a generic type. The type of the contained geometries is specified by the generic type parameter T
+             * @param geometries {T[]} - The list of geometries which are initially aggregated.
+             * @throws {H.lang.InvalidArgumentError} - if geometries parameter is not valid
+             */
+            constructor(geometries: T[]);
+
+            /**
+             * This method splices the specified MultiGeometry at the provided index, removing the specified number of items at that index and inserting new items.
+             * @param index {number} - The index at which to start changing the list.
+             * @param opt_deleteCount {number=} - The number of geometries to remove.
+             * @param opt_items {T[]=} - The geometries to add.
+             * @return {T[]} - the removed geometries.
+             */
+            splice(index: number, opt_deleteCount?: number, opt_items?: T[]): T[];
+
+            /**
+             * Removes a contained geometry at the given index.
+             * @param index {number} - The index of the geometry to remove.
+             * @return {T} - the removed geometry.
+             * @throws {H.lang.OutOfRangeError} - if no geometry exists at the given index.
+             */
+            removeAt(index: number): T;
+
+            /**
+             * Removes the specified geometry from the multi-geometry
+             * @param geometry {T} - The geometry (by reference) to remove from this multi-geometry.
+             * @return {T} - the removed geometry or null if the geometry was not found
+             */
+            remove(geometry: T): T;
+
+            /**
+             * Returns the aggregated geometries of the multi-geometry. The returned geometries must be treated as read-only to not violate the integrity of the multi-geometry.
+             * @return {T[]} - An array of geometries
+             */
+            getGeometries(): T[];
+
+            /**
+             * Adds the specified geometry to the current multi-geometry.
+             * @param geometry {T} - A geometry which will be added to the current multi-geometry
+             * @throws {H.lang.InvalidArgumentError} - in case of invalid geometry argument
+             */
+            push(geometry: T): void;
+
+            /**
+             * Returns the bounding rectangle of the geometry.
+             * @return {H.geo.Rect} - the bounding rectangle of the geometry or null if the bounding rectangle can't be computed (e.g. for a geometry without coordinates)
+             */
+            getBounds(): H.geo.Rect;
+
+            /**
+             * Checks whether the geometry is equal to the geometry supplied by the caller.
+             * Two geometries are considered as equal if they represent the same geometry type and have equal coordinate values.
+             * @param other {any} - The geometry to check against
+             * @return {boolean} - true if the two geometries are equal, otherwise false
+             */
+            equals(other: any): boolean;
+
+            /**
+             * To obtain a Well-Known-Text (WKT) representation of the geometry.
+             * @return {string} - the resulting WKT string
+             */
+            toString(): string;
+        }
+
+        class MultiLineString extends H.geo.MultiGeometry<H.geo.LineString> {
+            /**
+             * A MultiLineString is a collection of line strings represented as a H.geo.MultiGeometry with a H.geo.LineString as generic type parameter T.
+             * @param lineStrings {H.geo.LineString[]} - The list of line-strings which are initially represented by the MultiLineString.
+             * @throws {H.lang.InvalidArgumentError} - if the lineStrings argument is not valid
+             */
+            constructor(lineStrings: H.geo.LineString[]);
+
+            /**
+             * This method splices the specified MultiGeometry at the provided index, removing the specified number of items at that index and inserting new items.
+             * @param index {number} - The index at which to start changing the list.
+             * @param opt_deleteCount {number?} - The number of geometries to remove.
+             * @param opt_items {H.geo.LineString[]?} - The geometries to add.
+             * @return {H.geo.LineString[]} - the removed geometries
+             */
+            splice(index: number, opt_deleteCount?: number, opt_items?: H.geo.LineString[]): H.geo.LineString[];
+
+            /**
+             * Removes a contained geometry at the given index.
+             * @param index {number} - The index of the geometry to remove.
+             * @return {H.geo.LineString} - the removed geometry.
+             * @throws {H.lang.OutOfRangeError} - if no geometry exists at the given index.
+             */
+            removeAt(index: number): H.geo.LineString;
+
+            /**
+             * Removes the specified geometry from the multi-geometry
+             * @param geometry {H.geo.LineString} -The geometry (by reference) to remove from this multi-geometry
+             * @return {H.geo.LineString} -the removed geometry or null if the geometry was not found
+             */
+            remove(geometry: H.geo.LineString): H.geo.LineString;
+
+            /**
+             * Returns the aggregated geometries of the multi-geometry. The returned geometries must be treated as read-only to not violate the integrity of the multi-geometry.
+             * @return {H.geo.LineString[]} - An array of geometries
+             */
+            getGeometries(): H.geo.LineString[];
+
+            /**
+             * Adds the specified geometry to the current multi-geometry.
+             * @param geometry {H.geo.LineString} - A geometry which will be added to the current multi-geometry
+             * @throws {H.lang.InvalidArgumentError} - in case of invalid geometry argument
+             */
+            push(geometry: H.geo.LineString): void;
+
+            /**
+             * Returns the bounding rectangle of the geometry.
+             * @return {H.geo.Rect} - the bounding rectangle of the geometry or null if the bounding rectangle can't be computed (e.g. for a geometry without coordinates)
+             */
+            getBounds(): H.geo.Rect;
+
+            /**
+             * Checks whether the geometry is equal to the geometry supplied by the caller.
+             * Two geometries are considered as equal if they represent the same geometry type and have equal coordinate values.
+             * @param other {any} - The geometry to check against
+             * @return {boolean} - true if the two geometries are equal, otherwise false
+             */
+            equals(other: any): boolean;
+
+            /**
+             * To obtain a Well-Known-Text (WKT) representation of the geometry.
+             * @return {string} - the resulting WKT string
+             */
+            toString(): string;
+        }
+
+        /**
+         * PixelProjection transforms pixel world coordinates at a certain scale (zoom level) to geographical coordinates and vice versa.
+         * By default, it uses the Mercator projection to transform geographic points into the 2d plane map points, which are adjusted to the current scale.
+         * @property projection {H.geo.IProjection} - This property indicates the geographical projection that underlies the given PixelProjection.
+         * @property x {number} - This property holds the x-offset in the projection relative to the top-left corner of the screen.
+         * @property y {number} - This property holds the y-offset in the projection relative to the top-left corner of the screen.
+         * @property w {number} - This property holds a value indicating the width of the world in pixels.
+         * @property h {number} - This property holds a value indicating the height of the world in pixels.
+         */
+        class PixelProjection {
+            /**
+             * Constructor
+             * @param opt_projection {H.geo.IProjection=} - An object representing the projection to use, the default is spherical Mercator H.geo.mercator
+             * @param opt_sizeAtLevelZero {number=} A value indicating the size of a tile representation of the world in pixels at zoom level 0, the default is 256
+             */
+            constructor(opt_projection?: H.geo.IProjection, opt_sizeAtLevelZero?: number);
+
+            projection: H.geo.IProjection;
+            x: number;
+            y: number;
+            w: number;
+            h: number;
+
+            /**
+             * This method updates the scale exponent for the pixel projection.
+             * @param zoom {number} - A value indicating the zoom level
+             */
+            rescale(zoom: number): void;
+
+            /**
+             * This method retrieves the current zoom scale factor previously set by a call to H.geo.PixelProjection#rescale.
+             * @return {number} - A value indicating the zoom scale factor
+             */
+            getZoomScale(): number;
+
+            /**
+             * This method translates a point defines in terms of its geographic coordinates to pixel coordinates at the specified zoom level.
+             * @param geoPoint {H.geo.IPoint} - An object containing the geographic coordinates
+             * @param opt_out {H.math.IPoint=} - An optional point to store the result
+             * @return {H.math.IPoint} - An object representing the results of the the conversion to pixel coordinates
+             */
+            geoToPixel(geoPoint: H.geo.IPoint, opt_out?: H.math.IPoint): H.math.IPoint;
+
+            /**
+             * This method translates a point defined in terms of its pixel coordinates to a location defined in geographic coordinates.
+             * @param point {H.math.IPoint} - An object defining a location on the screen in terms of pixel coordinates
+             * @param opt_out {H.geo.IPoint=} - An optional point to store the result
+             * @return {H.geo.IPoint} - An object representing the results of conversion to a geographic location
+             */
+            pixelToGeo(point: H.math.IPoint, opt_out?: H.geo.IPoint): H.geo.IPoint;
+
+            /**
+             * This method translates the x and y coordinates of a pixel to a geographic point.
+             * @param x {number} - A value indicating the pixel x-coordinate
+             * @param y {number} - A value indicating the pixel y-coordinate
+             * @param opt_out {H.geo.Point=} - An optional point to store the result
+             * @return {H.geo.Point} - An object representing the results of the conversion to a geographic location
+             */
+            xyToGeo(x: number, y: number, opt_out?: H.geo.Point): H.geo.Point;
+
+            /**
+             * This method translates geographical coordinates (latitude, longitude) supplied by the caller into a point defined in terms of pixel coordinates.
+             * This method accepts longitudes outside of the normal longitude range.
+             * @param latitude {number} - The latitude to translate
+             * @param longitude {number} - The longitude to translate
+             * @param opt_out {H.math.IPoint=} - An optional point to store the result
+             * @return {H.math.Point} - The results of the conversion as a point object containing x and y coordinates (in pixels)
+             */
+            latLngToPixel(latitude: number, longitude: number, opt_out?: H.math.IPoint): H.math.Point;
+
+            /**
+             * This method method translates a map point to world pixel coordinates relative to current projection offset.
+             * @param point {H.math.IPoint} - An object representing the map point to convert
+             * @return {H.math.Point} - The result of the conversion as an object containing pixel coordinate
+             */
+            pointToPixel(point: H.math.IPoint): H.math.Point;
+        }
 
         /**
          * Class represents a geographical point, which is defined by the latitude, longitude and optional altitude.
@@ -1254,6 +1635,12 @@ declare namespace H {
              * @returns {H.map.AbstractMarker} - the marker itself
              */
             setIcon(icon: (H.map.Icon | H.map.DomIcon)): H.map.AbstractMarker;
+
+            /**
+             * @property draggable
+             * @description This property ensure that the marker can receive drag events.
+             */
+            draggable?: boolean;
         }
 
         namespace AbstractMarker {
@@ -2156,17 +2543,216 @@ declare namespace H {
         class Polyline extends H.map.GeoShape {
           /**
            * Constructor
-           * @param strip {H.geo.Strip} - the strip describing this polygon's vertices
+           * @param geometry {H.geo.Strip | H.geo.LineString | H.geo.MultiLineString} - The geometry that defines the line segments of the polyline
            * @param opt_options {H.map.Polyline.Options=} - optional initialization parameters
            */
-          constructor(strip: H.geo.Strip, opt_options?: H.map.Polyline.Options);
+          constructor(geometry: H.geo.Strip | H.geo.LineString | H.geo.MultiLineString, opt_options?: H.map.Polyline.Options);
 
           /**
-           * This method clips this polyline against a rectangular area and returns the intersecting sub-lines.
-           * @param geoRect {H.geo.Rect}
-           * @returns {Array<Array<number>>}
+           * To set the polyline's geometry. If the given geometry is modified afterwards, it must be set again via setGeometry(geometry) to not violate the integrity of the polyline.
+           * @param geometry {H.geo.LineString | H.geo.MultiLineString} - the geometry to set.
+           * @return {H.map.Polyline} - The polyline instance itself.
+           */
+          setGeometry(geometry: H.geo.LineString | H.geo.MultiLineString): H.map.Polyline;
+
+          /**
+           * To obtain the polyline's geometry. If you modify the obtained geometry, you must call setGeometry(geometry) afterwards to not violate the integrity of the polyline.
+           * @return {H.geo.LineString | H.geo.MultiLineString}
+           */
+          getGeometry(): H.geo.LineString | H.geo.MultiLineString;
+
+          /**
+           * Clips the geometry of the Polyline to a rectangular area
+           * @param geoRect {H.geo.Rect} - The rectangle to clip against.
+           * @returns {Array<Array<number>>} - a list of geometry segments that intersecting the given rectangle.
+           * Each segment is represented as a list of alternating latitude and longitude coordinates that describes a line string.
            */
           clip(geoRect: H.geo.Rect): number[][];
+
+          /**
+           * Returns the geometry.
+           * @deprecated since 3.0.15.0
+           * @return {H.geo.Strip} - spatial object.
+           */
+          getStrip(): H.geo.Strip;
+
+          /**
+           * Sets the geometry.
+           * @deprecated since 3.0.15.0
+           * @param strip {H.geo.Strip} - The strip which represents geometry.
+           * @return {H.map.GeoShape} - The given spatial object
+           */
+          setStrip(strip: H.geo.Strip): H.map.GeoShape;
+
+          /**
+           * Returns the smallest rectangle which encloses the whole geometry of the GeoShape.
+           * @return {H.geo.Rect}
+           */
+          getBounds(): H.geo.Rect;
+
+          /**
+           * This method retrieves the drawing style of the given spatial object. The returned style is treated as immutable and must not be modified afterwards to prevent inconsistencies!
+           * @return {H.map.SpatialStyle} - The given spatial object
+           */
+          getStyle(): H.map.SpatialStyle;
+
+          /**
+           * This method sets the drawing style of the given spatial object. If the argument opt_style is an instance of H.map.SpatialStyle,
+           * it is treated as immutable and must not be modified afterwards to prevent inconsistencies!
+           * @param opt_style {(H.map.SpatialStyle | H.map.SpatialStyle.Options)=} - The style to set. If it evaluates to a false, the H.map.SpatialStyle.DEFAULT_STYLE is used.
+           * @return {H.map.Spatial} - The given spatial object
+           */
+          setStyle(opt_style?: H.map.SpatialStyle | H.map.SpatialStyle.Options): H.map.Spatial;
+
+          /**
+           * This method retrieves the arrow style of the given spatial object or undefined if the style is not defined.
+           * The returned arrow style is treated as immutable and must not be modified afterwards to prevent inconsistencies!
+           * @return {H.map.ArrowStyle} - An object encapsulating information about the arrow style or undefined if the arrow style is not defined.
+           */
+          getArrows(): H.map.ArrowStyle | undefined;
+
+          /**
+           * This method sets the arrow style of the given spatial object.
+           * @param opt_arrows {(H.map.ArrowStyle | H.map.ArrowStyle.Options)=} - The arrow style to be applied
+           * @return {H.map.Spatial} - The given spatial object
+           */
+          setArrows(opt_arrows?: H.map.ArrowStyle | H.map.ArrowStyle.Options): H.map.Spatial;
+
+          /**
+           * This method indicates whether this spatial object represents a closed shape
+           * @return {boolean} - true if the given spatial object is a closed shape, false otherwise
+           */
+          isClosed(): boolean;
+
+          /**
+           * This method retrieves the ID of the given object.
+           * @return {any} The identifier of the given object.
+           */
+          getId(): any;
+
+          /**
+           * This method sets the visibility of the given object.
+           * @param opt_visibility {boolean=} - Indicates whether the map object should be visible.
+           * @return {H.map.Object} - The given object
+           */
+          setVisibility(opt_visibility?: boolean): H.map.Object;
+
+          /**
+           * This method retrieves a value indicating the visibility of the given object.
+           * @param opt_effective {boolean} - Indicates that the effective visibility is requested. In this case the visibility of all possible ancestor groups is also taken into account
+           * @return {boolean} - A value indicating if the object is visible (true) or not false
+           */
+          getVisibility(opt_effective?: boolean): boolean;
+
+          /**
+           * This method retrieves the z-index of the given object.
+           * @return {number} - A value reflecting the z-index of the given object.
+           */
+          getZIndex(): number | undefined;
+
+          /**
+           * This method sets the z-index of the given object.
+           * @param zIndex {number | undefined} - A value indicating the new z-index
+           * @return {H.map.Object} - The given object
+           */
+          setZIndex(zIndex: number | undefined): H.map.Object;
+
+          /**
+           * This method compares the rendering z-order of the given object with another object. (The 'given object' mean the object on which the method has been invoke.)
+           * @param other {H.map.Object} -The map object with which to compare the given object.
+           * @return {number} - A value lower than 0 indicates that the given object has a lower z-order. 0 indicates that both objects have the same z-order.
+           * A value greater than 0, indicates that the given object has a higher z-order.
+           */
+          compareZOrder(other: H.map.Object): number;
+
+          /**
+           * This method retrieves the parent group which contains the given object or null if the object is not contained in any group.
+           * @return {H.map.Group} - An object representing the containing group object or null if the given object is not contained in any group.
+           */
+          getParentGroup(): H.map.Group;
+
+          /**
+           * The root object to which the given object is attached or the object itself if it is not attached to another.
+           * @return {H.map.Object} - An object representing the root group for the given object or the given object if it is not part of a group.
+           */
+          getRootGroup(): H.map.Object;
+
+          /**
+           * This method checks whether the received object is an inclusive descendant of the given object.
+           * @param object {any} - The object to check.
+           * @return {boolean} - true if the given object is contained in the given object, otherwise false
+           */
+          contains(object: any): boolean;
+
+          /**
+           * This method obtains the current provider of the given object
+           * @return {H.map.provider.ObjectProvider} - An object representing the provider
+           */
+          getProvider(): H.map.provider.ObjectProvider;
+
+          /**
+           * This method retrieves the invalidation states for the given object.
+           * @return {H.map.provider.Invalidations} - An object containing the invalidation states
+           */
+          getInvalidations(): H.map.provider.Invalidations;
+
+          /**
+           * This method invalidates the given map object.
+           * @param flags {H.math.BitMask} - The flags indicating the types of changes to the given object
+           * @return {boolean} - Indicates whether a validation was executed (only if the object has a provider)
+           */
+          invalidate(flags: H.math.BitMask): boolean;
+
+          /**
+           * This method retrieves previously stored arbitrary data from the given object.
+           * @return {any} - The previously stored data or undefined if no data was stored.
+           */
+          getData(): any;
+
+          /**
+           * This method stores arbitrary data with the given map object.
+           * @param data {any} - The data to be stored
+           * @return {H.map.Object} - The given map object
+           */
+          setData(data: any): H.map.Object;
+
+          /**
+           * This method adds a listener for a specific event.
+           * Note that to prevent potential memory leaks, you must either call removeEventListener or dispose on the given object when you no longer need it.
+           * @param type {string} - The name of the event
+           * @param handler {function()} - An event handler function
+           * @param opt_capture {boolean=} - true indicates that the method should listen in the capture phase (bubble otherwise)
+           * @param opt_scope {{}=} - An object defining the scope for the handler function
+           */
+          addEventListener(type: string, handler: () => void, opt_capture?: boolean, opt_scope?: {}): void;
+
+          /**
+           * This method removes a previously added listener from the EventTarget instance.
+           * @param type {string} - The name of the event
+           * @param handler {function()} - An event handler function
+           * @param opt_capture {boolean=} - true indicates that the method should listen in the capture phase (bubble otherwise)
+           * @param opt_scope {{}=} - An object defining the scope for the handler function
+           */
+          removeEventListener(type: string, handler: () => void, opt_capture?: boolean, opt_scope?: {}): void;
+
+          /**
+           * This method dispatches an event on the EventTarget object.
+           * @param evt {H.util.Event | string} - An object representing the event or a string with the event name
+           */
+          dispatchEvent(evt: H.util.Event | string): void;
+
+          /**
+           * This method removes listeners from the given object.
+           * Classes that extend EventTarget may need to override this method in order to remove references to DOM Elements and additional listeners.
+           */
+          dispose(): void;
+
+          /**
+           * This method adds a callback which is triggered when the EventTarget object is being disposed.
+           * @param callback {function()} - The callback function.
+           * @param opt_scope {{}=} - An optional scope for the callback function
+           */
+          addOnDisposeCallback(callback: () => void, opt_scope?: {}): void;
         }
 
         namespace Polyline {
@@ -3080,7 +3666,7 @@ declare namespace H {
                  * sessions consistent IDs is needed (e.g. for storing provider data) this property must be specified.
                  * @property min {number=} - The minimal supported zoom level, default is 0
                  * @property max {number=} - The maximal supported zoom level, default is 22
-                 * @property getCopyrights {(function(H.geo.Rect, number) : ?Array<H.map.ICopyright>)=} - A function to replace the default implementation of H.map.provider.Provider#getCopyrights
+                 * @property getCopyrights {(function(H.geo.Rect, number): ?Array<H.map.ICopyright>)=} - A function to replace the default implementation of H.map.provider.Provider#getCopyrights
                  * @property tileSize {number=} - The size of a tile as edge length in pixels. It must be 2^n where n is in range [0 ... 30], default is 256
                  * @property getURL {function(number, number, number)} - The function to create an URL for the specified tile. If it returns a falsy the tile is not requested.
                  * @property crossOrigin {(string | boolean=)} - The CORS settings to use for the crossOrigin attribute for the image, if omitted or if the value evaluates to false no CORS settings
@@ -3215,7 +3801,7 @@ declare namespace H {
                  * Options which are used to initialize the MarkerTileProvider object.
                  * @property min {number=} - The minimal supported zoom level, default is 0
                  * @property max {number=} - The maximal supported zoom level, default is 22
-                 * @property requestData {function(number, number, number, function(Array<H.map.AbstractMarker>), Function) : H.util.ICancelable} - function that fetches marker data and creates array
+                 * @property requestData {function(number, number, number, function(Array<H.map.AbstractMarker>), Function): H.util.ICancelable} - function that fetches marker data and creates array
                  * of H.map.AbstractMarker that is passed success callback, if function fails to fetch data onError callback must be called
                  * @property providesDomMarkers {boolean=} - indicates if markers provided are of type H.map.DomMarker or H.map.Marker, default is H.map.Marker
                  */
@@ -3379,7 +3965,7 @@ declare namespace H {
                  * sessions consistent IDs is needed (e.g. for storing provider data) this property must be specified.
                  * @property min {number=} - The minimal supported zoom level, default is 0
                  * @property max {number=} - The maximal supported zoom level, default is 22
-                 * @property getCopyrights {(function(H.geo.Rect, number) : ?Array<H.map.ICopyright>)=} - A function to replace the default implementation of H.map.provider.Provider#getCopyrights
+                 * @property getCopyrights {(function(H.geo.Rect, number): ?Array<H.map.ICopyright>)=} - A function to replace the default implementation of H.map.provider.Provider#getCopyrights
                  */
                 interface Options {
                     uri?: string;
@@ -3525,6 +4111,261 @@ declare namespace H {
                     max?: number;
                     getCopyrights?(rect: H.geo.Rect, number: number): H.map.ICopyright[];
                     tileSize?: number;
+                }
+            }
+        }
+
+        namespace render {
+            /**
+             * This is an abstract class representing a render engine. Render engines are used to render the geographical position from a view model on the
+             * screen (viewport element). The rendered result may be different for different engines, because every engine uses its own capabilities and
+             * specific implementation to present the current view model data in best possible way. For example, 2D engines create a two-dimensional flat
+             * map composed of tiles, while 3D engines can generate panoramas displaying the same coordinates as a 'street view'.
+             */
+            class RenderEngine extends H.util.EventTarget {
+                /**
+                 * Constructor
+                 * @param viewPort {H.map.ViewPort} - An object representing the map viewport
+                 * @param viewModel {H.map.ViewModel} - An object representing a view of the map
+                 * @param dataModel {H.map.DataModel} - An object encapsulating the data to be rendered on the map (layers and objects)
+                 * @param options {H.map.render.RenderEngine.Options} - An object containing the render engine initialization options
+                 */
+                constructor(viewPort: H.map.ViewPort, viewModel: H.map.ViewModel, dataModel: H.map.DataModel, options: H.map.render.RenderEngine.Options);
+
+                /**
+                 * This method adds a listener for a specific event.
+                 * Note that to prevent potential memory leaks, you must either call removeEventListener or dispose on the given object when you no longer need it.
+                 * @param type {string} - The name of the event
+                 * @param handler {!Function} - An event handler function
+                 * @param opt_capture {boolean=} - true indicates that the method should listen in the capture phase (bubble otherwise)
+                 * @param opt_scope {Object=} - An object defining the scope for the handler function
+                 */
+                addEventListener(type: string, handler: (evt: Event) => void, opt_capture?: boolean, opt_scope?: {}): void;
+
+                /**
+                 * This method removes a previously added listener from the EventTarget instance.
+                 * @param type {string} - The name of the event
+                 * @param handler {!Function} - A previously added event handler
+                 * @param opt_capture {boolean=} - true indicates that the method should listen in the capture phase (bubble otherwise)
+                 * @param opt_scope {Object=} - An object defining the scope for the handler function
+                 */
+                removeEventListener(type: string, handler: (evt: Event) => void, opt_capture?: boolean, opt_scope?: {}): void;
+
+                /**
+                 * This method dispatches an event on the EventTarget object.
+                 * @param evt {H.util.Event|string} - An object representing the event or a string with the event name
+                 */
+                dispatchEvent(evt: H.util.Event | string): void;
+
+                /**
+                 * This method removes listeners from the given object. Classes that extend EventTarget may need to override this method in order to remove
+                 * references to DOM Elements and additional listeners.
+                 */
+                dispose(): void;
+
+                /**
+                 * This method adds a callback which is triggered when the EventTarget object is being disposed.
+                 * @param callback {!Function} - The callback function.
+                 * @param opt_scope {Object=} - An optional scope for the callback function
+                 */
+                addOnDisposeCallback(callback: () => void, opt_scope?: {}): void;
+            }
+
+            namespace RenderEngine {
+                /**
+                 * An object containing the render engine initialization options
+                 */
+                interface Options {
+                    [key: string]: string;
+                }
+
+                /**
+                 * This object defines the modifiers to use for H.map.ViewPort#startInteraction.
+                 */
+                enum InteractionModifiers {
+                    /** changes zoom level during the interaction */
+                    ZOOM,
+                    /** changes map center during the interaction */
+                    HEADING,
+                    /** changes heading angle during the interaction */
+                    TILT,
+                    /** changes tilt angle during the interaction */
+                    INCLINE,
+                    /** changes incline angle during the interaction */
+                    COORD,
+                }
+            }
+
+            /**
+             * The rendering states of the layer.
+             */
+            enum RenderState {
+                /**
+                 * Data loading/processing is still in progress, but there is nothing to render. In this state rendering engine might go to sleep mode after
+                 * certain amount of time to prevent draining of battery on the user device.
+                 */
+                PENDING,
+                /** Data rendering or animation is in progress. */
+                ACTIVE,
+                /** Data rendering or animation is done. */
+                DONE,
+            }
+
+            /**
+             * An object containing rendering parameters.
+             */
+            interface RenderingParams {
+                /**
+                 * The geographical area to render. Note that it is not the same as visible viewport. Specified bounds also include H.Map.Options#margin and
+                 * optionally an additional margin in case of DOM node rendering for a better rendering experience.
+                 * @type {H.geo.Rect}
+                 */
+                bounds: H.geo.Rect;
+
+                /**
+                 * The zoom level to render the data for.
+                 * @type {number}
+                 */
+                zoom: number;
+
+                /**
+                 * The coordinates of the screen center in CSS pixels.
+                 * @type {H.math.Point}
+                 */
+                screenCenter: H.math.Point;
+
+                /**
+                 * The coordinates relative to the screen center where the rendering has the highest priority. If the layer has to request and/or process data
+                 * asynchronously, it's recommended to prioritize the rendering close to this center.
+                 * @type {H.math.Point}
+                 */
+                priorityCenter: H.math.Point;
+
+                /**
+                 * The pixel projection to use to project geographical coordinates into screen coordinates and vice versa.
+                 * @type {H.geo.PixelProjection}
+                 */
+                projection: H.geo.PixelProjection;
+
+                /**
+                 * Indicates whether only cached data should be considered.
+                 * @type {boolean}
+                 */
+                cacheOnly: boolean;
+
+                /**
+                 * The size of the area to render.
+                 * @type {H.math.Size}
+                 */
+                size: H.math.Size;
+
+                /**
+                 * The pixelRatio to use for over-sampling in cases of high-resolution displays.
+                 * See https://developer.mozilla.org/en-US/docs/Web/API/Window/devicePixelRatio.
+                 * @type {number}
+                 */
+                pixelRatio: number;
+            }
+
+            /**
+             * Contains functionality specific to 2D map rendering.
+             */
+            namespace p2d {
+                /**
+                 * This class implements a map render engine. It presents a geographic location (camera data from a view model) and renders all map layers in
+                 * the order in which they are provided in a single 2D canvas element.
+                 */
+                class RenderEngine extends H.map.render.RenderEngine {
+                    /**
+                     * Constructor
+                     * @param viewPort {H.map.ViewPort} - An object representing the map viewport
+                     * @param viewModel {H.map.ViewModel} - An object representing a view of the map
+                     * @param dataModel {H.map.DataModel} - An object encapsulating the data to be rendered on the map (layers and objects)
+                     * @param options {H.map.render.RenderEngine.Options} - An object containing the render engine initialization options
+                     */
+                    constructor(viewPort: H.map.ViewPort, viewModel: H.map.ViewModel, dataModel: H.map.DataModel, options: H.map.render.RenderEngine.Options);
+
+                    /**
+                     * This method sets the length (duration) for all animations run by the render engine in milliseconds.
+                     * @param duration {number} - A value indicating the duration of animations in milliseconds
+                     */
+                    setAnimationDuration(duration: number): void;
+
+                    /**
+                     * This method retrieves the current setting indicating the length of animations (duration) run by the the render engine in milliseconds.
+                     * @return {number}
+                     */
+                    getAnimationDuration(): number;
+
+                    /**
+                     * This method sets a value indicating the easing to apply to animations run by the render engine.
+                     * @param easeFunction {Function(number)} - A function that alters the progress ratio of an animation. It receives an argument indicating
+                     * animation progress as a numeric value in the range between 0 and 1 and must return a numeric value in the same range.
+                     */
+                    setAnimationEase(easeFunction: (progress: number) => number): void;
+
+                    /**
+                     * This method retrieves the current setting representing the easing to be applied to animations.
+                     * @return {Function(number) => number} - A numeric value in the range 0 to 1
+                     */
+                    getAnimationEase(): (progress: number) => number;
+
+                    /**
+                     * This method resets animation settings on the render engine to defaults.
+                     * Duration is set to 300ms and easing to H.util.animation.ease.EASE_OUT_QUAD.
+                     */
+                    resetAnimationDefaults(): void;
+
+                    /**
+                     * This method adds a listener for a specific event.
+                     * Note that to prevent potential memory leaks, you must either call removeEventListener or dispose on the given object when you no longer need it.
+                     * @param type {string} - The name of the event
+                     * @param handler {!Function} - An event handler function
+                     * @param opt_capture {boolean=} - true indicates that the method should listen in the capture phase (bubble otherwise)
+                     * @param opt_scope {Object=} - An object defining the scope for the handler function
+                     */
+                    addEventListener(type: string, handler: (evt: Event) => void, opt_capture?: boolean, opt_scope?: {}): void;
+
+                    /**
+                     * This method removes a previously added listener from the EventTarget instance.
+                     * @param type {string} - The name of the event
+                     * @param handler {!Function} - A previously added event handler
+                     * @param opt_capture {boolean=} - true indicates that the method should listen in the capture phase (bubble otherwise)
+                     * @param opt_scope {Object=} - An object defining the scope for the handler function
+                     */
+                    removeEventListener(type: string, handler: (evt: Event) => void, opt_capture?: boolean, opt_scope?: {}): void;
+
+                    /**
+                     * This method dispatches an event on the EventTarget object.
+                     * @param evt {H.util.Event|string} - An object representing the event or a string with the event name
+                     */
+                    dispatchEvent(evt: H.util.Event | string): void;
+
+                    /**
+                     * This method removes listeners from the given object. Classes that extend EventTarget may need to override this method in order to remove
+                     * references to DOM Elements and additional listeners.
+                     */
+                    dispose(): void;
+
+                    /**
+                     * This method adds a callback which is triggered when the EventTarget object is being disposed.
+                     * @param callback {!Function} - The callback function.
+                     * @param opt_scope {Object=} - An optional scope for the callback function
+                     */
+                    addOnDisposeCallback(callback: () => void, opt_scope?: {}): void;
+                }
+
+                namespace RenderEngine {
+                    interface Options {
+                        /** Object describes how many cached zoom levels should be used as a base map background while base map tiles are */
+                        renderBaseBackground?: {};
+
+                        /** The pixelRatio to use for over-sampling in cases of high-resolution displays */
+                        pixelRatio: number;
+
+                        /** optional */
+                        enableSubpixelRendering?: boolean;
+                    }
                 }
             }
         }
@@ -5694,7 +6535,7 @@ declare namespace H {
              * @param opt_locale {(H.ui.i18n.Localization | string)=} - the language to use (or a full localization object).
              * @returns {H.ui.UI} - the UI instance configured with the default controls
              */
-            static createDefault(map: H.Map, mapTypes: H.service.Platform.MapTypes | H.service.DefaultLayers, opt_locale?: H.ui.i18n.Localization | string): H.ui.UI;
+            static createDefault(map: H.Map, mapTypes: H.service.Platform.MapTypes | H.service.DefaultLayers, opt_locale?: H.ui.i18n.Localization | string): H.ui.UI;
 
             /**
              * This method is used to capture the element view
@@ -5798,7 +6639,7 @@ declare namespace H {
         namespace ZoomRectangle {
             /**
              * @property alignment {H.ui.LayoutAlignment=} - the layout alignment which should be applied to this control, default is H.ui.LayoutAlignment.BOTTOM_RIGHT
-             * @property adjustZoom {function(number, H.Map) : number=} - optional function that defines how zoom level should be changed, by default zoom level is picked to fit the
+             * @property adjustZoom {function(number, H.Map): number=} - optional function that defines how zoom level should be changed, by default zoom level is picked to fit the
              * bounding rectangle into the view port.
              */
             interface Options {
@@ -6042,7 +6883,7 @@ declare namespace H {
              * Constructor
              * @param maxSize {number} - the maximum size of the cache
              * @param opt_onDrop {function(string, ?, number)=} - A callback to be invoked when a data element is dropped from the cache
-             * @param opt_filter {(function(string, ?, number) : boolean)=} - A function to filter data elements that are not to be cached
+             * @param opt_filter {(function(string, ?, number): boolean)=} - A function to filter data elements that are not to be cached
              */
             constructor(maxSize: number, opt_onDrop?: (s: string, i: any, n: number) => void, opt_filter?: (s: string, i: any, n: number) => boolean);
 
@@ -6093,14 +6934,14 @@ declare namespace H {
              * on those entries for which the predicated returns true.
              * @param callback {function(string, ?, number)} - the callback to be invoked for each entry
              * @param opt_ctx {Object=} - an optional context object to be used as this within the callback
-             * @param opt_matcher {(function(string, ?, number) : boolean)=} - an optional match predicate to customize on which entries the callback will be called
+             * @param opt_matcher {(function(string, ?, number): boolean)=} - an optional match predicate to customize on which entries the callback will be called
              */
             forEach(callback: (s: string, i: any, n: number) => void, opt_ctx?: any, opt_matcher?: (s: string, i: any, n: number) => boolean): void;
 
             /**
              * This method removes all data elements from the cache. If the optional match predicate is passed to this method only those data elements will be removed for which the predicate
              * return true.
-             * @param opt_matcher {(function(string, ?, number) : boolean)=} - an optional function that receives an entries id, data and size and may return true or false to either remove it or
+             * @param opt_matcher {(function(string, ?, number): boolean)=} - an optional function that receives an entries id, data and size and may return true or false to either remove it or
              * leave the entry in the cache respectively
              */
             removeAll(opt_matcher?: (s: string, i: any, n: number) => boolean): void;
@@ -6344,14 +7185,14 @@ declare namespace H {
              * those entries for which the predicated returns true.
              * @param callback {function(string, ?, number)} - the callback to be invoked for each entry
              * @param opt_ctx {Object=} - an optional context object to be used as this within the callback
-             * @param opt_matcher {(function(string, ?, number) : boolean)=} - an optional match predicate to customize on which entries the callback will be called
+             * @param opt_matcher {(function(string, ?, number): boolean)=} - an optional match predicate to customize on which entries the callback will be called
              */
             forEach(callback: (s: string, t: any, n: number) => void, opt_ctx?: {}, opt_matcher?: ((s: string, t: any, n: number) => boolean)): void;
 
             /**
              * This method removes all data elements from the cache. If the optional match predicate is passed to this method only those data elements will be removed for which the predicate
              * return true.
-             * @param opt_matcher {(function(string, ?, number) : boolean)=} - an optional function that receives an entries id, data and size and may return true or false to either remove it or
+             * @param opt_matcher {(function(string, ?, number): boolean)=} - an optional function that receives an entries id, data and size and may return true or false to either remove it or
              * leave the entry in the cache respectively
              */
             removeAll(opt_matcher?: ((s: string, t: any, n: number) => boolean)): void;

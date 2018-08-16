@@ -1,13 +1,14 @@
 import * as fs from 'fs';
-import * as resolve from 'resolve';
+import resolve = require('resolve');
 
 function test_basic_async() {
-  resolve('typescript', function(error, resolved) {
+  resolve('typescript', function(error, resolved, pkg) {
     if (error) {
       console.error(error.message);
       return;
     }
     console.log(resolved);
+    console.log(pkg.version);
   });
 }
 
@@ -40,13 +41,15 @@ function test_options_async() {
           return cb(null, stat.isFile());
         }
       });
-    }
-  }, function(error, resolved) {
+    },
+    preserveSymlinks: false,
+  }, function(error, resolved, pkg) {
     if (error) {
       console.error(error.message);
       return;
     }
     console.log(resolved);
+    console.log(pkg.version);
   });
 }
 
@@ -70,9 +73,15 @@ function test_options_sync() {
       } catch (error) {
         return false;
       }
-    }
+    },
+    preserveSymlinks: true,
   });
   console.log(resolved);
+  resolved = resolve.sync('typescript', {
+      readFileSync(file, charset) {
+          return fs.readFileSync(file, charset);
+      }
+  });
 }
 
 function test_is_core() {

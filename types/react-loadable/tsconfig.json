@@ -8,6 +8,7 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -18,6 +19,10 @@
     },
     "files": [
         "index.d.ts",
-        "react-loadable-tests.tsx"
+        "webpack.d.ts",
+        "test/index.tsx",
+        "test/webpack.ts",
+        "test/imports/no-default.tsx",
+        "test/imports/with-default.tsx"
     ]
 }

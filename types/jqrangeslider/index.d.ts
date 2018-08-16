@@ -49,7 +49,7 @@ interface JQRangeSliderOptions {
     durationIn?: number; // fade in length when displaying value labels (only when valueLabels = "change")
     durationOut?: number; // fade out length when displaying value labels (only when valueLabels = "change")
     delayOut?: number; // duration labels are shown after the user changed its values (only when valueLabels = "change")
-    range?: JQRangeSliderRangeLength; // lets you specify minimum and/or maximum range length
+    range?: boolean | JQRangeSliderRangeLength; // lets you specify minimum and/or maximum range length
     symmetricPositionning?: boolean; // show handles and make them clearly select the range. Warning: must be used with 'minimum' and must not be used with 'scale'
     enabled?: boolean; // configure a read-only slider
     scales?: jQRangeSliderScale[]; // TODO support scales

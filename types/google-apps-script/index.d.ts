@@ -1,12 +1,12 @@
 // Type definitions for google-apps-script
 // Project: https://developers.google.com/apps-script/
-// Definitions by: motemen <https://github.com/motemen>
+// Definitions by: motemen <https://github.com/motemen>, grant <https://github.com/grant>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 
 /// <reference path="google-apps-script.base.d.ts"/>
 /// <reference path="google-apps-script.cache.d.ts"/>
 /// <reference path="google-apps-script.calendar.d.ts"/>
+/// <reference path="google-apps-script.card.d.ts"/>
 /// <reference path="google-apps-script.charts.d.ts"/>
 /// <reference path="google-apps-script.contacts.d.ts"/>
 /// <reference path="google-apps-script.content.d.ts"/>
@@ -25,10 +25,10 @@
 /// <reference path="google-apps-script.properties.d.ts"/>
 /// <reference path="google-apps-script.script.d.ts"/>
 /// <reference path="google-apps-script.sites.d.ts"/>
+/// <reference path="google-apps-script.slides.d.ts"/>
 /// <reference path="google-apps-script.spreadsheet.d.ts"/>
 /// <reference path="google-apps-script.types.d.ts"/>
 /// <reference path="google-apps-script.ui.d.ts"/>
 /// <reference path="google-apps-script.url-fetch.d.ts"/>
 /// <reference path="google-apps-script.utilities.d.ts"/>
 /// <reference path="google-apps-script.xml-service.d.ts"/>
-

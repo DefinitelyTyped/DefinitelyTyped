@@ -151,7 +151,7 @@ amplify.request.define("twitter-search", "ajax", {
     }
 });
 
-amplify.request("twitter-search", { term: "amplifyjs" } );
+amplify.request("twitter-search", { term: "amplifyjs" });
 
 // Similarly, we can create a request that searches for mentions, by accepting a username:
 
@@ -168,19 +168,24 @@ amplify.request("twitter-mentions", { user: "amplifyjs" });
 // Example:
 
 const appEnvelopeDecoder: amplify.Decoder = (data, status, xhr, success, error) => {
-    if (data.status === "success") {
-        success(data.data);
-    } else if (data.status === "fail" || data.status === "error") {
-        error(data.message, data.status);
-    } else {
-        error(data.message, "fatal");
+    switch (data.status) {
+        case "success":
+            success(data.data);
+            break;
+        case "fail":
+        case "error":
+            error(data.message, data.status);
+            break;
+        default:
+            error(data.message, "fatal");
+            break;
     }
 };
 
 // a new decoder can be added to the amplifyDecoders interface
 declare module "amplify" {
     interface Decoders {
-        appEnvelope: amplify.Decoder;
+        appEnvelope: Decoder;
     }
 }
 
@@ -213,12 +218,17 @@ amplify.request.define("decoderSingleExample", "ajax", {
     url: "/myAjaxUrl",
     type: "POST",
     decoder(data, status, xhr, success, error) {
-        if (data.status === "success") {
-            success(data.data);
-        } else if (data.status === "fail" || data.status === "error") {
-            error(data.message, data.status);
-        } else {
-            error(data.message, "fatal");
+        switch (data.status) {
+            case "success":
+                success(data.data);
+                break;
+            case "fail":
+            case "error":
+                error(data.message, data.status);
+                break;
+            default:
+                error(data.message, "fatal");
+                break;
         }
     }
 });

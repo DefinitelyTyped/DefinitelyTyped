@@ -11,10 +11,5 @@
 /// <reference types="pouchdb-mapreduce" />
 /// <reference types="pouchdb-replication" />
 
-// TODO: Fixing this lint error will require a large refactor
-/* tslint:disable:no-single-declare-module */
-
-declare module 'pouchdb-browser' {
-    const PouchDb: PouchDB.Static;
-    export = PouchDb;
-}
+declare const PouchDb: PouchDB.Static;
+export = PouchDb;

@@ -1,8 +1,8 @@
-import * as Koa from "koa";
-import * as error from "koa-json-error";
+import Koa = require("koa");
+import error = require("koa-json-error");
 
 const app = new Koa();
 
 app.use(error({
-    preFormat: err => Object.assign({}, err)
+    preFormat: err => ({ ...err }),
 }));

@@ -110,7 +110,8 @@ declare namespace SemanticUI {
     type ApiSettings = ApiSettings.Param;
 
     namespace ApiSettings {
-        type Param = (Pick<_Impl, 'on'> |
+        type Param = (Pick<_Impl, 'api'> |
+            Pick<_Impl, 'on'> |
             Pick<_Impl, 'cache'> |
             Pick<_Impl, 'stateContext'> |
             Pick<_Impl, 'encodeParameters'> |
@@ -156,6 +157,10 @@ declare namespace SemanticUI {
             Partial<Pick<_Impl, keyof _Impl>>;
 
         interface _Impl {
+            api: {
+                [action: string]: string;
+            };
+
             // region Behavior
 
             /**
@@ -270,7 +275,7 @@ declare namespace SemanticUI {
             /**
              * Method for transmitting request to server
              */
-            method: 'post' | 'get';
+            method: 'post' | 'get' | 'put' | 'delete' | 'head' | 'options' | 'patch';
             /**
              * Expected data type of response
              */

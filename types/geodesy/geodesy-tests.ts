@@ -4,7 +4,9 @@ import {
   Dms,
   Vector3d,
   OsGridRef,
-  LatLonEllipsoidal as LatLon, LatLonSpherical } from 'geodesy';
+  LatLonEllipsoidal as LatLon, LatLonSpherical,
+  LatLonVectors
+} from 'geodesy';
 
 /**
  * Mgrs
@@ -165,3 +167,38 @@ LatLonSpherical.crossingParallels(point1, point2, 30);
 const polygon = [new LatLonSpherical(0, 0), new LatLonSpherical(1, 0), new LatLonSpherical(0, 1)];
 LatLonSpherical.areaOf(polygon); // 6.18e9 m²
 LatLonSpherical.areaOf(polygon, 6371e3); // 6.18e9 m²
+
+/**
+ * LatLonVectors
+ */
+const point3 = new LatLonVectors(49.78846, -97.44306);
+const point4 = new LatLonVectors(49.79822, -97.4592);
+const point5 = new LatLonVectors(49.7981, -97.41371);
+const point6 = new LatLonVectors(49.76851, -97.41371);
+const point7 = new LatLonVectors(49.76873, -97.45954);
+const point8 = new LatLonVectors(49.78846, -97.44306);
+point3.toVector(); // Vector3d { x: -0.08363305717526297, y: -0.6401716454146233, z: 0.7636660108677438 }
+point3.greatCircle(45); // Vector3d { x: -0.6311975610221534, y: 0.6270426835846277, z: 0.45651627782881243 }
+point3.distanceTo(point4, 6371e3); // 1587.463492544562 m
+point3.bearingTo(point4); // 313.1353494923952 deg
+point3.midpointTo(point4); // LatLon { lat: 49.79334028019261, lon: -97.45112918683637 }
+point3.intermediatePointTo(point4, 0.25); // LatLon { lat: 49.79090021013134, lon: -97.44709439015365 }
+point3.intermediatePointOnChordTo(point4, 0.5); // LatLon { lat: 49.7933402801926, lon: -97.45112918683637 }
+point3.destinationPoint(100, 0, 6371e3); // LatLon { lat: 49.78935932160593, lon: -97.44306000000003 }
+point3.crossTrackDistanceTo(point4, point5, 6371e3); // 1080.7461902301488 m
+point3.crossTrackDistanceTo(point4, 60, 6371e3); // 1519.091945034438 m
+point3.alongTrackDistanceTo(point4, point5, 6371e3); // 1162.7673995854138 m
+point3.alongTrackDistanceTo(point4, 60, 6371e3); // 460.86875216457025 m
+point3.nearestPointOnSegment(point4, point5); // LatLon { lat: 49.79817930627353, lon: -97.44299978937423 }
+point3.isBetween(point4, point5); // true
+
+const boundary = [point4, point5, point6, point7];
+point3.enclosedBy(boundary); // true
+point3.equals(point4); // false
+point3.equals(point8); // true
+point3.toString('dms', 3); // 49°47′18.456″N, 097°26′35.016″W
+
+// Static functions
+LatLonVectors.intersection(point4, point5, point3, 1); // LatLon { lat: 49.7981787830497, lon: -97.44279718554108 }
+LatLonVectors.areaOf(boundary, 6371e3); // 10768180.94129682 m^2
+LatLonVectors.meanOf(boundary); // LatLon { lat: 49.783392242641824, lon: -97.43653998581752 }

@@ -12,7 +12,7 @@ $(() => {
     $('#ex2').slider({});
 
     const RGBChange = () => {
-        $('#RGB').css('background', 'rgb(' + r.getValue() + ',' + g.getValue() + ',' + b.getValue() + ')');
+        $('#RGB').css('background', `rgb(${r.getValue()},${g.getValue()},${b.getValue()})`);
     };
 
     const r = $('#R').slider()
@@ -89,6 +89,56 @@ $(() => {
 
     $('#ex16a').slider({ min: 0, max: 10, value: 0, focus: true });
     $('#ex16b').slider({ min: 0, max: 10, value: [0, 10], focus: true });
+
+    $("#ex17a").slider({
+        min: 0,
+        max: 10,
+        value: 0,
+        tooltip_position: 'bottom'
+    });
+    $("#ex17b").slider({
+        min: 0,
+        max: 10,
+        value: 0,
+        orientation: 'vertical',
+        tooltip_position: 'left'
+    });
+
+    $("#ex18a").slider({
+        min: 0,
+        max: 10,
+        value: 5,
+        labelledby: 'ex18-label-1'
+    });
+    $("#ex18b").slider({
+        min: 0,
+        max: 10,
+        value: [3, 6],
+        labelledby: ['ex18-label-2a', 'ex18-label-2b']
+    });
+
+    $('#ex22').slider({
+        id: 'slider22',
+        min: 0,
+        max: 20,
+        step: 1,
+        value: 14,
+        rangeHighlights: [{ start: 2, end: 5, class: "category1" },
+                          { start: 7, end: 8, class: "category2" },
+                          { start: 17, end: 19 },
+                          { start: 17, end: 24 },
+                          { start: -3, end: 19 }]});
+
+    $("#ex23").slider({
+        ticks: [0, 1, 2, 3, 4],
+        ticks_positions: [0, 30, 60, 70, 90, 100],
+        ticks_snap_bounds: 200,
+        formatter(value) {
+            return 'Current value: ' + value;
+        },
+        ticks_tooltip: true,
+        step: 0.01
+    });
 
     // examples from https://github.com/seiyria/bootstrap-slider/blob/master/README.md
 

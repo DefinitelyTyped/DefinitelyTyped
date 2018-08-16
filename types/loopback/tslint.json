@@ -3,6 +3,11 @@
     "rules": {
         // TODOs
         "jsdoc-format": false,
+        "no-any-union": false,
+        "no-redundant-jsdoc": false,
+        "no-redundant-jsdoc-2": false,
+        "no-unnecessary-class": false,
+        "no-unnecessary-generics": false,
         "prefer-method-signature": false
     }
 }

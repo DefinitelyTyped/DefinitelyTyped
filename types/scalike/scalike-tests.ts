@@ -1,6 +1,6 @@
 
 
-import {Optional, Some, None, Try, Right, Left, Either, Future} from "scalike";
+import { Optional, Some, None, Try, Right, Left, Either, Future } from "scalike";
 
 // Optional
 Optional(1).map(x => x + 1); // Some(2)

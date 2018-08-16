@@ -15,7 +15,7 @@ const draggie = new Draggabilly(elem, {
 const draggiePosX: number = draggie.position.x;
 const draggiePosY: number = draggie.position.y;
 
-draggie.on( 'dragMove', (event, pointer, moveVector) => {
+draggie.on('dragMove', (event, pointer, moveVector) => {
     const pointerPageX: number = pointer.pageX;
     const pointePageY: number = pointer.pageY;
 
@@ -23,17 +23,17 @@ draggie.on( 'dragMove', (event, pointer, moveVector) => {
     const moveVectorY: number = moveVector.y;
 });
 
-draggie.on( 'dragStart', (event, pointer) => {});
+draggie.on('dragStart', (event, pointer) => {});
 
-draggie.on( 'dragEnd', (event, pointer) => {});
+draggie.on('dragEnd', (event, pointer) => {});
 
-draggie.on( 'pointerDown', (event, pointer) => {});
+draggie.on('pointerDown', (event, pointer) => {});
 
-draggie.on( 'pointerMove', (event, pointer, moveVector) => {});
+draggie.on('pointerMove', (event, pointer, moveVector) => {});
 
-draggie.on( 'pointerUp', (event, pointer) => {});
+draggie.on('pointerUp', (event, pointer) => {});
 
-draggie.on( 'staticClick', (event, pointer) => {});
+draggie.on('staticClick', (event, pointer) => {});
 
 draggie.off('dragMove', (event, pointer, moveVector) => {});
 

@@ -1,2 +1,2 @@
-import {Element} from './Element';
+import { Element } from './Element';
 export declare function createElement(name: string, attrs: any): Element;

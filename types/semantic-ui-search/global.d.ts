@@ -107,6 +107,7 @@ declare namespace SemanticUI {
 
     namespace SearchSettings {
         type Param = (Pick<_Impl, 'apiSettings'> |
+            Pick<_Impl, 'type'> |
             Pick<_Impl, 'minCharacters'> |
             Pick<_Impl, 'transition'> |
             Pick<_Impl, 'duration'> |
@@ -142,6 +143,8 @@ declare namespace SemanticUI {
             Partial<Pick<_Impl, keyof _Impl>>;
 
         interface _Impl {
+            type: string;
+
             // region Behavior
 
             /**

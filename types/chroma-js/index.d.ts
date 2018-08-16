@@ -7,7 +7,7 @@
 /**
  * Chroma.js is a tiny library for all kinds of color conversions and color scales.
  */
-declare namespace Chroma {
+declare namespace chroma {
     interface ColorSpaces {
         rgb: [number, number, number];
         rgba: [number, number, number, number];
@@ -34,9 +34,6 @@ declare namespace Chroma {
         /**
          * Create a color in the specified color space using a, b and c as values.
          *
-         * @param a
-         * @param b
-         * @param c
          * @param colorSpace The color space to use. Defaults to "rgb".
          * @return the color object.
          */
@@ -109,7 +106,7 @@ declare namespace Chroma {
          * Blends two colors using RGB channel-wise blend functions.
          */
         blend(color1: string | Color, color2: string | Color,
-              blendMode: 'multiply' | 'darken' | 'lighten' | 'screen' | 'overlay' | 'burn' | 'dogde'): Color;
+              blendMode: 'multiply' | 'darken' | 'lighten' | 'screen' | 'overlay' | 'burn' | 'dodge'): Color;
 
         /**
          * Returns a random color.
@@ -296,6 +293,8 @@ declare namespace Chroma {
 
         mode(mode: keyof ColorSpaces): this;
 
+        gamma(g: number): this;
+
         cache(use: boolean): boolean;
 
         correctLightness(enable?: boolean): this;
@@ -306,10 +305,10 @@ declare namespace Chroma {
          * You can call scale.colors(n) to quickly grab `c` equi-distant colors from a color scale. If called with no
          * arguments, scale.colors returns the original array of colors used to create the scale.
          */
-        colors(c?: number, format?: 'hex' | 'name'): string[];
-        colors(c?: number, format?: null | 'alpha' | 'darken' | 'brighten' | 'saturate' | 'desaturate'): Color[];
-        colors(c?: number, format?: 'luminance' | 'temperature'): number[];
-        colors<K extends keyof ColorSpaces>(c?: number, format?: K): Array<ColorSpaces[K]>;
+        colors(c: number | undefined, format: undefined | null | 'alpha' | 'darken' | 'brighten' | 'saturate' | 'desaturate'): Color[];
+        colors(c: number | undefined, format: 'luminance' | 'temperature'): number[];
+        colors<K extends keyof ColorSpaces>(c: number | undefined, format: K): Array<ColorSpaces[K]>;
+        colors(c: number | undefined, format?: 'hex' | 'name'): string[];
 
         /**
          * If you want the scale function to return a distinct set of colors instead of a continuous gradient, you can
@@ -353,7 +352,7 @@ declare namespace Chroma {
     }
 }
 
-declare var chroma: Chroma.ChromaStatic;
+declare var chroma: chroma.ChromaStatic;
 
 export = chroma;
 export as namespace chroma;

@@ -1,4 +1,5 @@
 {
+    "private": true,
     "dependencies": {
         "redux": "^3.6.0"
     }

@@ -28,32 +28,23 @@ interface Buffer {
 	/** Shorthand for `ref.reinterpretUntilZeros`. */
 	reinterpretUntilZeros(size: number, offset?: number): Buffer;
 	/** Shorthand for `ref.writeCString`. */
-	writeCString(offset: number, string: string, encoding?: string): void;
+	writeCString(offset: number, input: string, encoding?: string): void;
 	/** Shorthand for `ref.writeInt64BE`. */
-	writeInt64BE(offset: number, input: number): any;
-	/** Shorthand for `ref.writeInt64BE`. */
-	writeInt64BE(offset: number, input: string): any;
+	writeInt64BE(offset: number, input: number | string): any;
 	/** Shorthand for `ref.writeInt64LE`. */
-	writeInt64LE(offset: number, input: number): any;
-	/** Shorthand for `ref.writeInt64LE`. */
-	writeInt64LE(offset: number, input: string): any;
+	writeInt64LE(offset: number, input: number | string): any;
 	/** Shorthand for `ref.writeObject`. */
-	writeObject(offset: number, object: Object): void;
+	writeObject(offset: number, object: object): void;
 	/** Shorthand for `ref.writePointer`. */
 	writePointer(offset: number, pointer: Buffer): void;
 	/** Shorthand for `ref.writeUInt64BE`. */
-	writeUInt64BE(offset: number, input: number): any;
-	/** Shorthand for `ref.writeUInt64BE`. */
-	writeUInt64BE(offset: number, input: string): any;
+	writeUInt64BE(offset: number, input: number | string): any;
 	/** Shorthand for `ref.writeUInt64LE`. */
-	writeUInt64LE(offset: number, input: number): any;
-	/** Shorthand for `ref.writeUInt64LE`. */
-	writeUInt64LE(offset: number, input: string): any;
+	writeUInt64LE(offset: number, input: number | string): any;
 
 	/**
 	 * Generate string for inspecting.
 	 * String includes the hex-encoded memory address of the Buffer instance.
-	 * @override
 	 */
 	inspect(): string;
 }

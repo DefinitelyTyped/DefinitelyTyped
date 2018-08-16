@@ -2,7 +2,7 @@
 // Project: https://github.com/matiascba/react-native-svg-uri#readme
 // Definitions by: Kyle Roach <https://github.com/iRoachie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 import { ImageURISource } from 'react-native';
@@ -37,4 +37,4 @@ export interface SvgUriProps {
   fill?: string;
 }
 
-export default class SvgUri extends React.Component<SvgUriProps, {}> { }
+export default class SvgUri extends React.Component<SvgUriProps> { }

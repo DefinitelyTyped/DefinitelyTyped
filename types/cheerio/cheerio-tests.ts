@@ -1,6 +1,4 @@
-
-
-import * as cheerio from 'cheerio';
+import cheerio = require('cheerio');
 
 /*
  * LOADING
@@ -52,6 +50,7 @@ var $multiEl = $('selector', 'selector', 'selector');
  */
 
 // attr
+$el.attr();
 $el.attr('id');
 $el.attr('id', 'favorite').html();
 
@@ -266,8 +265,7 @@ $el.text();
 $el.text('text');
 
 // .wrap( content )
-// See https://github.com/cheeriojs/cheerio/issues/731
-// $el.wrap($('<div class="red-fruit"></div>')).html();
+$el.wrap($('<div class="red-fruit"></div>')).html();
 
 // .css
 $el.css('width');

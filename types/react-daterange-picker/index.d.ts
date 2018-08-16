@@ -1,9 +1,9 @@
 // Type definitions for React Daterange Picker 1.1
 // Project: https://github.com/onefinestay/react-daterange-picker
-// Definitions by: UNCOVER TRUTH Inc. <https://github.com/uncovertruth/>
+// Definitions by: UNCOVER TRUTH Inc. <https://github.com/uncovertruth>
 //                 MartynasZilinskas <https://github.com/MartynasZilinskas>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as React from "react";
 import * as moment from "moment";
@@ -12,7 +12,7 @@ import * as momentRange from "moment-range";
 export default class DateRangePicker extends React.Component<Props> { }
 export as namespace ReactDateRangePicker;
 
-export interface Props extends React.Props<{}> {
+export interface Props<T = DateRangePicker> extends React.Props<T> {
     bemBlock?: string;
     bemNamespace?: string;
     dateStates?: DateState[];
@@ -39,7 +39,7 @@ export interface Props extends React.Props<{}> {
     singleDateRange?: boolean;
     showLegend?: boolean;
     stateDefinitions?: StateDefinitions;
-    value?: momentRange.MomentRangeExtends | momentRange.DateRange;
+    value?: momentRange.MomentRangeExtends | momentRange.DateRange | moment.Moment;
 }
 
 export interface DateState {
@@ -57,7 +57,7 @@ export interface StateDefinition {
     selectable?: boolean;
 }
 
-export interface PaginationArrowProps extends React.Props<{}> {
+export interface PaginationArrowProps<T = PaginationArrow> extends React.Props<T> {
     disabled?: boolean;
     onTrigger?(): void;
     direction?: 'next' | 'previous';

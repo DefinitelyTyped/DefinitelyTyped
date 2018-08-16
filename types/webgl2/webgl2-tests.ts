@@ -1,6 +1,6 @@
 window.onload = () => {
-    const canvas: HTMLCanvasElement = document.createElement("canvas") as HTMLCanvasElement;
-    const gl: WebGL2RenderingContext | null = canvas.getContext("webgl2", { antialias: false} );
+    const canvas: HTMLCanvasElement = document.createElement("canvas");
+    const gl: WebGL2RenderingContext | null = canvas.getContext("webgl2", { antialias: false});
 
     if (gl === null) {
         console.log("WebGL2 not available");

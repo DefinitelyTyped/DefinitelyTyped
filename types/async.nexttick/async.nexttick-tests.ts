@@ -1,4 +1,4 @@
-import {nextTick} from 'async.nexttick';
+import { nextTick } from 'async.nexttick';
 
 function calledOnNextTick(a: string): number {
     return parseInt(a, 10);
