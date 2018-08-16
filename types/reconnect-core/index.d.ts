@@ -8,7 +8,7 @@ import { Backoff, ExponentialOptions  } from "backoff";
 import { EventEmitter } from "events";
 import { Stream } from "stream";
 
-export namespace reconnect {
+declare namespace reconnect {
     // TODO: Once DT supports TS 3.0, use new Generic Rest Parameter feature for
     // ArgType.  Current definitions only support one parameter passed to
     // connect() but the library actually allows any number of args.
@@ -41,7 +41,7 @@ export namespace reconnect {
 
 type ConnectFunction<ArgType, ConnectionType> =
     (this: reconnect.Instance<ArgType, ConnectionType>, opts: ArgType) => ConnectionType;
-export function reconnect<ArgType, ConnectionType>(
+declare function reconnect<ArgType, ConnectionType>(
     cf: ConnectFunction<ArgType, ConnectionType>): reconnect.CustomModule<ArgType, ConnectionType>;
 
-export default reconnect;
+export = reconnect;

@@ -1,8 +1,8 @@
-import reconnect from "reconnect-core";
+import reconnect = require("reconnect-core");
 import { NetConnectOpts, Socket, connect } from "net";
 
 // Approximation of example from docs
-const module = reconnect<NetConnectOpts | string | number, Socket>(arg => {
+const module: reconnect.CustomModule<NetConnectOpts | string | number, Socket> = reconnect(arg => {
     // TS can't resolve passing even the simplest union types to function overloads :-/
     // (see TS issue #14107)
     if (typeof arg === "string") {
@@ -14,16 +14,19 @@ const module = reconnect<NetConnectOpts | string | number, Socket>(arg => {
     }
 });
 
-const conn = module({
+const opts: reconnect.ModuleOptions<Socket> = {
+    failAfter: Infinity,
+    immediate: false,
     initialDelay: 1e3,
     maxDelay: 30e3,
-    strategy: "fibonacci",
-    failAfter: Infinity,
     randomisationFactor: 0,
-    immediate: false
-}, sock => {
-    sock.on("data", console.log);
-});
+    strategy: "fibonacci",
+    onConnect: sock => {
+        sock.on("data", console.log);
+    },
+};
+
+const conn = module(opts);
 
 conn.on("connect", con => con.address())
     .on("reconnect", (n, delay) => {
