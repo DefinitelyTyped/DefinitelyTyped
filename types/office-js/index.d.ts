@@ -1022,7 +1022,11 @@ declare namespace Office {
          */
         closeContainer(): void;
         /**
-         * Opens a browser window and loads the specified URL. 
+         * For internal Microsoft use only. Do not call from your code. Opens a browser window and loads the specified URL.
+         * 
+         * @remarks
+         * <table><tr><td>Requirement sets</td><td>OpenBrowserWindowAPI 1.1</td></tr></table>
+         * 
          * @param url The full URL to be opened including protocol (e.g., https), and port number, if any.
          */
         openBrowserWindow(url: string): void;
