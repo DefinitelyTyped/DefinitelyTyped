@@ -1846,7 +1846,7 @@ declare namespace Office {
          */
         NodeReplaced,
         /**
-         * Triggers when the recipient list of the selected series was changed in Outlook.
+         * Triggers when the recipient list of the selected item was changed in Outlook.
          * 
          * [Api set: Mailbox Preview]
          * 
@@ -8727,11 +8727,7 @@ declare namespace Office {
      */
     export interface Organizer {
         /**
-         * Gets the organizer value of an appointment.
-         * 
-         * The getAsync method starts an asynchronous call to the Exchange server to get the organizer value of an appointment.
-         * 
-         * The organizer value of the item is provided as an {@link Office.EmailAddressDetails} in the asyncResult.value property.
+         * Gets the organizer value of an appointment as an {@link Office.EmailAddressDetails} in the asyncResult.value property.
          * 
          * [Api set: Mailbox Preview]
          * 
