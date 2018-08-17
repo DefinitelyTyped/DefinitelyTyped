@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-type Handler = () => void;
+type Handler = (e?: Event) => void;
 type RequestFullScreenFunction = (element: Element) => void;
 type EventName = 'fullscreenEnabled' | 'fullscreenElement' | 'requestFullscreen' | 'exitFullscreen' | 'fullscreenchange' | 'fullscreenerror';
 
