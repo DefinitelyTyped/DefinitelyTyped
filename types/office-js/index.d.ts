@@ -8714,7 +8714,8 @@ declare namespace Office {
     }
 
     /**
-     * Provides a method to get the organizer value of an appointment in an Outlook add-in.
+     * Represents the appointment organizer, even if an alias or a delegate was used to create the appointment. 
+     * This object provides a method to get the organizer value of an appointment in an Outlook add-in.
      * 
      * [Api set: Mailbox Preview]
      * 
@@ -8861,9 +8862,9 @@ declare namespace Office {
          */
         optionalAttendees: Recipients;
         /**
-         * Gets the email address of the organizer for the specified meeting.
-         *
-         * The organizer property returns an Organizer object that provides a method to get the organizer value.
+         * Gets the organizer for the specified meeting. 
+         * 
+         * The organizer property returns an {@link Office.Organizer | Organizer} object that provides a method to get the organizer value.
          * 
          * [Api set: Mailbox Preview]
          *
