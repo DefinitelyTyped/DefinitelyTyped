@@ -4,6 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 type Handler = () => void;
+type RequestFullScreenFunction = (element: Element) => void;
 
 declare class Fscreen {
     readonly fullscreenElement: Element | undefined;
@@ -15,7 +16,7 @@ declare class Fscreen {
     addEventListener(type: string, handler: Handler, useCapture?: boolean): void;
     removeEventListener(type: string, handler: Handler): void;
     requestFullscreen(element: Element): void;
-    requestFullscreenFunction(element: Element): void;
+    requestFullscreenFunction(element: Element): RequestFullScreenFunction;
 }
 
 declare const fscreen: Fscreen;
