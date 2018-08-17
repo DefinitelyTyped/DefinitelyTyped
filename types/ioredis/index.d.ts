@@ -17,7 +17,6 @@
 
 /// <reference types="node" />
 
-import Promise = require('bluebird');
 import tls = require('tls');
 
 interface RedisStatic {
