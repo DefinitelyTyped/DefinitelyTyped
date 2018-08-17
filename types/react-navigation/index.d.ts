@@ -996,25 +996,16 @@ export namespace NavigationActions {
   const BACK: 'Navigation/BACK';
   const INIT: 'Navigation/INIT';
   const NAVIGATE: 'Navigation/NAVIGATE';
-  const RESET: 'Navigation/RESET';
   const SET_PARAMS: 'Navigation/SET_PARAMS';
-  const URI: 'Navigation/URI';
-  const POP: 'Navigation/POP';
-  const POP_TO_TOP: 'Navigation/POP_TO_TOP';
 
   function init(options?: NavigationInitActionPayload): NavigationInitAction;
   function navigate(
     options: NavigationNavigateActionPayload
   ): NavigationNavigateAction;
-  function reset(options: NavigationResetActionPayload): NavigationResetAction;
   function back(options?: NavigationBackActionPayload): NavigationBackAction;
   function setParams(
     options: NavigationSetParamsActionPayload
   ): NavigationSetParamsAction;
-  function pop(options: NavigationPopActionPayload): NavigationPopAction;
-  function popToTop(
-    options: NavigationPopToTopActionPayload
-  ): NavigationPopToTopAction;
 }
 
 /**
