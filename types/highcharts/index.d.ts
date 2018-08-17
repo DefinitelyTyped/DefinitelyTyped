@@ -5712,6 +5712,46 @@ declare namespace Highcharts {
         y?: number | null;
     }
 
+    interface TimeOptions {
+        /**
+         * A custom Date class for advanced date handling. For example, JDate can be hooked in to handle Jalali dates.
+         * @default undefined
+         * @since 4.0.4
+         */
+        Date?: Date;
+        /**
+         * A callback to return the time zone offset for a given datetime. It takes the timestamp in terms of milliseconds since 
+         * January 1 1970, and returns the timezone offset in minutes. This provides a hook for drawing time based charts in
+         * specific time zones using their local DST crossover dates, with the help of external libraries.
+         * @default undefined
+         * @since 4.1.0
+         */
+        getTimezoneOffset?: (timestamp: Date) => number;
+        /**
+         * Requires moment.js. If the timezone option is specified, it creates a default getTimezoneOffset function that looks
+         * up the specified timezone in moment.js. If moment.js is not included, this throws a Highcharts error in the console,
+         * but does not crash the chart.
+         * @default undefined
+         * @since 5.0.7
+         */
+        timezone?: string;
+        /**
+         * The timezone offset in minutes. Positive values are west, negative values are east of UTC, as in the ECMAScript
+         * getTimezoneOffset method. Use this to display UTC based data in a predefined time zone.
+         * @default 0
+         * @since 3.0.8
+         */
+        timezoneOffset?: number;
+        /**
+         * Whether to use UTC time for axis scaling, tickmark placement and time display in Highcharts.dateFormat.
+         * Advantages of using UTC is that the time displays equally regardless of the user agent's time zone settings.
+         * Local time can be used when the data is loaded in real time or when correct Daylight Saving Time transitions are required.
+         * @default undefined
+         * @since 6.0.5
+         */
+        useUTC?: boolean;
+    }
+
     interface TitleOptions {
         /**
          * The horizontal alignment of the title. Can be one of 'left', 'center' and 'right'.
@@ -6138,6 +6178,10 @@ declare namespace Highcharts {
          * The chart's subtitle
          */
         subtitle?: SubtitleOptions;
+        /**
+         * The chart's time options
+         */
+        time?: TimeOptions;
         /**
          * The chart's main title.
          */
