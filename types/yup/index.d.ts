@@ -55,7 +55,7 @@ export interface Schema<T> {
     oneOf(arrayOfValues: any[], message?: string): this;
     notOneOf(arrayOfValues: any[], message?: string): this;
     when(keys: string | any[], builder: WhenOptions<this>): this;
-    test(name: string, message: string, test: (this: TestContext, value?: any) => boolean | Promise<boolean>, callbackStyleAsync?: boolean): this;
+    test(name: string, message: string, test: (this: TestContext, value?: any) => boolean | ValidationError | Promise<boolean | ValidationError>, callbackStyleAsync?: boolean): this;
     test(options: TestOptions): this;
     transform(fn: TransformFunction<this>): this;
 }
@@ -202,7 +202,7 @@ export interface TestOptions {
     /**
      * Test function, determines schema validity
      */
-    test: (this: TestContext, value: any) => boolean | Promise<boolean>;
+    test: (this: TestContext, value: any) => boolean | ValidationError | Promise<boolean | ValidationError>;
 
     /**
      * The validation error message

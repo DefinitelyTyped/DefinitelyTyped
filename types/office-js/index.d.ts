@@ -600,6 +600,7 @@ declare namespace Office {
     }
     /**
      * Represents the runtime environment of the add-in and provides access to key objects of the API. 
+     * The current context exists as a property of Office. It is accessed using `Office.context`.
      *
      * @remarks 
      * <table><tr><td>Hosts</td><td>Access, Excel, Outlook, PowerPoint, Project, Word </td></tr></table>
@@ -1021,7 +1022,11 @@ declare namespace Office {
          */
         closeContainer(): void;
         /**
-         * Opens a browser window and loads the specified URL. 
+         * For internal Microsoft use only. Do not call from your code. Opens a browser window and loads the specified URL.
+         * 
+         * @remarks
+         * <table><tr><td>Requirement sets</td><td>OpenBrowserWindowAPI 1.1</td></tr></table>
+         * 
          * @param url The full URL to be opened including protocol (e.g., https), and port number, if any.
          */
         openBrowserWindow(url: string): void;

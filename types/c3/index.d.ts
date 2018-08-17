@@ -276,6 +276,12 @@ export interface ChartConfiguration {
          * Set width of gauge chart.
          */
         width?: number;
+        /**
+         * Whether this should be displayed
+         * as a full circle instead of a
+         * half circle.
+         */
+        fullCircle?: boolean;
     };
 
     spline?: {
