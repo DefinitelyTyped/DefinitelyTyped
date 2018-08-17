@@ -217,7 +217,7 @@ declare module "bson" {
 		 * 
 		 * 
 		 */
-		export function encode(data: Object): Class_Buffer;
+		export function encode(data: object): Class_Buffer;
 	
 		/**
 		 * 
@@ -228,7 +228,7 @@ declare module "bson" {
 		 * 
 		 * 
 		 */
-		export function decode(data: Class_Buffer): Object;
+		export function decode(data: Class_Buffer): object;
 	
 	} /** end of `module bson` */
 	export = bson
