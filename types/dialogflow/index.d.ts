@@ -18,16 +18,16 @@ export namespace v2 {
         getAgent(
             request: GetAgentRequest,
             options?: gax.CallOptions,
-            cb?: (err?: Error, agent?: Agent) => void
+            cb?: (err: Error, agent: Agent) => void
         ): Promise<[Agent]>;
         searchAgents(
             request: SearchAgentRequest,
             options?: gax.CallOptions,
             cb?: (
-                err?: Error,
-                agents?: Agent[],
-                arg3?: any,
-                response?: any
+                err: Error,
+                agents: Agent[],
+                arg3: any,
+                response: any
             ) => void
         ): Promise<Agent[]>;
         searchAgentsStream(
@@ -37,22 +37,22 @@ export namespace v2 {
         trainAgent(
             request: TrainAgentRequest,
             options?: gax.CallOptions,
-            cb?: (err?: Error, operation?: gax.Operation) => void
+            cb?: (err: Error, operation: gax.Operation) => void
         ): Promise<[gax.Operation]>;
         exportAgent(
             request: ExportAgentRequest,
             options?: gax.CallOptions,
-            cb?: (err?: Error, operation?: gax.Operation) => void
+            cb?: (err: Error, operation: gax.Operation) => void
         ): Promise<[gax.Operation]>;
         importAgent(
             request: ImportAgentRequest,
             options?: gax.CallOptions,
-            cb?: (err?: Error, operation?: gax.Operation) => void
+            cb?: (err: Error, operation: gax.Operation) => void
         ): Promise<[gax.Operation]>;
         restoreAgent(
             request: RestoreAgentRequest,
             options?: gax.CallOptions,
-            cb?: (err?: Error, operation?: gax.Operation) => void
+            cb?: (err: Error, operation: gax.Operation) => void
         ): Promise<[gax.Operation]>;
     }
 
