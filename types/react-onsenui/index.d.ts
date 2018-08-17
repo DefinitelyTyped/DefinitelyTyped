@@ -281,6 +281,7 @@ export class Ripple extends Component<{
     color?: string,
     background?: string,
     disabled?: boolean,
+    modifier?: string,
 }, any> {}
 
 /*** Forms ***/
