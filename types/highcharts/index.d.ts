@@ -474,6 +474,26 @@ declare namespace Highcharts {
         skipNullPoints?: boolean;
     }
 
+    interface AnimationOptions {
+        /**
+         * The animation duration in milliseconds.
+         */
+        duration: number;
+        /**
+         * The name of an easing function as defined on the Math object.
+         */
+        easing?: string;
+        /**
+         * A callback function to exectute when the animation finishes.
+         */
+        complete?: () => void;
+        /**
+         * A callback function to execute on each step of each attribute or CSS property that's being animated.
+         * The first argument contains information about the animation and progress.
+         */
+        step?: () => void;
+    }
+
     interface AxisTitle {
         /**
          * Alignment of the title relative to the axis values. Possible values are 'low', 'middle' or 'high'.
