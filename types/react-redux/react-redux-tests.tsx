@@ -1155,3 +1155,36 @@ namespace TestFailsMoreSpecificInjectedProps {
   // the following line should fail to compile.
   connect(mapStateToProps, mapDispatchToProps)(Component) // $ExpectError
 }
+
+namespace TestLibraryManagedAttributes {
+	interface OwnProps {
+		bar: number,
+		fn: () => void,
+	}
+
+	type MapStateProps = {
+		foo: string,
+	}
+
+	class Component extends React.Component<OwnProps & MapStateProps> {
+		static defaultProps = {
+			bar: 0,
+		}
+
+		render () {
+			return <div />;
+		}
+	}
+
+	function mapStateToProps (state: any): MapStateProps {
+		return {
+			foo: 'foo',
+		};
+	}
+
+	const ConnectedComponent = connect(mapStateToProps)(Component);
+	<ConnectedComponent fn={() => {}} />
+
+	const ConnectedComponent2 = connect<MapStateProps, void, OwnProps>(mapStateToProps)(Component);
+	<ConnectedComponent fn={() => {}} />
+}
