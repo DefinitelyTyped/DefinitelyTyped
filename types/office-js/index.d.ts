@@ -1084,6 +1084,8 @@ declare namespace Office {
         *
         * @param options - Optional. Accepts an AuthOptions object to define sign-on behaviors.
         * @param callback - Optional. Accepts a callback method to handle the token acquisition attempt. If AsyncResult.status is "succeeded", then AsyncResult.value is the raw AAD v. 2.0-formatted access token.
+        * 
+        * @beta
         */
         getAccessTokenAsync(options?: AuthOptions, callback?: (result: AsyncResult) => void): void;
 
@@ -1749,6 +1751,14 @@ declare namespace Office {
          */
         ActiveViewChanged,
         /**
+         * Triggers when the appointment date or time of the selected series was changed in Outlook.
+         * 
+         * [Api set: Mailbox Preview]
+         * 
+         * @beta
+         */
+        AppointmentTimeChanged,
+        /**
          * Occurs when data within the binding is changed. 
          * To add an event handler for the BindingDataChanged event of a binding, use the addHandlerAsync method of the Binding object. 
          * The event handler receives an argument of type {@link Office.BindingDataChangedEventArgs}.
@@ -1835,6 +1845,14 @@ declare namespace Office {
          * Triggers when a customXmlPart node was replaced.
          */
         NodeReplaced,
+        /**
+         * Triggers when the recipient list of the selected item was changed in Outlook.
+         * 
+         * [Api set: Mailbox Preview]
+         * 
+         * @beta
+         */
+        RecipientsChanged,
         /**
          * Triggers when the recurrence pattern of the selected series was changed in Outlook.
          * 
@@ -8276,7 +8294,7 @@ declare namespace Office {
          *
          * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (<a>) to "LPNoLP" (please see the Examples section for a sample).
          *
-         * [Api set: Mailbox 1.1]
+         * [Api set: Mailbox 1.2]
          *
          * @remarks
          * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
@@ -8307,7 +8325,7 @@ declare namespace Office {
          *
          * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (<a>) to "LPNoLP" (please see the Examples section for a sample).
          *
-         * [Api set: Mailbox 1.1]
+         * [Api set: Mailbox 1.2]
          *
          * @remarks
          * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
@@ -8329,7 +8347,7 @@ declare namespace Office {
          *
          * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (<a>) to "LPNoLP" (please see the Examples section for a sample).
          *
-         * [Api set: Mailbox 1.1]
+         * [Api set: Mailbox 1.2]
          *
          * @remarks
          * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
@@ -8349,7 +8367,7 @@ declare namespace Office {
          *
          * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (<a>) to "LPNoLP" (please see the Examples section for a sample).
          *
-         * [Api set: Mailbox 1.1]
+         * [Api set: Mailbox 1.2]
          *
          * @remarks
          * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
@@ -8696,7 +8714,38 @@ declare namespace Office {
     }
 
     /**
-     * The subclass of {@link Office.Item} dealing with apppointments.
+     * Represents the appointment organizer, even if an alias or a delegate was used to create the appointment. 
+     * This object provides a method to get the organizer value of an appointment in an Outlook add-in.
+     * 
+     * [Api set: Mailbox Preview]
+     * 
+     * @remarks
+     * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+     * 
+     * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr></table>
+     * 
+     * @beta
+     */
+    export interface Organizer {
+        /**
+         * Gets the organizer value of an appointment as an {@link Office.EmailAddressDetails} in the asyncResult.value property.
+         * 
+         * [Api set: Mailbox Preview]
+         * 
+         * @remarks
+         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+         * 
+         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr></table>
+         * 
+         * @param options An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an AsyncResult object.
+         */
+        getAsync(options?: Office.AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
+    }
+
+    /**
+     * The subclass of {@link Office.Item} dealing with appointments.
      * 
      * Important: This is an internal Outlook object, not directly exposed through existing interfaces. You should treat this as a mode of Office.context.mailbox.item. Refer to the Object Model pages for more information.
      */
@@ -8813,6 +8862,22 @@ declare namespace Office {
          */
         optionalAttendees: Recipients;
         /**
+         * Gets the organizer for the specified meeting. 
+         * 
+         * The organizer property returns an {@link Office.Organizer | Organizer} object that provides a method to get the organizer value.
+         * 
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+         *
+         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Appointment Organizer</td></tr></table>
+         *
+         * @beta
+         */
+        organizer: Office.Organizer;
+        /**
          * Gets or sets the recurrence pattern of an appointment.
          * 
          * The recurrence property returns a recurrence object for recurring appointments or meetings requests if an item is a series or an instance in a series. null is returned for single appointments and meeting requests of single appointments.
@@ -8924,7 +8989,7 @@ declare namespace Office {
          * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters.
          * @param options Optional. An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         *        inInline: If true, indicates that the attachment will be shown inline in the message body, and should not be displayed in the attachment list.
+         *        isInline: If true, indicates that the attachment will be shown inline in the message body and should not be displayed in the attachment list.
          * @param callback When the method completes, the function passed in the callback parameter is called with a single parameter of type asyncResult. On success, the attachment identifier will be provided in the asyncResult.value property. If uploading the attachment fails, the asyncResult object will contain an Error object that provides a description of the error.
          */
         addFileAttachmentAsync(uri: string, attachmentName: string, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
@@ -8968,7 +9033,7 @@ declare namespace Office {
          * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters.
          * @param options Optional. An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         *        inInline: If true, indicates that the attachment will be shown inline in the message body, and should not be displayed in the attachment list.
+         *        isInline: If true, indicates that the attachment will be shown inline in the message body and should not be displayed in the attachment list.
          */
         addFileAttachmentAsync(uri: string, attachmentName: string, options: Office.AsyncContextOptions): void;
         /**
@@ -8993,9 +9058,33 @@ declare namespace Office {
          */
         addFileAttachmentAsync(uri: string, attachmentName: string, callback: (result: AsyncResult) => void): void;
         /**
+         * Adds a file to a message or appointment as an attachment.
+         *
+         * The addFileAttachmentFromBase64Async method uploads the file from the base64 encoding and attaches it to the item in the compose form. This method returns the attachment identifier in the AsyncResult.value object.
+         *
+         * You can subsequently use the identifier with the removeAttachmentAsync method to remove the attachment in the same session.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
+         *
+         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Appointment Organizer</td></tr>
+         *
+         * <tr><td>Errors</td><td>AttachmentSizeExceeded - The attachment is larger than allowed.</td></tr><tr><td></td><td>FileTypeNotSupported - The attachment has an extension that is not allowed.</td></tr><tr><td></td><td>NumberOfAttachmentsExceeded - The message or appointment has too many attachments.</td></tr></table>
+         * 
+         * @param base64File The base64 encoded content of an image or file to be added to an email or event.
+         * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters.
+         * @param options Optional. An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         *        isInline: If true, indicates that the attachment will be shown inline in the message body and should not be displayed in the attachment list.
+         * @param callback When the method completes, the function passed in the callback parameter is called with a single parameter of type asyncResult. On success, the attachment identifier will be provided in the asyncResult.value property. If uploading the attachment fails, the asyncResult object will contain an Error object that provides a description of the error.
+         */
+        addFileAttachmentFromBase64Async(base64File: string, attachmentName: string, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        /**
          * Adds an event handler for a supported event.
          * 
-         * Currently the only supported event type is Office.EventType.RecurrencePatternChanged, which is invoked when the user changes the recurrence pattern of a series.
+         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and `Office.EventType.RecurrencePatternChanged`.
          * 
          * [Api set: Mailbox Preview]
          *
@@ -9021,7 +9110,7 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event.
          * 
-         * Currently the only supported event type is Office.EventType.RecurrencePatternChanged, which is invoked when the user changes the recurrence pattern of a series.
+         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and `Office.EventType.RecurrencePatternChanged`.
          * 
          * [Api set: Mailbox Preview]
          *
@@ -9189,7 +9278,7 @@ declare namespace Office {
          *
          * To access the selected data from the callback method, call asyncResult.value.data. To access the source property that the selection comes from, call asyncResult.value.sourceProperty, which will be either body or subject.
          *
-         * [Api set: Mailbox 1.0]
+         * [Api set: Mailbox 1.2]
          *
          * @returns
          * The selected data as a string with format determined by coercionType.
@@ -9213,7 +9302,7 @@ declare namespace Office {
          *
          * To access the selected data from the callback method, call asyncResult.value.data. To access the source property that the selection comes from, call asyncResult.value.sourceProperty, which will be either body or subject.
          *
-         * [Api set: Mailbox 1.0]
+         * [Api set: Mailbox 1.2]
          *
          * @returns
          * The selected data as a string with format determined by coercionType.
@@ -9336,7 +9425,7 @@ declare namespace Office {
        /**
         * Removes an event handler for a supported event.
         * 
-        * Currently the only supported event type is Office.EventType.RecurrencePatternChanged, which is invoked when the user changes the recurrence pattern of a series.
+        * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and `Office.EventType.RecurrencePatternChanged`.
         * 
         * [Api set: Mailbox Preview]
         *
@@ -9362,7 +9451,7 @@ declare namespace Office {
        /**
         * Removes an event handler for a supported event.
         * 
-        * Currently the only supported event type is Office.EventType.RecurrencePatternChanged, which is invoked when the user changes the recurrence pattern of a series.
+        * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and `Office.EventType.RecurrencePatternChanged`.
         * 
         * [Api set: Mailbox Preview]
         *
@@ -9787,7 +9876,7 @@ declare namespace Office {
          */
         optionalAttendees: EmailAddressDetails[];
         /**
-         * Gets the email address of the meeting organizer for a specified meeting. Read mode only.
+         * Gets the email address of the meeting organizer for a specified meeting.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -9886,7 +9975,7 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event.
          * 
-         * Currently the only supported event type is Office.EventType.RecurrencePatternChanged, which is invoked when the user changes the recurrence pattern of a series.
+         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and `Office.EventType.RecurrencePatternChanged`.
          * 
          * [Api set: Mailbox Preview]
          *
@@ -9913,7 +10002,7 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event.
          * 
-         * Currently the only supported event type is Office.EventType.RecurrencePatternChanged, which is invoked when the user changes the recurrence pattern of a series.
+         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and `Office.EventType.RecurrencePatternChanged`.
          * 
          * [Api set: Mailbox Preview]
          *
@@ -10223,7 +10312,7 @@ declare namespace Office {
        /**
         * Removes an event handler for a supported event.
         * 
-        * Currently the only supported event type is Office.EventType.RecurrencePatternChanged, which is invoked when the user changes the recurrence pattern of a series.
+        * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and `Office.EventType.RecurrencePatternChanged`.
         * 
         * [Api set: Mailbox Preview]
         *
@@ -10249,7 +10338,7 @@ declare namespace Office {
        /**
         * Removes an event handler for a supported event.
         * 
-        * Currently the only supported event type is Office.EventType.RecurrencePatternChanged, which is invoked when the user changes the recurrence pattern of a series.
+        * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and `Office.EventType.RecurrencePatternChanged`.
         * 
         * [Api set: Mailbox Preview]
         *
@@ -10389,7 +10478,7 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event.
          * 
-         * Currently the only supported event type is Office.EventType.RecurrencePatternChanged, which is invoked when the user changes the recurrence pattern of a series.
+         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and `Office.EventType.RecurrencePatternChanged`.
          * 
          * [Api set: Mailbox Preview]
          *
@@ -10416,7 +10505,7 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event.
          * 
-         * Currently the only supported event type is Office.EventType.RecurrencePatternChanged, which is invoked when the user changes the recurrence pattern of a series.
+         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and `Office.EventType.RecurrencePatternChanged`.
          * 
          * [Api set: Mailbox Preview]
          *
@@ -10457,7 +10546,7 @@ declare namespace Office {
        /**
         * Removes an event handler for a supported event.
         * 
-        * Currently the only supported event type is Office.EventType.RecurrencePatternChanged, which is invoked when the user changes the recurrence pattern of a series.
+        * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and `Office.EventType.RecurrencePatternChanged`.
         * 
         * [Api set: Mailbox Preview]
         *
@@ -10484,7 +10573,7 @@ declare namespace Office {
        /**
         * Removes an event handler for a supported event.
         * 
-        * Currently the only supported event type is Office.EventType.RecurrencePatternChanged, which is invoked when the user changes the recurrence pattern of a series.
+        * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and `Office.EventType.RecurrencePatternChanged`.
         * 
         * [Api set: Mailbox Preview]
         *
@@ -10552,7 +10641,7 @@ declare namespace Office {
          * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters.
          * @param options Optional. An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         *        inInline: If true, indicates that the attachment will be shown inline in the message body, and should not be displayed in the attachment list.
+         *        isInline: If true, indicates that the attachment will be shown inline in the message body and should not be displayed in the attachment list.
          * @param callback When the method completes, the function passed in the callback parameter is called with a single parameter of type asyncResult. On success, the attachment identifier will be provided in the asyncResult.value property. If uploading the attachment fails, the asyncResult object will contain an Error object that provides a description of the error.
          */
         addFileAttachmentAsync(uri: string, attachmentName: string, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
@@ -10596,7 +10685,7 @@ declare namespace Office {
          * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters.
          * @param options Optional. An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         *        inInline: If true, indicates that the attachment will be shown inline in the message body, and should not be displayed in the attachment list.
+         *        isInline: If true, indicates that the attachment will be shown inline in the message body and should not be displayed in the attachment list.
          */
         addFileAttachmentAsync(uri: string, attachmentName: string, options: Office.AsyncContextOptions): void;
         /**
@@ -10620,6 +10709,31 @@ declare namespace Office {
          * @param callback When the method completes, the function passed in the callback parameter is called with a single parameter of type asyncResult. On success, the attachment identifier will be provided in the asyncResult.value property. If uploading the attachment fails, the asyncResult object will contain an Error object that provides a description of the error.
          */
         addFileAttachmentAsync(uri: string, attachmentName: string, callback: (result: AsyncResult) => void): void;
+
+        /**
+         * Adds a file to a message or appointment as an attachment.
+         *
+         * The addFileAttachmentFromBase64Async method uploads the file from the base64 encoding and attaches it to the item in the compose form. This method returns the attachment identifier in the AsyncResult.value object.
+         *
+         * You can subsequently use the identifier with the removeAttachmentAsync method to remove the attachment in the same session.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
+         *
+         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Appointment Organizer</td></tr>
+         *
+         * <tr><td>Errors</td><td>AttachmentSizeExceeded - The attachment is larger than allowed.</td></tr><tr><td></td><td>FileTypeNotSupported - The attachment has an extension that is not allowed.</td></tr><tr><td></td><td>NumberOfAttachmentsExceeded - The message or appointment has too many attachments.</td></tr></table>
+         * 
+         * @param base64File The base64 encoded content of an image or file to be added to an email or event.
+         * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters.
+         * @param options Optional. An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         *        isInline: If true, indicates that the attachment will be shown inline in the message body and should not be displayed in the attachment list.
+         * @param callback When the method completes, the function passed in the callback parameter is called with a single parameter of type asyncResult. On success, the attachment identifier will be provided in the asyncResult.value property. If uploading the attachment fails, the asyncResult object will contain an Error object that provides a description of the error.
+         */
+        addFileAttachmentFromBase64Async(base64File: string, attachmentName: string, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
 
         /**
          * Adds an Exchange item, such as a message, as an attachment to the message or appointment.
@@ -10773,7 +10887,7 @@ declare namespace Office {
          *
          * To access the selected data from the callback method, call asyncResult.value.data. To access the source property that the selection comes from, call asyncResult.value.sourceProperty, which will be either body or subject.
          *
-         * [Api set: Mailbox 1.0]
+         * [Api set: Mailbox 1.2]
          *
          * @returns
          * The selected data as a string with format determined by coercionType.
@@ -10795,7 +10909,7 @@ declare namespace Office {
          *
          * To access the selected data from the callback method, call asyncResult.value.data. To access the source property that the selection comes from, call asyncResult.value.sourceProperty, which will be either body or subject.
          *
-         * [Api set: Mailbox 1.0]
+         * [Api set: Mailbox 1.2]
          *
          * @returns
          * The selected data as a string with format determined by coercionType.
@@ -11735,7 +11849,7 @@ declare namespace Office {
          * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters.
          * @param options Optional. An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         *        inInline: If true, indicates that the attachment will be shown inline in the message body, and should not be displayed in the attachment list.
+         *        isInline: If true, indicates that the attachment will be shown inline in the message body and should not be displayed in the attachment list.
          * @param callback When the method completes, the function passed in the callback parameter is called with a single parameter of type asyncResult. On success, the attachment identifier will be provided in the asyncResult.value property. If uploading the attachment fails, the asyncResult object will contain an Error object that provides a description of the error.
          */
         addFileAttachmentAsync(uri: string, attachmentName: string, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
@@ -11779,7 +11893,7 @@ declare namespace Office {
          * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters.
          * @param options Optional. An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         *        inInline: If true, indicates that the attachment will be shown inline in the message body, and should not be displayed in the attachment list.
+         *        isInline: If true, indicates that the attachment will be shown inline in the message body and should not be displayed in the attachment list.
          */
         addFileAttachmentAsync(uri: string, attachmentName: string, options: AsyncContextOptions): void;
         /**
@@ -11804,9 +11918,33 @@ declare namespace Office {
          */
         addFileAttachmentAsync(uri: string, attachmentName: string, callback: (result: AsyncResult) => void): void;
         /**
+         * Adds a file to a message or appointment as an attachment.
+         *
+         * The addFileAttachmentFromBase64Async method uploads the file from the base64 encoding and attaches it to the item in the compose form. This method returns the attachment identifier in the AsyncResult.value object.
+         *
+         * You can subsequently use the identifier with the removeAttachmentAsync method to remove the attachment in the same session.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
+         *
+         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Appointment Organizer</td></tr>
+         *
+         * <tr><td>Errors</td><td>AttachmentSizeExceeded - The attachment is larger than allowed.</td></tr><tr><td></td><td>FileTypeNotSupported - The attachment has an extension that is not allowed.</td></tr><tr><td></td><td>NumberOfAttachmentsExceeded - The message or appointment has too many attachments.</td></tr></table>
+         * 
+         * @param base64File The base64 encoded content of an image or file to be added to an email or event.
+         * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters.
+         * @param options Optional. An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         *        isInline: If true, indicates that the attachment will be shown inline in the message body and should not be displayed in the attachment list.
+         * @param callback When the method completes, the function passed in the callback parameter is called with a single parameter of type asyncResult. On success, the attachment identifier will be provided in the asyncResult.value property. If uploading the attachment fails, the asyncResult object will contain an Error object that provides a description of the error.
+         */
+        addFileAttachmentFromBase64Async(base64File: string, attachmentName: string, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        /**
          * Adds an event handler for a supported event.
          * 
-         * Currently the only supported event type is Office.EventType.RecurrencePatternChanged, which is invoked when the user changes the recurrence pattern of a series.
+         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and `Office.EventType.RecurrencePatternChanged`.
          * 
          * [Api set: Mailbox Preview]
          *
@@ -11832,7 +11970,7 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event.
          * 
-         * Currently the only supported event type is Office.EventType.RecurrencePatternChanged, which is invoked when the user changes the recurrence pattern of a series.
+         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and `Office.EventType.RecurrencePatternChanged`.
          * 
          * [Api set: Mailbox Preview]
          *
@@ -12000,7 +12138,7 @@ declare namespace Office {
          *
          * To access the selected data from the callback method, call asyncResult.value.data. To access the source property that the selection comes from, call asyncResult.value.sourceProperty, which will be either body or subject.
          *
-         * [Api set: Mailbox 1.0]
+         * [Api set: Mailbox 1.2]
          *
          * @returns
          * The selected data as a string with format determined by coercionType.
@@ -12022,7 +12160,7 @@ declare namespace Office {
          *
          * To access the selected data from the callback method, call asyncResult.value.data. To access the source property that the selection comes from, call asyncResult.value.sourceProperty, which will be either body or subject.
          *
-         * [Api set: Mailbox 1.0]
+         * [Api set: Mailbox 1.2]
          *
          * @returns
          * The selected data as a string with format determined by coercionType.
@@ -12147,7 +12285,7 @@ declare namespace Office {
         /**
          * Removes an event handler for a supported event.
          * 
-         * Currently the only supported event type is Office.EventType.RecurrencePatternChanged, which is invoked when the user changes the recurrence pattern of a series.
+         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and `Office.EventType.RecurrencePatternChanged`.
          * 
          * [Api set: Mailbox Preview]
          *
@@ -12173,7 +12311,7 @@ declare namespace Office {
         /**
          * Removes an event handler for a supported event.
          * 
-         * Currently the only supported event type is Office.EventType.RecurrencePatternChanged, which is invoked when the user changes the recurrence pattern of a series.
+         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and `Office.EventType.RecurrencePatternChanged`.
          * 
          * [Api set: Mailbox Preview]
          *
@@ -12701,7 +12839,7 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event.
          * 
-         * Currently the only supported event type is Office.EventType.RecurrencePatternChanged, which is invoked when the user changes the recurrence pattern of a series.
+         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and `Office.EventType.RecurrencePatternChanged`.
          * 
          * [Api set: Mailbox Preview]
          *
@@ -12728,7 +12866,7 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event.
          * 
-         * Currently the only supported event type is Office.EventType.RecurrencePatternChanged, which is invoked when the user changes the recurrence pattern of a series.
+         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and `Office.EventType.RecurrencePatternChanged`.
          * 
          * [Api set: Mailbox Preview]
          *
@@ -13038,7 +13176,7 @@ declare namespace Office {
         /**
          * Removes an event handler for a supported event.
          * 
-         * Currently the only supported event type is Office.EventType.RecurrencePatternChanged, which is invoked when the user changes the recurrence pattern of a series.
+         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and `Office.EventType.RecurrencePatternChanged`.
          * 
          * [Api set: Mailbox Preview]
          *
@@ -13064,7 +13202,7 @@ declare namespace Office {
         /**
          * Removes an event handler for a supported event.
          * 
-         * Currently the only supported event type is Office.EventType.RecurrencePatternChanged, which is invoked when the user changes the recurrence pattern of a series.
+         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and `Office.EventType.RecurrencePatternChanged`.
          * 
          * [Api set: Mailbox Preview]
          *
