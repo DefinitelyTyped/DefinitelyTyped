@@ -16599,15 +16599,18 @@ declare namespace Office {
 ////////////////////////////////////////////////////////////////
 
 declare namespace OfficeExtension {
-    /** An abstract proxy object that represents an object in an Office document. 
+    /**
+     * An abstract proxy object that represents an object in an Office document. 
      * You create proxy objects from the context (or from other proxy objects), add commands to a queue to act on the object, and then synchronize the 
      * proxy object state with the document by calling `context.sync()`.
      */
     class ClientObject {
         /** The request context associated with the object */
         context: ClientRequestContext;
-        /** Returns a boolean value for whether the corresponding object is a null object. You must call `context.sync()` before reading the 
-         * isNullObject property. */
+        /**
+         *  Returns a boolean value for whether the corresponding object is a null object. You must call `context.sync()` before reading the 
+         * isNullObject property.
+         */
         isNullObject: boolean;
     }
 }
@@ -16691,8 +16694,10 @@ declare namespace OfficeExtension {
         pendingStatements: string[];
     }
 
-    /** An abstract RequestContext object that facilitates requests to the host Office application. 
-     * The `Excel.run` and `Word.run` methods provide a request context. */
+    /**
+     * An abstract RequestContext object that facilitates requests to the host Office application. 
+     * The `Excel.run` and `Word.run` methods provide a request context.
+     */
     class ClientRequestContext {
         constructor(url?: string);
 
@@ -16702,7 +16707,8 @@ declare namespace OfficeExtension {
         /** Request headers */
         requestHeaders: { [name: string]: string };
 
-        /** Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties. 
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties. 
          * 
          * @param object The object whose properties are loaded.
          * @param option A  comma-delimited string, or array of strings, that specifies the properties/relationships to load, or an 
@@ -16722,14 +16728,18 @@ declare namespace OfficeExtension {
         */
         loadRecursive(object: ClientObject, options: { [typeName: string]: string | string[] | LoadOption }, maxDepth?: number): void;
 
-        /** Adds a trace message to the queue. If the promise returned by `context.sync()` is rejected due to an error, this adds a ".traceMessages" 
+        /**
+         * Adds a trace message to the queue. If the promise returned by `context.sync()` is rejected due to an error, this adds a ".traceMessages" 
          * array to the OfficeExtension.Error object, containing all trace messages that were executed. 
-         * These messages can help you monitor the program execution sequence and detect the cause of the error. */
+         * These messages can help you monitor the program execution sequence and detect the cause of the error. 
+         */
         trace(message: string): void;
 
-        /** Synchronizes the state between JavaScript proxy objects and the Office document, by executing instructions queued on the request context 
+        /**
+         * Synchronizes the state between JavaScript proxy objects and the Office document, by executing instructions queued on the request context 
          * and retrieving properties of loaded Office objects for use in your code. 
-         * This method returns a promise, which is resolved when the synchronization is complete. */
+         * This method returns a promise, which is resolved when the synchronization is complete.
+         */
         sync<T>(passThroughValue?: T): Promise<T>;
 
         /** Debug information */
@@ -16819,9 +16829,11 @@ declare namespace OfficeExtension {
         stack: string;
         /** Error code string, such as "InvalidArgument". */
         code: string;
-        /** Trace messages (if any) that were added via a `context.trace()` invocation before calling `context.sync()`. 
+        /**
+         * Trace messages (if any) that were added via a `context.trace()` invocation before calling `context.sync()`. 
          * If there was an error, this contains all trace messages that were executed before the error occurred. 
-         * These messages can help you monitor the program execution sequence and detect the case of the error. */
+         * These messages can help you monitor the program execution sequence and detect the case of the error.
+         */
         traceMessages: Array<string>;
         /** Debug info (useful for detailed logging of the error, i.e., via `JSON.stringify(...)`). */
         debugInfo: DebugInfo;
@@ -16848,11 +16860,13 @@ declare namespace OfficeExtension {
 }
 
 declare namespace OfficeExtension {
-    /** A Promise object that represents a deferred interaction with the host Office application. 
+    /**
+     * A Promise object that represents a deferred interaction with the host Office application. 
      * The publicly-consumable {@link Office.OfficeExtension.Promise} is available starting in ExcelApi 1.2 and WordApi 1.2. 
      * Promises can be chained via ".then", and errors can be caught via ".catch". 
      * Remember to always use a ".catch" on the outer promise, and to return intermediary promises so as not to break the promise chain. 
-     * When a browser-provided native Promise implementation is available, OfficeExtension.Promise will switch to use the native Promise instead. */
+     * When a browser-provided native Promise implementation is available, OfficeExtension.Promise will switch to use the native Promise instead.
+     */
     const Promise: Office.IPromiseConstructor;
     type IPromise<T> = Promise<T>;
 }
@@ -16871,10 +16885,12 @@ declare namespace OfficeExtension {
          * `add(objects: ClientObject[]): void;` Where objects is an array of objects to be tracked.
          */
         add(object: ClientObject): void;
-        /** Track a set of objects  for automatic adjustment based on surrounding changes in the document. Only some object types require this. 
+        /**
+         * Track a set of objects  for automatic adjustment based on surrounding changes in the document. Only some object types require this. 
          * If you are using an object across ".sync" calls and outside the sequential execution of a ".run" batch, 
          * and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object 
-         * to the tracked object collection when the object was first created. */
+         * to the tracked object collection when the object was first created.
+         */
         add(objects: ClientObject[]): void;
         /** 
          * Release the memory associated with an object that was previously added to this collection. 
@@ -16886,9 +16902,11 @@ declare namespace OfficeExtension {
          * `remove(objects: ClientObject[]): void;` Where objects is an array of objects to be removed.
          */
         remove(object: ClientObject): void;
-        /** Release the memory associated with an object that was previously added to this collection. 
+        /**
+         * Release the memory associated with an object that was previously added to this collection. 
          * Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. 
-         * You will need to call `context.sync()` before the memory release takes effect. */
+         * You will need to call `context.sync()` before the memory release takes effect.
+         */
         remove(objects: ClientObject[]): void;
     }
 }
