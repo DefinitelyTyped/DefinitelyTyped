@@ -700,7 +700,8 @@ declare namespace SocketIO {
 	 * The interface describing a room
 	 */
 	interface Room {
-		sockets: {[id: string]: boolean }
+		sockets: {[id: string]: boolean };
+		length: number;
 	}
 
 	/**
@@ -709,7 +710,7 @@ declare namespace SocketIO {
 	 */
 
 	 interface Rooms {
-		[room: string]: Room
+		[room: string]: Room;
 	 }
 
 	/**
