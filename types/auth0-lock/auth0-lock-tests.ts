@@ -90,6 +90,7 @@ const themeOptions : Auth0LockConstructorOptions = {
         icon: 'http://baz.com/icon.png'
       }
     },
+    hideMainScreenTitle: false,
     labeledSubmitButton: false,
     logo: "https://example.com/assets/logo.png",
     primaryColor: "green"

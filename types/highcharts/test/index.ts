@@ -2457,6 +2457,10 @@ function test_ChartObject() {
     chart.update(<Highcharts.Options> {});
     chart.update(<Highcharts.Options> {}, true);
     chart.update(<Highcharts.Options> {}, true, true);
+    chart.update(<Highcharts.Options> {}, true, true, true);
+    chart.update(<Highcharts.Options> {}, true, true, {
+        duration: 3000,
+    });
 }
 
 function test_ElementObject() {
