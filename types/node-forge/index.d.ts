@@ -73,6 +73,33 @@ declare module "node-forge" {
             function generateKeyPair(options?: GenerateKeyPairOptions, callback?: (err: Error, keypair: KeyPair) => void): KeyPair;
         }
 
+        namespace ed25519 {
+
+            type NativeBuffer = Buffer | Uint8Array;
+
+            namespace constants {
+                const PUBLIC_KEY_BYTE_LENGTH = 32;
+                const PRIVATE_KEY_BYTE_LENGTH = 64;
+                const SEED_BYTE_LENGTH = 32;
+                const SIGN_BYTE_LENGTH = 64;
+                const HASH_BYTE_LENGTH = 64;
+            }
+
+            function generateKeyPair(options?: { seed?: Buffer | Uint8Array | string }): {
+                publicKey: NativeBuffer;
+                privateKey: NativeBuffer;
+            };
+
+            function publicKeyFromPrivateKey(options: { privateKey: NativeBuffer }): NativeBuffer;
+
+            function sign(options: { privateKey: NativeBuffer }): NativeBuffer;
+
+            function verify(options: {
+                signature: Buffer | Uint8Array | util.ByteBuffer | string,
+                publicKey: NativeBuffer
+            }): boolean;
+        }
+
         interface CertificateFieldOptions {
             name?: string;
             type?: string;
