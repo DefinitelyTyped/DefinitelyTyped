@@ -11,7 +11,6 @@
 //                 Qibang Sun <https://github.com/bang88>
 //                 Sergei Butko: <https://github.com/svbutko>
 //                 Veit Lehmann: <https://github.com/levito>
-//                 Roberto Huertas: <https://github.com/robertohuertasm>
 //                 Steven Miller <https://github.com/YourGamesBeOver>
 //                 Armando Assuncao <https://github.com/ArmandoAssuncao>
 //                 Ciaran Liedeman <https://github.com/cliedeman>
@@ -19,8 +18,11 @@
 //                 Jérémy Magrin <https://github.com/magrinj>
 //                 Luca Campana <https://github.com/TizioFittizio>
 //                 Ullrich Schaefer <https://github.com/stigi>
+//                 Linus Unnebäck <https://github.com/LinusU>
+//                 Yosuke Seki <https://github.com/jshosomichi>
+//                 Jake <https://github.com/jakebooyah>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 /**
  * Reference: https://github.com/react-navigation/react-navigation/tree/a37473c5e4833f48796ee6c7c9cb4a8ac49d9c06
@@ -441,9 +443,11 @@ export type NavigationStackAction =
   | NavigationBackAction
   | NavigationSetParamsAction
   | NavigationResetAction
+  | NavigationReplaceAction
   | NavigationPopAction
   | NavigationPushAction
-  | NavigationPopToTopAction;
+  | NavigationPopToTopAction
+  | NavigationCompleteTransitionAction;
 
 export type NavigationTabAction =
   | NavigationInitAction
@@ -585,7 +589,8 @@ export interface NavigationScreenProp<S, P = NavigationParams> {
   openDrawer: () => any;
   closeDrawer: () => any;
   toggleDrawer: () => any;
-  getParam: <T extends keyof P>(param: T, fallback?: P[T]) => P[T];
+  getParam<T extends keyof P>(param: T, fallback: NonNullable<P[T]>): NonNullable<P[T]>;
+  getParam<T extends keyof P>(param: T): P[T];
   setParams: (newParams: Partial<P>) => boolean;
   addListener: (
     eventName: 'willBlur' | 'willFocus' | 'didFocus' | 'didBlur',
@@ -697,6 +702,28 @@ export interface TransitionConfig {
   // 100% opacity and the underlying container is visible.
   containerStyle?: StyleProp<ViewStyle>;
 }
+
+export type TransitionConfigurer = (
+  transitionProps: NavigationTransitionProps,
+  prevTransitionProps: NavigationTransitionProps,
+  isModal: boolean
+) => TransitionConfig;
+
+export interface StackViewTransitionConfigsType {
+  defaultTransitionConfig: TransitionConfigurer;
+  getTransitionConfig: (
+    transitionConfigurer: TransitionConfigurer,
+    transitionProps: NavigationTransitionProps,
+    prevTransitionProps: NavigationTransitionProps,
+    isModal: boolean
+  ) => TransitionConfig;
+  SlideFromRightIOS: TransitionConfig;
+  ModalSlideFromBottomIOS: TransitionConfig;
+  FadeInFromBottomAndroid: TransitionConfig;
+  FadeOutToBottomAndroid: TransitionConfig;
+}
+
+export const StackViewTransitionConfigs: StackViewTransitionConfigsType;
 
 export type NavigationAnimationSetter = (
   position: AnimatedValue,

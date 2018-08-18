@@ -154,7 +154,7 @@ export interface HierarchyNode<Datum> {
  * Must return an array of data representing the children, and return null or undefined if the current datum has no children.
  * If children is not specified, it defaults to: `(d) => d.children`.
  */
-export function hierarchy<Datum>(data: Datum, children?: (d: Datum) => (Datum[] | null)): HierarchyNode<Datum>;
+export function hierarchy<Datum>(data: Datum, children?: (d: Datum) => (Datum[] | null | undefined)): HierarchyNode<Datum>;
 
 // -----------------------------------------------------------------------
 // Stratify
@@ -182,7 +182,7 @@ export interface StratifyOperator<Datum> {
      *
      * @param id The id accessor.
      */
-    id(id: (d: Datum, i?: number, data?: Datum[]) => (string | null | '' | undefined)): this;
+    id(id: (d: Datum, i: number, data: Datum[]) => (string | null | '' | undefined)): this;
 
     /**
      * Returns the current parent id accessor, which defaults to: `(d) => d.parentId`.
@@ -197,7 +197,7 @@ export interface StratifyOperator<Datum> {
      *
      * @param parentId The parent id accessor.
      */
-    parentId(parentId: (d: Datum, i?: number, data?: Datum[]) => (string | null | '' | undefined)): this;
+    parentId(parentId: (d: Datum, i: number, data: Datum[]) => (string | null | '' | undefined)): this;
 }
 
 /**
@@ -576,7 +576,7 @@ export interface TreemapLayout<Datum> {
  */
 export function treemap<Datum>(): TreemapLayout<Datum>;
 
-// Tiling functions -----------------------------------------------------------------------
+// Tiling functions ------------------------------------------------------
 
 /**
  * Recursively partitions the specified nodes into an approximately-balanced binary tree,
@@ -748,7 +748,7 @@ export interface PackLayout<Datum> {
      *
      * @param radius The specified radius accessor.
      */
-    radius(radius: (node: HierarchyCircularNode<Datum>) => number): this;
+    radius(radius: null | ((node: HierarchyCircularNode<Datum>) => number)): this;
 
     /**
      * Returns the current size, which defaults to [1, 1].

@@ -1,7 +1,6 @@
 // Type definitions for hapi 17.0
 // Project: https://github.com/hapijs/hapi
-// Definitions by: Marc Bornträger <https://github.com/BorntraegerMarc>
-//                 Rafael Souza Fijalkowski <https://github.com/rafaelsouzaf>
+// Definitions by: Rafael Souza Fijalkowski <https://github.com/rafaelsouzaf>
 //                 Justin Simms <https://github.com/jhsimms>
 //                 Simon Schick <https://github.com/SimonSchick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -3790,7 +3789,7 @@ export class Server extends Podium {
      * * path - the route path.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servertablehost)
      */
-    table(host?: string): Array<{settings: ServerRoute; method: Util.HTTP_METHODS_PARTIAL_LOWERCASE, path: string}>; // TODO I am not sure if the ServerRoute is the object expected here
+    table(host?: string): RequestRoute[];
 }
 
 /* + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +

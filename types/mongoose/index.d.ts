@@ -1,4 +1,4 @@
-// Type definitions for Mongoose 5.2.1
+// Type definitions for Mongoose 5.2.2
 // Project: http://mongoosejs.com/
 // Definitions by: horiuchi <https://github.com/horiuchi>
 //                 sindrenm <https://github.com/sindrenm>
@@ -10,6 +10,7 @@
 //                 jussikinnula <https://github.com/jussikinnula>
 //                 ondratra <https://github.com/ondratra>
 //                 alfirin <https://github.com/alfirin>
+//                 Idan Dardikman <https://github.com/idandrd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -151,7 +152,8 @@ declare module "mongoose" {
    * @param fn plugin callback
    * @param opts optional options
    */
-  export function plugin<T>(fn: Function, opts?: T): typeof mongoose;
+  export function plugin(fn: Function): typeof mongoose;
+  export function plugin<T>(fn: Function, opts: T): typeof mongoose;
 
   /** Sets mongoose options */
   export function set(key: string, value: any): void;
@@ -655,7 +657,8 @@ declare module "mongoose" {
      * Registers a plugin for this schema.
      * @param plugin callback
      */
-    plugin<T>(plugin: (schema: Schema, options?: T) => void, opts?: T): this;
+    plugin(plugin: (schema: Schema) => void): this;
+    plugin<T>(plugin: (schema: Schema, options: T) => void, opts: T): this;
 
     /**
      * Defines a post hook for the document
@@ -767,8 +770,8 @@ declare module "mongoose" {
      * @param key option name
      * @param value if not passed, the current option value is returned
      */
-    set(key: string): any;
-    set(key: string, value: any): this;
+    set<T extends keyof SchemaOptions>(key: T): SchemaOptions[T];
+    set<T extends keyof SchemaOptions>(key: T, value: SchemaOptions[T]): this;
 
     /**
      * Adds static "class" methods to Models compiled from this schema.
@@ -2983,6 +2986,8 @@ declare module "mongoose" {
     rawResult?: boolean;
     /** overwrites the schema's strict mode option for this update */
     strict?: boolean;
+    /** The context option lets you set the value of this in update validators to the underlying query. */
+    context?: string;
   }
 
   interface ModelFindOneAndUpdateOptions extends ModelFindByIdAndUpdateOptions {

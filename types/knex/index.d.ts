@@ -312,9 +312,9 @@ declare namespace Knex {
     }
 
     interface Union {
-        (callback: QueryCallback, wrap?: boolean): QueryBuilder;
-        (callbacks: QueryCallback[], wrap?: boolean): QueryBuilder;
-        (...callbacks: QueryCallback[]): QueryBuilder;
+        (callback: QueryCallback | QueryBuilder | Raw, wrap?: boolean): QueryBuilder;
+        (callbacks: (QueryCallback | QueryBuilder | Raw)[], wrap?: boolean): QueryBuilder;
+        (...callbacks: (QueryCallback | QueryBuilder | Raw)[]): QueryBuilder;
         // (...callbacks: QueryCallback[], wrap?: boolean): QueryInterface;
     }
 
@@ -536,6 +536,7 @@ declare namespace Knex {
         acquireConnectionTimeout?: number;
         useNullAsDefault?: boolean;
         searchPath?: string | string[];
+        asyncStackTraces?: boolean;
     }
 
     interface ConnectionConfig {

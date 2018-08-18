@@ -10,8 +10,9 @@
 //                 Jamie Saunders <https://github.com/jrsaunde>
 //                 Paul Melnikow <https://github.com/paulmelnikow>
 //                 Harry Cruse <https://github.com/crusectrl>
+//                 Andrew Palugniok <https://github.com/apalugniok>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 import { CurveFactory } from 'd3-shape';
@@ -917,6 +918,7 @@ export interface XAxisProps extends EventAttributes {
     // see label section at http://recharts.org/#/en-US/api/XAxis
     label?: string | number | Label | LabelProps;
     allowDuplicatedCategory?: boolean;
+    stroke?: string;
 }
 
 export class XAxis extends React.Component<XAxisProps> { }
@@ -968,6 +970,7 @@ export interface YAxisProps extends EventAttributes {
     reversed?: boolean;
     // see label section at http://recharts.org/#/en-US/api/YAxis
     label?: string | number | Label | LabelProps;
+    stroke?: string;
 }
 
 export class YAxis extends React.Component<YAxisProps> { }

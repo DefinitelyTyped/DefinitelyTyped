@@ -12,7 +12,7 @@
 //                 Tanguy Krotoff <https://github.com/tkrotoff>
 //                 Alexander T. <https://github.com/a-tarasyuk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -2102,6 +2102,13 @@ export interface KeyboardAvoidingViewProps extends ViewProps {
      * may be non-zero in some use cases.
      */
     keyboardVerticalOffset?: number;
+
+    /**
+     * Enables or disables the KeyboardAvoidingView.
+     *
+     * Default is true
+     */
+    enabled?: boolean;
 }
 
 /**
@@ -4021,7 +4028,7 @@ export interface SectionBase<ItemT> {
 
     key?: string;
 
-    renderItem?: ListRenderItem<ItemT>;
+    renderItem?: SectionListRenderItem<ItemT>;
 
     ItemSeparatorComponent?: React.ComponentClass<any> | (() => React.ReactElement<any>) | null;
 
@@ -4031,6 +4038,16 @@ export interface SectionBase<ItemT> {
 export interface SectionListData<ItemT> extends SectionBase<ItemT> {
     [key: string]: any;
 }
+
+/**
+ * @see https://facebook.github.io/react-native/docs/sectionlist.html#props
+ */
+
+export interface SectionListRenderItemInfo<ItemT> extends ListRenderItemInfo<ItemT> {
+  section: SectionListData<ItemT>;
+}
+
+export type SectionListRenderItem<ItemT> = (info: SectionListRenderItemInfo<ItemT>) => React.ReactElement<any> | null;
 
 export interface SectionListProps<ItemT> extends ScrollViewProps {
     /**
@@ -4135,7 +4152,7 @@ export interface SectionListProps<ItemT> extends ScrollViewProps {
     /**
      * Default renderer for every item in every section. Can be over-ridden on a per-section basis.
      */
-    renderItem?: ListRenderItem<ItemT>;
+    renderItem?: SectionListRenderItem<ItemT>;
 
     /**
      * Rendered at the top of each section. Sticky headers are not yet supported.
@@ -4737,7 +4754,7 @@ declare class MaskedViewComponent extends React.Component<MaskedViewIOSProps> {}
 declare const MaskedViewBase: Constructor<NativeMethodsMixin> & typeof MaskedViewComponent;
 export class MaskedViewIOS extends MaskedViewBase {}
 
-export interface ModalProps {
+export interface ModalBaseProps {
     // Only `animated` is documented. The JS code says `animated` is
     // deprecated and `animationType` is preferred.
     animated?: boolean;
@@ -4767,34 +4784,41 @@ export interface ModalProps {
      * The `onShow` prop allows passing a function that will be called once the modal has been shown.
      */
     onShow?: (event: NativeSyntheticEvent<any>) => void;
+}
+
+export interface ModalPropsIOS {
+    /**
+     * The `presentationStyle` determines the style of modal to show
+     */
+    presentationStyle?: "fullScreen" | "pageSheet" | "formSheet" | "overFullScreen";
+
     /**
      * The `supportedOrientations` prop allows the modal to be rotated to any of the specified orientations.
      * On iOS, the modal is still restricted by what's specified in your app's Info.plist's UISupportedInterfaceOrientations field.
-     * @platform ios
      */
-    supportedOrientations?: (
-        | "portrait"
-        | "portrait-upside-down"
-        | "landscape"
-        | "landscape-left"
-        | "landscape-right")[];
+    supportedOrientations?: Array<"portrait" | "portrait-upside-down" | "landscape" | "landscape-left" | "landscape-right">;
+
+    /**
+     * The `onDismiss` prop allows passing a function that will be called once the modal has been dismissed.
+     */
+    onDismiss?: () => void;
+
     /**
      * The `onOrientationChange` callback is called when the orientation changes while the modal is being displayed.
      * The orientation provided is only 'portrait' or 'landscape'. This callback is also called on initial render, regardless of the current orientation.
-     * @platform ios
      */
     onOrientationChange?: (event?: NativeSyntheticEvent<any>) => void;
-     /**
-     * The `onDismiss` prop allows passing a function that will be called once the modal has been dismissed.
-     * @platform ios
-     */
-    onDismiss?: () => void;
-    /**
-     * The `presentationStyle` determines the style of modal to show
-     * @platform ios
-     */
-    presentationStyle?: "fullScreen" | "pageSheet" | "formSheet" | "overFullScreen";
 }
+
+export interface ModalPropsAndroid {
+    /**
+     *  Controls whether to force hardware acceleration for the underlying window.
+     */
+    hardwareAccelerated?: boolean;
+}
+
+
+export type ModalProps = ModalBaseProps & ModalPropsIOS & ModalPropsAndroid;
 
 export class Modal extends React.Component<ModalProps> {}
 
@@ -6783,7 +6807,8 @@ export interface AlertIOSStatic {
         message?: string,
         callbackOrButtons?: ((value: string) => void) | Array<AlertIOSButton>,
         type?: AlertType,
-        defaultValue?: string
+        defaultValue?: string,
+        keyboardType?: KeyboardType | KeyboardTypeIOS,
     ) => void;
 }
 
@@ -6840,7 +6865,7 @@ export interface AsyncStorageStatic {
     /**
      * Fetches key and passes the result to callback, along with an Error if there is any.
      */
-    getItem(key: string, callback?: (error?: Error, result?: string) => void): Promise<string>;
+    getItem(key: string, callback?: (error?: Error, result?: string) => void): Promise<string | null>;
 
     /**
      * Sets value for key and calls callback on completion, along with an Error if there is any

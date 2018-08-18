@@ -4959,6 +4959,7 @@ declare namespace chrome.runtime {
 
     export interface ConnectInfo {
         name?: string;
+        includeTlsChannelId?: boolean;
     }
 
     export interface InstalledDetails {

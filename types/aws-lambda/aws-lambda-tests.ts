@@ -479,6 +479,7 @@ str = cloudwatchLogsDecodedData.messageType;
 str = cloudwatchLogsDecodedData.logEvents[0].id;
 num = cloudwatchLogsDecodedData.logEvents[0].timestamp;
 str = cloudwatchLogsDecodedData.logEvents[0].message;
+str = cloudwatchLogsDecodedData.logEvents[0].extractedFields!["example"];
 
 /* ClientContext */
 clientContextClient = clientCtx.client;

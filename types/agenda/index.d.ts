@@ -343,10 +343,11 @@ declare namespace Agenda {
         /**
          * Specifies an interval on which the job should repeat.
          * @param interval A human-readable format String, a cron format String, or a Number.
-         * @param options An optional argument that can include a timezone field. The timezone should be a string as
-         * accepted by moment-timezone and is considered when using an interval in the cron string format.
+         * @param options An optional argument that can include a timezone field or skipImmediate field.
+         * The timezone should be a string as accepted by moment-timezone and is considered when using an interval in the cron string format.
+         * Setting skipImmediate as true will skip the immediate run. The first run will occur only in configured interval.
          */
-        repeatEvery(interval: string | number, options?: { timezone?: string }): this
+        repeatEvery(interval: string | number, options?: { timezone?: string, skipImmediate?: boolean }): this
 
         /**
          * Specifies a time when the job should repeat. [Possible values](https://github.com/matthewmueller/date#examples).

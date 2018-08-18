@@ -16,6 +16,7 @@ import {
     Alert,
     AppState,
     AppStateIOS,
+    AlertIOS,
     BackAndroid,
     BackHandler,
     Button,
@@ -49,6 +50,7 @@ import {
     findNodeHandle,
     ScrollView,
     ScrollViewProps,
+    SectionListRenderItemInfo,
     RefreshControl,
     TabBarIOS,
     NativeModules,
@@ -68,6 +70,8 @@ import {
     TextInputEndEditingEventData,
     TextInputSubmitEditingEventData,
     WebView,
+    KeyboardAvoidingView,
+    Modal,
 } from "react-native";
 
 declare module "react-native" {
@@ -350,9 +354,9 @@ export class SectionListTest extends React.Component<SectionListProps<string>, {
                             <Text>{section.title}</Text>
                         </View>
                     )}
-                    renderItem={(info: { item: string }) => (
+                    renderItem={(info: SectionListRenderItemInfo<string>) => (
                         <View>
-                            <Text>{info.item}</Text>
+                            <Text>{`${info.section.title} - ${info.item}`}</Text>
                         </View>
                     )}
                 />
@@ -724,3 +728,34 @@ class AccessibilityTest extends React.Component {
         );
     }
 }
+
+
+const KeyboardAvoidingViewTest = () => (
+    <KeyboardAvoidingView enabled />
+);
+
+
+const AlertIOSTest = () => {
+    AlertIOS.prompt(
+        'My Prompt',
+        'Enter your email',
+        [
+            {
+                text: 'Cancel',
+                style: 'cancel'
+            },
+            {
+                text: 'Add',
+                onPress: (value: string) => {
+                  console.log(value);
+                },
+              },
+        ],
+        'default',
+        'email-address'
+    );
+}
+
+const ModalTest = () => (
+    <Modal hardwareAccelerated />
+)

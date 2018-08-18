@@ -1519,7 +1519,7 @@ export namespace ImageManipulator {
     type Action = Resize | Rotate | Flip | Crop;
 
     interface Resize {
-        resize: { width: number, height: number };
+        resize: { width?: number, height?: number };
     }
 
     interface Rotate {

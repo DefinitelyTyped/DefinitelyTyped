@@ -1448,6 +1448,15 @@ export class Geometry extends EventDispatcher {
 }
 
 /**
+ * @see <a href="https://github.com/mrdoob/three.js/blob/master/examples/js/BufferGeometryUtils.js">examples/js/BufferGeometryUtils.js</a>
+ */
+export namespace BufferGeometryUtils {
+    export function mergeBufferGeometries(geometries: BufferGeometry[]): BufferGeometry;
+    export function computeTangents(geometry: BufferGeometry): null;
+    export function mergeBufferAttributes(attributes: BufferAttribute[]): BufferAttribute;
+}
+
+/**
  * @deprecated
  */
 export namespace GeometryUtils {
@@ -5657,6 +5666,11 @@ export class WebGLRenderer implements Renderer {
     /**
      * A build in function that can be used instead of requestAnimationFrame. For WebVR projects this function must be used.
      * @param callback The function will be called every available frame. If `null` is passed it will stop any already ongoing animation.
+     */
+    setAnimationLoop(callback: Function): void;
+
+    /**
+     * @deprecated Use {@link WebGLRenderer#setAnimationLoop .setAnimationLoop()} instead.
      */
     animate(callback: Function): void;
 

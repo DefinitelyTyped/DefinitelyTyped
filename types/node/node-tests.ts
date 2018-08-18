@@ -446,6 +446,11 @@ function bufferTests() {
         const arrUint8: Uint8Array = new Uint8Array(2);
         const buf5: Buffer = Buffer.from(arrUint8);
         const buf6: Buffer = Buffer.from(buf1);
+        const sharedArrayBuffer: SharedArrayBuffer = {
+            byteLength: 10,
+            slice: (begin?: number, end?: number) => sharedArrayBuffer
+        };
+        const buf7: Buffer = Buffer.from(sharedArrayBuffer);
     }
 
     // Class Method: Buffer.from(arrayBuffer[, byteOffset[, length]])
@@ -1691,7 +1696,8 @@ namespace http_tests {
             keepAlive: true,
             keepAliveMsecs: 10000,
             maxSockets: Infinity,
-            maxFreeSockets: 256
+            maxFreeSockets: 256,
+            timeout: 15000
         });
 
         var agent: http.Agent = http.globalAgent;
@@ -1748,7 +1754,8 @@ namespace https_tests {
         keepAliveMsecs: 10000,
         maxSockets: Infinity,
         maxFreeSockets: 256,
-        maxCachedSessions: 100
+        maxCachedSessions: 100,
+        timeout: 15000
     });
 
     var agent: https.Agent = https.globalAgent;
@@ -2322,6 +2329,7 @@ namespace child_process_tests {
         childProcess.exec("echo test", { windowsHide: true });
         childProcess.spawn("echo", ["test"], { windowsHide: true });
         childProcess.spawn("echo", ["test"], { windowsHide: true, argv0: "echo-test" });
+        childProcess.spawn("echo", ["test"], { stdio: [0xdeadbeef, undefined, "pipe"] });
         childProcess.spawnSync("echo test");
         childProcess.spawnSync("echo test", {windowsVerbatimArguments: false});
         childProcess.spawnSync("echo test", {windowsVerbatimArguments: false, argv0: "echo-test"});
@@ -3354,7 +3362,7 @@ namespace dns_tests {
         const _addresses: string[] = addresses;
     });
     dns.resolve("nodejs.org", "ANY", (err, addresses) => {
-        const _addresses: ReadonlyArray<dns.AnySrvRecord | dns.AnySoaRecord | dns.AnyNaptrRecord | dns.AnyRecordWithTtl | dns.AnyMxRecord | dns.AnyTxtRecord> = addresses;
+        const _addresses: dns.AnyRecord[] = addresses;
     });
     dns.resolve("nodejs.org", "MX", (err, addresses) => {
         const _addresses: dns.MxRecord[] = addresses;
@@ -3384,6 +3392,14 @@ namespace dns_tests {
         dns.resolve6("nodejs.org", { ttl }, (err, addresses) => {
             const _addresses: string[] | dns.RecordWithTtl[] = addresses;
         });
+    }
+    {
+        const resolver = new dns.Resolver();
+        resolver.setServers(["4.4.4.4"]);
+        resolver.resolve("nodejs.org", (err, addresses) => {
+            const _addresses: string[] = addresses;
+        });
+        resolver.cancel();
     }
 }
 

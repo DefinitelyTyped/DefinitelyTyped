@@ -571,6 +571,12 @@
             "asOfVersion": "1.1.0"
         },
         {
+            "libraryName": "fork-ts-checker-webpack-plugin",
+            "typingsPackageName": "fork-ts-checker-webpack-plugin",
+            "sourceRepoURL": "https://github.com/Realytics/fork-ts-checker-webpack-plugin",
+            "asOfVersion": "0.4.5"
+        },
+        {
             "libraryName": "Foundation Sites",
             "typingsPackageName": "foundation-sites",
             "sourceRepoURL": "http://foundation.zurb.com/",
@@ -677,6 +683,12 @@
             "typingsPackageName": "immutable",
             "sourceRepoURL": "https://github.com/facebook/immutable-js",
             "asOfVersion": "3.8.7"
+        },
+        {
+            "libraryName": "interactjs",
+            "typingsPackageName": "interact.js",
+            "sourceRepoURL": "https://github.com/taye/interact.js",
+            "asOfVersion": "1.3.0"
         },
         {
             "libraryName": "inversify",
@@ -1523,6 +1535,12 @@
             "typingsPackageName": "tstl",
             "sourceRepoURL": "https://github.com/samchon/tstl",
             "asOfVersion": "1.5.7"
+        },
+        {
+            "libraryName": "typed.js",
+            "typingsPackageName": "typed.js",
+            "sourceRepoURL": "https://github.com/mattboldt/typed.js",
+            "asOfVersion": "2.0.9"
         },
         {
             "libraryName": "TypeScript",

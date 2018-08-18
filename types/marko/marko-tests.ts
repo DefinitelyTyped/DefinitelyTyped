@@ -18,7 +18,7 @@ const template: Template = require('template.marko');
     // $ExpectType RenderResult
     template
         .renderSync({ name: 'Marko' })
-        .appendTo(document.body!);
+        .appendTo(document.body);
 
     createServer((req, res) => {
         res.setHeader('content-type', 'text/html');
@@ -30,12 +30,12 @@ const template: Template = require('template.marko');
         .render({ $global: { flags: ['mobile'] } })
         .then((result) => {
             // $ExpectType RenderResult
-            result.appendTo(document.body!);
+            result.appendTo(document.body);
         });
 
     template.render({}, (err: Error | null, result: RenderResult) => {
         // $ExpectType RenderResult
-        result.appendTo(document.body!);
+        result.appendTo(document.body);
     });
 };
 
