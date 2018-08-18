@@ -52,8 +52,8 @@ interface TwitchExt {
 	onContext(
 		contextCallback: <T extends Partial<TwitchExtContext>>(
 			context: T,
-			changed: ReadonlyArray<keyof T>,
-		) => void,
+			changed: ReadonlyArray<keyof T>
+		) => void
 	): void;
 
 	/**
@@ -72,7 +72,7 @@ interface TwitchExt {
 	 * @see https://dev.twitch.tv/docs/extensions/reference/#onpositionchanged
 	 */
 	onPositionChanged(
-		callback: (position: { x: number; y: number }) => void,
+		callback: (position: { x: number; y: number }) => void
 	): void;
 
 	/**
@@ -86,7 +86,7 @@ interface TwitchExt {
 	onVisibilityChanged(
 		callback:
 			| ((isVisible: false) => void)
-			| ((isVisible: true, context: Partial<TwitchExtContext>) => void),
+			| ((isVisible: true, context: Partial<TwitchExtContext>) => void)
 	): void;
 
 	/**
@@ -108,7 +108,7 @@ interface TwitchExt {
 	 */
 	listen(
 		target: string,
-		callback: (target: string, contentType: string, message: string) => void,
+		callback: (target: string, contentType: string, message: string) => void
 	): void;
 
 	/**
@@ -120,7 +120,7 @@ interface TwitchExt {
 	 */
 	unlisten(
 		target: string,
-		callback: (target: string, contentType: string, message: string) => void,
+		callback: (target: string, contentType: string, message: string) => void
 	): void;
 }
 

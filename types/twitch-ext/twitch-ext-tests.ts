@@ -1,8 +1,10 @@
-console.log(`Running ${window.Twitch.ext.version} on ${window.Twitch.ext.environment}`);
+console.log(
+	`Running ${window.Twitch.ext.version} on ${window.Twitch.ext.environment}`
+);
 
 window.Twitch.ext.onAuthorized(auth => {
-	console.log('The JWT that will be passed to the EBS is', auth.token);
-	console.log('The channel ID is', auth.channelId);
+	console.log("The JWT that will be passed to the EBS is", auth.token);
+	console.log("The channel ID is", auth.channelId);
 });
 
 window.Twitch.ext.onContext((context, changed) => {
@@ -13,12 +15,12 @@ window.Twitch.ext.onContext((context, changed) => {
 
 window.Twitch.ext.onVisibilityChanged((isVisible, context) => {
 	if (isVisible) {
-		console.log('Extension became visible');
+		console.log("Extension became visible");
 		if (context.game) {
 			console.log(`Current game is ${context.game}`);
 		}
 	} else {
-		console.log('Extension became invisible');
+		console.log("Extension became invisible");
 	}
 });
 
@@ -30,8 +32,8 @@ window.Twitch.ext.actions.onFollow((didFollow, channelName) => {
 		console.log(`You followed ${channelName}`);
 	}
 });
-window.Twitch.ext.actions.followChannel('hearthsim');
+window.Twitch.ext.actions.followChannel("hearthsim");
 window.Twitch.ext.actions.requestIdShare();
 
 // Developer Rig
-window.Twitch.ext.rig.log('Hello, world!');
+window.Twitch.ext.rig.log("Hello, world!");
