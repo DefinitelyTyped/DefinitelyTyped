@@ -686,31 +686,6 @@ export class ImageBackgroundProps extends React.Component {
     }
 }
 
-class StylePropsTest extends React.PureComponent {
-    render() {
-        const uri = 'https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png'
-
-        return (
-            <View backgroundColor="lightgray" flex={1} overflow="scroll">
-                <Image
-                    borderRadius={100}
-                    // height={200}
-                    margin={20}
-                    overflow="visible" // ps: must fail if "scroll"
-                    source={{ uri }}
-                    style={{ width: 200, height: 200, tintColor: 'green', flexWrap: 'wrap-reverse' }}
-                    // tintColor="green"
-                    // width={200}
-                />
-
-                <Text style={{ /* iOs only */ textTransform: 'capitalize'  }}>
-                    Text
-                </Text>
-            </View>
-        );
-    }
-}
-
 const listViewDataSourceTest = new ListView.DataSource({rowHasChanged: () => true})
 
 class AccessibilityTest extends React.Component {

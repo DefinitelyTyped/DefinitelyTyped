@@ -1919,7 +1919,7 @@ type AccessibilityTrait =
  * @see https://facebook.github.io/react-native/docs/view.html#props
  */
 export interface ViewProps
-    extends ViewPropsAndroid, ViewPropsIOS, GestureResponderHandlers, Touchable, AccessibilityProps, ViewStyle {
+    extends ViewPropsAndroid, ViewPropsIOS, GestureResponderHandlers, Touchable, AccessibilityProps {
     /**
      * This defines how far a touch event can start away from the view.
      * Typical interface guidelines recommend touch targets that are at least
@@ -3605,7 +3605,7 @@ export interface ImageResolvedAssetSource {
 /**
  * @see https://facebook.github.io/react-native/docs/image.html
  */
-export interface ImagePropsBase extends ImagePropsIOS, ImagePropsAndroid, AccessibilityProps, ImageStyle {
+export interface ImagePropsBase extends ImagePropsIOS, ImagePropsAndroid, AccessibilityProps {
     /**
      * onLayout function
      *
@@ -3720,14 +3720,6 @@ export interface ImagePropsBase extends ImagePropsIOS, ImagePropsAndroid, Access
      * A static image to display while downloading the final image off the network.
      */
     defaultSource?: ImageURISource | number;
-
-    /**
-     * Currently broken
-     * @see https://github.com/facebook/react-native/pull/19281
-     */
-    width?: never;
-    height?: never;
-    tintColor?: never;
 }
 
 export interface ImageProps extends ImagePropsBase {
