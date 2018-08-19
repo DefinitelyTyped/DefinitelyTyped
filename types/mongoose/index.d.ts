@@ -1878,6 +1878,12 @@ declare module "mongoose" {
     read(pref: string, tags?: any[]): this;
 
     /**
+     * Sets the readConcern option for the query.
+     * @param level one of the listed read concern level or their aliases
+     */
+    readConcern(level: string): this;
+
+    /**
      * Specifies a $regex query condition.
      * When called with one argument, the most recent path passed to where() is used.
      */
@@ -1903,6 +1909,8 @@ declare module "mongoose" {
     selectedInclusively(): boolean;
     /** Sets query options. */
     setOptions(options: any): this;
+    /** Sets query conditions to the provided JSON object. */
+    setQuery(conditions: any): this;
 
     /**
      * Specifies a $size query condition.
