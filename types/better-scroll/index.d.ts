@@ -1,6 +1,6 @@
 // Type definitions for better-scroll 1.12
 // Project: https://github.com/ustbhuangyi/better-scroll
-// Definitions by: My Self <https://github.com/me>
+// Definitions by: cloudstone <https://github.com/stoneChen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // TypeScript Version: 2.2
