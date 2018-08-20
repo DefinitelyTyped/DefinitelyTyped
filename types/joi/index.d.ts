@@ -137,14 +137,14 @@ export interface UriOptions {
      * Can be an Array or String (strings are automatically escaped for use in a Regular Expression).
      */
     scheme?: string | RegExp | Array<string | RegExp>;
-	/**
-	 * Allow relative URIs. Defaults to `false`.
-	 */
+    /**
+     * Allow relative URIs. Defaults to `false`.
+     */
     allowRelative?: boolean;
-	/**
-	 * Restrict only relative URIs. Defaults to `false`.
-	 */
-	relativeOnly?: boolean;
+    /**
+     * Restrict only relative URIs. Defaults to `false`.
+     */
+    relativeOnly?: boolean;
 }
 
 export interface Base64Options {
