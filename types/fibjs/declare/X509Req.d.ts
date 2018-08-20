@@ -146,7 +146,7 @@ declare class Class_X509Req extends Class__object {
 	 * 
 	 * @async
 	 */
-	sign(issuer: string, key: Class_PKey, opts?: Object/** = v8::Object::New(isolate)*/): Class_X509Cert;
+	sign(issuer: string, key: Class_PKey, opts?: object/** = v8::Object::New(isolate)*/): Class_X509Cert;
 
 } /** endof class */
 
