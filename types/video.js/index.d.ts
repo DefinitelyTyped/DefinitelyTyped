@@ -3765,6 +3765,18 @@ declare namespace videojs {
 		autoplay(): boolean | string;
 
 		/**
+		 * Get the remote {@link TextTrackList}
+		 * @return The current remote text track list
+		 */
+		textTracks(): TextTrackList
+
+		/**
+		 * Get the remote {@link TextTrackList}
+		 * @return The current remote text track list
+		 */
+		remoteTextTracks(): TextTrackList
+
+		/**
 		 * Create a remote {@link TextTrack} and an {@link HTMLTrackElement}. It will
 		 * automatically removed from the video element whenever the source changes, unless
 		 * manualCleanup is set to false.
