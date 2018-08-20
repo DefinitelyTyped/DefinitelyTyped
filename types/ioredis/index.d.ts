@@ -45,7 +45,7 @@ declare class Commander {
 }
 
 declare namespace IORedis {
-    type KeyType = string | Buffer
+    type KeyType = string | Buffer;
 
     interface Command {
         setArgumentTransformer(name: string, fn: (args: any[]) => any[]): void;
