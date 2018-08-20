@@ -4,7 +4,7 @@ import * as fs from "fs";
 import * as stream from "stream";
 
 function test_add_prefix() {
-    const writer: N3.Writer = new N3.Writer();
+    const writer: N3.N3Writer = new N3.Writer();
 
     writer.addPrefix('xsd', 'http://www.w3.org/2001/XMLSchema#');
     writer.end((error, result) => {
@@ -13,7 +13,7 @@ function test_add_prefix() {
 }
 
 function test_add_prefixes() {
-    const writer: N3.Writer = new N3.Writer();
+    const writer: N3.N3Writer = new N3.Writer();
 
     writer.addPrefixes({
         freebase: N3.DataFactory.namedNode("http://rdf.freebase.com/ns/"),
