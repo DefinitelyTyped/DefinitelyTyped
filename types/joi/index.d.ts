@@ -1,4 +1,4 @@
-// Type definitions for joi v13.4.0
+// Type definitions for joi 13.4
 // Project: https://github.com/hapijs/joi
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 //                 Laurence Dougal Myers <https://github.com/laurence-myers>
@@ -125,7 +125,7 @@ export interface IpOptions {
     cidr?: string;
 }
 
-export type GuidVersions = 'uuidv1' | 'uuidv2' | 'uuidv3' | 'uuidv4' | 'uuidv5'
+export type GuidVersions = 'uuidv1' | 'uuidv2' | 'uuidv3' | 'uuidv4' | 'uuidv5';
 
 export interface GuidOptions {
     version: GuidVersions[] | GuidVersions;
@@ -189,8 +189,8 @@ export interface ReferenceOptions {
 }
 
 export interface IPOptions {
-    version?: Array<string>;
-    cidr?: string
+    version?: string[];
+    cidr?: string;
 }
 
 export interface StringRegexOptions {
@@ -244,7 +244,6 @@ export type Schema = AnySchema
     | LazySchema;
 
 export interface AnySchema extends JoiObject {
-
     schemaType?: Types | string;
 
     /**
@@ -449,7 +448,6 @@ export interface State {
 }
 
 export interface BooleanSchema extends AnySchema {
-
     /**
      * Allows for additional values to be considered valid booleans by converting them to true during validation.
      * Accepts a value or an array of values. String comparisons are by default case insensitive,
@@ -703,7 +701,9 @@ export interface ArraySchema extends AnySchema {
     /**
      * Lists the types in sequence order for the array values where:
      * @param type - a joi schema object to validate against each array item in sequence order. type can be an array of values, or multiple values can be passed as individual arguments.
-     * If a given type is .required() then there must be a matching item with the same index position in the array. Errors will contain the number of items that didn't match. Any unmatched item having a label will be mentioned explicitly.
+     * If a given type is .required() then there must be a matching item with the same index position in the array.
+     * Errors will contain the number of items that didn't match.
+     * Any unmatched item having a label will be mentioned explicitly.
      */
     ordered(...types: SchemaLike[]): this;
     ordered(types: SchemaLike[]): this;
@@ -734,7 +734,6 @@ export interface ArraySchema extends AnySchema {
 }
 
 export interface ObjectSchema extends AnySchema {
-
     /**
      * Sets or extends the allowed object keys.
      */
@@ -762,9 +761,9 @@ export interface ObjectSchema extends AnySchema {
 
     /**
      * Specify validation rules for unknown keys matching a pattern.
-	 *
-	 * @param pattern - a pattern that can be either a regular expression or a joi schema that will be tested against the unknown key names
-	 * @param schema - the schema object matching keys must validate against
+     *
+     * @param pattern - a pattern that can be either a regular expression or a joi schema that will be tested against the unknown key names
+     * @param schema - the schema object matching keys must validate against
      */
     pattern(pattern: RegExp | SchemaLike, schema: SchemaLike): this;
 
@@ -892,7 +891,6 @@ export interface BinarySchema extends AnySchema {
 }
 
 export interface DateSchema extends AnySchema {
-
     /**
      * Specifies the oldest date allowed.
      * Notes: 'now' can be passed in lieu of date so as to always compare relatively to the current date,
@@ -935,7 +933,6 @@ export interface DateSchema extends AnySchema {
 }
 
 export interface FunctionSchema extends AnySchema {
-
     /**
      * Specifies the arity of the function where:
      * @param n - the arity expected.
@@ -969,7 +966,6 @@ export interface AlternativesSchema extends AnySchema {
 }
 
 export interface LazySchema extends AnySchema {
-
 }
 
 export interface Reference extends JoiObject {
@@ -990,7 +986,7 @@ export type ExtensionBoundSchema = Schema & {
      * @param options - should the context passed into the `validate` function in a custom rule
      */
     createError(type: string, context: Context, state: State, options: ValidationOptions): Err;
-}
+};
 
 export interface Rules<P extends object = any> {
     name: string;
@@ -1142,7 +1138,7 @@ export function reach<T extends Schema>(schema: ObjectSchema, path: string[]): T
 /**
  * Creates a new Joi instance customized with the extension(s) you provide included.
  */
-export function extend(extension: Extension|Extension[], ...extensions: (Extension|Extension[])[]): any;
+export function extend(extension: Extension|Extension[], ...extensions: Array<Extension|Extension[]>): any;
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -1168,8 +1164,8 @@ export function defaults(fn: DefaultsFunction): Root;
 export function describe(schema: Schema): Description;
 
 /**
-* Whitelists a value
-*/
+ * Whitelists a value
+ */
 export function allow(value: any, ...values: any[]): Schema;
 export function allow(values: any[]): Schema;
 

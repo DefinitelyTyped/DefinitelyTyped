@@ -14,6 +14,7 @@
 //                 Slavik Nychkalo <https://github.com/gebeto>
 //                 Francesco Benedetto <https://github.com/frabnt>
 //                 Alexandros Dorodoulis <https://github.com/alexdor>
+//                 Manuel Heidrich <https://github.com/mahnuh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -31,7 +32,7 @@ declare class Chart {
     stop: () => {};
     resize: () => {};
     clear: () => {};
-    toBase64: () => string;
+    toBase64Image: () => string;
     generateLegend: () => {};
     getElementAtEvent: (e: any) => {};
     getElementsAtEvent: (e: any) => Array<{}>;

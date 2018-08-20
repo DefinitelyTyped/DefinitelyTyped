@@ -141,6 +141,26 @@ mixed.test({
     test: testContext
 });
 
+// Async ValidationError
+const asyncValidationErrorTest = function(this: TestContext): Promise<ValidationError> {
+    return new Promise(resolve => resolve(this.createError({ path: "testPath", message: "testMessage" })));
+};
+
+mixed.test('async-validation-error', 'Returns async ValidationError', asyncValidationErrorTest);
+mixed.test({
+    test: asyncValidationErrorTest,
+});
+
+// Sync ValidationError
+const syncValidationErrorTest = function(this: TestContext): ValidationError {
+    return this.createError({ path: "testPath", message: "testMessage" });
+};
+
+mixed.test('sync-validation-error', 'Returns sync ValidationError', syncValidationErrorTest);
+mixed.test({
+    test: syncValidationErrorTest,
+});
+
 yup.string().transform(function(this, value: any, originalvalue: any) {
     return this.isType(value) && value !== null ? value.toUpperCase() : value;
 });

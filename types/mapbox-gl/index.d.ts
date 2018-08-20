@@ -6,6 +6,9 @@
 
 /// <reference types="geojson" />
 
+export = mapboxgl;
+export as namespace mapboxgl;
+
 declare namespace mapboxgl {
     let accessToken: string;
     let version: string;
@@ -1285,12 +1288,4 @@ declare namespace mapboxgl {
         'hillshade-accent-color'?: string | Expression;
         'hillshade-accent-color-transition'?: Transition;
     }
-}
-
-declare module 'mapbox-gl' {
-    export = mapboxgl;
-}
-
-declare module 'mapbox-gl/dist/mapbox-gl' {
-    export = mapboxgl;
 }
