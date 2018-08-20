@@ -22,6 +22,7 @@
 //                 Yosuke Seki <https://github.com/jshosomichi>
 //                 Jake <https://github.com/jakebooyah>
 //                 Gustavo Brunoro <https://github.com/brunoro>
+//                 Denis Frezzato <https://github.com/DenisFrezzato>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -480,15 +481,21 @@ export interface NavigationPathsConfig {
   [routeName: string]: string;
 }
 
-export interface NavigationTabRouterConfig {
+// tslint:disable-next-line:strict-export-declare-modifiers
+interface NavigationTabRouterConfigBase {
   initialRouteName?: string;
   initialRouteParams?: NavigationParams;
   paths?: NavigationPathsConfig;
-  navigationOptions?: NavigationScreenConfig<NavigationScreenOptions>;
   order?: string[]; // todo: type these as the real route names rather than 'string'
 
   // Does the back button cause the router to switch to the initial tab
   backBehavior?: 'none' | 'initialRoute'; // defaults `initialRoute`
+}
+export interface NavigationTabRouterConfig extends NavigationTabRouterConfigBase {
+  navigationOptions?: NavigationScreenConfig<NavigationScreenOptions>;
+}
+export interface NavigationBottomTabRouterConfig extends NavigationTabRouterConfigBase {
+  navigationOptions?: NavigationScreenConfig<NavigationBottomTabScreenOptions>;
 }
 export interface TabScene {
   route: NavigationRoute;
@@ -496,7 +503,8 @@ export interface TabScene {
   index: number;
   tintColor?: string;
 }
-export interface NavigationTabScreenOptions {
+// tslint:disable-next-line:strict-export-declare-modifiers
+interface NavigationTabScreenOptionsBase {
   title?: string;
   tabBarIcon?:
   | React.ReactElement<any>
@@ -511,10 +519,24 @@ export interface NavigationTabScreenOptions {
   ) => React.ReactElement<any> | string | null);
   tabBarVisible?: boolean;
   tabBarTestIDProps?: { testID?: string; accessibilityLabel?: string };
+}
+export interface NavigationTabScreenOptions
+  extends NavigationTabScreenOptionsBase {
+  swipeEnabled?: boolean;
   tabBarOnPress?: (
     options: {
+      previousScene: TabScene;
       scene: TabScene;
       jumpToIndex: (index: number) => void;
+    }
+  ) => void;
+}
+export interface NavigationBottomTabScreenOptions
+  extends NavigationTabScreenOptionsBase {
+  tabBarOnPress?: (
+    options: {
+      navigation: NavigationScreenProp<NavigationRoute>;
+      defaultHandler: () => void;
     }
   ) => void;
 }
@@ -916,6 +938,13 @@ export interface TabNavigatorConfig
   removeClippedSubviews?: boolean;
   initialLayout?: { height: number; width: number };
 }
+export interface BottomTabNavigatorConfig
+  extends NavigationBottomTabRouterConfig,
+  TabViewConfig {
+  lazy?: boolean;
+  removeClippedSubviews?: boolean;
+  initialLayout?: { height: number; width: number };
+}
 
 // From navigators/TabNavigator.js
 export function TabNavigator(
@@ -930,7 +959,7 @@ export function createTabNavigator(
 
 export function createBottomTabNavigator(
   routeConfigMap: NavigationRouteConfigMap,
-  drawConfig?: TabNavigatorConfig
+  drawConfig?: BottomTabNavigatorConfig
 ): NavigationContainer;
 
 export function createMaterialTopTabNavigator(

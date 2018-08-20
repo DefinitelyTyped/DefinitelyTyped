@@ -178,6 +178,9 @@ const tabNavigatorConfig: TabNavigatorConfig = {
     lazy: true,
     tabBarComponent: TabBarTop,
     tabBarOptions: { activeBackgroundColor: "blue" },
+    navigationOptions: () => ({
+        tabBarOnPress: ({ scene, jumpToIndex }) => jumpToIndex(scene.index)
+    })
 };
 
 const tabNavigatorConfigWithInitialLayout: TabNavigatorConfig = {
@@ -457,6 +460,10 @@ const BottomStack = createBottomTabNavigator({
             };
         }
     }
+}, {
+    navigationOptions: () => ({
+        tabBarOnPress: ({ defaultHandler }) => defaultHandler()
+    })
 });
 
 const CustomHeaderStack = createStackNavigator({
