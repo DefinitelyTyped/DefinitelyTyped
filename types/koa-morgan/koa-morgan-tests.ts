@@ -52,11 +52,9 @@ interface FormatFnIndexer {
     [memoizerName: string]: morgan.FormatFn;
 }
 
-interface ExtendedFormatFn extends morgan.FormatFn {
-    memoizer?: FormatFnIndexer;
-}
+const memoizer: FormatFnIndexer = {};
 
-const developmentExtendedFormatLine: ExtendedFormatFn = (tokens, req: IncomingMessage, res: ServerResponse): string => {
+const developmentExtendedFormatLine: morgan.FormatFn = (tokens, req: IncomingMessage, res: ServerResponse): string => {
     // get the status code if response written
     const status = res.statusCode
         ? res.statusCode
@@ -70,21 +68,15 @@ const developmentExtendedFormatLine: ExtendedFormatFn = (tokens, req: IncomingMe
         : 0; // no color
 
     // get colored format function, if previously memoized, otherwise undefined
-    let fn: morgan.FormatFn|undefined = developmentExtendedFormatLine.memoizer ? developmentExtendedFormatLine.memoizer[color] : undefined;
+    let fn: morgan.FormatFn|undefined = memoizer[color];
 
     if (!fn) {
-        if (!developmentExtendedFormatLine.memoizer) {
-            developmentExtendedFormatLine.memoizer = {};
-        }
-
-        fn = developmentExtendedFormatLine.memoizer[color] = morgan.compile(
+        fn = memoizer[color] = morgan.compile(
             `\x1b[0m:method :url \x1b[${color}m:status \x1b[0m:response-time ms - :res[content-length]\x1b[0m :user-agent`);
     }
 
     return fn(tokens, req, res);
 };
-
-developmentExtendedFormatLine.memoizer = {};
 
 morgan.format('dev-extended', developmentExtendedFormatLine);
 app.use(morgan('dev-extended'));
