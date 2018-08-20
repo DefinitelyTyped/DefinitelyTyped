@@ -1177,6 +1177,8 @@ export interface LaunchOptions {
   env?: any;
   /** Whether to auto-open DevTools panel for each tab. If this option is true, the headless option will be set false. */
   devtools?: boolean;
+  /** https://pptr.dev/#?product=Puppeteer&version=v1.7.0&show=api-puppeteerlaunchoptions */
+  defaultViewport?: object | null;
 }
 
 export interface ConnectOptions {
