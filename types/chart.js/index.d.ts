@@ -42,7 +42,7 @@ declare class Chart {
     ctx: CanvasRenderingContext2D | null;
     canvas: HTMLCanvasElement | null;
     chartArea: Chart.ChartArea;
-	options: ChartOptions;
+    options: ChartOptions;
     static pluginService: PluginServiceStatic;
     static plugins: PluginServiceStatic;
 
