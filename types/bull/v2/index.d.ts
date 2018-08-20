@@ -56,12 +56,14 @@ declare module "bull" {
             finished(): Promise<void>;
 
             /**
-             * Moves a job to the completed queue and moves a new job from 'waiting' to 'active'.
+             * Moves a job to the `completed` queue. Pulls a job from 'waiting' to
+             * 'active' and returns a tuple containing the next jobs data and id. If no
+             * job is in the `waiting` queue, returns null.
              * @param returnValue The jobs success message.
              * @param ignoreLock True when wanting to ignore the redis lock on this job.
-             * @returns Returns the id of the pulled job.
+             * @returns Contains the next jobs data and id or null if job left in 'waiting' queue.
              */
-            moveToCompleted(returnValue: string, ignoreLock: boolean): Promise<string[]>;
+            moveToCompleted(returnValue: string, ignoreLock: boolean): Promise<string[] | null>;
 
             /**
              * Moves a job to the failed queue.
