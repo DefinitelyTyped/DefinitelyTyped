@@ -26,6 +26,7 @@
 //
 
 declare namespace chrome {
+    // #region internal
     //////////////
     // INTERNAL //
     //////////////
@@ -68,6 +69,9 @@ declare namespace chrome {
      */
     type double = number | 'double';
 
+    // #endregion internal
+
+    // #region chrome.accessibilityFeatures
     ////////////////////////////
     // Accessibility Features //
     ////////////////////////////
@@ -224,7 +228,9 @@ declare namespace chrome {
          */
         const animationPolicy: AccessibilityFeaturesSetting;
     }
+    // #endregion
 
+    // #region chrome.alarms
     ////////////
     // Alarms //
     ////////////
@@ -318,7 +324,9 @@ declare namespace chrome {
         /** Fired when an alarm has elapsed. Useful for event pages. */
         const onAlarm: AlarmEvent;
     }
+    // #endregion
 
+    // #region chrome.app.*
     /////////////////
     // App Runtime //
     /////////////////
@@ -453,9 +461,9 @@ declare namespace chrome {
         const onRestarted: chrome.events.Event<() => void>;
     }
 
-    ////////////////////
-    // App Window
-    ////////////////////
+    ////////////////
+    // App Window //
+    ////////////////
     /**
      * @since Availability: Since Chrome 24.
      * @description
@@ -544,6 +552,13 @@ declare namespace chrome {
              * -webkit-app-region: drag can be used to mark regions draggable. no-drag can be used to disable this style on nested elements.
              */
             type: 'none';
+            /**
+             * @requires(dev) Chrome dev only
+             * @requires Permissions: 'app.window.alpha'
+             * @description
+             * Enable alpha on frame 'none'
+             */
+            alphaEnabled?: boolean;
         }
         interface FrameOptionsChrome {
             /**
@@ -641,6 +656,13 @@ declare namespace chrome {
              * @since Use of FrameOptions is new in M36.
              */
             frame?: 'none' | 'chrome' | FrameOptions | FrameOptionsChrome;
+            /**
+             * @requires(dev) Chrome dev only
+             * @requires Permissions: 'app.window.alpha'
+             * @description
+             * Enable alpha on frame 'none'
+             */
+            alphaEnabled?: boolean;
             /**
              * Size and position of the content in the window (excluding the titlebar).
              * If an id is also specified and a window with a matching id has been shown before,
@@ -746,6 +768,11 @@ declare namespace chrome {
             setAlwaysOnTop: (alwaysOnTop: boolean) => void;
             /** Set whether the window is visible on all workspaces. (Only for platforms that support this). */
             setVisibleOnAllWorkspaces: (alwaysVisible: boolean) => void;
+            /**
+             * @requires Permission: 'app.window.shape'
+             * Set window shape
+             */
+            setShape: (rects: ContentBounds[]) => void;
             /** The JavaScript 'window' object for the created child. */
             contentWindow: Window;
             /** The id the window was created with. */
@@ -830,7 +857,9 @@ declare namespace chrome {
         }
         const window: ChromeAppWindow;
     }
+    // #endregion chrome.app.*
 
+    // #region chrome.audio
     ///////////
     // Audio //
     ///////////
@@ -952,7 +981,9 @@ declare namespace chrome {
          */
         const onDeviceListChanged: chrome.events.Event<(devices: AudioDeviceInfo[]) => void>;
     }
+    // #endregion
 
+    // #region chrome.bluetooth*
     ///////////////
     // Bluetooth //
     ///////////////
@@ -1843,7 +1874,9 @@ declare namespace chrome {
          */
         const onReceiveError: OnReceiveErrorEvent;
     }
+    // #endregion
 
+    // #region chrome.browser
     /////////////
     // Browser //
     /////////////
@@ -1878,7 +1911,9 @@ declare namespace chrome {
         */
         function openTab(options: Options): void;
     }
+    // #endregion
 
+    // #region chrome.certificateProvider
     //////////////////////////
     // Certificate Provider //
     //////////////////////////
@@ -1930,7 +1965,9 @@ declare namespace chrome {
         const onCertificatesRequested: chrome.events.Event<(param: any) => any>;
         const onSignDigestRequested: chrome.events.Event<(signRequest: SignRequestDigest, signCallback: Function) => any>;
     }
+    // #endregion
 
+    // #region chrome.clipboard
     ///////////////
     // Clipboard //
     ///////////////
@@ -1978,7 +2015,9 @@ declare namespace chrome {
          */
         const onClipboardDataChanged: chrome.events.Event<() => void>;
     }
+    // #endregion
 
+    // #region chrome.commands
     //////////////
     // Commands //
     //////////////
@@ -2013,7 +2052,9 @@ declare namespace chrome {
         /** Fired when a registered command is activated using a keyboard shortcut. */
         const onCommand: CommandEvent;
     }
+    // #endregion
 
+    // #region chrome.contextMenus
     ///////////////////
     // Context Menus //
     ///////////////////
@@ -2292,9 +2333,10 @@ declare namespace chrome {
 
         /** Fired when a context menu item is clicked. */
         const onClicked: MenuClickedEvent;
-
     }
+    // #endregion
 
+    // #region chrome.desktopCapture
     /////////////////////
     // Desktop Capture //
     /////////////////////
@@ -2327,7 +2369,9 @@ declare namespace chrome {
          */
         function cancelChooseDesktopMedia(desktopMediaRequestId: integer): void;
     }
+    // #endregion
 
+    // #region chrome.diagnostics
     /////////////////
     // Diagnostics //
     /////////////////
@@ -2339,7 +2383,9 @@ declare namespace chrome {
         /** @todo TODO PROPER DOCS */
         function sendPacket(options: Object, callback: () => void): void;
     }
+    // #endregion
 
+    // #region chrome.displaySource
     ////////////////////
     // Display Source //
     ////////////////////
@@ -2347,6 +2393,7 @@ declare namespace chrome {
      * @requires(dev) Development versions only
      * @requires Permissions: 'displaySource'
      * The *chrome.displaySource* API creates a Display session using WebMediaStreamTrack as sources.
+     * @todo TODO Finish documentation and typings
      */
     namespace displaySource {
         /**
@@ -2449,7 +2496,9 @@ declare namespace chrome {
         const onSessionTerminated: chrome.events.Event<any>;
         const onSessionErrorOccured: chrome.events.Event<any>;
     }
+    // #endregion
 
+    // #region chrome.dns
     /////////
     // DNS //
     /////////
@@ -2477,7 +2526,9 @@ declare namespace chrome {
          */
         function resolve(hostname: string, callback: (resolveInfo: ResolveCallbackResolveInfo) => void): void;
     }
+    // #endregion
 
+    // #region chrome.documentScan
     ///////////////////
     // Document Scan //
     ///////////////////
@@ -2518,7 +2569,9 @@ declare namespace chrome {
          */
         function scan(options: DocumentScanOptions, callback: (result: DocumentScanCallbackArg) => void): void;
     }
+    // #endregion
 
+    // #region chrome.enterprise.*
     ////////////////
     // ENTERPRISE //
     ////////////////
@@ -2695,7 +2748,9 @@ declare namespace chrome {
          */
         function challengeUserKey(challenge: ArrayBuffer, registerKey: boolean, callback: (response: ArrayBuffer) => void): void;
     }
+    // #endregion chrome.enterprise.*
 
+    // #region chrome.events
     ////////////
     // Events //
     ////////////
@@ -2878,11 +2933,12 @@ declare namespace chrome {
             priority?: integer;
         }
     }
+    // #endregion
 
+    // #region chrome.extensionTypes
     /////////////////////
     // Extension Types //
     /////////////////////
-
     /**
      * Primary for extensions, but also used in apps.
      * https://developer.chrome.com/extensions/extensionTypes#type-ImageDetails
@@ -2982,16 +3038,18 @@ declare namespace chrome {
         interface InjectCodeDetails extends _internal_.InjectDetailsBase {
             /**
              * JavaScript or CSS code to inject.
-             * **Warning**
+             * **⚠ Warning**
              * Be careful using the code parameter.
              * Incorrect use of it may open your app
              * to cross site scripting attacks.
-             * @see[More information]{https://en.wikipedia.org/wiki/Cross-site_scripting}
+             * @see[More information]{@link https://en.wikipedia.org/wiki/Cross-site_scripting}
              */
             code: string;
         }
     }
+    // #endregion
 
+    // #region chrome.fileBrowserHandle
     /////////////////////////
     // File Browser Handle //
     /////////////////////////
@@ -3002,16 +3060,49 @@ declare namespace chrome {
      * @description
      * Use the chrome.fileBrowserHandler API to extend the Chrome OS file browser.
      * For example, you can use this API to enable users to upload files to your website.
-     * @see[Documentation]{@linkhttps://developer.chrome.com/extensions/fileBrowserHandler}
+     * @see[Documentation]{@link https://developer.chrome.com/extensions/fileBrowserHandler}
      */
     namespace fileBrowserHandler {
         type FileBrowserHandleExecuteId =
             'ReadOnly' |
             'ReadWrite';
-        const selectFile: Function;
+        interface SelectFileParameters {
+            /** Suggested name for the file. */
+            suggestedName: string;
+            /**
+             * List of file extensions that the selected file can have.
+             * The list is also used to specify what files to be shown in the select file dialog.
+             * Files with the listed extensions are only shown in the dialog.
+             * Extensions should not include the leading '.'.
+             * @example ['jpg', 'png']
+             */
+            allowedFileExtensions?: string[];
+        }
+        interface SelectionResult {
+            /** Selected file entry. It will be null if a file hasn't been selected. */
+            entry: FileEntry | null;
+            /** Whether the file has been selected. */
+            success: boolean;
+        }
+        /**
+         * Prompts user to select file path under which file should be saved.
+         * When the file is selected, file access permission required to use
+         * the file (read, write and create) are granted to the caller.
+         * The file will not actually get created during the function call,
+         * so function caller must ensure its existence before using it.
+         * The function has to be invoked with a user gesture.
+         * @param params Parameters that will be used while selecting the file.
+         * @param callback Function called upon completion.
+         */
+        function selectFile(params: SelectFileParameters, callback: (result: SelectionResult) => void): void;
+        /**
+         * Fired when file system action is executed from ChromeOS file browser.
+         */
         const onExecute: chrome.events.Event<(id: FileBrowserHandleExecuteId, details: { entries: Entry[] }) => void>;
     }
+    // #endregion
 
+    // #region chrome.fileSystem
     ////////////////
     // FileSystem //
     ////////////////
@@ -3188,8 +3279,9 @@ declare namespace chrome {
         const onEntrychanged: chrome.events.Event<any>;
         const onEntryRemoved: chrome.events.Event<any>;
     }
+    // #endregion
 
-
+    // #region chrome.fileSystemProvider
     //////////////////////////
     // File System Provider //
     //////////////////////////
@@ -3951,7 +4043,9 @@ declare namespace chrome {
             errorCallback: (error: ToStringLiteral<typeof ProviderError>) => void
         ) => void>;
     }
+    // #endregion
 
+    // #region chrome.gcm
     ////////////////////////////
     // Google Cloud Messaging //
     ////////////////////////////
@@ -4064,7 +4158,9 @@ declare namespace chrome {
         /** Fired when it was not possible to send a message to the GCM server. */
         const onSendError: chrome.events.Event<(error: GcmError) => void>;
     }
+    // #endregion
 
+    // #region chrome.hid
     /////////
     // HID //
     /////////
@@ -4270,7 +4366,9 @@ declare namespace chrome {
          */
         const onDeviceRemoved: chrome.events.Event<(deviceId: integer) => void>;
     }
+    // #endregion
 
+    // #region chrome.i18n
     /////////////////////////////////
     // i18n - Internationalization //
     /////////////////////////////////
@@ -4687,7 +4785,9 @@ declare namespace chrome {
          */
         const onSignInChanged: chrome.events.Event<(account: AccountInfo, signedIn: boolean) => void>;
     }
+    // #endregion
 
+    // #region chrome.idle
     //////////
     // Idle //
     //////////
@@ -4804,7 +4904,9 @@ declare namespace chrome {
         /** Fired when all the granted tokens need to be refreshed. */
         const onTokenRefresh: chrome.events.Event<() => void>;
     }
+    // #endregion
 
+    // #region chrome.management
     ////////////////
     // Management //
     ////////////////
@@ -4981,10 +5083,12 @@ declare namespace chrome {
          */
         function uninstallSelf(options?: UninstallOptions, callback?: () => void): void;
     }
+    // #endregion
 
-    ////////////////////
-    // mDNS
-    ////////////////////
+    // #region chrome.mdns
+    //////////
+    // mDNS //
+    //////////
     /**
      * Use the chrome.mdns API to discover services over mDNS.
      * This comprises a subset of the features of the NSD spec:
@@ -5033,10 +5137,12 @@ declare namespace chrome {
         const onServiceList: chrome.events.Event<(services: Service[]) => void>;
 
     }
+    // #endregion
 
-    ////////////////////
-    // Media Galleries
-    ////////////////////
+    // #region chrome.mediaGalleries
+    /////////////////////
+    // Media Galleries //
+    /////////////////////
     /**
      * Use the chrome.mediaGalleries API to access media files (audio, images, video)
      * from the user's local disks (with the user's consent).
@@ -5096,7 +5202,7 @@ declare namespace chrome {
              */
             type: string;
             /**
-             * An unfiltered string->string dictionary of tags for the stream.
+             * An unfiltered string->string interface of tags for the stream.
              */
             tags: { [name: string]: string; };
         }
@@ -5269,12 +5375,17 @@ declare namespace chrome {
          */
         const onScanProgress: chrome.events.Event<(args: ScanProgressEventArgs) => void>;
     }
+    // #endregion
 
+    // #region chrome.networking.*
     ///////////////////////
     // NETWORKING CONFIG //
     ///////////////////////
     /**
-     *
+     * @requires(CrOS) Chrome OS only.
+     * @requires Permissions: 'networking.config'
+     * @description
+     * Use the *networking.config* API to authenticate to captive portals.
      */
     namespace networking.config {
         /** Indicator for the type of network used */
@@ -5310,7 +5421,7 @@ declare namespace chrome {
             SSID?: string;
             /**
              * The basic service set identification (BSSID) uniquely identifying the
-             * basic service set. <code>BSSID</code> is represented as a human readable,
+             * basic service set. *BSSID* is represented as a human readable,
              * hex-encoded string with bytes separated by colons, e.g.
              * 45:67:89:ab:cd:ef.
              */
@@ -5365,7 +5476,7 @@ declare namespace chrome {
      * @see[Open Network Configuration (ONC) specification.]{@link https://chromium.googlesource.com/chromium/src/+/master/components/onc/docs/onc_spec.md}
      * @description
      * **NOTE**
-     * Most dictionary properties and type values use UpperCamelCase to match
+     * Most interface properties and type values use UpperCamelCase to match
      * the ONC specification instead of the JavaScript lowerCamelCase convention.
      */
     namespace networking.onc {
@@ -5914,7 +6025,7 @@ declare namespace chrome {
          * Returns a list of network objects with the same properties provided by *getState*.
          * A filter is provided to specify the type of networks returned and to limit the number of networks.
          * Networks are ordered by the system based on their priority, with connected or connecting networks listed first.
-         * @param callback Called with a dictionary of networks and their state properties when received.
+         * @param callback Called with a interface of networks and their state properties when received.
          */
         function getNetworks(filter: Filter, callback: (result: NetworkStateProperties[]) => void): void;
         /**
@@ -5997,7 +6108,9 @@ declare namespace chrome {
          */
         const onPortalDetectionCompleted: chrome.events.Event<(networkGuid: string, status: CaptivePortalStatus) => void>;
     }
+    // #endregion chrome.networking.*
 
+    // #region chrome.notifications
     ///////////////////
     // Notifications //
     ///////////////////
@@ -6195,10 +6308,12 @@ declare namespace chrome {
          */
         function getPermissionLevel(callback: (level: ToStringLiteral<typeof PermissionLevel>) => void): void;
     }
+    // #endregion
 
-    ////////////////////
-    // Permissions
-    ////////////////////
+    // #region chrome.permissions
+    /////////////////
+    // Permissions //
+    /////////////////
     /**
      * Use the chrome.permissions API to request declared optional permissions at run time rather than install time,
      * so users understand why the permissions are needed and grant only those that are necessary.
@@ -6254,26 +6369,184 @@ declare namespace chrome {
         /** Fired when the app acquires new permissions. */
         const onAdded: PermissionEvent;
     }
+    // #endregion
 
+    // #region chrome.platformKeys
     ///////////////////
     // Platform Keys //
     ///////////////////
     /**
      * @requires(CrOS) Only for Chrome OS.
      * @requires Permissions: 'platformKeys'
-     * @todo TODO Documentation needed
+     * @description
+     * Use the *chrome.platformKeys* API to access client certificates
+     * managed by the platform. If the user or policy grants the permission, an
+     * app can use such a certficate in its custom authentication protocol.
+     * E.g. this allows usage of platform managed certificates in third party VPNs
+     * @see chrome.vpnProvider
      */
     namespace platformKeys {
+        /**
+         * @enum
+         */
         const ClientCertificateType: {
             'RSA_SIGN': 'rsaSign',
             'ECDSA_SIGN': 'ecdsaSign'
         };
-        const selectClientCertificates: Function;
-        const getKeyPair: Function;
-        const subtleCrypto: Function;
-        const verifyTLSServerCertificate: Function;
-    }
+        interface Match {
+            /** The DER encoding of a X.509 certificate. */
+            certificate: ArrayBuffer;
 
+            /**
+             * @see[KeyAlgorithm]{@link http://www.w3.org/TR/WebCryptoAPI/#key-algorithm-interface}
+             * @description
+             * The KeyAlgorithm of the certified key. This contains algorithm
+             * parameters that are inherent to the key of the certificate (e.g. the key
+             * length). Other parameters like the hash function used by the sign
+             * function are not included. */
+            keyAlgorithm: KeyAlgorithm;
+        };
+
+        /**
+         * Analogous to TLS1.1's CertificateRequest.
+         * @see{@link http://tools.ietf.org/html/rfc4346#section-7.4.4}
+         */
+        interface ClientCertificateRequest {
+            /**
+             * This field is a list of the types of certificates requested, sorted in
+             * order of the server's preference. Only certificates of a type contained
+             * in this list will be retrieved. If *certificateTypes* is the
+             * empty list, however, certificates of any type will be returned.
+             * @see ClientCertificateType
+             */
+            certificateTypes: ToStringLiteral<typeof ClientCertificateType[]>;
+
+            /**
+             * List of distinguished names of certificate authorities allowed by the
+             * server. Each entry must be a DER-encoded X.509 DistinguishedName.
+             */
+            certificateAuthorities: ArrayBuffer[];
+        };
+
+        interface SelectDetails {
+            /** Only certificates that match this request will be returned. */
+            request: ClientCertificateRequest;
+
+            /**
+             * If given, the *selectClientCertificates* operates on this
+             * list. Otherwise, obtains the list of all certificates from the platform's
+             * certificate stores that are available to this extensions.
+             * Entries that the extension doesn't have permission for or which doesn't
+             * match the request, are removed.
+             */
+            clientCerts?: ArrayBuffer[];
+
+            /** If true, the filtered list is presented to the user to manually select a
+             * certificate and thereby granting the extension access to the
+             * certificate(s) and key(s).Only the selected certificate(s) will be
+             * returned. If is false, the list is reduced to all certificates that the
+             * extension has been granted access to (automatically or manually). */
+            interactive: boolean;
+        };
+
+        interface VerificationDetails {
+            // Each chain entry must be the DER encoding of a X.509 certificate, the
+            // first entry must be the server certificate and each entry must certify
+            // the entry preceding it.
+            serverCertificateChain: ArrayBuffer[];
+
+            // The hostname of the server to verify the certificate for, e.g. the server
+            // that presented the *serverCertificateChain*.
+            hostname: string;
+        };
+
+        interface VerificationResult {
+            /**
+             * The result of the trust verification: true if trust for the given
+             * verification details could be established and false if trust is rejected
+             * for any reason*
+             */
+            trusted: boolean;
+
+            /**
+             * If the trust verification failed, this array contains the errors reported
+             * by the underlying network layer. Otherwise, this array is empty.
+             * **Note:** This list is meant for debugging only and may not
+             * contain all relevant errors. The errors returned may change in future
+             * revisions of this API, and are not guaranteed to be forwards or backwards
+             * compatible.
+             */
+            debug_errors: string[];
+        };
+
+        /**
+         * This function filters from a list of client certificates the ones that
+         * are known to the platform, match *request* and for which the
+         * app has permission to access the certificate and its private key.
+         * If *interactive* is true, the user is presented a dialog where
+         * they can select from matching certificates and grant the app access
+         * to the certificate.
+         * The selected / filtered client certificates will be passed to *callback*.
+         * @param callback Will provide *matches*: The list of certificates that match the request, that the
+         *                 app has permission for and, if *interactive* is true, that were selected by the user.
+         */
+        function selectClientCertificates(
+            details: SelectDetails,
+            callback: (matches: Match[]) => void): void;
+
+        /**
+         * @description
+         * Passes the key pair of *certificate* for usage with
+         * platformKeys.subtleCrypto to *callback*.
+         *
+         * ❗ Note:
+         * Currently, this function only supports the "RSASSA-PKCS1-v1_5"
+         * algorithm with one of the hashing algorithms "none", "SHA-1", "SHA-256",
+         * "SHA-384", and "SHA-512"
+         *
+         * @param certificate The certificate of a *Match* returned by *selectClientCertificates*.
+         * @param parameters Determines signature/hash algorithm parameters additionally to the parameters fixed by the key itself.
+         *   The same parameters are accepted as by WebCrypto's importKey (see docs).
+         *   function, e.g. *RsaHashedImportParams* for a RSASSA-PKCS1-v1_5
+         *   key. For RSASSA-PKCS1-v1_5 keys, additionally the parameters *{
+         *   "hash": { "name": "none" } }* are supported. The sign function will
+         *   then apply PKCS#1 v1.5 padding and but not hash the given data.
+         * @param callback The public and private CryptoKey of a certificate which can only be used with *subleCrypto*.
+         * @param callback.privateKey Might be *null* if this app does not have access to it.
+         * @param callback.privateKey
+         * @see[WebCrypto's importKey docs]{@link http://www.w3.org/TR/WebCryptoAPI/#SubtleCrypto-method-importKey}
+         * @see[CryptoKey docs]{@link http://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey}
+         */
+        function getKeyPair(
+            certificate: ArrayBuffer,
+            parameters: object,
+            callback: (publicKey: CryptoKey, privateKey: CryptoKey | null) => void): void;
+
+        /**
+         * An implementation of WebCrypto's SubtleCrypto
+         * that allows crypto operations on keys of client
+         * certificates that are available to this app.
+         * @see[SubtleCrypto]{@link http://www.w3.org/TR/WebCryptoAPI/#subtlecrypto-interface}
+         */
+        function subtleCrypto(): SubtleCrypto;
+
+        /**
+         * Checks whether *details.serverCertificateChain* can be trusted
+         * for *details.hostname* according to the trust settings of the
+         * platform.
+         * Note: The actual behavior of the trust verification is not fully
+         * specified and might change in the future.
+         * The API implementation verifies certificate expiration, validates the
+         * certification path and checks trust by a known CA.
+         * The implementation is supposed to respect the EKU serverAuth and to
+         * support subject alternative names.
+         */
+        function verifyTLSServerCertificate(details: VerificationDetails,
+            callback: (result: VerificationResult) => void): void;
+    }
+    // #endregion
+
+    // #region chrome.power
     ///////////
     // Power //
     ///////////
@@ -6302,7 +6575,9 @@ declare namespace chrome {
         /** Releases a request previously made via requestKeepAwake(). */
         function releaseKeepAwake(): void;
     }
+    // #endregion
 
+    // #region chrome.printerProvider
     //////////////////////
     // Printer Provider //
     //////////////////////
@@ -6355,10 +6630,12 @@ declare namespace chrome {
         /** Event fired when print manager requests printing. */
         const onPrintRequested: chrome.events.Event<(printJob: PrintJob, resultCallback: (result: string) => void) => void>;
     }
+    // #endregion
 
-    ////////////////////
-    // Runtime
-    ////////////////////
+    // #region chrome.runtime
+    /////////////
+    // Runtime //
+    /////////////
     /**
      * Use the chrome.runtime API to retrieve the background page, return details about the manifest, and listen for and respond to events in the app lifecycle. You can also use this API to convert the relative path of URLs to fully-qualified URLs.
      * @since Chrome 22
@@ -6569,7 +6846,6 @@ declare namespace chrome {
         type ChromeOSOnlyPermissions =
             /**
              * Gives your app access to the chrome.certificateProvider API.
-             * @todo TODO Implement API.
              */
             'certificateProvider' |
             /** Gives your app access to the chrome.clipboard API. */
@@ -6602,7 +6878,6 @@ declare namespace chrome {
             'networking.config' |
             /**
              * Gives your app access to the chrome.platformKeys API.
-             * @todo TODO Implement API.
              */
             'platformKeys' |
             /** Gives your app access to the chrome.vpnProvider API. */
@@ -6612,29 +6887,28 @@ declare namespace chrome {
             FileSystemPermission;
 
         type DevOnly =
-            /** @todo TODO Implement API. */
+            /**
+             * App window enable alpha on chrome.app.window
+             */
             'app.window.alpha' |
             /**
              * Gives your app access to the chrome.diagnostics API.
-             * @todo TODO Implement API.
              */
             'diagnostics' |
-            /** @todo TODO Implement API. */
             'displaySource';
 
         type KioskOnlyPermissions =
             'audio' |
             'networking.onc' |
-            /** @todo TODO Implement API. */
             'system.powerSource' |
-            /** @todo TODO Document? */
             'virtualKeyboard';
 
         /** Undocumented but used permissions */
         type UndocumentedPermissions =
             /** @todo TODO Document these */
             'appview' |
-            'app.window.shape' | // Works on stable
+            /** Works on stable, enables setShape() on chrome.app.window */
+            'app.window.shape' |
             'alwaysOnTopWindows' |
             'overrideEscFullscreen' |
             'app.window.fullscreen' |
@@ -7390,7 +7664,7 @@ declare namespace chrome {
             /**
              * If you publish using the Chrome Developer Dashboard, ignore this field.
              * If you host your own app: URL to an update manifest XML file.
-             * **Warning**
+             * **⚠ Warning**
              * As of M33, Windows stable / beta channel users can only
              * download apps hosted in the Chrome Web Store
              * @requires(not Windows)
@@ -7725,7 +7999,9 @@ declare namespace chrome {
          */
         const onBrowserUpdateAvailable: RuntimeEvent;
     }
+    // #endregion
 
+    // #region chrome.serial
     ////////////
     // Serial //
     ////////////
@@ -7737,7 +8013,9 @@ declare namespace chrome {
      * @since Chrome 23
      */
     const serial: chrome.deprecated;
+    // #endregion
 
+    // #region chrome.socket
     ////////////
     // Socket //
     ////////////
@@ -7749,8 +8027,16 @@ declare namespace chrome {
      * and sockets.tcpServer APIs.
      */
     // const socket: chrome.deprecatedButUsable; // Removed to not be confused with chrome.sockets.*
+    // #endregion
 
-    /** chrome.sockets.tcp API */
+    // #region chrome.sockets.*
+    ////////////////////
+    // Chrome Sockets //
+    ////////////////////
+    /**
+     * Use the chrome.sockets.* APIs to send and receive data over the network using TCP and UDP connections.
+     * @since Chrome 33.
+     */
     namespace sockets {
         interface CreateInfo {
             /**
@@ -8371,7 +8657,9 @@ declare namespace chrome {
          */
         const onReceiveError: chrome.events.Event<(args: ReceiveErrorEventArgs) => void>;
     }
+    // #endregion chrome.sockets.*
 
+    // #region chrome.storage
     /////////////
     // Storage //
     /////////////
@@ -8424,7 +8712,7 @@ declare namespace chrome {
             get(callback: (items: { [key: string]: any }) => void): void;
             /**
              * Gets one or more items from storage.
-             * @param keys A single key to get, list of keys to get, or a dictionary specifying default values.
+             * @param keys A single key to get, list of keys to get, or a interface specifying default values.
              * An empty list or object will return an empty result object. Pass in null to get the entire contents of storage.
              * @param callback Callback with storage items, or on failure (in which case runtime.lastError will be set).
              * Parameter items: Object with items in their key-value mappings.
@@ -8487,9 +8775,11 @@ declare namespace chrome {
         /** Fired when one or more items change. */
         const onChanged: StorageChangedEvent;
     }
+    // #endregion
 
+    // #region chrome.syncFileSystem
     ////////////////////
-    // SyncFileSystem
+    // SyncFileSystem //
     ////////////////////
     /**
      * Use the chrome.syncFileSystem API to save and synchronize data on Google Drive.
@@ -8654,7 +8944,9 @@ declare namespace chrome {
         /** Fired when a file has been updated by the background sync service. */
         const onFileStatusChanged: chrome.events.Event<(detail: FileStatusChangedDetail) => void>;
     }
+    // #endregion
 
+    // #region chrome.system.*
 
     ////////////////
     // System CPU //
@@ -9259,6 +9551,9 @@ declare namespace chrome {
         const onDetached: chrome.events.Event<(id: string) => void>;
     }
 
+    // #endregion chrome.system.*
+
+    // #region chrome.tts
     ////////////////////
     // Text to Speech //
     ////////////////////
@@ -9373,13 +9668,14 @@ declare namespace chrome {
          */
         function resume(): void;
     }
+    // #endregion
 
-    ////////////////////
-    // Types
-    ////////////////////
+    // #region chrome.types
+    ///////////
+    // Types //
+    ///////////
     /**
      * The chrome.types API contains type declarations for Chrome.
-     * @since Chrome 13.
      */
     namespace types {
         interface ChromeSettingClearDetails {
@@ -9465,7 +9761,9 @@ declare namespace chrome {
             onChange: ChromeSettingChangedEvent;
         }
     }
+    // #endregion
 
+    // #region chrome.usb
     /////////
     // USB //
     /////////
@@ -9939,7 +10237,9 @@ declare namespace chrome {
          */
         const onDeviceRemoved: DeviceEvent;
     }
+    // #endregion
 
+    // #region chrome.virtualKeyboard
     //////////////////////
     // Virtual Keyboard //
     //////////////////////
@@ -9981,7 +10281,9 @@ declare namespace chrome {
          */
         function restrictFeatures(restrictions: FeatureRestrictions, callback?: (update: FeatureRestrictions) => void): void;
     }
+    // #endregion
 
+    // #region chrome.vpnProvider
     //////////////////
     // VPN Provider //
     //////////////////
@@ -10103,7 +10405,9 @@ declare namespace chrome {
          */
         const onUIEvent: VpnUiEvent;
     }
+    // #endregion
 
+    // #region chrome.wallpaper
     ///////////////
     // Wallpaper //
     ///////////////
@@ -10141,10 +10445,9 @@ declare namespace chrome {
          */
         function setWallpaper(details: WallpaperDetails, callback: (thumbnail?: string) => void): void;
     }
+    // #endregion
 
-
-
-
+    // #region chrome.webRequest
     namespace webRequest {
         type ResourceType =
             'main_frame' | 'sub_frame' | 'stylesheet' |
@@ -10152,7 +10455,9 @@ declare namespace chrome {
             'xmlhttprequest' | 'ping' | 'csp_report'
             | 'media' | 'websocket' | 'other';
     }
+    // #endregion
 
+    // #region chrome.webViewRequest
     namespace webViewRequest {
         type Stage = 'onBeforeRequest' | 'onBeforeSendHeaders' | 'onHeadersReceived' | 'onAuthRequired';
         type DeclarativeWebRequestEventList =
@@ -10420,7 +10725,7 @@ declare namespace chrome {
         interface SendMessageParams {
             /**
              * The value that will be passed in the message attribute
-             * of the dictionary that is passed to the event handler.
+             * of the interface that is passed to the event handler.
              */
             message: string;
         }
@@ -10725,7 +11030,9 @@ declare namespace chrome {
          */
         interface OnMessageEvent extends chrome.events.Event<(details: OnMessageEventDetails) => void> { }
     }
+    // #endregion
 
+    // #region placeholders
     //////////////////
     // PLACEHOLDERS //
     //////////////////
@@ -10736,7 +11043,9 @@ declare namespace chrome {
      * @see[Documentation]{@link https://developer.chrome.com/apps/experimental}
      */
     const experimental: any;
+    // #endregion
 
+    // #region classes
     /////////////
     // CLASSES //
     /////////////
@@ -10749,6 +11058,9 @@ declare namespace chrome {
         new <T = any>(): chrome.events.Event<T>;
     }
 
+    // #endregion
+
+    // #region methods
     /////////////
     // METHODS //
     /////////////
@@ -10772,12 +11084,14 @@ declare namespace chrome {
      * @see[Deprecation article]{@link https://developers.google.com/web/updates/2017/12/chrome-loadtimes-deprecated}
      */
     function loadTimes(): chrome.deprecatedButUsable;
+
+    // #endregion
 }
 
-/////////////////////
-// EXPORT
-/////////////////////
+////////////
+// EXPORT //
+////////////
 interface Window {
     chrome: typeof chrome;
-    WebView: HTMLWebViewElement;
+    WebView: typeof HTMLWebViewElement;
 }

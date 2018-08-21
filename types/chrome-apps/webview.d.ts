@@ -639,7 +639,7 @@ declare namespace WebView {
         /**
          * The type of menu item. Defaults to 'normal' if not specified.
          */
-        type?: chrome.contextMenus.ItemType;
+        type?: chrome.ToStringLiteral<typeof chrome.contextMenus.ItemType>;
 
         /**
          * The unique ID to assign to this item. Mandatory for event pages. Cannot be the same as another ID for this extension.

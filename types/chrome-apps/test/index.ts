@@ -184,12 +184,13 @@ chrome.app.runtime.onLaunched.addListener(() => {
     });
 });
 
-// FORBIDDEN APIs
+// #region FORBIDDEN APIs
 document.write('forbidden');
 Document.prototype.write.call(document, 'Hello, world');
 window.addEventListener('beforeunload', () => { });
+// #endregion
 
-// MANIFEST
+// #region MANIFEST
 
 const ManifestJSONTest1: chrome.runtime.Manifest = {
     manifest_version: 2,
@@ -498,12 +499,16 @@ const ManifestJSONTest1: chrome.runtime.Manifest = {
     action_handlers: ["new_note"]
 }
 
-// ALARMS
+// #endregion
+
+// #region chrome.alarms
 
 chrome.alarms.create('name', {
     delayInMinutes: 10
 })
+// #endregion
 
+// #region chrome.bluetooth*
 
 // BLUETOOTH
 // BLUETOOTH SOCKET
@@ -618,6 +623,8 @@ chrome.bluetooth.getDevices((devices) => {
     });
 });
 
+// #endregion
+
 // CERTIFICATE PROVIDER
 
 const requestId = 555;
@@ -641,18 +648,22 @@ chrome.contextMenus.onClicked.addListener((info) => {
 });
 
 
-// DESKTOP CAPTURE
-
+// #region chrome.desktopCapture
 
 chrome.desktopCapture.chooseDesktopMedia(["screen", "window", "tab"], () => { });
 chrome.desktopCapture.chooseDesktopMedia([chrome.desktopCapture.DesktopCaptureSourceType.AUDIO], () => { });
 
-// DNS
+// #endregion
+
+// #region chrome.dns
 
 chrome.dns.resolve("github.com", (info) => {
     console.log([info.resultCode === 0, info.address]);
 });
 
+// #endregion
+
+// #region chrome.enterprise.*
 // ENTERPRISE - DEVICE ATTRIBUTES
 
 const deviceAttr = chrome.enterprise.deviceAttributes;
@@ -672,13 +683,16 @@ if (chrome.enterprise.platformKeys.getTokens) {
         }
     }
 }
+// #endregion chrome.enterprise
 
-// EVENTS
+// #region chrome.Event
 
 const e = new chrome.Event(); // Used const instead of class to be able to return the interface
 e.addListener(() => { });
 
-// HID
+// #endregion
+
+// #region chrome.hid
 
 chrome.hid.getDevices({}, () => { });
 chrome.hid.onDeviceAdded.addListener(() => { });
@@ -709,6 +723,9 @@ chrome.hid.getDevices({
         });
 });
 
+// #endregion
+
+// #region chrome.fileBrowserHandler
 // File Browser Handle
 
 chrome.fileBrowserHandler.onExecute.addListener((id, details) => {
@@ -722,6 +739,9 @@ chrome.fileBrowserHandler.onExecute.addListener((id, details) => {
         });
 });
 
+// #endregion
+
+// #region chrome.fileSystem
 // FILE SYSTEM
 // https://developer.chrome.com/apps/fileSystem
 
@@ -750,8 +770,9 @@ function test_fileSystem(): void {
         chrome.fileSystem.isWritableEntry(entry, (isWritable: boolean) => { });
     });
 }
+// #endregion
 
-// IDENTITY
+// #region chrome.identity
 
 chrome.identity.getAuthToken({ interactive: true }, (token) => {
     if (chrome.runtime.lastError) {
@@ -760,7 +781,10 @@ chrome.identity.getAuthToken({ interactive: true }, (token) => {
     chrome.identity.removeCachedAuthToken({ token: token }, () => { });
 });
 
-// MEDIA GALLERIES
+// #endregion
+
+// #region chrome.mediaGalleries
+
 chrome.fileSystem.getVolumeList((volumes) => {
     chrome.fileSystem.requestFileSystem({
         volumeId: volumes[0].volumeId
@@ -774,8 +798,16 @@ chrome.fileSystem.getVolumeList((volumes) => {
     });
 });
 
+// #endregion
 
-// MESSAGING
+// #region chrome.power
+
+chrome.power.requestKeepAwake(chrome.power.Level.DISPLAY);
+chrome.power.requestKeepAwake('display');
+
+// #endregion
+
+// #region chrome.runtime
 
 chrome.runtime.onMessageExternal.addListener((request, sender, sendResponse) => {
     sendResponse({ "result": "Ops, I don't understand this message" });
@@ -787,13 +819,6 @@ chrome.runtime.sendMessage(
         console.log("Response: " + JSON.stringify(response));
     }
 );
-
-// POWER
-
-chrome.power.requestKeepAwake(chrome.power.Level.DISPLAY);
-chrome.power.requestKeepAwake('display');
-
-// RUNTIME
 
 chrome.runtime.reload();
 chrome.runtime.requestUpdateCheck((status, details) => {
@@ -811,6 +836,9 @@ if (os === 'android') {
 }
 const appId = chrome.runtime.id;
 
+// #endregion
+
+// #region chrome.sockets
 // SOCKETS
 // https://developer.chrome.com/apps/sockets_tcp
 function test_socketsTcp(): void {
@@ -1068,8 +1096,9 @@ chrome.sockets.udp.create({}, (createInfo) => {
         });
 });
 
-// SYNC FILE SYSTEM
+// #endregion
 
+// #region chrome.syncFileSystem
 
 chrome.syncFileSystem.getConflictResolutionPolicy((policy) => {
     if (policy === 'manual') {
@@ -1080,8 +1109,9 @@ chrome.syncFileSystem.getConflictResolutionPolicy((policy) => {
         });
     }
 });
+// #endregion
 
-// SYSTEM APIs
+// #region chrome.system.*
 
 function getPowerSourceInfo() {
     chrome.system.powerSource.getPowerSourceInfo(info => {
@@ -1091,8 +1121,8 @@ function getPowerSourceInfo() {
         if (info.length === 1 && info[0].type !== chrome.system.powerSource.PowerSourceType.mains) {
             return false;
         }
-    }));
-},
+    });
+}
 
 function onPowerChanged() {
     chrome.system.powerSource.onPowerChanged.addListener(info => {
@@ -1101,9 +1131,11 @@ function onPowerChanged() {
         }
     });
     chrome.system.powerSource.requestStatusUpdate();
-},
+}
 
-// TTS
+// #endregion
+
+// #region chrome.tts
 
 chrome.tts.isSpeaking((isSpeaking) => {
     if (!isSpeaking) {
@@ -1114,7 +1146,9 @@ chrome.tts.isSpeaking((isSpeaking) => {
     }
 });
 
-// USB
+// #endregion
+
+// #region chrome.usb
 
 const devices: { [key: string]: chrome.usb.Device } = {};
 chrome.usb.onDeviceAdded.addListener((device) => {
@@ -1133,9 +1167,11 @@ chrome.usb.getUserSelectedDevices({
     }
 });
 
-// WEBVIEW
+// #endregion
 
-let wve: HTMLWebViewElement = (<any>document.getElementById('webview'));
+// #region chrome.webViewRequest & WebView
+
+const wve = new window.WebView();
 wve.name = 'test';
 wve.src = 'https://github.com/DefinitelyTyped';
 wve.allowtransparency = true;
@@ -1208,3 +1244,5 @@ new chrome.webViewRequest.RequestMatcher({
 });
 
 wve.request.onRequest.addRules([rule]);
+
+// #endregion
