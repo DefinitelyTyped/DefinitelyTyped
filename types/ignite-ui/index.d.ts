@@ -1044,6 +1044,7 @@ class TypeParser {
 	 * @param obj
 	 */
 	toDate(obj: Object): void;
+	toTime(obj: Object): void;
 	toNumber(obj: Object): void;
 	toBool(obj: Object): void;
 	isNullOrUndefined(obj: Object): void;
@@ -1063,8 +1064,12 @@ interface DataSchemaSchemaFields {
 	 * number
 	 * bool
 	 * date
+	 * time
 	 * object
 	 *
+	 *
+	 * Valid values:
+	 * "time"
 	 */
 	type?: string|number|boolean|Date|Object;
 
@@ -10904,6 +10909,13 @@ interface IgCategoryChart {
 	tooltipTemplates?: any;
 
 	/**
+	 * Gets or sets the scaling value used to affect the pixel density of the control.
+	 * A higher scaling ratio will produce crisper visuals at the expense of memory.  Lower values will cause the control
+	 * to appear blurry.
+	 */
+	pixelScalingRatio?: number;
+
+	/**
 	 * Gets or sets the left margin of chart title
 	 */
 	titleLeftMargin?: number;
@@ -11138,6 +11150,11 @@ interface IgCategoryChart {
 	 * Gets or sets the maximum number of markers displyed in the plot area of the chart.
 	 */
 	markerMaxCount?: number;
+
+	/**
+	 * Gets or sets whether the series animations should be allowed when a range change has been detected on an axis.
+	 */
+	animateSeriesWhenAxisRangeChanges?: boolean;
 
 	/**
 	 * Gets or sets the palette of brushes to used for coloring trend lines in this chart.
@@ -11729,11 +11746,6 @@ interface IgCategoryChart {
 	negativeOutlines?: any;
 
 	/**
-	 * Gets or sets whether the series animations should be allowed when a range change has been detected on an axis.
-	 */
-	animateSeriesWhenAxisRangeChanges?: boolean;
-
-	/**
 	 * Gets or sets whether the large numbers on the Y-axis labels are abbreviated.
 	 */
 	yAxisAbbreviateLargeNumbers?: boolean;
@@ -12019,6 +12031,22 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igCategoryChart(optionLiteral: 'option', optionName: "tooltipTemplates", optionValue: any): void;
+
+	/**
+	 * Gets  the scaling value used to affect the pixel density of the control.
+	 * A higher scaling ratio will produce crisper visuals at the expense of memory.  Lower values will cause the control
+	 * to appear blurry.
+	 */
+	igCategoryChart(optionLiteral: 'option', optionName: "pixelScalingRatio"): number;
+
+	/**
+	 * Sets the scaling value used to affect the pixel density of the control.
+	 * A higher scaling ratio will produce crisper visuals at the expense of memory.  Lower values will cause the control
+	 * to appear blurry.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igCategoryChart(optionLiteral: 'option', optionName: "pixelScalingRatio", optionValue: number): void;
 
 	/**
 	 * Gets  the left margin of chart title
@@ -12545,6 +12573,18 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igCategoryChart(optionLiteral: 'option', optionName: "markerMaxCount", optionValue: number): void;
+
+	/**
+	 * Gets  whether the series animations should be allowed when a range change has been detected on an axis.
+	 */
+	igCategoryChart(optionLiteral: 'option', optionName: "animateSeriesWhenAxisRangeChanges"): boolean;
+
+	/**
+	 * Sets whether the series animations should be allowed when a range change has been detected on an axis.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igCategoryChart(optionLiteral: 'option', optionName: "animateSeriesWhenAxisRangeChanges", optionValue: boolean): void;
 
 	/**
 	 * Gets  the palette of brushes to used for coloring trend lines in this chart.
@@ -13705,18 +13745,6 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igCategoryChart(optionLiteral: 'option', optionName: "negativeOutlines", optionValue: any): void;
-
-	/**
-	 * Gets  whether the series animations should be allowed when a range change has been detected on an axis.
-	 */
-	igCategoryChart(optionLiteral: 'option', optionName: "animateSeriesWhenAxisRangeChanges"): boolean;
-
-	/**
-	 * Sets whether the series animations should be allowed when a range change has been detected on an axis.
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igCategoryChart(optionLiteral: 'option', optionName: "animateSeriesWhenAxisRangeChanges", optionValue: boolean): void;
 
 	/**
 	 * Gets  whether the large numbers on the Y-axis labels are abbreviated.
@@ -27642,6 +27670,9 @@ interface IgNumericEditor {
 	 */
 	toUpper?: any;
 
+	/**
+	 *
+	 */
 	textMode?: any;
 
 	/**
@@ -28221,6 +28252,9 @@ interface IgCurrencyEditor {
 	 */
 	toUpper?: any;
 
+	/**
+	 *
+	 */
 	textMode?: any;
 
 	/**
@@ -28703,6 +28737,9 @@ interface IgPercentEditor {
 	 */
 	toUpper?: any;
 
+	/**
+	 *
+	 */
 	textMode?: any;
 
 	/**
@@ -29101,6 +29138,9 @@ interface IgMaskEditor {
 	 */
 	dropDownOnReadOnly?: boolean;
 
+	/**
+	 *
+	 */
 	textMode?: any;
 
 	/**
@@ -29636,6 +29676,9 @@ interface IgDateEditor {
 	 */
 	dropDownOrientation?: string;
 
+	/**
+	 *
+	 */
 	textMode?: any;
 
 	/**
@@ -30198,6 +30241,9 @@ interface IgDatePicker {
 	 */
 	dropDownOrientation?: string;
 
+	/**
+	 *
+	 */
 	textMode?: any;
 
 	/**
@@ -31032,6 +31078,9 @@ interface IgTimePicker {
 	 */
 	excludeKeys?: string;
 
+	/**
+	 *
+	 */
 	textMode?: any;
 
 	/**
@@ -32975,8 +33024,12 @@ interface JQuery {
 	 */
 	igNumericEditor(optionLiteral: 'option', optionName: "toUpper", optionValue: any): void;
 
+	/**
+	 */
 	igNumericEditor(optionLiteral: 'option', optionName: "textMode"): any;
 
+	/**
+	 */
 	igNumericEditor(optionLiteral: 'option', optionName: "textMode", optionValue: any): void;
 
 	/**
@@ -33912,8 +33965,12 @@ interface JQuery {
 	 */
 	igCurrencyEditor(optionLiteral: 'option', optionName: "toUpper", optionValue: any): void;
 
+	/**
+	 */
 	igCurrencyEditor(optionLiteral: 'option', optionName: "textMode"): any;
 
+	/**
+	 */
 	igCurrencyEditor(optionLiteral: 'option', optionName: "textMode", optionValue: any): void;
 
 	/**
@@ -34788,8 +34845,12 @@ interface JQuery {
 	 */
 	igPercentEditor(optionLiteral: 'option', optionName: "toUpper", optionValue: any): void;
 
+	/**
+	 */
 	igPercentEditor(optionLiteral: 'option', optionName: "textMode"): any;
 
+	/**
+	 */
 	igPercentEditor(optionLiteral: 'option', optionName: "textMode", optionValue: any): void;
 
 	/**
@@ -35495,8 +35556,12 @@ interface JQuery {
 	 */
 	igMaskEditor(optionLiteral: 'option', optionName: "dropDownOnReadOnly", optionValue: boolean): void;
 
+	/**
+	 */
 	igMaskEditor(optionLiteral: 'option', optionName: "textMode"): any;
 
+	/**
+	 */
 	igMaskEditor(optionLiteral: 'option', optionName: "textMode", optionValue: any): void;
 
 	/**
@@ -36495,8 +36560,12 @@ interface JQuery {
 	 */
 	igDateEditor(optionLiteral: 'option', optionName: "dropDownOrientation", optionValue: string): void;
 
+	/**
+	 */
 	igDateEditor(optionLiteral: 'option', optionName: "textMode"): any;
 
+	/**
+	 */
 	igDateEditor(optionLiteral: 'option', optionName: "textMode", optionValue: any): void;
 
 	/**
@@ -37511,8 +37580,12 @@ interface JQuery {
 	 */
 	igDatePicker(optionLiteral: 'option', optionName: "dropDownOrientation", optionValue: string): void;
 
+	/**
+	 */
 	igDatePicker(optionLiteral: 'option', optionName: "textMode"): any;
 
+	/**
+	 */
 	igDatePicker(optionLiteral: 'option', optionName: "textMode", optionValue: any): void;
 
 	/**
@@ -38941,8 +39014,12 @@ interface JQuery {
 	 */
 	igTimePicker(optionLiteral: 'option', optionName: "excludeKeys", optionValue: string): void;
 
+	/**
+	 */
 	igTimePicker(optionLiteral: 'option', optionName: "textMode"): any;
 
+	/**
+	 */
 	igTimePicker(optionLiteral: 'option', optionName: "textMode", optionValue: any): void;
 
 	/**
@@ -39306,6 +39383,13 @@ interface IgFinancialChart {
 	tooltipTemplates?: any;
 
 	/**
+	 * Gets or sets the scaling value used to affect the pixel density of the control.
+	 * A higher scaling ratio will produce crisper visuals at the expense of memory.  Lower values will cause the control
+	 * to appear blurry.
+	 */
+	pixelScalingRatio?: number;
+
+	/**
 	 * Gets or sets the left margin of chart title
 	 */
 	titleLeftMargin?: number;
@@ -39540,6 +39624,11 @@ interface IgFinancialChart {
 	 * Gets or sets the maximum number of markers displyed in the plot area of the chart.
 	 */
 	markerMaxCount?: number;
+
+	/**
+	 * Gets or sets whether the series animations should be allowed when a range change has been detected on an axis.
+	 */
+	animateSeriesWhenAxisRangeChanges?: boolean;
 
 	/**
 	 * Gets or sets the palette of brushes to used for coloring trend lines in this chart.
@@ -40093,6 +40182,7 @@ interface IgFinancialChart {
 	 *
 	 * Valid values:
 	 * "none" Do not display the zoom slider pane.
+	 * "auto"
 	 * "bar" Display financial bar series in the zoom slider pane.
 	 * "candle" Display candle series in the zoom slider pane.
 	 * "column" Display column series in the zoom slider pane.
@@ -40215,6 +40305,8 @@ interface IgFinancialChart {
 	 * When CustomIndicatorNames is set, the ApplyCustomIndicators event will be raised for each custom indicator name.
 	 */
 	customIndicatorNames?: any;
+	zoomSliderXAxisMajorStroke?: any;
+	zoomSliderXAxisMajorStrokeThickness?: number;
 
 	/**
 	 * The width of the chart.
@@ -40503,6 +40595,22 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igFinancialChart(optionLiteral: 'option', optionName: "tooltipTemplates", optionValue: any): void;
+
+	/**
+	 * Gets  the scaling value used to affect the pixel density of the control.
+	 * A higher scaling ratio will produce crisper visuals at the expense of memory.  Lower values will cause the control
+	 * to appear blurry.
+	 */
+	igFinancialChart(optionLiteral: 'option', optionName: "pixelScalingRatio"): number;
+
+	/**
+	 * Sets the scaling value used to affect the pixel density of the control.
+	 * A higher scaling ratio will produce crisper visuals at the expense of memory.  Lower values will cause the control
+	 * to appear blurry.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igFinancialChart(optionLiteral: 'option', optionName: "pixelScalingRatio", optionValue: number): void;
 
 	/**
 	 * Gets  the left margin of chart title
@@ -41029,6 +41137,18 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igFinancialChart(optionLiteral: 'option', optionName: "markerMaxCount", optionValue: number): void;
+
+	/**
+	 * Gets  whether the series animations should be allowed when a range change has been detected on an axis.
+	 */
+	igFinancialChart(optionLiteral: 'option', optionName: "animateSeriesWhenAxisRangeChanges"): boolean;
+
+	/**
+	 * Sets whether the series animations should be allowed when a range change has been detected on an axis.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igFinancialChart(optionLiteral: 'option', optionName: "animateSeriesWhenAxisRangeChanges", optionValue: boolean): void;
 
 	/**
 	 * Gets  the palette of brushes to used for coloring trend lines in this chart.
@@ -42431,6 +42551,10 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igFinancialChart(optionLiteral: 'option', optionName: "customIndicatorNames", optionValue: any): void;
+	igFinancialChart(optionLiteral: 'option', optionName: "zoomSliderXAxisMajorStroke"): any;
+	igFinancialChart(optionLiteral: 'option', optionName: "zoomSliderXAxisMajorStroke", optionValue: any): void;
+	igFinancialChart(optionLiteral: 'option', optionName: "zoomSliderXAxisMajorStrokeThickness"): number;
+	igFinancialChart(optionLiteral: 'option', optionName: "zoomSliderXAxisMajorStrokeThickness", optionValue: number): void;
 
 	/**
 	 * The width of the chart.
@@ -44383,6 +44507,22 @@ interface IgGridCellMerging {
 	mergeStrategy?: string|Function;
 
 	/**
+	 * Defines the rules merging is based on.
+	 *
+	 *
+	 * Valid values:
+	 * "duplicate" Duplicate values in the column will be merged together.
+	 * "null" Merging will be applied for each subsequent null value after a non-null value.
+	 */
+	rowMergeStrategy?: string|Function;
+
+	/**
+	 * Defines the whether the rows will be merged or not.
+	 *
+	 */
+	mergeRows?: any;
+
+	/**
 	 * A list of column settings that specifies hiding options on a per column basis.
 	 *
 	 */
@@ -44452,6 +44592,8 @@ interface IgGridCellMergingMethods {
 	 * @param column The column index or column key to get the state for.
 	 */
 	isMerged(column: Object): boolean;
+	mergeRow(id: Object, fireEvents: Object): void;
+	unmergeRow(id: Object, index: Object): void;
 
 	/**
 	 * Changes the all locales contained into a specified container to the language specified in [options.language](ui.igwidget#options:language)
@@ -44472,6 +44614,8 @@ interface JQuery {
 	igGridCellMerging(methodName: "mergeColumn", column: Object, raiseEvents: boolean): string;
 	igGridCellMerging(methodName: "unmergeColumn", column: Object): string;
 	igGridCellMerging(methodName: "isMerged", column: Object): boolean;
+	igGridCellMerging(methodName: "mergeRow", id: Object, fireEvents: Object): void;
+	igGridCellMerging(methodName: "unmergeRow", id: Object, index: Object): void;
 	igGridCellMerging(methodName: "changeLocale", $container: Object): void;
 
 	/**
@@ -44521,6 +44665,36 @@ interface JQuery {
 	 */
 
 	igGridCellMerging(optionLiteral: 'option', optionName: "mergeStrategy", optionValue: string|Function): void;
+
+	/**
+	 * Defines the rules merging is based on.
+	 *
+	 */
+
+	igGridCellMerging(optionLiteral: 'option', optionName: "rowMergeStrategy"): string|Function;
+
+	/**
+	 * Defines the rules merging is based on.
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+
+	igGridCellMerging(optionLiteral: 'option', optionName: "rowMergeStrategy", optionValue: string|Function): void;
+
+	/**
+	 * Defines the whether the rows will be merged or not.
+	 *
+	 */
+	igGridCellMerging(optionLiteral: 'option', optionName: "mergeRows"): any;
+
+	/**
+	 * Defines the whether the rows will be merged or not.
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridCellMerging(optionLiteral: 'option', optionName: "mergeRows", optionValue: any): void;
 
 	/**
 	 * A list of column settings that specifies hiding options on a per column basis.
@@ -65611,6 +65785,11 @@ interface EditRowStartingEvent {
 
 interface EditRowStartingEventUIParam {
 	/**
+	 * Gets a reference to GridUpdating.
+	 */
+	owner?: any;
+
+	/**
 	 * Gets the row's PK value.
 	 */
 	rowID?: any;
@@ -65627,6 +65806,11 @@ interface EditRowStartedEvent {
 
 interface EditRowStartedEventUIParam {
 	/**
+	 * Gets a reference to GridUpdating.
+	 */
+	owner?: any;
+
+	/**
 	 * Gets the row's PK value.
 	 */
 	rowID?: any;
@@ -65642,6 +65826,11 @@ interface EditRowEndingEvent {
 }
 
 interface EditRowEndingEventUIParam {
+	/**
+	 * Gets a reference to GridUpdating.
+	 */
+	owner?: any;
+
 	/**
 	 * Check if any of the values is changed which will cause update in the data source. Can be manually set to false to prevent this update.
 	 */
@@ -65668,6 +65857,11 @@ interface EditRowEndedEvent {
 }
 
 interface EditRowEndedEventUIParam {
+	/**
+	 * Gets a reference to GridUpdating.
+	 */
+	owner?: any;
+
 	/**
 	 * Gets the row's PK value.
 	 */
@@ -65700,6 +65894,11 @@ interface EditCellStartingEvent {
 
 interface EditCellStartingEventUIParam {
 	/**
+	 * Gets a reference to GridUpdating.
+	 */
+	owner?: any;
+
+	/**
 	 * Gets the row's PK value.
 	 */
 	rowID?: any;
@@ -65717,7 +65916,7 @@ interface EditCellStartingEventUIParam {
 	/**
 	 * Gets a reference to the editor used for editing the column.
 	 */
-	editor?: string;
+	editor?: any;
 
 	/**
 	 * Gets or set the value of the editor.
@@ -65736,6 +65935,11 @@ interface EditCellStartedEvent {
 
 interface EditCellStartedEventUIParam {
 	/**
+	 * Gets a reference to GridUpdating.
+	 */
+	owner?: any;
+
+	/**
 	 * Gets the row's PK value.
 	 */
 	rowID?: any;
@@ -65753,7 +65957,7 @@ interface EditCellStartedEventUIParam {
 	/**
 	 * Gets a reference to the editor used for editing the column.
 	 */
-	editor?: string;
+	editor?: any;
 
 	/**
 	 * Gets or set the value of the editor.
@@ -65772,6 +65976,11 @@ interface EditCellEndingEvent {
 
 interface EditCellEndingEventUIParam {
 	/**
+	 * Gets a reference to GridUpdating.
+	 */
+	owner?: any;
+
+	/**
 	 * Gets the row's PK value.
 	 */
 	rowID?: any;
@@ -65789,7 +65998,7 @@ interface EditCellEndingEventUIParam {
 	/**
 	 * Gets a reference to the editor used for editing the column.
 	 */
-	editor?: string;
+	editor?: any;
 
 	/**
 	 * Gets or set the value of the editor.
@@ -65818,6 +66027,11 @@ interface EditCellEndedEvent {
 
 interface EditCellEndedEventUIParam {
 	/**
+	 * Gets a reference to GridUpdating.
+	 */
+	owner?: any;
+
+	/**
 	 * Gets the row's PK value.
 	 */
 	rowID?: any;
@@ -65835,7 +66049,7 @@ interface EditCellEndedEventUIParam {
 	/**
 	 * Gets a reference to the editor used for editing the column.
 	 */
-	editor?: string;
+	editor?: any;
 
 	/**
 	 * Gets the new value.
@@ -65864,6 +66078,11 @@ interface RowAddingEvent {
 
 interface RowAddingEventUIParam {
 	/**
+	 * Gets a reference to GridUpdating.
+	 */
+	owner?: any;
+
+	/**
 	 * Gets the value for the column with the specified key.
 	 */
 	values?: any;
@@ -65879,6 +66098,11 @@ interface RowAddedEvent {
 }
 
 interface RowAddedEventUIParam {
+	/**
+	 * Gets a reference to GridUpdating.
+	 */
+	owner?: any;
+
 	/**
 	 * Gets the value for the column with the specified key.
 	 */
@@ -65896,9 +66120,14 @@ interface RowDeletingEvent {
 
 interface RowDeletingEventUIParam {
 	/**
+	 * Gets a reference to GridUpdating.
+	 */
+	owner?: any;
+
+	/**
 	 * Gets a jQuery object containing the TR element of the row to delete.
 	 */
-	element?: string;
+	element?: any;
 
 	/**
 	 * Gets the row's PK value.
@@ -65912,9 +66141,14 @@ interface RowDeletedEvent {
 
 interface RowDeletedEventUIParam {
 	/**
+	 * Gets a reference to GridUpdating.
+	 */
+	owner?: any;
+
+	/**
 	 * Gets a jQuery object containing the TR element of the deleted row.
 	 */
-	element?: string;
+	element?: any;
 
 	/**
 	 * Gets the row's PK value.
@@ -65926,13 +66160,23 @@ interface DataDirtyEvent {
 	(event: Event, ui: DataDirtyEventUIParam): void;
 }
 
-interface DataDirtyEventUIParam {}
+interface DataDirtyEventUIParam {
+	/**
+	 * Gets a reference to GridUpdating.
+	 */
+	owner?: any;
+}
 
 interface GeneratePrimaryKeyValueEvent {
 	(event: Event, ui: GeneratePrimaryKeyValueEventUIParam): void;
 }
 
 interface GeneratePrimaryKeyValueEventUIParam {
+	/**
+	 * Gets a reference to GridUpdating.
+	 */
+	owner?: any;
+
 	/**
 	 * Gets the auto-generated primary key (the number of records in the data source + 1) or set a custom unique primary key for the new row.
 	 */
@@ -65945,9 +66189,14 @@ interface RowEditDialogBeforeOpenEvent {
 
 interface RowEditDialogBeforeOpenEventUIParam {
 	/**
+	 * Gets a reference to GridUpdating.
+	 */
+	owner?: any;
+
+	/**
 	 * Gets a reference to row edit dialog DOM element.
 	 */
-	dialogElement?: string;
+	dialogElement?: any;
 }
 
 interface RowEditDialogAfterOpenEvent {
@@ -65956,9 +66205,14 @@ interface RowEditDialogAfterOpenEvent {
 
 interface RowEditDialogAfterOpenEventUIParam {
 	/**
+	 * Gets a reference to GridUpdating.
+	 */
+	owner?: any;
+
+	/**
 	 * Gets a reference to row edit dialog DOM element.
 	 */
-	dialogElement?: string;
+	dialogElement?: any;
 }
 
 interface RowEditDialogBeforeCloseEvent {
@@ -65967,9 +66221,14 @@ interface RowEditDialogBeforeCloseEvent {
 
 interface RowEditDialogBeforeCloseEventUIParam {
 	/**
+	 * Gets a reference to GridUpdating.
+	 */
+	owner?: any;
+
+	/**
 	 * Gets a reference to row edit dialog DOM element.
 	 */
-	dialogElement?: string;
+	dialogElement?: any;
 }
 
 interface RowEditDialogAfterCloseEvent {
@@ -65978,9 +66237,14 @@ interface RowEditDialogAfterCloseEvent {
 
 interface RowEditDialogAfterCloseEventUIParam {
 	/**
+	 * Gets a reference to GridUpdating.
+	 */
+	owner?: any;
+
+	/**
 	 * Gets a reference to row edit dialog DOM element.
 	 */
-	dialogElement?: string;
+	dialogElement?: any;
 }
 
 interface RowEditDialogContentsRenderedEvent {
@@ -65989,9 +66253,14 @@ interface RowEditDialogContentsRenderedEvent {
 
 interface RowEditDialogContentsRenderedEventUIParam {
 	/**
+	 * Gets a reference to GridUpdating.
+	 */
+	owner?: any;
+
+	/**
 	 * Gets a reference to row edit dialog DOM element.
 	 */
-	dialogElement?: string;
+	dialogElement?: any;
 }
 
 interface IgGridUpdating {
@@ -84621,6 +84890,13 @@ interface IgShapeChart {
 	tooltipTemplates?: any;
 
 	/**
+	 * Gets or sets the scaling value used to affect the pixel density of the control.
+	 * A higher scaling ratio will produce crisper visuals at the expense of memory.  Lower values will cause the control
+	 * to appear blurry.
+	 */
+	pixelScalingRatio?: number;
+
+	/**
 	 * Gets or sets the left margin of chart title
 	 */
 	titleLeftMargin?: number;
@@ -84855,6 +85131,11 @@ interface IgShapeChart {
 	 * Gets or sets the maximum number of markers displyed in the plot area of the chart.
 	 */
 	markerMaxCount?: number;
+
+	/**
+	 * Gets or sets whether the series animations should be allowed when a range change has been detected on an axis.
+	 */
+	animateSeriesWhenAxisRangeChanges?: boolean;
 
 	/**
 	 * Gets or sets the palette of brushes to used for coloring trend lines in this chart.
@@ -85720,6 +86001,22 @@ interface JQuery {
 	igShapeChart(optionLiteral: 'option', optionName: "tooltipTemplates", optionValue: any): void;
 
 	/**
+	 * Gets  the scaling value used to affect the pixel density of the control.
+	 * A higher scaling ratio will produce crisper visuals at the expense of memory.  Lower values will cause the control
+	 * to appear blurry.
+	 */
+	igShapeChart(optionLiteral: 'option', optionName: "pixelScalingRatio"): number;
+
+	/**
+	 * Sets the scaling value used to affect the pixel density of the control.
+	 * A higher scaling ratio will produce crisper visuals at the expense of memory.  Lower values will cause the control
+	 * to appear blurry.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igShapeChart(optionLiteral: 'option', optionName: "pixelScalingRatio", optionValue: number): void;
+
+	/**
 	 * Gets  the left margin of chart title
 	 */
 	igShapeChart(optionLiteral: 'option', optionName: "titleLeftMargin"): number;
@@ -86244,6 +86541,18 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igShapeChart(optionLiteral: 'option', optionName: "markerMaxCount", optionValue: number): void;
+
+	/**
+	 * Gets  whether the series animations should be allowed when a range change has been detected on an axis.
+	 */
+	igShapeChart(optionLiteral: 'option', optionName: "animateSeriesWhenAxisRangeChanges"): boolean;
+
+	/**
+	 * Sets whether the series animations should be allowed when a range change has been detected on an axis.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igShapeChart(optionLiteral: 'option', optionName: "animateSeriesWhenAxisRangeChanges", optionValue: boolean): void;
 
 	/**
 	 * Gets  the palette of brushes to used for coloring trend lines in this chart.
@@ -99597,7 +99906,7 @@ interface IgTreeGrid {
 	/**
 	 * This option is inherited from a parent widget and it's not applicable for the igTreeGrid.
 	 */
-	avgRowHeight?: any;
+	avgRowHeight?: number;
 
 	/**
 	 * This option is inherited from a parent widget and it's not applicable for the igTreeGrid.
@@ -100879,14 +101188,14 @@ interface JQuery {
 	/**
 	 * This option is inherited from a parent widget and it's not applicable for the igTreeGrid.
 	 */
-	igTreeGrid(optionLiteral: 'option', optionName: "avgRowHeight"): any;
+	igTreeGrid(optionLiteral: 'option', optionName: "avgRowHeight"): number;
 
 	/**
 	 * This option is inherited from a parent widget and it's not applicable for the igTreeGrid.
 	 *
 	 * @optionValue New value to be set.
 	 */
-	igTreeGrid(optionLiteral: 'option', optionName: "avgRowHeight", optionValue: any): void;
+	igTreeGrid(optionLiteral: 'option', optionName: "avgRowHeight", optionValue: number): void;
 
 	/**
 	 * This option is inherited from a parent widget and it's not applicable for the igTreeGrid.
