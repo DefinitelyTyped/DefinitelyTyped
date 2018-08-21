@@ -1,196 +1,13 @@
 import runtime = chrome.app.runtime;
 const cwindow = chrome.app.window;
 
-// APP.WINDOW
-
-// Test enums
-cwindow.WindowType.PANEL;
-cwindow.State.FULLSCREEN;
-
-const createOptions: chrome.app.CreateWindowOptions = {
-    id: 'My Window',
-    bounds: {
-        left: 0,
-        top: 0,
-        width: 640,
-        height: 480
-    },
-    resizable: true
-};
-
-//Create new window on app launch
-chrome.app.runtime.onLaunched.addListener((launchData: runtime.LaunchData) => {
-    chrome.app.window.create('app/url', createOptions, (created_window: chrome.app.AppWindow) => {
-        return;
-    });
-});
-
-chrome.app.runtime.onRestarted.addListener(() => { return; });
-
-// retrieving windows
-var currentWindow: chrome.app.AppWindow = chrome.app.window.current();
-var otherWindow: chrome.app.AppWindow = chrome.app.window.get('some-string');
-var allWindows: chrome.app.AppWindow[] = chrome.app.window.getAll();
-
-// listening to window events
-currentWindow.onBoundsChanged.addListener(() => { return; });
-currentWindow.onClosed.addListener(() => { return; });
-currentWindow.onFullscreened.addListener(() => { return; });
-currentWindow.onMaximized.addListener(() => { return; });
-currentWindow.onMinimized.addListener(() => { return; });
-currentWindow.onRestored.addListener(() => { return; });
-
-// check platform capabilities
-var visibleEverywhere: boolean = chrome.app.window.canSetVisibleOnAllWorkspaces();
-
-
-
-// Sockets
-
-
-function testSystemNetwork() {
-    chrome.system.network.getNetworkInterfaces((networkInterfaces) => {
-        var iface: chrome.system.network.NetworkInterface;
-        for (var i in networkInterfaces) {
-            iface = networkInterfaces[i];
-        }
-    });
-}
-
-const gcmMessage = <chrome.gcm.OutgoingMessage>{};
-gcmMessage.data = {
-    /*goog: 'any', should not be allowed, and it is not :) */
-    test: true
-};
-
-
-
-chrome.contextMenus.ACTION_MENU_TOP_LEVEL_LIMIT;
-
-chrome.i18n.getMessage('click_here', ['string1', 'string2']);
-
-const TLSFormatExample = {
-    NetworkConfigurations: <chrome.networking.onc.NetworkConfigProperties>
-        {
-            GUID: '{00f79111-51e0-e6e0-76b3b55450d80a1b}',
-            Name: 'MyTTLSNetwork',
-            Type: 'WiFi',
-            WiFi: {
-                AutoConnect: false,
-                EAP: {
-                    ClientCertPattern: {
-                        EnrollmentURI: [
-                            'http://fetch-my-certificate.com'
-                        ],
-                        IssuerCARef: [
-                            '{6ed8dce9-64c8-d568-d225d7e467e37828}'
-                        ]
-                    },
-                    'ClientCertType': 'Pattern',
-                    'Outer': 'EAP-TLS',
-                    'ServerCARef': '{6ed8dce9-64c8-d568-d225d7e467e37828}',
-                    'UseSystemCAs': true
-                },
-                'HiddenSSID': false,
-                'SSID': 'MyTTLSNetwork',
-                'Security': 'WPA-EAP'
-            }
-        }
-}
-
-let serviceId: any = null;
-
-const runApp = () => {
-    var options = {
-        'id': 'Bluetooth Sample App',
-        'bounds': {
-            'width': 1024,
-            'height': 768
-        }
-    };
-
-    chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-        if (request.serviceId) {
-            serviceId = request.serviceId;
-            console.log('Received registered service Id: ' + serviceId);
-        }
-    });
-
-    chrome.app.window.create('test.html', options, (theWindow) => {
-        theWindow.onClosed.addListener(() => {
-            if (serviceId) {
-                console.log('Unregistering service: ' + serviceId);
-                chrome.bluetoothLowEnergy.unregisterService(serviceId, (status) => {
-                    console.log('Unregister service status = ' + status);
-                });
-            }
-        });
-    });
-}
-
-chrome.app.runtime.onLaunched.addListener(runApp);
-chrome.app.runtime.onRestarted.addListener(runApp);
-
-// networking.onc
-
-chrome.networking.onc.getNetworks({ 'networkType': 'All' }, (networkList) => {
-    console.log('Length of Network list: ' + networkList.length);
-    for (let networkObj of networkList) {
-        console.log('GUID: ' + networkObj.GUID);
-        console.log('Connectable: ' + networkObj.Connectable);
-        if (networkObj.WiFi) {
-            // WiFi active :)
-            console.log('Wifi BSID: ' + networkObj.WiFi.BSSID);
-        }
-        chrome.networking.onc.setProperties(networkObj.GUID || '', {
-            WiFi: {
-                Passphrase: 'Can be set :) but not get?'
-            }
-        })
-        // Test that we can't get passphrase
-        chrome.networking.onc.getProperties(networkObj.GUID || '', (props) => {
-            const WiFiResult = props.WiFi;
-        });
-    }
-});
-
-//// AUDIO
-
-chrome.audio.getDevices({}, (audioDeviceInfoList) => {
-    for (let audioObj of audioDeviceInfoList) {
-        console.log('ID: ' + audioObj.id);
-        console.log('Audio Stream Type: ' + audioObj.streamType);
-        console.log('Audio Device Name: ' + audioObj.deviceName);
-    }
-});
-
-chrome.app.runtime.onEmbedRequested.addListener((request) => {
-    if (!request.data.message) {
-        request.allow('default.html');
-    } else if (request.data.message == 'camera') {
-        request.allow('camera.html');
-    } else {
-        request.deny();
-    }
-});
-
-chrome.app.runtime.onLaunched.addListener(() => {
-    chrome.app.window.create('index.html', {
-        id: "test",
-        innerBounds: {
-            width: 900,
-            height: 1280,
-        },
-    });
-});
-
 // #region FORBIDDEN APIs
 document.write('forbidden');
 Document.prototype.write.call(document, 'Hello, world');
 window.addEventListener('beforeunload', () => { });
 // #endregion
 
-// #region MANIFEST
+// #region Manifest
 
 const ManifestJSONTest1: chrome.runtime.Manifest = {
     manifest_version: 2,
@@ -501,11 +318,125 @@ const ManifestJSONTest1: chrome.runtime.Manifest = {
 
 // #endregion
 
+// #region chrome.app.window
+
+// Test enums
+cwindow.WindowType.PANEL;
+cwindow.State.FULLSCREEN;
+
+const createOptions: chrome.app.CreateWindowOptions = {
+    id: 'My Window',
+    bounds: {
+        left: 0,
+        top: 0,
+        width: 640,
+        height: 480
+    },
+    resizable: true
+};
+
+//Create new window on app launch
+chrome.app.runtime.onLaunched.addListener((launchData: runtime.LaunchData) => {
+    chrome.app.window.create('app/url', createOptions, (created_window: chrome.app.AppWindow) => {
+        return;
+    });
+});
+
+chrome.app.runtime.onRestarted.addListener(() => { return; });
+
+// retrieving windows
+var currentWindow: chrome.app.AppWindow = chrome.app.window.current();
+var otherWindow: chrome.app.AppWindow = chrome.app.window.get('some-string');
+var allWindows: chrome.app.AppWindow[] = chrome.app.window.getAll();
+
+// listening to window events
+currentWindow.onBoundsChanged.addListener(() => { return; });
+currentWindow.onClosed.addListener(() => { return; });
+currentWindow.onFullscreened.addListener(() => { return; });
+currentWindow.onMaximized.addListener(() => { return; });
+currentWindow.onMinimized.addListener(() => { return; });
+currentWindow.onRestored.addListener(() => { return; });
+
+// check platform capabilities
+var visibleEverywhere: boolean = chrome.app.window.canSetVisibleOnAllWorkspaces();
+
+let serviceId: any = null;
+
+const runApp = () => {
+    var options: chrome.app.CreateWindowOptions = {
+        id: 'Bluetooth Sample App',
+        frame: 'none',
+        alphaEnabled: true, // Permission: 'app.window.alpha'
+        bounds: {
+            'width': 1024,
+            'height': 768
+        }
+    };
+
+    chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+        if (request.serviceId) {
+            serviceId = request.serviceId;
+            console.log('Received registered service Id: ' + serviceId);
+        }
+    });
+
+    chrome.app.window.create('test.html', options, (theWindow) => {
+        // Test setShape as provided by the permission 'app.window.shape'
+        theWindow.setShape([{ left: 100, top: 50, width: 50, height: 100 }]);
+        theWindow.setShape([{ left: 100, top: 50, width: 50, height: 100 },
+        { left: 200, top: 100, width: 50, height: 50 }]);
+        theWindow.onClosed.addListener(() => {
+            if (serviceId) {
+                console.log('Unregistering service: ' + serviceId);
+                chrome.bluetoothLowEnergy.unregisterService(serviceId, (status) => {
+                    console.log('Unregister service status = ' + status);
+                });
+            }
+        });
+    });
+}
+
+chrome.app.runtime.onLaunched.addListener(runApp);
+chrome.app.runtime.onRestarted.addListener(runApp);
+
+// #endregion
+
 // #region chrome.alarms
 
 chrome.alarms.create('name', {
     delayInMinutes: 10
 })
+// #endregion
+
+// #region chrome.audio
+
+chrome.audio.getDevices({}, (audioDeviceInfoList) => {
+    for (let audioObj of audioDeviceInfoList) {
+        console.log('ID: ' + audioObj.id);
+        console.log('Audio Stream Type: ' + audioObj.streamType);
+        console.log('Audio Device Name: ' + audioObj.deviceName);
+    }
+});
+
+chrome.app.runtime.onEmbedRequested.addListener((request) => {
+    if (!request.data.message) {
+        request.allow('default.html');
+    } else if (request.data.message == 'camera') {
+        request.allow('camera.html');
+    } else {
+        request.deny();
+    }
+});
+
+chrome.app.runtime.onLaunched.addListener(() => {
+    chrome.app.window.create('index.html', {
+        id: "test",
+        innerBounds: {
+            width: 900,
+            height: 1280,
+        },
+    });
+});
 // #endregion
 
 // #region chrome.bluetooth*
@@ -625,7 +556,7 @@ chrome.bluetooth.getDevices((devices) => {
 
 // #endregion
 
-// CERTIFICATE PROVIDER
+// #region chrome.certificateProvider
 
 const requestId = 555;
 chrome.certificateProvider.requestPin({ signRequestId: requestId }, (codeVal: Object) => {
@@ -638,7 +569,11 @@ chrome.certificateProvider.stopPinRequest({ signRequestId: requestId }, () => {
     }
 });
 
-// CONTEXT MENU
+// #endregion
+
+// #region chrome.contextMenus
+
+chrome.contextMenus.ACTION_MENU_TOP_LEVEL_LIMIT;
 
 chrome.contextMenus.onClicked.addListener((info) => {
     const isChecked = info.checked;
@@ -647,6 +582,7 @@ chrome.contextMenus.onClicked.addListener((info) => {
     }
 });
 
+// #endregion
 
 // #region chrome.desktopCapture
 
@@ -692,6 +628,16 @@ e.addListener(() => { });
 
 // #endregion
 
+// #region chrome.gcm
+
+const gcmMessage = <chrome.gcm.OutgoingMessage>{};
+gcmMessage.data = {
+    /*goog: 'any', should not be allowed, and it is not :) */
+    test: true
+};
+
+// #endregion
+
 // #region chrome.hid
 
 chrome.hid.getDevices({}, () => { });
@@ -722,6 +668,12 @@ chrome.hid.getDevices({
             }
         });
 });
+
+// #endregion
+
+// #region chrome.i18n
+
+chrome.i18n.getMessage('click_here', ['string1', 'string2']);
 
 // #endregion
 
@@ -800,6 +752,62 @@ chrome.fileSystem.getVolumeList((volumes) => {
 
 // #endregion
 
+chrome.networking.config;
+
+// #region chrome.networking.onc
+
+const TLSFormatExample = {
+    NetworkConfigurations: <chrome.networking.onc.NetworkConfigProperties>
+        {
+            GUID: '{00f79111-51e0-e6e0-76b3b55450d80a1b}',
+            Name: 'MyTTLSNetwork',
+            Type: 'WiFi',
+            WiFi: {
+                AutoConnect: false,
+                EAP: {
+                    ClientCertPattern: {
+                        EnrollmentURI: [
+                            'http://fetch-my-certificate.com'
+                        ],
+                        IssuerCARef: [
+                            '{6ed8dce9-64c8-d568-d225d7e467e37828}'
+                        ]
+                    },
+                    'ClientCertType': 'Pattern',
+                    'Outer': 'EAP-TLS',
+                    'ServerCARef': '{6ed8dce9-64c8-d568-d225d7e467e37828}',
+                    'UseSystemCAs': true
+                },
+                'HiddenSSID': false,
+                'SSID': 'MyTTLSNetwork',
+                'Security': 'WPA-EAP'
+            }
+        }
+}
+
+chrome.networking.onc.getNetworks({ 'networkType': 'All' }, (networkList) => {
+    console.log('Length of Network list: ' + networkList.length);
+    for (let networkObj of networkList) {
+        console.log('GUID: ' + networkObj.GUID);
+        console.log('Connectable: ' + networkObj.Connectable);
+        if (networkObj.WiFi) {
+            // WiFi active :)
+            console.log('Wifi BSID: ' + networkObj.WiFi.BSSID);
+        }
+        chrome.networking.onc.setProperties(networkObj.GUID || '', {
+            WiFi: {
+                Passphrase: 'Can be set :) but not get?'
+            }
+        })
+        // Test that we can't get passphrase
+        chrome.networking.onc.getProperties(networkObj.GUID || '', (props) => {
+            const WiFiResult = props.WiFi;
+        });
+    }
+});
+
+// #endregion
+
 // #region chrome.power
 
 chrome.power.requestKeepAwake(chrome.power.Level.DISPLAY);
@@ -841,6 +849,16 @@ const appId = chrome.runtime.id;
 // #region chrome.sockets
 // SOCKETS
 // https://developer.chrome.com/apps/sockets_tcp
+
+function testSystemNetwork() {
+    chrome.system.network.getNetworkInterfaces((networkInterfaces) => {
+        var iface: chrome.system.network.NetworkInterface;
+        for (var i in networkInterfaces) {
+            iface = networkInterfaces[i];
+        }
+    });
+}
+
 function test_socketsTcp(): void {
     var socketId: chrome.integer = 0;
     var properties: chrome.sockets.SocketProperties = {};

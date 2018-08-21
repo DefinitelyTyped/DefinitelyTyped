@@ -691,11 +691,12 @@ declare namespace chrome {
              */
             singleton?: boolean;
             /**
+             * @requires Permissions: 'alwaysOnTopWindows' or 'app.window.alwaysOnTop'
+             * @description
              * If true, the window will stay above most other windows.
              * If there are multiple windows of this kind, the currently focused window will be in the foreground.
-             * @requires alwaysOnTopWindows-permission.
-             * Defaults to false.
              * Call setAlwaysOnTop() on the window to change this property after creation.
+             * @default false
              */
             alwaysOnTop?: boolean;
             /** If true, the window will be focused when created. Defaults to true. */
@@ -6905,14 +6906,18 @@ declare namespace chrome {
 
         /** Undocumented but used permissions */
         type UndocumentedPermissions =
-            /** @todo TODO Document these */
+            /** Enable the <appview> tag. @todo Document this tag */
             'appview' |
-            /** Works on stable, enables setShape() on chrome.app.window */
-            'app.window.shape' |
-            'alwaysOnTopWindows' |
-            'overrideEscFullscreen' |
-            'app.window.fullscreen' |
-            'app.window.fullscreen.overrideEsc';
+            /**
+             * @deprecated
+             * @see Permission: 'app.window.fullscreen'
+             */
+            'fullscreen' |
+            /**
+             * @deprecated
+             * @see Permission: 'app.window.fullscreen.overrideEsc'
+             */
+            'overrideEscFullscreen';
 
         type NotAllowedAsOptionalPermissions =
             'debugger' |
@@ -6935,6 +6940,10 @@ declare namespace chrome {
             'alarms' |
             /** Gives your app access to the chrome.audio API. */
             'audio' |
+            /** Enables the method *setAlwaysOnTop()* on chrome.app.window */
+            'alwaysOnTopWindows' |
+            /** Enables the method *setAlwaysOnTop()* on chrome.app.window */
+            'app.window.alwaysOnTop' |
             /**
              * In Chrome Apps, fullscreen is entered without prompting the user or providing exit instructions.
              * HTML5 fullscreen requires the app.window.fullscreen permission in the manifest.
@@ -6945,6 +6954,8 @@ declare namespace chrome {
             /** That is also the behavior in Chrome Apps unless the app.window.fullscreen.overrideEsc
              * permission is used to enable the app to call preventDefault on keydown and keyup events. */
             'app.window.fullscreen.overrideEsc' |
+            /** Enables setShape() on chrome.app.window. Customize window shape. */
+            'app.window.shape' |
             /**
              * Requests that the app be granted permissions to capture audio
              * directly from the user's Microphone via the getUserMedia API.
@@ -10345,17 +10356,6 @@ declare namespace chrome {
             dnsServer: string[];
         }
 
-        /** @todo TODO Move to consts. Implement PlatformMessage enum & check usage of the other enums */
-        interface VpnPlatformMessageEvent extends chrome.events.Event<(id: string, message: string, error: string) => void> { }
-
-        interface VpnPacketReceptionEvent extends chrome.events.Event<(data: ArrayBuffer) => void> { }
-
-        interface VpnConfigRemovalEvent extends chrome.events.Event<(id: string) => void> { }
-
-        interface VpnConfigCreationEvent extends chrome.events.Event<(id: string, name: string, data: Object) => void> { }
-
-        interface VpnUiEvent extends chrome.events.Event<(event: ToStringLiteral<typeof UIEvent>, id?: string) => void> { }
-
         /**
          * Creates a new VPN configuration that persists across multiple login sessions of the user.
          * @param name The name of the VPN configuration.
@@ -10368,19 +10368,19 @@ declare namespace chrome {
          * @param id ID of the VPN configuration to destroy.
          * @param callback Called when the configuration is destroyed or if there is an error.
          */
-        function destroyConfig(id: string, callback?: Function): void;
+        function destroyConfig(id: string, callback?: () => void): void;
         /**
          * Sets the parameters for the VPN session. This should be called immediately after 'connected' is received from the platform. This will succeed only when the VPN session is owned by the extension.
          * @param parameters The parameters for the VPN session.
          * @param callback Called when the parameters are set or if there is an error.
          */
-        function setParameters(parameters: VpnSessionParameters, callback: Function): void;
+        function setParameters(parameters: VpnSessionParameters, callback: () => void): void;
         /**
          * Sends an IP packet through the tunnel created for the VPN session. This will succeed only when the VPN session is owned by the extension.
          * @param data The IP packet to be sent to the platform.
          * @param callback Called when the packet is sent or if there is an error.
          */
-        function sendPacket(data: ArrayBuffer, callback?: Function): void;
+        function sendPacket(data: ArrayBuffer, callback?: () => void): void;
         /**
          * Notifies the VPN session state to the platform. This will succeed only when the VPN session is owned by the extension.
          * @param state The VPN session state of the VPN client.
@@ -10389,21 +10389,23 @@ declare namespace chrome {
          * @see enum VpnConnectionState
          * @param callback Called when the notification is complete or if there is an error.
          */
-        function notifyConnectionStateChanged(state: ToStringLiteral<typeof VpnConnectionState>, callback?: Function): void;
+        function notifyConnectionStateChanged(state: ToStringLiteral<typeof VpnConnectionState>, callback?: () => void): void;
+
+        /** @todo TODO Implement PlatformMessage enum & check usage of the other enums */
 
         /** Triggered when a message is received from the platform for a VPN configuration owned by the extension. */
-        const onPlatformMessage: VpnPlatformMessageEvent;
+        const onPlatformMessage: chrome.events.Event<(id: string, message: ToStringLiteral<typeof PlatformMessage>, error: string) => void>;
         /** Triggered when an IP packet is received via the tunnel for the VPN session owned by the extension. */
-        const onPacketReceived: VpnPacketReceptionEvent;
+        const onPacketReceived: chrome.events.Event<(data: ArrayBuffer) => void>;
         /** Triggered when a configuration created by the extension is removed by the platform. */
-        const onConfigRemoved: VpnConfigRemovalEvent;
+        const onConfigRemoved: chrome.events.Event<(id: string) => void>;
         /** Triggered when a configuration is created by the platform for the extension. */
-        const onConfigCreated: VpnConfigCreationEvent;
+        const onConfigCreated: chrome.events.Event<(id: string, name: string, data: Object) => void>;
         /**
          * Triggered when there is a UI event for the extension.
          * UI events are signals from the platform that indicate to the app that a UI dialog needs to be shown to the user.
          */
-        const onUIEvent: VpnUiEvent;
+        const onUIEvent: chrome.events.Event<(event: ToStringLiteral<typeof UIEvent>, id?: string) => void>;
     }
     // #endregion
 
