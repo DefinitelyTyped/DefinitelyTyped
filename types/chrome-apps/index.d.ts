@@ -5547,7 +5547,7 @@ declare namespace chrome {
          */
         function setNetworkFilter(networks: Array<NetworkInfoFilterHexSSID | NetworkInfoFilterSSID>, callback: () => void): void;
         /**
-         * Called by the extension to notify the network config API that it finished
+         * Called by the app to notify the network config API that it finished
          * a captive portal authentication attempt and hand over the result of the attempt.
          * This function must only be called with the GUID of the latest *onCaptivePortalDetected* event.
          * @param GUID Unique network identifier obtained from *onCaptivePortalDetected*.

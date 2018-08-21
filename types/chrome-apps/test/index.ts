@@ -782,7 +782,16 @@ chrome.fileSystem.getVolumeList((volumes) => {
 
 // #endregion
 
-chrome.networking.config;
+// #region chrome.networking.config
+
+const filter: chrome.networking.config.NetworkInfoFilterHexSSID = {
+    HexSSID: '11:11:11:11:11:00'
+}
+
+chrome.networking.config.setNetworkFilter([filter], () => { });
+chrome.networking.config.finishAuthentication(filter.HexSSID || '', 'rejected');
+
+// #endregion
 
 // #region chrome.networking.onc
 
