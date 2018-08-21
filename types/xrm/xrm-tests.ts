@@ -45,7 +45,14 @@ lookupAttribute.addCustomFilter(`<filter type="and">
     <condition attribute="address1_city" operator="eq" value="Redmond" />
 </filter>`, "account");
 
+//Demonstrate adding and removing preSearches on lookups
 lookupAttribute.addPreSearch(() => { alert("A search was performed."); });
+const preSearchFunction = (context: Xrm.Events.EventContext) => { alert("A search was performed."); }
+lookupAttribute.addPreSearch(preSearchFunction);
+lookupAttribute.removePreSearch(preSearchFunction);
+
+//Demonstrate v9 addition of form addOnLoad
+Xrm.Page.data.addOnLoad(() => { alert("data was loaded."); });
 
 /// Demonstrate strong-typed attribute association with strong-typed control
 
