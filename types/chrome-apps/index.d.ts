@@ -1933,14 +1933,9 @@ declare namespace chrome {
      * can use these certificates for TLS authentications.
      */
     namespace certificateProvider {
-        /** @enum */
-        const Hash: {
-            'MD5_SHA1': 'MD5_SHA1',
-            'SHA1': 'SHA1',
-            'SHA256': 'SHA256',
-            'SHA384': 'SHA384',
-            'SHA512': 'SHA512'
-        };
+        /** Hash type */
+        type Hash = 'MD5_SHA1' | 'SHA1' | 'SHA256' | 'SHA384' | 'SHA512';
+
         /**
          * The type of code being requested by the extension with requestPin function.
          * @enum
@@ -1971,7 +1966,7 @@ declare namespace chrome {
              * hash algorithms. This should be in order of decreasing hash preference.
              * @see Hash
              */
-            supportedHashes?: ToStringLiteral<typeof Hash>[];
+            supportedHashes?: Hash[];
         }
         interface SignRequest {
             /**
@@ -1981,8 +1976,8 @@ declare namespace chrome {
             signRequestId: integer;
             /** The digest that must be signed */
             digest: ArrayBuffer;
-            /** @see Hash */
-            hash: ToStringLiteral<typeof Hash>;
+            /** Refers to the hash algorithm that was used to create *digest*. */
+            hash: Hash;
             /**
              * The DER encoding of a X.509 certificate. The app must sign
              * *digest* using the associated private key.
@@ -2018,7 +2013,7 @@ declare namespace chrome {
             /**
              * The ID given by Chrome in SignRequest
              */
-            signRequstId: number;
+            signRequestId: number;
             /**
              * The error template. If present it is displayed to user. Intended to
              * contain the reason for stopping the flow if it was caused by an error,

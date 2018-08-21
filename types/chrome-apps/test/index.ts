@@ -571,13 +571,31 @@ chrome.bluetooth.getDevices((devices) => {
 // #region chrome.certificateProvider
 
 const requestId = 555;
-chrome.certificateProvider.requestPin({ signRequestId: requestId }, (codeVal: Object) => {
-    codeVal
+chrome.certificateProvider.requestPin({ signRequestId: requestId }, (codeVal) => {
+    if (codeVal) {
+        return codeVal.userInput;
+    }
 });
 
 chrome.certificateProvider.stopPinRequest({ signRequestId: requestId }, () => {
     if (chrome.runtime.lastError) {
         console.error('Error:', chrome.runtime.lastError);
+    }
+});
+
+chrome.certificateProvider.onCertificatesRequested.addListener((certifictes, callback) => {
+    for (const cert of certifictes) {
+        if (cert.supportedHashes !== undefined && cert.certificate !== undefined) {
+            cert.supportedHashes.map(hash => {
+                return [hash, cert.certificate];
+            });
+        }
+    }
+});
+
+chrome.certificateProvider.onSignDigestRequested.addListener((signRequest, signCallback) => {
+    if (signRequest.hash == 'SHA1') {
+        signCallback(signRequest.certificate);
     }
 });
 
