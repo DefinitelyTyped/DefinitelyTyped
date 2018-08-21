@@ -2,6 +2,7 @@
 // Project: https://github.com/indexzero/winston-syslog#readme
 // Definitions by: Chris Barth <https://github.com/cjbarth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.9
 
 import * as winston from "winston";
 export interface SyslogTransportOptions extends winston.GenericTextTransportOptions {
