@@ -54,7 +54,7 @@ declare namespace chrome {
      * Chrome uses JS number, but internally requires an integer or double.
      * This is a helper type to prevent mixup.
      */
-    type integer = number | 'integer';
+    type integer = number; // | 'integer';
 
     ///
     /// BigInt is supported in Chrome now, but not in the api.
@@ -67,7 +67,7 @@ declare namespace chrome {
      * Chrome uses JS number, but internally requires an integer or double.
      * This is a helper type to prevent mixup.
      */
-    type double = number | 'double';
+    type double = number; // | 'double';
 
     // #endregion internal
 
@@ -2078,9 +2078,19 @@ declare namespace chrome {
      * @see[Docs]{@link https://developer.chrome.com/apps/clipboard}
      */
     namespace clipboard {
+        /** Image type */
+        type ImageType = 'png' | 'jpeg';
+        /** @enum */
+        const DataItemType: {
+            TEXT_PLAIN: 'textPlain',
+            TEXT_HTML: 'textHtml'
+        }
         interface AdditionalItems {
-            /** Type of the additional data item. */
-            type: 'textPlain' | 'textHtml';
+            /**
+             * Type of the additional data item.
+             * @see DataItemType
+             */
+            type: ToStringLiteral<typeof DataItemType>;
             /**
              * Content of the additional data item.
              * Either the plain text string if *type* is 'textPlain' or
@@ -2092,15 +2102,15 @@ declare namespace chrome {
         /**
          * **Dev channel only.**
          * Sets image data to clipboard
-         * @param imageData The encoded image data. *Since Chrome 69. Warning: this is the current Beta channel.*
-         * @param type The type of image being passed. *Since Chrome 69. Warning: this is the current Beta channel.*
+         * @param imageData The encoded image data. *Since Chrome 70. Warning: this is the current Beta channel.*
+         * @param type The type of image being passed. *Since Chrome 70. Warning: this is the current Beta channel.*
          * @param [additionalItems] Additional data items for describing image data.
          *      The callback is called with chrome.runtime.lastError set to error code if there is an error.
          *      Requires clipboard and clipboardWrite permissions.
-         *      *Since Chrome 69. Warning: this is the current Beta channel.*
+         *      *Since Chrome 70. Warning: this is the current Beta channel.*
          * @param [callback]
          */
-        function setImageData(imageData: ArrayBuffer, type: 'png' | 'jpeg', additionalItems?: AdditionalItems, callback?: () => void): void;
+        function setImageData(imageData: ArrayBuffer, type: ImageType, additionalItems?: AdditionalItems, callback?: () => void): void;
 
         /**
          * **Dev channel only.**
@@ -5555,6 +5565,17 @@ declare namespace chrome {
          * @param [callback] Called back when this operation is finished.
          */
         function finishAuthentication(GUID: string, result: ToStringLiteral<typeof AuthenticationResult>, callback?: () => void): void;
+        /**
+         * This event fires everytime a captive portal is detected on a network
+         * matching any of the currently registered network filters and the user
+         * consents to use the extension for authentication. Network filters may be
+         * set using the *setNetworkFilter*.
+         * Upon receiving this event the extension should start its authentication
+         * attempt with the captive portal. When the extension finishes its attempt,
+         * it must call *finishAuthentication* with the *GUID*.
+         * received with this event and the appropriate authentication result.
+         * @param networkInfo Information about the network on which a captive portal was detected.
+         */
         const onCaptivePortalDetected: chrome.events.Event<(networkInfo: NetworkInfo) => void>;
     }
 
@@ -6501,7 +6522,7 @@ declare namespace chrome {
              * length). Other parameters like the hash function used by the sign
              * function are not included. */
             keyAlgorithm: KeyAlgorithm;
-        };
+        }
 
         /**
          * Analogous to TLS1.1's CertificateRequest.
@@ -6522,7 +6543,7 @@ declare namespace chrome {
              * server. Each entry must be a DER-encoded X.509 DistinguishedName.
              */
             certificateAuthorities: ArrayBuffer[];
-        };
+        }
 
         interface SelectDetails {
             /** Only certificates that match this request will be returned. */
@@ -6543,7 +6564,7 @@ declare namespace chrome {
              * returned. If is false, the list is reduced to all certificates that the
              * extension has been granted access to (automatically or manually). */
             interactive: boolean;
-        };
+        }
 
         interface VerificationDetails {
             // Each chain entry must be the DER encoding of a X.509 certificate, the
@@ -6554,7 +6575,7 @@ declare namespace chrome {
             // The hostname of the server to verify the certificate for, e.g. the server
             // that presented the *serverCertificateChain*.
             hostname: string;
-        };
+        }
 
         interface VerificationResult {
             /**
@@ -6573,7 +6594,7 @@ declare namespace chrome {
              * compatible.
              */
             debug_errors: string[];
-        };
+        }
 
         /**
          * This function filters from a list of client certificates the ones that
@@ -9184,6 +9205,12 @@ declare namespace chrome {
             /** The display mode device scale factor. */
             deviceScaleFactor: integer;
 
+            /**
+             * The display mode refresh rate in hertz.
+             * @since Chrome 67
+             */
+            refreshRate: double;
+
             /** True if the mode is the display's native mode. */
             isNative: boolean;
 
@@ -9241,6 +9268,8 @@ declare namespace chrome {
 
             /**
              * @requires(CrOS) Chrome OS only.
+             * @deprecated Deprecated since Chrome 68. Use *setMirrorMode*
+             * @see setMirrorMode
              * @description
              * If set and not empty, enables mirroring for this display.
              * Otherwise disables mirroring for this display.
@@ -9294,6 +9323,16 @@ declare namespace chrome {
              * @since Chrome 52
              */
             displayMode?: DisplayMode;
+
+            /**
+             * @since Chrome 65.
+             * @description
+             * If set, updates the zoom associated with the display.
+             * This zoom performs re-layout and repaint thus resulting
+             * in a better quality zoom than just performing
+             * a pixel by pixel stretch enlargement.
+             */
+            displayZoomFactor?: double;
         }
 
         /**
@@ -9315,8 +9354,39 @@ declare namespace chrome {
             id: string;
             /** The user-friendly name (e.g. 'HP LCD monitor'). */
             name: string;
-            /** Identifier of the display that is being mirrored on the display unit. If mirroring is not in progress, set to an empty string. Currently exposed only on ChromeOS. Will be empty string on other platforms. */
+            /**
+             * @requires(CrOS Kiosk app) Only available in Chrome OS Kiosk apps
+             */
+            edid?: {
+                /**
+                 * 3 character manufacturer code.
+                 */
+                manufacturerId: string;
+                /**
+                 * 2 byte manufacturer-assigned code.
+                 */
+                productId: string;
+                /**
+                 * Year of manufacturer.
+                 */
+                yearOfManufacture?: string;
+            }
+            /**
+             * @requires(CrOS) Only working properly on Chrome OS.
+             * Identifier of the display that is being mirrored on the display unit.
+             * If mirroring is not in progress, set to an empty string
+             * Currently exposed only on ChromeOS.
+             * Will be empty string on other platforms.
+             */
             mirroringSourceId: string;
+            /**
+             * @requires(CrOS) Only available on Chrome OS.
+             * Identifiers of the displays to which the source display is being mirrored.
+             * Empty if no displays are being mirrored. This will be set to the same value
+             * for all displays.
+             * ❗ This must not include *mirroringSourceId*. ❗
+             */
+            mirroringDestinationIds: string[];
             /** True if this is the primary display. */
             isPrimary: boolean;
             /** True if this is an internal display. */
@@ -9335,22 +9405,42 @@ declare namespace chrome {
             overscan: Insets;
             /** The usable work area of the display within the display bounds. The work area excludes areas of the display reserved for OS, for example taskbar and launcher. */
             workArea: Bounds;
+            /**
+             * @requires(CrOS) Only available on Chrome OS.
+             * The list of available display modes.
+             * The current mode will have isSelected=true.
+             * Only available on Chrome OS.
+             * Will be set to an empty array on other platforms.
+             */
+            modes: DisplayMode[];
+            /** True if this display has a touch input device associated with it. */
+            hasTouchSupport: boolean;
+            /** A list of zoom factor values that can be set for the display. */
+            availableDisplayZoomFactors: double[];
+            /**
+             * The ratio between the display's current and default zoom.
+             * For example, value 1 is equivalent to 100% zoom, and value 1.5 is equivalent to 150% zoom.
+             * */
+            displayZoomFactor: double;
         }
 
-        /** The information about display properties that should be changed. A property will be changed only if a new value for it is specified in **info**. */
-        interface DisplayProps {
-            /** If set and not empty, starts mirroring between this and the display with the provided id (the system will determine which of the displays is actually mirrored). If set and not empty, stops mirroring between this and the display with the specified id (if mirroring is in progress). If set, no other parameter may be set. */
+        interface MirrorModeInfo {
+            /**
+             * The mirror mode that should be set.
+             * **off**
+             * Use the default mode (extended or unified desktop).
+             * **normal**
+             * The default source display will be mirrored to all other displays.
+             * **mixed**
+             * The specified source display will be mirrored to the provided destination displays. All other connected displays will be extended.
+             */
+            mode?: 'off' | 'normal' | 'mixed';
+        }
+        interface MirrorModeInfoMixed extends MirrorModeInfo {
+            mode: 'mixed';
             mirroringSourceId?: string;
-            /** If set to true, makes the display primary. No-op if set to false. */
-            isPrimary?: boolean;
-            /** If set, sets the display's overscan insets to the provided values. Note that overscan values may not be negative or larger than a half of the screen's size. Overscan cannot be changed on the internal monitor. It's applied after isPrimary parameter. */
-            overscan?: Insets;
-            /** If set, updates the display's rotation. Legal values are [0, 90, 180, 270]. The rotation is set clockwise, relative to the display's vertical position. It's applied after overscan paramter. */
-            rotation?: integer;
-            /** If set, updates the display's logical bounds origin along x-axis. Applied together with boundsOriginY, if boundsOriginY is set. Note that, when updating the display origin, some constraints will be applied, so the final bounds origin may be different than the one set. The final bounds can be retrieved using getInfo. The bounds origin is applied after rotation. The bounds origin cannot be changed on the primary display. Note that is also invalid to set bounds origin values if isPrimary is also set (as isPrimary parameter is applied first). */
-            boundsOriginX?: integer;
-            /** If set, updates the display's logical bounds origin along y-axis. See documentation for boundsOriginX parameter. */
-            boundsOriginY?: integer;
+            /** The ids of the mirroring destination displays. */
+            mirroringDestinationIds?: string[];
         }
 
         /**
@@ -9481,6 +9571,17 @@ declare namespace chrome {
          * @param id The display's unique identifier.
          */
         function clearTouchCalibration(id: string): void;
+
+        /**
+         * @requires(CrOS Kiosk app) Chrome OS Kiosk apps only
+         * @since Chrome 65.
+         * @description
+         * Sets the display mode to the specified mirror mode.
+         * Each call resets the state from previous calls.
+         * Calling setDisplayProperties() will fail for the
+         * mirroring destination displays.
+         */
+        function setMirrorMode(info: MirrorModeInfo | MirrorModeInfoMixed, callback: () => void): void;
 
         /**
          * Fired when anything changes to the display configuration.

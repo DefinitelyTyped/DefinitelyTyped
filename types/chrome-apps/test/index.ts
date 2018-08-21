@@ -318,6 +318,13 @@ const ManifestJSONTest1: chrome.runtime.Manifest = {
 
 // #endregion
 
+// #region chrome.alarms
+
+chrome.alarms.create('name', {
+    delayInMinutes: 10
+})
+// #endregion
+
 // #region chrome.app.*
 
 // Test enums
@@ -411,13 +418,6 @@ const runApp = () => {
 chrome.app.runtime.onLaunched.addListener(runApp);
 chrome.app.runtime.onRestarted.addListener(runApp);
 
-// #endregion
-
-// #region chrome.alarms
-
-chrome.alarms.create('name', {
-    delayInMinutes: 10
-})
 // #endregion
 
 // #region chrome.audio
@@ -568,6 +568,13 @@ chrome.bluetooth.getDevices((devices) => {
 
 // #endregion
 
+// #region chrome.browser
+
+chrome.browser.openTab({ url: 'https://github.com' });
+chrome.browser.openTab({ url: 'https://github.com' }, () => { });
+
+// #endregion
+
 // #region chrome.certificateProvider
 
 const requestId = 555;
@@ -597,6 +604,54 @@ chrome.certificateProvider.onSignDigestRequested.addListener((signRequest, signC
     if (signRequest.hash == 'SHA1') {
         signCallback(signRequest.certificate);
     }
+});
+
+// #endregion
+
+// #region chrome.clipboard
+
+const copyTextData = (text: string) => {
+    var input = document.getElementById('copy_text') as HTMLInputElement || new HTMLInputElement();
+    input.value = text;
+    input.focus();
+    input.select();
+    if (document.execCommand('Copy'))
+        return true;
+}
+copyTextData('FooBar');
+copyTextData('GitHub');
+
+function setImageDataClipboard(
+    imageUrl: string,
+    imageType: chrome.clipboard.ImageType,
+    additionalItems?: chrome.clipboard.AdditionalItems) {
+    var oReq = new XMLHttpRequest();
+    oReq.open('GET', imageUrl, true);
+    oReq.responseType = 'arraybuffer';
+    oReq.onload = (oEvent) => {
+        var arrayBuffer = oReq.response;
+        if (arrayBuffer) {
+            if (additionalItems) {
+                chrome.clipboard.setImageData(arrayBuffer, imageType, additionalItems,
+                    () => {
+                        return;
+                    });
+            } else {
+                chrome.clipboard.setImageData(arrayBuffer, imageType);
+            }
+        } else {
+            console.error('Failed to load the image file');
+        }
+    };
+    oReq.send(undefined);
+}
+
+setImageDataClipboard('/icon1.png', 'png');
+setImageDataClipboard('/test.jpg', 'jpeg');
+setImageDataClipboard('/redirect_target.gif', 'jpeg');
+setImageDataClipboard('/redirect_target.jpg', 'jpeg', {
+    data: '<p>Lorem Ipsum...</p>',
+    type: 'textHtml'
 });
 
 // #endregion
