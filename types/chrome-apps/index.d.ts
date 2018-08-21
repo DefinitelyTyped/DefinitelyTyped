@@ -9087,13 +9087,13 @@ declare namespace chrome {
     namespace system.cpu {
         interface ProcessorUsage {
             /** The cumulative time used by userspace programs on this processor. */
-            user: integer;
+            user: double;
             /** The cumulative time used by kernel programs on this processor. */
-            kernel: integer;
+            kernel: double;
             /** The cumulative time spent idle by this processor. */
-            idle: integer;
+            idle: double;
             /** The total cumulative time for this processor. This value is equal to user + kernel + idle. */
-            total: integer;
+            total: double;
         }
 
         interface ProcessorInfo {
@@ -9112,9 +9112,16 @@ declare namespace chrome {
              * A set of feature codes indicating some of the processor's capabilities.
              * The currently supported codes are 'mmx', 'sse', 'sse2', 'sse3', 'ssse3', 'sse4_1', 'sse4_2', and 'avx'.
              */
-            features: string[];
+            features: 'mmx' | 'sse' | 'sse2' | 'sse3' | 'ssse3' | 'sse4_1' | 'sse4_2' | 'avx';
             /** Information about each logical processor. */
             processors: ProcessorInfo[];
+            /**
+             * @requires(CrOS) Currently supported on Chrome OS only.
+             * @description
+             * List of CPU temperature readings from each thermal zone of the CPU.
+             * Temperatures are in degrees Celsius.
+             */
+            temperatures?: double[];
         }
 
         /** Queries basic CPU information of the system. */
