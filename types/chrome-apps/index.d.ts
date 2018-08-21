@@ -4734,7 +4734,9 @@ declare namespace chrome {
          */
         function detectLanguage(text: string, callback: (result: LanguageDetectionResult) => void): void;
     }
+    // #endregion
 
+    // #region chrome.identity
     //////////////
     // Identity //
     //////////////
@@ -4932,7 +4934,9 @@ declare namespace chrome {
          */
         const onStateChanged: chrome.events.Event<(newState: IdleState) => void>;
     }
+    // #endregion
 
+    // #region chrome.instanceID
     ////////////////
     // InstanceID //
     ////////////////

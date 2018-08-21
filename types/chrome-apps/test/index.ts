@@ -684,6 +684,8 @@ chrome.dns.resolve("github.com", (info) => {
 
 // #endregion
 
+chrome.documentScan; // @todo TODO Tests
+
 // #region chrome.enterprise.*
 // ENTERPRISE - DEVICE ATTRIBUTES
 
@@ -711,6 +713,53 @@ if (chrome.enterprise.platformKeys.getTokens) {
 const e = new chrome.Event(); // Used const instead of class to be able to return the interface
 e.addListener(() => { });
 
+// #endregion
+
+// #region chrome.fileBrowserHandler
+// File Browser Handle
+
+chrome.fileBrowserHandler.onExecute.addListener((id, details) => {
+    chrome.fileBrowserHandler.selectFile(
+        {
+            suggestedName: 'some_file_name.txt',
+            allowedFileExtensions: ['txt', 'html']
+        },
+        (result) => {
+            console.log(result.entry);
+        });
+});
+
+// #endregion
+
+// #region chrome.fileSystem
+// FILE SYSTEM
+// https://developer.chrome.com/apps/fileSystem
+
+function test_fileSystem(): void {
+    var accepts: chrome.fileSystem.AcceptOptions[] = [
+        { mimeTypes: ['text/*'], extensions: ['js', 'css', 'txt', 'html', 'xml', 'tsv', 'csv', 'rtf'] }
+    ];
+    var chooseOption: chrome.fileSystem.ChooseEntryOptions = {
+        type: 'openFile',
+        suggestedName: 'foo.txt',
+        accepts: accepts,
+        acceptsAllTypes: false,
+        acceptsMultiple: false
+    };
+    chrome.fileSystem.chooseEntry(chooseOption, (entry: Entry) => {
+        chrome.fileSystem.getDisplayPath(entry, (displayPath: string) => { });
+
+        var retainedId = chrome.fileSystem.retainEntry(entry);
+        chrome.fileSystem.isRestorable(retainedId, (isRestorable: boolean) => {
+            if (isRestorable) {
+                chrome.fileSystem.restoreEntry(retainedId, (restoredEntry: Entry) => { });
+            }
+        });
+
+        chrome.fileSystem.getWritableEntry(entry, (writableEntry: Entry) => { });
+        chrome.fileSystem.isWritableEntry(entry, (isWritable: boolean) => { });
+    });
+}
 // #endregion
 
 // #region chrome.gcm
@@ -760,53 +809,6 @@ chrome.hid.getDevices({
 
 chrome.i18n.getMessage('click_here', ['string1', 'string2']);
 
-// #endregion
-
-// #region chrome.fileBrowserHandler
-// File Browser Handle
-
-chrome.fileBrowserHandler.onExecute.addListener((id, details) => {
-    chrome.fileBrowserHandler.selectFile(
-        {
-            suggestedName: 'some_file_name.txt',
-            allowedFileExtensions: ['txt', 'html']
-        },
-        (result) => {
-            console.log(result.entry);
-        });
-});
-
-// #endregion
-
-// #region chrome.fileSystem
-// FILE SYSTEM
-// https://developer.chrome.com/apps/fileSystem
-
-function test_fileSystem(): void {
-    var accepts: chrome.fileSystem.AcceptOptions[] = [
-        { mimeTypes: ['text/*'], extensions: ['js', 'css', 'txt', 'html', 'xml', 'tsv', 'csv', 'rtf'] }
-    ];
-    var chooseOption: chrome.fileSystem.ChooseEntryOptions = {
-        type: 'openFile',
-        suggestedName: 'foo.txt',
-        accepts: accepts,
-        acceptsAllTypes: false,
-        acceptsMultiple: false
-    };
-    chrome.fileSystem.chooseEntry(chooseOption, (entry: Entry) => {
-        chrome.fileSystem.getDisplayPath(entry, (displayPath: string) => { });
-
-        var retainedId = chrome.fileSystem.retainEntry(entry);
-        chrome.fileSystem.isRestorable(retainedId, (isRestorable: boolean) => {
-            if (isRestorable) {
-                chrome.fileSystem.restoreEntry(retainedId, (restoredEntry: Entry) => { });
-            }
-        });
-
-        chrome.fileSystem.getWritableEntry(entry, (writableEntry: Entry) => { });
-        chrome.fileSystem.isWritableEntry(entry, (isWritable: boolean) => { });
-    });
-}
 // #endregion
 
 // #region chrome.identity
