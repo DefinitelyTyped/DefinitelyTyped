@@ -674,7 +674,7 @@ type GeolocationError = {
 };
 
 interface PerpectiveTransform {
-    perspective: number;
+    perspective: Animated.Value | number;
 }
 
 interface RotateTransform {
@@ -694,23 +694,23 @@ interface RotateZTransform {
 }
 
 interface ScaleTransform {
-    scale: number;
+    scale: Animated.Value | number;
 }
 
 interface ScaleXTransform {
-    scaleX: number;
+    scaleX: Animated.Value | number;
 }
 
 interface ScaleYTransform {
-    scaleY: number;
+    scaleY: Animated.Value | number;
 }
 
 interface TranslateXTransform {
-    translateX: number;
+    translateX: Animated.Value | number;
 }
 
 interface TranslateYTransform {
-    translateY: number;
+    translateY: Animated.Value | number;
 }
 
 interface SkewXTransform {
@@ -735,12 +735,12 @@ export interface TransformsStyle {
         | TranslateYTransform
         | SkewXTransform
         | SkewYTransform)[];
-    transformMatrix?: Array<number>;
-    rotation?: number;
-    scaleX?: number;
-    scaleY?: number;
-    translateX?: number;
-    translateY?: number;
+    transformMatrix?: Array<Animated.Value | number>;
+    rotation?: Animated.Value | number;
+    scaleX?: Animated.Value | number;
+    scaleY?: Animated.Value | number;
+    translateX?: Animated.Value | number;
+    translateY?: Animated.Value | number;
 }
 
 export interface StyleSheetProperties {
