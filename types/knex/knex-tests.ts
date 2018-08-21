@@ -1042,10 +1042,10 @@ knex('users')
   }).unionAll(function(builder) {
     let self: Knex.QueryBuilder = this;
     self = builder;
-  }).modify(function(builder, aBool) {
+  }).modify(function(builder, aBool: boolean, aString: string) {
     let self: Knex.QueryBuilder = this;
     self = builder;
-  }, true);
+  }, true, 'column');
 
 //
 // Migrations
