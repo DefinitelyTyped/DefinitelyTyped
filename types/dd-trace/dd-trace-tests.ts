@@ -1,5 +1,5 @@
 import * as tracer from 'dd-trace';
-import { SpanContext } from 'opentracing';
+import SpanContext = require('dd-trace/src/opentracing/span_context');
 
 tracer.init({
     service: 'MyLovelyService',
@@ -14,7 +14,7 @@ tracer.init({
 tracer
     .trace('web.request', {
         service: 'my_service',
-        childOf: new SpanContext(),
+        childOf: new SpanContext({ traceId: 1337, spanId: 42 }), // Childof must be an instance of this type. See: https://github.com/DataDog/dd-trace-js/blob/master/src/opentracing/tracer.js#L99
         tags: {
             env: 'dev'
         }

@@ -5,6 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { Tracer, Span, SpanContext } from "opentracing";
+import DatadogSpanContext = require('./src/opentracing/span_context');
 
 declare var trace: TraceProxy;
 export = trace;
@@ -143,8 +144,10 @@ interface TraceOptions {
     /**
      * The parent span or span context for the new span. Generally this is not needed as it will be
      * fetched from the current context.
+     * If creating your own, this must be an instance of DatadogSpanContext from ./src/opentracing/span_context
+     * See: https://github.com/DataDog/dd-trace-js/blob/master/src/opentracing/tracer.js#L99
      */
-    childOf?: Span | SpanContext;
+    childOf?: Span | SpanContext | DatadogSpanContext;
 
     /**
      * Global tags that should be assigned to every span.
