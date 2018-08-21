@@ -167,6 +167,7 @@ puppeteer.launch().then(async browser => {
       '--no-sandbox',
       '--disable-setuid-sandbox',
     ],
+    defaultViewport: { width: 800, height: 600 },
     handleSIGINT: true,
     handleSIGHUP: true,
     handleSIGTERM: true,
