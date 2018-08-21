@@ -139,12 +139,27 @@ declare namespace Knex {
 
         // Aggregation
         count(columnName?: string): QueryBuilder;
+        count(columnName: {[key: string]: string}): QueryBuilder;
+        count(columnName: {[key: string]: string[]}): QueryBuilder;
+        count(columnName: {[key: string]: Knex.Raw}): QueryBuilder;
         countDistinct(columnName?: string): QueryBuilder;
         min(columnName: string): QueryBuilder;
+        min(columnName: {[key: string]: string}): QueryBuilder;
+        min(columnName: {[key: string]: string[]}): QueryBuilder;
+        min(columnName: {[key: string]: Knex.Raw}): QueryBuilder;
         max(columnName: string): QueryBuilder;
+        max(columnName: {[key: string]: string}): QueryBuilder;
+        max(columnName: {[key: string]: string[]}): QueryBuilder;
+        max(columnName: {[key: string]: Knex.Raw}): QueryBuilder;
         sum(columnName: string): QueryBuilder;
+        sum(columnName: {[key: string]: string}): QueryBuilder;
+        sum(columnName: {[key: string]: string[]}): QueryBuilder;
+        sum(columnName: {[key: string]: Knex.Raw}): QueryBuilder;
         sumDistinct(columnName: string): QueryBuilder;
         avg(columnName: string): QueryBuilder;
+        avg(columnName: {[key: string]: string}): QueryBuilder;
+        avg(columnName: {[key: string]: string[]}): QueryBuilder;
+        avg(columnName: {[key: string]: Knex.Raw}): QueryBuilder;
         avgDistinct(columnName: string): QueryBuilder;
         increment(columnName: string, amount?: number): QueryBuilder;
         decrement(columnName: string, amount?: number): QueryBuilder;
