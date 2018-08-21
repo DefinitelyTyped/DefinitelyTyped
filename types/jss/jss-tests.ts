@@ -2,11 +2,12 @@
 
 import {
 	create as createJSS,
+	createGenerateClassName,
 	SheetsRegistry,
 	default as sharedInstance,
 } from 'jss';
 
-const jss = createJSS().setup({});
+const jss = createJSS().setup({ createGenerateClassName });
 jss.use({}, {}); // $ExpectType JSS
 
 const styleSheet = jss.createStyleSheet<string>(
@@ -45,6 +46,9 @@ attachedStyleSheet.classes.ruleWithMockObservable; // $ExpectType string
 const rule = attachedStyleSheet.addRule('dynamicRule', { color: 'indigo' });
 rule.prop('border-radius', 5).prop('color'); // $ExpectType string
 attachedStyleSheet.classes.dynamicRule; // $ExpectType string
+
+const generateClassName = createGenerateClassName();
+const dynamicRuleClassName = generateClassName(rule, attachedStyleSheet);
 
 attachedStyleSheet.deleteRule('dynamicRule');
 

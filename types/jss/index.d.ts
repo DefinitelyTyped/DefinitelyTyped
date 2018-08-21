@@ -3,6 +3,7 @@
 // Definitions by: Brenton Simpson <https://github.com/appsforartists>
 //                 Oleg Slobodskoi <https://github.com/kof>
 //                 Thomas Crockett <https://github.com/pelotom>
+//                 Sebastian Silbermann <https://github.com/eps1lon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -137,6 +138,10 @@ export declare class JSS {
  * Creates a new instance of JSS.
  */
 export function create(options?: Partial<JSSOptions>): JSS;
+/**
+ * Creates a GenerateClassName function
+ */
+export function createGenerateClassName(): GenerateClassName;
 declare const sharedInstance: JSS;
 /**
  * A global JSS instance.
