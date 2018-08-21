@@ -318,11 +318,23 @@ const ManifestJSONTest1: chrome.runtime.Manifest = {
 
 // #endregion
 
-// #region chrome.app.window
+// #region chrome.app.*
 
 // Test enums
 cwindow.WindowType.PANEL;
 cwindow.State.FULLSCREEN;
+
+chrome.app.runtime.onLaunched.addListener(function () {
+    chrome.app.window.create('index.html', {
+        'left': 10,
+        'top': 10,
+        'width': 400,
+        'height': 500,
+        'frame': 'none'
+    }, (win) => {
+        win.onClosed.addListener(() => { });
+    });
+});
 
 const createOptions: chrome.app.CreateWindowOptions = {
     id: 'My Window',

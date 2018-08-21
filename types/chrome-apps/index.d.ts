@@ -587,7 +587,7 @@ declare namespace chrome {
             inactiveColor?: string;
         }
 
-        interface CreateWindowOptions {
+        interface CreateWindowOptions extends ContentBounds {
             /**
              * Id to identify the window.
              *
@@ -663,6 +663,13 @@ declare namespace chrome {
              * Enable alpha on frame 'none'
              */
             alphaEnabled?: boolean;
+            /**
+             * @requires frame = 'none'
+             * @requires Permissions: 'app.window.ime'
+             * @description
+             * Windows API - ime (No fullscreen window in kiosk mode)
+             */
+            ime?: boolean;
             /**
              * Size and position of the content in the window (excluding the titlebar).
              * If an id is also specified and a window with a matching id has been shown before,
@@ -1921,8 +1928,9 @@ declare namespace chrome {
     /**
      * @requires(CrOS) Chrome OS only.
      * @requires Permissions: 'certificateProvider'
-     * @description Provide certificates for authentication
-     * @todo TODO Finish documentation
+     * @description
+     * Use this API to expose certificates to the platform which
+     * can use these certificates for TLS authentications.
      */
     namespace certificateProvider {
         /** @enum */
@@ -1933,38 +1941,130 @@ declare namespace chrome {
             'SHA384': 'SHA384',
             'SHA512': 'SHA512'
         };
-        /** @enum */
+        /**
+         * The type of code being requested by the extension with requestPin function.
+         * @enum
+         */
         const PinRequestType: {
             'PIN': 'PIN',
             'PUK': 'PUK'
         };
-        /** @enum */
+        /**
+         * The types of errors that can be presented to the user through the requestPin function.
+         * @enum
+         */
         const PinRequestErrorType: {
             'INVALID_PIN': 'INVALID_PIN',
             'INVALID_PUK': 'INVALID_PUK',
             'MAX_ATTEMPTS_EXCEEDED': 'MAX_ATTEMPTS_EXCEEDED',
             'UNKNOWN_ERROR': 'UNKNOWN_ERROR'
         };
-        interface RequestOptions {
+        interface CertificateInfo {
+            /**
+             * Must be the DER encoding of a X.509 certificate. Currently, only
+             * certificates of RSA keys are supported.
+             */
+            certificate?: ArrayBuffer;
+            /**
+             * Must be set to all hashes supported for this certificate. This app
+             * will only be asked for signatures of digests calculated with one of these
+             * hash algorithms. This should be in order of decreasing hash preference.
+             * @see Hash
+             */
+            supportedHashes?: ToStringLiteral<typeof Hash>[];
+        }
+        interface SignRequest {
+            /**
+             * The unique ID to be used by the app should it need to call a method
+             * that requires it, e.g. requestPin.
+             */
+            signRequestId: integer;
+            /** The digest that must be signed */
+            digest: ArrayBuffer;
+            /** @see Hash */
+            hash: ToStringLiteral<typeof Hash>;
+            /**
+             * The DER encoding of a X.509 certificate. The app must sign
+             * *digest* using the associated private key.
+             */
+            certificate: ArrayBuffer;
+        }
+        interface RequestPinDetails {
+            /**
+             * The ID given by Chrome in SignRequest.
+             */
             signRequestId: number;
-            /** @see PinRequestType */
+            /**
+             * The type of code requested. Default is PIN.
+             * @see PinRequestType
+             */
             requestType?: ToStringLiteral<typeof PinRequestType>;
-            /** @see PinRequestErrorType */
+            /**
+             * The error template displayed to the user. This should be set if the
+             * previous request failed, to notify the user of the failure reason.
+             * @see PinRequestErrorType
+             */
             errorType?: ToStringLiteral<typeof PinRequestErrorType>;
+            /**
+             * The number of attempts left. This is provided so that any UI can present
+             * this information to the user. Chrome is not expected to enforce this,
+             * instead stopPinRequest should be called by the app with
+             * errorType = MAX_ATTEMPTS_EXCEEDED when the number of pin requests is
+             * exceeded.
+             */
             attemptsLeft?: number;
         }
-        interface CodeValue {
+        interface StopRequestPinDetails {
+            /**
+             * The ID given by Chrome in SignRequest
+             */
+            signRequstId: number;
+            /**
+             * The error template. If present it is displayed to user. Intended to
+             * contain the reason for stopping the flow if it was caused by an error,
+             * e.g. MAX_ATTEMPTS_EXCEEDED.
+             * @see PinRequestErrorType
+             */
+            errorType?: ToStringLiteral<typeof PinRequestErrorType>;
+        }
+        interface PinResponseDetails {
             userInput?: string;
         }
-        /** @todo TODO Test to find proper types */
-        interface SignRequestDigest {
-            hash?: any;
-            certificate?: any;
-        }
-        function requestPin(opts: RequestOptions, callback: (codeValue: CodeValue) => void): void;
-        function stopPinRequest(opts: RequestOptions, callback: () => void): void;
-        const onCertificatesRequested: chrome.events.Event<(param: any) => any>;
-        const onSignDigestRequested: chrome.events.Event<(signRequest: SignRequestDigest, signCallback: Function) => any>;
+        /**
+         * Requests the PIN from the user. Only one ongoing request at a time is
+         * allowed. The requests issued while another flow is ongoing are rejected.
+         * It's the apps's responsibility to try again later if another flow is
+         * in progress.
+         * @param details Contains the details about the requested dialog.
+         * @param callback Is called when the dialog is resolved with the user input, or
+         * when the dialog request finishes unsuccessfully (e.g. the dialog was
+         * canceled by the user or was not allowed to be shown).
+         */
+        function requestPin(details: RequestPinDetails, callback: (details?: PinResponseDetails) => void): void;
+        /**
+         * @description Stops the pin request started by the *requestPin* function.
+         * @param details Contains the details about the reason for stopping the request flow.
+         * @param callback To be used by Chrome to send to the app the status from
+         * their request to close PIN dialog for user.
+         */
+        function stopPinRequest(details: StopRequestPinDetails, callback: () => void): void;
+        /**
+         * This event fires every time the browser requests the current list of
+         * certificates provided by this app. The app must call *reportCallback*
+         * exactly once with the current list of certificates.
+         */
+        const onCertificatesRequested: chrome.events.Event<(certificates: CertificateInfo[], callback: (rejectedCertificates: ArrayBuffer[]) => void) => any>;
+        /**
+         * This event fires every time the browser needs to sign
+         * a message using a certificate provided by this app
+         * in reply to an *onCertificatesRequested* event.
+         *
+         * The app must sign the data in *request* using the
+         * appropriate algorithm and private key and return it by calling
+         * *reportCallback*. *reportCallback* must be called exactly once.
+         * @param request: Contains the details about the sign request.
+         */
+        const onSignDigestRequested: chrome.events.Event<(signRequest: SignRequest, signCallback: (signature?: ArrayBuffer) => void) => any>;
     }
     // #endregion
 
@@ -6906,6 +7006,7 @@ declare namespace chrome {
 
         /** Undocumented but used permissions */
         type UndocumentedPermissions =
+            'app.window.ime' |
             /** Enable the <appview> tag. @todo Document this tag */
             'appview' |
             /**
@@ -10307,7 +10408,7 @@ declare namespace chrome {
     namespace vpnProvider {
         /**
          * The enum is used by the platform to notify the client of the VPN session status.
-         * 
+         *
          * **'connected'**
          * VPN configuration connected.
          * **'disconnected'**
@@ -10341,9 +10442,9 @@ declare namespace chrome {
         /**
          * The enum is used by the VPN client to inform the platform of its current state.
          * This helps provide meaningful messages to the user.
-         * 
+         *
          * **'connected'**
-         * VPN connection was successful. 
+         * VPN connection was successful.
          * **'failure'**
          * VPN connection failed.
          * @enum
@@ -10354,7 +10455,7 @@ declare namespace chrome {
         };
         /**
          * The enum is used by the platform to indicate the event that triggered *onUIEvent*
-         * 
+         *
          * **'showAddDialog'**
          * Request the VPN client to show add configuration dialog to the user.
          * **'showConfigureDialog'**
