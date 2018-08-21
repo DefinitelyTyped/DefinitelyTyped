@@ -9607,9 +9607,9 @@ declare namespace chrome {
     namespace system.memory {
         interface MemoryInfo {
             /** The total amount of physical memory capacity, in bytes. */
-            capacity: integer;
+            capacity: double;
             /** The amount of available capacity, in bytes. */
-            availableCapacity: integer;
+            availableCapacity: double;
         }
 
         /** Get physical memory information. */
@@ -9625,11 +9625,14 @@ declare namespace chrome {
      */
     namespace system.network {
         interface NetworkInterface {
+            /** The underlying name of the adapter. On *nix, this will typically be "eth0", "wlan0", etc. */
             name: string;
+            /** The available IPv4/6 address. */
             address: string;
+            /** The prefix length */
             prefixLength: integer;
         }
-
+        /** Retrieves information about local adapters on this system. */
         function getNetworkInterfaces(callback: (networkInterfaces: NetworkInterface[]) => void): void;
     }
 
