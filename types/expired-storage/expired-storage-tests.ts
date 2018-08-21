@@ -1,8 +1,8 @@
-import { LocalStorage } from 'node-localstorage';
+// import { LocalStorage } from 'node-localstorage';
 import ExpiredStorage = require('expired-storage');
 
-const localStorage = new LocalStorage('./scratch', Infinity);
-const expiredStorage = new ExpiredStorage(localStorage);
+// const localStorage = new LocalStorage('./scratch', Infinity);
+const expiredStorage = new ExpiredStorage();
 
 const mjkModel = {
   firstName: 'Maynard',
@@ -44,7 +44,7 @@ do {
 
 const expiredKeys = expiredStorage.clearExpired();
 
-if (typeof expiredKeys['apc'] !== 'undefined') {
+if (expiredKeys.indexOf('apc') === -1) {
   throw new Error('.clearExpired did not work..');
 }
 
