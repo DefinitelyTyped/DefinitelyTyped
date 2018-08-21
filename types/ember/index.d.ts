@@ -485,6 +485,10 @@ declare module 'ember' {
              *  object when the boot process is complete.
              */
             boot(): Promise<Application>;
+            /**
+             * Create an ApplicationInstance for this Application.
+             */
+            buildInstance(options?: object): ApplicationInstance;
         }
         /**
         The `ApplicationInstance` encapsulates all of the stateful aspects of a
@@ -1103,6 +1107,10 @@ declare module 'ember' {
              * Set this to provide an alternate class to `Ember.DefaultResolver`
              */
             resolver: Resolver;
+            /**
+             * Create an EngineInstance for this Engine.
+             */
+            buildInstance(options?: object): EngineInstance;
         }
         /**
          * The `EngineInstance` encapsulates all of the stateful aspects of a
