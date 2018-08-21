@@ -1504,7 +1504,7 @@ declare namespace Office {
      *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td>                            </td><td> Y               </td></tr>
      *  </table>
      */
-    function select(expression: string, callback?: (result: AsyncResult<undefined>) => void): Binding;
+    function select(expression: string, callback?: (result: AsyncResult<any>) => void): Binding;
     // Enumerations
     /**
      * Specifies the state of the active view of the document, for example, whether the user can edit the document.
