@@ -146,18 +146,8 @@ type ExtractFromOuterPropsMatch2 = ExtractedPropsFromOuterPropsWithoutAnnotation
 type ExtractFromOuterPropsMatch3 = ExtractedPropsFromOuterProps extends Props ? true : false;
 // $ExpectType true
 type ExtractFromOuterPropsMatch4 = Props extends ExtractedPropsFromOuterPropsWithoutAnnotation ? true : false;
-
 // $ExpectType false
 type ExtractPropsMismatch = ExtractedPartialProps extends Props ? true : false;
-
-// $ExpectType {}
-type UnmatchedPropKeys = Pick<ExtractedPropsWithoutAnnotation, Extract<{
-    [K in keyof ExtractedPropsWithoutAnnotation]: ExtractedPropsWithoutAnnotation[K] extends ExtractedProps[K] ? never : K
-}[keyof ExtractedPropsWithoutAnnotation], keyof ExtractedPropsWithoutAnnotation>>;
-// $ExpectType {}
-type UnmatchedPropKeys2 = Pick<ExtractedProps, Extract<{
-    [K in keyof ExtractedProps]: ExtractedProps[K] extends ExtractedPropsWithoutAnnotation[K] ? never : K
-}[keyof ExtractedProps], keyof ExtractedProps>>;
 
 PropTypes.checkPropTypes({ xs: PropTypes.array }, { xs: [] }, 'location', 'componentName');
 
