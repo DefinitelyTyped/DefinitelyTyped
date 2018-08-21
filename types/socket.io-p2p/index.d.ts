@@ -2,6 +2,7 @@
 // Project: https://github.com/socketio/socket.io-p2p
 // Definitions by: Sascha Englert <https://github.com/saenglert>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 export as namespace Socketiop2p;
 
@@ -14,7 +15,7 @@ declare function SocketioP2PStatic(
 ): SocketioP2PStatic.Socketiop2p;
 
 declare namespace SocketioP2PStatic {
-    export interface PeerOpts {
+    interface PeerOpts {
         initiator?: boolean; // false
         channelConfig?: object; // {}
         channelName?: string; // random string
@@ -30,13 +31,13 @@ declare namespace SocketioP2PStatic {
         objectMode?: boolean; // false
     }
 
-    export interface P2POptions {
+    interface P2POptions {
         numClients?: number; // 5
         autoUpgrade?: boolean; // true
         peerOpts?: PeerOpts;
     }
 
-    export interface Socketiop2p {
+    interface Socketiop2p {
         (socket: any, opts: P2POptions, cb?: () => void): Socketiop2p;
         on(event: string, callback: (data: any) => void): void;
         emit(data: any, cb: () => void): void;
