@@ -27670,9 +27670,6 @@ interface IgNumericEditor {
 	 */
 	toUpper?: any;
 
-	/**
-	 *
-	 */
 	textMode?: any;
 
 	/**
@@ -28252,9 +28249,6 @@ interface IgCurrencyEditor {
 	 */
 	toUpper?: any;
 
-	/**
-	 *
-	 */
 	textMode?: any;
 
 	/**
@@ -28737,9 +28731,6 @@ interface IgPercentEditor {
 	 */
 	toUpper?: any;
 
-	/**
-	 *
-	 */
 	textMode?: any;
 
 	/**
@@ -29138,9 +29129,6 @@ interface IgMaskEditor {
 	 */
 	dropDownOnReadOnly?: boolean;
 
-	/**
-	 *
-	 */
 	textMode?: any;
 
 	/**
@@ -29676,9 +29664,6 @@ interface IgDateEditor {
 	 */
 	dropDownOrientation?: string;
 
-	/**
-	 *
-	 */
 	textMode?: any;
 
 	/**
@@ -30241,9 +30226,6 @@ interface IgDatePicker {
 	 */
 	dropDownOrientation?: string;
 
-	/**
-	 *
-	 */
 	textMode?: any;
 
 	/**
@@ -31078,9 +31060,6 @@ interface IgTimePicker {
 	 */
 	excludeKeys?: string;
 
-	/**
-	 *
-	 */
 	textMode?: any;
 
 	/**
@@ -33024,12 +33003,8 @@ interface JQuery {
 	 */
 	igNumericEditor(optionLiteral: 'option', optionName: "toUpper", optionValue: any): void;
 
-	/**
-	 */
 	igNumericEditor(optionLiteral: 'option', optionName: "textMode"): any;
 
-	/**
-	 */
 	igNumericEditor(optionLiteral: 'option', optionName: "textMode", optionValue: any): void;
 
 	/**
@@ -33965,12 +33940,8 @@ interface JQuery {
 	 */
 	igCurrencyEditor(optionLiteral: 'option', optionName: "toUpper", optionValue: any): void;
 
-	/**
-	 */
 	igCurrencyEditor(optionLiteral: 'option', optionName: "textMode"): any;
 
-	/**
-	 */
 	igCurrencyEditor(optionLiteral: 'option', optionName: "textMode", optionValue: any): void;
 
 	/**
@@ -34845,12 +34816,8 @@ interface JQuery {
 	 */
 	igPercentEditor(optionLiteral: 'option', optionName: "toUpper", optionValue: any): void;
 
-	/**
-	 */
 	igPercentEditor(optionLiteral: 'option', optionName: "textMode"): any;
 
-	/**
-	 */
 	igPercentEditor(optionLiteral: 'option', optionName: "textMode", optionValue: any): void;
 
 	/**
@@ -35556,12 +35523,8 @@ interface JQuery {
 	 */
 	igMaskEditor(optionLiteral: 'option', optionName: "dropDownOnReadOnly", optionValue: boolean): void;
 
-	/**
-	 */
 	igMaskEditor(optionLiteral: 'option', optionName: "textMode"): any;
 
-	/**
-	 */
 	igMaskEditor(optionLiteral: 'option', optionName: "textMode", optionValue: any): void;
 
 	/**
@@ -36560,12 +36523,8 @@ interface JQuery {
 	 */
 	igDateEditor(optionLiteral: 'option', optionName: "dropDownOrientation", optionValue: string): void;
 
-	/**
-	 */
 	igDateEditor(optionLiteral: 'option', optionName: "textMode"): any;
 
-	/**
-	 */
 	igDateEditor(optionLiteral: 'option', optionName: "textMode", optionValue: any): void;
 
 	/**
@@ -37580,12 +37539,8 @@ interface JQuery {
 	 */
 	igDatePicker(optionLiteral: 'option', optionName: "dropDownOrientation", optionValue: string): void;
 
-	/**
-	 */
 	igDatePicker(optionLiteral: 'option', optionName: "textMode"): any;
 
-	/**
-	 */
 	igDatePicker(optionLiteral: 'option', optionName: "textMode", optionValue: any): void;
 
 	/**
@@ -39014,12 +38969,8 @@ interface JQuery {
 	 */
 	igTimePicker(optionLiteral: 'option', optionName: "excludeKeys", optionValue: string): void;
 
-	/**
-	 */
 	igTimePicker(optionLiteral: 'option', optionName: "textMode"): any;
 
-	/**
-	 */
 	igTimePicker(optionLiteral: 'option', optionName: "textMode", optionValue: any): void;
 
 	/**
