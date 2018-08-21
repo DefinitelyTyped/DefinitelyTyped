@@ -63,14 +63,10 @@ export class ReactAutosuggestBasicTest extends React.Component<any, any> {
         }
     ];
     // endregion region Constructor
-    constructor(props: any) {
-        super(props);
-
-        this.state = {
-            value: '',
-            suggestions: this.getSuggestions('')
-        };
-    }
+    state = {
+        value: '',
+        suggestions: this.getSuggestions('')
+    };
     // endregion region Rendering methods
     render(): JSX.Element {
         const {value, suggestions} = this.state;
@@ -189,14 +185,10 @@ export class ReactAutosuggestTypedTest extends React.Component<any, any> {
         }
     ];
     // endregion region Constructor
-    constructor(props: any) {
-        super(props);
-
-        this.state = {
-            value: '',
-            suggestions: this.getSuggestions('')
-        };
-    }
+    state = {
+        value: '',
+        suggestions: this.getSuggestions('')
+    };
     // endregion region Rendering methods
     render(): JSX.Element {
         const {value, suggestions} = this.state;
@@ -345,6 +337,8 @@ export class ReactAutosuggestMultipleTest extends React.Component<any, any> {
             ]
         }
     ];
+
+    state: any;
     // endregion region Constructor
     constructor(props: any) {
         super(props);
@@ -495,14 +489,10 @@ export class ReactAutosuggestCustomTest extends React.Component<any, any> {
         }
     ];
     // endregion region Constructor
-    constructor(props: any) {
-        super(props);
-
-        this.state = {
-            value: '',
-            suggestions: this.getSuggestions('')
-        };
-    }
+    state = {
+        value: '',
+        suggestions: this.getSuggestions('')
+    };
     // endregion region Rendering methods
     render(): JSX.Element {
         const {value, suggestions} = this.state;

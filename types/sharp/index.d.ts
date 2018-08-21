@@ -332,6 +332,14 @@ declare namespace sharp {
          * @throws {Error} Invalid parameters
          * @returns A sharp instance that can be used to chain operations
          */
+        linear(multiplier?: number, offset?: number): SharpInstance;
+        /**
+         * Apply a gamma correction by reducing the encoding (darken) pre-resize at a factor of 1/gamma then increasing the encoding (brighten) post-resize at a factor of gamma.
+         * @param multiplier value between 0.0 and 1.0. (optional, default 1.0)
+         * @param offset value between 0.0 and 1.0. (optional, default 0.0)
+         * @throws {Error} Invalid parameters
+         * @returns A sharp instance that can be used to chain operations
+         */
         boolean(operand: string | Buffer, operator: string, options?: { raw: Raw }): SharpInstance;
         /**
          * Write output image data to a file.

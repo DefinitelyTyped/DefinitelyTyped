@@ -30,7 +30,8 @@ export interface InitializeOptions {
     keepValues: boolean;
 }
 
-export declare function initialize(form: string, data: any, keepDirty?: boolean | InitializeOptions, options?: InitializeOptions): FormAction;
+export declare function initialize(form: string, data: any, keepDirty?: boolean, options?: Partial<InitializeOptions>): FormAction;
+export declare function initialize(form: string, data: any, options?: Partial<InitializeOptions>): FormAction;
 export declare function registerField(form: string, name: string, type: FieldType): FormAction;
 export declare function reset(form: string): FormAction;
 export declare function resetSection(form: string, ...sections: string[]): FormAction;

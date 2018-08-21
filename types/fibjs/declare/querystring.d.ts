@@ -3,7 +3,7 @@
  *   This file was automatically generated with idlc.js                    *
  *	 build info: 								   						   *
  *   	- fibjs	: 0.25.0                                                   *
- *   	- date	: Jun 11 2018 14:17:22                                     *
+ *   	- date	: Jun 12 2018 07:22:40                                     *
  *                                                                         *
  ***************************************************************************/
 
@@ -242,7 +242,7 @@ declare module "querystring" {
 		 * 
 		 * 
 		 */
-		export function parse(str: string, sep?: string/** = "&"*/, eq?: string/** = "="*/, opt?: Object/** = v8::Object::New(isolate)*/): Class_HttpCollection;
+		export function parse(str: string, sep?: string/** = "&"*/, eq?: string/** = "="*/, opt?: object/** = v8::Object::New(isolate)*/): Class_HttpCollection;
 	
 		/**
 		 * 
@@ -256,12 +256,12 @@ declare module "querystring" {
 		 * 
 		 * 
 		 */
-		export function stringify(obj: Object, sep?: string/** = "&"*/, eq?: string/** = "="*/, opt?: Object/** = v8::Object::New(isolate)*/): string;
+		export function stringify(obj: object, sep?: string/** = "&"*/, eq?: string/** = "="*/, opt?: object/** = v8::Object::New(isolate)*/): string;
 	
 	} /** end of `module querystring` */
 	export = querystring
 }
 
-/** } /** endof `module Or Internal Object` */
+/** endof `module Or Internal Object` */
 
 

@@ -24,6 +24,7 @@ import {
     NavigationStackScreenOptions,
     NavigationTabScreenOptions,
     NavigationTransitionProps,
+    StackViewTransitionConfigs,
     createStackNavigator,
     StackNavigatorConfig,
     createSwitchNavigator,
@@ -40,6 +41,10 @@ import {
     NavigationPopToTopAction,
     NavigationScreenComponent,
     NavigationContainerComponent,
+    withNavigation,
+    NavigationInjectedProps,
+    withNavigationFocus,
+    NavigationFocusInjectedProps
 } from 'react-navigation';
 
 // Constants
@@ -492,6 +497,7 @@ const CustomHeaderStack = createStackNavigator({
 
 interface ScreenProps {
     name: string;
+    optionalAge?: number;
     onPlay(): void;
 }
 
@@ -508,9 +514,78 @@ class SetParamsTest extends React.Component<NavigationScreenProps<ScreenProps>> 
 
     render() {
         const name = this.props.navigation.getParam('name');
+        const age = this.props.navigation.getParam('optionalAge');
+
+        // $ExpectType number | undefined
+        this.props.navigation.getParam('optionalAge');
+
+        // $ExpectType number
+        this.props.navigation.getParam('optionalAge', 0);
 
         return (
-            <Text>My name is {name}</Text>
+            <Text>My name is {name} and I am {age} years old.</Text>
         );
     }
 }
+
+// Test withNavigation
+
+interface BackButtonProps { title: string; }
+class MyBackButton extends React.Component<BackButtonProps & NavigationInjectedProps> {
+    triggerBack() {
+        console.log("Not implemented, すみません");
+    }
+    render() {
+      return <button title={this.props.title} onClick={() => { this.props.navigation.goBack(); }} />;
+    }
+}
+
+// withNavigation returns a component that wraps MyBackButton and passes in the
+// navigation prop
+const BackButtonWithNavigation = withNavigation<BackButtonProps>(MyBackButton);
+const BackButtonInstance = <BackButtonWithNavigation
+    title="Back" onRef={ref => { const backButtonRef = ref; }}
+/>;
+
+// if you have class methods, you should have a way to use them
+const BackButtonWithNavigationSpecified = withNavigation<BackButtonProps>(MyBackButton);
+const BackButtonSpecifiedInstance = <BackButtonWithNavigationSpecified
+    title="Back" onRef={ref => {
+        if (!ref) return;
+        const backButtonRef = ref as MyBackButton;
+        backButtonRef.triggerBack();
+    }}
+/>;
+
+// Test withNavigationFocus
+
+interface MyFocusedComponentProps { expectsFocus: boolean; }
+class MyFocusedComponent extends React.Component<MyFocusedComponentProps & NavigationFocusInjectedProps> {
+    render() {
+      return <button title={`${this.props.expectsFocus} vs ${this.props.isFocused}`} onClick={() => { this.props.navigation.goBack(); }} />;
+    }
+}
+
+// withNavigationFocus returns a component that wraps MyFocusedComponent and passes in the
+// navigation and isFocused prop
+const MyFocusedComponentWithNavigationFocus = withNavigationFocus<MyFocusedComponentProps>(MyFocusedComponent);
+const MyFocusedComponentInstance = <MyFocusedComponentWithNavigationFocus
+    expectsFocus={true} onRef={ref => { const backButtonRef = ref; }}
+/>;
+
+// Test Screen with params
+
+interface MyScreenParams { title: string; }
+class MyScreen extends React.Component<NavigationInjectedProps<MyScreenParams>> {
+    render() {
+        const title = this.props.navigation.getParam('title');
+        return <button title={title} onClick={() => { this.props.navigation.goBack(); }} />;
+    }
+}
+
+// Test createStackNavigator
+
+createStackNavigator(
+    routeConfigMap,
+    {transitionConfig: () => ({screenInterpolator: StackViewTransitionConfigs.SlideFromRightIOS.screenInterpolator})}
+);

@@ -1,4 +1,4 @@
-// Type definitions for signale 1.1
+// Type definitions for signale 1.2
 // Project: https://github.com/klauscfhq/signale
 // Definitions by: Resi Respati <https://github.com/resir014>
 //                 Kingdaro <https://github.com/kingdaro>
@@ -56,11 +56,15 @@ declare namespace signale {
         underlineLabel?: boolean;
         /** Underline the logger message. */
         underlineMessage?: boolean;
+        underlinePrefix?: boolean;
+        underlineSuffix?: boolean;
+        uppercaseLabel?: boolean;
     }
 
     interface SignaleOptions<TTypes extends string = DefaultMethods> {
         /** Sets the configuration of an instance overriding any existing global or local configuration. */
         config?: SignaleConfig;
+        disabled?: boolean;
         /**
          * Name of the scope.
          */

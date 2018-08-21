@@ -1,12 +1,10 @@
-// Type definitions for @vimeo/player 2.0
+// Type definitions for @vimeo/player 2.6.3
 // Project: https://github.com/vimeo/player.js
 // Definitions by: Denis Yılmaz <https://github.com/denisyilmaz>
 //                 Felix Albert <f.albert.work@icloud.com>
 //                 Tim Chen <https://github.com/timc13>
+//                 Terry Mun <https://github.com/terrymun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-export function myMethod(a: string): string;
-export function myOtherMethod(a: number): number;
 
 export type CallbackFunction = (...args: any[]) => any;
 
@@ -22,11 +20,12 @@ export interface InvalidCuePoint extends Error {name: "InvalidCuePoint"; message
 export interface RangeError extends Error {name: "RangeError"; message: string; method: string; }
 export interface TypeError extends Error {name: "TypeError"; message: string; method: string; }
 
-export type EventName = "play" | "pause" | "ended" | "timeupdate" | "progress" | "seeked" | "texttrackchange" | "cuechange" | "cuepoint" | "volumechange" | "error" | "loaded" |  string;
+export type EventName = "play" | "pause" | "ended" | "timeupdate" | "progress" | "seeked" | "texttrackchange" |
+                        "cuechange" | "cuepoint" | "volumechange" | "playbackratechange" | "bufferstart" | "bufferend" | "error" | "loaded" |  string;
 export type EventCallback = (data: any) => any;
 
 export class Player {
-    constructor(element: HTMLIFrameElement|HTMLElement|string, options: Options);
+    constructor(element: HTMLIFrameElement|HTMLElement|string, options?: Options);
 
     on(event: EventName, callback: EventCallback): void;
     off(event: EventName, callback?: EventCallback): void;
@@ -51,6 +50,8 @@ export class Player {
     getLoop(): VimeoPromise<boolean, Error>;
     setLoop(loop: boolean): VimeoPromise<boolean, Error>;
     getPaused(): VimeoPromise<boolean, Error>;
+    getPlaybackRate(): VimeoPromise<number, Error>;
+    setPlaybackRate(playbackRate: number): VimeoPromise<number, RangeError | Error>;
     getTextTracks(): VimeoPromise<VimeoTextTrack[], Error>;
     getVideoEmbedCode(): VimeoPromise<string, Error>;
     getVideoId(): VimeoPromise<number, Error>;
@@ -85,14 +86,20 @@ export interface Options {
     url?: string;
     autopause?: boolean;
     autoplay?: boolean;
+    background?: boolean;
     byline?: boolean;
     color?: string;
     height?: number;
     loop?: boolean;
     maxheight?: number;
     maxwidth?: number;
+    muted?: boolean;
+    playsinline?: boolean;
     portrait?: boolean;
+    responsive?: boolean;
+    speed?: boolean;
     title?: boolean;
+    transparent?: boolean;
     width?: number;
 }
 
@@ -104,6 +111,4 @@ export interface VimeoPromise<Result, Reason> extends Promise<Result> {
 }
 
 /*~ You can declare properties of the module using const, let, or var */
-export const playerMap: WeakMap<any, any>;
-export const readyMap: WeakMap<any, any>;
 export default Player;

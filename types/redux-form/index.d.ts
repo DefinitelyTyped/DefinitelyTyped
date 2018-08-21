@@ -1,4 +1,4 @@
-// Type definitions for redux-form 7.2
+// Type definitions for redux-form 7.4
 // Project: https://github.com/erikras/redux-form
 // Definitions by: Carson Full <https://github.com/carsonf>
 //                 Daniel Lytkin <https://github.com/aikoven>
@@ -7,9 +7,10 @@
 //                 Alex Young <https://github.com/alsiola>
 //                 Anton Novik <https://github.com/tehbi4>
 //                 Huw Martin <https://github.com/huwmartin>
+//                 Tim de Koning <https://github.com/reggino>
+//                 Maddi Joyce <https://github.com/maddijoyce>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
-
+// TypeScript Version: 2.8
 import {
   ComponentClass,
   StatelessComponent,
@@ -46,6 +47,7 @@ export * from "./lib/Field";
 export * from "./lib/Fields";
 export * from "./lib/FieldArray";
 export * from "./lib/Form";
+export * from "./lib/FormName";
 export * from "./lib/FormSection";
 export * from "./lib/formValues";
 export * from "./lib/formValueSelector";

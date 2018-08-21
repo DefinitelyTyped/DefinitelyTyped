@@ -3,7 +3,7 @@
  *   This file was automatically generated with idlc.js                    *
  *	 build info: 								   						   *
  *   	- fibjs	: 0.25.0                                                   *
- *   	- date	: Jun 11 2018 14:17:22                                     *
+ *   	- date	: Jun 12 2018 07:22:40                                     *
  *                                                                         *
  ***************************************************************************/
 
@@ -228,6 +228,14 @@ declare module "fs" {
 		 */
 		export const SEEK_END = 2;
 		
+		
+		/**
+		 * 
+		 * ! fs模块的常量对象
+		 * 
+		 * 
+		 */
+		export const constants: Object;
 		
 		
 		
@@ -639,10 +647,31 @@ declare module "fs" {
 		 */
 		export function appendFile(fname: string, data: Class_Buffer): void;
 	
+		/**
+		 * 
+		 * @brief 设置 zip 虚拟文件映射
+		 * @param fname 指定映射路径
+		 * @param data 指定映射的 zip 文件数据
+		 * 
+		 * 
+		 * 
+		 */
+		export function setZipFS(fname: string, data: Class_Buffer): void;
+	
+		/**
+		 * 
+		 * @brief 清除 zip 虚拟文件映射
+		 * @param fname 指定映射路径，缺省清除全部缓存
+		 * 
+		 * 
+		 * 
+		 */
+		export function clearZipFS(fname?: string/** = ""*/): void;
+	
 	} /** end of `module fs` */
 	export = fs
 }
 
-/** } /** endof `module Or Internal Object` */
+/** endof `module Or Internal Object` */
 
 

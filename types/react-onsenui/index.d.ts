@@ -2,7 +2,7 @@
 // Project: https://onsen.io/v2/docs/guide/react/
 // Definitions by: Ozytis <https://ozytis.fr>, Salim <https://github.com/salim7>, Jemmyw <https://github.com/jemmyw>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 import Component = React.Component;
@@ -281,6 +281,7 @@ export class Ripple extends Component<{
     color?: string,
     background?: string,
     disabled?: boolean,
+    modifier?: string,
 }, any> {}
 
 /*** Forms ***/

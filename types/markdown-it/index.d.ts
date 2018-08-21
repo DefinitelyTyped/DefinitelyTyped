@@ -97,7 +97,7 @@ declare module MarkdownIt {
     type TokenRender = (tokens: Token[], index: number, options: any, env: any, self: Renderer) => void;
 
     interface Rule {
-        (state: any): void;
+        (state: any, silent?: boolean): void;
     }
 
     interface Ruler {

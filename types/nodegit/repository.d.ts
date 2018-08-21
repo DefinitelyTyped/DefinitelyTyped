@@ -78,7 +78,7 @@ export class Repository {
     /**
      * Creates a branch with the passed in name pointing to the commit
      */
-    createBranch(name: string, commit: Commit | string | Oid, force: boolean, signature: Signature, logMessage: string): Promise<Reference>;
+    createBranch(name: string, commit: Commit | string | Oid, force: boolean): Promise<Reference>;
     /**
      * Look up a refs's commit.
      */

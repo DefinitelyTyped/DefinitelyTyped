@@ -3,7 +3,7 @@
  *   This file was automatically generated with idlc.js                    *
  *	 build info: 								   						   *
  *   	- fibjs	: 0.25.0                                                   *
- *   	- date	: Jun 11 2018 14:17:22                                     *
+ *   	- date	: Jun 12 2018 07:22:40                                     *
  *                                                                         *
  ***************************************************************************/
 
@@ -57,7 +57,7 @@ declare class Class_MongoCursor extends Class__object {
 	 * 
 	 * 
 	 */
-	sort(opts: Object): Class_MongoCursor;
+	sort(opts: object): Class_MongoCursor;
 
 	/**
 	 * 
@@ -77,7 +77,7 @@ declare class Class_MongoCursor extends Class__object {
 	 * 
 	 * 
 	 */
-	next(): Object;
+	next(): object;
 
 	/**
 	 * 
@@ -140,10 +140,10 @@ declare class Class_MongoCursor extends Class__object {
 	 * 
 	 * 
 	 */
-	hint(opts: Object): Class_MongoCursor;
+	hint(opts: object): Class_MongoCursor;
 
 } /** endof class */
 
-/** } /** endof `module Or Internal Object` */
+/** endof `module Or Internal Object` */
 
 

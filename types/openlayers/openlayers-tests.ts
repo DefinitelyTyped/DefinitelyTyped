@@ -74,6 +74,7 @@ const style = new ol.style.Style();
 const styleArray: ol.style.Style[] = [];
 const styleFunction: ol.StyleFunction = (feature, resolution) => style;
 let styleRegularShape: ol.style.RegularShape;
+let styleStroke: ol.style.Stroke;
 const tilegrid = new ol.tilegrid.TileGrid({resolutions: numberArray});
 const transformFn: ol.TransformFunction = (array, out, dimension) => numberArray;
 let units: ol.proj.Units;
@@ -411,6 +412,7 @@ feature.setGeometry(geometry);
 feature.setGeometryName(stringValue);
 feature.setId(stringValue);
 feature.setId(numberValue);
+feature.setStyle(null);
 feature.setStyle(style);
 feature.setStyle(styleArray);
 feature.setStyle(featureStyleFunction);
@@ -1109,6 +1111,35 @@ styleRegularShape = new ol.style.RegularShape({
     fill: new ol.style.Fill({ color: 'red' }),
     points: 4,
 });
+
+//
+// ol.style.Stroke
+//
+
+styleStroke = new ol.style.Stroke();
+styleStroke.setColor('#FF0000');
+styleStroke.setColor('red');
+styleStroke.setColor('#CCC');
+styleStroke.setColor('rgb(255, 255, 255)');
+styleStroke.setColor('rgb(255, 255, 255, 0.7)');
+styleStroke.setLineCap('butt');
+styleStroke.setLineCap('round');
+styleStroke.setLineCap('square');
+styleStroke.setLineJoin('bevel');
+styleStroke.setLineJoin('round');
+styleStroke.setLineJoin('miter');
+styleStroke.setLineDash([10, 5]);
+styleStroke.setLineDashOffset(10);
+styleStroke.setMiterLimit(20);
+styleStroke.setWidth(5);
+
+const strokeColor: ol.Color|ol.ColorLike = styleStroke.getColor();
+const strokeLineCap: string = styleStroke.getLineCap();
+const strokeLineJoin: string = styleStroke.getLineJoin();
+const strokeLineDash: number[] = styleStroke.getLineDash();
+const strokeLineDashOffset: number = styleStroke.getLineDashOffset();
+const strokeMiterLimit: number = styleStroke.getMiterLimit();
+const strokeWidth: number = styleStroke.getWidth();
 
 //
 // ol.proj

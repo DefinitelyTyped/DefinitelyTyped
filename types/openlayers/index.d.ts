@@ -1734,7 +1734,7 @@ export class Feature extends Object {
      * @api stable
      * @observable
      */
-    setStyle(style: (ol.style.Style | ol.style.Style[] | ol.FeatureStyleFunction | ol.StyleFunction)): void;
+    setStyle(style: (ol.style.Style | ol.style.Style[] | ol.FeatureStyleFunction | ol.StyleFunction | null)): void;
 
     /**
      * Set the feature id.  The feature id is considered stable and may be used when
@@ -6424,7 +6424,7 @@ export namespace layer {
          * @param style Layer style.
          * @api stable
          */
-        setStyle(style: (ol.style.Style | ol.style.Style[] | ol.StyleFunction)): void;
+        setStyle(style: (ol.style.Style | ol.style.Style[] | ol.StyleFunction | null)): void;
     }
 
     /**
@@ -10136,6 +10136,13 @@ export namespace style {
         getLineDash(): number[];
 
         /**
+         * Get the line dash offset style for the stroke.
+         * @return Line dash offset
+         * @api
+         */
+        getLineDashOffset(): number;
+
+        /**
          * Get the line join type for the stroke.
          * @return Line join.
          * @api
@@ -10185,6 +10192,14 @@ export namespace style {
          * @api
          */
         setLineDash(lineDash: number[]): void;
+
+        /**
+         * Set the line dash offset.
+         *
+         * @param lineDashOffset Line dash offset.
+         * @api
+         */
+        setLineDashOffset(lineDashOffset: number): void;
 
         /**
          * Set the line join.
@@ -12347,6 +12362,7 @@ export namespace olx {
             lineCap?: string;
             lineJoin?: string;
             lineDash?: number[];
+            lineDashOffset?: number;
             miterLimit?: number;
             width?: number;
         }

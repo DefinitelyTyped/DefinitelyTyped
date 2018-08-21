@@ -64,7 +64,7 @@ proxy({
 });
 proxy({
   logProvider(provider) {
-    const logger = new (Winston.Logger)();
+    const logger = Winston.createLogger();
 
     return {
       log: logger.log,

@@ -3,7 +3,7 @@
  *   This file was automatically generated with idlc.js                    *
  *	 build info: 								   						   *
  *   	- fibjs	: 0.25.0                                                   *
- *   	- date	: Jun 11 2018 14:17:22                                     *
+ *   	- date	: Jun 12 2018 07:22:40                                     *
  *                                                                         *
  ***************************************************************************/
 
@@ -238,7 +238,7 @@ declare module "dgram" {
 		 * 
 		 * 
 		 */
-		export function createSocket(opts: Object): Class_DgramSocket;
+		export function createSocket(opts: object): Class_DgramSocket;
 	
 		/**
 		 * 
@@ -260,7 +260,7 @@ declare module "dgram" {
 		 * 
 		 * 
 		 */
-		export function createSocket(opts: Object, callback: Function): Class_DgramSocket;
+		export function createSocket(opts: object, callback: Function): Class_DgramSocket;
 	
 		/**
 		 * 
@@ -289,6 +289,6 @@ declare module "dgram" {
 	export = dgram
 }
 
-/** } /** endof `module Or Internal Object` */
+/** endof `module Or Internal Object` */
 
 

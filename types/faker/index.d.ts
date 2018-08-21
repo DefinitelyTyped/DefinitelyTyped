@@ -11,7 +11,8 @@ declare const fakerStatic: Faker.FakerStatic;
 declare namespace Faker {
 	interface FakerStatic {
 		locale: string;
-
+		setLocale(locale: string): void;
+		
 		address: {
 			zipCode(format?: string): string;
 			city(format?: number): string;

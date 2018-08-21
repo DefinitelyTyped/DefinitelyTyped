@@ -79,6 +79,21 @@ function test_formatText2() {
     });
 }
 
+function test_formatText3() {
+    const quillEditor = new Quill('#editor');
+    const range = {index: 0, length: 5};
+    quillEditor.formatText(range, 'bold', true);
+}
+
+function test_formatText4() {
+    const quillEditor = new Quill('#editor');
+    const range = {index: 0, length: 5};
+    quillEditor.formatText(range, {
+        bold: false,
+        color: 'rgb(0, 0, 255)'
+    });
+}
+
 function test_formatLine1() {
     const quillEditor = new Quill('#editor');
     quillEditor.formatLine(1, 3, 'api');
@@ -114,7 +129,7 @@ function test_updateContents() {
     }));
 }
 
-function test_setContents() {
+function test_setDeltaContents() {
     const quillEditor = new Quill('#editor');
     quillEditor.setContents(new Delta({ ops: [
         { insert: 'Hello ' },
@@ -123,9 +138,17 @@ function test_setContents() {
     ]}));
 }
 
-function test_setText() {
+function test_setTextContents() {
     const quillEditor = new Quill('#editor');
     quillEditor.setText('Hello\n');
+}
+
+function test_setHtmlContents() {
+    const quillEditor = new Quill('#editor');
+    const html = "<b>this is a bold text</b>";
+    const delta = quillEditor.clipboard.convert(html);
+    quillEditor.setContents(delta);
+    quillEditor.clipboard.convert();
 }
 
 function test_getSelection() {

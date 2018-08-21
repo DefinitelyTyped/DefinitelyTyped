@@ -36,7 +36,7 @@ declare class SerialPort extends Stream.Duplex {
 	pause(): this;
 	resume(): this;
 
-	on(event: string, callback?: (data?: any) => void): this;
+	on(event: string, callback: (data?: any) => void): this;
 
 	static Binding: SerialPort.BaseBinding;
 
@@ -87,7 +87,7 @@ declare namespace SerialPort {
 			constructor();
 		}
 		class Delimiter extends Stream.Transform {
-			constructor(options: {delimiter: string | Buffer | number[]});
+			constructor(options: {delimiter: string | Buffer | number[], includeDelimiter?: boolean});
 		}
 		class Readline extends Delimiter {
 			constructor(options: {delimiter: string | Buffer | number[], encoding?: 'ascii'|'utf8'|'utf16le'|'ucs2'|'base64'|'binary'|'hex'});

@@ -4959,6 +4959,7 @@ declare namespace chrome.runtime {
 
     export interface ConnectInfo {
         name?: string;
+        includeTlsChannelId?: boolean;
     }
 
     export interface InstalledDetails {
@@ -6564,7 +6565,7 @@ declare namespace chrome.tabs {
      * @param callback Optional.
      * Parameter window: Contains details about the window whose tabs were highlighted.
      */
-    export function highlight(highlightInfo: HighlightInfo, callback: (window: chrome.windows.Window) => void): void;
+    export function highlight(highlightInfo: HighlightInfo, callback?: (window: chrome.windows.Window) => void): void;
     /**
      * Gets all tabs that have the specified properties, or all tabs if no properties are specified.
      * @since Chrome 16.
@@ -7383,6 +7384,10 @@ declare namespace chrome.webRequest {
         type: ResourceType;
         /** The time when this signal is triggered, in milliseconds since the epoch. */
         timeStamp: number;
+        /** The origin where the request was initiated. This does not change through redirects. If this is an opaque origin, the string 'null' will be used.
+         * @since Since Chrome 63.
+        */
+        initiator?: string;
     }
 
     export interface WebRequestDetails extends ResourceRequest {

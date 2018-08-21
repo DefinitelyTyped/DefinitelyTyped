@@ -1,4 +1,4 @@
-// Type definitions for prosemirror-view 1.2
+// Type definitions for prosemirror-view 1.3
 // Project: https://github.com/ProseMirror/prosemirror-view
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 David Hahn <https://github.com/davidka>
@@ -41,14 +41,46 @@ export class Decoration {
   spec: { [key: string]: any };
   /**
    * Creates a widget decoration, which is a DOM node that's shown in
-   * the document at the given position.
+   * the document at the given position. It is recommended that you
+   * delay rendering the widget by passing a function that will be
+   * called when the widget is actually drawn in a view, but you can
+   * also directly pass a DOM node. getPos can be used to find the
+   * widget's current document position.
+   *
+   * @param spec These options are supported:
+   * @param spec.side Controls which side of the document position
+   * this widget is associated with. When negative, it is drawn before
+   * a cursor at its position, and content inserted at that position
+   * ends up after the widget. When zero (the default) or positive, the
+   * widget is drawn after the cursor and content inserted there ends
+   * up before the widget.
+   *
+   * When there are multiple widgets at a given position, their side
+   * values determine the order in which they appear. Those with lower
+   * values appear first. The ordering of widgets with the same side
+   * value is unspecified.
+   *
+   * When marks is null, side also determines the marks that the widget
+   * is wrapped in—those of the node before when negative, those of
+   * the node after when positive.
+   * @param spec.marks The precise set of marks to draw around the widget.
+   * @param spec.stopEvent Can be used to control which DOM events, when
+   * they bubble out of this widget, the editor view should ignore.
+   * @param spec.key When comparing decorations of this type (in order to
+   * decide whether it needs to be redrawn), ProseMirror will by default
+   * compare the widget DOM node by identity. If you pass a key, that key
+   * will be compared instead, which can be useful when you generate
+   * decorations on the fly and don't want to store and reuse DOM nodes.
+   * Make sure that any widgets with the same key are interchangeable—if
+   * widgets differ in, for example, the behavior of some event handler,
+   * they should get different keys.
    */
   static widget(
     pos: number,
-    dom: Node,
+    toDOM: ((view: EditorView, getPos: () => number) => Node) | Node,
     spec?: {
       side?: number | null;
-      marks?: Mark[];
+      marks?: Mark[] | null;
       stopEvent?: ((event: Event) => boolean) | null;
       key?: string | null;
     }
@@ -251,6 +283,27 @@ export class EditorView<S extends Schema = any> {
    * necessary).
    */
   domAtPos(pos: number): { node: Node; offset: number };
+  /**
+   * Find the DOM node that represents the document node after the
+   * given position. May return null when the position doesn't point
+   * in front of a node or if the node is inside an opaque node view.
+   *
+   * This is intended to be able to call things like getBoundingClientRect
+   * on that DOM node. Do not mutate the editor DOM directly, or add
+   * styling this way, since that will be immediately overriden by the
+   * editor as it redraws the node.
+   */
+  nodeDOM(pos: number): Node | null | undefined;
+  /**
+   * Find the document position that corresponds to a given DOM position.
+   * (Whenever possible, it is preferable to inspect the document structure
+   * directly, rather than poking around in the DOM, but sometimes—for
+   * example when interpreting an event target—you don't have a choice.)
+   *
+   * The bias (default: -1) parameter can be used to influence which side of
+   * a DOM node to use when the position is inside a leaf node.
+   */
+  posAtDOM(node: Node, offset: number, bias?: number | null): number;
   /**
    * Find out whether the selection is at the end of a textblock when
    * moving in a given direction. When, for example, given `"left"`,

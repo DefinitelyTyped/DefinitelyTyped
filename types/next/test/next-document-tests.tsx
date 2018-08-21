@@ -11,6 +11,13 @@ const basicResults = (
     </Document>
 );
 
+const withNonce = (
+    <Document>
+        <Head nonce="12345" />
+        <NextScript nonce="12345" />
+    </Document>
+);
+
 class MyDoc extends Document {
     static async getInitialProps({ renderPage }: NextDocumentContext) {
         // without callback

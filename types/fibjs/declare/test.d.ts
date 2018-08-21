@@ -3,7 +3,7 @@
  *   This file was automatically generated with idlc.js                    *
  *	 build info: 								   						   *
  *   	- fibjs	: 0.25.0                                                   *
- *   	- date	: Jun 11 2018 14:17:22                                     *
+ *   	- date	: Jun 12 2018 07:22:40                                     *
  *                                                                         *
  ***************************************************************************/
 
@@ -211,6 +211,15 @@ declare module "test" {
 	module test {
 		
 		
+		/**
+		 * 
+		 * @brief 设置和查询慢速测试警告阀值，以 ms 为单位，缺省为 75
+		 * 
+		 * 
+		 * 
+		 */
+		export const slow: number;
+		
 		
 		/**
 		 * 
@@ -352,6 +361,6 @@ declare module "test" {
 	export = test
 }
 
-/** } /** endof `module Or Internal Object` */
+/** endof `module Or Internal Object` */
 
 

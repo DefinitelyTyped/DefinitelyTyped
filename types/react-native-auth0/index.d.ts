@@ -138,6 +138,8 @@ export interface AuthorizeParams {
     audience?: string;
     scope?: string;
     connection?: string;
+    language?: string;
+    prompt?: string;
 }
 
 export interface ClearSessionParams {

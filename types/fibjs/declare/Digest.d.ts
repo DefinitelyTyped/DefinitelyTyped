@@ -3,7 +3,7 @@
  *   This file was automatically generated with idlc.js                    *
  *	 build info: 								   						   *
  *   	- fibjs	: 0.25.0                                                   *
- *   	- date	: Jun 11 2018 14:17:22                                     *
+ *   	- date	: Jun 12 2018 07:22:40                                     *
  *                                                                         *
  ***************************************************************************/
 
@@ -52,26 +52,16 @@ declare class Class_Digest extends Class__object {
 	/**
 	 * 
 	 * @brief 计算并返回摘要
-	 * @param data 二进制数据块，此数据块将在计算前更新进摘要
-	 * @return 返回摘要的二进制数据
+	 * @param codec 指定编码格式，允许值为："buffer", "hex", "base64", "utf8", 或者系统支持的字符集
+	 * @return 返回指定编码的摘要表示
 	 * 
 	 * 
 	 * 
 	 */
-	digest(data: Class_Buffer): Class_Buffer;
-
-	/**
-	 * 
-	 * @brief 计算并返回摘要
-	 * @return 返回摘要的二进制数据
-	 * 
-	 * 
-	 * 
-	 */
-	digest(): Class_Buffer;
+	digest(codec?: string/** = "buffer"*/): any;
 
 } /** endof class */
 
-/** } /** endof `module Or Internal Object` */
+/** endof `module Or Internal Object` */
 
 

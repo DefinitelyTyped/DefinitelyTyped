@@ -3,7 +3,7 @@
  *   This file was automatically generated with idlc.js                    *
  *	 build info: 								   						   *
  *   	- fibjs	: 0.25.0                                                   *
- *   	- date	: Jun 11 2018 14:17:22                                     *
+ *   	- date	: Jun 12 2018 07:22:40                                     *
  *                                                                         *
  ***************************************************************************/
 
@@ -217,7 +217,7 @@ declare module "bson" {
 		 * 
 		 * 
 		 */
-		export function encode(data: Object): Class_Buffer;
+		export function encode(data: object): Class_Buffer;
 	
 		/**
 		 * 
@@ -228,12 +228,12 @@ declare module "bson" {
 		 * 
 		 * 
 		 */
-		export function decode(data: Class_Buffer): Object;
+		export function decode(data: Class_Buffer): object;
 	
 	} /** end of `module bson` */
 	export = bson
 }
 
-/** } /** endof `module Or Internal Object` */
+/** endof `module Or Internal Object` */
 
 

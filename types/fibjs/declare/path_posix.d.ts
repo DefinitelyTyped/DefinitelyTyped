@@ -3,7 +3,7 @@
  *   This file was automatically generated with idlc.js                    *
  *	 build info: 								   						   *
  *   	- fibjs	: 0.25.0                                                   *
- *   	- date	: Jun 11 2018 14:17:22                                     *
+ *   	- date	: Jun 12 2018 07:22:40                                     *
  *                                                                         *
  ***************************************************************************/
 
@@ -205,6 +205,42 @@ declare module "path_posix" {
 	module path_posix {
 		
 		
+		/**
+		 * 
+		 * @brief 查询当前操作系统的路径分割字符，posix 返回 '/', windows 返回  '\\'
+		 * 
+		 * 
+		 * 
+		 */
+		export const sep: string;
+		
+		/**
+		 * 
+		 * @brief 查询当前操作系统的多路径组合字符，posix 返回 ':', windows 返回  ';'
+		 * 
+		 * 
+		 * 
+		 */
+		export const delimiter: string;
+		
+		/**
+		 * 
+		 * @brief posix 实现，参见 path_posix
+		 * 
+		 * 
+		 * 
+		 */
+		export const posix: Object;
+		
+		/**
+		 * 
+		 * @brief windows 实现，参见 path_win32
+		 * 
+		 * 
+		 * 
+		 */
+		export const win32: Object;
+		
 		
 		
 		
@@ -307,6 +343,19 @@ declare module "path_posix" {
 	
 		/**
 		 * 
+		 * @brief 求 _from 到 to 的相对路径
+		 * 
+		 * @param _from 源路径
+		 * @param to 目标路径
+		 * @return 返回得到的相对路径
+		 * 
+		 * 
+		 * 
+		 */
+		export function relative(_from: string, to: string): string;
+	
+		/**
+		 * 
 		 * @brief 转换成 namespace-prefixed 路径。只在 windows 有效，其他系统直接返回。
 		 * see: https://msdn.microsoft.com/library/windows/desktop/aa365247(v=vs.85).aspx#namespaces
 		 * @param path 给定的路径。
@@ -321,6 +370,6 @@ declare module "path_posix" {
 	export = path_posix
 }
 
-/** } /** endof `module Or Internal Object` */
+/** endof `module Or Internal Object` */
 
 

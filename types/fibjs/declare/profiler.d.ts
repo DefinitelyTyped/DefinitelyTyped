@@ -3,7 +3,7 @@
  *   This file was automatically generated with idlc.js                    *
  *	 build info: 								   						   *
  *   	- fibjs	: 0.25.0                                                   *
- *   	- date	: Jun 11 2018 14:17:22                                     *
+ *   	- date	: Jun 12 2018 07:22:40                                     *
  *                                                                         *
  ***************************************************************************/
 
@@ -416,7 +416,7 @@ declare module "profiler" {
 		 * 
 		 * 
 		 */
-		export function diff(test: Function): Object;
+		export function diff(test: Function): object;
 	
 		/**
 		 * 
@@ -435,6 +435,6 @@ declare module "profiler" {
 	export = profiler
 }
 
-/** } /** endof `module Or Internal Object` */
+/** endof `module Or Internal Object` */
 
 

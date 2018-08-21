@@ -3,7 +3,7 @@
  *   This file was automatically generated with idlc.js                    *
  *	 build info: 								   						   *
  *   	- fibjs	: 0.25.0                                                   *
- *   	- date	: Jun 11 2018 14:17:22                                     *
+ *   	- date	: Jun 12 2018 07:22:40                                     *
  *                                                                         *
  ***************************************************************************/
 
@@ -151,7 +151,7 @@ declare class Class_HttpMessage extends Class_Message {
 	 * 
 	 * 
 	 */
-	addHeader(map: Object): void;
+	addHeader(map: object): void;
 
 	/**
 	 * 
@@ -172,7 +172,7 @@ declare class Class_HttpMessage extends Class_Message {
 	 * 
 	 * 
 	 */
-	setHeader(map: Object): void;
+	setHeader(map: object): void;
 
 	/**
 	 * 
@@ -197,6 +197,6 @@ declare class Class_HttpMessage extends Class_Message {
 
 } /** endof class */
 
-/** } /** endof `module Or Internal Object` */
+/** endof `module Or Internal Object` */
 
 

@@ -452,6 +452,7 @@ function gauge_examples() {
             max: 100,
             units: " %",
             width: 10,
+            fullCircle: true,
         }
     });
 }

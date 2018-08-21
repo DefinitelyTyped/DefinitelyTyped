@@ -146,12 +146,24 @@ interface JQueryStatic {
      * Return a collection of matched elements either found in the DOM based on passed argument(s) or created
      * by passing an HTML string.
      *
-     * @param element_elementArray A DOM element to wrap in a jQuery object.
-     *                             An array containing a set of DOM elements to wrap in a jQuery object.
+     * @param element A DOM element to wrap in a jQuery object.
      * @see \`{@link https://api.jquery.com/jQuery/ }\`
      * @since 1.0
      */
-    <T extends Element>(element_elementArray: T | ArrayLike<T>): JQuery<T>;
+    // Using a unified signature is not possible due to a TypeScript 2.4 bug (DefinitelyTyped#27810)
+    // tslint:disable-next-line:unified-signatures
+    <T extends Element>(element: T): JQuery<T>;
+    /**
+     * Return a collection of matched elements either found in the DOM based on passed argument(s) or created
+     * by passing an HTML string.
+     *
+     * @param elementArray An array containing a set of DOM elements to wrap in a jQuery object.
+     * @see \`{@link https://api.jquery.com/jQuery/ }\`
+     * @since 1.0
+     */
+    // Using a unified signature is not possible due to a TypeScript 2.4 bug (DefinitelyTyped#27810)
+    // tslint:disable-next-line:unified-signatures
+    <T extends Element>(elementArray: T[]): JQuery<T>;
     /**
      * Return a collection of matched elements either found in the DOM based on passed argument(s) or created
      * by passing an HTML string.
@@ -4327,7 +4339,7 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @see \`{@link https://api.jquery.com/insertAfter/ }\`
      * @since 1.0
      */
-    insertAfter(target: JQuery.Selector | JQuery.htmlString | JQuery.TypeOrArray<Element> | JQuery): this;
+    insertAfter(target: JQuery.Selector | JQuery.htmlString | JQuery.TypeOrArray<Node> | JQuery<Node>): this;
     /**
      * Insert every element in the set of matched elements before the target.
      *
@@ -4336,7 +4348,7 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @see \`{@link https://api.jquery.com/insertBefore/ }\`
      * @since 1.0
      */
-    insertBefore(target: JQuery.Selector | JQuery.htmlString | JQuery.TypeOrArray<Element> | JQuery): this;
+    insertBefore(target: JQuery.Selector | JQuery.htmlString | JQuery.TypeOrArray<Node> | JQuery<Node>): this;
     /**
      * Check the current matched set of elements against a selector, element, or jQuery object and return
      * true if at least one of these elements matches the given arguments.
@@ -4704,7 +4716,7 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @see \`{@link https://api.jquery.com/offset/ }\`
      * @since 1.4
      */
-    offset(coordinates: JQuery.Coordinates | ((this: TElement, index: number, coords: JQuery.Coordinates) => JQuery.Coordinates)): this;
+    offset(coordinates: JQuery.CoordinatesPartial | ((this: TElement, index: number, coords: JQuery.Coordinates) => JQuery.CoordinatesPartial)): this;
     /**
      * Get the current coordinates of the first element in the set of matched elements, relative to the document.
      *
@@ -8333,6 +8345,12 @@ declare namespace JQuery {
         left: number;
         top: number;
     }
+
+    // Workaround for TypeScript 2.3 which does not have support for weak types handling.
+    type CoordinatesPartial =
+        Pick<Coordinates, 'left'> |
+        Pick<Coordinates, 'top'> |
+        { [key: string]: never; };
 
     interface ValHook<TElement> {
         get?(elem: TElement): any;
