@@ -10305,6 +10305,29 @@ declare namespace chrome {
      * @since Chrome 43.
      */
     namespace vpnProvider {
+        /**
+         * The enum is used by the platform to notify the client of the VPN session status.
+         * 
+         * **'connected'**
+         * VPN configuration connected.
+         * **'disconnected'**
+         * VPN configuration disconnected.
+         * **'error'**
+         * An error occurred in VPN connection, for example a timeout. A description
+         * of the error is given as the error argument to *onPlatformMessage*.
+         * **'linkDown'**
+         * The default physical network connection is down.
+         * **'linkUp'**
+         * The default physical network connection is back up.
+         * **'linkChanged'**
+         * The default physical network connection changed, e.g. wifi->mobile.
+         * **'suspend'**
+         * The OS is preparing to suspend, so the VPN should drop its connection.
+         * The extension is not guaranteed to receive this event prior to suspending.
+         * **'resume'**
+         * The OS has resumed and the user has logged back in, so the VPN should try to reconnect.
+         * @enum
+         */
         const PlatformMessage: {
             CONNECTED: 'connected',
             DISCONNECTED: 'disconnected',
@@ -10315,10 +10338,29 @@ declare namespace chrome {
             SUSPEND: 'suspend',
             RESUME: 'resume'
         };
+        /**
+         * The enum is used by the VPN client to inform the platform of its current state.
+         * This helps provide meaningful messages to the user.
+         * 
+         * **'connected'**
+         * VPN connection was successful. 
+         * **'failure'**
+         * VPN connection failed.
+         * @enum
+         */
         const VpnConnectionState: {
             CONNECTED: 'connected',
             FAILURE: 'failure'
         };
+        /**
+         * The enum is used by the platform to indicate the event that triggered *onUIEvent*
+         * 
+         * **'showAddDialog'**
+         * Request the VPN client to show add configuration dialog to the user.
+         * **'showConfigureDialog'**
+         * Request the VPN client to show configuration settings dialog to the user.
+         * @enum
+         */
         const UIEvent: {
             SHOW_ADD_DIALOG: 'showAddDialog',
             SHOW_CONFIGURE_DIALOG: 'showConfigureDialog'
@@ -10390,8 +10432,6 @@ declare namespace chrome {
          * @param callback Called when the notification is complete or if there is an error.
          */
         function notifyConnectionStateChanged(state: ToStringLiteral<typeof VpnConnectionState>, callback?: () => void): void;
-
-        /** @todo TODO Implement PlatformMessage enum & check usage of the other enums */
 
         /** Triggered when a message is received from the platform for a VPN configuration owned by the extension. */
         const onPlatformMessage: chrome.events.Event<(id: string, message: ToStringLiteral<typeof PlatformMessage>, error: string) => void>;
