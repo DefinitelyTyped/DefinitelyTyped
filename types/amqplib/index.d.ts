@@ -1,8 +1,8 @@
 // Type definitions for amqplib 0.5
 // Project: https://github.com/squaremo/amqp.node
-// Definitions by: Michael Nahkies <https://github.com/mnahkies>, Ab Reitsma <https://github.com/abreits>, Nicolás Fantone <https://github.com/nfantone>
+// Definitions by: Michael Nahkies <https://github.com/mnahkies>, Ab Reitsma <https://github.com/abreits>, Nicolás Fantone <https://github.com/nfantone>, Nick Zelei <https://github.com/zelein>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 
@@ -63,4 +63,17 @@ export interface ConfirmChannel extends Channel {
     waitForConfirms(): Promise<void>;
 }
 
-export function connect(url: string, socketOptions?: any): Promise<Connection>;
+export const credentials: {
+    external(): {
+      mechanism: string;
+      response(): Buffer;
+    };
+    plain(username: string, password: string): {
+      mechanism: string;
+      response(): Buffer;
+      username: string;
+      password: string;
+    };
+};
+
+export function connect(url: string | Options.Connect, socketOptions?: any): Promise<Connection>;

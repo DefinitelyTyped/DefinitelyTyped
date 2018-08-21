@@ -1,13 +1,18 @@
+import * as React from 'react';
 import { CSSModule } from '../index';
+import { FadeProps } from './Fade';
 
-interface Props {
+export type ModalProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   isOpen?: boolean;
+  autoFocus?: boolean;
   size?: string;
   toggle?: () => void;
   keyboard?: boolean;
   backdrop?: boolean | 'static';
   onEnter?: () => void;
   onExit?: () => void;
+  onOpened?: () => void;
+  onClosed?: () => void;
   className?: string;
   cssModule?: CSSModule;
   wrapClassName?: string;
@@ -15,7 +20,14 @@ interface Props {
   backdropClassName?: string;
   contentClassName?: string;
   zIndex?: number | string;
-}
+  fade?: boolean;
+  backdropTransition?: FadeProps;
+  modalTransition?: FadeProps;
+  centered?: boolean;
+  external?: React.ReactNode;
+  labelledBy?: string;
+  role?: string;
+} & T;
 
-declare var Modal: React.StatelessComponent<Props>;
+declare class Modal<T> extends React.Component<ModalProps<T>> {}
 export default Modal;

@@ -1,24 +1,32 @@
-// Type definitions for webpack-hot-middleware 2.15
+// Type definitions for webpack-hot-middleware 2.16
 // Project: https://github.com/glenjamin/webpack-hot-middleware#readme
 // Definitions by: Benjamin Lim <https://github.com/bumbleblym>
+//                 Ron Martinez <https://github.com/icylace>
+//                 Chris Abrams <https://github.com/chrisabrams>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import { NextHandleFunction } from 'connect';
-import { compiler } from 'webpack';
+import * as webpack from 'webpack';
 
 export = WebpackHotMiddleware;
 
 declare function WebpackHotMiddleware(
-	compiler: compiler.Compiler,
+	compiler: webpack.ICompiler,
 	options?: WebpackHotMiddleware.Options
-): NextHandleFunction;
+): NextHandleFunction & WebpackHotMiddleware.EventStream;
 
 declare namespace WebpackHotMiddleware {
 	interface Options {
 		log?: false | Logger;
 		path?: string;
 		heartbeat?: number;
+		reload?: boolean;
 	}
 
 	type Logger = (message?: any, ...optionalParams: any[]) => void;
+
+	interface EventStream {
+		publish(payload: any): void;
+	}
 }

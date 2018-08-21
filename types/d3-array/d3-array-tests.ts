@@ -43,9 +43,9 @@ let num: number;
 let date: Date;
 
 let numOrUndefined: number | undefined;
-let strOrUndefined: string |  undefined;
-let numericOrUndefined: NumCoercible |  undefined;
-let dateOrUndefined: Date |  undefined;
+let strOrUndefined: string | undefined;
+let numericOrUndefined: NumCoercible | undefined;
+let dateOrUndefined: Date | undefined;
 let numOrUndefinedExtent: [number, number] | [undefined, undefined];
 let strOrUndefinedExtent: [string, string] | [undefined, undefined];
 let numericOrUndefinedExtent: [NumCoercible, NumCoercible] | [undefined, undefined];
@@ -54,12 +54,12 @@ let mixedOrUndefinedExtent: [d3Array.Primitive | NumCoercible, d3Array.Primitive
 let dateOrUndefinedExtent: [Date, Date] | [undefined, undefined];
 
 let numbersArray = [10, 20, 30, 40, 50];
-let numbersOrUndefinedArray = [10, 20, undefined, null, 40, 50];
+const numbersOrUndefinedArray = [10, 20, undefined, null, 40, 50];
 let stringyNumbersArray = ['10', '20', '30', '40', '50'];
-let numericArray = [new NumCoercible(10), new NumCoercible(20), new NumCoercible(30), new NumCoercible(40), new NumCoercible(50)];
+const numericArray = [new NumCoercible(10), new NumCoercible(20), new NumCoercible(30), new NumCoercible(40), new NumCoercible(50)];
 let dateArray = [new Date(2016, 6, 1), new Date(2016, 7, 30), new Date(2015, 3, 15)];
 
-let mixedObjectArray = [
+const mixedObjectArray = [
     new MixedObject(10, new Date(2016, 6, 1)),
     new MixedObject(20, new Date(2016, 7, 30)),
     new MixedObject(30, new Date(2015, 3, 15)),
@@ -67,16 +67,16 @@ let mixedObjectArray = [
     new MixedObject(50, new Date(2017, 4, 15))
 ];
 
-let mixedObjectOrUndefinedArray = [...mixedObjectArray, undefined];
+const mixedObjectOrUndefinedArray = [...mixedObjectArray, undefined];
 
 let typedArray = Uint8Array.from(numbersArray);
 let readonlyNumbersArray = numbersArray as ReadonlyArray<number>;
-let readonlyNumbersOrUndefinedArray = numbersOrUndefinedArray as ReadonlyArray<number>;
-let readonlyStringyNumbersArray = stringyNumbersArray as ReadonlyArray<string>;
-let readonlyNumericArray = numericArray as ReadonlyArray<NumCoercible>;
-let readonlyDateArray = dateArray as ReadonlyArray<Date>;
-let readonlyMixedObjectArray = mixedObjectArray as ReadonlyArray<MixedObject>;
-let readonlyMixedObjectOrUndefinedArray = mixedObjectOrUndefinedArray as ReadonlyArray<MixedObject>;
+const readonlyNumbersOrUndefinedArray = numbersOrUndefinedArray as ReadonlyArray<number>;
+const readonlyStringyNumbersArray = stringyNumbersArray as ReadonlyArray<string>;
+const readonlyNumericArray = numericArray as ReadonlyArray<NumCoercible>;
+const readonlyDateArray = dateArray as ReadonlyArray<Date>;
+const readonlyMixedObjectArray = mixedObjectArray as ReadonlyArray<MixedObject>;
+const readonlyMixedObjectOrUndefinedArray = mixedObjectOrUndefinedArray as ReadonlyArray<MixedObject>;
 
 function accessorMixedObjectToNum(datum: MixedObject, index: number, array: MixedObject[]): number {
     return datum.num;
@@ -457,7 +457,7 @@ num = d3Array.descending(new Date(2016, 6, 13), new Date(2016, 6, 14));
 
 // merge() ---------------------------------------------------------------------
 
-let testArray1 = [
+const testArray1 = [
     new MixedObject(10, new Date(2016, 6, 1)),
     new MixedObject(20, new Date(2016, 7, 30)),
     new MixedObject(30, new Date(2015, 3, 15)),
@@ -465,16 +465,16 @@ let testArray1 = [
     new MixedObject(50, new Date(2017, 4, 15))
 ];
 
-let testArray2 = [
+const testArray2 = [
     new MixedObject(40, new Date(2016, 3, 1)),
     new MixedObject(50, new Date(2016, 9, 30)),
 ];
 
 let testArrays: MixedObject[][] = [testArray1, testArray2];
 
-let readonlyTestArray1 = testArray1 as ReadonlyArray<MixedObject>;
-let readonlyTestArray2 = testArray2 as ReadonlyArray<MixedObject>;
-let readonlyTestArrays = [testArray1, testArray2] as ReadonlyArray<ReadonlyArray<MixedObject>>;
+const readonlyTestArray1 = testArray1 as ReadonlyArray<MixedObject>;
+const readonlyTestArray2 = testArray2 as ReadonlyArray<MixedObject>;
+const readonlyTestArrays = [testArray1, testArray2] as ReadonlyArray<ReadonlyArray<MixedObject>>;
 
 let mergedArray: MixedObject[];
 
@@ -572,15 +572,15 @@ mergedArray = d3Array.shuffle(mergedArray, 1, 3);
 // mergedArray = d3Array.shuffle(readonlyMergedArray); // fails, shuffle mutates input array in-place
 
 // Test each TypedArray explicitly. Can't use ArrayLike in this case because shuffle is mutable and ArrayLike would include ReadonlyArray
-let resultInt8: Int8Array = d3Array.shuffle(new Int8Array(numbersArray));
-let resultUint8: Uint8Array = d3Array.shuffle(new Uint8Array(numbersArray));
-let resultUint8Clamped: Uint8ClampedArray = d3Array.shuffle(new Uint8ClampedArray(numbersArray));
-let resultInt16: Int16Array = d3Array.shuffle(new Int16Array(numbersArray));
-let resultUint6: Uint16Array = d3Array.shuffle(new Uint16Array(numbersArray));
-let resultInt32: Int32Array = d3Array.shuffle(new Int32Array(numbersArray));
-let resultUint32: Uint32Array = d3Array.shuffle(new Uint32Array(numbersArray));
-let resultFloat32: Float32Array = d3Array.shuffle(new Float32Array(numbersArray));
-let resultFloat64: Float64Array = d3Array.shuffle(new Float64Array(numbersArray));
+const resultInt8: Int8Array = d3Array.shuffle(new Int8Array(numbersArray));
+const resultUint8: Uint8Array = d3Array.shuffle(new Uint8Array(numbersArray));
+const resultUint8Clamped: Uint8ClampedArray = d3Array.shuffle(new Uint8ClampedArray(numbersArray));
+const resultInt16: Int16Array = d3Array.shuffle(new Int16Array(numbersArray));
+const resultUint6: Uint16Array = d3Array.shuffle(new Uint16Array(numbersArray));
+const resultInt32: Int32Array = d3Array.shuffle(new Int32Array(numbersArray));
+const resultUint32: Uint32Array = d3Array.shuffle(new Uint32Array(numbersArray));
+const resultFloat32: Float32Array = d3Array.shuffle(new Float32Array(numbersArray));
+const resultFloat64: Float64Array = d3Array.shuffle(new Float64Array(numbersArray));
 
 // ticks() ---------------------------------------------------------------------
 

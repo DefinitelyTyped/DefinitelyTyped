@@ -1,6 +1,8 @@
-import { FormStateMap } from "redux-form";
+import { FormStateMap } from "../index";
 
-declare function formValueSelector<State = {}>(
+export function formValueSelector<State = {}>(
     form: string,
     getFormState?: (state: State) => FormStateMap
 ): (state: State, ...field: string[]) => any;
+
+export default formValueSelector;

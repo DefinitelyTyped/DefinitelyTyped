@@ -21,9 +21,11 @@ function StepSample(this: cucumber.StepDefinitions & cucumber.Hooks) {
 	});
 
     hook.Around((scenario: HookScenario, runScenario: (error: string | null, callback?: () => void) => void) => {
-        scenario.isFailed() && runScenario(null, () => {
-            console.log('finish tasks');
-        });
+        if (scenario.isFailed()) {
+            runScenario(null, () => {
+                console.log('finish tasks');
+            });
+        }
     });
 
     hook.registerHandler('AfterFeatures', (event: any, callback: () => void) => {
@@ -91,7 +93,7 @@ function StepSample(this: cucumber.StepDefinitions & cucumber.Hooks) {
 }
 
 function registerListener(): cucumber.EventListener {
-    let listener = Object.assign(cucumber.Listener(), {
+    const listener = Object.assign(cucumber.Listener(), {
         handleBeforeScenarioEvent(scenario: cucumber.events.ScenarioPayload, callback: () => void) {
             // do some interesting stuff ...
 

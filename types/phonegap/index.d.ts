@@ -1,6 +1,6 @@
 // Type definitions for PhoneGap 2.3
 // Project: http://phonegap.com
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Dick van den Brink <https://github.com/DickvdBrink>
+// Definitions by: Boris Yankov <https://github.com/borisyankov>, Dick van den Brink <https://github.com/DickvdBrink>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface GeolocationError {
@@ -526,7 +526,7 @@ declare var Media: {
     new(src: string, onSuccess: (arg: any) => any, onError: (error: any) => any): Media;
 }
 
-interface Notification {
+interface PhonegapNotification {
     alert(message: string, alertCallback: Function, title?: string, buttonName?: string): void;
     confirm(message: string, confirmCallback: Function, title?: string, buttonLabels?: string): void;
 	confirm(message: string, confirmCallback: Function, title?: string, buttonLabels?: string[]): void;
@@ -614,7 +614,7 @@ interface /*PhoneGapNavigator extends*/ Navigator {
     contacts: Contacts;
     device: Device;
     globalization: Globalization;
-    notification: Notification;
+    notification: PhonegapNotification;
     splashscreen: Splashscreen;
 }
 

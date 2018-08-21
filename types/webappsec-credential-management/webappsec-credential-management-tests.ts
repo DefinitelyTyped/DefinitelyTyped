@@ -1,6 +1,6 @@
 // password based sign-in example from Section 1.2.1:
 // https://www.w3.org/TR/credential-management-1/#examples-password-signin
-function passwordBasedSignIn() {
+function passwordBasedSignInDeprecated() {
     if (!navigator.credentials) {
         return;
     }
@@ -19,6 +19,47 @@ function passwordBasedSignIn() {
             });
         }
     });
+}
+
+// password based sign-in for new specs.
+// https://www.w3.org/TR/credential-management-1/#examples-password-signin
+function passwordBasedSignIn() {
+    if (!navigator.credentials) {
+        return;
+    }
+
+    navigator.credentials
+        .get({ password: true })
+        .then((credential) => {
+            if (!credential) {
+                // The user either doesn’t have credentials for this site, or
+                // refused to share them. Insert some code here to fall back to
+                // a basic login form.
+                return;
+            }
+            if (credential.type === 'password') {
+                const form = new FormData();
+                form.append('username_field', credential.id);
+                form.append('password_field', credential.password || '');
+                const opt = {
+                    method: 'POST',
+                    body: form,
+                    credentials: 'include'  // Send cookies.
+                };
+                fetch('https://example.com/loginEndpoint', opt)
+                    .then((response) => {
+                        if (navigator.credentials) {
+                            // Record that the credential was effective. See note below.
+                            navigator.credentials.store(credential);
+                            // Notify the user that sign-in succeeded! Do amazing, signed-in things!
+                            // Maybe navigate to a landing page via location.href =
+                            // '/signed-in-experience'?
+                        } else {
+                            // Insert some code here to fall back to a basic login form.
+                        }
+                    });
+            }
+        });
 }
 
 // https://www.w3.org/TR/2017/WD-credential-management-1-20170804/#mediation-examples
@@ -97,9 +138,10 @@ function federatedSignIn() {
                         break;
                 }
             } else {
+                const pwCred = credential as PasswordCredential;
                 fetch(
                     'https://example.com/loginEndpoint',
-                    {credentials: credential, method: 'POST'});
+                    {credentials: pwCred, method: 'POST'});
             }
         });
 }
@@ -172,7 +214,7 @@ function signOutDeprecated() {
     }
 
     navigator.credentials.requireUserMediation().then(() => {
-        document.location.assign('/');
+        document.location!.assign('/');
     });
 }
 
@@ -182,7 +224,7 @@ function signOut() {
     }
 
     navigator.credentials.preventSilentAccess().then(() => {
-        document.location.assign('/');
+        document.location!.assign('/');
     });
 }
 
@@ -227,5 +269,86 @@ function createFederatedCredential() {
         federated: {id: 'username', provider: 'provider'}
     }).then((credential) => {
         // Credential created!
+    });
+}
+
+function webauthnRegister() {
+    if (!navigator.credentials) {
+        return;
+    }
+
+    const challenge = new Uint8Array(32);
+    window.crypto.getRandomValues(challenge);
+
+    const credPromise = navigator.credentials.create({
+        publicKey: {
+            rp: {
+                id: document.domain,
+                name: document.domain,
+            },
+            user: {
+                id: (new Uint8Array(1)).buffer,
+                name: 'test user',
+                displayName: 'test user',
+            },
+            challenge,
+            pubKeyCredParams: [
+                {type: 'public-key', alg: -7},
+            ],
+            excludeCredentials: [
+                {
+                    id: (new Uint8Array(1)).buffer,
+                    type: 'public-key',
+                    transports: ['ble', 'internal']
+                }
+            ],
+            timeout: 5000,
+            attestation: "direct",
+            authenticatorSelection: {
+                requireUserVerification: "preferred",
+                requireResidentKey: false,
+                authenticatorAttachment: "platform"
+            },
+        }
+    });
+
+    credPromise.then((cred) => {
+        const pubKeyCred = cred as PublicKeyCredential;
+        console.log(pubKeyCred);
+    }, (e) => {
+        console.log(e.message);
+    });
+}
+
+function webauthnAuthenticate() {
+    if (!navigator.credentials) {
+        return;
+    }
+
+    const credentialID = new Uint8Array(64);
+    const challenge = new Uint8Array(32);
+    window.crypto.getRandomValues(challenge);
+
+    const authPromise = navigator.credentials.get({publicKey: {
+        challenge,
+        timeout: 5000,
+        rpId: document.domain,
+        allowCredentials: [{
+            type: "public-key",
+            id: credentialID,
+            transports: ['internal', 'ble', 'nfc', 'usb']
+        }],
+    }});
+
+    authPromise.then((cred) => {
+        if (cred === null) {
+            return;
+        }
+
+        const pubKeyCred = cred as PublicKeyCredential;
+        const response = <AuthenticatorAssertionResponse> pubKeyCred.response;
+        const authData = new Uint8Array(response.authenticatorData);
+    }, (e) => {
+        console.log(e.message);
     });
 }

@@ -2,13 +2,12 @@
 // Project: https://github.com/Leaflet/Leaflet.markercluster
 // Definitions by: Robert Imig <https://github.com/rimig>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-import * as Leaflet from "leaflet";
+import * as L from 'leaflet';
 
-export = Leaflet;
-
-declare global { namespace L {
-    interface MarkerCluster extends Marker {
+declare module 'leaflet' {
+    class MarkerCluster extends Marker {
         /*
         * Recursively retrieve all child markers of this cluster.
         */
@@ -30,7 +29,7 @@ declare global { namespace L {
         getBounds(): LatLngBounds;
     }
 
-    interface MarkerClusterGroupOptions {
+    interface MarkerClusterGroupOptions extends LayerOptions {
         /*
         * When you mouse over a cluster it shows the bounds of its markers.
         */
@@ -118,7 +117,7 @@ declare global { namespace L {
         chunkDelay?: number;
     }
 
-    interface MarkerClusterGroup extends FeatureGroup {
+    class MarkerClusterGroup extends FeatureGroup {
         /*
         * Bulk methods for adding and removing markers and should be favoured over the
         * single versions when doing bulk addition/removal of markers.
@@ -166,4 +165,4 @@ declare global { namespace L {
     * Create a marker cluster group, optionally given marker cluster group options.
     */
     function markerClusterGroup(options?: MarkerClusterGroupOptions): MarkerClusterGroup;
-} }
+}

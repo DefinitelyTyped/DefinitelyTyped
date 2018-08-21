@@ -31,6 +31,9 @@ declare module Accounts {
         restrictCreationByEmailDomain?: string | Function;
         loginExpirationInDays?: number;
         oauthSecretKey?: string;
+        passwordResetTokenExpirationInDays?: number;
+        passwordEnrollTokenExpirationInDays?: number;
+        ambiguousErrorMessages?: boolean;
     }): void;
 
     function onLogin(func: Function): {
@@ -73,6 +76,9 @@ declare module "meteor/accounts-base" {
             restrictCreationByEmailDomain?: string | Function;
             loginExpirationInDays?: number;
             oauthSecretKey?: string;
+            passwordResetTokenExpirationInDays?: number;
+            passwordEnrollTokenExpirationInDays?: number;
+            ambiguousErrorMessages?: boolean;
         }): void;
 
         function onLogin(func: Function): {

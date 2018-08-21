@@ -1,7 +1,7 @@
 import * as React from 'react';
-import Loadable, { LoadingComponentProps } from 'react-loadable';
+import Loadable = require('react-loadable');
 
-class LoadingComponent extends React.Component<LoadingComponentProps> {
+class LoadingComponent extends React.Component<Loadable.LoadingComponentProps> {
   render() {
     return (
       <div>
@@ -9,6 +9,7 @@ class LoadingComponent extends React.Component<LoadingComponentProps> {
         {this.props.isLoading}
         {this.props.pastDelay}
         {this.props.timedOut}
+        <button onClick={this.props.retry}>Retry</button>
       </div>
     );
   }
@@ -71,7 +72,7 @@ const LoadableMap = Loadable.Map({
     text: () => Promise.resolve("test text")
   },
   render(loaded, props: ComponentProps) {
-    let Component = loaded.Component.default;
+    const Component = loaded.Component.default;
     return <Component {...props} text={loaded.text} />;
   }
 });

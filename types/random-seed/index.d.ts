@@ -4,6 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface RandomSeed {
+    (range: number): number;
     range(range: number): number;
     random(): number;
     floatBetween(min: number, max: number): number;

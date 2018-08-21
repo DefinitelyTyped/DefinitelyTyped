@@ -20,7 +20,7 @@ function main(): void {
   schemaBuilder.connect(connectOptions).then((db) => {
     todoDb = db;
     itemSchema = db.getSchema().table('Item');
-    let row = itemSchema.createRow({
+    const row = itemSchema.createRow({
       id: 1,
       description: 'Get a cup of coffee',
       deadline: new Date(),
@@ -28,12 +28,11 @@ function main(): void {
     });
     return db.insertOrReplace().into(itemSchema).values([row]).exec();
   }).then(() => {
-    let column = itemSchema['done'];
+    const column = itemSchema['done'];
     return todoDb.select().from(itemSchema).where(column.eq(false)).exec();
-  }).then((results) => {
+}).then((results) => {
     results.forEach((row) => {
-      document.body.textContent = (row as any).description + ' before ' +
-          (row as any).deadline;
+      document.body.textContent = `${(row as any).description} before ${(row as any).deadline}`;
     });
 
     return todoDb.delete().from(itemSchema);

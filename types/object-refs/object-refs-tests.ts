@@ -1,4 +1,4 @@
-import * as Refs from 'object-refs';
+import Refs = require('object-refs');
 
 let refs = new Refs({ name: 'wheels', collection: true, enumerable: true }, { name: 'car' });
 

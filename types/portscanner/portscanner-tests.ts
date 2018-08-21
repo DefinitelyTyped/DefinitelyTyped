@@ -4,7 +4,7 @@ declare function assert(cond: boolean): void;
 
 const checkPortCallback = (error: Error | null, status: Status) => {
     assert(error === null);
-    error && assert(error.message === '');
+    if (error) assert(error.message === '');
     assert(status === 'open');
     assert(status === 'closed');
 };
@@ -30,7 +30,7 @@ checkPortStatus(3000, '127.0.0.1', { timeout: 400 }, checkPortCallback);
 
 const findPortCallback = (error: Error | null, port: number) => {
     assert(error === null);
-    error && assert(error.message === '');
+    if (error) assert(error.message === '');
     assert(port === 3005);
 };
 

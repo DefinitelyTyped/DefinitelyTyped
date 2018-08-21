@@ -2,13 +2,13 @@
 
 import { ViewabilityHelper, Options } from 'viewability-helper';
 
-let d: Element = document.createElement('DIV');
-let vh: ViewabilityHelper = new ViewabilityHelper(d, () => {});
+const d: Element = document.createElement('DIV');
+const vh: ViewabilityHelper = new ViewabilityHelper(d, () => {});
 vh.observe();
 
 // Test with options
 
-let options: Options = {
+const options: Options = {
   callbackParams: [1, 'a', null],
   rootMargin: '0px',
   intersectionPercentage: 0,
@@ -17,5 +17,5 @@ let options: Options = {
   threshold: [0]
 };
 
-let vh2: ViewabilityHelper = new ViewabilityHelper(d, () => {}, options);
+const vh2: ViewabilityHelper = new ViewabilityHelper(d, () => {}, options);
 vh2.observe();

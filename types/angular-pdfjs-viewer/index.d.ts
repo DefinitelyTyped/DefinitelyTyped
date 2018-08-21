@@ -8,7 +8,7 @@ import * as angular from 'angular';
 
 declare module 'angular' {
     namespace pdfjsViewer {
-        interface ConfigProvider extends angular.IServiceProvider {
+        interface ConfigProvider extends IServiceProvider {
             setWorkerSrc(src: string): void;
             setCmapDir(dir: string): void;
             setImageDir(dir: string): void;

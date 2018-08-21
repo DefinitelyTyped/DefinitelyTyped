@@ -13,7 +13,7 @@ info({obj: {aa: 'bbb'}}, 'another');
 setImmediate(info, 'after setImmediate');
 error(new Error('an error'));
 
-let log2: pino.Logger = pino({
+const log2: pino.Logger = pino({
     name: 'myapp',
     safe: true,
     serializers: {
@@ -22,7 +22,7 @@ let log2: pino.Logger = pino({
     }
 });
 
-let pretty = pino.pretty();
+const pretty = pino.pretty();
 pretty.pipe(process.stdout);
 const log3 = pino({
     name: 'app',
@@ -48,6 +48,9 @@ pino({
         }
     }
 });
+
+pino({ base: null });
+pino({ base: { foo: 'bar' } });
 
 if ('pino' in log) console.log(`pino version: ${log.pino}`);
 
@@ -90,3 +93,6 @@ log.level = 'info';
 
 pino.levels.values.error === 50;
 pino.levels.labels[50] === 'error';
+
+const logstderr: pino.Logger = pino(process.stderr);
+logstderr.error('on stderr instead of stdout');

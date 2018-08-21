@@ -1,6 +1,6 @@
 // Type definitions for RequireJS 2.1.20
 // Project: http://requirejs.org/
-// Definitions by: Josh Baldwin <https://github.com/jbaldwin/>
+// Definitions by: Josh Baldwin <https://github.com/jbaldwin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*

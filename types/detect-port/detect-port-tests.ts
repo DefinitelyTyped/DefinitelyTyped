@@ -1,6 +1,6 @@
 import * as detect from "detect-port";
 
-const port: number = 8000;
+const port = 8000;
 
 /**
  * callback usage

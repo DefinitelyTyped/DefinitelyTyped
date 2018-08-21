@@ -1,7 +1,9 @@
 // Type definitions for passport-saml 0.15
 // Project: https://github.com/bergie/passport-saml
-// Definitions by: Chris Barth <https://github.com/cjbarth/>
+// Definitions by: Chris Barth <https://github.com/cjbarth>
+//                 Damian Assennato <https://github.com/dassennato>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import passport = require('passport');
 import express = require('express');
@@ -23,7 +25,7 @@ export type VerifyWithRequest = (req: express.Request, profile: {}, done: Verifi
 
 export type VerifyWithoutRequest = (profile: {}, done: VerifiedCallback) => void;
 
-export class Strategy implements passport.Strategy {
+export class Strategy extends passport.Strategy {
     constructor(config: SamlConfig, verify: VerifyWithRequest | VerifyWithoutRequest);
     authenticate(req: express.Request, options: AuthenticateOptions | AuthorizeOptions): void;
     logout(req: express.Request, callback: (err: Error | null, url: string) => void): void;
@@ -33,12 +35,13 @@ export class Strategy implements passport.Strategy {
 export interface SamlConfig {
     // Core
     callbackUrl?: string;
-    path: string;
+    path?: string;
     protocol?: string;
     host?: string;
     entryPoint: string;
     issuer: string;
     privateCert?: string;
+    cert?: {};
     decryptionPvk?: string;
     signatureAlgorithm?: 'sha1' | 'sha256' | 'sha512';
 
@@ -60,6 +63,7 @@ export interface SamlConfig {
     cacheProvider?: CacheProvider;
 
     // Passport
+    name?: string;
     passReqToCallback?: boolean;
 
     // Logout

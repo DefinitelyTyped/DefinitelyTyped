@@ -2,6 +2,7 @@
 // Project: https://github.com/tcs-de/nodecache
 // Definitions by: Ilya Mochalov <https://github.com/chrootsu>
 //                 Daniel Thunell <https://github.com/dthunell>
+//                 Ulf Seltmann <https://github.com/useltmann>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -89,8 +90,16 @@ declare namespace NodeCache {
 
 		ttl(
 			key: Key,
-			cb?: Callback<boolean>,
-			ttl?: number
+			cb?: Callback<boolean>
+		): boolean;
+
+		getTtl(
+			key: Key,
+		): number|undefined;
+
+		getTtl(
+			key: Key,
+			cb?: Callback<boolean>
 		): boolean;
 
 		/**
@@ -130,6 +139,7 @@ declare namespace NodeCache {
 		checkperiod?: number;
 		useClones?: boolean;
 		errorOnMissing?: boolean;
+		deleteOnExpire?: boolean;
 	}
 
 	interface Stats {
@@ -225,7 +235,7 @@ declare class NodeCache extends events.EventEmitter implements NodeCache.NodeCac
 	): number;
 
 	/**
-	 * reset or redefine the ttl of a key. If `ttl` is not passed or set to 0 it's similar to `.del()`
+	 * reset or redefine the ttl of a key. If `ttl` is not passed or set to 0 `stdTtl` is used. if set lt 0 it's similar to `.del()`
 	 */
 	ttl(
 		key: Key,
@@ -235,8 +245,16 @@ declare class NodeCache extends events.EventEmitter implements NodeCache.NodeCac
 
 	ttl(
 		key: Key,
+		cb?: Callback<boolean>
+	): boolean;
+
+	getTtl(
+		key: Key
+	): number|undefined;
+
+	getTtl(
+		key: Key,
 		cb?: Callback<boolean>,
-		ttl?: number
 	): boolean;
 
 	/**

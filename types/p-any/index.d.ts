@@ -1,7 +1,8 @@
 // Type definitions for p-any 1.1
 // Project: https://github.com/sindresorhus/p-any#readme
-// Definitions by: My Self <https://github.com/me>
+// Definitions by: BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import AggregateErrorModule = require('aggregate-error');
 

@@ -1,7 +1,7 @@
 // Type definitions for dragula v2.1.2
 // Project: http://bevacqua.github.io/dragula/
-// Definitions by: Paul Welter <https://github.com/pwelter34/>
-//                 Yang He <https://github.com/abruzzihraig/>
+// Definitions by: Paul Welter <https://github.com/pwelter34>
+//                 Yang He <https://github.com/abruzzihraig>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var dragula: dragula.Dragula;
@@ -13,7 +13,7 @@ declare namespace dragula {
     interface DragulaOptions {
         containers?: Element[];
         isContainer?: (el?: Element) => boolean;
-        moves?: (el?: Element, container?: Element, handle?: Element) => boolean;
+        moves?: (el?: Element, container?: Element, handle?: Element, sibling?: Element) => boolean;
         accepts?: (el?: Element, target?: Element, source?: Element, sibling?: Element) => boolean;
         invalid?: (el?: Element, target?: Element) => boolean;
         direction?: string;

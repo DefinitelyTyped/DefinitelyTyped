@@ -103,6 +103,11 @@ declare namespace i18next {
          * set it to fallback to let passed namespaces to translated hoc act as fallbacks
          */
         nsMode?: string;
+        /**
+         * set it to the default parent element created by the Trans component.
+         * @default div
+         */
+        defaultTransParent?: string;
     }
 
     interface InitOptions {
@@ -396,8 +401,7 @@ declare namespace i18next {
     type Callback = (error: any, t: TranslationFunction) => void;
 
     type TranslationFunction<TResult = any, TValues extends object = object, TKeys extends string = string> =
-        <TMethodResult = TResult, TMethodValues extends object = TValues, TMethodKeys extends string = TKeys>
-        (key: TMethodKeys | TMethodKeys[], options?: TranslationOptions<TMethodValues>) => TMethodResult;
+        (key: TKeys | TKeys[], options?: TranslationOptions<TValues>) => TResult;
 
     interface Resource {
         [language: string]: ResourceLanguage;
@@ -489,7 +493,7 @@ declare namespace i18next {
         /**
          * Returns rtl or ltr depending on languages read direction.
          */
-        dir(lng?: string): void;
+        dir(lng?: string): "ltr" | "rtl";
 
         /**
          * Exposes interpolation.format function added on init.

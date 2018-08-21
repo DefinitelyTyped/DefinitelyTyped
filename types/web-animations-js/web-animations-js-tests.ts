@@ -28,9 +28,7 @@ function test_AnimationsApiNext() {
     function buildFadeOut(target: HTMLElement) {
         const angle = Math.pow((Math.random() * 16) - 6, 3);
         const offset = (Math.random() * 20) - 10;
-        const transform = 'translate(' + offset + 'em, 20em) ' +
-            'rotate(' + angle + 'deg) ' +
-            'scale(0)';
+        const transform = `translate(${offset}em, 20em) rotate(${angle}deg) scale(0)`;
         const steps = [
             { visibility: 'visible', opacity: 1, transform: 'none' },
             { visibility: 'visible', opacity: 0, transform }
@@ -43,13 +41,13 @@ function test_AnimationsApiNext() {
     const effectNode = document.createElement('div');
     effectNode.className = 'circleEffect';
     const bounds = document.documentElement.getBoundingClientRect();
-    effectNode.style.left = bounds.left + bounds.width / 2 + 'px';
-    effectNode.style.top = bounds.top + bounds.height / 2 + 'px';
+    effectNode.style.left = `${bounds.left + bounds.width / 2}px`;
+    effectNode.style.top = `${bounds.top + bounds.height / 2}px`;
     const header = document.querySelector('header');
     if (header) {
         header.appendChild(effectNode);
     }
-    const newColor = 'hsl(' + Math.round(Math.random() * 255) + ', 46%, 42%)';
+    const newColor = `hsl(${Math.round(Math.random() * 255)}, 46%, 42%)`;
     effectNode.style.background = newColor;
     const scaleSteps = [{ transform: 'scale(0)' }, { transform: 'scale(1)' }];
     const timing: AnimationEffectTiming = { duration: 2500, easing: 'ease-in-out', fill: "backwards" };
@@ -99,7 +97,7 @@ function test_onsample_And_addEventListener() {
         elem.style.color = 'black';
         elem.textContent = "HELLO";
         document.body.appendChild(elem);
-        let myEffect = new KeyframeEffect(elem, [], 1000);
+        const myEffect = new KeyframeEffect(elem, [], 1000);
         myEffect.onsample = (timeFraction, effect, animation) => {
             console.log("fraction", timeFraction);
             // After finish event, timeFraction is null

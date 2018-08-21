@@ -1,4 +1,4 @@
-import * as Immutable from 'seamless-immutable';
+import Immutable = require('seamless-immutable');
 
 // Test types
 
@@ -44,6 +44,12 @@ interface ExtendedUser extends User {
 
 {
     const isImmutable: boolean = Immutable.isImmutable(Immutable.from([0, 2]));
+    const user1: Immutable.ImmutableObject<User> = Immutable.from({
+        firstName: 'Angry',
+        lastName: 'Monkey'
+    });
+    const replacedUser01 = Immutable.replace(user1, { firstName: 'Super', lastName: 'Monkey' });
+    const replacedUser02 = Immutable.replace(user1, { firstName: 'Super', lastName: 'Monkey' }, { deep: true });
 }
 
 //
@@ -116,4 +122,16 @@ interface ExtendedUser extends User {
 
     // without
     const simpleUser1: Immutable.ImmutableObject<User> = immutableUserEx.without('address');
+
+    // getIn: propertyPath is strongly typed up to 5 parameters
+    const firstNameWithoutDefault = immutableUser.getIn(['firstName']); // infers Immutable<string>
+    const firstNameWithDefault = immutableUser.getIn(['firstName'], ''); // infers Immutable<string>
+    const firstNameWithDynamicPathWithoutDefault = immutableUser.getIn(['first' + 'name']);
+    const firstNameWithDynamicPathWithDefault = immutableUser.getIn(['first' + 'name'], '');
+    const line1WithoutDefault = immutableUserEx.getIn(['address', 'line1']);
+    const line1WithDefault = immutableUserEx.getIn(['address', 'line1'], '');
+
+    // replace
+    const replacedUser01 = immutableUser.replace({ firstName: 'Super', lastName: 'Monkey' });
+    const replacedUser02 = immutableUser.replace({ firstName: 'Super', lastName: 'Monkey' }, { deep: true });
 }

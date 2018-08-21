@@ -4,9 +4,18 @@
         "lib": [
             "es6"
         ],
+        "paths": {
+            "mongodb": [
+                "mongodb/v2"
+            ],
+            "mongoose": [
+                "mongoose/v4" 
+             ]
+        },
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"

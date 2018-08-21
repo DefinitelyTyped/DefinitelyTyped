@@ -72,7 +72,7 @@ import * as ImportUsingES6Syntax from 'form-data';
     const buffer = new Buffer('');
 
     const options = {
-        header: CRLF + '--' + form.getBoundary() + CRLF + 'X-Custom-Header: 123' + CRLF + CRLF,
+        header: `${CRLF}--${form.getBoundary()}${CRLF}X-Custom-Header: 123${CRLF}${CRLF}`,
         knownLength: 1
     };
 
@@ -114,7 +114,8 @@ import * as ImportUsingES6Syntax from 'form-data';
 
     request.post({ url: 'http://service.com/upload', formData }, (err, httpResponse, body) => {
         if (err) {
-            return console.error('upload failed:', err);
+            console.error('upload failed:', err);
+            return;
         }
         console.log('Upload successful!  Server responded with:', body);
     });

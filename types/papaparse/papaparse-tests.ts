@@ -1,6 +1,14 @@
 
 
 import Papa = require("papaparse");
+import {
+	ParseConfig,
+	UnparseConfig,
+	UnparseObject,
+	ParseError,
+	ParseMeta,
+	ParseResult
+} from "papaparse";
 
 /**
  * Parsing
@@ -27,6 +35,9 @@ Papa.parse(file, {
 		b.name;
 	}
 });
+
+
+Papa.parse(Papa.NODE_STREAM_INPUT);
 
 /**
  * Unparsing

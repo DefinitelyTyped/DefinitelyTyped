@@ -1,6 +1,6 @@
-// Type definitions for TweenJS 0.6.0
+// Type definitions for TweenJS 1.0.2
 // Project: http://www.createjs.com/#!/TweenJS
-// Definitions by: Pedro Ferreira <https://bitbucket.org/drk4>, Chris Smith <https://github.com/evilangelist>
+// Definitions by: Pedro Ferreira <https://bitbucket.org/drk4>, Chris Smith <https://github.com/evilangelist>, J.C <https://github.com/jcyuan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
@@ -15,15 +15,6 @@
 /// <reference types="createjs-lib" />
 
 declare namespace createjs {
-    export class CSSPlugin {
-        constructor();
-
-        // properties
-        static cssSuffixMap: Object;
-
-        // methods
-        static install(): void;
-    }
 
     export class Ease {
         // methods
@@ -68,94 +59,140 @@ declare namespace createjs {
         static sineOut: (amount: number) => number;
     }
 
-    export class MotionGuidePlugin {
-        constructor();
+    export type TweenProps = {
+        useTicks?:boolean,
+        ignoreGlobalPause?:boolean,
+        loop?:number,
+        reversed?:boolean,
+        bounce?:boolean,
+        timeScale?:number,
+        pluginData?:any,
+        paused?:boolean,
+        position?:number,
+        onChange?:(e:Event) => void,
+        onComplete?:(e:Event) => void,
+        override?:boolean;
+    }
 
+    export type TimelineProps = {
+        useTicks?:boolean,
+        ignoreGlobalPause?:boolean,
+        loop?:number,
+        reversed?:boolean,
+        bounce?:boolean,
+        timeScale?:number,
+        paused?:boolean,
+        position?:number,
+        onChange?:(e:Event) => void,
+        onComplete?:(e:Event) => void
+    }
+    
+    export class TweenStep {
+        constructor(prev:TweenStep, t:number, d:number, props:TweenProps, ease:Function, passive:boolean);
+
+		next:TweenStep;
+		prev:TweenStep;
+		t:number;
+		d:number;
+		props:TweenProps;
+		ease:Function;
+		passive:boolean;
+		index:number;
+	}
+	
+	export class TweenAction {
+        constructor(prev:TweenAction, t:number, scope:any, funct:Function, params:any[]);
+
+		next:TweenAction;
+		prev:TweenAction;
+		t:number;
+		d:number;
+		scope:any;
+		funct:Function;
+		params:any[];
+	}
+
+    export class MotionGuidePlugin {
+
+        //properties
+        static priority:number;
+        static ID:string;
+        
         //methods
         static install(): Object;
+        static init(tween:Tween, prop:string, value:any):void;
+        static step(tween:Tween, step:TweenStep, props:TweenProps):void;
+        static change(tween:Tween, step:TweenStep, prop:string, value:any, ratio:number, end:boolean):void;
+        static debug(guideData:any, ctx:any, higlight:number[]):void;
     }
 
-    /*
-        NOTE: It is commented out because it conflicts with SamplePlugin Class of PreloadJS.
-              this class is mainly for documentation purposes.
-        http://www.createjs.com/Docs/TweenJS/classes/SamplePlugin.html
-    */
-    /*
-    export class SamplePlugin {
-        constructor();
+    export class Timeline extends AbstractTween {
+        constructor(props?:TimelineProps);
 
         // properties
-        static priority: any;
+        tweens:Tween[];
 
-        //methods
-        static init(tween: Tween, prop: string, value: any): any;
-        static step(tween: Tween, prop: string, startValue: any, injectProps: Object, endValue: any): void;
-        static install(): void;
-        static tween(tween: Tween, prop: string, value: any, startValues: Object, endValues: Object, ratio: number, wait: boolean, end: boolean): any;
+        // method
+        addTween(tween:Tween):Tween;
+        removeTween(tween:Tween):boolean;
+        updateDuration():void;
     }
-    */
 
-    export class Timeline extends EventDispatcher {
-        constructor (tweens: Tween[], labels: Object, props: Object);
+    export class AbstractTween extends EventDispatcher {
+        constructor(props?:TweenProps);
 
         // properties
-        duration: number;
-        ignoreGlobalPause: boolean;
-        loop: boolean;
-        position: Object;
+        ignoreGlobalPause:boolean;
+        loop:number;
+        useTicks:boolean;
+		reversed:boolean;
+        bounce:boolean;
+        timeScale:number;
+        duration:number;
+        position:number;
+        rawPosition:number;
+        
+        paused:boolean;
+        readonly currentLabel:string;
 
         // methods
-        addLabel(label: string, position: number): void;
-        addTween(...tween: Tween[]): void;
-        getCurrentLabel(): string;
-        getLabels(): Object[];
-        gotoAndPlay(positionOrLabel: string | number): void;
-        gotoAndStop(positionOrLabel: string | number): void;
-        removeTween(...tween: Tween[]): void;
-        resolve(positionOrLabel: string | number): number;
-        setLabels(o: Object): void;
-        setPaused(value: boolean): void;
-        setPosition(value: number, actionsMode?: number): boolean;
-        tick(delta: number): void;
-        updateDuration(): void;
+        advance(delta:number, ignoreActions?:boolean):void;
+        setPosition(rawPosition:number, ignoreActions?:boolean, jump?:boolean, callback?:(tween:AbstractTween) => void):void;
+        calculatePosition(rawPosition:number):void;
+        getLabels():string[];
+        setLabels(labels:{ [labelName:string] : number }[]):void;
+        addLabel(label:string, position:number):void;
+        gotoAndPlay(positionOrLabel:string | number):void;
+        gotoAndStop(positionOrLabel:string | number):void;
+        resolve(positionOrLabel:string | number):number;
+        toString():string;
     }
 
+    export class Tween extends AbstractTween {
+        constructor(target: any, props?: TweenProps);
 
-    export class Tween extends EventDispatcher {
-        constructor(target: Object, props?: Object, pluginData?: Object);
+        static IGNORE:any;
 
         // properties
-        duration: number;
-        static IGNORE: Object;
-        ignoreGlobalPause: boolean;
-        static LOOP: number;
-        loop: boolean;
-        static NONE: number;
-        onChange: Function; // deprecated
+        target: any;
+        pluginData: any;
         passive: boolean;
-        pluginData: Object;
-        position: number;
-        static REVERSE: number;
-        target: Object;
 
         // methods
-        call(callback: (tweenObject: Tween) => any, params?: any[], scope?: Object): Tween;    // when 'params' isn't given, the callback receives a tweenObject
-        call(callback: (...params: any[]) => any, params?: any[], scope?: Object): Tween; // otherwise, it receives the params only
-        static get(target: Object, props?: Object, pluginData?: Object, override?: boolean): Tween;
-        static hasActiveTweens(target?: Object): boolean;
-        static installPlugin(plugin: Object, properties: any[]): void;
-        pause(tween: Tween): Tween;
-        play(tween: Tween): Tween;
-        static removeAllTweens(): void;
-        static removeTweens(target: Object): void;
-        set(props: Object, target?: Object): Tween;
-        setPaused(value: boolean): Tween;
-        setPosition(value: number, actionsMode: number): boolean;
-        static tick(delta: number, paused: boolean): void;
-        tick(delta: number): void;
-        to(props: Object, duration?: number, ease?: (t: number) => number): Tween;
-        wait(duration: number, passive?: boolean): Tween;
+        static get(target:any, props?:TweenProps):Tween;
+        static tick(delta:number, paused:boolean):void;
+        static handleEvent(e:Event):void;
+        static removeTweens(target:any):void;
+        static removeAllTweens():void;
+        static hasActiveTweens(target:any):boolean;
 
+        wait(duration:number, passive?:boolean):Tween;
+        to(props:any, duration?:number, ease?:Function):Tween;
+        label(name:string):Tween;
+        call(callback:(...params:any[]) => void, params?:any[], scope?:any):Tween;
+        set(props:any, target?:any):Tween;
+        play(tween?:Tween):Tween;
+        pause(tween?:Tween):Tween;
     }
 
     export class TweenJS {

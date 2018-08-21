@@ -1,7 +1,7 @@
 // Type definitions for webpack-sources 0.1
 // Project: https://github.com/webpack/webpack-sources
-// Definitions by: e-cloud <http://github.com/e-cloud>
-//                 Chris Eppstein <http://github.com/chriseppstein>
+// Definitions by: e-cloud <https://github.com/e-cloud>
+//                 Chris Eppstein <https://github.com/chriseppstein>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -154,7 +154,7 @@ export class ReplaceSource extends Source implements SourceAndMapMixin {
     _name: string;
     replacements: any[][];
 
-    constructor(source: Source, name: string);
+    constructor(source: Source, name?: string);
 
     replace(start: number, end: number, newValue: string): void;
 

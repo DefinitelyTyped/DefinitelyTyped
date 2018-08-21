@@ -7,12 +7,15 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../../",
         "typeRoots": [
             "../../"
         ],
         "paths": {
-            "pino": [ "pino/v3" ]
+            "pino": [
+                "pino/v3"
+            ]
         },
         "types": [],
         "noEmit": true,

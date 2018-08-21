@@ -1,6 +1,6 @@
 // Type definitions for YouTube
 // Project: https://developers.google.com/youtube/
-// Definitions by: Daz Wilkin <https://github.com/DazWilkin/>,
+// Definitions by: Daz Wilkin <https://github.com/DazWilkin>,
 //                 Ian Obermiller <http://ianobermiller.com>,
 //                 Josh Goldberg <https://github.com/JoshuaKGoldberg>
 //                 Eliot Fallon <https://github.com/eliotfallon213>
@@ -373,17 +373,17 @@ declare namespace YT
 		/**
 		 * Player width.
 		 */
-		width?: number;
+		width?: string | number;
 
 		/**
 		 * Player height
 		 */
-		height?: number;
+		height?: string | number;
 
 		/**
 		 * ID of the video to load.
 		 */
-		videoId: string;
+		videoId?: string;
 
 		/**
 		 * Player parameters.

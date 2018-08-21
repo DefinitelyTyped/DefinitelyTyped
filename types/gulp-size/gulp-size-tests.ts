@@ -1,6 +1,6 @@
 import * as gulp from 'gulp';
-import * as size from 'gulp-size';
-import * as debug from 'gulp-debug';
+import size = require('gulp-size');
+import debug = require('gulp-debug');
 
 gulp.task('default', () =>
     gulp.src('fixture.js')
@@ -9,7 +9,7 @@ gulp.task('default', () =>
 );
 
 gulp.task('default', () => {
-    let s = size();
+    const s = size();
 
     return gulp.src('fixture.js')
         .pipe(s)

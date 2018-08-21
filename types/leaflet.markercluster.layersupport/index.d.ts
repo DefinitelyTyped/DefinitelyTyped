@@ -2,13 +2,12 @@
 // Project: https://github.com/ghybs/Leaflet.MarkerCluster.LayerSupport
 // Definitions by: AsamK <https://github.com/AsamK>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-import * as Leaflet from "leaflet";
-import * as MakerCluster from "leaflet.markercluster";
+import * as L from 'leaflet';
+import 'leaflet.markercluster';
 
-export = Leaflet;
-
-declare global { namespace L {
+declare module 'leaflet' {
     namespace MarkerClusterGroup {
         interface LayerSupport extends MarkerClusterGroup {
             /**
@@ -24,10 +23,18 @@ declare global { namespace L {
             checkOut(layers: Layer | Layer[]): this;
         }
     }
+
+    interface MarkerClusterGroupLayerSupportOptions extends MarkerClusterGroupOptions {
+        /**
+         * Buffer single addLayer and removeLayer requests for efficiency.
+         */
+        singleAddRemoveBufferDuration: number;
+    }
+
     namespace markerClusterGroup {
         /**
          * Create a layer support marker cluster group, optionally given marker cluster group options.
          */
-        function layerSupport(options?: MarkerClusterGroupOptions): MarkerClusterGroup.LayerSupport;
+        function layerSupport(options?: MarkerClusterGroupLayerSupportOptions): MarkerClusterGroup.LayerSupport;
     }
-} }
+}

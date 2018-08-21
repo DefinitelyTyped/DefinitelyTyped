@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "@babel/types": "^7.0.0-beta.54"
+    }
+}

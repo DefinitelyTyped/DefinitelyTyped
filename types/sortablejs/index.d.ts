@@ -1,6 +1,6 @@
 // Type definitions for Sortable.js 1.3
 // Project: https://github.com/RubaXa/Sortable
-// Definitions by: Maw-Fox <http://github.com/Maw-Fox>
+// Definitions by: Maw-Fox <https://github.com/Maw-Fox>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import Sortable = Sortablejs.Sortable;

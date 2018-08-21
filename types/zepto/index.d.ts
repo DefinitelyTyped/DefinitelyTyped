@@ -1,6 +1,6 @@
 // Type definitions for Zepto 1.0
 // Project: http://zeptojs.com/
-// Definitions by: Josh Baldwin <https://github.com/jbaldwin/>
+// Definitions by: Josh Baldwin <https://github.com/jbaldwin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*

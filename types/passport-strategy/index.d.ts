@@ -1,7 +1,8 @@
 // Type definitions for Passport Strategy module v0.2.0
 // Project: https://github.com/jaredhanson/passport-strategy
-// Definitions by: Lior Mualem <https://github.com/liorm/>
+// Definitions by: Lior Mualem <https://github.com/liorm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="passport"/>
 
@@ -44,7 +45,7 @@ declare class Strategy implements passport.Strategy {
      * @param {Object} info
      * @api public
      */
-    success(user: any, info: any): void;
+    success(user: any, info?: any): void;
 
     /**
      * Fail authentication, with optional `challenge` and `status`, defaulting

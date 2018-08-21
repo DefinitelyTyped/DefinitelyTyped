@@ -15,13 +15,20 @@ import {
     WarningOther,
     RegisteredFieldState,
     FormStateMap
-} from "redux-form";
+} from "../index";
 
 export type FormSubmitHandler<FormData = {}, P = {}> =
-    (values: Partial<FormData>, dispatch: Dispatch<any>, props: P) => void | FormErrors<FormData> | Promise<any>;
+    (values: FormData, dispatch: Dispatch<any>, props: P) => void | FormErrors<FormData> | Promise<any>;
 
+export type GetFormState = (state: any) => FormStateMap;
 export interface SubmitHandler<FormData = {}, P = {}> {
-    (handler: FormSubmitHandler<FormData, P>): FormEventHandler<any>;
+    (
+        submit: FormSubmitHandler<FormData, P>,
+        props?: InjectedFormProps<FormData, P>,
+        valid?: boolean,
+        asyncValidate?: any,
+        fields?: string[]
+    ): any;
     (event: SyntheticEvent<any>): void;
 }
 
@@ -64,7 +71,7 @@ export interface RegisteredField {
 export interface InjectedFormProps<FormData = {}, P = {}> {
     anyTouched: boolean;
     array: InjectedArrayProps;
-    asyncValidate: () => void;
+    asyncValidate(): void;
     asyncValidating: string | boolean;
     autofill(field: string, value: any): void;
     blur(field: string, value: any): void;
@@ -88,27 +95,31 @@ export interface InjectedFormProps<FormData = {}, P = {}> {
     untouch(...field: string[]): void;
     valid: boolean;
     warning: any;
-    registeredFields: { [name: string]: RegisteredField }
+    registeredFields: { [name: string]: RegisteredField };
 }
 
 export interface ConfigProps<FormData = {}, P = {}> {
     form: string;
     asyncBlurFields?: string[];
+    asyncChangeFields?: string[];
     asyncValidate?(values: FormData, dispatch: Dispatch<any>, props: P & InjectedFormProps<FormData, P>, blurredField: string): Promise<any>;
     destroyOnUnmount?: boolean;
     enableReinitialize?: boolean;
     forceUnregisterOnUnmount?: boolean;
-    getFormState?(state: any): FormStateMap;
+    getFormState?: GetFormState;
     immutableProps?: string[];
     initialValues?: Partial<FormData>;
     keepDirtyOnReinitialize?: boolean;
-    onChange?: (values: Partial<FormData>, dispatch: Dispatch<any>, props: P & InjectedFormProps<FormData, P>) => void;
-    onSubmit?: FormSubmitHandler<FormData, P & InjectedFormProps<FormData, P>>;
+    updateUnregisteredFields?: boolean;
+    onChange?(values: Partial<FormData>, dispatch: Dispatch<any>, props: P & InjectedFormProps<FormData, P>): void;
+    onSubmit?: FormSubmitHandler<FormData, P & InjectedFormProps<FormData, P>> | SubmitHandler<FormData, P & InjectedFormProps<FormData, P>>;
     onSubmitFail?(errors: FormErrors<FormData>, dispatch: Dispatch<any>, submitError: any, props: P & InjectedFormProps<FormData, P>): void;
     onSubmitSuccess?(result: any, dispatch: Dispatch<any>, props: P & InjectedFormProps<FormData, P>): void;
     propNamespace?: string;
     pure?: boolean;
     shouldValidate?(params: ValidateCallback<FormData, P>): boolean;
+    shouldError?(params: ValidateCallback<FormData, P>): boolean;
+    shouldWarn?(params: ValidateCallback<FormData, P>): boolean;
     shouldAsyncValidate?(params: AsyncValidateCallback<FormData>): boolean;
     touchOnBlur?: boolean;
     touchOnChange?: boolean;
@@ -123,6 +134,7 @@ export interface FormInstance<FormData, P> extends Component<P> {
     pristine: boolean;
     registeredFields: RegisteredFieldState[];
     reset(): void;
+    resetSection(...sections: string[]): void;
     submit(): Promise<any>;
     valid: boolean;
     values: Partial<FormData>;
@@ -136,12 +148,12 @@ export interface DecoratedComponentClass<FormData, P> {
 export type FormDecorator<FormData, P, Config> =
     (component: ComponentType<P & InjectedFormProps<FormData, P>>) => DecoratedComponentClass<FormData, P & Config>;
 
-declare function reduxForm<FormData = {}, P = {}>(
+export declare function reduxForm<FormData = {}, P = {}>(
     config: ConfigProps<FormData, P>
 ): FormDecorator<FormData, P, Partial<ConfigProps<FormData, P>>>;
 
-declare function reduxForm<FormData = {}, P = {}>(
+export declare function reduxForm<FormData = {}, P = {}>(
     config: Partial<ConfigProps<FormData, P>>
 ): FormDecorator<FormData, P, ConfigProps<FormData, P>>;
 
-
+export default reduxForm;

@@ -1,1 +1,1 @@
-export * from 'plotly.js';
+export * from '..';

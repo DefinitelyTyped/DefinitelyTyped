@@ -1,12 +1,12 @@
-// Type definitions for dygraphs 1.1.2
+// Type definitions for dygraphs 1.1.3
 // Project: http://dygraphs.com
-// Definitions by: Dan Vanderkam <http://danvk.org>
+// Definitions by: Dan Vanderkam <https://github.com/danvk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="google.visualization" />
 
 declare namespace dygraphs {
-    type DataArray = number[][];
+    type DataArray = (number|Date)[][];
 
     type Data = string | DataArray | google.visualization.DataTable;
 
@@ -21,6 +21,11 @@ declare namespace dygraphs {
          * A per-series color definition. Used in conjunction with, and overrides, the colors option.
          */
         color?: string;
+                
+        /**
+         * A function which plot data for this series on the chart.         
+         */
+        plotter?: any;
 
         /**
          * Draw a small dot at each point, in addition to a line going through the point. This makes
@@ -527,6 +532,12 @@ declare namespace dygraphs {
         highlightSeriesBackgroundAlpha?: number;
 
         /**
+         * Sets the background color used to fade out the series in conjunction with 'highlightSeriesBackgroundAlpha'.
+         * Default: rgb(255, 255, 255)
+         */
+        highlightSeriesBackgroundColor?: string;
+
+        /**
          * When set, the options from this object are applied to the timeseries closest to the mouse
          * pointer for interactive highlighting. See also 'highlightCallback'. Example:
          * highlightSeriesOpts: { strokeWidth: 3 }.
@@ -595,9 +606,9 @@ declare namespace dygraphs {
         /**
          * When to display the legend. By default, it only appears when a user mouses over the chart.
          * Set it to "always" to always display a legend of some sort. When set to "follow", legend
-         * follows highlighted points.
+         * follows highlighted points. If set to 'never' then it will not appear at all.
          */
-        legend?: 'always' | 'follow' | 'onmouseover';
+        legend?: 'always' | 'follow' | 'onmouseover' | 'never';
 
         /**
          * for details see https://github.com/danvk/dygraphs/pull/683

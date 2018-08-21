@@ -1,4 +1,4 @@
-import * as stringifyObject from 'stringify-object';
+import stringifyObject = require('stringify-object');
 
 stringifyObject({ a: 1, b: 2, c: 3 });
 
@@ -22,5 +22,9 @@ stringifyObject([1, 2, 3], {
 });
 
 stringifyObject([1, 2, 3], {
-  filter: (o, prop) => prop !== '_hidden_'
+    filter: (o, prop) => prop !== '_hidden_'
+});
+
+stringifyObject([1, 2, 3], {
+    transform: (val, key, value) => value
 });

@@ -1,4 +1,4 @@
-// Type definitions for Masonry 4.0
+// Type definitions for Masonry 4.2
 // Project: https://github.com/desandro/masonry
 // Definitions by: Mark Wilson <https://github.com/m-a-wilson>, Travis Brown <https://github.com/warriorrocker>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -10,7 +10,7 @@ export = Masonry;
 
 declare class Masonry {
     constructor(options?: Masonry.Options);
-    constructor(selector: string, options?: Masonry.Options);
+    constructor(selector: string | Element, options?: Masonry.Options);
 
     masonry?(): void;
     masonry?(eventName: string, listener: any): void;
@@ -50,6 +50,7 @@ declare namespace Masonry {
         fitWidth?: boolean;
         originLeft?: boolean;
         originTop?: boolean;
+        horizontalOrder?: boolean;
 
         // setup
         containerStyle?: {};

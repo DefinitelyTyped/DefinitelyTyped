@@ -17,7 +17,7 @@ const theme = {
 const filter = (notification: Notification) =>
     notification.title !== 'super-title';
 
-let test = (
+const test = (
     <NotificationSystem
         theme={theme}
         filter={filter}
@@ -36,3 +36,5 @@ addNotification(notification);
 updateNotification(notification);
 removeNotification(notification);
 removeNotifications();
+
+reducer(notification);

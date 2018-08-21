@@ -1,4 +1,5 @@
 import { Quill, Delta, DeltaStatic, RangeStatic, StringMap } from 'quill';
+import { Blot } from 'parchment/src/blot/abstract/blot';
 
 function test_quill() {
     const quillEditor = new Quill('#editor', {
@@ -8,6 +9,11 @@ function test_quill() {
         },
         theme: 'snow'
     });
+}
+
+function test_scroll() {
+    const quillEditor = new Quill('#editor');
+    const blot: Blot = quillEditor.scroll;
 }
 
 function test_deleteText() {
@@ -73,6 +79,21 @@ function test_formatText2() {
     });
 }
 
+function test_formatText3() {
+    const quillEditor = new Quill('#editor');
+    const range = {index: 0, length: 5};
+    quillEditor.formatText(range, 'bold', true);
+}
+
+function test_formatText4() {
+    const quillEditor = new Quill('#editor');
+    const range = {index: 0, length: 5};
+    quillEditor.formatText(range, {
+        bold: false,
+        color: 'rgb(0, 0, 255)'
+    });
+}
+
 function test_formatLine1() {
     const quillEditor = new Quill('#editor');
     quillEditor.formatLine(1, 3, 'api');
@@ -108,7 +129,7 @@ function test_updateContents() {
     }));
 }
 
-function test_setContents() {
+function test_setDeltaContents() {
     const quillEditor = new Quill('#editor');
     quillEditor.setContents(new Delta({ ops: [
         { insert: 'Hello ' },
@@ -117,9 +138,17 @@ function test_setContents() {
     ]}));
 }
 
-function test_setText() {
+function test_setTextContents() {
     const quillEditor = new Quill('#editor');
     quillEditor.setText('Hello\n');
+}
+
+function test_setHtmlContents() {
+    const quillEditor = new Quill('#editor');
+    const html = "<b>this is a bold text</b>";
+    const delta = quillEditor.clipboard.convert(html);
+    quillEditor.setContents(delta);
+    quillEditor.clipboard.convert();
 }
 
 function test_getSelection() {
@@ -304,10 +333,14 @@ function test_DeltaTransform() {
     const d1: DeltaStatic = a.transform(b, true);  // new Delta().retain(1).insert('b').retain(5).insert('c');
     const d2: DeltaStatic = a.transform(b, false); // new Delta().insert('b').retain(6).insert('c');
     const n1: number = a.transform(5);
+    const n2: number = a.transform(5, true);
+    const n3: number = a.transform(5, false);
 }
 
 function test_DeltatransformPosition() {
     const delta = new Delta().retain(5).insert('a');
     const n1: number = delta.transformPosition(4); // 4
     const n2: number = delta.transformPosition(5); // 6
+    const n3: number = delta.transformPosition(5, true);
+    const n4: number = delta.transformPosition(5, false);
 }

@@ -3,6 +3,8 @@
 // Definitions by: ShuYin Zhang  <https://github.com/brutalimp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+type DashType = "solid" | "shortDash" | "shortDot" | "shortDashDot" | "shortDashDotDot" | "dot" | "dash" | "dashDot" | "longDash" | "longDashDot" | "longDashDotDot";
+
 declare namespace CanvasJS {
     class Chart {
         /**
@@ -12,22 +14,22 @@ declare namespace CanvasJS {
         /**
          * All Title options become available as properties after Chart Render. You can access them either via get method or dot notation. But you can change / set those values only via set method.
          */
-        title: ChartTitle;
+        readonly title: ChartTitle;
         /**
          * The subtitles of the chart.
          * You can access them either via get method or dot notation. But you can change / set those values only via set method.
          */
-        subtitles: ChartTitle[];
+        readonly subtitles: ChartTitle[];
         /**
          * The toolTip of the chart.
          */
-        toolTip: ChartToolTip;
-        axisX: ChartAxisX[];
-        axisX2: ChartAxisX[];
-        axisY: ChartAxisY[];
-        axisY2: ChartAxisY[];
-        stripLines: ChartStrip[];
-        data: ChartDataSeries[];
+        readonly toolTip: ChartToolTip;
+        readonly axisX: ChartAxisX[];
+        readonly axisX2: ChartAxisX[];
+        readonly axisY: ChartAxisY[];
+        readonly axisY2: ChartAxisY[];
+        readonly stripLines: ChartStrip[];
+        readonly data: ChartDataSeries[];
         /**
          * Initializes a new instance of CanvasJS Chart.
          * @param containerId the DOM ID of the location where the chart is to be rendered
@@ -322,7 +324,7 @@ declare namespace CanvasJS {
         subtitles?: ChartTitleOptions[];
     }
 
-    class ChartTitleOptions {
+    interface ChartTitleOptions {
         /**
          * Sets the Title’s text.
          * Default: null
@@ -427,7 +429,7 @@ declare namespace CanvasJS {
         dockInsidePlotArea?: boolean;
     }
 
-    class ChartTitle extends ChartTitleOptions {
+    interface ChartTitle extends ChartTitleOptions {
         /**
          * Can be accessed via get method or dot notation.
          */
@@ -455,7 +457,7 @@ declare namespace CanvasJS {
         remove(): void;
     }
 
-    class ChartLegendOptions {
+    interface ChartLegendOptions {
         /**
          * Sets the cursor type for legend items.
          * Default: "default"
@@ -515,28 +517,28 @@ declare namespace CanvasJS {
          * After the event is triggered, the event related data is passed as a parameter to the assigned event handler. Parameters passed to the function are shown in the Event Object section below.
          * @param event a chart event
          */
-        itemmouseover?: (event: ChartEvent) => void;
+        itemmouseover?(event: ChartEvent): void;
         /**
          * Sets the mousemove event handler for the legend, which is triggered when the user moves the mouse(input device) within a legend item.
          * When the event is triggered, the event related data is passed as a parameter to the assigned event handler.
          * Parameters passed to the function are shown in the Event Object section below.
          * @param event a chart event
          */
-        itemmousemove?: (event: ChartEvent) => void;
+        itemmousemove?(event: ChartEvent): void;
         /**
          * Sets the mouseout event handler for the legend, which is triggered when the user moves the mouse pointer outside a legend item.
          * After the event is triggered, the event related data is passed as a parameter to the assigned event handler.
          * Parameters passed to the function are shown in the Event Object section below.
          * @param event a chart event
          */
-        itemmouseout?: (event: ChartEvent) => void;
+        itemmouseout?(event: ChartEvent): void;
         /**
          * Sets the click event handler for the legend, which is triggered when the user clicks on a legend item.
          * After the event is triggered, the event related data is passed as a parameter to the assigned event handler.
          * Parameters passed to the function are shown in the Event Object section below.
          * @param event a chart event
          */
-        itemclick?: (event: ChartEvent) => void;
+        itemclick?(event: ChartEvent): void;
         /**
          * Setting reversed property to true shows legend items in reverse order.
          * Default: false;
@@ -589,7 +591,7 @@ declare namespace CanvasJS {
         dockInsidePlotArea?: boolean;
     }
 
-    class ChartLegend extends ChartLegendOptions {
+    interface ChartLegend extends ChartLegendOptions {
         /**
          * Returns the specified property of legend.
          * @param propertyName Name of the property.
@@ -635,7 +637,7 @@ declare namespace CanvasJS {
         dataSeriesIndex: number;
     }
 
-    class ChartAxisOptions {
+    interface ChartAxisOptions {
         /**
          * Sets the Axis Title.
          * Default: null
@@ -693,20 +695,8 @@ declare namespace CanvasJS {
         /**
          * Sets the dash type for axisY.
          * Default: "solid"
-         * Supported Dash Types:
-         * “solid”
-         * “shortDash”
-         * “shortDot”
-         * “shortDashDot”
-         * “shortDashDotDot”
-         * “dot”
-         * “dash”
-         * “dashDot”
-         * “longDash”
-         * “longDashDot”
-         * “longDashDotDot”
          */
-        lineDashType?: string;
+        lineDashType?: DashType;
         /**
          * Sets the minimum value of Axis. Values smaller than minimum are clipped. minimum also sets the lower limit while panning chart.
          * Default: Automatically Calculated based on the data.
@@ -735,7 +725,7 @@ declare namespace CanvasJS {
         viewportMaximum?: number;
     }
 
-    class ChartStripLinesOptions {
+    interface ChartStripLinesOptions {
         /**
          * Sets the point where the stripLine has to be plotted or drawn along the axis X.
          * Default: null
@@ -842,9 +832,8 @@ declare namespace CanvasJS {
         /**
          * Sets the Dash Type for stripLine.
          * Default: solid
-         * Example: “dot”, “dash”, etc.
          */
-        lineDashType?: string;
+        lineDashType?: DashType;
         /**
          * Sets opacity of stripLine.
          * Default: null
@@ -857,7 +846,7 @@ declare namespace CanvasJS {
         labelFormatter?(e?: { chart: Chart, axis: ChartAxisYOptions, stripline: ChartStripLinesOptions }): string;
     }
 
-    class ChartStrip extends ChartStripLinesOptions {
+    interface ChartStrip extends ChartStripLinesOptions {
         /**
          * Returns the specified property of stripLines.
          * @param propertyName Name of the property
@@ -876,7 +865,7 @@ declare namespace CanvasJS {
         remove(): void;
     }
 
-    class ChartAxisXOptions extends ChartAxisOptions {
+    interface ChartAxisXOptions extends ChartAxisOptions {
         /**
          * TitleWrap specifies whether to wrap or clip axis title once its width crosses titleMaxWidth.
          * Default: true
@@ -1044,9 +1033,8 @@ declare namespace CanvasJS {
         /**
          * Sets the Dash Type for grid lines on axisX.
          * Default: solid
-         * Options: “solid”, “shortDash”, “shortDot”, “shortDashDot”, “shortDashDotDot”, “dot”, “dash”, “dashDot”, “longDash”, “longDashDot”, “longDashDotDot”
          */
-        gridDashType?: string;
+        gridDashType?: DashType;
         /**
          * A custom formatter function that returns label to be displayed on axisX.
          * Notes:
@@ -1061,7 +1049,7 @@ declare namespace CanvasJS {
         stripLines?: ChartStripLinesOptions | ChartStripLinesOptions[];
     }
 
-    class ChartAxisX extends ChartAxisXOptions {
+    interface ChartAxisX extends ChartAxisXOptions {
         /**
          * Returns the specified property of Axis.
          * @param propertyName Name of the property.
@@ -1097,7 +1085,7 @@ declare namespace CanvasJS {
          */
         convertPixelToValue(pixel: number): number;
     }
-    class ChartAxisYOptions extends ChartAxisXOptions {
+    interface ChartAxisYOptions extends ChartAxisXOptions {
         /**
          * When includeZero is set to true, axisY sets the range in such a way that Zero is a part of it. It is set to true by default.
          * But, whenever y values are very big and difference among dataPoints are hard to judge,
@@ -1108,7 +1096,7 @@ declare namespace CanvasJS {
         includeZero?: boolean;
     }
 
-    class ChartAxisY extends ChartAxisYOptions {
+    interface ChartAxisY extends ChartAxisYOptions {
         /**
          * Returns the specified property of Axis.
          * @param propertyName Name of the property.
@@ -1145,7 +1133,7 @@ declare namespace CanvasJS {
         convertPixelToValue(pixel: number): number;
     }
 
-    class ChartToolTipOptions {
+    interface ChartToolTipOptions {
         /**
          * While mouse hovers from one dataPoint to another there is a smooth transition in toolTip.
          * This effect can be controlled by animationEnabled Property. Setting it to false, will disable the animation and toolTip will directly switch from one dataPoint to the other.
@@ -1238,7 +1226,7 @@ declare namespace CanvasJS {
         backgroundColor?: string;
     }
 
-    class ChartToolTip extends ChartToolTipOptions {
+    interface ChartToolTip extends ChartToolTipOptions {
         /**
          * Returns the specified property of legend.
          * @param propertyName Name of the property.
@@ -1253,7 +1241,7 @@ declare namespace CanvasJS {
         set(propertyName: string, value: number | string | boolean, updateChart?: boolean): void;
     }
 
-    class ChartDataCommon {
+    interface ChartDataCommon {
         /**
          * Sets the dataPoint Name. dataPoint name is shown in various places like toolTip & legend unless overridden.
          * Default: Automatically Named ("dataPoint 1", "dataPoint 2" .. )
@@ -1286,9 +1274,8 @@ declare namespace CanvasJS {
          * Sets the Dash Type for indexLabel’s line. It is applicable only for pie and doughnut charts when indexLabelPlacement is set to “outside”.
          * For other chart-types, indexLabelLineThickness should be set greater than zero.
          * Default: solid
-         * Example: “dot”, “dash”, etc.
          */
-        indexLabelLineDashType?: string;
+        indexLabelLineDashType?: DashType;
         /**
          * A custom formatter function which returns the text to be displayed as indexLabel on dataPoints.
          * @param e event object
@@ -1432,31 +1419,31 @@ declare namespace CanvasJS {
          * Parameter includes dataPoint and dataSeries corresponding to the event.
          * Default: null
          */
-        click?: (event: ChartEvent) => void;
+        click?(event: ChartEvent): void;
         /**
          * Sets the mouseover event handler for dataSeries which is triggered when user moves Mouse Over a dataSeries.
          * Upon event, a parameter that contains event related data is sent to the assigned event handler.
          * Parameter includes dataPoint and dataSeries corresponding to the event.
          * Default: null
          */
-        mouseover?: (event: ChartEvent) => void;
+        mouseover?(event: ChartEvent): void;
         /**
          * Sets the mousemove event handler for dataSeries which is triggered when user Moves mouse on a dataSeries.
          * Upon event, a parameter that contains event related data is sent to the assigned event handler.
          * Parameter includes dataPoint and dataSeries corresponding to the event.
          * Default: null
          */
-        mousemove?: (event: ChartEvent) => void;
+        mousemove?(event: ChartEvent): void;
         /**
          * Sets the mouseout event handler for dataSeries which is triggered when user moves mouse out of a dataSeries.
          * Upon event, a parameter that contains event related data is sent to the assigned event handler.
          * Parameter includes dataPoint and dataSeries corresponding to the event.
          * Default: null
          */
-        mouseout?: (event: ChartEvent) => void;
+        mouseout?(event: ChartEvent): void;
     }
 
-    class ChartDataSeriesOptions extends ChartDataCommon {
+    interface ChartDataSeriesOptions extends ChartDataCommon {
         /**
          * Sets the visibility of dataSeries. Data Series is visible by default and you can hide the same by setting visible property to false.
          * Default: true
@@ -1604,29 +1591,22 @@ declare namespace CanvasJS {
          */
         connectNullData?: boolean;
         /**
+         * Sets the Line Dash Type for all Line and Area Charts.
+         * Default: solid
+         */
+        lineDashType?: DashType;
+        /**
          * Sets the Line Dash Type of line wherever null data is present.
          * Note:
          * 1.Will effect only if connectNullData is set to true.
          * 2.Supported with all Line and Area Charts.
          * 3.Not Supported on IE8.
          * Default: "dash"
-         * Supported Line Dash Types:
-         * “solid”
-         * “shortDash”
-         * “shortDot”
-         * “shortDashDot”
-         * “shortDashDotDot”
-         * "dot"
-         * “dash”
-         * “dashDot”
-         * “longDash”
-         * “longDashDot”
-         * “longDashDotDot”
          */
-        nullDataLineDashType?: string;
+        nullDataLineDashType?: DashType;
     }
 
-    class ChartDataSeries extends ChartDataSeriesOptions {
+    interface ChartDataSeries extends ChartDataSeriesOptions {
         /**
          * Returns the specified property of dataSeries
          * @param propertyName Name of the property.

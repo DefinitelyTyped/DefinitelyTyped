@@ -23,6 +23,8 @@ rp('http://google.com').finally(() => {});
 rp('http://google.com').then(console.dir);
 rp('http://google.com').catch(console.error);
 rp('http://google.com').then(console.dir, console.error);
+rp('http://google.com').cancel();
+rp('http://google.com').promise().then(console.dir);
 
 // This works as well since additional methods are only used AFTER the FIRST call in the chain:
 
@@ -117,10 +119,14 @@ request
 
 http.createServer((req, resp) => {
   if (req.url === '/doodle.png') {
-    if (req.method === 'PUT') {
-      req.pipe(request.put('http://mysite.com/doodle.png'));
-    } else if (req.method === 'GET' || req.method === 'HEAD') {
-      request.get('http://mysite.com/doodle.png').pipe(resp);
+    switch (req.method) {
+      case 'Put':
+        req.pipe(request.put('http://mysite.com/doodle.png'));
+        break;
+      case 'GET':
+      case 'HEAD':
+       request.get('http://mysite.com/doodle.png').pipe(resp);
+       break;
     }
   }
 });
@@ -133,8 +139,8 @@ http.createServer((req, resp) => {
   }
 });
 
-let  resp: http.ServerResponse;
-let req: rp.RequestPromise;
+declare const resp: http.ServerResponse;
+declare const req: rp.RequestPromise;
 req.pipe(request('http://mysite.com/doodle.png')).pipe(resp);
 
 const r = request;
@@ -175,7 +181,8 @@ const data = {
 };
 request.post({ url: 'http://service.com/upload', formData: data }, (err, httpResponse, body) => {
   if (err) {
-    return console.error('upload failed:', err);
+    console.error('upload failed:', err);
+    return;
   }
   console.log('Upload successful!  Server responded with:', body);
 });
@@ -204,7 +211,8 @@ request({
   },
   (error, response, body) => {
     if (error) {
-      return console.error('upload failed:', error);
+      console.error('upload failed:', error);
+      return;
     }
     console.log('Upload successful!  Server responded with:', body);
   });
@@ -224,7 +232,8 @@ request({
   },
   (error, response, body) => {
     if (error) {
-      return console.error('upload failed:', error);
+      console.error('upload failed:', error);
+      return;
     }
     console.log('Upload successful!  Server responded with:', body);
   });
@@ -249,7 +258,7 @@ request.get('http://some.server.com/', {
 
 const username = 'username';
 const password = 'password';
-let url = 'http://' + username + ':' + password + '@some.server.com';
+let url = `http://${username}:${password}@some.server.com`;
 
 request({ url }, (error, response, body) => {
    // Do more stuff with 'body' here
@@ -287,8 +296,7 @@ request.post({ url, oauth }, (e, r, body) => {
 
   // step 2
   const req_data = qs.parse(body);
-  const uri = 'https://api.twitter.com/oauth/authenticate'
-    + '?' + qs.stringify({oauth_token: req_data.oauth_token});
+  const uri = `https://api.twitter.com/oauth/authenticate?${qs.stringify({oauth_token: req_data.oauth_token})}`;
   // redirect the user to the authorize uri
 
   // step 3
@@ -298,7 +306,7 @@ request.post({ url, oauth }, (e, r, body) => {
     consumer_key: CONSUMER_KEY,
     consumer_secret: CONSUMER_SECRET,
     token: auth_data.oauth_token,
-    token_secret: req_data.oauth_token_secret,
+    token_secret: req_data.oauth_token_secret as string,
     verifier: auth_data.oauth_verifier,
   };
   const url = 'https://api.twitter.com/oauth/access_token';
@@ -324,7 +332,7 @@ request.post({ url, oauth }, (e, r, body) => {
 
 let certFile = path.resolve(__dirname, 'ssl/client.crt');
 let keyFile = path.resolve(__dirname, 'ssl/client.key');
-let caFile = path.resolve(__dirname, 'ssl/ca.cert.pem');
+const caFile = path.resolve(__dirname, 'ssl/ca.cert.pem');
 
 options = {
     url: 'https://api.some-server.com/',
@@ -467,7 +475,7 @@ request(
     // unmodified http.IncomingMessage object
     response.on('data', (data: any[]) => {
       // compressed data as it is received
-      console.log('received ' + data.length + ' bytes of compressed data');
+      console.log(`received ${data.length} bytes of compressed data`);
     });
   });
 

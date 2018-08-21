@@ -5,9 +5,11 @@
             "es6",
             "dom"
         ],
+        "target": "es6",
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"

@@ -1,9 +1,10 @@
-// Type definitions for d3-contour 1.1
+// Type definitions for d3-contour 1.2
 // Project: https://d3js.org/d3-contour/
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Hugues Stefanski <https://github.com/Ledragon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-// Last module patch version validated against: 1.1.0
+// Last module patch version validated against: 1.2.0
 
 import { MultiPolygon } from 'geojson';
 import { ThresholdArrayGenerator, ThresholdCountGenerator } from 'd3-array';
@@ -39,6 +40,17 @@ export interface Contours {
      * furthermore, each values[i + jn] must represent the value at the position ⟨i, j⟩.
      */
     (values: number[]): ContourMultiPolygon[];
+
+    /**
+     * Computes a single contour, returning a GeoJSON MultiPolygon geometry object.
+     * This geometry object represents the area where the input values are greater than or equal to the given threshold value;
+     * the threshold value for the geometry object is exposed as geometry.value.
+     *
+     * @param values  Array of input values. The input values must be an array of length n×m where [n, m] is the contour generator’s size;
+     * furthermore, each values[i + jn] must represent the value at the position ⟨i, j⟩.
+     * @param threshold Threshold value.
+     */
+    contour(values: number[], threshold: number): ContourMultiPolygon;
 
     /**
      * Return the expected size of the input values grid, which defaults to [1,1].
@@ -108,8 +120,13 @@ export function contours(): Contours;
 
 /**
  * A contour generator for density estimates.
+ *
+ * The generic refers to the data type of an element in the data array
+ * used with the density contour generator. If omitted, the default setting assumes that,
+ * the elements of the data array used with the density contour generator are two-element arrays.
+ * The first element corresponds to the x-dimension, the second to the y-dimension.
  */
-export interface ContourDensity<Datum> {
+export interface ContourDensity<Datum = [number, number]> {
     /**
      * Estimates the density contours for the given array of data, returning an array of GeoJSON MultiPolygon geometry objects.
      * Each geometry object represents the area where the estimated number of points per square pixel is greater than or equal to
@@ -227,20 +244,14 @@ export interface ContourDensity<Datum> {
 }
 
 /**
- * Construct a new contour generator for density estimates with the default settings.
- *
- * The default settings assume that, the elements of the data array used
- * with the density contour generator are two-element arrays. The first element
- * corresponds to the x-dimension, the second to the y-dimension.
- */
-export function contourDensity(): ContourDensity<[number, number]>;
-/**
  * Construct a new contour generator for density estimates.
  *
  * The generic refers to the data type of an element in the data array
- * used with the density contour generator.
+ * used with the density contour generator. If omitted, the default setting assumes that,
+ * the elements of the data array used with the density contour generator are two-element arrays.
+ * The first element corresponds to the x-dimension, the second to the y-dimension.
  *
  * Important: ensure that the x- and y-accessor functions are configured to
  * match the data type used for the generic Datum.
  */
-export function contourDensity<Datum>(): ContourDensity<Datum>;
+export function contourDensity<Datum = [number, number]>(): ContourDensity<Datum>;

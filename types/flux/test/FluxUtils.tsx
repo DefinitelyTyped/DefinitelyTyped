@@ -42,8 +42,6 @@ class CounterContainer extends React.Component<Props, State> {
         return [Store];
     }
 
-    static a: string = "asd";
-
     static calculateState(prevState: State, props: Props): State {
         return {
             counter: Store.getState() - (props.b ? 0 : 1)
