@@ -30,7 +30,7 @@ declare namespace wu {
 	function enumerate<T>(iter: Iterable<T>): Iterable<[number, T]>;
 	function every<T>(fn: Filter<T>, iter: Iterable<T>): boolean;
 	function filter<T>(fn: Filter<T>, iter: Iterable<T>): WuIterable<T>;
-	function find<T>(fn: Filter<T>, iter: Iterable<T>): T;
+	function find<T>(fn: Filter<T>, iter: Iterable<T>): T | undefined;
 	function flatten(iter: Iterable<any>): WuIterable<any>;
 	function flatten(shallow: boolean, iter: Iterable<any>): WuIterable<any>;
 	function forEach<T>(fn: Consumer<T>, iter: Iterable<T>): void;
