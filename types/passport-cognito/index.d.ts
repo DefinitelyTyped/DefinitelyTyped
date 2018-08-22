@@ -1,3 +1,9 @@
+// Type definitions for passport-cognito 0.1.13
+// Project: https://github.com/jaredhanson/passport-cognito
+// Definitions by: Maksym Butsykin <https://github.com/mbutsykin>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
+
 import passport = require('passport');
 import express = require('express');
 

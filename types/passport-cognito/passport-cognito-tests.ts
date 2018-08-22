@@ -1,5 +1,5 @@
 /**
- * Created by Christophe Vidal <https://github.com/krizalys>
+ * Created by Maksym Butsykin Vidal <https://github.com/mbutsykin>
  */
 
 import passport = require("passport");
