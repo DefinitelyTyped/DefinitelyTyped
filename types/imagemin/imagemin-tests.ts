@@ -1,14 +1,21 @@
-import * as Imagemin from 'imagemin';
+import imagemin = require('imagemin');
 
-const buffer = Buffer.from('Hello World!');
-const input = ['fileA.jpg', 'fileB.png'];
-const output = 'output';
+const input = ['/input/**/*'];
+const output = '/output/dir';
 const options = { plugins: [] };
+const handler = (result: imagemin.Result[]) => {
+    // ...
+};
 
-Imagemin(input);
-Imagemin(input, output);
-Imagemin(input, options);
-Imagemin(input, output, options);
+imagemin(input).then(handler);
+imagemin(input, output).then(handler);
+imagemin(input, options).then(handler);
+imagemin(input, output, options).then(handler);
 
-Imagemin.buffer(buffer);
-Imagemin.buffer(buffer, options);
+const buffer = Buffer.from([ /* File content */ ]);
+const bufferHandler = (result: Buffer) => {
+    // ...
+};
+
+imagemin.buffer(buffer).then(bufferHandler);
+imagemin.buffer(buffer, options).then(bufferHandler);
