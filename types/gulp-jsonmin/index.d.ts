@@ -1,4 +1,4 @@
-// Type definitions for gulp-jsonmin 1.1
+// Type definitions for gulp-jsonmin 1.2
 // Project: https://github.com/englercj/gulp-jsonmin
 // Definitions by: Romain Faust <https://github.com/romain-faust>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
