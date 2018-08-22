@@ -2,6 +2,7 @@
 // Project: https://github.com/yahoo/intl-relativeformat
 // Definitions by: Mohsen Azimi <https://github.com/mohsen1>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /**
  * This package aims to provide a way to format different variations of relative time.
@@ -68,11 +69,10 @@ export default class IntlRelativeFormat {
     /**
      * This method returns an object with the options values that were resolved
      * during instance creation. It currently only contains a locale property
-     *  here's an example:
-     ```
-     var rf = new IntlRelativeFormat('en-us');
-     console.log(rf.resolvedOptions().locale); // => "en-US"
-     ```
+     *
+     *     var rf = new IntlRelativeFormat('en-us');
+     *     console.log(rf.resolvedOptions().locale); // => "en-US"
+     *
      * Notice how the specified locale was the all lower-case value: "en-us",
      * but it was resolved and normalized to: "en-US".
      */
@@ -84,10 +84,9 @@ export default class IntlRelativeFormat {
      * and returns the formatted string; e.g., "3 hours ago" in the corresponding
      * locale passed into the constructor.
      *
-     ```
-     var output = rf.format(new Date());
-     console.log(output); // => "now"
-     ```
+     *    var output = rf.format(new Date());
+     *    console.log(output); // => "now"
+     *
      * If you wish to specify a "now" value, it can be provided via options.now and
      *  will be used instead of querying Date.now() to get the current "now" value.
      */
