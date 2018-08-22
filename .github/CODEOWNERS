@@ -3576,8 +3576,8 @@
 /types/react-native-vector-icons/               @iRoachie @timwangdev
 /types/react-native-version-number/             @VincentLanglet
 /types/react-native-video/                      @huhuanming
-/types/react-navigation/v1/                     @huhuanming @mhcgrq @fangpenlin @petejkim @iRoachie @phanalpha @charlesfamu @timwangdev @bang88 @svbutko @levito @robertohuertasm @YourGamesBeOver @ArmandoAssuncao @cliedeman @Slessi
-/types/react-navigation/                        @huhuanming @mhcgrq @fangpenlin @petejkim @iRoachie @phanalpha @charlesfamu @timwangdev @bang88 @svbutko @levito @robertohuertasm @YourGamesBeOver @ArmandoAssuncao @cliedeman @Slessi @magrinj @TizioFittizio @stigi
+/types/react-navigation/v1/                     @huhuanming @mhcgrq @fangpenlin @petejkim @iRoachie @phanalpha @charlesfamu @timwangdev @bang88 @svbutko @levito @YourGamesBeOver @ArmandoAssuncao @cliedeman @Slessi
+/types/react-navigation/                        @huhuanming @mhcgrq @fangpenlin @petejkim @iRoachie @phanalpha @charlesfamu @timwangdev @bang88 @svbutko @levito @YourGamesBeOver @ArmandoAssuncao @cliedeman @Slessi @magrinj @TizioFittizio @stigi
 /types/react-notification-system/               @GiedriusGrabauskas @DeividasBakanas @LKay @sztobar
 /types/react-notification-system-redux/         @LKay
 /types/react-notify-toast/                      @klaascuvelier
