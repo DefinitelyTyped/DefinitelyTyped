@@ -801,6 +801,22 @@ laboris nisi ut aliquip ex ea commodo consequat.`;
     updateComplexity();
   };
 
+    document.getElementById('add-textbox').onclick = () => {
+        const textboxSample = new fabric.Textbox(text.slice(0, getRandomInt(0, text.length)), {
+            left: getRandomInt(350, 400),
+            top: getRandomInt(350, 400),
+            fontFamily: 'helvetica',
+            angle: getRandomInt(-10, 10),
+            fill: '#' + getRandomColor(),
+            scaleX: 0.5,
+            scaleY: 0.5,
+            fontWeight: ''
+        });
+
+        canvas.add(textboxSample);
+        updateComplexity();
+    };
+
   document.onkeydown = e => {
     const obj = canvas.getActiveObject() || canvas.getActiveGroup();
     if (obj && e.keyCode === 8) {
