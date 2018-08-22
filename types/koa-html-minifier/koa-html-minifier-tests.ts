@@ -1,6 +1,6 @@
 import Koa = require('koa');
-import KoaHtmlMinifier = require('koa-html-minifier');
+import koaHtmlMinifier = require('koa-html-minifier');
 
 const app = new Koa();
-app.use(KoaHtmlMinifier());
-app.use(KoaHtmlMinifier({ collapseWhitespace: true }));
+app.use(koaHtmlMinifier());
+app.use(koaHtmlMinifier({ collapseWhitespace: true }));

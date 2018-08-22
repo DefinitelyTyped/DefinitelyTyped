@@ -4,11 +4,13 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Options } from 'html-minifier';
+import { Options as HtmlMinifierOptions } from 'html-minifier';
 import { Middleware } from 'koa';
 
-declare function minifier(options?: Options): Middleware;
+declare function minifier(options?: minifier.Options): Middleware;
 
-declare namespace minifier {}
+declare namespace minifier {
+    type Options = HtmlMinifierOptions;
+}
 
 export = minifier;
