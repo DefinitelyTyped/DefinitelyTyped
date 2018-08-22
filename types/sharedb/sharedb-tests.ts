@@ -3,6 +3,7 @@ import * as ShareDB from 'sharedb';
 import * as http from 'http';
 import * as WebSocket from 'ws';
 import { Duplex } from 'stream';
+import * as ShareDBClient from 'sharedb/lib/client';
 
 // Adapted from https://github.com/avital/websocket-json-stream
 class WebSocketJSONStream extends Duplex {
@@ -60,9 +61,8 @@ function startServer() {
 }
 
 function startClient(callback) {
-    const sharedb = require('sharedb/lib/client');
     const socket = new WebSocket('ws://localhost:8080');
-    const connection = new sharedb.Connection(socket);
+    const connection = new ShareDBClient.Connection(socket);
     const doc = connection.get('examples', 'counter');
     doc.subscribe(() => {
         doc.submitOp([{p: ['numClicks'], na: 1}]);

@@ -20,7 +20,9 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
+        "lib/sharedb.d.ts",
         "index.d.ts",
+        "lib/client.d.ts",
         "sharedb-tests.ts"
     ]
 }
