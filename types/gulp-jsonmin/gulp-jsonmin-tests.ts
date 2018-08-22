@@ -1,5 +1,4 @@
-import * as GulpJsonmin from 'gulp-jsonmin';
+import GulpJsonmin = require('gulp-jsonmin');
 
 GulpJsonmin();
-GulpJsonmin({});
 GulpJsonmin({ verbose: true });
