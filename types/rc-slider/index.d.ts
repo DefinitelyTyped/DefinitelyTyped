@@ -1,4 +1,4 @@
-// Type definitions for rc-slider 9.0
+// Type definitions for rc-slider 8.6
 // Project: https://github.com/react-component/slider
 // Definitions by: Marcinkus Mantas <https://github.com/mantasmarcinkus>
 //                 Alexander Mattoni <https://github.com/mattoni>
