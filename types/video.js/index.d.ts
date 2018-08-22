@@ -3768,13 +3768,13 @@ declare namespace videojs {
 		 * Get the remote {@link TextTrackList}
 		 * @return The current remote text track list
 		 */
-		textTracks(): TextTrackList
+		textTracks(): TextTrackList;
 
 		/**
 		 * Get the remote {@link TextTrackList}
 		 * @return The current remote text track list
 		 */
-		remoteTextTracks(): TextTrackList
+		remoteTextTracks(): TextTrackList;
 
 		/**
 		 * Create a remote {@link TextTrack} and an {@link HTMLTrackElement}. It will
