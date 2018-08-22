@@ -2198,7 +2198,7 @@ declare module "child_process" {
         keepOpen?: boolean;
     }
 
-    export type StdioOptions = "pipe" | "ignore" | "inherit" | Array<("pipe" | "ipc" | "ignore" | stream.Stream | number | null | undefined)>;
+    export type StdioOptions = "pipe" | "ignore" | "inherit" | Array<("pipe" | "ipc" | "ignore" | "inherit" | stream.Stream | number | null | undefined)>;
 
     export interface SpawnOptions {
         cwd?: string;
