@@ -851,7 +851,7 @@ export interface RedirectOptions {
     /**
      * redirect location's query string parameters
      */
-    query?: string;
+    query?: string|object;
 
     /**
      * if true, `options.query`
