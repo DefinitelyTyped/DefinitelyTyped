@@ -59,7 +59,7 @@ declare module "strophe.js" {
         leave(
           room:        string,
           nick:        string,
-          handler_cb?: Function,
+          handler_cb?: (stanza: Element) => boolean,
           exit_msg?:   string
         ): string;
 
@@ -172,8 +172,8 @@ declare module "strophe.js" {
          */
         configure(
           room:        string,
-          handler_cb?: Function,
-          error_cb?:   Function
+          handler_cb?: (stanza: Element) => any,
+          error_cb?:   (stanza: Element) => any 
         ): string;
 
 
@@ -198,8 +198,8 @@ declare module "strophe.js" {
         saveConfiguration(
           room:        string,
           config:      any,
-          success_cb?: Function,
-          error_cb?:   Function
+          success_cb?: (stanza: Element) => any,
+          error_cb?:   (stanza: Element) => any 
         ): string;
 
 
@@ -213,8 +213,8 @@ declare module "strophe.js" {
          */
         createInstantRoom(
           room:        string,
-          success_cb?: Function,
-          error_cb?:   Function
+          success_cb?: (stanza: Element) => any,
+          error_cb?:   (stanza: Element) => any 
         ): string;
 
 
@@ -230,8 +230,8 @@ declare module "strophe.js" {
         createConfiguredRoom(
           room:       string,
           config:     any,
-          success_cb: Function,
-          error_cb:   Function
+          success_cb: (stanza: Element) => any,
+          error_cb:   (stanza: Element) => any 
         ): string;
 
 
@@ -262,8 +262,8 @@ declare module "strophe.js" {
           nick:        string,
           role:        string,
           reason?:     string,
-          handler_cb?: Function,
-          error_cb?:   Function
+          handler_cb?: (stanza: Element) => any,
+          error_cb?:   (stanza: Element) => any 
         ): string;
 
 
@@ -281,8 +281,8 @@ declare module "strophe.js" {
           room:        string,
           nick:        string,
           reason?:     string,
-          handler_cb?: Function,
-          error_cb?:   Function
+          handler_cb?: (stanza: Element) => any,
+          error_cb?:   (stanza: Element) => any 
         ): string;
 
 
@@ -300,8 +300,8 @@ declare module "strophe.js" {
           room:        string,
           nick:        string,
           reason?:     string,
-          handler_cb?: Function,
-          error_cb?:   Function
+          handler_cb?: (stanza: Element) => any,
+          error_cb?:   (stanza: Element) => any 
         ): string;
 
 
@@ -319,8 +319,8 @@ declare module "strophe.js" {
           room:        string,
           nick:        string,
           reason?:     string,
-          handler_cb?: Function,
-          error_cb?:   Function
+          handler_cb?: (stanza: Element) => any,
+          error_cb?:   (stanza: Element) => any 
         ): string;
 
 
@@ -338,8 +338,8 @@ declare module "strophe.js" {
           room:        string,
           nick:        string,
           reason?:     string,
-          handler_cb?: Function,
-          error_cb?:   Function
+          handler_cb?: (stanza: Element) => any,
+          error_cb?:   (stanza: Element) => any 
         ): string;
 
 
@@ -357,8 +357,8 @@ declare module "strophe.js" {
           room:        string,
           nick:        string,
           reason?:     string,
-          handler_cb?: Function,
-          error_cb?:   Function
+          handler_cb?: (stanza: Element) => any,
+          error_cb?:   (stanza: Element) => any
         ): string;
 
 
@@ -380,8 +380,8 @@ declare module "strophe.js" {
           jid:         string,
           affiliation: string,
           reason?:     string,
-          handler_cb?: Function,
-          error_cb?:   Function
+          handler_cb?: (stanza: Element) => any,
+          error_cb?:   (stanza: Element) => any
         ): string;
 
 
@@ -399,8 +399,8 @@ declare module "strophe.js" {
           room:        string,
           jid:         string,
           reason?:     string,
-          handler_cb?: Function,
-          error_cb?:   Function
+          handler_cb?: (stanza: Element) => any,
+          error_cb?:   (stanza: Element) => any
         ): string;
 
 
@@ -418,8 +418,8 @@ declare module "strophe.js" {
           room:        string,
           jid:         string,
           reason?:     string,
-          handler_cb?: Function,
-          error_cb?:   Function
+          handler_cb?: (stanza: Element) => any,
+          error_cb?:   (stanza: Element) => any
         ): string;
 
 
@@ -437,8 +437,8 @@ declare module "strophe.js" {
           room:        string,
           jid:         string,
           reason?:     string,
-          handler_cb?: Function,
-          error_cb?:   Function
+          handler_cb?: (stanza: Element) => any,
+          error_cb?:   (stanza: Element) => any
         ): string;
 
 
@@ -456,8 +456,8 @@ declare module "strophe.js" {
           room:        string,
           jid:         string,
           reason?:     string,
-          handler_cb?: Function,
-          error_cb?:   Function
+          handler_cb?: (stanza: Element) => any,
+          error_cb?:   (stanza: Element) => any
         ): string;
 
 
@@ -475,8 +475,8 @@ declare module "strophe.js" {
           room:        string,
           jid:         string,
           reason?:     string,
-          handler_cb?: Function,
-          error_cb?:   Function
+          handler_cb?: (stanza: Element) => any,
+          error_cb?:   (stanza: Element) => any
         ): string;
 
 
@@ -513,8 +513,8 @@ declare module "strophe.js" {
          */
         registrationRequest(
           room:      string,
-          handle_cb: Function,
-          error_cb:  Function
+          handle_cb: (stanza: Element) => any,
+          error_cb:  (stanza: Element) => any
         ): void;
 
 
@@ -529,8 +529,8 @@ declare module "strophe.js" {
         submitRegistrationForm(
           room:      string,
           fields:    any,
-          handle_cb: Function,
-          error_cb:  Function
+          handle_cb: (stanza: Element) => any,
+          error_cb:  (stanza: Element) => any
         ): void;
 
         /**
@@ -550,14 +550,14 @@ declare module "strophe.js" {
       interface XmppRoom {
 
         join(
-          msg_handler_cb:  Function,
-          pres_handler_cb: Function,
-          roster_cb:       Function
+          msg_handler_cb:  (stanza: Element) => any,
+          pres_handler_cb: (stanza: Element) => any,
+          roster_cb:       (stanza: Element) => any
         ): void;
 
 
         leave(
-          handler_cb?: Function,
+          handler_cb?: (stanza: Element) => any,
           exit_msg?:   string
         ): void;
 
@@ -581,7 +581,7 @@ declare module "strophe.js" {
         directInvite(receiver: string, reason?: string): string;
 
 
-        configure(handler_cb: Function): string;
+        configure(handler_cb: (stanza: Element) => any): string;
 
 
         cancelConfigure(): string;
@@ -590,7 +590,7 @@ declare module "strophe.js" {
         saveConfiguration(config: any): string;
 
 
-        queryOccupants(success_cb: Function, error_cb: Function): void;
+        queryOccupants(success_cb: (stanza: Element) => any, error_cb: (stanza: Element) => any): void;
 
 
         setTopic(topic: string): string;
@@ -600,48 +600,48 @@ declare module "strophe.js" {
           nick:        string,
           role:        string,
           reason?:     string,
-          success_cb?: Function,
-          error_cb?:   Function
+          success_cb?: (stanza: Element) => any,
+          error_cb?:   (stanza: Element) => any
         ): string;
 
 
         kick(
           nick:        string,
           reason?:     string,
-          handler_cb?: Function,
-          error_cb?:   Function
+          handler_cb?: (stanza: Element) => any,
+          error_cb?:   (stanza: Element) => any
         ): string;
 
 
         voice(
           nick:        string,
           reason?:     string,
-          handler_cb?: Function,
-          error_cb?:   Function
+          handler_cb?: (stanza: Element) => any,
+          error_cb?:   (stanza: Element) => any
         ): string;
 
 
         mute(
           nick:        string,
           reason?:     string,
-          handler_cb?: Function,
-          error_cb?:   Function
+          handler_cb?: (stanza: Element) => any,
+          error_cb?:   (stanza: Element) => any
         ): string;
 
 
         op(
           nick:        string,
           reason?:     string,
-          handler_cb?: Function,
-          error_cb?:   Function
+          handler_cb?: (stanza: Element) => any,
+          error_cb?:   (stanza: Element) => any
         ): string;
 
 
         deop(
           nick:        string,
           reason?:     string,
-          handler_cb?: Function,
-          error_cb?:   Function
+          handler_cb?: (stanza: Element) => any,
+          error_cb?:   (stanza: Element) => any
         ): string;
 
 
@@ -649,48 +649,48 @@ declare module "strophe.js" {
           jid:         string,
           affiliation: string,
           reason?:     string,
-          success_cb?: Function,
-          error_cb?:   Function
+          success_cb?: (stanza: Element) => any,
+          error_cb?:   (stanza: Element) => any
         ): string;
 
 
         ban(
           jid:         string,
           reason?:     string,
-          handler_cb?: Function,
-          error_cb?:   Function
+          handler_cb?: (stanza: Element) => any,
+          error_cb?:   (stanza: Element) => any
         ): string;
 
 
         member(
           jid:         string,
           reason?:     string,
-          handler_cb?: Function,
-          error_cb?:   Function
+          handler_cb?: (stanza: Element) => any,
+          error_cb?:   (stanza: Element) => any
         ): string;
 
 
         revoke(
           jid:         string,
           reason?:     string,
-          handler_cb?: Function,
-          error_cb?:   Function
+          handler_cb?: (stanza: Element) => any,
+          error_cb?:   (stanza: Element) => any
         ): string;
 
 
         owner(
           jid:         string,
           reason?:     string,
-          handler_cb?: Function,
-          error_cb?:   Function
+          handler_cb?: (stanza: Element) => any,
+          error_cb?:   (stanza: Element) => any
         ): string;
 
 
         admin(
           jid:         string,
           reason?:     string,
-          handler_cb?: Function,
-          error_cb?:   Function
+          handler_cb?: (stanza: Element) => any,
+          error_cb?:   (stanza: Element) => any
         ): string;
 
 
@@ -709,7 +709,7 @@ declare module "strophe.js" {
          */
         addHandler(
           handler_type: "presence"|"message"|"roster",
-          handler:      Function
+          handler:      (stanza: Element) => any
         ): number;
 
 
@@ -746,85 +746,85 @@ declare module "strophe.js" {
         modifyRole(
           role:        string,
           reason?:     string,
-          success_cb?: Function,
-          error_cb?:   Function
+          success_cb?: (stanza: Element) => any,
+          error_cb?:   (stanza: Element) => any
         ): string;
 
 
         kick(
           reason?:     string,
-          handler_cb?: Function,
-          error_cb?:   Function
+          handler_cb?: (stanza: Element) => any,
+          error_cb?:   (stanza: Element) => any
         ): string;
 
 
         voice(
           reason?:     string,
-          handler_cb?: Function,
-          error_cb?:   Function
+          handler_cb?: (stanza: Element) => any,
+          error_cb?:   (stanza: Element) => any
         ): string;
 
         mute(
           reason?:     string,
-          handler_cb?: Function,
-          error_cb?:   Function
+          handler_cb?: (stanza: Element) => any,
+          error_cb?:   (stanza: Element) => any
         ): string;
 
 
         op(
           reason?:     string,
-          handler_cb?: Function,
-          error_cb?:   Function
+          handler_cb?: (stanza: Element) => any,
+          error_cb?:   (stanza: Element) => any
         ): string;
 
 
         deop(
           reason?:     string,
-          handler_cb?: Function,
-          error_cb?:   Function
+          handler_cb?: (stanza: Element) => any,
+          error_cb?:   (stanza: Element) => any
         ): string;
 
 
         modifyAffiliation(
           affiliation: string,
           reason?:     string,
-          success_cb?: Function,
-          error_cb?:   Function
+          success_cb?: (stanza: Element) => any,
+          error_cb?:   (stanza: Element) => any
         ): string;
 
 
         ban(
           reason?:     string,
-          success_cb?: Function,
-          error_cb?:   Function
+          success_cb?: (stanza: Element) => any,
+          error_cb?:   (stanza: Element) => any
         ): string;
 
 
         member(
           reason?:     string,
-          success_cb?: Function,
-          error_cb?:   Function
+          success_cb?: (stanza: Element) => any,
+          error_cb?:   (stanza: Element) => any
         ): string;
 
 
         revoke(
           reason?:     string,
-          success_cb?: Function,
-          error_cb?:   Function
+          success_cb?: (stanza: Element) => any,
+          error_cb?:   (stanza: Element) => any
         ): string;
 
 
         owner(
           reason?:     string,
-          success_cb?: Function,
-          error_cb?:   Function
+          success_cb?: (stanza: Element) => any,
+          error_cb?:   (stanza: Element) => any
         ): string;
 
 
         admin(
           reason?:     string,
-          success_cb?: Function,
-          error_cb?:   Function
+          success_cb?: (stanza: Element) => any,
+          error_cb?:   (stanza: Element) => any
         ): string;
 
         update(data: OccupantInfo): void;
