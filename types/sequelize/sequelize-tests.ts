@@ -1299,7 +1299,7 @@ var testModel = s.define( 'User', {
     theDate : Sequelize.DATE,
     aBool : Sequelize.BOOLEAN
 } );
-var testModel = s.define( 'FrozenUser', {}, { freezeTableName : true } );
+const testFrozenModel = s.define( 'FrozenUser', {}, { freezeTableName : true } );
 s.define( 'UserWithClassAndInstanceMethods', {}, {
     classMethods : { doSmth : function() { return 1; } },
     instanceMethods : { makeItSo : function() { return 2; } }
@@ -1544,7 +1544,11 @@ interface ChairAttributes {
 }
 interface ChairInstance extends Sequelize.Instance<ChairAttributes> {}
 
-const Chair = s.define<ChairInstance, ChairAttributes>('chair', {});
+const Chair = s.define<ChairInstance, ChairAttributes>('chair', {
+    id: Sequelize.NUMBER,
+    color: Sequelize.STRING,
+    legs: Sequelize.NUMBER
+});
 
 Chair.findAll({
     where: {
@@ -1733,7 +1737,7 @@ s.define('DefineOptionsIndexesTest', {
     email: {
         allowNull: false,
         type: Sequelize.STRING(255),
-        set: function (val) {
+        set: function (val: any) {
             if (typeof val === "string") {
                 val = val.toLowerCase();
             } else {
