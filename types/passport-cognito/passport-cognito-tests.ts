@@ -1,5 +1,5 @@
 /**
- * Created by Maksym Butsykin Vidal <https://github.com/mbutsykin>
+ * Created by Maksym Butsykin <https://github.com/mbutsykin>
  */
 
 import passport = require("passport");
