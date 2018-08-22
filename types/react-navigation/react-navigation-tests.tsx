@@ -411,14 +411,6 @@ const navigateAction: NavigationNavigateAction = NavigationActions.navigate({
     action: NavigationActions.navigate({ routeName: "BarScreen" })
 });
 
-const resetAction: NavigationResetAction = NavigationActions.reset({
-    index: 0,
-    key: "foo",
-    actions: [
-        NavigationActions.navigate({ routeName: "FooScreen" })
-    ]
-});
-
 const backAction: NavigationBackAction = NavigationActions.back({
     key: "foo"
 });
@@ -428,16 +420,6 @@ const setParamsAction: NavigationSetParamsAction = NavigationActions.setParams({
     params: {
         foo: "bar"
     }
-});
-
-const popAction: NavigationPopAction = NavigationActions.pop({
-    n: 1,
-    immediate: true
-});
-
-const popToTopAction: NavigationPopToTopAction = NavigationActions.popToTop({
-    key: "foo",
-    immediate: true
 });
 
 class Page1 extends React.Component { }
