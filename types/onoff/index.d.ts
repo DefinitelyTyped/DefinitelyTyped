@@ -1,6 +1,7 @@
-// Type definitions for onoff
+// Type definitions for onoff 3.2.1
 // Project: https://github.com/fivdi/onoff
 // Definitions by: Marcel Ernst <https://github.com/marcel-ernst>
+//                 Sebastian Gingter <https://github.com/gingters>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -9,46 +10,47 @@ export = __ONOFF;
 
 declare namespace __ONOFF {
 
-    var version:string;
+	type Direction = 'in' | 'out' | 'high' | 'low';
+	type DirectionResult = 'in' | 'out';
+	type Edge = 'none' | 'rising' | 'falling' | 'both';
+	type Value = 0 | 1;
 
-    interface GpioOptions {
-        debounceTimeout?:number;
-        activeLow?:boolean;
-    }
+	interface GpioOptions {
+		debounceTimeout?: number;
+		activeLow?: boolean;
+		reconfigureDirection?: boolean;
+	}
 
-    class Gpio {
-        constructor(gpio:number, direction:string);
-        constructor(gpio:number, direction:string, edge:string);
-        constructor(gpio:number, direction:string, edge:string, options:GpioOptions);
-        constructor(gpio:number, direction:string, options:GpioOptions);
+	class Gpio {
+		constructor(gpio: number, direction: Direction);
+		constructor(gpio: number, direction: Direction, edge: Edge);
+		constructor(gpio: number, direction: Direction, edge: Edge, options: GpioOptions);
+		constructor(gpio: number, direction: Direction, options: GpioOptions);
 
-        gpio:number
-        gpioPath:string;
-        opts:GpioOptions;
-        readBuffer:Buffer;
-        listeners:Array<(error:Error, value:number) => void>;
-        valueFd:number;
+		read(cb: (err: Error, value: Value) => void): void;
+		readSync(): Value;
 
-        read(cb:(err:Error, value:number) => void):void;
-        readSync():number;
+		write(value: Value, cb?: (err: Error) => void): void;
+		writeSync(value: Value): void;
 
-        write(value:number, cb:(err:Error, value:number) => void):void;
-        writeSync(value:number):void;
+		watch(cb: (err: Error, value: Value) => void): void;
 
-        watch(cb:(error:Error, value:number) => void):void;
-        unwatch():void;
-        unwatch(cb:(error:Error, value:number) => void):void;
-        unwatchAll():void;
+		unwatch(cb?:(err: Error, value: Value) => void): void;
+		unwatchAll(): void;
 
-        direction():string;
-        setDirection(value:string):void;
+		direction(): DirectionResult;
+		setDirection(value: DirectionResult): void;
 
-        edge():string;
-        setEdge(value:string):void;
+		edge(): Edge;
+		setEdge(value: Edge): void;
 
-        options():GpioOptions;
+		activeLof(): boolean;
+		setActiveLow(invert: boolean): void;
 
-        unexport():void;
-    }
+		unexport():void;
 
+		static accessible: boolean;
+		static HIGH: Value;
+		static LOW: Value;
+	}
 }
