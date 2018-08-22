@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-declare function imagemin(input: string[], outputOrOptions?: string | imagemin.Options, options?: imagemin.Options): Promise<imagemin.Result[]>;
+declare function imagemin(input: ReadonlyArray<string>, outputOrOptions?: string | imagemin.Options, options?: imagemin.Options): Promise<imagemin.Result[]>;
 
 declare namespace imagemin {
     function buffer(buffer: Buffer, options?: Options): Promise<Buffer>;
@@ -13,7 +13,7 @@ declare namespace imagemin {
     type Plugin = (input: Buffer) => Promise<Buffer>;
 
     interface Options {
-        plugins: Plugin[];
+        plugins: ReadonlyArray<Plugin>;
     }
 
     interface Result {
