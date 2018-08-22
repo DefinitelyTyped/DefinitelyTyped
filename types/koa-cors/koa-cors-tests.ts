@@ -1,7 +1,7 @@
-import * as Koa from 'koa';
-import * as KoaCors from 'koa-cors';
+import Koa = require('koa');
+import KoaCors = require('koa-cors');
 
-new Koa()
-    .use(KoaCors())
-    .use(KoaCors({}))
-    .use(KoaCors({ origin: '*' }));
+const app = new Koa();
+app.use(KoaCors());
+app.use(KoaCors({}));
+app.use(KoaCors({ origin: '*' }));
