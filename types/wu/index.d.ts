@@ -79,7 +79,7 @@ declare namespace wu {
 		enumerate(): Iterable<[number, T]>;
 		every(fn: Filter<T>): boolean;
 		filter(fn: Filter<T>): WuIterable<T>;
-		find(fn: Filter<T>): T;
+		find(fn: Filter<T>): T | undefined;
 		flatten(shallow?: boolean): WuIterable<any>;
 		forEach(fn: Consumer<T>): void;
 		has(t: T): boolean;
