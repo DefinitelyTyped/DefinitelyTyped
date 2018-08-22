@@ -72,6 +72,7 @@ import {
     WebView,
     KeyboardAvoidingView,
     Modal,
+    TimePickerAndroid,
 } from "react-native";
 
 declare module "react-native" {
@@ -758,4 +759,13 @@ const AlertIOSTest = () => {
 
 const ModalTest = () => (
     <Modal hardwareAccelerated />
+)
+
+const TimePickerAndroidTest = () => (
+    TimePickerAndroid.open({
+        hour: 8,
+        minute: 15,
+        is24Hour: true,
+        mode: 'spinner'
+    })
 )
