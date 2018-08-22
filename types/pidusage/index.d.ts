@@ -3,16 +3,12 @@
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 //                 wujingtao <https://github.com/mx601595686>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
-/**
- * @param pids A pid or a list of pids.
- * @param callback Called when the statistics are ready.
- */
-declare function pidusage(pids: number | number[] | string | string[], callback: (err: Error | null, stats: pidusage.Stat) => void): void;
-/**
- * @param pids A pid or a list of pids.
- */
-declare function pidusage(pids: number | number[] | string | string[]): Promise<pidusage.Stat>;
+declare function pidusage(pid: number | string, callback: (err: Error | null, stats: pidusage.Stat) => void): void;
+declare function pidusage(pids: Array<number | string>, callback: (err: Error | null, stats: { [key: string]: pidusage.Stat }) => void): void;
+declare function pidusage(pid: number | string): Promise<pidusage.Stat>;
+declare function pidusage(pids: Array<number | string>): Promise<{ [key: string]: pidusage.Stat }>;
 
 declare namespace pidusage {
     interface Stat {

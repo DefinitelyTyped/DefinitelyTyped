@@ -18,8 +18,21 @@ pidusage(1, (err: Error | null, stats: pidusage.Stat) => {
     timestamp = stats.timestamp;
 });
 
-let stats: Promise<pidusage.Stat>;
+pidusage('two', (err: Error | null, stats: pidusage.Stat) => {
+    cpu = stats.cpu;
+    memory = stats.memory;
+    ppid = stats.ppid;
+    pid = stats.pid;
+    ctime = stats.ctime;
+    elapsed = stats.elapsed;
+    timestamp = stats.timestamp;
+});
 
-stats = pidusage([1, 2]);
-stats = pidusage('string');
-stats = pidusage(['string', 'string']);
+pidusage([1, 'two'], (err: Error | null, stats: { [key: string]: pidusage.Stat }) => {
+    const one: pidusage.Stat = stats[1];
+    const two: pidusage.Stat = stats.two;
+});
+
+const stats_1: Promise<pidusage.Stat> = pidusage(1);
+const stats_two: Promise<pidusage.Stat> = pidusage('two');
+const stats_obj: Promise<{ [key: string]: pidusage.Stat }> = pidusage([1, 'two']);
