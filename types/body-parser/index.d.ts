@@ -6,8 +6,9 @@
 //                 Gevik Babakhani <https://github.com/blendsdk>
 //                 Tomasz Łaziuk <https://github.com/tlaziuk>
 //                 Jason Walton <https://github.com/jwalton>
+//                 Linus Unnebäck <https://github.com/LinusU>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 3.0
 
 /// <reference types="node" />
 

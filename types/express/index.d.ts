@@ -1,8 +1,9 @@
 // Type definitions for Express 4.16
 // Project: http://expressjs.com
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
+//                 Linus Unnebäck <https://github.com/LinusU>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 3.0
 
 /* =================== USAGE ===================
 

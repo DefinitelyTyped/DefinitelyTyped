@@ -3,7 +3,7 @@
 // Definitions by: Uros Smolnik <https://github.com/urossmolnik>
 //                 Linus Unnebäck <https://github.com/LinusU>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 3.0
 
 /* =================== USAGE ===================
 
@@ -28,7 +28,7 @@ declare namespace serveStatic {
     var mime: typeof m;
     interface ServeStaticOptions {
         /**
-         * Enable or disable setting Cache-Control response header, defaults to true. 
+         * Enable or disable setting Cache-Control response header, defaults to true.
          * Disabling this will ignore the immutable and maxAge options.
          */
         cacheControl?: boolean;

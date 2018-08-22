@@ -32,6 +32,11 @@ namespace express_tests {
         res.json(req.body);
     });
 
+    app.get('/test', express.json(), (req, res) => {
+        // $ExpectError
+        req.body.name;
+    });
+
     // Accept urlencoded app-wide or on one endpoint.
     app.use(express.urlencoded({
         extended: false,

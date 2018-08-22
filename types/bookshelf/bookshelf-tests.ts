@@ -1051,7 +1051,7 @@ class Student extends bookshelf.Model<Student> {}
 function get(req: express.Request, res: express.Response) {
 	// FIXME Support proposed ES Rest/Spread properties https://github.com/Microsoft/TypeScript/issues/2103
 	//const { courses, ...attributes } = req.body;
-	const { courses, attributes } = req.body;
+	const { courses, attributes } = req.body as any;
 
 	//todo: make sure this works with BlueBird 3.0
 	// Student.forge<Student>(attributes).save().tap(student =>
