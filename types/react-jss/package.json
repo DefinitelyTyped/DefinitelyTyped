@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "dependencies": {
+    "csstype": "^2.0.0",
+    "jss": "^9.5.0",
+    "theming": "^1.3.0"
+  }
+}
