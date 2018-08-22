@@ -1,7 +1,8 @@
-// import { LocalStorage } from 'node-localstorage';
+// import { LocalStorage } from 'node-localstorage'; // Removed since this pkg isn't getting installed.
 import ExpiredStorage = require('expired-storage');
 
 // const localStorage = new LocalStorage('./scratch', Infinity);
+// const expiredStorage = new ExpiredStorage(localStorage); // ExpiredStorage requires a LocalStorage provider
 const expiredStorage = new ExpiredStorage();
 
 const mjkModel = {
@@ -26,7 +27,9 @@ if (typeof mjkTest === 'undefined' || mjkTest.firstName !== mjkModel.firstName |
   throw new Error('.setJson method is not working!');
 }
 
-if (expiredStorage.keys(true).length === 2) {
+const keyCheck = expiredStorage.keys(true);
+
+if (keyCheck && keyCheck.length === 2) {
   throw new Error('.keys method has failed.');
 }
 
@@ -44,7 +47,7 @@ do {
 
 const expiredKeys = expiredStorage.clearExpired();
 
-if (expiredKeys.indexOf('apc') === -1) {
+if (expiredKeys.indexOf('apc') !== -1) {
   throw new Error('.clearExpired did not work..');
 }
 
@@ -56,7 +59,9 @@ expiredStorage.setItem('puscifer', 'the humbling river', 10000);
 
 expiredStorage.updateExpiration('puscifer', 5000);
 
-if (expiredStorage.getTimeLeft('puscifer') >= 10000) {
+const checkKeyTime = expiredStorage.getTimeLeft('puscifer');
+
+if (checkKeyTime && checkKeyTime >= 10000) {
   throw new Error('.updateExpiration method is broken -- or .getTimeLeft method is broken.');
 }
 
