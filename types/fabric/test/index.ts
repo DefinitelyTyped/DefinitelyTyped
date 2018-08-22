@@ -801,22 +801,6 @@ laboris nisi ut aliquip ex ea commodo consequat.`;
     updateComplexity();
   };
 
-    document.getElementById('add-textbox').onclick = () => {
-        const textboxSample = new fabric.Textbox(text.slice(0, getRandomInt(0, text.length)), {
-            left: getRandomInt(350, 400),
-            top: getRandomInt(350, 400),
-            fontFamily: 'helvetica',
-            angle: getRandomInt(-10, 10),
-            fill: '#' + getRandomColor(),
-            scaleX: 0.5,
-            scaleY: 0.5,
-            fontWeight: ''
-        });
-
-        canvas.add(textboxSample);
-        updateComplexity();
-    };
-
   document.onkeydown = e => {
     const obj = canvas.getActiveObject() || canvas.getActiveGroup();
     if (obj && e.keyCode === 8) {
@@ -884,11 +868,11 @@ laboris nisi ut aliquip ex ea commodo consequat.`;
   const cmdUnderlineBtn = document.getElementById('text-cmd-underline');
   if (cmdUnderlineBtn) {
     activeObjectButtons.push(cmdUnderlineBtn);
-    cmdUnderlineBtn.onclick = function() {
+    cmdUnderlineBtn.onclick = () => {
       const activeObject = <fabric.Text> canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
         activeObject.textDecoration = (activeObject.textDecoration === 'underline' ? '' : 'underline');
-        this.className = activeObject.textDecoration ? 'selected' : '';
+        cmdUnderlineBtn.className = activeObject.textDecoration ? 'selected' : '';
         canvas.renderAll();
       }
     };
@@ -897,11 +881,11 @@ laboris nisi ut aliquip ex ea commodo consequat.`;
   const cmdLinethroughBtn = document.getElementById('text-cmd-linethrough');
   if (cmdLinethroughBtn) {
     activeObjectButtons.push(cmdLinethroughBtn);
-    cmdLinethroughBtn.onclick = function() {
+    cmdLinethroughBtn.onclick = () => {
       const activeObject = <fabric.Text> canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
         activeObject.textDecoration = (activeObject.textDecoration === 'line-through' ? '' : 'line-through');
-        this.className = activeObject.textDecoration ? 'selected' : '';
+        cmdLinethroughBtn.className = activeObject.textDecoration ? 'selected' : '';
         canvas.renderAll();
       }
     };
@@ -910,11 +894,11 @@ laboris nisi ut aliquip ex ea commodo consequat.`;
   const cmdOverlineBtn = document.getElementById('text-cmd-overline');
   if (cmdOverlineBtn) {
     activeObjectButtons.push(cmdOverlineBtn);
-    cmdOverlineBtn.onclick = function() {
+    cmdOverlineBtn.onclick = () => {
       const activeObject = <fabric.Text> canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
         activeObject.textDecoration = (activeObject.textDecoration === 'overline' ? '' : 'overline');
-        this.className = activeObject.textDecoration ? 'selected' : '';
+        cmdOverlineBtn.className = activeObject.textDecoration ? 'selected' : '';
         canvas.renderAll();
       }
     };
@@ -923,11 +907,11 @@ laboris nisi ut aliquip ex ea commodo consequat.`;
   const cmdBoldBtn = document.getElementById('text-cmd-bold');
   if (cmdBoldBtn) {
     activeObjectButtons.push(cmdBoldBtn);
-    cmdBoldBtn.onclick = function() {
+    cmdBoldBtn.onclick = () => {
       const activeObject = <fabric.Text> canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
         activeObject.fontWeight = (activeObject.fontWeight === 'bold' ? '' : 'bold');
-        this.className = activeObject.fontWeight ? 'selected' : '';
+        cmdBoldBtn.className = activeObject.fontWeight ? 'selected' : '';
         canvas.renderAll();
       }
     };
@@ -936,11 +920,11 @@ laboris nisi ut aliquip ex ea commodo consequat.`;
   const cmdItalicBtn = document.getElementById('text-cmd-italic');
   if (cmdItalicBtn) {
     activeObjectButtons.push(cmdItalicBtn);
-    cmdItalicBtn.onclick = function() {
+    cmdItalicBtn.onclick = () => {
       const activeObject = <fabric.Text> canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
         activeObject.fontStyle = (activeObject.fontStyle === 'italic' ? '' : 'italic');
-        this.className = activeObject.fontStyle ? 'selected' : '';
+        cmdItalicBtn.className = activeObject.fontStyle ? 'selected' : '';
         canvas.renderAll();
       }
     };
@@ -949,11 +933,11 @@ laboris nisi ut aliquip ex ea commodo consequat.`;
   const cmdShadowBtn = document.getElementById('text-cmd-shadow');
   if (cmdShadowBtn) {
     activeObjectButtons.push(cmdShadowBtn);
-    cmdShadowBtn.onclick = function() {
+    cmdShadowBtn.onclick = () => {
       const activeObject = <fabric.Text> canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
         activeObject.shadow = !activeObject.shadow ? 'rgba(0,0,0,0.2) 2px 2px 10px' : '';
-        this.className = activeObject.shadow ? 'selected' : '';
+        cmdShadowBtn.className = activeObject.shadow ? 'selected' : '';
         canvas.renderAll();
       }
     };
