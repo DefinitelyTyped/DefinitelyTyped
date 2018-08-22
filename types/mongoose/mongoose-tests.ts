@@ -1010,7 +1010,7 @@ query.find().populate('owner', 'name', null, {sort: { name: -1 }}).exec(function
   kittens[0].execPopulate();
 });
 query.read('primary', []).read('primary');
-query.readConcern('majority').read('m');
+query.readConcern('majority').readConcern('m');
 query.regex(/re/).regex('path', /re/);
 query.remove({}, cb);
 query.remove({});
