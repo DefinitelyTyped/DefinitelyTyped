@@ -737,7 +737,7 @@ declare module "strophe.js" {
         role?:        string;
         jid?:         string;
         status?:      string;
-        show?:        string
+        show?:        string;
       }
 
 

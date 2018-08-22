@@ -1,6 +1,6 @@
 // Type definitions for Strophe.js v1.2.0
 // Project: http://strophe.im/strophejs/
-// Definitions by: David Deutsch <https://github.com/DavidKDeutsch>, Tijs Zwinkels <https://github.com/tijszwinkels>
+// Definitions by: David Deutsch <https://github.com/DavidKDeutsch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -49,7 +49,7 @@ export namespace Strophe {
         STANZAS: string;
         XHTML_IM: string;
         XHTML: string;
-    }
+    };
 
     /** Constants: Connection Status Constants
      *  Connection status constants for use by the connection handler
@@ -943,7 +943,14 @@ export namespace Strophe {
          *  Returns:
          *    A reference to the handler that can be used to remove it.
          */
-        addHandler(handler: (stanza: Element) => boolean, ns: string, name: string, type?: string, id?: string, from?: string, options?: { matchBare: boolean }): any; //todo: is callback correct? Also, are the elements specified as optional truly optional?
+        addHandler(
+		   handler: (stanza: Element) => any,
+		   ns: string, name: string,
+                   type: string,
+                   id: string,
+                   from: string,
+                   options?: { matchBare: boolean }
+                  ): any;
 
         /** Function: deleteHandler
          *  Delete a stanza handler for a connection.
