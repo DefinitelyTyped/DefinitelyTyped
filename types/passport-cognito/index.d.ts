@@ -1,4 +1,4 @@
-// Type definitions for passport-cognito 0.1.13
+// Type definitions for passport-cognito 0.1
 // Project: https://github.com/kndt84/passport-cognito
 // Definitions by: Maksym Butsykin <https://github.com/mbutsykin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,18 +7,18 @@
 import passport = require('passport');
 import express = require('express');
 
-interface CognitoStrategyOptions {
+export interface CognitoStrategyOptions {
   userPoolId: string;
   clientId: string;
   region: string;
 }
 
-type CognitoVerifyFunction = (
+export type CognitoVerifyFunction = (
   accessToken: string,
   idToken: string,
   refreshToken: string,
   user: object,
-  done: (error: any, user?: any | false) => void,
+  done: (error: any, user?: any) => void,
 ) => any;
 
 export class Strategy extends passport.Strategy {
