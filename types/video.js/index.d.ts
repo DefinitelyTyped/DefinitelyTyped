@@ -2628,7 +2628,7 @@ declare namespace videojs {
 		 *         the listener function; otherwise, _all_ listeners bound to the
 		 *         event type(s) will be removed.
 		 */
-		off(target?: videojs.Component | Element, type?: string | string[], listener?: (...args: any[]) => void): void;
+		off(target?: Component | Element, type?: string | string[], listener?: (...args: any[]) => void): void;
 		off(type?: string | string[], listener?: (...args: any[]) => void): void;
 
 		/**
@@ -2654,7 +2654,7 @@ declare namespace videojs {
 		 *         If the first argument was another evented object, this will be
 		 *         the listener function.
 		 */
-		on(target?: videojs.Component | Element, type?: string | string[], listener?: (...args: any[]) => void): void;
+		on(target?: Component | Element, type?: string | string[], listener?: (...args: any[]) => void): void;
 		on(type?: string | string[], listener?: (...args: any[]) => void): void;
 
 		/**
@@ -2680,7 +2680,7 @@ declare namespace videojs {
 		 *         If the first argument was another evented object, this will be
 		 *         the listener function.
 		 */
-		one(target?: videojs.Component | Element, type?: string | string[], listener?: (...args: any[]) => void): void;
+		one(target?: Component | Element, type?: string | string[], listener?: (...args: any[]) => void): void;
 		one(type?: string | string[], listener?: (...args: any[]) => void): void;
 
 		/**
