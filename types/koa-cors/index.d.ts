@@ -6,9 +6,9 @@
 
 import { Middleware, Request } from 'koa';
 
-declare function cors(options?: cors.Options): Middleware;
+declare function KoaCors(options?: KoaCors.Options): Middleware;
 
-declare namespace cors {
+declare namespace KoaCors {
     interface Options {
         credentials?: true;
         expose?: string | string[];
@@ -19,4 +19,4 @@ declare namespace cors {
     }
 }
 
-export = cors;
+export = KoaCors;
