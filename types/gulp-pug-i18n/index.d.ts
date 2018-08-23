@@ -8,9 +8,9 @@
 import { Options as PugOptions } from 'pug';
 import { Transform } from 'stream';
 
-declare function GulpPugI18n(options: GulpPugI18n.Options): Transform;
+declare function gulpPugI18n(options: gulpPugI18n.Options): Transform;
 
-declare namespace GulpPugI18n {
+declare namespace gulpPugI18n {
     interface Options extends PugOptions {
         data?: any;
         i18n: {
@@ -22,4 +22,4 @@ declare namespace GulpPugI18n {
     }
 }
 
-export = GulpPugI18n;
+export = gulpPugI18n;
