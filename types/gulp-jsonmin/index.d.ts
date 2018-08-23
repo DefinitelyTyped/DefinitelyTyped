@@ -7,12 +7,12 @@
 
 import { Transform } from 'stream';
 
-declare function GulpJsonmin(options?: GulpJsonmin.Options): Transform;
+declare function gulpJsonmin(options?: gulpJsonmin.Options): Transform;
 
-declare namespace GulpJsonmin {
+declare namespace gulpJsonmin {
     interface Options {
         verbose?: boolean;
     }
 }
 
-export = GulpJsonmin;
+export = gulpJsonmin;
