@@ -1,6 +1,6 @@
 {
     "private": true,
-    "dependencies": {
+    "devDependencies": {
         "winston": "^3.0.0"
     }
 }
