@@ -470,8 +470,39 @@ export interface ScatterData {
 	name: string;
 	connectgaps: boolean;
 	visible: boolean | 'legendonly';
+	transforms: Transform[];
 }
 
+/**
+ * These interfaces are based on attribute descriptions in
+ * https://github.com/plotly/plotly.js/tree/9d6144304308fc3007f0facf2535d38ea3e9b26c/src/transforms
+ */
+
+export interface TransformStyle {
+    target: number | string | number[] | string[];
+    value: Partial<ScatterData>;
+}
+
+export interface TransformAggregation {
+    target: string;
+    func?: 'count' | 'sum' | 'avg' | 'median' | 'mode' | 'rms' | 'stddev' | 'min' | 'max' | 'first' | 'last';
+	funcmode?: 'sample' | 'population';
+	enabled?: boolean;
+}
+
+export interface Transform {
+	type: 'aggregate' | 'filter' | 'groupby' | 'sort';
+	enabled?: boolean;
+	target?: number | string | number[] | string[];
+	operation?: string;
+	aggregations?: TransformAggregation[];
+	preservegaps?: boolean;
+	groups?: string | number[] | string[];
+	nameformat: string;
+	styles?: TransformStyle[];
+	value?: any;
+	order?: 'ascending' | 'descending';
+}
 /**
  * Any combination of "x", "y", "z", "text", "name" joined with a "+" OR "all" or "none" or "skip".
  * examples: "x", "y", "x+y", "x+y+z", "all"
