@@ -3210,10 +3210,10 @@ declare namespace wx {
         };
     }
     interface createIntersectionObserverCallBack {
-        relativeTo: (selector?: string, margins?: margins) => createIntersectionObserverCallBack;
-        relativeToViewport: (margins?: margins) => createIntersectionObserverCallBack;
-        observe: (selector?: string, callback?: (response: observeResponse) => void) => createIntersectionObserverCallBack;
-        disconnect: () => void;
+        relativeTo(selector?: string, margins?: margins): createIntersectionObserverCallBack;
+        relativeToViewport(margins?: margins): createIntersectionObserverCallBack;
+        observe(selector?: string, callback?: (response: observeResponse) => void): createIntersectionObserverCallBack;
+        disconnect(): void;
     }
     function createIntersectionObserver(options?: createIntersectionObserverOption): createIntersectionObserverCallBack;
     // #endregion
