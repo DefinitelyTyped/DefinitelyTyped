@@ -7,10 +7,10 @@
 import { Options as HtmlMinifierOptions } from 'html-minifier';
 import { Middleware } from 'koa';
 
-declare function minifier(options?: minifier.Options): Middleware;
+declare function KoaHtmlMinifier(options?: KoaHtmlMinifier.Options): Middleware;
 
-declare namespace minifier {
+declare namespace KoaHtmlMinifier {
     type Options = HtmlMinifierOptions;
 }
 
-export = minifier;
+export = KoaHtmlMinifier;
