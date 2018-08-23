@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { upperCase } from "lodash";
-export = upperCase;
+declare namespace _ {
+  type UpperCase = typeof upperCase;
+}
+declare const _upperCase: _.UpperCase;
+export = _upperCase;

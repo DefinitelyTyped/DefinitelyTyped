@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { reduceRight } from "lodash";
-export = reduceRight;
+declare namespace _ {
+  type ReduceRight = typeof reduceRight;
+}
+declare const _reduceRight: _.ReduceRight;
+export = _reduceRight;

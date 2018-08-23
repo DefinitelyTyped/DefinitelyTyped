@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { throttle } from "lodash";
-export = throttle;
+declare namespace _ {
+  type Throttle = typeof throttle;
+}
+declare const _throttle: _.Throttle;
+export = _throttle;

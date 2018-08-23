@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { floor } from "lodash";
-export = floor;
+declare namespace _ {
+  type Floor = typeof floor;
+}
+declare const _floor: _.Floor;
+export = _floor;

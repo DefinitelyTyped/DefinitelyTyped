@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { toFinite } from "lodash";
-export = toFinite;
+declare namespace _ {
+  type ToFinite = typeof toFinite;
+}
+declare const _toFinite: _.ToFinite;
+export = _toFinite;

@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { isWeakSet } from "lodash";
-export = isWeakSet;
+declare namespace _ {
+  type IsWeakSet = typeof isWeakSet;
+}
+declare const _isWeakSet: _.IsWeakSet;
+export = _isWeakSet;

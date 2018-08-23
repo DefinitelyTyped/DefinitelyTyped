@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { isWeakMap } from "lodash";
-export = isWeakMap;
+declare namespace _ {
+  type IsWeakMap = typeof isWeakMap;
+}
+declare const _isWeakMap: _.IsWeakMap;
+export = _isWeakMap;

@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { findLastIndex } from "lodash";
-export = findLastIndex;
+declare namespace _ {
+  type FindLastIndex = typeof findLastIndex;
+}
+declare const _findLastIndex: _.FindLastIndex;
+export = _findLastIndex;

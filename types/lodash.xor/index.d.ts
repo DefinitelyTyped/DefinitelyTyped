@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { xor } from "lodash";
-export = xor;
+declare namespace _ {
+  type Xor = typeof xor;
+}
+declare const _xor: _.Xor;
+export = _xor;

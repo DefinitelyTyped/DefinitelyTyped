@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { toLower } from "lodash";
-export = toLower;
+declare namespace _ {
+  type ToLower = typeof toLower;
+}
+declare const _toLower: _.ToLower;
+export = _toLower;

@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { create } from "lodash";
-export = create;
+declare namespace _ {
+  type Create = typeof create;
+}
+declare const _create: _.Create;
+export = _create;

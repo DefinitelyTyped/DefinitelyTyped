@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { every } from "lodash";
-export = every;
+declare namespace _ {
+  type Every = typeof every;
+}
+declare const _every: _.Every;
+export = _every;

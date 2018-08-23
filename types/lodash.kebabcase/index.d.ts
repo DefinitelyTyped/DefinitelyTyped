@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { kebabCase } from "lodash";
-export = kebabCase;
+declare namespace _ {
+  type KebabCase = typeof kebabCase;
+}
+declare const _kebabCase: _.KebabCase;
+export = _kebabCase;

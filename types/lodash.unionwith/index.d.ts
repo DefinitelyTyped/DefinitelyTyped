@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { unionWith } from "lodash";
-export = unionWith;
+declare namespace _ {
+  type UnionWith = typeof unionWith;
+}
+declare const _unionWith: _.UnionWith;
+export = _unionWith;

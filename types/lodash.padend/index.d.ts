@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { padEnd } from "lodash";
-export = padEnd;
+declare namespace _ {
+  type PadEnd = typeof padEnd;
+}
+declare const _padEnd: _.PadEnd;
+export = _padEnd;

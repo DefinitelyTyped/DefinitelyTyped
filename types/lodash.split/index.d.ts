@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { split } from "lodash";
-export = split;
+declare namespace _ {
+  type Split = typeof split;
+}
+declare const _split: _.Split;
+export = _split;

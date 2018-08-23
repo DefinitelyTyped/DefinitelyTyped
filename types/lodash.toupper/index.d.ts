@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { toUpper } from "lodash";
-export = toUpper;
+declare namespace _ {
+  type ToUpper = typeof toUpper;
+}
+declare const _toUpper: _.ToUpper;
+export = _toUpper;

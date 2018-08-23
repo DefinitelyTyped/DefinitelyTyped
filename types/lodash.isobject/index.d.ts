@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { isObject } from "lodash";
-export = isObject;
+declare namespace _ {
+  type IsObject = typeof isObject;
+}
+declare const _isObject: _.IsObject;
+export = _isObject;

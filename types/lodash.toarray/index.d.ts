@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { toArray } from "lodash";
-export = toArray;
+declare namespace _ {
+  type ToArray = typeof toArray;
+}
+declare const _toArray: _.ToArray;
+export = _toArray;

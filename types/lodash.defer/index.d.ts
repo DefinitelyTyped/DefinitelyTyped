@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { defer } from "lodash";
-export = defer;
+declare namespace _ {
+  type Defer = typeof defer;
+}
+declare const _defer: _.Defer;
+export = _defer;

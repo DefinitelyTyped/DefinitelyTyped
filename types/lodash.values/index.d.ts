@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { values } from "lodash";
-export = values;
+declare namespace _ {
+  type Values = typeof values;
+}
+declare const _values: _.Values;
+export = _values;

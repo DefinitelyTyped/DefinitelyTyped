@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { assignIn } from "lodash";
-export = assignIn;
+declare namespace _ {
+  type AssignIn = typeof assignIn;
+}
+declare const _assignIn: _.AssignIn;
+export = _assignIn;

@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { takeWhile } from "lodash";
-export = takeWhile;
+declare namespace _ {
+  type TakeWhile = typeof takeWhile;
+}
+declare const _takeWhile: _.TakeWhile;
+export = _takeWhile;

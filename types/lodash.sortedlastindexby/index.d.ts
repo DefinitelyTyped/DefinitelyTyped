@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { sortedLastIndexBy } from "lodash";
-export = sortedLastIndexBy;
+declare namespace _ {
+  type SortedLastIndexBy = typeof sortedLastIndexBy;
+}
+declare const _sortedLastIndexBy: _.SortedLastIndexBy;
+export = _sortedLastIndexBy;

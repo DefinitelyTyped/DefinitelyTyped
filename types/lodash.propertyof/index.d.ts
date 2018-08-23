@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { propertyOf } from "lodash";
-export = propertyOf;
+declare namespace _ {
+  type PropertyOf = typeof propertyOf;
+}
+declare const _propertyOf: _.PropertyOf;
+export = _propertyOf;

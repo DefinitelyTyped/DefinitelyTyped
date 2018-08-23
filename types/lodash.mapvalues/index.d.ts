@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { mapValues } from "lodash";
-export = mapValues;
+declare namespace _ {
+  type MapValues = typeof mapValues;
+}
+declare const _mapValues: _.MapValues;
+export = _mapValues;

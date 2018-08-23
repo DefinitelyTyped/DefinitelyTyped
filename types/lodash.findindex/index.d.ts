@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { findIndex } from "lodash";
-export = findIndex;
+declare namespace _ {
+  type FindIndex = typeof findIndex;
+}
+declare const _findIndex: _.FindIndex;
+export = _findIndex;

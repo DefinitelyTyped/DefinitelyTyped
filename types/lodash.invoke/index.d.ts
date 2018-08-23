@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { invoke } from "lodash";
-export = invoke;
+declare namespace _ {
+  type Invoke = typeof invoke;
+}
+declare const _invoke: _.Invoke;
+export = _invoke;

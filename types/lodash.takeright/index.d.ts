@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { takeRight } from "lodash";
-export = takeRight;
+declare namespace _ {
+  type TakeRight = typeof takeRight;
+}
+declare const _takeRight: _.TakeRight;
+export = _takeRight;

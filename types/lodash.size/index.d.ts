@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { size } from "lodash";
-export = size;
+declare namespace _ {
+  type Size = typeof size;
+}
+declare const _size: _.Size;
+export = _size;

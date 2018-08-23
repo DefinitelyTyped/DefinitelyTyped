@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { attempt } from "lodash";
-export = attempt;
+declare namespace _ {
+  type Attempt = typeof attempt;
+}
+declare const _attempt: _.Attempt;
+export = _attempt;

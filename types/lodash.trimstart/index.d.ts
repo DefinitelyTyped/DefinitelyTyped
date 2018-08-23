@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { trimStart } from "lodash";
-export = trimStart;
+declare namespace _ {
+  type TrimStart = typeof trimStart;
+}
+declare const _trimStart: _.TrimStart;
+export = _trimStart;

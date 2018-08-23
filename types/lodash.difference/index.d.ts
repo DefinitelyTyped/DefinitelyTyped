@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { difference } from "lodash";
-export = difference;
+declare namespace _ {
+  type Difference = typeof difference;
+}
+declare const _difference: _.Difference;
+export = _difference;

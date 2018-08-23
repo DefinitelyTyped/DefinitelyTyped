@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { unzip } from "lodash";
-export = unzip;
+declare namespace _ {
+  type Unzip = typeof unzip;
+}
+declare const _unzip: _.Unzip;
+export = _unzip;

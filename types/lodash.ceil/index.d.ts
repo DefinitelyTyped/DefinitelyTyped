@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { ceil } from "lodash";
-export = ceil;
+declare namespace _ {
+  type Ceil = typeof ceil;
+}
+declare const _ceil: _.Ceil;
+export = _ceil;

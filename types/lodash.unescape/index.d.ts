@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { unescape } from "lodash";
-export = unescape;
+declare namespace _ {
+  type Unescape = typeof unescape;
+}
+declare const _unescape: _.Unescape;
+export = _unescape;

@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { mixin } from "lodash";
-export = mixin;
+declare namespace _ {
+  type Mixin = typeof mixin;
+}
+declare const _mixin: _.Mixin;
+export = _mixin;

@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { random } from "lodash";
-export = random;
+declare namespace _ {
+  type Random = typeof random;
+}
+declare const _random: _.Random;
+export = _random;

@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { spread } from "lodash";
-export = spread;
+declare namespace _ {
+  type Spread = typeof spread;
+}
+declare const _spread: _.Spread;
+export = _spread;

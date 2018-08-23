@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { truncate } from "lodash";
-export = truncate;
+declare namespace _ {
+  type Truncate = typeof truncate;
+}
+declare const _truncate: _.Truncate;
+export = _truncate;

@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { toPairs } from "lodash";
-export = toPairs;
+declare namespace _ {
+  type ToPairs = typeof toPairs;
+}
+declare const _toPairs: _.ToPairs;
+export = _toPairs;

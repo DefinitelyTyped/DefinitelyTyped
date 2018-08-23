@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { unzipWith } from "lodash";
-export = unzipWith;
+declare namespace _ {
+  type UnzipWith = typeof unzipWith;
+}
+declare const _unzipWith: _.UnzipWith;
+export = _unzipWith;

@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { parseInt } from "lodash";
-export = parseInt;
+declare namespace _ {
+  type ParseInt = typeof parseInt;
+}
+declare const _parseInt: _.ParseInt;
+export = _parseInt;

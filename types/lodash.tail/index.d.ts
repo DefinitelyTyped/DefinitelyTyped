@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { tail } from "lodash";
-export = tail;
+declare namespace _ {
+  type Tail = typeof tail;
+}
+declare const _tail: _.Tail;
+export = _tail;

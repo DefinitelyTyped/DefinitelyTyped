@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { methodOf } from "lodash";
-export = methodOf;
+declare namespace _ {
+  type MethodOf = typeof methodOf;
+}
+declare const _methodOf: _.MethodOf;
+export = _methodOf;

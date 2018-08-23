@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { wrap } from "lodash";
-export = wrap;
+declare namespace _ {
+  type Wrap = typeof wrap;
+}
+declare const _wrap: _.Wrap;
+export = _wrap;

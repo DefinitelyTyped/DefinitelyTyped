@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { pullAll } from "lodash";
-export = pullAll;
+declare namespace _ {
+  type PullAll = typeof pullAll;
+}
+declare const _pullAll: _.PullAll;
+export = _pullAll;

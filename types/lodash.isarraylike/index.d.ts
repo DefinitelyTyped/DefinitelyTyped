@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { isArrayLike } from "lodash";
-export = isArrayLike;
+declare namespace _ {
+  type IsArrayLike = typeof isArrayLike;
+}
+declare const _isArrayLike: _.IsArrayLike;
+export = _isArrayLike;

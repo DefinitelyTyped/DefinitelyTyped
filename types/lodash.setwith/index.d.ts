@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { setWith } from "lodash";
-export = setWith;
+declare namespace _ {
+  type SetWith = typeof setWith;
+}
+declare const _setWith: _.SetWith;
+export = _setWith;

@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { fill } from "lodash";
-export = fill;
+declare namespace _ {
+  type Fill = typeof fill;
+}
+declare const _fill: _.Fill;
+export = _fill;

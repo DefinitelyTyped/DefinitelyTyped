@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { rest } from "lodash";
-export = rest;
+declare namespace _ {
+  type Rest = typeof rest;
+}
+declare const _rest: _.Rest;
+export = _rest;

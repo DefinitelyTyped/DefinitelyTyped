@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { countBy } from "lodash";
-export = countBy;
+declare namespace _ {
+  type CountBy = typeof countBy;
+}
+declare const _countBy: _.CountBy;
+export = _countBy;

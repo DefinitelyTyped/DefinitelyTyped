@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { without } from "lodash";
-export = without;
+declare namespace _ {
+  type Without = typeof without;
+}
+declare const _without: _.Without;
+export = _without;

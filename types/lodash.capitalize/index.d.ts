@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { capitalize } from "lodash";
-export = capitalize;
+declare namespace _ {
+  type Capitalize = typeof capitalize;
+}
+declare const _capitalize: _.Capitalize;
+export = _capitalize;

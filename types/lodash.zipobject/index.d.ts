@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { zipObject } from "lodash";
-export = zipObject;
+declare namespace _ {
+  type ZipObject = typeof zipObject;
+}
+declare const _zipObject: _.ZipObject;
+export = _zipObject;

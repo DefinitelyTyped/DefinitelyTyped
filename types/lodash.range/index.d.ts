@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { range } from "lodash";
-export = range;
+declare namespace _ {
+  type Range = typeof range;
+}
+declare const _range: _.Range;
+export = _range;

@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { set } from "lodash";
-export = set;
+declare namespace _ {
+  type Set = typeof set;
+}
+declare const _set: _.Set;
+export = _set;

@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { bind } from "lodash";
-export = bind;
+declare namespace _ {
+  type Bind = typeof bind;
+}
+declare const _bind: _.Bind;
+export = _bind;

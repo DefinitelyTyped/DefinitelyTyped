@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { isDate } from "lodash";
-export = isDate;
+declare namespace _ {
+  type IsDate = typeof isDate;
+}
+declare const _isDate: _.IsDate;
+export = _isDate;

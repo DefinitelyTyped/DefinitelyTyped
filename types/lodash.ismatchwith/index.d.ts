@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { isMatchWith } from "lodash";
-export = isMatchWith;
+declare namespace _ {
+  type IsMatchWith = typeof isMatchWith;
+}
+declare const _isMatchWith: _.IsMatchWith;
+export = _isMatchWith;

@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { trimEnd } from "lodash";
-export = trimEnd;
+declare namespace _ {
+  type TrimEnd = typeof trimEnd;
+}
+declare const _trimEnd: _.TrimEnd;
+export = _trimEnd;

@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { identity } from "lodash";
-export = identity;
+declare namespace _ {
+  type Identity = typeof identity;
+}
+declare const _identity: _.Identity;
+export = _identity;

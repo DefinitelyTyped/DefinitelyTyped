@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { after } from "lodash";
-export = after;
+declare namespace _ {
+  type After = typeof after;
+}
+declare const _after: _.After;
+export = _after;

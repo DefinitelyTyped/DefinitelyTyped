@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { flatten } from "lodash";
-export = flatten;
+declare namespace _ {
+  type Flatten = typeof flatten;
+}
+declare const _flatten: _.Flatten;
+export = _flatten;

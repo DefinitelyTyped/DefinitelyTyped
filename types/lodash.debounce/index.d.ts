@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { debounce } from "lodash";
-export = debounce;
+declare namespace _ {
+  type Debounce = typeof debounce;
+}
+declare const _debounce: _.Debounce;
+export = _debounce;

@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { curry } from "lodash";
-export = curry;
+declare namespace _ {
+  type Curry = typeof curry;
+}
+declare const _curry: _.Curry;
+export = _curry;

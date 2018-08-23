@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { isNull } from "lodash";
-export = isNull;
+declare namespace _ {
+  type IsNull = typeof isNull;
+}
+declare const _isNull: _.IsNull;
+export = _isNull;

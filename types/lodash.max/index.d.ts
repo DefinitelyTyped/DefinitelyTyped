@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { max } from "lodash";
-export = max;
+declare namespace _ {
+  type Max = typeof max;
+}
+declare const _max: _.Max;
+export = _max;

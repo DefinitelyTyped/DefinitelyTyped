@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { pick } from "lodash";
-export = pick;
+declare namespace _ {
+  type Pick = typeof pick;
+}
+declare const _pick: _.Pick;
+export = _pick;

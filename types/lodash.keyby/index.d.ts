@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { keyBy } from "lodash";
-export = keyBy;
+declare namespace _ {
+  type KeyBy = typeof keyBy;
+}
+declare const _keyBy: _.KeyBy;
+export = _keyBy;

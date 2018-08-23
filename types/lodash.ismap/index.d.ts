@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { isMap } from "lodash";
-export = isMap;
+declare namespace _ {
+  type IsMap = typeof isMap;
+}
+declare const _isMap: _.IsMap;
+export = _isMap;

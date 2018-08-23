@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { divide } from "lodash";
-export = divide;
+declare namespace _ {
+  type Divide = typeof divide;
+}
+declare const _divide: _.Divide;
+export = _divide;

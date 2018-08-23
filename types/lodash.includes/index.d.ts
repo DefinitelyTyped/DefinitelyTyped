@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { includes } from "lodash";
-export = includes;
+declare namespace _ {
+  type Includes = typeof includes;
+}
+declare const _includes: _.Includes;
+export = _includes;

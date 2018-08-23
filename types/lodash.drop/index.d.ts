@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { drop } from "lodash";
-export = drop;
+declare namespace _ {
+  type Drop = typeof drop;
+}
+declare const _drop: _.Drop;
+export = _drop;

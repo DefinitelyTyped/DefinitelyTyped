@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { rangeRight } from "lodash";
-export = rangeRight;
+declare namespace _ {
+  type RangeRight = typeof rangeRight;
+}
+declare const _rangeRight: _.RangeRight;
+export = _rangeRight;

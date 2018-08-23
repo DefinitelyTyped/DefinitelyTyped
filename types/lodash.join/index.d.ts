@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { join } from "lodash";
-export = join;
+declare namespace _ {
+  type Join = typeof join;
+}
+declare const _join: _.Join;
+export = _join;

@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { reject } from "lodash";
-export = reject;
+declare namespace _ {
+  type Reject = typeof reject;
+}
+declare const _reject: _.Reject;
+export = _reject;

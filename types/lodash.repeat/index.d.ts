@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { repeat } from "lodash";
-export = repeat;
+declare namespace _ {
+  type Repeat = typeof repeat;
+}
+declare const _repeat: _.Repeat;
+export = _repeat;

@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { template } from "lodash";
-export = template;
+declare namespace _ {
+  type Template = typeof template;
+}
+declare const _template: _.Template;
+export = _template;

@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { escape } from "lodash";
-export = escape;
+declare namespace _ {
+  type Escape = typeof escape;
+}
+declare const _escape: _.Escape;
+export = _escape;

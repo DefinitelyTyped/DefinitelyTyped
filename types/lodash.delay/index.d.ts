@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { delay } from "lodash";
-export = delay;
+declare namespace _ {
+  type Delay = typeof delay;
+}
+declare const _delay: _.Delay;
+export = _delay;

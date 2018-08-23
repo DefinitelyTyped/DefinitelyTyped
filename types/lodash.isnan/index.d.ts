@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { isNaN } from "lodash";
-export = isNaN;
+declare namespace _ {
+  type IsNaN = typeof isNaN;
+}
+declare const _isNaN: _.IsNaN;
+export = _isNaN;
