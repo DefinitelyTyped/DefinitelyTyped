@@ -1157,7 +1157,7 @@ declare namespace Office {
         * 
         * @beta
         */
-        getAccessTokenAsync(options?: AuthOptions, callback?: (result: AsyncResult<any>) => void): void;
+        getAccessTokenAsync(options?: AuthOptions, callback?: (result: AsyncResult<string>) => void): void;
 
     }
     /**
