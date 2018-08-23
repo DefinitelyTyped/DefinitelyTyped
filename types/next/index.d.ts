@@ -56,7 +56,7 @@ declare namespace next {
      * Next.js config schema.
      * https://github.com/zeit/next.js/blob/6.1.1/server/config.js#L10
      */
-    interface NextConfig {
+    interface ServerConfig {
         webpack?: any;
         webpackDevMiddleware?: any;
         poweredByHeader?: boolean;
@@ -83,7 +83,7 @@ declare namespace next {
         dev?: boolean;
         staticMarkup?: boolean;
         quiet?: boolean;
-        conf?: NextConfig;
+        conf?: ServerConfig;
     }
 
     /**
@@ -97,7 +97,7 @@ declare namespace next {
         quiet: boolean;
         router: SingletonRouter;
         http: null | http.Server;
-        nextConfig: NextConfig;
+        nextConfig: ServerConfig;
         distDir: string;
         buildId: string;
         hotReloader: any;
@@ -114,7 +114,7 @@ declare namespace next {
 
         getHotReloader(
             dir: string,
-            options: { quiet: boolean; config: NextConfig; buildId: string }
+            options: { quiet: boolean; config: ServerConfig; buildId: string }
         ): any;
         handleRequest(
             req: http.IncomingMessage,
