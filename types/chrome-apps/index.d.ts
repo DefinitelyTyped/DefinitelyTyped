@@ -5,6 +5,7 @@
 // TypeScript Version: 2.8
 
 /// <reference types='filesystem'/>
+/// <reference path='./appview.d.ts'/>
 /// <reference path='./webview.d.ts'/>
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -373,21 +374,6 @@ declare namespace chrome {
             URL_HANDLER: 'url_handler'
         }
 
-        interface EmbedRequested {
-            /**
-             * Optional developer specified data that the app to be embedded can use when making an embedding decision.
-             */
-            data?: any;
-            /**
-             * Allows embedderId to embed this app in an <appview> element. The url specifies the content to embed.
-             */
-            allow: (url: string) => void;
-            /**
-             * Prevents embedderId from embedding this app in an <appview> element.
-             */
-            deny: () => void;
-        }
-
         interface LaunchData {
             /**
              * The ID of the file or URL handler that the app is being invoked with.
@@ -444,10 +430,10 @@ declare namespace chrome {
 
         /**
          * Fired when an embedding app requests to embed this app.
-         * @requires(dev) This event is only available on dev channel with the flag --enable-app-view.
-         * @since Since Chrome 38.
+         * @since Since Chrome 43.
+         * @see[Documentation]{@link https://developer.chrome.com/apps/tags/appview}
          */
-        const onEmbedRequested: chrome.events.Event<(request: EmbedRequested) => void>;
+        const onEmbedRequested: chrome.events.Event<(request: AppView.EmbedRequest) => void>;
         /**
          * Fired when an app is launched from the launcher.
          */
@@ -6962,7 +6948,7 @@ declare namespace chrome {
              * </pre>
              */
             | 'chrome://favicon/'
-            | 'chrome://extension-icon/';
+        // | 'chrome://extension-icon/'; // Doesn't need permission yet?
 
         type ChromeOSOnlyPermissions =
             /**
@@ -7027,8 +7013,6 @@ declare namespace chrome {
         /** Undocumented but used permissions */
         type UndocumentedPermissions =
             'app.window.ime' |
-            /** Enable the <appview> tag. @todo Document this tag */
-            'appview' |
             /**
              * @deprecated
              * @see Permission: 'app.window.fullscreen'
@@ -7059,6 +7043,8 @@ declare namespace chrome {
         type Permission =
             /** Gives your app access to the chrome.alarms API. */
             'alarms' |
+            /** Enables the <appview> tag. @todo Document this tag */
+            'appview' |
             /** Gives your app access to the chrome.audio API. */
             'audio' |
             /** Enables the method *setAlwaysOnTop()* on chrome.app.window */
@@ -7153,6 +7139,7 @@ declare namespace chrome {
             /** @deprecated Serial is deprecated */
             'serial' |
             /** Gives your app access to the chrome.signedInDevices API. */
+            /** @todo TODO */
             'signedInDevices' |
             /** Gives your app access to the chrome.storage API. */
             'storage' |
@@ -11347,4 +11334,5 @@ declare namespace chrome {
 interface Window {
     chrome: typeof chrome;
     WebView: typeof HTMLWebViewElement;
+    AppView: typeof HTMLAppViewElement;
 }

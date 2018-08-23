@@ -1366,3 +1366,7 @@ declare namespace WebView {
         newzoomFactor: chrome.double;
     }
 }
+
+declare interface Document {
+    createElement(element: 'webview'): HTMLWebViewElement;
+}

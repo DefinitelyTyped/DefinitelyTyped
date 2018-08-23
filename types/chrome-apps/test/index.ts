@@ -822,6 +822,14 @@ chrome.identity.getAuthToken({ interactive: true }, (token) => {
 
 // #endregion
 
+chrome.idle; // @todo TODO Tests
+
+chrome.instanceID; // @todo TODO Tests
+
+chrome.management; // @todo TODO Tests
+
+chrome.mdns; // @todo TODO Tests
+
 // #region chrome.mediaGalleries
 
 chrome.fileSystem.getVolumeList((volumes) => {
@@ -903,6 +911,12 @@ chrome.networking.onc.getNetworks({ 'networkType': 'All' }, (networkList) => {
 });
 
 // #endregion
+
+chrome.notifications; // @todo TODO Tests
+
+chrome.platformKeys; // @todo TODO Tests
+
+chrome.permissions; // @todo TODO Tests
 
 // #region chrome.power
 
@@ -1212,6 +1226,8 @@ chrome.sockets.udp.create({}, (createInfo) => {
 
 // #endregion
 
+chrome.storage; // @todo TODO Tests
+
 // #region chrome.syncFileSystem
 
 chrome.syncFileSystem.getConflictResolutionPolicy((policy) => {
@@ -1283,9 +1299,15 @@ chrome.usb.getUserSelectedDevices({
 
 // #endregion
 
+chrome.virtualKeyboard; // @todo TODO Tests
+chrome.vpnProvider; // @todo TODO Tests
+chrome.wallpaper; // @todo TODO Tests
+chrome.webViewRequest; // @todo TODO Tests
+
 // #region chrome.webViewRequest & WebView
 
-const wve = new window.WebView();
+let wve = document.createElement('webview');
+wve = new window.WebView();
 wve.name = 'test';
 wve.src = 'https://github.com/DefinitelyTyped';
 wve.allowtransparency = true;
@@ -1360,3 +1382,16 @@ new chrome.webViewRequest.RequestMatcher({
 wve.request.onRequest.addRules([rule]);
 
 // #endregion
+
+//#region Embedding & AppView
+chrome.app.runtime.onEmbedRequested.addListener((request) => {
+    request.allow('foobar.html');
+});
+// Creates an <appview> element.
+var appview = document.createElement('appview');
+// Appends the element to the document body.
+document.body.appendChild(appview);
+// Connects the appview to appToEmbed.
+appview.connect('id of app');
+document.appendChild(appview);
+//#endregion
