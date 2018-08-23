@@ -6468,13 +6468,11 @@ declare namespace chrome {
     namespace permissions {
         interface Permissions {
             /**
-             * Optional.
              * List of named permissions (does not include hosts or origins).
              * Anything listed here must appear in the optional_permissions list in the manifest.
              */
-            origins?: chrome.runtime.OptionalPermissions[];
+            permissions?: chrome.runtime.OptionalPermission[];
             /**
-             * Optional.
              * List of origin permissions.
              * Anything listed here must be a subset of a host that appears in the
              * optional_permissions list in the manifest. For example, if
@@ -6482,33 +6480,33 @@ declare namespace chrome {
              * you can request an origin of http://help.example.com/.
              * Any path is ignored.
              */
-            permissions?: chrome.runtime.UrlMatches[] | string[];
+            origins?: chrome.runtime.UrlMatches[] | string[];
         }
 
-        interface PermissionEvent extends chrome.events.Event<(permissions: chrome.runtime.Permission[]) => void> { }
+        interface PermissionEvent extends chrome.events.Event<(permissions: Permissions) => void> { }
 
         /**
          * Checks if the app has the specified permissions.
-         * @param callback Parameter result: True if the app has the specified permissions.
+         * @param callback Parameter *result*: True if the app has the specified permissions.
          */
-        function contains(permissions: chrome.runtime.Permission[], callback: (result: boolean) => void): void;
+        function contains(permissions: Permissions, callback: (result: boolean) => void): void;
         /**
          * Gets the app's current set of permissions.
-         * @param callback Parameter permissions: The app's active permissions.
+         * @param callback Parameter *permissions*: The app's active permissions.
          */
-        function getAll(callback: (permissions: chrome.runtime.Permission[]) => void): void;
+        function getAll(callback: (permissions: Permissions) => void): void;
         /**
          * Requests access to the specified permissions.
          * These permissions must be defined in the optional_permissions field of the manifest.
          * If there are any problems requesting the permissions, runtime.lastError will be set.
-         * @param [callback] Parameter granted: True if the user granted the specified permissions.
+         * @param [callback] Parameter *granted*: True if the user granted the specified permissions.
          */
-        function request(permissions: chrome.runtime.Permission[], callback?: (granted: boolean) => void): void;
+        function request(permissions: Permissions, callback?: (granted: boolean) => void): void;
         /**
          * Removes access to the specified permissions. If there are any problems removing the permissions, runtime.lastError will be set.
-         * @param [callback] Parameter removed: True if the permissions were removed.
+         * @param [callback] Parameter *removed*: True if the permissions were removed.
          */
-        function remove(permissions: chrome.runtime.Permission[], callback?: (removed: boolean) => void): void;
+        function remove(permissions: Permissions, callback?: (removed: boolean) => void): void;
 
         /** Fired when access to permissions has been removed from the app. */
         const onRemoved: PermissionEvent;
@@ -6565,7 +6563,7 @@ declare namespace chrome {
              * empty list, however, certificates of any type will be returned.
              * @see ClientCertificateType
              */
-            certificateTypes: ToStringLiteral<typeof ClientCertificateType[]>;
+            certificateTypes: ToStringLiteral<typeof ClientCertificateType>[];
 
             /**
              * List of distinguished names of certificate authorities allowed by the
@@ -7072,12 +7070,11 @@ declare namespace chrome {
             'tts' |
             'wallpaper';
 
-        type OptionalPermission = Exclude<Permission, NotAllowedAsOptionalPermissions>;
         /**
          * Optional permissions
-         * @see NotAllowedAsOptionalPermissions for permissions that you're not allowed to set.
+         * @see NotAllowedAsOptionalPermissions for permissions that you're not allowed to set on demand.
          */
-        type OptionalPermissions = Array<OptionalPermission> | Array<OptionalPermission | string>;
+        type OptionalPermission = Exclude<Permission, NotAllowedAsOptionalPermissions>;
 
         type Permission =
             /** Gives your app access to the chrome.alarms API. */
@@ -7683,7 +7680,7 @@ declare namespace chrome {
              * at run time rather than install time, so users understand why the
              * permissions are needed and grant only those that are necessary.
              */
-            optional_permissions?: OptionalPermissions;
+            optional_permissions?: OptionalPermission[] | Array<OptionalPermission | chrome.runtime.UrlMatches[]> | Array<OptionalPermission | chrome.runtime.UrlMatches[] | string>;
 
             /**
              * Permissions help to limit damage if your app is compromised by malware.
@@ -10630,11 +10627,20 @@ declare namespace chrome {
             SHOW_CONFIGURE_DIALOG: 'showConfigureDialog'
         };
         interface VpnSessionParameters {
-            /** IP address for the VPN interface in CIDR notation. IPv4 is currently the only supported mode. */
+            /**
+             * IP address for the VPN interface in CIDR notation.
+             * IPv4 is currently the only supported mode.
+             */
             address: string;
-            /** Broadcast address for the VPN interface. (default: deduced from IP address and mask) */
+            /**
+             * Broadcast address for the VPN interface.
+             * (default: deduced from IP address and mask)
+             */
             broadcastAddress?: string;
-            /** MTU setting for the VPN interface. (default: 1500 bytes) */
+            /**
+             * MTU setting for the VPN interface (default 1500 bytes).
+             * @default '1500'
+             */
             mtu?: string;
             /**
              * Exclude network traffic to the list of IP blocks in CIDR notation from the tunnel.
@@ -10659,7 +10665,22 @@ declare namespace chrome {
             /** A list of search domains. (default: no search domain) */
             domainSearch?: string[];
             /** A list of IPs for the DNS servers. */
-            dnsServer: string[];
+            dnsServers: string[];
+            /**
+             * @since Chrome 51.
+             * Whether or not the VPN extension implements auto-reconnection.
+             * If true, the *linkDown*, *linkUp*, *linkChanged*, *suspend*, and *resume*
+             * platform messages will be used to signal the respective events.
+             *
+             * If false, the system will forcibly disconnect the VPN if the network
+             * topology changes, and the user will need to reconnect manually.
+             *
+             * This property is new in Chrome 51; it will generate an exception in
+             * earlier versions. try/catch can be used to conditionally enable the
+             * feature based on browser support.
+             * @default false
+             */
+            reconnect: boolean;
         }
 
         /**
@@ -10724,21 +10745,23 @@ declare namespace chrome {
      * @since Chrome 43.
      */
     namespace wallpaper {
-        const WallpaperLayout: {
-            'STRETCH': 'STRETCH',
-            'CENTER': 'CENTER',
-            'CENTER_CROPPED': 'CENTER_CROPPED'
-        };
+        enum WallpaperLayout {
+            STRETCH = 'STRETCH',
+            CENTER = 'CENTER',
+            CENTER_CROPPED = 'CENTER_CROPPED'
+        }
+        type WallpaperLayoutType = 'STRETCH' | 'CENTER' | 'CENTER_CROPPED';
+
         interface WallpaperDetails {
             /** The jpeg or png encoded wallpaper image. */
-            data?: any;
+            data?: ArrayBuffer;
             /** The URL of the wallpaper to be set. */
             url?: string;
             /**
              * The supported wallpaper layouts.
              * @see WallpaperLayout
              */
-            layout: ToStringLiteral<typeof WallpaperLayout>;
+            layout: WallpaperLayout | WallpaperLayoutType;
             /** The file name of the saved wallpaper. */
             filename: string;
             /** True if a 128x60 thumbnail should be generated. */

@@ -1,3 +1,9 @@
+/**
+ * Some of the tests are based on examples found in the Chromium documentation or source.
+ * @author Nikolai Ommundsen (niikoo {@link https://github.com/niikoo})
+ * @author The Chromium Authors
+ */
+
 import runtime = chrome.app.runtime;
 const cwindow = chrome.app.window;
 
@@ -921,9 +927,116 @@ chrome.networking.onc.getNetworks({ 'networkType': 'All' }, (networkList) => {
 
 chrome.notifications; // @todo TODO Tests
 
-chrome.platformKeys; // @todo TODO Tests
+// #region chrome.platformKeys
 
-chrome.permissions; // @todo TODO Tests
+var data = {
+    trusted_l1_leaf_cert: 'l1_leaf.der',
+    trusted_l1_interm_cert: 'l1_interm.der',
+    trusted_l2_leaf_cert: 'l2_leaf.der',
+    client_1: 'client_1.der',
+    client_2: 'client_2.der',
+    client_1_spki: 'client_1_spki.der',
+    client_1_issuer_dn: {
+        buffer: new ArrayBuffer(16)
+    },
+    raw_data: 'data',
+    signature_nohash_pkcs: 'signature_nohash_pkcs',
+    signature_client1_sha1_pkcs: 'signature_client1_sha1_pkcs',
+    signature_client2_sha1_pkcs: 'signature_client2_sha1_pkcs',
+};
+function requestCA1(): chrome.platformKeys.ClientCertificateRequest {
+    return {
+        certificateTypes: [],
+        certificateAuthorities: [data.client_1_issuer_dn.buffer]
+    };
+}
+chrome.platformKeys.selectClientCertificates(
+    { interactive: false, request: requestCA1() },
+    (matches) => {
+    });
+
+const requestECDSA: chrome.platformKeys.ClientCertificateRequest = {
+    certificateTypes: ['ecdsaSign'],
+    certificateAuthorities: []
+};
+chrome.platformKeys.selectClientCertificates(
+    { interactive: false, request: requestECDSA },
+    (matches) => {
+        return matches.length;
+    });
+
+if (chrome.platformKeys.subtleCrypto &&
+    chrome.platformKeys.subtleCrypto() &&
+    chrome.platformKeys.subtleCrypto().sign &&
+    chrome.platformKeys.subtleCrypto().exportKey) {
+    console.log('Subtle crypto working (Y)')
+}
+
+var keyParams = {
+    // Algorithm names are case-insensitive.
+    name: 'RSASSA-Pkcs1-V1_5',
+    hash: { name: 'sha-1' }
+};
+chrome.platformKeys.getKeyPair(
+    data.client_1_issuer_dn.buffer, keyParams,
+    (publicKey, privateKey) => {
+        let expectedAlgorithm = {
+            modulusLength: 2048,
+            name: "RSASSA-PKCS1-v1_5",
+            publicExponent: new Uint8Array([0x01, 0x00, 0x01]),
+            hash: { name: 'SHA-1' }
+        };
+
+        if (expectedAlgorithm === publicKey.algorithm &&
+            privateKey &&
+            expectedAlgorithm === privateKey.algorithm) {
+            if (publicKey.type === 'public' && privateKey.type === 'private') {
+                console.log('All okay!');
+            }
+        }
+        chrome.platformKeys.subtleCrypto()
+            .exportKey('spki', publicKey)
+            .then((actualPublicKeySpki) => {
+                if (new ArrayBuffer(100) === actualPublicKeySpki) {
+                    return false;
+                }
+            });
+    });
+var details = {
+    serverCertificateChain: [data.client_1_issuer_dn.buffer],
+    hostname: "l1_leaf"
+};
+chrome.platformKeys.verifyTLSServerCertificate(
+    details, (result) => {
+        return result.trusted;
+    });
+// #endregion
+
+// #region chrome.permissions
+
+chrome.permissions.request({ permissions: ['storage'] }, (granted) => {
+    return granted && 'It was granted';
+});
+
+chrome.permissions.getAll((permissions) => {
+    if (chrome.runtime.lastError || !permissions.permissions) {
+        return;
+    }
+    for (const permission of permissions.permissions) {
+        if (permission === 'alarms') {
+            return 'I knew it!';
+        }
+        chrome.permissions.remove({ permissions: [permission] }, (removed) => {
+            return removed ? 'It was removed' : 'It was not removed';
+        });
+    }
+    chrome.permissions.contains({ origins: ['chrome://favicon/'] }, (doIHaveIt) => doIHaveIt ? 'yes' : 'neh');
+    chrome.permissions.request(
+        { permissions: ['audio'] },
+        () => { });
+});
+
+// #endregion
 
 // #region chrome.power
 
@@ -1360,9 +1473,58 @@ chrome.virtualKeyboard.restrictFeatures(
 );
 // #endregion
 
-chrome.vpnProvider; // @todo TODO Tests
-chrome.wallpaper; // @todo TODO Tests
-chrome.webViewRequest; // @todo TODO Tests
+// #region chrome.vpnProvider
+
+const vpnParams = {
+    address: '127.0.0.1/32',
+    mtu: '1500',
+    exclusionList: ['127.0.0.1/32'],
+    inclusionList: ['0.0.0.0/0'],
+    dnsServers: ['1.1.1.1', '1.0.0.1', '8.8.8.8'],
+    reconnect: true
+};
+chrome.vpnProvider.onConfigCreated.addListener((id, name, data) => {
+    console.log('Connected: ', id.toLowerCase(), name.toUpperCase(), JSON.stringify(data));
+});
+chrome.vpnProvider.createConfig('Local VPN', (id) => {
+    chrome.vpnProvider.setParameters(vpnParams, () => {
+        if (chrome.runtime.lastError) {
+            chrome.vpnProvider.notifyConnectionStateChanged('failure');
+            throw chrome.runtime.lastError;
+        }
+        chrome.vpnProvider.notifyConnectionStateChanged('connected', () => {
+            chrome.vpnProvider.onPacketReceived.addListener(data => {
+                return data.byteLength > 0 ? data : undefined;
+            });
+            chrome.vpnProvider.onConfigRemoved.addListener(id => id.toUpperCase());
+            chrome.vpnProvider.onPlatformMessage.addListener((id, message) => {
+                if (typeof id === 'string') {
+                    return message === 'connected';
+                }
+            });
+            chrome.vpnProvider.onUIEvent.addListener((event, id) => {
+                if (event === 'showAddDialog') {
+                    return id;
+                }
+            });
+        });
+    });
+});
+// #endregion
+
+// #region chrome.wallpaper
+chrome.wallpaper.setWallpaper({
+    url: 'chrome://favicon/iconurl/https://www.google.com/favicon.ico',
+    layout: 'CENTER_CROPPED',
+    filename: 'test_wallpaper'
+}, (thumbnail) => {
+    const imageUrl = thumbnail;
+});
+chrome.wallpaper.setWallpaper({
+    layout: chrome.wallpaper.WallpaperLayout.STRETCH,
+    filename: 'test_wallpaper2'
+}, () => { });
+// #endregion
 
 // #region chrome.webViewRequest & WebView
 
