@@ -16,7 +16,7 @@ declare namespace gulpPugI18n {
         i18n: {
             default?: string;
             filename?: string;
-            locales: string | string[];
+            locales: string | ReadonlyArray<string>;
             namespace?: string | null;
         };
     }
