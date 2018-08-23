@@ -828,7 +828,14 @@ chrome.instanceID; // @todo TODO Tests
 
 chrome.management; // @todo TODO Tests
 
-chrome.mdns; // @todo TODO Tests
+// #region chrome.mdns
+chrome.mdns.onServiceList.addListener(
+    () => { },
+    { 'serviceType': 'definitelyTyped._tcp.local' });
+chrome.mdns.onServiceList.addListener(function (services) {
+    chrome.mdns.forceDiscovery(() => { return true; });
+}, { 'serviceType': '_googlecast._tcp.local' });
+// #endregion
 
 // #region chrome.mediaGalleries
 
@@ -1299,7 +1306,23 @@ chrome.usb.getUserSelectedDevices({
 
 // #endregion
 
-chrome.virtualKeyboard; // @todo TODO Tests
+// #region chrome.virtualKeyboard
+chrome.virtualKeyboard.restrictFeatures(
+    {
+        autoCompleteEnabled: false,
+        autoCorrectEnabled: false,
+        spellCheckEnabled: false,
+        voiceInputEnabled: false,
+        handwritingEnabled: false
+    },
+    (update) => {
+        if (update.autoCompleteEnabled = false) {
+            return true;
+        }
+    }
+);
+// #endregion
+
 chrome.vpnProvider; // @todo TODO Tests
 chrome.wallpaper; // @todo TODO Tests
 chrome.webViewRequest; // @todo TODO Tests
@@ -1383,7 +1406,7 @@ wve.request.onRequest.addRules([rule]);
 
 // #endregion
 
-//#region Embedding & AppView
+// #region Embedding & AppView
 chrome.app.runtime.onEmbedRequested.addListener((request) => {
     request.allow('foobar.html');
 });

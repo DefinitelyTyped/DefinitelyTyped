@@ -2935,7 +2935,7 @@ declare namespace chrome {
             ports?: Array<integer | integer[]>;
         }
         /** An object which allows the addition and removal of listeners for a Chrome event. */
-        interface Event<T> {
+        interface Event<T extends Function> {
             /**
              * Registers an event listener callback to an event.
              * @param callback Called when an event occurs. The parameters of this function depend on the type of event.
@@ -2995,6 +2995,25 @@ declare namespace chrome {
              * Has this event listeners?
              */
             hasListeners(): boolean;
+        }
+
+        interface EventFilter {
+            [key: string]: string;
+        }
+
+        /**
+         * An object which allows the addition and removal of listeners for a Chrome event.
+         * Also provides the possibility to provide a filter
+         * @template T Callback function.
+         * @template F Filter interface, leave this for default
+         */
+        interface FilteredEvent<T extends Function, F = EventFilter> extends Event<T> {
+            /**
+             * Registers an event listener callback to an event.
+             * @param callback Called when an event occurs. The parameters of this function depend on the type of event.
+             * @param [filter] Optional key/value dictionary you can provide to filter the events
+             */
+            addListener(callback: T, filter?: F): void;
         }
 
         /**
@@ -5203,6 +5222,21 @@ declare namespace chrome {
             /** Metadata for an mDNS advertised service. */
             serviceData: string[];
         }
+
+        /**
+         * Locked to this because it's the only one that can be used.
+         *
+         * const char kEventFilterServiceTypeKey[] = "serviceType";
+         * @see[Source: event_matcher.cc, line 19]{@link https://github.com/chromium/chromium/tree/master/extensions/common/event_matcher.cc}
+         */
+        type ValidServiceTypes = 'serviceType';
+
+        /**
+         * Dictionary
+         * [key in ValidServiceTypes]: string
+         */
+        type ServiceTypes = Record<ValidServiceTypes, string>;
+
         /**
          * The maximum number of service instances that will be
          * included in onServiceList events. If more instances
@@ -5229,8 +5263,12 @@ declare namespace chrome {
          * discovering should be specified as the event filter
          * with the 'serviceType' key. Not specifying an event
          * filter will not start any discovery listeners.
+         * @example
+         * Filter example:
+         * chrome.mdns.onServiceList.addListener(() => { },
+         *  { 'serviceType': 'definitelyTyped._tcp.local' });
          */
-        const onServiceList: chrome.events.Event<(services: Service[]) => void>;
+        const onServiceList: chrome.events.FilteredEvent<(services: Service[]) => void, ServiceTypes>;
 
     }
     // #endregion
@@ -10698,6 +10736,14 @@ declare namespace chrome {
     // #endregion
 
     // #region chrome.webViewRequest
+    /////////////////////
+    // WebView Request //
+    /////////////////////
+    /**
+     * @requires Permissions: 'webview'
+     * @description
+     * Use the *chrome.webViewRequest* API to intercept, block, or modify requests in-flight.
+     */
     namespace webViewRequest {
         type Stage = 'onBeforeRequest' | 'onBeforeSendHeaders' | 'onHeadersReceived' | 'onAuthRequired';
         type DeclarativeWebRequestEventList =
@@ -11295,7 +11341,7 @@ declare namespace chrome {
      * @constructor
      */
     const Event: {
-        new <T = any>(): chrome.events.Event<T>;
+        new <T extends Function>(): chrome.events.Event<T>;
     }
 
     // #endregion
