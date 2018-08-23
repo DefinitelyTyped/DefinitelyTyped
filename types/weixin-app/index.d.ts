@@ -3175,21 +3175,39 @@ declare namespace wx {
         initialRatio?: number;
         selectAll?: boolean;
     }
-    type margins = {
+    interface margins {
         left?: number;
         right?: number;
         top?: number;
         bottom?: number;
     }
-    type callback = () => void;
-    type observeResponse = {
+    interface observeResponse {
+        id: string;
+        dataset: any;
+        time: number;
         intersectionRatio: number; // 相交区域占目标节点的布局区域的比例
+        boundingClientRect: {
+            bottom: number;
+            right: number;
+            left: number;
+            top: number;
+            width: number;
+            height: number;
+        };
         intersectionRect: {
+            bottom: number;
+            right: number;
             left: number; // 相交区域的左边界坐标
             top: number; // 相交区域的上边界坐标
             width: number; // 相交区域的宽度
             height: number; // 相交区域的高度
-        }
+        };
+        relativeRect: {
+            bottom: number;
+            right: number;
+            left: number;
+            top: number;
+        };
     }
     interface createIntersectionObserverCallBack {
         relativeTo: (selector?: string, margins?: margins) => createIntersectionObserverCallBack;
@@ -3197,7 +3215,7 @@ declare namespace wx {
         observe: (selector?: string, callback?: (response: observeResponse) => void) => createIntersectionObserverCallBack;
         disconnect: () => void;
     }
-    function createIntersectionObserver(options?: createIntersectionObserverOption): createIntersectionObserverCallBack
+    function createIntersectionObserver(options?: createIntersectionObserverOption): createIntersectionObserverCallBack;
     // #endregion
 }
 // #region App里的onLaunch、onShow回调参数
