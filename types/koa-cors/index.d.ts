@@ -11,10 +11,10 @@ declare function koaCors(options?: koaCors.Options): Middleware;
 declare namespace koaCors {
     interface Options {
         credentials?: true;
-        expose?: string | string[];
-        headers?: string | string[];
+        expose?: string | ReadonlyArray<string>;
+        headers?: string | ReadonlyArray<string>;
         maxAge?: number;
-        methods?: string | string[];
+        methods?: string | ReadonlyArray<string>;
         origin?: boolean | string | ((request: Request) => string);
     }
 }
