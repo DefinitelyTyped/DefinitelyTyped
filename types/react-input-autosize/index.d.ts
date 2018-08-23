@@ -6,19 +6,17 @@
 
 import * as React from 'react';
 
-declare namespace AutosizeInput {
-    interface AutosizeInputProps extends React.InputHTMLAttributes<HTMLInputElement>, React.ClassAttributes<HTMLInputElement> {
-        inputClassName?: string;
-        inputRef?: React.Ref<HTMLInputElement>;
-        inputStyle?: React.CSSProperties;
-        minWidth?: string | number;
-        onAutosize?: (inputWidth: string | number) => void;
-        placeholderIsMinWidth?: boolean;
-    }
+export interface AutosizeInputProps extends React.InputHTMLAttributes<HTMLInputElement>, React.ClassAttributes<HTMLInputElement> {
+    inputClassName?: string;
+    inputRef?: React.Ref<HTMLInputElement>;
+    inputStyle?: React.CSSProperties;
+    minWidth?: string | number; 
+    onAutosize?: (inputWidth: string | number) => void;
+    placeholderIsMinWidth?: boolean;
 }
 
-declare class AutosizeInput extends React.Component<AutosizeInput.AutosizeInputProps> {
+declare class AutosizeInput extends React.Component<AutosizeInputProps> {
     getInput(): HTMLInputElement;
 }
 
-export = AutosizeInput;
+export default AutosizeInput;
