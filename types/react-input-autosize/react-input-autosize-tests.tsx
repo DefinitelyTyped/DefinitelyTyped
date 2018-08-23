@@ -1,5 +1,5 @@
 import * as React from 'react';
-import AutosizeInput from 'react-input-autosize';
+import AutosizeInput, { AutosizeInputProps } from 'react-input-autosize';
 
 class Test extends React.Component<AutosizeInputProps> {
     input: HTMLInputElement;
