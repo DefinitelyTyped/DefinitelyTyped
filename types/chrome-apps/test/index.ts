@@ -703,6 +703,14 @@ if (deviceAttr.getDirectoryDeviceId && deviceAttr.getDeviceAssetId) {
     }
 }
 
+chrome.enterprise.deviceAttributes.getDirectoryDeviceId((deviceId) => {
+    return deviceId.substring(0, deviceId.length - 1);
+})
+chrome.enterprise.deviceAttributes.getDeviceSerialNumber((sn) => console.log(sn.trim()));
+chrome.enterprise.deviceAttributes.getDeviceAssetId((assetId) => console.log(assetId.toLowerCase()));
+chrome.enterprise.deviceAttributes.getDeviceAnnotatedLocation((loc) => loc.charAt(0));
+
+
 // ENTERPRISE - PLATFORM KEYS
 
 if (chrome.enterprise.platformKeys.getTokens) {
@@ -712,6 +720,31 @@ if (chrome.enterprise.platformKeys.getTokens) {
         }
     }
 }
+const tokenId = 'tokenid....';
+chrome.enterprise.platformKeys.importCertificate(tokenId, new ArrayBuffer(8), () => { });
+chrome.enterprise.platformKeys.getCertificates(tokenId, (certificates) => {
+    certificates.map((cert) => {
+        chrome.enterprise.platformKeys.removeCertificate(tokenId, cert, () => { });
+    });
+});
+chrome.enterprise.platformKeys.getTokens((tokens) => {
+    const algorithm = {
+        name: "RSASSA-PKCS1-v1_5",
+        // RsaHashedKeyGenParams
+        modulusLength: 2048,
+        publicExponent:
+            new Uint8Array([0x01, 0x00, 0x01]),  // Equivalent to 65537
+        hash: {
+            name: "SHA-1",
+        }
+    };
+    tokens.map(token => {
+        token.subtleCrypto.generateKey(algorithm, false, ["sign"]).then((val) => {
+
+        })
+    });
+});
+
 // #endregion chrome.enterprise
 
 // #region chrome.Event
