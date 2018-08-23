@@ -31,7 +31,7 @@ declare namespace AppView {
         /** The ID of the app that sent the embedding request. */
         embedderId: string;
         /** Optional developer specified data that the app to be embedded can use when making an embedding decision. */
-        data?: Object;
+        data?: any;
         /**
          * Allows the embedding request
          * @param url Specifies the content to be embedded.

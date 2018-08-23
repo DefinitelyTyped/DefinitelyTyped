@@ -326,9 +326,27 @@ const ManifestJSONTest1: chrome.runtime.Manifest = {
 
 // #region chrome.alarms
 
-chrome.alarms.create('name', {
+chrome.alarms.create('name1', {
     delayInMinutes: 10
-})
+});
+chrome.alarms.create('name2', {
+    delayInMinutes: 10,
+    periodInMinutes: 100
+});
+chrome.alarms.onAlarm.addListener((alarm) => {
+    if (alarm.name === 'name1') {
+        chrome.alarms.get('name1', (_alarm) => {
+            if (alarm === _alarm) {
+                chrome.alarms.getAll((alarms) => {
+                    chrome.alarms.clear('name2');
+                    chrome.alarms.clearAll();
+                })
+            }
+        })
+        return alarm.scheduledTime;
+    }
+});
+
 // #endregion
 
 // #region chrome.app.*
@@ -437,12 +455,17 @@ chrome.audio.getDevices({}, (audioDeviceInfoList) => {
 });
 
 chrome.app.runtime.onEmbedRequested.addListener((request) => {
-    if (!request.data.message) {
-        request.allow('default.html');
-    } else if (request.data.message == 'camera') {
-        request.allow('camera.html');
-    } else {
-        request.deny();
+    if (request === undefined || request.data === undefined) {
+        return false;
+    }
+    if (typeof request.data === 'object') {
+        if (!request.data['message']) {
+            request.allow('default.html');
+        } else if (request.data.message == 'camera') {
+            request.allow('camera.html');
+        } else {
+            request.deny();
+        }
     }
 });
 
@@ -690,7 +713,20 @@ chrome.dns.resolve("github.com", (info) => {
 
 // #endregion
 
-chrome.documentScan; // @todo TODO Tests
+// #region chrome.documentScan
+
+chrome.documentScan.scan({
+    maxImages: 100,
+    mimeTypes: ['image/jpeg']
+}, (results) => {
+    results.dataUrls.map(urlData => {
+        var scannedImage = document.createElement('img');
+        scannedImage.title = 'Mime type: ' + results.mimeType;
+        scannedImage.src = urlData;
+    });
+});
+
+// #endregion
 
 // #region chrome.enterprise.*
 // ENTERPRISE - DEVICE ATTRIBUTES
