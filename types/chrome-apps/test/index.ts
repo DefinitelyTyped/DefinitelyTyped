@@ -775,6 +775,14 @@ gcmMessage.data = {
     /*goog: 'any', should not be allowed, and it is not :) */
     test: true
 };
+const eventHandler = (message: chrome.gcm.IncomingMessage) => {
+    console.log('From: ', message.from, 'collapseKey:', message.collapseKey);
+    return message.data['google'];
+}
+chrome.gcm.onMessage.addListener(eventHandler);
+chrome.gcm.onMessage.removeListener(eventHandler);
+chrome.gcm.onMessagesDeleted.addListener(() => { });
+chrome.gcm.onSendError.addListener((error) => { console.error(error.detail, error.errorMessage, error.messageId); });
 
 // #endregion
 

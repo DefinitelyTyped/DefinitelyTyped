@@ -4181,16 +4181,9 @@ declare namespace chrome {
          */
         const MAX_MESSAGE_SIZE: integer;
 
-        interface IGCMData {
-            'collapse_key'?: never;
-            'goog'?: never;
-            'goog.'?: never;
-            'GOOG'?: never;
-            'GOOG.'?: never;
-            'google'?: never;
-            'GOOGLE'?: never;
-            [key: string]: any;
-        }
+        type DisallowedKeys = 'collapse_key' | 'goog' | 'goog.' | 'GOOG' | 'GOOG.' | 'google' | 'GOOGLE';
+        type IGCMDataSend = Record<Exclude<DisallowedKeys, string>, any>;
+        type IGCMDataReceive = Record<string, any>;
 
         interface OutgoingMessage {
             /** The ID of the server to send the message to as assigned by Google API Console. */
@@ -4208,12 +4201,12 @@ declare namespace chrome {
              *
              * Sum of all key/value pairs should not exceed gcm.MAX_MESSAGE_SIZE.
              **/
-            data: IGCMData;
+            data: IGCMDataSend;
         }
 
         interface IncomingMessage {
             /** The message data. */
-            data: IGCMData;
+            data: IGCMDataReceive;
             /**
              * Optional.
              * The sender who issued the message.
