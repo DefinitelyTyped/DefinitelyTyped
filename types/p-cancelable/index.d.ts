@@ -18,7 +18,6 @@ declare namespace PCancelable {
     interface PCancelable<T> extends Promise<T> {
         readonly isCanceled: boolean;
         cancel(reason?: string): void;
-
     }
 
     interface CancelErrorConstructor extends ErrorConstructor {
