@@ -50,6 +50,11 @@ async function globalDefinitionText(moduleName: string): Promise<string> {
     const npmInfo = JSON.parse(await loadString(url));
     const fullVersion = npmInfo["dist-tags"].latest;
     const majorMinor = fullVersion.split(".").slice(0, 2).join(".");
+    const pascalCaseModuleName = moduleName.substr(0, 1).toUpperCase() + moduleName.substr(1);
+
+    if (pascalCaseModuleName == moduleName) {
+        throw new Error(`Can not pascal case module name. Is moduleName "${moduleName}" valid?`)
+    }
 
     return `
 // Type definitions for ${fullName} ${majorMinor}
@@ -61,7 +66,11 @@ async function globalDefinitionText(moduleName: string): Promise<string> {
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { ${moduleName} } from "lodash";
-export = ${moduleName};
+declare namespace _ {
+  type ${pascalCaseModuleName} = typeof ${moduleName};
+}
+declare const _${moduleName}: _.${pascalCaseModuleName};
+export = _${moduleName};
 `.trim() + "\n";
 }
 
