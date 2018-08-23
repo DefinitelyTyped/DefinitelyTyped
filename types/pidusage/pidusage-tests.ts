@@ -1,4 +1,4 @@
-import * as pidusage from 'pidusage';
+import pidusage, { Stat } from 'pidusage';
 
 let cpu: number;
 let memory: number;
@@ -8,7 +8,7 @@ let ctime: number;
 let elapsed: number;
 let timestamp: number;
 
-pidusage(1, (err: Error | null, stats: pidusage.Stat) => {
+pidusage(1, (err: Error | null, stats: Stat) => {
     cpu = stats.cpu;
     memory = stats.memory;
     ppid = stats.ppid;
@@ -18,7 +18,7 @@ pidusage(1, (err: Error | null, stats: pidusage.Stat) => {
     timestamp = stats.timestamp;
 });
 
-pidusage('two', (err: Error | null, stats: pidusage.Stat) => {
+pidusage('two', (err: Error | null, stats: Stat) => {
     cpu = stats.cpu;
     memory = stats.memory;
     ppid = stats.ppid;
@@ -28,11 +28,11 @@ pidusage('two', (err: Error | null, stats: pidusage.Stat) => {
     timestamp = stats.timestamp;
 });
 
-pidusage([1, 'two'], (err: Error | null, stats: { [key: string]: pidusage.Stat }) => {
-    const one: pidusage.Stat = stats[1];
-    const two: pidusage.Stat = stats.two;
+pidusage([1, 'two'], (err: Error | null, stats: { [key: string]: Stat }) => {
+    const one: Stat = stats[1];
+    const two: Stat = stats.two;
 });
 
-const stats_1: Promise<pidusage.Stat> = pidusage(1);
-const stats_two: Promise<pidusage.Stat> = pidusage('two');
-const stats_obj: Promise<{ [key: string]: pidusage.Stat }> = pidusage([1, 'two']);
+const stats_1: Promise<Stat> = pidusage(1);
+const stats_two: Promise<Stat> = pidusage('two');
+const stats_obj: Promise<{ [key: string]: Stat }> = pidusage([1, 'two']);

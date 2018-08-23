@@ -5,13 +5,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-declare function pidusage(pid: number | string, callback: (err: Error | null, stats: pidusage.Stat) => void): void;
-declare function pidusage(pids: Array<number | string>, callback: (err: Error | null, stats: { [key: string]: pidusage.Stat }) => void): void;
-declare function pidusage(pid: number | string): Promise<pidusage.Stat>;
-declare function pidusage(pids: Array<number | string>): Promise<{ [key: string]: pidusage.Stat }>;
+declare function pidusage(pid: number | string, callback: (err: Error | null, stats: Stat) => void): void;
+declare function pidusage(pids: Array<number | string>, callback: (err: Error | null, stats: { [key: string]: Stat }) => void): void;
+declare function pidusage(pid: number | string): Promise<Stat>;
+declare function pidusage(pids: Array<number | string>): Promise<{ [key: string]: Stat }>;
 
-declare namespace pidusage {
-    interface Stat {
+export default pidusage;
+
+export interface Stat {
         /**
          * percentage (from 0 to 100*vcore)
          */
@@ -47,6 +48,3 @@ declare namespace pidusage {
          */
         timestamp: number;
     }
-}
-
-export = pidusage;
