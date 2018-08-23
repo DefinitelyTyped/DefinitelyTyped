@@ -6,10 +6,10 @@
         ],
         "paths": {
             "mongodb": [
-                "mongodb/v2"
+                "mongodb/v3"
             ],
             "mongoose": [
-                "mongoose/v4" 
+                "mongoose/v5" 
              ]
         },
         "noImplicitAny": true,
