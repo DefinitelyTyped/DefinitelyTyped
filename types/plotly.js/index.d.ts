@@ -192,6 +192,14 @@ export interface Layout {
 	separators: string;
 	hidesources: boolean;
 	xaxis: Partial<LayoutAxis>;
+	xaxis2: Partial<LayoutAxis>;
+	xaxis3: Partial<LayoutAxis>;
+	xaxis4: Partial<LayoutAxis>;
+	xaxis5: Partial<LayoutAxis>;
+	xaxis6: Partial<LayoutAxis>;
+	xaxis7: Partial<LayoutAxis>;
+	xaxis8: Partial<LayoutAxis>;
+	xaxis9: Partial<LayoutAxis>;
 	yaxis: Partial<LayoutAxis>;
 	yaxis2: Partial<LayoutAxis>;
 	yaxis3: Partial<LayoutAxis>;
