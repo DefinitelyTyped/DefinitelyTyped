@@ -828,9 +828,42 @@ chrome.identity.getAuthToken({ interactive: true }, (token) => {
 
 // #endregion
 
-chrome.idle; // @todo TODO Tests
+// #region chrome.idle
 
-chrome.instanceID; // @todo TODO Tests
+chrome.idle.onStateChanged.addListener((newState) => {
+    if (newState === 'active') {
+        return true;
+    }
+});
+chrome.idle.queryState(60, (state) => {
+    return state === 'idle';
+});
+chrome.idle.setDetectionInterval(20);
+
+// #endregion
+
+// #region chrome.instanceID
+
+chrome.instanceID.getCreationTime((creationTime) => {
+    if (creationTime === 0) {
+        return true;
+    }
+});
+chrome.instanceID.getID((instanceId) => {
+    if (instanceId) {
+        chrome.instanceID.getCreationTime((creationTime) => {
+            if (creationTime !== 0) {
+                chrome.instanceID.getToken(
+                    { "authorizedEntity": "1", "scope": "GCM", "options": { "foo": "1" } },
+                    (token) => {
+                        return token;
+                    });
+            }
+        })
+    }
+})
+
+// #endregion
 
 // #region chrome.management
 
