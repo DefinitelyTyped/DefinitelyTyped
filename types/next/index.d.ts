@@ -16,7 +16,7 @@ import * as url from "url";
 
 import { Response as NodeResponse } from "node-fetch";
 
-import Router from './router';
+import { SingletonRouter } from './router';
 
 declare namespace next {
     /** Map object used in query strings. */
@@ -95,7 +95,7 @@ declare namespace next {
         dir: string;
         dev: boolean;
         quiet: boolean;
-        router: Router;
+        router: SingletonRouter;
         http: null | http.Server;
         nextConfig: NextConfig;
         distDir: string;
