@@ -5,31 +5,34 @@
 // TypeScript Version: 2.2
 
 /// <reference types="node" />
-/// <reference types="express" />
 
 import { Response, NextFunction } from 'express';
 import * as http from 'http';
 import { EventEmitter } from 'events';
 
-interface IMidOption {
-    accessTokenUrl?: string;
-    ticketUrl?: string;
-    appId: string;
-    appSecret: string;
-    https?: boolean;
-}
-
-type IMiddleware = (req: any, res: Response | http.ServerResponse, next: NextFunction) => any;
+type WeMiddleware = (req: any, res: Response | http.ServerResponse, next: NextFunction) => any;
 
 declare function weAccessMiddleware(
-    options: IMidOption,
+    options: {
+        accessTokenUrl?: string;
+        ticketUrl?: string;
+        appId: string;
+        appSecret: string;
+        https?: boolean;
+    },
     errorHandler?: (e: any) => any
-): IMiddleware;
+): WeMiddleware;
 
 declare namespace weAccessMiddleware {
-    interface IWeAccessMidOption extends IMidOption {}
+    interface WeAccessMidOption {
+        accessTokenUrl?: string;
+        ticketUrl?: string;
+        appId: string;
+        appSecret: string;
+        https?: boolean;
+    }
 
-    interface IWeAccessMiddleware extends IMiddleware, EventEmitter, Function {}
+    interface WeAccessMiddleware extends WeMiddleware, EventEmitter, Function {}
 }
 
 export = weAccessMiddleware;

@@ -3,7 +3,7 @@ import * as weAccessMiddleware from 'express-wechat-access';
 
 const app: express.Application = express();
 
-const options: weAccessMiddleware.IWeAccessMidOption = {
+const options: weAccessMiddleware.WeAccessMidOption = {
     appId: 'xxxxx',
     appSecret: 'xxxxx'
 };
