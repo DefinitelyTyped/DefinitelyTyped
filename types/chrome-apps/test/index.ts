@@ -832,7 +832,23 @@ chrome.idle; // @todo TODO Tests
 
 chrome.instanceID; // @todo TODO Tests
 
-chrome.management; // @todo TODO Tests
+// #region chrome.management
+
+chrome.management.getSelf((result) => {
+    chrome.management.getPermissionWarningsByManifest(
+        JSON.stringify(chrome.runtime.getManifest()),
+        (warnings) => {
+            console.log(warnings.join('\r\n'));
+        });
+    if (result.isApp) {
+        return 'Of course!';
+    } else {
+        chrome.management.uninstallSelf({
+            showConfirmDialog: false
+        }, () => console.log('Goodbye'));
+    }
+});
+// #endregion
 
 // #region chrome.mdns
 chrome.mdns.onServiceList.addListener(
@@ -925,10 +941,34 @@ chrome.networking.onc.getNetworks({ 'networkType': 'All' }, (networkList) => {
 
 // #endregion
 
-chrome.notifications; // @todo TODO Tests
+// #region chrome.notifications
+
+let nID: string;
+
+chrome.notifications.create({
+    type: 'basic',
+    iconUrl: 'stay_hydrated.png',
+    title: 'Time to Hydrate',
+    message: 'Everyday I\'m Guzzlin\'!',
+    buttons: [
+        { title: 'Keep it Flowing.' }
+    ],
+    priority: 0
+}, (notificationId) => {
+    nID = notificationId;
+    chrome.notifications.update(nID, {
+        title: 'Updated title'
+    });
+    chrome.notifications.onButtonClicked.addListener((_id, buttonIndex) => {
+        if (buttonIndex === 0) {
+            chrome.notifications.clear(nID, function () { });
+        }
+    });
+});
+
+// #endregion
 
 // #region chrome.platformKeys
-
 var data = {
     trusted_l1_leaf_cert: 'l1_leaf.der',
     trusted_l1_interm_cert: 'l1_interm.der',

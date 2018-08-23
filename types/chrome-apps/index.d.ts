@@ -6425,7 +6425,7 @@ declare namespace chrome {
          * @param options Contents of the notification to update to.
          * @param [callback] Called to indicate whether a matching notification existed.
          */
-        function update(notificationId: string, options: NotificationOptions, callback?: (wasUpdated: boolean) => void): void;
+        function update(notificationId: string, options: Partial<NotificationOptions>, callback?: (wasUpdated: boolean) => void): void;
 
         /**
          * Clears the specified notification.
