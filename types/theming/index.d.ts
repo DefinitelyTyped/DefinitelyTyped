@@ -6,7 +6,6 @@
 import * as React from "react";
 
 export type Channel = string;
-// tslint:disable-next-line: no-empty-interface
 export type Theme = object | ((outerTheme: object) => object);
 
 export const channel: "__THEMING__";
