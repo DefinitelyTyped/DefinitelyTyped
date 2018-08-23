@@ -2,10 +2,15 @@ import * as React from "react";
 import {
   channel,
   ContextWithTheme,
+  Theme,
   themeListener,
   ThemeProvider,
   withTheme
 } from "theming";
+
+// Typings currently accept non-plain-objects while they get rejected at runtime.
+// There exists currently no typing for plain objects.
+const runtimeErrorTheme: Theme = [];
 
 const customTheme = {
   color: {
