@@ -49,9 +49,19 @@ export interface PlotCoordinate {
 	pointNumber: number;
 }
 
-export interface PlotSelectionEvent {
-	points: PlotCoordinate[];
+export interface SelectionDescription {
+	x: number[],
+	y: number[],
 }
+
+export type PlotSelectedData = Partial<PlotScatterDataPoint>;
+
+export interface PlotSelectionEvent {
+	points: PlotSelectedData[];
+	range?: SelectionDescription;
+	lassoPoints?: SelectionDescription;
+}
+
 
 export type PlotRestyleEvent = [
 	any,		// update object -- attribute updated: new value
