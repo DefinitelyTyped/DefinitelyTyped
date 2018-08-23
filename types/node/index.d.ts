@@ -1,4 +1,4 @@
-// Type definitions for Node.js 10.7.x
+// Type definitions for Node.js 10.9.x
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <http://typescriptlang.org>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
@@ -186,11 +186,11 @@ interface String {
     trimRight(): string;
 }
 
-/************************************************
-*                                               *
-*                   GLOBAL                      *
-*                                               *
-************************************************/
+/*-----------------------------------------------*
+ *                                               *
+ *                   GLOBAL                      *
+ *                                               *
+ ------------------------------------------------*/
 declare var process: NodeJS.Process;
 declare var global: NodeJS.Global;
 declare var console: Console;
@@ -1289,7 +1289,9 @@ declare module "http" {
     // create interface RequestOptions would make the naming more clear to developers
     export interface RequestOptions extends ClientRequestArgs { }
     export function request(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
+    export function request(url: string | URL, options: RequestOptions, callback?: (res: IncomingMessage) => void): ClientRequest;
     export function get(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
+    export function get(url: string | URL, options: RequestOptions, callback?: (res: IncomingMessage) => void): ClientRequest;
     export var globalAgent: Agent;
 }
 
@@ -1891,7 +1893,9 @@ declare module "https" {
 
     export function createServer(options: ServerOptions, requestListener?: (req: http.IncomingMessage, res: http.ServerResponse) => void): Server;
     export function request(options: RequestOptions | string | URL, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
+    export function request(url: string | URL, options: RequestOptions, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
     export function get(options: RequestOptions | string | URL, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
+    export function get(url: string | URL, options: RequestOptions, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
     export var globalAgent: Agent;
 }
 
