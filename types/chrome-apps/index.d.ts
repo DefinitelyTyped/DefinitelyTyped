@@ -5246,6 +5246,7 @@ declare namespace chrome {
          * @since Chrome 44.
          */
         const MAX_SERVICE_INSTANCES_PER_EVENT: integer;
+
         /**
          * Immediately issues a multicast DNS query for all service types.
          * |callback| is invoked immediately.
@@ -8826,7 +8827,21 @@ declare namespace chrome {
      * @since Chrome 20.
      */
     namespace storage {
-        interface StorageArea {
+        interface StorageAreaRead {
+            /**
+             * Gets one or more items from storage.
+             * @param callback Callback with storage items, or on failure (in which case runtime.lastError will be set).
+             * Parameter items: Object with items in their key-value mappings.
+             */
+            get(callback: (items: { [key: string]: any }) => void): void;
+            /**
+             * Gets one or more items from storage.
+             * @param keys A single key to get, list of keys to get, or a interface specifying default values.
+             * An empty list or object will return an empty result object. Pass in null to get the entire contents of storage.
+             * @param callback Callback with storage items, or on failure (in which case runtime.lastError will be set).
+             * Parameter items: Object with items in their key-value mappings.
+             */
+            get(keys: string | string[] | Object | null, callback: (items: { [key: string]: any }) => void): void;
             /**
              * Gets the amount of space (in bytes) being used by one or more items.
              * @param callback Callback with the amount of space being used by storage, or on failure (in which case runtime.lastError will be set).
@@ -8840,6 +8855,8 @@ declare namespace chrome {
              * Parameter bytesInUse: Amount of space being used in storage, in bytes.
              */
             getBytesInUse(keys: string | string[] | null, callback: (bytesInUse: integer) => void): void;
+        }
+        interface StorageAreaWrite {
             /**
              * Removes all items from storage.
              * @param callback Optional.
@@ -8861,21 +8878,9 @@ declare namespace chrome {
              * Callback on success, or on failure (in which case runtime.lastError will be set).
              */
             remove(keys: string | string[], callback?: () => void): void;
-            /**
-             * Gets one or more items from storage.
-             * @param callback Callback with storage items, or on failure (in which case runtime.lastError will be set).
-             * Parameter items: Object with items in their key-value mappings.
-             */
-            get(callback: (items: { [key: string]: any }) => void): void;
-            /**
-             * Gets one or more items from storage.
-             * @param keys A single key to get, list of keys to get, or a interface specifying default values.
-             * An empty list or object will return an empty result object. Pass in null to get the entire contents of storage.
-             * @param callback Callback with storage items, or on failure (in which case runtime.lastError will be set).
-             * Parameter items: Object with items in their key-value mappings.
-             */
-            get(keys: string | string[] | Object | null, callback: (items: { [key: string]: any }) => void): void;
         }
+
+        interface StorageArea extends StorageAreaRead, StorageAreaWrite { }
 
         interface StorageChange {
             /** The new value of the item, if there is a new value. */
@@ -8885,38 +8890,59 @@ declare namespace chrome {
         }
 
         interface LocalStorageArea extends StorageArea {
-            /** The maximum amount (in bytes) of data that can be stored in local storage,
+            /**
+             * The maximum amount (in bytes) of data that can be stored in local storage,
              * as measured by the JSON stringification of every value plus every key's length.
              * This value will be ignored if the extension has the unlimitedStorage permission.
              * Updates that would cause this limit to be exceeded fail immediately and set runtime.lastError.
+             * @see Permissions: 'unlimitedStorage'
              * @default 5242880
              */
-            QUOTA_BYTES: integer;
+            readonly QUOTA_BYTES: 5242880;
         }
 
         interface SyncStorageArea extends StorageArea {
-            /** @deprecated since Chrome 40. The storage.sync API no longer has a sustained write operation quota. */
-            MAX_SUSTAINED_WRITE_OPERATIONS_PER_MINUTE: chrome.deprecated;
-            /** The maximum total amount (in bytes) of data that can be stored in sync storage, as measured by the JSON stringification of every value plus every key's length. Updates that would cause this limit to be exceeded fail immediately and set runtime.lastError. */
-            QUOTA_BYTES: integer;
-            /** The maximum size (in bytes) of each individual item in sync storage, as measured by the JSON stringification of its value plus its key length. Updates containing items larger than this limit will fail immediately and set runtime.lastError. */
-            QUOTA_BYTES_PER_ITEM: integer;
-            /** The maximum number of items that can be stored in sync storage. Updates that would cause this limit to be exceeded will fail immediately and set runtime.lastError. */
-            MAX_ITEMS: integer;
+            /** The maximum total amount (in bytes) of data that can be stored in
+             * sync storage, as measured by the JSON stringification of every value
+             * plus every key's length. Updates that would cause this limit to be
+             * exceeded fail immediately and set runtime.lastError.
+             */
+            readonly QUOTA_BYTES: 102400;
             /**
-             * The maximum number of set, remove, or clear operations that can be performed each hour. This is 1 every 2 seconds, a lower ceiling than the short term higher writes-per-minute limit.
+             * The maximum size (in bytes) of each individual item in sync storage,
+             * as measured by the JSON stringification of its value plus its key length.
+             * Updates containing items larger than this limit will fail immediately and
+             * set runtime.lastError.
+             */
+            readonly QUOTA_BYTES_PER_ITEM: 8192;
+            /**
+             * The maximum number of items that can be stored in sync storage.
+             * Updates that would cause this limit to be exceeded will fail immediately
+             * and set runtime.lastError.
+             */
+            readonly MAX_ITEMS: 512;
+            /**
+             * The maximum number of set, remove, or clear operations that can be performed each hour.
+             * This is 1 every 2 seconds, a lower ceiling than the short term higher writes-per-minute limit.
              * Updates that would cause this limit to be exceeded fail immediately and set runtime.lastError.
              */
-            MAX_WRITE_OPERATIONS_PER_HOUR: integer;
+            readonly MAX_WRITE_OPERATIONS_PER_HOUR: 1800;
             /**
-             * The maximum number of set, remove, or clear operations that can be performed each minute. This is 2 per second, providing higher throughput than writes-per-hour over a shorter period of time.
+             * The maximum number of set, remove, or clear operations that can be performed each minute.
+             * This is 2 per second, providing higher throughput than writes-per-hour over a shorter period of time.
              * Updates that would cause this limit to be exceeded fail immediately and set runtime.lastError.
              * @since Chrome 40.
              */
-            MAX_WRITE_OPERATIONS_PER_MINUTE: integer;
+            readonly MAX_WRITE_OPERATIONS_PER_MINUTE: 120;
+            /**
+             * @deprecated since Chrome 40.
+             * The storage.sync API no longer has a sustained write operation quota.
+             */
+            readonly MAX_SUSTAINED_WRITE_OPERATIONS_PER_MINUTE: chrome.deprecated;
         }
+        interface ManagedStorageArea extends StorageAreaRead { }
 
-        interface StorageChangedEvent extends chrome.events.Event<(changes: { [key: string]: StorageChange }, areaName: string) => void> { }
+        type StorageAreas = 'local' | 'sync' | 'managed';
 
         /** Items in the local storage area are local to each machine. */
         const local: LocalStorageArea;
@@ -8924,13 +8950,15 @@ declare namespace chrome {
         const sync: SyncStorageArea;
 
         /**
-         * Items in the managed storage area are set by the domain administrator, and are read-only for the extension; trying to modify this namespace  results in an error.
+         * Items in the managed storage area are set by the domain administrator,
+         * and are read-only for the extension; trying to modify this namespace
+         * results in an error.
          * @since Chrome 33.
          */
-        const managed: StorageArea;
+        const managed: ManagedStorageArea;
 
         /** Fired when one or more items change. */
-        const onChanged: StorageChangedEvent;
+        const onChanged: chrome.events.Event<(changes: { [key: string]: StorageChange }, areaName: StorageAreas) => void>;
     }
     // #endregion
 

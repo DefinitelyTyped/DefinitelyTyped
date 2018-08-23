@@ -833,7 +833,7 @@ chrome.mdns.onServiceList.addListener(
     () => { },
     { 'serviceType': 'definitelyTyped._tcp.local' });
 chrome.mdns.onServiceList.addListener(function (services) {
-    chrome.mdns.forceDiscovery(() => { return true; });
+    chrome.mdns.forceDiscovery(() => { return chrome.mdns.MAX_SERVICE_INSTANCES_PER_EVENT === 2048; });
 }, { 'serviceType': '_googlecast._tcp.local' });
 // #endregion
 
@@ -1233,7 +1233,44 @@ chrome.sockets.udp.create({}, (createInfo) => {
 
 // #endregion
 
-chrome.storage; // @todo TODO Tests
+// #region chrome.storage
+
+// LOCAL
+chrome.storage.local.clear();
+chrome.storage.local.clear(() => { });
+chrome.storage.local.get('test', () => { });
+chrome.storage.local.get(() => { });
+chrome.storage.local.getBytesInUse((bytesInUse) => {
+    return (bytesInUse > 100);
+});
+chrome.storage.local.set({ data: 'example' }, () => { console.log('done'); });
+
+// SYNC
+chrome.storage.sync.clear();
+chrome.storage.sync.clear(() => { });
+chrome.storage.sync.get('test', () => { });
+chrome.storage.sync.get(() => { });
+chrome.storage.sync.getBytesInUse((bytesInUse) => {
+    return (bytesInUse > 100);
+});
+chrome.storage.sync.set({ data: 'example' }, () => { console.log('done'); });
+
+// MANAGED
+chrome.storage.managed.get('test', () => { });
+chrome.storage.managed.get(() => { });
+chrome.storage.managed.getBytesInUse((bytesInUse) => {
+    return (bytesInUse > 100);
+});
+// chrome.storage.managed.set({ data: 'example' }, () => { console.log('done'); }); // Should not be allowed
+
+// EVENT
+chrome.storage.onChanged.addListener((changes, areaName) => {
+    if (changes.length > 0) {
+        return areaName === 'managed';
+    }
+});
+
+// #endregion
 
 // #region chrome.syncFileSystem
 
