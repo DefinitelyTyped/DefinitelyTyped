@@ -1,4 +1,4 @@
-// Type definitions for Mapbox GL JS v0.47.0
+// Type definitions for Mapbox GL JS v0.48.0
 // Project: https://github.com/mapbox/mapbox-gl-js
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>, Patrick Reames <https://github.com/patrickr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -226,6 +226,10 @@ declare namespace mapboxgl {
         /** ID of the container element */
         container?: string | Element;
 
+        /** String or strings to show in an AttributionControl.
+         * Only applicable if options.attributionControl is `true`. */
+        customAttribution?: string | string[];
+
         /** If true, enable the "drag to pan" interaction (see DragPanHandler). */
         dragPan?: boolean;
 
@@ -441,7 +445,7 @@ declare namespace mapboxgl {
      * Attribution
      */
     export class AttributionControl extends Control {
-        constructor(options?: { compact?: boolean });
+        constructor(options?: { compact?: boolean, customAttribution?: string | string[] });
     }
 
     /**
