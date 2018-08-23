@@ -423,7 +423,7 @@ export type Color = string | Array<string | undefined | null> | Array<Array<stri
 
 // Bar Scatter
 export interface ScatterData {
-	type: 'bar' | 'pointcloud' | 'scatter' | 'scattergl' | 'scatter3d' |'surface';
+	type: 'bar' | 'histogram' | 'pointcloud' | 'scatter' | 'scattergl' | 'scatter3d' |'surface';
 	x: Datum[] | Datum[][] | TypedArray;
 	y: Datum[] | Datum[][] | TypedArray;
 	z: Datum[] | Datum[][] | Datum[][][] | TypedArray;
