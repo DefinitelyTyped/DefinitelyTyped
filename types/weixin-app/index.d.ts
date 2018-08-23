@@ -3166,6 +3166,38 @@ declare namespace wx {
         touches: Touch[];
         changedTouches: Touch[];
     }
+
+    /**
+     * WXML节点布局相交状态
+     */
+    interface createIntersectionObserverOption {
+        thresholds?: number[];
+        initialRatio?: number;
+        selectAll?: boolean;
+    }
+    type margins = {
+        left?: number;
+        right?: number;
+        top?: number;
+        bottom?: number;
+    }
+    type callback = () => void;
+    type observeResponse = {
+        intersectionRatio: number; // 相交区域占目标节点的布局区域的比例
+        intersectionRect: {
+            left: number; // 相交区域的左边界坐标
+            top: number; // 相交区域的上边界坐标
+            width: number; // 相交区域的宽度
+            height: number; // 相交区域的高度
+        }
+    }
+    interface createIntersectionObserverCallBack {
+        relativeTo: (selector?: string, margins?: margins) => createIntersectionObserverCallBack;
+        relativeToViewport: (margins?: margins) => createIntersectionObserverCallBack;
+        observe: (selector?: string, callback?: (response: observeResponse) => void) => createIntersectionObserverCallBack;
+        disconnect: () => void;
+    }
+    function createIntersectionObserver(options?: createIntersectionObserverOption): createIntersectionObserverCallBack
     // #endregion
 }
 // #region App里的onLaunch、onShow回调参数
