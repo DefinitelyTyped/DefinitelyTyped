@@ -390,7 +390,7 @@ class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListVi
                         throw new Error("Expected scroll to be enabled.");
                     }
 
-                    return <ScrollView horizontal={true} contentOffset={{x: 0, y: 0}} {...props} style={[scrollViewStyle1.scrollView, scrollViewStyle2]} />;
+                    return <ScrollView horizontal={true} nestedScrollEnabled={true} contentOffset={{x: 0, y: 0}} {...props} style={[scrollViewStyle1.scrollView, scrollViewStyle2]} />;
                 }}
                 renderRow={({ type, data }, _, row) => {
                     return <Text>Filler</Text>;
