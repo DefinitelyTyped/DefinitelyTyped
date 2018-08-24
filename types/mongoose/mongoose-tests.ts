@@ -401,7 +401,7 @@ preHookTestSchemaArr.push(
   }, err => {})
 );
 preHookTestSchemaArr.push(
-  schema.pre("insertMany", true, function(next, done, , docs) {
+  schema.pre("insertMany", true, function(next, done, docs) {
     const isDefaultType: mongoose.Model<mongoose.Document> = this;
   }, err => {})
 );
