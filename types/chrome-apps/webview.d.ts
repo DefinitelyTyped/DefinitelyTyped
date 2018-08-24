@@ -444,26 +444,107 @@ declare class HTMLWebViewElement extends HTMLElement {
 
 
     ///
-    /// DOM
+    /// DOM Events
     ///
 
-    onconsolemessage?: WebView.Events.ConsoleMessage | null;
-    oncontentload?: WebView.Events.ContentLoad | null;
-    ondialog?: WebView.Events.Dialog | null;
-    onexit?: WebView.Events.Exit | null;
-    onfindupdate?: WebView.Events.FindUpdate | null;
-    onloadabort?: WebView.Events.LoadAbort | null;
-    onloadcommit?: WebView.Events.LoadCommit | null;
-    onloadredirect?: WebView.Events.LoadRedirect | null;
-    onloadstop?: WebView.Events.LoadStop | null;
-    onnewwwindow?: WebView.Events.NewWindow | null;
-    onpermissionrequest?: WebView.Events.PermissionRequest | null;
-    onresponsive?: WebView.Events.Responsive | null;
-    onsizechanged?: WebView.Events.SizeChanged | null;
-    onunresponsive?: WebView.Events.Unresponsive | null;
-    onzoomchange?: WebView.Events.ZoomChange | null;
+    /** Fired when the guest window attempts to close itself. */
+    onclose: WebView.Events.Close | null;
+    /** Fired when the guest window logs a console message. */
+    onconsolemessage: WebView.Events.ConsoleMessage | null;
+    /**
+     * Fired when the guest window fires a load event, i.e.,
+     * when a new document is loaded. This does not include
+     * page navigation within the current document or
+     * asynchronous resource loads.
+     */
+    oncontentload: WebView.Events.ContentLoad | null;
+    /**
+     * Fired when the guest window attempts to open a modal dialog via
+     * window.alert, window.confirm, or window.prompt.
+     * Handling this event will block the guest process until each event listener
+     * returns or the dialog object becomes unreachable
+     * (if preventDefault() was called.)
+     */
+    ondialog: WebView.Events.Dialog | null;
+    /**
+     * Fired when the process rendering the guest web content has exited.
+     */
+    onexit: WebView.Events.Exit | null;
+    /**
+     * Fired when new find results are available for an active find request.
+     * This might happen multiple times for a single find request as matches are found.
+     */
+    onfindupdate: WebView.Events.FindUpdate | null;
+    /**
+     * Fired when a top-level load has aborted without committing.
+     * An error message will be printed to the console unless the
+     * event is default-prevented.
+     *
+     * Note: When a resource load is aborted, a loadabort event will
+     * eventually be followed by a loadstop event, even if all
+     * committed loads since the last loadstop event (if any) were aborted.
+     *
+     * Note: When the load of either an about URL or a JavaScript URL is aborted,
+     * loadabort will be fired and then the webview will be navigated to 'about:blank'.
+     */
+    onloadabort: WebView.Events.LoadAbort | null;
+    /**
+     * Fired when a load has committed. This includes navigation within the current document
+     * as well as subframe document-level loads, but does not include asynchronous resource loads.
+     */
+    onloadcommit: WebView.Events.LoadCommit | null;
+    /**
+     * Fired when a top-level load request has redirected to a different URL.
+     */
+    onloadredirect: WebView.Events.LoadRedirect | null;
+    /**
+     * Fired when all frame-level loads in a guest page (including all its subframes)
+     * have completed. This includes navigation within the current document as well
+     * as subframe document-level loads, but does not include asynchronous resource
+     * loads. This event fires every time the number of document-level loads
+     * transitions from one (or more) to zero. For example, if a page that has
+     * already finished loading (i.e., loadstop already fired once) creates a new
+     * iframe which loads a page, then a second loadstop will fire when the iframe
+     * page load completes. This pattern is commonly observed on pages that load ads.
+     *
+     * Note: When a committed load is aborted, a loadstop event will eventually
+     * follow a loadabort event, even if all committed loads since the last loadstop
+     * event (if any) were aborted.
+     */
+    onloadstop: WebView.Events.LoadStop | null;
+    /**
+     * Fired when the guest page attempts to open a new browser window.
+     */
+    onnewwwindow: WebView.Events.NewWindow | null;
+    /**
+     * Fired when the guest page needs to request special permission from the embedder.
+     */
+    onpermissionrequest: WebView.Events.PermissionRequest | null;
+    /**
+     * Fired when the process rendering the guest web content has become responsive again after being unresponsive.
+     */
+    onresponsive: WebView.Events.Responsive | null;
+    /**
+     * @requires autosize: enabled
+     * Fired when the embedded web content has been resized via autosize.
+     * Only fires if autosize is enabled.
+     */
+    onsizechanged: WebView.Events.SizeChanged | null;
+    /**
+     * Fired when the process rendering the guest web content has become unresponsive.
+     * This event will be generated once with a matching responsive event if the guest
+     * begins to respond again.
+     */
+    onunresponsive: WebView.Events.Unresponsive | null;
+    /**
+     * Fired when the page's zoom changes.
+     */
+    onzoomchange: WebView.Events.ZoomChange | null;
 }
 declare namespace WebView {
+    /**
+     * WebView Events are different from Chrome Events, they extend the normal DOM Events.
+     */
     namespace Events {
         type Close = (this: HTMLWebViewElement) => void;
         type ConsoleMessage = (this: HTMLWebViewElement, ev: Event & WebView.ConsoleMessage) => void;
