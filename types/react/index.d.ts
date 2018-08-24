@@ -1441,6 +1441,7 @@ declare namespace React {
     }
 
     interface IframeHTMLAttributes<T> extends HTMLAttributes<T> {
+        allow?: string;
         allowFullScreen?: boolean;
         allowTransparency?: boolean;
         frameBorder?: number | string;
