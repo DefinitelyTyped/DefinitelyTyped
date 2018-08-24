@@ -1,4 +1,4 @@
-// Type definitions for Mongoose 5.2.2
+// Type definitions for Mongoose 5.2.3
 // Project: http://mongoosejs.com/
 // Definitions by: horiuchi <https://github.com/horiuchi>
 //                 sindrenm <https://github.com/sindrenm>
@@ -2408,6 +2408,13 @@ declare module "mongoose" {
      * @param tags optional tags for this query
      */
     read(pref: string, tags?: any[]): this;
+
+    /**
+     * Appends a new $replaceRoot operator to this aggregate pipeline.
+     * Note that the $replaceRoot operator requires field strings to start with '$'. If you are passing in a string Mongoose will prepend '$' if the specified field doesn't start '$'. If you are passing in an object the strings in your expression will not be altered.
+     * @param newRoot field or document which will become the new root document
+     */
+    replaceRoot(newRoot: string | object): this;
 
     /**
      * Appends new custom $sample operator(s) to this aggregate pipeline.

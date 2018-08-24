@@ -782,6 +782,8 @@ namespace util_tests {
         });
         assert(typeof util.inspect.custom === 'symbol');
 
+        util.formatWithOptions({ colors: true }, 'See object %O', { foo: 42 });
+
         // util.callbackify
         // tslint:disable-next-line no-unnecessary-class
         class callbackifyTest {

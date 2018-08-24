@@ -468,11 +468,11 @@ declare var Buffer: {
     poolSize: number;
 };
 
-/************************************************
+/*----------------------------------------------*
 *                                               *
 *               GLOBAL INTERFACES               *
 *                                               *
-************************************************/
+*-----------------------------------------------*/
 declare namespace NodeJS {
     export interface InspectOptions {
         showHidden?: boolean;
@@ -988,11 +988,11 @@ declare namespace NodeJS {
 
 interface IterableIterator<T> { }
 
-/************************************************
+/*----------------------------------------------*
 *                                               *
 *                   MODULES                     *
 *                                               *
-************************************************/
+*-----------------------------------------------*/
 declare module "buffer" {
     export var INSPECT_MAX_BYTES: number;
     var BuffType: typeof Buffer;
@@ -1710,6 +1710,7 @@ declare module "os" {
         netmask: string;
         mac: string;
         internal: boolean;
+        cidr: string | null;
     }
 
     export interface NetworkInterfaceInfoIPv4 extends NetworkInterfaceBase {
@@ -6331,6 +6332,7 @@ declare module "stream" {
 declare module "util" {
     export interface InspectOptions extends NodeJS.InspectOptions { }
     export function format(format: any, ...param: any[]): string;
+    export function formatWithOptions(inspectOptions: InspectOptions, format: string, ...param: any[]): string;
     /** @deprecated since v0.11.3 - use `console.error()` instead. */
     export function debug(string: string): void;
     /** @deprecated since v0.11.3 - use `console.error()` instead. */
