@@ -7,6 +7,8 @@
 //                 Beeno Tung <https://github.com/beenotung>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
+
 declare module "node-forge" {
     type Byte = string;
     type Bytes = string;
