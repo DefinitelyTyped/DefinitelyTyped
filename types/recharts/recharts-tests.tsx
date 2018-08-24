@@ -98,7 +98,7 @@ class Component extends React.Component<{}, ComponentState> {
                         <Line type="monotone" dataKey="pv" stroke="#82ca9d" />
                         <Tooltip />
                         <Brush dataKey="name" />
-                        <ReferenceLine />
+                        <ReferenceLine label={"reference"} />
                         <ReferenceArea
                             stroke="red"
                             fill="red"

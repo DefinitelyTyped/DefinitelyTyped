@@ -678,6 +678,7 @@ export interface ReferenceLineProps extends Partial<PresentationAttributes<numbe
     alwaysShow?: boolean;
     x?: number | string;
     y?: number | string;
+    label?: string | number | ContentRenderer<any> | React.ReactElement<any>;
     xAxisId?: string | number;
     yAxisId?: string | number;
     shape?: ContentRenderer<
