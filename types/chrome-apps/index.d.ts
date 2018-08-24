@@ -2940,25 +2940,19 @@ declare namespace chrome {
             /**
              * Registers an event listener callback to an event.
              * @param callback Called when an event occurs. The parameters of this function depend on the type of event.
-             * The callback parameter should be a function that looks like this:
-             * function() {...};
              */
             addListener(callback: T): void;
             /**
              * Returns currently registered rules.
              * @param callback Called with registered rules.
-             * The callback parameter should be a function that looks like this:
-             * function(array of Rule rules) {...};
-             * Parameter rules: Rules that were registered, the optional parameters are filled with values.
+             * Parameter *rules*: Rules that were registered, the optional parameters are filled with values.
              */
             getRules(callback: (rules: Rule[]) => void): void;
             /**
              * Returns currently registered rules.
              * @param ruleIdentifiers If an array is passed, only rules with identifiers contained in this array are returned.
              * @param callback Called with registered rules.
-             * The callback parameter should be a function that looks like this:
-             * function(array of Rule rules) {...};
-             * Parameter rules: Rules that were registered, the optional parameters are filled with values.
+             * Parameter *rules*: Rules that were registered, the optional parameters are filled with values.
              */
             getRules(ruleIdentifiers: string[], callback: (rules: Rule[]) => void): void;
             /**

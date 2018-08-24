@@ -14,31 +14,6 @@
  */
 
 declare class HTMLWebViewElement extends HTMLElement {
-    /** Create a new element */
-    constructor ();
-
-    /** This sets the guest content's window.name object.**/
-    name: string;
-
-    /**
-     * Returns the visible URL. Mirrors the logic in the browser's omnibox: either returning a pending new navigation if initiated by the embedder page, or the last committed navigation. Writing to this attribute initiates top-level navigation.
-     * Assigning src its own value will reload the current page.
-     * The src attribute cannot be cleared or removed once it has been set, unless the webview is removed from the DOM.
-     * The src attribute can also accept data URLs, such as 'data:text/plain,Hello, world!'.
-     */
-    src: string;
-
-    /**
-     * Storage partition ID used by the webview tag.
-     * If the storage partition ID starts with persist: (partition='persist:googlepluswidgets'),
-     * the webview will use a persistent storage partition available to all guests in the app with the same storage partition ID.
-     * If the ID is unset or if there is no 'persist': prefix, the webview will use an in-memory storage partition.
-     * his value can only be modified before the first navigation, since the storage partition of an active renderer process cannot change.
-     * Subsequent attempts to modify the value will fail with a DOM exception.
-     * By assigning the same partition ID, multiple webviews can share the same storage partition.
-     */
-    partition?: string;
-
     /**
      * If present, portions of the embedder could be visible through the webview,
      * where the contents are transparent. Without allowtransparency enabled,
@@ -55,28 +30,54 @@ declare class HTMLWebViewElement extends HTMLElement {
      */
     autosize?: 'on';
 
+    /** Similar to chrome's ContextMenus API, but applies to webview instead of browser.
+         * Use the webview.contextMenus API to add items to webview's context menu.
+         * You can choose what types of objects your context menu additions apply to, such as images, hyperlinks, and pages. */
+    contextMenus: WebView.ContextMenus;
+
     /**
      * Object reference which can be used to post messages into the guest page.
      */
     contentWindow: WebView.ContentWindow;
 
+    /** This sets the guest content's window.name object.**/
+    name: string;
+
+    /**
+     * Storage partition ID used by the webview tag.
+     * If the storage partition ID starts with persist: (partition='persist:googlepluswidgets'),
+     * the webview will use a persistent storage partition available to all guests in the app with the same storage partition ID.
+     * If the ID is unset or if there is no 'persist': prefix, the webview will use an in-memory storage partition.
+     * his value can only be modified before the first navigation, since the storage partition of an active renderer process cannot change.
+     * Subsequent attempts to modify the value will fail with a DOM exception.
+     * By assigning the same partition ID, multiple webviews can share the same storage partition.
+     */
+    partition?: string;
+
     /** Interface which provides access to webRequest events on the guest page. */
     request: WebView.WebRequestEventInterface;
 
-    /** Similar to chrome's ContextMenus API, but applies to webview instead of browser.
-     * Use the webview.contextMenus API to add items to webview's context menu.
-     * You can choose what types of objects your context menu additions apply to, such as images, hyperlinks, and pages. */
-    contextMenus: WebView.ContextMenus;
+    /**
+     * Returns the visible URL. Mirrors the logic in the browser's omnibox: either returning a pending new navigation if initiated by the embedder page, or the last committed navigation. Writing to this attribute initiates top-level navigation.
+     * Assigning src its own value will reload the current page.
+     * The src attribute cannot be cleared or removed once it has been set, unless the webview is removed from the DOM.
+     * The src attribute can also accept data URLs, such as 'data:text/plain,Hello, world!'.
+     */
+    src: string;
+
+    /** Create a new element */
+    constructor ();
+
     /**
      * Fired when the guest window attempts to close itself.
      * The following example code navigates the webview to about:blank when the guest attempts to close itself.
      */
-    addEventListener(type: 'close', listener: (this: HTMLWebViewElement) => void, useCapture?: boolean): void;
+    addEventListener(type: 'close', listener: WebView.Events.Close, useCapture?: boolean): void;
     /**
      * Fired when the guest window logs a console message.
      * The following example code forwards all log messages to the embedder's console without regard for log level or other properties.
      */
-    addEventListener(type: 'consolemessage', listener: (this: HTMLWebViewElement, ev: WebView.ConsoleMessage) => void, useCapture?: boolean): void;
+    addEventListener(type: 'consolemessage', listener: WebView.Events.ConsoleMessage, useCapture?: boolean): void;
     /**
      * Fired when the guest window fires a load event, i.e., when a new document is loaded. This does not include page navigation within the current document or asynchronous resource loads.
      * The following example code modifies the default font size of the guest's body element after the page loads:
@@ -85,39 +86,39 @@ declare class HTMLWebViewElement extends HTMLElement {
      *  webview.executeScript({ code: 'document.body.style.fontSize = '42px'' })
      * });
      */
-    addEventListener(type: 'contentload', listener: (this: HTMLWebViewElement) => void, useCapture?: boolean): void;
+    addEventListener(type: 'contentload', listener: WebView.Events.ContentLoad, useCapture?: boolean): void;
     /**
      * Fired when the guest window attempts to open a modal dialog via window.alert, window.confirm, or window.prompt.
      * Handling this event will block the guest process until each event listener returns or the dialog object becomes unreachable (if preventDefault() was called.)
      * The default behavior is to cancel the dialog.
      */
-    addEventListener(type: 'dialog', listener: (this: HTMLWebViewElement, ev: WebView.Dialog) => void, useCapture?: boolean): void;
+    addEventListener(type: 'dialog', listener: WebView.Events.Dialog, useCapture?: boolean): void;
     /**
      * Fired when the process rendering the guest web content has exited.
      */
-    addEventListener(type: 'exit', listener: (this: HTMLWebViewElement, ev: WebView.Exit) => void, useCapture?: boolean): void;
+    addEventListener(type: 'exit', listener: WebView.Events.Exit, useCapture?: boolean): void;
     /**
      * Fired when new find results are available for an active find request. This might happen multiple times for a single find request as matches are found.
      */
-    addEventListener(type: 'findupdate', listener: (this: HTMLWebViewElement, ev: WebView.FindUpdate) => void, useCapture?: boolean): void;
+    addEventListener(type: 'findupdate', listener: WebView.Events.FindUpdate, useCapture?: boolean): void;
     /**
      * Fired when a top-level load has aborted without committing. An error message will be printed to the console unless the event is default-prevented.
      * Note: When a resource load is aborted, a loadabort event will eventually be followed by a loadstop event, even if all committed loads since the last loadstop event (if any) were aborted.
      * Note: When the load of either an about URL or a JavaScript URL is aborted, loadabort will be fired and then the webview will be navigated to 'about:blank'.
      */
-    addEventListener(type: 'loadabort', listener: (this: HTMLWebViewElement, ev: WebView.LoadAbort) => void, useCapture?: boolean): void;
+    addEventListener(type: 'loadabort', listener: WebView.Events.LoadAbort, useCapture?: boolean): void;
     /**
      * Fired when a load has committed. This includes navigation within the current document as well as subframe document-level loads, but does not include asynchronous resource loads.
      */
-    addEventListener(type: 'loadcommit', listener: (this: HTMLWebViewElement, ev: WebView.LoadCommit) => void, useCapture?: boolean): void;
+    addEventListener(type: 'loadcommit', listener: WebView.Events.LoadCommit, useCapture?: boolean): void;
     /**
      * Fired when a top-level load request has redirected to a different URL.
      */
-    addEventListener(type: 'loadredirect', listener: (this: HTMLWebViewElement, ev: WebView.LoadRedirect) => void, useCapture?: boolean): void;
+    addEventListener(type: 'loadredirect', listener: WebView.Events.LoadRedirect, useCapture?: boolean): void;
     /**
      * Fired when a load has begun.
      */
-    addEventListener(type: 'loadstart', listener: (this: HTMLWebViewElement, ev: WebView.LoadStart) => void, useCapture?: boolean): void;
+    addEventListener(type: 'loadstart', listener: WebView.Events.LoadStart, useCapture?: boolean): void;
     /**
      * Fired when all frame-level loads in a guest page (including all its subframes) have completed.
      * This includes navigation within the current document as well as subframe document-level loads, but does not include asynchronous resource loads.
@@ -125,7 +126,7 @@ declare class HTMLWebViewElement extends HTMLElement {
      * This pattern is commonly observed on pages that load ads.
      * Note: When a committed load is aborted, a loadstop event will eventually follow a loadabort event, even if all committed loads since the last loadstop event (if any) were aborted.
      */
-    addEventListener(type: 'loadstop', listener: (this: HTMLWebViewElement) => void, useCapture?: boolean): void;
+    addEventListener(type: 'loadstop', listener: WebView.Events.LoadStop, useCapture?: boolean): void;
     /**
      * Fired when the guest page attempts to open a new browser window.
      * The following example code will create and navigate a new webview in the embedder for each requested new window:
@@ -136,7 +137,7 @@ declare class HTMLWebViewElement extends HTMLElement {
      *  e.window.attach(newWebview);
      * });
      */
-    addEventListener(type: 'newwindow', listener: (this: HTMLWebViewElement, ev: WebView.NewWindow) => void, useCapture?: boolean): void;
+    addEventListener(type: 'newwindow', listener: WebView.Events.NewWindow, useCapture?: boolean): void;
     /**
      * Fired when the guest page needs to request special permission from the embedder.
      * The following example code will grant the guest page access to the webkitGetUserMedia API.
@@ -148,15 +149,15 @@ declare class HTMLWebViewElement extends HTMLElement {
      *  }
      * });
      */
-    addEventListener(type: 'permissionrequest', listener: (this: HTMLWebViewElement, ev: WebView.PermissionRequest) => void, useCapture?: boolean): void;
+    addEventListener(type: 'permissionrequest', listener: WebView.Events.PermissionRequest, useCapture?: boolean): void;
     /** Fired when the process rendering the guest web content has become responsive again after being unresponsive. */
-    addEventListener(type: 'response', listener: (this: HTMLWebViewElement, ev: WebView.ProcessResponsive) => void, useCapture?: boolean): void;
+    addEventListener(type: 'responsive', listener: WebView.Events.Responsive, useCapture?: boolean): void;
     /** Fired when the embedded web content has been resized via autosize. Only fires if autosize is enabled. */
-    addEventListener(type: 'sizechanged', listener: (this: HTMLWebViewElement, ev: WebView.SizeChanged) => void, useCapture?: boolean): void;
+    addEventListener(type: 'sizechanged', listener: WebView.Events.SizeChanged, useCapture?: boolean): void;
     /** Fired when the process rendering the guest web content has become unresponsive. This event will be generated once with a matching responsive event if the guest begins to respond again. */
-    addEventListener(type: 'unresponsive', listener: (this: HTMLWebViewElement, ev: WebView.ProcessUnresponsive) => void, useCapture?: boolean): void;
+    addEventListener(type: 'unresponsive', listener: WebView.Events.Unresponsive, useCapture?: boolean): void;
     /** Fired when the page's zoom changes. */
-    addEventListener(type: 'zoomchange', listener: (this: HTMLWebViewElement, ev: WebView.ZoomChange) => void, useCapture?: boolean): void;
+    addEventListener(type: 'zoomchange', listener: WebView.Events.ZoomChange, useCapture?: boolean): void;
     /**
      * Queries audio state.
      * @since Chrome 62.
@@ -413,7 +414,6 @@ declare class HTMLWebViewElement extends HTMLElement {
     stop(): void;
 
     /**
-     * @todo TODO Fix action param
      * Ends the current find session (clearing all highlighting)
      * and cancels all find requests in progress.
      * @param action Determines what to do with the active match after the find session has ended.
@@ -441,8 +441,49 @@ declare class HTMLWebViewElement extends HTMLElement {
      * but it will not affect webview tags in other apps.
      */
     terminate(): void;
+
+
+    ///
+    /// DOM
+    ///
+
+    onconsolemessage?: WebView.Events.ConsoleMessage | null;
+    oncontentload?: WebView.Events.ContentLoad | null;
+    ondialog?: WebView.Events.Dialog | null;
+    onexit?: WebView.Events.Exit | null;
+    onfindupdate?: WebView.Events.FindUpdate | null;
+    onloadabort?: WebView.Events.LoadAbort | null;
+    onloadcommit?: WebView.Events.LoadCommit | null;
+    onloadredirect?: WebView.Events.LoadRedirect | null;
+    onloadstop?: WebView.Events.LoadStop | null;
+    onnewwwindow?: WebView.Events.NewWindow | null;
+    onpermissionrequest?: WebView.Events.PermissionRequest | null;
+    onresponsive?: WebView.Events.Responsive | null;
+    onsizechanged?: WebView.Events.SizeChanged | null;
+    onunresponsive?: WebView.Events.Unresponsive | null;
+    onzoomchange?: WebView.Events.ZoomChange | null;
 }
 declare namespace WebView {
+    namespace Events {
+        type Close = (this: HTMLWebViewElement) => void;
+        type ConsoleMessage = (this: HTMLWebViewElement, ev: Event & WebView.ConsoleMessage) => void;
+        type ContentLoad = (this: HTMLWebViewElement) => void;
+        type Dialog = (this: HTMLWebViewElement, ev: Event & WebView.Dialog) => void;
+        type Exit = (this: HTMLWebViewElement, ev: Event & WebView.Exit) => void;
+        type FindUpdate = (this: HTMLWebViewElement, ev: Event & WebView.FindUpdate) => void;
+        type LoadAbort = (this: HTMLWebViewElement, ev: Event & WebView.LoadAbort) => void;
+        type LoadCommit = (this: HTMLWebViewElement, ev: Event & WebView.LoadCommit) => void;
+        type LoadRedirect = (this: HTMLWebViewElement, ev: Event & WebView.LoadRedirect) => void;
+        type LoadStart = (this: HTMLWebViewElement, ev: Event & WebView.LoadStart) => void;
+        type LoadStop = (this: HTMLWebViewElement) => void;
+        type NewWindow = (this: HTMLWebViewElement, ev: Event & WebView.NewWindow) => void;
+        type PermissionRequest = (this: HTMLWebViewElement, ev: Event & WebView.PermissionRequest) => void;
+        type Responsive = (this: HTMLWebViewElement, ev: Event & WebView.ProcessResponsive) => void;
+        type SizeChanged = (this: HTMLWebViewElement, ev: Event & WebView.SizeChanged) => void;
+        type Unresponsive = (this: HTMLWebViewElement, ev: Event & WebView.ProcessUnresponsive) => void;
+        type ZoomChange = (this: HTMLWebViewElement, ev: Event & WebView.ZoomChange) => void;
+    }
+
     /** Options that determine what data should be cleared by *clearData* */
     interface ClearDataOptions {
         /**

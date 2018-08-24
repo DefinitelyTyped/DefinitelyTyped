@@ -87,109 +87,109 @@ window.onload = () => {
 
 const ManifestJSONTest1: chrome.runtime.Manifest = {
     manifest_version: 2,
-    name: "Sample Appview Embedded - modified for manifest test",
-    description: "__MSG_appDescription__",
-    version: "2.1",
-    minimum_chrome_version: "33.0.1715.0",
-    default_locale: "en",
+    name: 'Sample Appview Embedded - modified for manifest test',
+    description: '__MSG_appDescription__',
+    version: '2.1',
+    minimum_chrome_version: '33.0.1715.0',
+    default_locale: 'en',
     file_browser_handlers: [
         {
-            id: "ReadOnly",
-            default_title: "Test read-only action.",
-            default_icon: "icon.png",
-            file_filters: ["filesystem:*.xul"],
-            file_access: ["read"]
+            id: 'ReadOnly',
+            default_title: 'Test read-only action.',
+            default_icon: 'icon.png',
+            file_filters: ['filesystem:*.xul'],
+            file_access: ['read']
         },
         {
-            id: "ReadWrite",
-            default_title: "Test read-write action",
-            default_icon: "icon.png",
-            file_filters: ["filesystem:*.tiff"]
+            id: 'ReadWrite',
+            default_title: 'Test read-write action',
+            default_icon: 'icon.png',
+            file_filters: ['filesystem:*.tiff']
         }
     ],
     file_system_provider_capabilities: {
         configurable: false,
         multiple_mounts: true,
-        source: "network"
+        source: 'network'
     },
     platforms: [{
-        nacl_arch: "x86-64",
-        sub_package_path: "_platform_specific/x86-64/"
+        nacl_arch: 'x86-64',
+        sub_package_path: '_platform_specific/x86-64/'
     }, {
-        nacl_arch: "x86-32",
-        sub_package_path: "_platform_specific/x86-32/"
+        nacl_arch: 'x86-32',
+        sub_package_path: '_platform_specific/x86-32/'
     }, {
-        nacl_arch: "arm",
-        sub_package_path: "_platform_specific/arm/"
+        nacl_arch: 'arm',
+        sub_package_path: '_platform_specific/arm/'
     }],
     permissions: [
-        "https://www.google-analytics.com/*",
-        "http://localhost:8080/*",
-        "https://www.googleapis.com/*",
-        "identity",
-        "terminalPrivate",
-        "app.window.alpha", "app.window.shape",
-        "experimental",
-        "webview",
-        "alarms",
-        "storage",
-        "videoCapture",
-        "browser",
-        "clipboardWrite",
-        "usb",
-        "metricsPrivate", "networkingPrivate",
-        "bluetooth",
-        "unlimitedStorage",
+        'https://www.google-analytics.com/*',
+        'http://localhost:8080/*',
+        'https://www.googleapis.com/*',
+        'identity',
+        'terminalPrivate',
+        'app.window.alpha', 'app.window.shape',
+        'experimental',
+        'webview',
+        'alarms',
+        'storage',
+        'videoCapture',
+        'browser',
+        'clipboardWrite',
+        'usb',
+        'metricsPrivate', 'networkingPrivate',
+        'bluetooth',
+        'unlimitedStorage',
         {
-            fileSystem: ["write", "retainEntries", "directory"]
+            fileSystem: ['write', 'retainEntries', 'directory']
         },
-        "clipboardRead",
-        "desktopCapture",
-        "clipboardWrite",
-        "pointerLock",
-        "<all_urls>",
-        "mdns",
-        "gcm",
-        "power",
-        "cookies", "tabs",
-        "http://*/*",
-        "https://*/*",
-        "file:///*/*",
-        "idle",
-        "app.window.fullscreen",
-        "app.window.fullscreen.overrideEsc",
-        "contextMenus",
-        "browser",
-        "system.cpu", "system.memory", "system.storage", "system.display",
-        "notifications",
-        "*://*/*",
-        "accessibilityFeatures.read", "accessibilityFeatures.modify",
-        "tts",
-        "fullscreen", "alwaysOnTopWindows",
-        "geolocation",
-        "audioCapture",
-        "hid",
-        "metricsPrivate", "nativeMessaging",
-        "management", "developerPrivate", "activityLogPrivate",
+        'clipboardRead',
+        'desktopCapture',
+        'clipboardWrite',
+        'pointerLock',
+        '<all_urls>',
+        'mdns',
+        'gcm',
+        'power',
+        'cookies', 'tabs',
+        'http://*/*',
+        'https://*/*',
+        'file:///*/*',
+        'idle',
+        'app.window.fullscreen',
+        'app.window.fullscreen.overrideEsc',
+        'contextMenus',
+        'browser',
+        'system.cpu', 'system.memory', 'system.storage', 'system.display',
+        'notifications',
+        '*://*/*',
+        'accessibilityFeatures.read', 'accessibilityFeatures.modify',
+        'tts',
+        'fullscreen', 'alwaysOnTopWindows',
+        'geolocation',
+        'audioCapture',
+        'hid',
+        'metricsPrivate', 'nativeMessaging',
+        'management', 'developerPrivate', 'activityLogPrivate',
         {
-            mediaGalleries: ["read", "allAutoDetected"]
+            mediaGalleries: ['read', 'allAutoDetected']
         },
         {
             socket: [
-                "udp-send-to::*",
-                "tcp-connect",
-                "udp-send-to",
-                "udp-bind",
-                "udp-multicast-membership",
-                "resolve-host",
-                "network-state",
-                "tcp-connect",
-                "resolve-host",
-                "network-state"
+                'udp-send-to::*',
+                'tcp-connect',
+                'udp-send-to',
+                'udp-bind',
+                'udp-multicast-membership',
+                'resolve-host',
+                'network-state',
+                'tcp-connect',
+                'resolve-host',
+                'network-state'
             ]
         },
-        "tts",
-        "syncFileSystem",
+        'tts',
+        'syncFileSystem',
         {
             usbDevices: [{
                 vendorId: 10168,
@@ -198,198 +198,198 @@ const ManifestJSONTest1: chrome.runtime.Manifest = {
         }
     ],
     storage: {
-        managed_schema: "schema.json"
+        managed_schema: 'schema.json'
     },
     author: {
-        name: "Your name here",
-        email: "Email@yourmail.com"
+        name: 'Your name here',
+        email: 'Email@yourmail.com'
     },
     automation: {
         desktop: true
     },
-    update_url: "https://clients2.google.com/service/update2/crx",
-    version_name: "10.0.12-stable",
+    update_url: 'https://clients2.google.com/service/update2/crx',
+    version_name: '10.0.12-stable',
     kiosk_enabled: true,
     offline_enabled: true,
     bluetooth: {
         low_energy: true,
-        uuids: ["180f"]
+        uuids: ['180f']
     },
     url_handlers: {
         wiki_article: {
-            title: "View Wikipedia article",
+            title: 'View Wikipedia article',
             matches: [
-                "*://en.wikipedia.org/wiki/*"
+                '*://en.wikipedia.org/wiki/*'
             ]
         },
         mobile_wiki_article: {
-            title: "View Wikipedia article",
+            title: 'View Wikipedia article',
             matches: [
-                "*://en.m.wikipedia.org/wiki/*"
+                '*://en.m.wikipedia.org/wiki/*'
             ]
         },
         google_drive_open: {
-            matches: ["https://api.chromerestclient.com/GDrive.html*"],
-            title: "Open from Google Drive"
+            matches: ['https://api.chromerestclient.com/GDrive.html*'],
+            title: 'Open from Google Drive'
         }
     },
     sockets: {
-        tcpServer: { listen: "" },
-        tcp: { connect: ["*:5555", "*:5559"] },
-        udp: { bind: ["*:5554", "*:5556"], multicastMembership: "", send: ["*:5554", "*:5556"] }
+        tcpServer: { listen: '' },
+        tcp: { connect: ['*:5555', '*:5559'] },
+        udp: { bind: ['*:5554', '*:5556'], multicastMembership: '', send: ['*:5554', '*:5556'] }
     },
     optional_permissions: [
-        "debugger",
-        "htt",
-        "mdns",
-        "app.window.fullscreen",
-        "mdns",
-        "debugger"
+        'debugger',
+        'htt',
+        'mdns',
+        'app.window.fullscreen',
+        'mdns',
+        'debugger'
     ],
     webview: {
         partitions: [
             {
-                "name": "blockable",
-                "accessible_resources": ["browser.css", "blocked.css", "blocked.html"]
+                'name': 'blockable',
+                'accessible_resources': ['browser.css', 'blocked.css', 'blocked.html']
             },
             {
-                "accessible_resources": ["player.*", "migrate.*"],
-                "name": "player"
+                'accessible_resources': ['player.*', 'migrate.*'],
+                'name': 'player'
             }
         ]
     },
     externally_connectable: {
-        id: ["*"],
-        matches: ["https://gauth.fusionlabs.net/*"]
+        id: ['*'],
+        matches: ['https://gauth.fusionlabs.net/*']
     },
     commands: {
         cmdNew: {
             suggested_key: {
-                default: "Ctrl+Shift+1"
+                default: 'Ctrl+Shift+1'
             },
             global: true,
-            description: "Create new window"
+            description: 'Create new window'
         },
         'new-team-login': {
             suggested_key: {
-                default: "Ctrl+Shift+Y",
-                mac: "Command+Shift+Y"
+                default: 'Ctrl+Shift+Y',
+                mac: 'Command+Shift+Y'
             },
-            description: "New team login"
+            description: 'New team login'
         },
         reload: {
             suggested_key: {
-                default: "Ctrl+R"
+                default: 'Ctrl+R'
             },
-            description: "Reload webview"
+            description: 'Reload webview'
         }
     },
     sandbox: {
-        content_security_policy: "sandbox allow-scripts allow-popups; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://ssl.google-analytics.com/ga.js;",
-        pages: ["sandbox.html"]
+        content_security_policy: `sandbox allow-scripts allow-popups; script-src 'self' 'unsafe-inline' 'unsafe - eval' https://ssl.google-analytics.com/ga.js;`,
+        pages: ['sandbox.html']
     },
     file_handlers: {
         image: {
             types: [
-                "image/png",
-                "image/jpeg"
+                'image/png',
+                'image/jpeg'
             ]
         },
         text: {
             types: [
-                "text/*"
+                'text/*'
             ],
-            extensions: ["abap", "as", "ada", "adb", "ads", "cfm", "cfc", "cfml", "cs", "css", "dt", "d", "dot", "ejs", "erl", "frt", "ftl", "html", "erb", "ini", "jk", "java", "class", "js", "gs", "javascript", "jsoniq", "json", "jsp", "jsx", "lisp", "ls", "logic", "make", "makefile", "mak", "md", "mysql", "nix", "m", "php", "inc", "text", "txt", "log", "ps1", "rd", "sass", "scad", "scala", "scm", "ss", "scss", "sh", "sjs", "sql", "svg", "tcl", "tex", "ts", "vbs", "vbe", "vm", "v", "vhd", "vhdl", "xml", "rss", "atom", "xhtml", "yaml", "yml", "mcc"]
+            extensions: ['abap', 'as', 'ada', 'adb', 'ads', 'cfm', 'cfc', 'cfml', 'cs', 'css', 'dt', 'd', 'dot', 'ejs', 'erl', 'frt', 'ftl', 'html', 'erb', 'ini', 'jk', 'java', 'class', 'js', 'gs', 'javascript', 'jsoniq', 'json', 'jsp', 'jsx', 'lisp', 'ls', 'logic', 'make', 'makefile', 'mak', 'md', 'mysql', 'nix', 'm', 'php', 'inc', 'text', 'txt', 'log', 'ps1', 'rd', 'sass', 'scad', 'scala', 'scm', 'ss', 'scss', 'sh', 'sjs', 'sql', 'svg', 'tcl', 'tex', 'ts', 'vbs', 'vbe', 'vm', 'v', 'vhd', 'vhdl', 'xml', 'rss', 'atom', 'xhtml', 'yaml', 'yml', 'mcc']
         },
         any: {
             extensions: [
-                "skrifa",
-                "skrup"
+                'skrifa',
+                'skrup'
             ]
         },
         cab: {
-            extensions: ["cab"],
-            types: ["application/x-cab"]
+            extensions: ['cab'],
+            types: ['application/x-cab']
         },
         cpio: {
-            extensions: ["cpio", "cpio.gz", "cpio.bz2", "cpio.xz"],
-            types: ["application/x-cpio"]
+            extensions: ['cpio', 'cpio.gz', 'cpio.bz2', 'cpio.xz'],
+            types: ['application/x-cpio']
         },
         deb: {
-            extensions: ["deb"],
-            types: ["application/vnd.debian.binary-package"]
+            extensions: ['deb'],
+            types: ['application/vnd.debian.binary-package']
         },
         gzip: {
-            extensions: ["gz"],
-            types: ["application/x-gzip"]
+            extensions: ['gz'],
+            types: ['application/x-gzip']
         },
         iso: {
-            extensions: ["iso"],
-            types: ["application/x-iso9660-image"]
+            extensions: ['iso'],
+            types: ['application/x-iso9660-image']
         },
         lha: {
-            extensions: ["lha", "lzh"],
-            types: ["application/x-lha", "application/x-lzh", "application/x-lzh-compressed"]
+            extensions: ['lha', 'lzh'],
+            types: ['application/x-lha', 'application/x-lzh', 'application/x-lzh-compressed']
         },
         lz4: {
-            extensions: ["lz4"],
-            types: ["application/x-lz4"]
+            extensions: ['lz4'],
+            types: ['application/x-lz4']
         },
         lzip: {
-            extensions: ["lzip"],
-            types: ["application/x-lzip"]
+            extensions: ['lzip'],
+            types: ['application/x-lzip']
         },
         lzop: {
-            extensions: ["lzop"],
-            types: ["application/x-lzop"]
+            extensions: ['lzop'],
+            types: ['application/x-lzop']
         },
         pax: {
-            extensions: ["pax", "pax.gz", "pax.bz2", "pax.xz"],
-            types: ["application/x-pax"]
+            extensions: ['pax', 'pax.gz', 'pax.bz2', 'pax.xz'],
+            types: ['application/x-pax']
         },
         rpm: {
-            extensions: ["rpm"],
-            types: ["application/x-rpm", "application/x-redhat-package-manager"]
+            extensions: ['rpm'],
+            types: ['application/x-rpm', 'application/x-redhat-package-manager']
         },
         tar: {
-            extensions: ["gtar", "tar", "tgz", "tbz2", "txz", "tz"],
-            types: ["application/x-tar", "application/x-gtar", "application/x-gtar-compressed"]
+            extensions: ['gtar', 'tar', 'tgz', 'tbz2', 'txz', 'tz'],
+            types: ['application/x-tar', 'application/x-gtar', 'application/x-gtar-compressed']
         },
         xz: {
-            extensions: ["lzma", "xz"],
-            types: ["application/x-lzma", "application/x-xz"]
+            extensions: ['lzma', 'xz'],
+            types: ['application/x-lzma', 'application/x-xz']
         },
         zip: {
-            extensions: ["apk", "crx", "jar"],
-            types: ["application/java-archive", "application/x-chrome-extension"]
+            extensions: ['apk', 'crx', 'jar'],
+            types: ['application/java-archive', 'application/x-chrome-extension']
         }
     },
     requirements: {
         '3D': {
-            features: ["webgl"]
+            features: ['webgl']
         }
     },
     display_in_launcher: false,
     display_in_new_tab_page: false,
-    key: "FIMaMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCDJB6ZGcGxtlr/34s+TKgi84QiP7DMekqOjSUS2ubmbhchlM6CN9gYdGQ1aBI3TBXG3YaAu+XyutFA8M8NLLWc4OOGByW123aaa1DP6p67g8a+Ids/gX6cNSRnRHiDZXAd44ATxoN4OZjZJk9iQ26RIUjwX07bzntlI+frwwKCk4WQIDAQAB",
+    key: 'FIMaMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCDJB6ZGcGxtlr/34s+TKgi84QiP7DMekqOjSUS2ubmbhchlM6CN9gYdGQ1aBI3TBXG3YaAu+XyutFA8M8NLLWc4OOGByW123aaa1DP6p67g8a+Ids/gX6cNSRnRHiDZXAd44ATxoN4OZjZJk9iQ26RIUjwX07bzntlI+frwwKCk4WQIDAQAB',
     oauth2: {
         // client_id below is specifc to the application key. Follow the
         // documentation to obtain one for your app.
-        client_id: "1111111222333.apps.googleusercontent.com",
-        scopes: ["https://www.googleapis.com/auth/plus.login"]
+        client_id: '1111111222333.apps.googleusercontent.com',
+        scopes: ['https://www.googleapis.com/auth/plus.login']
     },
     app: {
         background: {
-            scripts: ["angular.js", "lodash.js", "background.js"]
+            scripts: ['angular.js', 'lodash.js', 'background.js']
         }
     },
     icons: {
-        16: "icon16.png",
-        48: "icon48.png",
-        64: "assets/icon-64x64.png",
-        128: "icon128.png"
+        16: 'icon16.png',
+        48: 'icon48.png',
+        64: 'assets/icon-64x64.png',
+        128: 'icon128.png'
     },
-    action_handlers: ["new_note"]
+    action_handlers: ['new_note']
 }
 
 // #endregion
@@ -541,7 +541,7 @@ chrome.app.runtime.onEmbedRequested.addListener((request) => {
 
 chrome.app.runtime.onLaunched.addListener(() => {
     chrome.app.window.create('index.html', {
-        id: "test",
+        id: 'test',
         innerBounds: {
             width: 900,
             height: 1280,
@@ -770,14 +770,14 @@ chrome.contextMenus.onClicked.addListener((info) => {
 
 // #region chrome.desktopCapture
 
-chrome.desktopCapture.chooseDesktopMedia(["screen", "window", "tab"], () => { });
+chrome.desktopCapture.chooseDesktopMedia(['screen', 'window', 'tab'], () => { });
 chrome.desktopCapture.chooseDesktopMedia([chrome.desktopCapture.DesktopCaptureSourceType.AUDIO], () => { });
 
 // #endregion
 
 // #region chrome.dns
 
-chrome.dns.resolve("github.com", (info) => {
+chrome.dns.resolve('github.com', (info) => {
     console.log([info.resultCode === 0, info.address]);
 });
 
@@ -835,17 +835,17 @@ chrome.enterprise.platformKeys.getCertificates(tokenId, (certificates) => {
 });
 chrome.enterprise.platformKeys.getTokens((tokens) => {
     const algorithm = {
-        name: "RSASSA-PKCS1-v1_5",
+        name: 'RSASSA-PKCS1-v1_5',
         // RsaHashedKeyGenParams
         modulusLength: 2048,
         publicExponent:
             new Uint8Array([0x01, 0x00, 0x01]),  // Equivalent to 65537
         hash: {
-            name: "SHA-1",
+            name: 'SHA-1',
         }
     };
     tokens.map(token => {
-        token.subtleCrypto.generateKey(algorithm, false, ["sign"]).then((val) => {
+        token.subtleCrypto.generateKey(algorithm, false, ['sign']).then((val) => {
 
         })
     });
@@ -942,7 +942,7 @@ chrome.hid.getDevices({
     });
     chrome.hid.connect(devices[0].deviceId, (connectInfo) => {
         if (!connectInfo) {
-            console.warn("Unable to connect to device.");
+            console.warn('Unable to connect to device.');
         }
         const connection = connectInfo.connectionId;
     });
@@ -1001,7 +1001,7 @@ chrome.instanceID.getID((instanceId) => {
         chrome.instanceID.getCreationTime((creationTime) => {
             if (creationTime !== 0) {
                 chrome.instanceID.getToken(
-                    { "authorizedEntity": "1", "scope": "GCM", "options": { "foo": "1" } },
+                    { 'authorizedEntity': '1', 'scope': 'GCM', 'options': { 'foo': '1' } },
                     (token) => {
                         return token;
                     });
@@ -1202,7 +1202,7 @@ chrome.platformKeys.getKeyPair(
     (publicKey, privateKey) => {
         let expectedAlgorithm = {
             modulusLength: 2048,
-            name: "RSASSA-PKCS1-v1_5",
+            name: 'RSASSA-PKCS1-v1_5',
             publicExponent: new Uint8Array([0x01, 0x00, 0x01]),
             hash: { name: 'SHA-1' }
         };
@@ -1224,7 +1224,7 @@ chrome.platformKeys.getKeyPair(
     });
 var details = {
     serverCertificateChain: [data.client_1_issuer_dn.buffer],
-    hostname: "l1_leaf"
+    hostname: 'l1_leaf'
 };
 chrome.platformKeys.verifyTLSServerCertificate(
     details, (result) => {
@@ -1268,13 +1268,15 @@ chrome.power.requestKeepAwake('display');
 // #region chrome.runtime
 
 chrome.runtime.onMessageExternal.addListener((request, sender, sendResponse) => {
-    sendResponse({ "result": "Ops, I don't understand this message" });
+    sendResponse({
+        'result': 'Ops, I don\'t understand this message'
+    });
 });
 chrome.runtime.sendMessage(
     chrome.runtime.id,
     { myCustomMessage: 'tra laa la' },
     (response) => {
-        console.log("Response: " + JSON.stringify(response));
+        console.log('Response: ' + JSON.stringify(response));
     }
 );
 
@@ -1779,10 +1781,97 @@ wve.addEventListener('loadredirect', (ev) => {
     return ev.newUrl || ev.oldUrl;
 });
 
+onload = () => {
+    const WEBVIEW_SRC = 'data:text/html,<body>One</body>';
+    var webview = document.getElementById('foo') as HTMLWebViewElement;
+    webview.style.width = '600px';
+    webview.style.height = '400px';
+    webview.src = WEBVIEW_SRC;
+    const indicator = document.createElement('span');
+    if (indicator) {
+        var loadstart = () => {
+            indicator.innerText = 'loading...';
+        }
+        var loadstop = () => {
+            indicator.innerText = '';
+        }
+        webview.addEventListener('loadstart', loadstart);
+        webview.addEventListener('loadstop', loadstop);
+    }
+    webview.addEventListener('consolemessage', (e) => {
+        console.log('g: ' + e.message);
+    });
+    webview.executeScript(
+        { code: "document.querySelector('img').src" }, (results) => {
+            if (!results || !results.length) {
+                return false;
+            }
+        });
+    webview.focus();
+    if (document.activeElement === webview) {
+        var blob = new Blob(['<html><body>Blob content</body></html>'],
+            { type: 'text/html' });
+        var blobURL = URL.createObjectURL(blob);
+        webview.src = blobURL;
+        webview.onloadstop = null;
+    }
+    const rule = {
+        conditions: [
+            new chrome.webViewRequest.RequestMatcher(
+                {
+                    url: { urlContains: 'guest' }
+                }
+            )
+        ],
+        actions: [
+            new chrome.webViewRequest.CancelRequest()
+        ]
+    };
+    webview.request.onRequest.addRules([rule]);
+    webview.addEventListener('loadabort', (e) => {
+        e.preventDefault();
+        return e.reason === 'ERR_ABORTED';
+    });
+    webview.onloadcommit = (e) => {
+        if (e.url.indexOf('html') !== -1) {
+            return true;
+        }
+    };
+    webview.getZoom((zoomFactor) => {
+        webview.setZoom(3.14 * zoomFactor, () => {
+            webview.getZoomMode((zoomMode) => {
+                if (zoomMode === 'disabled') {
+                    return true;
+                }
+            });
+        });
+    });
+    webview.insertCSS({ code: '' }, () => { });
+    webview.loadDataWithBaseUrl("data:text/html;base64,PGh0bWw+CiAgVGhpcyBpcy" +
+        "BhIHRlc3QuPGJyPgogIDxpbWcgc3JjPSJ0ZXN0LmJtcCI+PGJyPgo8L2h0bWw+Cg==",
+        'https://github.com/',
+        'chrome://favicon');
+    document.body.appendChild(webview);
+    webview.onconsolemessage = () => { };
+    webview.onloadstop = () => {
+        webview.request.onCompleted.addListener((details) => {
+            if (details.url) {
+                return true;
+            }
+        }, { urls: ['<all_urls>'] });
+    };
+    webview.setAttribute('src', WEBVIEW_SRC);
+    webview.partition = 'partitionFromManifest';
+    webview.removeAttribute('src');
+    webview.insertCSS({ code: '' }, () => {
+
+    });
+}
+
 wve.request.onBeforeRequest.addListener(
     (details) => { return { cancel: true }; },
-    { urls: ["*://www.evil.com/*"] },
-    ["blocking"]);
+    { urls: ['*://www.evil.com/*'] },
+    ['blocking']);
 
 const rule: chrome.webViewRequest.OnRequestRule = {
     conditions: [
