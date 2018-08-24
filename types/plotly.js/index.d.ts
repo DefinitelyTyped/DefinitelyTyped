@@ -50,7 +50,7 @@ export interface PlotCoordinate {
 	pointNumber: number;
 }
 
-export interface SelectionDescription {
+export interface SelectionRange {
 	x: number[];
 	y: number[];
 }
@@ -59,8 +59,8 @@ export type PlotSelectedData = Partial<PlotScatterDataPoint>;
 
 export interface PlotSelectionEvent {
 	points: PlotScatterDataPoint[];
-	range?: SelectionDescription;
-	lassoPoints?: SelectionDescription;
+	range?: SelectionRange;
+	lassoPoints?: SelectionRange;
 }
 
 export type PlotRestyleEvent = [
