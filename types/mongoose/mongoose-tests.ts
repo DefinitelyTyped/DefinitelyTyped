@@ -1264,6 +1264,8 @@ aggregate.project({
 })
 aggregate.project({ salary_k: { $divide: [ "$salary", 1000 ]}});
 aggregate.read('primaryPreferred').read('pp');
+aggregate.replaceRoot("user");
+aggregate.replaceRoot({x: {$concat: ['$this', '$that']}});
 aggregate.sample(3).sample(3);
 aggregate.skip(10).skip(10);
 aggregate.sort({ field: 'asc', test: -1 });
