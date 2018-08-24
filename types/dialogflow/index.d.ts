@@ -550,7 +550,7 @@ export interface DetectIntentResponse {
 
 export interface QueryResult {
     queryText: string;
-    laugnageCode: string;
+    languageCode: string;
     speechRecognitionConfidence: number;
     action: string;
     parameters: any;
