@@ -536,6 +536,7 @@ declare namespace Knex {
         acquireConnectionTimeout?: number;
         useNullAsDefault?: boolean;
         searchPath?: string | string[];
+        asyncStackTraces?: boolean;
     }
 
     interface ConnectionConfig {

@@ -8,6 +8,7 @@
 //                 Synarque <https://github.com/synarque>
 //                 Justin Rockwood <https://github.com/jrockwood>
 //                 Keith Kelly <https://github.com/kwkelly>
+//                 Junyoung Clare Jang <https://github.com/Ailrun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // TypeScript Version: 2.3
@@ -116,12 +117,12 @@ declare namespace inquirer {
          * Receive the user input and should return true if the value is valid, and an error message (String)
          * otherwise. If false is returned, a default error message is provided.
          */
-        validate?(input: string, answers?: T): boolean | string | Promise<boolean | string>;
+        validate?(input: any, answers?: T): boolean | string | Promise<boolean | string>;
         /**
          * Receive the user input and return the filtered value to be used inside the program.
          * The value returned will be added to the Answers hash.
          */
-        filter?(input: string): string | Promise<string>;
+        filter?(input: string): any;
         /**
          * Receive the user input and return the transformed value to be displayed to the user. The
          * transformation only impacts what is shown while editing. It does not impact the answers

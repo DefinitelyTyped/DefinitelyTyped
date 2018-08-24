@@ -1,4 +1,4 @@
-// Type definitions for unzipper 0.8
+// Type definitions for unzipper 0.9
 // Project: https://github.com/ZJONSSON/node-unzipper#readme
 // Definitions by: s73obrien <https://github.com/s73obrien>
 //                 Nate <https://github.com/natemara>
@@ -57,6 +57,7 @@ export function unzip(
 ): Entry;
 
 export namespace Open {
+    function buffer(data: Buffer): Promise<CentralDirectory>;
     function file(filename: string): Promise<CentralDirectory>;
     function url(
         request: ClientRequest,

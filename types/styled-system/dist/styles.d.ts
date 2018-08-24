@@ -110,6 +110,7 @@ export function letterSpacing(...args: any[]): any;
  */
 
 export type DisplayValue =
+    | "none"
     | "inline"
     | "block"
     | "contents"

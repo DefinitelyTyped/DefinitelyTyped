@@ -14,6 +14,7 @@ import * as express from 'express';
 import * as serveStatic from 'serve-static';
 import * as https from 'https';
 import * as http from 'http';
+import { Url } from "url";
 
 declare namespace WebpackDevServer {
     interface ListeningApp {
@@ -31,9 +32,16 @@ declare namespace WebpackDevServer {
 
     type ProxyConfigArray = ProxyConfigArrayItem[];
 
+    interface Context {
+        match: RegExpMatchArray;
+        parsedUrl: Url;
+    }
+
+    type RewriteTo = (context: Context) => string;
+
     interface Rewrite {
         from: RegExp;
-        to: string;
+        to: string | RegExp | RewriteTo;
     }
 
     interface HistoryApiFallbackConfig {

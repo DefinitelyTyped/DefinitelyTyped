@@ -11,6 +11,7 @@
 //                 Michele Bombardi <https://github.com/bm-software>
 //                 Tanguy Krotoff <https://github.com/tkrotoff>
 //                 Alexander T. <https://github.com/a-tarasyuk>
+//                 Martin van Dam <https://github.com/mvdam>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -1919,7 +1920,7 @@ type AccessibilityTrait =
  * @see https://facebook.github.io/react-native/docs/view.html#props
  */
 export interface ViewProps
-    extends ViewPropsAndroid, ViewPropsIOS, GestureResponderHandlers, Touchable, AccessibilityProps, ViewStyle {
+    extends ViewPropsAndroid, ViewPropsIOS, GestureResponderHandlers, Touchable, AccessibilityProps {
     /**
      * This defines how far a touch event can start away from the view.
      * Typical interface guidelines recommend touch targets that are at least
@@ -3605,7 +3606,7 @@ export interface ImageResolvedAssetSource {
 /**
  * @see https://facebook.github.io/react-native/docs/image.html
  */
-export interface ImagePropsBase extends ImagePropsIOS, ImagePropsAndroid, AccessibilityProps, ImageStyle {
+export interface ImagePropsBase extends ImagePropsIOS, ImagePropsAndroid, AccessibilityProps {
     /**
      * onLayout function
      *
@@ -3720,14 +3721,6 @@ export interface ImagePropsBase extends ImagePropsIOS, ImagePropsAndroid, Access
      * A static image to display while downloading the final image off the network.
      */
     defaultSource?: ImageURISource | number;
-
-    /**
-     * Currently broken
-     * @see https://github.com/facebook/react-native/pull/19281
-     */
-    width?: never;
-    height?: never;
-    tintColor?: never;
 }
 
 export interface ImageProps extends ImagePropsBase {
@@ -4028,7 +4021,7 @@ export interface SectionBase<ItemT> {
 
     key?: string;
 
-    renderItem?: ListRenderItem<ItemT>;
+    renderItem?: SectionListRenderItem<ItemT>;
 
     ItemSeparatorComponent?: React.ComponentClass<any> | (() => React.ReactElement<any>) | null;
 
@@ -4038,6 +4031,16 @@ export interface SectionBase<ItemT> {
 export interface SectionListData<ItemT> extends SectionBase<ItemT> {
     [key: string]: any;
 }
+
+/**
+ * @see https://facebook.github.io/react-native/docs/sectionlist.html#props
+ */
+
+export interface SectionListRenderItemInfo<ItemT> extends ListRenderItemInfo<ItemT> {
+  section: SectionListData<ItemT>;
+}
+
+export type SectionListRenderItem<ItemT> = (info: SectionListRenderItemInfo<ItemT>) => React.ReactElement<any> | null;
 
 export interface SectionListProps<ItemT> extends ScrollViewProps {
     /**
@@ -4142,7 +4145,7 @@ export interface SectionListProps<ItemT> extends ScrollViewProps {
     /**
      * Default renderer for every item in every section. Can be over-ridden on a per-section basis.
      */
-    renderItem?: ListRenderItem<ItemT>;
+    renderItem?: SectionListRenderItem<ItemT>;
 
     /**
      * Rendered at the top of each section. Sticky headers are not yet supported.
@@ -4744,7 +4747,7 @@ declare class MaskedViewComponent extends React.Component<MaskedViewIOSProps> {}
 declare const MaskedViewBase: Constructor<NativeMethodsMixin> & typeof MaskedViewComponent;
 export class MaskedViewIOS extends MaskedViewBase {}
 
-export interface ModalProps {
+export interface ModalBaseProps {
     // Only `animated` is documented. The JS code says `animated` is
     // deprecated and `animationType` is preferred.
     animated?: boolean;
@@ -4774,34 +4777,41 @@ export interface ModalProps {
      * The `onShow` prop allows passing a function that will be called once the modal has been shown.
      */
     onShow?: (event: NativeSyntheticEvent<any>) => void;
+}
+
+export interface ModalPropsIOS {
+    /**
+     * The `presentationStyle` determines the style of modal to show
+     */
+    presentationStyle?: "fullScreen" | "pageSheet" | "formSheet" | "overFullScreen";
+
     /**
      * The `supportedOrientations` prop allows the modal to be rotated to any of the specified orientations.
      * On iOS, the modal is still restricted by what's specified in your app's Info.plist's UISupportedInterfaceOrientations field.
-     * @platform ios
      */
-    supportedOrientations?: (
-        | "portrait"
-        | "portrait-upside-down"
-        | "landscape"
-        | "landscape-left"
-        | "landscape-right")[];
+    supportedOrientations?: Array<"portrait" | "portrait-upside-down" | "landscape" | "landscape-left" | "landscape-right">;
+
+    /**
+     * The `onDismiss` prop allows passing a function that will be called once the modal has been dismissed.
+     */
+    onDismiss?: () => void;
+
     /**
      * The `onOrientationChange` callback is called when the orientation changes while the modal is being displayed.
      * The orientation provided is only 'portrait' or 'landscape'. This callback is also called on initial render, regardless of the current orientation.
-     * @platform ios
      */
     onOrientationChange?: (event?: NativeSyntheticEvent<any>) => void;
-     /**
-     * The `onDismiss` prop allows passing a function that will be called once the modal has been dismissed.
-     * @platform ios
-     */
-    onDismiss?: () => void;
-    /**
-     * The `presentationStyle` determines the style of modal to show
-     * @platform ios
-     */
-    presentationStyle?: "fullScreen" | "pageSheet" | "formSheet" | "overFullScreen";
 }
+
+export interface ModalPropsAndroid {
+    /**
+     *  Controls whether to force hardware acceleration for the underlying window.
+     */
+    hardwareAccelerated?: boolean;
+}
+
+
+export type ModalProps = ModalBaseProps & ModalPropsIOS & ModalPropsAndroid;
 
 export class Modal extends React.Component<ModalProps> {}
 
@@ -6790,7 +6800,8 @@ export interface AlertIOSStatic {
         message?: string,
         callbackOrButtons?: ((value: string) => void) | Array<AlertIOSButton>,
         type?: AlertType,
-        defaultValue?: string
+        defaultValue?: string,
+        keyboardType?: KeyboardType | KeyboardTypeIOS,
     ) => void;
 }
 
@@ -6847,7 +6858,7 @@ export interface AsyncStorageStatic {
     /**
      * Fetches key and passes the result to callback, along with an Error if there is any.
      */
-    getItem(key: string, callback?: (error?: Error, result?: string) => void): Promise<string>;
+    getItem(key: string, callback?: (error?: Error, result?: string) => void): Promise<string | null>;
 
     /**
      * Sets value for key and calls callback on completion, along with an Error if there is any
@@ -7849,6 +7860,7 @@ type TimePickerAndroidOpenOptions = {
     hour?: number;
     minute?: number;
     is24Hour?: boolean;
+    mode?: 'clock' | 'spinner' | 'default';
 };
 
 /**
@@ -7881,6 +7893,10 @@ export interface TimePickerAndroidStatic {
      *   * `is24Hour` (boolean) - If `true`, the picker uses the 24-hour format. If `false`,
      *     the picker shows an AM/PM chooser. If undefined, the default for the current locale
      *     is used.
+     *   * `mode` (enum('clock', 'spinner', 'default')) - set the time picker mode
+     *     * 'clock': Show a time picker in clock mode.
+     *     * 'spinner': Show a time picker in spinner mode.
+     *     * 'default': Show a default time picker based on Android versions.
      *
      * Returns a Promise which will be invoked an object containing `action`, `hour` (0-23),
      * `minute` (0-59) if the user picked a time. If the user dismissed the dialog, the Promise will

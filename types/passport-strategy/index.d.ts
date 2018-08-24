@@ -45,7 +45,7 @@ declare class Strategy implements passport.Strategy {
      * @param {Object} info
      * @api public
      */
-    success(user: any, info: any): void;
+    success(user: any, info?: any): void;
 
     /**
      * Fail authentication, with optional `challenge` and `status`, defaulting

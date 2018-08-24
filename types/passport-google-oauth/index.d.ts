@@ -53,6 +53,7 @@ interface IOAuth2StrategyOption {
     callbackURL: string;
     authorizationURL?: string;
     tokenURL?: string;
+    userProfileURL?: string;
     accessType?: string;
     approval_prompt?: string;
     prompt?: string;

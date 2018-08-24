@@ -1268,6 +1268,7 @@ export class Cursor<T = Default> extends Readable {
     filter(filter: Object): Cursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#forEach */
     forEach(iterator: IteratorCallback<T>, callback: EndCallback): void;
+    forEach(iterator: IteratorCallback<T>): Promise<void>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#hasNext */
     hasNext(): Promise<boolean>;
     hasNext(callback: MongoCallback<boolean>): void;
