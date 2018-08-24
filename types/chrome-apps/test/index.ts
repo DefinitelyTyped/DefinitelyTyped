@@ -70,7 +70,6 @@ const elem = document.createElement('video');
 if (elem.requestFullscreen) {
     elem.requestFullscreen();
 }
-document.webkitCancelFullScreen()
 
 ///
 /// Geolocation API
@@ -81,13 +80,6 @@ window.onload = () => {
         console.log('lat', position.coords.latitude, 'lon', position.coords.longitude);
     });
 };
-
-///
-/// WebKit APIs
-///
-
-const mediaStream = new window.webkitMediaStream();
-const rtcPeerConnection = new window.webkitRTCPeerConnection();
 
 // #endregion
 

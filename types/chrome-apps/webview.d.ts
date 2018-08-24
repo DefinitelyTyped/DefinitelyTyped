@@ -737,6 +737,10 @@ declare namespace WebView {
          */
         enabled?: boolean;
     }
+    interface OnShowEvent {
+        /** Call this to prevent showing the context menu. */
+        preventDefault: () => void;
+    }
     interface ContextMenus {
         /**
          * Creates a new context menu item. Note that if an error occurs during creation,
@@ -772,11 +776,7 @@ declare namespace WebView {
          * Fired before showing a context menu on this webview.
          * Can be used to disable this context menu by calling event.preventDefault().
          */
-        onShow: chrome.events.Event<WebView.OnShowEvent>;
-    }
-    interface OnShowEvent {
-        /** Call this to prevent showing the context menu. */
-        preventDefault: () => void;
+        onShow: chrome.events.Event<(event: OnShowEvent) => void>;
     }
     interface ContentWindow {
         /**

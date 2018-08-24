@@ -49,11 +49,6 @@ interface ChromeWindow {
     /// Other APIs
     ///
     AudioContext: typeof AudioContext;
-    //////////////////////////
-    // WebKit prefixed APIs //
-    //////////////////////////
-    webkitMediaStream: typeof MediaStream;
-    webkitRTCPeerConnection: typeof RTCPeerConnection;
 }
 
 interface Document {
