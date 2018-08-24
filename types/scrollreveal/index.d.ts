@@ -5,7 +5,7 @@
 
 declare const ScrollReveal: scrollReveal.ScrollRevealObject;
 
-declare module 'ScrollReveal' {
+declare module 'scrollreveal' {
     export = ScrollReveal;
 }
 

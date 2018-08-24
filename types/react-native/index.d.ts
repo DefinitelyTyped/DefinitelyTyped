@@ -11,6 +11,7 @@
 //                 Michele Bombardi <https://github.com/bm-software>
 //                 Tanguy Krotoff <https://github.com/tkrotoff>
 //                 Alexander T. <https://github.com/a-tarasyuk>
+//                 Martin van Dam <https://github.com/mvdam>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -6210,6 +6211,11 @@ export interface ScrollViewPropsAndroid {
         *   - 'never' - Never allow a user to over-scroll this view.
         */
     overScrollMode?: "auto" | "always" | "never";
+
+    /**
+     * Enables nested scrolling for Android API level 21+. Nested scrolling is supported by default on iOS.
+     */
+    nestedScrollEnabled?: boolean;
 }
 
 export interface ScrollViewProps
@@ -7859,6 +7865,7 @@ type TimePickerAndroidOpenOptions = {
     hour?: number;
     minute?: number;
     is24Hour?: boolean;
+    mode?: 'clock' | 'spinner' | 'default';
 };
 
 /**
@@ -7891,6 +7898,10 @@ export interface TimePickerAndroidStatic {
      *   * `is24Hour` (boolean) - If `true`, the picker uses the 24-hour format. If `false`,
      *     the picker shows an AM/PM chooser. If undefined, the default for the current locale
      *     is used.
+     *   * `mode` (enum('clock', 'spinner', 'default')) - set the time picker mode
+     *     * 'clock': Show a time picker in clock mode.
+     *     * 'spinner': Show a time picker in spinner mode.
+     *     * 'default': Show a default time picker based on Android versions.
      *
      * Returns a Promise which will be invoked an object containing `action`, `hour` (0-23),
      * `minute` (0-59) if the user picked a time. If the user dismissed the dialog, the Promise will
