@@ -6331,7 +6331,7 @@ declare module "stream" {
 declare module "util" {
     export interface InspectOptions extends NodeJS.InspectOptions { }
     export function format(format: any, ...param: any[]): string;
-    export function formatWithOptions(inspectOptions: InspectOptions, format: any, ...param: any[]): string;
+    export function formatWithOptions(inspectOptions: InspectOptions, format: string, ...param: any[]): string;
     /** @deprecated since v0.11.3 - use `console.error()` instead. */
     export function debug(string: string): void;
     /** @deprecated since v0.11.3 - use `console.error()` instead. */
