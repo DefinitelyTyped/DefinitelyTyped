@@ -6,6 +6,7 @@
 //                 Rafal2228 <https://github.com/rafal2228>
 //                 Beeno Tung <https://github.com/beenotung>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.6
 
 /// <reference types="node" />
 
