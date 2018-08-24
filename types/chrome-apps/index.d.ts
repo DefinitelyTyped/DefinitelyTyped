@@ -9,10 +9,6 @@
 /// <reference path='./webview.d.ts'/>
 /// <reference path='./web-apis.d.ts'/>
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// WebView ref                                                                                                    //
-// https://chromium.googlesource.com/chromium/src/+/68.0.3432.1/chrome/common/extensions/api/webview_tag.json     //
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // Extra sources in addition to the Chromium source code and official documentation:
 //
