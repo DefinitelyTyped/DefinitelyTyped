@@ -194,6 +194,7 @@ export interface ReactSortableTreeProps {
     placeholderRenderer?: PlaceholderRenderer;
     theme?: ThemeProps;
     shouldCopyOnOutsideDrop?: boolean | ((data: ShouldCopyData) => boolean);
+    onlyExpandSearchedNodes?: boolean;
 }
 
 declare const SortableTree: React.ComponentClass<ReactSortableTreeProps>;
