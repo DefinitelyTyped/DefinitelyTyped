@@ -529,13 +529,7 @@ chrome.app.runtime.onEmbedRequested.addListener((request) => {
         return false;
     }
     if (typeof request.data === 'object') {
-        if (!request.data['message']) {
-            request.allow('default.html');
-        } else if (request.data.message == 'camera') {
-            request.allow('camera.html');
-        } else {
-            request.deny();
-        }
+        request.deny();
     }
 });
 
@@ -1808,7 +1802,7 @@ onload = () => {
             }
         });
     webview.focus();
-    if (document.activeElement === webview) {
+    if (webview && document.activeElement == webview) {
         var blob = new Blob(['<html><body>Blob content</body></html>'],
             { type: 'text/html' });
         var blobURL = URL.createObjectURL(blob);

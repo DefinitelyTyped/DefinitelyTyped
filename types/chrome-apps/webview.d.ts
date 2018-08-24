@@ -72,7 +72,7 @@ declare class HTMLWebViewElement extends HTMLElement {
      * Fired when the guest window attempts to close itself.
      * The following example code navigates the webview to about:blank when the guest attempts to close itself.
      */
-    addEventListener(type: 'close', listener: WebView.Events.Close, useCapture?: boolean): void;
+    addEventListener(type: 'close', listener: () => void, useCapture?: boolean): void;
     /**
      * Fired when the guest window logs a console message.
      * The following example code forwards all log messages to the embedder's console without regard for log level or other properties.
@@ -447,8 +447,6 @@ declare class HTMLWebViewElement extends HTMLElement {
     /// DOM Events
     ///
 
-    /** Fired when the guest window attempts to close itself. */
-    onclose: WebView.Events.Close | null;
     /** Fired when the guest window logs a console message. */
     onconsolemessage: WebView.Events.ConsoleMessage | null;
     /**
@@ -546,7 +544,6 @@ declare namespace WebView {
      * WebView Events are different from Chrome Events, they extend the normal DOM Events.
      */
     namespace Events {
-        type Close = (this: HTMLWebViewElement) => void;
         type ConsoleMessage = (this: HTMLWebViewElement, ev: Event & WebView.ConsoleMessage) => void;
         type ContentLoad = (this: HTMLWebViewElement) => void;
         type Dialog = (this: HTMLWebViewElement, ev: Event & WebView.Dialog) => void;
@@ -900,6 +897,7 @@ declare namespace WebView {
          */
         onShow: chrome.events.Event<(event: OnShowEvent) => void>;
     }
+    /** Messaging handle to a guest window. */
     interface ContentWindow {
         /**
          * Posts a message to the embedded web content as long as the embedded
@@ -919,6 +917,7 @@ declare namespace WebView {
          */
         postMessage(message: any, targetOrigin: string): void;
     }
+    /** Interface attached to dialog DOM events. */
     interface DialogController {
         /**
          * Accept the dialog. Equivalent to clicking OK in an alert, confirm, or prompt dialog.
