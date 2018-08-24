@@ -1,16 +1,16 @@
 # DefinitelyTyped for Urllib
 
 ## Current Urllib Version
-`v0.7.6`
+`v2.25.4`
 ## Usage
 
 ```bash
-npm install --save-dev @types/node-forge
+npm install --save-dev @types/urllib
 ```
 
 example:
 ```ts
-import * as forge from ".";
+import * as urllib from ".";
 
 urllib.curl('https://example.test.com', {
   method: "GET",
