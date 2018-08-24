@@ -106,7 +106,7 @@ declare namespace ShopifyBuy {
     export interface Query {
      /**
       * query: title, collection_type, updated_at
-      * TODO probably will remove before Defintely Typed PR, 
+      * TODO probably will remove before Defintely Typed PR,
       * as their  community guidelines
       */
         query: string;
@@ -168,6 +168,11 @@ declare namespace ShopifyBuy {
          * The product title
          */
         title: string;
+
+        /**
+         * The product’s vendor name
+         */
+        vendor: string;
     }
 
     export interface ProductVariant extends GraphModel {
