@@ -760,8 +760,8 @@ export enum MatchMode {
 }
 
 export interface Credentials {
-    clientEmail?: string;
-    privateKey?: string;
+    client_email?: string;
+    private_key?: string;
 }
 
 export interface ClientOptions {
