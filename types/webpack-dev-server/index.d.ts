@@ -1,4 +1,4 @@
-// Type definitions for webpack-dev-server 3.1.5
+// Type definitions for webpack-dev-server 3.1
 // Project: https://github.com/webpack/webpack-dev-server
 // Definitions by: maestroh <https://github.com/maestroh>
 //                 Dave Parslow <https://github.com/daveparslow>
