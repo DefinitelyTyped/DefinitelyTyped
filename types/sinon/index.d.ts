@@ -552,14 +552,50 @@ declare namespace Sinon {
     }
 
     interface SinonExpectation extends SinonStub {
+        /**
+         * Specify the minimum amount of calls expected.
+         */
         atLeast(n: number): SinonExpectation;
+        /**
+         * Specify the maximum amount of calls expected.
+         * @param n 
+         */
         atMost(n: number): SinonExpectation;
+        /**
+         * Expect the method to never be called.
+         */
         never(): SinonExpectation;
+        /**
+         * Expect the method to be called exactly once.
+         */
         once(): SinonExpectation;
+        /**
+         * Expect the method to be called exactly twice.
+         */
         twice(): SinonExpectation;
+        /**
+         * Expect the method to be called exactly thrice.
+         */
         thrice(): SinonExpectation;
+        /**
+         * Expect the method to be called exactly @param n times.
+         */
         exactly(n: number): SinonExpectation;
+        /**
+         * Expect the method to be called with the provided arguments and possibly others.
+         * An expectation instance only holds onto a single set of arguments specified with withArgs. 
+         * Subsequent calls will overwrite the previously-specified set of arguments (even if they are different), 
+         * so it is generally not intended that this method be invoked more than once per test case.
+         * @param args 
+         */
         withArgs(...args: any[]): SinonExpectation;
+        /**
+         * Expect the method to be called with the provided arguments and no others.
+         * An expectation instance only holds onto a single set of arguments specified with withExactArgs. 
+         * Subsequent calls will overwrite the previously-specified set of arguments (even if they are different), 
+         * so it is generally not intended that this method be invoked more than once per test case.
+         * @param args 
+         */
         withExactArgs(...args: any[]): SinonExpectation;
         on(obj: any): SinonExpectation;
         verify(): SinonExpectation;
@@ -571,8 +607,19 @@ declare namespace Sinon {
     }
 
     interface SinonMock {
+        /**
+         * Overrides obj.method with a mock function and returns it.
+         */
         expects(method: string): SinonExpectation;
+        /**
+         * Restores all mocked methods.
+         */
         restore(): void;
+        /**
+         * Verifies all expectations on the mock.
+         * If any expectation is not satisfied, an exception is thrown.
+         * Also restores the mocked methods.
+         */
         verify(): void;
     }
 
