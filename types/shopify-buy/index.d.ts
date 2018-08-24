@@ -2,6 +2,7 @@
 // Project: http://shopify.github.io/js-buy-sdk/api/
 // Definitions by: Martin Köhn <https://github.com/openminder>
 //                 Stephen Traiforos <https://github.com/straiforos>
+//                 Rosana Ruiz <https://github.com/totemika>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
@@ -105,7 +106,7 @@ declare namespace ShopifyBuy {
     export interface Query {
      /**
       * query: title, collection_type, updated_at
-      * TODO probably will remove before Defintely Typed PR, 
+      * TODO probably will remove before Defintely Typed PR,
       * as their  community guidelines
       */
         query: string;
