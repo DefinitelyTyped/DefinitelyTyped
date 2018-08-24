@@ -1228,6 +1228,125 @@ namespace crypto_tests {
     }
 
     {
+        // crypto_cipher_decipher_iv_string_test
+        let key: Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7]);
+        let clearText: string = "This is the clear text.";
+        let iv: Buffer = crypto.randomBytes(16);
+        let cipher: crypto.Cipher = crypto.createCipheriv("aes-128-ecb", key, iv);
+        let cipherText: string = cipher.update(clearText, "utf8", "hex");
+        cipherText += cipher.final("hex");
+
+        let decipher: crypto.Decipher = crypto.createDecipheriv("aes-128-ecb", key, iv);
+        let clearText2: string = decipher.update(cipherText, "hex", "utf8");
+        clearText2 += decipher.final("utf8");
+
+        assert.equal(clearText2, clearText);
+    }
+
+    {
+        // crypto_cipher_decipher_iv_buffer_test
+        let key: Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7]);
+        let clearText: Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 8, 7, 6, 5, 4]);
+        let iv: Buffer = crypto.randomBytes(16);
+        let cipher: crypto.Cipher = crypto.createCipheriv("aes-128-ecb", key, iv);
+        let cipherBuffers: Buffer[] = [];
+        cipherBuffers.push(cipher.update(clearText));
+        cipherBuffers.push(cipher.final());
+
+        let cipherText: Buffer = Buffer.concat(cipherBuffers);
+
+        let decipher: crypto.Decipher = crypto.createDecipheriv("aes-128-ecb", key, iv);
+        let decipherBuffers: Buffer[] = [];
+        decipherBuffers.push(decipher.update(cipherText));
+        decipherBuffers.push(decipher.final());
+
+        let clearText2: Buffer = Buffer.concat(decipherBuffers);
+
+        assert.deepEqual(clearText2, clearText);
+    }
+
+    {
+        // crypto_cipher_decipher_iv_dataview_test
+        let key: Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7]);
+        let clearText: DataView = new DataView(
+            new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 8, 7, 6, 5, 4]).buffer);
+        let iv: Buffer = crypto.randomBytes(16);
+        let cipher: crypto.Cipher = crypto.createCipheriv("aes-128-ecb", key, iv);
+        let cipherBuffers: Buffer[] = [];
+        cipherBuffers.push(cipher.update(clearText));
+        cipherBuffers.push(cipher.final());
+
+        let cipherText: DataView = new DataView(Buffer.concat(cipherBuffers).buffer);
+
+        let decipher: crypto.Decipher = crypto.createDecipheriv("aes-128-ecb", key, iv);
+        let decipherBuffers: Buffer[] = [];
+        decipherBuffers.push(decipher.update(cipherText));
+        decipherBuffers.push(decipher.final());
+
+        let clearText2: Buffer = Buffer.concat(decipherBuffers);
+
+        assert.deepEqual(clearText2, clearText);
+    }
+
+    {
+        // crypto_cipher_decipher_iv_ccm_string_test
+        let key: Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7]);
+        let clearText: string = "This is the clear text.";
+        let iv: Buffer = crypto.randomBytes(16);
+        let aad: Buffer = Buffer.from("0123456789", "hex");
+        let cipher: crypto.CipherCCM = crypto.createCipheriv("aes-128-ccm", key, iv, {
+            authTagLength: 16
+        });
+        cipher.setAAD(aad, {
+            plaintextLength: Buffer.byteLength(clearText)
+        });
+        let cipherText: string = cipher.update(clearText, "utf8", "hex");
+        cipherText += cipher.final("hex");
+        let tag: Buffer = cipher.getAuthTag();
+
+        let decipher: crypto.DecipherCCM = crypto.createDecipheriv("aes-128-ccm", key, iv, {
+            authTagLength: 16
+        });
+        decipher.setAuthTag(tag);
+        decipher.setAAD(aad, {
+            plaintextLength: Buffer.byteLength(cipherText, "hex")
+        });
+        let clearText2: string = decipher.update(cipherText, "hex", "utf8");
+        clearText2 += decipher.final("utf8");
+
+        assert.equal(clearText2, clearText);
+    }
+
+    {
+        // crypto_cipher_decipher_iv_gcm_string_test
+        let key: Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7]);
+        let clearText: string = "This is the clear text.";
+        let iv: Buffer = crypto.randomBytes(16);
+        let aad: Buffer = Buffer.from("0123456789", "hex");
+        let cipher: crypto.CipherGCM = crypto.createCipheriv("aes-128-gcm", key, iv, {
+            authTagLength: 16
+        });
+        cipher.setAAD(aad, {
+            plaintextLength: Buffer.byteLength(clearText)
+        });
+        let cipherText: string = cipher.update(clearText, "utf8", "hex");
+        cipherText += cipher.final("hex");
+        let tag: Buffer = cipher.getAuthTag();
+
+        let decipher: crypto.DecipherGCM = crypto.createDecipheriv("aes-128-gcm", key, iv, {
+            authTagLength: 16
+        });
+        decipher.setAuthTag(tag);
+        decipher.setAAD(aad, {
+            plaintextLength: Buffer.byteLength(cipherText, "hex")
+        });
+        let clearText2: string = decipher.update(cipherText, "hex", "utf8");
+        clearText2 += decipher.final("utf8");
+
+        assert.equal(clearText2, clearText);
+    }
+
+    {
         // crypto_timingsafeequal_buffer_test
         let buffer1: Buffer = new Buffer([1, 2, 3, 4, 5]);
         let buffer2: Buffer = new Buffer([1, 2, 3, 4, 5]);
