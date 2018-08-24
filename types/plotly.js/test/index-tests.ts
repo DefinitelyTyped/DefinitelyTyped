@@ -1,5 +1,5 @@
 import * as Plotly from 'plotly.js';
-import { ScatterData, Layout, PlotlyHTMLElement, newPlot } from 'plotly.js';
+import { ScatterData, Layout, PlotData, PlotlyHTMLElement, newPlot } from 'plotly.js';
 
 const graphDiv = '#test';
 
@@ -16,17 +16,45 @@ const graphDiv = '#test';
 		y: [16, 5, 11, 9],
 		type: 'scatter'
 	} as ScatterData;
-	const data = [trace1, trace2];
+	const trace3 = {
+		yaxis: 'y2',
+		x: [1999, 2000, 2001, 2002],
+		name: 'x density',
+		marker: { color: 'rgb(102,0,0)' },
+		type: 'histogram'
+	} as PlotData;
+	const trace4 = {
+		xaxis: 'x2',
+		y: [16, 5, 11, 9],
+		name: 'y density',
+		marker: { color: 'rgb(102,0,0)' },
+		type: 'histogram'
+	} as PlotData;
+	const data = [trace1, trace2, trace3, trace4];
 	const layout = {
 		title: 'Sales Growth',
 		xaxis: {
 			title: 'Year',
+			domain: [0, 0.85],
 			showgrid: false,
 			zeroline: false
 		},
 		yaxis: {
 			title: 'Percent',
-			showline: false
+			showline: false,
+			domain: [0, 0.85],
+			showgrid: false,
+			zeroline: false
+		},
+		xaxis2: {
+			domain: [0.85, 1],
+			showgrid: false,
+			zeroline: false
+		},
+		yaxis2: {
+			domain: [0.85, 1],
+			showgrid: false,
+			zeroline: false
 		}
 	};
 	Plotly.newPlot(graphDiv, data, layout);
