@@ -142,6 +142,18 @@ Page({
     },
     customData: {
         hi: "MINA"
+    },
+    onTouchStart(e: wx.TouchStartEvent) {
+        e.touches;
+    },
+    onTouchEnd(e: wx.TouchEndEvent) {
+        e.touches;
+    },
+    onTouchCancel(e: wx.TouchCancelEvent) {
+        e.touches;
+    },
+    onTouchMove(e: wx.TouchMoveEvent) {
+        e.touches;
     }
 });
 
