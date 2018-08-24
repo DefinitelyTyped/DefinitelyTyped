@@ -38,7 +38,7 @@ interface ChromeWindow {
     /**
      * ❗ window.localStorage is not available in packaged apps. Use chrome.storage.local instead. ❗
      */
-    localStorage: typeof localStorage;
+    // localStorage: typeof localStorage;
 
 
     /**
