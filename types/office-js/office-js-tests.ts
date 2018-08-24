@@ -316,3 +316,21 @@ async function test_interfaces() {
 		range.set(rangeSettables);
 	});
 }
+
+async function testResumeExistingObject () {
+	let range: Excel.Range;
+	await Excel.run(async context => {
+		range = context.workbook.getSelectedRange();
+		await context.sync();
+	});
+
+	await Excel.run(range, async context => {
+		range.clear();
+		await context.sync();
+	});
+
+	await Excel.run({delayForCellEdit: true, previousObjects: range}, async context => {
+		range.clear();
+		await context.sync();
+	});
+}

@@ -13,19 +13,21 @@ import * as d3Quadtree from 'd3-quadtree';
 // ---------------------------------------------------------------------------
 
 // custom type guard
-function isLeaf(a: any): a is d3Quadtree.QuadtreeLeaf<any> {
-    return a.data !== undefined;
+function isLeaf<T>(a: d3Quadtree.QuadtreeInternalNode<T> | d3Quadtree.QuadtreeLeaf<T>): a is d3Quadtree.QuadtreeLeaf<T> {
+    return a.length === undefined;
 }
 
 let num: number;
-let extent: [[number, number], [number, number]];
+let num4: 4;
+let undef: undefined;
+let extent: [[number, number], [number, number]] | undefined;
 
 interface TestDatum {
     x: number;
     y: number;
 }
 
-let testDatum: TestDatum;
+let testDatum: TestDatum | undefined;
 
 let testData: TestDatum[] = [
     { x: 10, y: 20 },
@@ -83,7 +85,6 @@ quadtree = d3Quadtree.quadtree<TestDatum>(testData); // explicitly typed to Test
 
 // test without data
 quadtree = d3Quadtree.quadtree<TestDatum>();
-// quadtree = d3Quadtree.quadtree(); fails, wrong underlying data type
 
 // Configure Quadtree ========================================================
 
@@ -111,12 +112,14 @@ quadtree = quadtree.cover(50, 90);
 // add(...) ------------------------------------------------------------------
 
 quadtree = quadtree.add({ x: 35, y: 35 });
-// quadtree = quadtree.add({x: 35}); // fails, incompatible data type
+// $ExpectError
+quadtree = quadtree.add({x: 35}); // fails, incompatible data type
 
 // addAll(...) ---------------------------------------------------------------
 
 quadtree = quadtree.addAll(testData);
-// quadtree = quadtree.addAll([{x: 35}, {x: 55, y: 13}]); // fails, incompatible data type
+// $ExpectError
+quadtree = quadtree.addAll([{x: 35}, {x: 55, y: 13}]); // fails, incompatible data type
 
 // remove(...) ---------------------------------------------------------------
 
@@ -191,9 +194,10 @@ quadtree = quadtree.visit((node, x0, y0, x1, y1) => {
     }
 });
 
-// quadtree = quadtree.visit(function (node, x0, y0, x1, y1) {
-//     return 10; // fails wrong return type
-// });
+// $ExpectError
+quadtree = quadtree.visit((node, x0, y0, x1, y1) => {
+    return 10; // fails wrong return type
+});
 
 // visitAfter() ---------------------------------------------------------------
 
@@ -232,3 +236,15 @@ quadNode = internalNode[0];
 quadNode = internalNode[1];
 quadNode = internalNode[2];
 quadNode = internalNode[3];
+
+num = internalNode.length;
+num4 = internalNode.length;
+
+quadtree = quadtree.visit((node, x0, y0, x1, y1) => {
+    if (isLeaf(node)) {
+        undef = node.length;
+    } else {
+        num = node.length;
+        num4 = node.length;
+    }
+});

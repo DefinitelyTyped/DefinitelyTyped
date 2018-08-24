@@ -1,4 +1,4 @@
-import Router, * as r from "next/router";
+import Router, { withRouter, WithRouterProps } from "next/router";
 import * as React from "react";
 import * as qs from "querystring";
 
@@ -13,8 +13,8 @@ Router.ready(() => {
 
 // Access readonly properties of the router.
 
-Object.keys(Router.router.components).forEach(key => {
-    const c = Router.router.components[key];
+Object.keys(Router.components).forEach(key => {
+    const c = Router.components[key];
     c.err.isAnAny;
 
     return <c.Component />;
@@ -26,52 +26,73 @@ function split(routeLike: string) {
     });
 }
 
-if (Router.router.asPath) {
-    split(Router.router.asPath);
-    split(Router.router.asPath);
+if (Router.asPath) {
+    split(Router.asPath);
+    split(Router.asPath);
 }
 
-split(Router.router.pathname);
+split(Router.pathname);
 
-const query = `?${qs.stringify(Router.router.query)}`;
+const query = `?${qs.stringify(Router.query)}`;
 
 // Assign some callback methods.
-Router.router.onAppUpdated = (nextRoute: string) => console.log(nextRoute);
-Router.router.onRouteChangeStart = (url: string) =>
-    console.log("Route is starting to change.", url);
-Router.router.onBeforeHistoryChange = (as: string) =>
-    console.log("History hasn't changed yet.", as);
-Router.router.onRouteChangeComplete = (url: string) =>
-    console.log("Route chaneg is complete.", url);
-Router.router.onRouteChangeError = (err: any, url: string) =>
-    console.log("Route is starting to change.", url, err);
+Router.events.on('routeChangeStart', (url: string) => console.log("Route is starting to change.", url));
+Router.events.on('beforeHistoryChange', (as: string) => console.log("History hasn't changed yet.", as));
+Router.events.on('routeChangeComplete', (url: string) => console.log("Route change is complete.", url));
+Router.events.on('routeChangeError', (err: any, url: string) => console.log("Route change errored.", err, url));
 
 // Call methods on the router itself.
-Router.router.reload("/route").then(() => console.log("route was reloaded"));
-Router.router.back();
+Router.reload("/route").then(() => console.log("route was reloaded"));
+Router.back();
+Router.beforePopState(({ url }) => !!url);
 
-Router.router.push("/route").then((success: boolean) =>
+Router.push("/route").then((success: boolean) =>
     console.log("route push success: ", success),
 );
-Router.router.push("/route", "/asRoute").then((success: boolean) =>
+Router.push("/route", "/asRoute").then((success: boolean) =>
     console.log("route push success: ", success),
 );
-Router.router.push("/route", "/asRoute", { shallow: false }).then((success: boolean) =>
+Router.push("/route", "/asRoute", { shallow: false }).then((success: boolean) =>
     console.log("route push success: ", success),
 );
 
-Router.router.replace("/route").then((success: boolean) =>
+Router.replace("/route").then((success: boolean) =>
     console.log("route replace success: ", success),
 );
-Router.router.replace("/route", "/asRoute").then((success: boolean) =>
+Router.replace("/route", "/asRoute").then((success: boolean) =>
     console.log("route replace success: ", success),
 );
-Router.router.replace("/route", "/asRoute", {
+Router.replace("/route", "/asRoute", {
     shallow: false,
 }).then((success: boolean) => console.log("route replace success: ", success));
 
-Router.router.prefetch("/route").then(Component => {
+Router.prefetch("/route").then(Component => {
     const element = <Component />;
 });
 
-r.withRouter(props => <div />);
+interface TestComponentProps {
+    testValue: string;
+}
+
+class TestComponent extends React.Component<TestComponentProps & WithRouterProps> {
+    state = { ready: false };
+
+    constructor(props: TestComponentProps & WithRouterProps) {
+        super(props);
+        props.router.ready(() => {
+            this.setState({ ready: true });
+        });
+    }
+
+    render() {
+        return (
+            <div>
+                <h1>{this.state.ready ? 'Ready' : 'Not Ready'}</h1>
+                <h2>Route: {this.props.router.route}</h2>
+                <p>Another prop: {this.props.testValue}</p>
+            </div>
+        );
+    }
+}
+
+withRouter(TestComponent);

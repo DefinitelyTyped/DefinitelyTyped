@@ -51,6 +51,18 @@ const Test: React.StatelessComponent = () => {
             >
                 <div>{ "test" }</div>
             </Components.Transition>
+            <Components.Transition in timeout={500}>
+                {(status) => {
+                     switch (status) {
+                         case ENTERING:
+                         case ENTERED:
+                         case EXITING:
+                         case EXITED:
+                         case UNMOUNTED:
+                             return <div>{status}</div>;
+                     }
+                }}
+            </Components.Transition>
 
             <Transition
                 timeout={ { enter : 500, exit : 500 } }

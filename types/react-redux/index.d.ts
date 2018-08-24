@@ -1,5 +1,5 @@
-// Type definitions for react-redux 6.0.1
-// Project: https://github.com/rackt/react-redux
+// Type definitions for react-redux 6.0.4
+// Project: https://github.com/reduxjs/react-redux
 // Definitions by: Qubo <https://github.com/tkqubo>,
 //                 Thomas Hasner <https://github.com/thasner>,
 //                 Kenzie Togami <https://github.com/kenzierocks>,
@@ -26,56 +26,56 @@
 // to update this type definitions for redux@4.x from redux@3.x.
 // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/25321
 
-import * as React from 'react';
-import * as Redux from 'redux';
+import {
+    Component,
+    ComponentClass,
+    ComponentType,
+    StatelessComponent
+} from 'react';
 
-type ComponentClass<P> = React.ComponentClass<P>;
-type StatelessComponent<P> = React.StatelessComponent<P>;
-type Component<P> = React.ComponentType<P>;
-type ReactNode = React.ReactNode;
-type Store<S> = Redux.Store<S>;
-type Dispatch<A extends Redux.Action = Redux.AnyAction> = Redux.Dispatch<A>;
-type ActionCreator<A> = Redux.ActionCreator<A>;
+import {
+    Action,
+    ActionCreator,
+    AnyAction,
+    Dispatch,
+    Store
+} from 'redux';
 
-// Diff / Omit taken from https://github.com/Microsoft/TypeScript/issues/12215#issuecomment-311923766
-type Omit<T, K extends keyof T> = Pick<T, ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never, [x: number]: never })[keyof T]>;
+// Omit taken from https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
-
-export interface DispatchProp<A extends Redux.Action = Redux.AnyAction> {
-  dispatch: Dispatch<A>;
+export interface DispatchProp<A extends Action = AnyAction> {
+    dispatch: Dispatch<A>;
 }
 
 interface AdvancedComponentDecorator<TProps, TOwnProps> {
-    (component: Component<TProps>): ComponentClass<TOwnProps>;
+    (component: ComponentType<TProps>): ComponentClass<TOwnProps>;
 }
 
 /**
  * a property P will be present if :
  * - it is present in both DecorationTargetProps and InjectedProps
- * - DecorationTargetProps[P] extends InjectedProps[P]
+ * - InjectedProps[P] can satisfy DecorationTargetProps[P]
  * ie: decorated component can accept more types than decorator is injecting
  *
- * For decoration, inject props or ownProps are all optionnaly
+ * For decoration, inject props or ownProps are all optionally
  * required by the decorated (right hand side) component.
- * But any property required by the decorated component must extend the injected property
+ * But any property required by the decorated component must be satisfied by the injected property.
  */
 type Shared<
     InjectedProps,
     DecorationTargetProps extends Shared<InjectedProps, DecorationTargetProps>
     > = {
-        [P in Extract<keyof InjectedProps, keyof DecorationTargetProps>]?: DecorationTargetProps[P] extends InjectedProps[P] ? InjectedProps[P] : never;
+        [P in Extract<keyof InjectedProps, keyof DecorationTargetProps>]?: InjectedProps[P] extends DecorationTargetProps[P] ? DecorationTargetProps[P] : never;
     };
 
 // Injects props and removes them from the prop requirements.
 // Will not pass through the injected props if they are passed in during
 // render. Also adds new prop requirements from TNeedsProps.
 export interface InferableComponentEnhancerWithProps<TInjectedProps, TNeedsProps> {
-	(
-		component: StatelessComponent<TInjectedProps>
-	): ComponentClass<TNeedsProps> & {WrappedComponent: StatelessComponent<TInjectedProps>}
 	<P extends Shared<TInjectedProps, P>>(
-		component: Component<P>
-	): ComponentClass<Omit<P, keyof Shared<TInjectedProps, P>> & TNeedsProps> & {WrappedComponent: Component<P>}
+		component: ComponentType<P>
+	): ComponentClass<Omit<P, keyof Shared<TInjectedProps, P>> & TNeedsProps> & {WrappedComponent: ComponentType<P>}
 }
 
 // Injects props and removes them from the prop requirements.
@@ -316,18 +316,17 @@ export interface ConnectOptions {
     withRef?: boolean
 }
 
-export interface ProviderProps {
+export interface ProviderProps<A extends Action = AnyAction> {
     /**
      * The single Redux store in your application.
      */
-    store?: Store<any>;
-    children?: ReactNode;
+    store: Store<any, A>;
 }
 
 /**
  * Makes the Redux store available to the connect() calls in the component hierarchy below.
  */
-export class Provider extends React.Component<ProviderProps, {}> { }
+export class Provider<A extends Action = AnyAction> extends Component<ProviderProps<A>> { }
 
 /**
  * Creates a new <Provider> which will set the Redux Store on the passed key of the context. You probably only need this

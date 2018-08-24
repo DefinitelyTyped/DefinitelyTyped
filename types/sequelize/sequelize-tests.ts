@@ -34,11 +34,16 @@ s.transaction().then( ( a ) => t = a );
 interface GUserAttributes {
     id? : number;
     username? : string;
+    email: string;
 }
 
 interface GUserInstance extends Sequelize.Instance<GUserAttributes> {}
-var GUser = s.define<GUserInstance, GUserAttributes>( 'user', { id: Sequelize.INTEGER, username : Sequelize.STRING });
-GUser.create({ id : 1, username : 'one' }).then( ( guser ) => guser.save() );
+const GUser = s.define<GUserInstance, GUserAttributes>('user', {
+    id: Sequelize.INTEGER,
+    username: Sequelize.STRING,
+    email: Sequelize.STRING
+});
+GUser.create({ id : 1, username : 'one', email: 'one@lol.com' }).then((guser) => guser.save());
 
 var schema : Sequelize.DefineAttributes = {
     key : { type : Sequelize.STRING, primaryKey : true },
@@ -933,6 +938,7 @@ User.findAll( { include : [{ all : 'HasMany', attributes : ['name'] }] } );
 User.findAll( { include : [{ all : true }, { model : User, attributes : ['id'] }] } );
 User.findAll( { include : [{ all : 'BelongsTo' }] } );
 User.findAll( { include : [{ all : true }] } );
+User.findAll( { include : [{ nested : true }] } );
 User.findAll( { where : { username : 'barfooz' }, raw : true } );
 User.findAll( { where : { name : 'worker' }, include : [{ model : User, as : 'ToDos' }] } );
 User.findAll( { where : { user_id : 1 }, attributes : ['a', 'b'], include : [{ model : User, attributes : ['c'] }] } );
@@ -1293,7 +1299,7 @@ var testModel = s.define( 'User', {
     theDate : Sequelize.DATE,
     aBool : Sequelize.BOOLEAN
 } );
-var testModel = s.define( 'FrozenUser', {}, { freezeTableName : true } );
+const testFrozenModel = s.define( 'FrozenUser', {}, { freezeTableName : true } );
 s.define( 'UserWithClassAndInstanceMethods', {}, {
     classMethods : { doSmth : function() { return 1; } },
     instanceMethods : { makeItSo : function() { return 2; } }
@@ -1538,7 +1544,11 @@ interface ChairAttributes {
 }
 interface ChairInstance extends Sequelize.Instance<ChairAttributes> {}
 
-const Chair = s.define<ChairInstance, ChairAttributes>('chair', {});
+const Chair = s.define<ChairInstance, ChairAttributes>('chair', {
+    id: Sequelize.NUMBER,
+    color: Sequelize.STRING,
+    legs: Sequelize.NUMBER
+});
 
 Chair.findAll({
     where: {
@@ -1727,7 +1737,7 @@ s.define('DefineOptionsIndexesTest', {
     email: {
         allowNull: false,
         type: Sequelize.STRING(255),
-        set: function (val) {
+        set: function (val: any) {
             if (typeof val === "string") {
                 val = val.toLowerCase();
             } else {

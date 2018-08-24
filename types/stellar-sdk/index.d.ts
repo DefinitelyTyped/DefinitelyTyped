@@ -2,6 +2,8 @@
 // Project: https://github.com/stellar/js-stellar-sdk
 // Definitions by: Carl Foster <https://github.com/carl-foster>
 //                 Triston Jones <https://github.com/tristonj>
+//                 Paul Selden <https://github.com/pselden>
+//                 Max Bause <https://github.com/maxbause>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -20,7 +22,7 @@ export class CallBuilder<T extends Record> {
     cursor(cursor: string): this;
     limit(limit: number): this;
     order(direction: 'asc' | 'desc'): this;
-    stream(options?: { onmessage?: () => void, onerror?: () => void }): () => void;
+    stream(options?: { onmessage?: (record: T) => void, onerror?: (error: Error) => void }): () => void;
 }
 
 export interface CollectionPage<T extends Record> {
@@ -505,15 +507,21 @@ export class Memo {
     static return(hash: string): Memo;
     static text(text: string): Memo;
 
-    constructor(type: 'MemoNone')
-    constructor(type: 'MemoID' | 'MemoText', value: string)
-    constructor(type: 'MemoHash' | 'MemoReturn', value: Buffer)
+    constructor(type: 'none');
+    constructor(type: 'id' | 'text' | 'hash' | 'return', value: string)
+    constructor(type: 'hash' | 'return', value: Buffer)
 
-    type: 'MemoNone' | 'MemoID' | 'MemoText' | 'MemoHash' | 'MemoReturn';
+    type: string;
     value: null | string | Buffer;
 
     toXDRObject(): xdr.Memo;
 }
+
+export const MemoNone = 'none';
+export const MemoID = 'id';
+export const MemoText = 'text';
+export const MemoHash = 'hash';
+export const MemoReturn = 'return';
 
 export enum Networks {
     PUBLIC = 'Public Global Stellar Network ; September 2015',
@@ -817,6 +825,7 @@ export class Transaction {
     fee: number;
     source: string;
     memo: Memo;
+    signatures: xdr.DecoratedSignature[];
 }
 
 export class TransactionBuilder {
@@ -854,9 +863,11 @@ export class Keypair {
 
     publicKey(): string;
     secret(): string;
+    rawPublicKey(): Buffer;
     rawSecretKey(): Buffer;
     canSign(): boolean;
     sign(data: Buffer): Buffer;
+    signatureHint(): xdr.SignatureHint;
     verify(data: Buffer, signature: Buffer): boolean;
 }
 
@@ -868,4 +879,9 @@ export namespace xdr {
     class Asset extends XDRStruct { }
     class Memo extends XDRStruct { }
     class TransactionEnvelope extends XDRStruct { }
+    class DecoratedSignature extends XDRStruct {
+      constructor(keys: { hint: SignatureHint, signature: Signature })
+    }
+    class SignatureHint { }
+    class Signature { }
 }

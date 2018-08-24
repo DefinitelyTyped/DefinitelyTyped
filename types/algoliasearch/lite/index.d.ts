@@ -4,6 +4,7 @@
 //                 Haroen Viaene <https://github.com/haroenv>
 //                 Aurélien Hervé <https://github.com/aherve>
 //                 Samuel Vaillant <https://github.com/samouss>
+//                 Claas Brüggemann <https://github.com/ClaasBrueggemann>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -180,6 +181,11 @@ declare namespace algoliasearch {
      * https://github.com/algolia/algoliasearch-client-js#client-options
      */
     hosts?: { read?: string[]; write?: string[] };
+    /**
+     * enable the experimental feature: caching requests instead of responses
+     * see https://github.com/algolia/algoliasearch-client-javascript/pull/694
+     */
+    _useRequestCache?: boolean
   }
   interface BrowseResponse {
     cursor?: string;
@@ -564,6 +570,14 @@ declare namespace algoliasearch {
     params: string;
     facets?: {
       [facetName: string]: { [facetValue: string]: number };
+    };
+    facets_stats?: {
+      [facetName: string]: {
+        avg: number,
+        max: number,
+        min: number,
+        sum: number,
+      };
     };
   }
 

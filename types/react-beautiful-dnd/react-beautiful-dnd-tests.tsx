@@ -40,12 +40,11 @@ interface AppState {
 }
 
 class App extends React.Component<{}, AppState> {
+  state = {
+    items: getItems(10)
+  };
   constructor(props: any) {
     super(props);
-
-    this.state = {
-      items: getItems(10)
-    };
     this.onDragEnd = this.onDragEnd.bind(this);
   }
 

@@ -1,9 +1,5 @@
 import * as mongoose from 'mongoose';
 
-// test compatibility with other libraries
-import * as _ from 'lodash';
-var fs = require('fs');
-
 // dummy variables
 var cb = function () {};
 
@@ -28,7 +24,8 @@ const connection2: Promise<mongoose.Mongoose> = mongoose.connect(connectUri, {
     autoIndex: true
   },
   mongos: true,
-  bufferCommands: false
+  bufferCommands: false,
+  useNewUrlParser: true
 });
 const connection3: null = mongoose.connect(connectUri, function (error) {
   error.stack;
@@ -161,6 +158,13 @@ mongoose.Connection.STATES.hasOwnProperty('');
 conn1.on('data', cb);
 conn1.addListener('close', cb);
 
+// The connection returned by useDb is *not* thenable.
+// From https://github.com/DefinitelyTyped/DefinitelyTyped/pull/26057#issuecomment-396150819
+const getDB = async (tenant: string)=> {
+  return conn1.useDb(tenant);
+};
+
+
 /*
  * section error/validation.js
  * http://mongoosejs.com/docs/api.html#error-validation-js
@@ -289,7 +293,7 @@ schema.method('name', cb).method({
 });
 schema.path('a', mongoose.Schema.Types.Buffer).path('a');
 schema.pathType('m1').toLowerCase();
-schema.plugin(function (schema, opts) {
+schema.plugin(function (schema: mongoose.Schema, opts?: any) {
   schema.get('path');
   if (opts) {
     opts.hasOwnProperty('');
@@ -425,7 +429,7 @@ schema.queue('m1', [1, 2, 3]).queue('m2', [[]]);
 schema.remove('path');
 schema.remove(['path1', 'path2', 'path3']);
 schema.requiredPaths(true)[0].toLowerCase();
-schema.set('key', 999).set('key');
+schema.set('id', true).set('id');
 schema.static('static', cb).static({
   s1: cb,
   s2: cb
@@ -560,25 +564,25 @@ new mongoose.Schema({
   }
 });
 
-(new mongoose.Schema({})).plugin(function (schema: any, options: any) {
+(new mongoose.Schema({})).plugin<any>(function (schema: mongoose.Schema, options: any) {
   schema.add({ lastMod: Date })
   schema.pre('save', function (next: Function) {
-    this.lastMod = new Date
+    (this as any).lastMod = new Date
     next()
   })
   if (options && options['index']) {
     schema.path('lastMod').index(options['index'])
   }
-}, { index: true }).plugin(function (schema: any, options: any) {
+}, { index: true }).plugin<any>(function (schema: mongoose.Schema, options: any) {
   schema.add({ lastMod: Date })
   schema.pre('save', function (next: Function) {
-    this.lastMod = new Date
+    (this as any).lastMod = new Date
     next()
   })
   if (options && options['index']) {
     schema.path('lastMod').index(options['index'])
   }
-});
+}, {index: true});
 
 new mongoose.Schema({foo: String}, {strict: 'throw'});
 
@@ -587,6 +591,35 @@ export default function(schema: mongoose.Schema) {
      console.log('success!');
   });
 }
+
+// plugins
+function MyPlugin(schema: mongoose.Schema, opts?: string) {
+}
+new mongoose.Schema({})
+    .plugin(MyPlugin)
+
+interface PluginOption {
+    modelName: string;
+    timestamp: string;
+}
+
+function logger(modelName: string, timestamp: string) {
+    // call special logger with options
+}
+
+function AwesomeLoggerPlugin(schema: mongoose.Schema, options: PluginOption) {
+    if (options) {
+        schema.pre('save', function (next: Function) {
+            logger(options.modelName, options.timestamp)
+        })
+    }
+}
+
+new mongoose.Schema({})
+    .plugin<PluginOption>(AwesomeLoggerPlugin, {modelName: 'Executive', timestamp: 'yyyy/MM/dd'})
+
+mongoose.plugin<PluginOption>(AwesomeLoggerPlugin, {modelName: 'Executive', timestamp: 'yyyy/MM/dd'})
+
 
 /*
  * section document.js
@@ -739,7 +772,7 @@ interface MyEntity extends mongoose.Document {
   sub: mongoose.Types.Array<MySubEntity>
 }
 var myEntity = <MyEntity> {};
-var subDocArray = _.filter(myEntity.sub, function (sd) {
+var subDocArray = myEntity.sub.filter(sd => {
   sd.property1;
   sd.property2.toLowerCase();
   return true;
@@ -1193,6 +1226,7 @@ aggregate.allowDiskUse(true).allowDiskUse(false, []);
 aggregate.append({ $project: { field: 1 }}, { $limit: 2 });
 aggregate.append([{ $match: { daw: 'Logic Audio X' }} ]);
 aggregate.collation({ locale: 'en_US', strength: 1 });
+aggregate.count('countName');
 aggregate.cursor({ batchSize: 1000 }).exec().each(cb);
 aggregate.exec().then(cb).catch(cb);
 aggregate.option({foo: 'bar'}).exec();

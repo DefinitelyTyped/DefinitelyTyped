@@ -6,8 +6,9 @@
 //                 Sergio Sánchez <https://github.com/ssanchezmarc>
 //                 Fernando Helwanger <https://github.com/fhelwanger>
 //                 Umidbek Karimov <https://github.com/umidbekkarimov>
+//                 Tina Roh <https://github.com/tinaroh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import { EventSubscription } from 'fbemitter';
 import { Component, ComponentClass, Ref, ComponentType } from 'react';
@@ -787,11 +788,31 @@ export interface CameraProps extends ViewProps {
 }
 
 export interface CameraConstants {
-    readonly Type: string;
-    readonly FlashMode: string;
-    readonly AutoFocus: string;
-    readonly WhiteBalance: string;
-    readonly VideoQuality: string;
+    readonly Type: {
+        back: string;
+        front: string;
+    };
+    readonly FlashMode: {
+        on: string;
+        off: string;
+        auto: string;
+        torch: string;
+    };
+    readonly AutoFocus: {
+        on: string;
+        off: string;
+    };
+    readonly WhiteBalance: {
+        auto: string;
+        sunny: string;
+        cloudy: string;
+        shadow: string;
+        fluorescent: string;
+        incandescent: string;
+    };
+    readonly VideoQuality: {
+        [videoQuality: string]: number;
+    };
     readonly BarCodeType: {
         aztec: string;
         codabar: string;
@@ -877,7 +898,7 @@ export namespace Constants {
         };
         appKey?: string;
         androidStatusBar?: {
-            barStyle?: 'lignt-content' | 'dark-content',
+            barStyle?: 'light-content' | 'dark-content',
             backgroundColor?: string
         };
         androidShowExponentNotificationInShellApp?: boolean;
@@ -2181,6 +2202,7 @@ export interface VideoProps {
     translateY?: number;
     rotation?: number;
     ref?: Ref<PlaybackObject>;
+    style?: StyleProp<ViewStyle>;
 }
 
 export interface VideoState {

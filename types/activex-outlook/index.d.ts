@@ -5886,7 +5886,3 @@ interface EnumeratorConstructor {
     new(col: Outlook.Reminders): Enumerator<Outlook.Reminder>;
     new(col: Outlook.Views): Enumerator<Outlook.View>;
 }
-
-interface SafeArray<T = any> {
-    _brand: SafeArray<T>;
-}

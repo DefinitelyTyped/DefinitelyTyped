@@ -1,7 +1,7 @@
 import { createAdapter } from "bunyan-winston-adapter";
-import { Logger, LoggerInstance, transports } from "winston";
+import { createLogger } from "winston";
 
-const logger = new Logger();
+const logger = createLogger();
 const mapping = {
   trace: 'silly'
 };

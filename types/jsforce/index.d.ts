@@ -6,7 +6,7 @@
 //                 Tim Noonan <https://github.com/tnoonan-salesforce>
 //                 Abraham White <https://github.com/whiteabelincoln>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 export * from './api/analytics';
 export * from './api/chatter';

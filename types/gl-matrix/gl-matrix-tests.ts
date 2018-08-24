@@ -79,6 +79,7 @@ outVec2 = vec2.transformMat2d(outVec2, vec2A, mat2dA);
 outVec2 = vec2.transformMat3(outVec2, vec2A, mat3A);
 outVec2 = vec2.transformMat4(outVec2, vec2A, mat4A);
 vecArray = vec2.forEach(vecArray, 0, 0, 0, vec2.normalize);
+outVal = vec2.angle(vec2A, vec2B);
 outStr = vec2.str(vec2A);
 outBool = vec2.exactEquals(vec2A, vec2B);
 outBool = vec2.equals(vec2A, vec2B);

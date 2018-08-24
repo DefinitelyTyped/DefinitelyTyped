@@ -21,7 +21,7 @@ declare namespace Intercom_ {
       activator?: string;
     };
     company?: {
-      id: string|number,
+      id: string | number,
       name: string,
       created_at: number,
       plan?: string,
@@ -33,16 +33,17 @@ declare namespace Intercom_ {
   }
 
   type IntercomCommand = 'boot'
-    |'shutdown'
-    |'update'
-    |'hide'
-    |'show'
-    |'showMessages'
-    |'showNewMessage'
-    |'onHide'
-    |'onShow'
-    |'onActivatorClick'
-    |'trackEvent';
+    | 'shutdown'
+    | 'update'
+    | 'hide'
+    | 'show'
+    | 'showMessages'
+    | 'showNewMessage'
+    | 'onHide'
+    | 'onShow'
+    | 'onUnreadCountChange'
+    | 'onActivatorClick'
+    | 'trackEvent';
 
   interface IntercomStatic {
     (command: 'boot', param: IntercomSettings): void;
@@ -51,6 +52,7 @@ declare namespace Intercom_ {
     (command: 'showNewMessage', param?: string): void;
     (command: 'onHide' | 'onShow' | 'onActivatorClick', param?: () => void): void;
     (command: 'trackEvent', tag?: string, metadata?: any): void;
+    (command: 'onUnreadCountChange', cb: (unreadCount: number) => void): void;
     (command: IntercomCommand, param1?: any, param2?: any): void;
   }
 }

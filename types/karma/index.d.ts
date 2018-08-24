@@ -3,7 +3,7 @@
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 //                 James Garbutt <https://github.com/43081j>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 
@@ -294,6 +294,18 @@ declare namespace karma {
          * @description A list of log appenders to be used. See the documentation for [log4js] for more information.
          */
         loggers?: Log4jsAppenderConfigBase[];
+        /**
+         * @default []
+         * @description List of names of additional middleware you want the
+         * Karma server to use. Middleware will be used in the order listed.
+         * You must have installed the middleware via a plugin/framework
+         * (either inline or via NPM). Additional information can be found in
+         * [plugins](http://karma-runner.github.io/2.0/config/plugins.html).
+         * The plugin must provide an express/connect middleware function
+         * (details about this can be found in the
+         * [Express](http://expressjs.com/guide/using-middleware.html) docs).
+         */
+        middleware?: string[];
         /**
          * @default {}
          * @description Redefine default mapping from file extensions to MIME-type.

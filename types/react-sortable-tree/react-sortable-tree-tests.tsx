@@ -69,11 +69,13 @@ class Test extends React.Component {
                     dndType="testNodeType"
                     placeholderRenderer={PlaceholderRenderer}
                     theme={theme}
+					shouldCopyOnOutsideDrop={true}
                 />
                 <SortableTreeWithoutDndContext
                     treeData={[{title: "Title", subtitle: "Subtitle", children: []}]}
                     onChange={(treeData: TreeItem[]) => {}}
                     style={{width: "100px"}}
+					shouldCopyOnOutsideDrop={() => false}
                 />
             </div>
         );

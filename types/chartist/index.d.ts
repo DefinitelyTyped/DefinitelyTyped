@@ -534,7 +534,7 @@ declare namespace Chartist {
         /**
          * Set attributes on the current SVG element of the wrapper you're currently working on.
          */
-        attr(attributes: Object | string, ns: string): Object | string;
+        attr(attributes: Object | string, ns?: string): Object | string;
 
         /**
          * Create a new SVG element whose wrapper object will be selected for further operations. This way you can also create nested groups easily.

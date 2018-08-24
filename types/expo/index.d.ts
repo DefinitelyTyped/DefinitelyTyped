@@ -7,8 +7,11 @@
 //                 Fernando Helwanger <https://github.com/fhelwanger>
 //                 Umidbek Karimov <https://github.com/umidbekkarimov>
 //                 Moshe Feuchtwanger <https://github.com/moshfeu>
+//                 Michael Prokopchuk <https://github.com/prokopcm>
+//                 Tina Roh <https://github.com/tinaroh>
+//                 Nathan Phillip Brink <https://github.com/binki>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import { EventSubscription } from 'fbemitter';
 import { Component, ComponentClass, Ref, ComponentType } from 'react';
@@ -16,6 +19,7 @@ import {
     ColorPropType,
     ImageRequireSource,
     ImageURISource,
+    LinkingStatic as ReactNativeLinkingStatic,
     NativeEventEmitter,
     ViewProps,
     ViewStyle,
@@ -25,7 +29,6 @@ import {
 
 export type Axis = number;
 export type BarCodeReadCallback = (params: { type: string; data: string; }) => void;
-export type FloatFromZeroToOne = 0 | 0.1 | 0.2 | 0.3 | 0.4 | 0.5 | 0.6 | 0.7 | 0.8 | 0.9 | 1;
 export type Md5 = string;
 export type Orientation = 'portrait' | 'landscape';
 export type RequireSource = ImageRequireSource;
@@ -35,6 +38,7 @@ export type ResizeModeStretch = 'stretch';
 export type URISource = ImageURISource;
 
 export interface HashMap { [key: string]: any; }
+export interface StringHashMap { [key: string]: string; }
 
 /** Access the device accelerometer sensor(s) to respond to changes in acceleration in 3d space. */
 export namespace Accelerometer {
@@ -548,14 +552,16 @@ export type PlaybackStatus = {
 
 export interface PlaybackStatusToSet {
     androidImplementation?: string;
-    progressUpdateIntervalMillis?: number;
-    positionMillis?: number;
-    shouldPlay?: boolean;
-    rate?: FloatFromZeroToOne;
-    shouldCorrectPitch?: boolean;
-    volume?: FloatFromZeroToOne;
-    isMuted?: boolean;
     isLooping?: boolean;
+    isMuted?: boolean;
+    positionMillis?: number;
+    progressUpdateIntervalMillis?: number;
+    /** The desired playback rate of the media. This value must be between `0.0` and `32.0`. Only available on Android API version 23 and later and iOS. */
+    rate?: number;
+    shouldCorrectPitch?: boolean;
+    shouldPlay?: boolean;
+    /** A number between `0.0` (silence) and `1.0` (maximum volume). */
+    volume?: number;
 }
 
 export type PlaybackSource = RequireSource | { uri: string } | Asset;
@@ -668,7 +674,6 @@ export class PlaybackObject {
     setRateAsync(
         /** The desired playback rate of the media. This value must be between `0.0` and `32.0`. Only available on Android API version 23 and later and iOS. */
         rate: number,
-
         /** A boolean describing if we should correct the pitch for a changed rate. If set to `true`, the pitch of the audio will be corrected (so a rate different than `1.0` will timestretch the audio). */
         shouldCorrectPitch: boolean
     ): Promise<PlaybackStatus>;
@@ -730,13 +735,32 @@ export class BlurView extends Component<BlurViewProps> { }
 // #endregion
 
 /**
- * Brightness
+ * An API to get and set screen brightness.
  */
 export namespace Brightness {
-    function setBrightnessAsync(brightnessValue: FloatFromZeroToOne): Promise<void>;
-    function getBrightnessAsync(): Promise<FloatFromZeroToOne>;
-    function getSystemBrightnessAsync(): Promise<FloatFromZeroToOne>;
-    function setSystemBrightnessAsync(brightnessValue: FloatFromZeroToOne): Promise<void>;
+    /** Sets screen brightness. */
+    function setBrightnessAsync(
+        /** A number between `0` and `1`, representing the desired screen brightness. */
+        brightnessValue: number
+    ): Promise<void>;
+
+    /**
+     * Gets screen brightness.
+     * @returns A Promise that is resolved with a number between `0` and `1`, representing the current screen brightness.
+     */
+    function getBrightnessAsync(): Promise<number>;
+
+    /**
+     * Gets global system screen brightness.
+     * @returns A Promise that is resolved with a number between `0` and `1`, representing the current system screen brightness.
+     */
+    function getSystemBrightnessAsync(): Promise<number>;
+
+    /** Sets global system screen brightness, requires `WRITE_SETTINGS` permissions on Android. */
+    function setSystemBrightnessAsync(
+        /** A number between `0` and `1`, representing the desired screen brightness. */
+        brightnessValue: number
+    ): Promise<void>;
 }
 
 // #region Camera
@@ -769,30 +793,52 @@ export class CameraObject {
 }
 
 export interface CameraProps extends ViewProps {
-    zoom?: FloatFromZeroToOne;
-    ratio?: string;
-    focusDepth?: FloatFromZeroToOne;
-    type?: string | number;
-    onCameraReady?: () => void;
-    onBarCodeRead?: BarCodeReadCallback;
+    autoFocus?: string | number | boolean;
+    barCodeTypes?: Array<string | number>;
+    faceDetectionClassifications?: number;
+    faceDetectionLandmarks?: number;
     faceDetectionMode?: number;
     flashMode?: string | number;
-    barCodeTypes?: Array<string | number>;
-    whiteBalance?: string | number;
-    faceDetectionLandmarks?: number;
-    autoFocus?: string | number | boolean;
-    faceDetectionClassifications?: number;
-    onMountError?: () => void;
+    /** Distance to plane of sharpest focus. A value between `0` and `1`. `0`: infinity focus, `1`: focus as close as possible. Default: `0`. For Android this is available only for some devices and when `useCamera2Api` is set to `true`. */
+    focusDepth?: number;
+    onBarCodeRead?: BarCodeReadCallback;
+    onCameraReady?: () => void;
     onFacesDetected?: (options: { faces: TrackedFaceFeature[] }) => void;
+    onMountError?: () => void;
+    ratio?: string;
     ref?: Ref<CameraObject>;
+    type?: string | number;
+    whiteBalance?: string | number;
+    /** A value between `0` and `1` being a percentage of device's max zoom. `0`: not zoomed, `1`: maximum zoom. Default: `0`. */
+    zoom?: number;
 }
 
 export interface CameraConstants {
-    readonly Type: string;
-    readonly FlashMode: string;
-    readonly AutoFocus: string;
-    readonly WhiteBalance: string;
-    readonly VideoQuality: string;
+    readonly Type: {
+        back: string;
+        front: string;
+    };
+    readonly FlashMode: {
+        on: string;
+        off: string;
+        auto: string;
+        torch: string;
+    };
+    readonly AutoFocus: {
+        on: string;
+        off: string;
+    };
+    readonly WhiteBalance: {
+        auto: string;
+        sunny: string;
+        cloudy: string;
+        shadow: string;
+        fluorescent: string;
+        incandescent: string;
+    };
+    readonly VideoQuality: {
+        [videoQuality: string]: number;
+    };
     readonly BarCodeType: {
         aztec: string;
         codabar: string;
@@ -878,7 +924,7 @@ export namespace Constants {
         };
         appKey?: string;
         androidStatusBar?: {
-            barStyle?: 'lignt-content' | 'dark-content',
+            barStyle?: 'light-content' | 'dark-content',
             backgroundColor?: string
         };
         androidShowExponentNotificationInShellApp?: boolean;
@@ -1390,12 +1436,24 @@ export namespace Font {
 }
 
 // #region GLView
+export interface ExpoWebGLRenderingContext extends WebGLRenderingContext {
+    endFrameEXP(): void;
+}
+
 /**
- * GLView
+ * A View that acts as an OpenGL ES render target. On mounting, an OpenGL ES
+ * context is created. Its drawing buffer is presented as the contents of
+ * the View every frame.
  */
 export interface GLViewProps extends ViewProps {
-    onContextCreate(): void;
-    msaaSamples: number;
+    /**
+     * A function that will be called when the OpenGL ES context is created.
+     * Passes an object with a WebGLRenderingContext interface as an argument.
+     */
+    onContextCreate(gl: ExpoWebGLRenderingContext): void;
+
+    /** Number of MSAA samples to use on iOS. Defaults to 4. Ignored on Android. */
+    msaaSamples?: number;
 }
 
 export class GLView extends Component<GLViewProps, { msaaSamples: number }> { }
@@ -1458,6 +1516,27 @@ export namespace Gyroscope {
  * ImageManipulator
  */
 export namespace ImageManipulator {
+    type Action = Resize | Rotate | Flip | Crop;
+
+    interface Resize {
+        resize: { width?: number, height?: number };
+    }
+
+    interface Rotate {
+        rotate: number;
+    }
+
+    interface Flip {
+        flip?: { vertical?: boolean; horizontal?: boolean };
+    }
+
+    interface Crop {
+        originX: number;
+        originY: number;
+        width: number;
+        height: number;
+    }
+
     interface ImageResult {
         uri: string;
         width: number;
@@ -1467,25 +1546,12 @@ export namespace ImageManipulator {
 
     interface SaveOptions {
         base64?: boolean;
-        compress?: FloatFromZeroToOne;
+        /** A value in range `0` - `1` specifying compression level of the result image. `1` means no compression and `0` the highest compression. */
+        compress?: number;
         format?: 'jpeg' | 'png';
     }
 
-    interface CropParameters {
-        originX: number;
-        originY: number;
-        width: number;
-        height: number;
-    }
-
-    interface ImageManipulationOptions {
-        resize?: { width?: number; height?: number };
-        rotate?: number;
-        flip?: { vertical?: boolean; horizontal?: boolean };
-        crop?: CropParameters;
-    }
-
-    function manipulate(uri: string, actions: ImageManipulationOptions, saveOptions?: SaveOptions): Promise<ImageResult>;
+    function manipulate(uri: string, actions: Action[], saveOptions?: SaveOptions): Promise<ImageResult>;
 }
 
 /**
@@ -1648,6 +1714,21 @@ export interface LinearGradientProps {
 
 export class LinearGradient extends Component<LinearGradientProps> { }
 // #endregion
+
+/**
+ * Linking
+ */
+export interface LinkInfo {
+    path: string;
+    queryParams: Partial<StringHashMap>;
+}
+
+export interface LinkingStatic extends ReactNativeLinkingStatic {
+    makeUrl(path: string, queryParams?: HashMap): string;
+    parse(url: string): LinkInfo;
+    parseInitialURLAsync(): Promise<LinkInfo>;
+}
+export const Linking: LinkingStatic;
 
 /**
  * Location
@@ -2042,6 +2123,8 @@ export interface SvgUseProps extends SvgCommonProps {
     href: string;
     x: number | string;
     y: number | string;
+    width?: number | string;
+    height?: number | string;
 }
 
 export interface SvgSymbolProps extends SvgCommonProps {
@@ -2188,6 +2271,7 @@ export interface VideoProps {
     translateY?: number;
     rotation?: number;
     ref?: Ref<PlaybackObject>;
+    style?: StyleProp<ViewStyle>;
 }
 
 export interface VideoState {

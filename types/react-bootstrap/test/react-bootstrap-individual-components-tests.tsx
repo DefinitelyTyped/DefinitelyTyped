@@ -209,8 +209,8 @@ export class ReactBootstrapIndividualComponentsTest extends React.Component {
         <Table />
         <Tabs />
         <Thumbnail />
-        <ToggleButton value="foo" />
-        <ToggleButtonGroup type="checkbox" />
+        <ToggleButton value="foo" bsSize="small" />
+        <ToggleButtonGroup type="checkbox" bsSize="small" />
         <ToggleButtonGroup type="radio" name="foo" />
         <Tooltip />
         <Well />

@@ -9,9 +9,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-export = Mocha;
-export as namespace Mocha;
-
 /**
  * Mocha API
  *
@@ -426,7 +423,9 @@ declare namespace Mocha {
      * @returns [bdd] `Suite`
      * @returns [tdd] `void`
      */
-    type PendingSuiteFunction = (title: string, fn: (this: Suite) => void) => Suite | void;
+    interface PendingSuiteFunction {
+        (title: string, fn: (this: Suite) => void): Suite | void;
+    }
 
     interface TestFunction {
         /**
@@ -2623,234 +2622,365 @@ declare namespace Mocha {
     // #endregion
 }
 
-declare global {
-    // #region Test interface augmentations
+// #region Test interface augmentations
 
-    /**
-     * Triggers root suite execution.
-     *
-     * - _Only available if flag --delay is passed into Mocha._
-     * - _Only available when invoked via the mocha CLI._
-     *
-     * @see https://mochajs.org/api/global.html#runWithSuite
-     */
-    function run(): void;
+/**
+ * Triggers root suite execution.
+ *
+ * - _Only available if flag --delay is passed into Mocha._
+ * - _Only available when invoked via the mocha CLI._
+ *
+ * @see https://mochajs.org/api/global.html#runWithSuite
+ */
+declare function run(): void;
 
-    /**
-     * Execute before running tests.
-     *
-     * - _Only available when invoked via the mocha CLI._
-     *
-     * @see https://mochajs.org/api/global.html#before
-     */
-    var before: Mocha.HookFunction;
+/**
+ * Execute before running tests.
+ *
+ * - _Only available when invoked via the mocha CLI._
+ *
+ * @see https://mochajs.org/api/global.html#before
+ */
+declare var before: Mocha.HookFunction;
 
-    /**
-     * Execute before running tests.
-     *
-     * - _Only available when invoked via the mocha CLI._
-     *
-     * @see https://mochajs.org/api/global.html#before
-     */
-    var suiteSetup: Mocha.HookFunction;
+/**
+ * Execute before running tests.
+ *
+ * - _Only available when invoked via the mocha CLI._
+ *
+ * @see https://mochajs.org/api/global.html#before
+ */
+declare var suiteSetup: Mocha.HookFunction;
 
-    /**
-     * Execute after running tests.
-     *
-     * - _Only available when invoked via the mocha CLI._
-     *
-     * @see https://mochajs.org/api/global.html#after
-     */
-    var after: Mocha.HookFunction;
+/**
+ * Execute after running tests.
+ *
+ * - _Only available when invoked via the mocha CLI._
+ *
+ * @see https://mochajs.org/api/global.html#after
+ */
+declare var after: Mocha.HookFunction;
 
-    /**
-     * Execute after running tests.
-     *
-     * - _Only available when invoked via the mocha CLI._
-     *
-     * @see https://mochajs.org/api/global.html#after
-     */
-    var suiteTeardown: Mocha.HookFunction;
+/**
+ * Execute after running tests.
+ *
+ * - _Only available when invoked via the mocha CLI._
+ *
+ * @see https://mochajs.org/api/global.html#after
+ */
+declare var suiteTeardown: Mocha.HookFunction;
 
-    /**
-     * Execute before each test case.
-     *
-     * - _Only available when invoked via the mocha CLI._
-     *
-     * @see https://mochajs.org/api/global.html#beforeEach
-     */
-    var beforeEach: Mocha.HookFunction;
+/**
+ * Execute before each test case.
+ *
+ * - _Only available when invoked via the mocha CLI._
+ *
+ * @see https://mochajs.org/api/global.html#beforeEach
+ */
+declare var beforeEach: Mocha.HookFunction;
 
-    /**
-     * Execute before each test case.
-     *
-     * - _Only available when invoked via the mocha CLI._
-     *
-     * @see https://mochajs.org/api/global.html#beforeEach
-     */
-    var setup: Mocha.HookFunction;
+/**
+ * Execute before each test case.
+ *
+ * - _Only available when invoked via the mocha CLI._
+ *
+ * @see https://mochajs.org/api/global.html#beforeEach
+ */
+declare var setup: Mocha.HookFunction;
 
-    /**
-     * Execute after each test case.
-     *
-     * - _Only available when invoked via the mocha CLI._
-     *
-     * @see https://mochajs.org/api/global.html#afterEach
-     */
-    var afterEach: Mocha.HookFunction;
+/**
+ * Execute after each test case.
+ *
+ * - _Only available when invoked via the mocha CLI._
+ *
+ * @see https://mochajs.org/api/global.html#afterEach
+ */
+declare var afterEach: Mocha.HookFunction;
 
-    /**
-     * Execute after each test case.
-     *
-     * - _Only available when invoked via the mocha CLI._
-     *
-     * @see https://mochajs.org/api/global.html#afterEach
-     */
-    var teardown: Mocha.HookFunction;
+/**
+ * Execute after each test case.
+ *
+ * - _Only available when invoked via the mocha CLI._
+ *
+ * @see https://mochajs.org/api/global.html#afterEach
+ */
+declare var teardown: Mocha.HookFunction;
 
-    /**
-     * Describe a "suite" containing nested suites and tests.
-     *
-     * - _Only available when invoked via the mocha CLI._
-     */
-    var describe: Mocha.SuiteFunction;
+/**
+ * Describe a "suite" containing nested suites and tests.
+ *
+ * - _Only available when invoked via the mocha CLI._
+ */
+declare var describe: Mocha.SuiteFunction;
 
-    /**
-     * Describe a "suite" containing nested suites and tests.
-     *
-     * - _Only available when invoked via the mocha CLI._
-     */
-    var context: Mocha.SuiteFunction;
+/**
+ * Describe a "suite" containing nested suites and tests.
+ *
+ * - _Only available when invoked via the mocha CLI._
+ */
+declare var context: Mocha.SuiteFunction;
 
-    /**
-     * Describe a "suite" containing nested suites and tests.
-     *
-     * - _Only available when invoked via the mocha CLI._
-     */
-    var suite: Mocha.SuiteFunction;
+/**
+ * Describe a "suite" containing nested suites and tests.
+ *
+ * - _Only available when invoked via the mocha CLI._
+ */
+declare var suite: Mocha.SuiteFunction;
 
-    /**
-     * Pending suite.
-     *
-     * - _Only available when invoked via the mocha CLI._
-     */
-    var xdescribe: Mocha.PendingSuiteFunction;
+/**
+ * Pending suite.
+ *
+ * - _Only available when invoked via the mocha CLI._
+ */
+declare var xdescribe: Mocha.PendingSuiteFunction;
 
-    /**
-     * Pending suite.
-     *
-     * - _Only available when invoked via the mocha CLI._
-     */
-    var xcontext: Mocha.PendingSuiteFunction;
+/**
+ * Pending suite.
+ *
+ * - _Only available when invoked via the mocha CLI._
+ */
+declare var xcontext: Mocha.PendingSuiteFunction;
 
-    /**
-     * Describes a test case.
-     *
-     * - _Only available when invoked via the mocha CLI._
-     */
-    var it: Mocha.TestFunction;
+/**
+ * Describes a test case.
+ *
+ * - _Only available when invoked via the mocha CLI._
+ */
+declare var it: Mocha.TestFunction;
 
-    /**
-     * Describes a test case.
-     *
-     * - _Only available when invoked via the mocha CLI._
-     */
-    var specify: Mocha.TestFunction;
+/**
+ * Describes a test case.
+ *
+ * - _Only available when invoked via the mocha CLI._
+ */
+declare var specify: Mocha.TestFunction;
 
-    /**
-     * Describes a test case.
-     *
-     * - _Only available when invoked via the mocha CLI._
-     */
-    var test: Mocha.TestFunction;
+/**
+ * Describes a test case.
+ *
+ * - _Only available when invoked via the mocha CLI._
+ */
+declare var test: Mocha.TestFunction;
 
-    /**
-     * Describes a pending test case.
-     *
-     * - _Only available when invoked via the mocha CLI._
-     */
-    var xit: Mocha.PendingTestFunction;
+/**
+ * Describes a pending test case.
+ *
+ * - _Only available when invoked via the mocha CLI._
+ */
+declare var xit: Mocha.PendingTestFunction;
 
-    /**
-     * Describes a pending test case.
-     *
-     * - _Only available when invoked via the mocha CLI._
-     */
-    var xspecify: Mocha.PendingTestFunction;
+/**
+ * Describes a pending test case.
+ *
+ * - _Only available when invoked via the mocha CLI._
+ */
+declare var xspecify: Mocha.PendingTestFunction;
 
-    // #endregion Test interface augmentations
+// #endregion Test interface augmentations
 
-    // #region Reporter augmentations
+// #region Reporter augmentations
 
-    // Forward declaration for `HTMLLIElement` from lib.dom.d.ts.
-    // Required by Mocha.reporters.HTML.
-    // NOTE: Mocha *must not* have a direct dependency on DOM types.
+// Forward declaration for `HTMLLIElement` from lib.dom.d.ts.
+// Required by Mocha.reporters.HTML.
+// NOTE: Mocha *must not* have a direct dependency on DOM types.
+// tslint:disable-next-line no-empty-interface
+interface HTMLLIElement { }
+
+// Augments the DOM `Window` object when lib.dom.d.ts is loaded.
+// tslint:disable-next-line no-empty-interface
+interface Window extends Mocha.MochaGlobals { }
+
+declare namespace NodeJS {
+    // Forward declaration for `NodeJS.EventEmitter` from node.d.ts.
+    // Required by Mocha.Runnable, Mocha.Runner, and Mocha.Suite.
+    // NOTE: Mocha *must not* have a direct dependency on @types/node.
     // tslint:disable-next-line no-empty-interface
-    interface HTMLLIElement { }
+    interface EventEmitter { }
 
-    // Augments the DOM `Window` object when lib.dom.d.ts is loaded.
+    // Augments NodeJS's `global` object when node.d.ts is loaded
     // tslint:disable-next-line no-empty-interface
-    interface Window extends Mocha.MochaGlobals { }
+    interface Global extends Mocha.MochaGlobals { }
+}
 
-    namespace NodeJS {
-        // Forward declaration for `NodeJS.EventEmitter` from node.d.ts.
-        // Required by Mocha.Runnable, Mocha.Runner, and Mocha.Suite.
-        // NOTE: Mocha *must not* have a direct dependency on @types/node.
-        // tslint:disable-next-line no-empty-interface
-        interface EventEmitter { }
+// #endregion Reporter augmentations
 
-        // Augments NodeJS's `global` object when node.d.ts is loaded
-        // tslint:disable-next-line no-empty-interface
-        interface Global extends Mocha.MochaGlobals { }
-    }
+// #region Browser augmentations
 
-    // #endregion Reporter augmentations
+/**
+ * Mocha global.
+ *
+ * - _Only supported in the browser._
+ */
+declare const mocha: BrowserMocha;
 
-    // #region Browser augmentations
-
+interface BrowserMocha extends Mocha {
     /**
-     * Mocha global.
+     * Function to allow assertion libraries to throw errors directly into mocha.
+     * This is useful when running tests in a browser because window.onerror will
+     * only receive the 'message' attribute of the Error.
      *
      * - _Only supported in the browser._
      */
-    const mocha: BrowserMocha;
-
-    interface BrowserMocha extends Mocha {
-        /**
-         * Function to allow assertion libraries to throw errors directly into mocha.
-         * This is useful when running tests in a browser because window.onerror will
-         * only receive the 'message' attribute of the Error.
-         *
-         * - _Only supported in the browser._
-         */
-        throwError(err: any): never;
-
-        /**
-         * Setup mocha with the given settings options.
-         *
-         * - _Only supported in the browser._
-         */
-        setup(opts?: Mocha.Interface | MochaSetupOptions): this;
-    }
+    throwError(err: any): never;
 
     /**
-     * Options to pass to `mocha.setup` in the browser.
+     * Setup mocha with the given settings options.
+     *
+     * - _Only supported in the browser._
      */
-    interface MochaSetupOptions extends Mocha.MochaOptions {
-        // TODO: This does not seem to be supported according to the source. Should it be removed?
-        require?: string[];
-        fullTrace?: boolean;
+    setup(opts?: Mocha.Interface | MochaSetupOptions): this;
+}
+
+/**
+ * Options to pass to `mocha.setup` in the browser.
+ */
+interface MochaSetupOptions extends Mocha.MochaOptions {
+    /** @deprecated This is not used by Mocha. Use `files` instead. */
+    require?: string[];
+    fullTrace?: boolean;
+}
+
+// #endregion Browser augmentations
+
+// #region Deprecations
+
+/** @deprecated use `Mocha.Done` instead. */
+type MochaDone = Mocha.Done;
+
+/** @deprecated use `Mocha.ReporterConstructor` instead. */
+type ReporterConstructor = Mocha.ReporterConstructor;
+
+// #endregion Deprecations
+
+declare module "mocha" {
+    export = Mocha;
+}
+
+declare module "mocha/lib/ms" {
+    export = milliseconds;
+    /**
+     * Parse the given `str` and return milliseconds.
+     *
+     * @see {@link https://mochajs.org/api/module-milliseconds.html}
+     * @see {@link https://mochajs.org/api/module-milliseconds.html#~parse}
+     */
+    function milliseconds(val: string): number;
+
+    /**
+     * Format for `ms`.
+     *
+     * @see {@link https://mochajs.org/api/module-milliseconds.html}
+     * @see {@link https://mochajs.org/api/module-milliseconds.html#~format}
+     */
+    function milliseconds(val: number): string;
+}
+
+declare module "mocha/lib/interfaces/common" {
+    export = common;
+
+    function common(suites: Mocha.Suite[], context: Mocha.MochaGlobals, mocha: Mocha): common.CommonFunctions;
+
+    namespace common {
+        interface CommonFunctions {
+            /**
+             * This is only present if flag --delay is passed into Mocha. It triggers
+             * root suite execution.
+             */
+            runWithSuite(suite: Mocha.Suite): () => void;
+
+            /**
+             * Execute before running tests.
+             */
+            before(fn?: Mocha.Func | Mocha.AsyncFunc): void;
+
+            /**
+             * Execute before running tests.
+             */
+            before(name: string, fn?: Mocha.Func | Mocha.AsyncFunc): void;
+
+            /**
+             * Execute after running tests.
+             */
+            after(fn?: Mocha.Func | Mocha.AsyncFunc): void;
+
+            /**
+             * Execute after running tests.
+             */
+            after(name: string, fn?: Mocha.Func | Mocha.AsyncFunc): void;
+
+            /**
+             * Execute before each test case.
+             */
+            beforeEach(fn?: Mocha.Func | Mocha.AsyncFunc): void;
+
+            /**
+             * Execute before each test case.
+             */
+            beforeEach(name: string, fn?: Mocha.Func | Mocha.AsyncFunc): void;
+
+            /**
+             * Execute after each test case.
+             */
+            afterEach(fn?: Mocha.Func | Mocha.AsyncFunc): void;
+
+            /**
+             * Execute after each test case.
+             */
+            afterEach(name: string, fn?: Mocha.Func | Mocha.AsyncFunc): void;
+
+            suite: SuiteFunctions;
+            test: TestFunctions;
+        }
+
+        interface CreateOptions {
+            /** Title of suite */
+            title: string;
+
+            /** Suite function */
+            fn?: (this: Mocha.Suite) => void;
+
+            /** Is suite pending? */
+            pending?: boolean;
+
+            /** Filepath where this Suite resides */
+            file?: string;
+
+            /** Is suite exclusive? */
+            isOnly?: boolean;
+        }
+
+        interface SuiteFunctions {
+            /**
+             * Create an exclusive Suite; convenience function
+             */
+            only(opts: CreateOptions): Mocha.Suite;
+
+            /**
+             * Create a Suite, but skip it; convenience function
+             */
+            skip(opts: CreateOptions): Mocha.Suite;
+
+            /**
+             * Creates a suite.
+             */
+            create(opts: CreateOptions): Mocha.Suite;
+        }
+
+        interface TestFunctions {
+            /**
+             * Exclusive test-case.
+             */
+            only(mocha: Mocha, test: Mocha.Test): Mocha.Test;
+
+            /**
+             * Pending test case.
+             */
+            skip(title: string): void;
+
+            /**
+             * Number of retry attempts
+             */
+            retries(n: number): void;
+        }
     }
-
-    // #endregion Browser augmentations
-
-    // #region Deprecations
-
-    /** @deprecated use `Mocha.DoneCallback` instead. */
-    type MochaDone = Mocha.Done;
-
-    /** @deprecated use `Mocha.ReporterConstructor` instead. */
-    type ReporterConstructor = Mocha.ReporterConstructor;
-
-    // #endregion Deprecations
 }

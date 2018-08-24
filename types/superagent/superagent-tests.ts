@@ -230,11 +230,27 @@ const reqCookies: string = req.cookies;
 
 console.log(`${reqMethod} request to ${reqUrl} cookies ${reqCookies}`);
 
-// Basic authentication
+// Authentication
 request.get('http://tobi:learnboost@local').end(callback);
+
 request
     .get('http://local')
     .auth('tobo', 'learnboost')
+    .end(callback);
+
+request
+    .get('http://local')
+    .auth('user', 'pass', { type: 'basic' })
+    .end(callback);
+
+request
+    .get('http://local')
+    .auth('user', 'pass', {type: 'auto'})
+    .end(callback);
+
+request
+    .get('http://local')
+    .auth('abearertoken', { type: 'bearer' })
     .end(callback);
 
 // Following redirects
@@ -390,3 +406,18 @@ request
     .then(response => {
         // reads 404 page as a successful response
     });
+
+// Test that the "Plugin" type from "use" provides a SuperAgentRequest rather than a Request,
+// which has additional properties.
+const echoPlugin = (request: request.SuperAgentRequest) => {
+  req.url = '' + req.url;
+  req.cookies = '' + req.cookies;
+  if (req.method) {
+    req.url = '/echo';
+  }
+};
+
+request
+    .get('/echo')
+    .use(echoPlugin)
+    .end();

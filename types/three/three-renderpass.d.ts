@@ -6,20 +6,17 @@ import {
     WebGLRenderTarget,
     WebGLRenderer
 } from "./three-core";
+import { Pass } from "./three-effectcomposer";
 
-export class RenderPass {
-    constructor(scene: Scene, camera: Camera, overrideMaterial?: Material, clearColor?: Color | string | number, clearAlpha?: number);
+export class RenderPass extends Pass{
+    constructor(scene: Scene, camera: Camera, overrideMaterial?: Material | null, clearColor?: Color | string | number, clearAlpha?: number);
 
     scene: Scene;
     camera: Camera;
-    overrideMaterial: Material;
-    clearColor: Color | string | number;
-    clearAlpha: number;
-    oldClearColor: Color;
-    oldClearAlpha: number;
-    enabled: boolean;
+    overrideMaterial: Material | null | undefined;
+    clearColor: Color | string | number | undefined;
+    clearAlpha: number | undefined;
     clear: boolean;
-    needsSwap: boolean;
-
-    render(renderer: WebGLRenderer, writeBuffer: WebGLRenderTarget, readBuffer: WebGLRenderTarget, delta: number): void;
+    needsSwap: false;
+    clearDepth: false;
 }

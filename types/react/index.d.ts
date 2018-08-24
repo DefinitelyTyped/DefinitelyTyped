@@ -1,4 +1,4 @@
-// Type definitions for React 16.3
+// Type definitions for React 16.4
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>
 //                 AssureSign <http://www.assuresign.com>
@@ -16,12 +16,16 @@
 //                 Guilherme Hübner <https://github.com/guilhermehubner>
 //                 Ferdy Budhidharma <https://github.com/ferdaber>
 //                 Johann Rakotoharisoa <https://github.com/jrakotoharisoa>
+//                 Olivier Pascal <https://github.com/pascaloliv>
+//                 Martin Hochel <https://github.com/hotell>
+//                 Frank Li <https://github.com/franklixuefei>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 /// <reference path="global.d.ts" />
 
 import * as CSS from 'csstype';
+import * as PropTypes from 'prop-types';
 
 type NativeAnimationEvent = AnimationEvent;
 type NativeClipboardEvent = ClipboardEvent;
@@ -31,6 +35,7 @@ type NativeFocusEvent = FocusEvent;
 type NativeKeyboardEvent = KeyboardEvent;
 type NativeMouseEvent = MouseEvent;
 type NativeTouchEvent = TouchEvent;
+type NativePointerEvent = PointerEvent;
 type NativeTransitionEvent = TransitionEvent;
 type NativeUIEvent = UIEvent;
 type NativeWheelEvent = WheelEvent;
@@ -55,8 +60,7 @@ declare namespace React {
 
     type Ref<T> = string | { bivarianceHack(instance: T | null): any }["bivarianceHack"] | RefObject<T>;
 
-    // tslint:disable-next-line:interface-over-type-literal
-    type ComponentState = {};
+    type ComponentState = any;
 
     interface Attributes {
         key?: Key;
@@ -279,13 +283,18 @@ declare namespace React {
     // tslint:disable-next-line:no-empty-interface
     interface Component<P = {}, S = {}, SS = any> extends ComponentLifecycle<P, S, SS> { }
     class Component<P, S> {
+        constructor(props: Readonly<P>);
+        /**
+         * @deprecated
+         * https://reactjs.org/docs/legacy-context.html
+         */
         constructor(props: P, context?: any);
 
         // We MUST keep setState() as a unified signature because it allows proper checking of the method return type.
         // See: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/18365#issuecomment-351013257
         // Also, the ` | S` allows intellisense to not be dumbisense
         setState<K extends keyof S>(
-            state: ((prevState: Readonly<S>, props: P) => (Pick<S, K> | S | null)) | (Pick<S, K> | S | null),
+            state: ((prevState: Readonly<S>, props: Readonly<P>) => (Pick<S, K> | S | null)) | (Pick<S, K> | S | null),
             callback?: () => void
         ): void;
 
@@ -297,9 +306,17 @@ declare namespace React {
         // always pass children as variadic arguments to `createElement`.
         // In the future, if we can define its call signature conditionally
         // on the existence of `children` in `P`, then we should remove this.
-        props: Readonly<{ children?: ReactNode }> & Readonly<P>;
+        readonly props: Readonly<{ children?: ReactNode }> & Readonly<P>;
         state: Readonly<S>;
+        /**
+         * @deprecated
+         * https://reactjs.org/docs/legacy-context.html
+         */
         context: any;
+        /**
+         * @deprecated
+         * https://reactjs.org/docs/refs-and-the-dom.html#legacy-api-string-refs
+         */
         refs: {
             [key: string]: ReactInstance
         };
@@ -338,8 +355,8 @@ declare namespace React {
         displayName?: string;
     }
 
-    interface ComponentClass<P = {}> extends StaticLifecycle<P, any> {
-        new (props: P, context?: any): Component<P, ComponentState>;
+    interface ComponentClass<P = {}, S = ComponentState> extends StaticLifecycle<P, S> {
+        new (props: P, context?: any): Component<P, S>;
         propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         childContextTypes?: ValidationMap<any>;
@@ -371,7 +388,7 @@ declare namespace React {
     // methods are present.
     interface ComponentLifecycle<P, S, SS = any> extends NewLifecycle<P, S, SS>, DeprecatedLifecycle<P, S> {
         /**
-         * Called immediately after a compoment is mounted. Setting state here will trigger re-rendering.
+         * Called immediately after a component is mounted. Setting state here will trigger re-rendering.
          */
         componentDidMount?(): void;
         /**
@@ -590,6 +607,18 @@ declare namespace React {
         nativeEvent: NativeDragEvent;
     }
 
+    interface PointerEvent<T = Element> extends MouseEvent<T> {
+        pointerId: number;
+        pressure: number;
+        tiltX: number;
+        tiltY: number;
+        width: number;
+        height: number;
+        pointerType: 'mouse' | 'pen' | 'touch';
+        isPrimary: boolean;
+        nativeEvent: NativePointerEvent;
+    }
+
     interface FocusEvent<T = Element> extends SyntheticEvent<T> {
         nativeEvent: NativeFocusEvent;
         relatedTarget: EventTarget;
@@ -711,6 +740,7 @@ declare namespace React {
     type KeyboardEventHandler<T = Element> = EventHandler<KeyboardEvent<T>>;
     type MouseEventHandler<T = Element> = EventHandler<MouseEvent<T>>;
     type TouchEventHandler<T = Element> = EventHandler<TouchEvent<T>>;
+    type PointerEventHandler<T = Element> = EventHandler<PointerEvent<T>>;
     type UIEventHandler<T = Element> = EventHandler<UIEvent<T>>;
     type WheelEventHandler<T = Element> = EventHandler<WheelEvent<T>>;
     type AnimationEventHandler<T = Element> = EventHandler<AnimationEvent<T>>;
@@ -897,6 +927,28 @@ declare namespace React {
         onTouchMoveCapture?: TouchEventHandler<T>;
         onTouchStart?: TouchEventHandler<T>;
         onTouchStartCapture?: TouchEventHandler<T>;
+
+        // Pointer Events
+        onPointerDown?: PointerEventHandler<T>;
+        onPointerDownCapture?: PointerEventHandler<T>;
+        onPointerMove?: PointerEventHandler<T>;
+        onPointerMoveCapture?: PointerEventHandler<T>;
+        onPointerUp?: PointerEventHandler<T>;
+        onPointerUpCapture?: PointerEventHandler<T>;
+        onPointerCancel?: PointerEventHandler<T>;
+        onPointerCancelCapture?: PointerEventHandler<T>;
+        onPointerEnter?: PointerEventHandler<T>;
+        onPointerEnterCapture?: PointerEventHandler<T>;
+        onPointerLeave?: PointerEventHandler<T>;
+        onPointerLeaveCapture?: PointerEventHandler<T>;
+        onPointerOver?: PointerEventHandler<T>;
+        onPointerOverCapture?: PointerEventHandler<T>;
+        onPointerOut?: PointerEventHandler<T>;
+        onPointerOutCapture?: PointerEventHandler<T>;
+        onGotPointerCapture?: PointerEventHandler<T>;
+        onGotPointerCaptureCapture?: PointerEventHandler<T>;
+        onLostPointerCapture?: PointerEventHandler<T>;
+        onLostPointerCaptureCapture?: PointerEventHandler<T>;
 
         // UI Events
         onScroll?: UIEventHandler<T>;
@@ -1188,7 +1240,7 @@ declare namespace React {
         autoComplete?: string;
         autoFocus?: boolean;
         autoPlay?: boolean;
-        capture?: boolean;
+        capture?: boolean | string;
         cellPadding?: number | string;
         cellSpacing?: number | string;
         charSet?: string;
@@ -1407,6 +1459,7 @@ declare namespace React {
     interface ImgHTMLAttributes<T> extends HTMLAttributes<T> {
         alt?: string;
         crossOrigin?: "anonymous" | "use-credentials" | "";
+        decoding?: "async" | "auto" | "sync";
         height?: number | string;
         sizes?: string;
         src?: string;
@@ -1425,7 +1478,7 @@ declare namespace React {
         alt?: string;
         autoComplete?: string;
         autoFocus?: boolean;
-        capture?: boolean; // https://www.w3.org/TR/html-media-capture/#the-capture-attribute
+        capture?: boolean | string; // https://www.w3.org/TR/html-media-capture/#the-capture-attribute
         checked?: boolean;
         crossOrigin?: string;
         disabled?: boolean;
@@ -1545,6 +1598,7 @@ declare namespace React {
     interface OlHTMLAttributes<T> extends HTMLAttributes<T> {
         reversed?: boolean;
         start?: number;
+        type?: '1' | 'a' | 'A' | 'i' | 'I';
     }
 
     interface OptgroupHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -1588,6 +1642,7 @@ declare namespace React {
     }
 
     interface SelectHTMLAttributes<T> extends HTMLAttributes<T> {
+        autoComplete?: string;
         autoFocus?: boolean;
         disabled?: boolean;
         form?: string;
@@ -1788,6 +1843,7 @@ declare namespace React {
         hanging?: number | string;
         horizAdvX?: number | string;
         horizOriginX?: number | string;
+        href?: string;
         ideographic?: number | string;
         imageRendering?: number | string;
         in2?: number | string;
@@ -2151,30 +2207,29 @@ declare namespace React {
     // React.PropTypes
     // ----------------------------------------------------------------------
 
-    type Validator<T> = { bivarianceHack(object: T, key: string, componentName: string, ...rest: any[]): Error | null }["bivarianceHack"];
+    type Validator<T> = PropTypes.Validator<T>;
 
-    interface Requireable<T> extends Validator<T> {
-        isRequired: Validator<T>;
-    }
+    type Requireable<T> = PropTypes.Requireable<T>;
 
-    type ValidationMap<T> = {[K in keyof T]?: Validator<T> };
+    type ValidationMap<T> = PropTypes.ValidationMap<T>;
 
     interface ReactPropTypes {
-        any: Requireable<any>;
-        array: Requireable<any>;
-        bool: Requireable<any>;
-        func: Requireable<any>;
-        number: Requireable<any>;
-        object: Requireable<any>;
-        string: Requireable<any>;
-        node: Requireable<any>;
-        element: Requireable<any>;
-        instanceOf(expectedClass: {}): Requireable<any>;
-        oneOf(types: any[]): Requireable<any>;
-        oneOfType(types: Array<Validator<any>>): Requireable<any>;
-        arrayOf(type: Validator<any>): Requireable<any>;
-        objectOf(type: Validator<any>): Requireable<any>;
-        shape(type: ValidationMap<any>): Requireable<any>;
+        any: typeof PropTypes.any;
+        array: typeof PropTypes.array;
+        bool: typeof PropTypes.bool;
+        func: typeof PropTypes.func;
+        number: typeof PropTypes.number;
+        object: typeof PropTypes.object;
+        string: typeof PropTypes.string;
+        node: typeof PropTypes.node;
+        element: typeof PropTypes.element;
+        instanceOf: typeof PropTypes.instanceOf;
+        oneOf: typeof PropTypes.oneOf;
+        oneOfType: typeof PropTypes.oneOfType;
+        arrayOf: typeof PropTypes.arrayOf;
+        objectOf: typeof PropTypes.objectOf;
+        shape: typeof PropTypes.shape;
+        exact: typeof PropTypes.exact;
     }
 
     //
@@ -2228,6 +2283,21 @@ declare namespace React {
     }
 }
 
+// Declared props take priority over inferred props
+// If declared props have indexed properties, ignore inferred props entirely as keyof gets widened
+type MergePropTypes<P, T> = P & Pick<T, Exclude<keyof T, keyof P>>;
+
+// Any prop that has a default prop becomes optional, but its type is unchanged
+// Undeclared default props are augmented into the resulting allowable attributes
+// If declared props have indexed properties, ignore default props entirely as keyof gets widened
+// Wrap in an outer-level conditional type to allow distribution over props that are unions
+type Defaultize<P, D> = P extends any
+    ? string extends keyof P ? P :
+        & Pick<P, Exclude<keyof P, keyof D>>
+        & Partial<Pick<P, Extract<keyof P, keyof D>>>
+        & Partial<Pick<D, Exclude<keyof D, keyof P>>>
+    : never;
+
 declare global {
     namespace JSX {
         // tslint:disable-next-line:no-empty-interface
@@ -2237,6 +2307,14 @@ declare global {
         }
         interface ElementAttributesProperty { props: {}; }
         interface ElementChildrenAttribute { children: {}; }
+
+        type LibraryManagedAttributes<C, P> = C extends { propTypes: infer T; defaultProps: infer D; }
+            ? Defaultize<MergePropTypes<P, PropTypes.InferProps<T>>, D>
+            : C extends { propTypes: infer T; }
+                ? MergePropTypes<P, PropTypes.InferProps<T>>
+                : C extends { defaultProps: infer D; }
+                    ? Defaultize<P, D>
+                    : P;
 
         // tslint:disable-next-line:no-empty-interface
         interface IntrinsicAttributes extends React.Attributes { }

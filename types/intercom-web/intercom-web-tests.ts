@@ -23,6 +23,7 @@ Intercom('showMessages');
 Intercom('showNewMessage');
 Intercom('showNewMessage', 'pre-populated content');
 Intercom('onHide', () => { /* Do stuff */ });
+Intercom('onUnreadCountChange', (unreadCount: number) => { /* Do stuff */ });
 Intercom('onActivatorClick', () => { /* Do stuff */ });
 Intercom('trackEvent', 'invited-friend');
 

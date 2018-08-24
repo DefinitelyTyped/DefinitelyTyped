@@ -48,7 +48,7 @@ function makeReadableBackpressureSocketStream(host: string, port: number) {
             socket.ondata = (event: any) => {
                 controller.enqueue(event.data);
 
-                if (controller.desiredSize <= 0) {
+                if (controller.desiredSize! <= 0) {
                     // The internal queue is full, so propagate
                     // the backpressure signal to the underlying source.
                     socket.readStop();
@@ -187,14 +187,14 @@ function makeReadableByteFileStream(filename: string) {
         pull(controller: ReadableByteStreamController) {
             // Even when the consumer is using the default reader, the auto-allocation
             // feature allocates a buffer and passes it to us via byobRequest.
-            const v = controller.byobRequest.view;
+            const v = controller.byobRequest!.view;
 
             return fs.read(fd, <any>v.buffer, v.byteOffset, v.byteLength, position).then(bytesRead => {
                 if (bytesRead === 0) {
                     return fs.close(fd).then(() => controller.close());
                 } else {
                     position += bytesRead;
-                    controller.byobRequest.respond(bytesRead);
+                    controller.byobRequest!.respond(bytesRead);
                 }
             });
         },
@@ -362,8 +362,21 @@ class WebSocketSink implements WritableStreamSink {
 
 type Dictionary<T> = { [key: string]: T }
 
+declare function fetch(input?: Request | string): Promise<Response>;
 declare interface FetchEvent {
-    respondWith(promise: Promise<any>): void;
+    readonly request: Request;
+    respondWith(promise: Promise<Response>): void;
+}
+declare class Request {
+    readonly url: string;
+}
+declare class Response {
+    constructor(body?: ReadableStream);
+    readonly body: ReadableStream;
+}
+declare class TextDecoderStream extends TransformStream<string, ArrayBufferView> {
+}
+declare class TextEncoderStream extends TransformStream<Uint8Array, string> {
 }
 
 class LipFuzzTransformer implements TransformStreamTransformer<string, string> {
@@ -410,4 +423,63 @@ class LipFuzzTransformer implements TransformStreamTransformer<string, string> {
         this.lastIndex = offset + replacement.length;
         return replacement;
     }
+}
+
+{
+    const userName = "";
+    const displayName = "";
+    const icon = "";
+    const date = "";
+    const fetchEvent = {} as FetchEvent;
+
+    const data = { userName, displayName, icon, date };
+    const ts = new TransformStream(new LipFuzzTransformer(data));
+
+    fetchEvent.respondWith(
+        fetch(fetchEvent.request.url).then(response => {
+            const transformedBody = response.body
+                // Decode the binary-encoded response to string
+                .pipeThrough(new TextDecoderStream())
+                // Apply the LipFuzzTransformer
+                .pipeThrough(ts)
+                // Encode the transformed string
+                .pipeThrough(new TextEncoderStream());
+            return new Response(transformedBody);
+        })
+    );
+}
+
+
+// 8.10. A transform stream created from a sync mapper function
+
+function mapperTransformStream<R, W>(mapperFunction: (chunk: W) => R) {
+    return new TransformStream<R, W>({
+        transform(chunk, controller) {
+            controller.enqueue(mapperFunction(chunk));
+        }
+    });
+}
+
+{
+    const ts = mapperTransformStream((chunk: string) => chunk.toUpperCase());
+    const writer = ts.writable.getWriter();
+    const reader = ts.readable.getReader();
+
+    writer.write("No need to shout");
+
+    // Logs "NO NEED TO SHOUT":
+    reader.read().then(({ value }) => console.log(value));
+
+}
+
+{
+    const ts = mapperTransformStream((chunk: string) => JSON.parse(chunk));
+    const writer = ts.writable.getWriter();
+    const reader = ts.readable.getReader();
+
+    writer.write("[1, ");
+
+    // Logs a SyntaxError, twice:
+    reader.read().catch(e => console.error(e));
+    writer.write("{}").catch(e => console.error(e));
 }

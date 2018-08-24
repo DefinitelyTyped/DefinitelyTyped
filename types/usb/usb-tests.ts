@@ -57,7 +57,7 @@ device.allConfigDescriptors = [configDesc];
 
 const iface = new usb.Interface(device, 1);
 
-iface.interface = 1;
+iface.interfaceNumber = 1;
 iface.altSetting = 0;
 iface.claim();
 iface.release((error: string) => null);
