@@ -8,9 +8,87 @@ import runtime = chrome.app.runtime;
 const cwindow = chrome.app.window;
 
 // #region FORBIDDEN APIs
+// Will give warnings via IntelliSense.
+
+localStorage.getItem('hei');
+document.open();
+document.close();
+document.write();
 document.write('forbidden');
-Document.prototype.write.call(document, 'Hello, world');
-window.addEventListener('beforeunload', () => { });
+
+// #endregion
+
+// #region Web APIs
+
+///
+/// HTML5 Audio
+///
+
+var audioCtx = new window.AudioContext(); // define audio context
+// Webkit/blink browsers need prefix, Safari won't work without window.
+
+var drawVisual; // requestAnimationFrame
+
+var analyser = audioCtx.createAnalyser();
+var distortion = audioCtx.createWaveShaper();
+var gainNode = audioCtx.createGain();
+var biquadFilter = audioCtx.createBiquadFilter();
+
+navigator.getUserMedia({
+    audio: true
+},
+    (stream) => {
+        const source = audioCtx.createMediaStreamSource(stream);
+        source.connect(analyser);
+        analyser.connect(distortion);
+        distortion.connect(biquadFilter);
+        biquadFilter.connect(gainNode);
+        gainNode.connect(audioCtx.destination); // connecting the different audio graph nodes together
+    },
+    (error) => {
+        console.error(error);
+    }
+);
+
+
+///
+/// HTML5 Canvas
+///
+
+const canvas = document.createElement('canvas');
+const ctx = canvas.getContext('2d');
+if (ctx) {
+    ctx.fillStyle = 'green';
+    ctx.fillRect(10, 10, 100, 100);
+}
+
+///
+/// Fullscreen API
+///
+
+const elem = document.createElement('video');
+if (elem.requestFullscreen) {
+    elem.requestFullscreen();
+}
+document.webkitCancelFullScreen()
+
+///
+/// Geolocation API
+///
+
+window.onload = () => {
+    navigator.geolocation.getCurrentPosition((position) => {
+        console.log('lat', position.coords.latitude, 'lon', position.coords.longitude);
+    });
+};
+
+///
+/// WebKit APIs
+///
+
+const mediaStream = new window.webkitMediaStream();
+const rtcPeerConnection = new window.webkitRTCPeerConnection();
+
 // #endregion
 
 // #region Manifest

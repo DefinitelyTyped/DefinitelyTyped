@@ -7,6 +7,7 @@
 /// <reference types='filesystem'/>
 /// <reference path='./appview.d.ts'/>
 /// <reference path='./webview.d.ts'/>
+/// <reference path='./web-apis.d.ts'/>
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // WebView ref                                                                                                    //
@@ -9943,33 +9944,53 @@ declare namespace chrome {
      * The chrome.types API contains type declarations for Chrome.
      */
     namespace types {
+        /**
+         * The scope of the ChromeSetting. One of
+         * • regular: setting for the regular profile (which is inherited by the incognito profile if not overridden elsewhere),
+         * • regular_only: setting for the regular profile only (not inherited by the incognito profile),
+         * • incognito_persistent: setting for the incognito profile that survives browser restarts (overrides regular preferences),
+         * • incognito_session_only: setting for the incognito profile that can only be set during an incognito session and is deleted
+         *     when the incognito session ends (overrides regular and incognito_persistent preferences).
+         */
+        type ChromeSettingScope = "regular" | "regular_only" | "incognito_persistent" | "incognito_session_only";
+        /**
+         * One of
+         * • not_controllable: cannot be controlled by any extension
+         * • controlled_by_other_extensions: controlled by extensions with higher precedence
+         * • controllable_by_this_extension: can be controlled by this app
+         * • controlled_by_this_extension: controlled by this app
+         */
+        type LevelOfControl = "not_controllable" | "controlled_by_other_extensions" | "controllable_by_this_extension" | "controlled_by_this_extension";
+
         interface ChromeSettingClearDetails {
             /**
-             * Optional.
              * The scope of the ChromeSetting. One of
              * • regular: setting for the regular profile (which is inherited by the incognito profile if not overridden elsewhere),
              * • regular_only: setting for the regular profile only (not inherited by the incognito profile),
              * • incognito_persistent: setting for the incognito profile that survives browser restarts (overrides regular preferences),
-             * • incognito_session_only: setting for the incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular and incognito_persistent preferences).
+             * • incognito_session_only: setting for the incognito profile that can only be set during an incognito session and is deleted
+             *     when the incognito session ends (overrides regular and incognito_persistent preferences).
              */
-            scope?: string;
+            scope?: ChromeSettingScope;
         }
 
         interface ChromeSettingSetDetails extends ChromeSettingClearDetails {
             /**
              * The value of the setting.
-             * Note that every setting has a specific value type, which is described together with the setting. An extension should not set a value of a different type.
+             * Note that every setting has a specific value type,
+             * which is described together with the setting.
+             * An app should not set a value of a different type.
              */
             value: any;
             /**
-             * Optional.
              * The scope of the ChromeSetting. One of
              * • regular: setting for the regular profile (which is inherited by the incognito profile if not overridden elsewhere),
              * • regular_only: setting for the regular profile only (not inherited by the incognito profile),
              * • incognito_persistent: setting for the incognito profile that survives browser restarts (overrides regular preferences),
-             * • incognito_session_only: setting for the incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular and incognito_persistent preferences).
+             * • incognito_session_only: setting for the incognito profile that can only be set during an incognito session and is deleted
+             *     when the incognito session ends (overrides regular and incognito_persistent preferences).
              */
-            scope?: string;
+            scope?: ChromeSettingScope;
         }
 
         interface ChromeSettingGetDetails {
@@ -9983,6 +10004,8 @@ declare namespace chrome {
         type DetailsCallback = (details: ChromeSettingGetResultDetails) => void;
 
         interface ChromeSettingGetResultDetails {
+            /** The value of the setting. */
+            value: any;
             /**
              * One of
              * • not_controllable: cannot be controlled by any extension
@@ -9991,10 +10014,7 @@ declare namespace chrome {
              * • controlled_by_this_extension: controlled by this app
              */
             levelOfControl: string;
-            /** The value of the setting. */
-            value: any;
             /**
-             * Optional.
              * Whether the effective value is specific to the incognito session.
              * This property will only be present if the incognito property in the details parameter of get() was true.
              */
@@ -10010,7 +10030,7 @@ declare namespace chrome {
              * @param details Which setting to change.
              * @param callback Called at the completion of the set operation.
              */
-            set(details: ChromeSettingSetDetails, callback?: Function): void;
+            set(details: ChromeSettingSetDetails, callback?: () => void): void;
             /**
              * Gets the value of a setting.
              * @param details Which setting to consider.
@@ -10021,7 +10041,7 @@ declare namespace chrome {
              * @param details Which setting to clear.
              * @param callback Called at the completion of the clear operation.
              */
-            clear(details: ChromeSettingClearDetails, callback?: Function): void;
+            clear(details: ChromeSettingClearDetails, callback?: () => void): void;
             /** Fired after the setting changes. */
             onChange: ChromeSettingChangedEvent;
         }
@@ -11421,7 +11441,7 @@ declare namespace chrome {
 ////////////
 // EXPORT //
 ////////////
-interface Window {
+declare interface Window extends ChromeWindow {
     chrome: typeof chrome;
     WebView: typeof HTMLWebViewElement;
     AppView: typeof HTMLAppViewElement;
