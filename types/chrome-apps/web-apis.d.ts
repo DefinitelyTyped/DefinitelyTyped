@@ -34,6 +34,13 @@ interface ChromeWindow {
      */
     confirm(message?: string): boolean;
 
+
+    /**
+     * ❗ window.localStorage is not available in packaged apps. Use chrome.storage.local instead. ❗
+     */
+    localStorage: typeof localStorage;
+
+
     /**
      * ❗ window.location is not available in packaged apps. ❗
      * Links open up with the system web browser.
@@ -126,10 +133,3 @@ interface Navigator {
      */
     readonly geolocation: Geolocation;
 }
-
-
-
-/**
- * ❗ window.localStorage is not available in packaged apps. Use chrome.storage.local instead. ❗
- */
-declare var localStorage: typeof localStorage;
