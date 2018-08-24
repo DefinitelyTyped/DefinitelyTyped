@@ -9,55 +9,55 @@ const graphDiv = '#test';
 // https://plot.ly/javascript/2d-density-plots/
 
 (() => {
-	const testrows =[
+	const testrows = [
 		{
-			"country": "Afghanistan",
-			"year": 2002,
-			"pop": 8425333,
-			"continent": "Asia",
-			"lifeExp": 28.801,
-			"gdpPercap": 779.4453145
+			country: "Afghanistan",
+			year: 2002,
+			pop: 8425333,
+			continent: "Asia",
+			lifeExp: 28.801,
+			gdpPercap: 779.4453145
 		},
 		{
-			"country": "Argentina",
-			"year": 2002,
-			"pop": 38331121,
-			"continent": "Americas",
-			"lifeExp": 74.34,
-			"gdpPercap": 8797.640716
+			country: "Argentina",
+			year: 2002,
+			pop: 38331121,
+			continent: "Americas",
+			lifeExp: 74.34,
+			gdpPercap: 8797.640716
 		},
 		{
-			"country": "Australia",
-			"year": 2002,
-			"pop": 13177000,
-			"continent": "Oceania",
-			"lifeExp": 71.93,
-			"gdpPercap": 16788.62948
+			country: "Australia",
+			year: 2002,
+			pop: 13177000,
+			continent: "Oceania",
+			lifeExp: 71.93,
+			gdpPercap: 16788.62948
 		},
 		{
-			"country": "Austria",
-			"year": 2002,
-			"pop": 7914969,
-			"continent": "Europe",
-			"lifeExp": 76.04,
-			"gdpPercap": 27042.01868
+			country: "Austria",
+			year: 2002,
+			pop: 7914969,
+			continent: "Europe",
+			lifeExp: 76.04,
+			gdpPercap: 27042.01868
 		},
 		{
-			"country": "Austria",
-			"year": 2001,
-			"pop": 7914969,
-			"continent": "Europe",
-			"lifeExp": 76.04,
-			"gdpPercap": 27042.01868
+			country: "Austria",
+			year: 2001,
+			pop: 7914969,
+			continent: "Europe",
+			lifeExp: 76.04,
+			gdpPercap: 27042.01868
 		},
-	]
+	];
 
 	interface DataRow {
 		[key: string]: string | number;
 	}
 
 	function unpack(rows: DataRow[], key: string) {
-		return rows.map(function (row: DataRow) { return row[key]; });
+		return rows.map((row: DataRow) => row[key]);
 	}
 
 	const trace1 = {
