@@ -1292,6 +1292,20 @@ const appId = chrome.runtime.id;
 
 // #endregion
 
+// #region chrome.signedInDevices
+
+const dumpDevices = (devices: chrome.signedInDevices.DeviceInfo[]) => {
+    for (const device of devices) {
+        if (device.type === 'desktop_or_laptop') {
+            console.log(device.name, device.chromeVersion);
+        }
+    }
+}
+chrome.signedInDevices.onDeviceInfoChange.addListener(dumpDevices);
+chrome.signedInDevices.get(false, dumpDevices);
+
+// #endregion
+
 // #region chrome.sockets
 // SOCKETS
 // https://developer.chrome.com/apps/sockets_tcp
@@ -1802,13 +1816,11 @@ onload = () => {
             }
         });
     webview.focus();
-    if (webview && document.activeElement == webview) {
-        var blob = new Blob(['<html><body>Blob content</body></html>'],
-            { type: 'text/html' });
-        var blobURL = URL.createObjectURL(blob);
-        webview.src = blobURL;
-        webview.onloadstop = null;
-    }
+    var blob = new Blob(['<html><body>Blob content</body></html>'],
+        { type: 'text/html' });
+    var blobURL = URL.createObjectURL(blob);
+    webview.src = blobURL;
+    webview.onloadstop = null;
     const rule = {
         conditions: [
             new chrome.webViewRequest.RequestMatcher(

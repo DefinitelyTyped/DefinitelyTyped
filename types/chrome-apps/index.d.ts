@@ -7027,7 +7027,14 @@ declare namespace chrome {
              * Gives your app access to the chrome.diagnostics API.
              */
             'diagnostics' |
-            'displaySource';
+            /**
+             * Gives your app access to the chrome.displaySource API.
+             */
+            'displaySource' |
+            /**
+             * Gives your app access to the chrome.signedInDevices API.
+             */
+            'signedInDevices';
 
         type KioskOnlyPermissions =
             'audio' |
@@ -7067,7 +7074,7 @@ declare namespace chrome {
         type Permission =
             /** Gives your app access to the chrome.alarms API. */
             'alarms' |
-            /** Enables the <appview> tag. @todo Document this tag */
+            /** Enables the <appview> tag. */
             'appview' |
             /** Gives your app access to the chrome.audio API. */
             'audio' |
@@ -7162,9 +7169,6 @@ declare namespace chrome {
             'runtime' |
             /** @deprecated Serial is deprecated */
             'serial' |
-            /** Gives your app access to the chrome.signedInDevices API. */
-            /** @todo TODO */
-            'signedInDevices' |
             /** Gives your app access to the chrome.storage API. */
             'storage' |
             /** Required if the app uses the chrome.syncFileSystem API to save and synchronize data on Google Drive. */
@@ -8156,6 +8160,61 @@ declare namespace chrome {
      * @since Chrome 23
      */
     const serial: chrome.deprecated;
+    // #endregion
+
+    // #region chrome.signedInDevices
+    //////////////////////
+    // SignedIn Devices //
+    //////////////////////
+    /**
+     * @requires(dev) Requires Chrome *dev*
+     * Use the *chrome.signedInDevices* API to get a list of devices
+     * signed into chrome with the same account as the current profile.
+     */
+    namespace signedInDevices {
+        type OS = 'win' | 'mac' | 'linux' | 'chrome_os' | 'android' | 'ios' | 'unknown';
+        type DeviceType = 'desktop_or_laptop' | 'phone' | 'tablet' | 'unknown';
+        interface DeviceInfo {
+            /**
+             * Name of the device.
+             * This name is usually set by the user when setting up a device.
+             */
+            name: string;
+            /**
+             * Unique Id for this device.
+             * Note: The id is meaningful only in the current device.
+             * This id cannot be used to refer to the same device from
+             * another device or extension.
+             */
+            id: string;
+            /** The OS of the device. */
+            os: OS;
+            /** Device type */
+            type: DeviceType;
+            /** Version of chrome running in this device. */
+            chromeVersion: string;
+        }
+        /**
+         * Gets the array of signed in devices, signed into the same account as the current profile.
+         * @param isLocal If true only return the information for the local device.
+         * If false or omitted return the list of all devices including the local device.
+         * @param callback The callback to be invoked with the array of DeviceInfo objects.
+         */
+        function get(isLocal: boolean, callback: (devices: DeviceInfo[]) => void): void;
+        /**
+         * Gets the array of signed in devices, signed into the same account as the current profile.
+         * @param callback The callback to be invoked with the array of DeviceInfo objects.
+         */
+        function get(callback: (devices: DeviceInfo[]) => void): void;
+        /**
+         * Fired when the DeviceInfo object of any of the signed in devices
+         * changes, or when a device is added or removed.
+         * Provides *devices*:
+         * The array of all signed in devices.
+         */
+        const onDeviceInfoChange: chrome.events.Event<(devices: DeviceInfo[]) => void>;
+    }
+
     // #endregion
 
     // #region chrome.socket
