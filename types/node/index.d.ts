@@ -468,11 +468,11 @@ declare var Buffer: {
     poolSize: number;
 };
 
-/************************************************
+/*----------------------------------------------*
 *                                               *
 *               GLOBAL INTERFACES               *
 *                                               *
-************************************************/
+*-----------------------------------------------*/
 declare namespace NodeJS {
     export interface InspectOptions {
         showHidden?: boolean;
@@ -988,11 +988,11 @@ declare namespace NodeJS {
 
 interface IterableIterator<T> { }
 
-/************************************************
+/*----------------------------------------------*
 *                                               *
 *                   MODULES                     *
 *                                               *
-************************************************/
+*-----------------------------------------------*/
 declare module "buffer" {
     export var INSPECT_MAX_BYTES: number;
     var BuffType: typeof Buffer;
