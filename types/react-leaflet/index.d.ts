@@ -2,7 +2,7 @@
 // Project: https://github.com/PaulLeCam/react-leaflet
 // Definitions by: Dave Leaver <https://github.com/danzel>, David Schneider <https://github.com/davschne>, Yui T. <https://github.com/yuit>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as Leaflet from 'leaflet';
 import * as React from 'react';

@@ -2,7 +2,8 @@ import * as bitcore from 'bitcore-lib';
 
 const transaction = new bitcore.Transaction({});
 
-const output: bitcore.Output = transaction.outputs[0];
+const output: bitcore.Transaction.Output = transaction.outputs[0];
+const input: bitcore.Transaction.Input = transaction.inputs[0];
 
 const privateKey: bitcore.PrivateKey = new bitcore.PrivateKey('privateKey');
 const publicKey: bitcore.PublicKey = privateKey.publicKey;
@@ -24,4 +25,11 @@ const tx = new bitcore.Transaction()
   .from(utxo)
   .change('bitcoinAddress')
   .addData(Buffer.from(''))
-  .sign('bitcoinAddressPrivateKey');
+  .sign('bitcoinAddressPrivateKey')
+  .enableRBF();
+
+tx.verify();
+
+new bitcore.Unit(2, 'BTC').toSatoshis();
+
+bitcore.Unit.fromMilis(1000).toBTC();

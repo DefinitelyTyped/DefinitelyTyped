@@ -78,6 +78,7 @@ const i = Interval.fromDateTimes(now, later);
 i.length();
 i.length('years');
 i.contains(DateTime.local(2019));
+i.set({end: DateTime.local(2020)});
 
 i.toISO();
 i.toString();

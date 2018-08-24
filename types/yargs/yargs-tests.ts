@@ -661,3 +661,8 @@ function Argv$showhidden() {
         .showhidden('show-hidden')
         .showhidden('show-hidden', 'Show hidden options');
 }
+
+function Argv$scriptName() {
+    const ya = yargs
+        .scriptName("my-script");
+}

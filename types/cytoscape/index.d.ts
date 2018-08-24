@@ -1016,7 +1016,10 @@ declare namespace cytoscape {
      * Get the entry point to modify the visual style of the graph after initialisation.
      * http://js.cytoscape.org/#core/style
      */
-    interface ElementStylesheet extends StylesheetStyle {
+    interface ElementStylesheetStyle extends StylesheetStyle {
+        json(): any;
+    }
+    interface ElementStylesheetCSS extends StylesheetCSS {
         json(): any;
     }
 
@@ -1024,11 +1027,11 @@ declare namespace cytoscape {
         /**
          * Get the current style object.
          */
-        style(): ElementStylesheet | string;
+        style(): ElementStylesheetStyle | ElementStylesheetCSS;
         /**
          * Assign a new stylesheet to replace the existing one.
          */
-        style(sheet: Stylesheet): Stylesheet;
+        style(sheet: Stylesheet | Stylesheet[] | string): Stylesheet;
     }
 
     /**
@@ -1140,7 +1143,7 @@ declare namespace cytoscape {
         CollectionLayout,
         CollectionSelection, CollectionStyle, CollectionAnimation,
         CollectionComparision, CollectionIteration<TIn, TOut>,
-        CollectionBuildingFiltering<TOut>, CollectionAlgorithms { }
+        CollectionBuildingFiltering<TIn, TOut>, CollectionAlgorithms { }
 
     /**
      * ele  --> Cy.Singular
@@ -1163,8 +1166,8 @@ declare namespace cytoscape {
     /**
      * The output is a collection of node and edge elements OR single element.
      */
-    type CollectionArgument = EdgeCollection | NodeCollection | SingularElementArgument;
-    type CollectionReturnValue = EdgeCollection & NodeCollection & SingularElementReturnValue;
+    type CollectionArgument = Collection | EdgeCollection | NodeCollection | SingularElementArgument;
+    type CollectionReturnValue = Collection & EdgeCollection & NodeCollection & SingularElementReturnValue;
 
     /**
      * edges -> Cy.EdgeCollection
@@ -1430,13 +1433,13 @@ declare namespace cytoscape {
          * Get whether the element is a node.
          * http://js.cytoscape.org/#ele.isNode
          */
-        isNode(): boolean;
+        isNode(): this is NodeSingular;
 
         /**
          * Get whether the element is an edge.
          * http://js.cytoscape.org/#ele.isEdge
          */
-        isEdge(): boolean;
+        isEdge(): this is EdgeSingular;
     }
     /**
      * http://js.cytoscape.org/#collection/data
@@ -2335,7 +2338,7 @@ declare namespace cytoscape {
     /**
      * http://js.cytoscape.org/#collection/building--filtering
      */
-    interface CollectionBuildingFiltering<TOut> {
+    interface CollectionBuildingFiltering<TIn, TOut> {
         /**
          * Get an element in the collection from its ID in a very performant way.
          * @param id The ID of the element to get.
@@ -2382,12 +2385,12 @@ declare namespace cytoscape {
          * Get the elements in both this collection and another specified collection.
          * http://js.cytoscape.org/#eles.intersection
          */
-        intersection: CollectionSymmetricDifferenceFunc;
-        intersect: CollectionSymmetricDifferenceFunc;
-        and: CollectionSymmetricDifferenceFunc;
-        n: CollectionSymmetricDifferenceFunc;
-        '&': CollectionSymmetricDifferenceFunc;
-        '.': CollectionSymmetricDifferenceFunc;
+        intersection: CollectionBuildingIntersectionFunc;
+        intersect: CollectionBuildingIntersectionFunc;
+        and: CollectionBuildingIntersectionFunc;
+        n: CollectionBuildingIntersectionFunc;
+        '&': CollectionBuildingIntersectionFunc;
+        '.': CollectionBuildingIntersectionFunc;
 
         /**
          * Get the elements that are in the calling collection
@@ -2442,7 +2445,7 @@ declare namespace cytoscape {
          * var col = cy.collection(); // new, empty collection
          * col.merge('#j').merge('#e');
          */
-        merge(eles: CollectionArgument | string): this;
+        merge(eles: CollectionArgument | Selector): this;
         /**
          * Perform an in-place operation on the calling collection to remove the given elements.
          * @param eles The elements to remove  in-place or a selector representing the elements to remove .
@@ -2467,7 +2470,7 @@ declare namespace cytoscape {
          * col.merge( cy.nodes() );
          * col.unmerge('#e');
          */
-        unmerge(eles: CollectionArgument | string): this;
+        unmerge(eles: CollectionArgument | Selector): this;
 
         /**
          * Get a new collection containing elements that are accepted by the specified filter.
@@ -2478,7 +2481,7 @@ declare namespace cytoscape {
          * ele - The element being considered.
          * http://js.cytoscape.org/#eles.filter
          */
-        filter(selector: Selector | ((ele: TOut, i: number, eles: CollectionArgument) => boolean)): CollectionReturnValue;
+        filter(selector: Selector | ((ele: TIn, i: number, eles: CollectionArgument) => boolean)): CollectionReturnValue;
         /**
          * Get the nodes that match the specified selector.
          *
@@ -2504,7 +2507,7 @@ declare namespace cytoscape {
          *
          * http://js.cytoscape.org/#eles.sort
          */
-        sort(sort: (ele1: CollectionArgument, ele2: CollectionArgument) => number): CollectionReturnValue;
+        sort(sort: (ele1: TIn, ele2: TIn) => number): CollectionReturnValue;
 
         /**
          * Get an array containing values mapped from the collection.
@@ -2517,7 +2520,7 @@ declare namespace cytoscape {
          *
          * http://js.cytoscape.org/#eles.map
          */
-        map(fn: (ele: CollectionArgument, i: number, eles: CollectionArgument) => any, thisArg?: any): any[];
+        map<T>(fn: (ele: TIn, i: number, eles: CollectionArgument) => T, thisArg?: any): T[];
 
         /**
          * Reduce a single value by applying a
@@ -2527,15 +2530,15 @@ declare namespace cytoscape {
          * given the previous value and the current element.
          * prevVal The value accumulated from previous elements.
          * ele The current element.
-         * ix The index of the current element.
+         * i The index of the current element.
          * eles The collection of elements being reduced.
          * @param initialValue The initial value for reducing
          * It is used also for type inference of output, but the type can be
          * also stated explicitly as generic
          * http://js.cytoscape.org/#eles.reduce
          */
-        reduce<T>(fn: (prevVal: T, ele: SingularElementReturnValue,
-            ix: number, eles: CollectionReturnValue) => T, initialValue: T): T;
+        reduce<T>(fn: (prevVal: T, ele: TIn,
+            i: number, eles: CollectionArgument) => T, initialValue: T): T;
 
         /**
          * Find a minimum value in a collection.
@@ -2548,11 +2551,11 @@ declare namespace cytoscape {
          *
          * http://js.cytoscape.org/#eles.min
          */
-        min(fn: (ele: SingularElementArgument, i: number, eles: CollectionArgument) => any, thisArg?: any): {
+        min<T>(fn: (ele: TIn, i: number, eles: CollectionArgument) => T, thisArg?: any): {
             /**
              * The minimum value found.
              */
-            value: any,
+            value: T,
             /**
              * The element that corresponds to the minimum value.
              */
@@ -2570,11 +2573,11 @@ declare namespace cytoscape {
          *
          * http://js.cytoscape.org/#eles.max
          */
-        max(fn: (ele: SingularElementArgument, i: number, eles: CollectionArgument) => any, thisArg?: any): {
+        max<T>(fn: (ele: TIn, i: number, eles: CollectionArgument) => T, thisArg?: any): {
             /**
              * The minimum value found.
              */
-            value: any,
+            value: T,
             /**
              * The element that corresponds to the minimum value.
              */
@@ -2676,14 +2679,14 @@ declare namespace cytoscape {
          * @param selector An optional selector that is used to filter the resultant collection.
          * http://js.cytoscape.org/#edge.source
          */
-        source(selector?: Selector): NodeCollection;
+        source(selector?: Selector): NodeSingular;
 
         /**
          * Get target node of this edge.
          * @param selector An optional selector that is used to filter the resultant collection.
          * http://js.cytoscape.org/#edge.target
          */
-        target(selector?: Selector): NodeCollection;
+        target(selector?: Selector): NodeSingular;
     }
     interface EdgeCollectionTraversing {
         // http://js.cytoscape.org/#collection/traversing
@@ -2816,13 +2819,13 @@ declare namespace cytoscape {
 
     /**
      * The handler returns true when it finds the desired node, and it returns false to cancel the search.
-     * i - The index indicating this node is the ith visited node.
-     * depth - How many edge hops away this node is from the root nodes.
      * v - The current node.
      * e - The edge connecting the previous node to the current node.
      * u - The previous node.
+     * i - The index indicating this node is the ith visited node.
+     * depth - How many edge hops away this node is from the root nodes.
      */
-    type SearchVisitFunction = (i: number, depth: number, v: NodeCollection, e: EdgeCollection, u: NodeCollection) => boolean;
+    type SearchVisitFunction = (v: NodeCollection,  e: EdgeCollection, u: NodeCollection, i: number, depth: number) => boolean | void;
     interface SearchFirstOptions {
         /**
          * The root nodes (selector or collection) to start the search from.
@@ -4677,9 +4680,13 @@ declare namespace cytoscape {
          * @param handler  The handler function that is called
          * when one of the specified events occurs.
          */
+        on(events: EventNames, handler: EventHandler): this;
         on(events: EventNames, data: any, handler: EventHandler): this;
+        bind(events: EventNames, handler: EventHandler): this;
         bind(events: EventNames, data: any, handler: EventHandler): this;
+        listen(events: EventNames, handler: EventHandler): this;
         listen(events: EventNames, data: any, handler: EventHandler): this;
+        addListener(events: EventNames, handler: EventHandler): this;
         addListener(events: EventNames, data: any, handler: EventHandler): this;
 
         /**

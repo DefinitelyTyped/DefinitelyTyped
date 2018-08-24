@@ -56,11 +56,27 @@ configuration = {
 };
 
 configuration = {
+    entry: () => ({
+        p1: "./page1",
+        p2: "./page2",
+        p3: "./page3"
+    })
+};
+
+configuration = {
     entry: () => new Promise((resolve) => resolve('./demo'))
 };
 
 configuration = {
     entry: () => new Promise((resolve) => resolve(['./demo', './demo2']))
+};
+
+configuration = {
+    entry: () => new Promise((resolve) => resolve({
+        p1: "./page1",
+        p2: "./page2",
+        p3: "./page3"
+    }))
 };
 
 //
@@ -171,6 +187,10 @@ configuration = {
                     }
                 }
             });
+
+            compiler.hooks.afterCompile.tap("SomePlugin", (compilation: webpack.compilation.Compilation) => {
+                ['path/to/extra/dep', 'another/extra/dep'].forEach(path => compilation.fileDependencies.add(path));
+              });
 
             this.hooks.afterEmit.tapAsync("afterEmit", (stats, callback) => {
                 this.outputFileSystem.writeFile(

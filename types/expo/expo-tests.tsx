@@ -374,9 +374,12 @@ async () => {
 };
 
 async () => {
-    const result = await ImageManipulator.manipulate('url', [{
-        rotate: 90
-    }], {
+    const result = await ImageManipulator.manipulate('url', [
+        { rotate: 90 },
+        { resize: { width: 300 } },
+        { resize: { height: 300 } },
+        { resize: { height: 300, width: 300 } },
+    ], {
         compress: 0.75
     });
 

@@ -2,9 +2,9 @@
 // Project: https://github.com/ianstormtaylor/slate
 // Definitions by: Brandon Shelton <https://github.com/YangusKhan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 import * as React from 'react';
-import { Slate } from 'slate';
+import { BlockProperties, ValueJSON, Value, Node, Mark, Leaf } from 'slate';
 
 export interface Rule {
     deserialize?: (el: Element, next: (elements: Element[] | NodeList | Array<Node & ChildNode>) => any) => any;
@@ -13,28 +13,28 @@ export interface Rule {
 
 export interface HtmlOptions {
     rules?: Rule[];
-    defaultBlock?: Slate.BlockProperties;
+    defaultBlock?: BlockProperties;
     parseHtml?: (html: string) => HTMLElement;
 }
 
 export default class Html {
     constructor(options?: HtmlOptions);
 
-    deserialize(html: string, options: { toJSON: true }): Slate.ValueJSON;
-    deserialize(html: string, options?: { toJSON?: false }): Slate.Value;
+    deserialize(html: string, options: { toJSON: true }): ValueJSON;
+    deserialize(html: string, options?: { toJSON?: false }): Value;
 
-    serialize(value: Slate.Value, options?: { render?: true }): string;
-    serialize(value: Slate.Value, options: { render: false }): Element[];
+    serialize(value: Value, options?: { render?: true }): string;
+    serialize(value: Value, options: { render: false }): Element[];
 
     protected rules: Rule[];
-    protected defaultBlock: Slate.BlockProperties;
+    protected defaultBlock: BlockProperties;
     protected parseHtml: (html: string) => HTMLElement;
 
-    protected deserializeElements: (elements: HTMLElement[]) => Slate.Node[];
+    protected deserializeElements: (elements: HTMLElement[]) => Node[];
     protected deserializeElement: (element: HTMLElement) => any;
-    protected deserializeMark: (mark: Slate.Mark) => Slate.Node[];
+    protected deserializeMark: (mark: Mark) => Node[];
 
-    protected serializeNode: (node: Slate.Node) => string;
-    protected serializeLeaf: (leaf: Slate.Leaf) => string;
+    protected serializeNode: (node: Node) => string;
+    protected serializeLeaf: (leaf: Leaf) => string;
     protected serializeString: (string: string) => string;
 }

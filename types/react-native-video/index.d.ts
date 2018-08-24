@@ -2,7 +2,7 @@
 // Project: https://github.com/react-native-community/react-native-video
 // Definitions by: HuHuanming <https://github.com/huhuanming>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 import {
@@ -67,6 +67,7 @@ export interface VideoProperties extends ViewProps {
     controls?: boolean;
     currentTime?: number;
     progressUpdateInterval?: number;
+    useTextureView?: boolean;
     onLoadStart?(): void;
     onLoad?(data: OnLoadData): void;
     onBuffer?(): void;

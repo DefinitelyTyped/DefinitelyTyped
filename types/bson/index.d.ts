@@ -131,6 +131,8 @@ export class Binary {
 
     /** The underlying Buffer which stores the binary data. */
     readonly buffer: Buffer;
+    /** Binary data subtype */
+    readonly sub_type?: number;
 
     /** The length of the binary. */
     length(): number;
@@ -146,11 +148,16 @@ export class Binary {
 
 /** A class representation of the BSON Code type. */
 export class Code {
+
     /**
      * @param code A string or function.
      * @param scope An optional scope for the function.
      */
     constructor(code: string | Function, scope?: any);
+
+    readonly code: string | Function;
+    readonly scope?: any;
+
 }
 
 /**
@@ -174,6 +181,16 @@ export class DBRef {
 export class Double {
     /**
      * @param value The number we want to represent as a double.
+     */
+    constructor(value: number);
+
+    valueOf(): number;
+}
+
+/** A class representation of the BSON Int32 type. */
+export class Int32 {
+    /**
+     * @param value The number we want to represent as an int32.
      */
     constructor(value: number);
 
@@ -315,6 +332,9 @@ export class Decimal128 {
      */
     constructor(bytes: Buffer);
 
+    /** A buffer containing the raw Decimal128 bytes. */
+    readonly bytes: Buffer;
+
     toJSON(): string;
     toString(): string;
 }
@@ -386,7 +406,12 @@ export { ObjectID as ObjectId };
 
 /** A class representation of the BSON RegExp type. */
 export class BSONRegExp {
+
     constructor(pattern: string, options: string);
+
+    readonly pattern: string;
+    readonly options: string;
+
 }
 
 /**
@@ -394,7 +419,12 @@ export class BSONRegExp {
  * @deprecated
  */
 export class Symbol {
+
     constructor(value: string);
+
+    /** Access the wrapped string value. */
+    valueOf(): string;
+
 }
 
 /** A class representation of the BSON Timestamp type. */

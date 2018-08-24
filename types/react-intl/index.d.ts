@@ -9,7 +9,7 @@
 //                 Krister Kari <https://github.com/kristerkari>
 //                 Martin Raedlinger <https://github.com/formatlos>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 declare namespace ReactIntl {
     type DateSource = Date | string | number;

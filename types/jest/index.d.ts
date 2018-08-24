@@ -1,4 +1,4 @@
-// Type definitions for Jest 23.1
+// Type definitions for Jest 23.3
 // Project: http://facebook.github.io/jest/
 // Definitions by: Asana <https://asana.com>
 //                 Ivo Stratev <https://github.com/NoHomey>
@@ -15,6 +15,7 @@
 //                 Jeff Lau <https://github.com/UselessPickles>
 //                 Andrew Makarov <https://github.com/r3nya>
 //                 Martin Hochel <https://github.com/hotell>
+//                 Sebastian Sebald <https://github.com/sebald>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -662,6 +663,18 @@ declare namespace jest {
          */
         toMatchSnapshot(snapshotName?: string): R;
         /**
+         * This ensures that a value matches the most recent snapshot with property matchers.
+         * Instead of writing the snapshot value to a .snap file, it will be written into the source code automatically.
+         * Check out [the Snapshot Testing guide](http://facebook.github.io/jest/docs/snapshot-testing.html) for more information.
+         */
+        toMatchInlineSnapshot<T extends {[P in keyof R]: Expect['any']}>(propertyMatchers: Partial<T>, snapshot?: string): R;
+        /**
+         * This ensures that a value matches the most recent snapshot with property matchers.
+         * Instead of writing the snapshot value to a .snap file, it will be written into the source code automatically.
+         * Check out [the Snapshot Testing guide](http://facebook.github.io/jest/docs/snapshot-testing.html) for more information.
+         */
+        toMatchInlineSnapshot(snapshot?: string): R;
+        /**
          * Ensure that a mock function has returned (as opposed to thrown) at least once.
          */
         toReturn(): R;
@@ -689,6 +702,11 @@ declare namespace jest {
          * Used to test that a function throws a error matching the most recent snapshot when it is called.
          */
         toThrowErrorMatchingSnapshot(): R;
+        /**
+         * Used to test that a function throws a error matching the most recent snapshot when it is called.
+         * Instead of writing the snapshot value to a .snap file, it will be written into the source code automatically.
+         */
+        toThrowErrorMatchingInlineSnapshot(snapshot?: string): R;
     }
 
     interface Constructable {
@@ -757,7 +775,7 @@ declare namespace jest {
          *
          * Note: `jest.fn(implementation)` is a shorthand for `jest.fn().mockImplementation(implementation)`.
          */
-        mockImplementation(fn: (...args: any[]) => any): Mock<T>;
+        mockImplementation(fn?: (...args: any[]) => any): Mock<T>;
         /**
          * Accepts a function that will be used as an implementation of the mock for one call to the mocked function.
          * Can be chained so that multiple function calls produce different results.

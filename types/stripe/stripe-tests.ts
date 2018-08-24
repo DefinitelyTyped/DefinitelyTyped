@@ -59,6 +59,7 @@ stripe.charges.create({
     // asynchronously called
 
     charge.refunds.create().then(function (refund) {
+        const reason = refund.failure_reason;
         // asynchronously called
     });
     charge.refunds.create({ amount: 100 }).then(function (refund) {
@@ -362,6 +363,10 @@ stripe.customers.list({ limit: 3 }, function (err, customers) {
 });
 stripe.customers.list({ limit: 3 }).then(function (customers) {
     // asynchronously called
+});
+
+stripe.customers.list({ email: "test@example.com" }).then(function (customers) {
+	// asynchronously called
 });
 
 stripe.customers.createCard(

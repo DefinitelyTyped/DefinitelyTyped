@@ -1,661 +1,660 @@
-// Type definitions for Google Apps Script 2017-10-30
+// Type definitions for Google Apps Script 2018-07-11
 // Project: https://developers.google.com/apps-script/
-// Definitions by: dhayab <https://github.com/dhayab/>
+// Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="google-apps-script.types.d.ts" />
 /// <reference path="google-apps-script.gmail.d.ts" />
 
 declare namespace GoogleAppsScript {
-    export module Card {
-        export interface Action {
-            /**
-             * Sets the name of the callback function to be called.
-             */
-            setFunctionName(functionName: string): Action;
-            /**
-             * Sets the loading indicator that displays while the action is in progress.
-             */
-            setLoadIndicator(loadIndicator: LoadIndicator): Action;
-            /**
-             * Allows custom parameters to be passed to the callback function.
-             */
-            setParameters(parameters: { [key: string]: string }): Action;
-        }
-
-        export interface ActionEvent {
-            messageMetadata: {
-                /**
-                 * An access token. You can use this to enable access to user data using temporary Gmail add-on scopes.
-                 */
-                accessToken: string;
-                /**
-                 * The message ID of the thread open in the Gmail UI.
-                 */
-                messageId: string;
-            }
-            /**
-             * Indicates where the event originates (web, iOS, or Android).
-             */
-            clientPlatform: string;
-            /**
-             * The current values of all form widgets in the card, restricted to one value per widget. The keys are the string IDs associated with the widgets.
-             *
-             * The event object provides `formInput` as a convenience for when you need to read data from multiple widgets with expected singular values, such as text inputs and switches.
-             *
-             * For multi-valued widgets such as checkboxes, you can read each value from `formInputs` instead.
-             */
-            formInput: { [key: string]: string };
-            /**
-             * The current values of widgets in the card, presented in arrays. The keys are the string IDs associated with the widget.
-             *
-             * For single-valued widgets, the value is presented in a single-element array. For multi-valued widgets such as checkboxes, all the values are presented in an array.
-             */
-            formInputs: { [key: string]: string[] };
-            /**
-             * Any additional parameters you supply to the `Action` using `Action.setParameters()`.
-             */
-            parameters: { [key: string]: string };
-        }
-
-        export interface ActionResponse {
-            /**
-             * Prints the JSON representation of this object.
-             */
-            printJson(): string;
-        }
-
-        export interface ActionResponseBuilder {
-            /**
-             * Builds the current action response and validates it.
-             */
-            build(): ActionResponse;
-            /**
-             * Sets the response to `Navigation` action.
-             */
-            setNavigation(navigation: Navigation): ActionResponseBuilder;
-            /**
-             * Sets the notification to display when the action is activated.
-             */
-            setNotification(notification: Notification): ActionResponseBuilder;
-            /**
-             * Sets the URL to navigate to when the action is activated.
-             */
-            setOpenLink(openLink: OpenLink): ActionResponseBuilder;
-            /**
-             * Sets a flag to indicate that this action changed the existing data state.
-             */
-            setStateChanged(stateChanged: boolean): ActionResponseBuilder;
-        }
-
-        export interface AuthorizationAction {
-            /**
-             * Sets the authorization URL that user is taken to from the authorization prompt.
-             */
-            setAuthorizationUrl(authorizationUrl: string): AuthorizationAction;
-        }
-
-        export interface AuthorizationException {
-            /**
-             * Prints the JSON representation of this object.
-             */
-            printJson(): string;
-            /**
-             * Sets the authorization URL that user is taken to from the authorization prompt.
-             */
-            setAuthorizationUrl(authUrl: string): AuthorizationException;
-            /**
-             * The name of a function to call to generate a custom authorization prompt.
-             */
-            setCustomUiCallback(callback: string): AuthorizationException;
-            /**
-             * Sets the name that is displayed to the user when asking for authorization.
-             */
-            setResourceDisplayName(name: string): AuthorizationException;
-            /**
-             * Triggers this exception to be thrown.
-             */
-            throwException(): void;
-        }
-
-        interface Button<T> extends Widget {
-            /**
-             * Sets an authorization action that opens a URL to the authorization flow when the object is clicked.
-             */
-            setAuthorizationAction(action: AuthorizationAction): T;
-            /**
-             * Sets an action that composes a draft email when the object is clicked.
-             */
-            setComposeAction(action: Action, composedEmailType: ComposedEmailType): T;
-            /**
-             * Sets an action that executes when the object is clicked.
-             */
-            setOnClickAction(action: Action): T;
-            /**
-             * Sets an action that opens a URL in a tab when the object is clicked.
-             */
-            setOnClickOpenLinkAction(action: Action): T;
-            /**
-             * Sets a URL to be opened when the object is clicked.
-             */
-            setOpenLink(openLink: OpenLink): T;
-        }
-
-        export interface ButtonSet extends Widget {
-            /**
-             * Adds a button.
-             */
-            addButton(button: Button<ImageButton | TextButton>): ButtonSet;
-        }
-
-        export interface Card {
-            /**
-             * Prints the JSON representation of this object.
-             */
-            printJson(): string;
-        }
-
-        export interface CardAction extends Button<CardAction> {
-            /**
-             * Sets the menu text for this action.
-             */
-            setText(text: string): CardAction;
-        }
-
-        export interface CardBuilder {
-            /**
-             * Adds a CardAction to this Card.
-             */
-            addCardAction(cardAction: CardAction): CardBuilder;
-            /**
-             * Adds a section to this card.
-             */
-            addSection(section: CardSection): CardBuilder;
-            /**
-             * Builds the current card and validates it.
-             */
-            build(): Card;
-            /**
-             * Sets the header for this card.
-             */
-            setHeader(cardHeader: CardHeader): CardBuilder;
-            /**
-             * Sets the name for this card.
-             */
-            setName(name: string): CardBuilder;
-        }
-
-        export interface CardHeader {
-            /**
-             * Sets the alternative text for the header image.
-             */
-            setImageAltText(imageAltText: string): CardHeader;
-            /**
-             * Sets the cropping of the icon in the card header.
-             */
-            setImageStyle(imageStyle: ImageStyle): CardHeader;
-            /**
-             * Sets the image to use in the header by providing its URL.
-             */
-            setImageUrl(imageUrl: string): CardHeader;
-            /**
-             * Sets the subtitle of the card header.
-             */
-            setSubtitle(subtitle: string): CardHeader;
-            /**
-             * Sets the title of the card header.
-             */
-            setTitle(title: string): CardHeader;
-        }
-
-        export interface CardSection {
-            /**
-             * Adds the given widget to this section.
-             */
-            addWidget(widget: Widget): CardSection;
-            /**
-             * Sets whether the section can be collapsed.
-             */
-            setCollapsible(collapsible: boolean): CardSection;
-            /**
-             * Sets the header of the section.
-             */
-            setHeader(header: string): CardSection;
-            /**
-             * Sets the number of widgets that are still shown when this section is collapsed.
-             */
-            setNumUncollapsibleWidgets(numUncollapsibleWidgets: Integer): CardSection;
-        }
-
-        export interface CardService {
-            /**
-             * Specifies whether the composed email is a standalone or reply draft.
-             */
-            ComposedEmailType: typeof ComposedEmailType;
-            /**
-             * Predefined icons that can be used in various UI objects, such as ImageButton or KeyValue widgets.
-             */
-            Icon: typeof Icon;
-            /**
-             * Defines an image cropping style.
-             */
-            ImageStyle: typeof ImageStyle;
-            /**
-             * Specifies the type of loading or progress indicator to display while an Action is being processed.
-             */
-            LoadIndicator: typeof LoadIndicator;
-            /**
-             * Type of notification to show.
-             */
-            NotificationType: typeof NotificationType;
-            /**
-             * Specifies what to do when a URL opened through an OpenLink is closed.
-             *
-             * When a link is opened, the client either forgets about it or waits until the window is closed. The implementation depends on the client platform capabilities. OnClose may cause OpenAs to be ignored; if the client platform cannot support both selected values together, OnClose takes precedence.
-             */
-            OnClose: typeof OnClose;
-            /**
-             * Specifies how to open a URL.
-             *
-             * The client can open a URL as either a full size window (if that is the frame used by the client), or an overlay (such as a pop-up). The implementation depends on the client platform capabilities, and the value selected may be ignored if the client does not support it. FULL_SIZE is supported by all clients.
-             *
-             * Using OnClose may cause OpenAs to be ignored; if the client platform cannot support both selected values together, OnClose takes precedence.
-             */
-            OpenAs: typeof OpenAs;
-            /**
-             * Type of selection input.
-             */
-            SelectionInputType: typeof SelectionInputType;
-            /**
-             * Creates a new `Action`.
-             */
-            newAction(): Action;
-            /**
-             * Creates a new `ActionResponseBuilder`.
-             */
-            newActionResponseBuilder(): ActionResponseBuilder;
-            /**
-             * Creates a new `AuthorizationAction`.
-             */
-            newAuthorizationAction(): AuthorizationAction;
-            /**
-             * Creates a new `AuthorizationException`.
-             */
-            newAuthorizationException(): AuthorizationException;
-            /**
-             * Creates a new `ButtonSet`.
-             */
-            newButtonSet(): ButtonSet;
-            /**
-             * Creates a new `CardAction`.
-             */
-            newCardAction(): CardAction;
-            /**
-             * Creates a new `CardBuilder`.
-             */
-            newCardBuilder(): CardBuilder;
-            /**
-             * Creates a new `CardHeader`.
-             */
-            newCardHeader(): CardHeader;
-            /**
-             * Creates a new `CardSection`.
-             */
-            newCardSection(): CardSection;
-            /**
-             * Creates a new `ComposeActionResponseBuilder`.
-             */
-            newComposeActionResponseBuilder(): ComposeActionResponseBuilder;
-            /**
-             * Creates a new `Image`.
-             */
-            newImage(): Image;
-            /**
-             * Creates a new `ImageButton`.
-             */
-            newImageButton(): ImageButton;
-            /**
-             * Creates a new `KeyValue`.
-             */
-            newKeyValue(): KeyValue;
-            /**
-             * Creates a new `Navigation`.
-             */
-            newNavigation(): Navigation;
-            /**
-             * Creates a new `Notification`.
-             */
-            newNotification(): Notification;
-            /**
-             * Creates a new `OpenLink`.
-             */
-            newOpenLink(): OpenLink;
-            /**
-             * Creates a new `SelectionInput`.
-             */
-            newSelectionInput(): SelectionInput;
-            /**
-             * Creates a new `Suggestions`.
-             */
-            newSuggestions(): Suggestions;
-            /**
-             * Creates a new `SuggestionsResponseBuilder`.
-             */
-            newSuggestionsResponseBuilder(): SuggestionsResponseBuilder;
-            /**
-             * Creates a new `Switch`.
-             */
-            newSwitch(): Switch;
-            /**
-             * Creates a new `TextButton`.
-             */
-            newTextButton(): TextButton;
-            /**
-             * Creates a new `TextInput`.
-             */
-            newTextInput(): TextInput;
-            /**
-             * Creates a new `TextParagraph`.
-             */
-            newTextParagraph(): TextParagraph;
-            /**
-             * Creates a new `UniversalActionResponseBuilder`.
-             */
-            newUniversalActionResponseBuilder(): UniversalActionResponseBuilder;
-        }
-
-        export interface ComposeActionResponse {
-            /**
-             * Prints the JSON representation of this object.
-             */
-            printJson(): string;
-        }
-
-        export interface ComposeActionResponseBuilder {
-            /**
-             * Builds the current compose action response and validates it.
-             */
-            build(): ComposeActionResponse;
-            /**
-             * Sets the draft `GmailMessage` created using `GmailMessage.createDraftReply(body)` or similar functions.
-             */
-            setGmailDraft(draft: Gmail.GmailDraft): ComposeActionResponseBuilder;
-        }
-
-        export interface Image extends Button<Image> {
-            /**
-             * Sets the alternative text of the image for accessibility.
-             */
-            setAltText(altText: string): Image;
-            /**
-             * Sets the URL of the image.
-             */
-            setImageUrl(url: string): Image;
-        }
-
-        export interface ImageButton extends Button<ImageButton> {
-            /**
-             * Sets the alternative text of the button for accessibility.
-             */
-            setAltText(altText: string): ImageButton;
-            /**
-             * Sets a predefined Icon to display on the button.
-             */
-            setIcon(icon: Icon): ImageButton;
-            /**
-             * Sets the URL of an image to use as this button's icon.
-             */
-            setIconUrl(url: string): ImageButton;
-        }
-
-        export interface KeyValue extends Button<KeyValue> {
-            /**
-             * Sets the label text to be used as the key.
-             */
-            setBottomLabel(text: string): KeyValue;
-            /**
-             * Sets the Button that is displayed to the right of the context.
-             */
-            setButton(button: Button<ImageButton | TextButton>): KeyValue;
-            /**
-             * Sets the text to be used as the value.
-             */
-            setContent(text: string): KeyValue;
-            /**
-             * Sets the icon to be used as the key.
-             */
-            setIcon(icon: Icon): KeyValue;
-            /**
-             * Sets the alternative text for the icon.
-             */
-            setIconAltText(altText: string): KeyValue;
-            /**
-             * Sets the URL of the icon to be used as the key.
-             */
-            setIconUrl(url: string): KeyValue;
-            /**
-             * Sets whether the value text should be displayed on a single line or multiple lines.
-             */
-            setMultiline(multiline: boolean): KeyValue;
-            /**
-             * Sets the Switch that is displayed to the right of the content.
-             */
-            setSwitch(switchToSet: Switch): KeyValue;
-            /**
-             * Sets the label text to be used as the key.
-             */
-            setTopLabel(text: string): KeyValue;
-        }
-
-        export interface Navigation {
-            /**
-             * Pops a card from the navigation stack.
-             */
-            popCard(): Navigation;
-            /**
-             * Pops to the specified card by its card name.
-             */
-            popToNamedCard(cardName: string): Navigation;
-            /**
-             * Pops the card stack to the root card.
-             */
-            popToRoot(): Navigation;
-            /**
-             * Prints the JSON representation of this object.
-             */
-            printJson(): string;
-            /**
-             * Pushes the given card onto the stack.
-             */
-            pushCard(card: Card): Navigation;
-            /**
-             * Does an in-place replacement of the current card.
-             */
-            updateCard(card: Card): Navigation;
-        }
-
-        export interface Notification {
-            /**
-             * Sets the text to show in the notification.
-             */
-            setText(text: string): Notification;
-            /**
-             * Sets the notification type to show.
-             */
-            setType(type: NotificationType): Notification;
-        }
-
-        export interface OpenLink {
-            /**
-             * Sets the behavior of the URL action when the URL window or tab is closed.
-             */
-            setOnClose(onClose: OnClose): OpenLink;
-            /**
-             * Sets the behavior of URL when it is opened.
-             */
-            setOpenAs(openAs: OpenAs): OpenLink;
-            /**
-             * Sets the URL to be opened.
-             */
-            setUrl(url: string): OpenLink;
-        }
-
-        export interface SelectionInput extends Widget {
-            /**
-             * Adds a new item that can be selected.
-             */
-            addItem(text: Object, value: Object, selected: boolean): SelectionInput;
-            /**
-             * Sets the key that identifies this selection input in the event object that is generated when there is a UI interaction.
-             */
-            setFieldName(fieldName: string): SelectionInput;
-            /**
-             * Sets an Action to be performed whenever the selection input changes.
-             */
-            setOnChangeAction(action: Action): SelectionInput;
-            /**
-             * Sets the title to be shown ahead of the input field.
-             */
-            setTitle(title: string): SelectionInput;
-            /**
-             * Sets the type of this input.
-             */
-            setType(type: SelectionInputType): SelectionInput;
-        }
-
-        export interface Suggestions {
-            /**
-             * Add a text suggestion.
-             */
-            addSuggestion(suggestion: string): Suggestions;
-            /**
-             * Add a list of text suggestions.
-             */
-            addSuggestions(suggestions: string[]): Suggestions;
-        }
-
-        export interface SuggestionsResponse {
-            /**
-             * Prints the JSON representation of this object.
-             */
-            printJson(): string;
-        }
-
-        export interface SuggestionsResponseBuilder {
-            /**
-             * Builds the current suggestions response and validates it.
-             */
-            build(): SuggestionsResponse;
-            /**
-             * Sets the suggestions used in auto complete in text fields.
-             */
-            setSuggestions(suggestions: Suggestions): SuggestionsResponseBuilder;
-        }
-
-        export interface Switch extends Widget {
-            /**
-             * Sets the key that identified this switch in the event object that is generated when there is a UI interaction.
-             */
-            setFieldName(fieldName: string): Switch;
-            /**
-             * Sets the action to take when the switch is toggled.
-             */
-            setOnChangeAction(action: Action): Switch;
-            /**
-             * Sets whether this switch should start as selected or unselected.
-             */
-            setSelected(selected: boolean): Switch;
-            /**
-             * Sets the value that is sent as the form input when this switch is toggled on.
-             */
-            setValue(value: string): Switch;
-        }
-
-        export interface TextButton extends Button<TextButton> {
-            /**
-             * Sets the text to be displayed on the button.
-             */
-            setText(text: string): TextButton;
-        }
-
-        export interface TextInput extends Widget {
-            /**
-             * Sets the key that identifies this text input in the event object that is generated when there is a UI interaction.
-             */
-            setFieldName(fieldName: string): TextInput;
-            /**
-             * Sets a hint for the text input.
-             */
-            setHint(hint: string): TextInput;
-            /**
-             * Sets whether the input text shows on one line or multiple lines.
-             */
-            setMultiline(multiline: boolean): TextInput;
-            /**
-             * Sets an action to be performed whenever the text input changes.
-             */
-            setOnChangeAction(action: Action): TextInput;
-            /**
-             * Sets the suggestions for autocompletion in the text field.
-             */
-            setSuggestions(suggestions: Suggestions): TextInput;
-            /**
-             * Sets the callback action to fetch suggestions based on user input for autocompletion.
-             */
-            setSuggestionsAction(suggestionsAction: Action): TextInput
-            /**
-             * Sets the title to be shown above the input field.
-             */
-            setTitle(title: string): TextInput;
-            /**
-             * Sets the pre-filled value to be set in the input field.
-             */
-            setValue(value: string): TextInput;
-        }
-
-        export interface TextParagraph extends Widget {
-            /**
-             * Sets the text of the paragraph.
-             */
-            setText(text: string): TextParagraph;
-        }
-
-        export interface UniversalActionResponse {
-            /**
-             * Prints the JSON representation of this object.
-             */
-            printJson(): string;
-        }
-
-        export interface UniversalActionResponseBuilder {
-            /**
-             * Builds the current universal action response and validates it.
-             */
-            build(): UniversalActionResponse;
-            /**
-             * Displays the add-on with the specified cards.
-             */
-            displayAddOnCards(cardObjects: Card[]): UniversalActionResponseBuilder;
-            /**
-             * Sets the URL to open when the universal action is selected.
-             */
-            setOpenLink(openLink: OpenLink): UniversalActionResponseBuilder;
-        }
-
-        export interface Widget { }
-
-        export enum ComposedEmailType { REPLY_AS_DRAFT, STANDALONE_DRAFT }
-        export enum Icon { NONE, AIRPLANE, BOOKMARK, BUS, CAR, CLOCK, CONFIRMATION_NUMBER_ICON, DOLLAR, DESCRIPTION, EMAIL, EVENT_PERFORMER, EVENT_SEAT, FLIGHT_ARRIVAL, FLIGHT_DEPARTURE, HOTEL, HOTEL_ROOM_TYPE, INVITE, MAP_PIN, MEMBERSHIP, MULTIPLE_PEOPLE, OFFER, PERSON, PHONE, RESTAURANT_ICON, SHOPPING_CART, STAR, STORE, TICKET, TRAIN, VIDEO_CAMERA, VIDEO_PLAY }
-        export enum ImageStyle { SQUARE, CIRCLE }
-        export enum LoadIndicator { SPINNER, NONE }
-        export enum NotificationType { INFO, ERROR, WARNING }
-        export enum OnClose { NOTHING, RELOAD_ADD_ON }
-        export enum OpenAs { FULL_SIZE, OVERLAY }
-        export enum SelectionInputType { CHECK_BOX, RADIO_BUTTON, DROPDOWN }
+  export module Card {
+    /**
+     * An action that enables interactivity within UI elements. The action does not happen directly on
+     * the client but rather invokes an Apps Script callback function with optional parameters.
+     *
+     *     var image = CardService.newImage()
+     *         .setOnClickAction(CardService.newAction()
+     *             .setFunctionName("handleImageClick")
+     *             .setParameters({imageSrc: 'carImage'}));
+     */
+    export interface Action {
+      setFunctionName(functionName: string): Action;
+      setLoadIndicator(loadIndicator: LoadIndicator): Action;
+      setParameters(parameters: Object): Action;
+      setMethodName(functionName: string): Action;
     }
+
+    /**
+     * The response object that may be returned from a callback function (e.g., a form response handler)
+     * to perform one or more actions on the client. Some combinations of actions are not supported.
+     *
+     *     // An action that opens a link
+     *     var actionResponse = CardService.newActionResponseBuilder()
+     *         .setOpenLink(CardService.newOpenLink()
+     *             .setUrl("https://www.google.com"))
+     *         .build();
+     *
+     *     // An action that shows a notification.
+     *     var actionResponse = CardService.newActionResponseBuilder()
+     *         .setNotification(CardService.newNotification()
+     *             .setType(CardService.Notification.INFO)
+     *             .setText("Some info to display to user"))
+     *         .build();
+     *
+     *     // An action that shows an additional card. It also sets a flag to indicate that the original
+     *     // state data has changed.
+     *
+     *     var cardBuilder = CardService.newCardBuilder();
+     *     // Build card ...
+     *     var actionResponse = CardService.newActionResponseBuilder()
+     *         .setNavigation(CardService.newNavigation()
+     *             .pushCard(cardBuilder.build()))
+     *         .setStateChanged(true)
+     *         .build();
+     */
+    export interface ActionResponse {
+      printJson(): string;
+    }
+
+    /**
+     * A builder for ActionResponse objects.
+     */
+    export interface ActionResponseBuilder {
+      build(): ActionResponse;
+      setNavigation(navigation: Navigation): ActionResponseBuilder;
+      setNotification(notification: Notification): ActionResponseBuilder;
+      setOpenLink(openLink: OpenLink): ActionResponseBuilder;
+      setStateChanged(stateChanged: boolean): ActionResponseBuilder;
+    }
+
+    /**
+     * An authorization action that will send the user to the AuthorizationUrl when clicked.
+     *
+     *     CardService.newAuthorizationAction()
+     *       .setAuthorizationUrl("http://google.com/");
+     */
+    export interface AuthorizationAction {
+      setAuthorizationUrl(authorizationUrl: string): AuthorizationAction;
+    }
+
+    /**
+     * An error that can be returned to trigger an authorization card to be shown to the user.
+     *
+     *     CardService.newAuthorizationException()
+     *       .setAuthorizationUrl("http://auth.com/")
+     *       .setResourceDisplayName("Example Resource")
+     *       .throwException();
+     */
+    export interface AuthorizationException {
+      printJson(): string;
+      setAuthorizationUrl(authUrl: string): AuthorizationException;
+      setCustomUiCallback(callback: string): AuthorizationException;
+      setResourceDisplayName(name: string): AuthorizationException;
+      throwException(): void;
+    }
+
+    /**
+     * A base class for all buttons.
+     */
+    export interface Button {
+      setAuthorizationAction(action: AuthorizationAction): Button;
+      setComposeAction(action: Action, composedEmailType: ComposedEmailType): Button;
+      setOnClickAction(action: Action): Button;
+      setOnClickOpenLinkAction(action: Action): Button;
+      setOpenLink(openLink: OpenLink): Button;
+    }
+
+    /**
+     * Holds a set of Button objects that are displayed in a row.
+     *
+     *     var textButton = CardService.newTextButton();
+     *     // Finish building the text button...
+     *
+     *     var imageButton = CardService.newImageButton();
+     *     // Finish building the image button...
+     *
+     *     var buttonSet = CardService.newButtonSet()
+     *         .addButton(textButton)
+     *         .addButton(imageButton);
+     */
+    export interface ButtonSet {
+      addButton(button: Button): ButtonSet;
+    }
+
+    /**
+     * A context card that represents a single view in the
+     * UI.
+     *
+     *     var cardSection = CardService.newCardSection();
+     *     // Finish building the card section ...
+     *
+     *     var card = CardService.newCardBuilder()
+     *         .setName("Card name")
+     *         .setHeader(CardService.newCardHeader().setTitle("Card title"))
+     *         .addSection(cardSection)
+     *         .build();
+     */
+    export interface Card {
+      printJson(): string;
+    }
+
+    /**
+     * A clickable menu item that is added to the card header menu.
+     *
+     *     var action = CardService.newAction();
+     *     // Finish building the action...
+     *
+     *     var cardAction = CardService.newCardAction()
+     *         .setText("Card action")
+     *         .setOnClickAction(action);
+     */
+    export interface CardAction {
+      setAuthorizationAction(action: AuthorizationAction): CardAction;
+      setComposeAction(action: Action, composedEmailType: ComposedEmailType): CardAction;
+      setOnClickAction(action: Action): CardAction;
+      setOnClickOpenLinkAction(action: Action): CardAction;
+      setOpenLink(openLink: OpenLink): CardAction;
+      setText(text: string): CardAction;
+    }
+
+    /**
+     * A builder for Card objects.
+     */
+    export interface CardBuilder {
+      addCardAction(cardAction: CardAction): CardBuilder;
+      addSection(section: CardSection): CardBuilder;
+      build(): Card;
+      setHeader(cardHeader: CardHeader): CardBuilder;
+      setName(name: string): CardBuilder;
+    }
+
+    /**
+     * The header of a Card.
+     *
+     *     var cardHeader = CardService.newCardHeader()
+     *         .setTitle("Card header title")
+     *         .setSubtitle("Card header subtitle")
+     *         .setImageStyle(CardService.ImageStyle.CIRCLE)
+     *         .setImageUrl("https://image.png");
+     */
+    export interface CardHeader {
+      setImageAltText(imageAltText: string): CardHeader;
+      setImageStyle(imageStyle: ImageStyle): CardHeader;
+      setImageUrl(imageUrl: string): CardHeader;
+      setSubtitle(subtitle: string): CardHeader;
+      setTitle(title: string): CardHeader;
+    }
+
+    /**
+     * A card section holds groups of widgets and provides visual separation between them.
+     *
+     *     var image = CardService.newImage();
+     *     // Build image ...
+     *     var textParagraph = CardService.newTextParagraph();
+     *     // Build text paragraph ...
+     *
+     *     var cardSection = CardService.newCardSection()
+     *         .setHeader("Section header")
+     *         .addWidget(image)
+     *         .addWidget(textParagraph);
+     */
+    export interface CardSection {
+      addWidget(widget: Widget): CardSection;
+      setCollapsible(collapsible: boolean): CardSection;
+      setHeader(header: string): CardSection;
+      setNumUncollapsibleWidgets(numUncollapsibleWidgets: Integer): CardSection;
+    }
+
+    /**
+     * CardService provides the ability to create generic cards used across different Google
+     * extensibility products, such as Gmail add-ons.
+     *
+     * Currently you can only use this service to construct Gmail add-ons.
+     *
+     *     return CardService.newCardBuilder()
+     *              .setHeader(CardService.newCardHeader().setTitle("CardTitle"))
+     *              .build();
+     *
+     * Or you can return multiple Cards like so:
+     *
+     *     return [
+     *       CardService.newCardBuilder().build(),
+     *       CardService.newCardBuilder().build(),
+     *       CardService.newCardBuilder().build()
+     *     ]
+     *
+     * The following shows how you could define a card with a header, text, an image and a menu item:
+     *
+     *     function createWidgetDemoCard() {
+     *       return CardService
+     *          .newCardBuilder()
+     *          .setHeader(
+     *              CardService.newCardHeader()
+     *                  .setTitle('Widget demonstration')
+     *                  .setSubtitle('Check out these widgets')
+     *                  .setImageStyle(CardService.ImageStyle.SQUARE)
+     *                  .setImageUrl(
+     *                      'https://www.example.com/images/headerImage.png'))
+     *          .addSection(
+     *               CardService.newCardSection()
+     *                   .setHeader('Simple widgets')  // optional
+     *                   .addWidget(CardService.newTextParagraph().setText(
+     *                       'These widgets are display-only. ' +
+     *                       'A text paragraph can have multiple lines and ' +
+     *                       'formatting.'))
+     *                   .addWidget(CardService.newImage().setImageUrl(
+     *                       'https://www.example.com/images/mapsImage.png')))
+     *          .addCardAction(CardService.newCardAction().setText('Gmail').setOpenLink(
+     *              CardService.newOpenLink().setUrl('https://mail.google.com/mail')))
+     *          .build();
+     *     }
+     */
+    export interface CardService {
+      ComposedEmailType: typeof ComposedEmailType;
+      Icon: typeof Icon;
+      ImageStyle: typeof ImageStyle;
+      LoadIndicator: typeof LoadIndicator;
+      NotificationType: typeof NotificationType;
+      OnClose: typeof OnClose;
+      OpenAs: typeof OpenAs;
+      SelectionInputType: typeof SelectionInputType;
+      newAction(): Action;
+      newActionResponseBuilder(): ActionResponseBuilder;
+      newAuthorizationAction(): AuthorizationAction;
+      newAuthorizationException(): AuthorizationException;
+      newButtonSet(): ButtonSet;
+      newCardAction(): CardAction;
+      newCardBuilder(): CardBuilder;
+      newCardHeader(): CardHeader;
+      newCardSection(): CardSection;
+      newComposeActionResponseBuilder(): ComposeActionResponseBuilder;
+      newImage(): Image;
+      newImageButton(): ImageButton;
+      newKeyValue(): KeyValue;
+      newNavigation(): Navigation;
+      newNotification(): Notification;
+      newOpenLink(): OpenLink;
+      newSelectionInput(): SelectionInput;
+      newSuggestions(): Suggestions;
+      newSuggestionsResponseBuilder(): SuggestionsResponseBuilder;
+      newSwitch(): Switch;
+      newTextButton(): TextButton;
+      newTextInput(): TextInput;
+      newTextParagraph(): TextParagraph;
+      newUniversalActionResponseBuilder(): UniversalActionResponseBuilder;
+    }
+
+    /**
+     * The response object that may be returned from a callback method for compose action in a Gmail add-on.
+     *
+     *     var composeActionResponse = CardService.newComposeActionResponseBuilder()
+     *         .setGmailDraft(GmailApp.createDraft("recipient", "subject", "body"))
+     *         .build();
+     */
+    export interface ComposeActionResponse {
+      printJson(): string;
+    }
+
+    /**
+     * A builder for ComposeActionResponse objects.
+     */
+    export interface ComposeActionResponseBuilder {
+      build(): ComposeActionResponse;
+      setGmailDraft(draft: Gmail.GmailDraft): ComposeActionResponseBuilder;
+    }
+
+    /**
+     * An enum value that specifies whether the composed email is a standalone or reply draft.
+     */
+    export enum ComposedEmailType { REPLY_AS_DRAFT, STANDALONE_DRAFT }
+
+    /**
+     * Predefined icons that can be used in various UI objects, such as ImageButton or KeyValue widgets.
+     */
+    export enum Icon { NONE, AIRPLANE, BOOKMARK, BUS, CAR, CLOCK, CONFIRMATION_NUMBER_ICON, DOLLAR, DESCRIPTION, EMAIL, EVENT_PERFORMER, EVENT_SEAT, FLIGHT_ARRIVAL, FLIGHT_DEPARTURE, HOTEL, HOTEL_ROOM_TYPE, INVITE, MAP_PIN, MEMBERSHIP, MULTIPLE_PEOPLE, OFFER, PERSON, PHONE, RESTAURANT_ICON, SHOPPING_CART, STAR, STORE, TICKET, TRAIN, VIDEO_CAMERA, VIDEO_PLAY }
+
+    /**
+     * A widget that shows a single image.
+     *
+     *     var image = CardService.newImage().setAltText("A nice image").setImageUrl("https://image.png");
+     */
+    export interface Image {
+      setAltText(altText: string): Image;
+      setAuthorizationAction(action: AuthorizationAction): Image;
+      setComposeAction(action: Action, composedEmailType: ComposedEmailType): Image;
+      setImageUrl(url: string): Image;
+      setOnClickAction(action: Action): Image;
+      setOnClickOpenLinkAction(action: Action): Image;
+      setOpenLink(openLink: OpenLink): Image;
+    }
+
+    /**
+     * A ImageButton with an image displayed on it.
+     *
+     *     var imageButton = CardService.newImageButton()
+     *         .setAltText("An image button with an airplane icon.")
+     *         .setIcon(CardService.Icon.AIRPLANE)
+     *         .setOpenLink(CardService.newOpenLink()
+     *             .setUrl("https://airplane.com"));
+     */
+    export interface ImageButton {
+      setAltText(altText: string): ImageButton;
+      setAuthorizationAction(action: AuthorizationAction): ImageButton;
+      setComposeAction(action: Action, composedEmailType: ComposedEmailType): ImageButton;
+      setIcon(icon: Icon): ImageButton;
+      setIconUrl(url: string): ImageButton;
+      setOnClickAction(action: Action): ImageButton;
+      setOnClickOpenLinkAction(action: Action): ImageButton;
+      setOpenLink(openLink: OpenLink): ImageButton;
+    }
+
+    /**
+     * An enum that defines an image cropping style.
+     */
+    export enum ImageStyle { SQUARE, CIRCLE }
+
+    /**
+     * A widget that displays one or more "keys" around a text "value". The possible keys include an
+     * icon, a label above and a label below. Setting the text content and one of the keys is required
+     * using setContent(text) and one of setIcon(icon), setIconUrl(url), setTopLabel(text),
+     * or setBottomLabel(text).
+     *
+     *     var imageKeyValue = CardService.newKeyValue()
+     *         .setIconUrl("https://icon.png")
+     *         .setContent("KeyValue widget with an image on the left and text on the right");
+     *
+     *     var textKeyValue = CardService.newKeyValue()
+     *         .setTopLabel("Text key")
+     *         .setContent("KeyValue widget with text key on top and cotent below");
+     *
+     *     var multilineKeyValue = CardService.newKeyValue()
+     *         .setTopLabel("Top label - single line)")
+     *         .setContent("Content can be multiple lines")
+     *     .setMultiline(true)
+     *         .setBottomLabel("Bottom label - single line");
+     */
+    export interface KeyValue {
+      setAuthorizationAction(action: AuthorizationAction): KeyValue;
+      setBottomLabel(text: string): KeyValue;
+      setButton(button: Button): KeyValue;
+      setComposeAction(action: Action, composedEmailType: ComposedEmailType): KeyValue;
+      setContent(text: string): KeyValue;
+      setIcon(icon: Icon): KeyValue;
+      setIconAltText(altText: string): KeyValue;
+      setIconUrl(url: string): KeyValue;
+      setMultiline(multiline: boolean): KeyValue;
+      setOnClickAction(action: Action): KeyValue;
+      setOnClickOpenLinkAction(action: Action): KeyValue;
+      setOpenLink(openLink: OpenLink): KeyValue;
+      setSwitch(switchToSet: Switch): KeyValue;
+      setTopLabel(text: string): KeyValue;
+    }
+
+    /**
+     * An enum type that specifies the type of loading or progress indicator to display while an Action is being processed.
+     */
+    export enum LoadIndicator { SPINNER, NONE }
+
+    /**
+     * A helper object that controls card navigation. See the card navigation guide for more details.
+     */
+    export interface Navigation {
+      popCard(): Navigation;
+      popToNamedCard(cardName: string): Navigation;
+      popToRoot(): Navigation;
+      printJson(): string;
+      pushCard(card: Card): Navigation;
+      updateCard(card: Card): Navigation;
+    }
+
+    /**
+     * A notification shown to the user as a response to interacting with a UI element.
+     *
+     *     var action = CardService.newAction().setFunctionName("notificationCallback");
+     *     CardService.newTextButton().setText('Save').setOnClickAction(action);
+     *
+     *     // ...
+     *
+     *     function notificationCallback() {
+     *       return CardService.newActionResponseBuilder()
+     *           .setNotification(CardService.newNotification()
+     *               .setType(CardService.NotificationType.WARNING)
+     *               .setText("Some info to display to user"))
+     *           .build();
+     *     }
+     */
+    export interface Notification {
+      setText(text: string): Notification;
+      setType(type: NotificationType): Notification;
+    }
+
+    /**
+     * Type of notification to show.
+     */
+    export enum NotificationType { INFO, ERROR, WARNING }
+
+    /**
+     * An enum that specifies what to do when a URL opened through an OpenLink is closed.
+     *
+     * When a link is opened, the client either forgets about it or waits until the window is closed.
+     * The implementation depends on the client platform capabilities. OnClose may cause OpenAs to be ignored; if the client platform cannot support both selected values together,
+     * OnClose takes precedence.
+     */
+    export enum OnClose { NOTHING, RELOAD_ADD_ON }
+
+    /**
+     * An enum that specifies how to open a URL.
+     *
+     * The client can open a URL as either a full size window (if that is the frame used by the
+     * client), or an overlay (such as a pop-up). The implementation depends on the client platform
+     * capabilities, and the value selected may be ignored if the client does not support it. FULL_SIZE is supported by all clients.
+     *
+     * Using OnClose may cause OpenAs to be ignored; if the client platform cannot
+     * support both selected values together, OnClose takes precedence.
+     */
+    export enum OpenAs { FULL_SIZE, OVERLAY }
+
+    /**
+     * Represents an action to open a link with some options.
+     *
+     *     // A button that opens as a link in an overlay and
+     *     // requires a reload when closed.
+     *     var button = CardService.newTextButton()
+     *         .setText("This button opens a link in an overlay window")
+     *         .setOpenLink(CardService.newOpenLink()
+     *             .setUrl("https://www.google.com")
+     *             .setOpenAs(CardService.OpenAs.OVERLAY)
+     *             .setOnClose(CardService.OnClose.RELOAD_ADD_ON));
+     *
+     *     // An action response that opens a link in full screen and
+     *     // requires no action when closed.
+     *     var actionResponse = CardService.newActionResponseBuilder()
+     *         .setOpenLink(CardService.newOpenLink()
+     *             .setUrl("https://www.google.com")
+     *             .setOpenAs(CardService.OpenAs.FULL_SIZE)
+     *             .setOnClose(CardService.OnClose.NOTHING));
+     *         .build();
+     */
+    export interface OpenLink {
+      setOnClose(onClose: OnClose): OpenLink;
+      setOpenAs(openAs: OpenAs): OpenLink;
+      setUrl(url: string): OpenLink;
+    }
+
+    /**
+     * An input field that allows choosing between a set of predefined options.
+     *
+     *     var checkboxGroup = CardService.newSelectionInput()
+     *         .setType(CardService.SelectionInputType.CHECK_BOX)
+     *         .setTitle("A group of checkboxes. Multiple selections are allowed.")
+     *         .setFieldName("checkbox_field")
+     *         .addItem("checkbox one title", "checkbox_one_value", false)
+     *         .addItem("checkbox two title", "checkbox_two_value", true)
+     *         .addItem("checkbox three title", "checkbox_three_value", false)
+     *         .setOnChangeAction(CardService.newAction()
+     *             .setFunctionName("handleCheckboxChange"));
+     *
+     *     var radioGroup = CardService.newSelectionInput()
+     *         .setType(CardService.SelectionInputType.RADIO_BUTTON)
+     *         .setTitle("A group of radio buttons. Only a single selection is allowed.")
+     *         .setFieldName("checkbox_field")
+     *         .addItem("radio button one title", "radio_one_value", true)
+     *         .addItem("radio button two title", "radio_two_value", true)
+     *         .addItem("radio button three title", "radio_three_value", false);
+     */
+    export interface SelectionInput {
+      addItem(text: Object, value: Object, selected: boolean): SelectionInput;
+      setFieldName(fieldName: string): SelectionInput;
+      setOnChangeAction(action: Action): SelectionInput;
+      setTitle(title: string): SelectionInput;
+      setType(type: SelectionInputType): SelectionInput;
+    }
+
+    /**
+     * Type of selection input.
+     */
+    export enum SelectionInputType { CHECK_BOX, RADIO_BUTTON, DROPDOWN }
+
+    /**
+     * Autocomplete suggestions to supplement a TextInput widget.
+     *
+     *     var textInput = CardService.newTextInput()
+     *         .setSuggestions(CardService.newSuggestions()
+     *             .addSuggestion("First suggestion")
+     *             .addSuggestion("Second suggestion"))
+     */
+    export interface Suggestions {
+      addSuggestion(suggestion: string): Suggestions;
+      addSuggestions(suggestions: Object[]): Suggestions;
+    }
+
+    /**
+     * A response object that can be returned from a suggestions callback function. This is used with
+     * TextInput widgets that implement autocomplete.
+     *
+     *     var suggestionsResponse = CardService.newSuggestionsResponseBuilder()
+     *         .setSuggestions(CardService.newSuggestions()
+     *             .addSuggestion("First suggestion")
+     *             .addSuggestion("Second suggestion"))
+     *             .build();
+     */
+    export interface SuggestionsResponse {
+      printJson(): string;
+    }
+
+    /**
+     * A builder for SuggestionsResponse objects.
+     */
+    export interface SuggestionsResponseBuilder {
+      build(): SuggestionsResponse;
+      setSuggestions(suggestions: Suggestions): SuggestionsResponseBuilder;
+    }
+
+    /**
+     * A UI element that supports being toggled on or off. This can only be used within a KeyValue widget.
+     *
+     *     var switchKeyValue = CardService.newKeyValue()
+     *         .setTopLabel("Switch key value widget label")
+     *         .setContent("This is a key value widget with a switch on the right")
+     *         .setSwitch(CardService.newSwitch()
+     *             .setFieldName("form_input_switch_key")
+     *             .setValue("form_input_switch_value")
+     *             .setOnChangeAction(CardService.newAction()
+     *                 .setFunctionName("handleSwitchChange")));
+     */
+    export interface Switch {
+      setFieldName(fieldName: string): Switch;
+      setOnChangeAction(action: Action): Switch;
+      setSelected(selected: boolean): Switch;
+      setValue(value: string): Switch;
+    }
+
+    /**
+     * A TextButton with a text label.
+     *
+     *     var textButton = CardService.newTextButton()
+     *         .setText("Open Link")
+     *         .setOpenLink(CardService.newOpenLink()
+     *             .setUrl("https://www.google.com"));
+     */
+    export interface TextButton {
+      setAuthorizationAction(action: AuthorizationAction): TextButton;
+      setComposeAction(action: Action, composedEmailType: ComposedEmailType): TextButton;
+      setOnClickAction(action: Action): TextButton;
+      setOnClickOpenLinkAction(action: Action): TextButton;
+      setOpenLink(openLink: OpenLink): TextButton;
+      setText(text: string): TextButton;
+    }
+
+    /**
+     * A input field widget that accepts text input.
+     *
+     *     var textInput = CardService.newTextInput()
+     *         .setFieldName("text_input_form_input_key")
+     *         .setTitle("Text input title")
+     *         .setHint("Text input hint");
+     */
+    export interface TextInput {
+      setFieldName(fieldName: string): TextInput;
+      setHint(hint: string): TextInput;
+      setMultiline(multiline: boolean): TextInput;
+      setOnChangeAction(action: Action): TextInput;
+      setSuggestions(suggestions: Suggestions): TextInput;
+      setSuggestionsAction(suggestionsAction: Action): TextInput;
+      setTitle(title: string): TextInput;
+      setValue(value: string): TextInput;
+    }
+
+    /**
+     * A widget that displays text and supports basic HTML formatting.
+     *
+     *     var textParagraph = CardService.newTextParagraph()
+     *         .setText("This is a text paragraph widget. Multiple lines are allowed if needed.");
+     */
+    export interface TextParagraph {
+      setText(text: string): TextParagraph;
+    }
+
+    /**
+     * The response object that may be returned from a method that creates universal action.
+     *
+     *     // A universal action that opens a link.
+     *     var openLinkUniversalAction = CardService.newUniversalActionResponseBuilder()
+     *         .setOpenLink(CardService.newOpenLink()
+     *             .setUrl("https://www.google.com"))
+     *             .build();
+     *
+     *     var cardBuilder1 = CardService.newCardBuilder();
+     *     var cardBuilder2 = CardService.newCardBuilder();
+     *     // Finish building the cards ...
+     *
+     *     // A universal action that shows two static cards.
+     *     var cardsUniversalAction = CardService.newUniversalActionResponseBuilder()
+     *         .displayAddOnCards([
+     *             cardBuilder1.build();
+     *             cardBuilder2.build();
+     *         ]).build();
+     */
+    export interface UniversalActionResponse {
+      printJson(): string;
+    }
+
+    /**
+     * A builder for the UniversalActionResponse objects.
+     */
+    export interface UniversalActionResponseBuilder {
+      build(): UniversalActionResponse;
+      displayAddOnCards(cardObjects: Object[]): UniversalActionResponseBuilder;
+      setOpenLink(openLink: OpenLink): UniversalActionResponseBuilder;
+    }
+
+    /**
+     * Base class for all widgets that can be added to a Card.
+     */
+    export interface Widget {
+    }
+
+  }
 }
 
-/**
- * CardService provides the ability to create generic cards used across different Google extensibility products, such as [Gmail add-ons](https://developers.google.com/gmail/add-ons).
- */
 declare var CardService: GoogleAppsScript.Card.CardService;

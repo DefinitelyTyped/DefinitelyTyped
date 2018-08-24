@@ -1,8 +1,9 @@
-// Type definitions for react-infinite-scroll-component 4.1
+// Type definitions for react-infinite-scroll-component 4.2
 // Project: https://github.com/ankeetmaini/react-infinite-scroll-component#readme
 // Definitions by: Stephanie Roy <https://github.com/sroy3>
+//                 Bartosz Dotryw <https://github.com/burtek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 
@@ -61,9 +62,10 @@ declare namespace InfiniteScroll {
         releaseToRefreshContent?: boolean;
 
         /**
-         * A threshold value after that the InfiniteScroll will call next. By default it's 0.8. It means the next will be called when the user comes below 80% of the total height.
+         * A threshold value defining when InfiniteScroll will call next. Default value is 0.8. It means the next will be called when user comes below 80% of the total height.
+         * If you pass threshold in pixels (scrollThreshold="200px"), next will be called once you scroll at least (100% - scrollThreshold) pixels down.
          */
-        scrollThreshold?: number;
+        scrollThreshold?: number | string;
 
         /**
          * A function that will listen to the scroll event on the scrolling container. Note that the scroll event is throttled, so you may not receive as many events as you would expect.

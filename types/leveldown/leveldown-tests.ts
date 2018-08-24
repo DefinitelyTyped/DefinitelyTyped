@@ -82,5 +82,5 @@ db.approximateSize("k1", "k2", (err, size) => {
 
 db.compactRange("k1", "k2", (err) => {});
 
-db.destroy("/path/to/db", (err) => {});
-db.repair("/path/to/db", (err) => {});
+leveldown.destroy("/path/to/db", (err) => {});
+leveldown.repair("/path/to/db", (err) => {});

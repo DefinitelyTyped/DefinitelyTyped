@@ -1073,3 +1073,92 @@ const util_1: boolean = dt.any();
 const util_2: number = dt.count();
 
 //#endregion "Methods-Util"
+
+//#region "ExtSettings"
+
+const ext_classes_settings: DataTables.ExtClassesSettings = {
+};
+const ext_classes_settings_full: DataTables.ExtClassesSettings = {
+    sFilter: "",
+    sFilterInput: "",
+    sFooterTH: "",
+    sHeaderTH: "",
+    sInfo: "",
+    sJUIFooter: "",
+    sJUIHeader: "",
+    sLength: "",
+    sLengthSelect: "",
+    sNoFooter: "",
+    sPageButton: "",
+    sPageButtonActive: "",
+    sPageButtonDisabled: "",
+    sPaging: "",
+    sProcessing: "",
+    sRowEmpty: "",
+    sScrollBody: "",
+    sScrollFoot: "",
+    sScrollFootInner: "",
+    sScrollHead: "",
+    sScrollHeadInner: "",
+    sScrollWrapper: "",
+    sSortable: "",
+    sSortableAsc: "",
+    sSortableDesc: "",
+    sSortableNone: "",
+    sSortAsc: "",
+    sSortColumn: "",
+    sSortDesc: "",
+    sSortIcon: "",
+    sSortJUI: "",
+    sSortJUIAsc: "",
+    sSortJUIAscAllowed: "",
+    sSortJUIDesc: "",
+    sSortJUIDescAllowed: "",
+    sSortJUIWrapper: "",
+    sStripeEven: "",
+    sStripeOdd: "",
+    sTable: "",
+    sWrapper: ""
+};
+
+const ext_type_settings: DataTables.ExtTypeSettings = {
+    detect: [],
+    search: {},
+    order: {}
+};
+ext_type_settings.detect.push((d: string, s: DataTables.Settings) => {
+    return null;
+});
+ext_type_settings.detect.push((d: string, s: DataTables.Settings) => {
+    return "";
+});
+
+const ext_settings: DataTables.ExtSettings = {
+    aTypes: [],
+    afnFiltering: [],
+    afnSortData: {},
+    aoFeatures: [],
+    builder: "",
+    classes: ext_classes_settings,
+    errMode: "",
+    feature: [],
+    fnVersionCheck: (version: string) => "",
+    iApiIndex: 0,
+    internal: {},
+    legacy: {},
+    oApi: {},
+    oJUIClasses: {},
+    oPagination: {},
+    oSort: {},
+    oStdClasses: ext_classes_settings,
+    ofnSearch: {},
+    order: {},
+    pager: {},
+    renderer: {},
+    sVersion: "",
+    search: [],
+    selector: {},
+    type: ext_type_settings
+};
+
+ //#endregion "ExtSettings"

@@ -216,7 +216,7 @@ declare class Class_UrlObject extends Class__object {
 	 * 
 	 * 
 	 */
-	constructor(args: Object);
+	constructor(args: object);
 
 	/**
 	 * 
@@ -250,7 +250,7 @@ declare class Class_UrlObject extends Class__object {
 	 * 
 	 * 
 	 */
-	format(args: Object): void;
+	format(args: object): void;
 
 	/**
 	 * 
