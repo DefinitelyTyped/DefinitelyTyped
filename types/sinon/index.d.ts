@@ -18,6 +18,9 @@ interface Document { } // tslint:disable-line no-empty-interface
 declare namespace Sinon {
     interface SinonSpyCallApi {
         // Properties
+        /**
+         * Array of received arguments.
+         */
         args: any[];
 
         // Methods
@@ -56,7 +59,16 @@ declare namespace Sinon {
          * @param args 
          */
         calledWithMatch(...args: any[]): boolean;
+        /**
+         * Returns true if call did not receive provided arguments.
+         * @param args 
+         */
         notCalledWith(...args: any[]): boolean;
+        /**
+         * Returns true if call did not receive matching arguments. 
+         * This behaves the same as spyCall.notCalledWith(sinon.match(arg1), sinon.match(arg2), ...).
+         * @param args 
+         */
         notCalledWithMatch(...args: any[]): boolean;
         /**
          * Returns true if spy returned the provided value at least once.
@@ -105,13 +117,37 @@ declare namespace Sinon {
     }
 
     interface SinonSpyCall extends SinonSpyCallApi {
+        /**
+         * The call’s this value.
+         */
         thisValue: any;
+        /**
+         * Exception thrown, if any.
+         */
         exception: any;
+        /**
+         * Return value.
+         */
         returnValue: any;
+        /**
+         * This property is a convenience for a call’s callback.
+         * When the last argument in a call is a Function, then callback will reference that. Otherwise it will be undefined.
+         */
         callback: Function | undefined;
+        /**
+         * This property is a convenience for the last argument of the call.
+         */
         lastArg: any;
 
+        /**
+         * Returns true if the spy call occurred before another spy call.
+         * @param call 
+         */
         calledBefore(call: SinonSpyCall): boolean;
+        /**
+         * Returns true if the spy call occurred after another spy call.
+         * @param call 
+         */
         calledAfter(call: SinonSpyCall): boolean;
     }
 
@@ -291,8 +327,21 @@ declare namespace Sinon {
     }
 
     interface SinonSpyStatic {
+        /**
+         * Creates an anonymous function that records arguments, this value, exceptions and return values for all calls.
+         */
         (): SinonSpy;
+        /**
+         * Spies on the provided function
+         */
         (func: Function): SinonSpy;
+        /**
+         * Creates a spy for object.method and replaces the original method with the spy. 
+         * An exception is thrown if the property is not already a function. 
+         * The spy acts exactly like the original method in all cases. 
+         * The original method can be restored by calling object.method.restore(). 
+         * The returned spy is the function object which replaced the original method. spy === object.method.
+         */
         <T>(obj: T, method: keyof T): SinonSpy;
     }
 
@@ -598,11 +647,24 @@ declare namespace Sinon {
          */
         withExactArgs(...args: any[]): SinonExpectation;
         on(obj: any): SinonExpectation;
+        /**
+         * Verifies all expectations on the mock.
+         * If any expectation is not satisfied, an exception is thrown.
+         * Also restores the mocked methods.
+         */
         verify(): SinonExpectation;
+        /**
+         * Restores all mocked methods.
+         */
         restore(): void;
     }
 
     interface SinonExpectationStatic {
+        /**
+         * Creates an expectation without a mock object, basically an anonymous mock function.
+         * Method name is optional and is used in exception messages to make them more readable.
+         * @param methodName 
+         */
         create(methodName?: string): SinonExpectation;
     }
 
@@ -625,6 +687,10 @@ declare namespace Sinon {
 
     interface SinonMockStatic {
         (): SinonExpectation;
+        /**
+         * Creates a mock for the provided object.
+         * Does not change the object, but returns a mock object to set expectations on the object’s methods.
+         */
         (obj: any): SinonMock;
     }
 
@@ -643,8 +709,23 @@ declare namespace Sinon {
         cancelAnimationFrame(id: number): void;
         nextTick(callback: () => void): void;
 
+        /**
+         * Tick the clock ahead time milliseconds.
+         * Causes all timers scheduled within the affected time range to be called. 
+         * time may be the number of milliseconds to advance the clock by or a human-readable string. 
+         * Valid string formats are “08” for eight seconds, “01:00” for one minute and “02:34:10” for two hours, 34 minutes and ten seconds.
+         * time may be negative, which causes the clock to change but won’t fire any callbacks.
+         * @param ms 
+         */
         tick(ms: number | string): void;
+        /**
+         * Advances the clock to the the moment of the first scheduled timer, firing it.
+         */
         next(): void;
+        /**
+         * This runs all pending timers until there are none remaining. If new timers are added while it is executing they will be run as well.
+         * This makes it easier to run asynchronous tests to completion without worrying about the number of timers they use, or the delays in those timers.
+         */
         runAll(): void;
         runToLast(): void;
         reset(): void;
@@ -660,6 +741,10 @@ declare namespace Sinon {
         Date(year: number, month: number, day: number, hour: number, minute: number, second: number): Date;
         Date(year: number, month: number, day: number, hour: number, minute: number, second: number, ms: number): Date;
 
+        /**
+         * Restore the faked methods.
+         * Call in e.g. tearDown.
+         */
         restore(): void;
         uninstall(): void;
 
@@ -698,67 +783,236 @@ declare namespace Sinon {
 
     interface SinonFakeXMLHttpRequest {
         // Properties
+        /**
+         * The URL set on the request object.
+         */
         url: string;
+        /**
+         * The request method as a string.
+         */
         method: string;
+        /**
+         * An object of all request headers, i.e.:
+         */
         requestHeaders: any;
+        /**
+         * The request body
+         */
         requestBody: string;
+        /**
+         * The request’s status code.
+         * undefined if the request has not been handled (see respond below)
+         */
         status: number;
+        /**
+         * Only populated if the respond method is called (see below).
+         */
         statusText: string;
+        /**
+         * Whether or not the request is asynchronous.
+         */
         async: boolean;
+        /**
+         * Username, if any.
+         */
         username: string;
+        /**
+         * Password, if any.
+         */
         password: string;
         withCredentials: boolean;
         upload: SinonFakeUploadProgress;
+        /**
+         * When using respond, this property is populated with a parsed document if response headers indicate as much (see the spec)
+         */
         responseXML: Document;
+        /**
+         * The value of the given response header, if the request has been responded to (see respond).
+         * @param header 
+         */
         getResponseHeader(header: string): string;
+        /**
+         * All response headers as an object.
+         */
         getAllResponseHeaders(): any;
 
         // Methods
+        /**
+         * Sets response headers (e.g. { "Content-Type": "text/html", ... }, updates the readyState property and fires onreadystatechange.
+         * @param headers 
+         */
         setResponseHeaders(headers: any): void;
+        /**
+         * Sets the respond body, updates the readyState property and fires onreadystatechange.
+         * Additionally, populates responseXML with a parsed document if response headers indicate as much.
+         */
         setResponseBody(body: string): void;
+        /**
+         * Calls the above three methods.
+         */
         respond(status: number, headers: any, body: string): void;
         autoRespond(ms: number): void;
+        /**
+         * Simulates a network error on the request. The onerror handler will be called and the status will be 0.
+         */
         error(): void;
         onerror(): void;
     }
 
     interface SinonFakeXMLHttpRequestStatic {
         new(): SinonFakeXMLHttpRequest;
+        /**
+         * Default false.
+         * When set to true, Sinon will check added filters if certain requests should be “unfaked”
+         */
         useFilters: boolean;
+        /**
+         * Add a filter that will decide whether or not to fake a request.
+         * The filter will be called when xhr.open is called, with the exact same arguments (method, url, async, username, password). 
+         * If the filter returns true, the request will not be faked.
+         * @param filter 
+         */
         addFilter(filter: (method: string, url: string, async: boolean, username: string, password: string) => boolean): void;
+        /**
+         * By assigning a function to the onCreate property of the returned object from useFakeXMLHttpRequest() 
+         * you can subscribe to newly created FakeXMLHttpRequest objects. See below for the fake xhr object API.
+         * Using this observer means you can still reach objects created by e.g. jQuery.ajax (or other abstractions/frameworks).
+         * @param xhr 
+         */
         onCreate(xhr: SinonFakeXMLHttpRequest): void;
+        /**
+         * Restore original function(s).
+         */
         restore(): void;
     }
 
     interface SinonFakeServer extends SinonFakeServerOptions {
         // Properties
+        /**
+         * Used internally to determine the HTTP method used with the provided request.
+         * By default this method simply returns request.method. 
+         * When server.fakeHTTPMethods is true, the method will return the value of the _method parameter if the method is “POST”.
+         * This method can be overridden to provide custom behavior.
+         * @param request 
+         */
         getHTTPMethod(request: SinonFakeXMLHttpRequest): string;
+        /**
+         * You can inspect the server.requests to verify request ordering, find unmatched requests or check that no requests has been done. 
+         * server.requests is an array of all the FakeXMLHttpRequest objects that have been created.
+         */
         requests: SinonFakeXMLHttpRequest[];
 
         // Methods
+        /**
+         * Causes the server to respond to any request not matched by another response with the provided data. The default catch-all response is [404, {}, ""].
+         * A String representing the response body
+         * An Array with status, headers and response body, e.g. [200, { "Content-Type": "text/html", "Content-Length": 2 }, "OK"]
+         * A Function.
+         * Default status is 200 and default headers are none.
+         * When the response is a Function, it will be passed the request object. You must manually call respond on it to complete the request.
+         * @param body A String representing the response body
+         */
         respondWith(body: string): void;
+        /**
+         * Causes the server to respond to any request not matched by another response with the provided data. The default catch-all response is [404, {}, ""].
+         * Default status is 200 and default headers are none.
+         * When the response is a Function, it will be passed the request object. You must manually call respond on it to complete the request.
+         * @param response An Array with status, headers and response body, e.g. [200, { "Content-Type": "text/html", "Content-Length": 2 }, "OK"]
+         */
         respondWith(response: any[]): void;
+        /**
+         * Causes the server to respond to any request not matched by another response with the provided data. The default catch-all response is [404, {}, ""].
+         * Default status is 200 and default headers are none.
+         * When the response is a Function, it will be passed the request object. You must manually call respond on it to complete the request.
+         * @param fn A Function.
+         */
         respondWith(fn: (xhr: SinonFakeXMLHttpRequest) => void): void;
+        /**
+         * Responds to all requests to given URL, e.g. /posts/1.
+         */
         respondWith(url: string, body: string): void;
+        /**
+         * Responds to all requests to given URL, e.g. /posts/1.
+         */
         respondWith(url: string, response: any[]): void;
+        /**
+         * Responds to all requests to given URL, e.g. /posts/1.
+         */
         respondWith(url: string, fn: (xhr: SinonFakeXMLHttpRequest) => void): void;
+        /**
+         * Responds to all method requests to the given URL with the given response.
+         * method is an HTTP verb.
+         */
         respondWith(method: string, url: string, body: string): void;
+        /**
+         * Responds to all method requests to the given URL with the given response.
+         * method is an HTTP verb.
+         */
         respondWith(method: string, url: string, response: any[]): void;
+        /**
+         * Responds to all method requests to the given URL with the given response.
+         * method is an HTTP verb.
+         */
         respondWith(method: string, url: string, fn: (xhr: SinonFakeXMLHttpRequest) => void): void;
+        /**
+         * URL may be a regular expression, e.g. /\\/post\\//\\d+
+         * If the response is a Function, it will be passed any capture groups from the regular expression along with the XMLHttpRequest object:
+         */
         respondWith(url: RegExp, body: string): void;
+        /**
+         * URL may be a regular expression, e.g. /\\/post\\//\\d+
+         * If the response is a Function, it will be passed any capture groups from the regular expression along with the XMLHttpRequest object:
+         */
         respondWith(url: RegExp, response: any[]): void;
+        /**
+         * URL may be a regular expression, e.g. /\\/post\\//\\d+
+         * If the response is a Function, it will be passed any capture groups from the regular expression along with the XMLHttpRequest object:
+         */
         respondWith(url: RegExp, fn: (xhr: SinonFakeXMLHttpRequest) => void): void;
+        /**
+         * Responds to all method requests to URLs matching the regular expression.
+         */
         respondWith(method: string, url: RegExp, body: string): void;
+        /**
+         * Responds to all method requests to URLs matching the regular expression.
+         */
         respondWith(method: string, url: RegExp, response: any[]): void;
+        /**
+         * Responds to all method requests to URLs matching the regular expression.
+         */
         respondWith(method: string, url: RegExp, fn: (xhr: SinonFakeXMLHttpRequest) => void): void;
+        /**
+         * Causes all queued asynchronous requests to receive a response.
+         * If none of the responses added through respondWith match, the default response is [404, {}, ""].
+         * Synchronous requests are responded to immediately, so make sure to call respondWith upfront.
+         * If called with arguments, respondWith will be called with those arguments before responding to requests.
+         */
         respond(): void;
         restore(): void;
     }
 
     interface SinonFakeServerOptions {
+        /**
+         * When set to true, causes the server to automatically respond to incoming requests after a timeout.
+         * The default timeout is 10ms but you can control it through the autoRespondAfter property.
+         * Note that this feature is intended to help during mockup development, and is not suitable for use in tests.
+         */
         autoRespond: boolean;
+        /**
+         * When autoRespond is true, respond to requests after this number of milliseconds. Default is 10.
+         */
         autoRespondAfter: number;
+        /**
+         * If set to true, server will find _method parameter in POST body and recognize that as the actual method.
+         * Supports a pattern common to Ruby on Rails applications. For custom HTTP method faking, override server.getHTTPMethod(request).
+         */
         fakeHTTPMethods: boolean;
+        /**
+         * If set, the server will respond to every request immediately and synchronously.
+         * This is ideal for faking the server from within a test without having to call server.respond() after each request made in that test.
+         * As this is synchronous and immediate, this is not suitable for simulating actual network latency in tests or mockups. 
+         * To simulate network latency with automatic responses, see server.autoRespond and server.autoRespondAfter.
+         */
         respondImmediately: boolean;
     }
 
@@ -773,36 +1027,155 @@ declare namespace Sinon {
 
     interface SinonAssert {
         // Properties
+        /**
+         * Defaults to AssertError.
+         */
         failException: string;
+        /**
+         * Every assertion fails by calling this method.
+         * By default it throws an error of type sinon.assert.failException.
+         * If the test framework looks for assertion errors by checking for a specific exception, you can simply override the kind of exception thrown. 
+         * If that does not fit with your testing framework of choice, override the fail method to do the right thing.
+         */
         fail(message?: string): void; // Overridable
+        /**
+         * Called every time assertion passes.
+         * Default implementation does nothing.
+         */
         pass(assertion: any): void; // Overridable
 
         // Methods
+        /**
+         * Passes if spy was never called
+         * @param spy 
+         */
         notCalled(spy: SinonSpy): void;
+        /**
+         * Passes if spy was called at least once.
+         */
         called(spy: SinonSpy): void;
+        /**
+         * Passes if spy was called once and only once.
+         */
         calledOnce(spy: SinonSpy): void;
+        /**
+         * Passes if spy was called exactly twice.
+         */
         calledTwice(spy: SinonSpy): void;
+        /**
+         * Passes if spy was called exactly three times.
+         */
         calledThrice(spy: SinonSpy): void;
+        /**
+         * Passes if spy was called exactly num times.
+         */
         callCount(spy: SinonSpy, count: number): void;
+        /**
+         * Passes if provided spies were called in the specified order.
+         * @param spies 
+         */
         callOrder(...spies: SinonSpy[]): void;
+        /**
+         * Passes if spy was ever called with obj as its this value.
+         * It’s possible to assert on a dedicated spy call: sinon.assert.calledOn(spy.firstCall, arg1, arg2, ...);.
+         */
         calledOn(spyOrSpyCall: SinonSpy | SinonSpyCall, obj: any): void;
+        /**
+         * Passes if spy was always called with obj as its this value.
+         */
         alwaysCalledOn(spy: SinonSpy, obj: any): void;
+        /**
+         * Passes if spy was called with the provided arguments.
+         * It’s possible to assert on a dedicated spy call: sinon.assert.calledWith(spy.firstCall, arg1, arg2, ...);.
+         * @param spyOrSpyCall 
+         * @param args 
+         */
         calledWith(spyOrSpyCall: SinonSpy | SinonSpyCall, ...args: any[]): void;
+        /**
+         * Passes if spy was always called with the provided arguments.
+         * @param spy 
+         * @param args 
+         */
         alwaysCalledWith(spy: SinonSpy, ...args: any[]): void;
+        /**
+         * Passes if spy was never called with the provided arguments.
+         * @param spy 
+         * @param args 
+         */
         neverCalledWith(spy: SinonSpy, ...args: any[]): void;
+        /**
+         * Passes if spy was called with the provided arguments and no others.
+         * It’s possible to assert on a dedicated spy call: sinon.assert.calledWithExactly(spy.getCall(1), arg1, arg2, ...);.
+         * @param spyOrSpyCall 
+         * @param args 
+         */
         calledWithExactly(spyOrSpyCall: SinonSpy | SinonSpyCall, ...args: any[]): void;
+        /**
+         * Passes if spy was always called with the provided arguments and no others.
+         */
         alwaysCalledWithExactly(spy: SinonSpy, ...args: any[]): void;
+        /**
+         * Passes if spy was called with matching arguments.
+         * This behaves the same way as sinon.assert.calledWith(spy, sinon.match(arg1), sinon.match(arg2), ...).
+         * It’s possible to assert on a dedicated spy call: sinon.assert.calledWithMatch(spy.secondCall, arg1, arg2, ...);.
+         */
         calledWithMatch(spyOrSpyCall: SinonSpy | SinonSpyCall, ...args: any[]): void;
+        /**
+         * Passes if spy was always called with matching arguments.
+         * This behaves the same way as sinon.assert.alwaysCalledWith(spy, sinon.match(arg1), sinon.match(arg2), ...).
+         */
         alwaysCalledWithMatch(spy: SinonSpy, ...args: any[]): void;
+        /**
+         * Passes if spy was never called with matching arguments.
+         * This behaves the same way as sinon.assert.neverCalledWith(spy, sinon.match(arg1), sinon.match(arg2), ...).
+         * @param spy 
+         * @param args 
+         */
         neverCalledWithMatch(spy: SinonSpy, ...args: any[]): void;
+        /**
+         * Passes if spy was called with the new operator.
+         * It’s possible to assert on a dedicated spy call: sinon.assert.calledWithNew(spy.secondCall, arg1, arg2, ...);.
+         * @param spyOrSpyCall 
+         */
         calledWithNew(spyOrSpyCall: SinonSpy | SinonSpyCall): void;
+        /**
+         * Passes if spy threw any exception.
+         */
         threw(spyOrSpyCall: SinonSpy | SinonSpyCall): void;
+        /**
+         * Passes if spy threw the given exception.
+         * The exception is an actual object.
+         * It’s possible to assert on a dedicated spy call: sinon.assert.threw(spy.thirdCall, exception);.
+         */
         threw(spyOrSpyCall: SinonSpy | SinonSpyCall, exception: string): void;
+        /**
+         * Passes if spy threw the given exception.
+         * The exception is a String denoting its type.
+         * It’s possible to assert on a dedicated spy call: sinon.assert.threw(spy.thirdCall, exception);.
+         */
         threw(spyOrSpyCall: SinonSpy | SinonSpyCall, exception: any): void;
+        /**
+         * Like threw, only required for all calls to the spy.
+         */
         alwaysThrew(spy: SinonSpy): void;
+        /**
+         * Like threw, only required for all calls to the spy.
+         */
         alwaysThrew(spy: SinonSpy, exception: string): void;
+        /**
+         * Like threw, only required for all calls to the spy.
+         */
         alwaysThrew(spy: SinonSpy, exception: any): void;
+        /**
+         * Uses sinon.match to test if the arguments can be considered a match.
+         */
         match(actual: any, expected: any): void;
+        /**
+         * Exposes assertions into another object, to better integrate with the test framework. For instance, JsTestDriver uses global assertions, and to make Sinon.JS assertions appear alongside them, you can do.
+         * @example sinon.assert.expose(this);
+         * This will give you assertCalled(spy),assertCallOrder(spy1, spy2, ...) and so on.
+         * The method accepts an optional options object with two options.
+         */
         expose(obj: any, options?: Partial<SinonExposeOptions>): void;
     }
 
@@ -982,7 +1355,28 @@ declare namespace Sinon {
         stub: SinonStubStatic;
         mock: SinonMockStatic;
 
+        /**
+         * * No param : Causes Sinon to replace the global setTimeout, clearTimeout, setInterval, clearInterval, setImmediate, clearImmediate, process.hrtime, performance.now(when available) 
+         * and Date with a custom implementation which is bound to the returned clock object.
+         * Starts the clock at the UNIX epoch (timestamp of 0).
+         * * Now : As above, but rather than starting the clock with a timestamp of 0, start at the provided timestamp now.
+         * Since sinon@2.0.0
+         * You can also pass in a Date object, and its getTime() will be used for the starting timestamp.
+         * * Config : As above, but allows further configuration options, some of which are:
+         * * config.now - Number/Date - installs lolex with the specified unix epoch (default: 0)
+         * * config.toFake - String[ ] - an array with explicit function names to fake. By default lolex will automatically fake all methods except process.nextTick. You could, however, still fake nextTick by providing it explicitly
+         * * config.shouldAdvanceTime - Boolean - tells lolex to increment mocked time automatically based on the real system time shift (default: false)
+         * * Please visit the lolex.install documentation for the full feature set.
+         * * Important note: when faking nextTick, normal calls to process.nextTick() would not execute automatically as they would during normal event-loop phases. You would have to call either clock.next(), clock.tick(), clock.runAll() or clock.runToLast() (see example below). Please refer to the lolex documentation for more information.
+         * @param config 
+         */
         useFakeTimers(config?: number | Date | Partial<SinonFakeTimersConfig>): SinonFakeTimers;
+        /**
+         * Causes Sinon to replace the native XMLHttpRequest object in browsers that support it with a custom implementation which does not send actual requests.
+         * In browsers that support ActiveXObject, this constructor is replaced, and fake objects are returned for XMLHTTP progIds. 
+         * Other progIds, such as XMLDOM are left untouched.
+         * The native XMLHttpRequest object will be available at sinon.xhr.XMLHttpRequest
+         */
         useFakeXMLHttpRequest(): SinonFakeXMLHttpRequestStatic;
         useFakeServer(): SinonFakeServer;
         restore(): void;
