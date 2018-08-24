@@ -602,6 +602,8 @@ export interface PlotMarker {
 	};
 }
 
+export type ScatterMarker = PlotMarker;
+
 export interface ScatterMarkerLine {
 	width: number | number[];
 	color: Color;
