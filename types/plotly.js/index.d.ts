@@ -438,7 +438,7 @@ export type Dash = 'solid' | 'dot' | 'dash' | 'longdash' | 'dashdot' | 'longdash
 
 export type Data = Partial<PlotData>;
 export type Color = string | Array<string | undefined | null> | Array<Array<string | undefined | null>>;
-export type DataTransForm = Partial<Transform>;
+export type DataTransform = Partial<Transform>;
 export type ScatterData = PlotData;
 // Bar Scatter
 export interface PlotData {
@@ -489,7 +489,7 @@ export interface PlotData {
 	name: string;
 	connectgaps: boolean;
 	visible: boolean | 'legendonly';
-	transforms: DataTransForm[];
+	transforms: DataTransform[];
 	orientation: 'v' | 'h';
 }
 
