@@ -8,11 +8,26 @@ const plugins = [
     gulpImagemin.svgo({ floatPrecision: 2 })
 ];
 
-gulp.task('minify:img', () => {
-    return gulp.src('img/**/*')
+gulp.task('build', () => {
+    return gulp.src('*.{gif,jpg,png,svg}')
         .pipe(gulpImagemin())
+        .pipe(gulp.dest('dist'));
+});
+
+gulp.task('build', () => {
+    return gulp.src('*.{gif,jpg,png,svg}')
         .pipe(gulpImagemin(plugins))
+        .pipe(gulp.dest('dist'));
+});
+
+gulp.task('build', () => {
+    return gulp.src('*.{gif,jpg,png,svg}')
         .pipe(gulpImagemin({ verbose: true }))
+        .pipe(gulp.dest('dist'));
+});
+
+gulp.task('build', () => {
+    return gulp.src('*.{gif,jpg,png,svg}')
         .pipe(gulpImagemin(plugins, { verbose: true }))
         .pipe(gulp.dest('dist'));
 });
