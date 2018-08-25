@@ -4,23 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-/*~ Note that ES6 modules cannot directly export class objects.
- *~ This file should be imported using the CommonJS-style:
- *~   import x = require('someLibrary');
- *~
- *~ Refer to the documentation to understand common
- *~ workarounds for this limitation of ES6 modules.
- */
-
 import * as Redis from 'redis';
 import * as session from 'koa-session';
 
-/*~ This declaration specifies that the class constructor function
- *~ is the exported object from the file
- */
 export = RedisStore;
 
-/*~ Write your module's methods and properties in this class */
 declare class RedisStore implements session.stores {
     constructor(config?: Redis.ClientOpts);
 
