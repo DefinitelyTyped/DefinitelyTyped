@@ -383,7 +383,7 @@ export const mutation = graphql`
 export const optimisticResponse = {
     markReadNotification: {
         notification: {
-            seenState: "SEEN",
+            seenState: "SEEN" as "SEEN",
         },
     },
 };
@@ -419,26 +419,47 @@ export const configs = [
 ];
 
 function markNotificationAsRead(source: string, storyID: string) {
-    const variables = {
-        input: {
-            source,
-            storyID,
-        },
+    // Artifact produced by relay-compiler-language-typescript
+    type MyMutationVariables = {
+        readonly input: {
+            readonly source: string;
+            readonly storyID: string;
+        };
+    };
+    type MyMutationResponse = {
+        readonly markReadNotification: {
+            readonly notification: {
+                readonly seenState: "SEEN" | "UNSEEN";
+            };
+        };
+    };
+    type MyMutation = {
+        readonly variables: MyMutationVariables;
+        readonly response: MyMutationResponse;
     };
 
-    commitMutation(modernEnvironment, {
+    commitMutation<MyMutation>(modernEnvironment, {
         configs,
         mutation,
         optimisticResponse,
-        variables,
+        variables: {
+            input: {
+                source,
+                storyID,
+            },
+        },
         onCompleted: (response, errors) => {
-            console.log("Response received from server.");
+            if (errors) {
+                console.log(`Errors received from server: ${errors.map(error => error.message).join(", ")}`);
+            } else {
+                console.log(`Response received from server: ${response.markReadNotification.notification.seenState}`);
+            }
         },
         onError: err => console.error(err),
         updater: (store, data) => {
-            const field = store.get(storyID);
-            if (field) {
-                field.setValue(data.story, "story");
+            const story = store.get(storyID);
+            if (story) {
+                story.setValue(data.markReadNotification.notification.seenState, "seenState");
             }
         },
     });
