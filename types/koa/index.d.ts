@@ -453,32 +453,32 @@ declare class Application extends EventEmitter {
         port?: number,
         hostname?: string,
         backlog?: number,
-        listeningListener?: (err?: Error) => void,
+        listeningListener?: (req: IncomingMessage | Http2ServerRequest, res: ServerResponse | Http2ServerResponse) => void,
     ): Server;
     listen(
         port: number,
         hostname?: string,
-        listeningListener?: (err?: Error) => void,
+        listeningListener?: (req: IncomingMessage | Http2ServerRequest, res: ServerResponse | Http2ServerResponse) => void,
     ): Server;
     listen(
         port: number,
         backlog?: number,
-        listeningListener?: (err?: Error) => void,
+        listeningListener?: (req: IncomingMessage | Http2ServerRequest, res: ServerResponse | Http2ServerResponse) => void,
     ): Server;
-    listen(port: number, listeningListener?: (err?: Error) => void): Server;
+    listen(port: number, listeningListener?: (req: IncomingMessage | Http2ServerRequest, res: ServerResponse | Http2ServerResponse) => void): Server;
     listen(
         path: string,
         backlog?: number,
-        listeningListener?: (err?: Error) => void,
+        listeningListener?: (req: IncomingMessage | Http2ServerRequest, res: ServerResponse | Http2ServerResponse) => void,
     ): Server;
-    listen(path: string, listeningListener?: (err?: Error) => void): Server;
-    listen(options: ListenOptions, listeningListener?: (err?: Error) => void): Server;
+    listen(path: string, listeningListener?: (req: IncomingMessage | Http2ServerRequest, res: ServerResponse | Http2ServerResponse) => void): Server;
+    listen(options: ListenOptions, listeningListener?: (req: IncomingMessage | Http2ServerRequest, res: ServerResponse | Http2ServerResponse) => void): Server;
     listen(
         handle: any,
         backlog?: number,
-        listeningListener?: (err?: Error) => void,
+        listeningListener?: (req: IncomingMessage | Http2ServerRequest, res: ServerResponse | Http2ServerResponse) => void,
     ): Server;
-    listen(handle: any, listeningListener?: (err?: Error) => void): Server;
+    listen(handle: any, listeningListener?: (req: IncomingMessage | Http2ServerRequest, res: ServerResponse | Http2ServerResponse) => void): Server;
 
     /**
      * Return JSON representation.
