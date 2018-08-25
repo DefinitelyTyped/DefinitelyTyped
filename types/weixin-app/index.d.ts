@@ -3147,20 +3147,26 @@ declare namespace wx {
         | "tap"
         | "longpress";
 
-    interface BaseEvent<T extends EventType, Details> {
+    interface BaseEvent<T extends string, Detail> {
         type: T;
         timeStamp: number;
         currentTarget: EventTarget;
         target: EventTarget;
-        details: Details;
+        detail: Detail;
     }
+
+    interface BuiltInEvent<T extends EventType, Detail>
+        extends BaseEvent<T, Detail> {}
+
+    interface CustomEvent<T extends string, Detail>
+        extends BaseEvent<T, Detail> {}
 
     /**
      * 指定focus时的光标位置
      * @version 1.5.0
      */
     interface InputEvent
-        extends BaseEvent<
+        extends BuiltInEvent<
                 "input",
                 {
                     value: string;
@@ -3169,14 +3175,14 @@ declare namespace wx {
             > {}
 
     interface FormEvent
-        extends BaseEvent<
+        extends BuiltInEvent<
                 "form",
                 {
                     value: { [name: string]: string | boolean | number };
                 }
             > {}
 
-    interface ScrollEvent extends BaseEvent<"scroll", {}> {}
+    interface ScrollEvent extends BuiltInEvent<"scroll", {}> {}
 
     interface Touch {
         identifier: number;
@@ -3187,7 +3193,7 @@ declare namespace wx {
     }
 
     interface TouchEvent<T extends TouchEventType>
-        extends BaseEvent<
+        extends BuiltInEvent<
                 T,
                 {
                     x: number;
