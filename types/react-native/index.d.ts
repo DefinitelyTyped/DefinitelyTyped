@@ -4042,7 +4042,7 @@ export interface SectionListRenderItemInfo<ItemT> extends ListRenderItemInfo<Ite
 
 export type SectionListRenderItem<ItemT> = (info: SectionListRenderItemInfo<ItemT>) => React.ReactElement<any> | null;
 
-export interface SectionListProps<ItemT> extends ScrollViewProps {
+export interface SectionListProps<ItemT> extends VirtualizedListProps<ItemT> {
     /**
      * Rendered in between adjacent Items within each section.
      */
@@ -4145,7 +4145,7 @@ export interface SectionListProps<ItemT> extends ScrollViewProps {
     /**
      * Default renderer for every item in every section. Can be over-ridden on a per-section basis.
      */
-    renderItem?: SectionListRenderItem<ItemT>;
+    renderItem: SectionListRenderItem<ItemT>;
 
     /**
      * Rendered at the top of each section. Sticky headers are not yet supported.
