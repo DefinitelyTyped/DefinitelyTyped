@@ -977,7 +977,9 @@ declare module "mongoose" {
     validate?: RegExp | [RegExp, string] |
       SchemaTypeOpts.ValidateFn<T> | [SchemaTypeOpts.ValidateFn<T>, string] |
       SchemaTypeOpts.ValidateOpts | SchemaTypeOpts.ValidateOpts[] |
-      SchemaTypeOpts.AsyncValidateOpts | SchemaTypeOpts.AsyncValidateOpts[];
+      SchemaTypeOpts.AsyncValidateOpts | SchemaTypeOpts.AsyncValidateOpts[] |
+      SchemaTypeOpts.AsyncPromiseValidationFn<T> | SchemaTypeOpts.AsyncPromiseValidationFn<T>[] |
+      SchemaTypeOpts.AsyncPromiseValidationOpts | SchemaTypeOpts.AsyncPromiseValidationOpts[];
 
     /** Declares an unique index. */
     unique?: boolean | any;
@@ -1058,6 +1060,14 @@ declare module "mongoose" {
     interface AsyncValidateOpts extends ValidateOptsBase {
       isAsync: true;
       validator: AsyncValidateFn<any>;
+    }
+
+    interface AsyncPromiseValidationFn<T> {
+      (value: T): Promise<boolean>;
+    }
+
+    interface AsyncPromiseValidationOpts extends ValidateOptsBase {
+      validator: AsyncPromiseValidationFn<any>;
     }
 
     interface EnumOpts<T> {
