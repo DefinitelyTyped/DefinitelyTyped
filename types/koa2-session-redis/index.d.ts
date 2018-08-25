@@ -2,6 +2,7 @@
 // Project: https://github.com/lonord/koa2-session-redis
 // Definitions by: Dima Mukhin <https://github.com/DimaMukhin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /*~ Note that ES6 modules cannot directly export class objects.
  *~ This file should be imported using the CommonJS-style:

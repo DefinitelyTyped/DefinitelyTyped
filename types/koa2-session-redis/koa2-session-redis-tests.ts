@@ -10,6 +10,6 @@ const CONFIG = {
         port: 6379,
         max_attempts: 0
     })
-}
+};
 
 app.use(session(CONFIG, app));
