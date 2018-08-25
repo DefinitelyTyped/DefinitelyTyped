@@ -42,13 +42,21 @@ export interface DocumentProps {
     head?: Array<React.ReactElement<any>>;
     errorHtml?: string;
     styles?: Array<React.ReactElement<any>>;
-
     [key: string]: any;
 }
 
-export class Head extends React.Component<any> {}
+export interface HeadProps {
+    nonce?: string;
+    [key: string]: any;
+}
+
+export interface NextScriptProps {
+    nonce?: string;
+}
+
+export class Head extends React.Component<HeadProps> {}
 export class Main extends React.Component {}
-export class NextScript extends React.Component {}
+export class NextScript extends React.Component<NextScriptProps> {}
 export default class extends React.Component<DocumentProps> {
     static getInitialProps(ctx: NextDocumentContext): Promise<DocumentProps> | DocumentProps;
 }

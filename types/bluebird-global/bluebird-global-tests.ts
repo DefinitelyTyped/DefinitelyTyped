@@ -40,3 +40,7 @@ function testPromiseRejection() {
             return value.toUpperCase();
         });
 }
+
+function testGithubTicket28081Regression() {
+    Promise.resolve([3]).map((n: number) => true);
+}

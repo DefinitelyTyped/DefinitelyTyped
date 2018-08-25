@@ -1,9 +1,13 @@
-
 import virtual_dom = require("virtual-dom");
-import VNode = virtual_dom.VNode;
+import VNode = require("virtual-dom/vnode/vnode");
+import VText = require("virtual-dom/vnode/vtext");
 import h = virtual_dom.h;
+import isVNode = virtual_dom.isVNode;
+import isVText = virtual_dom.isVText;
+import isWidget = virtual_dom.isWidget;
+import isThunk = virtual_dom.isThunk;
 
-function renderAny(object: any): VNode {
+function renderAny(object: any): virtual_dom.VNode {
   if (object === undefined) {
     return h('i.undefined', 'undefined');
   }
@@ -31,3 +35,25 @@ function renderAny(object: any): VNode {
   }
   return h('span.string', object.toString());
 }
+
+const newNode = new VNode("tag", {}, []);
+const newText = new VText("text");
+newText.text = "new-text";
+const tree: any = newNode;
+
+if (isVNode(tree)) {
+  tree.children = [];
+} else if (isVText(tree)) {
+  tree.text = "hello";
+} else if (isWidget(tree)) {
+  tree.init();
+} else if (isThunk(tree)) {
+  tree.vnode = newNode;
+}
+
+virtual_dom.patch(document.createElement("div"), []);
+virtual_dom.patch(document.createElement("div"), [], {
+  patch: (rootNode: HTMLDivElement, patches: virtual_dom.VPatch[]) => {
+    return rootNode;
+  }
+});

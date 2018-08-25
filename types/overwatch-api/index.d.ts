@@ -1,6 +1,6 @@
-// Type definitions for overwatch-api 0.4
+// Type definitions for overwatch-api 0.5
 // Project: https://github.com/alfg/overwatch-api
-// Definitions by: JoshuaHall <https://github.com/JoshuaHall>
+// Definitions by: Joshua Hall <https://github.com/JoshuaHall>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // TypeScript Version: 2.1
@@ -70,6 +70,7 @@ export interface OverwatchApiResponse {
     username: string;
     level: number;
     portrait: string;
+    private: boolean;
 }
 
 export interface ProfileApiResponse extends OverwatchApiResponse {

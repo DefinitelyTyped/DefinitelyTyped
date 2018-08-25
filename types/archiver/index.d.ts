@@ -24,8 +24,25 @@ declare namespace archiver {
         mode?: number;
     }
 
+    interface ProgressData {
+        entries: {
+            total: number;
+            processed: number;
+        };
+        fs: {
+            totalBytes: number;
+            processedBytes: number;
+        };
+    }
+
     /** A function that lets you either opt out of including an entry (by returning false), or modify the contents of an entry as it is added (by returning an EntryData) */
     type EntryDataFunction = (entry: EntryData) => false | EntryData;
+
+    class ArchiverError extends Error {
+        code: string;       // Since archiver format support is modular, we cannot enumerate all possible error codes, as the modules can throw arbitrary ones.
+        data: any;
+        constructor(code: string, data: any);
+    }
 
     interface Archiver extends stream.Transform {
         abort(): this;
@@ -44,6 +61,13 @@ declare namespace archiver {
         use(plugin: Function): this;
 
         symlink(filepath: string, target: string): this;
+
+        on(event: 'error' | 'warning', listener: (error: ArchiverError) => void): this;
+        on(event: 'data', listener: (data: EntryData) => void): this;
+        on(event: 'progress', listener: (progress: ProgressData) => void): this;
+        on(event: 'close' | 'drain' | 'finish', listener: () => void): this;
+        on(event: 'pipe' | 'unpipe', listener: (src: stream.Readable) => void): this;
+        on(event: string, listener: (...args: any[]) => void): this;
     }
 
     type ArchiverOptions = CoreOptions & TransformOptions & ZipOptions & TarOptions;

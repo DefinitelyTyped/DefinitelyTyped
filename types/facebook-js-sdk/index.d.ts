@@ -189,6 +189,7 @@ declare namespace facebook {
         expiresIn: number;
         signedRequest: string;
         userID: string;
+        grantedScopes?: string;
     }
     
     interface StatusResponse {

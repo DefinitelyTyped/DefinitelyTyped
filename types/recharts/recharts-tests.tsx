@@ -88,9 +88,9 @@ class Component extends React.Component<{}, ComponentState> {
                 <ResponsiveContainer>
                     <LineChart width={500} height={300} data={data}>
                         <XAxis dataKey="name">
-                            <Label>X axis - name</Label>
+                            <Label fontSize="8px">X axis - name</Label>
                         </XAxis>
-                        <YAxis>
+                        <YAxis stroke="#8884d8">
                             <Label>Y axis</Label>
                         </YAxis>
                         <CartesianGrid vertical={true} horizontal={false} verticalFill={["#fafafa", "#c8c8c8"]}  />
@@ -98,7 +98,7 @@ class Component extends React.Component<{}, ComponentState> {
                         <Line type="monotone" dataKey="pv" stroke="#82ca9d" />
                         <Tooltip />
                         <Brush dataKey="name" />
-                        <ReferenceLine />
+                        <ReferenceLine label={"reference"} />
                         <ReferenceArea
                             stroke="red"
                             fill="red"

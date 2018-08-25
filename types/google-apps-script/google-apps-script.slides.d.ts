@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2018-02-14
+// Type definitions for Google Apps Script 2018-07-11
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -11,16 +11,16 @@ declare namespace GoogleAppsScript {
   export module Slides {
     /**
      * A 3x3 matrix used to transform source coordinates (x1, y1) into destination coordinates (x2, y2)
-     *  according to matrix multiplication:
+     * according to matrix multiplication:
      *
-     *      [ x2 ]   [ scaleX shearX translateX ] [ x1 ]
-     *      [ y2 ] = [ shearY scaleY translateY ] [ y1 ]
-     *      [ 1  ]   [   0      0        1      ] [ 1  ]
+     *     [ x2 ]   [ scaleX shearX translateX ] [ x1 ]
+     *     [ y2 ] = [ shearY scaleY translateY ] [ y1 ]
+     *     [ 1  ]   [   0      0        1      ] [ 1  ]
      *
      * After transformation,
      *
-     *      x2 = scaleX * x1 + shearX * y1 + translateX
-     *      y2 = scaleY * y1 + shearY * x1 + translateY
+     *     x2 = scaleX * x1 + shearX * y1 + translateX
+     *     y2 = scaleY * y1 + shearY * x1 + translateY
      */
     export interface AffineTransform {
       getScaleX(): Number;
@@ -37,13 +37,13 @@ declare namespace GoogleAppsScript {
      *
      * Call AffineTransformBuilder#build() to get the AffineTransform object.
      *
-     *      var transform =
-     *          SlidesApp.newAffineTransformBuilder().setScaleX(2.0).setShearY(1.1).build();
+     *     var transform =
+     *         SlidesApp.newAffineTransformBuilder().setScaleX(2.0).setShearY(1.1).build();
      *
-     *      The resulting transform matrix is
-     *        [ 2.0   0.0   0.0 ]
-     *        [ 1.1   1.0   0.0 ]
-     *        [  0     0     1  ]
+     *     The resulting transform matrix is
+     *       [ 2.0   0.0   0.0 ]
+     *       [ 1.1   1.0   0.0 ]
+     *       [  0     0     1  ]
      */
     export interface AffineTransformBuilder {
       build(): AffineTransform;
@@ -64,14 +64,14 @@ declare namespace GoogleAppsScript {
      * The kinds of start and end forms with which linear geometry can be rendered.
      *
      * Some values are based on the "ST_LineEndType" simple type described in section 20.1.10.33 of
-     *  of "Office Open XML File Formats - Fundamentals and Markup Language Reference", part 1 of ECMA-376 4th
-     *  edition.
+     * of "Office Open XML File Formats - Fundamentals and Markup Language Reference", part 1 of ECMA-376 4th
+     * edition.
      */
     export enum ArrowStyle { UNSUPPORTED, NONE, STEALTH_ARROW, FILL_ARROW, FILL_CIRCLE, FILL_SQUARE, FILL_DIAMOND, OPEN_ARROW, OPEN_CIRCLE, OPEN_SQUARE, OPEN_DIAMOND }
 
     /**
      * An element of text that is dynamically replaced with content that can change over time, such as a
-     *  slide number.
+     * slide number.
      */
     export interface AutoText {
       getAutoTextType(): AutoTextType;
@@ -113,7 +113,7 @@ declare namespace GoogleAppsScript {
 
     /**
      * A color scheme defines a mapping from members of ThemeColorType to the actual colors used
-     *  to render them.
+     * to render them.
      */
     export interface ColorScheme {
       getConcreteColor(theme: ThemeColorType): Color;
@@ -127,20 +127,20 @@ declare namespace GoogleAppsScript {
 
     /**
      * The content alignments for a Shape or TableCell. The supported alignments
-     *  correspond to predefined text anchoring types from the ECMA-376 standard.
+     * correspond to predefined text anchoring types from the ECMA-376 standard.
      *
      * More information on those alignments can be found in the description of
-     *  the ST_TextAnchoringType simple type in section 20.1.10.59 of "Office Open XML File
-     *  Formats - Fundamentals and Markup Language Reference", part 1 of ECMA-376 4th
-     *  edition.
+     * the ST_TextAnchoringType simple type in section 20.1.10.59 of "Office Open XML File
+     * Formats - Fundamentals and Markup Language Reference", part 1 of ECMA-376 4th
+     * edition.
      */
     export enum ContentAlignment { UNSUPPORTED, TOP, MIDDLE, BOTTOM }
 
     /**
      * The kinds of dashes with which linear geometry can be rendered. These values are based on the
-     *  "ST_PresetLineDashVal" simple type described in section 20.1.10.48 of "Office Open XML File
-     *  Formats - Fundamentals and Markup Language Reference", part 1 of ECMA-376 4th
-     *  edition.
+     * "ST_PresetLineDashVal" simple type described in section 20.1.10.48 of "Office Open XML File
+     * Formats - Fundamentals and Markup Language Reference", part 1 of ECMA-376 4th
+     * edition.
      */
     export enum DashStyle { UNSUPPORTED, SOLID, DOT, DASH, DASH_DOT, LONG_DASH, LONG_DASH_DOT }
 
@@ -209,6 +209,8 @@ declare namespace GoogleAppsScript {
     export interface Image {
       alignOnPage(alignmentPosition: AlignmentPosition): Image;
       duplicate(): PageElement;
+      getAs(contentType: string): Base.Blob;
+      getBlob(): Base.Blob;
       getBorder(): Border;
       getContentUrl(): string;
       getDescription(): string;
@@ -254,7 +256,7 @@ declare namespace GoogleAppsScript {
      * A layout in a presentation.
      *
      * Each layout serves as a template for slides that inherit from it, determining how content on
-     *  those slides is arranged and styled.
+     * those slides is arranged and styled.
      */
     export interface Layout {
       getBackground(): PageBackground;
@@ -366,7 +368,7 @@ declare namespace GoogleAppsScript {
      * The line category.
      *
      * The exact LineType created is determined based on the category and how it's routed to
-     *  connect to other page elements.
+     * connect to other page elements.
      */
     export enum LineCategory { STRAIGHT, BENT, CURVED }
 
@@ -395,10 +397,10 @@ declare namespace GoogleAppsScript {
      * The line types.
      *
      * Derived from a subset of the values of the "ST_ShapeType" simple type in section 20.1.10.55 of
-     *  "Office Open XML File Formats - Fundamentals and Markup Language Reference", part 1 of ECMA-376 4th
-     *  edition.
+     * "Office Open XML File Formats - Fundamentals and Markup Language Reference", part 1 of ECMA-376 4th
+     * edition.
      */
-    export enum LineType { UNSUPPORTED, STRAIGHT_CONNECTOR_1, BENT_CONNECTOR_2, BENT_CONNECTOR_3, BENT_CONNECTOR_4, BENT_CONNECTOR_5, CURVED_CONNECTOR_2, CURVED_CONNECTOR_3, CURVED_CONNECTOR_4, CURVED_CONNECTOR_5 }
+    export enum LineType { UNSUPPORTED, STRAIGHT_CONNECTOR_1, BENT_CONNECTOR_2, BENT_CONNECTOR_3, BENT_CONNECTOR_4, BENT_CONNECTOR_5, CURVED_CONNECTOR_2, CURVED_CONNECTOR_3, CURVED_CONNECTOR_4, CURVED_CONNECTOR_5, STRAIGHT_LINE }
 
     /**
      * A hypertext link.
@@ -457,14 +459,14 @@ declare namespace GoogleAppsScript {
      * DIGIT: A number, like '1', '2', or '3'.
      *
      * ZERODIGIT: A number where single digit numbers are prefixed with a zero, like '01', '02',
-     *        or '03'. Numbers with more than one digit are not prefixed a zero.
+     *       or '03'. Numbers with more than one digit are not prefixed a zero.
      *
      * ROMAN: A lowercase roman numeral, like 'i', 'ii', or 'iii'.
      *
      * UPPERROMAN: A uppercase roman numeral, like 'I', 'II', or 'III'.
      *
      * LEFTTRIANGLE: A triangle pointing left, ◄, corresponding to a Unicode U+25c4 code
-     *        point
+     *       point
      */
     export enum ListPreset { DISC_CIRCLE_SQUARE, DIAMONDX_ARROW3D_SQUARE, CHECKBOX, ARROW_DIAMOND_DISC, STAR_CIRCLE_SQUARE, ARROW3D_CIRCLE_SQUARE, LEFTTRIANGLE_DIAMOND_DISC, DIAMONDX_HOLLOWDIAMOND_SQUARE, DIAMOND_CIRCLE_SQUARE, DIGIT_ALPHA_ROMAN, DIGIT_ALPHA_ROMAN_PARENS, DIGIT_NESTED, UPPERALPHA_ALPHA_ROMAN, UPPERROMAN_UPPERALPHA_DIGIT, ZERODIGIT_ALPHA_ROMAN }
 
@@ -484,15 +486,15 @@ declare namespace GoogleAppsScript {
      * A master in a presentation.
      *
      * Masters contains all common page elements and the common properties for a set of layouts. They
-     *  serve three purposes:
+     * serve three purposes:
      *
      * Placeholder shapes on a master contain the default text styles and shape properties of all
-     *        placeholder shapes on pages that use that master.
+     *       placeholder shapes on pages that use that master.
      *
      * The properties of a master page define the common page properties inherited by its layouts.
      *
      * Any other shapes on the master slide appear on all slides using that master, regardless of
-     *        their layout.
+     *       their layout.
      */
     export interface Master {
       getBackground(): PageBackground;
@@ -547,7 +549,7 @@ declare namespace GoogleAppsScript {
      * A notes master in a presentation.
      *
      * Notes masters define the default text styles and page elements for all notes pages. Notes
-     *  masters are read-only.
+     * masters are read-only.
      */
     export interface NotesMaster {
       getGroups(): Group[];
@@ -569,8 +571,8 @@ declare namespace GoogleAppsScript {
      * A notes page in a presentation.
      *
      * These pages contain the content for presentation handouts, including a a shape that contains
-     *  the slide's speaker notes. Each slide has one corresponding notes page. Only the text in the
-     *  speaker notes shape can be modified.
+     * the slide's speaker notes. Each slide has one corresponding notes page. Only the text in the
+     * speaker notes shape can be modified.
      */
     export interface NotesPage {
       getGroups(): Group[];
@@ -754,8 +756,8 @@ declare namespace GoogleAppsScript {
      * The styles of text that apply to entire paragraphs.
      *
      * Read methods in this class return null if the corresponding TextRange spans
-     *  multiple paragraphs, and those paragraphs have different values for the read method being called.
-     *  To avoid this, query for paragraph styles using the TextRange returned by the Paragraph.getRange() method.
+     * multiple paragraphs, and those paragraphs have different values for the read method being called.
+     * To avoid this, query for paragraph styles using the TextRange returned by the Paragraph.getRange() method.
      */
     export interface ParagraphStyle {
       getIndentEnd(): Number;
@@ -782,16 +784,18 @@ declare namespace GoogleAppsScript {
      * A fill that renders an image that's stretched to the dimensions of its container.
      */
     export interface PictureFill {
+      getAs(contentType: string): Base.Blob;
+      getBlob(): Base.Blob;
       getContentUrl(): string;
       getSourceUrl(): string;
     }
 
     /**
      * The placeholder types. Many of these placeholder types correspond to placeholder IDs from the
-     *  ECMA-376 standard. More information on those shapes can be found in the description of the
-     *  "ST_PlaceholderType" type in section 19.7.10 of "Office Open XML File Formats - Fundamentals and
-     *  Markup Language Reference", part 1 of ECMA-376 5th
-     *  edition.
+     * ECMA-376 standard. More information on those shapes can be found in the description of the
+     * "ST_PlaceholderType" type in section 19.7.10 of "Office Open XML File Formats - Fundamentals and
+     * Markup Language Reference", part 1 of ECMA-376 5th
+     * edition.
      */
     export enum PlaceholderType { UNSUPPORTED, NONE, BODY, CHART, CLIP_ART, CENTERED_TITLE, DIAGRAM, DATE_AND_TIME, FOOTER, HEADER, MEDIA, OBJECT, PICTURE, SLIDE_NUMBER, SUBTITLE, TABLE, TITLE, SLIDE_IMAGE }
 
@@ -805,8 +809,8 @@ declare namespace GoogleAppsScript {
 
     /**
      * Predefined layouts. These are commonly found layouts in presentations. However, there is no
-     *  guarantee that these layouts are present in the current master as they could have been deleted or
-     *  not part of the used theme. Additionally, the placeholders on each layout may have been changed.
+     * guarantee that these layouts are present in the current master as they could have been deleted or
+     * not part of the used theme. Additionally, the placeholders on each layout may have been changed.
      */
     export enum PredefinedLayout { UNSUPPORTED, BLANK, CAPTION_ONLY, TITLE, TITLE_AND_BODY, TITLE_AND_TWO_COLUMNS, TITLE_ONLY, SECTION_HEADER, SECTION_TITLE_AND_DESCRIPTION, ONE_COLUMN_TEXT, MAIN_POINT, BIG_NUMBER }
 
@@ -816,10 +820,10 @@ declare namespace GoogleAppsScript {
     export interface Presentation {
       addEditor(emailAddress: string): Presentation;
       addEditor(user: Base.User): Presentation;
-      addEditors(emailAddresses: String[]): Presentation;
+      addEditors(emailAddresses: string[]): Presentation;
       addViewer(emailAddress: string): Presentation;
       addViewer(user: Base.User): Presentation;
-      addViewers(emailAddresses: String[]): Presentation;
+      addViewers(emailAddresses: string[]): Presentation;
       appendSlide(): Slide;
       appendSlide(layout: Layout): Slide;
       appendSlide(predefinedLayout: PredefinedLayout): Slide;
@@ -866,10 +870,10 @@ declare namespace GoogleAppsScript {
     /**
      * The user's selection in the active presentation.
      *
-     *      var selection = SlidesApp.getActivePresentation().getSelection();
-     *      var currentPage = selection.getCurrentPage();
-     *      var selectionType = selection.getSelectionType();
-     *      }
+     *     var selection = SlidesApp.getActivePresentation().getSelection();
+     *     var currentPage = selection.getCurrentPage();
+     *     var selectionType = selection.getSelectionType();
+     *     }
      */
     export interface Selection {
       getCurrentPage(): Page;
@@ -884,16 +888,16 @@ declare namespace GoogleAppsScript {
      * Type of Selection.
      *
      * The SelectionType represents the most specific type of one or more objects that are
-     *  selected. As an example if one or more TableCell instances are selected in a Table, the selection type is SelectionType.TABLE_CELL. The TableCellRange can be
-     *  retrieved by using the Selection.getTableCellRange. The Table can be retrieved by
-     *  using the Selection.getPageElementRange and the Page can be retrieved from the
-     *  Selection.getCurrentPage.
+     * selected. As an example if one or more TableCell instances are selected in a Table, the selection type is SelectionType.TABLE_CELL. The TableCellRange can be
+     * retrieved by using the Selection.getTableCellRange. The Table can be retrieved by
+     * using the Selection.getPageElementRange and the Page can be retrieved from the
+     * Selection.getCurrentPage.
      */
     export enum SelectionType { UNSUPPORTED, NONE, TEXT, TABLE_CELL, PAGE, PAGE_ELEMENT, CURRENT_PAGE }
 
     /**
      * A PageElement representing a generic shape that does not have a more specific
-     *  classification. Includes text boxes, rectangles, and other predefined shapes.
+     * classification. Includes text boxes, rectangles, and other predefined shapes.
      */
     export interface Shape {
       alignOnPage(alignmentPosition: AlignmentPosition): Shape;
@@ -949,10 +953,10 @@ declare namespace GoogleAppsScript {
 
     /**
      * The shape types. Many of these shapes correspond to predefined shapes from the ECMA-376 standard.
-     *  More information on those shapes can be found in the description of the "ST_ShapeType" simple
-     *  type in section 20.1.10.55 of "Office Open XML File Formats - Fundamentals and Markup Language
-     *  Reference", part 1 of ECMA-376 4th
-     *  edition.
+     * More information on those shapes can be found in the description of the "ST_ShapeType" simple
+     * type in section 20.1.10.55 of "Office Open XML File Formats - Fundamentals and Markup Language
+     * Reference", part 1 of ECMA-376 4th
+     * edition.
      */
     export enum ShapeType { UNSUPPORTED, TEXT_BOX, RECTANGLE, ROUND_RECTANGLE, ELLIPSE, ARC, BENT_ARROW, BENT_UP_ARROW, BEVEL, BLOCK_ARC, BRACE_PAIR, BRACKET_PAIR, CAN, CHEVRON, CHORD, CLOUD, CORNER, CUBE, CURVED_DOWN_ARROW, CURVED_LEFT_ARROW, CURVED_RIGHT_ARROW, CURVED_UP_ARROW, DECAGON, DIAGONAL_STRIPE, DIAMOND, DODECAGON, DONUT, DOUBLE_WAVE, DOWN_ARROW, DOWN_ARROW_CALLOUT, FOLDED_CORNER, FRAME, HALF_FRAME, HEART, HEPTAGON, HEXAGON, HOME_PLATE, HORIZONTAL_SCROLL, IRREGULAR_SEAL_1, IRREGULAR_SEAL_2, LEFT_ARROW, LEFT_ARROW_CALLOUT, LEFT_BRACE, LEFT_BRACKET, LEFT_RIGHT_ARROW, LEFT_RIGHT_ARROW_CALLOUT, LEFT_RIGHT_UP_ARROW, LEFT_UP_ARROW, LIGHTNING_BOLT, MATH_DIVIDE, MATH_EQUAL, MATH_MINUS, MATH_MULTIPLY, MATH_NOT_EQUAL, MATH_PLUS, MOON, NO_SMOKING, NOTCHED_RIGHT_ARROW, OCTAGON, PARALLELOGRAM, PENTAGON, PIE, PLAQUE, PLUS, QUAD_ARROW, QUAD_ARROW_CALLOUT, RIBBON, RIBBON_2, RIGHT_ARROW, RIGHT_ARROW_CALLOUT, RIGHT_BRACE, RIGHT_BRACKET, ROUND_1_RECTANGLE, ROUND_2_DIAGONAL_RECTANGLE, ROUND_2_SAME_RECTANGLE, RIGHT_TRIANGLE, SMILEY_FACE, SNIP_1_RECTANGLE, SNIP_2_DIAGONAL_RECTANGLE, SNIP_2_SAME_RECTANGLE, SNIP_ROUND_RECTANGLE, STAR_10, STAR_12, STAR_16, STAR_24, STAR_32, STAR_4, STAR_5, STAR_6, STAR_7, STAR_8, STRIPED_RIGHT_ARROW, SUN, TRAPEZOID, TRIANGLE, UP_ARROW, UP_ARROW_CALLOUT, UP_DOWN_ARROW, UTURN_ARROW, VERTICAL_SCROLL, WAVE, WEDGE_ELLIPSE_CALLOUT, WEDGE_RECTANGLE_CALLOUT, WEDGE_ROUND_RECTANGLE_CALLOUT, FLOW_CHART_ALTERNATE_PROCESS, FLOW_CHART_COLLATE, FLOW_CHART_CONNECTOR, FLOW_CHART_DECISION, FLOW_CHART_DELAY, FLOW_CHART_DISPLAY, FLOW_CHART_DOCUMENT, FLOW_CHART_EXTRACT, FLOW_CHART_INPUT_OUTPUT, FLOW_CHART_INTERNAL_STORAGE, FLOW_CHART_MAGNETIC_DISK, FLOW_CHART_MAGNETIC_DRUM, FLOW_CHART_MAGNETIC_TAPE, FLOW_CHART_MANUAL_INPUT, FLOW_CHART_MANUAL_OPERATION, FLOW_CHART_MERGE, FLOW_CHART_MULTIDOCUMENT, FLOW_CHART_OFFLINE_STORAGE, FLOW_CHART_OFFPAGE_CONNECTOR, FLOW_CHART_ONLINE_STORAGE, FLOW_CHART_OR, FLOW_CHART_PREDEFINED_PROCESS, FLOW_CHART_PREPARATION, FLOW_CHART_PROCESS, FLOW_CHART_PUNCHED_CARD, FLOW_CHART_PUNCHED_TAPE, FLOW_CHART_SORT, FLOW_CHART_SUMMING_JUNCTION, FLOW_CHART_TERMINATOR, ARROW_EAST, ARROW_NORTH_EAST, ARROW_NORTH, SPEECH, STARBURST, TEARDROP, ELLIPSE_RIBBON, ELLIPSE_RIBBON_2, CLOUD_CALLOUT, CUSTOM }
 
@@ -1010,7 +1014,7 @@ declare namespace GoogleAppsScript {
      * A slide in a presentation.
      *
      * These pages contain the content you are presenting to your audience. Most slides are based on
-     *  a master and a layout. You can specify which layout to use for each slide when it is created.
+     * a master and a layout. You can specify which layout to use for each slide when it is created.
      */
     export interface Slide {
       duplicate(): Slide;
@@ -1072,11 +1076,11 @@ declare namespace GoogleAppsScript {
     /**
      * Creates and opens Presentations that can be edited.
      *
-     *      // Open a presentation by ID.
-     *      var preso = SlidesApp.openById('PRESENTATION_ID_GOES_HERE');
+     *     // Open a presentation by ID.
+     *     var preso = SlidesApp.openById('PRESENTATION_ID_GOES_HERE');
      *
-     *      // Create and open a presentation.
-     *      preso = SlidesApp.create('Presentation Name');
+     *     // Create and open a presentation.
+     *     preso = SlidesApp.create('Presentation Name');
      */
     export interface SlidesApp {
       AlignmentPosition: typeof AlignmentPosition;
@@ -1119,7 +1123,7 @@ declare namespace GoogleAppsScript {
      * A solid color fill.
      *
      * SolidFill objects are detached and immutable, so do not reflect changes made after
-     *  they have been created.
+     * they have been created.
      */
     export interface SolidFill {
       getAlpha(): Number;
@@ -1202,7 +1206,7 @@ declare namespace GoogleAppsScript {
 
     /**
      * A column in a table. A column consists of a list of table cells. A column is identified by the
-     *  column index.
+     * column index.
      */
     export interface TableColumn {
       getCell(cellIndex: Integer): TableCell;
@@ -1276,8 +1280,8 @@ declare namespace GoogleAppsScript {
      * The style of text.
      *
      * Read methods in this class return null if the corresponding TextRange spans
-     *  multiple text runs, and those runs have different values for the read method being called. To
-     *  avoid this, query for text styles using the TextRanges returned by the TextRange.getRuns() method.
+     * multiple text runs, and those runs have different values for the read method being called. To
+     * avoid this, query for text styles using the TextRanges returned by the TextRange.getRuns() method.
      */
     export interface TextStyle {
       getBackgroundColor(): Color;

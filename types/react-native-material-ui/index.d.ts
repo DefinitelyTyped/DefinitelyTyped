@@ -1,8 +1,8 @@
-// Type definitions for react-native-material-ui 1.19
+// Type definitions for react-native-material-ui 1.30
 // Project: https://github.com/xotahal/react-native-material-ui
 // Definitions by: Kyle Roach <https://github.com/iRoachie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import { Component } from 'react';
 import { ViewStyle, TextStyle, Image } from 'react-native';
@@ -490,16 +490,6 @@ export interface RippleFeedbackProps {
  */
 export class RippleFeedback extends Component<RippleFeedbackProps, any> {}
 
-export interface ThemeProviderProps {
-    uiTheme: {};
-    children: JSX.Element;
-}
-
-/**
- * @see https://github.com/xotahal/react-native-material-ui/blob/master/src/styles/ThemeProvider.react.js
- */
-export class ThemeProvider extends Component<ThemeProviderProps, any> {}
-
 export interface Color {
     red50: string;
     red100: string;
@@ -762,3 +752,23 @@ export interface Color {
 }
 
 export const COLOR: Color;
+
+export interface ThemeProps {
+    theme: {};
+}
+
+export interface ThemeProviderProps {
+    value: {};
+    children: React.ReactElement<any>;
+}
+
+export interface ThemeConsumerProps {
+    children(props: ThemeProps): React.ReactElement<any>;
+}
+
+export namespace ThemeContext {
+    class Provider extends Component<ThemeProviderProps> {}
+    class Consumer extends Component<ThemeConsumerProps> {}
+}
+
+export function getTheme(theme: {}): {};

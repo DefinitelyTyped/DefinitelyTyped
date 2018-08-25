@@ -1,6 +1,6 @@
-// Type definitions for throttle-debounce 1.0
+// Type definitions for throttle-debounce 1.1
 // Project: https://github.com/niksy/throttle-debounce
-// Definitions by: Marek Buchar <https://github.com/czbuchi>
+// Definitions by: Marek Buchar <https://github.com/czbuchi>, Frank Li <https://github.com/franklixuefei>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
@@ -30,7 +30,7 @@
  * @return
  * A new, throttled, function.
  */
-export function throttle<T>(
+export function throttle<T extends (...args: any[]) => any>(
     delay: number,
     noTrailing: boolean,
     callback: T,
@@ -57,7 +57,7 @@ export function throttle<T>(
  * @return
  * A new, throttled, function.
  */
-export function throttle<T>(
+export function throttle<T extends (...args: any[]) => any>(
     delay: number,
     callback: T,
     debounceMode?: boolean,
@@ -87,7 +87,7 @@ export function throttle<T>(
  * @return
  * A new, debounced function.
  */
-export function debounce<T>(delay: number, atBegin: boolean, callback: T): T;
+export function debounce<T extends (...args: any[]) => any>(delay: number, atBegin: boolean, callback: T): T;
 
 /**
  * Debounce execution of a function. Debouncing, unlike throttling,
@@ -106,4 +106,4 @@ export function debounce<T>(delay: number, atBegin: boolean, callback: T): T;
  * @return
  * A new, debounced function.
  */
-export function debounce<T>(delay: number, callback: T): T;
+export function debounce<T extends (...args: any[]) => any>(delay: number, callback: T): T;

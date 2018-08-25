@@ -45,7 +45,9 @@
 
         var geometry2 = new THREE.SphereGeometry(100, 14, 7);
 
-        var materials: THREE.Material[] = [
+        type MeshMaterial = THREE.MeshBasicMaterial | THREE.MeshFaceMaterial | THREE.MeshLambertMaterial | THREE.MeshDepthMaterial | THREE.MeshNormalMaterial;
+
+        var materials: MeshMaterial[] = [
 
             new THREE.MeshBasicMaterial({ color: 0x00ffff, wireframe: true, side: THREE.DoubleSide }),
             new THREE.MeshBasicMaterial({ color: 0xff0000, blending: THREE.AdditiveBlending }),

@@ -9,6 +9,7 @@
 export class Client {
     constructor(connectionString: string, clientId?: string, options?: ZKOptions, noBatchOptions?: AckBatchOptions, sslOptions?: any);
     close(cb?: () => void): void;
+    loadMetadataForTopics(topics: string[], cb: (error: TopicsNotExistError | any, data: any) => any): void;
     topicExists(topics: string[], cb: (error?: TopicsNotExistError | any) => any): void;
     refreshMetadata(topics: string[], cb?: (error?: any) => any): void;
     sendOffsetCommitV2Request(group: string, generationId: number, memberId: string, commits: OffsetCommitRequest[], cb: (error: any, data: any) => any): void;
@@ -20,6 +21,8 @@ export class Client {
 export class KafkaClient extends Client {
     constructor(options?: KafkaClientOptions);
     connect(): void;
+    getListGroups(cb: (error: any, data: any) => any): void;
+    describeGroups(consumerGroups: any, cb: (error: any, data: any) => any): void;
 }
 
 export class Producer {
@@ -91,6 +94,12 @@ export class Offset {
 
 export class KeyedMessage {
     constructor(key: string, value: string | Buffer);
+}
+
+export class Admin {
+    constructor(kafkaClient: KafkaClient);
+    listGroups(cb: (error: any, data: any) => any): void;
+    describeGroups(consumerGroups: any, cb: (error: any, data: any) => any): void;
 }
 
 // # Interfaces

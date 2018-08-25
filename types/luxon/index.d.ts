@@ -209,8 +209,8 @@ declare module 'luxon' {
             toLocaleParts(options?: DateTimeFormatOptions): any[];
             toLocaleString(options?: DateTimeFormatOptions): string;
             toMillis(): number;
-            toObject(options?: { includeConfig?: boolean }): DateObject;
             toMillis(): number;
+            toObject(options?: { includeConfig?: boolean }): DateObject;
             toRFC2822(): string;
             toSQL(options?: Object): string;
             toSQLDate(): string;
@@ -319,8 +319,8 @@ declare module 'luxon' {
         }
 
         type IntervalObject = {
-            start: DateTime;
-            end: DateTime;
+            start?: DateTime;
+            end?: DateTime;
         };
 
         class Interval {
@@ -338,8 +338,8 @@ declare module 'luxon' {
             ): Interval;
             static fromISO(string: string, options?: DateTimeOptions): Interval;
             static invalid(reason?: string): Interval;
-            static merge(intervals: Interval[]): [Interval];
-            static xor(intervals: Interval[]): [Interval];
+            static merge(intervals: Interval[]): Interval[];
+            static xor(intervals: Interval[]): Interval[];
             end: DateTime;
             invalidReason: string;
             isValid: boolean;
@@ -401,6 +401,10 @@ declare module 'luxon' {
             static universal: boolean;
             equals(other: Zone): boolean;
             offset(ts: number): number;
+        }
+
+        class IANAZone extends Zone {
+            constructor(ianaString: string);
         }
     }
 

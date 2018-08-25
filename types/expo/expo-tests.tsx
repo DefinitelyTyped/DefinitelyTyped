@@ -25,6 +25,7 @@ import {
     ImagePicker,
     ImageManipulator,
     FaceDetector,
+    Linking,
     Svg,
     IntentLauncherAndroid,
     KeepAwake,
@@ -373,9 +374,12 @@ async () => {
 };
 
 async () => {
-    const result = await ImageManipulator.manipulate('url', {
-        rotate: 90
-    }, {
+    const result = await ImageManipulator.manipulate('url', [
+        { rotate: 90 },
+        { resize: { width: 300 } },
+        { resize: { height: 300 } },
+        { resize: { height: 300, width: 300 } },
+    ], {
         compress: 0.75
     });
 
@@ -398,6 +402,38 @@ async () => {
     });
 
     result.faces[0];
+};
+
+async () => {
+    function isBoolean(x: boolean) {
+    }
+    function isString(x: string) {
+    }
+    // Two examples of members inherited from react-native Linking
+    // to prove that inheritence is working.
+    Linking.addEventListener('url', (e) => {
+        e.url === '';
+    });
+    isBoolean(await Linking.canOpenURL('expo://'));
+
+    // Extensions added by expo.
+
+    isString(Linking.makeUrl('path'));
+    isString(Linking.makeUrl('path', { q: 2, u: 'ery', }));
+
+    const {
+        path,
+        queryParams,
+    } = Linking.parse('');
+    isString(path);
+    isString(queryParams['x'] || '');
+
+    const {
+        path: path2,
+        queryParams: queryParams2,
+    } = await Linking.parseInitialURLAsync();
+    isString(path2);
+    isString(queryParams2['y'] || '');
 };
 
 () => (

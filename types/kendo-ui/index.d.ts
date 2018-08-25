@@ -1081,6 +1081,7 @@ declare namespace kendo.data {
         query(options?: any): JQueryPromise<any>;
         read(data?: any): JQueryPromise<any>;
         remove(model: kendo.data.ObservableObject): void;
+        skip(): number;
         sort(sort: DataSourceSortItem): void;
         sort(sort: DataSourceSortItem[]): void;
         sort(): DataSourceSortItem[];
@@ -20299,16 +20300,19 @@ interface JQueryPromise<T> {
 
 interface JQuery {
 
+    data(key: any): any;
+
     kendoDraggable(): JQuery;
     kendoDraggable(options: kendo.ui.DraggableOptions): JQuery;
+    data(key: "kendoDraggable"): kendo.ui.Draggable;
 
     kendoDropTarget(): JQuery;
     kendoDropTarget(options: kendo.ui.DropTargetOptions): JQuery;
+    data(key: "kendoDropTarget"): kendo.ui.DropTarget;
 
     kendoDropTargetArea(): JQuery;
     kendoDropTargetArea(options: kendo.ui.DropTargetAreaOptions): JQuery;
-
-    data(key: any): any;
+    data(key: "kendoDropTargetArea"): kendo.ui.DropTargetArea;
 
     kendoAlert(): JQuery;
     kendoAlert(options: kendo.ui.AlertOptions): JQuery;

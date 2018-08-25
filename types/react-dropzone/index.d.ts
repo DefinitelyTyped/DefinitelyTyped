@@ -6,9 +6,10 @@
 //                 Ben Bayard <https://github.com/benbayard>,
 //                 Karol Janyst <https://github.com/LKay>,
 //                 Andris Causs <https://github.com/codeaid>,
-//                 Juraj Husar <https://github.com/jurosh>
+//                 Juraj Husar <https://github.com/jurosh>,
+//                 Monroe Ekilah <https://github.com/ekilah>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import { CSSProperties, Component, DragEvent, InputHTMLAttributes } from "react";
 
@@ -19,9 +20,10 @@ export interface ImageFile extends File {
 export type DropFileEventHandler = (acceptedOrRejected: ImageFile[], event: DragEvent<HTMLDivElement>) => void;
 export type DropFilesEventHandler = (accepted: ImageFile[], rejected: ImageFile[], event: DragEvent<HTMLDivElement>) => void;
 
-type PickedAttributes = "accept" | "className" | "multiple" | "name" | "onClick" | "onDragStart" | "onDragEnter" | "onDragOver" | "onDragLeave" | "style";
+type PickedAttributes = "className" | "multiple" | "name" | "onClick" | "onDragStart" | "onDragEnter" | "onDragOver" | "onDragLeave" | "style";
 
 export interface DropzoneProps extends Pick<InputHTMLAttributes<HTMLDivElement>, PickedAttributes> {
+    accept?: string | ReadonlyArray<string>;
     disableClick?: boolean;
     disabled?: boolean;
     disablePreview?: boolean;

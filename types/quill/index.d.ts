@@ -4,6 +4,7 @@
 //                 Guillaume <https://github.com/guillaume-ro-fr>
 //                 James Garbutt <https://github.com/43081j>
 //                 Aniello Falcone <https://github.com/AnielloFalcone>
+//                 Mohammad Hossein Amri <https://github.com/mhamri>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { Blot } from 'parchment/dist/src/blot/abstract/blot';
@@ -42,6 +43,7 @@ export interface KeyboardStatic {
 }
 
 export interface ClipboardStatic {
+    convert(html?: string): DeltaStatic;
     addMatcher(selectorOrNodeType: string|number, callback: (node: any, delta: DeltaStatic) => DeltaStatic): void;
     dangerouslyPasteHTML(html: string, source?: Sources): void;
     dangerouslyPasteHTML(index: number, html: string, source?: Sources): void;

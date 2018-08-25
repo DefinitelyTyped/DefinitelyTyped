@@ -184,7 +184,7 @@ export interface LolexInstallOpts {
     /**
      * Installs lolex with the specified unix epoch (default: 0)
      */
-    now?: number;
+    now?: number | Date;
 
     /**
      * An array with explicit function names to hijack. When not set, lolex will automatically fake all methods except nextTick

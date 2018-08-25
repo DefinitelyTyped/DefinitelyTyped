@@ -1,8 +1,9 @@
-// Type definitions for pino 4.16
+// Type definitions for pino 5.20
 // Project: https://github.com/pinojs/pino.git
 // Definitions by: Peter Snider <https://github.com/psnider>
 //                 BendingBender <https://github.com/BendingBender>
 //                 Christian Rackerseder <https://github.com/screendriver>
+//                 GP <https://github.com/paambaati>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -19,7 +20,7 @@ export = P;
  * relative protocol is enabled. Default: process.stdout
  * @returns a new logger instance.
  */
-declare function P(optionsOrStream?: P.LoggerOptions | stream.Writable | stream.Duplex | stream.Transform): P.Logger;
+declare function P(optionsOrStream?: P.LoggerOptions | stream.Writable | stream.Duplex | stream.Transform | NodeJS.WritableStream): P.Logger;
 
 /**
  * @param [options]: an options object
@@ -27,7 +28,7 @@ declare function P(optionsOrStream?: P.LoggerOptions | stream.Writable | stream.
  * relative protocol is enabled. Default: process.stdout
  * @returns a new logger instance.
  */
-declare function P(options: P.LoggerOptions, stream: stream.Writable | stream.Duplex | stream.Transform): P.Logger;
+declare function P(options: P.LoggerOptions, stream: stream.Writable | stream.Duplex | stream.Transform | NodeJS.WritableStream): P.Logger;
 
 declare namespace P {
     /**
@@ -145,6 +146,10 @@ declare namespace P {
          * requires supplying a level value via `levelVal`. Default: 'info'.
          */
         level?: LevelWithSilent | string;
+        /**
+         * Outputs the level as a string instead of integer. Default: `false`.
+         */
+        useLevelLabels?: boolean;
         /**
          * When defining a custom log level via level, set to an integer value to define the new level. Default: `undefined`.
          */
@@ -268,6 +273,10 @@ declare namespace P {
          * You can pass `'silent'` to disable logging.
          */
         level: LevelWithSilent | string;
+        /**
+         * Outputs the level as a string instead of integer.
+         */
+        useLevelLabels: boolean;
         /**
          * Returns the integer value for the logger instance's logging level.
          */

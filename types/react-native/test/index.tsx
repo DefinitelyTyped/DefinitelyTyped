@@ -16,6 +16,7 @@ import {
     Alert,
     AppState,
     AppStateIOS,
+    AlertIOS,
     BackAndroid,
     BackHandler,
     Button,
@@ -26,7 +27,9 @@ import {
     ImageStyle,
     ImageResizeMode,
     ImageLoadEventData,
+    ImageErrorEventData,
     ImageResolvedAssetSource,
+    ImageBackground,
     InteractionManager,
     ListView,
     ListViewDataSource,
@@ -47,6 +50,7 @@ import {
     findNodeHandle,
     ScrollView,
     ScrollViewProps,
+    SectionListRenderItemInfo,
     RefreshControl,
     TabBarIOS,
     NativeModules,
@@ -61,6 +65,14 @@ import {
     TextInputScrollEventData,
     TextInputSelectionChangeEventData,
     TextInputKeyPressEventData,
+    TextInputChangeEventData,
+    TextInputContentSizeChangeEventData,
+    TextInputEndEditingEventData,
+    TextInputSubmitEditingEventData,
+    WebView,
+    KeyboardAvoidingView,
+    Modal,
+    TimePickerAndroid,
 } from "react-native";
 
 declare module "react-native" {
@@ -343,9 +355,9 @@ export class SectionListTest extends React.Component<SectionListProps<string>, {
                             <Text>{section.title}</Text>
                         </View>
                     )}
-                    renderItem={(info: { item: string }) => (
+                    renderItem={(info: SectionListRenderItemInfo<string>) => (
                         <View>
-                            <Text>{info.item}</Text>
+                            <Text>{`${info.section.title} - ${info.item}`}</Text>
                         </View>
                     )}
                 />
@@ -379,7 +391,7 @@ class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListVi
                         throw new Error("Expected scroll to be enabled.");
                     }
 
-                    return <ScrollView horizontal={true} contentOffset={{x: 0, y: 0}} {...props} style={[scrollViewStyle1.scrollView, scrollViewStyle2]} />;
+                    return <ScrollView horizontal={true} nestedScrollEnabled={true} contentOffset={{x: 0, y: 0}} {...props} style={[scrollViewStyle1.scrollView, scrollViewStyle2]} />;
                 }}
                 renderRow={({ type, data }, _, row) => {
                     return <Text>Filler</Text>;
@@ -509,6 +521,30 @@ class TextInputTest extends React.Component<{}, {username: string}> {
         console.log(`key: ${ e.nativeEvent.key }`);
     }
 
+    handleOnChange = (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
+        testNativeSyntheticEvent(e);
+
+        console.log(`eventCount: ${ e.nativeEvent.eventCount }`);
+        console.log(`target: ${ e.nativeEvent.target }`);
+        console.log(`text: ${ e.nativeEvent.text }`);
+    }
+
+    handleOnContentSizeChange = (e: NativeSyntheticEvent<TextInputContentSizeChangeEventData>) => {
+        testNativeSyntheticEvent(e);
+        console.log(`contentSize.width: ${ e.nativeEvent.contentSize.width }`);
+        console.log(`contentSize.height: ${ e.nativeEvent.contentSize.height }`);
+    }
+
+    handleOnEndEditing = (e: NativeSyntheticEvent<TextInputEndEditingEventData>) => {
+        testNativeSyntheticEvent(e);
+        console.log(`text: ${ e.nativeEvent.text }`);
+    }
+
+    handleOnSubmitEditing = (e: NativeSyntheticEvent<TextInputSubmitEditingEventData>) => {
+        testNativeSyntheticEvent(e);
+        console.log(`text: ${ e.nativeEvent.text }`);
+    }
+
     render() {
         return (
             <View>
@@ -516,6 +552,7 @@ class TextInputTest extends React.Component<{}, {username: string}> {
 
                 <TextInput
                     ref={input => this.username = input}
+                    textContentType="username"
                     value={this.state.username}
                     onChangeText={this.handleUsernameChange}
                 />
@@ -536,6 +573,27 @@ class TextInputTest extends React.Component<{}, {username: string}> {
 
                 <TextInput
                     onKeyPress={this.handleOnKeyPress}
+                />
+
+                <TextInput
+                    onChange={this.handleOnChange}
+                />
+
+                <TextInput
+                    onChange={this.handleOnChange}
+                />
+
+                <TextInput
+                    onEndEditing={this.handleOnEndEditing}
+                />
+
+                <TextInput
+                    onSubmitEditing={this.handleOnSubmitEditing}
+                />
+
+                <TextInput
+                    multiline
+                    onContentSizeChange={this.handleOnContentSizeChange}
                 />
             </View>
         );
@@ -558,6 +616,18 @@ class StatusBarTest extends React.Component {
     }
 }
 
+class WebViewTest extends React.Component {
+    render() {
+        return (
+            <WebView
+                originWhitelist={['https://origin.test']}
+                saveFormDataDisabled={false}
+                nativeConfig={{ component: 'test', props: {}, viewManager: {} }}
+            />
+        );
+    }
+}
+
 export class ImageTest extends React.Component {
     componentDidMount(): void {
         const image: ImageResolvedAssetSource = Image.resolveAssetSource({
@@ -566,11 +636,16 @@ export class ImageTest extends React.Component {
         console.log(image.width, image.height, image.scale, image.uri);
     }
 
-    onLoad(e: NativeSyntheticEvent<ImageLoadEventData>) {
+    handleOnLoad = (e: NativeSyntheticEvent<ImageLoadEventData>) => {
         testNativeSyntheticEvent(e);
         console.log('height:', e.nativeEvent.source.height);
         console.log('width:', e.nativeEvent.source.width);
         console.log('url:', e.nativeEvent.source.url);
+    }
+
+    handleOnError = (e: NativeSyntheticEvent<ImageErrorEventData>) => {
+        testNativeSyntheticEvent(e);
+        console.log('error:', e.nativeEvent.error);
     }
 
     render() {
@@ -580,7 +655,8 @@ export class ImageTest extends React.Component {
             <View>
                 <Image
                     source={{ uri: 'https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png' }}
-                    onLoad={this.onLoad}
+                    onLoad={this.handleOnLoad}
+                    onError={this.handleOnError}
                 />
 
                 <Image
@@ -592,21 +668,19 @@ export class ImageTest extends React.Component {
     }
 }
 
-class StylePropsTest extends React.PureComponent {
-    render() {
-        const uri = 'https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png'
+export class ImageBackgroundProps extends React.Component {
+    private _imageRef: Image | null = null;
 
+    setImageRef = (image: Image) => {
+        this._imageRef = image;
+    }
+
+    render() {
         return (
-            <View backgroundColor="lightgray" flex={1} overflow="scroll">
-                <Image
-                    borderRadius={100}
-                    // height={200}
-                    margin={20}
-                    overflow="visible" // ps: must fail if "scroll"
-                    source={{ uri }}
-                    style={{ width: 200, height: 200, tintColor: 'green' }}
-                    // tintColor="green"
-                    // width={200}
+            <View>
+                <ImageBackground
+                    source={{ uri: 'https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png' }}
+                    imageRef={this.setImageRef}
                 />
             </View>
         );
@@ -615,12 +689,58 @@ class StylePropsTest extends React.PureComponent {
 
 const listViewDataSourceTest = new ListView.DataSource({rowHasChanged: () => true})
 
-class AccessibilityViewHidingTest extends React.Component {
+class AccessibilityTest extends React.Component {
     render() {
         return (
-            <View accessibilityElementsHidden importantForAccessibility="no-hide-descendants">
+            <View
+                accessibilityElementsHidden={true}
+                importantForAccessibility={"no-hide-descendants"}
+                accessibilityTraits={'none'}
+                onAccessibilityTap={() => {}}
+            >
+                <Text accessibilityTraits={['key', 'text']}>Text</Text>
                 <View />
             </View>
         );
     }
 }
+
+
+const KeyboardAvoidingViewTest = () => (
+    <KeyboardAvoidingView enabled />
+);
+
+
+const AlertIOSTest = () => {
+    AlertIOS.prompt(
+        'My Prompt',
+        'Enter your email',
+        [
+            {
+                text: 'Cancel',
+                style: 'cancel'
+            },
+            {
+                text: 'Add',
+                onPress: (value: string) => {
+                  console.log(value);
+                },
+              },
+        ],
+        'default',
+        'email-address'
+    );
+}
+
+const ModalTest = () => (
+    <Modal hardwareAccelerated />
+)
+
+const TimePickerAndroidTest = () => (
+    TimePickerAndroid.open({
+        hour: 8,
+        minute: 15,
+        is24Hour: true,
+        mode: 'spinner'
+    })
+)

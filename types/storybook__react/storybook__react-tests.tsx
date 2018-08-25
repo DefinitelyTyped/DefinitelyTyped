@@ -1,7 +1,9 @@
 import * as React from 'react';
-import { storiesOf, setAddon, addDecorator, configure, getStorybook, RenderFunction, Story } from '@storybook/react';
+import { storiesOf, setAddon, addDecorator, configure, getStorybook, RenderFunction, Story, forceReRender } from '@storybook/react';
 
 const Decorator = (story: RenderFunction) => <div>{story()}</div>;
+
+forceReRender();
 
 storiesOf('Welcome', module)
     // local addDecorator

@@ -172,7 +172,7 @@ declare module "rethinkdb" {
         tableDrop(name: string): Operation<DropResult>;
         tableList(): Operation<string[]>;
         table(name: string, options?: GetTableOptions): Table;
-        wait(waitOptions?: WaitOptions): WaitResult;
+        wait(waitOptions?: WaitOptions): Operation<WaitResult>;
     }
 
     interface TableOptions {
@@ -268,14 +268,123 @@ declare module "rethinkdb" {
         insert(obj: any, options?: InsertOptions): Operation<WriteResult>;
 
         get<TObjectType extends object>(key: string): Operation<TObjectType | null> & Writeable;
-        getAll(key: string, index?: Index): Sequence; // without index defaults to primary key
+
+        /**
+         * Get all documents matching one or more keys on a simple index; defaults to primary key if no index provided.
+         * See [getAll](https://www.rethinkdb.com/api/javascript/get_all/)
+         */
         getAll(...keys: string[]): Sequence;
+        /**
+         * Get all documents matching a key on a simple index; defaults to primary key if no index provided.
+         * See [getAll](https://www.rethinkdb.com/api/javascript/get_all/)
+         */
+        getAll(key: string, index?: Index): Sequence; // without index defaults to primary key
+        /**
+         * Get all documents matching 2 or more keys on a simple index; defaults to primary key if no index provided.
+         * See [getAll](https://www.rethinkdb.com/api/javascript/get_all/)
+         */
+        getAll(key: string, key2: string, index?: Index): Sequence; // without index defaults to primary key
+        /**
+         * Get all documents matching 2 or more keys on a simple index; defaults to primary key if no index provided.
+         * See [getAll](https://www.rethinkdb.com/api/javascript/get_all/)
+         */
+        getAll(key: string, key2: string, key3: string, index?: Index): Sequence; // without index defaults to primary key
+        /**
+         * Get all documents matching 2 or more keys on a simple index; defaults to primary key if no index provided.
+         * See [getAll](https://www.rethinkdb.com/api/javascript/get_all/)
+         */
+        getAll(key: string, key2: string, key3: string, key4: string, index?: Index): Sequence; // without index defaults to primary key
+        /**
+         * Get all documents matching 2 or more keys on a simple index; defaults to primary key if no index provided.
+         * See [getAll](https://www.rethinkdb.com/api/javascript/get_all/)
+         */
+        getAll(
+            key: string,
+            key2: string,
+            key3: string,
+            key4: string,
+            key5: string,
+            index?: Index
+        ): Sequence; // without index defaults to primary key
+        /**
+         * Get all documents matching a compound index key.
+         * See [getAll](https://www.rethinkdb.com/api/javascript/get_all/) and
+         * [compound indexes](https://www.rethinkdb.com/docs/secondary-indexes/javascript/#compound-indexes)
+         */
+        getAll(compoundKey: string[], index: Index): Sequence; // without index defaults to primary key
+        /**
+         * Get all documents matching 2 or more compound index keys.
+         * See [getAll](https://www.rethinkdb.com/api/javascript/get_all/) and
+         * [compound indexes](https://www.rethinkdb.com/docs/secondary-indexes/javascript/#compound-indexes)
+         */
+        getAll(compoundKey: string[], compoundKey2: string[], index: Index): Sequence; // without index defaults to primary key
+        /**
+         * Get all documents matching 2 or more compound index keys.
+         * See [getAll](https://www.rethinkdb.com/api/javascript/get_all/) and
+         * [compound indexes](https://www.rethinkdb.com/docs/secondary-indexes/javascript/#compound-indexes)
+         */
+        getAll(
+            compoundKey: string[],
+            compoundKey2: string[],
+            compoundKey3: string[],
+            index: Index
+        ): Sequence; // without index defaults to primary key
+        /**
+         * Get all documents matching 2 or more compound index keys.
+         * See [getAll](https://www.rethinkdb.com/api/javascript/get_all/) and
+         * [compound indexes](https://www.rethinkdb.com/docs/secondary-indexes/javascript/#compound-indexes)
+         */
+        getAll(
+            compoundKey: string[],
+            compoundKey2: string[],
+            compoundKey3: string[],
+            compoundKey4: string[],
+            index: Index
+        ): Sequence; // without index defaults to primary key
+        /**
+         * Get all documents matching 2 or more compound index keys.
+         * See [getAll](https://www.rethinkdb.com/api/javascript/get_all/) and
+         * [compound indexes](https://www.rethinkdb.com/docs/secondary-indexes/javascript/#compound-indexes)
+         */
+        getAll(
+            compoundKey: string[],
+            compoundKey2: string[],
+            compoundKey3: string[],
+            compoundKey4: string[],
+            compoundKey5: string[],
+            index: Index
+        ): Sequence; // without index defaults to primary key
+        /**
+         * Get all documents matching a key on a simple index; defaults to primary key if no index provided.
+         * See [getAll](https://www.rethinkdb.com/api/javascript/get_all/) and
+         * [compound indexes](https://www.rethinkdb.com/docs/secondary-indexes/javascript/#compound-indexes)
+         */
+        getAll(key: Expression<any>, index?: Index): Sequence;
+        /**
+         * Get all documents matching a key on a compound index; index must be provided.
+         * See [getAll](https://www.rethinkdb.com/api/javascript/get_all/) and
+         * [compound indexes](https://www.rethinkdb.com/docs/secondary-indexes/javascript/#compound-indexes)
+         */
+        getAll(keys: Expression<any[]>, index: Index): Sequence;
+
+
         getIntersecting(geometry: Geometry, index: Index): Sequence;
-        wait(WaitOptions?: WaitOptions): WaitResult;
+        wait(WaitOptions?: WaitOptions): Operation<WaitResult>;
     }
 
     interface Sequence extends Operation<Cursor>, Writeable {
         between(lower: any, upper: any, index?: Index): Sequence;
+
+        /**
+         * Turn a sequence into an array or object, necessary when merging a sequence.
+         * 
+         * See: https://www.rethinkdb.com/api/javascript/coerce_to/
+         */
+        coerceTo(key: 'array'): Expression<any[]>;
+        coerceTo(key: 'object'): Expression<Object>;
+
+        merge(object: Object): Sequence;
+        merge(cb: ExpressionFunction<Expression<any>>): Sequence;
 
         filter(rql: ExpressionFunction<boolean>): Sequence;
         filter(rql: Expression<boolean>): Sequence;

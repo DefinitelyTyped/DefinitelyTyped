@@ -851,7 +851,7 @@ export interface RedirectOptions {
     /**
      * redirect location's query string parameters
      */
-    query?: string;
+    query?: string|object;
 
     /**
      * if true, `options.query`
@@ -1230,6 +1230,8 @@ export namespace plugins {
         reviver?: any;
 
         maxFieldsSize?: number;
+
+        maxFileSize: number;
     }
 
     /**
@@ -1284,6 +1286,7 @@ export namespace plugins {
         multipartHandler?: any;
         mapParams?: boolean;
         mapFiles?: boolean;
+        maxFileSize?: number;
     }
 
     /**

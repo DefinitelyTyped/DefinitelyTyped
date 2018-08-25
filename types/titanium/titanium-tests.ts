@@ -5,7 +5,7 @@ function test_window() {
 		borderRadius: 10
 	});
 
-	window.setBackgroundColor('blue');
+	window.backgroundColor = 'blue';
 	window.opacity = 0.92;
 
 	const matrix = Ti.UI.create2DMatrix().scale(1.1, 1);
@@ -17,8 +17,8 @@ function test_window() {
 		text: 'Simple label'
 	});
 	label.textAlign = Ti.UI.TEXT_ALIGNMENT_LEFT;
-	label.setWidth(Ti.UI.SIZE);
-	label.setHeight(Ti.UI.SIZE);
+	label.width = Ti.UI.SIZE;
+	label.height = Ti.UI.SIZE;
 	window.add(label);
 	window.open();
 }
@@ -68,7 +68,7 @@ function test_fs() {
 }
 
 function test_network() {
-	const url = "http://www.appcelerator.com";
+	const url = 'https://www.appcelerator.com';
 	const client = Ti.Network.createHTTPClient({
 		// function called when the response data is available
 		onload: (e: SuccessResponse) => {
@@ -84,37 +84,4 @@ function test_network() {
 	client.open('GET', url);
 	// Send the request.
 	client.send();
-}
-
-function test_map() {
-	const win = Ti.UI.createWindow();
-	const mountainView = Ti.Map.createAnnotation({
-		animate: true,
-		leftButton: '../images/appcelerator_small.png',
-		myid: 1
-	});
-	mountainView.setLatitude(37.390749);
-	mountainView.setLongitude(-122.081651);
-	mountainView.setTitle('Appcelerator');
-	mountainView.setSubtitle('Mountain View, CA');
-	mountainView.setPincolor(Ti.Map.ANNOTATION_RED);
-
-	const mapview = Ti.Map.createView({
-		mapType: Ti.Map.STANDARD_TYPE,
-		region: {
-			latitude: 37.390749, longitude: -122.081651,
-			latitudeDelta: 0.01, longitudeDelta: 0.01
-		},
-		animate: true,
-	});
-	mapview.regionFit = true;
-	mapview.userLocation = true;
-	mapview.annotations = [mountainView];
-	mapview.addEventListener('click', event => {
-		if (event.clicksource === 'leftButton' || event.clicksource === 'leftPane') {
-			alert(event.title + ' left button clicked');
-		}
-	});
-	win.add(mapview);
-	win.open();
 }

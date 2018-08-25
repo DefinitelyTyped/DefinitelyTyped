@@ -1,5 +1,6 @@
 import GracefulShutdown = require('http-graceful-shutdown');
 import * as http from "http";
+import * as https from "https";
 
 const opts: GracefulShutdown.Options = {
     signals: "SIGINT SIGTERM",
@@ -14,8 +15,16 @@ const opts: GracefulShutdown.Options = {
     }
 };
 
-const server = http.createServer((req, res) => {
+const httpServer = http.createServer((req, res) => {
     res.end();
 });
 
-GracefulShutdown(server, opts);
+const httpsServer = https.createServer({
+    key: new Buffer('foo'),
+    cert: new Buffer('bar')
+}, (req, res) => {
+    res.end();
+});
+
+GracefulShutdown(httpServer, opts);
+GracefulShutdown(httpsServer, opts);

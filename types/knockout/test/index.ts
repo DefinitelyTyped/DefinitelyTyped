@@ -757,3 +757,7 @@ interface MyObservableArray extends KnockoutObservableArray<any> {
 interface MyComputed extends KnockoutComputed<any> {
     isBeautiful?: boolean;
 }
+
+function observableAny() {
+    ko.observable<number>(5 as any); // $ExpectType KnockoutObservable<number>
+}

@@ -106,9 +106,9 @@ interface KnockoutObservableArray<T> extends KnockoutObservable<T[]>, KnockoutOb
 interface KnockoutObservableStatic {
     fn: KnockoutObservableFunctions<any>;
 
-    <T = any>(): KnockoutObservable<T | undefined>
-    <T = any>(value: null): KnockoutObservable<T | null>
     <T>(value: T): KnockoutObservable<T>;
+    <T = any>(value: null): KnockoutObservable<T | null>
+    <T = any>(): KnockoutObservable<T | undefined>
 }
 
 interface KnockoutObservable<T> extends KnockoutSubscribable<T>, KnockoutObservableFunctions<T> {

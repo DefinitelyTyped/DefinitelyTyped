@@ -36,15 +36,10 @@ split(Router.pathname);
 const query = `?${qs.stringify(Router.query)}`;
 
 // Assign some callback methods.
-Router.onAppUpdated = (nextRoute: string) => console.log(nextRoute);
-Router.onRouteChangeStart = (url: string) =>
-    console.log("Route is starting to change.", url);
-Router.onBeforeHistoryChange = (as: string) =>
-    console.log("History hasn't changed yet.", as);
-Router.onRouteChangeComplete = (url: string) =>
-    console.log("Route chaneg is complete.", url);
-Router.onRouteChangeError = (err: any, url: string) =>
-    console.log("Route is starting to change.", url, err);
+Router.events.on('routeChangeStart', (url: string) => console.log("Route is starting to change.", url));
+Router.events.on('beforeHistoryChange', (as: string) => console.log("History hasn't changed yet.", as));
+Router.events.on('routeChangeComplete', (url: string) => console.log("Route change is complete.", url));
+Router.events.on('routeChangeError', (err: any, url: string) => console.log("Route change errored.", err, url));
 
 // Call methods on the router itself.
 Router.reload("/route").then(() => console.log("route was reloaded"));
@@ -101,3 +96,13 @@ class TestComponent extends React.Component<TestComponentProps & WithRouterProps
 }
 
 withRouter(TestComponent);
+
+interface TestSFCQuery {
+    test?: string;
+}
+
+interface TestSFCProps extends WithRouterProps<TestSFCQuery> { }
+
+const TestSFC: React.SFC<TestSFCProps> = ({ router }) => {
+    return <div>{router.query && router.query.test}</div>;
+};
