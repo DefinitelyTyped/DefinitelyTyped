@@ -10,6 +10,7 @@
 //                  Sven Kreiss <https://github.com/svenkreiss>
 //                  Umar Bolatov <https://github.com/bolatovumar>
 //                  Michael Gauthier <https://github.com/gauthierm>
+//                  Derek Sifford <https://github.com/dsifford>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
@@ -2477,8 +2478,10 @@ declare namespace google.maps {
         export class Autocomplete extends MVCObject {
             constructor(inputField: HTMLInputElement, opts?: AutocompleteOptions);
             getBounds(): LatLngBounds;
+            getFields(): Array<keyof PlaceResult> | undefined;
             getPlace(): PlaceResult;
             setBounds(bounds: LatLngBounds|LatLngBoundsLiteral): void;
+            setFields(fields?: Array<keyof PlaceResult>): void;
             setComponentRestrictions(restrictions: ComponentRestrictions): void;
             setTypes(types: string[]): void;
         }
@@ -2486,6 +2489,7 @@ declare namespace google.maps {
         export interface AutocompleteOptions  {
             bounds?: LatLngBounds|LatLngBoundsLiteral;
             componentRestrictions?: ComponentRestrictions;
+            fields?: Array<keyof PlaceResult>
             placeIdOnly?: boolean;
             strictBounds?: boolean;
             types?: string[];
