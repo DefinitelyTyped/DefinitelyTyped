@@ -3,8 +3,6 @@
 // Definitions by: Romain Faust <https://github.com/romain-faust>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
-
 import { Plugin } from 'imagemin';
 
 declare function imageminGifsicle(options?: imageminGifsicle.Options): Plugin;
