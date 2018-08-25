@@ -3352,17 +3352,17 @@ type ThisTypedComponentOptionsWithRecordProps<
     > &
     ThisType<CombinedInstance<V, Data, Methods, Options, Readonly<Props>>>;
 
-interface ComponentRelation {
+interface ComponentRelation<T = any> {
     /** 目标组件的相对关系，可选的值为 parent 、 child 、 ancestor 、 descendant */
-    type: string;
+    type: "parent" | "child" | "ancestor" | "descendant";
     /** 如果这一项被设置，则它表示关联的目标节点所应具有的behavior，所有拥有这一behavior的组件节点都会被关联 */
     target?: string;
     /** 关系生命周期函数，当关系被建立在页面节点树中时触发，触发时机在组件attached生命周期之后 */
-    linked?: (...args: any[]) => void;
+    linked?: (target: Component<T>) => void;
     /** 关系生命周期函数，当关系在页面节点树中发生改变时触发，触发时机在组件moved生命周期之后 */
-    linkChanged?: (...args: any[]) => void;
+    linkChanged?: (target: Component<T>) => void;
     /** 关系生命周期函数，当关系脱离页面节点树时触发，触发时机在组件detached生命周期之后 */
-    unlinked?: (...args: any[]) => void;
+    unlinked?: (target: Component<T>) => void;
 }
 /**
  * Component组件参数
@@ -3505,7 +3505,7 @@ interface Component<T> {
     /**
      * 获取所有这个关系对应的所有关联节点，参见 [组件间关系](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/custom-component/relations.html)
      */
-    getRelationNodes(relationKey: string): { [key: string]: ComponentRelation };
+    getRelationNodes(relationKey: string): ComponentRelation[];
 }
 declare function Component<D, M, O, P>(
     options?: ThisTypedComponentOptionsWithRecordProps<Component<D>, D, M, O, P>
