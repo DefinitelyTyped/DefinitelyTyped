@@ -360,6 +360,7 @@ export class SectionListTest extends React.Component<SectionListProps<string>, {
                             <Text>{`${info.section.title} - ${info.item}`}</Text>
                         </View>
                     )}
+                    maxToRenderPerBatch={5}
                 />
             </React.Fragment>
         );
