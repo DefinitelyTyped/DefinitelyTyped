@@ -1180,7 +1180,17 @@ declare namespace Sinon {
     }
 
     interface SinonMatcher {
+        /**
+         * All matchers implement and and or. This allows to logically combine mutliple matchers. The result is a new matchers that requires both (and) or one of the matchers (or) to return true.
+         * @example var stringOrNumber = sinon.match.string.or(sinon.match.number);
+        var bookWithPages = sinon.match.instanceOf(Book).and(sinon.match.has("pages"));
+         */
         and(expr: SinonMatcher): SinonMatcher;
+        /**
+         * All matchers implement and and or. This allows to logically combine mutliple matchers. The result is a new matchers that requires both (and) or one of the matchers (or) to return true.
+         * @example var stringOrNumber = sinon.match.string.or(sinon.match.number);
+        var bookWithPages = sinon.match.instanceOf(Book).and(sinon.match.has("pages"));
+         */
         or(expr: SinonMatcher): SinonMatcher;
         test(val: any): boolean;
     }
@@ -1235,19 +1245,62 @@ declare namespace Sinon {
     }
 
     interface SinonMatch {
+        /**
+         * Requires the value to be == to the given number.
+         */
         (value: number): SinonMatcher;
+        /**
+         * Requires the value to be a string and have the expectation as a substring.
+         */
         (value: string): SinonMatcher;
+        /**
+         * Requires the value to be a string and match the given regular expression.
+         */
         (expr: RegExp): SinonMatcher;
+        /**
+         * See custom matchers.
+         */
         (callback: (value: any) => boolean, message?: string): SinonMatcher;
+        /**
+         * Requires the value to be not null or undefined and have at least the same properties as expectation.
+         * This supports nested matchers.
+         */
         (obj: object): SinonMatcher;
+        /**
+         * Matches anything.
+         */
         any: SinonMatcher;
+        /**
+         * Requires the value to be defined.
+         */
         defined: SinonMatcher;
+        /**
+         * Requires the value to be truthy.
+         */
         truthy: SinonMatcher;
+        /**
+         * Requires the value to be falsy.
+         */
         falsy: SinonMatcher;
+        /**
+         * Requires the value to be a Boolean
+         */
         bool: SinonMatcher;
+        /**
+         * Requires the value to be a Number.
+         */
         number: SinonMatcher;
+        /**
+         * Requires the value to be a String.
+         */
         string: SinonMatcher;
+        /**
+         * Requires the value to be an Object.
+         */
         object: SinonMatcher;
+        /**
+         * Requires the value to be a Function.
+         */
         func: SinonMatcher;
         /**
          * Requires the value to be a Map.
@@ -1261,23 +1314,84 @@ declare namespace Sinon {
          * Requires the value to be an Array.
          */
         array: SinonArrayMatcher;
+        /**
+         * Requires the value to be a regular expression.
+         */
         regexp: SinonMatcher;
+        /**
+         * Requires the value to be a Date object.
+         */
         date: SinonMatcher;
+        /**
+         * Requires the value to be a Symbol.
+         */
         symbol: SinonMatcher;
+        /**
+         * Requires the value to strictly equal ref.
+         */
         same(obj: any): SinonMatcher;
+        /**
+         * Requires the value to be of the given type, where type can be one of "undefined", "null", "boolean", "number", "string", "object", "function", "array", "regexp", "date" or "symbol".
+         */
         typeOf(type: string): SinonMatcher;
+        /**
+         * Requires the value to be an instance of the given type.
+         */
         instanceOf(type: any): SinonMatcher;
+        /**
+         * Requires the value to define the given property.
+         * The property might be inherited via the prototype chain. 
+         * If the optional expectation is given, the value of the property is deeply compared with the expectation. 
+         * The expectation can be another matcher.
+         * @param property 
+         * @param expect 
+         */
         has(property: string, expect?: any): SinonMatcher;
+        /**
+         * Same as sinon.match.has but the property must be defined by the value itself. Inherited properties are ignored.
+         * @param property 
+         * @param expect 
+         */
         hasOwn(property: string, expect?: any): SinonMatcher;
+        /**
+         * Requires the value to define the given propertyPath. Dot (prop.prop) and bracket (prop[0]) notations are supported as in Lodash.get.
+         * The propertyPath might be inherited via the prototype chain. 
+         * If the optional expectation is given, the value at the propertyPath is deeply compared with the expectation. 
+         * The expectation can be another matcher.
+         */
         hasNested(path: string, expect?: any): SinonMatcher;
+        /**
+         * Requires every element of an Array, Set or Map, or alternatively every value of an Object to match the given matcher.
+         */
         every(matcher: SinonMatcher): SinonMatcher;
+        /**
+         * Requires any element of an Array, Set or Map, or alternatively any value of an Object to match the given matcher.
+         */
         some(matcher: SinonMatcher): SinonMatcher;
     }
 
     interface SinonSandboxConfig {
+        /**
+         * The sandbox’s methods can be injected into another object for convenience. 
+         * The injectInto configuration option can name an object to add properties to.
+         */
         injectInto: object | null;
+        /**
+         * What properties to inject. 
+         * Note that simply naming “server” here is not sufficient to have a server property show up in the target object, 
+         * you also have to set useFakeServer to true.
+         */
         properties: string[];
+        /**
+         * If set to true, the sandbox will have a clock property. 
+         * You can optionally pass in a configuration object that follows the specification for fake timers, such as { toFake: ["setTimeout", "setInterval"] }.
+         */
         useFakeTimers: boolean | Partial<SinonFakeTimersConfig>;
+        /**
+         * If true, server and requests properties are added to the sandbox. Can also be an object to use for fake server. 
+         * The default one is sinon.fakeServer, but if you’re using jQuery 1.3.x or some other library that does not set the XHR’s onreadystatechange handler, 
+         * you might want to do:
+         */
         useFakeServer: boolean | SinonFakeServer;
     }
 
@@ -1347,12 +1461,25 @@ declare namespace Sinon {
     }
 
     interface SinonSandbox {
+        /**
+         * A convenience reference for sinon.assert
+         * Since sinon@2.0.0
+         */
         assert: SinonAssert;
         clock: SinonFakeTimers;
         requests: SinonFakeXMLHttpRequest[];
         server: SinonFakeServer;
+        /**
+         * Works exactly like sinon.spy
+         */
         spy: SinonSpyStatic;
+        /**
+         * Works exactly like sinon.stub.
+         */
         stub: SinonStubStatic;
+        /**
+         * Works exactly like sinon.mock
+         */
         mock: SinonMockStatic;
 
         /**
@@ -1378,23 +1505,71 @@ declare namespace Sinon {
          * The native XMLHttpRequest object will be available at sinon.xhr.XMLHttpRequest
          */
         useFakeXMLHttpRequest(): SinonFakeXMLHttpRequestStatic;
+        /**
+         * Fakes XHR and binds a server object to the sandbox such that it too is restored when calling sandbox.restore().
+         * Access requests through sandbox.requests and server through sandbox.server
+         */
         useFakeServer(): SinonFakeServer;
+        /**
+         * Restores all fakes created through sandbox.
+         */
         restore(): void;
+        /**
+         * Resets the internal state of all fakes created through sandbox.
+         */
         reset(): void;
+        /**
+         * Resets the history of all stubs created through the sandbox.
+         * Since sinon@2.0.0
+         */
         resetHistory(): void;
+        /**
+         * Resets the behaviour of all stubs created through the sandbox.
+         * Since sinon@2.0.0
+         */
         resetBehavior(): void;
+        /**
+         * Causes all stubs created from the sandbox to return promises using a specific Promise library instead of the global one when using stub.rejects or stub.resolves. 
+         * Returns the stub to allow chaining.
+         * Since sinon@2.0.0
+         */
         usingPromise(promiseLibrary: any): SinonSandbox;
+        /**
+         * Verifies all mocks created through the sandbox.
+         */
         verify(): void;
+        /**
+         * Verifies all mocks and restores all fakes created through the sandbox.
+         */
         verifyAndRestore(): void;
 
+        /**
+         * Replaces property on object with replacement argument. Attempts to replace an already replaced value cause an exception.
+         * replacement can be any value, including spies, stubs and fakes.
+         * This method only works on non-accessor properties, for replacing accessors, use sandbox.replaceGetter() and sandbox.replaceSetter().
+         */
         replace<T, TKey extends keyof T>(
             obj: T,
             prop: TKey,
             replacement: T[TKey]): T[TKey];
+        /**
+         * Replaces getter for property on object with replacement argument. Attempts to replace an already replaced getter cause an exception.
+         * replacement must be a Function, and can be instances of spies, stubs and fakes.
+         * @param obj 
+         * @param prop 
+         * @param replacement 
+         */
         replaceGetter<T, TKey extends keyof T>(
             obj: T,
             prop: TKey,
             replacement: () => T[TKey]): () => T[TKey];
+        /**
+         * Replaces setter for property on object with replacement argument. Attempts to replace an already replaced setter cause an exception.
+         * replacement must be a Function, and can be instances of spies, stubs and fakes.
+         * @param obj 
+         * @param prop 
+         * @param replacement 
+         */
         replaceSetter<T, TKey extends keyof T>(
             obj: T,
             prop: TKey,
@@ -1426,6 +1601,10 @@ declare namespace Sinon {
         fakeServer: SinonFakeServerStatic;
         fakeServerWithClock: SinonFakeServerStatic;
 
+        /**
+         * Creates a new sandbox object with spies, stubs, and mocks.
+         * @param config 
+         */
         createSandbox(config?: Partial<SinonSandboxConfig>): SinonSandbox;
         defaultConfig: Partial<SinonSandboxConfig>;
     }
