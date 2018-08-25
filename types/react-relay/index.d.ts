@@ -7,7 +7,7 @@
 //                 Cameron Knight <https://github.com/ckknight>
 //                 Kaare Hoff Skovgaard <https://github.com/kastermester>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 2.9
 
 // Prettified with:
 // $ prettier --parser typescript --tab-width 4 --semi --trailing-comma es5 --write --print-width 120 \
@@ -88,24 +88,30 @@ export const graphql: GraphqlInterface;
 // ~~~~~~~~~~~~~~~~~~~~~
 // ReactRelayQueryRenderer
 // ~~~~~~~~~~~~~~~~~~~~~
-export interface QueryRendererProps {
+
+export type QueryRendererGenerics = { variables: object; response: object };
+
+export interface QueryRendererProps<T extends QueryRendererGenerics> {
     cacheConfig?: RelayRuntimeTypes.CacheConfig;
     environment: RelayRuntimeTypes.Environment;
     query?: RelayRuntimeTypes.GraphQLTaggedNode | null;
-    render(readyState: ReadyState): React.ReactElement<any> | undefined | null;
-    variables: RelayRuntimeTypes.Variables;
+    render(readyState: ReadyState<T["response"]>): React.ReactElement<any> | undefined | null;
+    variables: T["variables"];
     rerunParamExperimental?: RelayRuntimeTypes.RerunParam;
 }
-export interface ReadyState {
+export interface ReadyState<T> {
     error: Error | undefined | null;
-    props: { [propName: string]: any } | undefined | null;
+    props: T | undefined | null;
     retry?(): void;
 }
-export interface QueryRendererState {
-    readyState: ReadyState;
-}
-export class ReactRelayQueryRenderer extends React.Component<QueryRendererProps, QueryRendererState> {}
-export class QueryRenderer extends ReactRelayQueryRenderer {}
+
+export class ReactRelayQueryRenderer<T extends QueryRendererGenerics> extends React.Component<QueryRendererProps<T>> {}
+export class QueryRenderer<
+    T extends QueryRendererGenerics = {
+        variables: RelayRuntimeTypes.Variables;
+        response: { [propName: string]: any };
+    }
+> extends ReactRelayQueryRenderer<T> {}
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // createFragmentContainer

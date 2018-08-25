@@ -1,3 +1,5 @@
+// tslint:disable:interface-over-type-literal
+
 import * as React from "react";
 import { Environment, Network, RecordSource, Store, ConnectionHandler, FragmentReference } from "relay-runtime";
 
@@ -28,8 +30,21 @@ const modernEnvironment = new Environment({ network, store });
 // ~~~~~~~~~~~~~~~~~~~~~
 // Modern QueryRenderer
 // ~~~~~~~~~~~~~~~~~~~~~
+
+// Artifact produced by relay-compiler-language-typescript
+type MyQueryRendererVariables = {
+    pageID: string;
+};
+type MyQueryRendererResponse = {
+    name: string;
+};
+type MyQueryRenderer = {
+    variables: MyQueryRendererVariables;
+    response: MyQueryRendererResponse;
+};
+
 const MyQueryRenderer = (props: { name: string; show: boolean }) => (
-    <QueryRenderer
+    <QueryRenderer<MyQueryRenderer>
         environment={modernEnvironment}
         query={
             props.show
@@ -82,7 +97,6 @@ type StoryLike = (storyID: string) => void;
 // Artifact produced by relay-compiler-language-typescript
 declare const _Story_story$ref: unique symbol;
 type Story_story$ref = typeof _Story_story$ref;
-// tslint:disable-next-line:interface-over-type-literal
 type Story_story = {
     readonly id: string;
     readonly text: string;
@@ -173,7 +187,6 @@ declare const _FeedStories_feed$ref: unique symbol;
 type FeedStories_feed$ref = typeof _FeedStories_feed$ref;
 declare const _FeedStory_edges$ref: unique symbol;
 type FeedStory_edges$ref = typeof _FeedStory_edges$ref;
-// tslint:disable-next-line:interface-over-type-literal
 type FeedStories_feed = {
     readonly edges: ReadonlyArray<{
         readonly node: {
@@ -184,7 +197,6 @@ type FeedStories_feed = {
     }>;
     readonly " $refType": FeedStories_feed$ref;
 };
-// tslint:disable-next-line:interface-over-type-literal
 type FeedStory_edges = ReadonlyArray<{
     readonly publishedAt: string;
     readonly " $refType": FeedStory_edges$ref;
@@ -255,7 +267,6 @@ const Feed = (() => {
 // Artifact produced by relay-compiler-language-typescript
 declare const _UserFeed_user$ref: unique symbol;
 type UserFeed_user$ref = typeof _UserFeed_user$ref;
-// tslint:disable-next-line:interface-over-type-literal
 type UserFeed_user = {
     readonly feed: {
         readonly pageInfo: {
