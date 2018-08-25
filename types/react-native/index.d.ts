@@ -1238,7 +1238,7 @@ export interface TextInputProps
      * If true, context menu is hidden. The default value is false.
      */
     contextMenuHidden?: boolean
-                                       
+
     /**
      * Provides an initial value that will change when the user starts typing.
      * Useful for simple use-cases where you don't want to deal with listening to events
