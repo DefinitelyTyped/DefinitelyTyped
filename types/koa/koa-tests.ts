@@ -34,13 +34,6 @@ app.use(ctx => {
     ctx.body = ctx.URL.toString();
 });
 
-app.listen(3000, err => {
-    if (err) {
-        console.error(err);
-        process.exit();
-        return;
-    }
-    console.log(`server listening on port 3000`);
-});
+app.listen(3000);
 
 const server = app.listen();
