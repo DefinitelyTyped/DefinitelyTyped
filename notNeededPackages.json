@@ -391,6 +391,12 @@
             "asOfVersion": "7.4.0"
         },
         {
+            "libraryName": "delay",
+            "typingsPackageName": "delay",
+            "sourceRepoURL": "https://github.com/sindresorhus/delay",
+            "asOfVersion": "3.1.0"
+        },
+        {
             "libraryName": "DevExtreme",
             "typingsPackageName": "devextreme",
             "sourceRepoURL": "http://js.devexpress.com/",
