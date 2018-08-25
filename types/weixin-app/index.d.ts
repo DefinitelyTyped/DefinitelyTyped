@@ -3366,13 +3366,7 @@ type ThisTypedComponentOptionsWithRecordProps<
     Options,
     Props
 > = object &
-    ComponentOptions<
-        V,
-        Data | ((this: Readonly<Props> & V) => Data),
-        Methods,
-        Options,
-        PropsDefinition<Props>
-    > &
+    ComponentOptions<V, Data | ((this: V) => Data), Methods, Options, Props> &
     ThisType<CombinedInstance<V, Data, Methods, Options, Readonly<Props>>>;
 
 interface ComponentRelation {
