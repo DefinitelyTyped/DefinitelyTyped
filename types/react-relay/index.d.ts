@@ -89,7 +89,7 @@ export const graphql: GraphqlInterface;
 // ReactRelayQueryRenderer
 // ~~~~~~~~~~~~~~~~~~~~~
 
-export interface QueryRendererProps<T extends RelayRuntimeTypes.OperationBase> {
+export interface QueryRendererProps<T extends RelayRuntimeTypes.OperationBase = RelayRuntimeTypes.OperationDefaults> {
     cacheConfig?: RelayRuntimeTypes.CacheConfig;
     environment: RelayRuntimeTypes.Environment;
     query?: RelayRuntimeTypes.GraphQLTaggedNode | null;
@@ -97,7 +97,7 @@ export interface QueryRendererProps<T extends RelayRuntimeTypes.OperationBase> {
     variables: T["variables"];
     rerunParamExperimental?: RelayRuntimeTypes.RerunParam;
 }
-export interface ReadyState<T> {
+export interface ReadyState<T extends RelayRuntimeTypes.Variables = RelayRuntimeTypes.Variables> {
     error: Error | undefined | null;
     props: T | undefined | null;
     retry?(): void;
