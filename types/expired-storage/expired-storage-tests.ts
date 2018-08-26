@@ -1,8 +1,5 @@
-// import { LocalStorage } from 'node-localstorage'; // Removed since this pkg isn't getting installed.
 import ExpiredStorage = require('expired-storage');
 
-// const localStorage = new LocalStorage('./scratch', Infinity);
-// const expiredStorage = new ExpiredStorage(localStorage); // ExpiredStorage requires a LocalStorage provider
 const expiredStorage = new ExpiredStorage();
 
 const mjkModel = {
