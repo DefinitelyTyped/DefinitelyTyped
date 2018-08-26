@@ -52,7 +52,7 @@ declare namespace Evaporate {
         customAuthMethod?: null | ((
             signParams: string,
             signHeaders: string,
-            stringToSign: () => string | undefined,
+            stringToSign: string,
             signatureDateTime: string,
             canonicalRequest: string
         ) => Promise<string>);

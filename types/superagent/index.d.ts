@@ -101,6 +101,7 @@ declare namespace request {
         get(header: string): string;
         header: any;
         info: boolean;
+        links: object;
         noContent: boolean;
         notAcceptable: boolean;
         notFound: boolean;

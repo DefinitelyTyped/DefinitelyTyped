@@ -7107,7 +7107,7 @@ export class SplineCurve extends Curve<Vector2> {
 
 // Extras / Geometries /////////////////////////////////////////////////////////////////////
 export class BoxBufferGeometry extends BufferGeometry {
-    constructor(width: number, height: number, depth: number, widthSegments?: number, heightSegments?: number, depthSegments?: number);
+    constructor(width?: number, height?: number, depth?: number, widthSegments?: number, heightSegments?: number, depthSegments?: number);
 
     parameters: {
         width: number;
@@ -7131,7 +7131,7 @@ export class BoxGeometry extends Geometry {
      * @param heightSegments — Number of segmented faces along the height of the sides.
      * @param depthSegments — Number of segmented faces along the depth of the sides.
      */
-    constructor(width: number, height: number, depth: number, widthSegments?: number, heightSegments?: number, depthSegments?: number);
+    constructor(width?: number, height?: number, depth?: number, widthSegments?: number, heightSegments?: number, depthSegments?: number);
 
     parameters: {
         width: number;
@@ -7230,29 +7230,39 @@ export class DodecahedronGeometry extends Geometry {
 }
 
 export class EdgesGeometry extends BufferGeometry {
-    constructor(geometry: BufferGeometry | Geometry, thresholdAngle: number);
+    constructor(geometry: BufferGeometry | Geometry, thresholdAngle?: number);
+}
+
+export interface ExtrueGeometryOptions {
+    curveSegments?: number;
+    steps?: number;
+    depth?: number;
+    bevelEnabled?: boolean;
+    bevelThickness?: number;
+    bevelSize?: number;
+    bevelSegments?: number;
+    extrudePath?: CurvePath<Vector3>;
+    UVGenerator?: UVGenerator;
+}
+
+export interface UVGenerator {
+  generateTopUV(geometry: ExtrudeBufferGeometry, vertices: number[], indexA: number, indexB: number, indexC: number): Vector2[];
+  generateSideWallUV(geometry: ExtrudeBufferGeometry, vertices: number[], indexA: number, indexB: number, indexC: number, indexD: number): Vector2[];
 }
 
 export class ExtrudeGeometry extends Geometry {
-    constructor(shape?: Shape, options?: any);
-    constructor(shapes?: Shape[], options?: any);
+    constructor(shape: Shape | Shape[], options?: ExtrueGeometryOptions);
 
-    static WorldUVGenerator: {
-        generateTopUV(geometry: Geometry, vertex: number[], indexA: number, indexB: number, indexC: number): Vector2[];
-        generateSideWallUV(geometry: Geometry, vertex: number[], indexA: number, indexB: number, indexC: number, indexD: number): Vector2[];
-    };
+    static WorldUVGenerator: UVGenerator;
 
     addShapeList(shapes: Shape[], options?: any): void;
     addShape(shape: Shape, options?: any): void;
 }
 
 export class ExtrudeBufferGeometry extends BufferGeometry {
-    constructor(shapes?: Shape[], options?: any);
+    constructor(shapes?: Shape[], options?: ExtrueGeometryOptions);
 
-    static WorldUVGenerator: {
-        generateTopUV(geometry: Geometry, vertices: number[], indexA: number, indexB: number, indexC: number): Vector2[];
-        generateSideWallUV(geometry: Geometry, vertices: number[], indexA: number, indexB: number, indexC: number, indexD: number): Vector2[];
-    };
+    static WorldUVGenerator: UVGenerator;
 
     addShapeList(shapes: Shape[], options?: any): void;
     addShape(shape: Shape, options?: any): void;
@@ -7296,8 +7306,18 @@ export class OctahedronGeometry extends PolyhedronGeometry {
     constructor(radius?: number, detail?: number);
 }
 
+export class ParametricBufferGeometry extends BufferGeometry {
+  constructor(func: (u: number, v: number, dest: Vector3) => void, slices: number, stacks: number);
+
+  parameters: {
+    func: (u: number, v: number, dest:Vector3) => void;
+    slices: number;
+    stacks: number;
+  };
+}
+
 export class ParametricGeometry extends Geometry {
-    constructor(func: (u: number, v: number, dest:Vector3) => void, slices: number, stacks: number);
+    constructor(func: (u: number, v: number, dest: Vector3) => void, slices: number, stacks: number);
 
     parameters: {
         func: (u: number, v: number, dest:Vector3) => void;
@@ -7307,7 +7327,7 @@ export class ParametricGeometry extends Geometry {
 }
 
 export class PlaneBufferGeometry extends BufferGeometry {
-    constructor(width: number, height: number, widthSegments?: number, heightSegments?: number);
+    constructor(width?: number, height?: number, widthSegments?: number, heightSegments?: number);
 
     parameters: {
         width: number;
@@ -7318,7 +7338,7 @@ export class PlaneBufferGeometry extends BufferGeometry {
 }
 
 export class PlaneGeometry extends Geometry {
-    constructor(width: number, height: number, widthSegments?: number, heightSegments?: number);
+    constructor(width?: number, height?: number, widthSegments?: number, heightSegments?: number);
 
     parameters: {
         width: number;
@@ -7329,7 +7349,7 @@ export class PlaneGeometry extends Geometry {
 }
 
 export class PolyhedronBufferGeometry extends BufferGeometry {
-	constructor(vertices: number[], indices: number[], radius: number, detail: number);
+	constructor(vertices: number[], indices: number[], radius?: number, detail?: number);
 
 	parameters: {
 		vertices: number[];
@@ -7378,8 +7398,7 @@ export class RingGeometry extends Geometry {
 }
 
 export class ShapeGeometry extends Geometry {
-    constructor(shape: Shape, options?: any);
-    constructor(shapes: Shape[], options?: any);
+    constructor(shapes: Shape | Shape[], curveSegments?: number);
 
     addShapeList(shapes: Shape[], options: any): ShapeGeometry;
     addShape(shape: Shape, options?: any): void;
@@ -7391,7 +7410,7 @@ export class ShapeBufferGeometry extends BufferGeometry
 }
 
 export class SphereBufferGeometry extends BufferGeometry {
-    constructor(radius: number, widthSegments?: number, heightSegments?: number, phiStart?: number, phiLength?: number, thetaStart?: number, thetaLength?: number);
+    constructor(radius?: number, widthSegments?: number, heightSegments?: number, phiStart?: number, phiLength?: number, thetaStart?: number, thetaLength?: number);
 
     parameters: {
         radius: number;
@@ -7419,7 +7438,7 @@ export class SphereGeometry extends Geometry {
      * @param thetaStart — specify vertical starting angle. Default is 0.
      * @param thetaLength — specify vertical sweep angle size. Default is Math.PI.
      */
-    constructor(radius: number, widthSegments?: number, heightSegments?: number, phiStart?: number, phiLength?: number, thetaStart?: number, thetaLength?: number);
+    constructor(radius?: number, widthSegments?: number, heightSegments?: number, phiStart?: number, phiLength?: number, thetaStart?: number, thetaLength?: number);
 
     parameters: {
         radius: number;
@@ -7506,13 +7525,13 @@ export class TorusGeometry extends Geometry {
 }
 
 export class TorusKnotBufferGeometry extends BufferGeometry {
-    constructor(radius?: number, tube?: number, radialSegments?: number, tubularSegments?: number, p?: number, q?: number, heightScale?: number);
+    constructor(radius?: number, tube?: number, tubularSegments?: number, radialSegments?: number, p?: number, q?: number);
 
     parameters: {
         radius: number;
         tube: number;
-        radialSegments: number;
         tubularSegments: number;
+        radialSegments: number;
         p: number;
         q: number;
         heightScale: number;
@@ -7520,13 +7539,13 @@ export class TorusKnotBufferGeometry extends BufferGeometry {
 }
 
 export class TorusKnotGeometry extends Geometry {
-    constructor(radius?: number, tube?: number, radialSegments?: number, tubularSegments?: number, p?: number, q?: number, heightScale?: number);
+    constructor(radius?: number, tube?: number, tubularSegments?: number, radialSegments?: number, p?: number, q?: number);
 
     parameters: {
         radius: number;
         tube: number;
-        radialSegments: number;
         tubularSegments: number;
+        radialSegments: number;
         p: number;
         q: number;
         heightScale: number;
@@ -7534,31 +7553,26 @@ export class TorusKnotGeometry extends Geometry {
 }
 
 export class TubeGeometry extends Geometry {
-    constructor(path: Curve<Vector3>, segments?: number, radius?: number, radiusSegments?: number, closed?: boolean, taper?: (u: number) => number);
+    constructor(path: Curve<Vector3>, tubularSegments?: number, radius?: number, radiusSegments?: number, closed?: boolean);
 
     parameters: {
         path: Curve<Vector3>;
-        segments: number;
+        tubularSegments: number;
         radius: number;
         radialSegments: number;
         closed: boolean;
-        taper: (u: number) => number; // NoTaper or SinusoidalTaper;
     };
     tangents: Vector3[];
     normals: Vector3[];
     binormals: Vector3[];
-
-    static NoTaper(u?: number): number;
-    static SinusoidalTaper(u: number): number;
-    static FrenetFrames(path: Path, segments: number, closed: boolean): void;
 }
 
 export class TubeBufferGeometry extends BufferGeometry {
-    constructor(path: Curve<Vector3>, segments?: number, radius?: number, radiusSegments?: number, closed?: boolean);
+    constructor(path: Curve<Vector3>, tubularSegments?: number, radius?: number, radiusSegments?: number, closed?: boolean);
 
     parameters: {
         path: Curve<Vector3>;
-        segments: number;
+        tubularSegments: number;
         radius: number;
         radialSegments: number;
         closed: boolean;

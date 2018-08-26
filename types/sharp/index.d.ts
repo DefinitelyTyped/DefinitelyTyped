@@ -15,6 +15,7 @@ import { Duplex } from "stream";
  * @throws {Error} Invalid parameters
  * @returns A sharp instance that can be used to chain operations
  */
+declare function sharp(options?: sharp.SharpOptions): sharp.SharpInstance;
 declare function sharp(input?: string | Buffer, options?: sharp.SharpOptions): sharp.SharpInstance;
 declare namespace sharp {
     const gravity: GravityEnum;
