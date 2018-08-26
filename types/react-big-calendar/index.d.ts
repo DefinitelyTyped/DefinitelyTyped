@@ -206,8 +206,6 @@ export interface BigCalendarProps<T extends Event = Event> extends React.Props<B
     elementProps?: React.HTMLAttributes<HTMLElement>;
 }
 
-export type BigCalendarClass = () => BigCalendar;
-
 export default class BigCalendar<T extends Event = Event> extends React.Component<BigCalendarProps<T>> {
     /**
      * Setup the localizer by providing the moment Object
