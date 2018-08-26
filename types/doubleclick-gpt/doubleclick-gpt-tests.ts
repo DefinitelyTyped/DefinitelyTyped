@@ -69,6 +69,10 @@ googletag.pubads().definePassback("/1234567/sports", [468, 60])
         .setTagForChildDirectedTreatment(1)
         .display();
 
+googletag.pubads().definePassback('/1234567/sports', [468, 60])
+        .setTagForUnderAgeOfConsent(1)
+        .display();
+
 googletag.pubads().definePassback("/1234567/sports", [468, 60]).
         setTargeting("color", "red").
         setTargeting("sport", ["rugby", "rowing"]).
@@ -78,6 +82,13 @@ googletag.pubads().definePassback("/1234567/sports", [160, 600]).
     updateTargetingFromMap({"color": "red",
                                                     "interests": ["sports", "music", "movies"]}).
             display();
+
+googletag.pubads().enableLazyLoad();
+googletag.pubads().enableLazyLoad({
+    fetchMarginPercent: 500,
+    renderMarginPercent: 200,
+    mobileScaling: 2.0
+});
 
 // The calls to construct an ad and display contents.
 slot1 = googletag.pubads().display("/1234567/sports", [728, 90], "div-1");
@@ -106,6 +117,13 @@ googletag.pubads().setTagForChildDirectedTreatment(1);
 
 // Clear child-directed setting and return to initial not-set value.
 googletag.pubads().clearTagForChildDirectedTreatment();
+
+// Mark ad requests as coming from users under the age of consent.
+googletag.pubads().setTagForUnderAgeOfConsent(1);
+
+// Clear the tag value that configures whether to mark ad requests as
+// coming from users under the age of consent.
+googletag.pubads().setTagForUnderAgeOfConsent();
 
 googletag.pubads().setTargeting("interests", "sports");
 googletag.pubads().setTargeting("colors", "blue");
