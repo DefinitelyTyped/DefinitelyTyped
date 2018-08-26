@@ -3986,12 +3986,12 @@ declare namespace sequelize {
         /**
          * Builds a new model instance. Values is an object of key value pairs, must be defined but can be empty.
          */
-        build(record?: TAttributes, options?: BuildOptions): TInstance;
+        build(record?: Partial<TAttributes>, options?: BuildOptions): TInstance;
 
         /**
          * Undocumented bulkBuild
          */
-        bulkBuild(records: TAttributes[], options?: BuildOptions): TInstance[];
+        bulkBuild(records: Partial<TAttributes>[], options?: BuildOptions): TInstance[];
 
         /**
          * Builds a new model instance and calls save on it.
