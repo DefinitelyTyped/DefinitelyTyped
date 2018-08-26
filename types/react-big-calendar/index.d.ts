@@ -1,4 +1,4 @@
-// Type definitions for react-big-calendar 0.18.3
+// Type definitions for react-big-calendar 0.18
 // Project: https://github.com/intljusticemission/react-big-calendar
 // Definitions by: Piotr Witek <https://github.com/piotrwitek>
 //                 Austin Turner <https://github.com/paustint>
@@ -6,7 +6,7 @@
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 Paul Potsides <https://github.com/strongpauly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9.2
+// TypeScript Version: 2.9
 
 import * as React from 'react';
 
@@ -15,7 +15,11 @@ export type View = 'month' | 'week' | 'work_week' | 'day' | 'agenda';
 export type Navigate = 'PREV' | 'NEXT' | 'TODAY' | 'DATE';
 
 export type Event = object;
-export type DateRange = { start: Date, end: Date };
+export interface DateRange {
+    start: Date;
+    end: Date;
+}
+
 export type DateFormatFunction = (date: Date, culture?: string, localizer?: object) => string;
 export type DateRangeFormatFunction = (range: DateRange, culture?: string, localizer?: object) => string;
 export type DateFormat = string | DateFormatFunction;
@@ -202,7 +206,7 @@ export interface BigCalendarProps<T extends Event = Event> extends React.Props<B
     elementProps?: React.HTMLAttributes<HTMLElement>;
 }
 
-export type BigCalendarClass = new <T extends Event = Event> () => BigCalendar;
+export type BigCalendarClass = () => BigCalendar;
 
 export default class BigCalendar<T extends Event = Event> extends React.Component<BigCalendarProps<T>> {
     /**
