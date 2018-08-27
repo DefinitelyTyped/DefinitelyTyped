@@ -1,4 +1,4 @@
-import { createStore, applyMiddleware, Reducer, Store } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import queueMiddleware from 'redux-async-queue';
 
 const reducer = (state: any, action: any) => ({ state, action });
