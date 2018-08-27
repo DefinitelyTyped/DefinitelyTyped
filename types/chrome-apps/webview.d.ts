@@ -69,96 +69,6 @@ declare class HTMLWebViewElement extends HTMLElement {
     constructor ();
 
     /**
-     * Fired when the guest window attempts to close itself.
-     * The following example code navigates the webview to about:blank when the guest attempts to close itself.
-     */
-    addEventListener(type: 'close', listener: () => void, useCapture?: boolean): void;
-    /**
-     * Fired when the guest window logs a console message.
-     * The following example code forwards all log messages to the embedder's console without regard for log level or other properties.
-     */
-    addEventListener(type: 'consolemessage', listener: WebView.Events.ConsoleMessage, useCapture?: boolean): void;
-    /**
-     * Fired when the guest window fires a load event, i.e., when a new document is loaded. This does not include page navigation within the current document or asynchronous resource loads.
-     * The following example code modifies the default font size of the guest's body element after the page loads:
-     * @example
-     * webview.addEventListener('contentload', function() {
-     *  webview.executeScript({ code: 'document.body.style.fontSize = '42px'' })
-     * });
-     */
-    addEventListener(type: 'contentload', listener: WebView.Events.ContentLoad, useCapture?: boolean): void;
-    /**
-     * Fired when the guest window attempts to open a modal dialog via window.alert, window.confirm, or window.prompt.
-     * Handling this event will block the guest process until each event listener returns or the dialog object becomes unreachable (if preventDefault() was called.)
-     * The default behavior is to cancel the dialog.
-     */
-    addEventListener(type: 'dialog', listener: WebView.Events.Dialog, useCapture?: boolean): void;
-    /**
-     * Fired when the process rendering the guest web content has exited.
-     */
-    addEventListener(type: 'exit', listener: WebView.Events.Exit, useCapture?: boolean): void;
-    /**
-     * Fired when new find results are available for an active find request. This might happen multiple times for a single find request as matches are found.
-     */
-    addEventListener(type: 'findupdate', listener: WebView.Events.FindUpdate, useCapture?: boolean): void;
-    /**
-     * Fired when a top-level load has aborted without committing. An error message will be printed to the console unless the event is default-prevented.
-     * Note: When a resource load is aborted, a loadabort event will eventually be followed by a loadstop event, even if all committed loads since the last loadstop event (if any) were aborted.
-     * Note: When the load of either an about URL or a JavaScript URL is aborted, loadabort will be fired and then the webview will be navigated to 'about:blank'.
-     */
-    addEventListener(type: 'loadabort', listener: WebView.Events.LoadAbort, useCapture?: boolean): void;
-    /**
-     * Fired when a load has committed. This includes navigation within the current document as well as subframe document-level loads, but does not include asynchronous resource loads.
-     */
-    addEventListener(type: 'loadcommit', listener: WebView.Events.LoadCommit, useCapture?: boolean): void;
-    /**
-     * Fired when a top-level load request has redirected to a different URL.
-     */
-    addEventListener(type: 'loadredirect', listener: WebView.Events.LoadRedirect, useCapture?: boolean): void;
-    /**
-     * Fired when a load has begun.
-     */
-    addEventListener(type: 'loadstart', listener: WebView.Events.LoadStart, useCapture?: boolean): void;
-    /**
-     * Fired when all frame-level loads in a guest page (including all its subframes) have completed.
-     * This includes navigation within the current document as well as subframe document-level loads, but does not include asynchronous resource loads.
-     * This event fires every time the number of document-level loads transitions from one (or more) to zero. For example, if a page that has already finished loading (i.e., loadstop already fired once) creates a new iframe which loads a page, then a second loadstop will fire when the iframe page load completes.
-     * This pattern is commonly observed on pages that load ads.
-     * Note: When a committed load is aborted, a loadstop event will eventually follow a loadabort event, even if all committed loads since the last loadstop event (if any) were aborted.
-     */
-    addEventListener(type: 'loadstop', listener: WebView.Events.LoadStop, useCapture?: boolean): void;
-    /**
-     * Fired when the guest page attempts to open a new browser window.
-     * The following example code will create and navigate a new webview in the embedder for each requested new window:
-     * @example
-     * webview.addEventListener('newwindow', function(e) {
-     *  const newWebview = document.createElement('webview');
-     *  document.body.appendChild(newWebview);
-     *  e.window.attach(newWebview);
-     * });
-     */
-    addEventListener(type: 'newwindow', listener: WebView.Events.NewWindow, useCapture?: boolean): void;
-    /**
-     * Fired when the guest page needs to request special permission from the embedder.
-     * The following example code will grant the guest page access to the webkitGetUserMedia API.
-     * Note that an app using this example code must itself specify audioCapture and/or videoCapture manifest permissions:
-     * @example
-     * webview.addEventListener('permissionrequest', function(e) {
-     *  if (e.permission === 'media') {
-     *      e.request.allow();
-     *  }
-     * });
-     */
-    addEventListener(type: 'permissionrequest', listener: WebView.Events.PermissionRequest, useCapture?: boolean): void;
-    /** Fired when the process rendering the guest web content has become responsive again after being unresponsive. */
-    addEventListener(type: 'responsive', listener: WebView.Events.Responsive, useCapture?: boolean): void;
-    /** Fired when the embedded web content has been resized via autosize. Only fires if autosize is enabled. */
-    addEventListener(type: 'sizechanged', listener: WebView.Events.SizeChanged, useCapture?: boolean): void;
-    /** Fired when the process rendering the guest web content has become unresponsive. This event will be generated once with a matching responsive event if the guest begins to respond again. */
-    addEventListener(type: 'unresponsive', listener: WebView.Events.Unresponsive, useCapture?: boolean): void;
-    /** Fired when the page's zoom changes. */
-    addEventListener(type: 'zoomchange', listener: WebView.Events.ZoomChange, useCapture?: boolean): void;
-    /**
      * Queries audio state.
      * @since Chrome 62.
      **/
@@ -446,16 +356,18 @@ declare class HTMLWebViewElement extends HTMLElement {
     ///
     /// DOM Events
     ///
+    /** On close event */
+    onclose: ((this: HTMLWebViewElement, ev: WebView.Events.CloseEvent) => any) | null;
 
     /** Fired when the guest window logs a console message. */
-    onconsolemessage: WebView.Events.ConsoleMessage | null;
+    onconsolemessage: ((this: HTMLWebViewElement, ev: WebView.Events.ConsoleMessageEvent) => any) | null;
     /**
      * Fired when the guest window fires a load event, i.e.,
      * when a new document is loaded. This does not include
      * page navigation within the current document or
      * asynchronous resource loads.
      */
-    oncontentload: WebView.Events.ContentLoad | null;
+    oncontentload: ((this: HTMLWebViewElement, ev: WebView.Events.ContentLoadEvent) => any) | null;
     /**
      * Fired when the guest window attempts to open a modal dialog via
      * window.alert, window.confirm, or window.prompt.
@@ -463,16 +375,16 @@ declare class HTMLWebViewElement extends HTMLElement {
      * returns or the dialog object becomes unreachable
      * (if preventDefault() was called.)
      */
-    ondialog: WebView.Events.Dialog | null;
+    ondialog: ((this: HTMLWebViewElement, ev: WebView.Events.DialogEvent) => any) | null;
     /**
      * Fired when the process rendering the guest web content has exited.
      */
-    onexit: WebView.Events.Exit | null;
+    onexit: ((this: HTMLWebViewElement, ev: WebView.Events.ExitEvent) => any) | null;
     /**
      * Fired when new find results are available for an active find request.
      * This might happen multiple times for a single find request as matches are found.
      */
-    onfindupdate: WebView.Events.FindUpdate | null;
+    onfindupdate: ((this: HTMLWebViewElement, ev: WebView.Events.FindUpdateEvent) => any) | null;
     /**
      * Fired when a top-level load has aborted without committing.
      * An error message will be printed to the console unless the
@@ -485,16 +397,16 @@ declare class HTMLWebViewElement extends HTMLElement {
      * Note: When the load of either an about URL or a JavaScript URL is aborted,
      * loadabort will be fired and then the webview will be navigated to 'about:blank'.
      */
-    onloadabort: WebView.Events.LoadAbort | null;
+    onloadabort: ((this: HTMLWebViewElement, ev: WebView.Events.LoadAbortEvent) => any) | null;
     /**
      * Fired when a load has committed. This includes navigation within the current document
      * as well as subframe document-level loads, but does not include asynchronous resource loads.
      */
-    onloadcommit: WebView.Events.LoadCommit | null;
+    onloadcommit: ((this: HTMLWebViewElement, ev: WebView.Events.LoadCommitEvent) => any) | null;
     /**
      * Fired when a top-level load request has redirected to a different URL.
      */
-    onloadredirect: WebView.Events.LoadRedirect | null;
+    onloadredirect: ((this: HTMLWebViewElement, ev: WebView.Events.LoadRedirectEvent) => any) | null;
     /**
      * Fired when all frame-level loads in a guest page (including all its subframes)
      * have completed. This includes navigation within the current document as well
@@ -509,57 +421,417 @@ declare class HTMLWebViewElement extends HTMLElement {
      * follow a loadabort event, even if all committed loads since the last loadstop
      * event (if any) were aborted.
      */
-    onloadstop: WebView.Events.LoadStop | null;
+    onloadstop: ((this: HTMLWebViewElement, ev: WebView.Events.LoadStopEvent) => any) | null;
     /**
      * Fired when the guest page attempts to open a new browser window.
      */
-    onnewwwindow: WebView.Events.NewWindow | null;
+    onnewwwindow: ((this: HTMLWebViewElement, ev: WebView.Events.NewWindowEvent) => any) | null;
     /**
      * Fired when the guest page needs to request special permission from the embedder.
      */
-    onpermissionrequest: WebView.Events.PermissionRequest | null;
+    onpermissionrequest: ((this: HTMLWebViewElement, ev: WebView.Events.PermissionRequestEvent) => any) | null;
     /**
      * Fired when the process rendering the guest web content has become responsive again after being unresponsive.
      */
-    onresponsive: WebView.Events.Responsive | null;
+    onresponsive: ((this: HTMLWebViewElement, ev: WebView.Events.ResponsiveEvent) => any) | null;
     /**
      * @requires autosize: enabled
      * Fired when the embedded web content has been resized via autosize.
      * Only fires if autosize is enabled.
      */
-    onsizechanged: WebView.Events.SizeChanged | null;
+    onsizechanged: ((this: HTMLWebViewElement, ev: WebView.Events.SizeChangedEvent) => any) | null;
     /**
      * Fired when the process rendering the guest web content has become unresponsive.
      * This event will be generated once with a matching responsive event if the guest
      * begins to respond again.
      */
-    onunresponsive: WebView.Events.Unresponsive | null;
+    onunresponsive: ((this: HTMLWebViewElement, ev: WebView.Events.UnresponsiveEvent) => any) | null
     /**
      * Fired when the page's zoom changes.
      */
-    onzoomchange: WebView.Events.ZoomChange | null;
+    onzoomchange: ((this: HTMLWebViewElement, ev: WebView.Events.ZoomChangeEvent) => any) | null;
+
+
+    addEventListener<K extends keyof WebView.Events.WebViewElementEventMap>(type: K, listener: (this: HTMLElement, ev: WebView.Events.WebViewElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: WebView.Events.WebViewElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
 }
+/////////////
+// WEBVIEW //
+/////////////
+/**
+ * WebView Events, Methods and interfaces.
+ */
 declare namespace WebView {
     /**
      * WebView Events are different from Chrome Events, they extend the normal DOM Events.
      */
     namespace Events {
-        type ConsoleMessage = (this: HTMLWebViewElement, ev: Event & WebView.ConsoleMessage) => void;
-        type ContentLoad = (this: HTMLWebViewElement) => void;
-        type Dialog = (this: HTMLWebViewElement, ev: Event & WebView.Dialog) => void;
-        type Exit = (this: HTMLWebViewElement, ev: Event & WebView.Exit) => void;
-        type FindUpdate = (this: HTMLWebViewElement, ev: Event & WebView.FindUpdate) => void;
-        type LoadAbort = (this: HTMLWebViewElement, ev: Event & WebView.LoadAbort) => void;
-        type LoadCommit = (this: HTMLWebViewElement, ev: Event & WebView.LoadCommit) => void;
-        type LoadRedirect = (this: HTMLWebViewElement, ev: Event & WebView.LoadRedirect) => void;
-        type LoadStart = (this: HTMLWebViewElement, ev: Event & WebView.LoadStart) => void;
-        type LoadStop = (this: HTMLWebViewElement) => void;
-        type NewWindow = (this: HTMLWebViewElement, ev: Event & WebView.NewWindow) => void;
-        type PermissionRequest = (this: HTMLWebViewElement, ev: Event & WebView.PermissionRequest) => void;
-        type Responsive = (this: HTMLWebViewElement, ev: Event & WebView.ProcessResponsive) => void;
-        type SizeChanged = (this: HTMLWebViewElement, ev: Event & WebView.SizeChanged) => void;
-        type Unresponsive = (this: HTMLWebViewElement, ev: Event & WebView.ProcessUnresponsive) => void;
-        type ZoomChange = (this: HTMLWebViewElement, ev: Event & WebView.ZoomChange) => void;
+        interface WebViewElementEventMap extends HTMLElementEventMap {
+            'close': CloseEvent,
+            'consolemessage': ConsoleMessageEvent,
+            'contentload': ContentLoadEvent,
+            'dialog': DialogEvent,
+            'exit': ExitEvent,
+            'findupdate': FindUpdateEvent,
+            'loadabort': LoadAbortEvent,
+            'loadcommit': LoadCommitEvent,
+            'loadredirect': LoadRedirectEvent,
+            'loadstart': LoadStartEvent,
+            'loadstop': LoadStopEvent,
+            'newwindow': NewWindowEvent,
+            'permissionrequest': PermissionRequest,
+            'responsive': ResponsiveEvent,
+            'sizechanged': SizeChangedEvent,
+            'unresponsive': UnresponsiveEvent,
+            'zoomchange': ZoomChangeEvent
+        }
+
+        /**
+         * Fired when the guest window attempts to close itself.
+         * The following example code navigates the webview to about:blank when the guest attempts to close itself.
+         */
+        interface CloseEvent extends Event { }
+
+        type ConsoleMessageLevel = -1 | 0 | 1 | 2;
+
+        /**
+         * Fired when the guest window logs a console message.
+         * The following example code forwards all log messages to the embedder's console without regard for log level or other properties.
+         */
+        interface ConsoleMessageEvent extends Event {
+            /**
+             * The severity level of the log message.
+             * Ranges from -1 to 2.
+             * LOG_VERBOSE (console.debug) = -1
+             * LOG_INFO (console.log, console.info) = 0
+             * LOG_WARNING (console.warn) = 1
+             * LOG_ERROR (console.error) = 2
+             */
+            level: ConsoleMessageLevel;
+            /** The logged message contents. */
+            message: string;
+            /** The line number of the message source. */
+            line: chrome.integer;
+            /** A string identifying the resource which logged the message. */
+            sourceId: string;
+        }
+
+        /**
+         * Fired when the guest window fires a load event, i.e., when a new document is loaded. This does not include page navigation within the current document or asynchronous resource loads.
+         * The following example code modifies the default font size of the guest's body element after the page loads:
+         * @example
+         * webview.addEventListener('contentload', function() {
+         *  webview.executeScript({ code: 'document.body.style.fontSize = '42px'' })
+         * });
+         */
+        interface ContentLoadEvent extends Event { }
+
+        /**
+         * String indicating what type of abort occurred.
+         * This string is *not* guaranteed to remain backwards compatible between releases.
+         * You must not parse and act based upon its content. It is also possible that,
+         * in some cases, an error not listed here could be reported.
+         */
+        type LoadAbortReason =
+            'ERR_ABORTED' |
+            'ERR_INVALID_URL' |
+            'ERR_DISALLOWED_URL_SCHEME' |
+            'ERR_BLOCKED_BY_CLIENT' |
+            'ERR_ADDRESS_UNREACHABLE' |
+            'ERR_EMPTY_RESPONSE' |
+            'ERR_FILE_NOT_FOUND' |
+            'ERR_UNKNOWN_URL_SCHEME';
+
+        /**
+         * The type of modal dialog requested by the guest.
+         */
+        type DialogMessageType =
+            'alert' |
+            'confirm' |
+            'prompt';
+        /**
+         * Fired when the guest window attempts to open a modal dialog via window.alert, window.confirm, or window.prompt.
+         * Handling this event will block the guest process until each event listener returns or the dialog object becomes unreachable (if preventDefault() was called.)
+         * The default behavior is to cancel the dialog.
+         */
+        interface DialogEvent extends Event {
+            /**
+             * The type of modal dialog requested by the guest.
+             */
+            messageType: DialogMessageType;
+            /**
+             * The text the guest attempted to display in the modal dialog.
+             */
+            messageText: string;
+            /**
+             * An interface that can be used to respond to the guest's modal request.
+             */
+            dialog: DialogController;
+        }
+
+        /**
+         * String indicating the reason for the exit.
+         */
+        type ExitEventReason =
+            'normal' |
+            'abnormal' |
+            'crash' |
+            'kill';
+
+        /**
+         * Fired when the process rendering the guest web content has exited.
+         */
+        interface ExitEvent extends Event {
+            /** Chrome's internal ID of the process that exited. */
+            processID: chrome.integer;
+            /** String indicating the reason for the exit. */
+            reason: ExitEventReason;
+        }
+
+        /**
+         * Fired when new find results are available for an active find request.
+         * This might happen multiple times for a single find request as matches are found.
+         */
+        interface FindUpdateEvent extends Event {
+            /**
+             * The string that is being searched for in the page.
+             */
+            searchText: string;
+            /**
+             * The number of matches found for searchText on the page so far.
+             */
+            numberOfMatches: chrome.integer;
+            /**
+             * The ordinal number of the current active match,
+             * if it has been found. This will be 0 until then.
+             */
+            activeMatchOrdinal: chrome.integer;
+            /**
+             * Describes a rectangle around the active match,
+             * if it has been found, in screen coordinates.
+             */
+            selectionRect: SelectionRect;
+            /**
+             * Indicates whether the find request was canceled.
+             */
+            canceled: boolean;
+            /**
+             * Indicates that all find requests have completed
+             * and that no more findupdate events will be fired
+             * until more find requests are made.
+             */
+            finalUpdate: string;
+        }
+
+        /**
+         * Fired when a top-level load has aborted without committing.
+         * An error message will be printed to the console unless the event is default-prevented.
+         *
+         * **Note:**
+         * When a resource load is aborted, a loadabort event will eventually be followed by a loadstop event,
+         * even if all committed loads since the last loadstop event (if any) were aborted.
+         *
+         * **Note:**
+         * When the load of either an about URL or a JavaScript URL is aborted,
+         * loadabort will be fired and then the webview will be navigated to 'about:blank'.
+         */
+        interface LoadAbortEvent extends Event {
+            /** Requested URL. */
+            url: string;
+            /** Whether the load was top-level or in a subframe. */
+            isTopLevel: boolean;
+            /**
+             * Unique chrome.integer ID for the type of abort.
+             * Note that this ID is `not` guaranteed to
+             * remain backwards compatible between releases.
+             * You must not act based upon this specific chrome.integer.
+             */
+            code: chrome.integer;
+            /**
+             * String indicating what type of abort occurred.
+             * This string is `not` guaranteed to remain
+             * backwards compatible between releases.
+             * You must not parse and act based upon its content.
+             * It is also possible that, in some cases,
+             * an error not listed here could be reported.
+             */
+            reason: LoadAbortReason;
+        }
+
+        /**
+         * Fired when a load has committed. This includes navigation within the current document as well as subframe document-level loads, but does not include asynchronous resource loads.
+         */
+        interface LoadCommitEvent extends Event {
+            /** The URL that committed. */
+            url: string;
+            /** Whether the load is top-level or in a subframe. */
+            isTopLevel: boolean;
+        }
+
+        /**
+         * Fired when a top-level load request has redirected to a different URL.
+         */
+        interface LoadRedirectEvent {
+            /** The requested URL before the redirect. */
+            oldUrl: string;
+            /** The new URL after the redirect. */
+            newUrl: string;
+            /** Whether or not the redirect happened at top-level or in a subframe. */
+            isTopLevel: boolean;
+        }
+        /**
+         * Fired when a load has begun.
+         */
+        interface LoadStartEvent extends Event {
+            /** Requested URL. */
+            url: string;
+            /** Whether the load is top-level or in a subframe. */
+            isTopLevel: boolean;
+        }
+
+        /**
+         * Fired when all frame-level loads in a guest page (including all its subframes) have completed.
+         * This includes navigation within the current document as well as subframe document-level loads,
+         * but does not include asynchronous resource loads.
+         *
+         * This event fires every time the number of document-level loads transitions from one (or more) to zero.
+         * For example, if a page that has already finished loading (i.e., loadstop already fired once) creates
+         * a new iframe which loads a page, then a second loadstop will fire when the iframe page load completes.
+         *
+         * This pattern is commonly observed on pages that load ads.
+         *
+         * **Note:**
+         * When a committed load is aborted, a loadstop event will eventually follow a loadabort event,
+         * even if all committed loads since the last loadstop event (if any) were aborted.
+         */
+        interface LoadStopEvent extends Event { }
+
+        /** The requested disposition of the new window. */
+        type WindowOpenDisposition =
+            'ignore' |
+            'save_to_disk' |
+            'current_tab' |
+            'new_background_tab' |
+            'new_foreground_tab' |
+            'new_window' |
+            'new_popup';
+
+        /**
+         * Fired when the guest page attempts to open a new browser window.
+         * The following example code will create and navigate a new webview in the embedder for each requested new window:
+         * @example
+         * webview.addEventListener('newwindow', function(e) {
+         *  const newWebview = document.createElement('webview');
+         *  document.body.appendChild(newWebview);
+         *  e.window.attach(newWebview);
+         * });
+         */
+        interface NewWindowEvent extends Event {
+            /**
+             * An interface that can be used to either attach the requested
+             * target page to an existing webview element or explicitly
+             * discard the request.
+             **/
+            window: NewWindow;
+
+            /** The target URL requested for the new window. */
+            targetUrl: string;
+
+            /** The initial width requested for the new window. */
+            initialWidth: chrome.integer;
+
+            /** The initial height requested for the new window. */
+            initialHeight: chrome.integer;
+
+            /** The requested name of the new window. */
+            name: string;
+
+            /** The requested disposition of the new window. */
+            windowOpenDisposition: WindowOpenDisposition;
+        }
+
+        type RequestedPermission =
+            'media' |
+            'geolocation' |
+            'pointerLock' |
+            'download' |
+            'loadplugin' |
+            'filesystem' |
+            'fullscreen';
+
+        /**
+         * @requires `Permissions:` `audioCapture` and/or `videoCapture`
+         * @description
+         *
+         * Fired when the guest page needs to request special permission from the embedder.
+         *
+         * The following example code will grant the guest page access to the `webkitGetUserMedia` API.
+         * Note that an app using this example code must itself specify `audioCapture` and/or `videoCapture`
+         * manifest permissions:
+         *
+         * @example
+         * webview.addEventListener('permissionrequest', (e) => { if (e.permission === 'media') e.request.allow(); });
+         */
+        interface PermissionRequestEvent extends Event {
+            /** The type of permission being requested. */
+            permission: RequestedPermission;
+            /** An object which holds details of the requested permission.*/
+            request: PermissionRequestHandler;
+        }
+
+        /**
+         * Fired when the process rendering the guest web content has become responsive again
+         * after being unresponsive.
+         *
+         * The following example code will fade the `webview` element in or out as it becomes
+         * responsive or unresponsive:
+         *
+         * @example
+         * webview.style.webkitTransition = 'opacity 250ms';
+         * webview.addEventListener('unresponsive', () => {
+         *     webview.style.opacity = '0.5';
+         * });
+         * webview.addEventListener('responsive', () => {
+         *     webview.style.opacity = '1';
+         * });
+         */
+        interface ResponsiveEvent extends Event {
+            /** Chrome's internal ID of the process that became responsive. */
+            processID: chrome.integer;
+        }
+
+        /**
+         * Fired when the embedded web content has been resized via autosize.
+         * Only fires if autosize is enabled.
+         */
+        interface SizeChangedEvent extends Event {
+            /** Old width of embedded web content. */
+            oldWidth: chrome.integer;
+            /** Old height of embedded web content. */
+            oldHeight: chrome.integer;
+            /** New width of embedded web content. */
+            newWidth: chrome.integer;
+            /** New height of embedded web content. */
+            newHeight: chrome.integer;
+        }
+
+        /**
+         * Fired when the process rendering the guest web content has become unresponsive.
+         * This event will be generated once with a matching responsive event if the guest begins to respond again.
+         */
+        interface UnresponsiveEvent extends Event {
+            /** Chrome's internal ID of the process that has become unresponsive. */
+            processID: chrome.integer;
+        }
+
+        /** Fired when the page's zoom changes. */
+        interface ZoomChangeEvent extends Event {
+            /** The page's previous zoom factor. */
+            oldzoomFactor: chrome.double;
+            /** The new zoom factor that the page was zoomed to. */
+            newzoomFactor: chrome.double;
+        }
+
     }
 
     /** Options that determine what data should be cleared by *clearData* */
@@ -574,30 +846,6 @@ declare namespace WebView {
         since?: chrome.integer;
     }
 
-    interface WindowEvent extends chrome.events.Event<() => void> { }
-
-    interface ConsoleEvent extends Event {
-        /** The severity level of the log message. Ranges from 0 to 4. */
-        level: chrome.integer;
-        /** The logged message contents.*/
-        message: string;
-        /** The line number of the message source.*/
-        line: chrome.integer;
-        /** A string identifying the resource which logged the message. */
-        sourceId: string;
-    }
-
-    type ExitEventReason =
-        'normal' |
-        'abnormal' |
-        'crash' |
-        'kill';
-    interface ExitEvent extends Event {
-        /** Chrome's internal ID of the process that exited. */
-        processID: chrome.integer;
-        /** String indicating the reason for the exit. */
-        reason: ExitEventReason;
-    }
 
     /**
      * Details of the script or CSS to inject. Either the code or the file property must be set, but both may not be set at the same time.
@@ -1263,229 +1511,31 @@ declare namespace WebView {
         onMessage: chrome.webViewRequest.OnMessageEvent;
     }
     /**
-    * Defines the how zooming is handled in the webview.
-    * Enum values:
-    * 'per-origin'
-    *   > Zoom changes will persist in the zoomed page's origin,
-    *     i.e. all other webviews in the same partition that are
-    *     navigated to that same origin will be zoomed as well.
-    *     Moreover, per-origin zoom changes are saved with the origin,
-    *     meaning that when navigating to other pages in the same origin,
-    *     they will all be zoomed to the same zoom factor.
-    * 'per-view'
-    *   > Zoom changes only take effect in this webview,
-    *     and zoom changes in other webviews will not affect
-    *     the zooming of this webview. Also, per-view zoom
-    *     changes are reset on navigation; navigating a webview
-    *     will always load pages with their per-origin zoom factors
-    *     (within the scope of the partition).
-    * 'disabled'
-    *   > Disables all zooming in the webview.
-    *     The content will revert to the default zoom level,
-    *     and all attempted zoom changes will be ignored.
-    **/
+     * Defines the how zooming is handled in the webview.
+     * Enum values:
+     * 'per-origin'
+     *   > Zoom changes will persist in the zoomed page's origin,
+     *     i.e. all other webviews in the same partition that are
+     *     navigated to that same origin will be zoomed as well.
+     *     Moreover, per-origin zoom changes are saved with the origin,
+     *     meaning that when navigating to other pages in the same origin,
+     *     they will all be zoomed to the same zoom factor.
+     * 'per-view'
+     *   > Zoom changes only take effect in this webview,
+     *     and zoom changes in other webviews will not affect
+     *     the zooming of this webview. Also, per-view zoom
+     *     changes are reset on navigation; navigating a webview
+     *     will always load pages with their per-origin zoom factors
+     *     (within the scope of the partition).
+     * 'disabled'
+     *   > Disables all zooming in the webview.
+     *     The content will revert to the default zoom level,
+     *     and all attempted zoom changes will be ignored.
+     **/
     type ZoomMode =
         'per-origin' |
         'per-view' |
         'disabled';
-    type ConsoleMessageLevel = -1 | 0 | 1 | 2;
-    type LoadAbortReason =
-        'ERR_ABORTED' |
-        'ERR_INVALID_URL' |
-        'ERR_DISALLOWED_URL_SCHEME' |
-        'ERR_BLOCKED_BY_CLIENT' |
-        'ERR_ADDRESS_UNREACHABLE' |
-        'ERR_EMPTY_RESPONSE' |
-        'ERR_FILE_NOT_FOUND' |
-        'ERR_UNKNOWN_URL_SCHEME';
-    interface ConsoleMessage {
-        /**
-         * The severity level of the log message.
-         * Ranges from -1 to 2.
-         * LOG_VERBOSE (console.debug) = -1
-         * LOG_INFO (console.log, console.info) = 0
-         * LOG_WARNING (console.warn) = 1
-         * LOG_ERROR (console.error) = 2
-         */
-        level: ConsoleMessageLevel;
-        /** The logged message contents. */
-        message: string;
-        /** The line number of the message source. */
-        line: chrome.integer;
-        /** A string identifying the resource which logged the message. */
-        sourceId: string;
-    }
-    type DialogMessageType =
-        'alert' |
-        'confirm' |
-        'prompt';
-
-    interface Dialog {
-        /**
-         * The type of modal dialog requested by the guest.
-         */
-        messageType: DialogMessageType;
-        /**
-         * The text the guest attempted to display in the modal dialog.
-         */
-        messageText: string;
-        /**
-         * An interface that can be used to respond to the guest's modal request.
-         */
-        dialog: DialogController;
-    }
-    type ExitReason =
-        'normal' |
-        'abnormal' |
-        'crash' |
-        'kill';
-    interface Exit {
-        /** Chrome's internal ID of the process that exited. */
-        processID: chrome.integer;
-        /** String indicating the reason for the exit. */
-        reason: ExitReason;
-    }
-    interface FindUpdate {
-        /**
-         * The string that is being searched for in the page.
-         */
-        searchText: string;
-        /**
-         * The number of matches found for searchText on the page so far.
-         */
-        numberOfMatches: chrome.integer;
-        /**
-         * The ordinal number of the current active match,
-         * if it has been found. This will be 0 until then.
-         */
-        activeMatchOrdinal: chrome.integer;
-        /**
-         * Describes a rectangle around the active match,
-         * if it has been found, in screen coordinates.
-         */
-        selectionRect: SelectionRect;
-        /**
-         * Indicates whether the find request was canceled.
-         */
-        canceled: boolean;
-        /**
-         * Indicates that all find requests have completed
-         * and that no more findupdate events will be fired
-         * until more find requests are made.
-         */
-        finalUpdate: string;
-    }
-    interface LoadAbort {
-        /** Requested URL. */
-        url: string;
-        /** Whether the load was top-level or in a subframe. */
-        isTopLevel: boolean;
-        /**
-         * Unique chrome.integer ID for the type of abort.
-         * Note that this ID is `not` guaranteed to
-         * remain backwards compatible between releases.
-         * You must not act based upon this specific chrome.integer.
-         */
-        code: chrome.integer;
-        /**
-         * String indicating what type of abort occurred.
-         * This string is `not` guaranteed to remain
-         * backwards compatible between releases.
-         * You must not parse and act based upon its content.
-         * It is also possible that, in some cases,
-         * an error not listed here could be reported.
-         */
-        reason: LoadAbortReason;
-    }
-    interface LoadCommit {
-        /** The URL that committed. */
-        url: string;
-        /** Whether the load is top-level or in a subframe. */
-        isTopLevel: boolean;
-    }
-    interface LoadRedirect {
-        /** The requested URL before the redirect. */
-        oldUrl: string;
-        /** The new URL after the redirect. */
-        newUrl: string;
-        /** Whether or not the redirect happened at top-level or in a subframe. */
-        isTopLevel: boolean;
-    }
-    interface LoadStart {
-        /** Requested URL. */
-        url: string;
-        /** Whether the load is top-level or in a subframe. */
-        isTopLevel: boolean;
-    }
-    type WindowOpenDisposition =
-        'ignore' |
-        'save_to_disk' |
-        'current_tab' |
-        'new_background_tab' |
-        'new_foreground_tab' |
-        'new_window' |
-        'new_popup';
-    interface NewWindow {
-        /**
-         * An interface that can be used to either attach the requested
-         * target page to an existing webview element or explicitly
-         * discard the request.
-         **/
-        window: NewWindow;
-
-        /** The target URL requested for the new window. */
-        targetUrl: string;
-
-        /** The initial width requested for the new window. */
-        initialWidth: chrome.integer;
-
-        /** The initial height requested for the new window. */
-        initialHeight: chrome.integer;
-
-        /** The requested name of the new window. */
-        name: string;
-
-        /** The requested disposition of the new window. */
-        windowOpenDisposition: WindowOpenDisposition;
-    }
-    type RequestedPermission =
-        'media' |
-        'geolocation' |
-        'pointerLock' |
-        'download' |
-        'loadplugin' |
-        'filesystem' |
-        'fullscreen';
-    interface PermissionRequest {
-        /** The type of permission being requested. */
-        permission: RequestedPermission;
-        /** An object which holds details of the requested permission.*/
-        request: PermissionRequestHandler;
-    }
-    interface ProcessResponsive {
-        /** Chrome's internal ID of the process that became responsive. */
-        processID: chrome.integer;
-    }
-    interface SizeChanged {
-        /** Old width of embedded web content. */
-        oldWidth: chrome.integer;
-        /** Old height of embedded web content. */
-        oldHeight: chrome.integer;
-        /** New width of embedded web content. */
-        newWidth: chrome.integer;
-        /** New height of embedded web content. */
-        newHeight: chrome.integer;
-    }
-    interface ProcessUnresponsive {
-        /** Chrome's internal ID of the process that has become unresponsive. */
-        processID: chrome.integer;
-    }
-    interface ZoomChange {
-        /** The page's previous zoom factor. */
-        oldzoomFactor: chrome.double;
-        /** The new zoom factor that the page was zoomed to. */
-        newzoomFactor: chrome.double;
-    }
 }
 
 declare interface Document {

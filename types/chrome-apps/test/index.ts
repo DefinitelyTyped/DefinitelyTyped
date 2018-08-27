@@ -904,7 +904,7 @@ chrome.app.runtime.onLaunched.addListener(() => {
     chrome.app.window.create('index.html', { width: 100, height: 100 },
         win => {
             var fs = win.contentWindow.chrome.fileSystem;
-            fs.chooseEntry({ type: 'openFile', acceptsAllTypes: false, acceptsMultiple: true }, (entry) => {
+            fs.chooseEntry({ type: 'saveFile' }, (entry) => {
                 fs.getWritableEntry(entry, (writableEntry) => {
                     var id = fs.retainEntry(entry);
                     chrome.storage.local.set({ id: id }, () => {
@@ -1957,3 +1957,25 @@ document.appendChild(appview);
 //#endregion
 
 
+
+
+
+
+
+
+chrome.test.getConfig(function (config) {
+    var guestUrl = 'http://localhost:' + config.testServer.port +
+        '/extensions/platform_apps/web_view/autoplay/guest.html';
+
+    var webview = document.querySelector('webview') as HTMLWebViewElement;
+    webview.addEventListener('loadstop', () => {
+        webview.onconsolemessage = function (e) {
+            chrome.test.assertEq('NotAllowedError', e.message);
+            chrome.test.succeed();
+        };
+
+        webview.contentWindow.postMessage(JSON.stringify('start'), '*');
+    }, { once: true });
+
+    webview.src = guestUrl;
+});
