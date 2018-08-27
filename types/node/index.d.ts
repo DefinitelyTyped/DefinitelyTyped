@@ -468,11 +468,11 @@ declare var Buffer: {
     poolSize: number;
 };
 
-/************************************************
+/*----------------------------------------------*
 *                                               *
 *               GLOBAL INTERFACES               *
 *                                               *
-************************************************/
+*-----------------------------------------------*/
 declare namespace NodeJS {
     export interface InspectOptions {
         showHidden?: boolean;
@@ -988,11 +988,11 @@ declare namespace NodeJS {
 
 interface IterableIterator<T> { }
 
-/************************************************
+/*----------------------------------------------*
 *                                               *
 *                   MODULES                     *
 *                                               *
-************************************************/
+*-----------------------------------------------*/
 declare module "buffer" {
     export var INSPECT_MAX_BYTES: number;
     var BuffType: typeof Buffer;
@@ -1710,6 +1710,7 @@ declare module "os" {
         netmask: string;
         mac: string;
         internal: boolean;
+        cidr: string | null;
     }
 
     export interface NetworkInterfaceInfoIPv4 extends NetworkInterfaceBase {
@@ -5903,13 +5904,15 @@ declare module "crypto" {
         authTagLength?: number;
     }
     /** @deprecated since v10.0.0 use createCipheriv() */
-    export function createCipher(algorithm: string, password: string | Buffer | NodeJS.TypedArray | DataView, options?: stream.TransformOptions): Cipher;
     export function createCipher(algorithm: CipherCCMTypes, password: string | Buffer | NodeJS.TypedArray | DataView, options: CipherCCMOptions): CipherCCM;
-    export function createCipher(algorithm: CipherGCMTypes, password: string | Buffer | NodeJS.TypedArray | DataView, options: CipherGCMOptions): CipherGCM;
+    /** @deprecated since v10.0.0 use createCipheriv() */
+    export function createCipher(algorithm: CipherGCMTypes, password: string | Buffer | NodeJS.TypedArray | DataView, options?: CipherGCMOptions): CipherGCM;
+    /** @deprecated since v10.0.0 use createCipheriv() */
+    export function createCipher(algorithm: string, password: string | Buffer | NodeJS.TypedArray | DataView, options?: stream.TransformOptions): Cipher;
 
+    export function createCipheriv(algorithm: CipherCCMTypes, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options: CipherCCMOptions): CipherCCM;
+    export function createCipheriv(algorithm: CipherGCMTypes, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options?: CipherGCMOptions): CipherGCM;
     export function createCipheriv(algorithm: string, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options?: stream.TransformOptions): Cipher;
-    export function createCipheriv(algorithm: CipherGCMTypes, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options: CipherCCMOptions): CipherCCM;
-    export function createCipheriv(algorithm: CipherGCMTypes, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options: CipherGCMOptions): CipherGCM;
 
     export interface Cipher extends NodeJS.ReadWriteStream {
         update(data: string | Buffer | NodeJS.TypedArray | DataView): Buffer;
@@ -5925,21 +5928,23 @@ declare module "crypto" {
         // setAAD(buffer: Buffer): this; // docs only say buffer
     }
     export interface CipherCCM extends Cipher {
-        setAAD(buffer: Buffer, options: { plainTextLength: number }): this;
+        setAAD(buffer: Buffer, options: { plaintextLength: number }): this;
         getAuthTag(): Buffer;
     }
     export interface CipherGCM extends Cipher {
-        setAAD(buffer: Buffer, options?: { plainTextLength: number }): this;
+        setAAD(buffer: Buffer, options?: { plaintextLength: number }): this;
         getAuthTag(): Buffer;
     }
     /** @deprecated since v10.0.0 use createCipheriv() */
-    export function createDecipher(algorithm: string, password: string | Buffer | NodeJS.TypedArray | DataView, options?: stream.TransformOptions): Decipher;
     export function createDecipher(algorithm: CipherCCMTypes, password: string | Buffer | NodeJS.TypedArray | DataView, options: CipherCCMOptions): DecipherCCM;
-    export function createDecipher(algorithm: CipherGCMTypes, password: string | Buffer | NodeJS.TypedArray | DataView, options: CipherGCMOptions): DecipherGCM;
+    /** @deprecated since v10.0.0 use createCipheriv() */
+    export function createDecipher(algorithm: CipherGCMTypes, password: string | Buffer | NodeJS.TypedArray | DataView, options?: CipherGCMOptions): DecipherGCM;
+    /** @deprecated since v10.0.0 use createCipheriv() */
+    export function createDecipher(algorithm: string, password: string | Buffer | NodeJS.TypedArray | DataView, options?: stream.TransformOptions): Decipher;
 
-    export function createDecipheriv(algorithm: string, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options?: stream.TransformOptions): Decipher;
     export function createDecipheriv(algorithm: CipherCCMTypes, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options: CipherCCMOptions): DecipherCCM;
-    export function createDecipheriv(algorithm: CipherGCMTypes, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options: CipherGCMOptions): DecipherGCM;
+    export function createDecipheriv(algorithm: CipherGCMTypes, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options?: CipherGCMOptions): DecipherGCM;
+    export function createDecipheriv(algorithm: string, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options?: stream.TransformOptions): Decipher;
 
     export interface Decipher extends NodeJS.ReadWriteStream {
         update(data: Buffer | NodeJS.TypedArray | DataView): Buffer;
@@ -5954,12 +5959,12 @@ declare module "crypto" {
         // setAAD(buffer: Buffer | NodeJS.TypedArray | DataView): this;
     }
     export interface DecipherCCM extends Decipher {
-        setAuthTag(buffer: Buffer | NodeJS.TypedArray | DataView, options: { plainTextLength: number }): this;
-        setAAD(buffer: Buffer | NodeJS.TypedArray | DataView): this;
+        setAuthTag(buffer: Buffer | NodeJS.TypedArray | DataView): this;
+        setAAD(buffer: Buffer | NodeJS.TypedArray | DataView, options: { plaintextLength: number }): this;
     }
     export interface DecipherGCM extends Decipher {
-        setAuthTag(buffer: Buffer | NodeJS.TypedArray | DataView, options?: { plainTextLength: number }): this;
-        setAAD(buffer: Buffer | NodeJS.TypedArray | DataView): this;
+        setAuthTag(buffer: Buffer | NodeJS.TypedArray | DataView): this;
+        setAAD(buffer: Buffer | NodeJS.TypedArray | DataView, options?: { plaintextLength: number }): this;
     }
 
     export function createSign(algorithm: string, options?: stream.WritableOptions): Signer;
@@ -6331,6 +6336,7 @@ declare module "stream" {
 declare module "util" {
     export interface InspectOptions extends NodeJS.InspectOptions { }
     export function format(format: any, ...param: any[]): string;
+    export function formatWithOptions(inspectOptions: InspectOptions, format: string, ...param: any[]): string;
     /** @deprecated since v0.11.3 - use `console.error()` instead. */
     export function debug(string: string): void;
     /** @deprecated since v0.11.3 - use `console.error()` instead. */

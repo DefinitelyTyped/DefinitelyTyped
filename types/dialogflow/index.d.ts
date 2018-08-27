@@ -550,7 +550,7 @@ export interface DetectIntentResponse {
 
 export interface QueryResult {
     queryText: string;
-    laugnageCode: string;
+    languageCode: string;
     speechRecognitionConfidence: number;
     action: string;
     parameters: any;
@@ -760,8 +760,8 @@ export enum MatchMode {
 }
 
 export interface Credentials {
-    clientEmail?: string;
-    privateKey?: string;
+    client_email: string;
+    private_key: string;
 }
 
 export interface ClientOptions {

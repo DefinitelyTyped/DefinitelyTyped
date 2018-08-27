@@ -2,6 +2,7 @@
 // Project: https://mp.weixin.qq.com/debug/wxadoc/dev/api/
 // Definitions by: taoqf <https://github.com/taoqf>
 //                 AlexStacker <https://github.com/AlexStacker>
+//                 Jimexist <https://github.com/Jimexist>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -3116,41 +3117,73 @@ declare namespace wx {
      * 收起键盘。
      */
     function hideKeyboard(): void;
+
     interface EventTarget {
         id: string;
         tagName: string;
         dataset: { [name: string]: string };
     }
-    interface BaseEvent {
-        type:
-            | "tap"
-            | "touchstart"
-            | "touchmove"
-            | "touchcancel"
-            | "touchend"
-            | "tap"
-            | "longtap";
+
+    type TouchEventType =
+        | "touchstart"
+        | "touchmove"
+        | "touchcancel"
+        | "touchend"
+        | "touchforcechange";
+
+    type TransitionEventType =
+        | "transitionend"
+        | "animationstart"
+        | "animationiteration"
+        | "animationend";
+
+    type EventType =
+        | "input"
+        | "form"
+        | "submit"
+        | "scroll"
+        | TouchEventType
+        | TransitionEventType
+        | "tap"
+        | "longpress";
+
+    interface BaseEvent<T extends string, Detail> {
+        type: T;
         timeStamp: number;
         currentTarget: EventTarget;
         target: EventTarget;
+        detail: Detail;
     }
-    interface InputEvent extends BaseEvent {
-        detail: {
-            target: EventTarget;
-            value: string;
-            /**
-             * 指定focus时的光标位置
-             * @version 1.5.0
-             */
-            cursor: number;
-        };
-    }
-    interface FormEvent extends BaseEvent {
-        detail: {
-            target: EventTarget;
-            value: { [name: string]: string | boolean | number };
-        };
-    }
+
+    interface BuiltInEvent<T extends EventType, Detail>
+        extends BaseEvent<T, Detail> {}
+
+    interface CustomEvent<T extends string, Detail>
+        extends BaseEvent<T, Detail> {}
+
+    /**
+     * 指定focus时的光标位置
+     * @version 1.5.0
+     */
+    interface InputEvent
+        extends BuiltInEvent<
+                "input",
+                {
+                    value: string;
+                    cursor: number;
+                }
+            > {}
+
+    interface FormEvent
+        extends BuiltInEvent<
+                "form",
+                {
+                    value: { [name: string]: string | boolean | number };
+                }
+            > {}
+
+    interface ScrollEvent extends BuiltInEvent<"scroll", {}> {}
+
     interface Touch {
         identifier: number;
         pageX: number;
@@ -3158,13 +3191,37 @@ declare namespace wx {
         clientX: number;
         clientY: number;
     }
-    interface TouchEvent extends BaseEvent {
-        detail: {
-            x: number;
-            y: number;
-        };
+
+    interface TouchEvent<T extends TouchEventType>
+        extends BuiltInEvent<
+                T,
+                {
+                    x: number;
+                    y: number;
+                }
+            > {
         touches: Touch[];
         changedTouches: Touch[];
+    }
+
+    interface TouchStartEvent extends TouchEvent<"touchstart"> {
+        // 手指触摸动作开始
+    }
+
+    interface TouchEndEvent extends TouchEvent<"touchend"> {
+        // 手指触摸动作结束
+    }
+
+    interface TouchMoveEvent extends TouchEvent<"touchmove"> {
+        // 手指触摸后移动
+    }
+
+    interface TouchCancelEvent extends TouchEvent<"touchcancel"> {
+        // 手指触摸动作被打断，如来电提醒，弹窗
+    }
+
+    interface TouchForceChangeEvent extends TouchEvent<"touchforcechange"> {
+        // 在支持 3D Touch 的 iPhone 设备，重按时会触发
     }
     // #endregion
 }

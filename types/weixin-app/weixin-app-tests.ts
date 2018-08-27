@@ -1,5 +1,13 @@
 getCurrentPages();
 
+interface MyOwnEvent
+    extends wx.CustomEvent<
+            "my-own",
+            {
+                hello: string;
+            }
+        > {}
+
 let behavior = Behavior({
     behaviors: [],
     properties: {
@@ -142,6 +150,29 @@ Page({
     },
     customData: {
         hi: "MINA"
+    },
+    onMyOwnEvent(e: MyOwnEvent) {
+        e.detail.hello;
+    },
+    onTouchStart(e: wx.TouchStartEvent) {
+        e.touches;
+        e.detail.x;
+        e.detail.y;
+    },
+    onTouchEnd(e: wx.TouchEndEvent) {
+        e.touches;
+        e.detail.x;
+        e.detail.y;
+    },
+    onTouchCancel(e: wx.TouchCancelEvent) {
+        e.touches;
+        e.detail.x;
+        e.detail.y;
+    },
+    onTouchMove(e: wx.TouchMoveEvent) {
+        e.touches;
+        e.detail.x;
+        e.detail.y;
     }
 });
 
