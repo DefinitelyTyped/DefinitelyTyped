@@ -38,8 +38,15 @@ client.search({
 });
 
 client.search({
-  q: 'pants'
-}).then((body) => {
+  body: {
+    query: {
+      match_all: {
+        _name: 'test'
+      }
+    }
+  }
+}
+).then((body) => {
   const hit = body.hits.hits[0];
   const names = hit && hit.matched_queries;
 }, (error) => {
