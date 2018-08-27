@@ -6,7 +6,7 @@
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 Paul Potsides <https://github.com/strongpauly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 
