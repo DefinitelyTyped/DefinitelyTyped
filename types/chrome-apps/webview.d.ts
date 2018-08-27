@@ -1491,3 +1491,5 @@ declare namespace WebView {
 declare interface Document {
     createElement(element: 'webview'): HTMLWebViewElement;
 }
+
+declare const WebView: typeof HTMLWebViewElement;

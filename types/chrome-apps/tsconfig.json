@@ -19,6 +19,7 @@
     },
     "files": [
         "index.d.ts",
+        "chrome.test.d.ts",
         "test/index.ts"
     ]
 }

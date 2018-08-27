@@ -18,6 +18,8 @@
  * @see[Documentation]{@link https://developer.chrome.com/apps/tags/appview}
  */
 declare class HTMLAppViewElement extends HTMLElement {
+    /** Create a new AppView tag */
+    constructor ();
     /**
      * Requests another app to be embedded.
      * @param app The extension id of the app to be embedded.
@@ -45,3 +47,5 @@ declare namespace AppView {
 declare interface Document {
     createElement(element: 'appview'): HTMLAppViewElement;
 }
+
+declare const AppView: typeof HTMLAppViewElement;

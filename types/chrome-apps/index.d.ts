@@ -3200,7 +3200,7 @@ declare namespace chrome {
         /**
          * Fired when file system action is executed from ChromeOS file browser.
          */
-        const onExecute: chrome.events.Event<(id: FileBrowserHandleExecuteId, details: { entries: Entry[] }) => void>;
+        const onExecute: chrome.events.Event<(id: FileBrowserHandleExecuteId, details: { entries: FileEntry[] }) => void>;
     }
     // #endregion
 
@@ -3270,36 +3270,62 @@ declare namespace chrome {
             extensions?: string[];
         }
 
-        interface ChooseEntryOptions {
+        interface ChooseEntryOptionsBase {
             /**
              * Type of the prompt to show.
              * @default 'openFile'
              * @see ChooseEntryType
              */
-            type?: ToStringLiteral<typeof ChooseEntryType>;
+            // type?: ToStringLiteral<typeof ChooseEntryType>;
+
             /**
              * The suggested file name that will be presented to the user as the default name to read or write.
              */
             suggestedName?: string;
+
             /**
              * The optional list of accept options for this file opener.
              * Each option will be presented as a unique group to the end-user.
              */
             accepts?: AcceptOptions[];
+
             /**
              * Whether to accept all file types, in addition to the options specified in the accepts argument.
              * If the accepts field is unset or contains no valid entries, this will always be reset to true.
              * @default true
              */
             acceptsAllTypes?: boolean;
+        }
+        interface ChooseSaveFileEntryOptions extends ChooseEntryOptionsBase {
+            type: 'saveFile';
+        }
+        interface ChooseFileEntryOptions extends ChooseEntryOptionsBase {
+            type: 'openFile' | 'openWritableFile';
             /**
              * Whether to accept multiple files. This is only supported for openFile and openWritableFile.
              * The callback to chooseEntry will be called with a list of entries if this is set to true.
              * Otherwise it will be called with a single Entry.
+             * @default false
              * @since Chrome 30.
              */
-            acceptsMultiple?: boolean;
+            acceptsMultiple?: false;
         }
+        interface ChooseMultipleFilesEntryOptions extends ChooseEntryOptionsBase {
+            type: 'openFile' | 'openWritableFile';
+
+            /**
+             * Whether to accept multiple files. This is only supported for openFile and openWritableFile.
+             * The callback to chooseEntry will be called with a list of entries if this is set to true.
+             * Otherwise it will be called with a single Entry.
+             * @default false
+             * @since Chrome 30.
+             */
+            acceptsMultiple: true;
+        }
+        interface ChooseDirectoryEntryOptions extends ChooseEntryOptionsBase {
+            type: 'openDirectory';
+        }
+        type ChooseEntryOptions = ChooseFileEntryOptions | ChooseSaveFileEntryOptions | ChooseMultipleFilesEntryOptions | ChooseDirectoryEntryOptions | ChooseEntryOptionsBase;
 
         /**
          * @since Chrome 44.
@@ -3314,28 +3340,36 @@ declare namespace chrome {
             writable?: boolean;
         }
 
+        /** @private */
+        type FileEntryCallback<
+            T extends ChooseEntryOptions,
+            E = T extends ChooseFileEntryOptions ? FileEntry :
+            T extends ChooseMultipleFilesEntryOptions ? FileEntry[] :
+            T extends ChooseDirectoryEntryOptions ? DirectoryEntry :
+            FileEntry> = (selectedEntries: E) => void;
+
         /**
          * Get the display path of an Entry object.
          * The display path is based on the full path of the file or directory on the local file system, but may be made more readable for display purposes.
          */
-        function getDisplayPath(entry: Entry, callback: (displayPath: string) => void): void;
+        function getDisplayPath(entry: FileEntry | DirectoryEntry, callback: (displayPath: string) => void): void;
         /**
          * Get a writable Entry from another Entry. This call will fail with a runtime error if the application does not have the 'write' permission under 'fileSystem'.
          * If entry is a DirectoryEntry, this call will fail if the application does not have the 'directory' permission under 'fileSystem'.
          */
-        function getWritableEntry(entry: Entry, callback: (entry: Entry) => void): void;
+        function getWritableEntry<T extends FileEntry | DirectoryEntry>(entry: T, callback: (entry: T) => void): void;
         /** Gets whether this Entry is writable or not. */
-        function isWritableEntry(entry: Entry, callback: (isWritable: boolean) => void): void;
+        function isWritableEntry(entry: FileEntry | DirectoryEntry, callback: (isWritable: boolean) => void): void;
         /** Ask the user to choose a file or directory. */
-        function chooseEntry(callback: (entry: Entry) => void): void;
+        function chooseEntry(callback: FileEntryCallback<ChooseFileEntryOptions>): void;
         /** Ask the user to choose a file or directory. */
-        function chooseEntry(callback: (fileEntries: FileEntry[]) => void): void;
-        /** Ask the user to choose a file or directory. */
-        function chooseEntry(options: ChooseEntryOptions, callback: (entry: Entry) => void): void;
-        /** Ask the user to choose a file or directory. */
-        function chooseEntry(options: ChooseEntryOptions, callback: (fileEntries: FileEntry[]) => void): void;
+        function chooseEntry(options: ChooseEntryOptionsBase, callback: FileEntryCallback<ChooseEntryOptionsBase>): void;
+        function chooseEntry(options: ChooseFileEntryOptions, callback: FileEntryCallback<ChooseFileEntryOptions>): void;
+        function chooseEntry(options: ChooseSaveFileEntryOptions, callback: FileEntryCallback<ChooseSaveFileEntryOptions>): void;
+        function chooseEntry(options: ChooseMultipleFilesEntryOptions, callback: FileEntryCallback<ChooseFileEntryOptions>): void;
+        function chooseEntry(options: ChooseDirectoryEntryOptions, callback: FileEntryCallback<ChooseDirectoryEntryOptions>): void;
         /** Returns the file entry with the given id if it can be restored. This call will fail with a runtime error otherwise. */
-        function restoreEntry(id: string, callback: (entry: Entry) => void): void;
+        function restoreEntry(id: string, callback: (entry: FileEntry) => void): void;
         /**
          * Returns whether the app has permission to restore the entry with the given id.
          * @since Chrome 29.
@@ -3348,7 +3382,7 @@ declare namespace chrome {
          * Otherwise, entries are retained only while the app is running and across restarts.
          * @since Chrome 29.
          * */
-        function retainEntry(entry: Entry): string;
+        function retainEntry(entry: FileEntry | DirectoryEntry): string;
         /**
          * @requires(Kiosk) Kiosk mode only
          * @requires Permissions: The writable option requires the 'fileSystem': {'write'} permission in the manifest.
@@ -3374,12 +3408,6 @@ declare namespace chrome {
          * @since Chrome 44.
          */
         const onVolumeListChanged: chrome.events.Event<(object: Volume[]) => void>;
-        /** @todo TODO Document these: */
-        const observeDirectory: Function;
-        const unobserveEntry: Function;
-        const getObservedEntries: Function;
-        const onEntrychanged: chrome.events.Event<any>;
-        const onEntryRemoved: chrome.events.Event<any>;
     }
     // #endregion
 
@@ -8028,7 +8056,7 @@ declare namespace chrome {
          * If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension.
          * Note that extensions cannot send messages to content scripts using this method.
          * @since Chrome 26.
-         * @param responseCallback Optional
+         * @param [responseCallback]
          * Parameter response: The JSON response object sent by the handler of the message. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message.
          */
         function sendMessage(message: any, responseCallback?: (response: any) => void): void;
@@ -8036,28 +8064,19 @@ declare namespace chrome {
         /**
          * Sends a single message to event listeners within your app or a different app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method.
          * @since Chrome 32.
-         * @param responseCallback Optional
+         * @param [responseCallback]
          * Parameter response: The JSON response object sent by the handler of the message. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message.
          */
-        function sendMessage(message: any, options: MessageOptions, responseCallback?: (response: any) => void): void;
-
-        /**
-         * Sends a single message to event listeners within your app or a different app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method.
-         * @since Chrome 26.
-         * @param extensionId The ID of the app to send the message to. If omitted, the message will be sent to your own app. Required if sending messages from a web page for web messaging.
-         * @param responseCallback Optional
-         * Parameter response: The JSON response object sent by the handler of the message. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message.
-         */
-        function sendMessage(extensionId: string, message: any, responseCallback?: (response: any) => void): void;
+        function sendMessage(message: any, options?: MessageOptions | null, responseCallback?: (response: any) => void): void;
 
         /**
          * Sends a single message to event listeners within your app or a different app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method.
          * @since Chrome 32.
          * @param extensionId The ID of the app to send the message to. If omitted, the message will be sent to your own app. Required if sending messages from a web page for web messaging.
-         * @param responseCallback Optional
+         * @param [responseCallback]
          * Parameter response: The JSON response object sent by the handler of the message. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message.
          */
-        function sendMessage(extensionId: string, message: any, options: MessageOptions, responseCallback?: (response: any) => void): void;
+        function sendMessage(extensionId: string, message: any, options?: MessageOptions | null, responseCallback?: (response: any) => void): void;
 
         /**
          * Send a single message to a native application.
@@ -9072,7 +9091,7 @@ declare namespace chrome {
 
         interface FileStatusInfo {
             /** One of the Entry's originally given to getFileStatuses. */
-            fileEntry: Entry;
+            fileEntry: FileEntry;
             /**
              * Status value
              * @see FileStatus
@@ -9088,7 +9107,7 @@ declare namespace chrome {
              * On file deletion, fileEntry information will still be
              * available but file will no longer exist.
              */
-            fileEntry: Entry;
+            fileEntry: FileEntry;
             /**
              * Resulting file status after onFileStatusChanged event.
              * @see FileStatus
@@ -9150,9 +9169,9 @@ declare namespace chrome {
          * the service's conflict resolution policy is set to 'manual'.
          * @see FileStatus
          * */
-        function getFileStatus(fileEntry: Entry, callback: (status: ToStringLiteral<typeof FileStatus>) => void): void;
+        function getFileStatus(fileEntry: FileEntry, callback: (status: ToStringLiteral<typeof FileStatus>) => void): void;
         /** Returns each FileStatus for the given fileEntry array. Typically called with the result from dirReader.readEntries(). */
-        function getFileStatuses(fileEntries: Entry[], callback: (status: FileStatusInfo[]) => void): void;
+        function getFileStatuses(fileEntries: FileEntry[], callback: (status: FileStatusInfo[]) => void): void;
         /**
          * Returns the current sync backend status.
          * @since Chrome 31.

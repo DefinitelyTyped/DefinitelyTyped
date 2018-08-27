@@ -3,6 +3,7 @@
  * @author Nikolai Ommundsen (niikoo {@link https://github.com/niikoo})
  * @author The Chromium Authors
  */
+/// <reference path="../chrome.test.d.ts" />
 
 import runtime = chrome.app.runtime;
 const cwindow = chrome.app.window;
@@ -874,7 +875,7 @@ chrome.fileBrowserHandler.onExecute.addListener((id, details) => {
 // FILE SYSTEM
 // https://developer.chrome.com/apps/fileSystem
 
-function test_fileSystem(): void {
+((): void => {
     var accepts: chrome.fileSystem.AcceptOptions[] = [
         { mimeTypes: ['text/*'], extensions: ['js', 'css', 'txt', 'html', 'xml', 'tsv', 'csv', 'rtf'] }
     ];
@@ -885,7 +886,7 @@ function test_fileSystem(): void {
         acceptsAllTypes: false,
         acceptsMultiple: false
     };
-    chrome.fileSystem.chooseEntry(chooseOption, (entry: Entry) => {
+    chrome.fileSystem.chooseEntry(chooseOption, (entry) => {
         chrome.fileSystem.getDisplayPath(entry, (displayPath: string) => { });
 
         var retainedId = chrome.fileSystem.retainEntry(entry);
@@ -898,7 +899,21 @@ function test_fileSystem(): void {
         chrome.fileSystem.getWritableEntry(entry, (writableEntry: Entry) => { });
         chrome.fileSystem.isWritableEntry(entry, (isWritable: boolean) => { });
     });
-}
+})();
+chrome.app.runtime.onLaunched.addListener(() => {
+    chrome.app.window.create('index.html', { width: 100, height: 100 },
+        win => {
+            var fs = win.contentWindow.chrome.fileSystem;
+            fs.chooseEntry({ type: 'openFile', acceptsAllTypes: false, acceptsMultiple: true }, (entry) => {
+                fs.getWritableEntry(entry, (writableEntry) => {
+                    var id = fs.retainEntry(entry);
+                    chrome.storage.local.set({ id: id }, () => {
+                    });
+                });
+            });
+        });
+});
+
 // #endregion
 
 // #region chrome.gcm
@@ -1269,10 +1284,17 @@ chrome.runtime.onMessageExternal.addListener((request, sender, sendResponse) => 
 chrome.runtime.sendMessage(
     chrome.runtime.id,
     { myCustomMessage: 'tra laa la' },
-    (response) => {
+    null,
+    (response: any) => {
         console.log('Response: ' + JSON.stringify(response));
     }
 );
+
+chrome.runtime.getPackageDirectoryEntry((pentry) => {
+    pentry.getFile('manifest.json', undefined, (file) => {
+        return file.name;
+    }, err => console.error(err));
+});
 
 chrome.runtime.reload();
 chrome.runtime.requestUpdateCheck((status, details) => {
@@ -1759,7 +1781,7 @@ chrome.wallpaper.setWallpaper({
 // #region chrome.webViewRequest & WebView
 
 let wve = document.createElement('webview');
-wve = new window.WebView();
+wve = new WebView() || new window.WebView();
 wve.name = 'test';
 wve.src = 'https://github.com/DefinitelyTyped';
 wve.allowtransparency = true;
@@ -1925,10 +1947,13 @@ chrome.app.runtime.onEmbedRequested.addListener((request) => {
     request.allow('foobar.html');
 });
 // Creates an <appview> element.
-var appview = document.createElement('appview');
+let appview = document.createElement('appview');
+appview = new AppView() || new window.AppView();
 // Appends the element to the document body.
 document.body.appendChild(appview);
 // Connects the appview to appToEmbed.
 appview.connect('id of app');
 document.appendChild(appview);
 //#endregion
+
+
