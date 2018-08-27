@@ -210,8 +210,20 @@ export class ReactBootstrapIndividualComponentsTest extends React.Component {
         <Tabs />
         <Thumbnail />
         <ToggleButton value="foo" bsSize="small" />
-        <ToggleButtonGroup type="checkbox" bsSize="small" />
-        <ToggleButtonGroup type="radio" name="foo" />
+        <ToggleButtonGroup
+          type="checkbox"
+          bsSize="small"
+          defaultValue={[1]}
+          value={[1, 2]}
+          onChange={(value: number[]) => { }}
+        />
+        <ToggleButtonGroup
+          type="radio"
+          name="foo"
+          defaultValue={1}
+          value={1}
+          onChange={(value: number) => { }}
+        />
         <Tooltip />
         <Well />
       </div>
