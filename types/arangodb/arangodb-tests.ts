@@ -99,10 +99,9 @@ console.log(
 
 const view = db._view("yolo")!;
 view.properties({
-    locale: "C",
-    commit: {
-        consolidate: {
-            bytes: { segmentThreshold: 20 }
-        }
+    consolidationIntervalMsec: 123,
+    consolidationPolicy: {
+        type: "bytes",
+        segmentThreshold: 234
     }
 });
