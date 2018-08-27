@@ -3,7 +3,6 @@
  * @author Nikolai Ommundsen (niikoo {@link https://github.com/niikoo})
  * @author The Chromium Authors
  */
-/// <reference path="../chrome.test.d.ts" />
 
 import runtime = chrome.app.runtime;
 const cwindow = chrome.app.window;
@@ -1958,24 +1957,3 @@ document.appendChild(appview);
 
 
 
-
-
-
-
-
-chrome.test.getConfig(function (config) {
-    var guestUrl = 'http://localhost:' + config.testServer.port +
-        '/extensions/platform_apps/web_view/autoplay/guest.html';
-
-    var webview = document.querySelector('webview') as HTMLWebViewElement;
-    webview.addEventListener('loadstop', () => {
-        webview.onconsolemessage = function (e) {
-            chrome.test.assertEq('NotAllowedError', e.message);
-            chrome.test.succeed();
-        };
-
-        webview.contentWindow.postMessage(JSON.stringify('start'), '*');
-    }, { once: true });
-
-    webview.src = guestUrl;
-});
