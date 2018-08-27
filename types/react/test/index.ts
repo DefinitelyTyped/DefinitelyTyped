@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import * as ReactDOMServer from "react-dom/server";
+import * as PropTypes from "prop-types";
 import createFragment = require("react-addons-create-fragment");
 import CSSTransitionGroup = require("react-addons-css-transition-group");
 import * as LinkedStateMixin from "react-addons-linked-state-mixin";
@@ -15,12 +16,12 @@ import * as DOM from "react-dom-factories";
 
 interface Props extends React.Attributes {
     hello: string;
-    world?: string;
+    world?: string | null;
     foo: number;
 }
 
 interface State {
-    inputValue?: string;
+    inputValue?: string | null;
     seconds?: number;
 }
 
@@ -29,7 +30,7 @@ interface Snapshot {
 }
 
 interface Context {
-    someValue?: string;
+    someValue?: string | null;
 }
 
 interface ChildContext {
@@ -117,15 +118,18 @@ declare const container: Element;
 class ModernComponent extends React.Component<Props, State, Snapshot>
     implements MyComponent, React.ChildContextProvider<ChildContext> {
     static propTypes: React.ValidationMap<Props> = {
-        foo: (() => null) as React.Validator<Props>
+        hello: PropTypes.string.isRequired,
+        world: PropTypes.string,
+        foo: PropTypes.number.isRequired,
+        key: <PropTypes.Validator<string | number | undefined>> PropTypes.oneOfType([PropTypes.number, PropTypes.string])
     };
 
     static contextTypes: React.ValidationMap<Context> = {
-        someValue: (() => null) as React.Validator<Context>
+        someValue: PropTypes.string
     };
 
     static childContextTypes: React.ValidationMap<ChildContext> = {
-        someOtherValue: (() => null) as React.Validator<ChildContext>
+        someOtherValue: PropTypes.string.isRequired
     };
 
     context: Context;
@@ -156,7 +160,7 @@ class ModernComponent extends React.Component<Props, State, Snapshot>
         return DOM.div(null,
             DOM.input({
                 ref: input => this._input = input,
-                value: this.state.inputValue
+                value: this.state.inputValue ? this.state.inputValue : undefined
             }),
             DOM.input({
                 onChange: event => console.log(event.target)

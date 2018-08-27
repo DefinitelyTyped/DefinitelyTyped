@@ -1,6 +1,7 @@
-// Type definitions for Google Apps Script 2018-07-11
+// Type definitions for Google Apps Script 2018-08-08
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
+//                 takoyaki9n <https://github.com/takoyaki9n>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="google-apps-script.types.d.ts" />
@@ -47,7 +48,7 @@ declare namespace GoogleAppsScript {
        * payload. It can be a string, a byte array, or a JavaScript object. A JavaScript object will be
        * interpretted as a map of form field names to values, where the values can be either strings or blobs.
        */
-      payload?: string;
+      payload?: string | object | Base.Blob;
 
       /**
        * Deprecated. This instructs fetch to resolve the specified URL within the intranet linked to your

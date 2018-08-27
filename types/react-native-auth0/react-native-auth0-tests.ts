@@ -61,7 +61,8 @@ auth0.webAuth.authorize({
     state: "state",
     nonce: "nonce",
     scope: "openid",
-    language: "en"
+    language: "en",
+    prompt: 'login'
 });
 
 auth0.webAuth.clearSession({ federated: false });

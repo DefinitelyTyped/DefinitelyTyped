@@ -3,6 +3,7 @@
 // Definitions by: Jerry Chin <https://github.com/hellopao>
 //                 Pavel Ivanov <https://github.com/schfkt>
 //                 JounQin <https://github.com/JounQin>
+//                 Romain Faust <https://github.com/romain-faust>
 // Definitions: https://github.com/hellopao/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -51,6 +52,10 @@ declare namespace Router {
          * url params
          */
         params: any;
+        /**
+         * the router instance
+         */
+        router: Router;
     }
 
     export interface IMiddleware {

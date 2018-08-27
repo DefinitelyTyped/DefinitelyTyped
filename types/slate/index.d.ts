@@ -4,48 +4,53 @@
 //                 Jamie Talbot <https://github.com/majelbstoat>
 //                 Jan Löbel <https://github.com/JanLoebel>
 //                 Brandon Shelton <https://github.com/YangusKhan>
+//                 Kalley Powell <https://github.com/kalley>
+//                 Francesco Agnoletto <https://github.com/Kornil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 import * as Immutable from 'immutable';
 
-export interface Data {
+export class Data {
   [key: string]: any;
+  static create(options: Data): Data;
+  static fromJSON(object: Record<string, any>): Data;
+  static fromJS(object: Record<string, any>): Data;
 }
 
 export interface RulesByNodeType {
   [key: string]: Rules;
 }
 
-export interface KindsAndTypes {
-  kinds?: string[];
+export interface ObjectsAndTypes {
+  objects?: string[];
   types?: string[];
 }
 
 export type InvalidReason =
-  | 'child_kind_invalid'
+  | 'child_object_invalid'
   | 'child_required'
   | 'child_type_invalid'
   | 'child_unknown'
-  | 'first_child_kind_invalid'
+  | 'first_child_object_invalid'
   | 'first_child_type_invalid'
-  | 'last_child_kind_invalid'
+  | 'last_child_object_invalid'
   | 'last_child_type_invalid'
   | 'node_data_invalid'
   | 'node_is_void_invalid'
   | 'node_mark_invalid'
   | 'node_text_invalid'
-  | 'parent_kind_invalid'
+  | 'parent_object_invalid'
   | 'parent_type_invalid';
 
 export interface Rules {
   data?: {
     [key: string]: (v: any) => boolean;
   };
-  first?: KindsAndTypes;
+  first?: ObjectsAndTypes;
   isVoid?: boolean;
-  last?: KindsAndTypes;
+  last?: ObjectsAndTypes;
   nodes?: Array<{
-    kinds?: string[];
+    objects?: string[];
     types?: string[];
     min?: number;
     max?: number;
@@ -53,9 +58,9 @@ export interface Rules {
   normalize?: (
     change: Change,
     reason: InvalidReason,
-    context: { [key: string]: any }
+    context: Record<string, any>
   ) => void;
-  parent?: KindsAndTypes;
+  parent?: ObjectsAndTypes;
   text?: RegExp;
 }
 
@@ -72,9 +77,29 @@ export class Schema extends Immutable.Record({}) {
 
   static create(properties: SchemaProperties | Schema): Schema;
   static fromJSON(object: SchemaProperties): Schema;
+  static fromJS(object: SchemaProperties): Schema;
   static isSchema(maybeSchema: any): maybeSchema is Schema;
 
   toJSON(): SchemaProperties;
+}
+
+export interface HistoryJSON {
+  object?: 'history';
+  redos?: Immutable.Stack<Operation>;
+  undos?: Immutable.Stack<Operation>;
+}
+
+export class History extends Immutable.Record({ redos: Immutable.Stack(), undos: Immutable.Stack() }) {
+  object: 'history';
+
+  static create(properties: HistoryJSON | History): History;
+  static createOperationsList(operations: Operation[] | Immutable.List<Operation>): Immutable.List<Operation>;
+  static fromJSON(object: HistoryJSON): History;
+  static fromJS(object: HistoryJSON): History;
+  static isHistory(maybeHistory: any): maybeHistory is History;
+
+  save(operation: Operation, options: { merge?: boolean, skip?: boolean }): History;
+  toJSON(): HistoryJSON;
 }
 
 export interface ValueProperties {
@@ -82,7 +107,7 @@ export interface ValueProperties {
   selection?: Range;
   history?: History;
   schema?: Schema;
-  data?: Data;
+  data?: Record<string, any>;
   decorations?: Immutable.List<Range> | null;
 }
 
@@ -91,7 +116,7 @@ export interface ValueJSON {
   selection?: Range;
   history?: History;
   schema?: Schema;
-  data?: Data;
+  data?: Record<string, any>;
   decorations?: Immutable.List<Range> | null;
   object?: 'value';
 }
@@ -101,7 +126,7 @@ export class Value extends Immutable.Record({}) {
   selection: Range;
   history: History;
   schema: Schema;
-  data: Data;
+  data: Record<string, any>;
   object: 'value';
   decorations: Immutable.List<Range> | null;
 
@@ -114,6 +139,11 @@ export class Value extends Immutable.Record({}) {
   readonly focusBlock: Block;
   readonly startBlock: Block;
   readonly endBlock: Block;
+
+  readonly anchorInline: Inline;
+  readonly focusInline: Inline;
+  readonly startInline: Inline;
+  readonly endInline: Inline;
 
   readonly marks: Immutable.Set<Mark>;
   readonly activeMarks: Immutable.Set<Mark>;
@@ -142,6 +172,7 @@ export class Value extends Immutable.Record({}) {
 
   static create(properties?: ValueProperties | Value): Value;
   static fromJSON(properties: ValueJSON): Value;
+  static fromJS(properties: ValueJSON): Value;
   static isValue(maybeValue: any): maybeValue is Value;
 
   change(): Change;
@@ -151,17 +182,17 @@ export class Value extends Immutable.Record({}) {
 export interface DocumentProperties {
   nodes?: Immutable.List<Node> | Node[];
   key?: string;
-  data?: Immutable.Map<string, any> | { [key: string]: any };
+  data?: Immutable.Map<string, any> | Record<string, any>;
 }
 
 export interface DocumentJSON {
   nodes?: NodeJSON[];
   key?: string;
-  data?: { [key: string]: any };
+  data?: Record<string, any>;
   object?: 'document';
 }
 
-export class Document<DataMap = { [key: string]: any }> extends BaseNode<
+export class Document<DataMap = Record<string, any>> extends BaseNode<
   DataMap
 > {
   object: 'document';
@@ -170,7 +201,9 @@ export class Document<DataMap = { [key: string]: any }> extends BaseNode<
   static create(
     properties: DocumentProperties | Document | Immutable.List<Node> | Node[]
   ): Document;
-  static fromJSON(properties: DocumentProperties | Document): Document;
+
+  static fromJSON(properties: DocumentJSON | Document): Document;
+  static fromJS(properties: DocumentJSON | Document): Document;
   static isDocument(maybeDocument: any): maybeDocument is Document;
 
   toJSON(): DocumentJSON;
@@ -181,7 +214,7 @@ export interface BlockProperties {
   key?: string;
   nodes?: Immutable.List<Node>;
   isVoid?: boolean;
-  data?: Immutable.Map<string, any> | { [key: string]: any };
+  data?: Immutable.Map<string, any> | Record<string, any>;
 }
 
 export interface BlockJSON {
@@ -189,7 +222,7 @@ export interface BlockJSON {
   key?: string;
   nodes?: NodeJSON[];
   isVoid?: boolean;
-  data?: { [key: string]: any };
+  data?: Record<string, any>;
   object: 'block';
 }
 
@@ -202,7 +235,8 @@ export class Block extends BaseNode {
   static createList(
     array: (BlockProperties[] | Block[] | string[])
   ): Immutable.List<Block>;
-  static fromJSON(properties: BlockProperties | Block): Block;
+  static fromJSON(properties: BlockJSON | Block): Block;
+  static fromJS(properties: BlockJSON | Block): Block;
   static isBlock(maybeBlock: any): maybeBlock is Block;
 
   toJSON(): BlockJSON;
@@ -213,7 +247,7 @@ export interface InlineProperties {
   key?: string;
   nodes?: Immutable.List<Node>;
   isVoid?: boolean;
-  data?: Immutable.Map<string, any> | { [key: string]: any };
+  data?: Immutable.Map<string, any> | Record<string, any>;
 }
 
 export interface InlineJSON {
@@ -221,7 +255,7 @@ export interface InlineJSON {
   key?: string;
   nodes?: NodeJSON[];
   isVoid?: boolean;
-  data?: { [key: string]: any };
+  data?: Record<string, any>;
   object: 'inline';
 }
 
@@ -234,13 +268,15 @@ export class Inline extends BaseNode {
   static createList(
     array: (InlineProperties[] | Inline[] | string[])
   ): Immutable.List<Inline>;
-  static fromJSON(properties: InlineProperties | Inline): Inline;
+  static fromJSON(properties: InlineJSON | Inline): Inline;
+  static fromJS(properties: InlineJSON | Inline): Inline;
   static isInline(maybeInline: any): maybeInline is Inline;
 
   toJSON(): InlineJSON;
 }
 
 export interface Leaf {
+  object: 'leaf';
   marks?: Mark[];
   text: string;
 }
@@ -264,7 +300,8 @@ export class Text extends Immutable.Record({}) {
   text: string;
 
   static create(properties: TextProperties | Text | string): Text;
-  static fromJSON(properties: TextProperties | Text): Text;
+  static fromJSON(properties: TextJSON | Text): Text;
+  static fromJS(properties: TextJSON | Text): Text;
   static isText(maybeText: any): maybeText is Text;
 
   toJSON(): TextJSON;
@@ -274,7 +311,7 @@ export type Node = Document | Block | Inline | Text;
 export type NodeJSON = DocumentJSON | BlockJSON | InlineJSON | TextJSON;
 
 // tslint:disable-next-line strict-export-declare-modifiers
-declare class BaseNode<DataMap = { [key: string]: any }> extends Immutable.Record(
+declare class BaseNode<DataMap = Record<string, any>> extends Immutable.Record(
   {}
 ) {
   data: Immutable.Map<keyof DataMap, DataMap[keyof DataMap]>;
@@ -337,6 +374,7 @@ export class Character extends Immutable.Record({}) {
     array: (CharacterProperties[] | Character[] | string[])
   ): Immutable.List<Character>;
   static fromJSON(properties: CharacterProperties | Character): Character;
+  static fromJS(properties: CharacterProperties | Character): Character;
   static isCharacter(maybeCharacter: any): maybeCharacter is Character;
 
   toJSON(): CharacterProperties;
@@ -344,12 +382,12 @@ export class Character extends Immutable.Record({}) {
 
 export interface MarkProperties {
   type: string;
-  data?: Immutable.Map<string, any> | { [key: string]: any };
+  data?: Immutable.Map<string, any> | Record<string, any>;
 }
 
 export interface MarkJSON {
   type: string;
-  data?: { [key: string]: any };
+  data?: Record<string, any>;
 }
 
 export class Mark extends Immutable.Record({}) {
@@ -362,6 +400,7 @@ export class Mark extends Immutable.Record({}) {
     array: (MarkProperties[] | Mark[] | string[])
   ): Immutable.Set<Mark>;
   static fromJSON(properties: MarkJSON | Mark): Mark;
+  static fromJS(properties: MarkJSON | Mark): Mark;
   static isMark(maybeMark: any): maybeMark is Mark;
 
   toJSON(): MarkProperties;
@@ -373,6 +412,7 @@ export class Change extends Immutable.Record({}) {
   operations: Immutable.List<Operation>;
 
   call(customChange: (change: Change, ...args: any[]) => Change): Change;
+  withoutNormalization(customChange: (change: Change) => void): Change;
 
   applyOperations(operations: Operation[]): Change;
   applyOperation(operation: Operation): Change;
@@ -571,6 +611,7 @@ export class Range extends Immutable.Record({}) {
 
   static create(properties: RangeProperties | Range): Range;
   static fromJSON(properties: RangeJSON): Range;
+  static fromJS(properties: RangeJSON): Range;
   static isRange(maybeRange: any): maybeRange is Range;
 
   toJSON(): RangeProperties;

@@ -298,6 +298,7 @@ spy2.mockReset();
 
 const spy3Mock: jest.Mock<() => string> = spy3
     .mockImplementation(() => "")
+    .mockImplementation()
     .mockImplementation((arg: {}) => arg)
     .mockImplementation((...args: string[]) => args.join(""))
     .mockImplementationOnce(() => "")

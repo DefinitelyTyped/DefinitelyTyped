@@ -139,6 +139,7 @@ export interface AuthorizeParams {
     scope?: string;
     connection?: string;
     language?: string;
+    prompt?: string;
 }
 
 export interface ClearSessionParams {

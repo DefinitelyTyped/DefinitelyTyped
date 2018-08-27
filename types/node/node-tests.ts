@@ -446,6 +446,11 @@ function bufferTests() {
         const arrUint8: Uint8Array = new Uint8Array(2);
         const buf5: Buffer = Buffer.from(arrUint8);
         const buf6: Buffer = Buffer.from(buf1);
+        const sharedArrayBuffer: SharedArrayBuffer = {
+            byteLength: 10,
+            slice: (begin?: number, end?: number) => sharedArrayBuffer
+        };
+        const buf7: Buffer = Buffer.from(sharedArrayBuffer);
     }
 
     // Class Method: Buffer.from(arrayBuffer[, byteOffset[, length]])
@@ -690,9 +695,10 @@ namespace url_tests {
         const searchParams = new url.URLSearchParams('abc=123');
 
         assert.equal(searchParams.toString(), 'abc=123');
-        searchParams.forEach((value: string, name: string): void => {
+        searchParams.forEach((value: string, name: string, me: url.URLSearchParams): void => {
             assert.equal(name, 'abc');
             assert.equal(value, '123');
+            assert.equal(me, searchParams);
         });
 
         assert.equal(searchParams.get('abc'), '123');
@@ -776,6 +782,8 @@ namespace util_tests {
         });
         assert(typeof util.inspect.custom === 'symbol');
 
+        util.formatWithOptions({ colors: true }, 'See object %O', { foo: 42 });
+
         // util.callbackify
         // tslint:disable-next-line no-unnecessary-class
         class callbackifyTest {
@@ -856,6 +864,7 @@ namespace util_tests {
         var arg0NoResult: () => Promise<any> = util.promisify((cb: (err: Error) => void): void => { });
         var arg1: (arg: string) => Promise<number> = util.promisify((arg: string, cb: (err: Error, result: number) => void): void => { });
         var arg1NoResult: (arg: string) => Promise<any> = util.promisify((arg: string, cb: (err: Error) => void): void => { });
+        var cbOptionalError: () => Promise<void> = util.promisify((cb: (err?: Error | null) => void): void => { cb(); });
         assert(typeof util.promisify.custom === 'symbol');
         // util.deprecate
         const foo = () => {};
@@ -952,74 +961,149 @@ const unzipped: Buffer = zlib.unzipSync(compressMe);
 function simplified_stream_ctor_test() {
     new stream.Readable({
         read(size) {
-            size.toFixed();
+            // $ExpectType Readable
+            this;
+            // $ExpectType number
+            size;
         },
-        destroy(error) {
-            error.stack;
+        destroy(error, cb) {
+            // $ExpectType Error
+            error;
+            // $ExpectType (error: Error) => void
+            cb;
         }
     });
 
     new stream.Writable({
         write(chunk, enc, cb) {
-            chunk.slice(1);
-            enc.charAt(0);
-            cb();
+            // $ExpectType Writable
+            this;
+            // $ExpectType any
+            chunk;
+            // $ExpectType string
+            enc;
+            // $ExpectType (error?: Error) => void
+            cb;
         },
         writev(chunks, cb) {
-            chunks[0].chunk.slice(0);
-            chunks[0].encoding.charAt(0);
-            cb();
+            // $ExpectType Writable
+            this;
+            // $ExpectType { chunk: any; encoding: string; }[]
+            chunks;
+            // $ExpectType (error?: Error) => void
+            cb;
         },
-        destroy(error) {
-            error.stack;
+        destroy(error, cb) {
+            // $ExpectType Writable
+            this;
+            // $ExpectType Error
+            error;
+            // $ExpectType (error: Error) => void
+            cb;
         },
         final(cb) {
-            cb(null);
+            // $ExpectType Writable
+            this;
+            // $ExpectType (error?: Error) => void
+            cb;
         }
     });
 
     new stream.Duplex({
         read(size) {
-            size.toFixed();
+            // $ExpectType Duplex
+            this;
+            // $ExpectType number
+            size;
         },
         write(chunk, enc, cb) {
-            chunk.slice(1);
-            enc.charAt(0);
-            cb();
+            // $ExpectType Duplex
+            this;
+            // $ExpectType any
+            chunk;
+            // $ExpectType string
+            enc;
+            // $ExpectType (error?: Error) => void
+            cb;
         },
         writev(chunks, cb) {
-            chunks[0].chunk.slice(0);
-            chunks[0].encoding.charAt(0);
-            cb();
+            // $ExpectType Duplex
+            this;
+            // $ExpectType { chunk: any; encoding: string; }[]
+            chunks;
+            // $ExpectType (error?: Error) => void
+            cb;
+        },
+        destroy(error, cb) {
+            // $ExpectType Duplex
+            this;
+            // $ExpectType Error
+            error;
+            // $ExpectType (error: Error) => void
+            cb;
+        },
+        final(cb) {
+            // $ExpectType Duplex
+            this;
+            // $ExpectType (error?: Error) => void
+            cb;
         },
         readableObjectMode: true,
         writableObjectMode: true
     });
 
     new stream.Transform({
-        transform(chunk, enc, cb) {
-            chunk.slice(1);
-            enc.charAt(0);
-            cb();
-        },
-        flush(cb) {
-            cb();
-        },
         read(size) {
-            size.toFixed();
+            // $ExpectType Transform
+            this;
+            // $ExpectType number
+            size;
         },
         write(chunk, enc, cb) {
-            chunk.slice(1);
-            enc.charAt(0);
-            cb();
+            // $ExpectType Transform
+            this;
+            // $ExpectType any
+            chunk;
+            // $ExpectType string
+            enc;
+            // $ExpectType (error?: Error) => void
+            cb;
         },
         writev(chunks, cb) {
-            chunks[0].chunk.slice(0);
-            chunks[0].encoding.charAt(0);
-            cb();
+            // $ExpectType Transform
+            this;
+            // $ExpectType { chunk: any; encoding: string; }[]
+            chunks;
+            // $ExpectType (error?: Error) => void
+            cb;
         },
-        destroy(error) {
-            error.stack;
+        destroy(error, cb) {
+            // $ExpectType Transform
+            this;
+            // $ExpectType Error
+            error;
+            // $ExpectType (error: Error) => void
+            cb;
+        },
+        final(cb) {
+            // $ExpectType Transform
+            this;
+            // $ExpectType (error?: Error) => void
+            cb;
+        },
+        transform(chunk, enc, cb) {
+            // $ExpectType Transform
+            this;
+            // $ExpectType any
+            chunk;
+            // $ExpectType string
+            enc;
+            // $ExpectType TransformCallback
+            cb;
+        },
+        flush(cb) {
+            // $ExpectType TransformCallback
+            cb;
         },
         allowHalfOpen: true,
         readableObjectMode: true,
@@ -1124,8 +1208,7 @@ namespace crypto_tests {
     {
         // crypto_cipher_decipher_dataview_test
         let key: Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7]);
-        let clearText: DataView = new DataView(
-            new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 8, 7, 6, 5, 4]).buffer);
+        let clearText: DataView = new DataView(new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 8, 7, 6, 5, 4]).buffer);
         let cipher: crypto.Cipher = crypto.createCipher("aes-128-ecb", key);
         let cipherBuffers: Buffer[] = [];
         cipherBuffers.push(cipher.update(clearText));
@@ -1141,6 +1224,56 @@ namespace crypto_tests {
         let clearText2: Buffer = Buffer.concat(decipherBuffers);
 
         assert.deepEqual(clearText2, clearText);
+    }
+
+    {
+        const key = 'keykeykeykeykeykeykeykey';
+        const nonce = crypto.randomBytes(12);
+        const aad = Buffer.from('0123456789', 'hex');
+
+        const cipher = crypto.createCipheriv('aes-192-ccm', key, nonce, {
+            authTagLength: 16
+        });
+        const plaintext = 'Hello world';
+        cipher.setAAD(aad, {
+            plaintextLength: Buffer.byteLength(plaintext)
+        });
+        const ciphertext = cipher.update(plaintext, 'utf8');
+        cipher.final();
+        const tag = cipher.getAuthTag();
+
+        const decipher = crypto.createDecipheriv('aes-192-ccm', key, nonce, {
+            authTagLength: 16
+        });
+        decipher.setAuthTag(tag);
+        decipher.setAAD(aad, {
+            plaintextLength: ciphertext.length
+        });
+        const receivedPlaintext: string = decipher.update(ciphertext, null, 'utf8');
+        decipher.final();
+    }
+
+    {
+        const key = 'keykeykeykeykeykeykeykey';
+        const nonce = crypto.randomBytes(12);
+        const aad = Buffer.from('0123456789', 'hex');
+
+        const cipher = crypto.createCipheriv('aes-192-gcm', key, nonce);
+        const plaintext = 'Hello world';
+        cipher.setAAD(aad, {
+            plaintextLength: Buffer.byteLength(plaintext)
+        });
+        const ciphertext = cipher.update(plaintext, 'utf8');
+        cipher.final();
+        const tag = cipher.getAuthTag();
+
+        const decipher = crypto.createDecipheriv('aes-192-gcm', key, nonce);
+        decipher.setAuthTag(tag);
+        decipher.setAAD(aad, {
+            plaintextLength: ciphertext.length
+        });
+        const receivedPlaintext: string = decipher.update(ciphertext, null, 'utf8');
+        decipher.final();
     }
 
     {
@@ -1615,7 +1748,8 @@ namespace http_tests {
             keepAlive: true,
             keepAliveMsecs: 10000,
             maxSockets: Infinity,
-            maxFreeSockets: 256
+            maxFreeSockets: 256,
+            timeout: 15000
         });
 
         var agent: http.Agent = http.globalAgent;
@@ -1626,7 +1760,25 @@ namespace http_tests {
     }
 
     {
+        http.get('http://www.example.com/xyz');
         http.request('http://www.example.com/xyz');
+
+        http.get('http://www.example.com/xyz', (res: http.IncomingMessage): void => {});
+        http.request('http://www.example.com/xyz', (res: http.IncomingMessage): void => {});
+
+        http.get(new url.URL('http://www.example.com/xyz'));
+        http.request(new url.URL('http://www.example.com/xyz'));
+
+        http.get(new url.URL('http://www.example.com/xyz'), (res: http.IncomingMessage): void => {});
+        http.request(new url.URL('http://www.example.com/xyz'), (res: http.IncomingMessage): void => {});
+
+        const opts: http.RequestOptions = {
+            path: '"/some/path'
+        };
+        http.get(new url.URL('http://www.example.com'), opts);
+        http.request(new url.URL('http://www.example.com'), opts);
+        http.get(new url.URL('http://www.example.com/xyz'), opts, (res: http.IncomingMessage): void => {});
+        http.request(new url.URL('http://www.example.com/xyz'), opts, (res: http.IncomingMessage): void => {});
     }
 
     {
@@ -1672,7 +1824,8 @@ namespace https_tests {
         keepAliveMsecs: 10000,
         maxSockets: Infinity,
         maxFreeSockets: 256,
-        maxCachedSessions: 100
+        maxCachedSessions: 100,
+        timeout: 15000
     });
 
     var agent: https.Agent = https.globalAgent;
@@ -1687,7 +1840,25 @@ namespace https_tests {
         agent: undefined
     });
 
+    https.get('http://www.example.com/xyz');
     https.request('http://www.example.com/xyz');
+
+    https.get('http://www.example.com/xyz', (res: http.IncomingMessage): void => {});
+    https.request('http://www.example.com/xyz', (res: http.IncomingMessage): void => {});
+
+    https.get(new url.URL('http://www.example.com/xyz'));
+    https.request(new url.URL('http://www.example.com/xyz'));
+
+    https.get(new url.URL('http://www.example.com/xyz'), (res: http.IncomingMessage): void => {});
+    https.request(new url.URL('http://www.example.com/xyz'), (res: http.IncomingMessage): void => {});
+
+    const opts: https.RequestOptions = {
+        path: '/some/path'
+    };
+    https.get(new url.URL('http://www.example.com'), opts);
+    https.request(new url.URL('http://www.example.com'), opts);
+    https.get(new url.URL('http://www.example.com/xyz'), opts, (res: http.IncomingMessage): void => {});
+    https.request(new url.URL('http://www.example.com/xyz'), opts, (res: http.IncomingMessage): void => {});
 
     https.globalAgent.options.ca = [];
 
@@ -2246,6 +2417,7 @@ namespace child_process_tests {
         childProcess.exec("echo test", { windowsHide: true });
         childProcess.spawn("echo", ["test"], { windowsHide: true });
         childProcess.spawn("echo", ["test"], { windowsHide: true, argv0: "echo-test" });
+        childProcess.spawn("echo", ["test"], { stdio: [0xdeadbeef, "inherit", undefined, "pipe"] });
         childProcess.spawnSync("echo test");
         childProcess.spawnSync("echo test", {windowsVerbatimArguments: false});
         childProcess.spawnSync("echo test", {windowsVerbatimArguments: false, argv0: "echo-test"});
@@ -3278,7 +3450,7 @@ namespace dns_tests {
         const _addresses: string[] = addresses;
     });
     dns.resolve("nodejs.org", "ANY", (err, addresses) => {
-        const _addresses: ReadonlyArray<dns.AnySrvRecord | dns.AnySoaRecord | dns.AnyNaptrRecord | dns.AnyRecordWithTtl | dns.AnyMxRecord | dns.AnyTxtRecord> = addresses;
+        const _addresses: dns.AnyRecord[] = addresses;
     });
     dns.resolve("nodejs.org", "MX", (err, addresses) => {
         const _addresses: dns.MxRecord[] = addresses;
@@ -3308,6 +3480,14 @@ namespace dns_tests {
         dns.resolve6("nodejs.org", { ttl }, (err, addresses) => {
             const _addresses: string[] | dns.RecordWithTtl[] = addresses;
         });
+    }
+    {
+        const resolver = new dns.Resolver();
+        resolver.setServers(["4.4.4.4"]);
+        resolver.resolve("nodejs.org", (err, addresses) => {
+            const _addresses: string[] = addresses;
+        });
+        resolver.cancel();
     }
 }
 
@@ -3623,6 +3803,7 @@ namespace http2_tests {
         let pendingSettingsAck: boolean = http2Session.pendingSettingsAck;
         let settings: http2.Settings = http2Session.localSettings;
         let closed: boolean = http2Session.closed;
+        let connecting: boolean = http2Session.connecting;
         settings = http2Session.remoteSettings;
 
         http2Session.ref();
@@ -3669,6 +3850,10 @@ namespace http2_tests {
         });
 
         http2Session.settings(settings);
+
+      http2Session.ping((err: Error | null, duration: number, payload: Buffer) => {});
+      http2Session.ping(Buffer.from(''), (err: Error | null, duration: number, payload: Buffer) => {});
+      http2Session.ping(new DataView(new Int8Array(1).buffer), (err: Error | null, duration: number, payload: Buffer) => {});
     }
 
     // Http2Stream

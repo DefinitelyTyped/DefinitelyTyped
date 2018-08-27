@@ -698,6 +698,17 @@ declare namespace JQueryUI {
         value?: number;
         values?: number[];
         highlight?: boolean;
+        classes? : SliderClasses;
+    }
+
+    interface SliderClasses {
+        "ui-slider"?: string;
+        "ui-slider-horizontal"?: string;
+        "ui-slider-vertical"?: string;
+        "ui-slider-handle"?: string;
+        "ui-slider-range"?: string;
+        "ui-slider-range-min"?: string;
+        "ui-slider-range-max"?: string;
     }
 
     interface SliderUIParams {
@@ -1060,6 +1071,17 @@ declare namespace JQueryUI {
         show?: any;
     }
 
+    interface WidgetCommonProperties {
+        element: JQuery;
+        defaultElement : string;
+        document: Document;
+        namespace: string;
+        uuid: string;
+        widgetEventPrefix: string;
+        widgetFullName: string;
+        window: Window;
+    }
+
     interface Widget {
         (methodName: string): JQuery;
         (options: WidgetOptions): JQuery;
@@ -1068,8 +1090,8 @@ declare namespace JQueryUI {
         (optionLiteral: string, options: WidgetOptions): any;
         (optionLiteral: string, optionName: string, optionValue: any): JQuery;
 
-        (name: string, prototype: any): JQuery;
-        (name: string, base: Function, prototype: any): JQuery;
+        <T>(name: string, prototype: T & ThisType<T & WidgetCommonProperties>): JQuery;
+        <T>(name: string, base: Function, prototype: T & ThisType<T & WidgetCommonProperties> ): JQuery;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////

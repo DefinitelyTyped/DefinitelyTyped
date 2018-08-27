@@ -6,7 +6,7 @@
 //                 Patrick Sachs <https://github.com/PatrickSachs>
 //                 Brandon Shelton <https://github.com/YangusKhan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 import { Mark, Node, Block, Change, Schema, Value, Stack } from 'slate';
 import * as Immutable from 'immutable';
 import * as React from 'react';
@@ -33,7 +33,7 @@ export interface RenderNodeProps {
   editor: Editor;
   isSelected: boolean;
   key: string;
-  node: Block;
+  node: Node;
   parent: Node;
 }
 

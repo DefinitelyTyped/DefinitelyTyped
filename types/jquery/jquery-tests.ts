@@ -69,6 +69,12 @@ function JQueryStatic() {
         // $ExpectType JQuery<Element>
         $<Element>();
 
+        // $ExpectType JQuery<HTMLSelectElement>
+        $(new HTMLSelectElement());
+
+        // $ExpectType JQuery<HTMLSelectElement>
+        $([new HTMLSelectElement()]);
+
         // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/19597#issuecomment-378218432
         function issue_19597_378218432() {
             const myDiv = $(document.createElement('div'));

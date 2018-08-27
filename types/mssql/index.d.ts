@@ -201,6 +201,7 @@ export declare class ConnectionPool extends events.EventEmitter {
     public close(): Promise<void>;
     public close(callback: (err: any) => void): void;
     public request(): Request;
+    public transaction(): Transaction;
 }
 
 export declare class ConnectionError implements Error {
@@ -297,6 +298,7 @@ export declare class Transaction extends events.EventEmitter {
     public commit(callback: (err?: any) => void): void;
     public rollback(): Promise<void>;
     public rollback(callback: (err?: any) => void): void;
+    public request(): Request;
 }
 
 export declare class TransactionError implements Error {

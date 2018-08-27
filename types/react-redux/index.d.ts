@@ -73,9 +73,6 @@ type Shared<
 // Will not pass through the injected props if they are passed in during
 // render. Also adds new prop requirements from TNeedsProps.
 export interface InferableComponentEnhancerWithProps<TInjectedProps, TNeedsProps> {
-	(
-		component: StatelessComponent<TInjectedProps>
-	): ComponentClass<TNeedsProps> & {WrappedComponent: StatelessComponent<TInjectedProps>}
 	<P extends Shared<TInjectedProps, P>>(
 		component: ComponentType<P>
 	): ComponentClass<Omit<P, keyof Shared<TInjectedProps, P>> & TNeedsProps> & {WrappedComponent: ComponentType<P>}

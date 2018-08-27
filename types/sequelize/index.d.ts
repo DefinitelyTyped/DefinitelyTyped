@@ -4673,6 +4673,20 @@ declare namespace sequelize {
     }
 
     /**
+     * Interface for Attributes provided for a column
+     *
+     * @see Sequelize.define
+     */
+    type DefineModelAttributes<T> = {
+
+        /**
+         * The description of a database column for model
+         */
+        [P in keyof T]: string | DataTypeAbstract | DefineAttributeColumnOptions;
+
+    }
+
+    /**
      * Interface for query options
      *
      * @see Options
@@ -5976,7 +5990,7 @@ declare namespace sequelize {
          * @param options    These options are merged with the default define options provided to the Sequelize
          *                   constructor
          */
-        define<TInstance, TAttributes>(modelName: string, attributes: DefineAttributes,
+        define<TInstance, TAttributes>(modelName: string, attributes: DefineModelAttributes<TAttributes>,
             options?: DefineOptions<TInstance>): Model<TInstance, TAttributes>;
 
         /**

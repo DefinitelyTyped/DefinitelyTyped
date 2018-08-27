@@ -11,7 +11,7 @@
 //                 Tina Roh <https://github.com/tinaroh>
 //                 Nathan Phillip Brink <https://github.com/binki>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import { EventSubscription } from 'fbemitter';
 import { Component, ComponentClass, Ref, ComponentType } from 'react';
@@ -1519,7 +1519,7 @@ export namespace ImageManipulator {
     type Action = Resize | Rotate | Flip | Crop;
 
     interface Resize {
-        resize: { width: number, height: number };
+        resize: { width?: number, height?: number };
     }
 
     interface Rotate {

@@ -35,6 +35,8 @@ class SnapCarouselTest extends React.Component {
                     enableMomentum={true}
                     keyboardDismissMode='interactive'
                     onSnapToItem={this.onSnapToItem}
+                    onBeforeSnapToItem={this.onBeforeSnapToItem}
+                    lockScrollTimeoutDuration={900}
                     onScroll={this.onScroll}
                     onLayout={this.onLayout}
                     scrollEndDragDebounceValue={100}
@@ -49,6 +51,10 @@ class SnapCarouselTest extends React.Component {
                 />
             </View>
         );
+    }
+
+    private readonly onBeforeSnapToItem = (index: number) => {
+        console.log("Before snap to: ", index);
     }
 
     private readonly onSnapToItem = (index: number) => {

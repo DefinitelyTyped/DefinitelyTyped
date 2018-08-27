@@ -474,6 +474,26 @@ declare namespace Highcharts {
         skipNullPoints?: boolean;
     }
 
+    interface AnimationOptions {
+        /**
+         * The animation duration in milliseconds.
+         */
+        duration: number;
+        /**
+         * The name of an easing function as defined on the Math object.
+         */
+        easing?: string;
+        /**
+         * A callback function to exectute when the animation finishes.
+         */
+        complete?: () => void;
+        /**
+         * A callback function to execute on each step of each attribute or CSS property that's being animated.
+         * The first argument contains information about the animation and progress.
+         */
+        step?: () => void;
+    }
+
     interface AxisTitle {
         /**
          * Alignment of the title relative to the axis values. Possible values are 'low', 'middle' or 'high'.
@@ -3130,7 +3150,7 @@ declare namespace Highcharts {
          * chart's two series to be updated with respective options.
          * @since 5.0.0
          */
-        chartOptions?: ChartOptions;
+        chartOptions?: Options;
 
         /**
          * Under which conditions the rule applies.
@@ -5692,6 +5712,46 @@ declare namespace Highcharts {
         y?: number | null;
     }
 
+    interface TimeOptions {
+        /**
+         * A custom Date class for advanced date handling. For example, JDate can be hooked in to handle Jalali dates.
+         * @default undefined
+         * @since 4.0.4
+         */
+        Date?: Date;
+        /**
+         * A callback to return the time zone offset for a given datetime. It takes the timestamp in terms of milliseconds since
+         * January 1 1970, and returns the timezone offset in minutes. This provides a hook for drawing time based charts in
+         * specific time zones using their local DST crossover dates, with the help of external libraries.
+         * @default undefined
+         * @since 4.1.0
+         */
+        getTimezoneOffset?: (timestamp: Date) => number;
+        /**
+         * Requires moment.js. If the timezone option is specified, it creates a default getTimezoneOffset function that looks
+         * up the specified timezone in moment.js. If moment.js is not included, this throws a Highcharts error in the console,
+         * but does not crash the chart.
+         * @default undefined
+         * @since 5.0.7
+         */
+        timezone?: string;
+        /**
+         * The timezone offset in minutes. Positive values are west, negative values are east of UTC, as in the ECMAScript
+         * getTimezoneOffset method. Use this to display UTC based data in a predefined time zone.
+         * @default 0
+         * @since 3.0.8
+         */
+        timezoneOffset?: number;
+        /**
+         * Whether to use UTC time for axis scaling, tickmark placement and time display in Highcharts.dateFormat.
+         * Advantages of using UTC is that the time displays equally regardless of the user agent's time zone settings.
+         * Local time can be used when the data is loaded in real time or when correct Daylight Saving Time transitions are required.
+         * @default undefined
+         * @since 6.0.5
+         */
+        useUTC?: boolean;
+    }
+
     interface TitleOptions {
         /**
          * The horizontal alignment of the title. Can be one of 'left', 'center' and 'right'.
@@ -6119,6 +6179,10 @@ declare namespace Highcharts {
          */
         subtitle?: SubtitleOptions;
         /**
+         * The chart's time options
+         */
+        time?: TimeOptions;
+        /**
          * The chart's main title.
          */
         title?: TitleOptions;
@@ -6487,9 +6551,10 @@ declare namespace Highcharts {
          * @param [boolean] redraw Whether to redraw the chart. Defaults to true.
          * @param [boolean] oneToOne When true, the series, xAxis and yAxis collections will be updated one to one, and
          * items will be either added or removed to match the new updated options. Defaults to false.
+         * @param [(boolean | AnimationOptions)] animation Whether to apply animation, and optionally animation configuration.
          * @since 5.0.0
          */
-        update(options: Options, redraw?: boolean, oneToOne?: boolean): void;
+        update(options: Options, redraw?: boolean, oneToOne?: boolean, animation?: boolean | AnimationOptions): void;
         /**
          * This method is deprecated as of 2.0.1. Updating the chart position after a move operation is no longer necessary.
          * @since 1.2.5

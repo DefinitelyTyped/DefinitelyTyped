@@ -293,7 +293,7 @@ schema.method('name', cb).method({
 });
 schema.path('a', mongoose.Schema.Types.Buffer).path('a');
 schema.pathType('m1').toLowerCase();
-schema.plugin(function (schema, opts) {
+schema.plugin(function (schema: mongoose.Schema, opts?: any) {
   schema.get('path');
   if (opts) {
     opts.hasOwnProperty('');
@@ -429,7 +429,7 @@ schema.queue('m1', [1, 2, 3]).queue('m2', [[]]);
 schema.remove('path');
 schema.remove(['path1', 'path2', 'path3']);
 schema.requiredPaths(true)[0].toLowerCase();
-schema.set('key', 999).set('key');
+schema.set('id', true).set('id');
 schema.static('static', cb).static({
   s1: cb,
   s2: cb
@@ -564,25 +564,25 @@ new mongoose.Schema({
   }
 });
 
-(new mongoose.Schema({})).plugin(function (schema: any, options: any) {
+(new mongoose.Schema({})).plugin<any>(function (schema: mongoose.Schema, options: any) {
   schema.add({ lastMod: Date })
   schema.pre('save', function (next: Function) {
-    this.lastMod = new Date
+    (this as any).lastMod = new Date
     next()
   })
   if (options && options['index']) {
     schema.path('lastMod').index(options['index'])
   }
-}, { index: true }).plugin(function (schema: any, options: any) {
+}, { index: true }).plugin<any>(function (schema: mongoose.Schema, options: any) {
   schema.add({ lastMod: Date })
   schema.pre('save', function (next: Function) {
-    this.lastMod = new Date
+    (this as any).lastMod = new Date
     next()
   })
   if (options && options['index']) {
     schema.path('lastMod').index(options['index'])
   }
-});
+}, {index: true});
 
 new mongoose.Schema({foo: String}, {strict: 'throw'});
 
@@ -591,6 +591,35 @@ export default function(schema: mongoose.Schema) {
      console.log('success!');
   });
 }
+
+// plugins
+function MyPlugin(schema: mongoose.Schema, opts?: string) {
+}
+new mongoose.Schema({})
+    .plugin(MyPlugin)
+
+interface PluginOption {
+    modelName: string;
+    timestamp: string;
+}
+
+function logger(modelName: string, timestamp: string) {
+    // call special logger with options
+}
+
+function AwesomeLoggerPlugin(schema: mongoose.Schema, options: PluginOption) {
+    if (options) {
+        schema.pre('save', function (next: Function) {
+            logger(options.modelName, options.timestamp)
+        })
+    }
+}
+
+new mongoose.Schema({})
+    .plugin<PluginOption>(AwesomeLoggerPlugin, {modelName: 'Executive', timestamp: 'yyyy/MM/dd'})
+
+mongoose.plugin<PluginOption>(AwesomeLoggerPlugin, {modelName: 'Executive', timestamp: 'yyyy/MM/dd'})
+
 
 /*
  * section document.js
@@ -1235,6 +1264,8 @@ aggregate.project({
 })
 aggregate.project({ salary_k: { $divide: [ "$salary", 1000 ]}});
 aggregate.read('primaryPreferred').read('pp');
+aggregate.replaceRoot("user");
+aggregate.replaceRoot({x: {$concat: ['$this', '$that']}});
 aggregate.sample(3).sample(3);
 aggregate.skip(10).skip(10);
 aggregate.sort({ field: 'asc', test: -1 });

@@ -2,7 +2,7 @@
 // Project: https://github.com/casesandberg/react-color/
 // Definitions by: Karol Janyst <https://github.com/LKay>, Marks Polakovs <https://github.com/markspolakovs>, Matthieu Montaudouin <https://github.com/mntdn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import { ComponentClass, ClassAttributes, StatelessComponent, ReactNode } from "react";
 

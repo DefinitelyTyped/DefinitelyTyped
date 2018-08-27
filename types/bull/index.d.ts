@@ -8,6 +8,8 @@
 //                 Oleg Repin <https://github.com/iamolegga>
 //                 David Koblas <https://github.com/koblas>
 //                 Bond Akinmade <https://github.com/bondz>
+//                 Wuha Team <https://github.com/wuha-team>
+//                 Alec Brunelle <https://github.com/aleccool213>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -83,6 +85,13 @@ declare namespace Bull {
      * Delay before processing next job in case of internal error
      */
     retryProcessDelay?: number;
+
+    /**
+     * Define a custom backoff strategy
+     */
+    backoffStrategies?: {
+      [key: string]: (attemptsMade: number, err: typeof Error) => number;
+    };
   }
 
   type DoneCallback = (error?: Error | null, value?: any) => void;
@@ -166,12 +175,12 @@ declare namespace Bull {
     /**
      * Backoff type, which can be either `fixed` or `exponential`
      */
-    type: 'fixed' | 'exponential';
+    type: string;
 
     /**
      * Backoff delay, in milliseconds
      */
-    delay: number;
+    delay?: number;
   }
 
   interface RepeatOptions {
@@ -534,7 +543,7 @@ declare namespace Bull {
      * Removes a given repeatable job. The RepeatOptions and JobId needs to be the same as the ones
      * used for the job when it was added.
      */
-    removeRepeatable(repeat: RepeatOptions & { jobId?: JobId }): Promise<void>;
+    removeRepeatable(repeat: (CronRepeatOptions | EveryRepeatOptions) & { jobId?: JobId }): Promise<void>;
 
     /**
      * Removes a given repeatable job. The RepeatOptions and JobId needs to be the same as the ones
@@ -542,7 +551,13 @@ declare namespace Bull {
      *
      * name: The name of the to be removed job
      */
-    removeRepeatable(name: string, repeat: RepeatOptions & { jobId?: JobId }): Promise<void>;
+    removeRepeatable(name: string, repeat: (CronRepeatOptions | EveryRepeatOptions) & { jobId?: JobId }): Promise<void>;
+
+    /**
+     * Returns a promise that will return an array of job instances of the given types.
+     * Optional parameters for range and ordering are provided.
+     */
+    getJobs(types: string[], start?: number, end?: number, asc?: boolean): Promise<Job[]>;
 
     /**
      * Returns a promise that resolves with the job counts for the given queue.

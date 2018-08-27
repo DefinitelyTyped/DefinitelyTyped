@@ -2457,6 +2457,10 @@ function test_ChartObject() {
     chart.update(<Highcharts.Options> {});
     chart.update(<Highcharts.Options> {}, true);
     chart.update(<Highcharts.Options> {}, true, true);
+    chart.update(<Highcharts.Options> {}, true, true, true);
+    chart.update(<Highcharts.Options> {}, true, true, {
+        duration: 3000,
+    });
 }
 
 function test_ElementObject() {
@@ -2591,8 +2595,10 @@ function test_ResponsiveOptions() {
     const responsiveOptions: Highcharts.ResponsiveOptions = <Highcharts.ResponsiveOptions> {
         rules: [
             <Highcharts.RulesOptions> {
-                chartOptions: <Highcharts.ChartOptions> {
-                    description: 'just a test'
+                chartOptions: <Highcharts.Options> {
+                    chart: {
+                        description: 'just a test'
+                    }
                 },
                 condition: <Highcharts.ConditionOptions> {
                     callback: () => { },

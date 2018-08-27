@@ -4959,6 +4959,7 @@ declare namespace chrome.runtime {
 
     export interface ConnectInfo {
         name?: string;
+        includeTlsChannelId?: boolean;
     }
 
     export interface InstalledDetails {
@@ -7383,6 +7384,10 @@ declare namespace chrome.webRequest {
         type: ResourceType;
         /** The time when this signal is triggered, in milliseconds since the epoch. */
         timeStamp: number;
+        /** The origin where the request was initiated. This does not change through redirects. If this is an opaque origin, the string 'null' will be used.
+         * @since Since Chrome 63.
+        */
+        initiator?: string;
     }
 
     export interface WebRequestDetails extends ResourceRequest {

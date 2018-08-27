@@ -262,7 +262,7 @@ schema.method('name', cb).method({
 });
 schema.path('a', mongoose.Schema.Types.Buffer).path('a');
 schema.pathType('m1').toLowerCase();
-schema.plugin(function (schema, opts) {
+schema.plugin(function (schema: mongoose.Schema, opts?: any) {
   schema.get('path');
   if (opts) {
     opts.hasOwnProperty('');
@@ -424,7 +424,30 @@ new mongoose.Schema({
   if (options && options['index']) {
     schema.path('lastMod').index(options['index'])
   }
-});
+}, {index: true});
+
+// plugins
+interface PluginOption {
+  modelName: string;
+  timestamp: string;
+}
+
+function logger(modelName: string, timestamp: string) {
+    // call special logger with options
+}
+
+function AwesomeLoggerPlugin(schema: mongoose.Schema, options?: PluginOption) {
+  if (options) {
+      schema.pre('save', function (next: Function) {
+          logger(options.modelName, options.timestamp)
+      })
+  }
+}
+
+new mongoose.Schema({})
+    .plugin<PluginOption>(AwesomeLoggerPlugin, {modelName: 'Executive', timestamp: 'yyyy/MM/dd'})
+
+mongoose.plugin<PluginOption>(AwesomeLoggerPlugin, {modelName: 'Executive', timestamp: 'yyyy/MM/dd'})
 
 export default function(schema: mongoose.Schema) {
   schema.pre('init', function(this: mongoose.Document, next: (err?: Error) => void, data: any): void {
