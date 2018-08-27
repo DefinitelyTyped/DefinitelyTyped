@@ -851,8 +851,8 @@ declare namespace cast.framework.messages {
     /**
      * Queue data as part of the LOAD request.
      */
-    class QueueData {
-        constructor(
+    interface QueueData {
+        new(
             id?: string,
             name?: string,
             description?: string,
@@ -860,7 +860,7 @@ declare namespace cast.framework.messages {
             items?: QueueItem[],
             startIndex?: number,
             startTime?: number
-        );
+        ): QueueData;
 
         /**
          * Description of the queue.
