@@ -2376,7 +2376,7 @@ declare namespace wx {
          * （初始时，选择器仅选取页面范围的节点，不会选取任何自定义组件中的节点
          * @version 1.6.0
          */
-        in(component: Component<object>): SelectorQuery;
+        in(component: Component<object, object>): SelectorQuery;
         /**
          * 在当前页面下选择第一个匹配选择器selector的节点，返回一个NodesRef对象实例，可以用于获取节点信息。
          * selector类似于CSS的选择器，但仅支持下列语法。
@@ -3313,49 +3313,60 @@ declare function App<T extends AppOptions>(app: T & ThisType<T & App>): void;
 declare function getApp(): App;
 // #endregion
 // #region Compontent组件
+
 type DefaultData<V> = object | ((this: V) => object);
-type DefaultProps = Record<string, any>;
+
+type DefaultProps = object | Record<string, any>;
+
 type ExtendedComponent<
-    Instance extends Component<Data>,
+    Instance extends Component<Data, Props>,
     Data,
     Methods,
     Options,
     Props
-> = CombinedInstance<Instance, Data, Methods, Options, Props> & Component<Data>;
+> = CombinedInstance<Instance, Data, Methods, Options, Props> &
+    Component<Data, Props>;
+
+// CombinedInstance models the `this`, i.e. instance type for (user defined) component
 type CombinedInstance<
-    Instance extends Component<Data>,
+    Instance extends Component<Data, Props>,
     Data,
     Methods,
     Options,
     Props
-> = Data & Methods & Options & Props & Instance;
+> = Methods & Options & Instance;
+
 type Prop<T> = (() => T) | { new (...args: any[]): T & object };
+
 type PropValidator<T> = PropOptions<T> | Prop<T> | Array<Prop<T>>;
+
 interface DefaultMethods<V> {
     [key: string]: (this: V, ...args: any[]) => any;
 }
+
 interface PropOptions<T = any> {
     type?: Prop<T> | Array<Prop<T>>;
     value?: T | null | (() => object);
-    observer?(value: T, old: T): void;
+    // bug : 对于 type 为 Object 或 Array 的属性，如果通过该组件自身的 this.setData
+    // 来改变属性值的一个子字段，则依旧会触发属性 observer ，且 observer 接收到的 newVal 是变化的那个子字段的值，
+    // oldVal 为空， changedPath 包含子字段的字段名相关信息。
+    observer?(value: T, old: T, changedPath: string): void;
 }
+
 type RecordPropsDefinition<T> = { [K in keyof T]: PropValidator<T[K]> };
+
 type ArrayPropsDefinition<T> = Array<keyof T>;
+
 type PropsDefinition<T> = ArrayPropsDefinition<T> | RecordPropsDefinition<T>;
+
 type ThisTypedComponentOptionsWithRecordProps<
-    V extends Component<Data>,
+    V extends Component<Data, Props>,
     Data,
     Methods,
     Options,
     Props
 > = object &
-    ComponentOptions<
-        V,
-        Data | ((this: Readonly<Props> & V) => Data),
-        Methods,
-        Options,
-        PropsDefinition<Props>
-    > &
+    ComponentOptions<V, Data | ((this: V) => Data), Methods, Options, Props> &
     ThisType<CombinedInstance<V, Data, Methods, Options, Readonly<Props>>>;
 
 interface ComponentRelation<T = any> {
@@ -3374,7 +3385,7 @@ interface ComponentRelation<T = any> {
  * Component组件参数
  */
 interface ComponentOptions<
-    Instance extends Component<Data>,
+    Instance extends Component<Data, Props>,
     Data = DefaultData<Instance>,
     Methods = DefaultMethods<Instance>,
     Options = object,
@@ -3404,7 +3415,7 @@ interface ComponentOptions<
      * 类似于mixins和traits的组件间代码复用机制
      * 参见 [behaviors](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/custom-component/behaviors.html)
      */
-    behaviors?: Array<(ComponentOptions<Component<object>>) | string>;
+    behaviors?: Array<(ComponentOptions<Component<object, object>>) | string>;
     /**
      * 组件生命周期函数，在组件实例进入页面节点树时执行
      * 注意此时不能调用 setData
@@ -3439,7 +3450,7 @@ interface ComponentOptions<
 /**
  * Component实例方法
  */
-interface Component<T> {
+interface Component<D, P> {
     /**
      * 组件的文件路径
      */
@@ -3455,7 +3466,12 @@ interface Component<T> {
     /**
      * 组件数据，包括内部数据和属性值
      */
-    data: T;
+    data: D & P;
+
+    /**
+     * 组件数据，包括内部数据和属性值（与 data 一致）
+     */
+    properties: D & P;
     /**
      * 将数据从逻辑层发送到视图层，同时改变对应的 this.data 的值
      * 1. 直接修改 this.data 而不调用 this.setData 是无法改变页面的状态的，还会造成数据不一致。
@@ -3466,7 +3482,7 @@ interface Component<T> {
      */
     setData(
         data: {
-            [key in keyof T]?:
+            [key in keyof D]?:
                 | string
                 | number
                 | boolean
@@ -3503,19 +3519,25 @@ interface Component<T> {
      * 使用选择器选择组件实例节点
      * 返回匹配到的第一个组件实例对象
      */
-    selectComponent(selector: string): Component<any>;
+    selectComponent(selector: string): Component<any, any>;
     /**
      * selector  使用选择器选择组件实例节点，返回匹配到的全部组件实例对象组成的数组
      */
-    selectAllComponents(selector: string): Array<Component<any>>;
+    selectAllComponents(selector: string): Array<Component<any, any>>;
     /**
      * 获取所有这个关系对应的所有关联节点，参见 [组件间关系](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/custom-component/relations.html)
      */
     getRelationNodes(relationKey: string): ComponentRelation[];
 }
 declare function Component<D, M, O, P>(
-    options?: ThisTypedComponentOptionsWithRecordProps<Component<D>, D, M, O, P>
-): ExtendedComponent<Component<D>, D, M, O, P>;
+    options?: ThisTypedComponentOptionsWithRecordProps<
+        Component<D, P>,
+        D,
+        M,
+        O,
+        P
+    >
+): ExtendedComponent<Component<D, P>, D, M, O, P>;
 /**
  * behaviors 是用于组件间代码共享的特性
  * 类似于一些编程语言中的“mixins”或“traits”
@@ -3525,8 +3547,14 @@ declare function Component<D, M, O, P>(
  * behavior 也可以引用其他 behavior
  */
 declare function Behavior<D, M, O, P>(
-    options?: ThisTypedComponentOptionsWithRecordProps<Component<D>, D, M, O, P>
-): ExtendedComponent<Component<D>, D, M, O, P>;
+    options?: ThisTypedComponentOptionsWithRecordProps<
+        Component<D, P>,
+        D,
+        M,
+        O,
+        P
+    >
+): ExtendedComponent<Component<D, P>, D, M, O, P>;
 // #endregion
 // #region Page
 interface PageShareAppMessageOptions {
