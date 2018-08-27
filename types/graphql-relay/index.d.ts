@@ -105,10 +105,10 @@ export type ConnectionCursor = string;
  * A flow type designed to be exposed as `PageInfo` over GraphQL.
  */
 export interface PageInfo {
-    startCursor: ConnectionCursor;
-    endCursor: ConnectionCursor;
-    hasPreviousPage: boolean;
-    hasNextPage: boolean;
+    startCursor?: ConnectionCursor | null;
+    endCursor?: ConnectionCursor | null;
+    hasPreviousPage?: boolean | null;
+    hasNextPage?: boolean | null;
 }
 
 /**
