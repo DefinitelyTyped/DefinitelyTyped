@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Middleware, AnyAction } from 'redux';
+import { AnyAction } from 'redux';
 
 declare function queueMiddleware(): (next: (action: AnyAction) => any) => any;
 
