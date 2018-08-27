@@ -146,8 +146,11 @@ declare namespace cast.framework {
 
     /**
      * Base implementation of a queue.
+     * @see {https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.QueueBase}
      */
-    class QueueBase {
+    interface QueueBase {
+        new(): QueueBase;
+
         /**
          * Fetches a window of items using the specified item id as reference; called by the receiver MediaManager when it needs more queue items;
          *  often as a request from senders. If only one of nextCount and prevCount is non-zero; fetchItems should only return items after or before
