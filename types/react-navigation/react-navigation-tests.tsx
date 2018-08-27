@@ -375,6 +375,8 @@ class CustomTransitioner extends React.Component<CustomTransitionerProps, null> 
 /**
  * Header
  */
+const height = Header.HEIGHT;
+
 function renderHeaderBackButton(schema: string): JSX.Element {
     switch (schema) {
         case 'compact':
