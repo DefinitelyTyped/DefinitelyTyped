@@ -4,10 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
 // TypeScript Version: 2.3
+/// <reference types="node" />
 import { Middleware } from 'koa';
 
 import * as Logger from 'bunyan';
 
-declare function KoaBunyanLogger(logger: Logger | undefined): Middleware;
-
-export = KoaBunyanLogger;
+export function KoaBunyanLogger(logger: Logger | undefined): Middleware;
