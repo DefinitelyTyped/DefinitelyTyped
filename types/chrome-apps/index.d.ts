@@ -79,7 +79,7 @@ declare namespace chrome {
      *      'accessibilityFeatures.read' (For read access)
      *      'accessibilityFeatures.modify' (For modifications)
      *      Note that accessibilityFeatures.modify does not imply accessibilityFeatures.read permission.
-     * @since Available since Chrome 37.
+     * @since Chrome 37.
      * @description
      * Use the chrome.accessibilityFeatures API to manage Chrome's accessibility features.
      * This API relies on the ChromeSetting prototype of the type API for getting and setting individual accessibility features.
@@ -197,32 +197,32 @@ declare namespace chrome {
         const virtualKeyboard: AccessibilityFeaturesSetting;
         /**
          * Caret highlighting. The value indicates whether the feature is enabled or not. get() requires accessibilityFeatures.read permission. set() and clear() require accessibilityFeatures.modify permission.
-         * @since Since Chrome 51.
+         * @since Chrome 51.
          */
         const caretHighlight: AccessibilityFeaturesSetting;
         /**
          * Cursor highlighting. The value indicates whether the feature is enabled or not. get() requires accessibilityFeatures.read permission. set() and clear() require accessibilityFeatures.modify permission.
-         * @since Since Chrome 51.
+         * @since Chrome 51.
          */
         const cursorHighlight: AccessibilityFeaturesSetting;
         /**
          * Focus highlighting. The value indicates whether the feature is enabled or not. get() requires accessibilityFeatures.read permission. set() and clear() require accessibilityFeatures.modify permission.
-         * @since Since Chrome 51.
+         * @since Chrome 51.
          */
         const focusHighlight: AccessibilityFeaturesSetting;
         /**
          * Select-to-speak. The value indicates whether the feature is enabled or not. get() requires accessibilityFeatures.read permission. set() and clear() require accessibilityFeatures.modify permission.
-         * @since Since Chrome 51.
+         * @since Chrome 51.
          */
         const selectToSpeak: AccessibilityFeaturesSetting;
         /**
          * Switch access. The value indicates whether the feature is enabled or not. get() requires accessibilityFeatures.read permission. set() and clear() require accessibilityFeatures.modify permission.
-         * @since Since Chrome 51.
+         * @since Chrome 51.
          */
         const switchAccess: AccessibilityFeaturesSetting;
         /**
          * get() requires accessibilityFeatures.read permission. set() and clear() require accessibilityFeatures.modify permission.
-         * @since Since Chrome 42.
+         * @since Chrome 42.
          */
         const animationPolicy: AccessibilityFeaturesSetting;
     }
@@ -234,7 +234,7 @@ declare namespace chrome {
     ////////////
     /**
      * @requires Permissions: 'alarms'
-     * @since Availability: Since Chrome 22.
+     * @since Chrome 22.
      * @description
      * Use the chrome.alarms API to schedule code to run
      * periodically or at a specified time in the future.
@@ -329,7 +329,7 @@ declare namespace chrome {
     // App Runtime //
     /////////////////
     /**
-     * @since Availability: Since Chrome 24.
+     * @since Chrome 24.
      * @description
      * Use the chrome.app.runtime API to manage the app lifecycle.
      * The app runtime manages app installation, controls the event page,
@@ -395,7 +395,7 @@ declare namespace chrome {
             isKioskSession?: boolean;
             /**
              * Whether the app is being launched in a Chrome OS public session.
-             * @since Since Chrome 47.
+             * @since Chrome 47.
              */
             isPublicSession?: boolean;
             /**
@@ -409,7 +409,7 @@ declare namespace chrome {
              * | type of 'new_note' | actionType | new_note                                   |
              * |                    |            | The user wants to quickly take a new note. |
              * |____________________|____________|____________________________________________|
-             * @since Since Chrome 54.
+             * @since Chrome 54.
              */
             actionData?: ToStringLiteral<typeof ActionType>;
         }
@@ -427,7 +427,7 @@ declare namespace chrome {
 
         /**
          * Fired when an embedding app requests to embed this app.
-         * @since Since Chrome 43.
+         * @since Chrome 43.
          * @see[Documentation]{@link https://developer.chrome.com/apps/tags/appview}
          */
         const onEmbedRequested: chrome.events.Event<(request: AppView.EmbedRequest) => void>;
@@ -448,7 +448,7 @@ declare namespace chrome {
     // App Window //
     ////////////////
     /**
-     * @since Availability: Since Chrome 24.
+     * @since Chrome 24.
      * @description
      * Use the chrome.app.window API to create windows.
      * Windows have an optional frame with title bar and size controls.
@@ -622,14 +622,14 @@ declare namespace chrome {
              * Otherwise the window will be grouped in the shelf with other windows that are associated with the app.
              * If showInShelf is set to true you need to specify an id for the window.
              * @default false
-             * @since Since Chrome 54.
+             * @since Chrome 54.
              */
             showInShelf?: boolean;
             /**
              * URL of the window icon.
              * A window can have its own icon when showInShelf is set to true.
              * The URL should be a global or an app's local URL.
-             * @since Since Chrome 54.
+             * @since Chrome 54.
              */
             icon?: string;
             /**
@@ -693,7 +693,7 @@ declare namespace chrome {
             focused?: boolean;
             /**
              * If true, and supported by the platform, the window will be visible on all workspaces.
-             * @since Since Chrome 39.
+             * @since Chrome 39.
              */
             visibleOnAllWorkspaces?: boolean;
         }
@@ -855,7 +855,7 @@ declare namespace chrome {
     // Audio //
     ///////////
     /**
-     * @since Since Chrome 59.
+     * @since Chrome 59.
      * @requires Permissions: 'audio'
      * @description
      * The chrome.audio API is provided to allow users to get information
@@ -1184,7 +1184,7 @@ declare namespace chrome {
             characteristic?: Characteristic;
             /**
              * The permissions of this descriptor.
-             * @since Since Chrome 52.
+             * @since Chrome 52.
              */
             permissions: DescriptorPermissions[];
             /** Returns the identifier assigned to this descriptor. Use the instance ID to distinguish between descriptors from a peripheral with the same UUID and to make function calls that take in a descriptor identifier. Present, if this instance represents a remote characteristic. */
@@ -1272,7 +1272,7 @@ declare namespace chrome {
         function getService(serviceId: string, callback: (result: Service) => void): void;
         /**
           * Create a locally hosted GATT service. This service can be registered to be available on a local GATT server. This function is only available if the app has both the bluetooth:low_energy and the bluetooth:peripheral permissions set to true. The peripheral permission may not be available to all apps.
-         * @since Since Chrome 52.
+         * @since Chrome 52.
          * @param service The service to create.
          * @param callback Called with the created services's unique ID.
          */
@@ -1292,7 +1292,7 @@ declare namespace chrome {
         function getCharacteristic(characteristicId: string, callback: (result: Characteristic) => void): void;
         /**
           * Create a locally hosted GATT characteristic. This characteristic must be hosted under a valid service. If the service ID is not valid, the lastError will be set. This function is only available if the app has both the bluetooth:low_energy and the bluetooth:peripheral permissions set to true. The peripheral permission may not be available to all apps.
-         * @since Since Chrome 52.
+         * @since Chrome 52.
          * @param characteristic The characteristic to create.
          * @param serviceId ID of the service to create this characteristic for.
          * @param callback Called with the created characteristic's unique ID.
@@ -1318,7 +1318,7 @@ declare namespace chrome {
         function getDescriptor(descriptorId: string, callback: (result: Descriptor) => void): void;
         /**
          * Create a locally hosted GATT descriptor. This descriptor must be hosted under a valid characteristic. If the characteristic ID is not valid, the lastError will be set. This function is only available if the app has both the bluetooth:low_energy and the bluetooth:peripheral permissions set to true. The peripheral permission may not be available to all apps.
-         * @since Since Chrome 52.
+         * @since Chrome 52.
          * @param descriptor The descriptor to create.
          * @param characteristicId ID of the characteristic to create this descriptor for.
          * @param callback Called with the created desciptor's unique ID.
@@ -1370,7 +1370,7 @@ declare namespace chrome {
          * Note, the characteristic needs to correctly set the 'notify' or 'indicate' property during creation for this call to succeed.
          * This function is only available if the app has both the bluetooth:low_energy and the bluetooth:peripheral permissions set to true.
          * The peripheral permission may not be available to all apps.
-         * @since Since Chrome 52.
+         * @since Chrome 52.
          * @param characteristicId The characteristic to send the notication for.
          * @param notification Notification object
          * @param callback Callback called once the notification or indication has been sent successfully.
@@ -1395,7 +1395,7 @@ declare namespace chrome {
          * This function is only available if the app has both
          *   the bluetooth:low_energy and the bluetooth:peripheral permissions set to true.
          * The peripheral permission may not be available to all apps.
-         * @since Since Chrome 52.
+         * @since Chrome 52.
          * @param serviceId Unique ID of a created service.
          * @param callback Callback with the result of the register operation.
          */
@@ -1406,7 +1406,7 @@ declare namespace chrome {
          * This function is only available if the app has both
          *   the bluetooth:low_energy and the bluetooth:peripheral permissions set to true.
          * The peripheral permission may not be available to all apps.
-         * @since Since Chrome 52.
+         * @since Chrome 52.
          * @param serviceId Unique ID of a current registered service.
          * @param callback Callback with the result of the register operation.
          */
@@ -1417,7 +1417,7 @@ declare namespace chrome {
          * This function is only available if the app has both
          *   the bluetooth:low_energy and the bluetooth:peripheral permissions set to true.
          * The peripheral permission may not be available to all apps.
-         * @since Since Chrome 52.
+         * @since Chrome 52.
          * @param serviceId Unique ID of a current registered service.
          * @param [callback] Callback called once the service is removed.
          */
@@ -1436,7 +1436,7 @@ declare namespace chrome {
          *  attempting to use the device in both modes will lead to undefined behavior
          *  or prevent other central-role applications from behaving correctly
          *  (including the discovery of Bluetooth Low Energy devices).
-         * @since Since Chrome 47.
+         * @since Chrome 47.
          * @param advertisement The advertisement to advertise.
          * @param callback Called once the registeration is done and we've started advertising. Returns the id of the created advertisement.
          */
@@ -1445,14 +1445,14 @@ declare namespace chrome {
          * Unregisters an advertisement and stops its advertising.
          * If the advertisement fails to unregister the only way
          *  to stop advertising might be to restart the device.
-         * @since Since Chrome 47.
+         * @since Chrome 47.
          * @param advertisementId Id of the advertisement to unregister.
          * @param callback Called once the advertisement is unregistered and is no longer being advertised.
          */
         function unregisterAdvertisement(advertisementId: integer, callback: () => void): void;
         /**
          * Resets advertising on the current device. It will unregister and stop all existing advertisements.
-         * @since Since Chrome 61.
+         * @since Chrome 61.
          * @param callback Called once the advertisements are reset.
          */
         function resetAdvertising(callback: () => void): void;
@@ -1462,7 +1462,7 @@ declare namespace chrome {
          * The actual interval may consty non-trivially from the requested intervals.
          * On some hardware, there is a minimum interval of 100ms.
          * The minimum and maximum values cannot exceed the the range allowed by the Bluetooth 4.2 specification.
-         * @since Since Chrome 55.
+         * @since Chrome 55.
          * @param minInterval Minimum interval between advertisments (in milliseconds). This cannot be lower than 20ms (as per the spec).
          * @param maxInterval Maximum interval between advertisments (in milliseconds). This cannot be more than 10240ms (as per the spec).
          * @param callback Called once the interval has been set.
@@ -1470,7 +1470,7 @@ declare namespace chrome {
         function setAdvertisingInterval(minInterval: integer, maxInterval: integer, callback: () => void): void;
         /**
          * Sends a response for a characteristic or descriptor read/write request. This function is only available if the app has both the bluetooth:low_energy and the bluetooth:peripheral permissions set to true. The peripheral permission may not be available to all apps.
-         * @since Since Chrome 52.
+         * @since Chrome 52.
          * @param response The response to the request.
          */
         function sendRequestResponse(response: IResponse): void;
@@ -1507,7 +1507,7 @@ declare namespace chrome {
          * This event is only available if the app has both the bluetooth:low_energy
          *   and the bluetooth:peripheral permissions set to true.
          * The peripheral permission may not be available to all apps.
-         * @since Since Chrome 52.
+         * @since Chrome 52.
          */
         const onCharacteristicReadRequest: chrome.events.Event<(characteristic: Characteristic) => void>;
         /**
@@ -1517,7 +1517,7 @@ declare namespace chrome {
          * This event is only available if the app has both the bluetooth:low_energy
          *   and the bluetooth:peripheral permissions set to true.
          * The peripheral permission may not be available to all apps.
-         * @since Since Chrome 52.
+         * @since Chrome 52.
          */
         const onCharacteristicWriteRequest: chrome.events.Event<(characteristic: Characteristic) => void>;
         /**
@@ -1527,7 +1527,7 @@ declare namespace chrome {
          * This event is only available if the app has both the bluetooth:low_energy
          *   and the bluetooth:peripheral permissions set to true.
          * The peripheral permission may not be available to all apps.
-         * @since Since Chrome 52.
+         * @since Chrome 52.
          */
         const onDescriptorReadRequest: chrome.events.Event<(descriptor: Descriptor) => void>;
         /**
@@ -1872,7 +1872,7 @@ declare namespace chrome {
     // Browser //
     /////////////
     /**
-     * @since Availability: Since Chrome 42.
+     * @since Chrome 42.
      * @requires Permissions: 'browser'
      * @description
      * Use the chrome.browser API to interact with the Chrome browser associated with
@@ -2111,7 +2111,7 @@ declare namespace chrome {
     // Commands //
     //////////////
     /**
-     * @since Availability: Since Chrome 35.
+     * @since Chrome 35.
      * @requires Manifest:  'commands': {...}
      * @description
      * Use the commands API to add keyboard shortcuts that
@@ -2148,7 +2148,7 @@ declare namespace chrome {
     // Context Menus //
     ///////////////////
     /**
-     * @since Availability: Since Chrome 24.
+     * @since Chrome 24.
      * @requires Permissions: 'contextMenus'
      * @description
      * Use the chrome.contextMenus API to add items to Google Chrome's context menu.
@@ -2211,32 +2211,32 @@ declare namespace chrome {
         interface OnClickData {
             /**
              * The ID of the menu item that was clicked.
-             * @since Since Chrome 35.
+             * @since Chrome 35.
              */
             menuItemId: integer | string;
 
             /**
              * The parent ID, if any, for the item clicked.
-             * @since Since Chrome 35.
+             * @since Chrome 35.
              */
             parentMenuItemId?: integer | string;
 
             /**
              * One of 'image', 'video', or 'audio' if the context menu was
              * activated on one of these types of elements.
-             * @since Since Chrome 35.
+             * @since Chrome 35.
              */
             mediaType?: MediaType;
 
             /**
              * If the element is a link, the URL it points to.
-             * @since Since Chrome 35.
+             * @since Chrome 35.
              */
             linkUrl?: string;
 
             /**
              * Will be present for elements with a 'src' URL.
-             * @since Since Chrome 35.
+             * @since Chrome 35.
              */
             srcUrl?: string;
 
@@ -2245,45 +2245,45 @@ declare namespace chrome {
              * This property is not set if the click occured in a
              * context where there is no current page, such as in
              * a launcher context menu.
-             * @since Since Chrome 35.
+             * @since Chrome 35.
              */
             pageUrl: string;
 
             /**
              * The URL of the frame of the element where the context menu was clicked,
              * if it was in a frame.
-             * @since Since Chrome 35.
+             * @since Chrome 35.
              */
             frameUrl?: string;
 
             /**
              * The ID of the frame of the element where the context menu was clicked,
              * if it was in a frame.
-             * @since Since Chrome 35.
+             * @since Chrome 35.
              */
             frameId?: integer;
 
             /**
              * The text for the context selection, if any.
-             * @since Since Chrome 35.
+             * @since Chrome 35.
              */
             selectionText?: string;
 
             /**
              * A flag indicating whether the element is editable (text input, textarea, etc.).
-             * @since Since Chrome 35.
+             * @since Chrome 35.
              */
             editable: boolean;
 
             /**
              * A flag indicating the state of a checkbox or radio item before it was clicked.
-             * @since Since Chrome 35.
+             * @since Chrome 35.
              */
             wasChecked?: boolean;
 
             /**
              * A flag indicating the state of a checkbox or radio item after it is clicked.
-             * @since Since Chrome 35.
+             * @since Chrome 35.
              */
             checked?: boolean;
         }
@@ -2333,7 +2333,7 @@ declare namespace chrome {
 
             /**
              * Whether the item is visible in the menu.
-             * @since Since Chrome 62.
+             * @since Chrome 62.
              */
             visible?: boolean;
 
@@ -2431,7 +2431,7 @@ declare namespace chrome {
     /////////////////////
     /**
      * Desktop Capture API that can be used to capture content of screen or individual windows.
-     * @since Availability: Since Chrome 34.
+     * @since Chrome 34.
      * @requires Permissions: 'desktopCapture'
      */
     namespace desktopCapture {
@@ -2632,7 +2632,7 @@ declare namespace chrome {
      * *depending on the underlying operating system. As of this writing only*
      * *Chrome OS for certain USB-attached devices is known to successfully work.*
      *
-     * @since Availability: Since Chrome 44.
+     * @since Chrome 44.
      * @requires Permissions: 'documentScan'
      * @requires Important: This API works only on Chrome OS.
      */
@@ -2668,7 +2668,7 @@ declare namespace chrome {
      * @requires Permissions: 'enterprise.deviceAttributes'
      * @requires Note: This API is only available to apps force-installed by enterprise policy.
      * @requires(CrOS) Only available on Chrome OS.
-     * @since Availability: Since Chrome 46.
+     * @since Chrome 46.
      * @description
      * Use the chrome.enterprise.deviceAttributes API to read device attributes.
      */
@@ -2683,7 +2683,7 @@ declare namespace chrome {
          */
         function getDirectoryDeviceId(callback: (deviceId: string) => void): void;
         /**
-         * @since Since Chrome 66.
+         * @since Chrome 66.
          * @description
          * Fetches the device's serial number.
          * Please note the purpose of this API is to administrate the device
@@ -2694,7 +2694,7 @@ declare namespace chrome {
          */
         function getDeviceSerialNumber(callback: (serialNumber: string) => void): void;
         /**
-         * @since Since Chrome 66.
+         * @since Chrome 66.
          * @description
          * Fetches the administrator-annotated Asset Id.
          * If the current user is not affiliated or no Asset Id has been set by the administrator, returns an empty string.
@@ -2702,7 +2702,7 @@ declare namespace chrome {
          */
         function getDeviceAssetId(callback: (assetId: string) => void): void;
         /**
-         * @since Since Chrome 66.
+         * @since Chrome 66.
          * @description
          * Fetches the administrator-annotated Location.
          * If the current user is not affiliated or no Annotated Location has been set by the administrator, returns an empty string.
@@ -2773,7 +2773,7 @@ declare namespace chrome {
          */
         function removeCertificate(tokenId: string, certificate: ArrayBuffer, callback: () => void): void;
         /**
-         * @since Since Chrome 50.
+         * @since Chrome 50.
          * @description
          * Challenges a hardware-backed Enterprise Machine Key and emits the response as part of a remote attestation protocol.
          * Only useful on Chrome OS and in conjunction with the Verified Access Web API which both issues challenges and verifies responses.
@@ -2816,7 +2816,7 @@ declare namespace chrome {
          */
         function challengeMachineKey(challenge: ArrayBuffer, registerKey: boolean, callback: (response: ArrayBuffer) => void): void;
         /**
-         * @since Since Chrome 50.
+         * @since Chrome 50.
          * Challenges a hardware-backed Enterprise User Key and emits the response as part of a remote attestation protocol.
          * Only useful on Chrome OS and in conjunction with the Verified Access Web API which both issues challenges and verifies responses.
          * A successful verification by the Verified Access Web API is a strong signal of all of the following:
@@ -2862,7 +2862,7 @@ declare namespace chrome {
      * event you're handling. Checking the documentation for alarms.onAlarm,
      * you can see that the function has a single parameter: an alarms.Alarm
      * object that has details about the elapsed alarm.
-     * @since Availability: Since Chrome 25.
+     * @since Chrome 25.
      */
     namespace events {
         /** Filters URLs for constious criteria. See event filtering. All criteria are case sensitive. */
@@ -2916,7 +2916,7 @@ declare namespace chrome {
              * Port numbers are stripped from the URL if they match the default port number.
              * The regular expressions use the RE2 syntax.
              * @see[RE2 syntax docs]{@link https://github.com/google/re2/blob/master/doc/syntax.txt}
-             * @since Since Chrome 28.
+             * @since Chrome 28.
              */
             originAndPathMatches?: string;
             /** Matches if the URL (without fragment identifier) starts with a specified string. Port numbers are stripped from the URL if they match the default port number.  */
@@ -3018,7 +3018,7 @@ declare namespace chrome {
 
             /**
              * Tags can be used to annotate rules and perform operations on sets of rules.
-             * @since Since Chrome 28.
+             * @since Chrome 28.
              */
             tags?: string[];
 
@@ -3108,7 +3108,7 @@ declare namespace chrome {
                 /**
                  * The frame where the script or CSS should be injected. Defaults to 0 (the top-level frame).
                  * @see[frame ref]{@link https://developer.chrome.com/apps/webNavigation#frame_ids}
-                 * @since Since Chrome 50.
+                 * @since Chrome 50.
                  */
                 frameId?: integer;
                 /**
@@ -3126,7 +3126,7 @@ declare namespace chrome {
                  * The origin of the CSS to inject.
                  * This may only be specified for CSS, not JavaScript.
                  * @default 'author'
-                 * @since Since Chrome 66.
+                 * @since Chrome 66.
                  */
                 cssOrigin: CSSOrigin;
             }
@@ -3213,7 +3213,7 @@ declare namespace chrome {
      * With this API, Chrome Apps can read and write to a user-selected location.
      * For example, a text editor app can use the API to read and write local documents.
      * All failures are notified via chrome.runtime.lastError.
-     * @since Availability: Since Chrome 24.
+     * @since Chrome 24.
      * @requires Permissions:
      *   'fileSystem'
      *   {'fileSystem': ['write']}
@@ -3390,7 +3390,7 @@ declare namespace chrome {
     /**
      * Use the chrome.fileSystemProvider API to create file systems,
      * that can be accessible from the file manager on Chrome OS.
-     * @since Availability: Since Chrome 40.
+     * @since Chrome 40.
      * @requires Permissions: 'fileSystemProvider'
      * @requires(CrOS) This API works only on Chrome OS.
      * @requires Manifest:
@@ -3500,25 +3500,25 @@ declare namespace chrome {
 
             /**
              * The maximum number of files that can be opened at once. If 0, then not limited.
-             * @since Since Chrome 42.
+             * @since Chrome 42.
              */
             openedFilesLimit: integer;
 
             /**
              * List of currently opened files.
-             * @since Since Chrome 42.
+             * @since Chrome 42.
              */
             openedFiles: OpenedFileInfo[];
 
             /**
              * Whether the file system supports the tag field for observing directories.
-             * @since Since Chrome 45.
+             * @since Chrome 45.
              */
             supportsNotifyTag?: boolean;
 
             /**
              * List of watchers.
-             * @since Since Chrome 45.
+             * @since Chrome 45.
              */
             watchers: FileWatchersInfo[];
         }
@@ -3549,7 +3549,7 @@ declare namespace chrome {
             lastTag?: string;
         }
 
-        /** @since Since Chrome 45. */
+        /** @since Chrome 45. */
         interface GetActionsRequestedOptions {
             /** The identifier of the file system related to this operation. */
             fileSystemId: string;
@@ -3570,7 +3570,7 @@ declare namespace chrome {
             title?: string;
         }
 
-        /** @since Since Chrome 45. */
+        /** @since Chrome 45. */
         interface ExecuteActionRequestedOptions {
             /** The identifier of the file system related to this operation. */
             fileSystemId: string;
@@ -3594,18 +3594,18 @@ declare namespace chrome {
             writable?: boolean;
             /**
              * The maximum number of files that can be opened at once. If not specified, or 0, then not limited.
-             * @since Since Chrome 41.
+             * @since Chrome 41.
              */
             openedFilesLimit?: integer;
             /**
              * Whether the file system supports the tag field for observed directories.
-             * @since Since Chrome 45.
+             * @since Chrome 45.
              */
             supportsNotifyTag?: boolean;
             /**
              * Whether the framework should resume the file system at the next sign-in session.
              * @default true
-             * @since Since Chrome 64.
+             * @since Chrome 64.
              */
             persistent?: boolean;
         }
@@ -3864,7 +3864,7 @@ declare namespace chrome {
 
         /**
          * Returns information about a file system with the passed fileSystemId.
-         * @since Since Chrome 42.
+         * @since Chrome 42.
          * @param callback Callback to receive the result of get function.
          */
         function get(fileSystemId: string, callback: (fileSystem: FileSystemInfo) => void): void;
@@ -3895,7 +3895,7 @@ declare namespace chrome {
          * In case of an error, runtime.lastError will be set will a corresponding error code.
          *
          * @param callback A generic result callback to indicate success or failure.
-         * @since Since Chrome 45.
+         * @since Chrome 45.
          */
         function notify(options: NotificationOptions, callback: () => void): void;
 
@@ -3934,7 +3934,7 @@ declare namespace chrome {
          * The actions must be returned with the successCallback call.
          * In case of an error, errorCallback must be called.
          * @see ProviderError
-         * @since Since Chrome 48.
+         * @since Chrome 48.
          **/
         const onGetActionsRequested: chrome.events.Event<(
             options: GetActionsRequestedEventOptions,
@@ -4087,7 +4087,7 @@ declare namespace chrome {
          * If it's handled, the *file_system_provider.configurable* manfiest option must be set to true.
          * @requires Manifest: 'file_system_provider.configurable' = true
          * @see ProviderError
-         * @since Since Chrome 44.
+         * @since Chrome 44.
          */
         const onConfigureRequested: chrome.events.Event<(
             options: ConfigureRequestedEventOptions,
@@ -4101,7 +4101,7 @@ declare namespace chrome {
          * Instead app.runtime.onLaunched should be handled in order to mount new file systems when a file is opened.
          * @requires Manifest (for multiple mounts): 'file_system_provider.multiple_mounts' = true
          * @see ProviderError
-         * @since Since Chrome 44.
+         * @since Chrome 44.
          */
         const onMountRequested: chrome.events.Event<(
             successCallback: () => void,
@@ -4112,7 +4112,7 @@ declare namespace chrome {
          * Raised when setting a new directory watcher is requested.
          * If an error occurs, then errorCallback must be called.
          * @see ProviderError
-         * @since Since Chrome 45.
+         * @since Chrome 45.
          */
         const onAddWatcherRequested: chrome.events.Event<(
             options: WatcherRequestedEventOptions,
@@ -4124,7 +4124,7 @@ declare namespace chrome {
          * Raised when the watcher should be removed.
          * If an error occurs, then errorCallback must be called.
          * @see ProviderError
-         * @since Since Chrome 45.
+         * @since Chrome 45.
          */
         const onRemoveWatcherRequested: chrome.events.Event<(
             options: WatcherRequestedEventOptions,
@@ -4137,7 +4137,7 @@ declare namespace chrome {
          * After the action is completed, successCallback must be called.
          * On error, errorCallback must be called.
          * @see ProviderError
-         * @since Since Chrome 48.
+         * @since Chrome 48.
          */
         const onExecuteActionRequested: chrome.events.Event<(
             options: ExecuteActionRequestedEventOptions,
@@ -4162,7 +4162,7 @@ declare namespace chrome {
      * plus many new features. See the migration guide to learn more.
      * @see[Migration guide]{@link https://developers.google.com/cloud-messaging/android/android-migrate-fcm}
      * @see[GCM Imlementation guide]{@link https://developers.google.com/cloud-messaging/chrome/client}
-     * @since Availability: Since Chrome 35.
+     * @since Chrome 35.
      * @requires Permissions: 'gcm'
      */
     namespace gcm {
@@ -4201,7 +4201,7 @@ declare namespace chrome {
             /**
              * Optional.
              * The sender who issued the message.
-             * @since Since Chrome 41.
+             * @since Chrome 41.
              */
             from?: string;
             /**
@@ -4268,7 +4268,7 @@ declare namespace chrome {
      * parameters will be undefined in this case.
      *
      * @requires Permissions: 'hid'
-     * @since Available since Chrome 38.
+     * @since Chrome 38.
      */
     namespace hid {
         interface Collection {
@@ -4375,7 +4375,7 @@ declare namespace chrome {
         function getUserSelectedDevices(callback: (devices: HidDeviceInfo) => void): void;
 
         /**
-         * @since Since Chrome 45.
+         * @since Chrome 45.
          * @requires(dev) **Dev channel only!**
          * @see[Learn more]{@link https://developer.chrome.com/apps/api_index#dev_apis}
          * Presents a device picker to the user and returns
@@ -5265,7 +5265,7 @@ declare namespace chrome {
     /**
      * Use the chrome.mediaGalleries API to access media files (audio, images, video)
      * from the user's local disks (with the user's consent).
-     * @since Available since Chrome 24.
+     * @since Chrome 24.
      * @requires Permissions: {'mediaGalleries': ['accessType1' | 'accessType2', ...]}
      *                        {'mediaGalleries': ['accessType1' | 'accessType2', ..., 'allAutoDetected']}
      * @see[More information]{@link https://developer.chrome.com/apps/mediaGalleries}
@@ -5409,7 +5409,7 @@ declare namespace chrome {
          * If the user cancels the picker, selectedFileSystemName will be empty.
          * A user gesture is required for the dialog to display.
          * Without a user gesture, the callback will run as though the user canceled.
-         * @since Since Chrome 34.
+         * @since Chrome 34.
          */
         function addUserSelectedFolder(callback: (mediaFileSystems: FileSystem[], selectedFileSystemName: string) => void): void;
         /**
@@ -5442,7 +5442,7 @@ declare namespace chrome {
         function addScanResults(callback: (mediaFileSystems: FileSystem[]) => void): void;
         /**
          * Get metadata about a specific media file system
-         * @since Since Chrome 26.
+         * @since Chrome 26.
          */
         function getMediaFileSystemMetadata(mediaFileSystem: FileSystem): MediaFileSystemMetadata;
         /**
@@ -5485,7 +5485,7 @@ declare namespace chrome {
         function removeAllGalleryWatch(): void;
         /**
          * Fired when a media gallery is changed or a gallery watch is dropped
-         * @since Since Chrome 38.
+         * @since Chrome 38.
          */
         const onGalleryChanged: chrome.events.Event<(args: GalleryChangedEventArgs) => void>;
         /**
@@ -5598,7 +5598,7 @@ declare namespace chrome {
     /**
      * @requires(CrOS kiosk mode) This API is available in Chrome OS kiosk sessions.
      * @requires Permissions: 'networking.onc'
-     * @since Since Chrome 59
+     * @since Chrome 59
      * @description
      * The chrome.networking.onc API is used for configuring network connections
      * (Cellular, Ethernet, VPN, WiFi or WiMAX).
@@ -10103,7 +10103,7 @@ declare namespace chrome {
     /////////
     /**
      * @requires Permissions: 'usb'
-     * @since Available since Chrome 26.
+     * @since Chrome 26.
      * Use the chrome.usb API to interact with connected USB devices.
      * This API provides access to USB operations from within the context of an app.
      * Using this API, apps can function as drivers for hardware devices.
@@ -10324,7 +10324,7 @@ declare namespace chrome {
             interfaceProtocol?: integer;
         }
 
-        /** @since Since Chrome 39. */
+        /** @since Chrome 39. */
         interface DeviceFilter extends Partial<DeviceFilter> { }
 
         interface TransferInfo {

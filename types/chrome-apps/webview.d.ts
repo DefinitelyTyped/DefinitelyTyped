@@ -321,7 +321,7 @@ declare class HTMLWebViewElement extends HTMLElement {
 
     /**
      * Returns the user agent string used by the webview for guest page requests.
-     * @since Since Chrome 33.
+     * @since Chrome 33.
      */
     getUserAgent(): string;
 
@@ -335,7 +335,7 @@ declare class HTMLWebViewElement extends HTMLElement {
     /**
      * Gets the current zoom mode.
      * @param callback Called with the webview's current zoom mode.
-     * @since Since Chrome 43.
+     * @since Chrome 43.
      */
     getZoomMode(callback: (ZoomMode: WebView.ZoomMode) => void): void;
 
@@ -359,14 +359,14 @@ declare class HTMLWebViewElement extends HTMLElement {
 
     /**
      * Indicates whether or not the webview's user agent string has been overridden by *setUserAgentOverride*.
-     * @since Since Chrome 33.
+     * @since Chrome 33.
      */
     isUserAgentOverridden(): void;
 
     /**
      * Prints the contents of the webview.
      * This is equivalent to calling scripted print function from the webview itself.
-     * @since Since Chrome 38.
+     * @since Chrome 38.
      */
     print(): void;
 
@@ -388,7 +388,7 @@ declare class HTMLWebViewElement extends HTMLElement {
     /**
      * Override the user agent string used by the webview for guest page requests.
      * @param userAgent The user agent string to use.
-     * @since Since Chrome 33.
+     * @since Chrome 33.
      */
     setUserAgentOverride(userAgent: string): void;
 
@@ -398,7 +398,7 @@ declare class HTMLWebViewElement extends HTMLElement {
      * are determined by the webview's current zoom mode.
      * @param zoomFactor The new zoom factor.
      * @param [callback] Called after the page has been zoomed.
-     * @since Since Chrome 36.
+     * @since Chrome 36.
      */
     setZoom(zoomFactor: chrome.double, callback?: () => void): void;
 
@@ -406,7 +406,7 @@ declare class HTMLWebViewElement extends HTMLElement {
      * Sets the zoom mode of the webview.
      * @param ZoomMode Defines how zooming is handled in the webview.
      * @param [callback] Called after the zoom mode has been changed.
-     * @since Since Chrome 43.
+     * @since Chrome 43.
      */
     setZoomMode(ZoomMode: WebView.ZoomMode, callback?: () => void): void;
 
@@ -421,7 +421,7 @@ declare class HTMLWebViewElement extends HTMLElement {
      *               keep will keep the active match highlighted;
      *               activate will keep the active match highlighted and simulate a user click on that match.
      *               The default action is keep.
-     * @since Since Chrome 35.
+     * @since Chrome 35.
      */
     stopFinding(action?: 'clear' | 'keep' | 'activate'): void;
 
@@ -431,7 +431,7 @@ declare class HTMLWebViewElement extends HTMLElement {
      * @param dataUrl The data URL to load.
      * @param baseUrl The base URL that will be used for relative links.
      * @param virtualUrl The URL that will be displayed to the user (in the address bar).
-     * @since Since Chrome 40.
+     * @since Chrome 40.
      */
     loadDataWithBaseUrl(dataUrl: string, baseUrl: string, virtualUrl?: string): void;
 
@@ -630,7 +630,7 @@ declare namespace WebView {
         appcache?: boolean;
         /**
          * The browser's cache. Note: when removing data, this clears the entire cache; it is not limited to the range you specify.
-         * @since Available since Chrome 43.
+         * @since Chrome 43.
          */
         cache?: boolean;
         /** The partition's cookies. */
@@ -1007,7 +1007,7 @@ declare namespace WebView {
         /** The time when this signal is triggered, in milliseconds since the epoch. */
         timeStamp: chrome.double;
         /** The origin where the request was initiated. This does not change through redirects. If this is an opaque origin, the string 'null' will be used.
-         * @since Since Chrome 63.
+         * @since Chrome 63.
         */
         initiator?: string;
     }
