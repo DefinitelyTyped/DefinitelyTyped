@@ -2,9 +2,10 @@
 // Project: https://github.com/zackargyle/redux-async-queue
 // Definitions by: Andrei Horodinca <https://github.com/andreiho>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-import { Store, AnyAction } from 'redux';
+import { Middleware, AnyAction } from 'redux';
 
-declare function queueMiddleware(store: Store): (next: (action: AnyAction) => any) => any;
+declare function queueMiddleware(): (next: (action: AnyAction) => any) => any;
 
 export default queueMiddleware;
