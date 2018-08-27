@@ -1,4 +1,4 @@
-import * as Format from "string-format";
+import Format = require("string-format");
 
 Format.extend(String.prototype, {});
 
