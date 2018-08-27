@@ -9,4 +9,4 @@ import { Middleware } from 'koa';
 
 import * as Logger from 'bunyan';
 
-export function KoaBunyanLogger(logger: Logger | undefined): Middleware;
+export default function KoaBunyanLogger(logger: Logger | undefined): Middleware;
