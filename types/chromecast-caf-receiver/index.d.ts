@@ -47,11 +47,11 @@ interface CastReceiverFrameworkSDK {
             ErrorEvent: events.ErrorEvent;
             Event: events.Event;
             Id3Event: events.Id3Event;
-            LiveStatusEvent: events.LiveStatusEvent;
+            // LiveStatusEvent: events.LiveStatusEvent;
             LoadEvent: events.LoadEvent;
             MediaElementEvent: events.MediaElementEvent;
             MediaFinishedEvent: events.MediaFinishedEvent;
-            MediaInformationChangedEvent: events.MediaInformationChangedEvent;
+            //  MediaInformationChangedEvent: events.MediaInformationChangedEvent;
             MediaPauseEvent: events.MediaPauseEvent;
             MediaStatusEvent: events.MediaStatusEvent;
             RequestEvent: events.RequestEvent;
@@ -61,13 +61,13 @@ interface CastReceiverFrameworkSDK {
             EventType: events.EventType;
         };
         messages: {
-            AudiobookChapterMediaMetadata: messages.AudiobookChapterMediaMetadata;
-            AudiobookContainerMetadata: messages.AudiobookContainerMetadata;
+            // AudiobookChapterMediaMetadata: messages.AudiobookChapterMediaMetadata;
+            // AudiobookContainerMetadata: messages.AudiobookContainerMetadata;
             Break: messages.Break;
             BreakClip: messages.BreakClip;
             BreakStatus: messages.BreakStatus;
-            CloudMediaStatus: messages.CloudMediaStatus;
-            ContainerMetadata: messages.ContainerMetadata;
+            // CloudMediaStatus: messages.CloudMediaStatus;
+            // ContainerMetadata: messages.ContainerMetadata;
             CustomCommandRequestData: messages.CustomCommandRequestData;
             DisplayStatusRequestData: messages.DisplayStatusRequestData;
             EditAudioTracksRequestData: messages.EditAudioTracksRequestData;
@@ -112,14 +112,14 @@ interface CastReceiverFrameworkSDK {
             Track: messages.Track;
             TvShowMediaMetadata: messages.TvShowMediaMetadata;
             UserActionRequestData: messages.UserActionRequestData;
-            UserActionState: messages.UserActionState;
+            // UserActionState: messages.UserActionState;
             VastAdsRequest: messages.VastAdsRequest;
             VideoInformation: messages.VideoInformation;
             Volume: messages.Volume;
             VolumeRequestData: messages.VolumeRequestData;
-            CaptionMimeType: messages.CaptionMimeType;
+            // CaptionMimeType: messages.CaptionMimeType;
             Command: messages.Command;
-            ContainerType: messages.ContainerType;
+            // ContainerType: messages.ContainerType;
             ErrorReason: messages.ErrorReason;
             ErrorType: messages.ErrorType;
             ExtendedPlayerState: messages.ExtendedPlayerState;
@@ -127,7 +127,7 @@ interface CastReceiverFrameworkSDK {
             GetStatusOptions: messages.GetStatusOptions;
             HdrType: messages.HdrType;
             HlsSegmentFormat: messages.HlsSegmentFormat;
-            HlsVideoSegmentFormat: messages.HlsVideoSegmentFormat;
+            // HlsVideoSegmentFormat: messages.HlsVideoSegmentFormat;
             IdleReason: messages.IdleReason;
             MessageType: messages.MessageType;
             MetadataType: messages.MetadataType;
