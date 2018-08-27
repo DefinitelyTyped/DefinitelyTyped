@@ -2,8 +2,8 @@
 // Project: https://github.com/koajs/bunyan-logger
 // Definitions by: Steven McDowall <https://github.com/sjmcdowall>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-//
 // TypeScript Version: 2.3
+
 /// <reference types="node" />
 import { Middleware } from 'koa';
 
