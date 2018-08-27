@@ -973,6 +973,12 @@
             "asOfVersion": "2.5.0"
         },
         {
+            "libraryName": "nano",
+            "typingsPackageName": "nano",
+            "sourceRepoURL": "https://github.com/apache/couchdb-nano",
+            "asOfVersion": "7.0.0"
+        },
+        {
             "libraryName": "ng-table",
             "typingsPackageName": "ng-table",
             "sourceRepoURL": "https://github.com/esvit/ng-table",
