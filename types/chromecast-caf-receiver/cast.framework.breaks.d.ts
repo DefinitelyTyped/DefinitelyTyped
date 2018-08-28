@@ -62,7 +62,7 @@ declare namespace Breaks {
          */
         setBreakClipLoadInterceptor(
             interceptor: (
-                breakClip: BreakClip,
+                breakClip: messages.BreakClip,
                 breakClipLoaderContext?: BreakClipLoadInterceptorContext
             ) => void
         ): void;
