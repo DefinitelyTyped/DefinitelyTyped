@@ -19,11 +19,11 @@ export interface CacheProvider {
     remove(key: string, callback: (err: Error | null, key: string) => void | null): void;
 }
 
-export type VerifiedCallback =	(err: Error | null, user: {}, info: {}) => void;
+export type VerifiedCallback =	(err: Error | null, user: any}, info: any}) => void;
 
-export type VerifyWithRequest = (req: express.Request, profile: {}, done: VerifiedCallback) => void;
+export type VerifyWithRequest = (req: express.Request, profile: any, done: VerifiedCallback) => void;
 
-export type VerifyWithoutRequest = (profile: {}, done: VerifiedCallback) => void;
+export type VerifyWithoutRequest = (profile: any, done: VerifiedCallback) => void;
 
 export class Strategy extends passport.Strategy {
     constructor(config: SamlConfig, verify: VerifyWithRequest | VerifyWithoutRequest);
@@ -46,8 +46,8 @@ export interface SamlConfig {
     signatureAlgorithm?: 'sha1' | 'sha256' | 'sha512';
 
     // Additional SAML behaviors
-    additionalParams?: {};
-    additionalAuthorizeParams?: {};
+    additionalParams?: any;
+    additionalAuthorizeParams?: any;
     identifierFormat?: string;
     acceptedClockSkewMs?: number;
     attributeConsumingServiceIndex?: string;
@@ -68,12 +68,12 @@ export interface SamlConfig {
 
     // Logout
     logoutUrl?: string;
-    additionalLogoutParams?: {};
+    additionalLogoutParams?: any;
     logoutCallbackUrl?: string;
 }
 
 export interface AuthenticateOptions extends passport.AuthenticateOptions {
-    additionalParams?: {};
+    additionalParams?: any;
 }
 
 export interface AuthorizeOptions extends AuthenticateOptions {
