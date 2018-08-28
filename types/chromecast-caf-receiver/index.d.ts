@@ -17,7 +17,7 @@ import events from './cast.framework.events';
 import messages from './cast.framework.messages';
 import ui from './cast.framework.ui';
 
-interface CastReceiverFrameworkSDK {
+export interface CastReceiverFrameworkSDK {
     framework: {
         AudioTracksManager: framework.AudioTracksManager;
         CastReceiverContext: framework.CastReceiverContext;
@@ -154,8 +154,6 @@ interface CastReceiverFrameworkSDK {
 declare global {
     const cast: CastReceiverFrameworkSDK;
 }
-
-export as namespace cast;
 
 export type EventHandler = (event: events.Event) => void;
 export type PlayerDataChangedEventHandler = (
