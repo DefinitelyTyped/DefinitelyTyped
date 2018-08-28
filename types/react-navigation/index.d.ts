@@ -1193,7 +1193,9 @@ export const HeaderBackButton: React.ComponentClass<HeaderBackButtonProps>;
 /**
  * Header Component
  */
-export const Header: React.ComponentClass<HeaderProps>;
+export class Header extends React.Component<HeaderProps> {
+  static HEIGHT: number;
+}
 
 export interface NavigationInjectedProps<P = NavigationParams> {
   navigation: NavigationScreenProp<NavigationState, P>;

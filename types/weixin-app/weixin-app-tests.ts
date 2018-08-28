@@ -21,7 +21,7 @@ let behavior = Behavior({
     attached() {},
     methods: {
         myBehaviorMethod() {
-            this.myBehaviorData;
+            this.properties.myBehaviorData;
         }
     }
 });
@@ -34,7 +34,12 @@ Component({
             // 属性名
             type: String, // 类型（必填），目前接受的类型包括：String, Number, Boolean, Object, Array, null（表示任意类型）
             value: "", // 属性初始值（可选），如果未指定则会根据类型选择一个
-            observer(newVal: string, oldVal: string) {} // 属性被改变时执行的函数（可选），也可以写成在methods段中定义的方法名字符串, 如：'_propertyChange'
+            observer(newVal: string, oldVal: string, changedPath: string) {
+                const anotherKey = newVal + changedPath;
+                this.setData({
+                    anotherKey
+                });
+            } // 属性被改变时执行的函数（可选），也可以写成在methods段中定义的方法名字符串, 如：'_propertyChange'
         },
         myProperty2: String // 简化的定义方式
     },
@@ -50,6 +55,16 @@ Component({
     moved() {},
     detached() {},
     methods: {
+        readMyDataAndMyProps() {
+            this.data.myProperty;
+            this.data.myProperty2;
+            this.data.key;
+            this.data.anotherKey;
+            this.properties.myProperty;
+            this.properties.myProperty2;
+            this.properties.key;
+            this.properties.anotherKey;
+        },
         onMyButtonTap() {
             // 更新属性和数据的方法与更新页面数据的方法类似
             this.setData({
@@ -73,12 +88,15 @@ Component({
             type: "parent", // 关联的目标节点应为父节点
             linked(target) {
                 // 每次被插入到custom-ul时执行，target是custom-ul节点实例对象，触发在attached生命周期之后
+                target.data;
             },
             linkChanged(target) {
                 // 每次被移动后执行，target是custom-ul节点实例对象，触发在moved生命周期之后
+                target.data;
             },
             unlinked(target) {
                 // 每次被移除时执行，target是custom-ul节点实例对象，触发在detached生命周期之后
+                target.data;
             }
         }
     }

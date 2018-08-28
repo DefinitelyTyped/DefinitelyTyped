@@ -15,9 +15,9 @@ declare namespace SequelizeCursorPagination {
     }
 
     interface BasicPaginateOptions<T> {
-        where?: Sequelize.WhereOptions<T> | Sequelize.where | Sequelize.fn | Array<Sequelize.col | Sequelize.and | Sequelize.or | string>;
-        attributes?: Sequelize.FindOptionsAttributesArray | { include?: Sequelize.FindOptionsAttributesArray, exclude?: string[] };
-        include?: Array<Sequelize.Model<any, any> | Sequelize.IncludeOptions>;
+        where?: Sequelize.FindOptions<T>['where'];
+        attributes?: Sequelize.FindOptions<T>['attributes'];
+        include?: Sequelize.FindOptions<T>['include'];
         limit?: number; // limit the number of records returned
         desc?: boolean; // [default: false]
         before?: string; // the before cursor

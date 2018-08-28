@@ -2628,7 +2628,8 @@ declare namespace videojs {
 		 *         the listener function; otherwise, _all_ listeners bound to the
 		 *         event type(s) will be removed.
 		 */
-		off(targetOrType?: string | string[], typeOrListener?: (...args: any[]) => void, listener?: (...args: any[]) => void): void;
+		off(target?: Component | Element, type?: string | string[], listener?: (...args: any[]) => void): void;
+		off(type?: string | string[], listener?: (...args: any[]) => void): void;
 
 		/**
 		 * Add a listener to an event (or events) on this object or another evented
@@ -2653,7 +2654,8 @@ declare namespace videojs {
 		 *         If the first argument was another evented object, this will be
 		 *         the listener function.
 		 */
-		on(targetOrType: string | string[], typeOrListener: (...args: any[]) => void, listener?: (...args: any[]) => void): void;
+		on(target?: Component | Element, type?: string | string[], listener?: (...args: any[]) => void): void;
+		on(type?: string | string[], listener?: (...args: any[]) => void): void;
 
 		/**
 		 * Add a listener to an event (or events) on this object or another evented
@@ -2678,7 +2680,8 @@ declare namespace videojs {
 		 *         If the first argument was another evented object, this will be
 		 *         the listener function.
 		 */
-		one(targetOrType: string | string[], typeOrListener: (...args: any[]) => void, listener?: (...args: any[]) => void): void;
+		one(target?: Component | Element, type?: string | string[], listener?: (...args: any[]) => void): void;
+		one(type?: string | string[], listener?: (...args: any[]) => void): void;
 
 		/**
 		 * Fire an event on this evented object, causing its listeners to be called.
@@ -3763,6 +3766,18 @@ declare namespace videojs {
 		autoplay(value?: boolean | string): void;
 
 		autoplay(): boolean | string;
+
+		/**
+		 * Get the remote {@link TextTrackList}
+		 * @return The current remote text track list
+		 */
+		textTracks(): TextTrackList;
+
+		/**
+		 * Get the remote {@link TextTrackList}
+		 * @return The current remote text track list
+		 */
+		remoteTextTracks(): TextTrackList;
 
 		/**
 		 * Create a remote {@link TextTrack} and an {@link HTMLTrackElement}. It will
