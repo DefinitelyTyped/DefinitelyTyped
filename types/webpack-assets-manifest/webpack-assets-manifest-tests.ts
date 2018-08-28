@@ -45,7 +45,10 @@ new WebpackAssetsManifest({
 	},
 });
 
-/** https://github.com/webdeveric/webpack-assets-manifest/blob/master/examples/customized.js https://github.com/webdeveric/webpack-assets-manifest/blob/master/examples/merged.js */
+/**
+ * https://github.com/webdeveric/webpack-assets-manifest/blob/master/examples/customized.js
+ * https://github.com/webdeveric/webpack-assets-manifest/blob/master/examples/merged.js
+ */
 new WebpackAssetsManifest({
 	output: 'customized-manifest.json',
 	merge: true,

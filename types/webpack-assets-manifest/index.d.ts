@@ -18,7 +18,7 @@ declare class WebpackAssetsManifest extends Plugin {
 		 * The `SyncWaterfallHook` class supports 3 type parameters only but this hook actually has 4 parameters. The type of 4th parameter is `AnyObject`.
 		 *
 		 * Refer to https://github.com/webdeveric/webpack-assets-manifest#hooks for details
-		 * */
+		 */
 		customize: SyncWaterfallHook<WebpackAssetsManifest.Entry, WebpackAssetsManifest.AnyObject, WebpackAssetsManifest>;
 
 		transform: SyncWaterfallHook<WebpackAssetsManifest.AnyObject, WebpackAssetsManifest>;
