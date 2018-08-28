@@ -17,6 +17,8 @@
         "strictFunctionTypes": true
     },
     "files": [
+        "async-browser.d.ts",
+        "async.d.ts",
         "format.d.ts",
         "generate.d.ts",
         "index.d.ts",
