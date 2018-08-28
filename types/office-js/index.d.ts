@@ -1151,7 +1151,7 @@ declare namespace Office {
         * <tr><td>Requirement sets</td><td>{@link https://docs.microsoft.com/office/dev/add-ins/develop/specify-office-hosts-and-api-requirements | IdentityAPI}</td></tr></table>
         *
         * @param options - Optional. Accepts an AuthOptions object to define sign-on behaviors.
-        * @param callback - Optional. Accepts a callback method that can use parse the token for the user's ID or use the token in the "on behalf of" flow to get access to Microsoft Graph. 
+        * @param callback - Optional. Accepts a callback method that can parse the token for the user's ID or use the token in the "on behalf of" flow to get access to Microsoft Graph. 
         *                   If AsyncResult.status is "succeeded", then AsyncResult.value is the raw AAD v. 2.0-formatted access token.
         * 
         * @beta
@@ -1169,7 +1169,7 @@ declare namespace Office {
          */
         forceConsent?: boolean,
         /**
-         * Prompts the user to add his or her Office account (or to switch to it, if it is already added).
+         * Prompts the user to add their Office account (or to switch to it, if it is already added).
          */
         forceAddAccount?: boolean,
         /**
