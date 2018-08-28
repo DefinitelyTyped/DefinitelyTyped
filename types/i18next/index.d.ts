@@ -97,10 +97,12 @@ declare namespace i18next {
     interface ReactOptions {
         /**
          * set to true if you like to wait for loaded in every translated hoc
+         * @default false
          */
         wait?: boolean;
         /**
          * set it to fallback to let passed namespaces to translated hoc act as fallbacks
+         * @default default
          */
         nsMode?: string;
         /**
@@ -108,6 +110,16 @@ declare namespace i18next {
          * @default div
          */
         defaultTransParent?: string;
+        /**
+         * set which events trigger a rerender, can be set to false or string of events
+         * @default languageChanged loaded
+         */
+        bindI18n?: string | boolean;
+        /**
+         * set which events on store trigger a rerender, can be set to false or string of events
+         * @default added removed
+         */
+        bindStore?: string | boolean;
     }
 
     interface InitOptions {
