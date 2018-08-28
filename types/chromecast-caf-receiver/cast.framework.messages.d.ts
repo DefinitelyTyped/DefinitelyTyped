@@ -852,8 +852,8 @@ declare namespace Messages {
     /**
      * Queue data as part of the LOAD request.
      */
-    interface QueueData {
-        new(
+    class QueueData {
+        constructor(
             id?: string,
             name?: string,
             description?: string,
@@ -861,7 +861,7 @@ declare namespace Messages {
             items?: QueueItem[],
             startIndex?: number,
             startTime?: number
-        ): QueueData;
+        );
 
         /**
          * Description of the queue.

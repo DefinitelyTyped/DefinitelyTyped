@@ -148,8 +148,8 @@ declare namespace Framework {
      * Base implementation of a queue.
      * @see {https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.QueueBase}
      */
-    interface QueueBase {
-        new(): QueueBase;
+    class QueueBase {
+        constructor();
 
         /**
          * Fetches a window of items using the specified item id as reference; called by the receiver MediaManager when it needs more queue items;
@@ -447,8 +447,8 @@ declare namespace Framework {
     /**
      * Configuration to customize playback behavior.
      */
-    interface PlaybackConfig {
-        new(): PlaybackConfig;
+    class PlaybackConfig {
+        constructor();
 
         /**
          * Duration of buffered media in seconds to start buffering.
@@ -629,10 +629,11 @@ declare namespace Framework {
     }
 
     /** Manages loading of underlying libraries and initializes underlying cast receiver SDK. */
-    interface CastReceiverContext {
+    class CastReceiverContext {
+        constructor(params: any);
+
         /** Returns the CastReceiverContext singleton instance. */
         getInstance(): CastReceiverContext;
-        new(params: any): CastReceiverContext;
 
         /**
          * Sets message listener on custom message channel.
