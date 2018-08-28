@@ -28,7 +28,7 @@ declare class HTMLWebViewElement extends HTMLElement {
      * These constraints do not impact the webview UNLESS autosize is enabled.
      * When autosize is enabled, the webview container size cannot be less than the minimum values or greater than the maximum.
      */
-    autosize?: 'on';
+    autosize?: 'on' | boolean;
 
     /** Similar to chrome's ContextMenus API, but applies to webview instead of browser.
          * Use the webview.contextMenus API to add items to webview's context menu.
@@ -154,7 +154,7 @@ declare class HTMLWebViewElement extends HTMLElement {
     * Rules are preserved even if the guest process crashes
     * or is killed or even if the webview is reparented.
     * Refer to the /extensions/content_scripts documentation for more details.
-    * @param {ContentScriptDetails[]} contentScriptList Details of the content scripts to add.
+    * @param contentScriptList Details of the content scripts to add.
     * @since Chrome 44.
     */
     addContentScripts(contentScriptList: WebView.ContentScriptDetails[]): void;
@@ -294,6 +294,9 @@ declare class HTMLWebViewElement extends HTMLElement {
      * @since Chrome 44.
      */
     removeContentScripts(scriptNameList?: string[]): void;
+
+    /** Set an attribute */
+    setAttribute(attributeName: string, value: string | number | boolean): void;
 
     /**
      * Override the user agent string used by the webview for guest page requests.
@@ -453,7 +456,25 @@ declare class HTMLWebViewElement extends HTMLElement {
 
 
     addEventListener<K extends keyof WebView.Events.WebViewElementEventMap>(type: K, listener: (this: HTMLElement, ev: WebView.Events.WebViewElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: WebView.Events.WebViewElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener<K extends keyof WebView.Events.WebViewElementEventMap>(type: K, listener: (this: HTMLElement, ev: WebView.Events.WebViewElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+
+    ///
+    /// STYLE
+    ///
+
+    /** Maximum height */
+    maxheight: number;
+    /** Minimum height */
+    minheight: number;
+    /** Maximum width */
+    maxwidth: number;
+    /** Minimum width */
+    minwidth: number;
+    /**
+     * Allow scaling?
+     * @default false
+     */
+    allowscaling?: boolean;
 }
 /////////////
 // WEBVIEW //
@@ -479,7 +500,7 @@ declare namespace WebView {
             'loadstart': LoadStartEvent,
             'loadstop': LoadStopEvent,
             'newwindow': NewWindowEvent,
-            'permissionrequest': PermissionRequest,
+            'permissionrequest': PermissionRequestEvent,
             'responsive': ResponsiveEvent,
             'sizechanged': SizeChangedEvent,
             'unresponsive': UnresponsiveEvent,
@@ -924,36 +945,32 @@ declare namespace WebView {
         code?: string;
 
         /** JavaScript or CSS file to inject. */
-        file?: string
+        file?: string;
     }
     /** The type of injection item: code or a set of files. */
     interface InjectionItems {
         /** JavaScript code or CSS to be injected into matching pages. */
-        code?: string
+        code?: string;
         /**
          * The list of JavaScript or CSS files to be injected into matching pages.
          * These are injected in the order they appear in this array.
          */
-        files?: any[]
+        files?: any[];
     }
     /** Details of the content script to inject. **/
     interface ContentScriptDetails {
         /** The name of the content script to inject. */
-        name: string
+        name: string;
 
         /** Specifies which pages this content script will be injected into. */
-        matches: any[]
+        matches: string[];
 
         /** Excludes pages that this content script would otherwise be injected into. */
-        exclude_matches?: any[]
+        exclude_matches?: string[];
 
-        /** JavaScript or CSS file to inject. */
-        file?: string
-    }
-    /** The type of injection item: code or a set of files. */
-    interface InjectionItems {
         /** JavaScript code or CSS to be injected into matching pages. */
-        code?: string
+        code?: string;
+
         /**
          * Whether to insert the content script on about:blank and about:srcdoc.
          * Content scripts will only be injected on pages when their inherit URL

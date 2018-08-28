@@ -1939,6 +1939,49 @@ new chrome.webViewRequest.RequestMatcher({
 
 wve.request.onRequest.addRules([rule]);
 
+function CreateWebViewAndGuest() {
+    var webview = new WebView();
+    webview.allowtransparency = true;
+    webview.allowscaling = true;
+    var onLoadStop = (e: WebView.Events.LoadStopEvent) => {
+        webview.removeEventListener('loadstop', onLoadStop);
+        webview.removeEventListener('loadabort', onLoadAbort);
+    };
+    webview.addEventListener('loadstop', onLoadStop);
+
+    const onLoadAbort = (e: WebView.Events.LoadAbortEvent) => {
+        webview.removeEventListener('loadstop', onLoadStop);
+        webview.removeEventListener('loadabort', onLoadAbort);
+    };
+
+    webview.src = 'data:text/html,<!DOCTYPE html>\n' +
+        '<style>\n' +
+        'select {\n' +
+        '  position: absolute;\n' +
+        '  top: 9px;\n' +
+        '  left: 9px;\n' +
+        '  height: 25px;\n' +
+        '  width: 80px;\n' +
+        '}\n' +
+        '</style>\n' +
+        '<html>\n' +
+        '  <body>\n' +
+        '    <select>\n' +
+        '      <option selected>Apple</option>\n' +
+        '      <option>Orange</option>\n' +
+        '      <option>Banana</option>\n' +
+        '    </select>\n' +
+        '  </body>\n' +
+        '</html>\n';
+
+    return webview;
+}
+
+onload = () => {
+    var webview = CreateWebViewAndGuest();
+    document.body.appendChild(webview);
+};
+
 // #endregion
 
 // #region Embedding & AppView
@@ -1954,6 +1997,3 @@ document.body.appendChild(appview);
 appview.connect('id of app');
 document.appendChild(appview);
 //#endregion
-
-
-
