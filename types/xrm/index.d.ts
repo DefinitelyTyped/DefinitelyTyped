@@ -686,6 +686,13 @@ declare namespace Xrm {
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/formcontext-data-process External Link: formContext.data.process (Client API reference)}
          */
         process: ProcessFlow.ProcessManager;
+        
+        /**
+         * Adds a function to be called when form data is loaded.
+         * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/formcontext-data/addonload External Link: formContext.data.addOnLoad (Client API reference)}
+         * @param handler The function reference.
+         */
+        addOnLoad(handler: Events.ContextSensitiveHandler):void;
     }
 
     /**
@@ -2905,7 +2912,7 @@ declare namespace Xrm {
              * Removes the handler from the "pre search" event of the Lookup control.
              * @param handler The handler.
              */
-            removePreSearch(handler: () => void): void;
+            removePreSearch(handler: Events.ContextSensitiveHandler): void;
 
             /**
              * Sets the Lookup's default view.
