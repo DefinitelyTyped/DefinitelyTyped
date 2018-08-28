@@ -60,6 +60,7 @@ declare namespace helmet {
         disableAndroid?: boolean;
         browserSniff?: boolean;
         directives?: IHelmetContentSecurityPolicyDirectives;
+        loose?: boolean;
     }
 
     export interface IHelmetDnsPrefetchControlConfiguration {
