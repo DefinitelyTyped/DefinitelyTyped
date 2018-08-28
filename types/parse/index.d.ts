@@ -608,6 +608,7 @@ declare namespace Parse {
         constructor(objectClass: string);
         constructor(objectClass: new (...args: any[]) => T);
 
+        static and<U extends Object>(arg0: Query<U>, arg1: Query<U>): Query<U>;
         static or<U extends Object>(...var_args: Query<U>[]): Query<U>;
 
         aggregate(pipeline: Query.AggregationOptions|Query.AggregationOptions[]): Query<T>;
