@@ -39,4 +39,4 @@ interface Accessor {
 }
 
 declare const accessor: Accessor;
-export default accessor;
+export = accessor;

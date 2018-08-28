@@ -1,4 +1,4 @@
-import ls from 'local-storage';
+import * as ls from 'local-storage';
 
 ls('foo');
 ls('foo', 'bar');
