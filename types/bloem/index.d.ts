@@ -5,8 +5,6 @@
 
 /// <reference types= "node" />
 
-export as namespace bloem;
-
 export function calculateSize(capacity: number, error_rate: number): number;
 export function calculateSlices(size: number, capacity: number): number;
 
