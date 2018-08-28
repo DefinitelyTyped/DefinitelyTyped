@@ -1,4 +1,4 @@
-// Type definitions for nanoid 1.2.1
+// Type definitions for nanoid 1.2
 // Project: https://github.com/ai/nanoid
 // Definitions by: Ruben Schmidmeister <https://github.com/bash>
 //                 Daniel Zhang <https://github.com/fadezhanger>
