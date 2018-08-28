@@ -712,6 +712,7 @@ declare module 'ember' {
             // Necessary in order to avoid losing type information
             //    see: https://github.com/typed-ember/ember-cli-typescript/issues/246#issuecomment-414812013
             private ______getType: Get;
+            private ______setType: Set;
             /**
              * Call on a computed property to set it into non-cached mode. When in this
              * mode the computed property will not automatically cache the return value.
@@ -1688,7 +1689,6 @@ declare module 'ember' {
          * This mixin provides properties and property observing functionality, core features of the Ember object model.
          */
         interface Observable {
-            thisType: this;
             /**
              * Retrieves the value of a property from the object.
              */
@@ -3058,9 +3058,9 @@ declare module 'ember' {
          * it to be created.
          */
         function cacheFor<T, K extends keyof T>(
-            obj: UnwrapComputedPropertyGetters<T>,
+            obj: T,
             key: K
-        ): T[K] | undefined;
+        ): UnwrapComputedPropertyGetter<T[K]> | undefined;
         /**
          * Add an event listener
          */
@@ -3221,11 +3221,10 @@ declare module 'ember' {
          * method then that will be invoked as well.
          */
         function set<T, K extends keyof T, V extends T[K]>(
-            obj: UnwrapComputedPropertySetters<T>,
+            obj: T,
             key: K,
-            value: V
-        ): V;
-        function set<T, K extends keyof T, V extends T[K]>(obj: T, key: K, value: V): V; // for dynamic K
+            value: UnwrapComputedPropertySetter<T[K]>
+        ): UnwrapComputedPropertyGetter<T[K]>;
         /**
          * Error-tolerant form of `Ember.set`. Will not blow up if any part of the
          * chain is `undefined`, `null`, or destroyed.
@@ -3239,7 +3238,7 @@ declare module 'ember' {
         function setProperties<T, K extends keyof T>(
             obj: T,
             hash: Pick<UnwrapComputedPropertySetters<T>, K>
-        ): Pick<UnwrapComputedPropertySetters<T>, K>;
+        ): Pick<UnwrapComputedPropertyGetters<T>, K>;
         /**
          * Detects when a specific package of Ember (e.g. 'Ember.Application')
          * has fully loaded and is available for extension.
