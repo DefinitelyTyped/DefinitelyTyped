@@ -3,6 +3,8 @@
 // Definitions by: Wouter van Heeswijk <https://github.com/woutervh->
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export default class NestedError extends Error {
+declare class NestedError extends Error {
     constructor(message?: any, nested?: Error);
 }
+
+export = NestedError;
