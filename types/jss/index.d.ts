@@ -138,9 +138,6 @@ export declare class JSS {
  * Creates a new instance of JSS.
  */
 export function create(options?: Partial<JSSOptions>): JSS;
-/**
- * Creates a GenerateClassName function
- */
 export function createGenerateClassName(): GenerateClassName;
 declare const sharedInstance: JSS;
 /**

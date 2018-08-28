@@ -47,9 +47,6 @@ const rule = attachedStyleSheet.addRule('dynamicRule', { color: 'indigo' });
 rule.prop('border-radius', 5).prop('color'); // $ExpectType string
 attachedStyleSheet.classes.dynamicRule; // $ExpectType string
 
-const generateClassName = createGenerateClassName();
-const dynamicRuleClassName = generateClassName(rule, attachedStyleSheet);
-
 attachedStyleSheet.deleteRule('dynamicRule');
 
 // test that `addRule` supports the shorthand signature
