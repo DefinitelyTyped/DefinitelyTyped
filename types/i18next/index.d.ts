@@ -102,24 +102,24 @@ declare namespace i18next {
         wait?: boolean;
         /**
          * set it to fallback to let passed namespaces to translated hoc act as fallbacks
-         * @default default
+         * @default 'default'
          */
-        nsMode?: string;
+        nsMode?: 'default' | 'fallback';
         /**
          * set it to the default parent element created by the Trans component.
-         * @default div
+         * @default 'div'
          */
         defaultTransParent?: string;
         /**
          * set which events trigger a rerender, can be set to false or string of events
-         * @default languageChanged loaded
+         * @default 'languageChanged loaded'
          */
-        bindI18n?: string | boolean;
+        bindI18n?: string | false;
         /**
          * set which events on store trigger a rerender, can be set to false or string of events
-         * @default added removed
+         * @default 'added removed'
          */
-        bindStore?: string | boolean;
+        bindStore?: string | false;
     }
 
     interface InitOptions {
