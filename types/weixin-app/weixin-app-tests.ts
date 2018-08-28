@@ -16,13 +16,11 @@ let behavior = Behavior({
         }
     },
     data: {
-        myBehaviorData: {}
+        myBehaviorData: ""
     },
     attached() {},
     methods: {
-        myBehaviorMethod() {
-            this.properties.myBehaviorData;
-        }
+        myBehaviorMethod() {}
     }
 });
 
@@ -50,20 +48,28 @@ Component({
 
     // 生命周期函数，可以为函数，或一个在methods段中定义的方法名
     attached() {
-        this.setData({}, () => {});
+        this.setData(
+            {
+                key: "123"
+            },
+            () => {}
+        );
     },
     moved() {},
     detached() {},
     methods: {
         readMyDataAndMyProps() {
-            this.data.myProperty;
-            this.data.myProperty2;
-            this.data.key;
+            const stringValue1: string = this.data.myProperty;
+            const stringValue2: string = this.data.myProperty2;
+            const stringValue3: string = this.data.key;
             this.data.anotherKey;
             this.properties.myProperty;
             this.properties.myProperty2;
             this.properties.key;
             this.properties.anotherKey;
+            this.setData({
+                key: stringValue1 + stringValue2 + stringValue3
+            });
         },
         onMyButtonTap() {
             // 更新属性和数据的方法与更新页面数据的方法类似
@@ -86,17 +92,17 @@ Component({
     relations: {
         "./custom-ul": {
             type: "parent", // 关联的目标节点应为父节点
-            linked(target) {
+            linked(target: Component<{ key: string }, {}>) {
                 // 每次被插入到custom-ul时执行，target是custom-ul节点实例对象，触发在attached生命周期之后
-                target.data;
+                target.data.key;
             },
-            linkChanged(target) {
+            linkChanged(target: Component<{ key: string }, {}>) {
                 // 每次被移动后执行，target是custom-ul节点实例对象，触发在moved生命周期之后
-                target.data;
+                target.data.key;
             },
-            unlinked(target) {
+            unlinked(target: Component<{ key: string }, {}>) {
                 // 每次被移除时执行，target是custom-ul节点实例对象，触发在detached生命周期之后
-                target.data;
+                target.data.key;
             }
         }
     }
