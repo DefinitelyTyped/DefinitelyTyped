@@ -98,7 +98,7 @@ declare namespace WebpackAssetsManifest {
 		fileExtRegex?: RegExp | null | false;
 
 		/** https://github.com/webdeveric/webpack-assets-manifest#sortmanifest */
-		sortManifest?: boolean | ((a: any, b: any) => number);
+		sortManifest?: boolean | ((this: WebpackAssetsManifest, a: string, b: string) => number);
 
 		/** https://github.com/webdeveric/webpack-assets-manifest#merge */
 		merge?: boolean | "customize";
