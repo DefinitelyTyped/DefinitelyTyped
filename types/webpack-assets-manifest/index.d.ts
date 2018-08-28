@@ -73,7 +73,7 @@ declare class WebpackAssetsManifest extends Plugin {
 	 * Get a [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/handler) for the manifest
 	 *
 	 * @param raw - Use `setRaw` instead of `set`
-	 * */
+	 */
 	getProxy(raw?: boolean): ProxyHandler<WebpackAssetsManifest>;
 }
 
