@@ -10,7 +10,7 @@ export function subtract(a: string, b: string): string;
 export function mul(a: string, b: string): string;
 export function div(a: string, b: string): string;
 export function percent(a: string, b: string): string;
-export function cmp(a: string, b: string): 0 | 1 | -1;
+export function cmp(a: string, b: string): 0 | number;
 export function isEqual(a: string, b: string): boolean;
 export function isZero(value: string): boolean;
 export function isNegative(value: string): boolean;
