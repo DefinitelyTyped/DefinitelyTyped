@@ -2,7 +2,7 @@
 // Project: https://github.com/webdeveric/webpack-assets-manifest
 // Definitions by: Franklin Tse <https://github.com/FranklinWhale>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.7
 
 import { Plugin } from "webpack";
 import { SyncHook, SyncWaterfallHook } from "tapable";
