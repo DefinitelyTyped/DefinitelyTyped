@@ -155,6 +155,8 @@ declare global {
     const cast: CastReceiverFrameworkSDK;
 }
 
+export as namespace CastReceiverFrameworkSDK;
+
 export type EventHandler = (event: events.Event) => void;
 export type PlayerDataChangedEventHandler = (
     event: ui.PlayerDataChangedEvent
