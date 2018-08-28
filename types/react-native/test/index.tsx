@@ -596,6 +596,10 @@ class TextInputTest extends React.Component<{}, {username: string}> {
                     multiline
                     onContentSizeChange={this.handleOnContentSizeChange}
                 />
+
+                <TextInput
+                    contextMenuHidden={true}
+                />
             </View>
         );
     }
