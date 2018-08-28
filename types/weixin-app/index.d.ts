@@ -4,7 +4,7 @@
 //                 AlexStacker <https://github.com/AlexStacker>
 //                 Jimexist <https://github.com/Jimexist>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 declare namespace wx {
     // #region 基本参数
@@ -3369,17 +3369,17 @@ type ThisTypedComponentOptionsWithRecordProps<
     ComponentOptions<V, Data | ((this: V) => Data), Methods, Options, Props> &
     ThisType<CombinedInstance<V, Data, Methods, Options, Readonly<Props>>>;
 
-interface ComponentRelation<T = any> {
+interface ComponentRelation<D = any, P = any> {
     /** 目标组件的相对关系，可选的值为 parent 、 child 、 ancestor 、 descendant */
     type: "parent" | "child" | "ancestor" | "descendant";
     /** 如果这一项被设置，则它表示关联的目标节点所应具有的behavior，所有拥有这一behavior的组件节点都会被关联 */
     target?: string;
     /** 关系生命周期函数，当关系被建立在页面节点树中时触发，触发时机在组件attached生命周期之后 */
-    linked?: (target: Component<T>) => void;
+    linked?: (target: Component<D, P>) => void;
     /** 关系生命周期函数，当关系在页面节点树中发生改变时触发，触发时机在组件moved生命周期之后 */
-    linkChanged?: (target: Component<T>) => void;
+    linkChanged?: (target: Component<D, P>) => void;
     /** 关系生命周期函数，当关系脱离页面节点树时触发，触发时机在组件detached生命周期之后 */
-    unlinked?: (target: Component<T>) => void;
+    unlinked?: (target: Component<D, P>) => void;
 }
 /**
  * Component组件参数
@@ -3447,6 +3447,25 @@ interface ComponentOptions<
      */
     relations?: { [key: string]: ComponentRelation };
 }
+
+/**
+ * There are two valid ways to define the type of data / properties:
+ *
+ * 1. { name: valueType }
+ * 2. { name: { type: valueType, value?: value } }
+ *
+ * and this conditional type will extract that out so the call-site will typecheck.
+ *
+ * Note this is different from PropOptions as it is the definitions you passed to Component function
+ * whereas this type is for call-site.
+ */
+type DataValueType<Def> = Def extends {
+    type: (...args: any[]) => infer T;
+    value?: infer T;
+}
+    ? T
+    : Def extends (...args: any[]) => infer T ? T : never;
+
 /**
  * Component实例方法
  */
@@ -3466,12 +3485,12 @@ interface Component<D, P> {
     /**
      * 组件数据，包括内部数据和属性值
      */
-    data: D & P;
+    data: { [key in keyof (D & P)]: DataValueType<(D & P)[key]> };
 
     /**
      * 组件数据，包括内部数据和属性值（与 data 一致）
      */
-    properties: D & P;
+    properties: { [key in keyof (D & P)]: DataValueType<(D & P)[key]> };
     /**
      * 将数据从逻辑层发送到视图层，同时改变对应的 this.data 的值
      * 1. 直接修改 this.data 而不调用 this.setData 是无法改变页面的状态的，还会造成数据不一致。
@@ -3491,7 +3510,7 @@ interface Component<D, P> {
                 | null
                 | any[]
         },
-        callback?: () => any
+        callback?: () => void
     ): void;
     /**
      * 检查组件是否具有 behavior
