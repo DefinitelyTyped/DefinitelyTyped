@@ -4,7 +4,7 @@
  * @author The Chromium Authors
  */
 
-import runtime = chrome.app.runtime;
+const runtime = chrome.app.runtime;
 const cwindow = chrome.app.window;
 
 // #region FORBIDDEN APIs
@@ -449,7 +449,7 @@ const createOptions: chrome.app.CreateWindowOptions = {
 };
 
 //Create new window on app launch
-chrome.app.runtime.onLaunched.addListener((launchData: runtime.LaunchData) => {
+chrome.app.runtime.onLaunched.addListener((launchData: chrome.app.runtime.LaunchData) => {
     chrome.app.window.create('app/url', createOptions, (created_window: chrome.app.AppWindow) => {
         return;
     });
@@ -1997,3 +1997,6 @@ document.body.appendChild(appview);
 appview.connect('id of app');
 document.appendChild(appview);
 //#endregion
+
+
+
