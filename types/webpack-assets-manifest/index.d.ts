@@ -37,7 +37,7 @@ declare namespace WebpackAssetsManifest {
 	interface Options {
 		assets?: object;
 		output?: string;
-		replacer?: null | string[] | ((key: string, value: string) => number | string | boolean | null | object | undefined);
+		replacer?: null | ReadonlyArray<string> | ((key: string, value: string) => number | string | boolean | null | object | undefined);
 		space?: number;
 		writeToDisk?: boolean;
 		fileExtRegex?: RegExp | null | false;
@@ -45,19 +45,23 @@ declare namespace WebpackAssetsManifest {
 		merge?: boolean | "customize";
 		publicPath?: string | boolean | null | (((filename: string, manifest: WebpackAssetsManifest) => string));
 		apply?: ((manifest: WebpackAssetsManifest) => void) | null;
-		customize?: ((entry: Entry, original: object, manifest: WebpackAssetsManifest, asset: object) => Entry | false) | null;
-		transform?: ((assets: object, manifest: WebpackAssetsManifest) => any) | null;
-		done?: ((manifest: WebpackAssetsManifest, stats: object) => void) | null;
+		customize?: ((entry: Entry, original: AnyObject, manifest: WebpackAssetsManifest, asset: AnyObject) => Entry | false) | null;
+		transform?: ((assets: AnyObject, manifest: WebpackAssetsManifest) => any) | null;
+		done?: ((manifest: WebpackAssetsManifest, stats: AnyObject) => void) | null;
 		entrypoints?: boolean;
 		entrypointsKey?: string | false;
 		integrity?: boolean;
-		integrityHashes?: string[];
+		integrityHashes?: ReadonlyArray<string>;
 		integrityPropertyName?: string;
 	}
 
 	interface Entry {
 		key: string;
 		value: string;
+	}
+
+	interface AnyObject extends Object {
+		[index: string]: any;
 	}
 }
 
