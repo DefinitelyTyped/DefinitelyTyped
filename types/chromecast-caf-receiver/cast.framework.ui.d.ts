@@ -1,10 +1,9 @@
-import { PlayerDataEventType } from "./cast.framework.ui";
-import { MediaMetadata } from "./cast.framework.messages";
+import messages from "./cast.framework.messages";
 import { PlayerDataChangedEventHandler } from "./index";
 
-export = cast.framework.ui;
+export default UI;
 
-declare namespace cast.framework.ui {
+declare namespace UI {
     type ContentType = "video" | "audio" | "image";
 
     type State =
@@ -147,7 +146,7 @@ declare namespace cast.framework.ui {
         /**
          * Media metadata.
          */
-        metadata: MediaMetadata;
+        metadata: messages.MediaMetadata;
 
         /**
          * Next Item subtitle.

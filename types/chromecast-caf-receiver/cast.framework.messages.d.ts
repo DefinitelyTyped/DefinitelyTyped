@@ -1,7 +1,8 @@
-import { Event, DetailedErrorCode } from "./cast.framework.events";
-export = cast.framework.messages;
+import events from "./cast.framework.events";
 
-declare namespace cast.framework.messages {
+export default Messages;
+
+declare namespace Messages {
     type UserAction =
         | "LIKE"
         | "DISLIKE"
@@ -1369,18 +1370,6 @@ declare namespace cast.framework.messages {
      */
     interface MediaInformation {
         /**
-         * Partial list of break clips that includes current break clip that receiver
-         * is playing or ones that receiver will play shortly after; instead of sending
-         * whole list of clips. This is to avoid overflow of MediaStatus message.
-         */
-        breakClips: BreakClip[];
-
-        /**
-         * List of breaks.
-         */
-        breaks: Break[];
-
-        /**
          * Typically the url of the media.
          */
         contentId: string;
@@ -1415,12 +1404,12 @@ declare namespace cast.framework.messages {
         /**
          * The format of the HLS media segment.
          */
-        hlsSegmentFormat: HlsSegmentFormat;
+        hlsSegmentFormat?: HlsSegmentFormat;
 
         /**
          * The media metadata.
          */
-        metadata: MediaMetadata;
+        metadata?: MediaMetadata;
 
         /**
          * The stream type.
@@ -1430,12 +1419,7 @@ declare namespace cast.framework.messages {
         /**
          * The style of text track.
          */
-        textTrackStyle: TextTrackStyle;
-
-        /**
-         * The media tracks.
-         */
-        tracks: Track[];
+        textTrackStyle?: TextTrackStyle;
     }
 
     /**
@@ -1446,7 +1430,7 @@ declare namespace cast.framework.messages {
          * Array of trackIds that are active. If the array is not provided; the
          * default tracks will be active.
          */
-        activeTrackIds: number[];
+        activeTrackIds?: number[];
 
         /**
          * If the autoplay parameter is specified; the media player will begin
@@ -1488,7 +1472,7 @@ declare namespace cast.framework.messages {
         /**
          * Queue data.
          */
-        queueData: QueueData;
+        queueData?: QueueData;
     }
 
     /**
@@ -1671,13 +1655,13 @@ declare namespace cast.framework.messages {
     }
 
     /** Event data for @see{@link EventType.ERROR} event. */
-    class ErrorEvent extends Event {
-        constructor(detailedErrorCode?: DetailedErrorCode, error?: any);
+    class ErrorEvent extends events.Event {
+        constructor(detailedErrorCode?: events.DetailedErrorCode, error?: any);
 
         /**
          * An error code representing the cause of the error.
          */
-        detailedErrorCode?: DetailedErrorCode;
+        detailedErrorCode?: events.DetailedErrorCode;
 
         /**
          * The error object.

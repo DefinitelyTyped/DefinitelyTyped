@@ -1,5 +1,11 @@
-import { EventType } from "./cast.framework.events";
-import {
+import events from "./cast.framework.events";
+import messages from "./cast.framework.messages";
+import breaks from "./cast.framework.breaks";
+import { EventHandler, RequestHandler, BinaryHandler } from "./index";
+import system from "./cast.framework.system";
+
+/*
+{
     PlayerState,
     PlayStringId,
     ErrorType,
@@ -8,28 +14,22 @@ import {
     MessageType,
     Track,
     TextTrackStyle,
-    QueueItem,
     LoadRequestData,
+    QueueItem,
     QueueData,
     Break,
     LiveSeekableRange,
     MediaInformation,
     ErrorData,
     RequestData
-} from "./cast.framework.messages";
-import { BreakManager } from "./cast.framework.breaks";
-import { EventHandler, RequestHandler, BinaryHandler } from "./index";
-import {
-    EventType as SystemEventType,
-    ApplicationData,
-    Sender,
-    StandbyState,
-    SystemState
-} from "./cast.framework.system";
+}
+*/
 
-export = cast.framework;
+export default Framework;
+
 type HTMLMediaElement = any;
-declare namespace cast.framework {
+
+declare namespace Framework {
     type LoggerLevel =
         | "DEBUG"
         | "VERBOSE"
@@ -49,12 +49,12 @@ declare namespace cast.framework {
         /**
          * Adds text tracks to the list.
          */
-        addTracks(tracks: Track[]): void;
+        addTracks(tracks: messages.Track[]): void;
 
         /**
          * Creates a text track.
          */
-        createTrack(): Track;
+        createTrack(): messages.Track;
 
         /**
          * Gets all active text ids.
@@ -64,27 +64,27 @@ declare namespace cast.framework {
         /**
          * Gets all active text tracks.
          */
-        getActiveTracks(): Track[];
+        getActiveTracks(): messages.Track[];
 
         /**
          * Returns the current text track style.
          */
-        getTextTracksStyle(): TextTrackStyle;
+        getTextTracksStyle(): messages.TextTrackStyle;
 
         /**
          * Gets text track by id.
          */
-        getTrackById(id: number): Track;
+        getTrackById(id: number): messages.Track;
 
         /**
          * Returns all text tracks.
          */
-        getTracks(): Track[];
+        getTracks(): messages.Track[];
 
         /**
          * Gets text tracks by language.
          */
-        getTracksByLanguage(language: string): Track[];
+        getTracksByLanguage(language: string): messages.Track[];
 
         /**
          * Sets text tracks to be active by id.
@@ -99,7 +99,7 @@ declare namespace cast.framework {
         /**
          * Sets text track style.
          */
-        setTextTrackStyle(style: TextTrackStyle): void;
+        setTextTrackStyle(style: messages.TextTrackStyle): void;
     }
 
     /**
@@ -111,7 +111,7 @@ declare namespace cast.framework {
         /**
          * Returns the current queue item.
          */
-        getCurrentItem(): QueueItem;
+        getCurrentItem(): messages.QueueItem;
 
         /**
          * Returns the index of the current queue item.
@@ -121,12 +121,12 @@ declare namespace cast.framework {
         /**
          * Returns the queue items.
          */
-        getItems(): QueueItem[];
+        getItems(): messages.QueueItem[];
 
         /**
          * Inserts items into the queue.
          */
-        insertItems(items: QueueItem[], insertBefore?: number): void;
+        insertItems(items: messages.QueueItem[], insertBefore?: number): void;
 
         /**
          * Removes items from the queue.
@@ -141,7 +141,7 @@ declare namespace cast.framework {
         /**
          * Updates existing queue items by matching itemId.
          */
-        updateItems(items: QueueItem[]): void;
+        updateItems(items: messages.QueueItem[]): void;
     }
 
     /**
@@ -160,7 +160,7 @@ declare namespace cast.framework {
             itemId: number,
             nextCount: number,
             prevCount: number
-        ): QueueItem[] | Promise<QueueItem[]>;
+        ): messages.QueueItem[] | Promise<messages.QueueItem[]>;
 
         /**
          * Initializes the queue with the requestData. This is called when a new LOAD request comes in to the receiver.
@@ -168,13 +168,13 @@ declare namespace cast.framework {
          *  in the load request data.
          */
         initialize(
-            requestData: LoadRequestData
-        ): QueueData | Promise<QueueData>;
+            requestData: messages.LoadRequestData
+        ): messages.QueueData | Promise<messages.QueueData>;
 
         /**
          * Returns next items after the reference item; often the end of the current queue; called by the receiver MediaManager.
          */
-        nextItems(itemId?: number): QueueItem[] | Promise<QueueItem[]>;
+        nextItems(itemId?: number): messages.QueueItem[] | Promise<messages.QueueItem[]>;
 
         /**
          * Sets the current item with the itemId; called by the receiver MediaManager when it changes the current playing item.
@@ -185,7 +185,7 @@ declare namespace cast.framework {
          * A callback for informing the following items have been inserted into the receiver queue in this session.
          *  A cloud based implementation can optionally choose to update its queue based on the new information.
          */
-        onItemsInserted(items: QueueItem[], insertBefore?: number): void;
+        onItemsInserted(items: messages.QueueItem[], insertBefore?: number): void;
 
         /**
          * A callback for informing the following items have been removed from the receiver queue in this session.
@@ -196,12 +196,12 @@ declare namespace cast.framework {
         /**
          * Returns previous items before the reference item; often at the beginning of the queue; called by the receiver MediaManager.
          */
-        prevItems(itemId?: number): QueueItem[] | Promise<QueueItem[]>;
+        prevItems(itemId?: number): messages.QueueItem[] | Promise<messages.QueueItem[]>;
 
         /**
          * Shuffles the queue and returns new queue items. Returns null if the operation is not supported.
          */
-        shuffle(): QueueItem[] | Promise<QueueItem[]>;
+        shuffle(): messages.QueueItem[] | Promise<messages.QueueItem[]>;
     }
 
     /**
@@ -214,7 +214,7 @@ declare namespace cast.framework {
          * Adds an event listener for player event.
          */
         addEventListener: (
-            eventType: EventType | EventType[],
+            eventType: events.EventType | events.EventType[],
             eventListener: EventHandler
         ) => void;
 
@@ -243,12 +243,12 @@ declare namespace cast.framework {
         /**
          * Obtain the breaks (Ads) manager.
          */
-        getBreakManager(): BreakManager;
+        getBreakManager(): breaks.BreakManager;
 
         /**
          * Returns list of breaks.
          */
-        getBreaks(): Break[];
+        getBreaks(): messages.Break[];
 
         /**
          * Gets current time in sec of current media.
@@ -263,12 +263,12 @@ declare namespace cast.framework {
         /**
          * Returns live seekable range with start and end time in seconds. The values are media time based.
          */
-        getLiveSeekableRange(): LiveSeekableRange;
+        getLiveSeekableRange(): messages.LiveSeekableRange;
 
         /**
          * Gets media information of current media.
          */
-        getMediaInformation(): MediaInformation;
+        getMediaInformation(): messages.MediaInformation;
 
         /**
          * Returns playback configuration.
@@ -283,7 +283,7 @@ declare namespace cast.framework {
         /**
          * Gets player state.
          */
-        getPlayerState(): PlayerState;
+        getPlayerState(): messages.PlayerState;
 
         /**
          * Get the preferred playback rate. (Can be used on shutdown event to save latest preferred playback rate to a persistent storage;
@@ -306,7 +306,7 @@ declare namespace cast.framework {
         /**
          * Loads media.
          */
-        load(loadRequest: LoadRequestData): Promise<void>;
+        load(loadRequest: messages.LoadRequestData): Promise<void>;
 
         /**
          * Pauses currently playing media.
@@ -321,7 +321,7 @@ declare namespace cast.framework {
         /**
          * Requests a text string to be played back locally on the receiver device.
          */
-        playString(stringId: PlayStringId, args?: string[]): Promise<ErrorData>;
+        playString(stringId: messages.PlayStringId, args?: string[]): Promise<messages.ErrorData>;
 
         /**
          * Request Google Assistant to refresh the credentials. Only works if the original credentials came from the assistant.
@@ -332,7 +332,7 @@ declare namespace cast.framework {
          * Removes the event listener added for given player event. If event listener is not added; it will be ignored.
          */
         removeEventListener(
-            eventType: EventType | EventType[],
+            eventType: events.EventType | events.EventType[],
             eventListener: EventHandler
         ): void;
 
@@ -347,15 +347,15 @@ declare namespace cast.framework {
         sendError(
             senderId: string,
             requestId: number,
-            type: ErrorType,
-            reason?: ErrorReason,
+            type: messages.ErrorType,
+            reason?: messages.ErrorReason,
             customData?: any
         ): void;
 
         /**
          * Send local media request.
          */
-        sendLocalMediaRequest(request: RequestData): void;
+        sendLocalMediaRequest(request: messages.RequestData): void;
 
         /**
          * Sends a media status message to a specific sender.
@@ -374,7 +374,7 @@ declare namespace cast.framework {
          * it is only needed if they want to make the player go to IDLE in special circumstances and the default idleReason does not reflect their intended
          * behavior.
          */
-        setIdleReason(idleReason: IdleReason): void;
+        setIdleReason(idleReason: messages.IdleReason): void;
 
         /**
          * Sets MediaElement to use. If Promise of MediaElement is set; media begins playback after Promise is resolved.
@@ -385,7 +385,7 @@ declare namespace cast.framework {
          * Sets media information.
          */
         setMediaInformation(
-            mediaInformation: MediaInformation,
+            mediaInformation: messages.MediaInformation,
             opt_broadcast?: boolean
         ): void;
 
@@ -396,7 +396,7 @@ declare namespace cast.framework {
          */
         setMediaPlaybackInfoHandler(
             handler: (
-                loadRequestData: LoadRequestData,
+                loadRequestData: messages.LoadRequestData,
                 playbackConfig: PlaybackConfig
             ) => void
         ): void;
@@ -406,7 +406,7 @@ declare namespace cast.framework {
          * of the media status. By default the media contentId is used as the content url.
          */
         setMediaUrlResolver(
-            resolver: (loadRequestData: LoadRequestData) => void
+            resolver: (loadRequestData: messages.LoadRequestData) => void
         ): void;
 
         /**
@@ -417,8 +417,8 @@ declare namespace cast.framework {
          * the load interceptor will be called for preload messages.
          */
         setMessageInterceptor(
-            type: MessageType,
-            interceptor: (requestData: RequestData) => Promise<any>
+            type: messages.MessageType,
+            interceptor: (requestData: messages.RequestData) => Promise<any>
         ): void;
 
         /**
@@ -447,7 +447,9 @@ declare namespace cast.framework {
     /**
      * Configuration to customize playback behavior.
      */
-    class PlaybackConfig {
+    interface PlaybackConfig {
+        new(): PlaybackConfig;
+
         /**
          * Duration of buffered media in seconds to start buffering.
          */
@@ -627,11 +629,10 @@ declare namespace cast.framework {
     }
 
     /** Manages loading of underlying libraries and initializes underlying cast receiver SDK. */
-    class CastReceiverContext {
+    interface CastReceiverContext {
         /** Returns the CastReceiverContext singleton instance. */
-        static getInstance(): CastReceiverContext;
-
-        constructor(params: any);
+        getInstance(): CastReceiverContext;
+        new(params: any): CastReceiverContext;
 
         /**
          * Sets message listener on custom message channel.
@@ -645,7 +646,7 @@ declare namespace cast.framework {
          * Add listener to cast system events.
          */
         addEventListener(
-            type: SystemEventType | SystemEventType[],
+            type: system.EventType | system.EventType[],
             handler: EventHandler
         ): void;
 
@@ -663,7 +664,7 @@ declare namespace cast.framework {
         /**
          * Provides application information once the system is ready; otherwise it will be null.
          */
-        getApplicationData(): ApplicationData;
+        getApplicationData(): system.ApplicationData;
 
         /**
          * Provides device capabilities information once the system is ready; otherwise it will be null.
@@ -679,22 +680,22 @@ declare namespace cast.framework {
         /**
          * Get a sender by sender id
          */
-        getSender(senderId: string): Sender;
+        getSender(senderId: string): system.Sender;
 
         /**
          * Gets a list of currently-connected senders.
          */
-        getSenders(): Sender[];
+        getSenders(): system.Sender[];
 
         /**
          * Reports if the cast application's HDMI input is in standby.
          */
-        getStandbyState(): StandbyState;
+        getStandbyState(): system.StandbyState;
 
         /**
          * Provides application information about the system state.
          */
-        getSystemState(): SystemState;
+        getSystemState(): system.SystemState;
 
         /**
          * Reports if the cast application is the HDMI active input.
@@ -724,7 +725,7 @@ declare namespace cast.framework {
         /**
          * Remove listener to cast system events.
          */
-        removeEventListener(type: EventType, handler: EventHandler): void;
+        removeEventListener(type: events.EventType, handler: EventHandler): void;
 
         /**
          * Sends a message to a specific sender.
@@ -776,10 +777,10 @@ declare namespace cast.framework {
     class AudioTracksManager {
         constructor(params: any);
         getActiveId(): number;
-        getActiveTrack(): Track;
-        getTrackById(id: number): Track;
-        getTracks(): Track[];
-        getTracksByLanguage(language: string): Track[];
+        getActiveTrack(): messages.Track;
+        getTrackById(id: number): messages.Track;
+        getTracks(): messages.Track[];
+        getTracksByLanguage(language: string): messages.Track[];
         setActiveById(id: number): void;
         setActiveByLanguage(language: string): void;
     }

@@ -1,7 +1,8 @@
-import { EventType } from "./cast.framework.events";
-export = cast.framework.system;
+import events from "./cast.framework.events";
 
-declare namespace cast.framework.system {
+export default System;
+
+declare namespace System {
     type EventType =
         // Fired when the system is ready.
         | "READY"
