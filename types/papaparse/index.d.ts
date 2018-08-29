@@ -141,6 +141,7 @@ export interface ParseMeta {
     aborted: boolean;      // Whether process was aborted
     fields: Array<string>; // Array of field names
     truncated: boolean;    // Whether preview consumed all input
+    cursor: number;
 }
 
 /**
