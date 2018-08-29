@@ -215,6 +215,9 @@ knex.select('name').from('users')
   .whereIn('id', [1, 2, 3])
   .orWhereIn('id', [4, 5, 6]);
 
+knex.select('name').from('users')
+  .whereIn(knex.raw('id'), [1, 2, 3]);
+
 var subquery = knex.select('id').from('accounts');
 knex.select('name').from('users')
   .whereIn('account_id', subquery);

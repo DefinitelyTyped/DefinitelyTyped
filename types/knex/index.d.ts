@@ -307,6 +307,7 @@ declare namespace Knex {
     interface WhereIn {
         (columnName: string, values: Value[] | QueryBuilder | QueryCallback): QueryBuilder;
         (columnNames: string[], values: Value[][] | QueryBuilder | QueryCallback): QueryBuilder;
+        (column: Raw, values: Value[] | QueryBuilder | QueryCallback): QueryBuilder;
     }
 
     interface GroupBy extends RawQueryBuilder, ColumnNameQueryBuilder {
