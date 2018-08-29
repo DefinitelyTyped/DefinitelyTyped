@@ -57,7 +57,7 @@ videojs("example_video_1").ready(function() {
 
 	this.height(480);
 
-	this.requestFullScreen();
+	this.requestFullscreen();
 
 	testEvents(this);
 
