@@ -276,7 +276,8 @@ export interface NavigationInitAction extends NavigationInitActionPayload {
 }
 
 export interface NavigationReplaceActionPayload {
-    key: string;
+    key?: string;
+    newKey?: string;
     routeName: string;
     params?: NavigationParams;
     action?: NavigationNavigateAction;
