@@ -19,7 +19,7 @@ export interface CacheProvider {
     remove(key: string, callback: (err: Error | null, key: string) => void | null): void;
 }
 
-export type VerifiedCallback =	(err: Error | null, user: any}, info: any) => void;
+export type VerifiedCallback =	(err: Error | null, user: any, info: any) => void;
 
 export type VerifyWithRequest = (req: express.Request, profile: any, done: VerifiedCallback) => void;
 
