@@ -117,7 +117,7 @@ declare namespace webpack {
         [name: string]: string | string[];
     }
 
-    type EntryFunc = () => (string | string[] | Promise<string | string[]>);
+    type EntryFunc = () => (string | string[] | Entry | Promise<string | string[] | Entry>);
 
     interface DevtoolModuleFilenameTemplateInfo {
         identifier: string;
@@ -132,14 +132,20 @@ declare namespace webpack {
     }
 
     interface Output {
-        /** The output directory as absolute path. */
-        path?: string;
+        /** When used in tandem with output.library and output.libraryTarget, this option allows users to insert comments within the export wrapper. */
+        auxiliaryComment?: string | AuxiliaryCommentObject;
         /** The filename of the entry chunk as relative path inside the output.path directory. */
         filename?: string;
         /** The filename of non-entry chunks as relative path inside the output.path directory. */
         chunkFilename?: string;
-        /** The filename of the SourceMaps for the JavaScript files. They are inside the output.path directory. */
-        sourceMapFilename?: string;
+        /** Number of milliseconds before chunk request expires, defaults to 120,000. */
+        chunkLoadTimeout?: number;
+        /** This option enables cross-origin loading of chunks. */
+        crossOriginLoading?: string | boolean;
+        /** The JSONP function used by webpack for asnyc loading of chunks. */
+        jsonpFunction?: string;
+        /** Allows customization of the script type webpack injects script tags into the DOM to download async chunks. */
+        jsonpScriptType?: 'text/javascript' | 'module';
         /** Filename template string of function for the sources array in a generated SourceMap. */
         devtoolModuleFilenameTemplate?: string | ((info: DevtoolModuleFilenameTemplateInfo) => string);
         /** Similar to output.devtoolModuleFilenameTemplate, but used in the case of duplicate module identifiers. */
@@ -151,18 +157,14 @@ declare namespace webpack {
          * true enables it for all modules (not recommended)
          */
         devtoolLineToLine?: boolean;
+        /** This option determines the modules namespace used with the output.devtoolModuleFilenameTemplate. */
+        devtoolNamespace?: string;
         /** The filename of the Hot Update Chunks. They are inside the output.path directory. */
         hotUpdateChunkFilename?: string;
-        /** The filename of the Hot Update Main File. It is inside the output.path directory. */
-        hotUpdateMainFilename?: string;
-        /** The output.path from the view of the Javascript / HTML page. */
-        publicPath?: string;
-        /** The JSONP function used by webpack for asnyc loading of chunks. */
-        jsonpFunction?: string;
         /** The JSONP function used by webpack for async loading of hot update chunks. */
         hotUpdateFunction?: string;
-        /** Include comments with information about the modules. */
-        pathinfo?: boolean;
+        /** The filename of the Hot Update Main File. It is inside the output.path directory. */
+        hotUpdateMainFilename?: string;
         /** If set, export the bundle as library. output.library is the name. */
         library?: string | string[];
         /**
@@ -177,15 +179,21 @@ declare namespace webpack {
          * - "assign" - Assign to a global variable
          * - "jsonp" - Generate Webpack JSONP module
          */
-        libraryTarget?: 'var' | 'this' | 'commonjs' | 'commonjs2' | 'amd' | 'umd' | 'window' | 'assign' | 'jsonp';
+        libraryTarget?: LibraryTarget;
         /** Configure which module or modules will be exposed via the `libraryTarget` */
         libraryExport?: string | string[];
         /** If output.libraryTarget is set to umd and output.library is set, setting this to true will name the AMD module. */
         umdNamedDefine?: boolean;
+        /** The output directory as absolute path. */
+        path?: string;
+        /** Include comments with information about the modules. */
+        pathinfo?: boolean;
+        /** The output.path from the view of the Javascript / HTML page. */
+        publicPath?: string;
+        /** The filename of the SourceMaps for the JavaScript files. They are inside the output.path directory. */
+        sourceMapFilename?: string;
         /** Prefixes every line of the source in the bundle with this string. */
         sourcePrefix?: string;
-        /** This option enables cross-origin loading of chunks. */
-        crossOriginLoading?: string | boolean;
         /** The encoding to use when generating the hash, defaults to 'hex' */
         hashDigest?: 'hex' | 'latin1' | 'base64';
         /** The prefix length of the hash digest to use, defaults to 20. */
@@ -197,6 +205,10 @@ declare namespace webpack {
         /** An expression which is used to address the global object/scope in runtime code. */
         globalObject?: string;
     }
+
+    type LibraryTarget = 'var' | 'assign' | 'this' | 'window' | 'global' | 'commonjs' | 'commonjs2' | 'amd' | 'umd' | 'jsonp';
+
+    type AuxiliaryCommentObject = { [P in LibraryTarget]: string };
 
     interface Module {
         /** A array of applied pre loaders. */

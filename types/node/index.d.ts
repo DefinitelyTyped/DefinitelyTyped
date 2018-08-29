@@ -1,4 +1,4 @@
-// Type definitions for Node.js 10.7.x
+// Type definitions for Node.js 10.9.x
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <http://typescriptlang.org>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
@@ -26,7 +26,9 @@
 //                 Lishude <https://github.com/islishude>
 //                 Andrew Makarov <https://github.com/r3nya>
 //                 Zane Hannan AU <https://github.com/ZaneHannanAU>
+//                 Thomas den Hollander <https://github.com/ThomasdenH>
 //                 Eugene Y. Q. Shen <https://github.com/eyqs>
+//                 Matthieu Sieben <https://github.com/matthieusieben>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /** inspector module types */
@@ -172,6 +174,10 @@ interface SymbolConstructor {
     readonly asyncIterator: symbol;
 }
 declare var Symbol: SymbolConstructor;
+interface SharedArrayBuffer {
+    readonly byteLength: number;
+    slice(begin?: number, end?: number): SharedArrayBuffer;
+}
 
 // Node.js ESNEXT support
 interface String {
@@ -181,11 +187,11 @@ interface String {
     trimRight(): string;
 }
 
-/************************************************
-*                                               *
-*                   GLOBAL                      *
-*                                               *
-************************************************/
+/*-----------------------------------------------*
+ *                                               *
+ *                   GLOBAL                      *
+ *                                               *
+ ------------------------------------------------*/
 declare var process: NodeJS.Process;
 declare var global: NodeJS.Global;
 declare var console: Console;
@@ -349,13 +355,13 @@ declare var Buffer: {
     new(array: Uint8Array): Buffer;
     /**
      * Produces a Buffer backed by the same allocated memory as
-     * the given {ArrayBuffer}.
+     * the given {ArrayBuffer}/{SharedArrayBuffer}.
      *
      *
      * @param arrayBuffer The ArrayBuffer with which to share memory.
      * @deprecated since v10.0.0 - Use `Buffer.from(arrayBuffer[, byteOffset[, length]])` instead.
      */
-    new(arrayBuffer: ArrayBuffer): Buffer;
+    new(arrayBuffer: ArrayBuffer | SharedArrayBuffer): Buffer;
     /**
      * Allocates a new buffer containing the given {array} of octets.
      *
@@ -379,8 +385,7 @@ declare var Buffer: {
      *
      * @param arrayBuffer The .buffer property of any TypedArray or a new ArrayBuffer()
      */
-    from(arrayBuffer: ArrayBuffer, byteOffset?: number, length?: number): Buffer;
-    // from(arrayBuffer: SharedArrayBuffer, byteOffset?: number, length?: number): Buffer;
+    from(arrayBuffer: ArrayBuffer | SharedArrayBuffer, byteOffset?: number, length?: number): Buffer;
     /**
      * Creates a new Buffer using the passed {data}
      * @param data data to create a new Buffer
@@ -418,7 +423,7 @@ declare var Buffer: {
      * @param string string to test.
      * @param encoding encoding used to evaluate (defaults to 'utf8')
      */
-    byteLength(string: string | NodeJS.TypedArray | DataView | ArrayBuffer /*| SharedArrayBuffer */, encoding?: string): number;
+    byteLength(string: string | NodeJS.TypedArray | DataView | ArrayBuffer | SharedArrayBuffer, encoding?: string): number;
     /**
      * Returns a buffer which is the result of concatenating all the buffers in the list together.
      *
@@ -464,11 +469,11 @@ declare var Buffer: {
     poolSize: number;
 };
 
-/************************************************
+/*----------------------------------------------*
 *                                               *
 *               GLOBAL INTERFACES               *
 *                                               *
-************************************************/
+*-----------------------------------------------*/
 declare namespace NodeJS {
     export interface InspectOptions {
         showHidden?: boolean;
@@ -824,7 +829,7 @@ declare namespace NodeJS {
         emit(event: "unhandledRejection", reason: any, promise: Promise<any>): boolean;
         emit(event: "warning", warning: Error): boolean;
         emit(event: "message", message: any, sendHandle: any): this;
-        emit(event: Signals): boolean;
+        emit(event: Signals, signal: Signals): boolean;
         emit(event: "newListener", eventName: string | symbol, listener: (...args: any[]) => void): this;
         emit(event: "removeListener", eventName: string, listener: (...args: any[]) => void): this;
 
@@ -984,11 +989,11 @@ declare namespace NodeJS {
 
 interface IterableIterator<T> { }
 
-/************************************************
+/*----------------------------------------------*
 *                                               *
 *                   MODULES                     *
 *                                               *
-************************************************/
+*-----------------------------------------------*/
 declare module "buffer" {
     export var INSPECT_MAX_BYTES: number;
     var BuffType: typeof Buffer;
@@ -1285,7 +1290,9 @@ declare module "http" {
     // create interface RequestOptions would make the naming more clear to developers
     export interface RequestOptions extends ClientRequestArgs { }
     export function request(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
+    export function request(url: string | URL, options: RequestOptions, callback?: (res: IncomingMessage) => void): ClientRequest;
     export function get(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
+    export function get(url: string | URL, options: RequestOptions, callback?: (res: IncomingMessage) => void): ClientRequest;
     export var globalAgent: Agent;
 }
 
@@ -1704,6 +1711,7 @@ declare module "os" {
         netmask: string;
         mac: string;
         internal: boolean;
+        cidr: string | null;
     }
 
     export interface NetworkInterfaceInfoIPv4 extends NetworkInterfaceBase {
@@ -1887,7 +1895,9 @@ declare module "https" {
 
     export function createServer(options: ServerOptions, requestListener?: (req: http.IncomingMessage, res: http.ServerResponse) => void): Server;
     export function request(options: RequestOptions | string | URL, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
+    export function request(url: string | URL, options: RequestOptions, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
     export function get(options: RequestOptions | string | URL, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
+    export function get(url: string | URL, options: RequestOptions, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
     export var globalAgent: Agent;
 }
 
@@ -2194,7 +2204,7 @@ declare module "child_process" {
         keepOpen?: boolean;
     }
 
-    export type StdioOptions = "pipe" | "ignore" | "inherit" | Array<("pipe" | "ipc" | "ignore" | stream.Stream | number | null | undefined)>;
+    export type StdioOptions = "pipe" | "ignore" | "inherit" | Array<("pipe" | "ipc" | "ignore" | "inherit" | stream.Stream | number | null | undefined)>;
 
     export interface SpawnOptions {
         cwd?: string;
@@ -2770,6 +2780,7 @@ declare module "dns" {
 
     export function reverse(ip: string, callback: (err: NodeJS.ErrnoException, hostnames: string[]) => void): void;
     export function setServers(servers: string[]): void;
+    export function getServers(): string[];
 
     // Error codes
     export var NODATA: string;
@@ -2796,6 +2807,25 @@ declare module "dns" {
     export var LOADIPHLPAPI: string;
     export var ADDRGETNETWORKPARAMS: string;
     export var CANCELLED: string;
+
+    export class Resolver {
+        getServers: typeof getServers;
+        setServers: typeof setServers;
+        resolve: typeof resolve;
+        resolve4: typeof resolve4;
+        resolve6: typeof resolve6;
+        resolveAny: typeof resolveAny;
+        resolveCname: typeof resolveCname;
+        resolveMx: typeof resolveMx;
+        resolveNaptr: typeof resolveNaptr;
+        resolveNs: typeof resolveNs;
+        resolvePtr: typeof resolvePtr;
+        resolveSoa: typeof resolveSoa;
+        resolveSrv: typeof resolveSrv;
+        resolveTxt: typeof resolveTxt;
+        reverse: typeof reverse;
+        cancel(): void;
+    }
 }
 
 declare module "net" {
@@ -5875,13 +5905,15 @@ declare module "crypto" {
         authTagLength?: number;
     }
     /** @deprecated since v10.0.0 use createCipheriv() */
-    export function createCipher(algorithm: string, password: string | Buffer | NodeJS.TypedArray | DataView, options?: stream.TransformOptions): Cipher;
     export function createCipher(algorithm: CipherCCMTypes, password: string | Buffer | NodeJS.TypedArray | DataView, options: CipherCCMOptions): CipherCCM;
-    export function createCipher(algorithm: CipherGCMTypes, password: string | Buffer | NodeJS.TypedArray | DataView, options: CipherGCMOptions): CipherGCM;
+    /** @deprecated since v10.0.0 use createCipheriv() */
+    export function createCipher(algorithm: CipherGCMTypes, password: string | Buffer | NodeJS.TypedArray | DataView, options?: CipherGCMOptions): CipherGCM;
+    /** @deprecated since v10.0.0 use createCipheriv() */
+    export function createCipher(algorithm: string, password: string | Buffer | NodeJS.TypedArray | DataView, options?: stream.TransformOptions): Cipher;
 
+    export function createCipheriv(algorithm: CipherCCMTypes, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options: CipherCCMOptions): CipherCCM;
+    export function createCipheriv(algorithm: CipherGCMTypes, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options?: CipherGCMOptions): CipherGCM;
     export function createCipheriv(algorithm: string, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options?: stream.TransformOptions): Cipher;
-    export function createCipheriv(algorithm: CipherGCMTypes, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options: CipherCCMOptions): CipherCCM;
-    export function createCipheriv(algorithm: CipherGCMTypes, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options: CipherGCMOptions): CipherGCM;
 
     export interface Cipher extends NodeJS.ReadWriteStream {
         update(data: string | Buffer | NodeJS.TypedArray | DataView): Buffer;
@@ -5897,21 +5929,23 @@ declare module "crypto" {
         // setAAD(buffer: Buffer): this; // docs only say buffer
     }
     export interface CipherCCM extends Cipher {
-        setAAD(buffer: Buffer, options: { plainTextLength: number }): this;
+        setAAD(buffer: Buffer, options: { plaintextLength: number }): this;
         getAuthTag(): Buffer;
     }
     export interface CipherGCM extends Cipher {
-        setAAD(buffer: Buffer, options?: { plainTextLength: number }): this;
+        setAAD(buffer: Buffer, options?: { plaintextLength: number }): this;
         getAuthTag(): Buffer;
     }
     /** @deprecated since v10.0.0 use createCipheriv() */
-    export function createDecipher(algorithm: string, password: string | Buffer | NodeJS.TypedArray | DataView, options?: stream.TransformOptions): Decipher;
     export function createDecipher(algorithm: CipherCCMTypes, password: string | Buffer | NodeJS.TypedArray | DataView, options: CipherCCMOptions): DecipherCCM;
-    export function createDecipher(algorithm: CipherGCMTypes, password: string | Buffer | NodeJS.TypedArray | DataView, options: CipherGCMOptions): DecipherGCM;
+    /** @deprecated since v10.0.0 use createCipheriv() */
+    export function createDecipher(algorithm: CipherGCMTypes, password: string | Buffer | NodeJS.TypedArray | DataView, options?: CipherGCMOptions): DecipherGCM;
+    /** @deprecated since v10.0.0 use createCipheriv() */
+    export function createDecipher(algorithm: string, password: string | Buffer | NodeJS.TypedArray | DataView, options?: stream.TransformOptions): Decipher;
 
-    export function createDecipheriv(algorithm: string, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options?: stream.TransformOptions): Decipher;
     export function createDecipheriv(algorithm: CipherCCMTypes, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options: CipherCCMOptions): DecipherCCM;
-    export function createDecipheriv(algorithm: CipherGCMTypes, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options: CipherGCMOptions): DecipherGCM;
+    export function createDecipheriv(algorithm: CipherGCMTypes, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options?: CipherGCMOptions): DecipherGCM;
+    export function createDecipheriv(algorithm: string, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options?: stream.TransformOptions): Decipher;
 
     export interface Decipher extends NodeJS.ReadWriteStream {
         update(data: Buffer | NodeJS.TypedArray | DataView): Buffer;
@@ -5926,12 +5960,12 @@ declare module "crypto" {
         // setAAD(buffer: Buffer | NodeJS.TypedArray | DataView): this;
     }
     export interface DecipherCCM extends Decipher {
-        setAuthTag(buffer: Buffer | NodeJS.TypedArray | DataView, options: { plainTextLength: number }): this;
-        setAAD(buffer: Buffer | NodeJS.TypedArray | DataView): this;
+        setAuthTag(buffer: Buffer | NodeJS.TypedArray | DataView): this;
+        setAAD(buffer: Buffer | NodeJS.TypedArray | DataView, options: { plaintextLength: number }): this;
     }
     export interface DecipherGCM extends Decipher {
-        setAuthTag(buffer: Buffer | NodeJS.TypedArray | DataView, options?: { plainTextLength: number }): this;
-        setAAD(buffer: Buffer | NodeJS.TypedArray | DataView): this;
+        setAuthTag(buffer: Buffer | NodeJS.TypedArray | DataView): this;
+        setAAD(buffer: Buffer | NodeJS.TypedArray | DataView, options?: { plaintextLength: number }): this;
     }
 
     export function createSign(algorithm: string, options?: stream.WritableOptions): Signer;
@@ -6303,6 +6337,7 @@ declare module "stream" {
 declare module "util" {
     export interface InspectOptions extends NodeJS.InspectOptions { }
     export function format(format: any, ...param: any[]): string;
+    export function formatWithOptions(inspectOptions: InspectOptions, format: string, ...param: any[]): string;
     /** @deprecated since v0.11.3 - use `console.error()` instead. */
     export function debug(string: string): void;
     /** @deprecated since v0.11.3 - use `console.error()` instead. */
@@ -6381,17 +6416,17 @@ declare module "util" {
 
     export function promisify<TCustom extends Function>(fn: CustomPromisify<TCustom>): TCustom;
     export function promisify<TResult>(fn: (callback: (err: Error | null, result: TResult) => void) => void): () => Promise<TResult>;
-    export function promisify(fn: (callback: (err: Error | null) => void) => void): () => Promise<void>;
+    export function promisify(fn: (callback: (err?: Error | null) => void) => void): () => Promise<void>;
     export function promisify<T1, TResult>(fn: (arg1: T1, callback: (err: Error | null, result: TResult) => void) => void): (arg1: T1) => Promise<TResult>;
-    export function promisify<T1>(fn: (arg1: T1, callback: (err: Error | null) => void) => void): (arg1: T1) => Promise<void>;
+    export function promisify<T1>(fn: (arg1: T1, callback: (err?: Error | null) => void) => void): (arg1: T1) => Promise<void>;
     export function promisify<T1, T2, TResult>(fn: (arg1: T1, arg2: T2, callback: (err: Error | null, result: TResult) => void) => void): (arg1: T1, arg2: T2) => Promise<TResult>;
-    export function promisify<T1, T2>(fn: (arg1: T1, arg2: T2, callback: (err: Error | null) => void) => void): (arg1: T1, arg2: T2) => Promise<void>;
+    export function promisify<T1, T2>(fn: (arg1: T1, arg2: T2, callback: (err?: Error | null) => void) => void): (arg1: T1, arg2: T2) => Promise<void>;
     export function promisify<T1, T2, T3, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, callback: (err: Error | null, result: TResult) => void) => void): (arg1: T1, arg2: T2, arg3: T3) => Promise<TResult>;
-    export function promisify<T1, T2, T3>(fn: (arg1: T1, arg2: T2, arg3: T3, callback: (err: Error | null) => void) => void): (arg1: T1, arg2: T2, arg3: T3) => Promise<void>;
+    export function promisify<T1, T2, T3>(fn: (arg1: T1, arg2: T2, arg3: T3, callback: (err?: Error | null) => void) => void): (arg1: T1, arg2: T2, arg3: T3) => Promise<void>;
     export function promisify<T1, T2, T3, T4, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err: Error | null, result: TResult) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<TResult>;
-    export function promisify<T1, T2, T3, T4>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err: Error | null) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<void>;
+    export function promisify<T1, T2, T3, T4>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err?: Error | null) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<void>;
     export function promisify<T1, T2, T3, T4, T5, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err: Error | null, result: TResult) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<TResult>;
-    export function promisify<T1, T2, T3, T4, T5>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err: Error | null) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<void>;
+    export function promisify<T1, T2, T3, T4, T5>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err?: Error | null) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<void>;
     export function promisify(fn: Function): Function;
     export namespace promisify {
         const custom: symbol;

@@ -1,11 +1,11 @@
-// Type definitions for dd-trace-js 0.2
+// Type definitions for dd-trace-js 0.5
 // Project: https://github.com/DataDog/dd-trace-js
 // Definitions by: Colin Bradley <https://github.com/ColinBradley>
+//                 Eloy Durán <https://github.com/alloy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import Tracer = require('./src/opentracing/tracer');
-import Span = require('./src/opentracing/span');
-import SpanContext = require('./src/opentracing/span_context');
+import { Tracer, Span, SpanContext } from "opentracing";
+import DatadogSpanContext = require('./src/opentracing/span_context');
 
 declare var trace: TraceProxy;
 export = trace;
@@ -42,6 +42,11 @@ declare class TraceProxy extends Tracer {
      * @returns The current span or null if outside a trace context.
      */
     currentSpan(): Span | null;
+
+    /**
+     * Get the scope manager to manager context propagation for the tracer.
+     */
+    scopeManager(): ScopeManager;
 }
 
 interface TracerOptions {
@@ -139,11 +144,44 @@ interface TraceOptions {
     /**
      * The parent span or span context for the new span. Generally this is not needed as it will be
      * fetched from the current context.
+     * If creating your own, this must be an instance of DatadogSpanContext from ./src/opentracing/span_context
+     * See: https://github.com/DataDog/dd-trace-js/blob/master/src/opentracing/tracer.js#L99
      */
-    childOf?: Span | SpanContext;
+    childOf?: Span | SpanContext | DatadogSpanContext;
 
     /**
      * Global tags that should be assigned to every span.
      */
     tags?: { [key: string]: any } | string;
+}
+
+declare class ScopeManager {
+    /**
+     * Get the current active scope or null if there is none.
+     *
+     * @todo The dd-trace source returns null, but opentracing's childOf span
+     *       option is typed as taking undefined or a scope, so using undefined
+     *       here instead.
+     */
+    active(): Scope | undefined;
+
+    /**
+     * Activate a new scope wrapping the provided span.
+     *
+     * @param span The span for which to activate the new scope.
+     * @param finishSpanOnClose Whether to automatically finish the span when the scope is closed.
+     */
+    activate(span: Span, finishSpanOnClose?: boolean): Scope;
+}
+
+declare class Scope {
+    /**
+     * Get the span wrapped by this scope.
+     */
+    span(): Span;
+
+    /**
+     * Close the scope, and finish the span if the scope was created with `finishSpanOnClose` set to true.
+     */
+    close(): void;
 }

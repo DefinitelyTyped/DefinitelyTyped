@@ -11,6 +11,7 @@ import {
     DrawerNavigatorConfig,
     NavigationAction,
     NavigationActions,
+    NavigationEvents,
     NavigationBackAction,
     NavigationInitAction,
     NavigationNavigateAction,
@@ -374,6 +375,8 @@ class CustomTransitioner extends React.Component<CustomTransitionerProps, null> 
 /**
  * Header
  */
+const height = Header.HEIGHT;
+
 function renderHeaderBackButton(schema: string): JSX.Element {
     switch (schema) {
         case 'compact':
@@ -410,14 +413,6 @@ const navigateAction: NavigationNavigateAction = NavigationActions.navigate({
     action: NavigationActions.navigate({ routeName: "BarScreen" })
 });
 
-const resetAction: NavigationResetAction = NavigationActions.reset({
-    index: 0,
-    key: "foo",
-    actions: [
-        NavigationActions.navigate({ routeName: "FooScreen" })
-    ]
-});
-
 const backAction: NavigationBackAction = NavigationActions.back({
     key: "foo"
 });
@@ -427,16 +422,6 @@ const setParamsAction: NavigationSetParamsAction = NavigationActions.setParams({
     params: {
         foo: "bar"
     }
-});
-
-const popAction: NavigationPopAction = NavigationActions.pop({
-    n: 1,
-    immediate: true
-});
-
-const popToTopAction: NavigationPopToTopAction = NavigationActions.popToTop({
-    key: "foo",
-    immediate: true
 });
 
 class Page1 extends React.Component { }
@@ -497,6 +482,7 @@ const CustomHeaderStack = createStackNavigator({
 
 interface ScreenProps {
     name: string;
+    optionalAge?: number;
     onPlay(): void;
 }
 
@@ -513,9 +499,16 @@ class SetParamsTest extends React.Component<NavigationScreenProps<ScreenProps>> 
 
     render() {
         const name = this.props.navigation.getParam('name');
+        const age = this.props.navigation.getParam('optionalAge');
+
+        // $ExpectType number | undefined
+        this.props.navigation.getParam('optionalAge');
+
+        // $ExpectType number
+        this.props.navigation.getParam('optionalAge', 0);
 
         return (
-            <Text>My name is {name}</Text>
+            <Text>My name is {name} and I am {age} years old.</Text>
         );
     }
 }
@@ -580,4 +573,15 @@ class MyScreen extends React.Component<NavigationInjectedProps<MyScreenParams>> 
 createStackNavigator(
     routeConfigMap,
     {transitionConfig: () => ({screenInterpolator: StackViewTransitionConfigs.SlideFromRightIOS.screenInterpolator})}
+);
+
+// Test NavigationEvents component
+
+const ViewWithNavigationEvents = (
+  <NavigationEvents
+    onWillFocus={console.log}
+    onDidFocus={console.log}
+    onWillBlur={console.log}
+    onDidBlur={console.log}
+  />
 );

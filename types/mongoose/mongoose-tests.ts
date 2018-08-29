@@ -429,7 +429,7 @@ schema.queue('m1', [1, 2, 3]).queue('m2', [[]]);
 schema.remove('path');
 schema.remove(['path1', 'path2', 'path3']);
 schema.requiredPaths(true)[0].toLowerCase();
-schema.set('key', 999).set('key');
+schema.set('id', true).set('id');
 schema.static('static', cb).static({
   s1: cb,
   s2: cb
@@ -1264,6 +1264,8 @@ aggregate.project({
 })
 aggregate.project({ salary_k: { $divide: [ "$salary", 1000 ]}});
 aggregate.read('primaryPreferred').read('pp');
+aggregate.replaceRoot("user");
+aggregate.replaceRoot({x: {$concat: ['$this', '$that']}});
 aggregate.sample(3).sample(3);
 aggregate.skip(10).skip(10);
 aggregate.sort({ field: 'asc', test: -1 });

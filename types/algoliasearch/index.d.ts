@@ -1776,6 +1776,14 @@ declare namespace algoliasearch {
     facets?: {
       [facetName: string]: { [facetValue: string]: number };
     };
+    facets_stats?: {
+      [facetName: string]: {
+        avg: number,
+        max: number,
+        min: number,
+        sum: number,
+      };
+    };
   }
 
   interface MultiResponse {

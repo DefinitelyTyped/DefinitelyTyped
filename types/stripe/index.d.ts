@@ -1322,7 +1322,7 @@ declare namespace Stripe {
             /**
              * ID of the default source attached to this customer. [Expandable]
              */
-            default_source: string | cards.ICard | bitcoinReceivers.IBitcoinReceiver;
+            default_source: string | cards.ICard | bitcoinReceivers.IBitcoinReceiver | null;
 
             /**
              * Whether or not the latest charge for the customer's latest invoice has failed
@@ -7192,7 +7192,7 @@ declare namespace Stripe {
         }
 
         class WebHooks {
-            constructEvent<T>(requestBody: any, signature: string | string[], endpointSecret: string): webhooks.StripeWebhookEvent<T>;
+            constructEvent<T>(requestBody: any, signature: string | string[], endpointSecret: string, tolerance?: number): webhooks.StripeWebhookEvent<T>;
         }
 
         class EphemeralKeys {

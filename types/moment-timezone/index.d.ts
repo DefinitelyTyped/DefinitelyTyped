@@ -36,7 +36,7 @@ declare module "moment" {
         (date: moment.Moment, timezone: string): moment.Moment;
         (date: any, timezone: string): moment.Moment;
 
-        zone(timezone: string): MomentZone;
+        zone(timezone: string): MomentZone | null;
 
         add(packedZoneString: string): void;
         add(packedZoneString: string[]): void;

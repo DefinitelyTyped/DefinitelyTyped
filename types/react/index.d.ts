@@ -18,6 +18,7 @@
 //                 Johann Rakotoharisoa <https://github.com/jrakotoharisoa>
 //                 Olivier Pascal <https://github.com/pascaloliv>
 //                 Martin Hochel <https://github.com/hotell>
+//                 Frank Li <https://github.com/franklixuefei>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -59,8 +60,7 @@ declare namespace React {
 
     type Ref<T> = string | { bivarianceHack(instance: T | null): any }["bivarianceHack"] | RefObject<T>;
 
-    // tslint:disable-next-line:interface-over-type-literal
-    type ComponentState = {};
+    type ComponentState = any;
 
     interface Attributes {
         key?: Key;
@@ -106,7 +106,7 @@ declare namespace React {
         type: keyof ReactSVG;
     }
 
-    interface ReactPortal {
+    interface ReactPortal extends ReactElement<any> {
         key: Key | null;
         children: ReactNode;
     }
@@ -1459,6 +1459,7 @@ declare namespace React {
     interface ImgHTMLAttributes<T> extends HTMLAttributes<T> {
         alt?: string;
         crossOrigin?: "anonymous" | "use-credentials" | "";
+        decoding?: "async" | "auto" | "sync";
         height?: number | string;
         sizes?: string;
         src?: string;

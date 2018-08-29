@@ -1137,12 +1137,12 @@ declare namespace angular {
          *
          * @param value Value or a promise
          */
-        resolve<T>(value: IPromise<T>|T): IPromise<T>;
+        resolve<T>(value: PromiseLike<T>|T): IPromise<T>;
         /**
          * @deprecated Since TS 2.4, inference is stricter and no longer produces the desired type when T1 !== T2.
          * To use resolve with two different types, pass a union type to the single-type-argument overload.
          */
-        resolve<T1, T2>(value: IPromise<T1>|T2): IPromise<T1|T2>;
+        resolve<T1, T2>(value: PromiseLike<T1>|T2): IPromise<T1|T2>;
         /**
          * Wraps an object that might be a value or a (3rd party) then-able promise into a $q promise. This is useful when you are dealing with an object that might or might not be a promise, or if the promise comes from a source that can't be trusted.
          */
@@ -1152,11 +1152,11 @@ declare namespace angular {
          *
          * @param value Value or a promise
          */
-        when<T>(value: IPromise<T>|T): IPromise<T>;
-        when<T1, T2>(value: IPromise<T1>|T2): IPromise<T1|T2>;
-        when<TResult, T>(value: IPromise<T>|T, successCallback: (promiseValue: T) => IPromise<TResult>|TResult): IPromise<TResult>;
-        when<TResult, T>(value: T, successCallback: (promiseValue: T) => IPromise<TResult>|TResult, errorCallback: null | undefined | ((reason: any) => any), notifyCallback?: (state: any) => any): IPromise<TResult>;
-        when<TResult, TResult2, T>(value: IPromise<T>, successCallback: (promiseValue: T) => IPromise<TResult>|TResult, errorCallback: (reason: any) => TResult2 | IPromise<TResult2>, notifyCallback?: (state: any) => any): IPromise<TResult | TResult2>;
+        when<T>(value: PromiseLike<T>|T): IPromise<T>;
+        when<T1, T2>(value: PromiseLike<T1>|T2): IPromise<T1|T2>;
+        when<TResult, T>(value: PromiseLike<T>|T, successCallback: (promiseValue: T) => PromiseLike<TResult>|TResult): IPromise<TResult>;
+        when<TResult, T>(value: T, successCallback: (promiseValue: T) => PromiseLike<TResult>|TResult, errorCallback: null | undefined | ((reason: any) => any), notifyCallback?: (state: any) => any): IPromise<TResult>;
+        when<TResult, TResult2, T>(value: PromiseLike<T>, successCallback: (promiseValue: T) => PromiseLike<TResult>|TResult, errorCallback: (reason: any) => TResult2 | PromiseLike<TResult2>, notifyCallback?: (state: any) => any): IPromise<TResult | TResult2>;
         /**
          * Wraps an object that might be a value or a (3rd party) then-able promise into a $q promise. This is useful when you are dealing with an object that might or might not be a promise, or if the promise comes from a source that can't be trusted.
          */
