@@ -976,8 +976,8 @@ declare module "mongoose" {
      */
     validate?: RegExp | [RegExp, string] |
       SchemaTypeOpts.ValidateFn<T> | [SchemaTypeOpts.ValidateFn<T>, string] |
-      SchemaTypeOpts.ValidateOpts | SchemaTypeOpts.ValidateOpts[] |
-      SchemaTypeOpts.AsyncValidateOpts | SchemaTypeOpts.AsyncValidateOpts[];
+      SchemaTypeOpts.ValidateOpts | SchemaTypeOpts.AsyncValidateOpts |
+      (SchemaTypeOpts.ValidateOpts | SchemaTypeOpts.AsyncValidateOpts)[];
 
     /** Declares an unique index. */
     unique?: boolean | any;
