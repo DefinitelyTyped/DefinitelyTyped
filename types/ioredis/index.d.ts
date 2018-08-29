@@ -23,6 +23,9 @@ interface RedisStatic {
     new(port?: number, host?: string, options?: IORedis.RedisOptions): IORedis.Redis;
     new(host?: string, options?: IORedis.RedisOptions): IORedis.Redis;
     new(options?: IORedis.RedisOptions): IORedis.Redis;
+    new<T>(port?: number, host?: string, options?: IORedis.RedisOptions): IORedis.RedisDefineCommand<T>;
+    new<T>(host?: string, options?: IORedis.RedisOptions): IORedis.RedisDefineCommand<T>;
+    new<T>(options?: IORedis.RedisOptions): IORedis.RedisDefineCommand<T>;
     (port?: number, host?: string, options?: IORedis.RedisOptions): IORedis.Redis;
     (host?: string, options?: IORedis.RedisOptions): IORedis.Redis;
     (options?: IORedis.RedisOptions): IORedis.Redis;
@@ -50,6 +53,8 @@ declare namespace IORedis {
         setArgumentTransformer(name: string, fn: (args: any[]) => any[]): void;
         setReplyTransformer(name: string, fn: (result: any) => any): void;
     }
+
+    type RedisDefineCommand<T> = Redis & T
 
     interface Redis extends NodeJS.EventEmitter, Commander {
         Promise: typeof Promise;
