@@ -5,6 +5,7 @@
 // TypeScript Version: 2.7
 
 declare module "react-visibility-sensor" {
+  /// <reference types="cheerio" />
   import * as React from "react";
 
   interface Shape {
