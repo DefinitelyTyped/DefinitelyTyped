@@ -3,7 +3,7 @@
 import PCancelableCtor = require('p-cancelable');
 import { EventEmitter } from "events";
 
-const cancelablePromise: PCancelableCtor.PCancelable<{}> = new PCancelableCtor((onCancel, resolve, reject) => {
+const cancelablePromise: PCancelableCtor.PCancelable<{}> = new PCancelableCtor((resolve, reject, onCancel) => {
     class Worker extends EventEmitter {
         close() {
         }
@@ -24,7 +24,7 @@ cancelablePromise
         console.log('Operation finished successfully:', value);
     })
     .catch(reason => {
-        if (cancelablePromise.canceled) {
+        if (cancelablePromise.isCanceled) {
             // Handle the cancelation here
             console.log('Operation was canceled');
             return;
@@ -56,7 +56,7 @@ const fn = PCancelableCtor.fn((onCancel: (fn?: () => void) => void, input: strin
 const promise = fn('input');
 let num: number;
 promise.then(innum => num = innum);
-if (!promise.canceled) {
+if (!promise.isCanceled) {
     promise.cancel();
 }
 
