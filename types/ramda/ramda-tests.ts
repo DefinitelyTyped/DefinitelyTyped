@@ -2317,10 +2317,12 @@ class Rectangle {
     const c = {x: 3};
     const d = {x: "a"};
     const e = {x: "z"};
+    const f = {x: new Date(0)};
+    const g = {x: new Date(60 * 1000)};
     R.maxBy(cmp, a, c); // => {x: 3}
     R.maxBy(cmp)(a, c); // => {x: 3}
     R.maxBy(cmp)(a)(b);
-    R.maxBy(cmp)(d)(e);
+    R.maxBy(cmp)(f)(g);
 };
 
 () => {
@@ -2348,10 +2350,13 @@ class Rectangle {
     const c = {x: 3};
     const d = {x: "a"};
     const e = {x: "z"};
+    const f = {x: new Date(0)};
+    const g = {x: new Date(60 * 1000)};
     R.minBy(cmp, a, b); // => {x: 1}
     R.minBy(cmp)(a, b); // => {x: 1}
     R.minBy(cmp)(a)(c);
     R.minBy(cmp, d, e);
+    R.minBy(cmp)(f)(g);
 };
 
 () => {
