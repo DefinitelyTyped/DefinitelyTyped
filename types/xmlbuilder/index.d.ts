@@ -3,7 +3,6 @@
 // Definitions by: Wallymathieu <https://github.com/wallymathieu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 export = xmlbuilder;
 
 declare namespace xmlbuilder {
@@ -87,5 +86,6 @@ declare namespace xmlbuilder {
         u(): XMLElementOrXMLNode;
     }
 
-    function create(nameOrObjSpec: string | { [name:string]: Object }, xmldec?: Object, doctype?: any, options?: Object): XMLElementOrXMLNode;
+    function create(nameOrObjSpec: string | { [name: string]: Object }, xmldec?: Object, doctype?: any, options?: Object): XMLElementOrXMLNode;
+    function begin(): XMLElementOrXMLNode;
 }
