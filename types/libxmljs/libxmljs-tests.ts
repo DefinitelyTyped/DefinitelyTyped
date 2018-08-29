@@ -60,5 +60,5 @@ const xmlDocWithNs = libxmljs.parseXml(xmlWithNs);
 
 // xpath queries
 const gchildWithNs = xmlDocWithNs.get('//a:grandchild', {a: "http://test.com/test"})!;
-	   
+
 console.log(gchildWithNs.text());  // prints "grandchild content"
