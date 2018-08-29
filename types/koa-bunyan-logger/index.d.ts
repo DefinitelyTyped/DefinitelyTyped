@@ -9,4 +9,12 @@ import { Middleware } from 'koa';
 
 import * as Logger from 'bunyan';
 
-export default function(logger: Logger | undefined): Middleware;
+export default function(logger?: Logger | undefined): Middleware;
+
+// Extend the Koa context to add the logger..
+declare module 'koa' {
+    // tslint:disable-next-line: interface-name
+    interface BaseContext {
+        log: Logger;
+    }
+}
