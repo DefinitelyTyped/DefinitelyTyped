@@ -41,7 +41,7 @@ export class Document {
     encoding(): string;
     encoding(enc: string): this;
     find(xpath: string): Element[];
-    get(xpath: string): Element|null;
+    get(xpath: string, namespaces?: { [key: string]: string; }): Element|null;
     node(name: string, content?: string): Element;
     root(): Element|null;
     root(newRoot: Node): Node;
