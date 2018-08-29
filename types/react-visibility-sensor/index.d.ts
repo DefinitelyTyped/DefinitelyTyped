@@ -28,6 +28,9 @@ interface Props {
   resizeDelay?: number;
   resizeThrottle?: number;
   delayedCall?: boolean;
+  children?: (
+    args: { isVisible: boolean; visibilityRect?: Shape }
+  ) => React.ReactNode;
 }
 
 declare const ReactVisibilitySensor: React.StatelessComponent<Props>;

@@ -20,6 +20,7 @@ const component = (
     resizeCheck={bool}
     resizeDelay={num}
     resizeThrottle={num}
-    delayedCall={bool}
-  />
+    delayedCall={bool}>
+    {({ isVisible: bool, visibilityRect: shape }) => <div />}
+  </ReactVisibilitySensor>
 );
