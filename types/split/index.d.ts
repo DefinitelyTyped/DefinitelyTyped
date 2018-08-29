@@ -6,7 +6,6 @@
 /// <reference types="node" />
 /// <reference types="through" />
 
-import { Transform, TransformOptions } from 'stream';
 import { ThroughStream } from 'through';
 
 interface SplitOptions {
