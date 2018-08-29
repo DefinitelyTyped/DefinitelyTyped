@@ -152,3 +152,24 @@ new Redis.Cluster([{
     host: 'localhost',
     port: 6379
 }]);
+
+interface EchoCommand {
+    echo(key1: string, key2: string, arg1: string, arg2: string): Promise<string[]>;
+    echoBuffer(key1: string, key2: string, arg1: string, arg2: string): Promise<Buffer[]>;
+}
+
+const redisWithEcho = new Redis<EchoCommand>();
+redisWithEcho.defineCommand('echo', {
+    numberOfKeys: 2,
+    lua: 'return {KEYS[1],KEYS[2],ARGV[1],ARGV[2]}'
+});
+
+const echoPromise = redisWithEcho.echo('k1', 'k2', 'a1', 'a2');
+echoPromise.then((result) => {
+    // result === ['k1', 'k2', 'a1', 'a2']
+});
+
+const echoBufferPromise = redisWithEcho.echoBuffer('k1', 'k2', 'a1', 'a2');
+echoBufferPromise.then((result) => {
+    // result === [Buffer.from('k1'), Buffer.from('k2'), Buffer.from('a1'), Buffer.from('a2')]
+});
