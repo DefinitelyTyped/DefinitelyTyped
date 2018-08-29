@@ -1,4 +1,4 @@
-import * as hat from 'hat';
+import hat = require('hat');
 
 const randomId = hat();
 
