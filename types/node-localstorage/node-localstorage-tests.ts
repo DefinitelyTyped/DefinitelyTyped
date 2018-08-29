@@ -3,14 +3,32 @@ import { LocalStorage, JSONStorage } from 'node-localstorage';
 const jsonStore = new JSONStorage('./jsonStore');
 const textStore = new LocalStorage('./textStore');
 
-const mjkModel = {
-  firstName: 'Maynard',
+interface Person {
+  givenName: string;
+  middleName: string;
+  familyName: string;
+}
+
+const mjkModel: Person = {
+  givenName: 'Maynard',
   middleName: 'James',
   familyName: 'Keenan',
 };
 
 textStore.clear();
 jsonStore.clear();
+
+textStore.on('storage', (event) => {
+  if (textStore.getItem(event.key) !== event.newValue) {
+    throw new Error('textStore: An error occurred with the event handler.');
+  }
+});
+
+jsonStore.on('storage', (event) => {
+  if (jsonStore.getItem(event.key) !== event.newValue) {
+    throw new Error('jsonStore: An error occurred with the event handler.');
+  }
+});
 
 textStore.setItem('tool', '46&2');
 
@@ -20,10 +38,14 @@ if (textStore.getItem('tool') !== '46&2') {
 
 jsonStore.setItem('mjk', mjkModel);
 
-const mjkTest = jsonStore.getItem('mjk');
+if (jsonStore.getItem('mjk') === null) {
+  throw new Error('.getItem failed.');
+}
 
-if (mjkTest === null || mjkTest.firstName !== mjkModel.firstName || mjkTest.middleName !== mjkModel.middleName || mjkTest.familyName !== mjkModel.familyName) {
-  throw new Error('.setJson method is not working!');
+const mjkTest: Person = jsonStore.getItem('mjk');
+
+if (mjkTest === null || mjkTest.givenName !== mjkModel.givenName || mjkTest.middleName !== mjkModel.middleName || mjkTest.familyName !== mjkModel.familyName) {
+  throw new Error('.setItem method is not working!');
 }
 
 const keyCheck = textStore.key(0);
