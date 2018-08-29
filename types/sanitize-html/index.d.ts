@@ -4,6 +4,7 @@
 //                 Afshin Darian <https://github.com/afshin>
 //                 BehindTheMath <https://github.com/BehindTheMath>
 //                 Rinze de Laat <https://github.com/biermeester>
+//                 Will Gibson <https://github.com/WillGibson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = sanitize;
@@ -51,6 +52,7 @@ declare namespace sanitize {
     nonTextTags?: string[];
     selfClosing?: string[];
     transformTags?: { [tagName: string]: string | Transformer };
+    parser: {};
   }
 
 
