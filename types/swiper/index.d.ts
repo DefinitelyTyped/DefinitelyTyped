@@ -223,140 +223,140 @@ declare module 'swiper' {
      *   }
      * });
      */
-    init();
+    init?: () => any;
 
     /**
      * Triggered right beforey Swiper destoryed
      */
-    beforeDestroy();
+    beforeDestroy?: () => any;
 
     /**
      * Triggered when currently active slide is changed
      */
-    slideChange();
+    slideChange?: () => any;
 
     /**
      * Triggered in the beginning of animation to other slide (next or previous).
      */
-    slideChangeTransitionStart();
+    slideChangeTransitionStart?: () => any;
 
     /**
      * Triggered after animation to other slide (next or previous).
      */
-    slideChangeTransitionEnd();
+    slideChangeTransitionEnd?: () => any;
 
     /**
      * Same as "slideChangeTransitionStart" but for "forward" direction only
      */
-    slideNextTransitionStart();
+    slideNextTransitionStart?: () => any;
 
     /**
      * Same as "slideChangeTransitionEnd" but for "forward" direction only
      */
-    slideNextTransitionEnd();
+    slideNextTransitionEnd?: () => any;
 
     /**
      * Same as "slideChangeTransitionStart" but for "backward" direction only
      */
-    slidePrevTransitionStart();
+    slidePrevTransitionStart?: () => any;
 
     /**
      * Same as "slideChangeTransitionEnd" but for "backward" direction only
      */
-    slidePrevTransitionEnd();
+    slidePrevTransitionEnd?: () => any;
 
     /**
      * Triggered in the beginning of transition.
      */
-    transitionStart();
+    transitionStart?: () => any;
 
     /**
      * Triggered after transition.
      */
-    transitionEnd();
+    transitionEnd?: () => any;
 
     /**
      * Triggered when user touch Swiper. Receives 'touchstart' event as an arguments.
      */
-    touchStart(event: any);
+    touchStart?: (event: any) => any;
 
     /**
      * Triggered when user touch and move finger over Swiper. Receives 'touchmove' event as an arguments.
      */
-    touchMove(event: any);
+    touchMove?: (event: any) => any;
 
     /**
      * Fired when user touch and move finger over
      * Swiper in direction opposite to direction parameter.
      * Receives 'touchmove' event as an arguments.
      */
-    touchMoveOpposite(event: any);
+    touchMoveOpposite?: (event: any) => any;
 
     /**
      * Triggered when user touch and move finger over Swiper and move it. Receives 'touchmove' event as an arguments.
      */
-    sliderMove(event: any);
+    sliderMove?: (event: any) => any;
 
     /**
      * Triggered when user release Swiper. Receives 'touchend' event as an arguments.
      */
-    touchEnd(event: any);
+    touchEnd?: (event: any) => any;
 
     /**
      * Triggered when user click/tap on Swiper after 300ms delay. Receives 'touchend' event as an arguments.
      */
-    click(event: any);
+    click?: (event: any) => any;
 
     /**
      * Triggered when user click/tap on Swiper. Receives 'touchend' event as an arguments.
      */
-    tap(event: any);
+    tap?: (event: any) => any;
 
     /**
      * Triggered when user double tap on Swiper's container. Receives 'touchend' event as an arguments
      */
-    doubleTap(event: any);
+    doubleTap?: (event: any) => any;
 
     /**
      * Triggered right after all inner images are loaded. updateOnImagesReady should be also enabled
      */
-    imagesReady();
+    imagesReady?: () => any;
 
     /**
      * Triggered when Swiper progress is changed, as an arguments it receives progress that is always from 0 to 1
      */
-    progress(progress: any);
+    progress?: (progress: any) => any;
 
     /**
      * Triggered when Swiper reach its beginning (initial position)
      */
-    reachBeginning();
+    reachBeginning?: () => any;
 
     /**
      * Triggered when Swiper reach last slide
      */
-    reachEnd();
+    reachEnd?: () => any;
 
     /**
      * Triggered when Swiper goes from beginning or end position
      */
-    fromEdge();
+    fromEdge?: () => any;
 
     /**
      * Triggered when swiper's wrapper change its position. Receives current translate value as an arguments
      */
-    setTranslate(translate: any);
+    setTranslate?: (translate: any) => any;
 
 
     /**
      * Triggered everytime when swiper starts animation. Receives current transition duration (in ms) as an      arguments,
      */
-    setTransition(transition: any);
+    setTransition?: (transition: any) => any;
 
     /**
      * Triggered on window resize right before swiper's onresize manipulation
      */
-    resize();
+    resize?: () => any;
   }
 
   interface NavigationOptions {
@@ -548,10 +548,10 @@ declare module 'swiper' {
   }
 
   interface VirtualOptions {
-    slides: any[];
-    cache: boolean;
-    renderSlide(slide: any, index: any);
-    renderExternal(data: any);
+    slides?: any[];
+    cache?: boolean;
+    renderSlide?: (slide: any, index: any) => any;
+    renderExternal?: (data: any) => any;
   }
 
   interface HashNavigationOptions {
@@ -1014,7 +1014,7 @@ declare module 'swiper' {
     /**
      * Destroy slider instance and detach all events listeners, where
      */
-    destroy(deleteInstance: any, cleanStyles: any);
+    public destroy(deleteInstance: any, cleanStyles: any);
 
     /**
      * Set it to false (by default it is true) to not to delete Swiper instance
