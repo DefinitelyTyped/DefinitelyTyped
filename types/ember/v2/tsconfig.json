@@ -32,6 +32,7 @@
         "test/event.ts",
         "test/extend.ts",
         "test/create.ts",
+        "test/create-negative.ts",
         "test/object.ts",
         "test/observable.ts",
         "test/mixin.ts",
