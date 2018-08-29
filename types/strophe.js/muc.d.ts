@@ -833,7 +833,6 @@ declare module "strophe.js" {
   }
 }
 
-//import {Strophe as _Strophe} from "strophe.js";
 import _MUC = Strophe.MUC;
 declare global {
   namespace Strophe {

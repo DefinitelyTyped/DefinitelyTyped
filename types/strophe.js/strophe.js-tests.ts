@@ -11,14 +11,13 @@ function rawOutput(data: string): void {
 }
 
 function onOwnMessage(msg: Element): boolean {
-
     console.log(msg);
-    var elems = msg.getElementsByTagName('own-message');
+    const elems = msg.getElementsByTagName('own-message');
     if (elems.length > 0) {
-        var own = elems[0];
-        var to = msg.getAttribute('to');
-        var from = msg.getAttribute('from');
-        var iq = $iq({
+        const own = elems[0];
+        const to = msg.getAttribute('to');
+        const from = msg.getAttribute('from');
+        const iq = $iq({
             to: from,
             type: 'error',
             id: msg.getAttribute('id')
@@ -32,37 +31,33 @@ function onOwnMessage(msg: Element): boolean {
 }
 
 function onMessage(msg: Element): boolean {
-    var to = msg.getAttribute('to');
-    var from = msg.getAttribute('from');
-    var type = msg.getAttribute('type');
-    var elems = msg.getElementsByTagName('body');
+    const to = msg.getAttribute('to');
+    const from = msg.getAttribute('from');
+    const type = msg.getAttribute('type');
+    const elems = msg.getElementsByTagName('body');
 
-    if (type == "chat" && elems.length > 0) {
-        var body = elems[0];
+    if (type === "chat" && elems.length > 0) {
+        const body = elems[0];
 
         log('ECHOBOT: I got a message from ' + from + ': ' +
             Strophe.getText(body));
 
-        var text = Strophe.getText(body) + " (this is echo)";
-    
-        //var reply = $msg({to: from, from: to, type: 'chat', id: 'purple4dac25e4'}).c('active', {xmlns: "http://jabber.org/protocol/chatstates"}).up().cnode(body);
-        //.cnode(Strophe.copyElement(body)); 
-        //connection.send(reply.tree());
+        const text = Strophe.getText(body) + " (this is echo)";
 
         log('ECHOBOT: I sent ' + from + ': ' + Strophe.getText(body));
     }
 
-    // we must return true to keep the handler alive.  
+    // we must return true to keep the handler alive.
     // returning false would remove it after it finishes.
     return true;
 }
 
 
 function sendMessage() {
-    var message = "some message";
-    var to = "some recipient";
+    const message = "some message";
+    const to = "some recipient";
     if (message && to) {
-        var reply = $msg({
+        const reply = $msg({
             to: to,
             type: 'chat'
         })
@@ -75,20 +70,20 @@ function sendMessage() {
     }
 }
 
-var connection = new Strophe.Connection("someservice");
+const connection = new Strophe.Connection("someservice");
 connection.rawInput = rawInput;
 connection.rawOutput = rawOutput;
 
 function onConnect(status: Strophe.Status): void {
-    if (status == Strophe.Status.CONNECTING) {
+    if (status === Strophe.Status.CONNECTING) {
         log('Strophe is connecting.');
-    } else if (status == Strophe.Status.CONNFAIL) {
+    } else if (status === Strophe.Status.CONNFAIL) {
         log('Strophe failed to connect.');
-    } else if (status == Strophe.Status.DISCONNECTING) {
+    } else if (status === Strophe.Status.DISCONNECTING) {
         log('Strophe is disconnecting.');
-    } else if (status == Strophe.Status.DISCONNECTED) {
+    } else if (status === Strophe.Status.DISCONNECTED) {
         log('Strophe is disconnected.');
-    } else if (status == Strophe.Status.CONNECTED) {
+    } else if (status === Strophe.Status.CONNECTED) {
         log('Strophe is connected.');
         log('ECHOBOT: Send a message to ' + connection.jid +
             ' to talk to me.');
@@ -106,14 +101,14 @@ function onRoomMessage(stanza: Element, room: Strophe.MUC.XmppRoom): boolean {
 }
 
 function onRoomPresence(stanza: Element, room: Strophe.MUC.XmppRoom): boolean {
-  let from = stanza.getAttribute("from");
+  const from = stanza.getAttribute("from");
   console.log(`${from} precense updated`);
   return true;
 }
 
 function onRoomRoster(occupants: Strophe.MUC.OccupantMap, room: Strophe.MUC.XmppRoom): boolean {
-  for (let nick of Object.keys(occupants)) {
-    let occupant = occupants[nick];
+  for (const nick of Object.keys(occupants)) {
+    const occupant = occupants[nick];
     console.log(occupant.nick, occupant.show, occupant.status);
   }
   return true;

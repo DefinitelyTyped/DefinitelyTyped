@@ -1,20 +1,15 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "comment-format": false,
-        "jsdoc-format": false,
-        "max-line-length": false,
-        "no-consecutive-blank-lines": false,
-        "no-declare-current-package": false,
-        "no-empty-interface": false,
+	"no-declare-current-package": false,
         "no-padding": false,
         "no-self-import": false,
-        "no-var-keyword": false,
-        "no-trailing-whitespace": false,
         "object-literal-shorthand": false,
-        "prefer-const": false,
+	"no-trailing-whitespace": false,
+        "typedef-whitespace": false,
+        "jsdoc-format": false,
+        "no-consecutive-blank-lines": false,
         "prefer-template": false,
-        "triple-equals": false,
-        "typedef-whitespace": false
+	"prefer-switch": false
     }
 }

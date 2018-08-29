@@ -9,7 +9,7 @@ export namespace Strophe {
      *  The version of the Strophe library. Unreleased builds will have
      *  a version of head-HASH where HASH is a partial revision.
      */
-    var VERSION: string;
+    const VERSION: string;
 
     /** Constants: XMPP Namespace Constants
      *  Common namespace constants from the XMPP RFCs and XEPs.
@@ -30,7 +30,7 @@ export namespace Strophe {
      *  NS.XHTML_IM - XHTML-IM namespace from XEP 71.
      *  NS.XHTML - XHTML body namespace from XEP 71.
      */
-    var NS: {
+    const NS: {
         HTTPBIND: string;
         BOSH: string;
         CLIENT: string;
@@ -410,7 +410,6 @@ export namespace Strophe {
      *  The next operation on the Builder will be relative to the second child.
      */
     class Builder {
-
         /** Constructor: Strophe.Builder
          *  Create a Strophe.Builder object.
          *
@@ -567,7 +566,6 @@ export namespace Strophe {
      *  To send data to the connection, use send().
      */
     class Connection {
-
         jid: string;
         authzid: string;
         pass: string;
@@ -575,7 +573,6 @@ export namespace Strophe {
         domain: string;
         servtype: string;
         maxRetries: number;
-        //todo: what other members are meant to be public?
 
         /** Constructor: Strophe.Connection
          *  Create and initialize a Strophe.Connection object.
@@ -866,7 +863,7 @@ export namespace Strophe {
          *  Returns:
          *    The id used to send the IQ.
         */
-        sendIQ(elem: Element | Builder, callback?: (stanza: Element) => any, errback?: (stanza: Element) => any, timeout?: number): string; //todo: Is callback correct?
+        sendIQ(elem: Element | Builder, callback?: (stanza: Element) => any, errback?: (stanza: Element) => any, timeout?: number): string;
 
         /** Function: addTimedHandler
          *  Add a timed handler to the connection.
@@ -1046,10 +1043,10 @@ export namespace Strophe {
      *  Strophe.SASLMD5 - SASL Digest-MD5 authentication
      *  Strophe.SASLSHA1 - SASL SCRAM-SHA1 authentication
      */
-    var SASLAnonymous: SASLMechanism;
-    var SASLPlain: SASLMechanism;
-    var SASLSHA1: SASLMechanism;
-    var SASLMD5: SASLMechanism;
+    const SASLAnonymous: SASLMechanism;
+    const SASLPlain: SASLMechanism;
+    const SASLSHA1: SASLMechanism;
+    const SASLMD5: SASLMechanism;
 }
 
 /** Function: $build
@@ -1098,7 +1095,7 @@ export function $iq(attrs?: any): Strophe.Builder;
  */
 export function $pres(attrs?: any): Strophe.Builder;
 
-import { Strophe as _Strophe, $build as _$build, $msg as _$msg, $iq as _$iq, $pres as _$pres } from "strophe.js";
+import { Strophe as _Strophe, $build as _$build, $msg as _$msg, $iq as _$iq, $pres as _$pres } from ".";
 declare global {
     const Strophe: typeof _Strophe;
     namespace Strophe {
@@ -1106,7 +1103,7 @@ declare global {
         type LogLevel = _Strophe.LogLevel;
         type Builder = _Strophe.Builder;
         type ConnectionOptions = _Strophe.ConnectionOptions;
-        interface Connection extends _Strophe.Connection {}
+        type Connection = _Strophe.Connection;
         type SASLMechanism = _Strophe.SASLMechanism;
     }
     const $build: typeof _$build;
