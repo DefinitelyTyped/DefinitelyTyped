@@ -2,11 +2,12 @@
 
 import {
 	create as createJSS,
+	createGenerateClassName,
 	SheetsRegistry,
 	default as sharedInstance,
 } from 'jss';
 
-const jss = createJSS().setup({});
+const jss = createJSS().setup({ createGenerateClassName });
 jss.use({}, {}); // $ExpectType JSS
 
 const styleSheet = jss.createStyleSheet<string>(
