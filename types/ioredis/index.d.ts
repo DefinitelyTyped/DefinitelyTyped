@@ -54,7 +54,7 @@ declare namespace IORedis {
         setReplyTransformer(name: string, fn: (result: any) => any): void;
     }
 
-    type RedisDefineCommand<T> = Redis & T
+    type RedisDefineCommand<T> = Redis & T;
 
     interface Redis extends NodeJS.EventEmitter, Commander {
         Promise: typeof Promise;
