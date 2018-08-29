@@ -2,7 +2,7 @@
 // Project: https://github.com/joshwnj/react-visibility-sensor
 // Definitions by: Rasmus Bergström <https://github.com/JRasmusBm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
+// TypeScript Version: 2.8
 
 declare module "react-visibility-sensor" {
   /// <reference types="cheerio" />
