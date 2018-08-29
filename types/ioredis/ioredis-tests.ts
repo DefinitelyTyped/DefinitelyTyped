@@ -46,6 +46,7 @@ new Redis({
     password: 'auth',
     db: 0,
     retryStrategy() { return false; },
+    maxRetriesPerRequest: 20,
     showFriendlyErrorStack: true,
     tls: {
         servername: 'tlsservername'
