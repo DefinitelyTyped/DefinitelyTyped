@@ -1,3 +1,7 @@
+// Type definitions for sqlanywhere
+// Project: https://github.com/sqlanywhere/node-sqlanywhere
+// Definitions by: Peter Keuter <https://github.com/pkeuter>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare module "sqlanywhere" {
     export function createConnection(): SybaseConnection;
 
