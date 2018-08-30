@@ -1127,7 +1127,7 @@ declare namespace Office {
          */
         displayInIframe?: boolean
         /**
-         * A user-defined item of any type that is returned, unchanged, in the value property of the AsyncResult object that is passed to a callback.
+         * A user-defined item of any type that is returned, unchanged, in the asyncContext property of the AsyncResult object that is passed to a callback.
          */
         asyncContext?: any
     }
@@ -1181,7 +1181,7 @@ declare namespace Office {
          */
         authChallenge?: string
         /**
-         * A user-defined item of any type that is returned, unchanged, in the value property of the AsyncResult object that is passed to a callback.
+         * A user-defined item of any type that is returned, unchanged, in the asyncContext property of the AsyncResult object that is passed to a callback.
          */
         asyncContext?: any
     }
@@ -1190,7 +1190,7 @@ declare namespace Office {
      */
     interface AsyncContextOptions {
         /**
-         * A user-defined item of any type that is returned, unchanged, in the value property of the AsyncResult object that is passed to a callback.
+         * A user-defined item of any type that is returned, unchanged, in the asyncContext property of the AsyncResult object that is passed to a callback.
          */
         asyncContext?: any
     }
@@ -1253,7 +1253,7 @@ declare namespace Office {
         */
         rows?: string
         /**
-         * A user-defined item of any type that is returned, unchanged, in the value property of the AsyncResult object that is passed to a callback.
+         * A user-defined item of any type that is returned, unchanged, in the asyncContext property of the AsyncResult object that is passed to a callback.
          */
         asyncContext?: any
     }
@@ -1299,7 +1299,7 @@ declare namespace Office {
         */
         tableOptions?: object
         /**
-         * A user-defined item of any type that is returned, unchanged, in the value property of the AsyncResult object that is passed to a callback.
+         * A user-defined item of any type that is returned, unchanged, in the asyncContext property of the AsyncResult object that is passed to a callback.
          */
         asyncContext?: any
     }
@@ -1340,7 +1340,7 @@ declare namespace Office {
          */
         handler?: string
         /**
-         * A user-defined item of any type that is returned, unchanged, in the value property of the AsyncResult object that is passed to a callback.
+         * A user-defined item of any type that is returned, unchanged, in the asyncContext property of the AsyncResult object that is passed to a callback.
          */
         asyncContext?: any
     }
@@ -1353,7 +1353,7 @@ declare namespace Office {
          */
         id?: string
         /**
-         * A user-defined item of any type that is returned, unchanged, in the value property of the AsyncResult object that is passed to a callback.
+         * A user-defined item of any type that is returned, unchanged, in the asyncContext property of the AsyncResult object that is passed to a callback.
          */
         asyncContext?: any
     }
@@ -1377,7 +1377,7 @@ declare namespace Office {
          */
         sampleData?: Office.TableData
         /**
-         * A user-defined item of any type that is returned, unchanged, in the value property of the AsyncResult object that is passed to a callback.
+         * A user-defined item of any type that is returned, unchanged, in the asyncContext property of the AsyncResult object that is passed to a callback.
          */
         asyncContext?: any
     }
@@ -1394,7 +1394,7 @@ declare namespace Office {
          */
         columns?: Array<string>
         /**
-         * A user-defined item of any type that is returned, unchanged, in the value property of the AsyncResult object that is passed to a callback.
+         * A user-defined item of any type that is returned, unchanged, in the asyncContext property of the AsyncResult object that is passed to a callback.
          */
         asyncContext?: any
     }
@@ -1407,7 +1407,7 @@ declare namespace Office {
          */
         sliceSize?: number
         /**
-         * A user-defined item of any type that is returned, unchanged, in the value property of the AsyncResult object that is passed to a callback.
+         * A user-defined item of any type that is returned, unchanged, in the asyncContext property of the AsyncResult object that is passed to a callback.
          */
         asyncContext?: any
     }
@@ -1425,7 +1425,7 @@ declare namespace Office {
          */
         filterType?: Office.FilterType | string
         /**
-         * A user-defined item of any type that is returned, unchanged, in the value property of the AsyncResult object that is passed to a callback.
+         * A user-defined item of any type that is returned, unchanged, in the asyncContext property of the AsyncResult object that is passed to a callback.
          */
         asyncContext?: any
     }
@@ -1451,7 +1451,7 @@ declare namespace Office {
          */
         selectionMode?: Office.SelectionMode | string
         /**
-         * A user-defined item of any type that is returned, unchanged, in the value property of the AsyncResult object that is passed to a callback.
+         * A user-defined item of any type that is returned, unchanged, in the asyncContext property of the AsyncResult object that is passed to a callback.
          */
         asyncContext?: any
     }
@@ -1498,7 +1498,7 @@ declare namespace Office {
         */
         imageHeight?: number
         /**
-         * A user-defined item of any type that is returned, unchanged, in the value property of the AsyncResult object that is passed to a callback.
+         * A user-defined item of any type that is returned, unchanged, in the asyncContext property of the AsyncResult object that is passed to a callback.
          */
         asyncContext?: any
     }
@@ -1511,7 +1511,7 @@ declare namespace Office {
          */
         overwriteIfStale?: boolean
         /**
-         * A user-defined item of any type that is returned, unchanged, in the value property of the AsyncResult object that is passed to a callback.
+         * A user-defined item of any type that is returned, unchanged, in the asyncContext property of the AsyncResult object that is passed to a callback.
          */
         asyncContext?: any
     }
