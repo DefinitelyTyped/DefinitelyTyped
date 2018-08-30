@@ -2,12 +2,12 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { TableFilter } from "react-table-filter";
 
-interface TestTableFilterProps extends TablefilterProps {}
+interface TestTableFilterProps extends TableFilter {}
 
 class TestApp extends React.Component {
-    onFilterUpdate = (index: number, last: number, event: Event) => {
-        console.log("selected tab: " + index.toString());
-        console.log("last tab: " + last.toString());
+    onFilterUpdate = (filteredArray: Array<string>, currentFilters: any[]) => {
+        console.log("Filtered Array: " + filteredArray);
+        console.log("Current Filters: " + currentFilters);
     }
 
     render() {
