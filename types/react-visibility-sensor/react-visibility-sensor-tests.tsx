@@ -1,9 +1,9 @@
 import * as React from "react";
 
-import ReactVisibilitySensor from "react-visibility-sensor";
+import ReactVisibilitySensor, { Shape } from "react-visibility-sensor";
 const num = 1;
 const bool = true;
-const shape = { top: num, left: num, bottom: num, right: num };
+const shape: Shape = { top: num, left: num, bottom: num, right: num };
 
 const component = (
   <ReactVisibilitySensor

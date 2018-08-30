@@ -6,7 +6,7 @@
 
 import * as React from "react";
 
-interface Shape {
+export interface Shape {
   top?: number;
   left?: number;
   bottom?: number;
