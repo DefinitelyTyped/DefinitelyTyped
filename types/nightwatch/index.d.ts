@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface NightwatchCustomPageObjects {
-    page: {[name: string]: () => NightwatchBrowser};
+    page: {[name: string]: any};
 }
 
 export interface NightwatchDesiredCapabilities {
