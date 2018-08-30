@@ -1186,5 +1186,5 @@ namespace TestLibraryManagedAttributes {
 	<ConnectedComponent fn={() => {}} />
 
 	const ConnectedComponent2 = connect<MapStateProps, void, OwnProps>(mapStateToProps)(Component);
-	<ConnectedComponent fn={() => {}} />
+	<ConnectedComponent2 fn={() => {}} />
 }
