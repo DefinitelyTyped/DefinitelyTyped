@@ -633,14 +633,48 @@ declare module 'swiper' {
    * Keyboard Control module.
    */
   class Keyboard {
-    [x: string]: any;
+    
+    /**
+     * Whether the keyboard control is enabled
+     */
+    enabled: boolean;
+
+    // Methods
+    
+    /**
+     * Enable keyboard control
+     */
+    enable(): void;
+    
+    /**
+     * Disable keyboard control
+     */
+    disable(): void;
+
   }
 
   /**
    * Mousewheel Control module.
    */
   class Mousewheel {
-    [x: string]: any;
+    
+    /**
+     * Whether the mousewheel control is enabled
+     */
+    enabled: boolean;
+
+    // Methods
+    
+    /**
+     * Enable mousewheel control
+     */
+    enable(): void;
+    
+    /**
+     * Disable mousewheel control
+     */
+    disable(): void;
+
   }
 
   /**
@@ -662,6 +696,7 @@ declare module 'swiper' {
      * Update navigation buttons state (enabled/disabled)
      */
     update();
+    
   }
 
   /**
