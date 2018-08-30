@@ -1,6 +1,10 @@
 // Type definitions for Mongoose 4.7.1
 // Project: http://mongoosejs.com/
-// Definitions by: simonxca <https://github.com/simonxca>, horiuchi <https://github.com/horiuchi>, sindrenm <https://github.com/sindrenm>, lukasz-zak <https://github.com/lukasz-zak>
+// Definitions by: simonxca <https://github.com/simonxca>
+//                 horiuchi <https://github.com/horiuchi>
+//                 sindrenm <https://github.com/sindrenm>
+//                 lukasz-zak <https://github.com/lukasz-zak>
+//                 Alorel <https://github.com/Alorel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -1668,7 +1672,7 @@ declare module "mongoose" {
      * getters/setters or other Mongoose magic applied.
      * @param bool defaults to true
      */
-    lean(bool?: boolean): Query<object>;
+    lean<T = any>(bool?: boolean): Query<T>;
 
     /** Specifies the maximum number of documents the query will return. Cannot be used with distinct() */
     limit(val: number): this;

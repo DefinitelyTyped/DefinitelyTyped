@@ -972,6 +972,9 @@ query.where('path').intersects({
 query.find().lean().exec(function (err: any, docs: any) {
   docs[0];
 });
+query.count().lean<number>().then(r => {
+  r.toExponential(1);
+});
 query.limit(20).limit(20);
 query.find().where('age').lt(21);
 query.find().lt('age', 21);
