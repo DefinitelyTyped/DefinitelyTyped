@@ -9,10 +9,10 @@
         "noImplicitThis": false,
         "strictNullChecks": false,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "jsx": "react",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "paths": {
             "react-data-grid": ["react-data-grid/v2"],
