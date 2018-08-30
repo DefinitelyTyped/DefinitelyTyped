@@ -7,6 +7,8 @@
 //                 Will Gibson <https://github.com/WillGibson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+import {Options} from "htmlparser2";
+
 export = sanitize;
 
 declare function sanitize(dirty: string, options?: sanitize.IOptions): string;
@@ -52,7 +54,7 @@ declare namespace sanitize {
     nonTextTags?: string[];
     selfClosing?: string[];
     transformTags?: { [tagName: string]: string | Transformer };
-    parser: {};
+    parser: Options;
   }
 
 
