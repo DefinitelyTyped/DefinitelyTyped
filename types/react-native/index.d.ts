@@ -1235,6 +1235,11 @@ export interface TextInputProps
     caretHidden?: boolean
 
     /**
+     * If true, context menu is hidden. The default value is false.
+     */
+    contextMenuHidden?: boolean
+
+    /**
      * Provides an initial value that will change when the user starts typing.
      * Useful for simple use-cases where you don't want to deal with listening to events
      * and updating the value prop to keep the controlled state in sync.
@@ -4042,7 +4047,7 @@ export interface SectionListRenderItemInfo<ItemT> extends ListRenderItemInfo<Ite
 
 export type SectionListRenderItem<ItemT> = (info: SectionListRenderItemInfo<ItemT>) => React.ReactElement<any> | null;
 
-export interface SectionListProps<ItemT> extends ScrollViewProps {
+export interface SectionListProps<ItemT> extends VirtualizedListWithoutRenderItemProps<ItemT> {
     /**
      * Rendered in between adjacent Items within each section.
      */
@@ -4201,7 +4206,11 @@ export interface SectionListStatic<SectionT> extends React.ComponentClass<Sectio
 /**
  * @see https://facebook.github.io/react-native/docs/virtualizedlist.html#props
  */
-export interface VirtualizedListProps<ItemT> extends ScrollViewProps {
+ export interface VirtualizedListProps<ItemT> extends VirtualizedListWithoutRenderItemProps<ItemT> {
+     renderItem: ListRenderItem<ItemT>;
+ }
+
+ export interface VirtualizedListWithoutRenderItemProps<ItemT> extends ScrollViewProps {
     /**
      * Rendered when the list is empty. Can be a React Component Class, a render function, or
      * a rendered element.
@@ -4344,8 +4353,6 @@ export interface VirtualizedListProps<ItemT> extends ScrollViewProps {
      * This may improve scroll performance for large lists.
      */
     removeClippedSubviews?: boolean;
-
-    renderItem: ListRenderItem<ItemT>;
 
     /**
      * Render a custom scroll component, e.g. with a differently styled `RefreshControl`.

@@ -808,11 +808,11 @@ declare module "mongoose" {
 
   // Hook functions: https://github.com/vkarpov15/hooks-fixed
   interface HookSyncCallback<T> {
-    (this: T, next: HookNextFunction): Promise<any> | void;
+    (this: T, next: HookNextFunction, docs: any[]): Promise<any> | void;
   }
 
   interface HookAsyncCallback<T> {
-    (this: T, next: HookNextFunction, done: HookDoneFunction): Promise<any> | void;
+    (this: T, next: HookNextFunction, done: HookDoneFunction, docs: any[]): Promise<any> | void;
   }
 
   interface HookErrorCallback {

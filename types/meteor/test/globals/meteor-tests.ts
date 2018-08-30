@@ -1,23 +1,18 @@
+// This file may use only modules that have corresponding globals, because
+// `globals/meteor-tests.ts` is generated from it.  Tests that involve modules
+// that don't have corresponding globals belong in
+// `meteor-tests-module-only.ts`.
+
 /**
  * All code below was copied from the examples at http://docs.meteor.com/.
  * When necessary, code was added to make the examples work (e.g. declaring a variable
  * that was assumed to have been declared earlier)
  */
 
-
 /*********************************** Begin setup for tests ******************************/
-import { Mongo } from "meteor/mongo";
-import { Meteor } from "meteor/meteor";
-import { check, Match } from "meteor/check";
-import { Tracker } from "meteor/tracker";
-import { Template } from "meteor/templating";
-import { Blaze } from "meteor/blaze";
-import { Session } from "meteor/session";
-import { HTTP } from "meteor/http";
-import { ReactiveVar } from "meteor/reactive-var";
-import { Accounts } from "meteor/accounts-base";
-import { BrowserPolicy } from "meteor/browser-policy-common";
-import { DDPRateLimiter } from "meteor/ddp-rate-limiter";
+
+// Avoid conflicts between `meteor-tests.ts` and `globals/meteor-tests.ts`.
+namespace MeteorTests {
 
 var Rooms = new Mongo.Collection('rooms');
 var Messages = new Mongo.Collection('messages');
@@ -786,3 +781,5 @@ Template.instance().autorun(() => { }).stop();
 const collectionWithoutConnection = new Mongo.Collection<MonkeyDAO>("monkey", {
     connection: null
 });
+
+}  // End of namespace

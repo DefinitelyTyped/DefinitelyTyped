@@ -1,4 +1,4 @@
-// Type definitions for ioredis 3.2
+// Type definitions for ioredis 4.0
 // Project: https://github.com/luin/ioredis
 // Definitions by: York Yao <https://github.com/plantain-00>
 //                 Christopher Eck <https://github.com/chrisleck>
@@ -12,12 +12,11 @@
 
 /* =================== USAGE ===================
     import * as Redis from "ioredis";
-    var redis = new Redis();
+    const redis = new Redis();
  =============================================== */
 
 /// <reference types="node" />
 
-import Promise = require('bluebird');
 import tls = require('tls');
 
 interface RedisStatic {
@@ -842,6 +841,17 @@ declare namespace IORedis {
          * Fixed in: https://github.com/DefinitelyTyped/DefinitelyTyped/pull/15858
          */
         retryStrategy?(times: number): number | false;
+        /**
+         * By default, all pending commands will be flushed with an error every
+         * 20 retry attempts. That makes sure commands won't wait forever when
+         * the connection is down. You can change this behavior by setting
+         * `maxRetriesPerRequest`.
+         *
+         * Set maxRetriesPerRequest to `null` to disable this behavior, and
+         * every command will wait forever until the connection is alive again
+         * (which is the default behavior before ioredis v4).
+         */
+        maxRetriesPerRequest?: number | null;
         /**
          * 1/true means reconnect, 2 means reconnect and resend failed command. Returning false will ignore
          * the error and do nothing.

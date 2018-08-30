@@ -178,6 +178,9 @@ const tabNavigatorConfig: TabNavigatorConfig = {
     lazy: true,
     tabBarComponent: TabBarTop,
     tabBarOptions: { activeBackgroundColor: "blue" },
+    navigationOptions: () => ({
+        tabBarOnPress: ({ scene, jumpToIndex }) => jumpToIndex(scene.index)
+    })
 };
 
 const tabNavigatorConfigWithInitialLayout: TabNavigatorConfig = {
@@ -375,6 +378,8 @@ class CustomTransitioner extends React.Component<CustomTransitionerProps, null> 
 /**
  * Header
  */
+const height = Header.HEIGHT;
+
 function renderHeaderBackButton(schema: string): JSX.Element {
     switch (schema) {
         case 'compact':
@@ -457,6 +462,10 @@ const BottomStack = createBottomTabNavigator({
             };
         }
     }
+}, {
+    navigationOptions: () => ({
+        tabBarOnPress: ({ defaultHandler }) => defaultHandler()
+    })
 });
 
 const CustomHeaderStack = createStackNavigator({

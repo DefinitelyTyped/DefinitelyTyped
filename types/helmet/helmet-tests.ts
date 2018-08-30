@@ -58,6 +58,7 @@ function contentSecurityPolicyTest() {
         directives: {
             defaultSrc: ["'self'"]
         },
+        loose: false,
         setAllHeaders: true
     }));
 }

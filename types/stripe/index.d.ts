@@ -7192,7 +7192,7 @@ declare namespace Stripe {
         }
 
         class WebHooks {
-            constructEvent<T>(requestBody: any, signature: string | string[], endpointSecret: string): webhooks.StripeWebhookEvent<T>;
+            constructEvent<T>(requestBody: any, signature: string | string[], endpointSecret: string, tolerance?: number): webhooks.StripeWebhookEvent<T>;
         }
 
         class EphemeralKeys {

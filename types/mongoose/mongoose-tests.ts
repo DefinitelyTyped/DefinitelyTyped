@@ -390,23 +390,23 @@ preHookTestSchemaArr.push(
 
 // Model<Document>
 preHookTestSchemaArr.push(
-  schema.pre("insertMany", function(next) {
+  schema.pre("insertMany", function(next, docs) {
     const isDefaultType: mongoose.Model<mongoose.Document> = this;
   }, err => {})
 );
 preHookTestSchemaArr.push(
-  schema.pre<PreHookTestModelInterface<PreHookTestDocumentInterface>>("insertMany", function(next) {
+  schema.pre<PreHookTestModelInterface<PreHookTestDocumentInterface>>("insertMany", function(next, docs) {
     const isSpecificType: PreHookTestModelInterface<PreHookTestDocumentInterface> = this;
     return Promise.resolve("")
   }, err => {})
 );
 preHookTestSchemaArr.push(
-  schema.pre("insertMany", true, function(next, done) {
+  schema.pre("insertMany", true, function(next, done, docs) {
     const isDefaultType: mongoose.Model<mongoose.Document> = this;
   }, err => {})
 );
 preHookTestSchemaArr.push(
-  schema.pre<PreHookTestModelInterface<PreHookTestDocumentInterface>>("insertMany", true, function(next, done) {
+  schema.pre<PreHookTestModelInterface<PreHookTestDocumentInterface>>("insertMany", true, function(next, done, docs) {
     const isSpecificType: PreHookTestModelInterface<PreHookTestDocumentInterface> = this;
     return Promise.resolve("")
   }, err => {})

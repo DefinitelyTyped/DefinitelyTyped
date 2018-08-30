@@ -1998,7 +1998,17 @@ interface IObjectOptions {
 	 */
 	scaleY?: number;
 
-	/**
+    /**
+     * Object skew factor (horizontal)
+     */
+    skewX?: number;
+
+    /**
+     * Object skew factor (vertical)
+     */
+    skewY?: number;
+
+    /**
 	 * When true, an object is rendered as flipped horizontally
 	 */
 	flipX?: boolean;
@@ -2308,7 +2318,13 @@ export class Object {
 	getScaleY(): number;
 	setScaleY(value: number): Object;
 
-	setShadow(options: any): Object;
+    getSkewX(): number;
+    setSkewX(value: number): Object;
+
+    getSkewY(): number;
+    setSkewY(value: number): Object;
+
+    setShadow(options: any): Object;
 	getShadow(): Object;
 
 	stateProperties: any[];

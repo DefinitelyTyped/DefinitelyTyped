@@ -106,7 +106,7 @@ declare namespace React {
         type: keyof ReactSVG;
     }
 
-    interface ReactPortal {
+    interface ReactPortal extends ReactElement<any> {
         key: Key | null;
         children: ReactNode;
     }
@@ -1441,6 +1441,7 @@ declare namespace React {
     }
 
     interface IframeHTMLAttributes<T> extends HTMLAttributes<T> {
+        allow?: string;
         allowFullScreen?: boolean;
         allowTransparency?: boolean;
         frameBorder?: number | string;
