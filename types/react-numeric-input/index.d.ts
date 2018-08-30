@@ -17,11 +17,13 @@ declare namespace NumericInput {
         'min' | 'max' | 'step' | 'onChange' | 'defaultValue' | 'onInvalid' | 'style'
     > {
         addLabelText?: string;
+        componentClass?: string;
         defaultValue?: number | string;
         format?: ((value: number | null) => string);
         max?: BoundsFunctionProp;
         min?: BoundsFunctionProp;
         mobile?: boolean | 'auto' | ((component: NumericInput) => boolean);
+        noStyle?: boolean;
         noValidate?: boolean | string;
         onBlur?: React.FocusEventHandler<HTMLDivElement | HTMLInputElement>;
         onChange?: ((value: number | null, stringValue: string, input: HTMLInputElement) => void);
