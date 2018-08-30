@@ -61,6 +61,11 @@ export interface OperationDefaults {
 }
 
 // ~~~~~~~~~~~~~~~~~~~~~
+// Constants
+// ~~~~~~~~~~~~~~~~~~~~~
+export const ROOT_ID: string;
+
+// ~~~~~~~~~~~~~~~~~~~~~
 // RelayQL
 // ~~~~~~~~~~~~~~~~~~~~~
 export type RelayQL = (strings: string[], ...substitutions: any[]) => RelayConcreteNode;
@@ -189,7 +194,7 @@ export interface RecordProxy {
 export interface RecordSourceProxy {
     create(dataID: DataID, typeName: string): RecordProxy;
     delete(dataID: DataID): void;
-    get(dataID: DataID): Array<RecordProxy | null> | null;
+    get(dataID: DataID): RecordProxy | null;
     getRoot(): RecordProxy;
 }
 
@@ -1010,7 +1015,7 @@ export type Observable<T> = RelayObservable<T>;
 // commitLocalUpdate
 // ~~~~~~~~~~~~~~~~~~~~~
 // exposed through RelayModern, not Runtime directly
-export type commitLocalUpdate = (environment: Environment, updater: StoreUpdater) => void;
+export function commitLocalUpdate(environment: Environment, updater: StoreUpdater): void;
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // commitRelayModernMutation
