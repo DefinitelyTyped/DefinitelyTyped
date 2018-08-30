@@ -697,15 +697,31 @@ declare module 'swiper' {
    * Scrollbar module.
    */
   class Scrollbar {
-    [x: string]: any;
+
+    // Properties
+
+    /**
+     * HTMLElement of Scrollbar container element
+     */
+    el: HTMLElement;
+
+    /**
+     * HTMLElement of Scrollbar draggable handler element
+     */
+    dragEl: HTMLElement;
+
+    // Methods
+
+    /**
+     * Updates scrollbar track and handler sizes
+     */
+    updateSize(): void;
   }
 
   /**
    * Parallax module.
    */
-  class Parallax {
-    [x: string]: any;
-  }
+  class Parallax { }
 
   /**
    * Zoom module.
@@ -753,42 +769,63 @@ declare module 'swiper' {
    * Lazy module.
    */
   class Lazy {
-    [x: string]: any;
+
+    /**
+     * Load/update lazy images based on current slider state (position)
+     */
+    load();
+
+    /**
+     * Force to load lazy images in slide by specified index
+     * - index - number - index number of slide to load lazy images in
+     */
+    loadInSlide(index);
   }
 
   /**
    * Controller module.
    */
-  class Controller {
-    [x: string]: any;
-  }
+  class Controller { }
 
   /**
    * Accessibility module (a11y$)
    */
-  class A11y {
-    [x: string]: any;
-  }
+  class A11y { }
 
   /**
    * History Navigation module.
    */
-  class History {
-    [x: string]: any;
-  }
+  class History { }
 
   /**
    * Hash Navigation module.
    */
   class HashNavigation {
-    [x: string]: any;
   }
 
   /**
    * Autoplay module.
    */
   class Autoplay {
-    [x: string]: any;
+
+    // Properties
+
+    /**
+     * Whether autoplay enabled and running
+     */
+    running;
+
+    // Methods
+
+    /**
+     * Start autoplay
+     */
+    start();
+
+    /**
+     * Stop autoplay
+     */
+    stop();
   }
 
   /**
@@ -911,11 +948,11 @@ declare module 'swiper' {
      * Object with the following touch event properties:
      */
     touches: {
-      startX,
-      startY,
-      currentX,
-      currentY,
-      diff
+      startX: number;
+      startY: number;
+      currentX: number;
+      currentY: number;
+      diff: number;
     };
 
     /**
