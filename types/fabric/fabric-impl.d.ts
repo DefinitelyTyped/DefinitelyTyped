@@ -2048,7 +2048,12 @@ interface IObjectOptions {
 	 */
 	borderColor?: string;
 
-	/**
+    /**
+     * Array specifying dash pattern of an object's border (hasBorder must be true)
+     */
+    borderDashArray?: number[];
+
+    /**
 	 * Color of controlling corners of an object (when it's active)
 	 */
 	cornerColor?: string;
@@ -3095,6 +3100,10 @@ interface ITextOptions extends IObjectOptions {
 	 * Line height
 	 */
 	lineHeight?: number;
+    /**
+     * Character spacing
+     */
+    charSpacing?: number;
 	/**
 	 * When defined, an object is rendered via stroke and this property specifies its color.
 	 * <b>Backwards incompatibility note?:</b> This property was named "strokeStyle" until v1.1.6
@@ -3208,6 +3217,15 @@ export class Text extends Object {
 	 * @param lineHeight Line height
 	 */
 	setLineHeight(lineHeight: number): Text;
+    /**
+     * Retrieves object's charSpacing
+     */
+    getCharSpacing(): number;
+    /**
+     * Sets object's charSpacing
+     * @param charSpacing Character spacing
+     */
+    setCharSpacing(charSpacing: number): Text;
 	/**
 	 * Retrieves object's textAlign
 	 */
