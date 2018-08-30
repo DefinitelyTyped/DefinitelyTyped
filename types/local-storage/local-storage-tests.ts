@@ -1,4 +1,4 @@
-import * as ls from 'local-storage';
+import ls = require('local-storage');
 
 ls('foo');
 ls('foo', 'bar');
