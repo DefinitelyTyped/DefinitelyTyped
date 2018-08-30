@@ -1,4 +1,4 @@
-// Type definitions for commonmark.js 0.28.1
+// Type definitions for commonmark.js 0.28
 // Project: https://github.com/jgm/commonmark.js
 // Definitions by: Nico Jansen <https://github.com/nicojs>
 //                 Leonard Thieu <https://github.com/leonard-thieu>
