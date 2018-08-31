@@ -2336,13 +2336,19 @@ declare module "mongoose" {
      */
     cursor(options: any): this;
 
+    /**
+     * Appends a new $facet operator to this aggregate pipeline.
+     * @param arg $facet operator contents
+     */
+    facet(arg: any): this;
+
     // If cursor option is on, could return an object
     /** Executes the aggregate pipeline on the currently bound Model. */
     exec(callback?: (err: any, result: T) => void): Promise<T> | any;
 
     /** Execute the aggregation with explain */
     explain(callback?: (err: any, result: T) => void): Promise<T>;
-
+    
     /**
      * Appends a new custom $group operator to this aggregate pipeline.
      * @param arg $group operator contents
