@@ -17,17 +17,16 @@ const AnotherComponent = translate('view', { wait: true, translateFuncName: '_' 
 
 class InnerYetAnotherComponent extends React.Component<InjectedTranslateProps> {
   render() {
-    const t = this.props.t!;
+    const t = this.props.t;
     return <p>{t('usingDefaultNS', { /* options t options */ })}</p>;
   }
 }
 
 const YetAnotherComponent = translate()(InnerYetAnotherComponent);
 
-@translate(['view', 'nav'], { wait: true })
 class TranslatableView extends React.Component<InjectedTranslateProps> {
   render() {
-    const t = this.props.t!;
+    const t = this.props.t;
     const interpolateComponent = <strong>"a interpolated component"</strong>;
 
     return (
@@ -55,12 +54,14 @@ class TranslatableView extends React.Component<InjectedTranslateProps> {
   }
 }
 
+const WrappedTranslatableView = translate(['view', 'nav'], { wait: true })(TranslatableView);
+
 class App extends React.Component {
   render() {
     return (
       <div className='main'>
         <main>
-          <TranslatableView />
+          <WrappedTranslatableView />
         </main>
       </div>
     );
@@ -81,12 +82,14 @@ loadNamespaces({ components: [App], i18n }).then(() => { }).catch(error => { });
 
 type Key = "view" | "nav";
 
-@translate<Key>(['view', 'nav'])
 class GenericsTest extends React.Component<InjectedTranslateProps> {
   render() { return null; }
 }
 
-@translate<Key>('view')
+translate<Key>(['view', 'nav'])(GenericsTest);
+
 class GenericsTest2 extends React.Component<InjectedTranslateProps> {
   render() { return null; }
 }
+
+translate<Key>('view')(GenericsTest2);
