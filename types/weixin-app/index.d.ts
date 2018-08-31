@@ -1,4 +1,4 @@
-// Type definitions for wx-app 1.9
+// Type definitions for wx-app 2.2
 // Project: https://mp.weixin.qq.com/debug/wxadoc/dev/api/
 // Definitions by: taoqf <https://github.com/taoqf>
 //                 AlexStacker <https://github.com/AlexStacker>
@@ -3125,6 +3125,7 @@ declare namespace wx {
     }
 
     type TouchEventType =
+        | "tap"
         | "touchstart"
         | "touchmove"
         | "touchcancel"
@@ -3202,6 +3203,10 @@ declare namespace wx {
             > {
         touches: Touch[];
         changedTouches: Touch[];
+    }
+
+    interface TapEvent extends TouchEvent<"tap"> {
+        // 手指触摸后马上离开
     }
 
     interface TouchStartEvent extends TouchEvent<"touchstart"> {
@@ -3381,6 +3386,45 @@ interface ComponentRelation<D = any, P = any> {
     /** 关系生命周期函数，当关系脱离页面节点树时触发，触发时机在组件detached生命周期之后 */
     unlinked?: (target: Component<D, P>) => void;
 }
+
+/**
+ * 组件所在页面的生命周期声明对象，目前仅支持页面的show和hide两个生命周期
+ */
+interface PageLifetimes {
+    show(): void;
+
+    hide(): void;
+}
+
+/**
+ * 组件生命周期声明对象，组件的生命周期：created、attached、ready、moved、detached将收归到lifetimes字段内进行声明，
+ * 原有声明方式仍旧有效，如同时存在两种声明方式，则lifetimes字段内声明方式优先级最高
+ */
+interface Lifetimes {
+    /**
+     * 组件生命周期函数，在组件实例进入页面节点树时执行
+     * 注意此时不能调用 setData
+     */
+    created(): void;
+    /**
+     * 组件生命周期函数，在组件实例进入页面节点树时执行
+     */
+    attached(): void;
+    /**
+     * 组件生命周期函数，在组件布局完成后执行，此时可以获取节点信息
+     * 使用 [SelectorQuery](https://mp.weixin.qq.com/debug/wxadoc/dev/api/wxml-nodes-info.html)
+     */
+    ready(): void;
+    /**
+     * 组件生命周期函数，在组件实例被移动到节点树另一个位置时执行
+     */
+    moved(): void;
+    /**
+     * 组件生命周期函数，在组件实例被从页面节点树移除时执行
+     */
+    detached(): void;
+}
+
 /**
  * Component组件参数
  */
@@ -3390,58 +3434,48 @@ interface ComponentOptions<
     Methods = DefaultMethods<Instance>,
     Options = object,
     Props = PropsDefinition<DefaultProps>
-> {
+> extends Partial<Lifetimes> {
     /**
      * 组件的对外属性，是属性名到属性设置的映射表
      * 属性设置中可包含三个字段:
      * type 表示属性类型、 value 表示属性初始值、 observer 表示属性值被更改时的响应函数
      */
     properties?: Props;
+
     /**
      * 组件的内部数据，和 properties 一同用于组件的模版渲染
      */
     data?: Data;
+
     /**
      * 组件的方法，包括事件响应函数和任意的自定义方法
      * 关于事件响应函数的使用
      * 参见[组件事件](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/custom-component/events.html)
      */
     methods?: Methods;
+
     /**
      * 一些组件选项，请参见文档其他部分的说明
      */
     options?: Options;
+
     /**
      * 类似于mixins和traits的组件间代码复用机制
      * 参见 [behaviors](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/custom-component/behaviors.html)
      */
     behaviors?: Array<(ComponentOptions<Component<object, object>>) | string>;
+
     /**
-     * 组件生命周期函数，在组件实例进入页面节点树时执行
-     * 注意此时不能调用 setData
+     * 组件生命周期声明对象，组件的生命周期：created、attached、ready、moved、detached将收归到lifetimes字段内进行声明，
+     * 原有声明方式仍旧有效，如同时存在两种声明方式，则lifetimes字段内声明方式优先级最高
      */
-    created?(
-        this: ThisType<
-            ComponentOptions<Instance, Data, Methods, Options, Readonly<Props>>
-        >
-    ): void;
+    lifetimes?: Partial<Lifetimes>;
+
     /**
-     * 组件生命周期函数，在组件实例进入页面节点树时执行
+     * 组件所在页面的生命周期声明对象，目前仅支持页面的show和hide两个生命周期
      */
-    attached?(): void;
-    /**
-     * 组件生命周期函数，在组件布局完成后执行，此时可以获取节点信息
-     * 使用 [SelectorQuery](https://mp.weixin.qq.com/debug/wxadoc/dev/api/wxml-nodes-info.html)
-     */
-    ready?(): void;
-    /**
-     * 组件生命周期函数，在组件实例被移动到节点树另一个位置时执行
-     */
-    moved?(): void;
-    /**
-     * 组件生命周期函数，在组件实例被从页面节点树移除时执行
-     */
-    detached?(): void;
+    pageLifetimes?: Partial<PageLifetimes>;
+
     /**
      * 组件间关系定义，参见 [组件间关系](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/custom-component/relations.html)
      */
