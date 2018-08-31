@@ -183,7 +183,7 @@
         /**
          * Register event handlers.
          */
-        on?: {[key in SwiperEvent]?: () => void };
+        on?: { [key in SwiperEvent]?: () => void };
 
         // Slides grid
         spaceBetween?: number;
@@ -784,6 +784,16 @@
         key?: string;
     }
 
+    /**
+    * Object with controller parameters or boolean true to enable with default settings. For example:
+    *
+    * @example
+    * var mySwiper = new Swiper('.swiper-container', {
+    *   controller: {
+    *     inverse: true,
+    *   },
+    * });
+    */
     interface ControllerOptions {
         /**
          * Pass here another Swiper instance or array with Swiper instances that should be controlled
@@ -1098,7 +1108,13 @@
     /**
      * Controller module.
      */
-    class Controller { }
+    class Controller {
+        /**
+         * Pass here another Swiper instance or array with Swiper instances that should be controlled
+         * by this Swiper
+         */
+        control?: Swiper;
+    }
 
     /**
      * Accessibility module (a11y$)
@@ -1162,6 +1178,12 @@
      * Core module
      */
     class Swiper {
+        /**
+         * Constructs a new Swiper instance.
+         *
+         * @param container Where Swiper applies to.
+         * @param options   Instance options.
+         */
         constructor(container: SelectableElement, options?: SwiperOptions);
 
         /**
@@ -1476,23 +1498,95 @@
         setGrabCursor(): void;
 
         // Components
+
+        /**
+         * Swiper Navigation module.
+         */
         navigation?: Navigation;
+
+        /**
+         * Swiper Pagination module.
+         */
         pagination?: Pagination;
+
+        /**
+         * Swiper Scrollbar module.
+         */
         scrollbar?: Scrollbar;
+
+        /**
+         * Swiper Autoplay module.
+         */
         autoplay?: Autoplay;
+
+        /**
+         * Swiper Parallax module.
+         */
         parallax?: Parallax;
+
+        /**
+         * Swiper Lazy module.
+         */
         lazy?: Lazy;
+
+        /**
+         * Swiper FadeEffect module.
+         */
         fadeEffect?: FadeEffect;
+
+        /**
+         * Swiper CoverflowEffect module.
+         */
         coverflowEffect?: CoverflowEffect;
+
+        /**
+         * Swiper FlipEffect module.
+         */
         flipEffect?: FlipEffect;
+
+        /**
+         * Swiper CubeEffect module.
+         */
         cubeEffect?: CubeEffect;
+
+        /**
+         * Swiper Zoom module.
+         */
         zoom?: Zoom;
+
+        /**
+         * Swiper Keyboard module.
+         */
         keyboard?: Keyboard;
+
+        /**
+         * Swiper Mousewheel module.
+         */
         mousewheel?: Mousewheel;
+
+        /**
+         * Swiper Virtual module.
+         */
         virtual?: Virtual;
+
+        /**
+         * Swiper HashNavigation module.
+         */
         hashNavigation?: HashNavigation;
+
+        /**
+         * Swiper History module.
+         */
         history?: History;
+
+        /**
+         * Swiper Controller module.
+         */
         controller?: Controller;
+
+        /**
+         * Swiper A11y module.
+         */
         a11y?: A11y;
     }
 }
