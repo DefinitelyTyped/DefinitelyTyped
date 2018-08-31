@@ -205,11 +205,10 @@ declare namespace MCustomScrollbar {
             */
             updateOnSelectorChange?: string|boolean;
             /**
-            * Auto-expand content horizontally (for "x" or "yx" axis) 
-            * 	values: boolean, integer (the value 2 forces the non scrollHeight/scrollWidth method, the value 3 forces the scrollHeight/scrollWidth method)
-            *           Set to true if you have horizontal scrollbr on content that change on-the-fly. 
+            * Auto-expanding content's width on horizontal scrollbars, values: true, false. Set to true if you have horizontal scrollbr on content that change on-the-fly. Demo contains
+            * blocks with images and horizontal scrollbars that use this option parameter
             */
-            autoExpandHorizontalScroll?: boolean | number;
+            autoExpandHorizontalScroll?: boolean;
             /**
             * Set the list of elements/selectors that will auto-scroll content to their position when focused.
             * For example, when pressing TAB key to focus input fields, if the field is out of the viewable area the content 
