@@ -670,7 +670,9 @@ function zoom() {
 
     swiper.zoom.out();
     swiper.zoom.disable();
-    swiper.zoom.enabled === false;
+
+    if (swiper.zoom.enabled) throw new Error('Zoom should be disabled!');
+
     swiper.zoom.enable();
     swiper.zoom.in();
 }
