@@ -3,9 +3,8 @@
 // Definitions by: Sebastián Galiano <https://github.com/sgaliano>, Luca Trazzi <https://github.com/lucax88x>, Eugene Matseruk <https://github.com/ematseruk>, Luiz M. <https://github.com/odahcam>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
-
 // declare namespace swiper {
-declare module 'swiper' {
+  declare module 'swiper' {
     /**
      * Common Swiper events.
      */
@@ -295,7 +294,7 @@ declare module 'swiper' {
         cubeEffect?: CubeEffectOptions;
         zoom?: ZoomOptions | boolean;
         keyboard?: KeyboardOptions | boolean;
-        mousewheel?: MouseWheelOptions | boolean;
+        mousewheel?: MousewheelOptions | boolean;
         virtual?: VirtualOptions | boolean;
         hashNavigation?: HashNavigationOptions | boolean;
         history?: HistoryNavigationOptions | boolean;
@@ -695,7 +694,7 @@ declare module 'swiper' {
     }
 
     /*
-     * Options - Effects
+     * Options - Effect
      */
 
     interface FadeEffectOptions {
@@ -735,7 +734,7 @@ declare module 'swiper' {
         onlyInViewport?: boolean;
     }
 
-    interface MouseWheelOptions {
+    interface MousewheelOptions {
         forceToAxis?: boolean;
         releaseOnEdges?: boolean;
         invert?: boolean;
@@ -934,7 +933,6 @@ declare module 'swiper' {
         enabled: boolean;
 
         // Methods
-
         /**
          * Enable keyboard control
          */
@@ -956,7 +954,6 @@ declare module 'swiper' {
         enabled: boolean;
 
         // Methods
-
         /**
          * Enable mousewheel control
          */
@@ -1020,7 +1017,6 @@ declare module 'swiper' {
      */
     class Scrollbar {
         // Properties
-
         /**
          * HTMLElement of Scrollbar container element
          */
@@ -1032,7 +1028,6 @@ declare module 'swiper' {
         dragEl: HTMLElement;
 
         // Methods
-
         /**
          * Updates scrollbar track and handler sizes
          */
@@ -1126,14 +1121,12 @@ declare module 'swiper' {
      */
     class Autoplay {
         // Properties
-
         /**
          * Whether autoplay enabled and running
          */
         running: boolean;
 
         // Methods
-
         /**
          * Start autoplay
          */
@@ -1148,22 +1141,22 @@ declare module 'swiper' {
     /**
      * Fade Effect module.
      */
-    class EffectFade { }
+    class FadeEffect { }
 
     /**
      * Cube Effect module.
      */
-    class EffectCube { }
+    class CubeEffect { }
 
     /**
      * Flip Effect module.
      */
-    class EffectFlip { }
+    class FlipEffect { }
 
     /**
      * Coverflow Effect module.
      */
-    class EffectCoverflow { }
+    class CoverflowEffect { }
 
     /**
      * Core module
@@ -1299,7 +1292,6 @@ declare module 'swiper' {
         allowTouchMove: boolean;
 
         // Methods
-
         /**
          * Run transition to next slide.
          *
@@ -1484,24 +1476,24 @@ declare module 'swiper' {
         setGrabCursor(): void;
 
         // Components
-        navigation?: NavigationOptions;
-        pagination?: PaginationOptions;
-        scrollbar?: ScrollbarOptions;
-        autoplay?: AutoplayOptions;
-        parallax?: boolean;
-        lazy?: LazyOptions | boolean;
-        fadeEffect?: FadeEffectOptions;
-        coverflowEffect?: CoverflowEffectOptions;
-        flipEffect?: FlipEffectOptions;
-        cubeEffect?: CubeEffectOptions;
-        zoom?: ZoomOptions | boolean;
-        keyboard?: KeyboardOptions | boolean;
-        mousewheel?: MouseWheelOptions | boolean;
-        virtual?: VirtualOptions;
-        hashNavigation?: HashNavigationOptions;
-        history?: HistoryNavigationOptions;
-        controller?: ControllerOptions;
-        a11y?: A11yOptions;
+        navigation?: Navigation;
+        pagination?: Pagination;
+        scrollbar?: Scrollbar;
+        autoplay?: Autoplay;
+        parallax?: Parallax;
+        lazy?: Lazy;
+        fadeEffect?: FadeEffect;
+        coverflowEffect?: CoverflowEffect;
+        flipEffect?: FlipEffect;
+        cubeEffect?: CubeEffect;
+        zoom?: Zoom;
+        keyboard?: Keyboard;
+        mousewheel?: Mousewheel;
+        virtual?: Virtual;
+        hashNavigation?: HashNavigation;
+        history?: History;
+        controller?: Controller;
+        a11y?: A11y;
     }
 }
 
