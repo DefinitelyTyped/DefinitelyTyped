@@ -1,13 +1,15 @@
 // Type definitions for Swiper
 // Project: https://github.com/nolimits4web/Swiper
-// Definitions by: Sebastián Galiano <https://github.com/sgaliano>, Luca Trazzi <https://github.com/lucax88x>, Eugene Matseruk <https://github.com/ematseruk>, Luiz Machado <https://github.com/odahcam/>
+// Definitions by: Sebastián Galiano <https://github.com/sgaliano>,
+//   Luca Trazzi <https://github.com/lucax88x>,
+//   Eugene Matseruk <https://github.com/ematseruk>,
+//   Luiz Machado <https://github.com/odahcam/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0.1
+// TypeScript Version: 2.7
 // Swiper Version: 4.2
 
 // declare namespace swiper {
 declare module 'swiper' {
-
     /**
      * Common Swiper events.
      */
@@ -71,7 +73,6 @@ declare module 'swiper' {
      * Main constructor options.
      */
     interface SwiperOptions {
-
         /**
          * Whether Swiper should be initialised automatically when you create an instance. If disabled, then you need to init it manually by calling mySwiper.init()
          *
@@ -295,7 +296,6 @@ declare module 'swiper' {
     }
 
     interface EventsOptions {
-
         /**
          * Fired right after Swiper initialization.
          * Note that with swiper.on('init') syntax it will
@@ -464,7 +464,6 @@ declare module 'swiper' {
     }
 
     interface NavigationOptions {
-
         /**
          * String with CSS selector or HTML element of the element that will work like "next" button after click on it
          *
@@ -499,7 +498,6 @@ declare module 'swiper' {
          * @default 'swiper-button-hidden'
          */
         hiddenClass?: string;
-
     }
 
     interface PaginationOptions {
@@ -543,7 +541,6 @@ declare module 'swiper' {
     }
 
     interface ScrollbarOptions {
-
         el?: SelectableElement;
 
         dragSize?: string | number;
@@ -567,7 +564,6 @@ declare module 'swiper' {
     }
 
     interface AutoplayOptions {
-
         /**
          * Delay between transitions (in ms). If this parameter is not specified, auto play will be disabled
          *
@@ -605,7 +601,6 @@ declare module 'swiper' {
          * @default true
          */
         waitForTransition?: boolean;
-
     }
 
     interface LazyOptions {
@@ -675,7 +670,6 @@ declare module 'swiper' {
     }
 
     interface HashNavigationOptions {
-
         /**
          * Set to true to enable also navigation through slides (when hashnav is enabled) by browser history or by setting directly hash on document location
          *
@@ -692,7 +686,6 @@ declare module 'swiper' {
     }
 
     interface HistoryNavigationOptions {
-
         /**
          * Works in addition to hashnav or history to replace current url state with the new one instead of adding it to history
          *
@@ -709,7 +702,6 @@ declare module 'swiper' {
     }
 
     interface ControllerOptions {
-
         /**
          * Pass here another Swiper instance or array with Swiper instances that should be controlled by this Swiper
          */
@@ -731,7 +723,6 @@ declare module 'swiper' {
     }
 
     interface A11yOptions {
-
         /**
          * Enables A11y
          *
@@ -780,7 +771,6 @@ declare module 'swiper' {
          * @default 'swiper-notification'
          */
         notificationClass?: string;
-
     }
 
     /*
@@ -791,7 +781,6 @@ declare module 'swiper' {
      * Virtual Slides module.
      */
     class Virtual {
-
         /**
          * Object with cached slides HTML elements
          */
@@ -844,14 +833,12 @@ declare module 'swiper' {
          * Update virutal slides state
          */
         update(): void;
-
     }
 
     /**
      * Keyboard Control module.
      */
     class Keyboard {
-
         /**
          * Whether the keyboard control is enabled
          */
@@ -868,14 +855,12 @@ declare module 'swiper' {
          * Disable keyboard control
          */
         disable(): void;
-
     }
 
     /**
      * Mousewheel Control module.
      */
     class Mousewheel {
-
         /**
          * Whether the mousewheel control is enabled
          */
@@ -892,14 +877,12 @@ declare module 'swiper' {
          * Disable mousewheel control
          */
         disable(): void;
-
     }
 
     /**
      * Navigation module.
      */
     class Navigation {
-
         /**
          * HTMLElement of "next" navigation button
          */
@@ -914,14 +897,12 @@ declare module 'swiper' {
          * Update navigation buttons state (enabled/disabled)
          */
         update(): void;
-
     }
 
     /**
      * Pagination module.
      */
     class Pagination {
-
         /**
          * HTMLElement of pagination container element
          */
@@ -943,14 +924,12 @@ declare module 'swiper' {
          * Update pagination state (enabled/disabled/active)
          */
         update(): void;
-
     }
 
     /**
      * Scrollbar module.
      */
     class Scrollbar {
-
         // Properties
 
         /**
@@ -980,7 +959,6 @@ declare module 'swiper' {
      * Zoom module.
      */
     class Zoom {
-
         /**
          * Whether the zoom module is enabled
          */
@@ -1015,14 +993,12 @@ declare module 'swiper' {
          * Toggle image zoom of the currently active slide
          */
         toggle(): void;
-
     }
 
     /**
      * Lazy module.
      */
     class Lazy {
-
         /**
          * Load/update lazy images based on current slider state (position)
          */
@@ -1060,7 +1036,6 @@ declare module 'swiper' {
      * Autoplay module.
      */
     class Autoplay {
-
         // Properties
 
         /**
@@ -1105,7 +1080,6 @@ declare module 'swiper' {
      * Core module
      */
     class Swiper {
-
         constructor(container: SelectableElement, options?: SwiperOptions);
 
         /**
