@@ -1,4 +1,4 @@
-// Type definitions for react-loadable 5.3
+// Type definitions for react-loadable 5.4
 // Project: https://github.com/thejameskyle/react-loadable#readme
 // Definitions by: Diogo Franco <https://github.com/Kovensky>
 //                 Oden S. <https://github.com/odensc>
@@ -6,7 +6,7 @@
 //                 Tomek Łaziuk <https://github.com/tlaziuk>
 //                 Ian Mobley <https://github.com/iMobs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 /// <reference types="react" />
 
@@ -16,6 +16,7 @@ declare namespace LoadableExport {
         pastDelay: boolean;
         timedOut: boolean;
         error: any;
+        retry: () => void;
     }
 
     type Options<Props, Exports extends object> = OptionsWithoutRender<Props> | OptionsWithRender<Props, Exports>;

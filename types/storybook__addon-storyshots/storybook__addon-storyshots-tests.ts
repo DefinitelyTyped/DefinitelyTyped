@@ -1,5 +1,5 @@
-import initStoryshots, { multiSnapshotWithOptions, snapshotWithOptions, getSnapshotFileName, renderOnly } from "@storybook/addon-storyshots";
-import { shallow } from 'enzyme';
+import initStoryshots, { multiSnapshotWithOptions, snapshotWithOptions, getSnapshotFileName, renderOnly, imageSnapshot } from "@storybook/addon-storyshots";
+import { shallow, ShallowWrapper } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import 'jest';
 import 'jest-specific-snapshot';
@@ -27,6 +27,23 @@ initStoryshots({
 });
 
 initStoryshots({
+    configPath: "",
+    test: imageSnapshot({
+        storybookUrl: "http://localhost:9002"
+    })
+});
+
+initStoryshots({
+    configPath: "",
+    test: imageSnapshot({
+        storybookUrl: "http://localhost:9002",
+        getScreenshotOptions: ({ context, url }) => ({ path: "/foo" }),
+        getGotoOptions: ({ context, url }) => ({ timeout: 10 }),
+        chromeExecutablePath: "/usr/local/bin/chrome"
+    })
+});
+
+initStoryshots({
     framework: 'react',
     configPath: '',
     test: snapshotWithOptions({
@@ -37,4 +54,30 @@ initStoryshots({
             return null;
         }
     })
+});
+
+initStoryshots({
+    configPath: 'config/storybook',
+    suite: 'storybook snapshots',
+    storyNameRegex: /^(?!NOTEST )/,
+    test: function renderWithoutSnapshotting({ story, context, renderTree }) {
+        const result = renderTree(story, context, { createNodeMock });
+        const unmount = (tree: any) => typeof tree.unmount === 'function' && tree.unmount();
+        return result instanceof Promise ? result.then(unmount) : unmount(result);
+
+        function createNodeMock() {
+            return {
+                addEventListener: () => undefined,
+                getClientRects: () => [],
+                getBoundingClientRect: () => ({}),
+                getElementsByClassName: () => [],
+            };
+        }
+    },
+});
+
+// Ensure renderer is compatible with serializer
+initStoryshots<ShallowWrapper>({
+    renderer: shallow,
+    serializer: toJson,
 });

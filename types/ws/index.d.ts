@@ -1,4 +1,4 @@
-// Type definitions for ws 5.1
+// Type definitions for ws 6.0
 // Project: https://github.com/websockets/ws
 // Definitions by: Paul Loyd <https://github.com/loyd>
 //                 Matt Silverlock <https://github.com/elithrar>
@@ -120,7 +120,7 @@ declare namespace WebSocket {
      * whether or not to accept the handshake.
      */
     type VerifyClientCallbackAsync = (info: { origin: string; secure: boolean; req: http.IncomingMessage }
-        , callback: (res: boolean, code?: number, message?: string) => void) => void;
+        , callback: (res: boolean, code?: number, message?: string, headers?: http.OutgoingHttpHeaders) => void) => void;
 
     interface ClientOptions {
         protocol?: string;
@@ -141,6 +141,7 @@ declare namespace WebSocket {
         key?: CertMeta;
         pfx?: string | Buffer;
         ca?: CertMeta;
+        maxPayload?: number;
     }
 
     interface PerMessageDeflateOptions {
@@ -148,8 +149,17 @@ declare namespace WebSocket {
         clientNoContextTakeover?: boolean;
         serverMaxWindowBits?: number;
         clientMaxWindowBits?: number;
-        level?: number;
-        memLevel?: number;
+        zlibDeflateOptions?: {
+            flush?: number;
+            finishFlush?: number;
+            chunkSize?: number;
+            windowBits?: number;
+            level?: number;
+            memLevel?: number;
+            strategy?: number;
+            dictionary?: Buffer | Buffer[] | DataView;
+            info?: boolean;
+        };
         threshold?: number;
         concurrencyLimit?: number;
     }
@@ -168,6 +178,12 @@ declare namespace WebSocket {
         maxPayload?: number;
     }
 
+    interface AddressInfo {
+        address: string;
+        family: string;
+        port: number;
+    }
+
     // WebSocket Server
     class Server extends events.EventEmitter {
         options: ServerOptions;
@@ -176,7 +192,7 @@ declare namespace WebSocket {
 
         constructor(options?: ServerOptions, callback?: () => void);
 
-        address(): { port: number; family: string; address: string; };
+        address(): AddressInfo | string;
         close(cb?: (err?: Error) => void): void;
         handleUpgrade(request: http.IncomingMessage, socket: net.Socket,
             upgradeHead: Buffer, callback: (client: WebSocket) => void): void;

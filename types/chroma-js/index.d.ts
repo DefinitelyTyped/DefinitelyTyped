@@ -293,6 +293,8 @@ declare namespace chroma {
 
         mode(mode: keyof ColorSpaces): this;
 
+        gamma(g: number): this;
+
         cache(use: boolean): boolean;
 
         correctLightness(enable?: boolean): this;

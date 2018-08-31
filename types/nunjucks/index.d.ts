@@ -1,4 +1,4 @@
-// Type definitions for nunjucks 3.0
+// Type definitions for nunjucks 3.1
 // Project: http://mozilla.github.io/nunjucks/
 // Definitions by: Ruben Slabbert <https://github.com/RubenSlabbert>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -95,6 +95,7 @@ export function installJinjaCompat(): void;
 export interface ILoader {
     async?: boolean;
     getSource(name: string): LoaderSource;
+    getSource(name: string, callback: (err?: any, result?: LoaderSource) => void): void;
     extend?(extender: ILoader): ILoader;
 }
 
@@ -128,7 +129,7 @@ export class FileSystemLoader extends Loader implements ILoader {
     constructor(searchPaths?: string | string[], opts?: FileSystemLoaderOptions);
 }
 
-export class WebLoader implements ILoader {
+export class WebLoader extends Loader implements ILoader {
     constructor(baseUrl: string, opts?: any);
     getSource(name: string): LoaderSource;
 }
@@ -136,4 +137,14 @@ export class WebLoader implements ILoader {
 export class PrecompiledLoader extends Loader implements ILoader {
     init(searchPaths: string[], opts: any): void;
     getSource(name: string): LoaderSource;
+}
+
+export namespace runtime {
+    class SafeString {
+        constructor(val: string);
+        val: string;
+        length: number;
+        valueOf(): string;
+        toString(): string;
+    }
 }

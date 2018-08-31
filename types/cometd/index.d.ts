@@ -21,12 +21,16 @@ declare namespace CometD {
 }
 
 interface CometD {
+    
+    websocketEnabled?: boolean;
 
     onListenerException: (exception: any, subscriptionHandle: any, isListener: boolean, message: string) => void;
 
     init(options: CometD.ConfigurationOptions): void;
 
     configure(config: CometD.ConfigurationOptions): void;
+    
+    subscribe(channel: string, listener: (message: any) => void): void;
 
     addListener(channel: string, listener: (message: any) => void): void;
     removeListener(listener: (message: any) => void): void;

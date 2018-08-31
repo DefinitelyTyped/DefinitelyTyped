@@ -1,5 +1,4 @@
 import {
-    LayoutProps,
     TextProps,
     TextPropsIOS,
     TextPropsAndroid,
@@ -76,9 +75,6 @@ declare module "react-native" {
      * They have been renamed to *Props to match React Native documentation
      * The following lines ensure compatibility with *Properties and should be removed in the future
      */
-
-    /** @deprecated Use LayoutProps */
-    export type LayoutProperties = LayoutProps;
 
     /** @deprecated Use TextProps */
     export type TextProperties = TextProps;

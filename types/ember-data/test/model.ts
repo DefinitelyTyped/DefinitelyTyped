@@ -17,6 +17,7 @@ const User = DS.Model.extend({
     username: DS.attr('string'),
     email: DS.attr('string'),
     verified: DS.attr('boolean', { defaultValue: false }),
+    canBeNull: DS.attr('boolean', { allowNull: true }),
     createdAt: DS.attr('date', {
         defaultValue() { return new Date(); }
     })

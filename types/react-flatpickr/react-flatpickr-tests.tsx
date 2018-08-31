@@ -18,3 +18,5 @@ const onChange = (
 const onChangeElement = <DatePicker onChange={ onChange }/>;
 
 const valueElement = <DatePicker value={ 'Value' }/>;
+
+const classNameElement = <DatePicker className={ 'Class name' }/>;

@@ -52,25 +52,27 @@ declare module 'ember-data' {
          * Convert an array of errors in JSON-API format into an object.
          */
         function errorsArrayToHash(errors: any[]): {};
+
+        interface RelationshipOptions<Model> {
+            async?: boolean;
+            inverse?: RelationshipsFor<Model> | null;
+            polymorphic?: boolean;
+        }
+
+        interface Sync { async: false; }
+        interface Async { async?: true; }
+
         /**
          * `DS.belongsTo` is used to define One-To-One and One-To-Many
          * relationships on a [DS.Model](/api/data/classes/DS.Model.html).
          */
         function belongsTo<K extends keyof ModelRegistry>(
             modelName: K,
-            options: {
-                async: false;
-                inverse?: string | null;
-                polymorphic?: boolean;
-            }
+            options: RelationshipOptions<ModelRegistry[K]> & Sync
         ): Ember.ComputedProperty<ModelRegistry[K]>;
         function belongsTo<K extends keyof ModelRegistry>(
             modelName: K,
-            options?: {
-                async?: true;
-                inverse?: string | null;
-                polymorphic?: boolean;
-            }
+            options?: RelationshipOptions<ModelRegistry[K]> & Async
         ): Ember.ComputedProperty<ModelRegistry[K] & PromiseObject<ModelRegistry[K]>, ModelRegistry[K]>;
         /**
          * `DS.hasMany` is used to define One-To-Many and Many-To-Many
@@ -78,19 +80,11 @@ declare module 'ember-data' {
          */
         function hasMany<K extends keyof ModelRegistry>(
             type: K,
-            options: {
-                async: false;
-                inverse?: string | null;
-                polymorphic?: boolean;
-            }
+            options: RelationshipOptions<ModelRegistry[K]> & Sync
         ): Ember.ComputedProperty<ManyArray<ModelRegistry[K]>>;
         function hasMany<K extends keyof ModelRegistry>(
             type: K,
-            options?: {
-                async?: true;
-                inverse?: string | null;
-                polymorphic?: boolean;
-            }
+            options?: RelationshipOptions<ModelRegistry[K]> & Async
         ): Ember.ComputedProperty<PromiseManyArray<ModelRegistry[K]>, Ember.Array<ModelRegistry[K]>>;
         /**
          * This method normalizes a modelName into the format Ember Data uses
@@ -101,6 +95,7 @@ declare module 'ember-data' {
 
         interface AttrOptions<T = any> {
             defaultValue?: T | (() => T);
+            allowNull?: boolean; // TODO: restrict to boolean transform (TS 2.8)
         }
 
         /**
@@ -531,7 +526,7 @@ declare module 'ember-data' {
              * invoking the callback with the name of each relationship and its relationship
              * descriptor.
              */
-            eachRelationship(callback: Function, binding: any): any;
+            eachRelationship(callback: (name: string, details: RelationshipMeta<this>) => void, binding?: any): any;
             /**
              * Represents the model's class name as a string. This can be used to look up the model's class name through
              * `DS.Store`'s modelFor method.
@@ -582,7 +577,7 @@ declare module 'ember-data' {
              * invoking the callback with the name of each relationship and its relationship
              * descriptor.
              */
-            static eachRelationship(callback: Function, binding: any): any;
+            static eachRelationship<M extends Model = Model>(callback: (name: string, details: RelationshipMeta<M>) => void, binding?: any): any;
             /**
              * Given a callback, iterates over each of the types related to a model,
              * invoking the callback with the related type's class. Each type will be

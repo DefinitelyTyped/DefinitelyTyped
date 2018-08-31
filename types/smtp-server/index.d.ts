@@ -1,4 +1,4 @@
-// Type definitions for smtp-server 3.3
+// Type definitions for smtp-server 3.4
 // Project: https://github.com/nodemailer/smtp-server
 // Definitions by: markisme <https://github.com/markisme>
 //                 taisiias <https://github.com/Taisiias>
@@ -72,11 +72,19 @@ export interface SMTPServerSession {
      */
     id: string;
     /**
-     * the IP address for the connected client
+     * local IP address for the connected client
+     */
+    localAddress: string;
+    /**
+     * local port number for the connected client
+     */
+    localPort: number;
+    /**
+     * remote IP address for the connected client
      */
     remoteAddress: string;
     /**
-     * port number the connected client
+     * remote port number for the connected client
      */
     remotePort: number;
     /**
@@ -126,6 +134,8 @@ export interface SMTPServerOptions extends tls.TlsOptions {
      * createServer can be added directly onto this options object.
      */
     secure?: boolean;
+    /** indicate an TLS server where TLS is handled upstream */
+    secured?: boolean;
     /** optional private keys in PEM format */
     key?: string | string[] | Buffer | Buffer[] | Array<{ pem: string | Buffer, passphrase: string }>;
     /** optional cert chains in PEM format */

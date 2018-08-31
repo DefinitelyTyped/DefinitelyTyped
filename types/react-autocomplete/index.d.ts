@@ -2,7 +2,7 @@
 // Project: https://github.com/reactjs/react-autocomplete
 // Definitions by: Lee Standen <https://github.com/lstanden>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import { Component, ChangeEvent, ReactNode, CSSProperties, HTMLProps } from 'react';
 
@@ -65,7 +65,7 @@ declare namespace Autocomplete {
          * an optional set of styles that can be applied to improve the look/feel
          * of the items in the dropdown menu.
          */
-        renderItem: (item: any) => ReactNode;
+        renderItem: (item: any, isHighlighted: boolean, styles?: CSSProperties) => ReactNode;
         /**
          * Arguments: `items: Array<Any>, value: String, styles: Object`
          *
@@ -143,5 +143,36 @@ declare namespace Autocomplete {
         open?: boolean;
         debug?: boolean;
     }
+
+    interface State {
+      /**
+       * True when the menu is visible. Provided to `onMenuVisibilityChange`.
+       */
+      isOpen: boolean;
+
+      /**
+       * Index of the highlighted item, `null` if none currently is.
+       */
+      highlightedIndex: number | null;
+
+      /**
+       * These three `menu___` values are used in CSS to layout the menu.
+       */
+      menuLeft?: number;
+      menuTop?: number;
+      menuWidth?: number;
+    }
 }
-declare class Autocomplete extends Component<Autocomplete.Props> {}
+declare class Autocomplete extends Component<Autocomplete.Props, Autocomplete.State> {
+    /**
+     * Autocomplete exposes a subset of `HTMLInputElement` properties to the parent component.
+     * They can be accessed through Autocomplete's `ref` prop.
+     */
+    blur: HTMLInputElement['blur'];
+    checkValidity: HTMLInputElement['checkValidity'];
+    click: HTMLInputElement['click'];
+    focus: HTMLInputElement['focus'];
+    select: HTMLInputElement['select'];
+    setCustomValidity: HTMLInputElement['setCustomValidity'];
+    setSelectionRange: HTMLInputElement['setSelectionRange'];
+}

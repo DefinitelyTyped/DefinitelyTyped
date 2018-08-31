@@ -3,7 +3,7 @@ import { TransitionActions, TransitionProps } from "./Transition";
 
 declare namespace TransitionGroup {
     interface IntrinsicTransitionGroupProps<T extends keyof JSX.IntrinsicElements = "div"> extends TransitionActions {
-        component?: T;
+        component?: T|null;
     }
 
     interface ComponentTransitionGroupProps<T extends ReactType> extends TransitionActions {
@@ -14,6 +14,7 @@ declare namespace TransitionGroup {
         (IntrinsicTransitionGroupProps<T> & JSX.IntrinsicElements[T]) | (ComponentTransitionGroupProps<V>) & {
         children?: ReactElement<TransitionProps> | Array<ReactElement<TransitionProps>>;
         childFactory?(child: ReactElement<any>): ReactElement<any>;
+        [prop: string]: any;
     };
 }
 

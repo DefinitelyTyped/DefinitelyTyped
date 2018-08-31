@@ -684,7 +684,7 @@ declare namespace DataTables {
          *
          * @param fn Function to execute for every cell selected.
          */
-        every(fn: (cellRowIdx: number, cellColIdx: number, tableLoop: number, cellLoop: number) => void): Api;
+        every(fn: (this: CellMethods, cellRowIdx: number, cellColIdx: number, tableLoop: number, cellLoop: number) => void): Api;
 
         /**
          * Get index information about the selected cells
@@ -812,7 +812,7 @@ declare namespace DataTables {
          *
          * @param fn Function to execute for every column selected.
          */
-        every(fn: (colIdx: number, tableLoop: number, colLoop: number) => void): Api;
+        every(fn: (this: ColumnMethods, colIdx: number, tableLoop: number, colLoop: number) => void): Api;
 
         /**
          * Get the column indexes of the selected columns.
@@ -995,7 +995,7 @@ declare namespace DataTables {
          *
          * @param fn Function to execute for every row selected.
          */
-        every(fn: (rowIdx: number, tableLoop: number, rowLoop: number) => void): Api;
+        every(fn: (this: RowMethods, rowIdx: number, tableLoop: number, rowLoop: number) => void): Api;
 
         /**
          * Get the ids of the selected rows. Since: 1.10.8
@@ -1094,13 +1094,13 @@ declare namespace DataTables {
         (): JQueryDataTables;
 
         /**
-         * Check is a table node is a DataTable or not
+         * Check if a table node is a DataTable already or not.
          *
          * Usage:
          * $.fn.dataTable.isDataTable("selector");
-         * @param table Selector string for table
+         * @param table The table to check.
          */
-        isDataTable(table: string): boolean;
+        isDataTable(table: string | Node | JQuery | Api): boolean;
 
         /**
          * Helpers for `columns.render`.
@@ -1431,6 +1431,11 @@ declare namespace DataTables {
          * Tab index control for keyboard navigation. Since: 1.10
          */
         tabIndex?: number;
+
+        /**
+         * Enable or disable datatables responsive. Since: 1.10
+         */
+        responsive?: boolean | object;
 
         //#endregion "Options"
 
@@ -2021,7 +2026,10 @@ declare namespace DataTables {
         sVersion: string;
         search: any[];
         selector: object;
-        type: object;
+        /**
+         * Type based plug-ins.
+         */
+        type: ExtTypeSettings;
     }
 
     interface ExtClassesSettings {
@@ -2203,4 +2211,36 @@ declare namespace DataTables {
         sJUIFooter?: string;
     }
     //#endregion "ext internal"
+
+    interface ExtTypeSettings {
+        /**
+         * Type detection functions for plug-in development.
+         *
+         * @see https://datatables.net/manual/plug-ins/type-detection
+         */
+        detect: FunctionExtTypeSettingsDetect[];
+        /**
+         * Type based ordering functions for plug-in development.
+         *
+         * @see https://datatables.net/manual/plug-ins/sorting
+         * @default {}
+         */
+        order: object;
+        /**
+         * Type based search formatting for plug-in development.
+         *
+         * @default {}
+         * @example
+         *   $.fn.dataTable.ext.type.search['title-numeric'] = function ( d ) {
+         *     return d.replace(/\n/g," ").replace( /<.*?>/g, "" );
+         *   }
+         */
+        search: object;
+    }
+
+    /**
+     * @param data Data from the column cell to be analysed.
+     * @param DataTables settings object.
+     */
+    type FunctionExtTypeSettingsDetect = (data: any, settings: Settings) => (string | null);
 }

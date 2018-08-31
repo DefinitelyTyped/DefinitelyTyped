@@ -29,6 +29,40 @@ management
     // Handle the error.
   });
 
+// Search users without paging - callback style
+management.getUsers({search_engine: 'v3', q: 'name:"jane"', per_page: 25}, (err: Error, users: auth0.User[]) => {
+    if (err) {
+        // Handle error
+    }
+    console.log(users);
+});
+
+// Search users without paging - promise style
+management.getUsers({search_engine: 'v3', q: 'name:"jane"', per_page: 25})
+    .then((users) => {
+        console.log(users);
+    })
+    .catch((err) => {
+        // Handle the error
+    });
+
+// Search users with paging - callback style
+management.getUsers({search_engine: 'v3', q: 'name:"jane"', per_page: 25, include_totals: true}, (err: Error, userPage: auth0.UserPage) => {
+    if (err) {
+        // Handle error
+    }
+    console.log(userPage.total);
+});
+
+// Search users with paging - promise style
+management.getUsers({search_engine: 'v3', q: 'name:"jane"', per_page: 25, include_totals: true})
+    .then((users: auth0.UserPage) => {
+        console.log(users.total);
+    })
+    .catch((err) => {
+        // Handle the error
+    });
+
 // Using a callback.
 management.getUser({id: 'user_id'},(err: Error, user: auth0.User) => {
   if (err) {

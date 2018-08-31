@@ -12,7 +12,8 @@ declare namespace __ONOFF {
     var version:string;
 
     interface GpioOptions {
-        debounceTimeout:number;
+        debounceTimeout?:number;
+        activeLow?:boolean;
     }
 
     class Gpio {

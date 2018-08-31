@@ -3,6 +3,7 @@
 // Definitions by: Baptiste Coquelle <https://github.com/cbaptiste>
 //                 Haroen Viaene <https://github.com/haroenv>
 //                 Aurélien Hervé <https://github.com/aherve>
+//                 Samuel Vaillant <https://github.com/samouss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -88,7 +89,16 @@ declare namespace algoliasearch {
      */
     deleteIndex(name: string): Promise<Task>;
     /**
-     * Copy an  index from a specific index to a new one
+     * Copy an index from a specific index to a new one
+     * https://github.com/algolia/algoliasearch-client-js#copy-index---copyindex
+     */
+    copyIndex(
+      from: string,
+      to: string,
+      cb: (err: Error, res: Task) => void
+    ): void;
+    /**
+     * Copy settings of an index from a specific index to a new one
      * https://github.com/algolia/algoliasearch-client-js#copy-index---copyindex
      */
     copyIndex(
@@ -98,13 +108,13 @@ declare namespace algoliasearch {
       cb: (err: Error, res: Task) => void
     ): void;
     /**
-     * Copy an  index from a specific index to a new one
+     * Copy settings of an index from a specific index to a new one
      * https://github.com/algolia/algoliasearch-client-js#copy-index---copyindex
      */
     copyIndex(
       from: string,
       to: string,
-      scope: ('settings' | 'synonyms' | 'rules')[]
+      scope?: ('settings' | 'synonyms' | 'rules')[]
     ): Promise<Task>;
     /**
      * Move index to a new one (and will overwrite the original one)
@@ -230,6 +240,7 @@ declare namespace algoliasearch {
    * Interface for the index algolia object
    */
   interface Index {
+    indexName: string;
     /**
      * Gets a specific object
      * https://github.com/algolia/algoliasearch-client-js#find-by-ids---getobjects
@@ -286,14 +297,13 @@ declare namespace algoliasearch {
      * https://github.com/algolia/algoliasearch-client-js#update-objects---saveobjects
      */
     partialUpdateObject(object: {}, cb: (err: Error, res: Task) => void): void;
+    partialUpdateObject(object: {}, createIfNotExists: boolean, cb: (err: Error, res: Task) => void): void;
     /**
      * Update parameters of a list of objects
      * https://github.com/algolia/algoliasearch-client-js#update-objects---saveobjects
      */
-    partialUpdateObjects(
-      objects: {}[],
-      cb: (err: Error, res: Task) => void
-    ): void;
+    partialUpdateObjects(objects: {}[], cb: (err: Error, res: Task) => void): void;
+    partialUpdateObjects(objects: {}[], createIfNotExists: boolean, cb: (err: Error, res: Task) => void): void;
     /**
      * Delete a specific object
      * https://github.com/algolia/algoliasearch-client-js#delete-objects---deleteobjects
@@ -330,7 +340,7 @@ declare namespace algoliasearch {
      * Wait for an indexing task to be compete
      * https://github.com/algolia/algoliasearch-client-js#wait-for-operations---waittask
      */
-    waitTask(taskID: number, cb: (err: Error, res: any) => void): void;
+    waitTask(taskID: number, cb: (err: Error, res: TaskStatus) => void): void;
     /**
      * Get an index settings
      * https://github.com/algolia/algoliasearch-client-js#get-settings---getsettings
@@ -531,11 +541,13 @@ declare namespace algoliasearch {
      * https://github.com/algolia/algoliasearch-client-js#update-objects---saveobjects
      */
     partialUpdateObject(object: {}): Promise<Task>;
+    partialUpdateObject(object: {}, createIfNotExists: boolean): Promise<Task>;
     /**
      * Update parameters of a list of objects
      * https://github.com/algolia/algoliasearch-client-js#update-objects---saveobjects
      */
     partialUpdateObjects(objects: {}[]): Promise<Task>;
+    partialUpdateObjects(objects: {}[], createIfNotExists?: boolean): Promise<Task>;
     /**
      * Delete a specific object
      * https://github.com/algolia/algoliasearch-client-js#delete-objects---deleteobjects
@@ -560,7 +572,7 @@ declare namespace algoliasearch {
      * Wait for an indexing task to be compete
      * https://github.com/algolia/algoliasearch-client-js#wait-for-operations---waittask
      */
-    waitTask(taskID: number): Promise<any>;
+    waitTask(taskID: number): Promise<TaskStatus>;
     /**
      * Get an index settings
      * https://github.com/algolia/algoliasearch-client-js#get-settings---getsettings
@@ -752,6 +764,11 @@ declare namespace algoliasearch {
      * https://github.com/algolia/algoliasearch-client-js#client-options
      */
     hosts?: { read?: string[]; write?: string[] };
+    /**
+     * enable the experimental feature: caching requests instead of responses
+     * see https://github.com/algolia/algoliasearch-client-javascript/pull/694
+     */
+    _useRequestCache?: boolean
   }
   /**
    * Interface describing options available for gettings the logs
@@ -1394,52 +1411,6 @@ declare namespace algoliasearch {
     userData?: string | object;
   }
 
-  interface AlgoliaResponse {
-    /**
-     * Contains all the hits matching the query
-     * https://github.com/algolia/algoliasearch-client-js#response-format
-     */
-    hits: any[];
-    /**
-     * Current page
-     * https://github.com/algolia/algoliasearch-client-js#response-format
-     */
-    page: number;
-    /**
-     * Number of total hits matching the query
-     * https://github.com/algolia/algoliasearch-client-js#response-format
-     */
-    nbHits: number;
-    /**
-     * Number of pages
-     * https://github.com/algolia/algoliasearch-client-js#response-format
-     */
-    nbPage: number;
-    /**
-     * Number of hits per pages
-     * https://github.com/algolia/algoliasearch-client-js#response-format
-     */
-    hitsPerPage: number;
-    /**
-     * Engine processing time (excluding network transfer)
-     * https://github.com/algolia/algoliasearch-client-js#response-format
-     */
-    processingTimeMS: number;
-    /**
-     * Query used to perform the search
-     * https://github.com/algolia/algoliasearch-client-js#response-format
-     */
-    query: string;
-    /**
-     * GET parameters used to perform the search
-     * https://github.com/algolia/algoliasearch-client-js#response-format
-     */
-    params: string;
-    facets: {
-      [facetName: string]: { [facetValue: string]: number };
-    };
-  }
-
   namespace SearchForFacetValues {
     interface Parameters extends QueryParameters {
       /**
@@ -1480,6 +1451,13 @@ declare namespace algoliasearch {
 
   interface Task {
     taskID: number;
+    createdAt: string;
+    objectID?: string; 
+  }
+
+  interface TaskStatus {
+    status: 'published' | 'notPublished',
+    pendingTask: boolean,
   }
 
   interface IndexSettings {
@@ -1600,7 +1578,7 @@ declare namespace algoliasearch {
      * 'strict' Hits matching with 2 typos are not retrieved if there are some matching without typos.
      * https://github.com/algolia/algoliasearch-client-js#typotolerance
      */
-    typoTolerance?: any;
+    typoTolerance?: boolean | 'min' | 'strict';
     /**
      * If set to false, disables typo tolerance on numeric tokens (numbers).
      * default: true
@@ -1633,7 +1611,7 @@ declare namespace algoliasearch {
      * 'prefixNone' No query word is interpreted as a prefix. This option is not recommended.
      * https://github.com/algolia/algoliasearch-client-js#querytype
      */
-    queryType?: any;
+    queryType?: 'prefixAll' | 'prefixLast' | 'prefixNone';
     /**
      * This option is used to select a strategy in order to avoid having an empty result page
      * default: 'none'
@@ -1699,7 +1677,10 @@ declare namespace algoliasearch {
      * 'multiWordsSynonym': multiple-words synonym
      * https://github.com/algolia/algoliasearch-client-js#alternativesasexact
      */
-    alternativesAsExact?: any;
+    alternativesAsExact?: (
+      | "ignorePlurals"
+      | "singleWordSynonym"
+      | "multiWordsSynonym")[];
     /**
      * The name of the attribute used for the Distinct feature
      * default: null
@@ -1710,7 +1691,7 @@ declare namespace algoliasearch {
      * If set to 1, enables the distinct feature, disabled by default, if the attributeForDistinct index setting is set.
      * https://github.com/algolia/algoliasearch-client-js#distinct
      */
-    distinct?: any;
+    distinct?: boolean | number;
     /**
      * All numerical attributes are automatically indexed as numerical filters
      * default ''
@@ -1737,10 +1718,18 @@ declare namespace algoliasearch {
     minProximity?: number;
     /**
      * This is an advanced use-case to define a token substitutable by a list of words without having the original token searchable
-     * default: ''
+     * default: {}
      * https://github.com/algolia/algoliasearch-client-js#placeholders
      */
-    placeholders?: any;
+    placeholders?: {
+      [name: string]: string[],
+    };
+    /**
+     * List of attributes on which to do a decomposition of camel case words.
+     *
+     https://www.algolia.com/doc/api-reference/api-parameters/camelCaseAttributes/
+     */
+    camelCaseAttributes?: string[];
   }
 
   interface Response {
@@ -1786,6 +1775,14 @@ declare namespace algoliasearch {
     params: string;
     facets?: {
       [facetName: string]: { [facetValue: string]: number };
+    };
+    facets_stats?: {
+      [facetName: string]: {
+        avg: number,
+        max: number,
+        min: number,
+        sum: number,
+      };
     };
   }
 

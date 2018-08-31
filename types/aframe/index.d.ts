@@ -2,6 +2,7 @@
 // Project: https://aframe.io/
 // Definitions by: Paul Shannon <https://github.com/devpaul>
 //                 Roberto Ritger <https://github.com/bertoritger>
+//                 Trygve Wastvedt <https://github.com/twastvedt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -19,7 +20,7 @@ declare var hasNativeWebVRImplementation: boolean;
 interface Document {
     createElement(tagName: string): AFrame.Entity;
     querySelector(selectors: 'a-scene'): AFrame.Scene;
-	querySelector<T extends AFrame.Entity<any>>(selectors: string): T;
+	querySelector(selectors: string): AFrame.Entity<any>;
 	querySelectorAll(selectors: string): NodeListOf<AFrame.Entity<any> | Element>;
 }
 
@@ -36,15 +37,15 @@ declare namespace AFrame {
 		components: { [ key: string ]: ComponentDescriptor };
 		geometries: { [ key: string ]: GeometryDescriptor };
 		primitives: { [ key: string ]: Entity };
-		registerComponent(name: string, component: ComponentDefinition): ComponentConstructor;
+		registerComponent<T extends Component>(name: string, component: ComponentDefinition<T>): ComponentConstructor<T>;
 		registerElement(name: string, element: ANode): void;
-		registerGeometry(name: string, geometry: GeometryDefinition): Geometry;
+		registerGeometry<T extends Geometry>(name: string, geometry: GeometryDefinition<T>): GeometryConstructor<T>;
 		registerPrimitive(name: string, primitive: PrimitiveDefinition): void;
-		registerShader(name: string, shader: any): void;
-		registerSystem(name: string, definition: SystemDefinition): void;
+		registerShader<T extends Shader>(name: string, shader: T): ShaderConstructor<T>;
+		registerSystem<T extends System>(name: string, definition: SystemDefinition<T>): SystemConstructor<T>;
 		schema: SchemaUtils;
 		shaders: { [ key: string ]: ShaderDescriptor };
-		systems: { [key: string]: System };
+		systems: { [key: string]: SystemConstructor };
 		THREE: typeof THREE;
 		TWEEN: typeof TWEEN;
 		utils: Utils;
@@ -89,54 +90,39 @@ declare namespace AFrame {
 		tick(): void;
 	}
 
-	interface Component {
+	interface Component<T extends { [key: string]: any } = any, S extends System = System> {
 		attrName?: string;
-		data?: any;
+		data: T;
 		dependencies?: string[];
 		el: Entity;
 		id: string;
 		multiple?: boolean;
 		name: string;
-		schema: Schema;
+		schema: Schema<T>;
+		system: S | undefined;
 
-		init(data?: any): void;
-		pause(): void;
-		play(): void;
-		remove(): void;
-		tick?(time: number, timeDelta: number): void;
-		update(oldData: any): void;
-		updateSchema?(): void;
+		init(this: this, data?: T): void;
+		pause(this: this): void;
+		play(this: this): void;
+		remove(this: this): void;
+		tick?(this: this, time: number, timeDelta: number): void;
+		update(this: this, oldData: T): void;
+		updateSchema?(this: this): void;
 
-		extendSchema(update: Schema): void;
-		flushToDOM(): void;
+		extendSchema(this: this, update: Schema): void;
+		flushToDOM(this: this): void;
 	}
 
-	interface ComponentConstructor {
-		new (el: Entity, name: string, id: string): Component;
+	interface ComponentConstructor<T extends Component> {
+		new (el: Entity, attrValue: string, id: string): T;
 	}
 
-	interface ComponentDefinition {
-		dependencies?: string[];
-		el?: Entity;
-		id?: string;
-		multiple?: boolean;
-		schema?: Schema;
+	type ComponentDefinition<T extends Component = Component> = Partial<T>;
 
-		init?(data?: any): void;
-		pause?(): void;
-		play?(): void;
-		remove?(): void;
-		tick?(time: number, timeDelta: number): void;
-		update?(oldData: any): void;
-		updateSchema?(): void;
-
-		[ key: string ]: any;
-	}
-
-	interface ComponentDescriptor {
-		Component: Component;
-		dependencies: string[] | null;
-		multiple: boolean | null;
+	interface ComponentDescriptor<T extends Component = Component> {
+		Component: ComponentConstructor<T>;
+		dependencies: string[] | undefined;
+		multiple: boolean | undefined;
 
 		// internal APIs2
 		// parse
@@ -144,7 +130,6 @@ declare namespace AFrame {
 		// schema
 		// stringify
 		// type
-		[ key: string ]: any;
 	}
 
 	interface Coordinate {
@@ -153,8 +138,14 @@ declare namespace AFrame {
 		z: number;
 	}
 
+	interface DefaultComponents {
+		position: Component<Coordinate>;
+		rotation: Component<Coordinate>;
+		scale: Component<Coordinate>;
+	}
+
 	interface Entity<C = ObjectMap<Component>> extends ANode {
-		components: C;
+		components: C & DefaultComponents;
 		isPlaying: boolean;
 		object3D: THREE.Object3D;
 		object3DMap: ObjectMap<THREE.Object3D>;
@@ -165,8 +156,8 @@ declare namespace AFrame {
 		/**
 		 * @deprecated since 0.4.0
 		 */
-		getComputedAttribute<T = Component>(attr: string): T;
-		getDOMAttribute<T = any>(attr: string): T;
+		getComputedAttribute(attr: string): Component;
+		getDOMAttribute(attr: string): any;
 		getObject3D(type: string): THREE.Object3D;
 		getOrCreateObject3D(type: string, construct: any): THREE.Object3D;
 		is(stateName: string): boolean;
@@ -179,7 +170,6 @@ declare namespace AFrame {
 
 		// getAttribute specific usages
 		getAttribute(type: string): any;
-		getAttribute<T = Component>(attr: string): T;
 		getAttribute(type: 'position' | 'rotation' | 'scale'): Coordinate;
 
 		// setAttribute specific usages
@@ -192,12 +182,18 @@ declare namespace AFrame {
 		addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 	}
 
-	type DetailEvent<D> = Event & { detail: D };
+	type DetailEvent<D> = Event & {
+		detail: D;
+		target: EventTarget & Entity;
+	};
 
 	interface EntityEventMap {
 		'child-attached': DetailEvent<{ el: Element | Entity }>;
 		'child-detached': DetailEvent<{ el: Element | Entity }>;
-		'componentchanged': DetailEvent<{ name: string }>;
+		'componentchanged': DetailEvent<{
+			name: string,
+			id: string
+		}>;
 		'componentremoved': DetailEvent<{
 			name: string,
 			id: string,
@@ -215,23 +211,28 @@ declare namespace AFrame {
 	interface Geometry {
 		name: string;
 		geometry: THREE.Geometry;
+		schema: Schema<any>;
+
+		init(this: this, data: { [P in keyof this['schema']]: any }): void;
+		// Would like the above to be:
+		//  init?(this: this, data?: { [P in keyof T['schema']]: T['schema'][P]['default'] } ): void;
+		//  I think this is prevented by the following issue: https://github.com/Microsoft/TypeScript/issues/21760.
+	}
+
+	interface GeometryConstructor<T extends Geometry> {
+		new (): T;
+	}
+
+	type GeometryDefinition<T extends Geometry = Geometry> = Partial<T>;
+
+	interface GeometryDescriptor<T extends Geometry = Geometry> {
+		Geometry: GeometryConstructor<T>;
 		schema: Schema;
-		update(data: object): void;
-		[ key: string ]: any;
 	}
 
-	interface GeometryDefinition extends ComponentDefinition {
-		geometry?: THREE.Geometry;
-	}
-
-	interface GeometryDescriptor {
-		Geometry: Geometry;
-		schema: Schema;
-	}
-
-	interface MultiPropertySchema {
-		[ key: string ]: SinglePropertySchema<any>;
-	}
+	type MultiPropertySchema<T extends { [key: string ]: any }> = {
+		[P in keyof T]: SinglePropertySchema<T[P]> | T[P];
+	};
 
 	interface PrimitiveDefinition {
 		defaultComponents?: any; // TODO cleanup type
@@ -240,8 +241,9 @@ declare namespace AFrame {
 		transforms?: any; // TODO cleanup type
 	}
 
-	type PropertyTypes = 'array' | 'boolean' | 'color' | 'int' | 'number' | 'selector' |
-		'selectorAll' | 'src' | 'string' | 'vec2' | 'vec3' | 'vec4';
+	type PropertyTypes = 'array' | 'asset' | 'audio' | 'boolean' | 'color' |
+		'int' | 'map' | 'model' | 'number' | 'selector' | 'selectorAll' |
+		'string' | 'vec2' | 'vec3' | 'vec4';
 
 	type SceneEvents = 'enter-vr' | 'exit-vr' | 'loaded' | 'renderstart';
 
@@ -265,7 +267,7 @@ declare namespace AFrame {
 		addEventListener(type: SceneEvents, listener: EventListener, useCapture?: boolean): void;
 	}
 
-	type Schema = SinglePropertySchema<any> | MultiPropertySchema;
+	type Schema<T = { [key: string]: any }> = SinglePropertySchema<T> | MultiPropertySchema<T>;
 
 	interface SchemaUtils {
 		isSingleProperty(schema: Schema): boolean;
@@ -274,11 +276,25 @@ declare namespace AFrame {
 
 	interface Shader {
 		name: string;
-		schema: Schema;
+		data: { [key: string]: any };
+		schema: Schema<this['data']>;
+		material: THREE.Material;
+		vertexShader: string;
+		fragmentShader: string;
+
+		init(this: this, data?: this['data']): void;
+		tick?(this: this, time: number, timeDelta: number): void;
+		update(this: this, oldData: this['data']): void;
 	}
 
-	interface ShaderDescriptor {
-		Shader: Shader;
+	interface ShaderConstructor<T extends Shader> {
+		new (): T;
+	}
+
+	type ShaderDefinition<T extends Shader = Shader> = Partial<T>;
+
+	interface ShaderDescriptor<T extends Shader = Shader> {
+		Shader: ShaderConstructor<T>;
 		schema: Schema;
 	}
 
@@ -287,26 +303,22 @@ declare namespace AFrame {
 		'default'?: T;
 		parse?(value: string): T;
 		stringify?(value: T): string;
-		[ key: string ]: any;
 	}
 
 	interface System {
-		data: any;
-		schema: Schema;
-		init(): void;
-		pause(): void;
-		play(): void;
-		tick?(): void;
+		data: { [key: string]: any };
+		schema: Schema<this['data']>;
+		init(this: this): void;
+		pause(this: this): void;
+		play(this: this): void;
+		tick?(this: this, t: number, dt: number): void;
 	}
 
-	interface SystemDefinition {
-		schema?: Schema;
-		init?(): void;
-		pause?(): void;
-		play?(): void;
-		tick?(): void;
-		[ key: string ]: any;
+	interface SystemConstructor<T extends System = System> {
+		new (scene: Scene): T;
 	}
+
+	type SystemDefinition<T extends System = System> = Partial<T>;
 
 	interface Utils {
 		coordinates: {
@@ -326,5 +338,8 @@ declare namespace AFrame {
 		diff(a: object, b: object): object;
 		extend(target: object, ... source: object[]): object;
 		extendDeep(target: object, ... source: object[]): object;
+
+		throttle(tickFunction: () => void, minimumInterval: number, optionalContext?: {}): (t: number, dt: number) => void;
+		throttleTick(tickFunction: (t: number, dt: number) => void, minimumInterval: number, optionalContext?: {}): (t: number, dt: number) => void;
 	}
 }

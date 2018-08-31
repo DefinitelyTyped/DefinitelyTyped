@@ -232,6 +232,12 @@ declare global {
       flush():void;
     }
 
+    interface ObservedNodeInfo {
+      target: Node;
+      addedNodes: Node[];
+      removedNode: Node[];
+    }
+
     interface DomApi {
 
       appendChild(node: Node): Node;
@@ -257,6 +263,10 @@ declare global {
       setAttribute(name: string, value: any):void;
 
       removeAttribute(name: string):void;
+
+      observeNodes(callback: (info: ObservedNodeInfo) => void): {};
+
+      unobserveNodes(observer: {}): void;
 
       childNodes:Node[];
 
@@ -330,6 +340,12 @@ declare global {
       whenLoaded(cb: Function): void;
     }
 
+    interface Templatizer {
+      templatize(template: HTMLTemplateElement, mutableData?: boolean): void;
+      stamp(model: {}): Base;
+      modelForElement: (elem: HTMLElement) => Base;
+    }
+
     interface PolymerStatic {
       Settings: Settings;
 
@@ -341,12 +357,14 @@ declare global {
 
       Class(prototype: Base | { new (): Base }): CustomElementConstructor;
 
-      RenderStatus: RenderStatus
+      RenderStatus: RenderStatus;
 
       ArraySplice: ArraySplice;
 
       /** @deprecated */
-      ImportStatus: ImportStatus
+      ImportStatus: ImportStatus;
+
+      Templatizer: Templatizer;
     }
   }
 

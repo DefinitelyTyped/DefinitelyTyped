@@ -12,8 +12,10 @@ export interface BatchInfo {
 
 export interface BatchResultInfo {
     id: string;
-    batchId: string;
-    jobId: string;
+    batchId?: string;
+    jobId?: string;
+    success?: boolean;
+    errors?: string[];
 }
 
 export class Batch extends Writable {

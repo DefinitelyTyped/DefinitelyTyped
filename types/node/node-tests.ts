@@ -87,6 +87,8 @@ namespace assert_tests {
         assert.strictEqual(1, 1, "uses === comparator");
 
         assert.throws(() => { throw new Error("a hammer at your face"); }, undefined, "DODGED IT");
+
+        assert.strict.strict.deepEqual([[[1, 2, 3]], 4, 5], [[[1, 2, '3']], 4, 5]);
     }
 }
 
@@ -109,6 +111,7 @@ namespace events_tests {
         result = emitter.prependListener(event, listener);
         result = emitter.prependOnceListener(event, listener);
         result = emitter.removeListener(event, listener);
+        result = emitter.off(event, listener);
         result = emitter.removeAllListeners();
         result = emitter.removeAllListeners(event);
         result = emitter.setMaxListeners(42);
@@ -389,8 +392,12 @@ namespace fs_tests {
     {
         fs.copyFile('/path/to/src', '/path/to/dest', (err) => console.error(err));
         fs.copyFile('/path/to/src', '/path/to/dest', fs.constants.COPYFILE_EXCL, (err) => console.error(err));
+        fs.copyFile('/path/to/src', '/path/to/dest', fs.constants.COPYFILE_FICLONE, (err) => console.error(err));
+        fs.copyFile('/path/to/src', '/path/to/dest', fs.constants.COPYFILE_FICLONE_FORCE, (err) => console.error(err));
 
         fs.copyFileSync('/path/to/src', '/path/to/dest', fs.constants.COPYFILE_EXCL);
+        fs.copyFileSync('/path/to/src', '/path/to/dest', fs.constants.COPYFILE_FICLONE);
+        fs.copyFileSync('/path/to/src', '/path/to/dest', fs.constants.COPYFILE_FICLONE_FORCE);
 
         const cf = util.promisify(fs.copyFile);
         cf('/path/to/src', '/path/to/dest', fs.constants.COPYFILE_EXCL).then(console.log);
@@ -432,10 +439,18 @@ function bufferTests() {
         // String
         const buf3: Buffer = Buffer.from('this is a tést');
         // ArrayBuffer
-        const arr: Uint16Array = new Uint16Array(2);
-        arr[0] = 5000;
-        arr[1] = 4000;
-        const buf4: Buffer = Buffer.from(arr.buffer);
+        const arrUint16: Uint16Array = new Uint16Array(2);
+        arrUint16[0] = 5000;
+        arrUint16[1] = 4000;
+        const buf4: Buffer = Buffer.from(arrUint16.buffer);
+        const arrUint8: Uint8Array = new Uint8Array(2);
+        const buf5: Buffer = Buffer.from(arrUint8);
+        const buf6: Buffer = Buffer.from(buf1);
+        const sharedArrayBuffer: SharedArrayBuffer = {
+            byteLength: 10,
+            slice: (begin?: number, end?: number) => sharedArrayBuffer
+        };
+        const buf7: Buffer = Buffer.from(sharedArrayBuffer);
     }
 
     // Class Method: Buffer.from(arrayBuffer[, byteOffset[, length]])
@@ -680,9 +695,10 @@ namespace url_tests {
         const searchParams = new url.URLSearchParams('abc=123');
 
         assert.equal(searchParams.toString(), 'abc=123');
-        searchParams.forEach((value: string, name: string): void => {
+        searchParams.forEach((value: string, name: string, me: url.URLSearchParams): void => {
             assert.equal(name, 'abc');
             assert.equal(value, '123');
+            assert.equal(me, searchParams);
         });
 
         assert.equal(searchParams.get('abc'), '123');
@@ -752,7 +768,8 @@ namespace util_tests {
             customInspect: false,
             showProxy: true,
             maxArrayLength: 10,
-            breakLength: 20
+            breakLength: 20,
+            compact: true
         });
         util.inspect(["This is nice"], {
             colors: true,
@@ -760,9 +777,12 @@ namespace util_tests {
             customInspect: false,
             showProxy: true,
             maxArrayLength: null,
-            breakLength: Infinity
+            breakLength: Infinity,
+            compact: false
         });
         assert(typeof util.inspect.custom === 'symbol');
+
+        util.formatWithOptions({ colors: true }, 'See object %O', { foo: 42 });
 
         // util.callbackify
         // tslint:disable-next-line no-unnecessary-class
@@ -844,6 +864,7 @@ namespace util_tests {
         var arg0NoResult: () => Promise<any> = util.promisify((cb: (err: Error) => void): void => { });
         var arg1: (arg: string) => Promise<number> = util.promisify((arg: string, cb: (err: Error, result: number) => void): void => { });
         var arg1NoResult: (arg: string) => Promise<any> = util.promisify((arg: string, cb: (err: Error) => void): void => { });
+        var cbOptionalError: () => Promise<void> = util.promisify((cb: (err?: Error | null) => void): void => { cb(); });
         assert(typeof util.promisify.custom === 'symbol');
         // util.deprecate
         const foo = () => {};
@@ -854,6 +875,35 @@ namespace util_tests {
 
         // util.isDeepStrictEqual
         util.isDeepStrictEqual({foo: 'bar'}, {foo: 'bar'});
+
+        // util.TextDecoder()
+        var td = new util.TextDecoder();
+        new util.TextDecoder("utf-8");
+        new util.TextDecoder("utf-8", { fatal: true });
+        new util.TextDecoder("utf-8", { fatal: true, ignoreBOM: true });
+        var ignoreBom: boolean = td.ignoreBOM;
+        var fatal: boolean = td.fatal;
+        var encoding: string = td.encoding;
+        td.decode(new Int8Array(1));
+        td.decode(new Int16Array(1));
+        td.decode(new Int32Array(1));
+        td.decode(new Uint8Array(1));
+        td.decode(new Uint16Array(1));
+        td.decode(new Uint32Array(1));
+        td.decode(new Uint8ClampedArray(1));
+        td.decode(new Float32Array(1));
+        td.decode(new Float64Array(1));
+        td.decode(new DataView(new Int8Array(1).buffer));
+        td.decode(new ArrayBuffer(1));
+        td.decode(null);
+        td.decode(null, { stream: true });
+        td.decode(new Int8Array(1), { stream: true });
+        var decode: string = td.decode(new Int8Array(1));
+
+        // util.TextEncoder()
+        var te = new util.TextEncoder();
+        var teEncoding: string = te.encoding;
+        var teEncodeRes: Uint8Array = te.encode("TextEncoder");
     }
 }
 
@@ -911,74 +961,149 @@ const unzipped: Buffer = zlib.unzipSync(compressMe);
 function simplified_stream_ctor_test() {
     new stream.Readable({
         read(size) {
-            size.toFixed();
+            // $ExpectType Readable
+            this;
+            // $ExpectType number
+            size;
         },
-        destroy(error) {
-            error.stack;
+        destroy(error, cb) {
+            // $ExpectType Error
+            error;
+            // $ExpectType (error: Error) => void
+            cb;
         }
     });
 
     new stream.Writable({
         write(chunk, enc, cb) {
-            chunk.slice(1);
-            enc.charAt(0);
-            cb();
+            // $ExpectType Writable
+            this;
+            // $ExpectType any
+            chunk;
+            // $ExpectType string
+            enc;
+            // $ExpectType (error?: Error) => void
+            cb;
         },
         writev(chunks, cb) {
-            chunks[0].chunk.slice(0);
-            chunks[0].encoding.charAt(0);
-            cb();
+            // $ExpectType Writable
+            this;
+            // $ExpectType { chunk: any; encoding: string; }[]
+            chunks;
+            // $ExpectType (error?: Error) => void
+            cb;
         },
-        destroy(error) {
-            error.stack;
+        destroy(error, cb) {
+            // $ExpectType Writable
+            this;
+            // $ExpectType Error
+            error;
+            // $ExpectType (error: Error) => void
+            cb;
         },
         final(cb) {
-            cb(null);
+            // $ExpectType Writable
+            this;
+            // $ExpectType (error?: Error) => void
+            cb;
         }
     });
 
     new stream.Duplex({
         read(size) {
-            size.toFixed();
+            // $ExpectType Duplex
+            this;
+            // $ExpectType number
+            size;
         },
         write(chunk, enc, cb) {
-            chunk.slice(1);
-            enc.charAt(0);
-            cb();
+            // $ExpectType Duplex
+            this;
+            // $ExpectType any
+            chunk;
+            // $ExpectType string
+            enc;
+            // $ExpectType (error?: Error) => void
+            cb;
         },
         writev(chunks, cb) {
-            chunks[0].chunk.slice(0);
-            chunks[0].encoding.charAt(0);
-            cb();
+            // $ExpectType Duplex
+            this;
+            // $ExpectType { chunk: any; encoding: string; }[]
+            chunks;
+            // $ExpectType (error?: Error) => void
+            cb;
+        },
+        destroy(error, cb) {
+            // $ExpectType Duplex
+            this;
+            // $ExpectType Error
+            error;
+            // $ExpectType (error: Error) => void
+            cb;
+        },
+        final(cb) {
+            // $ExpectType Duplex
+            this;
+            // $ExpectType (error?: Error) => void
+            cb;
         },
         readableObjectMode: true,
         writableObjectMode: true
     });
 
     new stream.Transform({
-        transform(chunk, enc, cb) {
-            chunk.slice(1);
-            enc.charAt(0);
-            cb();
-        },
-        flush(cb) {
-            cb();
-        },
         read(size) {
-            size.toFixed();
+            // $ExpectType Transform
+            this;
+            // $ExpectType number
+            size;
         },
         write(chunk, enc, cb) {
-            chunk.slice(1);
-            enc.charAt(0);
-            cb();
+            // $ExpectType Transform
+            this;
+            // $ExpectType any
+            chunk;
+            // $ExpectType string
+            enc;
+            // $ExpectType (error?: Error) => void
+            cb;
         },
         writev(chunks, cb) {
-            chunks[0].chunk.slice(0);
-            chunks[0].encoding.charAt(0);
-            cb();
+            // $ExpectType Transform
+            this;
+            // $ExpectType { chunk: any; encoding: string; }[]
+            chunks;
+            // $ExpectType (error?: Error) => void
+            cb;
         },
-        destroy(error) {
-            error.stack;
+        destroy(error, cb) {
+            // $ExpectType Transform
+            this;
+            // $ExpectType Error
+            error;
+            // $ExpectType (error: Error) => void
+            cb;
+        },
+        final(cb) {
+            // $ExpectType Transform
+            this;
+            // $ExpectType (error?: Error) => void
+            cb;
+        },
+        transform(chunk, enc, cb) {
+            // $ExpectType Transform
+            this;
+            // $ExpectType any
+            chunk;
+            // $ExpectType string
+            enc;
+            // $ExpectType TransformCallback
+            cb;
+        },
+        flush(cb) {
+            // $ExpectType TransformCallback
+            cb;
         },
         allowHalfOpen: true,
         readableObjectMode: true,
@@ -1009,6 +1134,12 @@ namespace crypto_tests {
     }
 
     {
+        // crypto_hash_int8array_test
+        var hashResult: string = crypto.createHash('md5')
+            .update(new Int8Array(new Buffer('world').buffer)).digest('hex');
+    }
+
+    {
         // crypto_hmac_string_test
         var hmacResult: string = crypto.createHmac('md5', 'hello').update('world').digest('hex');
     }
@@ -1023,6 +1154,12 @@ namespace crypto_tests {
         // crypto_hmac_dataview_test
         var hmacResult: string = crypto.createHmac('md5', 'hello')
             .update(new DataView(new Buffer('world').buffer)).digest('hex');
+    }
+
+    {
+        // crypto_hmac_int8array_test
+        var hmacResult: string = crypto.createHmac('md5', 'hello')
+            .update(new Int8Array(new Buffer('world').buffer)).digest('hex');
     }
 
     {
@@ -1071,8 +1208,7 @@ namespace crypto_tests {
     {
         // crypto_cipher_decipher_dataview_test
         let key: Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7]);
-        let clearText: DataView = new DataView(
-            new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 8, 7, 6, 5, 4]).buffer);
+        let clearText: DataView = new DataView(new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 8, 7, 6, 5, 4]).buffer);
         let cipher: crypto.Cipher = crypto.createCipher("aes-128-ecb", key);
         let cipherBuffers: Buffer[] = [];
         cipherBuffers.push(cipher.update(clearText));
@@ -1091,6 +1227,57 @@ namespace crypto_tests {
     }
 
     {
+        const key = 'keykeykeykeykeykeykeykey';
+        const nonce = crypto.randomBytes(12);
+        const aad = Buffer.from('0123456789', 'hex');
+
+        const cipher = crypto.createCipheriv('aes-192-ccm', key, nonce, {
+            authTagLength: 16
+        });
+        const plaintext = 'Hello world';
+        cipher.setAAD(aad, {
+            plaintextLength: Buffer.byteLength(plaintext)
+        });
+        const ciphertext = cipher.update(plaintext, 'utf8');
+        cipher.final();
+        const tag = cipher.getAuthTag();
+
+        const decipher = crypto.createDecipheriv('aes-192-ccm', key, nonce, {
+            authTagLength: 16
+        });
+        decipher.setAuthTag(tag);
+        decipher.setAAD(aad, {
+            plaintextLength: ciphertext.length
+        });
+        const receivedPlaintext: string = decipher.update(ciphertext, null, 'utf8');
+        decipher.final();
+    }
+
+    {
+        const key = 'keykeykeykeykeykeykeykey';
+        const nonce = crypto.randomBytes(12);
+        const aad = Buffer.from('0123456789', 'hex');
+
+        const cipher = crypto.createCipheriv('aes-192-gcm', key, nonce);
+        const plaintext = 'Hello world';
+        cipher.setAAD(aad, {
+            plaintextLength: Buffer.byteLength(plaintext)
+        });
+        const ciphertext = cipher.update(plaintext, 'utf8');
+        cipher.final();
+        const tag = cipher.getAuthTag();
+
+        const decipher = crypto.createDecipheriv('aes-192-gcm', key, nonce);
+        decipher.setAuthTag(tag);
+        decipher.setAAD(aad, {
+            plaintextLength: ciphertext.length
+        });
+        const receivedPlaintext: string = decipher.update(ciphertext, null, 'utf8');
+        decipher.final();
+    }
+
+    {
+        // crypto_timingsafeequal_buffer_test
         let buffer1: Buffer = new Buffer([1, 2, 3, 4, 5]);
         let buffer2: Buffer = new Buffer([1, 2, 3, 4, 5]);
         let buffer3: Buffer = new Buffer([5, 4, 3, 2, 1]);
@@ -1100,6 +1287,91 @@ namespace crypto_tests {
     }
 
     {
+        // crypto_timingsafeequal_uint32array_test
+        let arr1: Uint32Array = Uint32Array.of(1, 2, 3, 4, 5);
+        let arr2: Uint32Array = Uint32Array.of(1, 2, 3, 4, 5);
+        let arr3: Uint32Array = Uint32Array.of(5, 4, 3, 2, 1);
+
+        assert(crypto.timingSafeEqual(arr1, arr2));
+        assert(!crypto.timingSafeEqual(arr1, arr3));
+    }
+
+    {
+        // crypto_timingsafeequal_safe_typedarray_variant_test
+        let arr1: Uint32Array = Uint32Array.of(1, 2, 3, 4, 5);
+        let arr2: Int32Array = Int32Array.of(1, 2, 3, 4, 5);
+        let arr3: Uint32Array = Uint32Array.of(5, 4, 3, 2, 1);
+
+        assert(crypto.timingSafeEqual(arr1, arr2));
+        assert(!crypto.timingSafeEqual(arr1, arr3));
+    }
+
+    {
+        // crypto_timingsafeequal_safe_int8array_variant_test
+        let arr1: Int8Array = Int8Array.of(1, 2, 3, 4, 5, ~0, ~1, ~2, ~3, ~4);
+        let arr2: Uint8Array = Uint8Array.of(1, 2, 3, 4, 5, ~0, ~1, ~2, ~3, ~4);
+        let arr3: Uint8ClampedArray = Uint8ClampedArray.of(1, 2, 3, 4, 5, ~0, ~1, ~2, ~3, ~4);
+
+        assert(crypto.timingSafeEqual(arr1, arr2)); // binary same
+        assert(!crypto.timingSafeEqual(arr1, arr3)); // binary differ
+    }
+
+    {
+        // crypto_timingsafeequal_safe_arraybufferiew_variant_test
+        /* throws as of v10.4.1 */
+        // let arr1: Uint8Array = Uint8Array.of(1, 0, 2, 0, 3, 0, 4, 0);
+        // let arr2: Uint16Array = Uint16Array.of(1, 2, 3, 4);
+        // let arr3: Uint32Array = Uint8ClampedArray.of(131073, 262147);
+
+        // assert(crypto.timingSafeEqual(arr1, arr2)); // binary same
+        // assert(crypto.timingSafeEqual(arr1, arr3)); // binary same
+    }
+
+    {
+        // crypto_timingsafeequal_unsafe_arraybufferiew_variant_test
+        /* dumps core as of v10.4.1 */
+        // let arr1: Uint8Array = Uint8Array.of(1, 2, 3, 4);
+        // let arr2: Uint16Array = Uint16Array.of(1, 2, 3, 4);
+        // let arr3: Uint32Array = Uint8ClampedArray.of(1, 2, 3, 4);
+
+        // assert(!crypto.timingSafeEqual(arr1, arr2)); // dumps core
+        // assert(!crypto.timingSafeEqual(arr1, arr3)); // dumps core
+    }
+
+    {
+        // crypto_timingsafeequal_dataview_test
+        let dv1B: Uint8Array = Uint8Array.of(1, 2, 3, 4, 5);
+        let dv2B: Int8Array = Int8Array.of(1, 2, 3, 4, 5);
+        let dv3B: Buffer = Buffer.of(5, 4, 3, 2, 1);
+        let dv4B: Uint8ClampedArray = Uint8ClampedArray.of(5, 4, 3, 2, 1);
+        let dv1: DataView = new DataView(dv1B.buffer, dv1B.byteOffset, dv1B.byteLength);
+        let dv2: DataView = new DataView(dv2B.buffer, dv2B.byteOffset, dv2B.byteLength);
+        let dv3: DataView = new DataView(dv3B.buffer, dv3B.byteOffset, dv3B.byteLength);
+        let dv4: DataView = new DataView(dv4B.buffer, dv4B.byteOffset, dv4B.byteLength);
+
+        assert(crypto.timingSafeEqual(dv1, dv2));
+        assert(crypto.timingSafeEqual(dv1, dv1B));
+        assert(crypto.timingSafeEqual(dv2, dv1B));
+        assert(crypto.timingSafeEqual(dv3, dv4));
+
+        assert(!crypto.timingSafeEqual(dv1, dv3));
+        assert(!crypto.timingSafeEqual(dv2, dv3));
+        assert(!crypto.timingSafeEqual(dv1, dv4));
+        // ... I'm not going to write all those tests.
+    }
+
+    {
+        // crypto_timingsafeequal_uint32array_test
+        let ui32_1: Uint32Array = Uint32Array.of(1, 2, 3, 4, 5);
+        let ui32_2: Uint32Array = Uint32Array.of(1, 2, 3, 4, 5);
+        let ui32_3: Uint32Array = Uint32Array.of(5, 4, 3, 2, 1);
+
+        assert(crypto.timingSafeEqual(ui32_1, ui32_2));
+        assert(!crypto.timingSafeEqual(ui32_1, ui32_3));
+    }
+
+    {
+        // crypto_randomfill_buffer_test
         let buffer: Buffer = new Buffer(10);
         crypto.randomFillSync(buffer);
         crypto.randomFillSync(buffer, 2);
@@ -1109,14 +1381,56 @@ namespace crypto_tests {
         crypto.randomFill(buffer, 2, (err: Error, buf: Buffer) => void {});
         crypto.randomFill(buffer, 2, 3, (err: Error, buf: Buffer) => void {});
 
-        let arr: Uint8Array = new Uint8Array(10);
-        crypto.randomFillSync(arr);
-        crypto.randomFillSync(arr, 2);
-        crypto.randomFillSync(arr, 2, 3);
+        // crypto_randomfill_uint8array_test
+        let ui8arr: Uint8Array = new Uint8Array(10);
+        crypto.randomFillSync(ui8arr);
+        crypto.randomFillSync(ui8arr, 2);
+        crypto.randomFillSync(ui8arr, 2, 3);
 
-        crypto.randomFill(arr, (err: Error, buf: Uint8Array) => void {});
-        crypto.randomFill(arr, 2, (err: Error, buf: Uint8Array) => void {});
-        crypto.randomFill(arr, 2, 3, (err: Error, buf: Uint8Array) => void {});
+        crypto.randomFill(ui8arr, (err: Error, buf: Uint8Array) => void {});
+        crypto.randomFill(ui8arr, 2, (err: Error, buf: Uint8Array) => void {});
+        crypto.randomFill(ui8arr, 2, 3, (err: Error, buf: Uint8Array) => void {});
+
+        // crypto_randomfill_int32array_test
+        let i32arr: Int32Array = new Int32Array(10);
+        crypto.randomFillSync(i32arr);
+        crypto.randomFillSync(i32arr, 2);
+        crypto.randomFillSync(i32arr, 2, 3);
+
+        crypto.randomFill(i32arr, (err: Error, buf: Int32Array) => void {});
+        crypto.randomFill(i32arr, 2, (err: Error, buf: Int32Array) => void {});
+        crypto.randomFill(i32arr, 2, 3, (err: Error, buf: Int32Array) => void {});
+    }
+
+    {
+        // scrypt
+        const pwd: string | Buffer | Int32Array | DataView = Buffer.alloc(16);
+        const salt: string | Buffer | Int32Array | DataView = Buffer.alloc(16);
+        crypto.scrypt(pwd, salt, 64, (err: Error | null, derivedKey: Buffer): void => {});
+        const opts: crypto.ScryptOptions = {
+            N: 16384,
+            r: 8,
+            p: 1,
+            maxmem: 32 * 1024 * 1024
+        };
+        crypto.scrypt(pwd, salt, 64, opts, (err: Error | null, derivedKey: Buffer): void => {});
+        crypto.scrypt(pwd, salt, 64, { maxmem: 16 * 1024 * 1024 }, (err: Error | null, derivedKey: Buffer): void => {});
+        let buf: Buffer = crypto.scryptSync(pwd, salt, 64);
+        buf = crypto.scryptSync(pwd, salt, 64, opts);
+        buf = crypto.scryptSync(pwd, salt, 64, { N: 1024 });
+    }
+
+    {
+        let key: string | Buffer = Buffer.from("buf");
+        let curve = "secp256k1";
+        let ret: string | Buffer = crypto.ECDH.convertKey(key, curve);
+        key = "0xfff";
+        ret = crypto.ECDH.convertKey(key, curve);
+        ret = crypto.ECDH.convertKey(key, curve, "hex");
+        ret = crypto.ECDH.convertKey(key, curve, "hex", "hex");
+        ret = crypto.ECDH.convertKey(key, curve, "hex", "hex", "uncompressed");
+        ret = crypto.ECDH.convertKey(key, curve, "hex", "hex", "compressed");
+        ret = crypto.ECDH.convertKey(key, curve, "hex", "hex", "hybrid");
     }
 }
 
@@ -1434,7 +1748,8 @@ namespace http_tests {
             keepAlive: true,
             keepAliveMsecs: 10000,
             maxSockets: Infinity,
-            maxFreeSockets: 256
+            maxFreeSockets: 256,
+            timeout: 15000
         });
 
         var agent: http.Agent = http.globalAgent;
@@ -1445,7 +1760,25 @@ namespace http_tests {
     }
 
     {
+        http.get('http://www.example.com/xyz');
         http.request('http://www.example.com/xyz');
+
+        http.get('http://www.example.com/xyz', (res: http.IncomingMessage): void => {});
+        http.request('http://www.example.com/xyz', (res: http.IncomingMessage): void => {});
+
+        http.get(new url.URL('http://www.example.com/xyz'));
+        http.request(new url.URL('http://www.example.com/xyz'));
+
+        http.get(new url.URL('http://www.example.com/xyz'), (res: http.IncomingMessage): void => {});
+        http.request(new url.URL('http://www.example.com/xyz'), (res: http.IncomingMessage): void => {});
+
+        const opts: http.RequestOptions = {
+            path: '"/some/path'
+        };
+        http.get(new url.URL('http://www.example.com'), opts);
+        http.request(new url.URL('http://www.example.com'), opts);
+        http.get(new url.URL('http://www.example.com/xyz'), opts, (res: http.IncomingMessage): void => {});
+        http.request(new url.URL('http://www.example.com/xyz'), opts, (res: http.IncomingMessage): void => {});
     }
 
     {
@@ -1491,7 +1824,8 @@ namespace https_tests {
         keepAliveMsecs: 10000,
         maxSockets: Infinity,
         maxFreeSockets: 256,
-        maxCachedSessions: 100
+        maxCachedSessions: 100,
+        timeout: 15000
     });
 
     var agent: https.Agent = https.globalAgent;
@@ -1506,7 +1840,25 @@ namespace https_tests {
         agent: undefined
     });
 
+    https.get('http://www.example.com/xyz');
     https.request('http://www.example.com/xyz');
+
+    https.get('http://www.example.com/xyz', (res: http.IncomingMessage): void => {});
+    https.request('http://www.example.com/xyz', (res: http.IncomingMessage): void => {});
+
+    https.get(new url.URL('http://www.example.com/xyz'));
+    https.request(new url.URL('http://www.example.com/xyz'));
+
+    https.get(new url.URL('http://www.example.com/xyz'), (res: http.IncomingMessage): void => {});
+    https.request(new url.URL('http://www.example.com/xyz'), (res: http.IncomingMessage): void => {});
+
+    const opts: https.RequestOptions = {
+        path: '/some/path'
+    };
+    https.get(new url.URL('http://www.example.com'), opts);
+    https.request(new url.URL('http://www.example.com'), opts);
+    https.get(new url.URL('http://www.example.com/xyz'), opts, (res: http.IncomingMessage): void => {});
+    https.request(new url.URL('http://www.example.com/xyz'), opts, (res: http.IncomingMessage): void => {});
 
     https.globalAgent.options.ca = [];
 
@@ -1551,7 +1903,7 @@ namespace dgram_tests {
         ds.bind(4123, 'localhost', () => { });
         ds.bind(4123, () => { });
         ds.bind(() => { });
-        var ai: dgram.AddressInfo = ds.address();
+        const addr: net.AddressInfo | string = ds.address();
         ds.send(new Buffer("hello"), 0, 5, 5000, "127.0.0.1", (error: Error, bytes: number): void => {
         });
         ds.send(new Buffer("hello"), 5000, "127.0.0.1");
@@ -1564,7 +1916,7 @@ namespace dgram_tests {
         let _boolean: boolean;
         let _err: Error;
         let _str: string;
-        let _rinfo: dgram.AddressInfo;
+        let _rinfo: net.AddressInfo;
         /**
          * events.EventEmitter
          * 1. close
@@ -1580,7 +1932,7 @@ namespace dgram_tests {
         _socket = _socket.addListener("listening", () => { });
         _socket = _socket.addListener("message", (msg, rinfo) => {
             let _msg: Buffer = msg;
-            let _rinfo: dgram.AddressInfo = rinfo;
+            let _rinfo: net.AddressInfo = rinfo;
         });
 
         _boolean = _socket.emit("close");
@@ -1595,7 +1947,7 @@ namespace dgram_tests {
         _socket = _socket.on("listening", () => { });
         _socket = _socket.on("message", (msg, rinfo) => {
             let _msg: Buffer = msg;
-            let _rinfo: dgram.AddressInfo = rinfo;
+            let _rinfo: net.AddressInfo = rinfo;
         });
 
         _socket = _socket.once("close", () => { });
@@ -1605,7 +1957,7 @@ namespace dgram_tests {
         _socket = _socket.once("listening", () => { });
         _socket = _socket.once("message", (msg, rinfo) => {
             let _msg: Buffer = msg;
-            let _rinfo: dgram.AddressInfo = rinfo;
+            let _rinfo: net.AddressInfo = rinfo;
         });
 
         _socket = _socket.prependListener("close", () => { });
@@ -1615,7 +1967,7 @@ namespace dgram_tests {
         _socket = _socket.prependListener("listening", () => { });
         _socket = _socket.prependListener("message", (msg, rinfo) => {
             let _msg: Buffer = msg;
-            let _rinfo: dgram.AddressInfo = rinfo;
+            let _rinfo: net.AddressInfo = rinfo;
         });
 
         _socket = _socket.prependOnceListener("close", () => { });
@@ -1625,7 +1977,7 @@ namespace dgram_tests {
         _socket = _socket.prependOnceListener("listening", () => { });
         _socket = _socket.prependOnceListener("message", (msg, rinfo) => {
             let _msg: Buffer = msg;
-            let _rinfo: dgram.AddressInfo = rinfo;
+            let _rinfo: net.AddressInfo = rinfo;
         });
     }
 
@@ -2064,8 +2416,11 @@ namespace child_process_tests {
         childProcess.exec("echo test");
         childProcess.exec("echo test", { windowsHide: true });
         childProcess.spawn("echo", ["test"], { windowsHide: true });
+        childProcess.spawn("echo", ["test"], { windowsHide: true, argv0: "echo-test" });
+        childProcess.spawn("echo", ["test"], { stdio: [0xdeadbeef, "inherit", undefined, "pipe"] });
         childProcess.spawnSync("echo test");
         childProcess.spawnSync("echo test", {windowsVerbatimArguments: false});
+        childProcess.spawnSync("echo test", {windowsVerbatimArguments: false, argv0: "echo-test"});
     }
 
     {
@@ -2730,10 +3085,7 @@ namespace net_tests {
         server = server.close((...args: any[]) => { });
 
         // test the types of the address object fields
-        let address = server.address();
-        address.port = 1234;
-        address.family = "ipv4";
-        address.address = "127.0.0.1";
+        let address: net.AddressInfo | string = server.address();
     }
 
     {
@@ -3082,6 +3434,12 @@ namespace dns_tests {
         const _family: number | undefined = family;
     });
 
+    dns.lookupService("127.0.0.1", 0, (err, hostname, service) => {
+        const _err: NodeJS.ErrnoException = err;
+        const _hostname: string = hostname;
+        const _service: string = service;
+    });
+
     dns.resolve("nodejs.org", (err, addresses) => {
         const _addresses: string[] = addresses;
     });
@@ -3090,6 +3448,9 @@ namespace dns_tests {
     });
     dns.resolve("nodejs.org", "AAAA", (err, addresses) => {
         const _addresses: string[] = addresses;
+    });
+    dns.resolve("nodejs.org", "ANY", (err, addresses) => {
+        const _addresses: dns.AnyRecord[] = addresses;
     });
     dns.resolve("nodejs.org", "MX", (err, addresses) => {
         const _addresses: dns.MxRecord[] = addresses;
@@ -3119,6 +3480,14 @@ namespace dns_tests {
         dns.resolve6("nodejs.org", { ttl }, (err, addresses) => {
             const _addresses: string[] | dns.RecordWithTtl[] = addresses;
         });
+    }
+    {
+        const resolver = new dns.Resolver();
+        resolver.setServers(["4.4.4.4"]);
+        resolver.resolve("nodejs.org", (err, addresses) => {
+            const _addresses: string[] = addresses;
+        });
+        resolver.cancel();
     }
 }
 
@@ -3434,6 +3803,7 @@ namespace http2_tests {
         let pendingSettingsAck: boolean = http2Session.pendingSettingsAck;
         let settings: http2.Settings = http2Session.localSettings;
         let closed: boolean = http2Session.closed;
+        let connecting: boolean = http2Session.connecting;
         settings = http2Session.remoteSettings;
 
         http2Session.ref();
@@ -3480,6 +3850,10 @@ namespace http2_tests {
         });
 
         http2Session.settings(settings);
+
+      http2Session.ping((err: Error | null, duration: number, payload: Buffer) => {});
+      http2Session.ping(Buffer.from(''), (err: Error | null, duration: number, payload: Buffer) => {});
+      http2Session.ping(new DataView(new Int8Array(1).buffer), (err: Error | null, duration: number, payload: Buffer) => {});
     }
 
     // Http2Stream
@@ -3520,11 +3894,18 @@ namespace http2_tests {
             weight: 0
         };
 
+        http2Stream.close();
+        http2Stream.close(0);
+        http2Stream.close(0, () => {});
+        http2Stream.close(undefined, () => {});
+
         // ClientHttp2Stream
         let clientHttp2Stream: http2.ClientHttp2Stream;
         clientHttp2Stream.on('headers', (headers: http2.IncomingHttpHeaders, flags: number) => {});
         clientHttp2Stream.on('push', (headers: http2.IncomingHttpHeaders, flags: number) => {});
-        clientHttp2Stream.on('response', (headers: http2.IncomingHttpHeaders, flags: number) => {});
+        clientHttp2Stream.on('response', (headers: http2.IncomingHttpHeaders & http2.IncomingHttpStatusHeader, flags: number) => {
+            const s: number = headers[':status'];
+        });
 
         // ServerHttp2Stream
         let serverHttp2Stream: http2.ServerHttp2Stream;

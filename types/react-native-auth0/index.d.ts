@@ -54,6 +54,7 @@ export interface PasswordRealmResponse {
     idToken: string;
     scope: string;
     tokenType: "Bearer";
+    refreshToken?: string;
 }
 
 export interface RefreshTokenParams {
@@ -136,6 +137,9 @@ export interface AuthorizeParams {
     nonce?: string;
     audience?: string;
     scope?: string;
+    connection?: string;
+    language?: string;
+    prompt?: string;
 }
 
 export interface ClearSessionParams {

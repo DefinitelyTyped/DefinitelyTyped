@@ -124,7 +124,7 @@
             "libraryName": "axe-core",
             "typingsPackageName": "axe-core",
             "sourceRepoURL": "https://github.com/dequelabs/axe-core",
-            "asOfVersion": "2.0.7"
+            "asOfVersion": "3.0.3"
         },
         {
             "libraryName": "axios",
@@ -155,12 +155,6 @@
             "typingsPackageName": "base64url",
             "sourceRepoURL": "https://github.com/brianloveswords/base64url",
             "asOfVersion": "2.0.0"
-        },
-        {
-            "libraryName": "better-scroll",
-            "typingsPackageName": "better-scroll",
-            "sourceRepoURL": "https://github.com/ustbhuangyi/better-scroll",
-            "asOfVersion": "1.5.0"
         },
         {
             "libraryName": "BigInteger.js",
@@ -571,6 +565,12 @@
             "asOfVersion": "1.1.0"
         },
         {
+            "libraryName": "fork-ts-checker-webpack-plugin",
+            "typingsPackageName": "fork-ts-checker-webpack-plugin",
+            "sourceRepoURL": "https://github.com/Realytics/fork-ts-checker-webpack-plugin",
+            "asOfVersion": "0.4.5"
+        },
+        {
             "libraryName": "Foundation Sites",
             "typingsPackageName": "foundation-sites",
             "sourceRepoURL": "http://foundation.zurb.com/",
@@ -661,6 +661,12 @@
             "asOfVersion": "0.4.14"
         },
         {
+            "libraryName": "ids",
+            "typingsPackageName": "ids",
+            "sourceRepoURL": "https://github.com/bpmn-io/ids",
+            "asOfVersion": "0.2.2"
+        },
+        {
             "libraryName": "immutability-helper",
             "typingsPackageName": "immutability-helper",
             "sourceRepoURL": "https://github.com/kolodny/immutability-helper",
@@ -671,6 +677,12 @@
             "typingsPackageName": "immutable",
             "sourceRepoURL": "https://github.com/facebook/immutable-js",
             "asOfVersion": "3.8.7"
+        },
+        {
+            "libraryName": "interactjs",
+            "typingsPackageName": "interact.js",
+            "sourceRepoURL": "https://github.com/taye/interact.js",
+            "asOfVersion": "1.3.0"
         },
         {
             "libraryName": "inversify",
@@ -1003,12 +1015,6 @@
             "asOfVersion": "1.1.2"
         },
         {
-            "libraryName": "parse5",
-            "typingsPackageName": "parse5",
-            "sourceRepoURL": "https://github.com/inikulin/parse5",
-            "asOfVersion": "3.0.0"
-        },
-        {
             "libraryName": "pascal-case",
             "typingsPackageName": "pascal-case",
             "sourceRepoURL": "https://github.com/blakeembrey/pascal-case",
@@ -1141,6 +1147,24 @@
             "asOfVersion": "5.3.0"
         },
         {
+            "libraryName": "react-dnd",
+            "typingsPackageName": "react-dnd",
+            "sourceRepoURL": "https://github.com/react-dnd/react-dnd",
+            "asOfVersion": "3.0.2"
+        },
+        {
+            "libraryName": "react-dnd-html5-backend",
+            "typingsPackageName": "react-dnd-html5-backend",
+            "sourceRepoURL": "https://github.com/react-dnd/react-dnd",
+            "asOfVersion": "3.0.2"
+        },
+        {
+            "libraryName": "react-dnd-test-backend",
+            "typingsPackageName": "react-dnd-test-backend",
+            "sourceRepoURL": "https://github.com/react-dnd/react-dnd",
+            "asOfVersion": "3.0.2"
+        },
+        {
             "libraryName": "react-flip-move",
             "typingsPackageName": "react-flip-move",
             "sourceRepoURL": "https://github.com/joshwcomeau/react-flip-move",
@@ -1151,6 +1175,12 @@
             "typingsPackageName": "react-ga",
             "sourceRepoURL": "https://github.com/react-ga/react-ga",
             "asOfVersion": "2.3.0"
+        },
+        {
+            "libraryName": "react-monaco-editor",
+            "typingsPackageName": "react-monaco-editor",
+            "sourceRepoURL": "https://github.com/superRaytin/react-monaco-editor",
+            "asOfVersion": "0.16.0"
         },
         {
             "libraryName": "react-native-collapsible",
@@ -1189,10 +1219,22 @@
             "asOfVersion": "4.1.1"
         },
         {
+            "libraryName": "react-native-navigation",
+            "typingsPackageName": "react-native-navigation",
+            "sourceRepoURL": "https://github.com/wix/react-native-navigation",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "react-split-pane",
             "typingsPackageName": "react-split-pane",
             "sourceRepoURL": "https://github.com/tomkp/react-split-pane",
             "asOfVersion": "0.1.67"
+        },
+        {
+            "libraryName": "react-svg",
+            "typingsPackageName": "react-svg",
+            "sourceRepoURL": "https://github.com/tanem/react-svg",
+            "asOfVersion": "5.0.0"
         },
         {
             "libraryName": "realm",
@@ -1213,7 +1255,7 @@
             "asOfVersion": "0.1.5"
         },
         {
-            "libraryName": "react-bootstrap",
+            "libraryName": "redux-bootstrap",
             "typingsPackageName": "redux-bootstrap",
             "sourceRepoURL": "https://github.com/remojansen/redux-bootstrap",
             "asOfVersion": "1.1.0"
@@ -1489,6 +1531,12 @@
             "asOfVersion": "1.5.7"
         },
         {
+            "libraryName": "typed.js",
+            "typingsPackageName": "typed.js",
+            "sourceRepoURL": "https://github.com/mattboldt/typed.js",
+            "asOfVersion": "2.0.9"
+        },
+        {
             "libraryName": "TypeScript",
             "typingsPackageName": "typescript",
             "sourceRepoURL": "https://github.com/Microsoft/TypeScript",
@@ -1577,6 +1625,12 @@
             "typingsPackageName": "webix",
             "sourceRepoURL": "http://webix.com",
             "asOfVersion": "5.1.1"
+        },
+        {
+            "libraryName": "winston",
+            "typingsPackageName": "winston",
+            "sourceRepoURL": "https://github.com/winstonjs/winston.git",
+            "asOfVersion": "2.4.4"
         },
         {
             "libraryName": "wolfy87-eventemitter",

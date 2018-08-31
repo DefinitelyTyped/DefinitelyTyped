@@ -13,6 +13,8 @@
 //                 Dylan Stewart <https://github.com/dyst5422>
 //                 Alessio Dionisi <https://github.com/adnsio>
 //                 Divyendu Singh <https://github.com/divyenduz>
+//                 Brad Zacher <https://github.com/bradzacher>
+//                 Curtis Layne <https://github.com/clayne11>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 

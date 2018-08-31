@@ -333,6 +333,12 @@ fooStream.toArray((arr: Foo[]) => {});
 fooStream.toCallback((err: Error, x: Foo) => {});
 fooStream.toCallback((err: Error) => {});
 
+fooStream.toNodeStream();
+fooStream.toNodeStream({objectMode: false});
+fooStream.toNodeStream({objectMode: true});
+
+fooStream.toPromise(Promise);
+
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // UTILS
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

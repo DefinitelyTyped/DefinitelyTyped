@@ -1,12 +1,13 @@
 // Type definitions for expect-puppeteer 2.2
 // Project: https://github.com/smooth-code/jest-puppeteer/tree/master/packages/expect-puppeteer
 // Definitions by: Josh Goldberg <https://github.com/JoshuaKGoldberg>
+//                 Tanguy Krotoff <https://github.com/tkrotoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 /// <reference types="jest" />
 
-import { ElementHandle, Page } from "puppeteer";
+import { ElementHandle, Page, Dialog } from "puppeteer";
 
 /**
  * Interval at which pageFunctions may be executed.
@@ -39,10 +40,10 @@ interface ExpectPuppeteer {
     // These must all match the ExpectPuppeteer interface above.
     // We can't extend from it directly because some method names conflict in type-incompatible ways.
     toClick(selector: string, options?: ExpectToClickOptions): Promise<void>;
-    toDisplayDialog(block: () => Promise<void>): Promise<void>;
+    toDisplayDialog(block: () => Promise<void>): Promise<Dialog>;
     toFill(selector: string, value: string, options?: ExpectTimingActions): Promise<void>;
     toMatch(selector: string, options?: ExpectTimingActions): Promise<void>;
-    toMatchElement(selector: string, value: string, options?: ExpectTimingActions): Promise<void>;
+    toMatchElement(selector: string, options?: ExpectToClickOptions): Promise<void>;
     toSelect(selector: string, valueOrText: string, options?: ExpectTimingActions): Promise<void>;
     toUploadFile(selector: string, filePath: string, options?: ExpectTimingActions): Promise<void>;
 }
@@ -54,10 +55,10 @@ declare global {
             // These must all match the ExpectPuppeteer interface above.
             // We can't extend from it directly because some method names conflict in type-incompatible ways.
             toClick(selector: string, options?: ExpectToClickOptions): Promise<void>;
-            toDisplayDialog(block: () => Promise<void>): Promise<void>;
+            toDisplayDialog(block: () => Promise<void>): Promise<Dialog>;
             toFill(selector: string, value: string, options?: ExpectTimingActions): Promise<void>;
             toMatch(selector: string, options?: ExpectTimingActions): Promise<void>;
-            toMatchElement(selector: string, value: string, options?: ExpectTimingActions): Promise<void>;
+            toMatchElement(selector: string, options?: ExpectToClickOptions): Promise<void>;
             toSelect(selector: string, valueOrText: string, options?: ExpectTimingActions): Promise<void>;
             toUploadFile(selector: string, filePath: string, options?: ExpectTimingActions): Promise<void>;
         }

@@ -1,14 +1,17 @@
 import * as React from 'react';
 import {
+    Text,
     TouchableOpacity,
     View,
     ViewStyle,
 } from 'react-native';
 import {
-    DrawerNavigator,
+    createDrawerNavigator,
+    createBottomTabNavigator,
     DrawerNavigatorConfig,
     NavigationAction,
     NavigationActions,
+    NavigationEvents,
     NavigationBackAction,
     NavigationInitAction,
     NavigationNavigateAction,
@@ -22,15 +25,15 @@ import {
     NavigationStackScreenOptions,
     NavigationTabScreenOptions,
     NavigationTransitionProps,
-    StackNavigator,
+    StackViewTransitionConfigs,
+    createStackNavigator,
     StackNavigatorConfig,
-    SwitchNavigator,
+    createSwitchNavigator,
     SwitchNavigatorConfig,
     TabBarTop,
-    TabNavigator,
+    createTabNavigator,
     TabNavigatorConfig,
     Transitioner,
-    addNavigationHelpers,
     HeaderBackButton,
     Header,
     NavigationContainer,
@@ -39,6 +42,10 @@ import {
     NavigationPopToTopAction,
     NavigationScreenComponent,
     NavigationContainerComponent,
+    withNavigation,
+    NavigationInjectedProps,
+    withNavigationFocus,
+    NavigationFocusInjectedProps
 } from 'react-navigation';
 
 // Constants
@@ -50,6 +57,7 @@ const viewStyle: ViewStyle = {
 };
 
 const ROUTE_NAME_START_SCREEN = "StartScreen";
+const ROUTE_KEY_START_SCREEN = "StartScreen-key";
 
 interface StartScreenNavigationParams {
     id: number;
@@ -127,10 +135,11 @@ const routeConfigMap: NavigationRouteConfigMap = {
         screen: NextScreen,
     },
 };
-export const AppNavigator = StackNavigator(
+export const AppNavigator = createStackNavigator(
     routeConfigMap,
     {
         initialRouteName: ROUTE_NAME_START_SCREEN,
+        initialRouteKey: ROUTE_KEY_START_SCREEN,
         initialRouteParams,
         navigationOptions,
     },
@@ -145,26 +154,12 @@ const StatelessScreen: NavigationScreenComponent<StatelessScreenParams> = (props
 
 StatelessScreen.navigationOptions = { title: 'Stateless' };
 
-const SimpleStackNavigator = StackNavigator(
+const SimpleStackNavigator = createStackNavigator(
     {
         simple: {
             screen: StatelessScreen,
         },
     }
-);
-
-/**
- * Router.
- */
-const Router = (props: any) => (
-    <AppNavigator
-        navigation={
-            addNavigationHelpers({
-                dispatch: (action: NavigationStackAction): boolean => true,
-                state: {},
-            })
-        }
-    />
 );
 
 /**
@@ -183,6 +178,9 @@ const tabNavigatorConfig: TabNavigatorConfig = {
     lazy: true,
     tabBarComponent: TabBarTop,
     tabBarOptions: { activeBackgroundColor: "blue" },
+    navigationOptions: () => ({
+        tabBarOnPress: ({ scene, jumpToIndex }) => jumpToIndex(scene.index)
+    })
 };
 
 const tabNavigatorConfigWithInitialLayout: TabNavigatorConfig = {
@@ -202,7 +200,7 @@ const tabNavigatorConfigWithNavigationOptions: TabNavigatorConfig = {
     },
 };
 
-const BasicTabNavigator = TabNavigator(
+const BasicTabNavigator = createTabNavigator(
     routeConfigMap,
     tabNavigatorConfig,
 );
@@ -230,7 +228,7 @@ const stackNavigatorConfig: StackNavigatorConfig = {
     navigationOptions: stackNavigatorScreenOptions,
 };
 
-const BasicStackNavigator = StackNavigator(
+const BasicStackNavigator = createStackNavigator(
     routeConfigMap,
     stackNavigatorConfig,
 );
@@ -250,7 +248,7 @@ const stackNavigatorConfigWithNavigationOptionsAsFunction: StackNavigatorConfig 
     navigationOptions: ({navigationOptions, navigation, screenProps}) => (stackNavigatorScreenOptions),
 };
 
-const AdvancedStackNavigator = StackNavigator(
+const AdvancedStackNavigator = createStackNavigator(
     routeConfigMap,
     stackNavigatorConfigWithNavigationOptionsAsFunction
 );
@@ -274,7 +272,7 @@ const switchNavigatorConfig: SwitchNavigatorConfig = {
     backBehavior: 'none'
 };
 
-const BasicSwitchNavigator = SwitchNavigator(
+const BasicSwitchNavigator = createSwitchNavigator(
     routeConfigMap,
     switchNavigatorConfig,
 );
@@ -294,7 +292,7 @@ const switchNavigatorConfigWithInitialRoute: SwitchNavigatorConfig = {
     backBehavior: 'initialRoute'
 };
 
-const SwitchNavigatorWithInitialRoute = SwitchNavigator(
+const SwitchNavigatorWithInitialRoute = createSwitchNavigator(
     routeConfigMap,
     switchNavigatorConfigWithInitialRoute,
 );
@@ -324,7 +322,7 @@ const drawerNavigatorConfig: DrawerNavigatorConfig = {
     },
 };
 
-const BasicDrawerNavigator = DrawerNavigator(
+const BasicDrawerNavigator = createDrawerNavigator(
     routeConfigMap,
     stackNavigatorConfig,
 );
@@ -380,6 +378,8 @@ class CustomTransitioner extends React.Component<CustomTransitionerProps, null> 
 /**
  * Header
  */
+const height = Header.HEIGHT;
+
 function renderHeaderBackButton(schema: string): JSX.Element {
     switch (schema) {
         case 'compact':
@@ -416,14 +416,6 @@ const navigateAction: NavigationNavigateAction = NavigationActions.navigate({
     action: NavigationActions.navigate({ routeName: "BarScreen" })
 });
 
-const resetAction: NavigationResetAction = NavigationActions.reset({
-    index: 0,
-    key: "foo",
-    actions: [
-        NavigationActions.navigate({ routeName: "FooScreen" })
-    ]
-});
-
 const backAction: NavigationBackAction = NavigationActions.back({
     key: "foo"
 });
@@ -435,19 +427,9 @@ const setParamsAction: NavigationSetParamsAction = NavigationActions.setParams({
     }
 });
 
-const popAction: NavigationPopAction = NavigationActions.pop({
-    n: 1,
-    immediate: true
-});
-
-const popToTopAction: NavigationPopToTopAction = NavigationActions.popToTop({
-    key: "foo",
-    immediate: true
-});
-
 class Page1 extends React.Component { }
 
-const RootNavigator: NavigationContainer = SwitchNavigator({
+const RootNavigator: NavigationContainer = createSwitchNavigator({
     default: { getScreen: () => Page1 },
 });
 
@@ -464,3 +446,149 @@ class Page2 extends React.Component {
         return <RootNavigator ref={(instance: NavigationContainerComponent | null): void => { this.navigatorRef = instance; }} />;
     }
 }
+
+const BottomStack = createBottomTabNavigator({
+    Posts: {
+        screen: Page2,
+        navigationOptions: ({ navigation }: NavigationScreenProps) => {
+            let tabBarVisible = true;
+
+            if (navigation.state.index > 0) {
+                tabBarVisible = false;
+            }
+
+            return {
+                tabBarVisible
+            };
+        }
+    }
+}, {
+    navigationOptions: () => ({
+        tabBarOnPress: ({ defaultHandler }) => defaultHandler()
+    })
+});
+
+const CustomHeaderStack = createStackNavigator({
+    Page1: { screen: Page1 },
+    Page2: { screen: Page2 }
+},
+{
+    navigationOptions: {
+        header: headerProps => {
+            const { scene } = headerProps;
+            const { options } = scene.descriptor;
+            const { title, headerStyle, headerTitleStyle } = options;
+            return (
+                <View style={headerStyle}>
+                    <Text style={headerTitleStyle}>{title}</Text>
+                </View>
+            );
+        }
+    }
+});
+
+interface ScreenProps {
+    name: string;
+    optionalAge?: number;
+    onPlay(): void;
+}
+
+class SetParamsTest extends React.Component<NavigationScreenProps<ScreenProps>> {
+    componentDidMount() {
+        this.props.navigation.setParams({
+            onPlay: this.onPlay
+        });
+    }
+
+    onPlay = () => {
+        //
+    }
+
+    render() {
+        const name = this.props.navigation.getParam('name');
+        const age = this.props.navigation.getParam('optionalAge');
+
+        // $ExpectType number | undefined
+        this.props.navigation.getParam('optionalAge');
+
+        // $ExpectType number
+        this.props.navigation.getParam('optionalAge', 0);
+
+        return (
+            <Text>My name is {name} and I am {age} years old.</Text>
+        );
+    }
+}
+
+// Test withNavigation
+
+interface BackButtonProps { title: string; }
+class MyBackButton extends React.Component<BackButtonProps & NavigationInjectedProps> {
+    triggerBack() {
+        console.log("Not implemented, すみません");
+    }
+    render() {
+      return <button title={this.props.title} onClick={() => { this.props.navigation.goBack(); }} />;
+    }
+}
+
+// withNavigation returns a component that wraps MyBackButton and passes in the
+// navigation prop
+const BackButtonWithNavigation = withNavigation<BackButtonProps>(MyBackButton);
+const BackButtonInstance = <BackButtonWithNavigation
+    title="Back" onRef={ref => { const backButtonRef = ref; }}
+/>;
+
+// if you have class methods, you should have a way to use them
+const BackButtonWithNavigationSpecified = withNavigation<BackButtonProps>(MyBackButton);
+const BackButtonSpecifiedInstance = <BackButtonWithNavigationSpecified
+    title="Back" onRef={ref => {
+        if (!ref) return;
+        const backButtonRef = ref as MyBackButton;
+        backButtonRef.triggerBack();
+    }}
+/>;
+
+// Test withNavigationFocus
+
+interface MyFocusedComponentProps { expectsFocus: boolean; }
+class MyFocusedComponent extends React.Component<MyFocusedComponentProps & NavigationFocusInjectedProps> {
+    render() {
+      return <button title={`${this.props.expectsFocus} vs ${this.props.isFocused}`} onClick={() => { this.props.navigation.goBack(); }} />;
+    }
+}
+
+// withNavigationFocus returns a component that wraps MyFocusedComponent and passes in the
+// navigation and isFocused prop
+const MyFocusedComponentWithNavigationFocus = withNavigationFocus<MyFocusedComponentProps>(MyFocusedComponent);
+const MyFocusedComponentInstance = <MyFocusedComponentWithNavigationFocus
+    expectsFocus={true} onRef={ref => { const backButtonRef = ref; }}
+/>;
+
+// Test Screen with params
+
+interface MyScreenParams { title: string; }
+class MyScreen extends React.Component<NavigationInjectedProps<MyScreenParams>> {
+    render() {
+        const title = this.props.navigation.getParam('title');
+        return <button title={title} onClick={() => { this.props.navigation.goBack(); }} />;
+    }
+}
+
+// Test createStackNavigator
+
+createStackNavigator(
+    routeConfigMap,
+    {transitionConfig: () => ({screenInterpolator: StackViewTransitionConfigs.SlideFromRightIOS.screenInterpolator})}
+);
+
+// Test NavigationEvents component
+
+const ViewWithNavigationEvents = (
+  <NavigationEvents
+    onWillFocus={console.log}
+    onDidFocus={console.log}
+    onWillBlur={console.log}
+    onDidBlur={console.log}
+  />
+);

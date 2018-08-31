@@ -4,6 +4,19 @@ import Transition, { UNMOUNTED, EXITED, ENTERING, ENTERED, EXITING } from "react
 import TransitionGroup = require("react-transition-group/TransitionGroup");
 import Components = require("react-transition-group");
 
+interface ContainerProps {
+    theme: string;
+    children?: Element[];
+}
+
+const Container: React.StatelessComponent<ContainerProps> = (props: ContainerProps) => {
+    return (
+        <div data-theme={props.theme}>
+            {props.children}
+        </div>
+    );
+};
+
 const Test: React.StatelessComponent = () => {
     function handleEnter(node: HTMLElement, isAppearing: boolean) {}
 
@@ -15,7 +28,8 @@ const Test: React.StatelessComponent = () => {
 
     return (
         <TransitionGroup
-            component="ul"
+            component={Container}
+            theme="test"
             className="animated-list"
             childFactory={ (child: React.ReactElement<any>) => child }
         >
@@ -36,6 +50,18 @@ const Test: React.StatelessComponent = () => {
                 onExited={ handleExit }
             >
                 <div>{ "test" }</div>
+            </Components.Transition>
+            <Components.Transition in timeout={500}>
+                {(status) => {
+                     switch (status) {
+                         case ENTERING:
+                         case ENTERED:
+                         case EXITING:
+                         case EXITED:
+                         case UNMOUNTED:
+                             return <div>{status}</div>;
+                     }
+                }}
             </Components.Transition>
 
             <Transition

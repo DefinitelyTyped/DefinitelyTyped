@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
- import { MDCStrings } from 'material__base';
+import { MDCStrings } from 'material__base';
 
 export interface cssClasses extends MDCStrings {
     ROOT: 'mdc-dialog';

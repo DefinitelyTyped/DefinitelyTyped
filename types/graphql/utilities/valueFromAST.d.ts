@@ -1,3 +1,4 @@
+import Maybe from "../tsutils/Maybe";
 import { GraphQLInputType } from "../type/definition";
 import { ValueNode, VariableNode, ListValueNode, ObjectValueNode } from "../language/ast";
 
@@ -22,7 +23,7 @@ import { ValueNode, VariableNode, ListValueNode, ObjectValueNode } from "../lang
  *
  */
 export function valueFromAST(
-    valueNode: ValueNode | void,
+    valueNode: Maybe<ValueNode>,
     type: GraphQLInputType,
-    variables?: { [key: string]: any } | void
+    variables?: Maybe<{ [key: string]: any }>
 ): any;

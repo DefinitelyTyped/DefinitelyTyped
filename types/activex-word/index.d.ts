@@ -4,6 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
+/// <reference types="activex-interop" />
 /// <reference types="activex-office" />
 /// <reference types="activex-vbide" />
 /// <reference types="activex-stdole" />
@@ -12496,7 +12497,6 @@ interface ActiveXObject {
     set(obj: Word.Document, propertyName: 'ActiveWritingStyle', parameterTypes: [any], newValue: string): void;
     set(obj: Word.Document, propertyName: 'Compatibility', parameterTypes: [Word.WdCompatibility], newValue: boolean): void;
     set(obj: Word.System, propertyName: 'PrivateProfileString', parameterTypes: [string, string, string], newValue: string): void;
-    new<K extends keyof ActiveXObjectNameMap = any>(progid: K): ActiveXObjectNameMap[K];
 }
 
 interface ActiveXObjectNameMap {

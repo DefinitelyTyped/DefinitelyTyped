@@ -2,7 +2,7 @@
 // Project: https://github.com/adazzle/react-data-grid.git
 // Definitions by: Simon Gellis <https://github.com/SupernaviX>, Kieran Peat <https://github.com/KieranPeat>, Martin Novak <https://github.com/martinnov92>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 /// <reference types="react" />
 
@@ -130,6 +130,17 @@ declare namespace AdazzleReactDataGrid {
          * @param sortDirection The direction to sort ('ASC'/'DESC'/'NONE')
          */
         onGridSort?: (sortColumn: string, sortDirection: 'ASC' | 'DESC' | 'NONE') => void
+
+        /**
+         * Initial sorting direction
+         */
+        sortDirection?: 'ASC' | 'DESC' | 'NONE'
+
+        /**
+         * key of the initial sorted column
+         */
+        sortColumn?: string
+
         /**
          * Called when the user filters a column by some value.
          * Should restrict the rows in rowGetter to only things that match the filter.
@@ -203,6 +214,16 @@ declare namespace AdazzleReactDataGrid {
                 isSelectedKey?: string;
             }
         }
+        /**
+         * A custom formatter for the select all checkbox cell
+         * @default react-data-grid/src/formatters/SelectAll.js
+         */
+        selectAllRenderer?: React.ComponentClass<any> | React.StatelessComponent<any>;
+        /**
+         * A custom formatter for select row column
+         * @default AdazzleReactDataGridPlugins.Editors.CheckboxEditor
+         */
+        rowActionsCell?: React.ComponentClass<any> | React.StatelessComponent<any>;
         /**
          * An event function called when a row is clicked.
          * Clicking the header row will trigger a call with -1 for the rowIdx.

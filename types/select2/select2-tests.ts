@@ -733,6 +733,13 @@ $(".js-example-rtl").select2({
 // =====================================================
 // See: https://select2.org/advanced
 
+$.fn.select2.amd.require(
+    ["select2/utils", "select2/selection/single", "select2/selection/placeholder"],
+    (Utils: any, SingleSelection: any, Placeholder: any) => {
+        const CustomSelectionAdapter = Utils.Decorate(SingleSelection, Placeholder);
+    }
+);
+
 // TODO (Adapters)
 
 // =====================================================
@@ -767,7 +774,7 @@ const selectedData: Select2.OptionData[] = $("#mySelect2").select2("data");
 // jQuery Generic
 
 declare let select: HTMLSelectElement;
-const $select: JQuery<HTMLSelectElement> = $(select) as JQuery<HTMLSelectElement>;
+const $select: JQuery<HTMLSelectElement> = $(select);
 
 select = $select.select2().get(0);
 select = $select.select2({tags: true}).get(0);

@@ -3,7 +3,7 @@
 // Definitions by: Joscha Feth <https://github.com/joscha>
 //                 Anton Izmailov <https://github.com/wapgear>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 /// <reference types="webpack-env" />
 
@@ -25,6 +25,7 @@ export function configure(fn: () => void, module: NodeModule): void;
 export function setAddon(addon: object): void;
 export function storiesOf(name: string, module: NodeModule): Story;
 export function storiesOf<T>(name: string, module: NodeModule): Story & T;
+export function forceReRender(): void;
 
 export interface StoryObject {
     name: string;

@@ -1,10 +1,14 @@
-// Type definitions for node-forge 0.7.2
+// Type definitions for node-forge 0.7.6
 // Project: https://github.com/digitalbazaar/forge
 // Definitions by: Seth Westphal <https://github.com/westy92>
 //                 Kay Schecker <https://github.com/flynetworks>
 //                 Aakash Goenka <https://github.com/a-k-g>
 //                 Rafal2228 <https://github.com/rafal2228>
+//                 Beeno Tung <https://github.com/beenotung>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.6
+
+/// <reference types="node" />
 
 declare module "node-forge" {
     type Byte = string;
@@ -16,22 +20,22 @@ declare module "node-forge" {
 
     namespace pem {
 
-		interface EncodeOptions {
-			maxline?: number;
-		}
+        interface EncodeOptions {
+            maxline?: number;
+        }
 
-		interface ObjectPEM {
-			type: string;
-			body: Bytes;
-			procType?: any;
-			contentDomain?: any;
-			dekInfo?: any;
-			headers?: any[];
-		}
+        interface ObjectPEM {
+            type: string;
+            body: Bytes;
+            procType?: any;
+            contentDomain?: any;
+            dekInfo?: any;
+            headers?: any[];
+        }
 
-		function encode(msg: ObjectPEM, options?: EncodeOptions): string;
-		function decode(str: string): ObjectPEM[];
-	}
+        function encode(msg: ObjectPEM, options?: EncodeOptions): string;
+        function decode(str: string): ObjectPEM[];
+    }
 
     namespace pki {
 
@@ -43,11 +47,14 @@ declare module "node-forge" {
             privateKey: Key;
         }
 
+        function pemToDer(pem: PEM): util.ByteStringBuffer;
         function privateKeyToPem(key: Key, maxline?: number): PEM;
+        function privateKeyInfoToPem(key: Key, maxline?: number): PEM;
         function publicKeyToPem(key: Key, maxline?: number): PEM;
         function publicKeyFromPem(pem: PEM): Key;
         function privateKeyFromPem(pem: PEM): Key;
         function certificateToPem(cert: Certificate, maxline?: number): PEM;
+        function certificateFromPem(pem: PEM, computeHash?: boolean, strict?: boolean): Certificate;
 
         interface oids {
             [key: string]: string;
@@ -68,6 +75,33 @@ declare module "node-forge" {
 
             function generateKeyPair(bits?: number, e?: number, callback?: (err: Error, keypair: KeyPair) => void): KeyPair;
             function generateKeyPair(options?: GenerateKeyPairOptions, callback?: (err: Error, keypair: KeyPair) => void): KeyPair;
+        }
+
+        namespace ed25519 {
+
+            type NativeBuffer = Buffer | Uint8Array;
+
+            namespace constants {
+                const PUBLIC_KEY_BYTE_LENGTH = 32;
+                const PRIVATE_KEY_BYTE_LENGTH = 64;
+                const SEED_BYTE_LENGTH = 32;
+                const SIGN_BYTE_LENGTH = 64;
+                const HASH_BYTE_LENGTH = 64;
+            }
+
+            function generateKeyPair(options?: { seed?: Buffer | Uint8Array | string }): {
+                publicKey: NativeBuffer;
+                privateKey: NativeBuffer;
+            };
+
+            function publicKeyFromPrivateKey(options: { privateKey: NativeBuffer }): NativeBuffer;
+
+            function sign(options: { privateKey: NativeBuffer }): NativeBuffer;
+
+            function verify(options: {
+                signature: Buffer | Uint8Array | util.ByteBuffer | string,
+                publicKey: NativeBuffer
+            }): boolean;
         }
 
         interface CertificateFieldOptions {

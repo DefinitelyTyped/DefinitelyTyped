@@ -8,7 +8,9 @@ svgo = new SVGO({ plugins: [{ cleanupAttrs: {} }] });
 svgo = new SVGO({ datauri: "base64" });
 svgo = new SVGO({ floatPrecision: 2 });
 svgo = new SVGO({ full: true });
-svgo = new SVGO({
+
+// SVGO options
+const options: SVGO.Options = {
     plugins: [],
     datauri: "enc",
     floatPrecision: 2,
@@ -20,7 +22,9 @@ svgo = new SVGO({
     svg2js: {
         trim: true,
     }
-});
+};
+
+svgo = new SVGO(options);
 
 // SVGO instance methods
 svgo.optimize(`<?xml version="1.0" encoding="utf-8"?><svg></svg>`, { path: "filepath" })

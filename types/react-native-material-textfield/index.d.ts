@@ -1,11 +1,18 @@
 // Type definitions for react-native-material-textfield 0.12
 // Project: https://github.com/n4kz/react-native-material-textfield
 // Definitions by: Ville Venäläinen <https://github.com/mindhivefi>
+//                 Kyle Roach <https://github.com/iRoachie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 import * as React from 'react';
-import { TextInputProps, TextStyle, ViewStyle, View } from 'react-native';
+import {
+    StyleProp,
+    TextInputProps,
+    TextStyle,
+    ViewStyle,
+    View
+} from 'react-native';
 
 export interface TextFieldProps extends TextInputProps {
     animationDuration?: number;
@@ -17,9 +24,10 @@ export interface TextFieldProps extends TextInputProps {
     labelPadding?: number;
     inputContainerPadding?: number;
 
-    labelTextStyle?: TextStyle;
-    titleTextStyle?: TextStyle;
-    affixTextStyle?: TextStyle;
+    style?: StyleProp<TextStyle>;
+    labelTextStyle?: StyleProp<TextStyle>;
+    titleTextStyle?: StyleProp<TextStyle>;
+    affixTextStyle?: StyleProp<TextStyle>;
 
     tintColor?: string;
     textColor?: string;
@@ -47,8 +55,8 @@ export interface TextFieldProps extends TextInputProps {
     prefix?: string;
     suffix?: string;
 
-    containerStyle?: ViewStyle;
-    inputContainerStyle?: ViewStyle;
+    containerStyle?: StyleProp<ViewStyle>;
+    inputContainerStyle?: StyleProp<ViewStyle>;
 
     onPress?(event: Event): void;
     onChangeText?(text: string): void;

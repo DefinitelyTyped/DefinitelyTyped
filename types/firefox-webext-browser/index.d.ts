@@ -3915,10 +3915,6 @@ declare namespace browser.bookmarks {
         type?: BookmarkTreeNodeType;
     }
 
-    export {_import as import};
-
-    export {_export as export};
-
     /* bookmarks functions */
     /**
      * Retrieves the specified BookmarkTreeNode(s).
@@ -3985,18 +3981,6 @@ declare namespace browser.bookmarks {
 
     /** Recursively removes a bookmark folder. */
     function removeTree(id: string): Promise<void>;
-
-    /**
-     * Imports bookmarks from an html bookmark file
-     * @deprecated Unsupported on Firefox at this time.
-     */
-    function _import(): Promise<void>;
-
-    /**
-     * Exports bookmarks to an html bookmark file
-     * @deprecated Unsupported on Firefox at this time.
-     */
-    function _export(): Promise<void>;
 
     /* bookmarks events */
     /** Fired when a bookmark or folder is created. */

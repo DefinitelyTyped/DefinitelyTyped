@@ -2,6 +2,7 @@
 // Project: https://github.com/svg/svgo
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 Gilad Gray <https://github.com/giladgray>
+//                 Aankhen <https://github.com/Aankhen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -288,29 +289,6 @@ interface Svg2JsOptions {
     position?: boolean;
 }
 
-interface Options {
-    /** Output as Data URI string. */
-    datauri?: "base64" | "enc" | "unenc";
-
-    /** Precision of floating point numbers. Will be passed to each plugin that suppors this param. */
-    floatPrecision?: number;
-
-    /** Use full set of plugins. */
-    full?: boolean;
-
-    /** Options for rendering optimized SVG from AST. */
-    js2svg?: Js2SvgOptions;
-
-    /**
-     * Individual plugin configurations.
-     * For specific options, see plugin source in https://github.com/svg/svgo/tree/master/plugins.
-     */
-    plugins?: PluginConfig[];
-
-    /** Options for parsing original SVG into AST. */
-    svg2js?: Svg2JsOptions;
-}
-
 interface SvgInfo {
     path?: string;
 }
@@ -321,8 +299,33 @@ interface OptimizedSvg {
 }
 
 declare class SVGO {
-    constructor(options?: Options);
+    constructor(options?: SVGO.Options);
     optimize(svgString: string, info?: SvgInfo): Promise<OptimizedSvg>;
+}
+
+declare namespace SVGO {
+    interface Options {
+        /** Output as Data URI string. */
+        datauri?: "base64" | "enc" | "unenc";
+
+        /** Precision of floating point numbers. Will be passed to each plugin that suppors this param. */
+        floatPrecision?: number;
+
+        /** Use full set of plugins. */
+        full?: boolean;
+
+        /** Options for rendering optimized SVG from AST. */
+        js2svg?: Js2SvgOptions;
+
+        /**
+         * Individual plugin configurations.
+         * For specific options, see plugin source in https://github.com/svg/svgo/tree/master/plugins.
+         */
+        plugins?: PluginConfig[];
+
+        /** Options for parsing original SVG into AST. */
+        svg2js?: Svg2JsOptions;
+    }
 }
 
 export = SVGO;

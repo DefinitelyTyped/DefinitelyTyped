@@ -17,6 +17,11 @@ var preloadedExtensions = [ 'my-ext' ],
 var configuredConverter = new showdown.Converter();
     configuredConverter.addExtension({type: 'output', filter: (text, converter)=>{return text.replace('#', '*')}}, 'myext');
 
+configuredConverter.addExtension([
+  {type: 'output', filter: (text, converter)=>{return text.replace('#', '*')}},
+  {type: 'output', filter: (text, converter)=>{return text.replace('#', '*')}}
+], 'myext');
+
 console.log(showdown.helper);
 
 console.log(converter.makeHtml(exampleMarkdown));

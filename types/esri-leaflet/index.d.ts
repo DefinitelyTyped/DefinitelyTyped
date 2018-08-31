@@ -44,6 +44,7 @@ declare module 'leaflet' {
             | 'GrayLabels'
             | 'DarkGrayLabels'
             | 'ImageryLabels'
+            | 'ImageryClarity'
             | 'ImageryTransportation'
             | 'ShadedReliefLabels'
             | 'TerrainLabels';
@@ -1105,3 +1106,5 @@ declare module 'leaflet' {
         function find(options: FindOptions | MapService): Find;
     }
 }
+
+export = L.esri;

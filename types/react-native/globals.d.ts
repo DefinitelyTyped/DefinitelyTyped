@@ -25,11 +25,15 @@ declare function fetchBundle(bundleId: number, callback: (error?: Error | null) 
 // Fetch API
 //
 
-declare function fetch(input: Request | string, init?: RequestInit): Promise<Response>;
+declare interface GlobalFetch {
+  fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;
+}
+
+declare function fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;
 
 interface Blob {}
 
-declare interface FormData {
+declare class FormData {
   append(name: string, value: any): void;
 }
 
@@ -84,6 +88,8 @@ declare var Request: {
   prototype: Request;
   new(input: Request | string, init?: RequestInit): Request;
 };
+
+declare type RequestInfo = Request | string;
 
 declare interface ResponseInit {
   headers?: HeadersInit_;

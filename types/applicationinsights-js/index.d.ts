@@ -1,6 +1,7 @@
 // Type definitions for ApplicationInsights-JS 1.0
 // Project: https://github.com/Microsoft/ApplicationInsights-JS
 // Definitions by: Kamil Szostak <https://github.com/kamilszostak>
+//                 Mark Wolff <https://github.com/markwolff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module AI {
@@ -560,19 +561,24 @@ declare module Microsoft.ApplicationInsights {
         samplingPercentage?: number;
         autoTrackPageVisitTime?: boolean;
         disableAjaxTracking?: boolean;
+        disableFetchTracking?: boolean;
         overridePageViewDuration?: boolean;
         maxAjaxCallsPerView?: number;
         disableDataLossAnalysis?: boolean;
         disableCorrelationHeaders?: boolean;
+        correlationHeaderExcludedDomains?: string[];
         disableFlushOnBeforeUnload?: boolean;
         enableSessionStorageBuffer?: boolean;
         isCookieUseDisabled?: boolean;
         cookieDomain?: string;
         isRetryDisabled?: boolean;
-        isPerfAnalyzerEnabled?: boolean;
         url?: string;
         isStorageUseDisabled?: boolean;
         isBeaconApiDisabled?: boolean;
+        sdkExtension?: string;
+        isBrowserLinkTrackingEnabled?: boolean;
+        appId?: string;
+        enableCorsCorrelation?: boolean;
     }
 
     /**
@@ -793,10 +799,18 @@ declare module Microsoft.ApplicationInsights {
          */
         _onerror(message: string, url: string, lineNumber: number, columnNumber: number, error: Error): any;
     }
+
+    class UtilHelpers {
+        /**
+         * Generate a random ID string
+         */
+        static newId(): string;
+    }
 }
 
 declare module 'applicationinsights-js' {
     const AppInsights: Microsoft.ApplicationInsights.IAppInsights;
+    const Util: typeof Microsoft.ApplicationInsights.UtilHelpers;
 }
 
 declare var appInsights: Microsoft.ApplicationInsights.IAppInsights;

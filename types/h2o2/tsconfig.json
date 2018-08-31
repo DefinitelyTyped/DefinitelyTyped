@@ -25,6 +25,9 @@
             ],
             "inert": [
                 "inert/v4"
+            ],
+            "wreck": [
+                "wreck/v7"
             ]
         },
         "noEmit": true,

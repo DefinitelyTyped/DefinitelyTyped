@@ -24,8 +24,8 @@ export interface Plugin {
 export interface Manifest {
   server: ServerOptions;
   register?: {
-    plugins: string[] | Plugin[]
+    plugins: string[] | Plugin[] | Array<(string|Plugin)>
   };
 }
 
-export function compose(manifest: Manifest, options?: Options): Server;
+export function compose(manifest: Manifest, options?: Options): Promise<Server>;

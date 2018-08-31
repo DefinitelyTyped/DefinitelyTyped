@@ -17,12 +17,10 @@
 import { MDCSlidableDrawerAdapter, MDCSlidableDrawerFoundation } from '../slidable';
 import { cssClasses, strings } from './constants';
 
-export class MDCPersistentDrawerFoundation extends MDCSlidableDrawerFoundation {
+export default class MDCPersistentDrawerFoundation extends MDCSlidableDrawerFoundation {
     static readonly cssClasses: cssClasses;
 
     static readonly strings: strings;
 
     static readonly defaultAdapter: MDCSlidableDrawerAdapter;
 }
-
-export default MDCPersistentDrawerFoundation;

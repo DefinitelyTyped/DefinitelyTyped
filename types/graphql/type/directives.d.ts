@@ -1,3 +1,4 @@
+import Maybe from "../tsutils/Maybe";
 import { GraphQLFieldConfigArgumentMap, GraphQLArgument } from "./definition";
 import { DirectiveDefinitionNode } from "../language/ast";
 import { DirectiveLocationEnum } from "../language/directiveLocation";
@@ -13,20 +14,20 @@ export function isDirective(directive: any): directive is GraphQLDirective;
  */
 export class GraphQLDirective {
     name: string;
-    description: string | void;
+    description: Maybe<string>;
     locations: DirectiveLocationEnum[];
     args: GraphQLArgument[];
-    astNode: DirectiveDefinitionNode | void;
+    astNode: Maybe<DirectiveDefinitionNode>;
 
     constructor(config: GraphQLDirectiveConfig);
 }
 
 export interface GraphQLDirectiveConfig {
     name: string;
-    description?: string | void;
+    description?: Maybe<string>;
     locations: DirectiveLocationEnum[];
-    args?: GraphQLFieldConfigArgumentMap | void;
-    astNode?: DirectiveDefinitionNode | void;
+    args?: Maybe<GraphQLFieldConfigArgumentMap>;
+    astNode?: Maybe<DirectiveDefinitionNode>;
 }
 
 /**

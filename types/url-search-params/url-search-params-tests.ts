@@ -11,6 +11,8 @@ params.entries();
 
 params.get("b");
 
+params.get("d");
+
 params.getAll("b");
 
 params.has("b");

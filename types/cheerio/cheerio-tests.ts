@@ -265,8 +265,7 @@ $el.text();
 $el.text('text');
 
 // .wrap( content )
-// See https://github.com/cheeriojs/cheerio/issues/731
-// $el.wrap($('<div class="red-fruit"></div>')).html();
+$el.wrap($('<div class="red-fruit"></div>')).html();
 
 // .css
 $el.css('width');

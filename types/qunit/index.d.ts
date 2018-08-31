@@ -1,6 +1,7 @@
 // Type definitions for QUnit v2.5.0
 // Project: http://qunitjs.com/
 // Definitions by: James Bracy <https://github.com/waratuman>
+//                 Mike North <https://github.com/mike-north>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Assert {
@@ -234,6 +235,32 @@ interface Assert {
      */
     throws(block: () => void, expected?: any, message?: any): void;
     raises(block: () => void, expected?: any, message?: any): void;
+
+    /**
+     * A marker for progress in a given test.
+     * 
+     * The `step()` assertion registers a passing assertion with a provided message. This makes 
+     * it easy to check that specific portions of code are being executed, especially in 
+     * asynchronous test cases and when used with `verifySteps()`. 
+     * 
+     * Together with the `verifySteps()` method, `step()` assertions give you an easy way
+     * to verify both the count and order of code execution.
+     * 
+     * @param message Message to display for the step
+     */
+    step(message: string): void;
+
+    /**
+     * A helper assertion to verify the order and number of steps in a test.
+     * 
+     * The assert.verifySteps() assertion compares a given array of string values (representing steps)
+     * with the order and values of previous step() calls. This assertion is helpful for verifying
+     * the order and count of portions of code paths, especially asynchronous ones.
+     * 
+     * @param steps Array of strings representing steps to verify
+     * @param message A short description of the assertion
+     */
+    verifySteps(steps: string[], message?: string): void;
  
 }
 
@@ -313,6 +340,38 @@ interface NestedHooks {
     
 }
 
+declare namespace QUnit {
+    interface BeginDetails { totalTests: number }
+    interface DoneDetails { failed: number, passed: number, total: number, runtime: number }
+    interface LogDetails {
+        result: boolean,
+        actual: any;
+        expected: any;
+        message: string;
+        source: string;
+        module: string;
+        name: string;
+        runtime: number;
+    }
+    interface ModuleDoneDetails {
+        name: string;
+        failed: number;
+        passed: number;
+        total: number;
+        runtime: number;
+    }
+    interface ModuleStartDetails { name: string }
+    interface TestDoneDetails {
+        name: string;
+        module: string;
+        failed: number;
+        passed: number;
+        total: number;
+        runtime: number;
+    }
+    interface TestStartDetails { name: string; module: string; }
+}
+
 interface QUnit {
     
     /**
@@ -333,7 +392,7 @@ interface QUnit {
      * 
      * @callback callback Callback to execute.
      */
-    begin(callback: (details: { totalTests: number }) => void): void;
+    begin(callback: (details: QUnit.BeginDetails) => void): void;
 
     /**
      * Configuration for QUnit
@@ -348,7 +407,7 @@ interface QUnit {
      * 
      * @param callback Callback to execute
      */
-    done(callback: (details: { failed: number, passed: number, total: number, runtime: number }) => void): void;
+    done(callback: (details: QUnit.DoneDetails) => void): void;
 
     /**
      * Advanced and extensible data dumping for JavaScript.
@@ -392,16 +451,7 @@ interface QUnit {
      * 
      * @param callback Callback to execute 
      */
-    log(callback: (details: {
-        result: boolean,
-        actual: any;
-        expected: any;
-        message: string;
-        source: string;
-        module: string;
-        name: string;
-        runtime: number;
-    }) => void): void;
+    log(callback: (details: QUnit.LogDetails) => void): void;
 
     /**
      * Group related tests under a single label.
@@ -449,20 +499,14 @@ interface QUnit {
      * 
      * @param callback Callback to execute
      */
-    moduleDone(callback: (details: {
-        name: string;
-        failed: number;
-        passed: number;
-        total: number;
-        runtime: number;
-    }) => void): void;
+    moduleDone(callback: (details: QUnit.ModuleDoneDetails) => void): void;
 
     /**
      * Register a callback to fire whenever a module begins.
      * 
      * @param callback Callback to execute
      */
-    moduleStart(callback: (details: { name: string }) => void): void;
+    moduleStart(callback: (details: QUnit.ModuleStartDetails) => void): void;
 
     /**
      * Adds a test to exclusively run, preventing all other tests from running.
@@ -578,7 +622,7 @@ interface QUnit {
      * 
      * @param callback Callback to execute
      */
-    testStart(callback: (details: { name: string; module: string;}) => void): void;
+    testStart(callback: (details: QUnit.TestStartDetails) => void): void;
 
     /**
      * Adds a test which expects at least one failing assertion during its run.
@@ -594,6 +638,14 @@ interface QUnit {
      * @param callback Function to close over assertions
      */
     todo(name: string, callback?: (assert: Assert) => void): void;
+
+    /**
+     * Compares two values. Returns true if they are equivalent.
+     *
+     * @param a The first value
+     * @param b The second value
+     */
+    equiv<T>(a: T, b: T): boolean;
 
     /**
      * Are the test running from the server or not.

@@ -4,7 +4,7 @@
 //                 Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
 //                 Andrew Makarov <https://github.com/r3nya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from "react";
 
@@ -24,6 +24,8 @@ export interface ResponsiveObject {
 }
 
 export type SwipeDirection = "left" | "down" | "right" | "up" | string;
+
+export type LazyLoadTypes = "ondemand" | "progressive";
 
 export interface Settings {
   accessibility?: boolean;
@@ -49,7 +51,7 @@ export interface Settings {
   focusOnSelect?: boolean;
   infinite?: boolean;
   initialSlide?: number;
-  lazyLoad?: "ondemand" | "progressive";
+  lazyLoad?: LazyLoadTypes;
   nextArrow?: JSX.Element;
   onEdge?(swipeDirection: SwipeDirection): void;
   onInit?(): void;
