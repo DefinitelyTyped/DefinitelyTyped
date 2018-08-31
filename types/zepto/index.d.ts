@@ -1662,7 +1662,7 @@ interface ZeptoEventHandlers {
 	[key: string]: ZeptoEventHandler;
 }
 interface ZeptoEventHandler {
-	(e: Event, ...args: any[]): void | false | any;
+	(e: Event, ...args: any[]): any;
 }
 declare var Zepto: (fn: ($: ZeptoStatic) => void) => void;
 declare var $: ZeptoStatic;
