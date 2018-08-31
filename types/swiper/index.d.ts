@@ -1,6 +1,6 @@
 // Type definitions for Swiper
 // Project: https://github.com/nolimits4web/Swiper
-// Definitions by: Luiz Machado <https://github.com/odahcam/>
+// Definitions by: Sebastián Galiano <https://github.com/sgaliano>, Luca Trazzi <https://github.com/lucax88x>, Eugene Matseruk <https://github.com/ematseruk>, Luiz Machado <https://github.com/odahcam/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0.1
 // Swiper Version: 4.2.6
