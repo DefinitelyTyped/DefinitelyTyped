@@ -1,12 +1,8 @@
-// Type definitions for Swiper
+// Type definitions for Swiper 4.2
 // Project: https://github.com/nolimits4web/Swiper
-// Definitions by: Sebastián Galiano <https://github.com/sgaliano>,
-//   Luca Trazzi <https://github.com/lucax88x>,
-//   Eugene Matseruk <https://github.com/ematseruk>,
-//   Luiz Machado <https://github.com/odahcam/>
+// Definitions by: Sebastián Galiano <https://github.com/sgaliano>, Luca Trazzi <https://github.com/lucax88x>, Eugene Matseruk <https://github.com/ematseruk>, Luiz <https://github.com/odahcam/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
-// Swiper Version: 4.2
+// TypeScript Version: 2.9
 
 // declare namespace swiper {
 declare module 'swiper' {
@@ -299,7 +295,7 @@ declare module 'swiper' {
         cubeEffect?: CubeEffectOptions;
         zoom?: ZoomOptions | boolean;
         keyboard?: KeyboardOptions | boolean;
-        mousewheel?: MousewheelOptions | boolean;
+        mousewheel?: MouseWheelOptions | boolean;
         virtual?: VirtualOptions | boolean;
         hashNavigation?: HashNavigationOptions | boolean;
         history?: HistoryNavigationOptions | boolean;
@@ -464,7 +460,6 @@ declare module 'swiper' {
          */
         setTranslate?: (translate: any) => any;
 
-
         /**
          * Triggered everytime when swiper starts animation.
          * Receives current transition duration (in ms) as an arguments,
@@ -560,6 +555,7 @@ declare module 'swiper' {
          * });
          */
         renderCustom?: (swiper: Swiper, current: number, total: number) => void;
+
         bulletClass?: string;
         bulletActiveClass?: string;
         modifierClass?: string;
@@ -582,26 +578,52 @@ declare module 'swiper' {
      * });
      */
     interface ScrollbarOptions {
-        el?: SelectableElement;
-
-        dragSize?: string | number;
-
         /**
-         * @default '.swiper-scrollbar'
+         * String with CSS selector or HTML element of the container with scrollbar.
          */
-        container: string;
+        el: SelectableElement;
+
         /**
-         * @default true
-         */
-        draggable?: boolean;
-        /**
+         * Hide scrollbar automatically after user interaction
+         *
          * @default true
          */
         hide?: boolean;
+
         /**
+         * Set to true to enable make scrollbar draggable that allows you to control slider position
+         *
+         * @default true
+         */
+        draggable?: boolean;
+
+        /**
+         * Set to true to snap slider position to slides when you release scrollbar
+         *
          * @default false
          */
         snapOnRelease?: boolean;
+
+        /**
+         * Size of scrollbar draggable element in px
+         *
+         * @default 'auto'
+         */
+        dragSize?: 'auto' | number;
+
+        /**
+         * Scrollbar element additional CSS class when it is disabled
+         *
+         * @default 'swiper-scrollbar-lock'
+         */
+        lockClass?: string;
+
+        /**
+         * 	Scrollbar draggable element CSS class
+         *
+         * @default 'swiper-scrollbar-drag'
+         */
+        dragClass?: string;
     }
 
     /**
@@ -713,7 +735,7 @@ declare module 'swiper' {
         onlyInViewport?: boolean;
     }
 
-    interface MousewheelOptions {
+    interface MouseWheelOptions {
         forceToAxis?: boolean;
         releaseOnEdges?: boolean;
         invert?: boolean;
@@ -784,7 +806,7 @@ declare module 'swiper' {
          *
          * @default 'slide'
          */
-        by?: string;
+        by?: 'slide' | 'container';
     }
 
     interface A11yOptions {
@@ -864,7 +886,7 @@ declare module 'swiper' {
         /**
          * Array with slide items passed by virtual.slides parameter
          */
-        slides: Array<any>;
+        slides: any[];
 
         /*
          * Methods
@@ -1365,11 +1387,6 @@ declare module 'swiper' {
          */
         cleanStyles: boolean;
 
-        /*
-         * [If installed with use] The zoom module accessor.
-         */
-        zoom?: Zoom;
-
         /**
          * Installs modules on Swiper in runtime.
          */
@@ -1423,18 +1440,18 @@ declare module 'swiper' {
         /**
          * Add event listener
          */
-        on(event: SwiperEvent, handler: EventHandlerNonNull): void;
+        on(event: SwiperEvent, handler: () => void): void;
 
         /**
          * Add event listener that will be executed only once
          */
-        once(event: SwiperEvent, handler: EventHandlerNonNull): void;
+        once(event: SwiperEvent, handler: () => void): void;
 
         /**
          * Remove event listener for specified event
          * If no handler specified, removes all listeners for specified event
          */
-        off(event: SwiperEvent, handler?: EventHandlerNonNull): void;
+        off(event: SwiperEvent, handler?: () => void): void;
 
         /**
          * Disable mousewheel control
@@ -1465,6 +1482,26 @@ declare module 'swiper' {
          * Set grab cursor
          */
         setGrabCursor(): void;
+
+        // Components
+        navigation?: NavigationOptions;
+        pagination?: PaginationOptions;
+        scrollbar?: ScrollbarOptions;
+        autoplay?: AutoplayOptions;
+        parallax?: boolean;
+        lazy?: LazyOptions | boolean;
+        fadeEffect?: FadeEffectOptions;
+        coverflowEffect?: CoverflowEffectOptions;
+        flipEffect?: FlipEffectOptions;
+        cubeEffect?: CubeEffectOptions;
+        zoom?: ZoomOptions | boolean;
+        keyboard?: KeyboardOptions | boolean;
+        mousewheel?: MouseWheelOptions | boolean;
+        virtual?: VirtualOptions;
+        hashNavigation?: HashNavigationOptions;
+        history?: HistoryNavigationOptions;
+        controller?: ControllerOptions;
+        a11y?: A11yOptions;
     }
 }
 

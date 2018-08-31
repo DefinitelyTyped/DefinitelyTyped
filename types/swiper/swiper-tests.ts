@@ -3,6 +3,7 @@
  * for more details, please see http://idangero.us/swiper/demos/
  * @author Eugene Matseruk
  */
+import { Swiper } from 'swiper';
 
 /**
  *  010-default
