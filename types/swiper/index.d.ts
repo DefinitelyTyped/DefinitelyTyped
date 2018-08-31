@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 // declare namespace swiper {
-  declare module 'swiper' {
+declare module 'swiper' {
     /**
      * Common Swiper events.
      */
@@ -56,6 +56,29 @@
      * Swiper event names.
      */
     type SwiperEvent = CommonEvent | PaginationEvent | AutoplayEvent | LazyLoadingEvent;
+
+    /**
+     * Swiper module types.
+     */
+    type SwiperModule =
+        | Navigation
+        | Pagination
+        | Scrollbar
+        | Autoplay
+        | Parallax
+        | Lazy
+        | FadeEffect
+        | CoverflowEffect
+        | FlipEffect
+        | CubeEffect
+        | Zoom
+        | Keyboard
+        | Mousewheel
+        | Virtual
+        | HashNavigation
+        | History
+        | Controller
+        | A11y;
 
     type DOM7Element = any;
     type SelectableElement = string | HTMLElement;
@@ -1404,7 +1427,7 @@
         /**
          * Installs modules on Swiper in runtime.
          */
-        static use(modules: any[]): void;
+        static use(modules: SwiperModule[]): void;
 
         /**
          * Add new slides to the end. slides could be
