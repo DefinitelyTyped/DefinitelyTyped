@@ -269,6 +269,11 @@ declare namespace JQueryValidation {
         focusInvalid(): void;
         errorMap: ErrorDictionary;
         errorList: ErrorListItem[];
+
+        /**
+         * Destroys this instance of validator freeing up resources and unregistering events.
+         */
+        destroy(): void;
     }
 }
 
