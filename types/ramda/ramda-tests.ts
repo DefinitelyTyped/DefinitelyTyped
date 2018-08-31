@@ -699,17 +699,19 @@ R.times(i, 5);
     }
 
     const a: R.Dictionary<number> = R.pipe(
-        R.filter(isEven),
+        R.filter<number, 'object'>(isEven),
     )({ a: 0, b: 1 }); // => { a: 0 }
+
     const b: number[] = R.pipe(
-        R.filter(isEven),
+        R.filter<number, 'array'>(isEven),
     )([0, 1]); // => [0]
 
     const c: R.Dictionary<number> = R.pipe(
-        R.reject(isEven),
+        R.reject<number, 'object'>(isEven),
     )({ a: 0, b: 1 }); // => { b: 1 }
+
     const d: number[] = R.pipe(
-        R.reject(isEven),
+        R.reject<number, 'array'>(isEven),
     )([0, 1]); // => [1]
 };
 
