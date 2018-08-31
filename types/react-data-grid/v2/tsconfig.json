@@ -19,10 +19,10 @@
         "forceConsistentCasingInFileNames": true,
         "paths": {
             "react-data-grid": [
-                "react-data-grid/v1"
+                "react-data-grid/v2"
                 ],
             "react-data-grid/*": [
-                "react-data-grid/v1/*"
+                "react-data-grid/v2/*"
                 ]
         }
     },
