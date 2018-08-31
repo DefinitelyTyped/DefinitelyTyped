@@ -291,12 +291,15 @@ export class Fab extends Component<{
     position?: string,
     disabled?: boolean,
     onClick?(e?: React.MouseEvent<HTMLElement>): void,
+    name?: string,
+    className?: string
 }, any> {}
 
 export class Button extends Component<{
     modifier?: string,
     disabled?: boolean,
     ripple?: boolean,
+    name?: string,
     className?: string,
     onClick?(e?: React.MouseEvent<HTMLElement>): void
 }, any> {}
@@ -304,8 +307,10 @@ export class Button extends Component<{
 export class Input extends Component<{
     modifier?: string,
     disabled?: boolean,
+    readOnly?: boolean,
     onChange?: (e: React.ChangeEvent<any>) => void,
     value?: string,
+    defaultValue?: string,
     checked?: boolean,
     placeholder?: string,
     type?: string,
@@ -321,7 +326,10 @@ export class Radio extends Component<{
     onChange?(e: Event): void,
     value?: string,
     checked?: boolean,
-    inputId?: string
+    defaultChecked?: boolean,
+    inputId?: string,
+    name?: string,
+    className?: string
 }, any> {}
 
 export class Checkbox extends Component<{
@@ -330,7 +338,9 @@ export class Checkbox extends Component<{
     onChange?(e: Event): void,
     value?: string,
     checked?: boolean,
-    inputId?: string
+    inputId?: string,
+    name?: string,
+    className?: string
 }, any> {}
 
 export class Range extends Component<{
@@ -349,14 +359,18 @@ export class Select extends Component<{
     autofocus?: boolean,
     required?: boolean,
     form?: string,
-    size?: string
+    size?: string,
+    name?: string,
+    className?: string
 }, any> {}
 
 export class Switch extends Component<{
+    modifier?: string,
     onChange?(e: SwitchChangeEvent): void,
     checked?: boolean,
     disabled?: boolean,
     inputId?: string,
+    name?: string,
     className?: string
 }, any> {}
 

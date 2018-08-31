@@ -2,7 +2,7 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import {
     SplitterSide, Splitter, SplitterContent,
-    Page, Input, Button,
+    Page, Input, Button, Radio,
 } from "react-onsenui";
 
 class AppState {
@@ -38,7 +38,8 @@ export class App extends React.Component<AppProps, AppState> {
                 <SplitterContent>
                     <Page>
                         Test page
-                        <Input name='test' type='text' value='test' onChange={this.onChange} />
+                        <Input name='test' type='text' value='test' readOnly={true} onChange={this.onChange} />
+                        <Radio name='radioTest' className='left' />
                         <Button onClick={this.onClick} />
 					</Page>
                 </SplitterContent>
