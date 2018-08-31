@@ -184,7 +184,7 @@ declare module 'swiper' {
         /**
          * Register event handlers.
          */
-        on?: EventsOptions;
+        on?: {[key in SwiperEvent]?: () => void };
 
         // Slides grid
         spaceBetween?: number;
