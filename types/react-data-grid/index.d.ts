@@ -554,7 +554,7 @@ declare namespace AdazzleReactDataGrid {
         export import OnRowExpandToggle = AdazzleReactDataGrid.OnRowExpandToggle;
 
         export namespace editors {
-            class EditorBase extends React.Component<EditorBaseProps, any> {
+            class EditorBase<P = {}, S = {}> extends React.Component<P & EditorBaseProps, S> {
                 getStyle(): { width: string };
 
                 getValue(): any;
