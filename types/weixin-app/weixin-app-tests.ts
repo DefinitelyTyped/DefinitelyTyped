@@ -29,6 +29,11 @@ let behavior = Behavior({
 Component({
     behaviors: [behavior, "wx://form-field"],
 
+    options: {
+        multipleSlots: false,
+        addGlobalClass: false
+    },
+
     properties: {
         myProperty: {
             // 属性名

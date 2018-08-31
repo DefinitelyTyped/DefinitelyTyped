@@ -3327,19 +3327,16 @@ type ExtendedComponent<
     Instance extends Component<Data, Props>,
     Data,
     Methods,
-    Options,
     Props
-> = CombinedInstance<Instance, Data, Methods, Options, Props> &
-    Component<Data, Props>;
+> = CombinedInstance<Instance, Data, Methods, Props> & Component<Data, Props>;
 
 // CombinedInstance models the `this`, i.e. instance type for (user defined) component
 type CombinedInstance<
     Instance extends Component<Data, Props>,
     Data,
     Methods,
-    Options,
     Props
-> = Methods & Options & Instance;
+> = Methods & Instance;
 
 type Prop<T> = (() => T) | { new (...args: any[]): T & object };
 
@@ -3368,11 +3365,10 @@ type ThisTypedComponentOptionsWithRecordProps<
     V extends Component<Data, Props>,
     Data,
     Methods,
-    Options,
     Props
 > = object &
-    ComponentOptions<V, Data | ((this: V) => Data), Methods, Options, Props> &
-    ThisType<CombinedInstance<V, Data, Methods, Options, Readonly<Props>>>;
+    ComponentOptions<V, Data | ((this: V) => Data), Methods, Props> &
+    ThisType<CombinedInstance<V, Data, Methods, Readonly<Props>>>;
 
 interface ComponentRelation<D = any, P = any> {
     /** 目标组件的相对关系，可选的值为 parent 、 child 、 ancestor 、 descendant */
@@ -3432,7 +3428,6 @@ interface ComponentOptions<
     Instance extends Component<Data, Props>,
     Data = DefaultData<Instance>,
     Methods = DefaultMethods<Instance>,
-    Options = object,
     Props = PropsDefinition<DefaultProps>
 > extends Partial<Lifetimes> {
     /**
@@ -3457,7 +3452,30 @@ interface ComponentOptions<
     /**
      * 一些组件选项，请参见文档其他部分的说明
      */
-    options?: Options;
+    options?: Partial<{
+        /**
+         * 使用外部样式类可以让组件使用指定的组件外样式类，如果希望组件外样式类能够完全影响组件内部，
+         * 可以将组件构造器中的options.addGlobalClass字段置为true。这个特性从小程序基础库版本 2.2.3 开始支持。
+         *
+         * @version 2.2.3
+         */
+        addGlobalClass: boolean;
+        /**
+         * 在组件的wxml中可以包含 slot 节点，用于承载组件使用者提供的wxml结构。
+         * 默认情况下，一个组件的wxml中只能有一个slot。需要使用多slot时，可以在组件js中声明启用。
+         */
+        multipleSlots: boolean;
+    }>;
+
+    /**
+     * 组件接受的外部样式类，参见 外部样式类
+     *
+     * 有时，组件希望接受外部传入的样式类（类似于 view 组件的 hover-class 属性）。
+     * 此时可以在 Component 中用 externalClasses 定义段定义若干个外部样式类。这个特性从小程序基础库版本 1.9.90 开始支持。
+     *
+     * @version 1.9.90
+     */
+    externalClasses?: string[];
 
     /**
      * 类似于mixins和traits的组件间代码复用机制
@@ -3582,15 +3600,9 @@ interface Component<D, P> {
      */
     getRelationNodes(relationKey: string): ComponentRelation[];
 }
-declare function Component<D, M, O, P>(
-    options?: ThisTypedComponentOptionsWithRecordProps<
-        Component<D, P>,
-        D,
-        M,
-        O,
-        P
-    >
-): ExtendedComponent<Component<D, P>, D, M, O, P>;
+declare function Component<D, M, P>(
+    options?: ThisTypedComponentOptionsWithRecordProps<Component<D, P>, D, M, P>
+): ExtendedComponent<Component<D, P>, D, M, P>;
 /**
  * behaviors 是用于组件间代码共享的特性
  * 类似于一些编程语言中的“mixins”或“traits”
@@ -3599,15 +3611,9 @@ declare function Component<D, M, O, P>(
  * 每个组件可以引用多个 behavior
  * behavior 也可以引用其他 behavior
  */
-declare function Behavior<D, M, O, P>(
-    options?: ThisTypedComponentOptionsWithRecordProps<
-        Component<D, P>,
-        D,
-        M,
-        O,
-        P
-    >
-): ExtendedComponent<Component<D, P>, D, M, O, P>;
+declare function Behavior<D, M, P>(
+    options?: ThisTypedComponentOptionsWithRecordProps<Component<D, P>, D, M, P>
+): ExtendedComponent<Component<D, P>, D, M, P>;
 // #endregion
 // #region Page
 interface PageShareAppMessageOptions {
