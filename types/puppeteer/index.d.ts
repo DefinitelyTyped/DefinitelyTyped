@@ -1223,7 +1223,7 @@ export interface Page extends EventEmitter, FrameBase {
   bringToFront(): Promise<void>;
 
   /** Get the browser the page belongs to. */
-  browser(): Promise<Browser>;
+  browser(): Browser;
 
   /** Closes the current page. */
   close(options?: PageCloseOptions): Promise<void>;
