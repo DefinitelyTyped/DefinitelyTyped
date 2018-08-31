@@ -74,7 +74,8 @@ declare module 'swiper' {
      */
     interface SwiperOptions {
         /**
-         * Whether Swiper should be initialised automatically when you create an instance. If disabled, then you need to init it manually by calling mySwiper.init()
+         * Whether Swiper should be initialised automatically when you create an instance.
+         * If disabled, then you need to init it manually by calling mySwiper.init()
          *
          * @default true
          */
@@ -102,24 +103,28 @@ declare module 'swiper' {
         speed?: number;
 
         /**
-         * Enabled this option and plugin will set width/height on swiper wrapper equal to total size of all slides. Mostly should be used as compatibility fallback option for browser that don't support flexbox layout well
+         * Enabled this option and plugin will set width/height on swiper wrapper equal to total size of all slides.
+         * Mostly should be used as compatibility fallback option for browser that don't support flexbox layout well
          */
         setWrapperSize?: boolean;
 
         /**
-         * Enabled this option and swiper will be operated as usual except it will not move, real translate values on wrapper will not be set. Useful when you may need to create custom slide transition
+         * Enabled this option and swiper will be operated as usual except it will not move, real translate values on wrapper will not be set.
+         * Useful when you may need to create custom slide transition
          */
         virtualTranslate?: boolean;
 
         /**
-         * Swiper width (in px). Parameter allows to force Swiper width. Useful only if you initialize Swiper when it is hidden.
+         * Swiper width (in px). Parameter allows to force Swiper width.
+         * Useful only if you initialize Swiper when it is hidden.
          *
          * @note Setting this parameter will make Swiper not responsive
          */
         width?: number;
 
         /**
-         * Swiper height (in px). Parameter allows to force Swiper height. Useful only if you initialize Swiper when it is hidden.
+         * Swiper height (in px). Parameter allows to force Swiper height.
+         * Useful only if you initialize Swiper when it is hidden.
          *
          * @note Setting this parameter will make Swiper not responsive
          */
@@ -133,21 +138,25 @@ declare module 'swiper' {
         autoHeight?: boolean;
 
         /**
-         * Set to true to round values of slides width and height to prevent blurry texts on usual resolution screens (if you have such)
+         * Set to true to round values of slides width and height to prevent blurry texts on usual
+         * resolution screens (if you have such)
          *
          * @default false
          */
         roundLengths?: boolean;
 
         /**
-         * Set to true on  Swiper for correct touch events interception. Use only on  swipers that use same direction as the parent one
+         * Set to true on  Swiper for correct touch events interception. Use only on
+         * swipers that use same direction as the parent one
          *
          * @default false
          */
         nested?: boolean;
 
         /**
-         * If enabled (by default) and navigation elements' parameters passed as a string (like ".pagination") then Swiper will look for such elements through child elements first. Applies for pagination, prev/next buttons and scrollbar elements
+         * If enabled (by default) and navigation elements' parameters passed as a string (like ".pagination")
+         * then Swiper will look for such elements through child elements first.
+         * Applies for pagination, prev/next buttons and scrollbar elements
          *
          * @default true
          */
@@ -161,14 +170,16 @@ declare module 'swiper' {
         effect?: 'slide' | 'fade' | 'cube' | 'coverflow' | 'flip';
 
         /**
-         * Fire [Transition/SlideChange][Start/End] events on swiper initialization. Such events will be fired on initialization in case of your initialSlide is not 0, or you use loop mode
+         * Fire [Transition/SlideChange][Start/End] events on swiper initialization.
+         * Such events will be fired on initialization in case of your initialSlide is not 0, or you use loop mode
          *
          * @default true
          */
         runCallbacksOnInit?: boolean;
 
         /**
-         * When enabled Swiper will be disabled and hide navigation buttons on case there are not enough slides for sliding.
+         * When enabled Swiper will be disabled and hide navigation buttons on
+         * case there are not enough slides for sliding.
          *
          * @default false
          */
@@ -397,7 +408,8 @@ declare module 'swiper' {
         touchMoveOpposite?: (event: any) => any;
 
         /**
-         * Triggered when user touch and move finger over Swiper and move it. Receives 'touchmove' event as an arguments.
+         * Triggered when user touch and move finger over Swiper and move it.
+         * Receives 'touchmove' event as an arguments.
          */
         sliderMove?: (event: any) => any;
 
@@ -427,7 +439,8 @@ declare module 'swiper' {
         imagesReady?: () => any;
 
         /**
-         * Triggered when Swiper progress is changed, as an arguments it receives progress that is always from 0 to 1
+         * Triggered when Swiper progress is changed, as an arguments it receives
+         * progress that is always from 0 to 1
          */
         progress?: (progress: any) => any;
 
@@ -453,7 +466,8 @@ declare module 'swiper' {
 
 
         /**
-         * Triggered everytime when swiper starts animation. Receives current transition duration (in ms) as an      arguments,
+         * Triggered everytime when swiper starts animation.
+         * Receives current transition duration (in ms) as an arguments,
          */
         setTransition?: (transition: any) => any;
 
@@ -465,14 +479,16 @@ declare module 'swiper' {
 
     interface NavigationOptions {
         /**
-         * String with CSS selector or HTML element of the element that will work like "next" button after click on it
+         * String with CSS selector or HTML element of the element that will work
+         * like "next" button after click on it
          *
          * @default null
          */
         nextEl?: SelectableElement;
 
         /**
-         * String with CSS selector or HTML element of the element that will work like "prev" button after click on it
+         * String with CSS selector or HTML element of the element that will work
+         * like "prev" button after click on it
          *
          * @default null
          */
@@ -502,24 +518,38 @@ declare module 'swiper' {
 
     interface PaginationOptions {
         el: SelectableElement;
+
         type?: 'bullets' | 'fraction' | 'progressbar' | 'custom';
+
         bulletElement?: string;
+
         dynamicBullets?: boolean;
+
         hideOnClick?: boolean;
+
         clickable?: boolean;
+
         /**
-         * format fraction pagination current number. Function receives current number, and you need to return formatted value
+         * format fraction pagination current number. Function receives current number,
+         * and you need to return formatted value
          */
         formatFractionCurrent?: (number: number) => number;
+
         /**
-         * format fraction pagination total number. Function receives total number, and you need to return formatted value
+         * format fraction pagination total number. Function receives total number, and you
+         * need to return formatted value
          */
         formatFractionTotal?: (number: number) => number;
+
         renderBullet?: (index: number, className: string) => void;
+
         renderFraction?: (currentClass: string, totalClass: string) => void;
+
         renderProgressbar?: (progressbarFillClass: string) => void;
+
         /**
-         * This parameter is required for custom pagination type where you have to specify how it should be rendered.
+         * This parameter is required for custom pagination type where you have to specify
+         * how it should be rendered.
          *
          * @example
          * var swiper = new Swiper('.swiper-container', {
@@ -540,6 +570,17 @@ declare module 'swiper' {
         clickableClass?: string;
     }
 
+    /**
+     * Object with scrollbar parameters.
+     *
+     * @example
+     * var mySwiper = new Swiper('.swiper-container', {
+     *   scrollbar: {
+     *     el: '.swiper-scrollbar',
+     *     draggable: true,
+     *   },
+     * });
+     */
     interface ScrollbarOptions {
         el?: SelectableElement;
 
@@ -563,20 +604,37 @@ declare module 'swiper' {
         snapOnRelease?: boolean;
     }
 
+    /**
+     * Object with autoplay parameters or boolean true to enable with default settings.
+     *
+     * @example
+     * var mySwiper = new Swiper('.swiper-container', {
+     *   autoplay: {
+     *     delay: 5000,
+     *   },
+     * });
+     */
     interface AutoplayOptions {
         /**
          * Delay between transitions (in ms). If this parameter is not specified, auto play will be disabled
          *
-         * If you need to specify different delay for specifi slides you can do it by using data-swiper-autoplay (in ms) attribute on slide.
+         * If you need to specify different delay for specifi slides you can do it by using
+         * data-swiper-autoplay (in ms) attribute on slide.
          *
          * @example
          * <!-- hold this slide for 2 seconds -->
          * <div class="swiper-slide" data-swiper-autoplay="2000">
-         * stopOnLast: boolean // default:	false	Enable this parameter and autoplay will be stopped when it reaches last slide (has no effect in loop mode)
          *
          * @default 3000
          */
         delay?: number;
+
+        /**
+         * Enable this parameter and autoplay will be stopped when it reaches last slide (has no effect in loop mode)
+         *
+         * @default false
+         */
+        stopOnLastSlide?: boolean;
 
         /**
          * Set to false and autoplay will not be disabled after
@@ -595,7 +653,8 @@ declare module 'swiper' {
         reverseDirection?: boolean;
 
         /**
-         * When enabled autoplay will wait for wrapper transition to continue. Can be disabled in case of using Virtual Translate when your
+         * When enabled autoplay will wait for wrapper transition to continue.
+         * Can be disabled in case of using Virtual Translate when your
          * slider may not have transition
          *
          * @default true
@@ -671,14 +730,16 @@ declare module 'swiper' {
 
     interface HashNavigationOptions {
         /**
-         * Set to true to enable also navigation through slides (when hashnav is enabled) by browser history or by setting directly hash on document location
+         * Set to true to enable also navigation through slides (when hashnav
+         * is enabled) by browser history or by setting directly hash on document location
          *
          * @default false
          */
         watchState?: boolean;
 
         /**
-         * Works in addition to hashnav to replace current url state with the new one instead of adding it to history
+         * Works in addition to hashnav to replace current url state with the
+         * new one instead of adding it to history
          *
          * @default 	false
          */
@@ -687,7 +748,8 @@ declare module 'swiper' {
 
     interface HistoryNavigationOptions {
         /**
-         * Works in addition to hashnav or history to replace current url state with the new one instead of adding it to history
+         * Works in addition to hashnav or history to replace current url state with the
+         * new one instead of adding it to history
          *
          * @default false
          */
@@ -703,7 +765,8 @@ declare module 'swiper' {
 
     interface ControllerOptions {
         /**
-         * Pass here another Swiper instance or array with Swiper instances that should be controlled by this Swiper
+         * Pass here another Swiper instance or array with Swiper instances that should be controlled
+         * by this Swiper
          */
         control?: Swiper;
 
@@ -715,7 +778,9 @@ declare module 'swiper' {
         inverse?: boolean;
 
         /**
-         * Can be 'slide' or 'container'. Defines a way how to control another slider: slide by slide (with respect to other slider's grid) or depending on all slides/container (depending on total slider percentage)
+         * Can be 'slide' or 'container'. Defines a way how to control another slider: slide by slide
+         * (with respect to other slider's grid) or depending on all slides/container
+         * (depending on total slider percentage).
          *
          * @default 'slide'
          */
@@ -806,7 +871,8 @@ declare module 'swiper' {
          */
 
         /**
-         * Add new slides to the end. slides could be HTMLElement or HTML string with new slide or array with such slides, for example:
+         * Add new slides to the end. slides could be HTMLElement or HTML string with new slide or array
+         * with such slides, for example:
          *
          * @example
          * mySwiper.appendSlide('<div class="swiper-slide">Slide 10"</div>')
@@ -818,7 +884,8 @@ declare module 'swiper' {
         appendSlide(slide: HTMLElement | string): void;
 
         /**
-         * Add new slides to the beginning. slides could be HTMLElement or HTML string with new slide or array with such slides, for example:
+         * Add new slides to the beginning. slides could be HTMLElement or HTML string with new slide or
+         * array with such slides, for example:
          *
          * @example
          * mySwiper.prependSlide('<div class="swiper-slide">Slide 0"</div>')
@@ -1135,7 +1202,8 @@ declare module 'swiper' {
         /**
          * Index number of currently active slide.
          *
-         * @note Note, that in loop mode active index value will be always shifted on a number of looped/duplicated slides
+         * @note Note, that in loop mode active index value will be always shifted
+         * on a number of looped/duplicated slides.
          */
         activeIndex: number;
 
@@ -1214,7 +1282,8 @@ declare module 'swiper' {
          * Run transition to next slide.
          *
          * @param speed Transition duration (in ms).
-         * @param runCallbacks Set it to false (by default it is true) and transition will not produce transition events.
+         * @param runCallbacks Set it to false (by default it is true) and transition will
+         *  not produce transition events.
          */
         slideNext(speed: number, runCallbacks: boolean): void;
 
@@ -1222,16 +1291,19 @@ declare module 'swiper' {
          * Run transition to previous slide.
          *
          * @param speed Transition duration (in ms).
-         * @param runCallbacks Set it to false (by default it is true) and transition will not produce transition events.
+         * @param runCallbacks Set it to false (by default it is true) and transition will
+         *  not produce transition events.
          */
         slidePrev(speed?: number, runCallbacks?: boolean): void;
 
         /**
-         * Run transition to the slide with index number equal to 'index' parameter for the duration equal to 'speed' parameter.
+         * Run transition to the slide with index number equal to 'index' parameter for the
+         *  duration equal to 'speed' parameter.
          *
          * @param index Index number of slide.
          * @param speed Transition duration (in ms).
-         * @param runCallbacks Set it to false (by default it is true) and transition will not produce transition events.
+         * @param runCallbacks Set it to false (by default it is true) and transition will
+         *  not produce transition events.
          */
         slideTo(index: number, speed?: number, runCallbacks?: boolean): void;
 
@@ -1309,7 +1381,11 @@ declare module 'swiper' {
          * array with such slides, for example:
          *
          * @example appendSlide('<div class="swiper-slide">Slide 10"</div>')
-         * @example appendSlide(['<div class="swiper-slide">Slide 10"</div>', '<div class="swiper-slide">Slide 11"</div>']);
+         * @example
+         * appendSlide([
+         *  '<div class="swiper-slide">Slide 10"</div>',
+         *  '<div class="swiper-slide">Slide 11"</div>'
+         * ]);
          */
         appendSlide(slides: HTMLElement | string | string[]): void;
 
@@ -1318,7 +1394,10 @@ declare module 'swiper' {
          * HTMLElement or HTML string with new slide or array with such slides, for example:
          *
          * @example prependSlide('<div class="swiper-slide">Slide 0"</div>')
-         * @example prependSlide(['<div class="swiper-slide">Slide 1"</div>', '<div class="swiper-slide">Slide 2"</div>']);
+         * @example prependSlide([
+         *  '<div class="swiper-slide">Slide 1"</div>',
+         *  '<div class="swiper-slide">Slide 2"</div>'
+         * ]);
          */
         prependSlide(slides: HTMLElement | string | string[]): void;
 
