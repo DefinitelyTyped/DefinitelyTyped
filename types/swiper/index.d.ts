@@ -785,15 +785,15 @@
     }
 
     /**
-    * Object with controller parameters or boolean true to enable with default settings. For example:
-    *
-    * @example
-    * var mySwiper = new Swiper('.swiper-container', {
-    *   controller: {
-    *     inverse: true,
-    *   },
-    * });
-    */
+     * Object with controller parameters or boolean true to enable with default settings. For example:
+     *
+     * @example
+     * var mySwiper = new Swiper('.swiper-container', {
+     *   controller: {
+     *     inverse: true,
+     *   },
+     * });
+     */
     interface ControllerOptions {
         /**
          * Pass here another Swiper instance or array with Swiper instances that should be controlled

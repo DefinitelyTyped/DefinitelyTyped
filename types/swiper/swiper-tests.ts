@@ -667,6 +667,12 @@ function zoom() {
             prevEl: '.swiper-button-prev',
         },
     });
+
+    swiper.zoom.out();
+    swiper.zoom.disable();
+    swiper.zoom.enabled === false;
+    swiper.zoom.enable();
+    swiper.zoom.in();
 }
 
 /**
