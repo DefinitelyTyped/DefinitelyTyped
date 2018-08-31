@@ -2,7 +2,7 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import {
     SplitterSide, Splitter, SplitterContent,
-    Page, Input, Button, Radio,
+    Page, Input, Button, Radio, Checkbox, Select, Switch,
 } from "react-onsenui";
 
 class AppState {
@@ -20,6 +20,9 @@ export class App extends React.Component<AppProps, AppState> {
 
     onChange(event: React.ChangeEvent<HTMLInputElement>) {}
     onClick(event: React.MouseEvent<HTMLButtonElement>) {}
+    onRadioChange(event: Event) {}
+    onCheckboxChange(event: Event) {}
+    onSelectChange(event: React.ChangeEvent<HTMLSelectElement>) {}
 
     render() {
         return (
@@ -39,8 +42,15 @@ export class App extends React.Component<AppProps, AppState> {
                     <Page>
                         Test page
                         <Input name='test' type='text' value='test' readOnly={true} onChange={this.onChange} />
-                        <Radio name='radioTest' className='left' />
-                        <Button onClick={this.onClick} />
+                        <Radio name='radioTest' defaultChecked={true} className='left' checked={true} disabled={true} inputId='radioId' onChange={this.onRadioChange} />
+                        <Checkbox name='checkboxTest' checked={true} disabled={true} inputId='checkboxId' className='left' modifier='material' onChange={this.onCheckboxChange} />
+                        <Select modifier='material' name='selectTest' className='left' onChange={this.onSelectChange}>
+                            <option value="1">Option #1</option>
+                            <option value="2">Option #2</option>
+                            <option value="3">Option #3</option>
+                        </Select>
+                        <Switch className='left' modifier='material' checked={true} inputId='switchId' name='switchTest' />
+                        <Button name='someButton' onClick={this.onClick} />
 					</Page>
                 </SplitterContent>
             </Splitter>
