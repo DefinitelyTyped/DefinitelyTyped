@@ -2267,7 +2267,7 @@ declare namespace wx {
      * @version 1.4.0
      */
     function createSelectorQuery(): SelectorQuery;
-    
+
     /**
      * WXML节点布局相交状态
      */
@@ -2311,12 +2311,22 @@ declare namespace wx {
         };
     }
     interface createIntersectionObserverCallBack {
-        relativeTo(selector?: string, margins?: margins): createIntersectionObserverCallBack;
-        relativeToViewport(margins?: margins): createIntersectionObserverCallBack;
-        observe(selector?: string, callback?: (response: observeResponse) => void): createIntersectionObserverCallBack;
+        relativeTo(
+            selector?: string,
+            margins?: margins
+        ): createIntersectionObserverCallBack;
+        relativeToViewport(
+            margins?: margins
+        ): createIntersectionObserverCallBack;
+        observe(
+            selector?: string,
+            callback?: (response: observeResponse) => void
+        ): createIntersectionObserverCallBack;
         disconnect(): void;
     }
-    function createIntersectionObserver(options?: createIntersectionObserverOption): createIntersectionObserverCallBack;
+    function createIntersectionObserver(
+        options?: createIntersectionObserverOption
+    ): createIntersectionObserverCallBack;
 
     interface NodesRefRect {
         /** 节点的ID */
