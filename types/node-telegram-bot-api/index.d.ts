@@ -371,14 +371,12 @@ declare namespace TelegramBot {
         mime_type?: string;
     }
 
-    interface Video {
-        file_id: string;
+    interface Video extends FileBase {
         width: number;
         height: number;
         duration: number;
         thumb?: PhotoSize;
         mime_type?: string;
-        file_size: number;
     }
 
     interface Voice extends FileBase {
