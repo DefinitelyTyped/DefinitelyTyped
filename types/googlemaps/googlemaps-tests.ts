@@ -438,3 +438,16 @@ service.findPlaceFromQuery({
 
     results[0].name; // $ExpectType string
 });
+
+var input = document.getElementById('searchTextField');
+var options: google.maps.places.AutocompleteOptions = {
+  types: ['establishment'],
+  fields: ['formatted_address', 'id'],
+};
+
+let autocomplete = new google.maps.places.Autocomplete(new HTMLInputElement(), options);
+
+autocomplete.getFields();
+autocomplete.setFields();
+autocomplete.setFields(['formatted_phone_number']);
+
