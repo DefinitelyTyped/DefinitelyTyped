@@ -3,7 +3,7 @@
 // Definitions by: Sebastián Galiano <https://github.com/sgaliano>, Luca Trazzi <https://github.com/lucax88x>, Eugene Matseruk <https://github.com/ematseruk>, Luiz M. <https://github.com/odahcam>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
-// declare namespace swiper {
+
 declare module 'swiper' {
     /**
      * Common Swiper events.
