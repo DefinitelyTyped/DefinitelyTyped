@@ -1,14 +1,15 @@
 // Type definitions for Google Maps JavaScript API 3.30
 // Project: https://developers.google.com/maps/
-// Definitions by:  Folia A/S <http://www.folia.dk>, 
-//                  Chris Wrench <https://github.com/cgwrench>, 
-//                  Kiarash Ghiaseddin <https://github.com/Silver-Connection/DefinitelyTyped>,  
-//                  Grant Hutchins <https://github.com/nertzy>, 
-//                  Denis Atyasov <https://github.com/xaolas>, 
-//                  Michael McMullin <https://github.com/mrmcnerd>, 
-//                  Martin Costello <https://github.com/martincostello>, 
+// Definitions by:  Folia A/S <http://www.folia.dk>,
+//                  Chris Wrench <https://github.com/cgwrench>,
+//                  Kiarash Ghiaseddin <https://github.com/Silver-Connection/DefinitelyTyped>,
+//                  Grant Hutchins <https://github.com/nertzy>,
+//                  Denis Atyasov <https://github.com/xaolas>,
+//                  Michael McMullin <https://github.com/mrmcnerd>,
+//                  Martin Costello <https://github.com/martincostello>,
 //                  Sven Kreiss <https://github.com/svenkreiss>
 //                  Umar Bolatov <https://github.com/bolatovumar>
+//                  Michael Gauthier <https://github.com/gauthierm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
@@ -2542,6 +2543,10 @@ declare namespace google.maps {
             getQueryPredictions(request: QueryAutocompletionRequest, callback: (result: QueryAutocompletePrediction[], status: PlacesServiceStatus) => void): void;
         }
 
+        export class AutocompleteSessionToken {
+            constructor();
+        }
+
         export interface AutocompletionRequest {
             bounds?: LatLngBounds|LatLngBoundsLiteral;
             componentRestrictions?: ComponentRestrictions;
@@ -2549,6 +2554,7 @@ declare namespace google.maps {
             location?: LatLng;
             offset?: number;
             radius?: number;
+            sessionToken?: AutocompleteSessionToken;
             types?: string[];
         }
 
@@ -2566,6 +2572,7 @@ declare namespace google.maps {
         export interface PlaceDetailsRequest  {
             placeId: string;
             fields?: string[];
+            sessionToken?: AutocompleteSessionToken;
         }
 
         export interface PlaceGeometry {

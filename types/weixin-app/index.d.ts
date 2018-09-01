@@ -1,9 +1,10 @@
-// Type definitions for wx-app 1.9
+// Type definitions for wx-app 2.2
 // Project: https://mp.weixin.qq.com/debug/wxadoc/dev/api/
 // Definitions by: taoqf <https://github.com/taoqf>
 //                 AlexStacker <https://github.com/AlexStacker>
+//                 Jimexist <https://github.com/Jimexist>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 declare namespace wx {
     // #region 基本参数
@@ -2266,6 +2267,57 @@ declare namespace wx {
      * @version 1.4.0
      */
     function createSelectorQuery(): SelectorQuery;
+    
+    /**
+     * WXML节点布局相交状态
+     */
+    interface createIntersectionObserverOption {
+        thresholds?: number[];
+        initialRatio?: number;
+        selectAll?: boolean;
+    }
+    interface margins {
+        left?: number;
+        right?: number;
+        top?: number;
+        bottom?: number;
+    }
+    interface observeResponse {
+        id: string;
+        dataset: any;
+        time: number;
+        intersectionRatio: number; // 相交区域占目标节点的布局区域的比例
+        boundingClientRect: {
+            bottom: number;
+            right: number;
+            left: number;
+            top: number;
+            width: number;
+            height: number;
+        };
+        intersectionRect: {
+            bottom: number;
+            right: number;
+            left: number; // 相交区域的左边界坐标
+            top: number; // 相交区域的上边界坐标
+            width: number; // 相交区域的宽度
+            height: number; // 相交区域的高度
+        };
+        relativeRect: {
+            bottom: number;
+            right: number;
+            left: number;
+            top: number;
+        };
+    }
+    interface createIntersectionObserverCallBack {
+        relativeTo(selector?: string, margins?: margins): createIntersectionObserverCallBack;
+        relativeToViewport(margins?: margins): createIntersectionObserverCallBack;
+        observe(selector?: string, callback?: (response: observeResponse) => void): createIntersectionObserverCallBack;
+        disconnect(): void;
+    }
+    function createIntersectionObserver(options?: createIntersectionObserverOption): createIntersectionObserverCallBack;
+
     interface NodesRefRect {
         /** 节点的ID */
         id: string;
@@ -2375,7 +2427,7 @@ declare namespace wx {
          * （初始时，选择器仅选取页面范围的节点，不会选取任何自定义组件中的节点
          * @version 1.6.0
          */
-        in(component: Component<object>): SelectorQuery;
+        in(component: Component<object, object>): SelectorQuery;
         /**
          * 在当前页面下选择第一个匹配选择器selector的节点，返回一个NodesRef对象实例，可以用于获取节点信息。
          * selector类似于CSS的选择器，但仅支持下列语法。
@@ -3116,41 +3168,74 @@ declare namespace wx {
      * 收起键盘。
      */
     function hideKeyboard(): void;
+
     interface EventTarget {
         id: string;
         tagName: string;
         dataset: { [name: string]: string };
     }
-    interface BaseEvent {
-        type:
-            | "tap"
-            | "touchstart"
-            | "touchmove"
-            | "touchcancel"
-            | "touchend"
-            | "tap"
-            | "longtap";
+
+    type TouchEventType =
+        | "tap"
+        | "touchstart"
+        | "touchmove"
+        | "touchcancel"
+        | "touchend"
+        | "touchforcechange";
+
+    type TransitionEventType =
+        | "transitionend"
+        | "animationstart"
+        | "animationiteration"
+        | "animationend";
+
+    type EventType =
+        | "input"
+        | "form"
+        | "submit"
+        | "scroll"
+        | TouchEventType
+        | TransitionEventType
+        | "tap"
+        | "longpress";
+
+    interface BaseEvent<T extends string, Detail> {
+        type: T;
         timeStamp: number;
         currentTarget: EventTarget;
         target: EventTarget;
+        detail: Detail;
     }
-    interface InputEvent extends BaseEvent {
-        detail: {
-            target: EventTarget;
-            value: string;
-            /**
-             * 指定focus时的光标位置
-             * @version 1.5.0
-             */
-            cursor: number;
-        };
-    }
-    interface FormEvent extends BaseEvent {
-        detail: {
-            target: EventTarget;
-            value: { [name: string]: string | boolean | number };
-        };
-    }
+
+    interface BuiltInEvent<T extends EventType, Detail>
+        extends BaseEvent<T, Detail> {}
+
+    interface CustomEvent<T extends string, Detail>
+        extends BaseEvent<T, Detail> {}
+
+    /**
+     * 指定focus时的光标位置
+     * @version 1.5.0
+     */
+    interface InputEvent
+        extends BuiltInEvent<
+                "input",
+                {
+                    value: string;
+                    cursor: number;
+                }
+            > {}
+
+    interface FormEvent
+        extends BuiltInEvent<
+                "form",
+                {
+                    value: { [name: string]: string | boolean | number };
+                }
+            > {}
+
+    interface ScrollEvent extends BuiltInEvent<"scroll", {}> {}
+
     interface Touch {
         identifier: number;
         pageX: number;
@@ -3158,64 +3243,42 @@ declare namespace wx {
         clientX: number;
         clientY: number;
     }
-    interface TouchEvent extends BaseEvent {
-        detail: {
-            x: number;
-            y: number;
-        };
+
+    interface TouchEvent<T extends TouchEventType>
+        extends BuiltInEvent<
+                T,
+                {
+                    x: number;
+                    y: number;
+                }
+            > {
         touches: Touch[];
         changedTouches: Touch[];
     }
 
-    /**
-     * WXML节点布局相交状态
-     */
-    interface createIntersectionObserverOption {
-        thresholds?: number[];
-        initialRatio?: number;
-        selectAll?: boolean;
+    interface TapEvent extends TouchEvent<"tap"> {
+        // 手指触摸后马上离开
     }
-    interface margins {
-        left?: number;
-        right?: number;
-        top?: number;
-        bottom?: number;
+
+    interface TouchStartEvent extends TouchEvent<"touchstart"> {
+        // 手指触摸动作开始
     }
-    interface observeResponse {
-        id: string;
-        dataset: any;
-        time: number;
-        intersectionRatio: number; // 相交区域占目标节点的布局区域的比例
-        boundingClientRect: {
-            bottom: number;
-            right: number;
-            left: number;
-            top: number;
-            width: number;
-            height: number;
-        };
-        intersectionRect: {
-            bottom: number;
-            right: number;
-            left: number; // 相交区域的左边界坐标
-            top: number; // 相交区域的上边界坐标
-            width: number; // 相交区域的宽度
-            height: number; // 相交区域的高度
-        };
-        relativeRect: {
-            bottom: number;
-            right: number;
-            left: number;
-            top: number;
-        };
+
+    interface TouchEndEvent extends TouchEvent<"touchend"> {
+        // 手指触摸动作结束
     }
-    interface createIntersectionObserverCallBack {
-        relativeTo(selector?: string, margins?: margins): createIntersectionObserverCallBack;
-        relativeToViewport(margins?: margins): createIntersectionObserverCallBack;
-        observe(selector?: string, callback?: (response: observeResponse) => void): createIntersectionObserverCallBack;
-        disconnect(): void;
+
+    interface TouchMoveEvent extends TouchEvent<"touchmove"> {
+        // 手指触摸后移动
     }
-    function createIntersectionObserver(options?: createIntersectionObserverOption): createIntersectionObserverCallBack;
+
+    interface TouchCancelEvent extends TouchEvent<"touchcancel"> {
+        // 手指触摸动作被打断，如来电提醒，弹窗
+    }
+
+    interface TouchForceChangeEvent extends TouchEvent<"touchforcechange"> {
+        // 在支持 3D Touch 的 iPhone 设备，重按时会触发
+    }
     // #endregion
 }
 // #region App里的onLaunch、onShow回调参数
@@ -3306,133 +3369,210 @@ declare function App<T extends AppOptions>(app: T & ThisType<T & App>): void;
 declare function getApp(): App;
 // #endregion
 // #region Compontent组件
+
 type DefaultData<V> = object | ((this: V) => object);
-type DefaultProps = Record<string, any>;
+
+type DefaultProps = object | Record<string, any>;
+
 type ExtendedComponent<
-    Instance extends Component<Data>,
+    Instance extends Component<Data, Props>,
     Data,
     Methods,
-    Options,
     Props
-> = CombinedInstance<Instance, Data, Methods, Options, Props> & Component<Data>;
+> = CombinedInstance<Instance, Data, Methods, Props> & Component<Data, Props>;
+
+// CombinedInstance models the `this`, i.e. instance type for (user defined) component
 type CombinedInstance<
-    Instance extends Component<Data>,
+    Instance extends Component<Data, Props>,
     Data,
     Methods,
-    Options,
     Props
-> = Data & Methods & Options & Props & Instance;
+> = Methods & Instance;
+
 type Prop<T> = (() => T) | { new (...args: any[]): T & object };
+
 type PropValidator<T> = PropOptions<T> | Prop<T> | Array<Prop<T>>;
+
 interface DefaultMethods<V> {
     [key: string]: (this: V, ...args: any[]) => any;
 }
+
 interface PropOptions<T = any> {
     type?: Prop<T> | Array<Prop<T>>;
     value?: T | null | (() => object);
-    observer?(value: T, old: T): void;
+    // bug : 对于 type 为 Object 或 Array 的属性，如果通过该组件自身的 this.setData
+    // 来改变属性值的一个子字段，则依旧会触发属性 observer ，且 observer 接收到的 newVal 是变化的那个子字段的值，
+    // oldVal 为空， changedPath 包含子字段的字段名相关信息。
+    observer?(value: T, old: T, changedPath: string): void;
 }
+
 type RecordPropsDefinition<T> = { [K in keyof T]: PropValidator<T[K]> };
+
 type ArrayPropsDefinition<T> = Array<keyof T>;
+
 type PropsDefinition<T> = ArrayPropsDefinition<T> | RecordPropsDefinition<T>;
+
 type ThisTypedComponentOptionsWithRecordProps<
-    V extends Component<Data>,
+    V extends Component<Data, Props>,
     Data,
     Methods,
-    Options,
     Props
 > = object &
-    ComponentOptions<
-        V,
-        Data | ((this: Readonly<Props> & V) => Data),
-        Methods,
-        Options,
-        PropsDefinition<Props>
-    > &
-    ThisType<CombinedInstance<V, Data, Methods, Options, Readonly<Props>>>;
+    ComponentOptions<V, Data | ((this: V) => Data), Methods, Props> &
+    ThisType<CombinedInstance<V, Data, Methods, Readonly<Props>>>;
 
-interface ComponentRelation {
+interface ComponentRelation<D = any, P = any> {
     /** 目标组件的相对关系，可选的值为 parent 、 child 、 ancestor 、 descendant */
-    type: string;
+    type: "parent" | "child" | "ancestor" | "descendant";
     /** 如果这一项被设置，则它表示关联的目标节点所应具有的behavior，所有拥有这一behavior的组件节点都会被关联 */
     target?: string;
     /** 关系生命周期函数，当关系被建立在页面节点树中时触发，触发时机在组件attached生命周期之后 */
-    linked?: (...args: any[]) => void;
+    linked?: (target: Component<D, P>) => void;
     /** 关系生命周期函数，当关系在页面节点树中发生改变时触发，触发时机在组件moved生命周期之后 */
-    linkChanged?: (...args: any[]) => void;
+    linkChanged?: (target: Component<D, P>) => void;
     /** 关系生命周期函数，当关系脱离页面节点树时触发，触发时机在组件detached生命周期之后 */
-    unlinked?: (...args: any[]) => void;
+    unlinked?: (target: Component<D, P>) => void;
 }
+
+/**
+ * 组件所在页面的生命周期声明对象，目前仅支持页面的show和hide两个生命周期
+ */
+interface PageLifetimes {
+    show(): void;
+
+    hide(): void;
+}
+
+/**
+ * 组件生命周期声明对象，组件的生命周期：created、attached、ready、moved、detached将收归到lifetimes字段内进行声明，
+ * 原有声明方式仍旧有效，如同时存在两种声明方式，则lifetimes字段内声明方式优先级最高
+ */
+interface Lifetimes {
+    /**
+     * 组件生命周期函数，在组件实例进入页面节点树时执行
+     * 注意此时不能调用 setData
+     */
+    created(): void;
+    /**
+     * 组件生命周期函数，在组件实例进入页面节点树时执行
+     */
+    attached(): void;
+    /**
+     * 组件生命周期函数，在组件布局完成后执行，此时可以获取节点信息
+     * 使用 [SelectorQuery](https://mp.weixin.qq.com/debug/wxadoc/dev/api/wxml-nodes-info.html)
+     */
+    ready(): void;
+    /**
+     * 组件生命周期函数，在组件实例被移动到节点树另一个位置时执行
+     */
+    moved(): void;
+    /**
+     * 组件生命周期函数，在组件实例被从页面节点树移除时执行
+     */
+    detached(): void;
+}
+
 /**
  * Component组件参数
  */
 interface ComponentOptions<
-    Instance extends Component<Data>,
+    Instance extends Component<Data, Props>,
     Data = DefaultData<Instance>,
     Methods = DefaultMethods<Instance>,
-    Options = object,
     Props = PropsDefinition<DefaultProps>
-> {
+> extends Partial<Lifetimes> {
     /**
      * 组件的对外属性，是属性名到属性设置的映射表
      * 属性设置中可包含三个字段:
      * type 表示属性类型、 value 表示属性初始值、 observer 表示属性值被更改时的响应函数
      */
     properties?: Props;
+
     /**
      * 组件的内部数据，和 properties 一同用于组件的模版渲染
      */
     data?: Data;
+
     /**
      * 组件的方法，包括事件响应函数和任意的自定义方法
      * 关于事件响应函数的使用
      * 参见[组件事件](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/custom-component/events.html)
      */
     methods?: Methods;
+
     /**
      * 一些组件选项，请参见文档其他部分的说明
      */
-    options?: Options;
+    options?: Partial<{
+        /**
+         * 使用外部样式类可以让组件使用指定的组件外样式类，如果希望组件外样式类能够完全影响组件内部，
+         * 可以将组件构造器中的options.addGlobalClass字段置为true。这个特性从小程序基础库版本 2.2.3 开始支持。
+         *
+         * @version 2.2.3
+         */
+        addGlobalClass: boolean;
+        /**
+         * 在组件的wxml中可以包含 slot 节点，用于承载组件使用者提供的wxml结构。
+         * 默认情况下，一个组件的wxml中只能有一个slot。需要使用多slot时，可以在组件js中声明启用。
+         */
+        multipleSlots: boolean;
+    }>;
+
+    /**
+     * 组件接受的外部样式类，参见 外部样式类
+     *
+     * 有时，组件希望接受外部传入的样式类（类似于 view 组件的 hover-class 属性）。
+     * 此时可以在 Component 中用 externalClasses 定义段定义若干个外部样式类。这个特性从小程序基础库版本 1.9.90 开始支持。
+     *
+     * @version 1.9.90
+     */
+    externalClasses?: string[];
+
     /**
      * 类似于mixins和traits的组件间代码复用机制
      * 参见 [behaviors](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/custom-component/behaviors.html)
      */
-    behaviors?: Array<(ComponentOptions<Component<object>>) | string>;
+    behaviors?: Array<(ComponentOptions<Component<object, object>>) | string>;
+
     /**
-     * 组件生命周期函数，在组件实例进入页面节点树时执行
-     * 注意此时不能调用 setData
+     * 组件生命周期声明对象，组件的生命周期：created、attached、ready、moved、detached将收归到lifetimes字段内进行声明，
+     * 原有声明方式仍旧有效，如同时存在两种声明方式，则lifetimes字段内声明方式优先级最高
      */
-    created?(
-        this: ThisType<
-            ComponentOptions<Instance, Data, Methods, Options, Readonly<Props>>
-        >
-    ): void;
+    lifetimes?: Partial<Lifetimes>;
+
     /**
-     * 组件生命周期函数，在组件实例进入页面节点树时执行
+     * 组件所在页面的生命周期声明对象，目前仅支持页面的show和hide两个生命周期
      */
-    attached?(): void;
-    /**
-     * 组件生命周期函数，在组件布局完成后执行，此时可以获取节点信息
-     * 使用 [SelectorQuery](https://mp.weixin.qq.com/debug/wxadoc/dev/api/wxml-nodes-info.html)
-     */
-    ready?(): void;
-    /**
-     * 组件生命周期函数，在组件实例被移动到节点树另一个位置时执行
-     */
-    moved?(): void;
-    /**
-     * 组件生命周期函数，在组件实例被从页面节点树移除时执行
-     */
-    detached?(): void;
+    pageLifetimes?: Partial<PageLifetimes>;
+
     /**
      * 组件间关系定义，参见 [组件间关系](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/custom-component/relations.html)
      */
     relations?: { [key: string]: ComponentRelation };
 }
+
+/**
+ * There are two valid ways to define the type of data / properties:
+ *
+ * 1. { name: valueType }
+ * 2. { name: { type: valueType, value?: value } }
+ *
+ * and this conditional type will extract that out so the call-site will typecheck.
+ *
+ * Note this is different from PropOptions as it is the definitions you passed to Component function
+ * whereas this type is for call-site.
+ */
+type DataValueType<Def> = Def extends {
+    type: (...args: any[]) => infer T;
+    value?: infer T;
+}
+    ? T
+    : Def extends (...args: any[]) => infer T ? T : never;
+
 /**
  * Component实例方法
  */
-interface Component<T> {
+interface Component<D, P> {
     /**
      * 组件的文件路径
      */
@@ -3448,7 +3588,12 @@ interface Component<T> {
     /**
      * 组件数据，包括内部数据和属性值
      */
-    data: T;
+    data: { [key in keyof (D & P)]: DataValueType<(D & P)[key]> };
+
+    /**
+     * 组件数据，包括内部数据和属性值（与 data 一致）
+     */
+    properties: { [key in keyof (D & P)]: DataValueType<(D & P)[key]> };
     /**
      * 将数据从逻辑层发送到视图层，同时改变对应的 this.data 的值
      * 1. 直接修改 this.data 而不调用 this.setData 是无法改变页面的状态的，还会造成数据不一致。
@@ -3459,7 +3604,7 @@ interface Component<T> {
      */
     setData(
         data: {
-            [key in keyof T]?:
+            [key in keyof D]?:
                 | string
                 | number
                 | boolean
@@ -3468,7 +3613,7 @@ interface Component<T> {
                 | null
                 | any[]
         },
-        callback?: () => any
+        callback?: () => void
     ): void;
     /**
      * 检查组件是否具有 behavior
@@ -3496,19 +3641,19 @@ interface Component<T> {
      * 使用选择器选择组件实例节点
      * 返回匹配到的第一个组件实例对象
      */
-    selectComponent(selector: string): Component<any>;
+    selectComponent(selector: string): Component<any, any>;
     /**
      * selector  使用选择器选择组件实例节点，返回匹配到的全部组件实例对象组成的数组
      */
-    selectAllComponents(selector: string): Array<Component<any>>;
+    selectAllComponents(selector: string): Array<Component<any, any>>;
     /**
      * 获取所有这个关系对应的所有关联节点，参见 [组件间关系](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/custom-component/relations.html)
      */
-    getRelationNodes(relationKey: string): { [key: string]: ComponentRelation };
+    getRelationNodes(relationKey: string): ComponentRelation[];
 }
-declare function Component<D, M, O, P>(
-    options?: ThisTypedComponentOptionsWithRecordProps<Component<D>, D, M, O, P>
-): ExtendedComponent<Component<D>, D, M, O, P>;
+declare function Component<D, M, P>(
+    options?: ThisTypedComponentOptionsWithRecordProps<Component<D, P>, D, M, P>
+): ExtendedComponent<Component<D, P>, D, M, P>;
 /**
  * behaviors 是用于组件间代码共享的特性
  * 类似于一些编程语言中的“mixins”或“traits”
@@ -3517,9 +3662,9 @@ declare function Component<D, M, O, P>(
  * 每个组件可以引用多个 behavior
  * behavior 也可以引用其他 behavior
  */
-declare function Behavior<D, M, O, P>(
-    options?: ThisTypedComponentOptionsWithRecordProps<Component<D>, D, M, O, P>
-): ExtendedComponent<Component<D>, D, M, O, P>;
+declare function Behavior<D, M, P>(
+    options?: ThisTypedComponentOptionsWithRecordProps<Component<D, P>, D, M, P>
+): ExtendedComponent<Component<D, P>, D, M, P>;
 // #endregion
 // #region Page
 interface PageShareAppMessageOptions {

@@ -9,6 +9,7 @@
 //                 Drew Diamantoukos <https://github.com/MercifulCode>
 //                 Sooraj Pudiyadath <https://github.com/soorajpudiyadath>
 //                 Jon Freedman <https://github.com/jonfreedman>
+//                 Megan Riel-Mehan <https://github.com/meganrm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -29,7 +30,7 @@ export interface Point {
 
 export interface PlotScatterDataPoint {
 	curveNumber: number;
-	data: ScatterData;
+	data: PlotData;
 	pointIndex: number;
 	pointNumber: number;
 	x: number;
@@ -49,8 +50,17 @@ export interface PlotCoordinate {
 	pointNumber: number;
 }
 
+export interface SelectionRange {
+	x: number[];
+	y: number[];
+}
+
+export type PlotSelectedData = Partial<PlotScatterDataPoint>;
+
 export interface PlotSelectionEvent {
-	points: PlotCoordinate[];
+	points: PlotScatterDataPoint[];
+	range?: SelectionRange;
+	lassoPoints?: SelectionRange;
 }
 
 export type PlotRestyleEvent = [
@@ -141,10 +151,10 @@ export interface PlotlyHTMLElement extends HTMLElement {
 	on(event: 'plotly_sliderend', callback: (event: SliderEndEvent) => void): void;
 	on(event: 'plotly_sliderstart', callback: (event: SliderStartEvent) => void): void;
 	on(event: 'plotly_event', callback: (data: any) => void): void;
-	on(event: 'plotly_beforeplot' , callback: (event: BeforePlotEvent) => boolean): void;
+	on(event: 'plotly_beforeplot', callback: (event: BeforePlotEvent) => boolean): void;
 	on(event: 'plotly_afterexport' | 'plotly_afterplot' | 'plotly_animated' | 'plotly_animationinterrupted' | 'plotly_autosize' |
 		'plotly_beforeexport' | 'plotly_deselect' | 'plotly_doubleclick' | 'plotly_framework' | 'plotly_redraw' |
-		'plotly_transitioning' | 'plotly_transitioninterrupted' , callback: () => void): void;
+		'plotly_transitioning' | 'plotly_transitioninterrupted', callback: () => void): void;
 }
 
 export interface ToImgopts {
@@ -192,6 +202,14 @@ export interface Layout {
 	separators: string;
 	hidesources: boolean;
 	xaxis: Partial<LayoutAxis>;
+	xaxis2: Partial<LayoutAxis>;
+	xaxis3: Partial<LayoutAxis>;
+	xaxis4: Partial<LayoutAxis>;
+	xaxis5: Partial<LayoutAxis>;
+	xaxis6: Partial<LayoutAxis>;
+	xaxis7: Partial<LayoutAxis>;
+	xaxis8: Partial<LayoutAxis>;
+	xaxis9: Partial<LayoutAxis>;
 	yaxis: Partial<LayoutAxis>;
 	yaxis2: Partial<LayoutAxis>;
 	yaxis3: Partial<LayoutAxis>;
@@ -418,12 +436,13 @@ export type TypedArray = Int8Array | Uint8Array | Int16Array | Uint16Array | Int
 
 export type Dash = 'solid' | 'dot' | 'dash' | 'longdash' | 'dashdot' | 'longdashdot';
 
-export type Data = Partial<ScatterData>;
+export type Data = Partial<PlotData>;
 export type Color = string | Array<string | undefined | null> | Array<Array<string | undefined | null>>;
-
+export type DataTransform = Partial<Transform>;
+export type ScatterData = PlotData;
 // Bar Scatter
-export interface ScatterData {
-	type: 'bar' | 'pointcloud' | 'scatter' | 'scattergl' | 'scatter3d' |'surface';
+export interface PlotData {
+	type: 'bar' | 'histogram' | 'pointcloud' | 'scatter' | 'scattergl' | 'scatter3d' | 'surface';
 	x: Datum[] | Datum[][] | TypedArray;
 	y: Datum[] | Datum[][] | TypedArray;
 	z: Datum[] | Datum[][] | Datum[][][] | TypedArray;
@@ -438,7 +457,7 @@ export interface ScatterData {
 	'line.shape': 'linear' | 'spline' | 'hv' | 'vh' | 'hvh' | 'vhv';
 	'line.smoothing': number;
 	'line.simplify': boolean;
-	marker: Partial<ScatterMarker>;
+	marker: Partial<PlotMarker>;
 	'marker.symbol': string | string[]; // Drawing.symbolList
 	'marker.color': Color;
 	'marker.opacity': number | number[];
@@ -454,15 +473,15 @@ export interface ScatterData {
 	mode: 'lines' | 'markers' | 'text' | 'lines+markers' | 'text+markers' | 'text+lines' | 'text+lines+markers' | 'none';
 	hoveron: 'points' | 'fills';
 	hoverinfo: 'all' | 'name' | 'none' | 'skip' | 'text' |
-			'x' | 'x+text' | 'x+name' |
-			'x+y' | 'x+y+text' | 'x+y+name' |
-			'x+y+z' | 'x+y+z+text' | 'x+y+z+name' |
-			'y+x' | 'y+x+text' | 'y+x+name' |
-			'y+z' | 'y+z+text' | 'y+z+name' |
-			'y+x+z' | 'y+x+z+text' | 'y+x+z+name' |
-			'z+x' | 'z+x+text' | 'z+x+name' |
-			'z+y+x' | 'z+y+x+text' | 'z+y+x+name' |
-			'z+x+y' | 'z+x+y+text' | 'z+x+y+name';
+	'x' | 'x+text' | 'x+name' |
+	'x+y' | 'x+y+text' | 'x+y+name' |
+	'x+y+z' | 'x+y+z+text' | 'x+y+z+name' |
+	'y+x' | 'y+x+text' | 'y+x+name' |
+	'y+z' | 'y+z+text' | 'y+z+name' |
+	'y+x+z' | 'y+x+z+text' | 'y+x+z+name' |
+	'z+x' | 'z+x+text' | 'z+x+name' |
+	'z+y+x' | 'z+y+x+text' | 'z+y+x+name' |
+	'z+x+y' | 'z+x+y+text' | 'z+x+y+name';
 	hoverlabel: Partial<Label>;
 	fill: 'none' | 'tozeroy' | 'tozerox' | 'tonexty' | 'tonextx' | 'toself' | 'tonext';
 	fillcolor: string;
@@ -470,16 +489,48 @@ export interface ScatterData {
 	name: string;
 	connectgaps: boolean;
 	visible: boolean | 'legendonly';
+	transforms: DataTransform[];
+	orientation: 'v' | 'h';
 }
 
+/**
+ * These interfaces are based on attribute descriptions in
+ * https://github.com/plotly/plotly.js/tree/9d6144304308fc3007f0facf2535d38ea3e9b26c/src/transforms
+ */
+
+export interface TransformStyle {
+	target: number | string | number[] | string[];
+	value: Partial<PlotData>;
+}
+
+export interface TransformAggregation {
+	target: string;
+	func?: 'count' | 'sum' | 'avg' | 'median' | 'mode' | 'rms' | 'stddev' | 'min' | 'max' | 'first' | 'last';
+	funcmode?: 'sample' | 'population';
+	enabled?: boolean;
+}
+
+export interface Transform {
+	type: 'aggregate' | 'filter' | 'groupby' | 'sort';
+	enabled: boolean;
+	target: number | string | number[] | string[];
+	operation: string;
+	aggregations: TransformAggregation[];
+	preservegaps: boolean;
+	groups: string | number[] | string[];
+	nameformat: string;
+	styles: TransformStyle[];
+	value: any;
+	order: 'ascending' | 'descending';
+}
 /**
  * Any combination of "x", "y", "z", "text", "name" joined with a "+" OR "all" or "none" or "skip".
  * examples: "x", "y", "x+y", "x+y+z", "all"
  * default: "all"
  */
-export interface ScatterMarker {
+export interface PlotMarker {
 	symbol: string | string[]; // Drawing.symbolList
-	color: Color | number[];
+	color: Color | Color[];
 	colorscale: string | string[] | Array<Array<(string | number)>>;
 	cauto: boolean;
 	cmax: number;
@@ -495,6 +546,7 @@ export interface ScatterMarker {
 	sizemode: 'diameter' | 'area';
 	showscale: boolean;
 	line: Partial<ScatterMarkerLine>;
+	width: number;
 	colorbar: {
 		thicknessmode: 'fraction' | 'pixels',
 		thickness: number,
@@ -549,6 +601,8 @@ export interface ScatterMarker {
 		colorsrc: any,
 	};
 }
+
+export type ScatterMarker = PlotMarker;
 
 export interface ScatterMarkerLine {
 	width: number | number[];
@@ -1075,10 +1129,10 @@ export interface Transition {
 	 * Sets the easing function of the slider transition
 	 */
 	easing: 'linear' | 'quad' | 'cubic' | 'sin' | 'exp' | 'circle' | 'elastic' | 'back' | 'bounce' | 'linear-in' |
-		'quad-in' | 'cubic-in' | 'sin-in' | 'exp-in' | 'circle-in' | 'elastic-in' | 'back-in' | 'bounce-in' |
-		'linear-out' | 'quad-out' | 'cubic-out' | 'sin-out' | 'exp-out' | 'circle-out' | 'elastic-out' | 'back-out' |
-		'bounce-out' | 'linear-in-out' | 'quad-in-out' | 'cubic-in-out' | 'sin-in-out' | 'exp-in-out' |
-		'circle-in-out' | 'elastic-in-out' | 'back-in-out' | 'bounce-in-out';
+	'quad-in' | 'cubic-in' | 'sin-in' | 'exp-in' | 'circle-in' | 'elastic-in' | 'back-in' | 'bounce-in' |
+	'linear-out' | 'quad-out' | 'cubic-out' | 'sin-out' | 'exp-out' | 'circle-out' | 'elastic-out' | 'back-out' |
+	'bounce-out' | 'linear-in-out' | 'quad-in-out' | 'cubic-in-out' | 'sin-in-out' | 'exp-in-out' |
+	'circle-in-out' | 'elastic-in-out' | 'back-in-out' | 'bounce-in-out';
 }
 
 export interface SliderStep {

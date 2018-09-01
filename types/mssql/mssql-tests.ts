@@ -1,4 +1,5 @@
 import * as sql from 'mssql';
+import * as msnodesqlv8 from 'mssql/msnodesqlv8';
 
 interface Entity {
     value: number;
@@ -202,4 +203,11 @@ function test_classes_extend_eventemitter() {
     request.on('error', () => { });
 
     preparedStatment.on('error', () => { })
+}
+
+async function test_msnodesqlv8() {
+    const connection = new msnodesqlv8.ConnectionPool({ server: "localhost", database: "master", options: { trustedConnection: true } });
+    await connection.connect();
+    const result = await connection.query`SELECT * FROM sys.databases`;
+    await connection.close();
 }
