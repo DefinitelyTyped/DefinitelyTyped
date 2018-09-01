@@ -15,6 +15,7 @@
 //                 Divyendu Singh <https://github.com/divyenduz>
 //                 Brad Zacher <https://github.com/bradzacher>
 //                 Curtis Layne <https://github.com/clayne11>
+//                 Edward Sammut Alessi <https://github.com/Slessi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
