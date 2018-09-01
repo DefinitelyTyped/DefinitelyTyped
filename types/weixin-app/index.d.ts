@@ -2271,18 +2271,18 @@ declare namespace wx {
     /**
      * WXML节点布局相交状态
      */
-    interface createIntersectionObserverOption {
+    interface CreateIntersectionObserverOption {
         thresholds?: number[];
         initialRatio?: number;
         selectAll?: boolean;
     }
-    interface margins {
+    interface Margins {
         left?: number;
         right?: number;
         top?: number;
         bottom?: number;
     }
-    interface observeResponse {
+    interface ObserveResponse {
         id: string;
         dataset: any;
         time: number;
@@ -2310,23 +2310,23 @@ declare namespace wx {
             top: number;
         };
     }
-    interface createIntersectionObserverCallBack {
+    interface CreateIntersectionObserverCallBack {
         relativeTo(
             selector?: string,
-            margins?: margins
-        ): createIntersectionObserverCallBack;
+            margins?: Margins
+        ): CreateIntersectionObserverCallBack;
         relativeToViewport(
-            margins?: margins
-        ): createIntersectionObserverCallBack;
+            margins?: Margins
+        ): CreateIntersectionObserverCallBack;
         observe(
             selector?: string,
-            callback?: (response: observeResponse) => void
-        ): createIntersectionObserverCallBack;
+            callback?: (response: ObserveResponse) => void
+        ): CreateIntersectionObserverCallBack;
         disconnect(): void;
     }
     function createIntersectionObserver(
-        options?: createIntersectionObserverOption
-    ): createIntersectionObserverCallBack;
+        options?: CreateIntersectionObserverOption
+    ): CreateIntersectionObserverCallBack;
 
     interface NodesRefRect {
         /** 节点的ID */
