@@ -1,3 +1,5 @@
+// TypeScript Version: 2.1
+
 /// <reference types="node" />
 /// <reference types="lodash" />
 /// <reference types="benchmark" />

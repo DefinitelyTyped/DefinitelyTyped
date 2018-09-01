@@ -3,6 +3,7 @@
 // Definitions by: Denis Cappellin <https://github.com/cappellin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Definitions by: SINTEF-9012 <https://github.com/SINTEF-9012>
+// TypeScript Version: 2.1
 
 /// <reference types="node" />
 import Long = require("long");
@@ -127,7 +128,7 @@ declare class ByteBuffer
      * Calculates the number of UTF8 characters of a string.JavaScript itself uses UTF- 16, so that a string's length property does not reflect its actual UTF8 size if it contains code points larger than 0xFFFF.
      */
     static calculateUTF8Chars( str: string ): number;
-    
+
     /**
      * Calculates the number of UTF8 bytes of a string. This is an alias of ByteBuffer#calculateUTF8Bytes.
      */

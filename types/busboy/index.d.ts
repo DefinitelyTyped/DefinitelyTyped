@@ -2,6 +2,8 @@
 // Project: https://www.npmjs.com/package/busboy
 // Definitions by: Jacob Baskin <https://github.com/jacobbaskin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
+
 /// <reference types="node" />
 
 declare namespace busboy {

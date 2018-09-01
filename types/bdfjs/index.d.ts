@@ -2,6 +2,7 @@
 // Project: https://github.com/zswang/bdfjs
 // Definitions by: Olegs Jeremejevs <https://github.com/jeremejevs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="node" />
 
