@@ -808,11 +808,11 @@ declare module "mongoose" {
 
   // Hook functions: https://github.com/vkarpov15/hooks-fixed
   interface HookSyncCallback<T> {
-    (this: T, next: HookNextFunction): Promise<any> | void;
+    (this: T, next: HookNextFunction, docs: any[]): Promise<any> | void;
   }
 
   interface HookAsyncCallback<T> {
-    (this: T, next: HookNextFunction, done: HookDoneFunction): Promise<any> | void;
+    (this: T, next: HookNextFunction, done: HookDoneFunction, docs: any[]): Promise<any> | void;
   }
 
   interface HookErrorCallback {
@@ -976,8 +976,8 @@ declare module "mongoose" {
      */
     validate?: RegExp | [RegExp, string] |
       SchemaTypeOpts.ValidateFn<T> | [SchemaTypeOpts.ValidateFn<T>, string] |
-      SchemaTypeOpts.ValidateOpts | SchemaTypeOpts.ValidateOpts[] |
-      SchemaTypeOpts.AsyncValidateOpts | SchemaTypeOpts.AsyncValidateOpts[];
+      SchemaTypeOpts.ValidateOpts | SchemaTypeOpts.AsyncValidateOpts |
+      (SchemaTypeOpts.ValidateOpts | SchemaTypeOpts.AsyncValidateOpts)[];
 
     /** Declares an unique index. */
     unique?: boolean | any;
@@ -2416,6 +2416,13 @@ declare module "mongoose" {
      * @param tags optional tags for this query
      */
     read(pref: string, tags?: any[]): this;
+
+    /**
+     * Appends a new $replaceRoot operator to this aggregate pipeline.
+     * Note that the $replaceRoot operator requires field strings to start with '$'. If you are passing in a string Mongoose will prepend '$' if the specified field doesn't start '$'. If you are passing in an object the strings in your expression will not be altered.
+     * @param newRoot field or document which will become the new root document
+     */
+    replaceRoot(newRoot: string | object): this;
 
     /**
      * Appends new custom $sample operator(s) to this aggregate pipeline.

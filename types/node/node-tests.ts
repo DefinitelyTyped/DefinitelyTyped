@@ -782,6 +782,8 @@ namespace util_tests {
         });
         assert(typeof util.inspect.custom === 'symbol');
 
+        util.formatWithOptions({ colors: true }, 'See object %O', { foo: 42 });
+
         // util.callbackify
         // tslint:disable-next-line no-unnecessary-class
         class callbackifyTest {
@@ -862,6 +864,7 @@ namespace util_tests {
         var arg0NoResult: () => Promise<any> = util.promisify((cb: (err: Error) => void): void => { });
         var arg1: (arg: string) => Promise<number> = util.promisify((arg: string, cb: (err: Error, result: number) => void): void => { });
         var arg1NoResult: (arg: string) => Promise<any> = util.promisify((arg: string, cb: (err: Error) => void): void => { });
+        var cbOptionalError: () => Promise<void> = util.promisify((cb: (err?: Error | null) => void): void => { cb(); });
         assert(typeof util.promisify.custom === 'symbol');
         // util.deprecate
         const foo = () => {};
@@ -1205,8 +1208,7 @@ namespace crypto_tests {
     {
         // crypto_cipher_decipher_dataview_test
         let key: Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7]);
-        let clearText: DataView = new DataView(
-            new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 8, 7, 6, 5, 4]).buffer);
+        let clearText: DataView = new DataView(new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 8, 7, 6, 5, 4]).buffer);
         let cipher: crypto.Cipher = crypto.createCipher("aes-128-ecb", key);
         let cipherBuffers: Buffer[] = [];
         cipherBuffers.push(cipher.update(clearText));
@@ -1222,6 +1224,56 @@ namespace crypto_tests {
         let clearText2: Buffer = Buffer.concat(decipherBuffers);
 
         assert.deepEqual(clearText2, clearText);
+    }
+
+    {
+        const key = 'keykeykeykeykeykeykeykey';
+        const nonce = crypto.randomBytes(12);
+        const aad = Buffer.from('0123456789', 'hex');
+
+        const cipher = crypto.createCipheriv('aes-192-ccm', key, nonce, {
+            authTagLength: 16
+        });
+        const plaintext = 'Hello world';
+        cipher.setAAD(aad, {
+            plaintextLength: Buffer.byteLength(plaintext)
+        });
+        const ciphertext = cipher.update(plaintext, 'utf8');
+        cipher.final();
+        const tag = cipher.getAuthTag();
+
+        const decipher = crypto.createDecipheriv('aes-192-ccm', key, nonce, {
+            authTagLength: 16
+        });
+        decipher.setAuthTag(tag);
+        decipher.setAAD(aad, {
+            plaintextLength: ciphertext.length
+        });
+        const receivedPlaintext: string = decipher.update(ciphertext, null, 'utf8');
+        decipher.final();
+    }
+
+    {
+        const key = 'keykeykeykeykeykeykeykey';
+        const nonce = crypto.randomBytes(12);
+        const aad = Buffer.from('0123456789', 'hex');
+
+        const cipher = crypto.createCipheriv('aes-192-gcm', key, nonce);
+        const plaintext = 'Hello world';
+        cipher.setAAD(aad, {
+            plaintextLength: Buffer.byteLength(plaintext)
+        });
+        const ciphertext = cipher.update(plaintext, 'utf8');
+        cipher.final();
+        const tag = cipher.getAuthTag();
+
+        const decipher = crypto.createDecipheriv('aes-192-gcm', key, nonce);
+        decipher.setAuthTag(tag);
+        decipher.setAAD(aad, {
+            plaintextLength: ciphertext.length
+        });
+        const receivedPlaintext: string = decipher.update(ciphertext, null, 'utf8');
+        decipher.final();
     }
 
     {
@@ -1708,7 +1760,25 @@ namespace http_tests {
     }
 
     {
+        http.get('http://www.example.com/xyz');
         http.request('http://www.example.com/xyz');
+
+        http.get('http://www.example.com/xyz', (res: http.IncomingMessage): void => {});
+        http.request('http://www.example.com/xyz', (res: http.IncomingMessage): void => {});
+
+        http.get(new url.URL('http://www.example.com/xyz'));
+        http.request(new url.URL('http://www.example.com/xyz'));
+
+        http.get(new url.URL('http://www.example.com/xyz'), (res: http.IncomingMessage): void => {});
+        http.request(new url.URL('http://www.example.com/xyz'), (res: http.IncomingMessage): void => {});
+
+        const opts: http.RequestOptions = {
+            path: '"/some/path'
+        };
+        http.get(new url.URL('http://www.example.com'), opts);
+        http.request(new url.URL('http://www.example.com'), opts);
+        http.get(new url.URL('http://www.example.com/xyz'), opts, (res: http.IncomingMessage): void => {});
+        http.request(new url.URL('http://www.example.com/xyz'), opts, (res: http.IncomingMessage): void => {});
     }
 
     {
@@ -1770,7 +1840,25 @@ namespace https_tests {
         agent: undefined
     });
 
+    https.get('http://www.example.com/xyz');
     https.request('http://www.example.com/xyz');
+
+    https.get('http://www.example.com/xyz', (res: http.IncomingMessage): void => {});
+    https.request('http://www.example.com/xyz', (res: http.IncomingMessage): void => {});
+
+    https.get(new url.URL('http://www.example.com/xyz'));
+    https.request(new url.URL('http://www.example.com/xyz'));
+
+    https.get(new url.URL('http://www.example.com/xyz'), (res: http.IncomingMessage): void => {});
+    https.request(new url.URL('http://www.example.com/xyz'), (res: http.IncomingMessage): void => {});
+
+    const opts: https.RequestOptions = {
+        path: '/some/path'
+    };
+    https.get(new url.URL('http://www.example.com'), opts);
+    https.request(new url.URL('http://www.example.com'), opts);
+    https.get(new url.URL('http://www.example.com/xyz'), opts, (res: http.IncomingMessage): void => {});
+    https.request(new url.URL('http://www.example.com/xyz'), opts, (res: http.IncomingMessage): void => {});
 
     https.globalAgent.options.ca = [];
 
@@ -2329,7 +2417,7 @@ namespace child_process_tests {
         childProcess.exec("echo test", { windowsHide: true });
         childProcess.spawn("echo", ["test"], { windowsHide: true });
         childProcess.spawn("echo", ["test"], { windowsHide: true, argv0: "echo-test" });
-        childProcess.spawn("echo", ["test"], { stdio: [0xdeadbeef, undefined, "pipe"] });
+        childProcess.spawn("echo", ["test"], { stdio: [0xdeadbeef, "inherit", undefined, "pipe"] });
         childProcess.spawnSync("echo test");
         childProcess.spawnSync("echo test", {windowsVerbatimArguments: false});
         childProcess.spawnSync("echo test", {windowsVerbatimArguments: false, argv0: "echo-test"});

@@ -70,8 +70,7 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    *
    * Alias `.caught();` for compatibility with earlier ECMAScript version.
    */
-  catch(onReject: (error: any) => Resolvable<R>): Bluebird<R>;
-  catch<U>(onReject: ((error: any) => Resolvable<U>) | undefined | null): Bluebird<U | R>;
+  catch<U = R>(onReject: ((error: any) => Resolvable<U>) | undefined | null): Bluebird<U | R>;
 
   /**
    * This extends `.catch` to work more like catch-clauses in languages like Java or C#.

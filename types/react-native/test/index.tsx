@@ -72,6 +72,7 @@ import {
     WebView,
     KeyboardAvoidingView,
     Modal,
+    TimePickerAndroid,
 } from "react-native";
 
 declare module "react-native" {
@@ -359,6 +360,7 @@ export class SectionListTest extends React.Component<SectionListProps<string>, {
                             <Text>{`${info.section.title} - ${info.item}`}</Text>
                         </View>
                     )}
+                    maxToRenderPerBatch={5}
                 />
             </React.Fragment>
         );
@@ -390,7 +392,7 @@ class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListVi
                         throw new Error("Expected scroll to be enabled.");
                     }
 
-                    return <ScrollView horizontal={true} contentOffset={{x: 0, y: 0}} {...props} style={[scrollViewStyle1.scrollView, scrollViewStyle2]} />;
+                    return <ScrollView horizontal={true} nestedScrollEnabled={true} contentOffset={{x: 0, y: 0}} {...props} style={[scrollViewStyle1.scrollView, scrollViewStyle2]} />;
                 }}
                 renderRow={({ type, data }, _, row) => {
                     return <Text>Filler</Text>;
@@ -594,6 +596,10 @@ class TextInputTest extends React.Component<{}, {username: string}> {
                     multiline
                     onContentSizeChange={this.handleOnContentSizeChange}
                 />
+
+                <TextInput
+                    contextMenuHidden={true}
+                />
             </View>
         );
     }
@@ -686,31 +692,6 @@ export class ImageBackgroundProps extends React.Component {
     }
 }
 
-class StylePropsTest extends React.PureComponent {
-    render() {
-        const uri = 'https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png'
-
-        return (
-            <View backgroundColor="lightgray" flex={1} overflow="scroll">
-                <Image
-                    borderRadius={100}
-                    // height={200}
-                    margin={20}
-                    overflow="visible" // ps: must fail if "scroll"
-                    source={{ uri }}
-                    style={{ width: 200, height: 200, tintColor: 'green', flexWrap: 'wrap-reverse' }}
-                    // tintColor="green"
-                    // width={200}
-                />
-
-                <Text style={{ /* iOs only */ textTransform: 'capitalize'  }}>
-                    Text
-                </Text>
-            </View>
-        );
-    }
-}
-
 const listViewDataSourceTest = new ListView.DataSource({rowHasChanged: () => true})
 
 class AccessibilityTest extends React.Component {
@@ -758,4 +739,13 @@ const AlertIOSTest = () => {
 
 const ModalTest = () => (
     <Modal hardwareAccelerated />
+)
+
+const TimePickerAndroidTest = () => (
+    TimePickerAndroid.open({
+        hour: 8,
+        minute: 15,
+        is24Hour: true,
+        mode: 'spinner'
+    })
 )

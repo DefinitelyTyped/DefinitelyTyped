@@ -6,6 +6,7 @@
 //                 John Reilly <https://github.com/johnnyreilly>
 //                 Alberto Restifo <https://github.com/albertorestifo>
 //                 Behind The Math <https://github.com/BehindTheMath>
+//                 3af <https://github.com/3af>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -93,6 +94,7 @@ export interface ParseConfig {
     newline?: string;              // default: "\r\n"
     quoteChar?: string;            // default: '"'
     header?: boolean;              // default: false
+    trimHeaders?: boolean;         // default: false
     dynamicTyping?: boolean;       // default: false
     preview?: number;              // default: 0
     encoding?: string;             // default: ""
@@ -109,6 +111,7 @@ export interface ParseConfig {
     error?(error: ParseError, file?: File): void;       // default: undefined
     chunk?(results: ParseResult, parser: Parser): void; // default: undefined
     beforeFirstChunk?(chunk: string): string | void;    // default: undefined
+    transform?(value: string, field: string | number): any; // default: undefined
 }
 
 export interface UnparseConfig {
@@ -138,6 +141,7 @@ export interface ParseMeta {
     aborted: boolean;      // Whether process was aborted
     fields: Array<string>; // Array of field names
     truncated: boolean;    // Whether preview consumed all input
+    cursor: number;
 }
 
 /**

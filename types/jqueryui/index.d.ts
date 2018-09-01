@@ -1071,6 +1071,17 @@ declare namespace JQueryUI {
         show?: any;
     }
 
+    interface WidgetCommonProperties {
+        element: JQuery;
+        defaultElement : string;
+        document: Document;
+        namespace: string;
+        uuid: string;
+        widgetEventPrefix: string;
+        widgetFullName: string;
+        window: Window;
+    }
+
     interface Widget {
         (methodName: string): JQuery;
         (options: WidgetOptions): JQuery;
@@ -1079,8 +1090,8 @@ declare namespace JQueryUI {
         (optionLiteral: string, options: WidgetOptions): any;
         (optionLiteral: string, optionName: string, optionValue: any): JQuery;
 
-        (name: string, prototype: any): JQuery;
-        (name: string, base: Function, prototype: any): JQuery;
+        <T>(name: string, prototype: T & ThisType<T & WidgetCommonProperties>): JQuery;
+        <T>(name: string, base: Function, prototype: T & ThisType<T & WidgetCommonProperties> ): JQuery;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////

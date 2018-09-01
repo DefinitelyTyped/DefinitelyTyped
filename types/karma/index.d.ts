@@ -248,6 +248,7 @@ declare namespace karma {
          * you can specify how many browsers should be running at once at any given point in time.
          */
         concurrency?: number;
+        customLaunchers?: { [key: string]: CustomLauncher };
         /**
          * @default []
          * @description List of files/patterns to exclude from loaded files.
@@ -469,6 +470,13 @@ declare namespace karma {
          * @description Should the files be served from disk on each request by Karma's webserver?
          */
         nocache?: boolean;
+    }
+
+    interface CustomLauncher {
+        base: string;
+        browserName?: string;
+        flags?: string[];
+        platform?: string;
     }
 }
 

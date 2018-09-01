@@ -390,23 +390,23 @@ preHookTestSchemaArr.push(
 
 // Model<Document>
 preHookTestSchemaArr.push(
-  schema.pre("insertMany", function(next) {
+  schema.pre("insertMany", function(next, docs) {
     const isDefaultType: mongoose.Model<mongoose.Document> = this;
   }, err => {})
 );
 preHookTestSchemaArr.push(
-  schema.pre<PreHookTestModelInterface<PreHookTestDocumentInterface>>("insertMany", function(next) {
+  schema.pre<PreHookTestModelInterface<PreHookTestDocumentInterface>>("insertMany", function(next, docs) {
     const isSpecificType: PreHookTestModelInterface<PreHookTestDocumentInterface> = this;
     return Promise.resolve("")
   }, err => {})
 );
 preHookTestSchemaArr.push(
-  schema.pre("insertMany", true, function(next, done) {
+  schema.pre("insertMany", true, function(next, done, docs) {
     const isDefaultType: mongoose.Model<mongoose.Document> = this;
   }, err => {})
 );
 preHookTestSchemaArr.push(
-  schema.pre<PreHookTestModelInterface<PreHookTestDocumentInterface>>("insertMany", true, function(next, done) {
+  schema.pre<PreHookTestModelInterface<PreHookTestDocumentInterface>>("insertMany", true, function(next, done, docs) {
     const isSpecificType: PreHookTestModelInterface<PreHookTestDocumentInterface> = this;
     return Promise.resolve("")
   }, err => {})
@@ -1266,6 +1266,8 @@ aggregate.project({
 })
 aggregate.project({ salary_k: { $divide: [ "$salary", 1000 ]}});
 aggregate.read('primaryPreferred').read('pp');
+aggregate.replaceRoot("user");
+aggregate.replaceRoot({x: {$concat: ['$this', '$that']}});
 aggregate.sample(3).sample(3);
 aggregate.skip(10).skip(10);
 aggregate.sort({ field: 'asc', test: -1 });

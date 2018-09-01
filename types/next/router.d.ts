@@ -26,20 +26,22 @@ export type PopStateCallback = (state: any) => boolean | undefined;
 
 export type RouterCallback = () => void;
 
-export interface RouterProps {
+export interface DefaultQuery {
+    [key: string]:
+    | boolean
+    | boolean[]
+    | number
+    | number[]
+    | string
+    | string[];
+}
+
+export interface RouterProps<Q = DefaultQuery> {
     // url property fields
     readonly pathname: string;
     readonly route: string;
     readonly asPath?: string;
-    readonly query?: {
-        [key: string]:
-            | boolean
-            | boolean[]
-            | number
-            | number[]
-            | string
-            | string[];
-    };
+    readonly query?: Q;
 
     // property fields
     readonly components: {
@@ -78,18 +80,22 @@ export interface RouterProps {
     };
 }
 
-export interface SingletonRouter extends RouterProps {
-    router: RouterProps | null;
+export interface SingletonRouter<Q = DefaultQuery> extends RouterProps<Q> {
+    router: RouterProps<Q> | null;
     readyCallbacks: RouterCallback[];
     ready(cb: RouterCallback): void;
 }
 
-export interface WithRouterProps {
-    router: SingletonRouter;
+export interface WithRouterProps<Q = DefaultQuery> {
+    router: SingletonRouter<Q>;
 }
 
-export function withRouter<T extends {}>(
-    Component: React.ComponentType<T & WithRouterProps>,
+// Manually disabling the no-unnecessary-generics rule so users can
+// retain type inference if they warp their component in withRouter
+// without defining props explicitly
+export function withRouter<T extends {}, Q = DefaultQuery>(
+    // tslint:disable-next-line:no-unnecessary-generics
+    Component: React.ComponentType<T & WithRouterProps<Q>>,
 ): React.ComponentType<T>;
 
 declare const Router: SingletonRouter;

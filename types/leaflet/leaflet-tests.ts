@@ -473,15 +473,58 @@ L.marker([1, 2], {
 	className: 'my-div-icon'
 }));
 
-const latLngs = [
-  {lat: 0, lng: 0},
-  {lat: 1, lng: 1}
-];
-const polygon = new L.Polygon(latLngs);
-const polygonExclusion = new L.Polygon([latLngs, latLngs]);
+let polygon: L.Polygon;
 
-L.polygon(latLngs).addTo(map);
-L.polygon([latLngs, latLngs]).addTo(map);
+// simple polygon
+const simplePolygonLatLngs: L.LatLngExpression[] = [[37, -109.05], [41, -109.03], [41, -102.05], [37, -102.04]];
+polygon = L.polygon(simplePolygonLatLngs);
+polygon = new L.Polygon(simplePolygonLatLngs);
+polygon.setLatLngs(simplePolygonLatLngs);
+const simplePolygonLatLngs2: L.LatLng[] = polygon.getLatLngs() as L.LatLng[];
+
+// complex polygon (polygon with holes)
+const complexPolygonLatLngs: L.LatLngExpression[][] = [
+	[[37, -109.05], [41, -109.03], [41, -102.05], [37, -102.04]], // outer ring
+	[[37.29, -108.58], [40.71, -108.58], [40.71, -102.50], [37.29, -102.50]] // hole
+];
+polygon = L.polygon(complexPolygonLatLngs);
+polygon = new L.Polygon(complexPolygonLatLngs);
+polygon.setLatLngs(complexPolygonLatLngs);
+const complexPolygonLatLngs2: L.LatLng[][] = polygon.getLatLngs() as L.LatLng[][];
+
+// multi polygon
+const multiPolygonLatLngs: L.LatLngExpression[][][] = [
+	[ // first polygon
+	  [[37, -109.05], [41, -109.03], [41, -102.05], [37, -102.04]], // outer ring
+	  [[37.29, -108.58], [40.71, -108.58], [40.71, -102.50], [37.29, -102.50]] // hole
+	],
+	[ // second polygon
+	  [[41, -111.03], [45, -111.04], [45, -104.05], [41, -104.05]]
+	]
+];
+polygon = L.polygon(multiPolygonLatLngs);
+polygon = new L.Polygon(multiPolygonLatLngs);
+polygon.setLatLngs(multiPolygonLatLngs);
+const multiPolygonLatLngs2: L.LatLng[][][] = polygon.getLatLngs() as L.LatLng[][][];
+
+let polyline: L.Polyline;
+
+// simple polyline
+const simplePolylineLatLngs: L.LatLngExpression[] = [[45.51, -122.68], [37.77, -122.43], [34.04, -118.2]];
+polyline = L.polyline(simplePolylineLatLngs);
+polyline = new L.Polyline(simplePolylineLatLngs);
+polyline.setLatLngs(simplePolylineLatLngs);
+const simplePolylineLatLngs2: L.LatLng[] = polyline.getLatLngs() as L.LatLng[];
+
+// multi polyline
+const multiPolylineLatLngs: L.LatLngExpression[][] = [
+    [[45.51, -122.68], [37.77, -122.43], [34.04, -118.2]],
+    [[40.78, -73.91], [41.83, -87.62], [32.76, -96.72]]
+];
+polyline = L.polyline(multiPolylineLatLngs);
+polyline = new L.Polyline(multiPolylineLatLngs);
+polyline.setLatLngs(multiPolylineLatLngs);
+const multiPolylineLatLngs2: L.LatLng[][] = polyline.getLatLngs() as L.LatLng[][];
 
 L.Util.extend({});
 L.Util.create({});
@@ -512,7 +555,7 @@ interface MyProperties {
 	testProperty: string;
 }
 
-(L.polygon(latLngs) as L.Polygon<MyProperties>).feature.properties.testProperty = "test";
+(L.polygon(simplePolygonLatLngs) as L.Polygon<MyProperties>).feature.properties.testProperty = "test";
 
 (L.marker([1, 2], {
 	icon: L.icon({
