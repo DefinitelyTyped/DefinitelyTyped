@@ -318,17 +318,21 @@ export interface Axis {
 export type Calendar = 'gregorian' | 'chinese' | 'coptic' | 'discworld' | 'ethiopian' | 'hebrew' | 'islamic' | 'julian' | 'mayan' |
 	'nanakshahi' | 'nepali' | 'persian' | 'jalali' | 'taiwan' | 'thai' | 'ummalqura';
 
+export type AxisName =
+	| 'x' | 'x2' | 'x3' | 'x4' | 'x5' | 'x6' | 'x7' | 'x8' | 'x9'
+	| 'y' | 'y2' | 'y3' | 'y4' | 'y5' | 'y6' | 'y7' | 'y8' | 'y9';
+
 export interface LayoutAxis extends Axis {
 	fixedrange: boolean;
-	scaleanchor: '/^x([2-9]|[1-9][0-9]+)?$/' | '/^y([2-9]|[1-9][0-9]+)?$/';
+	scaleanchor: AxisName;
 	scaleratio: number;
 	constrain: 'range' | 'domain';
 	constraintoward: 'left' | 'center' | 'right' | 'top' | 'middle' | 'bottom';
 	spikedash: string;
 	spikemode: string;
-	anchor: 'free' | '/^x([2-9]|[1-9][0-9]+)?$/' | '/^y([2-9]|[1-9][0-9]+)?$/';
+	anchor: 'free' | AxisName;
 	side: 'top' | 'bottom' | 'left' | 'right';
-	overlaying: 'free' | '/^x([2-9]|[1-9][0-9]+)?$/' | '/^y([2-9]|[1-9][0-9]+)?$/';
+	overlaying: 'free' | AxisName;
 	layer: 'above traces' | 'below traces';
 	domain: number[];
 	position: number;
