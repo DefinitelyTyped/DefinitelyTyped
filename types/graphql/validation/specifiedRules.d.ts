@@ -86,5 +86,7 @@ import { UniqueInputFieldNames } from "./rules/UniqueInputFieldNames";
  */
 export const specifiedRules: ReadonlyArray<ValidationRule>;
 
+import { LoneSchemaDefinition } from "./rules/LoneSchemaDefinition";
+
 // @internal
 export const specifiedSDLRules: ReadonlyArray<SDLValidationRule>;
