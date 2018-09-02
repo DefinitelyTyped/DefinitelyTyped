@@ -289,7 +289,6 @@ const spiedTarget = {
 const spy1 = jest.spyOn(spiedTarget, "returnsVoid");
 const spy2 = jest.spyOn(spiedTarget, "returnsVoid", "get");
 const spy3 = jest.spyOn(spiedTarget, "returnsString", "set");
-
 const spy1Name: string = spy1.getMockName();
 
 const spy2Calls: any[][] = spy2.mock.calls;
@@ -299,8 +298,10 @@ spy2.mockReset();
 
 const spy3Mock: jest.Mock<() => string> = spy3
     .mockImplementation(() => "")
+    .mockImplementation()
     .mockImplementation((arg: {}) => arg)
     .mockImplementation((...args: string[]) => args.join(""))
+    .mockImplementationOnce(() => "")
     .mockName("name")
     .mockReturnThis()
     .mockReturnValue("value")
@@ -425,6 +426,72 @@ expect.extend({
         };
     }
 });
+expect.extend({
+    async foo(this: jest.MatcherUtils, received: {}, ...actual: Array<{}>) {
+        return {
+            message: () => JSON.stringify(received),
+            pass: false,
+        };
+    }
+});
+expect.extend({
+    foo(this: jest.MatcherUtils) {
+        const isNot: boolean = this.isNot;
+
+        const expectedColor = this.utils.EXPECTED_COLOR("blue");
+        const receivedColor = this.utils.EXPECTED_COLOR("red");
+
+        this.utils.ensureActualIsNumber({});
+        this.utils.ensureActualIsNumber({}, "matcher");
+
+        this.utils.ensureExpectedIsNumber({});
+        this.utils.ensureExpectedIsNumber({}, "matcher");
+
+        this.utils.ensureNoExpected({});
+        this.utils.ensureNoExpected({}, "matcher");
+
+        this.utils.ensureNumbers({}, {});
+        this.utils.ensureNumbers({}, {}, "matcher");
+
+        const valueType: string = this.utils.getType({});
+
+        this.utils.matcherHint("matcher");
+        this.utils.matcherHint("matcher", "received");
+        this.utils.matcherHint("matcher", "received", "expected");
+        this.utils.matcherHint("matcher", "received", "expected", {});
+        this.utils.matcherHint("matcher", "received", "expected", {
+            isDirectExpectCall: true,
+        });
+        this.utils.matcherHint("matcher", "received", "expected", {
+            secondArgument: "",
+        });
+        this.utils.matcherHint("matcher", "received", "expected", {
+            isDirectExpectCall: true,
+            secondArgument: "",
+        });
+
+        const plural: string = this.utils.pluralize("word", 3);
+
+        const expectedPrinted: string = this.utils.printExpected({});
+
+        const receivedPrinted: string = this.utils.printReceived({});
+
+        const printedWithType: string = this.utils.printWithType(
+            "name",
+            {},
+            (value: {}) => "");
+
+        const stringified: string = this.utils.stringify({});
+        const stringifiedWithMaxDepth: string = this.utils.stringify({}, 3);
+
+        const equals: boolean = this.equals({}, {});
+
+        return {
+            message: () => "",
+            pass: false,
+        };
+    }
+});
 
 /* Basic matchers */
 
@@ -544,6 +611,21 @@ describe("", () => {
 
         expect({}).toMatchSnapshot();
         expect({}).toMatchSnapshot("snapshotName");
+        expect({ abc: "def" }).toMatchSnapshot({ abc: expect.any(String) }, "snapshotName");
+        expect({
+            one: 1,
+            two: "2",
+            date: new Date(),
+        }).toMatchSnapshot({ one: expect.any(Number), date: expect.any(Date) });
+
+        expect({}).toMatchInlineSnapshot();
+        expect({}).toMatchInlineSnapshot("snapshot");
+        expect({ abc: "def" }).toMatchInlineSnapshot({ abc: expect.any(String) }, "snapshot");
+        expect({
+            one: 1,
+            two: "2",
+            date: new Date(),
+        }).toMatchInlineSnapshot({ one: expect.any(Number), date: expect.any(Date) });
 
         expect(jest.fn()).toReturn();
 
@@ -556,15 +638,27 @@ describe("", () => {
         expect(true).toStrictEqual(false);
         expect({}).toStrictEqual({});
 
+        const errInstance = new Error();
+        const willThrow = () => { throw new Error(); };
         expect(() => {}).toThrow();
-        expect(() => { throw new Error(); }).toThrow("");
+        expect(willThrow).toThrow("");
+        expect(willThrow).toThrow(errInstance);
         expect(jest.fn()).toThrow(Error);
-        expect(jest.fn(() => { throw new Error(); })).toThrow(/foo/);
+        expect(jest.fn(willThrow)).toThrow(/foo/);
 
         expect(() => {}).toThrowErrorMatchingSnapshot();
-        expect(() => { throw new Error(); }).toThrowErrorMatchingSnapshot();
+        expect(willThrow).toThrowErrorMatchingSnapshot();
         expect(jest.fn()).toThrowErrorMatchingSnapshot();
-        expect(jest.fn(() => { throw new Error(); })).toThrowErrorMatchingSnapshot();
+        expect(jest.fn(willThrow)).toThrowErrorMatchingSnapshot();
+
+        expect(() => {}).toThrowErrorMatchingInlineSnapshot();
+        expect(() => {}).toThrowErrorMatchingInlineSnapshot('Error Message');
+        expect(willThrow).toThrowErrorMatchingInlineSnapshot();
+        expect(willThrow).toThrowErrorMatchingInlineSnapshot('Error Message');
+        expect(jest.fn()).toThrowErrorMatchingInlineSnapshot();
+        expect(jest.fn()).toThrowErrorMatchingInlineSnapshot('Error Message');
+        expect(jest.fn(willThrow)).toThrowErrorMatchingInlineSnapshot();
+        expect(jest.fn(willThrow)).toThrowErrorMatchingInlineSnapshot('Error Message');
 
         /* not */
 
@@ -956,3 +1050,105 @@ const testJestConfig = (defaults: jest.DefaultOptions) => {
       }
     };
 };
+
+// https://github.com/DefinitelyTyped/DefinitelyTyped/issues/26368
+
+describe.each([[1, 1, 2], [1, 2, 3], [2, 1, 3]])(
+    ".add(%i, %i)",
+    (a: number, b: number, expected: number) => {
+        test(`returns ${expected}`, () => {
+            expect(a + b).toBe(expected);
+        });
+    }
+);
+
+interface Case {
+    a: number;
+    b: number;
+    expected: number;
+}
+
+describe.each`
+    a    | b    | expected
+    ${1} | ${1} | ${2}
+    ${1} | ${2} | ${3}
+    ${2} | ${1} | ${3}
+`("$a + $b", ({ a, b, expected }: Case) => {
+    test(`returns ${expected}`, () => {
+        expect(a + b).toBe(expected);
+    });
+});
+
+describe.only.each([[1, 1, 2], [1, 2, 3], [2, 1, 3]])(
+    ".add(%i, %i)",
+    (a, b, expected) => {
+        test(`returns ${expected}`, () => {
+            expect(a + b).toBe(expected);
+        });
+    }
+);
+
+describe.only.each`
+    a    | b    | expected
+    ${1} | ${1} | ${2}
+    ${1} | ${2} | ${3}
+    ${2} | ${1} | ${3}
+`("$a + $b", ({ a, b, expected }: Case) => {
+    test(`returns ${expected}`, () => {
+        expect(a + b).toBe(expected);
+    });
+});
+
+describe.skip.each([[1, 1, 2], [1, 2, 3], [2, 1, 3]])(
+    ".add(%i, %i)",
+    (a, b, expected) => {
+        test(`returns ${expected}`, () => {
+            expect(a + b).toBe(expected);
+        });
+    }
+);
+
+describe.skip.each`
+    a    | b    | expected
+    ${1} | ${1} | ${2}
+    ${1} | ${2} | ${3}
+    ${2} | ${1} | ${3}
+`("$a + $b", ({ a, b, expected }: Case) => {
+    test(`returns ${expected}`, () => {
+        expect(a + b).toBe(expected);
+    });
+});
+
+test.each([[1, 1, 2], [1, 2, 3], [2, 1, 3]])(
+    ".add(%i, %i)",
+    (a, b, expected) => {
+        expect(a + b).toBe(expected);
+    }
+);
+
+test.each`
+    a    | b    | expected
+    ${1} | ${1} | ${2}
+    ${1} | ${2} | ${3}
+    ${2} | ${1} | ${3}
+`("returns $expected when $a is added $b", ({ a, b, expected }: Case) => {
+    expect(a + b).toBe(expected);
+});
+
+test.only.each([[1, 1, 2], [1, 2, 3], [2, 1, 3]])(
+    ".add(%i, %i)",
+    (a, b, expected) => {
+        expect(a + b).toBe(expected);
+    }
+);
+
+test.only.each`
+    a    | b    | expected
+    ${1} | ${1} | ${2}
+    ${1} | ${2} | ${3}
+    ${2} | ${1} | ${3}
+`("returns $expected when $a is added $b", ({ a, b, expected }: Case) => {
+    expect(a + b).toBe(expected);
+});
+
+expect("").toHaveProperty("path.to.thing");

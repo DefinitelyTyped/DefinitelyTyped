@@ -1,15 +1,15 @@
 // Type definitions for jest-each 0.3
 // Project: https://github.com/mattphillips/jest-each
-// Definitions by: Michael Utz <https://github.com/theutz>
+// Definitions by: Michael Utz <https://github.com/theutz>, Nick McCurdy <https://github.com/nickmccurdy>
 // Definitions: <https://github.com/DefinitelyTyped/DefinitelyTyped>
 // TypeScript Version: 2.1
 
-export = JestEach;
+export default JestEach;
 
 declare function JestEach(parameters: any[][]): JestEach.ReturnType;
 
 declare namespace JestEach {
-	type SyncCallback = (...args: string[]) => void;
+	type SyncCallback = (...args: any[]) => void;
 	type AsyncCallback = () => void;
 
 	type TestCallback = SyncCallback | AsyncCallback;

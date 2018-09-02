@@ -645,6 +645,7 @@ export interface SearchResponse<T> {
             fields?: any;
             highlight?: any;
             inner_hits?: any;
+            matched_queries?: string[];
             sort?: string[];
         }>;
     };
@@ -1143,6 +1144,7 @@ export interface IndicesDeleteParams extends GenericParams {
     timeout?: TimeSpan;
     masterTimeout?: TimeSpan;
     index: NameList;
+    ignoreUnavailable?: boolean;
 }
 
 export interface IndicesDeleteAliasParams extends GenericParams {

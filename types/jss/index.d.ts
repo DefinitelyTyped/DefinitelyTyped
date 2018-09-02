@@ -3,6 +3,7 @@
 // Definitions by: Brenton Simpson <https://github.com/appsforartists>
 //                 Oleg Slobodskoi <https://github.com/kof>
 //                 Thomas Crockett <https://github.com/pelotom>
+//                 Sebastian Silbermann <https://github.com/eps1lon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -104,13 +105,13 @@ export interface RuleOptions {
 	className: string;
 }
 export declare class SheetsRegistry {
-    constructor();
-    registry: ReadonlyArray<StyleSheet>;
-    readonly index: number;
-    add(sheet: StyleSheet): void;
-    reset(): void;
-    remove(sheet: StyleSheet): void;
-    toString(options?: ToCssOptions): string;
+	constructor();
+	registry: ReadonlyArray<StyleSheet>;
+	readonly index: number;
+	add(sheet: StyleSheet): void;
+	reset(): void;
+	remove(sheet: StyleSheet): void;
+	toString(options?: ToCssOptions): string;
 }
 export type CreateStyleSheetOptions<Name extends string = any> = Partial<{
 	media: string;
@@ -121,7 +122,7 @@ export type CreateStyleSheetOptions<Name extends string = any> = Partial<{
 	generateClassName: GenerateClassName<Name>;
 	classNamePrefix: string;
 }>;
-declare class JSS {
+export declare class JSS {
 	constructor(options?: Partial<JSSOptions>);
 	createStyleSheet<Name extends string>(
 		styles: Partial<Styles<Name>>,
@@ -137,6 +138,7 @@ declare class JSS {
  * Creates a new instance of JSS.
  */
 export function create(options?: Partial<JSSOptions>): JSS;
+export function createGenerateClassName(): GenerateClassName;
 declare const sharedInstance: JSS;
 /**
  * A global JSS instance.

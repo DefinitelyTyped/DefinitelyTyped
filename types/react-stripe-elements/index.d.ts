@@ -6,7 +6,7 @@
 //                 Andrew Goh Yisheng <https://github.com/9y5>
 //                 Thomas Chia <https://github.com/thchia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 /// <reference types="stripe-v3" />
 import * as React from 'react';
@@ -30,12 +30,12 @@ export namespace ReactStripeElements {
 	interface StripeProviderOptions {
 		stripeAccount?: string;
 	}
-	type StripeProviderProps = { apiKey: string; stripe?: never; } & StripeProviderOptions | { apiKey?: never; stripe: StripeProps | null; } & StripeProviderOptions;
+	type StripeProviderProps = { apiKey: string; stripe?: never; } & StripeProviderOptions | { apiKey?: never; stripe: stripe.Stripe | null; } & StripeProviderOptions;
 
 	interface StripeProps {
 		createSource(sourceData?: SourceOptions): Promise<SourceResponse>;
-
 		createToken(options?: TokenOptions): Promise<PatchedTokenResponse>;
+		paymentRequest: stripe.Stripe['paymentRequest'];
 	}
 
 	interface InjectOptions {

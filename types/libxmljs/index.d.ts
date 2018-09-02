@@ -12,16 +12,14 @@ export const libxml_version: string;
 export const libxml_parser_version: string;
 
 // tslint:disable-next-line:strict-export-declare-modifiers
-interface ParseOptions {
-    [optionName: string]: string;
-}
+interface StringMap { [key: string]: string; }
 
-export function parseXml(source: string, options?: ParseOptions): Document;
-export function parseXmlString(source: string, options?: ParseOptions): Document;
+export function parseXml(source: string, options?: StringMap): Document;
+export function parseXmlString(source: string, options?: StringMap): Document;
 
-export function parseHtml(source: string, options?: ParseOptions): Document;
-export function parseHtmlString(source: string, options?: ParseOptions): Document;
-export function parseHtmlFragment(source: string, options?: ParseOptions): Document;
+export function parseHtml(source: string, options?: StringMap): Document;
+export function parseHtmlString(source: string, options?: StringMap): Document;
+export function parseHtmlFragment(source: string, options?: StringMap): Document;
 
 export function memoryUsage(): number;
 export function nodeCount(): number;
@@ -41,7 +39,7 @@ export class Document {
     encoding(): string;
     encoding(enc: string): this;
     find(xpath: string): Element[];
-    get(xpath: string): Element|null;
+    get(xpath: string, namespaces?: StringMap): Element|null;
     node(name: string, content?: string): Element;
     root(): Element|null;
     root(newRoot: Node): Node;
@@ -98,7 +96,7 @@ export class Element extends Node {
     text(): string;
     text(newText: string): this;
     attr(name: string): Attribute|null;
-    attr(attrObject: { [key: string]: string; }): this;
+    attr(attrObject: StringMap): this;
     attrs(): Attribute[];
 
     doc(): Document;
@@ -115,7 +113,7 @@ export class Element extends Node {
     addNextSibling(siblingNode: Node): Node;
 
     find(xpath: string, ns_uri?: string): Node[];
-    find(xpath: string, namespaces: { [key: string]: string; }): Node[];
+    find(xpath: string, namespaces: StringMap): Node[];
     get(xpath: string, ns_uri?: string): Element|null;
 
     defineNamespace(prefixOrHref: string, hrefInCaseOfPrefix?: string): Namespace;

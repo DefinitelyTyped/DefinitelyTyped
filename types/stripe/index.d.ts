@@ -1,4 +1,4 @@
-// Type definitions for stripe 5.0
+// Type definitions for stripe 5.0.19
 // Project: https://github.com/stripe/stripe-node/
 // Definitions by: William Johnston <https://github.com/wjohnsto>
 //                 Peter Harris <https://github.com/codeanimal>
@@ -9,6 +9,9 @@
 //                 Kensuke Hoshikawa <https://github.com/starhoshi>
 //                 Thomas Bruun <https://github.com/bruun>
 //                 Gal Talmor <https://github.com/galtalmor>
+//                 Hunter Tunnicliff <https://github.com/htunnicliff>
+//                 Tyler Jones <https://github.com/squirly>
+//                 Troy Zarger <https://github.com/tzarger>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -186,7 +189,7 @@ declare namespace Stripe {
              * account holder to setup a username and password, and handle all account
              * management directly with them. Possible values are custom and standard.
              */
-            type: 'custom' | 'standard';
+            type: "custom" | "standard";
         }
 
         interface IAccountShared {
@@ -738,7 +741,7 @@ declare namespace Stripe {
              * charge if a partial refund was issued), positive integer or zero.
              */
             amount_refunded: number;
-            
+
             /**
              * ID of the Connect application that created the charge. [Expandable]
              */
@@ -1319,7 +1322,7 @@ declare namespace Stripe {
             /**
              * ID of the default source attached to this customer. [Expandable]
              */
-            default_source: string | cards.ICard | bitcoinReceivers.IBitcoinReceiver;
+            default_source: string | cards.ICard | bitcoinReceivers.IBitcoinReceiver | null;
 
             /**
              * Whether or not the latest charge for the customer's latest invoice has failed
@@ -1465,6 +1468,13 @@ declare namespace Stripe {
              * customer, Stripe will automatically validate the card.
              */
             source?: sources.ISourceCreationOptionsExtended;
+        }
+
+        interface ICustomerListOptions extends IListOptionsCreated {
+            /**
+             * A filter on the list based on the customer’s email field. The value must be a string.
+             */
+            email?: string;
         }
 
         interface ICustomerSourceCreationOptions extends IDataOptionsWithMetadata {
@@ -1895,6 +1905,16 @@ declare namespace Stripe {
             amount_due: number;
 
             /**
+             * The amount, in cents, that was paid.
+             */
+            amount_paid: number;
+
+            /**
+             * The amount remaining, in cents, that is due.
+             */
+            amount_remaining: number;
+
+            /**
              * The fee in cents that will be applied to the invoice and transferred to the application owner's
              * Stripe account when the invoice is paid.
              */
@@ -1915,6 +1935,16 @@ declare namespace Stripe {
             attempted: boolean;
 
             /**
+             * Either charge_automatically, or send_invoice. When charging automatically, Stripe will attempt to pay this invoice using the default source attached to the customer. When sending an invoice, Stripe will email this invoice to the customer with payment instructions.
+             */
+            billing: "charge_automatically" | "send_invoice";
+
+            /**
+             * Indicates the reason why the invoice was created. subscription_cycle indicates an invoice created by a subscription advancing into a new period. subscription_update indicates an invoice created due to creating or updating a subscription. subscription is set for all old invoices to indicate either a change to a subscription or a period advancement. manual is set for all invoices unrelated to a subscription (for example: created via the invoice editor). The upcoming value is reserved for simulated invoices per the upcoming invoice endpoint.
+             */
+            billing_reason: "subscription_cycle" | "subscription_update" | "subscription" | "manual" | "upcoming";
+
+            /**
              * ID of the latest charge generated for this invoice, if any. [Expandable]
              */
             charge: string | charges.ICharge;
@@ -1925,17 +1955,35 @@ declare namespace Stripe {
              */
             closed: boolean;
 
+            /**
+             * Three-letter ISO currency code, in lowercase. Must be a supported currency.
+             */
             currency: string;
+
             customer: string;
+
+            /**
+             * Time at which the object was created. Measured in seconds since the Unix epoch.
+             */
             date: number;
+
+            /**
+             * An arbitrary string attached to the object. Often useful for displaying to users.
+             */
             description: string;
+
             discount: coupons.IDiscount;
+
+            /**
+             * The date on which payment for this invoice is due. This value will be null for invoices where billing=charge_automatically.
+             */
+            due_date: number | null;
 
             /**
              * Ending customer balance after attempting to pay invoice. If the invoice has not been attempted yet,
              * this will be null.
              */
-            ending_balance: number;
+            ending_balance: number | null;
 
             /**
              * Whether or not the invoice has been forgiven. Forgiving an invoice instructs us to update the subscription
@@ -1945,19 +1993,41 @@ declare namespace Stripe {
             forgiven: boolean;
 
             /**
+             * The URL for the hosted invoice page, which allows customers to view and pay an invoice. If the invoice has not been frozen yet, this will be null.
+             */
+            hosted_invoice_url: string | null;
+
+            /**
+             * The link to download the PDF for the invoice. If the invoice has not been frozen yet, this will be null.
+             */
+            invoice_pdf: string | null;
+
+            /**
              * The individual line items that make up the invoice.
              *
              * lines is sorted as follows: invoice items in reverse chronological order, followed by the subscription, if any.
              */
             lines: IList<IInvoiceLineItem>;
 
+            /**
+             * Has the value true if the object exists in live mode or the value false if the object exists in test mode.
+             */
             livemode: boolean;
+
+            /**
+             * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+             */
             metadata: IMetadata;
 
             /**
              * The time at which payment will next be attempted.
              */
             next_payment_attempt: number;
+
+            /**
+             * A unique, identifying string that appears on emails sent to the customer for this invoice. This starts with the customer’s unique invoice_prefix if it is specified.
+             */
+            number: string;
 
             /**
              * Whether or not payment was successfully collected for this invoice. An invoice can be paid (most commonly)
@@ -1987,14 +2057,14 @@ declare namespace Stripe {
             starting_balance: number;
 
             /**
-             * Extra information about an invoice for the customer�s credit card statement.
+             * Extra information about an invoice for the customer's credit card statement.
              */
             statement_descriptor: string;
 
             /**
              * The subscription that this invoice was prepared for, if any.
              */
-            subscription: string;
+            subscription: string | subscriptions.ISubscription;
 
             /**
              * Only set for upcoming invoices that preview prorations. The time used to calculate prorations.
@@ -2010,14 +2080,14 @@ declare namespace Stripe {
              * The amount of tax included in the total, calculated from tax_percent and the subtotal. If no tax_percent
              * is defined, this value will be null.
              */
-            tax: number;
+            tax: number | null;
 
             /**
              * This percentage of the subtotal has been added to the total amount of the invoice, including invoice line
              * items and discounts. This field is inherited from the subscription's tax_percent field, but can be changed
              * before the invoice is paid. This field defaults to null.
              */
-            tax_percent: number;
+            tax_percent: number | null;
 
             /**
              * Total after discount
@@ -2302,7 +2372,7 @@ declare namespace Stripe {
             /**
              * The subscription that this invoice item has been created for, if any.
              */
-            subscription: string;
+            subscription: string | subscriptions.ISubscription;
         }
 
         interface InvoiceItemCreationOptions extends IDataOptionsWithMetadata {
@@ -2389,7 +2459,7 @@ declare namespace Stripe {
              * currency) representing the total amount for the order.
              */
             amount: number;
-            
+
             /**
              * A positive integer in the smallest currency unit (that is, 100 cents for $1.00, or 1 for ¥1, Japanese Yen being a 0-decimal
              * currency) representing the total amount returned for the order thus far.
@@ -2879,6 +2949,30 @@ declare namespace Stripe {
     }
 
     namespace plans {
+        interface ITier {
+            /**
+             * Per unit price for units relevant to the tier.
+             */
+            amount: number;
+
+            /**
+             * Up to and including to this quantity will be contained in the tier.
+             */
+            up_to: number;
+        }
+
+        interface ITransformUsage {
+            /**
+             * Divide usage by this number.
+             */
+            divide_by: number;
+
+            /**
+             * After division, either round the result `up` or `down`.
+             */
+            round: "up" | "down";
+        }
+
         /**
          * A subscription plan contains the pricing information for different products and feature levels on your site.
          * For example, you might have a $10/month plan for basic features and a different $20/month plan for premium features.
@@ -2890,40 +2984,89 @@ declare namespace Stripe {
             object: "plan";
 
             /**
+             * Whether the plan is currently available for new subscriptions.
+             */
+            active: boolean;
+
+            /**
+             * Specifies a usage aggregation strategy for plans of `usage_type=metered`. Allowed values are `sum` for summing up all usage during a period, `last_during_period` for picking the last usage record reported within a period, `last_ever` for picking the last usage record ever (across period bounds) or `max` which picks the usage record with the maximum reported usage during a period. Defaults to `sum`.
+             */
+            aggregate_usage: "sum" | "last_during_period" | "last_ever" | "max" | null;
+
+            /**
              * The amount in cents to be charged on the interval specified
              */
             amount: number;
 
+            /**
+             * Describes how to compute the price per period. Either `per_unit` or `tiered`. `per_unit` indicates that the fixed amount (specified in `amount`) will be charged per unit in `quantity` (for plans with `usage_type=licensed`), or per unit of total usage (for plans with `usage_type=metered`). `tiered` indicates that the unit pricing will be computed using a tiering strategy as defined using the `tiers` and `tiers_mode` attributes.
+             */
+            billing_scheme: "per_unit" | "tiered";
+
+            /**
+             * Time at which the object was created. Measured in seconds since the Unix epoch.
+             */
             created: number;
 
             /**
-             * Currency in which subscription will be charged
+             * Three-letter ISO currency code, in lowercase. Must be a supported currency.
              */
             currency: string;
 
             /**
-             * One of "day", "week", "month" or "year". The frequency with which a subscription should be billed.
+             * One of `day`, `week`, `month` or `year`. The frequency with which a subscription should be billed.
              */
             interval: IntervalUnit;
 
             /**
-             * The number of intervals (specified in the interval property) between each subscription billing. For example,
-             * interval=month and interval_count=3 bills every 3 months.
+             * The number of intervals (specified in the `interval` property) between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months.
              */
             interval_count: number;
 
+            /**
+             * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+             */
             livemode: boolean;
+
+            /**
+             * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+             */
             metadata: IMetadata;
 
             /**
              * A brief description of the plan, hidden from customers.
              */
-            nickname?: string;
+            nickname: string | null;
 
             /**
              * The product whose pricing this plan determines. [Expandable]
              */
             product?: string | products.IProduct;
+
+            /**
+             * Each element represents a pricing tier. This parameter requires `billing_scheme` to be set to `tiered`. See also the documentation for `billing_scheme`.
+             */
+            tiers: plans.ITier[] | null;
+
+            /**
+             * Defines if the tiering price should be `graduated` or `volume` based. In `volume`-based tiering, the maximum quantity within a period determines the per unit price, in `graduated` tiering pricing can successively change as the quantity grows.
+             */
+            tiers_mode: "graduated" | "volume" | null;
+
+            /**
+             * Apply a transformation to the reported usage or set quantity before computing the billed price. Cannot be combined with `tiers`.
+             */
+            transform_usage: plans.ITransformUsage | null;
+
+            /**
+             * Default number of trial days when subscribing a customer to this plan using `trial_from_plan=true`.
+             */
+            trial_period_days: number;
+
+            /**
+             * Configures how the quantity per period should be determined, can be either `metered` or `licensed`. `licensed` will automatically bill the `quantity` set for a plan when adding it to a subscription, `metered` will aggregate the total usage based on usage records. Defaults to `licensed`.
+             */
+            usage_type: "metered" | "licensed";
         }
 
         interface IPlanCreationOptions extends IDataOptionsWithMetadata {
@@ -4204,7 +4347,7 @@ declare namespace Stripe {
             /**
              * Value is 'card'
              */
-            object: string;
+            object: "card";
 
             /**
              * The card number
@@ -4263,7 +4406,7 @@ declare namespace Stripe {
             /**
              * Cardholder name
              */
-            name: string;
+            name: string | null;
 
             /**
              * Uniquely identifies this particular card number. You can use this attribute to check
@@ -4535,6 +4678,12 @@ declare namespace Stripe {
              * Integer representing the number of trial period days before the customer is charged for the first time.
              */
             trial_period_days?: number;
+
+            /**
+             * Indicates if a plan’s trial_period_days should be applied to the subscription. Setting trial_end per subscription is preferred,
+             * and this defaults to false. Setting this flag to true together with trial_end is not allowed.
+             */
+            trial_from_plan?: boolean;
 
             /**
              * List of subscription items, each with an attached plan.
@@ -4890,6 +5039,11 @@ declare namespace Stripe {
              * For other types of refunds, it can be pending, succeeded, failed, or canceled.
              */
             status: "pending" | "succeeded" | "failed" | "canceled";
+
+            /**
+             * If the refund failed, the reason for refund failure if known.
+             */
+            failure_reason?: "lost_or_stolen_card" | "expired_or_canceled_card" | "unknown";
         }
 
         interface IRefundCreationOptions extends IDataOptionsWithMetadata {
@@ -5033,7 +5187,7 @@ declare namespace Stripe {
              * String representing the object’s type. Objects of the same type share the same value.
              */
             object: "review";
-            
+
             /**
              * The charge associated with this review. [Expandable]
              */
@@ -5073,7 +5227,7 @@ declare namespace Stripe {
              */
             name: string;
         }
-    } 
+    }
 
     class StripeResource {
         constructor(stripe: Stripe, urlData: any);
@@ -5720,8 +5874,8 @@ declare namespace Stripe {
              *
              * @param data Allows you to filter the customers you want.
              */
-            list(data: IListOptionsCreated, options: HeaderOptions, response?: IResponseFn<IList<customers.ICustomer>>): Promise<IList<customers.ICustomer>>;
-            list(data: IListOptionsCreated, response?: IResponseFn<IList<customers.ICustomer>>): Promise<IList<customers.ICustomer>>;
+            list(data: customers.ICustomerListOptions, options: HeaderOptions, response?: IResponseFn<IList<customers.ICustomer>>): Promise<IList<customers.ICustomer>>;
+            list(data: customers.ICustomerListOptions, response?: IResponseFn<IList<customers.ICustomer>>): Promise<IList<customers.ICustomer>>;
             list(options: HeaderOptions, response?: IResponseFn<IList<customers.ICustomer>>): Promise<IList<customers.ICustomer>>;
             list(response?: IResponseFn<IList<customers.ICustomer>>): Promise<IList<customers.ICustomer>>;
 
@@ -6592,10 +6746,22 @@ declare namespace Stripe {
              * request should never throw an error. You can optionally request that the response include the total count of all plans. To
              * do so, specify include[]=total_count in your request.
              */
-            list(data: IListOptionsCreated, options: HeaderOptions, response?: IResponseFn<IList<plans.IPlan>>): Promise<IList<plans.IPlan>>;
-            list(data: IListOptionsCreated, response?: IResponseFn<IList<plans.IPlan>>): Promise<IList<plans.IPlan>>;
+            list(data: IPlanListOptions, options: HeaderOptions, response?: IResponseFn<IList<plans.IPlan>>): Promise<IList<plans.IPlan>>;
+            list(data: IPlanListOptions, response?: IResponseFn<IList<plans.IPlan>>): Promise<IList<plans.IPlan>>;
             list(options: HeaderOptions, response?: IResponseFn<IList<plans.IPlan>>): Promise<IList<plans.IPlan>>;
             list(response?: IResponseFn<IList<plans.IPlan>>): Promise<IList<plans.IPlan>>;
+        }
+
+        interface IPlanListOptions extends IListOptionsCreated {
+            /**
+             * Only return plans that are active or inactive (e.g., pass false to list all inactive products).
+             */
+            active?: boolean;
+
+            /**
+             * Only return plans for the given product.
+             */
+            product?: string
         }
 
         /**
@@ -7026,7 +7192,7 @@ declare namespace Stripe {
         }
 
         class WebHooks {
-            constructEvent<T>(requestBody: any, signature: string | string[], endpointSecret: string): webhooks.StripeWebhookEvent<T>;
+            constructEvent<T>(requestBody: any, signature: string | string[], endpointSecret: string, tolerance?: number): webhooks.StripeWebhookEvent<T>;
         }
 
         class EphemeralKeys {

@@ -1,6 +1,7 @@
 // Type definitions for sax-js 1.x
 // Project: https://github.com/isaacs/sax-js
 // Definitions by: Asana <https://asana.com>
+//                 Evert Pot <https://evertpot.com/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
@@ -44,7 +45,7 @@ export interface Tag extends BaseTag {
 
 export declare function parser(strict: boolean, opt: SAXOptions): SAXParser;
 export declare class SAXParser {
-    constructor(strict: boolean, opt: SAXOptions);
+    constructor(strict: boolean, opt?: SAXOptions);
 
     // Methods
     end(): void;

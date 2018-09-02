@@ -2,7 +2,7 @@
 // Project: https://github.com/JSBros/hedron
 // Definitions by: Dmytro Borysov <https://github.com/dborysov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 
@@ -150,8 +150,14 @@ export interface HiddenProps {
     lg?: boolean;
 }
 
-export interface BreakpointProviderProps {
-    breakpoints: { sm?: number; md?: number; lg?: number };
+export interface Breakpoints {
+    sm?: number;
+    md?: number;
+    lg?: number;
+}
+
+export interface BreakpointsProps {
+    breakpoints: Breakpoints;
 }
 
 export class Column extends React.Component<ColumnProps & React.HTMLProps<HTMLElement>> {}
@@ -159,8 +165,8 @@ export class Page extends React.Component<PageProps & React.HTMLProps<HTMLElemen
 export class Row extends React.Component<RowProps & React.HTMLProps<HTMLElement>> {}
 export class Hidden extends React.Component<HiddenProps & React.HTMLProps<HTMLElement>> {}
 export class BreakpointProvider extends React.Component<
-    BreakpointProviderProps & React.HTMLProps<HTMLElement>
+    BreakpointsProps & React.HTMLProps<HTMLElement>
 > {}
 export function withBreakpoints<T>(
-    wrappedComponent: React.ComponentClass<T>
+    wrappedComponent: React.ComponentClass<T & BreakpointsProps>
 ): React.ComponentClass<T>;

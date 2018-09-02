@@ -9,7 +9,12 @@ interface RichText {
     asText(richText: any,  joinString?: string): string;
 }
 
-export const RichText: RichText;
+interface Link {
+    url(link: any, linkResolver?: (doc: any) => string): string;
+}
 
-declare const _default: { RichText: RichText };
+export const RichText: RichText;
+export const Link: Link;
+
+declare const _default: { RichText: RichText, Link: Link };
 export default _default;

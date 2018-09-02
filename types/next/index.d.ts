@@ -1,12 +1,13 @@
-// Type definitions for next 6.0
+// Type definitions for next 6.1
 // Project: https://github.com/zeit/next.js
 // Definitions by: Drew Hays <https://github.com/dru89>
 //                 Brice BERNARD <https://github.com/brikou>
 //                 James Hegedus <https://github.com/jthegedus>
 //                 Resi Respati <https://github.com/resir014>
 //                 Scott Jones <https://github.com/scottdj92>
+//                 Joao Vieira <https://github.com/joaovieira>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 
@@ -15,24 +16,22 @@ import * as url from "url";
 
 import { Response as NodeResponse } from "node-fetch";
 
+import { SingletonRouter } from './router';
+
 declare namespace next {
+    /** Map object used in query strings. */
+    type QueryStringMapObject = Record<string, string | string[] | undefined>;
+
     /**
      * Context object used in methods like `getInitialProps()`
-     * <<https://github.com/zeit/next.js/issues/1651>>
+     * https://github.com/zeit/next.js/blob/6.1.1/server/render.js#L77
+     * https://github.com/zeit/next.js/blob/6.1.1/readme.md#fetching-data-and-component-lifecycle
      */
-    interface NextContext {
+    interface NextContext<Q = QueryStringMapObject> {
         /** path section of URL */
         pathname: string;
         /** query string section of URL parsed as an object */
-        query: {
-            [key: string]:
-                | boolean
-                | boolean[]
-                | number
-                | number[]
-                | string
-                | string[];
-        };
+        query: Q;
         /** String of the actual path (including the query) shows in the browser */
         asPath: string;
         /** HTTP request object (server only) */
@@ -45,16 +44,19 @@ declare namespace next {
         err?: Error;
     }
 
-    type NextSFC<TProps = {}> = NextStatelessComponent<TProps>;
-    interface NextStatelessComponent<TProps = {}>
+    type NextSFC<TProps = {}, Q = QueryStringMapObject> = NextStatelessComponent<TProps, Q>;
+    interface NextStatelessComponent<TProps = {}, Q = QueryStringMapObject>
         extends React.StatelessComponent<TProps> {
-        getInitialProps?: (ctx: NextContext) => Promise<TProps>;
+        getInitialProps?: (ctx: NextContext<Q>) => Promise<TProps>;
     }
 
     type UrlLike = url.UrlObject | url.Url;
 
+    /**
+     * Next.js config schema.
+     * https://github.com/zeit/next.js/blob/6.1.1/server/config.js#L10
+     */
     interface ServerConfig {
-        // known keys
         webpack?: any;
         webpackDevMiddleware?: any;
         poweredByHeader?: boolean;
@@ -62,11 +64,20 @@ declare namespace next {
         assetPrefix?: string;
         configOrigin?: string;
         useFileSystemPublicRoutes?: boolean;
+        generateBuildId?: () => string;
+        generateEtags?: boolean;
+        pageExtensions?: string[];
+        publicRuntimeConfig?: object;
+        serverRuntimeConfig?: object;
 
-        // and since this is a config, it can take anything else, too.
+        // Plugin can define their own keys.
         [key: string]: any;
     }
 
+    /**
+     * Options passed to the Server constructor in Node.js.
+     * https://github.com/zeit/next.js/blob/6.1.1/server/index.js#L30
+     */
     interface ServerOptions {
         dir?: string;
         dev?: boolean;
@@ -75,8 +86,36 @@ declare namespace next {
         conf?: ServerConfig;
     }
 
+    /**
+     * Next.js server instance API.
+     */
     interface Server {
-        setAssetPrefix: (cdnUrl: string) => void;
+        // From constructor
+        // https://github.com/zeit/next.js/blob/6.1.1/server/index.js#L30
+        dir: string;
+        dev: boolean;
+        quiet: boolean;
+        router: SingletonRouter;
+        http: null | http.Server;
+        nextConfig: ServerConfig;
+        distDir: string;
+        buildId: string;
+        hotReloader: any;
+        renderOpts: {
+            dev: string;
+            staticMarkup: boolean;
+            distDir: string;
+            hotReloader: any;
+            buildId: string;
+            availableChunks: object;
+            generateETags: boolean;
+            runtimeConfig?: object;
+        };
+
+        getHotReloader(
+            dir: string,
+            options: { quiet: boolean; config: ServerConfig; buildId: string }
+        ): any;
         handleRequest(
             req: http.IncomingMessage,
             res: http.ServerResponse,
@@ -87,6 +126,8 @@ declare namespace next {
             res: http.ServerResponse,
             parsedUrl?: UrlLike
         ) => Promise<void>;
+        setAssetPrefix(prefix: string): void;
+
         prepare(): Promise<void>;
         close(): Promise<void>;
         defineRoutes(): Promise<void>;
@@ -101,66 +142,34 @@ declare namespace next {
             req: http.IncomingMessage,
             res: http.ServerResponse,
             pathname: string,
-            query?: {
-                [key: string]:
-                    | boolean
-                    | boolean[]
-                    | number
-                    | number[]
-                    | string
-                    | string[];
-            },
+            query?: QueryStringMapObject,
             parsedUrl?: UrlLike
-        ): Promise<void>;
-        renderError(
-            err: any,
-            req: http.IncomingMessage,
-            res: http.ServerResponse,
-            pathname: string,
-            query?: {
-                [key: string]:
-                    | boolean
-                    | boolean[]
-                    | number
-                    | number[]
-                    | string
-                    | string[];
-            }
-        ): Promise<void>;
-        render404(
-            req: http.IncomingMessage,
-            res: http.ServerResponse,
-            parsedUrl: UrlLike
         ): Promise<void>;
         renderToHTML(
             req: http.IncomingMessage,
             res: http.ServerResponse,
             pathname: string,
-            query?: {
-                [key: string]:
-                    | boolean
-                    | boolean[]
-                    | number
-                    | number[]
-                    | string
-                    | string[];
-            }
+            query?: QueryStringMapObject
         ): Promise<string>;
+        renderError(
+            err: any,
+            req: http.IncomingMessage,
+            res: http.ServerResponse,
+            pathname: string,
+            query?: QueryStringMapObject
+        ): Promise<void>;
         renderErrorToHTML(
             err: any,
             req: http.IncomingMessage,
             res: http.ServerResponse,
             pathname: string,
-            query?: {
-                [key: string]:
-                    | boolean
-                    | boolean[]
-                    | number
-                    | number[]
-                    | string
-                    | string[];
-            }
+            query?: QueryStringMapObject
         ): Promise<string>;
+        render404(
+            req: http.IncomingMessage,
+            res: http.ServerResponse,
+            parsedUrl?: UrlLike
+        ): Promise<void>;
 
         serveStatic(
             req: http.IncomingMessage,
@@ -168,19 +177,9 @@ declare namespace next {
             path: string
         ): Promise<void>;
         isServeableUrl(path: string): boolean;
-        isInternalUrl(req: http.IncomingMessage): boolean;
         readBuildId(): string;
         handleBuildId(buildId: string, res: http.ServerResponse): boolean;
-        getCompilationError(
-            page: string,
-            req: http.IncomingMessage,
-            res: http.ServerResponse
-        ): Promise<any>;
-        handleBuildHash(
-            filename: string,
-            hash: string,
-            res: http.ServerResponse
-        ): void;
+        getCompilationError(): Promise<any>;
         send404(res: http.ServerResponse): void;
     }
 }

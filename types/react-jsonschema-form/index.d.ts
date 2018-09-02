@@ -5,8 +5,9 @@
 //                 Ivan Jiang <https://github.com/iplus26>
 //                 Kurt Preston <https://github.com/KurtPreston>
 //                 Philippe Bourdages <https://github.com/phbou72>
+//                 Lucian Buzzo <https://github.com/LucianBuzzo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 declare module "react-jsonschema-form" {
     import * as React from "react";
@@ -35,6 +36,7 @@ declare module "react-jsonschema-form" {
         >;
         safeRenderCompletion?: boolean;
         transformErrors?: (errors: AjvError[]) => AjvError[];
+        idPrefix?: string;
 
         // HTML Attributes
         id?: string;
@@ -132,8 +134,8 @@ declare module "react-jsonschema-form" {
     };
 
     export type ArrayFieldTemplateProps = {
-        DescriptionField: object;
-        TitleField: object;
+        DescriptionField: React.StatelessComponent<{ id: string, description: string | React.ReactElement<any> }>;
+        TitleField: React.StatelessComponent<{ id: string, title: string, required: boolean }>;
         canAdd: boolean;
         className: string;
         disabled: boolean;
@@ -165,8 +167,8 @@ declare module "react-jsonschema-form" {
     };
 
     export type ObjectFieldTemplateProps = {
-        DescriptionField: object;
-        TitleField: object;
+        DescriptionField: React.StatelessComponent<{ id: string, description: string | React.ReactElement<any> }>;
+        TitleField: React.StatelessComponent<{ id: string, title: string, required: boolean }>;
         title: string;
         description: string;
         properties: {

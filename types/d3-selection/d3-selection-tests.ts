@@ -796,7 +796,7 @@ newDiv2 = body.append(function(d, i, g) {
     const index: number = i;
     const group: HTMLBodyElement[] | d3Selection.ArrayLike<HTMLBodyElement> = g;
     console.log('Body element foo property: ', d.foo); // data of type BodyDatum
-    return this.ownerDocument.createElement('div'); // this-type HTMLBodyElement
+    return this.ownerDocument!.createElement('div'); // this-type HTMLBodyElement
 });
 
 // newDiv2 = body.append<HTMLDivElement>(function(d) {
@@ -828,7 +828,7 @@ const typeValueFunction = function(
   i: number,
   g: HTMLBodyElement[] | d3Selection.ArrayLike<HTMLBodyElement>
 ) {
-    return this.ownerDocument.createElement('p'); // this-type HTMLParagraphElement
+    return this.ownerDocument!.createElement('p'); // this-type HTMLParagraphElement
 };
 
 const beforeValueFunction = function(

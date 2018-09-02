@@ -3,7 +3,7 @@ import { View, Text } from 'react-native';
 import {
     ActionButton,
     Avatar,
-    ThemeProvider,
+    ThemeContext,
     COLOR,
     Badge,
     Button,
@@ -12,7 +12,8 @@ import {
     Dialog,
     DialogDefaultActions,
     BottomNavigation,
-    Toolbar
+    Toolbar,
+    getTheme
 } from 'react-native-material-ui';
 
 const theme = {
@@ -24,7 +25,7 @@ const theme = {
 };
 
 const Example = () =>
-    <ThemeProvider uiTheme={theme}>
+    <ThemeContext.Provider value={getTheme(theme)}>
         <View>
             <ActionButton style={{ positionContainer: { marginBottom: 3 }}} />
             <ActionButton icon="done" />
@@ -40,12 +41,14 @@ const Example = () =>
             <Button text="I'm a button" />
 
             <Card>
-                <Text>Hello world!</Text>
+                <ThemeContext.Consumer>
+                    {theme => <Text>Hello world!</Text> }
+                </ThemeContext.Consumer>
             </Card>
 
             <Checkbox label="Select me" value="chicken" onCheck={a => console.log(a)}/>
         </View>
-    </ThemeProvider>;
+    </ThemeContext.Provider>;
 
 const DialogExample = () =>
     <Dialog>
@@ -68,13 +71,9 @@ const DialogExample = () =>
     </Dialog>;
 
 class BottomNavigationExample extends React.Component<null, {active: string}> {
-    constructor() {
-        super(null);
-
-        this.state = {
-            active: 'today'
-        };
-    }
+    state = {
+        active: 'today'
+    };
 
     render() {
         return (

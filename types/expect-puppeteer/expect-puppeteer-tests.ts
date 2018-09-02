@@ -5,7 +5,8 @@ const testGlobal = async (instance: ElementHandle | Page) => {
     await expect(instance).toClick("selector", { polling: "mutation", text: "text" });
     await expect(instance).toClick("selector", { polling: "raf", timeout: 777 });
 
-    await expect(instance).toDisplayDialog(async () => {});
+    const dialog = await expect(instance).toDisplayDialog(async () => {});
+    console.log(dialog.message());
 
     await expect(instance).toFill("selector", "value");
     await expect(instance).toFill("selector", "value", { polling: 777 });

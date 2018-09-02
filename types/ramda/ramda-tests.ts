@@ -503,6 +503,20 @@ R.times(i, 5);
 });
 
 (() => {
+    const testObject: {
+        [key: string]: Error
+    } = {
+        hello: new Error('hello'),
+    };
+    const errorMessages = R.mapObjIndexed(
+        function test(value, key) {
+            // value should be inferred.
+            return value.message + String(key);
+        }, testObject);
+    console.log(errorMessages);
+});
+
+(() => {
     const a: number[]   = R.ap([R.multiply(2), R.add(3)], [1, 2, 3]); // => [2, 4, 6, 4, 5, 6]
     const b: number[][] = R.of([1]); // => [[1]]
     const c: number[]   = R.of(1);
@@ -1560,7 +1574,10 @@ class Rectangle {
 };
 
 () => {
-    R.keys({a: 1, b: 2, c: 3}); // => ['a', 'b', 'c']
+    const objKeys = R.keys({a: 1, b: 2, c: 3}); // => ['a', 'b', 'c']
+    const numberKeys = R.keys(1);
+    const arrayKeys = R.keys([]);
+    const stringKeys = R.keys('foo');
 };
 
 () => {
@@ -2300,10 +2317,12 @@ class Rectangle {
     const c = {x: 3};
     const d = {x: "a"};
     const e = {x: "z"};
+    const f = {x: new Date(0)};
+    const g = {x: new Date(60 * 1000)};
     R.maxBy(cmp, a, c); // => {x: 3}
     R.maxBy(cmp)(a, c); // => {x: 3}
     R.maxBy(cmp)(a)(b);
-    R.maxBy(cmp)(d)(e);
+    R.maxBy(cmp)(f)(g);
 };
 
 () => {
@@ -2331,10 +2350,13 @@ class Rectangle {
     const c = {x: 3};
     const d = {x: "a"};
     const e = {x: "z"};
+    const f = {x: new Date(0)};
+    const g = {x: new Date(60 * 1000)};
     R.minBy(cmp, a, b); // => {x: 1}
     R.minBy(cmp)(a, b); // => {x: 1}
     R.minBy(cmp)(a)(c);
     R.minBy(cmp, d, e);
+    R.minBy(cmp)(f)(g);
 };
 
 () => {

@@ -1,6 +1,6 @@
 // Type definitions for node-ipc 9.1
 // Project: http://riaevangelist.github.io/node-ipc/
-// Definitions by: Arvitaly <https://github.com/arvitaly>
+// Definitions by: Arvitaly <https://github.com/arvitaly>, gjurgens <https://github.com/gjurgens>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 import { Socket } from "net";
@@ -178,6 +178,10 @@ declare namespace NodeIPC {
          */
         on(event: "data", callback: (buffer: Buffer) => void): Client;
         emit(event: string, value?: any): Client;
+        /**
+         * Unbind subscribed events
+         */
+        off(event: string, handler: any): Client;
     }
     interface Server extends Client {
         /**

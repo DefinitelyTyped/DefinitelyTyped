@@ -380,8 +380,11 @@ declare namespace Showdown {
 
     /**
      * Setting a "global" option affects all instances of showdown
+     * 
+     * @param optionKey
+     * @param value
      */
-    function setOption(optionKey: string, value: string): void;
+    function setOption(optionKey: string, value: any): void;
 
     /**
      * Retrieve previous set global option.

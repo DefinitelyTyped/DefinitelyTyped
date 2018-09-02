@@ -1,4 +1,4 @@
-// Type definitions for Atom 1.27
+// Type definitions for Atom 1.28
 // Project: https://github.com/atom/atom
 // Definitions by: GlenCFL <https://github.com/GlenCFL>
 //                 smhxx <https://github.com/smhxx>
@@ -7,7 +7,7 @@
 // TypeScript Version: 2.3
 
 // NOTE: only those classes exported within this file should be retain that status below.
-// https://github.com/atom/atom/blob/v1.27.0/exports/atom.js
+// https://github.com/atom/atom/blob/v1.28.0/exports/atom.js
 
 /// <reference types="node" />
 
@@ -5844,7 +5844,7 @@ export interface TextEditorObservedEvent {
 // information under certain contexts.
 
 // NOTE: the config schema with these defaults can be found here:
-//   https://github.com/atom/atom/blob/v1.27.0/src/config-schema.js
+//   https://github.com/atom/atom/blob/v1.28.0/src/config-schema.js
 /**
  *  Allows you to strongly type Atom configuration variables. Additional key:value
  *  pairings merged into this interface will result in configuration values under
@@ -5957,7 +5957,16 @@ export interface ConfigValues {
      *  changes will miss any events caused by applications other than Atom, but may help
      *  prevent crashes or freezes.
      */
-    "core.fileSystemWatcher": "native"|"atom";
+    "core.fileSystemWatcher": "native"|"experimental"|"poll"|"atom";
+
+    /** Experimental: Use the new Tree-sitter parsing system for supported languages. */
+    "core.useTreeSitterParsers": boolean;
+
+    /**
+     * Specify whether Atom should use the operating system's color profile (recommended)
+     * or an alternative color profile.
+     */
+    "core.colorProfile": "default"|"srgb";
 
     "editor.commentStart": string|null;
 

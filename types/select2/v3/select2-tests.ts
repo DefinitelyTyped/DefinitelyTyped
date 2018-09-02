@@ -210,6 +210,9 @@ $("#e17_2").select2({
 });
 $("#e18,#e18_2").select2();
 alert("Selected value is: " + $("#e8").select2("val")); $("#e8").select2("val", { id: "CA", text: "Califoria" });
+$("#e19").select2({nextSearchTerm: function(selectedObject: object, currentSearchTerm: string) {
+    return currentSearchTerm;
+}});
 
 $("#e8").select2("val");
 $("#e8").select2("val", "CA");

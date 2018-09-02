@@ -166,7 +166,7 @@ export class ReactBootstrapIndividualComponentsTest extends React.Component {
         <ModalHeader />
         <ModalTitle />
         <Nav />
-        <NavDropdown id="foo" />
+        <NavDropdown id="foo" title={<h4>Test</h4>} />
         <NavItem />
         <Navbar />
         <NavbarBrand />
@@ -209,9 +209,21 @@ export class ReactBootstrapIndividualComponentsTest extends React.Component {
         <Table />
         <Tabs />
         <Thumbnail />
-        <ToggleButton value="foo" />
-        <ToggleButtonGroup type="checkbox" />
-        <ToggleButtonGroup type="radio" name="foo" />
+        <ToggleButton value="foo" bsSize="small" />
+        <ToggleButtonGroup
+          type="checkbox"
+          bsSize="small"
+          defaultValue={[1]}
+          value={[1, 2]}
+          onChange={(value: number[]) => { }}
+        />
+        <ToggleButtonGroup
+          type="radio"
+          name="foo"
+          defaultValue={1}
+          value={1}
+          onChange={(value: number) => { }}
+        />
         <Tooltip />
         <Well />
       </div>

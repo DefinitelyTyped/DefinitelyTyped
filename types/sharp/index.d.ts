@@ -15,6 +15,7 @@ import { Duplex } from "stream";
  * @throws {Error} Invalid parameters
  * @returns A sharp instance that can be used to chain operations
  */
+declare function sharp(options?: sharp.SharpOptions): sharp.SharpInstance;
 declare function sharp(input?: string | Buffer, options?: sharp.SharpOptions): sharp.SharpInstance;
 declare namespace sharp {
     const gravity: GravityEnum;
@@ -329,6 +330,14 @@ declare namespace sharp {
          * @param image Buffer containing image data or String containing the path to an image file.
          * @param operator one of and, or or eor to perform that bitwise operation, like the C logic operators &, | and ^ respectively.
          * @param options describes operand when using raw pixel data.
+         * @throws {Error} Invalid parameters
+         * @returns A sharp instance that can be used to chain operations
+         */
+        linear(multiplier?: number, offset?: number): SharpInstance;
+        /**
+         * Apply a gamma correction by reducing the encoding (darken) pre-resize at a factor of 1/gamma then increasing the encoding (brighten) post-resize at a factor of gamma.
+         * @param multiplier value between 0.0 and 1.0. (optional, default 1.0)
+         * @param offset value between 0.0 and 1.0. (optional, default 0.0)
          * @throws {Error} Invalid parameters
          * @returns A sharp instance that can be used to chain operations
          */

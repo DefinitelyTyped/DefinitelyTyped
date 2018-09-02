@@ -1,9 +1,10 @@
-// Type definitions for React Daterange Picker 1.1
+// Type definitions for React Daterange Picker 2.0
 // Project: https://github.com/onefinestay/react-daterange-picker
 // Definitions by: UNCOVER TRUTH Inc. <https://github.com/uncovertruth>
 //                 MartynasZilinskas <https://github.com/MartynasZilinskas>
+//                 Donald Ford <https://github.com/donaldtf>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from "react";
 import * as moment from "moment";
@@ -33,13 +34,13 @@ export interface Props<T = DateRangePicker> extends React.Props<T> {
     onHighlightRange?(date: Date): void;
     onSelect?(value: Props): void;
     onSelectStart?(value: momentRange.MomentRangeExtends): void;
-    paginationArrowComponent?: PaginationArrow;
+    paginationArrowComponent?: React.ComponentClass<PaginationArrowProps> | React.SFC<PaginationArrowProps>;
     selectedLabel?: string;
     selectionType?: 'single' | 'range';
     singleDateRange?: boolean;
     showLegend?: boolean;
     stateDefinitions?: StateDefinitions;
-    value?: momentRange.MomentRangeExtends | momentRange.DateRange;
+    value?: momentRange.MomentRangeExtends | momentRange.DateRange | moment.Moment;
 }
 
 export interface DateState {
@@ -57,10 +58,8 @@ export interface StateDefinition {
     selectable?: boolean;
 }
 
-export interface PaginationArrowProps<T = PaginationArrow> extends React.Props<T> {
+export interface PaginationArrowProps<T = {}> extends React.Props<T> {
     disabled?: boolean;
     onTrigger?(): void;
     direction?: 'next' | 'previous';
 }
-
-export class PaginationArrow extends React.Component<PaginationArrowProps> { }

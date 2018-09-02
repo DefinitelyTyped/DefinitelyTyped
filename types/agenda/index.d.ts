@@ -1,4 +1,4 @@
-// Type definitions for Agenda v1.0.3
+// Type definitions for Agenda v2.0.0
 // Project: https://github.com/agenda/agenda
 // Definitions by: Meir Gottlieb <https://github.com/meirgottlieb>
 //                 Jeff Principe <https://github.com/princjef>
@@ -95,16 +95,14 @@ declare class Agenda extends EventEmitter {
     /**
      * Find all Jobs matching `query` and pass same back in cb().
      * @param query
-     * @param cb
      */
-    jobs<T extends Agenda.JobAttributesData = Agenda.JobAttributesData>(query: any, cb: ResultCallback<Agenda.Job<T>[]>): void;
+    jobs<T extends Agenda.JobAttributesData = Agenda.JobAttributesData>(query: any): Promise<Agenda.Job<T>[]>;
 
     /**
      * Removes all jobs in the database without defined behaviors. Useful if you change a definition name and want
      * to remove old jobs.
-     * @param cb Called with the number of jobs removed.
      */
-    purge(cb?: ResultCallback<number>): void;
+    purge(): Promise<number>;
 
     /**
      * Defines a job with the name of jobName. When a job of job name gets run, it will be passed to fn(job, done).
@@ -123,46 +121,41 @@ declare class Agenda extends EventEmitter {
      * @param names The name or names of the job(s) to run.
      * @param data An optional argument that will be passed to the processing function under job.attrs.data.
      * @param options An optional argument that will be passed to job.repeatEvery.
-     * @param cb An optional callback function which will be called when the job has been persisted in the database.
      */
-    every<T extends Agenda.JobAttributesData = Agenda.JobAttributesData>(interval: number | string, names: string, data?: T, options?: any, cb?: ResultCallback<Agenda.Job<T>>): Agenda.Job<T>;
-    every<T extends Agenda.JobAttributesData = Agenda.JobAttributesData>(interval: number | string, names: string[], data?: T, options?: any, cb?: ResultCallback<Agenda.Job<T>[]>): Agenda.Job<T>[];
+    every<T extends Agenda.JobAttributesData = Agenda.JobAttributesData>(interval: number | string, names: string, data?: T, options?: any): Promise<Agenda.Job<T>>;
+    every<T extends Agenda.JobAttributesData = Agenda.JobAttributesData>(interval: number | string, names: string[], data?: T, options?: any): Promise<Agenda.Job<T>[]>;
 
     /**
      * Schedules a job to run name once at a given time.
      * @param when A Date or a String such as tomorrow at 5pm.
      * @param names The name or names of the job(s) to run.
      * @param data An optional argument that will be passed to the processing function under job.attrs.data.
-     * @param cb An optional callback function which will be called when the job has been persisted in the database.
      */
-    schedule<T extends Agenda.JobAttributesData = Agenda.JobAttributesData>(when: Date | string, names: string, data?: T, cb?: ResultCallback<Agenda.Job<T>>): Agenda.Job<T>;
-    schedule<T extends Agenda.JobAttributesData = Agenda.JobAttributesData>(when: Date | string, names: string[], data?: T, cb?: ResultCallback<Agenda.Job<T>[]>): Agenda.Job<T>[];
+    schedule<T extends Agenda.JobAttributesData = Agenda.JobAttributesData>(when: Date | string, names: string, data?: T): Promise<Agenda.Job<T>>;
+    schedule<T extends Agenda.JobAttributesData = Agenda.JobAttributesData>(when: Date | string, names: string[], data?: T): Promise<Agenda.Job<T>[]>;
 
     /**
      * Schedules a job to run name once immediately.
      * @param name The name of the job to run.
      * @param data An optional argument that will be passed to the processing function under job.attrs.data.
-     * @param cb An optional callback function which will be called when the job has been persisted in the database.
      */
-    now<T extends Agenda.JobAttributesData = Agenda.JobAttributesData>(name: string, data?: T, cb?: ResultCallback<Agenda.Job<T>>): Agenda.Job<T>;
+    now<T extends Agenda.JobAttributesData = Agenda.JobAttributesData>(name: string, data?: T): Promise<Agenda.Job<T>>;
 
     /**
      * Cancels any jobs matching the passed mongodb-native query, and removes them from the database.
      * @param query Mongodb native query.
-     * @param cb Called with the number of jobs removed.
      */
-    cancel(query: any, cb?: ResultCallback<number>): void;
+    cancel(query: any): Promise<number>;
 
     /**
      * Starts the job queue processing, checking processEvery time to see if there are new jobs.
      */
-    start(): void;
+    start(): Promise<void>;
 
     /**
      * Stops the job queue processing. Unlocks currently running jobs.
-     * @param cb Called after the job processing queue shuts down and unlocks all jobs.
      */
-    stop(cb: Callback): void;
+    stop(): Promise<void>;
 }
 
 declare namespace Agenda {
@@ -210,17 +203,7 @@ declare namespace Agenda {
         /**
          * Specifies that Agenda should be initialized using and existing MongoDB connection.
          */
-        mongo?: {
-            /**
-             * The MongoDB database connection to use.
-             */
-            db: Db;
-
-            /**
-             * The name of the collection to use.
-             */
-            collection?: string;
-        }
+        mongo?: Db;
 
         /**
          * Specifies that Agenda should connect to MongoDB.
@@ -228,8 +211,10 @@ declare namespace Agenda {
         db?: {
             /**
              * The connection URL.
+             * Required when using `db` option to connect.
+             * Not required when an existing connection is passed as `mongo` property.
              */
-            address: string;
+            address?: string;
 
             /**
              * The name of the collection to use.
@@ -238,6 +223,7 @@ declare namespace Agenda {
 
             /**
              * Connection options to pass to MongoDB.
+             * Not required when an existing connection is passed as `mongo` property.
              */
             options?: any;
         }
@@ -350,57 +336,57 @@ declare namespace Agenda {
         /**
          * Specifies an interval on which the job should repeat.
          * @param interval A human-readable format String, a cron format String, or a Number.
-         * @param options An optional argument that can include a timezone field. The timezone should be a string as
-         * accepted by moment-timezone and is considered when using an interval in the cron string format.
+         * @param options An optional argument that can include a timezone field or skipImmediate field.
+         * The timezone should be a string as accepted by moment-timezone and is considered when using an interval in the cron string format.
+         * Setting skipImmediate as true will skip the immediate run. The first run will occur only in configured interval.
          */
-        repeatEvery(interval: string | number, options?: { timezone?: string }): Job<T>
+        repeatEvery(interval: string | number, options?: { timezone?: string, skipImmediate?: boolean }): this
 
         /**
          * Specifies a time when the job should repeat. [Possible values](https://github.com/matthewmueller/date#examples).
          * @param time
          */
-        repeatAt(time: string): Job<T>
+        repeatAt(time: string): this
 
         /**
          * Disables the job.
          */
-        disable(): Job<T>;
+        disable(): this;
 
         /**
          * Enables the job.
          */
-        enable(): Job<T>;
+        enable(): this;
 
         /**
          * Ensure that only one instance of this job exists with the specified properties
          * @param value The properties associated with the job that must be unqiue.
          * @param opts
          */
-        unique(value: any, opts?: { insertOnly?: boolean }): Job<T>;
+        unique(value: any, opts?: { insertOnly?: boolean }): this;
 
         /**
          * Specifies the next time at which the job should run.
          * @param time The next time at which the job should run.
          */
-        schedule(time: string | Date): Job<T>;
+        schedule(time: string | Date): this;
 
         /**
          * Specifies the priority weighting of the job.
          * @param value The priority of the job (lowest|low|normal|high|highest|number).
          */
-        priority(value: string | number): Job<T>;
+        priority(value: string | number): this;
 
         /**
          * Sets job.attrs.failedAt to now, and sets job.attrs.failReason to reason.
          * @param reason A message or Error object that indicates why the job failed.
          */
-        fail(reason: string | Error): Job<T>;
+        fail(reason: string | Error): this;
 
         /**
          * Runs the given job and calls callback(err, job) upon completion. Normally you never need to call this manually
-         * @param cb Called when the job is completed.
          */
-        run(cb?: ResultCallback<Job<T>>): Job<T>;
+        run(): Promise<this>;
 
         /**
          * Returns true if the job is running; otherwise, returns false.
@@ -409,27 +395,24 @@ declare namespace Agenda {
 
         /**
          * Saves the job into the database.
-         * @param cb  Called when the job is saved.
          */
-        save(cb?: ResultCallback<Job<T>>): Job<T>;
+        save(): Promise<this>;
 
         /**
          * Removes the job from the database and cancels the job.
-         * @param cb Called after the job has beeb removed from the database.
          */
-        remove(cb?: Callback): void;
+        remove(): Promise<void>;
 
         /**
          * Resets the lock on the job. Useful to indicate that the job hasn't timed out when you have very long running
          * jobs.
-         * @param cb Called after the job has been saved to the database.
          */
-        touch(cb?: Callback): void;
+        touch(): Promise<this>;
 
         /**
          * Calculates next time the job should run
          */
-        computeNextRunAt(): Job<T>;
+        computeNextRunAt(): this;
     }
 
     interface JobOptions {

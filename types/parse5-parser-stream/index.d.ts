@@ -33,7 +33,7 @@ import * as parse5 from "parse5";
  * });
  * ```
  */
-export default class ParserStream<TDocument> extends stream.Writable {
+declare class ParserStream<TDocument> extends stream.Writable {
     /**
      * @param options - Parsing options.
      */
@@ -90,3 +90,7 @@ export default class ParserStream<TDocument> extends stream.Writable {
      */
     on(event: string, listener: (...params: any[]) => any): this;
 }
+
+declare namespace ParserStream {}
+
+export = ParserStream;

@@ -17,7 +17,10 @@ export declare interface Options {
     cache?: {
         max?: number;
         maxAge?: number;
-    }
+    };
+    watchForUpdates?: boolean;
+    watchForUpdatesNonPersistent?: boolean;
+    watchForUpdatesHook?: () => void;
 }
 
 export declare interface Metadata {

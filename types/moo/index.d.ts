@@ -50,7 +50,7 @@ export interface Rule {
     };
 }
 export interface Rules {
-    [x: string]: RegExp | string | string[] | Rule;
+    [x: string]: RegExp | string | string[] | Rule | Rule[];
 }
 
 export interface Lexer {

@@ -1,9 +1,9 @@
-// Type definitions for react-dates v16.7.0
+// Type definitions for react-dates v17.1.0
 // Project: https://github.com/airbnb/react-dates
 // Definitions by: Artur Ampilogov <https://github.com/ArturAmpilogov> 
 //                 Nathan Holland <https://github.com/NathanNZ>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 // Required fields are made according to 'minimum REQUIRED setup' in https://github.com/airbnb/react-dates/blob/master/README.md
  
@@ -49,7 +49,7 @@ declare namespace ReactDates {
         // input related props
         startDatePlaceholderText?: string,
         endDatePlaceholderText?: string,
-        disabled?: boolean,
+        disabled?: DisabledShape,
         required?: boolean,
         readOnly?: boolean,
         screenReaderInputMessage?: string,
@@ -65,7 +65,14 @@ declare namespace ReactDates {
         keepFocusOnInput?: boolean,
 
         // calendar presentation and interaction related props
-        renderMonth?: (day: momentPropTypes.momentObj) => (string | JSX.Element),
+        renderMonthText?: (day: momentPropTypes.momentObj) => (string | JSX.Element),
+        renderMonthElement?: (
+            props: {
+              month: momentPropTypes.momentObj;
+              onMonthSelect: (currentMonth: momentPropTypes.momentObj, newMonthVal: string) => void;
+              onYearSelect: (currentMonth: momentPropTypes.momentObj, newYearVal: string) => void;
+            }
+          ) => string | JSX.Element,
         orientation?: OrientationShape,
         anchorDirection?: AnchorDirectionShape,
         openDirection?: OpenDirectionShape,
@@ -164,7 +171,14 @@ declare namespace ReactDates {
         keepFocusOnInput?: boolean,
 
         // calendar presentation and interaction related props
-        renderMonth?: (day: momentPropTypes.momentObj) => (string | JSX.Element),
+        renderMonthText?: (day: momentPropTypes.momentObj) => (string | JSX.Element),
+        renderMonthElement?: (
+            props: {
+              month: momentPropTypes.momentObj;
+              onMonthSelect: (currentMonth: momentPropTypes.momentObj, newMonthVal: string) => void;
+              onYearSelect: (currentMonth: momentPropTypes.momentObj, newYearVal: string) => void;
+            }
+          ) => string | JSX.Element,
         orientation?: OrientationShape,
         anchorDirection?: AnchorDirectionShape,
         horizontalMargin?: number,
@@ -386,7 +400,14 @@ declare namespace ReactDates {
 
     // components/DayPickerShape.jsx
     interface DayPickerShape {
-        renderMonth?: (day: momentPropTypes.momentObj) => (string | JSX.Element),
+        renderMonthText?: (day: momentPropTypes.momentObj) => (string | JSX.Element),
+        renderMonthElement?: (
+            props: {
+              month: momentPropTypes.momentObj;
+              onMonthSelect: (currentMonth: momentPropTypes.momentObj, newMonthVal: string) => void;
+              onYearSelect: (currentMonth: momentPropTypes.momentObj, newYearVal: string) => void;
+            }
+          ) => string | JSX.Element,
         enableOutsideDays?: boolean,
         numberOfMonths?: number,
         orientation?: ScrollableOrientationShape,

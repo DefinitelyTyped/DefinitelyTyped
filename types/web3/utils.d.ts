@@ -2,21 +2,26 @@ import BigNumber = require("bn.js");
 import * as us from "underscore";
 
 type Unit =
+    | "noether"
+    | "wei"
     | "kwei"
-    | "femtoether"
+    | "Kwei"
     | "babbage"
+    | "femtoether"
     | "mwei"
-    | "picoether"
+    | "Mwei"
     | "lovelace"
-    | "qwei"
-    | "nanoether"
+    | "picoether"
+    | "gwei"
+    | "Gwei"
     | "shannon"
-    | "microether"
-    | "szabo"
+    | "nanoether"
     | "nano"
+    | "szabo"
+    | "microether"
     | "micro"
-    | "milliether"
     | "finney"
+    | "milliether"
     | "milli"
     | "ether"
     | "kether"
@@ -66,6 +71,7 @@ export default interface Utils {
     toDecimal(val: any): number;
     toHex(val: any): string;
     toUtf8(val: any): string;
-    toWei(val: string | number | BigNumber, unit: Unit): string | BigNumber;
+    toWei(val: string | number, unit?: Unit): string;
+    toWei(val: BigNumber, unit?: Unit): BigNumber;
     unitMap: any;
 }

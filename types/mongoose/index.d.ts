@@ -1,4 +1,4 @@
-// Type definitions for Mongoose 5.0.15
+// Type definitions for Mongoose 5.2.3
 // Project: http://mongoosejs.com/
 // Definitions by: horiuchi <https://github.com/horiuchi>
 //                 sindrenm <https://github.com/sindrenm>
@@ -7,6 +7,10 @@
 //                 jendrikw <https://github.com/jendrikw>
 //                 Ethan Resnick <https://github.com/ethanresnick>
 //                 vologa <https://github.com/vologab>
+//                 jussikinnula <https://github.com/jussikinnula>
+//                 ondratra <https://github.com/ondratra>
+//                 alfirin <https://github.com/alfirin>
+//                 Idan Dardikman <https://github.com/idandrd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -148,7 +152,8 @@ declare module "mongoose" {
    * @param fn plugin callback
    * @param opts optional options
    */
-  export function plugin(fn: Function, opts?: any): typeof mongoose;
+  export function plugin(fn: Function): typeof mongoose;
+  export function plugin<T>(fn: Function, opts: T): typeof mongoose;
 
   /** Sets mongoose options */
   export function set(key: string, value: any): void;
@@ -376,6 +381,9 @@ declare module "mongoose" {
     /** Passed directly through to tls.createSecureContext. See https://nodejs.org/dist/latest-v9.x/docs/api/tls.html#tls_tls_createsecurecontext_options for more info. */
     ciphers?: string;
     ecdhCurve?: string;
+
+    /** Flag for using new URL string parser instead of current (deprecated) one */
+    useNewUrlParser?: boolean;
 
     // TODO
     safe?: any;
@@ -649,7 +657,8 @@ declare module "mongoose" {
      * Registers a plugin for this schema.
      * @param plugin callback
      */
-    plugin(plugin: (schema: Schema, options?: any) => void, opts?: any): this;
+    plugin(plugin: (schema: Schema) => void): this;
+    plugin<T>(plugin: (schema: Schema, options: T) => void, opts: T): this;
 
     /**
      * Defines a post hook for the document
@@ -761,8 +770,8 @@ declare module "mongoose" {
      * @param key option name
      * @param value if not passed, the current option value is returned
      */
-    set(key: string): any;
-    set(key: string, value: any): this;
+    set<T extends keyof SchemaOptions>(key: T): SchemaOptions[T];
+    set<T extends keyof SchemaOptions>(key: T, value: SchemaOptions[T]): this;
 
     /**
      * Adds static "class" methods to Models compiled from this schema.
@@ -791,17 +800,19 @@ declare module "mongoose" {
     methods: any;
     /** Object of currently defined statics on this schema. */
     statics: any;
+    /** Object of currently defined query helpers on this schema. */
+    query: any;
     /** The original object passed to the schema constructor */
     obj: any;
   }
 
   // Hook functions: https://github.com/vkarpov15/hooks-fixed
   interface HookSyncCallback<T> {
-    (this: T, next: HookNextFunction): Promise<any> | void;
+    (this: T, next: HookNextFunction, docs: any[]): Promise<any> | void;
   }
 
   interface HookAsyncCallback<T> {
-    (this: T, next: HookNextFunction, done: HookDoneFunction): Promise<any> | void;
+    (this: T, next: HookNextFunction, done: HookDoneFunction, docs: any[]): Promise<any> | void;
   }
 
   interface HookErrorCallback {
@@ -854,6 +865,8 @@ declare module "mongoose" {
     typeKey?: string;
     /** defaults to false */
     useNestedStrict?: boolean;
+    /** defaults to false */
+    usePushEach?: boolean;
     /** defaults to true */
     validateBeforeSave?: boolean;
     /** defaults to "__v" */
@@ -963,8 +976,8 @@ declare module "mongoose" {
      */
     validate?: RegExp | [RegExp, string] |
       SchemaTypeOpts.ValidateFn<T> | [SchemaTypeOpts.ValidateFn<T>, string] |
-      SchemaTypeOpts.ValidateOpts | SchemaTypeOpts.ValidateOpts[] |
-      SchemaTypeOpts.AsyncValidateOpts | SchemaTypeOpts.AsyncValidateOpts[];
+      SchemaTypeOpts.ValidateOpts | SchemaTypeOpts.AsyncValidateOpts |
+      (SchemaTypeOpts.ValidateOpts | SchemaTypeOpts.AsyncValidateOpts)[];
 
     /** Declares an unique index. */
     unique?: boolean | any;
@@ -1591,6 +1604,41 @@ declare module "mongoose" {
      */
     count(callback?: (err: any, count: number) => void): Query<number>;
     count(criteria: any, callback?: (err: any, count: number) => void): Query<number>;
+
+    /**
+     * Specifies this query as a `countDocuments()` query. Behaves like `count()`,
+     * except it always does a full collection scan when passed an empty filter `{}`.
+     *
+     * There are also minor differences in how `countDocuments()` handles
+     * [`$where` and a couple geospatial operators](http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#countDocuments).
+     * versus `count()`.
+     *
+     * Passing a `callback` executes the query.
+     *
+     * This function triggers the following middleware.
+     *
+     * - `countDocuments()`
+     *
+     *
+     * @param {Object} [criteria] mongodb selector
+     * @param {Function} [callback] optional params are (error, count)
+     * @return {Query} this
+    */
+    countDocuments(callback?: (err: any, count: number) => void): Query<number>;
+    countDocuments(criteria: any, callback?: (err: any, count: number) => void): Query<number>;
+
+    /**
+     * Estimates the number of documents in the MongoDB collection. Faster than
+     * using `countDocuments()` for large collections because
+     * `estimatedDocumentCount()` uses collection metadata rather than scanning
+     * the entire collection.
+     *
+     * @param {Object} [options] passed transparently to the [MongoDB driver](http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#estimatedDocumentCount)
+     * @param {Function} [callback] optional params are (error, count)
+     * @return {Query} this
+     */
+    estimatedDocumentCount(callback?: (err: any, count: number) => void): Query<number>;
+    estimatedDocumentCount(options: any, callback?: (err: any, count: number) => void): Query<number>;
 
     /**
      * Returns a wrapper around a mongodb driver cursor. A Query<T>Cursor exposes a
@@ -2275,6 +2323,12 @@ declare module "mongoose" {
     collation(options: CollationOptions): this;
 
     /**
+     * Appends a new $count operator to this aggregate pipeline.
+     * @param countName name of the count field
+     */
+    count(countName: string): this;
+
+    /**
      * Sets the cursor option option for the aggregation query (ignored for < 2.6.0).
      * Note the different syntax below: .exec() returns a cursor object, and no callback
      * is necessary.
@@ -2354,6 +2408,13 @@ declare module "mongoose" {
      * @param tags optional tags for this query
      */
     read(pref: string, tags?: any[]): this;
+
+    /**
+     * Appends a new $replaceRoot operator to this aggregate pipeline.
+     * Note that the $replaceRoot operator requires field strings to start with '$'. If you are passing in a string Mongoose will prepend '$' if the specified field doesn't start '$'. If you are passing in an object the strings in your expression will not be altered.
+     * @param newRoot field or document which will become the new root document
+     */
+    replaceRoot(newRoot: string | object): this;
 
     /**
      * Appends new custom $sample operator(s) to this aggregate pipeline.
@@ -2566,6 +2627,34 @@ declare module "mongoose" {
 
     /** Counts number of matching documents in a database collection. */
     count(conditions: any, callback?: (err: any, count: number) => void): Query<number>;
+
+    /**
+     * Counts number of documents matching `criteria` in a database collection.
+     *
+     * If you want to count all documents in a large collection,
+     * use the `estimatedDocumentCount()` instead.
+     * If you call `countDocuments({})`, MongoDB will always execute
+     * a full collection scan and **not** use any indexes.
+     *
+     * @param {Object} filter
+     * @param {Function} [callback]
+     * @return {Query}
+     */
+    countDocuments(callback?: (err: any, count: number) => void): Query<number>;
+    countDocuments(criteria: any, callback?: (err: any, count: number) => void): Query<number>;
+
+    /**
+     * Estimates the number of documents in the MongoDB collection. Faster than
+     * using `countDocuments()` for large collections because
+     * `estimatedDocumentCount()` uses collection metadata rather than scanning
+     * the entire collection.
+     *
+     * @param {Object} [options]
+     * @param {Function} [callback]
+     * @return {Query}
+     */
+    estimatedDocumentCount(callback?: (err: any, count: number) => void): Query<number>;
+    estimatedDocumentCount(options: any, callback?: (err: any, count: number) => void): Query<number>;
 
     /**
      * Shortcut for saving one or more documents to the database. MyModel.create(docs)
@@ -2904,6 +2993,8 @@ declare module "mongoose" {
     rawResult?: boolean;
     /** overwrites the schema's strict mode option for this update */
     strict?: boolean;
+    /** The context option lets you set the value of this in update validators to the underlying query. */
+    context?: string;
   }
 
   interface ModelFindOneAndUpdateOptions extends ModelFindByIdAndUpdateOptions {

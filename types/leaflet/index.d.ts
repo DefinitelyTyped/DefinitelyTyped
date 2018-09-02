@@ -390,6 +390,7 @@ export interface LayerOptions {
 
 export interface InteractiveLayerOptions extends LayerOptions {
     interactive?: boolean;
+    bubblingMouseEvents?: boolean;
 }
 
 export class Layer extends Evented {
@@ -542,12 +543,13 @@ export namespace tileLayer {
     function wms(baseUrl: string, options?: WMSOptions): TileLayer.WMS;
 }
 
-export interface ImageOverlayOptions extends LayerOptions {
+export interface ImageOverlayOptions extends InteractiveLayerOptions {
     opacity?: number;
     alt?: string;
     interactive?: boolean;
     attribution?: string;
     crossOrigin?: boolean;
+    className?: string;
 }
 
 export class ImageOverlay extends Layer {
@@ -610,10 +612,10 @@ export interface PolylineOptions extends PathOptions {
 }
 
 export class Polyline<T extends geojson.GeometryObject = geojson.LineString | geojson.MultiLineString, P = any> extends Path {
-    constructor(latlngs: LatLngExpression[], options?: PolylineOptions);
+    constructor(latlngs: LatLngExpression[] | LatLngExpression[][], options?: PolylineOptions);
     toGeoJSON(): geojson.Feature<T, P>;
     getLatLngs(): LatLng[] | LatLng[][] | LatLng[][][];
-    setLatLngs(latlngs: LatLngExpression[]): this;
+    setLatLngs(latlngs: LatLngExpression[] | LatLngExpression[][] | LatLngExpression[][][]): this;
     isEmpty(): boolean;
     getCenter(): LatLng;
     getBounds(): LatLngBounds;
@@ -623,13 +625,13 @@ export class Polyline<T extends geojson.GeometryObject = geojson.LineString | ge
     options: PolylineOptions;
 }
 
-export function polyline(latlngs: LatLngExpression[], options?: PolylineOptions): Polyline;
+export function polyline(latlngs: LatLngExpression[] | LatLngExpression[][], options?: PolylineOptions): Polyline;
 
 export class Polygon<P = any> extends Polyline<geojson.Polygon | geojson.MultiPolygon, P> {
-    constructor(latlngs: LatLngExpression[] | LatLngExpression[][], options?: PolylineOptions);
+    constructor(latlngs: LatLngExpression[] | LatLngExpression[][] | LatLngExpression[][][], options?: PolylineOptions);
 }
 
-export function polygon(latlngs: LatLngExpression[] | LatLngExpression[][], options?: PolylineOptions): Polygon;
+export function polygon(latlngs: LatLngExpression[] | LatLngExpression[][] | LatLngExpression[][][], options?: PolylineOptions): Polygon;
 
 export class Rectangle<P = any> extends Polygon<P> {
     constructor(latLngBounds: LatLngBoundsExpression, options?: PolylineOptions);
@@ -1404,6 +1406,7 @@ export class Map extends Evented {
     scrollWheelZoom: Handler;
     tap?: Handler;
     touchZoom: Handler;
+    zoomControl: Control.Zoom;
 
     options: MapOptions;
 }
