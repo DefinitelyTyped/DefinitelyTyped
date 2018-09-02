@@ -106,8 +106,9 @@ export interface ThemedBaseStyledInterface<T>
 }
 export type BaseStyledInterface = ThemedBaseStyledInterface<any>;
 
-export type ThemedStyledInterface<T> = ThemedBaseStyledInterface<T>;
-export type StyledInterface = ThemedStyledInterface<any>;
+export type ThemedStyledInterface<T> = ThemedBaseStyledInterface<Extract<keyof T, string> extends never ? any : T>;
+export type StyledInterface = ThemedStyledInterface<DefaultTheme>;
+export interface DefaultTheme {}
 
 export interface ThemeProviderProps<T> {
     theme?: T | ((theme: T) => T);
