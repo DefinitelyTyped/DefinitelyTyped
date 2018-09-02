@@ -4,8 +4,7 @@ import * as io from "socket.io-client";
 const socket = io();
 const p2p = new P2P(socket);
 
-p2p.on("ready", (...args) => {
-    console.log(args);
+p2p.on("ready", () => {
     p2p.usePeerConnection = true;
     p2p.emit("peer-obj", { peerId: 1 });
 });
