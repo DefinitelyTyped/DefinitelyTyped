@@ -9,4 +9,4 @@ Person.create({}, {}, { firstName: 99 }); // $ExpectError
 const p4 = new PersonWithNumberName();
 // assertType<number>(p4.get('fullName'));
 
-assertType<Ember.ComputedProperty<string, string>>(p4.fullName); // $ExpectError
+// assertType<Ember.ComputedProperty<string, string>>(p4.fullName); // $ExpectError

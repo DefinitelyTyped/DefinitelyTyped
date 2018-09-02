@@ -1,11 +1,25 @@
 import Ember from 'ember';
 import { assertType } from './lib/assert';
 
+/**
+ * Zero-argument case
+ */
 const o = Ember.Object.create();
+// create returns an object
 assertType<object>(o);
+// object returned by create type-checks as an instance of Ember.Object
+assertType<boolean>(o.isDestroyed); // from instance
+assertType<boolean>(o.isDestroying); // from instance
+assertType<(key: string) => any>(o.get); // from prototype
 
-const o1 = Ember.Object.create({x: 9});
+/**
+ * One-argument case
+ */
+const o1 = Ember.Object.create({x: 9, y: 'hello', z: false});
 assertType<number>(o1.x);
+assertType<string>(o1.y);
+o1.y; // $ExpectType string
+o1.z; // $ExpectType boolean
 
 const obj = Ember.Object.create({ a: 1 }, { b: 2 }, { c: 3 });
 assertType<number>(obj.b);
@@ -22,6 +36,7 @@ export class Person extends Ember.Object.extend({
     age: number;
 }
 const p = new Person();
+
 assertType<string>(p.firstName);
 assertType<Ember.ComputedProperty<string>>(p.fullName);
 assertType<string>(p.get('fullName'));

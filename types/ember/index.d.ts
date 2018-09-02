@@ -848,36 +848,31 @@ declare module 'ember' {
             **/
             toString(): string;
 
-            static create<Instance>(this: EmberClassConstructor<Instance>): Fix<Instance>;
+            static create<Class extends typeof Ember.CoreObject>(this: Class): InstanceType<Class>;
 
-            static create<Instance, Args, T1 extends EmberInstanceArguments<Args>>(
-                this: EmberClassConstructor<UnwrapComputedPropertyGetters<Args> & Instance>,
-                arg1: T1 & ThisType<Fix<T1 & Instance>>
-            ): Fix<Instance & T1>;
+            static create<Class extends typeof Ember.CoreObject,
+                T1 extends EmberInstanceArguments<UnwrapComputedPropertySetters<InstanceType<Class>>>
+            >(this: Class,
+                arg1: T1 & ThisType<T1 & InstanceType<Class>>
+            ): InstanceType<Class> & T1;
 
-            static create<
-                Instance,
-                Args,
-                T1 extends EmberInstanceArguments<Args>,
-                T2 extends EmberInstanceArguments<Args>
-            >(
-                this: EmberClassConstructor<UnwrapComputedPropertyGetters<Args> & Instance>,
-                arg1: T1 & ThisType<Fix<Instance & T1>>,
-                arg2: T2 & ThisType<Fix<Instance & T1 & T2>>
-            ): Fix<Instance & T1 & T2>;
+            static create<Class extends typeof Ember.CoreObject,
+                T1 extends EmberInstanceArguments<UnwrapComputedPropertySetters<InstanceType<Class>>>,
+                T2 extends EmberInstanceArguments<UnwrapComputedPropertySetters<InstanceType<Class>>>
+            >(this: Class,
+                arg1: T1 & ThisType<T1 & InstanceType<Class>>,
+                arg2: T2 & ThisType<T2 & InstanceType<Class>>
+            ): InstanceType<Class> & T1 & T2;
 
-            static create<
-                Instance,
-                Args,
-                T1 extends EmberInstanceArguments<Args>,
-                T2 extends EmberInstanceArguments<Args>,
-                T3 extends EmberInstanceArguments<Args>
-            >(
-                this: EmberClassConstructor<UnwrapComputedPropertyGetters<Args> & Instance >,
-                arg1: T1 & ThisType<Fix<Instance & T1>>,
-                arg2: T2 & ThisType<Fix<Instance & T1 & T2>>,
-                arg3: T3 & ThisType<Fix<Instance & T1 & T2 & T3>>
-            ): Fix<Instance & T1 & T2 & T3>;
+            static create<Class extends typeof Ember.CoreObject,
+                T1 extends EmberInstanceArguments<UnwrapComputedPropertySetters<InstanceType<Class>>>,
+                T2 extends EmberInstanceArguments<UnwrapComputedPropertySetters<InstanceType<Class>>>,
+                T3 extends EmberInstanceArguments<UnwrapComputedPropertySetters<InstanceType<Class>>>
+            >(this: Class,
+                arg1: T1 & ThisType<T1 & InstanceType<Class>>,
+                arg2: T2 & ThisType<T2 & InstanceType<Class>>,
+                arg3: T3 & ThisType<T3 & InstanceType<Class>>
+            ): InstanceType<Class> & T1 & T2 & T3;
 
             static extend<Statics, Instance>(
                 this: Statics & EmberClassConstructor<Instance>
@@ -3220,7 +3215,7 @@ declare module 'ember' {
          * property is not defined but the object implements the `setUnknownProperty`
          * method then that will be invoked as well.
          */
-        function set<T, K extends keyof T, V extends T[K]>(
+        function set<T, K extends keyof T>(
             obj: T,
             key: K,
             value: UnwrapComputedPropertySetter<T[K]>
