@@ -50,6 +50,17 @@ export interface ParseOptions {
      * future.
      */
     experimentalFragmentVariables?: boolean;
+
+    /**
+     * EXPERIMENTAL:
+     *
+     * If enabled, the parser understands directives on variable definitions:
+     *
+     * query Foo($var: String = "abc" @variable_definition_directive) {
+     *   ...
+     * }
+     */
+    experimentalVariableDefinitionDirectives?: boolean;
 }
 
 /**

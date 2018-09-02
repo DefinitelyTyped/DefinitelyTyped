@@ -71,8 +71,7 @@ export interface GraphQLSchemaValidationOptions {
      * in this list valid, even if they do not adhere to the specification's
      * schema validation rules.
      *
-     * This option is provided to ease adoption and may be removed in a future
-     * major release.
+     * This option is provided to ease adoption and will be removed in v15.
      */
     allowedLegacyNames?: Maybe<ReadonlyArray<string>>;
 }

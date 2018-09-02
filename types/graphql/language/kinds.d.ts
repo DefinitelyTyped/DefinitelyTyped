@@ -12,7 +12,6 @@ type _Kind = {
     DOCUMENT: "Document";
     OPERATION_DEFINITION: "OperationDefinition";
     VARIABLE_DEFINITION: "VariableDefinition";
-    VARIABLE: "Variable";
     SELECTION_SET: "SelectionSet";
     FIELD: "Field";
     ARGUMENT: "Argument";
@@ -23,6 +22,7 @@ type _Kind = {
     FRAGMENT_DEFINITION: "FragmentDefinition";
 
     // Values
+    VARIABLE: "Variable";
     INT: "IntValue";
     FLOAT: "FloatValue";
     STRING: "StringValue";

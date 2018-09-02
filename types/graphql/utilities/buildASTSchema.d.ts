@@ -22,10 +22,18 @@ interface BuildSchemaOptions extends GraphQLSchemaValidationOptions {
      * Descriptions are defined as preceding string literals, however an older
      * experimental version of the SDL supported preceding comments as
      * descriptions. Set to true to enable this deprecated behavior.
+     * This option is provided to ease adoption and will be removed in v16.
      *
      * Default: false
      */
     commentDescriptions?: boolean;
+
+    /**
+     * Set to true to assume the SDL is valid.
+     *
+     * Default: false
+     */
+    assumeValidSDL?: boolean;
 }
 
 /**
@@ -44,7 +52,7 @@ interface BuildSchemaOptions extends GraphQLSchemaValidationOptions {
  *        Provide true to use preceding comments as the description.
  *
  */
-export function buildASTSchema(ast: DocumentNode, options?: BuildSchemaOptions): GraphQLSchema;
+export function buildASTSchema(documentAST: DocumentNode, options?: BuildSchemaOptions): GraphQLSchema;
 
 type TypeDefinitionsMap = { [key: string]: TypeDefinitionNode };
 type TypeResolver = (typeRef: NamedTypeNode) => GraphQLNamedType;
@@ -67,6 +75,7 @@ export class ASTDefinitionBuilder {
 
 /**
  * Given an ast node, returns its string description.
+ * @deprecated: provided to ease adoption and will be removed in v16.
  *
  * Accepts options as a second argument:
  *

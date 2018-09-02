@@ -156,7 +156,7 @@ export function assertAbstractType(type: any): GraphQLAbstractType;
  */
 export class GraphQLList<T extends GraphQLType> {
     readonly ofType: T;
-    constructor(type: T);
+    constructor(ofType: T);
     toString(): string;
     toJSON(): string;
     inspect(): string;
@@ -184,7 +184,7 @@ export class GraphQLList<T extends GraphQLType> {
  */
 export class GraphQLNonNull<T extends GraphQLNullableType> {
     readonly ofType: T;
-    constructor(type: T);
+    constructor(ofType: T);
     toString(): string;
     toJSON(): string;
     inspect(): string;
@@ -260,32 +260,36 @@ export type Thunk<T> = (() => T) | T;
 export class GraphQLScalarType {
     name: string;
     description: Maybe<string>;
+    serialize: GraphQLScalarSerializer<any>;
+    parseValue: GraphQLScalarValueParser<any>;
+    parseLiteral: GraphQLScalarLiteralParser<any>;
     astNode: Maybe<ScalarTypeDefinitionNode>;
     extensionASTNodes: Maybe<ReadonlyArray<ScalarTypeExtensionNode>>;
     constructor(config: GraphQLScalarTypeConfig<any, any>);
-
-    // Serializes an internal value to include in a response.
-    serialize(value: any): any;
-
-    // Parses an externally provided value to use as an input.
-    parseValue(value: any): any;
-
-    // Parses an externally provided literal value to use as an input.
-    parseLiteral(valueNode: ValueNode, variables?: Maybe<{ [key: string]: any }>): any;
 
     toString(): string;
     toJSON(): string;
     inspect(): string;
 }
 
+export type GraphQLScalarSerializer<TExternal> = (value: any) => Maybe<TExternal>;
+export type GraphQLScalarValueParser<TInternal> = (value: any) => Maybe<TInternal>;
+export type GraphQLScalarLiteralParser<TInternal> = (
+    valueNode: ValueNode,
+    variables: Maybe<{ [key: string]: any }>
+) => Maybe<TInternal>;
+
 export interface GraphQLScalarTypeConfig<TInternal, TExternal> {
     name: string;
     description?: Maybe<string>;
+    // Serializes an internal value to include in a response.
+    serialize: GraphQLScalarSerializer<TExternal>;
+    // Parses an externally provided value to use as an input.
+    parseValue?: GraphQLScalarValueParser<TInternal>;
+    // Parses an externally provided literal value to use as an input.
+    parseLiteral?: GraphQLScalarLiteralParser<TInternal>;
     astNode?: Maybe<ScalarTypeDefinitionNode>;
     extensionASTNodes?: Maybe<ReadonlyArray<ScalarTypeExtensionNode>>;
-    serialize(value: any): Maybe<TExternal>;
-    parseValue?(value: any): Maybe<TInternal>;
-    parseLiteral?(valueNode: ValueNode, variables: Maybe<{ [key: string]: any }>): Maybe<TInternal>;
 }
 
 /**
@@ -429,6 +433,8 @@ export interface GraphQLArgument {
     description?: Maybe<string>;
     astNode?: Maybe<InputValueDefinitionNode>;
 }
+
+export function isRequiredArgument(arg: GraphQLArgument): boolean;
 
 export type GraphQLFieldMap<TSource, TContext> = {
     [key: string]: GraphQLField<TSource, TContext>;
@@ -657,5 +663,7 @@ export interface GraphQLInputField {
     description?: Maybe<string>;
     astNode?: Maybe<InputValueDefinitionNode>;
 }
+
+export function isRequiredInputField(field: GraphQLInputField): boolean;
 
 export type GraphQLInputFieldMap = { [key: string]: GraphQLInputField };

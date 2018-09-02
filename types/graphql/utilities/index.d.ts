@@ -43,7 +43,14 @@ export { introspectionFromSchema } from "./introspectionFromSchema";
 export { buildClientSchema } from "./buildClientSchema";
 
 // Build a GraphQLSchema from GraphQL Schema language.
-export { buildASTSchema, buildSchema, getDescription, BuildSchemaOptions } from "./buildASTSchema";
+export {
+    buildASTSchema,
+    buildSchema,
+    // @deprecated: Get the description from a schema AST node and supports legacy
+    // syntax for specifying descriptions - will be removed in v16
+    getDescription,
+    BuildSchemaOptions,
+} from "./buildASTSchema";
 
 // Extends an existing GraphQLSchema from a parsed GraphQL Schema language AST.
 export { extendSchema } from "./extendSchema";

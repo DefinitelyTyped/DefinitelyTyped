@@ -1,4 +1,4 @@
-// Type definitions for graphql 0.13
+// Type definitions for graphql 14.0
 // Project: https://www.npmjs.com/package/graphql
 // Definitions by: TonyYang <https://github.com/TonyPythoneer>
 //                 Caleb Meredith <https://github.com/calebmer>
@@ -84,6 +84,8 @@ export {
     isWrappingType,
     isNullableType,
     isNamedType,
+    isRequiredArgument,
+    isRequiredInputField,
     isSpecifiedScalarType,
     isIntrospectionType,
     isSpecifiedDirective,
@@ -149,6 +151,9 @@ export {
     GraphQLTypeResolver,
     GraphQLUnionTypeConfig,
     GraphQLDirectiveConfig,
+    GraphQLScalarSerializer,
+    GraphQLScalarValueParser,
+    GraphQLScalarLiteralParser,
 } from "./type";
 
 // Parse and operate on GraphQL language source files.
@@ -170,6 +175,16 @@ export {
     TokenKind,
     DirectiveLocation,
     BREAK,
+    // Predicates
+    isDefinitionNode,
+    isExecutableDefinitionNode,
+    isSelectionNode,
+    isValueNode,
+    isTypeNode,
+    isTypeSystemDefinitionNode,
+    isTypeDefinitionNode,
+    isTypeSystemExtensionNode,
+    isTypeExtensionNode,
     // type
     Lexer,
     ParseOptions,
@@ -311,7 +326,8 @@ export {
     buildASTSchema,
     // Build a GraphQLSchema from a GraphQL schema language document.
     buildSchema,
-    // Get the description from a schema AST node.
+    // @deprecated: Get the description from a schema AST node and supports legacy
+    // syntax for specifying descriptions - will be removed in v16
     getDescription,
     // Extends an existing GraphQLSchema from a parsed GraphQL Schema
     // language AST.

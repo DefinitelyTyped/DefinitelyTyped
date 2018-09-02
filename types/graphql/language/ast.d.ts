@@ -211,6 +211,7 @@ export interface VariableDefinitionNode {
     readonly variable: VariableNode;
     readonly type: TypeNode;
     readonly defaultValue?: ValueNode;
+    readonly directives?: ReadonlyArray<DirectiveNode>;
 }
 
 export interface VariableNode {

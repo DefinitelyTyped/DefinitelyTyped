@@ -1,7 +1,6 @@
 export { validate } from "./validate";
 
-import ValidationContext from "./ValidationContext";
-export { ValidationContext };
+export { ValidationContext } from "./ValidationContext";
 
 export { specifiedRules } from "./specifiedRules";
 
