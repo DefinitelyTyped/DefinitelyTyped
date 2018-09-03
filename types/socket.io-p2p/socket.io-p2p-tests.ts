@@ -1,5 +1,5 @@
-import * as P2P from "socket.io-p2p";
-import * as io from "socket.io-client";
+import P2P = require("socket.io-p2p");
+import io = require("socket.io-client");
 
 const socket = io();
 const p2p = new P2P(socket);
