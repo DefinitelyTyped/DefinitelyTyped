@@ -114,9 +114,10 @@ export interface DefaultTheme {}
 export interface ThemeProviderProps<T> {
     theme?: T | ((theme: T) => T);
 }
-export type ThemeProviderComponent<T> = React.ComponentClass<
+export type BaseThemeProviderComponent<T> = React.ComponentClass<
     ThemeProviderProps<T>
->;
+    >;
+export type ThemeProviderComponent<T> = BaseThemeProviderComponent<Extract<keyof T, string> extends never ? any : T>;
 export interface BaseThemedCssFunction<T> {
     (
         strings: TemplateStringsArray,
