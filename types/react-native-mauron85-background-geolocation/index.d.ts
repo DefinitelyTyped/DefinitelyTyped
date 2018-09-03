@@ -51,7 +51,7 @@ export interface ConfigureOptions {
      * Platform: all
      * Provider: DISTANCE_FILTER, RAW
      * @default 500
-     * @see {@link https://developer.apple.com/library/ios/documentation/CoreLocation/Reference/CLLocationManager_Class/CLLocationManager/CLLocationManager.html#//apple_ref/occ/instp/CLLocationManager/distanceFilter|Apple docs}
+     * @see {@link https://apple.co/2oHo2CV|Apple docs}
      */
     distanceFilter?: number;
 
@@ -76,7 +76,7 @@ export interface ConfigureOptions {
      * Platform: Android
      * Provider: all
      * @default 60000
-     * @see {@link http://developer.android.com/reference/android/location/LocationManager.html#requestLocationUpdates(long,%20float,%20android.location.Criteria,%20android.app.PendingIntent)|Android docs}
+     * @see {@link https://bit.ly/1x00RUu|Android docs}
      */
     interval?: number;
 
@@ -85,7 +85,7 @@ export interface ConfigureOptions {
      * Platform: Android
      * Provider: ACTIVITY
      * @default 120000
-     * @see {@link https://developers.google.com/android/reference/com/google/android/gms/location/LocationRequest.html#getFastestInterval()|Android docs}
+     * @see {@link https://bit.ly/1x00RUu|Android docs}
      */
     fastestInterval?: number;
 
@@ -165,7 +165,7 @@ export interface ConfigureOptions {
      * Platform: iOS
      * Provider: all
      * @default "OtherNavigation"
-     * @see {@link https://developer.apple.com/library/ios/documentation/CoreLocation/Reference/CLLocationManager_Class/CLLocationManager/CLLocationManager.html#//apple_ref/occ/instp/CLLocationManager/activityType|Apple docs}
+     * @see {@link https://apple.co/2oHofpH|Apple docs}
      */
     activityType?: iOSActivityType;
 
@@ -174,7 +174,7 @@ export interface ConfigureOptions {
      * Platform: iOS
      * Provider: all
      * @default false
-     * @see {@link https://developer.apple.com/documentation/corelocation/cllocationmanager/1620553-pauseslocationupdatesautomatical?language=objc|Apple docs}
+     * @see {@link https://apple.co/2CbjEW2|Apple docs}
      */
     pauseLocationUpdates?: boolean;
 
@@ -449,7 +449,8 @@ export interface BackgroundGeolocationStatic {
     /**
      * Delete all stored locations.
      * Platform: iOS, Android
-     * You don't need to delete all locations. The plugin manages the number of stored locations automatically and the total count never exceeds the number as defined by <code>option.maxLocations</code>.
+     * You don't need to delete all locations.
+     * The plugin manages the number of stored locations automatically and the total count never exceeds the number as defined by <code>option.maxLocations</code>.
      * @param success
      * @param fail
      * @see {@link https://github.com/mauron85/react-native-background-geolocation#deletealllocationssuccess-fail|Docs}
@@ -457,7 +458,8 @@ export interface BackgroundGeolocationStatic {
     deleteAllLocations(success?: () => void, fail?: () => void): void;
 
     /**
-     * Normally the plugin will handle switching between <b>BACKGROUND</b> and <b>FOREGROUND</b> mode itself. Calling <code>switchMode</code> you can override plugin behavior and force it to switch into other mode.
+     * Normally the plugin will handle switching between <b>BACKGROUND</b> and <b>FOREGROUND</b> mode itself.
+     * Calling <code>switchMode</code> you can override plugin behavior and force it to switch into other mode.
      * Platform: iOS
      * @param modeId
      * @param success
@@ -467,7 +469,8 @@ export interface BackgroundGeolocationStatic {
     switchMode(modeId: number, success?: () => void, fail?: () => void): void;
 
     /**
-     * Force sync of pending locations. Option <code>syncThreshold</code> will be ignored and all pending locations will be immediately posted to <code>syncUrl</code> in single batch.
+     * Force sync of pending locations.
+     * Option <code>syncThreshold</code> will be ignored and all pending locations will be immediately posted to <code>syncUrl</code> in single batch.
      * Platform: Android, iOS
      * @param success
      * @param fail
@@ -527,7 +530,8 @@ export interface BackgroundGeolocationStatic {
     endTask(taskKey: number): void;
 
     /**
-     * A special task that gets executed when the app is terminated, but the plugin was configured to continue running in the background (option <code>stopOnTerminate: false</code>). In this scenario the {@link https://developer.android.com/reference/android/app/Activity.html|Activity} was killed by the system and all registered event listeners will not be triggered until the app is relaunched.
+     * A special task that gets executed when the app is terminated, but the plugin was configured to continue running in the background (option <code>stopOnTerminate: false</code>).
+     * In this scenario the {@link https://bit.ly/2okJECK|Activity} was killed by the system and all registered event listeners will not be triggered until the app is relaunched.
      * @param callbackfn
      * @see {@link https://github.com/mauron85/react-native-background-geolocation#android-headless-task-experimental|Android Headless Task (Experimental)}
      */
