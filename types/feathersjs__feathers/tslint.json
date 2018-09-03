@@ -1,3 +1,6 @@
 {
-    "extends": "dtslint/dt.json"
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "file-name-casing": false
+    }
 }
