@@ -2,11 +2,11 @@ getCurrentPages();
 
 interface MyOwnEvent
     extends wx.CustomEvent<
-            "my-own",
-            {
-                hello: string;
-            }
-        > {}
+    "my-own",
+    {
+        hello: string;
+    }
+    > { }
 
 let behavior = Behavior({
     behaviors: [],
@@ -18,9 +18,9 @@ let behavior = Behavior({
     data: {
         myBehaviorData: ""
     },
-    attached() {},
+    attached() { },
     methods: {
-        myBehaviorMethod() {}
+        myBehaviorMethod() { }
     }
 });
 
@@ -52,11 +52,11 @@ Component({
             {
                 key: "123"
             },
-            () => {}
+            () => { }
         );
     },
-    moved() {},
-    detached() {},
+    moved() { },
+    detached() { },
     methods: {
         readMyDataAndMyProps() {
             const stringValue1: string = this.data.myProperty;
@@ -92,15 +92,15 @@ Component({
     relations: {
         "./custom-ul": {
             type: "parent", // 关联的目标节点应为父节点
-            linked(target: Component<{ key: string }, {}>) {
+            linked(target: wx.Component<{ key: string }, {}>) {
                 // 每次被插入到custom-ul时执行，target是custom-ul节点实例对象，触发在attached生命周期之后
                 target.data.key;
             },
-            linkChanged(target: Component<{ key: string }, {}>) {
+            linkChanged(target: wx.Component<{ key: string }, {}>) {
                 // 每次被移动后执行，target是custom-ul节点实例对象，触发在moved生命周期之后
                 target.data.key;
             },
-            unlinked(target: Component<{ key: string }, {}>) {
+            unlinked(target: wx.Component<{ key: string }, {}>) {
                 // 每次被移除时执行，target是custom-ul节点实例对象，触发在detached生命周期之后
                 target.data.key;
             }
