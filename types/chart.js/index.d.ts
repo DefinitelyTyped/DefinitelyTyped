@@ -159,6 +159,8 @@ interface Model {
     tension: number;
     x: number;
     y: number;
+    base: number;
+    head: number;
 }
 
 declare namespace Chart {
