@@ -106,6 +106,12 @@ module.exports = function(config: karma.Config) {
       'Chrome',
       'Firefox'
     ],
+    customLaunchers: {
+      ChromiumHeadless_without_security: {
+        base: 'ChromiumHeadless',
+        flags: ['--no-sandbox', '--disable-setuid-sandbox'],
+      },
+    },
 
     singleRun: true
   });

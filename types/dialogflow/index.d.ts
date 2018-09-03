@@ -562,6 +562,12 @@ export interface QueryResult {
     outputContexts: Context[];
     intent: Intent;
     intentDetectionConfidence: number;
+    sentimentAnalysisResult?: {
+        queryTextSentiment: {
+            magnitude: number;
+            score: number;
+        };
+    };
     diagnosticInfo: any;
 }
 

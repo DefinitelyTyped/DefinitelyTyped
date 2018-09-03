@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "delay-tests.ts"
+        "level-codec-tests.ts"
     ]
 }

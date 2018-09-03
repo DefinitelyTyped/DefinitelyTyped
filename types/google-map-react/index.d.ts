@@ -131,6 +131,7 @@ export interface Props {
   onChildClick?(hoverKey: any, childProps: any): void;
   onChildMouseEnter?(hoverKey: any, childProps: any): void;
   onChildMouseLeave?(hoverKey: any, childProps: any): void;
+  onDrag?(args: any): void;
   onZoomAnimationStart?(args: any): void;
   onZoomAnimationEnd?(args: any): void;
   onMapTypeIdChange?(args: any): void;

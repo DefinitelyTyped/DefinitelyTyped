@@ -1,4 +1,4 @@
-// Type definitions for wx-app 1.9
+// Type definitions for wx-app 2.2
 // Project: https://mp.weixin.qq.com/debug/wxadoc/dev/api/
 // Definitions by: taoqf <https://github.com/taoqf>
 //                 AlexStacker <https://github.com/AlexStacker>
@@ -3379,6 +3379,7 @@ declare namespace wx {
     }
 
     type TouchEventType =
+        | "tap"
         | "touchstart"
         | "touchmove"
         | "touchcancel"
@@ -3458,6 +3459,10 @@ declare namespace wx {
         changedTouches: Touch[];
     }
 
+    interface TapEvent extends TouchEvent<"tap"> {
+        // 手指触摸后马上离开
+    }
+
     interface TouchStartEvent extends TouchEvent<"touchstart"> {
         // 手指触摸动作开始
     }
@@ -3534,19 +3539,16 @@ declare namespace wx {
         Instance extends Component<Data, Props>,
         Data,
         Methods,
-        Options,
         Props
-        > = CombinedInstance<Instance, Data, Methods, Options, Props> &
-        Component<Data, Props>;
+        > = CombinedInstance<Instance, Data, Methods, Props> & Component<Data, Props>;
 
     // CombinedInstance models the `this`, i.e. instance type for (user defined) component
     type CombinedInstance<
         Instance extends Component<Data, Props>,
         Data,
         Methods,
-        Options,
         Props
-        > = Methods & Options & Instance;
+        > = Methods & Instance;
 
     type Prop<T> = (() => T) | { new(...args: any[]): T & object };
 
@@ -3571,15 +3573,26 @@ declare namespace wx {
 
     type PropsDefinition<T> = ArrayPropsDefinition<T> | RecordPropsDefinition<T>;
 
+    interface ComponentRelation<D = any, P = any> {
+        /** 目标组件的相对关系，可选的值为 parent 、 child 、 ancestor 、 descendant */
+        type: "parent" | "child" | "ancestor" | "descendant";
+        /** 如果这一项被设置，则它表示关联的目标节点所应具有的behavior，所有拥有这一behavior的组件节点都会被关联 */
+        target?: string;
+        /** 关系生命周期函数，当关系被建立在页面节点树中时触发，触发时机在组件attached生命周期之后 */
+        linked?: (target: Component<D, P>) => void;
+        /** 关系生命周期函数，当关系在页面节点树中发生改变时触发，触发时机在组件moved生命周期之后 */
+        linkChanged?: (target: Component<D, P>) => void;
+        /** 关系生命周期函数，当关系脱离页面节点树时触发，触发时机在组件detached生命周期之后 */
+        unlinked?: (target: Component<D, P>) => void;
+    }
     type ThisTypedComponentOptionsWithRecordProps<
         V extends Component<Data, Props>,
         Data,
         Methods,
-        Options,
         Props
         > = object &
-        ComponentOptions<V, Data | ((this: V) => Data), Methods, Options, Props> &
-        ThisType<CombinedInstance<V, Data, Methods, Options, Readonly<Props>>>;
+        ComponentOptions<V, Data | ((this: V) => Data), Methods, Props> &
+        ThisType<CombinedInstance<V, Data, Methods, Readonly<Props>>>;
 
     interface ComponentRelation<D = any, P = any> {
         /** 目标组件的相对关系，可选的值为 parent 、 child 、 ancestor 、 descendant */
@@ -3593,6 +3606,45 @@ declare namespace wx {
         /** 关系生命周期函数，当关系脱离页面节点树时触发，触发时机在组件detached生命周期之后 */
         unlinked?: (target: Component<D, P>) => void;
     }
+
+    /**
+     * 组件所在页面的生命周期声明对象，目前仅支持页面的show和hide两个生命周期
+     */
+    interface PageLifetimes {
+        show(): void;
+
+        hide(): void;
+    }
+
+    /**
+     * 组件生命周期声明对象，组件的生命周期：created、attached、ready、moved、detached将收归到lifetimes字段内进行声明，
+     * 原有声明方式仍旧有效，如同时存在两种声明方式，则lifetimes字段内声明方式优先级最高
+     */
+    interface Lifetimes {
+        /**
+         * 组件生命周期函数，在组件实例进入页面节点树时执行
+         * 注意此时不能调用 setData
+         */
+        created(): void;
+        /**
+         * 组件生命周期函数，在组件实例进入页面节点树时执行
+         */
+        attached(): void;
+        /**
+         * 组件生命周期函数，在组件布局完成后执行，此时可以获取节点信息
+         * 使用 [SelectorQuery](https://mp.weixin.qq.com/debug/wxadoc/dev/api/wxml-nodes-info.html)
+         */
+        ready(): void;
+        /**
+         * 组件生命周期函数，在组件实例被移动到节点树另一个位置时执行
+         */
+        moved(): void;
+        /**
+         * 组件生命周期函数，在组件实例被从页面节点树移除时执行
+         */
+        detached(): void;
+    }
+
     /**
      * Component组件参数
      */
@@ -3600,66 +3652,76 @@ declare namespace wx {
         Instance extends Component<Data, Props>,
         Data = DefaultData<Instance>,
         Methods = DefaultMethods<Instance>,
-        Options = object,
         Props = PropsDefinition<DefaultProps>
-        > {
+        > extends Partial<Lifetimes> {
         /**
          * 组件的对外属性，是属性名到属性设置的映射表
          * 属性设置中可包含三个字段:
          * type 表示属性类型、 value 表示属性初始值、 observer 表示属性值被更改时的响应函数
          */
         properties?: Props;
+
         /**
          * 组件的内部数据，和 properties 一同用于组件的模版渲染
          */
         data?: Data;
+
         /**
          * 组件的方法，包括事件响应函数和任意的自定义方法
          * 关于事件响应函数的使用
          * 参见[组件事件](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/custom-component/events.html)
          */
         methods?: Methods;
+
         /**
          * 一些组件选项，请参见文档其他部分的说明
          */
-        options?: Options;
+        options?: Partial<{
+            /**
+             * 使用外部样式类可以让组件使用指定的组件外样式类，如果希望组件外样式类能够完全影响组件内部，
+             * 可以将组件构造器中的options.addGlobalClass字段置为true。这个特性从小程序基础库版本 2.2.3 开始支持。
+             *
+             * @version 2.2.3
+             */
+            addGlobalClass: boolean;
+            /**
+             * 在组件的wxml中可以包含 slot 节点，用于承载组件使用者提供的wxml结构。
+             * 默认情况下，一个组件的wxml中只能有一个slot。需要使用多slot时，可以在组件js中声明启用。
+             */
+            multipleSlots: boolean;
+        }>;
+
+        /**
+         * 组件接受的外部样式类，参见 外部样式类
+         *
+         * 有时，组件希望接受外部传入的样式类（类似于 view 组件的 hover-class 属性）。
+         * 此时可以在 Component 中用 externalClasses 定义段定义若干个外部样式类。这个特性从小程序基础库版本 1.9.90 开始支持。
+         *
+         * @version 1.9.90
+         */
+        externalClasses?: string[];
+
         /**
          * 类似于mixins和traits的组件间代码复用机制
          * 参见 [behaviors](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/custom-component/behaviors.html)
          */
         behaviors?: Array<(ComponentOptions<Component<object, object>>) | string>;
+
         /**
-         * 组件生命周期函数，在组件实例进入页面节点树时执行
-         * 注意此时不能调用 setData
+         * 组件生命周期声明对象，组件的生命周期：created、attached、ready、moved、detached将收归到lifetimes字段内进行声明，
+         * 原有声明方式仍旧有效，如同时存在两种声明方式，则lifetimes字段内声明方式优先级最高
          */
-        created?(
-            this: ThisType<
-                ComponentOptions<Instance, Data, Methods, Options, Readonly<Props>>
-                >
-        ): void;
+        lifetimes?: Partial<Lifetimes>;
+
         /**
-         * 组件生命周期函数，在组件实例进入页面节点树时执行
+         * 组件所在页面的生命周期声明对象，目前仅支持页面的show和hide两个生命周期
          */
-        attached?(): void;
-        /**
-         * 组件生命周期函数，在组件布局完成后执行，此时可以获取节点信息
-         * 使用 [SelectorQuery](https://mp.weixin.qq.com/debug/wxadoc/dev/api/wxml-nodes-info.html)
-         */
-        ready?(): void;
-        /**
-         * 组件生命周期函数，在组件实例被移动到节点树另一个位置时执行
-         */
-        moved?(): void;
-        /**
-         * 组件生命周期函数，在组件实例被从页面节点树移除时执行
-         */
-        detached?(): void;
+        pageLifetimes?: Partial<PageLifetimes>;
         /**
          * 组件间关系定义，参见 [组件间关系](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/custom-component/relations.html)
          */
         relations?: { [key: string]: ComponentRelation };
     }
-
     /**
      * There are two valid ways to define the type of data / properties:
      *
@@ -3880,40 +3942,40 @@ declare namespace wx {
         pageScrollTo(option?: PageScrollToOptions): void;
     }
     // #endregion
+    // #region App里的onLaunch、onShow回调参数
+    interface LaunchOptions {
+        /**
+         * 打开小程序的路径
+         */
+        path: string;
+        /**
+         * 打开小程序的query
+         */
+        query: object;
+        /**
+         * 打开小程序的[场景值](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/app-service/scene.html)
+         */
+        scene: number;
+        /**
+         * shareTicket，详见 获取更多[转发信息](https://mp.weixin.qq.com/debug/wxadoc/dev/api/share.html#获取更多转发信息)
+         */
+        shareTicket: string;
+        /**
+         * 当场景为由从另一个小程序或公众号或App打开时，返回此字段
+         */
+        referrerInfo: object;
+        /**
+         * 来源小程序或公众号或App的 appId，详见下方说明
+         */
+        "referrerInfo.appId": string;
+        /**
+         * 来源小程序传过来的数据，scene=1037或1038时支持
+         */
+        "referrerInfo.extraData": object;
+        // #endregion
+    }
+    // #region App 函数及参数
 }
-// #region App里的onLaunch、onShow回调参数
-interface LaunchOptions {
-    /**
-     * 打开小程序的路径
-     */
-    path: string;
-    /**
-     * 打开小程序的query
-     */
-    query: object;
-    /**
-     * 打开小程序的[场景值](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/app-service/scene.html)
-     */
-    scene: number;
-    /**
-     * shareTicket，详见 获取更多[转发信息](https://mp.weixin.qq.com/debug/wxadoc/dev/api/share.html#获取更多转发信息)
-     */
-    shareTicket: string;
-    /**
-     * 当场景为由从另一个小程序或公众号或App打开时，返回此字段
-     */
-    referrerInfo: object;
-    /**
-     * 来源小程序或公众号或App的 appId，详见下方说明
-     */
-    "referrerInfo.appId": string;
-    /**
-     * 来源小程序传过来的数据，scene=1037或1038时支持
-     */
-    "referrerInfo.extraData": object;
-}
-// #endregion
-// #region App 函数及参数
 /**
  * App() 函数用来注册一个小程序。
  * 接受一个 object 参数，其指定小程序的生命周期函数等。
@@ -3925,15 +3987,9 @@ declare function App<T extends wx.AppOptions>(app: T & ThisType<T & wx.App>): vo
 declare function getApp(): wx.App;
 // #endregion
 // #region Compontent组件
-declare function Component<D, M, O, P>(
-    options?: wx.ThisTypedComponentOptionsWithRecordProps<
-        wx.Component<D, P>,
-        D,
-        M,
-        O,
-        P
-        >
-): wx.ExtendedComponent<wx.Component<D, P>, D, M, O, P>;
+declare function Component<D, M, P>(
+    options?: wx.ThisTypedComponentOptionsWithRecordProps<wx.Component<D, P>, D, M, P>
+): wx.ExtendedComponent<wx.Component<D, P>, D, M, P>;
 /**
  * behaviors 是用于组件间代码共享的特性
  * 类似于一些编程语言中的“mixins”或“traits”
@@ -3942,15 +3998,9 @@ declare function Component<D, M, O, P>(
  * 每个组件可以引用多个 behavior
  * behavior 也可以引用其他 behavior
  */
-declare function Behavior<D, M, O, P>(
-    options?: wx.ThisTypedComponentOptionsWithRecordProps<
-        wx.Component<D, P>,
-        D,
-        M,
-        O,
-        P
-        >
-): wx.ExtendedComponent<wx.Component<D, P>, D, M, O, P>;
+declare function Behavior<D, M, P>(
+    options?: wx.ThisTypedComponentOptionsWithRecordProps<wx.Component<D, P>, D, M, P>
+): wx.ExtendedComponent<wx.Component<D, P>, D, M, P>;
 // #endregion
 // #region Page
 /**
@@ -3965,5 +4015,4 @@ declare function Page<T extends wx.PageOptions & object>(
  * 以数组形式按栈的顺序给出，第一个元素为首页，最后一个元素为当前页面。
  */
 declare function getCurrentPages(): wx.Page[];
-
 // #endregion
