@@ -105,7 +105,6 @@ export interface ThemedBaseStyledInterface<T>
         component: React.ComponentType<P>,
     ): ThemedStyledFunction<P, T, WithOptionalTheme<P, T>>;
 }
-export type BaseStyledInterface = ThemedBaseStyledInterface<any>;
 
 export type ThemedStyledInterface<T> = ThemedBaseStyledInterface<Extract<keyof T, string> extends never ? any : T>;
 export type StyledInterface = ThemedStyledInterface<DefaultTheme>;
@@ -118,8 +117,7 @@ export interface ThemeProviderProps<T> {
 export type ThemeProviderComponent<T> = React.ComponentClass<
     ThemeProviderProps<T>
 >;
-
-export interface ThemedCssFunction<T> {
+export interface BaseThemedCssFunction<T> {
     (
         strings: TemplateStringsArray,
         ...interpolations: SimpleInterpolation[]
@@ -129,6 +127,7 @@ export interface ThemedCssFunction<T> {
         ...interpolations: Array<Interpolation<ThemedStyledProps<P, T>>>
     ): Array<FlattenInterpolation<ThemedStyledProps<P, T>>>;
 }
+export type ThemedCssFunction<T> = BaseThemedCssFunction<Extract<keyof T, string> extends never ? any : T>;
 
 // Helper type operators
 type KeyofBase = keyof any;
@@ -162,7 +161,7 @@ export interface ThemedStyledComponentsModule<T> {
 
 declare const styled: StyledInterface;
 
-export const css: ThemedCssFunction<any>;
+export const css: ThemedCssFunction<DefaultTheme>;
 
 export function withTheme<P extends { theme?: T }, T>(
     component: React.ComponentType<P>,
