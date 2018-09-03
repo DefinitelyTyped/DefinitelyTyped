@@ -11,10 +11,12 @@ export as namespace L;
 import * as geojson from 'geojson';
 
 export class Class {
-    static extend(props: any): any/* how to return constructor of self extended type ? */;
-    static include(props: any): any /* how to return self extended type ? */;
-    static mergeOptions(props: any): any /* how to return self extended type ? */;
-    static addInitHook(initHookFn: () => void): any/* how to return self extended type ? */;
+    static extend(props: any): {new(...args: any[]): any} & typeof Class;
+    static include(props: any): any & typeof Class;
+    static mergeOptions(props: any): any & typeof Class;
+
+    static addInitHook(initHookFn: () => void): any & typeof Class;
+    static addInitHook(methodName: string, ...args: any[]): any & typeof Class;
 }
 
 export class Transformation {
@@ -1532,8 +1534,12 @@ export namespace Browser {
 }
 
 export namespace Util {
-    function extend(dest: any, src?: any): any;
-    function create(proto: any, properties?: any): any;
+    function extend<D extends object, S1 extends object = {}>(dest: D, src?: S1): D & S1;
+    function extend<D extends object, S1 extends object, S2 extends object>(dest: D, src1: S1, src2: S2): D & S1 & S2;
+    function extend<D extends object, S1 extends object, S2 extends object, S3 extends object>(dest: D, src1: S1, src2: S2, src3: S3): D & S1 & S2 & S3;
+    function extend(dest: any, ...src: any[]): any;
+
+    function create(proto: object | null, properties?: PropertyDescriptorMap): any;
     function bind(fn: () => void, ...obj: any[]): () => void;
     function stamp(obj: any): number;
     function throttle(fn: () => void, time: number, context: any): () => void;
@@ -1547,7 +1553,7 @@ export namespace Util {
     function template(str: string, data: any): string;
     function isArray(obj: any): boolean;
     function indexOf(array: any[], el: any): number;
-    function requestAnimFrame(fn: () => void, context?: any, immediate?: boolean): number;
+    function requestAnimFrame(fn: (timestamp: number) => void, context?: any, immediate?: boolean): number;
     function cancelAnimFrame(id: number): void;
 
     let lastId: number;
