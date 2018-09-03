@@ -177,7 +177,7 @@ declare namespace ValidatorJS {
     isMultibyte(str: string): boolean;
 
     // check if the string contains only numbers.
-    isNumeric(str: string): boolean;
+    isNumeric(str: string, options?: { no_symbols?: boolean }): boolean;
 
     // check if the string is a valid port number.
     isPort(str: string): boolean;
