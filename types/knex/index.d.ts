@@ -1,7 +1,6 @@
 // Type definitions for Knex.js 0.14
 // Project: https://github.com/tgriesser/knex
 // Definitions by: Qubo <https://github.com/tkQubo>
-//                 Baronfel <https://github.com/baronfel>
 //                 Pablo Rodríguez <https://github.com/MeLlamoPablo>
 //                 Matt R. Wilson <https://github.com/mastermatt>
 //                 Satana Charuwichitratana <https://github.com/micksatana>
@@ -138,14 +137,19 @@ declare namespace Knex {
         limit(limit: number): QueryBuilder;
 
         // Aggregation
-        count(columnName?: string): QueryBuilder;
-        countDistinct(columnName?: string): QueryBuilder;
-        min(columnName: string): QueryBuilder;
-        max(columnName: string): QueryBuilder;
-        sum(columnName: string): QueryBuilder;
-        sumDistinct(columnName: string): QueryBuilder;
-        avg(columnName: string): QueryBuilder;
-        avgDistinct(columnName: string): QueryBuilder;
+        count(...columnNames: string[]): QueryBuilder;
+        count(columnName: Record<string, string | string[] | Knex.Raw> | Knex.Raw): QueryBuilder;
+        countDistinct(columnName: string | Record<string, string | Knex.Raw> | Knex.Raw): QueryBuilder;
+        min(columnName: string, ...columnNames: string[]): QueryBuilder;
+        min(columnName: Record<string, string | string[] | Knex.Raw> | Knex.Raw): QueryBuilder;
+        max(columnName: string, ...columnNames: string[]): QueryBuilder;
+        max(columnName: Record<string, string | string[] | Knex.Raw> | Knex.Raw): QueryBuilder;
+        sum(columnName: string, ...columnNames: string[]): QueryBuilder;
+        sum(columnName: Record<string, string | string[] | Knex.Raw> | Knex.Raw): QueryBuilder;
+        sumDistinct(columnName: string | Record<string, string | Knex.Raw> | Knex.Raw): QueryBuilder;
+        avg(columnName: string, ...columnNames: string[]): QueryBuilder;
+        avg(columnName: Record<string, string | string[] | Knex.Raw> | Knex.Raw): QueryBuilder;
+        avgDistinct(columnName: string | Record<string, string | Knex.Raw> | Knex.Raw): QueryBuilder;
         increment(columnName: string, amount?: number): QueryBuilder;
         decrement(columnName: string, amount?: number): QueryBuilder;
 

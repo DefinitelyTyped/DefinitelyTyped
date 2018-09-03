@@ -61,8 +61,9 @@ type InjectedProps = InjectedFormProps<TestFormData, TestFormComponentProps>;
 
 class TestFormComponent extends React.Component<TestFormComponentProps & InjectedProps> {
     render() {
-        const { form, initialValues } = this.props;
+        const { form, initialValues, error } = this.props;
         const foo = initialValues.foo;
+        const errorIsString = error + 'test';
         return null;
     }
 }
@@ -238,7 +239,7 @@ const Test = reduxForm<TestFormData>({
 
         render() {
             const { handleSubmit } = this.props;
-            const FormCustom = Form as new () => GenericForm<TestFormData, {}>;
+            const FormCustom = Form as new () => GenericForm<TestFormData, {}, string>;
 
             return (
                 <div>
@@ -407,5 +408,40 @@ class FormNameTest extends React.Component {
                 {({ form }) => <span>Form Name is: {form}</span>}
             </FormName>
         );
+    }
+}
+
+// Test SubmissionError with custom error format
+// See https://github.com/DefinitelyTyped/DefinitelyTyped/pull/26494
+// Note: explicit parameters not needed in TS 2.7
+new LibSubmissionError<{ myField: any }, string[]>({
+    _error: ["First form-level error", "Second form-level error"],
+    myField: ["Field-level error"]
+});
+
+new SubmissionError({
+    _error: ["First form-level error", "Second form-level error"]
+});
+
+// Test forms with custom error format.
+const HandleSubmitTestForm2 = reduxForm<TestFormData, {}, string[]>({ form : "test" })(
+    (props: InjectedFormProps<TestFormData, {}, string[]>) => <form onSubmit={ props.handleSubmit } />
+);
+
+class HandleSubmitTest2 extends React.Component {
+    handleSubmit = (values: Partial<TestFormData>, dispatch: Dispatch<any>, props: {}) => {};
+    render() {
+        return <HandleSubmitTestForm2 onSubmit={this.handleSubmit} />;
+    }
+}
+
+type InjectedProps2 = InjectedFormProps<TestFormData, TestFormComponentProps, string[]>;
+class TestFormComponent2 extends React.Component<TestFormComponentProps & InjectedProps2> {
+    render() {
+        const { error, initialValues, handleSubmit } = this.props;
+        error.concat(['error is a string array']);
+
+        handleSubmit((values) => ({ foo: ['string'], _error: [] }));
+        return null;
     }
 }
