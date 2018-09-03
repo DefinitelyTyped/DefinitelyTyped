@@ -153,9 +153,7 @@ export interface ThemedStyledComponentsModule<T> {
         strings: TemplateStringsArray,
         ...interpolations: SimpleInterpolation[]
     ): void;
-    withTheme<P extends { theme?: T }>(
-        component: React.ComponentType<P>,
-    ): React.ComponentClass<WithOptionalTheme<P, T>>;
+    withTheme: WithThemeFnInterface<T>;
 
     ThemeProvider: ThemeProviderComponent<T>;
 }
@@ -164,9 +162,11 @@ declare const styled: StyledInterface;
 
 export const css: ThemedCssFunction<DefaultTheme>;
 
-export function withTheme<P extends { theme?: T }, T>(
-    component: React.ComponentType<P>,
-): React.ComponentClass<WithOptionalTheme<P, T>>;
+export type BaseWithThemeFnInterface<T> = <P extends { theme?: T }>(
+        component: React.ComponentType<P>,
+    ) => React.ComponentClass<WithOptionalTheme<P, T>>;
+export type WithThemeFnInterface<T> = BaseWithThemeFnInterface<Extract<keyof T, string> extends never ? any : T>;
+export const withTheme: WithThemeFnInterface<DefaultTheme>;
 
 export function keyframes(
     strings: TemplateStringsArray,
