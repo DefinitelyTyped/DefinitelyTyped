@@ -109,6 +109,7 @@ export type BaseStyledInterface = ThemedBaseStyledInterface<any>;
 
 export type ThemedStyledInterface<T> = ThemedBaseStyledInterface<Extract<keyof T, string> extends never ? any : T>;
 export type StyledInterface = ThemedStyledInterface<DefaultTheme>;
+// tslint:disable-next-line:no-empty-interface
 export interface DefaultTheme {}
 
 export interface ThemeProviderProps<T> {
