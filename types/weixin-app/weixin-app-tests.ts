@@ -54,7 +54,19 @@ Component({
     }, // 私有数据，可用于模版渲染
 
     lifetimes: {
-        attached() {},
+        attached() {
+            wx.setEnableDebug({
+                enableDebug: true,
+                success(res) {}
+            });
+
+            wx.reportMonitor("123", 123);
+
+            wx.getLogManager().info("123");
+            wx.getLogManager().log("123");
+            wx.getLogManager().warn("123");
+            wx.getLogManager().debug("123");
+        },
 
         detached() {
             this.setData(
