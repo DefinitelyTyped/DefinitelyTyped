@@ -30,7 +30,7 @@ describe('StripeJS', () => {
         element.focus();
         element.clear();
         element.on('focus', () => null);
-        element.on('click', (event: {preventDefault: () => void}) => event.preventDefault());
+        element.on('click', (event: { preventDefault: () => void }) => event.preventDefault());
         element.mount('#card-element');
         element.mount({} as HTMLElement);
         element.unmount();
