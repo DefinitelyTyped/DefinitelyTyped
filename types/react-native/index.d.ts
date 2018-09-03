@@ -2252,7 +2252,7 @@ export interface WebViewUriSource {
      * The HTTP Method to use. Defaults to GET if not specified.
      * NOTE: On Android, only GET and POST are supported.
      */
-    method?: string;
+    method?: "GET" | "POST";
 
     /*
      * Additional HTTP headers to send with the request.
