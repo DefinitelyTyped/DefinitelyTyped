@@ -1,12 +1,11 @@
-import { ComponentLifecycle, ComponentType, Component, ComponentClass } from 'react';
+import { ComponentLifecycle, ComponentType, Component } from 'react';
 import { Connect } from 'react-redux';
 
 export interface LifecycleStateProps<P = {}> {
     component: ComponentType<P>;
 }
 
-export interface LifecycleDispatchProps<P = {}, S = {}> extends ComponentLifecycle<P, S> {
-}
+export interface LifecycleDispatchProps<P = {}, S = {}> extends ComponentLifecycle<P, S> {}
 
 export interface Props<P = {}, S = {}> extends LifecycleStateProps<P>, LifecycleDispatchProps<P, S> {}
 
