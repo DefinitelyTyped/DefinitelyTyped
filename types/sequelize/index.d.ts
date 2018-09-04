@@ -13,8 +13,9 @@
 //                 Florian Oellerich <https://github.com/Raigen>
 //                 Todd Bealmear <https://github.com/todd>
 //                 Nick Schultz <https://github.com/nrschultz>
+//                 Thomas Breleur <https://github.com/thomas-b>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 // Based on original work by: samuelneff <https://github.com/samuelneff/sequelize-auto-ts/blob/master/lib/sequelize.d.ts>
 
@@ -3232,9 +3233,10 @@ declare namespace sequelize {
         as?: string;
 
         /**
-         * The association you want to eagerly load. (This can be used instead of providing a model/as pair)
+         * The association you want to eagerly load. (This can be used instead of providing a model/as pair).
+         * You can also use the association alias.
          */
-        association?: IncludeAssociation;
+        association?: IncludeAssociation | string;
 
         /**
          * Where clauses to apply to the child models. Note that this converts the eager load to an inner join,
@@ -3270,6 +3272,11 @@ declare namespace sequelize {
         paranoid?: boolean;
 
         all?: boolean | string;
+
+        /**
+         * if true, it will also eager load the relations of the child models, recursively.
+         */
+        nested?: boolean;
     }
 
     /**
@@ -3366,6 +3373,13 @@ declare namespace sequelize {
          * Throw EmptyResultError if a record is not found
          */
         rejectOnEmpty?: boolean;
+
+       /**
+         * Force the query to use the write pool
+         *
+         * Defaults to false
+         */
+        useMaster?: boolean;
     }
 
     type AnyFindOptions = FindOptions<any>;
@@ -4085,6 +4099,15 @@ declare namespace sequelize {
         /**
          * Set associations with other models
          *
+         * Not part of the sequelize API, used as convention to associate models after creation. e.g.:
+         * ```js
+         * Object.keys(models).forEach(modelName => {
+         *   if (models[modelName].associate) {
+         *     models[modelName].associate(models);
+         *   }
+         * });
+         * ```
+         *
          * @param models
          */
         associate?(models: Models): void;
@@ -4646,6 +4669,20 @@ declare namespace sequelize {
          * The description of a database column
          */
         [name: string]: string | DataTypeAbstract | DefineAttributeColumnOptions;
+
+    }
+
+    /**
+     * Interface for Attributes provided for a column
+     *
+     * @see Sequelize.define
+     */
+    type DefineModelAttributes<T> = {
+
+        /**
+         * The description of a database column for model
+         */
+        [P in keyof T]: string | DataTypeAbstract | DefineAttributeColumnOptions;
 
     }
 
@@ -5240,6 +5277,11 @@ declare namespace sequelize {
          * Set to true or a string with the attribute name you want to use to enable.
          */
         version?: boolean | string;
+
+        /**
+         * Throws an error when no records found
+         */
+        rejectOnError?: boolean | Error;
     }
 
     /**
@@ -5948,7 +5990,7 @@ declare namespace sequelize {
          * @param options    These options are merged with the default define options provided to the Sequelize
          *                   constructor
          */
-        define<TInstance, TAttributes>(modelName: string, attributes: DefineAttributes,
+        define<TInstance, TAttributes>(modelName: string, attributes: DefineModelAttributes<TAttributes>,
             options?: DefineOptions<TInstance>): Model<TInstance, TAttributes>;
 
         /**
@@ -6172,6 +6214,10 @@ declare namespace sequelize {
          */
         databaseVersion(): Promise<string>;
 
+        /**
+         * Get the fn for random based on the dialect
+         */
+        random(): fn;
     }
 
     //

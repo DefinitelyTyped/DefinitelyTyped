@@ -10,13 +10,9 @@ var DropDownEditor = Editors.DropDownEditor;
 var { Selectors } = ReactDataGridPlugins.Data;
 
 class CustomFilterHeaderCell extends React.Component<any, any> {
-   constructor(props: any, context: any) {
-       super(props, context);
-
-       this.state = {
-           filterTerm: ""
-       };
-   }
+   state = {
+       filterTerm: ""
+   };
    handleChange(e: any) {
        let val = e.target.value;
        this.setState({filterTerm: val});
@@ -29,6 +25,35 @@ class CustomFilterHeaderCell extends React.Component<any, any> {
            </div>
        );
    }
+}
+
+class CustomRowSelectorCell extends ReactDataGridPlugins.Editors.CheckboxEditor {
+    render(){
+        return super.render();
+    }
+}
+
+export interface ICustomSelectAllProps {
+    onChange: any;
+    inputRef: any;
+}
+
+class CustomSelectAll extends React.Component<ICustomSelectAllProps> {
+    render() {
+        return (
+            <div className='react-grid-checkbox-container checkbox-align'>
+                <input
+                    className='react-grid-checkbox'
+                    type='checkbox'
+                    name='select-all-checkbox'
+                    id='select-all-checkbox'
+                    ref={this.props.inputRef}
+                    onChange={this.props.onChange}
+                />
+                <label htmlFor='select-all-checkbox' className='react-grid-checkbox-label'></label>
+            </div>
+        );
+    }
 }
 
 faker.locale = 'en_GB';
@@ -327,6 +352,8 @@ class Example extends React.Component<any, any> {
                         keys: {rowKey: 'id', values: selectedRows}
                     }
                 }}
+                rowActionsCell={CustomRowSelectorCell}
+                selectAllRenderer={CustomSelectAll}
                 onRowClick={this.onRowClick}
             />
 

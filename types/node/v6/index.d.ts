@@ -7,6 +7,7 @@
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 Alorel <https://github.com/Alorel>
 //                 Hoàng Văn Khải <https://github.com/KSXGitHub>
+//                 Sander Koenders <https://github.com/Archcry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /************************************************
@@ -55,6 +56,21 @@ interface MapConstructor { }
 interface WeakMapConstructor { }
 interface SetConstructor { }
 interface WeakSetConstructor { }
+
+// Forward-declare needed types from lib.es2015.d.ts (in case users are using `--lib es5`)
+interface Iterable<T> { }
+interface Iterator<T> {
+    next(value?: any): IteratorResult<T>;
+}
+
+interface IteratorResult<T> { }
+interface AsyncIterableIterator<T> {}
+interface SymbolConstructor {
+    readonly iterator: symbol;
+    readonly asyncIterator: symbol;
+}
+
+declare var Symbol: SymbolConstructor;
 
 /************************************************
 *                                               *
@@ -445,6 +461,10 @@ declare namespace NodeJS {
         isTTY?: true;
     }
 
+    export interface ProcessEnv {
+        [key: string]: string | undefined;
+    }
+
     export interface WriteStream extends Socket {
         columns?: number;
         rows?: number;
@@ -465,8 +485,9 @@ declare namespace NodeJS {
         abort(): void;
         chdir(directory: string): void;
         cwd(): string;
+        debugPort: number;
         emitWarning(warning: string | Error, name?: string, ctor?: Function): void;
-        env: any;
+        env: ProcessEnv;
         exit(code?: number): void;
         exitCode: number;
         getgid(): number;
@@ -755,6 +776,7 @@ declare module "http" {
         'transfer-encoding'?: string;
         'tk'?: string;
         'upgrade'?: string;
+        'user-agent'?: string;
         'vary'?: string;
         'via'?: string;
         'warning'?: string;
@@ -908,6 +930,7 @@ declare module "http" {
     }
 
     export class Agent {
+        maxFreeSockets: number;
         maxSockets: number;
         sockets: any;
         requests: any;
@@ -1665,6 +1688,9 @@ declare module "readline" {
         completer?: Completer;
         terminal?: boolean;
         historySize?: number;
+        prompt?: string;
+        crlfDelay?: number;
+        removeHistoryDuplicates?: boolean;
     }
 
     export function createInterface(input: NodeJS.ReadableStream, output?: NodeJS.WritableStream, completer?: Completer, terminal?: boolean): ReadLine;
@@ -1977,7 +2003,7 @@ declare module "url" {
         append(name: string, value: string): void;
         delete(name: string): void;
         entries(): Iterator<string[]>;
-        forEach(callback: (value: string, name: string) => void): void;
+        forEach(callback: (value: string, name: string, searchParams: this) => void): void;
         get(name: string): string | null;
         getAll(name: string): string[];
         has(name: string): boolean;
@@ -2037,6 +2063,8 @@ declare module "dns" {
     export function lookup(hostname: string, options: LookupAllOptions, callback: (err: NodeJS.ErrnoException, addresses: LookupAddress[]) => void): void;
     export function lookup(hostname: string, options: LookupOptions, callback: (err: NodeJS.ErrnoException, address: string | LookupAddress[], family: number) => void): void;
     export function lookup(hostname: string, callback: (err: NodeJS.ErrnoException, address: string, family: number) => void): void;
+
+    export function lookupService(address: string, port: number, callback: (err: NodeJS.ErrnoException, hostname: string, service: string) => void): void;
 
     export interface MxRecord {
         priority: number;
@@ -3917,30 +3945,26 @@ declare module "assert" {
 
             constructor(options?: {
                 message?: string; actual?: any; expected?: any;
-                operator?: string; stackStartFunction?: Function
+                operator?: string; stackStartFn?: Function
             });
         }
 
-        export function fail(actual: any, expected: any, message?: string, operator?: string): never;
+        export function fail(message?: string): never;
+        export function fail(actual: any, expected: any, message?: string, operator?: string, stackStartFn?: Function): never;
         export function ok(value: any, message?: string): void;
         export function equal(actual: any, expected: any, message?: string): void;
         export function notEqual(actual: any, expected: any, message?: string): void;
         export function deepEqual(actual: any, expected: any, message?: string): void;
-        export function notDeepEqual(acutal: any, expected: any, message?: string): void;
+        export function notDeepEqual(actual: any, expected: any, message?: string): void;
         export function strictEqual(actual: any, expected: any, message?: string): void;
         export function notStrictEqual(actual: any, expected: any, message?: string): void;
         export function deepStrictEqual(actual: any, expected: any, message?: string): void;
         export function notDeepStrictEqual(actual: any, expected: any, message?: string): void;
 
         export function throws(block: Function, message?: string): void;
-        export function throws(block: Function, error: Function, message?: string): void;
-        export function throws(block: Function, error: RegExp, message?: string): void;
-        export function throws(block: Function, error: (err: any) => boolean, message?: string): void;
-
+        export function throws(block: Function, error: RegExp | Function, message?: string): void;
         export function doesNotThrow(block: Function, message?: string): void;
-        export function doesNotThrow(block: Function, error: Function, message?: string): void;
-        export function doesNotThrow(block: Function, error: RegExp, message?: string): void;
-        export function doesNotThrow(block: Function, error: (err: any) => boolean, message?: string): void;
+        export function doesNotThrow(block: Function, error: RegExp | Function, message?: string): void;
 
         export function ifError(value: any): void;
     }

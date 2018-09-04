@@ -33,7 +33,7 @@ export class Strategy extends passport.Strategy {
 
         var self = this;
 
-        function verified(err: Error, user: any, info: any) {
+        function verified(err: Error, user: any, info?: any) {
             if (err) {
                 return self.error(err);
             }
@@ -43,6 +43,6 @@ export class Strategy extends passport.Strategy {
             self.success(user, info);
         }
 
-        verified(null, {}, {});
+        verified(null, {});
     }
 }

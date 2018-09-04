@@ -23,26 +23,22 @@ app.use(expressWinston.logger({
   skip: (req, res) => false,
   statusLevels: ({ error: 'error', success: 'success', warn: 'warn' }),
   transports: [
-    new winston.transports.Console({
-      json: true,
-      colorize: true
-    })
+    new winston.transports.Console({})
   ]
 }));
 
 // Logger with minimum options (transport)
 app.use(expressWinston.logger({
   transports: [
-    new winston.transports.Console({
-      json: true,
-      colorize: true
-    })
+    new winston.transports.Console({})
   ],
 }));
 
+const logger = winston.createLogger();
+
 // Logger with minimum options (winstonInstance)
 app.use(expressWinston.logger({
-  winstonInstance: winston,
+  winstonInstance: logger,
 }));
 
 // Error Logger with all options
@@ -55,26 +51,20 @@ app.use(expressWinston.errorLogger({
   requestFilter: (req, prop) => true,
   requestWhitelist: ['foo', 'bar'],
   transports: [
-    new winston.transports.Console({
-      json: true,
-      colorize: true
-    })
+    new winston.transports.Console({})
   ]
 }));
 
 // Error Logger with min options (transports)
 app.use(expressWinston.errorLogger({
   transports: [
-    new winston.transports.Console({
-      json: true,
-      colorize: true
-    })
+    new winston.transports.Console({})
   ],
 }));
 
 // Error Logger with min options (winstonInstance)
 app.use(expressWinston.errorLogger({
-  winstonInstance: winston,
+  winstonInstance: logger,
 }));
 
 expressWinston.bodyBlacklist.push('potato');

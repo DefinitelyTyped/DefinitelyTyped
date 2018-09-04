@@ -3,7 +3,7 @@
 // Definitions by: Jim Bouquet <https://github.com/ClearBlade>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-const genericCallback = (error: boolean, response: Resp) => {};
+const genericCallback = (error: boolean, response: CbServer.Resp) => {};
 
 ///////////////////////////////////////
 // ClearBlade object API invocations
@@ -66,12 +66,12 @@ const device = ClearBlade.Device();
 ClearBlade.addToQuery(query1, "key", "value");
 ClearBlade.addSortToQuery(
     query1,
-    QuerySortDirections.QUERY_SORT_ASCENDING,
+    CbServer.QuerySortDirections.QUERY_SORT_ASCENDING,
     "column1"
 );
 ClearBlade.addFilterToQuery(
     query1,
-    QueryConditions.QUERY_GREATERTHAN,
+    CbServer.QueryConditions.QUERY_GREATERTHAN,
     "key",
     "value"
 );
@@ -177,7 +177,7 @@ ClearBlade.Trigger.Create(
     {
         system_key: "key",
 	    name: "triggername",
-	    def_module: TriggerModule.DEVICE,
+	    def_module: CbServer.TriggerModule.DEVICE,
 	    def_name: "someName",
 	    key_value_pairs: [],
         service_name: "ServiceName"

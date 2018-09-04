@@ -9,7 +9,7 @@
 import * as d3Drag from 'd3-drag';
 import { event, select, Selection } from 'd3-selection';
 
-// NB: Consider alternative approachto getting live event-binding
+// NB: Consider alternative approach to getting live event-binding
 // when using webpack as suggested by @ocombe in response to
 // event binding question https://github.com/d3/d3-zoom/issues/32#issuecomment-229889310
 // d3.getEvent = () => require("d3-selection").event;
@@ -234,7 +234,7 @@ const sourceEvent: any = e.sourceEvent;
 // As always, the below tests are for signature only, no functional purpose
 
 // remove event listeners for a given event type
-e = e.on('start.tmp', null); // chainability test through reassigment
+e = e.on('start.tmp', null); // chainability test through reassignment
 
 e = e.on('drag', dragged);
 // e = e.on('drag', wrongDragHandler1); // fails, wrong datum type in handler

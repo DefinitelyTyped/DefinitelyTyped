@@ -96,3 +96,12 @@ console.log(
         RETURN u
     `.toArray()
 );
+
+const view = db._view("yolo")!;
+view.properties({
+    consolidationIntervalMsec: 123,
+    consolidationPolicy: {
+        type: "bytes",
+        segmentThreshold: 234
+    }
+});

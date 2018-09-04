@@ -56,11 +56,27 @@ configuration = {
 };
 
 configuration = {
+    entry: () => ({
+        p1: "./page1",
+        p2: "./page2",
+        p3: "./page3"
+    })
+};
+
+configuration = {
     entry: () => new Promise((resolve) => resolve('./demo'))
 };
 
 configuration = {
     entry: () => new Promise((resolve) => resolve(['./demo', './demo2']))
+};
+
+configuration = {
+    entry: () => new Promise((resolve) => resolve({
+        p1: "./page1",
+        p2: "./page2",
+        p3: "./page3"
+    }))
 };
 
 //
@@ -158,11 +174,30 @@ declare const require: any;
 declare const path: any;
 configuration = {
     plugins: [
-        function(this: webpack.Compiler) {
-            this.plugin("done", stats => {
-                require("fs").writeFileSync(
+        function apply(this: webpack.Compiler) {
+            const prevTimestamps = new Map<string, number>();
+            const startTime = Date.now();
+
+            this.hooks.emit.tap("SomePlugin", (compilation: webpack.compilation.Compilation) => {
+                for (const filepath in compilation.fileTimestamps.keys()) {
+                    const prevTimestamp = prevTimestamps.get(filepath) || startTime;
+                    const newTimestamp = compilation.fileTimestamps.get(filepath) || Infinity;
+                    if (prevTimestamp < newTimestamp) {
+                        this.inputFileSystem.readFileSync(filepath).toString('utf-8');
+                    }
+                }
+            });
+
+            compiler.hooks.afterCompile.tap("SomePlugin", (compilation: webpack.compilation.Compilation) => {
+                ['path/to/extra/dep', 'another/extra/dep'].forEach(path => compilation.fileDependencies.add(path));
+              });
+
+            this.hooks.afterEmit.tapAsync("afterEmit", (stats, callback) => {
+                this.outputFileSystem.writeFile(
                     path.join(__dirname, "...", "stats.json"),
-                    JSON.stringify(stats.toJson()));
+                    JSON.stringify(stats.getStats().toJson()),
+                    callback
+                );
             });
         }
     ]
@@ -383,6 +418,7 @@ webpack({
     const jsonStatsWithAllOptions = stats.toJson({
         assets: true,
         assetsSort: "field",
+        builtAt: true,
         cached: true,
         children: true,
         chunks: true,
@@ -515,6 +551,7 @@ function loader(this: webpack.loader.LoaderContext, source: string | Buffer, sou
 
     this.addDependency('');
 
+    this.loadModule('path', (err: Error | null, result: string, sourceMap: RawSourceMap, module: webpack.Module) => { });
     this.resolve('context', 'request', (err: Error, result: string) => { });
 
     this.emitWarning('warning message');
@@ -601,6 +638,27 @@ configuration = {
                     test: "node_modules",
                     name: "vendor",
                     enforce: true
+                }
+            }
+        }
+    },
+};
+
+configuration = {
+    mode: "production",
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                common: {
+                    name: 'common',
+                    chunks(chunk: webpack.compilation.Chunk) {
+                        const allowedChunks = [
+                            'renderer',
+                            'component-window',
+                        ];
+                        return allowedChunks.indexOf(chunk.name) >= 0;
+                    },
+                    minChunks: 2
                 }
             }
         }
@@ -697,4 +755,45 @@ configuration = {
             }
         ]
     }
+};
+
+configuration = {
+    module: {
+        rules: [
+            {
+                test: /\.ts$/,
+                include: '/foo/bar',
+                exclude: path => path.startsWith('/foo'),
+                resourceQuery: ['foo', 'bar'],
+                resolve: {
+                    mainFields: ['foo'],
+                    aliasFields: [['bar']],
+                },
+                loader: 'foo-loader',
+                loaders: [
+                    'foo-loader',
+                    {
+                        loader: 'bar-loader',
+                        query: 'baz'
+                    }
+                ],
+                use: () => ([
+                    'foo-loader',
+                    {
+                        loader: 'bar-loader',
+                        query: {
+                            baz: 'qux'
+                        }
+                    },
+                ])
+            }
+        ]
+    }
+};
+
+let profiling = new webpack.debug.ProfilingPlugin();
+profiling = new webpack.debug.ProfilingPlugin({ outputPath: './path.json' });
+
+configuration = {
+    plugins: [profiling]
 };

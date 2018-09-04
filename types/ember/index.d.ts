@@ -7,6 +7,7 @@
 //                 Theron Cross <https://github.com/theroncross>
 //                 Martin Feckie <https://github.com/mfeckie>
 //                 Alex LaFroscia <https://github.com/alexlafroscia>
+//                 Mike North <https://github.com/mike-north>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -111,6 +112,8 @@ declare module 'ember' {
         | 'render'
         | 'afterRender'
         | 'destroy';
+    type QueryParamTypes = 'boolean' | 'number' | 'array' | 'string';
+    type QueryParamScopeTypes = 'controller' | 'model';
 
     type ObserverMethod<Target, Sender> =
         | (keyof Target)
@@ -308,6 +311,10 @@ declare module 'ember' {
              * Given a fullName return a corresponding instance.
              */
             lookup(fullName: string, options?: {}): any;
+            /**
+             * Given a fullName return a corresponding factory.
+             */
+            factoryFor(fullName: string, options?: {}): any;
         }
         const _ContainerProxyMixin: Mixin<_ContainerProxyMixin>;
 
@@ -321,11 +328,11 @@ declare module 'ember' {
              */
             resolveRegistration(fullName: string): Function;
             /**
-             * Registers a factory that can be used for dependency injection (with
+             * Registers a factory or value that can be used for dependency injection (with
              * `inject`) or for service lookup. Each factory is registered with
              * a full name including two parts: `type:name`.
              */
-            register(fullName: string, factory: Function, options?: { singleton?: boolean, instantiate?: boolean }): any;
+            register(fullName: string, factory: any, options?: { singleton?: boolean, instantiate?: boolean }): any;
             /**
              * Unregister a factory.
              */
@@ -390,7 +397,7 @@ declare module 'ember' {
         An instance of Ember.Application is the starting point for every Ember application. It helps to
         instantiate, initialize and coordinate the many objects that make up your app.
         **/
-        class Application extends Namespace {
+        class Application extends Engine {
             /**
             Call advanceReadiness after any asynchronous setup logic has completed.
             Each call to deferReadiness must be matched by a call to advanceReadiness
@@ -473,6 +480,11 @@ declare module 'ember' {
             **/
             Router: Router;
             registry: Registry;
+            /**
+             *  Initialize the application and return a promise that resolves with the `Application`
+             *  object when the boot process is complete.
+             */
+            boot(): Promise<Application>;
         }
         /**
         The `ApplicationInstance` encapsulates all of the stateful aspects of a
@@ -738,7 +750,11 @@ declare module 'ember' {
             replaceRoute(name: string, ...args: any[]): void;
             transitionToRoute(name: string, ...args: any[]): void;
             model: any;
-            queryParams: string[] | Array<{ [key: string]: { type: string } }>;
+            queryParams: string | string[] | Array<{ [key: string]: {
+                type?: QueryParamTypes,
+                scope?: QueryParamScopeTypes,
+                as?: string
+            }}>;
             target: Object;
         }
         const ControllerMixin: Ember.Mixin<ControllerMixin>;
@@ -1056,11 +1072,17 @@ declare module 'ember' {
              */
             namespace: Application;
         }
+        interface Initializer<T> {
+            name: string;
+            before?: string[];
+            after?: string[];
+            initialize(application: T): void;
+        }
         /**
          * The `Engine` class contains core functionality for both applications and
          * engines.
          */
-        class Engine extends Namespace {
+        class Engine extends Namespace.extend(_RegistryProxyMixin) {
             /**
              * The goal of initializers should be to register dependencies and injections.
              * This phase runs once. Because these initializers may load code, they are
@@ -1069,14 +1091,14 @@ declare module 'ember' {
              * after all initializers and therefore after all code is loaded and the app is
              * ready.
              */
-            initializer(initializer: {}): any;
+            static initializer(initializer: Initializer<Engine>): void;
             /**
              * Instance initializers run after all initializers have run. Because
              * instance initializers run after the app is fully set up. We have access
              * to the store, container, and other items. However, these initializers run
              * after code has loaded and are not allowed to defer readiness.
              */
-            instanceInitializer(instanceInitializer: any): any;
+            static instanceInitializer(instanceInitializer: Initializer<EngineInstance>): void;
             /**
              * Set this to provide an alternate class to `Ember.DefaultResolver`
              */
@@ -1094,6 +1116,12 @@ declare module 'ember' {
              * Unregister a factory.
              */
             unregister(fullName: string): any;
+
+            /**
+             *  Initialize the `EngineInstance` and return a promise that resolves
+             *  with the instance itself when the boot process is complete.
+             */
+            boot(): Promise<EngineInstance>;
         }
         /**
          * This mixin defines the common interface implemented by enumerable objects
@@ -1167,7 +1195,7 @@ declare module 'ember' {
              * key.  You can pass an optional second argument with the target value.  Otherwise
              * this will match any property that evaluates to false.
              */
-            rejectBy(key: string, value?: string): NativeArray<T>;
+            rejectBy(key: string, value?: any): NativeArray<T>;
             /**
              * Returns the first item in the array for which the callback returns true.
              * This method works similar to the `filter()` method defined in JavaScript 1.6
@@ -1486,25 +1514,25 @@ declare module 'ember' {
             __ember_mixin__: never;
 
             static create<T, Base = Ember.Object>(
-                args?: T & ThisType<Fix<T & Base>>
+              args?: MixinOrLiteral<T, Base> & ThisType<Fix<T & Base>>
             ): Mixin<T, Base>;
 
             static create<T1, T2, Base = Ember.Object>(
-                arg1: T1 & ThisType<Fix<T1 & Base>>,
-                arg2: T2 & ThisType<Fix<T2 & Base>>
+              arg1: MixinOrLiteral<T1, Base> & ThisType<Fix<T1 & Base>>,
+              arg2: MixinOrLiteral<T2, Base> & ThisType<Fix<T2 & Base>>
             ): Mixin<T1 & T2, Base>;
 
             static create<T1, T2, T3, Base = Ember.Object>(
-                arg1: T1 & ThisType<Fix<T1 & Base>>,
-                arg2: T2 & ThisType<Fix<T2 & Base>>,
-                arg3: T3 & ThisType<Fix<T3 & Base>>
+              arg1: MixinOrLiteral<T1, Base> & ThisType<Fix<T1 & Base>>,
+              arg2: MixinOrLiteral<T2, Base> & ThisType<Fix<T2 & Base>>,
+              arg3: MixinOrLiteral<T3, Base> & ThisType<Fix<T3 & Base>>
             ): Mixin<T1 & T2 & T3, Base>;
 
             static create<T1, T2, T3, T4, Base = Ember.Object>(
-                arg1: T1 & ThisType<Fix<T1 & Base>>,
-                arg2: T2 & ThisType<Fix<T2 & Base>>,
-                arg3: T3 & ThisType<Fix<T3 & Base>>,
-                arg4: T4 & ThisType<Fix<T4 & Base>>
+              arg1: MixinOrLiteral<T1, Base> & ThisType<Fix<T1 & Base>>,
+              arg2: MixinOrLiteral<T2, Base> & ThisType<Fix<T2 & Base>>,
+              arg3: MixinOrLiteral<T3, Base> & ThisType<Fix<T3 & Base>>,
+              arg4: MixinOrLiteral<T4, Base> & ThisType<Fix<T4 & Base>>
             ): Mixin<T1 & T2 & T3 & T4, Base>;
         }
         /**
@@ -1685,6 +1713,10 @@ declare module 'ember' {
                 target: Target,
                 method: ObserverMethod<Target, this>
             ): void;
+            addObserver(
+                key: keyof this,
+                method: ObserverMethod<this, this>
+            ): void;
             /**
              * Remove an observer you have previously registered on this object. Pass
              * the same key, target, and method you passed to `addObserver()` and your
@@ -1694,6 +1726,10 @@ declare module 'ember' {
                 key: keyof this,
                 target: Target,
                 method: ObserverMethod<Target, this>
+            ): any;
+            removeObserver(
+                key: keyof this,
+                method: ObserverMethod<this, this>
             ): any;
             /**
              * Retrieves the value of a property, or a default value in the case that the
@@ -1969,6 +2005,19 @@ declare module 'ember' {
              * because it doesn't require a custom `renderTemplate` method.
              */
             transitionTo(name: string, ...object: any[]): Transition;
+
+            // https://emberjs.com/api/ember/3.2/classes/Route/methods/intermediateTransitionTo?anchor=intermediateTransitionTo
+            /**
+             * Perform a synchronous transition into another route without attempting to resolve promises,
+             * update the URL, or abort any currently active asynchronous transitions
+             * (i.e. regular transitions caused by transitionTo or URL changes).
+             *
+             * @param name           the name of the route or a URL
+             * @param object         the model(s) or identifier(s) to be used while
+             *                       transitioning to the route.
+             * @returns              the Transition object associated with this attempted transition
+             */
+            intermediateTransitionTo(name: string, ...object: any[]): Transition;
 
             // properties
             /**
@@ -2354,7 +2403,7 @@ declare module 'ember' {
             function Exception(message: string): void;
             class SafeString {
                 constructor(str: string);
-                static toString(): string;
+                toString(): string;
             }
             function parse(string: string): any;
             function print(ast: any): void;
@@ -3010,6 +3059,11 @@ declare module 'ember' {
             method: ObserverMethod<Target, Context>,
             once?: boolean
         ): void;
+        function addListener<Context>(
+            obj: Context,
+            key: keyof Context,
+            method: ObserverMethod<Context, Context>
+        ): void;
         /**
          * Remove an event listener
          */
@@ -3018,6 +3072,11 @@ declare module 'ember' {
             key: keyof Context,
             target: Target,
             method: ObserverMethod<Target, Context>
+        ): any;
+        function removeListener<Context>(
+            obj: Context,
+            key: keyof Context,
+            method: ObserverMethod<Context, Context>
         ): any;
         /**
          * Send an event. The execution of suspended listeners
@@ -3112,6 +3171,11 @@ declare module 'ember' {
             target: Target,
             method: ObserverMethod<Target, Context>
         ): void;
+        function addObserver<Context>(
+            obj: Context,
+            key: keyof Context,
+            method: ObserverMethod<Context, Context>
+        ): void;
         /**
          * Remove an observer you have previously registered on this object. Pass
          * the same key, target, and method you passed to `addObserver()` and your
@@ -3122,6 +3186,11 @@ declare module 'ember' {
             key: keyof Context,
             target: Target,
             method: ObserverMethod<Target, Context>
+        ): any;
+        function removeObserver<Context>(
+            obj: Context,
+            key: keyof Context,
+            method: ObserverMethod<Context, Context>
         ): any;
         /**
          * Gets the value of a property on an object. If the property is computed,
@@ -3303,7 +3372,48 @@ declare module 'ember' {
     /**
      * The Router service is the public API that provides component/view layer access to the router.
      */
-    class RouterService extends Ember.Service {
+    export class RouterService extends Ember.Service {
+        //
+        /**
+             Name of the current route.
+            This property represent the logical name of the route,
+            which is comma separated.
+            For the following router:
+            ```app/router.js
+            Router.map(function() {
+            this.route('about');
+            this.route('blog', function () {
+                this.route('post', { path: ':post_id' });
+            });
+            });
+            ```
+            It will return:
+            * `index` when you visit `/`
+            * `about` when you visit `/about`
+            * `blog.index` when you visit `/blog`
+            * `blog.post` when you visit `/blog/some-post-id`
+        */
+        readonly currentRouteName: string;
+        //
+        /**
+             Current URL for the application.
+            This property represent the URL path for this route.
+            For the following router:
+            ```app/router.js
+            Router.map(function() {
+            this.route('about');
+            this.route('blog', function () {
+                this.route('post', { path: ':post_id' });
+            });
+            });
+            ```
+            It will return:
+            * `/` when you visit `/`
+            * `/about` when you visit `/about`
+            * `/blog` when you visit `/blog`
+            * `/blog/some-post-id` when you visit `/blog/some-post-id`
+        */
+        readonly currentURL: string;
         //
         /**
          * Determines whether a route is active.
@@ -3705,6 +3815,11 @@ declare module '@ember/routing/route' {
 declare module '@ember/routing/router' {
     import Ember from 'ember';
     export default class EmberRouter extends Ember.Router { }
+}
+
+declare module '@ember/routing/router-service' {
+    import { RouterService } from 'ember';
+    export default class extends RouterService { }
 }
 
 declare module '@ember/runloop' {

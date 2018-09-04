@@ -78,7 +78,7 @@ export class Repository {
     /**
      * Creates a branch with the passed in name pointing to the commit
      */
-    createBranch(name: string, commit: Commit | string | Oid, force: boolean, signature: Signature, logMessage: string): Promise<Reference>;
+    createBranch(name: string, commit: Commit | string | Oid, force: boolean): Promise<Reference>;
     /**
      * Look up a refs's commit.
      */
@@ -136,7 +136,7 @@ export class Repository {
     /**
      * Instantiate a new revision walker for browsing the Repository"s history. See also Commit.prototype.history()
      */
-    createRevWalk(string: string | Oid): Revwalk;
+    createRevWalk(): Revwalk;
     /**
      * Retrieve the master branch commit.
      */

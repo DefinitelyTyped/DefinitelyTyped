@@ -3,126 +3,147 @@
 // Definitions by: Manuel Francisco Naranjo <naranjo.manuel@gmail.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export class Characteristic {
-    uuid: any;
-    properties: any;
-    secure: any;
-    value: any;
-    descriptors: any;
+/// <reference types="node" />
 
-    constructor(options: any);
+type State = 'poweredOn' | 'poweredOff' | 'unauthorized' | 'unsupported' | 'unknown' | 'resetting';
+
+type Property = 'read' | 'write' | 'indicate' | 'notify' | 'writeWithoutResponse';
+
+interface CharacteristicOptions {
+    uuid: string;
+    properties?: ReadonlyArray<Property> | null;
+    secure?: ReadonlyArray<Property> | null;
+    value?: Buffer | null;
+    descriptors?: ReadonlyArray<Descriptor> | null;
+    onIndicate?: (() => void) | null;
+    onNotify?: (() => void) | null;
+    onReadRequest?: ((
+        offset: number,
+        callback: (result: number, data?: Buffer) => void
+    ) => void) | null;
+    onSubscribe?: ((maxValueSize: number, updateValueCallback: any) => void) | null;
+    onUnsubscribe?: (() => void) | null;
+    onWriteRequest?: ((
+        data: Buffer,
+        offset: number,
+        withoutResponse: boolean,
+        callback: (result: number) => void
+    ) => void) | null;
+}
+
+declare class Characteristic {
+    uuid: string;
+    properties: ReadonlyArray<Property>;
+    secure: ReadonlyArray<Property>;
+    value: Buffer | null;
+    descriptors: ReadonlyArray<Descriptor>;
+
+    constructor(options: CharacteristicOptions);
 
     onIndicate(): void;
 
     onNotify(): void;
 
-    onReadRequest(offset: any, callback: any): void;
+    onReadRequest(offset: number, callback: (result: number, data?: Buffer) => void): void;
 
-    onSubscribe(maxValueSize: any, updateValueCallback: any): void;
+    onSubscribe(maxValueSize: number, updateValueCallback: any): void;
 
     onUnsubscribe(): void;
 
-    onWriteRequest(data: any, offset: any, withoutResponse: any, callback: any): void;
+    onWriteRequest(data: Buffer, offset: number, withoutResponse: boolean, callback: (result: number) => void): void;
 
-    toString(): any;
+    toString(): string;
 
-    static RESULT_ATTR_NOT_LONG: number;
+    readonly RESULT_ATTR_NOT_LONG: number;
 
-    static RESULT_INVALID_ATTRIBUTE_LENGTH: number;
+    readonly RESULT_INVALID_ATTRIBUTE_LENGTH: number;
 
-    static RESULT_INVALID_OFFSET: number;
+    readonly RESULT_INVALID_OFFSET: number;
 
-    static RESULT_SUCCESS: number;
+    readonly RESULT_SUCCESS: number;
 
-    static RESULT_UNLIKELY_ERROR: number;
+    readonly RESULT_UNLIKELY_ERROR: number;
+
+    static readonly RESULT_ATTR_NOT_LONG: number;
+
+    static readonly RESULT_INVALID_ATTRIBUTE_LENGTH: number;
+
+    static readonly RESULT_INVALID_OFFSET: number;
+
+    static readonly RESULT_SUCCESS: number;
+
+    static readonly RESULT_UNLIKELY_ERROR: number;
 }
 
-export class Descriptor {
-    uuid: any;
-    value: any;
-
-    constructor(options: any);
-
-    toString(): any;
+interface DescriptorOptions {
+    uuid: string;
+    value?: Buffer | string | null;
 }
 
-export class PrimaryService {
-    uuid: any;
-    characteristics: any;
+declare class Descriptor {
+    uuid: string;
+    value: Buffer;
 
-    constructor(options: any);
+    constructor(options: DescriptorOptions);
 
-    toString(): any;
+    toString(): string;
 }
 
-export const address: string;
+interface PrimaryServiceOptions {
+    uuid: string;
+    characteristics?: ReadonlyArray<Characteristic> | null;
+}
 
-export const domain: any;
+declare class PrimaryService {
+    uuid: string;
+    characteristics: ReadonlyArray<Characteristic>;
 
-export const mtu: number;
+    constructor(options: PrimaryServiceOptions);
 
-export const platform: string;
+    toString(): string;
+}
 
-export const rssi: number;
+interface Bleno extends NodeJS.EventEmitter {
+    readonly Characteristic: typeof Characteristic;
+    readonly Descriptor: typeof Descriptor;
+    readonly PrimaryService: typeof PrimaryService;
 
-export const state: string;
+    readonly address: string;
 
-export function addListener(type: any, listener: any): any;
+    readonly mtu: number;
 
-export function disconnect(): void;
+    readonly platform: string;
 
-export function emit(type: any, ...args: any[]): any;
+    readonly rssi: number;
 
-export function eventNames(): any;
+    readonly state: State;
 
-export function getMaxListeners(): any;
+    disconnect(): void;
 
-export function listenerCount(type: any): any;
+    setServices(services: ReadonlyArray<PrimaryService>, callback?: (arg: Error | undefined | null) => void): void;
 
-export function listeners(type: any): any;
+    startAdvertising(name: string, serviceUuids?: ReadonlyArray<string>, callback?: (arg: Error | undefined | null) => void): void;
 
-export function on(type: any, listener: any): any;
+    startAdvertisingIBeacon(uuid: string, major: number, minor: number, measuredPower: number, callback?: (arg: Error | undefined | null) => void): void;
 
-export function onAccept(clientAddress: any): void;
+    startAdvertisingWithEIRData(advertisementData: Buffer, callback?: (arg: Error | undefined | null) => void): void;
+    startAdvertisingWithEIRData(advertisementData: Buffer, scanData: Buffer, callback?: (arg: Error | undefined | null) => void): void;
 
-export function onAddressChange(address: any): void;
+    stopAdvertising(callback?: () => void): void;
 
-export function onAdvertisingStart(error: any): void;
+    updateRssi(callback?: (err: null, rssi: number) => void): void;
 
-export function onAdvertisingStop(): void;
+    on(event: 'stateChange', cb: (state: State) => void): this;
+    on(event: 'accept', cb: (address: string) => void): this;
+    on(event: 'mtuChange', cb: (mtu: number) => void): this;
+    on(event: 'disconnect', cb: (clientAddress: string) => void): this;
+    on(event: 'advertisingStart', cb: (err?: Error | null) => void): this;
+    on(event: 'advertisingStartError', cb: (err: Error) => void): this;
+    on(event: 'advertisingStop', cb: () => void): this;
+    on(event: 'servicesSet', cb: (err?: Error | null) => void): this;
+    on(event: 'servicesSetError', cb: (err: Error) => void): this;
+    on(event: 'rssiUpdate', cb: (rssi: number) => void): this;
+}
 
-export function onDisconnect(clientAddress: any): void;
-
-export function onMtuChange(mtu: any): void;
-
-export function onPlatform(platform: any): void;
-
-export function onRssiUpdate(rssi: any): void;
-
-export function onServicesSet(error: any): void;
-
-export function onStateChange(state: any): void;
-
-export function once(type: any, listener: any): any;
-
-export function prependListener(type: any, listener: any): any;
-
-export function prependOnceListener(type: any, listener: any): any;
-
-export function removeAllListeners(type: any, ...args: any[]): any;
-
-export function removeListener(type: any, listener: any): any;
-
-export function setMaxListeners(n: any): any;
-
-export function setServices(services: any, callback: any): void;
-
-export function startAdvertising(name: any, serviceUuids: any, callback: any): void;
-
-export function startAdvertisingIBeacon(uuid: any, major: any, minor: any, measuredPower: any, callback: any): void;
-
-export function startAdvertisingWithEIRData(advertisementData: any, scanData: any, callback: any): void;
-
-export function stopAdvertising(callback: any): void;
-
-export function updateRssi(callback: any): void;
+declare const bleno: Bleno;
+export = bleno;

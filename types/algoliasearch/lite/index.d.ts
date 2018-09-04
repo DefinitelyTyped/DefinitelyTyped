@@ -3,13 +3,15 @@
 // Definitions by: Baptiste Coquelle <https://github.com/cbaptiste>
 //                 Haroen Viaene <https://github.com/haroenv>
 //                 Aurélien Hervé <https://github.com/aherve>
+//                 Samuel Vaillant <https://github.com/samouss>
+//                 Claas Brüggemann <https://github.com/ClaasBrueggemann>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
 declare namespace algoliasearch {
-  /*
-  Interface for the algolia client object
-  */
+  /**
+   * Interface for the algolia client object
+   */
   interface Client {
     /**
      * Initialization of the index
@@ -67,6 +69,7 @@ declare namespace algoliasearch {
    * Interface for the index algolia object
    */
   interface Index {
+    indexName: string;
     /**
      * Gets a specific object
      * https://github.com/algolia/algoliasearch-client-js#find-by-ids---getobjects
@@ -178,6 +181,11 @@ declare namespace algoliasearch {
      * https://github.com/algolia/algoliasearch-client-js#client-options
      */
     hosts?: { read?: string[]; write?: string[] };
+    /**
+     * enable the experimental feature: caching requests instead of responses
+     * see https://github.com/algolia/algoliasearch-client-javascript/pull/694
+     */
+    _useRequestCache?: boolean
   }
   interface BrowseResponse {
     cursor?: string;
@@ -500,52 +508,6 @@ declare namespace algoliasearch {
     userData?: string | object;
   }
 
-  interface AlgoliaResponse {
-    /**
-     * Contains all the hits matching the query
-     * https://github.com/algolia/algoliasearch-client-js#response-format
-     */
-    hits: any[];
-    /**
-     * Current page
-     * https://github.com/algolia/algoliasearch-client-js#response-format
-     */
-    page: number;
-    /**
-     * Number of total hits matching the query
-     * https://github.com/algolia/algoliasearch-client-js#response-format
-     */
-    nbHits: number;
-    /**
-     * Number of pages
-     * https://github.com/algolia/algoliasearch-client-js#response-format
-     */
-    nbPage: number;
-    /**
-     * Number of hits per pages
-     * https://github.com/algolia/algoliasearch-client-js#response-format
-     */
-    hitsPerPage: number;
-    /**
-     * Engine processing time (excluding network transfer)
-     * https://github.com/algolia/algoliasearch-client-js#response-format
-     */
-    processingTimeMS: number;
-    /**
-     * Query used to perform the search
-     * https://github.com/algolia/algoliasearch-client-js#response-format
-     */
-    query: string;
-    /**
-     * GET parameters used to perform the search
-     * https://github.com/algolia/algoliasearch-client-js#response-format
-     */
-    params: string;
-    facets: {
-      [facetName: string]: { [facetValue: string]: number };
-    };
-  }
-
   namespace SearchForFacetValues {
     interface Parameters extends QueryParameters {
       /**
@@ -608,6 +570,14 @@ declare namespace algoliasearch {
     params: string;
     facets?: {
       [facetName: string]: { [facetValue: string]: number };
+    };
+    facets_stats?: {
+      [facetName: string]: {
+        avg: number,
+        max: number,
+        min: number,
+        sum: number,
+      };
     };
   }
 

@@ -29,7 +29,7 @@ declare class SparkMD5 {
 declare namespace SparkMD5 {
 	class ArrayBuffer {
 		constructor();
-		append(str: string): ArrayBuffer;
+		append(str: ArrayBufferCopy): ArrayBuffer;
 		end(raw?: boolean): string;
 		reset(): ArrayBuffer;
 		getState(): State;

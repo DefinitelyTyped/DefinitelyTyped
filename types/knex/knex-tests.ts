@@ -1,7 +1,4 @@
-"use strict";
 import Knex = require('knex');
-import Promise = require('bluebird');
-import _ = require('lodash');
 
 // Initializing the Library
 var knex = Knex({
@@ -253,6 +250,58 @@ knex('users').whereNotBetween('votes', [1, 100]);
 knex('users').whereRaw('id = ?', [1]);
 knex('users').whereRaw('id = :id', { id: 1 });
 knex('users').whereRaw('id = :id', { id: knex('users').select('id').limit(1) });
+
+// Aggregate functions can use string/object parameters
+knex('users').count();
+knex('users').count('*');
+knex('users').count('id', 'votes');
+knex('users').count({count: '*'});
+knex('users').count({count: ['id', 'votes']});
+knex('users').count({count: knex.raw('*')});
+knex('users').count(knex.raw('id'));
+
+knex('users').countDistinct('votes');
+knex('users').countDistinct(knex.raw('votes'));
+knex('users').countDistinct({votes: 'votes'});
+knex('users').countDistinct({votes: knex.raw('votes')});
+
+knex('users').avg('id');
+knex('users').avg('id', 'votes');
+knex('users').avg({avg: 'id'});
+knex('users').avg({avg: ['id', 'votes']});
+knex('users').avg({ab: knex.raw('a + b')});
+knex('users').avg(knex.raw('votes'));
+
+knex('users').avgDistinct('votes');
+knex('users').avgDistinct(knex.raw('votes'));
+knex('users').avgDistinct({votes: 'votes'});
+knex('users').avgDistinct({votes: knex.raw('votes')});
+
+knex('users').max('id');
+knex('users').max('id', 'votes');
+knex('users').max({max: 'id'});
+knex('users').max({max: ['id', 'votes']});
+knex('users').max({ab: knex.raw('a + b')});
+knex('users').max(knex.raw('votes'));
+
+knex('users').min('id');
+knex('users').min('id', 'votes');
+knex('users').min({min: 'id'});
+knex('users').min({min: ['id', 'votes']});
+knex('users').min({ab: knex.raw('a + b')});
+knex('users').min(knex.raw('votes'));
+
+knex('users').sum('id');
+knex('users').sum('id', 'votes');
+knex('users').sum({sum: 'id'});
+knex('users').sum({sum: ['id', 'votes']});
+knex('users').sum({ab: knex.raw('a + b')});
+knex('users').sum(knex.raw('votes'));
+
+knex('users').sumDistinct('votes');
+knex('users').sumDistinct(knex.raw('votes'));
+knex('users').sumDistinct({votes: 'votes'});
+knex('users').sumDistinct({votes: knex.raw('votes')});
 
 // Join methods
 knex('users')
@@ -767,7 +816,7 @@ knex.transaction<{ length: number }>(function(trx) {
 // transacting handles undefined
 knex.insert({ name: 'Old Books'}).transacting(undefined);
 
-knex.schema.withSchema("public").hasTable("table") as Promise<boolean>;
+knex.schema.withSchema("public").hasTable("table"); // $ExpectType Bluebird<boolean>
 
 knex.schema.createTable('users', function (table) {
   table.increments();
@@ -856,8 +905,8 @@ knex.select('name').from('users')
   .andWhere('id', '<', 200)
   .limit(10)
   .offset(x)
-  .then(function(rows: any) {
-    return _.map(rows, 'name');
+  .then(function(rows) {
+    return rows.map((r: any) => r.name);
   })
   .then(function(names: any) {
     return knex.select('id').from('nicknames').whereIn('nickname', names);
@@ -936,7 +985,7 @@ knex.select('name').from('users')
   .offset(x)
   .exec(function(err: any, rows: any[]) {
     if (err) return console.error(err);
-    knex.select('id').from('nicknames').whereIn('nickname', _.map(rows, 'name') as any)
+    knex.select('id').from('nicknames').whereIn('nickname', rows.map((r: any) => r.name))
       .exec(function(err: any, rows: any[]) {
         if (err) return console.error(err);
         console.log(rows);
@@ -1045,10 +1094,10 @@ knex('users')
   }).unionAll(function(builder) {
     let self: Knex.QueryBuilder = this;
     self = builder;
-  }).modify(function(builder) {
+  }).modify(function(builder, aBool) {
     let self: Knex.QueryBuilder = this;
     self = builder;
-  });
+  }, true);
 
 //
 // Migrations
@@ -1093,3 +1142,74 @@ knex.schema
 knex.schema.createTable('testTable', function (table) {
     table.binary('binaryKey', 16).primary(); //will make table with binaryKey type BINARY(16)
 });
+
+// allow creating decimal column that can store that can store numbers of any
+// precision and scale. (Only supported for Oracle, SQLite, Postgres)
+var knex = Knex({
+    client: 'pg'
+});
+
+knex.schema
+    .dropTableIfExists('testTable')
+    .createTable('testTable', function (table) {
+        table.decimal('dec', null);
+    })
+    .dropTable('testTable');
+
+// allow specifying an alias for a table name
+knex.schema
+    .dropTableIfExists('foo')
+    .dropTableIfExists('bar')
+    .createTable('foo', function (table) {
+        table.uuid('id').primary();
+    })
+    .createTable('bar', function (table) {
+        table.uuid('id').primary();
+    });
+
+knex({
+    table1: 'foo',
+    table2: 'bar'
+})
+    .select({
+        table1Id: 'table1.id',
+        table2Id: 'table2.id'
+    });
+
+knex('characters')
+    .select()
+    .whereIn(['name', 'class'], [['Bar', 'Fighter'], ['Foo', 'Druid']]);
+
+knex('characters')
+    .select()
+    .whereIn('name', knex('characters').select('name'));
+knex('characters')
+    .select()
+    .whereIn(['name', 'class'], knex('characters').select('name', 'class'));
+
+knex('characters')
+    .select()
+    .whereIn('name', function() {
+        this.select('name').from('characters');
+    });
+knex('characters')
+    .select()
+    .whereIn(['name', 'class'], function() {
+        this.select('name', 'class').from('characters');
+    });
+
+knex('characters')
+    .select()
+    .where({ name: 'Bar', class: 'Fighter' })
+    .union(knex('characters').select().where({ name: 'Foo', class: 'Druid' }));
+knex('characters')
+    .select()
+    .where({ name: 'Bar', class: 'Fighter' })
+    .union([knex('characters').select().where({ name: 'Foo', class: 'Druid' })]);
+knex('characters')
+    .select()
+    .where({ name: 'Bar', class: 'Fighter' })
+    .union(
+        knex('characters').select().where({ name: 'Foo', class: 'Druid' }),
+        knex('characters').select().where({ name: 'Baz', class: 'Paladin' })
+    );

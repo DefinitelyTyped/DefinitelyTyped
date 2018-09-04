@@ -2,7 +2,7 @@
 // Project: https://github.com/wwayne/react-tooltip
 // Definitions by: Deividas Bakanas <https://github.com/DeividasBakanas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from "react";
 
@@ -39,7 +39,7 @@ declare namespace ReactTooltip {
     type ElementEvents = (keyof HTMLElementEventMap) | string;
     type WindowEvents = (keyof WindowEventMap) | string;
 
-    type GetContentCallback = () => React.ReactNode;
+    type GetContentCallback = (dataTip: string) => React.ReactNode;
     type GetContent = GetContentCallback | [GetContentCallback, number];
 
     type Place = "top" | "right" | "bottom" | "left";

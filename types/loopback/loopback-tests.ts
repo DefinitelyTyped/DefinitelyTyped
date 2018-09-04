@@ -36,7 +36,7 @@ class Server {
                 console.dir(data.name);
             }
 
-            model.findOne<TestModel>({}, (err: Error, instance: TestModel) => {
+            model.findOne<TestModel>({}, (err: Error | null, instance: TestModel) => {
                 if (err) {
                     console.dir(err);
                 }

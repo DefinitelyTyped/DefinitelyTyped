@@ -1,4 +1,4 @@
-/// <reference types="activex-iwshruntimelibrary" />
+/// <reference types="windows-script-host" />
 
 const shell = new ActiveXObject('Shell.Application');
 

@@ -215,5 +215,6 @@ export interface Nodes {
      * @param constructor - the constructor function for this node type
      * @param opts - optional additional options for the node
      */
-    registerType(type: string, constructor: (props: NodeProperties) => any, opts?: any): void;
+    // tslint:disable-next-line no-unnecessary-generics
+    registerType<T extends NodeProperties>(type: string, constructor: (props: T) => any, opts?: any): void;
 }

@@ -24,6 +24,7 @@ import * as queryString from 'query-string';
     let fooBar: { foo: 'bar' };
     fooBar = queryString.parse('?foo=bar');
     fooBar = queryString.parse('#foo=bar');
+    fooBar = queryString.parse('?foo=bar%20baz', { decode: true });
 
     let fooBarBaz: { foo: ['bar', 'baz'] };
     fooBarBaz = queryString.parse('&foo=bar&foo=baz');

@@ -88,6 +88,8 @@ module.exports = function(config: karma.Config) {
       'coverage'
     ],
 
+    middleware: ['foo', 'bar'],
+
     mime: {
       'text/x-typescript': ['ts', 'tsx']
     },
@@ -104,6 +106,12 @@ module.exports = function(config: karma.Config) {
       'Chrome',
       'Firefox'
     ],
+    customLaunchers: {
+      ChromiumHeadless_without_security: {
+        base: 'ChromiumHeadless',
+        flags: ['--no-sandbox', '--disable-setuid-sandbox'],
+      },
+    },
 
     singleRun: true
   });

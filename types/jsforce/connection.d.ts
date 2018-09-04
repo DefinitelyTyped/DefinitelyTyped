@@ -1,6 +1,6 @@
 import { EventEmitter } from 'events';
 import { DescribeSObjectResult, DescribeGlobalResult } from './describe-result';
-import { Query, QueryResult } from './query';
+import { Query, QueryResult, ExecuteOptions } from './query';
 import { Record } from './record';
 import { RecordResult } from './record-result';
 import { SObject } from './salesforce-object';
@@ -8,9 +8,18 @@ import { Analytics } from './api/analytics';
 import { Chatter } from './api/chatter';
 import { Metadata } from './api/metadata';
 import { Bulk } from './bulk';
+import { Cache } from './cache'
 import { OAuth2, Streaming } from '.';
+import { HttpApiOptions } from './http-api'
 
-export type Callback<T> = (err: Error, result: T) => void;
+export type Callback<T> = (err: Error | null, result: T) => void;
+// The type for these options was determined by looking at the usage
+// of the options object in Connection.create and other methods
+// go to http://jsforce.github.io/jsforce/doc/connection.js.html#line568
+// and search for options
+export interface RestApiOptions {
+    headers?: { [x: string]: string }
+}
 
 // These are pulled out because according to http://jsforce.github.io/jsforce/doc/connection.js.html#line49
 // the oauth options can either be in the `oauth2` proeprty OR spread across the main connection
@@ -22,9 +31,10 @@ export interface PartialOAuth2Options {
 }
 
 export interface RequestInfo {
+    body?: string;
+    headers?: object;
     method?: string;
     url?: string;
-    headers?: object;
 }
 
 export interface ConnectionOptions extends PartialOAuth2Options {
@@ -58,6 +68,16 @@ export abstract class RestApi {
     del(path: string, options: object, callback: () => object): Promise<object>;
 }
 
+export interface ExecuteAnonymousResult {
+    compiled: boolean;
+    compileProblem: string;
+    success: boolean;
+    line: number;
+    column: number;
+    exceptionMessage: string;
+    exceptionStackTrace: string;
+}
+
 export type ConnectionEvent = "refresh";
 
 /**
@@ -81,28 +101,39 @@ export type ConnectionEvent = "refresh";
  */
 export abstract class BaseConnection extends EventEmitter {
     _baseUrl(): string;
-    request(info: RequestInfo | string, options?: Object, callback?: (err: Error, Object: object) => void): Promise<Object>;
-    query<T>(soql: string, callback?: (err: Error, result: QueryResult<T>) => void): Query<QueryResult<T>>;
-    queryMore<T>(locator: string, options?: object, callback?: (err: Error, result: QueryResult<T>) => void): Promise<QueryResult<T>>;
-    create<T>(type: string, records: Record<T> | Array<Record<T>>, options?: Object,
+    request(info: RequestInfo | string, options?: HttpApiOptions, callback?: (err: Error, Object: object) => void): Promise<Object>;
+    query<T>(soql: string, options?: ExecuteOptions, callback?: (err: Error, result: QueryResult<T>) => void): Query<QueryResult<T>>;
+    queryMore<T>(locator: string, options?: ExecuteOptions, callback?: (err: Error, result: QueryResult<T>) => void): Promise<QueryResult<T>>;
+    create<T>(type: string, records: Record<T> | Array<Record<T>>, options?: RestApiOptions,
         callback?: (err: Error, result: RecordResult | RecordResult[]) => void): Promise<(RecordResult | RecordResult[])>;
-    insert<T>(type: string, records: Record<T> | Array<Record<T>>, options?: Object,
+    insert<T>(type: string, records: Record<T> | Array<Record<T>>, options?: RestApiOptions,
         callback?: (err: Error, result: RecordResult | RecordResult[]) => void): Promise<(RecordResult | RecordResult[])>;
-    retrieve<T>(type: string, ids: string | string[], options?: Object,
+    retrieve<T>(type: string, ids: string | string[], options?: RestApiOptions,
         callback?: (err: Error, result: Record<T> | Array<Record<T>>) => void): Promise<(Record<T> | Array<Record<T>>)>;
-    update<T>(type: string, records: Record<T> | Array<Record<T>>, options?: Object,
+    update<T>(type: string, records: Record<T> | Array<Record<T>>, options?: RestApiOptions,
         callback?: (err: Error, result: RecordResult | Array<Record<T>>) => void): Promise<(RecordResult | RecordResult[])>;
-    upsert<T>(type: string, records: Record<T> | Array<Record<T>>, extIdField: string, options?: Object,
+    upsert<T>(type: string, records: Record<T> | Array<Record<T>>, extIdField: string, options?: RestApiOptions,
         callback?: (err: Error, result: RecordResult | RecordResult[]) => void): Promise<(RecordResult | RecordResult[])>;
-    del<T>(type: string, ids: string | string[], options?: Object,
+    del<T>(type: string, ids: string | string[], options?: RestApiOptions,
         callback?: (err: Error, result: RecordResult | RecordResult[]) => void): Promise<(RecordResult | RecordResult[])>;
-    delete<T>(type: string, ids: string | string[], options?: Object,
+    delete<T>(type: string, ids: string | string[], options?: RestApiOptions,
         callback?: (err: Error, result: RecordResult | RecordResult[]) => void): Promise<(RecordResult | RecordResult[])>;
-    destroy<T>(type: string, ids: string | string[], options?: Object,
+    destroy<T>(type: string, ids: string | string[], options?: RestApiOptions,
         callback?: (err: Error, result: RecordResult | RecordResult[]) => void): Promise<(RecordResult | RecordResult[])>;
-    describe<T>(type: string, callback?: (err: Error, result: DescribeSObjectResult) => void): Promise<DescribeSObjectResult>;
+    describe$: {
+        /** Returns a value from the cache if it exists, otherwise calls Connection.describe */
+        (type: string, callback?: (err: Error, result: DescribeSObjectResult) => void): DescribeSObjectResult;
+        clear(): void;
+    }
+    describe(type: string, callback?: (err: Error, result: DescribeSObjectResult) => void): Promise<DescribeSObjectResult>;
+    describeGlobal$: {
+        /** Returns a value from the cache if it exists, otherwise calls Connection.describeGlobal */
+        (callback?: (err: Error, result: DescribeGlobalResult) => void): DescribeGlobalResult;
+        clear(): void;
+    }
     describeGlobal<T>(callback?: (err: Error, result: DescribeGlobalResult) => void): Promise<DescribeGlobalResult>;
-    sobject<T>(resource: string): SObject<T>;
+    // we want any object to be accepted if the user doesn't decide to give an explicit type
+    sobject<T = object>(resource: string): SObject<T>;
 }
 
 export class Connection extends BaseConnection {
@@ -115,6 +146,7 @@ export class Connection extends BaseConnection {
     bulk: Bulk;
     oauth2: OAuth2;
     streaming: Streaming;
+    cache: Cache;
 
     // Specific to Connection
     instanceUrl: string;
@@ -135,5 +167,5 @@ export class Tooling extends BaseConnection {
     _logger: any;
 
     // Specific to tooling
-    executeAnonymous(body: string, callback?: (err: Error, res: any) => void): Promise<any>;
+    executeAnonymous(body: string, callback?: (err: Error, res: any) => void): Promise<ExecuteAnonymousResult>;
 }

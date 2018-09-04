@@ -1,9 +1,9 @@
-// Type definitions for D3JS d3-interpolate module 1.1
+// Type definitions for D3JS d3-interpolate module 1.2
 // Project: https://github.com/d3/d3-interpolate/
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 1.1.1
+// Last module patch version validated against: 1.2.0
 
 import { ColorCommonInstance } from 'd3-color';
 
@@ -55,7 +55,9 @@ export function interpolateString(a: string | { toString(): string }, b: string 
 
 export function interpolateDate(a: Date, b: Date): ((t: number) => Date);
 
-export function interpolateArray<A extends any[]>(a: any[], b: A): ((t: number) => A);
+export type ArrayInterpolator<A extends any[]> = ((t: number) => A);
+
+export function interpolateArray<A extends any[]>(a: any[], b: A): ArrayInterpolator<A>;
 
 export function interpolateObject<U extends any>(a: any, b: U): ((t: number) => U);  // TODO: extends 'any' should become 'object' with TS 2.2+ definitions
 export function interpolateObject(a: { [key: string]: any }, b: { [key: string]: any }): ((t: number) => { [key: string]: any });
@@ -89,3 +91,7 @@ export const interpolateCubehelixLong: ColorGammaInterpolationFactory;
 
 export function interpolateBasis(splineNodes: number[]): ((t: number) => number);
 export function interpolateBasisClosed(splineNodes: number[]): ((t: number) => number);
+
+export function piecewise(interpolate: (a: ZoomView, b: ZoomView) => ZoomInterpolator, values: ZoomView[]): ZoomInterpolator;
+export function piecewise<A extends any[]>(interpolate: (a: any[], b: A) => ArrayInterpolator<A>, values: A): ArrayInterpolator<A>;
+export function piecewise<TData, Interpolator>(interpolate: (a: TData, b: TData) => Interpolator, values: TData[]): (t: number) => any;

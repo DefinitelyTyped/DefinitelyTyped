@@ -2860,15 +2860,23 @@ declare module "../index" {
          */
         omit<T extends AnyKindOfDictionary>(
             object: T | null | undefined,
-            ...paths: PropertyPath[]
+            ...paths: Array<Many<PropertyName>>
         ): T;
+
+        /**
+         * @see _.omit
+         */
+        omit<T extends object, K extends keyof T>(
+            object: T | null | undefined,
+            ...paths: Array<Many<K>>
+        ): Omit<T, K>;
 
         /**
          * @see _.omit
          */
         omit<T extends object>(
             object: T | null | undefined,
-            ...paths: PropertyPath[]
+            ...paths: Array<Many<PropertyName>>
         ): PartialObject<T>;
     }
 
@@ -2878,15 +2886,23 @@ declare module "../index" {
          */
         omit<T extends AnyKindOfDictionary>(
             this: LoDashImplicitWrapper<T | null | undefined>,
-            ...paths: PropertyPath[]
+            ...paths: Array<Many<PropertyName>>
         ): LoDashImplicitWrapper<T>;
+
+        /**
+         * @see _.omit
+         */
+        omit<T extends object, K extends keyof T>(
+            this: LoDashImplicitWrapper<T | null | undefined>,
+            ...paths: Array<Many<K>>
+        ): LoDashImplicitWrapper<Omit<T, K>>;
 
         /**
          * @see _.omit
          */
         omit<T extends object>(
             this: LoDashImplicitWrapper<T | null | undefined>,
-            ...paths: PropertyPath[]
+            ...paths: Array<Many<PropertyName>>
         ): LoDashImplicitWrapper<PartialObject<T>>;
     }
 
@@ -2896,15 +2912,23 @@ declare module "../index" {
          */
         omit<T extends AnyKindOfDictionary>(
             this: LoDashExplicitWrapper<T | null | undefined>,
-            ...paths: PropertyPath[]
+            ...paths: Array<Many<PropertyName>>
         ): LoDashExplicitWrapper<T>;
+
+        /**
+         * @see _.omit
+         */
+        omit<T extends object, K extends keyof T>(
+            this: LoDashExplicitWrapper<T | null | undefined>,
+            ...paths: Array<Many<K>>
+        ): LoDashExplicitWrapper<Omit<T, K>>;
 
         /**
          * @see _.omit
          */
         omit<T extends object>(
             this: LoDashExplicitWrapper<T | null | undefined>,
-            ...paths: PropertyPath[]
+            ...paths: Array<Many<PropertyName>>
         ): LoDashExplicitWrapper<PartialObject<T>>;
     }
 
@@ -2927,6 +2951,22 @@ declare module "../index" {
          * _.omitBy(object, _.isNumber);
          * // => { 'b': '2' }
          */
+        omitBy<T>(
+            object: Dictionary<T> | null | undefined,
+            predicate?: ValueKeyIteratee<T>
+        ): Dictionary<T>;
+
+        /**
+         * @see _.omitBy
+         */
+        omitBy<T>(
+            object: NumericDictionary<T> | null | undefined,
+            predicate?: ValueKeyIteratee<T>
+        ): NumericDictionary<T>;
+
+        /**
+         * @see _.omitBy
+         */
         omitBy<T extends object>(
             object: T | null | undefined,
             predicate: ValueKeyIteratee<T[keyof T]>
@@ -2937,6 +2977,22 @@ declare module "../index" {
         /**
          * @see _.omitBy
          */
+        omitBy<T>(
+            this: LoDashImplicitWrapper<Dictionary<T> | null | undefined>,
+            predicate?: ValueKeyIteratee<T>
+        ): LoDashImplicitWrapper<Dictionary<T>>;
+
+        /**
+         * @see _.omitBy
+         */
+        omitBy<T>(
+            this: LoDashImplicitWrapper<NumericDictionary<T> | null | undefined>,
+            predicate?: ValueKeyIteratee<T>
+        ): LoDashImplicitWrapper<NumericDictionary<T>>;
+
+        /**
+         * @see _.omitBy
+         */
         omitBy<T extends object>(
             this: LoDashImplicitWrapper<T | null | undefined>,
             predicate: ValueKeyIteratee<T[keyof T]>
@@ -2944,6 +3000,22 @@ declare module "../index" {
     }
 
     interface LoDashExplicitWrapper<TValue> {
+        /**
+         * @see _.omitBy
+         */
+        omitBy<T>(
+            this: LoDashExplicitWrapper<Dictionary<T> | null | undefined>,
+            predicate?: ValueKeyIteratee<T>
+        ): LoDashExplicitWrapper<Dictionary<T>>;
+
+        /**
+         * @see _.omitBy
+         */
+        omitBy<T>(
+            this: LoDashExplicitWrapper<NumericDictionary<T> | null | undefined>,
+            predicate?: ValueKeyIteratee<T>
+        ): LoDashExplicitWrapper<NumericDictionary<T>>;
+
         /**
          * @see _.omitBy
          */
@@ -3039,6 +3111,38 @@ declare module "../index" {
          * _.pickBy(object, _.isNumber);
          * // => { 'a': 1, 'c': 3 }
          */
+        pickBy<T, S extends T>(
+            object: Dictionary<T> | null | undefined,
+            predicate: ValueKeyIterateeTypeGuard<T, S>
+        ): Dictionary<S>;
+
+        /**
+         * @see _.pickBy
+         */
+        pickBy<T, S extends T>(
+            object: NumericDictionary<T> | null | undefined,
+            predicate: ValueKeyIterateeTypeGuard<T, S>
+        ): NumericDictionary<S>;
+
+        /**
+         * @see _.pickBy
+         */
+        pickBy<T>(
+            object: Dictionary<T> | null | undefined,
+            predicate?: ValueKeyIteratee<T>
+        ): Dictionary<T>;
+
+        /**
+         * @see _.pickBy
+         */
+        pickBy<T>(
+            object: NumericDictionary<T> | null | undefined,
+            predicate?: ValueKeyIteratee<T>
+        ): NumericDictionary<T>;
+
+        /**
+         * @see _.pickBy
+         */
         pickBy<T extends object>(
             object: T | null | undefined,
             predicate?: ValueKeyIteratee<T[keyof T]>
@@ -3049,6 +3153,38 @@ declare module "../index" {
         /**
          * @see _.pickBy
          */
+        pickBy<T, S extends T>(
+            this: LoDashImplicitWrapper<Dictionary<T> | null | undefined>,
+            predicate: ValueKeyIterateeTypeGuard<T, S>
+        ): LoDashImplicitWrapper<Dictionary<S>>;
+
+        /**
+         * @see _.pickBy
+         */
+        pickBy<T, S extends T>(
+            this: LoDashImplicitWrapper<NumericDictionary<T> | null | undefined>,
+            predicate: ValueKeyIterateeTypeGuard<T, S>
+        ): LoDashImplicitWrapper<NumericDictionary<S>>;
+
+        /**
+         * @see _.pickBy
+         */
+        pickBy<T>(
+            this: LoDashImplicitWrapper<Dictionary<T> | null | undefined>,
+            predicate?: ValueKeyIteratee<T>
+        ): LoDashImplicitWrapper<Dictionary<T>>;
+
+        /**
+         * @see _.pickBy
+         */
+        pickBy<T>(
+            this: LoDashImplicitWrapper<NumericDictionary<T> | null | undefined>,
+            predicate?: ValueKeyIteratee<T>
+        ): LoDashImplicitWrapper<NumericDictionary<T>>;
+
+        /**
+         * @see _.pickBy
+         */
         pickBy<T extends object>(
             this: LoDashImplicitWrapper<T | null | undefined>,
             predicate?: ValueKeyIteratee<T[keyof T]>
@@ -3056,6 +3192,38 @@ declare module "../index" {
     }
 
     interface LoDashExplicitWrapper<TValue> {
+        /**
+         * @see _.pickBy
+         */
+        pickBy<T, S extends T>(
+            this: LoDashExplicitWrapper<Dictionary<T> | null | undefined>,
+            predicate: ValueKeyIterateeTypeGuard<T, S>
+        ): LoDashExplicitWrapper<Dictionary<S>>;
+
+        /**
+         * @see _.pickBy
+         */
+        pickBy<T, S extends T>(
+            this: LoDashExplicitWrapper<NumericDictionary<T> | null | undefined>,
+            predicate: ValueKeyIterateeTypeGuard<T, S>
+        ): LoDashExplicitWrapper<NumericDictionary<S>>;
+
+        /**
+         * @see _.pickBy
+         */
+        pickBy<T>(
+            this: LoDashExplicitWrapper<Dictionary<T> | null | undefined>,
+            predicate?: ValueKeyIteratee<T>
+        ): LoDashExplicitWrapper<Dictionary<T>>;
+
+        /**
+         * @see _.pickBy
+         */
+        pickBy<T>(
+            this: LoDashExplicitWrapper<NumericDictionary<T> | null | undefined>,
+            predicate?: ValueKeyIteratee<T>
+        ): LoDashExplicitWrapper<NumericDictionary<T>>;
+
         /**
          * @see _.pickBy
          */

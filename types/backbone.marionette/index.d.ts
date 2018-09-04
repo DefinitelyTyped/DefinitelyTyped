@@ -3,7 +3,8 @@
 // Definitions by: Zeeshan Hamid <https://github.com/zhamid>,
 //                 Natan Vivo <https://github.com/nvivo>,
 //                 Sven Tschui <https://github.com/sventschui>,
-//                 Volker Nauruhn <https://github.com/razorness>
+//                 Volker Nauruhn <https://github.com/razorness>,
+//                 Ard Timmerman <https://github.com/confususs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -1143,6 +1144,11 @@ export class View<TModel extends Backbone.Model> extends Backbone.View<TModel> i
      * throughout the view with the ui attribute.
      */
     ui: any;
+
+    /**
+     * Get handle on UI element defined in ui hash
+     */
+    getUI(ui: string): JQuery;
 }
 
 export interface CollectionViewOptions<
@@ -1152,7 +1158,7 @@ export interface CollectionViewOptions<
     /**
      * Specify a child view to use.
      */
-    childView?: (() => typeof Backbone.View) | typeof Backbone.View;
+    childView?: ((model: TModel) => typeof Backbone.View) | typeof Backbone.View;
 
     /**
      * Define options to pass to the childView constructor.
@@ -1214,7 +1220,7 @@ export class CollectionView<TModel extends Backbone.Model, TView extends View<TM
     /**
      * Specify a child view to use.
      */
-    childView: (() => { new(...args: any[]): TView }) | { new(...args: any[]): TView };
+    childView: ((model: TModel) => { new(...args: any[]): TView }) | { new(...args: any[]): TView };
 
     /**
      * Define options to pass to the childView constructor.
@@ -1560,6 +1566,11 @@ export class Behavior extends Object {
      * Behavior methods as this.ui.
      */
     ui: any;
+
+    /**
+     * Get handle on UI element defined in ui hash
+     */
+    getUI(ui: string): JQuery;
 
     /**
      * Any triggers you define on the Behavior will be triggered in response to the appropriate event on the view.

@@ -41,3 +41,22 @@ bitcoin.address.toBase58Check(rsBase58Check.hash, rsBase58Check.version);
 bitcoin.address.toBech32(rsBech32.data, rsBech32.version, rsBech32.prefix);
 bitcoin.address.toOutputScript(address);
 bitcoin.address.toOutputScript(address, network);
+
+const redeemScript = bitcoin.script.multisig.output.encode(
+	2,
+	[
+		new Buffer('12345678901234567890123456789012'),
+		new Buffer('12345678901234567890123456789012'),
+		new Buffer('12345678901234567890123456789012'),
+	]
+);
+bitcoin.script.scriptHash.input.encode(
+	bitcoin.script.multisig.input.encodeStack(
+		[
+			new Buffer('12345678901234567890123456789012'),
+			new Buffer('12345678901234567890123456789012'),
+		],
+		redeemScript,
+	),
+	redeemScript,
+);

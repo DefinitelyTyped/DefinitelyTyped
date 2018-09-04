@@ -1,10 +1,12 @@
-// Type definitions for JW Player V8.0
+// Type definitions for JW Player V8.2
 // Project: https://github.com/jwplayer/jwplayer/
 // Definitions by: Martin Duparc <https://github.com/martinduparc>
 //                 Tomer Kruvi <https://github.com/kutomer>
 //                 Philipp Gürtler <https://github.com/philippguertler>
 //                 Daniel McGraw <https://github.com/danielmcgraw>
+//                 Benjamin Dobson <https://github.com/bpdsw>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 // JW Player is the leading HTML5 & Flash video player, optimized for mobile and the desktop. Easy enough for beginners, advanced enough for pros.
 
@@ -87,6 +89,12 @@ interface AdImpressionParam extends CallbackParam {
     tag: string;
     vastversion: number;
     wrapper: any[];
+}
+
+interface AdScheduleParam extends CallbackParam {
+    tag: string;
+    client: string;
+    adbreaks: object[];
 }
 
 interface AdStartedParam extends CallbackParam {
@@ -288,7 +296,11 @@ interface JWPlayer {
 	once(event: 'adRequest', callback: EventCallback<AdRequestParam>): void;
 	off(event: 'adRequest'): void;
 	trigger(event: 'adRequest', args: AdRequestParam): void;
-	on(event: 'adStarted', callback: EventCallback<AdStartedParam>): void;
+    on(event: 'adSchedule', callback: EventCallback<AdScheduleParam>): void;
+    once(event: 'adSchedule', callback: EventCallback<AdScheduleParam>): void;
+    off(event: 'adSchedule'): void;
+    trigger(event: 'adSchedule', args: AdScheduleParam): void;
+    on(event: 'adStarted', callback: EventCallback<AdStartedParam>): void;
 	once(event: 'adStarted', callback: EventCallback<AdStartedParam>): void;
 	off(event: 'adStarted'): void;
 	trigger(event: 'adStarted', args: AdStartedParam): void;
@@ -424,7 +436,11 @@ interface JWPlayer {
 	once(event: 'seek', callback: EventCallback<SeekParam>): void;
 	off(event: 'seek'): void;
 	trigger(event: 'seek', args: SeekParam): void;
-	on(event: 'setupError', callback: EventCallback<ErrorParam>): void;
+    on(event: 'seeked', callback: () => void): void;
+    once(event: 'seeked', callback: () => void): void;
+    off(event: 'seeked'): void;
+    trigger(event: 'seeked'): void
+    on(event: 'setupError', callback: EventCallback<ErrorParam>): void;
 	once(event: 'setupError', callback: EventCallback<ErrorParam>): void;
 	off(event: 'setupError'): void;
 	trigger(event: 'setupError', args: ErrorParam): void;

@@ -59,6 +59,7 @@ stripe.charges.create({
     // asynchronously called
 
     charge.refunds.create().then(function (refund) {
+        const reason = refund.failure_reason;
         // asynchronously called
     });
     charge.refunds.create({ amount: 100 }).then(function (refund) {
@@ -364,6 +365,10 @@ stripe.customers.list({ limit: 3 }).then(function (customers) {
     // asynchronously called
 });
 
+stripe.customers.list({ email: "test@example.com" }).then(function (customers) {
+	// asynchronously called
+});
+
 stripe.customers.createCard(
     "cus_5rfJKDJkuxzh5Q",
     { card: "tok_15V2YhEe31JkLCeQy9iUgsJX" },
@@ -492,6 +497,25 @@ stripe.customers.listCards('cu_15fvyVEe31JkLCeQvr155iqc', function (err, cards) 
     // asynchronously called
 });
 stripe.customers.listCards('cu_15fvyVEe31JkLCeQvr155iqc').then(function (cards) {
+    // asynchronously called
+});
+
+stripe.customers.listSources('cu_15fvyVEe31JkLCeQvr155iqc', null, function (err, cards) {
+    // asynchronously called
+});
+stripe.customers.listSources('cu_15fvyVEe31JkLCeQvr155iqc', null).then(function (cards) {
+    // asynchronously called
+});
+stripe.customers.listSources('cu_15fvyVEe31JkLCeQvr155iqc', {
+    object: "card",
+    limit: 100
+}).then(function (cards) {
+    // asynchronously called
+});
+stripe.customers.listSources('cu_15fvyVEe31JkLCeQvr155iqc', {
+    object: "bank_account",
+    limit: 100
+}).then(function (cards) {
     // asynchronously called
 });
 
@@ -779,7 +803,10 @@ stripe.accounts.createExternalAccount("", { external_account: "tok_15V2YhEe31JkL
 
 //#region Orders tests
 // ##################################################################################
-
+stripe.orders.retrieve("or_1C8XKwEe31JkLCeQHg0jcisf", function (err, order) {
+    // asynchronously called
+    var amount_returned: number = order.amount_returned;
+});
 
 
 //#endregion
@@ -996,6 +1023,10 @@ stripe.invoices.list({ customer: "cus_5rfJKDJkuxzh5Q", limit: 3 }).then(function
     // asynchronously called
 });
 
+stripe.invoices.retrieve("in_15fvyXEe31JkLCeQH7QbgZZb", { expand: ["subscription"] }).then(function (invoice) {
+  invoice.subscription
+})
+
 //#endregion
 
 //#region Invoice Items tests
@@ -1191,6 +1222,13 @@ stripe.plans.del(
     }
 );
 stripe.plans.del("gold-plan").then(function (confirmation) {
+    // asynchronously called
+});
+
+stripe.plans.list({ active: true, product: 'prod_someproduct' }, function(err, plans) {
+    // asynchronously called
+});
+stripe.plans.list({ active: true, product: 'prod_someproduct' }).then(function (plans) {
     // asynchronously called
 });
 

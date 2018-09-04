@@ -1,12 +1,11 @@
 import React = require('react');
 
-import { EmojiData } from '..';
-
-import { Emoji, EmojiProps, I18n } from '.';
+import { Emoji, EmojiData, EmojiProps, I18n, CategoryName } from '..';
 
 export interface Props {
     emojis?: Array<string|EmojiData>;
     hasStickyPosition?: boolean;
+    id: CategoryName;
     name: string;
     native: boolean;
     perLine: number;

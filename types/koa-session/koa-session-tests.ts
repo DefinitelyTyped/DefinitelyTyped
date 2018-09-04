@@ -39,4 +39,11 @@ app.use(session({
     },
 }, app));
 
+app.use((ctx, next) => {
+    // reset the session
+    ctx.session = null;
+
+    return next();
+});
+
 app.listen(3000);

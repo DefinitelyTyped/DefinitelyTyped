@@ -18,7 +18,12 @@ const c: webpack.Configuration = {
     plugins: [
         new DuplicatePackageCheckerWebpackPlugin({
             verbose: true,
-            emitError: true
+            emitError: true,
+            showHelp: false,
+            strict: false,
+            exclude(instance) {
+                return instance.name === "fbjs";
+            }
         })
     ]
 };

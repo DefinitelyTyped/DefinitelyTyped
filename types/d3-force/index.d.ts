@@ -55,7 +55,7 @@ export interface SimulationNodeDatum {
 /**
  * The base data structure for the datum of a Simulation Link, as used by ForceLink.
  * The optional properties contained in this data structure are internally assigned
- * by when initializating with ForceLink.links(...)
+ * by when initializing with ForceLink.links(...)
  *
  *
  * IMPORTANT: The source and target properties may be internally mutated in type during the
@@ -634,7 +634,7 @@ export interface ForceLink<NodeDatum extends SimulationNodeDatum, LinkDatum exte
      */
     strength(): (link: LinkDatum, i: number, links: LinkDatum[]) => number;
     /**
-     * Set the strenght accessor to use the specified constant number for all links,
+     * Set the strength accessor to use the specified constant number for all links,
      * re-evaluates the strength accessor for each link, and returns this force.
      *
      * The constant is internally wrapped into a strength accessor function.
@@ -647,7 +647,7 @@ export interface ForceLink<NodeDatum extends SimulationNodeDatum, LinkDatum exte
      */
     strength(strength: number): this;
     /**
-     * Set the strenght accessor to use the specified function,
+     * Set the strength accessor to use the specified function,
      * re-evaluates the strength accessor for each link, and returns this force.
      *
      * The strength accessor is invoked for each link, being passed the link, its zero-based index and the complete array of links.

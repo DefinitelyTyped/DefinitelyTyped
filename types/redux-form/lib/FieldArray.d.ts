@@ -11,13 +11,13 @@ interface BaseFieldArrayProps<P = {}> {
     rerenderOnEveryChange?: boolean;
 }
 
-export interface GenericFieldArray<Field, P = {}> extends Component<BaseFieldArrayProps<P> & P> {
+export interface GenericFieldArray<Field, P = {}> extends Component<BaseFieldArrayProps<P> & Partial<P>> {
     name: string;
     valid: boolean;
     getRenderedComponent(): Component<WrappedFieldArrayProps<Field> & P>;
 }
 
-export class FieldArray<P = {}> extends Component<BaseFieldArrayProps<P> & P> implements GenericFieldArray<any, P> {
+export class FieldArray<P = {}> extends Component<BaseFieldArrayProps<P> & Partial<P>> implements GenericFieldArray<any, P> {
     name: string;
     valid: boolean;
     getRenderedComponent(): Component<WrappedFieldArrayProps<any> & P>;
@@ -34,6 +34,7 @@ interface FieldsProps<FieldValue> {
     forEach(callback: FieldIterate<FieldValue>): void;
     get(index: number): FieldValue;
     getAll(): FieldValue[];
+    removeAll(): void;
     insert(index: number, value: FieldValue): void;
     length: number;
     map<R>(callback: FieldIterate<FieldValue, R>): R[];
@@ -42,6 +43,7 @@ interface FieldsProps<FieldValue> {
     remove(index: number): void;
     shift(): FieldValue;
     swap(indexA: number, indexB: number): void;
+    move(from: number, to: number): void;
     unshift(value: FieldValue): void;
 }
 

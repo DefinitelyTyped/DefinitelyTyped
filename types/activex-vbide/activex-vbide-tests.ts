@@ -1,3 +1,4 @@
+/// <reference types="windows-script-host" />
 /// <reference types="activex-word" />
 
 const collectionToArray = <T>(col: { Item(key: any): T }): T[] => {
