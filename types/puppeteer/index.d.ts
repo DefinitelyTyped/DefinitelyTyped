@@ -585,6 +585,11 @@ export interface ScreenshotOptions {
    * @default false
    */
   omitBackground?: boolean;
+  /**
+   * The encoding of the image, can be either base64 or binary. Defaults to binary
+   * @default binary
+   */
+  encoding?: "base64" | "binary";
 }
 
 /** Options for `addStyleTag` */
@@ -1341,7 +1346,7 @@ export interface Page extends EventEmitter, FrameBase {
    * Captures a screenshot of the page.
    * @param options The screenshot options.
    */
-  screenshot(options?: ScreenshotOptions): Promise<Buffer>;
+  screenshot(options?: ScreenshotOptions): Promise<string | Buffer>;
 
   /**
    * Triggers a `change` and `input` event once all the provided options have been selected.

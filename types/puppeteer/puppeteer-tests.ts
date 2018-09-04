@@ -396,3 +396,14 @@ puppeteer.launch().then(async browser => {
   );
   index; // $ExpectType number
 });
+
+// Test screenshot with an encoding option
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  await page.goto("https://example.com");
+  const base64string: string = (await page.screenshot({ encoding: "base64" })) as string;
+  const buffer: Buffer = (await page.screenshot({ encoding: "binary" })) as Buffer;
+
+  browser.close();
+})();
