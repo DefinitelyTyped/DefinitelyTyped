@@ -15,7 +15,7 @@ declare class FileCookieStore {
     idx: {
         [domain: string]: {
         [path: string]: {
-            [key: string]: Cookie,
+            [key: string]: FileCookieStore.Cookie,
         },
         },
     };
@@ -26,13 +26,13 @@ declare class FileCookieStore {
 
     inspect(): string;
 
-    findCookie(domain: string, path: string, key: string, cb: (whatever: null, cookie: Cookie | null | undefined) => void): void;
+    findCookie(domain: string, path: string, key: string, cb: (whatever: null, cookie: FileCookieStore.Cookie | null | undefined) => void): void;
 
-    findCookies(domain: string, path: string, cb: (whatever: null, cookies: Cookie[]) => void): void;
+    findCookies(domain: string, path: string, cb: (whatever: null, cookies: FileCookieStore.Cookie[]) => void): void;
 
-    putCookie(cookie: Cookie, path: string, key: string, cb: (whatever: null) => void): void;
+    putCookie(cookie: FileCookieStore.Cookie, path: string, key: string, cb: (whatever: null) => void): void;
 
-    updateCookie(oldCookie: Cookie, newCookie: Cookie, cb: (whatever: null) => void): void;
+    updateCookie(oldCookie: FileCookieStore.Cookie, newCookie: FileCookieStore.Cookie, cb: (whatever: null) => void): void;
 
     removeCookie(domain: string, path: string, key: string, cb: (whatever: null) => void): void;
 
