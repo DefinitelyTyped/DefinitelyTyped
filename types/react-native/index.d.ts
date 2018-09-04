@@ -2179,7 +2179,7 @@ export interface WebViewIOSLoadRequestEvent {
     loading: boolean;
     title: string;
     canGoForward: boolean;
-    navigationType: "other" | "click";
+    navigationType: "click" | "formsubmit" | "backforward" | "reload" | "formresubmit" | "other";
     url: string;
 }
 
