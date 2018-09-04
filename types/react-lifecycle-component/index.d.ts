@@ -2,7 +2,7 @@
 // Project: https://github.com/JamieDixon/react-lifecycle-component
 // Definitions by: Alexander Fisher <https://github.com/pixelshaded>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0.3
+// TypeScript Version: 2.8
 
 import { ComponentLifecycle, ComponentType, Component } from 'react';
 import { Connect } from 'react-redux';
