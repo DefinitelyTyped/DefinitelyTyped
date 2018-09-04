@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { ComponentLifecycle, ComponentType, Component, ComponentClass } from 'react';
+import { ComponentLifecycle, Component, ComponentClass } from 'react';
 import { Connect } from 'react-redux';
 
 export interface LifecycleStateProps<P = {}, S = {}> {
