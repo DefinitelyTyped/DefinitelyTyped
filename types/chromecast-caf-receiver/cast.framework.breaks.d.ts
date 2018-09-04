@@ -1,15 +1,15 @@
-import { Break, BreakClip } from "./cast.framework.messages";
+import messages from "./cast.framework.messages";
 
-export = cast.framework.breaks;
+export default Breaks;
 
-declare namespace cast.framework.breaks {
+declare namespace Breaks {
     class BreakSeekData {
-        constructor(seekFrom: number, seekTo: number, breaks: Break[]);
+        constructor(seekFrom: number, seekTo: number, breaks: messages.Break[]);
 
         /**
          * List of breaks
          */
-        breaks: Break[];
+        breaks: messages.Break[];
 
         /**
          * Current playback time
@@ -24,12 +24,12 @@ declare namespace cast.framework.breaks {
 
     /** Provide context information for break clip load interceptor. */
     class BreakClipLoadInterceptorContext {
-        constructor(brk: Break);
+        constructor(brk: messages.Break);
 
         /**
          * The container break for the break clip
          */
-        break: Break;
+        break: messages.Break;
     }
 
     /** Interface to manage breaks */
@@ -37,18 +37,18 @@ declare namespace cast.framework.breaks {
         /**
          * Get current media break by id.
          */
-        getBreakById(id: string): Break;
+        getBreakById(id: string): messages.Break;
 
         /**
          * Get current media break clip by id
          */
-        getBreakClipById(id: string): BreakClip;
+        getBreakClipById(id: string): messages.BreakClip;
 
         /** Get current media break clips. */
-        getBreakClips(): BreakClip[];
+        getBreakClips(): messages.BreakClip[];
 
         /** Get current media breaks. */
-        getBreaks(): Break[];
+        getBreaks(): messages.Break[];
 
         /** Returns true if watched breaks should be played. */
         getPlayWatchedBreak(): boolean;
@@ -62,7 +62,7 @@ declare namespace cast.framework.breaks {
          */
         setBreakClipLoadInterceptor(
             interceptor: (
-                breakClip: BreakClip,
+                breakClip: messages.BreakClip,
                 breakClipLoaderContext?: BreakClipLoadInterceptorContext
             ) => void
         ): void;

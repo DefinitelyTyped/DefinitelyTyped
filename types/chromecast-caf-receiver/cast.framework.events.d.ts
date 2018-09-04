@@ -1,12 +1,8 @@
-import {
-    RequestData,
-    MediaInformation,
-    Track,
-    MediaStatus
-} from "./cast.framework.messages";
-export = cast.framework.events;
+import messages from "./cast.framework.messages";
 
-declare namespace cast.framework.events {
+export default Events;
+
+declare namespace Events {
     type EventType =
         | "ALL"
         | "ABORT"
@@ -149,14 +145,14 @@ declare namespace cast.framework.events {
     class RequestEvent extends Event {
         constructor(
             type: EventType,
-            requestData?: RequestData,
+            requestData?: messages.RequestData,
             senderId?: string
         );
 
         /**
          * The data that was sent with the request.
          */
-        requestData?: RequestData;
+        requestData?: messages.RequestData;
 
         /**
          * The sender id the request came from.
@@ -179,12 +175,12 @@ declare namespace cast.framework.events {
      * Event data for @see{@link EventType.MEDIA_STATUS} event.
      */
     class MediaStatusEvent extends Event {
-        constructor(type: EventType, mediaStatus?: MediaStatus);
+        constructor(type: EventType, mediaStatus?: messages.MediaStatus);
 
         /**
          * The media status that was sent.
          */
-        mediaStatus?: MediaStatus;
+        mediaStatus?: messages.MediaStatus;
     }
     /**
      * Event data for pause events forwarded from the MediaElement.
@@ -228,23 +224,23 @@ declare namespace cast.framework.events {
      * Event data for all events pertaining to processing a load / preload request. made to the player.
      */
     class LoadEvent extends Event {
-        constructor(type: EventType, media?: MediaInformation);
+        constructor(type: EventType, media?: messages.MediaInformation);
 
         /**
          * Information about the media being loaded.
          */
-        media: MediaInformation;
+        media: messages.MediaInformation;
     }
     /**
      * Event data for @see{@link EventType.INBAND_TRACK_ADDED} event.
      */
     class InbandTrackAddedEvent {
-        constructor(track: Track);
+        constructor(track: messages.Track);
 
         /**
          * Added track.
          */
-        track: Track;
+        track: messages.Track;
     }
 
     /** Event data for @see{@link EventType.ID3} event. */
@@ -333,12 +329,12 @@ declare namespace cast.framework.events {
      * Event data for @see{@link EventType.CACHE_LOADED} event.
      */
     class CacheLoadedEvent extends Event {
-        constructor(media?: MediaInformation);
+        constructor(media?: messages.MediaInformation);
 
         /**
          * Information about the media being cached.
          */
-        media: MediaInformation;
+        media: messages.MediaInformation;
     }
 
     class CacheItemEvent extends Event {
