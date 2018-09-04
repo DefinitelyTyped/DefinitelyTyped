@@ -1,4 +1,4 @@
-// Type definitions for js_beautify
+// Type definitions for js_beautify 1.8.2
 // Project: https://github.com/beautify-web/js-beautify/
 // Definitions by: Josh Goldberg <https://github.com/JoshuaKGoldberg>, Hans Windhoff <https://github.com/hansrwindhoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -26,24 +26,29 @@ interface JsBeautifyOptions {
   end_with_newline?: boolean;
 }
 
+// See https://github.com/beautify-web/js-beautify/blob/v1.8.2/js/src/html/beautifier.js#L268-L330
 interface HTMLBeautifyOptions {
+  indent_inner_html?: boolean;
+  indent_body_inner_html?: boolean;
+  indent_head_inner_html?: boolean;
   indent_size?: number;
   indent_char?: string;
-  indent_with_tabs?: boolean;
-  indent_handlebars?: boolean;
-  eol?: string;
-  end_with_newline?: boolean;
+  wrap_line_length?: number;
   preserve_newlines?: boolean;
   max_preserve_newlines?: number;
-  indent_inner_html?: boolean;
-  brace_style?: 'collapse-preserve-inline'|'collapse'|'expand'|'end-expand'|'none';
-  indent_scripts?: 'keep'|'separate'|'normal';
-  wrap_line_length?: number;
-  wrap_attributes?: 'auto'|'force' ;
+  indent_handlebars?: boolean;
+  wrap_attributes?: 'auto' | 'force' | 'force-expand-multiline' | 'force-aligned' | 'aligned-multiple';
   wrap_attributes_indent_size?: number;
+  end_with_newline?: boolean;
+  extra_liners?: string[];
+  eol?: string;
+  indent_with_tabs?: boolean;
+  disabled?: boolean;
+  inline?: string[];
+  void_elements?: string[];
   unformatted?: string[];
   content_unformatted?: string[];
-  extra_liners?: string|string[];
+  indent_scripts?: 'keep' | 'separate';
 }
 
 interface CSSBeautifyOptions {
