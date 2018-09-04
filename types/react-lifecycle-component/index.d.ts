@@ -1,8 +1,5 @@
 import { ComponentLifecycle, ComponentType, Component, ComponentClass } from 'react';
-import {
-    DispatchProp, InferableComponentEnhancer, InferableComponentEnhancerWithProps, MapDispatchToPropsParam,
-    MapStateToPropsParam, MergeProps, Options, Connect
-} from 'react-redux';
+import { Connect } from 'react-redux';
 
 export interface LifecycleStateProps<P = {}> {
     component: ComponentType<P>;
