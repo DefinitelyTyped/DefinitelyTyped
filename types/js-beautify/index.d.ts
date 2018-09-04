@@ -13,7 +13,7 @@ interface JsBeautifyOptions {
   max_preserve_newlines?: number;
   jslint_happy?: boolean;
   space_after_anon_function?: boolean;
-  brace_style?: 'collapse-preserve-inline'|'collapse'|'expand'|'end-expand'|'none';
+  brace_style?: 'collapse-preserve-inline' | 'collapse' | 'expand' | 'end-expand' | 'none';
   keep_array_indentation?: boolean;
   keep_function_indentation?: boolean;
   space_before_conditional?: boolean;
@@ -21,7 +21,7 @@ interface JsBeautifyOptions {
   eval_code?: boolean;
   unescape_strings?: boolean;
   wrap_line_length?: number;
-  wrap_attributes?: 'auto'|'force' ;
+  wrap_attributes?: 'auto' | 'force';
   wrap_attributes_indent_size?: number;
   end_with_newline?: boolean;
 }
@@ -61,21 +61,19 @@ interface CSSBeautifyOptions {
   newline_between_rules?: boolean;
 }
 
-interface jsb{
-  (js_source_text: string, options?: JsBeautifyOptions) : string ;
-  js:(js_source_text: string, options?: JsBeautifyOptions) => string ;
-  js_beautify:(js_source_text: string, options?: JsBeautifyOptions) => string ;
+interface jsb {
+  (js_source_text: string, options?: JsBeautifyOptions): string;
+  js: (js_source_text: string, options?: JsBeautifyOptions) => string;
+  js_beautify: (js_source_text: string, options?: JsBeautifyOptions) => string;
 
-  css:(js_source_text: string, options?: CSSBeautifyOptions) => string ;
-  css_beautify:(js_source_text: string, options?: CSSBeautifyOptions) => string ;
+  css: (js_source_text: string, options?: CSSBeautifyOptions) => string;
+  css_beautify: (js_source_text: string, options?: CSSBeautifyOptions) => string;
 
-  html:(js_source_text: string, options?: HTMLBeautifyOptions) => string ;
-  html_beautify:(js_source_text: string, options?: HTMLBeautifyOptions) => string ;
+  html: (js_source_text: string, options?: HTMLBeautifyOptions) => string;
+  html_beautify: (js_source_text: string, options?: HTMLBeautifyOptions) => string;
 }
 
-declare var js_beautify:jsb;
-declare module "js-beautify"
-{
+declare var js_beautify: jsb;
+declare module "js-beautify" {
     export = js_beautify;
 }
-
