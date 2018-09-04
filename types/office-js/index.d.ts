@@ -11346,6 +11346,36 @@ declare namespace Office {
          * @beta
          */
         addHandlerAsync(eventType: Office.EventType, handler: any, callback?: (result: AsyncResult<void>) => void): void;
+		
+        /**
+         * Gets initialization data passed when the add-in is {@link https://docs.microsoft.com/outlook/actionable-messages/invoke-add-in-from-actionable-message | activated by an actionable message}.
+         * 
+         * Note: This method is only supported by Outlook 2016 for Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the web 
+         * for Office 365.
+         * 
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+         *
+         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Appointment Attendee</td></tr></table>
+         * 
+         * In addition to this signature, the method also has the following signature:
+         * 
+         * `getInitializationContextAsync(callback?: (result: AsyncResult<string>) => void): void;`
+         * 
+         * @param options Optional. An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
+         *                 asyncResult, which is an Office.AsyncResult object. 
+         *                 On success, the initialization data is provided in the asyncResult.value property as a string. 
+         *                 If there is no initialization context, the asyncResult object will contain an Error object with its code property 
+         *                 set to 9020 and its name property set to GenericResponseError.
+         *
+         * @beta
+         */
+        getInitializationContextAsync(options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<string>) => void): void;
 
        /**
         * Asynchronously loads custom properties for this add-in on the selected item.
