@@ -4400,14 +4400,14 @@ declare namespace videojs {
 		 *
 		 * @return boolean True if the player is in the seeking state, false if not.
 		 */
-        seeking(): boolean;
+		seeking(): boolean;
 
-        /**
+		/**
 		 * Returns the TimeRanges of the media that are currently available for seeking to.
 		 *
 		 * @return TimeRanges Returns the TimeRanges of the media that are currently available for seeking to.
 		 */
-        seekable(): TimeRanges;
+		 seekable(): TimeRanges;
 
 		/**
 		 * Select source based on tech-order or source-order
