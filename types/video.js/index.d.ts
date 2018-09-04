@@ -4396,17 +4396,17 @@ declare namespace videojs {
 		reset(): void;
 
 		/**
-         * Returns whether or not the player is in the "seeking" state.
-         *
-         * @return boolean True if the player is in the seeking state, false if not.
-         */
+		 * Returns whether or not the player is in the "seeking" state.
+		 *
+		 * @return boolean True if the player is in the seeking state, false if not.
+		 */
         seeking(): boolean;
 
         /**
-         * Returns the TimeRanges of the media that are currently available for seeking to.
-         *
-         * @return TimeRanges Returns the TimeRanges of the media that are currently available for seeking to.
-         */
+		 * Returns the TimeRanges of the media that are currently available for seeking to.
+		 *
+		 * @return TimeRanges Returns the TimeRanges of the media that are currently available for seeking to.
+		 */
         seekable(): TimeRanges;
 
 		/**
