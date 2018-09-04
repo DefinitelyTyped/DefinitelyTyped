@@ -1,9 +1,8 @@
+// TypeScript Version: 2.4
 // Type definitions for dplayer 1.24
 // Project: https://github.com/DIYgod/DPlayer#readme
 // Definitions by: Guanyunhan <https://github.com/Guanyunhan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { DPlayerHighLightItem } from 'dplayer';
 
 export type Lang = 'en' | 'zh-cn' | 'zh-tw';
 export type Preload = 'none' | 'metadata' | 'auto';
@@ -62,7 +61,7 @@ export enum DPlayerEvents {
 export interface DPlayerOptions {
   [key: string]: any;
 
-  container: HTMLElement;
+  container: HTMLElement | null;
   live?: boolean;
   autoplay?: boolean;
   theme?: string;
@@ -119,7 +118,7 @@ export interface DPlayerDanmaku {
   api: string;
   token?: string;
   maximum?: string;
-  addition?: Array<string>;
+  addition?: string[];
   user?: string;
   bottom?: string;
   unlimited?: boolean;
@@ -132,7 +131,7 @@ export interface DPlayerAPIBackend {
 }
 
 export default class DPlayer {
-  public events: any;
+  events: any;
 
   constructor(options: DPlayerOptions);
 
