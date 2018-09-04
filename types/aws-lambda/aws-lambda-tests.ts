@@ -281,7 +281,7 @@ statement = {
 statement = {
     Effect: str,
     Action: str,
-    Principal: { Service: str},
+    Principal: { Service: str },
     Resource: 123
 };
 
@@ -309,8 +309,8 @@ statement = {
     Condition: {
         condition1: { key: "value" },
         condition2: [{
-                key1: "value",
-                key2: "value"
+            key1: "value",
+            key2: "value"
         }, {
             key3: "value"
         }]
@@ -427,13 +427,13 @@ switch (cloudformationCustomResourceEvent.RequestType) {
         str = cloudformationCustomResourceEvent.ResponseURL;
         str = cloudformationCustomResourceEvent.ServiceToken;
         str = cloudformationCustomResourceEvent.StackId;
-    break;
+        break;
     case "Update":
         anyObj = cloudformationCustomResourceEvent.OldResourceProperties;
-    break;
+        break;
     case "Delete":
         str = cloudformationCustomResourceEvent.PhysicalResourceId;
-    break;
+        break;
 }
 anyObj = cloudformationCustomResourceResponse.Data;
 str = cloudformationCustomResourceResponse.LogicalResourceId;
@@ -582,74 +582,74 @@ CodePipelineEvent["CodePipeline.job"].data.encryptionKey = { type: 'KMS', id: 'k
 
 /* CloudFront events, see http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-event-structure.html */
 const CloudFrontRequestEvent: AWSLambda.CloudFrontRequestEvent = {
-  Records: [
-    {
-      cf: {
-        config: {
-          distributionDomainName: "d123.cloudfront.net",
-          distributionId: "EDFDVBD6EXAMPLE",
-          eventType: "viewer-request",
-          requestId: "MRVMF7KydIvxMWfJIglgwHQwZsbG2IhRJ07sn9AkKUFSHS9EXAMPLE=="
-        },
-        request: {
-          clientIp: "2001:0db8:85a3:0:0:8a2e:0370:7334",
-          method: "GET",
-          uri: "/picture.jpg",
-          querystring: "size=large",
-          headers: {
-            host: [
-              {
-                key: "Host",
-                value: "d111111abcdef8.cloudfront.net"
-              }
-            ],
-            "user-agent": [
-              {
-                key: "User-Agent",
-                value: "curl/7.51.0"
-              }
-            ]
-          },
-          origin: {
-            custom: {
-              customHeaders: {
-                "my-origin-custom-header": [
-                  {
-                    key: "My-Origin-Custom-Header",
-                    value: "Test"
-                  }
-                ]
-              },
-              domainName: "example.com",
-              keepaliveTimeout: 5,
-              path: "/custom_path",
-              port: 443,
-              protocol: "https",
-              readTimeout: 5,
-              sslProtocols: [
-                "TLSv1",
-                "TLSv1.1"
-              ]
-            },
-            s3: {
-              authMethod: "origin-access-identity",
-              customHeaders: {
-                "my-origin-custom-header": [
-                  {
-                    key: "My-Origin-Custom-Header",
-                    value: "Test"
-                  }
-                ]
-              },
-              domainName: "my-bucket.s3.amazonaws.com",
-              path: "/s3_path",
-              region: "us-east-1"
+    Records: [
+        {
+            cf: {
+                config: {
+                    distributionDomainName: "d123.cloudfront.net",
+                    distributionId: "EDFDVBD6EXAMPLE",
+                    eventType: "viewer-request",
+                    requestId: "MRVMF7KydIvxMWfJIglgwHQwZsbG2IhRJ07sn9AkKUFSHS9EXAMPLE=="
+                },
+                request: {
+                    clientIp: "2001:0db8:85a3:0:0:8a2e:0370:7334",
+                    method: "GET",
+                    uri: "/picture.jpg",
+                    querystring: "size=large",
+                    headers: {
+                        host: [
+                            {
+                                key: "Host",
+                                value: "d111111abcdef8.cloudfront.net"
+                            }
+                        ],
+                        "user-agent": [
+                            {
+                                key: "User-Agent",
+                                value: "curl/7.51.0"
+                            }
+                        ]
+                    },
+                    origin: {
+                        custom: {
+                            customHeaders: {
+                                "my-origin-custom-header": [
+                                    {
+                                        key: "My-Origin-Custom-Header",
+                                        value: "Test"
+                                    }
+                                ]
+                            },
+                            domainName: "example.com",
+                            keepaliveTimeout: 5,
+                            path: "/custom_path",
+                            port: 443,
+                            protocol: "https",
+                            readTimeout: 5,
+                            sslProtocols: [
+                                "TLSv1",
+                                "TLSv1.1"
+                            ]
+                        },
+                        s3: {
+                            authMethod: "origin-access-identity",
+                            customHeaders: {
+                                "my-origin-custom-header": [
+                                    {
+                                        key: "My-Origin-Custom-Header",
+                                        value: "Test"
+                                    }
+                                ]
+                            },
+                            domainName: "my-bucket.s3.amazonaws.com",
+                            path: "/s3_path",
+                            region: "us-east-1"
+                        }
+                    }
+                }
             }
-          }
         }
-      }
-    }
-  ]
+    ]
 };
 
 const CloudFrontResponseEvent: AWSLambda.CloudFrontResponseEvent = {
@@ -707,6 +707,97 @@ const CloudFrontResponseEvent: AWSLambda.CloudFrontResponseEvent = {
             }
         }
     ]
+};
+
+/**
+ * @link https://docs.aws.amazon.com/en_en/apigateway/latest/developerguide/api-gateway-mapping-template-reference.html
+ */
+const apitGatewayProxyEvent: AWSLambda.APIGatewayProxyEvent = {
+    resource: "/{proxy+}",
+    path: "/Seattle",
+    httpMethod: "POST",
+    headers: {
+        day: "Friday"
+    },
+    queryStringParameters: {
+        time: "morning"
+    },
+    pathParameters: {
+        proxy: "Seattle"
+    },
+    stageVariables: null,
+    requestContext: {
+        path: "/{proxy+}",
+        accountId: "123456789012",
+        resourceId: "nl9h80",
+        stage: "test-invoke-stage",
+        requestId: "test-invoke-request",
+        identity: {
+            cognitoIdentityPoolId: null,
+            accountId: "123456789012",
+            cognitoIdentityId: null,
+            caller: "AIDXXX...XXVJZG",
+            apiKey: "test-invoke-api-key",
+            apiKeyId: "my-api-key-id",
+            sourceIp: "test-invoke-source-ip",
+            accessKey: "ASIXXX...XXDQ5A",
+            cognitoAuthenticationType: null,
+            cognitoAuthenticationProvider: null,
+            userArn: "arn:aws:iam::123456789012:user/kdeding",
+            userAgent: "Apache-HttpClient/4.5.x (Java/1.8.0_131)",
+            user: "AIDXXX...XXVJZG"
+        },
+        resourcePath: "/{proxy+}",
+        httpMethod: "POST",
+        apiId: "r275xc9bmd",
+        requestTimeEpoch: 1536041878
+    },
+    body: "{ \"callerName\": \"John\" }",
+    isBase64Encoded: false
+};
+
+const typedGatewayProxyEvent: AWSLambda.APIGatewayProxyEvent<{ foo: string }, { bar: number }> = {
+    resource: "/{proxy+}",
+    path: "/Seattle",
+    httpMethod: "POST",
+    headers: {
+        day: "Friday"
+    },
+    queryStringParameters: {
+        bar: 1234
+    },
+    pathParameters: {
+        foo: "bar"
+    },
+    stageVariables: null,
+    requestContext: {
+        path: "/{proxy+}",
+        accountId: "123456789012",
+        resourceId: "nl9h80",
+        stage: "test-invoke-stage",
+        requestId: "test-invoke-request",
+        identity: {
+            cognitoIdentityPoolId: null,
+            accountId: "123456789012",
+            cognitoIdentityId: null,
+            caller: "AIDXXX...XXVJZG",
+            apiKey: "test-invoke-api-key",
+            apiKeyId: "my-api-key-id",
+            sourceIp: "test-invoke-source-ip",
+            accessKey: "ASIXXX...XXDQ5A",
+            cognitoAuthenticationType: null,
+            cognitoAuthenticationProvider: null,
+            userArn: "arn:aws:iam::123456789012:user/kdeding",
+            userAgent: "Apache-HttpClient/4.5.x (Java/1.8.0_131)",
+            user: "AIDXXX...XXVJZG"
+        },
+        resourcePath: "/{proxy+}",
+        httpMethod: "POST",
+        apiId: "r275xc9bmd",
+        requestTimeEpoch: 1536041878
+    },
+    body: "{ \"callerName\": \"John\" }",
+    isBase64Encoded: false
 };
 
 /* Kinesis Data Stream Events */
@@ -779,46 +870,46 @@ const inferredHandler: AWSLambda.S3Handler = (event, context, cb) => {
     cb(null);
     cb(new Error());
     // $ExpectError
-    cb(null, { });
+    cb(null, {});
 };
 
 // Test using default Callback type still works.
 const defaultCallbackHandler: AWSLambda.APIGatewayProxyHandler = (event: AWSLambda.APIGatewayEvent, context: AWSLambda.Context, cb: AWSLambda.Callback) => { };
 
 // Specific types
-let s3Handler: AWSLambda.S3Handler = (event: AWSLambda.S3Event, context: AWSLambda.Context, cb: AWSLambda.Callback<void>) => {};
+let s3Handler: AWSLambda.S3Handler = (event: AWSLambda.S3Event, context: AWSLambda.Context, cb: AWSLambda.Callback<void>) => { };
 // Test old name
-const s3CreateHandler: AWSLambda.S3Handler = (event: AWSLambda.S3CreateEvent, context: AWSLambda.Context, cb: AWSLambda.Callback<void>) => {};
+const s3CreateHandler: AWSLambda.S3Handler = (event: AWSLambda.S3CreateEvent, context: AWSLambda.Context, cb: AWSLambda.Callback<void>) => { };
 s3Handler = s3CreateHandler;
 
-const dynamoDBStreamHandler: AWSLambda.DynamoDBStreamHandler = (event: AWSLambda.DynamoDBStreamEvent, context: AWSLambda.Context, cb: AWSLambda.Callback<void>) => {};
+const dynamoDBStreamHandler: AWSLambda.DynamoDBStreamHandler = (event: AWSLambda.DynamoDBStreamEvent, context: AWSLambda.Context, cb: AWSLambda.Callback<void>) => { };
 
-const snsHandler: AWSLambda.SNSHandler = (event: AWSLambda.SNSEvent, context: AWSLambda.Context, cb: AWSLambda.Callback<void>) => {};
+const snsHandler: AWSLambda.SNSHandler = (event: AWSLambda.SNSEvent, context: AWSLambda.Context, cb: AWSLambda.Callback<void>) => { };
 
-const cognitoUserPoolHandler: AWSLambda.CognitoUserPoolTriggerHandler = (event: AWSLambda.CognitoUserPoolEvent, context: AWSLambda.Context, cb: AWSLambda.Callback<void>) => {};
+const cognitoUserPoolHandler: AWSLambda.CognitoUserPoolTriggerHandler = (event: AWSLambda.CognitoUserPoolEvent, context: AWSLambda.Context, cb: AWSLambda.Callback<void>) => { };
 
 const cloudFormationCustomResourceHandler: AWSLambda.CloudFormationCustomResourceHandler =
-    (event: AWSLambda.CloudFormationCustomResourceEvent, context: AWSLambda.Context, cb: AWSLambda.Callback<void>) => {};
+    (event: AWSLambda.CloudFormationCustomResourceEvent, context: AWSLambda.Context, cb: AWSLambda.Callback<void>) => { };
 
-const cloudWatchLogsHandler: AWSLambda.CloudWatchLogsHandler = (event: AWSLambda.CloudWatchLogsEvent, context: AWSLambda.Context, cb: AWSLambda.Callback<void>) => {};
+const cloudWatchLogsHandler: AWSLambda.CloudWatchLogsHandler = (event: AWSLambda.CloudWatchLogsEvent, context: AWSLambda.Context, cb: AWSLambda.Callback<void>) => { };
 
-const scheduledHandler: AWSLambda.ScheduledHandler = (event: AWSLambda.ScheduledEvent, context: AWSLambda.Context, cb: AWSLambda.Callback<void>) => {};
+const scheduledHandler: AWSLambda.ScheduledHandler = (event: AWSLambda.ScheduledEvent, context: AWSLambda.Context, cb: AWSLambda.Callback<void>) => { };
 
 let apiGtwProxyHandler: AWSLambda.APIGatewayProxyHandler = (event: AWSLambda.APIGatewayProxyEvent, context: AWSLambda.Context, cb: AWSLambda.APIGatewayProxyCallback) => { };
 // Test old names
 const proxyHandler: AWSLambda.ProxyHandler = (event: AWSLambda.APIGatewayEvent, context: AWSLambda.Context, cb: AWSLambda.ProxyCallback) => { };
 apiGtwProxyHandler = proxyHandler;
 
-const codePipelineHandler: AWSLambda.CodePipelineHandler = (event: AWSLambda.CodePipelineEvent, context: AWSLambda.Context, cb: AWSLambda.Callback<void>) => {};
+const codePipelineHandler: AWSLambda.CodePipelineHandler = (event: AWSLambda.CodePipelineEvent, context: AWSLambda.Context, cb: AWSLambda.Callback<void>) => { };
 
 const cloudFrontRequestHandler: AWSLambda.CloudFrontRequestHandler = (event: AWSLambda.CloudFrontRequestEvent, context: AWSLambda.Context, cb: AWSLambda.CloudFrontRequestCallback) => {
     cb();
     cb(null);
     cb(new Error(''));
-    cb(null, { clientIp: str, method: str, uri: str, querystring: str, headers: { } });
+    cb(null, { clientIp: str, method: str, uri: str, querystring: str, headers: {} });
     cb(null, { status: str });
     // $ExpectError
-    cb(null, { });
+    cb(null, {});
 };
 
 const cloudFrontResponseHandler: AWSLambda.CloudFrontResponseHandler = (event: AWSLambda.CloudFrontResponseEvent, context: AWSLambda.Context, cb: AWSLambda.CloudFrontResponseCallback) => { };
