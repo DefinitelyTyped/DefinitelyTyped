@@ -10,4 +10,7 @@ declare function mkdirpPromise(
     path: string,
     opts?: mkdirp.Mode | mkdirp.Options
 ): Promise<mkdirp.Made>;
+
+declare namespace mkdirpPromise {}
+
 export = mkdirpPromise;
