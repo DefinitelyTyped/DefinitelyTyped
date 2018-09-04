@@ -1,6 +1,6 @@
 // Type definitions for react-lifecycle-component 2.0.5
 // Project: https://github.com/JamieDixon/react-lifecycle-component
-// Definitions by: Alexander Fisher <https://github.com/pixelshaded>,
+// Definitions by: Alexander Fisher <https://github.com/pixelshaded>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0.3
 
