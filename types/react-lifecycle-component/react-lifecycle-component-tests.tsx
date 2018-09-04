@@ -65,12 +65,12 @@ function mapDispatchToProps(dispatch: Dispatch): MapDispatchProps {
             dispatch({ type: 'ComponentDidMount'});
         },
         componentWillUpdate(nextProps, nextState, nextContext) {
-            const fooIsEqual: boolean = nextProps.propsFoo == nextState.stateFoo;
+            const fooIsEqual: boolean = nextProps.propsFoo === nextState.stateFoo;
             const hasNextContext: boolean = !!nextContext;
             dispatch({ type: 'ComponentWillUpdate'});
         },
         componentDidUpdate(nextProps, nextState, nextContext) {
-            const fooIsEqual: boolean = nextProps.propsFoo == nextState.stateFoo;
+            const fooIsEqual: boolean = nextProps.propsFoo === nextState.stateFoo;
             const hasNextContext: boolean = !!nextContext;
             dispatch({ type: 'ComponentDidUpdate'});
         },
@@ -83,16 +83,16 @@ function mapDispatchToProps(dispatch: Dispatch): MapDispatchProps {
             dispatch({ type: 'ComponentWillUnmount'});
         },
         shouldComponentUpdate(nextProps, nextState, nextContext) {
-            const fooIsEqual: boolean = nextProps.propsFoo == nextState.stateFoo;
+            const fooIsEqual: boolean = nextProps.propsFoo === nextState.stateFoo;
             const hasNextContext: boolean = !!nextContext;
             return !fooIsEqual;
         },
     };
 }
 
-const connectWithLifecylceContainer = 
+const connectWithLifecylceContainer =
     connectWithLifecycle<StateProps, MapDispatchProps>(mapStateToProps, mapDispatchToProps)(ComponentFoo);
-const applyLifecycleContainer = 
+const applyLifecycleContainer =
     connect<StateProps, MapDispatchProps>(mapStateToProps, mapDispatchToProps)(applyLifecycle(ComponentFoo));
-const lifecycleContainer = 
+const lifecycleContainer =
     connect<MapStateProps, MapDispatchProps>(mapStateToProps, mapDispatchToProps)(LifecycleComponent);
