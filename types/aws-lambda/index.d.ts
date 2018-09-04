@@ -24,12 +24,15 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
+// @link https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods
+export type HttpMethods = 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPTIONS' | 'TRACE' | 'PATCH';
+
 // API Gateway "event" request context
 export interface APIGatewayEventRequestContext {
     accountId: string;
     apiId: string;
     authorizer?: AuthResponseContext | null;
-    httpMethod: string;
+    httpMethod: HttpMethods;
     identity: {
         accessKey: string | null;
         accountId: string | null;
@@ -54,15 +57,19 @@ export interface APIGatewayEventRequestContext {
 }
 
 // API Gateway "event"
-export interface APIGatewayProxyEvent {
+export interface APIGatewayProxyEvent<
+    pathParameters = { [name: string]: string } | null,
+    queryStringParameters = { [name: string]: string } | null,
+    stageVariables = { [name: string]: string } | null
+> {
     body: string | null;
     headers: { [name: string]: string };
-    httpMethod: string;
+    httpMethod: HttpMethods;
     isBase64Encoded: boolean;
     path: string;
-    pathParameters: { [name: string]: string } | null;
-    queryStringParameters: { [name: string]: string } | null;
-    stageVariables: { [name: string]: string } | null;
+    pathParameters: pathParameters;
+    queryStringParameters: queryStringParameters;
+    stageVariables: stageVariables;
     requestContext: APIGatewayEventRequestContext;
     resource: string;
 }
