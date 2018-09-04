@@ -6,9 +6,11 @@
 
 import { Middleware } from 'koa';
 
-import * as Logger from 'bunyan';
+import Logger = require('bunyan');
 
-export default function(logger?: Logger): Middleware;
+export = koaBunyanLogger;
+
+declare function koaBunyanLogger(logger?: Logger): Middleware;
 
 // Extend the Koa context to add the logger..
 declare module 'koa' {

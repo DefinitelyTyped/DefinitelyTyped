@@ -1,5 +1,5 @@
-import * as Koa from 'koa';
-import koaBunyanLogger from 'koa-bunyan-logger';
+import Koa = require('koa');
+import koaBunyanLogger = require('koa-bunyan-logger');
 
 const app = new Koa();
 app.use(koaBunyanLogger());
