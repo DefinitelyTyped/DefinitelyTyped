@@ -1,4 +1,4 @@
-// Type definitions for minio 6.0
+// Type definitions for minio 7.0
 // Project: https://github.com/minio/minio-js#readme
 // Definitions by: Barin Britva <https://github.com/barinbritva>
 //                 Lubomir Kaplan <https://github.com/castorw>
@@ -20,7 +20,7 @@ export interface ClientOptions {
     endPoint: string;
     accessKey: string;
     secretKey: string;
-    secure?: boolean;
+    useSSL?: boolean;
     port?: number;
     region?: Region;
     transport?: any;
