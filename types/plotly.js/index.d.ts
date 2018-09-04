@@ -467,7 +467,7 @@ export interface PlotData {
 	y: Datum[] | Datum[][] | TypedArray;
 	z: Datum[] | Datum[][] | Datum[][][] | TypedArray;
 	xy: Float32Array;
-    error_x: ErrorOptions;
+	error_x: ErrorOptions;
 	error_y: ErrorOptions;
 	xaxis: string;
 	yaxis: string;
