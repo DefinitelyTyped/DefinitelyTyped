@@ -3,7 +3,6 @@
 // Definitions by: Christian Friedow <https://github.com/friedow>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 declare namespace FileCookieStore {
     export interface Cookie {
         domain: string;
