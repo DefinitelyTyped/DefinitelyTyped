@@ -90,7 +90,7 @@ declare module 'dplayer' {
   export interface DPlayerContextMenuItem {
     text: string;
     link?: string;
-    click?: Function;
+    click?: () => void;
   }
 
   export interface DPlayerHighLightItem {
@@ -125,9 +125,9 @@ declare module 'dplayer' {
   }
 
   export interface DPlayerAPIBackend {
-    read(endpoint: any, callback: Function): void;
+    read(endpoint: any, callback: () => void): void;
 
-    send(endpoint: any, danmakuData: DPlayerDanmakuItem, callback: Function): void;
+    send(endpoint: any, danmakuData: DPlayerDanmakuItem, callback: () => void): void;
   }
 
   export default class DPlayer {
@@ -143,7 +143,7 @@ declare module 'dplayer' {
 
     toggle(): void;
 
-    on(event: DPlayerEvents, handler: Function): void;
+    on(event: DPlayerEvents, handler: () => void): void;
 
     switchVideo(video: DPlayerVideo, danmaku: DPlayerDanmaku): void;
 
