@@ -32,6 +32,9 @@ declare namespace wx {
         /** 接口调用结束的回调函数（调用成功、失败都会执行） */
         complete?(res: any): void;
     }
+    interface ErrCodeResponse {
+        errCode: number;
+    }
     // #endregion
     // #region 网络API列表
     // 发起请求
@@ -529,25 +532,25 @@ declare namespace wx {
         /** 跳转到指定位置，单位 s */
         seek(position: number): void;
         /** 背景音频进入可以播放状态，但不保证后面可以流畅播放 */
-        onCanplay(callback: (res: { errCode: number; }) => void): void;
+        onCanplay(callback: (res: ErrCodeResponse) => void): void;
         /** 背景音频播放事件 */
-        onPlay(callback: (res: { errCode: number; }) => void): void;
+        onPlay(callback: (res: ErrCodeResponse) => void): void;
         /** 背景音频暂停事件 */
-        onPause(callback: (res: { errCode: number; }) => void): void;
+        onPause(callback: (res: ErrCodeResponse) => void): void;
         /** 背景音频停止事件 */
-        onStop(callback: (res: { errCode: number; }) => void): void;
+        onStop(callback: (res: ErrCodeResponse) => void): void;
         /** 背景音频自然播放结束事件 */
-        onEnded(callback: (res: { errCode: number; }) => void): void;
+        onEnded(callback: (res: ErrCodeResponse) => void): void;
         /** 背景音频播放进度更新事件 */
-        onTimeUpdate(callback: (res: { errCode: number; }) => void): void;
+        onTimeUpdate(callback: (res: ErrCodeResponse) => void): void;
         /** 用户在系统音乐播放面板点击上一曲事件（iOS only） */
-        onPrev(callback: (res: { errCode: number; }) => void): void;
+        onPrev(callback: (res: ErrCodeResponse) => void): void;
         /** 用户在系统音乐播放面板点击下一曲事件（iOS only） */
-        onNext(callback: (res: { errCode: number; }) => void): void;
+        onNext(callback: (res: ErrCodeResponse) => void): void;
         /** 背景音频播放错误事件 */
-        onError(callback: (res: { errCode: number; }) => void): void;
+        onError(callback: (res: ErrCodeResponse) => void): void;
         /** 音频加载中事件，当音频因为数据不足，需要停下来加载时会触发 */
-        onWaiting(callback: (res: { errCode: number; }) => void): void;
+        onWaiting(callback: (res: ErrCodeResponse) => void): void;
     }
     /**
      * 获取全局唯一的背景音频管理器 backgroundAudioManager。
@@ -646,25 +649,25 @@ declare namespace wx {
         /** 销毁当前实例 */
         destroy(): void;
         /** 音频进入可以播放状态，但不保证后面可以流畅播放 */
-        onCanplay(callback: (res: { errCode: number; }) => void): void;
+        onCanplay(callback: (res: ErrCodeResponse) => void): void;
         /** 音频播放事件 */
-        onPlay(callback: (res: { errCode: number; }) => void): void;
+        onPlay(callback: (res: ErrCodeResponse) => void): void;
         /** 音频暂停事件 */
-        onPause(callback: (res: { errCode: number; }) => void): void;
+        onPause(callback: (res: ErrCodeResponse) => void): void;
         /** 音频停止事件 */
-        onStop(callback: (res: { errCode: number; }) => void): void;
+        onStop(callback: (res: ErrCodeResponse) => void): void;
         /** 音频自然播放结束事件 */
-        onEnded(callback: (res: { errCode: number; }) => void): void;
+        onEnded(callback: (res: ErrCodeResponse) => void): void;
         /** 音频播放进度更新事件 */
-        onTimeUpdate(callback: (res: { errCode: number; }) => void): void;
+        onTimeUpdate(callback: (res: ErrCodeResponse) => void): void;
         /** 音频播放错误事件 */
-        onError(callback: (res: { errCode: number; }) => void): void;
+        onError(callback: (res: ErrCodeResponse) => void): void;
         /** 音频加载中事件，当音频因为数据不足，需要停下来加载时会触发 */
-        onWaiting(callback: (res: { errCode: number; }) => void): void;
+        onWaiting(callback: (res: ErrCodeResponse) => void): void;
         /** 音频进行 seek 操作事件 */
-        onSeeking(callback: (res: { errCode: number; }) => void): void;
+        onSeeking(callback: (res: ErrCodeResponse) => void): void;
         /** 音频完成 seek 操作事件 */
-        onSeeked(callback: (res: { errCode: number; }) => void): void;
+        onSeeked(callback: (res: ErrCodeResponse) => void): void;
     }
     /**
      * 创建并返回内部 audio 上下文 innerAudioContext 对象。
