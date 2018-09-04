@@ -1,6 +1,6 @@
-import DPlayer, { DPlayerOptions } from 'dplayer';
+import DPlayer from 'dplayer';
 
-const dp = new DPlayer(<DPlayerOptions>{
+const dp = new DPlayer({
   container: document.querySelector('#dplayer'),
   screenshot: true,
   video: {
@@ -16,4 +16,3 @@ const dp = new DPlayer(<DPlayerOptions>{
     api: 'https://api.prprpr.me/dplayer3/'
   }
 });
-console.log(dp);
