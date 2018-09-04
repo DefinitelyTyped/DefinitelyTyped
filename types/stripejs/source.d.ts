@@ -1,6 +1,6 @@
-import {StripeError} from "./index";
-import {Customer} from "./customer";
-import {Token} from "./token";
+import { StripeError } from "./index";
+import { Customer } from "./customer";
+import { Token } from "./token";
 
 /**
  * @see https://stripe.com/docs/api#sources

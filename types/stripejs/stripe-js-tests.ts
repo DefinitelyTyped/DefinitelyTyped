@@ -1,7 +1,7 @@
-import {StripeJS} from "stripejs";
-import {CanMakePaymentResult, StripePaymentResponse} from "stripejs/payment";
-import {BankTokenData, IBANTokenData, TokenData, TokenResult} from "stripejs/token";
-import {SourceData, SourceResult} from "stripejs/source";
+import { StripeJS } from "stripejs";
+import { CanMakePaymentResult, StripePaymentResponse } from "stripejs/payment";
+import { BankTokenData, IBANTokenData, TokenData, TokenResult } from "stripejs/token";
+import { SourceData, SourceResult } from "stripejs/source";
 
 declare function describe(desc: string, fn: () => void): void;
 
@@ -32,7 +32,7 @@ describe('StripeJS', () => {
         element.on('focus', () => null);
         element.on('click', (event: { preventDefault: () => void }) => event.preventDefault());
         element.mount('#card-element');
-        element.mount({} as HTMLElement);
+        element.mount(new HTMLElement());
         element.unmount();
         element.update({value: {postalCode: '123'}});
         element.destroy();

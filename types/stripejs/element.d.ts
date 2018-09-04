@@ -1,4 +1,4 @@
-import {StripeError} from "./index";
+import { StripeError } from "./index";
 
 export interface ElementFactory {
     /**
@@ -331,6 +331,9 @@ export interface PaymentRequestButtonStyle {
 }
 
 // --- BASE OPTIONS FOR ELEMENTS --- //
+/**
+ * @deprecated Do not use this interface. This is only here to minimize code duplication
+ */
 export interface BaseOptions {
     /**
      * Set custom class names on the container DOM element when the Stripe Element is in a
@@ -382,10 +385,17 @@ export interface StyleAttributes {
     lineHeight?: string;
     letterSpacing?: string;
 
-    /** Available for the `cardNumber`, `cardExpiry`, and `cardCvc` Elements*/
+    /**
+     * Align text inside the element
+     * NOTE: Only available for the `cardNumber`, `cardExpiry`, and `cardCvc` Elements
+     */
     textAlign?: string;
+    '::-ms-clear'?: MSClearAttributes;
 
-    /** Available for the `idealBank` Element */
+    /**
+     * Add padding to the element
+     * NOTE: Only available for the `idealBank` Element
+     */
     padding?: string;
 
     textDecoration?: string;
@@ -396,12 +406,7 @@ export interface StyleAttributes {
     '::placeholder'?: StyleAttributes;
     '::selection'?: StyleAttributes;
     ':-webkit-autofill'?: StyleAttributes;
-
-    /** NOT available for `paymentRequestButton` */
     ':disabled'?: StyleAttributes;
-
-    /** Available for the `cardNumber`, `cardExpiry`, and `cardCvc` Elements*/
-    '::-ms-clear'?: MSClearAttributes;
 }
 
 export interface MSClearAttributes extends StyleAttributes {

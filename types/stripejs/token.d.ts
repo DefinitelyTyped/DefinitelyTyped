@@ -1,5 +1,5 @@
-import {StripeError} from "./index";
-import {BankAccount, Card} from "./customer";
+import { StripeError } from "./index";
+import { BankAccount, Card } from "./customer";
 
 /**
  * @see https://stripe.com/docs/api#token_object

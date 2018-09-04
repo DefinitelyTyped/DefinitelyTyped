@@ -1,4 +1,4 @@
-import {ShippingAddress, ShippingOption} from "./shipping";
+import { ShippingAddress, ShippingOption } from "./shipping";
 
 /**
  * The Payment request object that can be used to make payments
