@@ -57,7 +57,7 @@ export interface HookContext<T = any> {
      * A read only property that contains the Feathers application object. This can be used to
      * retrieve other services (via context.app.service('name')) or configuration values.
      */
-    app?: Application;
+    readonly app: Application;
     /**
      * A writeable property containing the data of a create, update and patch service
      * method call.
@@ -78,17 +78,17 @@ export interface HookContext<T = any> {
      * A read only property with the name of the service method (one of find, get,
      * create, update, patch, remove).
      */
-    method?: string;
+    readonly method: string;
     /**
      * A writeable property that contains the service method parameters (including
      * params.query).
      */
-    params?: Params;
+    params: Params;
     /**
      * A read only property and contains the service name (or path) without leading or
      * trailing slashes.
      */
-    path?: string;
+    readonly path: string;
     /**
      * A writeable property containing the result of the successful service method call.
      * It is only available in after hooks.
@@ -102,7 +102,7 @@ export interface HookContext<T = any> {
     /**
      * A read only property and contains the service this hook currently runs on.
      */
-    service: Service<T>;
+    readonly service: Service<T>;
     /**
      * A writeable, optional property and contains a "safe" version of the data that
      * should be sent to any client. If context.dispatch has not been set context.result
@@ -117,7 +117,7 @@ export interface HookContext<T = any> {
     /**
      * A read only property with the hook type (one of before, after or error).
      */
-    type: "before" | "after" | "error";
+    readonly type: "before" | "after" | "error";
 }
 
 export interface HookMap {
