@@ -1,7 +1,6 @@
-// Type definitions for StripeJS 3.0
+// Type definitions for stripe.js 3.0
 // Project: https://stripe.com/
-// Definitions by: Marc Mackenbach <https://github.com/mackenbach/>
-//                 Robin van Tienhoven <https://github.com/RobinvanTienhoven
+// Definitions by: Robin van Tienhoven <https://github.com/RobinvanTienhoven>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 

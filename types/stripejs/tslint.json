@@ -2,9 +2,6 @@
   "extends": "dtslint/dt.json",
   "rules": {
     // IBAN is written with an 'I' for example
-    "interface-name": false,
-
-    // Setting '// TypeScript Version: 2.1' in the index.d.ts header gives 'Error parsing header' when linting
-    "dt-header": false
+    "interface-name": false
   }
 }
