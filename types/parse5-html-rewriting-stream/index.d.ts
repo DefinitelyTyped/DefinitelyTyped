@@ -2,6 +2,7 @@
 // Project: https://github.com/inikulin/parse5/tree/master/packages/parse5-html-rewriting-stream
 // Definitions by: Sam Li <https://github.com/samuelli>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 import * as parse5 from 'parse5-sax-parser';
 import * as stream from 'stream';
