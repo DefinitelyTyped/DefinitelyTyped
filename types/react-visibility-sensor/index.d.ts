@@ -6,7 +6,9 @@
 
 import * as React from "react";
 
-export interface Shape {
+export as namespace ReactVisibilitySensor;
+
+interface Shape {
   top?: number;
   left?: number;
   bottom?: number;
@@ -35,4 +37,4 @@ interface Props {
 
 declare const ReactVisibilitySensor: React.StatelessComponent<Props>;
 
-export default ReactVisibilitySensor;
+export = ReactVisibilitySensor;
