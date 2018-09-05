@@ -20,12 +20,19 @@ let behavior = Behavior({
     },
     attached() {},
     methods: {
-        myBehaviorMethod() {}
+        myBehaviorMethod() {
+            const s: string = this.data.myBehaviorData;
+        }
     }
 });
 
 Component({
     behaviors: [behavior, "wx://form-field"],
+
+    options: {
+        multipleSlots: false,
+        addGlobalClass: false
+    },
 
     properties: {
         myProperty: {
@@ -46,6 +53,36 @@ Component({
         anotherKey: "value"
     }, // 私有数据，可用于模版渲染
 
+    lifetimes: {
+        attached() {
+            wx.setEnableDebug({
+                enableDebug: true,
+                success(res) {}
+            });
+
+            wx.reportMonitor("123", 123);
+
+            wx.getLogManager().info("123");
+            wx.getLogManager().log("123");
+            wx.getLogManager().warn("123");
+            wx.getLogManager().debug("123");
+        },
+
+        detached() {
+            this.setData(
+                {
+                    key: null
+                },
+                () => {}
+            );
+        }
+    },
+
+    pageLifetimes: {
+        show() {},
+        hide() {}
+    },
+
     // 生命周期函数，可以为函数，或一个在methods段中定义的方法名
     attached() {
         this.setData(
@@ -55,8 +92,11 @@ Component({
             () => {}
         );
     },
+
     moved() {},
+
     detached() {},
+
     methods: {
         readMyDataAndMyProps() {
             const stringValue1: string = this.data.myProperty;

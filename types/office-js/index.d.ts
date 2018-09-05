@@ -1127,17 +1127,19 @@ declare namespace Office {
          */
         displayInIframe?: boolean
         /**
-         * A user-defined item of any type that is returned, unchanged, in the value property of the AsyncResult object that is passed to a callback.
+         * A user-defined item of any type that is returned, unchanged, in the asyncContext property of the AsyncResult object that is passed to a callback.
          */
         asyncContext?: any
     }
     /**
-     * The Office Auth namespace, Office.context.auth, provides a method that allows the Office host to obtain and access the add-in token. 
-     * Indirectly, enable the add-in to access the signed-in user's Microsoft Graph data without requiring the user to sign in a second time.
+     * The Office Auth namespace, Office.context.auth, provides a method that allows the Office host to obtain an access token to the add-in's web application. 
+     * Indirectly, this also enables the add-in to access the signed-in user's Microsoft Graph data without requiring the user to sign in a second time.
+     * 
+     * @beta 
      */
     interface Auth {
         /**
-        * Calls the Azure Active Directory V 2.0 endpoint to get an access token to your add-in's web application. Allows add-ins to identify users. 
+        * Calls the Azure Active Directory V 2.0 endpoint to get an access token to your add-in's web application. Enables add-ins to identify users. 
         * Server side code can use this token to access Microsoft Graph for the add-in's web application by using the 
         * {@link https://docs.microsoft.com/azure/active-directory/develop/active-directory-v2-protocols-oauth-on-behalf-of | "on behalf of" OAuth flow}.
         * 
@@ -1148,11 +1150,8 @@ declare namespace Office {
         *
         * <tr><td>Requirement sets</td><td>{@link https://docs.microsoft.com/office/dev/add-ins/develop/specify-office-hosts-and-api-requirements | IdentityAPI}</td></tr></table>
         *
-        * This API requires a single sign-on configuration that bridges the add-in to an Azure application. Office users sign-in with Organizational 
-        * Accounts and Microsoft Accounts. Microsoft Azure returns tokens intended for both user account types to access resources in the Microsoft Graph.
-        *
         * @param options - Optional. Accepts an AuthOptions object to define sign-on behaviors.
-        * @param callback - Optional. Accepts a callback method to handle the token acquisition attempt. 
+        * @param callback - Optional. Accepts a callback method that can parse the token for the user's ID or use the token in the "on behalf of" flow to get access to Microsoft Graph. 
         *                   If AsyncResult.status is "succeeded", then AsyncResult.value is the raw AAD v. 2.0-formatted access token.
         * 
         * @beta
@@ -1170,7 +1169,7 @@ declare namespace Office {
          */
         forceConsent?: boolean,
         /**
-         * Prompts the user to add (or to switch if already added) his or her Office account.
+         * Prompts the user to add their Office account (or to switch to it, if it is already added).
          */
         forceAddAccount?: boolean,
         /**
@@ -1182,7 +1181,7 @@ declare namespace Office {
          */
         authChallenge?: string
         /**
-         * A user-defined item of any type that is returned, unchanged, in the value property of the AsyncResult object that is passed to a callback.
+         * A user-defined item of any type that is returned, unchanged, in the asyncContext property of the AsyncResult object that is passed to a callback.
          */
         asyncContext?: any
     }
@@ -1191,7 +1190,7 @@ declare namespace Office {
      */
     interface AsyncContextOptions {
         /**
-         * A user-defined item of any type that is returned, unchanged, in the value property of the AsyncResult object that is passed to a callback.
+         * A user-defined item of any type that is returned, unchanged, in the asyncContext property of the AsyncResult object that is passed to a callback.
          */
         asyncContext?: any
     }
@@ -1254,7 +1253,7 @@ declare namespace Office {
         */
         rows?: string
         /**
-         * A user-defined item of any type that is returned, unchanged, in the value property of the AsyncResult object that is passed to a callback.
+         * A user-defined item of any type that is returned, unchanged, in the asyncContext property of the AsyncResult object that is passed to a callback.
          */
         asyncContext?: any
     }
@@ -1300,7 +1299,7 @@ declare namespace Office {
         */
         tableOptions?: object
         /**
-         * A user-defined item of any type that is returned, unchanged, in the value property of the AsyncResult object that is passed to a callback.
+         * A user-defined item of any type that is returned, unchanged, in the asyncContext property of the AsyncResult object that is passed to a callback.
          */
         asyncContext?: any
     }
@@ -1341,7 +1340,7 @@ declare namespace Office {
          */
         handler?: string
         /**
-         * A user-defined item of any type that is returned, unchanged, in the value property of the AsyncResult object that is passed to a callback.
+         * A user-defined item of any type that is returned, unchanged, in the asyncContext property of the AsyncResult object that is passed to a callback.
          */
         asyncContext?: any
     }
@@ -1354,7 +1353,7 @@ declare namespace Office {
          */
         id?: string
         /**
-         * A user-defined item of any type that is returned, unchanged, in the value property of the AsyncResult object that is passed to a callback.
+         * A user-defined item of any type that is returned, unchanged, in the asyncContext property of the AsyncResult object that is passed to a callback.
          */
         asyncContext?: any
     }
@@ -1378,7 +1377,7 @@ declare namespace Office {
          */
         sampleData?: Office.TableData
         /**
-         * A user-defined item of any type that is returned, unchanged, in the value property of the AsyncResult object that is passed to a callback.
+         * A user-defined item of any type that is returned, unchanged, in the asyncContext property of the AsyncResult object that is passed to a callback.
          */
         asyncContext?: any
     }
@@ -1395,7 +1394,7 @@ declare namespace Office {
          */
         columns?: Array<string>
         /**
-         * A user-defined item of any type that is returned, unchanged, in the value property of the AsyncResult object that is passed to a callback.
+         * A user-defined item of any type that is returned, unchanged, in the asyncContext property of the AsyncResult object that is passed to a callback.
          */
         asyncContext?: any
     }
@@ -1408,7 +1407,7 @@ declare namespace Office {
          */
         sliceSize?: number
         /**
-         * A user-defined item of any type that is returned, unchanged, in the value property of the AsyncResult object that is passed to a callback.
+         * A user-defined item of any type that is returned, unchanged, in the asyncContext property of the AsyncResult object that is passed to a callback.
          */
         asyncContext?: any
     }
@@ -1426,7 +1425,7 @@ declare namespace Office {
          */
         filterType?: Office.FilterType | string
         /**
-         * A user-defined item of any type that is returned, unchanged, in the value property of the AsyncResult object that is passed to a callback.
+         * A user-defined item of any type that is returned, unchanged, in the asyncContext property of the AsyncResult object that is passed to a callback.
          */
         asyncContext?: any
     }
@@ -1452,7 +1451,7 @@ declare namespace Office {
          */
         selectionMode?: Office.SelectionMode | string
         /**
-         * A user-defined item of any type that is returned, unchanged, in the value property of the AsyncResult object that is passed to a callback.
+         * A user-defined item of any type that is returned, unchanged, in the asyncContext property of the AsyncResult object that is passed to a callback.
          */
         asyncContext?: any
     }
@@ -1499,7 +1498,7 @@ declare namespace Office {
         */
         imageHeight?: number
         /**
-         * A user-defined item of any type that is returned, unchanged, in the value property of the AsyncResult object that is passed to a callback.
+         * A user-defined item of any type that is returned, unchanged, in the asyncContext property of the AsyncResult object that is passed to a callback.
          */
         asyncContext?: any
     }
@@ -1512,7 +1511,7 @@ declare namespace Office {
          */
         overwriteIfStale?: boolean
         /**
-         * A user-defined item of any type that is returned, unchanged, in the value property of the AsyncResult object that is passed to a callback.
+         * A user-defined item of any type that is returned, unchanged, in the asyncContext property of the AsyncResult object that is passed to a callback.
          */
         asyncContext?: any
     }
@@ -11347,6 +11346,36 @@ declare namespace Office {
          * @beta
          */
         addHandlerAsync(eventType: Office.EventType, handler: any, callback?: (result: AsyncResult<void>) => void): void;
+		
+        /**
+         * Gets initialization data passed when the add-in is {@link https://docs.microsoft.com/outlook/actionable-messages/invoke-add-in-from-actionable-message | activated by an actionable message}.
+         * 
+         * Note: This method is only supported by Outlook 2016 for Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the web 
+         * for Office 365.
+         * 
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+         *
+         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Appointment Attendee</td></tr></table>
+         * 
+         * In addition to this signature, the method also has the following signature:
+         * 
+         * `getInitializationContextAsync(callback?: (result: AsyncResult<string>) => void): void;`
+         * 
+         * @param options Optional. An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
+         *                 asyncResult, which is an Office.AsyncResult object. 
+         *                 On success, the initialization data is provided in the asyncResult.value property as a string. 
+         *                 If there is no initialization context, the asyncResult object will contain an Error object with its code property 
+         *                 set to 9020 and its name property set to GenericResponseError.
+         *
+         * @beta
+         */
+        getInitializationContextAsync(options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<string>) => void): void;
 
        /**
         * Asynchronously loads custom properties for this add-in on the selected item.

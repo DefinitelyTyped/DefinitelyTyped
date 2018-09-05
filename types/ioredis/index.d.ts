@@ -842,6 +842,17 @@ declare namespace IORedis {
          */
         retryStrategy?(times: number): number | false;
         /**
+         * By default, all pending commands will be flushed with an error every
+         * 20 retry attempts. That makes sure commands won't wait forever when
+         * the connection is down. You can change this behavior by setting
+         * `maxRetriesPerRequest`.
+         *
+         * Set maxRetriesPerRequest to `null` to disable this behavior, and
+         * every command will wait forever until the connection is alive again
+         * (which is the default behavior before ioredis v4).
+         */
+        maxRetriesPerRequest?: number | null;
+        /**
          * 1/true means reconnect, 2 means reconnect and resend failed command. Returning false will ignore
          * the error and do nothing.
          */

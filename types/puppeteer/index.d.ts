@@ -1223,7 +1223,7 @@ export interface Page extends EventEmitter, FrameBase {
   bringToFront(): Promise<void>;
 
   /** Get the browser the page belongs to. */
-  browser(): Promise<Browser>;
+  browser(): Browser;
 
   /** Closes the current page. */
   close(options?: PageCloseOptions): Promise<void>;
@@ -1647,6 +1647,35 @@ export interface LaunchOptions {
    * Useful so that you can see what is going on.
    */
   slowMo?: number;
+  /**
+   * Sets a consistent viewport for each page. Defaults to an 800x600 viewport. null disables the default viewport.
+   */
+  defaultViewport?: {
+    /**
+     * page width in pixels.
+     */
+    width?: number;
+    /**
+     * page height in pixels.
+     */
+    height?: number;
+    /**
+     * Specify device scale factor (can be thought of as dpr). Defaults to 1.
+     */
+    deviceScaleFactor?: number;
+    /**
+     * Whether the meta viewport tag is taken into account. Defaults to false.
+     */
+    isMobile?: boolean;
+    /**
+     * Specifies if viewport supports touch events. Defaults to false.
+     */
+    hasTouch?: boolean;
+    /**
+     * Specifies if viewport is in landscape mode. Defaults to false.
+     */
+    isLandscape?: boolean;
+  };
   /**
    * Additional arguments to pass to the Chromium instance. List of Chromium
    * flags can be found here.

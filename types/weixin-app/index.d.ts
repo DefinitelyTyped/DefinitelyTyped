@@ -1,4 +1,4 @@
-// Type definitions for wx-app 1.9
+// Type definitions for wx-app 2.2
 // Project: https://mp.weixin.qq.com/debug/wxadoc/dev/api/
 // Definitions by: taoqf <https://github.com/taoqf>
 //                 AlexStacker <https://github.com/AlexStacker>
@@ -24,11 +24,11 @@ declare namespace wx {
         /** 文件的临时路径 */
         tempFilePath: string;
     }
-    interface BaseOptions {
+    interface BaseOptions<R = any, E = any> {
         /** 接口调用成功的回调函数 */
-        success?(res: any): void;
+        success?(res: R): void;
         /** 接口调用失败的回调函数 */
-        fail?(res: any): void;
+        fail?(res: E): void;
         /** 接口调用结束的回调函数（调用成功、失败都会执行） */
         complete?(res: any): void;
     }
@@ -38,7 +38,7 @@ declare namespace wx {
     interface RequestHeader {
         [key: string]: string;
     }
-    interface RequestOptions extends BaseOptions {
+    interface RequestOptions extends BaseOptions<DataResponse> {
         /** 开发者服务器接口地址 */
         url: string;
         /** 请求的参数 */
@@ -2858,8 +2858,10 @@ declare namespace wx {
     type CheckSessionOption = BaseOptions;
     /**
      * 检测当前用户登录态是否有效。
-     * 通过wx.login获得的用户登录态拥有一定的时效性。用户越久未使用小程序，用户登录态越有可能失效。反之如果用户一直在使用小程序，则用户登录态一直保持有效。具体时效逻辑由微信维护，对开发者透明。开发者只需要调用wx.checkSession接口检测当前用户登录态是否有效。登录态过期后开发者可以再调用wx.login获取新的用户登录态。
-     *
+     * 通过wx.login获得的用户登录态拥有一定的时效性。用户越久未使用小程序，用户登录态越有可能失效。
+     * 反之如果用户一直在使用小程序，则用户登录态一直保持有效。具体时效逻辑由微信维护，对开发者透明。
+     * 开发者只需要调用wx.checkSession接口检测当前用户登录态是否有效。
+     * 登录态过期后开发者可以再调用wx.login获取新的用户登录态。
      */
     function checkSession(options: CheckSessionOption): void;
     /**
@@ -3125,6 +3127,7 @@ declare namespace wx {
     }
 
     type TouchEventType =
+        | "tap"
         | "touchstart"
         | "touchmove"
         | "touchcancel"
@@ -3204,6 +3207,10 @@ declare namespace wx {
         changedTouches: Touch[];
     }
 
+    interface TapEvent extends TouchEvent<"tap"> {
+        // 手指触摸后马上离开
+    }
+
     interface TouchStartEvent extends TouchEvent<"touchstart"> {
         // 手指触摸动作开始
     }
@@ -3224,6 +3231,55 @@ declare namespace wx {
         // 在支持 3D Touch 的 iPhone 设备，重按时会触发
     }
     // #endregion
+
+    interface Logger {
+        /**
+         * 写log日志，可以提供任意个参数，每个参数的类型为Object/Array/Number/String，参数p1到pN的内容会写入日志
+         */
+        log: (...args: any[]) => void;
+        /**
+         * 写warn日志，参数同log方法
+         */
+        warn: (...args: any[]) => void;
+        /**
+         * 写debug日志，参数同log方法
+         */
+        debug: (...args: any[]) => void;
+        /**
+         * 写info日志，参数同log方法
+         */
+        info: (...args: any[]) => void;
+    }
+
+    /**
+     * 获取日志管理器 logManager 对象。logManager提供log、info、warn、debug四个方法写日志到文件，
+     * 这四个方法接受任意个类型为Object/Array/Number/String的参数，
+     * 每次调用的参数的总大小不超过100Kb。最多保存5M的日志内容，超过5M后，旧的日志内容会被删除。
+     * 用户可以通过设置Button组件的open-type为feedback来上传打印的日志。
+     * 用户上传的日志可以通过登录小程序管理后台后进入左侧菜单“客服反馈”页面获取到。
+     */
+    function getLogManager(): Logger;
+
+    /**
+     * 自定义业务数据监控上报接口。使用前，需要在小程序管理后台-运维中心-性能监控-业务数据监控中新建监控事件，
+     * 配置监控描述与告警类型。每一个监控事件对应唯一的监控ID，开发者最多可以创建128个监控事件。
+     * @param name 监控ID，在小程序管理后台新建数据指标后获得
+     * @param value 上报数值，经处理后会在小程序管理后台上展示每分钟的上报总量
+     */
+    function reportMonitor(name: string, value: number): void;
+
+    /**
+     * 用于延迟一部分操作到下一个时间片再执行（类似于 setTimeout）。
+     * @param func
+     * @version 2.2.3
+     */
+    function nextTick(func: () => any): void;
+
+    interface EnableDebugOptions extends BaseOptions {
+        enableDebug: boolean;
+    }
+
+    function setEnableDebug(options: EnableDebugOptions): void;
 }
 // #region App里的onLaunch、onShow回调参数
 interface LaunchOptions {
@@ -3322,19 +3378,16 @@ type ExtendedComponent<
     Instance extends Component<Data, Props>,
     Data,
     Methods,
-    Options,
     Props
-> = CombinedInstance<Instance, Data, Methods, Options, Props> &
-    Component<Data, Props>;
+> = CombinedInstance<Instance, Data, Methods, Props> & Component<Data, Props>;
 
 // CombinedInstance models the `this`, i.e. instance type for (user defined) component
 type CombinedInstance<
     Instance extends Component<Data, Props>,
     Data,
     Methods,
-    Options,
     Props
-> = Methods & Options & Instance;
+> = Methods & Instance;
 
 type Prop<T> = (() => T) | { new (...args: any[]): T & object };
 
@@ -3363,11 +3416,10 @@ type ThisTypedComponentOptionsWithRecordProps<
     V extends Component<Data, Props>,
     Data,
     Methods,
-    Options,
     Props
 > = object &
-    ComponentOptions<V, Data | ((this: V) => Data), Methods, Options, Props> &
-    ThisType<CombinedInstance<V, Data, Methods, Options, Readonly<Props>>>;
+    ComponentOptions<V, Data | ((this: V) => Data), Methods, Props> &
+    ThisType<CombinedInstance<V, Data, Methods, Readonly<Props>>>;
 
 interface ComponentRelation<D = any, P = any> {
     /** 目标组件的相对关系，可选的值为 parent 、 child 、 ancestor 、 descendant */
@@ -3381,6 +3433,45 @@ interface ComponentRelation<D = any, P = any> {
     /** 关系生命周期函数，当关系脱离页面节点树时触发，触发时机在组件detached生命周期之后 */
     unlinked?: (target: Component<D, P>) => void;
 }
+
+/**
+ * 组件所在页面的生命周期声明对象，目前仅支持页面的show和hide两个生命周期
+ */
+interface PageLifetimes {
+    show(): void;
+
+    hide(): void;
+}
+
+/**
+ * 组件生命周期声明对象，组件的生命周期：created、attached、ready、moved、detached将收归到lifetimes字段内进行声明，
+ * 原有声明方式仍旧有效，如同时存在两种声明方式，则lifetimes字段内声明方式优先级最高
+ */
+interface Lifetimes {
+    /**
+     * 组件生命周期函数，在组件实例进入页面节点树时执行
+     * 注意此时不能调用 setData
+     */
+    created(): void;
+    /**
+     * 组件生命周期函数，在组件实例进入页面节点树时执行
+     */
+    attached(): void;
+    /**
+     * 组件生命周期函数，在组件布局完成后执行，此时可以获取节点信息
+     * 使用 [SelectorQuery](https://mp.weixin.qq.com/debug/wxadoc/dev/api/wxml-nodes-info.html)
+     */
+    ready(): void;
+    /**
+     * 组件生命周期函数，在组件实例被移动到节点树另一个位置时执行
+     */
+    moved(): void;
+    /**
+     * 组件生命周期函数，在组件实例被从页面节点树移除时执行
+     */
+    detached(): void;
+}
+
 /**
  * Component组件参数
  */
@@ -3388,60 +3479,72 @@ interface ComponentOptions<
     Instance extends Component<Data, Props>,
     Data = DefaultData<Instance>,
     Methods = DefaultMethods<Instance>,
-    Options = object,
     Props = PropsDefinition<DefaultProps>
-> {
+> extends Partial<Lifetimes> {
     /**
      * 组件的对外属性，是属性名到属性设置的映射表
      * 属性设置中可包含三个字段:
      * type 表示属性类型、 value 表示属性初始值、 observer 表示属性值被更改时的响应函数
      */
     properties?: Props;
+
     /**
      * 组件的内部数据，和 properties 一同用于组件的模版渲染
      */
     data?: Data;
+
     /**
      * 组件的方法，包括事件响应函数和任意的自定义方法
      * 关于事件响应函数的使用
      * 参见[组件事件](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/custom-component/events.html)
      */
     methods?: Methods;
+
     /**
      * 一些组件选项，请参见文档其他部分的说明
      */
-    options?: Options;
+    options?: Partial<{
+        /**
+         * 使用外部样式类可以让组件使用指定的组件外样式类，如果希望组件外样式类能够完全影响组件内部，
+         * 可以将组件构造器中的options.addGlobalClass字段置为true。这个特性从小程序基础库版本 2.2.3 开始支持。
+         *
+         * @version 2.2.3
+         */
+        addGlobalClass: boolean;
+        /**
+         * 在组件的wxml中可以包含 slot 节点，用于承载组件使用者提供的wxml结构。
+         * 默认情况下，一个组件的wxml中只能有一个slot。需要使用多slot时，可以在组件js中声明启用。
+         */
+        multipleSlots: boolean;
+    }>;
+
+    /**
+     * 组件接受的外部样式类，参见 外部样式类
+     *
+     * 有时，组件希望接受外部传入的样式类（类似于 view 组件的 hover-class 属性）。
+     * 此时可以在 Component 中用 externalClasses 定义段定义若干个外部样式类。这个特性从小程序基础库版本 1.9.90 开始支持。
+     *
+     * @version 1.9.90
+     */
+    externalClasses?: string[];
+
     /**
      * 类似于mixins和traits的组件间代码复用机制
      * 参见 [behaviors](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/custom-component/behaviors.html)
      */
     behaviors?: Array<(ComponentOptions<Component<object, object>>) | string>;
+
     /**
-     * 组件生命周期函数，在组件实例进入页面节点树时执行
-     * 注意此时不能调用 setData
+     * 组件生命周期声明对象，组件的生命周期：created、attached、ready、moved、detached将收归到lifetimes字段内进行声明，
+     * 原有声明方式仍旧有效，如同时存在两种声明方式，则lifetimes字段内声明方式优先级最高
      */
-    created?(
-        this: ThisType<
-            ComponentOptions<Instance, Data, Methods, Options, Readonly<Props>>
-        >
-    ): void;
+    lifetimes?: Partial<Lifetimes>;
+
     /**
-     * 组件生命周期函数，在组件实例进入页面节点树时执行
+     * 组件所在页面的生命周期声明对象，目前仅支持页面的show和hide两个生命周期
      */
-    attached?(): void;
-    /**
-     * 组件生命周期函数，在组件布局完成后执行，此时可以获取节点信息
-     * 使用 [SelectorQuery](https://mp.weixin.qq.com/debug/wxadoc/dev/api/wxml-nodes-info.html)
-     */
-    ready?(): void;
-    /**
-     * 组件生命周期函数，在组件实例被移动到节点树另一个位置时执行
-     */
-    moved?(): void;
-    /**
-     * 组件生命周期函数，在组件实例被从页面节点树移除时执行
-     */
-    detached?(): void;
+    pageLifetimes?: Partial<PageLifetimes>;
+
     /**
      * 组件间关系定义，参见 [组件间关系](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/custom-component/relations.html)
      */
@@ -3548,15 +3651,9 @@ interface Component<D, P> {
      */
     getRelationNodes(relationKey: string): ComponentRelation[];
 }
-declare function Component<D, M, O, P>(
-    options?: ThisTypedComponentOptionsWithRecordProps<
-        Component<D, P>,
-        D,
-        M,
-        O,
-        P
-    >
-): ExtendedComponent<Component<D, P>, D, M, O, P>;
+declare function Component<D, M, P>(
+    options?: ThisTypedComponentOptionsWithRecordProps<Component<D, P>, D, M, P>
+): ExtendedComponent<Component<D, P>, D, M, P>;
 /**
  * behaviors 是用于组件间代码共享的特性
  * 类似于一些编程语言中的“mixins”或“traits”
@@ -3565,15 +3662,9 @@ declare function Component<D, M, O, P>(
  * 每个组件可以引用多个 behavior
  * behavior 也可以引用其他 behavior
  */
-declare function Behavior<D, M, O, P>(
-    options?: ThisTypedComponentOptionsWithRecordProps<
-        Component<D, P>,
-        D,
-        M,
-        O,
-        P
-    >
-): ExtendedComponent<Component<D, P>, D, M, O, P>;
+declare function Behavior<D, M, P>(
+    options?: ThisTypedComponentOptionsWithRecordProps<Component<D, P>, D, M, P>
+): ExtendedComponent<Component<D, P>, D, M, P>;
 // #endregion
 // #region Page
 interface PageShareAppMessageOptions {

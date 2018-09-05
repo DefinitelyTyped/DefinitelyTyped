@@ -808,11 +808,11 @@ declare module "mongoose" {
 
   // Hook functions: https://github.com/vkarpov15/hooks-fixed
   interface HookSyncCallback<T> {
-    (this: T, next: HookNextFunction): Promise<any> | void;
+    (this: T, next: HookNextFunction, docs: any[]): Promise<any> | void;
   }
 
   interface HookAsyncCallback<T> {
-    (this: T, next: HookNextFunction, done: HookDoneFunction): Promise<any> | void;
+    (this: T, next: HookNextFunction, done: HookDoneFunction, docs: any[]): Promise<any> | void;
   }
 
   interface HookErrorCallback {
@@ -976,8 +976,8 @@ declare module "mongoose" {
      */
     validate?: RegExp | [RegExp, string] |
       SchemaTypeOpts.ValidateFn<T> | [SchemaTypeOpts.ValidateFn<T>, string] |
-      SchemaTypeOpts.ValidateOpts | SchemaTypeOpts.ValidateOpts[] |
-      SchemaTypeOpts.AsyncValidateOpts | SchemaTypeOpts.AsyncValidateOpts[];
+      SchemaTypeOpts.ValidateOpts | SchemaTypeOpts.AsyncValidateOpts |
+      (SchemaTypeOpts.ValidateOpts | SchemaTypeOpts.AsyncValidateOpts)[];
 
     /** Declares an unique index. */
     unique?: boolean | any;
