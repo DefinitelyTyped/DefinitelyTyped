@@ -441,7 +441,7 @@ export interface ErrorOptions {
 	thickness: number;
 	width: number;
 	opacity: number;
-};
+}
 
 export type ErrorBar = Partial<ErrorOptions> & ({
 	type: 'constant' | 'percent',
@@ -450,7 +450,7 @@ export type ErrorBar = Partial<ErrorOptions> & ({
 } | {
 	type: 'data',
 	array: Datum[],
-	arrayminus?: Datum[],
+	arrayminus?: Datum[]
 });
 
 export type Dash = 'solid' | 'dot' | 'dash' | 'longdash' | 'dashdot' | 'longdashdot';
