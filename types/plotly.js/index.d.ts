@@ -434,19 +434,19 @@ export interface ModeBarButton {
 export type Datum = string | number | Date | null;
 export type TypedArray = Int8Array | Uint8Array | Int16Array | Uint16Array | Int32Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array;
 
-export type ErrorOptions = {
-	visible?: boolean,
-	symmetric?: boolean,
-	color: Color,
-	thickness?: number,
-	width?: number,
-	opacity?: number
+export interface ErrorOptions {
+	visible: boolean;
+	symmetric: boolean;
+	color: Color;
+	thickness: number;
+	width: number;
+	opacity: number;
 };
 
-export type ErrorBar = ErrorOptions & ({
+export type ErrorBar = Partial<ErrorOptions> & ({
 	type: 'constant' | 'percent',
 	value: number,
-	valueminus: number
+	valueminus?: number
 } | {
 	type: 'data',
 	array: Datum[],
