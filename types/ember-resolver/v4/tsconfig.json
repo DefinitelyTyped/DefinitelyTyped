@@ -8,16 +8,20 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
+        "paths": {
+            "ember": ["ember/v2"],
+            "ember-resolver": ["ember-resolver/v4"]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "nano-tests.ts"
+        "ember-resolver-tests.ts"
     ]
 }

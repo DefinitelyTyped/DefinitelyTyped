@@ -29,6 +29,9 @@ assertType<string>(Person2.species);
 let tom = Person2.create({
     name: 'Tom Dale'
 });
+
+let badTom = Person2.create({ name: 99 }); // $ExpectError
+
 let yehuda = Person2.createPerson('Yehuda Katz');
 
 tom.sayHello(); // "Hello. My name is Tom Dale"

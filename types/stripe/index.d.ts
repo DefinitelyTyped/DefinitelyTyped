@@ -716,6 +716,16 @@ declare namespace Stripe {
              * or "transfer_failure"
              */
             type?: string;
+            
+            /**
+             * For automatic Stripe payouts only, only returns transactions that were payed out on the specified payout ID. 
+             */
+            payout?: string;
+            
+            /**
+             * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+             */
+            limit?: number;
         }
     }
 
