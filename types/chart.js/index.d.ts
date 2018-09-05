@@ -14,6 +14,7 @@
 //                 Francesco Benedetto <https://github.com/frabnt>
 //                 Alexandros Dorodoulis <https://github.com/alexdor>
 //                 Manuel Heidrich <https://github.com/mahnuh>
+//                 Leandro Lima <https://github.com/leandropls>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -40,6 +41,7 @@ declare class Chart {
     ctx: CanvasRenderingContext2D | null;
     canvas: HTMLCanvasElement | null;
     chartArea: Chart.ChartArea;
+    options: Chart.ChartOptions;
     static pluginService: PluginServiceStatic;
     static plugins: PluginServiceStatic;
 
