@@ -12,10 +12,11 @@
 
 /// <reference types="tween.js" />
 
-import * as THREE from 'three';
+import * as three from 'three';
+import * as tween from '@tweenjs/tween.js';
 
-type ThreeLib = typeof THREE;
-type TweenLib = typeof TWEEN;
+type ThreeLib = typeof three;
+type TweenLib = typeof tween;
 
 interface ObjectMap<T = any> {
 	[key: string]: T;
@@ -353,7 +354,8 @@ export interface PrimitiveDefinition {
 export interface MinimalShaderDefinition {
 	schema: Shader['schema'];
 }
-export type ShaderDefinition<T extends object = MinimalShaderDefinition & object> = T & Partial<Shader>;
+export type ShaderDefinition<T extends object = MinimalShaderDefinition & object> = T &
+	Partial<Shader>;
 export type SystemDefinition<T extends object = object> = T & Partial<System>;
 
 // root export
@@ -367,9 +369,9 @@ export interface AFrame {
 	geometries: ObjectMap<GeometryDescriptor>;
 	primitives: {
 		getMeshMixin(): {
-			defaultComponents: { material: object },
-			mappings: { [key: string ]: any } // TODO improve any type
-		}
+			defaultComponents: { material: object };
+			mappings: { [key: string]: any }; // TODO improve any type
+		};
 		primitives: ObjectMap<Entity>;
 	};
 	scenes: Scene[];
@@ -381,14 +383,20 @@ export interface AFrame {
 	utils: Utils;
 	version: string;
 
-	registerComponent<T extends object>(name: string, component: ComponentDefinition<T>): ComponentConstructor<T>;
+	registerComponent<T extends object>(
+		name: string,
+		component: ComponentDefinition<T>
+	): ComponentConstructor<T>;
 	registerElement<T extends object>(name: string, element: NodeDefinition<T>): void;
 	registerGeometry<T extends object>(
 		name: string,
 		geometry: GeometryDefinition<T>
 	): GeometryConstructor<T>;
 	registerPrimitive(name: string, primitive: PrimitiveDefinition): void;
-	registerShader<T extends MinimalShaderDefinition & object>(name: string, shader: ShaderDefinition<T>): ShaderConstructor<T>;
+	registerShader<T extends MinimalShaderDefinition & object>(
+		name: string,
+		shader: ShaderDefinition<T>
+	): ShaderConstructor<T>;
 	registerSystem<T extends object>(
 		name: string,
 		definition: SystemDefinition<T>

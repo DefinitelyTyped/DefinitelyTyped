@@ -1,4 +1,13 @@
-import { Component, Entity, MultiPropertySchema, System, SystemDefinition, THREE, Geometry, registerComponent } from 'aframe';
+import {
+	Component,
+	Entity,
+	MultiPropertySchema,
+	System,
+	SystemDefinition,
+	THREE,
+	Geometry,
+	registerComponent
+} from 'aframe';
 
 // Global
 const threeCamera = new AFRAME.THREE.Camera();
@@ -35,7 +44,7 @@ entity.setAttribute('light', {
 	intensity: 2.0
 });
 
-entity.addEventListener('child-detached', (event) => {
+entity.addEventListener('child-detached', event => {
 	event.detail;
 });
 
@@ -57,7 +66,9 @@ const Component = registerComponent('test-component', {
 	schema: {
 		myProperty: {
 			default: [],
-			parse() { return [true]; },
+			parse() {
+				return [true];
+			}
 		},
 		string: { type: 'string' },
 		num: 0
