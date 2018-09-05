@@ -8,7 +8,6 @@
 //                 Joseph Page <https://github.com/josefpaij>
 //                 Dan Manastireanu <https://github.com/danmana>
 //                 Guillaume Rodriguez <https://github.com/guillaume-ro-fr>
-//                 Sergey Rubanov <https://github.com/chicoxyzzy>
 //                 Simon Archer <https://github.com/archy-bold>
 //                 Ken Elkabany <https://github.com/braincore>
 //                 Slavik Nychkalo <https://github.com/gebeto>
