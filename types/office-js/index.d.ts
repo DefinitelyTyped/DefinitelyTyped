@@ -14790,7 +14790,7 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event.
          *
-         * Currently the supported event types are `Office.EventType.ItemChanged` and `Office.EventType.OfficeThemeChanged`.
+         * Currently, the supported event types are `Office.EventType.ItemChanged` and `Office.EventType.OfficeThemeChanged`.
          *
          * [Api set: Mailbox 1.5]
          *
