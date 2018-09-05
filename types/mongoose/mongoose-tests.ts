@@ -1010,6 +1010,7 @@ query.find().populate('owner', 'name', null, {sort: { name: -1 }}).exec(function
   kittens[0].execPopulate();
 });
 query.read('primary', []).read('primary');
+query.readConcern('majority').readConcern('m');
 query.regex(/re/).regex('path', /re/);
 query.remove({}, cb);
 query.remove({});
@@ -1028,6 +1029,7 @@ query.setOptions({
   batchSize: true,
   lean: false
 });
+query.setQuery({ age: 5 });
 query.size(0).size('age', 0);
 query.skip(100).skip(100);
 query.slaveOk().slaveOk(false);
