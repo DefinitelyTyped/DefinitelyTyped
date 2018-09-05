@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = FileCookieStore;
-export as namespace FileCookieStore;
 
 declare namespace FileCookieStore {
     interface Cookie {
