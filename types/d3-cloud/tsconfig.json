@@ -24,6 +24,6 @@
     },
     "files": [
         "index.d.ts",
-        "d3.cloud.layout-tests.ts"
+        "d3-cloud-tests.ts"
     ]
 }
