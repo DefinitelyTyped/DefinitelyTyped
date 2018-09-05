@@ -435,24 +435,23 @@ export type Datum = string | number | Date | null;
 export type TypedArray = Int8Array | Uint8Array | Int16Array | Uint16Array | Int32Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array;
 
 export type ErrorOptions = {
-	type: 'constant' | 'percent',
-	value: number,
 	visible?: boolean,
-	color: Color,
-	thickness?: number,
-	width?: number,
-	opacity?: number
-} | {
-	type: 'data',
-	array: Datum[],
-	arrayminus?: Datum[],
 	symmetric?: boolean,
-	visible?: boolean,
 	color: Color,
 	thickness?: number,
 	width?: number,
 	opacity?: number
 };
+
+export type ErrorBar = ErrorOptions & ({
+	type: 'constant' | 'percent',
+	value: number,
+	valueminus: number
+} | {
+	type: 'data',
+	array: Datum[],
+	arrayminus?: Datum[],
+});
 
 export type Dash = 'solid' | 'dot' | 'dash' | 'longdash' | 'dashdot' | 'longdashdot';
 
@@ -467,8 +466,8 @@ export interface PlotData {
 	y: Datum[] | Datum[][] | TypedArray;
 	z: Datum[] | Datum[][] | Datum[][][] | TypedArray;
 	xy: Float32Array;
-	error_x: ErrorOptions;
-	error_y: ErrorOptions;
+	error_x: ErrorBar;
+	error_y: ErrorBar;
 	xaxis: string;
 	yaxis: string;
 	text: string | string[];
