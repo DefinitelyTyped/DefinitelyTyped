@@ -20,5 +20,16 @@ export type CollapseProps<T = {}> = React.HTMLProps<HTMLElement> & {
   onExited?: () => void;
 } & T;
 
+export type UncontrolledProps<T = {}> = React.HTMLProps<HTMLElement> & {
+  isOpen?: boolean;
+  className?: string;
+  cssModule?: CSSModule;
+  tag?: React.ReactType;
+  navbar?: boolean;
+  toggle?: () => void;
+} & T;
+
+export type UncontrolledCollapseProps<T = {}> = UncontrolledProps<T>;
+
 declare class Collapse<T = {[key: string]: any}> extends React.Component<CollapseProps<T>> {}
 export default Collapse;
