@@ -434,6 +434,25 @@ export interface ModeBarButton {
 export type Datum = string | number | Date | null;
 export type TypedArray = Int8Array | Uint8Array | Int16Array | Uint16Array | Int32Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array;
 
+export interface ErrorOptions {
+	visible: boolean;
+	symmetric: boolean;
+	color: Color;
+	thickness: number;
+	width: number;
+	opacity: number;
+}
+
+export type ErrorBar = Partial<ErrorOptions> & ({
+	type: 'constant' | 'percent',
+	value: number,
+	valueminus?: number
+} | {
+	type: 'data',
+	array: Datum[],
+	arrayminus?: Datum[]
+});
+
 export type Dash = 'solid' | 'dot' | 'dash' | 'longdash' | 'dashdot' | 'longdashdot';
 
 export type Data = Partial<PlotData>;
@@ -447,6 +466,8 @@ export interface PlotData {
 	y: Datum[] | Datum[][] | TypedArray;
 	z: Datum[] | Datum[][] | Datum[][][] | TypedArray;
 	xy: Float32Array;
+	error_x: ErrorBar;
+	error_y: ErrorBar;
 	xaxis: string;
 	yaxis: string;
 	text: string | string[];
