@@ -131,7 +131,7 @@ var counties = [
 
 var titles = ['Dr.', 'Mr.', 'Mrs.', 'Miss', 'Ms.'];
 
-var columns:ReactDataGrid.Column<typeof counties>[] = [
+var columns:ReactDataGrid.Column[] = [
     {
         key: 'id',
         name: 'ID',
@@ -152,7 +152,7 @@ var columns:ReactDataGrid.Column<typeof counties>[] = [
         editor: <AutoCompleteEditor options={counties}/>,
         width: 200,
         resizable: true,
-        getRowMetaData: (rowdata: any, column: ReactDataGrid.Column<typeof counties>) => {
+        getRowMetaData: (rowdata: any, column: ReactDataGrid.Column) => {
             return {};
         }
     },
@@ -262,7 +262,7 @@ class Example extends React.Component<any, any> {
         return clonedColumns;
     }
 
-    handleGridRowsUpdated(updatedRowData:ReactDataGrid.GridRowsUpdatedEvent<typeof counties>) {
+    handleGridRowsUpdated(updatedRowData:ReactDataGrid.GridRowsUpdatedEvent) {
         var rows = this.state.rows;
 
         for (var i = updatedRowData.fromRow; i <= updatedRowData.toRow; i++) {
@@ -315,12 +315,12 @@ class Example extends React.Component<any, any> {
         return this.state.rows.length;
     }
 
-    onRowsSelected(rows: Array<ReactDataGrid.SelectionParams<typeof counties>>) {
+    onRowsSelected(rows: Array<ReactDataGrid.SelectionParams>) {
         var selectedIndexes = this.state.selectedIndexes as Array<number>;
 
         this.setState({selectedIndexes: selectedIndexes.concat(rows.map(r => r.rowIdx))});
     }
-    onRowsDeselected(rows: Array<ReactDataGrid.SelectionParams<typeof counties>>) {
+    onRowsDeselected(rows: Array<ReactDataGrid.SelectionParams>) {
         var rowIndexes = rows.map(r => r.rowIdx);
         var selectedIndexes = this.state.selectedIndexes as Array<number>;
         this.setState({selectedIndexes: selectedIndexes.filter(i => rowIndexes.indexOf(i) === -1 )});

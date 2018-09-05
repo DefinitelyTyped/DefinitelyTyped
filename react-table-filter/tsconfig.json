@@ -1,14 +1,16 @@
 {
+    "files": [
+        "index.d.ts"
+    ],
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6",
-            "dom"
+            "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "strictFunctionTypes": false,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -16,9 +18,5 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
-    },
-    "files": [
-        "index.d.ts",
-        "d3-request-tests.ts"
-    ]
+    }
 }

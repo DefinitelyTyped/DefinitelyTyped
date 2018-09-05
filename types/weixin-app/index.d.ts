@@ -24,11 +24,11 @@ declare namespace wx {
         /** 文件的临时路径 */
         tempFilePath: string;
     }
-    interface BaseOptions {
+    interface BaseOptions<R = any, E = any> {
         /** 接口调用成功的回调函数 */
-        success?(res: any): void;
+        success?(res: R): void;
         /** 接口调用失败的回调函数 */
-        fail?(res: any): void;
+        fail?(res: E): void;
         /** 接口调用结束的回调函数（调用成功、失败都会执行） */
         complete?(res: any): void;
     }
@@ -41,7 +41,7 @@ declare namespace wx {
     interface RequestHeader {
         [key: string]: string;
     }
-    interface RequestOptions extends BaseOptions {
+    interface RequestOptions extends BaseOptions<DataResponse> {
         /** 开发者服务器接口地址 */
         url: string;
         /** 请求的参数 */
@@ -2997,8 +2997,10 @@ declare namespace wx {
     type CheckSessionOption = BaseOptions;
     /**
      * 检测当前用户登录态是否有效。
-     * 通过wx.login获得的用户登录态拥有一定的时效性。用户越久未使用小程序，用户登录态越有可能失效。反之如果用户一直在使用小程序，则用户登录态一直保持有效。具体时效逻辑由微信维护，对开发者透明。开发者只需要调用wx.checkSession接口检测当前用户登录态是否有效。登录态过期后开发者可以再调用wx.login获取新的用户登录态。
-     *
+     * 通过wx.login获得的用户登录态拥有一定的时效性。用户越久未使用小程序，用户登录态越有可能失效。
+     * 反之如果用户一直在使用小程序，则用户登录态一直保持有效。具体时效逻辑由微信维护，对开发者透明。
+     * 开发者只需要调用wx.checkSession接口检测当前用户登录态是否有效。
+     * 登录态过期后开发者可以再调用wx.login获取新的用户登录态。
      */
     function checkSession(options: CheckSessionOption): void;
     /**
@@ -3487,6 +3489,59 @@ declare namespace wx {
     }
     // #endregion
     // #region 接口
+    interface Logger {
+        /**
+         * 写log日志，可以提供任意个参数，每个参数的类型为Object/Array/Number/String，参数p1到pN的内容会写入日志
+         */
+        log: (...args: any[]) => void;
+        /**
+         * 写warn日志，参数同log方法
+         */
+        warn: (...args: any[]) => void;
+        /**
+         * 写debug日志，参数同log方法
+         */
+        debug: (...args: any[]) => void;
+        /**
+         * 写info日志，参数同log方法
+         */
+        info: (...args: any[]) => void;
+    }
+
+    // #region LogManager
+    /**
+     * 获取日志管理器 logManager 对象。logManager提供log、info、warn、debug四个方法写日志到文件，
+     * 这四个方法接受任意个类型为Object/Array/Number/String的参数，
+     * 每次调用的参数的总大小不超过100Kb。最多保存5M的日志内容，超过5M后，旧的日志内容会被删除。
+     * 用户可以通过设置Button组件的open-type为feedback来上传打印的日志。
+     * 用户上传的日志可以通过登录小程序管理后台后进入左侧菜单“客服反馈”页面获取到。
+     */
+    function getLogManager(): Logger;
+
+    /**
+     * 自定义业务数据监控上报接口。使用前，需要在小程序管理后台-运维中心-性能监控-业务数据监控中新建监控事件，
+     * 配置监控描述与告警类型。每一个监控事件对应唯一的监控ID，开发者最多可以创建128个监控事件。
+     * @param name 监控ID，在小程序管理后台新建数据指标后获得
+     * @param value 上报数值，经处理后会在小程序管理后台上展示每分钟的上报总量
+     */
+    function reportMonitor(name: string, value: number): void;
+
+    /**
+     * 用于延迟一部分操作到下一个时间片再执行（类似于 setTimeout）。
+     * @param func
+     * @version 2.2.3
+     */
+    function nextTick(func: () => any): void;
+
+    function setEnableDebug(options: EnableDebugOptions): void;
+    // #endregion
+
+    // #endregion
+
+    interface EnableDebugOptions extends BaseOptions {
+        enableDebug: boolean;
+    }
+    // #region App里的onLaunch、onShow回调参数
     /**
      * App 实现的接口对象
      * 开发者可以添加任意的函数或数据到 Object 参数中，用 this 可以访问
@@ -3532,6 +3587,7 @@ declare namespace wx {
         getCurrentPage(): Page;
     }
     // #endregion
+
     // #region Compontent组件
 
     type DefaultData<V> = object | ((this: V) => object);
