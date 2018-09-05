@@ -4379,7 +4379,7 @@ declare namespace videojs {
 		 *
 		 * @fires Player#fullscreenchange
 		 */
-		requestFullScreen(): Player;
+		requestFullscreen(): Player;
 
 		/**
 		 * Report user activity
