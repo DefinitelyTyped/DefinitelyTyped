@@ -18,7 +18,7 @@ export class Account {
 
 export class CallBuilder<T extends Record> {
     constructor(serverUrl: string)
-    call(): Promise<CollectionPage<T>>;
+    call(): Promise<CollectionPage<T> | T>;
     cursor(cursor: string): this;
     limit(limit: number): this;
     order(direction: 'asc' | 'desc'): this;
