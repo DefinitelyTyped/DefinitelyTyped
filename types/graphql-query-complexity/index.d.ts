@@ -2,6 +2,6 @@
 // Project: https://github.com/ivome/graphql-query-complexity
 // Definitions by: Abhik Mitra <https://github.com/abhikmitra>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 import createQueryComplexityValidator from "./dist";
 export default createQueryComplexityValidator;

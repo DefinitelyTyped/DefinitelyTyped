@@ -17,6 +17,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
+        "index.d.ts",
         "dist/index.d.ts",
         "dist/QueryComplexity.d.ts",
         "graphql-query-complexity-tests.ts"
