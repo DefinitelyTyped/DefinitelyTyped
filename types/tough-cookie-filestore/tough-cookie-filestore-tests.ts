@@ -1,3 +1,3 @@
-import FileCookieStore from 'tough-cookie-filestore';
+import FileCookieStore = require('tough-cookie-filestore');
 
 const cookiestore = new FileCookieStore('cookies.json');

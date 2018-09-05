@@ -3,8 +3,11 @@
 // Definitions by: Christian Friedow <https://github.com/friedow>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export = FileCookieStore;
+export as namespace FileCookieStore;
+
 declare namespace FileCookieStore {
-    export interface Cookie {
+    interface Cookie {
         domain: string;
         path: string;
         key: string;
@@ -14,9 +17,9 @@ declare namespace FileCookieStore {
 declare class FileCookieStore {
     idx: {
         [domain: string]: {
-        [path: string]: {
-            [key: string]: FileCookieStore.Cookie,
-        },
+            [path: string]: {
+                [key: string]: FileCookieStore.Cookie,
+            },
         },
     };
     filePath: string;
@@ -42,5 +45,3 @@ declare class FileCookieStore {
 
     loadFromFile(filePath: string, cb: (data: any) => void): void;
 }
-
-export = FileCookieStore
