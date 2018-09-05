@@ -144,7 +144,7 @@ export class Address6 {
   static SCOPES: string;
   static TYPES: string;
   /** Create an IPv6-mapped address given an IPv4 address */
-  static fromAddress4(address: string, address4: string): Address6;
+  static fromAddress4(address4: string): Address6;
   /** Convert a BigInteger to a v6 address object */
   static fromBigInteger(bigInteger: jsbn.BigInteger): Address6;
   /** Convert a byte array to an Address6 object */
