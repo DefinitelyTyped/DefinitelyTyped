@@ -88,7 +88,7 @@ export interface Subscribe<T> {
 export interface Shh {
     generateSymKeyFromPassword(
         password: string,
-        callback?: Callback<boolean>
+        callback?: Callback<string>
     ): Promise<string>;
 } // TODO: Type
 export class Bzz {} // TODO: Type
