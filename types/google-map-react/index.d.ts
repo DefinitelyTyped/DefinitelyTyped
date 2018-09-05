@@ -138,6 +138,7 @@ export interface Props {
   distanceToMouse?(pt: Point, mousePos: Point): void;
   googleMapLoader?(bootstrapURLKeys: any): void;
   onGoogleApiLoaded?(maps: { map: any, maps: any }): void;
+  onTilesLoaded?(): void;
   yesIWantToUseGoogleMapApiInternals?: boolean;
 }
 
