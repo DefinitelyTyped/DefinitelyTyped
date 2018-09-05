@@ -1875,7 +1875,7 @@ declare namespace Office {
          */
         ActiveViewChanged,
         /**
-         * Triggers when the appointment date or time of the selected series was changed in Outlook.
+         * Triggers when the appointment date or time of the selected series is changed in Outlook.
          * 
          * [Api set: Mailbox Preview]
          * 
@@ -1934,11 +1934,11 @@ declare namespace Office {
          */
         DialogMessageReceived,
         /**
-         * Triggers when Dialog has a event, such as dialog closed, dialog navigation failed.
+         * Triggers when Dialog has an event, such as dialog closed or dialog navigation failed.
          */
         DialogEventReceived,
         /**
-         * Triggers when a document level selection happens
+         * Triggers when a document-level selection happens.
          * 
          * **Support details**
          * 
@@ -1957,25 +1957,33 @@ declare namespace Office {
          */
         DocumentSelectionChanged,
         /**
-         * Triggers when the selected Outlook item was changed.
+         * Triggers when the selected Outlook item is changed.
          * 
          * [Api set: Mailbox 1.1]
          */
         ItemChanged,
         /**
-         * Triggers when a customXmlPart node was deleted.
+         * Triggers when a customXmlPart node is deleted.
          */
         NodeDeleted,
         /**
-         * Triggers when a customXmlPart node was inserted.
+         * Triggers when a customXmlPart node is inserted.
          */
         NodeInserted,
         /**
-         * Triggers when a customXmlPart node was replaced.
+         * Triggers when a customXmlPart node is replaced.
          */
         NodeReplaced,
         /**
-         * Triggers when the recipient list of the selected item was changed in Outlook.
+         * Triggers when the OfficeTheme is changed in Outlook.
+         * 
+         * [Api set: Mailbox Preview]
+         * 
+         * @beta
+         */
+        OfficeThemeChanged,
+        /**
+         * Triggers when the recipient list of the selected item is changed in Outlook.
          * 
          * [Api set: Mailbox Preview]
          * 
@@ -1983,7 +1991,7 @@ declare namespace Office {
          */
         RecipientsChanged,
         /**
-         * Triggers when the recurrence pattern of the selected series was changed in Outlook.
+         * Triggers when the recurrence pattern of the selected series is changed in Outlook.
          * 
          * [Api set: Mailbox Preview]
          * 
@@ -14782,9 +14790,7 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event.
          *
-         * Currently the only supported event type is Office.EventType.ItemChanged, which is invoked when the user selects a new item. 
-         * This event is used by add-ins that implement a pinnable taskpane, and allows the add-in to refresh the taskpane UI based on the currently 
-         * selected item.
+         * Currently, the supported event types are `Office.EventType.ItemChanged` and `Office.EventType.OfficeThemeChanged`.
          *
          * [Api set: Mailbox 1.5]
          *
