@@ -24,6 +24,7 @@
         "test/application.ts",
         "test/access-modifier.ts",
         "test/application-instance.ts",
+        "test/engine.ts",
         "test/engine-instance.ts",
         "test/ember-tests.ts",
         "test/error.ts",
