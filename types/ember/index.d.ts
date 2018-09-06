@@ -3864,7 +3864,6 @@ declare module '@ember/string' {
     export const classify: typeof Ember.String.classify;
     export const dasherize: typeof Ember.String.dasherize;
     export const decamelize: typeof Ember.String.decamelize;
-    export const fmt: typeof Ember.String.fmt;
     export const htmlSafe: typeof Ember.String.htmlSafe;
     export const isHTMLSafe: typeof Ember.String.isHTMLSafe;
     export const loc: typeof Ember.String.loc;
