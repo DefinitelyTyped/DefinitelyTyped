@@ -2,6 +2,11 @@ import Ember from 'ember';
 import * as utils from '@ember/utils';
 import { assertType } from "./lib/assert";
 
+function testTypeOf() {
+    utils.typeOf(); // $ExpectType string
+    utils.typeOf({}); // $ExpectType string
+}
+
 function testIsNoneType() {
     const maybeUndefined: string | undefined = 'not actually undefined';
     if (utils.isNone(maybeUndefined)) {

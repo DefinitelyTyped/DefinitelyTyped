@@ -3281,7 +3281,7 @@ declare module 'ember' {
         /**
          * Returns a consistent type for the passed object.
          */
-        function typeOf(item: any): string;
+        function typeOf(item?: any): string;
         /**
          * Copy properties from a source object to a target object.
          * @deprecated Use Object.assign
