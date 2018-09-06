@@ -14,6 +14,31 @@ function testIsNoneType() {
     }
 
     const anotherString = maybeUndefined + 'another string';
+    utils.isNone(); // $ExpectType boolean
+}
+
+function testIsBlank() {
+    utils.isBlank(); // $ExpectType boolean
+    utils.isBlank(''); // $ExpectType boolean
+    utils.isBlank('', ''); // $ExpectError
+}
+
+function testIsEmpty() {
+    utils.isEmpty(); // $ExpectType boolean
+    utils.isEmpty(''); // $ExpectType boolean
+    utils.isEmpty('', ''); // $ExpectError
+}
+
+function testIsPresent() {
+    utils.isPresent(); // $ExpectType boolean
+    utils.isPresent(''); // $ExpectType boolean
+    utils.isPresent('', ''); // $ExpectError
+}
+
+function testIsNone() {
+    utils.isNone(); // $ExpectType boolean
+    utils.isNone(''); // $ExpectType boolean
+    utils.isNone('', ''); // $ExpectError
 }
 
 function testMerge() {

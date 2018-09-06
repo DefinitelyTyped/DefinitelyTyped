@@ -3117,22 +3117,22 @@ declare module 'ember' {
         /**
          * A value is blank if it is empty or a whitespace string.
          */
-        function isBlank(obj: any): boolean;
+        function isBlank(obj?: any): boolean;
         /**
          * Verifies that a value is `null` or an empty string, empty array,
          * or empty function.
          */
-        function isEmpty(obj: any): boolean;
+        function isEmpty(obj?: any): boolean;
         /**
          * Returns true if the passed value is null or undefined. This avoids errors
          * from JSLint complaining about use of ==, which can be technically
          * confusing.
          */
-        function isNone(obj: any): obj is null | undefined;
+        function isNone(obj?: any): obj is null | undefined;
         /**
          * A value is present if it not `isBlank`.
          */
-        function isPresent(obj: any): boolean;
+        function isPresent(obj?: any): boolean;
         /**
          * Merge the contents of two objects together into the first object.
          * @deprecated Use Object.assign
