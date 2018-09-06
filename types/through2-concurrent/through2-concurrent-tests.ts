@@ -1,10 +1,10 @@
 import * as through2 from 'through2-concurrent';
-import stream = require('stream');
+import { Transform } from 'stream';
 
-let str: stream.Transform;
+let str: Transform;
 
 const transformFn = (err: any, data: any) => {};
-function flushCb(this: stream.Transform, cb: () => void) {
+function flushCb(this: Transform, cb: () => void) {
     cb();
 }
 const opts = {
