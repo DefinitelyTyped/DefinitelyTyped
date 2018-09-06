@@ -163,7 +163,7 @@ declare module 'angular' {
              * This can be useful whenever you wish to redirect the user
              * to a different location while there are still pending AJAX requests.
              */
-            done(): void;
+            done(doneCallback: () => void): void;
 
             /**
              * Allows the message shown in the overlay to be updated
