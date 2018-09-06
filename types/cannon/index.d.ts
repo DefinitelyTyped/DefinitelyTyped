@@ -460,8 +460,6 @@ declare module CANNON {
         collisionFilterGroup?: number;
         collisionFilterMask?: number;
         fixedRotation?: boolean;
-        linearFactor?: Vec3;
-        angularFactor?: Vec3;
         shape?: Shape;
     }
 
