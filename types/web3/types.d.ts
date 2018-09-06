@@ -90,5 +90,6 @@ export interface Shh {
         password: string,
         callback?: Callback<string>
     ): Promise<string>;
-} // TODO: Type
+    // TODO: type every method
+}
 export class Bzz {} // TODO: Type
