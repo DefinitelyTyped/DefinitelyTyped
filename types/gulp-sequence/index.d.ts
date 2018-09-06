@@ -5,8 +5,16 @@
 
 import { Gulp, TaskFunction } from 'gulp';
 
+declare namespace seq {
+    type Step = string | string[];
+
+    type Done = (error?: any) => void;
+
+    function use(gulp: Gulp): typeof seq;
+}
+
 /*
-Sequence functions generated using the following (requires lodash for the padding):
+Sequence functions (apart from the one returning TaskFunction) generated using the following (requires lodash for the padding):
 
 const fnBase = `declare function seq(`;
 const argPad = _.pad('', fnBase.length, ' ');
@@ -379,13 +387,5 @@ declare function seq(s1: seq.Step,
                      s24: seq.Step,
                      s25: seq.Step,
                      done: seq.Done): void;
-
-declare namespace seq {
-    type Step = string | string[];
-
-    type Done = (error?: any) => void;
-
-    function use(gulp: Gulp): typeof seq;
-}
 
 export = seq;
