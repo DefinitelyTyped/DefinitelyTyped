@@ -134,7 +134,7 @@ export interface CountableTimeInterval extends TimeInterval {
      * because its purpose is to return the zero-based number of the specified end date relative to the specified start date.
      *
      * @param start A start date object.
-     * @param start An end date object.
+     * @param end An end date object.
      */
     count(start: Date, end: Date): number;
     /**
