@@ -13,7 +13,6 @@ import {
     Image,
     PixelRatio,
     PlatformOSType as RNPlatformOSType,
-    PlatformStatic as RNPlatformStatic,
     StyleSheet,
     Text,
     TouchableOpacityProps,
@@ -24,8 +23,10 @@ export const Touchable: ComponentType<TouchableOpacityProps>;
 
 // react-primitives also supports react-sketchapp and react-vr as platforms
 export type PlatformOSType = RNPlatformOSType | 'sketch' | 'vr';
-interface PlatformStatic extends RNPlatformStatic {
-  OS: PlatformOSType;
+export interface PlatformStatic {
+    OS: PlatformOSType;
+    Version: number | string;
+    select<T>(specifics: { [platform in PlatformOSType | 'default']?: T }): T;
 }
 export const Platform: PlatformStatic;
 
