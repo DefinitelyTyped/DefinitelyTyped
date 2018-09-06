@@ -5,7 +5,10 @@
 // TypeScript Version: 2.8
 
 import { Component } from 'react';
-import { ViewStyle, TextStyle, Image } from 'react-native';
+import { StyleProp, ViewStyle as ViewStyleRaw, TextStyle as TextStyleRaw, Image } from 'react-native';
+
+type ViewStyle = StyleProp<ViewStyleRaw>;
+type TextStyle = StyleProp<TextStyleRaw>;
 
 export interface ActionButtonProps {
     actions?: string[] | JSX.Element[] | Array<{
