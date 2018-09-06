@@ -170,4 +170,4 @@ const component1 = Ember.Component.extend(mix1, mix2, {
 });
 
 // make sure htmlSafe returns a SafeString
-Ember.String.htmlSafe("hello").toString();
+Ember.String.htmlSafe("hello"); //$ExpectType Ember.Handlebars.SafeString
