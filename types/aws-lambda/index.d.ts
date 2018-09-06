@@ -1,4 +1,4 @@
-// Type definitions for AWS Lambda 8.10
+// Type definitions for AWS Lambda 8.11
 // Project: http://docs.aws.amazon.com/lambda
 // Definitions by: James Darbyshire <https://github.com/darbio/aws-lambda-typescript>
 //                 Michael Skarum <https://github.com/skarum>
@@ -21,6 +21,7 @@
 //                 Jeremy Nagel <https://github.com/jeznag>
 //                 Louis Larry <https://github.com/louislarry>
 //                 Daniel Papukchiev <https://github.com/dpapukchiev>
+//                 Oliver Hookins <https://github.com/ohookins>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -569,6 +570,30 @@ export interface CloudFrontHeaders {
     }>;
 }
 
+export interface CloudFrontOrigin {
+    custom?: CloudFrontCustomOrigin;
+    s3?: CloudFrontS3Origin;
+}
+
+export interface CloudFrontCustomOrigin {
+    customHeaders: CloudFrontHeaders;
+    domainName: string;
+    keepaliveTimeout: number;
+    path: string;
+    port: number;
+    protocol: 'http' | 'https';
+    readTimeout: number;
+    sslProtocols: string[];
+}
+
+export interface CloudFrontS3Origin {
+    authMethod: 'origin-access-identity' | 'none';
+    customHeaders: CloudFrontHeaders;
+    domainName: string;
+    path: string;
+    region: string;
+}
+
 export interface CloudFrontResponse {
     status: string;
     statusDescription: string;
@@ -581,6 +606,7 @@ export interface CloudFrontRequest {
     uri: string;
     querystring: string;
     headers: CloudFrontHeaders;
+    origin?: CloudFrontOrigin;
 }
 
 export interface CloudFrontEvent {
