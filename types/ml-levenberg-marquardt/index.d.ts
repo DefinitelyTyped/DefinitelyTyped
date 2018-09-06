@@ -2,6 +2,7 @@
 // Project: https://github.com/mljs/levenberg-marquardt#readme
 // Definitions by: m93a <https://github.com/m93a>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 declare namespace LM {
     /**
@@ -24,6 +25,8 @@ declare namespace LM {
         gradientDifference: number;
         maxIterations: number;
         errorTolerance: number;
+        maxValue: number;
+        minValue: number;
     }
 
     interface Result {
@@ -33,6 +36,6 @@ declare namespace LM {
     }
 }
 
-declare function LM(d: LM.Data, fn: LM.FittedFunction, o: LM.Options): LM.Result;
+declare function LM(d: LM.Data, fn: LM.FittedFunction, o?: Partial<LM.Options>): LM.Result;
 
 export default LM;
