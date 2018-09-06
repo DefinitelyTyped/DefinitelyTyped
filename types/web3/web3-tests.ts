@@ -6,12 +6,12 @@ web3.setProvider(myProvider);
 web3.eth.setProvider(myProvider);
 
 const myContract = new web3.eth.Contract(
-    [],
-    "0xde0B295669a9FD93d5F28D9Ec85E40f4cb697BAe",
-    {
-        from: "0x1234567890123456789012345678901234567891",
-        gasPrice: "20000000000"
-    }
+	[],
+	"0xde0B295669a9FD93d5F28D9Ec85E40f4cb697BAe",
+	{
+		from: "0x1234567890123456789012345678901234567891",
+		gasPrice: "20000000000"
+	}
 );
 
 myContract.options.from = "0x1234567890123456789012345678901234567891";
