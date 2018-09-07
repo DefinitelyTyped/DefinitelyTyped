@@ -1350,7 +1350,7 @@ declare namespace Stripe {
 
             livemode: boolean;
 
-            metadata?: IMetadata;
+            metadata: IMetadata;
 
             /**
              * Shipping information associated with the customer.
