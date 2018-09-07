@@ -23,7 +23,7 @@
 //                 Thomas Schulz <https://github.com/King2500>
 //                 Marcel Koch <https://github.com/mknet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 2.9
 
 declare module 'jquery' {
     export = jQuery;
