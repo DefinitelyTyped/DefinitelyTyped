@@ -504,6 +504,9 @@ describe("", () => {
         expect(jest.fn()).lastReturnedWith("jest");
         expect(jest.fn()).lastReturnedWith({});
 
+        expect(jest.fn()).nthCalledWith(0, "jest");
+        expect(jest.fn()).nthCalledWith(1, {});
+
         expect(jest.fn()).nthReturnedWith(0, "jest");
         expect(jest.fn()).nthReturnedWith(1, {});
 
