@@ -600,7 +600,7 @@ export interface NavigationEventsProps extends ViewProps {
 export const NavigationEvents: React.ComponentType<NavigationEventsProps>;
 
 export interface NavigationScreenProp<S, P = NavigationParams> {
-  state: S;
+  state: S & { params?: P };
   dispatch: NavigationDispatch;
   goBack: (routeKey?: string | null) => boolean;
   dismiss: () => boolean;
