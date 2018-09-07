@@ -8,6 +8,7 @@
 //                 Martin Feckie <https://github.com/mfeckie>
 //                 Alex LaFroscia <https://github.com/alexlafroscia>
 //                 Mike North <https://github.com/mike-north>
+//                 Bryan Crotaz <https://github.com/BryanCrotaz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -2432,7 +2433,7 @@ declare module 'ember' {
             function dasherize(str: string): string;
             function decamelize(str: string): string;
             function fmt(...args: string[]): string;
-            function htmlSafe(str: string): void; // TODO: @returns Handlebars.SafeStringStatic;
+            function htmlSafe(str: string): Handlebars.SafeString;
             function isHTMLSafe(str: string): boolean;
             function loc(...args: string[]): string;
             function underscore(str: string): string;
