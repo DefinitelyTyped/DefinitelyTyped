@@ -159,7 +159,7 @@ function JQueryStatic() {
     }
 
     function support() {
-        // $ExpectType PlainObject<any>
+        // $ExpectType JQuerySupport
         $.support;
     }
 
