@@ -1,6 +1,6 @@
-// Type definitions for jquery.validation 1.16
+// Type definitions for jquery.validation 1.17
 // Project: http://jqueryvalidation.org/
-// Definitions by: François de Campredon <https://github.com/fdecampredon>, John Reilly <https://github.com/johnnyreilly>, Anže Videnič <https://github.com/avidenic>
+// Definitions by: François de Campredon <https://github.com/fdecampredon>, John Reilly <https://github.com/johnnyreilly>, Anže Videnič <https://github.com/avidenic>, molihub<https://github.com/molihub>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -269,6 +269,11 @@ declare namespace JQueryValidation {
         focusInvalid(): void;
         errorMap: ErrorDictionary;
         errorList: ErrorListItem[];
+
+        /**
+         * Destroys this instance of validator freeing up resources and unregistering events.
+         */
+        destroy(): void;
     }
 }
 
