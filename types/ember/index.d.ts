@@ -3659,20 +3659,23 @@ declare module '@ember/controller' {
     export interface Registry {}
 }
 
-declare module '@ember/debug' {
-    import Ember from 'ember';
-    export const assert: typeof Ember.assert;
-    export const debug: typeof Ember.debug;
-    export const inspect: typeof Ember.inspect;
-    export const registerDeprecationHandler: typeof Ember.Debug.registerDeprecationHandler;
-    export const registerWarnHandler: typeof Ember.Debug.registerWarnHandler;
-    export const runInDebug: typeof Ember.runInDebug;
-    export const warn: typeof Ember.warn;
-}
+// declare module '@ember/debug' {
+//     import Ember from 'ember';
+//     export const assert: typeof Ember.assert;
+//     export const debug: typeof Ember.debug;
+//     export const inspect: typeof Ember.inspect;
+//     export const registerDeprecationHandler: typeof Ember.Debug.registerDeprecationHandler;
+//     export const registerWarnHandler: typeof Ember.Debug.registerWarnHandler;
+//     export const runInDebug: typeof Ember.runInDebug;
+//     export const warn: typeof Ember.warn;
+// }
 
 declare module '@ember/debug/container-debug-adapter' {
     import Ember from 'ember';
-    export default class ContainerDebugAdapter extends Ember.ContainerDebugAdapter { }
+    export default class ContainerDebugAdapter extends Ember.ContainerDebugAdapter {
+        catalogEntriesByType(type: string): string[];
+        canCatalogEntriesByType(type: string): boolean;
+    }
 }
 
 declare module '@ember/debug/data-adapter' {
