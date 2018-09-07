@@ -13,8 +13,7 @@ export type StyleProperty =
     | "originalValue"
     | "category"
     | "comment"
-    | "meta"
-    | string;
+    | "meta";
 
 export type OutputFormat =
     | "custom-properties.css"
@@ -28,8 +27,7 @@ export type OutputFormat =
     | "list.scss"
     | "module.js"
     | "common.js"
-    | "html"
-    | string;
+    | "html";
 
 export type Transform = "raw" | "ios" | "android" | "web" | string;
 export type ValueTransform =
@@ -39,8 +37,23 @@ export type ValueTransform =
     | "color/hex8argb"
     | "percentage/float"
     | "relative/pixel"
-    | "relative/pixelValue"
-    | string;
+    | "relative/pixelValue";
+
+export function convert(options: ConvertOptions): Promise<string>;
+export function convertSync(options: ConvertOptions): string;
+export function registerFormat(
+    name: OutputFormat,
+    format: FormatResultFn | string
+): void;
+export function registerTransform(
+    name: Transform,
+    valueTransforms: ValueTransform[]
+): void;
+export function registerValueTransform(
+    name: ValueTransform,
+    predicate: (prop: Prop) => boolean,
+    transform: (prop: Prop) => string | number
+): void;
 
 export type Prop = Map<StyleProperty, string | number>;
 export type Props = List<Prop>;
@@ -76,23 +89,5 @@ export interface FormatOptions {
     options?: (
         options: object,
         transformPropName?: (name: string) => string
-    ) => void;
-}
-
-export interface Theo {
-    convert: (options: ConvertOptions) => Promise<string>;
-    convertSync: (options: ConvertOptions) => string;
-    registerFormat: (
-        name: OutputFormat,
-        format: FormatResultFn | string
-    ) => void;
-    registerTransform: (
-        name: Transform,
-        valueTransforms: ValueTransform[]
-    ) => void;
-    registerValueTransform: (
-        name: ValueTransform,
-        predicate: (prop: Prop) => boolean,
-        transform: (prop: Prop) => string | number
     ) => void;
 }
