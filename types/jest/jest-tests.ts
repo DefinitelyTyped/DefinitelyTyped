@@ -513,6 +513,8 @@ describe("", () => {
 
         expect(jest.fn()).toBeCalled();
 
+        expect(jest.fn()).toBeCalledTimes(1);
+
         expect(jest.fn()).toBeCalledWith();
         expect(jest.fn()).toBeCalledWith("jest");
         expect(jest.fn()).toBeCalledWith({}, {});
