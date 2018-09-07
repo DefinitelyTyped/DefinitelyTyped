@@ -8,13 +8,13 @@ declare global {
 ''.dasherize(); // $ExpectType string
 
 ''.camelize(); // $ExpectType string
-camelize('blue man group'); // $ExpectError
+''.camelize('blue man group'); // $ExpectError
 
 ''.decamelize(); // $ExpectType string
-decamelize('blue man group'); // $ExpectError
+''.decamelize('blue man group'); // $ExpectError
 
 ''.underscore(); // $ExpectType string
-underscore('blue man group'); // $ExpectError
+''.underscore('blue man group'); // $ExpectError
 
 ''.w(); // $ExpectType string[]
 
