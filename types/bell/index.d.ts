@@ -1,4 +1,4 @@
-// Type definitions for bell 9.1
+// Type definitions for bell 9.3
 // Project: https://github.com/hapijs/bell
 // Definitions by: Simon Schick <https://github.com/SimonSchick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -62,10 +62,7 @@ export type Provider =
     'wordpress' |
     'yahoo';
 
-export type RequestPassThrough = (
-  request: Request,
-  next: (err: Error | null, credentials: AuthCredentials) => void,
-) => void;
+export type RequestPassThrough = (request: Request) => PromiseLike<AuthCredentials> | AuthCredentials;
 
 export interface OptionalOptions {
   /**
