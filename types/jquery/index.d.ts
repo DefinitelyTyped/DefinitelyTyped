@@ -113,7 +113,7 @@ interface JQueryStatic {
      *
      * @deprecated Deprecated since 1.9. See \`{@link https://api.jquery.com/jQuery.support/ }\`.
      */
-    support: JQuery.PlainObject;
+    support: JQuerySupport;
     // Set to HTMLElement to minimize breaks but should probably be Element.
     valHooks: JQuery.PlainObject<JQuery.ValHook<HTMLElement>>;
     // HACK: This is the factory function returned when importing jQuery without a DOM. Declaring it separately breaks using the type parameter on JQueryStatic.
