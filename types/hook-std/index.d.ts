@@ -20,7 +20,7 @@ export type Unhook = () => void;
  * Optionally, when in silent mode, you may return a boolean to influence
  * the return value of .write(...).
  */
-export type Transform = (output: string, unhook: Unhook) => void;
+export type Transform = (output: string, unhook: Unhook) => void | boolean;
 
 /**
  * Options for hook-std
@@ -42,7 +42,7 @@ export interface Options {
  * with an empty result.
  */
 export interface PromiseUnhook extends Promise<any> {
-	unhook: () => void;
+	unhook: Unhook;
 }
 
 /**
