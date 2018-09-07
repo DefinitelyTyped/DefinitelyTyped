@@ -127,3 +127,19 @@ function testTryInvoke() {
     // Reversed arg types
     Ember.tryInvoke(new Foo(), 'add', ['4', 3]); // $ExpectType undefined
 }
+
+(function() { /* assign */
+    Ember.assign({}, { a: 'b'});
+    Ember.assign({}, { a: 'b'}).a; // $ExpectType string
+    Ember.assign({ a: 6 }, { a: 'b'}).a; // $ExpectType string
+    Ember.assign({ a: 6 }, {}).a; // $ExpectType number
+    Ember.assign({ b: 6 }, {}).a; // $ExpectError
+}());
+
+(function() { /* merge */
+    Ember.merge({}, { a: 'b'});
+    Ember.merge({}, { a: 'b'}).a; // $ExpectType string
+    Ember.merge({ a: 6 }, { a: 'b'}).a; // $ExpectType string
+    Ember.merge({ a: 6 }, {}).a; // $ExpectType number
+    Ember.merge({ b: 6 }, {}).a; // $ExpectError
+}());
