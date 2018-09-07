@@ -3325,6 +3325,7 @@ declare module 'ember' {
         function assign<T extends object, U extends object>(target: T, source: U): Mix<T, U>;
         function assign<T extends object, U extends object, V extends object>(target: T, source1: U, source2: V): Mix3<T, U, V>;
         function assign<T extends object, U extends object, V extends object, W extends object>(target: T, source1: U, source2: V, source3: W): Mix4<T, U, V, W>;
+
         /**
          * Polyfill for Object.create
          * @deprecated Use Object.create
