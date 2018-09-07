@@ -21,6 +21,7 @@
 //                 Ethan Kay <https://github.com/elk941>,
 //                 Methuselah96 <https://github.com/Methuselah96>
 // Definitions: https://github.com//DefinitelyTyped
+// TypeScript Version: 2.8
 
 export * from "./three-core";
 
