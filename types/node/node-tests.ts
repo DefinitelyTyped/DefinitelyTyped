@@ -256,7 +256,8 @@ namespace fs_tests {
         listS = fs.readdirSync('path', 'utf8');
         listS = fs.readdirSync('path', null);
         listS = fs.readdirSync('path', undefined);
-        const listDir = fs.readdirSync('path', { withFileTypes: true });
+        const listDir: fs.Dirent[] = fs.readdirSync('path', { withFileTypes: true });
+        const listDir2: Buffer[] = fs.readdirSync('path', { withFileTypes: false, encoding: 'buffer' });
 
         let listB: Buffer[];
         listB = fs.readdirSync('path', { encoding: 'buffer' });
