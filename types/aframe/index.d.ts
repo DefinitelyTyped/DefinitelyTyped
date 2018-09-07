@@ -15,10 +15,10 @@
 import * as three from 'three';
 import * as tween from '@tweenjs/tween.js';
 
-type ThreeLib = typeof three;
-type TweenLib = typeof tween;
+export type ThreeLib = typeof three;
+export type TweenLib = typeof tween;
 
-interface ObjectMap<T = any> {
+export interface ObjectMap<T = any> {
 	[key: string]: T;
 }
 
@@ -387,7 +387,7 @@ export interface AFrame {
 		name: string,
 		component: ComponentDefinition<T>
 	): ComponentConstructor<T>;
-	registerElement<T extends object>(name: string, element: NodeDefinition<T>): void;
+	registerElement(name: string, element: object): void;
 	registerGeometry<T extends object>(
 		name: string,
 		geometry: GeometryDefinition<T>
@@ -426,11 +426,10 @@ export const registerPrimitive: AFrame['registerPrimitive'];
 export const registerShader: AFrame['registerShader'];
 export const registerSystem: AFrame['registerSystem'];
 
-// Globals
-declare var hasNativeWebVRImplementation: boolean;
-
 // global exports
 declare global {
+	var hasNativeWebVRImplementation: boolean;
+
 	namespace AFRAME {
 		const AComponent: AFrame['AComponent'];
 		const AEntity: AFrame['AEntity'];
@@ -464,5 +463,14 @@ declare global {
 		querySelector(selectors: 'a-scene'): Scene;
 		querySelector(selectors: string): Entity<any>;
 		querySelectorAll(selectors: string): NodeListOf<Entity<any> | Element>;
+	}
+
+	interface HTMLCollection extends HTMLCollectionBase {
+		/**
+		 * Retrieves a select object or an object from an options collection.
+		 */
+		namedItem(name: string): Element | Entity | null;
+		item(index: number): Element | Entity;
+		[index: number]: Element | Entity;
 	}
 }
