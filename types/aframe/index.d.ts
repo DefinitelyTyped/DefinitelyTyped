@@ -4,7 +4,7 @@
 //                 Roberto Ritger <https://github.com/bertoritger>
 //                 Trygve Wastvedt <https://github.com/twastvedt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /**
  * Extended tests available at https://github.com/devpaul/aframe-typings.git
