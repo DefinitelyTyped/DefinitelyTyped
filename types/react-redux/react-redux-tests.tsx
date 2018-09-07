@@ -1154,6 +1154,11 @@ namespace TestFailsMoreSpecificInjectedProps {
   // Since it is possible the injected props could fail to satisfy the decoration props,
   // the following line should fail to compile.
   connect(mapStateToProps, mapDispatchToProps)(Component) // $ExpectError
+
+  // Confirm that this also fails with functional components
+  const FunctionalComponent = (props: MoreSpecificDecorationProps) => null
+  connect(mapStateToProps, mapDispatchToProps)(Component) // $ExpectError
+
 }
 
 namespace TestLibraryManagedAttributes {

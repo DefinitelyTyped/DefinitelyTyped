@@ -62,7 +62,7 @@ type Matching<InjectedProps, DecorationTargetProps> = {
 	[P in keyof DecorationTargetProps]: P extends keyof InjectedProps
 		? InjectedProps[P] extends DecorationTargetProps[P]
 			? DecorationTargetProps[P]
-			: never
+			: InjectedProps[P]
 		: DecorationTargetProps[P];
 };
 
@@ -86,7 +86,7 @@ type Shared<
 // Infers prop type from component C
 type GetProps<C> = C extends ComponentType<infer P> ? P : never;
 
-// Applies LibraryManagedAttributes (proper handling of defaultProps 
+// Applies LibraryManagedAttributes (proper handling of defaultProps
 // and propTypes), as well as defines WrappedComponent.
 type ConnectedComponentClass<C, P> = ComponentClass<JSX.LibraryManagedAttributes<C, P>> & {
 	WrappedComponent: C;
