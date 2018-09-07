@@ -8,8 +8,8 @@
 import { Writable } from 'stream';
 
 /**
- * unhook() method which, when called, unhooks both stdout and stderr and
- * resolves the Promise with an empty result.
+ * unhook() method which, when called, unhooks from a stream
+ * and resolves the Promise.
  */
 export type Unhook = () => void;
 
