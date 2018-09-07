@@ -103,6 +103,7 @@ export interface DPlayerVideo {
   pic?: string;
   thumbnails?: string;
   type?: VideoType | string;
+  customType?: any;
 }
 
 export interface DPlayerSubTitle {
