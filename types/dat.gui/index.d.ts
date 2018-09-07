@@ -1,6 +1,6 @@
-// Type definitions for dat.GUI 0.7
+// Type definitions for dat.GUI 0.7.2
 // Project: https://github.com/dataarts/dat.gui
-// Definitions by: Satoru Kimura <https://github.com/gyohk>, ZongJing Lu <https://github.com/sonic3d>, Richard Roylance <https://github.com/rroylance>
+// Definitions by: Satoru Kimura <https://github.com/gyohk>, ZongJing Lu <https://github.com/sonic3d>, Richard Roylance <https://github.com/rroylance>, Nahuel Scotti <https://github.com/singuerinc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace dat;
@@ -95,12 +95,12 @@ export class GUIController {
     destroy(): void;
 
     // Controller
-    onChange: (value?: any) => void;
-    onFinishChange: (value?: any) => void;
+    onChange: (value?: any) => GUIController;
+    onFinishChange: (value?: any) => GUIController;
 
     setValue(value: any): GUIController;
     getValue(): any;
-    updateDisplay(): void;
+    updateDisplay(): GUIController;
     isModified(): boolean;
 
     // NumberController
