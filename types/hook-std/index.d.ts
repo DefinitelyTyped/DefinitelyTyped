@@ -26,15 +26,15 @@ export type Transform = (output: string, unhook: Unhook) => void;
  * Options for hook-std
  */
 export interface Options {
-    /** Suppress stdout/stderr output. */
-    silent?: boolean;
-    /** Automatically unhooks after the first call. */
-    once?: boolean;
-    /**
-     * Writable streams to hook. This can be useful for libraries allowing
-     * users to configure a Writable Stream to write to.
-     */
-    streams?: Writable[];
+	/** Suppress stdout/stderr output. */
+	silent?: boolean;
+	/** Automatically unhooks after the first call. */
+	once?: boolean;
+	/**
+	 * Writable streams to hook. This can be useful for libraries allowing
+	 * users to configure a Writable Stream to write to.
+	 */
+	streams?: Writable[];
 }
 
 /**
@@ -42,7 +42,7 @@ export interface Options {
  * with an empty result.
  */
 export interface PromiseUnhook extends Promise<any> {
-    unhook: () => void;
+	unhook: () => void;
 }
 
 /**
