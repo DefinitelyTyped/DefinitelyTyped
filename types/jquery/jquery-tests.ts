@@ -2770,10 +2770,6 @@ function JQuery() {
             // $ExpectType JQuery<HTMLElement>
             $('p').offset({});
 
-            // Weak type test. This may be removed if the TypeScript requirement is increased to 2.4+.
-            // $ExpectError
-            $('p').offset(20);
-
             // $ExpectType JQuery<HTMLElement>
             $('p').offset(function(index, coords) {
                 // $ExpectType HTMLElement
