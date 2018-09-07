@@ -1,39 +1,30 @@
-import { Theo } from "theo";
+import theo = require("theo");
 
-const configureTheo = ({
-    convert,
-    convertSync,
-    registerValueTransform,
-    registerTransform,
-    registerFormat
-}: Theo) => {
-    convert({
-        transform: {
-            type: "transformType",
-            file: "file",
-            data: "data"
-        },
-        format: {
-            type: "formatType"
-        }
-    });
-    registerTransform("web", ["customTransform"]);
+theo.convert({
+    transform: {
+        type: "raw",
+        file: "file",
+        data: "data"
+    },
+    format: {
+        type: "custom-properties.css"
+    }
+});
 
-    // CSS Modules
-    registerFormat(
-        "cssmodules.css",
-        `{{#each props as |prop|}}
+theo.registerTransform("web", ["relative/pixelValue"]);
+
+theo.registerFormat(
+    "cssmodules.css",
+    `{{#each props as |prop|}}
         @value {{camelcase prop.category}}{{pascalcase prop.name}}: {{prop.value}};
-        {{/each}}`
-    );
+    {{/each}}`
+);
 
-    // '16px' -> 16
-    registerValueTransform(
-        "relative/unitlessPixelValue",
-        prop => prop.get("category") === "color",
-        prop => {
-            const value = prop.get("value").toString();
-            return parseFloat(value.replace(/rem/g, "")) * 16;
-        }
-    );
-};
+theo.registerValueTransform(
+    "relative/pixelValue",
+    prop => prop.get("category") === "sizing",
+    prop => {
+        const value = prop.get("value").toString();
+        return parseFloat(value.replace(/rem/g, "")) * 16;
+    }
+);
