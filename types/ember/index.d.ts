@@ -3011,7 +3011,7 @@ declare module 'ember' {
         /**
          * Run a function meant for debugging.
          */
-        function runInDebug(func: () => void): any;
+        function runInDebug(func: () => any): void;
         /**
          * Display a warning with the provided message.
          */
