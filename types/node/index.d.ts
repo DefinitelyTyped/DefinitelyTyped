@@ -3245,8 +3245,7 @@ declare module "fs" {
     export type PathLike = string | Buffer | URL;
 
     export type BinaryData = Buffer | DataView | NodeJS.TypedArray;
-
-    export interface Stats {
+    export class Stats {
         isFile(): boolean;
         isDirectory(): boolean;
         isBlockDevice(): boolean;
@@ -3254,9 +3253,6 @@ declare module "fs" {
         isSymbolicLink(): boolean;
         isFIFO(): boolean;
         isSocket(): boolean;
-    }
-
-    export class Stats {
         dev: number;
         ino: number;
         mode: number;
@@ -3277,10 +3273,14 @@ declare module "fs" {
         birthtime: Date;
     }
 
-    // TODO: Make this prettier
-    export interface Dirent extends Stats {
-    }
     export class Dirent {
+        isFile(): boolean;
+        isDirectory(): boolean;
+        isBlockDevice(): boolean;
+        isCharacterDevice(): boolean;
+        isSymbolicLink(): boolean;
+        isFIFO(): boolean;
+        isSocket(): boolean;
         name: string;
     }
 
