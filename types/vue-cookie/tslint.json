@@ -1,0 +1,61 @@
+{
+  "defaultSeverity": "error",
+  "extends": [
+    "tslint:recommended"
+  ],
+  "linterOptions": {
+    "exclude": [
+      "node_modules/**"
+    ]
+  },
+  "rules": {
+    // 关闭箭头函数的参数需要括号
+    "arrow-parens": false,
+    // 关闭禁止的类型
+    "ban-types": false,
+    // 注释必须从一个空格开始
+    "comment-format": true,
+    // 开启类名、接口名、枚举名必须以大写字母开头
+    "class-name": true,
+    // 关闭使用 for in 循环
+    "forin": false,
+    // 关闭在 for 循环中使用 const
+    "prefer-const": false,
+    // 关闭使用 for of 循环
+    "prefer-for-of": false,
+    // 开启缩进 4 个空格
+    "indent": [true, "spaces", 4],
+    // 关闭接口名称以大写字母开头
+    "interface-name": false,
+    // 关闭使用 interface 代替 type
+    "interface-over-type-literal": false,
+    // 关闭每行最多 120 个字符
+    "max-line-length": false,
+    // 关闭成员访问控制
+    "member-access": false,
+    // 关闭成员按顺序书写
+    "member-ordering": false,
+    // 开启对象字面量简写
+    "object-literal-shorthand": true,
+    // 关闭对象的字段按顺序书写
+    "object-literal-sort-keys": false,
+    // 关闭按顺序导入
+    "ordered-imports": false,
+    // 开启使用单引号
+    "quotemark": [true, "single"],
+    // 关闭使用尾逗号
+    "trailing-comma": false,
+    // 关闭变量名校验
+    "variable-name": false,
+    // 关闭不允许使用 console
+    "no-console": false,
+    // 关闭不允许连续空白行
+    "no-consecutive-blank-lines": false,
+    // 关闭允许空方法体
+    "no-empty": false,
+    // 关闭不允许尾随空格
+    "no-trailing-whitespace": false,
+    // 关闭不允许使用 require
+    "no-var-requires": false
+  }
+}
