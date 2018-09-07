@@ -1,6 +1,7 @@
 // Type definitions for google-map-react 0.23
 // Project: https://github.com/istarkov/google-map-react
 // Definitions by: Honza Brecka <https://github.com/honzabrecka>
+// Definitions by: Andres Rosero <https://github.com/drebits>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -9,8 +10,8 @@ import * as React from 'react';
 export type BootstrapURLKeys = ({ key: string; } | { client: string; v: string; }) & { language?: string };
 
 export interface MapTypeStyle {
-  elementType: string;
-  featureType: string;
+  elementType?: string;
+  featureType?: string;
   stylers: any[];
 }
 
