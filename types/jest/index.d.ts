@@ -505,6 +505,10 @@ declare namespace jest {
          */
         toBeCalled(): R;
         /**
+         * Ensures that a mock function is called an exact number of times.
+         */
+        toBeCalledTimes(expected: number): R;
+        /**
          * Ensure that a mock function is called with specific arguments.
          */
         toBeCalledWith(...args: any[]): R;
