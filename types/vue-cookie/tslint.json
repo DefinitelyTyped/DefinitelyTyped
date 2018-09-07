@@ -1,37 +1,9 @@
 {
-  "defaultSeverity": "error",
-  "extends": [
-    "tslint:recommended"
-  ],
-  "linterOptions": {
-    "exclude": [
-      "node_modules/**"
-    ]
-  },
+  "extends": "dtslint/dt.json",
   "rules": {
-    "arrow-parens": false,
-    "ban-types": false,
-    "comment-format": true,
-    "class-name": true,
-    "forin": false,
-    "prefer-const": false,
-    "prefer-for-of": false,
-    "indent": [true, "spaces", 4],
-    "interface-name": false,
-    "interface-over-type-literal": false,
-    "max-line-length": false,
-    "member-access": false,
-    "member-ordering": false,
-    "object-literal-shorthand": true,
-    "object-literal-sort-keys": false,
-    "ordered-imports": false,
-    "quotemark": [true, "single"],
-    "trailing-comma": false,
-    "variable-name": false,
-    "no-console": false,
-    "no-consecutive-blank-lines": false,
-    "no-empty": false,
+    "max-line-length": [false],
     "no-trailing-whitespace": false,
-    "no-var-requires": false
+    "space-before-function-paren": false,
+    "only-arrow-functions": [false]
   }
 }
