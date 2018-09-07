@@ -134,6 +134,11 @@ function testTryInvoke() {
     Ember.assign({ a: 6 }, { a: 'b'}).a; // $ExpectType string
     Ember.assign({ a: 6 }, {}).a; // $ExpectType number
     Ember.assign({ b: 6 }, {}).a; // $ExpectError
+    Ember.assign({}, { b: 6 }, {}).b; // $ExpectType number
+    Ember.assign({ a: 'hello' }, { b: 6 }, {}).a; // $ExpectType string
+    Ember.assign({ a: 'hello' }, { b: 6 }, { a: true }).a; // $ExpectType boolean
+    Ember.assign({ a: 'hello' }, '', { a: true }).a; // $ExpectError
+    Ember.assign({ d: ['gobias industries'] }, { a: 'hello' }, { b: 6 }, { a: true }).d; // $ExpectType string[]
 }());
 
 (function() { /* merge */
