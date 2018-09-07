@@ -127,3 +127,27 @@ function testTryInvoke() {
     // Reversed arg types
     Ember.tryInvoke(new Foo(), 'add', ['4', 3]); // $ExpectType undefined
 }
+
+(function() {
+    /** typeOf */
+    // TODO: more specific return type in @types/ember https://github.com/typed-ember/ember-cli-typescript/issues/259
+    Ember.typeOf(null);                   // $ExpectType "null"
+    Ember.typeOf(undefined);              // $ExpectType "undefined"
+    Ember.typeOf('michael');              // $ExpectType "string"
+    // tslint:disable-next-line:no-construct
+    Ember.typeOf(new String('michael'));  // $ExpectType "string"
+    Ember.typeOf(101);                    // $ExpectType "number"
+    // tslint:disable-next-line:no-construct
+    Ember.typeOf(new Number(101));        // $ExpectType "number"
+    Ember.typeOf(true);                   // $ExpectType "boolean"
+    // tslint:disable-next-line:no-construct
+    Ember.typeOf(new Boolean(true));      // $ExpectType "boolean"
+    Ember.typeOf(() => 4);                // $ExpectType "function"
+    Ember.typeOf([1, 2, 90]);             // $ExpectType "array"
+    Ember.typeOf(/abc/);                  // $ExpectType "regexp"
+    Ember.typeOf(new Date());             // $ExpectType "date"
+    Ember.typeOf(({} as any) as FileList);  // $ExpectType "filelist"
+    Ember.typeOf(Ember.Object.extend());   // $ExpectType "class"
+    Ember.typeOf(Ember.Object.create());   // $ExpectType "instance"
+    Ember.typeOf(new Error('teamocil'));  // $ExpectType "error"
+})();

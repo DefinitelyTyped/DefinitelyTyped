@@ -3258,7 +3258,34 @@ declare module 'ember' {
         /**
          * Returns a consistent type for the passed object.
          */
-        function typeOf(item?: any): string;
+        function typeOf(item: string): 'string';
+        function typeOf(item: number): 'number';
+        function typeOf(item: boolean): 'boolean';
+        function typeOf(item: null): 'null';
+        function typeOf(item: undefined): 'undefined';
+        function typeOf(item: (...args: any[]) => any): 'function';
+        function typeOf(item: any[]): 'array';
+        function typeOf(item: RegExp): 'regexp';
+        function typeOf(item: Date): 'date';
+        function typeOf(item: Error): 'error';
+        function typeOf<T extends object>(item: T): T extends FileList
+            ? 'filelist'
+            : (T extends typeof Ember.Object
+                ? 'class'
+                : (T extends Number
+                    ? 'number'
+                    : (T extends String
+                        ? 'string'
+                        : (T extends Boolean
+                            ? 'boolean'
+                            : (T extends Ember.Object
+                                ? 'instance'
+                                : 'object')
+                        )
+                    )
+                )
+            );
+        function typeOf(item: any): string;
         /**
          * Copy properties from a source object to a target object.
          * @deprecated Use Object.assign
