@@ -2595,6 +2595,7 @@ declare namespace google.maps {
         export interface PlaceResult {
             address_components: GeocoderAddressComponent[];
             adr_address: string;
+            aspects: PlaceAspectRating[];
             formatted_address: string;
             formatted_phone_number: string;
             geometry: PlaceGeometry;
