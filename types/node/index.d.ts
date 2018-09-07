@@ -1,4 +1,4 @@
-// Type definitions for Node.js 10.9.x
+// Type definitions for Node.js 10.10.x
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <http://typescriptlang.org>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
@@ -794,6 +794,14 @@ declare namespace NodeJS {
         send?(message: any, sendHandle?: any): void;
         disconnect(): void;
         connected: boolean;
+
+        /**
+         * The `process.allowedNodeEnvironmentFlags` property is a special,
+         * read-only `Set` of flags allowable within the [`NODE_OPTIONS`][]
+         * environment variable.
+         */
+        // TODO: This is readonly
+        allowedNodeEnvironmentFlags: Set<string>;
 
         /**
          * EventEmitter
@@ -1862,6 +1870,21 @@ declare module "os" {
     export function tmpdir(): string;
     export const EOL: string;
     export function endianness(): "BE" | "LE";
+    /**
+     * Gets the priority of a process.
+     * Defaults to current process.
+     */
+    export function getPriority(pid?: number): number;
+    /**
+     * Sets the priority of the current process.
+     * @param priority Must be in range of -20 to 19
+     */
+    export function setPriority(priority: number): void;
+    /**
+     * Sets the priority of the process specified process.
+     * @param priority Must be in range of -20 to 19
+     */
+    export function setPriority(pid: number, priority: number): void;
 }
 
 declare module "https" {
@@ -2097,21 +2120,52 @@ declare module "readline" {
 
 declare module "vm" {
     export interface Context { }
-    export interface ScriptOptions {
+    export interface BaseOptions {
+        /**
+         * Specifies the filename used in stack traces produced by this script.
+         * Default: `''`.
+         */
         filename?: string;
+        /**
+         * Specifies the line number offset that is displayed in stack traces produced by this script.
+         * Default: `0`.
+         */
         lineOffset?: number;
+        /**
+         * Specifies the column number offset that is displayed in stack traces produced by this script.
+         * Default: `0`
+         */
         columnOffset?: number;
+    }
+    export interface ScriptOptions extends BaseOptions {
         displayErrors?: boolean;
         timeout?: number;
         cachedData?: Buffer;
         produceCachedData?: boolean;
     }
-    export interface RunningScriptOptions {
-        filename?: string;
-        lineOffset?: number;
-        columnOffset?: number;
+    export interface RunningScriptOptions extends BaseOptions {
         displayErrors?: boolean;
         timeout?: number;
+    }
+    export interface CompileFunctionOptions extends BaseOptions {
+        /**
+         * Provides an optional data with V8's code cache data for the supplied source.
+         */
+        cachedData?: Buffer;
+        /**
+         * Specifies whether to produce new cache data.
+         * Default: `false`,
+         */
+        produceCachedData?: boolean;
+        /**
+         * The sandbox/context in which the said function should be compiled in.
+         */
+        parsingContext?: Context;
+
+        /**
+         * An array containing a collection of context extensions (objects wrapping the current scope) to be applied while compiling
+         */
+        contextExtensions?: Object[];
     }
     export class Script {
         constructor(code: string, options?: ScriptOptions);
@@ -2126,6 +2180,7 @@ declare module "vm" {
     export function runInDebugContext(code: string): any;
     export function runInNewContext(code: string, sandbox?: Context, options?: RunningScriptOptions | string): any;
     export function runInThisContext(code: string, options?: RunningScriptOptions | string): any;
+    export function compileFunction(code: string, params: string[], options: CompileFunctionOptions): Function;
 }
 
 declare module "child_process" {
@@ -2360,7 +2415,7 @@ declare module "child_process" {
     export interface SpawnSyncOptions {
         argv0?: string; // Not specified in the docs
         cwd?: string;
-        input?: string | Buffer | Uint8Array;
+        input?: string | Buffer | NodeJS.TypedArray | DataView;
         stdio?: StdioOptions;
         env?: NodeJS.ProcessEnv;
         uid?: number;
@@ -2423,7 +2478,7 @@ declare module "child_process" {
 
     export interface ExecFileSyncOptions {
         cwd?: string;
-        input?: string | Buffer | Uint8Array;
+        input?: string | Buffer | NodeJS.TypedArray | DataView;
         stdio?: StdioOptions;
         env?: NodeJS.ProcessEnv;
         uid?: number;
@@ -3189,7 +3244,9 @@ declare module "fs" {
      */
     export type PathLike = string | Buffer | URL;
 
-    export class Stats {
+    export type BinaryData = Buffer | DataView | NodeJS.TypedArray;
+
+    export interface Stats {
         isFile(): boolean;
         isDirectory(): boolean;
         isBlockDevice(): boolean;
@@ -3197,6 +3254,9 @@ declare module "fs" {
         isSymbolicLink(): boolean;
         isFIFO(): boolean;
         isSocket(): boolean;
+    }
+
+    export class Stats {
         dev: number;
         ino: number;
         mode: number;
@@ -3215,6 +3275,13 @@ declare module "fs" {
         mtime: Date;
         ctime: Date;
         birthtime: Date;
+    }
+
+    // TODO: Make this prettier
+    export interface Dirent extends Stats {
+    }
+    export class Dirent {
+        name: string;
     }
 
     export interface FSWatcher extends events.EventEmitter {
@@ -3986,6 +4053,13 @@ declare module "fs" {
      */
     export function readdir(path: PathLike, callback: (err: NodeJS.ErrnoException, files: string[]) => void): void;
 
+    /**
+     * Asynchronous readdir(3) - read a directory.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param options If called with `withFileTypes: true` the result data will be an array of Dirent.
+     */
+    export function readdir(path: PathLike, options: { withFileTypes: true }, callback: (err: NodeJS.ErrnoException, files: Dirent[]) => void): void;
+
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     export namespace readdir {
         /**
@@ -4008,6 +4082,13 @@ declare module "fs" {
          * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
          */
         export function __promisify__(path: PathLike, options?: { encoding?: string | null } | string | null): Promise<string[] | Buffer[]>;
+
+        /**
+         * Asynchronous readdir(3) - read a directory.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * @param options If called with `withFileTypes: true` the result data will be an array of Dirent
+         */
+        export function __promisify__(path: PathLike, options: { withFileTypes: true }): Promise<Dirent[]>;
     }
 
     /**
@@ -4030,6 +4111,13 @@ declare module "fs" {
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
     export function readdirSync(path: PathLike, options?: { encoding?: string | null } | string | null): string[] | Buffer[];
+
+    /**
+     * Asynchronous readdir(3) - read a directory.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param options If called with `withFileTypes: true` the result data will be an array of Dirent.
+     */
+    export function readdirSync(path: PathLike, options: { withFileTypes: true }): Dirent[];
 
     /**
      * Asynchronous close(2) - close a file descriptor.
@@ -4164,7 +4252,7 @@ declare module "fs" {
      * @param length The number of bytes to write. If not supplied, defaults to `buffer.length - offset`.
      * @param position The offset from the beginning of the file where this data should be written. If not supplied, defaults to the current position.
      */
-    export function write<TBuffer extends Buffer | Uint8Array>(fd: number, buffer: TBuffer, offset: number | undefined | null, length: number | undefined | null, position: number | undefined | null, callback: (err: NodeJS.ErrnoException, written: number, buffer: TBuffer) => void): void;
+    export function write<TBuffer extends BinaryData>(fd: number, buffer: TBuffer, offset: number | undefined | null, length: number | undefined | null, position: number | undefined | null, callback: (err: NodeJS.ErrnoException, written: number, buffer: TBuffer) => void): void;
 
     /**
      * Asynchronously writes `buffer` to the file referenced by the supplied file descriptor.
@@ -4172,20 +4260,20 @@ declare module "fs" {
      * @param offset The part of the buffer to be written. If not supplied, defaults to `0`.
      * @param length The number of bytes to write. If not supplied, defaults to `buffer.length - offset`.
      */
-    export function write<TBuffer extends Buffer | Uint8Array>(fd: number, buffer: TBuffer, offset: number | undefined | null, length: number | undefined | null, callback: (err: NodeJS.ErrnoException, written: number, buffer: TBuffer) => void): void;
+    export function write<TBuffer extends BinaryData>(fd: number, buffer: TBuffer, offset: number | undefined | null, length: number | undefined | null, callback: (err: NodeJS.ErrnoException, written: number, buffer: TBuffer) => void): void;
 
     /**
      * Asynchronously writes `buffer` to the file referenced by the supplied file descriptor.
      * @param fd A file descriptor.
      * @param offset The part of the buffer to be written. If not supplied, defaults to `0`.
      */
-    export function write<TBuffer extends Buffer | Uint8Array>(fd: number, buffer: TBuffer, offset: number | undefined | null, callback: (err: NodeJS.ErrnoException, written: number, buffer: TBuffer) => void): void;
+    export function write<TBuffer extends BinaryData>(fd: number, buffer: TBuffer, offset: number | undefined | null, callback: (err: NodeJS.ErrnoException, written: number, buffer: TBuffer) => void): void;
 
     /**
      * Asynchronously writes `buffer` to the file referenced by the supplied file descriptor.
      * @param fd A file descriptor.
      */
-    export function write<TBuffer extends Buffer | Uint8Array>(fd: number, buffer: TBuffer, callback: (err: NodeJS.ErrnoException, written: number, buffer: TBuffer) => void): void;
+    export function write<TBuffer extends BinaryData>(fd: number, buffer: TBuffer, callback: (err: NodeJS.ErrnoException, written: number, buffer: TBuffer) => void): void;
 
     /**
      * Asynchronously writes `string` to the file referenced by the supplied file descriptor.
@@ -4220,7 +4308,7 @@ declare module "fs" {
          * @param length The number of bytes to write. If not supplied, defaults to `buffer.length - offset`.
          * @param position The offset from the beginning of the file where this data should be written. If not supplied, defaults to the current position.
          */
-        export function __promisify__<TBuffer extends Buffer | Uint8Array>(fd: number, buffer?: TBuffer, offset?: number, length?: number, position?: number | null): Promise<{ bytesWritten: number, buffer: TBuffer }>;
+        export function __promisify__<TBuffer extends BinaryData>(fd: number, buffer?: TBuffer, offset?: number, length?: number, position?: number | null): Promise<{ bytesWritten: number, buffer: TBuffer }>;
 
         /**
          * Asynchronously writes `string` to the file referenced by the supplied file descriptor.
@@ -4239,7 +4327,7 @@ declare module "fs" {
      * @param length The number of bytes to write. If not supplied, defaults to `buffer.length - offset`.
      * @param position The offset from the beginning of the file where this data should be written. If not supplied, defaults to the current position.
      */
-    export function writeSync(fd: number, buffer: Buffer | Uint8Array, offset?: number | null, length?: number | null, position?: number | null): number;
+    export function writeSync(fd: number, buffer: BinaryData, offset?: number | null, length?: number | null, position?: number | null): number;
 
     /**
      * Synchronously writes `string` to the file referenced by the supplied file descriptor, returning the number of bytes written.
@@ -4258,7 +4346,7 @@ declare module "fs" {
      * @param length The number of bytes to read.
      * @param position The offset from the beginning of the file from which data should be read. If `null`, data will be read from the current position.
      */
-    export function read<TBuffer extends Buffer | Uint8Array>(fd: number, buffer: TBuffer, offset: number, length: number, position: number | null, callback?: (err: NodeJS.ErrnoException, bytesRead: number, buffer: TBuffer) => void): void;
+    export function read<TBuffer extends BinaryData>(fd: number, buffer: TBuffer, offset: number, length: number, position: number | null, callback?: (err: NodeJS.ErrnoException, bytesRead: number, buffer: TBuffer) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     export namespace read {
@@ -4269,7 +4357,7 @@ declare module "fs" {
          * @param length The number of bytes to read.
          * @param position The offset from the beginning of the file from which data should be read. If `null`, data will be read from the current position.
          */
-        export function __promisify__<TBuffer extends Buffer | Uint8Array>(fd: number, buffer: TBuffer, offset: number, length: number, position: number | null): Promise<{ bytesRead: number, buffer: TBuffer }>;
+        export function __promisify__<TBuffer extends BinaryData>(fd: number, buffer: TBuffer, offset: number, length: number, position: number | null): Promise<{ bytesRead: number, buffer: TBuffer }>;
     }
 
     /**
@@ -4280,7 +4368,7 @@ declare module "fs" {
      * @param length The number of bytes to read.
      * @param position The offset from the beginning of the file from which data should be read. If `null`, data will be read from the current position.
      */
-    export function readSync(fd: number, buffer: Buffer | Uint8Array, offset: number, length: number, position: number | null): number;
+    export function readSync(fd: number, buffer: BinaryData, offset: number, length: number, position: number | null): number;
 
     /**
      * Asynchronously reads the entire contents of a file.
@@ -4379,6 +4467,22 @@ declare module "fs" {
      */
     export function readFileSync(path: PathLike | number, options?: { encoding?: string | null; flag?: string; } | string | null): string | Buffer;
 
+    export type WriteFileOptions = { encoding?: string | null; mode?: number | string; flag?: string; } | string | null;
+
+    /**
+     * Asynchronously writes data to a file, replacing the file if it already exists.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * URL support is _experimental_.
+     * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
+     * @param data The data to write.
+     * @param options Either the encoding for the file, or an object optionally specifying the encoding, file mode, and flag.
+     * If `encoding` is not supplied, the default of `'utf8'` is used.
+     * If `mode` is not supplied, the default of `0o666` is used.
+     * If `mode` is a string, it is parsed as an octal integer.
+     * If `flag` is not supplied, the default of `'w'` is used.
+     */
+    export function writeFile(path: PathLike | number, data: BinaryData, options: WriteFileOptions, callback: (err: NodeJS.ErrnoException) => void): void;
+
     /**
      * Asynchronously writes data to a file, replacing the file if it already exists.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
@@ -4391,7 +4495,7 @@ declare module "fs" {
      * If `mode` is a string, it is parsed as an octal integer.
      * If `flag` is not supplied, the default of `'w'` is used.
      */
-    export function writeFile(path: PathLike | number, data: any, options: { encoding?: string | null; mode?: number | string; flag?: string; } | string | undefined | null, callback: (err: NodeJS.ErrnoException) => void): void;
+    export function writeFile(path: PathLike | number, data: any, options: WriteFileOptions, callback: (err: NodeJS.ErrnoException) => void): void;
 
     /**
      * Asynchronously writes data to a file, replacing the file if it already exists.
@@ -4416,7 +4520,7 @@ declare module "fs" {
          * If `mode` is a string, it is parsed as an octal integer.
          * If `flag` is not supplied, the default of `'w'` is used.
          */
-        export function __promisify__(path: PathLike | number, data: any, options?: { encoding?: string | null; mode?: number | string; flag?: string; } | string | null): Promise<void>;
+        export function __promisify__(path: PathLike | number, data: any, options?: WriteFileOptions): Promise<void>;
     }
 
     /**
@@ -4431,7 +4535,7 @@ declare module "fs" {
      * If `mode` is a string, it is parsed as an octal integer.
      * If `flag` is not supplied, the default of `'w'` is used.
      */
-    export function writeFileSync(path: PathLike | number, data: any, options?: { encoding?: string | null; mode?: number | string; flag?: string; } | string | null): void;
+    export function writeFileSync(path: PathLike | number, data: BinaryData | string | any, options?: WriteFileOptions): void;
 
     /**
      * Asynchronously append data to a file, creating the file if it does not exist.
@@ -4445,7 +4549,7 @@ declare module "fs" {
      * If `mode` is a string, it is parsed as an octal integer.
      * If `flag` is not supplied, the default of `'a'` is used.
      */
-    export function appendFile(file: PathLike | number, data: any, options: { encoding?: string | null, mode?: string | number, flag?: string } | string | undefined | null, callback: (err: NodeJS.ErrnoException) => void): void;
+    export function appendFile(file: PathLike | number, data: any, options: WriteFileOptions, callback: (err: NodeJS.ErrnoException) => void): void;
 
     /**
      * Asynchronously append data to a file, creating the file if it does not exist.
@@ -4470,7 +4574,7 @@ declare module "fs" {
          * If `mode` is a string, it is parsed as an octal integer.
          * If `flag` is not supplied, the default of `'a'` is used.
          */
-        export function __promisify__(file: PathLike | number, data: any, options?: { encoding?: string | null, mode?: string | number, flag?: string } | string | null): Promise<void>;
+        export function __promisify__(file: PathLike | number, data: any, options?: WriteFileOptions): Promise<void>;
     }
 
     /**
@@ -4485,7 +4589,7 @@ declare module "fs" {
      * If `mode` is a string, it is parsed as an octal integer.
      * If `flag` is not supplied, the default of `'a'` is used.
      */
-    export function appendFileSync(file: PathLike | number, data: any, options?: { encoding?: string | null; mode?: number | string; flag?: string; } | string | null): void;
+    export function appendFileSync(file: PathLike | number, data: any, options?: WriteFileOptions): void;
 
     /**
      * Watch for changes on `filename`. The callback `listener` will be called each time the file is accessed.
