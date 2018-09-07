@@ -2406,6 +2406,67 @@ declare namespace wx {
      * @version 1.4.0
      */
     function createSelectorQuery(): SelectorQuery;
+
+    /**
+     * WXML节点布局相交状态
+     */
+    interface CreateIntersectionObserverOption {
+        thresholds?: number[];
+        initialRatio?: number;
+        selectAll?: boolean;
+    }
+    interface Margins {
+        left?: number;
+        right?: number;
+        top?: number;
+        bottom?: number;
+    }
+    interface ObserveResponse {
+        id: string;
+        dataset: any;
+        time: number;
+        intersectionRatio: number; // 相交区域占目标节点的布局区域的比例
+        boundingClientRect: {
+            bottom: number;
+            right: number;
+            left: number;
+            top: number;
+            width: number;
+            height: number;
+        };
+        intersectionRect: {
+            bottom: number;
+            right: number;
+            left: number; // 相交区域的左边界坐标
+            top: number; // 相交区域的上边界坐标
+            width: number; // 相交区域的宽度
+            height: number; // 相交区域的高度
+        };
+        relativeRect: {
+            bottom: number;
+            right: number;
+            left: number;
+            top: number;
+        };
+    }
+    interface CreateIntersectionObserverCallBack {
+        relativeTo(
+            selector?: string,
+            margins?: Margins
+        ): CreateIntersectionObserverCallBack;
+        relativeToViewport(
+            margins?: Margins
+        ): CreateIntersectionObserverCallBack;
+        observe(
+            selector?: string,
+            callback?: (response: ObserveResponse) => void
+        ): CreateIntersectionObserverCallBack;
+        disconnect(): void;
+    }
+    function createIntersectionObserver(
+        options?: CreateIntersectionObserverOption
+    ): CreateIntersectionObserverCallBack;
+
     interface NodesRefRect {
         /** 节点的ID */
         id: string;

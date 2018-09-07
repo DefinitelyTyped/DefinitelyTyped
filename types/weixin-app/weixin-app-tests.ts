@@ -190,7 +190,19 @@ Page({
 	},
 	onPageScroll: () => {
 		// this.
-		// Do something when page scroll
+        // Do something when page scroll
+        wx.createIntersectionObserver()
+            .relativeToViewport()
+            .observe("div", res => {
+                console.log(res.id);
+                console.log(res.dataset);
+                console.log(res.intersectionRatio);
+                console.log(res.intersectionRect.left);
+                console.log(res.intersectionRect.top);
+                console.log(res.intersectionRect.width);
+                console.log(res.intersectionRect.height);
+            })
+            .disconnect();
 	},
 	onTabItemTap(item: any) {
 		this.setData({
