@@ -79,26 +79,26 @@ declare namespace session {
     constructor(config?: any);
 
     regenerate: (req: express.Request, fn: (err?: any) => any) => void;
-    load: (sid: string, fn: (err: any, session?: Express.Session | null) => any) => void;
+    load: (sid: string, fn: (err: any, session?: Express.SessionData | null) => any) => void;
     createSession: (req: express.Request, sess: Express.SessionData) => void;
 
     get: (sid: string, callback: (err: any, session?: Express.SessionData | null) => void) => void;
-    set: (sid: string, session: Express.Session, callback?: (err?: any) => void) => void;
+    set: (sid: string, session: Express.SessionData, callback?: (err?: any) => void) => void;
     destroy: (sid: string, callback?: (err?: any) => void) => void;
     all: (callback: (err: any, obj?: { [sid: string]: Express.SessionData; } | null) => void) => void;
     length: (callback: (err: any, length?: number | null) => void) => void;
     clear: (callback?: (err?: any) => void) => void;
-    touch: (sid: string, session: Express.Session, callback?: (err?: any) => void) => void;
+    touch: (sid: string, session: Express.SessionData, callback?: (err?: any) => void) => void;
   }
 
   class MemoryStore implements BaseMemoryStore {
     get: (sid: string, callback: (err: any, session?: Express.SessionData | null) => void) => void;
-    set: (sid: string, session: Express.Session, callback?: (err?: any) => void) => void;
+    set: (sid: string, session: Express.SessionData, callback?: (err?: any) => void) => void;
     destroy: (sid: string, callback?: (err?: any) => void) => void;
-    all: (callback: (err: any, obj?: { [sid: string]: Express.Session; } | null) => void) => void;
+    all: (callback: (err: any, obj?: { [sid: string]: Express.SessionData; } | null) => void) => void;
     length: (callback: (err: any, length?: number | null) => void) => void;
     clear: (callback?: (err?: any) => void) => void;
-    touch: (sid: string, session: Express.Session, callback?: (err?: any) => void) => void;
+    touch: (sid: string, session: Express.SessionData, callback?: (err?: any) => void) => void;
   }
 }
 
