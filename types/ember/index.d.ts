@@ -27,6 +27,20 @@ declare module 'ember' {
     // Get an alias to the global Array type to use in inner scope below.
     type GlobalArray<T> = T[];
 
+    // TODO: TypeScript 3.0
+    // type FunctionArgs<F extends (...args: any[]) => any> = F extends (...args: infer ARGS) => any ? ARGS : never;
+    type FunctionArgs<F extends (...args: any[]) => any> =
+        F extends (a: infer A) => any
+            ? [A]
+            : F extends (a: infer A, b: infer B) => any
+                ? [A, B]
+                : F extends (a: infer A, b: infer B, c: infer C) => any
+                    ? [A, B, C]
+                    : F extends (a: infer A, b: infer B, c: infer C, d: infer D) => any
+                        ? [A, B, C, D]
+                        : F extends (a: infer A, b: infer B, c: infer C, d: infer D, e: infer E) => any
+                            ? [A, B, C, D, E]
+                            : never;
     /**
      * Deconstructs computed properties into the types which would be returned by `.get()`.
      */
@@ -3315,7 +3329,12 @@ declare module 'ember' {
          * Checks to see if the `methodName` exists on the `obj`,
          * and if it does, invokes it with the arguments passed.
          */
-        function tryInvoke(obj: any, methodName: string, args?: any[]): any;
+        function tryInvoke<
+            FNAME extends string,
+            T extends { [K in FNAME]: () => any }>(obj: T, methodName: FNAME): ReturnType<T[FNAME]>;
+        function tryInvoke<
+            FNAME extends string,
+            T extends { [K in FNAME]: (...args: any[]) => any }>(obj: T, methodName: FNAME, args: FunctionArgs<T[FNAME]>): ReturnType<T[FNAME]>;
         /**
          * Forces the passed object to be part of an array. If the object is already
          * an array, it will return the object. Otherwise, it will add the object to

@@ -69,3 +69,19 @@ function testDefineProperty() {
         return `${this.firstName} ${this.lastName}`;
     }));
 }
+
+function testTryInvoke() {
+    class Foo {
+        hello() { return ['world']; }
+        add(x: number, y: string) { return x + parseInt(y, 10); }
+        apples(n: number) { return `${n} apples`; }
+    }
+    Ember.tryInvoke(new Foo(), 'hello'); // $ExpectType string[]
+    Ember.tryInvoke(new Foo(), 'apples'); // $ExpectError
+    Ember.tryInvoke(new Foo(), 'apples', []); // $ExpectError
+    Ember.tryInvoke(new Foo(), 'apples', ['']); // $ExpectError
+    Ember.tryInvoke(new Foo(), 'apples', [4]); // $ExpectType string
+    Ember.tryInvoke(new Foo(), 'add', [4, 3]); // $ExpectError
+    Ember.tryInvoke(new Foo(), 'add', ['4', 3]); // $ExpectError
+    Ember.tryInvoke(new Foo(), 'add', [4, '3']); // $ExpectType number
+}
