@@ -22,7 +22,7 @@ declare namespace Detox {
          *      await detox.init(config);
          * });
          */
-        init(config: any, options: DetoxInitOptions): Promise<void>;
+        init(config: any, options?: DetoxInitOptions): Promise<void>;
         /**
          * Artifacts currently include only logs from the app process before each task
          * @param args
