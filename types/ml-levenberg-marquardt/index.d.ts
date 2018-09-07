@@ -20,13 +20,47 @@ declare namespace LM {
     }
 
     interface Options {
+        /**
+         * The Levenberg-Marquardt lambda parameter.
+         * Default value: 0
+         */
         damping: number;
+
+        /**
+         * Initial guesses for the parameters.
+         * Default value: Array(parameters.lengh).fill(1)
+         */
         initialValues: number[];
+
+        /**
+         * Adjustment for decrease the damping parameter.
+         * Default value: 10e-2
+         */
         gradientDifference: number;
+
+        /**
+         * The maximum number of iterations before halting.
+         * Default value: 100
+         */
         maxIterations: number;
+
+        /**
+         * Minimum uncertainty allowed for each point.
+         * Default value: 10e-3
+         */
         errorTolerance: number;
-        maxValue: number;
-        minValue: number;
+
+        /**
+         * Maximum values for the parameters.
+         * Default value: Array(data.x.length).fill(MAX_SAFE_INTEGER)
+         */
+        maxValue: number[];
+
+        /**
+         * Minimum values for the parameters.
+         * Default value: Array(data.x.length).fill(MIN_SAFE_INTEGER)
+         */
+        minValue: number[];
     }
 
     interface Result {
@@ -36,6 +70,7 @@ declare namespace LM {
     }
 }
 
+/** Implementation of the Levenberg-Marquardt curve fitting method. */
 declare function LM(d: LM.Data, fn: LM.FittedFunction, o?: Partial<LM.Options>): LM.Result;
 
 export default LM;
