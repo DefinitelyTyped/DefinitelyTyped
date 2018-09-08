@@ -20,6 +20,10 @@
     },
     "files": [
         "index.d.ts",
+        "-private-types/utils.d.ts",
+        "-private-types/mixin.d.ts",
+        "-private-types/object.d.ts",
+        "-private-types/object/computed.d.ts",
         "test/lib/assert.ts",
         "test/access-modifier.ts",
         "test/application-instance.ts",

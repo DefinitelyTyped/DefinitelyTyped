@@ -16,6 +16,16 @@
 /// <reference types="handlebars" />
 
 declare module 'ember' {
+    import {
+        UnwrapComputedPropertySetters,
+        UnwrapComputedPropertySetter,
+        UnwrapComputedPropertyGetters,
+        UnwrapComputedPropertyGetter,
+        ComputedPropertyCallback
+    } from 'ember/-private-types/object/computed';
+    import { Objectify, Fix } from 'ember/-private-types/utils';
+    import { EmberClassArguments, EmberClassConstructor, EmberInstanceArguments } from 'ember/-private-types/object';
+
     // Capitalization is intentional: this makes it much easier to re-export RSVP on
     // the Ember namespace.
     import Rsvp from 'rsvp';
@@ -43,52 +53,6 @@ declare module 'ember' {
                             ? [A, B, C, D, E]
                             : never;
     /**
-     * Deconstructs computed properties into the types which would be returned by `.get()`.
-     */
-    type UnwrapComputedPropertyGetter<T> =
-        T extends Ember.ComputedProperty<infer U, any> ? U :
-        T;
-    type UnwrapComputedPropertyGetters<T> = {
-        [P in keyof T]: UnwrapComputedPropertyGetter<T[P]>;
-    };
-
-    type UnwrapComputedPropertySetter<T> =
-        T extends Ember.ComputedProperty<any, infer U> ? U :
-        T;
-    type UnwrapComputedPropertySetters<T> = {
-        [P in keyof T]: UnwrapComputedPropertySetter<T[P]>;
-    };
-
-    /**
-     * Check that any arguments to `create()` match the type's properties.
-     *
-     * Accept any additional properties and add merge them into the instance.
-     */
-    type EmberInstanceArguments<T> = Partial<T> & {
-        [key: string]: any;
-    };
-
-    /**
-     * Accept any additional properties and add merge them into the prototype.
-     */
-    interface EmberClassArguments {
-        [key: string]: any;
-    }
-
-    /**
-     * Map type `T` to a plain object hash with the identity mapping.
-     *
-     * Discards any additional object identity like the ability to `new()` up the class.
-     * The `new()` capability is added back later by merging `EmberClassConstructor<T>`
-     *
-     * Implementation is carefully chosen for the reasons described in
-     * https://github.com/typed-ember/ember-typings/pull/29
-     */
-    type Objectify<T> = Readonly<T>;
-
-    type Fix<T> = { [K in keyof T]: T[K] };
-
-    /**
      * Ember.Object.extend(...) accepts any number of mixins or literals.
      */
     type MixinOrLiteral<T, Base> = Ember.Mixin<T, Base> | T;
@@ -104,23 +68,6 @@ declare module 'ember' {
      * Implementation is carefully chosen for the reasons described in
      * https://github.com/typed-ember/ember-typings/pull/29
      */
-    type EmberClassConstructor<T> = (new (properties?: object) => T) & (new (...args: any[]) => T);
-
-    type ComputedPropertyGetterFunction<T> = (this: any, key: string) => T;
-
-    interface ComputedPropertyGet<T> {
-        get(this: any, key: string): T;
-    }
-
-    interface ComputedPropertySet<T> {
-        set(this: any, key: string, value: T): T;
-    }
-
-    type ComputedPropertyCallback<T> =
-        | ComputedPropertyGetterFunction<T>
-        | ComputedPropertyGet<T>
-        | ComputedPropertySet<T>
-        | (ComputedPropertyGet<T> & ComputedPropertySet<T>);
 
     interface ActionsHash {
         [index: string]: (...params: any[]) => any;
