@@ -6,12 +6,11 @@
 /// <reference types="node" />
 import * as React from 'react';
 import BaseStore = require('fluxible/addons/BaseStore');
-import {ComponentContext} from "fluxible";
+import { ComponentContext } from "fluxible";
 
-
-export function connectToStores
-(Component: typeof React.Component,
- stores: Array<typeof BaseStore> | Array<string>,
+export function connectToStores(
+ Component: typeof React.Component,
+ stores: (typeof BaseStore)[] | string[],
  getStateFromStores: (context: ComponentContext, props: any) => any): typeof React.Component;
 
 /**
@@ -20,7 +19,4 @@ export function connectToStores
  * @param customContextTypes Custom contextTypes to add
  * @returns React.Component
  */
-export function provideContext(Component: typeof React.Component, customContextTypes?: any): typeof React.Component
-
-
-
+export function provideContext(Component: typeof React.Component, customContextTypes?: any): typeof React.Component;

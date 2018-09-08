@@ -198,11 +198,10 @@ export class ActionContext {
          * @param callback
          */
         delete: (resource: string, params: any, callback: (error: Error, data: any) => void) => void;
-    }
+    };
 }
 
 export class ComponentContext {
-
     /**
      * Proxy function to execute action
      * @param action function that will be executed
@@ -218,5 +217,4 @@ export class ComponentContext {
 }
 
 export class StoreContext {
-
 }
