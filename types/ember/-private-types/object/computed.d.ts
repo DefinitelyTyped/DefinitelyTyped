@@ -1,16 +1,16 @@
-import Ember from 'ember';
+import ComputedProperty from '@ember/object/computed';
 /**
  * Deconstructs computed properties into the types which would be returned by `.get()`.
  */
 export type UnwrapComputedPropertyGetter<T> =
-    T extends Ember.ComputedProperty<infer U, any> ? U :
+    T extends ComputedProperty<infer U, any> ? U :
     T;
 export type UnwrapComputedPropertyGetters<T> = {
     [P in keyof T]: UnwrapComputedPropertyGetter<T[P]>;
 };
 
 export type UnwrapComputedPropertySetter<T> =
-    T extends Ember.ComputedProperty<any, infer V> ? V :
+    T extends ComputedProperty<any, infer V> ? V :
     T;
 export type UnwrapComputedPropertySetters<T> = {
     [P in keyof T]: UnwrapComputedPropertySetter<T[P]>;
