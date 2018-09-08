@@ -129,6 +129,8 @@ declare namespace yargs {
         locale(): string;
         locale(loc: string): Argv;
 
+        middleware(callbacks: MiddlewareFunction | MiddlewareFunction[]): Argv;
+
         nargs(key: string, count: number): Argv;
         nargs(nargs: { [key: string]: number }): Argv;
 
@@ -311,6 +313,7 @@ declare namespace yargs {
     type CommandBuilder = { [key: string]: Options } | ((args: Argv) => Argv);
     type SyncCompletionFunction = (current: string, argv: any) => string[];
     type AsyncCompletionFunction = (current: string, argv: any, done: (completion: string[]) => void) => void;
+    type MiddlewareFunction = (args: Arguments) => void;
     type Choices = Array<string | true | undefined>;
     type PositionalOptionsType = "boolean" | "number" | "string";
 }
