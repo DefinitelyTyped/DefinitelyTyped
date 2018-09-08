@@ -62,7 +62,7 @@ function TestAnimatedAPI() {
     Animated.sequence([spring1, springXY]);
 
     Animated.stagger(100, [spring1, springXY]);
-    
+
     const listener = (e?: NativeSyntheticEvent<NativeScrollEvent>) => {
         if (e) {
             console.warn(e.nativeEvent.contentOffset.y);
