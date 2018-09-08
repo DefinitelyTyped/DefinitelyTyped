@@ -29,7 +29,7 @@ export type OutputFormat =
     | "common.js"
     | "html";
 
-export type Transform = "raw" | "ios" | "android" | "web" | string;
+export type Transform = "raw" | "ios" | "android" | "web";
 export type ValueTransform =
     | "color/rgb"
     | "color/hex"
