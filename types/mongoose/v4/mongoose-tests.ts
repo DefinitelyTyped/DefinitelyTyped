@@ -702,6 +702,9 @@ embeddedDocument.execPopulate();
  */
 var query = <mongoose.Query<mongoose.MongooseDocument[]>> {};
 query.$where('').$where(cb);
+query.count().lean<number>().then(r => {
+  r.toExponential(1);
+});
 query.all(99).all('path', 99);
 query.and([{ color: 'green' }, { status: 'ok' }]).and([]);
 query.batchSize(100).batchSize(100);
