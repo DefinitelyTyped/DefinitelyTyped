@@ -7,6 +7,8 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "esModuleInterop": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -16,6 +18,6 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.d.ts",
+        "index.d.ts"
     ]
 }
