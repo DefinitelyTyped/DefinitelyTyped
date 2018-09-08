@@ -15,7 +15,7 @@ export type StyleProperty =
     | "comment"
     | "meta";
 
-export type OutputFormat =
+export type Format =
     | "custom-properties.css"
     | "cssmodules.css"
     | "scss"
@@ -30,6 +30,7 @@ export type OutputFormat =
     | "html";
 
 export type Transform = "raw" | "ios" | "android" | "web";
+
 export type ValueTransform =
     | "color/rgb"
     | "color/hex"
@@ -42,7 +43,7 @@ export type ValueTransform =
 export function convert(options: ConvertOptions): Promise<string>;
 export function convertSync(options: ConvertOptions): string;
 export function registerFormat(
-    name: OutputFormat,
+    name: Format,
     format: FormatResultFn | string
 ): void;
 export function registerTransform(
@@ -85,7 +86,7 @@ export interface TransformOptions {
 }
 
 export interface FormatOptions {
-    type: OutputFormat;
+    type: Format;
     options?: (
         options: object,
         transformPropName?: (name: string) => string
