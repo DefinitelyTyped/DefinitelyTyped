@@ -389,6 +389,8 @@ declare namespace Chart {
         easing?: string;
         onProgress?(chart: any): void;
         onComplete?(chart: any): void;
+        animateRotate?: boolean;
+        animateScale?: boolean;
     }
 
     interface ChartElementsOptions {
