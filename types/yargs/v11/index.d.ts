@@ -1,11 +1,10 @@
-// Type definitions for yargs 12.0
+// Type definitions for yargs 11.1
 // Project: https://github.com/chevex/yargs
 // Definitions by: Martin Poelstra <https://github.com/poelstra>
 //                 Mizunashi Mana <https://github.com/mizunashi-mana>
 //                 Jeffery Grajkowski <https://github.com/pushplay>
 //                 Jeff Kenney <https://github.com/jeffkenney>
 //                 Jimi (Dimitris) Charalampidis <https://github.com/JimiC>
-//                 Alorel <https://github.com/Alorel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -24,42 +23,9 @@
 // when all parameters are optional and more than one
 
 declare namespace yargs {
-    interface CommandHandler {
-        handler(args: any): void;
-
-        original: string;
-        description: string;
-        builder: any;
-        middlewares: any[];
-        demanded: any[];
-        optional: any[];
-    }
-
-    interface CommandHandlers {
-        [commandName: string]: CommandHandler;
-    }
-
-    interface CommandInstance {
-        getCommands(): string[];
-        getCommandHandlers(): CommandHandlers;
-        hasDefaultCommand(): boolean;
-
-        addHandler(...args: any[]): any;
-        addDirectory(...args: any[]): any;
-        parseCommand(...args: any[]): any;
-        runCommand(...args: any[]): any;
-        runDefaultBuilderOn(...args: any[]): any;
-        cmdToParseOptions(...args: any[]): any;
-        reset(...args: any[]): any;
-        freeze(...args: any[]): any;
-        unfreeze(...args: any[]): any;
-    }
-
     interface Argv {
         (): Arguments;
         (args: string[], cwd?: string): Arguments;
-
-        getCommandInstance(): CommandInstance;
 
         alias(shortName: string | string[], longName: string | string[]): Argv;
         alias(aliases: { [shortName: string]: string | string[] }): Argv;
