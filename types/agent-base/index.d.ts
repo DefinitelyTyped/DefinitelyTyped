@@ -2,6 +2,7 @@
 // Project: https://github.com/TooTallNate/node-agent-base#readme
 // Definitions by: Christopher Quadflieg <https://github.com/Shinigami92>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="node" />
 import { EventEmitter } from 'events';

@@ -2,6 +2,7 @@
 // Project: https://github.com/hapijs/boom
 // Definitions by: Igor Rogatty <https://github.com/rogatty>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="node" />
 
