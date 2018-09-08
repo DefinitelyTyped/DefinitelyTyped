@@ -277,7 +277,7 @@ export interface CopyOptionsSync extends CopyOptions {
 }
 
 export interface MoveOptions {
-    overwrite?: boolean;
+    clobber?: boolean;
     limit?: number;
 }
 
