@@ -5,6 +5,13 @@ import { Component, Coordinate, Entity, Scene, THREE, ANode } from 'aframe';
  * Types and some formatting have been added, but for the most part they remain unchanged.
  */
 
+// disable checks for things done in the original, JS examples
+/* tslint:disable:object-literal-shorthand */
+/* tslint:disable:no-var-keyword */
+/* tslint:disable:prefer-const */
+/* tslint:disable:only-arrow-functions */
+/* tslint:disable:one-variable-per-declaration */
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // 360 picture gallery
 // Taken from https://glitch.com/edit/#!/aframe-gallery
@@ -448,7 +455,7 @@ AFRAME.registerComponent('audioanalyser-waveform', {
 
 	update: function(this: any /* TODO improve types */) {
 		var data = this.data;
-		var el = this.el!;
+		var el = this.el;
 		var i;
 		var lineMesh;
 		var loopShape;
@@ -493,7 +500,7 @@ AFRAME.registerComponent('audioanalyser-waveform', {
 		var analyserComponent: AnalyserComponent;
 		var colors = this.colors;
 		var data = this.data;
-		var el = this.el!;
+		var el = this.el;
 		var levels = this.levels;
 		var rings = this.rings;
 
@@ -926,7 +933,7 @@ AFRAME.registerComponent('ring-on-beat', {
 
 	init: function(this: any) {
 		var analyserEl = this.data.analyserEl || this.el;
-		var el = this.el!;
+		var el = this.el;
 		var rings: Entity[] = (this.rings = []);
 
 		analyserEl.addEventListener('audioanalyser-beat', function() {
@@ -973,7 +980,7 @@ AFRAME.registerComponent('scale-y-color', {
 
 	tick: function(this: any, time: number) {
 		var data = this.data;
-		var el = this.el!;
+		var el = this.el;
 
 		if (time - this.time < 50) {
 			return;
