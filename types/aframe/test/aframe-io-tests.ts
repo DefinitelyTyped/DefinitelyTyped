@@ -1,5 +1,3 @@
-/// <reference types="aframe" />
-
 import { Component, Coordinate, Entity, Scene, THREE, ANode } from 'aframe';
 
 /**
