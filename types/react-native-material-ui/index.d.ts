@@ -7,8 +7,8 @@
 import { Component } from 'react';
 import { StyleProp, ViewStyle as ViewStyleRaw, TextStyle as TextStyleRaw, Image } from 'react-native';
 
-type ViewStyle = StyleProp<ViewStyleRaw>;
-type TextStyle = StyleProp<TextStyleRaw>;
+export type ViewStyle = StyleProp<ViewStyleRaw>;
+export type TextStyle = StyleProp<TextStyleRaw>;
 
 export interface ActionButtonProps {
     actions?: string[] | JSX.Element[] | Array<{
