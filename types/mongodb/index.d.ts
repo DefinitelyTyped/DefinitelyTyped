@@ -212,7 +212,7 @@ export interface SocketOptions {
     // Version of IP stack. Can be 4, 6 or null. default: null.
     // If null, will attempt to connect with IPv6, and will fall back to IPv4 on failure
     // refer to http://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html
-    family?: number;
+    family?: 4 | 6 | null;
     // TCP Socket timeout setting. default 0
     socketTimeoutMS?: number;
 }
