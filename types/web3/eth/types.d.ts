@@ -57,7 +57,7 @@ export class Personal {
 	newAccount(password: string, cb?: Callback<boolean>): Promise<string>;
 	importRawKey(): Promise<string>;
 	lockAccount(): Promise<boolean>;
-	unlockAccount(): void;
+	unlockAccount(address: string, password: string, unlockDuration: number): void;
 	sign(): Promise<string>;
 	ecRecover(message: string, sig: string): void;
 	sendTransaction(tx: Tx, passphrase: string): Promise<string>;
