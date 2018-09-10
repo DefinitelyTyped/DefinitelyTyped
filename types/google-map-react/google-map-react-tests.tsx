@@ -21,6 +21,9 @@ const options: MapOptions = {
         {
             elementType: "labels.text.stroke",
             stylers: [ {color: "#242f3e"} ]
+        },
+        {
+            stylers: [ {color: "#fcfffd"} ]
         }
     ],
 };
