@@ -11,8 +11,11 @@ import { Annotations } from './src/annotations';
 import { Markers } from './src/markers';
 import { States } from './src/states';
 import { Stroke } from './src/stroke';
+import { Theme } from './src/theme';
+import { Title } from './src/title';
+import { Tooltip } from './src/tooltip';
 
-export interface ApexChartOptions {
+export interface ApexChartOptions<T = unknown> {
     annotations: Annotations;
     legend: Legend;
     fill: Fill;
@@ -25,9 +28,12 @@ export interface ApexChartOptions {
         breakpoint: number;
         options: ApexChartOptions;
     }[];
-    series: { name: string; data: unknown[] };
+    series: { name: string; data: T[] };
     states: States;
     stroke: Stroke;
+    theme: Theme;
+    title: Title;
+    tooltip: Tooltip;
 }
 
 declare class ApexCharts {
