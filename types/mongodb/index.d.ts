@@ -452,14 +452,7 @@ export class Db extends EventEmitter {
     stats(options: { scale?: number }, callback: MongoCallback<any>): void;
 }
 
-export interface CommonOptions {
-    /** The write concern. */
-    w?: string | number;
-    /** The write concern timeout. */
-    wtimeout?: number;
-    /** Specify a journal write concern. */
-    j?: boolean;
-    /** Session to use for this operation */
+export interface CommonOptions extends WriteConcern {
     session?: ClientSession;
 }
 
@@ -1624,11 +1617,18 @@ export class GridFSBucketWriteStream extends Writable {
 
 /** https://mongodb.github.io/node-mongodb-native/3.1/api/GridFSBucketWriteStream.html */
 export interface GridFSBucketWriteStreamOptions {
+    /** Custom file id for the GridFS file. */
     id?: GridFSBucketWriteStreamId,
+    /** The chunk size to use, in bytes */
     chunkSizeBytes?: number,
+    /** The write concern */
     w?: number,
+    /** The write concern timeout */
     wtimeout?: number,
+    /** The journal write concern */
     j?: number
+    /** Default false; If true, disables adding an md5 field to file data */
+    disableMD5?: boolean
 }
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/ChangeStream.html */
