@@ -10,3 +10,13 @@ import Vue from 'vue';
 import VueCookie from 'vue-cookie';
 
 Vue.use(VueCookie);
+
+new Vue({
+    el: '#app',
+    mounted() {
+        // Vue.prototype == this
+        Vue.prototype.$cookie.set('test', 'test');
+
+        console.log(Vue.prototype.$cookie.get('test'));
+    }
+});

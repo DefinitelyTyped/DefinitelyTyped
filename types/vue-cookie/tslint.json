@@ -1,10 +1,10 @@
-
 {
   "extends": "dtslint/dt.json",
   "rules": {
     "max-line-length": [false],
     "no-trailing-whitespace": false,
     "space-before-function-paren": false,
-    "only-arrow-functions": [false]
+    "only-arrow-functions": [false],
+    "file-name-casing": false
   }
 }
