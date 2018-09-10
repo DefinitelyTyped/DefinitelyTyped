@@ -13,7 +13,7 @@ export interface Options {
 export interface ChannelPayload {
     payload: Payload;
 }
-export interface ChannelMessage extends Message<any> {
+export interface ChannelMessage {
     senderIdentity: Identity;
     ackToSender: any;
     providerIdentity: Identity;
@@ -27,7 +27,7 @@ export declare class Channel extends EmitterBase {
     onChannelDisconnect(listener: Function): Promise<void>;
     connect(options: Options): Promise<ChannelClient>;
     create(channelName?: string): Promise<ChannelProvider>;
-    onmessage: (msg: ChannelMessage) => boolean;
+    onmessage: (msg: Message<ChannelMessage>) => boolean;
     private processChannelMessage;
     private processChannelConnection;
 }
