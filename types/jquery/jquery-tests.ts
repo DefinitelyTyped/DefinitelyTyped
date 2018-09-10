@@ -7111,7 +7111,7 @@ function JQuery_jqXHR() {
         }
     }
 
-    function compatibleWithPromise(): JQuery._Promise<any> {
+    function compatibleWithPromise(): Promise<any> {
         return p;
     }
 
@@ -7535,7 +7535,7 @@ function JQuery_Promise3() {
         return s;
     }
 
-    function compatibleWithPromise(): JQuery._Promise<any> {
+    function compatibleWithPromise(): Promise<any> {
         return p;
     }
 
@@ -7680,7 +7680,7 @@ function JQuery_Promise2(p: JQuery.Promise2<string, Error, number, JQuery, strin
         return s;
     }
 
-    function compatibleWithPromise(): JQuery._Promise<any> {
+    function compatibleWithPromise(): Promise<any> {
         return p;
     }
 
@@ -7801,7 +7801,7 @@ function JQuery_Promise(p: JQuery.Promise<string, Error, number>) {
         return s;
     }
 
-    function compatibleWithPromise(): JQuery._Promise<any> {
+    function compatibleWithPromise(): Promise<any> {
         return p;
     }
 }

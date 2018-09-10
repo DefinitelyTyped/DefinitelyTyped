@@ -6770,6 +6770,7 @@ declare namespace JQuery {
      * Represents the completion of an asynchronous operation
      */
     interface _Promise<T> {
+        readonly [Symbol.toStringTag]: "Promise";
         /**
          * Attaches callbacks for the resolution and/or rejection of the Promise.
          * @param onfulfilled The callback to execute when the Promise is resolved.
