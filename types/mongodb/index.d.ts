@@ -901,7 +901,7 @@ export interface CollectionAggregationOptions {
     readPreference?: ReadPreference | string;
     // Return the query as cursor, on 2.6 > it returns as a real cursor
     // on pre 2.6 it returns as an emulated cursor.
-    cursor?: { batchSize: number };
+    cursor?: { batchSize?: number };
     // Explain returns the aggregation execution plan (requires mongodb 2.6 >).
     explain?: boolean;
     // lets the server know if it can use disk to store
