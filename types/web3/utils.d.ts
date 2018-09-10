@@ -1,5 +1,5 @@
-import BigNumber = require("bn.js");
 import * as us from "underscore";
+import BigNumber from "bignumber.js";
 
 type Unit =
     | "noether"

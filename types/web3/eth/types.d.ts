@@ -1,4 +1,4 @@
-import { Callback, EventLog } from "../types";
+import { Callback } from "../types";
 import PromiEvent from "../promiEvent";
 import { ABIDefinition } from "./abi";
 export interface Tx {

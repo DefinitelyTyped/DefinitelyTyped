@@ -18,10 +18,9 @@
 //                 Donam Kim <https://github.com/donamk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
-import BigNumber = require("bn.js");
+
 import Providers, { Provider } from "./providers";
-import Contract from "./eth/contract";
-import { Callback, Bzz, Shh } from "./types";
+import { Bzz, Shh } from "./types";
 import { BatchRequest, Net, Personal } from "./eth/types";
 import Utils from "./utils";
 import Eth from "./eth/index";

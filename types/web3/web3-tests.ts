@@ -1,5 +1,5 @@
 import Web3 = require("web3");
-import BigNumber = require("bn.js");
+import BigNumber from "bignumber.js";
 const web3 = new Web3();
 const myProvider = new web3.providers.HttpProvider("http://localhost:5454");
 web3.setProvider(myProvider);
@@ -21,7 +21,6 @@ myContract.options.gas = 5000000;
 const weiStr: string = web3.utils.toWei("100", "gwei");
 const weiBn: BigNumber = web3.utils.toWei(web3.utils.toBN("1"));
 const rndHex: string = Web3.utils.randomHex(10);
-
 
 web3.eth.personal.unlockAccount(
     web3.eth.defaultAccount,
