@@ -17,6 +17,7 @@ let options: mongodb.MongoClientOptions = {
     poolSize: 1,
 
     socketOptions: {},
+    family: 4,
 
     reconnectTries: 123456,
     reconnectInterval: 123456,

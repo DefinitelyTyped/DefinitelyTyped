@@ -14,6 +14,7 @@
 //                 Wan Bachtiar <https://github.com/sindbach>
 //                 Geraldine Lemeur <https://github.com/geraldinelemeur>
 //                 Jimmy Shimizu <https://github.com/jishi>
+//                 Angela-1 <https://github.com/angela-1>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -208,6 +209,10 @@ export interface SocketOptions {
     keepAliveInitialDelay?: number;
     // TCP Connection timeout setting. default 0
     connectTimeoutMS?: number;
+    // Version of IP stack. Can be 4, 6 or null. default: null.
+    // If null, will attempt to connect with IPv6, and will fall back to IPv4 on failure
+    // refer to http://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html
+    family?: 4 | 6 | null;
     // TCP Socket timeout setting. default 0
     socketTimeoutMS?: number;
 }
