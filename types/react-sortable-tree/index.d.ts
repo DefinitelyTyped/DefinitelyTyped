@@ -4,6 +4,7 @@
 //                 Jovica Zoric <https://github.com/jzoric>
 //                 Kevin Perrine <https://github.com/kevinsperrine>
 //                 Alex Maclean <https://github.com/acemac>
+//                 Jan Dolezel <https://github.com/dolezel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -20,8 +21,8 @@ export * from './utils/tree-data-utils';
 export * from './utils/default-handlers';
 
 export interface TreeItem {
-    title?: string;
-    subtitle?: string;
+    title?: React.ReactNode;
+    subtitle?: React.ReactNode;
     expanded?: boolean;
     children?: TreeItem[];
     [x: string]: any;
@@ -50,6 +51,7 @@ export interface SearchData extends NodeData {
 }
 
 export interface ExtendedNodeData extends NodeData {
+    parentNode: TreeItem;
     lowerSiblingsCounts: number[];
     isSearchMatch: boolean;
     isSearchFocus: boolean;
