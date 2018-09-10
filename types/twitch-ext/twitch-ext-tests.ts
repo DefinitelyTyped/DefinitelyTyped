@@ -32,6 +32,7 @@ window.Twitch.ext.actions.onFollow((didFollow, channelName) => {
 		console.log(`You followed ${channelName}`);
 	}
 });
+window.Twitch.ext.actions.minimize();
 window.Twitch.ext.actions.followChannel("hearthsim");
 window.Twitch.ext.actions.requestIdShare();
 
