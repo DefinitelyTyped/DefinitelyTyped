@@ -191,8 +191,7 @@ declare class SMTPConnection extends EventEmitter {
     emit(event: 'connect' | 'end'): boolean;
     emit(event: 'error', error: Error): boolean;
 
-    listenerCount(event: 'connect' | 'end'): number;
-    listenerCount(event: 'error'): number;
+    listenerCount(event: 'connect' | 'end' | 'error'): number;
 
     listeners(event: 'connect' | 'end'): Array<() => void>;
     listeners(event: 'error'): Array<(err: SMTPConnection.SMTPError) => void>;
@@ -215,8 +214,7 @@ declare class SMTPConnection extends EventEmitter {
     rawListeners(event: 'connect' | 'end'): Array<() => void>;
     rawListeners(event: 'error'): Array<(err: SMTPConnection.SMTPError) => void>;
 
-    removeAllListener(event: 'connect' | 'end'): this;
-    removeAllListener(event: 'error'): this;
+    removeAllListener(event: 'connect' | 'end' | 'error'): this;
 
     removeListener(event: 'connect' | 'end', listener: () => void): this;
     removeListener(event: 'error', listener: (err: SMTPConnection.SMTPError) => void): this;
