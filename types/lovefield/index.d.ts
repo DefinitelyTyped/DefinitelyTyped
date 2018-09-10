@@ -1,6 +1,7 @@
 // Type definitions for Lovefield 2.1
 // Project: http://google.github.io/lovefield/
 // Definitions by: freshp86 <https://github.com/freshp86>
+//                 zackzeno <https://github.com/zackzeno>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace lf {
@@ -62,7 +63,7 @@ declare namespace lf {
     attach(query: query.Builder): Promise<Object[]>;
     begin(scope: schema.Table[]): Promise<void>;
     commit(): Promise<void>;
-    exec(queries: query.Builder[]): Promise<Object[][]>;
+    exec(queries: query.Builder[]): Promise<any[][]>;
     rollback(): Promise<void>;
     stats(): TransactionStats;
   }
@@ -87,7 +88,7 @@ declare namespace lf {
   namespace query {
     interface Builder {
       bind(...values: any[]): Builder;
-      exec(): Promise<Object[]>;
+      exec<T extends object>(): Promise<T[]>;
       explain(): string;
       toSql(): string;
     }
@@ -131,7 +132,7 @@ declare namespace lf {
       renameTableColumn(
           tableName: string, oldColumnName: string,
           newColumnName: string): Promise<void>;
-      createRow(payload: Object): Row;
+      createRow<T extends object>(payload: T): Row;
       getVersion(): number;
       dump(): Object[];
     }
@@ -166,7 +167,7 @@ declare namespace lf {
 
     interface ITable {
       as(name: string): Table;
-      createRow(value: Object): Row;
+      createRow<T extends object>(value: T): Row;
       getName(): string;
     }
 
