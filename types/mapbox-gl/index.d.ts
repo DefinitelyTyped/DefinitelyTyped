@@ -1,4 +1,4 @@
-// Type definitions for Mapbox GL JS v0.47.0
+// Type definitions for Mapbox GL JS v0.48.0
 // Project: https://github.com/mapbox/mapbox-gl-js
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>, Patrick Reames <https://github.com/patrickr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -63,9 +63,9 @@ declare namespace mapboxgl {
 
         isRotating(): boolean;
 
-        queryRenderedFeatures(pointOrBox?: PointLike | PointLike[], parameters?: { layers?: string[], filter?: any[] }): GeoJSON.Feature<GeoJSONGeometry>[];
+        queryRenderedFeatures(pointOrBox?: PointLike | PointLike[], parameters?: { layers?: string[], filter?: any[] }): GeoJSON.Feature<GeoJSON.Geometry>[];
 
-        querySourceFeatures(sourceID: string, parameters?: { sourceLayer?: string, filter?: any[] }): GeoJSON.Feature<GeoJSONGeometry>[];
+        querySourceFeatures(sourceID: string, parameters?: { sourceLayer?: string, filter?: any[] }): GeoJSON.Feature<GeoJSON.Geometry>[];
 
         setStyle(style: mapboxgl.Style | string, options?: { diff?: boolean, localIdeographFontFamily?: string }): this;
 
@@ -225,6 +225,10 @@ declare namespace mapboxgl {
 
         /** ID of the container element */
         container?: string | Element;
+
+        /** String or strings to show in an AttributionControl.
+         * Only applicable if options.attributionControl is `true`. */
+        customAttribution?: string | string[];
 
         /** If true, enable the "drag to pan" interaction (see DragPanHandler). */
         dragPan?: boolean;
@@ -441,7 +445,7 @@ declare namespace mapboxgl {
      * Attribution
      */
     export class AttributionControl extends Control {
-        constructor(options?: { compact?: boolean });
+        constructor(options?: { compact?: boolean, customAttribution?: string | string[] });
     }
 
     /**
@@ -530,8 +534,6 @@ declare namespace mapboxgl {
         type: 'vector' | 'raster' | 'raster-dem' | 'geojson' | 'image' | 'video' | 'canvas';
     }
 
-    export type GeoJSONGeometry = GeoJSON.Point | GeoJSON.LineString | GeoJSON.MultiPoint | GeoJSON.Polygon | GeoJSON.MultiLineString | GeoJSON.MultiPolygon | GeoJSON.GeometryCollection;
-
     /**
      * GeoJSONSource
      */
@@ -545,17 +547,17 @@ declare namespace mapboxgl {
 
         constructor(options?: mapboxgl.GeoJSONSourceOptions);
 
-        setData(data: GeoJSON.Feature<GeoJSONGeometry> | GeoJSON.FeatureCollection<GeoJSONGeometry> | String): this;
+        setData(data: GeoJSON.Feature<GeoJSON.Geometry> | GeoJSON.FeatureCollection<GeoJSON.Geometry> | String): this;
 
         getClusterExpansionZoom(clusterId: number, callback: (error: any, zoom: number) => void): this;
 
-        getClusterChildren(clusterId: number, callback: (error: any, features: GeoJSON.Feature<GeoJSONGeometry>[]) => void): this;
+        getClusterChildren(clusterId: number, callback: (error: any, features: GeoJSON.Feature<GeoJSON.Geometry>[]) => void): this;
 
-        getClusterLeaves(cluserId: number, limit: number, offset: number, callback: (error: any, features: GeoJSON.Feature<GeoJSONGeometry>[]) => void): this;
+        getClusterLeaves(cluserId: number, limit: number, offset: number, callback: (error: any, features: GeoJSON.Feature<GeoJSON.Geometry>[]) => void): this;
     }
 
     export interface GeoJSONSourceOptions {
-        data?: GeoJSON.Feature<GeoJSONGeometry> | GeoJSON.FeatureCollection<GeoJSONGeometry> | string;
+        data?: GeoJSON.Feature<GeoJSON.Geometry> | GeoJSON.FeatureCollection<GeoJSON.Geometry> | string;
 
         maxzoom?: number;
 

@@ -46,6 +46,7 @@ new Redis({
     password: 'auth',
     db: 0,
     retryStrategy() { return false; },
+    maxRetriesPerRequest: 20,
     showFriendlyErrorStack: true,
     tls: {
         servername: 'tlsservername'
@@ -127,9 +128,6 @@ redis.multi([
     ['get', 'foo']
 ]).exec((err, results) => {
     // results = [[null, 'OK'], [null, 'bar']]
-});
-
-redis.Promise.onPossiblyUnhandledRejection((error) => {
 });
 
 const keys = ['foo', 'bar'];

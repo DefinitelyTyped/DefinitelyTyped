@@ -1,4 +1,4 @@
-// Type definitions for Mongoose 5.2.3
+// Type definitions for Mongoose 5.2.9
 // Project: http://mongoosejs.com/
 // Definitions by: horiuchi <https://github.com/horiuchi>
 //                 sindrenm <https://github.com/sindrenm>
@@ -808,11 +808,11 @@ declare module "mongoose" {
 
   // Hook functions: https://github.com/vkarpov15/hooks-fixed
   interface HookSyncCallback<T> {
-    (this: T, next: HookNextFunction): Promise<any> | void;
+    (this: T, next: HookNextFunction, docs: any[]): Promise<any> | void;
   }
 
   interface HookAsyncCallback<T> {
-    (this: T, next: HookNextFunction, done: HookDoneFunction): Promise<any> | void;
+    (this: T, next: HookNextFunction, done: HookDoneFunction, docs: any[]): Promise<any> | void;
   }
 
   interface HookErrorCallback {
@@ -976,8 +976,10 @@ declare module "mongoose" {
      */
     validate?: RegExp | [RegExp, string] |
       SchemaTypeOpts.ValidateFn<T> | [SchemaTypeOpts.ValidateFn<T>, string] |
-      SchemaTypeOpts.ValidateOpts | SchemaTypeOpts.ValidateOpts[] |
-      SchemaTypeOpts.AsyncValidateOpts | SchemaTypeOpts.AsyncValidateOpts[];
+      SchemaTypeOpts.ValidateOpts | SchemaTypeOpts.AsyncValidateOpts |
+      SchemaTypeOpts.AsyncPromiseValidationFn<T> | SchemaTypeOpts.AsyncPromiseValidationOpts |
+      (SchemaTypeOpts.ValidateOpts | SchemaTypeOpts.AsyncValidateOpts |
+        SchemaTypeOpts.AsyncPromiseValidationFn<T> | SchemaTypeOpts.AsyncPromiseValidationOpts)[];
 
     /** Declares an unique index. */
     unique?: boolean | any;
@@ -1058,6 +1060,14 @@ declare module "mongoose" {
     interface AsyncValidateOpts extends ValidateOptsBase {
       isAsync: true;
       validator: AsyncValidateFn<any>;
+    }
+
+    interface AsyncPromiseValidationFn<T> {
+      (value: T): Promise<boolean>;
+    }
+
+    interface AsyncPromiseValidationOpts extends ValidateOptsBase {
+      validator: AsyncPromiseValidationFn<any>;
     }
 
     interface EnumOpts<T> {
@@ -1878,6 +1888,12 @@ declare module "mongoose" {
     read(pref: string, tags?: any[]): this;
 
     /**
+     * Sets the readConcern option for the query.
+     * @param level one of the listed read concern level or their aliases
+     */
+    readConcern(level: string): this;
+
+    /**
      * Specifies a $regex query condition.
      * When called with one argument, the most recent path passed to where() is used.
      */
@@ -1903,6 +1919,8 @@ declare module "mongoose" {
     selectedInclusively(): boolean;
     /** Sets query options. */
     setOptions(options: any): this;
+    /** Sets query conditions to the provided JSON object. */
+    setQuery(conditions: any): this;
 
     /**
      * Specifies a $size query condition.
@@ -2335,6 +2353,12 @@ declare module "mongoose" {
      * @param options set the cursor batch size
      */
     cursor(options: any): this;
+
+    /**
+     * Appends a new $facet operator to this aggregate pipeline.
+     * @param arg $facet operator contents
+     */
+    facet(arg: { [outputField: string]: object[] }): this;
 
     // If cursor option is on, could return an object
     /** Executes the aggregate pipeline on the currently bound Model. */

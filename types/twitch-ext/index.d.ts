@@ -1,4 +1,4 @@
-// Type definitions for twitch-ext 1.14
+// Type definitions for twitch-ext 1.15
 // Project: https://dev.twitch.tv/docs/extensions/reference/#javascript-helper
 // Definitions by: Benedict Etzel <https://github.com/beheh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -136,6 +136,13 @@ interface TwitchExtActions {
 	 * @see https://dev.twitch.tv/docs/extensions/reference/#followchannel
 	 */
 	followChannel(channelName: string): void;
+
+	/**
+	 * This function causes your video-component or video-overlay extension to be minimized.
+	 *
+	 * @see https://dev.twitch.tv/docs/extensions/reference/#minimize
+	 */
+	minimize(): void;
 
 	/**
 	 * This function registers a callback that is invoked whenever a user completes an interaction prompted by the followChannel action.

@@ -1128,7 +1128,7 @@ declare namespace algoliasearch {
      * default: ""
      * https://github.com/algolia/algoliasearch-client-js#facets
      */
-    facets?: string;
+    facets?: string | string[];
     /**
      * Limit the number of facet values returned for each facet.
      * default: ""
@@ -1375,7 +1375,7 @@ declare namespace algoliasearch {
      * Filter the query by a set of facets.
      * https://github.com/algolia/algoliasearch-client-js#facetfilters-deprecated
      */
-    facetFilters?: string;
+    facetFilters?: string | string[]
     /**
      * If set to false, this query will not be taken into account in the analytics feature.
      * default true
@@ -1421,6 +1421,10 @@ declare namespace algoliasearch {
        * The query for the search in this facet
        */
       facetQuery: string;
+      /**
+       * The maximum number of facets to fetch
+       */
+      maxFacetHits?: number;
     }
 
     interface Response {

@@ -2,6 +2,11 @@ import Ember from 'ember';
 import * as utils from '@ember/utils';
 import { assertType } from "./lib/assert";
 
+function testTypeOf() {
+    utils.typeOf(); // $ExpectType string
+    utils.typeOf({}); // $ExpectType string
+}
+
 function testIsNoneType() {
     const maybeUndefined: string | undefined = 'not actually undefined';
     if (utils.isNone(maybeUndefined)) {
@@ -9,6 +14,31 @@ function testIsNoneType() {
     }
 
     const anotherString = maybeUndefined + 'another string';
+    utils.isNone(); // $ExpectType boolean
+}
+
+function testIsBlank() {
+    utils.isBlank(); // $ExpectType boolean
+    utils.isBlank(''); // $ExpectType boolean
+    utils.isBlank('', ''); // $ExpectError
+}
+
+function testIsEmpty() {
+    utils.isEmpty(); // $ExpectType boolean
+    utils.isEmpty(''); // $ExpectType boolean
+    utils.isEmpty('', ''); // $ExpectError
+}
+
+function testIsPresent() {
+    utils.isPresent(); // $ExpectType boolean
+    utils.isPresent(''); // $ExpectType boolean
+    utils.isPresent('', ''); // $ExpectError
+}
+
+function testIsNone() {
+    utils.isNone(); // $ExpectType boolean
+    utils.isNone(''); // $ExpectType boolean
+    utils.isNone('', ''); // $ExpectError
 }
 
 function testMerge() {

@@ -390,23 +390,23 @@ preHookTestSchemaArr.push(
 
 // Model<Document>
 preHookTestSchemaArr.push(
-  schema.pre("insertMany", function(next) {
+  schema.pre("insertMany", function(next, docs) {
     const isDefaultType: mongoose.Model<mongoose.Document> = this;
   }, err => {})
 );
 preHookTestSchemaArr.push(
-  schema.pre<PreHookTestModelInterface<PreHookTestDocumentInterface>>("insertMany", function(next) {
+  schema.pre<PreHookTestModelInterface<PreHookTestDocumentInterface>>("insertMany", function(next, docs) {
     const isSpecificType: PreHookTestModelInterface<PreHookTestDocumentInterface> = this;
     return Promise.resolve("")
   }, err => {})
 );
 preHookTestSchemaArr.push(
-  schema.pre("insertMany", true, function(next, done) {
+  schema.pre("insertMany", true, function(next, done, docs) {
     const isDefaultType: mongoose.Model<mongoose.Document> = this;
   }, err => {})
 );
 preHookTestSchemaArr.push(
-  schema.pre<PreHookTestModelInterface<PreHookTestDocumentInterface>>("insertMany", true, function(next, done) {
+  schema.pre<PreHookTestModelInterface<PreHookTestDocumentInterface>>("insertMany", true, function(next, done, docs) {
     const isSpecificType: PreHookTestModelInterface<PreHookTestDocumentInterface> = this;
     return Promise.resolve("")
   }, err => {})
@@ -524,7 +524,15 @@ new mongoose.Schema({
         setImmediate(done, true);
       }
     }
-  }
+  },
+  promiseValidated: {
+    type: Number,
+    validate: {
+      validator: async (val: number) => {
+        return val === 2;
+      }
+    }
+  },
 });
 new mongoose.Schema({ name: { type: String, validate: [
   { validator: () => {return true}, msg: 'uh oh' },
@@ -1010,6 +1018,7 @@ query.find().populate('owner', 'name', null, {sort: { name: -1 }}).exec(function
   kittens[0].execPopulate();
 });
 query.read('primary', []).read('primary');
+query.readConcern('majority').readConcern('m');
 query.regex(/re/).regex('path', /re/);
 query.remove({}, cb);
 query.remove({});
@@ -1028,6 +1037,7 @@ query.setOptions({
   batchSize: true,
   lean: false
 });
+query.setQuery({ age: 5 });
 query.size(0).size('age', 0);
 query.skip(100).skip(100);
 query.slaveOk().slaveOk(false);
@@ -1227,6 +1237,7 @@ aggregate.append({ $project: { field: 1 }}, { $limit: 2 });
 aggregate.append([{ $match: { daw: 'Logic Audio X' }} ]);
 aggregate.collation({ locale: 'en_US', strength: 1 });
 aggregate.count('countName');
+aggregate.facet({ fieldA: [{ a: 1 }], fieldB: [{ b: 1 }] });
 aggregate.cursor({ batchSize: 1000 }).exec().each(cb);
 aggregate.exec().then(cb).catch(cb);
 aggregate.option({foo: 'bar'}).exec();

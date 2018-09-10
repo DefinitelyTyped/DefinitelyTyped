@@ -19,8 +19,8 @@ declare module 'recompose' {
     type predicate<T> = mapper<T, boolean>;
     type predicateDiff<T> = (current: T, next: T) => boolean
 
-    // Diff / Omit taken from https://github.com/Microsoft/TypeScript/issues/12215#issuecomment-311923766
-    type Omit<T, K extends keyof T> = Pick<T, ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never, [x: number]: never })[keyof T]>;
+    // Diff / Omit taken from https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html
+    type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 
     interface Observer<T>{
         next(props: T): void;

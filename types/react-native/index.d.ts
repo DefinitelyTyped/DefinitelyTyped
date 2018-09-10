@@ -1235,6 +1235,11 @@ export interface TextInputProps
     caretHidden?: boolean
 
     /**
+     * If true, context menu is hidden. The default value is false.
+     */
+    contextMenuHidden?: boolean
+
+    /**
      * Provides an initial value that will change when the user starts typing.
      * Useful for simple use-cases where you don't want to deal with listening to events
      * and updating the value prop to keep the controlled state in sync.
@@ -2174,7 +2179,7 @@ export interface WebViewIOSLoadRequestEvent {
     loading: boolean;
     title: string;
     canGoForward: boolean;
-    navigationType: "other" | "click";
+    navigationType: "click" | "formsubmit" | "backforward" | "reload" | "formresubmit" | "other";
     url: string;
 }
 
@@ -2247,7 +2252,7 @@ export interface WebViewUriSource {
      * The HTTP Method to use. Defaults to GET if not specified.
      * NOTE: On Android, only GET and POST are supported.
      */
-    method?: string;
+    method?: "GET" | "POST";
 
     /*
      * Additional HTTP headers to send with the request.
@@ -8460,8 +8465,8 @@ export namespace Animated {
     export function parallel(animations: Array<CompositeAnimation>, config?: ParallelConfig): CompositeAnimation;
 
     type Mapping = { [key: string]: Mapping } | AnimatedValue;
-    interface EventConfig {
-        listener?: ValueListenerCallback;
+    interface EventConfig<T> {
+        listener?: (event?: NativeSyntheticEvent<T>) => void;
         useNativeDriver?: boolean;
     }
 
@@ -8481,7 +8486,7 @@ export namespace Animated {
      *  ]),
      *```
      */
-    export function event(argMapping: Array<Mapping | null>, config?: EventConfig): (...args: any[]) => void;
+    export function event<T>(argMapping: Array<Mapping | null>, config?: EventConfig<T>): (...args: any[]) => void;
 
     /**
      * Make any React component Animatable.  Used to create `Animated.View`, etc.

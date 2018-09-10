@@ -1409,9 +1409,7 @@ declare namespace Sinon {
      *
      * @template TType Type being stubbed.
      */
-    interface StubbableType<TType> {
-        new(...args: any[]): TType;
-    }
+    type StubbableType<TType> = Function & { prototype: TType };
 
     /**
      * An instance of a stubbed object type with functions replaced by stubs.

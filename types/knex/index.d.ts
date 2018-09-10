@@ -1,7 +1,6 @@
 // Type definitions for Knex.js 0.14
 // Project: https://github.com/tgriesser/knex
 // Definitions by: Qubo <https://github.com/tkQubo>
-//                 Baronfel <https://github.com/baronfel>
 //                 Pablo Rodríguez <https://github.com/MeLlamoPablo>
 //                 Matt R. Wilson <https://github.com/mastermatt>
 //                 Satana Charuwichitratana <https://github.com/micksatana>
@@ -138,21 +137,25 @@ declare namespace Knex {
         limit(limit: number): QueryBuilder;
 
         // Aggregation
-        count(columnName?: string): QueryBuilder;
-        countDistinct(columnName?: string): QueryBuilder;
-        min(columnName: string): QueryBuilder;
-        max(columnName: string): QueryBuilder;
-        sum(columnName: string): QueryBuilder;
-        sumDistinct(columnName: string): QueryBuilder;
-        avg(columnName: string): QueryBuilder;
-        avgDistinct(columnName: string): QueryBuilder;
+        count(...columnNames: string[]): QueryBuilder;
+        count(columnName: Record<string, string | string[] | Knex.Raw> | Knex.Raw): QueryBuilder;
+        countDistinct(columnName: string | Record<string, string | Knex.Raw> | Knex.Raw): QueryBuilder;
+        min(columnName: string, ...columnNames: string[]): QueryBuilder;
+        min(columnName: Record<string, string | string[] | Knex.Raw> | Knex.Raw): QueryBuilder;
+        max(columnName: string, ...columnNames: string[]): QueryBuilder;
+        max(columnName: Record<string, string | string[] | Knex.Raw> | Knex.Raw): QueryBuilder;
+        sum(columnName: string, ...columnNames: string[]): QueryBuilder;
+        sum(columnName: Record<string, string | string[] | Knex.Raw> | Knex.Raw): QueryBuilder;
+        sumDistinct(columnName: string | Record<string, string | Knex.Raw> | Knex.Raw): QueryBuilder;
+        avg(columnName: string, ...columnNames: string[]): QueryBuilder;
+        avg(columnName: Record<string, string | string[] | Knex.Raw> | Knex.Raw): QueryBuilder;
+        avgDistinct(columnName: string | Record<string, string | Knex.Raw> | Knex.Raw): QueryBuilder;
         increment(columnName: string, amount?: number): QueryBuilder;
         decrement(columnName: string, amount?: number): QueryBuilder;
 
         // Others
         first: Select;
 
-        debug(enabled?: boolean): QueryBuilder;
         pluck(column: string): QueryBuilder;
 
         insert(data: any, returning?: string | string[]): QueryBuilder;
@@ -164,9 +167,6 @@ declare namespace Knex {
         del(returning?: string | string[]): QueryBuilder;
         delete(returning?: string | string[]): QueryBuilder;
         truncate(): QueryBuilder;
-
-        transacting(trx?: Transaction): QueryBuilder;
-        connection(connection: any): QueryBuilder;
 
         clone(): QueryBuilder;
     }
@@ -386,12 +386,14 @@ declare namespace Knex {
 
     interface ChainableInterface extends Bluebird<any> {
         toQuery(): string;
-        options(options: any): QueryBuilder;
-        stream(callback: (readable: stream.PassThrough) => any): Bluebird<any>;
+        options(options: { [key: string]: any }): this;
+        connection(connection: any): this;
+        debug(enabled: boolean): this;
+        transacting(trx: Transaction): this;
+        stream(handler: (readable: stream.PassThrough) => any): Bluebird<any>;
+        stream(options: { [key: string]: any }, handler: (readable: stream.PassThrough) => any): Bluebird<any>;
         stream(options?: { [key: string]: any }): stream.PassThrough;
-        stream(options: { [key: string]: any }, callback: (readable: stream.PassThrough) => any): Bluebird<any>;
-        pipe(writable: any): stream.PassThrough;
-        exec(callback: Function): QueryBuilder;
+        pipe<T extends NodeJS.WritableStream>(writable: T, options?: { [key: string]: any }): stream.PassThrough;
     }
 
     interface Transaction extends Knex {
@@ -404,7 +406,7 @@ declare namespace Knex {
     // Schema builder
     //
 
-    interface SchemaBuilder extends Bluebird<any> {
+    interface SchemaBuilder extends ChainableInterface {
         createTable(tableName: string, callback: (tableBuilder: CreateTableBuilder) => any): SchemaBuilder;
         createTableIfNotExists(tableName: string, callback: (tableBuilder: CreateTableBuilder) => any): SchemaBuilder;
         alterTable(tableName: string, callback: (tableBuilder: CreateTableBuilder) => any): SchemaBuilder;

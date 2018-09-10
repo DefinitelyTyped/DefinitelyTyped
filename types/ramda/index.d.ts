@@ -22,6 +22,7 @@
 //                 Maciek Blim <https://github.com/blimusiek>
 //                 Marcin Biernat <https://github.com/biern>
 //                 Rayhaneh Banyassady <https://github.com/rayhaneh>
+//                 Ryan McCuaig <https://github.com/rgm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -30,7 +31,7 @@ declare let R: R.Static;
 declare namespace R {
     type Omit<T, K extends string> = Pick<T, Exclude<keyof T, K>>;
 
-    type Ord = number | string | boolean;
+    type Ord = number | string | boolean | Date;
 
     type Path = ReadonlyArray<(number | string)>;
 

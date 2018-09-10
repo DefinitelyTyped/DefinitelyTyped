@@ -186,7 +186,8 @@ export class Quill implements EventEmitter {
     blur(): void;
     focus(): void;
     getBounds(index: number, length?: number): BoundsStatic;
-    getSelection(focus?: boolean): RangeStatic;
+    getSelection(focus: true): RangeStatic;
+    getSelection(focus?: false): RangeStatic | null;
     hasFocus(): boolean;
     setSelection(index: number, length: number, source?: Sources): void;
     setSelection(range: RangeStatic, source?: Sources): void;

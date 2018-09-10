@@ -977,6 +977,7 @@ declare module "http" {
         'transfer-encoding'?: string;
         'tk'?: string;
         'upgrade'?: string;
+        'user-agent'?: string;
         'vary'?: string;
         'via'?: string;
         'warning'?: string;

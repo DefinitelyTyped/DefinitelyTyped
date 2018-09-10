@@ -391,6 +391,12 @@
             "asOfVersion": "7.4.0"
         },
         {
+            "libraryName": "delay",
+            "typingsPackageName": "delay",
+            "sourceRepoURL": "https://github.com/sindresorhus/delay",
+            "asOfVersion": "3.1.0"
+        },
+        {
             "libraryName": "DevExtreme",
             "typingsPackageName": "devextreme",
             "sourceRepoURL": "http://js.devexpress.com/",
@@ -971,6 +977,12 @@
             "typingsPackageName": "mqtt",
             "sourceRepoURL": "https://github.com/mqttjs/MQTT.js",
             "asOfVersion": "2.5.0"
+        },
+        {
+            "libraryName": "nano",
+            "typingsPackageName": "nano",
+            "sourceRepoURL": "https://github.com/apache/couchdb-nano",
+            "asOfVersion": "7.0.0"
         },
         {
             "libraryName": "ng-table",

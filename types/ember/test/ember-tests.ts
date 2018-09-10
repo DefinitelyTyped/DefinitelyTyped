@@ -168,3 +168,6 @@ const component1 = Ember.Component.extend(mix1, mix2, {
     lyft: Ember.inject.service(),
     cars: Ember.computed.readOnly('lyft.cars'),
 });
+
+// make sure htmlSafe returns a SafeString
+Ember.String.htmlSafe("hello"); // $ExpectType SafeString

@@ -104,8 +104,8 @@ interface Point {
 }
 
 {
-    // hexbin.hexagon(radius) uses the current bin radius if radius is null
-    let path: string = d3Hexbin.hexbin().hexagon(null);
+    // hexbin.hexagon(radius) uses the current bin radius if radius is undefined
+    let path: string = d3Hexbin.hexbin().hexagon();
     path = d3Hexbin.hexbin().hexagon(undefined);
 }
 
@@ -144,6 +144,13 @@ interface Point {
     const path: string = d3Hexbin.hexbin().radius(0.5)
                          .extent([[-1.1, -1.1], [1.1, 1.1]])
                          .mesh();
+}
+
+{
+    // hexbin.size()
+    let size: [number, number] = [100, 100];
+    d3Hexbin.hexbin().size(size);
+    size = d3Hexbin.hexbin().size();
 }
 
 {

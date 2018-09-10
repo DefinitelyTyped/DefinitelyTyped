@@ -10,4 +10,4 @@ import { IntrospectionQuery, IntrospectionOptions } from "./introspectionQuery";
  * This is the inverse of buildClientSchema. The primary use case is outside
  * of the server context, for instance when doing schema comparisons.
  */
-export function introspectionFromSchema(schema: GraphQLSchema, options: IntrospectionOptions): IntrospectionQuery;
+export function introspectionFromSchema(schema: GraphQLSchema, options?: IntrospectionOptions): IntrospectionQuery;

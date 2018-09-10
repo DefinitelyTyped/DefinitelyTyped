@@ -596,6 +596,10 @@ class TextInputTest extends React.Component<{}, {username: string}> {
                     multiline
                     onContentSizeChange={this.handleOnContentSizeChange}
                 />
+
+                <TextInput
+                    contextMenuHidden={true}
+                />
             </View>
         );
     }
@@ -624,6 +628,7 @@ class WebViewTest extends React.Component {
                 originWhitelist={['https://origin.test']}
                 saveFormDataDisabled={false}
                 nativeConfig={{ component: 'test', props: {}, viewManager: {} }}
+                onShouldStartLoadWithRequest={(event) => event.navigationType !== 'formresubmit'}
             />
         );
     }

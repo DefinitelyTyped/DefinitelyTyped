@@ -5,6 +5,9 @@ async function run() {
     const server = new Server({ port: 8000 });
     await server.register(bell);
 
+    bell.simulate(async () => ({}));
+    bell.simulate(() => ({}));
+
     server.auth.strategy('arcgisonline', 'bell', {
         provider: 'twitter',
         password: 'some cookie password',
