@@ -1,3 +1,14 @@
+import {
+	Component,
+	Entity,
+	MultiPropertySchema,
+	System,
+	SystemDefinition,
+	THREE,
+	Geometry,
+	registerComponent
+} from 'aframe';
+
 // Global
 const threeCamera = new AFRAME.THREE.Camera();
 AFRAME.TWEEN.Easing;
@@ -16,7 +27,7 @@ entity.setAttribute('material', 'color', 'red');
 
 entity.components['geometry'].data;
 
-type MyEntity = AFrame.Entity<{
+type MyEntity = Entity<{
 	camera: THREE.Camera;
 	material: THREE.Material;
 	sound: { pause(): void };
@@ -33,29 +44,31 @@ entity.setAttribute('light', {
 	intensity: 2.0
 });
 
-entity.addEventListener('child-detached', (event) => {
+entity.addEventListener('child-detached', event => {
 	event.detail;
 });
 
 // Components
 
-interface TestComponent extends AFrame.Component {
-	multiply: (f: number) => number;
+// interface TestComponent extends Component {
+// 	multiply: (f: number) => number;
+//
+// 	data: {
+// 		myProperty: any[],
+// 		string: string,
+// 		num: number
+// 	};
+//
+// 	system: TestSystem;
+// }
 
-	data: {
-		myProperty: any[],
-		string: string,
-		num: number
-	};
-
-	system: TestSystem;
-}
-
-const Component = AFRAME.registerComponent<TestComponent>('test-component', {
+const Component = registerComponent('test-component', {
 	schema: {
 		myProperty: {
 			default: [],
-			parse() { return [true]; },
+			parse() {
+				return [true];
+			}
 		},
 		string: { type: 'string' },
 		num: 0
@@ -69,9 +82,9 @@ const Component = AFRAME.registerComponent<TestComponent>('test-component', {
 	pause() {},
 	play() {},
 
-	multiply(this: TestComponent, f: number) {
+	multiply(f: number) {
 		// Reference to system because both were registered with the same name.
-		return f * this.data.num * this.system.data.counter;
+		return f * this.data.num * this.system!.data.counter;
 	}
 });
 
@@ -81,13 +94,7 @@ scene.hasLoaded;
 
 // System
 
-interface TestSystem extends AFrame.System {
-	data: {
-		counter: number;
-	};
-}
-
-const testSystem: AFrame.SystemDefinition<TestSystem> = {
+const testSystem: SystemDefinition = {
 	schema: {
 		counter: 0
 	},
@@ -101,13 +108,7 @@ AFRAME.registerSystem('test-component', testSystem);
 
 // Register Custom Geometry
 
-interface TestGeometry extends AFrame.Geometry {
-	schema: AFrame.MultiPropertySchema<{
-		groupIndex: number;
-	}>;
-}
-
-AFRAME.registerGeometry<TestGeometry>('a-test-geometry', {
+AFRAME.registerGeometry('a-test-geometry', {
 	schema: {
 		groupIndex: { default: 0 }
 	},
