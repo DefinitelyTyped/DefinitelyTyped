@@ -1,4 +1,4 @@
-// Type definitions for AWS Lambda 8.11
+// Type definitions for AWS Lambda 8.10
 // Project: http://docs.aws.amazon.com/lambda
 // Definitions by: James Darbyshire <https://github.com/darbio/aws-lambda-typescript>
 //                 Michael Skarum <https://github.com/skarum>
@@ -562,6 +562,9 @@ export interface CodePipelineEvent {
 /**
  * CloudFront events
  * http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-event-structure.html
+ * Bear in mind that the "example" event structure in the page above includes
+ * both an S3 and a Custom origin, which is not strictly allowed. Only one
+ * of these per event may be present.
  */
 export interface CloudFrontHeaders {
     [name: string]: Array<{
@@ -570,10 +573,9 @@ export interface CloudFrontHeaders {
     }>;
 }
 
-export interface CloudFrontOrigin {
-    custom?: CloudFrontCustomOrigin;
-    s3?: CloudFrontS3Origin;
-}
+export type CloudFrontOrigin =
+    | { s3: CloudFrontS3Origin, custom?: never }
+    | { custom: CloudFrontCustomOrigin, s3?: never };
 
 export interface CloudFrontCustomOrigin {
     customHeaders: CloudFrontHeaders;
