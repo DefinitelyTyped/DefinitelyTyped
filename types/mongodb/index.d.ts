@@ -15,6 +15,7 @@
 //                 Geraldine Lemeur <https://github.com/geraldinelemeur>
 //                 Jimmy Shimizu <https://github.com/jishi>
 //                 Angela-1 <https://github.com/angela-1>
+//                 Matthew Duong <https://github.com/thegalah>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -63,9 +64,12 @@ export class MongoClient extends EventEmitter {
 }
 
 declare class ClientSession extends EventEmitter {
+    abortTransaction(): Promise<any>;
+    commitTransaction(): Promise<any>;
     endSession(callback?: MongoCallback<void>): void;
     endSession(options: any, callback?: MongoCallback<void>): void;
     equals(session: ClientSession): boolean;
+    startTransaction(options: object): void;
 }
 
 export interface MongoClientCommonOption {
