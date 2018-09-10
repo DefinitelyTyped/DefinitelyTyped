@@ -346,8 +346,8 @@ declare namespace R {
          * `chain` maps a function over a list and concatenates the results.
          * This implementation is compatible with the Fantasy-land Chain spec
          */
-        chain<T, U>(fn: (n: T) => U[], list: ReadonlyArray<T>): U[];
-        chain<T, U>(fn: (n: T) => U[]): (list: ReadonlyArray<T>) => U[];
+        chain<T, U>(fn: (n: T) => ReadonlyArray<U>, list: ReadonlyArray<T>): U[];
+        chain<T, U>(fn: (n: T) => ReadonlyArray<U>): (list: ReadonlyArray<T>) => U[];
 
         /**
          * Restricts a number to be within a range.
