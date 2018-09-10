@@ -1,9 +1,12 @@
 import * as Delaunator from 'delaunator';
-import { Points, GetPoint } from 'delaunator';
+
+// Zipped points [x0, y0, x1, y1, ...]
+const zippedPoints = [168, 180, 168, 178, 168, 179, 168, 181, 168, 183, 167, 183, 167, 184];
+const zipped = new Delaunator(zippedPoints);
 
 // Default [x, y]
-const points: Points = [[168, 180], [168, 178], [168, 179], [168, 181], [168, 183], [167, 183], [167, 184]];
-const d = new Delaunator(points);
+const defaultPoints = [[168, 180], [168, 178], [168, 179], [168, 181], [168, 183], [167, 183], [167, 184]];
+const d = Delaunator.from(defaultPoints);
 
 // Custom getX & getY
 interface CustomPoint {
@@ -15,17 +18,18 @@ const customPoints = [{x: 168, y: 180}, {x: 168, y: 178}, {x: 168, y: 179}, {x: 
 const getX = (point: CustomPoint) => point.x;
 const getY = (point: CustomPoint) => point.y;
 
-new Delaunator(customPoints, point => point.x, point => point.y);
-new Delaunator(customPoints, getX, getY);
+Delaunator.from(customPoints, point => point.x, point => point.y);
+Delaunator.from(customPoints, getX, getY);
 
 // To get the coordinates of all triangles, use:
 const triangles = d.triangles;
 const halfedges = d.halfedges;
+const hull = d.hull;
 const coordinates: number[][][] = [];
 for (let i = 0; i < triangles.length; i += 3) {
     coordinates.push([
-        points[triangles[i]],
-        points[triangles[i + 1]],
-        points[triangles[i + 2]]
+        defaultPoints[triangles[i]],
+        defaultPoints[triangles[i + 1]],
+        defaultPoints[triangles[i + 2]]
     ]);
 }
