@@ -1,6 +1,6 @@
-import * as React from "react-native";
+import * as React from "react";
 
-import { Animated, View } from "react-native";
+import { Animated, View, NativeSyntheticEvent, NativeScrollEvent } from "react-native";
 
 function TestAnimatedAPI() {
     // Value
@@ -62,6 +62,17 @@ function TestAnimatedAPI() {
     Animated.sequence([spring1, springXY]);
 
     Animated.stagger(100, [spring1, springXY]);
+
+    const listener = (e?: NativeSyntheticEvent<NativeScrollEvent>) => {
+        if (e) {
+            console.warn(e.nativeEvent.contentOffset.y);
+        }
+    };
+
+    Animated.event(
+        [{ nativeEvent: { contentOffset: { y: v1 } } }],
+        { useNativeDriver: true, listener },
+    );
 
     return (
         <View>
