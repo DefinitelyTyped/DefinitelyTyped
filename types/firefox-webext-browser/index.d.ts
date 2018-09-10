@@ -2,7 +2,7 @@
 // Project: https://developer.mozilla.org/en-US/Add-ons/WebExtensions
 // Definitions by: Jacob Bom <https://github.com/bomjacob>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.9
 // Generated using script at github.com/bomjacob/definitelytyped-firefox-webext-browser
 
 interface WebExtEventBase<TAddListener extends (...args: any[]) => any, TCallback> {
@@ -434,114 +434,102 @@ declare namespace browser._manifest {
 
     type KeyName = string;
 
-    enum _OptionalPermission {
-        browserSettings = "browserSettings",
-        cookies = "cookies",
-        clipboardRead = "clipboardRead",
-        clipboardWrite = "clipboardWrite",
-        geolocation = "geolocation",
-        idle = "idle",
-        notifications = "notifications",
-        topSites = "topSites",
-        webNavigation = "webNavigation",
-        webRequest = "webRequest",
-        webRequestBlocking = "webRequestBlocking",
-        bookmarks = "bookmarks",
-        find = "find",
-        history = "history",
-        activeTab = "activeTab",
-        tabs = "tabs"
-    }
+    type _OptionalPermission =
+          "browserSettings"
+        | "cookies"
+        | "clipboardRead"
+        | "clipboardWrite"
+        | "geolocation"
+        | "idle"
+        | "notifications"
+        | "topSites"
+        | "webNavigation"
+        | "webRequest"
+        | "webRequestBlocking"
+        | "bookmarks"
+        | "find"
+        | "history"
+        | "activeTab"
+        | "tabs";
 
-    enum _Permission {
-        contextualIdentities = "contextualIdentities",
-        downloads = "downloads",
-        downloadsopen = "downloads.open",
-        identity = "identity",
-        management = "management",
-        alarms = "alarms",
-        mozillaAddons = "mozillaAddons",
-        storage = "storage",
-        unlimitedStorage = "unlimitedStorage",
-        privacy = "privacy",
-        proxy = "proxy",
-        nativeMessaging = "nativeMessaging",
-        theme = "theme",
-        browsingData = "browsingData",
-        devtools = "devtools",
-        geckoProfiler = "geckoProfiler",
-        menus = "menus",
-        contextMenus = "contextMenus",
-        pkcs11 = "pkcs11",
-        sessions = "sessions"
-    }
+    type _Permission =
+          "contextualIdentities"
+        | "downloads"
+        | "downloads.open"
+        | "identity"
+        | "management"
+        | "alarms"
+        | "mozillaAddons"
+        | "storage"
+        | "unlimitedStorage"
+        | "privacy"
+        | "proxy"
+        | "nativeMessaging"
+        | "theme"
+        | "browsingData"
+        | "devtools"
+        | "geckoProfiler"
+        | "menus"
+        | "contextMenus"
+        | "pkcs11"
+        | "sessions";
 
-    enum _ProtocolHandlerProtocol {
-        bitcoin = "bitcoin",
-        geo = "geo",
-        gopher = "gopher",
-        im = "im",
-        irc = "irc",
-        ircs = "ircs",
-        magnet = "magnet",
-        mailto = "mailto",
-        mms = "mms",
-        news = "news",
-        nntp = "nntp",
-        sip = "sip",
-        sms = "sms",
-        smsto = "smsto",
-        ssh = "ssh",
-        tel = "tel",
-        urn = "urn",
-        webcal = "webcal",
-        wtai = "wtai",
-        xmpp = "xmpp"
-    }
+    type _ProtocolHandlerProtocol =
+          "bitcoin"
+        | "geo"
+        | "gopher"
+        | "im"
+        | "irc"
+        | "ircs"
+        | "magnet"
+        | "mailto"
+        | "mms"
+        | "news"
+        | "nntp"
+        | "sip"
+        | "sms"
+        | "smsto"
+        | "ssh"
+        | "tel"
+        | "urn"
+        | "webcal"
+        | "wtai"
+        | "xmpp";
 
-    enum _WebExtensionManifestIncognito {
-        spanning = "spanning"
-    }
+    type _WebExtensionManifestIncognito = "spanning";
 
     /** Defines the location the browserAction will appear by default. The default location is navbar. */
-    enum _WebExtensionManifestBrowserActionDefaultArea {
-        navbar = "navbar",
-        menupanel = "menupanel",
-        tabstrip = "tabstrip",
-        personaltoolbar = "personaltoolbar"
-    }
+    type _WebExtensionManifestBrowserActionDefaultArea =
+          "navbar"
+        | "menupanel"
+        | "tabstrip"
+        | "personaltoolbar";
 
-    enum _MatchPattern {
-        all_urls = "<all_urls>"
-    }
+    type _MatchPattern = "<all_urls>";
 
-    enum _MatchPatternInternal {
-        all_urls = "<all_urls>"
-    }
+    type _MatchPatternInternal = "<all_urls>";
 
-    enum _ThemeTypeAdditionalBackgroundsAlignment {
-        bottom = "bottom",
-        center = "center",
-        left = "left",
-        right = "right",
-        top = "top",
-        centerbottom = "center bottom",
-        centercenter = "center center",
-        centertop = "center top",
-        leftbottom = "left bottom",
-        leftcenter = "left center",
-        lefttop = "left top",
-        rightbottom = "right bottom",
-        rightcenter = "right center",
-        righttop = "right top"
-    }
+    type _ThemeTypeAdditionalBackgroundsAlignment =
+          "bottom"
+        | "center"
+        | "left"
+        | "right"
+        | "top"
+        | "center bottom"
+        | "center center"
+        | "center top"
+        | "left bottom"
+        | "left center"
+        | "left top"
+        | "right bottom"
+        | "right center"
+        | "right top";
 
-    enum _ThemeTypeAdditionalBackgroundsTiling {
-        norepeat = "no-repeat",
-        repeat = "repeat",
-        repeatx = "repeat-x",
-        repeaty = "repeat-y"
-    }
+    type _ThemeTypeAdditionalBackgroundsTiling =
+          "no-repeat"
+        | "repeat"
+        | "repeat-x"
+        | "repeat-y";
 }
 
 /**
@@ -555,11 +543,10 @@ declare namespace browser.browserSettings {
     /* browserSettings types */
 
     /** How images should be animated in the browser. */
-    enum ImageAnimationBehavior {
-        normal = "normal",
-        none = "none",
-        once = "once"
-    }
+    type ImageAnimationBehavior =
+          "normal"
+        | "none"
+        | "once";
 
     /* browserSettings properties */
     /** Allows or disallows pop-up windows from opening in response to user events. */
@@ -596,10 +583,7 @@ declare namespace browser.clipboard {
     type ArrayBuffer = any;
 
     /** The type of imageData. */
-    enum _SetImageData {
-        jpeg = "jpeg",
-        png = "png"
-    }
+    type _SetImageData = "jpeg" | "png";
 
     /* clipboard functions */
     /**
@@ -766,13 +750,12 @@ declare namespace browser.cookies {
      * will be "evicted". If a cookie was automatically removed due to a "set" call that overwrote it, "cause" will be
      * "overwrite". Plan your response accordingly.
      */
-    enum OnChangedCause {
-        evicted = "evicted",
-        expired = "expired",
-        explicit = "explicit",
-        expired_overwrite = "expired_overwrite",
-        overwrite = "overwrite"
-    }
+    type OnChangedCause =
+         "evicted"
+        | "expired"
+        | "explicit"
+        | "expired_overwrite"
+        | "overwrite";
 
     /* cookies functions */
     /**
@@ -911,38 +894,36 @@ declare namespace browser.cookies {
  */
 declare namespace browser.downloads {
     /* downloads types */
-    enum FilenameConflictAction {
-        uniquify = "uniquify",
-        overwrite = "overwrite",
-        prompt = "prompt"
-    }
+    type FilenameConflictAction =
+          "uniquify"
+        | "overwrite"
+        | "prompt";
 
-    enum InterruptReason {
-        FILE_FAILED = "FILE_FAILED",
-        FILE_ACCESS_DENIED = "FILE_ACCESS_DENIED",
-        FILE_NO_SPACE = "FILE_NO_SPACE",
-        FILE_NAME_TOO_LONG = "FILE_NAME_TOO_LONG",
-        FILE_TOO_LARGE = "FILE_TOO_LARGE",
-        FILE_VIRUS_INFECTED = "FILE_VIRUS_INFECTED",
-        FILE_TRANSIENT_ERROR = "FILE_TRANSIENT_ERROR",
-        FILE_BLOCKED = "FILE_BLOCKED",
-        FILE_SECURITY_CHECK_FAILED = "FILE_SECURITY_CHECK_FAILED",
-        FILE_TOO_SHORT = "FILE_TOO_SHORT",
-        NETWORK_FAILED = "NETWORK_FAILED",
-        NETWORK_TIMEOUT = "NETWORK_TIMEOUT",
-        NETWORK_DISCONNECTED = "NETWORK_DISCONNECTED",
-        NETWORK_SERVER_DOWN = "NETWORK_SERVER_DOWN",
-        NETWORK_INVALID_REQUEST = "NETWORK_INVALID_REQUEST",
-        SERVER_FAILED = "SERVER_FAILED",
-        SERVER_NO_RANGE = "SERVER_NO_RANGE",
-        SERVER_BAD_CONTENT = "SERVER_BAD_CONTENT",
-        SERVER_UNAUTHORIZED = "SERVER_UNAUTHORIZED",
-        SERVER_CERT_PROBLEM = "SERVER_CERT_PROBLEM",
-        SERVER_FORBIDDEN = "SERVER_FORBIDDEN",
-        USER_CANCELED = "USER_CANCELED",
-        USER_SHUTDOWN = "USER_SHUTDOWN",
-        CRASH = "CRASH"
-    }
+    type InterruptReason =
+          "FILE_FAILED"
+        | "FILE_ACCESS_DENIED"
+        | "FILE_NO_SPACE"
+        | "FILE_NAME_TOO_LONG"
+        | "FILE_TOO_LARGE"
+        | "FILE_VIRUS_INFECTED"
+        | "FILE_TRANSIENT_ERROR"
+        | "FILE_BLOCKED"
+        | "FILE_SECURITY_CHECK_FAILED"
+        | "FILE_TOO_SHORT"
+        | "NETWORK_FAILED"
+        | "NETWORK_TIMEOUT"
+        | "NETWORK_DISCONNECTED"
+        | "NETWORK_SERVER_DOWN"
+        | "NETWORK_INVALID_REQUEST"
+        | "SERVER_FAILED"
+        | "SERVER_NO_RANGE"
+        | "SERVER_BAD_CONTENT"
+        | "SERVER_UNAUTHORIZED"
+        | "SERVER_CERT_PROBLEM"
+        | "SERVER_FORBIDDEN"
+        | "USER_CANCELED"
+        | "USER_SHUTDOWN"
+        | "CRASH";
 
     /**
      * *file*:
@@ -958,16 +939,15 @@ declare namespace browser.downloads {
      *
      * These string constants will never change, however the set of DangerTypes may change.
      */
-    enum DangerType {
-        file = "file",
-        url = "url",
-        content = "content",
-        uncommon = "uncommon",
-        host = "host",
-        unwanted = "unwanted",
-        safe = "safe",
-        accepted = "accepted"
-    }
+    type DangerType =
+          "file"
+        | "url"
+        | "content"
+        | "uncommon"
+        | "host"
+        | "unwanted"
+        | "safe"
+        | "accepted";
 
     /**
      * *in_progress*:
@@ -979,11 +959,10 @@ declare namespace browser.downloads {
      *
      * These string constants will never change, however the set of States may change.
      */
-    enum State {
-        in_progress = "in_progress",
-        interrupted = "interrupted",
-        complete = "complete"
-    }
+    type State =
+          "in_progress"
+        | "interrupted"
+        | "complete";
 
     interface DownloadItem {
         /** An identifier that is persistent across browser sessions. */
@@ -1106,10 +1085,9 @@ declare namespace browser.downloads {
     }
 
     /** The HTTP method to use if the URL uses the HTTP[S] protocol. */
-    enum _DownloadMethod {
-        GET = "GET",
-        POST = "POST"
-    }
+    type _DownloadMethod =
+          "GET"
+        | "POST";
 
     /* downloads functions */
     /**
@@ -1431,11 +1409,10 @@ declare namespace browser.extension {
     /* extension types */
 
     /** The type of extension view. */
-    enum ViewType {
-        tab = "tab",
-        popup = "popup",
-        sidebar = "sidebar"
-    }
+    type ViewType =
+          "tab"
+        | "popup"
+        | "sidebar";
 
     /* extension properties */
     /**
@@ -1532,10 +1509,9 @@ declare namespace browser.extensionTypes {
     /* extensionTypes types */
 
     /** The format of an image. */
-    enum ImageFormat {
-        jpeg = "jpeg",
-        png = "png"
-    }
+    type ImageFormat =
+          "jpeg"
+        | "png";
 
     /** Details about the format and quality of an image. */
     interface ImageDetails {
@@ -1550,17 +1526,15 @@ declare namespace browser.extensionTypes {
     }
 
     /** The soonest that the JavaScript or CSS will be injected into the tab. */
-    enum RunAt {
-        document_start = "document_start",
-        document_end = "document_end",
-        document_idle = "document_idle"
-    }
+    type RunAt =
+          "document_start"
+        | "document_end"
+        | "document_idle";
 
     /** The origin of the CSS to inject, this affects the cascading order (priority) of the stylesheet. */
-    enum CSSOrigin {
-        user = "user",
-        author = "author"
-    }
+    type CSSOrigin =
+          "user"
+        | "author";
 
     /**
      * Details of the script or CSS to inject. Either the code or the file property must be set, but both may not be
@@ -1732,10 +1706,9 @@ declare namespace browser.identity {
  */
 declare namespace browser.idle {
     /* idle types */
-    enum IdleState {
-        active = "active",
-        idle = "idle"
-    }
+    type IdleState =
+          "active"
+        | "idle";
 
     /* idle functions */
     /**
@@ -1783,16 +1756,14 @@ declare namespace browser.management {
     }
 
     /** A reason the item is disabled. */
-    enum ExtensionDisabledReason {
-        unknown = "unknown",
-        permissions_increase = "permissions_increase"
-    }
+    type ExtensionDisabledReason =
+          "unknown"
+        | "permissions_increase";
 
     /** The type of this extension. Will always be 'extension'. */
-    enum ExtensionType {
-        extension = "extension",
-        theme = "theme"
-    }
+    type ExtensionType =
+          "extension"
+        | "theme";
 
     /**
      * How the extension was installed. One of
@@ -1801,12 +1772,11 @@ declare namespace browser.management {
      * `sideload`: The extension was installed by other software on the machine,
      * `other`: The extension was installed by other means.
      */
-    enum ExtensionInstallType {
-        development = "development",
-        normal = "normal",
-        sideload = "sideload",
-        other = "other"
-    }
+    type ExtensionInstallType =
+          "development"
+        | "normal"
+        | "sideload"
+        | "other";
 
     /** Information about an installed extension. */
     interface ExtensionInfo {
@@ -1906,17 +1876,15 @@ declare namespace browser.management {
  */
 declare namespace browser.notifications {
     /* notifications types */
-    enum TemplateType {
-        basic = "basic",
-        image = "image",
-        list = "list",
-        progress = "progress"
-    }
+    type TemplateType =
+          "basic"
+        | "image"
+        | "list"
+        | "progress";
 
-    enum PermissionLevel {
-        granted = "granted",
-        denied = "denied"
-    }
+    type PermissionLevel =
+          "granted"
+        | "denied";
 
     interface NotificationItem {
         /** Title of one item of a list notification. */
@@ -2145,12 +2113,11 @@ declare namespace browser.privacy.network {
     /* privacy.network types */
 
     /** The IP handling policy of WebRTC. */
-    enum IPHandlingPolicy {
-        default = "default",
-        default_public_and_private_interfaces = "default_public_and_private_interfaces",
-        default_public_interface_only = "default_public_interface_only",
-        disable_non_proxied_udp = "disable_non_proxied_udp"
-    }
+    type IPHandlingPolicy =
+          "default"
+        | "default_public_and_private_interfaces"
+        | "default_public_interface_only"
+        | "disable_non_proxied_udp";
 
     /* privacy.network properties */
     /**
@@ -2198,11 +2165,10 @@ declare namespace browser.privacy.websites {
     /* privacy.websites types */
 
     /** The mode for tracking protection. */
-    enum TrackingProtectionModeOption {
-        always = "always",
-        never = "never",
-        private_browsing = "private_browsing"
-    }
+    type TrackingProtectionModeOption =
+          "always"
+        | "never"
+        | "private_browsing";
 
     /* privacy.websites properties */
     /**
@@ -2333,21 +2299,19 @@ declare namespace browser.runtime {
     }
 
     /** The operating system the browser is running on. */
-    enum PlatformOs {
-        mac = "mac",
-        win = "win",
-        android = "android",
-        cros = "cros",
-        linux = "linux",
-        openbsd = "openbsd"
-    }
+    type PlatformOs =
+          "mac"
+        | "win"
+        | "android"
+        | "cros"
+        | "linux"
+        | "openbsd";
 
     /** The machine's processor architecture. */
-    enum PlatformArch {
-        arm = "arm",
-        x8632 = "x86-32",
-        x8664 = "x86-64"
-    }
+    type PlatformArch =
+          "arm"
+        | "x86-32"
+        | "x86-64";
 
     /** An object containing information about the current platform. */
     interface PlatformInfo {
@@ -2375,18 +2339,16 @@ declare namespace browser.runtime {
     }
 
     /** Result of the update check. */
-    enum RequestUpdateCheckStatus {
-        throttled = "throttled",
-        no_update = "no_update",
-        update_available = "update_available"
-    }
+    type RequestUpdateCheckStatus =
+          "throttled"
+        | "no_update"
+        | "update_available";
 
     /** The reason that this event is being dispatched. */
-    enum OnInstalledReason {
-        install = "install",
-        update = "update",
-        browser_update = "browser_update"
-    }
+    type OnInstalledReason =
+          "install"
+        | "update"
+        | "browser_update";
 
     /**
      * The reason that the event is being dispatched. 'app_update' is used when the restart is needed because the
@@ -2394,11 +2356,10 @@ declare namespace browser.runtime {
      * is updated to a newer version. 'periodic' is used when the system runs for more than the permitted uptime set in
      * the enterprise policy.
      */
-    enum OnRestartRequiredReason {
-        app_update = "app_update",
-        os_update = "os_update",
-        periodic = "periodic"
-    }
+    type OnRestartRequiredReason =
+          "app_update"
+        | "os_update"
+        | "periodic";
 
     type PlatformNaclArch = any;
 
@@ -2834,12 +2795,11 @@ declare namespace browser.types {
      *
      * Only `regular` is supported by Firefox at this time.
      */
-    enum SettingScope {
-        regular = "regular",
-        regular_only = "regular_only",
-        incognito_persistent = "incognito_persistent",
-        incognito_session_only = "incognito_session_only"
-    }
+    type SettingScope =
+          "regular"
+        | "regular_only"
+        | "incognito_persistent"
+        | "incognito_session_only";
 
     /**
      * One of
@@ -2849,12 +2809,11 @@ declare namespace browser.types {
      * *   `controllable_by_this_extension`: can be controlled by this extension
      * *   `controlled_by_this_extension`: controlled by this extension
      */
-    enum LevelOfControl {
-        not_controllable = "not_controllable",
-        controlled_by_other_extensions = "controlled_by_other_extensions",
-        controllable_by_this_extension = "controllable_by_this_extension",
-        controlled_by_this_extension = "controlled_by_this_extension"
-    }
+    type LevelOfControl =
+          "not_controllable"
+        | "controlled_by_other_extensions"
+        | "controllable_by_this_extension"
+        | "controlled_by_this_extension";
 
     interface Setting {
         /**
@@ -2934,26 +2893,24 @@ declare namespace browser.webNavigation {
      * transition types as defined in the history API except with `"start_page"` in place of `"auto_toplevel"` (for
      * backwards compatibility).
      */
-    enum TransitionType {
-        link = "link",
-        typed = "typed",
-        auto_bookmark = "auto_bookmark",
-        auto_subframe = "auto_subframe",
-        manual_subframe = "manual_subframe",
-        generated = "generated",
-        start_page = "start_page",
-        form_submit = "form_submit",
-        reload = "reload",
-        keyword = "keyword",
-        keyword_generated = "keyword_generated"
-    }
+    type TransitionType =
+          "link"
+        | "typed"
+        | "auto_bookmark"
+        | "auto_subframe"
+        | "manual_subframe"
+        | "generated"
+        | "start_page"
+        | "form_submit"
+        | "reload"
+        | "keyword"
+        | "keyword_generated";
 
-    enum TransitionQualifier {
-        client_redirect = "client_redirect",
-        server_redirect = "server_redirect",
-        forward_back = "forward_back",
-        from_address_bar = "from_address_bar"
-    }
+    type TransitionQualifier =
+          "client_redirect"
+        | "server_redirect"
+        | "forward_back"
+        | "from_address_bar";
 
     interface EventUrlFilters {
         url: events.UrlFilter[];
@@ -3263,65 +3220,52 @@ declare namespace browser.webNavigation {
  */
 declare namespace browser.webRequest {
     /* webRequest types */
-    enum ResourceType {
-        main_frame = "main_frame",
-        sub_frame = "sub_frame",
-        stylesheet = "stylesheet",
-        script = "script",
-        image = "image",
-        object = "object",
-        object_subrequest = "object_subrequest",
-        xmlhttprequest = "xmlhttprequest",
-        xbl = "xbl",
-        xslt = "xslt",
-        ping = "ping",
-        beacon = "beacon",
-        xml_dtd = "xml_dtd",
-        font = "font",
-        media = "media",
-        websocket = "websocket",
-        csp_report = "csp_report",
-        imageset = "imageset",
-        web_manifest = "web_manifest",
-        other = "other"
-    }
+    type ResourceType =
+          "main_frame"
+        | "sub_frame"
+        | "stylesheet"
+        | "script"
+        | "image"
+        | "object"
+        | "object_subrequest"
+        | "xmlhttprequest"
+        | "xbl"
+        | "xslt"
+        | "ping"
+        | "beacon"
+        | "xml_dtd"
+        | "font"
+        | "media"
+        | "websocket"
+        | "csp_report"
+        | "imageset"
+        | "web_manifest"
+        | "other";
 
-    enum OnBeforeRequestOptions {
-        blocking = "blocking",
-        requestBody = "requestBody"
-    }
+    type OnBeforeRequestOptions =
+          "blocking"
+        | "requestBody";
 
-    enum OnBeforeSendHeadersOptions {
-        requestHeaders = "requestHeaders",
-        blocking = "blocking"
-    }
+    type OnBeforeSendHeadersOptions =
+          "requestHeaders"
+        | "blocking";
 
-    enum OnSendHeadersOptions {
-        requestHeaders = "requestHeaders"
-    }
+    type OnSendHeadersOptions = "requestHeaders";
 
-    enum OnHeadersReceivedOptions {
-        blocking = "blocking",
-        responseHeaders = "responseHeaders"
-    }
+    type OnHeadersReceivedOptions =
+          "blocking"
+        | "responseHeaders";
 
-    enum OnAuthRequiredOptions {
-        responseHeaders = "responseHeaders",
-        blocking = "blocking",
-        asyncBlocking = "asyncBlocking"
-    }
+    type OnAuthRequiredOptions =
+          "responseHeaders"
+        | "blocking"
+        | "asyncBlocking";
 
-    enum OnResponseStartedOptions {
-        responseHeaders = "responseHeaders"
-    }
+    type OnResponseStartedOptions = "responseHeaders";
 
-    enum OnBeforeRedirectOptions {
-        responseHeaders = "responseHeaders"
-    }
+    type OnBeforeRedirectOptions = "responseHeaders";
 
-    enum OnCompletedOptions {
-        responseHeaders = "responseHeaders"
-    }
+    type OnCompletedOptions = "responseHeaders";
 
     /** An object describing filters to apply to webRequest events. */
     interface RequestFilter {
@@ -3860,16 +3804,10 @@ declare namespace browser.bookmarks {
      * by the system administrator or by the custodian of a supervised user. Omitted if the node can be modified by the
      * user and the extension (default).
      */
-    enum BookmarkTreeNodeUnmodifiable {
-        managed = "managed"
-    }
+    type BookmarkTreeNodeUnmodifiable = "managed";
 
     /** Indicates the type of a BookmarkTreeNode, which can be one of bookmark, folder or separator. */
-    enum BookmarkTreeNodeType {
-        bookmark = "bookmark",
-        folder = "folder",
-        separator = "separator"
-    }
+    type BookmarkTreeNodeType = "bookmark" | "folder" | "separator";
 
     /**
      * A node (either a bookmark or a folder) in the bookmark tree. Child nodes are ordered within their parent folder.
@@ -4756,18 +4694,17 @@ declare namespace browser.find {
  */
 declare namespace browser.geckoProfiler {
     /* geckoProfiler types */
-    enum ProfilerFeature {
-        java = "java",
-        js = "js",
-        leaf = "leaf",
-        mainthreadio = "mainthreadio",
-        memory = "memory",
-        privacy = "privacy",
-        restyle = "restyle",
-        stackwalk = "stackwalk",
-        tasktracer = "tasktracer",
-        threads = "threads"
-    }
+    type ProfilerFeature =
+          "java"
+        | "js"
+        | "leaf"
+        | "mainthreadio"
+        | "memory"
+        | "privacy"
+        | "restyle"
+        | "stackwalk"
+        | "tasktracer"
+        | "threads";
 
     /* geckoProfiler functions */
     /** Starts the profiler with the specified settings. */
@@ -4833,19 +4770,18 @@ declare namespace browser.history {
     /* history types */
 
     /** The transition type for this visit from its referrer. */
-    enum TransitionType {
-        link = "link",
-        typed = "typed",
-        auto_bookmark = "auto_bookmark",
-        auto_subframe = "auto_subframe",
-        manual_subframe = "manual_subframe",
-        generated = "generated",
-        auto_toplevel = "auto_toplevel",
-        form_submit = "form_submit",
-        reload = "reload",
-        keyword = "keyword",
-        keyword_generated = "keyword_generated"
-    }
+    type TransitionType =
+          "link"
+        | "typed"
+        | "auto_bookmark"
+        | "auto_subframe"
+        | "manual_subframe"
+        | "generated"
+        | "auto_toplevel"
+        | "form_submit"
+        | "reload"
+        | "keyword"
+        | "keyword_generated";
 
     /** An object encapsulating one result of a history query. */
     interface HistoryItem {
@@ -4976,30 +4912,28 @@ declare namespace browser.contextMenus {
      * The different contexts a menu can appear in. Specifying 'all' is equivalent to the combination of all other
      * contexts except for 'tab' and 'tools_menu'.
      */
-    enum ContextType {
-        all = "all",
-        page = "page",
-        frame = "frame",
-        selection = "selection",
-        link = "link",
-        editable = "editable",
-        password = "password",
-        image = "image",
-        video = "video",
-        audio = "audio",
-        launcher = "launcher",
-        browser_action = "browser_action",
-        page_action = "page_action",
-        tab = "tab"
-    }
+    type ContextType =
+          "all"
+        | "page"
+        | "frame"
+        | "selection"
+        | "link"
+        | "editable"
+        | "password"
+        | "image"
+        | "video"
+        | "audio"
+        | "launcher"
+        | "browser_action"
+        | "page_action"
+        | "tab";
 
     /** The type of menu item. */
-    enum ItemType {
-        normal = "normal",
-        checkbox = "checkbox",
-        radio = "radio",
-        separator = "separator"
-    }
+    type ItemType =
+          "normal"
+        | "checkbox"
+        | "radio"
+        | "separator";
 
     /** Information sent when a context menu item is clicked. */
     interface OnClickData {
@@ -5036,13 +4970,12 @@ declare namespace browser.contextMenus {
         modifiers: _OnClickDataModifiers[];
     }
 
-    enum _OnClickDataModifiers {
-        Shift = "Shift",
-        Alt = "Alt",
-        Command = "Command",
-        Ctrl = "Ctrl",
-        MacCtrl = "MacCtrl"
-    }
+    type _OnClickDataModifiers =
+          "Shift"
+        | "Alt"
+        | "Command"
+        | "Ctrl"
+        | "MacCtrl";
 
     /* contextMenus properties */
     /**
@@ -5169,31 +5102,29 @@ declare namespace browser.menus {
      * The different contexts a menu can appear in. Specifying 'all' is equivalent to the combination of all other
      * contexts except for 'tab' and 'tools_menu'.
      */
-    enum ContextType {
-        all = "all",
-        page = "page",
-        frame = "frame",
-        selection = "selection",
-        link = "link",
-        editable = "editable",
-        password = "password",
-        image = "image",
-        video = "video",
-        audio = "audio",
-        launcher = "launcher",
-        browser_action = "browser_action",
-        page_action = "page_action",
-        tab = "tab",
-        tools_menu = "tools_menu"
-    }
+    type ContextType =
+          "all"
+        | "page"
+        | "frame"
+        | "selection"
+        | "link"
+        | "editable"
+        | "password"
+        | "image"
+        | "video"
+        | "audio"
+        | "launcher"
+        | "browser_action"
+        | "page_action"
+        | "tab"
+        | "tools_menu";
 
     /** The type of menu item. */
-    enum ItemType {
-        normal = "normal",
-        checkbox = "checkbox",
-        radio = "radio",
-        separator = "separator"
-    }
+    type ItemType =
+          "normal"
+        | "checkbox"
+        | "radio"
+        | "separator";
 
     /** Information sent when a context menu item is clicked. */
     interface OnClickData {
@@ -5230,13 +5161,12 @@ declare namespace browser.menus {
         modifiers: _OnClickDataModifiers[];
     }
 
-    enum _OnClickDataModifiers {
-        Shift = "Shift",
-        Alt = "Alt",
-        Command = "Command",
-        Ctrl = "Ctrl",
-        MacCtrl = "MacCtrl"
-    }
+    type _OnClickDataModifiers =
+          "Shift"
+        | "Alt"
+        | "Command"
+        | "Ctrl"
+        | "MacCtrl";
 
     /* menus properties */
     /**
@@ -5399,22 +5329,20 @@ declare namespace browser.omnibox {
     /* omnibox types */
 
     /** The style type. */
-    enum DescriptionStyleType {
-        url = "url",
-        match = "match",
-        dim = "dim"
-    }
+    type DescriptionStyleType =
+          "url"
+        | "match"
+        | "dim";
 
     /**
      * The window disposition for the omnibox query. This is the recommended context to display results. For example,
      * if the omnibox command is to navigate to a certain URL, a disposition of 'newForegroundTab' means the navigation
      * should take place in a new selected tab.
      */
-    enum OnInputEnteredDisposition {
-        currentTab = "currentTab",
-        newForegroundTab = "newForegroundTab",
-        newBackgroundTab = "newBackgroundTab"
-    }
+    type OnInputEnteredDisposition =
+          "currentTab"
+        | "newForegroundTab"
+        | "newBackgroundTab";
 
     /** A suggest result. */
     interface SuggestResult {
@@ -5843,14 +5771,13 @@ declare namespace browser.tabs {
     /* tabs types */
 
     /** An event that caused a muted state change. */
-    enum MutedInfoReason {
+    type MutedInfoReason =
         /** A user input action has set/overridden the muted state. */
-        user = "user",
-        /** Tab capture started, forcing a muted state change. */
-        capture = "capture",
-        /** An extension, identified by the extensionId field, set the muted state. */
-        extension = "extension"
-    }
+          "user"
+/** Tab capture started, forcing a muted state change. */
+        | "capture"
+/** An extension, identified by the extensionId field, set the muted state. */
+        | "extension";
 
     /** Tab muted state and the reason for the last state change. */
     interface MutedInfo {
@@ -5942,41 +5869,39 @@ declare namespace browser.tabs {
      * Defines how zoom changes are handled, i.e. which entity is responsible for the actual scaling of the page;
      * defaults to `automatic`.
      */
-    enum ZoomSettingsMode {
+    type ZoomSettingsMode =
         /** Zoom changes are handled automatically by the browser. */
-        automatic = "automatic",
+          "automatic"
         /**
          * Overrides the automatic handling of zoom changes. The `onZoomChange` event will still be dispatched, and it
          * is the responsibility of the extension to listen for this event and manually scale the page. This mode does
          * not support `per-origin` zooming, and will thus ignore the `scope` zoom setting and assume `per-tab`.
          */
-        manual = "manual",
+        | "manual"
         /**
          * Disables all zooming in the tab. The tab will revert to the default zoom level, and all attempted zoom
          * changes will be ignored.
          */
-        disabled = "disabled"
-    }
+        | "disabled";
 
     /**
      * Defines whether zoom changes will persist for the page's origin, or only take effect in this tab; defaults to
      * `per-origin` when in `automatic` mode, and `per-tab` otherwise.
      */
-    enum ZoomSettingsScope {
+    type ZoomSettingsScope =
         /**
          * Zoom changes will persist in the zoomed page's origin, i.e. all other tabs navigated to that same origin
          * will be zoomed as well. Moreover, `per-origin` zoom changes are saved with the origin, meaning that when
          * navigating to other pages in the same origin, they will all be zoomed to the same zoom factor. The
          * `per-origin` scope is only available in the `automatic` mode.
          */
-        perorigin = "per-origin",
+        | "per-origin"
         /**
          * Zoom changes only take effect in this tab, and zoom changes in other tabs will not affect the zooming of
          * this tab. Also, `per-tab` zoom changes are reset on navigation; navigating a tab will always load pages with
          * their `per-origin` zoom factors.
          */
-        pertab = "per-tab"
-    }
+        | "per-tab";
 
     /** Defines how zoom changes in a tab are handled and at what scope. */
     interface ZoomSettings {
@@ -6035,19 +5960,17 @@ declare namespace browser.tabs {
     }
 
     /** Whether the tabs have completed loading. */
-    enum TabStatus {
-        loading = "loading",
-        complete = "complete"
-    }
+    type TabStatus =
+          "loading"
+        | "complete";
 
     /** The type of window. */
-    enum WindowType {
-        normal = "normal",
-        popup = "popup",
-        panel = "panel",
-        app = "app",
-        devtools = "devtools"
-    }
+    type WindowType =
+          "normal"
+        | "popup"
+        | "panel"
+        | "app"
+        | "devtools";
 
     /* tabs properties */
     /** An ID which represents the absence of a browser tab. */
@@ -6549,25 +6472,18 @@ declare namespace browser.windows {
      * The type of browser window this is. Under some circumstances a Window may not be assigned type property, for
      * example when querying closed windows from the `sessions` API.
      */
-    enum WindowType {
-        normal = "normal",
-        popup = "popup",
-        panel = "panel",
-        app = "app",
-        devtools = "devtools"
-    }
+    type WindowType = "normal" | "popup" | "panel" | "app" | "devtools";
 
     /**
      * The state of this browser window. Under some circumstances a Window may not be assigned state property, for
      * example when querying closed windows from the `sessions` API.
      */
-    enum WindowState {
-        normal = "normal",
-        minimized = "minimized",
-        maximized = "maximized",
-        fullscreen = "fullscreen",
-        docked = "docked"
-    }
+    type WindowState =
+          "normal"
+        | "minimized"
+        | "maximized"
+        | "fullscreen"
+        | "docked";
 
     interface Window {
         /**
@@ -6618,12 +6534,7 @@ declare namespace browser.windows {
      * Specifies what type of browser window to create. The 'panel' and 'detached_panel' types create a popup unless
      * the '--enable-panels' flag is set.
      */
-    enum CreateType {
-        normal = "normal",
-        popup = "popup",
-        panel = "panel",
-        detached_panel = "detached_panel"
-    }
+    type CreateType = "normal" | "popup" | "panel" | "detached_panel";
 
     /* windows properties */
     /** The windowId value that represents the absence of a browser window. */
