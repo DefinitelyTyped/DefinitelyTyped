@@ -26,16 +26,16 @@ function main(): void {
   schemaBuilder.connect(connectOptions).then((db) => {
     todoDb = db;
     itemSchema = db.getSchema().table('Item');
-    const row = itemSchema.createRow<IRow>({
+    const row = itemSchema.createRow({
       id: 1,
       description: 'Get a cup of coffee',
       deadline: new Date(),
       done: false,
     });
-    return db.insertOrReplace().into(itemSchema).values([row]).exec<IRow>();
+    return db.insertOrReplace().into(itemSchema).values([row]).exec();
   }).then(() => {
     const column = itemSchema.done;
-    return todoDb.select().from(itemSchema).where(column.eq(false)).exec<IRow>();
+    return todoDb.select().from(itemSchema).where(column.eq(false)).exec() as Promise<IRow[]>;
 }).then((results) => {
     results.forEach((row) => {
       document.body.textContent = `${row.description} before ${row.deadline}`;

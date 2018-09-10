@@ -3,7 +3,7 @@
 // Definitions by: freshp86 <https://github.com/freshp86>
 //                 zackzeno <https://github.com/zackzeno>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 declare namespace lf {
   enum Order { ASC, DESC }
@@ -61,10 +61,10 @@ declare namespace lf {
   }
 
   interface Transaction {
-    attach(query: query.Builder): Promise<Object[]>;
+    attach(query: query.Builder): Promise<object[]>;
     begin(scope: schema.Table[]): Promise<void>;
     commit(): Promise<void>;
-    exec(queries: query.Builder[]): Promise<any[][]>;
+    exec(queries: query.Builder[]): Promise<object[][]>;
     rollback(): Promise<void>;
     stats(): TransactionStats;
   }
@@ -75,9 +75,9 @@ declare namespace lf {
     close(): void;
     createTransaction(type?: TransactionType): Transaction;
     delete(): query.Delete;
-    export(): Promise<Object>;
+    export(): Promise<object>;
     getSchema(): schema.Database;
-    import(data: Object): Promise<void>;
+    import(data: object): Promise<void>;
     insertOrReplace(): query.Insert;
     insert(): query.Insert;
     observe(query: query.Select, callback: Function): void;
@@ -89,7 +89,7 @@ declare namespace lf {
   namespace query {
     interface Builder {
       bind(...values: any[]): Builder;
-      exec<T extends object>(): Promise<T[]>;
+      exec(): Promise<object[]>;
       explain(): string;
       toSql(): string;
     }
@@ -133,9 +133,9 @@ declare namespace lf {
       renameTableColumn(
           tableName: string, oldColumnName: string,
           newColumnName: string): Promise<void>;
-      createRow<T extends object>(payload: T): Row;
+      createRow(payload: object): Row;
       getVersion(): number;
-      dump(): Object[];
+      dump(): object[];
     }
   }  // module raw
 
@@ -168,7 +168,7 @@ declare namespace lf {
 
     interface ITable {
       as(name: string): Table;
-      createRow<T extends object>(value: T): Row;
+      createRow(value: object): Row;
       getName(): string;
     }
 
