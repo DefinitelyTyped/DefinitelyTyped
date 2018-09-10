@@ -1708,14 +1708,18 @@ declare module 'ember' {
             /**
              * Sets the provided key or path to the value.
              */
-            set<K extends keyof this>(key: K, value: UnwrapComputedPropertySetter<this[K]>): UnwrapComputedPropertySetter<this[K]>;
+            set<K extends keyof this>(key: K, value: this[K]): this[K];
+            set<T>(key: keyof this, value: T): T;
             /**
              * Sets a list of properties at once. These properties are set inside
              * a single `beginPropertyChanges` and `endPropertyChanges` batch, so
              * observers will be buffered.
              */
             setProperties<K extends keyof this>(
-                hash: Pick<UnwrapComputedPropertySetters<this>, K>
+                hash: Pick<this, K>
+            ): Pick< UnwrapComputedPropertySetters<this>, K>;
+            setProperties<K extends keyof this>(
+                hash: {[KK in K]: any}
             ): Pick< UnwrapComputedPropertySetters<this>, K>;
             /**
              * Convenience method to call `propertyWillChange` and `propertyDidChange` in
