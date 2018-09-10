@@ -9,4 +9,4 @@ const typography = new Typography({
 
 typography.createStyles(); // $ExpectType string
 typography.toJSON(); // $ExpectType object
-typography.options; // $ExpectType typographyOptions
+typography.options; // $ExpectType TypographyOptions

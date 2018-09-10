@@ -4,29 +4,29 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-interface baseLine {
+interface BaseLine {
     fontSize: string;
     lineHeight: string;
 }
 
-export interface verticalRhythm {
+export interface VerticalRhythm {
     rhythm: (value: number) => string;
     scale: (value: number) => object;
     adjustFontSizeTo: (value?: number | string) => object;
     linesForFontSize: (fontSize: number) => number;
-    establishBaseline: () => baseLine;
+    establishBaseline: () => BaseLine;
 }
 
-export interface googleFont {
+export interface GoogleFont {
     name: string;
     styles: string[];
 }
 
-export interface typographyOptions {
+export interface TypographyOptions {
     baseFontSize?: string;
     baseLineHeight?: number;
     scaleRatio?: number;
-    googleFonts?: googleFont[];
+    googleFonts?: GoogleFont[];
     headerFontFamily?: string[];
     bodyFontFamily?: string[];
     headerColor?: string;
@@ -37,21 +37,21 @@ export interface typographyOptions {
     blockMarginBottom?: number;
     includeNormalize?: boolean;
     overrideStyles?: (
-        verticalRhythm: verticalRhythm,
-        options: typographyOptions,
+        VerticalRhythm: VerticalRhythm,
+        options: TypographyOptions,
         styles: any
     ) => object;
     overrideThemeStyles?: (
-        verticalRhythm: verticalRhythm,
-        options: typographyOptions,
+        VerticalRhythm: VerticalRhythm,
+        options: TypographyOptions,
         styles: any
     ) => object;
     plugins?: any[];
 }
 
 declare class Typography {
-    constructor(opts: typographyOptions);
-    options: typographyOptions;
+    constructor(opts: TypographyOptions);
+    options: TypographyOptions;
     createStyles(): string;
     toJSON(): object;
     injectStyles(): void;
