@@ -65,7 +65,7 @@ export class MongoClient extends EventEmitter {
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html#withSession */
     withSession(operation: (session: ClientSession) => Promise<any>): Promise<void>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html#withSession */
-    withSession(options: any, operation: (session: ClientSession) => Promise<any>): Promise<void>;
+    withSession(options: SessionOptions, operation: (session: ClientSession) => Promise<any>): Promise<void>;
 }
 
 /**
