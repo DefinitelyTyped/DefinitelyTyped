@@ -3,6 +3,7 @@
 // Definitions by: freshp86 <https://github.com/freshp86>
 //                 zackzeno <https://github.com/zackzeno>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 declare namespace lf {
   enum Order { ASC, DESC }

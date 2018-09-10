@@ -32,9 +32,9 @@ function main(): void {
       deadline: new Date(),
       done: false,
     });
-    return db.insertOrReplace().into(itemSchema).values([row]).exec();
+    return db.insertOrReplace().into(itemSchema).values([row]).exec<IRow>();
   }).then(() => {
-    const column = itemSchema['done'];
+    const column = itemSchema.done;
     return todoDb.select().from(itemSchema).where(column.eq(false)).exec<IRow>();
 }).then((results) => {
     results.forEach((row) => {
