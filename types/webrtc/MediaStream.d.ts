@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Taken from http://dev.w3.org/2011/webrtc/editor/getusermedia.html
-// version: W3C Editor's Draft 29 June 2015
+// version: W3C Editor's Draft 06 September 2018
 
 interface ConstrainBooleanParameters {
     exact?: boolean;
