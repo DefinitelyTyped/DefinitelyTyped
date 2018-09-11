@@ -62,3 +62,7 @@ const xmlDocWithNs = libxmljs.parseXml(xmlWithNs);
 const gchildWithNs = xmlDocWithNs.get('//a:grandchild', {a: 'http://test.com/test'})!;
 
 console.log(gchildWithNs.text());  // prints "grandchild content"
+
+const validated: boolean = doc.validate(doc);
+doc.validationErrors[0].message; // inherited from Error
+doc.validationErrors[0].line;

@@ -8,6 +8,7 @@
 //                 Martin Feckie <https://github.com/mfeckie>
 //                 Alex LaFroscia <https://github.com/alexlafroscia>
 //                 Mike North <https://github.com/mike-north>
+//                 Bryan Crotaz <https://github.com/BryanCrotaz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -27,6 +28,20 @@ declare module 'ember' {
     // Get an alias to the global Array type to use in inner scope below.
     type GlobalArray<T> = T[];
 
+    // TODO: TypeScript 3.0
+    // type FunctionArgs<F extends (...args: any[]) => any> = F extends (...args: infer ARGS) => any ? ARGS : never;
+    type FunctionArgs<F> =
+        F extends (a: infer A) => any
+            ? [A]
+            : F extends (a: infer A, b: infer B) => any
+                ? [A, B]
+                : F extends (a: infer A, b: infer B, c: infer C) => any
+                    ? [A, B, C]
+                    : F extends (a: infer A, b: infer B, c: infer C, d: infer D) => any
+                        ? [A, B, C, D]
+                        : F extends (a: infer A, b: infer B, c: infer C, d: infer D, e: infer E) => any
+                            ? [A, B, C, D, E]
+                            : never;
     /**
      * Deconstructs computed properties into the types which would be returned by `.get()`.
      */
@@ -308,6 +323,17 @@ declare module 'ember' {
         }
 
         interface ArrayPrototypeExtensions<T> extends MutableArray<T>, Observable, Copyable {}
+
+        interface StringPrototypeExtensions {
+            camelize(): string;
+            decamelize(): string;
+            classify(): string;
+            capitalize(): string;
+            loc(values?: string[]): string;
+            dasherize(): string;
+            underscore(): string;
+            w(): string[];
+        }
 
         /**
          * Given a fullName return a factory manager.
@@ -1707,14 +1733,18 @@ declare module 'ember' {
             /**
              * Sets the provided key or path to the value.
              */
-            set<K extends keyof this>(key: K, value: UnwrapComputedPropertySetter<this[K]>): UnwrapComputedPropertySetter<this[K]>;
+            set<K extends keyof this>(key: K, value: this[K]): this[K];
+            set<T>(key: keyof this, value: T): T;
             /**
              * Sets a list of properties at once. These properties are set inside
              * a single `beginPropertyChanges` and `endPropertyChanges` batch, so
              * observers will be buffered.
              */
             setProperties<K extends keyof this>(
-                hash: Pick<UnwrapComputedPropertySetters<this>, K>
+                hash: Pick<this, K>
+            ): Pick< UnwrapComputedPropertySetters<this>, K>;
+            setProperties<K extends keyof this>(
+                hash: {[KK in K]: any}
             ): Pick< UnwrapComputedPropertySetters<this>, K>;
             /**
              * Convenience method to call `propertyWillChange` and `propertyDidChange` in
@@ -2432,9 +2462,9 @@ declare module 'ember' {
             function dasherize(str: string): string;
             function decamelize(str: string): string;
             function fmt(...args: string[]): string;
-            function htmlSafe(str: string): void; // TODO: @returns Handlebars.SafeStringStatic;
+            function htmlSafe(str: string): Handlebars.SafeString;
             function isHTMLSafe(str: string): boolean;
-            function loc(...args: string[]): string;
+            function loc(template: string, args?: string[]): string;
             function underscore(str: string): string;
             function w(str: string): string[];
         }
@@ -3117,22 +3147,22 @@ declare module 'ember' {
         /**
          * A value is blank if it is empty or a whitespace string.
          */
-        function isBlank(obj: any): boolean;
+        function isBlank(obj?: any): boolean;
         /**
          * Verifies that a value is `null` or an empty string, empty array,
          * or empty function.
          */
-        function isEmpty(obj: any): boolean;
+        function isEmpty(obj?: any): boolean;
         /**
          * Returns true if the passed value is null or undefined. This avoids errors
          * from JSLint complaining about use of ==, which can be technically
          * confusing.
          */
-        function isNone(obj: any): obj is null | undefined;
+        function isNone(obj?: any): obj is null | undefined;
         /**
          * A value is present if it not `isBlank`.
          */
-        function isPresent(obj: any): boolean;
+        function isPresent(obj?: any): boolean;
         /**
          * Merge the contents of two objects together into the first object.
          * @deprecated Use Object.assign
@@ -3281,7 +3311,7 @@ declare module 'ember' {
         /**
          * Returns a consistent type for the passed object.
          */
-        function typeOf(item: any): string;
+        function typeOf(item?: any): string;
         /**
          * Copy properties from a source object to a target object.
          * @deprecated Use Object.assign
@@ -3315,7 +3345,14 @@ declare module 'ember' {
          * Checks to see if the `methodName` exists on the `obj`,
          * and if it does, invokes it with the arguments passed.
          */
-        function tryInvoke(obj: any, methodName: string, args?: any[]): any;
+        function tryInvoke<FNAME extends keyof T, T extends object>(
+            obj: T,
+            methodName: FNAME,
+            args: FunctionArgs<T[FNAME]>): T[FNAME] extends ((...args: any[]) => any)
+                ? ReturnType<T[FNAME]>
+                : undefined;
+        function tryInvoke<FNAME extends keyof T, T extends object>(obj: T, methodName: FNAME): T[FNAME] extends (() => any) ? ReturnType<T[FNAME]> : undefined;
+        function tryInvoke(obj: object, methodName: string, args?: any[]): undefined;
         /**
          * Forces the passed object to be part of an array. If the object is already
          * an array, it will return the object. Otherwise, it will add the object to
@@ -3864,7 +3901,6 @@ declare module '@ember/string' {
     export const classify: typeof Ember.String.classify;
     export const dasherize: typeof Ember.String.dasherize;
     export const decamelize: typeof Ember.String.decamelize;
-    export const fmt: typeof Ember.String.fmt;
     export const htmlSafe: typeof Ember.String.htmlSafe;
     export const isHTMLSafe: typeof Ember.String.isHTMLSafe;
     export const loc: typeof Ember.String.loc;

@@ -4,6 +4,7 @@
 //                 Austin Turner <https://github.com/paustint>
 //                 Krzysztof Bezrąk <https://github.com/pikpok>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
+//                 Paul Potsides <https://github.com/strongpauly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -14,76 +15,85 @@ export type View = 'month' | 'week' | 'work_week' | 'day' | 'agenda';
 export type Navigate = 'PREV' | 'NEXT' | 'TODAY' | 'DATE';
 
 export type Event = object;
-export interface Format {
+export interface DateRange {
+    start: Date;
+    end: Date;
+}
+
+export type DateFormatFunction = (date: Date, culture?: string, localizer?: object) => string;
+export type DateRangeFormatFunction = (range: DateRange, culture?: string, localizer?: object) => string;
+export type DateFormat = string | DateFormatFunction;
+
+export interface Formats {
     /**
      * Format for the day of the month heading in the Month view.
      * e.g. "01", "02", "03", etc
      */
-    dateFormat?: string;
+    dateFormat?: DateFormat;
 
     /**
      * A day of the week format for Week and Day headings,
      * e.g. "Wed 01/04"
      *
      */
-    dayFormat?: string;
+    dayFormat?: DateFormat;
 
     /**
      * Week day name format for the Month week day headings,
      * e.g: "Sun", "Mon", "Tue", etc
      *
      */
-    weekdayFormat?: string;
+    weekdayFormat?: DateFormat;
 
     /**
      * The timestamp cell formats in Week and Time views, e.g. "4:00 AM"
      */
-    timeGutterFormat?: string;
+    timeGutterFormat?: DateFormat;
 
     /**
      * Toolbar header format for the Month view, e.g "2015 April"
      *
      */
-    monthHeaderFormat?: string;
+    monthHeaderFormat?: DateFormat;
 
     /**
      * Toolbar header format for the Week views, e.g. "Mar 29 - Apr 04"
      */
-    dayRangeHeaderFormat?: string;
+    dayRangeHeaderFormat?: DateRangeFormatFunction;
 
     /**
      * Toolbar header format for the Day view, e.g. "Wednesday Apr 01"
      */
-    dayHeaderFormat?: string;
+    dayHeaderFormat?: DateFormat;
 
     /**
      * Toolbar header format for the Agenda view, e.g. "4/1/2015 — 5/1/2015"
      */
-    agendaHeaderFormat?: string;
+    agendaHeaderFormat?: DateFormat;
 
     /**
      * A time range format for selecting time slots, e.g "8:00am — 2:00pm"
      */
-    selectRangeFormat?: string;
+    selectRangeFormat?: DateRangeFormatFunction;
 
-    agendaDateFormat?: string;
-    agendaTimeFormat?: string;
-    agendaTimeRangeFormat?: string;
+    agendaDateFormat?: DateFormat;
+    agendaTimeFormat?: DateFormat;
+    agendaTimeRangeFormat?: DateRangeFormatFunction;
 
     /**
      * Time range displayed on events.
      */
-    eventTimeRangeFormat?: string;
+    eventTimeRangeFormat?: DateRangeFormatFunction;
 
     /**
      * An optional event time range for events that continue onto another day
      */
-    eventTimeRangeStartFormat?: string;
+    eventTimeRangeStartFormat?: DateRangeFormatFunction;
 
     /**
      * An optional event time range for events that continue from another day
      */
-    eventTimeRangeEndFormat?: string;
+    eventTimeRangeEndFormat?: DateRangeFormatFunction;
 }
 
 export interface HeaderProps {
@@ -179,7 +189,7 @@ export interface BigCalendarProps<T extends Event = Event> extends React.Props<B
     max?: stringOrDate;
     scrollToTime?: Date;
     culture?: string;
-    formats?: Format;
+    formats?: Formats;
     components?: Components;
     messages?: Messages;
     titleAccessor?: keyof T | ((event: T) => string);
