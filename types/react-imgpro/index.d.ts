@@ -3,7 +3,7 @@
 // Definitions by: Carlos Li <https://github.com/echoulen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
-///<reference types="react" />
+
 import * as React from "react";
 
 import ProcessImage = ReactImgpro.ProcessImage;
@@ -11,12 +11,12 @@ export default ProcessImage;
 
 declare namespace ReactImgpro {
 	type Mode = "neighbor" | "bilinear" | "bicubic" | "hermite" | "bezier";
-	type Shape = {
+	interface Shape {
         width?: number;
         height?: number;
 		mode?: Mode;
-	};
-	type Size = {
+	}
+	interface Size {
         width: number;
         height: number;
         mode:
@@ -26,7 +26,7 @@ declare namespace ReactImgpro {
             "vertical_top" |
             "vertical_bottom" |
             "vertical_middle";
-    };
+    }
 	interface ProcessImageProps {
         image: string;
         resize?: Shape;
@@ -83,5 +83,6 @@ declare namespace ReactImgpro {
         customCdn?: string;
         onProcessFinish: () => void;
 	}
-	export class ProcessImage extends React.Component<ProcessImageProps> {}
+
+	class ProcessImage extends React.Component<ProcessImageProps> {}
 }
