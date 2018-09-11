@@ -30,6 +30,11 @@ interface TwitchExt {
 	actions: TwitchExtActions;
 
 	/**
+	 * @see https://dev.twitch.tv/docs/extensions/reference/#twitch-extension-feature-flags
+	 */
+	features: TwitchExtFeatures;
+
+	/**
 	 * Helper methods for the Twitch Extension rig.
 	 * @see https://github.com/twitchdev/developer-rig
 	 */
@@ -158,6 +163,30 @@ interface TwitchExtActions {
 	 * @see https://dev.twitch.tv/docs/extensions/reference/#requestidshare
 	 */
 	requestIdShare(): void;
+}
+
+interface TwitchExtFeatureFlags {
+	/**
+	 * If this flag is true, you can send a chat message to the current channel using Send Extension Chat Message
+	 * (subject to the authentication requirements documented for that endpoint).
+	 */
+	isChatEnabled: boolean;
+}
+
+/**
+ * @see TwitchExt.features
+ */
+interface TwitchExtFeatures extends TwitchExtFeatureFlags {
+	/**
+	 * This function enables you to receive real-time updates to changes of the features object.
+	 * If this callback is invoked, you should re-check the Twitch.ext.features object for a change
+	 * to any feature flag your extension cares about.
+	 *
+	 * @param callback The callback is called with an array of feature flags which were updated.
+	 */
+	onChanged(
+		callback: (changed: ReadonlyArray<keyof TwitchExtFeatureFlags>) => void
+	): void;
 }
 
 /**

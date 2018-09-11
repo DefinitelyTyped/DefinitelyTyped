@@ -36,5 +36,14 @@ window.Twitch.ext.actions.minimize();
 window.Twitch.ext.actions.followChannel("hearthsim");
 window.Twitch.ext.actions.requestIdShare();
 
+// Twitch Extension Feature flags
+window.Twitch.ext.features.onChanged(changed => {
+	if (changed.indexOf("isChatEnabled") !== -1) {
+		if (window.Twitch.ext.features.isChatEnabled) {
+			console.log("Chat is now enabled");
+		}
+	}
+});
+
 // Developer Rig
 window.Twitch.ext.rig.log("Hello, world!");
