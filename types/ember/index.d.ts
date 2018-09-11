@@ -3272,6 +3272,7 @@ declare module 'ember' {
         function typeOf(item: Ember.Object): 'instance';
         function typeOf(item: FileList): 'filelist';
         function typeOf(item: object): 'object';
+        function typeOf(): 'undefined';
         function typeOf(item: any): string;
         /**
          * Copy properties from a source object to a target object.

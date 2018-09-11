@@ -3,8 +3,8 @@ import * as utils from '@ember/utils';
 import { assertType } from "./lib/assert";
 
 function testTypeOf() {
-    utils.typeOf(); // $ExpectType string
-    utils.typeOf({}); // $ExpectType string
+    utils.typeOf(); // $ExpectType "undefined"
+    const str: string = utils.typeOf({});
 }
 
 function testIsNoneType() {
