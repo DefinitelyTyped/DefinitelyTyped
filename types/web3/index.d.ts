@@ -15,6 +15,7 @@
 //                 Levin Keller <https://github.com/levino>
 //                 Dmitry Radkovskiy <https://github.com/zlumer>
 //                 Konstantin Melnikov <https://github.com/archangel-irk>
+//                 Asgeir Sognefest <https://github.com/sogasg>
 //                 Donam Kim <https://github.com/donamk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
