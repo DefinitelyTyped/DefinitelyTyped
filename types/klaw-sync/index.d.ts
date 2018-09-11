@@ -1,4 +1,4 @@
-// Type definitions for klaw-sync 2.0
+// Type definitions for klaw-sync 5.0
 // Project: https://github.com/manidlou/node-klaw-sync
 // Definitions by: Brendan Forster <https://github.com/shiftkey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -30,13 +30,22 @@ declare namespace klawSync {
         nofile?: boolean
 
         /**
-         * @description when filter function is used, the default behavior is to read all directories even
-         *              if they don't pass the filter function (won't be included but still will be traversed).
-         *              If you set true, there will be neither inclusion nor traversal for directories that
-         *              don't pass the filter function
-         * @since v2.0.0
+         * @description The number of times to recurse before stopping.
+         *              -1 for unlimited.
+         * @default -1
+         * @since v5.0.0
          */
-        noRecurseOnFailedFilter?: boolean
+        depthLimit?: number
+
+        /**
+         * @description Custom fs, useful when mocking fs object.
+         * @default graceful-fs
+         * @since v4.0.0
+         */
+        fs?: {
+            readdirSync(path: string): string[]
+            statSync(path: string): fs.Stats
+        }
 
         /**
          * @description function that gets one argument fn({path: '', stats: {}}) and returns true to include
