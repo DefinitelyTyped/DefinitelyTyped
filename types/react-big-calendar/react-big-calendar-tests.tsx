@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import * as ReactDOMServer from "react-dom/server";
-import BigCalendar, { BigCalendarProps, Navigate, View } from "react-big-calendar";
+import BigCalendar, { BigCalendarProps, Navigate, View, DateRange } from "react-big-calendar";
 
 // Don't want to add this as a dependency, because it is only used for tests.
 declare const moment: any;
@@ -81,7 +81,11 @@ class FullAPIExample extends React.Component<BigCalendarProps<CalendarEvent>> {
                 min={new Date()}
                 max={new Date()}
                 scrollToTime={new Date()}
-                formats={{}}
+                formats={{
+                    dateFormat: "h a",
+                    agendaDateFormat: (date: Date, culture?: string, localizer?: object) => "some-format",
+                    dayRangeHeaderFormat: (range: DateRange, culture?: string, localizer?: object) => "some-format"
+                }}
                 messages={{}}
                 timeslots={24}
                 defaultView={'month'}

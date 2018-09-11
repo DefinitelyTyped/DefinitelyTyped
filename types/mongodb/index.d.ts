@@ -14,6 +14,7 @@
 //                 Wan Bachtiar <https://github.com/sindbach>
 //                 Geraldine Lemeur <https://github.com/geraldinelemeur>
 //                 Jimmy Shimizu <https://github.com/jishi>
+//                 Angela-1 <https://github.com/angela-1>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -208,6 +209,10 @@ export interface SocketOptions {
     keepAliveInitialDelay?: number;
     // TCP Connection timeout setting. default 0
     connectTimeoutMS?: number;
+    // Version of IP stack. Can be 4, 6 or null. default: null.
+    // If null, will attempt to connect with IPv6, and will fall back to IPv4 on failure
+    // refer to http://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html
+    family?: 4 | 6 | null;
     // TCP Socket timeout setting. default 0
     socketTimeoutMS?: number;
 }
@@ -896,7 +901,7 @@ export interface CollectionAggregationOptions {
     readPreference?: ReadPreference | string;
     // Return the query as cursor, on 2.6 > it returns as a real cursor
     // on pre 2.6 it returns as an emulated cursor.
-    cursor?: { batchSize: number };
+    cursor?: { batchSize?: number };
     // Explain returns the aggregation execution plan (requires mongodb 2.6 >).
     explain?: boolean;
     // lets the server know if it can use disk to store

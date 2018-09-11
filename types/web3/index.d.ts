@@ -43,7 +43,7 @@ declare class Web3 {
     bzz: Bzz;
     currentProvider: Provider;
     eth: Eth;
-    ssh: Shh;
+    shh: Shh;
     givenProvider: Provider;
     providers: Providers;
     setProvider(provider: Provider): void;
