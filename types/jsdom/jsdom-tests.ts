@@ -1,7 +1,6 @@
 import { JSDOM, VirtualConsole, CookieJar, FromUrlOptions, FromFileOptions, DOMWindow } from 'jsdom';
 import { CookieJar as ToughCookieJar, MemoryCookieStore } from 'tough-cookie';
 import { Script } from 'vm';
-import * as assert from 'assert';
 
 function test_basic_usage() {
     const dom = new JSDOM(`<!DOCTYPE html><p>Hello world</p>`);
@@ -70,8 +69,7 @@ function test_beforeParse() {
 }
 
 function test_pretendToBeVisual() {
-    const dom = new JSDOM('', { pretendToBeVisual: true });
-    assert(!dom.window.document.hidden);
+    new JSDOM('', { pretendToBeVisual: true });
 }
 
 function test_serialize() {
