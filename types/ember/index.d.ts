@@ -324,6 +324,17 @@ declare module 'ember' {
 
         interface ArrayPrototypeExtensions<T> extends MutableArray<T>, Observable, Copyable {}
 
+        interface StringPrototypeExtensions {
+            camelize(): string;
+            decamelize(): string;
+            classify(): string;
+            capitalize(): string;
+            loc(values?: string[]): string;
+            dasherize(): string;
+            underscore(): string;
+            w(): string[];
+        }
+
         /**
          * Given a fullName return a factory manager.
          */
@@ -2453,7 +2464,7 @@ declare module 'ember' {
             function fmt(...args: string[]): string;
             function htmlSafe(str: string): Handlebars.SafeString;
             function isHTMLSafe(str: string): boolean;
-            function loc(...args: string[]): string;
+            function loc(template: string, args?: string[]): string;
             function underscore(str: string): string;
             function w(str: string): string[];
         }
