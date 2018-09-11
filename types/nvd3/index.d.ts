@@ -1,6 +1,6 @@
 // Type definitions for nvd3 1.8.1
 // Project: https://github.com/novus/nvd3
-// Definitions by: Peter Mitchell <https://github.com/PjMitchell/>
+// Definitions by: Peter Mitchell <https://github.com/PjMitchell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as d3 from "d3";
@@ -67,7 +67,7 @@ declare namespace nv {
     }
 
     interface Nvd3TooltipStatic {
-        show([left, top]: [number, number], content: string, gravity?: string): void; //todo sort out use on nv.tooltip.
+        show(leftTop: [number, number], content: string, gravity?: string): void; //todo sort out use on nv.tooltip.
         cleanup(): void; //todo sort out use on nv.tooltip.
     }
 
@@ -1698,6 +1698,8 @@ id(value: number|string): this;
         valueFormat(): string;
         /*D3 Format object for the label of pie/donut, discrete bar and multibar charts.*/
         valueFormat(value: string): this;
+		/*D3 Format object for the label of pie/donut, discrete bar and multibar charts.*/
+        valueFormat(format: (d: any) => string): this;
         /* The width the graph or component created inside the SVG should be made*/
         width(): number;
         /*The width the graph or component created inside the SVG should be made.*/
@@ -2649,6 +2651,8 @@ id(value: number|string): this;
         valueFormat(): string;
         /*D3 Format object for the label of pie/donut, discrete bar and multibar charts.*/
         valueFormat(value: string): this;
+		/*D3 Format object for the label of pie/donut, discrete bar and multibar charts.*/
+        valueFormat(format: (d: any) => string): this;
         /*.*/
         valuePadding(): number;
         /**/

@@ -1,4 +1,4 @@
-import * as sharp from "sharp";
+import sharp = require("sharp");
 import { createReadStream, createWriteStream } from "fs";
 
 // Test samples taken from the official documentation
@@ -47,6 +47,17 @@ sharp('input.jpg')
         // containing a scaled and cropped version of input.jpg
     });
 
+sharp({
+    create: {
+        width: 300,
+        height: 200,
+        channels: 4,
+        background: { r: 255, g: 0, b: 0, alpha: 128 }
+    }
+})
+.png()
+.toBuffer();
+
 let transformer = sharp()
     .resize(300)
     .on('info', (info: sharp.OutputInfo) => {
@@ -58,7 +69,7 @@ console.log(sharp.format);
 console.log(sharp.versions);
 
 sharp.queue.on('change', (queueLength: number) => {
-    console.log('Queue contains ' + queueLength + ' task(s)');
+    console.log(`Queue contains ${queueLength} task(s)`);
 });
 
 let pipeline: sharp.SharpInstance = sharp().rotate();
@@ -183,6 +194,21 @@ sharp(input)
         // than 200 pixels regardless of the inputBuffer image dimensions
     });
 
+sharp(input)
+    .resize(100, 100)
+    .toBuffer({ resolveWithObject: false })
+    .then((outputBuffer: Buffer) => {
+        // Resolves with a Buffer object when resolveWithObject is false
+    });
+
+sharp(input)
+    .resize(100, 100)
+    .toBuffer({ resolveWithObject: true })
+    .then((object: { data: Buffer, info: sharp.OutputInfo }) => {
+        // Resolve with an object containing data Buffer and an OutputInfo object
+        // when resolveWithObject is true
+    });
+
 const stats = sharp.cache();
 
 sharp.cache({ items: 200 });
@@ -200,3 +226,9 @@ let simd: boolean = sharp.simd();
 
 simd = sharp.simd(true);
 // attempts to enable the use of SIMD, returning true if available
+
+const vipsVersion: string = sharp.versions.vips;
+
+if (sharp.versions.cairo) {
+    const cairoVersion: string = sharp.versions.cairo;
+}

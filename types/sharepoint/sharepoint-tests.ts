@@ -1,5 +1,5 @@
-///<reference types="knockout" />
-///<reference types="jquery" />
+/// <reference types="knockout" />
+/// <reference types="jquery" />
 
 import * as angular from 'angular';
 import * as ng from 'angular';
@@ -370,11 +370,16 @@ function deleteFolder(resultpanel: HTMLElement) {
     }
 }
 
+interface Announcements {
+    Title: string;
+    Body: string;
+}
+
 // List item tasks
 function readItems(resultpanel: HTMLElement) {
     const clientContext = SP.ClientContext.get_current();
     const oWebsite = clientContext.get_web();
-    const oList = oWebsite.get_lists().getByTitle("Announcements");
+    const oList = oWebsite.get_lists().getByTitle<Announcements>("Announcements");
     const camlQuery = new SP.CamlQuery();
     camlQuery.set_viewXml(
         '<View><Query><Where><Geq><FieldRef Name=\'ID\'/>' +
@@ -525,7 +530,8 @@ namespace CSR {
             .onPreRender(hookFormContext)
             .onPostRender(fixCsrCustomLayout);
 
-        function hookFormContext(ctx: FormRenderContexWithHook) {
+        function hookFormContext(preRenderContext: SPClientTemplates.RenderContext /* FormRenderContexWithHook */) {
+            const ctx = preRenderContext as FormRenderContexWithHook;
             if (ctx.ControlMode === SPClientTemplates.ClientControlMode.EditForm
                 || ctx.ControlMode === SPClientTemplates.ClientControlMode.NewForm) {
                 for (const fieldSchemaInForm of ctx.ListSchema.Field) {
@@ -556,7 +562,8 @@ namespace CSR {
             }
         }
 
-        function fixCsrCustomLayout(ctx: SPClientTemplates.RenderContext_Form) {
+        function fixCsrCustomLayout(postRenderContext: SPClientTemplates.RenderContext /* SPClientTemplates.RenderContext_Form */) {
+            const ctx = postRenderContext as SPClientTemplates.RenderContext_Form;
             if (ctx.ControlMode === SPClientTemplates.ClientControlMode.Invalid
                 || ctx.ControlMode === SPClientTemplates.ClientControlMode.View) {
                 return;
@@ -658,7 +665,11 @@ namespace CSR {
     }
 
     export function getFieldTemplate(field: SPClientTemplates.FieldSchema, mode: SPClientTemplates.ClientControlMode): SPClientTemplates.FieldCallback {
-        const ctx = { ListSchema: { Field: [field] }, FieldControlModes: {} };
+        const ctx = {
+            ListTemplateType: 1,
+            FieldControlModes: {},
+            ListSchema: { Field: [field] },
+        };
         ctx.FieldControlModes[field.Name] = mode;
         const templates = SPClientTemplates.TemplateManager.GetTemplates(ctx);
         return templates.Fields[field.Name];
@@ -808,7 +819,8 @@ namespace CSR {
                         }
                     }
                 })
-                .onPostRenderField(fieldName, (schema: SPClientTemplates.FieldSchema_InForm_User, ctx) => {
+                .onPostRenderField(fieldName, (postRenderSchema, ctx) => {
+                    const schema = postRenderSchema as SPClientTemplates.FieldSchema_InForm_User;
                     if (ctx.ControlMode === SPClientTemplates.ClientControlMode.EditForm
                         || ctx.ControlMode === SPClientTemplates.ClientControlMode.NewForm) {
                         if (schema.Type === 'User' || schema.Type === 'UserMulti') {
@@ -1139,7 +1151,9 @@ namespace CSR {
         computedValue(targetField: string, transform: (...values: string[]) => string, ...sourceField: string[]): CSR {
             const dependentValues: { [field: string]: string } = {};
 
-            return this.onPostRenderField(targetField, (schema: SPClientTemplates.FieldSchema_InForm, ctx: SPClientTemplates.RenderContext_FieldInForm) => {
+            return this.onPostRenderField(targetField, (postRenderSchema, postRenderContext) => {
+                const schema = postRenderSchema as SPClientTemplates.FieldSchema_InForm;
+                const ctx = postRenderContext as SPClientTemplates.RenderContext_FieldInForm;
                 if (ctx.ControlMode === SPClientTemplates.ClientControlMode.EditForm
                     || ctx.ControlMode === SPClientTemplates.ClientControlMode.NewForm) {
                     const targetControl = CSR.getControl(schema as SPClientTemplates.FieldSchema_InForm);
@@ -1156,8 +1170,8 @@ namespace CSR {
 
         setInitialValue(fieldName: string, value: any, ignoreNull?: boolean): CSR {
             if (value || !ignoreNull) {
-                return this.onPreRenderField(fieldName, (schema, ctx: SPClientTemplates.RenderContext_FieldInForm) => {
-                    ctx.ListData.Items[0][fieldName] = value;
+                return this.onPreRenderField(fieldName, (schema, ctx) => {
+                    (ctx as SPClientTemplates.RenderContext_FieldInForm).ListData.Items[0][fieldName] = value;
                 });
             } else {
                 return this;
@@ -1326,44 +1340,45 @@ namespace CSR {
         }
 
         lookupAddNew(fieldName: string, prompt: string, showDialog?: boolean, contentTypeId?: string): CSR {
-            return this.onPostRenderField(fieldName,
-                (schema: SPClientTemplates.FieldSchema_InForm_Lookup, ctx: SPClientTemplates.RenderContext_FieldInForm) => {
-                    let control: HTMLInputElement;
-                    if (ctx.ControlMode === SPClientTemplates.ClientControlMode.EditForm
-                        || ctx.ControlMode === SPClientTemplates.ClientControlMode.NewForm)
+            return this.onPostRenderField(fieldName, (postRenderSchema, postRenderContext) => {
+                const schema = postRenderSchema as SPClientTemplates.FieldSchema_InForm_Lookup;
+                const ctx = postRenderContext as SPClientTemplates.RenderContext_FieldInForm;
+                let control: HTMLInputElement;
+                if (ctx.ControlMode === SPClientTemplates.ClientControlMode.EditForm
+                    || ctx.ControlMode === SPClientTemplates.ClientControlMode.NewForm)
 
-                        control = CSR.getControl(schema);
-                    if (control) {
-                        let weburl = _spPageContextInfo.webServerRelativeUrl;
-                        if (weburl[weburl.length - 1] === '/') {
-                            weburl = weburl.substring(0, weburl.length - 1);
-                        }
-                        let newFormUrl = weburl + '/_layouts/listform.aspx/listform.aspx?PageType=8'
-                            + "&ListId=" + encodeURIComponent('{' + schema.LookupListId + '}');
-                        if (contentTypeId) {
-                            newFormUrl += '&ContentTypeId=' + contentTypeId;
-                        }
-
-                        const link = document.createElement('a');
-                        link.href = "javascript:NewItem2(event, \'" + newFormUrl + "&Source=" + encodeURIComponent(document.location.href) + "')";
-                        link.textContent = prompt;
-                        if (control.nextElementSibling) {
-                            control.parentElement.insertBefore(link, control.nextElementSibling);
-                        } else {
-                            control.parentElement.appendChild(link);
-                        }
-
-                        if (showDialog) {
-                            $addHandler(link, "click", (e: Sys.UI.DomEvent) => {
-                                SP.SOD.executeFunc('sp.ui.dialog.js', 'SP.UI.ModalDialog.ShowPopupDialog', () => {
-                                    SP.UI.ModalDialog.ShowPopupDialog(newFormUrl);
-                                });
-                                e.stopPropagation();
-                                e.preventDefault();
-                            });
-                        }
+                    control = CSR.getControl(schema);
+                if (control) {
+                    let weburl = _spPageContextInfo.webServerRelativeUrl;
+                    if (weburl[weburl.length - 1] === '/') {
+                        weburl = weburl.substring(0, weburl.length - 1);
                     }
-                });
+                    let newFormUrl = weburl + '/_layouts/listform.aspx/listform.aspx?PageType=8'
+                        + "&ListId=" + encodeURIComponent('{' + schema.LookupListId + '}');
+                    if (contentTypeId) {
+                        newFormUrl += '&ContentTypeId=' + contentTypeId;
+                    }
+
+                    const link = document.createElement('a');
+                    link.href = "javascript:NewItem2(event, \'" + newFormUrl + "&Source=" + encodeURIComponent(document.location.href) + "')";
+                    link.textContent = prompt;
+                    if (control.nextElementSibling) {
+                        control.parentElement.insertBefore(link, control.nextElementSibling);
+                    } else {
+                        control.parentElement.appendChild(link);
+                    }
+
+                    if (showDialog) {
+                        $addHandler(link, "click", (e: Sys.UI.DomEvent) => {
+                            SP.SOD.executeFunc('sp.ui.dialog.js', 'SP.UI.ModalDialog.ShowPopupDialog', () => {
+                                SP.UI.ModalDialog.ShowPopupDialog(newFormUrl);
+                            });
+                            e.stopPropagation();
+                            e.preventDefault();
+                        });
+                    }
+                }
+            });
         }
 
         register() {
@@ -2023,10 +2038,10 @@ namespace _ {
     // do is retrieve a reference to the term set with the same ID as the div, and
     // then add the term  that belong to that term set under the div that was clicked.
 
-    function showTerms(event: JQueryEventObject, groupID: SP.Guid, termSetID: SP.Guid) {
+    function showTerms(event: JQuery.Event, groupID: SP.Guid, termSetID: SP.Guid) {
         // First, cancel the bubble so that the group div click handler does not also fire
         // because that removes all term set divs and we don't want that here.
-        event.cancelBubble = true;
+        event.originalEvent.cancelBubble = true;
 
         // Get a reference to the term set div that was click and
         // remove its children (apart from the TextNode that is currently
@@ -2262,7 +2277,8 @@ namespace SampleReputation {
         SP.SOD.registerSod('typescripttemplates.ts', '/SPTypeScript/Extensions/typescripttemplates.js');
         SP.SOD.executeFunc('typescripttemplates.ts', 'CSR', () => {
             CSR.override(10004, 1)
-                .onPreRender((ctx: MyList) => {
+                .onPreRender(preRenderContext => {
+                    const ctx = preRenderContext as MyList;
                     ctx.listId = ctx.listName.substring(1, 37);
                 })
                 .header('<ul>')
@@ -2278,7 +2294,8 @@ namespace SampleReputation {
         SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs('likes.js');
     }
 
-    function renderTemplate(ctx: MyList) {
+    function renderTemplate(renderContext: SPClientTemplates.RenderContext) {
+        const ctx = renderContext as MyList;
         const rows = ctx.ListData.Row;
         let result = '';
         for (const row of  rows) {
@@ -2332,13 +2349,13 @@ namespace App {
         activate(): void;
     }
 
-    class appcontroller implements Iappcontroller {
+    class appcontroller implements Iappcontroller, ng.IController {
         title: string = "appcontroller";
         lists: SP.List[];
 
         static $inject: string[] = ["$SharePoint", "$spnotify"];
 
-        constructor(private $SharePoint: App.SharePoint, private $n: App.SpNotify) {
+        constructor(private readonly $SharePoint: App.SharePoint, private readonly $n: App.SpNotify) {
             this.activate();
         }
 
@@ -2350,9 +2367,12 @@ namespace App {
                 .catch((e: string) => this.$n.show(e, true))
                 .finally(() => this.$n.remove(loading));
         }
+
+        $onInit() {
+        }
     }
 
-    angular.module("app").controller("appcontroller", appcontroller);
+    angular.module("app").controller("appcontroller", [appcontroller]);
 }
 
 namespace App {

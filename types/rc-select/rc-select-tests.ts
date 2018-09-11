@@ -1,7 +1,7 @@
-import React = require('react');
-import RcSelect = require('rc-select');
+import * as React from 'react';
+import * as RcSelect from 'rc-select';
 
-class Component extends React.Component<any, any> {
+class Component extends React.Component {
 
     private onChange(value: any) {
         console.log('selected', value);
@@ -16,7 +16,7 @@ class Component extends React.Component<any, any> {
         console.log('input changed');
     }
 
-    private defaultSelectProps = {
+    private readonly defaultSelectProps = {
         className: "my-select",
         prefixCls: "prefix",
         animation: "slide-up",
@@ -41,13 +41,13 @@ class Component extends React.Component<any, any> {
         defaultActiveFirstOption: false
     };
 
-    private defaultOptGroupProps = {
+    private readonly defaultOptGroupProps = {
         label: "Option group",
         key: "option-group-0",
         value: "option-group-0"
     };
 
-    private defaultOptionProps = {
+    private readonly defaultOptionProps = {
         className: "option",
         disabled: true,
         key: "option-0",

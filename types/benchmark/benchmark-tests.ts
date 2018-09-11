@@ -229,6 +229,27 @@ suite.add({
   'onComplete': onComplete
 });
 
+// unregister a listener for an event type
+suite.off('cycle', listener) as Benchmark.Suite;
+
+// unregister a listener for multiple event types
+suite.off('start cycle', listener) as Benchmark.Suite;
+
+// unregister all listeners for an event type
+suite.off('cycle') as Benchmark.Suite;
+
+// unregister all listeners for multiple event types
+suite.off('start cycle complete') as Benchmark.Suite;
+
+// unregister all listeners for all event types
+suite.off() as Benchmark.Suite;
+
+// register a listener for an event type
+suite.on('cycle', listener) as Benchmark.Suite;
+
+// register a listener for multiple event types
+suite.on('start cycle', listener) as Benchmark.Suite;
+
 // basic usage
 suite.run();
 

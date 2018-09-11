@@ -17,7 +17,8 @@ hashed = hash.keysMD5(obj);
 var options = {
 	algorithm: 'md5',
 	encoding: 'utf8',
-	excludeValues: true
+	excludeValues: true,
+	unorderedArrays: true
 };
 
 hashed = hash(obj, options);

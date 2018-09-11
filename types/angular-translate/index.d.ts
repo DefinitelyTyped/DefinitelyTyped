@@ -1,9 +1,8 @@
-// Type definitions for Angular Translate (pascalprecht.translate module) 2.15
+// Type definitions for Angular Translate (pascalprecht.translate module) 2.16
 // Project: https://github.com/PascalPrecht/angular-translate
-// Definitions by: Michel Salib <https://github.com/michelsalib>
+// Definitions by: Michel Salib <https://github.com/michelsalib>, Gabriel Gil <https://github.com/GabrielGil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference types="angular" />
+// TypeScript Version: 2.3
 
 declare var _: string;
 export = _;
@@ -48,8 +47,8 @@ declare module 'angular' {
         }
 
         interface ITranslateService {
-            (translationId: string, interpolateParams?: any, interpolationId?: string, defaultTranslationText?: string, forceLanguage?: string): angular.IPromise<string>;
-            (translationId: string[], interpolateParams?: any, interpolationId?: string, defaultTranslationText?: string, forceLanguage?: string): angular.IPromise<{ [key: string]: string }>;
+            (translationId: string, interpolateParams?: any, interpolationId?: string, defaultTranslationText?: string, forceLanguage?: string, sanitizeStrategy?: string): angular.IPromise<string>;
+            (translationId: string[], interpolateParams?: any, interpolationId?: string, defaultTranslationText?: string, forceLanguage?: string, sanitizeStrategy?: string): angular.IPromise<{ [key: string]: string }>;
             cloakClassName(): string;
             cloakClassName(name: string): ITranslateProvider;
             fallbackLanguage(langKey?: string): string;
@@ -68,8 +67,9 @@ declare module 'angular' {
             versionInfo(): string;
             loaderCache(): any;
             isReady(): boolean;
-            onReady(): angular.IPromise<void>;
+            onReady(fn?: () => void): angular.IPromise<void>;
             resolveClientLocale(): string;
+            getAvailableLanguageKeys(): string[];
         }
 
         interface ITranslateProvider extends angular.IServiceProvider {

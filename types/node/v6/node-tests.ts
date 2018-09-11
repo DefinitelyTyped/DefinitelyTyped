@@ -1,4 +1,4 @@
-import * as assert from "assert";
+import assert = require("assert");
 import * as fs from "fs";
 import * as events from "events";
 import events2 = require("events");
@@ -24,9 +24,10 @@ import * as string_decoder from "string_decoder";
 import * as stream from "stream";
 import * as timers from "timers";
 import * as repl from "repl";
+import * as dns from "dns";
 
 // Specifically test buffer module regression.
-import {Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer} from "buffer";
+import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer } from "buffer";
 
 //////////////////////////////////////////////////////////
 /// Global Tests : https://nodejs.org/api/global.html  ///
@@ -59,6 +60,8 @@ namespace assert_tests {
         }, undefined, "What the...*crunch*");
 
         assert.equal(3, "3", "uses == comparator");
+
+        assert.fail("actual", "expected", "message");
 
         assert.fail(1, 2, undefined, '>');
 
@@ -167,20 +170,71 @@ namespace fs_tests {
                 encoding: "ascii"
             },
             assert.ifError);
+
+        fs.writeFile("testfile", "content", "utf8", assert.ifError);
+
+        fs.writeFileSync("testfile", "content", "utf8");
+        fs.writeFileSync("testfile", "content", { encoding: "utf8" });
+    }
+
+    {
+        fs.appendFile("testfile", "foobar", "utf8", assert.ifError);
+        fs.appendFile("testfile", "foobar", { encoding: "utf8" }, assert.ifError);
+        fs.appendFileSync("testfile", "foobar", "utf8");
+        fs.appendFileSync("testfile", "foobar", { encoding: "utf8" });
     }
 
     {
         var content: string;
         var buffer: Buffer;
+        var stringOrBuffer: string | Buffer;
+        var nullEncoding: string | null = null;
+        var stringEncoding: string | null = 'utf8';
 
         content = fs.readFileSync('testfile', 'utf8');
         content = fs.readFileSync('testfile', { encoding: 'utf8' });
+        stringOrBuffer = fs.readFileSync('testfile', stringEncoding);
+        stringOrBuffer = fs.readFileSync('testfile', { encoding: stringEncoding });
+
         buffer = fs.readFileSync('testfile');
+        buffer = fs.readFileSync('testfile', null);
+        buffer = fs.readFileSync('testfile', { encoding: null });
+        stringOrBuffer = fs.readFileSync('testfile', nullEncoding);
+        stringOrBuffer = fs.readFileSync('testfile', { encoding: nullEncoding });
+
         buffer = fs.readFileSync('testfile', { flag: 'r' });
+
         fs.readFile('testfile', 'utf8', (err, data) => content = data);
         fs.readFile('testfile', { encoding: 'utf8' }, (err, data) => content = data);
+        fs.readFile('testfile', stringEncoding, (err, data) => stringOrBuffer = data);
+        fs.readFile('testfile', { encoding: stringEncoding }, (err, data) => stringOrBuffer = data);
+
         fs.readFile('testfile', (err, data) => buffer = data);
+        fs.readFile('testfile', null, (err, data) => buffer = data);
+        fs.readFile('testfile', { encoding: null }, (err, data) => buffer = data);
+        fs.readFile('testfile', nullEncoding, (err, data) => stringOrBuffer = data);
+        fs.readFile('testfile', { encoding: nullEncoding }, (err, data) => stringOrBuffer = data);
+
         fs.readFile('testfile', { flag: 'r' }, (err, data) => buffer = data);
+    }
+
+    {
+        fs.readdir('foo', (err: any, files: string[]) => {})
+        fs.readdir('foo', 'utf8', (err: any, files: string[]) => {});
+        fs.readdir('foo', {encoding: 'utf8'}, (err: any, files: string[]) => {});
+        fs.readdir('foo', 'buffer', (err: any, files: Buffer[]) => {});
+        fs.readdir('foo', {encoding: 'buffer'}, (err: any, files: Buffer[]) => {});
+
+        let fsStringOut: string[] = fs.readdirSync('utf8');
+        fsStringOut = fs.readdirSync('foo', 'utf8');
+        fsStringOut = fs.readdirSync('foo', {encoding: 'utf8'});
+
+        let fsBufferOut: Buffer[] = fs.readdirSync('utf8', 'buffer');
+        fsBufferOut = fs.readdirSync('foo', {encoding: 'buffer'});
+
+        let enc = 'buffer';
+        fs.readdirSync('path', { encoding: enc }); // $ExpectType string[] | Buffer[]
+        fs.readdirSync('path', { }); // $ExpectType string[] | Buffer[]
     }
 
     {
@@ -267,9 +321,19 @@ function bufferTests() {
         buf.swap64();
     }
 
-    // Class Method: Buffer.from(array)
+    // Class Method: Buffer.from(data)
     {
-        const buf: Buffer = Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72]);
+        // Array
+        const buf1: Buffer = Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72]);
+        // Buffer
+        const buf2: Buffer = Buffer.from(buf1);
+        // String
+        const buf3: Buffer = Buffer.from('this is a tést');
+        // ArrayBuffer
+        const arr: Uint16Array = new Uint16Array(2);
+        arr[0] = 5000;
+        arr[1] = 4000;
+        const buf4: Buffer = Buffer.from(arr.buffer);
     }
 
     // Class Method: Buffer.from(arrayBuffer[, byteOffset[, length]])
@@ -279,21 +343,28 @@ function bufferTests() {
         arr[1] = 4000;
 
         let buf: Buffer;
-        buf = Buffer.from(arr.buffer);
         buf = Buffer.from(arr.buffer, 1);
         buf = Buffer.from(arr.buffer, 0, 1);
     }
 
-    // Class Method: Buffer.from(buffer)
-    {
-        const buf1: Buffer = Buffer.from('buffer');
-        const buf2: Buffer = Buffer.from(buf1);
-    }
-
     // Class Method: Buffer.from(str[, encoding])
     {
-        const buf1: Buffer = Buffer.from('this is a tést');
         const buf2: Buffer = Buffer.from('7468697320697320612074c3a97374', 'hex');
+    }
+
+    // Class Method: Buffer.alloc(size[, fill[, encoding]])
+    {
+        const buf1: Buffer = Buffer.alloc(5);
+        const buf2: Buffer = Buffer.alloc(5, 'a');
+        const buf3: Buffer = Buffer.alloc(11, 'aGVsbG8gd29ybGQ=', 'base64');
+    }
+    // Class Method: Buffer.allocUnsafe(size)
+    {
+        const buf: Buffer = Buffer.allocUnsafe(5);
+    }
+    // Class Method: Buffer.allocUnsafeSlow(size)
+    {
+        const buf: Buffer = Buffer.allocUnsafeSlow(10);
     }
 
     // Test that TS 1.6 works with the 'as Buffer' annotation
@@ -406,6 +477,8 @@ namespace url_tests {
     {
         url.format(url.parse('http://www.example.com/xyz'));
 
+        url.format('http://www.example.com/xyz');
+
         // https://google.com/search?q=you're%20a%20lizard%2C%20gary
         url.format({
             protocol: 'https',
@@ -413,11 +486,113 @@ namespace url_tests {
             pathname: 'search',
             query: { q: "you're a lizard, gary" }
         });
+
+        const myURL = new url.URL('https://a:b@你好你好?abc#foo');
+        url.format(myURL, { fragment: false, unicode: true, auth: false });
     }
 
     {
         var helloUrl = url.parse('http://example.com/?hello=world', true)
         assert.equal(helloUrl.query.hello, 'world');
+    }
+
+    {
+        const ascii: string = url.domainToASCII('español.com');
+        const unicode: string = url.domainToUnicode('xn--espaol-zwa.com');
+    }
+
+    {
+        let myURL = new url.URL('https://theuser:thepwd@example.org:81/foo/path?query=string#bar');
+        assert.equal(myURL.hash, '#bar');
+        assert.equal(myURL.host, 'example.org:81');
+        assert.equal(myURL.hostname, 'example.org');
+        assert.equal(myURL.href, 'https://theuser:thepwd@example.org:81/foo/path?query=string#bar');
+        assert.equal(myURL.origin, 'https://example.org:81');
+        assert.equal(myURL.password, 'thepwd');
+        assert.equal(myURL.username, 'theuser');
+        assert.equal(myURL.pathname, '/foo/path');
+        assert.equal(myURL.port, "81");
+        assert.equal(myURL.protocol, "https:");
+        assert.equal(myURL.search, "?query=string");
+        assert.equal(myURL.toString(), 'https://theuser:thepwd@example.org:81/foo/path?query=string#bar');
+        assert(myURL.searchParams instanceof url.URLSearchParams);
+
+        myURL.host = 'example.org:82';
+        myURL.hostname = 'example.com';
+        myURL.href = 'http://other.com';
+        myURL.hash = 'baz';
+        myURL.password = "otherpwd";
+        myURL.username = "otheruser";
+        myURL.pathname = "/otherPath";
+        myURL.port = "82";
+        myURL.protocol = "http";
+        myURL.search = "a=b";
+        assert.equal(myURL.href, 'http://otheruser:otherpwd@other.com:82/otherPath?a=b#baz');
+
+        myURL = new url.URL('/foo', 'https://example.org/');
+        assert.equal(myURL.href, 'https://example.org/foo');
+        assert.equal(myURL.toJSON(), myURL.href);
+    }
+
+    {
+        const searchParams = new url.URLSearchParams('abc=123');
+
+        assert.equal(searchParams.toString(), 'abc=123');
+        searchParams.forEach((value: string, name: string, me: url.URLSearchParams): void => {
+            assert.equal(name, 'abc');
+            assert.equal(value, '123');
+            assert.equal(me, searchParams);
+        });
+
+        assert.equal(searchParams.get('abc'), '123');
+
+        searchParams.append('abc', 'xyz');
+
+        assert.deepEqual(searchParams.getAll('abc'), ['123', 'xyz']);
+
+        const entries = searchParams.entries();
+        assert.deepEqual(entries.next(), { value: ["abc", "123"], done: false});
+        assert.deepEqual(entries.next(), { value: ["abc", "xyz"], done: false});
+        assert.deepEqual(entries.next(), { value: undefined, done: true});
+
+        const keys = searchParams.keys();
+        assert.deepEqual(keys.next(), { value: "abc", done: false});
+        assert.deepEqual(keys.next(), { value: "abc", done: false});
+        assert.deepEqual(keys.next(), { value: undefined, done: true});
+
+        const values = searchParams.values();
+        assert.deepEqual(values.next(), { value: "123", done: false});
+        assert.deepEqual(values.next(), { value: "xyz", done: false});
+        assert.deepEqual(values.next(), { value: undefined, done: true});
+
+        searchParams.set('abc', 'b');
+        assert.deepEqual(searchParams.getAll('abc'), ['b']);
+
+        searchParams.delete('a');
+        assert(!searchParams.has('a'));
+        assert.equal(searchParams.get('a'), null);
+
+        searchParams.sort();
+    }
+
+    {
+        const searchParams = new url.URLSearchParams({
+            user: 'abc',
+            query: ['first', 'second']
+        });
+
+        assert.equal(searchParams.toString(), 'user=abc&query=first%2Csecond');
+        assert.deepEqual(searchParams.getAll('query'), ['first,second']);
+    }
+
+    {
+        // Using an array
+        let params = new url.URLSearchParams([
+            ['user', 'abc'],
+            ['query', 'first'],
+            ['query', 'second']
+        ]);
+        assert.equal(params.toString(), 'user=abc&query=first&query=second');
     }
 }
 
@@ -429,7 +604,29 @@ namespace util_tests {
     {
         // Old and new util.inspect APIs
         util.inspect(["This is nice"], false, 5);
-        util.inspect(["This is nice"], { colors: true, depth: 5, customInspect: false });
+        util.inspect(["This is nice"], false, null);
+        util.inspect(["This is nice"], {
+          colors: true,
+          depth: 5,
+          customInspect: false,
+          showProxy: true,
+          maxArrayLength: 10,
+          breakLength: 20
+        });
+        util.inspect(["This is nice"], {
+          colors: true,
+          depth: null,
+          customInspect: false,
+          showProxy: true,
+          maxArrayLength: null,
+          breakLength: Infinity
+        });
+        // util.deprecate
+        const foo = () => {};
+        // $ExpectType () => void
+        util.deprecate(foo, 'foo() is deprecated, use bar() instead');
+        // $ExpectType <T extends Function>(fn: T, message: string) => T
+        util.deprecate(util.deprecate, 'deprecate() is deprecated, use bar() instead');
     }
 }
 
@@ -446,7 +643,7 @@ function stream_readable_pipe_test() {
 
     assert(typeof r.bytesRead === 'number');
     assert(typeof r.path === 'string');
-    assert(typeof rs.path === 'Buffer');
+    assert(rs.path instanceof Buffer);
 
     r.pipe(z).pipe(w);
 
@@ -541,6 +738,32 @@ function simplified_stream_ctor_test() {
     })
 }
 
+// Subclassing stream classes
+{
+    class SubclassedReadable extends stream.Readable {};
+
+    let subclassedReadable: SubclassedReadable = new SubclassedReadable();
+    subclassedReadable = subclassedReadable.pause();
+    subclassedReadable = subclassedReadable.resume();
+
+    class SubclassedTransform extends stream.Transform {};
+
+    let subclassedTransform: SubclassedTransform = new SubclassedTransform();
+    subclassedTransform = subclassedTransform.pause();
+    subclassedTransform = subclassedTransform.resume();
+
+    class SubclassedDuplex extends stream.Duplex {};
+
+    let subclassedDuplex: SubclassedDuplex = new SubclassedDuplex();
+    subclassedDuplex = subclassedDuplex.pause();
+    subclassedDuplex = subclassedDuplex.resume();
+
+    // assignability
+    let readable: stream.Readable = subclassedDuplex;
+    readable = subclassedTransform;
+    let duplex: stream.Duplex = subclassedTransform;
+}
+
 ////////////////////////////////////////////////////////
 /// Crypto tests : http://nodejs.org/api/crypto.html ///
 ////////////////////////////////////////////////////////
@@ -563,13 +786,13 @@ namespace crypto_tests {
         let clearText: string = "This is the clear text.";
         let cipher: crypto.Cipher = crypto.createCipher("aes-128-ecb", key);
         let cipherText: string = cipher.update(clearText, "utf8", "hex");
-	cipherText += cipher.final("hex");
+    cipherText += cipher.final("hex");
 
         let decipher: crypto.Decipher = crypto.createDecipher("aes-128-ecb", key);
         let clearText2: string = decipher.update(cipherText, "hex", "utf8");
-	clearText2 += decipher.final("utf8");
+    clearText2 += decipher.final("utf8");
 
-	assert.equal(clearText2, clearText);
+    assert.equal(clearText2, clearText);
     }
 
     {
@@ -578,19 +801,19 @@ namespace crypto_tests {
         let clearText: Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 8, 7, 6, 5, 4]);
         let cipher: crypto.Cipher = crypto.createCipher("aes-128-ecb", key);
         let cipherBuffers: Buffer[] = [];
-	cipherBuffers.push(cipher.update(clearText));
-	cipherBuffers.push(cipher.final());
+    cipherBuffers.push(cipher.update(clearText));
+    cipherBuffers.push(cipher.final());
 
         let cipherText: Buffer = Buffer.concat(cipherBuffers);
 
         let decipher: crypto.Decipher = crypto.createDecipher("aes-128-ecb", key);
         let decipherBuffers: Buffer[] = [];
-	decipherBuffers.push(decipher.update(cipherText));
-	decipherBuffers.push(decipher.final());
+    decipherBuffers.push(decipher.update(cipherText));
+    decipherBuffers.push(decipher.final());
 
         let clearText2: Buffer = Buffer.concat(decipherBuffers);
 
-	assert.deepEqual(clearText2, clearText);
+    assert.deepEqual(clearText2, clearText);
     }
 
     {
@@ -616,8 +839,8 @@ namespace tls_tests {
     var blah = ctx.context;
 
     var connOpts: tls.ConnectionOptions = {
-	host: "127.0.0.1",
-	port: 55
+    host: "127.0.0.1",
+    port: 55
     };
     var tlsSocket = tls.connect(connOpts);
     }
@@ -820,18 +1043,22 @@ namespace http_tests {
     }
 
     {
-	var agent: http.Agent = new http.Agent({
-		keepAlive: true,
-		keepAliveMsecs: 10000,
-		maxSockets: Infinity,
-		maxFreeSockets: 256
-	});
+    var agent: http.Agent = new http.Agent({
+        keepAlive: true,
+        keepAliveMsecs: 10000,
+        maxSockets: Infinity,
+        maxFreeSockets: 256
+    });
 
-	var agent: http.Agent = http.globalAgent;
+    var agent: http.Agent = http.globalAgent;
 
         http.request({ agent: false });
         http.request({ agent: agent });
         http.request({ agent: undefined });
+    }
+
+    {
+        http.request('http://www.example.com/xyz');
     }
 
     {
@@ -841,10 +1068,29 @@ namespace http_tests {
     }
 
     {
-        var request = http.request('http://0.0.0.0');
+        var request = http.request({ path: 'http://0.0.0.0' });
         request.once('error', function() { });
         request.setNoDelay(true);
         request.abort();
+    }
+
+    // http request options
+    {
+        const requestOpts: http.RequestOptions = {
+            timeout: 30000
+        };
+
+        const clientArgs: http.ClientRequestArgs = {
+            timeout: 30000
+        };
+    }
+
+    // http headers
+    {
+        const headers: http.IncomingHttpHeaders = {
+            'content-type': 'application/json',
+            'set-cookie': [ 'type=ninja', 'language=javascript' ]
+        };
     }
 }
 
@@ -872,6 +1118,10 @@ namespace https_tests {
     https.request({
         agent: undefined
     });
+
+    https.request('http://www.example.com/xyz');
+
+    https.globalAgent.options.ca = [];
 }
 
 ////////////////////////////////////////////////////
@@ -1115,19 +1365,7 @@ namespace path_tests {
     // returns
     //        ['foo', 'bar', 'baz']
 
-    console.log(process.env.PATH)
-    // '/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin'
-
-    process.env.PATH.split(path.delimiter)
-    // returns
-    //        ['/usr/bin', '/bin', '/usr/sbin', '/sbin', '/usr/local/bin']
-
-    console.log(process.env.PATH)
-    // 'C:\Windows\system32;C:\Windows;C:\Program Files\nodejs\'
-
-    process.env.PATH.split(path.delimiter)
-    // returns
-    //        ['C:\Windows\system32', 'C:\Windows', 'C:\Program Files\nodejs\']
+    process.env["PATH"]; // $ExpectType string
 
     path.parse('/home/user/dir/file.txt')
     // returns
@@ -1158,6 +1396,47 @@ namespace path_tests {
     });
     // returns
     //    '/home/user/dir/file.txt'
+
+
+    path.format({
+        dir: "/home/user/dir",
+        base: "file.txt"
+    });
+    // returns
+    //    '/home/user/dir/file.txt'
+
+    path.posix.format({
+        root: "/",
+        dir: "/home/user/dir",
+        base: "file.txt",
+        ext: ".txt",
+        name: "file"
+    });
+    // returns
+    //    '/home/user/dir/file.txt'
+
+    path.posix.format({
+        dir: "/home/user/dir",
+        base: "file.txt"
+    });
+    // returns
+    //    '/home/user/dir/file.txt'
+
+    path.win32.format({
+        root: "C:\\",
+        dir: "C:\\home\\user\\dir",
+        ext: ".txt",
+        name: "file"
+    });
+    // returns
+    //    'C:\home\user\dir\file.txt'
+
+    path.win32.format({
+        dir: "C:\\home\\user\\dir",
+        base: "file.txt"
+    });
+    // returns
+    //    'C:\home\user\dir\file.txt'
 }
 
 ////////////////////////////////////////////////////
@@ -1719,6 +1998,26 @@ namespace errors_tests {
         const myObject = {};
         Error.captureStackTrace(myObject);
     }
+    {
+        let frames: NodeJS.CallSite[] = [];
+        Error.prepareStackTrace(new Error(), frames);
+    }
+    {
+        let frame: NodeJS.CallSite = null;
+        let frameThis: any = frame.getThis();
+        let typeName: string = frame.getTypeName();
+        let func: Function = frame.getFunction();
+        let funcName: string = frame.getFunctionName();
+        let meth: string = frame.getMethodName();
+        let fname: string = frame.getFileName();
+        let lineno: number = frame.getLineNumber();
+        let colno: number = frame.getColumnNumber();
+        let evalOrigin: string = frame.getEvalOrigin();
+        let isTop: boolean = frame.isToplevel();
+        let isEval: boolean = frame.isEval();
+        let isNative: boolean = frame.isNative();
+        let isConstr: boolean = frame.isConstructor();
+    }
 }
 
 ///////////////////////////////////////////////////////////
@@ -1791,7 +2090,12 @@ namespace net_tests {
          *   7. lookup
          *   8. timeout
          */
-        let _socket: net.Socket;
+        let _socket: net.Socket = new net.Socket({
+            fd: 1,
+            allowHalfOpen: false,
+            readable: false,
+            writable: false
+        });
 
         let bool: boolean;
         let buffer: Buffer;
@@ -1941,6 +2245,7 @@ namespace net_tests {
         })
         _socket = _socket.prependOnceListener("timeout", () => { })
 
+        bool = _socket.connecting;
         bool = _socket.destroyed;
         _socket.destroy();
     }
@@ -2037,6 +2342,86 @@ namespace repl_tests {
         _server = _server.prependOnceListener("exit", () => { });
         _server = _server.prependOnceListener("reset", () => { });
     }
+}
+
+///////////////////////////////////////////////////
+/// DNS Tests : https://nodejs.org/api/dns.html ///
+///////////////////////////////////////////////////
+
+namespace dns_tests {
+    dns.lookup("nodejs.org", (err, address, family) => {
+        const _err: NodeJS.ErrnoException = err;
+        const _address: string = address;
+        const _family: number = family;
+    });
+    dns.lookup("nodejs.org", 4, (err, address, family) => {
+        const _err: NodeJS.ErrnoException = err;
+        const _address: string = address;
+        const _family: number = family;
+    });
+    dns.lookup("nodejs.org", 6, (err, address, family) => {
+        const _err: NodeJS.ErrnoException = err;
+        const _address: string = address;
+        const _family: number = family;
+    });
+    dns.lookup("nodejs.org", {}, (err, address, family) => {
+        const _err: NodeJS.ErrnoException = err;
+        const _address: string = address;
+        const _family: number = family;
+    });
+    dns.lookup(
+        "nodejs.org",
+        {
+            family: 4,
+            hints: dns.ADDRCONFIG | dns.V4MAPPED,
+            all: false
+        },
+        (err, address, family) => {
+            const _err: NodeJS.ErrnoException = err;
+            const _address: string = address;
+            const _family: number = family;
+        }
+    );
+    dns.lookup("nodejs.org", {all: true}, (err, addresses) => {
+        const _err: NodeJS.ErrnoException = err;
+        const _address: dns.LookupAddress[] = addresses;
+    });
+
+    function trueOrFalse(): boolean {
+        return Math.random() > 0.5 ? true : false;
+    }
+    dns.lookup("nodejs.org", {all: trueOrFalse()}, (err, addresses, family) => {
+        const _err: NodeJS.ErrnoException = err;
+        const _addresses: string | dns.LookupAddress[] = addresses;
+        const _family: number | undefined = family;
+    });
+
+    dns.lookupService("127.0.0.1", 0, (err, hostname, service) => {
+        const _err: NodeJS.ErrnoException = err;
+        const _hostname: string = hostname;
+        const _service: string = service;
+    });
+
+    dns.resolve("nodejs.org", (err, addresses) => {
+        const _addresses: string[] = addresses;
+    });
+    dns.resolve("nodejs.org", "A", (err, addresses) => {
+        const _addresses: string[] = addresses;
+    });
+    dns.resolve("nodejs.org", "AAAA", (err, addresses) => {
+        const _addresses: string[] = addresses;
+    });
+    dns.resolve("nodejs.org", "MX", (err, addresses) => {
+        const _addresses: dns.MxRecord[] = addresses;
+    });
+
+    dns.resolve4("nodejs.org", (err, addresses) => {
+        const _addresses: string[] = addresses;
+    });
+
+    dns.resolve6("nodejs.org", (err, addresses) => {
+        const _addresses: string[] = addresses;
+    });
 }
 
 /*****************************************************************************
@@ -2203,3 +2588,19 @@ client.connect(8888, 'localhost');
 client.listbreakpoints((err, body, packet) => {
 
 });
+
+////////////////////////////////////////////////////
+/// zlib tests : http://nodejs.org/api/zlib.html ///
+////////////////////////////////////////////////////
+
+namespace zlib_tests {
+    {
+        const gzipped = zlib.gzipSync('test');
+        const unzipped = zlib.gunzipSync(gzipped.toString());
+    }
+
+    {
+        const deflate = zlib.deflateSync('test');
+        const inflate = zlib.inflateSync(deflate.toString());
+    }
+}

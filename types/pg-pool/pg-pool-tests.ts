@@ -1,4 +1,4 @@
-import {Pool} from "pg-pool";
+import { Pool } from "pg-pool";
 
 let pool = new Pool()
 

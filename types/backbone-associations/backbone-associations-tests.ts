@@ -3,77 +3,72 @@
 
 import * as Backbone from 'backbone';
 
-namespace BackboneAssociationsTests {
-    namespace OneToOne {
-        class EmployeeWithManager extends Backbone.AssociatedModel {
-            constructor(options?) {
-                super(options);
-                this.relations = [
-                    {
-                        type: Backbone.One, //nature of the relationship
-                        key: 'manager', // attribute of Employee
-                        relatedModel: 'Employee' //AssociatedModel for attribute key
-                    }
-                ];
+// one-to-one tests
+class EmployeeWithManager extends Backbone.AssociatedModel {
+    constructor(options?) {
+        super(options);
+        this.relations = [
+            {
+                type: Backbone.One, //nature of the relationship
+                key: 'manager', // attribute of Employee
+                relatedModel: 'Employee' //AssociatedModel for attribute key
             }
-
-            defaults() {
-                return {
-                    age: 0,
-                    fname: "",
-                    lname: "",
-                    manager: null
-                };
-            }
-        }
+        ];
     }
 
-    namespace OneToMany {
-        class Location extends Backbone.AssociatedModel {
-            defaults() {
-                return {
-                    add1: "",
-                    add2: null,
-                    zip: "",
-                    state: ""
-                };
-            }
-        }
+    defaults() {
+        return {
+            age: 0,
+            fname: "",
+            lname: "",
+            manager: null
+        };
+    }
+}
 
-        class Locations extends Backbone.Collection<Location> {
-            comparator = (c: Backbone.Model) => {
-                return c.get("Number");
-            }
-        }
+// one-to-many tests
+class Location extends Backbone.AssociatedModel {
+    defaults() {
+        return {
+            add1: "",
+            add2: null,
+            zip: "",
+            state: ""
+        };
+    }
+}
 
-        class Project extends Backbone.AssociatedModel {
-            constructor(options?) {
-                super(options);
-                this.relations = [
-                    {
-                        type: Backbone.Many, //nature of the relation
-                        key: 'locations', //attribute of Project
-                        collectionType: Locations, //Collection to be used.
-                        relatedModel: Location //Optional
-                    }
-                ];
-            }
+class Locations extends Backbone.Collection<Location> {
+    comparator = (c: Backbone.Model) => {
+        return c.get("Number");
+    }
+}
 
-            defaults() {
-                return {
-                    name: "",
-                    number: 0,
-                    locations: []
-                }
+class Project extends Backbone.AssociatedModel {
+    constructor(options?) {
+        super(options);
+        this.relations = [
+            {
+                type: Backbone.Many, //nature of the relation
+                key: 'locations', //attribute of Project
+                collectionType: Locations, //Collection to be used.
+                relatedModel: Location //Optional
             }
-        }
-
-        function reverseAssociationTest() {
-            var local = new Location({ state: "Hertfordshire" });
-            var project = new Project({ name: "The Old Pond Project" });
-            local.set("oddRelationTo", project);
-            var parents = project.parents;
-        }
+        ];
     }
 
+    defaults() {
+        return {
+            name: "",
+            number: 0,
+            locations: []
+        }
+    }
+}
+
+function reverseAssociationTest() {
+    var local = new Location({ state: "Hertfordshire" });
+    var project = new Project({ name: "The Old Pond Project" });
+    local.set("oddRelationTo", project);
+    var parents = project.parents;
 }

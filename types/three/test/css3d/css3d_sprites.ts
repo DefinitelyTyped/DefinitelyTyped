@@ -1,5 +1,3 @@
-/// <reference types="tween.js" />
-
 // https://github.com/mrdoob/three.js/blob/master/examples/css3d_sprites.html
 
 () => {
@@ -26,14 +24,14 @@
         scene = new THREE.Scene();
 
         var image = document.createElement('img');
-        image.addEventListener('load', function (event: Event) {
+        image.addEventListener('load', function(event: Event) {
 
             for (var i = 0; i < particlesTotal; i++) {
 
                 var object = new THREE.CSS3DSprite(image.cloneNode());
-                object.position.x = Math.random() * 4000 - 2000,
-                object.position.y = Math.random() * 4000 - 2000,
-                object.position.z = Math.random() * 4000 - 2000
+                object.position.x = Math.random() * 4000 - 2000;
+                object.position.y = Math.random() * 4000 - 2000;
+                object.position.z = Math.random() * 4000 - 2000;
                 scene.add(object);
 
                 objects.push(object);
@@ -87,7 +85,7 @@
                 Math.random() * 4000 - 2000,
                 Math.random() * 4000 - 2000,
                 Math.random() * 4000 - 2000
-                );
+            );
 
         }
 
@@ -104,7 +102,7 @@
                 radius * Math.cos(theta) * Math.sin(phi),
                 radius * Math.sin(theta) * Math.sin(phi),
                 radius * Math.cos(phi)
-                );
+            );
 
         }
 
@@ -140,7 +138,7 @@
         var offset = current * particlesTotal * 3;
         var duration = 2000;
 
-        for (var i = 0, j = offset; i < particlesTotal; i++, j += 3) {
+        for (var i = 0, j = offset; i < particlesTotal;) {
 
             var object = objects[i];
 
@@ -152,7 +150,8 @@
                 }, Math.random() * duration + duration)
                 .easing(TWEEN.Easing.Exponential.InOut)
                 .start();
-
+            i++ ;
+            j += 3;
         }
 
         new TWEEN.Tween(this)

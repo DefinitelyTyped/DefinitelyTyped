@@ -4,9 +4,10 @@
         "lib": [
             "es6"
         ],
-        "noImplicitAny": true,
+        "noImplicitAny": false,
         "noImplicitThis": true,
         "strictNullChecks": false,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -17,6 +18,7 @@
     },
     "files": [
         "index.d.ts",
+        "msnodesqlv8.d.ts",
         "mssql-tests.ts"
     ]
 }

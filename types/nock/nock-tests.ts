@@ -1,7 +1,6 @@
-
-
-import * as nock from 'nock';
+import nock = require('nock');
 import * as fs from 'fs';
+import { URL } from 'url';
 
 var scope: nock.Scope;
 var inst: nock.Interceptor;
@@ -74,10 +73,10 @@ scope = inst.reply(num, str);
 scope = inst.reply(num, str, headers);
 scope = inst.reply(num, obj, headers);
 scope = inst.reply(num, (uri: string, body: string) => {
-	return str;
+  return str;
 });
 scope = inst.reply(num, (uri: string, body: string) => {
-	return str;
+  return str;
 }, headers);
 scope = inst.replyWithFile(num, str);
 
@@ -99,15 +98,16 @@ inst = inst.delayConnection(num);
 
 scope = scope.filteringPath(regex, str);
 scope = scope.filteringPath((path: string) => {
-	return str;
+  return str;
 });
 scope = scope.filteringRequestBody(regex, str);
 scope = scope.filteringRequestBody((path: string) => {
-	return str;
+  return str;
 });
 
 scope = scope.log(() => { });
 scope = scope.persist();
+scope = scope.persist(false);
 bool = scope.shouldPersist();
 scope = scope.replyContentLength();
 scope = scope.replyDate();
@@ -124,13 +124,11 @@ scope.done();
 bool = scope.isDone();
 scope.restore();
 
-strings = scope.pendingMocks();
-
 nock.recorder.rec();
 nock.recorder.rec(true);
 nock.recorder.rec({
-	dont_print: true,
-	output_objects: true
+  dont_print: true,
+  output_objects: true
 });
 nock.recorder.clear();
 strings = nock.recorder.play() as string[];
@@ -146,6 +144,11 @@ var couchdb = nock('http://myapp.iriscouch.com')
                   username: 'pgte',
                   email: 'pedro.teixeira@gmail.com'
                  });
+
+// Using URL as input
+var scope = nock(new URL('https://example.org/'))
+    .get('/resource')
+    .reply(200, 'url matched');
 
 // Specifying hostname
 var scope = nock('http://www.example.com')
@@ -370,6 +373,12 @@ var scope = nock('http://www.headdy.com')
    });
 
 var scope = nock('http://www.headdy.com')
+    .get('/')
+    .reply(200, 'Hello World!', {
+        'X-My-Headers': ['My Header value 1', 'My Header value 2']
+    });
+
+var scope = nock('http://www.headdy.com')
    .get('/')
    .reply(200, 'Hello World!', {
      'X-My-Headers': (req, res, body) => {
@@ -566,6 +575,8 @@ var scope = nock('http://persisssists.con')
   .reply(200, 'Persisting all the way');
 
 /// .pendingMocks()
+strings = scope.pendingMocks();
+strings = nock.pendingMocks();
 if (!scope.isDone()) {
   console.error('pending mocks: %j', scope.pendingMocks());
 }
@@ -708,6 +719,12 @@ nockBack('zomboFixture.json', { before, after }, (nockDone: () => void) => {
   });
 });
 
+// in promise mode
+nockBack('promisedFixture.json')
+  .then(({nockDone, context}) => {
+    context.assertScopesFinished();
 
-
-
+    // do your tests returning a promise and chain it with
+    Promise.resolve('foo')
+      .then(nockDone);
+  });

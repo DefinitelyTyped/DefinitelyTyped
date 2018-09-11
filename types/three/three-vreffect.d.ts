@@ -1,41 +1,35 @@
-// Type definitions for three.js (VREffect.js)
-// Project: https://github.com/mrdoob/three.js/blob/master/examples/js/effects/VREffect.js
-// Definitions by: Toshiya Nakakura <https://github.com/nakakura>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference types="three" />
 /// <reference types="webvr-api" />
 
-declare namespace THREE {
-    export class VREffect {
-        constructor(renderer: Renderer, callback?: (params: string) => void);
+import { Camera, Matrix4, Renderer, Scene } from "./three-core";
 
-        render(scene: Scene, camera: Camera): void;
+export class VREffect {
+    constructor(renderer: Renderer, callback?: (params: string) => void);
 
-        setSize(width: number, height: number): void;
+    render(scene: Scene, camera: Camera): void;
 
-        setFullScreen(flag: boolean): void;
+    setSize(width: number, height: number): void;
 
-        startFullscreen(): void;
+    setFullScreen(flag: boolean): void;
 
-        FovToNDCScaleOffset(fov: VRFov): VREffectOffset;
+    startFullscreen(): void;
 
-        FovPortToProjection(fov: VRFov, rightHanded: boolean, zNear: number, zFar: number): Matrix4;
+    FovToNDCScaleOffset(fov: VRFov): VREffectOffset;
 
-        FovToProjection(fov: VRFov, rightHanded: boolean, zNear: number, zFar: number): Matrix4;
+    FovPortToProjection(fov: VRFov, rightHanded: boolean, zNear: number, zFar: number): Matrix4;
 
-        setVRDisplay(display: VRDisplay): void;
-    }
+    FovToProjection(fov: VRFov, rightHanded: boolean, zNear: number, zFar: number): Matrix4;
 
-    export interface VRFov {
-        leftTan: number;
-        rightTan: number;
-        upTan: number;
-        downTan: number;
-    }
+    setVRDisplay(display: VRDisplay): void;
+}
 
-    export interface VREffectOffset {
-        scale: number;
-        offset: number;
-    }
+export interface VRFov {
+    leftTan: number;
+    rightTan: number;
+    upTan: number;
+    downTan: number;
+}
+
+export interface VREffectOffset {
+    scale: number;
+    offset: number;
 }

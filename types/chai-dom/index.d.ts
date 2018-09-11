@@ -23,6 +23,18 @@ declare namespace Chai {
 
         value(text: string): Assertion;
 
+        empty: Assertion;
+
+        // exist, length, and contain are already defined in @types/chai and have the
+        // same type or a more general type, so don't need to be re-declared even though
+        // the implementation is different
+
+        descendant(element: string|HTMLElement): Assertion;
+
+        descendants(selector: string): Assertion;
+
+        displayed: Assertion;
+
     }
 
     interface Include {
@@ -30,6 +42,12 @@ declare namespace Chai {
         text(text: string|string[]): Assertion;
 
         html(text: string|string[]): Assertion;
+
+    }
+
+    interface Match {
+
+        (selector: string): Assertion;
 
     }
 

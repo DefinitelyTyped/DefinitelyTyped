@@ -1,3 +1,4 @@
+/// <reference types="jquery"/>
 /* inspired by documentation at http://isotope.metafizzy.co/ */
 
 // test all options
@@ -98,10 +99,10 @@ $grid.isotope('layout').isotope('reloadItems').isotope('shuffle');
 let iso: Isotope = $grid.data('isotope');
 
 // test native javascript methods
-iso = new Isotope('.grid');
+iso = new Isotope('.grid', {});
 iso.addItems($('.items'));
 iso.appended(new HTMLElement());
-iso.arrange(new HTMLElement());
+iso.arrange({ cellsByColumn: { columnWidth: 101, rowHeight: 12 } });
 iso.destroy();
 elements = iso.getFilteredItemElements();
 elements = iso.getItemElements();

@@ -1,7 +1,8 @@
 // Type definitions for cookie-session 2.0
 // Project: https://github.com/expressjs/cookie-session
-// Definitions by: Borislav Zhivkov <https://github.com/borislavjivkov/>
+// Definitions by: Borislav Zhivkov <https://github.com/borislavjivkov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /// <reference types="express" />
 
@@ -77,17 +78,17 @@ declare namespace CookieSessionInterfaces {
         /**
          * Is true if the session has been changed during the request.
          */
-        isChanged: boolean;
+        isChanged?: boolean;
 
         /**
          * Is true if the session is new.
          */
-        isNew: boolean;
+        isNew?: boolean;
 
         /**
          * Determine if the session has been populated with data or is empty.
          */
-        isPopulated: boolean;
+        isPopulated?: boolean;
 
         [propertyName: string]: any;
     }
@@ -96,7 +97,7 @@ declare namespace CookieSessionInterfaces {
         /**
          * Represents the session for the given request.
          */
-        session: CookieSessionObject;
+        session?: CookieSessionObject;
 
         /**
          * Represents the session options for the current request. These options are a shallow clone of what was provided at middleware construction and can be altered to change cookie setting behavior on a per-request basis.

@@ -1,24 +1,22 @@
-// Type definitions for three.js (ShaderPass.js)
-// Project: https://github.com/mrdoob/three.js/blob/r68/examples/js/postprocessing/ShaderPass.js
-// Definitions by: Satoru Kimura <https://github.com/gyohk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+import {
+    OrthographicCamera,
+    IUniform,
+    Mesh,
+    Scene,
+    Shader,
+    ShaderMaterial,
+    WebGLRenderTarget,
+    WebGLRenderer
+} from "./three-core";
+import { Pass } from "./three-effectcomposer";
 
+export class ShaderPass extends Pass {
+    constructor(shader: Shader, textureID?: string);
 
-declare namespace THREE {
-    export class ShaderPass {
-        constructor(shader: Shader, textureID?: string);
-
-        textureID: string;
-        uniforms: any;
-        material: ShaderMaterial;
-        renderToScreen: boolean;
-        enabled: boolean;
-        needsSwap: boolean;
-        clear: boolean;
-        camera: Camera;
-        scene: Scene;
-        quad: Mesh;
-
-        render(renderer: WebGLRenderer, writeBuffer: WebGLRenderTarget, readBuffer: WebGLRenderTarget, delta: number): void;
-    }
+    textureID: string;
+    uniforms: { [uniform: string]: IUniform };
+    material: ShaderMaterial;
+    camera: OrthographicCamera;
+    scene: Scene;
+    quad: Mesh;
 }

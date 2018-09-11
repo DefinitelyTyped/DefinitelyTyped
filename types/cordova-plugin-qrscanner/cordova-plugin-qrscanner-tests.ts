@@ -3,7 +3,7 @@
 var QRScanner: QRScanner = window.QRScanner;
 QRScanner.prepare();
 QRScanner.prepare((err, status) => { var error: QRScannerError = err; var obj: QRScannerStatus = status; });
-QRScanner.scan((err, results) => { var error: QRScannerError = err; var contents: String = results; });
+QRScanner.scan((err, results) => { var error: QRScannerError = err; var contents: string = results; });
 QRScanner.cancelScan();
 QRScanner.cancelScan((status) => {var obj: QRScannerStatus = status; });
 QRScanner.show();
@@ -31,12 +31,12 @@ QRScanner.destroy((status) => {var obj: QRScannerStatus = status; });
 
 QRScanner.prepare((err, status) => {
   var error: QRScannerError = err;
-  var num: Number = error.code;
-  var str: String = error.name;
+  var num: number = error.code;
+  var str: string = error.name;
   str = error._message;
 
   var obj: QRScannerStatus = status;
-  var bool: Boolean = status.authorized;
+  var bool: boolean = status.authorized;
   bool = status.denied;
   bool = status.restricted;
   bool = status.prepared;
@@ -46,5 +46,5 @@ QRScanner.prepare((err, status) => {
   bool = status.lightEnabled;
   bool = status.canOpenSettings;
   bool = status.canEnableLight;
-  var num: Number = status.currentCamera;
+  var num: number = status.currentCamera;
 });

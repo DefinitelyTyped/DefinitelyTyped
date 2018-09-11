@@ -21,13 +21,19 @@ const config: Microsoft.ApplicationInsights.IConfig = {
     maxAjaxCallsPerView: -1,
     disableDataLossAnalysis: true,
     disableCorrelationHeaders: true,
+    correlationHeaderExcludedDomains: [],
     disableFlushOnBeforeUnload: false,
     enableSessionStorageBuffer: false,
     cookieDomain: "",
     isCookieUseDisabled: true,
     isRetryDisabled: true,
-    isPerfAnalyzerEnabled: true,
-    isStorageUseDisabled: true
+    url: "url",
+    isStorageUseDisabled: true,
+    isBeaconApiDisabled: false,
+    sdkExtension: "sdkExtension",
+    isBrowserLinkTrackingEnabled: false,
+    appId: "appId",
+    enableCorsCorrelation: false
 };
 
 appInsights = {
@@ -44,7 +50,7 @@ appInsights = {
     trackDependency(id: string, method: string, absoluteUrl: string, pathName: string, totalTime: number, success: boolean, resultCode: number) { return null; },
     trackException(exception: Error, handledAt?: string, properties?: { [name: string]: string; }, measurements?: { [name: string]: number; }, severityLevel?: AI.SeverityLevel) { return null; },
     trackMetric(name: string, average: number, sampleCount?: number, min?: number, max?: number, properties?: { [name: string]: string; }) { return null; },
-    trackTrace(message: string, properties?: { [name: string]: string; }) { return null; },
+    trackTrace(message: string, properties?: { [name: string]: string; }, severityLevel?: AI.SeverityLevel) { return null; },
     flush() { return null; },
     setAuthenticatedUserContext(authenticatedUserId: string, accountId?: string) { return null; },
     clearAuthenticatedUserContext() { return null; },
@@ -77,6 +83,7 @@ appInsights.trackException(new Error("sample error"), "handledAt", null, null);
 // trackTrace
 appInsights.trackTrace("message");
 appInsights.trackTrace("message", null);
+appInsights.trackTrace("message", { a: '1', b: '2' }, AI.SeverityLevel.Error);
 
 // trackDependency
 appInsights.trackDependency("id", "POST", "http://example.com/test/abc", "/test/abc", null, true, null);
@@ -117,7 +124,18 @@ const envelope = new Microsoft.ApplicationInsights.Telemetry.Common.Envelope(dat
 
 context.track(envelope);
 
-context.addTelemetryInitializer(telemetryEnvelope => false);
+context.addTelemetryInitializer(envelope => false);
+context.addTelemetryInitializer(envelope => { });
+
+// a sample from: https://github.com/Microsoft/ApplicationInsights-JS/blob/master/API-reference.md#example
+context.addTelemetryInitializer(envelope => {
+    const telemetryItem = envelope.data.baseData;
+    if (envelope.name === Microsoft.ApplicationInsights.Telemetry.PageView.envelopeType) {
+        telemetryItem.url = "URL CENSORED";
+    }
+    telemetryItem.properties = telemetryItem.properties || {};
+    telemetryItem.properties["globalProperty"] = "boo";
+});
 
 // track event
 const eventObj = new Microsoft.ApplicationInsights.Telemetry.Event("test", null, null);
@@ -163,3 +181,8 @@ const traceObj = new Microsoft.ApplicationInsights.Telemetry.Trace("message", nu
 const traceData = new Microsoft.ApplicationInsights.Telemetry.Common.Data<Microsoft.ApplicationInsights.Telemetry.Trace>(Microsoft.ApplicationInsights.Telemetry.Trace.dataType, traceObj);
 const traceEnvelope = new Microsoft.ApplicationInsights.Telemetry.Common.Envelope(traceData, Microsoft.ApplicationInsights.Telemetry.Trace.envelopeType);
 context.track(traceEnvelope);
+
+// UtilHelpers
+let Util: typeof Microsoft.ApplicationInsights.UtilHelpers;
+
+Util.newId();

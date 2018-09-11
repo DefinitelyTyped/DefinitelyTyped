@@ -1,6 +1,6 @@
 
 declare var el: Element;
-declare var els: Element[];
+declare var els: HTMLElement[];
 declare var mixinFn: Function;
 
 function TestComponent() {

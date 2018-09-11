@@ -1,4 +1,4 @@
-/// <reference types="jquery"/>
+import $ = require('jquery');
 
 $(function() {
 

@@ -1,7 +1,7 @@
 import * as React from "react";
-import * as Gravatar from "react-gravatar";
+import Gravatar = require("react-gravatar");
 
-class GravatarEmailTest extends React.Component<void, void> {
+class GravatarEmailTest extends React.Component {
 	render() {
 		return (
 			<Gravatar
@@ -17,7 +17,7 @@ class GravatarEmailTest extends React.Component<void, void> {
 	}
 }
 
-class GravatarHashTest extends React.Component<void, void> {
+class GravatarHashTest extends React.Component {
 	render() {
 		return (
 			<Gravatar
@@ -33,7 +33,7 @@ class GravatarHashTest extends React.Component<void, void> {
 	}
 }
 
-class GravatarMinimalTest extends React.Component<void, void> {
+class GravatarMinimalTest extends React.Component {
 	render() {
 		return <Gravatar email="test@example.com" />;
 	}

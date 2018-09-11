@@ -1,6 +1,8 @@
 // Type definitions for Numeral.js
 // Project: https://github.com/adamwdraper/Numeral-js
-// Definitions by: Vincent Bortone <https://github.com/vbortone/>
+// Definitions by: Vincent Bortone <https://github.com/vbortone>
+//                 Behind The Math <https://github.com/BehindTheMath>
+//                 Kenneth Luján <https://github.com/klujanrosas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
@@ -22,6 +24,15 @@ interface NumeralJSLocale {
 	};
 }
 
+interface NumeralJSOptions {
+	currentLocale: string;
+	zeroFormat: string;
+	nullFormat: string;
+	defaultFormat: string;
+	scalePercentBy100: boolean;
+}
+
+type RoundingFunction = (value: number) => number;
 
 // http://numeraljs.com/#custom-formats
 interface NumeralJsFormat {
@@ -29,7 +40,7 @@ interface NumeralJsFormat {
 		format: RegExp,
 		unformat: RegExp,
 	},
-	format: (value: any, format: string, roundingFunction: Function) => string,
+	format: (value: any, format: string, roundingFunction: RoundingFunction) => string,
 	unformat: (value: string) => number
 }
 
@@ -40,12 +51,22 @@ interface Numeral {
 	(value?: any): Numeral;
 	version: string;
 	isNumeral: boolean;
+	options: NumeralJSOptions;
 
 	/**
 	 * This function sets the current locale.  If no arguments are passed in,
 	 * it will simply return the current global locale key.
 	 */
 	locale(key?: string): string;
+
+	/**
+	 * This function provides access to the loaded locale data.  If
+	 * no arguments are passed in, it will simply return the current
+	 * global locale object.
+	 *
+	 * @param key Locale key, e.g 'es' for a spanish locale definition
+	 */
+	localeData(key?: string): NumeralJSLocale;
 
 	/**
 	 * Registers a language definition or a custom format definition.
@@ -60,8 +81,7 @@ interface Numeral {
 	nullFormat(format: string): void;
 	defaultFormat(format: string): void;
 	clone(): Numeral;
-	format(inputString?: string): string;
-	formatCurrency(inputString?: string): string;
+	format(inputString?: string, roundingFunction?: RoundingFunction): string;
 	unformat(inputString: string): number;
 	value(): number;
 	valueOf(): number;

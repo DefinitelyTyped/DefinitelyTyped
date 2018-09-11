@@ -1,7 +1,8 @@
 // Type definitions for helmet
 // Project: https://github.com/helmetjs/helmet
-// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>, Evan Hahn <https://github.com/EvanHahn>
+// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>, Evan Hahn <https://github.com/EvanHahn>, Elliot Blackburn <https://github.com/bluehatbrit>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import express = require('express');
 
@@ -10,16 +11,23 @@ export = helmet;
 
 declare namespace helmet {
     export interface IHelmetConfiguration {
-        contentSecurityPolicy?: boolean | IHelmetContentSecurityPolicyConfiguration,
-        dnsPrefetchControl?: boolean | IHelmetDnsPrefetchControlConfiguration,
-        frameguard?: boolean | IHelmetFrameguardConfiguration,
-        hidePoweredBy?: boolean | IHelmetHidePoweredByConfiguration,
-        hpkp?: boolean | IHelmetHpkpConfiguration,
-        hsts?: boolean | IHelmetHstsConfiguration,
-        ieNoOpen?: boolean,
-        noCache?: boolean,
-        noSniff?: boolean,
-        xssFilter?: boolean | IHelmetXssFilterConfiguration
+        contentSecurityPolicy?: boolean | IHelmetContentSecurityPolicyConfiguration;
+        dnsPrefetchControl?: boolean | IHelmetDnsPrefetchControlConfiguration;
+        frameguard?: boolean | IHelmetFrameguardConfiguration;
+        hidePoweredBy?: boolean | IHelmetHidePoweredByConfiguration;
+        hpkp?: boolean | IHelmetHpkpConfiguration;
+        hsts?: boolean | IHelmetHstsConfiguration;
+        ieNoOpen?: boolean;
+        noCache?: boolean;
+        noSniff?: boolean;
+        referrerPolicy?: boolean | IHelmetReferrerPolicyConfiguration;
+        xssFilter?: boolean | IHelmetXssFilterConfiguration;
+        expectCt?: boolean | IHelmetExpectCtConfiguration;
+        permittedCrossDomainPolicies?: boolean | IHelmetPermittedCrossDomainPoliciesConfiguration;
+    }
+
+    export interface IHelmetPermittedCrossDomainPoliciesConfiguration {
+        permittedPolicies?: string;
     }
 
     export interface IHelmetContentSecurityPolicyDirectiveFunction {
@@ -28,22 +36,22 @@ declare namespace helmet {
     export type HelmetCspDirectiveValue = string | IHelmetContentSecurityPolicyDirectiveFunction;
 
     export interface IHelmetContentSecurityPolicyDirectives {
-        baseUri?: HelmetCspDirectiveValue[],
-        childSrc?: HelmetCspDirectiveValue[],
-        connectSrc?: HelmetCspDirectiveValue[],
-        defaultSrc?: HelmetCspDirectiveValue[],
-        fontSrc?: HelmetCspDirectiveValue[],
-        formAction?: HelmetCspDirectiveValue[],
-        frameAncestors?: HelmetCspDirectiveValue[],
-        frameSrc?: HelmetCspDirectiveValue[],
-        imgSrc?: HelmetCspDirectiveValue[],
-        mediaSrc?: HelmetCspDirectiveValue[],
-        objectSrc?: HelmetCspDirectiveValue[],
-        pluginTypes?: HelmetCspDirectiveValue[],
-        reportUri?: string,
-        sandbox?: HelmetCspDirectiveValue[],
-        scriptSrc?: HelmetCspDirectiveValue[],
-        styleSrc?: HelmetCspDirectiveValue[]
+        baseUri?: HelmetCspDirectiveValue[];
+        childSrc?: HelmetCspDirectiveValue[];
+        connectSrc?: HelmetCspDirectiveValue[];
+        defaultSrc?: HelmetCspDirectiveValue[];
+        fontSrc?: HelmetCspDirectiveValue[];
+        formAction?: HelmetCspDirectiveValue[];
+        frameAncestors?: HelmetCspDirectiveValue[];
+        frameSrc?: HelmetCspDirectiveValue[];
+        imgSrc?: HelmetCspDirectiveValue[];
+        mediaSrc?: HelmetCspDirectiveValue[];
+        objectSrc?: HelmetCspDirectiveValue[];
+        pluginTypes?: HelmetCspDirectiveValue[];
+        reportUri?: string;
+        sandbox?: HelmetCspDirectiveValue[];
+        scriptSrc?: HelmetCspDirectiveValue[];
+        styleSrc?: HelmetCspDirectiveValue[];
     }
 
     export interface IHelmetContentSecurityPolicyConfiguration {
@@ -51,7 +59,8 @@ declare namespace helmet {
         setAllHeaders?: boolean;
         disableAndroid?: boolean;
         browserSniff?: boolean;
-        directives?: IHelmetContentSecurityPolicyDirectives
+        directives?: IHelmetContentSecurityPolicyDirectives;
+        loose?: boolean;
     }
 
     export interface IHelmetDnsPrefetchControlConfiguration {
@@ -59,12 +68,12 @@ declare namespace helmet {
     }
 
     export interface IHelmetFrameguardConfiguration {
-        action?: string,
-        domain?: string
+        action?: string;
+        domain?: string;
     }
 
     export interface IHelmetHidePoweredByConfiguration {
-        setTo?: string
+        setTo?: string;
     }
 
     export interface IHelmetSetIfFunction {
@@ -77,19 +86,29 @@ declare namespace helmet {
         includeSubdomains?: boolean;
         reportUri?: string;
         reportOnly?: boolean;
-        setIf?: IHelmetSetIfFunction
+        setIf?: IHelmetSetIfFunction;
     }
 
     export interface IHelmetHstsConfiguration {
         maxAge?: number;
         includeSubdomains?: boolean;
         preload?: boolean;
-        setIf?: IHelmetSetIfFunction,
+        setIf?: IHelmetSetIfFunction;
         force?: boolean;
+    }
+
+    export interface IHelmetReferrerPolicyConfiguration {
+        policy?: string;
     }
 
     export interface IHelmetXssFilterConfiguration {
         setOnOldIE?: boolean;
+    }
+
+    export interface IHelmetExpectCtConfiguration {
+        enforce?: boolean;
+        maxAge?: number;
+        reportUri?: string;
     }
 
     /**
@@ -164,10 +183,30 @@ declare namespace helmet {
         noSniff(): express.RequestHandler;
 
         /**
+         * @summary Adds the "Referrer-Policy" header.
+         * @return {RequestHandler} The Request handler.
+         */
+        referrerPolicy(options?: IHelmetReferrerPolicyConfiguration): express.RequestHandler;
+
+        /**
          * @summary Mitigate cross-site scripting attacks with the "X-XSS-Protection" header.
          * @param {IHelmetXssFilterConfiguration} options The options
          * @return {RequestHandler} The Request handler.
          */
         xssFilter(options?: IHelmetXssFilterConfiguration): express.RequestHandler;
+
+        /**
+         * @summary Adds the "Expect-CT" header.
+         * @param {helmet.IHelmetExpectCtConfiguration} options
+         * @returns {e.RequestHandler}
+         */
+        expectCt(options?: IHelmetExpectCtConfiguration): express.RequestHandler;
+
+        /**
+         * @summary Adds the "X-Permitted-Cross-Domain-Policies" header.
+         * @param {helmet.IHelmetPermittedCrossDomainPoliciesConfiguration} options
+         * @returns {express.RequestHandler}
+         */
+        permittedCrossDomainPolicies(options?: IHelmetPermittedCrossDomainPoliciesConfiguration): express.RequestHandler;
     }
 }

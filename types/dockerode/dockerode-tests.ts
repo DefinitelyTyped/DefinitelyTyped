@@ -1,4 +1,5 @@
-import * as Docker from 'dockerode';
+import Docker = require('dockerode');
+import * as fs from 'fs';
 
 // Code samples from Dockerode 'Getting started'
 const docker = new Docker();
@@ -24,6 +25,43 @@ const docker6 = new Docker({
   key: 'key'
 });
 
+const docker7 = new Docker({
+  host: '192.168.1.10',
+  port: process.env.DOCKER_PORT || 2375,
+  ca: fs.readFileSync('ca.pem'),
+  cert: fs.readFileSync('cert.pem'),
+  key: fs.readFileSync('key.pem'),
+  version: 'v1.25' // required when Docker >= v1.13, https://docs.docker.com/engine/api/version-history/
+});
+
+const docker8 = new Docker({
+  protocol: 'https', // you can enforce a protocol
+  host: '192.168.1.10',
+  port: process.env.DOCKER_PORT || 2375,
+  ca: fs.readFileSync('ca.pem'),
+  cert: fs.readFileSync('cert.pem'),
+  key: fs.readFileSync('key.pem')
+});
+
+const docker9 = new Docker({
+  Promise
+});
+
+async function foo() {
+  const containers = await docker7.listContainers();
+  for (const container of containers) {
+    const foo = await docker7.getContainer(container.Id);
+    const inspect = await foo.inspect();
+  }
+
+  const images = await docker5.listImages();
+  for (const image of images) {
+    const foo = await docker5.getImage(image.Id);
+    const inspect = await foo.inspect();
+    await foo.remove();
+  }
+}
+
 const container = docker.getContainer('container-id');
 container.inspect((err, data) => {
   // NOOP
@@ -47,8 +85,16 @@ docker.listContainers((err, containers) => {
   });
 });
 
+docker.listContainers().then(containers => {
+  return containers.map(container => docker.getContainer(container.Id));
+});
+
 docker.buildImage('archive.tar', { t: 'imageName' }, (err, response) => {
   // NOOP
+});
+
+docker.buildImage({context: '.', src: ['Dockerfile', 'test.sh']}, { t: 'imageName' }, (err, response) => {
+	// NOOP
 });
 
 docker.createContainer({ Tty: true }, (err, container) => {
@@ -121,4 +167,37 @@ secret.remove((err, response) => {
 
 secret.update((err, response) => {
   // NOOP
+});
+
+const node = docker.getNode('nodeName');
+node.inspect((err, reponse) => {
+  // NOOP
+});
+
+node.inspect().then(response => {
+  // NOOP
+});
+
+node.update({}, (err, response) => {
+  // NOOP
+});
+
+node.update((err, response) => {
+  // NOOP
+});
+
+node.update({}).then(response => {
+  // NOOP;
+});
+
+node.remove({}, (err, response) => {
+  // NOOP
+});
+
+node.remove((err, response) => {
+  // NOOP
+});
+
+node.remove({}).then(response => {
+  // NOOP;
 });

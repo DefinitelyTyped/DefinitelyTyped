@@ -1,5 +1,4 @@
-
-/// <reference types="node" />
+import TBReq = require("traceback");
 
 function testTraceback() {
 	var TracebackStaticClass: TracebackStatic = function () {
@@ -24,6 +23,5 @@ function testTraceback() {
 
 	var traceback: Traceback[] = TracebackStaticClass();
 
-	var TBReq: TracebackStatic = require('traceback');
 	var traceback: Traceback[] = TBReq();
 }

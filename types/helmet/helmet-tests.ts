@@ -58,6 +58,7 @@ function contentSecurityPolicyTest() {
         directives: {
             defaultSrc: ["'self'"]
         },
+        loose: false,
         setAllHeaders: true
     }));
 }
@@ -191,6 +192,13 @@ function noSniffTest() {
 }
 
 /**
+ * @summary Test for {@see helmet#referrerPolicy} function.
+ */
+function referrerPolicyTest() {
+    app.use(helmet.referrerPolicy({ policy: 'same-origin' }))
+}
+
+/**
  * @summary Test for {@see helmet#xssFilter} function.
  */
 function xssFilterTest() {
@@ -198,4 +206,13 @@ function xssFilterTest() {
     app.use(helmet.xssFilter({}));
     app.use(helmet.xssFilter({ setOnOldIE: false }));
     app.use(helmet.xssFilter({ setOnOldIE: true }));
+}
+
+/**
+ * @summary Test for {@see helmet#permittedCrossDomainPolicies} function.
+ */
+function permittedCrossDomainPoliciesTest() {
+    app.use(helmet.permittedCrossDomainPolicies());
+    app.use(helmet.permittedCrossDomainPolicies({}));
+    app.use(helmet.permittedCrossDomainPolicies({ permittedPolicies: 'none' }));
 }

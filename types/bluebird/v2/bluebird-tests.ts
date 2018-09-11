@@ -671,6 +671,15 @@ fooArrProm = fooArrProm.each<Foo, Bar>((item: Foo, index: number, arrayLength: n
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+fooProm = new Promise.Promise<Foo>((resolve, reject) => {
+	resolve(foo);
+});
+fooProm = Promise.Promise.try<Foo>(() => {
+	return foo;
+});
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 function getMaybePromise(): Foo|Promise<Foo> {
     return foo;
 }

@@ -7,7 +7,7 @@
 /// <reference types="vinyl" />
 
 import File = require('vinyl');
-import winston = require('winston');
+import { Logger } from 'winston';
 
 declare namespace sprite {
     interface SVGSpriterConstructor extends NodeJS.EventEmitter {
@@ -59,7 +59,7 @@ declare namespace sprite {
         /**
          * Logging verbosity or custom logger
          */
-        log?: string | winston.LoggerInstance;
+        log?: string | Logger;
         /**
          * SVG shape configuration
          */
@@ -243,7 +243,7 @@ declare namespace sprite {
         defs?: DefsAndSymbolSpecificModeConfig | boolean;
         symbol?: DefsAndSymbolSpecificModeConfig | boolean;
         stack?: ModeConfig | boolean;
-        [customConfigName: string]: ModeConfig;
+        [customConfigName: string]: ModeConfig | boolean;
     }
 
     interface ModeConfig {

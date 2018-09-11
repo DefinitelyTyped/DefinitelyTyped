@@ -1,16 +1,12 @@
-
 import Logger = require('bunyan');
 
-var ringBufferOptions: Logger.RingBufferOptions = {
+const ringBufferOptions: Logger.RingBufferOptions = {
     limit: 100
 };
-var ringBuffer: Logger.RingBuffer = new Logger.RingBuffer(ringBufferOptions);
+const ringBuffer: Logger.RingBuffer = new Logger.RingBuffer(ringBufferOptions);
 ringBuffer.write("hello");
-ringBuffer.end();
-ringBuffer.destroy();
-ringBuffer.destroySoon();
 
-var level: number;
+let level: number;
 level = Logger.resolveLevel("trace");
 level = Logger.resolveLevel("debug");
 level = Logger.resolveLevel("info");
@@ -24,13 +20,14 @@ level = Logger.resolveLevel(Logger.WARN);
 level = Logger.resolveLevel(Logger.ERROR);
 level = Logger.resolveLevel(Logger.FATAL);
 
-var options: Logger.LoggerOptions = {
+const options: Logger.LoggerOptions = {
     name: 'test-logger',
     serializers: Logger.stdSerializers,
     streams: [{
         type: 'stream',
         stream: process.stdout,
-        level: Logger.TRACE
+        level: Logger.TRACE,
+        name: 'foo'
     }, {
         type: 'file',
         path: '/tmp/test.log',
@@ -46,21 +43,22 @@ var options: Logger.LoggerOptions = {
     }, {
         type: 'raw',
         stream: process.stderr,
-        level: Logger.WARN
+        level: Logger.FATAL + 1, // disabled, as stderr explodes when given raw streams
     }, {
         type: 'raw',
         stream: ringBuffer,
-        level: Logger.ERROR
+        level: Logger.ERROR,
+        reemitErrorEvents: true
     }]
 };
 
-var log = Logger.createLogger(options);
+const log = Logger.createLogger(options);
 
-var customSerializer = function(anything: any) {
-    return { obj: anything};
+const customSerializer = (anything: any) => {
+    return { obj: anything };
 };
 
-log.addSerializers({anything: customSerializer});
+log.addSerializers({ anything: customSerializer });
 log.addSerializers(Logger.stdSerializers);
 log.addSerializers(
     {
@@ -70,19 +68,17 @@ log.addSerializers(
     }
 );
 
-var child = log.child({name: 'child'});
-child.reopenFileStreams();
-log.addStream({path: '/dev/null'});
-child.level(Logger.DEBUG);
-child.level('debug');
-child.levels(0, Logger.ERROR);
-child.levels(0, 'error');
-child.levels('stream1', Logger.FATAL);
-child.levels('stream1', 'fatal');
+const levels: number[] = log.levels();
+level = log.levels(0);
+log.levels('foo');
 
-var buffer = new Buffer(0);
-var error = new Error('');
-var object = {
+log.levels(0, Logger.INFO);
+log.levels(0, 'info');
+log.levels('foo', Logger.WARN);
+
+const buffer = new Buffer(0);
+const error = new Error('');
+const object = {
     test: 123
 };
 
@@ -117,12 +113,11 @@ log.fatal(error);
 log.fatal(object);
 log.fatal('Hello, %s', 'world!');
 
-var recursive: any = {
+const recursive: any = {
     hello: 'world',
-    whats: {
-        huh: recursive
-    }
-}
+    whats: {}
+};
+recursive.whats['huh'] = recursive;
 
 JSON.stringify(recursive, Logger.safeCycles());
 
@@ -131,3 +126,22 @@ class MyLogger extends Logger {
         super(options);
     }
 }
+
+const child = log.child({ widget_type: 'wuzzle' });
+child.reopenFileStreams();
+log.addStream({ path: '/dev/null' });
+child.level(Logger.DEBUG);
+child.level('debug');
+child.levels(0, Logger.ERROR);
+child.levels(0, 'error');
+child.levels('foo', Logger.FATAL);
+child.levels('foo', 'fatal');
+
+ringBuffer.end();
+ringBuffer.destroy();
+ringBuffer.destroySoon();
+
+const logLevelString: Logger.LogLevelString = 'warn';
+const nameLevel: number = Logger.levelFromName[logLevelString];
+const nameLevel2: number = Logger.levelFromName['warn'];
+const levelName: string = Logger.nameFromLevel[10];

@@ -1,10 +1,11 @@
 // Type definitions for es6-shim v0.31.2
 // Project: https://github.com/paulmillr/es6-shim
-// Definitions by: Ron Buckton <http://github.com/rbuckton>
+// Definitions by: Ron Buckton <https://github.com/rbuckton>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-declare type PropertyKey = string | number | symbol;
+// TODO: As of TypeScript@2.9 there is a global type PropertyKey that should be used instead of this.
+declare type KeyOfProperty = string | number | symbol;
 
 interface IteratorResult<T> {
     done: boolean;
@@ -185,11 +186,10 @@ interface Array<T> {
       * @param thisArg If provided, it will be used as the this value for each invocation of
       * predicate. If it is not provided, undefined is used instead.
       */
-    find(predicate: (value: T, index: number, obj: Array<T>) => boolean, thisArg?: any): T;
+    find(predicate: (value: T, index: number, obj: Array<T>) => boolean, thisArg?: any): T | undefined;
 
     /**
-      * Returns the index of the first element in the array where predicate is true, and undefined
-      * otherwise.
+      * Returns the index of the first element in the array where predicate is true, and -1 otherwise.
       * @param predicate find calls predicate once for each element of the array, in ascending
       * order, until it finds one where predicate returns true. If such an element is found, find
       * immediately returns that element value. Otherwise, find returns undefined.
@@ -501,7 +501,7 @@ interface PromiseConstructor {
     /**
      * Creates a new Promise.
      * @param executor A callback used to initialize the promise. This callback is passed two arguments:
-     * a resolve callback used resolve the promise with a value or the result of another promise,
+     * a resolve callback used to resolve the promise with a value or the result of another promise,
      * and a reject callback used to reject the promise with a provided reason or error.
      */
     new <T>(executor: (resolve: (value?: T | PromiseLike<T>) => void, reject: (reason?: any) => void) => void): Promise<T>;
@@ -556,9 +556,9 @@ interface Map<K, V> {
     clear(): void;
     delete(key: K): boolean;
     forEach(callbackfn: (value: V, index: K, map: Map<K, V>) => void, thisArg?: any): void;
-    get(key: K): V;
+    get(key: K): V | undefined;
     has(key: K): boolean;
-    set(key: K, value?: V): Map<K, V>;
+    set(key: K, value: V): Map<K, V>;
     size: number;
     entries(): IterableIteratorShim<[K, V]>;
     keys(): IterableIteratorShim<K>;
@@ -596,9 +596,9 @@ declare var Set: SetConstructor;
 
 interface WeakMap<K extends object, V> {
     delete(key: K): boolean;
-    get(key: K): V;
+    get(key: K): V | undefined;
     has(key: K): boolean;
-    set(key: K, value?: V): WeakMap<K, V>;
+    set(key: K, value: V): WeakMap<K, V>;
 }
 
 interface WeakMapConstructor {
@@ -626,17 +626,17 @@ declare var WeakSet: WeakSetConstructor;
 declare namespace Reflect {
     function apply(target: Function, thisArgument: any, argumentsList: ArrayLike<any>): any;
     function construct(target: Function, argumentsList: ArrayLike<any>): any;
-    function defineProperty(target: any, propertyKey: PropertyKey, attributes: PropertyDescriptor): boolean;
-    function deleteProperty(target: any, propertyKey: PropertyKey): boolean;
+    function defineProperty(target: any, propertyKey: KeyOfProperty, attributes: PropertyDescriptor): boolean;
+    function deleteProperty(target: any, propertyKey: KeyOfProperty): boolean;
     function enumerate(target: any): IterableIteratorShim<any>;
-    function get(target: any, propertyKey: PropertyKey, receiver?: any): any;
-    function getOwnPropertyDescriptor(target: any, propertyKey: PropertyKey): PropertyDescriptor;
+    function get(target: any, propertyKey: KeyOfProperty, receiver?: any): any;
+    function getOwnPropertyDescriptor(target: any, propertyKey: KeyOfProperty): PropertyDescriptor;
     function getPrototypeOf(target: any): any;
-    function has(target: any, propertyKey: PropertyKey): boolean;
+    function has(target: any, propertyKey: KeyOfProperty): boolean;
     function isExtensible(target: any): boolean;
-    function ownKeys(target: any): Array<PropertyKey>;
+    function ownKeys(target: any): Array<KeyOfProperty>;
     function preventExtensions(target: any): boolean;
-    function set(target: any, propertyKey: PropertyKey, value: any, receiver?: any): boolean;
+    function set(target: any, propertyKey: KeyOfProperty, value: any, receiver?: any): boolean;
     function setPrototypeOf(target: any, proto: any): boolean;
 }
 
@@ -654,17 +654,17 @@ declare module "es6-shim" {
     namespace Reflect {
         function apply(target: Function, thisArgument: any, argumentsList: ArrayLike<any>): any;
         function construct(target: Function, argumentsList: ArrayLike<any>): any;
-        function defineProperty(target: any, propertyKey: PropertyKey, attributes: PropertyDescriptor): boolean;
-        function deleteProperty(target: any, propertyKey: PropertyKey): boolean;
+        function defineProperty(target: any, propertyKey: KeyOfProperty, attributes: PropertyDescriptor): boolean;
+        function deleteProperty(target: any, propertyKey: KeyOfProperty): boolean;
         function enumerate(target: any): Iterator<any>;
-        function get(target: any, propertyKey: PropertyKey, receiver?: any): any;
-        function getOwnPropertyDescriptor(target: any, propertyKey: PropertyKey): PropertyDescriptor;
+        function get(target: any, propertyKey: KeyOfProperty, receiver?: any): any;
+        function getOwnPropertyDescriptor(target: any, propertyKey: KeyOfProperty): PropertyDescriptor;
         function getPrototypeOf(target: any): any;
-        function has(target: any, propertyKey: PropertyKey): boolean;
+        function has(target: any, propertyKey: KeyOfProperty): boolean;
         function isExtensible(target: any): boolean;
-        function ownKeys(target: any): Array<PropertyKey>;
+        function ownKeys(target: any): Array<KeyOfProperty>;
         function preventExtensions(target: any): boolean;
-        function set(target: any, propertyKey: PropertyKey, value: any, receiver?: any): boolean;
+        function set(target: any, propertyKey: KeyOfProperty, value: any, receiver?: any): boolean;
         function setPrototypeOf(target: any, proto: any): boolean;
     }
 }

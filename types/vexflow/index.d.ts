@@ -1,6 +1,9 @@
-// Type definitions for VexFlow v1.2.27
+// Type definitions for VexFlow v1.2.85
 // Project: http://vexflow.com
 // Definitions by: Roman Quiring <https://github.com/rquiring>
+//                 Sebastian Haas <https://github.com/sebastianhaas>
+//                 Basti Hoffmann <https://github.com/bohoffi>
+//                 Simon Schmid <https://github.com/sschmidTU>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 //inconsistent namespace: this is a helper funtion from tables.js and should not pollute the global namespace!
@@ -52,7 +55,7 @@ declare namespace Vex {
         moveTo(x : number, y : number) : IRenderContext;
         lineTo(x : number, y : number) : IRenderContext;
         bezierCurveToTo(x1 : number, y1 : number, x2 : number, y2 : number, x : number, y : number) : IRenderContext;
-        quadraticCurveToTo(x1 : number, y1 : number, x2 : number, y2 : number) : void;
+        quadraticCurveToTo(x1 : number, y1 : number, x2 : number, y2 : number) : IRenderContext;
         arc(x : number, y : number, radius : number, startAngle : number, endAngle : number, antiClockwise : boolean) : IRenderContext;
         glow() : IRenderContext;
         fill() : IRenderContext;
@@ -185,6 +188,7 @@ declare namespace Vex {
 
         class BarNote extends Note {
             static DEBUG : boolean;
+            constructor();
             getType() : Barline.type;
             setType(type : Barline.type) : BarNote;
             getBoundingBox() : BoundingBox;
@@ -550,6 +554,7 @@ declare namespace Vex {
             setYShift(y : number) : Modifier;
             setXShift(x : number) : void; //inconsistent type: void -> Modifier
             draw() : void;
+            alignSubNotesWithNote(subNotes : Note[], note : Note) : void;
         }
 
         namespace Modifier {
@@ -616,7 +621,7 @@ declare namespace Vex {
             getTickMultiplier() : Fraction;
             applyTickMultiplier(numerator : number, denominator : number) : void;
             setDuration(duration : Fraction) : void;
-
+	    
             constructor(note_struct : {type? : string, dots? : number, duration : string});
             getPlayNote() : any;
             setPlayNote(note : any) : Note;
@@ -685,6 +690,11 @@ declare namespace Vex {
             setStave(stave : Stave) : NoteHead;
             preFormat() : NoteHead;
             draw() : void;
+        }
+
+        class NoteSubGroup extends Modifier {
+			constructor(subnotes : Note[]);
+			preFormat() : void;
         }
 
         class Ornament extends Modifier {
@@ -805,6 +815,7 @@ declare namespace Vex {
             getContext() : IRenderContext;
             getX() : number;
             getNumLines() : number;
+            setX(x : number) : Stave;
             setY(y : number) : Stave;
             setWidth(width : number) : Stave;
             getWidth() : number;
@@ -830,11 +841,13 @@ declare namespace Vex {
             getYForGlyphs() : number;
             addGlyph(glypg : Glyph) : Stave;
             addEndGlyph(glypg : Glyph) : Stave;
-            addModifier(modifier : StaveModifier) : Stave;
+            addModifier(modifier : StaveModifier, position? : StaveModifier.Position) : Stave;
             addEndModifier(modifier : StaveModifier) : Stave;
             addKeySignature(keySpec : string) : Stave;
-            addClef(clef : string, size? : string, annotation? : string) : Stave;
+            setKeySignature(keySpec : string, cancelKeySpec : string, position? : StaveModifier.Position) : Stave;
+            addClef(clef : string, size? : string, annotation? : string, position? : StaveModifier.Position) : Stave;
             addEndClef(clef : string, size? : string, annotation? : string) : Stave;
+            setEndClef(clef : string, size? : string, annotation? : string) : Stave;
             addTimeSignature(timeSpec : string, customPadding? : number) : void; //inconsistent type: void -> Stave
             addTrebleGlyph() : Stave;
             draw() : void;
@@ -859,7 +872,7 @@ declare namespace Vex {
         }
 
         namespace StaveConnector {
-            const enum type { SINGLE_RIGHT = 0, SINGLE_LEFT = 1, SINGLE = 1, DOUBLE = 2, BRACE = 3, BRACKET = 4, BOLD_DOUBLE_LEFT = 5, BOLD_DOUBLE_RIGHT = 6, THIN_DOUBLE = 7 }
+            const enum type { SINGLE_RIGHT = 0, SINGLE_LEFT = 1, SINGLE = 1, DOUBLE = 2, BRACE = 3, BRACKET = 4, BOLD_DOUBLE_LEFT = 5, BOLD_DOUBLE_RIGHT = 6, THIN_DOUBLE = 7, NONE = 8 }
         }
 
         class StaveHairpin {
@@ -905,6 +918,11 @@ declare namespace Vex {
             addToStaveEnd(stave : Stave, firstGlyph : boolean) : StaveModifier;
             addModifier() : void;
             addEndModifier() : void;
+        }
+
+        namespace StaveModifier {
+          // @see https://github.com/0xfe/vexflow/blob/master/src/stavemodifier.js#L9
+          const enum Position { LEFT = 1, RIGHT = 2, ABOVE = 3, BELOW = 4, BEGIN = 5, END = 6 }
         }
 
         class StaveNote extends StemmableNote {
@@ -1009,10 +1027,25 @@ declare namespace Vex {
         }
 
         class StaveTie {
-            constructor(notes : {first_note: Note, last_note: Note, first_indices : number[], last_indices : number[]}, text? : string);
+            /**
+             * @see https://github.com/0xfe/vexflow/blob/master/src/stavetie.js#L12
+             *
+             * Notes is a struct that has:
+             *
+             *  {
+             *    first_note: Note,
+             *    last_note: Note,
+             *    first_indices: [n1, n2, n3],
+             *    last_indices: [n1, n2, n3]
+             *  }
+             * All properties are optional, since ties can span line breaks in which case
+             * two ties can be used, each with either "first_note" or "last_note" missing.
+             *
+             **/
+            constructor(notes : {first_note? : Note, last_note? : Note, first_indices? : number[], last_indices? : number[]}, text? : string);
             setContext(context : IRenderContext) : StaveTie;
             setFont(font : {family : string, size : number, weight : string}) : StaveTie;
-            setNotes(notes : {first_note: Note, last_note: Note, first_indices : number[], last_indices : number[]}) : StaveTie;
+            setNotes(notes : {first_note? : Note, last_note? : Note, first_indices? : number[], last_indices? : number[]}) : StaveTie;
             isPartial() : boolean;
             renderTie(params : {first_ys : number[], last_ys : number[], last_x_px : number, first_x_px : number, direction : number}) : void;
             renderText(first_x_px : number, last_x_px : number) : void;
@@ -1151,7 +1184,7 @@ declare namespace Vex {
             setStave(stave : Stave) : Note;
             getModifierStartXY() : {x : number, y : number};
 
-            constructor(tab_struct : {positions : {str : number, fret : number}[], type? : string, dots? : number, duration : string, stem_direction? : boolean}, draw_stem? : boolean);
+            constructor(tab_struct : {positions : {str : number, fret : number}[], type? : string, dots? : number, duration : string, stem_direction? : number}, draw_stem? : boolean);
             getCategory() : string;
             setGhost(ghost : boolean) : TabNote;
             hasStem() : boolean;
@@ -1269,6 +1302,10 @@ declare namespace Vex {
             getWidth() : number;
             getX() : number;
             setX(x : number) : TickContext;
+            getXBase() : number;
+            setXBase(xBase : number) : void;
+            getXOffset() : number;
+            setXOffset(xOffset : number) : void;
             getPixelsUsed() : number;
             setPixelsUsed(pixelsUsed : number) : TickContext;
             setPadding(padding : number) : TickContext;
@@ -1335,7 +1372,7 @@ declare namespace Vex {
         }
 
         class Tuplet {
-            constructor(notes : StaveNote[], options : {num_notes? : number, beats_occupied? : number});
+            constructor(notes : StaveNote[], options? : {num_notes? : number, beats_occupied? : number});
             attach() : void;
             detach() : void;
             setContext(context : IRenderContext) : Tuplet;

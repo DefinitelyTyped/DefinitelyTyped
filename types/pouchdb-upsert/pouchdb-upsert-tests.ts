@@ -1,47 +1,68 @@
 import * as pouchdbUpsert from 'pouchdb-upsert';
 PouchDB.plugin(pouchdbUpsert);
 
-namespace PouchDBUpsertTests {
-  type UpsertDocModel = { _id: 'test-doc1', name: 'test' };
-  let docToUpsert: PouchDB.Core.Document<UpsertDocModel>;
-  const db = new PouchDB<UpsertDocModel>();
+interface UpsertDocModel {
+   name: string;
+   readonly?: boolean;
+}
 
-  function testUpsert_WithPromise_AndReturnDoc() {
-    db.upsert(docToUpsert._id, (doc: PouchDB.Core.Document<UpsertDocModel>) => {
-      // Make some updates....
-      return doc;
-    }).then((res: PouchDB.Core.Response) => {
-    });
-  }
+declare const docToUpsert: PouchDB.Core.Document<UpsertDocModel>;
+const db = new PouchDB<UpsertDocModel>();
 
-  function testUpsert_WithPromise_AndReturnBoolean() {
-    db.upsert(docToUpsert._id, (doc: PouchDB.Core.Document<UpsertDocModel>) => {
-      // Make some updates....
+function testUpsert_WithPromise_AndReturnDoc() {
+  db.upsert(docToUpsert._id, (doc: PouchDB.Core.Document<UpsertDocModel>) => {
+    // Make some updates....
+    return doc;
+  }).then((res: PouchDB.UpsertResponse) => {
+  });
+}
+
+function testUpsert_WithPromise_AndReturnFalsey() {
+  db.upsert<UpsertDocModel>(docToUpsert._id, (doc: PouchDB.Core.Document<UpsertDocModel>) => {
+    if (doc.readonly)
       return false;
-    }).then((res: PouchDB.Core.Response) => {
-    });
-  }
+    // Make some updates....
+    return doc;
+  }).then((res: PouchDB.UpsertResponse) => {
+  });
+}
 
-  function testUpsert_WithCallback_AndReturnDoc() {
-    db.upsert(docToUpsert._id, (doc: PouchDB.Core.Document<UpsertDocModel>) => {
-      // Make some updates....
-      return doc;
-    }, (res: PouchDB.Core.Response) => {});
-  }
+function testUpsert_WithPromise_AndReturnNewObject() {
+  // callback return boolean
+  db.upsert<UpsertDocModel>(docToUpsert._id, (doc: PouchDB.Core.Document<UpsertDocModel>) => {
+    return {name: 'test', readonly: true};
+  }).then((res: PouchDB.UpsertResponse) => {
+  });
+}
 
-  function testUpsert_WithCallback_AndReturnBoolean() {
-    // callback return boolean
-    db.upsert(docToUpsert._id, (doc: PouchDB.Core.Document<UpsertDocModel>) => {
-      // Make some updates....
+function testUpsert_WithCallback_AndReturnDoc() {
+  db.upsert<UpsertDocModel>(docToUpsert._id, (doc: PouchDB.Core.Document<UpsertDocModel>) => {
+    // Make some updates....
+    return doc;
+  }, (res: PouchDB.UpsertResponse) => {});
+}
+
+function testUpsert_WithCallback_AndReturnFalsey() {
+  // callback return boolean
+  db.upsert<UpsertDocModel>(docToUpsert._id, (doc: PouchDB.Core.Document<UpsertDocModel>) => {
+    if (doc.readonly)
       return false;
-    }, (res: PouchDB.Core.Response) => {});
-  }
+    // Make some updates....
+    return doc;
+  }, (res: PouchDB.UpsertResponse) => {});
+}
 
-  function testPutIfNotExists_WithPromise() {
-    db.putIfNotExists(docToUpsert).then( (res: PouchDB.Core.Response) => {});
-  }
+function testUpsert_WithCallback_AndReturnNewObject() {
+  // callback return boolean
+  db.upsert<UpsertDocModel>(docToUpsert._id, (doc: PouchDB.Core.Document<UpsertDocModel>) => {
+    return {name: 'test', readonly: true};
+  }, (res: PouchDB.UpsertResponse) => {});
+}
 
-  function testPutIfNotExists_WithCallback() {
-    db.putIfNotExists(docToUpsert, (res: PouchDB.Core.Response) => {});
-  }
+function testPutIfNotExists_WithPromise() {
+  db.putIfNotExists(docToUpsert).then((res: PouchDB.UpsertResponse) => {});
+}
+
+function testPutIfNotExists_WithCallback() {
+  db.putIfNotExists(docToUpsert, (res: PouchDB.UpsertResponse) => {});
 }

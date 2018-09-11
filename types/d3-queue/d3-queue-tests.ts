@@ -28,18 +28,17 @@ qWithResults = d3Queue.queue(3);
 // No Results Task ---------------------------------------------------
 
 function delayedHello(name: string, delay: number, callback: (error: any | null) => void) {
-    setTimeout(function () {
-        console.log('Hello, ' + name + '!');
+    setTimeout(() => {
+        console.log(`Hello, ${name}!`);
         callback(null);
     }, delay);
 }
-
 
 qNoResult = qNoResult.defer(delayedHello, 'Alice', 250);
 
 qNoResult.defer(delayedHello, 'Bob', 500);
 
-// Task with Reuslts -------------------------------------------------
+// Task with Results -------------------------------------------------
 
 function getFileStats(path: string, callback: (error: any | null, stats?: any) => void) {
     // magically get file stats and behave like fs.stat when invoking the callback
@@ -53,16 +52,16 @@ qWithResults
 
 // No Results Task ---------------------------------------------------
 
-qNoResult = qNoResult.await(function (error) {
+qNoResult = qNoResult.await((error) => {
     if (error) throw error;
     console.log('Goodbye!');
 });
 
-// Task with Reuslts -------------------------------------------------
+// Task with Results -------------------------------------------------
 
 // await
 qWithResults
-    .await(function (error, file1Stat, file2Stat) {
+    .await((error, file1Stat, file2Stat) => {
         if (error) throw error;
         console.log(file1Stat, file2Stat);
     });
@@ -72,11 +71,10 @@ qWithResults
 qWithResults = d3Queue.queue()
     .defer(getFileStats, './workingpath/file1.json')
     .defer(getFileStats, './yetanotherworkingpath/file2.json')
-    .awaitAll(function (error, fileStats) {
+    .awaitAll((error, fileStats) => {
         if (error) throw error;
-            console.log(fileStats[0], fileStats[1]);
+        console.log(fileStats![0], fileStats![1]);
     });
-
 
 // Abort Deferred Tasks ==============================================
 
@@ -85,11 +83,11 @@ function requestDataFromInterWeb(url: string, callback: (error: any | null, data
 }
 
 qWithResults = d3Queue.queue()
-    .defer(requestDataFromInterWeb, 'http://www.google.com:81')
-    .defer(requestDataFromInterWeb, 'http://www.google.com:81')
-    .awaitAll(function (error, results) {
+    .defer(requestDataFromInterWeb, 'http://www.example.org:81')
+    .defer(requestDataFromInterWeb, 'http://www.example.org:81')
+    .awaitAll((error, results) => {
         if (error) throw error;
-            console.log(results[0], results[1]);
+        console.log(results![0], results![1]);
     });
 
 qWithResults.abort();

@@ -1,9 +1,10 @@
-// Type definitions for convert-source-map 1.3
+// Type definitions for convert-source-map 1.5
 // Project: https://github.com/thlorenz/convert-source-map
-// Definitions by: Andrew Gaspar <https://github.com/AndrewGaspar/>, Melvin Groenhoff <https://github.com/mgroenhoff>, TeamworkGuy2 <https://github.com/TeamworkGuy2>
+// Definitions by: Andrew Gaspar <https://github.com/AndrewGaspar>, Melvin Groenhoff <https://github.com/mgroenhoff>, TeamworkGuy2 <https://github.com/TeamworkGuy2>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/** Converts a source-map from/to different formats and allows adding/changing properties.
+/**
+ * Converts a source-map from/to different formats and allows adding/changing properties.
  * (documentation based on project's README file)
  */
 export interface SourceMapConverter {
@@ -19,7 +20,8 @@ export interface SourceMapConverter {
     /** Converts source map to base64 encoded json string */
     toBase64(): string;
 
-    /** Converts source map to an inline comment that can be appended to the source-file.
+    /**
+     * Converts source map to an inline comment that can be appended to the source-file.
      * By default, the comment is formatted like: //# sourceMappingURL=..., which you would normally see in a JS source file.
      * When options.multiline == true, the comment is formatted like: /*# sourceMappingURL=... *\/, which you would find in a CSS source file
      */
@@ -47,19 +49,19 @@ export function fromBase64(base64: string): SourceMapConverter;
 /** Returns source map converter from given base64 encoded json string prefixed with //# sourceMappingURL=... */
 export function fromComment(comment: string): SourceMapConverter;
 
-/**Returns source map converter from given filename by parsing //# sourceMappingURL=filename.
+/**
+ * Returns source map converter from given filename by parsing //# sourceMappingURL=filename.
  * filename must point to a file that is found inside the mapFileDir. Most tools store this file right next to the generated file, i.e. the one containing the source map.
  */
 export function fromMapFileComment(comment: string, commentFileDir: string): SourceMapConverter;
 
-/** Finds last sourcemap comment in file and returns source map converter or returns null if no source map comment was found.
- * If largeSource is set to true, an algorithm that does not use regex is applied to find the source map.
- * This is faster and especially useful if you're running into "call stack size exceeded" errors with the default algorithm.
- * However, it is less accurate and may match content that isn't a source map comment.
+/**
+ * Finds last sourcemap comment in file and returns source map converter or returns null if no source map comment was found.
  */
-export function fromSource(content: string, largeSource?: boolean): SourceMapConverter | null;
+export function fromSource(content: string): SourceMapConverter | null;
 
-/** Finds last sourcemap comment in file and returns source map converter or returns null if no source map comment was found.
+/**
+ * Finds last sourcemap comment in file and returns source map converter or returns null if no source map comment was found.
  * The sourcemap will be read from the map file found by parsing # sourceMappingURL=file comment. For more info see fromMapFileComment.
  */
 export function fromMapFileSource(content: string, commentFileDir: string): SourceMapConverter | null;
@@ -70,13 +72,14 @@ export function removeComments(src: string): string;
 /** Returns src with all source map comments pointing to map files removed */
 export function removeMapFileComments(src: string): string;
 
-/** Returns the regex used to find source map comments */
+/** Returns a new regex used to find source map comments */
 export const commentRegex: RegExp;
 
-/** Returns the regex used to find source map comments pointing to map files */
+/** Returns a new regex used to find source map comments pointing to map files */
 export const mapFileCommentRegex: RegExp;
 
-/** Returns a comment that links to an external source map via file.
+/**
+ * Returns a comment that links to an external source map via file.
  * By default, the comment is formatted like: //# sourceMappingURL=..., which you would normally see in a JS source file.
  * When options.multiline == true, the comment is formatted like: /*# sourceMappingURL=... *\/, which you would find in a CSS source file.
  */

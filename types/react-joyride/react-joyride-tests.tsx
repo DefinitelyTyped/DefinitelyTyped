@@ -1,30 +1,17 @@
-import React = require("react");
-import Joyride from "react-joyride";
+import * as React from "react";
+import Joyride, { Step } from "react-joyride";
 
 class NewComponent extends React.Component<undefined, undefined> {
     j: Joyride;
 
-    render() {
-        return <Joyride ref="j" run holePadding={4} resizeDebounceDelay={100} />;
-    }
-
-    doStuff() {
-        this.j.start(/*autorun*/ true);
-
-        this.j.next();
-
-        this.j.reset(true);
-        this.j.reset(false);
-
-        const { title, position } = this.j.getProgress().step;
-
-        this.j.parseSteps({
-            title: "Title",
-            text: "Hurray",
-            selector: ".selectable",
-            position: "top-right",
-            type: "click",
-            style: {
+    steps: Step[] = [{
+        title: "Title",
+        content: "Hurray",
+        target: ".selectable",
+        placement: "top-end",
+        event: "click",
+        styles: {
+            options: {
                 backgroundColor: "#000",
                 borderRadius: "0",
                 color: "#000",
@@ -46,9 +33,27 @@ class NewComponent extends React.Component<undefined, undefined> {
                 hole: {
                     backgroundColor: "#000",
                 }
-            },
-            name: "my-name",
-            parent: "MyParent"
-        });
+            }
+        },
+    },
+    {
+        target: ".other-selectable",
+        content: (<div>Also works</div>)
+    }];
+
+    render() {
+        return <Joyride ref="j" run={true} steps={this.steps} />;
+    }
+
+    doStuff() {
+        this.j.next();
+        this.j.back();
+
+        this.j.reset(true);
+        this.j.reset(false);
+
+        this.j.addTooltip(this.steps[0]);
+
+        const { title, placement } = this.j.getProgress().step;
     }
 }

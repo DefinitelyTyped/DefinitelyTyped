@@ -7,7 +7,7 @@
  */
 
 import * as d3Random from 'd3-random';
-
+import * as seedrandom from 'seedrandom';
 
 // ------------------------------------------------------------
 // Preparatory Steps
@@ -19,40 +19,70 @@ let randomNumberGenerator: () => number;
 // randomUniform
 // ------------------------------------------------------------
 
-randomNumberGenerator = d3Random.randomUniform();
-randomNumberGenerator = d3Random.randomUniform(0.2);
-randomNumberGenerator = d3Random.randomUniform(0.2, 5);
+let prngUniform: d3Random.RandomUniform;
+
+prngUniform = d3Random.randomUniform;
+prngUniform = d3Random.randomUniform.source(seedrandom("Schroedinger's flea."));
+
+randomNumberGenerator = prngUniform();
+randomNumberGenerator = prngUniform(0.2);
+randomNumberGenerator = prngUniform(0.2, 5);
 
 // ------------------------------------------------------------
 // randomNormal
 // ------------------------------------------------------------
 
-randomNumberGenerator = d3Random.randomNormal();
-randomNumberGenerator = d3Random.randomNormal(3);
-randomNumberGenerator = d3Random.randomNormal(3, 4);
+let prngNormal: d3Random.RandomNormal;
+
+prngNormal = d3Random.randomNormal;
+prngNormal = d3Random.randomNormal.source(seedrandom("Schroedinger's flea."));
+
+randomNumberGenerator = prngNormal();
+randomNumberGenerator = prngNormal(3);
+randomNumberGenerator = prngNormal(3, 4);
 
 // ------------------------------------------------------------
 // randomLogNormal
 // ------------------------------------------------------------
 
-randomNumberGenerator = d3Random.randomLogNormal();
-randomNumberGenerator = d3Random.randomLogNormal(3);
-randomNumberGenerator = d3Random.randomLogNormal(3, 4);
+let prngLogNormal: d3Random.RandomLogNormal;
+
+prngLogNormal = d3Random.randomLogNormal;
+prngLogNormal = d3Random.randomLogNormal.source(seedrandom("Schroedinger's flea."));
+
+randomNumberGenerator = prngLogNormal();
+randomNumberGenerator = prngLogNormal(3);
+randomNumberGenerator = prngLogNormal(3, 4);
 
 // ------------------------------------------------------------
 // randomBates
 // ------------------------------------------------------------
 
-randomNumberGenerator = d3Random.randomBates(3);
+let prngBates: d3Random.RandomBates;
+
+prngBates = d3Random.randomBates;
+prngBates = d3Random.randomBates.source(seedrandom("Schroedinger's flea."));
+
+randomNumberGenerator = prngBates(3);
 
 // ------------------------------------------------------------
 // randomIrwinHall
 // ------------------------------------------------------------
 
-randomNumberGenerator = d3Random.randomIrwinHall(3);
+let prngIrwinHall: d3Random.RandomIrwinHall;
+
+prngIrwinHall = d3Random.randomIrwinHall;
+prngIrwinHall = d3Random.randomIrwinHall.source(seedrandom("Schroedinger's flea."));
+
+randomNumberGenerator = prngIrwinHall(3);
 
 // ------------------------------------------------------------
 // randomExponential
 // ------------------------------------------------------------
 
-randomNumberGenerator = d3Random.randomExponential(1 / 40);
+let prngExponential: d3Random.RandomExponential;
+
+prngExponential = d3Random.randomExponential;
+prngExponential = d3Random.randomExponential.source(seedrandom("Schroedinger's flea."));
+
+randomNumberGenerator = prngExponential(1 / 40);

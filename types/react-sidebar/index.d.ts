@@ -1,26 +1,32 @@
-// Type definitions for react-sidebar 2.2
+// Type definitions for react-sidebar 3.0
 // Project: https://github.com/balloob/react-sidebar#readme
 // Definitions by: Jeroen Vervaeke <https://github.com/jeroenvervaeke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.8
+
 import { Component } from "react";
 
 export interface SidebarProps {
     contentClassName?: string;
+    defaultSidebarWidth?: number;
     docked?: boolean;
     dragToggleDistance?: number;
-    onSetOpen?(): {};
+    onSetOpen?(open: boolean): void;
     open?: boolean;
     overlayClassName?: string;
     pullRight?: boolean;
     rootClassName?: string;
     shadow?: boolean;
-    sidebar?: any;
+    sidebar?: React.ReactNode;
     sidebarClassName?: string;
     styles?: SidebarStyles;
     transitions?: boolean;
     touch?: boolean;
     touchHandleWidth?: number;
+    rootId?: string;
+    sidebarId?: string;
+    contentId?: string;
+    overlayId?: string;
 }
 
 export interface SidebarStyles {
@@ -31,4 +37,4 @@ export interface SidebarStyles {
     sidebar?: Partial<CSSStyleDeclaration>;
 }
 
-export default class Sidebar extends Component<SidebarProps, {}> {}
+export default class Sidebar extends Component<SidebarProps> {}

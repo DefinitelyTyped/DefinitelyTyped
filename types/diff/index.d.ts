@@ -1,14 +1,36 @@
-// Type definitions for diff
+// Type definitions for diff 3.5
 // Project: https://github.com/kpdecker/jsdiff
-// Definitions by: vvakame <https://github.com/vvakame/>
+// Definitions by: vvakame <https://github.com/vvakame>
+//                 szdc <https://github.com/szdc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 export = JsDiff;
 export as namespace JsDiff;
 
 declare namespace JsDiff {
+    interface IOptions {
+        ignoreCase: boolean;
+    }
+
+    interface ILinesOptions extends IOptions {
+        ignoreWhitespace?: boolean;
+        newlineIsToken?: boolean;
+    }
+
+    interface IArrayOptions extends IOptions {
+        comparator?: (left: any, right: any) => number;
+    }
+
     interface IDiffResult {
         value: string;
+        count?: number;
+        added?: boolean;
+        removed?: boolean;
+    }
+
+    interface IDiffArraysResult<T> {
+        value: T[];
         count?: number;
         added?: boolean;
         removed?: boolean;
@@ -32,38 +54,45 @@ declare namespace JsDiff {
         newFileName: string;
         oldHeader: string;
         newHeader: string;
+        index: string;
         hunks: IHunk[];
     }
 
     class Diff {
-        ignoreWhitespace:boolean;
+        diff(oldString: string, newString: string, options?: IOptions): IDiffResult[];
 
-        constructor(ignoreWhitespace?:boolean);
+        pushComponent(components: IDiffResult[], added: boolean, removed: boolean): void;
 
-        diff(oldString:string, newString:string):IDiffResult[];
+        extractCommon(basePath: IBestPath, newString: string, oldString: string, diagonalPath: number): number;
 
-        pushComponent(components:IDiffResult[], value:string, added:boolean, removed:boolean):void;
+        equals(left: string, right: string): boolean;
 
-        extractCommon(basePath:IBestPath, newString:string, oldString:string, diagonalPath:number):number;
+        removeEmpty(array: any[]): any[];
 
-        equals(left:string, right:string):boolean;
+        castInput(value: any): any;
 
-        join(left:string, right:string):string;
+        join(chars: string[]): string;
 
-        tokenize(value:string):any; // return types are string or string[]
+        tokenize(value: string): any; // return types are string or string[]
     }
 
-    function diffChars(oldStr:string, newStr:string):IDiffResult[];
+    function diffChars(oldStr: string, newStr: string, options?: IOptions): IDiffResult[];
 
-    function diffWords(oldStr:string, newStr:string):IDiffResult[];
+    function diffWords(oldStr: string, newStr: string, options?: IOptions): IDiffResult[];
 
-    function diffWordsWithSpace(oldStr:string, newStr:string):IDiffResult[];
+    function diffWordsWithSpace(oldStr: string, newStr: string, options?: IOptions): IDiffResult[];
 
-    function diffJson(oldObj: Object, newObj: Object): IDiffResult[];
+    function diffJson(oldObj: object, newObj: object, options?: IOptions): IDiffResult[];
 
-    function diffLines(oldStr:string, newStr:string):IDiffResult[];
+    function diffLines(oldStr: string, newStr: string, options?: ILinesOptions): IDiffResult[];
 
-    function diffCss(oldStr:string, newStr:string):IDiffResult[];
+    function diffCss(oldStr: string, newStr: string, options?: IOptions): IDiffResult[];
+
+    function diffTrimmedLines(oldStr: string, newStr: string, options?: ILinesOptions): IDiffResult[];
+
+    function diffSentences(oldStr: string, newStr: string, options?: IOptions): IDiffResult[];
+
+    function diffArrays<T>(oldArr: T[], newArr: T[], options?: IArrayOptions): Array<IDiffArraysResult<T>>;
 
     function createPatch(fileName: string, oldStr: string, newStr: string, oldHeader: string, newHeader: string, options?: {context: number}): string;
 
@@ -74,14 +103,18 @@ declare namespace JsDiff {
     function applyPatch(oldStr: string, uniDiff: string | IUniDiff | IUniDiff[]): string;
 
     function applyPatches(uniDiff: IUniDiff[], options: {
-        loadFile: (index: number, callback: (err: Error, data: string) => void) => void,
-        patched: (index: number, content: string) => void,
-        complete: (err?: Error) => void
+        loadFile(index: number, callback: (err: Error, data: string) => void): void,
+        patched(index: number, content: string): void,
+        complete(err?: Error): void
     }): void;
 
     function parsePatch(diffStr: string, options?: {strict: boolean}): IUniDiff[];
 
-    function convertChangesToXML(changes:IDiffResult[]):string;
+    function convertChangesToXML(changes: IDiffResult[]): string;
 
-    function convertChangesToDMP(changes:IDiffResult[]):{0: number; 1:string;}[];
+    function convertChangesToDMP(changes: IDiffResult[]): Array<{0: number; 1: string; }>;
+
+    function merge(mine: string, theirs: string, base: string): IUniDiff;
+
+    function canonicalize(obj: any, stack: any[], replacementStack: any[]): any;
 }

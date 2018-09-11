@@ -1,6 +1,7 @@
-// Type definitions for maildev 0.11.0
+// Type definitions for maildev 1.0.0-rc3
 // Project: https://github.com/djfarrelly/maildev
-// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher/>
+// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
+//                 Zak Barbuto <https://github.com/zbarbuto>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
@@ -9,6 +10,13 @@
  * Interface for {@link MailDev} options.
  */
 interface MailDevOptions {
+    /**
+     * IP Address to bind SMTP service to', '0.0.0.0'
+     *
+     * @type {string}
+     */
+    ip?: string;
+
     /**
      * SMTP host for outgoing emails
      *
@@ -38,11 +46,67 @@ interface MailDevOptions {
     outgoingUser?: string;
 
     /**
+     * Use SMTP SSL for outgoing emails
+     *
+     * @type {boolean}
+     */
+    outgoingSecure?: boolean;
+
+    /**
      * SMTP port to catch emails.
      *
      * @type {number}
      */
     smtp?: number;
+
+    /**
+     * Port to use for web UI
+     *
+     * @type {number}
+     */
+    web?: number;
+
+    /**
+     * IP Address to bind HTTP service to
+     *
+     * @type {string}
+     */
+    webIp?: string;
+
+    /**
+     * Do not start web UI
+     *
+     * @type {boolean}
+     */
+    disableWeb?: boolean;
+
+    /**
+     * Do not output console.log messages
+     *
+     * @type {boolean}
+     */
+    silent?: boolean;
+
+    /**
+     * HTTP user for GUI
+     *
+     * @type {string}
+     */
+    webUser?: string;
+
+    /**
+     * HTTP password for GUI
+     *
+     * @type {string}
+     */
+    webPass?: string;
+
+    /**
+     * Open the Web GUI after startup
+     *
+     * @type {boolean}
+     */
+    open?: boolean;
 }
 
 /**

@@ -1,5 +1,6 @@
 import * as angular from "angular";
 import * as React from "react";
+import * as PropTypes from "prop-types";
 import { ReactDirective } from "ngreact";
 
 const app = angular.module("app", ["react"]);
@@ -24,13 +25,20 @@ app.directive('helloComponent', function(reactDirective: ReactDirective, $locati
   return reactDirective(HelloComponent, undefined, {}, { $location });
 });
 
-var HelloComponent = React.createClass({
-  propTypes: {
-    fname : React.PropTypes.string.isRequired,
-    lname : React.PropTypes.string.isRequired
-  },
-  render: function() {
+interface HelloProps {
+  fname: string;
+  lname: string;
+}
+
+class HelloComponent extends React.Component<HelloProps> {
+  static propTypes = {
+    fname : PropTypes.string.isRequired,
+    lname : PropTypes.string.isRequired
+  }
+
+  render() {
     return <span>Hello {this.props.fname} {this.props.lname}</span>;
   }
-})
+}
+
 app.value('HelloComponent', HelloComponent);

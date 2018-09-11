@@ -1,10 +1,10 @@
-// Type definitions for Google Apps Script 2015-11-12
+// Type definitions for Google Apps Script 2018-07-11
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-
+/// <reference path="google-apps-script.types.d.ts" />
+/// <reference path="google-apps-script.base.d.ts" />
 
 declare namespace GoogleAppsScript {
   export module Calendar {
@@ -13,6 +13,8 @@ declare namespace GoogleAppsScript {
      */
     export interface Calendar {
       createAllDayEvent(title: string, date: Date): CalendarEvent;
+      createAllDayEvent(title: string, startDate: Date, endDate: Date): CalendarEvent;
+      createAllDayEvent(title: string, startDate: Date, endDate: Date, options: Object): CalendarEvent;
       createAllDayEvent(title: string, date: Date, options: Object): CalendarEvent;
       createAllDayEventSeries(title: string, startDate: Date, recurrence: EventRecurrence): CalendarEventSeries;
       createAllDayEventSeries(title: string, startDate: Date, recurrence: EventRecurrence, options: Object): CalendarEventSeries;
@@ -24,6 +26,7 @@ declare namespace GoogleAppsScript {
       deleteCalendar(): void;
       getColor(): string;
       getDescription(): string;
+      getEventById(iCalId: string): CalendarEvent;
       getEventSeriesById(iCalId: string): CalendarEventSeries;
       getEvents(startTime: Date, endTime: Date): CalendarEvent[];
       getEvents(startTime: Date, endTime: Date, options: Object): CalendarEvent[];
@@ -46,17 +49,20 @@ declare namespace GoogleAppsScript {
     }
 
     /**
-     * Allows a script to read and update the user's Google Calendar. This class provides direct
-     *  access to the user's default calendar, as well as the ability to retrieve additional calendars
-     *  that the user owns or is subscribed to.
+     * Allows a script to read and update the user's Google Calendar. This class provides direct access
+     * to the user's default calendar, as well as the ability to retrieve additional calendars that the
+     * user owns or is subscribed to.
      */
     export interface CalendarApp {
-      Color: Color
-      GuestStatus: GuestStatus
-      Month: Base.Month
-      Visibility: Visibility
-      Weekday: Base.Weekday
+      Color: typeof Color;
+      EventColor: typeof EventColor;
+      GuestStatus: typeof GuestStatus;
+      Month: typeof Base.Month;
+      Visibility: typeof Visibility;
+      Weekday: typeof Base.Weekday;
       createAllDayEvent(title: string, date: Date): CalendarEvent;
+      createAllDayEvent(title: string, startDate: Date, endDate: Date): CalendarEvent;
+      createAllDayEvent(title: string, startDate: Date, endDate: Date, options: Object): CalendarEvent;
       createAllDayEvent(title: string, date: Date, options: Object): CalendarEvent;
       createAllDayEventSeries(title: string, startDate: Date, recurrence: EventRecurrence): CalendarEventSeries;
       createAllDayEventSeries(title: string, startDate: Date, recurrence: EventRecurrence, options: Object): CalendarEventSeries;
@@ -74,6 +80,7 @@ declare namespace GoogleAppsScript {
       getColor(): string;
       getDefaultCalendar(): Calendar;
       getDescription(): string;
+      getEventById(iCalId: string): CalendarEvent;
       getEventSeriesById(iCalId: string): CalendarEventSeries;
       getEvents(startTime: Date, endTime: Date): CalendarEvent[];
       getEvents(startTime: Date, endTime: Date, options: Object): CalendarEvent[];
@@ -112,8 +119,9 @@ declare namespace GoogleAppsScript {
       deleteTag(key: string): CalendarEvent;
       getAllDayEndDate(): Date;
       getAllDayStartDate(): Date;
-      getAllTagKeys(): String[];
-      getCreators(): String[];
+      getAllTagKeys(): string[];
+      getColor(): string;
+      getCreators(): string[];
       getDateCreated(): Date;
       getDescription(): string;
       getEmailReminders(): Integer[];
@@ -143,7 +151,9 @@ declare namespace GoogleAppsScript {
       removeGuest(email: string): CalendarEvent;
       resetRemindersToDefault(): CalendarEvent;
       setAllDayDate(date: Date): CalendarEvent;
+      setAllDayDates(startDate: Date, endDate: Date): CalendarEvent;
       setAnyoneCanAddSelf(anyoneCanAddSelf: boolean): CalendarEvent;
+      setColor(color: string): CalendarEvent;
       setDescription(description: string): CalendarEvent;
       setGuestsCanInviteOthers(guestsCanInviteOthers: boolean): CalendarEvent;
       setGuestsCanModify(guestsCanModify: boolean): CalendarEvent;
@@ -167,8 +177,9 @@ declare namespace GoogleAppsScript {
       anyoneCanAddSelf(): boolean;
       deleteEventSeries(): void;
       deleteTag(key: string): CalendarEventSeries;
-      getAllTagKeys(): String[];
-      getCreators(): String[];
+      getAllTagKeys(): string[];
+      getColor(): string;
+      getCreators(): string[];
       getDateCreated(): Date;
       getDescription(): string;
       getEmailReminders(): Integer[];
@@ -193,6 +204,7 @@ declare namespace GoogleAppsScript {
       removeGuest(email: string): CalendarEventSeries;
       resetRemindersToDefault(): CalendarEventSeries;
       setAnyoneCanAddSelf(anyoneCanAddSelf: boolean): CalendarEventSeries;
+      setColor(color: string): CalendarEventSeries;
       setDescription(description: string): CalendarEventSeries;
       setGuestsCanInviteOthers(guestsCanInviteOthers: boolean): CalendarEventSeries;
       setGuestsCanModify(guestsCanModify: boolean): CalendarEventSeries;
@@ -210,6 +222,11 @@ declare namespace GoogleAppsScript {
      * An enum representing the named colors available in the Calendar service.
      */
     export enum Color { BLUE, BROWN, CHARCOAL, CHESTNUT, GRAY, GREEN, INDIGO, LIME, MUSTARD, OLIVE, ORANGE, PINK, PLUM, PURPLE, RED, RED_ORANGE, SEA_BLUE, SLATE, TEAL, TURQOISE, YELLOW }
+
+    /**
+     * An enum representing the named event colors available in the Calendar service.
+     */
+    export enum EventColor { PALE_BLUE, PALE_GREEN, MAUVE, PALE_RED, YELLOW, ORANGE, CYAN, GRAY, BLUE, GREEN, RED }
 
     /**
      * Represents a guest of an event.
@@ -247,10 +264,10 @@ declare namespace GoogleAppsScript {
     /**
      * Represents a recurrence rule for an event series.
      *
-     * Note that this class also behaves like the EventRecurrence that it belongs
-     *  to, allowing you to chain rule creation together like so:
+     * Note that this class also behaves like the EventRecurrence that it belongs to,
+     * allowing you to chain rule creation together like so:
      *
-     *      recurrence.addDailyRule().times(3).interval(2).addWeeklyExclusion().times(2);
+     *     recurrence.addDailyRule().times(3).interval(2).addWeeklyExclusion().times(2);
      *
      * times(times)
      * interval(interval)

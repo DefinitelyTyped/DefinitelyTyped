@@ -80,7 +80,7 @@ function bookmarksExample() {
                             'Add': function () {
                                 chrome.bookmarks.create({
                                     parentId: bookmarkNode.id,
-                                    title: $('#title').val(), url: $('#url').val()
+                                    title: $('#title').val() as string, url: $('#url').val() as string
                                 });
                                 $('#bookmarks').empty();
                                 $(this).dialog('destroy');
@@ -100,9 +100,9 @@ function bookmarksExample() {
                         show: 'slide', buttons: {
                             'Save': function () {
                                 chrome.bookmarks.update(String(bookmarkNode.id), {
-                                    title: edit.val()
+                                    title: edit.val() as string
                                 });
-                                anchor.text(edit.val());
+                                anchor.text(edit.val() as string);
                                 options.show();
                                 $(this).dialog('destroy');
                             },
@@ -188,18 +188,18 @@ function beforeRedditNavigation() {
 
 // for chrome.tabs.InjectDetails.frameId
 function executeScriptFramed () {
-    
+
     const tabId = 123;
     const frameId = 0;
-    
+
     const code = "alert('hi');";
-    
+
     chrome.tabs.executeScript({frameId, code});
     chrome.tabs.insertCSS({frameId, code});
-    
+
     chrome.tabs.executeScript(tabId, {frameId, code});
     chrome.tabs.insertCSS(tabId, {frameId, code});
-    
+
 }
 
 // for chrome.tabs.TAB_ID_NONE
@@ -296,6 +296,42 @@ function testOptionsPage() {
   chrome.runtime.openOptionsPage(function() {
     // Do a thing ...
   });
+}
+
+// https://developer.chrome.com/extensions/debugger
+function testDebugger() {
+	chrome.debugger.attach({tabId: 123}, '1.23', () => {
+		console.log('This is a callback!');
+	});
+
+	chrome.debugger.detach({tabId: 123}, () => {
+		console.log('This is a callback!');
+	});
+
+	chrome.debugger.sendCommand(
+		{targetId: 'abc'}, 'Debugger.Cmd', {param1: 'x'}, (result) => {
+			console.log('Do something with the result.' + result);
+	});
+
+	chrome.debugger.getTargets((results) => {
+		for (let result of results) {
+			if (result.tabId == 123) {
+			// Do Something.
+			}
+		}
+	});
+
+	chrome.debugger.onEvent.addListener((source, methodName, params) => {
+		if (source.tabId == 123) {
+			console.log('Hello World.');
+		}
+	});
+
+	chrome.debugger.onDetach.addListener((source, reason) => {
+		if (source.tabId == 123) {
+			console.log('Hello World.');
+		}
+	});
 }
 
 // https://developer.chrome.com/extensions/storage#type-StorageArea

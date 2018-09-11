@@ -1,6 +1,3 @@
-
-/// <reference types="node" />
-
 import findup = require('findup-sync');
 
 var str: string;

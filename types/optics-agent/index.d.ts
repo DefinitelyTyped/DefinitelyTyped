@@ -2,6 +2,7 @@
 // Project: https://github.com/apollostack/optics-agent-js#readme
 // Definitions by: Crevil <https://github.com/crevil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 import { GraphQLSchema } from "graphql";
 import { Request, Response } from "express";
@@ -83,12 +84,14 @@ export function middleware(): (req: Request, res: Response, next?: any) => void;
 export function instrumentHapiServer(server: Server): void;
 export function context(req: Request): any;
 
-export default {
-  configureAgent,
-  instrumentSchema,
-  koaMiddleware,
-  middleware,
-  instrumentHapiServer,
-  context,
-  Agent,
+declare const defaultExport: {
+  configureAgent: typeof configureAgent,
+  instrumentSchema: typeof instrumentSchema,
+  koaMiddleware: typeof koaMiddleware,
+  middleware: typeof middleware,
+  instrumentHapiServer: typeof instrumentHapiServer,
+  context: typeof context,
+  Agent: typeof Agent,
 };
+
+export default defaultExport;

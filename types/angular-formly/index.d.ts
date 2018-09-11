@@ -2,6 +2,7 @@
 // Project: https://github.com/formly-js/angular-formly
 // Definitions by: Scott Hatcher <https://github.com/scatcher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="angular" />
 
@@ -588,7 +589,7 @@ declare namespace AngularFormly {
 		disableWarnings: boolean;
 		extras: IFormlyConfigExtras;
 		setType(typeOptions: ITypeOptions): void;
-		setWrapper(wrapperOptions: IWrapperOptions): void;
+		setWrapper(wrapperOptions: IWrapperOptions | Array<IWrapperOptions>): void;
 		templateManipulators: ITemplateManipulators;
 	}
 

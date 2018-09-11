@@ -2,6 +2,7 @@
 // Project: https://developers.google.com/people/
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="gapi" />
 
@@ -119,9 +120,13 @@ declare namespace gapi.client.people {
   }
 
   interface CoverPhoto {
+    metadata: FieldMetadata;
+    url: string;
   }
 
   interface Photo {
+    metadata: FieldMetadata;
+    url: string;
   }
 
   interface Gender {

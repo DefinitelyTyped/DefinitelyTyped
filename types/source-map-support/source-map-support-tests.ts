@@ -1,4 +1,3 @@
-
 import sms = require('source-map-support');
 
 sms.install();
@@ -7,34 +6,38 @@ function retrieveFile(path: string): string {
 	return "foo";
 }
 
-function retrieveSourceMap(source: string): sms.UrlAndMap {
-	return {
+function retrieveSourceMap(source: string): sms.UrlAndMap | null {
+	return source ? {
 		url: "http://foo",
 		map: "foo"
-	};
+	} : null;
 }
 
-var options: sms.Options = {
+const options: sms.Options = {
 	emptyCacheBetweenOperations: false,
 	handleUncaughtExceptions: false,
-	retrieveFile: retrieveFile,
-	retrieveSourceMap: retrieveSourceMap
+	retrieveFile,
+	retrieveSourceMap,
+	environment: 'node',
+	hookRequire: false,
+	overrideRetrieveSourceMap: false,
+	overrideRetrieveFile: false
 };
 
 sms.install(options);
 
-var stackFrame: any; // TODO: this should be a StackFrame, but it seems this would need to be defined elsewhere (in e.g. lib.d.ts)
+let stackFrame: any; // TODO: this should be a StackFrame, but it seems this would need to be defined elsewhere (in e.g. lib.d.ts)
 stackFrame = sms.wrapCallSite(stackFrame);
 
-var s: string;
+let s: string | null;
 s = sms.getErrorSource(new Error("foo"));
 
-var p: sms.Position = {
+let p: sms.Position = {
 	column: 0,
 	line: 0,
 	source: "foo"
 };
 p = sms.mapSourcePosition(p);
 
-var u: sms.UrlAndMap;
+let u: sms.UrlAndMap | null;
 u = retrieveSourceMap("foo");

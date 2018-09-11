@@ -1,28 +1,15 @@
-// Type definitions for three.js (MaskPass.js)
-// Project: https://github.com/mrdoob/three.js/blob/r68/examples/js/postprocessing/MaskPass.js
-// Definitions by: Satoru Kimura <https://github.com/gyohk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+import { Camera, Scene, WebGLRenderTarget, WebGLRenderer } from "./three-core";
+import { Pass } from "./three-effectcomposer";
 
+export class MaskPass extends Pass {
+    constructor(scene: Scene, camera: Camera);
+    scene: Scene;
+    camera: Camera;
+    clear: true;
+    needsSwap: false;
+    inverse: boolean;
+}
 
-declare namespace THREE {
-    export class MaskPass {
-        constructor(scene: Scene, camera: Camera);
-
-        scene: Scene;
-        camera: Camera;
-        enabled: boolean;
-        clear: boolean;
-        needsSwap: boolean;
-        inverse: boolean;
-
-        render(renderer: WebGLRenderer, writeBuffer: WebGLRenderTarget, readBuffer: WebGLRenderTarget, delta: number): void;
-    }
-
-    export class ClearMaskPass {
-        constructor();
-
-        enabled: boolean;
-
-        render(renderer: WebGLRenderer, writeBuffer: WebGLRenderTarget, readBuffer: WebGLRenderTarget, delta: number): void;
-    }
+export class ClearMaskPass extends Pass {
+    needsSwap: false;
 }

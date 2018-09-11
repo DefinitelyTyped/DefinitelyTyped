@@ -1,14 +1,6 @@
 {
-  "extends": "dtslint/dt.json",
-  "rules": {
-    "align": false,
-    "array-type": false,
-    "eofline": false,
-    "no-consecutive-blank-lines": false,
-    "no-empty-interface": false,
-    "prefer-method-signature": false,
-    "void-return": false,
-    "no-single-declare-module": false,
-    "semicolon": false
-  }
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "no-unnecessary-generics": false
+    }
 }

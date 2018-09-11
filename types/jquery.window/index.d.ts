@@ -2,6 +2,7 @@
 // Project: http://fstoke.me/jquery/window/
 // Definitions by: Ryan Graham <https://github.com/ryan-codingintrigue/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery"/>
 

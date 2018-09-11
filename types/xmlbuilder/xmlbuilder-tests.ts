@@ -1,6 +1,7 @@
 
 import xmlbuilder = require('xmlbuilder');
 var xml = xmlbuilder.create;
+var doc = xmlbuilder.begin;
 
 // https://github.com/oozcitak/xmlbuilder-js/blob/master/test/comment.coffee
 xml('comment', {}, {}, { headless: true }).comment('<>\'"&\t\n\r').end();
@@ -41,3 +42,13 @@ xml('root')
     .up()
     .ele('atttest', 'text')
     .end();
+
+// https://github.com/oozcitak/xmlbuilder-js/blob/master/test/basic/begin.coffee
+doc().ele('root', { att: 'val' }).ele('test').end();
+
+xml({
+    displayNotification: {
+        level: 'error',
+        message: 'an error occurred'
+    }
+});

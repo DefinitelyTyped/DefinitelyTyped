@@ -1,13 +1,13 @@
 
 import keytar = require('keytar');
 
-let success: boolean = false;
+let setResult: Promise<void>;
+setResult = keytar.setPassword('keytar-tests', 'username', 'password');
 
-success = keytar.addPassword('keytar-tests', 'username', 'password');
+let success: Promise<boolean>;
 success = keytar.deletePassword('keytar-tests', 'username');
-success = keytar.replacePassword('keytar-tests', 'username', 'password');
 
-let password: string = '';
+let password: Promise<string | null>;
 
 password = keytar.findPassword('keytar-tests');
 password = keytar.getPassword('keytar-tests', 'username');

@@ -6,6 +6,9 @@ var valueFormat: string = numeral(1000).format('0,0');
 var valueUnformat: number = numeral().unformat('($10,000.00)');
 // '-10000'
 
+var valueFormatFloor: string = numeral(1.357).format('0.00', Math.floor);
+// '1.35'
+
 var value3: Numeral = numeral(1000);
 var added: Numeral = value3.add(10);
 // 1010
@@ -87,3 +90,20 @@ numeral.locale('fr');
 // return the current locale
 numeral.locale();
 // 'fr'
+
+// return the current locale data
+numeral.localeData()
+
+// return a specific locale data
+const localeData = numeral.localeData('es')
+
+// test accessing locale data
+const currencySymbol = localeData.currency.symbol
+const billionShorthand = localeData.abbreviations.billion
+const decimalDelimiter = localeData.delimiters.decimal
+const ordinalResult = localeData.ordinal(2)
+
+// test changing an option
+numeral.options.scalePercentBy100 = false
+numeral(50).format('0%')
+// '50%'

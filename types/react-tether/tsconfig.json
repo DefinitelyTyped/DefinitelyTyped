@@ -8,6 +8,7 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "jsx": "react",
         "baseUrl": "../",
         "typeRoots": [
@@ -22,4 +23,3 @@
         "react-tether-tests.tsx"
     ]
 }
-

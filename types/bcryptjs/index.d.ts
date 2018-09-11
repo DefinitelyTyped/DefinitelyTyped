@@ -1,6 +1,6 @@
 // Type definitions for bcryptjs v2.4.0
 // Project: https://github.com/dcodeIO/bcrypt.js
-// Definitions by: Joshua Filby <https://github.com/Joshua-F/>, Rafael Kraut <https://github.com/RafaelKr/>
+// Definitions by: Joshua Filby <https://github.com/Joshua-F/>, Rafael Kraut <https://github.com/RafaelKr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 

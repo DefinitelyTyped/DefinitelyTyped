@@ -3,7 +3,7 @@ import split = require("split");
 
 var testStream = new stream.Readable();
 
-testStream.pipe = function(dest: stream.Writable) {
+testStream.pipe = function<T extends NodeJS.WritableStream>(dest: T) {
     dest.write("This is \r\n new \r\n line");
     return dest;
 };

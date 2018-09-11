@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Component, MouseEvent, StatelessComponent } from 'react';
 import { render } from 'react-dom';
-import * as onClickOutside from 'react-onclickoutside';
+import onClickOutside from 'react-onclickoutside';
 
 function TestStateless(props: { handleClickOutside(): void; }) {
     return (
@@ -23,12 +23,14 @@ render(
     document.getElementById("main")
 );
 
-class TestComponent extends React.Component<{ disableOnClickOutside(): void; enableOnClickOutside(): void; }, {}> implements onClickOutside.HandleClickOutside<any> {
+class TestComponent extends React.Component<{ disableOnClickOutside(): void; enableOnClickOutside(): void; }> {
     handleClickOutside = () => {
         console.log('this.handleClickOutside');
     }
 
     render() {
+        this.props.disableOnClickOutside();
+        this.props.enableOnClickOutside();
         return (
             <div onClick={this.props.disableOnClickOutside}>TestComponent</div>
         );

@@ -251,6 +251,16 @@ declare namespace BlissNS {
         (expr: Node, context?: Element): [Node];
     }
 
+    interface AriaRequestEvent extends Event {
+        readonly attributeName: string;
+        attributeValue: string | null;
+    }
+
+    interface CommandEvent extends Event {
+        readonly commandName: string;
+        readonly detail: string | null;
+    }
+
     // Native methods added into "_" property, but methods that return "void" now return thi stype in order to be chainables
     // Methods are All HTMLElement a ELement methods
     interface BlissNativeExtentions<T> {

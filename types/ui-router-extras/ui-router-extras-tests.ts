@@ -16,7 +16,7 @@ myApp.config(($stateProvider: angular.ui.IStateProvider, $stickyStateProvider: a
         onReactivate: ($state: angular.ui.IState) => {
             const iAmInjectedByInjector = $state;
         },
-        controller: ($previousState: angular.ui.IPreviousStateService, $deepstateRedirect: angular.ui.IDeepStateRedirectService) => {
+        controller: ($previousState: angular.ui.IPreviousStateService, $deepstateRedirect: angular.ui.IDeepStateRedirectService, $stickyState: angular.ui.IStickyStateService) => {
             $previousState.memo('test-memo1');
             $previousState.memo('test-memo2', 'test-state-name2');
             $previousState.memo('test-memo3', 'test-state-name3', {});
@@ -29,13 +29,20 @@ myApp.config(($stateProvider: angular.ui.IStateProvider, $stickyStateProvider: a
             $previousState.get('test-memo1');
 
             $deepstateRedirect.reset('statename1', {
-                'stateParam1': ['value1', 'value2'],
-                'stateParam2': 'value'
+                stateParam1: ['value1', 'value2'],
+                stateParam2: 'value'
+            });
+
+            $stickyState.getInactiveStates();
+            $stickyState.reset('state1');
+            $stickyState.reset('state2', {
+                stateParam1: ['value1', 'value2'],
+                stateParam2: 'value'
             });
         },
         views: {
             // named views are mandatory
-            'name1': {}
+            name1: {}
         }
     };
 
@@ -69,13 +76,13 @@ myApp.config(($stateProvider: angular.ui.IStateProvider, $stickyStateProvider: a
             $previousState.get('test-memo1');
 
             $deepstateRedirect.reset('statename1', {
-                'stateParam1': ['value1', 'value2'],
-                'stateParam2': 'value'
+                stateParam1: ['value1', 'value2'],
+                stateParam2: 'value'
             });
         },
         views: {
             // named views are mandatory
-            'name1': {}
+            name1: {}
         }
     });
 
@@ -106,13 +113,13 @@ myApp.config(($stateProvider: angular.ui.IStateProvider, $stickyStateProvider: a
             $previousState.get('test-memo1');
 
             $deepstateRedirect.reset('statename1', {
-                'stateParam1': ['value1', 'value2'],
-                'stateParam2': 'value'
+                stateParam1: ['value1', 'value2'],
+                stateParam2: 'value'
             });
         },
         views: {
             // named views are mandatory
-            'name1': {}
+            name1: {}
         }
     });
 });

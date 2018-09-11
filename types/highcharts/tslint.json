@@ -1,9 +1,14 @@
 {
-  "extends": "dtslint/dt.json",
-  "rules": {
-    "ban-types": false,
-    "unified-signatures": false,
-    "no-empty-interface": false,
-    "dt-header": false
-  }
+    "extends": "dtslint/dt.json",
+    "rules": {
+        // TODOs
+        "ban-types": false,
+        "unified-signatures": false,
+        "no-empty-interface": false,
+        "dt-header": false,
+        "no-declare-current-package": false,
+        "no-object-literal-type-assertion": false,
+        "no-self-import": false,
+        "no-unnecessary-generics": false
+    }
 }

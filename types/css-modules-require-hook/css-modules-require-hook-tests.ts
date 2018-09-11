@@ -1,7 +1,4 @@
-/// <reference types="node" />
-
 import * as hook from 'css-modules-require-hook';
-import * as path from 'path';
 
 //
 // https://github.com/css-modules/css-modules-require-hook/blob/master/README.md#usage
@@ -170,4 +167,4 @@ hook({ mode: 'pure' });
 // https://github.com/css-modules/css-modules-require-hook/blob/master/README.md#rootdir-string
 //
 
-hook({ rootDir: path.resolve('./my-folder') });
+hook({ rootDir: './my-folder' });

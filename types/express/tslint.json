@@ -1,0 +1,12 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        // Not sure if changing these won't break apps.
+        "interface-name": false,
+        "no-empty-interface": false,
+        "no-namespace": false,
+        "no-reference-import": false,
+        "no-var-keyword": false,
+        "strict-export-declare-modifiers": false
+    }
+}

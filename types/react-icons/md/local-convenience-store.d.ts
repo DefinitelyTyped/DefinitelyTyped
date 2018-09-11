@@ -1,3 +1,3 @@
 import * as React from 'react';
 import { IconBaseProps } from 'react-icon-base';
-export default class MdLocalConvenienceStore extends React.Component<IconBaseProps, any> { }
+export default class MdLocalConvenienceStore extends React.Component<IconBaseProps> { }
