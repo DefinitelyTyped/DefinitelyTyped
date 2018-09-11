@@ -23,15 +23,15 @@
  * without the need to include additional source files. You can treat the "fin" namespace as you would the "window", "navigator" or "documennt" objects.
  */
 declare namespace fin {
-    var Application: import('./v34/v2/api/application/application').default
-    var Clipboard: import('./v34/v2/api/clipboard/clipboard').default
-    var ExternalApplication: import('./v34/v2/api/external-application/external-application').default
-    var Frame: import('./v34/v2/api/frame/frame').default
-    var GlobalHotkey: import('./v34/v2/api/global-hotkey/index').default
-    var InterApplicationBus: import('./v34/v2/api/interappbus/interappbus').default
-    var Notification: import('./v34/v2/api/notification/notification').default
-    var System: import('./v34/v2/api/system/system').default
-    var Window: import('./v34/v2/api/window/window').default
+    var Application: import('./_v2/api/application/application').default
+    var Clipboard: import('./_v2/api/clipboard/clipboard').default
+    var ExternalApplication: import('./_v2/api/external-application/external-application').default
+    var Frame: import('./_v2/api/frame/frame').default
+    var GlobalHotkey: import('./_v2/api/global-hotkey/index').default
+    var InterApplicationBus: import('./_v2/api/interappbus/interappbus').default
+    var Notification: import('./_v2/api/notification/notification').default
+    var System: import('./_v2/api/system/system').default
+    var Window: import('./_v2/api/window/window').default
 
     const desktop: OpenFinDesktop;
 
