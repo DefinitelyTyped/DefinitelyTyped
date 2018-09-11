@@ -1,4 +1,4 @@
-// Type definitions for Video.js 7.2
+// Type definitions for Video.js 8.0
 // Project: https://github.com/videojs/video.js
 // Definitions by: Vincent Bortone <https://github.com/vbortone>
 //                 Simon Clériot <https://github.com/scleriot>
@@ -8,6 +8,7 @@
 //                 Grzegorz Błaszczyk <https://github.com/gjanblaszczyk>
 //                 Stéphane Roucheray <https://github.com/sroucheray>
 //                 Adam Eisenreich <https://github.com/AkxeOne>
+//                 Mei Qingguang <https://github.com/meikidd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -32,7 +33,7 @@
  * @return A player instance
  */
 declare function videojs(id: any, options?: videojs.PlayerOptions, ready?: () => void): videojs.Player;
-export = videojs;
+export default videojs;
 export as namespace videojs;
 
 declare namespace videojs {
