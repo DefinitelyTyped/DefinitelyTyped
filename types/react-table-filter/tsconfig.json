@@ -1,11 +1,12 @@
 {
     "files": [
-        "index.d.ts"
+        "index.d.ts",
+        "react-table-filter-tests.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6"
+            "es6","dom"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
