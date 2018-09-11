@@ -1,4 +1,4 @@
-// Type definitions for ej.web.all 16.2
+// Type definitions for ej.web.all 16.3
 // Project: http://help.syncfusion.com/js/typescript
 // Definitions by: Syncfusion <https://github.com/syncfusion>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,7 +8,7 @@
 
 /*!
 *  filename: ej.web.all.d.ts
-*  version : 16.2.0.50
+*  version : 16.3.0.17-beta
 *  Copyright Syncfusion Inc. 2001 - 2018. All rights reserved.
 *  Use of this code is subject to the terms of our license.
 *  A copy of the current license can be obtained at any time by e-mailing
@@ -20640,16 +20640,18 @@ declare namespace ej {
          * TreeView.
          * @param {string|any} New node text or JSON object
          * @param {string|any} ID of TreeView node/object of TreeView node
+         * @param {boolean} Parent node will be prevented from auto expanding
          * @returns {void}
          */
-        addNode(newNodeText: string|any, target: string|any): void;
+        addNode(newNodeText: string|any, target: string|any, preventTargetExpand: boolean): void;
 
         /** To add a collection of nodes in TreeView. If target tree node is specified, then the given nodes are added as child of target tree node, otherwise nodes are added in TreeView.
          * @param {any|any[]} New node details in JSON object
          * @param {string|any} ID of TreeView node/object of TreeView node
+         * @param {boolean} Parent node will be prevented from auto expanding
          * @returns {void}
          */
-        addNodes(collection: any|any[], target: string|any): void;
+        addNodes(collection: any|any[], target: string|any, preventTargetExpand: boolean): void;
 
         /** To check all the nodes in TreeView.
          * @returns {void}
@@ -21977,6 +21979,10 @@ declare namespace ej {
             /** returns the drop position such as before, after or over
              */
             position?: string;
+
+            /** if it is true, the parent node will be prevented from auto expanding; otherwise, it work's usually
+             */
+            preventTargetExpand?: boolean;
 
             /** returns the event object
              */
@@ -35690,6 +35696,11 @@ declare namespace ej {
              */
             allowSorting?: boolean;
 
+            /** Enables or disables the rendering of unscheduled tasks.
+             * @Default {false}
+             */
+            allowUnscheduledTask?: boolean;
+
             /** Specifies the baseline background color in Gantt
              * @Default {#fba41c}
              */
@@ -35741,7 +35752,7 @@ declare namespace ej {
             dateFormat?: string;
 
             /** Specifies the customized working time for tasks in Gantt
-             * @Default {[{ from: 08:00 AM, to: 12:00 PM }, { from: 01:00 PM, to: 05:00 PM }]}
+             * @Default {[{ from: 08:00 AM, to: 12:00 PM , background:   }, { from: 01:00 PM, to: 05:00 PM , background:  }]}
              */
             dayWorkingTime?: any[];
 
@@ -35856,6 +35867,11 @@ declare namespace ej {
              */
             groupNameMapping?: string;
 
+            /** Specifies whether to highlight the non working time in Gantt.
+             * @Default {false}
+             */
+            highlightNonWorkingTime?: boolean;
+
             /** Specifies whether to highlight the weekends in Gantt .
              * @Default {true}
              */
@@ -35896,6 +35912,10 @@ declare namespace ej {
             /** To Specify the JsRender script Id to customize the mile stone with our preference
              */
             milestoneTemplate?: string;
+
+            /** Specifies the background color for non working time in Gantt.
+             */
+            nonWorkingBackground?: string;
 
             /** Specifies the mapping property path for the task description in datasource
              */
@@ -37534,7 +37554,10 @@ declare namespace ej {
             ProjectView,
 
             ///Displays the project in resource allocation view in Gantt.
-            ResourceView
+            ResourceView,
+
+            ///Displays the project in histogram view in Gantt
+            HistogramView
         }
 
 
@@ -37757,6 +37780,18 @@ declare namespace ej {
              */
             viewReportClick?(e: ViewReportClickEventArgs): void;
 
+            /** Fires before the ajax request process started.
+             */
+            ajaxBeforeLoad?(e: AjaxBeforeLoadEventArgs): void;
+
+            /** Fires when ajax post call succeed.
+             */
+            ajaxSuccess?(e: AjaxSuccessEventArgs): void;
+
+            /** Fires when ajax request failed.
+             */
+            ajaxError?(e: AjaxErrorEventArgs): void;
+
             /** This event will be triggered on rendering the Report Viewer toolbar.
              */
             toolbarRendering?(e: ToolbarRenderingEventArgs): void;
@@ -37896,6 +37931,43 @@ declare namespace ej {
             /** returns the name of the event.
              */
             type?: string;
+        }
+
+        export interface AjaxBeforeLoadEventArgs {
+
+            /** returns the reportViewerToken.
+             */
+            reportViewerToken?: string;
+
+            /** returns the serviceAuthorizationToken.
+             */
+            serviceAuthorizationToken?: string;
+
+            /** Send the headerReq collection.
+             */
+            headerReq?: any;
+
+            /** Send the headers collection.
+             */
+            headers?: any;
+
+            /** Send the custom data.
+             */
+            data?: string;
+        }
+
+        export interface AjaxSuccessEventArgs {
+
+            /** returns the success data.
+             */
+            data?: any;
+        }
+
+        export interface AjaxErrorEventArgs {
+
+            /** returns the error details
+             */
+            msg?: string;
         }
 
         export interface ToolbarRenderingEventArgs {
@@ -40118,6 +40190,14 @@ declare namespace ej {
             tooltipTemplate?: string;
         }
 
+        export interface EditSettingsBatchEditSettings {
+
+            /** Specifies the batch edit mode whether it is cell, row or dialog.
+             * @Default {ej.TreeGrid.BatchEditMode.Cell}
+             */
+            editMode?: ej.TreeGrid.BatchEditMode|string;
+        }
+
         export interface EditSettings {
 
             /** Enables or disables the button to add new row in context menu as well as in toolbar.
@@ -40134,6 +40214,10 @@ declare namespace ej {
              * @Default {false}
              */
             allowEditing?: boolean;
+
+            /** specifies the batch edit mode in TreeGrid.
+             */
+            batchEditSettings?: EditSettingsBatchEditSettings;
 
             /** Specifies the mouse action whether single click or double click to begin the editing
              * @Default {ej.TreeGrid.BeginEditAction.DblClick}
@@ -40276,6 +40360,11 @@ declare namespace ej {
              * @Default {contains}
              */
             operator?: string;
+
+            /** Specifies the search mode of records in searching.
+             * @Default {ej.TreeGrid.SearchHierarchyMode.Parent}
+             */
+            searchHierarchyMode?: ej.TreeGrid.SearchHierarchyMode|string;
         }
 
         export interface SelectedCellIndex {
@@ -40541,6 +40630,19 @@ declare namespace ej {
         }
 
 
+        enum BatchEditMode {
+
+            ///you can edit a cell
+            Cell,
+
+            ///you can edit a row
+            Row,
+
+            ///you can edit a row in dialog form
+            Dialog
+        }
+
+
         enum BeginEditAction {
 
             ///you can begin the editing at double click
@@ -40560,7 +40662,10 @@ declare namespace ej {
             RowEditing,
 
             ///you can edit a row in dialog form.
-            DialogEditing
+            DialogEditing,
+
+            ///you can edit and save bulk of records
+            BatchEditing
         }
 
 
@@ -40626,6 +40731,22 @@ declare namespace ej {
 
             ///To print only the current page content.
             CurrentPage
+        }
+
+
+        enum SearchHierarchyMode {
+
+            ///Parent level records will be included in searching
+            Parent,
+
+            ///Filtered child records will be displayed and parent records displayed along with its children.
+            Child,
+
+            ///Filtered child records will be displayed with parents and parents will be displayed along with its children
+            Both,
+
+            ///Filtered records alone will be displayed without it parents or children
+            None
         }
 
 
@@ -50249,7 +50370,7 @@ declare namespace ej.datavisualization {
 
             /** returns the pointer Index
              */
-            markerpointerindex?: number;
+            markerPointerIndex?: number;
 
             /** returns the pointer element.
              */
@@ -50345,21 +50466,21 @@ declare namespace ej.datavisualization {
              */
             scaleIndex?: number;
 
-            /** returns the context element* @param {Object} args.markerpointer returns the context element
+            /** returns the context element* @param {Object} args.markerPointer returns the context element
              */
             context?: any;
 
             /** returns the pointer Index
              */
-            markerpointerIndex?: number;
+            markerPointerIndex?: number;
 
             /** returns the pointer element.
              */
-            markerpointerElement?: any;
+            markerPointerElement?: any;
 
             /** returns the value of the pointer.
              */
-            markerpointerValue?: number;
+            markerPointerValue?: number;
 
             /** returns the pointer style
              */
@@ -62572,11 +62693,11 @@ declare namespace ej.datavisualization {
 
             /** returns the scrollbar position old start and end range value on changing scrollbar
              */
-            dataoldRange?: any;
+            dataOldRange?: any;
 
             /** returns the scrollbar position new start and end range value on changing scrollbar
              */
-            datanewRange?: any;
+            dataNewRange?: any;
 
             /** if the event should be canceled; otherwise, false.
              */
@@ -62599,11 +62720,11 @@ declare namespace ej.datavisualization {
 
             /** returns the scrollbar position starting range value on changing scrollbar
              */
-            datastartRange?: string;
+            dataStartRange?: string;
 
             /** returns the scrollbar position end range value on changing scrollbar
              */
-            dataendRange?: string;
+            dataEndRange?: string;
 
             /** if the event should be canceled; otherwise, false.
              */
@@ -62664,11 +62785,11 @@ declare namespace ej.datavisualization {
 
             /** returns the scrollbar position old start and end range value on change end of scrollbar
              */
-            dataoldRange?: any;
+            dataOldRange?: any;
 
             /** returns the scrollbar position new start and end range value on change end of scrollbar
              */
-            datanewRange?: any;
+            dataNewRange?: any;
 
             /** if the event should be canceled; otherwise, false.
              */
@@ -69786,6 +69907,11 @@ declare namespace ej.datavisualization {
              * @Default {1000}
              */
             maxIteration?: number;
+
+            /** Enable or disable connector's segment overlapping with each other when executing the layout with multiple parents.
+             * @Default {false}
+             */
+            avoidSegmentOverlapping?: boolean;
         }
 
         export interface NodesAnnotation {
