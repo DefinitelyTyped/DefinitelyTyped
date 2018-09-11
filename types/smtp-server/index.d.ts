@@ -299,16 +299,21 @@ export class SMTPServer extends EventEmitter {
     listen(handle: any, listeningListener?: () => void): net.Server; // tslint:disable-line unified-signatures
 
     /** Closes the server */
-    close(callback: (err?: Error | null) => void): void;
+    close(callback: () => void): void;
 
     updateSecureContext(options: tls.TlsOptions): void;
 
     /** Authentication handler. Override this */
     onAuth(auth: SMTPServerAuthentication, session: SMTPServerSession, callback: (err: Error | null | undefined, response: SMTPServerAuthenticationResponse) => void): void;
+    /** Override this */
     onClose(session: SMTPServerSession, callback: (err?: Error | null) => void): void;
+    /** Override this */
     onConnect(session: SMTPServerSession, callback: (err?: Error | null) => void): void;
+    /** Override this */
     onData(stream: Readable, session: SMTPServerSession, callback: (err?: Error | null) => void): void;
+    /** Override this */
     onMailFrom(address: SMTPServerAddress, session: SMTPServerSession, callback: (err?: Error | null) => void): void;
+    /** Override this */
     onRcptTo(address: SMTPServerAddress, session: SMTPServerSession, callback: (err?: Error | null) => void): void;
 
     addListener(event: 'close', listener: () => void): this;

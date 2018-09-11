@@ -75,3 +75,7 @@ server.listen(port, () => {
     const address = server.server.address() as AddressInfo;
     console.log(`Listening on [${address.address}]:${address.port}`);
 });
+
+server.close(() => {
+    console.log('Server closed');
+});
