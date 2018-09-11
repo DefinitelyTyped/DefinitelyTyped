@@ -3487,7 +3487,7 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @see \`{@link https://api.jquery.com/appendTo/ }\`
      * @since 1.0
      */
-    appendTo(target: JQuery.Selector | JQuery.htmlString | JQuery.TypeOrArray<Element> | JQuery): this;
+    appendTo(target: JQuery.Selector | JQuery.htmlString | JQuery.TypeOrArray<Node> | JQuery): this;
     /**
      * Set one or more attributes for the set of matched elements.
      *

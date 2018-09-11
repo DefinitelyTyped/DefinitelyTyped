@@ -5670,6 +5670,9 @@ function JQuery() {
 
             // $ExpectType JQuery<HTMLElement>
             $('span').appendTo($('p'));
+
+            // $ExpectType JQuery<HTMLElement>
+            $('span').appendTo(document.createDocumentFragment());
         }
 
         function insertAfter() {
