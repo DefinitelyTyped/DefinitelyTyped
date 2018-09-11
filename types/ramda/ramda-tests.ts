@@ -694,6 +694,26 @@ R.times(i, 5);
 };
 
 () => {
+    function isEven(n: number) {
+        return n % 2 === 0;
+    }
+
+    const a: R.Dictionary<number> = R.pipe(
+        R.filter(isEven),
+    )({ a: 0, b: 1 }); // => { a: 0 }
+    const b: number[] = R.pipe(
+        R.filter(isEven),
+    )([0, 1]); // => [0]
+
+    const c: R.Dictionary<number> = R.pipe(
+        R.reject(isEven),
+    )({ a: 0, b: 1 }); // => { b: 1 }
+    const d: number[] = R.pipe(
+        R.reject(isEven),
+    )([0, 1]); // => [1]
+};
+
+() => {
     function lastTwo(val: number, idx: number, list: number[]) {
         return list.length - idx <= 2;
     }
