@@ -755,7 +755,7 @@ declare function equal<T>(a: T, b: T, desc?: string): void;
 
     test( "getHSL", function () {
         var c = new THREE.Color( 0x80ffff );
-        var hsl = c.getHSL();
+        var hsl = c.getHSL( { h: 0, s: 0, l: 0 } );
 
         ok( hsl.h == 0.5, "hue: " + hsl.h );
         ok( hsl.s == 1.0, "saturation: " + hsl.s );
