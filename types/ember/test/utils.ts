@@ -99,3 +99,31 @@ function testDefineProperty() {
         return `${this.firstName} ${this.lastName}`;
     }));
 }
+
+function testTryInvoke() {
+    class Foo {
+        hello() { return ['world']; }
+        add(x: number, y: string) { return x + parseInt(y, 10); }
+        apples(n: number) { return `${n} apples`; }
+    }
+    // zero-argument function
+    Ember.tryInvoke(new Foo(), 'hello'); // $ExpectType string[]
+    // one-argument function
+    Ember.tryInvoke(new Foo(), 'apples', [4]); // $ExpectType string
+    // multi-argument function with different types (reversed types negative test case below)
+    Ember.tryInvoke(new Foo(), 'add', [4, '3']); // $ExpectType number
+
+    // Cases that should return undefined
+    // No args provided
+    Ember.tryInvoke(new Foo(), 'apples'); // $ExpectType undefined
+    // Function does not exist
+    Ember.tryInvoke(new Foo(), 'doesNotExist'); // $ExpectType undefined
+    // Empty args provided
+    Ember.tryInvoke(new Foo(), 'apples', []); // $ExpectType undefined
+    // Wrong args provided
+    Ember.tryInvoke(new Foo(), 'apples', ['']); // $ExpectType undefined
+    // Wrong arg types
+    Ember.tryInvoke(new Foo(), 'add', [4, 3]); // $ExpectType undefined
+    // Reversed arg types
+    Ember.tryInvoke(new Foo(), 'add', ['4', 3]); // $ExpectType undefined
+}
