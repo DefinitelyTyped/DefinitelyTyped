@@ -9,11 +9,7 @@ export interface Options {
     assign: boolean;
 }
 
-declare namespace ReactGlobalConfiguration {
-    function set(newConfiguration: any, newOptions?: Options): void;
-    function get(key?: string): any;
-    function get<Value = any>(key: string, fallbackValue: Value): Value;
-    function serialize(): string;
-}
-
-export default ReactGlobalConfiguration;
+export function set(newConfiguration: any, newOptions?: Options): void;
+export function get(key?: string): any;
+export function get<Value = any>(key: string, fallbackValue: Value): Value;
+export function serialize(): string;
