@@ -266,7 +266,7 @@ export interface CognitoUserPoolTriggerEvent {
         failAuthentication?: boolean;
         publicChallengeParameters?: { [key: string]: string };
         privateChallengeParameters?: { [key: string]: string };
-        challengeMetaData?: string;
+        challengeMetadata?: string;
         answerCorrect?: boolean;
     };
 }

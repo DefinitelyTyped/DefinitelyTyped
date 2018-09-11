@@ -413,7 +413,7 @@ boolOrUndefined = cognitoUserPoolEvent.response.issueTokens;
 boolOrUndefined = cognitoUserPoolEvent.response.failAuthentication;
 str = cognitoUserPoolEvent.response.publicChallengeParameters!["captchaUrl"];
 str = cognitoUserPoolEvent.response.privateChallengeParameters!["answer"];
-strOrUndefined = cognitoUserPoolEvent.response.challengeMetaData;
+strOrUndefined = cognitoUserPoolEvent.response.challengeMetadata;
 boolOrUndefined = cognitoUserPoolEvent.response.answerCorrect;
 
 // CloudFormation Custom Resource
