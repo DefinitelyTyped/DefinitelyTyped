@@ -53,10 +53,16 @@ interface AdvancedComponentDecorator<TProps, TOwnProps> {
 }
 
 /**
- * a property P will be present if:
+ * A property P will be present if:
  * - it is present in DecorationTargetProps
- * - it is present in InjectedProps[P] and can satisfy DecorationTargetProps[P]
- *   or it is not present in InjectedProps[P]
+ *
+ * Its value will be dependent on the following conditions
+ * - if property P is present in InjectedProps and its definition extends the definition
+ *   in DecorationTargetProps, then its definition will be that of DecorationTargetProps[P]
+ * - if property P is not present in InjectedProps then its definition will be that of
+ *   DecorationTargetProps[P]
+ * - if property P is present in InjectedProps but does not extend the
+ *   DecorationTargetProps[P] definition, its definition will be that of InjectedProps[P]
  */
 type Matching<InjectedProps, DecorationTargetProps> = {
 	[P in keyof DecorationTargetProps]: P extends keyof InjectedProps
