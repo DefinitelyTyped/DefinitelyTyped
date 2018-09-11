@@ -323,6 +323,11 @@ interface TwitchExtClientQueryParams {
 	platform: "mobile" | "web";
 
 	/**
+	 * Indicates whether the extension is popped out.
+	 */
+	popout: "true" | "false";
+
+	/**
 	 * The release state of the extension.
 	 */
 	state:
