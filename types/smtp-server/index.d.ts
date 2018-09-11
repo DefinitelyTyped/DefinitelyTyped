@@ -322,6 +322,14 @@ export class SMTPServer extends EventEmitter {
     emit(event: 'close'): boolean;
     emit(event: 'error', err: Error): boolean;
 
+    listenerCount(event: 'close' | 'error'): number;
+
+    listeners(event: 'close'): Array<() => void>;
+    listeners(event: 'error'): Array<(err: Error) => void>;
+
+    off(event: 'close', listener: () => void): this;
+    off(event: 'error', listener: (err: Error) => void): this;
+
     on(event: 'close', listener: () => void): this;
     on(event: 'error', listener: (err: Error) => void): this;
 
@@ -334,6 +342,11 @@ export class SMTPServer extends EventEmitter {
     prependOnceListener(event: 'close', listener: () => void): this;
     prependOnceListener(event: 'error', listener: (err: Error) => void): this;
 
-    listeners(event: 'close'): Array<() => void>;
-    listeners(event: 'error'): Array<(err: Error) => void>;
+    rawListeners(event: 'close'): Array<() => void>;
+    rawListeners(event: 'error'): Array<(err: Error) => void>;
+
+    removeAllListener(event: 'close' | 'error'): this;
+
+    removeListener(event: 'close', listener: () => void): this;
+    removeListener(event: 'error', listener: (err: Error) => void): this;
 }
