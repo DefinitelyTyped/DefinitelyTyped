@@ -69,7 +69,7 @@ declare class ClientSession extends EventEmitter {
     endSession(callback?: MongoCallback<void>): void;
     endSession(options: any, callback?: MongoCallback<void>): void;
     equals(session: ClientSession): boolean;
-    startTransaction(options: object): void;
+    startTransaction(options?: object): void;
 }
 
 export interface MongoClientCommonOption {
