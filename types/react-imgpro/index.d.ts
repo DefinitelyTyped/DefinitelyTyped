@@ -10,13 +10,13 @@ import ProcessImage = ReactImgpro.ProcessImage;
 export default ProcessImage;
 
 declare namespace ReactImgpro {
-	type Mode = "neighbor" | "bilinear" | "bicubic" | "hermite" | "bezier";
-	interface Shape {
+    type Mode = "neighbor" | "bilinear" | "bicubic" | "hermite" | "bezier";
+    interface Shape {
         width?: number;
         height?: number;
-		mode?: Mode;
-	}
-	interface Size {
+        mode?: Mode;
+    }
+    interface Size {
         width: number;
         height: number;
         mode:
@@ -27,7 +27,7 @@ declare namespace ReactImgpro {
             "vertical_bottom" |
             "vertical_middle";
     }
-	interface ProcessImageProps {
+    interface ProcessImageProps {
         image: string;
         resize?: Shape;
         quality?: number;
@@ -41,15 +41,15 @@ declare namespace ReactImgpro {
         scaleToFitImage?: {
             width: number;
             height: number;
-		};
+        };
         flip?: {
             horizontal?: boolean;
             vertical?: boolean;
-		};
+        };
         rotate?: {
             degree: number;
             mode: Mode;
-		};
+        };
         brightness?: number; /* should be -1 to 1 */
         contrast?: number; /* should be -1 to 1 */
         fade?: number; /* should be 0 - 1 */
@@ -76,13 +76,13 @@ declare namespace ReactImgpro {
             red?: number;
             green?: number;
             blue?: number;
-		};
+        };
         storage?: boolean;
         disableWebWorker?: boolean;
         disableRerender?: boolean;
         customCdn?: string;
         onProcessFinish: () => void;
-	}
+    }
 
-	class ProcessImage extends React.Component<ProcessImageProps> {}
+    class ProcessImage extends React.Component<ProcessImageProps> {}
 }
