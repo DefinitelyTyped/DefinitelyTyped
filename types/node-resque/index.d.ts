@@ -5,8 +5,6 @@
 
 /// <reference types="node" />
 
-import { EventEmitter } from 'events';
-
 export interface ConnectionOptions {
     pkg?: string;
     host?: string;
@@ -17,7 +15,7 @@ export interface ConnectionOptions {
     options?: any;
 }
 
-export class Connection extends EventEmitter {
+export class Connection extends NodeJS.EventEmitter {
     constructor(options: ConnectionOptions);
 
     connect(): Promise<void>;
@@ -38,7 +36,7 @@ export interface QueueOptions {
     connection?: ConnectionOptions;
 }
 
-export class Queue extends EventEmitter {
+export class Queue extends NodeJS.EventEmitter {
     constructor(options: QueueOptions, jobs?: JobsHash);
 
     connect(): Promise<void>;
@@ -60,7 +58,7 @@ export interface WorkerOptions {
 
 export type WorkerEvent = 'start' | 'end' | 'cleaning_worker' | 'poll' | 'ping' | 'job' | 'reEnqueue' | 'success' | 'failure' | 'error' | 'pause';
 
-export class Worker extends EventEmitter {
+export class Worker extends NodeJS.EventEmitter {
     constructor(options: WorkerOptions, jobs?: JobsHash);
 
     connect(): Promise<void>;
@@ -100,7 +98,7 @@ export interface SchedulerOptions {
 
 export type SchedulerEvent = 'start' | 'end' | 'poll' | 'master' | 'cleanStuckWorker' | 'error' | 'workingTimestamp' | 'transferredJob';
 
-export class Scheduler extends EventEmitter {
+export class Scheduler extends NodeJS.EventEmitter {
     constructor(options: SchedulerOptions, jobs?: JobsHash);
 
     connect(): Promise<void>;
