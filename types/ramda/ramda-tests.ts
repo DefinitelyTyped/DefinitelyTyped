@@ -685,12 +685,12 @@ R.times(i, 5);
     }
 
     const filterEven = R.filter(isEven);
-    filterEven({ a: 0, b: 1 }); // => { a: 0 }
-    filterEven([0, 1]); // => [0]
+    const objA: R.Dictionary<number> = filterEven({ a: 0, b: 1 }); // => { a: 0 }
+    const listA: number[] = filterEven([0, 1]); // => [0]
 
     const rejectEven = R.reject(isEven);
-    rejectEven({ a: 0, b: 1 }); // => { b: 1 }
-    rejectEven([0, 1]); // => [1]
+    const objB: R.Dictionary<number> = rejectEven({ a: 0, b: 1 }); // => { b: 1 }
+    const listB: number[] = rejectEven([0, 1]); // => [1]
 };
 
 () => {
