@@ -166,6 +166,9 @@ declare namespace PouchDB {
         find(request: Find.FindRequest<Content>,
              callback: Core.Callback<Find.FindResponse<Content>>): void;
         find(request?: Find.FindRequest<Content>): Promise<Find.FindResponse<Content>>;
+        
+        /** Explain the query. */
+        explain(request?: Find.FindRequest<Content>): Promise<any>;
 
         /** Create an index if it doesn't exist, or do nothing if it already exists. */
         createIndex(index: Find.CreateIndexOptions,
