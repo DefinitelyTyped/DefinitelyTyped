@@ -265,7 +265,7 @@ function test_dom_iterator() {
     var iterator = range.createIterator();
     var paragrah1: CKEDITOR.dom.element = iterator.getNextParagraph();
     var paragrah2: CKEDITOR.dom.element = iterator.getNextParagraph('div');
-    alert(iterator.forceBrBreak === false);
+    alert(!iterator.forceBrBreak);
     var itRange: CKEDITOR.dom.range = iterator.range;
 }
 

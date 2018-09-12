@@ -131,7 +131,7 @@ declare namespace CKEDITOR {
     function removeAllListeners(): void;
     function removeListener(eventName: string, listenerFunction: (eventInfo: eventInfo) => void): void;
 
-    type listenerRegistration = {
+    interface listenerRegistration {
         removeListener: () => void;
     }
 
@@ -288,7 +288,7 @@ declare namespace CKEDITOR {
             show(): void;
             unselectable(): void;
 
-            //static method
+            // static method
             static clearAllMarkers(database: any): any;
             static clearMarkers(database: any, element: dom.element, removeFromDatabase: boolean): void;
             static createFromHtml(html: string): element;
@@ -436,8 +436,8 @@ declare namespace CKEDITOR {
         }
 
         interface shrinkOptions {
-            shrinkOnBlockBoundary?: boolean,
-            skipBogus?: boolean
+            shrinkOnBlockBoundary?: boolean;
+            skipBogus?: boolean;
         }
 
         class rangeList {
@@ -479,7 +479,7 @@ declare namespace CKEDITOR {
             removeAllRanges(): void;
             reset(): void;
             scrollIntoView(): void;
-            selectBookmarks(bookmarks: (bookmark | bookmark2)[]): selection;
+            selectBookmarks(bookmarks: Array<bookmark | bookmark2>): selection;
             selectElement(element: element): void;
             selectRanges(ranges: range[]): void;
             unlock(restore: boolean): void;
@@ -732,7 +732,7 @@ declare namespace CKEDITOR {
         jqueryOverrideVal?: boolean;
         justifyClasses?: string[];
 
-        keystrokes?: [number, string][];
+        keystrokes?: Array<[number, string]>;
 
         language?: string;
         language_list?: string[];
@@ -740,7 +740,7 @@ declare namespace CKEDITOR {
         linkShowAdvancedTab?: boolean;
         linkShowTargetTab?: boolean;
 
-        magicline_color?: string
+        magicline_color?: string;
         magicline_everywhere?: boolean;
         magicline_holdDistance?: number;
         magicline_keystrokeNext?: number;
@@ -817,7 +817,7 @@ declare namespace CKEDITOR {
         smiley_images?: string[];
         smiley_path?: string;
         sourceAreaTabSize?: number;
-        specialChars?: (string | [string, string])[];
+        specialChars?: Array<string | [string, string]>;
         startupFocus?: string | boolean;
         startupMode?: string;
         startupOutlineBlocks?: boolean;
@@ -832,10 +832,10 @@ declare namespace CKEDITOR {
         templates_files?: { [key: string]: any };
         templates_replaceContent?: boolean;
         title?: string | boolean;
-        toolbar?: string | (string | string[] | { name: string, items?: string[], groups?: string[] })[] | null;
+        toolbar?: string | Array<string | string[] | { name: string, items?: string[], groups?: string[] }> | null;
         toolbarCanCollapse?: boolean;
         toolbarGroupCycling?: boolean;
-        toolbarGroups?: (toolbarGroups | string)[];
+        toolbarGroups?: Array<toolbarGroups | string>;
         toolbarLocation?: string;
         toolbarStartupExpanded?: boolean;
 
@@ -961,13 +961,13 @@ declare namespace CKEDITOR {
 
             interface radio extends labeledElement {
                 default?: string;
-                items?: string[] | (string[])[];
+                items?: string[] | string[][];
                 validate?: () => boolean;
             }
 
             interface select extends labeledElement {
                 default?: string;
-                items?: string[] | (string[])[];
+                items?: string[] | string[][];
                 multiple?: boolean;
                 size?: number;
                 validate?: () => boolean;
@@ -1165,7 +1165,7 @@ declare namespace CKEDITOR {
         setActiveFilter(filter: filter): void;
         setData(data: string, options?: { internal?: boolean; callback?: () => void; noSnapshot?: boolean; }): void;
         setKeystroke(keystroke: number, behavior: string | boolean): void;
-        setKeystroke(keystroke: [number, string | boolean][]): void;
+        setKeystroke(keystroke: Array<[number, string | boolean]>): void;
         setMode(newMode: string, callback: () => void): void;
         setReadOnly(isReadOnly?: boolean): void;
         setUiColor(color: string): void;
@@ -1425,7 +1425,7 @@ declare namespace CKEDITOR {
         readonly disabled: boolean;
         readonly disallowedContent: any[];
         readonly editor: editor;
-        readonly elementCallbacks: ((element: htmlParser.element) => number)[];
+        readonly elementCallbacks: Array<(element: htmlParser.element) => number>;
         readonly id: number;
 
         static instances: { [id: string]: filter };
@@ -1434,7 +1434,7 @@ declare namespace CKEDITOR {
         addContentForms(forms: any[]): void;
         addElementCallback(callback: (element: htmlParser.element) => number): void;
         addFeature(feature: feature): boolean;
-        addTransformations(transformations: (string | filter.transformation)[][]): void;
+        addTransformations(transformations: Array<Array<string | filter.transformation>>): void;
         allow(newRules: filter.allowedContentRules, featureName?: string, overrideCustom?: boolean): boolean;
         applyTo(fragment: htmlParser.fragment | htmlParser.element, toHrml: boolean, transformOnly: boolean, enterMode: number): boolean;
         check(test: filter.contentRule, applyTransformations?: boolean, strictCheck?: boolean): boolean;
@@ -1564,10 +1564,10 @@ declare namespace CKEDITOR {
         }
 
         class filterRulesGroup {
-            rules: { value: rule, priority: number, option: ruleOptions }[];
+            rules: Array<{ value: rule, priority: number, option: ruleOptions }>;
 
             add(rule: rule, priority: number, options: ruleOptions): void;
-            addMany(rules: { [key: string]: any }[], priority: number, options: ruleOptions): void;
+            addMany(rules: Array<{ [key: string]: any }>, priority: number, options: ruleOptions): void;
             exec(currentValue: htmlParser.node | htmlParser.fragment | string): htmlParser.node | htmlParser.fragment | string;
             execOnName(currentName: string): string;
             findIndex(priority: number): number;
@@ -1605,8 +1605,8 @@ declare namespace CKEDITOR {
         type rule = ((value: htmlParser.node | htmlParser.fragment | string) => boolean) | [string, string];
 
         interface ruleOptions {
-            applyToAll?: boolean,
-            excludeNestedEditable?: boolean
+            applyToAll?: boolean;
+            excludeNestedEditable?: boolean;
         }
 
         class text extends node {
@@ -1770,7 +1770,7 @@ declare namespace CKEDITOR {
                 highlighter: (code: string, lang: string, callback: (highlightedCode: string) => void) => void;
                 init: (ready: () => void) => void;
                 languages: { [lang: string]: string };
-                readonly queue: ((code: string, lang: string, callback: (highlightedCode: string) => void) => void)[];
+                readonly queue: Array<(code: string, lang: string, callback: (highlightedCode: string) => void) => void>;
                 readonly ready: boolean;
 
                 highlight(code: string, lang: string, callback: (highlightedCode: string) => void): void;
@@ -1910,7 +1910,7 @@ declare namespace CKEDITOR {
             const synAnchorSelector: boolean;
 
             function getEditorAnchors(editor: editor): dom.element[];
-            function getLinkAttributes(editor: editor, data: { [key: string]: any }): { set: { [key: string]: string }, removed: string[] }
+            function getLinkAttributes(editor: editor, data: { [key: string]: any }): { set: { [key: string]: string }, removed: string[] };
             function getSelectedLink(editor: editor, returnMultiple?: boolean): dom.element | dom.element[];
             function parseLinkAttributes(editor: editor, element: dom.element): { [key: string]: any };
             function showDisplayTextForElement(element: dom.element, editor: editor): boolean;
@@ -2087,8 +2087,7 @@ declare namespace CKEDITOR {
                 destroyAll(offline?: boolean): void;
                 finalizeCreation(container: any): void;
                 getByElement(element: any, checkWrapperOnly: boolean): plugins.widget;
-                initOn(element: dom.element, widgetDef?: plugins.widget.definition, startupData?: { [key: string]: any }): plugins.widget;
-                initOn(element: dom.element, widgetDef?: string, startupData?: { [key: string]: any }): plugins.widget;
+                initOn(element: dom.element, widgetDef?: string | plugins.widget.definition, startupData?: { [key: string]: any }): plugins.widget;
                 initOnAll(container?: dom.element): plugins.widget[];
                 parseElementClasses(classes: string): any;
                 wrapElement(element: any, widgetName?: string): any;
@@ -2105,7 +2104,7 @@ declare namespace CKEDITOR {
             readonly definition: plugins.widget.definition;
             readonly editor: editor;
             readonly element: dom.element;
-            readonly focusedEditable: plugins.widget.nestedEditable
+            readonly focusedEditable: plugins.widget.nestedEditable;
             readonly id: number;
             readonly inited: boolean;
             readonly ready: boolean;
@@ -2134,8 +2133,7 @@ declare namespace CKEDITOR {
             updateDragHandlerPosition(): void;
         }
 
-        function add(name: string, definition: pluginDefinition): void;
-        function add(name: string): void;
+        function add(name: string, definition?: pluginDefinition): void;
         function addExternal(name: string, path: string, fileName?: string): void;
         function get(name: string): any;
         function getFilePath(name: string): string;
@@ -2196,11 +2194,11 @@ declare namespace CKEDITOR {
         }
 
         interface definition {
-            attributes?: { [att: string]: string },
-            element: string,
-            name?: string,
-            styles?: { [att: string]: string },
-            type?: string | number
+            attributes?: { [att: string]: string };
+            element: string;
+            name?: string;
+            styles?: { [att: string]: string };
+            type?: string | number;
         }
 
         interface customHandler {
@@ -2401,13 +2399,13 @@ declare namespace CKEDITOR {
                 interface radio {
                     default: any;
                     validate?: () => boolean;
-                    items: ([string, string] | [string])[];
+                    items: Array<[string, string] | [string]>;
                 }
 
                 interface select {
                     default: any;
                     validate?: () => boolean;
-                    items: ([string, string] | [string])[];
+                    items: Array<[string, string] | [string]>;
                     multiple?: boolean;
                     size?: number;
                 }
@@ -2518,7 +2516,16 @@ declare namespace CKEDITOR {
             class uiElement {
                 eventProcessors: any;
 
-                constructor(dialog: dialog, elementDefinition: definitions.uiElement, htmlList: any[], nodeNameArg?: () => string | string, stylesArg?: () => { [key: string]: any } | { [key: string]: any }, attributesArg?: () => { [key: string]: any } | { [key: string]: any }, contentsArg?: () => { [key: string]: any } | string); // Not sure that the htmlList array type is right.
+                // Not sure that the htmlList array type is right.
+                constructor(
+                    dialog: dialog,
+                    elementDefinition: definitions.uiElement,
+                    htmlList: any[],
+                    nodeNameArg?: () => string | string,
+                    stylesArg?: () => { [key: string]: any } | { [key: string]: any },
+                    attributesArg?: () => { [key: string]: any } | { [key: string]: any },
+                    contentsArg?: () => { [key: string]: any } | string
+                );
 
                 accessKeyDown(dialog: dialog, key: string): void;
                 accessKeyUp(dialog: dialog, key: string): void;
@@ -2723,11 +2730,11 @@ declare namespace CKEDITOR {
     }
 
     interface IMenuItemDefinition {
-        label: string,
-        command: string,
-        icon: string
-        group: string,
-        order: number
+        label: string;
+        command: string;
+        icon: string;
+        group: string;
+        order: number;
     }
 
     interface buttonDefinition {

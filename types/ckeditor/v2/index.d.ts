@@ -204,7 +204,7 @@ declare namespace CKEDITOR {
             focusPrevious(ignoreChildren?: boolean, indexToUse?: number): void;
             forEach(callback: (node: node) => void, type?: number, skipRoot?: boolean): void;
             getAttribute(name: string): string;
-            getBogus(): node|false;
+            getBogus(): node | false;
             getChild(indices: number | number[]): node;
             getChildCount(): number;
             getChildren(): nodeList;
@@ -1110,8 +1110,7 @@ declare namespace CKEDITOR {
         removeStyle(style: style): void;
         resetDirty(): void;
         resetUndo(): void;
-        resize(width: number | string, height: number, isContentHeight?: boolean, resizeInner?: boolean): void;
-        resize(width: number | string, height: string, isContentHeight?: boolean, resizeInner?: boolean): void;
+        resize(width: number | string, height: number | string, isContentHeight?: boolean, resizeInner?: boolean): void;
         restoreRealElement(fakeElement: Object): dom.element;
         selectionChange(checkNow?: boolean): void;
         setActiveEnterMode(enterMode: number, shiftEnterMode: number): void;
@@ -1127,97 +1126,97 @@ declare namespace CKEDITOR {
 
     namespace editor {
         interface eventObject {
-            activeEnterModeChange?: (evt: eventInfo) => void;
-            activeFilterChange?: (evt: eventInfo) => void;
-            afterCommandExec?: (evt: eventInfo) => void;
-            afterInsertHtml?: (evt: eventInfo) => void;
-            afterPaste?: (evt: eventInfo) => void;
-            afterPasteFromWord?: (evt: eventInfo) => void;
-            afterSetData?: (evt: eventInfo) => void;
-            afterUndoImage?: (evt: eventInfo) => void;
-            ariaEditorHelpLabel?: (evt: eventInfo) => void;
-            ariaWidget?: (evt: eventInfo) => void;
-            autogrow?: (evt: eventInfo) => void;
+            activeEnterModeChange?: (evt: CKEDITOR.eventInfo) => void;
+            activeFilterChange?: (evt: CKEDITOR.eventInfo) => void;
+            afterCommandExec?: (evt: CKEDITOR.eventInfo) => void;
+            afterInsertHtml?: (evt: CKEDITOR.eventInfo) => void;
+            afterPaste?: (evt: CKEDITOR.eventInfo) => void;
+            afterPasteFromWord?: (evt: CKEDITOR.eventInfo) => void;
+            afterSetData?: (evt: CKEDITOR.eventInfo) => void;
+            afterUndoImage?: (evt: CKEDITOR.eventInfo) => void;
+            ariaEditorHelpLabel?: (evt: CKEDITOR.eventInfo) => void;
+            ariaWidget?: (evt: CKEDITOR.eventInfo) => void;
+            autogrow?: (evt: CKEDITOR.eventInfo) => void;
 
-            beforeCommandExec?: (evt: eventInfo) => void;
-            beforeDestroy?: (evt: eventInfo) => void;
-            beforeGetData?: (evt: eventInfo) => void;
-            beforeModeUnload?: (evt: eventInfo) => void;
-            beforeSetMode?: (evt: eventInfo) => void;
-            beforeUndoImage?: (evt: eventInfo) => void;
-            blur?: (evt: eventInfo) => void;
+            beforeCommandExec?: (evt: CKEDITOR.eventInfo) => void;
+            beforeDestroy?: (evt: CKEDITOR.eventInfo) => void;
+            beforeGetData?: (evt: CKEDITOR.eventInfo) => void;
+            beforeModeUnload?: (evt: CKEDITOR.eventInfo) => void;
+            beforeSetMode?: (evt: CKEDITOR.eventInfo) => void;
+            beforeUndoImage?: (evt: CKEDITOR.eventInfo) => void;
+            blur?: (evt: CKEDITOR.eventInfo) => void;
 
-            change?: (evt: eventInfo) => void;
-            configLoaded?: (evt: eventInfo) => void;
-            contentDirChanged?: (evt: eventInfo) => void;
-            contentDom?: (evt: eventInfo) => void;
-            contentDomInvalidated?: (evt: eventInfo) => void;
-            contentDomUnload?: (evt: eventInfo) => void;
-            customConfigLoaded?: (evt: eventInfo) => void;
+            change?: (evt: CKEDITOR.eventInfo) => void;
+            configLoaded?: (evt: CKEDITOR.eventInfo) => void;
+            contentDirChanged?: (evt: CKEDITOR.eventInfo) => void;
+            contentDom?: (evt: CKEDITOR.eventInfo) => void;
+            contentDomInvalidated?: (evt: CKEDITOR.eventInfo) => void;
+            contentDomUnload?: (evt: CKEDITOR.eventInfo) => void;
+            customConfigLoaded?: (evt: CKEDITOR.eventInfo) => void;
 
-            dataFiltered?: (evt: eventInfo) => void;
-            dataReady?: (evt: eventInfo) => void;
-            destroy?: (evt: eventInfo) => void;
-            dialogHide?: (evt: eventInfo) => void;
-            dialogShow?: (evt: eventInfo) => void;
-            dirChanged?: (evt: eventInfo) => void;
-            doubleclick?: (evt: eventInfo) => void;
-            dragend?: (evt: eventInfo) => void;
-            dragstart?: (evt: eventInfo) => void;
-            drop?: (evt: eventInfo) => void;
+            dataFiltered?: (evt: CKEDITOR.eventInfo) => void;
+            dataReady?: (evt: CKEDITOR.eventInfo) => void;
+            destroy?: (evt: CKEDITOR.eventInfo) => void;
+            dialogHide?: (evt: CKEDITOR.eventInfo) => void;
+            dialogShow?: (evt: CKEDITOR.eventInfo) => void;
+            dirChanged?: (evt: CKEDITOR.eventInfo) => void;
+            doubleclick?: (evt: CKEDITOR.eventInfo) => void;
+            dragend?: (evt: CKEDITOR.eventInfo) => void;
+            dragstart?: (evt: CKEDITOR.eventInfo) => void;
+            drop?: (evt: CKEDITOR.eventInfo) => void;
 
-            elementsPathUpdate?: (evt: eventInfo) => void;
+            elementsPathUpdate?: (evt: CKEDITOR.eventInfo) => void;
 
-            fileUploadRequest?: (evt: eventInfo) => void;
-            fileUploadResponse?: (evt: eventInfo) => void;
-            floatingSpaceLayout?: (evt: eventInfo) => void;
-            focus?: (evt: eventInfo) => void;
+            fileUploadRequest?: (evt: CKEDITOR.eventInfo) => void;
+            fileUploadResponse?: (evt: CKEDITOR.eventInfo) => void;
+            floatingSpaceLayout?: (evt: CKEDITOR.eventInfo) => void;
+            focus?: (evt: CKEDITOR.eventInfo) => void;
 
-            getData?: (evt: eventInfo) => void;
-            getSnapshot?: (evt: eventInfo) => void;
+            getData?: (evt: CKEDITOR.eventInfo) => void;
+            getSnapshot?: (evt: CKEDITOR.eventInfo) => void;
 
-            insertElement?: (evt: eventInfo) => void;
-            insertHtml?: (evt: eventInfo) => void;
-            insertText?: (evt: eventInfo) => void;
-            instanceReady?: (evt: eventInfo) => void;
+            insertElement?: (evt: CKEDITOR.eventInfo) => void;
+            insertHtml?: (evt: CKEDITOR.eventInfo) => void;
+            insertText?: (evt: CKEDITOR.eventInfo) => void;
+            instanceReady?: (evt: CKEDITOR.eventInfo) => void;
 
-            key?: (evt: eventInfo) => void;
+            key?: (evt: CKEDITOR.eventInfo) => void;
 
-            langLoaded?: (evt: eventInfo) => void;
-            loadSnapshot?: (evt: eventInfo) => void;
-            loaded?: (evt: eventInfo) => void;
-            lockSnapshot?: (evt: eventInfo) => void;
-            maximize?: (evt: eventInfo) => void;
-            menuShow?: (evt: eventInfo) => void;
-            mode?: (evt: eventInfo) => void;
+            langLoaded?: (evt: CKEDITOR.eventInfo) => void;
+            loadSnapshot?: (evt: CKEDITOR.eventInfo) => void;
+            loaded?: (evt: CKEDITOR.eventInfo) => void;
+            lockSnapshot?: (evt: CKEDITOR.eventInfo) => void;
+            maximize?: (evt: CKEDITOR.eventInfo) => void;
+            menuShow?: (evt: CKEDITOR.eventInfo) => void;
+            mode?: (evt: CKEDITOR.eventInfo) => void;
 
-            notificationHide?: (evt: eventInfo) => void;
-            notificationShow?: (evt: eventInfo) => void;
-            notificationUpdate?: (evt: eventInfo) => void;
+            notificationHide?: (evt: CKEDITOR.eventInfo) => void;
+            notificationShow?: (evt: CKEDITOR.eventInfo) => void;
+            notificationUpdate?: (evt: CKEDITOR.eventInfo) => void;
 
-            paste?: (evt: eventInfo) => void;
-            pasteFromWord?: (evt: eventInfo) => void;
-            pluginsLoaded?: (evt: eventInfo) => void;
+            paste?: (evt: CKEDITOR.eventInfo) => void;
+            pasteFromWord?: (evt: CKEDITOR.eventInfo) => void;
+            pluginsLoaded?: (evt: CKEDITOR.eventInfo) => void;
 
-            readOnly?: (evt: eventInfo) => void;
-            removeFormatCleanup?: (evt: eventInfo) => void;
-            required?: (evt: eventInfo) => void;
-            resize?: (evt: eventInfo) => void;
+            readOnly?: (evt: CKEDITOR.eventInfo) => void;
+            removeFormatCleanup?: (evt: CKEDITOR.eventInfo) => void;
+            required?: (evt: CKEDITOR.eventInfo) => void;
+            resize?: (evt: CKEDITOR.eventInfo) => void;
 
-            save?: (evt: eventInfo) => void;
-            saveSnapshot?: (evt: eventInfo) => void;
-            selectionChange?: (evt: eventInfo) => void;
-            setData?: (evt: eventInfo) => void;
-            stylesSet?: (evt: eventInfo) => void;
+            save?: (evt: CKEDITOR.eventInfo) => void;
+            saveSnapshot?: (evt: CKEDITOR.eventInfo) => void;
+            selectionChange?: (evt: CKEDITOR.eventInfo) => void;
+            setData?: (evt: CKEDITOR.eventInfo) => void;
+            stylesSet?: (evt: CKEDITOR.eventInfo) => void;
 
-            template?: (evt: eventInfo) => void;
-            toDataFormat?: (evt: eventInfo) => void;
-            toHtml?: (evt: eventInfo) => void;
+            template?: (evt: CKEDITOR.eventInfo) => void;
+            toDataFormat?: (evt: CKEDITOR.eventInfo) => void;
+            toHtml?: (evt: CKEDITOR.eventInfo) => void;
 
-            unlockSnapshot?: (evt: eventInfo) => void;
-            updateSnapshot?: (evt: eventInfo) => void;
+            unlockSnapshot?: (evt: CKEDITOR.eventInfo) => void;
+            updateSnapshot?: (evt: CKEDITOR.eventInfo) => void;
 
-            widgetDefinition?: (evt: eventInfo) => void;
+            widgetDefinition?: (evt: CKEDITOR.eventInfo) => void;
         }
     }
 
@@ -1632,6 +1631,7 @@ declare namespace CKEDITOR {
         }
 
         function add(name: string, path: string): void;
+        // tslint:disable-next-line:unified-signatures
         function add(name: string, dialogDefinition: (editor: editor) => IDialogDefinition): void;
         function addIframe(name: string, title: string, minWidth: number, minHeight: number, onContentLoad?: Function, userDefinition?: Object): void;
         function addUIElement(typeName: string, builder: Function): void;
@@ -1737,20 +1737,20 @@ declare namespace CKEDITOR {
             children: any[];
             parent: any;
             type: number;
-            static fromHtml(fragmentHtml: string): fragment;
+            static fromHtml(fragmentHtml: string, parent?: null, fixingBlock?: string): fragment;
             static fromHtml(fragmentHtml: string, parent?: element | string, fixingBlock?: string | boolean): fragment | element;
-            static fromHtml(fragmentHtml: string, parent: null, fixingBlock?: string): fragment;
             add(node: node, index?: number): void;
             filter(filter: filter): void;
             filterChildren(filter: filter, filterRoot?: boolean): void;
-            forEach(callback: (node: node, type?: number) => void|false, type?: number, skipRoot?: boolean): void;
+            forEach(callback: (node: node, type?: number) => void | false, type?: number, skipRoot?: boolean): void;
+            forEach(callback: (node: node, type?: number) => boolean, type?: number, skipRoot?: boolean): void;
             writeHtml(writer: basicWriter, filter?: filter): void;
             writeChildrenHtml(writer: basicWriter, filter?: filter, filterRoot?: boolean): void;
-            forEach(callback: (node: node, type?: number) => boolean, type?: number, skipRoot?: boolean): void;
         }
 
         class cssStyle {
             constructor(element: element);
+            // tslint:disable-next-line:unified-signatures
             constructor(styleText: string);
             populate(obj: element | dom.element | Object): void;
         }
@@ -1778,7 +1778,7 @@ declare namespace CKEDITOR {
         function clone(source: Object): Object;
         function copy(source: Object): Object;
         function enableHtml5Elements(doc: Object, withAppend?: Boolean): void;
-        function isArray<T>(object: any|null|undefined): object is T[];
+        function isArray<T>(object: any | null | undefined): object is T[];
         function override<T extends Function>(originalFunction: T, functionBuilder: (originalFunction: T) => T): T;
         function parseCssText(styleText: string, normalize?: Boolean, nativeNormalize?: Boolean): { [key: string]: string };
         function prototypedCopy(source: Object): Object;
