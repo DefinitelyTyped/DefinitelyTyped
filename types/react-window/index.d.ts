@@ -2,7 +2,7 @@
 // Project: http://react-window.now.sh/
 // Definitions by: Martynas Kadiša <https://github.com/martynaskadisa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import { Component, ComponentType, CSSProperties, Ref, Key } from "react";
 
