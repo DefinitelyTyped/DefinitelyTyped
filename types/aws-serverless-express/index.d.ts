@@ -1,4 +1,4 @@
-// Type definitions for aws-serverless-express 3.0
+// Type definitions for aws-serverless-express 3.3
 // Project: https://github.com/awslabs/aws-serverless-express
 // Definitions by: Ben Speakman <https://github.com/threesquared>
 //                 Josh Caffey <https://github.com/jcaffey>
@@ -20,5 +20,20 @@ export function createServer(
 export function proxy(
     server: http.Server,
     event: any,
-    context: lambda.Context
-): void;
+    context: lambda.Context,
+): http.Server;
+
+export function proxy<T>(
+    server: http.Server,
+    event: any,
+    context: lambda.Context,
+    resolutionMode: 'CALLBACK',
+    callback?: () => T
+): {promise: Promise<T>};
+
+export function proxy(
+    server: http.Server,
+    event: any,
+    context: lambda.Context,
+    resolutionMode?: 'CONTEXT_SUCCEED' | 'PROMISE'
+): {promise: Promise<void>};
