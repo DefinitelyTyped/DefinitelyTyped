@@ -12,7 +12,6 @@ interface Window {
 }
 
 declare namespace CKEDITOR {
-
     // Config options
     var disableAutoInline: boolean;
     var replaceClass: string;
@@ -137,7 +136,6 @@ declare namespace CKEDITOR {
     }
 
     namespace dom {
-
         interface bookmark {
             startNode: dom.node | string;
             endNode: dom.node | string;
@@ -450,7 +448,6 @@ declare namespace CKEDITOR {
             moveToBookmarks(bookmarks: bookmark[]): void;
         }
 
-
         interface rangeListIterator {
             getNextRange(mergeConsequent?: boolean): range;
         }
@@ -548,13 +545,11 @@ declare namespace CKEDITOR {
         }
     }
 
-
     namespace ajax {
         function load(url: string, callback?: (data: any) => void): string;
         function loadXml(url: string, callback?: (data: any) => void): xml;
         function post(url: string, data: any, contentType?: string, callback?: (data: any) => void): void;
     }
-
 
     class command extends event implements commandDefinition {
         fakeKeystroke: number;
@@ -571,7 +566,6 @@ declare namespace CKEDITOR {
         refresh(editor: editor, path: dom.elementPath): void;
         setState(newState: number): boolean;
         toggleState(): void;
-
     }
 
     interface commandDefinition {
@@ -915,9 +909,7 @@ declare namespace CKEDITOR {
     }
 
     namespace dialog {
-
         namespace definition {
-
             interface button extends uiElement {
                 disabled?: boolean;
             }
@@ -1683,7 +1675,6 @@ declare namespace CKEDITOR {
     }
 
     namespace plugins {
-
         namespace cloudservices {
             class cloudServicesLoader extends fileTools.fileLoader {
                 customToken: string;
@@ -1810,9 +1801,7 @@ declare namespace CKEDITOR {
             }
         }
 
-        namespace easyimage {
-
-        }
+        namespace easyimage {}
 
         namespace embedBase {
             function createWidgetBaseDefinition(editor: editor): baseDefinition;
@@ -1857,9 +1846,7 @@ declare namespace CKEDITOR {
 
             class progressBar extends progressReporter {
                 bar: dom.element;
-
                 constructor();
-
             }
 
             class progressReporter {
@@ -2057,7 +2044,6 @@ declare namespace CKEDITOR {
                 getData(): string;
                 setData(data: string): void;
             }
-
 
             interface definition extends feature {
                 button?: string;
@@ -2463,7 +2449,6 @@ declare namespace CKEDITOR {
                 constructor(dialog: dialog, childObjList: any[], childHtmlList: any[], htmlList: any[], elementDefinition: definitions.fieldSet);
             }
 
-
             class file extends ui.dialog.labeledElement {
                 constructor(dialog: dialog, elementDefinition: definitions.file, htmlList: any[]);
 
@@ -2474,11 +2459,9 @@ declare namespace CKEDITOR {
                 submit(): file;
             }
 
-
             class fileButton extends button {
                 constructor(dialog: dialog, elementDefinition: definitions.fileButton, htmlList: any[]);
             }
-
 
             class hbox extends uiElement {
                 constructor(dialog: dialog, childObjList: any[], childHtmlList: any[], htmlList: any[], elementDefinition: definitions.hbox);
@@ -2487,17 +2470,11 @@ declare namespace CKEDITOR {
                 getChild(indices: number[]): ui.dialog.uiElement[];
             }
 
-
             class html extends uiElement {
                 constructor(dialog: dialog, elementDefinition: definitions.html, htmlList: any[]);
-
             }
 
-
-            class iframeElement extends uiElement {
-
-            }
-
+            class iframeElement extends uiElement {}
 
             class labeledElement extends uiElement {
                 constructor(dialog: dialog, elementDefinition: definitions.labeledElement, htmlList: any[], contentHtml: () => string);
@@ -2505,7 +2482,6 @@ declare namespace CKEDITOR {
                 getLabel(): string;
                 setlabel(label: string): ui.dialog.labeledElement;
             }
-
 
             class radio extends ui.dialog.labeledElement {
                 constructor(dialog: dialog, elementDefinition: definitions.radio, htmlList: any[]);
@@ -2515,7 +2491,6 @@ declare namespace CKEDITOR {
                 setValue(value: string, noChangeEvent: boolean): undefined;
             }
 
-
             class select extends uiElement {
                 constructor(dialog: dialog, elementDefinition: definitions.select, htmlList: any[]);
 
@@ -2524,11 +2499,9 @@ declare namespace CKEDITOR {
                 remove(index: number): select;
             }
 
-
             class textarea extends labeledElement {
                 constructor(dialog: dialog, elementDefinition: definitions.textarea, htmlList: any[]);
             }
-
 
             class textInput extends ui.dialog.labeledElement {
                 constructor(dialog: dialog, elementDefinition: definitions.textInput, htmlList: any[]);
@@ -2693,9 +2666,7 @@ declare namespace CKEDITOR {
             create(definition: { [key: string]: any }): T;
         }
 
-        class menuButton extends button {
-
-        }
+        class menuButton extends button {}
 
         class panel {
             constructor(document: dom.document, definition: { [key: string]: any });
@@ -2714,9 +2685,7 @@ declare namespace CKEDITOR {
             const handler: handlerDefinition<panel>;
         }
 
-        class panelButton extends button {
-
-        }
+        class panelButton extends button {}
 
         class richCombo {
             static readonly handler: handlerDefinition<richCombo>;

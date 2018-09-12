@@ -377,7 +377,7 @@ declare namespace CKEDITOR {
         }
 
         class rangeList {
-            constructor(ranges: range | range[]);
+            constructor(ranges: range | range[]);
             createIterator(): rangeListIterator;
             createBokmarks(serializable?: boolean): bookmark[];
             createBookmarks2(normalized?: boolean): Object[];
@@ -1105,8 +1105,7 @@ declare namespace CKEDITOR {
         loadSnapshot(snapshot: Object): void;
         lockSelection(sel?: dom.selection): boolean;
         openDialog(dialogName: string, callback: Function): dialog;
-        popup(url: string, width?: number | string, height?: number, options?: string): void;
-        popup(url: string, width?: number | string, height?: string, options?: string): void;
+        popup(url: string, width?: number | string, height?: number | string, options?: string): void;
         removeMenuItem(name: string): void;
         removeStyle(style: style): void;
         resetDirty(): void;
@@ -1349,7 +1348,9 @@ declare namespace CKEDITOR {
             class uiElement {
                 eventProcessors: any;
 
-                constructor(dialog: CKEDITOR.dialog, elementDefinition: CKEDITOR.dialog.definition.uiElement, htmlList: any[], nodeNameArg?: Function | string, stylesArg?: Function | Object, attributesArg?: Function | Object, contentsArg?: Function | string); // Not sure that the htmlList array type is right.
+                // Not sure that the htmlList array type is right.
+                constructor(dialog: CKEDITOR.dialog, elementDefinition: CKEDITOR.dialog.definition.uiElement, htmlList: any[],
+                    nodeNameArg?: Function | string, stylesArg?: Function | Object, attributesArg?: Function | Object, contentsArg?: Function | string);
 
                 accessKeyDown(dialog: CKEDITOR.dialog, key: string): void;
                 accessKeyUp(dialog: CKEDITOR.dialog, key: string): void;
@@ -1567,7 +1568,7 @@ declare namespace CKEDITOR {
 
             interface select extends labeledElement {
                 default?: string;
-                items?: string[] | (string[])[];
+                items?: string[] | string[][];
                 multiple?: boolean;
                 size?: number;
                 validate?: Function;
@@ -1676,8 +1677,7 @@ declare namespace CKEDITOR {
             textRules: filterRulesGroup;
             commentRules: filterRulesGroup;
             rootRules: filterRulesGroup;
-            addRules(rules: filterRulesDefinition, options?: number): void;
-            addRules(rules: filterRulesDefinition, options?: { priority?: number; applyToAll?: boolean; }): void;
+            addRules(rules: filterRulesDefinition, options?: number | { priority?: number; applyToAll?: boolean; }): void;
             applyTo(node: node): void;
         }
 
@@ -1718,11 +1718,11 @@ declare namespace CKEDITOR {
             clone(): element;
             filter(filter: filter): boolean;
             filterChildren(filter: filter): void;
-            forEach(callback: (node: node, type?: number) => void|false, type?: number, skipRoot?: boolean): void;
+            forEach(callback: (node: node, type?: number) => void | false, type?: number, skipRoot?: boolean): void;
+            forEach(callback: (node: node, type?: number) => boolean): void;
             writeHtml(writer: basicWriter, filter: filter): void;
             writeChildrenHtml(writer: basicWriter, filter: filter): void;
             replaceWithChildren(): void;
-            forEach(callback: (node: node, type?: number) => boolean): void;
             getFirst(condition: string | Object | Function): node;
             getHtml(): string;
             setHtml(html: string): void;
@@ -1738,11 +1738,8 @@ declare namespace CKEDITOR {
             parent: any;
             type: number;
             static fromHtml(fragmentHtml: string): fragment;
-            static fromHtml(fragmentHtml: string, parent?: element, fixingBlock?: string): fragment | element;
+            static fromHtml(fragmentHtml: string, parent?: element | string, fixingBlock?: string | boolean): fragment | element;
             static fromHtml(fragmentHtml: string, parent: null, fixingBlock?: string): fragment;
-            static fromHtml(fragmentHtml: string, parent?: string, fixingBlock?: string): fragment | element;
-            static fromHtml(fragmentHtml: string, parent?: element, fixingBlock?: boolean): fragment | element;
-            static fromHtml(fragmentHtml: string, parent?: string, fixingBlock?: boolean): fragment | element;
             add(node: node, index?: number): void;
             filter(filter: filter): void;
             filterChildren(filter: filter, filterRoot?: boolean): void;
