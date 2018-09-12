@@ -27,8 +27,9 @@ function test_CKEDITOR() {
     CKEDITOR.inline('content');
     if (CKEDITOR.loadFullCore)
         CKEDITOR.loadFullCore();
-    CKEDITOR.replace('myfield');
+
     var textarea = document.createElement('textarea');
+    CKEDITOR.replace('myfield');
     CKEDITOR.replace(textarea);
     CKEDITOR.replaceAll();
     CKEDITOR.replaceAll('myClassName');
