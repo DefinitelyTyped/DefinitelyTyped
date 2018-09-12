@@ -11,6 +11,16 @@
 import * as http from 'http';
 import * as lambda from 'aws-lambda';
 
+export interface Response {
+    statusCode: number;
+    body: string;
+    headers: {};
+}
+
+export interface ProxyResult {
+    promise: Promise<Response>;
+}
+
 export function createServer(
     requestListener: (request: http.IncomingMessage, response: http.ServerResponse) => void,
     serverListenCallback?: () => any,
@@ -23,17 +33,24 @@ export function proxy(
     context: lambda.Context,
 ): http.Server;
 
-export function proxy<T>(
+export function proxy(
     server: http.Server,
     event: any,
     context: lambda.Context,
-    resolutionMode: 'CALLBACK',
-    callback?: () => T
-): {promise: Promise<T>};
+    resolutionMode: 'CONTEXT_SUCCEED',
+): void;
 
 export function proxy(
     server: http.Server,
     event: any,
     context: lambda.Context,
-    resolutionMode?: 'CONTEXT_SUCCEED' | 'PROMISE'
-): {promise: Promise<void>};
+    resolutionMode: 'PROMISE'
+): ProxyResult;
+
+export function proxy(
+    server: http.Server,
+    event: any,
+    context: lambda.Context,
+    resolutionMode: 'CALLBACK',
+    callback?: (error: any, response: Response) => void
+): void;

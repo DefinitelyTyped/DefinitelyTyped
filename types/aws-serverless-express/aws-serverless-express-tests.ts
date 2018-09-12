@@ -29,4 +29,4 @@ const mockContext = {
 awsServerlessExpress.proxy(server, mockEvent, mockContext);
 awsServerlessExpress.proxy(server, mockEvent, mockContext, 'CALLBACK', () => {});
 awsServerlessExpress.proxy(server, mockEvent, mockContext, 'CONTEXT_SUCCEED');
-awsServerlessExpress.proxy(server, mockEvent, mockContext, 'PROMISE').promise;
+awsServerlessExpress.proxy(server, mockEvent, mockContext, 'PROMISE').promise.then((response: awsServerlessExpress.Response) => {}).catch(err => {});
