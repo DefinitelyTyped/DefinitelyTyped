@@ -76,6 +76,6 @@
         "_v2/transport/wire.d.ts",
         "_v2/util/normalize-config.d.ts",
         "_v2/util/promises.d.ts",
-        "_v2/util/ref-counter.d.ts",
+        "_v2/util/ref-counter.d.ts"
     ]
 }
