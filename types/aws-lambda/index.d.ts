@@ -250,7 +250,7 @@ export interface CognitoUserPoolTriggerEvent {
         session?: Array<{
             challengeName: "CUSTOM_CHALLENGE" | "PASSWORD_VERIFIER" | "SMS_MFA" | "DEVICE_SRP_AUTH" | "DEVICE_PASSWORD_VERIFIER" | "ADMIN_NO_SRP_AUTH";
             challengeResult: boolean;
-            challengeMetaData?: string;
+            challengeMetadata?: string;
         }>;
         challengeName?: string;
         privateChallengeParameters?: { [key: string]: string };
@@ -266,7 +266,7 @@ export interface CognitoUserPoolTriggerEvent {
         failAuthentication?: boolean;
         publicChallengeParameters?: { [key: string]: string };
         privateChallengeParameters?: { [key: string]: string };
-        challengeMetaData?: string;
+        challengeMetadata?: string;
         answerCorrect?: boolean;
     };
 }
