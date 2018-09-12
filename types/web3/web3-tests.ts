@@ -24,5 +24,5 @@ const weiStr: string = web3.utils.toWei("100", "gwei");
 const weiBn: BigNumber = web3.utils.toWei(web3.utils.toBN("1"));
 const rndHex: string = Web3.utils.randomHex(10);
 const shhPromise: Promise<string> = web3.shh.generateSymKeyFromPassword("xyz");
-const storage: Promise<string> = web3.eth.getStorageAt("0xde0B295669a9FD93d5F28D9Ec85E40f4cb697BAe", 0);
+const storage: Promise<string> = web3.eth.getStorageAt(contractAddress, 0);
 const sha3: string = web3.utils.soliditySha3(0, 1, "abc");
