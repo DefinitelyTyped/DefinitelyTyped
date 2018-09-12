@@ -1,4 +1,4 @@
-// Type definitions for Kendo UI Professional v2018.3.730
+// Type definitions for Kendo UI Professional v2018.3.911
 // Project: http://www.telerik.com/kendo-ui
 // Definitions by: Telerik <https://github.com/telerik/>
 // The definitions are developed in the public kendo-ui-core repo: https://github.com/telerik/kendo-ui-core
