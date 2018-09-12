@@ -4,6 +4,14 @@
 // The definitions are developed in the public kendo-ui-core repo: https://github.com/telerik/kendo-ui-core
 // See how you can contribute: https://github.com/telerik/kendo-ui-core#how-to-contribute
 
+/*
+ * Please, submit Pull Requests in the telerik/kendo-ui-core repo at
+ * https://github.com/telerik/kendo-ui-core/tree/master/typescript
+ *
+ * See contributor instructions at
+ * https://github.com/telerik/kendo-ui-core#how-to-contribute
+ */
+
 declare namespace kendo {
     function culture(): {
         name: string;
