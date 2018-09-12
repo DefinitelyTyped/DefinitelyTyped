@@ -311,6 +311,10 @@ declare namespace WebdriverIO {
         // RC
         honorSystemProxy?: boolean;
         ensureCleanSession?: boolean;
+
+        //exclude
+        exclude?: string[];
+
     }
 
     interface Cookie {
