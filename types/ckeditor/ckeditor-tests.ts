@@ -469,7 +469,7 @@ function test_dialog() {
     dialog.showPage('1234');
     dialog.updateStyle();
 
-    CKEDITOR.dialog.add('abbrDialog', this.path + 'dialogs/abbr.js');
+    CKEDITOR.dialog.add('abbrDialog', 'PATH/dialogs/abbr.js');
     CKEDITOR.dialog.add('abbrDialog', (editor: CKEDITOR.editor) => {
         return {
             title: 'Abbreviation Properties',

@@ -319,7 +319,7 @@ function test_adding_command_and_buttons() {
 }
 
 function test_adding_dialog_by_path() {
-    CKEDITOR.dialog.add('abbrDialog', this.path + 'dialogs/abbr.js');
+    CKEDITOR.dialog.add('abbrDialog', 'PATH/dialogs/abbr.js');
 }
 
 function test_adding_dialog_by_definition() {
