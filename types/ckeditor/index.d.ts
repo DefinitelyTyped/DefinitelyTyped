@@ -209,8 +209,7 @@ declare namespace CKEDITOR {
             readonly $: HTMLElement;
             readonly type: number;
 
-            constructor(element: string, ownerDocument?: document);
-            constructor(element: HTMLElement, ownerDocument?: document);
+            constructor(element: string | HTMLElement, ownerDocument?: document);
             addClass(className: string): void;
             append(node: node | string, toStart?: boolean): node;
             appendBogus(force: boolean): void;
@@ -272,8 +271,7 @@ declare namespace CKEDITOR {
             removeClass(className: string): void;
             removeStyle(name: string): void;
             renameNode(newTag: string): void;
-            scrollIntoParent(parent: element, alignToTop: boolean, hscroll: boolean): void;
-            scrollIntoParent(parent: window, alignToTop: boolean, hscroll: boolean): void;
+            scrollIntoParent(parent: element | window, alignToTop: boolean, hscroll: boolean): void;
             scrollIntoView(alignToTop?: boolean): void;
             setAttribute(name: string, value: string): element;
             setAttributes(attributesPairs: { [key: string]: string }): element;
