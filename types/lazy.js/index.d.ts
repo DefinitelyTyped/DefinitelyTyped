@@ -1,4 +1,4 @@
-// Type definitions for Lazy.js 0.3.2
+// Type definitions for Lazy.js 0.3.3
 // Project: https://github.com/dtao/lazy.js/
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>, Mike Doughty <https://github.com/miso440>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,8 +8,8 @@ declare namespace LazyJS {
       (value: string): StringLikeSequence;
       <T>(value: T[]): ArrayLikeSequence<T>;
       (value: any[]): ArrayLikeSequence<any>;
-      <T>(value: object): ObjectLikeSequence<T>;
-      (value: object): ObjectLikeSequence<any>;
+      <T>(value: any): ObjectLikeSequence<T>;
+      (value: any): ObjectLikeSequence<any>;
   
       strict(): LazyStatic;
   
@@ -106,7 +106,7 @@ declare namespace LazyJS {
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   
     namespace Sequence {
-      function define(methodName: string[], overrides: object): Function;
+      function define(methodName: string[], overrides: any): Function;
     }
   
     interface Sequence<T> extends SequenceBase<T> {
@@ -139,7 +139,7 @@ declare namespace LazyJS {
       every(predicateFn: TestCallback<T, string | number>): boolean;
       filter(predicateFn: TestCallback<T, string | number>): Sequence<T>;
       find(predicateFn: TestCallback<T, string | number>): T;
-      findWhere(properties: object): T;
+      findWhere(properties: any): T;
       flatten(): Sequence<T>;
       groupBy(keyFn: GetKeyCallback<T>): ObjectLikeSequence<T>;
       initial(count?: number): Sequence<T>;
@@ -166,10 +166,10 @@ declare namespace LazyJS {
       sum(valueFn?: NumberCallback<T>): T;
       takeWhile(predicateFn: TestCallback<T, string | number>): Sequence<T>;
       toArray(): T[];
-      toObject(): object;
+      toObject(): any;
       union(var_args: T[]): Sequence<T>;
       uniq(): Sequence<T>;
-      where(properties: object): Sequence<T>;
+      where(properties: any): Sequence<T>;
       without(...var_args: T[]): Sequence<T>;
       without(var_args: T[]): Sequence<T>;
       zip(var_args: T[]): Sequence<T>;
@@ -178,7 +178,7 @@ declare namespace LazyJS {
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   
     namespace ArrayLikeSequence {
-      function define(methodName: string[], overrides: object): Function;
+      function define(methodName: string[], overrides: any): Function;
     }
   
     interface ArrayLikeSequence<T> extends Sequence<T> {
@@ -210,24 +210,24 @@ declare namespace LazyJS {
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   
     namespace ObjectLikeSequence {
-      function define(methodName: string[], overrides: object): Function;
+      function define(methodName: string[], overrides: any): Function;
     }
   
     interface ObjectLikeSequence<T> extends Sequence<T> {
-      assign(other: object): ObjectLikeSequence<T>;
+      assign(other: any): ObjectLikeSequence<T>;
       // throws error
       //async(): X;
-      defaults(defaults: object): ObjectLikeSequence<T>;
+      defaults(defaults: any): ObjectLikeSequence<T>;
       functions(): Sequence<T>;
       get(property: string): T;
       invert(): ObjectLikeSequence<T>;
       keys(): Sequence<string>;
-      merge(others: object | ObjectLikeSequence<T>, mergeFn?: Function): ObjectLikeSequence<T>;
+      merge(others: any | ObjectLikeSequence<T>, mergeFn?: Function): ObjectLikeSequence<T>;
       omit(properties: string[]): ObjectLikeSequence<T>;
       pairs(): Sequence<T>;
       pick(properties: string[]): ObjectLikeSequence<T>;
       toArray(): T[];
-      toObject(): object;
+      toObject(): any;
       values(): Sequence<T>;
       watch(propertyNames: string | string[]): Sequence<{property: string; value: any;}>;
       
@@ -244,7 +244,7 @@ declare namespace LazyJS {
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   
     namespace StringLikeSequence {
-      function define(methodName: string[], overrides: object): Function;
+      function define(methodName: string[], overrides: any): Function;
     }
   
     interface StringLikeSequence extends SequenceBaser<string> {
