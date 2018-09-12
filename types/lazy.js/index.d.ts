@@ -114,13 +114,13 @@ declare namespace LazyJS {
     }
   
     interface SequenceBase<T> extends SequenceBaser<T> {
-      first(): any;
+      first(): T;
       first(count: number): Sequence<T>;
-      indexOf(value: any, startIndex?: number): Sequence<T>;
+      indexOf(value: any, startIndex?: number): number;
   
-      last(): any;
+      last(): T;
       last(count: number): Sequence<T>;
-      lastIndexOf(value: any): Sequence<T>;
+      lastIndexOf(value: any): number;
   
       reverse(): Sequence<T>;
     }
@@ -162,7 +162,7 @@ declare namespace LazyJS {
       sort(sortFn?: CompareCallback, descending?: boolean): Sequence<T>;
       sortBy(sortFn: NumberCallback<T>, descending?: boolean): Sequence<T>;
       sortBy(sortFn: string, descending?: boolean): Sequence<T>;
-      sortedIndex(value: T): Sequence<T>;
+      sortedIndex(value: T): number;
       sum(valueFn?: NumberCallback<T>): T;
       takeWhile(predicateFn: TestCallback<T, string | number>): Sequence<T>;
       toArray(): T[];
@@ -184,6 +184,7 @@ declare namespace LazyJS {
     interface ArrayLikeSequence<T> extends Sequence<T> {
       // define()X;
       concat(var_args: T[]): ArrayLikeSequence<T>;
+      first(): T;
       first(count?: number): ArrayLikeSequence<T>;
       get(index: number): T;
       length(): number;
@@ -218,7 +219,7 @@ declare namespace LazyJS {
       //async(): X;
       defaults(defaults: Object): ObjectLikeSequence<T>;
       functions(): Sequence<T>;
-      get(property: string): ObjectLikeSequence<T>;
+      get(property: string): T;
       invert(): ObjectLikeSequence<T>;
       keys(): Sequence<string>;
       merge(others: Object | ObjectLikeSequence<T>, mergeFn?: Function): ObjectLikeSequence<T>;
@@ -252,6 +253,7 @@ declare namespace LazyJS {
       contains(value: string): boolean;
       endsWith(suffix: string): boolean;
       first(): string;
+      first(count: number): StringLikeSequence;
       indexOf(substring: string, startIndex?: number): number;
       last(): string;
       last(count: number): StringLikeSequence;
@@ -270,7 +272,6 @@ declare namespace LazyJS {
       every(predicateFn: TestCallback<string, number>): boolean;
       filter(predicateFn: TestCallback<string, number>): Sequence<string>;
       find(predicateFn: TestCallback<string, number>): string;
-      first(count: number): StringLikeSequence;
       none(valueFn?: TestCallback<string, number>): boolean;
       reject(predicateFn: TestCallback<string, number>): Sequence<string>;
       some(predicateFn?: TestCallback<string, number>): boolean;
