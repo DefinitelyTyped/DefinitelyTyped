@@ -254,7 +254,7 @@ export interface CognitoUserPoolTriggerEvent {
         }>;
         challengeName?: string;
         privateChallengeParameters?: { [key: string]: string };
-        challengeAnswer?: { [key: string]: string };
+        challengeAnswer?: string;
     };
     response: {
         autoConfirmUser?: boolean;
