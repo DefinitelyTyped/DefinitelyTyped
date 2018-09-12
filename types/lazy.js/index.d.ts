@@ -8,8 +8,8 @@ declare namespace LazyJS {
       (value: string): StringLikeSequence;
       <T>(value: T[]): ArrayLikeSequence<T>;
       (value: any[]): ArrayLikeSequence<any>;
-      <T>(value: Object): ObjectLikeSequence<T>;
-      (value: Object): ObjectLikeSequence<any>;
+      <T>(value: object): ObjectLikeSequence<T>;
+      (value: object): ObjectLikeSequence<any>;
   
       strict(): LazyStatic;
   
@@ -106,7 +106,7 @@ declare namespace LazyJS {
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   
     namespace Sequence {
-      function define(methodName: string[], overrides: Object): Function;
+      function define(methodName: string[], overrides: object): Function;
     }
   
     interface Sequence<T> extends SequenceBase<T> {
@@ -139,7 +139,7 @@ declare namespace LazyJS {
       every(predicateFn: TestCallback<T, string | number>): boolean;
       filter(predicateFn: TestCallback<T, string | number>): Sequence<T>;
       find(predicateFn: TestCallback<T, string | number>): T;
-      findWhere(properties: Object): T;
+      findWhere(properties: object): T;
       flatten(): Sequence<T>;
       groupBy(keyFn: GetKeyCallback<T>): ObjectLikeSequence<T>;
       initial(count?: number): Sequence<T>;
@@ -166,10 +166,10 @@ declare namespace LazyJS {
       sum(valueFn?: NumberCallback<T>): T;
       takeWhile(predicateFn: TestCallback<T, string | number>): Sequence<T>;
       toArray(): T[];
-      toObject(): Object;
+      toObject(): object;
       union(var_args: T[]): Sequence<T>;
       uniq(): Sequence<T>;
-      where(properties: Object): Sequence<T>;
+      where(properties: object): Sequence<T>;
       without(...var_args: T[]): Sequence<T>;
       without(var_args: T[]): Sequence<T>;
       zip(var_args: T[]): Sequence<T>;
@@ -178,7 +178,7 @@ declare namespace LazyJS {
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   
     namespace ArrayLikeSequence {
-      function define(methodName: string[], overrides: Object): Function;
+      function define(methodName: string[], overrides: object): Function;
     }
   
     interface ArrayLikeSequence<T> extends Sequence<T> {
@@ -210,24 +210,24 @@ declare namespace LazyJS {
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   
     namespace ObjectLikeSequence {
-      function define(methodName: string[], overrides: Object): Function;
+      function define(methodName: string[], overrides: object): Function;
     }
   
     interface ObjectLikeSequence<T> extends Sequence<T> {
-      assign(other: Object): ObjectLikeSequence<T>;
+      assign(other: object): ObjectLikeSequence<T>;
       // throws error
       //async(): X;
-      defaults(defaults: Object): ObjectLikeSequence<T>;
+      defaults(defaults: object): ObjectLikeSequence<T>;
       functions(): Sequence<T>;
       get(property: string): T;
       invert(): ObjectLikeSequence<T>;
       keys(): Sequence<string>;
-      merge(others: Object | ObjectLikeSequence<T>, mergeFn?: Function): ObjectLikeSequence<T>;
+      merge(others: object | ObjectLikeSequence<T>, mergeFn?: Function): ObjectLikeSequence<T>;
       omit(properties: string[]): ObjectLikeSequence<T>;
       pairs(): Sequence<T>;
       pick(properties: string[]): ObjectLikeSequence<T>;
       toArray(): T[];
-      toObject(): Object;
+      toObject(): object;
       values(): Sequence<T>;
       watch(propertyNames: string | string[]): Sequence<{property: string; value: any;}>;
       
@@ -244,7 +244,7 @@ declare namespace LazyJS {
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   
     namespace StringLikeSequence {
-      function define(methodName: string[], overrides: Object): Function;
+      function define(methodName: string[], overrides: object): Function;
     }
   
     interface StringLikeSequence extends SequenceBaser<string> {
