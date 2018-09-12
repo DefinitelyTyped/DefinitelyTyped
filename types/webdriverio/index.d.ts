@@ -312,9 +312,11 @@ declare namespace WebdriverIO {
         honorSystemProxy?: boolean;
         ensureCleanSession?: boolean;
 
-        //exclude
+        // Exclude
         exclude?: string[];
 
+        // Define which test specs should run (only on the desired capability)
+        specs?: string[];
     }
 
     interface Cookie {
