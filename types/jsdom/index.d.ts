@@ -1,4 +1,4 @@
-// Type definitions for jsdom 11.0
+// Type definitions for jsdom 11.12
 // Project: https://github.com/tmpvar/jsdom#readme
 // Definitions by: Leonard Thieu <https://github.com/leonard-thieu>
 //                 Johan Palmfjord <https://github.com/palmfjord>
