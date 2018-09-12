@@ -11,9 +11,14 @@
         "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "types": [],
+        "paths": {
+            "openfin": [
+                "openfin/v29"
+            ]
+        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
