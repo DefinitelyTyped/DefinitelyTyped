@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "dependencies": {
+    "@types/bn.js": "^4.11.1",
+    "@types/underscore": "^1.8.9"
+  }
+}
