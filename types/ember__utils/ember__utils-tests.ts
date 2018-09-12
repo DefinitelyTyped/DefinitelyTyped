@@ -8,6 +8,7 @@ import {
     tryInvoke,
     typeOf
 } from '@ember/utils';
+import EmberObject from '@ember/object';
 
 (function() {
     /** isNone */
@@ -161,3 +162,10 @@ import {
     isEmpty({ size: 1 }); // $ExpectType boolean
     isEmpty({ size: () => 0 }); // $ExpectType boolean
 })();
+
+class Foo extends EmberObject.extend({
+    abc: true,
+    bar() { return '123'; }
+}) {
+    def: 'hello';
+}
