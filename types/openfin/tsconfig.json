@@ -24,8 +24,6 @@
         "_v2/api/base.d.ts",
         "_v2/api/clipboard/clipboard.d.ts",
         "_v2/api/clipboard/write-request.d.ts",
-        "_v2/api/events/emitterMap.d.ts",
-        "_v2/api/events/eventAggregator.d.ts",
         "_v2/api/external-application/external-application.d.ts",
         "_v2/api/fin.d.ts",
         "_v2/api/frame/frame.d.ts",
@@ -78,6 +76,6 @@
         "_v2/transport/wire.d.ts",
         "_v2/util/normalize-config.d.ts",
         "_v2/util/promises.d.ts",
-        "_v2/util/ref-counter.d.ts"
+        "_v2/util/ref-counter.d.ts",
     ]
 }
