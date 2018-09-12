@@ -482,6 +482,10 @@ declare namespace jest {
          */
         not: Matchers<R>;
         /**
+         * Ensure that a mock function is called with specific arguments on an Nth call.
+         */
+        nthCalledWith(nthCall: number, ...params: any[]): R;
+        /**
          * Ensure that the nth call to a mock function has returned a specified value.
          */
         nthReturnedWith(n: number, value: any): R;
@@ -504,6 +508,10 @@ declare namespace jest {
          * Ensures that a mock function is called.
          */
         toBeCalled(): R;
+        /**
+         * Ensures that a mock function is called an exact number of times.
+         */
+        toBeCalledTimes(expected: number): R;
         /**
          * Ensure that a mock function is called with specific arguments.
          */

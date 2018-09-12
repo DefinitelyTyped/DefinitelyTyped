@@ -58,6 +58,7 @@ function contentSecurityPolicyTest() {
         directives: {
             defaultSrc: ["'self'"]
         },
+        loose: false,
         setAllHeaders: true
     }));
 }
@@ -205,4 +206,13 @@ function xssFilterTest() {
     app.use(helmet.xssFilter({}));
     app.use(helmet.xssFilter({ setOnOldIE: false }));
     app.use(helmet.xssFilter({ setOnOldIE: true }));
+}
+
+/**
+ * @summary Test for {@see helmet#permittedCrossDomainPolicies} function.
+ */
+function permittedCrossDomainPoliciesTest() {
+    app.use(helmet.permittedCrossDomainPolicies());
+    app.use(helmet.permittedCrossDomainPolicies({}));
+    app.use(helmet.permittedCrossDomainPolicies({ permittedPolicies: 'none' }));
 }

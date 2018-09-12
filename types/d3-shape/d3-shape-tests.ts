@@ -1184,7 +1184,7 @@ interface SymbolDatum {
 let customSymbol: d3Shape.SymbolType;
 
 customSymbol = {
-    draw(context: CanvasPathMethods, size: number): void {
+    draw(context: d3Shape.CanvasPath_D3Shape, size: number): void {
         // draw custom symbol using canvas path methods
     }
 };

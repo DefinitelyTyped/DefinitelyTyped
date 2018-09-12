@@ -8,12 +8,12 @@
 //                 Joseph Page <https://github.com/josefpaij>
 //                 Dan Manastireanu <https://github.com/danmana>
 //                 Guillaume Rodriguez <https://github.com/guillaume-ro-fr>
-//                 Sergey Rubanov <https://github.com/chicoxyzzy>
 //                 Simon Archer <https://github.com/archy-bold>
 //                 Ken Elkabany <https://github.com/braincore>
 //                 Slavik Nychkalo <https://github.com/gebeto>
 //                 Francesco Benedetto <https://github.com/frabnt>
 //                 Alexandros Dorodoulis <https://github.com/alexdor>
+//                 Manuel Heidrich <https://github.com/mahnuh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -31,7 +31,7 @@ declare class Chart {
     stop: () => {};
     resize: () => {};
     clear: () => {};
-    toBase64: () => string;
+    toBase64Image: () => string;
     generateLegend: () => {};
     getElementAtEvent: (e: any) => {};
     getElementsAtEvent: (e: any) => Array<{}>;
@@ -158,6 +158,8 @@ interface Model {
     tension: number;
     x: number;
     y: number;
+    base: number;
+    head: number;
 }
 
 declare namespace Chart {

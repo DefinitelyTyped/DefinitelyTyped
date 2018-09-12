@@ -16,20 +16,26 @@ export type Coordinates = [number, number];
 
 export type CoordinatesZ = [number, number, number];
 
+export type ViewMatrix = number[];
+
+export type ProjectionMatrix = number[];
+
 export interface ViewportOptions {
     width?: number;
     height?: number;
-    longitude?: number;
-    latitude?: number;
-    zoom?: number;
-    pitch?: number;
-    bearing?: number;
-    altitude?: number;
-    farZMultiplier?: number;
+    viewMatrix?: ViewMatrix;
+    projectionMatrix?: ProjectionMatrix;
 }
 
 export class Viewport {
+    width: number;
+    height: number;
+    scale: number;
+    viewMatrix: ViewMatrix;
+    projectionMatrix: ProjectionMatrix;
+
     constructor(opts?: ViewportOptions);
+
     equals(viewport: Viewport): boolean;
     project(lngLat: Coordinates, opts?: ProjectOptions): Coordinates;
     project(lngLatZ: CoordinatesZ, opts?: ProjectOptions): CoordinatesZ;
@@ -41,7 +47,32 @@ export type Padding = number | { top: number; right: number; bottom: number; lef
 
 export type Bounds = [Coordinates, Coordinates];
 
+export interface WebMercatorViewportOptions {
+    width?: number;
+    height?: number;
+    longitude?: number;
+    latitude?: number;
+    zoom?: number;
+    pitch?: number;
+    bearing?: number;
+    altitude?: number;
+    farZMultiplier?: number;
+}
+
+// Type comes from https://github.com/uber-web/math.gl
+export class Vector3 extends Array {}
+
 export class WebMercatorViewport extends Viewport {
+    latitude: number;
+    longitude: number;
+    zoom: number;
+    pitch: number;
+    bearing: number;
+    altitude: number;
+    center: Vector3;
+
+    constructor(opts?: WebMercatorViewportOptions);
+
     projectFlat(lngLat: Coordinates, scale?: number): Coordinates;
     unprojectFlat(xy: Coordinates, scale?: number): Coordinates;
     getMapCenterByLngLatPosition(opts: { lngLat: Coordinates; pos: Coordinates }): Coordinates;
@@ -78,13 +109,11 @@ export interface NormalizedViewportProps extends BaseViewportProps {
 
 export function normalizeViewportProps(props: ViewportProps): NormalizedViewportProps;
 
-export function flyToViewport(startProps: BaseViewportProps, endProps: BaseViewportProps): BaseViewportProps;
+export function flyToViewport(startProps: BaseViewportProps, endProps: BaseViewportProps, t: number): BaseViewportProps;
 
 export function lngLatToWorld(lngLat: Coordinates, scale: number): Coordinates;
 
 export function worldToLngLat(point: Coordinates, scale: number): Coordinates;
-
-export type ProjectionMatrix = number[];
 
 export function worldToPixels(coordinates: Coordinates | CoordinatesZ, pixelProjectionMatrix: ProjectionMatrix): CoordinatesZ;
 
@@ -121,12 +150,7 @@ export function getDistanceScales(input: DistanceScalesInput): DistanceScales;
 
 export function getDistanceScales(input: HighPrecisionDistanceScalesInput): HighPrecisionDistanceScales;
 
-// Type comes from https://github.com/uber-web/math.gl
-export class Vector3 extends Array {}
-
 export function getWorldPosition(input: { longitude: number; latitude: number; zoom: number; scale: number; meterOffset?: number; distanceScales?: DistanceScales }): Vector3;
-
-export type ViewMatrix = number[];
 
 export function getViewMatrix(input: { height: number; pitch: number; bearing: number; altitude: number; center?: CoordinatesZ; flipY?: boolean }): ViewMatrix;
 

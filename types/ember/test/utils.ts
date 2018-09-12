@@ -2,6 +2,11 @@ import Ember from 'ember';
 import * as utils from '@ember/utils';
 import { assertType } from "./lib/assert";
 
+function testTypeOf() {
+    utils.typeOf(); // $ExpectType string
+    utils.typeOf({}); // $ExpectType string
+}
+
 function testIsNoneType() {
     const maybeUndefined: string | undefined = 'not actually undefined';
     if (utils.isNone(maybeUndefined)) {
@@ -9,6 +14,31 @@ function testIsNoneType() {
     }
 
     const anotherString = maybeUndefined + 'another string';
+    utils.isNone(); // $ExpectType boolean
+}
+
+function testIsBlank() {
+    utils.isBlank(); // $ExpectType boolean
+    utils.isBlank(''); // $ExpectType boolean
+    utils.isBlank('', ''); // $ExpectError
+}
+
+function testIsEmpty() {
+    utils.isEmpty(); // $ExpectType boolean
+    utils.isEmpty(''); // $ExpectType boolean
+    utils.isEmpty('', ''); // $ExpectError
+}
+
+function testIsPresent() {
+    utils.isPresent(); // $ExpectType boolean
+    utils.isPresent(''); // $ExpectType boolean
+    utils.isPresent('', ''); // $ExpectError
+}
+
+function testIsNone() {
+    utils.isNone(); // $ExpectType boolean
+    utils.isNone(''); // $ExpectType boolean
+    utils.isNone('', ''); // $ExpectError
 }
 
 function testMerge() {
@@ -68,4 +98,32 @@ function testDefineProperty() {
     Ember.defineProperty(contact, 'fullName', Ember.computed('firstName', 'lastName', function() {
         return `${this.firstName} ${this.lastName}`;
     }));
+}
+
+function testTryInvoke() {
+    class Foo {
+        hello() { return ['world']; }
+        add(x: number, y: string) { return x + parseInt(y, 10); }
+        apples(n: number) { return `${n} apples`; }
+    }
+    // zero-argument function
+    Ember.tryInvoke(new Foo(), 'hello'); // $ExpectType string[]
+    // one-argument function
+    Ember.tryInvoke(new Foo(), 'apples', [4]); // $ExpectType string
+    // multi-argument function with different types (reversed types negative test case below)
+    Ember.tryInvoke(new Foo(), 'add', [4, '3']); // $ExpectType number
+
+    // Cases that should return undefined
+    // No args provided
+    Ember.tryInvoke(new Foo(), 'apples'); // $ExpectType undefined
+    // Function does not exist
+    Ember.tryInvoke(new Foo(), 'doesNotExist'); // $ExpectType undefined
+    // Empty args provided
+    Ember.tryInvoke(new Foo(), 'apples', []); // $ExpectType undefined
+    // Wrong args provided
+    Ember.tryInvoke(new Foo(), 'apples', ['']); // $ExpectType undefined
+    // Wrong arg types
+    Ember.tryInvoke(new Foo(), 'add', [4, 3]); // $ExpectType undefined
+    // Reversed arg types
+    Ember.tryInvoke(new Foo(), 'add', ['4', 3]); // $ExpectType undefined
 }

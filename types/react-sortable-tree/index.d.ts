@@ -3,6 +3,7 @@
 // Definitions by: Wouter Hardeman <https://github.com/wouterhardeman>
 //                 Jovica Zoric <https://github.com/jzoric>
 //                 Kevin Perrine <https://github.com/kevinsperrine>
+//                 Alex Maclean <https://github.com/acemac>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -68,6 +69,12 @@ interface PreviousAndNextLocation {
 export interface OnDragPreviousAndNextLocation extends PreviousAndNextLocation {
     prevParent: TreeItem | null;
     nextParent: TreeItem | null;
+}
+
+export interface ShouldCopyData {
+    node: TreeNode;
+    prevPath: NumberArrayOrStringArray;
+    prevTreeIndex: number;
 }
 
 export interface OnMovePreviousAndNextLocation extends PreviousAndNextLocation {
@@ -186,6 +193,8 @@ export interface ReactSortableTreeProps {
     dndType?: string;
     placeholderRenderer?: PlaceholderRenderer;
     theme?: ThemeProps;
+    shouldCopyOnOutsideDrop?: boolean | ((data: ShouldCopyData) => boolean);
+    onlyExpandSearchedNodes?: boolean;
 }
 
 declare const SortableTree: React.ComponentClass<ReactSortableTreeProps>;

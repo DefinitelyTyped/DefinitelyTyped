@@ -6,6 +6,8 @@ import {
     ConnectionHandler,
     ViewerHandler,
     RecordSourceInspector,
+    commitLocalUpdate,
+    ROOT_ID,
 } from "relay-runtime";
 
 const source = new RecordSource();
@@ -60,3 +62,12 @@ function handlerProvider(handle: any) {
 // ~~~~~~~~~~~~~~~~~~~~~
 
 const inspector = new RecordSourceInspector(source);
+
+// ~~~~~~~~~~~~~~~~~~~~~
+// commitLocalUpdate
+// ~~~~~~~~~~~~~~~~~~~~~
+
+commitLocalUpdate(environment, store => {
+  const root = store.get(ROOT_ID)!;
+  root.setValue("foo", "localKey");
+});

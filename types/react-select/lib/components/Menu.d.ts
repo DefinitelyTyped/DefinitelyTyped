@@ -30,8 +30,8 @@ import {
 // Get Menu Placement
 // ------------------------------
 
-interface MenuState { placement: 'bottom' | 'top' | null; maxHeight: number; }
-interface PlacementArgs {
+export interface MenuState { placement: 'bottom' | 'top' | null; maxHeight: number; }
+export interface PlacementArgs {
   maxHeight: number;
   menuEl: ElementRef<any>;
   minHeight: number;

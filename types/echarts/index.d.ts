@@ -500,7 +500,7 @@ declare namespace echarts {
         /**
          * Chart height.
          */
-        heiight?: number | string,
+        height?: number | string,
 
         /**
          * Specify whether or not to prevent triggering events.

@@ -13,6 +13,7 @@
 //                 Aaron Beall <https://github.com/aaronbeall>
 //                 Johann Rakotoharisoa <https://github.com/jrakotoharisoa>
 //                 Andrew Makarov <https://github.com/r3nya>
+//                 Duong Tran <https://github.com/t49tran>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
