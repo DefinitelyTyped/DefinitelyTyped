@@ -23,8 +23,7 @@ declare namespace OfficeRuntime {
     */
     
     const AsyncStorage: AsyncStorage;
-  
-    // tslint:disable-next-line:interface-name
+
        /*
        * Asynchronous, global, and persistent key-value storage that can be used by Excel custom functions.
        * @beta

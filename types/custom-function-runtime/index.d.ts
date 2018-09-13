@@ -26,5 +26,5 @@ declare namespace CustomFunctions {
         * @beta 
         */
         onCanceled: () => void;
-        }
+    }
 }
