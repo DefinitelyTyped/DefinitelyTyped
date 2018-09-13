@@ -565,6 +565,7 @@ let any: any;
   result = validator.isMultibyte('sample');
 
   result = validator.isNumeric('sample');
+  result = validator.isNumeric('+358', { no_symbols: true });
 
   result = validator.isPort('sample');
 
