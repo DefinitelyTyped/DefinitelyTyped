@@ -53,14 +53,8 @@ OfficeRuntime.AsyncStorage.multiGet(["username", "yearOfBirth"]).then(
 OfficeRuntime.displayWebDialog("https://localhost:3000", { 
     height: '50', 
     width: '50%',
-    displayInIFrame: false,
-    hideTitle: true, 
-        onMessage: (message, dialog) => { 
-            console.log(message); 
-             dialog.close(); 
-        } 
-    }
-)
+    displayInIFrame: false
+})
 
 
 OfficeRuntime.displayWebDialog("https://localhost:3000", {
