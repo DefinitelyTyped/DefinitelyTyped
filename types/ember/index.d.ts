@@ -52,6 +52,12 @@ declare module 'ember' {
                         : F extends (a: infer A, b: infer B, c: infer C, d: infer D, e: infer E) => any
                             ? [A, B, C, D, E]
                             : never;
+
+    type Mix<A, B> = B & Pick<A, Exclude<keyof A, keyof B>>;
+    type Mix3<A, B, C> = Mix<Mix<A, B>, C>;
+    type Mix4<A, B, C, D> = Mix3<Mix<A, B>, C, D>;
+    type Mix5<A, B, C, D, E> = Mix4<Mix<A, B>, C, D, E>;
+
     /**
      * Ember.Object.extend(...) accepts any number of mixins or literals.
      */
@@ -3114,7 +3120,7 @@ declare module 'ember' {
          * Merge the contents of two objects together into the first object.
          * @deprecated Use Object.assign
          */
-        function merge<T, U>(original: T, updates: U): T & U;
+        function merge<T extends object, U extends object>(original: T, updates: U): Mix<T, U>;
         /**
          * Makes a method available via an additional name.
          */
@@ -3263,9 +3269,10 @@ declare module 'ember' {
          * Copy properties from a source object to a target object.
          * @deprecated Use Object.assign
          */
-        function assign<T, U>(target: T, source: U): T & U;
-        function assign<T, U, V>(target: T, source1: U, source2: V): T & U & V;
-        function assign<T, U, V, W>(target: T, source1: U, source2: V, source3: W): T & U & V & W;
+        function assign<T extends object, U extends object>(target: T, source: U): Mix<T, U>;
+        function assign<T extends object, U extends object, V extends object>(target: T, source1: U, source2: V): Mix3<T, U, V>;
+        function assign<T extends object, U extends object, V extends object, W extends object>(target: T, source1: U, source2: V, source3: W): Mix4<T, U, V, W>;
+
         /**
          * Polyfill for Object.create
          * @deprecated Use Object.create
