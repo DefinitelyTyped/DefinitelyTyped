@@ -47,7 +47,7 @@ declare namespace G {
         nocase?: boolean;
         matchBase?: any;
         nodir?: boolean;
-        ignore?: string | string[]
+        ignore?: string | string[];
         follow?: boolean;
         realpath?: boolean;
         nonegate?: boolean;
