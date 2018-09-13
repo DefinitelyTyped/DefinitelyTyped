@@ -1,4 +1,4 @@
-// Type definitions for @ember/controller 3.0
+// Type definitions for @ember/routing 3.0
 // Project: http://emberjs.com/
 // Definitions by: Mike North <https://github.com/mike-north>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
