@@ -400,10 +400,10 @@ cognitoUserPoolEvent.request.session![0].challengeName === "DEVICE_SRP_AUTH";
 cognitoUserPoolEvent.request.session![0].challengeName === "DEVICE_PASSWORD_VERIFIER";
 cognitoUserPoolEvent.request.session![0].challengeName === "ADMIN_NO_SRP_AUTH";
 bool = cognitoUserPoolEvent.request.session![0].challengeResult;
-strOrUndefined = cognitoUserPoolEvent.request.session![0].challengeMetaData;
+strOrUndefined = cognitoUserPoolEvent.request.session![0].challengeMetadata;
 strOrUndefined = cognitoUserPoolEvent.request.challengeName;
 str = cognitoUserPoolEvent.request.privateChallengeParameters!["answer"];
-str = cognitoUserPoolEvent.request.challengeAnswer!["answer"];
+str = cognitoUserPoolEvent.request.challengeAnswer!;
 boolOrUndefined = cognitoUserPoolEvent.response.answerCorrect;
 strOrUndefined = cognitoUserPoolEvent.response.smsMessage;
 strOrUndefined = cognitoUserPoolEvent.response.emailMessage;
@@ -413,7 +413,7 @@ boolOrUndefined = cognitoUserPoolEvent.response.issueTokens;
 boolOrUndefined = cognitoUserPoolEvent.response.failAuthentication;
 str = cognitoUserPoolEvent.response.publicChallengeParameters!["captchaUrl"];
 str = cognitoUserPoolEvent.response.privateChallengeParameters!["answer"];
-strOrUndefined = cognitoUserPoolEvent.response.challengeMetaData;
+strOrUndefined = cognitoUserPoolEvent.response.challengeMetadata;
 boolOrUndefined = cognitoUserPoolEvent.response.answerCorrect;
 
 // CloudFormation Custom Resource
