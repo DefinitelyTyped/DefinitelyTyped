@@ -3,7 +3,7 @@ function ADD10(n: number) {
 }
 
 declare const CustomFunctionMappings: { 
-    ["addTen"]: ADD10();
+    "addTen": ADD10();
 };
 
 async function getStockValues(ticker: string, handler: CustomFunctions.StreamingHandler<number>) {
