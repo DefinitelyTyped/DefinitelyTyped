@@ -581,7 +581,7 @@ const CodePipelineEvent: AWSLambda.CodePipelineEvent = {
 CodePipelineEvent["CodePipeline.job"].data.encryptionKey = { type: 'KMS', id: 'key' };
 
 /* CloudFront events, see http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-event-structure.html */
-const CloudFrontRequestEvent: AWSLambda.CloudFrontRequestEvent = {
+const CloudFrontRequestWithCustomOriginEvent: AWSLambda.CloudFrontRequestEvent = {
   Records: [
     {
       cf: {
@@ -630,7 +630,44 @@ const CloudFrontRequestEvent: AWSLambda.CloudFrontRequestEvent = {
                 "TLSv1",
                 "TLSv1.1"
               ]
-            },
+            }
+          }
+        }
+      }
+    }
+  ]
+};
+
+const CloudFrontRequestWithS3OriginEvent: AWSLambda.CloudFrontRequestEvent = {
+  Records: [
+    {
+      cf: {
+        config: {
+          distributionDomainName: "d123.cloudfront.net",
+          distributionId: "EDFDVBD6EXAMPLE",
+          eventType: "viewer-request",
+          requestId: "MRVMF7KydIvxMWfJIglgwHQwZsbG2IhRJ07sn9AkKUFSHS9EXAMPLE=="
+        },
+        request: {
+          clientIp: "2001:0db8:85a3:0:0:8a2e:0370:7334",
+          method: "GET",
+          uri: "/picture.jpg",
+          querystring: "size=large",
+          headers: {
+            host: [
+              {
+                key: "Host",
+                value: "d111111abcdef8.cloudfront.net"
+              }
+            ],
+            "user-agent": [
+              {
+                key: "User-Agent",
+                value: "curl/7.51.0"
+              }
+            ]
+          },
+          origin: {
             s3: {
               authMethod: "origin-access-identity",
               customHeaders: {
@@ -812,6 +849,56 @@ apiGtwProxyHandler = proxyHandler;
 const codePipelineHandler: AWSLambda.CodePipelineHandler = (event: AWSLambda.CodePipelineEvent, context: AWSLambda.Context, cb: AWSLambda.Callback<void>) => {};
 
 const cloudFrontRequestHandler: AWSLambda.CloudFrontRequestHandler = (event: AWSLambda.CloudFrontRequestEvent, context: AWSLambda.Context, cb: AWSLambda.CloudFrontRequestCallback) => {
+    event = CloudFrontRequestWithCustomOriginEvent;
+    // $ExpectType CloudFrontRequestEvent
+    event;
+    let request = event.Records[0].cf.request;
+
+    let s3Origin: AWSLambda.CloudFrontS3Origin = {
+        authMethod: 'none',
+        customHeaders: {},
+        domainName: 'example.com',
+        path: '/',
+        region: 'us-east-1'
+    };
+
+    if (request.origin && request.origin.custom) {
+        request.origin.custom.domainName;
+        request.origin.custom.domainName = "example2.com";
+
+        // $ExpectError
+        s3Origin = request.origin.s3;
+
+        // $ExpectError
+        request.origin.s3.path = '/';
+    }
+
+    let customOrigin: AWSLambda.CloudFrontCustomOrigin = {
+        customHeaders: {},
+        domainName: 'example.com',
+        keepaliveTimeout: 60,
+        path: '/',
+        port: 80,
+        protocol: 'http',
+        readTimeout: 30,
+        sslProtocols: []
+    };
+
+    event = CloudFrontRequestWithS3OriginEvent;
+    // $ExpectType CloudFrontRequestEvent
+    event;
+    request = event.Records[0].cf.request;
+    if (request.origin && request.origin.s3) {
+        request.origin.s3.path;
+        request.origin.s3.path = "/new_path";
+
+        // $ExpectError
+        customOrigin = request.origin.custom;
+
+        // $ExpectError
+        request.origin.custom.path = '/';
+    }
+
     cb();
     cb(null);
     cb(new Error(''));
