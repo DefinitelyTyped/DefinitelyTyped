@@ -12,19 +12,19 @@ Copyright (c) Microsoft Corporation
 declare const CustomFunctionMappings: { [key: string]: Function };
 
 declare namespace CustomFunctions {
-      interface StreamingHandler<T> extends CancelableHandler {
-          /*
-          * Sets the returned result for a streaming custom function. 
-          * @beta
-          */
-            setResult: (value: T) => void;
-      }
+    interface StreamingHandler<T> extends CancelableHandler {
+        /*
+        * Sets the returned result for a streaming custom function. 
+        * @beta
+        */
+        setResult: (value: T) => void;
+    }
 
-      interface CancelableHandler {
-          /*
-          * Handles what should occur when a custom function is canceled. 
-          * @beta 
-          */
-            onCanceled: () => void;
-      }
+    interface CancelableHandler {
+        /*
+        * Handles what should occur when a custom function is canceled. 
+        * @beta 
+        */
+        onCanceled: () => void;
+        }
 }
