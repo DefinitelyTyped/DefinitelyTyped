@@ -30,6 +30,16 @@ interface TwitchExt {
 	actions: TwitchExtActions;
 
 	/**
+	 * @see https://dev.twitch.tv/docs/extensions/reference/#twitch-extension-feature-flags
+	 */
+	features: TwitchExtFeatures;
+
+	/**
+	 * @see https://dev.twitch.tv/docs/extensions/bits/#javascript-helper
+	 */
+	bits: TwitchExtBits;
+
+	/**
 	 * Helper methods for the Twitch Extension rig.
 	 * @see https://github.com/twitchdev/developer-rig
 	 */
@@ -158,6 +168,164 @@ interface TwitchExtActions {
 	 * @see https://dev.twitch.tv/docs/extensions/reference/#requestidshare
 	 */
 	requestIdShare(): void;
+}
+
+interface TwitchExtFeatureFlags {
+	/**
+	 * If this flag is true, you can send a chat message to the current channel using Send Extension Chat Message
+	 * (subject to the authentication requirements documented for that endpoint).
+	 */
+	isChatEnabled: boolean;
+}
+
+/**
+ * @see TwitchExt.features
+ */
+interface TwitchExtFeatures extends TwitchExtFeatureFlags {
+	/**
+	 * This function enables you to receive real-time updates to changes of the features object.
+	 * If this callback is invoked, you should re-check the Twitch.ext.features object for a change
+	 * to any feature flag your extension cares about.
+	 *
+	 * @param callback The callback is called with an array of feature flags which were updated.
+	 */
+	onChanged(
+		callback: (changed: ReadonlyArray<keyof TwitchExtFeatureFlags>) => void
+	): void;
+}
+
+interface TwitchExtBitsProductCost {
+	/**
+	 * Number of Bits required for the product.
+	 */
+	amount: string;
+
+	/**
+	 * Always the string "bits". Reserved for future use.
+	 */
+	type: "bits";
+}
+
+interface TwitchExtBitsProduct {
+	/**
+	 * Cost object.
+	 */
+	cost: TwitchExtBitsProductCost;
+
+	/**
+	 * Registered display name for the SKU.
+	 */
+	displayName: string;
+
+	/**
+	 * This field is returned only for extension versions that are not in the Released state.
+	 */
+	inDevelopment?: boolean;
+
+	/**
+	 * Unique ID for the product.
+	 */
+	sku: string;
+}
+
+interface TwitchExtBitsTransaction {
+	/**
+	 * Display name of the user who executed the Bits in Extensions transaction.
+	 */
+	displayName: string;
+
+	initiator: "CURRENT_USER" | "OTHER";
+
+	/**
+	 * Full product object from getProducts call
+	 */
+	product: TwitchExtBitsProduct;
+
+	/**
+	 * ID of the transaction.
+	 */
+	transactionID: string;
+
+	/**
+	 * JWT containing the following transaction information in the payload.
+	 * The JWT is a large, base64-encoded string. It can be verified using your developer secret.
+	 */
+	transactionReceipt: string;
+
+	/**
+	 * Twitch ID of the user who executed the transaction.
+	 */
+	userId: string;
+}
+
+/**
+ * @see TwitchExt.bits
+ */
+interface TwitchExtBits {
+	/**
+	 * This function returns a promise which resolves to an array of products available for Bits,
+	 * for the extension, if the context supports Bits in Extensions actions. Otherwise, the
+	 * promise rejects with an error; this can occur, for instance, if the extension is running in
+	 * an older version of the developer rig or the mobile app, which does not support Bits in
+	 * Extensions actions.
+	 *
+	 * @see https://dev.twitch.tv/docs/extensions/bits/#getproducts
+	 */
+	getProducts(): Promise<ReadonlyArray<TwitchExtBitsProduct>>;
+
+	/**
+	 * This function takes a callback that is fired whenever a transaction is cancelled.
+	 * @param callback The callback that is fired whenever a transaction is cancelled.
+	 *
+	 * @see https://dev.twitch.tv/docs/extensions/bits/#ontransactioncancelledcallback
+	 */
+	onTransactionCancelled(callback: () => void): void;
+
+	/**
+	 * This function registers a callback that is fired whenever a Bits in Extensions transaction
+	 * is completed.
+	 * @param callback The callback that is fired.
+	 *
+	 * @see https://dev.twitch.tv/docs/extensions/bits/#ontransactioncompletecallbacktransactionobject
+	 */
+	onTransactionComplete(
+		callback: (transaction: TwitchExtBitsTransaction) => void
+	): void;
+
+	/**
+	 * This function sets the state of the extension helper, so it does not call live services for
+	 * usage of Bits. Instead, it does a local loopback to the completion handler, after a fixed
+	 * delay to simulate user approval and process latency.
+	 * @param useLoopback Whether to use local looback.
+	 *
+	 * @see https://dev.twitch.tv/docs/extensions/bits/#setuseloopbackboolean
+	 */
+	setUseLoopback(useLoopback: boolean): void;
+
+	/**
+	 * Call this function when the viewer hovers over a product in your extension UI, to cause the
+	 * Twitch UI to display a dialog showing the viewer’s Bits balance.
+	 * The dialog displays for 1.5 seconds, unless your extension calls showBitsBalance again, in
+	 * which case the 1.5-second timer resets.
+	 *
+	 * This is a “fire-and-forget” function: the extension developer does not need to tell Twitch
+	 * when the viewer stops hovering over the product.
+	 *
+	 * On mobile, this function is ignored.
+	 *
+	 * @see https://dev.twitch.tv/docs/extensions/bits/#showbitsbalance
+	 */
+	showBitsBalance(): void;
+
+	/**
+	 * This function redeems a product with the specified SKU for the number of Bits specified in
+	 * the catalog entry of that product.
+	 * @param sku
+	 *
+	 * @see https://dev.twitch.tv/docs/extensions/bits/#usebitssku
+	 * @see https://dev.twitch.tv/docs/extensions/bits/#exchanging-bits-for-a-product
+	 */
+	useBits(sku: string): void;
 }
 
 /**
@@ -321,6 +489,11 @@ interface TwitchExtClientQueryParams {
 	 * The platform on which the Twitch client is running.
 	 */
 	platform: "mobile" | "web";
+
+	/**
+	 * Indicates whether the extension is popped out.
+	 */
+	popout: "true" | "false";
 
 	/**
 	 * The release state of the extension.
