@@ -1,3 +1,11 @@
+function ADD10(n: number) {
+    return n + 10;
+}
+
+declare const CustomFunctionMappings: { 
+    ["addTen"]: ADD10();
+};
+
 async function getStockValues(ticker: string, handler: CustomFunctions.StreamingHandler<number>) {
     const dollars = await (await fetch(`myService.com/prices/${ticker}`)).json();
         handler.setResult(dollars)
@@ -13,7 +21,7 @@ async function getStockValuesOneTime(ticker: string, handler: CustomFunctions.Ca
     }
 
       const dollars = await (await fetch(`myService.com/prices/${ticker}`)).json();
-      return dollars;
+        return dollars;
 }
 
 async function getStockValuesNowWithNoCancelling(ticker: string) {
@@ -21,10 +29,4 @@ async function getStockValuesNowWithNoCancelling(ticker: string) {
     return dollars;
 }
 
-function add10(n: number) {
-    return n + 10;
-}
-
-
 declare function pause(ms: number): Promise<void>
-
