@@ -15,7 +15,7 @@ declare namespace OfficeRuntime {
   
     // tslint:disable-next-line:interface-name
        /**
-       * Asynchronous, global, and persistent key-value storage for Excel Custom Functions only.
+       * Asynchronous, global, and persistent key-value storage that can be used by Excel custom functions.
        * @beta
        *
        * @remarks 
@@ -80,7 +80,7 @@ declare namespace OfficeRuntime {
   
     /**
     * @beta
-    * Object representing the dialog box for Excel Custom Functions only. 
+    * Object representing the dialog box. 
     *
     */
     interface Dialog {
@@ -93,7 +93,7 @@ declare namespace OfficeRuntime {
   
        /**
        *
-       * Provides options for how a dialog is displayed for Excel Custom Functions only. 
+       * Provides options for how a dialog is displayed. 
        *
        */
     interface DisplayWebDialogOptions {
@@ -101,14 +101,12 @@ declare namespace OfficeRuntime {
        * @beta
        * Determines whether the dialog box displays as a popup (false) or within an IFrame (true). This setting is only applicable to custom functions running on Excel Online. 
        *
-       * [Api set: Dialog 1.2]
        */
       displayInIFrame?: boolean;
       /**
        * @beta
        * Defines the height of the dialog box as a percentage of the current display.
        *
-       * [Api set: Dialog 1.2]
        */
       height?: string;
   
@@ -116,18 +114,9 @@ declare namespace OfficeRuntime {
        * @beta
        * Defines the width of the dialog box as a percentage of the current display. 
        *
-       * [Api set: Dialog 1.2]
        */
       width?: string;
-  
-      /**
-       * @beta
-       * True if title is hidden from the dialog box. 
-       *
-       * [Api set: Dialog 1.2]
-       */
-      hideTitle?: boolean;
-  
+ 
       /**
        * @beta
        * Callback that is run when the dialog box sends a message to its parent.
