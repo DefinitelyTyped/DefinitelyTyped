@@ -33,7 +33,7 @@ export interface TreeNode {
 }
 
 export interface TreePath {
-    path: NumberArrayOrStringArray;
+    path: NumberOrStringArray;
 }
 
 export interface TreeIndex {
@@ -44,7 +44,7 @@ export interface FullTree {
     treeData: TreeItem[];
 }
 
-export interface NodeData extends TreeNode, TreePath, TreeIndex {}
+export interface NodeData extends TreeNode, TreePath, TreeIndex { }
 
 export interface SearchData extends NodeData {
     searchQuery: any;
@@ -63,9 +63,9 @@ export interface OnVisibilityToggleData extends FullTree, TreeNode {
 
 interface PreviousAndNextLocation {
     prevTreeIndex: number;
-    prevPath: number[];
+    prevPath: NumberOrStringArray;
     nextTreeIndex: number;
-    nextPath: number[];
+    nextPath: NumberOrStringArray;
 }
 
 export interface OnDragPreviousAndNextLocation extends PreviousAndNextLocation {
@@ -75,7 +75,7 @@ export interface OnDragPreviousAndNextLocation extends PreviousAndNextLocation {
 
 export interface ShouldCopyData {
     node: TreeNode;
-    prevPath: NumberArrayOrStringArray;
+    prevPath: NumberOrStringArray;
     prevTreeIndex: number;
 }
 
@@ -87,7 +87,7 @@ export type NodeRenderer = React.ComponentClass<NodeRendererProps>;
 
 export interface NodeRendererProps {
     node: TreeItem;
-    path: NumberArrayOrStringArray;
+    path: NumberOrStringArray;
     treeIndex: number;
     isSearchMatch: boolean;
     isSearchFocus: boolean;
@@ -119,9 +119,7 @@ export interface NodeRendererProps {
     canDrop?: boolean;
 }
 
-export type PlaceholderRenderer = React.ComponentClass<
-    PlaceholderRendererProps
->;
+export type PlaceholderRenderer = React.ComponentClass<PlaceholderRendererProps>;
 
 export interface PlaceholderRendererProps {
     isOver: boolean;
@@ -129,7 +127,7 @@ export interface PlaceholderRendererProps {
     draggedNode: { [index: string]: any };
 }
 
-type NumberArrayOrStringArray = string[] | number[];
+type NumberOrStringArray = Array<string | number>;
 
 export type TreeRenderer = React.ComponentClass<TreeRendererProps>;
 
@@ -154,7 +152,7 @@ export interface TreeRendererProps {
     // used in dndManager
     getPrevRow: any; // @TODO what is this method?
     node: TreeItem;
-    path: NumberArrayOrStringArray;
+    path: NumberOrStringArray;
 }
 
 export interface ThemeProps {
@@ -201,8 +199,6 @@ export interface ReactSortableTreeProps {
 
 declare const SortableTree: React.ComponentClass<ReactSortableTreeProps>;
 
-export const SortableTreeWithoutDndContext: React.ComponentClass<
-    ReactSortableTreeProps
->;
+export const SortableTreeWithoutDndContext: React.ComponentClass<ReactSortableTreeProps>;
 
 export default SortableTree;
