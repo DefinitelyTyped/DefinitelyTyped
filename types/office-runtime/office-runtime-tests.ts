@@ -58,7 +58,7 @@ OfficeRuntime.displayWebDialog("https://localhost:3000", {
         onMessage: (message, dialog) => { 
             console.log(message); 
              dialog.close(); 
-             } 
+        } 
     }
 )
 
