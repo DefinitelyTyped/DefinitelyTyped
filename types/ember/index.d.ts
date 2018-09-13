@@ -23,7 +23,7 @@ declare module 'ember' {
         UnwrapComputedPropertyGetter,
         ComputedPropertyCallback
     } from 'ember/-private-types/object/computed';
-    import { Objectify, Fix } from 'ember/-private-types/utils';
+    import { Objectify, Fix, KeysOfType, TypeLookup } from 'ember/-private-types/utils';
     import { EmberClassArguments, EmberClassConstructor, EmberInstanceArguments } from 'ember/-private-types/object';
 
     // Capitalization is intentional: this makes it much easier to re-export RSVP on
@@ -3264,7 +3264,9 @@ declare module 'ember' {
         /**
          * Returns a consistent type for the passed object.
          */
-        function typeOf(item?: any): string;
+        function typeOf<T>(value: T): KeysOfType<TypeLookup, T>;
+        function typeOf(): 'undefined';
+        function typeOf(item: any): string;
         /**
          * Copy properties from a source object to a target object.
          * @deprecated Use Object.assign
