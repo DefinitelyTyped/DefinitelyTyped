@@ -4,7 +4,7 @@ Copyright (c) Microsoft Corporation
 */
 
 OfficeRuntime.AsyncStorage.getItem("foo", () => {
-   //do a thing
+   //perform an action
 })
 OfficeRuntime.AsyncStorage.getItem("foo").then(value => console.log(value))
 
@@ -13,12 +13,12 @@ OfficeRuntime.AsyncStorage.setItem("foo", "bar").then(error => console.log(error
 
 OfficeRuntime.AsyncStorage.removeItem("foo"); 
 OfficeRuntime.AsyncStorage.removeItem("foo", () => {
-   //do a thing
+   //perform an action
 })
 
 OfficeRuntime.AsyncStorage.clear();
 OfficeRuntime.AsyncStorage.clear(() => {
-    //do a thing
+    //perform an action
 })
 
 OfficeRuntime.AsyncStorage.getAllKeys().then(keys => {
