@@ -1,5 +1,5 @@
 // Type definitions for react-window 1.1
-// Project: http://react-window.now.sh/
+// Project: https://github.com/bvaughn/react-window/
 // Definitions by: Martynas Kadiša <https://github.com/martynaskadisa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
