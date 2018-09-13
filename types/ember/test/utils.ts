@@ -131,6 +131,7 @@ function testTryInvoke() {
 (function() {
     /** typeOf */
     // TODO: more specific return type in @types/ember https://github.com/typed-ember/ember-cli-typescript/issues/259
+    Ember.typeOf();                       // $ExpectType "undefined"
     Ember.typeOf(null);                   // $ExpectType "null"
     Ember.typeOf(undefined);              // $ExpectType "undefined"
     Ember.typeOf('michael');              // $ExpectType "string"
@@ -150,4 +151,5 @@ function testTryInvoke() {
     Ember.typeOf(Ember.Object.extend());   // $ExpectType "class"
     Ember.typeOf(Ember.Object.create());   // $ExpectType "instance"
     Ember.typeOf(new Error('teamocil'));  // $ExpectType "error"
+    Ember.typeOf((new Date()) as RegExp | Date); // "regexp" | "date"
 })();

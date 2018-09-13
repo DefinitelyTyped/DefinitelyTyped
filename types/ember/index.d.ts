@@ -23,7 +23,7 @@ declare module 'ember' {
         UnwrapComputedPropertyGetter,
         ComputedPropertyCallback
     } from 'ember/-private-types/object/computed';
-    import { Objectify, Fix } from 'ember/-private-types/utils';
+    import { Objectify, Fix, KeysOfType, TypeLookup } from 'ember/-private-types/utils';
     import { EmberClassArguments, EmberClassConstructor, EmberInstanceArguments } from 'ember/-private-types/object';
 
     // Capitalization is intentional: this makes it much easier to re-export RSVP on
@@ -3258,20 +3258,7 @@ declare module 'ember' {
         /**
          * Returns a consistent type for the passed object.
          */
-        function typeOf(item: string | String): 'string';
-        function typeOf(item: number | Number): 'number';
-        function typeOf(item: boolean | Boolean): 'boolean';
-        function typeOf(item: null): 'null';
-        function typeOf(item: undefined): 'undefined';
-        function typeOf(item: (...args: any[]) => any): 'function';
-        function typeOf(item: any[]): 'array';
-        function typeOf(item: RegExp): 'regexp';
-        function typeOf(item: Date): 'date';
-        function typeOf(item: Error): 'error';
-        function typeOf(item: typeof Ember.Object): 'class';
-        function typeOf(item: Ember.Object): 'instance';
-        function typeOf(item: FileList): 'filelist';
-        function typeOf(item: object): 'object';
+        function typeOf<T>(value: T): KeysOfType<TypeLookup, T>;
         function typeOf(): 'undefined';
         function typeOf(item: any): string;
         /**

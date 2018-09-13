@@ -50,8 +50,8 @@ class DemoObservable implements Observable {
         Ember.removeObserver(this, 'foo', lambda);
     }
 
-    fooDidChange(obj: this, propName: keyof this) {}
-    protected fooDidChangeProtected(obj: this, propName: keyof this) {}
+    fooDidChange(obj: this, propName: 'foo') {}
+    protected fooDidChangeProtected(obj: this, propName: 'foo') {}
     get<K extends keyof this>(key: K): UnwrapComputedPropertyGetter<this[K]> {
         throw new Error("Method not implemented.");
     }
@@ -63,7 +63,7 @@ class DemoObservable implements Observable {
     set<K extends keyof this>(key: K, value: this[K]): this[K] {
         throw new Error("Method not implemented.");
     }
-    setProperties<K extends keyof this>(hash: Pick<UnwrapComputedPropertySetters<this>, K>): Pick< UnwrapComputedPropertySetters<this>, K> {
+    setProperties<K extends keyof this>(hash: Pick<this, K>): Pick< UnwrapComputedPropertySetters<this>, K> {
         throw new Error("Method not implemented.");
     }
     notifyPropertyChange(keyName: string): this {
@@ -75,7 +75,7 @@ class DemoObservable implements Observable {
         throw new Error("Method not implemented.");
     }
     removeObserver<Target>(key: keyof this, target: Target, method: keyof Target | ((this: Target, sender: this, key: keyof this, value: any, rev: number) => void)): void;
-    removeObserver(key: keyof this, method: keyof this | ((this: this, sender: this, key: keyof this, value: any, rev: number) => void)): void;
+    removeObserver(key: keyof this, method: keyof this | ((this: this, sender: this, key: string, value: any, rev: number) => void)): void;
     removeObserver(key: any, target: any, method?: any): void {
         throw new Error("Method not implemented.");
     }
