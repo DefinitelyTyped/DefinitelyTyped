@@ -4,6 +4,7 @@
 //                 Ricardo de Pena <https://github.com/rdepena>
 //                 Roma <https://github.com/whyn07m3>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.9
 
 // based on v9.61.34.22
 // see https://openfin.co/support/technical-faq/#what-do-the-numbers-in-the-runtime-version-mean
