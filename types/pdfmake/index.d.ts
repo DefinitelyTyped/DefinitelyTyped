@@ -2,6 +2,7 @@
 // Project: http://pdfmake.org
 // Definitions by: Milen Stefanov <https://github.com/m1llen1um>
 //                 Rajab Shakirov <https://github.com/radziksh>
+//                 Felix Christl  <https://github.com/fchristl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'pdfmake/build/vfs_fonts' {
@@ -9,6 +10,22 @@ declare module 'pdfmake/build/vfs_fonts' {
         vfs: any;
         [name: string]: any;
     };
+}
+
+declare module 'pdfmake' {
+    import {TDocumentDefinitions} from 'pdfmake/build/pdfmake';
+    import PDFDocument = PDFKit.PDFDocument;
+    type FontDescriptors = {
+        [key: string]: {
+            [key: string]: string;
+        };
+    }
+
+    class PdfPrinter {
+        constructor(fontDescriptors: FontDescriptors);
+        createPdfKitDocument(docDefinition: TDocumentDefinitions, options?: any): PDFDocument;
+    }
+    export = PdfPrinter;
 }
 
 declare module 'pdfmake/build/pdfmake' {
