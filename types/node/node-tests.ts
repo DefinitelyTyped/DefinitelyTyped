@@ -1124,10 +1124,10 @@ function simplified_stream_ctor_test() {
 }
 
 function streamPipelineFinished() {
-    const cancel = stream.finished(process.stdin, (err: Error) => {});
+    const cancel = stream.finished(process.stdin, (err?: Error) => {});
     cancel();
 
-    stream.pipeline(process.stdin, process.stdout, (err: Error) => {});
+    stream.pipeline(process.stdin, process.stdout, (err?: Error) => {});
 }
 
 async function asyncStreamPipelineFinished() {
