@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-import { ElementCreatorOptions, ElementFactory } from './element';
+import { Element, ElementCreatorOptions, ElementFactory } from './element';
 import { StripePaymentOptions, StripePaymentRequest } from './payment';
 import { BankTokenData, PiiTokenData, TokenData, IBANTokenData, TokenResult } from './token';
 import { SourceData, SourceResult } from './source';
