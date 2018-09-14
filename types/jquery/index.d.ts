@@ -21,8 +21,9 @@
 //                 John Reilly <https://github.com/johnnyreilly>
 //                 Dick van den Brink <https://github.com/DickvdBrink>
 //                 Thomas Schulz <https://github.com/King2500>
+//                 Marcel Koch <https://github.com/mknet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.9
 
 declare module 'jquery' {
     export = jQuery;
@@ -113,7 +114,7 @@ interface JQueryStatic {
      *
      * @deprecated Deprecated since 1.9. See \`{@link https://api.jquery.com/jQuery.support/ }\`.
      */
-    support: JQuery.PlainObject;
+    support: JQuerySupport;
     // Set to HTMLElement to minimize breaks but should probably be Element.
     valHooks: JQuery.PlainObject<JQuery.ValHook<HTMLElement>>;
     // HACK: This is the factory function returned when importing jQuery without a DOM. Declaring it separately breaks using the type parameter on JQueryStatic.

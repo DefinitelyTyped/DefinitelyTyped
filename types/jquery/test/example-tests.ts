@@ -2334,8 +2334,11 @@ function examples() {
     }
 
     function jQuery_contains_0() {
-        $.contains(document.documentElement!, document.body); // true
-        $.contains(document.body, document.documentElement!); // false
+        const elem = document.documentElement;
+        if (elem) {
+            $.contains(elem, document.body); // true
+            $.contains(document.body, elem); // false
+        }
     }
 
     function jQuery_data_0() {
