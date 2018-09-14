@@ -68,6 +68,14 @@ function test_beforeParse() {
     });
 }
 
+function test_storageQuota() {
+    new JSDOM('', { storageQuota: 1337 });
+}
+
+function test_pretendToBeVisual() {
+    new JSDOM('', { pretendToBeVisual: true });
+}
+
 function test_serialize() {
     const dom = new JSDOM(`<!DOCTYPE html>hello`);
 

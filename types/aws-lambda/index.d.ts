@@ -21,6 +21,7 @@
 //                 Jeremy Nagel <https://github.com/jeznag>
 //                 Louis Larry <https://github.com/louislarry>
 //                 Daniel Papukchiev <https://github.com/dpapukchiev>
+//                 Oliver Hookins <https://github.com/ohookins>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -561,12 +562,38 @@ export interface CodePipelineEvent {
 /**
  * CloudFront events
  * http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-event-structure.html
+ * Bear in mind that the "example" event structure in the page above includes
+ * both an S3 and a Custom origin, which is not strictly allowed. Only one
+ * of these per event may be present.
  */
 export interface CloudFrontHeaders {
     [name: string]: Array<{
         key: string;
         value: string;
     }>;
+}
+
+export type CloudFrontOrigin =
+    | { s3: CloudFrontS3Origin, custom?: never }
+    | { custom: CloudFrontCustomOrigin, s3?: never };
+
+export interface CloudFrontCustomOrigin {
+    customHeaders: CloudFrontHeaders;
+    domainName: string;
+    keepaliveTimeout: number;
+    path: string;
+    port: number;
+    protocol: 'http' | 'https';
+    readTimeout: number;
+    sslProtocols: string[];
+}
+
+export interface CloudFrontS3Origin {
+    authMethod: 'origin-access-identity' | 'none';
+    customHeaders: CloudFrontHeaders;
+    domainName: string;
+    path: string;
+    region: string;
 }
 
 export interface CloudFrontResponse {
@@ -581,6 +608,7 @@ export interface CloudFrontRequest {
     uri: string;
     querystring: string;
     headers: CloudFrontHeaders;
+    origin?: CloudFrontOrigin;
 }
 
 export interface CloudFrontEvent {

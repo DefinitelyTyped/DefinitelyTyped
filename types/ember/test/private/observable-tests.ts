@@ -10,11 +10,6 @@ class OtherThing {
 }
 
 class DemoObservable implements Observable {
-    setProperties<K extends keyof this>(hash: Pick<this, K>): Pick<UnwrapComputedPropertySetters<this>, K>;
-    setProperties<K extends keyof this>(hash: { [KK in K]: any; }): Pick<UnwrapComputedPropertySetters<this>, K>;
-    setProperties(hash: any): any {
-        throw new Error("Method not implemented.");
-    }
     foo: string;
     isFoo = true;
     bar: [boolean, boolean];
@@ -66,6 +61,9 @@ class DemoObservable implements Observable {
         throw new Error("Method not implemented.");
     }
     set<K extends keyof this>(key: K, value: this[K]): this[K] {
+        throw new Error("Method not implemented.");
+    }
+    setProperties<K extends keyof this>(hash: Pick<this, K>): Pick< UnwrapComputedPropertySetters<this>, K> {
         throw new Error("Method not implemented.");
     }
     notifyPropertyChange(keyName: string): this {
