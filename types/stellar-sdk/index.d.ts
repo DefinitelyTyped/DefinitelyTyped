@@ -18,11 +18,18 @@ export class Account {
 
 export class CallBuilder<T extends Record> {
     constructor(serverUrl: string)
-    call(): Promise<CollectionPage<T>>;
     cursor(cursor: string): this;
     limit(limit: number): this;
     order(direction: 'asc' | 'desc'): this;
     stream(options?: { onmessage?: (record: T) => void, onerror?: (error: Error) => void }): () => void;
+}
+
+export class CollectionCallBuilder<T extends Record> extends CallBuilder<T> {
+    call(): Promise<CollectionPage<T>>;
+}
+
+export class PagedCallBuilder<T extends Record> extends CallBuilder<T> {
+    call(): Promise<T>;
 }
 
 export interface CollectionPage<T extends Record> {
@@ -393,7 +400,7 @@ export interface TransactionRecord extends Record {
     succeeds: CallFunction<TransactionRecord>;
 }
 
-export class AccountCallBuilder extends CallBuilder<AccountRecord> {
+export class AccountCallBuilder extends PagedCallBuilder<AccountRecord> {
     accountId(id: string): this;
 }
 export class AccountResponse implements AccountRecord {
@@ -460,7 +467,7 @@ export class Asset {
     issuer: string;
 }
 
-export class AssetsCallBuilder extends CallBuilder<AssetRecord> {
+export class AssetsCallBuilder extends CollectionCallBuilder<AssetRecord> {
     forCode(value: string): this;
     forIssuer(value: string): this;
 }
@@ -471,7 +478,7 @@ export namespace Config {
     function setDefault(): void;
 }
 
-export class EffectCallBuilder extends CallBuilder<EffectRecord> {
+export class EffectCallBuilder extends CollectionCallBuilder<EffectRecord> {
     forAccount(accountId: string): this;
     forLedger(sequence: string): this;
     forOperation(operationId: number): this;
@@ -497,7 +504,7 @@ export class FederationServer {
     resolveTransactionId(transactionId: string): Promise<FederationRecord>;
 }
 
-export class LedgerCallBuilder extends CallBuilder<LedgerRecord> { }
+export class LedgerCallBuilder extends CollectionCallBuilder<LedgerRecord> { }
 
 export class Memo {
     static fromXDRObject(memo: xdr.Memo): Memo;
@@ -540,7 +547,7 @@ export class Network {
     networkId(): string;
 }
 
-export class OfferCallBuilder extends CallBuilder<OfferRecord> { }
+export class OfferCallBuilder extends CollectionCallBuilder<OfferRecord> { }
 
 export type TransactionOperation =
     Operation.CreateAccount
@@ -748,14 +755,14 @@ export namespace Operation {
     function fromXDRObject<T extends Operation>(xdrOperation: xdr.Operation<T>): T;
 }
 
-export class OperationCallBuilder extends CallBuilder<OperationRecord> {
+export class OperationCallBuilder extends CollectionCallBuilder<OperationRecord> {
     forAccount(accountId: string): this;
     forLedger(sequence: string): this;
     forTransaction(transactionId: string): this;
 }
-export class OrderbookCallBuilder extends CallBuilder<OrderbookRecord> { }
-export class PathCallBuilder extends CallBuilder<PaymentPathRecord> { }
-export class PaymentCallBuilder extends CallBuilder<PaymentOperationRecord> {
+export class OrderbookCallBuilder extends CollectionCallBuilder<OrderbookRecord> { }
+export class PathCallBuilder extends CollectionCallBuilder<PaymentPathRecord> { }
+export class PaymentCallBuilder extends CollectionCallBuilder<PaymentOperationRecord> {
     forAccount(accountId: string): this;
     forLedger(sequence: string): this;
     forTransaction(transactionId: string): this;
@@ -806,8 +813,8 @@ export namespace StrKey {
     function decodeSha256Hash(data: string): Buffer;
 }
 
-export class TradeAggregationCallBuilder extends CallBuilder<TradeAggregationRecord> { }
-export class TradesCallBuilder extends CallBuilder<TradeRecord> {
+export class TradeAggregationCallBuilder extends CollectionCallBuilder<TradeAggregationRecord> { }
+export class TradesCallBuilder extends CollectionCallBuilder<TradeRecord> {
     forAssetPair(base: Asset, counter: Asset): this;
     forOffer(offerId: string): this;
 }
@@ -846,7 +853,7 @@ export namespace TransactionBuilder {
     }
 }
 
-export class TransactionCallBuilder extends CallBuilder<TransactionRecord> {
+export class TransactionCallBuilder extends CollectionCallBuilder<TransactionRecord> {
     transaction(transactionId: string): this;
     forAccount(accountId: string): this;
     forLedger(sequence: string | number): this;
