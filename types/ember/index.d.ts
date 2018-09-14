@@ -16,6 +16,16 @@
 /// <reference types="handlebars" />
 
 declare module 'ember' {
+    import {
+        UnwrapComputedPropertySetters,
+        UnwrapComputedPropertySetter,
+        UnwrapComputedPropertyGetters,
+        UnwrapComputedPropertyGetter,
+        ComputedPropertyCallback
+    } from 'ember/-private-types/object/computed';
+    import { Objectify, Fix, KeysOfType, TypeLookup } from 'ember/-private-types/utils';
+    import { EmberClassArguments, EmberClassConstructor, EmberInstanceArguments } from 'ember/-private-types/object';
+
     // Capitalization is intentional: this makes it much easier to re-export RSVP on
     // the Ember namespace.
     import Rsvp from 'rsvp';
@@ -28,51 +38,25 @@ declare module 'ember' {
     // Get an alias to the global Array type to use in inner scope below.
     type GlobalArray<T> = T[];
 
-    /**
-     * Deconstructs computed properties into the types which would be returned by `.get()`.
-     */
-    type UnwrapComputedPropertyGetter<T> =
-        T extends Ember.ComputedProperty<infer U, any> ? U :
-        T;
-    type UnwrapComputedPropertyGetters<T> = {
-        [P in keyof T]: UnwrapComputedPropertyGetter<T[P]>;
-    };
+    // TODO: TypeScript 3.0
+    // type FunctionArgs<F extends (...args: any[]) => any> = F extends (...args: infer ARGS) => any ? ARGS : never;
+    type FunctionArgs<F> =
+        F extends (a: infer A) => any
+            ? [A]
+            : F extends (a: infer A, b: infer B) => any
+                ? [A, B]
+                : F extends (a: infer A, b: infer B, c: infer C) => any
+                    ? [A, B, C]
+                    : F extends (a: infer A, b: infer B, c: infer C, d: infer D) => any
+                        ? [A, B, C, D]
+                        : F extends (a: infer A, b: infer B, c: infer C, d: infer D, e: infer E) => any
+                            ? [A, B, C, D, E]
+                            : never;
 
-    type UnwrapComputedPropertySetter<T> =
-        T extends Ember.ComputedProperty<any, infer U> ? U :
-        T;
-    type UnwrapComputedPropertySetters<T> = {
-        [P in keyof T]: UnwrapComputedPropertySetter<T[P]>;
-    };
-
-    /**
-     * Check that any arguments to `create()` match the type's properties.
-     *
-     * Accept any additional properties and add merge them into the instance.
-     */
-    type EmberInstanceArguments<T> = Partial<T> & {
-        [key: string]: any;
-    };
-
-    /**
-     * Accept any additional properties and add merge them into the prototype.
-     */
-    interface EmberClassArguments {
-        [key: string]: any;
-    }
-
-    /**
-     * Map type `T` to a plain object hash with the identity mapping.
-     *
-     * Discards any additional object identity like the ability to `new()` up the class.
-     * The `new()` capability is added back later by merging `EmberClassConstructor<T>`
-     *
-     * Implementation is carefully chosen for the reasons described in
-     * https://github.com/typed-ember/ember-typings/pull/29
-     */
-    type Objectify<T> = Readonly<T>;
-
-    type Fix<T> = { [K in keyof T]: T[K] };
+    type Mix<A, B> = B & Pick<A, Exclude<keyof A, keyof B>>;
+    type Mix3<A, B, C> = Mix<Mix<A, B>, C>;
+    type Mix4<A, B, C, D> = Mix3<Mix<A, B>, C, D>;
+    type Mix5<A, B, C, D, E> = Mix4<Mix<A, B>, C, D, E>;
 
     /**
      * Ember.Object.extend(...) accepts any number of mixins or literals.
@@ -90,23 +74,6 @@ declare module 'ember' {
      * Implementation is carefully chosen for the reasons described in
      * https://github.com/typed-ember/ember-typings/pull/29
      */
-    type EmberClassConstructor<T> = (new (properties?: object) => T) & (new (...args: any[]) => T);
-
-    type ComputedPropertyGetterFunction<T> = (this: any, key: string) => T;
-
-    interface ComputedPropertyGet<T> {
-        get(this: any, key: string): T;
-    }
-
-    interface ComputedPropertySet<T> {
-        set(this: any, key: string, value: T): T;
-    }
-
-    type ComputedPropertyCallback<T> =
-        | ComputedPropertyGetterFunction<T>
-        | ComputedPropertyGet<T>
-        | ComputedPropertySet<T>
-        | (ComputedPropertyGet<T> & ComputedPropertySet<T>);
 
     interface ActionsHash {
         [index: string]: (...params: any[]) => any;
@@ -129,7 +96,7 @@ declare module 'ember' {
 
     type ObserverMethod<Target, Sender> =
         | (keyof Target)
-        | ((this: Target, sender: Sender, key: keyof Sender, value: any, rev: number) => void);
+        | ((this: Target, sender: Sender, key: string, value: any, rev: number) => void);
 
     interface RenderOptions {
         into?: string;
@@ -309,6 +276,17 @@ declare module 'ember' {
         }
 
         interface ArrayPrototypeExtensions<T> extends MutableArray<T>, Observable, Copyable {}
+
+        interface StringPrototypeExtensions {
+            camelize(): string;
+            decamelize(): string;
+            classify(): string;
+            capitalize(): string;
+            loc(values?: string[]): string;
+            dasherize(): string;
+            underscore(): string;
+            w(): string[];
+        }
 
         /**
          * Given a fullName return a factory manager.
@@ -2439,7 +2417,7 @@ declare module 'ember' {
             function fmt(...args: string[]): string;
             function htmlSafe(str: string): Handlebars.SafeString;
             function isHTMLSafe(str: string): boolean;
-            function loc(...args: string[]): string;
+            function loc(template: string, args?: string[]): string;
             function underscore(str: string): string;
             function w(str: string): string[];
         }
@@ -3142,7 +3120,7 @@ declare module 'ember' {
          * Merge the contents of two objects together into the first object.
          * @deprecated Use Object.assign
          */
-        function merge<T, U>(original: T, updates: U): T & U;
+        function merge<T extends object, U extends object>(original: T, updates: U): Mix<T, U>;
         /**
          * Makes a method available via an additional name.
          */
@@ -3286,14 +3264,17 @@ declare module 'ember' {
         /**
          * Returns a consistent type for the passed object.
          */
-        function typeOf(item?: any): string;
+        function typeOf<T>(value: T): KeysOfType<TypeLookup, T>;
+        function typeOf(): 'undefined';
+        function typeOf(item: any): string;
         /**
          * Copy properties from a source object to a target object.
          * @deprecated Use Object.assign
          */
-        function assign<T, U>(target: T, source: U): T & U;
-        function assign<T, U, V>(target: T, source1: U, source2: V): T & U & V;
-        function assign<T, U, V, W>(target: T, source1: U, source2: V, source3: W): T & U & V & W;
+        function assign<T extends object, U extends object>(target: T, source: U): Mix<T, U>;
+        function assign<T extends object, U extends object, V extends object>(target: T, source1: U, source2: V): Mix3<T, U, V>;
+        function assign<T extends object, U extends object, V extends object, W extends object>(target: T, source1: U, source2: V, source3: W): Mix4<T, U, V, W>;
+
         /**
          * Polyfill for Object.create
          * @deprecated Use Object.create
@@ -3320,7 +3301,14 @@ declare module 'ember' {
          * Checks to see if the `methodName` exists on the `obj`,
          * and if it does, invokes it with the arguments passed.
          */
-        function tryInvoke(obj: any, methodName: string, args?: any[]): any;
+        function tryInvoke<FNAME extends keyof T, T extends object>(
+            obj: T,
+            methodName: FNAME,
+            args: FunctionArgs<T[FNAME]>): T[FNAME] extends ((...args: any[]) => any)
+                ? ReturnType<T[FNAME]>
+                : undefined;
+        function tryInvoke<FNAME extends keyof T, T extends object>(obj: T, methodName: FNAME): T[FNAME] extends (() => any) ? ReturnType<T[FNAME]> : undefined;
+        function tryInvoke(obj: object, methodName: string, args?: any[]): undefined;
         /**
          * Forces the passed object to be part of an array. If the object is already
          * an array, it will return the object. Otherwise, it will add the object to

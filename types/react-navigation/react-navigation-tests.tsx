@@ -336,6 +336,24 @@ function renderBasicDrawerNavigator(): JSX.Element {
     );
 }
 
+interface ParamsOnStateProps {
+    navigation: NavigationScreenProp<{}, { foobar: string }>;
+}
+
+class ParamsOnState extends React.Component<ParamsOnStateProps> {
+    render() {
+        if (this.props.navigation.state.params) {
+            // $ExpectType string
+            this.props.navigation.state.params.foobar;
+        } else {
+            // $ExpectType undefined
+            this.props.navigation.state.params;
+        }
+
+        return <View />;
+    }
+}
+
 interface CustomTransitionerProps {
     navigation: NavigationScreenProp<any, any>;
 }

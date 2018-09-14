@@ -448,3 +448,24 @@ wx.request({
 		console.error(e);
 	}
 }).abort();
+
+wx.getSystemInfo({
+	success(res) {
+		const {
+			brand,
+			pixelRatio,
+			platform,
+			windowHeight,
+			windowWidth,
+			screenHeight,
+			screenWidth,
+			statusBarHeight,
+			SDKVersion,
+			language,
+			model,
+			version,
+			fontSizeSetting,
+			system
+		} = res;
+	}
+});

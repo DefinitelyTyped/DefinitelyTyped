@@ -26,12 +26,12 @@ import * as H from 'history';
 
 // This is the type of the context object that will be passed down to all children of
 // a `Router` component:
-export interface RouterChildContext<P> {
+export interface RouterChildContext<Params extends { [K in keyof Params]?: string } = {}> {
   router: {
     history: H.History
     route: {
       location: H.Location
-      match: match<P>
+      match: match<Params>
     }
   };
 }
@@ -64,10 +64,10 @@ export interface StaticContext {
   statusCode?: number;
 }
 
-export interface RouteComponentProps<P, C extends StaticContext = StaticContext, S = H.LocationState> {
+export interface RouteComponentProps<Params extends { [K in keyof Params]?: string } = {}, C extends StaticContext = StaticContext, S = H.LocationState> {
   history: H.History;
   location: H.Location<S>;
-  match: match<P>;
+  match: match<Params>;
   staticContext?: C;
 }
 
@@ -106,8 +106,8 @@ export interface SwitchProps {
 }
 export class Switch extends React.Component<SwitchProps, any> { }
 
-export interface match<P> {
-  params: P;
+export interface match<Params extends { [K in keyof Params]?: string } = {}> {
+  params: Params;
   isExact: boolean;
   path: string;
   url: string;
@@ -116,7 +116,7 @@ export interface match<P> {
 // Omit taken from https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
-export function matchPath<P>(pathname: string, props: RouteProps, parent?: match<P> | null): match<P> | null;
+export function matchPath<Params extends { [K in keyof Params]?: string }>(pathname: string, props: RouteProps, parent?: match<Params> | null): match<Params> | null;
 
 export function generatePath(pattern: string, params?: { [paramName: string]: string | number | boolean }): string;
 
