@@ -1,29 +1,35 @@
 {
     "compilerOptions": {
         "module": "commonjs",
+        "target": "es5",
         "lib": [
             "es6",
             "dom"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
-        "strictFunctionTypes": false,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
-        "types": [],
         "paths": {
-            "d3": [
-                "d3/v3"
-            ]
+            "@ember/component": ["ember__component"],
+            "@ember/component/*": ["ember__component/*"]
         },
+        "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "d3.cloud.layout-tests.ts"
+        "checkbox.d.ts",
+        "text-area.d.ts",
+        "text-field.d.ts",
+        "helper.d.ts",
+        "test/lib/assert.ts",
+        "test/component.ts",
+        "test/helper.ts"
     ]
 }

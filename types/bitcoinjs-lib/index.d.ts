@@ -1,4 +1,4 @@
-// Type definitions for bitcoinjs-lib 3.4
+// Type definitions for bitcoinjs-lib 4.0
 // Project: https://github.com/bitcoinjs/bitcoinjs-lib
 // Definitions by:  Mohamed Hegazy <https://github.com/mhegazy>
 //                  Daniel <https://github.com/dlebrecht>
@@ -11,8 +11,6 @@
 // based on the flow version found at https://github.com/flowtype/flow-typed/blob/master/definitions/npm/bitcoinjs-lib_v2.x.x/flow_v0.17.x-/bitcoinjs-lib_v2.x.x.js
 
 /// <reference types="node" />
-
-import BigInteger = require('bigi');
 
 export interface Out {
     script: Buffer;
@@ -68,29 +66,23 @@ export class Block {
 }
 
 export class ECPair {
-    constructor(d: BigInteger, Q?: null, options?: { compressed?: boolean, network?: Network });
-
-    constructor(d: null | undefined, Q: any, options?: { compressed?: boolean, network?: Network }); // Q should be ECPoint, but not sure how to define such type
-
-    d: BigInteger;
-
     readonly compressed: boolean;
+
+    readonly privateKey: Buffer;
+
+    readonly publicKey: Buffer;
 
     readonly network: Network;
 
-    getAddress(): string;
-
-    getNetwork(): Network;
-
-    getPublicKeyBuffer(): Buffer;
-
-    sign(hash: Buffer): ECSignature;
+    sign(hash: Buffer): Buffer;
 
     toWIF(): string;
 
-    verify(hash: Buffer, signature: ECSignature): boolean;
+    verify(hash: Buffer, signature: Buffer): boolean;
 
-    static fromPublicKeyBuffer(buffer: Buffer, network: Network): ECPair;
+    static fromPrivateKey(buffer: Buffer, options?: { compressed?: boolean, network?: Network }): ECPair;
+
+    static fromPublicKey(buffer: Buffer, options?: { compressed?: boolean, network?: Network }): ECPair;
 
     static fromWIF(string: string, network?: Network): ECPair;
 
@@ -98,66 +90,6 @@ export class ECPair {
 }
 
 export type Rng = (size: number) => Buffer;
-
-export class ECSignature {
-    constructor(r: BigInteger, s: BigInteger);
-
-    toCompact(i: number, compressed: boolean): Buffer;
-
-    toDER(): Buffer;
-
-    toScriptSignature(hashType: number): Buffer;
-
-    static fromDER(buffer: Buffer): ECSignature;
-
-    static parseCompact(buffer: Buffer): { compressed: boolean, i: number, signature: ECSignature };
-
-    static parseScriptSignature(buffer: Buffer): { signature: ECSignature, hashType: number };
-}
-
-export class HDNode {
-    constructor(keyPair: ECPair, chainCode: Buffer);
-
-    keyPair: ECPair;
-
-    derive(index: number): HDNode;
-
-    deriveHardened(index: number): HDNode;
-
-    derivePath(path: string): HDNode;
-
-    getAddress(): string;
-
-    getFingerprint(): Buffer;
-
-    getIdentifier(): Buffer;
-
-    getNetwork(): Network;
-
-    getPublicKeyBuffer(): Buffer;
-
-    isNeutered(): boolean;
-
-    neutered(): HDNode;
-
-    sign(hash: Buffer): ECSignature;
-
-    toBase58(): string;
-
-    verify(hash: Buffer, signature: ECSignature): boolean;
-
-    static HIGHEST_BIT: number;
-
-    static LENGTH: number;
-
-    static fromBase58(string: string, networks?: Network[] | Network): HDNode;
-
-    static fromSeedBuffer(seed: Buffer, network?: Network): HDNode;
-
-    static fromSeedHex(hex: string, network?: Network): HDNode;
-
-    static MASTER_SECRET: Buffer;
-}
 
 export class Transaction {
     version: number;
@@ -236,9 +168,6 @@ export interface Input {
 }
 
 export class TransactionBuilder {
-    tx: Transaction;
-    inputs: Input[];
-
     constructor(network?: Network, maximumFeeRate?: number);
 
     addInput(txhash: Buffer | string | Transaction, vout: number, sequence?: number, prevOutScript?: Buffer): number;
@@ -261,7 +190,6 @@ export class TransactionBuilder {
 
 export const networks: {
     bitcoin: Network;
-    litecoin: Network;
     testnet: Network;
 };
 
@@ -391,7 +319,7 @@ export namespace address {
     /** @since 3.2.0 */
     function fromBech32(address: string): { data: Buffer, prefix: string, version: number };
 
-    function fromOutputScript(outputScript: Buffer, network?: Network): string;
+    function fromOutputScript(output: Buffer, network?: Network): string;
 
     function toBase58Check(hash: Buffer, version: number): string;
 
@@ -399,26 +327,6 @@ export namespace address {
     function toBech32(data: Buffer, version: number, prefix: string): string;
 
     function toOutputScript(address: string, network?: Network): Buffer;
-}
-
-export namespace bufferutils {
-    function pushDataSize(i: number): number;
-
-    function readPushDataInt(buffer: Buffer, offset: number): { opcode: number, number: number, size: number };
-
-    function readUInt64LE(buffer: Buffer, offset: number): number;
-
-    function readVarInt(buffer: Buffer, offset: number): { number: number, size: number };
-
-    function varIntBuffer(number: number, buffer: Buffer, offset: number): Buffer;
-
-    function varIntSize(number: number): number;
-
-    function writePushDataInt(buffer: Buffer, number: number, offset: number): number;
-
-    function writeUInt64LE(buffer: Buffer, value: number, offset: number): number;
-
-    function writeVarInt(buffer: Buffer, number: number, offset: number): number;
 }
 
 export namespace crypto {
@@ -449,7 +357,7 @@ export namespace script {
 
     function isCanonicalPubKey(buffer: Buffer): boolean;
 
-    function isCanonicalSignature(buffer: Buffer): boolean;
+    function isCanonicalScriptSignature(buffer: Buffer): boolean;
 
     function isDefinedHashType(hashType: any): boolean;
 
@@ -465,66 +373,48 @@ export namespace script {
         function encode(number: number): Buffer;
     }
 
+    namespace signature {
+        function decode(buffer: Buffer): { signature: Buffer, hashType: number };
+
+        function encode(signature: Buffer, hashType: number): Buffer;
+    }
+
     const multisig: {
         input: {
             check(script: Buffer, allowIncomplete: boolean): boolean;
-            decode(buffer: Buffer): Array<Buffer | number>;
-            decodeStack(stack: Buffer[], allowIncomplete: boolean): Array<Buffer | number>;
-            encode(signatures: Buffer[], scriptPubKey: Buffer): Buffer;
-            encodeStack(signatures: Buffer[], scriptPubKey: Buffer): Buffer[];
         };
         output: {
             check(script: Buffer, allowIncomplete: boolean): boolean;
-            decode(buffer: Buffer, allowIncomplete: boolean): { m: number; pubKeys: Array<Buffer | number> };
-            encode(m: number, pubKeys: Array<Buffer | number>): Buffer;
         };
     };
 
     const pubKey: {
         input: {
             check(script: Buffer): boolean;
-            decode(buffer: Buffer): Array<Buffer | number>;
-            decodeStack(stack: Buffer[]): Array<Buffer | number>;
-            encode(signature: Buffer): Buffer;
-            encodeStack(signature: Buffer): Buffer[];
         };
 
         output: {
             check(script: Buffer): boolean;
-            decode(buffer: Buffer): Buffer | number;
-            encode(pubKey: Buffer): Buffer;
         };
     };
 
     const pubKeyHash: {
         input: {
             check(script: Buffer): boolean;
-            decode(buffer: Buffer): { signature: Buffer; pubKey: Buffer };
-            decodeStack(stack: Buffer[]): { signature: Buffer; pubKey: Buffer };
-            encode(signature: Buffer, pubKey: Buffer): Buffer;
-            encodeStack(signature: Buffer, pubKey: Buffer): [Buffer, Buffer];
         };
 
         output: {
             check(script: Buffer): boolean;
-            decode(buffer: Buffer): Buffer;
-            encode(pubKeyHash: Buffer): Buffer;
         };
     };
 
     const scriptHash: {
         input: {
             check(script: Buffer, allowIncomplete: boolean): boolean;
-            decode(buffer: Buffer): { redeemScriptStack: Buffer[]; redeemScript: Buffer };
-            decodeStack(stack: Buffer[]): { redeemScriptStack: Buffer[]; redeemScript: Buffer };
-            encode(redeemScriptSig: Array<Buffer | number>, redeemScript: Buffer): Buffer;
-            encodeStack(redeemScriptStack: Buffer[], redeemScript: Buffer): Buffer[];
         };
 
         output: {
             check(script: Buffer): boolean;
-            decode(buffer: Buffer): Buffer;
-            encode(scriptHash: Buffer): Buffer;
         };
     };
 
@@ -539,36 +429,56 @@ export namespace script {
     const witnessPubKeyHash: {
         input: {
             check(script: Buffer): boolean;
-            decodeStack(stack: Buffer[]): { signature: Buffer; pubKey: Buffer };
-            encodeStack(signature: Buffer, pubKey: Buffer): [Buffer, Buffer];
         };
 
         output: {
             check(script: Buffer): boolean;
-            decode(buffer: Buffer): Buffer;
-            encode(pubKeyHash: Buffer): Buffer;
         };
     };
 
     const witnessScriptHash: {
         input: {
             check(script: Buffer, allowIncomplete: boolean): boolean;
-            decodeStack(stack: Buffer[]): { redeemScriptStack: Buffer[]; redeemScript: Buffer };
-            encodeStack(redeemScriptStack: Buffer[], redeemScript: Buffer): Buffer[];
         };
 
         output: {
             check(script: Buffer): boolean;
-            decode(buffer: Buffer): Buffer;
-            encode(scriptHash: Buffer): Buffer;
         };
     };
 
     const nullData: {
         output: {
             check(script: Buffer): boolean;
-            decode(buffer: Buffer): Buffer;
-            encode(data: Buffer): Buffer;
         };
     };
+}
+
+export namespace payments {
+    function p2data(a: { network?: Network, output?: Buffer, data?: Buffer[] }, opts?: { validate?: boolean }):
+        { output: Buffer, data: Buffer[] };
+
+    function p2ms(a: { network?: Network, m?: number, n?: number, output?: Buffer, pubkeys?: Buffer[], signatures?: Buffer[], input?: Buffer }, opts?: { validate?: boolean }):
+        { output: Buffer, m: number, n: number, pubkeys: Buffer[], signatures: Buffer[], input: Buffer, witness: Buffer[] };
+
+    function p2pk(a: { input?: Buffer, network?: Network, output?: Buffer, pubkey?: Buffer, signature?: Buffer }, opts?: { validate?: boolean }):
+        { output: Buffer, pubkey: Buffer, signature: Buffer, input: Buffer, witness: Buffer[] };
+
+    function p2pkh(a: { address?: string, hash?: Buffer, input?: Buffer, network?: Network, output?: Buffer, pubkey?: Buffer, signature?: Buffer }, opts?: { validate?: boolean }):
+        { address: string, hash: Buffer, output: Buffer, pubkey: Buffer, signature: Buffer, input: Buffer, witness: Buffer[] };
+
+    function p2sh(a: { address?: string, hash?: Buffer, input?: Buffer, network?: Network, output?: Buffer, witness?: Buffer[], redeem?: Redeem }, opts?: { validate?: boolean }):
+        { address: string, hash: Buffer, output: Buffer, redeem: Redeem, input: Buffer, witness: Buffer[] };
+
+    function p2wpkh(a: { address?: string, hash?: Buffer, input?: Buffer, network?: Network, output?: Buffer, pubkey?: Buffer, signature?: Buffer, witness?: Buffer[] },
+        opts?: { validate?: boolean }): { address: string, hash: Buffer, output: Buffer, pubkey: Buffer, signature: Buffer, input: Buffer, witness: Buffer[] };
+
+    function p2wsh(a: { address?: string, hash?: Buffer, input?: Buffer, network?: Network, output?: Buffer, witness?: Buffer[], redeem?: Redeem }, opts?: { validate?: boolean }):
+        { address: string, hash: Buffer, output: Buffer, redeem: Redeem, input: Buffer, witness: Buffer[] };
+
+    class Redeem {
+        input?: Buffer;
+        network?: Network;
+        output?: Buffer;
+        witness?: Buffer[];
+    }
 }

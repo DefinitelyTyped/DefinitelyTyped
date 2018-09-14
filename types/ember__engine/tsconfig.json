@@ -1,11 +1,10 @@
 {
-    "files": [
-        "index.d.ts"
-    ],
     "compilerOptions": {
         "module": "commonjs",
+        "target": "es5",
         "lib": [
-            "es6"
+            "es6",
+            "dom"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -15,8 +14,18 @@
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "@ember/engine": ["ember__engine"],
+            "@ember/engine/*": ["ember__engine/*"]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
-    }
+    },
+    "files": [
+        "index.d.ts",
+        "instance.d.ts",
+        "test/engine.ts",
+        "test/engine-instance.ts"
+    ]
 }
