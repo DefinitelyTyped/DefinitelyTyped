@@ -7669,7 +7669,7 @@ declare module "http2" {
 
     // Public API
 
-    export declare const enum constants {
+    export enum constants {
         NGHTTP2_SESSION_SERVER = 0,
         NGHTTP2_SESSION_CLIENT = 1,
         NGHTTP2_STREAM_STATE_IDLE = 1,
