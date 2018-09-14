@@ -5,26 +5,26 @@
 // TypeScript Version: 3.0.3
 
 declare module 'franc' {
-  // ISO 639-3 code (see: https://iso639-3.sil.org/code_tables/639/data)
-  type ISO6393 = string;
+    // ISO 639-3 code (see: https://iso639-3.sil.org/code_tables/639/data)
+    type ISO6393 = string;
 
-  // Range [0, 1]
-  type Confidence = number;
+    // Range [0, 1]
+    type Confidence = number;
 
-  interface Options {
-    minLength?: number;
-    whitelist?: Array<ISO6393>;
-    blacklist?: Array<ISO6393>;
-  }
+    interface Options {
+        minLength?: number;
+        whitelist?: Array<ISO6393>;
+        blacklist?: Array<ISO6393>;
+    }
 
-  function detect(text: string, options?: Options): ISO6393;
+    function detect(text: string, options?: Options): ISO6393;
 
-  namespace detect {
-    export function all(
-      text: string,
-      options?: Options
-    ): Array<[ISO6393, number]>;
-  }
+    namespace detect {
+        export function all(
+            text: string,
+            options?: Options
+        ): Array<[ISO6393, number]>;
+    }
 
-  export = detect;
+    export = detect;
 }
