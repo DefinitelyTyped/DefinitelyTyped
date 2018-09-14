@@ -94,7 +94,7 @@ export class LocalParticipant extends Participant {
     tracks: Map<Track.SID, LocalTrackPublication>;
     videoTracks: Map<Track.SID, LocalVideoTrackPublication>;
 
-    publishTrack(localTrack: LocalTrack): Promise<LocalTrackPublication>;
+    publishTrack(track: LocalTrack): Promise<LocalTrackPublication>;
     publishTrack(
         mediaStreamTrack: MediaStreamTrack, options?: LocalTrackOptions,
     ): Promise<LocalTrackPublication>;
@@ -102,6 +102,8 @@ export class LocalParticipant extends Participant {
         tracks: LocalTrack[] | MediaStreamTrack[],
     ): Promise<LocalTrackPublication[]>;
     setParameters(encodingParameters?: EncodingParameters | null): LocalParticipant;
+    unpublishTrack(track: LocalTrack): LocalTrackPublication;
+    unpublishTracks(tracks: LocalTrack): LocalTrackPublication[];
 }
 export class LocalTrackPublication extends TrackPublication {
     isTrackEnabled: boolean;
@@ -475,7 +477,7 @@ export interface ConnectOptions {
 export interface CreateLocalTrackOptions {
     logLevel: LogLevel | LogLevels;
     name?: string;
-    workaroundWebKitBug180748?: boolean; // Lol
+    workaroundWebKitBug180748?: boolean;
 }
 export interface CreateLocalTracksOptions {
     audio?: boolean | CreateLocalTrackOptions;
