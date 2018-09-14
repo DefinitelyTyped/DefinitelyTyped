@@ -2,8 +2,8 @@
 
 import * as find from "find-process";
 
-find('pid', 12345).then((processList)=>{
-    processList.forEach((ps)=>{
+find('pid', 12345).then((processList) => {
+    processList.forEach((ps) => {
         console.log('Full command with args: ' + ps.cmd);
         console.log('User group ID (for *nix): ' + ps.gid);
         console.log('command/process name: ' + ps.name);
@@ -11,6 +11,6 @@ find('pid', 12345).then((processList)=>{
         console.log('Parent process ID: ' + ps.ppid);
         console.log('User ID (for *nix): ' + ps.uid);
     });
-}, (err)=>{
+}, (err) => {
     console.log(err.stack || err);
 });
