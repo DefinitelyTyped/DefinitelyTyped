@@ -2701,7 +2701,6 @@ declare module "mongoose" {
      * Triggers the save() hook.
      */
     create(docs: any[], callback?: (err: any, res: T[]) => void): Promise<T[]>;
-    create(docs: [any], options?: SaveOptions, callback?: (err: any, res: T[]) => void): Promise<T[]>;
     create(docs: any[], options?: SaveOptions, callback?: (err: any, res: T[]) => void): Promise<T[]>;
     create(...docs: any[]): Promise<T>;
     create(...docsWithCallback: any[]): Promise<T>;
