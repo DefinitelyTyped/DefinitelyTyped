@@ -474,7 +474,7 @@ export interface ConnectOptions {
     tracks?: LocalTrack[] | MediaStreamTrack[];
     video?: boolean | CreateLocalTrackOptions;
 }
-export interface CreateLocalTrackOptions {
+export interface CreateLocalTrackOptions extends MediaTrackConstraints {
     // In API reference logLevel is not optional, but in the Twilio examples it is
     logLevel?: LogLevel | LogLevels;
     name?: string;
