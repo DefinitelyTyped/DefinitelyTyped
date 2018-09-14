@@ -524,7 +524,15 @@ new mongoose.Schema({
         setImmediate(done, true);
       }
     }
-  }
+  },
+  promiseValidated: {
+    type: Number,
+    validate: {
+      validator: async (val: number) => {
+        return val === 2;
+      }
+    }
+  },
 });
 new mongoose.Schema({ name: { type: String, validate: [
   { validator: () => {return true}, msg: 'uh oh' },
@@ -1010,6 +1018,7 @@ query.find().populate('owner', 'name', null, {sort: { name: -1 }}).exec(function
   kittens[0].execPopulate();
 });
 query.read('primary', []).read('primary');
+query.readConcern('majority').readConcern('m');
 query.regex(/re/).regex('path', /re/);
 query.remove({}, cb);
 query.remove({});
@@ -1028,6 +1037,7 @@ query.setOptions({
   batchSize: true,
   lean: false
 });
+query.setQuery({ age: 5 });
 query.size(0).size('age', 0);
 query.skip(100).skip(100);
 query.slaveOk().slaveOk(false);
@@ -1227,6 +1237,7 @@ aggregate.append({ $project: { field: 1 }}, { $limit: 2 });
 aggregate.append([{ $match: { daw: 'Logic Audio X' }} ]);
 aggregate.collation({ locale: 'en_US', strength: 1 });
 aggregate.count('countName');
+aggregate.facet({ fieldA: [{ a: 1 }], fieldB: [{ b: 1 }] });
 aggregate.cursor({ batchSize: 1000 }).exec().each(cb);
 aggregate.exec().then(cb).catch(cb);
 aggregate.option({foo: 'bar'}).exec();
@@ -1889,3 +1900,64 @@ MyModel.createIndexes((err: any): void => {}).then(() => {});
 mongoose.connection.createCollection('foo').then(() => {});
 mongoose.connection.createCollection('foo', {wtimeout: 5}).then(() => {});
 mongoose.connection.createCollection('foo', {wtimeout: 5}, (err: Error, coll): void => {coll.collectionName}).then(() => {});
+
+const db = mongoose.connection;
+const User = mongoose.model('User', new mongoose.Schema({ name: String }));
+
+let session: mongoose.ClientSession;
+mongoose.connection.createCollection('users').
+  then(() => db.startSession()).
+  then(_session => {
+    session = _session;
+    session.startTransaction();
+    User.findOne({ name: 'foo' }).session(session);
+    session.commitTransaction();
+    return User.create({ name: 'foo' });
+  });
+
+const Event = db.model('Event', new mongoose.Schema({ createdAt: Date }), 'Event');
+
+db.createCollection('users').
+  then(() => db.startSession()).
+  then(_session => {
+    session = _session;
+    return User.create({ name: 'foo' });
+  }).
+  then(() => {
+    session.startTransaction();
+    return User.findOne({ name: 'foo' }).session(session).exec();
+  }).
+  then(() => {
+    session.commitTransaction();
+    return User.findOne({ name: 'bar' }).exec();
+  }).
+  catch(() => {
+    session.abortTransaction();
+  });
+  db.createCollection('Event').
+  then(() => db.startSession()).
+  then(_session => {
+    session = _session;
+    session.startTransaction();
+    return Event.insertMany([
+      { createdAt: new Date('2018-06-01') },
+      { createdAt: new Date('2018-06-02') },
+      { createdAt: new Date('2017-06-01') },
+      { createdAt: new Date('2017-05-31') }
+    ], { session: session });
+  }).
+  then(() => Event.aggregate([
+    {
+      $group: {
+        _id: {
+          month: { $month: '$createdAt' },
+          year: { $year: '$createdAt' }
+        },
+        count: { $sum: 1 }
+      }
+    },
+    { $sort: { count: -1, '_id.year': -1, '_id.month': -1 } }
+  ]).session(session).exec()).
+  then((res: any) => {
+    session.commitTransaction();
+  });

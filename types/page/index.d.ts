@@ -1,4 +1,4 @@
-// Type definitions for page v1.5.0
+// Type definitions for page v1.8.6
 // Project: http://visionmedia.github.io/page.js/
 // Definitions by: Alan Norbauer <http://alan.norbauer.com/>
 //                 James Garbutt <https://github.com/43081j>
@@ -285,8 +285,8 @@ declare namespace PageJS {
 }
 
 declare module "page" {
-    var page: PageJS.Static;
-    export = page;
+    const page: PageJS.Static;
+    export default page;
 }
 
 declare var page: PageJS.Static;

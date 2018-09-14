@@ -8,6 +8,7 @@
 //                 Brian Houser <https://github.com/bhouser>,
 //                 Krister Kari <https://github.com/kristerkari>
 //                 Martin Raedlinger <https://github.com/formatlos>
+//                 Kanitkorn Sujautra <https://github.com/lukyth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -94,6 +95,7 @@ declare namespace ReactIntl {
 
         interface Props extends PropsBase {
             value: DateSource;
+            children?: (formattedDate: string) => React.ReactNode;
         }
     }
 
@@ -104,6 +106,7 @@ declare namespace ReactIntl {
 
         interface Props extends PropsBase {
             value: DateSource;
+            children?: (formattedTime: string) => React.ReactNode;
         }
     }
     class FormattedTime extends React.Component<FormattedTime.Props> { }
@@ -125,6 +128,7 @@ declare namespace ReactIntl {
 
         interface Props extends PropsBase {
             value: DateSource;
+            children?: (formattedRelative: string) => React.ReactNode;
         }
     }
 
@@ -154,6 +158,7 @@ declare namespace ReactIntl {
 
         interface Props extends PropsBase {
             value: number;
+            children?: (formattedNumber: string) => React.ReactNode;
         }
     }
     class FormattedNumber extends React.Component<FormattedNumber.Props> { }
@@ -177,6 +182,7 @@ declare namespace ReactIntl {
 
         interface Props extends PropsBase {
             value: number;
+            children?: (formattedPlural: React.ReactNode) => React.ReactNode;
         }
     }
     class FormattedPlural extends React.Component<FormattedPlural.Props> { }

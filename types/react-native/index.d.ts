@@ -31,6 +31,7 @@
 /// <reference path="legacy-properties.d.ts" />
 /// <reference path="BatchedBridge.d.ts" />
 
+import * as PropTypes from 'prop-types';
 import * as React from 'react';
 
 type Constructor<T> = new(...args: any[]) => T;
@@ -2179,7 +2180,7 @@ export interface WebViewIOSLoadRequestEvent {
     loading: boolean;
     title: string;
     canGoForward: boolean;
-    navigationType: "other" | "click";
+    navigationType: "click" | "formsubmit" | "backforward" | "reload" | "formresubmit" | "other";
     url: string;
 }
 
@@ -2252,7 +2253,7 @@ export interface WebViewUriSource {
      * The HTTP Method to use. Defaults to GET if not specified.
      * NOTE: On Android, only GET and POST are supported.
      */
-    method?: string;
+    method?: "GET" | "POST";
 
     /*
      * Additional HTTP headers to send with the request.
@@ -8465,8 +8466,8 @@ export namespace Animated {
     export function parallel(animations: Array<CompositeAnimation>, config?: ParallelConfig): CompositeAnimation;
 
     type Mapping = { [key: string]: Mapping } | AnimatedValue;
-    interface EventConfig {
-        listener?: ValueListenerCallback;
+    interface EventConfig<T> {
+        listener?: (event?: NativeSyntheticEvent<T>) => void;
         useNativeDriver?: boolean;
     }
 
@@ -8486,7 +8487,7 @@ export namespace Animated {
      *  ]),
      *```
      */
-    export function event(argMapping: Array<Mapping | null>, config?: EventConfig): (...args: any[]) => void;
+    export function event<T>(argMapping: Array<Mapping | null>, config?: EventConfig<T>): (...args: any[]) => void;
 
     /**
      * Make any React component Animatable.  Used to create `Animated.View`, etc.
@@ -8936,7 +8937,7 @@ export const PixelRatio: PixelRatioStatic;
 export interface ComponentInterface<P> {
     name?: string;
     displayName?: string;
-    propTypes: P;
+    propTypes: PropTypes.ValidationMap<P>;
 }
 
 /**
@@ -8958,7 +8959,7 @@ export function requireNativeComponent<P>(
     viewName: string,
     componentInterface?: ComponentInterface<P>,
     extraConfig?: { nativeOnly?: any }
-): React.ComponentClass<P>;
+): React.ComponentClass<PropTypes.InferProps<PropTypes.ValidationMap<P>>>;
 
 export function findNodeHandle(
     componentOrHandle: null | number | React.Component<any, any> | React.ComponentClass<any>
@@ -9001,10 +9002,10 @@ export namespace addons {
 //
 // Prop Types
 //
-export const ColorPropType: React.Requireable<any>;
-export const EdgeInsetsPropType: React.Requireable<any>;
-export const PointPropType: React.Requireable<any>;
-export const ViewPropTypes: React.Requireable<any>;
+export const ColorPropType: React.Validator<string>;
+export const EdgeInsetsPropType: React.Validator<Insets>;
+export const PointPropType: React.Validator<PointPropType>;
+export const ViewPropTypes: React.ValidationMap<ViewProps>;
 
 declare global {
     function require(name: string): any;

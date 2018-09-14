@@ -23,6 +23,7 @@
 //                 Jake <https://github.com/jakebooyah>
 //                 Gustavo Brunoro <https://github.com/brunoro>
 //                 Denis Frezzato <https://github.com/DenisFrezzato>
+//                 Mickael Wegerich <https://github.com/mickaelw>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -457,10 +458,16 @@ export type NavigationTabAction =
   | NavigationNavigateAction
   | NavigationBackAction;
 
+export type NavigationDrawerAction =
+  | NavigationOpenDrawerAction
+  | NavigationCloseDrawerAction
+  | NavigationToggleDrawerAction;
+
 export type NavigationAction =
   | NavigationInitAction
   | NavigationStackAction
-  | NavigationTabAction;
+  | NavigationTabAction
+  | NavigationDrawerAction;
 
 export type NavigationRouteConfig =
   | NavigationComponent
@@ -600,7 +607,7 @@ export interface NavigationEventsProps extends ViewProps {
 export const NavigationEvents: React.ComponentType<NavigationEventsProps>;
 
 export interface NavigationScreenProp<S, P = NavigationParams> {
-  state: S;
+  state: S & { params?: P };
   dispatch: NavigationDispatch;
   goBack: (routeKey?: string | null) => boolean;
   dismiss: () => boolean;
