@@ -475,7 +475,8 @@ export interface ConnectOptions {
     video?: boolean | CreateLocalTrackOptions;
 }
 export interface CreateLocalTrackOptions {
-    logLevel: LogLevel | LogLevels;
+    // In API reference logLevel is not optional, but in the Twilio examples it is
+    logLevel?: LogLevel | LogLevels;
     name?: string;
     workaroundWebKitBug180748?: boolean;
 }
