@@ -379,7 +379,6 @@ declare namespace NodeJS {
  * @deprecated
  */
 interface NodeBuffer {
-    constructor: typeof NodeBuffer;
     [index: number]: number;
     write(string: string, offset?: number, length?: number, encoding?: string): number;
     toString(encoding?: string, start?: number, end?: number): string;

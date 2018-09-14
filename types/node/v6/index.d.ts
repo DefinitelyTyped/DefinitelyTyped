@@ -622,7 +622,6 @@ interface IterableIterator<T> { }
  * @deprecated
  */
 interface NodeBuffer extends Uint8Array {
-    constructor: typeof NodeBuffer;
     write(string: string, offset?: number, length?: number, encoding?: string): number;
     toString(encoding?: string, start?: number, end?: number): string;
     toJSON(): { type: 'Buffer', data: any[] };
