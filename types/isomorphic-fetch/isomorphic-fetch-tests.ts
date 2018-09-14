@@ -40,9 +40,9 @@ function test_whatwgTestCases_ambient() {
     let requestOptions: RequestInit = {
         method: "POST",
         headers,
-        mode: 'same-origin',
-        credentials: 'omit',
-        cache: 'default'
+        // mode: 'same-origin',
+        // credentials: 'omit',
+        // cache: 'default'
     };
 
     expectSuccess(fetch('http://localhost:3000/poster', requestOptions), 'Post response:');
@@ -73,9 +73,9 @@ function test_whatwgTestCases_commonjs() {
     let requestOptions: RequestInit = {
         method: "POST",
         headers,
-        mode: 'same-origin',
-        credentials: 'omit',
-        cache: 'default'
+        // mode: 'same-origin',
+        // credentials: 'omit',
+        // cache: 'default'
     };
 
     expectSuccess(fetchImportedViaCommonJS('http://localhost:3000/poster', requestOptions), 'Post response:');
@@ -106,9 +106,9 @@ function test_whatwgTestCases_es6() {
     let requestOptions: RequestInit = {
         method: "POST",
         headers,
-        mode: 'same-origin',
-        credentials: 'omit',
-        cache: 'default'
+        // mode: 'same-origin',
+        // credentials: 'omit',
+        // cache: 'default'
     };
 
     expectSuccess(fetchImportedViaES6Module('http://localhost:3000/poster', requestOptions), 'Post response:');
