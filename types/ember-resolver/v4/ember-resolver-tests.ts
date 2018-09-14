@@ -1,4 +1,4 @@
-import Application from '@ember/application';
+import Ember from 'ember';
 import EmberResolver from 'ember-resolver';
 
 const MyResolver = EmberResolver.extend({
@@ -7,6 +7,6 @@ const MyResolver = EmberResolver.extend({
     }
 });
 
-const App = Application.extend({
+const App = Ember.Application.extend({
     Resolver: MyResolver
 });
