@@ -7669,215 +7669,232 @@ declare module "http2" {
 
     // Public API
 
-    export namespace constants {
-        export const NGHTTP2_SESSION_SERVER: number;
-        export const NGHTTP2_SESSION_CLIENT: number;
-        export const NGHTTP2_STREAM_STATE_IDLE: number;
-        export const NGHTTP2_STREAM_STATE_OPEN: number;
-        export const NGHTTP2_STREAM_STATE_RESERVED_LOCAL: number;
-        export const NGHTTP2_STREAM_STATE_RESERVED_REMOTE: number;
-        export const NGHTTP2_STREAM_STATE_HALF_CLOSED_LOCAL: number;
-        export const NGHTTP2_STREAM_STATE_HALF_CLOSED_REMOTE: number;
-        export const NGHTTP2_STREAM_STATE_CLOSED: number;
-        export const NGHTTP2_NO_ERROR: number;
-        export const NGHTTP2_PROTOCOL_ERROR: number;
-        export const NGHTTP2_INTERNAL_ERROR: number;
-        export const NGHTTP2_FLOW_CONTROL_ERROR: number;
-        export const NGHTTP2_SETTINGS_TIMEOUT: number;
-        export const NGHTTP2_STREAM_CLOSED: number;
-        export const NGHTTP2_FRAME_SIZE_ERROR: number;
-        export const NGHTTP2_REFUSED_STREAM: number;
-        export const NGHTTP2_CANCEL: number;
-        export const NGHTTP2_COMPRESSION_ERROR: number;
-        export const NGHTTP2_CONNECT_ERROR: number;
-        export const NGHTTP2_ENHANCE_YOUR_CALM: number;
-        export const NGHTTP2_INADEQUATE_SECURITY: number;
-        export const NGHTTP2_HTTP_1_1_REQUIRED: number;
-        export const NGHTTP2_ERR_FRAME_SIZE_ERROR: number;
-        export const NGHTTP2_FLAG_NONE: number;
-        export const NGHTTP2_FLAG_END_STREAM: number;
-        export const NGHTTP2_FLAG_END_HEADERS: number;
-        export const NGHTTP2_FLAG_ACK: number;
-        export const NGHTTP2_FLAG_PADDED: number;
-        export const NGHTTP2_FLAG_PRIORITY: number;
-        export const DEFAULT_SETTINGS_HEADER_TABLE_SIZE: number;
-        export const DEFAULT_SETTINGS_ENABLE_PUSH: number;
-        export const DEFAULT_SETTINGS_INITIAL_WINDOW_SIZE: number;
-        export const DEFAULT_SETTINGS_MAX_FRAME_SIZE: number;
-        export const MAX_MAX_FRAME_SIZE: number;
-        export const MIN_MAX_FRAME_SIZE: number;
-        export const MAX_INITIAL_WINDOW_SIZE: number;
-        export const NGHTTP2_DEFAULT_WEIGHT: number;
-        export const NGHTTP2_SETTINGS_HEADER_TABLE_SIZE: number;
-        export const NGHTTP2_SETTINGS_ENABLE_PUSH: number;
-        export const NGHTTP2_SETTINGS_MAX_CONCURRENT_STREAMS: number;
-        export const NGHTTP2_SETTINGS_INITIAL_WINDOW_SIZE: number;
-        export const NGHTTP2_SETTINGS_MAX_FRAME_SIZE: number;
-        export const NGHTTP2_SETTINGS_MAX_HEADER_LIST_SIZE: number;
-        export const PADDING_STRATEGY_NONE: number;
-        export const PADDING_STRATEGY_MAX: number;
-        export const PADDING_STRATEGY_CALLBACK: number;
-        export const HTTP2_HEADER_STATUS: string;
-        export const HTTP2_HEADER_METHOD: string;
-        export const HTTP2_HEADER_AUTHORITY: string;
-        export const HTTP2_HEADER_SCHEME: string;
-        export const HTTP2_HEADER_PATH: string;
-        export const HTTP2_HEADER_ACCEPT_CHARSET: string;
-        export const HTTP2_HEADER_ACCEPT_ENCODING: string;
-        export const HTTP2_HEADER_ACCEPT_LANGUAGE: string;
-        export const HTTP2_HEADER_ACCEPT_RANGES: string;
-        export const HTTP2_HEADER_ACCEPT: string;
-        export const HTTP2_HEADER_ACCESS_CONTROL_ALLOW_ORIGIN: string;
-        export const HTTP2_HEADER_AGE: string;
-        export const HTTP2_HEADER_ALLOW: string;
-        export const HTTP2_HEADER_AUTHORIZATION: string;
-        export const HTTP2_HEADER_CACHE_CONTROL: string;
-        export const HTTP2_HEADER_CONNECTION: string;
-        export const HTTP2_HEADER_CONTENT_DISPOSITION: string;
-        export const HTTP2_HEADER_CONTENT_ENCODING: string;
-        export const HTTP2_HEADER_CONTENT_LANGUAGE: string;
-        export const HTTP2_HEADER_CONTENT_LENGTH: string;
-        export const HTTP2_HEADER_CONTENT_LOCATION: string;
-        export const HTTP2_HEADER_CONTENT_MD5: string;
-        export const HTTP2_HEADER_CONTENT_RANGE: string;
-        export const HTTP2_HEADER_CONTENT_TYPE: string;
-        export const HTTP2_HEADER_COOKIE: string;
-        export const HTTP2_HEADER_DATE: string;
-        export const HTTP2_HEADER_ETAG: string;
-        export const HTTP2_HEADER_EXPECT: string;
-        export const HTTP2_HEADER_EXPIRES: string;
-        export const HTTP2_HEADER_FROM: string;
-        export const HTTP2_HEADER_HOST: string;
-        export const HTTP2_HEADER_IF_MATCH: string;
-        export const HTTP2_HEADER_IF_MODIFIED_SINCE: string;
-        export const HTTP2_HEADER_IF_NONE_MATCH: string;
-        export const HTTP2_HEADER_IF_RANGE: string;
-        export const HTTP2_HEADER_IF_UNMODIFIED_SINCE: string;
-        export const HTTP2_HEADER_LAST_MODIFIED: string;
-        export const HTTP2_HEADER_LINK: string;
-        export const HTTP2_HEADER_LOCATION: string;
-        export const HTTP2_HEADER_MAX_FORWARDS: string;
-        export const HTTP2_HEADER_PREFER: string;
-        export const HTTP2_HEADER_PROXY_AUTHENTICATE: string;
-        export const HTTP2_HEADER_PROXY_AUTHORIZATION: string;
-        export const HTTP2_HEADER_RANGE: string;
-        export const HTTP2_HEADER_REFERER: string;
-        export const HTTP2_HEADER_REFRESH: string;
-        export const HTTP2_HEADER_RETRY_AFTER: string;
-        export const HTTP2_HEADER_SERVER: string;
-        export const HTTP2_HEADER_SET_COOKIE: string;
-        export const HTTP2_HEADER_STRICT_TRANSPORT_SECURITY: string;
-        export const HTTP2_HEADER_TRANSFER_ENCODING: string;
-        export const HTTP2_HEADER_TE: string;
-        export const HTTP2_HEADER_UPGRADE: string;
-        export const HTTP2_HEADER_USER_AGENT: string;
-        export const HTTP2_HEADER_VARY: string;
-        export const HTTP2_HEADER_VIA: string;
-        export const HTTP2_HEADER_WWW_AUTHENTICATE: string;
-        export const HTTP2_HEADER_HTTP2_SETTINGS: string;
-        export const HTTP2_HEADER_KEEP_ALIVE: string;
-        export const HTTP2_HEADER_PROXY_CONNECTION: string;
-        export const HTTP2_METHOD_ACL: string;
-        export const HTTP2_METHOD_BASELINE_CONTROL: string;
-        export const HTTP2_METHOD_BIND: string;
-        export const HTTP2_METHOD_CHECKIN: string;
-        export const HTTP2_METHOD_CHECKOUT: string;
-        export const HTTP2_METHOD_CONNECT: string;
-        export const HTTP2_METHOD_COPY: string;
-        export const HTTP2_METHOD_DELETE: string;
-        export const HTTP2_METHOD_GET: string;
-        export const HTTP2_METHOD_HEAD: string;
-        export const HTTP2_METHOD_LABEL: string;
-        export const HTTP2_METHOD_LINK: string;
-        export const HTTP2_METHOD_LOCK: string;
-        export const HTTP2_METHOD_MERGE: string;
-        export const HTTP2_METHOD_MKACTIVITY: string;
-        export const HTTP2_METHOD_MKCALENDAR: string;
-        export const HTTP2_METHOD_MKCOL: string;
-        export const HTTP2_METHOD_MKREDIRECTREF: string;
-        export const HTTP2_METHOD_MKWORKSPACE: string;
-        export const HTTP2_METHOD_MOVE: string;
-        export const HTTP2_METHOD_OPTIONS: string;
-        export const HTTP2_METHOD_ORDERPATCH: string;
-        export const HTTP2_METHOD_PATCH: string;
-        export const HTTP2_METHOD_POST: string;
-        export const HTTP2_METHOD_PRI: string;
-        export const HTTP2_METHOD_PROPFIND: string;
-        export const HTTP2_METHOD_PROPPATCH: string;
-        export const HTTP2_METHOD_PUT: string;
-        export const HTTP2_METHOD_REBIND: string;
-        export const HTTP2_METHOD_REPORT: string;
-        export const HTTP2_METHOD_SEARCH: string;
-        export const HTTP2_METHOD_TRACE: string;
-        export const HTTP2_METHOD_UNBIND: string;
-        export const HTTP2_METHOD_UNCHECKOUT: string;
-        export const HTTP2_METHOD_UNLINK: string;
-        export const HTTP2_METHOD_UNLOCK: string;
-        export const HTTP2_METHOD_UPDATE: string;
-        export const HTTP2_METHOD_UPDATEREDIRECTREF: string;
-        export const HTTP2_METHOD_VERSION_CONTROL: string;
-        export const HTTP_STATUS_CONTINUE: number;
-        export const HTTP_STATUS_SWITCHING_PROTOCOLS: number;
-        export const HTTP_STATUS_PROCESSING: number;
-        export const HTTP_STATUS_OK: number;
-        export const HTTP_STATUS_CREATED: number;
-        export const HTTP_STATUS_ACCEPTED: number;
-        export const HTTP_STATUS_NON_AUTHORITATIVE_INFORMATION: number;
-        export const HTTP_STATUS_NO_CONTENT: number;
-        export const HTTP_STATUS_RESET_CONTENT: number;
-        export const HTTP_STATUS_PARTIAL_CONTENT: number;
-        export const HTTP_STATUS_MULTI_STATUS: number;
-        export const HTTP_STATUS_ALREADY_REPORTED: number;
-        export const HTTP_STATUS_IM_USED: number;
-        export const HTTP_STATUS_MULTIPLE_CHOICES: number;
-        export const HTTP_STATUS_MOVED_PERMANENTLY: number;
-        export const HTTP_STATUS_FOUND: number;
-        export const HTTP_STATUS_SEE_OTHER: number;
-        export const HTTP_STATUS_NOT_MODIFIED: number;
-        export const HTTP_STATUS_USE_PROXY: number;
-        export const HTTP_STATUS_TEMPORARY_REDIRECT: number;
-        export const HTTP_STATUS_PERMANENT_REDIRECT: number;
-        export const HTTP_STATUS_BAD_REQUEST: number;
-        export const HTTP_STATUS_UNAUTHORIZED: number;
-        export const HTTP_STATUS_PAYMENT_REQUIRED: number;
-        export const HTTP_STATUS_FORBIDDEN: number;
-        export const HTTP_STATUS_NOT_FOUND: number;
-        export const HTTP_STATUS_METHOD_NOT_ALLOWED: number;
-        export const HTTP_STATUS_NOT_ACCEPTABLE: number;
-        export const HTTP_STATUS_PROXY_AUTHENTICATION_REQUIRED: number;
-        export const HTTP_STATUS_REQUEST_TIMEOUT: number;
-        export const HTTP_STATUS_CONFLICT: number;
-        export const HTTP_STATUS_GONE: number;
-        export const HTTP_STATUS_LENGTH_REQUIRED: number;
-        export const HTTP_STATUS_PRECONDITION_FAILED: number;
-        export const HTTP_STATUS_PAYLOAD_TOO_LARGE: number;
-        export const HTTP_STATUS_URI_TOO_LONG: number;
-        export const HTTP_STATUS_UNSUPPORTED_MEDIA_TYPE: number;
-        export const HTTP_STATUS_RANGE_NOT_SATISFIABLE: number;
-        export const HTTP_STATUS_EXPECTATION_FAILED: number;
-        export const HTTP_STATUS_TEAPOT: number;
-        export const HTTP_STATUS_MISDIRECTED_REQUEST: number;
-        export const HTTP_STATUS_UNPROCESSABLE_ENTITY: number;
-        export const HTTP_STATUS_LOCKED: number;
-        export const HTTP_STATUS_FAILED_DEPENDENCY: number;
-        export const HTTP_STATUS_UNORDERED_COLLECTION: number;
-        export const HTTP_STATUS_UPGRADE_REQUIRED: number;
-        export const HTTP_STATUS_PRECONDITION_REQUIRED: number;
-        export const HTTP_STATUS_TOO_MANY_REQUESTS: number;
-        export const HTTP_STATUS_REQUEST_HEADER_FIELDS_TOO_LARGE: number;
-        export const HTTP_STATUS_UNAVAILABLE_FOR_LEGAL_REASONS: number;
-        export const HTTP_STATUS_INTERNAL_SERVER_ERROR: number;
-        export const HTTP_STATUS_NOT_IMPLEMENTED: number;
-        export const HTTP_STATUS_BAD_GATEWAY: number;
-        export const HTTP_STATUS_SERVICE_UNAVAILABLE: number;
-        export const HTTP_STATUS_GATEWAY_TIMEOUT: number;
-        export const HTTP_STATUS_HTTP_VERSION_NOT_SUPPORTED: number;
-        export const HTTP_STATUS_VARIANT_ALSO_NEGOTIATES: number;
-        export const HTTP_STATUS_INSUFFICIENT_STORAGE: number;
-        export const HTTP_STATUS_LOOP_DETECTED: number;
-        export const HTTP_STATUS_BANDWIDTH_LIMIT_EXCEEDED: number;
-        export const HTTP_STATUS_NOT_EXTENDED: number;
-        export const HTTP_STATUS_NETWORK_AUTHENTICATION_REQUIRED: number;
+    export declare const enum constants {
+        NGHTTP2_SESSION_SERVER = 0,
+        NGHTTP2_SESSION_CLIENT = 1,
+        NGHTTP2_STREAM_STATE_IDLE = 1,
+        NGHTTP2_STREAM_STATE_OPEN = 2,
+        NGHTTP2_STREAM_STATE_RESERVED_LOCAL = 3,
+        NGHTTP2_STREAM_STATE_RESERVED_REMOTE = 4,
+        NGHTTP2_STREAM_STATE_HALF_CLOSED_LOCAL = 5,
+        NGHTTP2_STREAM_STATE_HALF_CLOSED_REMOTE = 6,
+        NGHTTP2_STREAM_STATE_CLOSED = 7,
+        NGHTTP2_NO_ERROR = 0,
+        NGHTTP2_PROTOCOL_ERROR = 1,
+        NGHTTP2_INTERNAL_ERROR = 2,
+        NGHTTP2_FLOW_CONTROL_ERROR = 3,
+        NGHTTP2_SETTINGS_TIMEOUT = 4,
+        NGHTTP2_STREAM_CLOSED = 5,
+        NGHTTP2_FRAME_SIZE_ERROR = 6,
+        NGHTTP2_REFUSED_STREAM = 7,
+        NGHTTP2_CANCEL = 8,
+        NGHTTP2_COMPRESSION_ERROR = 9,
+        NGHTTP2_CONNECT_ERROR = 10,
+        NGHTTP2_ENHANCE_YOUR_CALM = 11,
+        NGHTTP2_INADEQUATE_SECURITY = 12,
+        NGHTTP2_HTTP_1_1_REQUIRED = 13,
+        NGHTTP2_ERR_FRAME_SIZE_ERROR = -522,
+        NGHTTP2_FLAG_NONE = 0,
+        NGHTTP2_FLAG_END_STREAM = 1,
+        NGHTTP2_FLAG_END_HEADERS = 4,
+        NGHTTP2_FLAG_ACK = 1,
+        NGHTTP2_FLAG_PADDED = 8,
+        NGHTTP2_FLAG_PRIORITY = 32,
+        DEFAULT_SETTINGS_HEADER_TABLE_SIZE = 4096,
+        DEFAULT_SETTINGS_ENABLE_PUSH = 1,
+        DEFAULT_SETTINGS_INITIAL_WINDOW_SIZE = 65535,
+        DEFAULT_SETTINGS_MAX_FRAME_SIZE = 16384,
+        MAX_MAX_FRAME_SIZE = 16777215,
+        MIN_MAX_FRAME_SIZE = 16384,
+        MAX_INITIAL_WINDOW_SIZE = 2147483647,
+        NGHTTP2_DEFAULT_WEIGHT = 16,
+        NGHTTP2_SETTINGS_HEADER_TABLE_SIZE = 1,
+        NGHTTP2_SETTINGS_ENABLE_PUSH = 2,
+        NGHTTP2_SETTINGS_MAX_CONCURRENT_STREAMS = 3,
+        NGHTTP2_SETTINGS_INITIAL_WINDOW_SIZE = 4,
+        NGHTTP2_SETTINGS_MAX_FRAME_SIZE = 5,
+        NGHTTP2_SETTINGS_MAX_HEADER_LIST_SIZE = 6,
+        PADDING_STRATEGY_NONE = 0,
+        PADDING_STRATEGY_ALIGNED = 1,
+        PADDING_STRATEGY_MAX = 2,
+        PADDING_STRATEGY_CALLBACK = 3,
+        HTTP2_HEADER_STATUS = ":status",
+        HTTP2_HEADER_METHOD = ":method",
+        HTTP2_HEADER_AUTHORITY = ":authority",
+        HTTP2_HEADER_SCHEME = ":scheme",
+        HTTP2_HEADER_PATH = ":path",
+        HTTP2_HEADER_ACCEPT_CHARSET = "accept-charset",
+        HTTP2_HEADER_ACCEPT_ENCODING = "accept-encoding",
+        HTTP2_HEADER_ACCEPT_LANGUAGE = "accept-language",
+        HTTP2_HEADER_ACCEPT_RANGES = "accept-ranges",
+        HTTP2_HEADER_ACCEPT = "accept",
+        HTTP2_HEADER_ACCESS_CONTROL_ALLOW_CREDENTIALS = "access-control-allow-credentials",
+        HTTP2_HEADER_ACCESS_CONTROL_ALLOW_HEADERS = "access-control-allow-headers",
+        HTTP2_HEADER_ACCESS_CONTROL_ALLOW_METHODS = "access-control-allow-methods",
+        HTTP2_HEADER_ACCESS_CONTROL_ALLOW_ORIGIN = "access-control-allow-origin",
+        HTTP2_HEADER_ACCESS_CONTROL_EXPOSE_HEADERS = "access-control-expose-headers",
+        HTTP2_HEADER_ACCESS_CONTROL_MAX_AGE = "access-control-max-age",
+        HTTP2_HEADER_ACCESS_CONTROL_REQUEST_HEADERS = "access-control-request-headers",
+        HTTP2_HEADER_ACCESS_CONTROL_REQUEST_METHOD = "access-control-request-method",
+        HTTP2_HEADER_AGE = "age",
+        HTTP2_HEADER_ALLOW = "allow",
+        HTTP2_HEADER_AUTHORIZATION = "authorization",
+        HTTP2_HEADER_CACHE_CONTROL = "cache-control",
+        HTTP2_HEADER_CONNECTION = "connection",
+        HTTP2_HEADER_CONTENT_DISPOSITION = "content-disposition",
+        HTTP2_HEADER_CONTENT_ENCODING = "content-encoding",
+        HTTP2_HEADER_CONTENT_LANGUAGE = "content-language",
+        HTTP2_HEADER_CONTENT_LENGTH = "content-length",
+        HTTP2_HEADER_CONTENT_LOCATION = "content-location",
+        HTTP2_HEADER_CONTENT_MD5 = "content-md5",
+        HTTP2_HEADER_CONTENT_RANGE = "content-range",
+        HTTP2_HEADER_CONTENT_TYPE = "content-type",
+        HTTP2_HEADER_COOKIE = "cookie",
+        HTTP2_HEADER_DATE = "date",
+        HTTP2_HEADER_DNT = "dnt",
+        HTTP2_HEADER_ETAG = "etag",
+        HTTP2_HEADER_EXPECT = "expect",
+        HTTP2_HEADER_EXPIRES = "expires",
+        HTTP2_HEADER_FORWARDED = "forwarded",
+        HTTP2_HEADER_FROM = "from",
+        HTTP2_HEADER_HOST = "host",
+        HTTP2_HEADER_IF_MATCH = "if-match",
+        HTTP2_HEADER_IF_MODIFIED_SINCE = "if-modified-since",
+        HTTP2_HEADER_IF_NONE_MATCH = "if-none-match",
+        HTTP2_HEADER_IF_RANGE = "if-range",
+        HTTP2_HEADER_IF_UNMODIFIED_SINCE = "if-unmodified-since",
+        HTTP2_HEADER_LAST_MODIFIED = "last-modified",
+        HTTP2_HEADER_LINK = "link",
+        HTTP2_HEADER_LOCATION = "location",
+        HTTP2_HEADER_MAX_FORWARDS = "max-forwards",
+        HTTP2_HEADER_PREFER = "prefer",
+        HTTP2_HEADER_PROXY_AUTHENTICATE = "proxy-authenticate",
+        HTTP2_HEADER_PROXY_AUTHORIZATION = "proxy-authorization",
+        HTTP2_HEADER_RANGE = "range",
+        HTTP2_HEADER_REFERER = "referer",
+        HTTP2_HEADER_REFRESH = "refresh",
+        HTTP2_HEADER_RETRY_AFTER = "retry-after",
+        HTTP2_HEADER_SERVER = "server",
+        HTTP2_HEADER_SET_COOKIE = "set-cookie",
+        HTTP2_HEADER_STRICT_TRANSPORT_SECURITY = "strict-transport-security",
+        HTTP2_HEADER_TRAILER = "trailer",
+        HTTP2_HEADER_TRANSFER_ENCODING = "transfer-encoding",
+        HTTP2_HEADER_TE = "te",
+        HTTP2_HEADER_TK = "tk",
+        HTTP2_HEADER_UPGRADE_INSECURE_REQUESTS = "upgrade-insecure-requests",
+        HTTP2_HEADER_UPGRADE = "upgrade",
+        HTTP2_HEADER_USER_AGENT = "user-agent",
+        HTTP2_HEADER_VARY = "vary",
+        HTTP2_HEADER_VIA = "via",
+        HTTP2_HEADER_WARNING = "warning",
+        HTTP2_HEADER_WWW_AUTHENTICATE = "www-authenticate",
+        HTTP2_HEADER_X_CONTENT_TYPE_OPTIONS = "x-content-type-options",
+        HTTP2_HEADER_X_FRAME_OPTIONS = "x-frame-options",
+        HTTP2_HEADER_HTTP2_SETTINGS = "http2-settings",
+        HTTP2_HEADER_KEEP_ALIVE = "keep-alive",
+        HTTP2_HEADER_PROXY_CONNECTION = "proxy-connection",
+        HTTP2_METHOD_ACL = "ACL",
+        HTTP2_METHOD_BASELINE_CONTROL = "BASELINE-CONTROL",
+        HTTP2_METHOD_BIND = "BIND",
+        HTTP2_METHOD_CHECKIN = "CHECKIN",
+        HTTP2_METHOD_CHECKOUT = "CHECKOUT",
+        HTTP2_METHOD_CONNECT = "CONNECT",
+        HTTP2_METHOD_COPY = "COPY",
+        HTTP2_METHOD_DELETE = "DELETE",
+        HTTP2_METHOD_GET = "GET",
+        HTTP2_METHOD_HEAD = "HEAD",
+        HTTP2_METHOD_LABEL = "LABEL",
+        HTTP2_METHOD_LINK = "LINK",
+        HTTP2_METHOD_LOCK = "LOCK",
+        HTTP2_METHOD_MERGE = "MERGE",
+        HTTP2_METHOD_MKACTIVITY = "MKACTIVITY",
+        HTTP2_METHOD_MKCALENDAR = "MKCALENDAR",
+        HTTP2_METHOD_MKCOL = "MKCOL",
+        HTTP2_METHOD_MKREDIRECTREF = "MKREDIRECTREF",
+        HTTP2_METHOD_MKWORKSPACE = "MKWORKSPACE",
+        HTTP2_METHOD_MOVE = "MOVE",
+        HTTP2_METHOD_OPTIONS = "OPTIONS",
+        HTTP2_METHOD_ORDERPATCH = "ORDERPATCH",
+        HTTP2_METHOD_PATCH = "PATCH",
+        HTTP2_METHOD_POST = "POST",
+        HTTP2_METHOD_PRI = "PRI",
+        HTTP2_METHOD_PROPFIND = "PROPFIND",
+        HTTP2_METHOD_PROPPATCH = "PROPPATCH",
+        HTTP2_METHOD_PUT = "PUT",
+        HTTP2_METHOD_REBIND = "REBIND",
+        HTTP2_METHOD_REPORT = "REPORT",
+        HTTP2_METHOD_SEARCH = "SEARCH",
+        HTTP2_METHOD_TRACE = "TRACE",
+        HTTP2_METHOD_UNBIND = "UNBIND",
+        HTTP2_METHOD_UNCHECKOUT = "UNCHECKOUT",
+        HTTP2_METHOD_UNLINK = "UNLINK",
+        HTTP2_METHOD_UNLOCK = "UNLOCK",
+        HTTP2_METHOD_UPDATE = "UPDATE",
+        HTTP2_METHOD_UPDATEREDIRECTREF = "UPDATEREDIRECTREF",
+        HTTP2_METHOD_VERSION_CONTROL = "VERSION-CONTROL",
+        HTTP_STATUS_CONTINUE = 100,
+        HTTP_STATUS_SWITCHING_PROTOCOLS = 101,
+        HTTP_STATUS_PROCESSING = 102,
+        HTTP_STATUS_EARLY_HINTS = 103,
+        HTTP_STATUS_OK = 200,
+        HTTP_STATUS_CREATED = 201,
+        HTTP_STATUS_ACCEPTED = 202,
+        HTTP_STATUS_NON_AUTHORITATIVE_INFORMATION = 203,
+        HTTP_STATUS_NO_CONTENT = 204,
+        HTTP_STATUS_RESET_CONTENT = 205,
+        HTTP_STATUS_PARTIAL_CONTENT = 206,
+        HTTP_STATUS_MULTI_STATUS = 207,
+        HTTP_STATUS_ALREADY_REPORTED = 208,
+        HTTP_STATUS_IM_USED = 226,
+        HTTP_STATUS_MULTIPLE_CHOICES = 300,
+        HTTP_STATUS_MOVED_PERMANENTLY = 301,
+        HTTP_STATUS_FOUND = 302,
+        HTTP_STATUS_SEE_OTHER = 303,
+        HTTP_STATUS_NOT_MODIFIED = 304,
+        HTTP_STATUS_USE_PROXY = 305,
+        HTTP_STATUS_TEMPORARY_REDIRECT = 307,
+        HTTP_STATUS_PERMANENT_REDIRECT = 308,
+        HTTP_STATUS_BAD_REQUEST = 400,
+        HTTP_STATUS_UNAUTHORIZED = 401,
+        HTTP_STATUS_PAYMENT_REQUIRED = 402,
+        HTTP_STATUS_FORBIDDEN = 403,
+        HTTP_STATUS_NOT_FOUND = 404,
+        HTTP_STATUS_METHOD_NOT_ALLOWED = 405,
+        HTTP_STATUS_NOT_ACCEPTABLE = 406,
+        HTTP_STATUS_PROXY_AUTHENTICATION_REQUIRED = 407,
+        HTTP_STATUS_REQUEST_TIMEOUT = 408,
+        HTTP_STATUS_CONFLICT = 409,
+        HTTP_STATUS_GONE = 410,
+        HTTP_STATUS_LENGTH_REQUIRED = 411,
+        HTTP_STATUS_PRECONDITION_FAILED = 412,
+        HTTP_STATUS_PAYLOAD_TOO_LARGE = 413,
+        HTTP_STATUS_URI_TOO_LONG = 414,
+        HTTP_STATUS_UNSUPPORTED_MEDIA_TYPE = 415,
+        HTTP_STATUS_RANGE_NOT_SATISFIABLE = 416,
+        HTTP_STATUS_EXPECTATION_FAILED = 417,
+        HTTP_STATUS_TEAPOT = 418,
+        HTTP_STATUS_MISDIRECTED_REQUEST = 421,
+        HTTP_STATUS_UNPROCESSABLE_ENTITY = 422,
+        HTTP_STATUS_LOCKED = 423,
+        HTTP_STATUS_FAILED_DEPENDENCY = 424,
+        HTTP_STATUS_UNORDERED_COLLECTION = 425,
+        HTTP_STATUS_UPGRADE_REQUIRED = 426,
+        HTTP_STATUS_PRECONDITION_REQUIRED = 428,
+        HTTP_STATUS_TOO_MANY_REQUESTS = 429,
+        HTTP_STATUS_REQUEST_HEADER_FIELDS_TOO_LARGE = 431,
+        HTTP_STATUS_UNAVAILABLE_FOR_LEGAL_REASONS = 451,
+        HTTP_STATUS_INTERNAL_SERVER_ERROR = 500,
+        HTTP_STATUS_NOT_IMPLEMENTED = 501,
+        HTTP_STATUS_BAD_GATEWAY = 502,
+        HTTP_STATUS_SERVICE_UNAVAILABLE = 503,
+        HTTP_STATUS_GATEWAY_TIMEOUT = 504,
+        HTTP_STATUS_HTTP_VERSION_NOT_SUPPORTED = 505,
+        HTTP_STATUS_VARIANT_ALSO_NEGOTIATES = 506,
+        HTTP_STATUS_INSUFFICIENT_STORAGE = 507,
+        HTTP_STATUS_LOOP_DETECTED = 508,
+        HTTP_STATUS_BANDWIDTH_LIMIT_EXCEEDED = 509,
+        HTTP_STATUS_NOT_EXTENDED = 510,
+        HTTP_STATUS_NETWORK_AUTHENTICATION_REQUIRED = 511
     }
 
     export function getDefaultSettings(): Settings;
