@@ -698,6 +698,8 @@ declare module "mongoose" {
         | "findOneAndRemove"
         | "findOneAndUpdate"
         | "update",
+        | "updateOne",
+        | "updateMany",
       fn: HookSyncCallback<T>,
       errorCb?: HookErrorCallback
     ): this;
@@ -731,6 +733,8 @@ declare module "mongoose" {
         | "findOneAndRemove"
         | "findOneAndUpdate"
         | "update",
+        | "updateOne",
+        | "updateMany",
       parallel: boolean,
       fn: HookAsyncCallback<T>,
       errorCb?: HookErrorCallback
