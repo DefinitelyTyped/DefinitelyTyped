@@ -11,13 +11,309 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace ValidatorJS {
-  type AlphaLocale = "ar" | "ar-AE" | "ar-BH" | "ar-DZ" | "ar-EG" | "ar-IQ" | "ar-JO" | "ar-KW" | "ar-LB" | "ar-LY" | "ar-MA" | "ar-QA" | "ar-QM" | "ar-SA" | "ar-SD" | "ar-SY" | "ar-TN" | "ar-YE" | "bg-BG" | "cs-CZ" | "da-DK" | "de-DE" | "el-GR" | "en-AU" | "en-GB" | "en-HK" | "en-IN" | "en-NZ" | "en-US" | "en-ZA" | "en-ZM" | "es-ES" | "fr-FR" | "hu-HU" | "it-IT" | "nb-NO" | "nl-NL" | "nn-NO" | "pl-PL" | "pt-BR" | "pt-PT" | "ru-RU" | "sk-SK" | "sr-RS" | "sr-RS@latin" | "sv-SE" | "tr-TR" | "uk-UA";
-  type AlphanumericLocale = "ar" | "ar-AE" | "ar-BH" | "ar-DZ" | "ar-EG" | "ar-IQ" | "ar-JO" | "ar-KW" | "ar-LB" | "ar-LY" | "ar-MA" | "ar-QA" | "ar-QM" | "ar-SA" | "ar-SD" | "ar-SY" | "ar-TN" | "ar-YE" | "bg-BG"| "cs-CZ" | "da-DK" | "de-DE" | "el-GR" | "en-AU" | "en-GB" | "en-HK" | "en-IN" | "en-NZ" | "en-US" | "en-ZA" | "en-ZM" | "es-ES" | "fr-FR" | "hu-HU" | "it-IT" | "nb-NO" | "nl-NL" | "nn-NO" | "pl-PL" | "pt-BR" | "pt-PT" | "ru-RU" | "sk-SK" | "sr-RS" | "sr-RS@latin" | "sv-SE" | "tr-TR" | "uk-UA";
-  type DecimalLocale = "ar" | "ar-AE" | "ar-BH" | "ar-DZ" | "ar-EG" | "ar-IQ" | "ar-JO" | "ar-KW" | "ar-LB" | "ar-LY" | "ar-MA" | "ar-QA" | "ar-QM" | "ar-SA" | "ar-SD" | "ar-SY" | "ar-TN" | "ar-YE" | "bg-BG" | "cs-CZ" | "da-DK" | "de-DE" | "en-AU" | "en-GB" | "en-HK" | "en-IN" | "en-NZ" | "en-US" | "en-ZA" | "en-ZM" | "es-ES" | "fr-FR" | "hu-HU" | "it-IT" | "nb-NO" | "nl-NL" | "nn-NO" | "pl-PL" | "pt-BR" | "pt-PT" | "ru-RU" | "sr-RS" | "sr-RS@latin" | "sv-SE" | "tr-TR" | "uk-UA";
-  type FloatLocale = "ar" | "ar-AE" | "ar-BH" | "ar-DZ" | "ar-EG" | "ar-IQ" | "ar-JO" | "ar-KW" | "ar-LB" | "ar-LY" | "ar-MA" | "ar-QA" | "ar-QM" | "ar-SA" | "ar-SD" | "ar-SY" | "ar-TN" | "ar-YE" | "bg-BG" | "cs-CZ" | "da-DK" | "de-DE" | "en-AU" | "en-GB" | "en-HK" | "en-IN" | "en-NZ" | "en-US" | "en-ZA" | "en-ZM" | "es-ES" | "fr-FR" | "hu-HU" | "it-IT" | "nb-NO" | "nl-NL" | "nn-NO" | "pl-PL" | "pt-BR" | "pt-PT" | "ru-RU" | "sr-RS" | "sr-RS@latin" | "sv-SE" | "tr-TR" | "uk-UA";
-  type MobilePhoneLocale = "ar-AE" | "ar-DZ" | "ar-EG" | "ar-JO" | "ar-SA" | "ar-SY" | "be-BY" | "bg-BG" | "cs-CZ" | "de-DE" | "da-DK" | "el-GR" | "en-AU" | "en-GB" | "en-HK" | "en-IN" | "en-KE" | "en-NG" | "en-NZ" | "en-UG" | "en-RW" | "en-SG" | "en-TZ" | "en-PK" | "en-US" | "en-CA" | "en-ZA" | "en-ZM" | "es-ES" | "fa-IR" | "fi-FI" | "fo-FO" | "fr-FR" | "he-IL" | "hu-HU" | "id-ID" | "it-IT" | "ja-JP" | "kk-KZ" | "kl-GL" | "ko-KR" | "lt-LT" | "ms-MY" | "nb-NO" | "nn-NO" | "pl-PL" | "pt-PT" | "ro-RO" | "ru-RU" | "sk-SK" | "sr-RS" | "th-TH" | "tr-TR" | "uk-UA" | "vi-VN" | "zh-CN" | "zh-HK" | "zh-TW" | "any";
-  type PostalCodeLocale = "AT" | "AU" | "BE" | "BG" | "CA" | "CH" | "CZ" | "DE" | "DK" | "DZ" | "ES" | "FI" | "FR" | "GB" | "GR" | "IL" | "IN" | "IS" | "IT" | "JP" | "KE" | "LI" | "MX" | "NL" | "NO" | "PL" | "PT" | "RO" | "RU" | "SA" | "SE" | "TW" | "US" | "ZA" | "ZM" | "any"
-  type HashAlgorithm = "md4" | "md5" | "sha1" | "sha256" | "sha384" | "sha512" | "ripemd128" | "ripemd160" | "tiger128" | "tiger160" | "tiger192" | "crc32" | "crc32b";
+    type AlphaLocale =
+        | "ar"
+        | "ar-AE"
+        | "ar-BH"
+        | "ar-DZ"
+        | "ar-EG"
+        | "ar-IQ"
+        | "ar-JO"
+        | "ar-KW"
+        | "ar-LB"
+        | "ar-LY"
+        | "ar-MA"
+        | "ar-QA"
+        | "ar-QM"
+        | "ar-SA"
+        | "ar-SD"
+        | "ar-SY"
+        | "ar-TN"
+        | "ar-YE"
+        | "bg-BG"
+        | "cs-CZ"
+        | "da-DK"
+        | "de-DE"
+        | "el-GR"
+        | "en-AU"
+        | "en-GB"
+        | "en-HK"
+        | "en-IN"
+        | "en-NZ"
+        | "en-US"
+        | "en-ZA"
+        | "en-ZM"
+        | "es-ES"
+        | "fr-FR"
+        | "hu-HU"
+        | "it-IT"
+        | "nb-NO"
+        | "nl-NL"
+        | "nn-NO"
+        | "pl-PL"
+        | "pt-BR"
+        | "pt-PT"
+        | "ru-RU"
+        | "sk-SK"
+        | "sr-RS"
+        | "sr-RS@latin"
+        | "sv-SE"
+        | "tr-TR"
+        | "uk-UA";
+    type AlphanumericLocale =
+        | "ar"
+        | "ar-AE"
+        | "ar-BH"
+        | "ar-DZ"
+        | "ar-EG"
+        | "ar-IQ"
+        | "ar-JO"
+        | "ar-KW"
+        | "ar-LB"
+        | "ar-LY"
+        | "ar-MA"
+        | "ar-QA"
+        | "ar-QM"
+        | "ar-SA"
+        | "ar-SD"
+        | "ar-SY"
+        | "ar-TN"
+        | "ar-YE"
+        | "bg-BG"
+        | "cs-CZ"
+        | "da-DK"
+        | "de-DE"
+        | "el-GR"
+        | "en-AU"
+        | "en-GB"
+        | "en-HK"
+        | "en-IN"
+        | "en-NZ"
+        | "en-US"
+        | "en-ZA"
+        | "en-ZM"
+        | "es-ES"
+        | "fr-FR"
+        | "hu-HU"
+        | "it-IT"
+        | "nb-NO"
+        | "nl-NL"
+        | "nn-NO"
+        | "pl-PL"
+        | "pt-BR"
+        | "pt-PT"
+        | "ru-RU"
+        | "sk-SK"
+        | "sr-RS"
+        | "sr-RS@latin"
+        | "sv-SE"
+        | "tr-TR"
+        | "uk-UA";
+    type DecimalLocale =
+        | "ar"
+        | "ar-AE"
+        | "ar-BH"
+        | "ar-DZ"
+        | "ar-EG"
+        | "ar-IQ"
+        | "ar-JO"
+        | "ar-KW"
+        | "ar-LB"
+        | "ar-LY"
+        | "ar-MA"
+        | "ar-QA"
+        | "ar-QM"
+        | "ar-SA"
+        | "ar-SD"
+        | "ar-SY"
+        | "ar-TN"
+        | "ar-YE"
+        | "bg-BG"
+        | "cs-CZ"
+        | "da-DK"
+        | "de-DE"
+        | "en-AU"
+        | "en-GB"
+        | "en-HK"
+        | "en-IN"
+        | "en-NZ"
+        | "en-US"
+        | "en-ZA"
+        | "en-ZM"
+        | "es-ES"
+        | "fr-FR"
+        | "hu-HU"
+        | "it-IT"
+        | "nb-NO"
+        | "nl-NL"
+        | "nn-NO"
+        | "pl-PL"
+        | "pt-BR"
+        | "pt-PT"
+        | "ru-RU"
+        | "sr-RS"
+        | "sr-RS@latin"
+        | "sv-SE"
+        | "tr-TR"
+        | "uk-UA";
+    type FloatLocale =
+        | "ar"
+        | "ar-AE"
+        | "ar-BH"
+        | "ar-DZ"
+        | "ar-EG"
+        | "ar-IQ"
+        | "ar-JO"
+        | "ar-KW"
+        | "ar-LB"
+        | "ar-LY"
+        | "ar-MA"
+        | "ar-QA"
+        | "ar-QM"
+        | "ar-SA"
+        | "ar-SD"
+        | "ar-SY"
+        | "ar-TN"
+        | "ar-YE"
+        | "bg-BG"
+        | "cs-CZ"
+        | "da-DK"
+        | "de-DE"
+        | "en-AU"
+        | "en-GB"
+        | "en-HK"
+        | "en-IN"
+        | "en-NZ"
+        | "en-US"
+        | "en-ZA"
+        | "en-ZM"
+        | "es-ES"
+        | "fr-FR"
+        | "hu-HU"
+        | "it-IT"
+        | "nb-NO"
+        | "nl-NL"
+        | "nn-NO"
+        | "pl-PL"
+        | "pt-BR"
+        | "pt-PT"
+        | "ru-RU"
+        | "sr-RS"
+        | "sr-RS@latin"
+        | "sv-SE"
+        | "tr-TR"
+        | "uk-UA";
+    type MobilePhoneLocale =
+        | "ar-AE"
+        | "ar-DZ"
+        | "ar-EG"
+        | "ar-JO"
+        | "ar-SA"
+        | "ar-SY"
+        | "be-BY"
+        | "bg-BG"
+        | "cs-CZ"
+        | "de-DE"
+        | "da-DK"
+        | "el-GR"
+        | "en-AU"
+        | "en-GB"
+        | "en-HK"
+        | "en-IN"
+        | "en-KE"
+        | "en-NG"
+        | "en-NZ"
+        | "en-UG"
+        | "en-RW"
+        | "en-SG"
+        | "en-TZ"
+        | "en-PK"
+        | "en-US"
+        | "en-CA"
+        | "en-ZA"
+        | "en-ZM"
+        | "es-ES"
+        | "fa-IR"
+        | "fi-FI"
+        | "fo-FO"
+        | "fr-FR"
+        | "he-IL"
+        | "hu-HU"
+        | "id-ID"
+        | "it-IT"
+        | "ja-JP"
+        | "kk-KZ"
+        | "kl-GL"
+        | "ko-KR"
+        | "lt-LT"
+        | "ms-MY"
+        | "nb-NO"
+        | "nn-NO"
+        | "pl-PL"
+        | "pt-PT"
+        | "ro-RO"
+        | "ru-RU"
+        | "sk-SK"
+        | "sr-RS"
+        | "th-TH"
+        | "tr-TR"
+        | "uk-UA"
+        | "vi-VN"
+        | "zh-CN"
+        | "zh-HK"
+        | "zh-TW"
+        | "any";
+    type PostalCodeLocale =
+        | "AT"
+        | "AU"
+        | "BE"
+        | "BG"
+        | "CA"
+        | "CH"
+        | "CZ"
+        | "DE"
+        | "DK"
+        | "DZ"
+        | "ES"
+        | "FI"
+        | "FR"
+        | "GB"
+        | "GR"
+        | "IL"
+        | "IN"
+        | "IS"
+        | "IT"
+        | "JP"
+        | "KE"
+        | "LI"
+        | "MX"
+        | "NL"
+        | "NO"
+        | "PL"
+        | "PT"
+        | "RO"
+        | "RU"
+        | "SA"
+        | "SE"
+        | "TW"
+        | "US"
+        | "ZA"
+        | "ZM"
+        | "any";
+    type HashAlgorithm =
+        | "md4"
+        | "md5"
+        | "sha1"
+        | "sha256"
+        | "sha384"
+        | "sha512"
+        | "ripemd128"
+        | "ripemd160"
+        | "tiger128"
+        | "tiger160"
+        | "tiger192"
+        | "crc32"
+        | "crc32b";
 
     // **************
     // * Validators *
@@ -165,7 +461,11 @@ declare namespace ValidatorJS {
     // 'fi-FI', 'fo-FO', 'fr-FR', 'he-IL', 'hu-HU', 'id-ID', 'it-IT', 'ja-JP', 'kk-KZ', 'kl-GL',
     // 'ko-KR', 'lt-LT', 'ms-MY', 'nb-NO', 'nn-NO', 'pl-PL', 'pt-PT', 'ro-RO', 'ru-RU', 'sk-SK',
     // 'sr-RS', 'th-TH', 'tr-TR', 'uk-UA', 'vi-VN', 'zh-CN', 'zh-HK', 'zh-TW']).
-    function isMobilePhone(str: string, locale: MobilePhoneLocale, options?: IsMobilePhoneOptions): boolean;
+    function isMobilePhone(
+        str: string,
+        locale: MobilePhoneLocale,
+        options?: IsMobilePhoneOptions
+    ): boolean;
 
     // check if the string is a valid hex-encoded representation of a MongoDB ObjectId
     // (http://docs.mongodb.org/manual/reference/object-id/).
@@ -194,7 +494,7 @@ declare namespace ValidatorJS {
     function isURL(str: string, options?: IsURLOptions): boolean;
 
     // check if the string is a UUID. Must be one of ['3', '4', '5', 'all'], default is all.
-    function isUUID(str: string, version?: 3|4|5|"3"|"4"|"5"|"all"): boolean;
+    function isUUID(str: string, version?: 3 | 4 | 5 | "3" | "4" | "5" | "all"): boolean;
 
     // check if the string is uppercase.
     function isUppercase(str: string): boolean;
@@ -267,123 +567,123 @@ declare namespace ValidatorJS {
     // Note: that the first argument will be automatically coerced to a string.
     function extend<T extends Function>(name: string, fn: T): void;
 
-  // options for IsByteLength
-  interface IsByteLengthOptions {
-    min?: number;
-    max?: number;
-  }
+    // options for IsByteLength
+    interface IsByteLengthOptions {
+        min?: number;
+        max?: number;
+    }
 
-  // options for IsCurrency
-  interface IsCurrencyOptions {
-    symbol?: string;
-    require_symbol?: boolean;
-    allow_space_after_symbol?: boolean;
-    symbol_after_digits?: boolean;
-    allow_negatives?: boolean;
-    parens_for_negatives?: boolean;
-    negative_sign_before_digits?: boolean;
-    negative_sign_after_digits?: boolean;
-    allow_negative_sign_placeholder?: boolean;
-    thousands_separator?: string;
-    decimal_separator?: string;
-    allow_decimal?: boolean;
-    require_decimal?: boolean;
-    digits_after_decimal?: number[];
-    allow_space_after_digits?: boolean;
-  }
+    // options for IsCurrency
+    interface IsCurrencyOptions {
+        symbol?: string;
+        require_symbol?: boolean;
+        allow_space_after_symbol?: boolean;
+        symbol_after_digits?: boolean;
+        allow_negatives?: boolean;
+        parens_for_negatives?: boolean;
+        negative_sign_before_digits?: boolean;
+        negative_sign_after_digits?: boolean;
+        allow_negative_sign_placeholder?: boolean;
+        thousands_separator?: string;
+        decimal_separator?: string;
+        allow_decimal?: boolean;
+        require_decimal?: boolean;
+        digits_after_decimal?: number[];
+        allow_space_after_digits?: boolean;
+    }
 
-  // options for isDecimal
-  interface IsDecimalOptions {
-    force_decimal?: boolean;
-    decimal_digits?: string;
-    locale?: DecimalLocale;
-  }
+    // options for isDecimal
+    interface IsDecimalOptions {
+        force_decimal?: boolean;
+        decimal_digits?: string;
+        locale?: DecimalLocale;
+    }
 
-  // options for isEmail
-  interface IsEmailOptions {
-    allow_display_name?: boolean;
-    require_display_name?: boolean;
-    allow_utf8_local_part?: boolean;
-    require_tld?: boolean;
-  }
+    // options for isEmail
+    interface IsEmailOptions {
+        allow_display_name?: boolean;
+        require_display_name?: boolean;
+        allow_utf8_local_part?: boolean;
+        require_tld?: boolean;
+    }
 
-  // options for isFQDN
-  interface IsFQDNOptions {
-    require_tld?: boolean;
-    allow_underscores?: boolean;
-    allow_trailing_dot?: boolean;
-  }
+    // options for isFQDN
+    interface IsFQDNOptions {
+        require_tld?: boolean;
+        allow_underscores?: boolean;
+        allow_trailing_dot?: boolean;
+    }
 
-  // options for IsFloat
-  interface IsFloatOptions {
-    min?: number;
-    max?: number;
-    gt?: number;
-    lt?: number;
-    locale?: FloatLocale;
-  }
+    // options for IsFloat
+    interface IsFloatOptions {
+        min?: number;
+        max?: number;
+        gt?: number;
+        lt?: number;
+        locale?: FloatLocale;
+    }
 
-  // options for isISSN
-  interface IsISSNOptions {
-    case_sensitive?: boolean;
-    require_hyphen?: boolean;
-  }
+    // options for isISSN
+    interface IsISSNOptions {
+        case_sensitive?: boolean;
+        require_hyphen?: boolean;
+    }
 
-  // options for IsInt
-  interface IsIntOptions {
-    min?: number;
-    max?: number;
-    allow_leading_zeroes?: boolean;
-    lt?: number;
-    gt?: number;
-  }
+    // options for IsInt
+    interface IsIntOptions {
+        min?: number;
+        max?: number;
+        allow_leading_zeroes?: boolean;
+        lt?: number;
+        gt?: number;
+    }
 
-  // options for IsLength
-  interface IsLengthOptions {
-    min?: number;
-    max?: number;
-  }
+    // options for IsLength
+    interface IsLengthOptions {
+        min?: number;
+        max?: number;
+    }
 
-  // options for isMobilePhone
-  interface IsMobilePhoneOptions {
-    strictMode?: boolean;
-  }
+    // options for isMobilePhone
+    interface IsMobilePhoneOptions {
+        strictMode?: boolean;
+    }
 
-  // options for isURL
-  interface IsURLOptions {
-    protocols?: string[];
-    require_tld?: boolean;
-    require_protocol?: boolean;
-    require_host?: boolean;
-    require_valid_protocol?: boolean;
-    allow_underscores?: boolean;
-    host_whitelist?: (string | RegExp)[];
-    host_blacklist?: (string | RegExp)[];
-    allow_trailing_dot?: boolean;
-    allow_protocol_relative_urls?: boolean;
-  }
+    // options for isURL
+    interface IsURLOptions {
+        protocols?: string[];
+        require_tld?: boolean;
+        require_protocol?: boolean;
+        require_host?: boolean;
+        require_valid_protocol?: boolean;
+        allow_underscores?: boolean;
+        host_whitelist?: (string | RegExp)[];
+        host_blacklist?: (string | RegExp)[];
+        allow_trailing_dot?: boolean;
+        allow_protocol_relative_urls?: boolean;
+    }
 
-  // options for normalizeEmail
-  interface NormalizeEmailOptions {
-    all_lowercase?: boolean;
-    gmail_lowercase?: boolean;
-    gmail_remove_dots?: boolean;
-    gmail_remove_subaddress?: boolean;
-    gmail_convert_googlemaildotcom?: boolean;
-    outlookdotcom_lowercase?: boolean;
-    outlookdotcom_remove_subaddress?: boolean;
-    yahoo_lowercase?: boolean;
-    yahoo_remove_subaddress?: boolean;
-    icloud_lowercase?: boolean;
-    icloud_remove_subaddress?: boolean;
-  }
+    // options for normalizeEmail
+    interface NormalizeEmailOptions {
+        all_lowercase?: boolean;
+        gmail_lowercase?: boolean;
+        gmail_remove_dots?: boolean;
+        gmail_remove_subaddress?: boolean;
+        gmail_convert_googlemaildotcom?: boolean;
+        outlookdotcom_lowercase?: boolean;
+        outlookdotcom_remove_subaddress?: boolean;
+        yahoo_lowercase?: boolean;
+        yahoo_remove_subaddress?: boolean;
+        icloud_lowercase?: boolean;
+        icloud_remove_subaddress?: boolean;
+    }
 
-  /**
-   * Options for isNumeric
-   */
-  interface IsNumericOptions {
-    no_symbols?: boolean;
-  }
+    /**
+     * Options for isNumeric
+     */
+    interface IsNumericOptions {
+        no_symbols?: boolean;
+    }
 }
 
 /**
@@ -391,269 +691,269 @@ declare namespace ValidatorJS {
  */
 
 declare module "validator" {
-  export = ValidatorJS;
+    export = ValidatorJS;
 }
 
 declare module "validator/lib/blacklist" {
-  export = ValidatorJS.blacklist;
+    export = ValidatorJS.blacklist;
 }
 
 declare module "validator/lib/contains" {
-  export = ValidatorJS.contains;
+    export = ValidatorJS.contains;
 }
 
 declare module "validator/lib/equals" {
-  export = ValidatorJS.equals;
+    export = ValidatorJS.equals;
 }
 
 declare module "validator/lib/escape" {
-  export = ValidatorJS.escape;
+    export = ValidatorJS.escape;
 }
 
 declare module "validator/lib/isAfter" {
-  export = ValidatorJS.isAfter;
+    export = ValidatorJS.isAfter;
 }
 
 declare module "validator/lib/isAlpha" {
-  export = ValidatorJS.isAlpha;
+    export = ValidatorJS.isAlpha;
 }
 
 declare module "validator/lib/isAlphanumeric" {
-  export = ValidatorJS.isAlphanumeric;
+    export = ValidatorJS.isAlphanumeric;
 }
 
 declare module "validator/lib/isAscii" {
-  export = ValidatorJS.isAscii;
+    export = ValidatorJS.isAscii;
 }
 
 declare module "validator/lib/isBase64" {
-  export = ValidatorJS.isBase64;
+    export = ValidatorJS.isBase64;
 }
 
 declare module "validator/lib/isBefore" {
-  export = ValidatorJS.isBefore;
+    export = ValidatorJS.isBefore;
 }
 
 declare module "validator/lib/isBoolean" {
-  export = ValidatorJS.isBoolean;
+    export = ValidatorJS.isBoolean;
 }
 
 declare module "validator/lib/isByteLength" {
-  export = ValidatorJS.isByteLength;
+    export = ValidatorJS.isByteLength;
 }
 
 declare module "validator/lib/isCreditCard" {
-  export = ValidatorJS.isCreditCard;
+    export = ValidatorJS.isCreditCard;
 }
 
 declare module "validator/lib/isCurrency" {
-  export = ValidatorJS.isCurrency;
+    export = ValidatorJS.isCurrency;
 }
 
 declare module "validator/lib/isDataURI" {
-  export = ValidatorJS.isDataURI;
+    export = ValidatorJS.isDataURI;
 }
 
 declare module "validator/lib/isDecimal" {
-  export = ValidatorJS.isDecimal;
+    export = ValidatorJS.isDecimal;
 }
 
 declare module "validator/lib/isDivisibleBy" {
-  export = ValidatorJS.isDivisibleBy;
+    export = ValidatorJS.isDivisibleBy;
 }
 
 declare module "validator/lib/isEmail" {
-  export = ValidatorJS.isEmail;
+    export = ValidatorJS.isEmail;
 }
 
 declare module "validator/lib/isEmpty" {
-  export = ValidatorJS.isEmpty;
+    export = ValidatorJS.isEmpty;
 }
 
 declare module "validator/lib/isFQDN" {
-  export = ValidatorJS.isFQDN;
+    export = ValidatorJS.isFQDN;
 }
 
 declare module "validator/lib/isFloat" {
-  export = ValidatorJS.isFloat;
+    export = ValidatorJS.isFloat;
 }
 
 declare module "validator/lib/isFullWidth" {
-  export = ValidatorJS.isFullWidth;
+    export = ValidatorJS.isFullWidth;
 }
 
 declare module "validator/lib/isHalfWidth" {
-  export = ValidatorJS.isHalfWidth;
+    export = ValidatorJS.isHalfWidth;
 }
 
 declare module "validator/lib/isHash" {
-  export = ValidatorJS.isHash;
+    export = ValidatorJS.isHash;
 }
 
 declare module "validator/lib/isHexColor" {
-  export = ValidatorJS.isHexColor;
+    export = ValidatorJS.isHexColor;
 }
 
 declare module "validator/lib/isHexadecimal" {
-  export = ValidatorJS.isHexadecimal;
+    export = ValidatorJS.isHexadecimal;
 }
 
 declare module "validator/lib/isIP" {
-  export = ValidatorJS.isIP;
+    export = ValidatorJS.isIP;
 }
 
 declare module "validator/lib/isISBN" {
-  export = ValidatorJS.isISBN;
+    export = ValidatorJS.isISBN;
 }
 
 declare module "validator/lib/isISSN" {
-  export = ValidatorJS.isISSN;
+    export = ValidatorJS.isISSN;
 }
 
 declare module "validator/lib/isISIN" {
-  export = ValidatorJS.isISIN;
+    export = ValidatorJS.isISIN;
 }
 
 declare module "validator/lib/isISO8601" {
-  export = ValidatorJS.isISO8601;
+    export = ValidatorJS.isISO8601;
 }
 
 declare module "validator/lib/isISO31661Alpha2" {
-  export = ValidatorJS.isISO31661Alpha2;
+    export = ValidatorJS.isISO31661Alpha2;
 }
 
 declare module "validator/lib/isISRC" {
-  export = ValidatorJS.isISRC;
+    export = ValidatorJS.isISRC;
 }
 
 declare module "validator/lib/isIn" {
-  export = ValidatorJS.isIn;
+    export = ValidatorJS.isIn;
 }
 
 declare module "validator/lib/isInt" {
-  export = ValidatorJS.isInt;
+    export = ValidatorJS.isInt;
 }
 
 declare module "validator/lib/isJSON" {
-  export = ValidatorJS.isJSON;
+    export = ValidatorJS.isJSON;
 }
 
 declare module "validator/lib/isLatLong" {
-  export = ValidatorJS.isLatLong;
+    export = ValidatorJS.isLatLong;
 }
 
 declare module "validator/lib/isLength" {
-  export = ValidatorJS.isLength;
+    export = ValidatorJS.isLength;
 }
 
 declare module "validator/lib/isLowercase" {
-  export = ValidatorJS.isLowercase;
+    export = ValidatorJS.isLowercase;
 }
 
 declare module "validator/lib/isMACAddress" {
-  export = ValidatorJS.isMACAddress;
+    export = ValidatorJS.isMACAddress;
 }
 
 declare module "validator/lib/isMD5" {
-  export = ValidatorJS.isMD5;
+    export = ValidatorJS.isMD5;
 }
 
 declare module "validator/lib/isMimeType" {
-  export = ValidatorJS.isMimeType;
+    export = ValidatorJS.isMimeType;
 }
 
 declare module "validator/lib/isMobilePhone" {
-  export = ValidatorJS.isMobilePhone;
+    export = ValidatorJS.isMobilePhone;
 }
 
 declare module "validator/lib/isPostalCode" {
-  export = ValidatorJS.isPostalCode;
+    export = ValidatorJS.isPostalCode;
 }
 
 declare module "validator/lib/isMongoId" {
-  export = ValidatorJS.isMongoId;
+    export = ValidatorJS.isMongoId;
 }
 
 declare module "validator/lib/isMultibyte" {
-  export = ValidatorJS.isMultibyte;
+    export = ValidatorJS.isMultibyte;
 }
 
 declare module "validator/lib/isNumeric" {
-  export = ValidatorJS.isNumeric;
+    export = ValidatorJS.isNumeric;
 }
 
 declare module "validator/lib/isPort" {
-  export = ValidatorJS.isPort;
+    export = ValidatorJS.isPort;
 }
 
 declare module "validator/lib/isSurrogatePair" {
-  export = ValidatorJS.isSurrogatePair;
+    export = ValidatorJS.isSurrogatePair;
 }
 
 declare module "validator/lib/isURL" {
-  export = ValidatorJS.isURL;
+    export = ValidatorJS.isURL;
 }
 
 declare module "validator/lib/isUUID" {
-  export = ValidatorJS.isUUID;
+    export = ValidatorJS.isUUID;
 }
 
 declare module "validator/lib/isUppercase" {
-  export = ValidatorJS.isUppercase;
+    export = ValidatorJS.isUppercase;
 }
 
 declare module "validator/lib/isVariableWidth" {
-  export = ValidatorJS.isVariableWidth;
+    export = ValidatorJS.isVariableWidth;
 }
 
 declare module "validator/lib/isWhitelisted" {
-  export = ValidatorJS.isWhitelisted;
+    export = ValidatorJS.isWhitelisted;
 }
 
 declare module "validator/lib/ltrim" {
-  export = ValidatorJS.ltrim;
+    export = ValidatorJS.ltrim;
 }
 
 declare module "validator/lib/matches" {
-  export = ValidatorJS.matches;
+    export = ValidatorJS.matches;
 }
 
 declare module "validator/lib/normalizeEmail" {
-  export = ValidatorJS.normalizeEmail;
+    export = ValidatorJS.normalizeEmail;
 }
 
 declare module "validator/lib/rtrim" {
-  export = ValidatorJS.rtrim;
+    export = ValidatorJS.rtrim;
 }
 
 declare module "validator/lib/stripLow" {
-  export = ValidatorJS.stripLow;
+    export = ValidatorJS.stripLow;
 }
 
 declare module "validator/lib/toBoolean" {
-  export = ValidatorJS.toBoolean;
+    export = ValidatorJS.toBoolean;
 }
 
 declare module "validator/lib/toDate" {
-  export = ValidatorJS.toDate;
+    export = ValidatorJS.toDate;
 }
 
 declare module "validator/lib/toFloat" {
-  export = ValidatorJS.toFloat;
+    export = ValidatorJS.toFloat;
 }
 
 declare module "validator/lib/toInt" {
-  export = ValidatorJS.toInt;
+    export = ValidatorJS.toInt;
 }
 
 declare module "validator/lib/trim" {
-  export = ValidatorJS.trim;
+    export = ValidatorJS.trim;
 }
 
 declare module "validator/lib/unescape" {
-  export = ValidatorJS.unescape;
+    export = ValidatorJS.unescape;
 }
 
 declare module "validator/lib/whitelist" {
-  export = ValidatorJS.whitelist;
+    export = ValidatorJS.whitelist;
 }
