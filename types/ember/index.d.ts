@@ -739,7 +739,7 @@ declare module 'ember' {
         class ContainerDebugAdapter extends Object {
             resolver: Resolver;
             canCatalogEntriesByType(type: string): boolean;
-            catalogEntriesByType(type: string): any[];
+            catalogEntriesByType(type: string): string[];
         }
         /**
          * Additional methods for the Controller.
@@ -1004,32 +1004,54 @@ declare module 'ember' {
              * The container-debug-adapter which is used
              * to list all models.
              */
-            containerDebugAdapter: any;
+            containerDebugAdapter: ContainerDebugAdapter;
             /**
              * Ember Data > v1.0.0-beta.18
              * requires string model names to be passed
              * around instead of the actual factories.
              */
-            acceptsModelName: any;
+            acceptsModelName: boolean;
             /**
              * Specifies how records can be filtered.
              * Records returned will need to have a `filterValues`
              * property with a key for every name in the returned array.
              */
-            getFilters(): any[];
+            getFilters(): DataAdapter.Column[];
             /**
              * Fetch the model types and observe them for changes.
              */
-            watchModelTypes(typesAdded: Function, typesUpdated: Function): Function;
+            watchModelTypes(
+                typesAdded: (types: DataAdapter.WrappedType[]) => void,
+                typesUpdated: (types: DataAdapter.WrappedType[]) => void
+            ): () => void;
             /**
              * Fetch the records of a given type and observe them for changes.
              */
             watchRecords(
                 modelName: string,
-                recordsAdded: Function,
-                recordsUpdated: Function,
-                recordsRemoved: Function
-            ): Function;
+                recordsAdded: (records: DataAdapter.WrappedRecord[]) => void,
+                recordsUpdated: (records: DataAdapter.WrappedRecord[]) => void,
+                recordsRemoved: (idx: number, count: number) => void
+            ): () => void;
+        }
+        namespace DataAdapter {
+            interface Column {
+                name: string;
+                desc: string;
+            }
+            interface WrappedRecord {
+                columnValues: object;
+                object: object;
+            }
+            interface WrappedType {
+                type: {
+                    name: string;
+                    count: number;
+                    columns: Column[];
+                    object: typeof Object;
+                };
+                release: () => void;
+            }
         }
         const Debug: {
             /**
@@ -1038,14 +1060,14 @@ declare module 'ember' {
              * The following example demonstrates its usage by registering a handler that throws an error if the
              * message contains the word "should", otherwise defers to the default handler.
              */
-            registerDeprecationHandler(handler: Function): any;
+            registerDeprecationHandler(handler: (message: string, options: { id: string, until: string }, next: () => void) => void): void;
             /**
              * Allows for runtime registration of handler functions that override the default warning behavior.
              * Warnings are invoked by calls made to [Ember.warn](http://emberjs.com/api/classes/Ember.html#method_warn).
              * The following example demonstrates its usage by registering a handler that does nothing overriding Ember's
              * default warning behavior.
              */
-            registerWarnHandler(handler: Function): any;
+            registerWarnHandler(handler: (message: string, options: { id: string }, next: () => void) => void): void;
         };
         /**
          * The DefaultResolver defines the default lookup rules to resolve
@@ -3017,20 +3039,20 @@ declare module 'ember' {
         /**
          * Run a function meant for debugging.
          */
-        function runInDebug(func: () => void): any;
+        function runInDebug(func: () => any): void;
         /**
          * Display a warning with the provided message.
          */
-        function warn(message: string, test: boolean, options: { id: string }): any;
-        function warn(message: string, options: { id: string }): any;
+        function warn(message: string, test: boolean, options: { id: string }): void;
+        function warn(message: string, options: { id: string }): void;
         /**
          * @deprecated Missing deprecation options: https://emberjs.com/deprecations/v2.x/#toc_ember-debug-function-options
          */
-        function warn(message: string, test: boolean, options?: { id?: string }): any;
+        function warn(message: string, test: boolean, options?: { id?: string }): void;
         /**
          * @deprecated Missing deprecation options: https://emberjs.com/deprecations/v2.x/#toc_ember-debug-function-options
          */
-        function warn(message: string, options?: { id?: string }): any;
+        function warn(message: string, options?: { id?: string }): void;
         /**
          * Global helper method to create a new binding. Just pass the root object
          * along with a `to` and `from` path to create and connect the binding.
