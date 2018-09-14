@@ -2,8 +2,8 @@ function ADD10(n: number) {
     return n + 10;
 }
 
-const CustomFunctionMappings: { 
-    "addTen": ADD10();
+CustomFunctionMappings = { 
+    "addTen": ADD10
 };
 
 async function getStockValues(ticker: string, handler: CustomFunctions.StreamingHandler<number>) {
@@ -30,4 +30,3 @@ async function getStockValuesNowWithNoCancelling(ticker: string) {
 }
 
 declare function pause(ms: number): Promise<void>
-n
