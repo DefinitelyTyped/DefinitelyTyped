@@ -2,7 +2,7 @@ function ADD10(n: number) {
     return n + 10;
 }
 
-declare const CustomFunctionMappings: { 
+const CustomFunctionMappings: { 
     "addTen": ADD10();
 };
 
@@ -30,3 +30,4 @@ async function getStockValuesNowWithNoCancelling(ticker: string) {
 }
 
 declare function pause(ms: number): Promise<void>
+n

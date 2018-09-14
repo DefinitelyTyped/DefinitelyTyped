@@ -9,7 +9,7 @@ office-js
 Copyright (c) Microsoft Corporation
 */
 
-declare const CustomFunctionMappings: { [key: string]: Function };
+declare let CustomFunctionMappings: { [key: string]: Function };
 
 declare namespace CustomFunctions {
     interface StreamingHandler<T> extends CancelableHandler {
