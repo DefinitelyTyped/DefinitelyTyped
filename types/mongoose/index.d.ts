@@ -1715,8 +1715,8 @@ declare module "mongoose" {
     findOneAndRemove(conditions: any,
       callback?: (error: any, doc: DocType | null, result: any) => void): DocumentQuery<DocType | null, DocType>;
     findOneAndRemove(conditions: any, options: QueryFindOneAndRemoveOptions,
-      callback?: (error: any, doc: DocType | null, result: any) => void): DocumentQuery<DocType | null, DocType>;                       
-                                    
+      callback?: (error: any, doc: DocType | null, result: any) => void): DocumentQuery<DocType | null, DocType>;
+
     /**
      * Issues a mongodb findAndModify update command.
      * Finds a matching document, updates it according to the update arg, passing any options, and returns
