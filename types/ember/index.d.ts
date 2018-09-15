@@ -3640,13 +3640,6 @@ declare module '@ember/engine/instance' {
     export default class EngineInstance extends Ember.EngineInstance { }
 }
 
-declare module '@ember/enumerable' {
-    import Ember from 'ember';
-    type Enumerable<T> = Ember.Enumerable<T>;
-    const Enumerable: typeof Ember.Enumerable;
-    export default Enumerable;
-}
-
 declare module '@ember/error' {
     import Ember from 'ember';
     const Error: typeof Ember.Error;
