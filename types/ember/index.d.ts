@@ -3654,16 +3654,6 @@ declare module '@ember/instrumentation' {
     export const unsubscribe: typeof Ember.unsubscribe;
 }
 
-declare module '@ember/map' {
-    import Ember from 'ember';
-    export default class EmberMap extends Ember.Map { }
-}
-
-declare module '@ember/map/with-default' {
-    import Ember from 'ember';
-    export default class MapWithDefault extends Ember.MapWithDefault { }
-}
-
 declare module '@ember/object' {
     import Ember from 'ember';
     export default class EmberObject extends Ember.Object { }
