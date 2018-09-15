@@ -11,9 +11,9 @@
 ///<reference types="node" />
 
 declare const SocketIO: SocketIOStatic;
-export = SocketIO;
-/** @deprecated Available as a global for backwards-compatibility. */
-export as namespace SocketIO;
+declare module 'socket.io' {
+	export = SocketIO;
+}
 
 interface SocketIOStatic {
 	/**
