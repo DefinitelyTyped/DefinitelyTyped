@@ -3332,12 +3332,6 @@ declare module 'ember' {
         function tryInvoke<FNAME extends keyof T, T extends object>(obj: T, methodName: FNAME): T[FNAME] extends (() => any) ? ReturnType<T[FNAME]> : undefined;
         function tryInvoke(obj: object, methodName: string, args?: any[]): undefined;
         /**
-         * Forces the passed object to be part of an array. If the object is already
-         * an array, it will return the object. Otherwise, it will add the object to
-         * an array. If obj is `null` or `undefined`, it will return an empty array.
-         */
-        function makeArray<T>(obj?: T[] | T | null): T[];
-        /**
          * Framework objects in an Ember application (components, services, routes, etc.)
          * are created via a factory and dependency injection system. Each of these
          * objects is the responsibility of an "owner", which handled its
@@ -3551,7 +3545,6 @@ declare module '@ember/array' {
     export default EmberArray;
     export const A: typeof Ember.A;
     export const isArray: typeof Ember.isArray;
-    export const makeArray: typeof Ember.makeArray;
 }
 
 declare module '@ember/array/mutable' {
