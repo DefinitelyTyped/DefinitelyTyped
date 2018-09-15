@@ -1,8 +1,9 @@
 /// <reference types="jquery"/>
 
-Mousetrap.bind('4', function() { console.log('4'); });
-Mousetrap.bind("?", function() { console.log('show shortcuts!'); });
-Mousetrap.bind('esc', function() { console.log('escape'); }, 'keyup');
+Mousetrap
+    .bind('4', function() { console.log('4'); })
+    .bind("?", function() { console.log('show shortcuts!'); })
+    .bind('esc', function() { console.log('escape'); }, 'keyup');
 
 // combinations
 Mousetrap.bind('command+shift+K', function() { console.log('command shift k'); });
