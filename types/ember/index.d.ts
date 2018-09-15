@@ -3646,14 +3646,6 @@ declare module '@ember/error' {
     export default Error;
 }
 
-declare module '@ember/instrumentation' {
-    import Ember from 'ember';
-    export const instrument: typeof Ember.instrument;
-    export const reset: typeof Ember.reset;
-    export const subscribe: typeof Ember.subscribe;
-    export const unsubscribe: typeof Ember.unsubscribe;
-}
-
 declare module '@ember/object' {
     import Ember from 'ember';
     export default class EmberObject extends Ember.Object { }
