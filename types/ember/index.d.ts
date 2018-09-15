@@ -13,7 +13,6 @@
 // TypeScript Version: 2.8
 
 /// <reference types="jquery" />
-/// <reference types="handlebars" />
 
 declare module 'ember' {
     import {
@@ -25,7 +24,7 @@ declare module 'ember' {
     } from 'ember/-private-types/object/computed';
     import { Objectify, Fix, KeysOfType, TypeLookup } from 'ember/-private-types/utils';
     import { EmberClassArguments, EmberClassConstructor, EmberInstanceArguments } from 'ember/-private-types/object';
-
+    import * as HandlebarsNamespace from 'handlebars';
     // Capitalization is intentional: this makes it much easier to re-export RSVP on
     // the Ember namespace.
     import Rsvp from 'rsvp';
@@ -2421,10 +2420,7 @@ declare module 'ember' {
             function K(): any;
             function createFrame(objec: any): any;
             function Exception(message: string): void;
-            class SafeString {
-                constructor(str: string);
-                toString(): string;
-            }
+            const SafeString: typeof HandlebarsNamespace.SafeString;
             function parse(string: string): any;
             function print(ast: any): void;
             const logger: typeof Ember.Logger;
@@ -2437,7 +2433,7 @@ declare module 'ember' {
             function dasherize(str: string): string;
             function decamelize(str: string): string;
             function fmt(...args: string[]): string;
-            function htmlSafe(str: string): Handlebars.SafeString;
+            function htmlSafe(str: string): HandlebarsNamespace.SafeString;
             function isHTMLSafe(str: string): boolean;
             function loc(template: string, args?: string[]): string;
             function underscore(str: string): string;
