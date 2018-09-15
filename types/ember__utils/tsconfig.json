@@ -15,7 +15,8 @@
             "../"
         ],
         "paths": {
-            "@ember/utils": ["ember__utils"]
+            "@ember/utils": ["ember__utils"],
+            "@ember/utils/private-types": ["ember__utils/private-types"]
         },
         "types": [],
         "noEmit": true,
@@ -23,6 +24,7 @@
     },
     "files": [
         "index.d.ts",
+        "private-types.d.ts",
         "ember__utils-tests.ts"
     ]
 }
