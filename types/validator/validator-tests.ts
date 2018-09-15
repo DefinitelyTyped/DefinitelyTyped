@@ -567,6 +567,11 @@ let any: any;
   result = validator.isNumeric('sample');
   result = validator.isNumeric('+358', { no_symbols: true });
 
+  const customIsNumericWithOption = (str: string, options: validator.IsNumericOptions) =>
+    validator.isNumeric(str, options);
+
+  customIsNumericWithOption('lol', { no_symbols: false })
+
   result = validator.isPort('sample');
 
   result = validator.isPostalCode('sample', 'AT');
