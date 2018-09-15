@@ -311,6 +311,8 @@ export class Input extends Component<{
     disabled?: boolean,
     readOnly?: boolean,
     onChange?: (e: React.ChangeEvent<any>) => void,
+    onBlur?: (e: React.FocusEvent<any>) => void,
+    onFocus?: (e: React.FocusEvent<any>) => void,
     value?: string,
     defaultValue?: string,
     checked?: boolean,

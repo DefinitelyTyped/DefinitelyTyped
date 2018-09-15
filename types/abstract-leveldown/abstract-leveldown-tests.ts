@@ -11,3 +11,7 @@ const test = (levelDown: AbstractLevelDOWN<any, string>) => {
 test(new AbstractLevelDOWN('here'));
 // $ExpectType void
 test(AbstractLevelDOWN('there'));
+// $ExpectType void
+test(new AbstractLevelDOWN<any, string>('here'));
+// $ExpectType void
+test(AbstractLevelDOWN<any, string>('there'));

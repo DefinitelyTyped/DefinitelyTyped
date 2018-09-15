@@ -173,17 +173,17 @@ declare class SMTPConnection extends EventEmitter {
     constructor(options?: SMTPConnection.Options);
 
     /** Creates a connection to a SMTP server and sets up connection listener */
-    connect(callback: () => void): void;
+    connect(callback: (err?: SMTPConnection.SMTPError) => void): void;
     /** Sends QUIT */
     quit(): void;
     /** Closes the connection to the server */
     close(): void;
     /** Authenticate user */
-    login(auth: SMTPConnection.AuthenticationCredentials | SMTPConnection.AuthenticationOAuth2 | SMTPConnection.Credentials, callback: (err: SMTPConnection.SMTPError | null) => void): void;
+    login(auth: SMTPConnection.AuthenticationCredentials | SMTPConnection.AuthenticationOAuth2 | SMTPConnection.Credentials, callback: (err?: SMTPConnection.SMTPError) => void): void;
     /** Sends a message */
     send(envelope: SMTPConnection.Envelope, message: string | Buffer | Readable, callback: (err: SMTPConnection.SMTPError | null, info: SMTPConnection.SentMessageInfo) => void): void;
     /** Resets connection state */
-    reset(callback: (err: Error | null) => void): void;
+    reset(callback: (err?: SMTPConnection.SMTPError) => void): void;
 
     addListener(event: 'connect' | 'end', listener: () => void): this;
     addListener(event: 'error', listener: (err: SMTPConnection.SMTPError) => void): this;
