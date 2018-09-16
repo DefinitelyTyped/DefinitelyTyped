@@ -34,6 +34,7 @@ declare module 'ember' {
     import { Registry as ServiceRegistry } from '@ember/service';
     import { Registry as ControllerRegistry } from '@ember/controller';
     import ModuleComputed from '@ember/object/computed';
+    import * as EmberPolyfills from '@ember/polyfills';
 
     // Get an alias to the global Array type to use in inner scope below.
     type GlobalArray<T> = T[];
@@ -3138,11 +3139,7 @@ declare module 'ember' {
          * A value is present if it not `isBlank`.
          */
         function isPresent(obj?: any): boolean;
-        /**
-         * Merge the contents of two objects together into the first object.
-         * @deprecated Use Object.assign
-         */
-        function merge<T extends object, U extends object>(original: T, updates: U): Mix<T, U>;
+        const merge: typeof EmberPolyfills.merge;
         /**
          * Makes a method available via an additional name.
          */
@@ -3289,14 +3286,12 @@ declare module 'ember' {
         function typeOf<T>(value: T): KeysOfType<TypeLookup, T>;
         function typeOf(): 'undefined';
         function typeOf(item: any): string;
+        // TODO: replace with an es6 reexport when declare module 'ember' is removed
         /**
          * Copy properties from a source object to a target object.
          * @deprecated Use Object.assign
          */
-        function assign<T extends object, U extends object>(target: T, source: U): Mix<T, U>;
-        function assign<T extends object, U extends object, V extends object>(target: T, source1: U, source2: V): Mix3<T, U, V>;
-        function assign<T extends object, U extends object, V extends object, W extends object>(target: T, source1: U, source2: V, source3: W): Mix4<T, U, V, W>;
-
+        const assign: typeof EmberPolyfills.assign;
         /**
          * Polyfill for Object.create
          * @deprecated Use Object.create
@@ -3788,15 +3783,6 @@ declare module '@ember/object/promise-proxy-mixin' {
 declare module '@ember/object/proxy' {
     import Ember from 'ember';
     export default class ObjectProxy extends Ember.ObjectProxy { }
-}
-
-declare module '@ember/polyfills' {
-    import Ember from 'ember';
-    export const assign: typeof Ember.assign;
-    export const create: typeof Ember.create;
-    export const hasPropertyAccessors: typeof Ember.platform.hasPropertyAccessors;
-    export const keys: typeof Ember.keys;
-    export const merge: typeof Ember.merge;
 }
 
 declare module '@ember/routing/auto-location' {
