@@ -3,27 +3,20 @@
 // Definitions by: William LeGate <https://github.com/wlegate>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'franc' {
-    // ISO 639-3 code (see: https://iso639-3.sil.org/code_tables/639/data)
-    type ISO6393 = string;
+// ISO 639-3 code (see: https://iso639-3.sil.org/code_tables/639/data)
+export type ISO6393 = string;
 
-    // Range [0, 1]
-    type Confidence = number;
+// Range [0, 1]
+export type Confidence = number;
 
-    interface Options {
-        minLength?: number;
-        whitelist?: Array<ISO6393>;
-        blacklist?: Array<ISO6393>;
-    }
+export interface Options {
+    minLength?: number;
+    whitelist?: [ISO6393];
+    blacklist?: [ISO6393];
+}
 
-    function detect(text: string, options?: Options): ISO6393;
+export function detect(text: string, options?: Options): ISO6393;
 
-    namespace detect {
-        export function all(
-            text: string,
-            options?: Options
-        ): Array<[ISO6393, number]>;
-    }
-
-    export = detect;
+export namespace detect {
+    function all(text: string, options?: Options): [ISO6393, number];
 }
