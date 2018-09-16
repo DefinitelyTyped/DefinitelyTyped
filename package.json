@@ -22,6 +22,6 @@
     },
     "devDependencies": {
         "dtslint": "github:Microsoft/dtslint#production",
-        "types-publisher": "Microsoft/types-publisher#production"
+        "types-publisher": "github:Microsoft/types-publisher#production"
     }
 }
