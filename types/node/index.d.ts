@@ -800,7 +800,7 @@ declare namespace NodeJS {
          * read-only `Set` of flags allowable within the [`NODE_OPTIONS`][]
          * environment variable.
          */
-        // TODO: This is readonly
+        // TODO: This Set is readonly
         allowedNodeEnvironmentFlags: Set<string>;
 
         /**
