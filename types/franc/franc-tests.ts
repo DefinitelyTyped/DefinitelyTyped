@@ -1,4 +1,4 @@
-import franc = require('franc');
+import { detect } from 'franc';
 
 const testText = 'This is an example sentence';
 const testOptions = {
@@ -7,8 +7,8 @@ const testOptions = {
     blacklist: [],
 };
 
-franc(testText);
-franc(testText, testOptions);
+detect(testText);
+detect(testText, testOptions);
 
-franc.all(testText);
-franc.all(testText, testOptions)[0];
+detect.all(testText);
+detect.all(testText, testOptions)[0];

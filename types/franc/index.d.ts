@@ -11,8 +11,8 @@ export type Confidence = number;
 
 export interface Options {
     minLength?: number;
-    whitelist?: [ISO6393];
-    blacklist?: [ISO6393];
+    whitelist?: ISO6393[];
+    blacklist?: ISO6393[];
 }
 
 export function detect(text: string, options?: Options): ISO6393;
@@ -20,3 +20,5 @@ export function detect(text: string, options?: Options): ISO6393;
 export namespace detect {
     function all(text: string, options?: Options): [ISO6393, number];
 }
+
+export default detect;
