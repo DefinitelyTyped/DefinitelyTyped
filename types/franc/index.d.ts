@@ -2,7 +2,6 @@
 // Project: https://github.com/wooorm/franc/
 // Definitions by: William LeGate <https://github.com/wlegate>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0.3
 
 declare module 'franc' {
     // ISO 639-3 code (see: https://iso639-3.sil.org/code_tables/639/data)
