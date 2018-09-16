@@ -1,9 +1,10 @@
-// Type definitions for Credit Card Type v7.0.0
+// Type definitions for Credit Card Type 7.0
 // Project: https://github.com/braintree/credit-card-type
 // Definitions by: Daniel Nagy <https://github.com/daniel-nagy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
-declare module CreditCardType {
+declare namespace CreditCardType {
     enum CardType {
         AMERICAN_EXPRESS = 'american-express',
         DINERS_CLUB = 'diners-club',
@@ -17,15 +18,15 @@ declare module CreditCardType {
     }
 
     interface CardTypeInfo {
-        niceType?: string
+        niceType?: string;
         type: string;
-        prefixPattern: RegExp
-        exactPattern: RegExp
-        gaps?: number[]
-        lengths?: number[]
+        prefixPattern: RegExp;
+        exactPattern: RegExp;
+        gaps?: number[];
+        lengths?: number[];
         code?: {
-            name?: string
-            size?: number
+            name?: string;
+            size?: number;
         };
     }
 
