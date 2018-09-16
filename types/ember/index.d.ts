@@ -34,6 +34,7 @@ declare module 'ember' {
     import { Registry as ControllerRegistry } from '@ember/controller';
     import ModuleComputed from '@ember/object/computed';
     import * as EmberString from '@ember/string';
+    import * as EmberPolyfills from '@ember/polyfills';
 
     // Get an alias to the global Array type to use in inner scope below.
     type GlobalArray<T> = T[];
@@ -1733,11 +1734,11 @@ declare module 'ember' {
                 key: keyof this,
                 target: Target,
                 method: ObserverMethod<Target, this>
-            ): void;
+            ): this;
             addObserver(
                 key: keyof this,
                 method: ObserverMethod<this, this>
-            ): void;
+            ): this;
             /**
              * Remove an observer you have previously registered on this object. Pass
              * the same key, target, and method you passed to `addObserver()` and your
@@ -1747,11 +1748,11 @@ declare module 'ember' {
                 key: keyof this,
                 target: Target,
                 method: ObserverMethod<Target, this>
-            ): any;
+            ): this;
             removeObserver(
                 key: keyof this,
                 method: ObserverMethod<this, this>
-            ): any;
+            ): this;
             /**
              * Retrieves the value of a property, or a default value in the case that the
              * property returns `undefined`.
@@ -3135,11 +3136,7 @@ declare module 'ember' {
          * A value is present if it not `isBlank`.
          */
         function isPresent(obj?: any): boolean;
-        /**
-         * Merge the contents of two objects together into the first object.
-         * @deprecated Use Object.assign
-         */
-        function merge<T extends object, U extends object>(original: T, updates: U): Mix<T, U>;
+        const merge: typeof EmberPolyfills.merge;
         /**
          * Makes a method available via an additional name.
          */
@@ -3147,33 +3144,33 @@ declare module 'ember' {
         /**
          * Specify a method that observes property changes.
          */
-        function observer(key1: string, func: (target: any, key: string) => void): void;
-        function observer(
+        function observer<Fn extends (target: any, key: string) => void>(key1: string, func: Fn): Fn;
+        function observer<Fn extends (target: any, key: string) => void>(
             key1: string,
             key2: string,
-            func: (target: any, key: string) => void
-        ): void;
-        function observer(
+            func: Fn
+        ): Fn;
+        function observer<Fn extends (target: any, key: string) => void>(
             key1: string,
             key2: string,
             key3: string,
-            func: (target: any, key: string) => void
-        ): void;
-        function observer(
+            func: Fn
+        ): Fn;
+        function observer<Fn extends (target: any, key: string) => void>(
             key1: string,
             key2: string,
             key3: string,
             key4: string,
-            func: (target: any, key: string) => void
-        ): void;
-        function observer(
+            func: Fn
+        ): Fn;
+        function observer<Fn extends (target: any, key: string) => void>(
             key1: string,
             key2: string,
             key3: string,
             key4: string,
             key5: string,
-            func: (target: any, key: string) => void
-        ): void;
+            func: Fn
+        ): Fn;
         /**
          * Adds an observer on a property.
          */
@@ -3286,14 +3283,12 @@ declare module 'ember' {
         function typeOf<T>(value: T): KeysOfType<TypeLookup, T>;
         function typeOf(): 'undefined';
         function typeOf(item: any): string;
+        // TODO: replace with an es6 reexport when declare module 'ember' is removed
         /**
          * Copy properties from a source object to a target object.
          * @deprecated Use Object.assign
          */
-        function assign<T extends object, U extends object>(target: T, source: U): Mix<T, U>;
-        function assign<T extends object, U extends object, V extends object>(target: T, source1: U, source2: V): Mix3<T, U, V>;
-        function assign<T extends object, U extends object, V extends object, W extends object>(target: T, source1: U, source2: V, source3: W): Mix4<T, U, V, W>;
-
+        const assign: typeof EmberPolyfills.assign;
         /**
          * Polyfill for Object.create
          * @deprecated Use Object.create
@@ -3785,15 +3780,6 @@ declare module '@ember/object/promise-proxy-mixin' {
 declare module '@ember/object/proxy' {
     import Ember from 'ember';
     export default class ObjectProxy extends Ember.ObjectProxy { }
-}
-
-declare module '@ember/polyfills' {
-    import Ember from 'ember';
-    export const assign: typeof Ember.assign;
-    export const create: typeof Ember.create;
-    export const hasPropertyAccessors: typeof Ember.platform.hasPropertyAccessors;
-    export const keys: typeof Ember.keys;
-    export const merge: typeof Ember.merge;
 }
 
 declare module '@ember/routing/auto-location' {
