@@ -1734,11 +1734,11 @@ declare module 'ember' {
                 key: keyof this,
                 target: Target,
                 method: ObserverMethod<Target, this>
-            ): void;
+            ): this;
             addObserver(
                 key: keyof this,
                 method: ObserverMethod<this, this>
-            ): void;
+            ): this;
             /**
              * Remove an observer you have previously registered on this object. Pass
              * the same key, target, and method you passed to `addObserver()` and your
@@ -1748,11 +1748,11 @@ declare module 'ember' {
                 key: keyof this,
                 target: Target,
                 method: ObserverMethod<Target, this>
-            ): any;
+            ): this;
             removeObserver(
                 key: keyof this,
                 method: ObserverMethod<this, this>
-            ): any;
+            ): this;
             /**
              * Retrieves the value of a property, or a default value in the case that the
              * property returns `undefined`.
@@ -3147,33 +3147,33 @@ declare module 'ember' {
         /**
          * Specify a method that observes property changes.
          */
-        function observer(key1: string, func: (target: any, key: string) => void): void;
-        function observer(
+        function observer<Fn extends (target: any, key: string) => void>(key1: string, func: Fn): Fn;
+        function observer<Fn extends (target: any, key: string) => void>(
             key1: string,
             key2: string,
-            func: (target: any, key: string) => void
-        ): void;
-        function observer(
+            func: Fn
+        ): Fn;
+        function observer<Fn extends (target: any, key: string) => void>(
             key1: string,
             key2: string,
             key3: string,
-            func: (target: any, key: string) => void
-        ): void;
-        function observer(
+            func: Fn
+        ): Fn;
+        function observer<Fn extends (target: any, key: string) => void>(
             key1: string,
             key2: string,
             key3: string,
             key4: string,
-            func: (target: any, key: string) => void
-        ): void;
-        function observer(
+            func: Fn
+        ): Fn;
+        function observer<Fn extends (target: any, key: string) => void>(
             key1: string,
             key2: string,
             key3: string,
             key4: string,
             key5: string,
-            func: (target: any, key: string) => void
-        ): void;
+            func: Fn
+        ): Fn;
         /**
          * Adds an observer on a property.
          */
