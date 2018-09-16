@@ -1745,8 +1745,8 @@ declare module "os" {
     export function networkInterfaces(): { [index: string]: NetworkInterfaceInfo[] };
     export function homedir(): string;
     export function userInfo(options?: { encoding: string }): { username: string, uid: number, gid: number, shell: any, homedir: string };
-    export var constants: {
-        UV_UDP_REUSEADDR: number,
+    export const constants: {
+        UV_UDP_REUSEADDR: number;
         signals: {
             SIGHUP: number;
             SIGINT: number;
@@ -1782,7 +1782,7 @@ declare module "os" {
             SIGPWR: number;
             SIGSYS: number;
             SIGUNUSED: number;
-        },
+        };
         errno: {
             E2BIG: number;
             EACCES: number;
@@ -1863,7 +1863,15 @@ declare module "os" {
             ETXTBSY: number;
             EWOULDBLOCK: number;
             EXDEV: number;
-        },
+        };
+        priority: {
+            PRIORITY_LOW: number;
+            PRIORITY_BELOW_NORMAL: number;
+            PRIORITY_NORMAL: number;
+            PRIORITY_ABOVE_NORMAL: number;
+            PRIORITY_HIGH: number;
+            PRIORITY_HIGHEST: number;
+        }
     };
     export function arch(): string;
     export function platform(): NodeJS.Platform;
@@ -4474,20 +4482,6 @@ declare module "fs" {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * URL support is _experimental_.
      * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
-     * @param data The data to write.
-     * @param options Either the encoding for the file, or an object optionally specifying the encoding, file mode, and flag.
-     * If `encoding` is not supplied, the default of `'utf8'` is used.
-     * If `mode` is not supplied, the default of `0o666` is used.
-     * If `mode` is a string, it is parsed as an octal integer.
-     * If `flag` is not supplied, the default of `'w'` is used.
-     */
-    export function writeFile(path: PathLike | number, data: BinaryData, options: WriteFileOptions, callback: (err: NodeJS.ErrnoException) => void): void;
-
-    /**
-     * Asynchronously writes data to a file, replacing the file if it already exists.
-     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
-     * URL support is _experimental_.
-     * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
      * @param data The data to write. If something other than a Buffer or Uint8Array is provided, the value is coerced to a string.
      * @param options Either the encoding for the file, or an object optionally specifying the encoding, file mode, and flag.
      * If `encoding` is not supplied, the default of `'utf8'` is used.
@@ -4535,7 +4529,7 @@ declare module "fs" {
      * If `mode` is a string, it is parsed as an octal integer.
      * If `flag` is not supplied, the default of `'w'` is used.
      */
-    export function writeFileSync(path: PathLike | number, data: BinaryData | string | any, options?: WriteFileOptions): void;
+    export function writeFileSync(path: PathLike | number, data: any, options?: WriteFileOptions): void;
 
     /**
      * Asynchronously append data to a file, creating the file if it does not exist.

@@ -2894,6 +2894,8 @@ namespace os_tests {
 
         const prio2 = os.getPriority(1);
         os.setPriority(2, prio + 1);
+
+        os.setPriority(os.constants.priority.PRIORITY_LOW);
     }
 }
 
