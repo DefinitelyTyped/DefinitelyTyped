@@ -3127,7 +3127,7 @@ declare namespace Stripe {
             /**
              * Specifies a usage aggregation strategy for plans of `usage_type=metered`. Allowed values are `sum` for summing up all usage during a period, `last_during_period` for picking the last usage record reported within a period, `last_ever` for picking the last usage record ever (across period bounds) or `max` which picks the usage record with the maximum reported usage during a period. Defaults to `sum`.
              */
-            aggregate_usage?: "sum" | "last_during_period" | "last_ever" | "max" | null;
+            aggregate_usage?: "sum" | "last_during_period" | "last_ever" | "max";
 
             /**
              * Describes how to compute the price per period. Either `per_unit` or `tiered`. `per_unit` indicates that the fixed amount (specified in `amount`) will be charged per unit in `quantity` (for plans with `usage_type=licensed`), or per unit of total usage (for plans with `usage_type=metered`). `tiered` indicates that the unit pricing will be computed using a tiering strategy as defined using the `tiers` and `tiers_mode` attributes.
@@ -3147,17 +3147,17 @@ declare namespace Stripe {
             /**
              * Each element represents a pricing tier. This parameter requires `billing_scheme` to be set to `tiered`. See also the documentation for `billing_scheme`.
              */
-            tiers?: plans.ITier[] | null;
+            tiers?: plans.ITier[];
 
             /**
              * Defines if the tiering price should be `graduated` or `volume` based. In `volume`-based tiering, the maximum quantity within a period determines the per unit price, in `graduated` tiering pricing can successively change as the quantity grows.
              */
-            tiers_mode?: "graduated" | "volume" | null;
+            tiers_mode?: "graduated" | "volume";
 
             /**
              * Apply a transformation to the reported usage or set quantity before computing the billed price. Cannot be combined with `tiers`.
              */
-            transform_usage?: plans.ITransformUsage | null;
+            transform_usage?: plans.ITransformUsage;
 
             /**
              * Default number of trial days when subscribing a customer to this plan using `trial_from_plan=true`.
@@ -5290,7 +5290,7 @@ declare namespace Stripe {
     }
 
     namespace usageRecords {
-        type IUsageRecordAction = 'increment' | 'set';
+        type IUsageRecordAction = "increment" | "set";
 
         interface IUsageRecordCreationOptions {
           /**
@@ -5336,10 +5336,9 @@ declare namespace Stripe {
             period: invoices.IPeriod;
             subscription_item: string;
             total_usage: number;
-          }
+        }
 
-        interface IUsageRecordSummarysListOptions  extends
-        IListOptions{
+        interface IUsageRecordSummarysListOptions extends IListOptions{
             /**
              * Only summary items for the given subscription item.
              */
@@ -5360,8 +5359,6 @@ declare namespace Stripe {
         class UsageRecords extends StripeResource {
             /**
              * Creates a usage record for a specified subscription item and date, and fills it with a quantity.
-             * @param subscription
-             * @param options
              */
             create(subscription: string, data: usageRecords.IUsageRecordCreationOptions, options: HeaderOptions, response?: IResponseFn<usageRecords.IUsageRecord>): Promise<usageRecords.IUsageRecord>;
             create(subscription: string, data: usageRecords.IUsageRecordCreationOptions, response?: IResponseFn<usageRecords.IUsageRecord>): Promise<usageRecords.IUsageRecord>;
@@ -5370,8 +5367,6 @@ declare namespace Stripe {
         class UsageRecordSummarys extends StripeResource {
             /**
              * Creates a usage record for a specified subscription item and date, and fills it with a quantity.
-             * @param subscription
-             * @param options
              */
             list(data: usageRecordSummarys.IUsageRecordSummarysListOptions, options: HeaderOptions, response?: IResponseFn<usageRecordSummarys.IUsageRecordSummarys>): Promise<usageRecordSummarys.IUsageRecordSummarys>;
             list(data: usageRecordSummarys.IUsageRecordSummarysListOptions, response?: IResponseFn<usageRecordSummarys.IUsageRecordSummarys>): Promise<usageRecordSummarys.IUsageRecordSummarys>;
