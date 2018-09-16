@@ -1,4 +1,4 @@
-// Type definitions for franc 4.0.0
+// Type definitions for franc 4.0
 // Project: https://github.com/wooorm/franc/
 // Definitions by: William LeGate <https://github.com/wlegate>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
