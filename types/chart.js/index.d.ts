@@ -501,6 +501,8 @@ declare namespace Chart {
         reverse?: boolean;
         showLabelBackdrop?: boolean;
         source?: 'auto' | 'data' | 'labels';
+        suggestedMax: number;
+        suggestedMin: number;
     }
 
     interface AngleLineOptions {
