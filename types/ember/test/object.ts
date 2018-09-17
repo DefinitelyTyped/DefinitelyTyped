@@ -49,3 +49,20 @@ class Foo extends Ember.Object.extend({
         });
     }
 }
+
+export class Foo2 extends Ember.Object {
+  name!: string;
+
+  changeName(name: string) {
+    let a: string = this.set('name', name);
+    let b: number = this.set('name', name); // $ExpectError
+    let x: string = Ember.set(this, 'name', name);
+    let y: number = Ember.set(this, 'name', name); // $ExpectError
+    this.setProperties({
+        name
+    });
+    Ember.setProperties(this, {
+        name
+    });
+  }
+}

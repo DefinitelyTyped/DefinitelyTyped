@@ -69,13 +69,13 @@ class DemoObservable implements Observable {
     notifyPropertyChange(keyName: string): this {
         throw new Error("Method not implemented.");
     }
-    addObserver<Target>(key: keyof this, target: Target, method: keyof Target | ((this: Target, sender: this, key: keyof this, value: any, rev: number) => void)): void;
-    addObserver<K extends keyof this>(key: K, method: keyof this | ((this: this, sender: this, key: K, value: this[K], rev: number) => void)): void;
+    addObserver<Target>(key: keyof this, target: Target, method: keyof Target | ((this: Target, sender: this, key: string, value: any, rev: number) => void)): any;
+    addObserver<K extends keyof this>(key: K, method: keyof this | ((this: this, sender: this, key: K, value: this[K], rev: number) => void)): any;
     addObserver(key: any, target: any, method?: any) {
         throw new Error("Method not implemented.");
     }
-    removeObserver<Target>(key: keyof this, target: Target, method: keyof Target | ((this: Target, sender: this, key: keyof this, value: any, rev: number) => void)): void;
-    removeObserver(key: keyof this, method: keyof this | ((this: this, sender: this, key: string, value: any, rev: number) => void)): void;
+    removeObserver<Target>(key: keyof this, target: Target, method: keyof Target | ((this: Target, sender: this, key: string, value: any, rev: number) => void)): any;
+    removeObserver(key: keyof this, method: keyof this | ((this: this, sender: this, key: string, value: any, rev: number) => void)): any;
     removeObserver(key: any, target: any, method?: any): void {
         throw new Error("Method not implemented.");
     }

@@ -14,6 +14,10 @@
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "@ember/string": ["ember__string"],
+            "@ember/polyfills": ["ember__polyfills"]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
@@ -40,6 +44,8 @@
         "test/core-object.ts",
         "test/create-negative.ts",
         "test/create.ts",
+        "test/data-adapter.ts",
+        "test/debug.ts",
         "test/detect-instance.ts",
         "test/detect.ts",
         "test/ember-tests.ts",
@@ -58,8 +64,8 @@
         "test/route.ts",
         "test/router.ts",
         "test/run.ts",
-        "test/string.ts",
         "test/string-ext.ts",
+        "test/string.ts",
         "test/test.ts",
         "test/transition.ts",
         "test/utils.ts",
