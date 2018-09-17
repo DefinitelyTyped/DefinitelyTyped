@@ -124,7 +124,7 @@ declare namespace chroma {
          * Computes the eucledian distance between two colors in a given color space (default is 'lab').
          * {@link https://en.wikipedia.org/wiki/Euclidean_distance#Three_dimensions}
          */
-        distance(color1: string | Color, color2: string | Color, colorSpace?: keyof ColorSpaces): Color;
+        distance(color1: string | Color, color2: string | Color, colorSpace?: keyof ColorSpaces): number;
 
         /**
          * Computes color difference {@link https://en.wikipedia.org/wiki/Color_difference#CMC_l:c_.281984.29} as
@@ -133,7 +133,7 @@ declare namespace chroma {
          * {@link https://web.archive.org/web/20160306044036/http://www.brucelindbloom.com/javascript/ColorDiff.js}
          * The parameters L (default 1) and C (default 1) are weighting factors for lightness and chromacity.
          */
-        deltaE(color1: string | Color, color2: string | Color, L?: number, C?: number): Color;
+        deltaE(color1: string | Color, color2: string | Color, L?: number, C?: number): number;
 
         /**
          * chroma.brewer is an map of ColorBrewer scales that are included in chroma.js for convenience.
