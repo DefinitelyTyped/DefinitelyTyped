@@ -26,15 +26,7 @@ export type PopStateCallback = (state: any) => boolean | undefined;
 
 export type RouterCallback = () => void;
 
-export interface DefaultQuery {
-    [key: string]:
-    | boolean
-    | boolean[]
-    | number
-    | number[]
-    | string
-    | string[];
-}
+export type DefaultQuery = Record<string, string | string[] | undefined>;
 
 export interface RouterProps<Q = DefaultQuery> {
     // url property fields
