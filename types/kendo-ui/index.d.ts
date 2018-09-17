@@ -1,13 +1,14 @@
 // Type definitions for Kendo UI Professional v2018.3.911
 // Project: http://www.telerik.com/kendo-ui
-// Definitions by: Telerik <https://github.com/telerik/>
-// The definitions are developed in the public kendo-ui-core repo: https://github.com/telerik/kendo-ui-core
-// See how you can contribute: https://github.com/telerik/kendo-ui-core#how-to-contribute
+// Definitions by: Telerik <https://github.com/telerik>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
+/// <reference types="jquery" />
 
 /*
  * Please, submit Pull Requests in the telerik/kendo-ui-core repo at
  * https://github.com/telerik/kendo-ui-core/tree/master/typescript
- *
+ * 
  * See contributor instructions at
  * https://github.com/telerik/kendo-ui-core#how-to-contribute
  */
