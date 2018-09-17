@@ -9,8 +9,8 @@ import * as React from 'react';
 export type BootstrapURLKeys = ({ key: string; } | { client: string; v: string; }) & { language?: string };
 
 export interface MapTypeStyle {
-  elementType: string;
-  featureType: string;
+  elementType?: string;
+  featureType?: string;
   stylers: any[];
 }
 

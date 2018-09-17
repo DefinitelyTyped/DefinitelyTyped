@@ -9,14 +9,14 @@
         "strictNullChecks": false,
         "strictFunctionTypes": true,
         "baseUrl": "../../",
-        "typeRoots": [
-            "../../"
-        ],
         "paths": {
             "yargs": [
                 "yargs/v11"
             ]
         },
+        "typeRoots": [
+            "../../"
+        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

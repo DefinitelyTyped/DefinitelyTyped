@@ -1900,3 +1900,90 @@ MyModel.createIndexes((err: any): void => {}).then(() => {});
 mongoose.connection.createCollection('foo').then(() => {});
 mongoose.connection.createCollection('foo', {wtimeout: 5}).then(() => {});
 mongoose.connection.createCollection('foo', {wtimeout: 5}, (err: Error, coll): void => {coll.collectionName}).then(() => {});
+
+const db = mongoose.connection;
+const User = mongoose.model('User', new mongoose.Schema({ name: String }));
+
+let session: mongoose.ClientSession;
+mongoose.connection.createCollection('users').
+  then(() => db.startSession()).
+  then(_session => {
+    session = _session;
+    session.startTransaction();
+    User.findOne({ name: 'foo' }).session(session);
+    session.commitTransaction();
+    return User.create({ name: 'foo' });
+  });
+
+const Event = db.model('Event', new mongoose.Schema({ createdAt: Date }), 'Event');
+
+db.createCollection('users').
+  then(() => db.startSession()).
+  then(_session => {
+    session = _session;
+    return User.create({ name: 'foo' });
+  }).
+  then(() => {
+    session.startTransaction();
+    return User.findOne({ name: 'foo' }).session(session).exec();
+  }).
+  then(() => {
+    session.commitTransaction();
+    return User.findOne({ name: 'bar' }).exec();
+  }).
+  catch(() => {
+    session.abortTransaction();
+  });
+  db.createCollection('Event').
+  then(() => db.startSession()).
+  then(_session => {
+    session = _session;
+    session.startTransaction();
+    return Event.insertMany([
+      { createdAt: new Date('2018-06-01') },
+      { createdAt: new Date('2018-06-02') },
+      { createdAt: new Date('2017-06-01') },
+      { createdAt: new Date('2017-05-31') }
+    ], { session: session });
+  }).
+  then(() => Event.aggregate([
+    {
+      $group: {
+        _id: {
+          month: { $month: '$createdAt' },
+          year: { $year: '$createdAt' }
+        },
+        count: { $sum: 1 }
+      }
+    },
+    { $sort: { count: -1, '_id.year': -1, '_id.month': -1 } }
+  ]).session(session).exec()).
+  then((res: any) => {
+    session.commitTransaction();
+  });
+
+/** https://mongoosejs.com/docs/transactions.html */
+
+const Customer = db.model('Customer', new mongoose.Schema({ name: String }));
+
+db.createCollection('customers').
+  then(() => db.startSession()).
+  then(_session => {
+    session = _session;
+    // Start a transaction
+    session.startTransaction();
+    // This `create()` is part of the transaction because of the `session`
+    // option.
+    return Customer.create([{ name: 'Test' }], { session: session });
+  }).
+  // Transactions execute in isolation, so unless you pass a `session`
+  // to `findOne()` you won't see the document until the transaction
+  // is committed.
+  then((customer: mongoose.Document[]) => Customer.findOne({ name: 'Test' }).exec()).
+  // This `findOne()` will return the doc, because passing the `session`
+  // means this `findOne()` will run as part of the transaction.
+  then(() => Customer.findOne({ name: 'Test' }).session(session).exec()).
+  // Once the transaction is committed, the write operation becomes
+  // visible outside of the transaction.
+  then(() => session.commitTransaction()).
+  then(() => Customer.findOne({ name: 'Test' }).exec())
