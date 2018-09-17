@@ -1,6 +1,7 @@
 {
     "compilerOptions": {
         "module": "commonjs",
+        "target": "es5",
         "lib": [
             "es6",
             "dom"
@@ -9,17 +10,19 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "jsx": "react",
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "@ember/string": ["ember__string"]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "redux-little-router-tests.tsx"
+        "ember__string-tests.ts"
     ]
 }

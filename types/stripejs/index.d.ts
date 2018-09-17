@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-import { ElementCreatorOptions, ElementFactory } from './element';
+import { StripeElement, ElementCreatorOptions, ElementFactory } from './element';
 import { StripePaymentOptions, StripePaymentRequest } from './payment';
 import { BankTokenData, PiiTokenData, TokenData, IBANTokenData, TokenResult } from './token';
 import { SourceData, SourceResult } from './source';
@@ -60,7 +60,7 @@ export interface StripeJS {
      *
      * @return an object containing the generated token or an error
      */
-    createToken(element: Element, data?: TokenData | IBANTokenData): Promise<TokenResult>;
+    createToken(element: StripeElement, data?: TokenData | IBANTokenData): Promise<TokenResult>;
     createToken(type: 'bank_account', data: BankTokenData): Promise<TokenResult>;
     createToken(type: 'pii', data: PiiTokenData): Promise<TokenResult>;
 
@@ -75,7 +75,7 @@ export interface StripeJS {
      *
      * @return an object containing the generated Source or an error
      */
-    createSource(element: Element, data: SourceData): Promise<SourceResult>;
+    createSource(element: StripeElement, data: SourceData): Promise<SourceResult>;
     createSource(data: SourceData): Promise<SourceResult>;
 
     /**

@@ -13,7 +13,6 @@
 // TypeScript Version: 2.8
 
 /// <reference types="jquery" />
-/// <reference types="handlebars" />
 
 declare module 'ember' {
     import {
@@ -25,7 +24,7 @@ declare module 'ember' {
     } from 'ember/-private-types/object/computed';
     import { Objectify, Fix, KeysOfType, TypeLookup } from 'ember/-private-types/utils';
     import { EmberClassArguments, EmberClassConstructor, EmberInstanceArguments } from 'ember/-private-types/object';
-
+    import * as HandlebarsNamespace from 'handlebars';
     // Capitalization is intentional: this makes it much easier to re-export RSVP on
     // the Ember namespace.
     import Rsvp from 'rsvp';
@@ -34,6 +33,8 @@ declare module 'ember' {
     import { Registry as ServiceRegistry } from '@ember/service';
     import { Registry as ControllerRegistry } from '@ember/controller';
     import ModuleComputed from '@ember/object/computed';
+    import * as EmberString from '@ember/string';
+    import * as EmberPolyfills from '@ember/polyfills';
 
     // Get an alias to the global Array type to use in inner scope below.
     type GlobalArray<T> = T[];
@@ -739,7 +740,7 @@ declare module 'ember' {
         class ContainerDebugAdapter extends Object {
             resolver: Resolver;
             canCatalogEntriesByType(type: string): boolean;
-            catalogEntriesByType(type: string): any[];
+            catalogEntriesByType(type: string): string[];
         }
         /**
          * Additional methods for the Controller.
@@ -1004,32 +1005,54 @@ declare module 'ember' {
              * The container-debug-adapter which is used
              * to list all models.
              */
-            containerDebugAdapter: any;
+            containerDebugAdapter: ContainerDebugAdapter;
             /**
              * Ember Data > v1.0.0-beta.18
              * requires string model names to be passed
              * around instead of the actual factories.
              */
-            acceptsModelName: any;
+            acceptsModelName: boolean;
             /**
              * Specifies how records can be filtered.
              * Records returned will need to have a `filterValues`
              * property with a key for every name in the returned array.
              */
-            getFilters(): any[];
+            getFilters(): DataAdapter.Column[];
             /**
              * Fetch the model types and observe them for changes.
              */
-            watchModelTypes(typesAdded: Function, typesUpdated: Function): Function;
+            watchModelTypes(
+                typesAdded: (types: DataAdapter.WrappedType[]) => void,
+                typesUpdated: (types: DataAdapter.WrappedType[]) => void
+            ): () => void;
             /**
              * Fetch the records of a given type and observe them for changes.
              */
             watchRecords(
                 modelName: string,
-                recordsAdded: Function,
-                recordsUpdated: Function,
-                recordsRemoved: Function
-            ): Function;
+                recordsAdded: (records: DataAdapter.WrappedRecord[]) => void,
+                recordsUpdated: (records: DataAdapter.WrappedRecord[]) => void,
+                recordsRemoved: (idx: number, count: number) => void
+            ): () => void;
+        }
+        namespace DataAdapter {
+            interface Column {
+                name: string;
+                desc: string;
+            }
+            interface WrappedRecord {
+                columnValues: object;
+                object: object;
+            }
+            interface WrappedType {
+                type: {
+                    name: string;
+                    count: number;
+                    columns: Column[];
+                    object: typeof Object;
+                };
+                release: () => void;
+            }
         }
         const Debug: {
             /**
@@ -1038,14 +1061,14 @@ declare module 'ember' {
              * The following example demonstrates its usage by registering a handler that throws an error if the
              * message contains the word "should", otherwise defers to the default handler.
              */
-            registerDeprecationHandler(handler: Function): any;
+            registerDeprecationHandler(handler: (message: string, options: { id: string, until: string }, next: () => void) => void): void;
             /**
              * Allows for runtime registration of handler functions that override the default warning behavior.
              * Warnings are invoked by calls made to [Ember.warn](http://emberjs.com/api/classes/Ember.html#method_warn).
              * The following example demonstrates its usage by registering a handler that does nothing overriding Ember's
              * default warning behavior.
              */
-            registerWarnHandler(handler: Function): any;
+            registerWarnHandler(handler: (message: string, options: { id: string }, next: () => void) => void): void;
         };
         /**
          * The DefaultResolver defines the default lookup rules to resolve
@@ -1711,11 +1734,11 @@ declare module 'ember' {
                 key: keyof this,
                 target: Target,
                 method: ObserverMethod<Target, this>
-            ): void;
+            ): this;
             addObserver(
                 key: keyof this,
                 method: ObserverMethod<this, this>
-            ): void;
+            ): this;
             /**
              * Remove an observer you have previously registered on this object. Pass
              * the same key, target, and method you passed to `addObserver()` and your
@@ -1725,11 +1748,11 @@ declare module 'ember' {
                 key: keyof this,
                 target: Target,
                 method: ObserverMethod<Target, this>
-            ): any;
+            ): this;
             removeObserver(
                 key: keyof this,
                 method: ObserverMethod<this, this>
-            ): any;
+            ): this;
             /**
              * Retrieves the value of a property, or a default value in the case that the
              * property returns `undefined`.
@@ -2399,27 +2422,24 @@ declare module 'ember' {
             function K(): any;
             function createFrame(objec: any): any;
             function Exception(message: string): void;
-            class SafeString {
-                constructor(str: string);
-                toString(): string;
-            }
+            const SafeString: typeof HandlebarsNamespace.SafeString;
             function parse(string: string): any;
             function print(ast: any): void;
             const logger: typeof Ember.Logger;
             function log(level: string, str: string): void;
         }
         namespace String {
-            function camelize(str: string): string;
-            function capitalize(str: string): string;
-            function classify(str: string): string;
-            function dasherize(str: string): string;
-            function decamelize(str: string): string;
+            const camelize: typeof EmberString.camelize;
+            const capitalize: typeof EmberString.capitalize;
+            const classify: typeof EmberString.classify;
+            const dasherize: typeof EmberString.dasherize;
+            const decamelize: typeof EmberString.decamelize;
             function fmt(...args: string[]): string;
-            function htmlSafe(str: string): Handlebars.SafeString;
-            function isHTMLSafe(str: string): boolean;
-            function loc(template: string, args?: string[]): string;
-            function underscore(str: string): string;
-            function w(str: string): string[];
+            const htmlSafe: typeof EmberString.htmlSafe;
+            const isHTMLSafe: typeof EmberString.isHTMLSafe;
+            const loc: typeof EmberString.loc;
+            const underscore: typeof EmberString.underscore;
+            const w: typeof EmberString.w;
         }
         const computed: {
             <T>(cb: ComputedPropertyCallback<T>): ComputedProperty<T>;
@@ -3017,20 +3037,20 @@ declare module 'ember' {
         /**
          * Run a function meant for debugging.
          */
-        function runInDebug(func: () => void): any;
+        function runInDebug(func: () => any): void;
         /**
          * Display a warning with the provided message.
          */
-        function warn(message: string, test: boolean, options: { id: string }): any;
-        function warn(message: string, options: { id: string }): any;
+        function warn(message: string, test: boolean, options: { id: string }): void;
+        function warn(message: string, options: { id: string }): void;
         /**
          * @deprecated Missing deprecation options: https://emberjs.com/deprecations/v2.x/#toc_ember-debug-function-options
          */
-        function warn(message: string, test: boolean, options?: { id?: string }): any;
+        function warn(message: string, test: boolean, options?: { id?: string }): void;
         /**
          * @deprecated Missing deprecation options: https://emberjs.com/deprecations/v2.x/#toc_ember-debug-function-options
          */
-        function warn(message: string, options?: { id?: string }): any;
+        function warn(message: string, options?: { id?: string }): void;
         /**
          * Global helper method to create a new binding. Just pass the root object
          * along with a `to` and `from` path to create and connect the binding.
@@ -3116,11 +3136,7 @@ declare module 'ember' {
          * A value is present if it not `isBlank`.
          */
         function isPresent(obj?: any): boolean;
-        /**
-         * Merge the contents of two objects together into the first object.
-         * @deprecated Use Object.assign
-         */
-        function merge<T extends object, U extends object>(original: T, updates: U): Mix<T, U>;
+        const merge: typeof EmberPolyfills.merge;
         /**
          * Makes a method available via an additional name.
          */
@@ -3128,33 +3144,33 @@ declare module 'ember' {
         /**
          * Specify a method that observes property changes.
          */
-        function observer(key1: string, func: (target: any, key: string) => void): void;
-        function observer(
+        function observer<Fn extends (target: any, key: string) => void>(key1: string, func: Fn): Fn;
+        function observer<Fn extends (target: any, key: string) => void>(
             key1: string,
             key2: string,
-            func: (target: any, key: string) => void
-        ): void;
-        function observer(
+            func: Fn
+        ): Fn;
+        function observer<Fn extends (target: any, key: string) => void>(
             key1: string,
             key2: string,
             key3: string,
-            func: (target: any, key: string) => void
-        ): void;
-        function observer(
+            func: Fn
+        ): Fn;
+        function observer<Fn extends (target: any, key: string) => void>(
             key1: string,
             key2: string,
             key3: string,
             key4: string,
-            func: (target: any, key: string) => void
-        ): void;
-        function observer(
+            func: Fn
+        ): Fn;
+        function observer<Fn extends (target: any, key: string) => void>(
             key1: string,
             key2: string,
             key3: string,
             key4: string,
             key5: string,
-            func: (target: any, key: string) => void
-        ): void;
+            func: Fn
+        ): Fn;
         /**
          * Adds an observer on a property.
          */
@@ -3211,6 +3227,11 @@ declare module 'ember' {
             key: K,
             value: UnwrapComputedPropertySetter<T[K]>
         ): UnwrapComputedPropertyGetter<T[K]>;
+        function set<T, K extends keyof T>(
+            obj: T,
+            key: K,
+            value: T[K]
+        ): T[K];
         /**
          * Error-tolerant form of `Ember.set`. Will not blow up if any part of the
          * chain is `undefined`, `null`, or destroyed.
@@ -3225,6 +3246,11 @@ declare module 'ember' {
             obj: T,
             hash: Pick<UnwrapComputedPropertySetters<T>, K>
         ): Pick<UnwrapComputedPropertyGetters<T>, K>;
+        // TODO: in TS2.9 - Pick<UnwrapComputedPropertySetters<T> | T, K>
+        function setProperties<T, K extends keyof T>(
+            obj: T,
+            hash: Pick<T, K>
+        ): Pick<T, K>;
         /**
          * Detects when a specific package of Ember (e.g. 'Ember.Application')
          * has fully loaded and is available for extension.
@@ -3267,14 +3293,12 @@ declare module 'ember' {
         function typeOf<T>(value: T): KeysOfType<TypeLookup, T>;
         function typeOf(): 'undefined';
         function typeOf(item: any): string;
+        // TODO: replace with an es6 reexport when declare module 'ember' is removed
         /**
          * Copy properties from a source object to a target object.
          * @deprecated Use Object.assign
          */
-        function assign<T extends object, U extends object>(target: T, source: U): Mix<T, U>;
-        function assign<T extends object, U extends object, V extends object>(target: T, source1: U, source2: V): Mix3<T, U, V>;
-        function assign<T extends object, U extends object, V extends object, W extends object>(target: T, source1: U, source2: V, source3: W): Mix4<T, U, V, W>;
-
+        const assign: typeof EmberPolyfills.assign;
         /**
          * Polyfill for Object.create
          * @deprecated Use Object.create
@@ -3309,12 +3333,6 @@ declare module 'ember' {
                 : undefined;
         function tryInvoke<FNAME extends keyof T, T extends object>(obj: T, methodName: FNAME): T[FNAME] extends (() => any) ? ReturnType<T[FNAME]> : undefined;
         function tryInvoke(obj: object, methodName: string, args?: any[]): undefined;
-        /**
-         * Forces the passed object to be part of an array. If the object is already
-         * an array, it will return the object. Otherwise, it will add the object to
-         * an array. If obj is `null` or `undefined`, it will return an empty array.
-         */
-        function makeArray<T>(obj?: T[] | T | null): T[];
         /**
          * Framework objects in an Ember application (components, services, routes, etc.)
          * are created via a factory and dependency injection system. Each of these
@@ -3529,7 +3547,6 @@ declare module '@ember/array' {
     export default EmberArray;
     export const A: typeof Ember.A;
     export const isArray: typeof Ember.isArray;
-    export const makeArray: typeof Ember.makeArray;
 }
 
 declare module '@ember/array/mutable' {
@@ -3625,35 +3642,10 @@ declare module '@ember/engine/instance' {
     export default class EngineInstance extends Ember.EngineInstance { }
 }
 
-declare module '@ember/enumerable' {
-    import Ember from 'ember';
-    type Enumerable<T> = Ember.Enumerable<T>;
-    const Enumerable: typeof Ember.Enumerable;
-    export default Enumerable;
-}
-
 declare module '@ember/error' {
     import Ember from 'ember';
     const Error: typeof Ember.Error;
     export default Error;
-}
-
-declare module '@ember/instrumentation' {
-    import Ember from 'ember';
-    export const instrument: typeof Ember.instrument;
-    export const reset: typeof Ember.reset;
-    export const subscribe: typeof Ember.subscribe;
-    export const unsubscribe: typeof Ember.unsubscribe;
-}
-
-declare module '@ember/map' {
-    import Ember from 'ember';
-    export default class EmberMap extends Ember.Map { }
-}
-
-declare module '@ember/map/with-default' {
-    import Ember from 'ember';
-    export default class MapWithDefault extends Ember.MapWithDefault { }
 }
 
 declare module '@ember/object' {
@@ -3768,15 +3760,6 @@ declare module '@ember/object/proxy' {
     export default class ObjectProxy extends Ember.ObjectProxy { }
 }
 
-declare module '@ember/polyfills' {
-    import Ember from 'ember';
-    export const assign: typeof Ember.assign;
-    export const create: typeof Ember.create;
-    export const hasPropertyAccessors: typeof Ember.platform.hasPropertyAccessors;
-    export const keys: typeof Ember.keys;
-    export const merge: typeof Ember.merge;
-}
-
 declare module '@ember/routing/auto-location' {
     import Ember from 'ember';
     export default class AutoLocation extends Ember.AutoLocation { }
@@ -3848,20 +3831,6 @@ declare module '@ember/service' {
     // A type registry for Ember `Service`s. Meant to be declaration-merged so
     // string lookups resolve to the correct type.
     interface Registry {}
-}
-
-declare module '@ember/string' {
-    import Ember from 'ember';
-    export const camelize: typeof Ember.String.camelize;
-    export const capitalize: typeof Ember.String.capitalize;
-    export const classify: typeof Ember.String.classify;
-    export const dasherize: typeof Ember.String.dasherize;
-    export const decamelize: typeof Ember.String.decamelize;
-    export const htmlSafe: typeof Ember.String.htmlSafe;
-    export const isHTMLSafe: typeof Ember.String.isHTMLSafe;
-    export const loc: typeof Ember.String.loc;
-    export const underscore: typeof Ember.String.underscore;
-    export const w: typeof Ember.String.w;
 }
 
 declare module '@ember/test' {

@@ -5425,6 +5425,14 @@ export interface WebGLRendererParameters {
      */
     canvas?: HTMLCanvasElement;
 
+
+    /**
+     * A WebGL Rendering Context.
+     * (https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext)
+     *  Default is null
+     */
+    context?: WebGLRenderingContext
+
     /**
      *  shader precision. Can be "highp", "mediump" or "lowp".
      */

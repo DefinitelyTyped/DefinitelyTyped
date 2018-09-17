@@ -13,6 +13,8 @@
 //                 Rafael Kallis <https://github.com/rafaelkallis>
 //                 Conan Lai <https://github.com/aconanlai>
 //                 Peter Thorson <https://github.com/zaphoyd>
+//                 Will Garcia <https://github.com/thewillg>
+//                 Simon Schick <https://github.com/SimonSchick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -145,6 +147,13 @@ export interface UriOptions {
      * Restrict only relative URIs. Defaults to `false`.
      */
     relativeOnly?: boolean;
+}
+
+export interface DataUriOptions {
+    /**
+     * optional parameter defaulting to true which will require = padding if true or make padding optional if false
+     */
+    paddingRequired?: boolean;
 }
 
 export interface Base64Options {
@@ -629,6 +638,11 @@ export interface StringSchema extends AnySchema {
      * Requires the string value to be a valid RFC 3986 URI.
      */
     uri(options?: UriOptions): this;
+
+    /**
+     * Requires the string value to be a valid data URI string.
+     */
+    dataUri(options?: DataUriOptions): this;
 
     /**
      * Requires the string value to be a valid GUID.
