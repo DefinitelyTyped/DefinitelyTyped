@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Taken from http://dev.w3.org/2011/webrtc/editor/getusermedia.html
-// version: W3C Editor's Draft 29 June 2015
+// version: W3C Editor's Draft 06 September 2018
 
 interface ConstrainBooleanParameters {
     exact?: boolean;
@@ -51,11 +51,15 @@ interface MediaTrackConstraintSet {
     aspectRatio?: W3C.ConstrainDouble;
     frameRate?: W3C.ConstrainDouble;
     facingMode?: W3C.ConstrainString;
+    resizeMode?: W3C.ConstrainString;
     volume?: W3C.ConstrainDouble;
     sampleRate?: W3C.ConstrainLong;
     sampleSize?: W3C.ConstrainLong;
     echoCancellation?: W3C.ConstrainBoolean;
+    autoGainControl?: W3C.ConstrainBoolean;
+    noiseSuppression?: W3C.ConstrainBoolean;
     latency?: W3C.ConstrainDouble;
+    channelCount?: W3C.ConstrainLong;
     deviceId?: W3C.ConstrainString;
     groupId?: W3C.ConstrainString;
 }
@@ -66,11 +70,15 @@ interface MediaTrackSupportedConstraints {
     aspectRatio?: boolean;
     frameRate?: boolean;
     facingMode?: boolean;
+    resizeMode?: boolean;
     volume?: boolean;
     sampleRate?: boolean;
     sampleSize?: boolean;
     echoCancellation?: boolean;
+    autoGainControl?: boolean;
+    noiseSuppression?: boolean;
     latency?: boolean;
+    channelCount?: boolean;
     deviceId?: boolean;
     groupId?: boolean;
 }
