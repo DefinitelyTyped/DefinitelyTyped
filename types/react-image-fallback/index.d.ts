@@ -2,6 +2,7 @@
 // Project: https://github.com/socialtables/react-image-fallback
 // Definitions by: Ben Smith <https://github.com/8enSmith>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare module "react-image-fallback" {
     import * as React from "react"
