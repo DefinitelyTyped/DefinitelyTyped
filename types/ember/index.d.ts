@@ -3227,6 +3227,11 @@ declare module 'ember' {
             key: K,
             value: UnwrapComputedPropertySetter<T[K]>
         ): UnwrapComputedPropertyGetter<T[K]>;
+        function set<T, K extends keyof T>(
+            obj: T,
+            key: K,
+            value: T[K]
+        ): T[K];
         /**
          * Error-tolerant form of `Ember.set`. Will not blow up if any part of the
          * chain is `undefined`, `null`, or destroyed.
@@ -3241,6 +3246,11 @@ declare module 'ember' {
             obj: T,
             hash: Pick<UnwrapComputedPropertySetters<T>, K>
         ): Pick<UnwrapComputedPropertyGetters<T>, K>;
+        // TODO: in TS2.9 - Pick<UnwrapComputedPropertySetters<T> | T, K>
+        function setProperties<T, K extends keyof T>(
+            obj: T,
+            hash: Pick<T, K>
+        ): Pick<T, K>;
         /**
          * Detects when a specific package of Ember (e.g. 'Ember.Application')
          * has fully loaded and is available for extension.
