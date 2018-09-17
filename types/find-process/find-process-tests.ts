@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import * as find from "find-process";
+import find = require('find-process');
 
 find('pid', 12345).then((processList) => {
     processList.forEach((ps) => {

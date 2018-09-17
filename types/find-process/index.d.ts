@@ -4,8 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// by: port|pid|name
-// value: the value of type, can be RegExp if type is name
 declare function find(by: string, value: string | number): Promise<Array<{ pid: string, ppid: string, uid: string, gid: string, name: string, cmd: string }>>;
 declare namespace find {}
 
