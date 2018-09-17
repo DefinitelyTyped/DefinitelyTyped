@@ -7,6 +7,21 @@ import * as path from 'path';
 
 const stringVal = 'string';
 
+let someString: string;
+const cInst: yargs.CommandInstance = yargs.getCommandInstance();
+cInst.getCommands().forEach(c => {
+    c.toLowerCase();
+});
+const someCommand = cInst.getCommandHandlers().someCommand;
+someCommand.handler('foo');
+someString = someCommand.original;
+someString = someCommand.description;
+someString = someCommand.builder; // type any
+someCommand.middlewares.forEach(() => {});
+someCommand.demanded.forEach(() => {});
+someCommand.optional.forEach(() => {});
+const hasDefaultCommand: boolean = cInst.hasDefaultCommand();
+
 // Examples taken from yargs website
 // https://github.com/chevex/yargs
 
