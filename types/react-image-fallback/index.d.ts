@@ -4,26 +4,22 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-declare module "react-image-fallback" {
-    import * as React from "react"
+import * as React from "react";
 
-    class ReactImageFallback extends React.Component<
-        ReactImageFallbackProps &
-        React.DetailedHTMLProps<
-        React.ImgHTMLAttributes<HTMLImageElement>,
-        HTMLImageElement
-        >,
-        any
-        > { }
+export class ReactImageFallback extends React.Component<
+    ReactImageFallbackProps &
+    React.DetailedHTMLProps<
+    React.ImgHTMLAttributes<HTMLImageElement>,
+    HTMLImageElement
+    >,
+    any
+    > { }
 
-    export interface ReactImageFallbackProps {
-        src: string
-        fallbackImage: string | React.ReactElement<any> | any[]
-        initialImage?: string | React.ReactElement<any>
-        onLoad?: (event: React.SyntheticEvent<HTMLImageElement>) => void
-        onError?: (event: React.SyntheticEvent<HTMLImageElement>) => void
-        initialTimeout?: number
-    }
-
-    export default ReactImageFallback
+export interface ReactImageFallbackProps {
+    src: string;
+    fallbackImage: string | React.ReactElement<any> | any[];
+    initialImage?: string | React.ReactElement<any>;
+    onLoad?: (event: React.SyntheticEvent<HTMLImageElement>) => void;
+    onError?: (event: React.SyntheticEvent<HTMLImageElement>) => void;
+    initialTimeout?: number;
 }
