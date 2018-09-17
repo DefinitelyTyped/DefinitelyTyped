@@ -1,6 +1,6 @@
 {
   "private":true,
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@types/redis": "^2.8.6"
   }
