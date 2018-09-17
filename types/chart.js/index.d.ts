@@ -491,6 +491,7 @@ declare namespace Chart {
         fontSize?: number;
         fontStyle?: string;
         labelOffset?: number;
+        lineHeight?: number;
         max?: any;
         maxRotation?: number;
         maxTicksLimit?: number;
