@@ -18,8 +18,8 @@ import * as Koa from "koa";
 
 declare module "koa" {
     interface Request {
-        body: {} | null | undefined;
-        rawBody: {} | null | undefined;
+        body: { [x: string]: any } | null | undefined;
+        rawBody: {} | null | undefined | string;
     }
 }
 
