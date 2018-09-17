@@ -1088,6 +1088,7 @@ declare module "http" {
         'pragma'?: string;
         'proxy-authenticate'?: string;
         'public-key-pins'?: string;
+        'referer'?: string;
         'retry-after'?: string;
         'set-cookie'?: string[];
         'strict-transport-security'?: string;
