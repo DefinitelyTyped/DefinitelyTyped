@@ -1,4 +1,4 @@
-// Type definitions for LevelUp 1
+// Type definitions for levelup 1.0
 // Project: https://github.com/Level/levelup
 // Definitions by: Bret Little <https://github.com/blittle>, Thiago de Arruda <https://github.com/tarruda>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
