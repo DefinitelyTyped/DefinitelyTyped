@@ -55,10 +55,10 @@ OfficeRuntime.displayWebDialog("https://localhost:3000", {
     width: '50%',
     displayInIFrame: false,
     hideTitle: true, 
-        onMessage: (message, dialog) => { 
-            console.log(message); 
-             dialog.close(); 
-             } 
+    onMessage: (message, dialog) => { 
+        console.log(message); 
+         dialog.close(); 
+         } 
     }
 )
 
