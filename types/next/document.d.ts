@@ -57,6 +57,6 @@ export interface NextScriptProps {
 export class Head extends React.Component<HeadProps> {}
 export class Main extends React.Component {}
 export class NextScript extends React.Component<NextScriptProps> {}
-export default class extends React.Component<DocumentProps> {
+export default class Document<TProps = {}> extends React.Component<TProps & DocumentProps> {
     static getInitialProps(ctx: NextDocumentContext): Promise<DocumentProps> | DocumentProps;
 }

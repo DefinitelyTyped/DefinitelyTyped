@@ -2,12 +2,37 @@ import * as Video from 'twilio-video';
 
 // Examples taken from https://twilio.github.io/twilio-video/ (v2.x)
 
-Video.connect('$TOKEN', { name: 'room-name' }).then(room => {
-    room.participants.forEach(participantConnected);
-    room.on('participantConnected', participantConnected);
-    room.on('participantDisconnected', participantDisconnected);
-    room.once('disconnected', error => room.participants.forEach(participantDisconnected));
-});
+let room: Video.Room | null = null;
+let localVideoTrack: Video.LocalVideoTrack | null = null;
+let localAudioTrack: Video.LocalAudioTrack | null = null;
+
+async function initRoom() {
+  // Connect to Twilio without creating audio and video track
+  room = await Video.connect('$TOKEN', { name: 'room-name', video: false, audio: false });
+  // Create local video track from default input
+  localVideoTrack = await Video.createLocalVideoTrack({ name: 'camera' });
+  // Create local audio track from default input
+  localAudioTrack = await Video.createLocalAudioTrack({ name: 'microphone' });
+  // Publish audio track
+  room.localParticipant.publishTrack(localAudioTrack);
+  // Subscribe to remote participant tracks
+  room.participants.forEach(participantConnected);
+  // Set up listeners
+  room.on('participantConnected', participantConnected);
+  room.on('participantDisconnected', participantDisconnected);
+  room.once('disconnected', (room: Video.Room, error: Video.TwilioError) => {
+    room.participants.forEach(participantDisconnected);
+    room.localParticipant.tracks.forEach((publication: Video.LocalTrackPublication) => {
+      publication.unpublish();
+      if (publication.track.kind !== 'data') trackUnsubscribed(publication.track);
+    });
+  });
+}
+
+function unpublishTracks() {
+  if (room && localVideoTrack) room.localParticipant.unpublishTrack(localVideoTrack);
+  if (room && localAudioTrack) room.localParticipant.unpublishTrack(localAudioTrack);
+}
 
 function participantConnected(participant: Video.Participant) {
     participant.on('trackSubscribed', trackSubscribed);
@@ -43,3 +68,8 @@ function trackUnsubscribed(track: Video.VideoTrack | Video.AudioTrack) {
 function insertDomElement(element: any) {
     // Do something with the dom element
 }
+
+initRoom();
+// Do something with your video
+// You can call unpublish tracks
+unpublishTracks();

@@ -5736,6 +5736,9 @@ function JQuery() {
 
             // $ExpectType JQuery<HTMLElement>
             $('span').prependTo($('p'));
+
+            // $ExpectType JQuery<HTMLElement>
+            $('span').prependTo(document.createDocumentFragment());
         }
 
         function clone() {
