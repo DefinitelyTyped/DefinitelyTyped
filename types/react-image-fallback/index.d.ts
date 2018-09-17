@@ -17,7 +17,7 @@ export default class ReactImageFallback extends React.Component<
 
 export interface ReactImageFallbackProps {
     src: string;
-    fallbackImage: string | React.ReactElement<any> | string[] | React.ReactElement<any>[];
+    fallbackImage: string | React.ReactElement<any> | Array<string> | React.ReactElement<any>[];
     initialImage?: string | React.ReactElement<any>;
     onLoad?: (event: React.SyntheticEvent<HTMLImageElement>) => void;
     onError?: (event: React.SyntheticEvent<HTMLImageElement>) => void;
