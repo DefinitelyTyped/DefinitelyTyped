@@ -3334,12 +3334,6 @@ declare module 'ember' {
         function tryInvoke<FNAME extends keyof T, T extends object>(obj: T, methodName: FNAME): T[FNAME] extends (() => any) ? ReturnType<T[FNAME]> : undefined;
         function tryInvoke(obj: object, methodName: string, args?: any[]): undefined;
         /**
-         * Forces the passed object to be part of an array. If the object is already
-         * an array, it will return the object. Otherwise, it will add the object to
-         * an array. If obj is `null` or `undefined`, it will return an empty array.
-         */
-        function makeArray<T>(obj?: T[] | T | null): T[];
-        /**
          * Framework objects in an Ember application (components, services, routes, etc.)
          * are created via a factory and dependency injection system. Each of these
          * objects is the responsibility of an "owner", which handled its
@@ -3553,7 +3547,6 @@ declare module '@ember/array' {
     export default EmberArray;
     export const A: typeof Ember.A;
     export const isArray: typeof Ember.isArray;
-    export const makeArray: typeof Ember.makeArray;
 }
 
 declare module '@ember/array/mutable' {
@@ -3649,35 +3642,10 @@ declare module '@ember/engine/instance' {
     export default class EngineInstance extends Ember.EngineInstance { }
 }
 
-declare module '@ember/enumerable' {
-    import Ember from 'ember';
-    type Enumerable<T> = Ember.Enumerable<T>;
-    const Enumerable: typeof Ember.Enumerable;
-    export default Enumerable;
-}
-
 declare module '@ember/error' {
     import Ember from 'ember';
     const Error: typeof Ember.Error;
     export default Error;
-}
-
-declare module '@ember/instrumentation' {
-    import Ember from 'ember';
-    export const instrument: typeof Ember.instrument;
-    export const reset: typeof Ember.reset;
-    export const subscribe: typeof Ember.subscribe;
-    export const unsubscribe: typeof Ember.unsubscribe;
-}
-
-declare module '@ember/map' {
-    import Ember from 'ember';
-    export default class EmberMap extends Ember.Map { }
-}
-
-declare module '@ember/map/with-default' {
-    import Ember from 'ember';
-    export default class MapWithDefault extends Ember.MapWithDefault { }
 }
 
 declare module '@ember/object' {
