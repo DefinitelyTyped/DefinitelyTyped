@@ -14,7 +14,7 @@ declare namespace OfficeRuntime {
     const AsyncStorage: AsyncStorage;
   
     // tslint:disable-next-line:interface-name
-       /**
+       /*
        * Asynchronous, global, and persistent key-value storage for Excel Custom Functions only.
        * @beta
        *
@@ -27,32 +27,32 @@ declare namespace OfficeRuntime {
        * 
        */
     interface AsyncStorage {
-      /**
+      /*
        * @beta
        * Retrieves an object based on a key and invokes a callback when finished. Returns a Promise. 
        *   
        */
       getItem(key: string, callback?: (error?: Error, result?: string) => void): Promise<string>;
-       /**
+       /*
        * @beta
        * Assigns the value for a key-value pair and invokes a callback when finished. Returns a Promise.  
        *
        */
       setItem(key: string, value: string, callback?: (error?: Error) => void): Promise<void>;
-      /**
+      /*
        * @beta
        * Removes an item for specified key and invokes a callback when finished. Returns a Promise. 
        *  
        *
        */
       removeItem(key: string, callback?: (error?: Error) => void): Promise<void>;
-      /**
+      /*
        * @beta
        * Erases all AsyncStorage. Returns a Promise. 
        *
        */
       clear(callback?: (error?: Error) => void): Promise<void>;
-       /**
+       /*
        * @beta
        * Returns a Promise with all keys for your custom function. 
        *
@@ -64,13 +64,13 @@ declare namespace OfficeRuntime {
        *
        */
       multiSet(keyValuePairs: string[][], callback?: (errors?: Error[]) => void): Promise<void>;
-       /**
+       /*
        * @beta
        * Deletes a batch of keys, specified in the `keys` array.
        *
        */
       multiRemove(keys: string[], callback?: (errors?: Error[]) => void): Promise<void>;/**
-      /**
+      /*
       * @beta
       * Fetches a batch of keys, specified in the `keys` array. When a key doesn't exist, returns null. 
       * 
@@ -78,33 +78,33 @@ declare namespace OfficeRuntime {
       multiGet(keys: string[], callback?: (errors?: Error[], result?: string[][]) => void): Promise<string[][]>;
     }
   
-    /**
+    /*
     * @beta
     * Object representing the dialog box for Excel Custom Functions only. 
     *
     */
     interface Dialog {
-       /**
+       /*
        * @beta
        * Method that closes a dialog box. 
        */
       close(): Promise<void>;
     }
   
-       /**
+       /*
        *
        * Provides options for how a dialog is displayed for Excel Custom Functions only. 
        *
        */
     interface DisplayWebDialogOptions {
-      /**
+      /*
        * @beta
        * Determines whether the dialog box displays as a popup (false) or within an IFrame (true). This setting is only applicable to custom functions running on Excel Online. 
        *
        * [Api set: Dialog 1.2]
        */
       displayInIFrame?: boolean;
-      /**
+      /*
        * @beta
        * Defines the height of the dialog box as a percentage of the current display.
        *
@@ -120,7 +120,7 @@ declare namespace OfficeRuntime {
        */
       width?: string;
   
-      /**
+      /*
        * @beta
        * True if title is hidden from the dialog box. 
        *
@@ -128,7 +128,7 @@ declare namespace OfficeRuntime {
        */
       hideTitle?: boolean;
   
-      /**
+      /*
        * @beta
        * Callback that is run when the dialog box sends a message to its parent.
        *
@@ -136,7 +136,7 @@ declare namespace OfficeRuntime {
        */
       onMessage?: (message: string, dialog?: Dialog) => void;
   
-      /**
+      /*
        * @beta
        * Callback that is run when the dialog box is closed.
        *
@@ -144,12 +144,12 @@ declare namespace OfficeRuntime {
        */
       onClose?: () => void;
   
-      /**
+      /*
        * @beta
        * Callback that is run when the dialog box sends an error.
        *
        * 
        */
-      onRuntimeError?: (error: Error, dialog?: Dialog) => void;
+        onMessage?(message: string, dialog?: Dialog): void
     }
   }
