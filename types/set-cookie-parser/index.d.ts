@@ -8,10 +8,12 @@
 declare module "set-cookie-parser" {
     import http = require("http");
 
-    function SetCookieParser(input: string | string[] | http.IncomingMessage): SetCookieParser.Cookie[];
+    function SetCookieParser(input: string | ReadonlyArray<string> | http.IncomingMessage): SetCookieParser.Cookie[];
 
     namespace SetCookieParser {
-        function parse(input: string | string[] | http.IncomingMessage): Cookie[];
+        function parse(input: string | ReadonlyArray<string> | http.IncomingMessage): Cookie[];
+
+        function splitCookiesString(input: string | ReadonlyArray<string> | void): string[];
 
         interface Cookie {
             name: string;

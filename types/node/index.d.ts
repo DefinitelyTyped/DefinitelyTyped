@@ -1,4 +1,4 @@
-// Type definitions for Node.js 10.7.x
+// Type definitions for Node.js 10.10.x
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <http://typescriptlang.org>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
@@ -28,6 +28,7 @@
 //                 Zane Hannan AU <https://github.com/ZaneHannanAU>
 //                 Thomas den Hollander <https://github.com/ThomasdenH>
 //                 Eugene Y. Q. Shen <https://github.com/eyqs>
+//                 Matthieu Sieben <https://github.com/matthieusieben>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /** inspector module types */
@@ -186,11 +187,11 @@ interface String {
     trimRight(): string;
 }
 
-/************************************************
-*                                               *
-*                   GLOBAL                      *
-*                                               *
-************************************************/
+/*-----------------------------------------------*
+ *                                               *
+ *                   GLOBAL                      *
+ *                                               *
+ ------------------------------------------------*/
 declare var process: NodeJS.Process;
 declare var global: NodeJS.Global;
 declare var console: Console;
@@ -468,11 +469,11 @@ declare var Buffer: {
     poolSize: number;
 };
 
-/************************************************
+/*----------------------------------------------*
 *                                               *
 *               GLOBAL INTERFACES               *
 *                                               *
-************************************************/
+*-----------------------------------------------*/
 declare namespace NodeJS {
     export interface InspectOptions {
         showHidden?: boolean;
@@ -795,6 +796,14 @@ declare namespace NodeJS {
         connected: boolean;
 
         /**
+         * The `process.allowedNodeEnvironmentFlags` property is a special,
+         * read-only `Set` of flags allowable within the [`NODE_OPTIONS`][]
+         * environment variable.
+         */
+        // TODO: This Set is readonly
+        allowedNodeEnvironmentFlags: Set<string>;
+
+        /**
          * EventEmitter
          *   1. beforeExit
          *   2. disconnect
@@ -828,7 +837,7 @@ declare namespace NodeJS {
         emit(event: "unhandledRejection", reason: any, promise: Promise<any>): boolean;
         emit(event: "warning", warning: Error): boolean;
         emit(event: "message", message: any, sendHandle: any): this;
-        emit(event: Signals): boolean;
+        emit(event: Signals, signal: Signals): boolean;
         emit(event: "newListener", eventName: string | symbol, listener: (...args: any[]) => void): this;
         emit(event: "removeListener", eventName: string, listener: (...args: any[]) => void): this;
 
@@ -988,11 +997,11 @@ declare namespace NodeJS {
 
 interface IterableIterator<T> { }
 
-/************************************************
+/*----------------------------------------------*
 *                                               *
 *                   MODULES                     *
 *                                               *
-************************************************/
+*-----------------------------------------------*/
 declare module "buffer" {
     export var INSPECT_MAX_BYTES: number;
     var BuffType: typeof Buffer;
@@ -1087,6 +1096,7 @@ declare module "http" {
         'pragma'?: string;
         'proxy-authenticate'?: string;
         'public-key-pins'?: string;
+        'referer'?: string;
         'retry-after'?: string;
         'set-cookie'?: string[];
         'strict-transport-security'?: string;
@@ -1094,6 +1104,7 @@ declare module "http" {
         'transfer-encoding'?: string;
         'tk'?: string;
         'upgrade'?: string;
+        'user-agent'?: string;
         'vary'?: string;
         'via'?: string;
         'warning'?: string;
@@ -1289,7 +1300,9 @@ declare module "http" {
     // create interface RequestOptions would make the naming more clear to developers
     export interface RequestOptions extends ClientRequestArgs { }
     export function request(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
+    export function request(url: string | URL, options: RequestOptions, callback?: (res: IncomingMessage) => void): ClientRequest;
     export function get(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
+    export function get(url: string | URL, options: RequestOptions, callback?: (res: IncomingMessage) => void): ClientRequest;
     export var globalAgent: Agent;
 }
 
@@ -1708,6 +1721,7 @@ declare module "os" {
         netmask: string;
         mac: string;
         internal: boolean;
+        cidr: string | null;
     }
 
     export interface NetworkInterfaceInfoIPv4 extends NetworkInterfaceBase {
@@ -1732,8 +1746,8 @@ declare module "os" {
     export function networkInterfaces(): { [index: string]: NetworkInterfaceInfo[] };
     export function homedir(): string;
     export function userInfo(options?: { encoding: string }): { username: string, uid: number, gid: number, shell: any, homedir: string };
-    export var constants: {
-        UV_UDP_REUSEADDR: number,
+    export const constants: {
+        UV_UDP_REUSEADDR: number;
         signals: {
             SIGHUP: number;
             SIGINT: number;
@@ -1769,7 +1783,7 @@ declare module "os" {
             SIGPWR: number;
             SIGSYS: number;
             SIGUNUSED: number;
-        },
+        };
         errno: {
             E2BIG: number;
             EACCES: number;
@@ -1850,13 +1864,36 @@ declare module "os" {
             ETXTBSY: number;
             EWOULDBLOCK: number;
             EXDEV: number;
-        },
+        };
+        priority: {
+            PRIORITY_LOW: number;
+            PRIORITY_BELOW_NORMAL: number;
+            PRIORITY_NORMAL: number;
+            PRIORITY_ABOVE_NORMAL: number;
+            PRIORITY_HIGH: number;
+            PRIORITY_HIGHEST: number;
+        }
     };
     export function arch(): string;
     export function platform(): NodeJS.Platform;
     export function tmpdir(): string;
     export const EOL: string;
     export function endianness(): "BE" | "LE";
+    /**
+     * Gets the priority of a process.
+     * Defaults to current process.
+     */
+    export function getPriority(pid?: number): number;
+    /**
+     * Sets the priority of the current process.
+     * @param priority Must be in range of -20 to 19
+     */
+    export function setPriority(priority: number): void;
+    /**
+     * Sets the priority of the process specified process.
+     * @param priority Must be in range of -20 to 19
+     */
+    export function setPriority(pid: number, priority: number): void;
 }
 
 declare module "https" {
@@ -1891,7 +1928,9 @@ declare module "https" {
 
     export function createServer(options: ServerOptions, requestListener?: (req: http.IncomingMessage, res: http.ServerResponse) => void): Server;
     export function request(options: RequestOptions | string | URL, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
+    export function request(url: string | URL, options: RequestOptions, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
     export function get(options: RequestOptions | string | URL, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
+    export function get(url: string | URL, options: RequestOptions, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
     export var globalAgent: Agent;
 }
 
@@ -2090,21 +2129,52 @@ declare module "readline" {
 
 declare module "vm" {
     export interface Context { }
-    export interface ScriptOptions {
+    export interface BaseOptions {
+        /**
+         * Specifies the filename used in stack traces produced by this script.
+         * Default: `''`.
+         */
         filename?: string;
+        /**
+         * Specifies the line number offset that is displayed in stack traces produced by this script.
+         * Default: `0`.
+         */
         lineOffset?: number;
+        /**
+         * Specifies the column number offset that is displayed in stack traces produced by this script.
+         * Default: `0`
+         */
         columnOffset?: number;
+    }
+    export interface ScriptOptions extends BaseOptions {
         displayErrors?: boolean;
         timeout?: number;
         cachedData?: Buffer;
         produceCachedData?: boolean;
     }
-    export interface RunningScriptOptions {
-        filename?: string;
-        lineOffset?: number;
-        columnOffset?: number;
+    export interface RunningScriptOptions extends BaseOptions {
         displayErrors?: boolean;
         timeout?: number;
+    }
+    export interface CompileFunctionOptions extends BaseOptions {
+        /**
+         * Provides an optional data with V8's code cache data for the supplied source.
+         */
+        cachedData?: Buffer;
+        /**
+         * Specifies whether to produce new cache data.
+         * Default: `false`,
+         */
+        produceCachedData?: boolean;
+        /**
+         * The sandbox/context in which the said function should be compiled in.
+         */
+        parsingContext?: Context;
+
+        /**
+         * An array containing a collection of context extensions (objects wrapping the current scope) to be applied while compiling
+         */
+        contextExtensions?: Object[];
     }
     export class Script {
         constructor(code: string, options?: ScriptOptions);
@@ -2119,6 +2189,7 @@ declare module "vm" {
     export function runInDebugContext(code: string): any;
     export function runInNewContext(code: string, sandbox?: Context, options?: RunningScriptOptions | string): any;
     export function runInThisContext(code: string, options?: RunningScriptOptions | string): any;
+    export function compileFunction(code: string, params: string[], options: CompileFunctionOptions): Function;
 }
 
 declare module "child_process" {
@@ -2198,7 +2269,7 @@ declare module "child_process" {
         keepOpen?: boolean;
     }
 
-    export type StdioOptions = "pipe" | "ignore" | "inherit" | Array<("pipe" | "ipc" | "ignore" | stream.Stream | number | null | undefined)>;
+    export type StdioOptions = "pipe" | "ignore" | "inherit" | Array<("pipe" | "ipc" | "ignore" | "inherit" | stream.Stream | number | null | undefined)>;
 
     export interface SpawnOptions {
         cwd?: string;
@@ -2353,7 +2424,7 @@ declare module "child_process" {
     export interface SpawnSyncOptions {
         argv0?: string; // Not specified in the docs
         cwd?: string;
-        input?: string | Buffer | Uint8Array;
+        input?: string | Buffer | NodeJS.TypedArray | DataView;
         stdio?: StdioOptions;
         env?: NodeJS.ProcessEnv;
         uid?: number;
@@ -2416,7 +2487,7 @@ declare module "child_process" {
 
     export interface ExecFileSyncOptions {
         cwd?: string;
-        input?: string | Buffer | Uint8Array;
+        input?: string | Buffer | NodeJS.TypedArray | DataView;
         stdio?: StdioOptions;
         env?: NodeJS.ProcessEnv;
         uid?: number;
@@ -3182,6 +3253,7 @@ declare module "fs" {
      */
     export type PathLike = string | Buffer | URL;
 
+    export type BinaryData = Buffer | DataView | NodeJS.TypedArray;
     export class Stats {
         isFile(): boolean;
         isDirectory(): boolean;
@@ -3208,6 +3280,17 @@ declare module "fs" {
         mtime: Date;
         ctime: Date;
         birthtime: Date;
+    }
+
+    export class Dirent {
+        isFile(): boolean;
+        isDirectory(): boolean;
+        isBlockDevice(): boolean;
+        isCharacterDevice(): boolean;
+        isSymbolicLink(): boolean;
+        isFIFO(): boolean;
+        isSocket(): boolean;
+        name: string;
     }
 
     export interface FSWatcher extends events.EventEmitter {
@@ -3957,27 +4040,34 @@ declare module "fs" {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    export function readdir(path: PathLike, options: { encoding: BufferEncoding | null } | BufferEncoding | undefined | null, callback: (err: NodeJS.ErrnoException, files: string[]) => void): void;
+    export function readdir(path: PathLike, options: { encoding: BufferEncoding | null; withFileTypes?: false } | BufferEncoding | undefined | null, callback: (err: NodeJS.ErrnoException, files: string[]) => void): void;
 
     /**
      * Asynchronous readdir(3) - read a directory.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    export function readdir(path: PathLike, options: { encoding: "buffer" } | "buffer", callback: (err: NodeJS.ErrnoException, files: Buffer[]) => void): void;
+    export function readdir(path: PathLike, options: { encoding: "buffer"; withFileTypes?: false } | "buffer", callback: (err: NodeJS.ErrnoException, files: Buffer[]) => void): void;
 
     /**
      * Asynchronous readdir(3) - read a directory.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    export function readdir(path: PathLike, options: { encoding?: string | null } | string | undefined | null, callback: (err: NodeJS.ErrnoException, files: string[] | Buffer[]) => void): void;
+    export function readdir(path: PathLike, options: { encoding?: string | null; withFileTypes?: false } | string | undefined | null, callback: (err: NodeJS.ErrnoException, files: string[] | Buffer[]) => void): void;
 
     /**
      * Asynchronous readdir(3) - read a directory.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
     export function readdir(path: PathLike, callback: (err: NodeJS.ErrnoException, files: string[]) => void): void;
+
+    /**
+     * Asynchronous readdir(3) - read a directory.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param options If called with `withFileTypes: true` the result data will be an array of Dirent.
+     */
+    export function readdir(path: PathLike, options: { withFileTypes: true }, callback: (err: NodeJS.ErrnoException, files: Dirent[]) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     export namespace readdir {
@@ -3986,21 +4076,28 @@ declare module "fs" {
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
          */
-        export function __promisify__(path: PathLike, options?: { encoding: BufferEncoding | null } | BufferEncoding | null): Promise<string[]>;
+        export function __promisify__(path: PathLike, options?: { encoding: BufferEncoding | null; withFileTypes?: false } | BufferEncoding | null): Promise<string[]>;
 
         /**
          * Asynchronous readdir(3) - read a directory.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
          */
-        export function __promisify__(path: PathLike, options: "buffer" | { encoding: "buffer" }): Promise<Buffer[]>;
+        export function __promisify__(path: PathLike, options: "buffer" | { encoding: "buffer"; withFileTypes?: false }): Promise<Buffer[]>;
 
         /**
          * Asynchronous readdir(3) - read a directory.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
          */
-        export function __promisify__(path: PathLike, options?: { encoding?: string | null } | string | null): Promise<string[] | Buffer[]>;
+        export function __promisify__(path: PathLike, options?: { encoding?: string | null; withFileTypes?: false } | string | null): Promise<string[] | Buffer[]>;
+
+        /**
+         * Asynchronous readdir(3) - read a directory.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * @param options If called with `withFileTypes: true` the result data will be an array of Dirent
+         */
+        export function __promisify__(path: PathLike, options: { withFileTypes: true }): Promise<Dirent[]>;
     }
 
     /**
@@ -4008,21 +4105,28 @@ declare module "fs" {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    export function readdirSync(path: PathLike, options?: { encoding: BufferEncoding | null } | BufferEncoding | null): string[];
+    export function readdirSync(path: PathLike, options?: { encoding: BufferEncoding | null; withFileTypes?: false } | BufferEncoding | null): string[];
 
     /**
      * Synchronous readdir(3) - read a directory.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    export function readdirSync(path: PathLike, options: { encoding: "buffer" } | "buffer"): Buffer[];
+    export function readdirSync(path: PathLike, options: { encoding: "buffer"; withFileTypes?: false } | "buffer"): Buffer[];
 
     /**
      * Synchronous readdir(3) - read a directory.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    export function readdirSync(path: PathLike, options?: { encoding?: string | null } | string | null): string[] | Buffer[];
+    export function readdirSync(path: PathLike, options?: { encoding?: string | null; withFileTypes?: false } | string | null): string[] | Buffer[];
+
+    /**
+     * Asynchronous readdir(3) - read a directory.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param options If called with `withFileTypes: true` the result data will be an array of Dirent.
+     */
+    export function readdirSync(path: PathLike, options: { withFileTypes: true }): Dirent[];
 
     /**
      * Asynchronous close(2) - close a file descriptor.
@@ -4157,7 +4261,7 @@ declare module "fs" {
      * @param length The number of bytes to write. If not supplied, defaults to `buffer.length - offset`.
      * @param position The offset from the beginning of the file where this data should be written. If not supplied, defaults to the current position.
      */
-    export function write<TBuffer extends Buffer | Uint8Array>(fd: number, buffer: TBuffer, offset: number | undefined | null, length: number | undefined | null, position: number | undefined | null, callback: (err: NodeJS.ErrnoException, written: number, buffer: TBuffer) => void): void;
+    export function write<TBuffer extends BinaryData>(fd: number, buffer: TBuffer, offset: number | undefined | null, length: number | undefined | null, position: number | undefined | null, callback: (err: NodeJS.ErrnoException, written: number, buffer: TBuffer) => void): void;
 
     /**
      * Asynchronously writes `buffer` to the file referenced by the supplied file descriptor.
@@ -4165,20 +4269,20 @@ declare module "fs" {
      * @param offset The part of the buffer to be written. If not supplied, defaults to `0`.
      * @param length The number of bytes to write. If not supplied, defaults to `buffer.length - offset`.
      */
-    export function write<TBuffer extends Buffer | Uint8Array>(fd: number, buffer: TBuffer, offset: number | undefined | null, length: number | undefined | null, callback: (err: NodeJS.ErrnoException, written: number, buffer: TBuffer) => void): void;
+    export function write<TBuffer extends BinaryData>(fd: number, buffer: TBuffer, offset: number | undefined | null, length: number | undefined | null, callback: (err: NodeJS.ErrnoException, written: number, buffer: TBuffer) => void): void;
 
     /**
      * Asynchronously writes `buffer` to the file referenced by the supplied file descriptor.
      * @param fd A file descriptor.
      * @param offset The part of the buffer to be written. If not supplied, defaults to `0`.
      */
-    export function write<TBuffer extends Buffer | Uint8Array>(fd: number, buffer: TBuffer, offset: number | undefined | null, callback: (err: NodeJS.ErrnoException, written: number, buffer: TBuffer) => void): void;
+    export function write<TBuffer extends BinaryData>(fd: number, buffer: TBuffer, offset: number | undefined | null, callback: (err: NodeJS.ErrnoException, written: number, buffer: TBuffer) => void): void;
 
     /**
      * Asynchronously writes `buffer` to the file referenced by the supplied file descriptor.
      * @param fd A file descriptor.
      */
-    export function write<TBuffer extends Buffer | Uint8Array>(fd: number, buffer: TBuffer, callback: (err: NodeJS.ErrnoException, written: number, buffer: TBuffer) => void): void;
+    export function write<TBuffer extends BinaryData>(fd: number, buffer: TBuffer, callback: (err: NodeJS.ErrnoException, written: number, buffer: TBuffer) => void): void;
 
     /**
      * Asynchronously writes `string` to the file referenced by the supplied file descriptor.
@@ -4213,7 +4317,7 @@ declare module "fs" {
          * @param length The number of bytes to write. If not supplied, defaults to `buffer.length - offset`.
          * @param position The offset from the beginning of the file where this data should be written. If not supplied, defaults to the current position.
          */
-        export function __promisify__<TBuffer extends Buffer | Uint8Array>(fd: number, buffer?: TBuffer, offset?: number, length?: number, position?: number | null): Promise<{ bytesWritten: number, buffer: TBuffer }>;
+        export function __promisify__<TBuffer extends BinaryData>(fd: number, buffer?: TBuffer, offset?: number, length?: number, position?: number | null): Promise<{ bytesWritten: number, buffer: TBuffer }>;
 
         /**
          * Asynchronously writes `string` to the file referenced by the supplied file descriptor.
@@ -4232,7 +4336,7 @@ declare module "fs" {
      * @param length The number of bytes to write. If not supplied, defaults to `buffer.length - offset`.
      * @param position The offset from the beginning of the file where this data should be written. If not supplied, defaults to the current position.
      */
-    export function writeSync(fd: number, buffer: Buffer | Uint8Array, offset?: number | null, length?: number | null, position?: number | null): number;
+    export function writeSync(fd: number, buffer: BinaryData, offset?: number | null, length?: number | null, position?: number | null): number;
 
     /**
      * Synchronously writes `string` to the file referenced by the supplied file descriptor, returning the number of bytes written.
@@ -4251,7 +4355,7 @@ declare module "fs" {
      * @param length The number of bytes to read.
      * @param position The offset from the beginning of the file from which data should be read. If `null`, data will be read from the current position.
      */
-    export function read<TBuffer extends Buffer | Uint8Array>(fd: number, buffer: TBuffer, offset: number, length: number, position: number | null, callback?: (err: NodeJS.ErrnoException, bytesRead: number, buffer: TBuffer) => void): void;
+    export function read<TBuffer extends BinaryData>(fd: number, buffer: TBuffer, offset: number, length: number, position: number | null, callback?: (err: NodeJS.ErrnoException, bytesRead: number, buffer: TBuffer) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     export namespace read {
@@ -4262,7 +4366,7 @@ declare module "fs" {
          * @param length The number of bytes to read.
          * @param position The offset from the beginning of the file from which data should be read. If `null`, data will be read from the current position.
          */
-        export function __promisify__<TBuffer extends Buffer | Uint8Array>(fd: number, buffer: TBuffer, offset: number, length: number, position: number | null): Promise<{ bytesRead: number, buffer: TBuffer }>;
+        export function __promisify__<TBuffer extends BinaryData>(fd: number, buffer: TBuffer, offset: number, length: number, position: number | null): Promise<{ bytesRead: number, buffer: TBuffer }>;
     }
 
     /**
@@ -4273,7 +4377,7 @@ declare module "fs" {
      * @param length The number of bytes to read.
      * @param position The offset from the beginning of the file from which data should be read. If `null`, data will be read from the current position.
      */
-    export function readSync(fd: number, buffer: Buffer | Uint8Array, offset: number, length: number, position: number | null): number;
+    export function readSync(fd: number, buffer: BinaryData, offset: number, length: number, position: number | null): number;
 
     /**
      * Asynchronously reads the entire contents of a file.
@@ -4372,6 +4476,8 @@ declare module "fs" {
      */
     export function readFileSync(path: PathLike | number, options?: { encoding?: string | null; flag?: string; } | string | null): string | Buffer;
 
+    export type WriteFileOptions = { encoding?: string | null; mode?: number | string; flag?: string; } | string | null;
+
     /**
      * Asynchronously writes data to a file, replacing the file if it already exists.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
@@ -4384,7 +4490,7 @@ declare module "fs" {
      * If `mode` is a string, it is parsed as an octal integer.
      * If `flag` is not supplied, the default of `'w'` is used.
      */
-    export function writeFile(path: PathLike | number, data: any, options: { encoding?: string | null; mode?: number | string; flag?: string; } | string | undefined | null, callback: (err: NodeJS.ErrnoException) => void): void;
+    export function writeFile(path: PathLike | number, data: any, options: WriteFileOptions, callback: (err: NodeJS.ErrnoException) => void): void;
 
     /**
      * Asynchronously writes data to a file, replacing the file if it already exists.
@@ -4409,7 +4515,7 @@ declare module "fs" {
          * If `mode` is a string, it is parsed as an octal integer.
          * If `flag` is not supplied, the default of `'w'` is used.
          */
-        export function __promisify__(path: PathLike | number, data: any, options?: { encoding?: string | null; mode?: number | string; flag?: string; } | string | null): Promise<void>;
+        export function __promisify__(path: PathLike | number, data: any, options?: WriteFileOptions): Promise<void>;
     }
 
     /**
@@ -4424,7 +4530,7 @@ declare module "fs" {
      * If `mode` is a string, it is parsed as an octal integer.
      * If `flag` is not supplied, the default of `'w'` is used.
      */
-    export function writeFileSync(path: PathLike | number, data: any, options?: { encoding?: string | null; mode?: number | string; flag?: string; } | string | null): void;
+    export function writeFileSync(path: PathLike | number, data: any, options?: WriteFileOptions): void;
 
     /**
      * Asynchronously append data to a file, creating the file if it does not exist.
@@ -4438,7 +4544,7 @@ declare module "fs" {
      * If `mode` is a string, it is parsed as an octal integer.
      * If `flag` is not supplied, the default of `'a'` is used.
      */
-    export function appendFile(file: PathLike | number, data: any, options: { encoding?: string | null, mode?: string | number, flag?: string } | string | undefined | null, callback: (err: NodeJS.ErrnoException) => void): void;
+    export function appendFile(file: PathLike | number, data: any, options: WriteFileOptions, callback: (err: NodeJS.ErrnoException) => void): void;
 
     /**
      * Asynchronously append data to a file, creating the file if it does not exist.
@@ -4463,7 +4569,7 @@ declare module "fs" {
          * If `mode` is a string, it is parsed as an octal integer.
          * If `flag` is not supplied, the default of `'a'` is used.
          */
-        export function __promisify__(file: PathLike | number, data: any, options?: { encoding?: string | null, mode?: string | number, flag?: string } | string | null): Promise<void>;
+        export function __promisify__(file: PathLike | number, data: any, options?: WriteFileOptions): Promise<void>;
     }
 
     /**
@@ -4478,7 +4584,7 @@ declare module "fs" {
      * If `mode` is a string, it is parsed as an octal integer.
      * If `flag` is not supplied, the default of `'a'` is used.
      */
-    export function appendFileSync(file: PathLike | number, data: any, options?: { encoding?: string | null; mode?: number | string; flag?: string; } | string | null): void;
+    export function appendFileSync(file: PathLike | number, data: any, options?: WriteFileOptions): void;
 
     /**
      * Watch for changes on `filename`. The callback `listener` will be called each time the file is accessed.
@@ -5899,13 +6005,15 @@ declare module "crypto" {
         authTagLength?: number;
     }
     /** @deprecated since v10.0.0 use createCipheriv() */
-    export function createCipher(algorithm: string, password: string | Buffer | NodeJS.TypedArray | DataView, options?: stream.TransformOptions): Cipher;
     export function createCipher(algorithm: CipherCCMTypes, password: string | Buffer | NodeJS.TypedArray | DataView, options: CipherCCMOptions): CipherCCM;
-    export function createCipher(algorithm: CipherGCMTypes, password: string | Buffer | NodeJS.TypedArray | DataView, options: CipherGCMOptions): CipherGCM;
+    /** @deprecated since v10.0.0 use createCipheriv() */
+    export function createCipher(algorithm: CipherGCMTypes, password: string | Buffer | NodeJS.TypedArray | DataView, options?: CipherGCMOptions): CipherGCM;
+    /** @deprecated since v10.0.0 use createCipheriv() */
+    export function createCipher(algorithm: string, password: string | Buffer | NodeJS.TypedArray | DataView, options?: stream.TransformOptions): Cipher;
 
+    export function createCipheriv(algorithm: CipherCCMTypes, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options: CipherCCMOptions): CipherCCM;
+    export function createCipheriv(algorithm: CipherGCMTypes, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options?: CipherGCMOptions): CipherGCM;
     export function createCipheriv(algorithm: string, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options?: stream.TransformOptions): Cipher;
-    export function createCipheriv(algorithm: CipherGCMTypes, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options: CipherCCMOptions): CipherCCM;
-    export function createCipheriv(algorithm: CipherGCMTypes, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options: CipherGCMOptions): CipherGCM;
 
     export interface Cipher extends NodeJS.ReadWriteStream {
         update(data: string | Buffer | NodeJS.TypedArray | DataView): Buffer;
@@ -5921,21 +6029,23 @@ declare module "crypto" {
         // setAAD(buffer: Buffer): this; // docs only say buffer
     }
     export interface CipherCCM extends Cipher {
-        setAAD(buffer: Buffer, options: { plainTextLength: number }): this;
+        setAAD(buffer: Buffer, options: { plaintextLength: number }): this;
         getAuthTag(): Buffer;
     }
     export interface CipherGCM extends Cipher {
-        setAAD(buffer: Buffer, options?: { plainTextLength: number }): this;
+        setAAD(buffer: Buffer, options?: { plaintextLength: number }): this;
         getAuthTag(): Buffer;
     }
     /** @deprecated since v10.0.0 use createCipheriv() */
-    export function createDecipher(algorithm: string, password: string | Buffer | NodeJS.TypedArray | DataView, options?: stream.TransformOptions): Decipher;
     export function createDecipher(algorithm: CipherCCMTypes, password: string | Buffer | NodeJS.TypedArray | DataView, options: CipherCCMOptions): DecipherCCM;
-    export function createDecipher(algorithm: CipherGCMTypes, password: string | Buffer | NodeJS.TypedArray | DataView, options: CipherGCMOptions): DecipherGCM;
+    /** @deprecated since v10.0.0 use createCipheriv() */
+    export function createDecipher(algorithm: CipherGCMTypes, password: string | Buffer | NodeJS.TypedArray | DataView, options?: CipherGCMOptions): DecipherGCM;
+    /** @deprecated since v10.0.0 use createCipheriv() */
+    export function createDecipher(algorithm: string, password: string | Buffer | NodeJS.TypedArray | DataView, options?: stream.TransformOptions): Decipher;
 
-    export function createDecipheriv(algorithm: string, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options?: stream.TransformOptions): Decipher;
     export function createDecipheriv(algorithm: CipherCCMTypes, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options: CipherCCMOptions): DecipherCCM;
-    export function createDecipheriv(algorithm: CipherGCMTypes, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options: CipherGCMOptions): DecipherGCM;
+    export function createDecipheriv(algorithm: CipherGCMTypes, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options?: CipherGCMOptions): DecipherGCM;
+    export function createDecipheriv(algorithm: string, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options?: stream.TransformOptions): Decipher;
 
     export interface Decipher extends NodeJS.ReadWriteStream {
         update(data: Buffer | NodeJS.TypedArray | DataView): Buffer;
@@ -5950,12 +6060,12 @@ declare module "crypto" {
         // setAAD(buffer: Buffer | NodeJS.TypedArray | DataView): this;
     }
     export interface DecipherCCM extends Decipher {
-        setAuthTag(buffer: Buffer | NodeJS.TypedArray | DataView, options: { plainTextLength: number }): this;
-        setAAD(buffer: Buffer | NodeJS.TypedArray | DataView): this;
+        setAuthTag(buffer: Buffer | NodeJS.TypedArray | DataView): this;
+        setAAD(buffer: Buffer | NodeJS.TypedArray | DataView, options: { plaintextLength: number }): this;
     }
     export interface DecipherGCM extends Decipher {
-        setAuthTag(buffer: Buffer | NodeJS.TypedArray | DataView, options?: { plainTextLength: number }): this;
-        setAAD(buffer: Buffer | NodeJS.TypedArray | DataView): this;
+        setAuthTag(buffer: Buffer | NodeJS.TypedArray | DataView): this;
+        setAAD(buffer: Buffer | NodeJS.TypedArray | DataView, options?: { plaintextLength: number }): this;
     }
 
     export function createSign(algorithm: string, options?: stream.WritableOptions): Signer;
@@ -6327,6 +6437,7 @@ declare module "stream" {
 declare module "util" {
     export interface InspectOptions extends NodeJS.InspectOptions { }
     export function format(format: any, ...param: any[]): string;
+    export function formatWithOptions(inspectOptions: InspectOptions, format: string, ...param: any[]): string;
     /** @deprecated since v0.11.3 - use `console.error()` instead. */
     export function debug(string: string): void;
     /** @deprecated since v0.11.3 - use `console.error()` instead. */
@@ -6405,17 +6516,17 @@ declare module "util" {
 
     export function promisify<TCustom extends Function>(fn: CustomPromisify<TCustom>): TCustom;
     export function promisify<TResult>(fn: (callback: (err: Error | null, result: TResult) => void) => void): () => Promise<TResult>;
-    export function promisify(fn: (callback: (err: Error | null) => void) => void): () => Promise<void>;
+    export function promisify(fn: (callback: (err?: Error | null) => void) => void): () => Promise<void>;
     export function promisify<T1, TResult>(fn: (arg1: T1, callback: (err: Error | null, result: TResult) => void) => void): (arg1: T1) => Promise<TResult>;
-    export function promisify<T1>(fn: (arg1: T1, callback: (err: Error | null) => void) => void): (arg1: T1) => Promise<void>;
+    export function promisify<T1>(fn: (arg1: T1, callback: (err?: Error | null) => void) => void): (arg1: T1) => Promise<void>;
     export function promisify<T1, T2, TResult>(fn: (arg1: T1, arg2: T2, callback: (err: Error | null, result: TResult) => void) => void): (arg1: T1, arg2: T2) => Promise<TResult>;
-    export function promisify<T1, T2>(fn: (arg1: T1, arg2: T2, callback: (err: Error | null) => void) => void): (arg1: T1, arg2: T2) => Promise<void>;
+    export function promisify<T1, T2>(fn: (arg1: T1, arg2: T2, callback: (err?: Error | null) => void) => void): (arg1: T1, arg2: T2) => Promise<void>;
     export function promisify<T1, T2, T3, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, callback: (err: Error | null, result: TResult) => void) => void): (arg1: T1, arg2: T2, arg3: T3) => Promise<TResult>;
-    export function promisify<T1, T2, T3>(fn: (arg1: T1, arg2: T2, arg3: T3, callback: (err: Error | null) => void) => void): (arg1: T1, arg2: T2, arg3: T3) => Promise<void>;
+    export function promisify<T1, T2, T3>(fn: (arg1: T1, arg2: T2, arg3: T3, callback: (err?: Error | null) => void) => void): (arg1: T1, arg2: T2, arg3: T3) => Promise<void>;
     export function promisify<T1, T2, T3, T4, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err: Error | null, result: TResult) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<TResult>;
-    export function promisify<T1, T2, T3, T4>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err: Error | null) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<void>;
+    export function promisify<T1, T2, T3, T4>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err?: Error | null) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<void>;
     export function promisify<T1, T2, T3, T4, T5, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err: Error | null, result: TResult) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<TResult>;
-    export function promisify<T1, T2, T3, T4, T5>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err: Error | null) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<void>;
+    export function promisify<T1, T2, T3, T4, T5>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err?: Error | null) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<void>;
     export function promisify(fn: Function): Function;
     export namespace promisify {
         const custom: symbol;

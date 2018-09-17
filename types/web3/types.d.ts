@@ -85,5 +85,12 @@ export interface Subscribe<T> {
     on(type: "error", handler: (data: Error) => void): void;
 }
 
-export class Shh {} // TODO: Type
+export interface Shh {
+    generateSymKeyFromPassword(password: string): Promise<string>;
+    generateSymKeyFromPassword(
+        password: string,
+        callback: Callback<string>
+    ): void;
+    // TODO: type every method
+}
 export class Bzz {} // TODO: Type

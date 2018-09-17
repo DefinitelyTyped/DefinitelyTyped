@@ -1,6 +1,8 @@
 // Type definitions for node-fluent-ffmpeg 2.1
 // Project: https://github.com/fluent-ffmpeg/node-fluent-ffmpeg
-// Definitions by: KIM Jaesuck a.k.a. gim tcaesvk <https://github.com/tcaesvk>, DingWeizhe <https://github.com/DingWeizhe>
+// Definitions by: KIM Jaesuck a.k.a. gim tcaesvk <https://github.com/tcaesvk>
+//                 DingWeizhe <https://github.com/DingWeizhe>
+//                 Mounir Abid <https://github.com/mabidina>
 // Definitions: https://github.com/DefinitelyType/DefinitelyTyped
 
 /// <reference types="node" />
@@ -11,7 +13,7 @@ import * as stream from "stream";
 declare namespace Ffmpeg {
     interface FfmpegCommandLogger {
         error(...data: any[]): void;
-        warning(...data: any[]): void;
+        warn(...data: any[]): void;
         info(...data: any[]): void;
         debug(...data: any[]): void;
     }

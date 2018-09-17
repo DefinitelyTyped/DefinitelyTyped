@@ -11,6 +11,7 @@
 //                 Michele Bombardi <https://github.com/bm-software>
 //                 Tanguy Krotoff <https://github.com/tkrotoff>
 //                 Alexander T. <https://github.com/a-tarasyuk>
+//                 Martin van Dam <https://github.com/mvdam>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -29,7 +30,9 @@
 /// <reference path="globals.d.ts" />
 /// <reference path="legacy-properties.d.ts" />
 /// <reference path="BatchedBridge.d.ts" />
+/// <reference path="Devtools.d.ts" />
 
+import * as PropTypes from 'prop-types';
 import * as React from 'react';
 
 type Constructor<T> = new(...args: any[]) => T;
@@ -1234,6 +1237,11 @@ export interface TextInputProps
     caretHidden?: boolean
 
     /**
+     * If true, context menu is hidden. The default value is false.
+     */
+    contextMenuHidden?: boolean
+
+    /**
      * Provides an initial value that will change when the user starts typing.
      * Useful for simple use-cases where you don't want to deal with listening to events
      * and updating the value prop to keep the controlled state in sync.
@@ -1919,7 +1927,7 @@ type AccessibilityTrait =
  * @see https://facebook.github.io/react-native/docs/view.html#props
  */
 export interface ViewProps
-    extends ViewPropsAndroid, ViewPropsIOS, GestureResponderHandlers, Touchable, AccessibilityProps, ViewStyle {
+    extends ViewPropsAndroid, ViewPropsIOS, GestureResponderHandlers, Touchable, AccessibilityProps {
     /**
      * This defines how far a touch event can start away from the view.
      * Typical interface guidelines recommend touch targets that are at least
@@ -2173,7 +2181,7 @@ export interface WebViewIOSLoadRequestEvent {
     loading: boolean;
     title: string;
     canGoForward: boolean;
-    navigationType: "other" | "click";
+    navigationType: "click" | "formsubmit" | "backforward" | "reload" | "formresubmit" | "other";
     url: string;
 }
 
@@ -2246,7 +2254,7 @@ export interface WebViewUriSource {
      * The HTTP Method to use. Defaults to GET if not specified.
      * NOTE: On Android, only GET and POST are supported.
      */
-    method?: string;
+    method?: "GET" | "POST";
 
     /*
      * Additional HTTP headers to send with the request.
@@ -3605,7 +3613,7 @@ export interface ImageResolvedAssetSource {
 /**
  * @see https://facebook.github.io/react-native/docs/image.html
  */
-export interface ImagePropsBase extends ImagePropsIOS, ImagePropsAndroid, AccessibilityProps, ImageStyle {
+export interface ImagePropsBase extends ImagePropsIOS, ImagePropsAndroid, AccessibilityProps {
     /**
      * onLayout function
      *
@@ -3720,14 +3728,6 @@ export interface ImagePropsBase extends ImagePropsIOS, ImagePropsAndroid, Access
      * A static image to display while downloading the final image off the network.
      */
     defaultSource?: ImageURISource | number;
-
-    /**
-     * Currently broken
-     * @see https://github.com/facebook/react-native/pull/19281
-     */
-    width?: never;
-    height?: never;
-    tintColor?: never;
 }
 
 export interface ImageProps extends ImagePropsBase {
@@ -4049,7 +4049,7 @@ export interface SectionListRenderItemInfo<ItemT> extends ListRenderItemInfo<Ite
 
 export type SectionListRenderItem<ItemT> = (info: SectionListRenderItemInfo<ItemT>) => React.ReactElement<any> | null;
 
-export interface SectionListProps<ItemT> extends ScrollViewProps {
+export interface SectionListProps<ItemT> extends VirtualizedListWithoutRenderItemProps<ItemT> {
     /**
      * Rendered in between adjacent Items within each section.
      */
@@ -4208,7 +4208,11 @@ export interface SectionListStatic<SectionT> extends React.ComponentClass<Sectio
 /**
  * @see https://facebook.github.io/react-native/docs/virtualizedlist.html#props
  */
-export interface VirtualizedListProps<ItemT> extends ScrollViewProps {
+ export interface VirtualizedListProps<ItemT> extends VirtualizedListWithoutRenderItemProps<ItemT> {
+     renderItem: ListRenderItem<ItemT>;
+ }
+
+ export interface VirtualizedListWithoutRenderItemProps<ItemT> extends ScrollViewProps {
     /**
      * Rendered when the list is empty. Can be a React Component Class, a render function, or
      * a rendered element.
@@ -4351,8 +4355,6 @@ export interface VirtualizedListProps<ItemT> extends ScrollViewProps {
      * This may improve scroll performance for large lists.
      */
     removeClippedSubviews?: boolean;
-
-    renderItem: ListRenderItem<ItemT>;
 
     /**
      * Render a custom scroll component, e.g. with a differently styled `RefreshControl`.
@@ -5215,6 +5217,20 @@ export namespace StyleSheet {
     export function flatten(style?: StyleProp<TextStyle>): TextStyle;
     export function flatten(style?: StyleProp<ImageStyle>): ImageStyle;
     export function flatten(style?: StyleProp<ViewStyle>): ViewStyle;
+
+    /**
+     * WARNING: EXPERIMENTAL. Breaking changes will probably happen a lot and will
+     * not be reliably announced. The whole thing might be deleted, who knows? Use
+     * at your own risk.
+     *
+     * Sets a function to use to pre-process a style property value. This is used
+     * internally to process color and transform values. You should not use this
+     * unless you really know what you are doing and have exhausted other options.
+     */
+    export function setStyleAttributePreprocessor(
+        property: string,
+        process: (nextProp: any) => any
+    ): void;
 
     /**
      * This is defined as the width of a thin line on the platform. It can be
@@ -6218,6 +6234,11 @@ export interface ScrollViewPropsAndroid {
         *   - 'never' - Never allow a user to over-scroll this view.
         */
     overScrollMode?: "auto" | "always" | "never";
+
+    /**
+     * Enables nested scrolling for Android API level 21+. Nested scrolling is supported by default on iOS.
+     */
+    nestedScrollEnabled?: boolean;
 }
 
 export interface ScrollViewProps
@@ -7867,6 +7888,7 @@ type TimePickerAndroidOpenOptions = {
     hour?: number;
     minute?: number;
     is24Hour?: boolean;
+    mode?: 'clock' | 'spinner' | 'default';
 };
 
 /**
@@ -7899,6 +7921,10 @@ export interface TimePickerAndroidStatic {
      *   * `is24Hour` (boolean) - If `true`, the picker uses the 24-hour format. If `false`,
      *     the picker shows an AM/PM chooser. If undefined, the default for the current locale
      *     is used.
+     *   * `mode` (enum('clock', 'spinner', 'default')) - set the time picker mode
+     *     * 'clock': Show a time picker in clock mode.
+     *     * 'spinner': Show a time picker in spinner mode.
+     *     * 'default': Show a default time picker based on Android versions.
      *
      * Returns a Promise which will be invoked an object containing `action`, `hour` (0-23),
      * `minute` (0-59) if the user picked a time. If the user dismissed the dialog, the Promise will
@@ -8455,8 +8481,8 @@ export namespace Animated {
     export function parallel(animations: Array<CompositeAnimation>, config?: ParallelConfig): CompositeAnimation;
 
     type Mapping = { [key: string]: Mapping } | AnimatedValue;
-    interface EventConfig {
-        listener?: ValueListenerCallback;
+    interface EventConfig<T> {
+        listener?: (event?: NativeSyntheticEvent<T>) => void;
         useNativeDriver?: boolean;
     }
 
@@ -8476,7 +8502,7 @@ export namespace Animated {
      *  ]),
      *```
      */
-    export function event(argMapping: Array<Mapping | null>, config?: EventConfig): (...args: any[]) => void;
+    export function event<T>(argMapping: Array<Mapping | null>, config?: EventConfig<T>): (...args: any[]) => void;
 
     /**
      * Make any React component Animatable.  Used to create `Animated.View`, etc.
@@ -8926,7 +8952,7 @@ export const PixelRatio: PixelRatioStatic;
 export interface ComponentInterface<P> {
     name?: string;
     displayName?: string;
-    propTypes: P;
+    propTypes: PropTypes.ValidationMap<P>;
 }
 
 /**
@@ -8948,7 +8974,7 @@ export function requireNativeComponent<P>(
     viewName: string,
     componentInterface?: ComponentInterface<P>,
     extraConfig?: { nativeOnly?: any }
-): React.ComponentClass<P>;
+): React.ComponentClass<PropTypes.InferProps<PropTypes.ValidationMap<P>>>;
 
 export function findNodeHandle(
     componentOrHandle: null | number | React.Component<any, any> | React.ComponentClass<any>
@@ -8991,10 +9017,10 @@ export namespace addons {
 //
 // Prop Types
 //
-export const ColorPropType: React.Requireable<any>;
-export const EdgeInsetsPropType: React.Requireable<any>;
-export const PointPropType: React.Requireable<any>;
-export const ViewPropTypes: React.Requireable<any>;
+export const ColorPropType: React.Validator<string>;
+export const EdgeInsetsPropType: React.Validator<Insets>;
+export const PointPropType: React.Validator<PointPropType>;
+export const ViewPropTypes: React.ValidationMap<ViewProps>;
 
 declare global {
     function require(name: string): any;

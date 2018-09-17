@@ -264,11 +264,12 @@ declare module "zlib" {
 		 * 
 		 * @brief 创建一个 gunzip 流对象
 		 * @param to 用于存储处理结果的流
+		 * @param maxSize 指定解压缩尺寸限制，缺省为 -1，不限制
 		 * @return 返回封装过的流对象
 		 * 
 		 * 
 		 */
-		export function createGunzip(to: Class_Stream): Class_Stream;
+		export function createGunzip(to: Class_Stream, maxSize?: number/** = -1*/): Class_Stream;
 	
 		/**
 		 * 
@@ -284,21 +285,23 @@ declare module "zlib" {
 		 * 
 		 * @brief 创建一个 inflate 流对象
 		 * @param to 用于存储处理结果的流
+		 * @param maxSize 指定解压缩尺寸限制，缺省为 -1，不限制
 		 * @return 返回封装过的流对象
 		 * 
 		 * 
 		 */
-		export function createInflate(to: Class_Stream): Class_Stream;
+		export function createInflate(to: Class_Stream, maxSize?: number/** = -1*/): Class_Stream;
 	
 		/**
 		 * 
 		 * @brief 创建一个 inflateRaw 流对象
 		 * @param to 用于存储处理结果的流
+		 * @param maxSize 指定解压缩尺寸限制，缺省为 -1，不限制
 		 * @return 返回封装过的流对象
 		 * 
 		 * 
 		 */
-		export function createInflateRaw(to: Class_Stream): Class_Stream;
+		export function createInflateRaw(to: Class_Stream, maxSize?: number/** = -1*/): Class_Stream;
 	
 		/**
 		 * 
@@ -340,34 +343,37 @@ declare module "zlib" {
 		 * 
 		 * @brief 解压缩 deflate 算法压缩的数据(zlib格式)
 		 * @param data 给定压缩后的数据
+		 * @param maxSize 指定解压缩尺寸限制，缺省为 -1，不限制
 		 * @return 返回解压缩后的二进制数据
 		 * 
 		 * 
 		 * @async
 		 */
-		export function inflate(data: Class_Buffer): Class_Buffer;
+		export function inflate(data: Class_Buffer, maxSize?: number/** = -1*/): Class_Buffer;
 	
 		/**
 		 * 
 		 * @brief 解压缩 deflate 算法压缩的数据到流对象中(zlib格式)
 		 * @param data 给定要解压缩的数据
 		 * @param stm 指定存储解压缩数据的流
+		 * @param maxSize 指定解压缩尺寸限制，缺省为 -1，不限制
 		 * 
 		 * 
 		 * @async
 		 */
-		export function inflateTo(data: Class_Buffer, stm: Class_Stream): void;
+		export function inflateTo(data: Class_Buffer, stm: Class_Stream, maxSize?: number/** = -1*/): void;
 	
 		/**
 		 * 
 		 * @brief 解压缩源流中 deflate 算法压缩的数据到流对象中(zlib格式)
 		 * @param src 给定要解压缩的数据所在的流
 		 * @param stm 指定存储解压缩数据的流
+		 * @param maxSize 指定解压缩尺寸限制，缺省为 -1，不限制
 		 * 
 		 * 
 		 * @async
 		 */
-		export function inflateTo(src: Class_Stream, stm: Class_Stream): void;
+		export function inflateTo(src: Class_Stream, stm: Class_Stream, maxSize?: number/** = -1*/): void;
 	
 		/**
 		 * 
@@ -406,34 +412,37 @@ declare module "zlib" {
 		 * 
 		 * @brief 解压缩 gzip 算法压缩的数据
 		 * @param data 给定压缩后的数据
+		 * @param maxSize 指定解压缩尺寸限制，缺省为 -1，不限制
 		 * @return 返回解压缩后的二进制数据
 		 * 
 		 * 
 		 * @async
 		 */
-		export function gunzip(data: Class_Buffer): Class_Buffer;
+		export function gunzip(data: Class_Buffer, maxSize?: number/** = -1*/): Class_Buffer;
 	
 		/**
 		 * 
 		 * @brief 解压缩 gzip 算法压缩的数据到流对象中
 		 * @param data 给定要解压缩的数据
 		 * @param stm 指定存储解压缩数据的流
+		 * @param maxSize 指定解压缩尺寸限制，缺省为 -1，不限制
 		 * 
 		 * 
 		 * @async
 		 */
-		export function gunzipTo(data: Class_Buffer, stm: Class_Stream): void;
+		export function gunzipTo(data: Class_Buffer, stm: Class_Stream, maxSize?: number/** = -1*/): void;
 	
 		/**
 		 * 
 		 * @brief 解压缩源流中 gzip 算法压缩的数据到流对象中
 		 * @param src 给定要解压缩的数据所在的流
 		 * @param stm 指定存储解压缩数据的流
+		 * @param maxSize 指定解压缩尺寸限制，缺省为 -1，不限制
 		 * 
 		 * 
 		 * @async
 		 */
-		export function gunzipTo(src: Class_Stream, stm: Class_Stream): void;
+		export function gunzipTo(src: Class_Stream, stm: Class_Stream, maxSize?: number/** = -1*/): void;
 	
 		/**
 		 * 
@@ -475,34 +484,37 @@ declare module "zlib" {
 		 * 
 		 * @brief 解压缩 deflate 算法压缩的数据(inflateRaw)
 		 * @param data 给定压缩后的数据
+		 * @param maxSize 指定解压缩尺寸限制，缺省为 -1，不限制
 		 * @return 返回解压缩后的二进制数据
 		 * 
 		 * 
 		 * @async
 		 */
-		export function inflateRaw(data: Class_Buffer): Class_Buffer;
+		export function inflateRaw(data: Class_Buffer, maxSize?: number/** = -1*/): Class_Buffer;
 	
 		/**
 		 * 
 		 * @brief 解压缩 deflate 算法压缩的数据到流对象中(inflateRaw)
 		 * @param data 给定要解压缩的数据
 		 * @param stm 指定存储解压缩数据的流
+		 * @param maxSize 指定解压缩尺寸限制，缺省为 -1，不限制
 		 * 
 		 * 
 		 * @async
 		 */
-		export function inflateRawTo(data: Class_Buffer, stm: Class_Stream): void;
+		export function inflateRawTo(data: Class_Buffer, stm: Class_Stream, maxSize?: number/** = -1*/): void;
 	
 		/**
 		 * 
 		 * @brief 解压缩源流中 deflate 算法压缩的数据到流对象中(inflateRaw)
 		 * @param src 给定要解压缩的数据所在的流
 		 * @param stm 指定存储解压缩数据的流
+		 * @param maxSize 指定解压缩尺寸限制，缺省为 -1，不限制
 		 * 
 		 * 
 		 * @async
 		 */
-		export function inflateRawTo(src: Class_Stream, stm: Class_Stream): void;
+		export function inflateRawTo(src: Class_Stream, stm: Class_Stream, maxSize?: number/** = -1*/): void;
 	
 	} /** end of `module zlib` */
 	export = zlib

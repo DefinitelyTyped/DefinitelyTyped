@@ -21,6 +21,9 @@
 //                 Linus Unnebäck <https://github.com/LinusU>
 //                 Yosuke Seki <https://github.com/jshosomichi>
 //                 Jake <https://github.com/jakebooyah>
+//                 Gustavo Brunoro <https://github.com/brunoro>
+//                 Denis Frezzato <https://github.com/DenisFrezzato>
+//                 Mickael Wegerich <https://github.com/mickaelw>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -274,7 +277,8 @@ export interface NavigationInitAction extends NavigationInitActionPayload {
 }
 
 export interface NavigationReplaceActionPayload {
-    key: string;
+    key?: string;
+    newKey?: string;
     routeName: string;
     params?: NavigationParams;
     action?: NavigationNavigateAction;
@@ -454,10 +458,16 @@ export type NavigationTabAction =
   | NavigationNavigateAction
   | NavigationBackAction;
 
+export type NavigationDrawerAction =
+  | NavigationOpenDrawerAction
+  | NavigationCloseDrawerAction
+  | NavigationToggleDrawerAction;
+
 export type NavigationAction =
   | NavigationInitAction
   | NavigationStackAction
-  | NavigationTabAction;
+  | NavigationTabAction
+  | NavigationDrawerAction;
 
 export type NavigationRouteConfig =
   | NavigationComponent
@@ -479,15 +489,21 @@ export interface NavigationPathsConfig {
   [routeName: string]: string;
 }
 
-export interface NavigationTabRouterConfig {
+// tslint:disable-next-line:strict-export-declare-modifiers
+interface NavigationTabRouterConfigBase {
   initialRouteName?: string;
   initialRouteParams?: NavigationParams;
   paths?: NavigationPathsConfig;
-  navigationOptions?: NavigationScreenConfig<NavigationScreenOptions>;
   order?: string[]; // todo: type these as the real route names rather than 'string'
 
   // Does the back button cause the router to switch to the initial tab
   backBehavior?: 'none' | 'initialRoute'; // defaults `initialRoute`
+}
+export interface NavigationTabRouterConfig extends NavigationTabRouterConfigBase {
+  navigationOptions?: NavigationScreenConfig<NavigationScreenOptions>;
+}
+export interface NavigationBottomTabRouterConfig extends NavigationTabRouterConfigBase {
+  navigationOptions?: NavigationScreenConfig<NavigationBottomTabScreenOptions>;
 }
 export interface TabScene {
   route: NavigationRoute;
@@ -495,7 +511,8 @@ export interface TabScene {
   index: number;
   tintColor?: string;
 }
-export interface NavigationTabScreenOptions {
+// tslint:disable-next-line:strict-export-declare-modifiers
+interface NavigationTabScreenOptionsBase {
   title?: string;
   tabBarIcon?:
   | React.ReactElement<any>
@@ -510,10 +527,24 @@ export interface NavigationTabScreenOptions {
   ) => React.ReactElement<any> | string | null);
   tabBarVisible?: boolean;
   tabBarTestIDProps?: { testID?: string; accessibilityLabel?: string };
+}
+export interface NavigationTabScreenOptions
+  extends NavigationTabScreenOptionsBase {
+  swipeEnabled?: boolean;
   tabBarOnPress?: (
     options: {
+      previousScene: TabScene;
       scene: TabScene;
       jumpToIndex: (index: number) => void;
+    }
+  ) => void;
+}
+export interface NavigationBottomTabScreenOptions
+  extends NavigationTabScreenOptionsBase {
+  tabBarOnPress?: (
+    options: {
+      navigation: NavigationScreenProp<NavigationRoute>;
+      defaultHandler: () => void;
     }
   ) => void;
 }
@@ -565,8 +596,18 @@ export interface NavigationEventSubscription {
   remove: () => void;
 }
 
+export interface NavigationEventsProps extends ViewProps {
+  navigation?: NavigationNavigator;
+  onWillFocus?: NavigationEventCallback;
+  onDidFocus?: NavigationEventCallback;
+  onWillBlur?: NavigationEventCallback;
+  onDidBlur?: NavigationEventCallback;
+}
+
+export const NavigationEvents: React.ComponentType<NavigationEventsProps>;
+
 export interface NavigationScreenProp<S, P = NavigationParams> {
-  state: S;
+  state: S & { params?: P };
   dispatch: NavigationDispatch;
   goBack: (routeKey?: string | null) => boolean;
   dismiss: () => boolean;
@@ -905,6 +946,13 @@ export interface TabNavigatorConfig
   removeClippedSubviews?: boolean;
   initialLayout?: { height: number; width: number };
 }
+export interface BottomTabNavigatorConfig
+  extends NavigationBottomTabRouterConfig,
+  TabViewConfig {
+  lazy?: boolean;
+  removeClippedSubviews?: boolean;
+  initialLayout?: { height: number; width: number };
+}
 
 // From navigators/TabNavigator.js
 export function TabNavigator(
@@ -919,7 +967,7 @@ export function createTabNavigator(
 
 export function createBottomTabNavigator(
   routeConfigMap: NavigationRouteConfigMap,
-  drawConfig?: TabNavigatorConfig
+  drawConfig?: BottomTabNavigatorConfig
 ): NavigationContainer;
 
 export function createMaterialTopTabNavigator(
@@ -996,25 +1044,16 @@ export namespace NavigationActions {
   const BACK: 'Navigation/BACK';
   const INIT: 'Navigation/INIT';
   const NAVIGATE: 'Navigation/NAVIGATE';
-  const RESET: 'Navigation/RESET';
   const SET_PARAMS: 'Navigation/SET_PARAMS';
-  const URI: 'Navigation/URI';
-  const POP: 'Navigation/POP';
-  const POP_TO_TOP: 'Navigation/POP_TO_TOP';
 
   function init(options?: NavigationInitActionPayload): NavigationInitAction;
   function navigate(
     options: NavigationNavigateActionPayload
   ): NavigationNavigateAction;
-  function reset(options: NavigationResetActionPayload): NavigationResetAction;
   function back(options?: NavigationBackActionPayload): NavigationBackAction;
   function setParams(
     options: NavigationSetParamsActionPayload
   ): NavigationSetParamsAction;
-  function pop(options: NavigationPopActionPayload): NavigationPopAction;
-  function popToTop(
-    options: NavigationPopToTopActionPayload
-  ): NavigationPopToTopAction;
 }
 
 /**
@@ -1191,7 +1230,9 @@ export const HeaderBackButton: React.ComponentClass<HeaderBackButtonProps>;
 /**
  * Header Component
  */
-export const Header: React.ComponentClass<HeaderProps>;
+export class Header extends React.Component<HeaderProps> {
+  static HEIGHT: number;
+}
 
 export interface NavigationInjectedProps<P = NavigationParams> {
   navigation: NavigationScreenProp<NavigationState, P>;

@@ -96,3 +96,13 @@ class TestComponent extends React.Component<TestComponentProps & WithRouterProps
 }
 
 withRouter(TestComponent);
+
+interface TestSFCQuery {
+    test?: string;
+}
+
+interface TestSFCProps extends WithRouterProps<TestSFCQuery> { }
+
+const TestSFC: React.SFC<TestSFCProps> = ({ router }) => {
+    return <div>{router.query && router.query.test}</div>;
+};

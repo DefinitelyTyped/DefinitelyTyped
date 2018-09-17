@@ -17,8 +17,10 @@
 //                 Daniel Hritzkiv <https://github.com/dhritzkiv>,
 //                 Apurva Ojas <https://github.com/apurvaojas>,
 //                 Tiger Oakes <https://github.com/NotWoods>,
-//                 Seth Kingsley <https://github.com/sethk>
-//                 Ethan Kay <https://github.com/elk941>
+//                 Seth Kingsley <https://github.com/sethk>,
+//                 Ethan Kay <https://github.com/elk941>,
+//                 Methuselah96 <https://github.com/Methuselah96>
+//                 Dilip Ramirez <https://github.com/Dukuo>
 // Definitions: https://github.com//DefinitelyTyped
 
 export * from "./three-core";

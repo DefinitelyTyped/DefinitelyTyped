@@ -17,7 +17,8 @@ let map = new mapboxgl.Map({
 	minZoom: 1,
 	maxZoom: 2,
 	interactive: true,
-	attributionControl: false,
+	attributionControl: true,
+	customAttribution: '© YourCo',
 	bearingSnap: 7,
 	scrollZoom: true,
 	maxBounds: [[-100,-90],[100,90]],
@@ -387,6 +388,16 @@ let marker = new mapboxgl.Marker(undefined, {offset: [10, 0]})
 	.addTo(map);
 
 marker.remove();
+
+/*
+ * LngLatBounds
+ */
 let bool:boolean
 let bounds = new mapboxgl.LngLatBounds()
 bool = bounds.isEmpty()
+
+/*
+ * AttributionControl
+ */
+let attributionControl = new mapboxgl.AttributionControl({ compact: false, customAttribution: '© YourCo' });
+attributionControl.on('click', () => {});

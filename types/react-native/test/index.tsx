@@ -20,6 +20,7 @@ import {
     BackAndroid,
     BackHandler,
     Button,
+    ColorPropType,
     DataSourceAssetCallback,
     DeviceEventEmitterStatic,
     Dimensions,
@@ -72,6 +73,8 @@ import {
     WebView,
     KeyboardAvoidingView,
     Modal,
+    TimePickerAndroid,
+    ViewPropTypes,
 } from "react-native";
 
 declare module "react-native" {
@@ -150,6 +153,8 @@ const stylesAlt = StyleSheet.create({
     },
 });
 
+StyleSheet.setStyleAttributePreprocessor('fontFamily', (family: string) => family);
+
 const welcomeFontSize = StyleSheet.flatten(styles.welcome).fontSize;
 
 const viewStyle: StyleProp<ViewStyle> = {
@@ -185,13 +190,20 @@ const testNativeSyntheticEvent = <T extends {}>(e: NativeSyntheticEvent<T>): voi
     e.nativeEvent;
 }
 
+type ElementProps<C> = C extends React.Component<infer P, any> ? P : never;
+
 class CustomView extends React.Component {
     render() {
         return <Text style={[StyleSheet.absoluteFill, { ...StyleSheet.absoluteFillObject }]}>Custom View</Text>;
     }
 }
 
-class Welcome extends React.Component {
+class Welcome extends React.Component<ElementProps<View> & { color: string }> {
+    static propTypes = {
+        ...ViewPropTypes,
+        color: ColorPropType,
+    };
+
     refs: {
         [key: string]: any;
         rootView: View;
@@ -217,8 +229,9 @@ class Welcome extends React.Component {
     }
 
     render() {
+        const { color, ...props } = this.props;
         return (
-            <View ref="rootView" style={[[styles.container], undefined, null, false]}>
+            <View {...props} ref="rootView" style={[[styles.container], undefined, null, false]}>
                 <Text style={styles.welcome}>Welcome to React Native</Text>
                 <Text style={styles.instructions}>To get started, edit index.ios.js</Text>
                 <Text style={styles.instructions}>
@@ -359,6 +372,7 @@ export class SectionListTest extends React.Component<SectionListProps<string>, {
                             <Text>{`${info.section.title} - ${info.item}`}</Text>
                         </View>
                     )}
+                    maxToRenderPerBatch={5}
                 />
             </React.Fragment>
         );
@@ -390,7 +404,7 @@ class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListVi
                         throw new Error("Expected scroll to be enabled.");
                     }
 
-                    return <ScrollView horizontal={true} contentOffset={{x: 0, y: 0}} {...props} style={[scrollViewStyle1.scrollView, scrollViewStyle2]} />;
+                    return <ScrollView horizontal={true} nestedScrollEnabled={true} contentOffset={{x: 0, y: 0}} {...props} style={[scrollViewStyle1.scrollView, scrollViewStyle2]} />;
                 }}
                 renderRow={({ type, data }, _, row) => {
                     return <Text>Filler</Text>;
@@ -594,6 +608,10 @@ class TextInputTest extends React.Component<{}, {username: string}> {
                     multiline
                     onContentSizeChange={this.handleOnContentSizeChange}
                 />
+
+                <TextInput
+                    contextMenuHidden={true}
+                />
             </View>
         );
     }
@@ -622,6 +640,7 @@ class WebViewTest extends React.Component {
                 originWhitelist={['https://origin.test']}
                 saveFormDataDisabled={false}
                 nativeConfig={{ component: 'test', props: {}, viewManager: {} }}
+                onShouldStartLoadWithRequest={(event) => event.navigationType !== 'formresubmit'}
             />
         );
     }
@@ -686,31 +705,6 @@ export class ImageBackgroundProps extends React.Component {
     }
 }
 
-class StylePropsTest extends React.PureComponent {
-    render() {
-        const uri = 'https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png'
-
-        return (
-            <View backgroundColor="lightgray" flex={1} overflow="scroll">
-                <Image
-                    borderRadius={100}
-                    // height={200}
-                    margin={20}
-                    overflow="visible" // ps: must fail if "scroll"
-                    source={{ uri }}
-                    style={{ width: 200, height: 200, tintColor: 'green', flexWrap: 'wrap-reverse' }}
-                    // tintColor="green"
-                    // width={200}
-                />
-
-                <Text style={{ /* iOs only */ textTransform: 'capitalize'  }}>
-                    Text
-                </Text>
-            </View>
-        );
-    }
-}
-
 const listViewDataSourceTest = new ListView.DataSource({rowHasChanged: () => true})
 
 class AccessibilityTest extends React.Component {
@@ -758,4 +752,13 @@ const AlertIOSTest = () => {
 
 const ModalTest = () => (
     <Modal hardwareAccelerated />
+)
+
+const TimePickerAndroidTest = () => (
+    TimePickerAndroid.open({
+        hour: 8,
+        minute: 15,
+        is24Hour: true,
+        mode: 'spinner'
+    })
 )

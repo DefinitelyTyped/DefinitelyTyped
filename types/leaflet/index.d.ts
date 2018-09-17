@@ -11,10 +11,12 @@ export as namespace L;
 import * as geojson from 'geojson';
 
 export class Class {
-    static extend(props: any): any/* how to return constructor of self extended type ? */;
-    static include(props: any): any /* how to return self extended type ? */;
-    static mergeOptions(props: any): any /* how to return self extended type ? */;
-    static addInitHook(initHookFn: () => void): any/* how to return self extended type ? */;
+    static extend(props: any): {new(...args: any[]): any} & typeof Class;
+    static include(props: any): any & typeof Class;
+    static mergeOptions(props: any): any & typeof Class;
+
+    static addInitHook(initHookFn: () => void): any & typeof Class;
+    static addInitHook(methodName: string, ...args: any[]): any & typeof Class;
 }
 
 export class Transformation {
@@ -612,10 +614,10 @@ export interface PolylineOptions extends PathOptions {
 }
 
 export class Polyline<T extends geojson.GeometryObject = geojson.LineString | geojson.MultiLineString, P = any> extends Path {
-    constructor(latlngs: LatLngExpression[], options?: PolylineOptions);
+    constructor(latlngs: LatLngExpression[] | LatLngExpression[][], options?: PolylineOptions);
     toGeoJSON(): geojson.Feature<T, P>;
     getLatLngs(): LatLng[] | LatLng[][] | LatLng[][][];
-    setLatLngs(latlngs: LatLngExpression[]): this;
+    setLatLngs(latlngs: LatLngExpression[] | LatLngExpression[][] | LatLngExpression[][][]): this;
     isEmpty(): boolean;
     getCenter(): LatLng;
     getBounds(): LatLngBounds;
@@ -625,13 +627,13 @@ export class Polyline<T extends geojson.GeometryObject = geojson.LineString | ge
     options: PolylineOptions;
 }
 
-export function polyline(latlngs: LatLngExpression[], options?: PolylineOptions): Polyline;
+export function polyline(latlngs: LatLngExpression[] | LatLngExpression[][], options?: PolylineOptions): Polyline;
 
 export class Polygon<P = any> extends Polyline<geojson.Polygon | geojson.MultiPolygon, P> {
-    constructor(latlngs: LatLngExpression[] | LatLngExpression[][], options?: PolylineOptions);
+    constructor(latlngs: LatLngExpression[] | LatLngExpression[][] | LatLngExpression[][][], options?: PolylineOptions);
 }
 
-export function polygon(latlngs: LatLngExpression[] | LatLngExpression[][], options?: PolylineOptions): Polygon;
+export function polygon(latlngs: LatLngExpression[] | LatLngExpression[][] | LatLngExpression[][][], options?: PolylineOptions): Polygon;
 
 export class Rectangle<P = any> extends Polygon<P> {
     constructor(latLngBounds: LatLngBoundsExpression, options?: PolylineOptions);
@@ -1532,8 +1534,12 @@ export namespace Browser {
 }
 
 export namespace Util {
-    function extend(dest: any, src?: any): any;
-    function create(proto: any, properties?: any): any;
+    function extend<D extends object, S1 extends object = {}>(dest: D, src?: S1): D & S1;
+    function extend<D extends object, S1 extends object, S2 extends object>(dest: D, src1: S1, src2: S2): D & S1 & S2;
+    function extend<D extends object, S1 extends object, S2 extends object, S3 extends object>(dest: D, src1: S1, src2: S2, src3: S3): D & S1 & S2 & S3;
+    function extend(dest: any, ...src: any[]): any;
+
+    function create(proto: object | null, properties?: PropertyDescriptorMap): any;
     function bind(fn: () => void, ...obj: any[]): () => void;
     function stamp(obj: any): number;
     function throttle(fn: () => void, time: number, context: any): () => void;
@@ -1547,7 +1553,7 @@ export namespace Util {
     function template(str: string, data: any): string;
     function isArray(obj: any): boolean;
     function indexOf(array: any[], el: any): number;
-    function requestAnimFrame(fn: () => void, context?: any, immediate?: boolean): number;
+    function requestAnimFrame(fn: (timestamp: number) => void, context?: any, immediate?: boolean): number;
     function cancelAnimFrame(id: number): void;
 
     let lastId: number;

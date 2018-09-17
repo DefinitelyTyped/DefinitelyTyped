@@ -1,10 +1,10 @@
-// Type definitions for ember-data 2.14
+// Type definitions for ember-data 3.0
 // Project: https://github.com/emberjs/data
 // Definitions by: Derek Wickern <https://github.com/dwickern>
 //                 Mike North <https://github.com/mike-north>
 //                 Chris Krycho <https://github.com/chriskrycho>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 declare module 'ember-data' {
     import Ember from 'ember';

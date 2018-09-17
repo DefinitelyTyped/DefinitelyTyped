@@ -616,7 +616,7 @@ declare namespace SocketIO {
 		 * take an optional parameter, err, of a possible error
 		 * @return This Socket
 		 */
-		join( name: string, fn?: ( err?: any ) => void ): Socket;
+		join( name: string|string[], fn?: ( err?: any ) => void ): Socket;
 
 		/**
 		 * Leaves a room

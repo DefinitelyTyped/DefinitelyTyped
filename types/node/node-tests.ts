@@ -186,6 +186,7 @@ namespace fs_tests {
 
         fs.writeFileSync("testfile", "content", "utf8");
         fs.writeFileSync("testfile", "content", { encoding: "utf8" });
+        fs.writeFileSync("testfile", new DataView(new ArrayBuffer(1)), { encoding: "utf8" });
     }
 
     {
@@ -230,6 +231,14 @@ namespace fs_tests {
     }
 
     {
+        fs.read(1, new DataView(new ArrayBuffer(1)), 0, 1, 0, (err: NodeJS.ErrnoException, bytesRead: number, buffer: DataView) => {});
+    }
+
+    {
+        fs.readSync(1, new DataView(new ArrayBuffer(1)), 0, 1, 0);
+    }
+
+    {
         var errno: number;
         fs.readFile('testfile', (err, data) => {
             if (err && err.errno) {
@@ -247,6 +256,8 @@ namespace fs_tests {
         listS = fs.readdirSync('path', 'utf8');
         listS = fs.readdirSync('path', null);
         listS = fs.readdirSync('path', undefined);
+        const listDir: fs.Dirent[] = fs.readdirSync('path', { withFileTypes: true });
+        const listDir2: Buffer[] = fs.readdirSync('path', { withFileTypes: false, encoding: 'buffer' });
 
         let listB: Buffer[];
         listB = fs.readdirSync('path', { encoding: 'buffer' });
@@ -255,8 +266,9 @@ namespace fs_tests {
         let enc = 'buffer';
         fs.readdirSync('path', { encoding: enc }); // $ExpectType string[] | Buffer[]
         fs.readdirSync('path', { }); // $ExpectType string[] | Buffer[]
-    }
 
+        fs.readdir('path', { withFileTypes: true }, (err: NodeJS.ErrnoException, files: fs.Dirent[]) => {});
+    }
     {
         fs.mkdtemp('/tmp/foo-', (err, folder) => {
             console.log(folder);
@@ -782,6 +794,8 @@ namespace util_tests {
         });
         assert(typeof util.inspect.custom === 'symbol');
 
+        util.formatWithOptions({ colors: true }, 'See object %O', { foo: 42 });
+
         // util.callbackify
         // tslint:disable-next-line no-unnecessary-class
         class callbackifyTest {
@@ -862,6 +876,7 @@ namespace util_tests {
         var arg0NoResult: () => Promise<any> = util.promisify((cb: (err: Error) => void): void => { });
         var arg1: (arg: string) => Promise<number> = util.promisify((arg: string, cb: (err: Error, result: number) => void): void => { });
         var arg1NoResult: (arg: string) => Promise<any> = util.promisify((arg: string, cb: (err: Error) => void): void => { });
+        var cbOptionalError: () => Promise<void | {}> = util.promisify((cb: (err?: Error | null) => void): void => { cb(); }); // tslint:disable-line void-return
         assert(typeof util.promisify.custom === 'symbol');
         // util.deprecate
         const foo = () => {};
@@ -1205,8 +1220,7 @@ namespace crypto_tests {
     {
         // crypto_cipher_decipher_dataview_test
         let key: Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7]);
-        let clearText: DataView = new DataView(
-            new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 8, 7, 6, 5, 4]).buffer);
+        let clearText: DataView = new DataView(new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 8, 7, 6, 5, 4]).buffer);
         let cipher: crypto.Cipher = crypto.createCipher("aes-128-ecb", key);
         let cipherBuffers: Buffer[] = [];
         cipherBuffers.push(cipher.update(clearText));
@@ -1222,6 +1236,56 @@ namespace crypto_tests {
         let clearText2: Buffer = Buffer.concat(decipherBuffers);
 
         assert.deepEqual(clearText2, clearText);
+    }
+
+    {
+        const key = 'keykeykeykeykeykeykeykey';
+        const nonce = crypto.randomBytes(12);
+        const aad = Buffer.from('0123456789', 'hex');
+
+        const cipher = crypto.createCipheriv('aes-192-ccm', key, nonce, {
+            authTagLength: 16
+        });
+        const plaintext = 'Hello world';
+        cipher.setAAD(aad, {
+            plaintextLength: Buffer.byteLength(plaintext)
+        });
+        const ciphertext = cipher.update(plaintext, 'utf8');
+        cipher.final();
+        const tag = cipher.getAuthTag();
+
+        const decipher = crypto.createDecipheriv('aes-192-ccm', key, nonce, {
+            authTagLength: 16
+        });
+        decipher.setAuthTag(tag);
+        decipher.setAAD(aad, {
+            plaintextLength: ciphertext.length
+        });
+        const receivedPlaintext: string = decipher.update(ciphertext, null, 'utf8');
+        decipher.final();
+    }
+
+    {
+        const key = 'keykeykeykeykeykeykeykey';
+        const nonce = crypto.randomBytes(12);
+        const aad = Buffer.from('0123456789', 'hex');
+
+        const cipher = crypto.createCipheriv('aes-192-gcm', key, nonce);
+        const plaintext = 'Hello world';
+        cipher.setAAD(aad, {
+            plaintextLength: Buffer.byteLength(plaintext)
+        });
+        const ciphertext = cipher.update(plaintext, 'utf8');
+        cipher.final();
+        const tag = cipher.getAuthTag();
+
+        const decipher = crypto.createDecipheriv('aes-192-gcm', key, nonce);
+        decipher.setAuthTag(tag);
+        decipher.setAAD(aad, {
+            plaintextLength: ciphertext.length
+        });
+        const receivedPlaintext: string = decipher.update(ciphertext, null, 'utf8');
+        decipher.final();
     }
 
     {
@@ -1708,7 +1772,25 @@ namespace http_tests {
     }
 
     {
+        http.get('http://www.example.com/xyz');
         http.request('http://www.example.com/xyz');
+
+        http.get('http://www.example.com/xyz', (res: http.IncomingMessage): void => {});
+        http.request('http://www.example.com/xyz', (res: http.IncomingMessage): void => {});
+
+        http.get(new url.URL('http://www.example.com/xyz'));
+        http.request(new url.URL('http://www.example.com/xyz'));
+
+        http.get(new url.URL('http://www.example.com/xyz'), (res: http.IncomingMessage): void => {});
+        http.request(new url.URL('http://www.example.com/xyz'), (res: http.IncomingMessage): void => {});
+
+        const opts: http.RequestOptions = {
+            path: '"/some/path'
+        };
+        http.get(new url.URL('http://www.example.com'), opts);
+        http.request(new url.URL('http://www.example.com'), opts);
+        http.get(new url.URL('http://www.example.com/xyz'), opts, (res: http.IncomingMessage): void => {});
+        http.request(new url.URL('http://www.example.com/xyz'), opts, (res: http.IncomingMessage): void => {});
     }
 
     {
@@ -1770,7 +1852,25 @@ namespace https_tests {
         agent: undefined
     });
 
+    https.get('http://www.example.com/xyz');
     https.request('http://www.example.com/xyz');
+
+    https.get('http://www.example.com/xyz', (res: http.IncomingMessage): void => {});
+    https.request('http://www.example.com/xyz', (res: http.IncomingMessage): void => {});
+
+    https.get(new url.URL('http://www.example.com/xyz'));
+    https.request(new url.URL('http://www.example.com/xyz'));
+
+    https.get(new url.URL('http://www.example.com/xyz'), (res: http.IncomingMessage): void => {});
+    https.request(new url.URL('http://www.example.com/xyz'), (res: http.IncomingMessage): void => {});
+
+    const opts: https.RequestOptions = {
+        path: '/some/path'
+    };
+    https.get(new url.URL('http://www.example.com'), opts);
+    https.request(new url.URL('http://www.example.com'), opts);
+    https.get(new url.URL('http://www.example.com/xyz'), opts, (res: http.IncomingMessage): void => {});
+    https.request(new url.URL('http://www.example.com/xyz'), opts, (res: http.IncomingMessage): void => {});
 
     https.globalAgent.options.ca = [];
 
@@ -2329,10 +2429,12 @@ namespace child_process_tests {
         childProcess.exec("echo test", { windowsHide: true });
         childProcess.spawn("echo", ["test"], { windowsHide: true });
         childProcess.spawn("echo", ["test"], { windowsHide: true, argv0: "echo-test" });
-        childProcess.spawn("echo", ["test"], { stdio: [0xdeadbeef, undefined, "pipe"] });
+        childProcess.spawn("echo", ["test"], { stdio: [0xdeadbeef, "inherit", undefined, "pipe"] });
         childProcess.spawnSync("echo test");
         childProcess.spawnSync("echo test", {windowsVerbatimArguments: false});
         childProcess.spawnSync("echo test", {windowsVerbatimArguments: false, argv0: "echo-test"});
+        childProcess.spawnSync("echo test", {input: new Uint8Array([])});
+        childProcess.spawnSync("echo test", {input: new DataView(new ArrayBuffer(1))});
     }
 
     {
@@ -2343,6 +2445,11 @@ namespace child_process_tests {
         childProcess.execFile("npm", ["-v"], { windowsHide: true, encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
         childProcess.execFile("npm", { encoding: 'utf-8' }, (stdout, stderr) => { assert(stdout instanceof String); });
         childProcess.execFile("npm", { encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
+    }
+
+    {
+        childProcess.execFileSync("echo test", {input: new Uint8Array([])});
+        childProcess.execFileSync("echo test", {input: new DataView(new ArrayBuffer(1))});
     }
 
     async function testPromisify() {
@@ -2780,6 +2887,16 @@ namespace os_tests {
         result = os.constants.errno.EWOULDBLOCK;
         result = os.constants.errno.EXDEV;
     }
+
+    {
+        const prio = os.getPriority();
+        os.setPriority(prio + 1);
+
+        const prio2 = os.getPriority(1);
+        os.setPriority(2, prio + 1);
+
+        os.setPriority(os.constants.priority.PRIORITY_LOW);
+    }
 }
 
 ////////////////////////////////////////////////////
@@ -2832,6 +2949,17 @@ namespace vm_tests {
 
     {
         vm.runInThisContext('console.log("hello world"', './my-file.js');
+    }
+
+    {
+        const fn: Function = vm.compileFunction('console.log("test")', [], {
+            parsingContext: vm.createContext(),
+            contextExtensions: [{
+                a: 1,
+            }],
+            produceCachedData: false,
+            cachedData: Buffer.from('nope'),
+        });
     }
 }
 
@@ -2947,6 +3075,9 @@ namespace process_tests {
         process.setUncaughtExceptionCaptureCallback(myCb);
         process.setUncaughtExceptionCaptureCallback(null);
         const b: boolean = process.hasUncaughtExceptionCaptureCallback();
+    }
+    {
+        process.allowedNodeEnvironmentFlags.has('asdf');
     }
 }
 

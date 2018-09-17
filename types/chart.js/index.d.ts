@@ -8,7 +8,6 @@
 //                 Joseph Page <https://github.com/josefpaij>
 //                 Dan Manastireanu <https://github.com/danmana>
 //                 Guillaume Rodriguez <https://github.com/guillaume-ro-fr>
-//                 Sergey Rubanov <https://github.com/chicoxyzzy>
 //                 Simon Archer <https://github.com/archy-bold>
 //                 Ken Elkabany <https://github.com/braincore>
 //                 Slavik Nychkalo <https://github.com/gebeto>
@@ -159,6 +158,8 @@ interface Model {
     tension: number;
     x: number;
     y: number;
+    base: number;
+    head: number;
 }
 
 declare namespace Chart {
@@ -390,6 +391,8 @@ declare namespace Chart {
         easing?: string;
         onProgress?(chart: any): void;
         onComplete?(chart: any): void;
+        animateRotate?: boolean;
+        animateScale?: boolean;
     }
 
     interface ChartElementsOptions {

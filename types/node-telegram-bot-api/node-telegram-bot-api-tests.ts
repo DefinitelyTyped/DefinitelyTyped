@@ -9,6 +9,9 @@ MyTelegramBot.openWebHook();
 MyTelegramBot.closeWebHook();
 MyTelegramBot.hasOpenWebHook();
 MyTelegramBot.getMe();
+MyTelegramBot.getMe().then((value: TelegramBot.User) => {
+    const username = value.username;
+});
 MyTelegramBot.setWebHook('http://typescriptlang.org', {max_connections: 100});
 MyTelegramBot.deleteWebHook();
 MyTelegramBot.getWebHookInfo();
