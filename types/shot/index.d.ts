@@ -6,8 +6,8 @@
 
 /// <reference types="node" />
 
-import stream = require("stream");
-import http = require("http");
+import { ServerResponse } from "http";
+import { Readable, Stream } from "stream";
 
 interface ShotAPI {
     /**
@@ -33,26 +33,29 @@ declare namespace Shot {
      *    * res - a simulated response object. Inherits from node's Http.ServerResponse.
      * @see {@link https://github.com/hapijs/shot/blob/master/API.md#shotinjectdispatchfunc-options-callback}
      */
-    export interface Listener {
-        (req: SimulatedRequestObject, res: SimulatedResponseObject): void;
-    }
+    type Listener = (req: SimulatedRequestObject, res: SimulatedResponseObject) => void;
+
+    // disabled for backwards compat
+    // tslint:disable:no-empty-interface
 
     /**
      * a simulated request object. Inherits from Stream.Readable.
      * @see {@link https://github.com/hapijs/shot/blob/master/API.md#shotinjectdispatchfunc-options-callback}
      */
-    interface SimulatedRequestObject extends stream.Readable {}
+    interface SimulatedRequestObject extends Readable {}
 
     /**
      * a simulated response object. Inherits from node's Http.ServerResponse.
      * @see {@link https://github.com/hapijs/shot/blob/master/API.md#shotinjectdispatchfunc-options-callback}
      */
-    interface SimulatedResponseObject extends http.ServerResponse {}
+    interface SimulatedResponseObject extends ServerResponse {}
+
+    // tslint:enable:no-empty-interface
 
     /**
      * @see {@link https://github.com/hapijs/shot/blob/master/API.md#shotinjectdispatchfunc-options-callback}
      */
-    export interface RequestOptions {
+    interface RequestOptions {
         /** a string specifying the request URL. */
         url: string;
         /** a string specifying the HTTP request method, defaulting to 'GET'. */
@@ -64,7 +67,7 @@ declare namespace Shot {
         /** an optional string specifying the client remote address. Defaults to '127.0.0.1'. */
         remoteAddress?: string;
         /** an optional request payload. Can be a string, Buffer, Stream or object. */
-        payload?: string | Buffer | stream.Stream | {[key: string]: any};
+        payload?: string | Buffer | Stream | object;
         /** an object containing flags to simulate various conditions: */
         simulate?: {
             /** indicates whether the request will fire an end event. Defaults to undefined, meaning an end event will fire. */
@@ -75,19 +78,19 @@ declare namespace Shot {
             error?: boolean;
             /** whether the request will emit a close event. Defaults to undefined, meaning no close event will be emitted. */
             close?: boolean;
-        }
+        };
         /** Optional flag to validate this options object. Defaults to true. */
         validate?: boolean;
     }
 
     interface Headers {
-        [header: string]: string;
+        [header: string]: string | string[];
     }
 
     /**
      * @see {@link https://github.com/hapijs/shot/blob/master/API.md#shotinjectdispatchfunc-options-callback}
      */
-    export interface ResponseObject {
+    interface ResponseObject {
         /** an object containing the raw request and response objects where: */
         raw: {
             /** the simulated request object. */
