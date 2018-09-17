@@ -14,6 +14,10 @@
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "@ember/string": ["ember__string"],
+            "@ember/polyfills": ["ember__polyfills"]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
