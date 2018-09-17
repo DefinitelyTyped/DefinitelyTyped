@@ -21,6 +21,7 @@
 //                 John Reilly <https://github.com/johnnyreilly>
 //                 Dick van den Brink <https://github.com/DickvdBrink>
 //                 Thomas Schulz <https://github.com/King2500>
+//                 Terry Mun <https://github.com/terrymun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -3487,7 +3488,7 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @see \`{@link https://api.jquery.com/appendTo/ }\`
      * @since 1.0
      */
-    appendTo(target: JQuery.Selector | JQuery.htmlString | JQuery.TypeOrArray<Element> | JQuery): this;
+    appendTo(target: JQuery.Selector | JQuery.htmlString | JQuery.TypeOrArray<Element | DocumentFragment> | JQuery): this;
     /**
      * Set one or more attributes for the set of matched elements.
      *
@@ -5078,7 +5079,7 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @see \`{@link https://api.jquery.com/prependTo/ }\`
      * @since 1.0
      */
-    prependTo(target: JQuery.Selector | JQuery.htmlString | JQuery.TypeOrArray<Element> | JQuery): this;
+    prependTo(target: JQuery.Selector | JQuery.htmlString | JQuery.TypeOrArray<Element | DocumentFragment> | JQuery): this;
     /**
      * Get the immediately preceding sibling of each element in the set of matched elements. If a selector
      * is provided, it retrieves the previous sibling only if it matches that selector.
