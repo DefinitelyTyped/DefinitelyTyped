@@ -13,6 +13,9 @@
 // TypeScript Version: 2.8
 
 /// <reference types="jquery" />
+/// <reference types="handlebars" />
+/// <reference types="ember__string" />
+/// <reference types="ember__polyfills" />
 
 declare module 'ember' {
     import {
