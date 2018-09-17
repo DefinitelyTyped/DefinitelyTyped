@@ -92,7 +92,7 @@ interface KnockoutObservableArrayFunctions<T> {
      */
     remove(item: T): T[];
     /**
-     * Removes all values  and returns them as an array.
+     * Removes all values and returns them as an array.
      * @param removeFunction A function used to determine true if item should be removed and fasle otherwise
      */
     remove(removeFunction: (item: T) => boolean): T[];
@@ -135,22 +135,60 @@ interface KnockoutSubscribableStatic {
 }
 
 interface KnockoutSubscription {
+    /**
+     * Terminate a subscription 
+     */
     dispose(): void;
 }
 
 interface KnockoutSubscribable<T> extends KnockoutSubscribableFunctions<T> {
-    subscribe(callback: (newValue: T) => void, target: any, event: "beforeChange"): KnockoutSubscription;
+    /**
+     * Register to be notified after the observable's value changes
+     * @param callback Function that is called whenever the notification happens
+     * @param target? Defines the value of 'this' in the callback function
+     * @param event? The name of the event to receive notification for
+     */
     subscribe(callback: (newValue: T) => void, target?: any, event?: "change"): KnockoutSubscription;
+    /**
+     * Register to be notified before the observable's value changes
+     * @param callback Function that is called whenever the notification happens
+     * @param target Defines the value of 'this' in the callback function
+     * @param event The name of the event to receive notification for
+     */
+    subscribe(callback: (newValue: T) => void, target: any, event: "beforeChange"): KnockoutSubscription;
+    /**
+     * Register to be notified when the observable's value changes
+     * @param callback Function that is called whenever the notification happens
+     * @param target Defines the value of 'this' in the callback function
+     * @param event The name of the event to receive notification for
+     */
     subscribe<TEvent>(callback: (newValue: TEvent) => void, target: any, event: string): KnockoutSubscription;
-
+    /**
+     * Customize observables basic functionality
+     * @param requestedExtenders Name of the extender feature and it's value, e.g. { notify: 'always' }, { rateLimit: 50 }
+     */
     extend(requestedExtenders: { [key: string]: any; }): KnockoutSubscribable<T>;
+    /**
+    * Get total number of subscriptors
+    */
     getSubscriptionsCount(): number;
+    /**
+     * Get number of subscriptors of a particular event
+     * @param event
+     */
+    getSubscriptionsCount(event: string): number;
 }
 
 interface KnockoutComputedStatic {
     fn: KnockoutComputedFunctions<any>;
 
     <T>(): KnockoutComputed<T>;
+    /**
+     * Create computed observable
+     * @param func Function that computes the observable value
+     * @param context? Defines the value of 'this' when evaluating the computed observable
+     * @param options?
+     */
     <T>(func: () => T, context?: any, options?: any): KnockoutComputed<T>;
     <T>(def: KnockoutComputedDefine<T>, context?: any): KnockoutComputed<T>;
 }
@@ -165,6 +203,10 @@ interface KnockoutComputed<T> extends KnockoutObservable<T>, KnockoutComputedFun
     dispose(): void;
     isActive(): boolean;
     getDependenciesCount(): number;
+    /**
+     * Customize observables basic functionality
+     * @param requestedExtenders Name of the extender feature and it's value, e.g. { notify: 'always' }, { rateLimit: 50 }
+     */
     extend(requestedExtenders: { [key: string]: any; }): KnockoutComputed<T>;
 }
 
@@ -514,7 +556,17 @@ interface KnockoutStatic {
     observable: KnockoutObservableStatic;
 
     computed: KnockoutComputedStatic;
+    /**
+     * Creates a pure computed observable
+     * @param evaluatorFunction Function that computes the observable value
+     * @param context? Defines the value of 'this' when evaluating the computed observable
+     */
     pureComputed<T>(evaluatorFunction: () => T, context?: any): KnockoutComputed<T>;
+    /**
+     * Creates a pure computed observable
+     * @param options
+     * @param context? Defines the value of 'this' when evaluating the computed observable
+     */
     pureComputed<T>(options: KnockoutComputedDefine<T>, context?: any): KnockoutComputed<T>;
 
     observableArray: KnockoutObservableArrayStatic;
@@ -524,14 +576,35 @@ interface KnockoutStatic {
     toJSON(viewModel: any, replacer?: Function, space?: any): string;
 
     toJS(viewModel: any): any;
-
+    /**
+     * Determine if argument is an observable. Returns true for observables, observable arrays, and all computed observables.
+     * @param instance Object to be checked
+     */
     isObservable(instance: any): instance is KnockoutObservable<any>;
+    /**
+     * Determine if argument is an observable. Returns true for observables, observable arrays, and all computed observables.
+     * @param instance Object to be checked
+     */
     isObservable<T>(instance: KnockoutObservable<T> | T): instance is KnockoutObservable<T>;
-
+    /**
+     * Determine if argument is an observable. Returns true for observables, observable arrays, and all computed observables.
+     * @param instance Object to be checked
+     */
     isWriteableObservable(instance: any): instance is KnockoutObservable<any>;
+    /**
+     * Determine if argument is an observable that can be writed upon. Returns true for observables, observable arrays, and all computed observables.
+     * @param instance Object to be checked
+     */
     isWriteableObservable<T>(instance: KnockoutObservable<T> | T): instance is KnockoutObservable<T>;
-
+    /**
+     * Determine if argument is a computed observable
+     * @param instance Object to be checked
+     */
     isComputed(instance: any): instance is KnockoutComputed<any>;
+    /**
+     * Determine if argument is a computed observable
+     * @param instance Object to be checked
+     */
     isComputed<T>(instance: KnockoutObservable<T> | T): instance is KnockoutComputed<T>;
 
     dataFor(node: any): any;
