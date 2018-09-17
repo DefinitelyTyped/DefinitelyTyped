@@ -6,7 +6,7 @@
 
 import * as React from "react";
 
-export class ReactImageFallback extends React.Component<
+export default class ReactImageFallback extends React.Component<
     ReactImageFallbackProps &
     React.DetailedHTMLProps<
     React.ImgHTMLAttributes<HTMLImageElement>,
