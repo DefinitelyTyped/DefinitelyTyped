@@ -2705,6 +2705,7 @@ declare module "mongoose" {
      * Triggers the save() hook.
      */
     create(docs: any[], callback?: (err: any, res: T[]) => void): Promise<T[]>;
+    create(docs: any[], options?: SaveOptions, callback?: (err: any, res: T[]) => void): Promise<T[]>;
     create(...docs: any[]): Promise<T>;
     create(...docsWithCallback: any[]): Promise<T>;
 
@@ -2992,6 +2993,7 @@ declare module "mongoose" {
   interface SaveOptions {
     safe?: boolean | WriteConcern;
     validateBeforeSave?: boolean;
+    session?: ClientSession;
   }
 
   interface WriteConcern {
@@ -3034,7 +3036,7 @@ declare module "mongoose" {
   interface ModelOptions {
     session?: ClientSession | null;
   }
-  
+
   interface ModelFindByIdAndUpdateOptions extends ModelOptions {
     /** true to return the modified document rather than the original. defaults to false */
     new?: boolean;
