@@ -5,6 +5,10 @@ interface NextComponentProps {
     example: string;
 }
 
+interface TypedQuery {
+    id?: string;
+}
+
 class ClassNext extends React.Component<NextComponentProps> {
     static async getInitialProps(ctx: NextContext) {
         const { example } = ctx.query;
@@ -15,6 +19,14 @@ class ClassNext extends React.Component<NextComponentProps> {
         return (
             <div>I'm a class component! {this.props.example}</div>
         );
+    }
+}
+
+class ClassNextWithTypedQuery extends React.Component {
+    static async getInitialProps(ctx: NextContext<TypedQuery>) {
+        const { id } = ctx.query;
+        const processQuery = (id?: string) => id;
+        processQuery(id);
     }
 }
 
