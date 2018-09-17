@@ -58,7 +58,7 @@ declare namespace OfficeRuntime {
        *
        */
       getAllKeys(callback?: (error?: Error, keys?: string[]) => void): Promise<string[]>;
-       /**
+       /*
        * @beta
        * Stores multiple key-value pairs in one batch. Returns a Promise. When a key doesn't exist, returns null. 
        *
