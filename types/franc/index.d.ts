@@ -4,19 +4,21 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // ISO 639-3 code (see: https://iso639-3.sil.org/code_tables/639/data)
-export type ISO6393 = string;
+type ISO6393 = string;
 
 // Range [0, 1]
-export type Confidence = number;
+type Confidence = number;
 
-export interface Options {
+interface Options {
     minLength?: number;
     whitelist?: ISO6393[];
     blacklist?: ISO6393[];
 }
 
-export function detect(text: string, options?: Options): ISO6393;
+declare function detect(text: string, options?: Options): ISO6393;
 
-export namespace detect {
+declare namespace detect {
     function all(text: string, options?: Options): [ISO6393, number];
 }
+
+export = detect;

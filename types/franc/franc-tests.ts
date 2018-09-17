@@ -1,4 +1,4 @@
-import { detect } from 'franc';
+import * as detect from 'franc';
 
 const testText = 'This is an example sentence';
 const testOptions = {
