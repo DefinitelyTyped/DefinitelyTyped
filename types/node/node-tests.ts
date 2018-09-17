@@ -186,6 +186,7 @@ namespace fs_tests {
 
         fs.writeFileSync("testfile", "content", "utf8");
         fs.writeFileSync("testfile", "content", { encoding: "utf8" });
+        fs.writeFileSync("testfile", new DataView(new ArrayBuffer(1)), { encoding: "utf8" });
     }
 
     {
@@ -230,6 +231,14 @@ namespace fs_tests {
     }
 
     {
+        fs.read(1, new DataView(new ArrayBuffer(1)), 0, 1, 0, (err: NodeJS.ErrnoException, bytesRead: number, buffer: DataView) => {});
+    }
+
+    {
+        fs.readSync(1, new DataView(new ArrayBuffer(1)), 0, 1, 0);
+    }
+
+    {
         var errno: number;
         fs.readFile('testfile', (err, data) => {
             if (err && err.errno) {
@@ -247,6 +256,8 @@ namespace fs_tests {
         listS = fs.readdirSync('path', 'utf8');
         listS = fs.readdirSync('path', null);
         listS = fs.readdirSync('path', undefined);
+        const listDir: fs.Dirent[] = fs.readdirSync('path', { withFileTypes: true });
+        const listDir2: Buffer[] = fs.readdirSync('path', { withFileTypes: false, encoding: 'buffer' });
 
         let listB: Buffer[];
         listB = fs.readdirSync('path', { encoding: 'buffer' });
@@ -255,8 +266,9 @@ namespace fs_tests {
         let enc = 'buffer';
         fs.readdirSync('path', { encoding: enc }); // $ExpectType string[] | Buffer[]
         fs.readdirSync('path', { }); // $ExpectType string[] | Buffer[]
-    }
 
+        fs.readdir('path', { withFileTypes: true }, (err: NodeJS.ErrnoException, files: fs.Dirent[]) => {});
+    }
     {
         fs.mkdtemp('/tmp/foo-', (err, folder) => {
             console.log(folder);
@@ -864,7 +876,7 @@ namespace util_tests {
         var arg0NoResult: () => Promise<any> = util.promisify((cb: (err: Error) => void): void => { });
         var arg1: (arg: string) => Promise<number> = util.promisify((arg: string, cb: (err: Error, result: number) => void): void => { });
         var arg1NoResult: (arg: string) => Promise<any> = util.promisify((arg: string, cb: (err: Error) => void): void => { });
-        var cbOptionalError: () => Promise<void> = util.promisify((cb: (err?: Error | null) => void): void => { cb(); });
+        var cbOptionalError: () => Promise<void | {}> = util.promisify((cb: (err?: Error | null) => void): void => { cb(); }); // tslint:disable-line void-return
         assert(typeof util.promisify.custom === 'symbol');
         // util.deprecate
         const foo = () => {};
@@ -1109,6 +1121,21 @@ function simplified_stream_ctor_test() {
         readableObjectMode: true,
         writableObjectMode: true
     });
+}
+
+function streamPipelineFinished() {
+    const cancel = stream.finished(process.stdin, (err?: Error) => {});
+    cancel();
+
+    stream.pipeline(process.stdin, process.stdout, (err?: Error) => {});
+}
+
+async function asyncStreamPipelineFinished() {
+    const finished = util.promisify(stream.finished);
+    await finished(process.stdin);
+
+    const pipeline = util.promisify(stream.pipeline);
+    await pipeline(process.stdin, process.stdout);
 }
 
 ////////////////////////////////////////////////////////
@@ -2421,6 +2448,8 @@ namespace child_process_tests {
         childProcess.spawnSync("echo test");
         childProcess.spawnSync("echo test", {windowsVerbatimArguments: false});
         childProcess.spawnSync("echo test", {windowsVerbatimArguments: false, argv0: "echo-test"});
+        childProcess.spawnSync("echo test", {input: new Uint8Array([])});
+        childProcess.spawnSync("echo test", {input: new DataView(new ArrayBuffer(1))});
     }
 
     {
@@ -2431,6 +2460,11 @@ namespace child_process_tests {
         childProcess.execFile("npm", ["-v"], { windowsHide: true, encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
         childProcess.execFile("npm", { encoding: 'utf-8' }, (stdout, stderr) => { assert(stdout instanceof String); });
         childProcess.execFile("npm", { encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
+    }
+
+    {
+        childProcess.execFileSync("echo test", {input: new Uint8Array([])});
+        childProcess.execFileSync("echo test", {input: new DataView(new ArrayBuffer(1))});
     }
 
     async function testPromisify() {
@@ -2868,6 +2902,16 @@ namespace os_tests {
         result = os.constants.errno.EWOULDBLOCK;
         result = os.constants.errno.EXDEV;
     }
+
+    {
+        const prio = os.getPriority();
+        os.setPriority(prio + 1);
+
+        const prio2 = os.getPriority(1);
+        os.setPriority(2, prio + 1);
+
+        os.setPriority(os.constants.priority.PRIORITY_LOW);
+    }
 }
 
 ////////////////////////////////////////////////////
@@ -2920,6 +2964,17 @@ namespace vm_tests {
 
     {
         vm.runInThisContext('console.log("hello world"', './my-file.js');
+    }
+
+    {
+        const fn: Function = vm.compileFunction('console.log("test")', [], {
+            parsingContext: vm.createContext(),
+            contextExtensions: [{
+                a: 1,
+            }],
+            produceCachedData: false,
+            cachedData: Buffer.from('nope'),
+        });
     }
 }
 
@@ -3035,6 +3090,9 @@ namespace process_tests {
         process.setUncaughtExceptionCaptureCallback(myCb);
         process.setUncaughtExceptionCaptureCallback(null);
         const b: boolean = process.hasUncaughtExceptionCaptureCallback();
+    }
+    {
+        process.allowedNodeEnvironmentFlags.has('asdf');
     }
 }
 

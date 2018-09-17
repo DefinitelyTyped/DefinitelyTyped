@@ -30,6 +30,7 @@
 /// <reference path="globals.d.ts" />
 /// <reference path="legacy-properties.d.ts" />
 /// <reference path="BatchedBridge.d.ts" />
+/// <reference path="Devtools.d.ts" />
 
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
@@ -5216,6 +5217,20 @@ export namespace StyleSheet {
     export function flatten(style?: StyleProp<TextStyle>): TextStyle;
     export function flatten(style?: StyleProp<ImageStyle>): ImageStyle;
     export function flatten(style?: StyleProp<ViewStyle>): ViewStyle;
+
+    /**
+     * WARNING: EXPERIMENTAL. Breaking changes will probably happen a lot and will
+     * not be reliably announced. The whole thing might be deleted, who knows? Use
+     * at your own risk.
+     *
+     * Sets a function to use to pre-process a style property value. This is used
+     * internally to process color and transform values. You should not use this
+     * unless you really know what you are doing and have exhausted other options.
+     */
+    export function setStyleAttributePreprocessor(
+        property: string,
+        process: (nextProp: any) => any
+    ): void;
 
     /**
      * This is defined as the width of a thin line on the platform. It can be

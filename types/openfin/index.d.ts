@@ -1,10 +1,12 @@
-// Type definitions for OpenFin API 29.0
+// Type definitions for OpenFin API 34.0
 // Project: https://openfin.co/
 // Definitions by: Chris Barker <https://github.com/chrisbarker>
 //                 Ricardo de Pena <https://github.com/rdepena>
+//                 Roma <https://github.com/whyn07m3>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.9
 
-// based on v8.56.29.51
+// based on v9.61.34.22
 // see https://openfin.co/support/technical-faq/#what-do-the-numbers-in-the-runtime-version-mean
 
 /**
@@ -22,6 +24,16 @@
  * without the need to include additional source files. You can treat the "fin" namespace as you would the "window", "navigator" or "documennt" objects.
  */
 declare namespace fin {
+    var Application: import('./_v2/api/application/application').default
+    var Clipboard: import('./_v2/api/clipboard/clipboard').default
+    var ExternalApplication: import('./_v2/api/external-application/external-application').default
+    var Frame: import('./_v2/api/frame/frame').default
+    var GlobalHotkey: import('./_v2/api/global-hotkey/index').default
+    var InterApplicationBus: import('./_v2/api/interappbus/interappbus').default
+    var Notification: import('./_v2/api/notification/notification').default
+    var System: import('./_v2/api/system/system').default
+    var Window: import('./_v2/api/window/window').default
+
     const desktop: OpenFinDesktop;
 
     interface OpenFinDesktop {

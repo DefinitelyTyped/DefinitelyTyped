@@ -4585,7 +4585,7 @@ declare namespace Stripe {
              * If the subscription has ended (either because it was canceled or because the customer was switched to a subscription
              * to a new plan), the date the subscription ended
              */
-            ended_at: number;
+            ended_at: number | null;
 
             metadata: IMetadata;
 

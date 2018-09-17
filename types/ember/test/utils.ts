@@ -62,14 +62,6 @@ function testOnError() {
     };
 }
 
-function testMakeArray() {
-    assertType<any[]>(Ember.makeArray());
-    assertType<any[]>(Ember.makeArray(null));
-    assertType<any[]>(Ember.makeArray(undefined));
-    assertType<string[]>(Ember.makeArray('lindsay'));
-    assertType<number[]>(Ember.makeArray([1, 2, 42]));
-}
-
 function testDeprecateFunc() {
     function newMethod(first: string, second: number): string {
         return '';
