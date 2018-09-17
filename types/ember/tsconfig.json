@@ -15,6 +15,7 @@
             "../"
         ],
         "paths": {
+            "@ember/string": ["ember__string"],
             "@ember/polyfills": ["ember__polyfills"]
         },
         "types": [],

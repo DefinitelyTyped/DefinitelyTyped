@@ -13,7 +13,6 @@
 // TypeScript Version: 2.8
 
 /// <reference types="jquery" />
-/// <reference types="handlebars" />
 
 declare module 'ember' {
     import {
@@ -25,7 +24,7 @@ declare module 'ember' {
     } from 'ember/-private-types/object/computed';
     import { Objectify, Fix, KeysOfType, TypeLookup } from 'ember/-private-types/utils';
     import { EmberClassArguments, EmberClassConstructor, EmberInstanceArguments } from 'ember/-private-types/object';
-
+    import * as HandlebarsNamespace from 'handlebars';
     // Capitalization is intentional: this makes it much easier to re-export RSVP on
     // the Ember namespace.
     import Rsvp from 'rsvp';
@@ -34,6 +33,7 @@ declare module 'ember' {
     import { Registry as ServiceRegistry } from '@ember/service';
     import { Registry as ControllerRegistry } from '@ember/controller';
     import ModuleComputed from '@ember/object/computed';
+    import * as EmberString from '@ember/string';
     import * as EmberPolyfills from '@ember/polyfills';
 
     // Get an alias to the global Array type to use in inner scope below.
@@ -2422,27 +2422,24 @@ declare module 'ember' {
             function K(): any;
             function createFrame(objec: any): any;
             function Exception(message: string): void;
-            class SafeString {
-                constructor(str: string);
-                toString(): string;
-            }
+            const SafeString: typeof HandlebarsNamespace.SafeString;
             function parse(string: string): any;
             function print(ast: any): void;
             const logger: typeof Ember.Logger;
             function log(level: string, str: string): void;
         }
         namespace String {
-            function camelize(str: string): string;
-            function capitalize(str: string): string;
-            function classify(str: string): string;
-            function dasherize(str: string): string;
-            function decamelize(str: string): string;
+            const camelize: typeof EmberString.camelize;
+            const capitalize: typeof EmberString.capitalize;
+            const classify: typeof EmberString.classify;
+            const dasherize: typeof EmberString.dasherize;
+            const decamelize: typeof EmberString.decamelize;
             function fmt(...args: string[]): string;
-            function htmlSafe(str: string): Handlebars.SafeString;
-            function isHTMLSafe(str: string): boolean;
-            function loc(template: string, args?: string[]): string;
-            function underscore(str: string): string;
-            function w(str: string): string[];
+            const htmlSafe: typeof EmberString.htmlSafe;
+            const isHTMLSafe: typeof EmberString.isHTMLSafe;
+            const loc: typeof EmberString.loc;
+            const underscore: typeof EmberString.underscore;
+            const w: typeof EmberString.w;
         }
         const computed: {
             <T>(cb: ComputedPropertyCallback<T>): ComputedProperty<T>;
@@ -3856,20 +3853,6 @@ declare module '@ember/service' {
     // A type registry for Ember `Service`s. Meant to be declaration-merged so
     // string lookups resolve to the correct type.
     interface Registry {}
-}
-
-declare module '@ember/string' {
-    import Ember from 'ember';
-    export const camelize: typeof Ember.String.camelize;
-    export const capitalize: typeof Ember.String.capitalize;
-    export const classify: typeof Ember.String.classify;
-    export const dasherize: typeof Ember.String.dasherize;
-    export const decamelize: typeof Ember.String.decamelize;
-    export const htmlSafe: typeof Ember.String.htmlSafe;
-    export const isHTMLSafe: typeof Ember.String.isHTMLSafe;
-    export const loc: typeof Ember.String.loc;
-    export const underscore: typeof Ember.String.underscore;
-    export const w: typeof Ember.String.w;
 }
 
 declare module '@ember/test' {
