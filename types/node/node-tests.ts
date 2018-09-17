@@ -1123,6 +1123,21 @@ function simplified_stream_ctor_test() {
     });
 }
 
+function streamPipelineFinished() {
+    const cancel = stream.finished(process.stdin, (err?: Error) => {});
+    cancel();
+
+    stream.pipeline(process.stdin, process.stdout, (err?: Error) => {});
+}
+
+async function asyncStreamPipelineFinished() {
+    const finished = util.promisify(stream.finished);
+    await finished(process.stdin);
+
+    const pipeline = util.promisify(stream.pipeline);
+    await pipeline(process.stdin, process.stdout);
+}
+
 ////////////////////////////////////////////////////////
 /// Crypto tests : http://nodejs.org/api/crypto.html ///
 ////////////////////////////////////////////////////////

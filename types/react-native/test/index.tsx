@@ -153,6 +153,8 @@ const stylesAlt = StyleSheet.create({
     },
 });
 
+StyleSheet.setStyleAttributePreprocessor('fontFamily', (family: string) => family);
+
 const welcomeFontSize = StyleSheet.flatten(styles.welcome).fontSize;
 
 const viewStyle: StyleProp<ViewStyle> = {
