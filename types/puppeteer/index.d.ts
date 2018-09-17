@@ -4,7 +4,7 @@
 //                 Christopher Deutsch <https://github.com/cdeutsch>
 //                 Konstantin Simon Maria Möllers <https://github.com/ksm2>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 /// <reference types="node" />
 
@@ -667,19 +667,19 @@ export interface Worker {
    * If the function passed to the `worker.evaluate` returns a non-Serializable value,
    * then `worker.evaluate` resolves to `undefined`.
    */
-  evaluate<T>(
-    pageFunction: (...args: any[]) => T | Promise<T>,
-    ...args: any[],
-  ): Promise<T>;
+  evaluate<T extends any[], K extends T, R>(
+    pageFunction: (...args: T) => R | Promise<R>,
+    ...args: K
+  ): Promise<R>;
 
   /**
    * The only difference between `worker.evaluate` and `worker.evaluateHandle` is
    * that `worker.evaluateHandle` returns in-page object (JSHandle).
    */
-  evaluateHandle<T>(
-    pageFunction: (...args: any[]) => T | Promise<T>,
-    ...args: any[],
-  ): Promise<T>;
+  evaluateHandle<T extends any[], K extends T, R>(
+    pageFunction: (...args: T) => R | Promise<R>,
+    ...args: K
+  ): Promise<R>;
 
   executionContext(): Promise<ExecutionContext>;
 
@@ -779,13 +779,13 @@ export interface ElementHandle<E extends Element = Element> extends JSHandle, Ev
 
 /** The class represents a context for JavaScript execution. */
 export interface ExecutionContext {
-  evaluate(
-    fn: EvaluateFn,
-    ...args: any[]
-  ): Promise<any>;
-  evaluateHandle(
-    fn: EvaluateFn,
-    ...args: any[]
+  evaluate<T extends any[], K extends T, R>(
+    fn: (...args: T) => R | Promise<R>,
+    ...args: K
+  ): Promise<R>;
+  evaluateHandle<T extends any[], K extends T>(
+    fn: (...args: T) => any,
+    ...args: K
   ): Promise<JSHandle>;
   queryObjects(prototypeHandle: JSHandle): JSHandle;
 }
@@ -1055,10 +1055,10 @@ export interface FrameBase extends Evalable {
    * @param fn Function to be evaluated in browser context
    * @param args Arguments to pass to `fn`
    */
-  evaluate(
-    fn: EvaluateFn,
-    ...args: any[]
-  ): Promise<any>;
+  evaluate<T extends any[], K extends T, R>(
+    fn: (...args: T) => R | Promise<R>,
+    ...args: K
+  ): Promise<R>;
 
   /**
    * Evaluates a function in the page context.
@@ -1068,9 +1068,9 @@ export interface FrameBase extends Evalable {
    * @param args The arguments to pass to the `fn`.
    * @returns A promise which resolves to return value of `fn`.
    */
-  evaluateHandle(
-    fn: EvaluateFn,
-    ...args: any[]
+  evaluateHandle<T extends any[], K extends T>(
+    fn: (...args: T) => any,
+    ...args: K
   ): Promise<JSHandle>;
 
   /** This method fetches an element with selector and focuses it. */
@@ -1271,9 +1271,9 @@ export interface Page extends EventEmitter, FrameBase {
    * @param args The arguments to pass to the `fn`.
    * @returns A promise which resolves to return value of `fn`.
    */
-  evaluateHandle(
-    fn: EvaluateFn,
-    ...args: any[]
+  evaluateHandle<T extends any[], K extends T>(
+    fn: (...args: T) => any,
+    ...args: K
   ): Promise<JSHandle>;
 
   /**
@@ -1282,10 +1282,10 @@ export interface Page extends EventEmitter, FrameBase {
    * @param fn The function to be evaluated in browser context.
    * @param args The arguments to pass to the `fn`.
    */
-  evaluateOnNewDocument(
-    fn: EvaluateFn,
-    ...args: any[]
-  ): Promise<void>;
+  evaluateOnNewDocument<T extends any[], K extends T, R>(
+    fn: (...args: T) => R | Promise<R>,
+    ...args: K
+  ): Promise<R>;
 
   /**
    * The method adds a function called name on the page's `window` object.
