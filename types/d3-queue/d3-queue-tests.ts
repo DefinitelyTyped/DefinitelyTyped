@@ -73,7 +73,7 @@ qWithResults = d3Queue.queue()
     .defer(getFileStats, './yetanotherworkingpath/file2.json')
     .awaitAll((error, fileStats) => {
         if (error) throw error;
-        console.log(fileStats[0], fileStats[1]);
+        console.log(fileStats![0], fileStats![1]);
     });
 
 // Abort Deferred Tasks ==============================================
@@ -83,11 +83,11 @@ function requestDataFromInterWeb(url: string, callback: (error: any | null, data
 }
 
 qWithResults = d3Queue.queue()
-    .defer(requestDataFromInterWeb, 'http://www.google.com:81')
-    .defer(requestDataFromInterWeb, 'http://www.google.com:81')
+    .defer(requestDataFromInterWeb, 'http://www.example.org:81')
+    .defer(requestDataFromInterWeb, 'http://www.example.org:81')
     .awaitAll((error, results) => {
         if (error) throw error;
-        console.log(results[0], results[1]);
+        console.log(results![0], results![1]);
     });
 
 qWithResults.abort();

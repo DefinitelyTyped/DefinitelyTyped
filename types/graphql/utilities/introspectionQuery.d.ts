@@ -9,6 +9,11 @@ export interface IntrospectionOptions {
 
 export function getIntrospectionQuery(options?: IntrospectionOptions): string;
 
+/**
+ * Deprecated, call getIntrospectionQuery directly.
+ *
+ * This function will be removed in v15
+ */
 export const introspectionQuery: string;
 
 export interface IntrospectionQuery {

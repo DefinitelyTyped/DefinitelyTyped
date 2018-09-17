@@ -3369,7 +3369,7 @@ export class Color {
      */
     getHexString(): string;
 
-    getHSL(): HSL;
+    getHSL(target: HSL): HSL;
 
     /**
      * Returns the value of this color in CSS context style.
@@ -5424,6 +5424,14 @@ export interface WebGLRendererParameters {
      * A Canvas where the renderer draws its output.
      */
     canvas?: HTMLCanvasElement;
+
+
+    /**
+     * A WebGL Rendering Context.
+     * (https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext)
+     *  Default is null
+     */
+    context?: WebGLRenderingContext
 
     /**
      *  shader precision. Can be "highp", "mediump" or "lowp".

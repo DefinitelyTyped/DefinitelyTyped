@@ -33,3 +33,9 @@ let App2 = BaseApp.create({
         mouseleave: null
     }
 });
+
+let App3 = BaseApp.create();
+
+let App3Instance1 = App3.buildInstance();
+
+let App3Instance2 = App3.buildInstance({ foo: 'bar' });

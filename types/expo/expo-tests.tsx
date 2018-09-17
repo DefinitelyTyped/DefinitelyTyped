@@ -287,6 +287,30 @@ Camera.Constants.BarCodeType;
         }
     }} />);
 };
+async (camera: CameraObject) => {
+    const picture = await camera.takePictureAsync({
+        quality: 0.5,
+        base64: true,
+        exif: true
+    });
+
+    picture.uri;
+    picture.width;
+    picture.height;
+    picture.exif;
+    picture.base64;
+
+    camera.takePictureAsync({
+        quality: 1,
+        onPictureSaved: pic => {
+            pic.uri;
+            pic.width;
+            pic.height;
+            pic.exif;
+            pic.base64;
+        }
+    });
+};
 
 async () => {
     const result = await DocumentPicker.getDocumentAsync();

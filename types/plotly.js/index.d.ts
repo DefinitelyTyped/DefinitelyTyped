@@ -318,17 +318,21 @@ export interface Axis {
 export type Calendar = 'gregorian' | 'chinese' | 'coptic' | 'discworld' | 'ethiopian' | 'hebrew' | 'islamic' | 'julian' | 'mayan' |
 	'nanakshahi' | 'nepali' | 'persian' | 'jalali' | 'taiwan' | 'thai' | 'ummalqura';
 
+export type AxisName =
+	| 'x' | 'x2' | 'x3' | 'x4' | 'x5' | 'x6' | 'x7' | 'x8' | 'x9'
+	| 'y' | 'y2' | 'y3' | 'y4' | 'y5' | 'y6' | 'y7' | 'y8' | 'y9';
+
 export interface LayoutAxis extends Axis {
 	fixedrange: boolean;
-	scaleanchor: '/^x([2-9]|[1-9][0-9]+)?$/' | '/^y([2-9]|[1-9][0-9]+)?$/';
+	scaleanchor: AxisName;
 	scaleratio: number;
 	constrain: 'range' | 'domain';
 	constraintoward: 'left' | 'center' | 'right' | 'top' | 'middle' | 'bottom';
 	spikedash: string;
 	spikemode: string;
-	anchor: 'free' | '/^x([2-9]|[1-9][0-9]+)?$/' | '/^y([2-9]|[1-9][0-9]+)?$/';
+	anchor: 'free' | AxisName;
 	side: 'top' | 'bottom' | 'left' | 'right';
-	overlaying: 'free' | '/^x([2-9]|[1-9][0-9]+)?$/' | '/^y([2-9]|[1-9][0-9]+)?$/';
+	overlaying: 'free' | AxisName;
 	layer: 'above traces' | 'below traces';
 	domain: number[];
 	position: number;
@@ -434,6 +438,25 @@ export interface ModeBarButton {
 export type Datum = string | number | Date | null;
 export type TypedArray = Int8Array | Uint8Array | Int16Array | Uint16Array | Int32Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array;
 
+export interface ErrorOptions {
+	visible: boolean;
+	symmetric: boolean;
+	color: Color;
+	thickness: number;
+	width: number;
+	opacity: number;
+}
+
+export type ErrorBar = Partial<ErrorOptions> & ({
+	type: 'constant' | 'percent',
+	value: number,
+	valueminus?: number
+} | {
+	type: 'data',
+	array: Datum[],
+	arrayminus?: Datum[]
+});
+
 export type Dash = 'solid' | 'dot' | 'dash' | 'longdash' | 'dashdot' | 'longdashdot';
 
 export type Data = Partial<PlotData>;
@@ -447,6 +470,8 @@ export interface PlotData {
 	y: Datum[] | Datum[][] | TypedArray;
 	z: Datum[] | Datum[][] | Datum[][][] | TypedArray;
 	xy: Float32Array;
+	error_x: ErrorBar;
+	error_y: ErrorBar;
 	xaxis: string;
 	yaxis: string;
 	text: string | string[];

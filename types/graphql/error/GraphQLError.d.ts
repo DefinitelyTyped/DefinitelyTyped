@@ -59,12 +59,12 @@ export class GraphQLError extends Error {
     /**
      * The original error thrown from a field resolver during execution.
      */
-    readonly originalError: Maybe<Error>;
+    readonly originalError: Maybe<Error> & { readonly extensions: any };
 
     /**
      * Extension fields to add to the formatted error.
      */
-    readonly extensions: { [key: string]: any } | void;
+    readonly extensions: { [key: string]: any } | undefined;
 
     constructor(
         message: string,

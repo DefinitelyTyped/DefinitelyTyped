@@ -7,7 +7,7 @@ import { ASTNode } from "../language/ast";
  * document responsible for the original Error.
  */
 export function locatedError(
-    originalError: Error,
+    originalError: Error | GraphQLError,
     nodes: ReadonlyArray<ASTNode>,
     path: ReadonlyArray<string | number>
 ): GraphQLError;

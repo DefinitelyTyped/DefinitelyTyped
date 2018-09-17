@@ -391,6 +391,12 @@
             "asOfVersion": "7.4.0"
         },
         {
+            "libraryName": "delay",
+            "typingsPackageName": "delay",
+            "sourceRepoURL": "https://github.com/sindresorhus/delay",
+            "asOfVersion": "3.1.0"
+        },
+        {
             "libraryName": "DevExtreme",
             "typingsPackageName": "devextreme",
             "sourceRepoURL": "http://js.devexpress.com/",
@@ -973,6 +979,12 @@
             "asOfVersion": "2.5.0"
         },
         {
+            "libraryName": "nano",
+            "typingsPackageName": "nano",
+            "sourceRepoURL": "https://github.com/apache/couchdb-nano",
+            "asOfVersion": "7.0.0"
+        },
+        {
             "libraryName": "ng-table",
             "typingsPackageName": "ng-table",
             "sourceRepoURL": "https://github.com/esvit/ng-table",
@@ -1265,6 +1277,12 @@
             "typingsPackageName": "redux-devtools-extension",
             "sourceRepoURL": "https://github.com/zalmoxisus/redux-devtools-extension",
             "asOfVersion": "2.13.2"
+        },
+        {
+            "libraryName": "redux-little-router",
+            "typingsPackageName": "redux-little-router",
+            "sourceRepoURL": "https://github.com/FormidableLabs/redux-little-router",
+            "asOfVersion": "15.1.0"
         },
         {
             "libraryName": "redux-persist",
