@@ -29,51 +29,42 @@ declare namespace OfficeRuntime {
     interface AsyncStorage {
       /*
        * @beta
-       * Retrieves an object based on a key and invokes a callback when finished. Returns a Promise. 
-       *   
+       * Retrieves an object based on a key and invokes a callback when finished. Returns a Promise.
        */
       getItem(key: string, callback?: (error?: Error, result?: string) => void): Promise<string>;
        /*
        * @beta
        * Assigns the value for a key-value pair and invokes a callback when finished. Returns a Promise.  
-       *
        */
       setItem(key: string, value: string, callback?: (error?: Error) => void): Promise<void>;
       /*
        * @beta
        * Removes an item for specified key and invokes a callback when finished. Returns a Promise. 
-       *  
-       *
        */
       removeItem(key: string, callback?: (error?: Error) => void): Promise<void>;
       /*
        * @beta
        * Erases all AsyncStorage. Returns a Promise. 
-       *
        */
       clear(callback?: (error?: Error) => void): Promise<void>;
        /*
        * @beta
        * Returns a Promise with all keys for your custom function. 
-       *
        */
       getAllKeys(callback?: (error?: Error, keys?: string[]) => void): Promise<string[]>;
        /*
        * @beta
        * Stores multiple key-value pairs in one batch. Returns a Promise. When a key doesn't exist, returns null. 
-       *
        */
       multiSet(keyValuePairs: string[][], callback?: (errors?: Error[]) => void): Promise<void>;
        /*
        * @beta
        * Deletes a batch of keys, specified in the `keys` array.
-       *
        */
       multiRemove(keys: string[], callback?: (errors?: Error[]) => void): Promise<void>;/**
       /*
       * @beta
       * Fetches a batch of keys, specified in the `keys` array. When a key doesn't exist, returns null. 
-      * 
       */
       multiGet(keys: string[], callback?: (errors?: Error[], result?: string[][]) => void): Promise<string[][]>;
     }
@@ -81,7 +72,6 @@ declare namespace OfficeRuntime {
     /*
     * @beta
     * Object representing the dialog box for Excel Custom Functions only. 
-    *
     */
     interface Dialog {
        /*
@@ -92,9 +82,7 @@ declare namespace OfficeRuntime {
     }
   
        /*
-       *
        * Provides options for how a dialog is displayed for Excel Custom Functions only. 
-       *
        */
     interface DisplayWebDialogOptions {
       /*
@@ -131,24 +119,18 @@ declare namespace OfficeRuntime {
       /*
        * @beta
        * Callback that is run when the dialog box sends a message to its parent.
-       *
-       *
        */
       onMessage?: (message: string, dialog?: Dialog) => void;
   
       /*
        * @beta
        * Callback that is run when the dialog box is closed.
-       *
-       * 
        */
       onClose?: () => void;
   
       /*
        * @beta
        * Callback that is run when the dialog box sends an error.
-       *
-       * 
        */
         onMessage?(message: string, dialog?: Dialog): void
     }
