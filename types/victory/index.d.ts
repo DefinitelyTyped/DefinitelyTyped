@@ -4,6 +4,7 @@
 //                 snerks <https://github.com/snerks>
 //                 Krzysztof Cebula <https://github.com/Havret>
 //                 Vitaliy Polyanskiy <https://github.com/alredyExist>
+//                 Lizz Banalagay <https://github.com/lizzbanalagay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -269,16 +270,16 @@ declare module "victory" {
      */
     cursorLabel?: (point: CursorData) => void;
     /**
-     * The cursorLabelComponent prop takes a component instance which will be 
-     * used to render a label for the cursor. The new element created from the passed 
+     * The cursorLabelComponent prop takes a component instance which will be
+     * used to render a label for the cursor. The new element created from the passed
      * cursorLabelComponent will be supplied with the following props: x, y,
      * active, text. If cursorLabelComponent is omitted, a new VictoryLabel will be created with the props described above.
      * @default cursorLabelComponent={<VictoryLabel/>}
      */
     cursorLabelComponent?: React.ReactElement<any>;
     /**
-     * The cursorLabelOffset prop determines the pixel offset of the cursor label 
-     * from the cursor point. This prop should be an Object with x and y properties, or a 
+     * The cursorLabelOffset prop determines the pixel offset of the cursor label
+     * from the cursor point. This prop should be an Object with x and y properties, or a
      * number to be used for both dimensions.
      * @default "{ x: 5, y: -10 }"
      */
@@ -315,45 +316,45 @@ declare module "victory" {
      */
     allowDrag?: boolean;
     /**
-     * The optional allowResize prop accepts a boolean that enables resizing the 
+     * The optional allowResize prop accepts a boolean that enables resizing the
      * highlighted brush area. Dragging will still be enabled when the allowResize
      * prop is set to false, but the dimensions of the brush area will be fixed.
      * @default true
      */
     allowResize?: boolean;
     /**
-     * The brushComponent prop specifies the component to be rendered for the 
-     * highlighted area. This component will be supplied with the following props: x, y, 
+     * The brushComponent prop specifies the component to be rendered for the
+     * highlighted area. This component will be supplied with the following props: x, y,
      * width, height, and style. When this prop is not specified, a <rect/> will be rendered.
      * @default brushComponent={<rect/>}
      */
     brushComponent?: React.ReactElement<any>;
     /**
-     * When the brushDimension prop is set, brushing will only be specific to the to 
-     * the given dimension (either "x" or "y"), and the entire domain of the other 
+     * When the brushDimension prop is set, brushing will only be specific to the to
+     * the given dimension (either "x" or "y"), and the entire domain of the other
      * dimension will be highlighted. When this prop is not specified, highlighting will
      * occur along both dimensions.
      * @example brushDimension="x"
      */
     brushDimension?: 'x' | 'y';
     /**
-     * The optional brushDomain prop describes the highlighted state. This prop is an 
-     * object that specifies separate arrays for x and y. Each array is a tuple that 
-     * describes the minimum and maximum values to render. If this prop is not provided 
-     * initially, the chart will render with the entire domain highlighted. When this prop 
+     * The optional brushDomain prop describes the highlighted state. This prop is an
+     * object that specifies separate arrays for x and y. Each array is a tuple that
+     * describes the minimum and maximum values to render. If this prop is not provided
+     * initially, the chart will render with the entire domain highlighted. When this prop
      * changes, the chart will render with a new highlighted domain.
      * @example brushDomain={{ x: [50, 100], y: [0, 100] }}
      */
     brushDomain?: DomainPropType;
     /**
-     * The brushStyle adds custom styles to the brushComponent. This prop 
+     * The brushStyle adds custom styles to the brushComponent. This prop
      * should be given as an object of SVG style attributes.
      * @default "brushStyle={{ stroke: "transparent", fill: "black", fillOpacity: 0.1 }}"
      */
     brushStyle?: React.CSSProperties;
     /**
-     * The defaultBrushArea prop specifies how the container will behave when a 
-     * region outside the active brush is clicked without selecting a new area. When the 
+     * The defaultBrushArea prop specifies how the container will behave when a
+     * region outside the active brush is clicked without selecting a new area. When the
      * prop is set to "all", the entire domain will be selected. When the prop is set to "none",
      * no new region will be selected, and any existing active brush will be cleared. When
      * the prop is set to "disable" the new selected region will default to the current active brush.
@@ -364,8 +365,8 @@ declare module "victory" {
      */
     disable?: boolean;
     /**
-     * The handleComponent prop specifies the component to be rendered for each 
-     * handle for the highlighted area. This component will be supplied with the following 
+     * The handleComponent prop specifies the component to be rendered for each
+     * handle for the highlighted area. This component will be supplied with the following
      * props: x, y, width, height, cursor, and style. When this prop is not
      * specified, a <rect/> will be rendered.
      * @default handleComponent={<rect/>}
@@ -373,7 +374,7 @@ declare module "victory" {
     handleComponent?: React.ReactElement<any>;
     /**
      * The handleStyle adds custom styles to the handleComponents. This prop should be given as an object of SVG style attributes.
-     * 
+     *
      * Handles refer to the region on each highlighted area where the area may be
      * expanded. Only handles relevant to the given dimension will be rendered. For
      * example, when brushDimension="x" only "left" and "right" handles will be
@@ -382,8 +383,8 @@ declare module "victory" {
      */
     handleStyle?: React.CSSProperties;
     /**
-     * The optional onBrushDomainChange prop accepts an function to be called on 
-     * each update to the highlighted domain. The function accepts the parameters of 
+     * The optional onBrushDomainChange prop accepts an function to be called on
+     * each update to the highlighted domain. The function accepts the parameters of
      * domain (the updated domain), and props (the props used by VictoryBrushContainer).
      * @example onBrushDomainChange={(domain, props) => handleDomainChange(domain, props)}
      */
@@ -394,7 +395,7 @@ declare module "victory" {
 
   export interface VictoryZoomContainerProps extends VictoryContainerProps {
     /**
-     * The optional allowPan prop accepts a boolean that enables the panning 
+     * The optional allowPan prop accepts a boolean that enables the panning
      * functionality. Zooming will still be enabled when the allowPan prop is set to false.
      * @default true
      */
@@ -406,7 +407,7 @@ declare module "victory" {
      */
     allowZoom?: boolean;
     /**
-     * VictoryZoomContainer works by clipping data outside of a given domain. 
+     * VictoryZoomContainer works by clipping data outside of a given domain.
      * VictoryZoomContainer uses VictoryClipContainer by default.
      * This prop should not be replaced with a custom component, but you may want to set
      * props on VictoryClipContainer, such as clipPadding.
@@ -414,30 +415,30 @@ declare module "victory" {
      */
     clipContainerComponent?: React.ReactElement<any>;
     /**
-     * When the zoomDimension prop is set, panning and zooming will be restricted to 
-     * the given dimension (either x or y), and the domain of the other dimension will 
+     * When the zoomDimension prop is set, panning and zooming will be restricted to
+     * the given dimension (either x or y), and the domain of the other dimension will
      * remain static. When this prop is not specified, both x and y dimensions will pan and zoom.
      * @example zoomDimension="x"
      */
     zoomDimension?: 'x' | 'y';
     /**
-     * The zoomDomain prop describes the zoomed state. This prop is an object that 
-     * specifies separate arrays for x and y. Each array is a tuple that describes the 
-     * minimum and maximum values to render. If this prop is not provided initially, the 
-     * chart will render without an initial zoom, displaying the entire dataset. Updates to 
+     * The zoomDomain prop describes the zoomed state. This prop is an object that
+     * specifies separate arrays for x and y. Each array is a tuple that describes the
+     * minimum and maximum values to render. If this prop is not provided initially, the
+     * chart will render without an initial zoom, displaying the entire dataset. Updates to
      * zoomDomain will trigger a re-render of the chart with the new domain.
      * @example zoomDomain={{x: [0, 100]}}
      */
     zoomDomain?: DomainPropType;
     /**
-     * The brushStyle adds custom styles to the brushComponent. This prop 
+     * The brushStyle adds custom styles to the brushComponent. This prop
      * should be given as an object of SVG style attributes.
      * @default "brushStyle={{ stroke: 'transparent', fill: 'black', fillOpacity: 0.1 }}"
      */
     brushStyle?: React.CSSProperties;
     /**
-     * The defaultBrushArea prop specifies how the container will behave when a 
-     * region outside the active brush is clicked without selecting a new area. When the 
+     * The defaultBrushArea prop specifies how the container will behave when a
+     * region outside the active brush is clicked without selecting a new area. When the
      * prop is set to "all", the entire domain will be selected. When the prop is set to "none",
      * no new region will be selected, and any existing active brush will be cleared. When
      * the prop is set to "disable" the new selected region will default to the current active brush.
@@ -452,10 +453,10 @@ declare module "victory" {
      */
     downsample?: number | boolean;
     /**
-     * The minimumZoom prop sets a minimum domain extent for the zoomed chart. 
+     * The minimumZoom prop sets a minimum domain extent for the zoomed chart.
      * When the difference between the maximum and minimum of a zoomed domain is equal to the minimumZoom
      * in either dimension, the component will stop responding to events that would normally trigger zooming in.
-     * Zooming out and panning will still be enabled. When this prop is not specified, the default minimum 
+     * Zooming out and panning will still be enabled. When this prop is not specified, the default minimum
      * zoom will cover 1 / 1000th of the original domain. This prop should be given as an object
      * with numeric values for x and y.
      * @example minimumZoom={{x: 1, y: 0.01}}
@@ -649,10 +650,10 @@ declare module "victory" {
      */
     y?: number;
   }
-  
- 
+
+
   /**
-   * VictoryTooltip renders a tooltip component with a set of default events. When VictoryTooltip is used as a label component for any Victory component that renders data, it will attach events to rendered data components that will activate the tooltip when hovered. 
+   * VictoryTooltip renders a tooltip component with a set of default events. When VictoryTooltip is used as a label component for any Victory component that renders data, it will attach events to rendered data components that will activate the tooltip when hovered.
    * VictoryTooltip renders text as well as a configurable Flyout container.
    */
   export class VictoryTooltip extends React.Component<
@@ -1500,6 +1501,12 @@ declare module "victory" {
      * or horizontal if the prop is set to true.
      */
     horizontal?: boolean;
+    /** The offset prop determines the number of pixels each element in a group
+     *  should be offset from its original position of the on the independent axis. In the
+     *  case of groups of bars, this number should be equal to the width of the bar
+     *  plus the desired spacing between bars.
+     */
+    offset?: number;
     /**
      * The style prop specifies styles for your grouped chart. These styles will be
      * applied to all grouped children
