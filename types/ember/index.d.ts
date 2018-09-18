@@ -319,7 +319,7 @@ declare module 'ember' {
             /**
              * Given a fullName return the corresponding factory.
              */
-            resolveRegistration(fullName: string): Function;
+            resolveRegistration(fullName: string): (...args: any[]) => any;
             /**
              * Registers a factory or value that can be used for dependency injection (with
              * `inject`) or for service lookup. Each factory is registered with
@@ -424,7 +424,7 @@ declare module 'ember' {
              * @param fullName type:name (e.g., 'model:user')
              * @param factory (e.g., App.Person)
              */
-            register(fullName: string, factory: Function, options?: {}): void;
+            register(fullName: string, factory: (...args: any[]) => any, options?: {}): void;
             /**
              * This removes all helpers that have been registered, and resets and functions
              * that were overridden by the helpers.
@@ -467,7 +467,7 @@ declare module 'ember' {
              * Called when the Application has become ready.
              * The call will be delayed until the DOM has become ready.
              */
-            ready: Function;
+            ready: (...args: any[]) => any;
             /**
              * Application's router.
              */
@@ -756,7 +756,7 @@ declare module 'ember' {
                 scope?: QueryParamScopeTypes,
                 as?: string
             }}>;
-            target: Object;
+            target: object;
         }
         const ControllerMixin: Ember.Mixin<ControllerMixin>;
         class Controller extends Object.extend(ControllerMixin) {}
@@ -989,7 +989,7 @@ declare module 'ember' {
              * Iterate over each computed property for the class, passing its name and any
              * associated metadata (see metaForProperty) to the callback.
              */
-            static eachComputedProperty(callback: Function, binding: {}): void;
+            static eachComputedProperty(callback: (...args: any[]) => any, binding: {}): void;
             /**
              * Returns the original hash that was passed to meta().
              * @param key property name
@@ -1418,7 +1418,7 @@ declare module 'ember' {
          * for Ember.
          */
         const Instrumentation: {
-            instrument(name: string, payload: any, callback: Function, binding: any): void;
+            instrument(name: string, payload: any, callback: (...args: any[]) => any, binding: any): void;
             reset(): void;
             subscribe(pattern: string, object: any): void;
             unsubscribe(subscriber: any): void;
@@ -1511,7 +1511,7 @@ declare module 'ember' {
         class Map {
             copy(): Map;
             static create(): Map;
-            forEach(callback: Function, self: any): void;
+            forEach(callback: (...args: any[]) => any, self: any): void;
             get(key: any): any;
             has(key: any): boolean;
             set(key: any, value: any): void;
@@ -1690,7 +1690,7 @@ declare module 'ember' {
             /**
              * The object whose properties will be forwarded.
              */
-            content: Object;
+            content: object;
         }
         /**
          * This mixin provides properties and property observing functionality, core features of the Ember object model.
@@ -1796,7 +1796,7 @@ declare module 'ember' {
             clear(): void;
             copy(): OrderedSet;
             static create(): OrderedSet;
-            forEach(fn: Function, self: any): void;
+            forEach(fn: (...args: any[]) => any, self: any): void;
             has(obj: any): boolean;
             isEmpty(): boolean;
             toArray(): any[];
@@ -2227,11 +2227,11 @@ declare module 'ember' {
          * in as the only argument.
          */
         interface TextSupport extends TargetActionSupport {
-            cancel(event: Function): void;
-            focusIn(event: Function): void;
-            focusOut(event: Function): void;
-            insertNewLine(event: Function): void;
-            keyPress(event: Function): void;
+            cancel(event: (...args: any[]) => any): void;
+            focusIn(event: (...args: any[]) => any): void;
+            focusOut(event: (...args: any[]) => any): void;
+            insertNewLine(event: (...args: any[]) => any): void;
+            keyPress(event: (...args: any[]) => any): void;
             action: string;
             bubbles: boolean;
             onEvent: string;
@@ -2415,7 +2415,7 @@ declare module 'ember' {
             const String: boolean;
         }
         namespace Handlebars {
-            function compile(string: string): Function;
+            function compile(string: string): (...args: any[]) => any;
             function compile(environment: any, options?: any, context?: any, asObject?: any): any;
             function precompile(string: string, options: any): void;
             class Compiler {}
@@ -3257,7 +3257,7 @@ declare module 'ember' {
          * Detects when a specific package of Ember (e.g. 'Ember.Application')
          * has fully loaded and is available for extension.
          */
-        function onLoad(name: string, callback: Function): any;
+        function onLoad(name: string, callback: (...args: any[]) => any): any;
         /**
          * Called when an Ember.js package (e.g Ember.Application) has finished
          * loading. Triggers any callbacks registered for this event.
