@@ -20,11 +20,11 @@ declare namespace OfficeRuntime {
        *
        * @remarks
        * Each add-in instance has its own storage partition, unique to a user and their device.
-       * 
+       *
        * The default amount of total storage allowed per add-in is 5MB.
-       * 
+       *
        * Each method listed below returns a Promise object.
-       * 
+       *
        */
     interface AsyncStorage {
       /*
@@ -34,7 +34,7 @@ declare namespace OfficeRuntime {
       getItem(key: string, callback?: (error?: Error, result?: string) => void): Promise<string>;
        /*
        * @beta
-       * Assigns the value for a key-value pair and invokes a callback when finished. Returns a Promise. 
+       * Assigns the value for a key-value pair and invokes a callback when finished. Returns a Promise.
        */
       setItem(key: string, value: string, callback?: (error?: Error) => void): Promise<void>;
       /*
@@ -70,23 +70,23 @@ declare namespace OfficeRuntime {
     }
     /*
     * @beta
-    * Object representing the dialog box. 
+    * Object representing the dialog box.
     */
     interface Dialog {
        /*
        * @beta
-       * Method that closes a dialog box. 
+       * Method that closes a dialog box.
        */
       close(): Promise<void>;
     }
   
        /*
-       * Provides options for how a dialog is displayed. 
+       * Provides options for how a dialog is displayed.
        */
     interface DisplayWebDialogOptions {
       /*
        * @beta
-       * Determines whether the dialog box displays as a popup (false) or within an IFrame (true). This setting is only applicable to custom functions running on Excel Online. 
+       * Determines whether the dialog box displays as a popup (false) or within an IFrame (true). This setting is only applicable to custom functions running on Excel Online.
        */
       displayInIFrame?: boolean;
       /*
@@ -94,25 +94,21 @@ declare namespace OfficeRuntime {
        * Defines the height of the dialog box as a percentage of the current display.
        */
       height?: string;
-  
-      /**
-       * @beta
-       * Defines the width of the dialog box as a percentage of the current display. 
-       */
-      width?: string;
-  
       /*
        * @beta
-       * True if title is hidden from the dialog box. 
+       * Defines the width of the dialog box as a percentage of the current display.
+       */
+      width?: string;
+      /*
+       * @beta
+       * True if title is hidden from the dialog box.
        */
       hideTitle?: boolean;
-  
        /*
        * @beta
        * Callback that is run when the dialog box is closed.
        */
       onClose?: () => void;
-  
       /*
        * @beta
        * Callback that is run when the dialog box sends an error.
