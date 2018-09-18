@@ -1,4 +1,4 @@
-import * as NRP from "node-redis-pubsub";
+import NRP = require("node-redis-pubsub");
 import { RedisClient } from "redis";
 
 const options = {
