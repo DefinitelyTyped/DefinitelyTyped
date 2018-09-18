@@ -17,6 +17,7 @@
 /// <reference types="ember__string" />
 /// <reference types="ember__polyfills" />
 /// <reference types="ember__object" />
+/// <reference types="ember__utils" />
 
 declare module 'ember' {
     import {
@@ -26,7 +27,7 @@ declare module 'ember' {
         UnwrapComputedPropertyGetter,
         ComputedPropertyCallback
     } from 'ember/-private-types/object/computed';
-    import { Objectify, Fix, KeysOfType, TypeLookup } from 'ember/-private-types/utils';
+    import { Objectify, Fix } from 'ember/-private-types/utils';
     import { EmberClassArguments, EmberClassConstructor, EmberInstanceArguments } from 'ember/-private-types/object';
     import * as HandlebarsNamespace from 'handlebars';
     // Capitalization is intentional: this makes it much easier to re-export RSVP on
@@ -39,24 +40,10 @@ declare module 'ember' {
     import ModuleComputed from '@ember/object/computed';
     import * as EmberString from '@ember/string';
     import * as EmberPolyfills from '@ember/polyfills';
+    import * as EmberUtils from '@ember/utils';
 
     // Get an alias to the global Array type to use in inner scope below.
     type GlobalArray<T> = T[];
-
-    // TODO: TypeScript 3.0
-    // type FunctionArgs<F extends (...args: any[]) => any> = F extends (...args: infer ARGS) => any ? ARGS : never;
-    type FunctionArgs<F> =
-        F extends (a: infer A) => any
-            ? [A]
-            : F extends (a: infer A, b: infer B) => any
-                ? [A, B]
-                : F extends (a: infer A, b: infer B, c: infer C) => any
-                    ? [A, B, C]
-                    : F extends (a: infer A, b: infer B, c: infer C, d: infer D) => any
-                        ? [A, B, C, D]
-                        : F extends (a: infer A, b: infer B, c: infer C, d: infer D, e: infer E) => any
-                            ? [A, B, C, D, E]
-                            : never;
 
     type Mix<A, B> = B & Pick<A, Exclude<keyof A, keyof B>>;
     type Mix3<A, B, C> = Mix<Mix<A, B>, C>;
@@ -3121,25 +3108,10 @@ declare module 'ember' {
             obj: T,
             ...list: K[]
         ): Pick<UnwrapComputedPropertyGetters<T>, K>;
-        /**
-         * A value is blank if it is empty or a whitespace string.
-         */
-        function isBlank(obj?: any): boolean;
-        /**
-         * Verifies that a value is `null` or an empty string, empty array,
-         * or empty function.
-         */
-        function isEmpty(obj?: any): boolean;
-        /**
-         * Returns true if the passed value is null or undefined. This avoids errors
-         * from JSLint complaining about use of ==, which can be technically
-         * confusing.
-         */
-        function isNone(obj?: any): obj is null | undefined;
-        /**
-         * A value is present if it not `isBlank`.
-         */
-        function isPresent(obj?: any): boolean;
+        const isBlank: typeof EmberUtils.isBlank;
+        const isEmpty: typeof EmberUtils.isEmpty;
+        const isNone: typeof EmberUtils.isNone;
+        const isPresent: typeof EmberUtils.isPresent;
         const merge: typeof EmberPolyfills.merge;
         /**
          * Makes a method available via an additional name.
@@ -3274,29 +3246,18 @@ declare module 'ember' {
          * will be `true`.
          */
         function A<T>(arr?: T[]): NativeArray<T>;
-        /**
-         * Compares two javascript values and returns:
-         */
-        function compare(v: any, w: any): number;
+        const compare: typeof EmberUtils.compare;
         /**
          * Creates a shallow copy of the passed object. A deep copy of the object is
          * returned if the optional `deep` argument is `true`.
          */
         function copy(obj: any, deep?: boolean): any;
-        /**
-         * Compares two objects, returning true if they are equal.
-         */
-        function isEqual(a: any, b: any): boolean;
+        const isEqual: typeof EmberUtils.isEqual;
         /**
          * Returns true if the passed object is an array or Array-like.
          */
         function isArray(obj: any): obj is ArrayLike<any>;
-        /**
-         * Returns a consistent type for the passed object.
-         */
-        function typeOf<T>(value: T): KeysOfType<TypeLookup, T>;
-        function typeOf(): 'undefined';
-        function typeOf(item: any): string;
+        const typeOf: typeof EmberUtils.typeOf;
         // TODO: replace with an es6 reexport when declare module 'ember' is removed
         /**
          * Copy properties from a source object to a target object.
@@ -3325,18 +3286,7 @@ declare module 'ember' {
          * convert the object into a useful string description.
          */
         function inspect(obj: any): string;
-        /**
-         * Checks to see if the `methodName` exists on the `obj`,
-         * and if it does, invokes it with the arguments passed.
-         */
-        function tryInvoke<FNAME extends keyof T, T extends object>(
-            obj: T,
-            methodName: FNAME,
-            args: FunctionArgs<T[FNAME]>): T[FNAME] extends ((...args: any[]) => any)
-                ? ReturnType<T[FNAME]>
-                : undefined;
-        function tryInvoke<FNAME extends keyof T, T extends object>(obj: T, methodName: FNAME): T[FNAME] extends (() => any) ? ReturnType<T[FNAME]> : undefined;
-        function tryInvoke(obj: object, methodName: string, args?: any[]): undefined;
+        const tryInvoke: typeof EmberUtils.tryInvoke;
         /**
          * Framework objects in an Ember application (components, services, routes, etc.)
          * are created via a factory and dependency injection system. Each of these
@@ -3665,6 +3615,12 @@ declare module '@ember/object' {
     export const set: typeof Ember.set;
     export const setProperties: typeof Ember.setProperties;
     export const trySet: typeof Ember.trySet;
+    module '@ember/utils/-private/types' {
+        interface TypeLookup {
+            class: typeof Ember.Object;
+            instance: Ember.Object;
+        }
+    }
 }
 
 declare module '@ember/object/computed' {
@@ -3849,18 +3805,6 @@ declare module '@ember/test' {
 declare module '@ember/test/adapter' {
     import Ember from 'ember';
     export default class TestAdapter extends Ember.Test.Adapter { }
-}
-
-declare module '@ember/utils' {
-    import Ember from 'ember';
-    export const compare: typeof Ember.compare;
-    export const isBlank: typeof Ember.isBlank;
-    export const isEmpty: typeof Ember.isEmpty;
-    export const isEqual: typeof Ember.isEqual;
-    export const isNone: typeof Ember.isNone;
-    export const isPresent: typeof Ember.isPresent;
-    export const tryInvoke: typeof Ember.tryInvoke;
-    export const typeOf: typeof Ember.typeOf;
 }
 
 declare module 'htmlbars-inline-precompile' {
