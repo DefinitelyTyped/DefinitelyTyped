@@ -1,5 +1,4 @@
+import Ember from 'ember';
 import Observable from '@ember/object/observable';
-import MutableArray from '@ember/array/mutable';
-import { Ember } from 'ember';
 
-export interface ArrayPrototypeExtensions<T> extends MutableArray<T>, Observable, Ember.Copyable {}
+export interface ArrayPrototypeExtensions<T> extends Ember.MutableArray<T>, Observable, Ember.Copyable {}

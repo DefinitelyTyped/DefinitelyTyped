@@ -52,7 +52,6 @@ declare module 'ember' {
     // tslint:disable-next-line:no-duplicate-imports
     import EmberMixin from '@ember/object/mixin';
     import Observable from '@ember/object/observable';
-    // import Ember.Mixin from '@ember/object/mixin';
 
     // Get an alias to the global Array type to use in inner scope below.
     type GlobalArray<T> = T[];
@@ -65,7 +64,7 @@ declare module 'ember' {
     /**
      * Ember.Object.extend(...) accepts any number of mixins or literals.
      */
-    type MixinOrLiteral<T, Base> = Ember.Mixin<T, Base> | T;
+    type MixinOrLiteral<T, Base> = EmberMixin<T, Base> | T;
 
     /**
      * Used to infer the type of ember classes of type `T`.
@@ -201,7 +200,7 @@ declare module 'ember' {
          */
         willDestroyElement(): void;
     }
-    const ViewMixin: Ember.Mixin<ViewMixin>;
+    const ViewMixin: EmberMixin<ViewMixin>;
 
     /**
     Ember.CoreView is an abstract class that exists to give view-like behavior to both Ember's main
@@ -213,7 +212,7 @@ declare module 'ember' {
     interface ActionSupport {
         sendAction(action: string, ...params: any[]): void;
     }
-    const ActionSupport: Ember.Mixin<ActionSupport>;
+    const ActionSupport: EmberMixin<ActionSupport>;
 
     interface ClassNamesSupport {
         /**
@@ -236,7 +235,7 @@ declare module 'ember' {
          */
         classNames: string[];
     }
-    const ClassNamesSupport: Ember.Mixin<ClassNamesSupport>;
+    const ClassNamesSupport: EmberMixin<ClassNamesSupport>;
 
     interface TriggerActionOptions {
         action?: string;
@@ -306,7 +305,7 @@ declare module 'ember' {
              */
             factoryFor(fullName: string, options?: {}): any;
         }
-        const _ContainerProxyMixin: Ember.Mixin<_ContainerProxyMixin>;
+        const _ContainerProxyMixin: EmberMixin<_ContainerProxyMixin>;
 
         /**
          * RegistryProxyMixin is used to provide public access to specific
@@ -361,7 +360,7 @@ declare module 'ember' {
              */
             inject(factoryNameOrType: string, property: string, injectionName: string): any;
         }
-        const _RegistryProxyMixin: Ember.Mixin<_RegistryProxyMixin>;
+        const _RegistryProxyMixin: EmberMixin<_RegistryProxyMixin>;
         /**
          Ember.ActionHandler is available on some familiar classes including Ember.Route,
         Ember.Component, and Ember.Controller. (Internally the mixin is used by Ember.CoreView,
@@ -382,7 +381,7 @@ declare module 'ember' {
             **/
             actions: ActionsHash;
         }
-        const ActionHandler: Ember.Mixin<ActionHandler>;
+        const ActionHandler: EmberMixin<ActionHandler>;
         /**
         An instance of Ember.Application is the starting point for every Ember application. It helps to
         instantiate, initialize and coordinate the many objects that make up your app.
@@ -562,7 +561,7 @@ declare module 'ember' {
             '@each': ComputedProperty<T>;
         }
         // Ember.Array rather than Array because the `array-type` lint rule doesn't realize the global is shadowed
-        const Array: Ember.Mixin<Ember.Array<any>>;
+        const Array: EmberMixin<Ember.Array<any>>;
 
         /**
         An ArrayProxy wraps any other object that implements Ember.Array and/or Ember.MutableArray,
@@ -611,7 +610,7 @@ declare module 'ember' {
         interface Comparable {
             compare(a: any, b: any): number;
         }
-        const Comparable: Ember.Mixin<Comparable>;
+        const Comparable: EmberMixin<Comparable>;
         /**
         A view that is completely isolated. Property access in its templates go to the view object
         and actions are targeted at the view object. There is no access to the surrounding context or
@@ -721,7 +720,7 @@ declare module 'ember' {
             }}>;
             target: Object;
         }
-        const ControllerMixin: Ember.Mixin<ControllerMixin>;
+        const ControllerMixin: EmberMixin<ControllerMixin>;
         class Controller extends Object.extend(ControllerMixin) {}
         /**
          * Implements some standard methods for copying an object. Add this mixin to
@@ -739,7 +738,7 @@ declare module 'ember' {
              */
             frozenCopy(): Copyable;
         }
-        const Copyable: Ember.Mixin<Copyable>;
+        const Copyable: EmberMixin<Copyable>;
         // TODO: replace with a proper ES6 reexport once we remove declare module 'ember' {}
         class Object extends EmberObjectNs.default {}
         class CoreObject extends EmberCoreObject {}
@@ -1050,7 +1049,7 @@ declare module 'ember' {
              */
             '[]': ComputedProperty<this>;
         }
-        const Enumerable: Ember.Mixin<Enumerable<any>>;
+        const Enumerable: EmberMixin<Enumerable<any>>;
         /**
         A subclass of the JavaScript Error object for use in Ember.
         **/
@@ -1080,7 +1079,7 @@ declare module 'ember' {
             freeze(): Freezable;
             isFrozen: boolean;
         }
-        const Freezable: Ember.Mixin<Freezable>;
+        const Freezable: EmberMixin<Freezable>;
         /**
          * `Ember.HashLocation` implements the location API using the browser's
          * hash. At present, it relies on a `hashchange` event existing in the
@@ -1225,7 +1224,7 @@ declare module 'ember' {
             copy(): MapWithDefault;
             static create(): MapWithDefault;
         }
-        export type Mixin<T, Base = Ember.Object> = EmberMixin<T, Base>;
+        class Mixin<T, Base = EmberObjectNs.default> extends EmberMixin<T, Base> {}
         /**
          * This mixin defines the API for modifying array-like objects. These methods
          * can be applied only to a collection that keeps its items in an ordered set.

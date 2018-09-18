@@ -1,7 +1,6 @@
-import Observable from "@ember/object/observable";
 // tslint-disable-next-line
 import { assertType } from "../lib/assert";
-import { Ember } from "ember";
+import Ember from "ember";
 import {
     ExtractPropertyNamesOfType,
     UnwrapComputedPropertyGetter,
@@ -13,7 +12,7 @@ class OtherThing {
     observerOfDemo(target: DemoObservable, key: 'foo') {}
 }
 
-class DemoObservable implements Observable {
+class DemoObservable implements Ember.Observable {
     foo: string;
     isFoo = true;
     bar: [boolean, boolean];
