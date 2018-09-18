@@ -11,6 +11,6 @@ type options = {
    mapValue?: any
 }
 
-declare function requireDir(directory: string, options: options): { [path: string]: any };
+declare function requireDir(directory: string, options?: options): { [path: string]: any };
 
 export = requireDir;
