@@ -6,8 +6,9 @@
 
 import { Connection, Options, Message } from 'amqplib';
 
+function jackrabbit(url: string): jackrabbit.JackRabbit;
+
 declare namespace jackrabbit {
-    function jackrabbit(url: string): JackRabbit;
 
     interface JackRabbit extends NodeJS.EventEmitter {
         default(): Exchange;
@@ -63,4 +64,6 @@ declare namespace jackrabbit {
     }
 }
 
-export default jackrabbit.jackrabbit;
+declare module "jackrabbit" {
+    export = jackrabbit;
+}
