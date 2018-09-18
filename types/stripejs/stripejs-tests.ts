@@ -1,4 +1,5 @@
 import { StripeJS } from "stripejs";
+import { StripeElement } from "stripejs/element";
 import { CanMakePaymentResult, StripePaymentResponse } from "stripejs/payment";
 import { BankTokenData, IBANTokenData, TokenData, TokenResult } from "stripejs/token";
 import { SourceData, SourceResult } from "stripejs/source";
@@ -52,7 +53,7 @@ describe('StripeJS', () => {
     });
 
     it('Should be possible to create a token', () => {
-        const element: Element = {} as any;
+        const element: StripeElement = {} as any;
         const data: TokenData = {
             name: '',
             currency: 'eur',
@@ -83,7 +84,7 @@ describe('StripeJS', () => {
     });
 
     it('Should be possible to create a source object', () => {
-        const element: Element = {} as any;
+        const element: StripeElement = {} as any;
         const data: SourceData = {
             type: 'alipay',
             flow: 'none',

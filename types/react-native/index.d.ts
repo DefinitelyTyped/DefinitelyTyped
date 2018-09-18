@@ -30,7 +30,9 @@
 /// <reference path="globals.d.ts" />
 /// <reference path="legacy-properties.d.ts" />
 /// <reference path="BatchedBridge.d.ts" />
+/// <reference path="Devtools.d.ts" />
 
+import * as PropTypes from 'prop-types';
 import * as React from 'react';
 
 type Constructor<T> = new(...args: any[]) => T;
@@ -5217,6 +5219,20 @@ export namespace StyleSheet {
     export function flatten(style?: StyleProp<ViewStyle>): ViewStyle;
 
     /**
+     * WARNING: EXPERIMENTAL. Breaking changes will probably happen a lot and will
+     * not be reliably announced. The whole thing might be deleted, who knows? Use
+     * at your own risk.
+     *
+     * Sets a function to use to pre-process a style property value. This is used
+     * internally to process color and transform values. You should not use this
+     * unless you really know what you are doing and have exhausted other options.
+     */
+    export function setStyleAttributePreprocessor(
+        property: string,
+        process: (nextProp: any) => any
+    ): void;
+
+    /**
      * This is defined as the width of a thin line on the platform. It can be
      * used as the thickness of a border or division between two elements.
      * Example:
@@ -8936,7 +8952,7 @@ export const PixelRatio: PixelRatioStatic;
 export interface ComponentInterface<P> {
     name?: string;
     displayName?: string;
-    propTypes: P;
+    propTypes: PropTypes.ValidationMap<P>;
 }
 
 /**
@@ -8958,7 +8974,7 @@ export function requireNativeComponent<P>(
     viewName: string,
     componentInterface?: ComponentInterface<P>,
     extraConfig?: { nativeOnly?: any }
-): React.ComponentClass<P>;
+): React.ComponentClass<PropTypes.InferProps<PropTypes.ValidationMap<P>>>;
 
 export function findNodeHandle(
     componentOrHandle: null | number | React.Component<any, any> | React.ComponentClass<any>
@@ -9001,10 +9017,10 @@ export namespace addons {
 //
 // Prop Types
 //
-export const ColorPropType: React.Requireable<any>;
-export const EdgeInsetsPropType: React.Requireable<any>;
-export const PointPropType: React.Requireable<any>;
-export const ViewPropTypes: React.Requireable<any>;
+export const ColorPropType: React.Validator<string>;
+export const EdgeInsetsPropType: React.Validator<Insets>;
+export const PointPropType: React.Validator<PointPropType>;
+export const ViewPropTypes: React.ValidationMap<ViewProps>;
 
 declare global {
     function require(name: string): any;

@@ -1082,18 +1082,34 @@ declare namespace wx {
 	// #region 设备API列表
 	// 设备-----系统信息
 	interface SystemInfo {
+		/** 手机品牌 */
+		brand: string;
 		/** 手机型号 */
 		model: string;
 		/** 设备像素比 */
 		pixelRatio: number;
+		/** 屏幕宽度 */
+		screenWidth: number;
+		/** 屏幕高度 */
+		screenHeight: number;
 		/** 窗口宽度 */
 		windowWidth: number;
 		/** 窗口高度 */
 		windowHeight: number;
+		/** 状态栏的高度 */
+		statusBarHeight: number;
 		/** 微信设置的语言 */
 		language: string;
 		/** 微信版本号 */
 		version: string;
+		/** 操作系统版本 */
+		system: string;
+		/** 客户端平台 */
+		platform: string;
+		/** 用户字体大小设置。以“我-设置-通用-字体大小”中的设置为准，单位 px。 */
+		fontSizeSetting: number;
+		/** 客户端基础库版本 */
+		SDKVersion: string;
 	}
 	interface GetSystemInfoOptions extends BaseOptions {
 		/** 成功获取系统信息的回调 */

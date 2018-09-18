@@ -1059,7 +1059,8 @@ function dkim_specific_header_key_test() {
 
 function smtp_connection_test() {
     const connection = new SMTPConnection();
-    connection.connect(() => {
+    connection.connect((err) => {
+        if (err) throw err;
         connection.login({ user: 'user', pass: 'pass' }, (err) => {
             if (err) throw err;
             connection.send({ from: 'a@example.com', to: 'b@example.net' }, 'message', (err, info) => {

@@ -1279,6 +1279,12 @@
             "asOfVersion": "2.13.2"
         },
         {
+            "libraryName": "redux-little-router",
+            "typingsPackageName": "redux-little-router",
+            "sourceRepoURL": "https://github.com/FormidableLabs/redux-little-router",
+            "asOfVersion": "15.1.0"
+        },
+        {
             "libraryName": "redux-persist",
             "typingsPackageName": "redux-persist",
             "sourceRepoURL": "https://github.com/rt2zz/redux-persist",

@@ -201,8 +201,8 @@ declare namespace Faker {
 		};
 
 		system: {
-			fileName(ext: string, type: string): string;
-			commonFileName(ext: string, type: string): string;
+			fileName(ext?: string, type?: string): string;
+			commonFileName(ext: string, type?: string): string;
 			mimeType(): string;
 			commonFileType(): string;
 			commonFileExt(): string;

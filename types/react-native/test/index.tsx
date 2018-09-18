@@ -20,6 +20,7 @@ import {
     BackAndroid,
     BackHandler,
     Button,
+    ColorPropType,
     DataSourceAssetCallback,
     DeviceEventEmitterStatic,
     Dimensions,
@@ -73,6 +74,7 @@ import {
     KeyboardAvoidingView,
     Modal,
     TimePickerAndroid,
+    ViewPropTypes,
 } from "react-native";
 
 declare module "react-native" {
@@ -151,6 +153,8 @@ const stylesAlt = StyleSheet.create({
     },
 });
 
+StyleSheet.setStyleAttributePreprocessor('fontFamily', (family: string) => family);
+
 const welcomeFontSize = StyleSheet.flatten(styles.welcome).fontSize;
 
 const viewStyle: StyleProp<ViewStyle> = {
@@ -186,13 +190,20 @@ const testNativeSyntheticEvent = <T extends {}>(e: NativeSyntheticEvent<T>): voi
     e.nativeEvent;
 }
 
+type ElementProps<C> = C extends React.Component<infer P, any> ? P : never;
+
 class CustomView extends React.Component {
     render() {
         return <Text style={[StyleSheet.absoluteFill, { ...StyleSheet.absoluteFillObject }]}>Custom View</Text>;
     }
 }
 
-class Welcome extends React.Component {
+class Welcome extends React.Component<ElementProps<View> & { color: string }> {
+    static propTypes = {
+        ...ViewPropTypes,
+        color: ColorPropType,
+    };
+
     refs: {
         [key: string]: any;
         rootView: View;
@@ -218,8 +229,9 @@ class Welcome extends React.Component {
     }
 
     render() {
+        const { color, ...props } = this.props;
         return (
-            <View ref="rootView" style={[[styles.container], undefined, null, false]}>
+            <View {...props} ref="rootView" style={[[styles.container], undefined, null, false]}>
                 <Text style={styles.welcome}>Welcome to React Native</Text>
                 <Text style={styles.instructions}>To get started, edit index.ios.js</Text>
                 <Text style={styles.instructions}>

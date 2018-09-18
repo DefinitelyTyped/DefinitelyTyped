@@ -35,8 +35,27 @@ declare namespace helmet {
     }
     export type HelmetCspDirectiveValue = string | IHelmetContentSecurityPolicyDirectiveFunction;
 
+    export type HelmetCspSandboxDirective =
+        | string
+        | 'allow-forms'
+        | 'allow-modals'
+        | 'allow-orientation-lock'
+        | 'allow-pointer-lock'
+        | 'allow-popups-to-escape-sandbox'
+        | 'allow-popups'
+        | 'allow-presentation'
+        | 'allow-same-origin'
+        | 'allow-scripts'
+        | 'allow-top-navigation'
+
+    export type HelmetCspRequireSriForValue =
+        | string
+        | 'script'
+        | 'style'
+
     export interface IHelmetContentSecurityPolicyDirectives {
         baseUri?: HelmetCspDirectiveValue[];
+        blockAllMixedContent?: boolean;
         childSrc?: HelmetCspDirectiveValue[];
         connectSrc?: HelmetCspDirectiveValue[];
         defaultSrc?: HelmetCspDirectiveValue[];
@@ -45,13 +64,45 @@ declare namespace helmet {
         frameAncestors?: HelmetCspDirectiveValue[];
         frameSrc?: HelmetCspDirectiveValue[];
         imgSrc?: HelmetCspDirectiveValue[];
+        manifestSrc?: HelmetCspDirectiveValue[];
         mediaSrc?: HelmetCspDirectiveValue[];
         objectSrc?: HelmetCspDirectiveValue[];
         pluginTypes?: HelmetCspDirectiveValue[];
+        prefetchSrc?: HelmetCspDirectiveValue[];
+        reportTo?: string;
         reportUri?: string;
-        sandbox?: HelmetCspDirectiveValue[];
+        requireSriFor?: HelmetCspRequireSriForValue[];
+        sandbox?: HelmetCspSandboxDirective[];
         scriptSrc?: HelmetCspDirectiveValue[];
         styleSrc?: HelmetCspDirectiveValue[];
+        upgradeInsecureRequests?: boolean;
+        workerSrc?: HelmetCspDirectiveValue[];
+    }
+
+    export interface IHelmetContentSecurityPolicyDirectives {
+        'base-uri'?: HelmetCspDirectiveValue[];
+        'block-all-mixed-content'?: boolean;
+        'child-src'?: HelmetCspDirectiveValue[];
+        'connect-src'?: HelmetCspDirectiveValue[];
+        'default-src'?: HelmetCspDirectiveValue[];
+        'font-src'?: HelmetCspDirectiveValue[];
+        'form-action'?: HelmetCspDirectiveValue[];
+        'frame-ancestors'?: HelmetCspDirectiveValue[];
+        'frame-src'?: HelmetCspDirectiveValue[];
+        'img-src'?: HelmetCspDirectiveValue[];
+        'manifest-src'?: HelmetCspDirectiveValue[];
+        'media-src'?: HelmetCspDirectiveValue[];
+        'object-src'?: HelmetCspDirectiveValue[];
+        'plugin-types'?: HelmetCspDirectiveValue[];
+        'prefetch-src'?: HelmetCspDirectiveValue[];
+        'report-to'?: string;
+        'report-uri'?: string;
+        'require-sri-for'?: HelmetCspRequireSriForValue[];
+        'sandbox'?: HelmetCspSandboxDirective[];
+        'script-src'?: HelmetCspDirectiveValue;
+        'style-src'?: HelmetCspDirectiveValue;
+        'upgrade-insecure-requests'?: boolean;
+        'worker-src'?: HelmetCspDirectiveValue;
     }
 
     export interface IHelmetContentSecurityPolicyConfiguration {
