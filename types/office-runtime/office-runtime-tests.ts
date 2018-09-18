@@ -5,7 +5,7 @@ Copyright (c) Microsoft Corporation
 
 OfficeRuntime.AsyncStorage.getItem("foo", () => {
    // perform an action
-})
+});
 OfficeRuntime.AsyncStorage.getItem("foo").then(value => console.log(value));
 
 OfficeRuntime.AsyncStorage.setItem("foo", "bar");
@@ -51,8 +51,6 @@ OfficeRuntime.AsyncStorage.multiGet(["username", "yearOfBirth"]).then(
 );
 
 OfficeRuntime.displayWebDialog("https://localhost:3000", {
-    height: 50,
-    width: 50%,
     displayInIFrame: false
 });
 
@@ -60,11 +58,4 @@ OfficeRuntime.displayWebDialog("https://localhost:3000", {
    onClose: () => {
        console.log("closed");
    }
-});
-
-OfficeRuntime.displayWebDialog("https://localhost:3000", {
-    onRuntimeError: (error, dialog) => {
-        console.log(error);
-        dialog.close();
-    }
 });
