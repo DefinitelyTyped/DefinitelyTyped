@@ -208,11 +208,10 @@ declare module 'ember' {
     const ViewMixin: Ember.Mixin<ViewMixin>;
 
     /**
-    Ember.CoreView is an abstract class that exists to give view-like behavior to both Ember's main
-    view class Ember.Component and other classes that don't need the full functionality of Ember.Component.
-
-    Unless you have specific needs for CoreView, you will use Ember.Component in your applications.
-    **/
+     * Ember.CoreView is an abstract class that exists to give view-like behavior to both Ember's main
+     * view class Ember.Component and other classes that don't need the full functionality of Ember.Component.
+     * Unless you have specific needs for CoreView, you will use Ember.Component in your applications.
+     */
     class CoreView extends Ember.Object.extend(Ember.Evented, Ember.ActionHandler) {}
     interface ActionSupport {
         sendAction(action: string, ...params: any[]): void;
@@ -221,17 +220,17 @@ declare module 'ember' {
 
     interface ClassNamesSupport {
         /**
-        A list of properties of the view to apply as class names. If the property is a string value,
-        the value of that string will be applied as a class name.
-
-        If the value of the property is a Boolean, the name of that property is added as a dasherized
-        class name.
-
-        If you would prefer to use a custom value instead of the dasherized property name, you can
-        pass a binding like this: `classNameBindings: ['isUrgent:urgent']`
-
-        This list of properties is inherited from the component's superclasses as well.
-        */
+         * A list of properties of the view to apply as class names. If the property is a string value,
+         * the value of that string will be applied as a class name.
+         *
+         * If the value of the property is a Boolean, the name of that property is added as a dasherized
+         * class name.
+         *
+         * If you would prefer to use a custom value instead of the dasherized property name, you can
+         * pass a binding like this: `classNameBindings: ['isUrgent:urgent']`
+         *
+         * This list of properties is inherited from the component's superclasses as well.
+         */
         classNameBindings: string[];
         /**
          * Standard CSS class names to apply to the view's outer element. This
@@ -248,11 +247,11 @@ declare module 'ember' {
         actionContext?: Ember.Object;
     }
     /**
-    Ember.TargetActionSupport is a mixin that can be included in a class to add a triggerAction method
-    with semantics similar to the Handlebars {{action}} helper. In normal Ember usage, the {{action}}
-    helper is usually the best choice. This mixin is most often useful when you are doing more
-    complex event handling in Components.
-    **/
+     * Ember.TargetActionSupport is a mixin that can be included in a class to add a triggerAction method
+     * with semantics similar to the Handlebars {{action}} helper. In normal Ember usage, the {{action}}
+     * helper is usually the best choice. This mixin is most often useful when you are doing more
+     * complex event handling in Components.
+     */
     interface TargetActionSupport {
         triggerAction(opts: TriggerActionOptions): boolean;
     }
@@ -367,111 +366,111 @@ declare module 'ember' {
         }
         const _RegistryProxyMixin: Mixin<_RegistryProxyMixin>;
         /**
-         Ember.ActionHandler is available on some familiar classes including Ember.Route,
-        Ember.Component, and Ember.Controller. (Internally the mixin is used by Ember.CoreView,
-        Ember.ControllerMixin, and Ember.Route and available to the above classes through inheritance.)
-        **/
+         * Ember.ActionHandler is available on some familiar classes including Ember.Route,
+         * Ember.Component, and Ember.Controller. (Internally the mixin is used by Ember.CoreView,
+         * Ember.ControllerMixin, and Ember.Route and available to the above classes through inheritance.)
+         */
         interface ActionHandler {
             /**
-             Triggers a named action on the ActionHandler. Any parameters supplied after the actionName
-            string will be passed as arguments to the action target function.
-
-            If the ActionHandler has its target property set, actions may bubble to the target.
-            Bubbling happens when an actionName can not be found in the ActionHandler's actions
-            hash or if the action target function returns true.
-            **/
+             * Triggers a named action on the ActionHandler. Any parameters supplied after the actionName
+             * string will be passed as arguments to the action target function.
+             *
+             * If the ActionHandler has its target property set, actions may bubble to the target.
+             * Bubbling happens when an actionName can not be found in the ActionHandler's actions
+             * hash or if the action target function returns true.
+             */
             send(actionName: string, ...args: any[]): void;
             /**
-             The collection of functions, keyed by name, available on this ActionHandler as action targets.
-            **/
+             * The collection of functions, keyed by name, available on this ActionHandler as action targets.
+             */
             actions: ActionsHash;
         }
         const ActionHandler: Ember.Mixin<ActionHandler>;
         /**
-        An instance of Ember.Application is the starting point for every Ember application. It helps to
-        instantiate, initialize and coordinate the many objects that make up your app.
-        **/
+         * An instance of Ember.Application is the starting point for every Ember application. It helps to
+         * instantiate, initialize and coordinate the many objects that make up your app.
+         */
         class Application extends Engine {
             /**
-            Call advanceReadiness after any asynchronous setup logic has completed.
-            Each call to deferReadiness must be matched by a call to advanceReadiness
-            or the application will never become ready and routing will not begin.
-            **/
+             * Call advanceReadiness after any asynchronous setup logic has completed.
+             * Each call to deferReadiness must be matched by a call to advanceReadiness
+             * or the application will never become ready and routing will not begin.
+             */
             advanceReadiness(): void;
             /**
-            Use this to defer readiness until some condition is true.
-
-            This allows you to perform asynchronous setup logic and defer
-            booting your application until the setup has finished.
-
-            However, if the setup requires a loading UI, it might be better
-            to use the router for this purpose.
-            */
+             * Use this to defer readiness until some condition is true.
+             *
+             * This allows you to perform asynchronous setup logic and defer
+             * booting your application until the setup has finished.
+             *
+             * However, if the setup requires a loading UI, it might be better
+             * to use the router for this purpose.
+             */
             deferReadiness(): void;
             /**
-            defines an injection or typeInjection
-            **/
+             * defines an injection or typeInjection
+             */
             inject(factoryNameOrType: string, property: string, injectionName: string): void;
             /**
-            This injects the test helpers into the window's scope. If a function of the
-            same name has already been defined it will be cached (so that it can be reset
-            if the helper is removed with `unregisterHelper` or `removeTestHelpers`).
-            Any callbacks registered with `onInjectHelpers` will be called once the
-            helpers have been injected.
-            **/
+             * This injects the test helpers into the window's scope. If a function of the
+             * same name has already been defined it will be cached (so that it can be reset
+             * if the helper is removed with `unregisterHelper` or `removeTestHelpers`).
+             * Any callbacks registered with `onInjectHelpers` will be called once the
+             * helpers have been injected.
+             */
             injectTestHelpers(): void;
             /**
-            registers a factory for later injection
-            @param fullName type:name (e.g., 'model:user')
-            @param factory (e.g., App.Person)
-            **/
+             * registers a factory for later injection
+             * @param fullName type:name (e.g., 'model:user')
+             * @param factory (e.g., App.Person)
+             */
             register(fullName: string, factory: Function, options?: {}): void;
             /**
-            This removes all helpers that have been registered, and resets and functions
-            that were overridden by the helpers.
-            **/
+             * This removes all helpers that have been registered, and resets and functions
+             * that were overridden by the helpers.
+             */
             removeTestHelpers(): void;
             /**
-            Reset the application. This is typically used only in tests.
-            **/
+             * Reset the application. This is typically used only in tests.
+             */
             reset(): void;
             /**
-            This hook defers the readiness of the application, so that you can start
-            the app when your tests are ready to run. It also sets the router's
-            location to 'none', so that the window's location will not be modified
-            (preventing both accidental leaking of state between tests and interference
-            with your testing framework).
-            **/
+             * This hook defers the readiness of the application, so that you can start
+             * the app when your tests are ready to run. It also sets the router's
+             * location to 'none', so that the window's location will not be modified
+             * (preventing both accidental leaking of state between tests and interference
+             * with your testing framework).
+             */
             setupForTesting(): void;
             /**
-            The DOM events for which the event dispatcher should listen.
-            */
+             * The DOM events for which the event dispatcher should listen.
+             */
             customEvents: EventDispatcherEvents;
             /**
-            The Ember.EventDispatcher responsible for delegating events to this application's views.
-            **/
+             * The Ember.EventDispatcher responsible for delegating events to this application's views.
+             */
             eventDispatcher: EventDispatcher;
             /**
-            Set this to provide an alternate class to Ember.DefaultResolver
-            **/
+             * Set this to provide an alternate class to Ember.DefaultResolver
+             */
             resolver: DefaultResolver;
             /**
-            The root DOM element of the Application. This can be specified as an
-            element or a jQuery-compatible selector string.
-
-            This is the element that will be passed to the Application's, eventDispatcher,
-            which sets up the listeners for event delegation. Every view in your application
-            should be a child of the element you specify here.
-            **/
+             * The root DOM element of the Application. This can be specified as an
+             * element or a jQuery-compatible selector string.
+             *
+             * This is the element that will be passed to the Application's, eventDispatcher,
+             * which sets up the listeners for event delegation. Every view in your application
+             * should be a child of the element you specify here.
+             */
             rootElement: HTMLElement | string;
             /**
-            Called when the Application has become ready.
-            The call will be delayed until the DOM has become ready.
-            **/
+             * Called when the Application has become ready.
+             * The call will be delayed until the DOM has become ready.
+             */
             ready: Function;
             /**
-            Application's router.
-            **/
+             * Application's router.
+             */
             Router: Router;
             registry: Registry;
             /**
@@ -485,14 +484,14 @@ declare module 'ember' {
             buildInstance(options?: object): ApplicationInstance;
         }
         /**
-        The `ApplicationInstance` encapsulates all of the stateful aspects of a
-        running `Application`.
-        **/
+         * The `ApplicationInstance` encapsulates all of the stateful aspects of a
+         * running `Application`.
+         */
         class ApplicationInstance extends EngineInstance {}
         /**
-        This module implements Observer-friendly Array-like behavior. This mixin is picked up by the
-        Array class as well as other controllers, etc. that want to appear to be arrays.
-        **/
+         * This module implements Observer-friendly Array-like behavior. This mixin is picked up by the
+         * Array class as well as other controllers, etc. that want to appear to be arrays.
+         */
         interface Array<T> extends Enumerable<T> {
             /**
              * __Required.__ You must implement this method to apply this mixin.
@@ -569,10 +568,10 @@ declare module 'ember' {
         const Array: Mixin<Ember.Array<any>>;
 
         /**
-        An ArrayProxy wraps any other object that implements Ember.Array and/or Ember.MutableArray,
-        forwarding all requests. This makes it very useful for a number of binding use cases or other cases
-        where being able to swap out the underlying array is useful.
-        **/
+         * An ArrayProxy wraps any other object that implements Ember.Array and/or Ember.MutableArray,
+         * forwarding all requests. This makes it very useful for a number of binding use cases or other cases
+         * where being able to swap out the underlying array is useful.
+         */
         interface ArrayProxy<T> extends MutableArray<T> {}
         class ArrayProxy<T> extends Object.extend(MutableArray as {}) {
             content: NativeArray<T>;
@@ -585,15 +584,15 @@ declare module 'ember' {
             objectAtContent(idx: number): T | undefined;
         }
         /**
-        AutoLocation will select the best location option based off browser support with the priority order: history, hash, none.
-        **/
+         * AutoLocation will select the best location option based off browser support with the priority order: history, hash, none.
+         */
         class AutoLocation extends Object {}
         /**
          * Connects the properties of two objects so that whenever the value of one property changes,
          * the other property will be changed also.
          *
          * @deprecated https://emberjs.com/deprecations/v2.x#toc_ember-binding
-         **/
+         */
         class Binding {
             constructor(toPath: string, fromPath: string);
             connect(obj: any): Binding;
@@ -604,9 +603,9 @@ declare module 'ember' {
             toString(): string;
         }
         /**
-        The internal class used to create text inputs when the {{input}} helper is used
-        with type of checkbox. See Handlebars.helpers.input for usage details.
-        **/
+         * The internal class used to create text inputs when the {{input}} helper is used
+         * with type of checkbox. See Handlebars.helpers.input for usage details.
+         */
         class Checkbox extends Component {}
         /**
          * Implements some standard methods for comparing objects. Add this mixin to
@@ -617,10 +616,10 @@ declare module 'ember' {
         }
         const Comparable: Mixin<Comparable>;
         /**
-        A view that is completely isolated. Property access in its templates go to the view object
-        and actions are targeted at the view object. There is no access to the surrounding context or
-        outer controller; all contextual information is passed in.
-        **/
+         * A view that is completely isolated. Property access in its templates go to the view object
+         * and actions are targeted at the view object. There is no access to the surrounding context or
+         * outer controller; all contextual information is passed in.
+         */
         class Component extends CoreView.extend(ViewMixin, ActionSupport, ClassNamesSupport) {
             // methods
             readDOMAttr(name: string): string;
@@ -690,11 +689,11 @@ declare module 'ember' {
             willUpdate(): void;
         }
         /**
-        A computed property transforms an objects function into a property.
-        By default the function backing the computed property will only be called once and the result
-        will be cached. You can specify various properties that your computed property is dependent on.
-        This will force the cached result to be recomputed if the dependencies are modified.
-        **/
+         * A computed property transforms an objects function into a property.
+         * By default the function backing the computed property will only be called once and the result
+         * will be cached. You can specify various properties that your computed property is dependent on.
+         * This will force the cached result to be recomputed if the dependencies are modified.
+         */
         class ComputedProperty<Get, Set = Get> {
             // Necessary in order to avoid losing type information
             //    see: https://github.com/typed-ember/ember-cli-typescript/issues/246#issuecomment-414812013
@@ -737,9 +736,9 @@ declare module 'ember' {
             factoryFor(fullName: string, options?: {}): any;
         }
         /**
-        The ContainerDebugAdapter helps the container and resolver interface
-        with tools that debug Ember such as the Ember Inspector for Chrome and Firefox.
-        **/
+         * The ContainerDebugAdapter helps the container and resolver interface
+         * with tools that debug Ember such as the Ember Inspector for Chrome and Firefox.
+         */
         class ContainerDebugAdapter extends Object {
             resolver: Resolver;
             canCatalogEntriesByType(type: string): boolean;
@@ -782,15 +781,15 @@ declare module 'ember' {
             /**
              * As of Ember 3.1, CoreObject constructor takes initial object properties as an argument.
              * See: https://github.com/emberjs/ember.js/commit/4709935854d4c29b0d2c054614d53fa2c55309b1
-             **/
+             */
             constructor(properties?: object);
 
             _super(...args: any[]): any;
 
             /**
-            An overridable method called when objects are instantiated. By default,
-            does nothing unless it is overridden during class definition.
-            **/
+             * An overridable method called when objects are instantiated. By default,
+             * does nothing unless it is overridden during class definition.
+             */
             init(): void;
 
             /**
@@ -800,39 +799,39 @@ declare module 'ember' {
             concatenatedProperties: any[];
 
             /**
-            Destroyed object property flag. If this property is true the observers and bindings were
-            already removed by the effect of calling the destroy() method.
-            @default false
-            **/
+             * Destroyed object property flag. If this property is true the observers and bindings were
+             * already removed by the effect of calling the destroy() method.
+             * @default false
+             */
             isDestroyed: boolean;
             /**
-            Destruction scheduled flag. The destroy() method has been called. The object stays intact
-            until the end of the run loop at which point the isDestroyed flag is set.
-            @default false
-            **/
+             * Destruction scheduled flag. The destroy() method has been called. The object stays intact
+             * until the end of the run loop at which point the isDestroyed flag is set.
+             * @default false
+             */
             isDestroying: boolean;
 
             /**
-            Destroys an object by setting the `isDestroyed` flag and removing its
-            metadata, which effectively destroys observers and bindings.
-            If you try to set a property on a destroyed object, an exception will be
-            raised.
-            Note that destruction is scheduled for the end of the run loop and does not
-            happen immediately.  It will set an isDestroying flag immediately.
-            @return receiver
-            */
+             * Destroys an object by setting the `isDestroyed` flag and removing its
+             * metadata, which effectively destroys observers and bindings.
+             * If you try to set a property on a destroyed object, an exception will be
+             * raised.
+             * Note that destruction is scheduled for the end of the run loop and does not
+             * happen immediately.  It will set an isDestroying flag immediately.
+             * @return receiver
+             */
             destroy(): CoreObject;
 
             /**
-            Override to implement teardown.
-            */
+             * Override to implement teardown.
+             */
             willDestroy(): void;
 
             /**
-            Returns a string representation which attempts to provide more information than Javascript's toString
-            typically does, in a generic way for all Ember objects (e.g., "<App.Person:ember1024>").
-            @return string representation
-            **/
+             * Returns a string representation which attempts to provide more information than Javascript's toString
+             * typically does, in a generic way for all Ember objects (e.g., "<App.Person:ember1024>").
+             * @return string representation
+             */
             toString(): string;
 
             static create<Class extends typeof Ember.CoreObject>(this: Class): InstanceType<Class>;
@@ -987,14 +986,14 @@ declare module 'ember' {
             ): obj is Instance;
 
             /**
-             Iterate over each computed property for the class, passing its name and any
-            associated metadata (see metaForProperty) to the callback.
-            **/
+             * Iterate over each computed property for the class, passing its name and any
+             * associated metadata (see metaForProperty) to the callback.
+             */
             static eachComputedProperty(callback: Function, binding: {}): void;
             /**
-             Returns the original hash that was passed to meta().
-            @param key property name
-            **/
+             * Returns the original hash that was passed to meta().
+             * @param key property name
+             */
             static metaForProperty(key: string): {};
             static isClass: boolean;
             static isMethod: boolean;
@@ -1308,8 +1307,8 @@ declare module 'ember' {
         }
         const Enumerable: Mixin<Enumerable<any>>;
         /**
-        A subclass of the JavaScript Error object for use in Ember.
-        **/
+         * A subclass of the JavaScript Error object for use in Ember.
+         */
         const Error: ErrorConstructor;
         /**
          * `Ember.EventDispatcher` handles delegating browser events to their
@@ -1689,8 +1688,8 @@ declare module 'ember' {
          */
         class ObjectProxy extends Object {
             /**
-            The object whose properties will be forwarded.
-            **/
+             * The object whose properties will be forwarded.
+             */
             content: Object;
         }
         /**
@@ -1846,41 +1845,41 @@ declare module 'ember' {
         }
         class Resolver extends Ember.Object {}
         /**
-         The `Ember.Route` class is used to define individual routes. Refer to
-        the [routing guide](http://emberjs.com/guides/routing/) for documentation.
-        */
+         * The `Ember.Route` class is used to define individual routes. Refer to
+         * the [routing guide](http://emberjs.com/guides/routing/) for documentation.
+         */
         class Route extends Object.extend(ActionHandler, Evented) {
             // methods
             /**
-            This hook is called after this route's model has resolved.
-            It follows identical async/promise semantics to `beforeModel`
-            but is provided the route's resolved model in addition to
-            the `transition`, and is therefore suited to performing
-            logic that can only take place after the model has already
-            resolved.
-            */
+             * This hook is called after this route's model has resolved.
+             * It follows identical async/promise semantics to `beforeModel`
+             * but is provided the route's resolved model in addition to
+             * the `transition`, and is therefore suited to performing
+             * logic that can only take place after the model has already
+             * resolved.
+             */
             afterModel(resolvedModel: any, transition: Transition): any;
 
             /**
-            This hook is the first of the route entry validation hooks
-            called when an attempt is made to transition into a route
-            or one of its children. It is called before `model` and
-            `afterModel`, and is appropriate for cases when:
-            1) A decision can be made to redirect elsewhere without
-                needing to resolve the model first.
-            2) Any async operations need to occur first before the
-                model is attempted to be resolved.
-            This hook is provided the current `transition` attempt
-            as a parameter, which can be used to `.abort()` the transition,
-            save it for a later `.retry()`, or retrieve values set
-            on it from a previous hook. You can also just call
-            `this.transitionTo` to another route to implicitly
-            abort the `transition`.
-            You can return a promise from this hook to pause the
-            transition until the promise resolves (or rejects). This could
-            be useful, for instance, for retrieving async code from
-            the server that is required to enter a route.
-            */
+             * This hook is the first of the route entry validation hooks
+             * called when an attempt is made to transition into a route
+             * or one of its children. It is called before `model` and
+             * `afterModel`, and is appropriate for cases when:
+             * 1) A decision can be made to redirect elsewhere without
+             *     needing to resolve the model first.
+             * 2) Any async operations need to occur first before the
+             *     model is attempted to be resolved.
+             * This hook is provided the current `transition` attempt
+             * as a parameter, which can be used to `.abort()` the transition,
+             * save it for a later `.retry()`, or retrieve values set
+             * on it from a previous hook. You can also just call
+             * `this.transitionTo` to another route to implicitly
+             * abort the `transition`.
+             * You can return a promise from this hook to pause the
+             * transition until the promise resolves (or rejects). This could
+             * be useful, for instance, for retrieving async code from
+             * the server that is required to enter a route.
+             */
             beforeModel(transition: Transition): any;
 
             /**
@@ -2240,15 +2239,15 @@ declare module 'ember' {
         const TextSupport: Ember.Mixin<TextSupport, Ember.Component>;
         interface Transition {
             /**
-             Aborts the Transition. Note you can also implicitly abort a transition
-            by initiating another transition while a previous one is underway.
-            */
+             * Aborts the Transition. Note you can also implicitly abort a transition
+             * by initiating another transition while a previous one is underway.
+             */
             abort(): Transition;
             /**
-             Retries a previously-aborted transition (making sure to abort the
-            transition if it's still active). Returns a new transition that
-            represents the new attempt to transition.
-            */
+             * Retries a previously-aborted transition (making sure to abort the
+             * transition if it's still active). Returns a new transition that
+             * represents the new attempt to transition.
+             */
             retry(): Transition;
         }
         interface ViewTargetActionSupport {
@@ -3395,44 +3394,44 @@ declare module 'ember' {
     export class RouterService extends Ember.Service {
         //
         /**
-             Name of the current route.
-            This property represent the logical name of the route,
-            which is comma separated.
-            For the following router:
-            ```app/router.js
-            Router.map(function() {
-            this.route('about');
-            this.route('blog', function () {
-                this.route('post', { path: ':post_id' });
-            });
-            });
-            ```
-            It will return:
-            * `index` when you visit `/`
-            * `about` when you visit `/about`
-            * `blog.index` when you visit `/blog`
-            * `blog.post` when you visit `/blog/some-post-id`
-        */
+         *   Name of the current route.
+         *  This property represent the logical name of the route,
+         *  which is comma separated.
+         *  For the following router:
+         *  ```app/router.js
+         *  Router.map(function() {
+         *  this.route('about');
+         *  this.route('blog', function () {
+         *      this.route('post', { path: ':post_id' });
+         *  });
+         *  });
+         *  ```
+         *  It will return:
+         *  * `index` when you visit `/`
+         *  * `about` when you visit `/about`
+         *  * `blog.index` when you visit `/blog`
+         *  * `blog.post` when you visit `/blog/some-post-id`
+         */
         readonly currentRouteName: string;
         //
         /**
-             Current URL for the application.
-            This property represent the URL path for this route.
-            For the following router:
-            ```app/router.js
-            Router.map(function() {
-            this.route('about');
-            this.route('blog', function () {
-                this.route('post', { path: ':post_id' });
-            });
-            });
-            ```
-            It will return:
-            * `/` when you visit `/`
-            * `/about` when you visit `/about`
-            * `/blog` when you visit `/blog`
-            * `/blog/some-post-id` when you visit `/blog/some-post-id`
-        */
+         *   Current URL for the application.
+         *  This property represent the URL path for this route.
+         *  For the following router:
+         *  ```app/router.js
+         *  Router.map(function() {
+         *  this.route('about');
+         *  this.route('blog', function () {
+         *      this.route('post', { path: ':post_id' });
+         *  });
+         *  });
+         *  ```
+         *  It will return:
+         *  * `/` when you visit `/`
+         *  * `/about` when you visit `/about`
+         *  * `/blog` when you visit `/blog`
+         *  * `/blog/some-post-id` when you visit `/blog/some-post-id`
+         */
         readonly currentURL: string;
         //
         /**
