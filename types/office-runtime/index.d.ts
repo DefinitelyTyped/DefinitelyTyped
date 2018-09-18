@@ -79,7 +79,7 @@ declare namespace OfficeRuntime {
        */
       close(): Promise<void>;
     }
-  
+
        /*
        * Provides options for how a dialog is displayed.
        */
@@ -113,6 +113,6 @@ declare namespace OfficeRuntime {
        * @beta
        * Callback that is run when the dialog box sends an error.
        */
-      onMessage?(message: string, dialog?: Dialog): void
+      onMessage?(message: string, dialog?: Dialog): void;
     }
   }
