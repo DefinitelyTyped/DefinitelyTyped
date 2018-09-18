@@ -8,7 +8,7 @@ CustomFunctionMappings = {
 
 async function getStockValues(ticker: string, handler: CustomFunctions.StreamingHandler<number>) {
     const dollars = await (await fetch(`myService.com/prices/${ticker}`)).json();
-        handler.setResult(dollars)
+        handler.setResult(dollars);
 }
 
 async function getStockValuesOneTime(ticker: string, handler: CustomFunctions.CancelableHandler) {
@@ -29,4 +29,4 @@ async function getStockValuesNowWithNoCancelling(ticker: string) {
     return dollars;
 }
 
-declare function pause(ms: number): Promise<void>
+declare function pause(ms: number): Promise<void>;
