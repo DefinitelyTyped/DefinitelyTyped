@@ -16,7 +16,9 @@
         ],
         "paths": {
             "@ember/string": ["ember__string"],
-            "@ember/polyfills": ["ember__polyfills"]
+            "@ember/polyfills": ["ember__polyfills"],
+            "@ember/utils": ["ember__utils"],
+            "@ember/utils/*": ["ember__utils/*"]
         },
         "types": [],
         "noEmit": true,
