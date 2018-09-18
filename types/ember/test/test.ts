@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-let pending = 0;
+const pending = 0;
 Ember.Test.registerWaiter(() => pending !== 0);
 
 declare const MyDb: {

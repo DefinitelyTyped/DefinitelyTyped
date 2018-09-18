@@ -6,7 +6,7 @@ import { assertType } from "./lib/assert";
 assertType<string[]>(Ember.run.queues);
 
 function testRun() {
-    let r = run(function() {
+    const r = run(function() {
         // code to be executed within a RunLoop
         return 123;
     });
@@ -38,43 +38,43 @@ function testBind() {
 function testCancel() {
     const myContext = {};
 
-    let runNext = run.next(myContext, function() {
+    const runNext = run.next(myContext, function() {
         // will not be executed
     });
 
     run.cancel(runNext);
 
-    let runLater = run.later(myContext, function() {
+    const runLater = run.later(myContext, function() {
         // will not be executed
     }, 500);
 
     run.cancel(runLater);
 
-    let runScheduleOnce = run.scheduleOnce('afterRender', myContext, function() {
+    const runScheduleOnce = run.scheduleOnce('afterRender', myContext, function() {
         // will not be executed
     });
 
     run.cancel(runScheduleOnce);
 
-    let runOnce = run.once(myContext, function() {
+    const runOnce = run.once(myContext, function() {
         // will not be executed
     });
 
     run.cancel(runOnce);
 
-    let throttle = run.throttle(myContext, function() {
+    const throttle = run.throttle(myContext, function() {
         // will not be executed
     }, 1, false);
 
     run.cancel(throttle);
 
-    let debounce = run.debounce(myContext, function() {
+    const debounce = run.debounce(myContext, function() {
         // will not be executed
     }, 1);
 
     run.cancel(debounce);
 
-    let debounceImmediate = run.debounce(myContext, function() {
+    const debounceImmediate = run.debounce(myContext, function() {
         // will be executed since we passed in true (immediate)
     }, 100, true);
 
@@ -86,7 +86,7 @@ function testDebounce() {
     function runIt() {
     }
 
-    let myContext = { name: 'debounce' };
+    const myContext = { name: 'debounce' };
 
     run.debounce(runIt, 150);
     run.debounce(myContext, runIt, 150);
@@ -197,7 +197,7 @@ function testThrottle() {
     function runIt() {
     }
 
-    let myContext = { name: 'throttle' };
+    const myContext = { name: 'throttle' };
 
     run.throttle(runIt, 150);
     run.throttle(myContext, runIt, 150);

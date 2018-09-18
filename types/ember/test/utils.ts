@@ -67,7 +67,7 @@ function testDeprecateFunc() {
         return '';
     }
 
-    let oldMethod = Ember.deprecateFunc('Please use the new method', { id: 'deprecated.id', until: '6.0' }, newMethod);
+    const oldMethod = Ember.deprecateFunc('Please use the new method', { id: 'deprecated.id', until: '6.0' }, newMethod);
     assertType<string>(newMethod('first', 123));
     assertType<string>(oldMethod('first', 123));
 }

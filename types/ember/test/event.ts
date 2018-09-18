@@ -1,25 +1,25 @@
 import Ember from 'ember';
 
 function testOn() {
-    let Job = Ember.Object.extend({
+    const Job = Ember.Object.extend({
         logCompleted: Ember.on('completed', function() {
             console.log('Job completed!');
         })
     });
 
-    let job = Job.create();
+    const job = Job.create();
 
     Ember.sendEvent(job, 'completed'); // Logs 'Job completed!'
 }
 
 function testEvented() {
-    let Person = Ember.Object.extend(Ember.Evented, {
+    const Person = Ember.Object.extend(Ember.Evented, {
         greet() {
             this.trigger('greet');
         }
     });
 
-    let person = Person.create();
+    const person = Person.create();
 
     person.on('greet', function() {
         console.log('Our person has greeted');
