@@ -5927,6 +5927,16 @@ declare namespace Highcharts {
          */
         formatter?(): boolean | string;
         /**
+         * Whether to allow the tooltip to render outside the chart's SVG element box.
+         * By default (false), the tooltip is rendered within the chart's SVG element, which results in
+         * the tooltip being aligned inside the chart area. For small charts, this may result in
+         * clipping or overlapping. When true, a separate SVG element is created and overlaid on the
+         * page, allowing the tooltip to be aligned inside the page itself.
+         * @default false
+         * @since 6.1.1
+         */
+        outside?: boolean;
+        /**
          * Padding inside the tooltip, in pixels.
          * @since 5.0.0
          * @default 8
