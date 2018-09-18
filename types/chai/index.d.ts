@@ -186,6 +186,7 @@ declare namespace Chai {
         property: Property;
         members: Members;
         ordered: Ordered;
+        nested: Nested;
     }
 
     interface Ordered {
