@@ -5871,6 +5871,12 @@ declare namespace Highcharts {
          */
         dataLabels?: DataLabels;
         /**
+         * A description of the point to add to the screen reader information about the point.
+         * @default undefined
+         * @since 5.0.0
+         */
+        description?: string;
+        /**
          * The id of a series in the drilldown.series array to use for a drilldown for this point.
          * @since 3.0.8
          */
