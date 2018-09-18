@@ -1,5 +1,5 @@
 {
-"compilerOptions": {
+    "compilerOptions": {
         "module": "commonjs",
         "lib": [
             "es6"
@@ -17,6 +17,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.d.ts"
+        "index.d.ts",
+        "node-redis-pubsub-tests.ts"
     ]
 }

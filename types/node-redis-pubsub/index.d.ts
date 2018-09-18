@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import * as redis from 'redis';
+import * as redis from "redis";
 
 declare function NRP(options: object): NRP.NodeRedisPubSub;
 declare namespace NRP {
@@ -12,8 +12,16 @@ declare namespace NRP {
     class NodeRedisPubSub {
         constructor(options: object);
         getRedisClient(): redis.RedisClient;
-        on(channel: string, handler: () => void, callback?: () => void): () => void;
-        subscribe(channel: string, handler: () => void, callback?: () => void): () => void;
+        on(
+            channel: string,
+            handler: (data: string, channel: string) => void,
+            callback?: () => void
+        ): () => void;
+        subscribe(
+            channel: string,
+            handler: (data: string, channel: string) => void,
+            callback?: () => void
+        ): () => void;
         emit(channel: string, message: string): void;
         publish(channel: string, message: string): void;
         quit(): void;
