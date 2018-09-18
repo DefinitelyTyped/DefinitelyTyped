@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import Mixin from '@ember/object/mixin';
 
 let App: any;
 
@@ -156,11 +157,11 @@ promise.then(
 // make sure Ember.RSVP.Promise can be reference as a type
 declare function promiseReturningFunction(urn: string): Ember.RSVP.Promise<string>;
 
-const mix1 = Ember.Mixin.create({
+const mix1 = Mixin.create({
     foo: 1,
 });
 
-const mix2 = Ember.Mixin.create({
+const mix2 = Mixin.create({
     bar: 2,
 });
 

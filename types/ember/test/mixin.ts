@@ -1,12 +1,13 @@
 import Ember from 'ember';
 import { assertType } from "./lib/assert";
+import Mixin from '@ember/object/mixin';
 
 interface EditableMixin {
     edit(): void;
     isEditing: boolean;
 }
 
-const EditableMixin: Ember.Mixin<EditableMixin, Ember.Route> = Ember.Mixin.create({
+const EditableMixin: Ember.Mixin<EditableMixin, Ember.Route> = Mixin.create({
     edit() {
         this.get('controller');
         console.log('starting to edit');
@@ -46,7 +47,7 @@ assertType<number>(obj.b);
 assertType<number>(obj.c);
 
 /* Test composition of mixins */
-const EditableAndCancelableMixin = Ember.Mixin.create(EditableMixin, {
+const EditableAndCancelableMixin = Mixin.create(EditableMixin, {
     cancelled: false,
 });
 

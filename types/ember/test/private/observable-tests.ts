@@ -1,9 +1,13 @@
 import Observable from "@ember/object/observable";
-import { UnwrapComputedPropertyGetter, UnwrapComputedPropertyGetters, UnwrapComputedPropertySetters, UnwrapComputedPropertySetter } from "ember/-private-types/object/computed";
 // tslint-disable-next-line
 import { assertType } from "../lib/assert";
 import { Ember } from "ember";
-import { ExtractPropertyNamesOfType } from "ember/-private-types/utils";
+import {
+    ExtractPropertyNamesOfType,
+    UnwrapComputedPropertyGetter,
+    UnwrapComputedPropertyGetters,
+    UnwrapComputedPropertySetters
+} from '@ember/object/-private/types';
 
 class OtherThing {
     observerOfDemo(target: DemoObservable, key: 'foo') {}

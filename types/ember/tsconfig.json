@@ -15,9 +15,11 @@
             "../"
         ],
         "paths": {
+            "@ember/string": ["ember__string"],
             "@ember/utils": ["ember__utils"],
             "@ember/utils/*": ["ember__utils/*"],
-            "@ember/string": ["ember__string"],
+            "@ember/object": ["ember__object"],
+            "@ember/object/*": ["ember__object/*"],
             "@ember/polyfills": ["ember__polyfills"]
         },
         "types": [],
@@ -26,10 +28,6 @@
     },
     "files": [
         "index.d.ts",
-        "-private-types/utils.d.ts",
-        "-private-types/mixin.d.ts",
-        "-private-types/object.d.ts",
-        "-private-types/object/computed.d.ts",
         "test/lib/assert.ts",
         "test/private/computed-tests.ts",
         "test/private/observable-tests.ts",
