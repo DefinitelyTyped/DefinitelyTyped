@@ -456,12 +456,12 @@ export class ReactWrapper<P = {}, S = {}, C = Component> {
     mount(): this;
 
     /**
-     * Returns a wrapper of the node that matches the provided reference name.
+     * Returns the node that matches the provided reference name.
      *
      * NOTE: can only be called on a wrapper instance that is also the root instance.
      */
-    ref(refName: string): ReactWrapper<any, any>;
-    ref<P2, S2>(refName: string): ReactWrapper<P2, S2>;
+    ref(refName: string): Component | HTMLElement;
+    ref<P2, S2>(refName: string): Component | HTMLElement;
 
     /**
      * Detaches the react tree from the DOM. Runs ReactDOM.unmountComponentAtNode() under the hood.
