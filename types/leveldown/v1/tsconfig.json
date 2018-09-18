@@ -8,16 +8,24 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "types": [],
+        "paths": {
+            "leveldown": [
+                "leveldown/v1"
+            ],
+            "leveldown/*": [
+                "leveldown/v1/*"
+            ]
+        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "levelup-tests.ts"
+        "leveldown-tests.ts"
     ]
 }

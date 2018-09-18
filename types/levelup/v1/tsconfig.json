@@ -6,13 +6,24 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true,
+        "strictNullChecks": false,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "types": [],
+        "paths": {
+            "levelup": [
+                "levelup/v1"
+            ],
+            "levelup/*": [
+                "levelup/v1/*"
+            ],
+            "leveldown": [
+                "leveldown/v1"
+            ]
+        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
