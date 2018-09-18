@@ -6711,6 +6711,8 @@ declare namespace Highcharts {
          * @since 3.0.8
          */
         addSeriesAsDrilldown(point: PointObject, seriesOptions: IndividualSeriesOptions): void;
+        chartHeight?: number;
+        chartWidth?: number;
         /**
          * A reference to the containing HTML element, dynamically inserted into the element given in chart.renderTo.
          * @since 1.2.5
@@ -6820,6 +6822,10 @@ declare namespace Highcharts {
          * @since 1.2.0
          */
         options: Options;
+        plotLeft?: number;
+        plotSizeX?: number;
+        plotSizeY?: number;
+        plotTop?: number;
         /**
          * Exporting module required. Clears away other elements in the page and prints the chart as it is displayed. By
          * default, when the exporting module is enabled, a button at the upper left calls this method.
