@@ -64,6 +64,8 @@ export interface Props<OptionType> {
   blurInputOnSelect?: boolean;
   /* When the user reaches the top/bottom of the menu, prevent scroll on the scroll-parent  */
   captureMenuScroll?: boolean;
+  /* Applies style classes to the components */
+  classes?: object;
   /* className attribute applied to the outer component */
   className?: string;
   /* classNamePrefix attribute used as a base for inner component classNames */
