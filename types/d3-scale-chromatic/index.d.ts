@@ -323,6 +323,13 @@ export function interpolateCool(t: number): string;
 export function interpolateRainbow(t: number): string;
 
 /**
+ * Given a number t in the range [0,1], returns the corresponding color from the “sinebow” color scheme by Jim Bumgardner and Charlie Loyd.
+ *
+ * @param t A number in the interval [0, 1].
+ */
+export function interpolateSinebow(t: number): string;
+
+/**
  * Given a number t in the range [0,1], returns the corresponding color from Green’s default Cubehelix represented as an RGB string.
  *
  * @param t A number in the interval [0, 1].
