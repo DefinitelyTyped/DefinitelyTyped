@@ -79,7 +79,6 @@ declare namespace OfficeRuntime {
        */
       close(): Promise<void>;
     }
-
        /*
        * Provides options for how a dialog is displayed.
        */
