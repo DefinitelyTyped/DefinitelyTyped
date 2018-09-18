@@ -1,4 +1,4 @@
-// Type definitions for react-native-google-signin 0.12
+// Type definitions for react-native-google-signin 0.13
 // Project: https://github.com/devfd/react-native-google-signin
 // Definitions by: Jacob Froman <https://github.com/j-fro>
 //                 Michele Bombardi <https://github.com/bm-software>
