@@ -1,6 +1,6 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "semicolon": false
+        "ban-types": false
     }
 }
