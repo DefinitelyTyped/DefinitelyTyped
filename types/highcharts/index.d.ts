@@ -6239,6 +6239,13 @@ declare namespace Highcharts {
      * Configuration options for the axes are given in options.xAxis and options.yAxis.
      */
     interface AxisObject {
+        dataMin: number;
+        dataMax: number;
+        userMin: number;
+        userMax: number;
+        bottom: number;
+        left: number;
+        width: number;
         /**
          * Add a plot band after render time.
          * @param options A configuration object consisting of the same members as options.xAxis.plotBands
