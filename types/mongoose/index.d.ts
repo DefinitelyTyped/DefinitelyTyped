@@ -1104,6 +1104,9 @@ declare module "mongoose" {
     /** Checks if a path is set to its default. */
     $isDefault(path?: string): boolean;
 
+    /** Getter/setter around the session associated with this document. */
+    $session(session?: ClientSession): ClientSession;
+
     /**
      * Takes a populated field and returns it to its unpopulated state.
      * If the path was not populated, this is a no-op.
@@ -1936,7 +1939,7 @@ declare module "mongoose" {
     /**
      * Sets the [MongoDB session](https://docs.mongodb.com/manual/reference/server-sessions/)
      * associated with this query. Sessions are how you mark a query as part of a
-     * [transaction](/docs/transactions.html). 
+     * [transaction](/docs/transactions.html).
      */
     session(session: mongodb.ClientSession | null): this;
 
@@ -2764,8 +2767,8 @@ declare module "mongoose" {
       /** sets the document fields to return */
       select?: any;
     }, callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T>;
-                            
-                            
+
+
      /**
      * Issue a mongodb findOneAndDelete command by a document's _id field.
      * findByIdAndDelete(id, ...) is equivalent to findByIdAndDelete({ _id: id }, ...).
