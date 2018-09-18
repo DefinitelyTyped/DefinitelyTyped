@@ -424,7 +424,7 @@ declare module 'ember' {
              * @param fullName type:name (e.g., 'model:user')
              * @param factory (e.g., App.Person)
              */
-            register(fullName: string, factory: (...args: any[]) => any, options?: {}): void;
+            register(fullName: string, factory: any): void;
             /**
              * This removes all helpers that have been registered, and resets and functions
              * that were overridden by the helpers.
