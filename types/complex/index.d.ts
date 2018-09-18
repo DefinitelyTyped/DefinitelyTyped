@@ -45,6 +45,16 @@ export default class Complex {
      * A instance for the real number
      */
     static one: Complex;
+    
+    /**
+     * The instance's real component.
+     */
+    re: number;
+    
+    /**
+     * The instance's imaginary component.
+     */
+    im: number;
 
     /**
      * Set the real and imaginary properties a and b from a + bi.
