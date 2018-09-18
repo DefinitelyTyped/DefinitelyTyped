@@ -59,6 +59,8 @@ declare namespace Highcharts {
         value: any;
         isFirst: number;
         isLast: number;
+        chart: ChartObject;
+        axis: AxisObject;
     }
 
     interface AxisLabels {
@@ -103,7 +105,8 @@ declare namespace Highcharts {
         format?: string;
         /**
          * Callback JavaScript function to format the label. The value is given by this.value. Additional properties for
-         * this are axis, chart, isFirst and isLast.
+         * this are axis, chart, isFirst and isLast. The value of the default label formatter can be retrieved by calling
+         * this.axis.defaultLabelFormatter.call(this) within the function.
          * @default function() {return this.value;}
          */
         formatter?(this: AxisLabelFormatterOptions): string;
@@ -6248,6 +6251,7 @@ declare namespace Highcharts {
          * @since 1.2.0
          */
         addPlotLine(options: PlotLines): void;
+        defaultLabelFormatter(this: AxisLabelFormatterOptions): string;
         /**
          * Get the current extremes for the axis.
          * @since 1.2.0
