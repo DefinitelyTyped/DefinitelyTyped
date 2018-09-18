@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-scale-chromatic module 1.2
+// Type definitions for D3JS d3-scale-chromatic module 1.3
 // Project: https://github.com/d3/d3-scale-chromatic/
 // Definitions by: Hugues Stefanski <https://github.com/Ledragon>,
 //                 Alex Ford <https://github.com/gustavderdrache>,
@@ -6,7 +6,7 @@
 //                 Henrique Machado <https://github.com/henriquefm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 1.2.0
+// Last module patch version validated against: 1.3.2
 
 // -----------------------------------------------------------------------
 // Categorical
