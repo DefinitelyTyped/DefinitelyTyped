@@ -8,7 +8,6 @@
         "no-self-import": false,
 
         "no-unnecessary-qualifier": false,
-        "no-void-expression": false,
         "only-arrow-functions": false,
 
         // false positives

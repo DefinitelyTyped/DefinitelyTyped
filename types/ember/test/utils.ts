@@ -120,7 +120,7 @@ function testTryInvoke() {
     Ember.tryInvoke(new Foo(), 'add', ['4', 3]); // $ExpectType undefined
 }
 
-(function() {
+(() => {
     /** typeOf */
     // TODO: more specific return type in @types/ember https://github.com/typed-ember/ember-cli-typescript/issues/259
     Ember.typeOf();                       // $ExpectType "undefined"
@@ -146,7 +146,7 @@ function testTryInvoke() {
     Ember.typeOf((new Date()) as RegExp | Date); // "regexp" | "date"
 })();
 
-(function() { /* assign */
+(() => { /* assign */
     Ember.assign({}, { a: 'b'});
     Ember.assign({}, { a: 'b'}).a; // $ExpectType string
     Ember.assign({ a: 6 }, { a: 'b'}).a; // $ExpectType string
@@ -157,12 +157,12 @@ function testTryInvoke() {
     Ember.assign({ a: 'hello' }, { b: 6 }, { a: true }).a; // $ExpectType boolean
     Ember.assign({ a: 'hello' }, '', { a: true }).a; // $ExpectError
     Ember.assign({ d: ['gobias industries'] }, { a: 'hello' }, { b: 6 }, { a: true }).d; // $ExpectType string[]
-}());
+})();
 
-(function() { /* merge */
+(() => { /* merge */
     Ember.merge({}, { a: 'b'});
     Ember.merge({}, { a: 'b'}).a; // $ExpectType string
     Ember.merge({ a: 6 }, { a: 'b'}).a; // $ExpectType string
     Ember.merge({ a: 6 }, {}).a; // $ExpectType number
     Ember.merge({ b: 6 }, {}).a; // $ExpectError
-}());
+})();

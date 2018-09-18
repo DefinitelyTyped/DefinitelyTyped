@@ -12,7 +12,7 @@ const {
  * @ember/debug tests
  */
 runInDebug(); // $ExpectError
-const x = runInDebug(() => console.log('Should not show up in prod')); // $ExpectType void
+runInDebug(() => console.log('Should not show up in prod')); // $ExpectType void
 
 // Log a warning if we have more than 3 tomsters
 const tomsterCount = 2;
