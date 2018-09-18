@@ -6167,7 +6167,7 @@ declare namespace Highcharts {
          * Allows setting a set of rules to apply for different screen or chart sizes. Each rule specifies additional chart options.
          * @since 5.0.0
          */
-        responsive?: ResponsiveOptions[];
+        responsive?: ResponsiveOptions;
         /**
          * The actual series to append to the chart. In addition to the members listed below, any member of the plotOptions
          * for that specific type of plot can be added to a series individually. For example, even though a general
