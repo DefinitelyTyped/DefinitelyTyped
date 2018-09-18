@@ -12,18 +12,18 @@ Copyright (c) Microsoft Corporation
 declare namespace OfficeRuntime {
     function displayWebDialog(url: string, options: DisplayWebDialogOptions): Promise<Dialog>;
     const AsyncStorage: AsyncStorage;
-  
+
     // tslint:disable-next-line:interface-name
        /*
        * Asynchronous, global, and persistent key-value storage that can be used by Excel Custom Functions.
        * @beta
        *
-       * @remarks 
-       * Each add-in instance has its own storage partition, unique to a user and their device. 
+       * @remarks
+       * Each add-in instance has its own storage partition, unique to a user and their device.
        * 
-       * The default amount of total storage allowed per add-in is 5MB. 
+       * The default amount of total storage allowed per add-in is 5MB.
        * 
-       * Each method listed below returns a Promise object. 
+       * Each method listed below returns a Promise object.
        * 
        */
     interface AsyncStorage {
@@ -34,27 +34,27 @@ declare namespace OfficeRuntime {
       getItem(key: string, callback?: (error?: Error, result?: string) => void): Promise<string>;
        /*
        * @beta
-       * Assigns the value for a key-value pair and invokes a callback when finished. Returns a Promise.  
+       * Assigns the value for a key-value pair and invokes a callback when finished. Returns a Promise. 
        */
       setItem(key: string, value: string, callback?: (error?: Error) => void): Promise<void>;
       /*
        * @beta
-       * Removes an item for specified key and invokes a callback when finished. Returns a Promise. 
+       * Removes an item for specified key and invokes a callback when finished. Returns a Promise.
        */
       removeItem(key: string, callback?: (error?: Error) => void): Promise<void>;
       /*
        * @beta
-       * Erases all AsyncStorage. Returns a Promise. 
+       * Erases all AsyncStorage. Returns a Promise.
        */
       clear(callback?: (error?: Error) => void): Promise<void>;
        /*
        * @beta
-       * Returns a Promise with all keys. 
+       * Returns a Promise with all keys.
        */
       getAllKeys(callback?: (error?: Error, keys?: string[]) => void): Promise<string[]>;
        /*
        * @beta
-       * Stores multiple key-value pairs in one batch. Returns a Promise. When a key doesn't exist, returns null. 
+       * Stores multiple key-value pairs in one batch. Returns a Promise. When a key doesn't exist, returns null.
        */
       multiSet(keyValuePairs: string[][], callback?: (errors?: Error[]) => void): Promise<void>;
        /*
@@ -64,11 +64,10 @@ declare namespace OfficeRuntime {
       multiRemove(keys: string[], callback?: (errors?: Error[]) => void): Promise<void>;
       /*
       * @beta
-      * Fetches a batch of keys, specified in the `keys` array. When a key doesn't exist, returns null. 
+      * Fetches a batch of keys, specified in the `keys` array. When a key doesn't exist, returns null.
       */
       multiGet(keys: string[], callback?: (errors?: Error[], result?: string[][]) => void): Promise<string[][]>;
     }
-  
     /*
     * @beta
     * Object representing the dialog box. 
