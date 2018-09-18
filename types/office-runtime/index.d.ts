@@ -1,4 +1,4 @@
-// Type definitions for office-runtime
+// Type definitions for office-runtime 1.0
 // Project: http://dev.office.com/
 // Definitions by: Michael Zlatskovsky <https://github.com/Zlatkovsky>, Michelle Scharlock <https://github.com/mscharlock>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -15,7 +15,7 @@ declare namespace OfficeRuntime {
   
     // tslint:disable-next-line:interface-name
        /*
-       * Asynchronous, global, and persistent key-value storage for Excel Custom Functions only.
+       * Asynchronous, global, and persistent key-value storage that can be used by Excel Custom Functions.
        * @beta
        *
        * @remarks 
@@ -49,7 +49,7 @@ declare namespace OfficeRuntime {
       clear(callback?: (error?: Error) => void): Promise<void>;
        /*
        * @beta
-       * Returns a Promise with all keys for your custom function. 
+       * Returns a Promise with all keys. 
        */
       getAllKeys(callback?: (error?: Error, keys?: string[]) => void): Promise<string[]>;
        /*
@@ -61,7 +61,7 @@ declare namespace OfficeRuntime {
        * @beta
        * Deletes a batch of keys, specified in the `keys` array.
        */
-      multiRemove(keys: string[], callback?: (errors?: Error[]) => void): Promise<void>;/**
+      multiRemove(keys: string[], callback?: (errors?: Error[]) => void): Promise<void>;
       /*
       * @beta
       * Fetches a batch of keys, specified in the `keys` array. When a key doesn't exist, returns null. 
@@ -71,7 +71,7 @@ declare namespace OfficeRuntime {
   
     /*
     * @beta
-    * Object representing the dialog box for Excel Custom Functions only. 
+    * Object representing the dialog box. 
     */
     interface Dialog {
        /*
@@ -82,47 +82,33 @@ declare namespace OfficeRuntime {
     }
   
        /*
-       * Provides options for how a dialog is displayed for Excel Custom Functions only. 
+       * Provides options for how a dialog is displayed. 
        */
     interface DisplayWebDialogOptions {
       /*
        * @beta
        * Determines whether the dialog box displays as a popup (false) or within an IFrame (true). This setting is only applicable to custom functions running on Excel Online. 
-       *
-       * [Api set: Dialog 1.2]
        */
       displayInIFrame?: boolean;
       /*
        * @beta
        * Defines the height of the dialog box as a percentage of the current display.
-       *
-       * [Api set: Dialog 1.2]
        */
       height?: string;
   
       /**
        * @beta
        * Defines the width of the dialog box as a percentage of the current display. 
-       *
-       * [Api set: Dialog 1.2]
        */
       width?: string;
   
       /*
        * @beta
        * True if title is hidden from the dialog box. 
-       *
-       * [Api set: Dialog 1.2]
        */
       hideTitle?: boolean;
   
-      /*
-       * @beta
-       * Callback that is run when the dialog box sends a message to its parent.
-       */
-      onMessage?: (message: string, dialog?: Dialog) => void;
-  
-      /*
+       /*
        * @beta
        * Callback that is run when the dialog box is closed.
        */
@@ -132,6 +118,6 @@ declare namespace OfficeRuntime {
        * @beta
        * Callback that is run when the dialog box sends an error.
        */
-        onMessage?(message: string, dialog?: Dialog): void
+      onMessage?(message: string, dialog?: Dialog): void
     }
   }
