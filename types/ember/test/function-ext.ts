@@ -1,6 +1,7 @@
 import Ember from 'ember';
 
 declare global {
+    // tslint:disable-next-line:no-empty-interface
     interface Function extends Ember.FunctionPrototypeExtensions {}
 }
 

@@ -3609,6 +3609,7 @@ declare module '@ember/controller' {
 
     // A type registry for Ember `Controller`s. Meant to be declaration-merged
     // so string lookups resolve to the correct type.
+    // tslint:disable-next-line:no-empty-interface
     export interface Registry {}
 }
 
@@ -3832,6 +3833,7 @@ declare module '@ember/service' {
 
     // A type registry for Ember `Service`s. Meant to be declaration-merged so
     // string lookups resolve to the correct type.
+    // tslint:disable-next-line:no-empty-interface
     interface Registry {}
 }
 
