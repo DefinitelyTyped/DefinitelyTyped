@@ -2,8 +2,8 @@ function ADD10(n: number) {
     return n + 10;
 }
 
-CustomFunctionMappings = { 
-    "addTen": ADD10
+CustomFunctionMappings = {
+    addTen: ADD10
 };
 
 async function getStockValues(ticker: string, handler: CustomFunctions.StreamingHandler<number>) {
@@ -12,7 +12,7 @@ async function getStockValues(ticker: string, handler: CustomFunctions.Streaming
 }
 
 async function getStockValuesOneTime(ticker: string, handler: CustomFunctions.CancelableHandler) {
-    var shouldStop = false;
+    let shouldStop = false;
     handler.onCanceled = () => shouldStop = true;
     await pause(1000);
 
