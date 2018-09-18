@@ -54,7 +54,7 @@ function testAssign() {
 }
 
 function testOnError() {
-    Ember.onerror = function(error) {
+    Ember.onerror = (error) => {
         Ember.$.post('/report-error', {
             stack: error.stack,
             otherInformation: 'whatever app state you want to provide'
@@ -122,7 +122,6 @@ function testTryInvoke() {
 
 (() => {
     /** typeOf */
-    // TODO: more specific return type in @types/ember https://github.com/typed-ember/ember-cli-typescript/issues/259
     Ember.typeOf();                       // $ExpectType "undefined"
     Ember.typeOf(null);                   // $ExpectType "null"
     Ember.typeOf(undefined);              // $ExpectType "undefined"

@@ -8,7 +8,6 @@
         "no-self-import": false,
 
         "no-unnecessary-qualifier": false,
-        "only-arrow-functions": false,
 
         // false positives
         "unified-signatures": false
