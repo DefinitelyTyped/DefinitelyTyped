@@ -1,4 +1,4 @@
-// Type definitions for office-runtime
+// Type definitions for office-runtime 1.0
 // Project: http://dev.office.com/
 // Definitions by: Michael Zlatskovsky <https://github.com/Zlatkovsky>, Michelle Scharlock <https://github.com/mscharlock>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -61,7 +61,7 @@ declare namespace OfficeRuntime {
        * @beta
        * Deletes a batch of keys, specified in the `keys` array.
        */
-      multiRemove(keys: string[], callback?: (errors?: Error[]) => void): Promise<void>;/**
+      multiRemove(keys: string[], callback?: (errors?: Error[]) => void): Promise<void>;
       /*
       * @beta
       * Fetches a batch of keys, specified in the `keys` array. When a key doesn't exist, returns null. 
@@ -116,13 +116,7 @@ declare namespace OfficeRuntime {
        */
       hideTitle?: boolean;
   
-      /*
-       * @beta
-       * Callback that is run when the dialog box sends a message to its parent.
-       */
-      onMessage?: (message: string, dialog?: Dialog) => void;
-  
-      /*
+       /*
        * @beta
        * Callback that is run when the dialog box is closed.
        */
