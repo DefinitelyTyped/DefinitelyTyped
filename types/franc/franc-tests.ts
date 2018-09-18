@@ -1,4 +1,4 @@
-import * as detect from 'franc';
+import detect = require('franc');
 
 const testText = 'This is an example sentence';
 const testOptions = {
