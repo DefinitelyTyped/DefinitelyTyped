@@ -16,6 +16,7 @@
 /// <reference types="handlebars" />
 /// <reference types="ember__string" />
 /// <reference types="ember__polyfills" />
+/// <reference types="ember__object" />
 
 declare module 'ember' {
     import {
