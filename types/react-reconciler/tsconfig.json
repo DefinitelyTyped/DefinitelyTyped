@@ -19,6 +19,7 @@
     "files": [
         "index.d.ts",
         "test/react-reconciler-tests.ts",
-        "test/HostConfigWithNoHydration.ts"
+        "test/HostConfigWithNoHydration.ts",
+        "test/HostConfigWithNoPersistence.ts"
     ]
 }
