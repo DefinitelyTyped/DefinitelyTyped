@@ -39,6 +39,10 @@ export class AudioTrack extends Track {
     kind: 'audio';
     mediaStreamTrack: MediaStreamTrack;
 
+    // Required for Safari if you want to detach without errors
+    // See: https://github.com/twilio/twilio-video.js/issues/294#issuecomment-389708981
+    _attachments?: HTMLMediaElement[];
+
     attach(element?: HTMLMediaElement | string): HTMLMediaElement;
     detach(element?: HTMLMediaElement | string): HTMLMediaElement[];
 }
@@ -432,6 +436,10 @@ export class VideoTrack extends Track {
     dimensions: VideoTrack.Dimensions;
     kind: 'video';
     mediaStreamTrack: MediaStreamTrack;
+
+    // Required for Safari if you want to detach without errors
+    // See: https://github.com/twilio/twilio-video.js/issues/294#issuecomment-389708981
+    _attachments?: HTMLMediaElement[];
 
     attach(element?: HTMLMediaElement | string): HTMLVideoElement;
     detach(element?: HTMLMediaElement | string): HTMLMediaElement[];
