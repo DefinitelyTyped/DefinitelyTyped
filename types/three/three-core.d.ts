@@ -7241,7 +7241,7 @@ export class EdgesGeometry extends BufferGeometry {
     constructor(geometry: BufferGeometry | Geometry, thresholdAngle?: number);
 }
 
-export interface ExtrueGeometryOptions {
+export interface ExtrudeGeometryOptions {
     curveSegments?: number;
     steps?: number;
     depth?: number;
@@ -7259,7 +7259,7 @@ export interface UVGenerator {
 }
 
 export class ExtrudeGeometry extends Geometry {
-    constructor(shape: Shape | Shape[], options?: ExtrueGeometryOptions);
+    constructor(shapes: Shape | Shape[], options?: ExtrudeGeometryOptions);
 
     static WorldUVGenerator: UVGenerator;
 
@@ -7268,7 +7268,7 @@ export class ExtrudeGeometry extends Geometry {
 }
 
 export class ExtrudeBufferGeometry extends BufferGeometry {
-    constructor(shapes?: Shape[], options?: ExtrueGeometryOptions);
+    constructor(shapes: Shape | Shape[], options?: ExtrudeGeometryOptions);
 
     static WorldUVGenerator: UVGenerator;
 
