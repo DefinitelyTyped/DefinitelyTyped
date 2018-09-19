@@ -1,4 +1,4 @@
-// Type definitions for react-reconciler 0.14
+// Type definitions for react-reconciler 0.15
 // Project: https://reactjs.org/
 // Definitions by: Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
