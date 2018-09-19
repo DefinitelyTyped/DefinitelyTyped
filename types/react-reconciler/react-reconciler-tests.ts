@@ -1,5 +1,5 @@
 import ReactFiberReconciler from 'react-reconciler';
-import * as ReactTestHostConfig from './ReactTestHostConfig';
+import * as ReactTestHostConfig from './tests/ReactTestHostConfig';
 
 // $ExpectType Reconciler<Instance, TextInstance, Container, HydratableInstance>
 ReactFiberReconciler<
