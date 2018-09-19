@@ -3,7 +3,7 @@
 // Definitions by: weekens <https://github.com/weekens>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-type options = {
+interface options {
    recurse?: boolean,
    duplicates?: boolean,
    filter?: any,
