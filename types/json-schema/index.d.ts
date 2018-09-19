@@ -214,8 +214,8 @@ export type JSONSchema6Type = any[] | boolean | number | null | object | string
  * JSON Schema V6
  * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01
  */
-export type JSONSchema6 = JSONSchema6Object | boolean;
-export interface JSONSchema6Object {
+export type JSONSchema6Definition = JSONSchema6 | boolean;
+export interface JSONSchema6 {
     $id?: string
     $ref?: string
     $schema?: 'http://json-schema.org/schema#' | 'http://json-schema.org/hyper-schema#' |
@@ -282,7 +282,7 @@ export interface JSONSchema6Object {
      * Omitting this keyword has the same behavior as an empty schema.
      * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01#section-6.9
      */
-    items?: JSONSchema6 | JSONSchema6[]
+    items?: JSONSchema6Definition | JSONSchema6Definition[]
 
     /**
      * This keyword determines how child instances validate for arrays, and does not directly validate the immediate instance itself.
@@ -293,7 +293,7 @@ export interface JSONSchema6Object {
      * Omitting this keyword has the same behavior as an empty schema.
      * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01#section-6.10
      */
-    additionalItems?: JSONSchema6
+    additionalItems?: JSONSchema6Definition
 
     /**
      * Must be a non-negative integer.
@@ -322,7 +322,7 @@ export interface JSONSchema6Object {
      * An array instance is valid against "contains" if at least one of its elements is valid against the given schema.
      * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01#section-6.14
      */
-    contains?: JSONSchema6
+    contains?: JSONSchema6Definition
 
     /**
      * Must be a non-negative integer.
@@ -357,7 +357,7 @@ export interface JSONSchema6Object {
      * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01#section-6.18
      */
     properties?: {
-        [k: string]: JSONSchema6
+        [k: string]: JSONSchema6Definition
     }
 
     /**
@@ -369,7 +369,7 @@ export interface JSONSchema6Object {
      * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01#section-6.19
      */
     patternProperties?: {
-        [k: string]: JSONSchema6
+        [k: string]: JSONSchema6Definition
     }
 
     /**
@@ -379,7 +379,7 @@ export interface JSONSchema6Object {
      * The default value is an empty schema which allows any value for additional properties.
      * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01#section-6.20
      */
-    additionalProperties?: JSONSchema6
+    additionalProperties?: JSONSchema6Definition
 
     /**
      * This keyword specifies rules that are evaluated if the instance is an object and contains a certain property.
@@ -389,7 +389,7 @@ export interface JSONSchema6Object {
      * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01#section-6.21
      */
     dependencies?: {
-        [k: string]: JSONSchema6 | string[]
+        [k: string]: JSONSchema6Definition | string[]
     }
 
     /**
@@ -398,7 +398,7 @@ export interface JSONSchema6Object {
      * Omitting this keyword has the same behavior as an empty schema.
      * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01#section-6.22
      */
-    propertyNames?: JSONSchema6
+    propertyNames?: JSONSchema6Definition
 
     /**
      * This provides an enumeration of all possible values that are valid
@@ -426,28 +426,28 @@ export interface JSONSchema6Object {
     /**
      * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01#section-6.26
      */
-    allOf?: JSONSchema6[]
+    allOf?: JSONSchema6Definition[]
 
     /**
      * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01#section-6.27
      */
-    anyOf?: JSONSchema6[]
+    anyOf?: JSONSchema6Definition[]
 
     /**
      * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01#section-6.28
      */
-    oneOf?: JSONSchema6[]
+    oneOf?: JSONSchema6Definition[]
 
     /**
      * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01#section-6.29
      */
-    not?: JSONSchema6
+    not?: JSONSchema6Definition
 
     /**
      * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01#section-7.1
      */
     definitions?: {
-        [k: string]: JSONSchema6
+        [k: string]: JSONSchema6Definition
     }
 
     /**
@@ -513,8 +513,8 @@ export type JSONSchema7Version = 'http://json-schema.org/schema#'
  * JSON Schema v7
  * @see https://tools.ietf.org/html/draft-handrews-json-schema-validation-01
  */
-export type JSONSchema7 = JSONSchema7Object | boolean;
-export interface JSONSchema7Object {
+export type JSONSchema7Definition = JSONSchema7 | boolean;
+export interface JSONSchema7 {
     $id?: string;
     $ref?: string;
     $schema?: JSONSchema7Version;
@@ -546,8 +546,8 @@ export interface JSONSchema7Object {
     /**
      * @see https://tools.ietf.org/html/draft-handrews-json-schema-validation-01#section-6.4
      */
-    items?: JSONSchema7 | JSONSchema7[];
-    additionalItems?: JSONSchema7;
+    items?: JSONSchema7Definition | JSONSchema7Definition[];
+    additionalItems?: JSONSchema7Definition;
     maxItems?: number;
     minItems?: number;
     uniqueItems?: boolean;
@@ -560,31 +560,31 @@ export interface JSONSchema7Object {
     minProperties?: number;
     required?: string[];
     properties?: {
-        [key: string]: JSONSchema7;
+        [key: string]: JSONSchema7Definition;
     };
     patternProperties?: {
-        [key: string]: JSONSchema7;
+        [key: string]: JSONSchema7Definition;
     };
-    additionalProperties?: JSONSchema7;
+    additionalProperties?: JSONSchema7Definition;
     dependencies?: {
-        [key: string]: JSONSchema7 | string[];
+        [key: string]: JSONSchema7Definition | string[];
     };
-    propertyNames?: JSONSchema7;
+    propertyNames?: JSONSchema7Definition;
 
     /**
      * @see https://tools.ietf.org/html/draft-handrews-json-schema-validation-01#section-6.6
      */
-    if?: JSONSchema7;
-    then?: JSONSchema7;
-    else?: JSONSchema7;
+    if?: JSONSchema7Definition;
+    then?: JSONSchema7Definition;
+    else?: JSONSchema7Definition;
 
     /**
      * @see https://tools.ietf.org/html/draft-handrews-json-schema-validation-01#section-6.7
      */
-    allOf?: JSONSchema7[];
-    anyOf?: JSONSchema7[];
-    oneOf?: JSONSchema7[];
-    not?: JSONSchema7;
+    allOf?: JSONSchema7Definition[];
+    anyOf?: JSONSchema7Definition[];
+    oneOf?: JSONSchema7Definition[];
+    not?: JSONSchema7Definition;
 
     /**
      * @see https://tools.ietf.org/html/draft-handrews-json-schema-validation-01#section-7
@@ -601,7 +601,7 @@ export interface JSONSchema7Object {
      * @see https://tools.ietf.org/html/draft-handrews-json-schema-validation-01#section-9
      */
     definitions?: {
-        [key: string]: JSONSchema7;
+        [key: string]: JSONSchema7Definition;
     };
 
     /**
