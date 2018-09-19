@@ -149,6 +149,7 @@ import {
     propertyNames: {},
     format: 'date-time'
   }
+  const c: JSONSchema7 = false;
 }
 
 /* JSON Schema 7 */
@@ -167,7 +168,7 @@ import {
     const c: JSONSchema7Type = [1, 2]
 }
 
-// JSONSchema4
+// JSONSchema7
 () => {
     const a: JSONSchema7 = {}
     const b: JSONSchema7 = {
@@ -228,4 +229,5 @@ import {
         if: {},
         then: {}
     }
+    const c: JSONSchema7 = false;
 }
