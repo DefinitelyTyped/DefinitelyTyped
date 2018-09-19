@@ -228,20 +228,14 @@ export interface Reconciler<Instance, TextInstance, Container, PublicInstance> {
     flushRoot(root: OpaqueRoot, expirationTime: ExpirationTime): void;
     requestWork(root: OpaqueRoot, expirationTime: ExpirationTime): void;
     computeUniqueAsyncExpiration(): ExpirationTime;
-    batchedUpdates<A, R>(fn: (a: A) => R, a: A): R;
-    unbatchedUpdates<A, R>(fn: (a: A) => R, a: A): R;
+    batchedUpdates<A>(fn: () => A): A;
+    unbatchedUpdates<A>(fn: () => A): A;
     deferredUpdates<A>(fn: () => A): A;
-    syncUpdates<A, B, C0, D, R>(
-        fn: (a: A, b: B, c: C0, d: D) => R,
-        a: A,
-        b: B,
-        c: C0,
-        d: D,
-    ): R;
-    interactiveUpdates<A, B, R>(fn: (a: A, b: B) => R, a: A, b: B): R;
+    syncUpdates<A>(fn: () => A): A;
+    interactiveUpdates<A>(fn: () => A): A;
     flushInteractiveUpdates(): void;
     flushControlled(fn: () => any): void;
-    flushSync<A, R>(fn: (a: A) => R, a: A): R;
+    flushSync<A>(fn: () => A): A;
 
     // Used to extract the return value from the initial render. Legacy API.
     getPublicRootInstance(
