@@ -1,6 +1,7 @@
 // Type definitions for react-aria-modal 2.12
 // Project: https://github.com/davidtheclark/react-aria-modal#readme
 // Definitions by: forabi <https://github.com/forabi>
+//                 Sasha <https://github.com/SashaBajzek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -140,7 +141,7 @@ export interface AriaModalProps {
      *
      * Default: rgba(0,0,0,0.5)
      */
-    underlayColor?: string;
+    underlayColor?: string | boolean;
 
     /**
      * If `true`, the modal's contents will be vertically (as well as horizontally) centered.
