@@ -379,7 +379,7 @@ declare namespace Highcharts {
         zIndex?: number;
     }
 
-    export interface AnnotationsPoint {
+    interface AnnotationsPoint {
         /**
          * The x position of the point. Units can be either in axis or chart pixel coordinates.
          * @default undefined
@@ -410,7 +410,7 @@ declare namespace Highcharts {
         yAxis?: number;
     }
 
-    export interface AnnotationsLabelOptions {
+    interface AnnotationsLabelOptions {
         /**
          * The alignment of the annotation's label. If right, the right side of the label should be touching the point.
          * @default "center"
@@ -428,13 +428,13 @@ declare namespace Highcharts {
          * @default rgba(0, 0, 0, 0.75)
          * @since 6.0.0
          */
-        backgroundColor?: string | Highcharts.Gradient;
+        backgroundColor?: string | Gradient;
         /**
          * The border color for the annotation's label.
          * @default "black"
          * @since 6.0.0
          */
-        borderColor?: string | Highcharts.Gradient;
+        borderColor?: string | Gradient;
         /**
          * The border radius in pixels for the annotation's label.
          * @default 1
@@ -494,7 +494,7 @@ declare namespace Highcharts {
         shadow?:
             | boolean
             | {
-            color?: string | Highcharts.Gradient;
+            color?: string | Gradient;
             offsetX?: number;
             offsetY?: number;
             opacity?: number;
@@ -564,7 +564,7 @@ declare namespace Highcharts {
         y?: number;
     }
 
-    export interface AnnotationsLabel extends AnnotationsLabelOptions {
+    interface AnnotationsLabel extends AnnotationsLabelOptions {
         /**
          * This option defines the point to which the label will be connected.
          * It can be either the point which exists in the series - it is referenced by the point's id
@@ -574,7 +574,7 @@ declare namespace Highcharts {
         point?: string | AnnotationsPoint;
     }
 
-    export interface AnnotationsShapeOptions {
+    interface AnnotationsShapeOptions {
         /**
          * The color of the shape's fill.
          * @default rgba(0, 0, 0, 0.75)
@@ -619,7 +619,7 @@ declare namespace Highcharts {
         width: number;
     }
 
-    export interface AnnotationsShape extends AnnotationsShapeOptions {
+    interface AnnotationsShape extends AnnotationsShapeOptions {
         /**
          * Id of the marker which will be drawn at the final vertex of the path. Custom markers can be defined in defs property.
          * @default undefined
@@ -645,14 +645,14 @@ declare namespace Highcharts {
          * @default undefined
          * @since 6.0.0
          */
-        points?: (string | AnnotationsPoint)[];
+        points?: Array<string | AnnotationsPoint>;
     }
 
     /**
      * Options for configuring annotations, for example labels, arrows or shapes. Annotations can be tied to points,
      * axis coordinates or chart pixel coordinates.
      */
-    export interface AnnotationsOptions {
+    interface AnnotationsOptions {
         /**
          * Options for annotation's labels. Each label inherits options from the labelOptions object.
          * An option from the labelOptions can be overwritten by config for a specific label.
