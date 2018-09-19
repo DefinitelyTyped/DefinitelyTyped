@@ -26,6 +26,7 @@ export function validateOnce(service: Service, secretOrPubKey: any, receipt: Rec
 
 export function isValidated(response: ValidationResponse): boolean;
 export function isExpired(item: PurchasedItem): boolean;
+export function isCanceled(item: PurchasedItem): boolean;
 export function getPurchaseData(purchaseData?: ValidationResponse, options?: {
   ignoreCanceled: boolean;
   ignoreExpired: boolean;
@@ -94,10 +95,15 @@ export interface ValidationResponse {
 
 export interface PurchasedItem {
   bundleId?: string;  // only Apple
+  appItemId?: string;
   orderId?: string; // only Google
+  originalTransactionId?: string; // only Apple
   transactionId: string;
   productId: string;
-  purchaseDate: number;
+  originalPurchaseDate?: string; // only Apple
+  purchaseDate: number | string;
+  isTrial?: boolean; // only Apple
+  cancellationDate?: number; // only Apple/Google
   // iTunes, windows and amazon subscription only
   // Google subscriptions only with google play store api info
   expirationDate?: number;
