@@ -12,6 +12,11 @@
         "typeRoots": [
             "../../"
         ],
+        "paths": {
+            "glob": [
+                "glob/v5"
+            ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
