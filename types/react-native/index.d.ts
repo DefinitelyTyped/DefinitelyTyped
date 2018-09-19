@@ -3,6 +3,7 @@
 // Definitions by: Eloy Durán <https://github.com/alloy>
 //                 HuHuanming <https://github.com/huhuanming>
 //                 Kyle Roach <https://github.com/iRoachie>
+//                 Simon Knott <https://github.com/skn0tt>
 //                 Tim Wang <https://github.com/timwangdev>
 //                 Kamal Mahyuddin <https://github.com/kamal>
 //                 Naoufal El Yousfi <https://github.com/nelyousfi>
@@ -5117,6 +5118,7 @@ export class TouchableNativeFeedback extends TouchableNativeFeedbackBase {
      * @param borderless If the ripple can render outside it's bounds
      */
     static Ripple(color: string, borderless?: boolean): RippleBackgroundPropType;
+    static canUseNativeForeground(): boolean;
 }
 
 export interface Route {
@@ -7369,7 +7371,7 @@ export interface NetInfoStatic {
      * sensitive to heavy data usage on that connection due to monetary
      * costs, data limitations or battery/performance issues.
      */
-    isConnectionExpensive: Promise<boolean>;
+    isConnectionExpensive: () => Promise<boolean>;
 }
 
 export interface PanResponderGestureState {
@@ -8970,11 +8972,13 @@ export interface ComponentInterface<P> {
  * Common types are lined up with the appropriate prop differs with
  * `TypeToDifferMap`.  Non-scalar types not in the map default to `deepDiffer`.
  */
-export function requireNativeComponent<P>(
+export function requireNativeComponent<P, NP = {}>(
     viewName: string,
     componentInterface?: ComponentInterface<P>,
-    extraConfig?: { nativeOnly?: any }
-): React.ComponentClass<PropTypes.InferProps<PropTypes.ValidationMap<P>>>;
+    extraConfig?: { nativeOnly?: NP }
+): React.ComponentClass<
+    Partial<PropTypes.InferProps<PropTypes.ValidationMap<P>>> & { [K in keyof NP]?: any}
+>;
 
 export function findNodeHandle(
     componentOrHandle: null | number | React.Component<any, any> | React.ComponentClass<any>

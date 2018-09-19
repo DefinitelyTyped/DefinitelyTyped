@@ -5855,9 +5855,22 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
     [n: number]: TElement;
 }
 
-// ES5 compatibility
+// #region ES5 compatibility
+
 // tslint:disable-next-line:no-empty-interface
 interface Iterable<T> { }
+
+interface SymbolConstructor {
+    /**
+     * A String value that is used in the creation of the default string description of an object.
+     * Called by the built-in method Object.prototype.toString.
+     */
+    readonly toStringTag: symbol;
+}
+
+declare var Symbol: SymbolConstructor;
+
+// #endregion
 
 declare namespace JQuery {
     type TypeOrArray<T> = T | T[];

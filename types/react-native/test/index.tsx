@@ -11,6 +11,7 @@ The content of index.io.js could be something like
 For a list of complete Typescript examples: check https://github.com/bgrieder/RNTSExplorer
 */
 
+import * as PropTypes from "prop-types";
 import * as React from "react";
 import {
     Alert,
@@ -75,6 +76,7 @@ import {
     Modal,
     TimePickerAndroid,
     ViewPropTypes,
+    requireNativeComponent,
 } from "react-native";
 
 declare module "react-native" {
@@ -762,3 +764,20 @@ const TimePickerAndroidTest = () => (
         mode: 'spinner'
     })
 )
+
+class BridgedComponentTest extends React.Component {
+    static propTypes = {
+        jsProp: PropTypes.string.isRequired,
+        ...ViewPropTypes,
+    }
+
+    render() {
+        return <NativeBridgedComponent {...this.props} nativeProp="test" />;
+    }
+}
+
+const NativeBridgedComponent = requireNativeComponent("NativeBridgedComponent", BridgedComponentTest, {
+    nativeOnly: {
+        nativeProp: true,
+    }
+});

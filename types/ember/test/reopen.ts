@@ -53,7 +53,7 @@ person3.sayHello();
 person3.sayGoodbye();
 
 interface AutoResizeMixin { resizable: true; }
-declare const AutoResizeMixin: Ember.Mixin<AutoResizeMixin>;
+const AutoResizeMixin = Ember.Mixin.create({ resizable: true });
 
 const ResizableTextArea = Ember.TextArea.reopen(AutoResizeMixin, {
     scaling: 1.0

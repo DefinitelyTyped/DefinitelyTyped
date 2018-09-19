@@ -22,6 +22,7 @@
 //                 Methuselah96 <https://github.com/Methuselah96>
 //                 Dilip Ramirez <https://github.com/Dukuo>
 // Definitions: https://github.com//DefinitelyTyped
+// TypeScript Version: 2.8
 
 export * from "./three-core";
 

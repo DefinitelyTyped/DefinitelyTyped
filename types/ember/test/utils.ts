@@ -1,44 +1,43 @@
 import Ember from 'ember';
-import * as utils from '@ember/utils';
 import { assertType } from "./lib/assert";
 
 function testTypeOf() {
-    utils.typeOf(); // $ExpectType "undefined"
-    const str: string = utils.typeOf({});
+    Ember.typeOf(); // $ExpectType "undefined"
+    const str: string = Ember.typeOf({});
 }
 
 function testIsNoneType() {
     const maybeUndefined: string | undefined = 'not actually undefined';
-    if (utils.isNone(maybeUndefined)) {
+    if (Ember.isNone(maybeUndefined)) {
         return;
     }
 
     const anotherString = maybeUndefined + 'another string';
-    utils.isNone(); // $ExpectType boolean
+    Ember.isNone(); // $ExpectType boolean
 }
 
 function testIsBlank() {
-    utils.isBlank(); // $ExpectType boolean
-    utils.isBlank(''); // $ExpectType boolean
-    utils.isBlank('', ''); // $ExpectError
+    Ember.isBlank(); // $ExpectType boolean
+    Ember.isBlank(''); // $ExpectType boolean
+    Ember.isBlank('', ''); // $ExpectError
 }
 
 function testIsEmpty() {
-    utils.isEmpty(); // $ExpectType boolean
-    utils.isEmpty(''); // $ExpectType boolean
-    utils.isEmpty('', ''); // $ExpectError
+    Ember.isEmpty(); // $ExpectType boolean
+    Ember.isEmpty(''); // $ExpectType boolean
+    Ember.isEmpty('', ''); // $ExpectError
 }
 
 function testIsPresent() {
-    utils.isPresent(); // $ExpectType boolean
-    utils.isPresent(''); // $ExpectType boolean
-    utils.isPresent('', ''); // $ExpectError
+    Ember.isPresent(); // $ExpectType boolean
+    Ember.isPresent(''); // $ExpectType boolean
+    Ember.isPresent('', ''); // $ExpectError
 }
 
 function testIsNone() {
-    utils.isNone(); // $ExpectType boolean
-    utils.isNone(''); // $ExpectType boolean
-    utils.isNone('', ''); // $ExpectError
+    Ember.isNone(); // $ExpectType boolean
+    Ember.isNone(''); // $ExpectType boolean
+    Ember.isNone('', ''); // $ExpectError
 }
 
 function testMerge() {

@@ -16,17 +16,20 @@
 /// <reference types="handlebars" />
 /// <reference types="ember__string" />
 /// <reference types="ember__polyfills" />
+/// <reference types="ember__object" />
+/// <reference types="ember__utils" />
+/// <reference types="ember__object" />
 
 declare module 'ember' {
     import {
-        UnwrapComputedPropertySetters,
+        Objectify, Fix, UnwrapComputedPropertySetters,
         UnwrapComputedPropertySetter,
         UnwrapComputedPropertyGetters,
         UnwrapComputedPropertyGetter,
-        ComputedPropertyCallback
-    } from 'ember/-private-types/object/computed';
-    import { Objectify, Fix, KeysOfType, TypeLookup } from 'ember/-private-types/utils';
-    import { EmberClassArguments, EmberClassConstructor, EmberInstanceArguments } from 'ember/-private-types/object';
+        EmberClassArguments, EmberClassConstructor, EmberInstanceArguments,
+        ComputedPropertyCallback,
+        ObserverMethod
+    } from '@ember/object/-private/types';
     import * as HandlebarsNamespace from 'handlebars';
     // Capitalization is intentional: this makes it much easier to re-export RSVP on
     // the Ember namespace.
@@ -35,27 +38,23 @@ declare module 'ember' {
 
     import { Registry as ServiceRegistry } from '@ember/service';
     import { Registry as ControllerRegistry } from '@ember/controller';
-    import ModuleComputed from '@ember/object/computed';
-    import * as EmberString from '@ember/string';
-    import * as EmberPolyfills from '@ember/polyfills';
+    import * as EmberStringNs from '@ember/string';
+    import * as EmberPolyfillsNs from '@ember/polyfills';
+    import * as EmberUtilsNs from '@ember/utils';
+    import * as EmberObjectNs from '@ember/object';
+    import * as EmberObjectObserversNs from '@ember/object/observers';
+    import * as EmberObjectMixinNs from '@ember/object/mixin';
+    import * as EmberObjectInternalsNs from '@ember/object/internals';
+    import * as EmberObjectComputedNs from '@ember/object/computed';
+    import * as EmberObjectEventedNs from '@ember/object/evented';
+    import * as EmberObjectEventsNs from '@ember/object/events';
+    import EmberCoreObject from '@ember/object/core';
+    // tslint:disable-next-line:no-duplicate-imports
+    import EmberMixin from '@ember/object/mixin';
+    import Observable from '@ember/object/observable';
 
     // Get an alias to the global Array type to use in inner scope below.
     type GlobalArray<T> = T[];
-
-    // TODO: TypeScript 3.0
-    // type FunctionArgs<F extends (...args: any[]) => any> = F extends (...args: infer ARGS) => any ? ARGS : never;
-    type FunctionArgs<F> =
-        F extends (a: infer A) => any
-            ? [A]
-            : F extends (a: infer A, b: infer B) => any
-                ? [A, B]
-                : F extends (a: infer A, b: infer B, c: infer C) => any
-                    ? [A, B, C]
-                    : F extends (a: infer A, b: infer B, c: infer C, d: infer D) => any
-                        ? [A, B, C, D]
-                        : F extends (a: infer A, b: infer B, c: infer C, d: infer D, e: infer E) => any
-                            ? [A, B, C, D, E]
-                            : never;
 
     type Mix<A, B> = B & Pick<A, Exclude<keyof A, keyof B>>;
     type Mix3<A, B, C> = Mix<Mix<A, B>, C>;
@@ -65,7 +64,7 @@ declare module 'ember' {
     /**
      * Ember.Object.extend(...) accepts any number of mixins or literals.
      */
-    type MixinOrLiteral<T, Base> = Ember.Mixin<T, Base> | T;
+    type MixinOrLiteral<T, Base> = EmberMixin<T, Base> | T;
 
     /**
      * Used to infer the type of ember classes of type `T`.
@@ -97,10 +96,6 @@ declare module 'ember' {
         | 'destroy';
     type QueryParamTypes = 'boolean' | 'number' | 'array' | 'string';
     type QueryParamScopeTypes = 'controller' | 'model';
-
-    type ObserverMethod<Target, Sender> =
-        | (keyof Target)
-        | ((this: Target, sender: Sender, key: string, value: any, rev: number) => void);
 
     interface RenderOptions {
         into?: string;
@@ -205,7 +200,7 @@ declare module 'ember' {
          */
         willDestroyElement(): void;
     }
-    const ViewMixin: Ember.Mixin<ViewMixin>;
+    const ViewMixin: EmberMixin<ViewMixin>;
 
     /**
      * Ember.CoreView is an abstract class that exists to give view-like behavior to both Ember's main
@@ -216,7 +211,7 @@ declare module 'ember' {
     interface ActionSupport {
         sendAction(action: string, ...params: any[]): void;
     }
-    const ActionSupport: Ember.Mixin<ActionSupport>;
+    const ActionSupport: EmberMixin<ActionSupport>;
 
     interface ClassNamesSupport {
         /**
@@ -239,7 +234,7 @@ declare module 'ember' {
          */
         classNames: string[];
     }
-    const ClassNamesSupport: Ember.Mixin<ClassNamesSupport>;
+    const ClassNamesSupport: EmberMixin<ClassNamesSupport>;
 
     interface TriggerActionOptions {
         action?: string;
@@ -309,7 +304,7 @@ declare module 'ember' {
              */
             factoryFor(fullName: string, options?: {}): any;
         }
-        const _ContainerProxyMixin: Mixin<_ContainerProxyMixin>;
+        const _ContainerProxyMixin: EmberMixin<_ContainerProxyMixin>;
 
         /**
          * RegistryProxyMixin is used to provide public access to specific
@@ -364,7 +359,7 @@ declare module 'ember' {
              */
             inject(factoryNameOrType: string, property: string, injectionName: string): any;
         }
-        const _RegistryProxyMixin: Mixin<_RegistryProxyMixin>;
+        const _RegistryProxyMixin: EmberMixin<_RegistryProxyMixin>;
         /**
          * Ember.ActionHandler is available on some familiar classes including Ember.Route,
          * Ember.Component, and Ember.Controller. (Internally the mixin is used by Ember.CoreView,
@@ -385,7 +380,7 @@ declare module 'ember' {
              */
             actions: ActionsHash;
         }
-        const ActionHandler: Ember.Mixin<ActionHandler>;
+        const ActionHandler: EmberMixin<ActionHandler>;
         /**
          * An instance of Ember.Application is the starting point for every Ember application. It helps to
          * instantiate, initialize and coordinate the many objects that make up your app.
@@ -565,7 +560,7 @@ declare module 'ember' {
             '@each': ComputedProperty<T>;
         }
         // Ember.Array rather than Array because the `array-type` lint rule doesn't realize the global is shadowed
-        const Array: Mixin<Ember.Array<any>>;
+        const Array: EmberMixin<Ember.Array<any>>;
 
         /**
          * An ArrayProxy wraps any other object that implements Ember.Array and/or Ember.MutableArray,
@@ -614,7 +609,7 @@ declare module 'ember' {
         interface Comparable {
             compare(a: any, b: any): number;
         }
-        const Comparable: Mixin<Comparable>;
+        const Comparable: EmberMixin<Comparable>;
         /**
          * A view that is completely isolated. Property access in its templates go to the view object
          * and actions are targeted at the view object. There is no access to the surrounding context or
@@ -688,41 +683,7 @@ declare module 'ember' {
              */
             willUpdate(): void;
         }
-        /**
-         * A computed property transforms an objects function into a property.
-         * By default the function backing the computed property will only be called once and the result
-         * will be cached. You can specify various properties that your computed property is dependent on.
-         * This will force the cached result to be recomputed if the dependencies are modified.
-         */
-        class ComputedProperty<Get, Set = Get> {
-            // Necessary in order to avoid losing type information
-            //    see: https://github.com/typed-ember/ember-cli-typescript/issues/246#issuecomment-414812013
-            private ______getType: Get;
-            private ______setType: Set;
-            /**
-             * Call on a computed property to set it into non-cached mode. When in this
-             * mode the computed property will not automatically cache the return value.
-             */
-            volatile(): this;
-            /**
-             * Call on a computed property to set it into read-only mode. When in this
-             * mode the computed property will throw an error when set.
-             */
-            readOnly(): this;
-            /**
-             * Sets the dependent keys on this computed property. Pass any number of
-             * arguments containing key paths that this computed property depends on.
-             */
-            property(...path: string[]): this;
-            /**
-             * In some cases, you may want to annotate computed properties with additional
-             * metadata about how they function or what values they operate on. For example,
-             * computed property functions may close over variables that are then no longer
-             * available for introspection.
-             */
-            meta(meta: {}): this;
-            meta(): {};
-        }
+        export class ComputedProperty<Get, Set = Get> extends EmberObjectComputedNs.default<Get, Set> {}
         /**
          * A container used to instantiate and cache objects.
          */
@@ -758,7 +719,7 @@ declare module 'ember' {
             }}>;
             target: object;
         }
-        const ControllerMixin: Ember.Mixin<ControllerMixin>;
+        const ControllerMixin: EmberMixin<ControllerMixin>;
         class Controller extends Object.extend(ControllerMixin) {}
         /**
          * Implements some standard methods for copying an object. Add this mixin to
@@ -776,228 +737,10 @@ declare module 'ember' {
              */
             frozenCopy(): Copyable;
         }
-        const Copyable: Ember.Mixin<Copyable>;
-        class CoreObject {
-            /**
-             * As of Ember 3.1, CoreObject constructor takes initial object properties as an argument.
-             * See: https://github.com/emberjs/ember.js/commit/4709935854d4c29b0d2c054614d53fa2c55309b1
-             */
-            constructor(properties?: object);
-
-            _super(...args: any[]): any;
-
-            /**
-             * An overridable method called when objects are instantiated. By default,
-             * does nothing unless it is overridden during class definition.
-             */
-            init(): void;
-
-            /**
-             * Defines the properties that will be concatenated from the superclass (instead of overridden).
-             * @default null
-             */
-            concatenatedProperties: any[];
-
-            /**
-             * Destroyed object property flag. If this property is true the observers and bindings were
-             * already removed by the effect of calling the destroy() method.
-             * @default false
-             */
-            isDestroyed: boolean;
-            /**
-             * Destruction scheduled flag. The destroy() method has been called. The object stays intact
-             * until the end of the run loop at which point the isDestroyed flag is set.
-             * @default false
-             */
-            isDestroying: boolean;
-
-            /**
-             * Destroys an object by setting the `isDestroyed` flag and removing its
-             * metadata, which effectively destroys observers and bindings.
-             * If you try to set a property on a destroyed object, an exception will be
-             * raised.
-             * Note that destruction is scheduled for the end of the run loop and does not
-             * happen immediately.  It will set an isDestroying flag immediately.
-             * @return receiver
-             */
-            destroy(): CoreObject;
-
-            /**
-             * Override to implement teardown.
-             */
-            willDestroy(): void;
-
-            /**
-             * Returns a string representation which attempts to provide more information than Javascript's toString
-             * typically does, in a generic way for all Ember objects (e.g., "<App.Person:ember1024>").
-             * @return string representation
-             */
-            toString(): string;
-
-            static create<Class extends typeof Ember.CoreObject>(this: Class): InstanceType<Class>;
-
-            static create<Class extends typeof Ember.CoreObject,
-                T1 extends EmberInstanceArguments<UnwrapComputedPropertySetters<InstanceType<Class>>>
-            >(this: Class,
-                arg1: T1 & ThisType<T1 & InstanceType<Class>>
-            ): InstanceType<Class> & T1;
-
-            static create<Class extends typeof Ember.CoreObject,
-                T1 extends EmberInstanceArguments<UnwrapComputedPropertySetters<InstanceType<Class>>>,
-                T2 extends EmberInstanceArguments<UnwrapComputedPropertySetters<InstanceType<Class>>>
-            >(this: Class,
-                arg1: T1 & ThisType<T1 & InstanceType<Class>>,
-                arg2: T2 & ThisType<T2 & InstanceType<Class>>
-            ): InstanceType<Class> & T1 & T2;
-
-            static create<Class extends typeof Ember.CoreObject,
-                T1 extends EmberInstanceArguments<UnwrapComputedPropertySetters<InstanceType<Class>>>,
-                T2 extends EmberInstanceArguments<UnwrapComputedPropertySetters<InstanceType<Class>>>,
-                T3 extends EmberInstanceArguments<UnwrapComputedPropertySetters<InstanceType<Class>>>
-            >(this: Class,
-                arg1: T1 & ThisType<T1 & InstanceType<Class>>,
-                arg2: T2 & ThisType<T2 & InstanceType<Class>>,
-                arg3: T3 & ThisType<T3 & InstanceType<Class>>
-            ): InstanceType<Class> & T1 & T2 & T3;
-
-            static extend<Statics, Instance>(
-                this: Statics & EmberClassConstructor<Instance>
-            ): Objectify<Statics> & EmberClassConstructor<Instance>;
-
-            static extend<Statics, Instance extends B1, T1 extends EmberClassArguments, B1>(
-                this: Statics & EmberClassConstructor<Instance>,
-                arg1: MixinOrLiteral<T1, B1> & ThisType<Fix<Instance & T1>>
-            ): Objectify<Statics> & EmberClassConstructor<T1 & Instance>;
-
-            static extend<
-                Statics,
-                Instance extends B1 & B2,
-                T1 extends EmberClassArguments,
-                B1,
-                T2 extends EmberClassArguments,
-                B2
-            >(
-                this: Statics & EmberClassConstructor<Instance>,
-                arg1: MixinOrLiteral<T1, B1> & ThisType<Fix<Instance & T1>>,
-                arg2: MixinOrLiteral<T2, B2> & ThisType<Fix<Instance & T1 & T2>>
-            ): Objectify<Statics> & EmberClassConstructor<T1 & T2 & Instance>;
-
-            static extend<
-                Statics,
-                Instance extends B1 & B2 & B3,
-                T1 extends EmberClassArguments,
-                B1,
-                T2 extends EmberClassArguments,
-                B2,
-                T3 extends EmberClassArguments,
-                B3
-            >(
-                this: Statics & EmberClassConstructor<Instance>,
-                arg1: MixinOrLiteral<T1, B1> & ThisType<Fix<Instance & T1>>,
-                arg2: MixinOrLiteral<T2, B2> & ThisType<Fix<Instance & T1 & T2>>,
-                arg3: MixinOrLiteral<T3, B3> & ThisType<Fix<Instance & T1 & T2 & T3>>
-            ): Objectify<Statics> & EmberClassConstructor<T1 & T2 & T3 & Instance>;
-
-            static extend<
-                Statics,
-                Instance extends B1 & B2 & B3 & B4,
-                T1 extends EmberClassArguments,
-                B1,
-                T2 extends EmberClassArguments,
-                B2,
-                T3 extends EmberClassArguments,
-                B3,
-                T4 extends EmberClassArguments,
-                B4
-            >(
-                this: Statics & EmberClassConstructor<Instance>,
-                arg1: MixinOrLiteral<T1, B1> & ThisType<Fix<Instance & T1>>,
-                arg2: MixinOrLiteral<T2, B2> & ThisType<Fix<Instance & T1 & T2>>,
-                arg3: MixinOrLiteral<T3, B3> & ThisType<Fix<Instance & T1 & T2 & T3>>,
-                arg4: MixinOrLiteral<T4, B4> & ThisType<Fix<Instance & T1 & T2 & T3 & T4>>
-            ): Objectify<Statics> & EmberClassConstructor<T1 & T2 & T3 & T4 & Instance>;
-
-            static reopen<Statics, Instance>(
-                this: Statics & EmberClassConstructor<Instance>
-            ): Objectify<Statics> & EmberClassConstructor<Instance>;
-
-            static reopen<Statics, Instance extends B1, T1 extends EmberClassArguments, B1>(
-                this: Statics & EmberClassConstructor<Instance>,
-                arg1: MixinOrLiteral<T1, B1> & ThisType<Fix<Instance & T1>>
-            ): Objectify<Statics> & EmberClassConstructor<Instance & T1>;
-
-            static reopen<
-                Statics,
-                Instance extends B1 & B2,
-                T1 extends EmberClassArguments,
-                B1,
-                T2 extends EmberClassArguments,
-                B2
-            >(
-                this: Statics & EmberClassConstructor<Instance>,
-                arg1: MixinOrLiteral<T1, B1> & ThisType<Fix<Instance & T1>>,
-                arg2: MixinOrLiteral<T2, B2> & ThisType<Fix<Instance & T1 & T2>>
-            ): Objectify<Statics> & EmberClassConstructor<Instance & T1 & T2>;
-
-            static reopen<
-                Statics,
-                Instance extends B1 & B2 & B3,
-                T1 extends EmberClassArguments,
-                B1,
-                T2 extends EmberClassArguments,
-                B2,
-                T3 extends EmberClassArguments,
-                B3
-            >(
-                this: Statics & EmberClassConstructor<Instance>,
-                arg1: MixinOrLiteral<T1, B1> & ThisType<Fix<Instance & T1>>,
-                arg2: MixinOrLiteral<T2, B2> & ThisType<Fix<Instance & T1 & T2>>,
-                arg3: MixinOrLiteral<T3, B3> & ThisType<Fix<Instance & T1 & T2 & T3>>
-            ): Objectify<Statics> & EmberClassConstructor<Instance & T1 & T2 & T3>;
-
-            static reopenClass<Statics>(this: Statics): Statics;
-
-            static reopenClass<Statics, T1 extends EmberClassArguments>(
-                this: Statics,
-                arg1: T1
-            ): Statics & T1;
-
-            static reopenClass<
-                Statics,
-                T1 extends EmberClassArguments,
-                T2 extends EmberClassArguments
-            >(this: Statics, arg1: T1, arg2: T2): Statics & T1 & T2;
-
-            static reopenClass<
-                Statics,
-                T1 extends EmberClassArguments,
-                T2 extends EmberClassArguments,
-                T3 extends EmberClassArguments
-            >(this: Statics, arg1: T1, arg2: T2, arg3: T3): Statics & T1 & T2 & T3;
-
-            static detect<Statics, Instance>(
-                this: Statics & EmberClassConstructor<Instance>,
-                obj: any
-            ): obj is Objectify<Statics> & EmberClassConstructor<Instance>;
-
-            static detectInstance<Instance>(
-                this: EmberClassConstructor<Instance>,
-                obj: any
-            ): obj is Instance;
-
-            /**
-             * Iterate over each computed property for the class, passing its name and any
-             * associated metadata (see metaForProperty) to the callback.
-             */
-            static eachComputedProperty(callback: (...args: any[]) => any, binding: {}): void;
-            /**
-             * Returns the original hash that was passed to meta().
-             * @param key property name
-             */
-            static metaForProperty(key: string): {};
-            static isClass: boolean;
-            static isMethod: boolean;
-        }
+        const Copyable: EmberMixin<Copyable>;
+        // TODO: replace with a proper ES6 reexport once we remove declare module 'ember' {}
+        class Object extends EmberObjectNs.default {}
+        class CoreObject extends EmberCoreObject {}
         /**
          * The `DataAdapter` helps a data persistence library
          * interface with tools that debug Ember such as Chrome and Firefox.
@@ -1130,7 +873,7 @@ declare module 'ember' {
          * The `EngineInstance` encapsulates all of the stateful aspects of a
          * running `Engine`.
          */
-        class EngineInstance extends Ember.Object.extend(
+        class EngineInstance extends Object.extend(
             _RegistryProxyMixin,
             _ContainerProxyMixin
         ) {
@@ -1305,7 +1048,7 @@ declare module 'ember' {
              */
             '[]': ComputedProperty<this>;
         }
-        const Enumerable: Mixin<Enumerable<any>>;
+        const Enumerable: EmberMixin<Enumerable<any>>;
         /**
          * A subclass of the JavaScript Error object for use in Ember.
          */
@@ -1324,51 +1067,7 @@ declare module 'ember' {
              */
             events: EventDispatcherEvents;
         }
-        /**
-         * This mixin allows for Ember objects to subscribe to and emit events.
-         */
-        interface Evented {
-            /**
-             * Subscribes to a named event with given function.
-             */
-            on<Target>(
-                name: string,
-                target: Target,
-                method: (this: Target, ...args: any[]) => void
-            ): this;
-            on(name: string, method: (...args: any[]) => void): this;
-            /**
-             * Subscribes a function to a named event and then cancels the subscription
-             * after the first time the event is triggered. It is good to use ``one`` when
-             * you only care about the first time an event has taken place.
-             */
-            one<Target>(
-                name: string,
-                target: Target,
-                method: (this: Target, ...args: any[]) => void
-            ): this;
-            one(name: string, method: (...args: any[]) => void): this;
-            /**
-             * Triggers a named event for the object. Any additional arguments
-             * will be passed as parameters to the functions that are subscribed to the
-             * event.
-             */
-            trigger(name: string, ...args: any[]): any;
-            /**
-             * Cancels subscription for given name, target, and method.
-             */
-            off<Target>(
-                name: string,
-                target: Target,
-                method: (this: Target, ...args: any[]) => void
-            ): this;
-            off(name: string, method: (...args: any[]) => void): this;
-            /**
-             * Checks to see if object has any subscriptions for named event.
-             */
-            has(name: string): boolean;
-        }
-        const Evented: Mixin<Evented>;
+        const Evented: typeof EmberObjectEventedNs.default;
         /**
          * The `Ember.Freezable` mixin implements some basic methods for marking an
          * object as frozen. Once an object is frozen it should be read only. No changes
@@ -1379,7 +1078,7 @@ declare module 'ember' {
             freeze(): Freezable;
             isFrozen: boolean;
         }
-        const Freezable: Mixin<Freezable>;
+        const Freezable: EmberMixin<Freezable>;
         /**
          * `Ember.HashLocation` implements the location API using the browser's
          * hash. At present, it relies on a `hashchange` event existing in the
@@ -1524,39 +1223,7 @@ declare module 'ember' {
             copy(): MapWithDefault;
             static create(): MapWithDefault;
         }
-        /**
-         * The `Ember.Mixin` class allows you to create mixins, whose properties can be
-         * added to other classes.
-         */
-        class Mixin<T, Base = Ember.Object> {
-            /**
-             * Mixin needs to have *something* on its prototype, otherwise it's treated like an empty interface.
-             * It cannot be private, sadly.
-             */
-            __ember_mixin__: never;
-
-            static create<T, Base = Ember.Object>(
-              args?: MixinOrLiteral<T, Base> & ThisType<Fix<T & Base>>
-            ): Mixin<T, Base>;
-
-            static create<T1, T2, Base = Ember.Object>(
-              arg1: MixinOrLiteral<T1, Base> & ThisType<Fix<T1 & Base>>,
-              arg2: MixinOrLiteral<T2, Base> & ThisType<Fix<T2 & Base>>
-            ): Mixin<T1 & T2, Base>;
-
-            static create<T1, T2, T3, Base = Ember.Object>(
-              arg1: MixinOrLiteral<T1, Base> & ThisType<Fix<T1 & Base>>,
-              arg2: MixinOrLiteral<T2, Base> & ThisType<Fix<T2 & Base>>,
-              arg3: MixinOrLiteral<T3, Base> & ThisType<Fix<T3 & Base>>
-            ): Mixin<T1 & T2 & T3, Base>;
-
-            static create<T1, T2, T3, T4, Base = Ember.Object>(
-              arg1: MixinOrLiteral<T1, Base> & ThisType<Fix<T1 & Base>>,
-              arg2: MixinOrLiteral<T2, Base> & ThisType<Fix<T2 & Base>>,
-              arg3: MixinOrLiteral<T3, Base> & ThisType<Fix<T3 & Base>>,
-              arg4: MixinOrLiteral<T4, Base> & ThisType<Fix<T4 & Base>>
-            ): Mixin<T1 & T2 & T3 & T4, Base>;
-        }
+        class Mixin<T, Base = EmberObjectNs.default> extends EmberMixin<T, Base> {}
         /**
          * This mixin defines the API for modifying array-like objects. These methods
          * can be applied only to a collection that keeps its items in an ordered set.
@@ -1677,115 +1344,6 @@ declare module 'ember' {
          */
         class NoneLocation extends Object {}
         /**
-         * `Ember.Object` is the main base class for all Ember objects. It is a subclass
-         * of `Ember.CoreObject` with the `Ember.Observable` mixin applied. For details,
-         * see the documentation for each of these.
-         */
-        class Object extends CoreObject.extend(Observable) {}
-        /**
-         * `Ember.ObjectProxy` forwards all properties not defined by the proxy itself
-         * to a proxied `content` object.
-         */
-        class ObjectProxy extends Object {
-            /**
-             * The object whose properties will be forwarded.
-             */
-            content: object;
-        }
-        /**
-         * This mixin provides properties and property observing functionality, core features of the Ember object model.
-         */
-        interface Observable {
-            /**
-             * Retrieves the value of a property from the object.
-             */
-            get<K extends keyof this>(key: K): UnwrapComputedPropertyGetter<this[K]>;
-            /**
-             * To get the values of multiple properties at once, call `getProperties`
-             * with a list of strings or an array:
-             */
-            getProperties<K extends keyof this>(list: K[]): Pick< UnwrapComputedPropertyGetters<this>, K>;
-            getProperties<K extends keyof this>(
-                ...list: K[]
-            ): Pick< UnwrapComputedPropertyGetters<this>, K>;
-            /**
-             * Sets the provided key or path to the value.
-             */
-            set<K extends keyof this>(key: K, value: this[K]): this[K];
-            set<T>(key: keyof this, value: T): T;
-            /**
-             * Sets a list of properties at once. These properties are set inside
-             * a single `beginPropertyChanges` and `endPropertyChanges` batch, so
-             * observers will be buffered.
-             */
-            setProperties<K extends keyof this>(
-                hash: Pick<this, K>
-            ): Pick< UnwrapComputedPropertySetters<this>, K>;
-            setProperties<K extends keyof this>(
-                hash: {[KK in K]: any}
-            ): Pick< UnwrapComputedPropertySetters<this>, K>;
-            /**
-             * Convenience method to call `propertyWillChange` and `propertyDidChange` in
-             * succession.
-             */
-            notifyPropertyChange(keyName: string): this;
-            /**
-             * Adds an observer on a property.
-             */
-            addObserver<Target>(
-                key: keyof this,
-                target: Target,
-                method: ObserverMethod<Target, this>
-            ): this;
-            addObserver(
-                key: keyof this,
-                method: ObserverMethod<this, this>
-            ): this;
-            /**
-             * Remove an observer you have previously registered on this object. Pass
-             * the same key, target, and method you passed to `addObserver()` and your
-             * target will no longer receive notifications.
-             */
-            removeObserver<Target>(
-                key: keyof this,
-                target: Target,
-                method: ObserverMethod<Target, this>
-            ): this;
-            removeObserver(
-                key: keyof this,
-                method: ObserverMethod<this, this>
-            ): this;
-            /**
-             * Retrieves the value of a property, or a default value in the case that the
-             * property returns `undefined`.
-             */
-            getWithDefault<K extends keyof this>(
-                key: K,
-                defaultValue: UnwrapComputedPropertyGetter<this[K]>
-            ): UnwrapComputedPropertyGetter<this[K]>;
-            /**
-             * Set the value of a property to the current value plus some amount.
-             */
-            incrementProperty(keyName: keyof this, increment?: number): number;
-            /**
-             * Set the value of a property to the current value minus some amount.
-             */
-            decrementProperty(keyName: keyof this, decrement?: number): number;
-            /**
-             * Set the value of a boolean property to the opposite of its
-             * current value.
-             */
-            toggleProperty(keyName: keyof this): boolean;
-            /**
-             * Returns the cached value of a computed property, if it exists.
-             * This allows you to inspect the value of a computed property
-             * without accidentally invoking it if it is intended to be
-             * generated lazily.
-             */
-            cacheFor<K extends keyof this>(key: K): UnwrapComputedPropertyGetter<this[K]> | undefined;
-        }
-        const Observable: Mixin<Observable, Ember.CoreObject>;
-        /**
          * This class is used internally by Ember and Ember Data.
          * Please do not use it at this time. We plan to clean it up
          * and add many tests soon.
@@ -1801,37 +1359,7 @@ declare module 'ember' {
             isEmpty(): boolean;
             toArray(): any[];
         }
-        /**
-         * A low level mixin making ObjectProxy promise-aware.
-         */
-        interface PromiseProxyMixin<T> extends RSVP.Promise<T> {
-            /**
-             * If the proxied promise is rejected this will contain the reason
-             * provided.
-             */
-            reason: any;
-            /**
-             * Once the proxied promise has settled this will become `false`.
-             */
-            isPending: boolean;
-            /**
-             * Once the proxied promise has settled this will become `true`.
-             */
-            isSettled: boolean;
-            /**
-             * Will become `true` if the proxied promise is rejected.
-             */
-            isRejected: boolean;
-            /**
-             * Will become `true` if the proxied promise is fulfilled.
-             */
-            isFulfilled: boolean;
-            /**
-             * The promise whose fulfillment value is being proxied by this object.
-             */
-            promise: RSVP.Promise<T>;
-        }
-        const PromiseProxyMixin: Mixin<PromiseProxyMixin<any>>;
+
         /**
          * A registry used to store factory and option information keyed
          * by type.
@@ -2236,7 +1764,7 @@ declare module 'ember' {
             bubbles: boolean;
             onEvent: string;
         }
-        const TextSupport: Ember.Mixin<TextSupport, Ember.Component>;
+        const TextSupport: Mixin<TextSupport, Ember.Component>;
         interface Transition {
             /**
              * Aborts the Transition. Note you can also implicitly abort a transition
@@ -2431,256 +1959,19 @@ declare module 'ember' {
             function log(level: string, str: string): void;
         }
         namespace String {
-            const camelize: typeof EmberString.camelize;
-            const capitalize: typeof EmberString.capitalize;
-            const classify: typeof EmberString.classify;
-            const dasherize: typeof EmberString.dasherize;
-            const decamelize: typeof EmberString.decamelize;
+            const camelize: typeof EmberStringNs.camelize;
+            const capitalize: typeof EmberStringNs.capitalize;
+            const classify: typeof EmberStringNs.classify;
+            const dasherize: typeof EmberStringNs.dasherize;
+            const decamelize: typeof EmberStringNs.decamelize;
             function fmt(...args: string[]): string;
-            const htmlSafe: typeof EmberString.htmlSafe;
-            const isHTMLSafe: typeof EmberString.isHTMLSafe;
-            const loc: typeof EmberString.loc;
-            const underscore: typeof EmberString.underscore;
-            const w: typeof EmberString.w;
+            const htmlSafe: typeof EmberStringNs.htmlSafe;
+            const isHTMLSafe: typeof EmberStringNs.isHTMLSafe;
+            const loc: typeof EmberStringNs.loc;
+            const underscore: typeof EmberStringNs.underscore;
+            const w: typeof EmberStringNs.w;
         }
-        const computed: {
-            <T>(cb: ComputedPropertyCallback<T>): ComputedProperty<T>;
-            <T>(k1: string, cb: ComputedPropertyCallback<T>): ComputedProperty<T>;
-            <T>(k1: string, k2: string, cb: ComputedPropertyCallback<T>): ComputedProperty<T>;
-            <T>(
-                k1: string,
-                k2: string,
-                k3: string,
-                cb: ComputedPropertyCallback<T>
-            ): ComputedProperty<T>;
-            <T>(
-                k1: string,
-                k2: string,
-                k3: string,
-                k4: string,
-                cb: ComputedPropertyCallback<T>
-            ): ComputedProperty<T>;
-            <T>(
-                k1: string,
-                k2: string,
-                k3: string,
-                k4: string,
-                k5: string,
-                cb: ComputedPropertyCallback<T>
-            ): ComputedProperty<T>;
-            <T>(
-                k1: string,
-                k2: string,
-                k3: string,
-                k4: string,
-                k5: string,
-                k6: string,
-                cb: ComputedPropertyCallback<T>
-            ): ComputedProperty<T>;
-            (
-                k1: string,
-                k2: string,
-                k3: string,
-                k4: string,
-                k5: string,
-                k6: string,
-                k7: string,
-                ...rest: any[]
-            ): ComputedProperty<any>;
-
-            /**
-             * A computed property that returns true if the value of the dependent
-             * property is null, an empty string, empty array, or empty function.
-             */
-            empty(dependentKey: string): ComputedProperty<boolean>;
-            /**
-             * A computed property that returns true if the value of the dependent
-             * property is NOT null, an empty string, empty array, or empty function.
-             */
-            notEmpty(dependentKey: string): ComputedProperty<boolean>;
-            /**
-             * A computed property that returns true if the value of the dependent
-             * property is null or undefined. This avoids errors from JSLint complaining
-             * about use of ==, which can be technically confusing.
-             */
-            none(dependentKey: string): ComputedProperty<boolean>;
-            /**
-             * A computed property that returns the inverse boolean value
-             * of the original value for the dependent property.
-             */
-            not(dependentKey: string): ComputedProperty<boolean>;
-            /**
-             * A computed property that converts the provided dependent property
-             * into a boolean value.
-             */
-            bool(dependentKey: string): ComputedProperty<boolean>;
-            /**
-             * A computed property which matches the original value for the
-             * dependent property against a given RegExp, returning `true`
-             * if the value matches the RegExp and `false` if it does not.
-             */
-            match(dependentKey: string, regexp: RegExp): ComputedProperty<boolean>;
-            /**
-             * A computed property that returns true if the provided dependent property
-             * is equal to the given value.
-             */
-            equal(dependentKey: string, value: any): ComputedProperty<boolean>;
-            /**
-             * A computed property that returns true if the provided dependent property
-             * is greater than the provided value.
-             */
-            gt(dependentKey: string, value: number): ComputedProperty<boolean>;
-            /**
-             * A computed property that returns true if the provided dependent property
-             * is greater than or equal to the provided value.
-             */
-            gte(dependentKey: string, value: number): ComputedProperty<boolean>;
-            /**
-             * A computed property that returns true if the provided dependent property
-             * is less than the provided value.
-             */
-            lt(dependentKey: string, value: number): ComputedProperty<boolean>;
-            /**
-             * A computed property that returns true if the provided dependent property
-             * is less than or equal to the provided value.
-             */
-            lte(dependentKey: string, value: number): ComputedProperty<boolean>;
-            /**
-             * A computed property that performs a logical `and` on the
-             * original values for the provided dependent properties.
-             */
-            and(...dependentKeys: string[]): ComputedProperty<boolean>;
-            /**
-             * A computed property which performs a logical `or` on the
-             * original values for the provided dependent properties.
-             */
-            or(...dependentKeys: string[]): ComputedProperty<boolean>;
-            /**
-             * Creates a new property that is an alias for another property
-             * on an object. Calls to `get` or `set` this property behave as
-             * though they were called on the original property.
-             */
-            alias(dependentKey: string): ComputedProperty<any>;
-            /**
-             * Where `computed.alias` aliases `get` and `set`, and allows for bidirectional
-             * data flow, `computed.oneWay` only provides an aliased `get`. The `set` will
-             * not mutate the upstream property, rather causes the current property to
-             * become the value set. This causes the downstream property to permanently
-             * diverge from the upstream property.
-             */
-            oneWay(dependentKey: string): ComputedProperty<any>;
-            /**
-             * This is a more semantically meaningful alias of `computed.oneWay`,
-             * whose name is somewhat ambiguous as to which direction the data flows.
-             */
-            reads(dependentKey: string): ComputedProperty<any>;
-            /**
-             * Where `computed.oneWay` provides oneWay bindings, `computed.readOnly` provides
-             * a readOnly one way binding. Very often when using `computed.oneWay` one does
-             * not also want changes to propagate back up, as they will replace the value.
-             */
-            readOnly(dependentKey: string): ComputedProperty<any>;
-            /**
-             * Creates a new property that is an alias for another property
-             * on an object. Calls to `get` or `set` this property behave as
-             * though they were called on the original property, but also
-             * print a deprecation warning.
-             */
-            deprecatingAlias(
-                dependentKey: string,
-                options: { id: string; until: string }
-            ): ComputedProperty<any>;
-            /**
-             * @deprecated Missing deprecation options: https://emberjs.com/deprecations/v2.x/#toc_ember-debug-function-options
-             */
-            deprecatingAlias(
-                dependentKey: string,
-                options?: { id?: string; until?: string }
-            ): ComputedProperty<any>;
-            /**
-             * A computed property that returns the sum of the values
-             * in the dependent array.
-             */
-            sum(dependentKey: string): ComputedProperty<number>;
-            /**
-             * A computed property that calculates the maximum value in the
-             * dependent array. This will return `-Infinity` when the dependent
-             * array is empty.
-             */
-            max(dependentKey: string): ComputedProperty<number>;
-            /**
-             * A computed property that calculates the minimum value in the
-             * dependent array. This will return `Infinity` when the dependent
-             * array is empty.
-             */
-            min(dependentKey: string): ComputedProperty<number>;
-            /**
-             * Returns an array mapped via the callback
-             */
-            map<U>(
-                dependentKey: string,
-                callback: (value: any, index: number, array: any[]) => U
-            ): ComputedProperty<U[]>;
-            /**
-             * Returns an array mapped to the specified key.
-             */
-            mapBy(dependentKey: string, propertyKey: string): ComputedProperty<any[]>;
-            /**
-             * Filters the array by the callback.
-             */
-            filter(
-                dependentKey: string,
-                callback: (value: any, index: number, array: any[]) => boolean
-            ): ComputedProperty<any[]>;
-            /**
-             * Filters the array by the property and value
-             */
-            filterBy(
-                dependentKey: string,
-                propertyKey: string,
-                value?: any
-            ): ComputedProperty<any[]>;
-            /**
-             * A computed property which returns a new array with all the unique
-             * elements from one or more dependent arrays.
-             */
-            uniq(propertyKey: string): ComputedProperty<any[]>;
-            /**
-             * A computed property which returns a new array with all the unique
-             * elements from an array, with uniqueness determined by specific key.
-             */
-            uniqBy(dependentKey: string, propertyKey: string): ComputedProperty<any[]>;
-            /**
-             * A computed property which returns a new array with all the unique
-             * elements from one or more dependent arrays.
-             */
-            union(...propertyKeys: string[]): ComputedProperty<any[]>;
-            /**
-             * A computed property which returns a new array with all the elements
-             * two or more dependent arrays have in common.
-             */
-            intersect(...propertyKeys: string[]): ComputedProperty<any[]>;
-            /**
-             * A computed property which returns a new array with all the
-             * properties from the first dependent array that are not in the second
-             * dependent array.
-             */
-            setDiff(setAProperty: string, setBProperty: string): ComputedProperty<any[]>;
-            /**
-             * A computed property that returns the array of values
-             * for the provided dependent properties.
-             */
-            collect(...dependentKeys: string[]): ComputedProperty<any[]>;
-            /**
-             * A computed property which returns a new array with all the
-             * properties from the first dependent array sorted based on a property
-             * or sort function.
-             */
-            sort(
-                itemsKey: string,
-                sortDefinition: string | ((itemA: any, itemB: any) => number)
-            ): ComputedProperty<any[]>;
-        };
+        const computed: typeof EmberObjectNs.computed;
         const run: {
             /**
              * Runs the passed target and method inside of a RunLoop, ensuring any
@@ -3009,18 +2300,7 @@ declare module 'ember' {
          * Display a debug notice.
          */
         function debug(message: string): void;
-        /**
-         * NOTE: This is a low-level method used by other parts of the API.
-         * You almost never want to call this method directly. Instead you
-         * should use Ember.mixin() to define new properties.
-         */
-        function defineProperty(
-            obj: object,
-            keyName: string,
-            desc?: PropertyDescriptor | ComputedProperty<any>,
-            data?: any,
-            meta?: any
-        ): void;
+        const defineProperty: typeof EmberObjectNs.defineProperty;
         /**
          * Alias an old, deprecated method with its new counterpart.
          */
@@ -3059,200 +2339,29 @@ declare module 'ember' {
          * @deprecated https://emberjs.com/deprecations/v2.x#toc_ember-binding
          */
         function bind(obj: {}, to: string, from: string): Binding;
-        /**
-         * Returns the cached value for a property, if one exists.
-         * This can be useful for peeking at the value of a computed
-         * property that is generated lazily, without accidentally causing
-         * it to be created.
-         */
-        function cacheFor<T, K extends keyof T>(
-            obj: T,
-            key: K
-        ): UnwrapComputedPropertyGetter<T[K]> | undefined;
-        /**
-         * Add an event listener
-         */
-        function addListener<Context, Target>(
-            obj: Context,
-            key: keyof Context,
-            target: Target,
-            method: ObserverMethod<Target, Context>,
-            once?: boolean
-        ): void;
-        function addListener<Context>(
-            obj: Context,
-            key: keyof Context,
-            method: ObserverMethod<Context, Context>
-        ): void;
-        /**
-         * Remove an event listener
-         */
-        function removeListener<Context, Target>(
-            obj: Context,
-            key: keyof Context,
-            target: Target,
-            method: ObserverMethod<Target, Context>
-        ): any;
-        function removeListener<Context>(
-            obj: Context,
-            key: keyof Context,
-            method: ObserverMethod<Context, Context>
-        ): any;
-        /**
-         * Send an event. The execution of suspended listeners
-         * is skipped, and once listeners are removed. A listener without
-         * a target is executed on the passed object. If an array of actions
-         * is not passed, the actions stored on the passed object are invoked.
-         */
-        function sendEvent(obj: any, eventName: string, params?: any[], actions?: any[]): boolean;
-        /**
-         * Define a property as a function that should be executed when
-         * a specified event or events are triggered.
-         */
-        function on(eventNames: string, func: (...args: any[]) => void): (...args: any[]) => void;
-        /**
-         * To get multiple properties at once, call `Ember.getProperties`
-         * with an object followed by a list of strings or an array:
-         */
-        function getProperties<T, K extends keyof T>(obj: T, list: K[]): Pick<UnwrapComputedPropertyGetters<T>, K>; // for dynamic K
-        function getProperties<T, K extends keyof T>(
-            obj: T,
-            ...list: K[]
-        ): Pick<UnwrapComputedPropertyGetters<T>, K>;
-        /**
-         * A value is blank if it is empty or a whitespace string.
-         */
-        function isBlank(obj?: any): boolean;
-        /**
-         * Verifies that a value is `null` or an empty string, empty array,
-         * or empty function.
-         */
-        function isEmpty(obj?: any): boolean;
-        /**
-         * Returns true if the passed value is null or undefined. This avoids errors
-         * from JSLint complaining about use of ==, which can be technically
-         * confusing.
-         */
-        function isNone(obj?: any): obj is null | undefined;
-        /**
-         * A value is present if it not `isBlank`.
-         */
-        function isPresent(obj?: any): boolean;
-        const merge: typeof EmberPolyfills.merge;
-        /**
-         * Makes a method available via an additional name.
-         */
-        function aliasMethod(methodName: string): ComputedProperty<any>;
-        /**
-         * Specify a method that observes property changes.
-         */
-        function observer<Fn extends (target: any, key: string) => void>(key1: string, func: Fn): Fn;
-        function observer<Fn extends (target: any, key: string) => void>(
-            key1: string,
-            key2: string,
-            func: Fn
-        ): Fn;
-        function observer<Fn extends (target: any, key: string) => void>(
-            key1: string,
-            key2: string,
-            key3: string,
-            func: Fn
-        ): Fn;
-        function observer<Fn extends (target: any, key: string) => void>(
-            key1: string,
-            key2: string,
-            key3: string,
-            key4: string,
-            func: Fn
-        ): Fn;
-        function observer<Fn extends (target: any, key: string) => void>(
-            key1: string,
-            key2: string,
-            key3: string,
-            key4: string,
-            key5: string,
-            func: Fn
-        ): Fn;
-        /**
-         * Adds an observer on a property.
-         */
-        function addObserver<Context, Target>(
-            obj: Context,
-            key: keyof Context,
-            target: Target,
-            method: ObserverMethod<Target, Context>
-        ): void;
-        function addObserver<Context>(
-            obj: Context,
-            key: keyof Context,
-            method: ObserverMethod<Context, Context>
-        ): void;
-        /**
-         * Remove an observer you have previously registered on this object. Pass
-         * the same key, target, and method you passed to `addObserver()` and your
-         * target will no longer receive notifications.
-         */
-        function removeObserver<Context, Target>(
-            obj: Context,
-            key: keyof Context,
-            target: Target,
-            method: ObserverMethod<Target, Context>
-        ): any;
-        function removeObserver<Context>(
-            obj: Context,
-            key: keyof Context,
-            method: ObserverMethod<Context, Context>
-        ): any;
-        /**
-         * Gets the value of a property on an object. If the property is computed,
-         * the function will be invoked. If the property is not defined but the
-         * object implements the `unknownProperty` method then that will be invoked.
-         */
-        function get<T, K extends keyof T>(obj: T, key: K): UnwrapComputedPropertyGetter<T[K]>;
-        /**
-         * Retrieves the value of a property from an Object, or a default value in the
-         * case that the property returns `undefined`.
-         */
-        function getWithDefault<T, K extends keyof T>(
-            obj: T,
-            key: K,
-            defaultValue: UnwrapComputedPropertyGetter<T[K]>
-        ): UnwrapComputedPropertyGetter<T[K]>;
-        /**
-         * Sets the value of a property on an object, respecting computed properties
-         * and notifying observers and other listeners of the change. If the
-         * property is not defined but the object implements the `setUnknownProperty`
-         * method then that will be invoked as well.
-         */
-        function set<T, K extends keyof T>(
-            obj: T,
-            key: K,
-            value: UnwrapComputedPropertySetter<T[K]>
-        ): UnwrapComputedPropertyGetter<T[K]>;
-        function set<T, K extends keyof T>(
-            obj: T,
-            key: K,
-            value: T[K]
-        ): T[K];
-        /**
-         * Error-tolerant form of `Ember.set`. Will not blow up if any part of the
-         * chain is `undefined`, `null`, or destroyed.
-         */
-        function trySet(root: object, path: string, value: any): any;
-        /**
-         * Set a list of properties on an object. These properties are set inside
-         * a single `beginPropertyChanges` and `endPropertyChanges` batch, so
-         * observers will be buffered.
-         */
-        function setProperties<T, K extends keyof T>(
-            obj: T,
-            hash: Pick<UnwrapComputedPropertySetters<T>, K>
-        ): Pick<UnwrapComputedPropertyGetters<T>, K>;
-        // TODO: in TS2.9 - Pick<UnwrapComputedPropertySetters<T> | T, K>
-        function setProperties<T, K extends keyof T>(
-            obj: T,
-            hash: Pick<T, K>
-        ): Pick<T, K>;
+        const cacheFor: typeof EmberObjectInternalsNs.cacheFor;
+        export const addListener: typeof EmberObjectEventsNs.addListener;
+        export const removeListener: typeof EmberObjectEventsNs.removeListener;
+        export const sendEvent: typeof EmberObjectEventsNs.sendEvent;
+        export const on: typeof EmberObjectEventedNs.on;
+
+        const isBlank: typeof EmberUtilsNs.isBlank;
+        const isEmpty: typeof EmberUtilsNs.isEmpty;
+        const isNone: typeof EmberUtilsNs.isNone;
+        const isPresent: typeof EmberUtilsNs.isPresent;
+        const merge: typeof EmberPolyfillsNs.merge;
+
+        const aliasMethod: typeof EmberObjectNs.aliasMethod;
+        const observer: typeof EmberObjectNs.observer;
+        const addObserver: typeof EmberObjectObserversNs.addObserver;
+        const removeObserver: typeof EmberObjectObserversNs.removeObserver;
+        const get: typeof EmberObjectNs.get;
+        const getWithDefault: typeof EmberObjectNs.getWithDefault;
+        const getProperties: typeof EmberObjectNs.getProperties;
+        const setProperties: typeof EmberObjectNs.setProperties;
+        const set: typeof EmberObjectNs.set;
+        const trySet: typeof EmberObjectNs.trySet;
+
         /**
          * Detects when a specific package of Ember (e.g. 'Ember.Application')
          * has fully loaded and is available for extension.
@@ -3272,35 +2381,24 @@ declare module 'ember' {
          * will be `true`.
          */
         function A<T>(arr?: T[]): NativeArray<T>;
-        /**
-         * Compares two javascript values and returns:
-         */
-        function compare(v: any, w: any): number;
+        const compare: typeof EmberUtilsNs.compare;
         /**
          * Creates a shallow copy of the passed object. A deep copy of the object is
          * returned if the optional `deep` argument is `true`.
          */
-        function copy(obj: any, deep?: boolean): any;
-        /**
-         * Compares two objects, returning true if they are equal.
-         */
-        function isEqual(a: any, b: any): boolean;
+        const copy: typeof EmberObjectInternalsNs.copy;
+        const isEqual: typeof EmberUtilsNs.isEqual;
         /**
          * Returns true if the passed object is an array or Array-like.
          */
         function isArray(obj: any): obj is ArrayLike<any>;
-        /**
-         * Returns a consistent type for the passed object.
-         */
-        function typeOf<T>(value: T): KeysOfType<TypeLookup, T>;
-        function typeOf(): 'undefined';
-        function typeOf(item: any): string;
+        const typeOf: typeof EmberUtilsNs.typeOf;
         // TODO: replace with an es6 reexport when declare module 'ember' is removed
         /**
          * Copy properties from a source object to a target object.
          * @deprecated Use Object.assign
          */
-        const assign: typeof EmberPolyfills.assign;
+        const assign: typeof EmberPolyfillsNs.assign;
         /**
          * Polyfill for Object.create
          * @deprecated Use Object.create
@@ -3311,30 +2409,13 @@ declare module 'ember' {
          * @deprecated Use Object.keys
          */
         function keys(o: any): string[];
-        /**
-         * Returns a unique id for the object. If the object does not yet have a guid,
-         * one will be assigned to it. You can call this on any object,
-         * `Ember.Object`-based or not, but be aware that it will add a `_guid`
-         * property.
-         */
-        function guidFor(obj: any): string;
+        const guidFor: typeof EmberObjectInternalsNs.guidFor;
         /**
          * Convenience method to inspect an object. This method will attempt to
          * convert the object into a useful string description.
          */
         function inspect(obj: any): string;
-        /**
-         * Checks to see if the `methodName` exists on the `obj`,
-         * and if it does, invokes it with the arguments passed.
-         */
-        function tryInvoke<FNAME extends keyof T, T extends object>(
-            obj: T,
-            methodName: FNAME,
-            args: FunctionArgs<T[FNAME]>): T[FNAME] extends ((...args: any[]) => any)
-                ? ReturnType<T[FNAME]>
-                : undefined;
-        function tryInvoke<FNAME extends keyof T, T extends object>(obj: T, methodName: FNAME): T[FNAME] extends (() => any) ? ReturnType<T[FNAME]> : undefined;
-        function tryInvoke(obj: object, methodName: string, args?: any[]): undefined;
+        const tryInvoke: typeof EmberUtilsNs.tryInvoke;
         /**
          * Framework objects in an Ember application (components, services, routes, etc.)
          * are created via a factory and dependency injection system. Each of these
@@ -3380,10 +2461,7 @@ declare module 'ember' {
         const subscribe: typeof Instrumentation.subscribe;
 
         const unsubscribe: typeof Instrumentation.unsubscribe;
-        /**
-         * Expands `pattern`, invoking `callback` for each expansion.
-         */
-        function expandProperties(pattern: string, callback: (expanded: string) => void): void;
+        const expandProperties: typeof EmberObjectComputedNs.expandProperties;
     }
 
     type RouteModel = object | string | number;
@@ -3651,118 +2729,6 @@ declare module '@ember/error' {
     export default Error;
 }
 
-declare module '@ember/object' {
-    import Ember from 'ember';
-    export default class EmberObject extends Ember.Object { }
-    export const aliasMethod: typeof Ember.aliasMethod;
-    export const computed: typeof Ember.computed;
-    export const defineProperty: typeof Ember.defineProperty;
-    export const get: typeof Ember.get;
-    export const getProperties: typeof Ember.getProperties;
-    export const getWithDefault: typeof Ember.getWithDefault;
-    export const observer: typeof Ember.observer;
-    export const set: typeof Ember.set;
-    export const setProperties: typeof Ember.setProperties;
-    export const trySet: typeof Ember.trySet;
-}
-
-declare module '@ember/object/computed' {
-    import Ember from 'ember';
-    type ComputedProperty<Get, Set = Get> = Ember.ComputedProperty<Get, Set>;
-    const ComputedProperty: typeof Ember.ComputedProperty;
-    export default ComputedProperty;
-    export const alias: typeof Ember.computed.alias;
-    export const and: typeof Ember.computed.and;
-    export const bool: typeof Ember.computed.bool;
-    export const collect: typeof Ember.computed.collect;
-    export const deprecatingAlias: typeof Ember.computed.deprecatingAlias;
-    export const empty: typeof Ember.computed.empty;
-    export const equal: typeof Ember.computed.equal;
-    export const expandProperties: typeof Ember.expandProperties;
-    export const filter: typeof Ember.computed.filter;
-    export const filterBy: typeof Ember.computed.filterBy;
-    export const gt: typeof Ember.computed.gt;
-    export const gte: typeof Ember.computed.gte;
-    export const intersect: typeof Ember.computed.intersect;
-    export const lt: typeof Ember.computed.lt;
-    export const lte: typeof Ember.computed.lte;
-    export const map: typeof Ember.computed.map;
-    export const mapBy: typeof Ember.computed.mapBy;
-    export const match: typeof Ember.computed.match;
-    export const max: typeof Ember.computed.max;
-    export const min: typeof Ember.computed.min;
-    export const none: typeof Ember.computed.none;
-    export const not: typeof Ember.computed.not;
-    export const notEmpty: typeof Ember.computed.notEmpty;
-    export const oneWay: typeof Ember.computed.oneWay;
-    export const or: typeof Ember.computed.or;
-    export const readOnly: typeof Ember.computed.readOnly;
-    export const reads: typeof Ember.computed.reads;
-    export const setDiff: typeof Ember.computed.setDiff;
-    export const sort: typeof Ember.computed.sort;
-    export const sum: typeof Ember.computed.sum;
-    export const union: typeof Ember.computed.union;
-    export const uniq: typeof Ember.computed.uniq;
-    export const uniqBy: typeof Ember.computed.uniqBy;
-}
-
-declare module '@ember/object/core' {
-    import Ember from 'ember';
-    export default class CoreObject extends Ember.CoreObject { }
-}
-
-declare module '@ember/object/evented' {
-    import Ember from 'ember';
-    type Evented = Ember.Evented;
-    const Evented: typeof Ember.Evented;
-    export default Evented;
-    export const on: typeof Ember.on;
-}
-
-declare module '@ember/object/events' {
-    import Ember from 'ember';
-    export const addListener: typeof Ember.addListener;
-    export const removeListener: typeof Ember.removeListener;
-    export const sendEvent: typeof Ember.sendEvent;
-}
-
-declare module '@ember/object/internals' {
-    import Ember from 'ember';
-    export const cacheFor: typeof Ember.cacheFor;
-    export const copy: typeof Ember.copy;
-    export const guidFor: typeof Ember.guidFor;
-}
-
-declare module '@ember/object/mixin' {
-    import Ember from 'ember';
-    export default class Mixin<T, Base = Ember.Object> extends Ember.Mixin<T, Base> {}
-}
-
-declare module '@ember/object/observable' {
-    import Ember from 'ember';
-    type Observable = Ember.Observable;
-    const Observable: typeof Ember.Observable;
-    export default Observable;
-}
-
-declare module '@ember/object/observers' {
-    import Ember from 'ember';
-    export const addObserver: typeof Ember.addObserver;
-    export const removeObserver: typeof Ember.removeObserver;
-}
-
-declare module '@ember/object/promise-proxy-mixin' {
-    import Ember from 'ember';
-    type PromiseProxyMixin<T> = Ember.PromiseProxyMixin<T>;
-    const PromiseProxyMixin: typeof Ember.PromiseProxyMixin;
-    export default PromiseProxyMixin;
-}
-
-declare module '@ember/object/proxy' {
-    import Ember from 'ember';
-    export default class ObjectProxy extends Ember.ObjectProxy { }
-}
-
 declare module '@ember/routing/auto-location' {
     import Ember from 'ember';
     export default class AutoLocation extends Ember.AutoLocation { }
@@ -3849,18 +2815,6 @@ declare module '@ember/test' {
 declare module '@ember/test/adapter' {
     import Ember from 'ember';
     export default class TestAdapter extends Ember.Test.Adapter { }
-}
-
-declare module '@ember/utils' {
-    import Ember from 'ember';
-    export const compare: typeof Ember.compare;
-    export const isBlank: typeof Ember.isBlank;
-    export const isEmpty: typeof Ember.isEmpty;
-    export const isEqual: typeof Ember.isEqual;
-    export const isNone: typeof Ember.isNone;
-    export const isPresent: typeof Ember.isPresent;
-    export const tryInvoke: typeof Ember.tryInvoke;
-    export const typeOf: typeof Ember.typeOf;
 }
 
 declare module 'htmlbars-inline-precompile' {

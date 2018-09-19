@@ -3627,7 +3627,7 @@ declare namespace Stripe {
             id: string;
             object: string;
             api_version: string;
-            created: Date;
+            created: number;
             data: {
               object: T;
             };
