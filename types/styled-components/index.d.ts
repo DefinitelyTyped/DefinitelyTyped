@@ -1,7 +1,8 @@
-// Type definitions for styled-components 3.0
+// Type definitions for styled-components 3.4
 // Project: https://github.com/styled-components/styled-components
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
 //                 Ihor Chulinda <https://github.com/Igmat>
+//                 Nico Greenarry <https://github.com/NicoGreenarry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
