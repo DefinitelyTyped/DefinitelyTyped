@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "react-reconciler-tests.ts"
+        "test/react-reconciler-tests.ts"
     ]
 }

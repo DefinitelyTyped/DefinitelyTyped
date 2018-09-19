@@ -27,30 +27,8 @@ export type TimeoutHandle = any;
 export type NoTimeout = -1;
 /* eslint-enable no-use-before-define */
 
-function shim(...args: any[]): any {
-}
-
-export const supportsPersistence = false;
-export const cloneInstance = shim;
-export const createContainerChildSet = shim;
-export const appendChildToContainerChildSet = shim;
-export const finalizeContainerChildren = shim;
-export const replaceContainerChildren = shim;
-export const supportsHydration = false;
-export const canHydrateInstance = shim;
-export const canHydrateTextInstance = shim;
-export const getNextHydratableSibling = shim;
-export const getFirstHydratableChild = shim;
-export const hydrateInstance = shim;
-export const hydrateTextInstance = shim;
-export const didNotMatchHydratedContainerTextInstance = shim;
-export const didNotMatchHydratedTextInstance = shim;
-export const didNotHydrateContainerInstance = shim;
-export const didNotHydrateInstance = shim;
-export const didNotFindHydratableContainerInstance = shim;
-export const didNotFindHydratableContainerTextInstance = shim;
-export const didNotFindHydratableInstance = shim;
-export const didNotFindHydratableTextInstance = shim;
+export * from './HostConfigWithNoPersistence';
+export * from './HostConfigWithNoHydration';
 
 const NO_CONTEXT = {};
 const UPDATE_SIGNAL = {};
