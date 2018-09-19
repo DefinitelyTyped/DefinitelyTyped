@@ -7414,7 +7414,7 @@ declare namespace Office {
             Day = "day"
         }
         /**
-         * Specifies the permissions (using bit flags) that a delegate has on a shared folder.
+         * Specifies the permissions (by bit flags) that a delegate has on a shared folder.
          *
          * [Api set: Mailbox Preview]
          *
@@ -11331,6 +11331,48 @@ declare namespace Office {
          * @beta
          */
         getInitializationContextAsync(options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<string>) => void): void;
+
+       /**
+        * Gets the sharedProperties of an appointment or message.
+        *
+        * [Api set: Mailbox Preview]
+        *
+        * @remarks
+        * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+        *
+        * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or read</td></tr></table>
+        * 
+        * In addition to the main signature, this method also has this signature:
+        * 
+        * `getAsync(callback: (result: AsyncResult<Office.SharedProperties>) => void): void;`
+        *
+        * @param options An object literal that contains one or more of the following properties.
+        *        asyncContext: Developers can provide any object they wish to access in the callback method.
+        * @param callback When the method completes, the function passed in the callback parameter is called with a single parameter of 
+        *                 type Office.AsyncResult.
+        *                 The `value` property of the result is the sharedProperties of the item.
+        * 
+        * @beta
+        */
+        getSharedPropertiesAsync(options: Office.AsyncContextOptions, callback: (result: AsyncResult<Office.SharedProperties>) => void): void;
+
+       /**
+        * Gets the sharedProperties of an appointment or message.
+        *
+        * [Api set: Mailbox Preview]
+        *
+        * @remarks
+        * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+        *
+        * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or read</td></tr></table>
+        * 
+        * @param callback When the method completes, the function passed in the callback parameter is called with a single parameter of 
+        *                 type Office.AsyncResult.
+        *                 The `value` property of the result is the sharedProperties of the item.
+        * 
+        * @beta
+        */
+       getSharedPropertiesAsync(callback: (result: AsyncResult<Office.SharedProperties>) => void): void;
 
        /**
         * Asynchronously loads custom properties for this add-in on the selected item.
@@ -16382,7 +16424,7 @@ declare namespace Office {
     }
 
     /**
-     * Provides methods to get the sharedProperties of an appointment or message in an Outlook add-in.
+     * Represents the sharedProperties of an appointment or message in an Outlook add-in.
      *
      * [Api set: Mailbox Preview]
      *
@@ -16395,87 +16437,17 @@ declare namespace Office {
      */
     interface SharedProperties {
         /**
-         * Gets the email address and display name of the owner of a shared item.
-         * 
-         * [Api set: Mailbox Preview]
-         * 
-         * @remarks
-         * 
-         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         * 
-         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or read</td></tr></table>
-         * 
-         * @beta
+         * The email address and display name of the owner of a shared item.
          */
         owner: EmailUser;
         /**
          * The remote REST url related to the delegator’s mailbox.
-         * 
-         * [Api set: Mailbox Preview]
-         * 
-         * @remarks
-         * 
-         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         * 
-         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or read</td></tr></table>
-         * 
-         * @beta
          */
         restUrl: String;
         /**
          * The permissions that the delegate has on a shared folder.
-         * 
-         * [Api set: Mailbox Preview]
-         * 
-         * @remarks
-         * 
-         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         * 
-         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or read</td></tr></table>
-         * 
-         * @beta
          */
         delegatePermissions: Office.MailboxEnums.DelegatePermissions;
-        /**
-         * Gets the sharedProperties of an appointment or message.
-         *
-         * [Api set: Mailbox Preview]
-         *
-         * @remarks
-         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *
-         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or read</td></tr></table>
-         * 
-         * In addition to the main signature, this method also has this signature:
-         * 
-         * `getAsync(callback: (result: AsyncResult<Office.SharedProperties>) => void): void;`
-         *
-         * @param options An object literal that contains one or more of the following properties.
-         *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         * @param callback When the method completes, the function passed in the callback parameter is called with a single parameter of 
-         *                 type Office.AsyncResult.
-         *                 The `value` property of the result is the sharedProperties of the item.
-         * 
-         * @beta
-         */
-        getAsync(options: Office.AsyncContextOptions, callback: (result: AsyncResult<Office.SharedProperties>) => void): void;
-        /**
-         * Gets the sharedProperties of an appointment or message.
-         *
-         * [Api set: Mailbox Preview]
-         *
-         * @remarks
-         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *
-         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or read</td></tr></table>
-         * 
-         * @param callback When the method completes, the function passed in the callback parameter is called with a single parameter of 
-         *                 type Office.AsyncResult.
-         *                 The `value` property of the result is the sharedProperties of the item.
-         * 
-         * @beta
-         */
-        getAsync(callback: (result: AsyncResult<Office.SharedProperties>) => void): void;
     }
 
     /**
