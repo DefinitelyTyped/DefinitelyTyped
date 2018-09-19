@@ -3,6 +3,7 @@
 // Definitions by: Eloy Durán <https://github.com/alloy>
 //                 HuHuanming <https://github.com/huhuanming>
 //                 Kyle Roach <https://github.com/iRoachie>
+//                 Simon Knott <https://github.com/skn0tt>
 //                 Tim Wang <https://github.com/timwangdev>
 //                 Kamal Mahyuddin <https://github.com/kamal>
 //                 Naoufal El Yousfi <https://github.com/nelyousfi>
@@ -7370,7 +7371,7 @@ export interface NetInfoStatic {
      * sensitive to heavy data usage on that connection due to monetary
      * costs, data limitations or battery/performance issues.
      */
-    isConnectionExpensive: Promise<boolean>;
+    isConnectionExpensive: () => Promise<boolean>;
 }
 
 export interface PanResponderGestureState {
