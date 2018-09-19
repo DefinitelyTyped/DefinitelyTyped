@@ -222,6 +222,13 @@ export interface CommonWrapper<P = {}, S = {}, C = Component<P, S>> {
     simulate(event: string, ...args: any[]): this;
 
     /**
+     * Used to simulate throwing a rendering error. Pass an error to throw.
+     * Returns itself.
+     * @param error
+     */
+    simulateError(error: any): this;
+
+    /**
      * A method to invoke setState() on the root component instance similar to how you might in the definition of
      * the component, and re-renders. This method is useful for testing your component in hard to achieve states,
      * however should be used sparingly. If possible, you should utilize your component's external API in order to

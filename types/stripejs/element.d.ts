@@ -33,7 +33,7 @@ export interface ElementFactory {
     create(
         type: ElementType,
         options: CardElementOptions | IBANElementOptions | IdealBankOptions | PaymentButtonOptions
-    ): Element;
+    ): StripeElement;
 }
 
 export interface ElementCreatorOptions {
@@ -107,7 +107,7 @@ export interface FontConfigElement {
 }
 
 // --- ELEMENT --- //
-export interface Element {
+export interface StripeElement {
     /**
      * Mount the element to the DOM
      * @see https://stripe.com/docs/stripe-js/reference#element-mount

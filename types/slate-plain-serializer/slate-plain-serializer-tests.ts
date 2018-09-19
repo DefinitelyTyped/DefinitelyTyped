@@ -1,4 +1,4 @@
-import * as Plain from "slate-plain-serializer";
+import Plain from "slate-plain-serializer";
 import { Value } from "slate";
 
 const val = Value.create();

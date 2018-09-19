@@ -48,6 +48,10 @@ declare class BN {
         base?: number,
         endian?: Endianness
     );
+    constructor(
+        number: number | string | number[] | Buffer | BN,
+        endian?: Endianness
+    )
 
     /**
      * @description  create a reduction context
@@ -63,6 +67,16 @@ declare class BN {
      * @description returns true if the supplied object is a BN.js instance
      */
     static isBN(b: any): b is BN;
+
+    /**
+     * @description returns the maximum of 2 BN instances.
+     */
+    static max(left: BN, right: BN): BN;
+
+    /**
+     * @description returns the minimum of 2 BN instances.
+     */
+    static min(left: BN, right: BN): BN;
 
     /**
      * @description  Convert number to red
@@ -98,10 +112,16 @@ declare class BN {
      * @description convert to an instance of `type`, which must behave like an Array
      */
     toArrayLike(
-        ArrayType: Buffer | any[],
+        ArrayType: typeof Buffer,
         endian?: Endianness,
         length?: number
-    ): Buffer | any[];
+    ): Buffer;
+
+    toArrayLike(
+        ArrayType: any[],
+        endian?: Endianness,
+        length?: number
+    ): any[];
 
     /**
      * @description  convert to Node.js Buffer (if available). For compatibility with browserify and similar tools, use this instead: a.toArrayLike(Buffer, endian, length)

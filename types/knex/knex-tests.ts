@@ -982,19 +982,11 @@ knex.select('name').from('users')
   .where('id', '>', 20)
   .andWhere('id', '<', 200)
   .limit(10)
-  .offset(x)
-  .exec(function(err: any, rows: any[]) {
-    if (err) return console.error(err);
-    knex.select('id').from('nicknames').whereIn('nickname', rows.map((r: any) => r.name))
-      .exec(function(err: any, rows: any[]) {
-        if (err) return console.error(err);
-        console.log(rows);
-      });
-  });
+  .offset(x);
 
 // Retrieve the stream:
 var stream = knex.select('*').from('users').stream();
-var writableStream: any;
+var writableStream: NodeJS.WritableStream;
 stream.pipe(writableStream);
 
 // With options:

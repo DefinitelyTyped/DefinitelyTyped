@@ -1,16 +1,19 @@
 import * as React from "react";
-import App, { Container } from "next/app";
+import App, { Container, AppComponentContext } from "next/app";
+import { NextStatelessComponent } from "next";
 
 interface NextComponentProps {
     example: string;
 }
 
 class TestApp extends App<NextComponentProps> {
-    static async getInitialProps({ Component, router, ctx }: any) {
+    static async getInitialProps({ Component, router, ctx }: AppComponentContext) {
         let pageProps = {};
+        // TODO: fix AppComponentContext to return NextComponentType instead of React.ComponentType
+        const Page = Component as NextStatelessComponent;
 
-        if (Component.getInitialProps) {
-            pageProps = await Component.getInitialProps(ctx);
+        if (Page.getInitialProps) {
+            pageProps = await Page.getInitialProps(ctx);
         }
 
         return { pageProps };

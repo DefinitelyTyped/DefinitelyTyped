@@ -6,3 +6,5 @@ envPaths('./');
 envPaths('./', {suffix: 'test'});
 // $ExpectType Paths
 envPaths('./', {suffix: false});
+// $ExpectType Paths
+envPaths('./', {suffix: true});

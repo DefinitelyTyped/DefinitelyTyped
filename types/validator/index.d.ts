@@ -177,7 +177,7 @@ declare namespace ValidatorJS {
     isMultibyte(str: string): boolean;
 
     // check if the string contains only numbers.
-    isNumeric(str: string): boolean;
+    isNumeric(str: string, options?: IsNumericOptions): boolean;
 
     // check if the string is a valid port number.
     isPort(str: string): boolean;
@@ -379,6 +379,13 @@ declare namespace ValidatorJS {
     yahoo_remove_subaddress?: boolean;
     icloud_lowercase?: boolean;
     icloud_remove_subaddress?: boolean;
+  }
+
+  /**
+   * Options for isNumeric
+   */
+  interface IsNumericOptions {
+    no_symbols?: boolean;
   }
 }
 

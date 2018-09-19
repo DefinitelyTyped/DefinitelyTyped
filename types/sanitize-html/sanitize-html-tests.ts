@@ -29,12 +29,15 @@ let options: sanitize.IOptions = {
   allowedSchemesByTag: {
     'a': ['http', 'https']
   },
-  allowProtocolRelative: false,
-  parser: {
-    decodeEntities: true
-  }
+  allowProtocolRelative: false
 };
 
 let unsafe = '<div><script>alert("hello");</script></div>';
 
 let safe = sanitize(unsafe, options);
+
+options.parser = {
+    decodeEntities: true
+};
+
+safe = sanitize(unsafe, options);

@@ -20,7 +20,9 @@
 //                 Seth Kingsley <https://github.com/sethk>,
 //                 Ethan Kay <https://github.com/elk941>,
 //                 Methuselah96 <https://github.com/Methuselah96>
+//                 Dilip Ramirez <https://github.com/Dukuo>
 // Definitions: https://github.com//DefinitelyTyped
+// TypeScript Version: 2.8
 
 export * from "./three-core";
 

@@ -25,9 +25,10 @@ function helmetTest() {
  */
 function contentSecurityPolicyTest() {
     const emptyArray: string[] =  [];
-    const config = {
+    const config: helmet.IHelmetContentSecurityPolicyConfiguration = {
         directives: {
             baseUri: ['base.example.com'],
+            blockAllMixedContent: true,
             childSrc: ['child.example.com'],
             connectSrc: ['connect.example.com'],
             defaultSrc: ['*'],
@@ -37,14 +38,20 @@ function contentSecurityPolicyTest() {
             frameSrc: emptyArray,
             imgSrc: ['images.example.com'],
             mediaSrc: ['media.example.com'],
+            manifestSrc: ['manifest.example.com'],
             objectSrc: ['objects.example.com'],
             pluginTypes: emptyArray,
+            prefetchSrc: ['prefetch.example.com'],
             reportUri: '/some-url',
-            sandbox: emptyArray,
+            reportTo: 'report.example.com',
+            requireSriFor: emptyArray,
+            sandbox: ['allow-presentation'],
             scriptSrc: ['scripts.example.com', function (req: express.Request, res: express.Response) {
               return "'nonce-abc123'";
             }],
-            styleSrc: ['css.example.com']
+            styleSrc: ['css.example.com'],
+            upgradeInsecureRequests: true,
+            workerSrc: ['worker.example.com']
         },
         reportOnly: false,
         setAllHeaders: false,

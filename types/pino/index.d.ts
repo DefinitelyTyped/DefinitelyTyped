@@ -1,4 +1,4 @@
-// Type definitions for pino 5.20
+// Type definitions for pino 5.6
 // Project: https://github.com/pinojs/pino.git
 // Definitions by: Peter Snider <https://github.com/psnider>
 //                 BendingBender <https://github.com/BendingBender>
@@ -151,6 +151,17 @@ declare namespace P {
          */
         useLevelLabels?: boolean;
         /**
+         * Use this option to define additional logging levels.
+         * The keys of the object correspond the namespace of the log level, and the values should be the numerical value of the level.
+         */
+        customLevels?: { [key: string]: number };
+        /**
+         * Use this option to only use defined `customLevels` and omit Pino's levels.
+         * Logger's default `level` must be changed to a value in `customLevels` in order to use `useOnlyCustomLevels`
+         * Warning: this option may not be supported by downstream transports.
+         */
+        useOnlyCustomLevels?: boolean;
+        /**
          * When defining a custom log level via level, set to an integer value to define the new level. Default: `undefined`.
          */
         levelVal?: number;
@@ -277,6 +288,14 @@ declare namespace P {
          * Outputs the level as a string instead of integer.
          */
         useLevelLabels: boolean;
+        /**
+         * Define additional logging levels.
+         */
+        customLevels: { [key: string]: number };
+        /**
+         * Use only defined `customLevels` and omit Pino's levels.
+         */
+        useOnlyCustomLevels: boolean;
         /**
          * Returns the integer value for the logger instance's logging level.
          */

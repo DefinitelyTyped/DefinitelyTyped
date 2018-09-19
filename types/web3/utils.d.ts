@@ -29,6 +29,20 @@ type Unit =
     | "mether"
     | "gether"
     | "tether";
+
+type Mixed =
+    | string
+    | number
+    | BigNumber
+    | {
+    type: string;
+    value: string;
+}
+    | {
+    t: string;
+    v: string;
+};
+
 export default interface Utils {
     BN: BigNumber; // TODO only static-definition
     isBN(any: any): boolean;
@@ -62,7 +76,7 @@ export default interface Utils {
         val4?: string,
         val5?: string
     ): string;
-    soliditySha3(val: string): string;
+    soliditySha3(...val: Mixed[]): string;
     randomHex(bytes: number): string;
     stringToHex(val: string): string;
     toAscii(hex: string): string;
