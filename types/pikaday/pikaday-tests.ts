@@ -86,6 +86,7 @@ new Pikaday({field: $('#datepicker')[0]});
         mainCalendar: 'right',
         theme: 'myTheme',
         formatStrict: true,
+        toString: (date) => '2017-08-23',
         parse: () => new Date('2017-08-23'),
         onSelect: () => {},
         onOpen: () => {},
