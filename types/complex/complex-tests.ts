@@ -40,3 +40,6 @@ var z: Complex = z.tanh();
 var z: Complex = z.clone();
 var s: string = z.toString();
 var b: boolean = z.equals(z);
+var n: number = z.real;
+var i: number = z.im;
+

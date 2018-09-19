@@ -1,6 +1,8 @@
 // Type definitions for Complex 3.0.1
 // Project: https://github.com/arian/Complex
-// Definitions by: Aya Morisawa <https://github.com/AyaMorisawa>
+// Definitions by:
+//   Aya Morisawa <https://github.com/AyaMorisawa>
+//   Paul Vasich <https://github.com/pavasich>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export default class Complex {
@@ -45,6 +47,16 @@ export default class Complex {
      * A instance for the real number
      */
     static one: Complex;
+    
+    /**
+     * The Complex number's real component
+     */
+    real: number;
+    
+    /**
+     * The Complex number's imaginary component
+     */
+    im: number;
 
     /**
      * Set the real and imaginary properties a and b from a + bi.
