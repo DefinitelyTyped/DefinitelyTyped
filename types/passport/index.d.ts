@@ -44,7 +44,7 @@ declare namespace passport {
         successFlash?: string | boolean;
         successMessage?: boolean | string;
         successRedirect?: string;
-        successReturnToOrRedirect?: string;
+        successReturnToOrRedirect?: boolean | string;
         pauseStream?: boolean;
         userProperty?: string;
         passReqToCallback?: boolean;
