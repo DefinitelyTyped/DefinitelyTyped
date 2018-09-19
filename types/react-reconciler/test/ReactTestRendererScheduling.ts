@@ -6,7 +6,7 @@ interface Deadline {
 // Current virtual time
 export let nowImplementation = () => 0;
 export let scheduledCallback: ((deadline: Deadline) => any) | null = null;
-export let yieldedValues: Array<any> = [];
+export let yieldedValues: any[] = [];
 
 export function scheduleDeferredCallback(
     callback: (deadline: Deadline) => any,
@@ -25,7 +25,7 @@ export function setNowImplementation(implementation: () => number): void {
     nowImplementation = implementation;
 }
 
-export function flushAll(): Array<any> {
+export function flushAll(): any[] {
     yieldedValues = [];
     while (scheduledCallback !== null) {
         const cb = scheduledCallback;
@@ -44,7 +44,7 @@ export function flushAll(): Array<any> {
     return yieldedValues;
 }
 
-export function flushNumberOfYields(count: number): Array<any> {
+export function flushNumberOfYields(count: number): any[] {
     let didStop = false;
     yieldedValues = [];
     while (scheduledCallback !== null && !didStop) {
@@ -73,7 +73,7 @@ export function yieldValue(value: any): void {
     yieldedValues.push(value);
 }
 
-export function clearYields(): Array<any> {
+export function clearYields(): any[] {
     const values = yieldedValues;
     yieldedValues = [];
     return values;
